@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -16,7 +16,7 @@ Sidebar.Geometry.PlaneGeometry = function ( editor, object ) {
 	var widthRow = new UI.Row();
 	var width = new UI.Number( parameters.width ).onChange( update );
 
-	widthRow.add( new UI.Text( 'Width' ).setWidth( '90px' ) );
+	widthRow.add( new UI.Text( '宽度' ).setWidth( '90px' ) );
 	widthRow.add( width );
 
 	container.add( widthRow );
@@ -26,7 +26,7 @@ Sidebar.Geometry.PlaneGeometry = function ( editor, object ) {
 	var heightRow = new UI.Row();
 	var height = new UI.Number( parameters.height ).onChange( update );
 
-	heightRow.add( new UI.Text( 'Height' ).setWidth( '90px' ) );
+	heightRow.add( new UI.Text( '高度' ).setWidth( '90px' ) );
 	heightRow.add( height );
 
 	container.add( heightRow );
@@ -36,7 +36,7 @@ Sidebar.Geometry.PlaneGeometry = function ( editor, object ) {
 	var widthSegmentsRow = new UI.Row();
 	var widthSegments = new UI.Integer( parameters.widthSegments ).setRange( 1, Infinity ).onChange( update );
 
-	widthSegmentsRow.add( new UI.Text( 'Width segments' ).setWidth( '90px' ) );
+	widthSegmentsRow.add( new UI.Text( '宽度段数' ).setWidth( '90px' ) );
 	widthSegmentsRow.add( widthSegments );
 
 	container.add( widthSegmentsRow );
@@ -46,7 +46,7 @@ Sidebar.Geometry.PlaneGeometry = function ( editor, object ) {
 	var heightSegmentsRow = new UI.Row();
 	var heightSegments = new UI.Integer( parameters.heightSegments ).setRange( 1, Infinity ).onChange( update );
 
-	heightSegmentsRow.add( new UI.Text( 'Height segments' ).setWidth( '90px' ) );
+	heightSegmentsRow.add( new UI.Text( '高度段数' ).setWidth( '90px' ) );
 	heightSegmentsRow.add( heightSegments );
 
 	container.add( heightSegmentsRow );

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -9,7 +9,7 @@ Menubar.View = function ( editor ) {
 
 	var title = new UI.Panel();
 	title.setClass( 'title' );
-	title.setTextContent( 'View' );
+	title.setTextContent( '视图' );
 	container.add( title );
 
 	var options = new UI.Panel();
@@ -20,7 +20,7 @@ Menubar.View = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'VR mode' );
+	option.setTextContent( 'VR模式' );
 	option.onClick( function () {
 
 		if ( WEBVR.isAvailable() === true ) {
@@ -29,7 +29,7 @@ Menubar.View = function ( editor ) {
 
 		} else {
 
-			alert( 'WebVR not available' );
+			alert( 'WebVR不可用' );
 
 		}
 

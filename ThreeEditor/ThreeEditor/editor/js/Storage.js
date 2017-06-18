@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -8,7 +8,7 @@ var Storage = function () {
 
 	if ( indexedDB === undefined  ) {
 
-		console.warn( 'Storage: IndexedDB not available.' );
+		console.warn( '存储：IndexedDB不可用。' );
 		return { init: function () {}, get: function () {}, set: function () {}, clear: function () {} };
 
 	}
@@ -72,7 +72,7 @@ var Storage = function () {
 			var request = objectStore.put( data, 0 );
 			request.onsuccess = function ( event ) {
 
-				console.log( '[' + /\d\d\:\d\d\:\d\d/.exec( new Date() )[ 0 ] + ']', 'Saved state to IndexedDB. ' + ( performance.now() - start ).toFixed( 2 ) + 'ms' );
+				console.log( '[' + /\d\d\:\d\d\:\d\d/.exec( new Date() )[ 0 ] + ']', '保存到IndexedDB中。 ' + ( performance.now() - start ).toFixed( 2 ) + 'ms' );
 
 			};
 
@@ -87,7 +87,7 @@ var Storage = function () {
 			var request = objectStore.clear();
 			request.onsuccess = function ( event ) {
 
-				console.log( '[' + /\d\d\:\d\d\:\d\d/.exec( new Date() )[ 0 ] + ']', 'Cleared IndexedDB.' );
+				console.log( '[' + /\d\d\:\d\d\:\d\d/.exec( new Date() )[ 0 ] + ']', '清空IndexedDB。' );
 
 			};
 

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -16,7 +16,7 @@ Sidebar.Geometry.CircleGeometry = function ( editor, object ) {
 	var radiusRow = new UI.Row();
 	var radius = new UI.Number( parameters.radius ).onChange( update );
 
-	radiusRow.add( new UI.Text( 'Radius' ).setWidth( '90px' ) );
+	radiusRow.add( new UI.Text( '半径' ).setWidth( '90px' ) );
 	radiusRow.add( radius );
 
 	container.add( radiusRow );
@@ -26,7 +26,7 @@ Sidebar.Geometry.CircleGeometry = function ( editor, object ) {
 	var segmentsRow = new UI.Row();
 	var segments = new UI.Integer( parameters.segments ).setRange( 3, Infinity ).onChange( update );
 
-	segmentsRow.add( new UI.Text( 'Segments' ).setWidth( '90px' ) );
+	segmentsRow.add( new UI.Text( '段长' ).setWidth( '90px' ) );
 	segmentsRow.add( segments );
 
 	container.add( segmentsRow );
@@ -36,7 +36,7 @@ Sidebar.Geometry.CircleGeometry = function ( editor, object ) {
 	var thetaStartRow = new UI.Row();
 	var thetaStart = new UI.Number( parameters.thetaStart ).onChange( update );
 
-	thetaStartRow.add( new UI.Text( 'Theta start' ).setWidth( '90px' ) );
+	thetaStartRow.add(new UI.Text('θ开始').setWidth('90px'));
 	thetaStartRow.add( thetaStart );
 
 	container.add( thetaStartRow );
@@ -46,7 +46,7 @@ Sidebar.Geometry.CircleGeometry = function ( editor, object ) {
 	var thetaLengthRow = new UI.Row();
 	var thetaLength = new UI.Number( parameters.thetaLength ).onChange( update );
 
-	thetaLengthRow.add( new UI.Text( 'Theta length' ).setWidth( '90px' ) );
+	thetaLengthRow.add(new UI.Text('θ长度').setWidth('90px'));
 	thetaLengthRow.add( thetaLength );
 
 	container.add( thetaLengthRow );

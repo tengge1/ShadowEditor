@@ -1,47 +1,47 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Settings = function ( editor ) {
+Sidebar.Settings = function (editor) {
 
-	var config = editor.config;
-	var signals = editor.signals;
+    var config = editor.config;
+    var signals = editor.signals;
 
-	var container = new UI.Panel();
-	container.setBorderTop( '0' );
-	container.setPaddingTop( '20px' );
+    var container = new UI.Panel();
+    container.setBorderTop('0');
+    container.setPaddingTop('20px');
 
-	// class
+    // class
 
-	var options = {
-		'css/light.css': 'light',
-		'css/dark.css': 'dark'
-	};
+    var options = {
+        'css/light.css': '浅色',
+        'css/dark.css': '深色'
+    };
 
-	var themeRow = new UI.Row();
-	var theme = new UI.Select().setWidth( '150px' );
-	theme.setOptions( options );
+    var themeRow = new UI.Row();
+    var theme = new UI.Select().setWidth('150px');
+    theme.setOptions(options);
 
-	if ( config.getKey( 'theme' ) !== undefined ) {
+    if (config.getKey('theme') !== undefined) {
 
-		theme.setValue( config.getKey( 'theme' ) );
+        theme.setValue(config.getKey('theme'));
 
-	}
+    }
 
-	theme.onChange( function () {
+    theme.onChange(function () {
 
-		var value = this.getValue();
+        var value = this.getValue();
 
-		editor.setTheme( value );
-		editor.config.setKey( 'theme', value );
+        editor.setTheme(value);
+        editor.config.setKey('theme', value);
 
-	} );
+    });
 
-	themeRow.add( new UI.Text( 'Theme' ).setWidth( '90px' ) );
-	themeRow.add( theme );
+    themeRow.add(new UI.Text('主题').setWidth('90px'));
+    themeRow.add(theme);
 
-	container.add( themeRow );
+    container.add(themeRow);
 
-	return container;
+    return container;
 
 };

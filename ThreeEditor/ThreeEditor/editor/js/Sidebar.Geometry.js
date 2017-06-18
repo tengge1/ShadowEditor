@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -88,7 +88,7 @@ Sidebar.Geometry = function ( editor ) {
 	var geometryTypeRow = new UI.Row();
 	var geometryType = new UI.Text();
 
-	geometryTypeRow.add( new UI.Text( 'Type' ).setWidth( '90px' ) );
+	geometryTypeRow.add( new UI.Text( '类型' ).setWidth( '90px' ) );
 	geometryTypeRow.add( geometryType );
 
 	container.add( geometryTypeRow );
@@ -97,7 +97,7 @@ Sidebar.Geometry = function ( editor ) {
 
 	var geometryUUIDRow = new UI.Row();
 	var geometryUUID = new UI.Input().setWidth( '102px' ).setFontSize( '12px' ).setDisabled( true );
-	var geometryUUIDRenew = new UI.Button( 'New' ).setMarginLeft( '7px' ).onClick( function () {
+	var geometryUUIDRenew = new UI.Button( '新建' ).setMarginLeft( '7px' ).onClick( function () {
 
 		geometryUUID.setValue( THREE.Math.generateUUID() );
 
@@ -120,7 +120,7 @@ Sidebar.Geometry = function ( editor ) {
 
 	} );
 
-	geometryNameRow.add( new UI.Text( 'Name' ).setWidth( '90px' ) );
+	geometryNameRow.add( new UI.Text( '名称' ).setWidth( '90px' ) );
 	geometryNameRow.add( geometryName );
 
 	container.add( geometryNameRow );

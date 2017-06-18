@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -9,7 +9,7 @@ Menubar.Add = function ( editor ) {
 
 	var title = new UI.Panel();
 	title.setClass( 'title' );
-	title.setTextContent( 'Add' );
+	title.setTextContent( '添加' );
 	container.add( title );
 
 	var options = new UI.Panel();
@@ -34,7 +34,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Group' );
+	option.setTextContent( '组' );
 	option.onClick( function () {
 
 		var mesh = new THREE.Group();
@@ -53,7 +53,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Plane' );
+	option.setTextContent( '平板' );
 	option.onClick( function () {
 
 		var geometry = new THREE.PlaneBufferGeometry( 2, 2 );
@@ -70,7 +70,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Box' );
+	option.setTextContent( '正方体' );
 	option.onClick( function () {
 
 		var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
@@ -86,7 +86,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Circle' );
+	option.setTextContent( '圆' );
 	option.onClick( function () {
 
 		var radius = 1;
@@ -105,7 +105,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Cylinder' );
+	option.setTextContent( '圆柱体' );
 	option.onClick( function () {
 
 		var radiusTop = 1;
@@ -128,7 +128,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Sphere' );
+	option.setTextContent( '球体' );
 	option.onClick( function () {
 
 		var radius = 1;
@@ -152,7 +152,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Icosahedron' );
+	option.setTextContent( '二十面体' );
 	option.onClick( function () {
 
 		var radius = 1;
@@ -171,7 +171,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Torus' );
+	option.setTextContent( '圆环面' );
 	option.onClick( function () {
 
 		var radius = 2;
@@ -193,7 +193,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'TorusKnot' );
+	option.setTextContent( '环面扭结' );
 	option.onClick( function () {
 
 		var radius = 2;
@@ -210,14 +210,13 @@ Menubar.Add = function ( editor ) {
 		editor.execute( new AddObjectCommand( mesh ) );
 
 	} );
-	options.add( option );
+	options.add(option);
 
-	/*
-	// Teapot
+    /*// Teapot
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Teapot' );
+	option.setTextContent( '茶壶' );
 	option.onClick( function () {
 
 		var size = 50;
@@ -238,14 +237,13 @@ Menubar.Add = function ( editor ) {
 		editor.select( mesh );
 
 	} );
-	options.add( option );
-	*/
+	options.add( option );*/
 
 	// Lathe
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Lathe' );
+	option.setTextContent( '车床' );
 	option.onClick( function() {
 
 		var points = [
@@ -278,7 +276,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Sprite' );
+	option.setTextContent( '精灵' );
 	option.onClick( function () {
 
 		var sprite = new THREE.Sprite( new THREE.SpriteMaterial() );
@@ -297,7 +295,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'PointLight' );
+	option.setTextContent( '点光源' );
 	option.onClick( function () {
 
 		var color = 0xffffff;
@@ -316,7 +314,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'SpotLight' );
+	option.setTextContent( '聚光灯' );
 	option.onClick( function () {
 
 		var color = 0xffffff;
@@ -340,7 +338,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'DirectionalLight' );
+	option.setTextContent( '平行光源' );
 	option.onClick( function () {
 
 		var color = 0xffffff;
@@ -361,7 +359,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'HemisphereLight' );
+	option.setTextContent( '半球光' );
 	option.onClick( function () {
 
 		var skyColor = 0x00aaff;
@@ -382,7 +380,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'AmbientLight' );
+	option.setTextContent( '环境光' );
 	option.onClick( function() {
 
 		var color = 0x222222;
@@ -403,7 +401,7 @@ Menubar.Add = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'PerspectiveCamera' );
+	option.setTextContent( '透视相机' );
 	option.onClick( function() {
 
 		var camera = new THREE.PerspectiveCamera( 50, 1, 1, 10000 );

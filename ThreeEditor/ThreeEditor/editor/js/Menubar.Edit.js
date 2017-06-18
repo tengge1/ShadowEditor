@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -9,7 +9,7 @@ Menubar.Edit = function ( editor ) {
 
 	var title = new UI.Panel();
 	title.setClass( 'title' );
-	title.setTextContent( 'Edit' );
+	title.setTextContent( '编辑' );
 	container.add( title );
 
 	var options = new UI.Panel();
@@ -20,7 +20,7 @@ Menubar.Edit = function ( editor ) {
 
 	var undo = new UI.Row();
 	undo.setClass( 'option' );
-	undo.setTextContent( 'Undo (Ctrl+Z)' );
+	undo.setTextContent( '撤销(Ctrl+Z)' );
 	undo.onClick( function () {
 
 		editor.undo();
@@ -32,7 +32,7 @@ Menubar.Edit = function ( editor ) {
 
 	var redo = new UI.Row();
 	redo.setClass( 'option' );
-	redo.setTextContent( 'Redo (Ctrl+Shift+Z)' );
+	redo.setTextContent( '重做(Ctrl+Shift+Z)' );
 	redo.onClick( function () {
 
 		editor.redo();
@@ -44,10 +44,10 @@ Menubar.Edit = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Clear History' );
+	option.setTextContent( '清空历史记录' );
 	option.onClick( function () {
 
-		if ( confirm( 'The Undo/Redo History will be cleared. Are you sure?' ) ) {
+		if ( confirm( '撤销/重做历史纪录将被清空。确定吗？' ) ) {
 
 			editor.history.clear();
 
@@ -86,7 +86,7 @@ Menubar.Edit = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Clone' );
+	option.setTextContent( '复制' );
 	option.onClick( function () {
 
 		var object = editor.selected;
@@ -104,7 +104,7 @@ Menubar.Edit = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Delete (Del)' );
+	option.setTextContent( '删除(Del)' );
 	option.onClick( function () {
 
 		var object = editor.selected;
@@ -123,7 +123,7 @@ Menubar.Edit = function ( editor ) {
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
-	option.setTextContent( 'Minify Shaders' );
+	option.setTextContent( '清除着色' );
 	option.onClick( function() {
 
 		var root = editor.selected || editor.scene;
@@ -175,7 +175,7 @@ Menubar.Edit = function ( editor ) {
 					else {
 
 						errors.push( path +
-								": Unexpected error (see console for details)." );
+								"： 未预料到的错误(详情请见控制台)。" );
 
 						console.error( e.stack || e );
 
@@ -194,7 +194,7 @@ Menubar.Edit = function ( editor ) {
 		}
 
 		window.alert( nMaterialsChanged +
-				" material(s) were changed.\n" + errors.join( "\n" ) );
+				"材质已经改变。\n" + errors.join( "\n" ) );
 
 	} );
 	options.add( option );

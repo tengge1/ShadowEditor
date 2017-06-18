@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author tschw
  */
 
@@ -13,7 +13,7 @@ Sidebar.Geometry.TeapotBufferGeometry = function ( signals, object ) {
 	var sizeRow = new UI.Row();
 	var size = new UI.Number( parameters.size ).onChange( update );
 
-	sizeRow.add( new UI.Text( 'Size' ).setWidth( '90px' ) );
+	sizeRow.add( new UI.Text( '尺寸' ).setWidth( '90px' ) );
 	sizeRow.add( size );
 
 	container.add( sizeRow );
@@ -23,7 +23,7 @@ Sidebar.Geometry.TeapotBufferGeometry = function ( signals, object ) {
 	var segmentsRow = new UI.Row();
 	var segments = new UI.Integer( parameters.segments ).setRange( 1, Infinity ).onChange( update );
 
-	segmentsRow.add( new UI.Text( 'Segments' ).setWidth( '90px' ) );
+	segmentsRow.add( new UI.Text( '段数' ).setWidth( '90px' ) );
 	segmentsRow.add( segments );
 
 	container.add( segmentsRow );
@@ -33,7 +33,7 @@ Sidebar.Geometry.TeapotBufferGeometry = function ( signals, object ) {
 	var bottomRow = new UI.Row();
 	var bottom = new UI.Checkbox( parameters.bottom ).onChange( update );
 
-	bottomRow.add( new UI.Text( 'Bottom' ).setWidth( '90px' ) );
+	bottomRow.add( new UI.Text( '底部' ).setWidth( '90px' ) );
 	bottomRow.add( bottom );
 
 	container.add( bottomRow );
@@ -43,7 +43,7 @@ Sidebar.Geometry.TeapotBufferGeometry = function ( signals, object ) {
 	var lidRow = new UI.Row();
 	var lid = new UI.Checkbox( parameters.lid ).onChange( update );
 
-	lidRow.add( new UI.Text( 'Lid' ).setWidth( '90px' ) );
+	lidRow.add( new UI.Text( '壶盖' ).setWidth( '90px' ) );
 	lidRow.add( lid );
 
 	container.add( lidRow );
@@ -53,7 +53,7 @@ Sidebar.Geometry.TeapotBufferGeometry = function ( signals, object ) {
 	var bodyRow = new UI.Row();
 	var body = new UI.Checkbox( parameters.body ).onChange( update );
 
-	bodyRow.add( new UI.Text( 'Body' ).setWidth( '90px' ) );
+	bodyRow.add( new UI.Text( '壶体' ).setWidth( '90px' ) );
 	bodyRow.add( body );
 
 	container.add( bodyRow );
@@ -63,7 +63,7 @@ Sidebar.Geometry.TeapotBufferGeometry = function ( signals, object ) {
 	var fitLidRow = new UI.Row();
 	var fitLid = new UI.Checkbox( parameters.fitLid ).onChange( update );
 
-	fitLidRow.add( new UI.Text( 'Fitted Lid' ).setWidth( '90px' ) );
+	fitLidRow.add( new UI.Text( '适合壶盖' ).setWidth( '90px' ) );
 	fitLidRow.add( fitLid );
 
 	container.add( fitLidRow );
@@ -73,7 +73,7 @@ Sidebar.Geometry.TeapotBufferGeometry = function ( signals, object ) {
 	var blinnRow = new UI.Row();
 	var blinn = new UI.Checkbox( parameters.blinn ).onChange( update );
 
-	blinnRow.add( new UI.Text( 'Blinn-scaled' ).setWidth( '90px' ) );
+	blinnRow.add( new UI.Text( 'Blinn缩放' ).setWidth( '90px' ) );
 	blinnRow.add( blinn );
 
 	container.add( blinnRow );

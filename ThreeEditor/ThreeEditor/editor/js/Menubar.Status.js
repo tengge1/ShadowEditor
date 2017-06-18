@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -7,7 +7,7 @@ Menubar.Status = function ( editor ) {
 	var container = new UI.Panel();
 	container.setClass( 'menu right' );
 
-	var autosave = new UI.THREE.Boolean( editor.config.getKey( 'autosave' ), 'autosave' );
+	var autosave = new UI.THREE.Boolean( editor.config.getKey( 'autosave' ), '自动保存' );
 	autosave.text.setColor( '#888' );
 	autosave.onChange( function () {
 

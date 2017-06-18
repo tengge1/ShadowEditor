@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -13,7 +13,7 @@ Sidebar.Geometry.Geometry = function ( editor ) {
 	var verticesRow = new UI.Row();
 	var vertices = new UI.Text();
 
-	verticesRow.add( new UI.Text( 'Vertices' ).setWidth( '90px' ) );
+	verticesRow.add( new UI.Text( '顶点' ).setWidth( '90px' ) );
 	verticesRow.add( vertices );
 
 	container.add( verticesRow );
@@ -23,7 +23,7 @@ Sidebar.Geometry.Geometry = function ( editor ) {
 	var facesRow = new UI.Row();
 	var faces = new UI.Text();
 
-	facesRow.add( new UI.Text( 'Faces' ).setWidth( '90px' ) );
+	facesRow.add( new UI.Text( '面' ).setWidth( '90px' ) );
 	facesRow.add( faces );
 
 	container.add( facesRow );

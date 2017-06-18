@@ -1,84 +1,84 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Viewport.Info = function ( editor ) {
+Viewport.Info = function (editor) {
 
-	var signals = editor.signals;
+    var signals = editor.signals;
 
-	var container = new UI.Panel();
-	container.setId( 'info' );
-	container.setPosition( 'absolute' );
-	container.setLeft( '10px' );
-	container.setBottom( '10px' );
-	container.setFontSize( '12px' );
-	container.setColor( '#fff' );
+    var container = new UI.Panel();
+    container.setId('info');
+    container.setPosition('absolute');
+    container.setLeft('10px');
+    container.setBottom('10px');
+    container.setFontSize('12px');
+    container.setColor('#fff');
 
-	var objectsText = new UI.Text( '0' ).setMarginLeft( '6px' );
-	var verticesText = new UI.Text( '0' ).setMarginLeft( '6px' );
-	var trianglesText = new UI.Text( '0' ).setMarginLeft( '6px' );
+    var objectsText = new UI.Text('0').setMarginLeft('6px');
+    var verticesText = new UI.Text('0').setMarginLeft('6px');
+    var trianglesText = new UI.Text('0').setMarginLeft('6px');
 
-	container.add( new UI.Text( 'objects' ), objectsText, new UI.Break() );
-	container.add( new UI.Text( 'vertices' ), verticesText, new UI.Break() );
-	container.add( new UI.Text( 'triangles' ), trianglesText, new UI.Break() );
+    container.add(new UI.Text('物体'), objectsText, new UI.Break());
+    container.add(new UI.Text('顶点'), verticesText, new UI.Break());
+    container.add(new UI.Text('三角形'), trianglesText, new UI.Break());
 
-	signals.objectAdded.add( update );
-	signals.objectRemoved.add( update );
-	signals.geometryChanged.add( update );
+    signals.objectAdded.add(update);
+    signals.objectRemoved.add(update);
+    signals.geometryChanged.add(update);
 
-	//
+    //
 
-	function update() {
+    function update() {
 
-		var scene = editor.scene;
+        var scene = editor.scene;
 
-		var objects = 0, vertices = 0, triangles = 0;
+        var objects = 0, vertices = 0, triangles = 0;
 
-		for ( var i = 0, l = scene.children.length; i < l; i ++ ) {
+        for (var i = 0, l = scene.children.length; i < l; i++) {
 
-			var object = scene.children[ i ];
+            var object = scene.children[i];
 
-			object.traverseVisible( function ( object ) {
+            object.traverseVisible(function (object) {
 
-				objects ++;
+                objects++;
 
-				if ( object instanceof THREE.Mesh ) {
+                if (object instanceof THREE.Mesh) {
 
-					var geometry = object.geometry;
+                    var geometry = object.geometry;
 
-					if ( geometry instanceof THREE.Geometry ) {
+                    if (geometry instanceof THREE.Geometry) {
 
-						vertices += geometry.vertices.length;
-						triangles += geometry.faces.length;
+                        vertices += geometry.vertices.length;
+                        triangles += geometry.faces.length;
 
-					} else if ( geometry instanceof THREE.BufferGeometry ) {
+                    } else if (geometry instanceof THREE.BufferGeometry) {
 
-						if ( geometry.index !== null ) {
+                        if (geometry.index !== null) {
 
-							vertices += geometry.index.count * 3;
-							triangles += geometry.index.count;
+                            vertices += geometry.index.count * 3;
+                            triangles += geometry.index.count;
 
-						} else {
+                        } else {
 
-							vertices += geometry.attributes.position.count;
-							triangles += geometry.attributes.position.count / 3;
+                            vertices += geometry.attributes.position.count;
+                            triangles += geometry.attributes.position.count / 3;
 
-						}
+                        }
 
-					}
+                    }
 
-				}
+                }
 
-			} );
+            });
 
-		}
+        }
 
-		objectsText.setValue( objects.format() );
-		verticesText.setValue( vertices.format() );
-		trianglesText.setValue( triangles.format() );
+        objectsText.setValue(objects.format());
+        verticesText.setValue(vertices.format());
+        trianglesText.setValue(triangles.format());
 
-	}
+    }
 
-	return container;
+    return container;
 
 };

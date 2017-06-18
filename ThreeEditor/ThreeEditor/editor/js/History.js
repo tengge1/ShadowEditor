@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  */
@@ -93,7 +93,7 @@ History.prototype = {
 
 		if ( this.historyDisabled ) {
 
-			alert( "Undo/Redo disabled while scene is playing." );
+			alert( "场景启动时撤销/重做将被禁用。" );
 			return;
 
 		}
@@ -128,7 +128,7 @@ History.prototype = {
 
 		if ( this.historyDisabled ) {
 
-			alert( "Undo/Redo disabled while scene is playing." );
+			alert( "场景启动时撤销/重做将被禁用。" );
 			return;
 
 		}
@@ -246,7 +246,7 @@ History.prototype = {
 
 		if ( this.historyDisabled ) {
 
-			alert( "Undo/Redo disabled while scene is playing." );
+			alert( "场景启动时撤销/重做将被禁用。" );
 			return;
 
 		}

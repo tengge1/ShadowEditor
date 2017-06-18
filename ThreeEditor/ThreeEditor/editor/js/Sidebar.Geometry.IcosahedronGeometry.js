@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -16,7 +16,7 @@ Sidebar.Geometry.IcosahedronGeometry = function ( editor, object ) {
 	var radiusRow = new UI.Row();
 	var radius = new UI.Number( parameters.radius ).onChange( update );
 
-	radiusRow.add( new UI.Text( 'Radius' ).setWidth( '90px' ) );
+	radiusRow.add( new UI.Text( '半径' ).setWidth( '90px' ) );
 	radiusRow.add( radius );
 
 	container.add( radiusRow );
@@ -26,7 +26,7 @@ Sidebar.Geometry.IcosahedronGeometry = function ( editor, object ) {
 	var detailRow = new UI.Row();
 	var detail = new UI.Integer( parameters.detail ).setRange( 0, Infinity ).onChange( update );
 
-	detailRow.add( new UI.Text( 'Detail' ).setWidth( '90px' ) );
+	detailRow.add( new UI.Text( '详细' ).setWidth( '90px' ) );
 	detailRow.add( detail );
 
 	container.add( detailRow );

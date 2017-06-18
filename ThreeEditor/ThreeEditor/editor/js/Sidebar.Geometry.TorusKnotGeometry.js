@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -16,7 +16,7 @@ Sidebar.Geometry.TorusKnotGeometry = function ( editor, object ) {
 	var radiusRow = new UI.Row();
 	var radius = new UI.Number( parameters.radius ).onChange( update );
 
-	radiusRow.add( new UI.Text( 'Radius' ).setWidth( '90px' ) );
+	radiusRow.add( new UI.Text( '半径' ).setWidth( '90px' ) );
 	radiusRow.add( radius );
 
 	container.add( radiusRow );
@@ -26,7 +26,7 @@ Sidebar.Geometry.TorusKnotGeometry = function ( editor, object ) {
 	var tubeRow = new UI.Row();
 	var tube = new UI.Number( parameters.tube ).onChange( update );
 
-	tubeRow.add( new UI.Text( 'Tube' ).setWidth( '90px' ) );
+	tubeRow.add( new UI.Text( '管长' ).setWidth( '90px' ) );
 	tubeRow.add( tube );
 
 	container.add( tubeRow );
@@ -36,7 +36,7 @@ Sidebar.Geometry.TorusKnotGeometry = function ( editor, object ) {
 	var tubularSegmentsRow = new UI.Row();
 	var tubularSegments = new UI.Integer( parameters.tubularSegments ).setRange( 1, Infinity ).onChange( update );
 
-	tubularSegmentsRow.add( new UI.Text( 'Tubular segments' ).setWidth( '90px' ) );
+	tubularSegmentsRow.add( new UI.Text( '管长段数' ).setWidth( '90px' ) );
 	tubularSegmentsRow.add( tubularSegments );
 
 	container.add( tubularSegmentsRow );
@@ -46,7 +46,7 @@ Sidebar.Geometry.TorusKnotGeometry = function ( editor, object ) {
 	var radialSegmentsRow = new UI.Row();
 	var radialSegments = new UI.Integer( parameters.radialSegments ).setRange( 1, Infinity ).onChange( update );
 
-	radialSegmentsRow.add( new UI.Text( 'Radial segments' ).setWidth( '90px' ) );
+	radialSegmentsRow.add( new UI.Text( '径向段数' ).setWidth( '90px' ) );
 	radialSegmentsRow.add( radialSegments );
 
 	container.add( radialSegmentsRow );

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -19,7 +19,7 @@ var Loader = function ( editor ) {
 
 			var size = '(' + Math.floor( event.total / 1000 ).format() + ' KB)';
 			var progress = Math.floor( ( event.loaded / event.total ) * 100 ) + '%';
-			console.log( 'Loading', filename, size, progress );
+			console.log( '加载中', filename, size, progress );
 
 		} );
 
@@ -416,7 +416,7 @@ var Loader = function ( editor ) {
 
 			default:
 
-				alert( 'Unsupported file format (' + extension +  ').' );
+				alert( '不支持的文件类型(' + extension +  ').' );
 
 				break;
 

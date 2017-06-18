@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -9,7 +9,7 @@ Menubar.Examples = function ( editor ) {
 
 	var title = new UI.Panel();
 	title.setClass( 'title' );
-	title.setTextContent( 'Examples' );
+	title.setTextContent( '示例' );
 	container.add( title );
 
 	var options = new UI.Panel();
@@ -19,10 +19,10 @@ Menubar.Examples = function ( editor ) {
 	// Examples
 
 	var items = [
-		{ title: 'Arkanoid', file: 'arkanoid.app.json' },
-		{ title: 'Camera', file: 'camera.app.json' },
-		{ title: 'Particles', file: 'particles.app.json' },
-		{ title: 'Pong', file: 'pong.app.json' }
+		{ title: '打砖块', file: 'arkanoid.app.json' },
+		{ title: '相机', file: 'camera.app.json' },
+		{ title: '粒子', file: 'particles.app.json' },
+		{ title: '乒乓球', file: 'pong.app.json' }
 	];
 
 	var loader = new THREE.FileLoader();
@@ -38,7 +38,7 @@ Menubar.Examples = function ( editor ) {
 			option.setTextContent( item.title );
 			option.onClick( function () {
 
-				if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
+				if ( confirm( '任何未保存数据将丢失。确定吗？' ) ) {
 
 					loader.load( 'examples/' + item.file, function ( text ) {
 

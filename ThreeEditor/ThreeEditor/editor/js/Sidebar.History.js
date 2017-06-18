@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  */
@@ -13,11 +13,11 @@ Sidebar.History = function ( editor ) {
 
 	var container = new UI.Panel();
 
-	container.add( new UI.Text( 'HISTORY' ) );
+	container.add( new UI.Text( '历史记录' ) );
 
 	//
 
-	var persistent = new UI.THREE.Boolean( config.getKey( 'settings/history' ), 'persistent' );
+	var persistent = new UI.THREE.Boolean( config.getKey( 'settings/history' ), '永久' );
 	persistent.setPosition( 'absolute' ).setRight( '8px' );
 	persistent.onChange( function () {
 
@@ -27,7 +27,7 @@ Sidebar.History = function ( editor ) {
 
 		if ( value ) {
 
-			alert( 'The history will be preserved across sessions.\nThis can have an impact on performance when working with textures.' );
+			alert( '历史记录将被保存在会话中。\n这会对使用材质的性能产生影响。' );
 
 			var lastUndoCmd = history.undos[ history.undos.length - 1 ];
 			var lastUndoId = ( lastUndoCmd !== undefined ) ? lastUndoCmd.id : 0;

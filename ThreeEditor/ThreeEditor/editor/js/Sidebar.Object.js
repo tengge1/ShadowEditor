@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -66,7 +66,7 @@ Sidebar.Object = function ( editor ) {
 
 	var objectUUIDRow = new UI.Row();
 	var objectUUID = new UI.Input().setWidth( '102px' ).setFontSize( '12px' ).setDisabled( true );
-	var objectUUIDRenew = new UI.Button( 'New' ).setMarginLeft( '7px' ).onClick( function () {
+	var objectUUIDRenew = new UI.Button( '新建' ).setMarginLeft( '7px' ).onClick( function () {
 
 		objectUUID.setValue( THREE.Math.generateUUID() );
 
@@ -89,7 +89,7 @@ Sidebar.Object = function ( editor ) {
 
 	} );
 
-	objectNameRow.add( new UI.Text( 'Name' ).setWidth( '90px' ) );
+	objectNameRow.add( new UI.Text( '名称' ).setWidth( '90px' ) );
 	objectNameRow.add( objectName );
 
 	container.add( objectNameRow );
@@ -101,7 +101,7 @@ Sidebar.Object = function ( editor ) {
 	var objectPositionY = new UI.Number().setWidth( '50px' ).onChange( update );
 	var objectPositionZ = new UI.Number().setWidth( '50px' ).onChange( update );
 
-	objectPositionRow.add( new UI.Text( 'Position' ).setWidth( '90px' ) );
+	objectPositionRow.add( new UI.Text( '位置' ).setWidth( '90px' ) );
 	objectPositionRow.add( objectPositionX, objectPositionY, objectPositionZ );
 
 	container.add( objectPositionRow );
@@ -113,7 +113,7 @@ Sidebar.Object = function ( editor ) {
 	var objectRotationY = new UI.Number().setStep( 10 ).setUnit( '°' ).setWidth( '50px' ).onChange( update );
 	var objectRotationZ = new UI.Number().setStep( 10 ).setUnit( '°' ).setWidth( '50px' ).onChange( update );
 
-	objectRotationRow.add( new UI.Text( 'Rotation' ).setWidth( '90px' ) );
+	objectRotationRow.add( new UI.Text( '旋转' ).setWidth( '90px' ) );
 	objectRotationRow.add( objectRotationX, objectRotationY, objectRotationZ );
 
 	container.add( objectRotationRow );
@@ -126,7 +126,7 @@ Sidebar.Object = function ( editor ) {
 	var objectScaleY = new UI.Number( 1 ).setRange( 0.01, Infinity ).setWidth( '50px' ).onChange( updateScaleY );
 	var objectScaleZ = new UI.Number( 1 ).setRange( 0.01, Infinity ).setWidth( '50px' ).onChange( updateScaleZ );
 
-	objectScaleRow.add( new UI.Text( 'Scale' ).setWidth( '90px' ) );
+	objectScaleRow.add( new UI.Text( '尺寸' ).setWidth( '90px' ) );
 	objectScaleRow.add( objectScaleLock );
 	objectScaleRow.add( objectScaleX, objectScaleY, objectScaleZ );
 
@@ -187,7 +187,7 @@ Sidebar.Object = function ( editor ) {
 	var objectGroundColorRow = new UI.Row();
 	var objectGroundColor = new UI.Color().onChange( update );
 
-	objectGroundColorRow.add( new UI.Text( 'Ground color' ).setWidth( '90px' ) );
+	objectGroundColorRow.add( new UI.Text( '地面颜色' ).setWidth( '90px' ) );
 	objectGroundColorRow.add( objectGroundColor );
 
 	container.add( objectGroundColorRow );
@@ -197,7 +197,7 @@ Sidebar.Object = function ( editor ) {
 	var objectDistanceRow = new UI.Row();
 	var objectDistance = new UI.Number().setRange( 0, Infinity ).onChange( update );
 
-	objectDistanceRow.add( new UI.Text( 'Distance' ).setWidth( '90px' ) );
+	objectDistanceRow.add( new UI.Text( '距离' ).setWidth( '90px' ) );
 	objectDistanceRow.add( objectDistance );
 
 	container.add( objectDistanceRow );
@@ -207,7 +207,7 @@ Sidebar.Object = function ( editor ) {
 	var objectAngleRow = new UI.Row();
 	var objectAngle = new UI.Number().setPrecision( 3 ).setRange( 0, Math.PI / 2 ).onChange( update );
 
-	objectAngleRow.add( new UI.Text( 'Angle' ).setWidth( '90px' ) );
+	objectAngleRow.add( new UI.Text( '角度' ).setWidth( '90px' ) );
 	objectAngleRow.add( objectAngle );
 
 	container.add( objectAngleRow );
@@ -217,7 +217,7 @@ Sidebar.Object = function ( editor ) {
 	var objectPenumbraRow = new UI.Row();
 	var objectPenumbra = new UI.Number().setRange( 0, 1 ).onChange( update );
 
-	objectPenumbraRow.add( new UI.Text( 'Penumbra' ).setWidth( '90px' ) );
+	objectPenumbraRow.add( new UI.Text( '边缘' ).setWidth( '90px' ) );
 	objectPenumbraRow.add( objectPenumbra );
 
 	container.add( objectPenumbraRow );
@@ -227,7 +227,7 @@ Sidebar.Object = function ( editor ) {
 	var objectDecayRow = new UI.Row();
 	var objectDecay = new UI.Number().setRange( 0, Infinity ).onChange( update );
 
-	objectDecayRow.add( new UI.Text( 'Decay' ).setWidth( '90px' ) );
+	objectDecayRow.add( new UI.Text( '衰变' ).setWidth( '90px' ) );
 	objectDecayRow.add( objectDecay );
 
 	container.add( objectDecayRow );
@@ -236,7 +236,7 @@ Sidebar.Object = function ( editor ) {
 
 	var objectShadowRow = new UI.Row();
 
-	objectShadowRow.add( new UI.Text( 'Shadow' ).setWidth( '90px' ) );
+	objectShadowRow.add( new UI.Text( '阴影' ).setWidth( '90px' ) );
 
 	var objectCastShadow = new UI.THREE.Boolean( false, 'cast' ).onChange( update );
 	objectShadowRow.add( objectCastShadow );
@@ -254,7 +254,7 @@ Sidebar.Object = function ( editor ) {
 	var objectVisibleRow = new UI.Row();
 	var objectVisible = new UI.Checkbox().onChange( update );
 
-	objectVisibleRow.add( new UI.Text( 'Visible' ).setWidth( '90px' ) );
+	objectVisibleRow.add( new UI.Text( '可见性' ).setWidth( '90px' ) );
 	objectVisibleRow.add( objectVisible );
 
 	container.add( objectVisibleRow );
@@ -283,7 +283,7 @@ Sidebar.Object = function ( editor ) {
 
 	} );
 
-	objectUserDataRow.add( new UI.Text( 'User data' ).setWidth( '90px' ) );
+	objectUserDataRow.add( new UI.Text( '用户数据' ).setWidth( '90px' ) );
 	objectUserDataRow.add( objectUserData );
 
 	container.add( objectUserDataRow );

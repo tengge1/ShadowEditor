@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -12,7 +12,7 @@ Sidebar.Geometry.Modifiers = function ( editor, object ) {
 
 	// Compute Vertex Normals
 
-	var button = new UI.Button( 'Compute Vertex Normals' );
+	var button = new UI.Button( '计算顶点法线' );
 	button.onClick( function () {
 
 		geometry.computeVertexNormals();
