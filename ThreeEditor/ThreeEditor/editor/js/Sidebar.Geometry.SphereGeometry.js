@@ -2,91 +2,91 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.SphereGeometry = function ( editor, object ) {
+Sidebar.Geometry.SphereGeometry = function (editor, object) {
 
-	var signals = editor.signals;
+    var signals = editor.signals;
 
-	var container = new UI.Row();
+    var container = new UI.Row();
 
-	var geometry = object.geometry;
-	var parameters = geometry.parameters;
+    var geometry = object.geometry;
+    var parameters = geometry.parameters;
 
-	// radius
+    // radius
 
-	var radiusRow = new UI.Row();
-	var radius = new UI.Number( parameters.radius ).onChange( update );
+    var radiusRow = new UI.Row();
+    var radius = new UI.Number(parameters.radius).onChange(update);
 
-	radiusRow.add( new UI.Text( '半径' ).setWidth( '90px' ) );
-	radiusRow.add( radius );
+    radiusRow.add(new UI.Text('半径').setWidth('90px'));
+    radiusRow.add(radius);
 
-	container.add( radiusRow );
+    container.add(radiusRow);
 
-	// widthSegments
+    // widthSegments
 
-	var widthSegmentsRow = new UI.Row();
-	var widthSegments = new UI.Integer( parameters.widthSegments ).setRange( 1, Infinity ).onChange( update );
+    var widthSegmentsRow = new UI.Row();
+    var widthSegments = new UI.Integer(parameters.widthSegments).setRange(1, Infinity).onChange(update);
 
-	widthSegmentsRow.add( new UI.Text( '宽度段数' ).setWidth( '90px' ) );
-	widthSegmentsRow.add( widthSegments );
+    widthSegmentsRow.add(new UI.Text('宽度段数').setWidth('90px'));
+    widthSegmentsRow.add(widthSegments);
 
-	container.add( widthSegmentsRow );
+    container.add(widthSegmentsRow);
 
-	// heightSegments
+    // heightSegments
 
-	var heightSegmentsRow = new UI.Row();
-	var heightSegments = new UI.Integer( parameters.heightSegments ).setRange( 1, Infinity ).onChange( update );
+    var heightSegmentsRow = new UI.Row();
+    var heightSegments = new UI.Integer(parameters.heightSegments).setRange(1, Infinity).onChange(update);
 
-	heightSegmentsRow.add( new UI.Text( '高度段数' ).setWidth( '90px' ) );
-	heightSegmentsRow.add( heightSegments );
+    heightSegmentsRow.add(new UI.Text('高度段数').setWidth('90px'));
+    heightSegmentsRow.add(heightSegments);
 
-	container.add( heightSegmentsRow );
+    container.add(heightSegmentsRow);
 
-	// phiStart
+    // phiStart
 
-	var phiStartRow = new UI.Row();
-	var phiStart = new UI.Number( parameters.phiStart ).onChange( update );
+    var phiStartRow = new UI.Row();
+    var phiStart = new UI.Number(parameters.phiStart).onChange(update);
 
-	phiStartRow.add(new UI.Text('φ开始').setWidth('90px'));
-	phiStartRow.add( phiStart );
+    phiStartRow.add(new UI.Text('φ开始').setWidth('90px'));
+    phiStartRow.add(phiStart);
 
-	container.add( phiStartRow );
+    container.add(phiStartRow);
 
-	// phiLength
+    // phiLength
 
-	var phiLengthRow = new UI.Row();
-	var phiLength = new UI.Number( parameters.phiLength ).onChange( update );
+    var phiLengthRow = new UI.Row();
+    var phiLength = new UI.Number(parameters.phiLength).onChange(update);
 
-	phiLengthRow.add(new UI.Text('φ长度').setWidth('90px'));
-	phiLengthRow.add( phiLength );
+    phiLengthRow.add(new UI.Text('φ长度').setWidth('90px'));
+    phiLengthRow.add(phiLength);
 
-	container.add( phiLengthRow );
+    container.add(phiLengthRow);
 
-	// thetaStart
+    // thetaStart
 
-	var thetaStartRow = new UI.Row();
-	var thetaStart = new UI.Number( parameters.thetaStart ).onChange( update );
+    var thetaStartRow = new UI.Row();
+    var thetaStart = new UI.Number(parameters.thetaStart).onChange(update);
 
-	thetaStartRow.add(new UI.Text('θ开始').setWidth('90px'));
-	thetaStartRow.add( thetaStart );
+    thetaStartRow.add(new UI.Text('θ开始').setWidth('90px'));
+    thetaStartRow.add(thetaStart);
 
-	container.add( thetaStartRow );
+    container.add(thetaStartRow);
 
-	// thetaLength
+    // thetaLength
 
-	var thetaLengthRow = new UI.Row();
-	var thetaLength = new UI.Number( parameters.thetaLength ).onChange( update );
+    var thetaLengthRow = new UI.Row();
+    var thetaLength = new UI.Number(parameters.thetaLength).onChange(update);
 
-	thetaLengthRow.add(new UI.Text('θ长度').setWidth('90px'));
-	thetaLengthRow.add( thetaLength );
+    thetaLengthRow.add(new UI.Text('θ长度').setWidth('90px'));
+    thetaLengthRow.add(thetaLength);
 
-	container.add( thetaLengthRow );
+    container.add(thetaLengthRow);
 
 
-	//
+    //
 
-	function update() {
+    function update() {
 
-		editor.execute( new SetGeometryCommand( object, new THREE[ geometry.type ](
+        editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
 			radius.getValue(),
 			widthSegments.getValue(),
 			heightSegments.getValue(),
@@ -94,11 +94,11 @@ Sidebar.Geometry.SphereGeometry = function ( editor, object ) {
 			phiLength.getValue(),
 			thetaStart.getValue(),
 			thetaLength.getValue()
-		) ) );
+		)));
 
-	}
+    }
 
-	return container;
+    return container;
 
 };
 

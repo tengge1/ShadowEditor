@@ -2,215 +2,215 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Menubar.Add = function ( editor ) {
+Menubar.Add = function (editor) {
 
-	var container = new UI.Panel();
-	container.setClass( 'menu' );
+    var container = new UI.Panel();
+    container.setClass('menu');
 
-	var title = new UI.Panel();
-	title.setClass( 'title' );
-	title.setTextContent( '添加' );
-	container.add( title );
+    var title = new UI.Panel();
+    title.setClass('title');
+    title.setTextContent('添加');
+    container.add(title);
 
-	var options = new UI.Panel();
-	options.setClass( 'options' );
-	container.add( options );
+    var options = new UI.Panel();
+    options.setClass('options');
+    container.add(options);
 
-	//
+    //
 
-	var meshCount = 0;
-	var lightCount = 0;
-	var cameraCount = 0;
+    var meshCount = 0;
+    var lightCount = 0;
+    var cameraCount = 0;
 
-	editor.signals.editorCleared.add( function () {
+    editor.signals.editorCleared.add(function () {
 
-		meshCount = 0;
-		lightCount = 0;
-		cameraCount = 0;
+        meshCount = 0;
+        lightCount = 0;
+        cameraCount = 0;
 
-	} );
+    });
 
-	// Group
+    // Group
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '组' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('组');
+    option.onClick(function () {
 
-		var mesh = new THREE.Group();
-		mesh.name = 'Group ' + ( ++ meshCount );
+        var mesh = new THREE.Group();
+        mesh.name = 'Group ' + (++meshCount);
 
-		editor.execute( new AddObjectCommand( mesh ) );
+        editor.execute(new AddObjectCommand(mesh));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	//
+    //
 
-	options.add( new UI.HorizontalRule() );
+    options.add(new UI.HorizontalRule());
 
-	// Plane
+    // Plane
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '平板' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('平板');
+    option.onClick(function () {
 
-		var geometry = new THREE.PlaneBufferGeometry( 2, 2 );
-		var material = new THREE.MeshStandardMaterial();
-		var mesh = new THREE.Mesh( geometry, material );
-		mesh.name = 'Plane ' + ( ++ meshCount );
+        var geometry = new THREE.PlaneBufferGeometry(2, 2);
+        var material = new THREE.MeshStandardMaterial();
+        var mesh = new THREE.Mesh(geometry, material);
+        mesh.name = 'Plane ' + (++meshCount);
 
-		editor.execute( new AddObjectCommand( mesh ) );
+        editor.execute(new AddObjectCommand(mesh));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// Box
+    // Box
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '正方体' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('正方体');
+    option.onClick(function () {
 
-		var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
-		var mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-		mesh.name = 'Box ' + ( ++ meshCount );
+        var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
+        var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+        mesh.name = 'Box ' + (++meshCount);
 
-		editor.execute( new AddObjectCommand( mesh ) );
+        editor.execute(new AddObjectCommand(mesh));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// Circle
+    // Circle
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '圆' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('圆');
+    option.onClick(function () {
 
-		var radius = 1;
-		var segments = 32;
+        var radius = 1;
+        var segments = 32;
 
-		var geometry = new THREE.CircleBufferGeometry( radius, segments );
-		var mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-		mesh.name = 'Circle ' + ( ++ meshCount );
+        var geometry = new THREE.CircleBufferGeometry(radius, segments);
+        var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+        mesh.name = 'Circle ' + (++meshCount);
 
-		editor.execute( new AddObjectCommand( mesh ) );
+        editor.execute(new AddObjectCommand(mesh));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// Cylinder
+    // Cylinder
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '圆柱体' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('圆柱体');
+    option.onClick(function () {
 
-		var radiusTop = 1;
-		var radiusBottom = 1;
-		var height = 2;
-		var radiusSegments = 32;
-		var heightSegments = 1;
-		var openEnded = false;
+        var radiusTop = 1;
+        var radiusBottom = 1;
+        var height = 2;
+        var radiusSegments = 32;
+        var heightSegments = 1;
+        var openEnded = false;
 
-		var geometry = new THREE.CylinderBufferGeometry( radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded );
-		var mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-		mesh.name = 'Cylinder ' + ( ++ meshCount );
+        var geometry = new THREE.CylinderBufferGeometry(radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded);
+        var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+        mesh.name = 'Cylinder ' + (++meshCount);
 
-		editor.execute( new AddObjectCommand( mesh ) );
+        editor.execute(new AddObjectCommand(mesh));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// Sphere
+    // Sphere
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '球体' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('球体');
+    option.onClick(function () {
 
-		var radius = 1;
-		var widthSegments = 32;
-		var heightSegments = 16;
-		var phiStart = 0;
-		var phiLength = Math.PI * 2;
-		var thetaStart = 0;
-		var thetaLength = Math.PI;
+        var radius = 1;
+        var widthSegments = 32;
+        var heightSegments = 16;
+        var phiStart = 0;
+        var phiLength = Math.PI * 2;
+        var thetaStart = 0;
+        var thetaLength = Math.PI;
 
-		var geometry = new THREE.SphereBufferGeometry( radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength );
-		var mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-		mesh.name = 'Sphere ' + ( ++ meshCount );
+        var geometry = new THREE.SphereBufferGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength);
+        var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+        mesh.name = 'Sphere ' + (++meshCount);
 
-		editor.execute( new AddObjectCommand( mesh ) );
+        editor.execute(new AddObjectCommand(mesh));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// Icosahedron
+    // Icosahedron
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '二十面体' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('二十面体');
+    option.onClick(function () {
 
-		var radius = 1;
-		var detail = 2;
+        var radius = 1;
+        var detail = 2;
 
-		var geometry = new THREE.IcosahedronGeometry( radius, detail );
-		var mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-		mesh.name = 'Icosahedron ' + ( ++ meshCount );
+        var geometry = new THREE.IcosahedronGeometry(radius, detail);
+        var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+        mesh.name = 'Icosahedron ' + (++meshCount);
 
-		editor.execute( new AddObjectCommand( mesh ) );
+        editor.execute(new AddObjectCommand(mesh));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// Torus
+    // Torus
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '圆环面' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('圆环面');
+    option.onClick(function () {
 
-		var radius = 2;
-		var tube = 1;
-		var radialSegments = 32;
-		var tubularSegments = 12;
-		var arc = Math.PI * 2;
+        var radius = 2;
+        var tube = 1;
+        var radialSegments = 32;
+        var tubularSegments = 12;
+        var arc = Math.PI * 2;
 
-		var geometry = new THREE.TorusBufferGeometry( radius, tube, radialSegments, tubularSegments, arc );
-		var mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-		mesh.name = 'Torus ' + ( ++ meshCount );
+        var geometry = new THREE.TorusBufferGeometry(radius, tube, radialSegments, tubularSegments, arc);
+        var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+        mesh.name = 'Torus ' + (++meshCount);
 
-		editor.execute( new AddObjectCommand( mesh ) );
+        editor.execute(new AddObjectCommand(mesh));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// TorusKnot
+    // TorusKnot
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '环面扭结' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('环面扭结');
+    option.onClick(function () {
 
-		var radius = 2;
-		var tube = 0.8;
-		var tubularSegments = 64;
-		var radialSegments = 12;
-		var p = 2;
-		var q = 3;
+        var radius = 2;
+        var tube = 0.8;
+        var tubularSegments = 64;
+        var radialSegments = 12;
+        var p = 2;
+        var q = 3;
 
-		var geometry = new THREE.TorusKnotBufferGeometry( radius, tube, tubularSegments, radialSegments, p, q );
-		var mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-		mesh.name = 'TorusKnot ' + ( ++ meshCount );
+        var geometry = new THREE.TorusKnotBufferGeometry(radius, tube, tubularSegments, radialSegments, p, q);
+        var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+        mesh.name = 'TorusKnot ' + (++meshCount);
 
-		editor.execute( new AddObjectCommand( mesh ) );
+        editor.execute(new AddObjectCommand(mesh));
 
-	} );
-	options.add(option);
+    });
+    options.add(option);
 
     /*// Teapot
 
@@ -239,179 +239,179 @@ Menubar.Add = function ( editor ) {
 	} );
 	options.add( option );*/
 
-	// Lathe
+    // Lathe
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '车床' );
-	option.onClick( function() {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('花瓶');
+    option.onClick(function () {
 
-		var points = [
-			new THREE.Vector2( 0, 0 ),
-			new THREE.Vector2( 4, 0 ),
-			new THREE.Vector2( 3.5, 0.5 ),
-			new THREE.Vector2( 1, 0.75 ),
-			new THREE.Vector2( 0.8, 1 ),
-			new THREE.Vector2( 0.8, 4 ),
-			new THREE.Vector2( 1, 4.2 ),
-			new THREE.Vector2( 1.4, 4.8 ),
-			new THREE.Vector2( 2, 5 ),
-			new THREE.Vector2( 2.5, 5.4 ),
-			new THREE.Vector2( 3, 12 )
-		];
-		var segments = 20;
-		var phiStart = 0;
-		var phiLength = 2 * Math.PI;
+        var points = [
+			new THREE.Vector2(0, 0),
+			new THREE.Vector2(4, 0),
+			new THREE.Vector2(3.5, 0.5),
+			new THREE.Vector2(1, 0.75),
+			new THREE.Vector2(0.8, 1),
+			new THREE.Vector2(0.8, 4),
+			new THREE.Vector2(1, 4.2),
+			new THREE.Vector2(1.4, 4.8),
+			new THREE.Vector2(2, 5),
+			new THREE.Vector2(2.5, 5.4),
+			new THREE.Vector2(3, 12)
+        ];
+        var segments = 20;
+        var phiStart = 0;
+        var phiLength = 2 * Math.PI;
 
-		var geometry = new THREE.LatheBufferGeometry( points, segments, phiStart, phiLength );
-		var mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial( { side: THREE.DoubleSide } ) );
-		mesh.name = 'Lathe ' + ( ++ meshCount );
+        var geometry = new THREE.LatheBufferGeometry(points, segments, phiStart, phiLength);
+        var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ side: THREE.DoubleSide }));
+        mesh.name = 'Lathe ' + (++meshCount);
 
-		editor.execute( new AddObjectCommand( mesh ) );
+        editor.execute(new AddObjectCommand(mesh));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// Sprite
+    // Sprite
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '精灵' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('精灵');
+    option.onClick(function () {
 
-		var sprite = new THREE.Sprite( new THREE.SpriteMaterial() );
-		sprite.name = 'Sprite ' + ( ++ meshCount );
+        var sprite = new THREE.Sprite(new THREE.SpriteMaterial());
+        sprite.name = 'Sprite ' + (++meshCount);
 
-		editor.execute( new AddObjectCommand( sprite ) );
+        editor.execute(new AddObjectCommand(sprite));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	//
+    //
 
-	options.add( new UI.HorizontalRule() );
+    options.add(new UI.HorizontalRule());
 
-	// PointLight
+    // PointLight
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '点光源' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('点光源');
+    option.onClick(function () {
 
-		var color = 0xffffff;
-		var intensity = 1;
-		var distance = 0;
+        var color = 0xffffff;
+        var intensity = 1;
+        var distance = 0;
 
-		var light = new THREE.PointLight( color, intensity, distance );
-		light.name = 'PointLight ' + ( ++ lightCount );
+        var light = new THREE.PointLight(color, intensity, distance);
+        light.name = 'PointLight ' + (++lightCount);
 
-		editor.execute( new AddObjectCommand( light ) );
+        editor.execute(new AddObjectCommand(light));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// SpotLight
+    // SpotLight
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '聚光灯' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('聚光灯');
+    option.onClick(function () {
 
-		var color = 0xffffff;
-		var intensity = 1;
-		var distance = 0;
-		var angle = Math.PI * 0.1;
-		var penumbra = 0;
+        var color = 0xffffff;
+        var intensity = 1;
+        var distance = 0;
+        var angle = Math.PI * 0.1;
+        var penumbra = 0;
 
-		var light = new THREE.SpotLight( color, intensity, distance, angle, penumbra );
-		light.name = 'SpotLight ' + ( ++ lightCount );
-		light.target.name = 'SpotLight ' + ( lightCount ) + ' Target';
+        var light = new THREE.SpotLight(color, intensity, distance, angle, penumbra);
+        light.name = 'SpotLight ' + (++lightCount);
+        light.target.name = 'SpotLight ' + (lightCount) + ' Target';
 
-		light.position.set( 5, 10, 7.5 );
+        light.position.set(5, 10, 7.5);
 
-		editor.execute( new AddObjectCommand( light ) );
+        editor.execute(new AddObjectCommand(light));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// DirectionalLight
+    // DirectionalLight
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '平行光源' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('平行光源');
+    option.onClick(function () {
 
-		var color = 0xffffff;
-		var intensity = 1;
+        var color = 0xffffff;
+        var intensity = 1;
 
-		var light = new THREE.DirectionalLight( color, intensity );
-		light.name = 'DirectionalLight ' + ( ++ lightCount );
-		light.target.name = 'DirectionalLight ' + ( lightCount ) + ' Target';
+        var light = new THREE.DirectionalLight(color, intensity);
+        light.name = 'DirectionalLight ' + (++lightCount);
+        light.target.name = 'DirectionalLight ' + (lightCount) + ' Target';
 
-		light.position.set( 5, 10, 7.5 );
+        light.position.set(5, 10, 7.5);
 
-		editor.execute( new AddObjectCommand( light ) );
+        editor.execute(new AddObjectCommand(light));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// HemisphereLight
+    // HemisphereLight
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '半球光' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('半球光');
+    option.onClick(function () {
 
-		var skyColor = 0x00aaff;
-		var groundColor = 0xffaa00;
-		var intensity = 1;
+        var skyColor = 0x00aaff;
+        var groundColor = 0xffaa00;
+        var intensity = 1;
 
-		var light = new THREE.HemisphereLight( skyColor, groundColor, intensity );
-		light.name = 'HemisphereLight ' + ( ++ lightCount );
+        var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+        light.name = 'HemisphereLight ' + (++lightCount);
 
-		light.position.set( 0, 10, 0 );
+        light.position.set(0, 10, 0);
 
-		editor.execute( new AddObjectCommand( light ) );
+        editor.execute(new AddObjectCommand(light));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// AmbientLight
+    // AmbientLight
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '环境光' );
-	option.onClick( function() {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('环境光');
+    option.onClick(function () {
 
-		var color = 0x222222;
+        var color = 0x222222;
 
-		var light = new THREE.AmbientLight( color );
-		light.name = 'AmbientLight ' + ( ++ lightCount );
+        var light = new THREE.AmbientLight(color);
+        light.name = 'AmbientLight ' + (++lightCount);
 
-		editor.execute( new AddObjectCommand( light ) );
+        editor.execute(new AddObjectCommand(light));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	//
+    //
 
-	options.add( new UI.HorizontalRule() );
+    options.add(new UI.HorizontalRule());
 
-	// PerspectiveCamera
+    // PerspectiveCamera
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '透视相机' );
-	option.onClick( function() {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('透视相机');
+    option.onClick(function () {
 
-		var camera = new THREE.PerspectiveCamera( 50, 1, 1, 10000 );
-		camera.name = 'PerspectiveCamera ' + ( ++ cameraCount );
+        var camera = new THREE.PerspectiveCamera(50, 1, 1, 10000);
+        camera.name = 'PerspectiveCamera ' + (++cameraCount);
 
-		editor.execute( new AddObjectCommand( camera ) );
+        editor.execute(new AddObjectCommand(camera));
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	return container;
+    return container;
 
 };

@@ -2,39 +2,39 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.Modifiers = function ( editor, object ) {
+Sidebar.Geometry.Modifiers = function (editor, object) {
 
-	var signals = editor.signals;
+    var signals = editor.signals;
 
-	var container = new UI.Row().setPaddingLeft( '90px' );
+    var container = new UI.Row().setPaddingLeft('90px');
 
-	var geometry = object.geometry;
+    var geometry = object.geometry;
 
-	// Compute Vertex Normals
+    // Compute Vertex Normals
 
-	var button = new UI.Button( '计算顶点法线' );
-	button.onClick( function () {
+    var button = new UI.Button('计算顶点法线');
+    button.onClick(function () {
 
-		geometry.computeVertexNormals();
+        geometry.computeVertexNormals();
 
-		if ( geometry instanceof THREE.BufferGeometry ) {
+        if (geometry instanceof THREE.BufferGeometry) {
 
-			geometry.attributes.normal.needsUpdate = true;
+            geometry.attributes.normal.needsUpdate = true;
 
-		} else {
+        } else {
 
-			geometry.normalsNeedUpdate = true;
+            geometry.normalsNeedUpdate = true;
 
-		}
+        }
 
-		signals.geometryChanged.dispatch( object );
+        signals.geometryChanged.dispatch(object);
 
-	} );
+    });
 
-	container.add( button );
+    container.add(button);
 
-	//
+    //
 
-	return container;
+    return container;
 
 };

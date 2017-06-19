@@ -2,446 +2,446 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-var Script = function ( editor ) {
+var Script = function (editor) {
 
-	var signals = editor.signals;
+    var signals = editor.signals;
 
-	var container = new UI.Panel();
-	container.setId( 'script' );
-	container.setPosition( 'absolute' );
-	container.setBackgroundColor( '#272822' );
-	container.setDisplay( 'none' );
+    var container = new UI.Panel();
+    container.setId('script');
+    container.setPosition('absolute');
+    container.setBackgroundColor('#272822');
+    container.setDisplay('none');
 
-	var header = new UI.Panel();
-	header.setPadding( '10px' );
-	container.add( header );
+    var header = new UI.Panel();
+    header.setPadding('10px');
+    container.add(header);
 
-	var title = new UI.Text().setColor( '#fff' );
-	header.add( title );
+    var title = new UI.Text().setColor('#fff');
+    header.add(title);
 
-	var buttonSVG = ( function () {
-		var svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
-		svg.setAttribute( 'width', 32 );
-		svg.setAttribute( 'height', 32 );
-		var path = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' );
-		path.setAttribute( 'd', 'M 12,12 L 22,22 M 22,12 12,22' );
-		path.setAttribute( 'stroke', '#fff' );
-		svg.appendChild( path );
-		return svg;
-	} )();
+    var buttonSVG = (function () {
+        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('width', 32);
+        svg.setAttribute('height', 32);
+        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M 12,12 L 22,22 M 22,12 12,22');
+        path.setAttribute('stroke', '#fff');
+        svg.appendChild(path);
+        return svg;
+    })();
 
-	var close = new UI.Element( buttonSVG );
-	close.setPosition( 'absolute' );
-	close.setTop( '3px' );
-	close.setRight( '1px' );
-	close.setCursor( 'pointer' );
-	close.onClick( function () {
+    var close = new UI.Element(buttonSVG);
+    close.setPosition('absolute');
+    close.setTop('3px');
+    close.setRight('1px');
+    close.setCursor('pointer');
+    close.onClick(function () {
 
-		container.setDisplay( 'none' );
+        container.setDisplay('none');
 
-	} );
-	header.add( close );
+    });
+    header.add(close);
 
 
-	var renderer;
+    var renderer;
 
-	signals.rendererChanged.add( function ( newRenderer ) {
+    signals.rendererChanged.add(function (newRenderer) {
 
-		renderer = newRenderer;
+        renderer = newRenderer;
 
-	} );
+    });
 
 
-	var delay;
-	var currentMode;
-	var currentScript;
-	var currentObject;
+    var delay;
+    var currentMode;
+    var currentScript;
+    var currentObject;
 
-	var codemirror = CodeMirror( container.dom, {
-		value: '',
-		lineNumbers: true,
-		matchBrackets: true,
-		indentWithTabs: true,
-		tabSize: 4,
-		indentUnit: 4,
-		hintOptions: {
-			completeSingle: false
-		}
-	} );
-	codemirror.setOption( 'theme', 'monokai' );
-	codemirror.on( 'change', function () {
+    var codemirror = CodeMirror(container.dom, {
+        value: '',
+        lineNumbers: true,
+        matchBrackets: true,
+        indentWithTabs: true,
+        tabSize: 4,
+        indentUnit: 4,
+        hintOptions: {
+            completeSingle: false
+        }
+    });
+    codemirror.setOption('theme', 'monokai');
+    codemirror.on('change', function () {
 
-		if ( codemirror.state.focused === false ) return;
+        if (codemirror.state.focused === false) return;
 
-		clearTimeout( delay );
-		delay = setTimeout( function () {
+        clearTimeout(delay);
+        delay = setTimeout(function () {
 
-			var value = codemirror.getValue();
+            var value = codemirror.getValue();
 
-			if ( ! validate( value ) ) return;
+            if (!validate(value)) return;
 
-			if ( typeof( currentScript ) === 'object' ) {
+            if (typeof (currentScript) === 'object') {
 
-				if ( value !== currentScript.source ) {
+                if (value !== currentScript.source) {
 
-					editor.execute( new SetScriptValueCommand( currentObject, currentScript, 'source', value, codemirror.getCursor(), codemirror.getScrollInfo() ) );
+                    editor.execute(new SetScriptValueCommand(currentObject, currentScript, 'source', value, codemirror.getCursor(), codemirror.getScrollInfo()));
 
-				}
-				return;
-			}
+                }
+                return;
+            }
 
-			if ( currentScript !== 'programInfo' ) return;
+            if (currentScript !== 'programInfo') return;
 
-			var json = JSON.parse( value );
+            var json = JSON.parse(value);
 
-			if ( JSON.stringify( currentObject.material.defines ) !== JSON.stringify( json.defines ) ) {
+            if (JSON.stringify(currentObject.material.defines) !== JSON.stringify(json.defines)) {
 
-				var cmd = new SetMaterialValueCommand( currentObject, 'defines', json.defines );
-				cmd.updatable = false;
-				editor.execute( cmd );
+                var cmd = new SetMaterialValueCommand(currentObject, 'defines', json.defines);
+                cmd.updatable = false;
+                editor.execute(cmd);
 
-			}
-			if ( JSON.stringify( currentObject.material.uniforms ) !== JSON.stringify( json.uniforms ) ) {
+            }
+            if (JSON.stringify(currentObject.material.uniforms) !== JSON.stringify(json.uniforms)) {
 
-				var cmd = new SetMaterialValueCommand( currentObject, 'uniforms', json.uniforms );
-				cmd.updatable = false;
-				editor.execute( cmd );
+                var cmd = new SetMaterialValueCommand(currentObject, 'uniforms', json.uniforms);
+                cmd.updatable = false;
+                editor.execute(cmd);
 
-			}
-			if ( JSON.stringify( currentObject.material.attributes ) !== JSON.stringify( json.attributes ) ) {
+            }
+            if (JSON.stringify(currentObject.material.attributes) !== JSON.stringify(json.attributes)) {
 
-				var cmd = new SetMaterialValueCommand( currentObject, 'attributes', json.attributes );
-				cmd.updatable = false;
-				editor.execute( cmd );
+                var cmd = new SetMaterialValueCommand(currentObject, 'attributes', json.attributes);
+                cmd.updatable = false;
+                editor.execute(cmd);
 
-			}
+            }
 
-		}, 300 );
+        }, 300);
 
-	});
+    });
 
-	// prevent backspace from deleting objects
-	var wrapper = codemirror.getWrapperElement();
-	wrapper.addEventListener( 'keydown', function ( event ) {
+    // prevent backspace from deleting objects
+    var wrapper = codemirror.getWrapperElement();
+    wrapper.addEventListener('keydown', function (event) {
 
-		event.stopPropagation();
+        event.stopPropagation();
 
-	} );
+    });
 
-	// validate
+    // validate
 
-	var errorLines = [];
-	var widgets = [];
+    var errorLines = [];
+    var widgets = [];
 
-	var validate = function ( string ) {
+    var validate = function (string) {
 
-		var valid;
-		var errors = [];
+        var valid;
+        var errors = [];
 
-		return codemirror.operation( function () {
+        return codemirror.operation(function () {
 
-			while ( errorLines.length > 0 ) {
+            while (errorLines.length > 0) {
 
-				codemirror.removeLineClass( errorLines.shift(), 'background', 'errorLine' );
+                codemirror.removeLineClass(errorLines.shift(), 'background', 'errorLine');
 
-			}
+            }
 
-			while ( widgets.length > 0 ) {
+            while (widgets.length > 0) {
 
-				codemirror.removeLineWidget( widgets.shift() );
+                codemirror.removeLineWidget(widgets.shift());
 
-			}
+            }
 
-			//
+            //
 
-			switch ( currentMode ) {
+            switch (currentMode) {
 
-				case 'javascript':
+                case 'javascript':
 
-					try {
+                    try {
 
-						var syntax = esprima.parse( string, { tolerant: true } );
-						errors = syntax.errors;
+                        var syntax = esprima.parse(string, { tolerant: true });
+                        errors = syntax.errors;
 
-					} catch ( error ) {
+                    } catch (error) {
 
-						errors.push( {
+                        errors.push({
 
-							lineNumber: error.lineNumber - 1,
-							message: error.message
+                            lineNumber: error.lineNumber - 1,
+                            message: error.message
 
-						} );
+                        });
 
-					}
+                    }
 
-					for ( var i = 0; i < errors.length; i ++ ) {
+                    for (var i = 0; i < errors.length; i++) {
 
-						var error = errors[ i ];
-						error.message = error.message.replace(/Line [0-9]+: /, '');
+                        var error = errors[i];
+                        error.message = error.message.replace(/Line [0-9]+: /, '');
 
-					}
+                    }
 
-					break;
+                    break;
 
-				case 'json':
+                case 'json':
 
-					errors = [];
+                    errors = [];
 
-					jsonlint.parseError = function ( message, info ) {
+                    jsonlint.parseError = function (message, info) {
 
-						message = message.split('\n')[3];
+                        message = message.split('\n')[3];
 
-						errors.push( {
+                        errors.push({
 
-							lineNumber: info.loc.first_line - 1,
-							message: message
+                            lineNumber: info.loc.first_line - 1,
+                            message: message
 
-						} );
+                        });
 
-					};
+                    };
 
-					try {
+                    try {
 
-						jsonlint.parse( string );
+                        jsonlint.parse(string);
 
-					} catch ( error ) {
+                    } catch (error) {
 
-						// ignore failed error recovery
+                        // ignore failed error recovery
 
-					}
+                    }
 
-					break;
+                    break;
 
-				case 'glsl':
+                case 'glsl':
 
-					try {
+                    try {
 
-						var shaderType = currentScript === 'vertexShader' ?
+                        var shaderType = currentScript === 'vertexShader' ?
 								glslprep.Shader.VERTEX : glslprep.Shader.FRAGMENT;
 
-						glslprep.parseGlsl( string, shaderType );
+                        glslprep.parseGlsl(string, shaderType);
 
-					} catch( error ) {
+                    } catch (error) {
 
-						if ( error instanceof glslprep.SyntaxError ) {
+                        if (error instanceof glslprep.SyntaxError) {
 
-							errors.push( {
+                            errors.push({
 
-								lineNumber: error.line,
-								message: "Syntax Error: " + error.message
+                                lineNumber: error.line,
+                                message: "Syntax Error: " + error.message
 
-							} );
+                            });
 
-						} else {
+                        } else {
 
-							console.error( error.stack || error );
+                            console.error(error.stack || error);
 
-						}
+                        }
 
-					}
+                    }
 
-					if ( errors.length !== 0 ) break;
-					if ( renderer instanceof THREE.WebGLRenderer === false ) break;
+                    if (errors.length !== 0) break;
+                    if (renderer instanceof THREE.WebGLRenderer === false) break;
 
-					currentObject.material[ currentScript ] = string;
-					currentObject.material.needsUpdate = true;
-					signals.materialChanged.dispatch( currentObject.material );
+                    currentObject.material[currentScript] = string;
+                    currentObject.material.needsUpdate = true;
+                    signals.materialChanged.dispatch(currentObject.material);
 
-					var programs = renderer.info.programs;
+                    var programs = renderer.info.programs;
 
-					valid = true;
-					var parseMessage = /^(?:ERROR|WARNING): \d+:(\d+): (.*)/g;
+                    valid = true;
+                    var parseMessage = /^(?:ERROR|WARNING): \d+:(\d+): (.*)/g;
 
-					for ( var i = 0, n = programs.length; i !== n; ++ i ) {
+                    for (var i = 0, n = programs.length; i !== n; ++i) {
 
-						var diagnostics = programs[i].diagnostics;
+                        var diagnostics = programs[i].diagnostics;
 
-						if ( diagnostics === undefined ||
-								diagnostics.material !== currentObject.material ) continue;
+                        if (diagnostics === undefined ||
+								diagnostics.material !== currentObject.material) continue;
 
-						if ( ! diagnostics.runnable ) valid = false;
+                        if (!diagnostics.runnable) valid = false;
 
-						var shaderInfo = diagnostics[ currentScript ];
-						var lineOffset = shaderInfo.prefix.split(/\r\n|\r|\n/).length;
+                        var shaderInfo = diagnostics[currentScript];
+                        var lineOffset = shaderInfo.prefix.split(/\r\n|\r|\n/).length;
 
-						while ( true ) {
+                        while (true) {
 
-							var parseResult = parseMessage.exec( shaderInfo.log );
-							if ( parseResult === null ) break;
+                            var parseResult = parseMessage.exec(shaderInfo.log);
+                            if (parseResult === null) break;
 
-							errors.push( {
+                            errors.push({
 
-								lineNumber: parseResult[ 1 ] - lineOffset,
-								message: parseResult[ 2 ]
+                                lineNumber: parseResult[1] - lineOffset,
+                                message: parseResult[2]
 
-							} );
+                            });
 
-						} // messages
+                        } // messages
 
-						break;
+                        break;
 
-					} // programs
+                    } // programs
 
-			} // mode switch
+            } // mode switch
 
-			for ( var i = 0; i < errors.length; i ++ ) {
+            for (var i = 0; i < errors.length; i++) {
 
-				var error = errors[ i ];
+                var error = errors[i];
 
-				var message = document.createElement( 'div' );
-				message.className = 'esprima-error';
-				message.textContent = error.message;
+                var message = document.createElement('div');
+                message.className = 'esprima-error';
+                message.textContent = error.message;
 
-				var lineNumber = Math.max( error.lineNumber, 0 );
-				errorLines.push( lineNumber );
+                var lineNumber = Math.max(error.lineNumber, 0);
+                errorLines.push(lineNumber);
 
-				codemirror.addLineClass( lineNumber, 'background', 'errorLine' );
+                codemirror.addLineClass(lineNumber, 'background', 'errorLine');
 
-				var widget = codemirror.addLineWidget( lineNumber, message );
+                var widget = codemirror.addLineWidget(lineNumber, message);
 
-				widgets.push( widget );
+                widgets.push(widget);
 
-			}
+            }
 
-			return valid !== undefined ? valid : errors.length === 0;
+            return valid !== undefined ? valid : errors.length === 0;
 
-		});
+        });
 
-	};
+    };
 
-	// tern js autocomplete
+    // tern js autocomplete
 
-	var server = new CodeMirror.TernServer( {
-		caseInsensitive: true,
-		plugins: { threejs: null }
-	} );
+    var server = new CodeMirror.TernServer({
+        caseInsensitive: true,
+        plugins: { threejs: null }
+    });
 
-	codemirror.setOption( 'extraKeys', {
-		'Ctrl-Space': function(cm) { server.complete(cm); },
-		'Ctrl-I': function(cm) { server.showType(cm); },
-		'Ctrl-O': function(cm) { server.showDocs(cm); },
-		'Alt-.': function(cm) { server.jumpToDef(cm); },
-		'Alt-,': function(cm) { server.jumpBack(cm); },
-		'Ctrl-Q': function(cm) { server.rename(cm); },
-		'Ctrl-.': function(cm) { server.selectName(cm); }
-	} );
+    codemirror.setOption('extraKeys', {
+        'Ctrl-Space': function (cm) { server.complete(cm); },
+        'Ctrl-I': function (cm) { server.showType(cm); },
+        'Ctrl-O': function (cm) { server.showDocs(cm); },
+        'Alt-.': function (cm) { server.jumpToDef(cm); },
+        'Alt-,': function (cm) { server.jumpBack(cm); },
+        'Ctrl-Q': function (cm) { server.rename(cm); },
+        'Ctrl-.': function (cm) { server.selectName(cm); }
+    });
 
-	codemirror.on( 'cursorActivity', function( cm ) {
+    codemirror.on('cursorActivity', function (cm) {
 
-		if ( currentMode !== 'javascript' ) return;
-		server.updateArgHints( cm );
+        if (currentMode !== 'javascript') return;
+        server.updateArgHints(cm);
 
-	} );
+    });
 
-	codemirror.on( 'keypress', function( cm, kb ) {
+    codemirror.on('keypress', function (cm, kb) {
 
-		if ( currentMode !== 'javascript' ) return;
-		var typed = String.fromCharCode( kb.which || kb.keyCode );
-		if ( /[\w\.]/.exec( typed ) ) {
+        if (currentMode !== 'javascript') return;
+        var typed = String.fromCharCode(kb.which || kb.keyCode);
+        if (/[\w\.]/.exec(typed)) {
 
-			server.complete( cm );
+            server.complete(cm);
 
-		}
+        }
 
-	} );
+    });
 
 
-	//
+    //
 
-	signals.editorCleared.add( function () {
+    signals.editorCleared.add(function () {
 
-		container.setDisplay( 'none' );
+        container.setDisplay('none');
 
-	} );
+    });
 
-	signals.editScript.add( function ( object, script ) {
+    signals.editScript.add(function (object, script) {
 
-		var mode, name, source;
+        var mode, name, source;
 
-		if ( typeof( script ) === 'object' ) {
+        if (typeof (script) === 'object') {
 
-			mode = 'javascript';
-			name = script.name;
-			source = script.source;
-			title.setValue( object.name + ' / ' + name );
+            mode = 'javascript';
+            name = script.name;
+            source = script.source;
+            title.setValue(object.name + ' / ' + name);
 
-		} else {
+        } else {
 
-			switch ( script ) {
+            switch (script) {
 
-				case 'vertexShader':
+                case 'vertexShader':
 
-					mode = 'glsl';
-					name = 'Vertex Shader';
-					source = object.material.vertexShader || "";
+                    mode = 'glsl';
+                    name = 'Vertex Shader';
+                    source = object.material.vertexShader || "";
 
-					break;
+                    break;
 
-				case 'fragmentShader':
+                case 'fragmentShader':
 
-					mode = 'glsl';
-					name = 'Fragment Shader';
-					source = object.material.fragmentShader || "";
+                    mode = 'glsl';
+                    name = 'Fragment Shader';
+                    source = object.material.fragmentShader || "";
 
-					break;
+                    break;
 
-				case 'programInfo':
+                case 'programInfo':
 
-					mode = 'json';
-					name = 'Program Properties';
-					var json = {
-						defines: object.material.defines,
-						uniforms: object.material.uniforms,
-						attributes: object.material.attributes
-					};
-					source = JSON.stringify( json, null, '\t' );
+                    mode = 'json';
+                    name = 'Program Properties';
+                    var json = {
+                        defines: object.material.defines,
+                        uniforms: object.material.uniforms,
+                        attributes: object.material.attributes
+                    };
+                    source = JSON.stringify(json, null, '\t');
 
-			}
-			title.setValue( object.material.name + ' / ' + name );
+            }
+            title.setValue(object.material.name + ' / ' + name);
 
-		}
+        }
 
-		currentMode = mode;
-		currentScript = script;
-		currentObject = object;
+        currentMode = mode;
+        currentScript = script;
+        currentObject = object;
 
-		container.setDisplay( '' );
-		codemirror.setValue( source );
-		if (mode === 'json' ) mode = { name: 'javascript', json: true };
-		codemirror.setOption( 'mode', mode );
+        container.setDisplay('');
+        codemirror.setValue(source);
+        if (mode === 'json') mode = { name: 'javascript', json: true };
+        codemirror.setOption('mode', mode);
 
-	} );
+    });
 
-	signals.scriptRemoved.add( function ( script ) {
+    signals.scriptRemoved.add(function (script) {
 
-		if ( currentScript === script ) {
+        if (currentScript === script) {
 
-			container.setDisplay( 'none' );
+            container.setDisplay('none');
 
-		}
+        }
 
-	} );
+    });
 
-	signals.refreshScriptEditor.add( function ( object, script, cursorPosition, scrollInfo ) {
+    signals.refreshScriptEditor.add(function (object, script, cursorPosition, scrollInfo) {
 
-		if ( currentScript !== script ) return;
+        if (currentScript !== script) return;
 
-		// copying the codemirror history because "codemirror.setValue(...)" alters its history
+        // copying the codemirror history because "codemirror.setValue(...)" alters its history
 
-		var history = codemirror.getHistory();
-		title.setValue( object.name + ' / ' + script.name );
-		codemirror.setValue( script.source );
+        var history = codemirror.getHistory();
+        title.setValue(object.name + ' / ' + script.name);
+        codemirror.setValue(script.source);
 
-		if ( cursorPosition !== undefined ) {
+        if (cursorPosition !== undefined) {
 
-			codemirror.setCursor( cursorPosition );
-			codemirror.scrollTo( scrollInfo.left, scrollInfo.top );
+            codemirror.setCursor(cursorPosition);
+            codemirror.scrollTo(scrollInfo.left, scrollInfo.top);
 
-		}
-		codemirror.setHistory( history ); // setting the history to previous state
+        }
+        codemirror.setHistory(history); // setting the history to previous state
 
-	} );
+    });
 
-	return container;
+    return container;
 
 };

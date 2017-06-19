@@ -2,70 +2,70 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.PlaneGeometry = function ( editor, object ) {
+Sidebar.Geometry.PlaneGeometry = function (editor, object) {
 
-	var signals = editor.signals;
+    var signals = editor.signals;
 
-	var container = new UI.Row();
+    var container = new UI.Row();
 
-	var geometry = object.geometry;
-	var parameters = geometry.parameters;
+    var geometry = object.geometry;
+    var parameters = geometry.parameters;
 
-	// width
+    // width
 
-	var widthRow = new UI.Row();
-	var width = new UI.Number( parameters.width ).onChange( update );
+    var widthRow = new UI.Row();
+    var width = new UI.Number(parameters.width).onChange(update);
 
-	widthRow.add( new UI.Text( '宽度' ).setWidth( '90px' ) );
-	widthRow.add( width );
+    widthRow.add(new UI.Text('宽度').setWidth('90px'));
+    widthRow.add(width);
 
-	container.add( widthRow );
+    container.add(widthRow);
 
-	// height
+    // height
 
-	var heightRow = new UI.Row();
-	var height = new UI.Number( parameters.height ).onChange( update );
+    var heightRow = new UI.Row();
+    var height = new UI.Number(parameters.height).onChange(update);
 
-	heightRow.add( new UI.Text( '高度' ).setWidth( '90px' ) );
-	heightRow.add( height );
+    heightRow.add(new UI.Text('高度').setWidth('90px'));
+    heightRow.add(height);
 
-	container.add( heightRow );
+    container.add(heightRow);
 
-	// widthSegments
+    // widthSegments
 
-	var widthSegmentsRow = new UI.Row();
-	var widthSegments = new UI.Integer( parameters.widthSegments ).setRange( 1, Infinity ).onChange( update );
+    var widthSegmentsRow = new UI.Row();
+    var widthSegments = new UI.Integer(parameters.widthSegments).setRange(1, Infinity).onChange(update);
 
-	widthSegmentsRow.add( new UI.Text( '宽度段数' ).setWidth( '90px' ) );
-	widthSegmentsRow.add( widthSegments );
+    widthSegmentsRow.add(new UI.Text('宽度段数').setWidth('90px'));
+    widthSegmentsRow.add(widthSegments);
 
-	container.add( widthSegmentsRow );
+    container.add(widthSegmentsRow);
 
-	// heightSegments
+    // heightSegments
 
-	var heightSegmentsRow = new UI.Row();
-	var heightSegments = new UI.Integer( parameters.heightSegments ).setRange( 1, Infinity ).onChange( update );
+    var heightSegmentsRow = new UI.Row();
+    var heightSegments = new UI.Integer(parameters.heightSegments).setRange(1, Infinity).onChange(update);
 
-	heightSegmentsRow.add( new UI.Text( '高度段数' ).setWidth( '90px' ) );
-	heightSegmentsRow.add( heightSegments );
+    heightSegmentsRow.add(new UI.Text('高度段数').setWidth('90px'));
+    heightSegmentsRow.add(heightSegments);
 
-	container.add( heightSegmentsRow );
+    container.add(heightSegmentsRow);
 
 
-	//
+    //
 
-	function update() {
+    function update() {
 
-		editor.execute( new SetGeometryCommand( object, new THREE[ geometry.type ](
+        editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
 			width.getValue(),
 			height.getValue(),
 			widthSegments.getValue(),
 			heightSegments.getValue()
-		) ) );
+		)));
 
-	}
+    }
 
-	return container;
+    return container;
 
 };
 

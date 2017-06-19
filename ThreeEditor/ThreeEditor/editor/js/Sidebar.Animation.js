@@ -2,24 +2,24 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Animation = function ( editor ) {
+Sidebar.Animation = function (editor) {
 
-	var signals = editor.signals;
+    var signals = editor.signals;
 
-	var options = {};
-	var possibleAnimations = {};
+    var options = {};
+    var possibleAnimations = {};
 
-	var container = new UI.Panel();
-	container.setDisplay( 'none' );
+    var container = new UI.Panel();
+    container.setDisplay('none');
 
-	container.add( new UI.Text( '动画' ).setTextTransform( 'uppercase' ) );
-	container.add( new UI.Break() );
-	container.add( new UI.Break() );
+    container.add(new UI.Text('动画'));
+    container.add(new UI.Break());
+    container.add(new UI.Break());
 
-	var animationsRow = new UI.Row();
-	container.add( animationsRow );
+    var animationsRow = new UI.Row();
+    container.add(animationsRow);
 
-	/*
+    /*
 
 	var animations = {};
 
@@ -104,6 +104,6 @@ Sidebar.Animation = function ( editor ) {
 
 	*/
 
-	return container;
+    return container;
 
 };

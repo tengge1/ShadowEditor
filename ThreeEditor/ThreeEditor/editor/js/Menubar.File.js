@@ -2,302 +2,302 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Menubar.File = function ( editor ) {
+Menubar.File = function (editor) {
 
-	var NUMBER_PRECISION = 6;
+    var NUMBER_PRECISION = 6;
 
-	function parseNumber( key, value ) {
+    function parseNumber(key, value) {
 
-		return typeof value === 'number' ? parseFloat( value.toFixed( NUMBER_PRECISION ) ) : value;
+        return typeof value === 'number' ? parseFloat(value.toFixed(NUMBER_PRECISION)) : value;
 
-	}
+    }
 
-	//
+    //
 
-	var container = new UI.Panel();
-	container.setClass( 'menu' );
+    var container = new UI.Panel();
+    container.setClass('menu');
 
-	var title = new UI.Panel();
-	title.setClass( 'title' );
-	title.setTextContent( '文件' );
-	container.add( title );
+    var title = new UI.Panel();
+    title.setClass('title');
+    title.setTextContent('文件');
+    container.add(title);
 
-	var options = new UI.Panel();
-	options.setClass( 'options' );
-	container.add( options );
+    var options = new UI.Panel();
+    options.setClass('options');
+    container.add(options);
 
-	// New
+    // New
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '新建' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('新建');
+    option.onClick(function () {
 
-		if ( confirm( '所有未保存数据将丢失，确定吗？' ) ) {
+        if (confirm('所有未保存数据将丢失，确定吗？')) {
 
-			editor.clear();
+            editor.clear();
 
-		}
+        }
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	//
+    //
 
-	options.add( new UI.HorizontalRule() );
+    options.add(new UI.HorizontalRule());
 
-	// Import
+    // Import
 
-	var fileInput = document.createElement( 'input' );
-	fileInput.type = 'file';
-	fileInput.addEventListener( 'change', function ( event ) {
+    var fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.addEventListener('change', function (event) {
 
-		editor.loader.loadFile( fileInput.files[ 0 ] );
+        editor.loader.loadFile(fileInput.files[0]);
 
-	} );
+    });
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '导入' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('导入');
+    option.onClick(function () {
 
-		fileInput.click();
+        fileInput.click();
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	//
+    //
 
-	options.add( new UI.HorizontalRule() );
+    options.add(new UI.HorizontalRule());
 
-	// Export Geometry
+    // Export Geometry
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '导出Geometry' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('导出几何体');
+    option.onClick(function () {
 
-		var object = editor.selected;
+        var object = editor.selected;
 
-		if ( object === null ) {
+        if (object === null) {
 
-			alert( '请选择对象' );
-			return;
+            alert('请选择物体');
+            return;
 
-		}
+        }
 
-		var geometry = object.geometry;
+        var geometry = object.geometry;
 
-		if ( geometry === undefined ) {
+        if (geometry === undefined) {
 
-			alert( '选中的对象不具有geometry。' );
-			return;
+            alert('选中的对象不具有几何属性。');
+            return;
 
-		}
+        }
 
-		var output = geometry.toJSON();
+        var output = geometry.toJSON();
 
-		try {
+        try {
 
-			output = JSON.stringify( output, parseNumber, '\t' );
-			output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
+            output = JSON.stringify(output, parseNumber, '\t');
+            output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
 
-		} catch ( e ) {
+        } catch (e) {
 
-			output = JSON.stringify( output );
+            output = JSON.stringify(output);
 
-		}
+        }
 
-		saveString( output, 'geometry.json' );
+        saveString(output, 'geometry.json');
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// Export Object
+    // Export Object
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '导出Object' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('导出对象');
+    option.onClick(function () {
 
-		var object = editor.selected;
+        var object = editor.selected;
 
-		if ( object === null ) {
+        if (object === null) {
 
-			alert( '请选择对象' );
-			return;
+            alert('请选择对象');
+            return;
 
-		}
+        }
 
-		var output = object.toJSON();
+        var output = object.toJSON();
 
-		try {
+        try {
 
-			output = JSON.stringify( output, parseNumber, '\t' );
-			output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
+            output = JSON.stringify(output, parseNumber, '\t');
+            output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
 
-		} catch ( e ) {
+        } catch (e) {
 
-			output = JSON.stringify( output );
+            output = JSON.stringify(output);
 
-		}
+        }
 
-		saveString( output, 'model.json' );
+        saveString(output, 'model.json');
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// Export Scene
+    // Export Scene
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '导出Scene' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('导出场景');
+    option.onClick(function () {
 
-		var output = editor.scene.toJSON();
+        var output = editor.scene.toJSON();
 
-		try {
+        try {
 
-			output = JSON.stringify( output, parseNumber, '\t' );
-			output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
+            output = JSON.stringify(output, parseNumber, '\t');
+            output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
 
-		} catch ( e ) {
+        } catch (e) {
 
-			output = JSON.stringify( output );
+            output = JSON.stringify(output);
 
-		}
+        }
 
-		saveString( output, 'scene.json' );
+        saveString(output, 'scene.json');
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// Export OBJ
+    // Export OBJ
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '导出OBJ' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('导出OBJ');
+    option.onClick(function () {
 
-		var object = editor.selected;
+        var object = editor.selected;
 
-		if ( object === null ) {
+        if (object === null) {
 
-			alert( '请选择对象' );
-			return;
+            alert('请选择对象');
+            return;
 
-		}
+        }
 
-		var exporter = new THREE.OBJExporter();
+        var exporter = new THREE.OBJExporter();
 
-		saveString( exporter.parse( object ), 'model.obj' );
+        saveString(exporter.parse(object), 'model.obj');
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// Export STL
+    // Export STL
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '导出STL' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('导出STL');
+    option.onClick(function () {
 
-		var exporter = new THREE.STLExporter();
+        var exporter = new THREE.STLExporter();
 
-		saveString( exporter.parse( editor.scene ), 'model.stl' );
+        saveString(exporter.parse(editor.scene), 'model.stl');
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	//
+    //
 
-	options.add( new UI.HorizontalRule() );
+    options.add(new UI.HorizontalRule());
 
-	// Publish
+    // Publish
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '发布' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('发布');
+    option.onClick(function () {
 
-		var zip = new JSZip();
+        var zip = new JSZip();
 
-		//
+        //
 
-		var output = editor.toJSON();
-		output.metadata.type = 'App';
-		delete output.history;
+        var output = editor.toJSON();
+        output.metadata.type = 'App';
+        delete output.history;
 
-		var vr = output.project.vr;
+        var vr = output.project.vr;
 
-		output = JSON.stringify( output, parseNumber, '\t' );
-		output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
+        output = JSON.stringify(output, parseNumber, '\t');
+        output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
 
-		zip.file( 'app.json', output );
+        zip.file('app.json', output);
 
-		//
+        //
 
-		var manager = new THREE.LoadingManager( function () {
+        var manager = new THREE.LoadingManager(function () {
 
-			save( zip.generate( { type: 'blob' } ), 'download.zip' );
+            save(zip.generate({ type: 'blob' }), 'download.zip');
 
-		} );
+        });
 
-		var loader = new THREE.FileLoader( manager );
-		loader.load( 'js/libs/app/index.html', function ( content ) {
+        var loader = new THREE.FileLoader(manager);
+        loader.load('js/libs/app/index.html', function (content) {
 
-			var includes = [];
+            var includes = [];
 
-			if ( vr ) {
+            if (vr) {
 
-				includes.push( '<script src="js/VRControls.js"></script>' );
-				includes.push( '<script src="js/VREffect.js"></script>' );
-				includes.push( '<script src="js/WebVR.js"></script>' );
+                includes.push('<script src="js/VRControls.js"></script>');
+                includes.push('<script src="js/VREffect.js"></script>');
+                includes.push('<script src="js/WebVR.js"></script>');
 
-			}
+            }
 
-			content = content.replace( '<!-- includes -->', includes.join( '\n\t\t' ) );
+            content = content.replace('<!-- includes -->', includes.join('\n\t\t'));
 
-			zip.file( 'index.html', content );
+            zip.file('index.html', content);
 
-		} );
-		loader.load( 'js/libs/app.js', function ( content ) {
+        });
+        loader.load('js/libs/app.js', function (content) {
 
-			zip.file( 'js/app.js', content );
+            zip.file('js/app.js', content);
 
-		} );
-		loader.load( '../build/three.min.js', function ( content ) {
+        });
+        loader.load('../build/three.min.js', function (content) {
 
-			zip.file( 'js/three.min.js', content );
+            zip.file('js/three.min.js', content);
 
-		} );
+        });
 
-		if ( vr ) {
+        if (vr) {
 
-			loader.load( '../examples/js/controls/VRControls.js', function ( content ) {
+            loader.load('../js/controls/VRControls.js', function (content) {
 
-				zip.file( 'js/VRControls.js', content );
+                zip.file('js/VRControls.js', content);
 
-			} );
+            });
 
-			loader.load( '../examples/js/effects/VREffect.js', function ( content ) {
+            loader.load('../js/effects/VREffect.js', function (content) {
 
-				zip.file( 'js/VREffect.js', content );
+                zip.file('js/VREffect.js', content);
 
-			} );
+            });
 
-			loader.load( '../examples/js/WebVR.js', function ( content ) {
+            loader.load('../js/WebVR.js', function (content) {
 
-				zip.file( 'js/WebVR.js', content );
+                zip.file('js/WebVR.js', content);
 
-			} );
+            });
 
-		}
+        }
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	/*
+    /*
 	// Publish (Dropbox)
 
 	var option = new UI.Row();
@@ -318,28 +318,28 @@ Menubar.File = function ( editor ) {
 	*/
 
 
-	//
+    //
 
-	var link = document.createElement( 'a' );
-	link.style.display = 'none';
-	document.body.appendChild( link ); // Firefox workaround, see #6594
+    var link = document.createElement('a');
+    link.style.display = 'none';
+    document.body.appendChild(link); // Firefox workaround, see #6594
 
-	function save( blob, filename ) {
+    function save(blob, filename) {
 
-		link.href = URL.createObjectURL( blob );
-		link.download = filename || 'data.json';
-		link.click();
+        link.href = URL.createObjectURL(blob);
+        link.download = filename || 'data.json';
+        link.click();
 
-		// URL.revokeObjectURL( url ); breaks Firefox...
+        // URL.revokeObjectURL( url ); breaks Firefox...
 
-	}
+    }
 
-	function saveString( text, filename ) {
+    function saveString(text, filename) {
 
-		save( new Blob( [ text ], { type: 'text/plain' } ), filename );
+        save(new Blob([text], { type: 'text/plain' }), filename);
 
-	}
+    }
 
-	return container;
+    return container;
 
 };

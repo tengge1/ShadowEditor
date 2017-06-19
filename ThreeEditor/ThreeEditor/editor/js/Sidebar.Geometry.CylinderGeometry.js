@@ -2,91 +2,91 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.CylinderGeometry = function ( editor, object ) {
+Sidebar.Geometry.CylinderGeometry = function (editor, object) {
 
-	var signals = editor.signals;
+    var signals = editor.signals;
 
-	var container = new UI.Row();
+    var container = new UI.Row();
 
-	var geometry = object.geometry;
-	var parameters = geometry.parameters;
+    var geometry = object.geometry;
+    var parameters = geometry.parameters;
 
-	// radiusTop
+    // radiusTop
 
-	var radiusTopRow = new UI.Row();
-	var radiusTop = new UI.Number( parameters.radiusTop ).onChange( update );
+    var radiusTopRow = new UI.Row();
+    var radiusTop = new UI.Number(parameters.radiusTop).onChange(update);
 
-	radiusTopRow.add( new UI.Text( '顶部半径' ).setWidth( '90px' ) );
-	radiusTopRow.add( radiusTop );
+    radiusTopRow.add(new UI.Text('顶部半径').setWidth('90px'));
+    radiusTopRow.add(radiusTop);
 
-	container.add( radiusTopRow );
+    container.add(radiusTopRow);
 
-	// radiusBottom
+    // radiusBottom
 
-	var radiusBottomRow = new UI.Row();
-	var radiusBottom = new UI.Number( parameters.radiusBottom ).onChange( update );
+    var radiusBottomRow = new UI.Row();
+    var radiusBottom = new UI.Number(parameters.radiusBottom).onChange(update);
 
-	radiusBottomRow.add( new UI.Text( '底部半径' ).setWidth( '90px' ) );
-	radiusBottomRow.add( radiusBottom );
+    radiusBottomRow.add(new UI.Text('底部半径').setWidth('90px'));
+    radiusBottomRow.add(radiusBottom);
 
-	container.add( radiusBottomRow );
+    container.add(radiusBottomRow);
 
-	// height
+    // height
 
-	var heightRow = new UI.Row();
-	var height = new UI.Number( parameters.height ).onChange( update );
+    var heightRow = new UI.Row();
+    var height = new UI.Number(parameters.height).onChange(update);
 
-	heightRow.add( new UI.Text( '高度' ).setWidth( '90px' ) );
-	heightRow.add( height );
+    heightRow.add(new UI.Text('高度').setWidth('90px'));
+    heightRow.add(height);
 
-	container.add( heightRow );
+    container.add(heightRow);
 
-	// radialSegments
+    // radialSegments
 
-	var radialSegmentsRow = new UI.Row();
-	var radialSegments = new UI.Integer( parameters.radialSegments ).setRange( 1, Infinity ).onChange( update );
+    var radialSegmentsRow = new UI.Row();
+    var radialSegments = new UI.Integer(parameters.radialSegments).setRange(1, Infinity).onChange(update);
 
-	radialSegmentsRow.add( new UI.Text( '径向段数' ).setWidth( '90px' ) );
-	radialSegmentsRow.add( radialSegments );
+    radialSegmentsRow.add(new UI.Text('径向段数').setWidth('90px'));
+    radialSegmentsRow.add(radialSegments);
 
-	container.add( radialSegmentsRow );
+    container.add(radialSegmentsRow);
 
-	// heightSegments
+    // heightSegments
 
-	var heightSegmentsRow = new UI.Row();
-	var heightSegments = new UI.Integer( parameters.heightSegments ).setRange( 1, Infinity ).onChange( update );
+    var heightSegmentsRow = new UI.Row();
+    var heightSegments = new UI.Integer(parameters.heightSegments).setRange(1, Infinity).onChange(update);
 
-	heightSegmentsRow.add( new UI.Text( '高度段数' ).setWidth( '90px' ) );
-	heightSegmentsRow.add( heightSegments );
+    heightSegmentsRow.add(new UI.Text('高度段数').setWidth('90px'));
+    heightSegmentsRow.add(heightSegments);
 
-	container.add( heightSegmentsRow );
+    container.add(heightSegmentsRow);
 
-	// openEnded
+    // openEnded
 
-	var openEndedRow = new UI.Row();
-	var openEnded = new UI.Checkbox( parameters.openEnded ).onChange( update );
+    var openEndedRow = new UI.Row();
+    var openEnded = new UI.Checkbox(parameters.openEnded).onChange(update);
 
-	openEndedRow.add( new UI.Text( '打开关闭' ).setWidth( '90px' ) );
-	openEndedRow.add( openEnded );
+    openEndedRow.add(new UI.Text('打开关闭').setWidth('90px'));
+    openEndedRow.add(openEnded);
 
-	container.add( openEndedRow );
+    container.add(openEndedRow);
 
-	//
+    //
 
-	function update() {
+    function update() {
 
-		editor.execute( new SetGeometryCommand( object, new THREE[ geometry.type ](
+        editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
 			radiusTop.getValue(),
 			radiusBottom.getValue(),
 			height.getValue(),
 			radialSegments.getValue(),
 			heightSegments.getValue(),
 			openEnded.getValue()
-		) ) );
+		)));
 
-	}
+    }
 
-	return container;
+    return container;
 
 };
 

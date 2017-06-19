@@ -2,69 +2,69 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.CircleGeometry = function ( editor, object ) {
+Sidebar.Geometry.CircleGeometry = function (editor, object) {
 
-	var signals = editor.signals;
+    var signals = editor.signals;
 
-	var container = new UI.Row();
+    var container = new UI.Row();
 
-	var geometry = object.geometry;
-	var parameters = geometry.parameters;
+    var geometry = object.geometry;
+    var parameters = geometry.parameters;
 
-	// radius
+    // radius
 
-	var radiusRow = new UI.Row();
-	var radius = new UI.Number( parameters.radius ).onChange( update );
+    var radiusRow = new UI.Row();
+    var radius = new UI.Number(parameters.radius).onChange(update);
 
-	radiusRow.add( new UI.Text( '半径' ).setWidth( '90px' ) );
-	radiusRow.add( radius );
+    radiusRow.add(new UI.Text('半径').setWidth('90px'));
+    radiusRow.add(radius);
 
-	container.add( radiusRow );
+    container.add(radiusRow);
 
-	// segments
+    // segments
 
-	var segmentsRow = new UI.Row();
-	var segments = new UI.Integer( parameters.segments ).setRange( 3, Infinity ).onChange( update );
+    var segmentsRow = new UI.Row();
+    var segments = new UI.Integer(parameters.segments).setRange(3, Infinity).onChange(update);
 
-	segmentsRow.add( new UI.Text( '段长' ).setWidth( '90px' ) );
-	segmentsRow.add( segments );
+    segmentsRow.add(new UI.Text('段长').setWidth('90px'));
+    segmentsRow.add(segments);
 
-	container.add( segmentsRow );
+    container.add(segmentsRow);
 
-	// thetaStart
+    // thetaStart
 
-	var thetaStartRow = new UI.Row();
-	var thetaStart = new UI.Number( parameters.thetaStart ).onChange( update );
+    var thetaStartRow = new UI.Row();
+    var thetaStart = new UI.Number(parameters.thetaStart).onChange(update);
 
-	thetaStartRow.add(new UI.Text('θ开始').setWidth('90px'));
-	thetaStartRow.add( thetaStart );
+    thetaStartRow.add(new UI.Text('θ开始').setWidth('90px'));
+    thetaStartRow.add(thetaStart);
 
-	container.add( thetaStartRow );
+    container.add(thetaStartRow);
 
-	// thetaLength
+    // thetaLength
 
-	var thetaLengthRow = new UI.Row();
-	var thetaLength = new UI.Number( parameters.thetaLength ).onChange( update );
+    var thetaLengthRow = new UI.Row();
+    var thetaLength = new UI.Number(parameters.thetaLength).onChange(update);
 
-	thetaLengthRow.add(new UI.Text('θ长度').setWidth('90px'));
-	thetaLengthRow.add( thetaLength );
+    thetaLengthRow.add(new UI.Text('θ长度').setWidth('90px'));
+    thetaLengthRow.add(thetaLength);
 
-	container.add( thetaLengthRow );
+    container.add(thetaLengthRow);
 
-	//
+    //
 
-	function update() {
+    function update() {
 
-		editor.execute( new SetGeometryCommand( object, new THREE[ geometry.type ](
+        editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
 			radius.getValue(),
 			segments.getValue(),
 			thetaStart.getValue(),
 			thetaLength.getValue()
-		) ) );
+		)));
 
-	}
+    }
 
-	return container;
+    return container;
 
 };
 

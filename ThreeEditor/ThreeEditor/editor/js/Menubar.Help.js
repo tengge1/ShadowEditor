@@ -2,44 +2,44 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Menubar.Help = function ( editor ) {
+Menubar.Help = function (editor) {
 
-	var container = new UI.Panel();
-	container.setClass( 'menu' );
+    var container = new UI.Panel();
+    container.setClass('menu');
 
-	var title = new UI.Panel();
-	title.setClass( 'title' );
-	title.setTextContent( '帮助' );
-	container.add( title );
+    var title = new UI.Panel();
+    title.setClass('title');
+    title.setTextContent('帮助');
+    container.add(title);
 
-	var options = new UI.Panel();
-	options.setClass( 'options' );
-	container.add( options );
+    var options = new UI.Panel();
+    options.setClass('options');
+    container.add(options);
 
-	// Source code
+    // Source code
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '源码' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('源码');
+    option.onClick(function () {
 
-		window.open( 'https://github.com/mrdoob/three.js/tree/master/editor', '_blank' )
+        window.open('https://github.com/mrdoob/three.js/tree/master/editor', '_blank')
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	// About
+    // About
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '关于' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('关于');
+    option.onClick(function () {
 
-		window.open( 'http://threejs.org', '_blank' );
+        window.open('http://threejs.org', '_blank');
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	return container;
+    return container;
 
 };

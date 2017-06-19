@@ -2,87 +2,87 @@
  * @author tschw
  */
 
-Sidebar.Geometry.TeapotBufferGeometry = function ( signals, object ) {
+Sidebar.Geometry.TeapotBufferGeometry = function (signals, object) {
 
-	var container = new UI.Row();
+    var container = new UI.Row();
 
-	var parameters = object.geometry.parameters;
+    var parameters = object.geometry.parameters;
 
-	// size
+    // size
 
-	var sizeRow = new UI.Row();
-	var size = new UI.Number( parameters.size ).onChange( update );
+    var sizeRow = new UI.Row();
+    var size = new UI.Number(parameters.size).onChange(update);
 
-	sizeRow.add( new UI.Text( '尺寸' ).setWidth( '90px' ) );
-	sizeRow.add( size );
+    sizeRow.add(new UI.Text('尺寸').setWidth('90px'));
+    sizeRow.add(size);
 
-	container.add( sizeRow );
+    container.add(sizeRow);
 
-	// segments
+    // segments
 
-	var segmentsRow = new UI.Row();
-	var segments = new UI.Integer( parameters.segments ).setRange( 1, Infinity ).onChange( update );
+    var segmentsRow = new UI.Row();
+    var segments = new UI.Integer(parameters.segments).setRange(1, Infinity).onChange(update);
 
-	segmentsRow.add( new UI.Text( '段数' ).setWidth( '90px' ) );
-	segmentsRow.add( segments );
+    segmentsRow.add(new UI.Text('段数').setWidth('90px'));
+    segmentsRow.add(segments);
 
-	container.add( segmentsRow );
+    container.add(segmentsRow);
 
-	// bottom
+    // bottom
 
-	var bottomRow = new UI.Row();
-	var bottom = new UI.Checkbox( parameters.bottom ).onChange( update );
+    var bottomRow = new UI.Row();
+    var bottom = new UI.Checkbox(parameters.bottom).onChange(update);
 
-	bottomRow.add( new UI.Text( '底部' ).setWidth( '90px' ) );
-	bottomRow.add( bottom );
+    bottomRow.add(new UI.Text('底部').setWidth('90px'));
+    bottomRow.add(bottom);
 
-	container.add( bottomRow );
+    container.add(bottomRow);
 
-	// lid
+    // lid
 
-	var lidRow = new UI.Row();
-	var lid = new UI.Checkbox( parameters.lid ).onChange( update );
+    var lidRow = new UI.Row();
+    var lid = new UI.Checkbox(parameters.lid).onChange(update);
 
-	lidRow.add( new UI.Text( '壶盖' ).setWidth( '90px' ) );
-	lidRow.add( lid );
+    lidRow.add(new UI.Text('壶盖').setWidth('90px'));
+    lidRow.add(lid);
 
-	container.add( lidRow );
+    container.add(lidRow);
 
-	// body
+    // body
 
-	var bodyRow = new UI.Row();
-	var body = new UI.Checkbox( parameters.body ).onChange( update );
+    var bodyRow = new UI.Row();
+    var body = new UI.Checkbox(parameters.body).onChange(update);
 
-	bodyRow.add( new UI.Text( '壶体' ).setWidth( '90px' ) );
-	bodyRow.add( body );
+    bodyRow.add(new UI.Text('壶体').setWidth('90px'));
+    bodyRow.add(body);
 
-	container.add( bodyRow );
+    container.add(bodyRow);
 
-	// fitted lid
+    // fitted lid
 
-	var fitLidRow = new UI.Row();
-	var fitLid = new UI.Checkbox( parameters.fitLid ).onChange( update );
+    var fitLidRow = new UI.Row();
+    var fitLid = new UI.Checkbox(parameters.fitLid).onChange(update);
 
-	fitLidRow.add( new UI.Text( '适合壶盖' ).setWidth( '90px' ) );
-	fitLidRow.add( fitLid );
+    fitLidRow.add(new UI.Text('适合壶盖').setWidth('90px'));
+    fitLidRow.add(fitLid);
 
-	container.add( fitLidRow );
+    container.add(fitLidRow);
 
-	// blinn-sized
+    // blinn-sized
 
-	var blinnRow = new UI.Row();
-	var blinn = new UI.Checkbox( parameters.blinn ).onChange( update );
+    var blinnRow = new UI.Row();
+    var blinn = new UI.Checkbox(parameters.blinn).onChange(update);
 
-	blinnRow.add( new UI.Text( 'Blinn缩放' ).setWidth( '90px' ) );
-	blinnRow.add( blinn );
+    blinnRow.add(new UI.Text('Blinn缩放').setWidth('90px'));
+    blinnRow.add(blinn);
 
-	container.add( blinnRow );
+    container.add(blinnRow);
 
-	function update() {
+    function update() {
 
-		object.geometry.dispose();
+        object.geometry.dispose();
 
-		object.geometry = new THREE.TeapotBufferGeometry(
+        object.geometry = new THREE.TeapotBufferGeometry(
 			size.getValue(),
 			segments.getValue(),
 			bottom.getValue(),
@@ -92,12 +92,12 @@ Sidebar.Geometry.TeapotBufferGeometry = function ( signals, object ) {
 			blinn.getValue()
 		);
 
-		object.geometry.computeBoundingSphere();
+        object.geometry.computeBoundingSphere();
 
-		signals.geometryChanged.dispatch( object );
+        signals.geometryChanged.dispatch(object);
 
-	}
+    }
 
-	return container;
+    return container;
 
 };

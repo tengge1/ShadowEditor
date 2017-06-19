@@ -2,40 +2,40 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Menubar.View = function ( editor ) {
+Menubar.View = function (editor) {
 
-	var container = new UI.Panel();
-	container.setClass( 'menu' );
+    var container = new UI.Panel();
+    container.setClass('menu');
 
-	var title = new UI.Panel();
-	title.setClass( 'title' );
-	title.setTextContent( '视图' );
-	container.add( title );
+    var title = new UI.Panel();
+    title.setClass('title');
+    title.setTextContent('视图');
+    container.add(title);
 
-	var options = new UI.Panel();
-	options.setClass( 'options' );
-	container.add( options );
+    var options = new UI.Panel();
+    options.setClass('options');
+    container.add(options);
 
-	// VR mode
+    // VR mode
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( 'VR模式' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('VR模式');
+    option.onClick(function () {
 
-		if ( WEBVR.isAvailable() === true ) {
+        if (WEBVR.isAvailable() === true) {
 
-			editor.signals.enterVR.dispatch();
+            editor.signals.enterVR.dispatch();
 
-		} else {
+        } else {
 
-			alert( 'WebVR不可用' );
+            alert('WebVR不可用');
 
-		}
+        }
 
-	} );
-	options.add( option );
+    });
+    options.add(option);
 
-	return container;
+    return container;
 
 };

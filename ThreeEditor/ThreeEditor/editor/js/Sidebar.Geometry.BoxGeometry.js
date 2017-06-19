@@ -2,91 +2,91 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.BoxGeometry = function ( editor, object ) {
+Sidebar.Geometry.BoxGeometry = function (editor, object) {
 
-	var signals = editor.signals;
+    var signals = editor.signals;
 
-	var container = new UI.Row();
+    var container = new UI.Row();
 
-	var geometry = object.geometry;
-	var parameters = geometry.parameters;
+    var geometry = object.geometry;
+    var parameters = geometry.parameters;
 
-	// width
+    // width
 
-	var widthRow = new UI.Row();
-	var width = new UI.Number( parameters.width ).onChange( update );
+    var widthRow = new UI.Row();
+    var width = new UI.Number(parameters.width).onChange(update);
 
-	widthRow.add( new UI.Text( '宽度' ).setWidth( '90px' ) );
-	widthRow.add( width );
+    widthRow.add(new UI.Text('宽度').setWidth('90px'));
+    widthRow.add(width);
 
-	container.add( widthRow );
+    container.add(widthRow);
 
-	// height
+    // height
 
-	var heightRow = new UI.Row();
-	var height = new UI.Number( parameters.height ).onChange( update );
+    var heightRow = new UI.Row();
+    var height = new UI.Number(parameters.height).onChange(update);
 
-	heightRow.add( new UI.Text( '高度' ).setWidth( '90px' ) );
-	heightRow.add( height );
+    heightRow.add(new UI.Text('高度').setWidth('90px'));
+    heightRow.add(height);
 
-	container.add( heightRow );
+    container.add(heightRow);
 
-	// depth
+    // depth
 
-	var depthRow = new UI.Row();
-	var depth = new UI.Number( parameters.depth ).onChange( update );
+    var depthRow = new UI.Row();
+    var depth = new UI.Number(parameters.depth).onChange(update);
 
-	depthRow.add( new UI.Text( '深度' ).setWidth( '90px' ) );
-	depthRow.add( depth );
+    depthRow.add(new UI.Text('深度').setWidth('90px'));
+    depthRow.add(depth);
 
-	container.add( depthRow );
+    container.add(depthRow);
 
-	// widthSegments
+    // widthSegments
 
-	var widthSegmentsRow = new UI.Row();
-	var widthSegments = new UI.Integer( parameters.widthSegments ).setRange( 1, Infinity ).onChange( update );
+    var widthSegmentsRow = new UI.Row();
+    var widthSegments = new UI.Integer(parameters.widthSegments).setRange(1, Infinity).onChange(update);
 
-	widthSegmentsRow.add( new UI.Text( '宽度段数' ).setWidth( '90px' ) );
-	widthSegmentsRow.add( widthSegments );
+    widthSegmentsRow.add(new UI.Text('宽度段数').setWidth('90px'));
+    widthSegmentsRow.add(widthSegments);
 
-	container.add( widthSegmentsRow );
+    container.add(widthSegmentsRow);
 
-	// heightSegments
+    // heightSegments
 
-	var heightSegmentsRow = new UI.Row();
-	var heightSegments = new UI.Integer( parameters.heightSegments ).setRange( 1, Infinity ).onChange( update );
+    var heightSegmentsRow = new UI.Row();
+    var heightSegments = new UI.Integer(parameters.heightSegments).setRange(1, Infinity).onChange(update);
 
-	heightSegmentsRow.add( new UI.Text( '高度段数' ).setWidth( '90px' ) );
-	heightSegmentsRow.add( heightSegments );
+    heightSegmentsRow.add(new UI.Text('高度段数').setWidth('90px'));
+    heightSegmentsRow.add(heightSegments);
 
-	container.add( heightSegmentsRow );
+    container.add(heightSegmentsRow);
 
-	// depthSegments
+    // depthSegments
 
-	var depthSegmentsRow = new UI.Row();
-	var depthSegments = new UI.Integer( parameters.depthSegments ).setRange( 1, Infinity ).onChange( update );
+    var depthSegmentsRow = new UI.Row();
+    var depthSegments = new UI.Integer(parameters.depthSegments).setRange(1, Infinity).onChange(update);
 
-	depthSegmentsRow.add( new UI.Text( '深度段数' ).setWidth( '90px' ) );
-	depthSegmentsRow.add( depthSegments );
+    depthSegmentsRow.add(new UI.Text('深度段数').setWidth('90px'));
+    depthSegmentsRow.add(depthSegments);
 
-	container.add( depthSegmentsRow );
+    container.add(depthSegmentsRow);
 
-	//
+    //
 
-	function update() {
+    function update() {
 
-		editor.execute( new SetGeometryCommand( object, new THREE[ geometry.type ](
+        editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
 			width.getValue(),
 			height.getValue(),
 			depth.getValue(),
 			widthSegments.getValue(),
 			heightSegments.getValue(),
 			depthSegments.getValue()
-		) ) );
+		)));
 
-	}
+    }
 
-	return container;
+    return container;
 
 };
 
