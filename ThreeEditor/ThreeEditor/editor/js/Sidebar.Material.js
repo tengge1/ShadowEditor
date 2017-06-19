@@ -458,7 +458,7 @@ Sidebar.Material = function (editor) {
     var materialTransparentRow = new UI.Row();
     var materialTransparent = new UI.Checkbox().setLeft('100px').onChange(update);
 
-    materialTransparentRow.add(new UI.Text('透明度').setWidth('90px'));
+    materialTransparentRow.add(new UI.Text('透明').setWidth('90px'));
     materialTransparentRow.add(materialTransparent);
 
     container.add(materialTransparentRow);
