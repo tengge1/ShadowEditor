@@ -9,7 +9,7 @@ Sidebar.Properties = function (editor) {
     var container = new UI.Span();
 
     var objectTab = new UI.Text('物体').onClick(onClick);
-    var geometryTab = new UI.Text('几何体').onClick(onClick);
+    var geometryTab = new UI.Text('几何').onClick(onClick);
     var materialTab = new UI.Text('材质').onClick(onClick);
 
     var tabs = new UI.Div();
@@ -57,7 +57,7 @@ Sidebar.Properties = function (editor) {
                 objectTab.setClass('selected');
                 object.setDisplay('');
                 break;
-            case '几何体':
+            case '几何':
                 geometryTab.setClass('selected');
                 geometry.setDisplay('');
                 break;

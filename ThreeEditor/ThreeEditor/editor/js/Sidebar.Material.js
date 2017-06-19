@@ -49,17 +49,18 @@ Sidebar.Material = function (editor) {
     var materialClassRow = new UI.Row();
     var materialClass = new UI.Select().setOptions({
 
-        'LineBasicMaterial': 'LineBasicMaterial',
-        'LineDashedMaterial': 'LineDashedMaterial',
-        'MeshBasicMaterial': 'MeshBasicMaterial',
-        'MeshDepthMaterial': 'MeshDepthMaterial',
-        'MeshNormalMaterial': 'MeshNormalMaterial',
-        'MeshLambertMaterial': 'MeshLambertMaterial',
-        'MeshPhongMaterial': 'MeshPhongMaterial',
-        'MeshStandardMaterial': 'MeshStandardMaterial',
-        'MeshPhysicalMaterial': 'MeshPhysicalMaterial',
-        'ShaderMaterial': 'ShaderMaterial',
-        'SpriteMaterial': 'SpriteMaterial'
+        'LineBasicMaterial': '线条材质',
+        'LineDashedMaterial': '虚线材质',
+        'MeshBasicMaterial': '基本材质',
+        'MeshDepthMaterial': '深度材质',
+        'MeshNormalMaterial': '法向量材质',
+        'MeshLambertMaterial': '兰伯特材质',
+        'MeshPhongMaterial': '冯氏材质',
+        'PointCloudMaterial': '点云材质',
+        'MeshStandardMaterial': '标准材质',
+        'MeshPhysicalMaterial': '物理材质',
+        'ShaderMaterial': '着色器材质',
+        'SpriteMaterial': '精灵材质'
 
     }).setWidth('150px').setFontSize('12px').onChange(update);
 
@@ -396,8 +397,8 @@ Sidebar.Material = function (editor) {
     var materialSideRow = new UI.Row();
     var materialSide = new UI.Select().setOptions({
 
-        0: '前面',
-        1: '后面',
+        0: '正面',
+        1: '反面',
         2: '双面'
 
     }).setWidth('150px').setFontSize('12px').onChange(update);
@@ -428,12 +429,12 @@ Sidebar.Material = function (editor) {
     var materialBlendingRow = new UI.Row();
     var materialBlending = new UI.Select().setOptions({
 
-        0: 'No',
-        1: 'Normal',
-        2: 'Additive',
-        3: 'Subtractive',
-        4: 'Multiply',
-        5: 'Custom'
+        0: '不混合',
+        1: '一般混合',
+        2: '和混合',
+        3: '差混合',
+        4: '积混合',
+        5: '自定义混合'
 
     }).setWidth('150px').setFontSize('12px').onChange(update);
 
@@ -523,13 +524,13 @@ Sidebar.Material = function (editor) {
 
             if (material.color !== undefined && material.color.getHex() !== materialColor.getHexValue()) {
 
-                editor.execute(new SetMaterialColorCommand(currentObject, '颜色', materialColor.getHexValue()));
+                editor.execute(new SetMaterialColorCommand(currentObject, 'color', materialColor.getHexValue()));
 
             }
 
             if (material.roughness !== undefined && Math.abs(material.roughness - materialRoughness.getValue()) >= 0.01) {
 
-                editor.execute(new SetMaterialValueCommand(currentObject, '粗糙度', materialRoughness.getValue()));
+                editor.execute(new SetMaterialValueCommand(currentObject, 'roughness', materialRoughness.getValue()));
 
             }
 
