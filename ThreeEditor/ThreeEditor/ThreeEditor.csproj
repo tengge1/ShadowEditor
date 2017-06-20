@@ -66,6 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="editor\docs\Implementing additional commands for undo-redo.md" />
     <Content Include="editor\docs\Writing unit tests for undo-redo commands.md" />
