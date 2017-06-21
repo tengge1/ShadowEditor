@@ -66,6 +66,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\textures\air.jpg" />
+    <Content Include="images\textures\earth.jpg" />
+    <Content Include="images\textures\grass.jpg" />
+    <Content Include="images\textures\metal.jpg" />
+    <Content Include="images\textures\wood.jpg" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="editor\docs\Implementing additional commands for undo-redo.md" />
