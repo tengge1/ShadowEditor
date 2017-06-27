@@ -258,7 +258,7 @@ Sidebar.Material = function (editor) {
     var materialAlphaMapEnabled = new UI.Checkbox(false).onChange(update);
     var materialAlphaMap = new UI.Texture().onChange(update);
 
-    materialAlphaMapRow.add(new UI.Text('α纹理').setWidth('90px'));
+    materialAlphaMapRow.add(new UI.Text('透明纹理').setWidth('90px'));
     materialAlphaMapRow.add(materialAlphaMapEnabled);
     materialAlphaMapRow.add(materialAlphaMap);
 
@@ -373,7 +373,7 @@ Sidebar.Material = function (editor) {
     var materialAOMap = new UI.Texture().onChange(update);
     var materialAOScale = new UI.Number(1).setRange(0, 1).setWidth('30px').onChange(update);
 
-    materialAOMapRow.add(new UI.Text('AO纹理').setWidth('90px'));
+    materialAOMapRow.add(new UI.Text('遮挡纹理').setWidth('90px'));
     materialAOMapRow.add(materialAOMapEnabled);
     materialAOMapRow.add(materialAOMap);
     materialAOMapRow.add(materialAOScale);
