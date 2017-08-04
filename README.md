@@ -16,7 +16,7 @@
 
 ## 项目截图
 
-![image](https://github.com/tengge1/ThreeEditor/blob/master/%E5%9B%BE%E7%89%87/%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91.jpg)
+![image](https://github.com/tengge1/three-editor/blob/master/%E5%9B%BE%E7%89%87/%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91.jpg)
 
 # 相关链接
 
