@@ -1,0 +1,46 @@
+{
+    "name": "earth",
+    "version": "0.0.1",
+    "private": true,
+    "description": "GIS project using Three.js.",
+    "dependencies": {
+        "d3-dispatch": "^1.0.3",
+        "http": "0.0.0",
+        "three": "^0.92.0"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-plugin-external-helpers": "^6.22.0",
+        "babel-plugin-syntax-async-functions": "^6.13.0",
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
+        "babel-plugin-transform-es2015-classes": "^6.24.1",
+        "babel-plugin-transform-es2015-template-literals": "^6.22.0",
+        "babel-plugin-transform-export-extensions": "^6.22.0",
+        "babel-preset-env": "^1.7.0",
+        "rollup": "^0.59.2",
+        "rollup-plugin-babel": "^3.0.4",
+        "rollup-plugin-copy": "^0.2.3",
+        "rollup-plugin-node-resolve": "^3.3.0"
+    },
+    "scripts": {
+        "build": "rollup -c",
+        "build-watch": "rollup -c -w",
+        "clear": "npm prune"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/tengge1/Earth.git"
+    },
+    "keywords": [
+        "earth",
+        "gis",
+        "three.js"
+    ],
+    "author": "tengge",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/tengge1/Earth/issues"
+    },
+    "homepage": "https://github.com/tengge1/Earth"
+}

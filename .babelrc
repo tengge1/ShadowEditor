@@ -1,0 +1,18 @@
+{
+    "presets": [
+        [
+            "env",
+            {
+                "modules": false
+            }
+        ]
+    ],
+    "plugins": [
+        "external-helpers",
+        "transform-es2015-arrow-functions",
+        "syntax-async-functions",
+        "transform-class-properties",
+        "transform-export-extensions",
+        "transform-es2015-template-literals"
+    ]
+}
