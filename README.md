@@ -1,10 +1,10 @@
-# ThreeEditor
+# BubbleEditor
 
 ## 简介
 
-* 名称：ThreeEditor
-* 版本：v0.0.1
-* 说明：ThreeJs自带编辑器的汉化修改。
+* 名称：BubbleEditor
+* 版本：v0.0.2
+* 说明：ThreeJs自带编辑器的二次开发。
 
 ## 主要功能
 
@@ -16,7 +16,7 @@
 
 ## 项目截图
 
-![image](https://github.com/tengge1/three-editor/blob/master/%E5%9B%BE%E7%89%87/%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91.jpg)
+![image](images/demo1.jpg)
 
 # 相关链接
 
