@@ -1,10 +1,10 @@
-# BubbleEditor
+# Bubble Editor
 
 ## 简介
 
-* 名称：BubbleEditor
+* 名称：Bubble Editor
 * 版本：v0.0.2
-* 说明：ThreeJs自带编辑器的二次开发。
+* 说明：Three.js自带编辑器的二次开发。
 
 ## 主要功能
 
@@ -20,5 +20,5 @@
 
 # 相关链接
 
-* ThreeJS官网：https://threejs.org/
-* ThreeJs源码：https://github.com/mrdoob/three.js/
+* Three.js官网：https://threejs.org/
+* Three.js源码：https://github.com/mrdoob/three.js/
