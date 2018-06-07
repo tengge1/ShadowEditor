@@ -5,7 +5,7 @@
     "description": "3D Editor with three.js.",
     "dependencies": {
         "http": "0.0.0",
-        "three": "^0.92.0"
+        "three": "^0.93.0"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",

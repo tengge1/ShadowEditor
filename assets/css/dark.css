@@ -1,6 +1,6 @@
 button {
-	color: #555;
-	background-color: #ddd;
+	color: #aaa;
+	background-color: #222;
 	border: 0px;
 	padding: 5px 8px;
 	text-transform: uppercase;
@@ -9,17 +9,20 @@ button {
 }
 
 button:hover {
-	background-color: #fff;
+	color: #ccc;
+	background-color: #444;
 }
 
 button.selected {
-	background-color: #fff;
+	color: #fff;
+	background-color: #08f;
 }
 
 input,
 textarea {
+	background-color: #222;
 	border: 1px solid transparent;
-	color: #444;
+	color: #888;
 }
 
 input.Number {
@@ -31,8 +34,8 @@ input.Number {
 }
 
 select {
-	color: #666;
-	background-color: #ddd;
+	color: #aaa;
+	background-color: #222;
 	border: 0px;
 	text-transform: uppercase;
 	cursor: pointer;
@@ -40,7 +43,8 @@ select {
 }
 
 select:hover {
-	background-color: #fff;
+	color: #ccc;
+	background-color: #444;
 }
 
 /* UI */
@@ -79,7 +83,7 @@ select:hover {
 	position: absolute;
 	width: 100%;
 	height: 32px;
-	background: #eee;
+	background: #111;
 	padding: 0;
 	margin: 0;
 	right: 0;
@@ -110,7 +114,7 @@ select:hover {
 	position: absolute;
 	display: none;
 	padding: 5px 0;
-	background: #eee;
+	background: #111;
 	width: 150px;
 }
 
@@ -119,11 +123,11 @@ select:hover {
 }
 
 #menubar .menu .options hr {
-	border-color: #ddd;
+	border-color: #222;
 }
 
 #menubar .menu .options .option {
-	color: #666;
+	color: #888;
 	background-color: transparent;
 	padding: 5px 10px;
 	margin: 0 !important;
@@ -135,12 +139,11 @@ select:hover {
 }
 
 #menubar .menu .options .option:active {
-	color: #666;
 	background: transparent;
 }
 
 #menubar .menu .options .inactive {
-	color: #bbb;
+	color: #444;
 	background-color: transparent;
 	padding: 5px 10px;
 	margin: 0 !important;
@@ -152,7 +155,7 @@ select:hover {
 	top: 32px;
 	bottom: 0;
 	width: 300px;
-	background: #eee;
+	background-color: #111;
 	overflow: auto;
 }
 
@@ -163,11 +166,15 @@ select:hover {
 #sidebar .Panel {
 	color: #888;
 	padding: 10px;
-	border-top: 1px solid #ccc;
+	border-top: 1px solid #222;
 }
 
 #sidebar .Panel.collapsed {
 	margin-bottom: 0;
+}
+
+#sidebar .Panel.Material canvas {
+	border: solid 1px #5A5A5A;
 }
 
 #sidebar .Row {
@@ -176,19 +183,19 @@ select:hover {
 }
 
 #tabs {
-	background-color: #ddd;
-	border-top: 1px solid #ccc;
+	background-color: #1b1b1b;
+	border-top: 1px solid #222;
 }
 
 #tabs span {
-	color: #aaa;
-	border-right: 1px solid #ccc;
+	color: #555;
+	border-right: 1px solid #222;
 	padding: 10px;
 }
 
 #tabs span.selected {
 	color: #888;
-	background-color: #eee;
+	background-color: #111;
 }
 
 #toolbar {
@@ -197,7 +204,7 @@ select:hover {
 	right: 300px;
 	bottom: 0;
 	height: 32px;
-	background: #eee;
+	background-color: #111;
 	color: #333;
 }
 
@@ -215,27 +222,34 @@ select:hover {
 }
 
 .Outliner {
-	color: #444;
-	background-color: #fff;
+	color: #888;
+	background: #222;
 	padding: 0;
 	width: 100%;
 	height: 140px;
 	font-size: 12px;
 	cursor: default;
 	overflow: auto;
-	outline: none !important;
+	outline: none;
 }
 
 .Outliner .option {
 	padding: 4px;
-	color: #666;
 	white-space: nowrap;
 }
 
 .Outliner .option:hover {
-	background-color: rgba(0, 0, 0, 0.02);
+	background-color: rgba(21, 60, 94, 0.5);
 }
 
 .Outliner .option.active {
-	background-color: rgba(0, 0, 0, 0.04);
+	background-color: rgba(21, 60, 94, 1);
+}
+
+.Panel.Collapsible.collapsed .Static .Button {
+	border-left-color: #444;
+}
+
+.Panel.Collapsible:not(.collapsed) .Static .Button {
+	border-top-color: #444;
 }

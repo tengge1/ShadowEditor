@@ -26,8 +26,8 @@ export default {
     output: {
         indent: '\t',
         format: 'umd',
-        name: 'E',
-        file: 'dist/Earth.js'
+        name: 'THREE',
+        file: 'dist/BubbleEditor.js'
     },
     external: [],
     plugins: [
@@ -43,7 +43,9 @@ export default {
             }
         }),
         copy({
-            "./assets/": "./dist/assets/"
+            "./assets/": "./dist/assets/",
+            "./third_party/codemirror/codemirror.css": "./dist/assets/css/codemirror.css",
+            "./third_party/codemirror/theme/monokai.css": "./dist/assets/css/monokai.css"
         })
     ]
 };
