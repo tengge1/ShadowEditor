@@ -1,8 +1,10 @@
-﻿/**
+﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.SphereGeometry = function (editor, object) {
+function SphereGeometryPanel(editor, object) {
 
     var signals = editor.signals;
 
@@ -87,14 +89,14 @@ Sidebar.Geometry.SphereGeometry = function (editor, object) {
     function update() {
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
-			radius.getValue(),
-			widthSegments.getValue(),
-			heightSegments.getValue(),
-			phiStart.getValue(),
-			phiLength.getValue(),
-			thetaStart.getValue(),
-			thetaLength.getValue()
-		)));
+            radius.getValue(),
+            widthSegments.getValue(),
+            heightSegments.getValue(),
+            phiStart.getValue(),
+            phiLength.getValue(),
+            thetaStart.getValue(),
+            thetaLength.getValue()
+        )));
 
     }
 
@@ -102,4 +104,4 @@ Sidebar.Geometry.SphereGeometry = function (editor, object) {
 
 };
 
-Sidebar.Geometry.SphereBufferGeometry = Sidebar.Geometry.SphereGeometry;
+export default SphereGeometryPanel;

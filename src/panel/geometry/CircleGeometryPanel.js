@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.CircleGeometry = function (editor, object) {
+function CircleGeometryPanel(editor, object) {
 
     var signals = editor.signals;
 
@@ -56,11 +56,11 @@ Sidebar.Geometry.CircleGeometry = function (editor, object) {
     function update() {
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
-			radius.getValue(),
-			segments.getValue(),
-			thetaStart.getValue(),
-			thetaLength.getValue()
-		)));
+            radius.getValue(),
+            segments.getValue(),
+            thetaStart.getValue(),
+            thetaLength.getValue()
+        )));
 
     }
 
@@ -68,4 +68,4 @@ Sidebar.Geometry.CircleGeometry = function (editor, object) {
 
 };
 
-Sidebar.Geometry.CircleBufferGeometry = Sidebar.Geometry.CircleGeometry;
+export default CircleGeometryPanel;

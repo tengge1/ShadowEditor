@@ -1,8 +1,10 @@
-﻿/**
+﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.IcosahedronGeometry = function (editor, object) {
+function IcosahedronGeometryPanel(editor, object) {
 
     var signals = editor.signals;
 
@@ -37,9 +39,9 @@ Sidebar.Geometry.IcosahedronGeometry = function (editor, object) {
     function update() {
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
-			radius.getValue(),
-			detail.getValue()
-		)));
+            radius.getValue(),
+            detail.getValue()
+        )));
 
         signals.objectChanged.dispatch(object);
 
@@ -49,4 +51,4 @@ Sidebar.Geometry.IcosahedronGeometry = function (editor, object) {
 
 };
 
-Sidebar.Geometry.IcosahedronBufferGeometry = Sidebar.Geometry.IcosahedronGeometry;
+export default IcosahedronGeometryPanel;

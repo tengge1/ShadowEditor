@@ -1,4 +1,7 @@
 ﻿import SetGeometryValueCommand from '../../command/SetGeometryValueCommand';
+import GeometryGeometryPanel from './GeometryGeometryPanel';
+import BufferGeometryPanel from './BufferGeometryPanel';
+import GeometryModifyPanel from './GeometryModifyPanel';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -129,11 +132,11 @@ function GeometryPanel(editor) {
 
     // geometry
 
-    container.add(new Sidebar.Geometry.Geometry(editor));
+    container.add(new GeometryGeometryPanel(editor));
 
     // buffergeometry
 
-    container.add(new Sidebar.Geometry.BufferGeometry(editor));
+    container.add(new BufferGeometryPanel(editor));
 
     // parameters
 
@@ -164,7 +167,7 @@ function GeometryPanel(editor) {
 
             if (geometry.type === 'BufferGeometry' || geometry.type === 'Geometry') {
 
-                parameters.add(new Sidebar.Geometry.Modifiers(editor, object));
+                parameters.add(new GeometryModifyPanel(editor, object));
 
             } else if (Sidebar.Geometry[geometry.type] !== undefined) {
 

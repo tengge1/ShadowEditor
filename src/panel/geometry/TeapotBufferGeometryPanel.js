@@ -1,8 +1,10 @@
-﻿/**
+﻿import TeapotBufferGeometryPanel from '../../command/TeapotBufferGeometryPanel';
+
+/**
  * @author tschw
  */
 
-Sidebar.Geometry.TeapotBufferGeometry = function (signals, object) {
+function TeapotBufferGeometryPanel(signals, object) {
 
     var container = new UI.Row();
 
@@ -83,14 +85,14 @@ Sidebar.Geometry.TeapotBufferGeometry = function (signals, object) {
         object.geometry.dispose();
 
         object.geometry = new THREE.TeapotBufferGeometry(
-			size.getValue(),
-			segments.getValue(),
-			bottom.getValue(),
-			lid.getValue(),
-			body.getValue(),
-			fitLid.getValue(),
-			blinn.getValue()
-		);
+            size.getValue(),
+            segments.getValue(),
+            bottom.getValue(),
+            lid.getValue(),
+            body.getValue(),
+            fitLid.getValue(),
+            blinn.getValue()
+        );
 
         object.geometry.computeBoundingSphere();
 
@@ -101,3 +103,5 @@ Sidebar.Geometry.TeapotBufferGeometry = function (signals, object) {
     return container;
 
 };
+
+export default TeapotBufferGeometryPanel;

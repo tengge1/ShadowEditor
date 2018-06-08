@@ -2,7 +2,7 @@
  * @author rfm1201
  */
 
-Sidebar.Geometry.LatheGeometry = function (editor, object) {
+function LatheGeometryPanel(editor, object) {
 
     var signals = editor.signals;
 
@@ -135,11 +135,11 @@ Sidebar.Geometry.LatheGeometry = function (editor, object) {
         }
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
-			points,
-			segments.getValue(),
-			phiStart.getValue() / 180 * Math.PI,
-			phiLength.getValue() / 180 * Math.PI
-		)));
+            points,
+            segments.getValue(),
+            phiStart.getValue() / 180 * Math.PI,
+            phiLength.getValue() / 180 * Math.PI
+        )));
 
     }
 
@@ -147,4 +147,4 @@ Sidebar.Geometry.LatheGeometry = function (editor, object) {
 
 };
 
-Sidebar.Geometry.LatheBufferGeometry = Sidebar.Geometry.LatheGeometry;
+export default LatheGeometryPanel;

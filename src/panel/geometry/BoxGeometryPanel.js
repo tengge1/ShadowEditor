@@ -1,8 +1,10 @@
-﻿/**
+﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.BoxGeometry = function (editor, object) {
+function BoxGeometryPanel(editor, object) {
 
     var signals = editor.signals;
 
@@ -76,13 +78,13 @@ Sidebar.Geometry.BoxGeometry = function (editor, object) {
     function update() {
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
-			width.getValue(),
-			height.getValue(),
-			depth.getValue(),
-			widthSegments.getValue(),
-			heightSegments.getValue(),
-			depthSegments.getValue()
-		)));
+            width.getValue(),
+            height.getValue(),
+            depth.getValue(),
+            widthSegments.getValue(),
+            heightSegments.getValue(),
+            depthSegments.getValue()
+        )));
 
     }
 
@@ -90,4 +92,4 @@ Sidebar.Geometry.BoxGeometry = function (editor, object) {
 
 };
 
-Sidebar.Geometry.BoxBufferGeometry = Sidebar.Geometry.BoxGeometry;
+export default BoxGeometryPanel;

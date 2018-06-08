@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.Geometry = function (editor) {
+function GeometryGeometryPanel(editor) {
 
     var signals = editor.signals;
 
@@ -58,3 +58,5 @@ Sidebar.Geometry.Geometry = function (editor) {
     return container;
 
 };
+
+export default GeometryGeometryPanel;

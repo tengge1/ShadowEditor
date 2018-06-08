@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.BufferGeometry = function (editor) {
+function BufferGeometryPanel(editor) {
 
     var signals = editor.signals;
 
@@ -58,3 +58,5 @@ Sidebar.Geometry.BufferGeometry = function (editor) {
     return container;
 
 };
+
+export default BufferGeometryPanel;

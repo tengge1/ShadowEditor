@@ -1,8 +1,10 @@
-﻿/**
+﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.PlaneGeometry = function (editor, object) {
+function PlaneGeometryPanel(editor, object) {
 
     var signals = editor.signals;
 
@@ -57,11 +59,11 @@ Sidebar.Geometry.PlaneGeometry = function (editor, object) {
     function update() {
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
-			width.getValue(),
-			height.getValue(),
-			widthSegments.getValue(),
-			heightSegments.getValue()
-		)));
+            width.getValue(),
+            height.getValue(),
+            widthSegments.getValue(),
+            heightSegments.getValue()
+        )));
 
     }
 
@@ -69,4 +71,4 @@ Sidebar.Geometry.PlaneGeometry = function (editor, object) {
 
 };
 
-Sidebar.Geometry.PlaneBufferGeometry = Sidebar.Geometry.PlaneGeometry;
+export default PlaneGeometryPanel;

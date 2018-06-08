@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.Modifiers = function (editor, object) {
+function GeometryModifyPanel(editor, object) {
 
     var signals = editor.signals;
 
@@ -38,3 +38,5 @@ Sidebar.Geometry.Modifiers = function (editor, object) {
     return container;
 
 };
+
+export default GeometryModifyPanel;

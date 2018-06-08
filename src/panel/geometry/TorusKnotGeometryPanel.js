@@ -1,8 +1,10 @@
-﻿/**
+﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry.TorusGeometry = function (editor, object) {
+function TorusKnotGeometryPanel(editor, object) {
 
     var signals = editor.signals;
 
@@ -31,16 +33,6 @@ Sidebar.Geometry.TorusGeometry = function (editor, object) {
 
     container.add(tubeRow);
 
-    // radialSegments
-
-    var radialSegmentsRow = new UI.Row();
-    var radialSegments = new UI.Integer(parameters.radialSegments).setRange(1, Infinity).onChange(update);
-
-    radialSegmentsRow.add(new UI.Text('径向段数').setWidth('90px'));
-    radialSegmentsRow.add(radialSegments);
-
-    container.add(radialSegmentsRow);
-
     // tubularSegments
 
     var tubularSegmentsRow = new UI.Row();
@@ -51,15 +43,35 @@ Sidebar.Geometry.TorusGeometry = function (editor, object) {
 
     container.add(tubularSegmentsRow);
 
-    // arc
+    // radialSegments
 
-    var arcRow = new UI.Row();
-    var arc = new UI.Number(parameters.arc).onChange(update);
+    var radialSegmentsRow = new UI.Row();
+    var radialSegments = new UI.Integer(parameters.radialSegments).setRange(1, Infinity).onChange(update);
 
-    arcRow.add(new UI.Text('弧长').setWidth('90px'));
-    arcRow.add(arc);
+    radialSegmentsRow.add(new UI.Text('径向段数').setWidth('90px'));
+    radialSegmentsRow.add(radialSegments);
 
-    container.add(arcRow);
+    container.add(radialSegmentsRow);
+
+    // p
+
+    var pRow = new UI.Row();
+    var p = new UI.Number(parameters.p).onChange(update);
+
+    pRow.add(new UI.Text('P').setWidth('90px'));
+    pRow.add(p);
+
+    container.add(pRow);
+
+    // q
+
+    var qRow = new UI.Row();
+    var q = new UI.Number(parameters.q).onChange(update);
+
+    pRow.add(new UI.Text('Q').setWidth('90px'));
+    pRow.add(q);
+
+    container.add(qRow);
 
 
     //
@@ -67,12 +79,13 @@ Sidebar.Geometry.TorusGeometry = function (editor, object) {
     function update() {
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
-			radius.getValue(),
-			tube.getValue(),
-			radialSegments.getValue(),
-			tubularSegments.getValue(),
-			arc.getValue()
-		)));
+            radius.getValue(),
+            tube.getValue(),
+            tubularSegments.getValue(),
+            radialSegments.getValue(),
+            p.getValue(),
+            q.getValue()
+        )));
 
     }
 
@@ -80,4 +93,4 @@ Sidebar.Geometry.TorusGeometry = function (editor, object) {
 
 };
 
-Sidebar.Geometry.TorusBufferGeometry = Sidebar.Geometry.TorusGeometry;
+export default TorusKnotGeometryPanel;
