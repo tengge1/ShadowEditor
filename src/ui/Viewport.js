@@ -1,8 +1,13 @@
-﻿/**
+﻿import ViewportInfo from './ViewportInfo';
+import SetPositionCommand from '../command/SetPositionCommand';
+import SetRotationCommand from '../command/SetRotationCommand';
+import SetScaleCommand from '../command/SetScaleCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-var Viewport = function (editor) {
+function Viewport(editor) {
 
     var signals = editor.signals;
 
@@ -10,7 +15,7 @@ var Viewport = function (editor) {
     container.setId('viewport');
     container.setPosition('absolute');
 
-    container.add(new Viewport.Info(editor));
+    container.add(new ViewportInfo(editor));
 
     //
 
@@ -26,13 +31,13 @@ var Viewport = function (editor) {
 
     var vrEffect, vrControls;
 
-    if (WEBVR.isAvailable() === true) {
+    // if (WEBVR.isAvailable() === true) {
 
-        var vrCamera = new THREE.PerspectiveCamera();
-        vrCamera.projectionMatrix = camera.projectionMatrix;
-        camera.add(vrCamera);
+    var vrCamera = new THREE.PerspectiveCamera();
+    vrCamera.projectionMatrix = camera.projectionMatrix;
+    camera.add(vrCamera);
 
-    }
+    // }
 
     // helpers
 
@@ -626,3 +631,5 @@ var Viewport = function (editor) {
     return container;
 
 };
+
+export default Viewport;

@@ -7,7 +7,7 @@ import Loader from './core/Loader';
  * @author mrdoob / http://mrdoob.com/
  */
 
-var Editor = function () {
+function Editor() {
 
     this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 0.1, 10000);
     this.DEFAULT_CAMERA.name = 'Camera';

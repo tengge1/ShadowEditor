@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Viewport.Info = function (editor) {
+function ViewportInfo(editor) {
 
     var signals = editor.signals;
 
@@ -82,3 +82,5 @@ Viewport.Info = function (editor) {
     return container;
 
 };
+
+export default ViewportInfo;

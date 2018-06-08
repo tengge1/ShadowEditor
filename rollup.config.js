@@ -26,7 +26,7 @@ export default {
     output: {
         indent: '\t',
         format: 'umd',
-        name: 'BubbleEditor',
+        name: 'Bubble',
         file: 'dist/BubbleEditor.js'
     },
     external: [],

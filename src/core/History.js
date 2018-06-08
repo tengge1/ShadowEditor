@@ -5,7 +5,7 @@
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  */
 
-var History = function (editor) {
+function History(editor) {
 
     this.editor = editor;
     this.undos = [];
@@ -18,7 +18,7 @@ var History = function (editor) {
 
     //Set editor-reference in Command
 
-    Command(editor);
+    Command.call(this, editor);
 
     // signals
 

@@ -9,7 +9,7 @@
  * @constructor
  */
 
-var Command = function (editorRef) {
+function Command(editorRef) {
 
     this.id = -1;
     this.inMemory = false;
