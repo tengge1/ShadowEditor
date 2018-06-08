@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Menubar.Status = function (editor) {
+function StatusMenu(editor) {
 
     var container = new UI.Panel();
     container.setClass('menu right');
@@ -44,3 +44,5 @@ Menubar.Status = function (editor) {
     return container;
 
 };
+
+export default StatusMenu;

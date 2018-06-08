@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Menubar.Examples = function (editor) {
+function ExampleMenu(editor) {
 
     var container = new UI.Panel();
     container.setClass('menu');
@@ -19,10 +19,10 @@ Menubar.Examples = function (editor) {
     // Examples
 
     var items = [
-		{ title: '打砖块', file: 'arkanoid.app.json' },
-		{ title: '相机', file: 'camera.app.json' },
-		{ title: '粒子', file: 'particles.app.json' },
-		{ title: '乒乓球', file: 'pong.app.json' }
+        { title: '打砖块', file: 'arkanoid.app.json' },
+        { title: '相机', file: 'camera.app.json' },
+        { title: '粒子', file: 'particles.app.json' },
+        { title: '乒乓球', file: 'pong.app.json' }
     ];
 
     var loader = new THREE.FileLoader();
@@ -59,3 +59,5 @@ Menubar.Examples = function (editor) {
     return container;
 
 };
+
+export default ExampleMenu;

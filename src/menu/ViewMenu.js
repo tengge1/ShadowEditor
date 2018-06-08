@@ -2,40 +2,36 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Menubar.Help = function (editor) {
+function ViewMenu(editor) {
 
     var container = new UI.Panel();
     container.setClass('menu');
 
     var title = new UI.Panel();
     title.setClass('title');
-    title.setTextContent('帮助');
+    title.setTextContent('视图');
     container.add(title);
 
     var options = new UI.Panel();
     options.setClass('options');
     container.add(options);
 
-    // Source code
+    // VR mode
 
     var option = new UI.Row();
     option.setClass('option');
-    option.setTextContent('源码');
+    option.setTextContent('VR模式');
     option.onClick(function () {
 
-        window.open('https://github.com/mrdoob/three.js/tree/master/editor', '_blank')
+        if (WEBVR.isAvailable() === true) {
 
-    });
-    options.add(option);
+            editor.signals.enterVR.dispatch();
 
-    // About
+        } else {
 
-    var option = new UI.Row();
-    option.setClass('option');
-    option.setTextContent('关于');
-    option.onClick(function () {
+            alert('WebVR不可用');
 
-        window.open('http://threejs.org', '_blank');
+        }
 
     });
     options.add(option);
@@ -43,3 +39,5 @@ Menubar.Help = function (editor) {
     return container;
 
 };
+
+export default ViewMenu;

@@ -1,8 +1,13 @@
-﻿/**
+﻿import AddObjectCommand from '../command/AddObjectCommand';
+import RemoveObjectCommand from '../command/RemoveObjectCommand';
+import SetMaterialValueCommand from '../command/SetMaterialValueCommand';
+import MultiCmdsCommand from '../command/MultiCmdsCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Menubar.Edit = function (editor) {
+function EditMenu(editor) {
 
     var container = new UI.Panel();
     container.setClass('menu');
@@ -156,7 +161,7 @@ Menubar.Edit = function (editor) {
                 try {
 
                     var shader = glslprep.minifyGlsl([
-							material.vertexShader, material.fragmentShader]);
+                        material.vertexShader, material.fragmentShader]);
 
                     cmds.push(new SetMaterialValueCommand(object, 'vertexShader', shader[0]));
                     cmds.push(new SetMaterialValueCommand(object, 'fragmentShader', shader[1]));
@@ -170,12 +175,12 @@ Menubar.Edit = function (editor) {
                     if (e instanceof glslprep.SyntaxError)
 
                         errors.push(path + ":" +
-								e.line + ":" + e.column + ": " + e.message);
+                            e.line + ":" + e.column + ": " + e.message);
 
                     else {
 
                         errors.push(path +
-								"： 未预料到的错误(详情请见控制台)。");
+                            "： 未预料到的错误(详情请见控制台)。");
 
                         console.error(e.stack || e);
 
@@ -194,7 +199,7 @@ Menubar.Edit = function (editor) {
         }
 
         window.alert(nMaterialsChanged +
-				"材质已经改变。\n" + errors.join("\n"));
+            "材质已经改变。\n" + errors.join("\n"));
 
     });
     options.add(option);
@@ -203,3 +208,5 @@ Menubar.Edit = function (editor) {
     return container;
 
 };
+
+export default EditMenu;

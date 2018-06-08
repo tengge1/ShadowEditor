@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Menubar.File = function (editor) {
+function FileMenu(editor) {
 
     var NUMBER_PRECISION = 6;
 
@@ -343,3 +343,5 @@ Menubar.File = function (editor) {
     return container;
 
 };
+
+export default FileMenu;

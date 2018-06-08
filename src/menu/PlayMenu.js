@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Menubar.Play = function (editor) {
+function PlayMenu(editor) {
 
     var signals = editor.signals;
 
@@ -36,3 +36,5 @@ Menubar.Play = function (editor) {
     return container;
 
 };
+
+export default PlayMenu;

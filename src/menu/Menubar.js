@@ -1,22 +1,33 @@
-﻿/**
+﻿import FileMenu from './FileMenu';
+import EditMenu from './EditMenu';
+import AddMenu from './AddMenu';
+import PlayMenu from './PlayMenu';
+import ExampleMenu from './ExampleMenu';
+import HelpMenu from './HelpMenu';
+import StatusMenu from './StatusMenu';
+import ViewMenu from './ViewMenu';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-var Menubar = function (editor) {
+function Menubar(editor) {
 
     var container = new UI.Panel();
     container.setId('menubar');
 
-    container.add(new Menubar.File(editor));
-    container.add(new Menubar.Edit(editor));
-    container.add(new Menubar.Add(editor));
-    container.add(new Menubar.Play(editor));
-    // container.add( new Menubar.View( editor ) );
-    container.add(new Menubar.Examples(editor));
-    container.add(new Menubar.Help(editor));
+    container.add(new FileMenu(editor));
+    container.add(new EditMenu(editor));
+    container.add(new AddMenu(editor));
+    container.add(new PlayMenu(editor));
+    container.add(new ViewMenu(editor));
+    container.add(new ExampleMenu(editor));
+    container.add(new HelpMenu(editor));
 
-    container.add(new Menubar.Status(editor));
+    container.add(new StatusMenu(editor));
 
     return container;
 
 };
+
+export default Menubar;

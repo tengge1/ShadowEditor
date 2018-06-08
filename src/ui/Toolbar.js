@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-var Toolbar = function (editor) {
+function Toolbar(editor) {
 
     var signals = editor.signals;
 
@@ -84,3 +84,5 @@ var Toolbar = function (editor) {
     return container;
 
 };
+
+export default Toolbar;

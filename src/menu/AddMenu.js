@@ -1,8 +1,10 @@
-﻿/**
+﻿import AddObjectCommand from '../command/AddObjectCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Menubar.Add = function (editor) {
+function AddMenu(editor) {
 
     var container = new UI.Panel();
     container.setClass('menu');
@@ -247,17 +249,17 @@ Menubar.Add = function (editor) {
     option.onClick(function () {
 
         var points = [
-			new THREE.Vector2(0, 0),
-			new THREE.Vector2(4, 0),
-			new THREE.Vector2(3.5, 0.5),
-			new THREE.Vector2(1, 0.75),
-			new THREE.Vector2(0.8, 1),
-			new THREE.Vector2(0.8, 4),
-			new THREE.Vector2(1, 4.2),
-			new THREE.Vector2(1.4, 4.8),
-			new THREE.Vector2(2, 5),
-			new THREE.Vector2(2.5, 5.4),
-			new THREE.Vector2(3, 12)
+            new THREE.Vector2(0, 0),
+            new THREE.Vector2(4, 0),
+            new THREE.Vector2(3.5, 0.5),
+            new THREE.Vector2(1, 0.75),
+            new THREE.Vector2(0.8, 1),
+            new THREE.Vector2(0.8, 4),
+            new THREE.Vector2(1, 4.2),
+            new THREE.Vector2(1.4, 4.8),
+            new THREE.Vector2(2, 5),
+            new THREE.Vector2(2.5, 5.4),
+            new THREE.Vector2(3, 12)
         ];
         var segments = 20;
         var phiStart = 0;
@@ -415,3 +417,5 @@ Menubar.Add = function (editor) {
     return container;
 
 };
+
+export default AddMenu;
