@@ -1,4 +1,9 @@
-﻿/**
+﻿import Config from './Config';
+import History from './core/History';
+import Storage from './core/Storage';
+import Loader from './core/Loader';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -536,3 +541,5 @@ Editor.prototype = {
     }
 
 };
+
+export default Editor;

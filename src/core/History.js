@@ -1,9 +1,11 @@
-﻿/**
+﻿import Command from '../command/Command';
+
+/**
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  */
 
-History = function (editor) {
+var History = function (editor) {
 
     this.editor = editor;
     this.undos = [];
@@ -44,12 +46,12 @@ History.prototype = {
         var timeDifference = new Date().getTime() - this.lastCmdTime.getTime();
 
         var isUpdatableCmd = lastCmd &&
-			lastCmd.updatable &&
-			cmd.updatable &&
-			lastCmd.object === cmd.object &&
-			lastCmd.type === cmd.type &&
-			lastCmd.script === cmd.script &&
-			lastCmd.attributeName === cmd.attributeName;
+            lastCmd.updatable &&
+            cmd.updatable &&
+            lastCmd.object === cmd.object &&
+            lastCmd.type === cmd.type &&
+            lastCmd.script === cmd.script &&
+            lastCmd.attributeName === cmd.attributeName;
 
         if (isUpdatableCmd && cmd.type === "SetScriptValueCommand") {
 
@@ -173,7 +175,7 @@ History.prototype = {
 
         // Append Undos to History
 
-        for (var i = 0 ; i < this.undos.length; i++) {
+        for (var i = 0; i < this.undos.length; i++) {
 
             if (this.undos[i].hasOwnProperty("json")) {
 
@@ -185,7 +187,7 @@ History.prototype = {
 
         // Append Redos to History
 
-        for (var i = 0 ; i < this.redos.length; i++) {
+        for (var i = 0; i < this.redos.length; i++) {
 
             if (this.redos[i].hasOwnProperty("json")) {
 
@@ -321,3 +323,5 @@ History.prototype = {
     }
 
 };
+
+export default History;

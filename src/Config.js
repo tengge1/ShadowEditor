@@ -65,3 +65,5 @@ var Config = function (name) {
     };
 
 };
+
+export default Config;

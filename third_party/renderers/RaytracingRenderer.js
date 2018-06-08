@@ -6,9 +6,9 @@
  * @author zz85 / http://github.com/zz85
  */
 
-THREE.RaytracingRenderer = function (parameters) {
+THREE.RaytracingRenderer = function ( parameters ) {
 
-	console.log('THREE.RaytracingRenderer', THREE.REVISION);
+	console.log( 'THREE.RaytracingRenderer', THREE.REVISION );
 
 	parameters = parameters || {};
 
@@ -16,17 +16,16 @@ THREE.RaytracingRenderer = function (parameters) {
 	var pool = [];
 	var renderering = false;
 
-	var canvas = document.createElement('canvas');
-	var context = canvas.getContext('2d', {
+	var canvas = document.createElement( 'canvas' );
+	var context = canvas.getContext( '2d', {
 		alpha: parameters.alpha === true
-	});
+	} );
 
 	var maxRecursionDepth = 3;
 
 	var canvasWidth, canvasHeight;
-	var canvasWidthHalf, canvasHeightHalf;
 
-	var clearColor = new THREE.Color(0x000000);
+	var clearColor = new THREE.Color( 0x000000 );
 
 	this.domElement = canvas;
 
@@ -38,67 +37,67 @@ THREE.RaytracingRenderer = function (parameters) {
 
 	var toRender = [], workerId = 0, sceneId = 0;
 
-	console.log('%cSpinning off ' + workers + ' Workers ', 'font-size: 20px; background: black; color: white; font-family: monospace;');
+	console.log( '%cSpinning off ' + workers + ' Workers ', 'font-size: 20px; background: black; color: white; font-family: monospace;' );
 
-	this.setWorkers = function (w) {
+	this.setWorkers = function( w ) {
 
 		workers = w || navigator.hardwareConcurrency || 4;
 
-		while (pool.length < workers) {
-			var worker = new Worker(parameters.workerPath);
+		while ( pool.length < workers ) {
+			var worker = new Worker( parameters.workerPath );
 			worker.id = workerId++;
 
-			worker.onmessage = function (e) {
+			worker.onmessage = function( e ) {
 
 				var data = e.data;
 
-				if (!data) return;
+				if ( ! data ) return;
 
-				if (data.blockSize && sceneId == data.sceneId) { // we match sceneId here to be sure
+				if ( data.blockSize && sceneId == data.sceneId ) { // we match sceneId here to be sure
 
-					var imagedata = new ImageData(new Uint8ClampedArray(data.data), data.blockSize, data.blockSize);
-					context.putImageData(imagedata, data.blockX, data.blockY);
+					var imagedata = new ImageData( new Uint8ClampedArray( data.data ), data.blockSize, data.blockSize );
+					context.putImageData( imagedata, data.blockX, data.blockY );
 
 					// completed
 
-					console.log('Worker ' + this.id, data.time / 1000, (Date.now() - reallyThen) / 1000 + ' s');
+					console.log( 'Worker ' + this.id, data.time / 1000, ( Date.now() - reallyThen ) / 1000 + ' s' );
 
-					if (pool.length > workers) {
+					if ( pool.length > workers ) {
 
-						pool.splice(pool.indexOf(this), 1);
+						pool.splice( pool.indexOf( this ), 1 );
 						return this.terminate();
 
 					}
 
-					renderNext(this);
+					renderNext( this );
 
 				}
 
 			};
 
-			worker.color = new THREE.Color().setHSL(Math.random(), 0.8, 0.8).getHexString();
-			pool.push(worker);
+			worker.color = new THREE.Color().setHSL( Math.random() , 0.8, 0.8 ).getHexString();
+			pool.push( worker );
 
-			if (renderering) {
+			updateSettings( worker );
 
-				updateSettings(worker);
+			if ( renderering ) {
 
-				worker.postMessage({
+				worker.postMessage( {
 					scene: sceneJSON,
 					camera: cameraJSON,
 					annex: materials,
 					sceneId: sceneId
-				});
+				} );
 
-				renderNext(worker);
+				renderNext( worker );
 
 			}
 
 		}
 
-		if (!renderering) {
+		if ( ! renderering ) {
 
-			while (pool.length > workers) {
+			while ( pool.length > workers ) {
 
 				pool.pop().terminate();
 
@@ -108,17 +107,17 @@ THREE.RaytracingRenderer = function (parameters) {
 
 	};
 
-	this.setWorkers(workers);
+	this.setWorkers( workers );
 
-	this.setClearColor = function (color, alpha) {
+	this.setClearColor = function ( color, alpha ) {
 
-		clearColor.set(color);
+		clearColor.set( color );
 
 	};
 
-	this.setPixelRatio = function () { };
+	this.setPixelRatio = function () {};
 
-	this.setSize = function (width, height) {
+	this.setSize = function ( width, height ) {
 
 		canvas.width = width;
 		canvas.height = height;
@@ -126,16 +125,13 @@ THREE.RaytracingRenderer = function (parameters) {
 		canvasWidth = canvas.width;
 		canvasHeight = canvas.height;
 
-		canvasWidthHalf = Math.floor(canvasWidth / 2);
-		canvasHeightHalf = Math.floor(canvasHeight / 2);
-
 		context.fillStyle = 'white';
 
-		pool.forEach(updateSettings);
+		pool.forEach( updateSettings );
 
 	};
 
-	this.setSize(canvas.width, canvas.height);
+	this.setSize( canvas.width, canvas.height );
 
 	this.clear = function () {
 
@@ -145,42 +141,42 @@ THREE.RaytracingRenderer = function (parameters) {
 
 	var totalBlocks, xblocks, yblocks;
 
-	function updateSettings(worker) {
+	function updateSettings( worker ) {
 
-		worker.postMessage({
+		worker.postMessage( {
 
-			init: [canvasWidth, canvasHeight],
+			init: [ canvasWidth, canvasHeight ],
 			worker: worker.id,
 			// workers: pool.length,
 			blockSize: blockSize
 
-		});
+		} );
 
 	}
 
-	function renderNext(worker) {
-		if (!toRender.length) {
+	function renderNext( worker ) {
+		if ( ! toRender.length ) {
 
 			renderering = false;
-			return scope.dispatchEvent({ type: "complete" });
+			return scope.dispatchEvent( { type: "complete" } );
 
 		}
 
 		var current = toRender.pop();
 
-		var blockX = (current % xblocks) * blockSize;
-		var blockY = (current / xblocks | 0) * blockSize;
+		var blockX = ( current % xblocks ) * blockSize;
+		var blockY = ( current / xblocks | 0 ) * blockSize;
 
-		worker.postMessage({
+		worker.postMessage( {
 			render: true,
 			x: blockX,
 			y: blockY,
 			sceneId: sceneId
-		});
+		} );
 
 		context.fillStyle = '#' + worker.color;
 
-		context.fillRect(blockX, blockY, blockSize, blockSize);
+		context.fillRect( blockX, blockY, blockSize, blockSize );
 
 	}
 
@@ -199,93 +195,91 @@ THREE.RaytracingRenderer = function (parameters) {
 
 	};
 
-	function serializeObject(o) {
+	function serializeObject( o ) {
 
 		var mat = o.material;
 
-		if (!mat || mat.uuid in materials) return;
+		if ( ! mat || mat.uuid in materials ) return;
 
 		var props = {};
-		for (var m in _annex) {
+		for ( var m in _annex ) {
 
-			if (mat[m] !== undefined) {
+			if ( mat[ m ] !== undefined ) {
 
-				props[m] = mat[m];
+				props[ m ] = mat[ m ];
 
 			}
 
 		}
 
-		materials[mat.uuid] = props;
+		materials[ mat.uuid ] = props;
 	}
 
-	this.render = function (scene, camera) {
+	this.render = function ( scene, camera ) {
 
 		renderering = true;
 
 		// update scene graph
 
-		if (scene.autoUpdate === true) scene.updateMatrixWorld();
+		if ( scene.autoUpdate === true ) scene.updateMatrixWorld();
 
 		// update camera matrices
 
-		if (camera.parent === null) camera.updateMatrixWorld();
+		if ( camera.parent === null ) camera.updateMatrixWorld();
 
 
 		sceneJSON = scene.toJSON();
 		cameraJSON = camera.toJSON();
-		++sceneId;
+		++ sceneId;
 
-		scene.traverse(serializeObject);
+		scene.traverse( serializeObject );
 
-		pool.forEach(function (worker) {
+		pool.forEach( function( worker ) {
 
-			worker.postMessage({
+			worker.postMessage( {
 				scene: sceneJSON,
 				camera: cameraJSON,
 				annex: materials,
 				sceneId: sceneId
-			});
-		});
+			} );
+		} );
 
-		context.clearRect(0, 0, canvasWidth, canvasHeight);
+		context.clearRect( 0, 0, canvasWidth, canvasHeight );
 		reallyThen = Date.now();
 
-		xblocks = Math.ceil(canvasWidth / blockSize);
-		yblocks = Math.ceil(canvasHeight / blockSize);
+		xblocks = Math.ceil( canvasWidth / blockSize );
+		yblocks = Math.ceil( canvasHeight / blockSize );
 		totalBlocks = xblocks * yblocks;
 
 		toRender = [];
 
-		for (var i = 0; i < totalBlocks; i++) {
+		for ( var i = 0; i < totalBlocks; i ++ ) {
 
-			toRender.push(i);
+			toRender.push( i );
 
 		}
 
 
 		// Randomize painting :)
 
-		if (scope.randomize) {
+		if ( scope.randomize ) {
 
-			for (var i = 0; i < totalBlocks; i++) {
+			for ( var i = 0; i < totalBlocks; i ++ ) {
 
-				var swap = Math.random() * totalBlocks | 0;
-				var tmp = toRender[swap];
-				toRender[swap] = toRender[i];
-				toRender[i] = tmp;
+				var swap = Math.random()  * totalBlocks | 0;
+				var tmp = toRender[ swap ];
+				toRender[ swap ] = toRender[ i ];
+				toRender[ i ] = tmp;
 
 			}
 
 		}
 
 
-		pool.forEach(renderNext);
+		pool.forEach( renderNext );
 
 	};
 
 };
 
-Object.assign(THREE.RaytracingRenderer.prototype, THREE.EventDispatcher.prototype);
-
-export default THREE.RaytracingRenderer;
+Object.assign( THREE.RaytracingRenderer.prototype, THREE.EventDispatcher.prototype );

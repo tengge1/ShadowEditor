@@ -1130,5 +1130,3 @@ THREE.SceneLoader.prototype = {
 	}
 
 };
-
-export default THREE.SceneLoader;

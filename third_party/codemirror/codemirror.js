@@ -8932,5 +8932,3 @@
 
   return CodeMirror;
 });
-
-export default CodeMirror;

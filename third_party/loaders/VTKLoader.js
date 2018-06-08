@@ -1,33 +1,39 @@
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author Alex Pletzer
+ *
+ * Updated on 22.03.2017
+ * VTK header is now parsed and used to extract all the compressed data
+ * @author Andrii Iudin https://github.com/andreyyudin
+ * @author Paul Kibet Korir https://github.com/polarise
+ * @author Sriram Somasundharam https://github.com/raamssundar
  */
 
-THREE.VTKLoader = function (manager) {
+THREE.VTKLoader = function ( manager ) {
 
-	this.manager = (manager !== undefined) ? manager : THREE.DefaultLoadingManager;
+	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
+Object.assign( THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
-	load: function (url, onLoad, onProgress, onError) {
+	load: function ( url, onLoad, onProgress, onError ) {
 
 		var scope = this;
 
-		var loader = new THREE.FileLoader(scope.manager);
-		loader.setResponseType('arraybuffer');
-		loader.load(url, function (text) {
+		var loader = new THREE.FileLoader( scope.manager );
+		loader.setResponseType( 'arraybuffer' );
+		loader.load( url, function ( text ) {
 
-			onLoad(scope.parse(text));
+			onLoad( scope.parse( text ) );
 
-		}, onProgress, onError);
+		}, onProgress, onError );
 
 	},
 
-	parse: function (data) {
+	parse: function ( data ) {
 
-		function parseASCII(data) {
+		function parseASCII( data ) {
 
 			// connectivity of the triangles
 			var indices = [];
@@ -79,44 +85,44 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 			var inColorSection = false;
 			var inNormalsSection = false;
 
-			var lines = data.split('\n');
+			var lines = data.split( '\n' );
 
-			for (var i in lines) {
+			for ( var i in lines ) {
 
-				var line = lines[i];
+				var line = lines[ i ];
 
-				if (inPointsSection) {
+				if ( inPointsSection ) {
 
 					// get the vertices
-					while ((result = pat3Floats.exec(line)) !== null) {
+					while ( ( result = pat3Floats.exec( line ) ) !== null ) {
 
-						var x = parseFloat(result[1]);
-						var y = parseFloat(result[2]);
-						var z = parseFloat(result[3]);
-						positions.push(x, y, z);
+						var x = parseFloat( result[ 1 ] );
+						var y = parseFloat( result[ 2 ] );
+						var z = parseFloat( result[ 3 ] );
+						positions.push( x, y, z );
 
 					}
 
-				} else if (inPolygonsSection) {
+				} else if ( inPolygonsSection ) {
 
-					if ((result = patConnectivity.exec(line)) !== null) {
+					if ( ( result = patConnectivity.exec( line ) ) !== null ) {
 
 						// numVertices i0 i1 i2 ...
-						var numVertices = parseInt(result[1]);
-						var inds = result[2].split(/\s+/);
+						var numVertices = parseInt( result[ 1 ] );
+						var inds = result[ 2 ].split( /\s+/ );
 
-						if (numVertices >= 3) {
+						if ( numVertices >= 3 ) {
 
-							var i0 = parseInt(inds[0]);
+							var i0 = parseInt( inds[ 0 ] );
 							var i1, i2;
 							var k = 1;
 							// split the polygon in numVertices - 2 triangles
-							for (var j = 0; j < numVertices - 2; ++j) {
+							for ( var j = 0; j < numVertices - 2; ++ j ) {
 
-								i1 = parseInt(inds[k]);
-								i2 = parseInt(inds[k + 1]);
-								indices.push(i0, i1, i2);
-								k++;
+								i1 = parseInt( inds[ k ] );
+								i2 = parseInt( inds[ k + 1 ] );
+								indices.push( i0, i1, i2 );
+								k ++;
 
 							}
 
@@ -124,33 +130,33 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 					}
 
-				} else if (inTriangleStripSection) {
+				} else if ( inTriangleStripSection ) {
 
-					if ((result = patConnectivity.exec(line)) !== null) {
+					if ( ( result = patConnectivity.exec( line ) ) !== null ) {
 
 						// numVertices i0 i1 i2 ...
-						var numVertices = parseInt(result[1]);
-						var inds = result[2].split(/\s+/);
+						var numVertices = parseInt( result[ 1 ] );
+						var inds = result[ 2 ].split( /\s+/ );
 
-						if (numVertices >= 3) {
+						if ( numVertices >= 3 ) {
 
 							var i0, i1, i2;
 							// split the polygon in numVertices - 2 triangles
-							for (var j = 0; j < numVertices - 2; j++) {
+							for ( var j = 0; j < numVertices - 2; j ++ ) {
 
-								if (j % 2 === 1) {
+								if ( j % 2 === 1 ) {
 
-									i0 = parseInt(inds[j]);
-									i1 = parseInt(inds[j + 2]);
-									i2 = parseInt(inds[j + 1]);
-									indices.push(i0, i1, i2);
+									i0 = parseInt( inds[ j ] );
+									i1 = parseInt( inds[ j + 2 ] );
+									i2 = parseInt( inds[ j + 1 ] );
+									indices.push( i0, i1, i2 );
 
 								} else {
 
-									i0 = parseInt(inds[j]);
-									i1 = parseInt(inds[j + 1]);
-									i2 = parseInt(inds[j + 2]);
-									indices.push(i0, i1, i2);
+									i0 = parseInt( inds[ j ] );
+									i1 = parseInt( inds[ j + 1 ] );
+									i2 = parseInt( inds[ j + 2 ] );
+									indices.push( i0, i1, i2 );
 
 								}
 
@@ -160,31 +166,31 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 					}
 
-				} else if (inPointDataSection || inCellDataSection) {
+				} else if ( inPointDataSection || inCellDataSection ) {
 
-					if (inColorSection) {
+					if ( inColorSection ) {
 
 						// Get the colors
 
-						while ((result = pat3Floats.exec(line)) !== null) {
+						while ( ( result = pat3Floats.exec( line ) ) !== null ) {
 
-							var r = parseFloat(result[1]);
-							var g = parseFloat(result[2]);
-							var b = parseFloat(result[3]);
-							colors.push(r, g, b);
+							var r = parseFloat( result[ 1 ] );
+							var g = parseFloat( result[ 2 ] );
+							var b = parseFloat( result[ 3 ] );
+							colors.push( r, g, b );
 
 						}
 
-					} else if (inNormalsSection) {
+					} else if ( inNormalsSection ) {
 
 						// Get the normal vectors
 
-						while ((result = pat3Floats.exec(line)) !== null) {
+						while ( ( result = pat3Floats.exec( line ) ) !== null ) {
 
-							var nx = parseFloat(result[1]);
-							var ny = parseFloat(result[2]);
-							var nz = parseFloat(result[3]);
-							normals.push(nx, ny, nz);
+							var nx = parseFloat( result[ 1 ] );
+							var ny = parseFloat( result[ 2 ] );
+							var nz = parseFloat( result[ 3 ] );
+							normals.push( nx, ny, nz );
 
 						}
 
@@ -192,39 +198,39 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 				}
 
-				if (patPOLYGONS.exec(line) !== null) {
+				if ( patPOLYGONS.exec( line ) !== null ) {
 
 					inPolygonsSection = true;
 					inPointsSection = false;
 					inTriangleStripSection = false;
 
-				} else if (patPOINTS.exec(line) !== null) {
+				} else if ( patPOINTS.exec( line ) !== null ) {
 
 					inPolygonsSection = false;
 					inPointsSection = true;
 					inTriangleStripSection = false;
 
-				} else if (patTRIANGLE_STRIPS.exec(line) !== null) {
+				} else if ( patTRIANGLE_STRIPS.exec( line ) !== null ) {
 
 					inPolygonsSection = false;
 					inPointsSection = false;
 					inTriangleStripSection = true;
 
-				} else if (patPOINT_DATA.exec(line) !== null) {
+				} else if ( patPOINT_DATA.exec( line ) !== null ) {
 
 					inPointDataSection = true;
 					inPointsSection = false;
 					inPolygonsSection = false;
 					inTriangleStripSection = false;
 
-				} else if (patCELL_DATA.exec(line) !== null) {
+				} else if ( patCELL_DATA.exec( line ) !== null ) {
 
 					inCellDataSection = true;
 					inPointsSection = false;
 					inPolygonsSection = false;
 					inTriangleStripSection = false;
 
-				} else if (patCOLOR_SCALARS.exec(line) !== null) {
+				} else if ( patCOLOR_SCALARS.exec( line ) !== null ) {
 
 					inColorSection = true;
 					inNormalsSection = false;
@@ -232,7 +238,7 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 					inPolygonsSection = false;
 					inTriangleStripSection = false;
 
-				} else if (patNORMALS.exec(line) !== null) {
+				} else if ( patNORMALS.exec( line ) !== null ) {
 
 					inNormalsSection = true;
 					inColorSection = false;
@@ -247,28 +253,28 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 			var geometry;
 			var stagger = 'point';
 
-			if (colors.length == indices.length) {
+			if ( colors.length === indices.length ) {
 
 				stagger = 'cell';
 
 			}
 
-			if (stagger == 'point') {
+			if ( stagger === 'point' ) {
 
 				// Nodal. Use BufferGeometry
 				geometry = new THREE.BufferGeometry();
-				geometry.setIndex(new THREE.BufferAttribute(new Uint32Array(indices), 1));
-				geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
+				geometry.setIndex( new THREE.BufferAttribute( new Uint32Array( indices ), 1 ) );
+				geometry.addAttribute( 'position', new THREE.BufferAttribute( new Float32Array( positions ), 3 ) );
 
-				if (colors.length == positions.length) {
+				if ( colors.length === positions.length ) {
 
-					geometry.addAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3));
+					geometry.addAttribute( 'color', new THREE.BufferAttribute( new Float32Array( colors ), 3 ) );
 
 				}
 
-				if (normals.length == positions.length) {
+				if ( normals.length === positions.length ) {
 
-					geometry.addAttribute('normal', new THREE.BufferAttribute(new Float32Array(normals), 3));
+					geometry.addAttribute( 'normal', new THREE.BufferAttribute( new Float32Array( normals ), 3 ) );
 
 				}
 
@@ -280,39 +286,38 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 				var numTriangles = indices.length / 3;
 				var numPoints = positions.length / 3;
-				var va, vb, vc;
 				var face;
 				var ia, ib, ic;
 				var x, y, z;
 				var r, g, b;
 
-				for (var j = 0; j < numPoints; ++j) {
+				for ( var j = 0; j < numPoints; ++ j ) {
 
-					x = positions[3 * j + 0];
-					y = positions[3 * j + 1];
-					z = positions[3 * j + 2];
-					geometry.vertices.push(new THREE.Vector3(x, y, z));
-
-				}
-
-				for (var i = 0; i < numTriangles; ++i) {
-
-					ia = indices[3 * i + 0];
-					ib = indices[3 * i + 1];
-					ic = indices[3 * i + 2];
-					geometry.faces.push(new THREE.Face3(ia, ib, ic));
+					x = positions[ 3 * j + 0 ];
+					y = positions[ 3 * j + 1 ];
+					z = positions[ 3 * j + 2 ];
+					geometry.vertices.push( new THREE.Vector3( x, y, z ) );
 
 				}
 
-				if (colors.length == numTriangles * 3) {
+				for ( var i = 0; i < numTriangles; ++ i ) {
 
-					for (var i = 0; i < numTriangles; ++i) {
+					ia = indices[ 3 * i + 0 ];
+					ib = indices[ 3 * i + 1 ];
+					ic = indices[ 3 * i + 2 ];
+					geometry.faces.push( new THREE.Face3( ia, ib, ic ) );
 
-						face = geometry.faces[i];
-						r = colors[3 * i + 0];
-						g = colors[3 * i + 1];
-						b = colors[3 * i + 2];
-						face.color = new THREE.Color().setRGB(r, g, b);
+				}
+
+				if ( colors.length === numTriangles * 3 ) {
+
+					for ( var i = 0; i < numTriangles; ++ i ) {
+
+						face = geometry.faces[ i ];
+						r = colors[ 3 * i + 0 ];
+						g = colors[ 3 * i + 1 ];
+						b = colors[ 3 * i + 2 ];
+						face.color = new THREE.Color().setRGB( r, g, b );
 
 					}
 
@@ -324,11 +329,11 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 		}
 
-		function parseBinary(data) {
+		function parseBinary( data ) {
 
-			var count, pointIndex, i, numberOfPoints, pt, s;
-			var buffer = new Uint8Array(data);
-			var dataView = new DataView(data);
+			var count, pointIndex, i, numberOfPoints, s;
+			var buffer = new Uint8Array( data );
+			var dataView = new DataView( data );
 
 			// Points and normals, by default, are empty
 			var points = [];
@@ -339,98 +344,96 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 			var vtk = [];
 			var index = 0;
 
-			function findString(buffer, start) {
+			function findString( buffer, start ) {
 
 				var index = start;
-				var c = buffer[index];
+				var c = buffer[ index ];
 				var s = [];
-				while (c != 10) {
+				while ( c !== 10 ) {
 
-					s.push(String.fromCharCode(c));
-					index++;
-					c = buffer[index];
+					s.push( String.fromCharCode( c ) );
+					index ++;
+					c = buffer[ index ];
 
 				}
 
-				return {
-					start: start,
+				return { start: start,
 					end: index,
 					next: index + 1,
-					parsedString: s.join('')
-				};
+					parsedString: s.join( '' ) };
 
 			}
 
 			var state, line;
 
-			while (true) {
+			while ( true ) {
 
 				// Get a string
-				state = findString(buffer, index);
+				state = findString( buffer, index );
 				line = state.parsedString;
 
-				if (line.indexOf('POINTS') === 0) {
+				if ( line.indexOf( 'POINTS' ) === 0 ) {
 
-					vtk.push(line);
+					vtk.push( line );
 					// Add the points
-					numberOfPoints = parseInt(line.split(' ')[1], 10);
+					numberOfPoints = parseInt( line.split( ' ' )[ 1 ], 10 );
 
 					// Each point is 3 4-byte floats
 					count = numberOfPoints * 4 * 3;
 
-					points = new Float32Array(numberOfPoints * 3);
+					points = new Float32Array( numberOfPoints * 3 );
 
 					pointIndex = state.next;
-					for (i = 0; i < numberOfPoints; i++) {
+					for ( i = 0; i < numberOfPoints; i ++ ) {
 
-						points[3 * i] = dataView.getFloat32(pointIndex, false);
-						points[3 * i + 1] = dataView.getFloat32(pointIndex + 4, false);
-						points[3 * i + 2] = dataView.getFloat32(pointIndex + 8, false);
+						points[ 3 * i ] = dataView.getFloat32( pointIndex, false );
+						points[ 3 * i + 1 ] = dataView.getFloat32( pointIndex + 4, false );
+						points[ 3 * i + 2 ] = dataView.getFloat32( pointIndex + 8, false );
 						pointIndex = pointIndex + 12;
 
 					}
 					// increment our next pointer
 					state.next = state.next + count + 1;
 
-				} else if (line.indexOf('TRIANGLE_STRIPS') === 0) {
+				} else if ( line.indexOf( 'TRIANGLE_STRIPS' ) === 0 ) {
 
-					var numberOfStrips = parseInt(line.split(' ')[1], 10);
-					var size = parseInt(line.split(' ')[2], 10);
+					var numberOfStrips = parseInt( line.split( ' ' )[ 1 ], 10 );
+					var size = parseInt( line.split( ' ' )[ 2 ], 10 );
 					// 4 byte integers
 					count = size * 4;
 
-					indices = new Uint32Array(3 * size - 9 * numberOfStrips);
+					indices = new Uint32Array( 3 * size - 9 * numberOfStrips );
 					var indicesIndex = 0;
 
 					pointIndex = state.next;
-					for (i = 0; i < numberOfStrips; i++) {
+					for ( i = 0; i < numberOfStrips; i ++ ) {
 
 						// For each strip, read the first value, then record that many more points
-						var indexCount = dataView.getInt32(pointIndex, false);
+						var indexCount = dataView.getInt32( pointIndex, false );
 						var strip = [];
 						pointIndex += 4;
-						for (s = 0; s < indexCount; s++) {
+						for ( s = 0; s < indexCount; s ++ ) {
 
-							strip.push(dataView.getInt32(pointIndex, false));
+							strip.push( dataView.getInt32( pointIndex, false ) );
 							pointIndex += 4;
 
 						}
 
 						// retrieves the n-2 triangles from the triangle strip
-						for (var j = 0; j < indexCount - 2; j++) {
+						for ( var j = 0; j < indexCount - 2; j ++ ) {
 
-							if (j % 2) {
+							if ( j % 2 ) {
 
-								indices[indicesIndex++] = strip[j];
-								indices[indicesIndex++] = strip[j + 2];
-								indices[indicesIndex++] = strip[j + 1];
+								indices[ indicesIndex ++ ] = strip[ j ];
+								indices[ indicesIndex ++ ] = strip[ j + 2 ];
+								indices[ indicesIndex ++ ] = strip[ j + 1 ];
 
 							} else {
 
 
-								indices[indicesIndex++] = strip[j];
-								indices[indicesIndex++] = strip[j + 1];
-								indices[indicesIndex++] = strip[j + 2];
+								indices[ indicesIndex ++ ] = strip[ j ];
+								indices[ indicesIndex ++ ] = strip[ j + 1 ];
+								indices[ indicesIndex ++ ] = strip[ j + 2 ];
 
 							}
 
@@ -440,36 +443,36 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 					// increment our next pointer
 					state.next = state.next + count + 1;
 
-				} else if (line.indexOf('POLYGONS') === 0) {
+				} else if ( line.indexOf( 'POLYGONS' ) === 0 ) {
 
-					var numberOfStrips = parseInt(line.split(' ')[1], 10);
-					var size = parseInt(line.split(' ')[2], 10);
+					var numberOfStrips = parseInt( line.split( ' ' )[ 1 ], 10 );
+					var size = parseInt( line.split( ' ' )[ 2 ], 10 );
 					// 4 byte integers
 					count = size * 4;
 
-					indices = new Uint32Array(3 * size - 9 * numberOfStrips);
+					indices = new Uint32Array( 3 * size - 9 * numberOfStrips );
 					var indicesIndex = 0;
 
 					pointIndex = state.next;
-					for (i = 0; i < numberOfStrips; i++) {
+					for ( i = 0; i < numberOfStrips; i ++ ) {
 
 						// For each strip, read the first value, then record that many more points
-						var indexCount = dataView.getInt32(pointIndex, false);
+						var indexCount = dataView.getInt32( pointIndex, false );
 						var strip = [];
 						pointIndex += 4;
-						for (s = 0; s < indexCount; s++) {
+						for ( s = 0; s < indexCount; s ++ ) {
 
-							strip.push(dataView.getInt32(pointIndex, false));
+							strip.push( dataView.getInt32( pointIndex, false ) );
 							pointIndex += 4;
 
 						}
-						var i0 = strip[0];
-						// divide the polygon in n-2 triangle
-						for (var j = 1; j < indexCount - 1; j++) {
 
-							indices[indicesIndex++] = strip[0];
-							indices[indicesIndex++] = strip[j];
-							indices[indicesIndex++] = strip[j + 1];
+						// divide the polygon in n-2 triangle
+						for ( var j = 1; j < indexCount - 1; j ++ ) {
+
+							indices[ indicesIndex ++ ] = strip[ 0 ];
+							indices[ indicesIndex ++ ] = strip[ j ];
+							indices[ indicesIndex ++ ] = strip[ j + 1 ];
 
 						}
 
@@ -477,23 +480,23 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 					// increment our next pointer
 					state.next = state.next + count + 1;
 
-				} else if (line.indexOf('POINT_DATA') === 0) {
+				} else if ( line.indexOf( 'POINT_DATA' ) === 0 ) {
 
-					numberOfPoints = parseInt(line.split(' ')[1], 10);
+					numberOfPoints = parseInt( line.split( ' ' )[ 1 ], 10 );
 
 					// Grab the next line
-					state = findString(buffer, state.next);
+					state = findString( buffer, state.next );
 
 					// Now grab the binary data
 					count = numberOfPoints * 4 * 3;
 
-					normals = new Float32Array(numberOfPoints * 3);
+					normals = new Float32Array( numberOfPoints * 3 );
 					pointIndex = state.next;
-					for (i = 0; i < numberOfPoints; i++) {
+					for ( i = 0; i < numberOfPoints; i ++ ) {
 
-						normals[3 * i] = dataView.getFloat32(pointIndex, false);
-						normals[3 * i + 1] = dataView.getFloat32(pointIndex + 4, false);
-						normals[3 * i + 2] = dataView.getFloat32(pointIndex + 8, false);
+						normals[ 3 * i ] = dataView.getFloat32( pointIndex, false );
+						normals[ 3 * i + 1 ] = dataView.getFloat32( pointIndex + 4, false );
+						normals[ 3 * i + 2 ] = dataView.getFloat32( pointIndex + 8, false );
 						pointIndex += 12;
 
 					}
@@ -506,7 +509,7 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 				// Increment index
 				index = state.next;
 
-				if (index >= buffer.byteLength) {
+				if ( index >= buffer.byteLength ) {
 
 					break;
 
@@ -515,12 +518,12 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 			}
 
 			var geometry = new THREE.BufferGeometry();
-			geometry.setIndex(new THREE.BufferAttribute(indices, 1));
-			geometry.addAttribute('position', new THREE.BufferAttribute(points, 3));
+			geometry.setIndex( new THREE.BufferAttribute( indices, 1 ) );
+			geometry.addAttribute( 'position', new THREE.BufferAttribute( points, 3 ) );
 
-			if (normals.length == points.length) {
+			if ( normals.length === points.length ) {
 
-				geometry.addAttribute('normal', new THREE.BufferAttribute(normals, 3));
+				geometry.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
 
 			}
 
@@ -528,29 +531,51 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 		}
 
-		function parseXML(stringFile) {
+		function Float32Concat( first, second ) {
+
+		    var firstLength = first.length, result = new Float32Array( firstLength + second.length );
+
+		    result.set( first );
+		    result.set( second, firstLength );
+
+		    return result;
+
+		}
+
+		function Int32Concat( first, second ) {
+
+		    var firstLength = first.length, result = new Int32Array( firstLength + second.length );
+
+		    result.set( first );
+		    result.set( second, firstLength );
+
+		    return result;
+
+		}
+
+		function parseXML( stringFile ) {
 
 			// Changes XML to JSON, based on https://davidwalsh.name/convert-xml-json
 
-			function xmlToJson(xml) {
+			function xmlToJson( xml ) {
 
 				// Create the return object
 				var obj = {};
 
-				if (xml.nodeType == 1) { // element
+				if ( xml.nodeType === 1 ) { // element
 
 					// do attributes
 
-					if (xml.attributes) {
+					if ( xml.attributes ) {
 
-						if (xml.attributes.length > 0) {
+						if ( xml.attributes.length > 0 ) {
 
-							obj['attributes'] = {};
+							obj[ 'attributes' ] = {};
 
-							for (var j = 0; j < xml.attributes.length; j++) {
+							for ( var j = 0; j < xml.attributes.length; j ++ ) {
 
-								var attribute = xml.attributes.item(j);
-								obj['attributes'][attribute.nodeName] = attribute.nodeValue.trim();
+								var attribute = xml.attributes.item( j );
+								obj[ 'attributes' ][ attribute.nodeName ] = attribute.nodeValue.trim();
 
 							}
 
@@ -558,38 +583,38 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 					}
 
-				} else if (xml.nodeType == 3) { // text
+				} else if ( xml.nodeType === 3 ) { // text
 
 					obj = xml.nodeValue.trim();
 
 				}
 
 				// do children
-				if (xml.hasChildNodes()) {
+				if ( xml.hasChildNodes() ) {
 
-					for (var i = 0; i < xml.childNodes.length; i++) {
+					for ( var i = 0; i < xml.childNodes.length; i ++ ) {
 
-						var item = xml.childNodes.item(i);
+						var item = xml.childNodes.item( i );
 						var nodeName = item.nodeName;
 
-						if (typeof (obj[nodeName]) === 'undefined') {
+						if ( typeof obj[ nodeName ] === 'undefined' ) {
 
-							var tmp = xmlToJson(item);
+							var tmp = xmlToJson( item );
 
-							if (tmp !== '') obj[nodeName] = tmp;
+							if ( tmp !== '' ) obj[ nodeName ] = tmp;
 
 						} else {
 
-							if (typeof (obj[nodeName].push) === 'undefined') {
+							if ( typeof obj[ nodeName ].push === 'undefined' ) {
 
-								var old = obj[nodeName];
-								obj[nodeName] = [old];
+								var old = obj[ nodeName ];
+								obj[ nodeName ] = [ old ];
 
 							}
 
-							var tmp = xmlToJson(item);
+							var tmp = xmlToJson( item );
 
-							if (tmp !== '') obj[nodeName].push(tmp);
+							if ( tmp !== '' ) obj[ nodeName ].push( tmp );
 
 						}
 
@@ -602,7 +627,7 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 			}
 
 			// Taken from Base64-js
-			function Base64toByteArray(b64) {
+			function Base64toByteArray( b64 ) {
 
 				var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
 				var i;
@@ -611,55 +636,55 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 				var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 				var len = code.length;
 
-				for (i = 0; i < len; i++) {
+				for ( i = 0; i < len; i ++ ) {
 
-					lookup[i] = code[i];
-
-				}
-
-				for (i = 0; i < len; ++i) {
-
-					revLookup[code.charCodeAt(i)] = i;
+					lookup[ i ] = code[ i ];
 
 				}
 
-				revLookup['-'.charCodeAt(0)] = 62;
-				revLookup['_'.charCodeAt(0)] = 63;
+				for ( i = 0; i < len; ++ i ) {
+
+					revLookup[ code.charCodeAt( i ) ] = i;
+
+				}
+
+				revLookup[ '-'.charCodeAt( 0 ) ] = 62;
+				revLookup[ '_'.charCodeAt( 0 ) ] = 63;
 
 				var j, l, tmp, placeHolders, arr;
 				var len = b64.length;
 
-				if (len % 4 > 0) {
+				if ( len % 4 > 0 ) {
 
-					throw new Error('Invalid string. Length must be a multiple of 4');
+					throw new Error( 'Invalid string. Length must be a multiple of 4' );
 
 				}
 
-				placeHolders = b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0;
-				arr = new Arr(len * 3 / 4 - placeHolders);
+				placeHolders = b64[ len - 2 ] === '=' ? 2 : b64[ len - 1 ] === '=' ? 1 : 0;
+				arr = new Arr( len * 3 / 4 - placeHolders );
 				l = placeHolders > 0 ? len - 4 : len;
 
 				var L = 0;
 
-				for (i = 0, j = 0; i < l; i += 4, j += 3) {
+				for ( i = 0, j = 0; i < l; i += 4, j += 3 ) {
 
-					tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)];
-					arr[L++] = (tmp & 0xFF0000) >> 16;
-					arr[L++] = (tmp & 0xFF00) >> 8;
-					arr[L++] = tmp & 0xFF;
+					tmp = ( revLookup[ b64.charCodeAt( i ) ] << 18 ) | ( revLookup[ b64.charCodeAt( i + 1 ) ] << 12 ) | ( revLookup[ b64.charCodeAt( i + 2 ) ] << 6 ) | revLookup[ b64.charCodeAt( i + 3 ) ];
+					arr[ L ++ ] = ( tmp & 0xFF0000 ) >> 16;
+					arr[ L ++ ] = ( tmp & 0xFF00 ) >> 8;
+					arr[ L ++ ] = tmp & 0xFF;
 
 				}
 
-				if (placeHolders === 2) {
+				if ( placeHolders === 2 ) {
 
-					tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4);
-					arr[L++] = tmp & 0xFF;
+					tmp = ( revLookup[ b64.charCodeAt( i ) ] << 2 ) | ( revLookup[ b64.charCodeAt( i + 1 ) ] >> 4 );
+					arr[ L ++ ] = tmp & 0xFF;
 
-				} else if (placeHolders === 1) {
+				} else if ( placeHolders === 1 ) {
 
-					tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2);
-					arr[L++] = (tmp >> 8) & 0xFF;
-					arr[L++] = tmp & 0xFF;
+					tmp = ( revLookup[ b64.charCodeAt( i ) ] << 10 ) | ( revLookup[ b64.charCodeAt( i + 1 ) ] << 4 ) | ( revLookup[ b64.charCodeAt( i + 2 ) ] >> 2 );
+					arr[ L ++ ] = ( tmp >> 8 ) & 0xFF;
+					arr[ L ++ ] = tmp & 0xFF;
 
 				}
 
@@ -667,133 +692,207 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 			}
 
-			function parseDataArray(ele, compressed) {
+			function parseDataArray( ele, compressed ) {
+
+				var numBytes = 0;
+
+				if ( json.attributes.header_type === 'UInt64' ) {
+
+					numBytes = 8;
+
+				}	else if ( json.attributes.header_type === 'UInt32' ) {
+
+					numBytes = 4;
+
+				}
+
 
 				// Check the format
+				if ( ele.attributes.format === 'binary' && compressed ) {
 
-				if (ele.attributes.format == 'binary') {
+					var rawData, content, byteData, blocks, cSizeStart, headerSize, padding, dataOffsets, currentOffset;
 
-					if (compressed) {
+					if ( ele.attributes.type === 'Float32' ) {
 
-						// Split the blob_header and compressed Data
-						if (ele['#text'].indexOf('==') != - 1) {
+						var txt = new Float32Array( );
 
-							var data = ele['#text'].split('==');
+					} else if ( ele.attributes.type === 'Int64' ) {
 
-							// console.log( data );
+						var txt = new Int32Array( );
 
-							if (data.length == 2) {
+					}
 
-								var blob = data.shift();
-								var content = data.shift();
+					// VTP data with the header has the following structure:
+					// [#blocks][#u-size][#p-size][#c-size-1][#c-size-2]...[#c-size-#blocks][DATA]
+					//
+					// Each token is an integer value whose type is specified by "header_type" at the top of the file (UInt32 if no type specified). The token meanings are:
+					// [#blocks] = Number of blocks
+					// [#u-size] = Block size before compression
+					// [#p-size] = Size of last partial block (zero if it not needed)
+					// [#c-size-i] = Size in bytes of block i after compression
+					//
+					// The [DATA] portion stores contiguously every block appended together. The offset from the beginning of the data section to the beginning of a block is
+					// computed by summing the compressed block sizes from preceding blocks according to the header.
 
-								if (content === '') {
+					rawData = ele[ '#text' ];
 
-									content = blob + '==';
+					byteData = Base64toByteArray( rawData );
 
-								}
+					blocks = byteData[ 0 ];
+					for ( var i = 1; i < numBytes - 1; i ++ ) {
 
-							} else if (data.length > 2) {
+						blocks = blocks | ( byteData[ i ] << ( i * numBytes ) );
 
-								var blob = data.shift();
-								var content = data.shift();
-								content = content + '==';
+					}
 
-							} else if (data.length < 2) {
+					headerSize = ( blocks + 3 ) * numBytes;
+					padding = ( ( headerSize % 3 ) > 0 ) ? 3 - ( headerSize % 3 ) : 0;
+					headerSize = headerSize + padding;
 
-								var content = data.shift();
-								content = content + '==';
+					dataOffsets = [];
+					currentOffset = headerSize;
+					dataOffsets.push( currentOffset );
+
+					// Get the blocks sizes after the compression.
+					// There are three blocks before c-size-i, so we skip 3*numBytes
+					cSizeStart = 3 * numBytes;
+
+					for ( var i = 0; i < blocks; i ++ ) {
+
+						var currentBlockSize = byteData[ i * numBytes + cSizeStart ];
+
+						for ( var j = 1; j < numBytes - 1; j ++ ) {
+
+							// Each data point consists of 8 bytes regardless of the header type
+							currentBlockSize = currentBlockSize | ( byteData[ i * numBytes + cSizeStart + j ] << ( j * 8 ) );
+
+						}
+
+						currentOffset = currentOffset + currentBlockSize;
+						dataOffsets.push( currentOffset );
+
+					}
+
+					for ( var i = 0; i < dataOffsets.length - 1; i ++ ) {
+
+						var inflate = new Zlib.Inflate( byteData.slice( dataOffsets[ i ], dataOffsets[ i + 1 ] ), { resize: true, verify: true } ); // eslint-disable-line no-undef
+						content = inflate.decompress();
+						content = content.buffer;
+
+						if ( ele.attributes.type === 'Float32' ) {
+
+							content = new Float32Array( content );
+							txt = Float32Concat( txt, content );
+
+						} else if ( ele.attributes.type === 'Int64' ) {
+
+							content = new Int32Array( content );
+							txt = Int32Concat( txt, content );
+
+						}
+
+					}
+
+					delete ele[ '#text' ];
+
+					// Get the content and optimize it
+					if ( ele.attributes.type === 'Float32' ) {
+
+						if ( ele.attributes.format === 'binary' ) {
+
+							if ( ! compressed ) {
+
+								txt = txt.filter( function ( el, idx ) {
+
+									if ( idx !== 0 ) return true;
+
+								} );
 
 							}
 
-							// Convert to bytearray
-							var arr = Base64toByteArray(content);
+						}
 
-							// decompress
-							var inflate = new Zlib.Inflate(arr, { resize: true, verify: true });
-							var content = inflate.decompress();
+					} else if ( ele.attributes.type === 'Int64' ) {
 
-						} else {
+						if ( ele.attributes.format === 'binary' ) {
 
-							var content = Base64toByteArray(ele['#text']);
+							if ( ! compressed ) {
+
+								txt = txt.filter( function ( el, idx ) {
+
+									if ( idx !== 0 ) return true;
+
+								} );
+
+							}
+
+							txt = txt.filter( function ( el, idx ) {
+
+								if ( idx % 2 !== 1 ) return true;
+
+							} );
 
 						}
 
-					} else {
-
-						var content = Base64toByteArray(ele['#text']);
-
 					}
-
-					var content = content.buffer;
 
 				} else {
 
-					if (ele['#text']) {
+					if ( ele.attributes.format === 'binary' && ! compressed ) {
 
-						var content = ele['#text'].replace(/\n/g, ' ').split(' ').filter(function (el, idx, arr) {
+						var content = Base64toByteArray( ele[ '#text' ] );
 
-							if (el !== '') return el;
-
-						});
+						//  VTP data for the uncompressed case has the following structure:
+						// [#bytes][DATA]
+						// where "[#bytes]" is an integer value specifying the number of bytes in the block of data following it.
+						content = content.slice( numBytes ).buffer;
 
 					} else {
 
-						var content = new Int32Array(0).buffer;
+						if ( ele[ '#text' ] ) {
 
-					}
+							var content = ele[ '#text' ].split( /\s+/ ).filter( function ( el ) {
 
-				}
+								if ( el !== '' ) return el;
 
-				delete ele['#text'];
+							} );
 
-				// Get the content and optimize it
+						} else {
 
-				if (ele.attributes.type == 'Float32') {
-
-					var txt = new Float32Array(content);
-
-					if (ele.attributes.format == 'binary') {
-
-						if (!compressed) {
-
-							txt = txt.filter(function (el, idx, arr) {
-
-								if (idx !== 0) return true;
-
-							});
+							var content = new Int32Array( 0 ).buffer;
 
 						}
 
 					}
 
-				} else if (ele.attributes.type === 'Int64') {
+					delete ele[ '#text' ];
 
-					var txt = new Int32Array(content);
+					// Get the content and optimize it
+					if ( ele.attributes.type === 'Float32' ) {
 
-					if (ele.attributes.format == 'binary') {
+						var txt = new Float32Array( content );
 
-						if (!compressed) {
+					} else if ( ele.attributes.type === 'Int32' ) {
 
-							txt = txt.filter(function (el, idx, arr) {
+						var txt = new Int32Array( content );
 
-								if (idx !== 0) return true;
+					} else if ( ele.attributes.type === 'Int64' ) {
 
-							});
+						var txt = new Int32Array( content );
+
+						if ( ele.attributes.format === 'binary' ) {
+
+							txt = txt.filter( function ( el, idx ) {
+
+								if ( idx % 2 !== 1 ) return true;
+
+							} );
 
 						}
 
-						txt = txt.filter(function (el, idx, arr) {
-
-							if (idx % 2 !== 1) return true;
-
-						});
-
 					}
 
-				}
-
-				// console.log( txt );
+				} // endif ( ele.attributes.format === 'binary' && compressed )
 
 				return txt;
 
@@ -803,32 +902,32 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 			// Get Dom
 			var dom = null;
 
-			if (window.DOMParser) {
+			if ( window.DOMParser ) {
 
 				try {
 
-					dom = (new DOMParser()).parseFromString(stringFile, 'text/xml');
+					dom = ( new DOMParser() ).parseFromString( stringFile, 'text/xml' );
 
-				} catch (e) {
+				} catch ( e ) {
 
 					dom = null;
 
 				}
 
-			} else if (window.ActiveXObject) {
+			} else if ( window.ActiveXObject ) {
 
 				try {
 
-					dom = new ActiveXObject('Microsoft.XMLDOM');
+					dom = new ActiveXObject( 'Microsoft.XMLDOM' ); // eslint-disable-line no-undef
 					dom.async = false;
 
-					if (!dom.loadXML(xml)) {
+					if ( ! dom.loadXML( /* xml */ ) ) {
 
-						throw new Error(dom.parseError.reason + dom.parseError.srcText);
+						throw new Error( dom.parseError.reason + dom.parseError.srcText );
 
 					}
 
-				} catch (e) {
+				} catch ( e ) {
 
 					dom = null;
 
@@ -836,207 +935,206 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 			} else {
 
-				throw new Error('Cannot parse xml string!');
+				throw new Error( 'Cannot parse xml string!' );
 
 			}
 
 			// Get the doc
 			var doc = dom.documentElement;
 			// Convert to json
-			var json = xmlToJson(doc);
+			var json = xmlToJson( doc );
 			var points = [];
 			var normals = [];
 			var indices = [];
 
-			if (json.PolyData) {
+			if ( json.PolyData ) {
 
 				var piece = json.PolyData.Piece;
-				var compressed = json.attributes.hasOwnProperty('compressor');
+				var compressed = json.attributes.hasOwnProperty( 'compressor' );
 
 				// Can be optimized
 				// Loop through the sections
-				var sections = ['PointData', 'Points', 'Strips', 'Polys'];// +['CellData', 'Verts', 'Lines'];
+				var sections = [ 'PointData', 'Points', 'Strips', 'Polys' ];// +['CellData', 'Verts', 'Lines'];
 				var sectionIndex = 0, numberOfSections = sections.length;
 
-				while (sectionIndex < numberOfSections) {
+				while ( sectionIndex < numberOfSections ) {
 
-					var section = piece[sections[sectionIndex]];
+					var section = piece[ sections[ sectionIndex ] ];
 
 					// If it has a DataArray in it
 
-					if (section.DataArray) {
+					if ( section && section.DataArray ) {
 
 						// Depending on the number of DataArrays
 
-						if (Object.prototype.toString.call(section.DataArray) === '[object Array]') {
+						if ( Object.prototype.toString.call( section.DataArray ) === '[object Array]' ) {
 
 							var arr = section.DataArray;
 
 						} else {
 
-							var arr = [section.DataArray];
+							var arr = [ section.DataArray ];
 
 						}
 
 						var dataArrayIndex = 0, numberOfDataArrays = arr.length;
 
-						while (dataArrayIndex < numberOfDataArrays) {
+						while ( dataArrayIndex < numberOfDataArrays ) {
 
 							// Parse the DataArray
-							arr[dataArrayIndex].text = parseDataArray(arr[dataArrayIndex], compressed);
-							dataArrayIndex++;
+							if ( ( '#text' in arr[ dataArrayIndex ] ) && ( arr[ dataArrayIndex ][ '#text' ].length > 0 ) ) {
+
+								arr[ dataArrayIndex ].text = parseDataArray( arr[ dataArrayIndex ], compressed );
+
+							}
+
+							dataArrayIndex ++;
 
 						}
 
-						switch (sections[sectionIndex]) {
+						switch ( sections[ sectionIndex ] ) {
 
 							// if iti is point data
 							case 'PointData':
 
-								var numberOfPoints = parseInt(piece.attributes.NumberOfPoints);
+								var numberOfPoints = parseInt( piece.attributes.NumberOfPoints );
 								var normalsName = section.attributes.Normals;
 
-								if (numberOfPoints > 0) {
+								if ( numberOfPoints > 0 ) {
 
-									for (var i = 0, len = arr.length; i < len; i++) {
+									for ( var i = 0, len = arr.length; i < len; i ++ ) {
 
-										if (normalsName == arr[i].attributes.Name) {
+										if ( normalsName === arr[ i ].attributes.Name ) {
 
-											var components = arr[i].attributes.NumberOfComponents;
-											normals = new Float32Array(numberOfPoints * components);
-											normals.set(arr[i].text, 0);
+											var components = arr[ i ].attributes.NumberOfComponents;
+											normals = new Float32Array( numberOfPoints * components );
+											normals.set( arr[ i ].text, 0 );
 
 										}
 
 									}
 
 								}
-
-								// console.log('Normals', normals);
 
 								break;
 
 							// if it is points
 							case 'Points':
 
-								var numberOfPoints = parseInt(piece.attributes.NumberOfPoints);
+								var numberOfPoints = parseInt( piece.attributes.NumberOfPoints );
 
-								if (numberOfPoints > 0) {
+								if ( numberOfPoints > 0 ) {
 
 									var components = section.DataArray.attributes.NumberOfComponents;
-									points = new Float32Array(numberOfPoints * components);
-									points.set(section.DataArray.text, 0);
+									points = new Float32Array( numberOfPoints * components );
+									points.set( section.DataArray.text, 0 );
 
 								}
-
-								// console.log('Points', points);
 
 								break;
 
 							// if it is strips
 							case 'Strips':
 
-								var numberOfStrips = parseInt(piece.attributes.NumberOfStrips);
+								var numberOfStrips = parseInt( piece.attributes.NumberOfStrips );
 
-								if (numberOfStrips > 0) {
+								if ( numberOfStrips > 0 ) {
 
-									var connectivity = new Int32Array(section.DataArray[0].text.length);
-									var offset = new Int32Array(section.DataArray[1].text.length);
-									connectivity.set(section.DataArray[0].text, 0);
-									offset.set(section.DataArray[1].text, 0);
+									var connectivity = new Int32Array( section.DataArray[ 0 ].text.length );
+									var offset = new Int32Array( section.DataArray[ 1 ].text.length );
+									connectivity.set( section.DataArray[ 0 ].text, 0 );
+									offset.set( section.DataArray[ 1 ].text, 0 );
 
 									var size = numberOfStrips + connectivity.length;
-									indices = new Uint32Array(3 * size - 9 * numberOfStrips);
+									indices = new Uint32Array( 3 * size - 9 * numberOfStrips );
 
 									var indicesIndex = 0;
 
-									for (var i = 0, len = numberOfStrips; i < len; i++) {
+									for ( var i = 0, len = numberOfStrips; i < len; i ++ ) {
 
 										var strip = [];
 
-										for (var s = 0, len1 = offset[i], len0 = 0; s < len1 - len0; s++) {
+										for ( var s = 0, len1 = offset[ i ], len0 = 0; s < len1 - len0; s ++ ) {
 
-											strip.push(connectivity[s]);
+											strip.push( connectivity[ s ] );
 
-											if (i > 0) len0 = offset[i - 1];
+											if ( i > 0 ) len0 = offset[ i - 1 ];
 
 										}
 
-										for (var j = 0, len1 = offset[i], len0 = 0; j < len1 - len0 - 2; j++) {
+										for ( var j = 0, len1 = offset[ i ], len0 = 0; j < len1 - len0 - 2; j ++ ) {
 
-											if (j % 2) {
+											if ( j % 2 ) {
 
-												indices[indicesIndex++] = strip[j];
-												indices[indicesIndex++] = strip[j + 2];
-												indices[indicesIndex++] = strip[j + 1];
+												indices[ indicesIndex ++ ] = strip[ j ];
+												indices[ indicesIndex ++ ] = strip[ j + 2 ];
+												indices[ indicesIndex ++ ] = strip[ j + 1 ];
 
 											} else {
 
-												indices[indicesIndex++] = strip[j];
-												indices[indicesIndex++] = strip[j + 1];
-												indices[indicesIndex++] = strip[j + 2];
+												indices[ indicesIndex ++ ] = strip[ j ];
+												indices[ indicesIndex ++ ] = strip[ j + 1 ];
+												indices[ indicesIndex ++ ] = strip[ j + 2 ];
 
 											}
 
-											if (i > 0) len0 = offset[i - 1];
+											if ( i > 0 ) len0 = offset[ i - 1 ];
 
 										}
 
 									}
 
 								}
-
-								//console.log('Strips', indices);
 
 								break;
 
 							// if it is polys
 							case 'Polys':
 
-								var numberOfPolys = parseInt(piece.attributes.NumberOfPolys);
+								var numberOfPolys = parseInt( piece.attributes.NumberOfPolys );
 
-								if (numberOfPolys > 0) {
+								if ( numberOfPolys > 0 ) {
 
-									var connectivity = new Int32Array(section.DataArray[0].text.length);
-									var offset = new Int32Array(section.DataArray[1].text.length);
-									connectivity.set(section.DataArray[0].text, 0);
-									offset.set(section.DataArray[1].text, 0);
+									var connectivity = new Int32Array( section.DataArray[ 0 ].text.length );
+									var offset = new Int32Array( section.DataArray[ 1 ].text.length );
+									connectivity.set( section.DataArray[ 0 ].text, 0 );
+									offset.set( section.DataArray[ 1 ].text, 0 );
 
 									var size = numberOfPolys + connectivity.length;
-									indices = new Uint32Array(3 * size - 9 * numberOfPolys);
+									indices = new Uint32Array( 3 * size - 9 * numberOfPolys );
 									var indicesIndex = 0, connectivityIndex = 0;
 									var i = 0, len = numberOfPolys, len0 = 0;
 
-									while (i < len) {
+									while ( i < len ) {
 
 										var poly = [];
-										var s = 0, len1 = offset[i];
+										var s = 0, len1 = offset[ i ];
 
-										while (s < len1 - len0) {
+										while ( s < len1 - len0 ) {
 
-											poly.push(connectivity[connectivityIndex++]);
-											s++;
+											poly.push( connectivity[ connectivityIndex ++ ] );
+											s ++;
 
 										}
 
 										var j = 1;
 
-										while (j < len1 - len0 - 1) {
+										while ( j < len1 - len0 - 1 ) {
 
-											indices[indicesIndex++] = poly[0];
-											indices[indicesIndex++] = poly[j];
-											indices[indicesIndex++] = poly[j + 1];
-											j++;
+											indices[ indicesIndex ++ ] = poly[ 0 ];
+											indices[ indicesIndex ++ ] = poly[ j ];
+											indices[ indicesIndex ++ ] = poly[ j + 1 ];
+											j ++;
 
 										}
 
-										i++;
-										len0 = offset[i - 1];
+										i ++;
+										len0 = offset[ i - 1 ];
 
 									}
 
 								}
-								//console.log('Polys', indices);
+
 								break;
 
 							default:
@@ -1046,21 +1144,19 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 					}
 
-					sectionIndex++;
+					sectionIndex ++;
 
 				}
 
 				var geometry = new THREE.BufferGeometry();
-				geometry.setIndex(new THREE.BufferAttribute(indices, 1));
-				geometry.addAttribute('position', new THREE.BufferAttribute(points, 3));
+				geometry.setIndex( new THREE.BufferAttribute( indices, 1 ) );
+				geometry.addAttribute( 'position', new THREE.BufferAttribute( points, 3 ) );
 
-				if (normals.length == points.length) {
+				if ( normals.length === points.length ) {
 
-					geometry.addAttribute('normal', new THREE.BufferAttribute(normals, 3));
+					geometry.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
 
 				}
-
-				// console.log( json );
 
 				return geometry;
 
@@ -1072,16 +1168,16 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 		}
 
-		function getStringFile(data) {
+		function getStringFile( data ) {
 
 			var stringFile = '';
-			var charArray = new Uint8Array(data);
+			var charArray = new Uint8Array( data );
 			var i = 0;
 			var len = charArray.length;
 
-			while (len--) {
+			while ( len -- ) {
 
-				stringFile += String.fromCharCode(charArray[i++]);
+				stringFile += String.fromCharCode( charArray[ i ++ ] );
 
 			}
 
@@ -1090,24 +1186,22 @@ Object.assign(THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 		}
 
 		// get the 5 first lines of the files to check if there is the key word binary
-		var meta = String.fromCharCode.apply(null, new Uint8Array(data, 0, 250)).split('\n');
+		var meta = THREE.LoaderUtils.decodeText( new Uint8Array( data, 0, 250 ) ).split( '\n' );
 
-		if (meta[0].indexOf('xml') !== - 1) {
+		if ( meta[ 0 ].indexOf( 'xml' ) !== - 1 ) {
 
-			return parseXML(getStringFile(data));
+			return parseXML( getStringFile( data ) );
 
-		} else if (meta[2].includes('ASCII')) {
+		} else if ( meta[ 2 ].includes( 'ASCII' ) ) {
 
-			return parseASCII(getStringFile(data));
+			return parseASCII( getStringFile( data ) );
 
 		} else {
 
-			return parseBinary(data);
+			return parseBinary( data );
 
 		}
 
 	}
 
-});
-
-export default THREE.VTKLoader;
+} );

@@ -26,7 +26,7 @@ export default {
     output: {
         indent: '\t',
         format: 'umd',
-        name: 'THREE',
+        name: 'BubbleEditor',
         file: 'dist/BubbleEditor.js'
     },
     external: [],
@@ -43,9 +43,7 @@ export default {
             }
         }),
         copy({
-            "./assets/": "./dist/assets/",
-            "./third_party/codemirror/codemirror.css": "./dist/assets/css/codemirror.css",
-            "./third_party/codemirror/theme/monokai.css": "./dist/assets/css/monokai.css"
+            "./assets/": "./dist/assets/"
         })
     ]
 };

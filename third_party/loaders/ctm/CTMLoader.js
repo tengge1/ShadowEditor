@@ -10,16 +10,16 @@
 
 THREE.CTMLoader = function () {
 
-	THREE.Loader.call(this);
+	THREE.Loader.call( this );
 
 };
 
-THREE.CTMLoader.prototype = Object.create(THREE.Loader.prototype);
+THREE.CTMLoader.prototype = Object.create( THREE.Loader.prototype );
 THREE.CTMLoader.prototype.constructor = THREE.CTMLoader;
 
 // Load multiple CTM parts defined in JSON
 
-THREE.CTMLoader.prototype.loadParts = function (url, callback, parameters) {
+THREE.CTMLoader.prototype.loadParts = function ( url, callback, parameters ) {
 
 	parameters = parameters || {};
 
@@ -27,27 +27,27 @@ THREE.CTMLoader.prototype.loadParts = function (url, callback, parameters) {
 
 	var xhr = new XMLHttpRequest();
 
-	var basePath = parameters.basePath ? parameters.basePath : this.extractUrlBase(url);
+	var basePath = parameters.basePath ? parameters.basePath : THREE.LoaderUtils.extractUrlBase( url );
 
 	xhr.onreadystatechange = function () {
 
-		if (xhr.readyState === 4) {
+		if ( xhr.readyState === 4 ) {
 
-			if (xhr.status === 200 || xhr.status === 0) {
+			if ( xhr.status === 200 || xhr.status === 0 ) {
 
-				var jsonObject = JSON.parse(xhr.responseText);
+				var jsonObject = JSON.parse( xhr.responseText );
 
 				var materials = [], geometries = [], counter = 0;
 
-				function callbackFinal(geometry) {
+				function callbackFinal( geometry ) {
 
 					counter += 1;
 
-					geometries.push(geometry);
+					geometries.push( geometry );
 
-					if (counter === jsonObject.offsets.length) {
+					if ( counter === jsonObject.offsets.length ) {
 
-						callback(geometries, materials);
+						callback( geometries, materials );
 
 					}
 
@@ -56,9 +56,9 @@ THREE.CTMLoader.prototype.loadParts = function (url, callback, parameters) {
 
 				// init materials
 
-				for (var i = 0; i < jsonObject.materials.length; i++) {
+				for ( var i = 0; i < jsonObject.materials.length; i ++ ) {
 
-					materials[i] = scope.createMaterial(jsonObject.materials[i], basePath);
+					materials[ i ] = scope.createMaterial( jsonObject.materials[ i ], basePath );
 
 				}
 
@@ -66,7 +66,7 @@ THREE.CTMLoader.prototype.loadParts = function (url, callback, parameters) {
 
 				var partUrl = basePath + jsonObject.data;
 				var parametersPart = { useWorker: parameters.useWorker, worker: parameters.worker, offsets: jsonObject.offsets };
-				scope.load(partUrl, callbackFinal, parametersPart);
+				scope.load( partUrl, callbackFinal, parametersPart );
 
 			}
 
@@ -74,9 +74,9 @@ THREE.CTMLoader.prototype.loadParts = function (url, callback, parameters) {
 
 	};
 
-	xhr.open("GET", url, true);
-	xhr.setRequestHeader("Content-Type", "text/plain");
-	xhr.send(null);
+	xhr.open( "GET", url, true );
+	xhr.setRequestHeader( "Content-Type", "text/plain" );
+	xhr.send( null );
 
 };
 
@@ -85,13 +85,13 @@ THREE.CTMLoader.prototype.loadParts = function (url, callback, parameters) {
 //		- url (required)
 //		- callback (required)
 
-THREE.CTMLoader.prototype.load = function (url, callback, parameters) {
+THREE.CTMLoader.prototype.load = function ( url, callback, parameters ) {
 
 	parameters = parameters || {};
 
 	var scope = this;
 
-	var offsets = parameters.offsets !== undefined ? parameters.offsets : [0];
+	var offsets = parameters.offsets !== undefined ? parameters.offsets : [ 0 ];
 
 	var xhr = new XMLHttpRequest(),
 		callbackProgress = null;
@@ -100,51 +100,51 @@ THREE.CTMLoader.prototype.load = function (url, callback, parameters) {
 
 	xhr.onreadystatechange = function () {
 
-		if (xhr.readyState === 4) {
+		if ( xhr.readyState === 4 ) {
 
-			if (xhr.status === 200 || xhr.status === 0) {
+			if ( xhr.status === 200 || xhr.status === 0 ) {
 
-				var binaryData = new Uint8Array(xhr.response);
+				var binaryData = new Uint8Array( xhr.response );
 
 				var s = Date.now();
 
-				if (parameters.useWorker) {
+				if ( parameters.useWorker ) {
 
-					var worker = parameters.worker || new Worker("js/loaders/ctm/CTMWorker.js");
+					var worker = parameters.worker || new Worker( 'js/loaders/ctm/CTMWorker.js' );
 
-					worker.onmessage = function (event) {
+					worker.onmessage = function ( event ) {
 
 						var files = event.data;
 
-						for (var i = 0; i < files.length; i++) {
+						for ( var i = 0; i < files.length; i ++ ) {
 
-							var ctmFile = files[i];
+							var ctmFile = files[ i ];
 
 							var e1 = Date.now();
 							// console.log( "CTM data parse time [worker]: " + (e1-s) + " ms" );
 
-							scope.createModel(ctmFile, callback);
+							scope.createModel( ctmFile, callback );
 
 							var e = Date.now();
-							console.log("model load time [worker]: " + (e - e1) + " ms, total: " + (e - s));
+							console.log( "model load time [worker]: " + ( e - e1 ) + " ms, total: " + ( e - s ) );
 
 						}
 
 
 					};
 
-					worker.postMessage({ "data": binaryData, "offsets": offsets });
+					worker.postMessage( { "data": binaryData, "offsets": offsets }, [ binaryData.buffer ] );
 
 				} else {
 
-					for (var i = 0; i < offsets.length; i++) {
+					for ( var i = 0; i < offsets.length; i ++ ) {
 
-						var stream = new CTM.Stream(binaryData);
-						stream.offset = offsets[i];
+						var stream = new CTM.Stream( binaryData );
+						stream.offset = offsets[ i ];
 
-						var ctmFile = new CTM.File(stream);
+						var ctmFile = new CTM.File( stream );
 
-						scope.createModel(ctmFile, callback);
+						scope.createModel( ctmFile, callback );
 
 					}
 
@@ -155,105 +155,105 @@ THREE.CTMLoader.prototype.load = function (url, callback, parameters) {
 
 			} else {
 
-				console.error("Couldn't load [" + url + "] [" + xhr.status + "]");
+				console.error( "Couldn't load [" + url + "] [" + xhr.status + "]" );
 
 			}
 
-		} else if (xhr.readyState === 3) {
+		} else if ( xhr.readyState === 3 ) {
 
-			if (callbackProgress) {
+			if ( callbackProgress ) {
 
-				if (length === 0) {
+				if ( length === 0 ) {
 
-					length = xhr.getResponseHeader("Content-Length");
+					length = xhr.getResponseHeader( "Content-Length" );
 
 				}
 
-				callbackProgress({ total: length, loaded: xhr.responseText.length });
+				callbackProgress( { total: length, loaded: xhr.responseText.length } );
 
 			}
 
-		} else if (xhr.readyState === 2) {
+		} else if ( xhr.readyState === 2 ) {
 
-			length = xhr.getResponseHeader("Content-Length");
+			length = xhr.getResponseHeader( "Content-Length" );
 
 		}
 
 	};
 
-	xhr.open("GET", url, true);
+	xhr.open( "GET", url, true );
 	xhr.responseType = "arraybuffer";
 
-	xhr.send(null);
+	xhr.send( null );
 
 };
 
 
-THREE.CTMLoader.prototype.createModel = function (file, callback) {
+THREE.CTMLoader.prototype.createModel = function ( file, callback ) {
 
 	var Model = function () {
 
-		THREE.BufferGeometry.call(this);
+		THREE.BufferGeometry.call( this );
 
 		this.materials = [];
 
-		var indices = file.body.indices,
-			positions = file.body.vertices,
-			normals = file.body.normals;
+		var indices = file.body.indices;
+		var positions = file.body.vertices;
+		var normals = file.body.normals;
 
 		var uvs, colors;
 
 		var uvMaps = file.body.uvMaps;
 
-		if (uvMaps !== undefined && uvMaps.length > 0) {
+		if ( uvMaps !== undefined && uvMaps.length > 0 ) {
 
-			uvs = uvMaps[0].uv;
+			uvs = uvMaps[ 0 ].uv;
 
 		}
 
 		var attrMaps = file.body.attrMaps;
 
-		if (attrMaps !== undefined && attrMaps.length > 0 && attrMaps[0].name === 'Color') {
+		if ( attrMaps !== undefined && attrMaps.length > 0 && attrMaps[ 0 ].name === 'Color' ) {
 
-			colors = attrMaps[0].attr;
-
-		}
-
-		this.setIndex(new THREE.BufferAttribute(indices, 1));
-		this.addAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-		if (normals !== undefined) {
-
-			this.addAttribute('normal', new THREE.BufferAttribute(normals, 3));
+			colors = attrMaps[ 0 ].attr;
 
 		}
 
-		if (uvs !== undefined) {
+		this.setIndex( new THREE.BufferAttribute( indices, 1 ) );
+		this.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
 
-			this.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+		if ( normals !== undefined ) {
+
+			this.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
 
 		}
 
-		if (colors !== undefined) {
+		if ( uvs !== undefined ) {
 
-			this.addAttribute('color', new THREE.BufferAttribute(colors, 4));
+			this.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
+
+		}
+
+		if ( colors !== undefined ) {
+
+			this.addAttribute( 'color', new THREE.BufferAttribute( colors, 4 ) );
 
 		}
 
 	};
 
-	Model.prototype = Object.create(THREE.BufferGeometry.prototype);
+	Model.prototype = Object.create( THREE.BufferGeometry.prototype );
 	Model.prototype.constructor = Model;
 
 	var geometry = new Model();
 
 	// compute vertex normals if not present in the CTM model
-	if (geometry.attributes.normal === undefined) {
+	if ( geometry.attributes.normal === undefined ) {
+
 		geometry.computeVertexNormals();
+
 	}
 
-	callback(geometry);
+	callback( geometry );
 
 };
-
-export default THREE.CTMLoader;

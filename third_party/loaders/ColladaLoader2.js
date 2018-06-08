@@ -1592,5 +1592,3 @@ THREE.ColladaLoader.prototype = {
 	}
 
 };
-
-export default THREE.ColladaLoader;

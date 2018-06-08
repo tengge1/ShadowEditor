@@ -2,9 +2,9 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-THREE.KMZLoader = function (manager) {
+THREE.KMZLoader = function ( manager ) {
 
-	this.manager = (manager !== undefined) ? manager : THREE.DefaultLoadingManager;
+	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
@@ -12,45 +12,45 @@ THREE.KMZLoader.prototype = {
 
 	constructor: THREE.KMZLoader,
 
-	load: function (url, onLoad, onProgress, onError) {
+	load: function ( url, onLoad, onProgress, onError ) {
 
 		var scope = this;
 
-		var loader = new THREE.FileLoader(scope.manager);
-		loader.setResponseType('arraybuffer');
-		loader.load(url, function (text) {
+		var loader = new THREE.FileLoader( scope.manager );
+		loader.setResponseType( 'arraybuffer' );
+		loader.load( url, function ( text ) {
 
-			onLoad(scope.parse(text));
+			onLoad( scope.parse( text ) );
 
-		}, onProgress, onError);
+		}, onProgress, onError );
 
 	},
 
-	parse: function (data) {
+	parse: function ( data ) {
 
-		var zip = new JSZip(data);
+		var zip = new JSZip( data ); // eslint-disable-line no-undef
 
 		// console.log( zip );
 
 		// var xml = new DOMParser().parseFromString( zip.file( 'doc.kml' ).asText(), 'application/xml' );
 
-		function loadImage(image) {
+		function loadImage( image ) {
 
-			var path = decodeURI(image.init_from);
+			var path = decodeURI( image.init_from );
 
 			// Hack to support relative paths
-			path = path.replace('../', '');
+			path = path.replace( '../', '' );
 
-			var regex = new RegExp(path + '$');
-			var files = zip.file(regex);
+			var regex = new RegExp( path + '$' );
+			var files = zip.file( regex );
 
 			// console.log( image, files );
 
-			if (files.length) {
+			if ( files.length ) {
 
-				var file = files[0];
-				var blob = new Blob([file.asArrayBuffer()], { type: 'application/octet-binary' });
-				image.build.src = URL.createObjectURL(blob);
+				var file = files[ 0 ];
+				var blob = new Blob( [ file.asArrayBuffer() ], { type: 'application/octet-binary' } );
+				image.build.src = URL.createObjectURL( blob );
 
 			}
 
@@ -58,21 +58,21 @@ THREE.KMZLoader.prototype = {
 
 		// load collada
 
-		var files = zip.file(/dae$/i);
+		var files = zip.file( /dae$/i );
 
-		if (files.length) {
+		if ( files.length ) {
 
-			var file = files[0];
+			var file = files[ 0 ];
 
-			var collada = new THREE.ColladaLoader().parse(file.asText());
+			var collada = new THREE.ColladaLoader().parse( file.asText() );
 
 			// fix images
 
 			var images = collada.library.images;
 
-			for (var name in images) {
+			for ( var name in images ) {
 
-				loadImage(images[name]);
+				loadImage( images[ name ] );
 
 			}
 
@@ -80,7 +80,7 @@ THREE.KMZLoader.prototype = {
 
 		}
 
-		console.error('KMZLoader: Couldn\'t find .dae file.');
+		console.error( 'KMZLoader: Couldn\'t find .dae file.' );
 
 		return {
 			scene: new THREE.Group()
@@ -89,5 +89,3 @@ THREE.KMZLoader.prototype = {
 	}
 
 };
-
-export default THREE.KMZLoader;
