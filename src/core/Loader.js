@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-var Loader = function (editor) {
+function Loader(editor) {
 
     var scope = this;
     var signals = editor.signals;

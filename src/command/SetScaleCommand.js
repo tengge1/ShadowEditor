@@ -38,22 +38,29 @@ Object.assign(SetScaleCommand.prototype, {
 	constructor: SetScaleCommand,
 
 	execute: function () {
+
 		this.object.scale.copy(this.newScale);
 		this.object.updateMatrixWorld(true);
 		this.editor.signals.objectChanged.dispatch(this.object);
+
 	},
 
 	undo: function () {
+
 		this.object.scale.copy(this.oldScale);
 		this.object.updateMatrixWorld(true);
 		this.editor.signals.objectChanged.dispatch(this.object);
+
 	},
 
 	update: function (command) {
+
 		this.newScale.copy(command.newScale);
+
 	},
 
 	toJSON: function () {
+
 		var output = Command.prototype.toJSON.call(this);
 
 		output.objectUuid = this.object.uuid;
@@ -61,15 +68,19 @@ Object.assign(SetScaleCommand.prototype, {
 		output.newScale = this.newScale.toArray();
 
 		return output;
+
 	},
 
 	fromJSON: function (json) {
+
 		Command.prototype.fromJSON.call(this, json);
 
 		this.object = this.editor.objectByUuid(json.objectUuid);
 		this.oldScale = new THREE.Vector3().fromArray(json.oldScale);
 		this.newScale = new THREE.Vector3().fromArray(json.newScale);
+
 	}
+
 });
 
 export default SetScaleCommand;

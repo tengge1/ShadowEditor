@@ -38,7 +38,9 @@ function History(editor) {
 
 };
 
-History.prototype = {
+History.prototype = Object.create(Command.prototype);
+
+Object.assign(History.prototype, {
 
     execute: function (cmd, optionalName) {
 
@@ -322,6 +324,6 @@ History.prototype = {
 
     }
 
-};
+});
 
 export default History;

@@ -7,27 +7,27 @@ Number.prototype.format = function () {
 
 //
 
-var editor = new Bubble.Editor();
+var editor = new Shadow.Editor();
 
-var viewport = new Bubble.Viewport(editor);
+var viewport = new Shadow.Viewport(editor);
 document.body.appendChild(viewport.dom);
 
-var script = new Bubble.Script(editor);
+var script = new Shadow.Script(editor);
 document.body.appendChild(script.dom);
 
-var player = new Bubble.Player(editor);
+var player = new Shadow.Player(editor);
 document.body.appendChild(player.dom);
 
-var toolbar = new Bubble.Toolbar(editor);
+var toolbar = new Shadow.Toolbar(editor);
 document.body.appendChild(toolbar.dom);
 
-var menubar = new Bubble.Menubar(editor);
+var menubar = new Shadow.Menubar(editor);
 document.body.appendChild(menubar.dom);
 
-var sidebar = new Bubble.Sidebar(editor);
+var sidebar = new Shadow.Sidebar(editor);
 document.body.appendChild(sidebar.dom);
 
-var modal = new Bubble.UI.Modal();
+var modal = new Shadow.UI.Modal();
 document.body.appendChild(modal.dom);
 
 //

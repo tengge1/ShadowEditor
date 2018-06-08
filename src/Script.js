@@ -1,8 +1,10 @@
+import SetScriptValueCommand from './command/SetScriptValueCommand';
+
 /**
  * @author mrdoob / http://mrdoob.com/
  */
 
-var Script = function (editor) {
+function Script(editor) {
 
     var signals = editor.signals;
 
@@ -217,7 +219,7 @@ var Script = function (editor) {
                     try {
 
                         var shaderType = currentScript === 'vertexShader' ?
-								glslprep.Shader.VERTEX : glslprep.Shader.FRAGMENT;
+                            glslprep.Shader.VERTEX : glslprep.Shader.FRAGMENT;
 
                         glslprep.parseGlsl(string, shaderType);
 
@@ -257,7 +259,7 @@ var Script = function (editor) {
                         var diagnostics = programs[i].diagnostics;
 
                         if (diagnostics === undefined ||
-								diagnostics.material !== currentObject.material) continue;
+                            diagnostics.material !== currentObject.material) continue;
 
                         if (!diagnostics.runnable) valid = false;
 
@@ -445,3 +447,5 @@ var Script = function (editor) {
     return container;
 
 };
+
+export default Script;

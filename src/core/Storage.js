@@ -2,13 +2,13 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-var Storage = function () {
+function Storage() {
 
     var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 
     if (indexedDB === undefined) {
 
-        console.warn('存储：IndexedDB不可用。');
+        console.warn('Storage: IndexedDB不可用。');
         return { init: function () { }, get: function () { }, set: function () { }, clear: function () { } };
 
     }

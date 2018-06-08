@@ -1,3 +1,5 @@
+import Command from './Command';
+
 /**
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
@@ -13,9 +15,9 @@
  * @constructor
  */
 
-var SetScriptValueCommand = function ( object, script, attributeName, newValue, cursorPosition, scrollInfo ) {
+function SetScriptValueCommand(object, script, attributeName, newValue, cursorPosition, scrollInfo) {
 
-	Command.call( this );
+	Command.call(this);
 
 	this.type = 'SetScriptValueCommand';
 	this.name = 'Set Script.' + attributeName;
@@ -25,34 +27,38 @@ var SetScriptValueCommand = function ( object, script, attributeName, newValue, 
 	this.script = script;
 
 	this.attributeName = attributeName;
-	this.oldValue = ( script !== undefined ) ? script[ this.attributeName ] : undefined;
+	this.oldValue = (script !== undefined) ? script[this.attributeName] : undefined;
 	this.newValue = newValue;
 	this.cursorPosition = cursorPosition;
 	this.scrollInfo = scrollInfo;
 
 };
 
-SetScriptValueCommand.prototype = {
+SetScriptValueCommand.prototype = Object.create(Command.prototype);
+
+Object.assign(SetScriptValueCommand.prototype, {
+
+	constructor: SetScriptValueCommand,
 
 	execute: function () {
 
-		this.script[ this.attributeName ] = this.newValue;
+		this.script[this.attributeName] = this.newValue;
 
 		this.editor.signals.scriptChanged.dispatch();
-		this.editor.signals.refreshScriptEditor.dispatch( this.object, this.script, this.cursorPosition, this.scrollInfo );
+		this.editor.signals.refreshScriptEditor.dispatch(this.object, this.script, this.cursorPosition, this.scrollInfo);
 
 	},
 
 	undo: function () {
 
-		this.script[ this.attributeName ] = this.oldValue;
+		this.script[this.attributeName] = this.oldValue;
 
 		this.editor.signals.scriptChanged.dispatch();
-		this.editor.signals.refreshScriptEditor.dispatch( this.object, this.script, this.cursorPosition, this.scrollInfo );
+		this.editor.signals.refreshScriptEditor.dispatch(this.object, this.script, this.cursorPosition, this.scrollInfo);
 
 	},
 
-	update: function ( cmd ) {
+	update: function (cmd) {
 
 		this.cursorPosition = cmd.cursorPosition;
 		this.scrollInfo = cmd.scrollInfo;
@@ -62,10 +68,10 @@ SetScriptValueCommand.prototype = {
 
 	toJSON: function () {
 
-		var output = Command.prototype.toJSON.call( this );
+		var output = Command.prototype.toJSON.call(this);
 
 		output.objectUuid = this.object.uuid;
-		output.index = this.editor.scripts[ this.object.uuid ].indexOf( this.script );
+		output.index = this.editor.scripts[this.object.uuid].indexOf(this.script);
 		output.attributeName = this.attributeName;
 		output.oldValue = this.oldValue;
 		output.newValue = this.newValue;
@@ -76,18 +82,20 @@ SetScriptValueCommand.prototype = {
 
 	},
 
-	fromJSON: function ( json ) {
+	fromJSON: function (json) {
 
-		Command.prototype.fromJSON.call( this, json );
+		Command.prototype.fromJSON.call(this, json);
 
 		this.oldValue = json.oldValue;
 		this.newValue = json.newValue;
 		this.attributeName = json.attributeName;
-		this.object = this.editor.objectByUuid( json.objectUuid );
-		this.script = this.editor.scripts[ json.objectUuid ][ json.index ];
+		this.object = this.editor.objectByUuid(json.objectUuid);
+		this.script = this.editor.scripts[json.objectUuid][json.index];
 		this.cursorPosition = json.cursorPosition;
 		this.scrollInfo = json.scrollInfo;
 
 	}
 
-};
+});
+
+export default SetScriptValueCommand;

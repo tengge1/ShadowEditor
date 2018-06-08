@@ -1,3 +1,5 @@
+import Command from './Command';
+
 /**
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
@@ -10,9 +12,9 @@
  * @constructor
  */
 
-var SetColorCommand = function ( object, attributeName, newValue ) {
+function SetColorCommand(object, attributeName, newValue) {
 
-	Command.call( this );
+	Command.call(this);
 
 	this.type = 'SetColorCommand';
 	this.name = 'Set ' + attributeName;
@@ -20,28 +22,32 @@ var SetColorCommand = function ( object, attributeName, newValue ) {
 
 	this.object = object;
 	this.attributeName = attributeName;
-	this.oldValue = ( object !== undefined ) ? this.object[ this.attributeName ].getHex() : undefined;
+	this.oldValue = (object !== undefined) ? this.object[this.attributeName].getHex() : undefined;
 	this.newValue = newValue;
 
 };
 
-SetColorCommand.prototype = {
+SetColorCommand.prototype = Object.create(Command.prototype);
+
+Object.assign(SetColorCommand.prototype, {
+
+	constructor: SetColorCommand,
 
 	execute: function () {
 
-		this.object[ this.attributeName ].setHex( this.newValue );
-		this.editor.signals.objectChanged.dispatch( this.object );
+		this.object[this.attributeName].setHex(this.newValue);
+		this.editor.signals.objectChanged.dispatch(this.object);
 
 	},
 
 	undo: function () {
 
-		this.object[ this.attributeName ].setHex( this.oldValue );
-		this.editor.signals.objectChanged.dispatch( this.object );
+		this.object[this.attributeName].setHex(this.oldValue);
+		this.editor.signals.objectChanged.dispatch(this.object);
 
 	},
 
-	update: function ( cmd ) {
+	update: function (cmd) {
 
 		this.newValue = cmd.newValue;
 
@@ -49,7 +55,7 @@ SetColorCommand.prototype = {
 
 	toJSON: function () {
 
-		var output = Command.prototype.toJSON.call( this );
+		var output = Command.prototype.toJSON.call(this);
 
 		output.objectUuid = this.object.uuid;
 		output.attributeName = this.attributeName;
@@ -60,15 +66,17 @@ SetColorCommand.prototype = {
 
 	},
 
-	fromJSON: function ( json ) {
+	fromJSON: function (json) {
 
-		Command.prototype.fromJSON.call( this, json );
+		Command.prototype.fromJSON.call(this, json);
 
-		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.object = this.editor.objectByUuid(json.objectUuid);
 		this.attributeName = json.attributeName;
 		this.oldValue = json.oldValue;
 		this.newValue = json.newValue;
 
 	}
 
-};
+});
+
+export default SetColorCommand;
