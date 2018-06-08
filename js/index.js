@@ -24,10 +24,10 @@ document.body.appendChild(toolbar.dom);
 var menubar = new Shadow.Menubar(editor);
 document.body.appendChild(menubar.dom);
 
-var sidebar = new Shadow.Sidebar(editor);
+var sidebar = new Shadow.Panel(editor);
 document.body.appendChild(sidebar.dom);
 
-var modal = new Shadow.UI.Modal();
+var modal = new UI.Modal();
 document.body.appendChild(modal.dom);
 
 //

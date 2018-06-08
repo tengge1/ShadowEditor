@@ -1,8 +1,10 @@
-﻿/**
+﻿import SetGeometryValueCommand from '../../command/SetGeometryValueCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Geometry = function (editor) {
+function GeometryPanel(editor) {
 
     var signals = editor.signals;
 
@@ -184,3 +186,5 @@ Sidebar.Geometry = function (editor) {
     return container;
 
 };
+
+export default GeometryPanel;

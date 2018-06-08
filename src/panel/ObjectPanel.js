@@ -1,8 +1,15 @@
-﻿/**
+﻿import SetPositionCommand from '../command/SetPositionCommand';
+import SetRotationCommand from '../command/SetRotationCommand';
+import SetScaleCommand from '../command/SetScaleCommand';
+import SetUuidCommand from '../command/SetUuidCommand';
+import SetValueCommand from '../command/SetValueCommand';
+import SetColorCommand from '../command/SetColorCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Object = function (editor) {
+function ObjectPanel(editor) {
 
     var signals = editor.signals;
 
@@ -507,7 +514,7 @@ Sidebar.Object = function (editor) {
     function updateTransformRows(object) {
 
         if (object instanceof THREE.Light ||
-		   (object instanceof THREE.Object3D && object.userData.targetInverse)) {
+            (object instanceof THREE.Object3D && object.userData.targetInverse)) {
 
             objectRotationRow.setDisplay('none');
             objectScaleRow.setDisplay('none');
@@ -675,3 +682,5 @@ Sidebar.Object = function (editor) {
     return container;
 
 };
+
+export default ObjectPanel;

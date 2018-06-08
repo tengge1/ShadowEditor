@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Project = function (editor) {
+function ProjectPanel(editor) {
 
     var config = editor.config;
     var signals = editor.signals;
@@ -153,3 +153,5 @@ Sidebar.Project = function (editor) {
     return container;
 
 };
+
+export default ProjectPanel;

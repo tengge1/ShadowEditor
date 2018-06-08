@@ -1,8 +1,16 @@
-﻿/**
+﻿import ScenePanel from './ScenePanel';
+import PropertyPanel from './PropertyPanel';
+import AnimationPanel from './AnimationPanel';
+import ScriptPanel from './ScriptPanel';
+import ProjectPanel from './ProjectPanel';
+import SettingPanel from './SettingPanel';
+import HistoryPanel from './HistoryPanel';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-var Sidebar = function (editor) {
+function Panel(editor) {
 
     var container = new UI.Panel();
     container.setId('sidebar');
@@ -27,22 +35,22 @@ var Sidebar = function (editor) {
     //
 
     var scene = new UI.Span().add(
-		new Sidebar.Scene(editor),
-		new Sidebar.Properties(editor),
-		new Sidebar.Animation(editor),
-		new Sidebar.Script(editor)
-	);
+        new ScenePanel(editor),
+        new PropertyPanel(editor),
+        new AnimationPanel(editor),
+        new ScriptPanel(editor)
+    );
     container.add(scene);
 
     var project = new UI.Span().add(
-		new Sidebar.Project(editor)
-	);
+        new ProjectPanel(editor)
+    );
     container.add(project);
 
     var settings = new UI.Span().add(
-		new Sidebar.Settings(editor),
-		new Sidebar.History(editor)
-	);
+        new SettingPanel(editor),
+        new HistoryPanel(editor)
+    );
     container.add(settings);
 
     //
@@ -79,3 +87,5 @@ var Sidebar = function (editor) {
     return container;
 
 };
+
+export default Panel;

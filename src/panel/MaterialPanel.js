@@ -1,8 +1,13 @@
-﻿/**
+﻿import SetMaterialCommand from '../command/SetMaterialCommand';
+import SetMaterialValueCommand from '../command/SetMaterialValueCommand';
+import SetMaterialColorCommand from '../command/SetMaterialColorCommand';
+import SetMaterialMapCommand from '../command/SetMaterialMapCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Material = function (editor) {
+function MaterialPanel(editor) {
 
     var signals = editor.signals;
     var currentObject;
@@ -1306,3 +1311,5 @@ Sidebar.Material = function (editor) {
     return container;
 
 };
+
+export default MaterialPanel;

@@ -1,0 +1,10 @@
+export { default as AnimationPanel } from './AnimationPanel';
+export { default as HistoryPanel } from './HistoryPanel';
+export { default as MaterialPanel } from './MaterialPanel';
+export { default as ObjectPanel } from './ObjectPanel';
+export { default as ProjectPanel } from './ProjectPanel';
+export { default as PropertyPanel } from './PropertyPanel';
+export { default as ScenePanel } from './ScenePanel';
+export { default as ScriptPanel } from './ScriptPanel';
+export { default as SettingPanel } from './SettingPanel';
+export { default as Panel } from './Panel';

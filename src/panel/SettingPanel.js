@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Settings = function (editor) {
+function SettingPanel(editor) {
 
     var config = editor.config;
     var signals = editor.signals;
@@ -45,3 +45,5 @@ Sidebar.Settings = function (editor) {
     return container;
 
 };
+
+export default SettingPanel;

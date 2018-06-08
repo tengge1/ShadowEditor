@@ -3,7 +3,7 @@
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  */
 
-Sidebar.History = function (editor) {
+function HistoryPanel(editor) {
 
     var signals = editor.signals;
 
@@ -127,3 +127,5 @@ Sidebar.History = function (editor) {
     return container;
 
 };
+
+export default HistoryPanel;

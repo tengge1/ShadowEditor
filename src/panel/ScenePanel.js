@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Scene = function (editor) {
+function ScenePanel(editor) {
 
     var signals = editor.signals;
 
@@ -98,12 +98,12 @@ Sidebar.Scene = function (editor) {
     function onFogChanged() {
 
         signals.sceneFogChanged.dispatch(
-			fogType.getValue(),
-			fogColor.getHexValue(),
-			fogNear.getValue(),
-			fogFar.getValue(),
-			fogDensity.getValue()
-		);
+            fogType.getValue(),
+            fogColor.getHexValue(),
+            fogNear.getValue(),
+            fogFar.getValue(),
+            fogDensity.getValue()
+        );
 
     }
 
@@ -271,3 +271,5 @@ Sidebar.Scene = function (editor) {
     return container;
 
 };
+
+export default ScenePanel;

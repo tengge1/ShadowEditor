@@ -1,8 +1,12 @@
-﻿/**
+﻿import AddScriptCommand from '../command/AddScriptCommand';
+import SetScriptValueCommand from '../command/SetScriptValueCommand';
+import RemoveScriptCommand from '../command/RemoveScriptCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Script = function (editor) {
+function ScriptPanel(editor) {
 
     var signals = editor.signals;
 
@@ -123,3 +127,5 @@ Sidebar.Script = function (editor) {
     return container;
 
 };
+
+export default ScriptPanel;

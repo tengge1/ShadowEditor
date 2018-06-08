@@ -1,8 +1,12 @@
-﻿/**
+﻿import ObjectPanel from './ObjectPanel';
+import GeometryPanel from './geometry/GeometryPanel';
+import MaterialPanel from './MaterialPanel';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
-Sidebar.Properties = function (editor) {
+function PropertyPanel(editor) {
 
     var signals = editor.signals;
 
@@ -26,18 +30,18 @@ Sidebar.Properties = function (editor) {
     //
 
     var object = new UI.Span().add(
-		new Sidebar.Object(editor)
-	);
+        new ObjectPanel(editor)
+    );
     container.add(object);
 
     var geometry = new UI.Span().add(
-		new Sidebar.Geometry(editor)
-	);
+        new GeometryPanel(editor)
+    );
     container.add(geometry);
 
     var material = new UI.Span().add(
-		new Sidebar.Material(editor)
-	);
+        new MaterialPanel(editor)
+    );
     container.add(material);
 
     //
@@ -74,3 +78,5 @@ Sidebar.Properties = function (editor) {
     return container;
 
 };
+
+export default PropertyPanel;
