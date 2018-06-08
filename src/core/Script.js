@@ -1,4 +1,4 @@
-import SetScriptValueCommand from './command/SetScriptValueCommand';
+import SetScriptValueCommand from '../command/SetScriptValueCommand';
 
 /**
  * @author mrdoob / http://mrdoob.com/

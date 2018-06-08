@@ -1,4 +1,7 @@
-﻿/**
+﻿import AddObjectCommand from '../command/AddObjectCommand';
+import SetSceneCommand from '../command/SetSceneCommand';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 

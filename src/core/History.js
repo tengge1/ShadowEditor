@@ -42,6 +42,8 @@ History.prototype = Object.create(Command.prototype);
 
 Object.assign(History.prototype, {
 
+    constructor: History,
+
     execute: function (cmd, optionalName) {
 
         var lastCmd = this.undos[this.undos.length - 1];

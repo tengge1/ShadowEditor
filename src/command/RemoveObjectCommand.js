@@ -108,4 +108,4 @@ Object.assign(RemoveObjectCommand.prototype, {
 
 });
 
-export default Command;
+export default RemoveObjectCommand;

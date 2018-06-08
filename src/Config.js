@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-var Config = function (name) {
+function Config(name) {
 
     var storage = {
         'autosave': true,

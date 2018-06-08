@@ -2,7 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-var Player = function (editor) {
+function Player(editor) {
 
     var signals = editor.signals;
 
@@ -44,3 +44,5 @@ var Player = function (editor) {
     return container;
 
 };
+
+export default Player;
