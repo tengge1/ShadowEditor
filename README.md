@@ -1,8 +1,8 @@
-# Bubble Editor
+# Shadow Editor
 
 ## 简介
 
-* 名称：Bubble Editor
+* 名称：Shadow Editor
 * 版本：v0.0.2
 * 说明：Three.js自带编辑器的二次开发。
 
