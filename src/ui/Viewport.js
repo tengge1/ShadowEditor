@@ -31,7 +31,7 @@ function Viewport(editor) {
 
     var vrEffect, vrControls;
 
-    // if (WEBVR.isAvailable() === true) {
+    // if ( renderer.vr.enabled ) {
 
     var vrCamera = new THREE.PerspectiveCamera();
     vrCamera.projectionMatrix = camera.projectionMatrix;
@@ -298,12 +298,12 @@ function Viewport(editor) {
 
         switch (value) {
 
-            case 'css/light.css':
+            case 'assets/css/light.css':
                 sceneHelpers.remove(grid);
                 grid = new THREE.GridHelper(60, 60, 0x444444, 0x888888);
                 sceneHelpers.add(grid);
                 break;
-            case 'css/dark.css':
+            case 'assets/css/dark.css':
                 sceneHelpers.remove(grid);
                 grid = new THREE.GridHelper(60, 60, 0xbbbbbb, 0x888888);
                 sceneHelpers.add(grid);
@@ -350,7 +350,7 @@ function Viewport(editor) {
 
         container.dom.appendChild(renderer.domElement);
 
-        if (WEBVR.isAvailable() === true) {
+        if ( renderer.vr.enabled ) {
 
             vrControls = new THREE.VRControls(vrCamera);
             vrEffect = new THREE.VREffect(renderer);

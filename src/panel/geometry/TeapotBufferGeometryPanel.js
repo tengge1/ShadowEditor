@@ -1,6 +1,4 @@
-﻿import TeapotBufferGeometryPanel from '../../command/TeapotBufferGeometryPanel';
-
-/**
+﻿/**
  * @author tschw
  */
 

@@ -125,7 +125,7 @@ var APP = {
                 controls = new THREE.VRControls(cameraVR);
                 effect = new THREE.VREffect(renderer);
 
-                if (WEBVR.isAvailable() === true) {
+                if ( renderer.vr.enabled ) {
 
                     this.dom.appendChild(WEBVR.getButton(effect));
 

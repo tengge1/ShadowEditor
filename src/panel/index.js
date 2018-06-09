@@ -8,3 +8,18 @@ export { default as ScenePanel } from './ScenePanel';
 export { default as ScriptPanel } from './ScriptPanel';
 export { default as SettingPanel } from './SettingPanel';
 export { default as Panel } from './Panel';
+
+export { default as GeometryGeometryPanel } from './geometry/GeometryGeometryPanel';
+export { default as BoxGeometryPanel } from './geometry/BoxGeometryPanel';
+export { default as BufferGeometryPanel } from './geometry/BufferGeometryPanel';
+export { default as CircleGeometryPanel } from './geometry/CircleGeometryPanel';
+export { default as CylinderGeometryPanel } from './geometry/CylinderGeometryPanel';
+export { default as GeometryModifyPanel } from './geometry/GeometryModifyPanel';
+export { default as IcosahedronGeometryPanel } from './geometry/IcosahedronGeometryPanel';
+export { default as LatheGeometryPanel } from './geometry/LatheGeometryPanel';
+export { default as PlaneGeometryPanel } from './geometry/PlaneGeometryPanel';
+export { default as SphereGeometryPanel } from './geometry/SphereGeometryPanel';
+export { default as TeapotBufferGeometryPanel } from './geometry/TeapotBufferGeometryPanel';
+export { default as TorusGeometryPanel } from './geometry/TorusGeometryPanel';
+export { default as TorusKnotGeometryPanel } from './geometry/TorusKnotGeometryPanel';
+export { default as GeometryPanel } from './geometry/GeometryPanel';

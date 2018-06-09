@@ -23,7 +23,7 @@ function ViewMenu(editor) {
     option.setTextContent('VR模式');
     option.onClick(function () {
 
-        if (WEBVR.isAvailable() === true) {
+        if (renderer.vr.enabled) {
 
             editor.signals.enterVR.dispatch();
 

@@ -6,7 +6,7 @@ function Config(name) {
 
     var storage = {
         'autosave': true,
-        'theme': 'css/light.css',
+        'theme': 'assets/css/light.css',
 
         'project/renderer': 'WebGLRenderer',
         'project/renderer/antialias': true,

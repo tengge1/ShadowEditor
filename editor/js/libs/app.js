@@ -116,28 +116,11 @@ var APP = {
             camera.aspect = this.width / this.height;
             camera.updateProjectionMatrix();
 
-            if (isVR === true) {
+            if ( renderer.vr.enabled ) {
 
-                cameraVR = new THREE.PerspectiveCamera();
-                cameraVR.projectionMatrix = camera.projectionMatrix;
-                camera.add(cameraVR);
+				dom.appendChild( WEBVR.createButton( renderer ) );
 
-                controls = new THREE.VRControls(cameraVR);
-                effect = new THREE.VREffect(renderer);
-
-                if (WEBVR.isAvailable() === true) {
-
-                    this.dom.appendChild(WEBVR.getButton(effect));
-
-                }
-
-                if (WEBVR.isLatestAvailable() === false) {
-
-                    this.dom.appendChild(WEBVR.getMessage());
-
-                }
-
-            }
+			}
 
         };
 

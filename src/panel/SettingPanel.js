@@ -14,8 +14,8 @@ function SettingPanel(editor) {
     // class
 
     var options = {
-        'css/light.css': '浅色',
-        'css/dark.css': '深色'
+        'assets/css/light.css': '浅色',
+        'assets/css/dark.css': '深色'
     };
 
     var themeRow = new UI.Row();
