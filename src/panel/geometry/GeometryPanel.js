@@ -3,9 +3,43 @@ import GeometryGeometryPanel from './GeometryGeometryPanel';
 import BufferGeometryPanel from './BufferGeometryPanel';
 import GeometryModifyPanel from './GeometryModifyPanel';
 
+import BoxGeometryPanel from './BoxGeometryPanel';
+import CircleGeometryPanel from './CircleGeometryPanel';
+import CylinderGeometryPanel from './CylinderGeometryPanel';
+import IcosahedronGeometryPanel from './IcosahedronGeometryPanel';
+import LatheGeometryPanel from './LatheGeometryPanel';
+import PlaneGeometryPanel from './PlaneGeometryPanel';
+import SphereGeometryPanel from './SphereGeometryPanel';
+import TeapotBufferGeometryPanel from './TeapotBufferGeometryPanel';
+import TorusGeometryPanel from './TorusGeometryPanel';
+import TorusKnotGeometryPanel from './TorusKnotGeometryPanel';
+
 /**
  * @author mrdoob / http://mrdoob.com/
  */
+
+const GeometryPanels = {
+    'BoxGeometry': BoxGeometryPanel,
+    'BoxBufferGeometry': BoxGeometryPanel,
+    'CircleGeometry': CircleGeometryPanel,
+    'CircleBufferGeometry': CircleGeometryPanel,
+    'CylinderGeometry': CylinderGeometryPanel,
+    'CylinderBufferGeometry': CylinderGeometryPanel,
+    'IcosahedronGeometry': IcosahedronGeometryPanel,
+    'IcosahedronBufferGeometry': IcosahedronGeometryPanel,
+    'LatheGeometry': LatheGeometryPanel,
+    'LatheBufferGeometry': LatheGeometryPanel,
+    'PlaneGeometry': PlaneGeometryPanel,
+    'PlaneBufferGeometry': PlaneGeometryPanel,
+    'SphereGeometry': SphereGeometryPanel,
+    'SphereBufferGeometry': SphereGeometryPanel,
+    'TeapotGeometry': TeapotBufferGeometryPanel,
+    'TeapotBufferGeometry': TeapotBufferGeometryPanel,
+    'TorusGeometry': TorusGeometryPanel,
+    'TorusBufferGeometry': TorusGeometryPanel,
+    'TorusKnotGeometry': TorusKnotGeometryPanel,
+    'TorusKnotBufferGeometry': TorusKnotGeometryPanel
+};
 
 function GeometryPanel(editor) {
 
@@ -169,9 +203,9 @@ function GeometryPanel(editor) {
 
                 parameters.add(new GeometryModifyPanel(editor, object));
 
-            } else if (Sidebar.Geometry[geometry.type] !== undefined) {
+            } else if (GeometryPanels[geometry.type] !== undefined) {
 
-                parameters.add(new Sidebar.Geometry[geometry.type](editor, object));
+                parameters.add(new GeometryPanels[geometry.type](editor, object));
 
             }
 

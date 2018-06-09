@@ -16,7 +16,9 @@
 
 ## 项目截图
 
-![image](images/demo1.jpg)
+![image](images/v0.0.1.jpg)
+
+![image](images/v0.0.2.jpg)
 
 ## 相关链接
 
