@@ -1,6 +1,6 @@
 {
-    "name": "bubbleeditor",
-    "version": "0.0.1",
+    "name": "shadoweditor",
+    "version": "0.0.3",
     "private": true,
     "description": "3D Editor with three.js.",
     "dependencies": {
@@ -25,11 +25,12 @@
     "scripts": {
         "build": "rollup -c",
         "build-watch": "rollup -c -w",
-        "clear": "npm prune"
+        "clear": "npm prune",
+        "book": "gitbook build docs"
     },
     "repository": {
         "type": "git",
-        "url": "git+ssh://git@github.com/tengge1/BubbleEditor.git"
+        "url": "git+ssh://git@github.com/tengge1/ShadowEditor.git"
     },
     "keywords": [
         "3d",
@@ -39,7 +40,7 @@
     "author": "tengge",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/tengge1/BubbleEditor/issues"
+        "url": "https://github.com/tengge1/ShadowEditor/issues"
     },
-    "homepage": "https://github.com/tengge1/BubbleEditor"
+    "homepage": "https://github.com/tengge1/ShadowEditor"
 }
