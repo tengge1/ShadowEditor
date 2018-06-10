@@ -1,5 +1,7 @@
 # Shadow Editor
 
+[示例程序](https://tengge1.github.io/ShadowEditor/demo.html)    [项目文档](https://tengge1.github.io/ShadowEditor/docs/release/index.html)
+
 ## 简介
 
 * 名称：Shadow Editor
