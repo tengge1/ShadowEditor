@@ -5,6 +5,7 @@
     "description": "3D Editor with three.js.",
     "dependencies": {
         "http": "0.0.0",
+        "mongodb": "^3.0.10",
         "three": "^0.93.0"
     },
     "devDependencies": {
@@ -24,7 +25,7 @@
     },
     "scripts": {
         "build": "rollup -c",
-        "build-watch": "rollup -c -w",
+        "build-server": "rollup -c server/rollup.config.js",
         "clear": "npm prune",
         "book": "gitbook build docs"
     },

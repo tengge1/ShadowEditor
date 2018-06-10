@@ -1,302 +1,302 @@
-﻿/**
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
 var UI = {};
 
-UI.Element = function (dom) {
+UI.Element = function ( dom ) {
 
-    this.dom = dom;
+	this.dom = dom;
 
 };
 
 UI.Element.prototype = {
 
-    add: function () {
+	add: function () {
 
-        for (var i = 0; i < arguments.length; i++) {
+		for ( var i = 0; i < arguments.length; i ++ ) {
 
-            var argument = arguments[i];
+			var argument = arguments[ i ];
 
-            if (argument instanceof UI.Element) {
+			if ( argument instanceof UI.Element ) {
 
-                this.dom.appendChild(argument.dom);
+				this.dom.appendChild( argument.dom );
 
-            } else {
+			} else {
 
-                console.error('UI.Element:', argument, '并不是UI.Element的实例。');
+				console.error( 'UI.Element:', argument, 'is not an instance of UI.Element.' );
 
-            }
+			}
 
-        }
+		}
 
-        return this;
+		return this;
 
-    },
+	},
 
-    remove: function () {
+	remove: function () {
 
-        for (var i = 0; i < arguments.length; i++) {
+		for ( var i = 0; i < arguments.length; i ++ ) {
 
-            var argument = arguments[i];
+			var argument = arguments[ i ];
 
-            if (argument instanceof UI.Element) {
+			if ( argument instanceof UI.Element ) {
 
-                this.dom.removeChild(argument.dom);
+				this.dom.removeChild( argument.dom );
 
-            } else {
+			} else {
 
-                console.error('UI.Element:', argument, '并不是UI.Element的实例。');
+				console.error( 'UI.Element:', argument, 'is not an instance of UI.Element.' );
 
-            }
+			}
 
-        }
+		}
 
-        return this;
+		return this;
 
-    },
+	},
 
-    clear: function () {
+	clear: function () {
 
-        while (this.dom.children.length) {
+		while ( this.dom.children.length ) {
 
-            this.dom.removeChild(this.dom.lastChild);
+			this.dom.removeChild( this.dom.lastChild );
 
-        }
+		}
 
-    },
+	},
 
-    setId: function (id) {
+	setId: function ( id ) {
 
-        this.dom.id = id;
+		this.dom.id = id;
 
-        return this;
+		return this;
 
-    },
+	},
 
-    setClass: function (name) {
+	setClass: function ( name ) {
 
-        this.dom.className = name;
+		this.dom.className = name;
 
-        return this;
+		return this;
 
-    },
+	},
 
-    setStyle: function (style, array) {
+	setStyle: function ( style, array ) {
 
-        for (var i = 0; i < array.length; i++) {
+		for ( var i = 0; i < array.length; i ++ ) {
 
-            this.dom.style[style] = array[i];
+			this.dom.style[ style ] = array[ i ];
 
-        }
+		}
 
-        return this;
+		return this;
 
-    },
+	},
 
-    setDisabled: function (value) {
+	setDisabled: function ( value ) {
 
-        this.dom.disabled = value;
+		this.dom.disabled = value;
 
-        return this;
+		return this;
 
-    },
+	},
 
-    setTextContent: function (value) {
+	setTextContent: function ( value ) {
 
-        this.dom.textContent = value;
+		this.dom.textContent = value;
 
-        return this;
+		return this;
 
-    }
+	}
 
 };
 
 // properties
 
-var properties = ['position', 'left', 'top', 'right', 'bottom', 'width', 'height', 'border', 'borderLeft',
+var properties = [ 'position', 'left', 'top', 'right', 'bottom', 'width', 'height', 'border', 'borderLeft',
 'borderTop', 'borderRight', 'borderBottom', 'borderColor', 'display', 'overflow', 'margin', 'marginLeft', 'marginTop', 'marginRight', 'marginBottom', 'padding', 'paddingLeft', 'paddingTop', 'paddingRight', 'paddingBottom', 'color',
-'background', 'backgroundColor', 'opacity', 'fontSize', 'fontWeight', 'textAlign', 'textDecoration', 'textTransform', 'cursor', 'zIndex'];
+'background', 'backgroundColor', 'opacity', 'fontSize', 'fontWeight', 'textAlign', 'textDecoration', 'textTransform', 'cursor', 'zIndex' ];
 
-properties.forEach(function (property) {
+properties.forEach( function ( property ) {
 
-    var method = 'set' + property.substr(0, 1).toUpperCase() + property.substr(1, property.length);
+	var method = 'set' + property.substr( 0, 1 ).toUpperCase() + property.substr( 1, property.length );
 
-    UI.Element.prototype[method] = function () {
+	UI.Element.prototype[ method ] = function () {
 
-        this.setStyle(property, arguments);
+		this.setStyle( property, arguments );
 
-        return this;
+		return this;
 
-    };
+	};
 
-});
+} );
 
 // events
 
-var events = ['KeyUp', 'KeyDown', 'MouseOver', 'MouseOut', 'Click', 'DblClick', 'Change'];
+var events = [ 'KeyUp', 'KeyDown', 'MouseOver', 'MouseOut', 'Click', 'DblClick', 'Change' ];
 
-events.forEach(function (event) {
+events.forEach( function ( event ) {
 
-    var method = 'on' + event;
+	var method = 'on' + event;
 
-    UI.Element.prototype[method] = function (callback) {
+	UI.Element.prototype[ method ] = function ( callback ) {
 
-        this.dom.addEventListener(event.toLowerCase(), callback.bind(this), false);
+		this.dom.addEventListener( event.toLowerCase(), callback.bind( this ), false );
 
-        return this;
+		return this;
 
-    };
+	};
 
-});
+} );
 
 // Span
 
 UI.Span = function () {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    this.dom = document.createElement('span');
+	this.dom = document.createElement( 'span' );
 
-    return this;
+	return this;
 
 };
 
-UI.Span.prototype = Object.create(UI.Element.prototype);
+UI.Span.prototype = Object.create( UI.Element.prototype );
 UI.Span.prototype.constructor = UI.Span;
 
 // Div
 
 UI.Div = function () {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    this.dom = document.createElement('div');
+	this.dom = document.createElement( 'div' );
 
-    return this;
+	return this;
 
 };
 
-UI.Div.prototype = Object.create(UI.Element.prototype);
+UI.Div.prototype = Object.create( UI.Element.prototype );
 UI.Div.prototype.constructor = UI.Div;
 
 // Row
 
 UI.Row = function () {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var dom = document.createElement('div');
-    dom.className = 'Row';
+	var dom = document.createElement( 'div' );
+	dom.className = 'Row';
 
-    this.dom = dom;
+	this.dom = dom;
 
-    return this;
+	return this;
 
 };
 
-UI.Row.prototype = Object.create(UI.Element.prototype);
+UI.Row.prototype = Object.create( UI.Element.prototype );
 UI.Row.prototype.constructor = UI.Row;
 
 // Panel
 
 UI.Panel = function () {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var dom = document.createElement('div');
-    dom.className = 'Panel';
+	var dom = document.createElement( 'div' );
+	dom.className = 'Panel';
 
-    this.dom = dom;
+	this.dom = dom;
 
-    return this;
+	return this;
 
 };
 
-UI.Panel.prototype = Object.create(UI.Element.prototype);
+UI.Panel.prototype = Object.create( UI.Element.prototype );
 UI.Panel.prototype.constructor = UI.Panel;
 
 // Text
 
-UI.Text = function (text) {
+UI.Text = function ( text ) {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var dom = document.createElement('span');
-    dom.className = 'Text';
-    dom.style.cursor = 'default';
-    dom.style.display = 'inline-block';
-    dom.style.verticalAlign = 'middle';
+	var dom = document.createElement( 'span' );
+	dom.className = 'Text';
+	dom.style.cursor = 'default';
+	dom.style.display = 'inline-block';
+	dom.style.verticalAlign = 'middle';
 
-    this.dom = dom;
-    this.setValue(text);
+	this.dom = dom;
+	this.setValue( text );
 
-    return this;
+	return this;
 
 };
 
-UI.Text.prototype = Object.create(UI.Element.prototype);
+UI.Text.prototype = Object.create( UI.Element.prototype );
 UI.Text.prototype.constructor = UI.Text;
 
 UI.Text.prototype.getValue = function () {
 
-    return this.dom.textContent;
+	return this.dom.textContent;
 
 };
 
-UI.Text.prototype.setValue = function (value) {
+UI.Text.prototype.setValue = function ( value ) {
 
-    if (value !== undefined) {
+	if ( value !== undefined ) {
 
-        this.dom.textContent = value;
+		this.dom.textContent = value;
 
-    }
+	}
 
-    return this;
+	return this;
 
 };
 
 
 // Input
 
-UI.Input = function (text) {
+UI.Input = function ( text ) {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var scope = this;
+	var scope = this;
 
-    var dom = document.createElement('input');
-    dom.className = 'Input';
-    dom.style.padding = '2px';
-    dom.style.border = '1px solid transparent';
+	var dom = document.createElement( 'input' );
+	dom.className = 'Input';
+	dom.style.padding = '2px';
+	dom.style.border = '1px solid transparent';
 
-    dom.addEventListener('keydown', function (event) {
+	dom.addEventListener( 'keydown', function ( event ) {
 
-        event.stopPropagation();
+		event.stopPropagation();
 
-    }, false);
+	}, false );
 
-    this.dom = dom;
-    this.setValue(text);
+	this.dom = dom;
+	this.setValue( text );
 
-    return this;
+	return this;
 
 };
 
-UI.Input.prototype = Object.create(UI.Element.prototype);
+UI.Input.prototype = Object.create( UI.Element.prototype );
 UI.Input.prototype.constructor = UI.Input;
 
 UI.Input.prototype.getValue = function () {
 
-    return this.dom.value;
+	return this.dom.value;
 
 };
 
-UI.Input.prototype.setValue = function (value) {
+UI.Input.prototype.setValue = function ( value ) {
 
-    this.dom.value = value;
+	this.dom.value = value;
 
-    return this;
+	return this;
 
 };
 
@@ -305,53 +305,53 @@ UI.Input.prototype.setValue = function (value) {
 
 UI.TextArea = function () {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var scope = this;
+	var scope = this;
 
-    var dom = document.createElement('textarea');
-    dom.className = 'TextArea';
-    dom.style.padding = '2px';
-    dom.spellcheck = false;
+	var dom = document.createElement( 'textarea' );
+	dom.className = 'TextArea';
+	dom.style.padding = '2px';
+	dom.spellcheck = false;
 
-    dom.addEventListener('keydown', function (event) {
+	dom.addEventListener( 'keydown', function ( event ) {
 
-        event.stopPropagation();
+		event.stopPropagation();
 
-        if (event.keyCode === 9) {
+		if ( event.keyCode === 9 ) {
 
-            event.preventDefault();
+			event.preventDefault();
 
-            var cursor = dom.selectionStart;
+			var cursor = dom.selectionStart;
 
-            dom.value = dom.value.substring(0, cursor) + '\t' + dom.value.substring(cursor);
-            dom.selectionStart = cursor + 1;
-            dom.selectionEnd = dom.selectionStart;
+			dom.value = dom.value.substring( 0, cursor ) + '\t' + dom.value.substring( cursor );
+			dom.selectionStart = cursor + 1;
+			dom.selectionEnd = dom.selectionStart;
 
-        }
+		}
 
-    }, false);
+	}, false );
 
-    this.dom = dom;
+	this.dom = dom;
 
-    return this;
+	return this;
 
 };
 
-UI.TextArea.prototype = Object.create(UI.Element.prototype);
+UI.TextArea.prototype = Object.create( UI.Element.prototype );
 UI.TextArea.prototype.constructor = UI.TextArea;
 
 UI.TextArea.prototype.getValue = function () {
 
-    return this.dom.value;
+	return this.dom.value;
 
 };
 
-UI.TextArea.prototype.setValue = function (value) {
+UI.TextArea.prototype.setValue = function ( value ) {
 
-    this.dom.value = value;
+	this.dom.value = value;
 
-    return this;
+	return this;
 
 };
 
@@ -360,113 +360,113 @@ UI.TextArea.prototype.setValue = function (value) {
 
 UI.Select = function () {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var scope = this;
+	var scope = this;
 
-    var dom = document.createElement('select');
-    dom.className = 'Select';
-    dom.style.padding = '2px';
+	var dom = document.createElement( 'select' );
+	dom.className = 'Select';
+	dom.style.padding = '2px';
 
-    this.dom = dom;
+	this.dom = dom;
 
-    return this;
+	return this;
 
 };
 
-UI.Select.prototype = Object.create(UI.Element.prototype);
+UI.Select.prototype = Object.create( UI.Element.prototype );
 UI.Select.prototype.constructor = UI.Select;
 
-UI.Select.prototype.setMultiple = function (boolean) {
+UI.Select.prototype.setMultiple = function ( boolean ) {
 
-    this.dom.multiple = boolean;
+	this.dom.multiple = boolean;
 
-    return this;
+	return this;
 
 };
 
-UI.Select.prototype.setOptions = function (options) {
+UI.Select.prototype.setOptions = function ( options ) {
 
-    var selected = this.dom.value;
+	var selected = this.dom.value;
 
-    while (this.dom.children.length > 0) {
+	while ( this.dom.children.length > 0 ) {
 
-        this.dom.removeChild(this.dom.firstChild);
+		this.dom.removeChild( this.dom.firstChild );
 
-    }
+	}
 
-    for (var key in options) {
+	for ( var key in options ) {
 
-        var option = document.createElement('option');
-        option.value = key;
-        option.innerHTML = options[key];
-        this.dom.appendChild(option);
+		var option = document.createElement( 'option' );
+		option.value = key;
+		option.innerHTML = options[ key ];
+		this.dom.appendChild( option );
 
-    }
+	}
 
-    this.dom.value = selected;
+	this.dom.value = selected;
 
-    return this;
+	return this;
 
 };
 
 UI.Select.prototype.getValue = function () {
 
-    return this.dom.value;
+	return this.dom.value;
 
 };
 
-UI.Select.prototype.setValue = function (value) {
+UI.Select.prototype.setValue = function ( value ) {
 
-    value = String(value);
+	value = String( value );
 
-    if (this.dom.value !== value) {
+	if ( this.dom.value !== value ) {
 
-        this.dom.value = value;
+		this.dom.value = value;
 
-    }
+	}
 
-    return this;
+	return this;
 
 };
 
 // Checkbox
 
-UI.Checkbox = function (boolean) {
+UI.Checkbox = function ( boolean ) {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var scope = this;
+	var scope = this;
 
-    var dom = document.createElement('input');
-    dom.className = 'Checkbox';
-    dom.type = 'checkbox';
+	var dom = document.createElement( 'input' );
+	dom.className = 'Checkbox';
+	dom.type = 'checkbox';
 
-    this.dom = dom;
-    this.setValue(boolean);
+	this.dom = dom;
+	this.setValue( boolean );
 
-    return this;
+	return this;
 
 };
 
-UI.Checkbox.prototype = Object.create(UI.Element.prototype);
+UI.Checkbox.prototype = Object.create( UI.Element.prototype );
 UI.Checkbox.prototype.constructor = UI.Checkbox;
 
 UI.Checkbox.prototype.getValue = function () {
 
-    return this.dom.checked;
+	return this.dom.checked;
 
 };
 
-UI.Checkbox.prototype.setValue = function (value) {
+UI.Checkbox.prototype.setValue = function ( value ) {
 
-    if (value !== undefined) {
+	if ( value !== undefined ) {
 
-        this.dom.checked = value;
+		this.dom.checked = value;
 
-    }
+	}
 
-    return this;
+	return this;
 
 };
 
@@ -475,407 +475,407 @@ UI.Checkbox.prototype.setValue = function (value) {
 
 UI.Color = function () {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var scope = this;
+	var scope = this;
 
-    var dom = document.createElement('input');
-    dom.className = 'Color';
-    dom.style.width = '64px';
-    dom.style.height = '17px';
-    dom.style.border = '0px';
-    dom.style.padding = '2px';
-    dom.style.backgroundColor = 'transparent';
+	var dom = document.createElement( 'input' );
+	dom.className = 'Color';
+	dom.style.width = '64px';
+	dom.style.height = '17px';
+	dom.style.border = '0px';
+	dom.style.padding = '2px';
+	dom.style.backgroundColor = 'transparent';
 
-    try {
+	try {
 
-        dom.type = 'color';
-        dom.value = '#ffffff';
+		dom.type = 'color';
+		dom.value = '#ffffff';
 
-    } catch (exception) { }
+	} catch ( exception ) {}
 
-    this.dom = dom;
+	this.dom = dom;
 
-    return this;
+	return this;
 
 };
 
-UI.Color.prototype = Object.create(UI.Element.prototype);
+UI.Color.prototype = Object.create( UI.Element.prototype );
 UI.Color.prototype.constructor = UI.Color;
 
 UI.Color.prototype.getValue = function () {
 
-    return this.dom.value;
+	return this.dom.value;
 
 };
 
 UI.Color.prototype.getHexValue = function () {
 
-    return parseInt(this.dom.value.substr(1), 16);
+	return parseInt( this.dom.value.substr( 1 ), 16 );
 
 };
 
-UI.Color.prototype.setValue = function (value) {
+UI.Color.prototype.setValue = function ( value ) {
 
-    this.dom.value = value;
+	this.dom.value = value;
 
-    return this;
+	return this;
 
 };
 
-UI.Color.prototype.setHexValue = function (hex) {
+UI.Color.prototype.setHexValue = function ( hex ) {
 
-    this.dom.value = '#' + ('000000' + hex.toString(16)).slice(-6);
+	this.dom.value = '#' + ( '000000' + hex.toString( 16 ) ).slice( - 6 );
 
-    return this;
+	return this;
 
 };
 
 
 // Number
 
-UI.Number = function (number) {
+UI.Number = function ( number ) {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var scope = this;
+	var scope = this;
 
-    var dom = document.createElement('input');
-    dom.className = 'Number';
-    dom.value = '0.00';
+	var dom = document.createElement( 'input' );
+	dom.className = 'Number';
+	dom.value = '0.00';
 
-    dom.addEventListener('keydown', function (event) {
+	dom.addEventListener( 'keydown', function ( event ) {
 
-        event.stopPropagation();
+		event.stopPropagation();
 
-        if (event.keyCode === 13) dom.blur();
+		if ( event.keyCode === 13 ) dom.blur();
 
-    }, false);
+	}, false );
 
-    this.value = 0;
+	this.value = 0;
 
-    this.min = -Infinity;
-    this.max = Infinity;
+	this.min = - Infinity;
+	this.max = Infinity;
 
-    this.precision = 2;
-    this.step = 1;
-    this.unit = '';
+	this.precision = 2;
+	this.step = 1;
+	this.unit = '';
 
-    this.dom = dom;
+	this.dom = dom;
 
-    this.setValue(number);
+	this.setValue( number );
 
-    var changeEvent = document.createEvent('HTMLEvents');
-    changeEvent.initEvent('change', true, true);
+	var changeEvent = document.createEvent( 'HTMLEvents' );
+	changeEvent.initEvent( 'change', true, true );
 
-    var distance = 0;
-    var onMouseDownValue = 0;
+	var distance = 0;
+	var onMouseDownValue = 0;
 
-    var pointer = [0, 0];
-    var prevPointer = [0, 0];
+	var pointer = [ 0, 0 ];
+	var prevPointer = [ 0, 0 ];
 
-    function onMouseDown(event) {
+	function onMouseDown( event ) {
 
-        event.preventDefault();
+		event.preventDefault();
 
-        distance = 0;
+		distance = 0;
 
-        onMouseDownValue = scope.value;
+		onMouseDownValue = scope.value;
 
-        prevPointer = [event.clientX, event.clientY];
+		prevPointer = [ event.clientX, event.clientY ];
 
-        document.addEventListener('mousemove', onMouseMove, false);
-        document.addEventListener('mouseup', onMouseUp, false);
+		document.addEventListener( 'mousemove', onMouseMove, false );
+		document.addEventListener( 'mouseup', onMouseUp, false );
 
-    }
+	}
 
-    function onMouseMove(event) {
+	function onMouseMove( event ) {
 
-        var currentValue = scope.value;
+		var currentValue = scope.value;
 
-        pointer = [event.clientX, event.clientY];
+		pointer = [ event.clientX, event.clientY ];
 
-        distance += (pointer[0] - prevPointer[0]) - (pointer[1] - prevPointer[1]);
+		distance += ( pointer[ 0 ] - prevPointer[ 0 ] ) - ( pointer[ 1 ] - prevPointer[ 1 ] );
 
-        var value = onMouseDownValue + (distance / (event.shiftKey ? 5 : 50)) * scope.step;
-        value = Math.min(scope.max, Math.max(scope.min, value));
+		var value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
+		value = Math.min( scope.max, Math.max( scope.min, value ) );
 
-        if (currentValue !== value) {
+		if ( currentValue !== value ) {
 
-            scope.setValue(value);
-            dom.dispatchEvent(changeEvent);
+			scope.setValue( value );
+			dom.dispatchEvent( changeEvent );
 
-        }
+		}
 
-        prevPointer = [event.clientX, event.clientY];
+		prevPointer = [ event.clientX, event.clientY ];
 
-    }
+	}
 
-    function onMouseUp(event) {
+	function onMouseUp( event ) {
 
-        document.removeEventListener('mousemove', onMouseMove, false);
-        document.removeEventListener('mouseup', onMouseUp, false);
+		document.removeEventListener( 'mousemove', onMouseMove, false );
+		document.removeEventListener( 'mouseup', onMouseUp, false );
 
-        if (Math.abs(distance) < 2) {
+		if ( Math.abs( distance ) < 2 ) {
 
-            dom.focus();
-            dom.select();
+			dom.focus();
+			dom.select();
 
-        }
+		}
 
-    }
+	}
 
-    function onChange(event) {
+	function onChange( event ) {
 
-        scope.setValue(dom.value);
+		scope.setValue( dom.value );
 
-    }
+	}
 
-    function onFocus(event) {
+	function onFocus( event ) {
 
-        dom.style.backgroundColor = '';
-        dom.style.cursor = '';
+		dom.style.backgroundColor = '';
+		dom.style.cursor = '';
 
-    }
+	}
 
-    function onBlur(event) {
+	function onBlur( event ) {
 
-        dom.style.backgroundColor = 'transparent';
-        dom.style.cursor = 'col-resize';
+		dom.style.backgroundColor = 'transparent';
+		dom.style.cursor = 'col-resize';
 
-    }
+	}
 
-    onBlur();
+	onBlur();
 
-    dom.addEventListener('mousedown', onMouseDown, false);
-    dom.addEventListener('change', onChange, false);
-    dom.addEventListener('focus', onFocus, false);
-    dom.addEventListener('blur', onBlur, false);
+	dom.addEventListener( 'mousedown', onMouseDown, false );
+	dom.addEventListener( 'change', onChange, false );
+	dom.addEventListener( 'focus', onFocus, false );
+	dom.addEventListener( 'blur', onBlur, false );
 
-    return this;
+	return this;
 
 };
 
-UI.Number.prototype = Object.create(UI.Element.prototype);
+UI.Number.prototype = Object.create( UI.Element.prototype );
 UI.Number.prototype.constructor = UI.Number;
 
 UI.Number.prototype.getValue = function () {
 
-    return this.value;
+	return this.value;
 
 };
 
-UI.Number.prototype.setValue = function (value) {
+UI.Number.prototype.setValue = function ( value ) {
 
-    if (value !== undefined) {
+	if ( value !== undefined ) {
 
-        value = parseFloat(value);
+		value = parseFloat( value );
 
-        if (value < this.min) value = this.min;
-        if (value > this.max) value = this.max;
+		if ( value < this.min ) value = this.min;
+		if ( value > this.max ) value = this.max;
 
-        this.value = value;
-        this.dom.value = value.toFixed(this.precision);
+		this.value = value;
+		this.dom.value = value.toFixed( this.precision );
 
-        if (this.unit !== '') this.dom.value += ' ' + this.unit;
+		if ( this.unit !== '' ) this.dom.value += ' ' + this.unit;
 
-    }
+	}
 
-    return this;
-
-};
-
-UI.Number.prototype.setPrecision = function (precision) {
-
-    this.precision = precision;
-
-    return this;
+	return this;
 
 };
 
-UI.Number.prototype.setStep = function (step) {
+UI.Number.prototype.setPrecision = function ( precision ) {
 
-    this.step = step;
+	this.precision = precision;
 
-    return this;
-
-};
-
-UI.Number.prototype.setRange = function (min, max) {
-
-    this.min = min;
-    this.max = max;
-
-    return this;
+	return this;
 
 };
 
-UI.Number.prototype.setUnit = function (unit) {
+UI.Number.prototype.setStep = function ( step ) {
 
-    this.unit = unit;
+	this.step = step;
 
-    return this;
+	return this;
+
+};
+
+UI.Number.prototype.setRange = function ( min, max ) {
+
+	this.min = min;
+	this.max = max;
+
+	return this;
+
+};
+
+UI.Number.prototype.setUnit = function ( unit ) {
+
+	this.unit = unit;
+
+	return this;
 
 };
 
 // Integer
 
-UI.Integer = function (number) {
+UI.Integer = function ( number ) {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var scope = this;
+	var scope = this;
 
-    var dom = document.createElement('input');
-    dom.className = 'Number';
-    dom.value = '0';
+	var dom = document.createElement( 'input' );
+	dom.className = 'Number';
+	dom.value = '0';
 
-    dom.addEventListener('keydown', function (event) {
+	dom.addEventListener( 'keydown', function ( event ) {
 
-        event.stopPropagation();
+		event.stopPropagation();
 
-    }, false);
+	}, false );
 
-    this.value = 0;
+	this.value = 0;
 
-    this.min = -Infinity;
-    this.max = Infinity;
+	this.min = - Infinity;
+	this.max = Infinity;
 
-    this.step = 1;
+	this.step = 1;
 
-    this.dom = dom;
+	this.dom = dom;
 
-    this.setValue(number);
+	this.setValue( number );
 
-    var changeEvent = document.createEvent('HTMLEvents');
-    changeEvent.initEvent('change', true, true);
+	var changeEvent = document.createEvent( 'HTMLEvents' );
+	changeEvent.initEvent( 'change', true, true );
 
-    var distance = 0;
-    var onMouseDownValue = 0;
+	var distance = 0;
+	var onMouseDownValue = 0;
 
-    var pointer = [0, 0];
-    var prevPointer = [0, 0];
+	var pointer = [ 0, 0 ];
+	var prevPointer = [ 0, 0 ];
 
-    function onMouseDown(event) {
+	function onMouseDown( event ) {
 
-        event.preventDefault();
+		event.preventDefault();
 
-        distance = 0;
+		distance = 0;
 
-        onMouseDownValue = scope.value;
+		onMouseDownValue = scope.value;
 
-        prevPointer = [event.clientX, event.clientY];
+		prevPointer = [ event.clientX, event.clientY ];
 
-        document.addEventListener('mousemove', onMouseMove, false);
-        document.addEventListener('mouseup', onMouseUp, false);
+		document.addEventListener( 'mousemove', onMouseMove, false );
+		document.addEventListener( 'mouseup', onMouseUp, false );
 
-    }
+	}
 
-    function onMouseMove(event) {
+	function onMouseMove( event ) {
 
-        var currentValue = scope.value;
+		var currentValue = scope.value;
 
-        pointer = [event.clientX, event.clientY];
+		pointer = [ event.clientX, event.clientY ];
 
-        distance += (pointer[0] - prevPointer[0]) - (pointer[1] - prevPointer[1]);
+		distance += ( pointer[ 0 ] - prevPointer[ 0 ] ) - ( pointer[ 1 ] - prevPointer[ 1 ] );
 
-        var value = onMouseDownValue + (distance / (event.shiftKey ? 5 : 50)) * scope.step;
-        value = Math.min(scope.max, Math.max(scope.min, value)) | 0;
+		var value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
+		value = Math.min( scope.max, Math.max( scope.min, value ) ) | 0;
 
-        if (currentValue !== value) {
+		if ( currentValue !== value ) {
 
-            scope.setValue(value);
-            dom.dispatchEvent(changeEvent);
+			scope.setValue( value );
+			dom.dispatchEvent( changeEvent );
 
-        }
+		}
 
-        prevPointer = [event.clientX, event.clientY];
+		prevPointer = [ event.clientX, event.clientY ];
 
-    }
+	}
 
-    function onMouseUp(event) {
+	function onMouseUp( event ) {
 
-        document.removeEventListener('mousemove', onMouseMove, false);
-        document.removeEventListener('mouseup', onMouseUp, false);
+		document.removeEventListener( 'mousemove', onMouseMove, false );
+		document.removeEventListener( 'mouseup', onMouseUp, false );
 
-        if (Math.abs(distance) < 2) {
+		if ( Math.abs( distance ) < 2 ) {
 
-            dom.focus();
-            dom.select();
+			dom.focus();
+			dom.select();
 
-        }
+		}
 
-    }
+	}
 
-    function onChange(event) {
+	function onChange( event ) {
 
-        scope.setValue(dom.value);
+		scope.setValue( dom.value );
 
-    }
+	}
 
-    function onFocus(event) {
+	function onFocus( event ) {
 
-        dom.style.backgroundColor = '';
-        dom.style.cursor = '';
+		dom.style.backgroundColor = '';
+		dom.style.cursor = '';
 
-    }
+	}
 
-    function onBlur(event) {
+	function onBlur( event ) {
 
-        dom.style.backgroundColor = 'transparent';
-        dom.style.cursor = 'col-resize';
+		dom.style.backgroundColor = 'transparent';
+		dom.style.cursor = 'col-resize';
 
-    }
+	}
 
-    onBlur();
+	onBlur();
 
-    dom.addEventListener('mousedown', onMouseDown, false);
-    dom.addEventListener('change', onChange, false);
-    dom.addEventListener('focus', onFocus, false);
-    dom.addEventListener('blur', onBlur, false);
+	dom.addEventListener( 'mousedown', onMouseDown, false );
+	dom.addEventListener( 'change', onChange, false );
+	dom.addEventListener( 'focus', onFocus, false );
+	dom.addEventListener( 'blur', onBlur, false );
 
-    return this;
+	return this;
 
 };
 
-UI.Integer.prototype = Object.create(UI.Element.prototype);
+UI.Integer.prototype = Object.create( UI.Element.prototype );
 UI.Integer.prototype.constructor = UI.Integer;
 
 UI.Integer.prototype.getValue = function () {
 
-    return this.value;
+	return this.value;
 
 };
 
-UI.Integer.prototype.setValue = function (value) {
+UI.Integer.prototype.setValue = function ( value ) {
 
-    if (value !== undefined) {
+	if ( value !== undefined ) {
 
-        value = parseInt(value);
+		value = parseInt( value );
 
-        this.value = value;
-        this.dom.value = value;
+		this.value = value;
+		this.dom.value = value;
 
-    }
+	}
 
-    return this;
-
-};
-
-UI.Number.prototype.setStep = function (step) {
-
-    this.step = step;
-
-    return this;
+	return this;
 
 };
 
-UI.Integer.prototype.setRange = function (min, max) {
+UI.Integer.prototype.setStep = function ( step ) {
+	
+	this.step = parseInt( step ); 
+	
+	return this;
 
-    this.min = min;
-    this.max = max;
+};
 
-    return this;
+UI.Integer.prototype.setRange = function ( min, max ) {
+
+	this.min = min;
+	this.max = max;
+
+	return this;
 
 };
 
@@ -884,18 +884,18 @@ UI.Integer.prototype.setRange = function (min, max) {
 
 UI.Break = function () {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var dom = document.createElement('br');
-    dom.className = 'Break';
+	var dom = document.createElement( 'br' );
+	dom.className = 'Break';
 
-    this.dom = dom;
+	this.dom = dom;
 
-    return this;
+	return this;
 
 };
 
-UI.Break.prototype = Object.create(UI.Element.prototype);
+UI.Break.prototype = Object.create( UI.Element.prototype );
 UI.Break.prototype.constructor = UI.Break;
 
 
@@ -903,102 +903,102 @@ UI.Break.prototype.constructor = UI.Break;
 
 UI.HorizontalRule = function () {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var dom = document.createElement('hr');
-    dom.className = 'HorizontalRule';
+	var dom = document.createElement( 'hr' );
+	dom.className = 'HorizontalRule';
 
-    this.dom = dom;
+	this.dom = dom;
 
-    return this;
+	return this;
 
 };
 
-UI.HorizontalRule.prototype = Object.create(UI.Element.prototype);
+UI.HorizontalRule.prototype = Object.create( UI.Element.prototype );
 UI.HorizontalRule.prototype.constructor = UI.HorizontalRule;
 
 
 // Button
 
-UI.Button = function (value) {
+UI.Button = function ( value ) {
 
-    UI.Element.call(this);
+	UI.Element.call( this );
 
-    var dom = document.createElement('button');
-    dom.className = 'Button';
+	var dom = document.createElement( 'button' );
+	dom.className = 'Button';
 
-    this.dom = dom;
-    this.dom.textContent = value;
+	this.dom = dom;
+	this.dom.textContent = value;
 
-    return this;
+	return this;
 
 };
 
-UI.Button.prototype = Object.create(UI.Element.prototype);
+UI.Button.prototype = Object.create( UI.Element.prototype );
 UI.Button.prototype.constructor = UI.Button;
 
-UI.Button.prototype.setLabel = function (value) {
+UI.Button.prototype.setLabel = function ( value ) {
 
-    this.dom.textContent = value;
+	this.dom.textContent = value;
 
-    return this;
+	return this;
 
 };
 
 
 // Modal
 
-UI.Modal = function (value) {
+UI.Modal = function ( value ) {
 
-    var scope = this;
+	var scope = this;
 
-    var dom = document.createElement('div');
+	var dom = document.createElement( 'div' );
 
-    dom.style.position = 'absolute';
-    dom.style.width = '100%';
-    dom.style.height = '100%';
-    dom.style.backgroundColor = 'rgba(0,0,0,0.5)';
-    dom.style.display = 'none';
-    dom.style.alignItems = 'center';
-    dom.style.justifyContent = 'center';
-    dom.addEventListener('click', function (event) {
+	dom.style.position = 'absolute';
+	dom.style.width = '100%';
+	dom.style.height = '100%';
+	dom.style.backgroundColor = 'rgba(0,0,0,0.5)';
+	dom.style.display = 'none';
+	dom.style.alignItems = 'center';
+	dom.style.justifyContent = 'center';
+	dom.addEventListener( 'click', function ( event ) {
 
-        scope.hide();
+		scope.hide();
 
-    });
+	} );
 
-    this.dom = dom;
+	this.dom = dom;
 
-    this.container = new UI.Panel();
-    this.container.dom.style.width = '200px';
-    this.container.dom.style.padding = '20px';
-    this.container.dom.style.backgroundColor = '#ffffff';
-    this.container.dom.style.boxShadow = '0px 5px 10px rgba(0,0,0,0.5)';
+	this.container = new UI.Panel();
+	this.container.dom.style.width = '200px';
+	this.container.dom.style.padding = '20px';
+	this.container.dom.style.backgroundColor = '#ffffff';
+	this.container.dom.style.boxShadow = '0px 5px 10px rgba(0,0,0,0.5)';
 
-    this.add(this.container);
+	this.add( this.container );
 
-    return this;
+	return this;
 
 };
 
-UI.Modal.prototype = Object.create(UI.Element.prototype);
+UI.Modal.prototype = Object.create( UI.Element.prototype );
 UI.Modal.prototype.constructor = UI.Modal;
 
-UI.Modal.prototype.show = function (content) {
+UI.Modal.prototype.show = function ( content ) {
 
-    this.container.clear();
-    this.container.add(content);
+	this.container.clear();
+	this.container.add( content );
 
-    this.dom.style.display = 'flex';
+	this.dom.style.display = 'flex';
 
-    return this;
+	return this;
 
 };
 
 UI.Modal.prototype.hide = function () {
 
-    this.dom.style.display = 'none';
+	this.dom.style.display = 'none';
 
-    return this;
+	return this;
 
 };

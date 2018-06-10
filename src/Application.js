@@ -1,3 +1,11 @@
+import Editor from './Editor';
+import Viewport from './ui/Viewport';
+import Script from './core/Script';
+import Player from './core/Player';
+import Toolbar from './ui/Toolbar';
+import Menubar from './menu/Menubar';
+import Panel from './panel/Panel';
+
 window.URL = window.URL || window.webkitURL;
 window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
 
@@ -5,270 +13,275 @@ Number.prototype.format = function () {
     return this.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 };
 
-//
+/**
+ * Application
+ */
+function Application() {
+    var editor = new Editor();
 
-var editor = new Editor();
+    var viewport = new Viewport(editor);
+    document.body.appendChild(viewport.dom);
 
-var viewport = new Viewport(editor);
-document.body.appendChild(viewport.dom);
+    var script = new Script(editor);
+    document.body.appendChild(script.dom);
 
-var script = new Script(editor);
-document.body.appendChild(script.dom);
+    var player = new Player(editor);
+    document.body.appendChild(player.dom);
 
-var player = new Player(editor);
-document.body.appendChild(player.dom);
+    var toolbar = new Toolbar(editor);
+    document.body.appendChild(toolbar.dom);
 
-var toolbar = new Toolbar(editor);
-document.body.appendChild(toolbar.dom);
+    var menubar = new Menubar(editor);
+    document.body.appendChild(menubar.dom);
 
-var menubar = new Menubar(editor);
-document.body.appendChild(menubar.dom);
+    var sidebar = new Panel(editor);
+    document.body.appendChild(sidebar.dom);
 
-var sidebar = new Sidebar(editor);
-document.body.appendChild(sidebar.dom);
+    var modal = new UI.Modal();
+    document.body.appendChild(modal.dom);
 
-var modal = new UI.Modal();
-document.body.appendChild(modal.dom);
+    //
 
-//
+    editor.setTheme(editor.config.getKey('theme'));
 
-editor.setTheme(editor.config.getKey('theme'));
+    editor.storage.init(function () {
 
-editor.storage.init(function () {
+        editor.storage.get(function (state) {
 
-    editor.storage.get(function (state) {
+            if (isLoadingFromHash) return;
 
-        if (isLoadingFromHash) return;
+            if (state !== undefined) {
 
-        if (state !== undefined) {
+                editor.fromJSON(state);
 
-            editor.fromJSON(state);
+            }
 
-        }
+            var selected = editor.config.getKey('selected');
 
-        var selected = editor.config.getKey('selected');
+            if (selected !== undefined) {
 
-        if (selected !== undefined) {
+                editor.selectByUuid(selected);
 
-            editor.selectByUuid(selected);
+            }
 
-        }
+        });
+
+        //
+
+        var timeout;
+
+        function saveState(scene) {
+
+            if (editor.config.getKey('autosave') === false) {
+
+                return;
+
+            }
+
+            clearTimeout(timeout);
+
+            timeout = setTimeout(function () {
+
+                editor.signals.savingStarted.dispatch();
+
+                timeout = setTimeout(function () {
+
+                    editor.storage.set(editor.toJSON());
+
+                    editor.signals.savingFinished.dispatch();
+
+                }, 100);
+
+            }, 1000);
+
+        };
+
+        var signals = editor.signals;
+
+        signals.geometryChanged.add(saveState);
+        signals.objectAdded.add(saveState);
+        signals.objectChanged.add(saveState);
+        signals.objectRemoved.add(saveState);
+        signals.materialChanged.add(saveState);
+        signals.sceneBackgroundChanged.add(saveState);
+        signals.sceneFogChanged.add(saveState);
+        signals.sceneGraphChanged.add(saveState);
+        signals.scriptChanged.add(saveState);
+        signals.historyChanged.add(saveState);
+
+        signals.showModal.add(function (content) {
+
+            modal.show(content);
+
+        });
 
     });
 
     //
 
-    var timeout;
+    document.addEventListener('dragover', function (event) {
 
-    function saveState(scene) {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'copy';
 
-        if (editor.config.getKey('autosave') === false) {
+    }, false);
 
-            return;
+    document.addEventListener('drop', function (event) {
+
+        event.preventDefault();
+
+        if (event.dataTransfer.files.length > 0) {
+
+            editor.loader.loadFile(event.dataTransfer.files[0]);
 
         }
 
-        clearTimeout(timeout);
+    }, false);
 
-        timeout = setTimeout(function () {
+    document.addEventListener('keydown', function (event) {
 
-            editor.signals.savingStarted.dispatch();
+        switch (event.keyCode) {
 
-            timeout = setTimeout(function () {
+            case 8: // backspace
 
-                editor.storage.set(editor.toJSON());
+                event.preventDefault(); // prevent browser back
 
-                editor.signals.savingFinished.dispatch();
+            case 46: // delete
 
-            }, 100);
+                var object = editor.selected;
 
-        }, 1000);
+                if (confirm('Delete ' + object.name + '?') === false) return;
 
-    };
+                var parent = object.parent;
+                if (parent !== null) editor.execute(new RemoveObjectCommand(object));
 
-    var signals = editor.signals;
+                break;
 
-    signals.geometryChanged.add(saveState);
-    signals.objectAdded.add(saveState);
-    signals.objectChanged.add(saveState);
-    signals.objectRemoved.add(saveState);
-    signals.materialChanged.add(saveState);
-    signals.sceneBackgroundChanged.add(saveState);
-    signals.sceneFogChanged.add(saveState);
-    signals.sceneGraphChanged.add(saveState);
-    signals.scriptChanged.add(saveState);
-    signals.historyChanged.add(saveState);
+            case 90: // Register Ctrl-Z for Undo, Ctrl-Shift-Z for Redo
 
-    signals.showModal.add(function (content) {
+                if (event.ctrlKey && event.shiftKey) {
 
-        modal.show(content);
+                    editor.redo();
 
-    });
+                } else if (event.ctrlKey) {
 
-});
+                    editor.undo();
 
-//
+                }
 
-document.addEventListener('dragover', function (event) {
+                break;
 
-    event.preventDefault();
-    event.dataTransfer.dropEffect = 'copy';
+            case 87: // Register W for translation transform mode
 
-}, false);
+                editor.signals.transformModeChanged.dispatch('translate');
 
-document.addEventListener('drop', function (event) {
+                break;
 
-    event.preventDefault();
+            case 69: // Register E for rotation transform mode
 
-    if (event.dataTransfer.files.length > 0) {
+                editor.signals.transformModeChanged.dispatch('rotate');
 
-        editor.loader.loadFile(event.dataTransfer.files[0]);
+                break;
+
+            case 82: // Register R for scaling transform mode
+
+                editor.signals.transformModeChanged.dispatch('scale');
+
+                break;
+
+        }
+
+    }, false);
+
+    function onWindowResize(event) {
+
+        editor.signals.windowResize.dispatch();
 
     }
 
-}, false);
+    window.addEventListener('resize', onWindowResize, false);
 
-document.addEventListener('keydown', function (event) {
+    onWindowResize();
 
-    switch (event.keyCode) {
+    //
 
-        case 8: // backspace
+    var isLoadingFromHash = false;
+    var hash = window.location.hash;
 
-            event.preventDefault(); // prevent browser back
+    if (hash.substr(1, 5) === 'file=') {
 
-        case 46: // delete
+        var file = hash.substr(6);
 
-            var object = editor.selected;
+        if (confirm('未保存数据将丢失。确定吗？')) {
 
-            if (confirm('Delete ' + object.name + '?') === false) return;
+            var loader = new THREE.FileLoader();
+            loader.crossOrigin = '';
+            loader.load(file, function (text) {
 
-            var parent = object.parent;
-            if (parent !== null) editor.execute(new RemoveObjectCommand(object));
+                editor.clear();
+                editor.fromJSON(JSON.parse(text));
 
-            break;
+            });
 
-        case 90: // Register Ctrl-Z for Undo, Ctrl-Shift-Z for Redo
+            isLoadingFromHash = true;
 
-            if (event.ctrlKey && event.shiftKey) {
+        }
 
-                editor.redo();
+    }
 
-            } else if (event.ctrlKey) {
+    /*
+    window.addEventListener( 'message', function ( event ) {
+    
+        editor.clear();
+        editor.fromJSON( event.data );
+    
+    }, false );
+    */
 
-                editor.undo();
+    // VR
+
+    var groupVR;
+
+    // TODO: Use editor.signals.enteredVR (WebVR 1.0)
+
+    editor.signals.enterVR.add(function () {
+
+        if (groupVR === undefined) {
+
+            groupVR = new THREE.HTMLGroup(viewport.dom);
+            editor.sceneHelpers.add(groupVR);
+
+            var mesh = new THREE.HTMLMesh(sidebar.dom);
+            mesh.position.set(15, 0, 15);
+            mesh.rotation.y = -0.5;
+            groupVR.add(mesh);
+
+            var signals = editor.signals;
+
+            function updateTexture() {
+
+                mesh.material.map.update();
 
             }
 
-            break;
-
-        case 87: // Register W for translation transform mode
-
-            editor.signals.transformModeChanged.dispatch('translate');
-
-            break;
-
-        case 69: // Register E for rotation transform mode
-
-            editor.signals.transformModeChanged.dispatch('rotate');
-
-            break;
-
-        case 82: // Register R for scaling transform mode
-
-            editor.signals.transformModeChanged.dispatch('scale');
-
-            break;
-
-    }
-
-}, false);
-
-function onWindowResize(event) {
-
-    editor.signals.windowResize.dispatch();
-
-}
-
-window.addEventListener('resize', onWindowResize, false);
-
-onWindowResize();
-
-//
-
-var isLoadingFromHash = false;
-var hash = window.location.hash;
-
-if (hash.substr(1, 5) === 'file=') {
-
-    var file = hash.substr(6);
-
-    if (confirm('未保存数据将丢失。确定吗？')) {
-
-        var loader = new THREE.FileLoader();
-        loader.crossOrigin = '';
-        loader.load(file, function (text) {
-
-            editor.clear();
-            editor.fromJSON(JSON.parse(text));
-
-        });
-
-        isLoadingFromHash = true;
-
-    }
-
-}
-
-/*
-window.addEventListener( 'message', function ( event ) {
-
-    editor.clear();
-    editor.fromJSON( event.data );
-
-}, false );
-*/
-
-// VR
-
-var groupVR;
-
-// TODO: Use editor.signals.enteredVR (WebVR 1.0)
-
-editor.signals.enterVR.add(function () {
-
-    if (groupVR === undefined) {
-
-        groupVR = new THREE.HTMLGroup(viewport.dom);
-        editor.sceneHelpers.add(groupVR);
-
-        var mesh = new THREE.HTMLMesh(sidebar.dom);
-        mesh.position.set(15, 0, 15);
-        mesh.rotation.y = -0.5;
-        groupVR.add(mesh);
-
-        var signals = editor.signals;
-
-        function updateTexture() {
-
-            mesh.material.map.update();
+            signals.objectSelected.add(updateTexture);
+            signals.objectAdded.add(updateTexture);
+            signals.objectChanged.add(updateTexture);
+            signals.objectRemoved.add(updateTexture);
+            signals.sceneGraphChanged.add(updateTexture);
+            signals.historyChanged.add(updateTexture);
 
         }
 
-        signals.objectSelected.add(updateTexture);
-        signals.objectAdded.add(updateTexture);
-        signals.objectChanged.add(updateTexture);
-        signals.objectRemoved.add(updateTexture);
-        signals.sceneGraphChanged.add(updateTexture);
-        signals.historyChanged.add(updateTexture);
+        groupVR.visible = true;
 
-    }
+    });
 
-    groupVR.visible = true;
+    editor.signals.exitedVR.add(function () {
 
-});
+        if (groupVR !== undefined) groupVR.visible = false;
 
-editor.signals.exitedVR.add(function () {
+    });
+}
 
-    if (groupVR !== undefined) groupVR.visible = false;
-
-});
+export default Application;

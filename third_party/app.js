@@ -1,316 +1,282 @@
-﻿/**
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
 var APP = {
 
-    Player: function () {
+	Player: function () {
 
-        var loader = new THREE.ObjectLoader();
-        var camera, scene, renderer;
+		var loader = new THREE.ObjectLoader();
+		var camera, scene, renderer;
 
-        var controls, effect, cameraVR, isVR;
+		var events = {};
 
-        var events = {};
+		var dom = document.createElement( 'div' );
 
-        this.dom = document.createElement('div');
+		this.dom = dom;
 
-        this.width = 500;
-        this.height = 500;
+		this.width = 500;
+		this.height = 500;
 
-        this.load = function (json) {
+		this.load = function ( json ) {
 
-            isVR = json.project.vr;
+			renderer = new THREE.WebGLRenderer( { antialias: true } );
+			renderer.setClearColor( 0x000000 );
+			renderer.setPixelRatio( window.devicePixelRatio );
 
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setClearColor(0x000000);
-            renderer.setPixelRatio(window.devicePixelRatio);
+			var project = json.project;
 
-            if (json.project.gammaInput) renderer.gammaInput = true;
-            if (json.project.gammaOutput) renderer.gammaOutput = true;
+			if ( project.gammaInput ) renderer.gammaInput = true;
+			if ( project.gammaOutput ) renderer.gammaOutput = true;
+			if ( project.shadows ) renderer.shadowMap.enabled = true;
+			if ( project.vr ) renderer.vr.enabled = true;
 
-            if (json.project.shadows) {
+			dom.appendChild( renderer.domElement );
 
-                renderer.shadowMap.enabled = true;
-                // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+			this.setScene( loader.parse( json.scene ) );
+			this.setCamera( loader.parse( json.camera ) );
 
-            }
+			events = {
+				init: [],
+				start: [],
+				stop: [],
+				keydown: [],
+				keyup: [],
+				mousedown: [],
+				mouseup: [],
+				mousemove: [],
+				touchstart: [],
+				touchend: [],
+				touchmove: [],
+				update: []
+			};
 
-            this.dom.appendChild(renderer.domElement);
+			var scriptWrapParams = 'player,renderer,scene,camera';
+			var scriptWrapResultObj = {};
 
-            this.setScene(loader.parse(json.scene));
-            this.setCamera(loader.parse(json.camera));
+			for ( var eventKey in events ) {
 
-            events = {
-                init: [],
-                start: [],
-                stop: [],
-                keydown: [],
-                keyup: [],
-                mousedown: [],
-                mouseup: [],
-                mousemove: [],
-                touchstart: [],
-                touchend: [],
-                touchmove: [],
-                update: []
-            };
+				scriptWrapParams += ',' + eventKey;
+				scriptWrapResultObj[ eventKey ] = eventKey;
 
-            var scriptWrapParams = 'player,renderer,scene,camera';
-            var scriptWrapResultObj = {};
+			}
 
-            for (var eventKey in events) {
+			var scriptWrapResult = JSON.stringify( scriptWrapResultObj ).replace( /\"/g, '' );
 
-                scriptWrapParams += ',' + eventKey;
-                scriptWrapResultObj[eventKey] = eventKey;
+			for ( var uuid in json.scripts ) {
 
-            }
+				var object = scene.getObjectByProperty( 'uuid', uuid, true );
 
-            var scriptWrapResult = JSON.stringify(scriptWrapResultObj).replace(/\"/g, '');
+				if ( object === undefined ) {
 
-            for (var uuid in json.scripts) {
+					console.warn( 'APP.Player: Script without object.', uuid );
+					continue;
 
-                var object = scene.getObjectByProperty('uuid', uuid, true);
+				}
 
-                if (object === undefined) {
+				var scripts = json.scripts[ uuid ];
 
-                    console.warn('APP.Player: 未关联对象的脚本。', uuid);
-                    continue;
+				for ( var i = 0; i < scripts.length; i ++ ) {
 
-                }
+					var script = scripts[ i ];
 
-                var scripts = json.scripts[uuid];
+					var functions = ( new Function( scriptWrapParams, script.source + '\nreturn ' + scriptWrapResult + ';' ).bind( object ) )( this, renderer, scene, camera );
 
-                for (var i = 0; i < scripts.length; i++) {
+					for ( var name in functions ) {
 
-                    var script = scripts[i];
+						if ( functions[ name ] === undefined ) continue;
 
-                    var functions = (new Function(scriptWrapParams, script.source + '\nreturn ' + scriptWrapResult + ';').bind(object))(this, renderer, scene, camera);
+						if ( events[ name ] === undefined ) {
 
-                    for (var name in functions) {
+							console.warn( 'APP.Player: Event type not supported (', name, ')' );
+							continue;
 
-                        if (functions[name] === undefined) continue;
+						}
 
-                        if (events[name] === undefined) {
+						events[ name ].push( functions[ name ].bind( object ) );
 
-                            console.warn('APP.Player: 不支持的事件类型 (', name, ')');
-                            continue;
+					}
 
-                        }
+				}
 
-                        events[name].push(functions[name].bind(object));
+			}
 
-                    }
+			dispatch( events.init, arguments );
 
-                }
+		};
 
-            }
+		this.setCamera = function ( value ) {
 
-            dispatch(events.init, arguments);
+			camera = value;
+			camera.aspect = this.width / this.height;
+			camera.updateProjectionMatrix();
 
-        };
+			if ( renderer.vr.enabled ) {
 
-        this.setCamera = function (value) {
+				dom.appendChild( WEBVR.createButton( renderer ) );
 
-            camera = value;
-            camera.aspect = this.width / this.height;
-            camera.updateProjectionMatrix();
+			}
 
-            if (isVR === true) {
+		};
 
-                cameraVR = new THREE.PerspectiveCamera();
-                cameraVR.projectionMatrix = camera.projectionMatrix;
-                camera.add(cameraVR);
+		this.setScene = function ( value ) {
 
-                controls = new THREE.VRControls(cameraVR);
-                effect = new THREE.VREffect(renderer);
+			scene = value;
 
-                if ( renderer.vr.enabled ) {
+		};
 
-                    this.dom.appendChild(WEBVR.getButton(effect));
+		this.setSize = function ( width, height ) {
 
-                }
+			this.width = width;
+			this.height = height;
 
-                if (WEBVR.isLatestAvailable() === false) {
+			if ( camera ) {
 
-                    this.dom.appendChild(WEBVR.getMessage());
+				camera.aspect = this.width / this.height;
+				camera.updateProjectionMatrix();
 
-                }
+			}
 
-            }
+			if ( renderer ) {
 
-        };
+				renderer.setSize( width, height );
 
-        this.setScene = function (value) {
+			}
 
-            scene = value;
+		};
 
-        };
+		function dispatch( array, event ) {
 
-        this.setSize = function (width, height) {
+			for ( var i = 0, l = array.length; i < l; i ++ ) {
 
-            this.width = width;
-            this.height = height;
+				array[ i ]( event );
 
-            if (camera) {
+			}
 
-                camera.aspect = this.width / this.height;
-                camera.updateProjectionMatrix();
+		}
 
-            }
+		var prevTime;
 
-            if (renderer) {
+		function animate( time ) {
 
-                renderer.setSize(width, height);
+			try {
 
-            }
+				dispatch( events.update, { time: time, delta: time - prevTime } );
 
-        };
+			} catch ( e ) {
 
-        function dispatch(array, event) {
+				console.error( ( e.message || e ), ( e.stack || "" ) );
 
-            for (var i = 0, l = array.length; i < l; i++) {
+			}
 
-                array[i](event);
+			renderer.render( scene, camera );
 
-            }
+			prevTime = time;
 
-        }
+		}
 
-        var prevTime, request;
+		this.play = function () {
 
-        function animate(time) {
+			prevTime = performance.now();
 
-            request = requestAnimationFrame(animate);
+			document.addEventListener( 'keydown', onDocumentKeyDown );
+			document.addEventListener( 'keyup', onDocumentKeyUp );
+			document.addEventListener( 'mousedown', onDocumentMouseDown );
+			document.addEventListener( 'mouseup', onDocumentMouseUp );
+			document.addEventListener( 'mousemove', onDocumentMouseMove );
+			document.addEventListener( 'touchstart', onDocumentTouchStart );
+			document.addEventListener( 'touchend', onDocumentTouchEnd );
+			document.addEventListener( 'touchmove', onDocumentTouchMove );
 
-            try {
+			dispatch( events.start, arguments );
 
-                dispatch(events.update, { time: time, delta: time - prevTime });
+			renderer.animate( animate );
 
-            } catch (e) {
+		};
 
-                console.error((e.message || e), (e.stack || ""));
+		this.stop = function () {
 
-            }
+			document.removeEventListener( 'keydown', onDocumentKeyDown );
+			document.removeEventListener( 'keyup', onDocumentKeyUp );
+			document.removeEventListener( 'mousedown', onDocumentMouseDown );
+			document.removeEventListener( 'mouseup', onDocumentMouseUp );
+			document.removeEventListener( 'mousemove', onDocumentMouseMove );
+			document.removeEventListener( 'touchstart', onDocumentTouchStart );
+			document.removeEventListener( 'touchend', onDocumentTouchEnd );
+			document.removeEventListener( 'touchmove', onDocumentTouchMove );
 
-            if (isVR === true) {
+			dispatch( events.stop, arguments );
 
-                camera.updateMatrixWorld();
+			renderer.animate( null );
 
-                controls.update();
-                effect.render(scene, cameraVR);
+		};
 
-            } else {
+		this.dispose = function () {
 
-                renderer.render(scene, camera);
+			while ( dom.children.length ) {
 
-            }
+				dom.removeChild( dom.firstChild );
 
-            prevTime = time;
+			}
 
-        }
+			renderer.dispose();
 
-        this.play = function () {
+			camera = undefined;
+			scene = undefined;
+			renderer = undefined;
 
-            document.addEventListener('keydown', onDocumentKeyDown);
-            document.addEventListener('keyup', onDocumentKeyUp);
-            document.addEventListener('mousedown', onDocumentMouseDown);
-            document.addEventListener('mouseup', onDocumentMouseUp);
-            document.addEventListener('mousemove', onDocumentMouseMove);
-            document.addEventListener('touchstart', onDocumentTouchStart);
-            document.addEventListener('touchend', onDocumentTouchEnd);
-            document.addEventListener('touchmove', onDocumentTouchMove);
+		};
 
-            dispatch(events.start, arguments);
+		//
 
-            request = requestAnimationFrame(animate);
-            prevTime = performance.now();
+		function onDocumentKeyDown( event ) {
 
-        };
+			dispatch( events.keydown, event );
 
-        this.stop = function () {
+		}
 
-            document.removeEventListener('keydown', onDocumentKeyDown);
-            document.removeEventListener('keyup', onDocumentKeyUp);
-            document.removeEventListener('mousedown', onDocumentMouseDown);
-            document.removeEventListener('mouseup', onDocumentMouseUp);
-            document.removeEventListener('mousemove', onDocumentMouseMove);
-            document.removeEventListener('touchstart', onDocumentTouchStart);
-            document.removeEventListener('touchend', onDocumentTouchEnd);
-            document.removeEventListener('touchmove', onDocumentTouchMove);
+		function onDocumentKeyUp( event ) {
 
-            dispatch(events.stop, arguments);
+			dispatch( events.keyup, event );
 
-            cancelAnimationFrame(request);
+		}
 
-        };
+		function onDocumentMouseDown( event ) {
 
-        this.dispose = function () {
+			dispatch( events.mousedown, event );
 
-            while (this.dom.children.length) {
+		}
 
-                this.dom.removeChild(this.dom.firstChild);
+		function onDocumentMouseUp( event ) {
 
-            }
+			dispatch( events.mouseup, event );
 
-            renderer.dispose();
+		}
 
-            camera = undefined;
-            scene = undefined;
-            renderer = undefined;
+		function onDocumentMouseMove( event ) {
 
-        };
+			dispatch( events.mousemove, event );
 
-        //
+		}
 
-        function onDocumentKeyDown(event) {
+		function onDocumentTouchStart( event ) {
 
-            dispatch(events.keydown, event);
+			dispatch( events.touchstart, event );
 
-        }
+		}
 
-        function onDocumentKeyUp(event) {
+		function onDocumentTouchEnd( event ) {
 
-            dispatch(events.keyup, event);
+			dispatch( events.touchend, event );
 
-        }
+		}
 
-        function onDocumentMouseDown(event) {
+		function onDocumentTouchMove( event ) {
 
-            dispatch(events.mousedown, event);
+			dispatch( events.touchmove, event );
 
-        }
+		}
 
-        function onDocumentMouseUp(event) {
-
-            dispatch(events.mouseup, event);
-
-        }
-
-        function onDocumentMouseMove(event) {
-
-            dispatch(events.mousemove, event);
-
-        }
-
-        function onDocumentTouchStart(event) {
-
-            dispatch(events.touchstart, event);
-
-        }
-
-        function onDocumentTouchEnd(event) {
-
-            dispatch(events.touchend, event);
-
-        }
-
-        function onDocumentTouchMove(event) {
-
-            dispatch(events.touchmove, event);
-
-        }
-
-    }
+	}
 
 };

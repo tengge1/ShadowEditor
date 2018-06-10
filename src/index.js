@@ -7,4 +7,4 @@ export * from './panel/index';
 
 export { default as Config } from './Config';
 export { default as Editor } from './Editor';
-export { default as Viewport } from './ui/Viewport';
+export { default as Application } from './Application';
