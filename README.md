@@ -1,12 +1,10 @@
 # Shadow Editor
 
-[示例程序](https://tengge1.github.io/ShadowEditor/demo.html)    [项目文档](https://tengge1.github.io/ShadowEditor/docs/release/index.html)
-
-## 简介
-
 * 名称：Shadow Editor
 * 版本：v0.0.2
 * 说明：Three.js自带编辑器的二次开发。
+* 示例：https://tengge1.github.io/ShadowEditor/demo.html
+* 文档：https://tengge1.github.io/ShadowEditor/docs/release/index.html
 
 ## 主要功能
 
