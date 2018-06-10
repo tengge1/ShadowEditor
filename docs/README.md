@@ -16,7 +16,7 @@
 
 ## 项目截图
 
-![image](images/v0.0.2.png)
+![image](image/v0.0.2.png)
 
 ## 开发日志
 
@@ -30,14 +30,7 @@
 * 发布时间：2017年6月21日  
 * 更新日志：主要完成three.js自带编辑器的翻译。
 
-
 ## 相关链接
 
 * Three.js官网：https://threejs.org/
 * Three.js源码：https://github.com/mrdoob/three.js/
-
-
-
-
-
-

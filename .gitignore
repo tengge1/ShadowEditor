@@ -60,4 +60,3 @@ typings/
 # next.js build output
 .next
 /dist
-/docs/_book
