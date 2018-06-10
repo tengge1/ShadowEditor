@@ -11,7 +11,6 @@
 </head>
 
 <body>
-    <div></div>
     <script src="node_modules/three/build/three.js"></script>
 
     <script src="third_party/system.min.js"></script>
@@ -92,7 +91,12 @@
     <script src="third_party/html2canvas.js"></script>
     <script src="third_party/three.html.js"></script>
     <script src="dist/ShadowEditor.js"></script>
-    <script src="js/index.js"></script>
+    <script>
+        var app = null;
+        window.onload = function () {
+            app = new Shadow.Application();
+        };
+    </script>
 </body>
 
 </html>
