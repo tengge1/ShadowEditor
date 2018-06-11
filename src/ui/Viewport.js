@@ -390,7 +390,7 @@ function Viewport(editor) {
 
             if (box.isEmpty() === false) {
 
-                selectionBox.update(box);
+                selectionBox.setFromObject( object );
                 selectionBox.visible = true;
 
             }

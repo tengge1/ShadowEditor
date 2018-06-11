@@ -880,12 +880,12 @@ function MaterialPanel(editor) {
 
             }
 
-            if (material.shading !== undefined) {
+            if (material.flatShading !== undefined) {
 
-                var shading = parseInt(materialShading.getValue());
-                if (material.shading !== shading) {
+                var flatShading = materialShading.getValue();
+                if (material.flatShading != flatShading) {
 
-                    editor.execute(new SetMaterialValueCommand(currentObject, 'shading', shading));
+                    editor.execute(new SetMaterialValueCommand(currentObject, 'flatShading', flatShading, currentMaterialSlot));
 
                 }
 
@@ -974,7 +974,7 @@ function MaterialPanel(editor) {
             'aoMap': materialAOMapRow,
             'emissiveMap': materialEmissiveMapRow,
             'side': materialSideRow,
-            'shading': materialShadingRow,
+            'flatShading': materialShadingRow,
             'blending': materialBlendingRow,
             'opacity': materialOpacityRow,
             'transparent': materialTransparentRow,
@@ -1235,11 +1235,11 @@ function MaterialPanel(editor) {
 
         }
 
-        if (material.shading !== undefined) {
+		if ( material.flatShading !== undefined ) {
 
-            materialShading.setValue(material.shading);
+			materialShading.setValue( material.flatShading );
 
-        }
+		}
 
         if (material.blending !== undefined) {
 
