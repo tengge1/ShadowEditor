@@ -42,7 +42,33 @@ function FileMenu(editor) {
     });
     options.add(option);
 
-    //
+    // Load
+
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('载入');
+    option.onClick(function () {
+
+        if (confirm('所有未保存数据将丢失，确定吗？')) {
+
+            editor.load();
+
+        }
+
+    });
+    options.add(option);
+
+    // Save
+
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('保存');
+    option.onClick(function () {
+
+        editor.save();
+
+    });
+    options.add(option);
 
     options.add(new UI.HorizontalRule());
 
@@ -296,27 +322,6 @@ function FileMenu(editor) {
 
     });
     options.add(option);
-
-    /*
-	// Publish (Dropbox)
-
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( 'Publish (Dropbox)' );
-	option.onClick( function () {
-
-		var parameters = {
-			files: [
-				{ 'url': 'data:text/plain;base64,' + window.btoa( "Hello, World" ), 'filename': 'app/test.txt' }
-			]
-		};
-
-		Dropbox.save( parameters );
-
-	} );
-	options.add( option );
-	*/
-
 
     //
 

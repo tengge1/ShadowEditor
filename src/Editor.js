@@ -449,6 +449,17 @@ Editor.prototype = {
 
     },
 
+    load: function () {
+        alert('开发中');
+    },
+
+    save: function () {
+        var _this = this;
+        this.scene.traverse(function (item) {
+            debugger
+        });
+    },
+
     //
 
     fromJSON: function (json) {
