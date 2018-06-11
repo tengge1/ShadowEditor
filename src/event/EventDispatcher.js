@@ -9,8 +9,8 @@ class EventDispatcher {
     constructor(app) {
         this.app = app;
         this.dispatch = dispatch.apply(dispatch, EventList);
-        this.domElement = this.app.container;
-        this.addDomEventListener();
+        // this.domElement = this.app.container;
+        // this.addDomEventListener();
     }
 
     /**
