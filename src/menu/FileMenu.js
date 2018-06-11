@@ -74,7 +74,7 @@ function FileMenu(editor) {
 
     var option = new UI.Row();
     option.setClass('option');
-    option.setTextContent('导出几何体');
+    option.setTextContent('导出Geometry');
     option.onClick(function () {
 
         var object = editor.selected;
@@ -90,7 +90,7 @@ function FileMenu(editor) {
 
         if (geometry === undefined) {
 
-            alert('选中的对象不具有几何属性。');
+            alert('选中的对象不具有Geometry属性。');
             return;
 
         }
@@ -117,7 +117,7 @@ function FileMenu(editor) {
 
     var option = new UI.Row();
     option.setClass('option');
-    option.setTextContent('导出对象');
+    option.setTextContent('导出Object');
     option.onClick(function () {
 
         var object = editor.selected;
