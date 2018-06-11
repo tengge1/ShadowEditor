@@ -9,7 +9,7 @@ import Panel from './panel/Panel';
 /**
  * Application
  */
-function Application() {
+function Application(container) {
     var editor = new Editor();
 
     var viewport = new Viewport(editor);
@@ -275,6 +275,10 @@ function Application() {
         if (groupVR !== undefined) groupVR.visible = false;
 
     });
+
+    this.start = function () {
+
+    };
 }
 
 export default Application;
