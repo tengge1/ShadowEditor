@@ -1,6 +1,5 @@
 export * from './third_party';
 import { } from './polyfills';
-export * from './event/index';
 export * from './core/index';
 export * from './command/index';
 export * from './ui/index';
