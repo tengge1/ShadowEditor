@@ -12,28 +12,30 @@ import Panel from './panel/Panel';
 function Application(container) {
     var editor = new Editor();
 
+    // dom
+
     var viewport = new Viewport(editor);
-    document.body.appendChild(viewport.dom);
+    container.appendChild(viewport.dom);
 
     var script = new Script(editor);
-    document.body.appendChild(script.dom);
+    container.appendChild(script.dom);
 
     var player = new Player(editor);
-    document.body.appendChild(player.dom);
+    container.appendChild(player.dom);
 
     var toolbar = new Toolbar(editor);
-    document.body.appendChild(toolbar.dom);
+    container.appendChild(toolbar.dom);
 
     var menubar = new Menubar(editor);
-    document.body.appendChild(menubar.dom);
+    container.appendChild(menubar.dom);
 
     var sidebar = new Panel(editor);
-    document.body.appendChild(sidebar.dom);
+    container.appendChild(sidebar.dom);
 
     var modal = new UI.Modal();
-    document.body.appendChild(modal.dom);
+    container.appendChild(modal.dom);
 
-    //
+    // init
 
     editor.setTheme(editor.config.getKey('theme'));
 
