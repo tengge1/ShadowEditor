@@ -10,7 +10,9 @@ import Panel from './panel/Panel';
  * Application
  */
 function Application(container) {
+
     var editor = new Editor();
+    this.editor = editor;
 
     // dom
 

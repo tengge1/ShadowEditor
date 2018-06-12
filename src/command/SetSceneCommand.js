@@ -1,4 +1,5 @@
 import Command from './Command';
+import SetUuidCommand from './SetUuidCommand';
 
 /**
  * @author dforrer / https://github.com/dforrer

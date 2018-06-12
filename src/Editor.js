@@ -2,6 +2,7 @@
 import History from './core/History';
 import Storage from './core/Storage';
 import Loader from './core/Loader';
+import Ajax from './utils/Ajax';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -455,9 +456,11 @@ Editor.prototype = {
 
     save: function () {
         var _this = this;
+        var list = [];
         this.scene.traverse(function (item) {
-            debugger
+            list.push(item.toJSON());
         });
+        debugger
     },
 
     //
