@@ -9,9 +9,9 @@ function glsl() {
 
             var transformedCode = 'export default ' + JSON.stringify(
                 code
-                .replace(/[ \t]*\/\/.*\n/g, '') // remove //
-                .replace(/[ \t]*\/\*[\s\S]*?\*\//g, '') // remove /* */
-                .replace(/\n{2,}/g, '\n') // # \n+ to \n
+                    .replace(/[ \t]*\/\/.*\n/g, '') // remove //
+                    .replace(/[ \t]*\/\*[\s\S]*?\*\//g, '') // remove /* */
+                    .replace(/\n{2,}/g, '\n') // # \n+ to \n
             ) + ';';
             return {
                 code: transformedCode,
@@ -39,13 +39,13 @@ export default {
             runtimeHelpers: true,
             externalHelpers: false
         }),
-        resolve({
-            customResolveOptions: {
-                moduleDirectory: 'node_modules'
-            }
-        }),
-        copy({
-            "./assets/": "./dist/assets/"
-        })
+        // resolve({
+        //     customResolveOptions: {
+        //         moduleDirectory: 'node_modules'
+        //     }
+        // }),
+        // copy({
+        //     "./assets/": "./dist/assets/"
+        // })
     ]
 };
