@@ -5,6 +5,7 @@ import Player from './core/Player';
 import Toolbar from './ui/Toolbar';
 import Menubar from './menu/Menubar';
 import Panel from './panel/Panel';
+import Modal from './ui/Modal';
 
 /**
  * Application
@@ -34,7 +35,7 @@ function Application(container) {
     var sidebar = new Panel(editor);
     container.appendChild(sidebar.dom);
 
-    var modal = new UI.Modal();
+    var modal = new Modal();
     container.appendChild(modal.dom);
 
     // init

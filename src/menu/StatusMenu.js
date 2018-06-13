@@ -1,13 +1,19 @@
-﻿/**
+﻿import Panel from '../ui/Panel';
+import Row from '../ui/Row';
+import HorizontalRule from '../ui/HorizontalRule';
+import Text from '../ui/Text';
+import Boolean from '../ui/Boolean';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
 function StatusMenu(editor) {
 
-    var container = new UI.Panel();
+    var container = new Panel();
     container.setClass('menu right');
 
-    var autosave = new UI.THREE.Boolean(editor.config.getKey('autosave'), '自动保存');
+    var autosave = new Boolean(editor.config.getKey('autosave'), '自动保存');
     autosave.text.setColor('#888');
     autosave.onChange(function () {
 
@@ -36,7 +42,7 @@ function StatusMenu(editor) {
 
     });
 
-    var version = new UI.Text('r' + THREE.REVISION);
+    var version = new Text('r' + THREE.REVISION);
     version.setClass('title');
     version.setOpacity(0.5);
     container.add(version);

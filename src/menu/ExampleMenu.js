@@ -1,18 +1,22 @@
-﻿/**
+﻿import Panel from '../ui/Panel';
+import Row from '../ui/Row';
+import HorizontalRule from '../ui/HorizontalRule';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
 function ExampleMenu(editor) {
 
-    var container = new UI.Panel();
+    var container = new Panel();
     container.setClass('menu');
 
-    var title = new UI.Panel();
+    var title = new Panel();
     title.setClass('title');
     title.setTextContent('示例');
     container.add(title);
 
-    var options = new UI.Panel();
+    var options = new Panel();
     options.setClass('options');
     container.add(options);
 
@@ -33,7 +37,7 @@ function ExampleMenu(editor) {
 
             var item = items[i];
 
-            var option = new UI.Row();
+            var option = new Row();
             option.setClass('option');
             option.setTextContent(item.title);
             option.onClick(function () {

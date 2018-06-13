@@ -1,4 +1,12 @@
-﻿/**
+﻿import Panel from '../ui/Panel';
+import Row from '../ui/Row';
+import HorizontalRule from '../ui/HorizontalRule';
+import Text from '../ui/Text';
+import Boolean from '../ui/Boolean';
+import Break from '../ui/Break';
+import Button from '../ui/Button';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -9,14 +17,14 @@ function AnimationPanel(editor) {
 	var options = {};
 	var possibleAnimations = {};
 
-	var container = new UI.Panel();
+	var container = new Panel();
 	container.setDisplay('none');
 
-	container.add(new UI.Text('动画'));
-	container.add(new UI.Break());
-	container.add(new UI.Break());
+	container.add(new Text('动画'));
+	container.add(new Break());
+	container.add(new Break());
 
-	var animationsRow = new UI.Row();
+	var animationsRow = new Row();
 	container.add(animationsRow);
 
     /*
@@ -82,14 +90,14 @@ function AnimationPanel(editor) {
 
 			var animation = animations[ object.id ];
 
-			var playButton = new UI.Button( 'Play' ).onClick( function () {
+			var playButton = new Button( 'Play' ).onClick( function () {
 
 				animation.play();
 
 			} );
 			animationsRow.add( playButton );
 
-			var pauseButton = new UI.Button( 'Stop' ).onClick( function () {
+			var pauseButton = new Button( 'Stop' ).onClick( function () {
 
 				animation.stop();
 

@@ -1,24 +1,28 @@
-﻿/**
+﻿import Panel from '../ui/Panel';
+import Row from '../ui/Row';
+import HorizontalRule from '../ui/HorizontalRule';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
 function FileMenu(editor) {
 
-    var container = new UI.Panel();
+    var container = new Panel();
     container.setClass('menu');
 
-    var title = new UI.Panel();
+    var title = new Panel();
     title.setClass('title');
     title.setTextContent('文件');
     container.add(title);
 
-    var options = new UI.Panel();
+    var options = new Panel();
     options.setClass('options');
     container.add(options);
 
     // 新建
 
-    var option = new UI.Row();
+    var option = new Row();
     option.setClass('option');
     option.setTextContent('新建');
     option.onClick(function () {
@@ -34,7 +38,7 @@ function FileMenu(editor) {
 
     // 载入
 
-    var option = new UI.Row();
+    var option = new Row();
     option.setClass('option');
     option.setTextContent('载入');
     option.onClick(function () {
@@ -50,7 +54,7 @@ function FileMenu(editor) {
 
     // 保存
 
-    var option = new UI.Row();
+    var option = new Row();
     option.setClass('option');
     option.setTextContent('保存');
     option.onClick(function () {
@@ -62,11 +66,11 @@ function FileMenu(editor) {
 
     // ---
 
-    options.add(new UI.HorizontalRule());
+    options.add(new HorizontalRule());
 
     // 发布
 
-    var option = new UI.Row();
+    var option = new Row();
     option.setClass('option');
     option.setTextContent('发布');
     option.onClick(function () {
