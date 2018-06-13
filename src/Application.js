@@ -286,4 +286,8 @@ function Application(container) {
     };
 }
 
+Application.prototype.start = function () {
+
+};
+
 export default Application;
