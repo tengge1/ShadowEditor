@@ -1,4 +1,5 @@
 ﻿import Config from './Config';
+import Signal from './core/Signal';
 import History from './core/History';
 import Storage from './core/Storage';
 import Loader from './core/Loader';
@@ -15,78 +16,8 @@ function Editor() {
     this.DEFAULT_CAMERA.position.set(20, 10, 20);
     this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
 
-    var Signal = signals.Signal;
-
-    this.signals = {
-
-        // script
-
-        editScript: new Signal(),
-
-        // player
-
-        startPlayer: new Signal(),
-        stopPlayer: new Signal(),
-
-        // vr
-
-        enterVR: new Signal(),
-
-        enteredVR: new Signal(),
-        exitedVR: new Signal(),
-
-        // actions
-
-        showModal: new Signal(),
-
-        // notifications
-
-        editorCleared: new Signal(),
-
-        savingStarted: new Signal(),
-        savingFinished: new Signal(),
-
-        themeChanged: new Signal(),
-
-        transformModeChanged: new Signal(),
-        snapChanged: new Signal(),
-        spaceChanged: new Signal(),
-        rendererChanged: new Signal(),
-
-        sceneBackgroundChanged: new Signal(),
-        sceneFogChanged: new Signal(),
-        sceneGraphChanged: new Signal(),
-
-        cameraChanged: new Signal(),
-
-        geometryChanged: new Signal(),
-
-        objectSelected: new Signal(),
-        objectFocused: new Signal(),
-
-        objectAdded: new Signal(),
-        objectChanged: new Signal(),
-        objectRemoved: new Signal(),
-
-        helperAdded: new Signal(),
-        helperRemoved: new Signal(),
-
-        materialChanged: new Signal(),
-
-        scriptAdded: new Signal(),
-        scriptChanged: new Signal(),
-        scriptRemoved: new Signal(),
-
-        windowResize: new Signal(),
-
-        showGridChanged: new Signal(),
-        refreshSidebarObject3D: new Signal(),
-        historyChanged: new Signal(),
-        refreshScriptEditor: new Signal()
-
-    };
-
     this.config = new Config('threejs-editor');
+    this.signals = new Signal();
     this.history = new History(this);
     this.storage = new Storage();
     this.loader = new Loader(this);
