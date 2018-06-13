@@ -7,6 +7,7 @@ import ExampleMenu from './ExampleMenu';
 import HelpMenu from './HelpMenu';
 import StatusMenu from './StatusMenu';
 import ViewMenu from './ViewMenu';
+import UI from '../ui/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/

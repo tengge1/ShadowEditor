@@ -2,6 +2,7 @@
 import SetPositionCommand from '../command/SetPositionCommand';
 import SetRotationCommand from '../command/SetRotationCommand';
 import SetScaleCommand from '../command/SetScaleCommand';
+import UI from '../ui/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -350,7 +351,7 @@ function Viewport(editor) {
 
         container.dom.appendChild(renderer.domElement);
 
-        if ( renderer.vr.enabled ) {
+        if (renderer.vr.enabled) {
 
             vrControls = new THREE.VRControls(vrCamera);
             vrEffect = new THREE.VREffect(renderer);
@@ -390,7 +391,7 @@ function Viewport(editor) {
 
             if (box.isEmpty() === false) {
 
-                selectionBox.setFromObject( object );
+                selectionBox.setFromObject(object);
                 selectionBox.visible = true;
 
             }

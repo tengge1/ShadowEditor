@@ -1,6 +1,7 @@
 ﻿import ObjectPanel from './ObjectPanel';
 import GeometryPanel from './geometry/GeometryPanel';
 import MaterialPanel from './MaterialPanel';
+import UI from '../ui/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/

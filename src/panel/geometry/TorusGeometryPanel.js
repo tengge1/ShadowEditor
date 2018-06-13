@@ -1,4 +1,5 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
+import UI from '../../ui/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/

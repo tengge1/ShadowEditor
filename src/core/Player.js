@@ -1,3 +1,5 @@
+import UI from '../ui/UI';
+
 /**
  * @author mrdoob / http://mrdoob.com/
  */

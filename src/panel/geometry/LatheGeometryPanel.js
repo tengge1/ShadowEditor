@@ -1,4 +1,6 @@
-﻿/**
+﻿import UI from '../../ui/UI';
+
+/**
  * @author rfm1201
  */
 

@@ -1,4 +1,6 @@
-﻿/**
+﻿import UI from '../ui/UI';
+
+/**
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  */
@@ -17,7 +19,7 @@ function HistoryPanel(editor) {
 
     //
 
-    var persistent = new UI.THREE.Boolean(config.getKey('settings/history'), '永久');
+    var persistent = new UI.Boolean(config.getKey('settings/history'), '永久');
     persistent.setPosition('absolute').setRight('8px');
     persistent.onChange(function () {
 

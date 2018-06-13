@@ -1,4 +1,6 @@
-﻿/**
+﻿import UI from '../ui/UI';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -64,13 +66,13 @@ function Toolbar(editor) {
     buttons.add(new UI.Text('网格：'));
     buttons.add(grid);
 
-    var snap = new UI.THREE.Boolean(false, '单元').onChange(update);
+    var snap = new UI.Boolean(false, '单元').onChange(update);
     buttons.add(snap);
 
-    var local = new UI.THREE.Boolean(false, '本地').onChange(update);
+    var local = new UI.Boolean(false, '本地').onChange(update);
     buttons.add(local);
 
-    var showGrid = new UI.THREE.Boolean(true, '网格').onChange(update);
+    var showGrid = new UI.Boolean(true, '网格').onChange(update);
     buttons.add(showGrid);
 
     function update() {

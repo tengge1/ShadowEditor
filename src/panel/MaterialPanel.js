@@ -2,6 +2,7 @@
 import SetMaterialValueCommand from '../command/SetMaterialValueCommand';
 import SetMaterialColorCommand from '../command/SetMaterialColorCommand';
 import SetMaterialMapCommand from '../command/SetMaterialMapCommand';
+import UI from '../ui/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -1235,11 +1236,11 @@ function MaterialPanel(editor) {
 
         }
 
-		if ( material.flatShading !== undefined ) {
+        if (material.flatShading !== undefined) {
 
-			materialShading.setValue( material.flatShading );
+            materialShading.setValue(material.flatShading);
 
-		}
+        }
 
         if (material.blending !== undefined) {
 

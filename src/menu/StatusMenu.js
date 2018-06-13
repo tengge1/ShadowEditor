@@ -1,4 +1,6 @@
-﻿/**
+﻿import UI from '../ui/UI';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -7,7 +9,7 @@ function StatusMenu(editor) {
     var container = new UI.Panel();
     container.setClass('menu right');
 
-    var autosave = new UI.THREE.Boolean(editor.config.getKey('autosave'), '自动保存');
+    var autosave = new UI.Boolean(editor.config.getKey('autosave'), '自动保存');
     autosave.text.setColor('#888');
     autosave.onChange(function () {
 

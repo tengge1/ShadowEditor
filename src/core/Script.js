@@ -1,3 +1,4 @@
+import UI from '../ui/UI';
 import SetScriptValueCommand from '../command/SetScriptValueCommand';
 
 /**

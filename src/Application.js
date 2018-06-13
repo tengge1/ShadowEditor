@@ -5,6 +5,7 @@ import Player from './core/Player';
 import Toolbar from './ui/Toolbar';
 import Menubar from './menu/Menubar';
 import Panel from './panel/Panel';
+import UI from './ui/UI';
 
 /**
  * Application

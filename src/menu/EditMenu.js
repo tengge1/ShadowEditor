@@ -2,6 +2,7 @@
 import RemoveObjectCommand from '../command/RemoveObjectCommand';
 import SetMaterialValueCommand from '../command/SetMaterialValueCommand';
 import MultiCmdsCommand from '../command/MultiCmdsCommand';
+import UI from '../ui/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/

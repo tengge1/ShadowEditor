@@ -1,4 +1,6 @@
-﻿/**
+﻿import UI from '../ui/UI';
+
+/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -59,7 +61,7 @@ function ProjectPanel(editor) {
 
     var rendererPropertiesRow = new UI.Row().setMarginLeft('90px');
 
-    var rendererAntialias = new UI.THREE.Boolean(config.getKey('project/renderer/antialias'), '抗锯齿').onChange(function () {
+    var rendererAntialias = new UI.Boolean(config.getKey('project/renderer/antialias'), '抗锯齿').onChange(function () {
 
         config.setKey('project/renderer/antialias', this.getValue());
         updateRenderer();
@@ -69,7 +71,7 @@ function ProjectPanel(editor) {
 
     // shadow
 
-    var rendererShadows = new UI.THREE.Boolean(config.getKey('project/renderer/shadows'), '阴影').onChange(function () {
+    var rendererShadows = new UI.Boolean(config.getKey('project/renderer/shadows'), '阴影').onChange(function () {
 
         config.setKey('project/renderer/shadows', this.getValue());
         updateRenderer();
@@ -81,7 +83,7 @@ function ProjectPanel(editor) {
 
     // gamma input
 
-    var rendererGammaInput = new UI.THREE.Boolean(config.getKey('project/renderer/gammaInput'), 'γ输入').onChange(function () {
+    var rendererGammaInput = new UI.Boolean(config.getKey('project/renderer/gammaInput'), 'γ输入').onChange(function () {
 
         config.setKey('project/renderer/gammaInput', this.getValue());
         updateRenderer();
@@ -91,7 +93,7 @@ function ProjectPanel(editor) {
 
     // gamma output
 
-    var rendererGammaOutput = new UI.THREE.Boolean(config.getKey('project/renderer/gammaOutput'), 'γ输出').onChange(function () {
+    var rendererGammaOutput = new UI.Boolean(config.getKey('project/renderer/gammaOutput'), 'γ输出').onChange(function () {
 
         config.setKey('project/renderer/gammaOutput', this.getValue());
         updateRenderer();

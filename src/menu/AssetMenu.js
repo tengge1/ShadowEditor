@@ -1,3 +1,5 @@
+import UI from '../ui/UI';
+
 function AssetMenu(editor) {
 
     var NUMBER_PRECISION = 6;

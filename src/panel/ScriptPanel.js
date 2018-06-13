@@ -1,6 +1,7 @@
 ﻿import AddScriptCommand from '../command/AddScriptCommand';
 import SetScriptValueCommand from '../command/SetScriptValueCommand';
 import RemoveScriptCommand from '../command/RemoveScriptCommand';
+import UI from '../ui/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/

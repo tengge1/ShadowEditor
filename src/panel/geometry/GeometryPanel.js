@@ -14,6 +14,8 @@ import TeapotBufferGeometryPanel from './TeapotBufferGeometryPanel';
 import TorusGeometryPanel from './TorusGeometryPanel';
 import TorusKnotGeometryPanel from './TorusKnotGeometryPanel';
 
+import UI from '../../ui/UI';
+
 /**
  * @author mrdoob / http://mrdoob.com/
  */

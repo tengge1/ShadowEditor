@@ -5,6 +5,7 @@ import ScriptPanel from './ScriptPanel';
 import ProjectPanel from './ProjectPanel';
 import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
+import UI from '../ui/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/

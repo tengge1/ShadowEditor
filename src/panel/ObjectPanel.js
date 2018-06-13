@@ -4,6 +4,7 @@ import SetScaleCommand from '../command/SetScaleCommand';
 import SetUuidCommand from '../command/SetUuidCommand';
 import SetValueCommand from '../command/SetValueCommand';
 import SetColorCommand from '../command/SetColorCommand';
+import UI from '../ui/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -245,10 +246,10 @@ function ObjectPanel(editor) {
 
     objectShadowRow.add(new UI.Text('阴影').setWidth('90px'));
 
-    var objectCastShadow = new UI.THREE.Boolean(false, '产生').onChange(update);
+    var objectCastShadow = new UI.Boolean(false, '产生').onChange(update);
     objectShadowRow.add(objectCastShadow);
 
-    var objectReceiveShadow = new UI.THREE.Boolean(false, '接收').onChange(update);
+    var objectReceiveShadow = new UI.Boolean(false, '接收').onChange(update);
     objectShadowRow.add(objectReceiveShadow);
 
     var objectShadowRadius = new UI.Number(1).onChange(update);
