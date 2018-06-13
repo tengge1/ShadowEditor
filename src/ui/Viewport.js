@@ -66,7 +66,7 @@ function Viewport(editor) {
 
         if (object !== undefined) {
 
-            selectionBox.update(object);
+            selectionBox.setFromObject(object);
 
             if (editor.helpers[object.id] !== undefined) {
 
@@ -414,7 +414,7 @@ function Viewport(editor) {
 
         if (object !== undefined) {
 
-            selectionBox.update(object);
+            selectionBox.setFromObject(object);
 
         }
 
@@ -436,7 +436,7 @@ function Viewport(editor) {
 
         if (editor.selected === object) {
 
-            selectionBox.update(object);
+            selectionBox.setFromObject(object);
             transformControls.update();
 
         }
