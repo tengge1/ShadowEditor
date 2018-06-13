@@ -1,7 +1,3 @@
-import Panel from '../ui/Panel';
-import Row from '../ui/Row';
-import HorizontalRule from '../ui/HorizontalRule';
-
 function AssetMenu(editor) {
 
     var NUMBER_PRECISION = 6;
@@ -14,15 +10,15 @@ function AssetMenu(editor) {
 
     //
 
-    var container = new Panel();
+    var container = new UI.Panel();
     container.setClass('menu');
 
-    var title = new Panel();
+    var title = new UI.Panel();
     title.setClass('title');
     title.setTextContent('资源');
     container.add(title);
 
-    var options = new Panel();
+    var options = new UI.Panel();
     options.setClass('options');
     container.add(options);
 
@@ -36,7 +32,7 @@ function AssetMenu(editor) {
 
     });
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('导入');
     option.onClick(function () {
@@ -48,11 +44,11 @@ function AssetMenu(editor) {
 
     //
 
-    options.add(new HorizontalRule());
+    options.add(new UI.HorizontalRule());
 
     // Export Geometry
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('导出Geometry');
     option.onClick(function () {
@@ -95,7 +91,7 @@ function AssetMenu(editor) {
 
     // Export Object
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('导出Object');
     option.onClick(function () {
@@ -129,7 +125,7 @@ function AssetMenu(editor) {
 
     // Export Scene
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('导出场景');
     option.onClick(function () {
@@ -154,7 +150,7 @@ function AssetMenu(editor) {
 
     // Export OBJ
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('导出OBJ');
     option.onClick(function () {
@@ -177,7 +173,7 @@ function AssetMenu(editor) {
 
     // Export STL
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('导出STL');
     option.onClick(function () {

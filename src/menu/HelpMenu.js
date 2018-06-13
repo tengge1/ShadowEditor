@@ -1,28 +1,24 @@
-﻿import Panel from '../ui/Panel';
-import Row from '../ui/Row';
-import HorizontalRule from '../ui/HorizontalRule';
-
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
 function HelpMenu(editor) {
 
-    var container = new Panel();
+    var container = new UI.Panel();
     container.setClass('menu');
 
-    var title = new Panel();
+    var title = new UI.Panel();
     title.setClass('title');
     title.setTextContent('帮助');
     container.add(title);
 
-    var options = new Panel();
+    var options = new UI.Panel();
     options.setClass('options');
     container.add(options);
 
     // Source code
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('源码');
     option.onClick(function () {
@@ -34,7 +30,7 @@ function HelpMenu(editor) {
 
     // About
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('关于');
     option.onClick(function () {

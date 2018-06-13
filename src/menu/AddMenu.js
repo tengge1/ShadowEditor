@@ -1,7 +1,4 @@
-﻿import Panel from '../ui/Panel';
-import Row from '../ui/Row';
-import HorizontalRule from '../ui/HorizontalRule';
-import AddObjectCommand from '../command/AddObjectCommand';
+﻿import AddObjectCommand from '../command/AddObjectCommand';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -9,15 +6,15 @@ import AddObjectCommand from '../command/AddObjectCommand';
 
 function AddMenu(editor) {
 
-    var container = new Panel();
+    var container = new UI.Panel();
     container.setClass('menu');
 
-    var title = new Panel();
+    var title = new UI.Panel();
     title.setClass('title');
     title.setTextContent('添加');
     container.add(title);
 
-    var options = new Panel();
+    var options = new UI.Panel();
     options.setClass('options');
     container.add(options);
 
@@ -37,7 +34,7 @@ function AddMenu(editor) {
 
     // Group
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('组');
     option.onClick(function () {
@@ -52,11 +49,11 @@ function AddMenu(editor) {
 
     //
 
-    options.add(new HorizontalRule());
+    options.add(new UI.HorizontalRule());
 
     // Plane
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('平板');
     option.onClick(function () {
@@ -73,7 +70,7 @@ function AddMenu(editor) {
 
     // Box
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('正方体');
     option.onClick(function () {
@@ -89,7 +86,7 @@ function AddMenu(editor) {
 
     // Circle
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('圆');
     option.onClick(function () {
@@ -108,7 +105,7 @@ function AddMenu(editor) {
 
     // Cylinder
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('圆柱体');
     option.onClick(function () {
@@ -131,7 +128,7 @@ function AddMenu(editor) {
 
     // Sphere
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('球体');
     option.onClick(function () {
@@ -155,7 +152,7 @@ function AddMenu(editor) {
 
     // Icosahedron
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('二十面体');
     option.onClick(function () {
@@ -174,7 +171,7 @@ function AddMenu(editor) {
 
     // Torus
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('圆环面');
     option.onClick(function () {
@@ -196,7 +193,7 @@ function AddMenu(editor) {
 
     // TorusKnot
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('环面扭结');
     option.onClick(function () {
@@ -219,7 +216,7 @@ function AddMenu(editor) {
 
     /*// Teapot
 
-	var option = new Row();
+	var option = new UI.Row();
 	option.setClass( 'option' );
 	option.setTextContent( '茶壶' );
 	option.onClick( function () {
@@ -246,7 +243,7 @@ function AddMenu(editor) {
 
     // Lathe
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('花瓶');
     option.onClick(function () {
@@ -279,7 +276,7 @@ function AddMenu(editor) {
 
     // Sprite
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('精灵');
     option.onClick(function () {
@@ -294,11 +291,11 @@ function AddMenu(editor) {
 
     //
 
-    options.add(new HorizontalRule());
+    options.add(new UI.HorizontalRule());
 
     // PointLight
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('点光源');
     option.onClick(function () {
@@ -317,7 +314,7 @@ function AddMenu(editor) {
 
     // SpotLight
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('聚光灯');
     option.onClick(function () {
@@ -341,7 +338,7 @@ function AddMenu(editor) {
 
     // DirectionalLight
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('平行光源');
     option.onClick(function () {
@@ -362,7 +359,7 @@ function AddMenu(editor) {
 
     // HemisphereLight
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('半球光');
     option.onClick(function () {
@@ -383,7 +380,7 @@ function AddMenu(editor) {
 
     // AmbientLight
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('环境光');
     option.onClick(function () {
@@ -400,11 +397,11 @@ function AddMenu(editor) {
 
     //
 
-    options.add(new HorizontalRule());
+    options.add(new UI.HorizontalRule());
 
     // PerspectiveCamera
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('透视相机');
     option.onClick(function () {

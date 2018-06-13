@@ -1,8 +1,4 @@
-﻿import Panel from '../ui/Panel';
-import Row from '../ui/Row';
-import HorizontalRule from '../ui/HorizontalRule';
-
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
@@ -10,12 +6,12 @@ function PlayMenu(editor) {
 
     var signals = editor.signals;
 
-    var container = new Panel();
+    var container = new UI.Panel();
     container.setClass('menu');
 
     var isPlaying = false;
 
-    var title = new Panel();
+    var title = new UI.Panel();
     title.setClass('title');
     title.setTextContent('启动');
     title.onClick(function () {

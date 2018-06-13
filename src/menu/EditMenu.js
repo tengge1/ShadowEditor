@@ -1,7 +1,4 @@
-﻿import Panel from '../ui/Panel';
-import Row from '../ui/Row';
-import HorizontalRule from '../ui/HorizontalRule';
-import AddObjectCommand from '../command/AddObjectCommand';
+﻿import AddObjectCommand from '../command/AddObjectCommand';
 import RemoveObjectCommand from '../command/RemoveObjectCommand';
 import SetMaterialValueCommand from '../command/SetMaterialValueCommand';
 import MultiCmdsCommand from '../command/MultiCmdsCommand';
@@ -12,21 +9,21 @@ import MultiCmdsCommand from '../command/MultiCmdsCommand';
 
 function EditMenu(editor) {
 
-    var container = new Panel();
+    var container = new UI.Panel();
     container.setClass('menu');
 
-    var title = new Panel();
+    var title = new UI.Panel();
     title.setClass('title');
     title.setTextContent('编辑');
     container.add(title);
 
-    var options = new Panel();
+    var options = new UI.Panel();
     options.setClass('options');
     container.add(options);
 
     // Undo
 
-    var undo = new Row();
+    var undo = new UI.Row();
     undo.setClass('option');
     undo.setTextContent('撤销(Ctrl+Z)');
     undo.onClick(function () {
@@ -38,7 +35,7 @@ function EditMenu(editor) {
 
     // Redo
 
-    var redo = new Row();
+    var redo = new UI.Row();
     redo.setClass('option');
     redo.setTextContent('重做(Ctrl+Shift+Z)');
     redo.onClick(function () {
@@ -50,7 +47,7 @@ function EditMenu(editor) {
 
     // Clear History
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('清空历史记录');
     option.onClick(function () {
@@ -88,11 +85,11 @@ function EditMenu(editor) {
 
     // ---
 
-    options.add(new HorizontalRule());
+    options.add(new UI.HorizontalRule());
 
     // Clone
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('复制');
     option.onClick(function () {
@@ -110,7 +107,7 @@ function EditMenu(editor) {
 
     // Delete
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('删除(Del)');
     option.onClick(function () {
@@ -129,7 +126,7 @@ function EditMenu(editor) {
 
     // Minify shaders
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('清除着色');
     option.onClick(function () {

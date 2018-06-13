@@ -1,30 +1,24 @@
-﻿import Panel from '../ui/Panel';
-import Row from '../ui/Row';
-import HorizontalRule from '../ui/HorizontalRule';
-import Text from '../ui/Text';
-import Boolean from '../ui/Boolean';
-
-/**
+﻿/**
  * @author mrdoob / http://mrdoob.com/
  */
 
 function ViewMenu(editor) {
 
-    var container = new Panel();
+    var container = new UI.Panel();
     container.setClass('menu');
 
-    var title = new Panel();
+    var title = new UI.Panel();
     title.setClass('title');
     title.setTextContent('视图');
     container.add(title);
 
-    var options = new Panel();
+    var options = new UI.Panel();
     options.setClass('options');
     container.add(options);
 
     // VR mode
 
-    var option = new Row();
+    var option = new UI.Row();
     option.setClass('option');
     option.setTextContent('VR模式');
     option.onClick(function () {

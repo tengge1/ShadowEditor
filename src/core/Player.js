@@ -1,5 +1,3 @@
-import Panel from '../ui/Panel';
-
 /**
  * @author mrdoob / http://mrdoob.com/
  */
@@ -8,7 +6,7 @@ function Player(editor) {
 
     var signals = editor.signals;
 
-    var container = new Panel();
+    var container = new UI.Panel();
     container.setId('player');
     container.setPosition('absolute');
     container.setDisplay('none');

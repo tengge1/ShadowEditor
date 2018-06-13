@@ -1,5 +1,4 @@
-﻿import Panel from '../ui/Panel';
-import FileMenu from './FileMenu';
+﻿import FileMenu from './FileMenu';
 import EditMenu from './EditMenu';
 import AddMenu from './AddMenu';
 import AssetMenu from './AssetMenu';
@@ -15,7 +14,7 @@ import ViewMenu from './ViewMenu';
 
 function Menubar(editor) {
 
-    var container = new Panel();
+    var container = new UI.Panel();
     container.setId('menubar');
 
     container.add(new FileMenu(editor));

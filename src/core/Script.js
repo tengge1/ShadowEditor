@@ -1,6 +1,3 @@
-import Panel from '../ui/Panel';
-import Text from '../ui/Text';
-import Element from '../ui/Element';
 import SetScriptValueCommand from '../command/SetScriptValueCommand';
 
 /**
@@ -11,17 +8,17 @@ function Script(editor) {
 
     var signals = editor.signals;
 
-    var container = new Panel();
+    var container = new UI.Panel();
     container.setId('script');
     container.setPosition('absolute');
     container.setBackgroundColor('#272822');
     container.setDisplay('none');
 
-    var header = new Panel();
+    var header = new UI.Panel();
     header.setPadding('10px');
     container.add(header);
 
-    var title = new Text().setColor('#fff');
+    var title = new UI.Text().setColor('#fff');
     header.add(title);
 
     var buttonSVG = (function () {
@@ -35,7 +32,7 @@ function Script(editor) {
         return svg;
     })();
 
-    var close = new Element(buttonSVG);
+    var close = new UI.Element(buttonSVG);
     close.setPosition('absolute');
     close.setTop('3px');
     close.setRight('1px');
