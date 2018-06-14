@@ -4,10 +4,15 @@
  */
 function toJSON(scene) {
     var list = [];
+    var _this = this;
     scene.traverse(function (item) {
-        list.push(item.toJSON());
+        list.push(_this.parseObject(item));
     });
     return list;
+};
+
+toJSON.prototype.parseObject = function (item) {
+
 };
 
 /**
