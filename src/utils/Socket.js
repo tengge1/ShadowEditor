@@ -1,10 +1,12 @@
-import {
-    dispatch
-} from '../third_party';
+import { dispatch } from '../third_party';
 
-function Socket(options) {
-    this.url = options.url;
-    this.reconnectTime = options.reconnectTime || 5000;
+/**
+ * Socket工具类
+ * @param {*} url Socket服务器地址 
+ */
+function Socket(url) {
+    this.url = url;
+    this.reconnectTime = 5000; // 重新连接时间
 
     this.socket = new WebSocket(this.url);
 
@@ -34,9 +36,7 @@ function Socket(options) {
 }
 
 Socket.prototype.on = function (eventName, callback) {
-    this.dispatch.on.apply(this.dispatch, arguments);
+    this.dispatch.on(eventName, callback);
 };
 
-export {
-    Socket
-};
+export default Socket;

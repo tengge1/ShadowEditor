@@ -1,11 +1,9 @@
 /**
- * js文件下载
+ * 异步加载js文件
+ * @param {*} url js文件url
+ * @param {*} callback 回调函数
  */
-function JsLoader() {
-
-}
-
-JsLoader.prototype.load = function (url, callback) {
+function loadJs(url, callback) {
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
     script.type = 'text/javascript';
@@ -21,4 +19,11 @@ JsLoader.prototype.load = function (url, callback) {
     }
 };
 
-export { JsLoader };
+/**
+ * js工具类
+ */
+const JsUtils = {
+    load: loadJs
+};
+
+export { JsUtils };

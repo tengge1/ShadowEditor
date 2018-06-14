@@ -39,11 +39,11 @@ export default {
             runtimeHelpers: true,
             externalHelpers: false
         }),
-        // resolve({
-        //     customResolveOptions: {
-        //         moduleDirectory: 'node_modules'
-        //     }
-        // }),
+        resolve({
+            customResolveOptions: {
+                moduleDirectory: 'node_modules'
+            }
+        }),
         // copy({
         //     "./assets/": "./dist/assets/"
         // })

@@ -4,6 +4,7 @@
     "private": true,
     "description": "3D Editor with three.js.",
     "dependencies": {
+        "d3-dispatch": "^1.0.3",
         "http": "0.0.0",
         "mongodb": "^3.0.10",
         "three": "^0.93.0"

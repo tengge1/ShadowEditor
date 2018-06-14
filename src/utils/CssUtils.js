@@ -1,11 +1,8 @@
 /**
- * Css下载器
+ * 异步加载css文件
+ * @param {*} url css文件url
  */
-function CssLoader() {
-
-}
-
-CssLoader.prototype.load = function (url) {
+function loadCss(url) {
     var head = document.getElementsByTagName('head')[0];
     var link = document.createElement('link');
     link.type = 'text/css';
@@ -14,4 +11,11 @@ CssLoader.prototype.load = function (url) {
     head.appendChild(link);
 };
 
-export { CssLoader };
+/**
+ * css工具类
+ */
+const CssUtils = {
+    load: loadCss
+};
+
+export { CssUtils };

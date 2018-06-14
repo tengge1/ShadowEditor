@@ -4,7 +4,7 @@ import History from './core/History';
 import Storage from './core/Storage';
 import Loader from './core/Loader';
 import Ajax from './utils/Ajax';
-import SceneToJson from './utils/SceneToJson';
+import SceneUtils from './utils/SceneUtils';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -387,7 +387,7 @@ Editor.prototype = {
     },
 
     save: function () {
-        var obj = SceneToJson(this.scene);
+        var obj = SceneUtils.toJSON(this.scene);
     },
 
     //
