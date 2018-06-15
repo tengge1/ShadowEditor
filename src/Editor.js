@@ -10,7 +10,7 @@ import SceneUtils from './utils/SceneUtils';
  * @author mrdoob / http://mrdoob.com/
  */
 
-function Editor() {
+function Editor(app) {
 
     this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 0.1, 10000);
     this.DEFAULT_CAMERA.name = 'Camera';

@@ -1,4 +1,5 @@
 import Editor from './Editor';
+import EventDispatcher from './event/EventDispatcher';
 import Viewport from './ui/Viewport';
 import Script from './core/Script';
 import Player from './core/Player';
@@ -13,7 +14,11 @@ import RemoveObjectCommand from './command/RemoveObjectCommand';
  */
 function Application(container) {
 
-    var editor = new Editor();
+    this.container = container;
+    this.event = new EventDispatcher(this);
+
+    // editor
+    var editor = new Editor(this);
     this.editor = editor;
 
     // dom
