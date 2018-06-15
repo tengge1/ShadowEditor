@@ -15,7 +15,11 @@ import RemoveObjectCommand from './command/RemoveObjectCommand';
 function Application(container) {
 
     this.container = container;
+
+    // event
     this.event = new EventDispatcher(this);
+    this.call = this.event.call.bind(this.event);
+    this.on = this.event.on.bind(this.event);
 
     // editor
     var editor = new Editor(this);
@@ -43,6 +47,16 @@ function Application(container) {
 
     var modal = new UI.Modal();
     container.appendChild(modal.dom);
+}
+
+Application.prototype.start = function () {
+
+    var editor = this.editor;
+
+    this.event.start();
+
+    var isLoadingFromHash = false;
+    var hash = window.location.hash;
 
     // init
 
@@ -121,97 +135,6 @@ function Application(container) {
 
     });
 
-    //
-
-    document.addEventListener('dragover', function (event) {
-
-        event.preventDefault();
-        event.dataTransfer.dropEffect = 'copy';
-
-    }, false);
-
-    document.addEventListener('drop', function (event) {
-
-        event.preventDefault();
-
-        if (event.dataTransfer.files.length > 0) {
-
-            editor.loader.loadFile(event.dataTransfer.files[0]);
-
-        }
-
-    }, false);
-
-    document.addEventListener('keydown', function (event) {
-
-        switch (event.keyCode) {
-
-            case 8: // backspace
-
-                event.preventDefault(); // prevent browser back
-
-            case 46: // delete
-
-                var object = editor.selected;
-
-                if (confirm('Delete ' + object.name + '?') === false) return;
-
-                var parent = object.parent;
-                if (parent !== null) editor.execute(new RemoveObjectCommand(object));
-
-                break;
-
-            case 90: // Register Ctrl-Z for Undo, Ctrl-Shift-Z for Redo
-
-                if (event.ctrlKey && event.shiftKey) {
-
-                    editor.redo();
-
-                } else if (event.ctrlKey) {
-
-                    editor.undo();
-
-                }
-
-                break;
-
-            case 87: // Register W for translation transform mode
-
-                editor.signals.transformModeChanged.dispatch('translate');
-
-                break;
-
-            case 69: // Register E for rotation transform mode
-
-                editor.signals.transformModeChanged.dispatch('rotate');
-
-                break;
-
-            case 82: // Register R for scaling transform mode
-
-                editor.signals.transformModeChanged.dispatch('scale');
-
-                break;
-
-        }
-
-    }, false);
-
-    function onWindowResize(event) {
-
-        editor.signals.windowResize.dispatch();
-
-    }
-
-    window.addEventListener('resize', onWindowResize, false);
-
-    onWindowResize();
-
-    //
-
-    var isLoadingFromHash = false;
-    var hash = window.location.hash;
-
     if (hash.substr(1, 5) === 'file=') {
 
         var file = hash.substr(6);
@@ -232,15 +155,6 @@ function Application(container) {
         }
 
     }
-
-    /*
-    window.addEventListener( 'message', function ( event ) {
-    
-        editor.clear();
-        editor.fromJSON( event.data );
-    
-    }, false );
-    */
 
     // VR
 
@@ -286,14 +200,6 @@ function Application(container) {
         if (groupVR !== undefined) groupVR.visible = false;
 
     });
-
-    this.start = function () {
-
-    };
-}
-
-Application.prototype.start = function () {
-
 };
 
 export default Application;
