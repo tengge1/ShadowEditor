@@ -6,6 +6,7 @@ import Toolbar from './ui/Toolbar';
 import Menubar from './menu/Menubar';
 import Panel from './panel/Panel';
 import UI from './ui/UI';
+import RemoveObjectCommand from './command/RemoveObjectCommand';
 
 /**
  * Application

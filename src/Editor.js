@@ -388,6 +388,7 @@ Editor.prototype = {
 
     save: function () {
         var obj = SceneUtils.toJSON(this.scene);
+        console.log(JSON.stringify(obj));
     },
 
     //

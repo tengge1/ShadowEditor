@@ -1,3 +1,5 @@
+import GeometryUtils from './GeometryUtils';
+
 /**
  * 场景转JSON对象
  * @param {*} scene 场景
@@ -8,13 +10,12 @@ function toJSON(scene) {
     scene.traverse(function (item) {
         list.push(obj3dToJson(item));
     });
-    console.log(list);
     return list;
 };
 
 /**
  * 将场景中的对象转换为Json
- * @param {*} item 
+ * @param {*} item Object3D对象
  */
 function obj3dToJson(item) {
     var obj = {
@@ -22,7 +23,7 @@ function obj3dToJson(item) {
         uuid: item.uuid,
         castShadow: item.castShadow,
         children: item.children.map(function (child) {
-            return child.id;
+            return child.uuid;
         }),
         frustumCulled: item.frustumCulled,
         matrix: item.matrix,
@@ -30,10 +31,20 @@ function obj3dToJson(item) {
         name: item.name,
         parent: item.parent == null ? null : item.parent.uuid,
         position: item.position,
-        quaternion: item.quaternion,
+        quaternion: {
+            x: item.quaternion.x,
+            y: item.quaternion.y,
+            z: item.quaternion.z,
+            w: item.quaternion.w
+        },
         receiveShadow: item.receiveShadow,
         renderOrder: item.renderOrder,
-        rotation: item.rotation,
+        rotation: {
+            x: item.rotation.x,
+            y: item.rotation.y,
+            z: item.rotation.z,
+            order: item.rotation.order
+        },
         scale: item.scale,
         up: item.up,
         userData: item.userData
@@ -68,10 +79,29 @@ function obj3dToJson(item) {
     return obj;
 };
 
+/**
+ * 将Geometry转换为Json对象
+ * @param {*} geometry 几何体
+ */
 function geometryToJson(geometry) {
+    var obj = {
+        name: geometry.name,
+        type: geometry.type,
+        userData: geometry.userData,
+        uuid: geometry.uuid
+    };
+    if (GeometryUtils.isBuildInGeometry) { // three.js内置类
+        obj.parameters = geometry.parameters;
+    } else {
 
+    }
+    return obj;
 }
 
+/**
+ * 将材质转换为Json对象
+ * @param {*} material 材质
+ */
 function materialToJson(material) {
     var obj = {
         alphaMap: material.alphaMap,
