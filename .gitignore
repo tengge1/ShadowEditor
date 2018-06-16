@@ -62,3 +62,10 @@ typings/
 /dist
 /docs/_book
 /server/dist
+/server/.vs
+/server/packages
+/server/ShadowServer/bin
+/server/ShadowServer/obj
+/server/ShadowServer/ShadowServer.csproj.user
+/server/ShadowServer.Tests/bin
+/server/ShadowServer.Tests/obj
