@@ -174,7 +174,7 @@ function AddMenu(editor) {
 
     var option = new UI.Row();
     option.setClass('option');
-    option.setTextContent('圆环面');
+    option.setTextContent('轮胎');
     option.onClick(function () {
 
         var radius = 2;
@@ -196,7 +196,7 @@ function AddMenu(editor) {
 
     var option = new UI.Row();
     option.setClass('option');
-    option.setTextContent('环面扭结');
+    option.setTextContent('扭结');
     option.onClick(function () {
 
         var radius = 2;

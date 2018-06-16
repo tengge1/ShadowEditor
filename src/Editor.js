@@ -11,6 +11,7 @@ import SceneUtils from './utils/SceneUtils';
  */
 
 function Editor(app) {
+    this.app = app;
 
     this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 0.1, 10000);
     this.DEFAULT_CAMERA.name = 'Camera';
@@ -388,7 +389,12 @@ Editor.prototype = {
 
     save: function () {
         var obj = SceneUtils.toJSON(this.scene);
-        console.log(JSON.stringify(obj));
+        Ajax.post(this.app.options.server + '/Service/SceneService.ashx?cmd=Save', {
+            name: 'Scene1',
+            data: JSON.stringify(obj)
+        }, function (result) {
+            alert(result.Msg);
+        });
     },
 
     //

@@ -4,7 +4,7 @@
  */
 function Options(options) {
     options = options || {};
-    this.server = options.server || 'http://127.0.0.1:1500';
+    this.server = options.server || 'http://127.0.0.1:1050';
 }
 
 export default Options;
