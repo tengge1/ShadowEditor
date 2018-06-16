@@ -7,6 +7,9 @@ import DropEvent from './dom/DropEvent';
 import KeyDownEvent from './dom/KeyDownEvent';
 import ResizeEvent from './dom/ResizeEvent';
 import MessageEvent from './dom/MessageEvent';
+import LoadFromHashEvent from './editor/LoadFromHashEvent';
+import AutoSaveEvent from './editor/AutoSaveEvent';
+import VREvent from './editor/VREvent';
 
 /**
  * 事件执行器
@@ -22,6 +25,9 @@ function EventDispatcher(app) {
         new KeyDownEvent(this.app),
         new ResizeEvent(this.app),
         //new MessageEvent(this.app),
+        new LoadFromHashEvent(this.app),
+        new AutoSaveEvent(this.app),
+        new VREvent(this.app)
     ];
 }
 
