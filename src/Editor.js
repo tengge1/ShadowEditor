@@ -1,4 +1,4 @@
-﻿import Config from './Config';
+﻿import Config from './core/Config';
 import Signal from './core/Signal';
 import History from './core/History';
 import Storage from './core/Storage';

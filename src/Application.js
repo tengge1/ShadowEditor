@@ -1,3 +1,4 @@
+import Options from './Options';
 import Editor from './Editor';
 import EventDispatcher from './event/EventDispatcher';
 import Viewport from './ui/Viewport';
@@ -12,9 +13,10 @@ import RemoveObjectCommand from './command/RemoveObjectCommand';
 /**
  * 应用程序
  */
-function Application(container) {
+function Application(container, options) {
 
     this.container = container;
+    this.options = new Options(options);
 
     // 事件
     this.event = new EventDispatcher(this);
