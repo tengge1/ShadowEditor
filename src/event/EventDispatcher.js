@@ -11,6 +11,8 @@ import LoadFromHashEvent from './editor/LoadFromHashEvent';
 import AutoSaveEvent from './editor/AutoSaveEvent';
 import VREvent from './editor/VREvent';
 
+import SetThemeEvent from './editor/SetThemeEvent';
+
 /**
  * 事件执行器
  */
@@ -20,6 +22,7 @@ function EventDispatcher(app) {
     this.addDomEventListener();
 
     this.events = [
+        // Application中的事件
         new DragOverEvent(this.app),
         new DropEvent(this.app),
         new KeyDownEvent(this.app),
@@ -27,7 +30,10 @@ function EventDispatcher(app) {
         //new MessageEvent(this.app),
         new LoadFromHashEvent(this.app),
         new AutoSaveEvent(this.app),
-        new VREvent(this.app)
+        new VREvent(this.app),
+
+        // Editor中的事件
+        new SetThemeEvent(this.app),
     ];
 }
 

@@ -45,12 +45,8 @@ function Editor(app) {
 
 Editor.prototype = {
 
-    setTheme: function (value) {
-
-        document.getElementById('theme').href = value;
-
-        this.signals.themeChanged.dispatch(value);
-
+    setTheme: function (value) { // 设置编辑器主题
+        this.app.call('setTheme', this, value);
     },
 
     //

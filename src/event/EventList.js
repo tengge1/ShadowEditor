@@ -14,7 +14,10 @@ var EventList = [
     'mousewheel',
     'resize',
     'dragover',
-    'drop'
+    'drop',
+
+    // editor事件
+    'setTheme', // 设置编辑器主题
 ];
 
 export default EventList;
