@@ -12,6 +12,8 @@ import AutoSaveEvent from './editor/AutoSaveEvent';
 import VREvent from './editor/VREvent';
 
 import SetThemeEvent from './editor/SetThemeEvent';
+import SetSceneEvent from './editor/SetSceneEvent';
+import AddObjectEvent from './editor/AddObjectEvent';
 
 /**
  * 事件执行器
@@ -34,6 +36,8 @@ function EventDispatcher(app) {
 
         // Editor中的事件
         new SetThemeEvent(this.app),
+        new SetSceneEvent(this.app),
+        new AddObjectEvent(this.app),
     ];
 }
 

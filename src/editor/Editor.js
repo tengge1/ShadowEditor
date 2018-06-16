@@ -45,57 +45,16 @@ function Editor(app) {
 
 Editor.prototype = {
 
-    setTheme: function (value) { // 设置编辑器主题
+    setTheme: function (value) { // 设置主题
         this.app.call('setTheme', this, value);
     },
 
-    //
-
-    setScene: function (scene) {
-
-        this.scene.uuid = scene.uuid;
-        this.scene.name = scene.name;
-
-        if (scene.background !== null) this.scene.background = scene.background.clone();
-        if (scene.fog !== null) this.scene.fog = scene.fog.clone();
-
-        this.scene.userData = JSON.parse(JSON.stringify(scene.userData));
-
-        // avoid render per object
-
-        this.signals.sceneGraphChanged.active = false;
-
-        while (scene.children.length > 0) {
-
-            this.addObject(scene.children[0]);
-
-        }
-
-        this.signals.sceneGraphChanged.active = true;
-        this.signals.sceneGraphChanged.dispatch();
-
+    setScene: function (scene) { // 设置场景
+        this.app.call('setScene', this, scene);
     },
 
-    //
-
-    addObject: function (object) {
-
-        var scope = this;
-
-        object.traverse(function (child) {
-
-            if (child.geometry !== undefined) scope.addGeometry(child.geometry);
-            if (child.material !== undefined) scope.addMaterial(child.material);
-
-            scope.addHelper(child);
-
-        });
-
-        this.scene.add(object);
-
-        this.signals.objectAdded.dispatch(object);
-        this.signals.sceneGraphChanged.dispatch();
-
+    addObject: function (object) { // 添加物体
+        this.app.call('addObject', this, object);
     },
 
     moveObject: function (object, parent, before) {

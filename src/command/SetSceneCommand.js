@@ -1,5 +1,7 @@
 import Command from './Command';
 import SetUuidCommand from './SetUuidCommand';
+import SetValueCommand from './SetValueCommand';
+import AddObjectCommand from './AddObjectCommand';
 
 /**
  * @author dforrer / https://github.com/dforrer
