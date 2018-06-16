@@ -26,10 +26,8 @@
     },
     "scripts": {
         "build": "rollup -c",
-        "build-server": "rollup -c server/rollup.config.js",
         "clear": "npm prune",
-        "book": "gitbook build docs",
-        "server": "node server/dist/ShadowServer.js"
+        "book": "gitbook build docs"
     },
     "repository": {
         "type": "git",

@@ -1,7 +1,7 @@
 ﻿/**
+ * 系统配置
  * @author mrdoob / http://mrdoob.com/
  */
-
 function Config(name) {
 
     var storage = {
