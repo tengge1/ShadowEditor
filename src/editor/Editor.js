@@ -1,10 +1,10 @@
-﻿import Config from './core/Config';
-import Signal from './core/Signal';
-import History from './core/History';
-import Storage from './core/Storage';
-import Loader from './core/Loader';
-import Ajax from './utils/Ajax';
-import SceneUtils from './utils/SceneUtils';
+﻿import Config from '../core/Config';
+import Signal from '../core/Signal';
+import History from '../core/History';
+import Storage from '../core/Storage';
+import Loader from '../core/Loader';
+import Ajax from '../utils/Ajax';
+import SceneUtils from '../utils/SceneUtils';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -393,7 +393,8 @@ Editor.prototype = {
             name: 'Scene1',
             data: JSON.stringify(obj)
         }, function (result) {
-            alert(result.Msg);
+            var obj = JSON.parse(result);
+            alert(obj.Msg);
         });
     },
 
