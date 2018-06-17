@@ -25,6 +25,9 @@ var EventList = [
     'removeObject', // 删除物体
     'addGeometry', // 添加几何体事件
     'setGeometryName', // 设置几何体名称事件
+    'addMaterial', // 添加材质事件
+    'setMaterialName', // 设置材质名称
+    'addTexture', // 添加纹理
 ];
 
 export default EventList;

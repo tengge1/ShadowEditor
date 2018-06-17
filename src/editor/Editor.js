@@ -77,23 +77,16 @@ Editor.prototype = {
         this.app.call('setGeometryName', this, geometry, name);
     },
 
-    addMaterial: function (material) {
-
-        this.materials[material.uuid] = material;
-
+    addMaterial: function (material) { // 添加材质
+        this.app.call('addMaterial', this, material);
     },
 
-    setMaterialName: function (material, name) {
-
-        material.name = name;
-        this.signals.sceneGraphChanged.dispatch();
-
+    setMaterialName: function (material, name) { // 设置材质名称事件
+        this.app.call('setMaterialName', this, material, name);
     },
 
-    addTexture: function (texture) {
-
-        this.textures[texture.uuid] = texture;
-
+    addTexture: function (texture) { // 添加纹理事件
+        this.app.call('addTexture', this, texture);
     },
 
     //
