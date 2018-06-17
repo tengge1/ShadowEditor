@@ -78,7 +78,7 @@ function Toolbar(editor) {
     function update() {
 
         signals.snapChanged.dispatch(snap.getValue() === true ? grid.getValue() : null);
-        signals.spaceChanged.dispatch(local.getValue() === true ? "本地" : "世界");
+        signals.spaceChanged.dispatch(local.getValue() === true ? "local" : "world");
         signals.showGridChanged.dispatch(showGrid.getValue());
 
     }

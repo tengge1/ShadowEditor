@@ -32,6 +32,10 @@ var EventList = [
     'removeHelper', // 移除脚本
     'addScript', // 添加脚本
     'removeScript', // 移除脚本
+    'select', // 选中事件
+    'clear', // 清空场景
+    'load', // 加载场景
+    'save', // 保存场景
 ];
 
 export default EventList;

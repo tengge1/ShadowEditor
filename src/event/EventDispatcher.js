@@ -26,6 +26,10 @@ import AddHelperEvent from './editor/AddHelperEvent';
 import RemoveHelperEvent from './editor/RemoveHelperEvent';
 import AddScriptEvent from './editor/AddScriptEvent';
 import RemoveScriptEvent from './editor/RemoveScriptEvent';
+import SelectEvent from './editor/SelectEvent';
+import ClearEvent from './editor/ClearEvent';
+import LoadEvent from './editor/LoadEvent';
+import SaveEvent from './editor/SaveEvent';
 
 /**
  * 事件执行器
@@ -62,6 +66,10 @@ function EventDispatcher(app) {
         new RemoveHelperEvent(this.app),
         new AddScriptEvent(this.app),
         new RemoveScriptEvent(this.app),
+        new SelectEvent(this.app),
+        new ClearEvent(this.app),
+        new LoadEvent(this.app),
+        new SaveEvent(this.app),
     ];
 }
 

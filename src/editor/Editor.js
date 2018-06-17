@@ -57,6 +57,10 @@ Editor.prototype = {
 
     // ------------------ 物体 --------------------------
 
+    objectByUuid: function (uuid) { // 根据uuid获取物体
+        return this.scene.getObjectByProperty('uuid', uuid, true);
+    },
+
     addObject: function (object) { // 添加物体
         this.app.call('addObject', this, object);
     },
@@ -113,120 +117,61 @@ Editor.prototype = {
         this.app.call('removeScript', this, object, script);
     },
 
-    //
+    // ----------------------- 选择事件 ---------------------------
 
-    select: function (object) {
-
-        if (this.selected === object) return;
-
-        var uuid = null;
-
-        if (object !== null) {
-
-            uuid = object.uuid;
-
-        }
-
-        this.selected = object;
-
-        this.config.setKey('selected', uuid);
-        this.signals.objectSelected.dispatch(object);
-
+    select: function (object) { // 选中物体
+        this.app.call('select', this, object);
     },
 
-    selectById: function (id) {
-
+    selectById: function (id) { // 根据id选中物体
         if (id === this.camera.id) {
-
             this.select(this.camera);
             return;
-
         }
 
         this.select(this.scene.getObjectById(id, true));
-
     },
 
-    selectByUuid: function (uuid) {
-
-        var scope = this;
-
+    selectByUuid: function (uuid) { // 根据uuid选中物体
+        var _this = this;
         this.scene.traverse(function (child) {
-
             if (child.uuid === uuid) {
-
-                scope.select(child);
-
+                _this.select(child);
             }
-
         });
-
     },
 
-    deselect: function () {
-
+    deselect: function () { // 取消选中物体
         this.select(null);
-
     },
 
-    focus: function (object) {
+    // -------------------- 设置焦点事件 --------------------------
 
+    focus: function (object) { // 设置焦点
         this.signals.objectFocused.dispatch(object);
-
     },
 
-    focusById: function (id) {
-
+    focusById: function (id) { // 根据id设置交点
         this.focus(this.scene.getObjectById(id, true));
-
     },
 
-    clear: function () {
+    // -------------------------- 场景事件 ---------------------------
 
-        this.history.clear();
-        this.storage.clear();
-
-        this.camera.copy(this.DEFAULT_CAMERA);
-        this.scene.background.setHex(0xaaaaaa);
-        this.scene.fog = null;
-
-        var objects = this.scene.children;
-
-        while (objects.length > 0) {
-
-            this.removeObject(objects[0]);
-
-        }
-
-        this.geometries = {};
-        this.materials = {};
-        this.textures = {};
-        this.scripts = {};
-
-        this.deselect();
-
-        this.signals.editorCleared.dispatch();
-
+    clear: function () { // 清空场景
+        this.app.call('clear', this);
     },
 
-    load: function () {
-        alert('开发中');
+    load: function () { // 加载场景
+        this.app.call('load', this);
     },
 
-    save: function () {
-        var obj = SceneUtils.toJSON(this.scene);
-        Ajax.post(this.app.options.server + '/Service/SceneService.ashx?cmd=Save', {
-            name: 'Scene1',
-            data: JSON.stringify(obj)
-        }, function (result) {
-            var obj = JSON.parse(result);
-            alert(obj.Msg);
-        });
+    save: function () { // 保存场景
+        this.app.call('save', this);
     },
 
-    //
+    // --------------------------- 场景序列化 ------------------------------
 
-    fromJSON: function (json) {
+    fromJSON: function (json) { // 根据json创建场景
 
         var loader = new THREE.ObjectLoader();
 
@@ -252,7 +197,7 @@ Editor.prototype = {
 
     },
 
-    toJSON: function () {
+    toJSON: function () { // 将json转换为场景
 
         // scripts clean up
 
@@ -291,28 +236,18 @@ Editor.prototype = {
 
     },
 
-    objectByUuid: function (uuid) {
+    // ----------------------- 命令 ---------------------------
 
-        return this.scene.getObjectByProperty('uuid', uuid, true);
-
-    },
-
-    execute: function (cmd, optionalName) {
-
+    execute: function (cmd, optionalName) { // 执行事件
         this.history.execute(cmd, optionalName);
-
     },
 
-    undo: function () {
-
+    undo: function () { // 撤销事件
         this.history.undo();
-
     },
 
-    redo: function () {
-
+    redo: function () { // 重做事件
         this.history.redo();
-
     }
 
 };
