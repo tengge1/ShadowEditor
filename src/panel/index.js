@@ -7,7 +7,7 @@ export { default as PropertyPanel } from './PropertyPanel';
 export { default as ScenePanel } from './ScenePanel';
 export { default as ScriptPanel } from './ScriptPanel';
 export { default as SettingPanel } from './SettingPanel';
-export { default as Panel } from './Panel';
+export { default as Sidebar } from './Sidebar';
 
 export { default as GeometryGeometryPanel } from './geometry/GeometryGeometryPanel';
 export { default as BoxGeometryPanel } from './geometry/BoxGeometryPanel';

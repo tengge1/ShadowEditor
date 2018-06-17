@@ -11,7 +11,7 @@ import UI from '../ui/UI';
  * @author mrdoob / http://mrdoob.com/
  */
 
-function Panel(app) {
+function Sidebar(app) {
     this.app = app;
     var editor = this.app.editor;
 
@@ -91,4 +91,4 @@ function Panel(app) {
 
 };
 
-export default Panel;
+export default Sidebar;
