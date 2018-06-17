@@ -29,12 +29,9 @@ function History(editor) {
         scope.historyDisabled = true;
     });
 
-    this.editor.signals.stopPlayer.add(function () {
-
+    this.app.on('stopPlayer.History', function () {
         scope.historyDisabled = false;
-
     });
-
 };
 
 History.prototype = Object.create(Command.prototype);

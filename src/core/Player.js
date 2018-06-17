@@ -34,13 +34,11 @@ function Player(app) {
         player.play();
     });
 
-    signals.stopPlayer.add(function () {
-
+    this.app.on('stopPlayer.Player', function () {
         container.setDisplay('none');
 
         player.stop();
         player.dispose();
-
     });
 
     return container;

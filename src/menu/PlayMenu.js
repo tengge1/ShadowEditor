@@ -28,13 +28,13 @@ function PlayMenu(editor) {
             isPlaying = true;
             title.setTextContent('停止');
 
-            _this.app.call('startPlayer');
+            _this.app.call('startPlayer', _this);
         } else {
 
             isPlaying = false;
             title.setTextContent('启动');
-            signals.stopPlayer.dispatch();
 
+            _this.app.call('stopPlayer', _this);
         }
 
     });
