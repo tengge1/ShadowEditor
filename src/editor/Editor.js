@@ -45,6 +45,8 @@ function Editor(app) {
 
 Editor.prototype = {
 
+    // ----------------- 编辑器 ---------------------
+
     setTheme: function (value) { // 设置主题
         this.app.call('setTheme', this, value);
     },
@@ -52,6 +54,8 @@ Editor.prototype = {
     setScene: function (scene) { // 设置场景
         this.app.call('setScene', this, scene);
     },
+
+    // ------------------ 物体 --------------------------
 
     addObject: function (object) { // 添加物体
         this.app.call('addObject', this, object);
@@ -89,110 +93,24 @@ Editor.prototype = {
         this.app.call('addTexture', this, texture);
     },
 
-    //
+    // --------------------- 帮助 -------------------------------
 
-    addHelper: function () {
-
-        var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
-        var material = new THREE.MeshBasicMaterial({
-            color: 0xff0000,
-            visible: false
-        });
-
-        return function (object) {
-
-            var helper;
-
-            if (object instanceof THREE.Camera) {
-
-                helper = new THREE.CameraHelper(object, 1);
-
-            } else if (object instanceof THREE.PointLight) {
-
-                helper = new THREE.PointLightHelper(object, 1);
-
-            } else if (object instanceof THREE.DirectionalLight) {
-
-                helper = new THREE.DirectionalLightHelper(object, 1);
-
-            } else if (object instanceof THREE.SpotLight) {
-
-                helper = new THREE.SpotLightHelper(object, 1);
-
-            } else if (object instanceof THREE.HemisphereLight) {
-
-                helper = new THREE.HemisphereLightHelper(object, 1);
-
-            } else if (object instanceof THREE.SkinnedMesh) {
-
-                helper = new THREE.SkeletonHelper(object);
-
-            } else {
-
-                // no helper for this object type
-                return;
-
-            }
-
-            var picker = new THREE.Mesh(geometry, material);
-            picker.name = 'picker';
-            picker.userData.object = object;
-            helper.add(picker);
-
-            this.sceneHelpers.add(helper);
-            this.helpers[object.id] = helper;
-
-            this.signals.helperAdded.dispatch(helper);
-
-        };
-
-    }(),
-
-    removeHelper: function (object) {
-
-        if (this.helpers[object.id] !== undefined) {
-
-            var helper = this.helpers[object.id];
-            helper.parent.remove(helper);
-
-            delete this.helpers[object.id];
-
-            this.signals.helperRemoved.dispatch(helper);
-
-        }
-
+    addHelper: function (object) { // 添加物体帮助
+        this.app.call('addHelper', this, object);
     },
 
-    //
-
-    addScript: function (object, script) {
-
-        if (this.scripts[object.uuid] === undefined) {
-
-            this.scripts[object.uuid] = [];
-
-        }
-
-        this.scripts[object.uuid].push(script);
-
-        this.signals.scriptAdded.dispatch(script);
-
+    removeHelper: function (object) { // 移除物体帮助
+        this.app.call('removeHelper', this, object);
     },
 
-    removeScript: function (object, script) {
+    // --------------------- 脚本 ----------------------------
 
-        if (this.scripts[object.uuid] === undefined) return;
+    addScript: function (object, script) { // 添加脚本
+        this.app.call('addScript', this, object, script);
+    },
 
-        var index = this.scripts[object.uuid].indexOf(script);
-
-        if (index !== -1) {
-
-            this.scripts[object.uuid].splice(index, 1);
-
-        }
-
-        this.signals.scriptRemoved.dispatch(script);
-
+    removeScript: function (object, script) { // 移除脚本
+        this.app.call('removeScript', this, object, script);
     },
 
     //

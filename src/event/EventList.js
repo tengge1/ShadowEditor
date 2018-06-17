@@ -28,6 +28,10 @@ var EventList = [
     'addMaterial', // 添加材质事件
     'setMaterialName', // 设置材质名称
     'addTexture', // 添加纹理
+    'addHelper', // 添加帮助事件
+    'removeHelper', // 移除脚本
+    'addScript', // 添加脚本
+    'removeScript', // 移除脚本
 ];
 
 export default EventList;

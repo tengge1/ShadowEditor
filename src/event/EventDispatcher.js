@@ -22,6 +22,10 @@ import SetGeometryNameEvent from './editor/SetGeometryNameEvent';
 import AddMaterialEvent from './editor/AddMaterialEvent';
 import SetMaterialNameEvent from './editor/SetMaterialNameEvent';
 import AddTextureEvent from './editor/AddTextureEvent';
+import AddHelperEvent from './editor/AddHelperEvent';
+import RemoveHelperEvent from './editor/RemoveHelperEvent';
+import AddScriptEvent from './editor/AddScriptEvent';
+import RemoveScriptEvent from './editor/RemoveScriptEvent';
 
 /**
  * 事件执行器
@@ -54,6 +58,10 @@ function EventDispatcher(app) {
         new AddMaterialEvent(this.app),
         new SetMaterialNameEvent(this.app),
         new AddTextureEvent(this.app),
+        new AddHelperEvent(this.app),
+        new RemoveHelperEvent(this.app),
+        new AddScriptEvent(this.app),
+        new RemoveScriptEvent(this.app),
     ];
 }
 
