@@ -13,7 +13,9 @@ import UI from '../ui/UI';
  * @author mrdoob / http://mrdoob.com/
  */
 
-function Menubar(editor) {
+function Menubar(app) {
+    this.app = app;
+    var editor = this.app.editor;
 
     var container = new UI.Panel();
     container.setId('menubar');

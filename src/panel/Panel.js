@@ -11,7 +11,9 @@ import UI from '../ui/UI';
  * @author mrdoob / http://mrdoob.com/
  */
 
-function Panel(editor) {
+function Panel(app) {
+    this.app = app;
+    var editor = this.app.editor;
 
     var container = new UI.Panel();
     container.setId('sidebar');

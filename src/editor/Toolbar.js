@@ -4,7 +4,9 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-function Toolbar(editor) {
+function Toolbar(app) {
+    this.app = app;
+    var editor = this.app.editor;
 
     var signals = editor.signals;
 

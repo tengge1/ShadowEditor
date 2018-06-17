@@ -4,7 +4,9 @@ import UI from '../ui/UI';
  * @author mrdoob / http://mrdoob.com/
  */
 
-function Player(editor) {
+function Player(app) {
+    this.app = app;
+    var editor = this.app.editor;
 
     var signals = editor.signals;
 

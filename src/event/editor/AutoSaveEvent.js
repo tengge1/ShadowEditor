@@ -15,7 +15,6 @@ AutoSaveEvent.prototype.constructor = AutoSaveEvent;
 
 AutoSaveEvent.prototype.start = function () {
     var signals = this.app.editor.signals;
-    var modal = this.app.modal;
 
     var _this = this;
     signals.geometryChanged.add(function () {
@@ -47,9 +46,6 @@ AutoSaveEvent.prototype.start = function () {
     });
     signals.historyChanged.add(function () {
         _this.SaveState();
-    });
-    signals.showModal.add(function (content) {
-        modal.show(content);
     });
 };
 

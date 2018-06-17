@@ -5,7 +5,9 @@ import SetScriptValueCommand from '../command/SetScriptValueCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 
-function Script(editor) {
+function Script(app) {
+    this.app = app;
+    var editor = this.app.editor;
 
     var signals = editor.signals;
 

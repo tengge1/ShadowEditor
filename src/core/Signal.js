@@ -16,10 +16,6 @@ function Signal() {
     this.enteredVR = new signals.Signal();
     this.exitedVR = new signals.Signal();
 
-    // actions
-
-    this.showModal = new signals.Signal();
-
     // notifications
 
     this.editorCleared = new signals.Signal();

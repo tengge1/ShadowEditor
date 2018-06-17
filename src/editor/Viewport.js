@@ -8,7 +8,9 @@ import UI from '../ui/UI';
  * @author mrdoob / http://mrdoob.com/
  */
 
-function Viewport(editor) {
+function Viewport(app) {
+    this.app = app;
+    var editor = this.app.editor;
 
     var signals = editor.signals;
 

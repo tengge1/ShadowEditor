@@ -25,26 +25,29 @@ function Application(container, options) {
     // 编辑器
     this.editor = new Editor(this);
 
-    var viewport = new Viewport(this.editor);
-    this.container.appendChild(viewport.dom);
+    // 编辑区
+    this.viewport = new Viewport(this);
+    this.container.appendChild(this.viewport.dom);
 
-    var script = new Script(this.editor);
-    this.container.appendChild(script.dom);
+    // 脚本编辑窗口
+    this.script = new Script(this);
+    this.container.appendChild(this.script.dom);
 
-    var player = new Player(this.editor);
-    this.container.appendChild(player.dom);
+    // 启动窗口
+    this.player = new Player(this);
+    this.container.appendChild(this.player.dom);
 
-    var toolbar = new Toolbar(this.editor);
-    this.container.appendChild(toolbar.dom);
+    // 底部状态栏
+    this.toolbar = new Toolbar(this);
+    this.container.appendChild(this.toolbar.dom);
 
-    var menubar = new Menubar(this.editor);
-    this.container.appendChild(menubar.dom);
+    // 菜单栏
+    this.menubar = new Menubar(this);
+    this.container.appendChild(this.menubar.dom);
 
-    var sidebar = new Panel(this.editor);
-    this.container.appendChild(sidebar.dom);
-
-    var modal = new UI.Modal();
-    this.container.appendChild(modal.dom);
+    // 侧边栏
+    this.sidebar = new Panel(this);
+    this.container.appendChild(this.sidebar.dom);
 
     // 是否从文件中加载场景，从文件中加载场景的url格式是index.html#file=xxx
     this.isLoadingFromHash = false;
