@@ -61,11 +61,8 @@ Editor.prototype = {
         this.app.call('moveObject', this, object, parent, before);
     },
 
-    nameObject: function (object, name) {
-
-        object.name = name;
-        this.signals.sceneGraphChanged.dispatch();
-
+    nameObject: function (object, name) { // 重命名物体
+        this.app.call('nameObject', this, object, name);
     },
 
     removeObject: function (object) {

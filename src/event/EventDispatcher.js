@@ -15,6 +15,7 @@ import SetThemeEvent from './editor/SetThemeEvent';
 import SetSceneEvent from './editor/SetSceneEvent';
 import AddObjectEvent from './editor/AddObjectEvent';
 import MoveObjectEvent from './editor/MoveObjectEvent';
+import NameObjectEvent from './editor/NameObjectEvent';
 
 /**
  * 事件执行器
@@ -40,6 +41,7 @@ function EventDispatcher(app) {
         new SetSceneEvent(this.app),
         new AddObjectEvent(this.app),
         new MoveObjectEvent(this.app),
+        new NameObjectEvent(this.app),
     ];
 }
 
