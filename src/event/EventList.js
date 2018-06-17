@@ -22,6 +22,9 @@ var EventList = [
     'addObject', // 添加物体
     'moveObject', // 移动物体
     'nameObject', // 重命名物体
+    'removeObject', // 删除物体
+    'addGeometry', // 添加几何体事件
+    'setGeometryName', // 设置几何体名称事件
 ];
 
 export default EventList;

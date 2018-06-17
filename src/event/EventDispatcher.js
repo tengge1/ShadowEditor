@@ -16,6 +16,9 @@ import SetSceneEvent from './editor/SetSceneEvent';
 import AddObjectEvent from './editor/AddObjectEvent';
 import MoveObjectEvent from './editor/MoveObjectEvent';
 import NameObjectEvent from './editor/NameObjectEvent';
+import RemoveObjectEvent from './editor/RemoveObjectEvent';
+import AddGeometryEvent from './editor/AddGeometryEvent';
+import SetGeometryNameEvent from './editor/SetGeometryNameEvent';
 
 /**
  * 事件执行器
@@ -42,6 +45,9 @@ function EventDispatcher(app) {
         new AddObjectEvent(this.app),
         new MoveObjectEvent(this.app),
         new NameObjectEvent(this.app),
+        new RemoveObjectEvent(this.app),
+        new AddGeometryEvent(this.app),
+        new SetGeometryNameEvent(this.app),
     ];
 }
 

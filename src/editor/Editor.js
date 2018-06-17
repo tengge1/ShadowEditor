@@ -65,36 +65,16 @@ Editor.prototype = {
         this.app.call('nameObject', this, object, name);
     },
 
-    removeObject: function (object) {
-
-        if (object.parent === null) return; // avoid deleting the camera or scene
-
-        var scope = this;
-
-        object.traverse(function (child) {
-
-            scope.removeHelper(child);
-
-        });
-
-        object.parent.remove(object);
-
-        this.signals.objectRemoved.dispatch(object);
-        this.signals.sceneGraphChanged.dispatch();
-
+    removeObject: function (object) { // 移除物体
+        this.app.call('removeObject', this, object);
     },
 
-    addGeometry: function (geometry) {
-
-        this.geometries[geometry.uuid] = geometry;
-
+    addGeometry: function (geometry) { // 添加几何体
+        this.app.call('addGeometry', this, geometry);
     },
 
-    setGeometryName: function (geometry, name) {
-
-        geometry.name = name;
-        this.signals.sceneGraphChanged.dispatch();
-
+    setGeometryName: function (geometry, name) { // 设置几何体名称
+        this.app.call('setGeometryName', this, geometry, name);
     },
 
     addMaterial: function (material) {
