@@ -291,10 +291,8 @@ function Viewport(app) {
 
     });
 
-    signals.enterVR.add(function () {
-
+    this.app.on('enterVR.Viewport', function () {
         vrEffect.isPresenting ? vrEffect.exitPresent() : vrEffect.requestPresent();
-
     });
 
     signals.themeChanged.add(function (value) {

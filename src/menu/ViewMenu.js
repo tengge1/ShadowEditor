@@ -6,6 +6,8 @@
 
 function ViewMenu(editor) {
 
+    this.app = editor.app;
+
     var container = new UI.Panel();
     container.setClass('menu');
 
@@ -19,6 +21,7 @@ function ViewMenu(editor) {
     container.add(options);
 
     // VR mode
+    var _this = this;
 
     var option = new UI.Row();
     option.setClass('option');
@@ -26,9 +29,7 @@ function ViewMenu(editor) {
     option.onClick(function () {
 
         if (renderer.vr.enabled) {
-
-            editor.signals.enterVR.dispatch();
-
+            _this.app.call('enterVR', _this);
         } else {
 
             alert('WebVR不可用');

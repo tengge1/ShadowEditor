@@ -1,8 +1,6 @@
 function Signal() {
     // vr
 
-    this.enterVR = new signals.Signal();
-
     this.enteredVR = new signals.Signal();
     this.exitedVR = new signals.Signal();
 

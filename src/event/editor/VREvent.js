@@ -15,7 +15,7 @@ VREvent.prototype.constructor = VREvent;
 VREvent.prototype.start = function () {
     var _this = this;
     var editor = this.app.editor;
-    editor.signals.enterVR.add(function () {
+    this.app.on('enterVR.' + this.id, function () {
         _this.onEnterVR();
     });
     editor.signals.exitedVR.add(function () {

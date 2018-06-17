@@ -41,9 +41,9 @@ var EventList = [
     'editScript', // 编辑脚本事件
 
     'startPlayer', // 启动播放器事件
-    'stopPlayer',
+    'stopPlayer', // 停止播放器事件
 
-    'enterVR',
+    'enterVR', // 进入VR事件
     'enteredVR',
     'exitedVR',
 
