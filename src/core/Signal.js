@@ -1,9 +1,4 @@
 function Signal() {
-
-    // script
-
-    this.editScript = new signals.Signal();
-
     // player
 
     this.startPlayer = new signals.Signal();

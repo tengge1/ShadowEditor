@@ -10,6 +10,8 @@ import UI from '../ui/UI';
 
 function MaterialPanel(editor) {
 
+    this.app = editor.app;
+
     var signals = editor.signals;
     var currentObject;
 
@@ -113,28 +115,24 @@ function MaterialPanel(editor) {
 
     var materialProgramInfo = new UI.Button('Info');
     materialProgramInfo.setMarginLeft('4px');
+
+    var _this = this;
     materialProgramInfo.onClick(function () {
-
-        signals.editScript.dispatch(currentObject, 'programInfo');
-
+        _this.app.call('editScript', _this, currentObject, 'programInfo');
     });
     materialProgramRow.add(materialProgramInfo);
 
     var materialProgramVertex = new UI.Button('顶点着色器');
     materialProgramVertex.setMarginLeft('4px');
     materialProgramVertex.onClick(function () {
-
-        signals.editScript.dispatch(currentObject, 'vertexShader');
-
+        _this.app.call('editScript', _this, currentObject, 'vertexShader');
     });
     materialProgramRow.add(materialProgramVertex);
 
     var materialProgramFragment = new UI.Button('片源着色器');
     materialProgramFragment.setMarginLeft('4px');
     materialProgramFragment.onClick(function () {
-
-        signals.editScript.dispatch(currentObject, 'fragmentShader');
-
+        _this.app.call('editScript', _this, currentObject, 'fragmentShader');
     });
     materialProgramRow.add(materialProgramFragment);
 

@@ -36,6 +36,9 @@ var EventList = [
     'clear', // 清空场景
     'load', // 加载场景
     'save', // 保存场景
+
+    // signal事件
+    'editScript',
 ];
 
 export default EventList;

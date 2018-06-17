@@ -315,7 +315,6 @@ function Script(app) {
     };
 
     // tern js autocomplete
-
     var server = new CodeMirror.TernServer({
         caseInsensitive: true,
         plugins: { threejs: null }
@@ -359,8 +358,7 @@ function Script(app) {
 
     });
 
-    signals.editScript.add(function (object, script) {
-
+    this.app.on('editScript.Script', function (object, script) {
         var mode, name, source;
 
         if (typeof (script) === 'object') {
@@ -414,7 +412,6 @@ function Script(app) {
         codemirror.setValue(source);
         if (mode === 'json') mode = { name: 'javascript', json: true };
         codemirror.setOption('mode', mode);
-
     });
 
     signals.scriptRemoved.add(function (script) {

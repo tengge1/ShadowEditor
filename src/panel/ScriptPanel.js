@@ -8,6 +8,7 @@ import UI from '../ui/UI';
  */
 
 function ScriptPanel(editor) {
+    this.app = editor.app;
 
     var signals = editor.signals;
 
@@ -39,6 +40,8 @@ function ScriptPanel(editor) {
 	*/
 
     //
+
+    var _this = this;
 
     function update() {
 
@@ -74,9 +77,7 @@ function ScriptPanel(editor) {
                     var edit = new UI.Button('编辑');
                     edit.setMarginLeft('4px');
                     edit.onClick(function () {
-
-                        signals.editScript.dispatch(object, script);
-
+                        _this.app.call('editScript', _this, object, script);
                     });
                     scriptsContainer.add(edit);
 

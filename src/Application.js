@@ -7,7 +7,6 @@ import Player from './core/Player';
 import Toolbar from './editor/Toolbar';
 import Menubar from './menu/Menubar';
 import Sidebar from './panel/Sidebar';
-import UI from './ui/UI';
 
 /**
  * 应用程序
