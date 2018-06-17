@@ -3,13 +3,10 @@ import Signal from '../core/Signal';
 import History from '../core/History';
 import Storage from '../core/Storage';
 import Loader from '../core/Loader';
-import Ajax from '../utils/Ajax';
-import SceneUtils from '../utils/SceneUtils';
 
 /**
  * @author mrdoob / http://mrdoob.com/
  */
-
 function Editor(app) {
     this.app = app;
 

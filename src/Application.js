@@ -53,6 +53,8 @@ function Application(container, options) {
 Application.prototype.start = function () {
     this.event.start();
 
+    this.call('resize');
+
     // 应用程序初始化
     var editor = this.editor;
     var _this = this;
