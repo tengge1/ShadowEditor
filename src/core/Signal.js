@@ -1,7 +1,5 @@
 function Signal() {
     // player
-
-    this.startPlayer = new signals.Signal();
     this.stopPlayer = new signals.Signal();
 
     // vr

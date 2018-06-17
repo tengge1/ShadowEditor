@@ -6,6 +6,8 @@
 
 function PlayMenu(editor) {
 
+    this.app = editor.app;
+
     var signals = editor.signals;
 
     var container = new UI.Panel();
@@ -16,14 +18,17 @@ function PlayMenu(editor) {
     var title = new UI.Panel();
     title.setClass('title');
     title.setTextContent('启动');
+
+    var _this = this;
+
     title.onClick(function () {
 
         if (isPlaying === false) {
 
             isPlaying = true;
             title.setTextContent('停止');
-            signals.startPlayer.dispatch();
 
+            _this.app.call('startPlayer');
         } else {
 
             isPlaying = false;

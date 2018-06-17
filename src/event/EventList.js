@@ -38,7 +38,57 @@ var EventList = [
     'save', // 保存场景
 
     // signal事件
-    'editScript',
+    'editScript', // 编辑脚本事件
+
+    'startPlayer', // 启动播放器事件
+    'stopPlayer',
+
+    'enterVR',
+    'enteredVR',
+    'exitedVR',
+
+    'editorCleared',
+
+    'savingStarted',
+    'savingFinished',
+
+    'themeChanged',
+
+    'transformModeChanged',
+    'snapChanged',
+    'spaceChanged',
+    'rendererChanged',
+
+    'sceneBackgroundChanged',
+    'sceneFogChanged',
+    'sceneGraphChanged',
+
+    'cameraChanged',
+
+    'geometryChanged',
+
+    'objectSelected',
+    'objectFocused',
+
+    'objectAdded',
+    'objectChanged',
+    'objectRemoved',
+
+    'helperAdded',
+    'helperRemoved',
+
+    'materialChanged',
+
+    'scriptAdded',
+    'scriptChanged',
+    'scriptRemoved',
+
+    'windowResize',
+
+    'showGridChanged',
+    'refreshSidebarObject3D',
+    'historyChanged',
+    'refreshScriptEditor'
 ];
 
 export default EventList;

@@ -6,6 +6,7 @@
  */
 
 function History(editor) {
+    this.app = editor.app;
 
     this.editor = editor;
     this.undos = [];
@@ -24,10 +25,8 @@ function History(editor) {
 
     var scope = this;
 
-    this.editor.signals.startPlayer.add(function () {
-
+    this.app.on('startPlayer.History', function () {
         scope.historyDisabled = true;
-
     });
 
     this.editor.signals.stopPlayer.add(function () {

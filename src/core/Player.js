@@ -26,14 +26,12 @@ function Player(app) {
 
     });
 
-    signals.startPlayer.add(function () {
-
+    this.app.on('startPlayer.Player', function () {
         container.setDisplay('');
 
         player.load(editor.toJSON());
         player.setSize(container.dom.clientWidth, container.dom.clientHeight);
         player.play();
-
     });
 
     signals.stopPlayer.add(function () {
