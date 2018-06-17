@@ -1,7 +1,7 @@
 import BaseEvent from '../BaseEvent';
 
 /**
- * 设置场景事件
+ * 添加物体事件
  * @param {*} app 
  */
 function AddObjectEvent(app) {

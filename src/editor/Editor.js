@@ -57,28 +57,8 @@ Editor.prototype = {
         this.app.call('addObject', this, object);
     },
 
-    moveObject: function (object, parent, before) {
-
-        if (parent === undefined) {
-
-            parent = this.scene;
-
-        }
-
-        parent.add(object);
-
-        // sort children array
-
-        if (before !== undefined) {
-
-            var index = parent.children.indexOf(before);
-            parent.children.splice(index, 0, object);
-            parent.children.pop();
-
-        }
-
-        this.signals.sceneGraphChanged.dispatch();
-
+    moveObject: function (object, parent, before) { // 移动物体
+        this.app.call('moveObject', this, object, parent, before);
     },
 
     nameObject: function (object, name) {
@@ -144,7 +124,10 @@ Editor.prototype = {
     addHelper: function () {
 
         var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
-        var material = new THREE.MeshBasicMaterial({ color: 0xff0000, visible: false });
+        var material = new THREE.MeshBasicMaterial({
+            color: 0xff0000,
+            visible: false
+        });
 
         return function (object) {
 

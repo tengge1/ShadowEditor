@@ -14,6 +14,7 @@ import VREvent from './editor/VREvent';
 import SetThemeEvent from './editor/SetThemeEvent';
 import SetSceneEvent from './editor/SetSceneEvent';
 import AddObjectEvent from './editor/AddObjectEvent';
+import MoveObjectEvent from './editor/MoveObjectEvent';
 
 /**
  * 事件执行器
@@ -38,6 +39,7 @@ function EventDispatcher(app) {
         new SetThemeEvent(this.app),
         new SetSceneEvent(this.app),
         new AddObjectEvent(this.app),
+        new MoveObjectEvent(this.app),
     ];
 }
 

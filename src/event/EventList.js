@@ -20,6 +20,7 @@ var EventList = [
     'setTheme', // 设置编辑器主题
     'setScene', // 设置编辑器场景
     'addObject', //向编辑器添加物体
+    'moveObject', // 移动编辑器中的物体
 ];
 
 export default EventList;
