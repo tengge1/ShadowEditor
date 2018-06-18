@@ -3,18 +3,23 @@
  */
 var EventList = [
     // dom事件
-    'click',
-    'contextmenu',
-    'dblclick',
-    'keydown',
-    'keyup',
-    'mousedown',
-    'mousemove',
-    'mouseup',
-    'mousewheel',
-    'resize',
-    'dragover',
-    'drop',
+    'click', // 点击
+    'contextmenu', // 右键
+    'dblclick', // 双击
+    'keydown', // 按下键盘按键
+    'keyup', // 抬起键盘按键
+    'mousedown', // 按下鼠标按键
+    'mousemove', // 鼠标移动
+    'mouseup', // 抬起鼠标按键
+    'mousewheel', // 鼠标滚轮
+    'resize', // 窗口大小改变
+    'dragover', // 拖入dom
+    'drop', // 放置到dom中
+
+    // app事件
+    'appStart', // 应用程序开始前调用
+    'appStarted', // 应用程序开始后调用
+    'initApp', // 引用程序初始化
 
     // editor事件
     'setTheme', // 设置编辑器主题
@@ -86,7 +91,7 @@ var EventList = [
     'windowResize', // 窗口大小改变事件
 
     'showGridChanged', // 网格显示隐藏改变
-    'refreshSidebarObject3D', // 刷新Object3D侧边栏事件（没人调用）
+    'refreshSidebarObject3D', // 刷新Object3D侧边栏事件
     'historyChanged', // 历史改变事件
     'refreshScriptEditor', // 刷新脚本编辑器事件
 ];

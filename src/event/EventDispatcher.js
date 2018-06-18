@@ -2,6 +2,8 @@ import { dispatch } from '../third_party';
 import EventList from './EventList';
 import BaseEvent from './BaseEvent';
 
+import InitAppEvent from './app/InitAppEvent';
+
 import DragOverEvent from './dom/DragOverEvent';
 import DropEvent from './dom/DropEvent';
 import KeyDownEvent from './dom/KeyDownEvent';
@@ -49,6 +51,7 @@ function EventDispatcher(app) {
         new LoadFromHashEvent(this.app),
         new AutoSaveEvent(this.app),
         new VREvent(this.app),
+        new InitAppEvent(this.app),
 
         // Editor中的事件
         new SetThemeEvent(this.app),
