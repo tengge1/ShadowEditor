@@ -65,15 +65,11 @@ AutoSaveEvent.prototype.SaveState = function () {
     var _this = this;
 
     this.timeout = setTimeout(function () {
-
-        editor.signals.savingStarted.dispatch();
+        _this.app.call('savingStarted', _this);
 
         _this.timeout = setTimeout(function () {
-
             editor.storage.set(editor.toJSON());
-
-            editor.signals.savingFinished.dispatch();
-
+            _this.app.call('savingFinished', _this);
         }, 100);
 
     }, 1000);

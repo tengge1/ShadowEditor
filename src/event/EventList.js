@@ -47,17 +47,17 @@ var EventList = [
     'enteredVR', // 已经进入VR
     'exitedVR', // 已经退出VR
 
-    'editorCleared',
+    'editorCleared', // 编辑器已经清空事件
 
-    'savingStarted',
-    'savingFinished',
+    'savingStarted', // 开始保存事件
+    'savingFinished', // 保存完成事件
 
-    'themeChanged',
+    'themeChanged', // 改变主题事件
 
-    'transformModeChanged',
-    'snapChanged',
-    'spaceChanged',
-    'rendererChanged',
+    'transformModeChanged', // 平移旋转缩放模式改变
+    'snapChanged', // 对齐单元格事件
+    'spaceChanged', // 空间坐标系改变事件
+    'rendererChanged', // 渲染模式改变事件
 
     'sceneBackgroundChanged',
     'sceneFogChanged',

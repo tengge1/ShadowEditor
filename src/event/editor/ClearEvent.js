@@ -45,7 +45,7 @@ ClearEvent.prototype.onClear = function () {
 
     editor.deselect();
 
-    editor.signals.editorCleared.dispatch();
+    this.app.call('editorCleared', this);
 };
 
 export default ClearEvent;

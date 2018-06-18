@@ -50,12 +50,9 @@ function Script(app) {
 
     var renderer;
 
-    signals.rendererChanged.add(function (newRenderer) {
-
+    this.app.on('rendererChanged.Script', function (newRenderer) {
         renderer = newRenderer;
-
     });
-
 
     var delay;
     var currentMode;
@@ -351,11 +348,8 @@ function Script(app) {
 
 
     //
-
-    signals.editorCleared.add(function () {
-
+    this.app.on('editorCleared.Script', function () {
         container.setDisplay('none');
-
     });
 
     this.app.on('editScript.Script', function (object, script) {

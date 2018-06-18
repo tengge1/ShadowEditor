@@ -6,6 +6,8 @@
 
 function ScenePanel(editor) {
 
+    this.app = editor.app;
+
     var signals = editor.signals;
 
     var container = new UI.Panel();
@@ -239,7 +241,9 @@ function ScenePanel(editor) {
 
     // events
 
-    signals.editorCleared.add(refreshUI);
+    this.app.on('editorCleared.ScenePanel', function () {
+        refreshUI();
+    });
 
     signals.sceneGraphChanged.add(refreshUI);
 

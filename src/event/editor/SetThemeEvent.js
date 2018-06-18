@@ -26,7 +26,7 @@ SetThemeEvent.prototype.onSetTheme = function (theme) {
     var signals = this.app.editor.signals;
 
     document.getElementById('theme').href = theme;
-    signals.themeChanged.dispatch(theme);
+    this.app.call('themeChanged', this, theme);
 };
 
 export default SetThemeEvent;

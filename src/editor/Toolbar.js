@@ -21,33 +21,28 @@ function Toolbar(app) {
     var translate = new UI.Button('移动');
     translate.dom.title = 'W';
     translate.dom.className = 'Button selected';
+
+    var _this = this;
     translate.onClick(function () {
-
-        signals.transformModeChanged.dispatch('translate');
-
+        _this.app.call('transformModeChanged', _this, 'translate');
     });
     buttons.add(translate);
 
     var rotate = new UI.Button('旋转');
     rotate.dom.title = 'E';
     rotate.onClick(function () {
-
-        signals.transformModeChanged.dispatch('rotate');
-
+        _this.app.call('transformModeChanged', _this, 'rotate');
     });
     buttons.add(rotate);
 
     var scale = new UI.Button('缩放');
     scale.dom.title = 'R';
     scale.onClick(function () {
-
-        signals.transformModeChanged.dispatch('scale');
-
+        _this.app.call('transformModeChanged', _this, 'scale');
     });
     buttons.add(scale);
 
-    signals.transformModeChanged.add(function (mode) {
-
+    this.app.on('transformModeChanged.Toolbar', function (mode) {
         translate.dom.classList.remove('selected');
         rotate.dom.classList.remove('selected');
         scale.dom.classList.remove('selected');
@@ -59,7 +54,6 @@ function Toolbar(app) {
             case 'scale': scale.dom.classList.add('selected'); break;
 
         }
-
     });
 
     // grid
@@ -78,15 +72,12 @@ function Toolbar(app) {
     buttons.add(showGrid);
 
     function update() {
-
-        signals.snapChanged.dispatch(snap.getValue() === true ? grid.getValue() : null);
-        signals.spaceChanged.dispatch(local.getValue() === true ? "local" : "world");
+        _this.app.call('snapChanged', _this, snap.getValue() === true ? grid.getValue() : null);
+        _this.app.call('spaceChanged', _this, local.getValue() === true ? "local" : "world");
         signals.showGridChanged.dispatch(showGrid.getValue());
-
     }
 
     return container;
-
 };
 
 export default Toolbar;

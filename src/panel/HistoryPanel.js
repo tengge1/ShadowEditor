@@ -7,6 +7,8 @@
 
 function HistoryPanel(editor) {
 
+    this.app = editor.app;
+
     var signals = editor.signals;
 
     var config = editor.config;
@@ -115,8 +117,9 @@ function HistoryPanel(editor) {
     refreshUI();
 
     // events
-
-    signals.editorCleared.add(refreshUI);
+    this.app.on('editorCleared', function () {
+        refreshUI();
+    });
 
     signals.historyChanged.add(refreshUI);
     signals.historyChanged.add(function (cmd) {

@@ -276,11 +276,9 @@ function Viewport(app) {
 
     // signals
 
-    signals.editorCleared.add(function () {
-
+    this.app.on('editorCleared.Viewport', function () {
         controls.center.set(0, 0, 0);
         render();
-
     });
 
     this.app.on('enterVR.Viewport', function () {
@@ -289,10 +287,8 @@ function Viewport(app) {
 
     var _this = this;
 
-    signals.themeChanged.add(function (value) {
-
+    this.app.on('themeChanged.Viewport', function (value) {
         switch (value) {
-
             case 'assets/css/light.css':
                 sceneHelpers.remove(grid);
                 grid = new THREE.GridHelper(60, 60, 0x444444, 0x888888);
@@ -303,37 +299,26 @@ function Viewport(app) {
                 grid = new THREE.GridHelper(60, 60, 0xbbbbbb, 0x888888);
                 sceneHelpers.add(grid);
                 break;
-
         }
 
         render();
-
     });
 
-    signals.transformModeChanged.add(function (mode) {
-
+    this.app.on('transformModeChanged.Viewport', function (mode) {
         transformControls.setMode(mode);
-
     });
 
-    signals.snapChanged.add(function (dist) {
-
+    this.app.on('snapChanged.Viewport', function (dist) {
         transformControls.setTranslationSnap(dist);
-
     });
 
-    signals.spaceChanged.add(function (space) {
-
+    this.app.on('spaceChanged.Viewport', function (space) {
         transformControls.setSpace(space);
-
     });
 
-    signals.rendererChanged.add(function (newRenderer) {
-
+    this.app.on('rendererChanged.Viewport', function (newRenderer) {
         if (renderer !== null) {
-
             container.dom.removeChild(renderer.domElement);
-
         }
 
         renderer = newRenderer;
@@ -346,27 +331,20 @@ function Viewport(app) {
 
         container.dom.appendChild(renderer.domElement);
 
-        if (renderer.vr.enabled) {
-
+        if (renderer.vr && renderer.vr.enabled) {
             vrControls = new THREE.VRControls(vrCamera);
             vrEffect = new THREE.VREffect(renderer);
 
             window.addEventListener('vrdisplaypresentchange', function (event) {
-
                 effect.isPresenting ? _this.app.call('enteredVR', _this) : _this.app.call('exitedVR', _this);
-
             }, false);
-
         }
 
         render();
-
     });
 
     signals.sceneGraphChanged.add(function () {
-
         render();
-
     });
 
     signals.cameraChanged.add(function () {

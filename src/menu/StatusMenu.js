@@ -6,6 +6,8 @@
 
 function StatusMenu(editor) {
 
+    this.app = editor.app;
+
     var container = new UI.Panel();
     container.setClass('menu right');
 
@@ -26,16 +28,12 @@ function StatusMenu(editor) {
     });
     container.add(autosave);
 
-    editor.signals.savingStarted.add(function () {
-
+    this.app.on('savingStarted.StatusMenu', function () {
         autosave.text.setTextDecoration('underline');
-
     });
 
-    editor.signals.savingFinished.add(function () {
-
+    this.app.on('savingFinished.StatusMenu', function () {
         autosave.text.setTextDecoration('none');
-
     });
 
     var version = new UI.Text('r' + THREE.REVISION);

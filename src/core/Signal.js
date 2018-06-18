@@ -1,19 +1,6 @@
 function Signal() {
-    
+
     // notifications
-
-    this.editorCleared = new signals.Signal();
-
-    this.savingStarted = new signals.Signal();
-    this.savingFinished = new signals.Signal();
-
-    this.themeChanged = new signals.Signal();
-
-    this.transformModeChanged = new signals.Signal();
-    this.snapChanged = new signals.Signal();
-    this.spaceChanged = new signals.Signal();
-    this.rendererChanged = new signals.Signal();
-
     this.sceneBackgroundChanged = new signals.Signal();
     this.sceneFogChanged = new signals.Signal();
     this.sceneGraphChanged = new signals.Signal();

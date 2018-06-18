@@ -6,6 +6,7 @@ import UI from '../ui/UI';
  */
 
 function AddMenu(editor) {
+    this.app = editor.app;
 
     var container = new UI.Panel();
     container.setClass('menu');
@@ -25,12 +26,10 @@ function AddMenu(editor) {
     var lightCount = 0;
     var cameraCount = 0;
 
-    editor.signals.editorCleared.add(function () {
-
+    this.app.on('editorCleared.AddMenu', function () {
         meshCount = 0;
         lightCount = 0;
         cameraCount = 0;
-
     });
 
     // Group

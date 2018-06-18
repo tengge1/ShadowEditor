@@ -6,6 +6,8 @@
 
 function ProjectPanel(editor) {
 
+    this.app = editor.app;
+
     var config = editor.config;
     var signals = editor.signals;
 
@@ -126,6 +128,8 @@ function ProjectPanel(editor) {
 
     }
 
+    var _this = this;
+
     function createRenderer(type, antialias, shadows, gammaIn, gammaOut) {
 
         if (type === 'WebGLRenderer' && System.support.webgl === false) {
@@ -146,8 +150,7 @@ function ProjectPanel(editor) {
 
         }
 
-        signals.rendererChanged.dispatch(renderer);
-
+        _this.app.call('rendererChanged', _this, renderer);
     }
 
     createRenderer(config.getKey('project/renderer'), config.getKey('project/renderer/antialias'), config.getKey('project/renderer/shadows'), config.getKey('project/renderer/gammaInput'), config.getKey('project/renderer/gammaOutput'));
