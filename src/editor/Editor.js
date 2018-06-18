@@ -4,6 +4,7 @@ import Storage from '../core/Storage';
 import Loader from '../core/Loader';
 
 /**
+ * 编辑器
  * @author mrdoob / http://mrdoob.com/
  */
 function Editor(app) {

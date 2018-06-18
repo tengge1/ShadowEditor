@@ -3352,12 +3352,12 @@
 
 	        switch (value) {
 
-	            case 'assets/css/light.css':
+	            case '../assets/css/light.css':
 	                sceneHelpers.remove(grid);
 	                grid = new THREE.GridHelper(60, 60, 0x444444, 0x888888);
 	                sceneHelpers.add(grid);
 	                break;
-	            case 'assets/css/dark.css':
+	            case '../assets/css/dark.css':
 	                sceneHelpers.remove(grid);
 	                grid = new THREE.GridHelper(60, 60, 0xbbbbbb, 0x888888);
 	                sceneHelpers.add(grid);
@@ -8492,8 +8492,8 @@
 	    // class
 
 	    var options = {
-	        'assets/css/light.css': '浅色',
-	        'assets/css/dark.css': '深色'
+	        '../assets/css/light.css': '浅色',
+	        '../assets/css/dark.css': '深色'
 	    };
 
 	    var themeRow = new UI.Row();
@@ -8598,7 +8598,7 @@
 
 	        var storage = {
 	                'autosave': true,
-	                'theme': 'assets/css/light.css',
+	                'theme': '../assets/css/light.css',
 
 	                'project/renderer': 'WebGLRenderer',
 	                'project/renderer/antialias': true,

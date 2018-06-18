@@ -3,7 +3,7 @@ import Panel from './Panel';
 
 // Modal
 
-function Modal(value) {
+function Modal() {
 
     var scope = this;
 
