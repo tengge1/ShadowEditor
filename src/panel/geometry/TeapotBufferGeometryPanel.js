@@ -5,7 +5,10 @@ import UI from '../../ui/UI';
  * @author tschw
  */
 
-function TeapotBufferGeometryPanel(signals, object) {
+function TeapotBufferGeometryPanel(editor, object) {
+    this.app = editor.app;
+
+    var signals = editor.signals;
 
     var container = new UI.Row();
 
@@ -81,6 +84,8 @@ function TeapotBufferGeometryPanel(signals, object) {
 
     container.add(blinnRow);
 
+    var _this = this;
+
     function update() {
 
         object.geometry.dispose();
@@ -97,7 +102,7 @@ function TeapotBufferGeometryPanel(signals, object) {
 
         object.geometry.computeBoundingSphere();
 
-        signals.geometryChanged.dispatch(object);
+        _this.app.call('geometryChanged', _this, object);
 
     }
 

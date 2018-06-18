@@ -13,6 +13,8 @@ function StatusMenu(editor) {
 
     var autosave = new UI.Boolean(editor.config.getKey('autosave'), '自动保存');
     autosave.text.setColor('#888');
+
+    var _this = this;
     autosave.onChange(function () {
 
         var value = this.getValue();
@@ -21,7 +23,7 @@ function StatusMenu(editor) {
 
         if (value === true) {
 
-            editor.signals.sceneGraphChanged.dispatch();
+            _this.app.call('sceneGraphChanged', _this);
 
         }
 

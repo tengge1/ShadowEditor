@@ -25,7 +25,7 @@ SetGeometryNameEvent.prototype.stop = function () {
 SetGeometryNameEvent.prototype.onSetGeometryName = function (geometry, name) {
     var editor = this.app.editor;
     geometry.name = name;
-    editor.signals.sceneGraphChanged.dispatch();
+    editor.app.call('sceneGraphChanged', this);
 };
 
 export default SetGeometryNameEvent;

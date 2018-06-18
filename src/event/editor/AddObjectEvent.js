@@ -36,8 +36,8 @@ AddObjectEvent.prototype.onAddObject = function (object) {
 
     editor.scene.add(object);
 
-    editor.signals.objectAdded.dispatch(object);
-    editor.signals.sceneGraphChanged.dispatch();
+    editor.app.call('objectAdded', this, object);
+    editor.app.call('sceneGraphChanged', this);
 };
 
 export default AddObjectEvent;

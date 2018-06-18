@@ -5,7 +5,7 @@
  */
 
 function ViewportInfo(editor) {
-
+    this.app = editor.app;
     var signals = editor.signals;
 
     var container = new UI.Panel();
@@ -24,9 +24,17 @@ function ViewportInfo(editor) {
     container.add(new UI.Text('顶点'), verticesText, new UI.Break());
     container.add(new UI.Text('三角形'), trianglesText, new UI.Break());
 
-    signals.objectAdded.add(update);
-    signals.objectRemoved.add(update);
-    signals.geometryChanged.add(update);
+    this.app.on('objectAdded.ViewportInfo', function () {
+        update();
+    });
+
+    this.app.on('objectRemoved.ViewportInfo', function () {
+        update();
+    });
+
+    this.app.on('geometryChanged.ViewportInfo', function () {
+        update();
+    });
 
     //
 

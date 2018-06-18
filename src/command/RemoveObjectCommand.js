@@ -45,8 +45,8 @@ Object.assign(RemoveObjectCommand.prototype, {
 		this.parent.remove(this.object);
 		this.editor.select(this.parent);
 
-		this.editor.signals.objectRemoved.dispatch(this.object);
-		this.editor.signals.sceneGraphChanged.dispatch();
+		this.editor.app.call('objectRemoved', this, this.object);
+		this.editor.app.call('sceneGraphChanged', this);
 
 	},
 
@@ -67,8 +67,8 @@ Object.assign(RemoveObjectCommand.prototype, {
 		this.object.parent = this.parent;
 		this.editor.select(this.object);
 
-		this.editor.signals.objectAdded.dispatch(this.object);
-		this.editor.signals.sceneGraphChanged.dispatch();
+		this.editor.app.call('objectAdded', this, this.object);
+		this.editor.app.call('sceneGraphChanged', this);
 
 	},
 

@@ -145,7 +145,7 @@ Editor.prototype = {
     // -------------------- 设置焦点事件 --------------------------
 
     focus: function (object) { // 设置焦点
-        this.signals.objectFocused.dispatch(object);
+        this.app.call('objectFocused', this, object);
     },
 
     focusById: function (id) { // 根据id设置交点

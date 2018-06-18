@@ -43,7 +43,7 @@ Object.assign(SetPositionCommand.prototype, {
 
 		this.object.position.copy(this.newPosition);
 		this.object.updateMatrixWorld(true);
-		this.editor.signals.objectChanged.dispatch(this.object);
+		this.editor.app.call('objectChanged', this, this.object);
 
 	},
 
@@ -51,7 +51,7 @@ Object.assign(SetPositionCommand.prototype, {
 
 		this.object.position.copy(this.oldPosition);
 		this.object.updateMatrixWorld(true);
-		this.editor.signals.objectChanged.dispatch(this.object);
+		this.editor.app.call('objectChanged', this, this.object);
 
 	},
 

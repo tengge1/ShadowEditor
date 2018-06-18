@@ -1,24 +1,4 @@
 function Signal() {
-
-    // notifications
-    this.sceneBackgroundChanged = new signals.Signal();
-    this.sceneFogChanged = new signals.Signal();
-    this.sceneGraphChanged = new signals.Signal();
-
-    this.cameraChanged = new signals.Signal();
-
-    this.geometryChanged = new signals.Signal();
-
-    this.objectSelected = new signals.Signal();
-    this.objectFocused = new signals.Signal();
-
-    this.objectAdded = new signals.Signal();
-    this.objectChanged = new signals.Signal();
-    this.objectRemoved = new signals.Signal();
-
-    this.helperAdded = new signals.Signal();
-    this.helperRemoved = new signals.Signal();
-
     this.materialChanged = new signals.Signal();
 
     this.scriptAdded = new signals.Signal();

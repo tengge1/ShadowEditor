@@ -6,6 +6,7 @@ import UI from '../../ui/UI';
  */
 
 function IcosahedronGeometryPanel(editor, object) {
+    this.app = editor.app;
 
     var signals = editor.signals;
 
@@ -37,6 +38,8 @@ function IcosahedronGeometryPanel(editor, object) {
 
     //
 
+    var _this = this;
+
     function update() {
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
@@ -44,7 +47,7 @@ function IcosahedronGeometryPanel(editor, object) {
             detail.getValue()
         )));
 
-        signals.objectChanged.dispatch(object);
+        _this.app.call('objectChanged', _this, object);
 
     }
 

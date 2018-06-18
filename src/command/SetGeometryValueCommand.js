@@ -35,18 +35,18 @@ Object.assign(SetGeometryValueCommand.prototype, {
 	execute: function () {
 
 		this.object.geometry[this.attributeName] = this.newValue;
-		this.editor.signals.objectChanged.dispatch(this.object);
-		this.editor.signals.geometryChanged.dispatch();
-		this.editor.signals.sceneGraphChanged.dispatch();
+		this.editor.app.call('objectChanged', this, this.object);
+		this.editor.app.call('geometryChanged', this);
+		this.editor.app.call('sceneGraphChanged', this);
 
 	},
 
 	undo: function () {
 
 		this.object.geometry[this.attributeName] = this.oldValue;
-		this.editor.signals.objectChanged.dispatch(this.object);
-		this.editor.signals.geometryChanged.dispatch();
-		this.editor.signals.sceneGraphChanged.dispatch();
+		this.editor.app.call('objectChanged', this, this.object);
+		this.editor.app.call('geometryChanged', this);
+		this.editor.app.call('sceneGraphChanged', this);
 
 	},
 

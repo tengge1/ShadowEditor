@@ -45,7 +45,7 @@ Object.assign(SetRotationCommand.prototype, {
 
 		this.object.rotation.copy(this.newRotation);
 		this.object.updateMatrixWorld(true);
-		this.editor.signals.objectChanged.dispatch(this.object);
+		this.editor.app.call('objectChanged', this, this.object);
 
 	},
 
@@ -53,7 +53,7 @@ Object.assign(SetRotationCommand.prototype, {
 
 		this.object.rotation.copy(this.oldRotation);
 		this.object.updateMatrixWorld(true);
-		this.editor.signals.objectChanged.dispatch(this.object);
+		this.editor.app.call('objectChanged', this, this.object);
 
 	},
 

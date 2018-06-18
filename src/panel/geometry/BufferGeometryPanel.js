@@ -6,6 +6,7 @@ import UI from '../../ui/UI';
  */
 
 function BufferGeometryPanel(editor) {
+    this.app = editor.app;
 
     var signals = editor.signals;
 
@@ -55,8 +56,13 @@ function BufferGeometryPanel(editor) {
 
     }
 
-    signals.objectSelected.add(update);
-    signals.geometryChanged.add(update);
+    this.app.on('objectSelected.BufferGeometryPanel', function () {
+        update();
+    });
+
+    this.app.on('geometryChanged.BufferGeometryPanel', function () {
+        update();
+    });
 
     return container;
 

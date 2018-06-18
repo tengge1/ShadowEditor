@@ -81,11 +81,10 @@ function ScenePanel(editor) {
     container.add(new UI.Break());
 
     // background
+    var _this = this;
 
     function onBackgroundChanged() {
-
-        signals.sceneBackgroundChanged.dispatch(backgroundColor.getHexValue());
-
+        _this.app.call('sceneBackgroundChanged', _this, backgroundColor.getHexValue());
     }
 
     var backgroundRow = new UI.Row();
@@ -100,15 +99,13 @@ function ScenePanel(editor) {
     // fog
 
     function onFogChanged() {
-
-        signals.sceneFogChanged.dispatch(
+        _this.app.call('sceneFogChanged',
+            _this,
             fogType.getValue(),
             fogColor.getHexValue(),
             fogNear.getValue(),
             fogFar.getValue(),
-            fogDensity.getValue()
-        );
-
+            fogDensity.getValue());
     }
 
     var fogTypeRow = new UI.Row();
@@ -245,9 +242,11 @@ function ScenePanel(editor) {
         refreshUI();
     });
 
-    signals.sceneGraphChanged.add(refreshUI);
+    this.app.on('sceneGraphChanged.ScenePanel', function () {
+        refreshUI();
+    });
 
-    signals.objectChanged.add(function (object) {
+    this.app.on('objectChanged.ScenePanel', function (object) {
 
         var options = outliner.options;
 
@@ -266,7 +265,7 @@ function ScenePanel(editor) {
 
     });
 
-    signals.objectSelected.add(function (object) {
+    this.app.on('objectSelected.ScenePanel', function (object) {
 
         if (ignoreObjectSelectedSignal === true) return;
 

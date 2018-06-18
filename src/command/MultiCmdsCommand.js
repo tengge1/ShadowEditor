@@ -29,7 +29,7 @@ Object.assign(MultiCmdsCommand.prototype, {
 
 	execute: function () {
 
-		this.editor.signals.sceneGraphChanged.active = false;
+		// this.editor.signals.sceneGraphChanged.active = false;
 
 		for (var i = 0; i < this.cmdArray.length; i++) {
 
@@ -37,14 +37,14 @@ Object.assign(MultiCmdsCommand.prototype, {
 
 		}
 
-		this.editor.signals.sceneGraphChanged.active = true;
-		this.editor.signals.sceneGraphChanged.dispatch();
+		// this.editor.signals.sceneGraphChanged.active = true;
+		this.editor.app.call('sceneGraphChanged', this);
 
 	},
 
 	undo: function () {
 
-		this.editor.signals.sceneGraphChanged.active = false;
+		// this.editor.signals.sceneGraphChanged.active = false;
 
 		for (var i = this.cmdArray.length - 1; i >= 0; i--) {
 
@@ -52,9 +52,8 @@ Object.assign(MultiCmdsCommand.prototype, {
 
 		}
 
-		this.editor.signals.sceneGraphChanged.active = true;
-		this.editor.signals.sceneGraphChanged.dispatch();
-
+		// this.editor.signals.sceneGraphChanged.active = true;
+		this.editor.app.call('sceneGraphChanged', this);
 	},
 
 	toJSON: function () {

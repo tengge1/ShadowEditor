@@ -106,7 +106,7 @@ function ScriptPanel(editor) {
 
     // signals
 
-    signals.objectSelected.add(function (object) {
+    this.app.on('objectSelected.ScriptPanel', function (object) {
 
         if (object !== null) {
 

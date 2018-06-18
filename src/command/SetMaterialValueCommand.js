@@ -37,7 +37,7 @@ Object.assign(SetMaterialValueCommand.prototype, {
 
 		this.object.material[this.attributeName] = this.newValue;
 		this.object.material.needsUpdate = true;
-		this.editor.signals.objectChanged.dispatch(this.object);
+		this.editor.app.call('objectChanged', this, this.object);
 		this.editor.signals.materialChanged.dispatch(this.object.material);
 
 	},
@@ -46,7 +46,7 @@ Object.assign(SetMaterialValueCommand.prototype, {
 
 		this.object.material[this.attributeName] = this.oldValue;
 		this.object.material.needsUpdate = true;
-		this.editor.signals.objectChanged.dispatch(this.object);
+		this.editor.app.call('objectChanged', this, this.object);
 		this.editor.signals.materialChanged.dispatch(this.object.material);
 
 	},

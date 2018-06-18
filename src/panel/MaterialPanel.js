@@ -1282,7 +1282,7 @@ function MaterialPanel(editor) {
 
     // events
 
-    signals.objectSelected.add(function (object) {
+    this.app.on('objectSelected.MaterialPanel', function (object) {
 
         if (object && object.material) {
 

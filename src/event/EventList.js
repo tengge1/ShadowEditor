@@ -44,8 +44,8 @@ var EventList = [
     'stopPlayer', // 停止播放器事件
 
     'enterVR', // 进入VR事件
-    'enteredVR', // 已经进入VR
-    'exitedVR', // 已经退出VR
+    'enteredVR', // 已经进入VR事件
+    'exitedVR', // 已经退出VR事件
 
     'editorCleared', // 编辑器已经清空事件
 
@@ -54,28 +54,28 @@ var EventList = [
 
     'themeChanged', // 改变主题事件
 
-    'transformModeChanged', // 平移旋转缩放模式改变
+    'transformModeChanged', // 平移旋转缩放模式改变事件
     'snapChanged', // 对齐单元格事件
     'spaceChanged', // 空间坐标系改变事件
     'rendererChanged', // 渲染模式改变事件
 
-    'sceneBackgroundChanged',
-    'sceneFogChanged',
-    'sceneGraphChanged',
+    'sceneBackgroundChanged', // 场景背景改变事件
+    'sceneFogChanged', // 场景雾效改变事件
+    'sceneGraphChanged', // 场景内容改变事件
 
-    'cameraChanged',
+    'cameraChanged', // 相机改变事件
 
-    'geometryChanged',
+    'geometryChanged', // 几何体改变事件
 
-    'objectSelected',
-    'objectFocused',
+    'objectSelected', // 物体选中改变
+    'objectFocused', // 物体交点改变事件
 
-    'objectAdded',
-    'objectChanged',
-    'objectRemoved',
+    'objectAdded', // 添加物体事件
+    'objectChanged', // 物体改变事件
+    'objectRemoved', // 物体移除事件
 
-    'helperAdded',
-    'helperRemoved',
+    'helperAdded', // 添加帮助事件
+    'helperRemoved', // 移除帮助事件
 
     'materialChanged',
 

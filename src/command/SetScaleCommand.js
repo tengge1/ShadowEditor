@@ -41,7 +41,7 @@ Object.assign(SetScaleCommand.prototype, {
 
 		this.object.scale.copy(this.newScale);
 		this.object.updateMatrixWorld(true);
-		this.editor.signals.objectChanged.dispatch(this.object);
+		this.editor.app.call('objectChanged', this, this.object);
 
 	},
 
@@ -49,7 +49,7 @@ Object.assign(SetScaleCommand.prototype, {
 
 		this.object.scale.copy(this.oldScale);
 		this.object.updateMatrixWorld(true);
-		this.editor.signals.objectChanged.dispatch(this.object);
+		this.editor.app.call('objectChanged', this, this.object);
 
 	},
 

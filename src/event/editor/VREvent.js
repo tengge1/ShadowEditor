@@ -47,19 +47,19 @@ VREvent.prototype.onEnterVR = function () {
         groupVR.add(mesh);
 
         var _this = this;
-        signals.objectSelected.add(function () {
+        this.app.on('objectSelected.VREvent', function () {
             _this.updateTexture(mesh);
         });
-        signals.objectAdded.add(function () {
+        this.app.on('objectAdded.VREvent', function () {
             _this.updateTexture(mesh);
         });
-        signals.objectChanged.add(function () {
+        this.app.on('objectChanged.VREvent', function () {
             _this.updateTexture(mesh);
         });
-        signals.objectRemoved.add(function () {
+        this.app.on('objectRemoved.VREvent', function () {
             _this.updateTexture(mesh);
         });
-        signals.sceneGraphChanged.add(function () {
+        this.app.on('sceneGraphChanged.VREvent', function () {
             _this.updateTexture(mesh);
         });
         signals.historyChanged.add(function () {

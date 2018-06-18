@@ -26,7 +26,7 @@ SetMaterialNameEvent.prototype.onSetMaterialName = function (material, name) {
     var editor = this.app.editor;
 
     material.name = name;
-    editor.signals.sceneGraphChanged.dispatch();
+    editor.app.call('sceneGraphChanged', this);
 };
 
 export default SetMaterialNameEvent;

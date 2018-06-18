@@ -38,7 +38,7 @@ MoveObjectEvent.prototype.onMoveObject = function (object, parent, before) {
         parent.children.pop();
     }
 
-    editor.signals.sceneGraphChanged.dispatch();
+    editor.app.call('sceneGraphChanged', this);
 };
 
 export default MoveObjectEvent;

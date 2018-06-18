@@ -17,28 +17,28 @@ AutoSaveEvent.prototype.start = function () {
     var signals = this.app.editor.signals;
 
     var _this = this;
-    signals.geometryChanged.add(function () {
+    this.app.on('geometryChanged.' + this.id, function () {
         _this.SaveState();
     });
-    signals.objectAdded.add(function () {
+    this.app.on('objectAdded.' + this.id, function () {
         _this.SaveState();
     });
-    signals.objectChanged.add(function () {
+    this.app.on('objectChanged.' + this.id, function () {
         _this.SaveState();
     });
-    signals.objectRemoved.add(function () {
+    this.app.on('objectRemoved.' + this.id, function () {
         _this.SaveState();
     });
     signals.materialChanged.add(function () {
         _this.SaveState();
     });
-    signals.sceneBackgroundChanged.add(function () {
+    this.app.on('sceneBackgroundChanged.' + this.id, function () {
         _this.SaveState();
     });
-    signals.sceneFogChanged.add(function () {
+    this.app.on('sceneFogChanged.' + this.id, function () {
         _this.SaveState();
     });
-    signals.sceneGraphChanged.add(function () {
+    this.app.on('sceneGraphChanged.' + this.id, function () {
         _this.SaveState();
     });
     signals.scriptChanged.add(function () {

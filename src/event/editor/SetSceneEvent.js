@@ -35,7 +35,7 @@ SetSceneEvent.prototype.onSetScene = function (scene) {
 
     // avoid render per object
 
-    editor.signals.sceneGraphChanged.active = false;
+    // editor.signals.sceneGraphChanged.active = false;
 
     // // 当纹理为base64编码时，如果不设置complete=true，则three.js认为纹理未下载完成，会报错。
     // scene.traverse(function (n) {
@@ -50,8 +50,8 @@ SetSceneEvent.prototype.onSetScene = function (scene) {
 
     }
 
-    editor.signals.sceneGraphChanged.active = true;
-    editor.signals.sceneGraphChanged.dispatch();
+    // editor.signals.sceneGraphChanged.active = true;
+    this.app.call('sceneGraphChanged', this);
 };
 
 export default SetSceneEvent;

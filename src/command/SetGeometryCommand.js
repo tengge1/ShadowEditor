@@ -37,8 +37,8 @@ Object.assign(SetGeometryCommand.prototype, {
 		this.object.geometry = this.newGeometry;
 		this.object.geometry.computeBoundingSphere();
 
-		this.editor.signals.geometryChanged.dispatch(this.object);
-		this.editor.signals.sceneGraphChanged.dispatch();
+		this.editor.app.call('geometryChanged', this, this.object);
+		this.editor.app.call('sceneGraphChanged', this);
 
 	},
 
@@ -48,8 +48,8 @@ Object.assign(SetGeometryCommand.prototype, {
 		this.object.geometry = this.oldGeometry;
 		this.object.geometry.computeBoundingSphere();
 
-		this.editor.signals.geometryChanged.dispatch(this.object);
-		this.editor.signals.sceneGraphChanged.dispatch();
+		this.editor.app.call('geometryChanged', this, this.object);
+		this.editor.app.call('sceneGraphChanged', this);
 
 	},
 

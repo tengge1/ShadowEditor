@@ -6,6 +6,7 @@ import UI from '../../ui/UI';
  */
 
 function GeometryModifyPanel(editor, object) {
+    this.app = editor.app;
 
     var signals = editor.signals;
 
@@ -16,6 +17,8 @@ function GeometryModifyPanel(editor, object) {
     // Compute Vertex Normals
 
     var button = new UI.Button('计算顶点法线');
+
+    var _this = this;
     button.onClick(function () {
 
         geometry.computeVertexNormals();
@@ -30,8 +33,7 @@ function GeometryModifyPanel(editor, object) {
 
         }
 
-        signals.geometryChanged.dispatch(object);
-
+        _this.app.call('geometryChanged', _this, object);
     });
 
     container.add(button);

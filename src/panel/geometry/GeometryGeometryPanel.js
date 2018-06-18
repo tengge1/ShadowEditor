@@ -6,6 +6,7 @@ import UI from '../../ui/UI';
  */
 
 function GeometryGeometryPanel(editor) {
+    this.app = editor.app;
 
     var signals = editor.signals;
 
@@ -55,8 +56,13 @@ function GeometryGeometryPanel(editor) {
 
     }
 
-    signals.objectSelected.add(update);
-    signals.geometryChanged.add(update);
+    this.app.on('objectSelected.GeometryGeometryPanel', function () {
+        update();
+    });
+
+    this.app.on('geometryChanged.GeometryGeometryPanel', function () {
+        update();
+    });
 
     return container;
 

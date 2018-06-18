@@ -169,6 +169,30 @@ function AddMenu(editor) {
     });
     options.add(option);
 
+    // Teaport
+
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('茶壶');
+    option.onClick(function () {
+
+        var size = 3;
+        var segments = 10;
+        var bottom = true;
+        var lid = true;
+        var body = true;
+        var fitLid = true;
+        var blinn = true;
+
+        var geometry = new THREE.TeapotBufferGeometry(size, segments, bottom, lid, body, fitLid, blinn);
+        var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+        mesh.name = 'Teaport ' + (++meshCount);
+
+        editor.execute(new AddObjectCommand(mesh));
+
+    });
+    options.add(option);
+
     // Torus
 
     var option = new UI.Row();

@@ -72,7 +72,7 @@ AddHelperEvent.prototype.onAddHelper = function (object) {
     editor.sceneHelpers.add(helper);
     editor.helpers[object.id] = helper;
 
-    editor.signals.helperAdded.dispatch(helper);
+    editor.app.call('helperAdded', this, helper);
 };
 
 export default AddHelperEvent;

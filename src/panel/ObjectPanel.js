@@ -12,6 +12,8 @@ import UI from '../ui/UI';
 
 function ObjectPanel(editor) {
 
+    this.app = editor.app;
+
     var signals = editor.signals;
 
     var container = new UI.Panel();
@@ -530,8 +532,7 @@ function ObjectPanel(editor) {
     }
 
     // events
-
-    signals.objectSelected.add(function (object) {
+    this.app.on('objectSelected.ObjectPanel', function (object) {
 
         if (object !== null) {
 
@@ -548,7 +549,7 @@ function ObjectPanel(editor) {
 
     });
 
-    signals.objectChanged.add(function (object) {
+    this.app.on('objectChanged.ObjectPanel', function (object) {
 
         if (object !== editor.selected) return;
 

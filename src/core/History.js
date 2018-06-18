@@ -253,7 +253,7 @@ Object.assign(History.prototype, {
 
         }
 
-        this.editor.signals.sceneGraphChanged.active = false;
+        // this.editor.signals.sceneGraphChanged.active = false;
         this.editor.signals.historyChanged.active = false;
 
         var cmd = this.undos.length > 0 ? this.undos[this.undos.length - 1] : undefined;	// next cmd to pop
@@ -281,10 +281,10 @@ Object.assign(History.prototype, {
 
         }
 
-        this.editor.signals.sceneGraphChanged.active = true;
+        // this.editor.signals.sceneGraphChanged.active = true;
         this.editor.signals.historyChanged.active = true;
 
-        this.editor.signals.sceneGraphChanged.dispatch();
+        this.editor.app.call('sceneGraphChanged', this);
         this.editor.signals.historyChanged.dispatch(cmd);
 
     },
@@ -300,7 +300,7 @@ Object.assign(History.prototype, {
 
         this.goToState(-1);
 
-        this.editor.signals.sceneGraphChanged.active = false;
+        // this.editor.signals.sceneGraphChanged.active = false;
         this.editor.signals.historyChanged.active = false;
 
         var cmd = this.redo();
@@ -315,7 +315,7 @@ Object.assign(History.prototype, {
 
         }
 
-        this.editor.signals.sceneGraphChanged.active = true;
+        // this.editor.signals.sceneGraphChanged.active = true;
         this.editor.signals.historyChanged.active = true;
 
         this.goToState(id);

@@ -44,6 +44,7 @@ const GeometryPanels = {
 };
 
 function GeometryPanel(editor) {
+    this.app = editor.app;
 
     var signals = editor.signals;
 
@@ -202,13 +203,9 @@ function GeometryPanel(editor) {
             parameters.clear();
 
             if (geometry.type === 'BufferGeometry' || geometry.type === 'Geometry') {
-
                 parameters.add(new GeometryModifyPanel(editor, object));
-
             } else if (GeometryPanels[geometry.type] !== undefined) {
-
                 parameters.add(new GeometryPanels[geometry.type](editor, object));
-
             }
 
         } else {
@@ -219,8 +216,13 @@ function GeometryPanel(editor) {
 
     }
 
-    signals.objectSelected.add(build);
-    signals.geometryChanged.add(build);
+    this.app.on('objectSelected.GeometryPanel', function () {
+        build();
+    });
+
+    this.app.on('geometryChanged.GeometryPanel', function () {
+        build();
+    });
 
     return container;
 

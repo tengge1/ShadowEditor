@@ -253,7 +253,7 @@ function Viewport(app) {
 
             var intersect = intersects[0];
 
-            signals.objectFocused.dispatch(intersect.object);
+            _this.app.call('objectFocused', _this, intersect.object);
 
         }
 
@@ -268,10 +268,8 @@ function Viewport(app) {
 
     var controls = new THREE.EditorControls(camera, container.dom);
     controls.addEventListener('change', function () {
-
         transformControls.update();
-        signals.cameraChanged.dispatch(camera);
-
+        _this.app.call('cameraChanged', _this, camera);
     });
 
     // signals
@@ -343,17 +341,15 @@ function Viewport(app) {
         render();
     });
 
-    signals.sceneGraphChanged.add(function () {
+    this.app.on('sceneGraphChanged.Viewport', function () {
         render();
     });
 
-    signals.cameraChanged.add(function () {
-
+    this.app.on('cameraChanged.Viewport', function () {
         render();
-
     });
 
-    signals.objectSelected.add(function (object) {
+    this.app.on('objectSelected.Viewport', function (object) {
 
         selectionBox.visible = false;
         transformControls.detach();
@@ -377,35 +373,25 @@ function Viewport(app) {
 
     });
 
-    signals.objectFocused.add(function (object) {
-
+    this.app.on('objectFocused.Viewport', function (object) {
         controls.focus(object);
-
     });
 
-    signals.geometryChanged.add(function (object) {
-
+    this.app.on('geometryChanged.Viewport', function (object) {
         if (object !== undefined) {
-
             selectionBox.setFromObject(object);
-
         }
 
         render();
-
     });
 
-    signals.objectAdded.add(function (object) {
-
+    this.app.on('objectAdded.Viewport', function (object) {
         object.traverse(function (child) {
-
             objects.push(child);
-
         });
-
     });
 
-    signals.objectChanged.add(function (object) {
+    this.app.on('objectChanged.Viewport', function (object) {
 
         if (editor.selected === object) {
 
@@ -430,26 +416,18 @@ function Viewport(app) {
 
     });
 
-    signals.objectRemoved.add(function (object) {
-
+    this.app.on('objectRemoved.Viewport', function (object) {
         object.traverse(function (child) {
-
             objects.splice(objects.indexOf(child), 1);
-
         });
-
     });
 
-    signals.helperAdded.add(function (object) {
-
+    this.app.on('helperAdded.Viewport', function (object) {
         objects.push(object.getObjectByName('picker'));
-
     });
 
-    signals.helperRemoved.add(function (object) {
-
+    this.app.on('helperRemoved.Viewport', function (object) {
         objects.splice(objects.indexOf(object.getObjectByName('picker')), 1);
-
     });
 
     signals.materialChanged.add(function (material) {
@@ -460,17 +438,14 @@ function Viewport(app) {
 
     // fog
 
-    signals.sceneBackgroundChanged.add(function (backgroundColor) {
-
+    this.app.on('sceneBackgroundChanged.Viewport', function (backgroundColor) {
         scene.background.setHex(backgroundColor);
-
         render();
-
     });
 
     var currentFogType = null;
 
-    signals.sceneFogChanged.add(function (fogType, fogColor, fogNear, fogFar, fogDensity) {
+    this.app.on('sceneFogChanged.Viewport', function (fogType, fogColor, fogNear, fogFar, fogDensity) {
 
         if (currentFogType !== fogType) {
 

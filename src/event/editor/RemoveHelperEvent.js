@@ -31,7 +31,7 @@ RemoveHelperEvent.prototype.onRemoveHelper = function (object) {
         helper.parent.remove(helper);
         delete editor.helpers[object.id];
 
-        editor.signals.helperRemoved.dispatch(helper);
+        this.app.call('helperRemoved', this, helper);
     }
 };
 

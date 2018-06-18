@@ -36,7 +36,7 @@ Object.assign(SetValueCommand.prototype, {
 	execute: function () {
 
 		this.object[this.attributeName] = this.newValue;
-		this.editor.signals.objectChanged.dispatch(this.object);
+		this.editor.app.call('objectChanged', this, this.object);
 		// this.editor.signals.sceneGraphChanged.dispatch();
 
 	},
@@ -44,7 +44,7 @@ Object.assign(SetValueCommand.prototype, {
 	undo: function () {
 
 		this.object[this.attributeName] = this.oldValue;
-		this.editor.signals.objectChanged.dispatch(this.object);
+		this.editor.app.call('objectChanged', this, this.object);
 		// this.editor.signals.sceneGraphChanged.dispatch();
 
 	},

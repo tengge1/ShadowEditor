@@ -36,7 +36,7 @@ SelectEvent.prototype.onSelect = function (object) {
     editor.selected = object;
 
     editor.config.setKey('selected', uuid);
-    editor.signals.objectSelected.dispatch(object);
+    this.app.call('objectSelected', this, object);
 };
 
 export default SelectEvent;
