@@ -7,4 +7,12 @@ function Window() {
 Window.prototype = Object.create(Modal.prototype);
 Window.prototype.constructor = Window;
 
+Window.prototype.show = function () {
+
+};
+
+Window.prototype.hide = function () {
+
+};
+
 export default Window;
