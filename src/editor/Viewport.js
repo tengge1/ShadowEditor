@@ -32,15 +32,7 @@ function Viewport(app) {
 
     //
 
-    var vrEffect, vrControls;
-
-    // if ( renderer.vr.enabled ) {
-
-    var vrCamera = new THREE.PerspectiveCamera();
-    vrCamera.projectionMatrix = camera.projectionMatrix;
-    camera.add(vrCamera);
-
-    // }
+    var vrEffect, vrControls, vrCamera;
 
     // helpers
 
@@ -295,6 +287,8 @@ function Viewport(app) {
         vrEffect.isPresenting ? vrEffect.exitPresent() : vrEffect.requestPresent();
     });
 
+    var _this = this;
+
     signals.themeChanged.add(function (value) {
 
         switch (value) {
@@ -343,6 +337,7 @@ function Viewport(app) {
         }
 
         renderer = newRenderer;
+        _this.app.renderer = renderer;
 
         renderer.autoClear = false;
         renderer.autoUpdateScene = false;
@@ -358,7 +353,7 @@ function Viewport(app) {
 
             window.addEventListener('vrdisplaypresentchange', function (event) {
 
-                effect.isPresenting ? signals.enteredVR.dispatch() : signals.exitedVR.dispatch();
+                effect.isPresenting ? _this.app.call('enteredVR', _this) : _this.app.call('exitedVR', _this);
 
             }, false);
 

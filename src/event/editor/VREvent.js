@@ -18,13 +18,14 @@ VREvent.prototype.start = function () {
     this.app.on('enterVR.' + this.id, function () {
         _this.onEnterVR();
     });
-    editor.signals.exitedVR.add(function () {
+    this.app.on('exitedVR.' + this.id, function () {
         _this.onExitedVR();
     });
 };
 
 VREvent.prototype.stop = function () {
-
+    this.app.on('enterVR.' + this.id, null);
+    this.app.on('exitedVR.' + this.id, null);
 };
 
 VREvent.prototype.onEnterVR = function () {

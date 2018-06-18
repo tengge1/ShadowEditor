@@ -1,9 +1,5 @@
 function Signal() {
-    // vr
-
-    this.enteredVR = new signals.Signal();
-    this.exitedVR = new signals.Signal();
-
+    
     // notifications
 
     this.editorCleared = new signals.Signal();

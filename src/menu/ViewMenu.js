@@ -28,7 +28,7 @@ function ViewMenu(editor) {
     option.setTextContent('VR模式');
     option.onClick(function () {
 
-        if (renderer.vr.enabled) {
+        if (_this.app.renderer.vr.enabled) {
             _this.app.call('enterVR', _this);
         } else {
 

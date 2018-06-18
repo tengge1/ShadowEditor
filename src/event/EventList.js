@@ -44,8 +44,8 @@ var EventList = [
     'stopPlayer', // 停止播放器事件
 
     'enterVR', // 进入VR事件
-    'enteredVR',
-    'exitedVR',
+    'enteredVR', // 已经进入VR
+    'exitedVR', // 已经退出VR
 
     'editorCleared',
 
