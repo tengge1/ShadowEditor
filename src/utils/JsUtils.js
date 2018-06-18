@@ -26,4 +26,4 @@ const JsUtils = {
     load: loadJs
 };
 
-export { JsUtils };
+export default JsUtils;

@@ -18,4 +18,4 @@ const CssUtils = {
     load: loadCss
 };
 
-export { CssUtils };
+export default CssUtils;

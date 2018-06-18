@@ -4,7 +4,7 @@ import EventDispatcher from './event/EventDispatcher';
 import Viewport from './editor/Viewport';
 import Script from './core/Script';
 import Player from './core/Player';
-import Toolbar from './editor/Toolbar';
+import StatusBar from './editor/StatusBar';
 import Menubar from './menu/Menubar';
 import Sidebar from './panel/Sidebar';
 
@@ -40,8 +40,8 @@ function Application(container, options) {
     this.container.appendChild(this.sidebar.dom);
 
     // 底部状态栏
-    this.toolbar = new Toolbar(this);
-    this.container.appendChild(this.toolbar.dom);
+    this.statusBar = new StatusBar(this);
+    this.container.appendChild(this.statusBar.dom);
 
     // 脚本编辑窗口
     this.script = new Script(this);

@@ -4,7 +4,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-function Toolbar(app) {
+function StatusBar(app) {
     this.app = app;
     var editor = this.app.editor;
 
@@ -78,4 +78,4 @@ function Toolbar(app) {
     return container;
 };
 
-export default Toolbar;
+export default StatusBar;
