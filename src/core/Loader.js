@@ -8,7 +8,6 @@ import SetSceneCommand from '../command/SetSceneCommand';
 function Loader(editor) {
 
     var scope = this;
-    var signals = editor.signals;
 
     this.texturePath = '';
 

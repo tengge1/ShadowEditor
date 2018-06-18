@@ -34,7 +34,6 @@ VREvent.prototype.onEnterVR = function () {
     var editor = this.app.editor;
     var viewport = this.app.viewport;
     var sidebar = this.app.sidebar;
-    var signals = editor.signals;
 
     if (groupVR == null) {
 
@@ -62,7 +61,7 @@ VREvent.prototype.onEnterVR = function () {
         this.app.on('sceneGraphChanged.VREvent', function () {
             _this.updateTexture(mesh);
         });
-        signals.historyChanged.add(function () {
+        this.app.on('historyChanged.VREvent', function () {
             _this.updateTexture(mesh);
         });
 

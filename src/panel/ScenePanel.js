@@ -5,11 +5,7 @@
  */
 
 function ScenePanel(editor) {
-
     this.app = editor.app;
-
-    var signals = editor.signals;
-
     var container = new UI.Panel();
     container.setBorderTop('0');
     container.setPaddingTop('20px');

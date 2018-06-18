@@ -8,8 +8,6 @@ function Player(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var signals = editor.signals;
-
     var container = new UI.Panel();
     container.setId('player');
     container.setPosition('absolute');

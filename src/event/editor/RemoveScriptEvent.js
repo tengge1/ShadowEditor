@@ -35,7 +35,7 @@ RemoveScriptEvent.prototype.onRemoveScript = function (object, script) {
 
     }
 
-    editor.signals.scriptRemoved.dispatch(script);
+    editor.app.call('scriptRemoved', this);
 };
 
 export default RemoveScriptEvent;

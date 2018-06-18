@@ -9,8 +9,6 @@ function Script(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var signals = editor.signals;
-
     var container = new UI.Panel();
     container.setId('script');
     container.setPosition('absolute');
@@ -135,6 +133,8 @@ function Script(app) {
     var errorLines = [];
     var widgets = [];
 
+    var _this = this;
+
     var validate = function (string) {
 
         var valid;
@@ -247,7 +247,7 @@ function Script(app) {
 
                     currentObject.material[currentScript] = string;
                     currentObject.material.needsUpdate = true;
-                    signals.materialChanged.dispatch(currentObject.material);
+                    _this.app.call('materialChanged', this, currentObject.material);
 
                     var programs = renderer.info.programs;
 
@@ -408,18 +408,13 @@ function Script(app) {
         codemirror.setOption('mode', mode);
     });
 
-    signals.scriptRemoved.add(function (script) {
-
+    this.app.on('scriptRemoved.Script', function (script) {
         if (currentScript === script) {
-
             container.setDisplay('none');
-
         }
-
     });
 
-    signals.refreshScriptEditor.add(function (object, script, cursorPosition, scrollInfo) {
-
+    this.app.on('refreshScriptEditor.Script', function (object, script, cursorPosition, scrollInfo) {
         if (currentScript !== script) return;
 
         // copying the codemirror history because "codemirror.setValue(...)" alters its history
@@ -435,7 +430,6 @@ function Script(app) {
 
         }
         codemirror.setHistory(history); // setting the history to previous state
-
     });
 
     return container;

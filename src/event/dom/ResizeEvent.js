@@ -23,10 +23,7 @@ ResizeEvent.prototype.stop = function () {
 };
 
 ResizeEvent.prototype.onResize = function (event) {
-
-    var editor = this.app.editor;
-
-    editor.signals.windowResize.dispatch();
+    this.app.call('windowResize', this);
 };
 
 export default ResizeEvent;

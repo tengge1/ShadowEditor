@@ -11,10 +11,7 @@ import UI from '../ui/UI';
  */
 
 function ObjectPanel(editor) {
-
     this.app = editor.app;
-
-    var signals = editor.signals;
 
     var container = new UI.Panel();
     container.setBorderTop('0');
@@ -557,12 +554,10 @@ function ObjectPanel(editor) {
 
     });
 
-    signals.refreshSidebarObject3D.add(function (object) {
-
+    this.app.on('refreshSidebarObject3D.ObjectPanel', function (object) {
         if (object !== editor.selected) return;
 
         updateUI(object);
-
     });
 
     function updateUI(object) {

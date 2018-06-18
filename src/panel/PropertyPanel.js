@@ -8,9 +8,6 @@ import UI from '../ui/UI';
  */
 
 function PropertyPanel(editor) {
-
-    var signals = editor.signals;
-
     var container = new UI.Span();
 
     var objectTab = new UI.Text('物体').onClick(onClick);

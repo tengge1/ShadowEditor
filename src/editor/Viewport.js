@@ -12,8 +12,6 @@ function Viewport(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var signals = editor.signals;
-
     var container = new UI.Panel();
     container.setId('viewport');
     container.setPosition('absolute');
@@ -21,6 +19,7 @@ function Viewport(app) {
     container.add(new ViewportInfo(editor));
 
     //
+    var _this = this;
 
     var renderer = null;
 
@@ -68,8 +67,7 @@ function Viewport(app) {
 
             }
 
-            signals.refreshSidebarObject3D.dispatch(object);
-
+            _this.app.call('refreshSidebarObject3D', _this, object);
         }
 
         render();
@@ -272,8 +270,6 @@ function Viewport(app) {
         _this.app.call('cameraChanged', _this, camera);
     });
 
-    // signals
-
     this.app.on('editorCleared.Viewport', function () {
         controls.center.set(0, 0, 0);
         render();
@@ -282,8 +278,6 @@ function Viewport(app) {
     this.app.on('enterVR.Viewport', function () {
         vrEffect.isPresenting ? vrEffect.exitPresent() : vrEffect.requestPresent();
     });
-
-    var _this = this;
 
     this.app.on('themeChanged.Viewport', function (value) {
         switch (value) {
@@ -430,10 +424,8 @@ function Viewport(app) {
         objects.splice(objects.indexOf(object.getObjectByName('picker')), 1);
     });
 
-    signals.materialChanged.add(function (material) {
-
+    this.app.on('materialChanged.Viewport', function (material) {
         render();
-
     });
 
     // fog
@@ -486,8 +478,7 @@ function Viewport(app) {
 
     //
 
-    signals.windowResize.add(function () {
-
+    this.app.on('windowResize.Viewport', function () {
         // TODO: Move this out?
 
         editor.DEFAULT_CAMERA.aspect = container.dom.offsetWidth / container.dom.offsetHeight;
@@ -499,14 +490,11 @@ function Viewport(app) {
         renderer.setSize(container.dom.offsetWidth, container.dom.offsetHeight);
 
         render();
-
     });
 
-    signals.showGridChanged.add(function (showGrid) {
-
+    this.app.on('showGridChanged.Viewport', function (showGrid) {
         grid.visible = showGrid;
         render();
-
     });
 
     //

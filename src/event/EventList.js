@@ -77,18 +77,18 @@ var EventList = [
     'helperAdded', // 添加帮助事件
     'helperRemoved', // 移除帮助事件
 
-    'materialChanged',
+    'materialChanged', // 材质改变事件
 
-    'scriptAdded',
-    'scriptChanged',
-    'scriptRemoved',
+    'scriptAdded', // 添加脚本事件
+    'scriptChanged', // 脚本改变事件
+    'scriptRemoved', // 脚本移除事件
 
-    'windowResize',
+    'windowResize', // 窗口大小改变事件
 
-    'showGridChanged',
-    'refreshSidebarObject3D',
-    'historyChanged',
-    'refreshScriptEditor'
+    'showGridChanged', // 网格显示隐藏改变
+    'refreshSidebarObject3D', // 刷新Object3D侧边栏事件（没人调用）
+    'historyChanged', // 历史改变事件
+    'refreshScriptEditor', // 刷新脚本编辑器事件
 ];
 
 export default EventList;

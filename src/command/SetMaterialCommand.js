@@ -31,17 +31,13 @@ Object.assign(SetMaterialCommand.prototype, {
 	constructor: SetMaterialCommand,
 
 	execute: function () {
-
 		this.object.material = this.newMaterial;
-		this.editor.signals.materialChanged.dispatch(this.newMaterial);
-
+		this.editor.app.call('materialChanged', this, this.newMaterial);
 	},
 
 	undo: function () {
-
 		this.object.material = this.oldMaterial;
-		this.editor.signals.materialChanged.dispatch(this.oldMaterial);
-
+		this.editor.app.call('materialChanged', this, this.oldMaterial);
 	},
 
 	toJSON: function () {

@@ -7,9 +7,6 @@ import UI from '../../ui/UI';
 
 function GeometryGeometryPanel(editor) {
     this.app = editor.app;
-
-    var signals = editor.signals;
-
     var container = new UI.Row();
 
     // vertices

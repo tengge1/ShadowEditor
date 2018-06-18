@@ -36,14 +36,14 @@ Object.assign(SetMaterialColorCommand.prototype, {
 	execute: function () {
 
 		this.object.material[this.attributeName].setHex(this.newValue);
-		this.editor.signals.materialChanged.dispatch(this.object.material);
+		this.editor.app.call('materialChanged', this, this.object.material);
 
 	},
 
 	undo: function () {
 
 		this.object.material[this.attributeName].setHex(this.oldValue);
-		this.editor.signals.materialChanged.dispatch(this.object.material);
+		this.editor.app.call('materialChanged', this, this.object.material);
 
 	},
 

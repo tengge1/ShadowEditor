@@ -8,8 +8,6 @@ function Toolbar(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var signals = editor.signals;
-
     var container = new UI.Panel();
     container.setId('toolbar');
 
@@ -74,7 +72,7 @@ function Toolbar(app) {
     function update() {
         _this.app.call('snapChanged', _this, snap.getValue() === true ? grid.getValue() : null);
         _this.app.call('spaceChanged', _this, local.getValue() === true ? "local" : "world");
-        signals.showGridChanged.dispatch(showGrid.getValue());
+        _this.app.call('showGridChanged', _this, showGrid.getValue());
     }
 
     return container;

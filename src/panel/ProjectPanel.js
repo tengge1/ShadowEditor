@@ -9,7 +9,6 @@ function ProjectPanel(editor) {
     this.app = editor.app;
 
     var config = editor.config;
-    var signals = editor.signals;
 
     var rendererTypes = {
 

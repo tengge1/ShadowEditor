@@ -10,8 +10,6 @@ import UI from '../ui/UI';
 function ScriptPanel(editor) {
     this.app = editor.app;
 
-    var signals = editor.signals;
-
     var container = new UI.Panel();
     container.setDisplay('none');
 
@@ -104,8 +102,6 @@ function ScriptPanel(editor) {
 
     }
 
-    // signals
-
     this.app.on('objectSelected.ScriptPanel', function (object) {
 
         if (object !== null) {
@@ -122,12 +118,19 @@ function ScriptPanel(editor) {
 
     });
 
-    signals.scriptAdded.add(update);
-    signals.scriptRemoved.add(update);
-    signals.scriptChanged.add(update);
+    this.app.on('scriptAdded.ScriptPanel', function () {
+        update();
+    });
+
+    this.app.on('scriptRemoved.ScriptPanel', function () {
+        update();
+    });
+
+    this.app.on('scriptChanged.ScriptPanel', function () {
+        update();
+    });
 
     return container;
-
 };
 
 export default ScriptPanel;

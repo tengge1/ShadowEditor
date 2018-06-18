@@ -45,85 +45,9 @@ const GeometryPanels = {
 
 function GeometryPanel(editor) {
     this.app = editor.app;
-
-    var signals = editor.signals;
-
     var container = new UI.Panel();
     container.setBorderTop('0');
     container.setPaddingTop('20px');
-
-    // Actions
-
-    /*
-	var objectActions = new UI.Select().setPosition( 'absolute' ).setRight( '8px' ).setFontSize( '11px' );
-	objectActions.setOptions( {
-
-		'Actions': 'Actions',
-		'Center': 'Center',
-		'Convert': 'Convert',
-		'Flatten': 'Flatten'
-
-	} );
-	objectActions.onClick( function ( event ) {
-
-		event.stopPropagation(); // Avoid panel collapsing
-
-	} );
-	objectActions.onChange( function ( event ) {
-
-		var action = this.getValue();
-
-		var object = editor.selected;
-		var geometry = object.geometry;
-
-		if ( confirm( action + ' ' + object.name + '?' ) === false ) return;
-
-		switch ( action ) {
-
-			case 'Center':
-
-				var offset = geometry.center();
-
-				var newPosition = object.position.clone();
-				newPosition.sub( offset );
-				editor.execute( new SetPositionCommand( object, newPosition ) );
-
-				editor.signals.geometryChanged.dispatch( object );
-
-				break;
-
-			case 'Convert':
-
-				if ( geometry instanceof THREE.Geometry ) {
-
-					editor.execute( new SetGeometryCommand( object, new THREE.BufferGeometry().fromGeometry( geometry ) ) );
-
-				}
-
-				break;
-
-			case 'Flatten':
-
-				var newGeometry = geometry.clone();
-				newGeometry.uuid = geometry.uuid;
-				newGeometry.applyMatrix( object.matrix );
-
-				var cmds = [ new SetGeometryCommand( object, newGeometry ),
-					new SetPositionCommand( object, new THREE.Vector3( 0, 0, 0 ) ),
-					new SetRotationCommand( object, new THREE.Euler( 0, 0, 0 ) ),
-					new SetScaleCommand( object, new THREE.Vector3( 1, 1, 1 ) ) ];
-
-				editor.execute( new MultiCmdsCommand( cmds ), 'Flatten Geometry' );
-
-				break;
-
-		}
-
-		this.setValue( 'Actions' );
-
-	} );
-	container.addStatic( objectActions );
-	*/
 
     // type
 

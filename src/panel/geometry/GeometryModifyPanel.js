@@ -7,9 +7,6 @@ import UI from '../../ui/UI';
 
 function GeometryModifyPanel(editor, object) {
     this.app = editor.app;
-
-    var signals = editor.signals;
-
     var container = new UI.Row().setPaddingLeft('90px');
 
     var geometry = object.geometry;

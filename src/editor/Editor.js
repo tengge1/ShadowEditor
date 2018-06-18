@@ -1,5 +1,4 @@
 ﻿import Config from '../core/Config';
-import Signal from '../core/Signal';
 import History from '../core/History';
 import Storage from '../core/Storage';
 import Loader from '../core/Loader';
@@ -16,7 +15,6 @@ function Editor(app) {
     this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
 
     this.config = new Config('threejs-editor');
-    this.signals = new Signal();
     this.history = new History(this);
     this.storage = new Storage();
     this.loader = new Loader(this);

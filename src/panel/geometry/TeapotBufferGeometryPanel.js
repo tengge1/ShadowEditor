@@ -7,9 +7,6 @@ import UI from '../../ui/UI';
 
 function TeapotBufferGeometryPanel(editor, object) {
     this.app = editor.app;
-
-    var signals = editor.signals;
-
     var container = new UI.Row();
 
     var parameters = object.geometry.parameters;

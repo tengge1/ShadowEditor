@@ -6,9 +6,6 @@ import UI from '../../ui/UI';
  */
 
 function BoxGeometryPanel(editor, object) {
-
-    var signals = editor.signals;
-
     var container = new UI.Row();
 
     var geometry = object.geometry;

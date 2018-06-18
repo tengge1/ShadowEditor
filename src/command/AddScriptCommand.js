@@ -30,17 +30,12 @@ Object.assign(AddScriptCommand.prototype, {
 	constructor: AddScriptCommand,
 
 	execute: function () {
-
 		if (this.editor.scripts[this.object.uuid] === undefined) {
-
 			this.editor.scripts[this.object.uuid] = [];
-
 		}
 
 		this.editor.scripts[this.object.uuid].push(this.script);
-
-		this.editor.signals.scriptAdded.dispatch(this.script);
-
+		this.editor.app.call('scriptAdded', this, this.script);
 	},
 
 	undo: function () {
@@ -55,8 +50,7 @@ Object.assign(AddScriptCommand.prototype, {
 
 		}
 
-		this.editor.signals.scriptRemoved.dispatch(this.script);
-
+		this.editor.app.call('scriptRemoved', this, this.script);
 	},
 
 	toJSON: function () {

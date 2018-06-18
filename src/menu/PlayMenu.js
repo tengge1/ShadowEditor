@@ -8,8 +8,6 @@ function PlayMenu(editor) {
 
     this.app = editor.app;
 
-    var signals = editor.signals;
-
     var container = new UI.Panel();
     container.setClass('menu');
 

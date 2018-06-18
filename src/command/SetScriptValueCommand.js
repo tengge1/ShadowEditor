@@ -44,8 +44,8 @@ Object.assign(SetScriptValueCommand.prototype, {
 
 		this.script[this.attributeName] = this.newValue;
 
-		this.editor.signals.scriptChanged.dispatch();
-		this.editor.signals.refreshScriptEditor.dispatch(this.object, this.script, this.cursorPosition, this.scrollInfo);
+		this.editor.app.call('scriptChanged', this);
+		this.editor.app.call('refreshScriptEditor', this, this.object, this.script, this.cursorPosition, this.scrollInfo);
 
 	},
 
@@ -53,8 +53,8 @@ Object.assign(SetScriptValueCommand.prototype, {
 
 		this.script[this.attributeName] = this.oldValue;
 
-		this.editor.signals.scriptChanged.dispatch();
-		this.editor.signals.refreshScriptEditor.dispatch(this.object, this.script, this.cursorPosition, this.scrollInfo);
+		this.editor.app.call('scriptChanged', this);
+		this.editor.app.call('refreshScriptEditor', this, this.object, this.script, this.cursorPosition, this.scrollInfo);
 
 	},
 

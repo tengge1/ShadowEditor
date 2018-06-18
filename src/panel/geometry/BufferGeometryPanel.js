@@ -7,9 +7,6 @@ import UI from '../../ui/UI';
 
 function BufferGeometryPanel(editor) {
     this.app = editor.app;
-
-    var signals = editor.signals;
-
     var container = new UI.Row();
 
     function update(object) {

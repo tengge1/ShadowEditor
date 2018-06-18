@@ -63,7 +63,7 @@ function EditMenu(editor) {
     options.add(option);
 
 
-    editor.signals.historyChanged.add(function () {
+    editor.app.on('historyChanged.EditMenu', function () {
 
         var history = editor.history;
 

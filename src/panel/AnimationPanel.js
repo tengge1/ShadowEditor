@@ -5,9 +5,6 @@
  */
 
 function AnimationPanel(editor) {
-
-	var signals = editor.signals;
-
 	var options = {};
 	var possibleAnimations = {};
 

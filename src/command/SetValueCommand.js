@@ -34,19 +34,13 @@ Object.assign(SetValueCommand.prototype, {
 	constructor: SetValueCommand,
 
 	execute: function () {
-
 		this.object[this.attributeName] = this.newValue;
 		this.editor.app.call('objectChanged', this, this.object);
-		// this.editor.signals.sceneGraphChanged.dispatch();
-
 	},
 
 	undo: function () {
-
 		this.object[this.attributeName] = this.oldValue;
 		this.editor.app.call('objectChanged', this, this.object);
-		// this.editor.signals.sceneGraphChanged.dispatch();
-
 	},
 
 	update: function (cmd) {

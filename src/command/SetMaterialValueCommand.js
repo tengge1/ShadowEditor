@@ -34,21 +34,17 @@ Object.assign(SetMaterialValueCommand.prototype, {
 	constructor: SetMaterialValueCommand,
 
 	execute: function () {
-
 		this.object.material[this.attributeName] = this.newValue;
 		this.object.material.needsUpdate = true;
 		this.editor.app.call('objectChanged', this, this.object);
-		this.editor.signals.materialChanged.dispatch(this.object.material);
-
+		this.editor.app.call('materialChanged', this, this.object.material);
 	},
 
 	undo: function () {
-
 		this.object.material[this.attributeName] = this.oldValue;
 		this.object.material.needsUpdate = true;
 		this.editor.app.call('objectChanged', this, this.object);
-		this.editor.signals.materialChanged.dispatch(this.object.material);
-
+		this.editor.app.call('materialChanged', this, this.object.material);
 	},
 
 	update: function (cmd) {

@@ -21,8 +21,6 @@ function History(editor) {
 
     Command.call(this, editor);
 
-    // signals
-
     var scope = this;
 
     this.app.on('startPlayer.History', function () {
@@ -87,7 +85,7 @@ Object.assign(History.prototype, {
         // clearing all the redo-commands
 
         this.redos = [];
-        this.editor.signals.historyChanged.dispatch(cmd);
+        this.app.call('historyChanged', this, cmd);
 
     },
 
@@ -118,7 +116,7 @@ Object.assign(History.prototype, {
 
             cmd.undo();
             this.redos.push(cmd);
-            this.editor.signals.historyChanged.dispatch(cmd);
+            this.app.call('historyChanged', this, cmd);
 
         }
 
@@ -153,7 +151,7 @@ Object.assign(History.prototype, {
 
             cmd.execute();
             this.undos.push(cmd);
-            this.editor.signals.historyChanged.dispatch(cmd);
+            this.app.call('historyChanged', this, cmd);
 
         }
 
@@ -230,7 +228,7 @@ Object.assign(History.prototype, {
         }
 
         // Select the last executed undo-command
-        this.editor.signals.historyChanged.dispatch(this.undos[this.undos.length - 1]);
+        this.app.call('historyChanged', this, this.undos[this.undos.length - 1]);
 
     },
 
@@ -240,7 +238,7 @@ Object.assign(History.prototype, {
         this.redos = [];
         this.idCounter = 0;
 
-        this.editor.signals.historyChanged.dispatch();
+        this.app.call('historyChanged', this);
 
     },
 
@@ -252,9 +250,6 @@ Object.assign(History.prototype, {
             return;
 
         }
-
-        // this.editor.signals.sceneGraphChanged.active = false;
-        this.editor.signals.historyChanged.active = false;
 
         var cmd = this.undos.length > 0 ? this.undos[this.undos.length - 1] : undefined;	// next cmd to pop
 
@@ -281,11 +276,8 @@ Object.assign(History.prototype, {
 
         }
 
-        // this.editor.signals.sceneGraphChanged.active = true;
-        this.editor.signals.historyChanged.active = true;
-
         this.editor.app.call('sceneGraphChanged', this);
-        this.editor.signals.historyChanged.dispatch(cmd);
+        this.editor.app.call('historyChanged', this, cmd);
 
     },
 
@@ -300,9 +292,6 @@ Object.assign(History.prototype, {
 
         this.goToState(-1);
 
-        // this.editor.signals.sceneGraphChanged.active = false;
-        this.editor.signals.historyChanged.active = false;
-
         var cmd = this.redo();
         while (cmd !== undefined) {
 
@@ -315,13 +304,8 @@ Object.assign(History.prototype, {
 
         }
 
-        // this.editor.signals.sceneGraphChanged.active = true;
-        this.editor.signals.historyChanged.active = true;
-
         this.goToState(id);
-
     }
-
 });
 
 export default History;

@@ -6,9 +6,6 @@ import UI from '../../ui/UI';
  */
 
 function TorusGeometryPanel(editor, object) {
-
-    var signals = editor.signals;
-
     var container = new UI.Row();
 
     var geometry = object.geometry;

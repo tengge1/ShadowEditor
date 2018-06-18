@@ -6,11 +6,7 @@
  */
 
 function HistoryPanel(editor) {
-
     this.app = editor.app;
-
-    var signals = editor.signals;
-
     var config = editor.config;
 
     var history = editor.history;
@@ -20,6 +16,8 @@ function HistoryPanel(editor) {
     container.add(new UI.Text('历史记录'));
 
     //
+
+    var _this = this;
 
     var persistent = new UI.Boolean(config.getKey('settings/history'), '永久');
     persistent.setPosition('absolute').setRight('8px');
@@ -39,7 +37,7 @@ function HistoryPanel(editor) {
 
         } else {
 
-            signals.historyChanged.dispatch();
+            _this.app.call('historyChanged');
 
         }
 
@@ -117,20 +115,19 @@ function HistoryPanel(editor) {
     refreshUI();
 
     // events
-    this.app.on('editorCleared', function () {
+    this.app.on('editorCleared.HistoryPanel', function () {
         refreshUI();
     });
 
-    signals.historyChanged.add(refreshUI);
-    signals.historyChanged.add(function (cmd) {
-
-        outliner.setValue(cmd !== undefined ? cmd.id : null);
-
+    this.app.on('historyChanged.HistoryPanel', function () {
+        refreshUI();
     });
 
+    this.app.on('historyChanged.HistoryPanel', function (cmd) {
+        outliner.setValue(cmd !== undefined ? cmd.id : null);
+    });
 
     return container;
-
 };
 
 export default HistoryPanel;

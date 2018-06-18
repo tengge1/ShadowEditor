@@ -5,9 +5,7 @@
  */
 
 function SettingPanel(editor) {
-
     var config = editor.config;
-    var signals = editor.signals;
 
     var container = new UI.Panel();
     container.setBorderTop('0');

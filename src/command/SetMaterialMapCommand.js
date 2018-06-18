@@ -35,7 +35,7 @@ Object.assign(SetMaterialMapCommand.prototype, {
 
 		this.object.material[this.mapName] = this.newMap;
 		this.object.material.needsUpdate = true;
-		this.editor.signals.materialChanged.dispatch(this.object.material);
+		this.editor.app.call('materialChanged', this, this.object.material);
 
 	},
 
@@ -43,7 +43,7 @@ Object.assign(SetMaterialMapCommand.prototype, {
 
 		this.object.material[this.mapName] = this.oldMap;
 		this.object.material.needsUpdate = true;
-		this.editor.signals.materialChanged.dispatch(this.object.material);
+		this.editor.app.call('materialChanged', this, this.object.material);
 
 	},
 

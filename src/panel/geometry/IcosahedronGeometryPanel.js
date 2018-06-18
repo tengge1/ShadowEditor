@@ -7,9 +7,6 @@ import UI from '../../ui/UI';
 
 function IcosahedronGeometryPanel(editor, object) {
     this.app = editor.app;
-
-    var signals = editor.signals;
-
     var container = new UI.Row();
 
     var geometry = object.geometry;

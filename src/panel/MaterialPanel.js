@@ -11,8 +11,6 @@ import UI from '../ui/UI';
 function MaterialPanel(editor) {
 
     this.app = editor.app;
-
-    var signals = editor.signals;
     var currentObject;
 
     var container = new UI.Panel();
@@ -1283,32 +1281,23 @@ function MaterialPanel(editor) {
     // events
 
     this.app.on('objectSelected.MaterialPanel', function (object) {
-
         if (object && object.material) {
-
             var objectChanged = object !== currentObject;
 
             currentObject = object;
             refreshUI(objectChanged);
             container.setDisplay('');
-
         } else {
-
             currentObject = null;
             container.setDisplay('none');
-
         }
-
     });
 
-    signals.materialChanged.add(function () {
-
+    this.app.on('materialChanged.MaterialPanel', function () {
         refreshUI();
-
     });
 
     return container;
-
 };
 
 export default MaterialPanel;

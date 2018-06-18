@@ -14,8 +14,6 @@ AutoSaveEvent.prototype = Object.create(BaseEvent.prototype);
 AutoSaveEvent.prototype.constructor = AutoSaveEvent;
 
 AutoSaveEvent.prototype.start = function () {
-    var signals = this.app.editor.signals;
-
     var _this = this;
     this.app.on('geometryChanged.' + this.id, function () {
         _this.SaveState();
@@ -29,7 +27,7 @@ AutoSaveEvent.prototype.start = function () {
     this.app.on('objectRemoved.' + this.id, function () {
         _this.SaveState();
     });
-    signals.materialChanged.add(function () {
+    this.app.on('materialChanged.' + this.id, function () {
         _this.SaveState();
     });
     this.app.on('sceneBackgroundChanged.' + this.id, function () {
@@ -41,10 +39,10 @@ AutoSaveEvent.prototype.start = function () {
     this.app.on('sceneGraphChanged.' + this.id, function () {
         _this.SaveState();
     });
-    signals.scriptChanged.add(function () {
+    this.app.on('scriptChanged.' + this.id, function () {
         _this.SaveState();
     });
-    signals.historyChanged.add(function () {
+    this.app.on('historyChanged.' + this.id, function () {
         _this.SaveState();
     });
 };

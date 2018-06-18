@@ -33,7 +33,7 @@ AddScriptEvent.prototype.onAddScript = function (object, script) {
 
     editor.scripts[object.uuid].push(script);
 
-    editor.signals.scriptAdded.dispatch(script);
+    editor.app.call('scriptAdded', this, script);
 };
 
 export default AddScriptEvent;

@@ -28,31 +28,20 @@ Object.assign(MultiCmdsCommand.prototype, {
 	constructor: MultiCmdsCommand,
 
 	execute: function () {
-
-		// this.editor.signals.sceneGraphChanged.active = false;
-
 		for (var i = 0; i < this.cmdArray.length; i++) {
 
 			this.cmdArray[i].execute();
 
 		}
-
-		// this.editor.signals.sceneGraphChanged.active = true;
 		this.editor.app.call('sceneGraphChanged', this);
-
 	},
 
 	undo: function () {
-
-		// this.editor.signals.sceneGraphChanged.active = false;
-
 		for (var i = this.cmdArray.length - 1; i >= 0; i--) {
 
 			this.cmdArray[i].undo();
 
 		}
-
-		// this.editor.signals.sceneGraphChanged.active = true;
 		this.editor.app.call('sceneGraphChanged', this);
 	},
 
