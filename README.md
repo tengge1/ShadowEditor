@@ -3,7 +3,7 @@
 * 名称：Shadow Editor
 * 版本：v0.0.2
 * 说明：Three.js自带编辑器的二次开发。
-* 示例：https://tengge1.github.io/ShadowEditor/demo.html
+* 示例：https://tengge1.github.io/ShadowEditor/demo/index.html
 * 文档：https://tengge1.github.io/ShadowEditor/docs/release/index.html
 
 ## 主要功能
