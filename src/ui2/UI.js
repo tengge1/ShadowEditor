@@ -15,6 +15,9 @@ import Break from './Break';
 import HorizontalRule from './HorizontalRule';
 import Button from './Button';
 import Modal from './Modal';
+import Texture from './Texture';
+import Outliner from './Outliner';
+import Boolean from './Boolean';
 
 /**
  * 所有UI控件封装
@@ -40,6 +43,9 @@ const UI = {
     Modal: Modal,
 
     // ui.three.js
+    Texture: Texture,
+    Outliner: Outliner,
+    Boolean: Boolean
 };
 
 export default UI;

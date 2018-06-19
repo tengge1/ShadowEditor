@@ -1,1 +1,1 @@
-export { default as UI } from './UI';
+export { default as UI2 } from './UI';
