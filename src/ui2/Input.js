@@ -6,6 +6,8 @@ import Control from './Control';
  */
 function Input(options) {
     Control.call(this, options);
+    options = options || {};
+    this.value = options.value || '';
 };
 
 Input.prototype = Object.create(Control.prototype);
@@ -22,6 +24,17 @@ Input.prototype.render = function () {
     }, false);
 
     this.parent.appendChild(this.dom);
+
+    this.setValue(this.value);
+};
+
+Input.prototype.getValue = function () {
+    return this.dom.value;
+};
+
+Input.prototype.setValue = function (value) {
+    this.dom.value = value;
+    return this;
 };
 
 export default Input;

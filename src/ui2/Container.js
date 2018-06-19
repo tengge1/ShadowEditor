@@ -13,8 +13,8 @@ Container.prototype = Object.create(Control.prototype);
 Container.prototype.constructor = Container;
 
 Container.prototype.add = function (obj) {
-    if (!obj instanceof Control) {
-        throw 'Container: obj is not an instanceof Control.';
+    if (!(obj instanceof Control)) {
+        throw 'Container: obj is not an instance of Control.';
     }
     this.children.push(obj);
 };
@@ -29,7 +29,7 @@ Container.prototype.remove = function (obj) {
 Container.prototype.render = function () {
     var _this = this;
     this.children.forEach(function (n) {
-        if (!n instanceof Control) {
+        if (!(n instanceof Control)) {
             throw 'Container: n is not an instance of Control.';
         }
         n.parent = _this.parent;
