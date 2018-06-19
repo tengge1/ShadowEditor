@@ -58,10 +58,13 @@ function Application(container, options) {
 Application.prototype.start = function () {
     this.call('appStart', this);
 
+    // 调用所有事件的start方法
     this.event.start();
 
     this.call('resize', this);
+
     this.call('initApp', this);
+
     this.call('appStarted');
 };
 

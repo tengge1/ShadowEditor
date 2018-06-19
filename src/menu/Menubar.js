@@ -8,11 +8,11 @@ import HelpMenu from './HelpMenu';
 import StatusMenu from './StatusMenu';
 import ViewMenu from './ViewMenu';
 import UI from '../ui/UI';
+import UI2 from '../ui2/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/
  */
-
 function Menubar(app) {
     this.app = app;
     var editor = this.app.editor;
@@ -32,7 +32,6 @@ function Menubar(app) {
     container.add(new StatusMenu(editor));
 
     return container;
-
 };
 
 export default Menubar;
