@@ -1,12 +1,11 @@
 import Control from './Control';
 
 /**
- * Integer
+ * 数字
  * @param {*} options 
  */
-function Integer(options) {
+function Number(options) {
     Control.call(this, options);
-
     options = options || {};
 
     this.value = options.value || 0;
@@ -14,19 +13,27 @@ function Integer(options) {
     this.min = - Infinity;
     this.max = Infinity;
 
+    this.precision = 2;
     this.step = 1;
+    this.unit = '';
 };
 
-Integer.prototype = Object.create(Control.prototype);
-Integer.prototype.constructor = Integer;
+Number.prototype = Object.create(Control.prototype);
+Number.prototype.constructor = Number;
 
-Integer.prototype.render = function () {
+Number.prototype.render = function () {
     this.dom = document.createElement('input');
     this.dom.className = 'Number';
-    this.dom.value = '0';
+    this.dom.value = '0.00';
+
+    var _this = this;
 
     this.dom.addEventListener('keydown', function (event) {
         event.stopPropagation();
+
+        if (event.keyCode === 13) {
+            _this.dom.blur();
+        }
     }, false);
 
     this.setValue(this.value);
@@ -40,26 +47,21 @@ Integer.prototype.render = function () {
     var pointer = [0, 0];
     var prevPointer = [0, 0];
 
-    var _this = this;
-
     function onMouseDown(event) {
         event.preventDefault();
-
         distance = 0;
-        onMouseDownValue = scope.value;
+        onMouseDownValue = _this.value;
         prevPointer = [event.clientX, event.clientY];
-
         document.addEventListener('mousemove', onMouseMove, false);
         document.addEventListener('mouseup', onMouseUp, false);
     }
 
     function onMouseMove(event) {
-        var currentValue = scope.value;
+        var currentValue = _this.value;
         pointer = [event.clientX, event.clientY];
         distance += (pointer[0] - prevPointer[0]) - (pointer[1] - prevPointer[1]);
-
         var value = onMouseDownValue + (distance / (event.shiftKey ? 5 : 50)) * _this.step;
-        value = Math.min(scope.max, Math.max(scope.min, value)) | 0;
+        value = Math.min(_this.max, Math.max(_this.min, value));
 
         if (currentValue !== value) {
             _this.setValue(value);
@@ -80,7 +82,7 @@ Integer.prototype.render = function () {
     }
 
     function onChange(event) {
-        _this.setValue(dom.value);
+        _this.setValue(_this.dom.value);
     }
 
     function onFocus(event) {
@@ -95,39 +97,56 @@ Integer.prototype.render = function () {
 
     onBlur();
 
-    dom.addEventListener('mousedown', onMouseDown, false);
-    dom.addEventListener('change', onChange, false);
-    dom.addEventListener('focus', onFocus, false);
-    dom.addEventListener('blur', onBlur, false);
+    this.dom.addEventListener('mousedown', onMouseDown, false);
+    this.dom.addEventListener('change', onChange, false);
+    this.dom.addEventListener('focus', onFocus, false);
+    this.dom.addEventListener('blur', onBlur, false);
 
     this.parent.appendChild(this.dom);
 };
 
-Integer.prototype.getValue = function () {
+Number.prototype.getValue = function () {
     return this.value;
 };
 
-Integer.prototype.setValue = function (value) {
+Number.prototype.setValue = function (value) {
     if (value !== undefined) {
-        value = parseInt(value);
+        value = parseFloat(value);
+
+        if (value < this.min) value = this.min;
+        if (value > this.max) value = this.max;
 
         this.value = value;
-        this.dom.value = value;
+        this.dom.value = value.toFixed(this.precision);
+
+        if (this.unit !== '') this.dom.value += ' ' + this.unit;
     }
 
     return this;
+
 };
 
-Integer.prototype.setStep = function (step) {
-    this.step = parseInt(step);
+Number.prototype.setPrecision = function (precision) {
+    this.precision = precision;
     return this;
 };
 
-Integer.prototype.setRange = function (min, max) {
+Number.prototype.setStep = function (step) {
+    this.step = step;
+    return this;
+};
+
+Number.prototype.setRange = function (min, max) {
     this.min = min;
     this.max = max;
 
     return this;
 };
 
-export default Integer;
+Number.prototype.setUnit = function (unit) {
+    this.unit = unit;
+
+    return this;
+};
+
+export default Number;

@@ -1,15 +1,14 @@
 import Control from './Control';
-import Container from './Container';
 
 /**
  * 换行符
  * @param {*} options 
  */
 function Break(options) {
-    Container.call(this, options);
+    Control.call(this, options);
 };
 
-Break.prototype = Object.create(Container.prototype);
+Break.prototype = Object.create(Control.prototype);
 Break.prototype.constructor = Break;
 
 Break.prototype.render = function () {

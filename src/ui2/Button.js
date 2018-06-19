@@ -16,8 +16,13 @@ Button.prototype.constructor = Button;
 Button.prototype.render = function () {
     this.dom = document.createElement('button');
     this.dom.className = 'Button';
-    this.dom.innerHTML = this.text;
+    this.dom.textContent = this.text;
     this.parent.appendChild(this.dom);
+};
+
+Button.prototype.setLabel = function (value) {
+    this.dom.textContent = value;
+    return this;
 };
 
 export default Button;
