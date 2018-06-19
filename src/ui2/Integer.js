@@ -1,21 +1,25 @@
-import Element from './Element';
+import Control from './Control';
 
-// Integer
+/**
+ * Div
+ * @param {*} options 
+ */
+function Div(options) {
+    Control.call(this, options);
+};
 
-function Integer(number) {
+Div.prototype = Object.create(Control.prototype);
+Div.prototype.constructor = Div;
 
-    Element.call(this);
+Div.prototype.render = function () {
+    var _this = this;
 
-    var scope = this;
+    this.dom = document.createElement('input');
+    this.dom.className = 'Number';
+    this.dom.value = '0';
 
-    var dom = document.createElement('input');
-    dom.className = 'Number';
-    dom.value = '0';
-
-    dom.addEventListener('keydown', function (event) {
-
+    this.dom.addEventListener('keydown', function (event) {
         event.stopPropagation();
-
     }, false);
 
     this.value = 0;
@@ -24,8 +28,6 @@ function Integer(number) {
     this.max = Infinity;
 
     this.step = 1;
-
-    this.dom = dom;
 
     this.setValue(number);
 
@@ -92,7 +94,7 @@ function Integer(number) {
     function onChange(event) {
 
         scope.setValue(dom.value);
- 
+
     }
 
     function onFocus(event) {
@@ -115,50 +117,8 @@ function Integer(number) {
     dom.addEventListener('change', onChange, false);
     dom.addEventListener('focus', onFocus, false);
     dom.addEventListener('blur', onBlur, false);
-
-    return this;
-
+    
+    this.parent.appendChild(this.dom);
 };
 
-Integer.prototype = Object.create(Element.prototype);
-Integer.prototype.constructor = Integer;
-
-Integer.prototype.getValue = function () {
-
-    return this.value;
-
-};
-
-Integer.prototype.setValue = function (value) {
-
-    if (value !== undefined) {
-
-        value = parseInt(value);
-
-        this.value = value;
-        this.dom.value = value;
-
-    }
-
-    return this;
-
-};
-
-Integer.prototype.setStep = function (step) {
-
-    this.step = parseInt(step);
-
-    return this;
-
-};
-
-Integer.prototype.setRange = function (min, max) {
-
-    this.min = min;
-    this.max = max;
-
-    return this;
-
-};
-
-export default Integer;
+export default Div;
