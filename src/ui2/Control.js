@@ -6,7 +6,7 @@ var ID = -1;
  */
 function Control(options) {
     options = options || {};
-    this.container = options.container || document.body;
+    this.parent = options.parent || document.body;
     this.id = options.id || 'Control' + ID--;
 }
 
