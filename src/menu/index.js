@@ -2,7 +2,6 @@ export { default as AddMenu } from './AddMenu';
 export { default as AssetMenu } from './AssetMenu';
 export { default as EditMenu } from './EditMenu';
 export { default as ExampleMenu } from './ExampleMenu';
-export { default as FileMenu } from './FileMenu';
 export { default as HelpMenu } from './HelpMenu';
 export { default as PlayMenu } from './PlayMenu';
 export { default as StatusMenu } from './StatusMenu';

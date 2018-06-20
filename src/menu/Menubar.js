@@ -1,5 +1,4 @@
-﻿import FileMenu from './FileMenu';
-import EditMenu from './EditMenu';
+﻿import EditMenu from './EditMenu';
 import AddMenu from './AddMenu';
 import AssetMenu from './AssetMenu';
 import PlayMenu from './PlayMenu';
