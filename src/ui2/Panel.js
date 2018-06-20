@@ -10,6 +10,7 @@ function Panel(options) {
     this.cls = options.cls || 'Panel';
     this.id = options.id || null;
     this.html = options.html || null;
+    this.onClick = options.onClick || null;
 };
 
 Panel.prototype = Object.create(Container.prototype);
@@ -18,6 +19,10 @@ Panel.prototype.constructor = Panel;
 Panel.prototype.render = function () {
     this.dom = document.createElement('div');
     this.dom.className = this.cls;
+
+    if (this.onClick) {
+        this.dom.onclick = this.onClick.bind(this);
+    }
 
     if (this.id) {
         this.dom.id = this.id;

@@ -94,6 +94,57 @@ var EventList = [
     'refreshSidebarObject3D', // 刷新Object3D侧边栏事件
     'historyChanged', // 历史改变事件
     'refreshScriptEditor', // 刷新脚本编辑器事件
+
+    // menubar事件
+    'mNewScene', // 新建
+    'mLoadScene', // 载入
+    'mSaveScene', // 保存
+    'mPublishScene', // 发布
+
+    'mUndo', // 撤销
+    'mRedo', // 重做
+    'mClearHistory', // 清空历史记录
+    'mClone', // 复制
+    'mDelete', // 删除
+    'mMinifyShader', // 清除着色器
+
+    'mAddGroup', // 添加组
+    'mAddPlane', // 添加平板
+    'mAddBox', // 添加正方体
+    'mAddCircle', // 添加圆
+    'mAddCylinder', // 添加圆柱体
+    'mAddSphere', // 添加球体
+    'mAddIcosahedron', // 添加二十面体
+    'mAddTorus', // 添加轮胎
+    'mAddTorusKnot', // 添加纽结
+    'mAddTeaport', // 添加茶壶
+    'mAddLathe', // 添加花瓶
+    'mAddSprite', // 添加精灵
+    'mAddPointLight', // 添加点光源
+    'mAddSpotLight', // 添加聚光灯
+    'mAddDirectionalLight', // 添加平行光源
+    'mAddHemisphereLight', // 添加半球光
+    'mAddAmbientLight', // 添加环境光
+    'mAddPerspectiveCamera', // 添加透视相机
+
+    'mImportAsset', // 导入资源
+    'mExportGeometry', // 导出几何体
+    'mExportObject', // 导出物体
+    'mExportScene', // 导出场景
+    'mExportOBJ', // 导出obj模型
+    'mExportSTL', // 导出stl模型
+
+    'mPlay', // 启动
+
+    'mVRMode', // VR模式
+
+    'mArkanoid', // 打砖块
+    'mCamera', // 相机
+    'mParticles', // 粒子
+    'mPong', // 乒乓球
+
+    'mSourceCode', // 源码
+    'mAbout', // 关于
 ];
 
 export default EventList;
