@@ -33,6 +33,11 @@ import ClearEvent from './editor/ClearEvent';
 import LoadEvent from './editor/LoadEvent';
 import SaveEvent from './editor/SaveEvent';
 
+import NewSceneEvent from './menu/scene/NewSceneEvent';
+import LoadSceneEvent from './menu/scene/LoadSceneEvent';
+import SaveSceneEvent from './menu/scene/SaveSceneEvent';
+import PublishSceneEvent from './menu/scene/PublishSceneEvent';
+
 /**
  * 事件执行器
  */
@@ -73,6 +78,12 @@ function EventDispatcher(app) {
         new ClearEvent(this.app),
         new LoadEvent(this.app),
         new SaveEvent(this.app),
+
+        // menubar中的事件
+        new NewSceneEvent(this.app),
+        new LoadSceneEvent(this.app),
+        new SaveSceneEvent(this.app),
+        new PublishSceneEvent(this.app),
     ];
 }
 
