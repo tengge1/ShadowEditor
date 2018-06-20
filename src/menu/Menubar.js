@@ -262,7 +262,8 @@ function Menubar(app) {
     }];
 
     this.dom = new UI2.Panel({
-        parent: this.app.container
+        parent: this.app.container,
+        id: 'menubar'
     });
 
     var _this = this;
@@ -271,13 +272,35 @@ function Menubar(app) {
             cls: 'menu'
         });
 
+        // 菜单标题
         var title = new UI2.Panel({
             cls: 'title',
-            html: '添加'
+            html: n.text
         });
-
         menu.add(title);
-        _this.dom.add(title);
+
+        if (n.children) {
+            // 下拉菜单
+            var options = new UI2.Panel({
+                cls: 'options'
+            });
+            menu.add(options);
+
+            n.children.forEach(function (m) {
+                if (m.text === '-') { // 分隔符
+                    var hr = new UI2.HorizontalRule();
+                    options.add(hr);
+                } else { // 其他文字
+                    var option = new UI2.Panel({
+                        cls: 'option',
+                        html: m.text
+                    });
+                    options.add(option);
+                }
+            });
+        }
+
+        _this.dom.add(menu);
     });
 
     this.dom.render();
