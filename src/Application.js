@@ -29,7 +29,7 @@ function Application(container, options) {
 
     // 菜单栏
     this.menubar = new Menubar(this);
-    this.container.appendChild(this.menubar.dom);
+    // this.container.appendChild(this.menubar.dom);
 
     // 编辑区
     this.viewport = new Viewport(this);

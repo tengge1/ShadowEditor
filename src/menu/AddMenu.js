@@ -169,30 +169,6 @@ function AddMenu(editor) {
     });
     options.add(option);
 
-    // Teaport
-
-    var option = new UI.Row();
-    option.setClass('option');
-    option.setTextContent('茶壶');
-    option.onClick(function () {
-
-        var size = 3;
-        var segments = 10;
-        var bottom = true;
-        var lid = true;
-        var body = true;
-        var fitLid = true;
-        var blinn = true;
-
-        var geometry = new THREE.TeapotBufferGeometry(size, segments, bottom, lid, body, fitLid, blinn);
-        var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
-        mesh.name = 'Teaport ' + (++meshCount);
-
-        editor.execute(new AddObjectCommand(mesh));
-
-    });
-    options.add(option);
-
     // Torus
 
     var option = new UI.Row();
@@ -238,32 +214,29 @@ function AddMenu(editor) {
     });
     options.add(option);
 
-    /*// Teapot
+    // Teaport
 
-	var option = new UI.Row();
-	option.setClass( 'option' );
-	option.setTextContent( '茶壶' );
-	option.onClick( function () {
+    var option = new UI.Row();
+    option.setClass('option');
+    option.setTextContent('茶壶');
+    option.onClick(function () {
 
-		var size = 50;
-		var segments = 10;
-		var bottom = true;
-		var lid = true;
-		var body = true;
-		var fitLid = false;
-		var blinnScale = true;
+        var size = 3;
+        var segments = 10;
+        var bottom = true;
+        var lid = true;
+        var body = true;
+        var fitLid = true;
+        var blinn = true;
 
-		var material = new THREE.MeshStandardMaterial();
+        var geometry = new THREE.TeapotBufferGeometry(size, segments, bottom, lid, body, fitLid, blinn);
+        var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+        mesh.name = 'Teaport ' + (++meshCount);
 
-		var geometry = new THREE.TeapotBufferGeometry( size, segments, bottom, lid, body, fitLid, blinnScale );
-		var mesh = new THREE.Mesh( geometry, material );
-		mesh.name = 'Teapot ' + ( ++ meshCount );
+        editor.execute(new AddObjectCommand(mesh));
 
-		editor.addObject( mesh );
-		editor.select( mesh );
-
-	} );
-	options.add( option );*/
+    });
+    options.add(option);
 
     // Lathe
 
