@@ -46,6 +46,15 @@ import DeleteEvent from './menu/edit/DeleteEvent';
 import MinifyShaderEvent from './menu/edit/MinifyShaderEvent';
 
 import AddGroupEvent from './menu/add/AddGroupEvent';
+import AddPlaneEvent from './menu/add/AddPlaneEvent';
+import AddBoxEvent from './menu/add/AddBoxEvent';
+import AddCircleEvent from './menu/add/AddCircleEvent';
+import AddCylinderEvent from './menu/add/AddCylinderEvent';
+import AddSphereEvent from './menu/add/AddSphereEvent';
+import AddIcosahedronEvent from './menu/add/AddIcosahedronEvent';
+import AddTorusEvent from './menu/add/AddTorusEvent';
+import AddTorusKnotEvent from './menu/add/AddTorusKnotEvent';
+import AddTeaportEvent from './menu/add/AddTeaportEvent';
 
 /**
  * 事件执行器
@@ -102,6 +111,15 @@ function EventDispatcher(app) {
         new MinifyShaderEvent(this.app),
 
         new AddGroupEvent(this.app),
+        new AddPlaneEvent(this.app),
+        new AddBoxEvent(this.app),
+        new AddCircleEvent(this.app),
+        new AddCylinderEvent(this.app),
+        new AddSphereEvent(this.app),
+        new AddIcosahedronEvent(this.app),
+        new AddTorusEvent(this.app),
+        new AddTorusKnotEvent(this.app),
+        new AddTeaportEvent(this.app),
     ];
 }
 
