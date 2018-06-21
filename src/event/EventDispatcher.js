@@ -45,6 +45,8 @@ import CloneEvent from './menu/edit/CloneEvent';
 import DeleteEvent from './menu/edit/DeleteEvent';
 import MinifyShaderEvent from './menu/edit/MinifyShaderEvent';
 
+import AddGroupEvent from './menu/add/AddGroupEvent';
+
 /**
  * 事件执行器
  */
@@ -98,6 +100,8 @@ function EventDispatcher(app) {
         new CloneEvent(this.app),
         new DeleteEvent(this.app),
         new MinifyShaderEvent(this.app),
+
+        new AddGroupEvent(this.app),
     ];
 }
 

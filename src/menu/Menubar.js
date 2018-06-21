@@ -1,5 +1,4 @@
-﻿import EditMenu from './EditMenu';
-import AddMenu from './AddMenu';
+﻿import AddMenu from './AddMenu';
 import AssetMenu from './AssetMenu';
 import PlayMenu from './PlayMenu';
 import ExampleMenu from './ExampleMenu';
@@ -9,6 +8,7 @@ import ViewMenu from './ViewMenu';
 import UI2 from '../ui2/UI';
 
 /**
+ * 菜单栏
  * @author mrdoob / http://mrdoob.com/
  */
 function Menubar(app) {
@@ -81,7 +81,7 @@ function Menubar(app) {
             }
         }, {
             id: 'mMinifyShader',
-            text: '删除着色器',
+            text: '压缩着色器程序',
             onClick: function () {
                 app.call('mMinifyShader');
             }
