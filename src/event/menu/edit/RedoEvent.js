@@ -16,16 +16,35 @@ RedoEvent.prototype.start = function () {
     this.app.on('mRedo.' + this.id, function () {
         _this.onRedo();
     });
+    this.app.on('historyChanged.' + this.id, function () {
+        _this.onHistoryChanged();
+    });
 };
 
 RedoEvent.prototype.stop = function () {
     this.app.on('mRedo.' + this.id, null);
+    this.app.on('historyChanged.' + this.id, null);
 };
 
 RedoEvent.prototype.onRedo = function () {
     var editor = this.app.editor;
 
     editor.redo();
+};
+
+RedoEvent.prototype.onHistoryChanged = function () {
+    var history = this.app.editor.history;
+    var dom = document.getElementById('mRedo');
+
+    if (history.redos.length === 0) {
+        if (!dom.classList.contains('inactive')) {
+            dom.classList.add('inactive');
+        }
+    } else {
+        if (dom.classList.contains('inactive')) {
+            dom.classList.remove('inactive');
+        }
+    }
 };
 
 export default RedoEvent;

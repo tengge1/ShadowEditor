@@ -1,6 +1,8 @@
 import Control from './Control';
 import Container from './Container';
 
+var ID = -1;
+
 /**
  * 面板
  * @param {*} options 
@@ -8,7 +10,7 @@ import Container from './Container';
 function Panel(options) {
     Container.call(this, options);
     this.cls = options.cls || 'Panel';
-    this.id = options.id || null;
+    this.id = options.id || 'Panel' + ID--;
     this.html = options.html || null;
     this.onClick = options.onClick || null;
 };
