@@ -38,6 +38,13 @@ import LoadSceneEvent from './menu/scene/LoadSceneEvent';
 import SaveSceneEvent from './menu/scene/SaveSceneEvent';
 import PublishSceneEvent from './menu/scene/PublishSceneEvent';
 
+import UndoEvent from './menu/edit/UndoEvent';
+import RedoEvent from './menu/edit/RedoEvent';
+import ClearHistoryEvent from './menu/edit/ClearHistoryEvent';
+import CloneEvent from './menu/edit/CloneEvent';
+import DeleteEvent from './menu/edit/DeleteEvent';
+import MinifyShaderEvent from './menu/edit/MinifyShaderEvent';
+
 /**
  * 事件执行器
  */
@@ -84,6 +91,13 @@ function EventDispatcher(app) {
         new LoadSceneEvent(this.app),
         new SaveSceneEvent(this.app),
         new PublishSceneEvent(this.app),
+
+        new UndoEvent(this.app),
+        new RedoEvent(this.app),
+        new ClearHistoryEvent(this.app),
+        new CloneEvent(this.app),
+        new DeleteEvent(this.app),
+        new MinifyShaderEvent(this.app),
     ];
 }
 
