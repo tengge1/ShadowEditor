@@ -1,10 +1,4 @@
-﻿import AssetMenu from './AssetMenu';
-import PlayMenu from './PlayMenu';
-import ExampleMenu from './ExampleMenu';
-import HelpMenu from './HelpMenu';
-import StatusMenu from './StatusMenu';
-import ViewMenu from './ViewMenu';
-import UI2 from '../ui2/UI';
+﻿import UI2 from '../ui2/UI';
 
 /**
  * 菜单栏
