@@ -1,5 +1,4 @@
 import MenuEvent from '../MenuEvent';
-import AddObjectCommand from '../../../command/AddObjectCommand';
 
 /**
  * 导入资源事件

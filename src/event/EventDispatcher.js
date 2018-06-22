@@ -65,6 +65,11 @@ import AddAmbientLightEvent from './menu/add/AddAmbientLightEvent';
 import AddPerspectiveCameraEvent from './menu/add/AddPerspectiveCameraEvent';
 
 import ImportAssetEvent from './menu/asset/ImportAssetEvent';
+import ExportGeometryEvent from './menu/asset/ExportGeometryEvent';
+import ExportObjectEvent from './menu/asset/ExportObjectEvent';
+import ExportSceneEvent from './menu/asset/ExportSceneEvent';
+import ExportOBJEvent from './menu/asset/ExportOBJEvent';
+import ExportSTLEvent from './menu/asset/ExportSTLEvent';
 
 /**
  * 事件执行器
@@ -140,6 +145,11 @@ function EventDispatcher(app) {
         new AddPerspectiveCameraEvent(this.app),
 
         new ImportAssetEvent(this.app),
+        new ExportGeometryEvent(this.app),
+        new ExportObjectEvent(this.app),
+        new ExportSceneEvent(this.app),
+        new ExportOBJEvent(this.app),
+        new ExportSTLEvent(this.app),
     ];
 }
 
