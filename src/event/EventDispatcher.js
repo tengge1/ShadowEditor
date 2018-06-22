@@ -75,6 +75,8 @@ import PlayEvent from './menu/play/PlayEvent';
 
 import VRModeEvent from './menu/view/VRModeEvent';
 
+import ExampleEvent from './menu/example/ExampleEvent';
+
 /**
  * 事件执行器
  */
@@ -158,6 +160,8 @@ function EventDispatcher(app) {
         new PlayEvent(this.app),
 
         new VRModeEvent(this.app),
+
+        new ExampleEvent(this.app),
     ];
 }
 
