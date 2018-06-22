@@ -71,6 +71,8 @@ import ExportSceneEvent from './menu/asset/ExportSceneEvent';
 import ExportOBJEvent from './menu/asset/ExportOBJEvent';
 import ExportSTLEvent from './menu/asset/ExportSTLEvent';
 
+import PlayEvent from './menu/play/PlayEvent';
+
 /**
  * 事件执行器
  */
@@ -150,6 +152,8 @@ function EventDispatcher(app) {
         new ExportSceneEvent(this.app),
         new ExportOBJEvent(this.app),
         new ExportSTLEvent(this.app),
+
+        new PlayEvent(this.app),
     ];
 }
 
