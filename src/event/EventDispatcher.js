@@ -73,6 +73,8 @@ import ExportSTLEvent from './menu/asset/ExportSTLEvent';
 
 import PlayEvent from './menu/play/PlayEvent';
 
+import VRModeEvent from './menu/view/VRModeEvent';
+
 /**
  * 事件执行器
  */
@@ -154,6 +156,8 @@ function EventDispatcher(app) {
         new ExportSTLEvent(this.app),
 
         new PlayEvent(this.app),
+
+        new VRModeEvent(this.app),
     ];
 }
 
