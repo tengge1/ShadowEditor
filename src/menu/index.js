@@ -1,4 +1,3 @@
-export { default as AddMenu } from './AddMenu';
 export { default as AssetMenu } from './AssetMenu';
 export { default as ExampleMenu } from './ExampleMenu';
 export { default as HelpMenu } from './HelpMenu';

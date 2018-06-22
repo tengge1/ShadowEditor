@@ -1,5 +1,4 @@
-﻿import AddMenu from './AddMenu';
-import AssetMenu from './AssetMenu';
+﻿import AssetMenu from './AssetMenu';
 import PlayMenu from './PlayMenu';
 import ExampleMenu from './ExampleMenu';
 import HelpMenu from './HelpMenu';
