@@ -55,6 +55,14 @@ import AddIcosahedronEvent from './menu/add/AddIcosahedronEvent';
 import AddTorusEvent from './menu/add/AddTorusEvent';
 import AddTorusKnotEvent from './menu/add/AddTorusKnotEvent';
 import AddTeaportEvent from './menu/add/AddTeaportEvent';
+import AddLatheEvent from './menu/add/AddLatheEvent';
+import AddSpriteEvent from './menu/add/AddSpriteEvent';
+import AddPointLightEvent from './menu/add/AddPointLightEvent';
+import AddSpotLightEvent from './menu/add/AddSpotLightEvent';
+import AddDirectionalLightEvent from './menu/add/AddDirectionalLightEvent';
+import AddHemisphereLightEvent from './menu/add/AddHemisphereLightEvent';
+import AddAmbientLightEvent from './menu/add/AddAmbientLightEvent';
+import AddPerspectiveCameraEvent from './menu/add/AddPerspectiveCameraEvent';
 
 /**
  * 事件执行器
@@ -120,6 +128,14 @@ function EventDispatcher(app) {
         new AddTorusEvent(this.app),
         new AddTorusKnotEvent(this.app),
         new AddTeaportEvent(this.app),
+        new AddLatheEvent(this.app),
+        new AddSpriteEvent(this.app),
+        new AddPointLightEvent(this.app),
+        new AddSpotLightEvent(this.app),
+        new AddDirectionalLightEvent(this.app),
+        new AddHemisphereLightEvent(this.app),
+        new AddAmbientLightEvent(this.app),
+        new AddPerspectiveCameraEvent(this.app),
     ];
 }
 
