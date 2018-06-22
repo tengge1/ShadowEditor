@@ -64,6 +64,8 @@ import AddHemisphereLightEvent from './menu/add/AddHemisphereLightEvent';
 import AddAmbientLightEvent from './menu/add/AddAmbientLightEvent';
 import AddPerspectiveCameraEvent from './menu/add/AddPerspectiveCameraEvent';
 
+import ImportAssetEvent from './menu/asset/ImportAssetEvent';
+
 /**
  * 事件执行器
  */
@@ -136,6 +138,8 @@ function EventDispatcher(app) {
         new AddHemisphereLightEvent(this.app),
         new AddAmbientLightEvent(this.app),
         new AddPerspectiveCameraEvent(this.app),
+
+        new ImportAssetEvent(this.app),
     ];
 }
 
