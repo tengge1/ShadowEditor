@@ -77,6 +77,9 @@ import VRModeEvent from './menu/view/VRModeEvent';
 
 import ExampleEvent from './menu/example/ExampleEvent';
 
+import SourceCodeEvent from './menu/help/SourceCodeEvent';
+import AboutEvent from './menu/help/AboutEvent';
+
 /**
  * 事件执行器
  */
@@ -162,6 +165,9 @@ function EventDispatcher(app) {
         new VRModeEvent(this.app),
 
         new ExampleEvent(this.app),
+
+        new SourceCodeEvent(this.app),
+        new AboutEvent(this.app),
     ];
 }
 
