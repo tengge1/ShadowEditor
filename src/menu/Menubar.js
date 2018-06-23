@@ -352,6 +352,28 @@ function Menubar(app) {
         _this.dom.add(menu);
     });
 
+    // 状态菜单
+    var statusMenu = new UI2.Panel({
+        id: 'mStatus',
+        cls: 'menu right'
+    });
+
+    var autosave = new UI2.Boolean({
+        text: '自动保存',
+        value: this.app.editor.config.getKey('autosave'),
+        style: 'color: #888 !important;'
+    });
+    statusMenu.add(autosave);
+
+    var version = new UI2.Text({
+        text: 'r' + THREE.REVISION,
+        cls: 'title',
+        style: 'opacity: 0.5'
+    });
+    statusMenu.add(version);
+
+    this.dom.add(statusMenu);
+
     this.dom.render();
 };
 

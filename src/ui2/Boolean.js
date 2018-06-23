@@ -1,7 +1,6 @@
 import Control from './Control';
-import Span from './Span';
-import Checkbox from './Checkbox';
-import Text from './Text';
+
+var ID = -1;
 
 /**
  * 布尔值
@@ -10,26 +9,40 @@ import Text from './Text';
 function Boolean(options) {
     Control.call(this, options);
     options = options || {};
+    this.id = options.ID || 'Boolean' + ID--;
+    this.text = options.text || 'Boolean';
+    this.value = options.value || false;
 };
 
 Boolean.prototype = Object.create(Control.prototype);
 Boolean.prototype.constructor = Boolean;
 
 Boolean.prototype.render = function () {
-    // this.setMarginRight('10px');
+    this.dom = document.createElement('span');
+    this.dom.id = this.id;
+    this.dom.style.marginRight = '10px';
+    this.parent.appendChild(this.dom);
 
-    this.checkbox = new Checkbox(boolean);
-    this.text = new Text(text).setMarginLeft('3px');
-    this.parent.appendChild(this.checkbox);
-    this.parent.appendChild(this.text);
+    this.input = document.createElement('input');
+    this.input.type = 'checkbox';
+    this.input.className = 'Checkbox';
+    this.dom.appendChild(this.input);
+
+    this.span = document.createElement('span');
+    this.span.className = 'Text';
+    this.span.style = 'cursor: default; display: inline-block; vertical-align: middle; margin-left: 3px; color: rgb(136, 136, 136);';
+    this.span.innerHTML = this.text;
+    this.dom.appendChild(this.span);
+
+    this.setValue(this.value);
 };
 
 Boolean.prototype.getValue = function () {
-    return this.checkbox.getValue();
+    return this.input.checked;
 };
 
 Boolean.prototype.setValue = function (value) {
-    return this.checkbox.setValue(value);
+    this.input.checked = value;
 };
 
 export default Boolean;
