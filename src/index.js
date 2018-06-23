@@ -6,7 +6,6 @@ export * from './core/index';
 export * from './command/index';
 export * from './ui/index';
 export * from './ui/index';
-export * from './menu/index';
 export * from './panel/index';
 export * from './editor/index';
 export * from './utils/index';

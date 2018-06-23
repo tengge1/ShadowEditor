@@ -361,7 +361,11 @@ function Menubar(app) {
     var autosave = new UI2.Boolean({
         text: '自动保存',
         value: this.app.editor.config.getKey('autosave'),
-        style: 'color: #888 !important;'
+        style: 'color: #888 !important;',
+        onChange: function (e) {
+            _this.app.editor.config.setKey('autosave', e.target.checked);
+            _this.app.call('sceneGraphChanged', _this);
+        }
     });
     statusMenu.add(autosave);
 
@@ -375,6 +379,14 @@ function Menubar(app) {
     this.dom.add(statusMenu);
 
     this.dom.render();
+
+    this.app.on('savingStarted.StatusMenu', function () {
+        autosave.span.style.textDecoration = 'underline';
+    });
+
+    this.app.on('savingFinished.StatusMenu', function () {
+        autosave.span.style.textDecoration = 'none';
+    });
 };
 
 export default Menubar;

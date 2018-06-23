@@ -5,7 +5,7 @@ import Viewport from './editor/Viewport';
 import Script from './core/Script';
 import Player from './core/Player';
 import StatusBar from './editor/StatusBar';
-import Menubar from './menu/Menubar';
+import Menubar from './editor/Menubar';
 import Sidebar from './panel/Sidebar';
 
 /**

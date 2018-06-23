@@ -12,6 +12,7 @@ function Boolean(options) {
     this.id = options.ID || 'Boolean' + ID--;
     this.text = options.text || 'Boolean';
     this.value = options.value || false;
+    this.onChange = options.onChange || null;
 };
 
 Boolean.prototype = Object.create(Control.prototype);
@@ -35,6 +36,10 @@ Boolean.prototype.render = function () {
     this.dom.appendChild(this.span);
 
     this.setValue(this.value);
+
+    if (typeof (this.onChange) === 'function') {
+        this.input.addEventListener('change', this.onChange.bind(this), false);
+    }
 };
 
 Boolean.prototype.getValue = function () {
