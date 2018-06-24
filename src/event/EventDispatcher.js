@@ -85,6 +85,8 @@ import UpdateViewportInfoEvent from './viewport/UpdateViewportInfoEvent';
 import TransformModeChangedEvent from './statusBar/TransformModeChangedEvent';
 import GridChangeEvent from './statusBar/GridChangeEvent';
 
+import CodeMirrorChangeEvent from './script/CodeMirrorChangeEvent';
+
 /**
  * 事件执行器
  */
@@ -180,6 +182,9 @@ function EventDispatcher(app) {
         // statusBar中的事件
         new TransformModeChangedEvent(this.app),
         new GridChangeEvent(this.app),
+
+        // 代码编辑器中的事件
+        new CodeMirrorChangeEvent(this.app),
     ];
 }
 

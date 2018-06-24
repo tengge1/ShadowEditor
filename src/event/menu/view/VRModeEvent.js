@@ -25,7 +25,7 @@ VRModeEvent.prototype.stop = function () {
 VRModeEvent.prototype.onVRMode = function () {
     var editor = this.app.editor;
 
-    if (this.app.renderer.vr.enabled) {
+    if (this.app.editor.renderer.vr.enabled) {
         this.app.call('enterVR', this);
     } else {
         alert('WebVR不可用');

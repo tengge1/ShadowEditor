@@ -318,7 +318,7 @@ function Viewport(app) {
         }
 
         renderer = newRenderer;
-        _this.app.renderer = renderer;
+        _this.app.editor.renderer = renderer;
 
         renderer.autoClear = false;
         renderer.autoUpdateScene = false;

@@ -148,6 +148,7 @@ var EventList = [
 
     // 状态栏
     'gridChange', // 状态栏网格改变事件
+    'codeMirrorChange', // CodeMirror改变事件
 ];
 
 export default EventList;
