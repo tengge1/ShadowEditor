@@ -29,11 +29,9 @@ function Application(container, options) {
 
     // 菜单栏
     this.menubar = new Menubar(this);
-    // this.container.appendChild(this.menubar.dom);
 
     // 编辑区
     this.viewport = new Viewport(this);
-    this.container.appendChild(this.viewport.dom);
 
     // 侧边栏
     this.sidebar = new Sidebar(this);

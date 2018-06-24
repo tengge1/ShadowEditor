@@ -9,9 +9,10 @@ var ID = -1;
  */
 function Div(options) {
     Container.call(this, options);
-    this.cls = options.cls || 'Div';
     this.id = options.id || 'Div' + ID--;
     this.html = options.html || null;
+    this.cls = options.cls || 'Div';
+    this.style = options.style || null;
     this.onClick = options.onClick || null;
 };
 
@@ -28,6 +29,10 @@ Div.prototype.render = function () {
 
     if (this.id) {
         this.dom.id = this.id;
+    }
+
+    if (this.style) {
+        this.dom.style = this.style;
     }
 
     this.parent.appendChild(this.dom);

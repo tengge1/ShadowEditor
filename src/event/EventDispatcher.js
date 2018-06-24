@@ -80,6 +80,8 @@ import ExampleEvent from './menu/example/ExampleEvent';
 import SourceCodeEvent from './menu/help/SourceCodeEvent';
 import AboutEvent from './menu/help/AboutEvent';
 
+import UpdateViewportInfoEvent from './viewport/UpdateViewportInfoEvent';
+
 /**
  * 事件执行器
  */
@@ -168,6 +170,9 @@ function EventDispatcher(app) {
 
         new SourceCodeEvent(this.app),
         new AboutEvent(this.app),
+
+        // viewport中的事件
+        new UpdateViewportInfoEvent(this.app),
     ];
 }
 

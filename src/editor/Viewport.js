@@ -2,21 +2,25 @@
 import SetPositionCommand from '../command/SetPositionCommand';
 import SetRotationCommand from '../command/SetRotationCommand';
 import SetScaleCommand from '../command/SetScaleCommand';
-import UI from '../ui/UI';
+import UI2 from '../ui2/UI';
 
 /**
+ * 场景编辑区
  * @author mrdoob / http://mrdoob.com/
  */
-
 function Viewport(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var container = new UI.Panel();
-    container.setId('viewport');
-    container.setPosition('absolute');
+    var container = new UI2.Div({
+        parent: this.app.container,
+        id: 'viewport',
+        style: 'position: absolute'
+    });
 
-    container.add(new ViewportInfo(editor));
+    container.render();
+
+    this.viewportInfo = new ViewportInfo(app, container);
 
     //
     var _this = this;
