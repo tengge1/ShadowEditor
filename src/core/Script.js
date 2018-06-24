@@ -1,4 +1,4 @@
-import UI from '../ui/UI';
+import UI2 from '../ui2/UI';
 import SetScriptValueCommand from '../command/SetScriptValueCommand';
 
 /**
@@ -9,43 +9,34 @@ function Script(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var container = new UI.Panel();
-    container.setId('script');
-    container.setPosition('absolute');
-    container.setBackgroundColor('#272822');
-    container.setDisplay('none');
+    // 渲染ui
+    var container = new UI2.Div({
+        parent: this.app.container,
+        id: 'script',
+        style: 'position: absolute; background-color: #272822; display: none;'
+    });
 
-    var header = new UI.Panel();
-    header.setPadding('10px');
+    var header = new UI2.Div({
+        style: 'padding: 10px;'
+    });
     container.add(header);
 
-    var title = new UI.Text().setColor('#fff');
+    var title = new UI2.Text({
+        style: 'color: #fff;'
+    });
     header.add(title);
 
-    var buttonSVG = (function () {
-        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('width', 32);
-        svg.setAttribute('height', 32);
-        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', 'M 12,12 L 22,22 M 22,12 12,22');
-        path.setAttribute('stroke', '#fff');
-        svg.appendChild(path);
-        return svg;
-    })();
-
-    var close = new UI.Element(buttonSVG);
-    close.setPosition('absolute');
-    close.setTop('3px');
-    close.setRight('1px');
-    close.setCursor('pointer');
-    close.onClick(function () {
-
-        container.setDisplay('none');
-
+    var close = new UI2.CloseButton({
+        style: 'position: absolute; top: 3px; right: 1px; cursor: pointer',
+        onClick: function () {
+            container.dom.style.display = 'none';
+        }
     });
     header.add(close);
 
+    container.render();
 
+    // 业务逻辑
     var renderer;
 
     this.app.on('rendererChanged.Script', function (newRenderer) {
@@ -349,7 +340,7 @@ function Script(app) {
 
     //
     this.app.on('editorCleared.Script', function () {
-        container.setDisplay('none');
+        container.dom.style.display = 'none';
     });
 
     this.app.on('editScript.Script', function (object, script) {
@@ -402,7 +393,7 @@ function Script(app) {
         currentScript = script;
         currentObject = object;
 
-        container.setDisplay('');
+        container.dom.style.display = 'block';
         codemirror.setValue(source);
         if (mode === 'json') mode = { name: 'javascript', json: true };
         codemirror.setOption('mode', mode);
@@ -410,7 +401,7 @@ function Script(app) {
 
     this.app.on('scriptRemoved.Script', function (script) {
         if (currentScript === script) {
-            container.setDisplay('none');
+            container.dom.style.display = 'none';
         }
     });
 
@@ -431,9 +422,6 @@ function Script(app) {
         }
         codemirror.setHistory(history); // setting the history to previous state
     });
-
-    return container;
-
 };
 
 export default Script;

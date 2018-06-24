@@ -42,7 +42,6 @@ function Application(container, options) {
 
     // 脚本编辑窗口
     this.script = new Script(this);
-    this.container.appendChild(this.script.dom);
 
     // 启动窗口
     this.player = new Player(this);

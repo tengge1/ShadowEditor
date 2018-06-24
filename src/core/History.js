@@ -1,10 +1,10 @@
 ﻿import Command from '../command/Command';
 
 /**
+ * 历史记录
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  */
-
 function History(editor) {
     this.app = editor.app;
 
@@ -90,121 +90,85 @@ Object.assign(History.prototype, {
     },
 
     undo: function () {
-
         if (this.historyDisabled) {
-
             alert("场景启动时撤销/重做将被禁用。");
             return;
-
         }
 
         var cmd = undefined;
 
         if (this.undos.length > 0) {
-
             cmd = this.undos.pop();
 
             if (cmd.inMemory === false) {
-
                 cmd.fromJSON(cmd.json);
-
             }
-
         }
 
         if (cmd !== undefined) {
-
             cmd.undo();
             this.redos.push(cmd);
             this.app.call('historyChanged', this, cmd);
-
         }
 
         return cmd;
-
     },
 
     redo: function () {
-
         if (this.historyDisabled) {
-
             alert("场景启动时撤销/重做将被禁用。");
             return;
-
         }
 
         var cmd = undefined;
 
         if (this.redos.length > 0) {
-
             cmd = this.redos.pop();
 
             if (cmd.inMemory === false) {
-
                 cmd.fromJSON(cmd.json);
-
             }
-
         }
 
         if (cmd !== undefined) {
-
             cmd.execute();
             this.undos.push(cmd);
             this.app.call('historyChanged', this, cmd);
-
         }
 
         return cmd;
-
     },
 
     toJSON: function () {
-
         var history = {};
         history.undos = [];
         history.redos = [];
 
         if (!this.config.getKey('settings/history')) {
-
             return history;
-
         }
 
         // Append Undos to History
-
         for (var i = 0; i < this.undos.length; i++) {
-
             if (this.undos[i].hasOwnProperty("json")) {
-
                 history.undos.push(this.undos[i].json);
-
             }
-
         }
 
         // Append Redos to History
-
         for (var i = 0; i < this.redos.length; i++) {
-
             if (this.redos[i].hasOwnProperty("json")) {
-
                 history.redos.push(this.redos[i].json);
-
             }
-
         }
 
         return history;
-
     },
 
     fromJSON: function (json) {
-
         if (json === undefined) return;
 
         for (var i = 0; i < json.undos.length; i++) {
-
             var cmdJSON = json.undos[i];
             var cmd = new window[cmdJSON.type]();	// creates a new object of type "json.type"
             cmd.json = cmdJSON;
@@ -212,11 +176,9 @@ Object.assign(History.prototype, {
             cmd.name = cmdJSON.name;
             this.undos.push(cmd);
             this.idCounter = (cmdJSON.id > this.idCounter) ? cmdJSON.id : this.idCounter; // set last used idCounter
-
         }
 
         for (var i = 0; i < json.redos.length; i++) {
-
             var cmdJSON = json.redos[i];
             var cmd = new window[cmdJSON.type]();	// creates a new object of type "json.type"
             cmd.json = cmdJSON;
@@ -224,61 +186,43 @@ Object.assign(History.prototype, {
             cmd.name = cmdJSON.name;
             this.redos.push(cmd);
             this.idCounter = (cmdJSON.id > this.idCounter) ? cmdJSON.id : this.idCounter; // set last used idCounter
-
         }
 
         // Select the last executed undo-command
         this.app.call('historyChanged', this, this.undos[this.undos.length - 1]);
-
     },
 
     clear: function () {
-
         this.undos = [];
         this.redos = [];
         this.idCounter = 0;
 
         this.app.call('historyChanged', this);
-
     },
 
     goToState: function (id) {
-
         if (this.historyDisabled) {
-
             alert("场景启动时撤销/重做将被禁用。");
             return;
-
         }
 
         var cmd = this.undos.length > 0 ? this.undos[this.undos.length - 1] : undefined;	// next cmd to pop
 
         if (cmd === undefined || id > cmd.id) {
-
             cmd = this.redo();
             while (cmd !== undefined && id > cmd.id) {
-
                 cmd = this.redo();
-
             }
-
         } else {
-
             while (true) {
-
                 cmd = this.undos[this.undos.length - 1];	// next cmd to pop
-
                 if (cmd === undefined || id === cmd.id) break;
-
                 cmd = this.undo();
-
             }
-
         }
 
         this.editor.app.call('sceneGraphChanged', this);
         this.editor.app.call('historyChanged', this, cmd);
-
     },
 
     enableSerialization: function (id) {
@@ -294,14 +238,10 @@ Object.assign(History.prototype, {
 
         var cmd = this.redo();
         while (cmd !== undefined) {
-
             if (!cmd.hasOwnProperty("json")) {
-
                 cmd.json = cmd.toJSON();
-
             }
             cmd = this.redo();
-
         }
 
         this.goToState(id);

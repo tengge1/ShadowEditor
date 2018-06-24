@@ -17,6 +17,7 @@ import Modal from './Modal';
 import Texture from './Texture';
 import Outliner from './Outliner';
 import Boolean from './Boolean';
+import CloseButton from './CloseButton';
 
 /**
  * 所有UI控件封装
@@ -39,6 +40,7 @@ const UI = {
     HorizontalRule: HorizontalRule,
     Button: Button,
     Modal: Modal,
+    CloseButton: CloseButton,
 
     // ui.three.js
     Texture: Texture,

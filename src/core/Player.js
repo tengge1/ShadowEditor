@@ -1,9 +1,9 @@
 import UI from '../ui/UI';
 
 /**
+ * 播放器
  * @author mrdoob / http://mrdoob.com/
  */
-
 function Player(app) {
     this.app = app;
     var editor = this.app.editor;

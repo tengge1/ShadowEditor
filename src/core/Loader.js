@@ -2,9 +2,9 @@
 import SetSceneCommand from '../command/SetSceneCommand';
 
 /**
+ * 模型加载
  * @author mrdoob / http://mrdoob.com/
  */
-
 function Loader(editor) {
 
     var scope = this;
