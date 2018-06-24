@@ -10,7 +10,7 @@ function Div(options) {
     options = options || {};
     this.id = options.id || null;
     this.html = options.html || null;
-    this.cls = options.cls || null;
+    this.cls = options.cls || 'Panel';
     this.style = options.style || null;
     this.onClick = options.onClick || null;
 };
@@ -20,10 +20,13 @@ Div.prototype.constructor = Div;
 
 Div.prototype.render = function () {
     this.dom = document.createElement('div');
-    this.dom.className = this.cls;
 
     if (this.id) {
         this.dom.id = this.id;
+    }
+
+    if (this.cls) {
+        this.dom.className = this.cls;
     }
 
     if (this.style) {
