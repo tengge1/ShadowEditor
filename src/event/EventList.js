@@ -146,6 +146,13 @@ var EventList = [
     'mSourceCode', // 源码
     'mAbout', // 关于
 
+    // 场景编辑区
+    'transformControlsChange', // 变形控件改变
+    'transformControlsMouseDown', // 变形控件按下鼠标键
+    'transformControlsMouseUp', // 变形控件抬起鼠标键
+    'render', // 渲染一次场景
+    'animate', // 进行动画
+
     // 状态栏
     'gridChange', // 状态栏网格改变事件
     'codeMirrorChange', // CodeMirror改变事件

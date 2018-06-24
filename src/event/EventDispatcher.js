@@ -80,7 +80,9 @@ import ExampleEvent from './menu/example/ExampleEvent';
 import SourceCodeEvent from './menu/help/SourceCodeEvent';
 import AboutEvent from './menu/help/AboutEvent';
 
+import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateViewportInfoEvent from './viewport/UpdateViewportInfoEvent';
+import RenderEvent from './viewport/RenderEvent';
 
 import TransformModeChangedEvent from './statusBar/TransformModeChangedEvent';
 import GridChangeEvent from './statusBar/GridChangeEvent';
@@ -177,7 +179,9 @@ function EventDispatcher(app) {
         new AboutEvent(this.app),
 
         // viewport中的事件
+        new TransformControlsEvent(this.app),
         new UpdateViewportInfoEvent(this.app),
+        new RenderEvent(this.app),
 
         // statusBar中的事件
         new TransformModeChangedEvent(this.app),

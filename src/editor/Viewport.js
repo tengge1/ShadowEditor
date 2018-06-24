@@ -74,7 +74,7 @@ function Viewport(app) {
             _this.app.call('refreshSidebarObject3D', _this, object);
         }
 
-        render();
+        _this.app.call('render');
 
     });
     transformControls.addEventListener('mouseDown', function () {
@@ -192,7 +192,7 @@ function Viewport(app) {
 
             }
 
-            render();
+            _this.app.call('render');
 
         }
 
@@ -276,7 +276,7 @@ function Viewport(app) {
 
     this.app.on('editorCleared.Viewport', function () {
         controls.center.set(0, 0, 0);
-        render();
+        _this.app.call('render');
     });
 
     this.app.on('enterVR.Viewport', function () {
@@ -297,7 +297,7 @@ function Viewport(app) {
                 break;
         }
 
-        render();
+        _this.app.call('render');
     });
 
     this.app.on('transformModeChanged.Viewport', function (mode) {
@@ -336,15 +336,15 @@ function Viewport(app) {
             }, false);
         }
 
-        render();
+        _this.app.call('render');
     });
 
     this.app.on('sceneGraphChanged.Viewport', function () {
-        render();
+        _this.app.call('render');
     });
 
     this.app.on('cameraChanged.Viewport', function () {
-        render();
+        _this.app.call('render');
     });
 
     this.app.on('objectSelected.Viewport', function (object) {
@@ -367,7 +367,7 @@ function Viewport(app) {
 
         }
 
-        render();
+        _this.app.call('render');
 
     });
 
@@ -380,7 +380,7 @@ function Viewport(app) {
             selectionBox.setFromObject(object);
         }
 
-        render();
+        _this.app.call('render');
     });
 
     this.app.on('objectAdded.Viewport', function (object) {
@@ -410,7 +410,7 @@ function Viewport(app) {
 
         }
 
-        render();
+        _this.app.call('render');
 
     });
 
@@ -429,14 +429,14 @@ function Viewport(app) {
     });
 
     this.app.on('materialChanged.Viewport', function (material) {
-        render();
+        _this.app.call('render');
     });
 
     // fog
 
     this.app.on('sceneBackgroundChanged.Viewport', function (backgroundColor) {
         scene.background.setHex(backgroundColor);
-        render();
+        _this.app.call('render');
     });
 
     var currentFogType = null;
@@ -476,7 +476,7 @@ function Viewport(app) {
 
         }
 
-        render();
+        _this.app.call('render');
 
     });
 
@@ -493,12 +493,12 @@ function Viewport(app) {
 
         renderer.setSize(container.dom.offsetWidth, container.dom.offsetHeight);
 
-        render();
+        _this.app.call('render');
     });
 
     this.app.on('showGridChanged.Viewport', function (showGrid) {
         grid.visible = showGrid;
-        render();
+        _this.app.call('render');
     });
 
     //
@@ -532,45 +532,37 @@ function Viewport(app) {
 
         if (vrEffect && vrEffect.isPresenting) {
 
-            render();
+            _this.app.call('render');
 
         }
 
     }
 
     function render() {
-
         sceneHelpers.updateMatrixWorld();
         scene.updateMatrixWorld();
 
         if (vrEffect && vrEffect.isPresenting) {
-
             vrControls.update();
 
             camera.updateMatrixWorld();
 
             vrEffect.render(scene, vrCamera);
             vrEffect.render(sceneHelpers, vrCamera);
-
         } else {
-
             renderer.render(scene, camera);
 
             if (renderer instanceof THREE.RaytracingRenderer === false) {
-
                 renderer.render(sceneHelpers, camera);
-
             }
-
         }
-
-
     }
 
+    this.app.on('render.Viewport', function () {
+        render();
+    });
+
     requestAnimationFrame(animate);
-
-    return container;
-
 };
 
 export default Viewport;
