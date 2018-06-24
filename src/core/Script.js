@@ -2,9 +2,9 @@ import UI from '../ui/UI';
 import SetScriptValueCommand from '../command/SetScriptValueCommand';
 
 /**
+ * 脚本编辑窗口
  * @author mrdoob / http://mrdoob.com/
  */
-
 function Script(app) {
     this.app = app;
     var editor = this.app.editor;
@@ -116,7 +116,7 @@ function Script(app) {
 
             }
 
-        }, 300);
+        }, 3000);
 
     });
 
