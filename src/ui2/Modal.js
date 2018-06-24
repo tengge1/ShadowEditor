@@ -1,6 +1,6 @@
 import Control from './Control';
 import Container from './Container';
-import Panel from './Panel';
+import Div from './Div';
 
 /**
  * 模态框
@@ -31,7 +31,7 @@ Modal.prototype.render = function () {
         _this.hide();
     });
 
-    this.container = new Panel();
+    this.container = new Div();
     this.container.dom.style.width = '200px';
     this.container.dom.style.padding = '20px';
     this.container.dom.style.backgroundColor = '#ffffff';

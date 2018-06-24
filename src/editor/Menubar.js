@@ -298,19 +298,19 @@ function Menubar(app) {
 
     // --------------- 渲染生成dom ----------------------
 
-    this.dom = new UI2.Panel({
+    this.dom = new UI2.Div({
         parent: this.app.container,
         id: 'menubar'
     });
 
     var _this = this;
     this.data.forEach(function (n) {
-        var menu = new UI2.Panel({
+        var menu = new UI2.Div({
             cls: 'menu'
         });
 
         // 菜单标题
-        var title = new UI2.Panel({
+        var title = new UI2.Div({
             id: n.id,
             cls: 'title',
             html: n.text
@@ -319,7 +319,7 @@ function Menubar(app) {
 
         if (n.children) {
             // 下拉菜单
-            var options = new UI2.Panel({
+            var options = new UI2.Div({
                 cls: 'options'
             });
             menu.add(options);
@@ -329,7 +329,7 @@ function Menubar(app) {
                     var hr = new UI2.HorizontalRule();
                     options.add(hr);
                 } else { // 其他文字
-                    var option = new UI2.Panel({
+                    var option = new UI2.Div({
                         id: m.id,
                         cls: 'option',
                         html: m.text
@@ -338,7 +338,7 @@ function Menubar(app) {
 
                     // 菜单子项click事件
                     if (typeof (m.onClick) === 'function') {
-                        option.onClick = m.onClick; // this是具体菜单对应的Panel
+                        option.onClick = m.onClick; // this是具体菜单对应的Div
                     }
                 }
             });
@@ -346,14 +346,14 @@ function Menubar(app) {
 
         // 主菜单click事件
         if (typeof (n.onClick) === 'function') {
-            menu.onClick = n.onClick; // this是具体菜单对应的Panel
+            menu.onClick = n.onClick; // this是具体菜单对应的Div
         }
 
         _this.dom.add(menu);
     });
 
     // 状态菜单
-    var statusMenu = new UI2.Panel({
+    var statusMenu = new UI2.Div({
         id: 'mStatus',
         cls: 'menu right'
     });
