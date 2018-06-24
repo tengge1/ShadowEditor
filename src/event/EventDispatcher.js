@@ -82,6 +82,9 @@ import AboutEvent from './menu/help/AboutEvent';
 
 import UpdateViewportInfoEvent from './viewport/UpdateViewportInfoEvent';
 
+import TransformModeChangedEvent from './statusBar/TransformModeChangedEvent';
+import GridChangeEvent from './statusBar/GridChangeEvent';
+
 /**
  * 事件执行器
  */
@@ -173,6 +176,10 @@ function EventDispatcher(app) {
 
         // viewport中的事件
         new UpdateViewportInfoEvent(this.app),
+
+        // statusBar中的事件
+        new TransformModeChangedEvent(this.app),
+        new GridChangeEvent(this.app),
     ];
 }
 

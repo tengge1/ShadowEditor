@@ -36,11 +36,9 @@ function Editor(app) {
 
     this.selected = null;
     this.helpers = {};
-
 };
 
 Editor.prototype = {
-
     // ----------------- 编辑器 ---------------------
 
     setTheme: function (value) { // 设置主题
@@ -165,73 +163,6 @@ Editor.prototype = {
         this.app.call('save', this);
     },
 
-    // --------------------------- 场景序列化 ------------------------------
-
-    fromJSON: function (json) { // 根据json创建场景
-
-        var loader = new THREE.ObjectLoader();
-
-        // backwards
-
-        if (json.scene === undefined) {
-
-            this.setScene(loader.parse(json));
-            return;
-
-        }
-
-        var camera = loader.parse(json.camera);
-
-        this.camera.copy(camera);
-        this.camera.aspect = this.DEFAULT_CAMERA.aspect;
-        this.camera.updateProjectionMatrix();
-
-        this.history.fromJSON(json.history);
-        this.scripts = json.scripts;
-
-        this.setScene(loader.parse(json.scene));
-
-    },
-
-    toJSON: function () { // 将json转换为场景
-
-        // scripts clean up
-
-        var scene = this.scene;
-        var scripts = this.scripts;
-
-        for (var key in scripts) {
-
-            var script = scripts[key];
-
-            if (script.length === 0 || scene.getObjectByProperty('uuid', key) === undefined) {
-
-                delete scripts[key];
-
-            }
-
-        }
-
-        //
-
-        return {
-
-            metadata: {},
-            project: {
-                gammaInput: this.config.getKey('project/renderer/gammaInput'),
-                gammaOutput: this.config.getKey('project/renderer/gammaOutput'),
-                shadows: this.config.getKey('project/renderer/shadows'),
-                vr: this.config.getKey('project/vr')
-            },
-            camera: this.camera.toJSON(),
-            scene: this.scene.toJSON(),
-            scripts: this.scripts,
-            history: this.history.toJSON()
-
-        };
-
-    },
-
     // ----------------------- 命令 ---------------------------
 
     execute: function (cmd, optionalName) { // 执行事件
@@ -244,8 +175,61 @@ Editor.prototype = {
 
     redo: function () { // 重做事件
         this.history.redo();
-    }
+    },
 
+    // --------------------------- 场景序列化 ------------------------------
+
+    fromJSON: function (json) { // 根据json创建场景
+        var loader = new THREE.ObjectLoader();
+
+        // backwards
+
+        if (json.scene === undefined) {
+            this.setScene(loader.parse(json));
+            return;
+        }
+
+        var camera = loader.parse(json.camera);
+
+        this.camera.copy(camera);
+        this.camera.aspect = this.DEFAULT_CAMERA.aspect;
+        this.camera.updateProjectionMatrix();
+
+        this.history.fromJSON(json.history);
+        this.scripts = json.scripts;
+
+        this.setScene(loader.parse(json.scene));
+    },
+
+    toJSON: function () { // 将json转换为场景
+        // scripts clean up
+        var scene = this.scene;
+        var scripts = this.scripts;
+
+        for (var key in scripts) {
+            var script = scripts[key];
+
+            if (script.length === 0 || scene.getObjectByProperty('uuid', key) === undefined) {
+                delete scripts[key];
+            }
+        }
+
+        //
+
+        return {
+            metadata: {},
+            project: {
+                gammaInput: this.config.getKey('project/renderer/gammaInput'),
+                gammaOutput: this.config.getKey('project/renderer/gammaOutput'),
+                shadows: this.config.getKey('project/renderer/shadows'),
+                vr: this.config.getKey('project/vr')
+            },
+            camera: this.camera.toJSON(),
+            scene: this.scene.toJSON(),
+            scripts: this.scripts,
+            history: this.history.toJSON()
+        };
+    }
 };
 
 export default Editor;

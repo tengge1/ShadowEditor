@@ -13,14 +13,14 @@ UpdateViewportInfoEvent.prototype.constructor = UpdateViewportInfoEvent;
 
 UpdateViewportInfoEvent.prototype.start = function () {
     var _this = this;
-    this.app.on('objectAdded.' + this.id, function (event) {
-        _this.onUpdateInfo(event);
+    this.app.on('objectAdded.' + this.id, function () {
+        _this.onUpdateInfo();
     });
-    this.app.on('objectRemoved.' + this.id, function (event) {
-        _this.onUpdateInfo(event);
+    this.app.on('objectRemoved.' + this.id, function () {
+        _this.onUpdateInfo();
     });
-    this.app.on('geometryChanged.' + this.id, function (event) {
-        _this.onUpdateInfo(event);
+    this.app.on('geometryChanged.' + this.id, function () {
+        _this.onUpdateInfo();
     });
 };
 
@@ -30,7 +30,7 @@ UpdateViewportInfoEvent.prototype.stop = function () {
     this.app.on('geometryChanged.' + this.id, null);
 };
 
-UpdateViewportInfoEvent.prototype.onUpdateInfo = function (event) {
+UpdateViewportInfoEvent.prototype.onUpdateInfo = function () {
     var editor = this.app.editor;
 
     var scene = editor.scene;

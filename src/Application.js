@@ -39,7 +39,6 @@ function Application(container, options) {
 
     // 底部状态栏
     this.statusBar = new StatusBar(this);
-    this.container.appendChild(this.statusBar.dom);
 
     // 脚本编辑窗口
     this.script = new Script(this);

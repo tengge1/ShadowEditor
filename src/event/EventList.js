@@ -145,6 +145,9 @@ var EventList = [
 
     'mSourceCode', // 源码
     'mAbout', // 关于
+
+    // 状态栏
+    'gridChange', // 状态栏网格改变事件
 ];
 
 export default EventList;

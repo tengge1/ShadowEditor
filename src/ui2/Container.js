@@ -6,6 +6,7 @@ import Control from './Control';
  */
 function Container(options) {
     Control.call(this, options);
+    options = options || {};
     this.children = options.children || [];
 }
 

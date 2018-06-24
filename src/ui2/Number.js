@@ -8,14 +8,18 @@ function Number(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.value = options.value || 0;
+    this.value = options.value === undefined ? 0 : options.value;
 
-    this.min = - Infinity;
-    this.max = Infinity;
+    this.min = options.min === undefined ? -Infinity : options.min;
+    this.max = options.max === undefined ? Infinity : options.max;
 
-    this.precision = 2;
-    this.step = 1;
-    this.unit = '';
+    this.precision = options.precision === undefined ? 2 : options.precision; // 显示时保留几位小数
+    this.step = options.step === undefined ? 1 : options.step; // 步长
+    this.unit = options.unit === undefined ? '' : options.unit; // 单位（显示时跟在数字后面）
+
+    this.style = options.style || null;
+
+    this.onChange = options.onChange || null;
 };
 
 Number.prototype = Object.create(Control.prototype);
@@ -26,8 +30,13 @@ Number.prototype.render = function () {
     this.dom.className = 'Number';
     this.dom.value = '0.00';
 
+    if (this.style) {
+        this.dom.style = this.style;
+    }
+
     var _this = this;
 
+    // 回车事件
     this.dom.addEventListener('keydown', function (event) {
         event.stopPropagation();
 
@@ -83,6 +92,10 @@ Number.prototype.render = function () {
 
     function onChange(event) {
         _this.setValue(_this.dom.value);
+
+        if (typeof (this.onChange) === 'function') {
+            this.onChange.call(this, _this);
+        }
     }
 
     function onFocus(event) {
@@ -110,43 +123,18 @@ Number.prototype.getValue = function () {
 };
 
 Number.prototype.setValue = function (value) {
-    if (value !== undefined) {
-        value = parseFloat(value);
+    value = parseFloat(value);
 
-        if (value < this.min) value = this.min;
-        if (value > this.max) value = this.max;
-
-        this.value = value;
-        this.dom.value = value.toFixed(this.precision);
-
-        if (this.unit !== '') this.dom.value += ' ' + this.unit;
+    if (value < this.min) {
+        value = this.min;
     }
 
-    return this;
+    if (value > this.max) {
+        value = this.max;
+    }
 
-};
-
-Number.prototype.setPrecision = function (precision) {
-    this.precision = precision;
-    return this;
-};
-
-Number.prototype.setStep = function (step) {
-    this.step = step;
-    return this;
-};
-
-Number.prototype.setRange = function (min, max) {
-    this.min = min;
-    this.max = max;
-
-    return this;
-};
-
-Number.prototype.setUnit = function (unit) {
-    this.unit = unit;
-
-    return this;
+    this.value = value;
+    this.dom.value = value.toFixed(this.precision) + this.unit;
 };
 
 export default Number;
