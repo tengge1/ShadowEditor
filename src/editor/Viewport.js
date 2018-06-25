@@ -444,54 +444,6 @@ function Viewport(app) {
         _this.app.call('render');
     });
 
-    // fog
-
-    this.app.on('sceneBackgroundChanged.Viewport', function (backgroundColor) {
-        scene.background.setHex(backgroundColor);
-        _this.app.call('render');
-    });
-
-    var currentFogType = null;
-
-    this.app.on('sceneFogChanged.Viewport', function (fogType, fogColor, fogNear, fogFar, fogDensity) {
-
-        if (currentFogType !== fogType) {
-
-            switch (fogType) {
-
-                case 'None':
-                    scene.fog = null;
-                    break;
-                case 'Fog':
-                    scene.fog = new THREE.Fog();
-                    break;
-                case 'FogExp2':
-                    scene.fog = new THREE.FogExp2();
-                    break;
-
-            }
-
-            currentFogType = fogType;
-
-        }
-
-        if (scene.fog instanceof THREE.Fog) {
-
-            scene.fog.color.setHex(fogColor);
-            scene.fog.near = fogNear;
-            scene.fog.far = fogFar;
-
-        } else if (scene.fog instanceof THREE.FogExp2) {
-
-            scene.fog.color.setHex(fogColor);
-            scene.fog.density = fogDensity;
-
-        }
-
-        _this.app.call('render');
-
-    });
-
     this.app.call('animate');
 };
 
