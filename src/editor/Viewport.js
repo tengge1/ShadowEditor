@@ -328,8 +328,16 @@ function Viewport(app) {
         container.dom.appendChild(renderer.domElement);
 
         if (renderer.vr && renderer.vr.enabled) {
+            vrCamera = new THREE.PerspectiveCamera();
+            vrCamera.projectionMatrix = editor.camera.projectionMatrix;
+            editor.camera.add(vrCamera);
+            editor.vrCamera = vrCamera;
+
             vrControls = new THREE.VRControls(vrCamera);
+            editor.vrControls = vrControls;
+
             vrEffect = new THREE.VREffect(renderer);
+            editor.vrEffect = vrEffect;
 
             window.addEventListener('vrdisplaypresentchange', function (event) {
                 effect.isPresenting ? _this.app.call('enteredVR', _this) : _this.app.call('exitedVR', _this);
@@ -501,68 +509,7 @@ function Viewport(app) {
         _this.app.call('render');
     });
 
-    //
-
-    function animate() {
-
-        requestAnimationFrame(animate);
-
-        /*
-
-		// animations
-
-		if ( THREE.AnimationHandler.animations.length > 0 ) {
-
-			THREE.AnimationHandler.update( 0.016 );
-
-			for ( var i = 0, l = sceneHelpers.children.length; i < l; i ++ ) {
-
-				var helper = sceneHelpers.children[ i ];
-
-				if ( helper instanceof THREE.SkeletonHelper ) {
-
-					helper.update();
-
-				}
-
-			}
-
-		}
-		*/
-
-        if (vrEffect && vrEffect.isPresenting) {
-
-            _this.app.call('render');
-
-        }
-
-    }
-
-    function render() {
-        sceneHelpers.updateMatrixWorld();
-        scene.updateMatrixWorld();
-
-        if (vrEffect && vrEffect.isPresenting) {
-            vrControls.update();
-
-            camera.updateMatrixWorld();
-
-            vrEffect.render(scene, vrCamera);
-            vrEffect.render(sceneHelpers, vrCamera);
-        } else {
-            renderer.render(scene, camera);
-
-            if (renderer instanceof THREE.RaytracingRenderer === false) {
-                renderer.render(sceneHelpers, camera);
-            }
-        }
-    }
-
-    this.app.on('render.Viewport', function () {
-        render();
-    });
-
-    requestAnimationFrame(animate);
+    this.app.call('animate');
 };
 
 export default Viewport;
