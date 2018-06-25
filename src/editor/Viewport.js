@@ -17,6 +17,7 @@ function Viewport(app) {
         id: 'viewport',
         style: 'position: absolute'
     });
+    this.container = container;
 
     container.render();
 
@@ -41,6 +42,7 @@ function Viewport(app) {
 
     var grid = new THREE.GridHelper(60, 60);
     sceneHelpers.add(grid);
+    editor.grid = grid;
 
     //
 
@@ -289,11 +291,13 @@ function Viewport(app) {
                 sceneHelpers.remove(grid);
                 grid = new THREE.GridHelper(60, 60, 0x444444, 0x888888);
                 sceneHelpers.add(grid);
+                editor.grid = grid;
                 break;
             case 'assets/css/dark.css':
                 sceneHelpers.remove(grid);
                 grid = new THREE.GridHelper(60, 60, 0xbbbbbb, 0x888888);
                 sceneHelpers.add(grid);
+                editor.grid = grid;
                 break;
         }
 
@@ -486,27 +490,6 @@ function Viewport(app) {
 
         _this.app.call('render');
 
-    });
-
-    //
-
-    this.app.on('windowResize.Viewport', function () {
-        // TODO: Move this out?
-
-        editor.DEFAULT_CAMERA.aspect = container.dom.offsetWidth / container.dom.offsetHeight;
-        editor.DEFAULT_CAMERA.updateProjectionMatrix();
-
-        camera.aspect = container.dom.offsetWidth / container.dom.offsetHeight;
-        camera.updateProjectionMatrix();
-
-        renderer.setSize(container.dom.offsetWidth, container.dom.offsetHeight);
-
-        _this.app.call('render');
-    });
-
-    this.app.on('showGridChanged.Viewport', function (showGrid) {
-        grid.visible = showGrid;
-        _this.app.call('render');
     });
 
     this.app.call('animate');

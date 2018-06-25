@@ -84,6 +84,8 @@ import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateViewportInfoEvent from './viewport/UpdateViewportInfoEvent';
 import RenderEvent from './viewport/RenderEvent';
 import AnimateEvent from './viewport/AnimateEvent';
+import ShowGridChangedEvent from './viewport/ShowGridChangedEvent';
+import WindowResizeEvent from './viewport/WindowResizeEvent';
 
 import TransformModeChangedEvent from './statusBar/TransformModeChangedEvent';
 import GridChangeEvent from './statusBar/GridChangeEvent';
@@ -184,6 +186,8 @@ function EventDispatcher(app) {
         new UpdateViewportInfoEvent(this.app),
         new RenderEvent(this.app),
         new AnimateEvent(this.app),
+        new ShowGridChangedEvent(this.app),
+        new WindowResizeEvent(this.app),
 
         // statusBar中的事件
         new TransformModeChangedEvent(this.app),
