@@ -1,7 +1,4 @@
 ﻿import ViewportInfo from './ViewportInfo';
-import SetPositionCommand from '../command/SetPositionCommand';
-import SetRotationCommand from '../command/SetRotationCommand';
-import SetScaleCommand from '../command/SetScaleCommand';
 import UI2 from '../ui2/UI';
 
 /**
@@ -45,7 +42,8 @@ function Viewport(app) {
     sceneHelpers.add(grid);
     editor.grid = grid;
 
-    //
+    // 选中包围盒控件
+
     var selectionBox = new THREE.BoxHelper();
     selectionBox.material.depthTest = false;
     selectionBox.material.transparent = true;
@@ -54,89 +52,19 @@ function Viewport(app) {
 
     editor.selectionBox = selectionBox;
 
-    var objectPositionOnDown = null;
-    var objectRotationOnDown = null;
-    var objectScaleOnDown = null;
+    // 平移旋转缩放控件
 
     var transformControls = new THREE.TransformControls(camera, container.dom);
-
     editor.transformControls = transformControls;
 
     transformControls.addEventListener('change', function () {
-
-        var object = transformControls.object;
-
-        if (object !== undefined) {
-
-            selectionBox.setFromObject(object);
-
-            if (editor.helpers[object.id] !== undefined) {
-
-                editor.helpers[object.id].update();
-
-            }
-
-            _this.app.call('refreshSidebarObject3D', _this, object);
-        }
-
-        _this.app.call('render');
-
+        _this.app.call('transformControlsChange', _this);
     });
     transformControls.addEventListener('mouseDown', function () {
-
-        var object = transformControls.object;
-
-        objectPositionOnDown = object.position.clone();
-        objectRotationOnDown = object.rotation.clone();
-        objectScaleOnDown = object.scale.clone();
-
-        controls.enabled = false;
-
+        _this.app.call('transformControlsMouseDown', _this);
     });
     transformControls.addEventListener('mouseUp', function () {
-
-        var object = transformControls.object;
-
-        if (object !== undefined) {
-
-            switch (transformControls.getMode()) {
-
-                case 'translate':
-
-                    if (!objectPositionOnDown.equals(object.position)) {
-
-                        editor.execute(new SetPositionCommand(object, object.position, objectPositionOnDown));
-
-                    }
-
-                    break;
-
-                case 'rotate':
-
-                    if (!objectRotationOnDown.equals(object.rotation)) {
-
-                        editor.execute(new SetRotationCommand(object, object.rotation, objectRotationOnDown));
-
-                    }
-
-                    break;
-
-                case 'scale':
-
-                    if (!objectScaleOnDown.equals(object.scale)) {
-
-                        editor.execute(new SetScaleCommand(object, object.scale, objectScaleOnDown));
-
-                    }
-
-                    break;
-
-            }
-
-        }
-
-        controls.enabled = true;
-
+        _this.app.call('transformControlsMouseUp', _this);
     });
 
     sceneHelpers.add(transformControls);
