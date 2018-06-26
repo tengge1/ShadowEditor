@@ -47,7 +47,7 @@ function Viewport(app) {
 
     //
 
-    var box = new THREE.Box3();
+    
 
     var selectionBox = new THREE.BoxHelper();
     selectionBox.material.depthTest = false;
@@ -277,6 +277,8 @@ function Viewport(app) {
     // otherwise controls.enabled doesn't work.
 
     var controls = new THREE.EditorControls(camera, container.dom);
+    editor.controls = controls;
+
     controls.addEventListener('change', function () {
         transformControls.update();
         _this.app.call('cameraChanged', _this, camera);
@@ -362,42 +364,6 @@ function Viewport(app) {
     });
 
     this.app.on('cameraChanged.Viewport', function () {
-        _this.app.call('render');
-    });
-
-    this.app.on('objectSelected.Viewport', function (object) {
-
-        selectionBox.visible = false;
-        transformControls.detach();
-
-        if (object !== null && object !== scene) {
-
-            box.setFromObject(object);
-
-            if (box.isEmpty() === false) {
-
-                selectionBox.setFromObject(object);
-                selectionBox.visible = true;
-
-            }
-
-            transformControls.attach(object);
-
-        }
-
-        _this.app.call('render');
-
-    });
-
-    this.app.on('objectFocused.Viewport', function (object) {
-        controls.focus(object);
-    });
-
-    this.app.on('geometryChanged.Viewport', function (object) {
-        if (object !== undefined) {
-            selectionBox.setFromObject(object);
-        }
-
         _this.app.call('render');
     });
 

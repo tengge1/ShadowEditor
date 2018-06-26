@@ -6,6 +6,7 @@ import BaseEvent from '../BaseEvent';
  */
 function ObjectEvent(app) {
     BaseEvent.call(this, app);
+    this.box = new THREE.Box3();
 }
 
 ObjectEvent.prototype = Object.create(BaseEvent.prototype);
@@ -22,12 +23,20 @@ ObjectEvent.prototype.start = function () {
     this.app.on('objectRemoved.' + this.id, function (object) {
         _this.onObjectRemoved(object);
     });
+    this.app.on('objectSelected.' + this.id, function (object) {
+        _this.onObjectSelected(object);
+    });
+    this.app.on('objectFocused.' + this.id, function (object) {
+        _this.onObjectFocused(object);
+    });
 };
 
 ObjectEvent.prototype.stop = function () {
     this.app.on('objectAdded.' + this.id, null);
     this.app.on('objectChanged.' + this.id, null);
     this.app.on('objectRemoved.' + this.id, null);
+    this.app.on('objectSelected.' + this.id, null);
+    this.app.on('objectFocused.' + this.id, null);
 };
 
 ObjectEvent.prototype.onObjectAdded = function (object) {
@@ -65,6 +74,34 @@ ObjectEvent.prototype.onObjectRemoved = function (object) {
     object.traverse(function (child) {
         objects.splice(objects.indexOf(child), 1);
     });
+};
+
+ObjectEvent.prototype.onObjectSelected = function (object) {
+    var editor = this.app.editor;
+    var selectionBox = editor.selectionBox;
+    var transformControls = editor.transformControls;
+    var scene = editor.scene;
+    var box = this.box;
+
+    selectionBox.visible = false;
+    transformControls.detach();
+
+    if (object !== null && object !== scene) {
+        box.setFromObject(object);
+        if (box.isEmpty() === false) {
+            selectionBox.setFromObject(object);
+            selectionBox.visible = true;
+        }
+        transformControls.attach(object);
+    }
+
+    this.app.call('render');
+};
+
+ObjectEvent.prototype.onObjectFocused = function (object) {
+    var controls = this.app.editor.controls;
+
+    controls.focus(object);
 };
 
 export default ObjectEvent;
