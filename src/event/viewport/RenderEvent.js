@@ -16,10 +16,14 @@ RenderEvent.prototype.start = function () {
     this.app.on('render.' + this.id, function () {
         _this.onRender();
     });
+    this.app.on('materialChanged.' + this.id, function (material) {
+        _this.onRender();
+    });
 };
 
 RenderEvent.prototype.stop = function () {
     this.app.on('render.' + this.id, null);
+    this.app.on('materialChanged.' + this.id, null);
 };
 
 RenderEvent.prototype.onRender = function () {

@@ -88,6 +88,8 @@ import ShowGridChangedEvent from './viewport/ShowGridChangedEvent';
 import WindowResizeEvent from './viewport/WindowResizeEvent';
 import SceneFogChangedEvent from './viewport/SceneFogChangedEvent';
 import SceneBackgroundChangedEvent from './viewport/SceneBackgroundChangedEvent';
+import HelperEvent from './viewport/HelperEvent';
+import ObjectEvent from './viewport/ObjectEvent';
 
 import TransformModeChangedEvent from './statusBar/TransformModeChangedEvent';
 import GridChangeEvent from './statusBar/GridChangeEvent';
@@ -192,6 +194,8 @@ function EventDispatcher(app) {
         new WindowResizeEvent(this.app),
         new SceneFogChangedEvent(this.app),
         new SceneBackgroundChangedEvent(this.app),
+        new HelperEvent(this.app),
+        new ObjectEvent(this.app),
 
         // statusBar中的事件
         new TransformModeChangedEvent(this.app),

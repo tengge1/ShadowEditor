@@ -33,6 +33,7 @@ function Viewport(app) {
     var sceneHelpers = editor.sceneHelpers;
 
     var objects = [];
+    editor.objects = objects;
 
     //
 
@@ -54,11 +55,16 @@ function Viewport(app) {
     selectionBox.visible = false;
     sceneHelpers.add(selectionBox);
 
+    editor.selectionBox = selectionBox;
+
     var objectPositionOnDown = null;
     var objectRotationOnDown = null;
     var objectScaleOnDown = null;
 
     var transformControls = new THREE.TransformControls(camera, container.dom);
+
+    editor.transformControls = transformControls;
+
     transformControls.addEventListener('change', function () {
 
         var object = transformControls.object;
@@ -392,55 +398,6 @@ function Viewport(app) {
             selectionBox.setFromObject(object);
         }
 
-        _this.app.call('render');
-    });
-
-    this.app.on('objectAdded.Viewport', function (object) {
-        object.traverse(function (child) {
-            objects.push(child);
-        });
-    });
-
-    this.app.on('objectChanged.Viewport', function (object) {
-
-        if (editor.selected === object) {
-
-            selectionBox.setFromObject(object);
-            transformControls.update();
-
-        }
-
-        if (object instanceof THREE.PerspectiveCamera) {
-
-            object.updateProjectionMatrix();
-
-        }
-
-        if (editor.helpers[object.id] !== undefined) {
-
-            editor.helpers[object.id].update();
-
-        }
-
-        _this.app.call('render');
-
-    });
-
-    this.app.on('objectRemoved.Viewport', function (object) {
-        object.traverse(function (child) {
-            objects.splice(objects.indexOf(child), 1);
-        });
-    });
-
-    this.app.on('helperAdded.Viewport', function (object) {
-        objects.push(object.getObjectByName('picker'));
-    });
-
-    this.app.on('helperRemoved.Viewport', function (object) {
-        objects.splice(objects.indexOf(object.getObjectByName('picker')), 1);
-    });
-
-    this.app.on('materialChanged.Viewport', function (material) {
         _this.app.call('render');
     });
 
