@@ -19,11 +19,19 @@ RenderEvent.prototype.start = function () {
     this.app.on('materialChanged.' + this.id, function (material) {
         _this.onRender();
     });
+    this.app.on('sceneGraphChanged.' + this.id, function () {
+        _this.onRender();
+    });
+    this.app.on('cameraChanged.' + this.id, function () {
+        _this.onRender();
+    });
 };
 
 RenderEvent.prototype.stop = function () {
     this.app.on('render.' + this.id, null);
     this.app.on('materialChanged.' + this.id, null);
+    this.app.on('sceneGraphChanged.' + this.id, null);
+    this.app.on('cameraChanged.' + this.id, null);
 };
 
 RenderEvent.prototype.onRender = function () {

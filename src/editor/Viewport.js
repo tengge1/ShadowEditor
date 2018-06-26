@@ -46,9 +46,6 @@ function Viewport(app) {
     editor.grid = grid;
 
     //
-
-    
-
     var selectionBox = new THREE.BoxHelper();
     selectionBox.material.depthTest = false;
     selectionBox.material.transparent = true;
@@ -356,14 +353,6 @@ function Viewport(app) {
             }, false);
         }
 
-        _this.app.call('render');
-    });
-
-    this.app.on('sceneGraphChanged.Viewport', function () {
-        _this.app.call('render');
-    });
-
-    this.app.on('cameraChanged.Viewport', function () {
         _this.app.call('render');
     });
 
