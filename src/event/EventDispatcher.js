@@ -91,6 +91,7 @@ import SceneBackgroundChangedEvent from './viewport/SceneBackgroundChangedEvent'
 import HelperEvent from './viewport/HelperEvent';
 import ObjectEvent from './viewport/ObjectEvent';
 import GeometryEvent from './viewport/GeometryEvent';
+import PickEvent from './viewport/PickEvent';
 
 import TransformModeChangedEvent from './statusBar/TransformModeChangedEvent';
 import GridChangeEvent from './statusBar/GridChangeEvent';
@@ -198,6 +199,7 @@ function EventDispatcher(app) {
         new HelperEvent(this.app),
         new ObjectEvent(this.app),
         new GeometryEvent(this.app),
+        new PickEvent(this.app),
 
         // statusBar中的事件
         new TransformModeChangedEvent(this.app),

@@ -198,6 +198,8 @@ function Viewport(app) {
     container.dom.addEventListener('touchstart', onTouchStart, false);
     container.dom.addEventListener('dblclick', onDoubleClick, false);
 
+    // 编辑器控件
+
     // controls need to be added *after* main logic,
     // otherwise controls.enabled doesn't work.
 

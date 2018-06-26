@@ -20,6 +20,8 @@ var EventList = [
     'appStart', // 应用程序开始前调用
     'appStarted', // 应用程序开始后调用
     'initApp', // 引用程序初始化
+    'appStop', // 程序开始结束前调用
+    'appStoped', // 程序结束后调用
 
     // editor事件
     'setTheme', // 设置编辑器主题
