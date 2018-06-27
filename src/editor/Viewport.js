@@ -127,18 +127,6 @@ function Viewport(app) {
         _this.app.call('render');
     });
 
-    this.app.on('transformModeChanged.Viewport', function (mode) {
-        transformControls.setMode(mode);
-    });
-
-    this.app.on('snapChanged.Viewport', function (dist) {
-        transformControls.setTranslationSnap(dist);
-    });
-
-    this.app.on('spaceChanged.Viewport', function (space) {
-        transformControls.setSpace(space);
-    });
-
     this.app.call('animate');
 };
 

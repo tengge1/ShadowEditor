@@ -24,6 +24,10 @@ TransformControlsEvent.prototype.start = function () {
     transformControls.addEventListener('change', this.onChange.bind(this));
     transformControls.addEventListener('mouseDown', this.onMouseDown.bind(this));
     transformControls.addEventListener('mouseUp', this.onMouseUp.bind(this));
+
+    this.app.on('transformModeChanged.' + this.id, this.onTransformModeChanged.bind(this));
+    this.app.on('snapChanged.' + this.id, this.onSnapChanged.bind(this));
+    this.app.on('spaceChanged.' + this.id, this.onSpaceChanged.bind(this));
 };
 
 TransformControlsEvent.prototype.stop = function () {
@@ -32,6 +36,10 @@ TransformControlsEvent.prototype.stop = function () {
     transformControls.removeEventListener('change', this.onChange);
     transformControls.removeEventListener('mouseDown', this.onMouseDown);
     transformControls.removeEventListener('mouseUp', this.onMouseUp);
+
+    this.app.on('transformModeChanged.' + this.id, null);
+    this.app.on('snapChanged.' + this.id, null);
+    this.app.on('spaceChanged.' + this.id, null);
 };
 
 TransformControlsEvent.prototype.onChange = function () {
@@ -99,6 +107,24 @@ TransformControlsEvent.prototype.onMouseUp = function () {
     }
 
     controls.enabled = true;
+};
+
+TransformControlsEvent.prototype.onTransformModeChanged = function (mode) {
+    var editor = this.app.editor;
+    var transformControls = editor.transformControls;
+    transformControls.setMode(mode);
+};
+
+TransformControlsEvent.prototype.onSnapChanged = function (dist) {
+    var editor = this.app.editor;
+    var transformControls = editor.transformControls;
+    transformControls.setTranslationSnap(dist);
+};
+
+TransformControlsEvent.prototype.onSpaceChanged = function (space) {
+    var editor = this.app.editor;
+    var transformControls = editor.transformControls;
+    transformControls.setSpace(space);
 };
 
 export default TransformControlsEvent;
