@@ -19,22 +19,19 @@ TransformControlsEvent.prototype = Object.create(BaseEvent.prototype);
 TransformControlsEvent.prototype.constructor = TransformControlsEvent;
 
 TransformControlsEvent.prototype.start = function () {
-    var _this = this;
-    this.app.on('transformControlsChange.' + this.id, function () {
-        _this.onChange();
-    });
-    this.app.on('transformControlsMouseDown.' + this.id, function () {
-        _this.onMouseDown();
-    });
-    this.app.on('transformControlsMouseUp.' + this.id, function () {
-        _this.onMouseUp();
-    });
+    var transformControls = this.app.editor.transformControls;
+
+    transformControls.addEventListener('change', this.onChange.bind(this));
+    transformControls.addEventListener('mouseDown', this.onMouseDown.bind(this));
+    transformControls.addEventListener('mouseUp', this.onMouseUp.bind(this));
 };
 
 TransformControlsEvent.prototype.stop = function () {
-    this.app.on('transformControlsChange.' + this.id, null);
-    this.app.on('transformControlsMouseDown.' + this.id, null);
-    this.app.on('transformControlsMouseUp.' + this.id, null);
+    var transformControls = this.app.editor.transformControls;
+
+    transformControls.removeEventListener('change', this.onChange);
+    transformControls.removeEventListener('mouseDown', this.onMouseDown);
+    transformControls.removeEventListener('mouseUp', this.onMouseUp);
 };
 
 TransformControlsEvent.prototype.onChange = function () {

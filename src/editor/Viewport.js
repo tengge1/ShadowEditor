@@ -8,6 +8,9 @@ import UI2 from '../ui2/UI';
 function Viewport(app) {
     this.app = app;
     var editor = this.app.editor;
+    var _this = this;
+
+    // 用户界面
 
     var container = new UI2.Div({
         parent: this.app.container,
@@ -18,10 +21,9 @@ function Viewport(app) {
 
     container.render();
 
-    this.viewportInfo = new ViewportInfo(app, container);
+    this.viewportInfo = new ViewportInfo(this.app, this.container);
 
     //
-    var _this = this;
 
     var renderer = null;
 
@@ -55,19 +57,8 @@ function Viewport(app) {
     // 平移旋转缩放控件
 
     var transformControls = new THREE.TransformControls(camera, container.dom);
-    editor.transformControls = transformControls;
-
-    transformControls.addEventListener('change', function () {
-        _this.app.call('transformControlsChange', _this);
-    });
-    transformControls.addEventListener('mouseDown', function () {
-        _this.app.call('transformControlsMouseDown', _this);
-    });
-    transformControls.addEventListener('mouseUp', function () {
-        _this.app.call('transformControlsMouseUp', _this);
-    });
-
     sceneHelpers.add(transformControls);
+    editor.transformControls = transformControls;
 
     // 编辑器控件
 
