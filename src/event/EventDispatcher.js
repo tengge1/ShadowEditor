@@ -101,6 +101,8 @@ import GridChangeEvent from './statusBar/GridChangeEvent';
 
 import CodeMirrorChangeEvent from './script/CodeMirrorChangeEvent';
 
+import PlayerEvent from './player/PlayerEvent';
+
 /**
  * 事件执行器
  */
@@ -213,6 +215,9 @@ function EventDispatcher(app) {
 
         // 代码编辑器中的事件
         new CodeMirrorChangeEvent(this.app),
+
+        // 播放器中的事件
+        new PlayerEvent(this.app),
     ];
 }
 

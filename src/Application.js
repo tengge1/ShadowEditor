@@ -35,7 +35,6 @@ function Application(container, options) {
     this.statusBar = new StatusBar(this); // 状态栏
     this.script = new Script(this); // 脚本编辑窗口
     this.player = new Player(this); // 启动窗口
-    this.container.appendChild(this.player.dom);
 
     // 是否从文件中加载场景，从文件中加载场景的url格式是index.html#file=xxx
     this.isLoadingFromHash = false;

@@ -1,4 +1,4 @@
-import UI from '../ui/UI';
+import UI2 from '../ui2/UI';
 
 /**
  * 播放器
@@ -6,41 +6,21 @@ import UI from '../ui/UI';
  */
 function Player(app) {
     this.app = app;
-    var editor = this.app.editor;
+    this.app.player = this;
 
-    var container = new UI.Panel();
-    container.setId('player');
-    container.setPosition('absolute');
-    container.setDisplay('none');
+    var container = new UI2.Div({
+        parent: this.app.container,
+        id: 'player',
+        style: 'position: absolute; display: none;'
+    });
+    container.render();
 
-    //
+    this.app.player.container = container;
 
     var player = new APP.Player();
     container.dom.appendChild(player.dom);
 
-    window.addEventListener('resize', function () {
-
-        player.setSize(container.dom.clientWidth, container.dom.clientHeight);
-
-    });
-
-    this.app.on('startPlayer.Player', function () {
-        container.setDisplay('');
-
-        player.load(editor.toJSON());
-        player.setSize(container.dom.clientWidth, container.dom.clientHeight);
-        player.play();
-    });
-
-    this.app.on('stopPlayer.Player', function () {
-        container.setDisplay('none');
-
-        player.stop();
-        player.dispose();
-    });
-
-    return container;
-
+    this.app.editor.player = player;
 };
 
 export default Player;
