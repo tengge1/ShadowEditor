@@ -87,22 +87,8 @@ function Viewport(app) {
     editor.transformControls = transformControls;
 
     // 编辑器控件
-
-    // controls need to be added *after* main logic,
-    // otherwise controls.enabled doesn't work.
-
     var controls = new THREE.EditorControls(camera, container.dom);
     editor.controls = controls;
-
-    controls.addEventListener('change', function () {
-        transformControls.update();
-        _this.app.call('cameraChanged', _this, camera);
-    });
-
-    this.app.on('editorCleared.Viewport', function () {
-        controls.center.set(0, 0, 0);
-        _this.app.call('render');
-    });
 
     this.app.on('enterVR.Viewport', function () {
         vrEffect.isPresenting ? vrEffect.exitPresent() : vrEffect.requestPresent();

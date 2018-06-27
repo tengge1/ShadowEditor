@@ -94,6 +94,7 @@ import PickEvent from './viewport/PickEvent';
 import RendererChangedEvent from './viewport/RendererChangedEvent';
 import WindowResizeEvent from './viewport/WindowResizeEvent';
 import ThemeChangedEvent from './viewport/ThemeChangedEvent';
+import EditorControlsEvent from './viewport/EditorControlsEvent';
 
 import TransformModeChangedEvent from './statusBar/TransformModeChangedEvent';
 import GridChangeEvent from './statusBar/GridChangeEvent';
@@ -204,6 +205,7 @@ function EventDispatcher(app) {
         new RendererChangedEvent(this.app),
         new WindowResizeEvent(this.app),
         new ThemeChangedEvent(this.app),
+        new EditorControlsEvent(this.app),
 
         // statusBar中的事件
         new TransformModeChangedEvent(this.app),
