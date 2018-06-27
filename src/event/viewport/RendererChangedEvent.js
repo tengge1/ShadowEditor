@@ -28,7 +28,7 @@ RendererChangedEvent.prototype.onRendererChanged = function (newRenderer) {
     var renderer = this.app.editor.renderer;
     var container = this.app.viewport.container;
 
-    if (renderer !== null) {
+    if (renderer != null) {
         container.dom.removeChild(renderer.domElement);
     }
 
@@ -61,7 +61,7 @@ RendererChangedEvent.prototype.onRendererChanged = function (newRenderer) {
         }, false);
     }
 
-    _this.app.call('render');
+    this.app.call('render');
 };
 
 export default RendererChangedEvent;
