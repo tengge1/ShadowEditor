@@ -93,6 +93,7 @@ import GeometryEvent from './viewport/GeometryEvent';
 import PickEvent from './viewport/PickEvent';
 import RendererChangedEvent from './viewport/RendererChangedEvent';
 import WindowResizeEvent from './viewport/WindowResizeEvent';
+import ThemeChangedEvent from './viewport/ThemeChangedEvent';
 
 import TransformModeChangedEvent from './statusBar/TransformModeChangedEvent';
 import GridChangeEvent from './statusBar/GridChangeEvent';
@@ -202,6 +203,7 @@ function EventDispatcher(app) {
         new PickEvent(this.app),
         new RendererChangedEvent(this.app),
         new WindowResizeEvent(this.app),
+        new ThemeChangedEvent(this.app),
 
         // statusBar中的事件
         new TransformModeChangedEvent(this.app),

@@ -108,25 +108,6 @@ function Viewport(app) {
         vrEffect.isPresenting ? vrEffect.exitPresent() : vrEffect.requestPresent();
     });
 
-    this.app.on('themeChanged.Viewport', function (value) {
-        switch (value) {
-            case 'assets/css/light.css':
-                sceneHelpers.remove(grid);
-                grid = new THREE.GridHelper(60, 60, 0x444444, 0x888888);
-                sceneHelpers.add(grid);
-                editor.grid = grid;
-                break;
-            case 'assets/css/dark.css':
-                sceneHelpers.remove(grid);
-                grid = new THREE.GridHelper(60, 60, 0xbbbbbb, 0x888888);
-                sceneHelpers.add(grid);
-                editor.grid = grid;
-                break;
-        }
-
-        _this.app.call('render');
-    });
-
     this.app.call('animate');
 };
 
