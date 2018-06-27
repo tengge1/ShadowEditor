@@ -29,11 +29,11 @@ VREvent.prototype.stop = function () {
 };
 
 VREvent.prototype.onEnterVR = function () {
-
     var groupVR = this.groupVR;
     var editor = this.app.editor;
     var viewport = this.app.viewport;
     var sidebar = this.app.sidebar;
+    var vrEffect = editor.vrEffect;
 
     if (groupVR == null) {
 
@@ -66,6 +66,8 @@ VREvent.prototype.onEnterVR = function () {
         });
 
     }
+
+    vrEffect.isPresenting ? vrEffect.exitPresent() : vrEffect.requestPresent();
 
     groupVR.visible = true;
 };

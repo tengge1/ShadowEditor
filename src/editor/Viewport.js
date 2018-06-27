@@ -90,10 +90,6 @@ function Viewport(app) {
     var controls = new THREE.EditorControls(camera, container.dom);
     editor.controls = controls;
 
-    this.app.on('enterVR.Viewport', function () {
-        vrEffect.isPresenting ? vrEffect.exitPresent() : vrEffect.requestPresent();
-    });
-
     this.app.call('animate');
 };
 
