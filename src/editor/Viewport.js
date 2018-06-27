@@ -36,7 +36,7 @@ function Viewport(app) {
 
     //
 
-    var vrEffect, vrControls, vrCamera;
+    var vrEffect;
 
     // helpers
 
@@ -111,41 +111,6 @@ function Viewport(app) {
 
     this.app.on('spaceChanged.Viewport', function (space) {
         transformControls.setSpace(space);
-    });
-
-    this.app.on('rendererChanged.Viewport', function (newRenderer) {
-        if (renderer !== null) {
-            container.dom.removeChild(renderer.domElement);
-        }
-
-        renderer = newRenderer;
-        _this.app.editor.renderer = renderer;
-
-        renderer.autoClear = false;
-        renderer.autoUpdateScene = false;
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(container.dom.offsetWidth, container.dom.offsetHeight);
-
-        container.dom.appendChild(renderer.domElement);
-
-        if (renderer.vr && renderer.vr.enabled) {
-            vrCamera = new THREE.PerspectiveCamera();
-            vrCamera.projectionMatrix = editor.camera.projectionMatrix;
-            editor.camera.add(vrCamera);
-            editor.vrCamera = vrCamera;
-
-            vrControls = new THREE.VRControls(vrCamera);
-            editor.vrControls = vrControls;
-
-            vrEffect = new THREE.VREffect(renderer);
-            editor.vrEffect = vrEffect;
-
-            window.addEventListener('vrdisplaypresentchange', function (event) {
-                effect.isPresenting ? _this.app.call('enteredVR', _this) : _this.app.call('exitedVR', _this);
-            }, false);
-        }
-
-        _this.app.call('render');
     });
 
     this.app.call('animate');
