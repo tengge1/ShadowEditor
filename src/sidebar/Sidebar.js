@@ -6,36 +6,40 @@ import ProjectPanel from './ProjectPanel';
 import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
 import UI2 from '../ui2/UI';
+import Container from '../ui2/Container';
 
 /**
  * 侧边栏
  * @author mrdoob / http://mrdoob.com/
  */
 function Sidebar(app) {
-    this.app = app;
-
-    var container = new UI2.Div({
-        id: 'sidebar'
+    Container.call(this, {
+        parent: app.container
     });
-    this.container = container;
+    this.id = 'sidebar';
+};
 
+Sidebar.prototype = Object.create(Container.prototype);
+Sidebar.prototype.constructor = Sidebar;
+
+Sidebar.prototype.render = function () {
     // 侧边栏
     var sceneTab = new UI2.Text({
         text: '场景',
         cls: 'selected',
-        onClick: function() {
+        onClick: function () {
 
         }
     });
     var projectTab = new UI2.Text({
         text: '工程',
-        onClick: function() {
+        onClick: function () {
 
         }
     });
     var settingsTab = new UI2.Text({
         text: '设置',
-        onClick: function() {
+        onClick: function () {
 
         }
     });
@@ -47,9 +51,7 @@ function Sidebar(app) {
     tabs.add(projectTab);
     tabs.add(settingsTab);
 
-    container.add(tabs);
-
-    container.render();
+    this.add(tabs);
 
     // function onClick(event) {
 
@@ -61,28 +63,28 @@ function Sidebar(app) {
 
     // 场景
     var scene = new UI2.Span();
-    
-    scene.dom.appendChild(new ScenePanel(app));
-    scene.dom.appendChild(new PropertyPanel(app));
-    scene.dom.appendChild(new AnimationPanel(app));
-    scene.dom.appendChild(new ScriptPanel(app));
 
-    container.add(scene);
+    // scene.dom.appendChild(new ScenePanel(app));
+    // scene.dom.appendChild(new PropertyPanel(app));
+    // scene.dom.appendChild(new AnimationPanel(app));
+    // scene.dom.appendChild(new ScriptPanel(app));
+
+    this.add(scene);
 
     // 工程
     var project = new UI2.Span();
 
-    project.dom.appendChild(new ProjectPanel(app));
-    
-    container.add(project);
+    // project.dom.appendChild(new ProjectPanel(app));
+
+    this.add(project);
 
     // 设置
     var settings = new UI2.Span();
-    
-    settings.dom.appendChild(new SettingPanel(app));
-    settings.dom.appendChild(new HistoryPanel(app));
 
-    container.add(settings);
+    // settings.dom.appendChild(new SettingPanel(app));
+    // settings.dom.appendChild(new HistoryPanel(app));
+
+    this.add(settings);
 
     //
 
@@ -113,6 +115,7 @@ function Sidebar(app) {
     // }
 
     // select('场景');
+    Container.prototype.render.call(this);
 };
 
 export default Sidebar;

@@ -2,6 +2,7 @@ import Control from './Control';
 import Container from './Container';
 import Div from './Div';
 import Row from './Row';
+import Span from './Span';
 import Text from './Text';
 import Input from './Input';
 import TextArea from './TextArea';
@@ -28,6 +29,7 @@ const UI = {
     Container: Container,
     Div: Div,
     Row: Row,
+    Span: Span,
     Text: Text,
     Input: Input,
     TextArea: TextArea,

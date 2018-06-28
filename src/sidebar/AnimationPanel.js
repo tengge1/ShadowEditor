@@ -1,17 +1,14 @@
-﻿import UI from '../ui/UI';
+﻿import UI2 from '../ui2/UI';
 
 /**
+ * 动画侧边栏
  * @author mrdoob / http://mrdoob.com/
  */
-
 function AnimationPanel(app) {
-	this.app = app;
-	var editor = this.app.editor;
-
 	var options = {};
 	var possibleAnimations = {};
 
-	var container = new UI.Panel();
+	var container = new UI2.Div();
 	container.setDisplay('none');
 
 	container.add(new UI.Text('动画'));
@@ -22,7 +19,6 @@ function AnimationPanel(app) {
 	container.add(animationsRow);
 
 	return container;
-
 };
 
 export default AnimationPanel;
