@@ -10,7 +10,8 @@ function Div(options) {
     options = options || {};
     this.id = options.id || null;
     this.html = options.html || null;
-    this.cls = options.cls || 'Panel';
+    this.cls = options.cls || null;
+    //this.cls = options.cls || 'Panel';
     this.style = options.style || null;
     this.onClick = options.onClick || null;
 };

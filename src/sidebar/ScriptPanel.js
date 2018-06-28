@@ -7,8 +7,9 @@ import UI from '../ui/UI';
  * @author mrdoob / http://mrdoob.com/
  */
 
-function ScriptPanel(editor) {
-    this.app = editor.app;
+function ScriptPanel(app) {
+    this.app = app;
+    var eidtor = this.app.editor;
 
     var container = new UI.Panel();
     container.setDisplay('none');

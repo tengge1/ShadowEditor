@@ -4,7 +4,10 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-function SettingPanel(editor) {
+function SettingPanel(app) {
+    this.app = app;
+    var editor = this.app.editor;
+
     var config = editor.config;
 
     var container = new UI.Panel();

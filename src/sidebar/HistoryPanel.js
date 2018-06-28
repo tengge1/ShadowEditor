@@ -5,8 +5,10 @@
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  */
 
-function HistoryPanel(editor) {
-    this.app = editor.app;
+function HistoryPanel(app) {
+    this.app = app;
+    var editor = this.app.editor;
+
     var config = editor.config;
 
     var history = editor.history;

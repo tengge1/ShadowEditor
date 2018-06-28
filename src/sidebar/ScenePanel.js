@@ -4,8 +4,10 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-function ScenePanel(editor) {
-    this.app = editor.app;
+function ScenePanel(app) {
+    this.app = app;
+    var editor = this.app.editor;
+
     var container = new UI.Panel();
     container.setBorderTop('0');
     container.setPaddingTop('20px');

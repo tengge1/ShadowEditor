@@ -7,7 +7,10 @@ import UI from '../ui/UI';
  * @author mrdoob / http://mrdoob.com/
  */
 
-function PropertyPanel(editor) {
+function PropertyPanel(app) {
+    this.app = app;
+    var editor = this.app.editor;
+
     var container = new UI.Span();
 
     var objectTab = new UI.Text('物体').onClick(onClick);

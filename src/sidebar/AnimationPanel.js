@@ -4,7 +4,10 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-function AnimationPanel(editor) {
+function AnimationPanel(app) {
+	this.app = app;
+	var editor = this.app.editor;
+
 	var options = {};
 	var possibleAnimations = {};
 
