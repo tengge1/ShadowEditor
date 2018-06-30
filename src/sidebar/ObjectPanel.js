@@ -10,8 +10,9 @@ import UI from '../ui/UI';
  * @author mrdoob / http://mrdoob.com/
  */
 
-function ObjectPanel(editor) {
-    this.app = editor.app;
+function ObjectPanel(app) {
+    this.app = app;
+    var editor = this.app.editor;
 
     var container = new UI.Panel();
     container.setBorderTop('0');

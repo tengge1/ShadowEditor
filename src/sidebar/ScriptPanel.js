@@ -9,7 +9,7 @@ import UI from '../ui/UI';
 
 function ScriptPanel(app) {
     this.app = app;
-    var eidtor = this.app.editor;
+    var editor = this.app.editor;
 
     var container = new UI.Panel();
     container.setDisplay('none');

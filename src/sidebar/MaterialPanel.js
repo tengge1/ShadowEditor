@@ -8,9 +8,10 @@ import UI from '../ui/UI';
  * @author mrdoob / http://mrdoob.com/
  */
 
-function MaterialPanel(editor) {
+function MaterialPanel(app) {
+    this.app = app;
+    var editor = this.app.editor;
 
-    this.app = editor.app;
     var currentObject;
 
     var container = new UI.Panel();

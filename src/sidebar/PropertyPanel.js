@@ -31,7 +31,7 @@ function PropertyPanel(app) {
     //
 
     var object = new UI.Span().add(
-        new ObjectPanel(editor)
+        new ObjectPanel(this.app)
     );
     container.add(object);
 
@@ -41,7 +41,7 @@ function PropertyPanel(app) {
     container.add(geometry);
 
     var material = new UI.Span().add(
-        new MaterialPanel(editor)
+        new MaterialPanel(this.app)
     );
     container.add(material);
 

@@ -4,7 +4,6 @@ import UI from '../../ui/UI';
 /**
  * @author mrdoob / http://mrdoob.com/
  */
-
 function BoxGeometryPanel(editor, object) {
     var container = new UI.Row();
 

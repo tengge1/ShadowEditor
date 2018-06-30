@@ -4,9 +4,9 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-function ProjectPanel(editor) {
-
-    this.app = editor.app;
+function ProjectPanel(app) {
+    this.app = app;
+    var editor = this.app.editor;
 
     var config = editor.config;
 
