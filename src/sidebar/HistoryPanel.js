@@ -121,11 +121,9 @@ function HistoryPanel(app) {
         refreshUI();
     });
 
-    this.app.on('historyChanged.HistoryPanel', function () {
-        refreshUI();
-    });
-
     this.app.on('historyChanged.HistoryPanel', function (cmd) {
+        refreshUI();
+
         outliner.setValue(cmd !== undefined ? cmd.id : null);
     });
 
