@@ -1,4 +1,4 @@
-﻿import SetGeometryValueCommand from '../../command/SetGeometryValueCommand';
+﻿import SetGeometryValueCommand from '../../../command/SetGeometryValueCommand';
 import GeometryGeometryPanel from './GeometryGeometryPanel';
 import BufferGeometryPanel from './BufferGeometryPanel';
 import GeometryModifyPanel from './GeometryModifyPanel';
@@ -14,7 +14,7 @@ import TeapotBufferGeometryPanel from './TeapotBufferGeometryPanel';
 import TorusGeometryPanel from './TorusGeometryPanel';
 import TorusKnotGeometryPanel from './TorusKnotGeometryPanel';
 
-import UI from '../../ui/UI';
+import UI from '../../../ui/UI';
 
 /**
  * 几何体面板

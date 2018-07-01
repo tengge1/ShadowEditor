@@ -6,7 +6,7 @@ import Script from './core/Script';
 import Player from './core/Player';
 import StatusBar from './editor/StatusBar';
 import Menubar from './editor/Menubar';
-import Sidebar from './sidebar/Sidebar';
+import Sidebar from './editor/sidebar/Sidebar';
 
 /**
  * 应用程序

@@ -1,7 +1,7 @@
 ﻿import ObjectPanel from './ObjectPanel';
 import GeometryPanel from './geometry/GeometryPanel';
 import MaterialPanel from './MaterialPanel';
-import UI from '../ui/UI';
+import UI from '../../ui/UI';
 
 /**
  * 属性面板

@@ -1,5 +1,5 @@
-﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI from '../../ui/UI';
+﻿import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import UI from '../../../ui/UI';
 
 /**
  * 长方体几何体

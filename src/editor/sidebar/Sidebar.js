@@ -5,7 +5,7 @@ import ScriptPanel from './ScriptPanel';
 import ProjectPanel from './ProjectPanel';
 import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
-import UI from '../ui/UI';
+import UI from '../../ui/UI';
 
 /**
  * 侧边栏

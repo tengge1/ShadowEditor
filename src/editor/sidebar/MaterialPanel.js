@@ -1,8 +1,8 @@
-﻿import SetMaterialCommand from '../command/SetMaterialCommand';
-import SetMaterialValueCommand from '../command/SetMaterialValueCommand';
-import SetMaterialColorCommand from '../command/SetMaterialColorCommand';
-import SetMaterialMapCommand from '../command/SetMaterialMapCommand';
-import UI from '../ui/UI';
+﻿import SetMaterialCommand from '../../command/SetMaterialCommand';
+import SetMaterialValueCommand from '../../command/SetMaterialValueCommand';
+import SetMaterialColorCommand from '../../command/SetMaterialColorCommand';
+import SetMaterialMapCommand from '../../command/SetMaterialMapCommand';
+import UI from '../../ui/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/

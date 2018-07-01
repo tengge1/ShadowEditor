@@ -1,10 +1,10 @@
-﻿import SetPositionCommand from '../command/SetPositionCommand';
-import SetRotationCommand from '../command/SetRotationCommand';
-import SetScaleCommand from '../command/SetScaleCommand';
-import SetUuidCommand from '../command/SetUuidCommand';
-import SetValueCommand from '../command/SetValueCommand';
-import SetColorCommand from '../command/SetColorCommand';
-import UI from '../ui/UI';
+﻿import SetPositionCommand from '../../command/SetPositionCommand';
+import SetRotationCommand from '../../command/SetRotationCommand';
+import SetScaleCommand from '../../command/SetScaleCommand';
+import SetUuidCommand from '../../command/SetUuidCommand';
+import SetValueCommand from '../../command/SetValueCommand';
+import SetColorCommand from '../../command/SetColorCommand';
+import UI from '../../ui/UI';
 
 /**
  * 物体面板

@@ -1,5 +1,5 @@
-﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI from '../../ui/UI';
+﻿import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import UI from '../../../ui/UI';
 
 /**
  * 环面纽结几何体
