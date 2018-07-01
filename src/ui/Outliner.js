@@ -1,4 +1,5 @@
 import Control from './Control';
+import MoveObjectCommand from '../command/MoveObjectCommand';
 
 /**
  * 外形
@@ -9,6 +10,8 @@ function Outliner(options) {
     options = options || {};
     this.id = options.id || null;
     this.editor = options.editor || null;
+    this.onChange = options.onChange || null;
+    this.onDblClick = options.onDblClick || null;
 }
 
 Outliner.prototype = Object.create(Control.prototype);
@@ -54,7 +57,15 @@ Outliner.prototype.render = function () {
 
     }, false);
 
-    _this.parent.appendChild(this.dom);
+    this.parent.appendChild(this.dom);
+
+    if (this.onChange) {
+        this.dom.addEventListener('change', this.onChange.bind(this));
+    }
+
+    if (this.onDblClick) {
+        this.dom.addEventListener('dblclick', this.onDblClick.bind(this));
+    }
 
     this.options = [];
     this.selectedIndex = - 1;
@@ -146,7 +157,7 @@ Outliner.prototype.setOptions = function (options) {
             moveObject(object, parentObject);
         }
     }
-    
+
     function moveObject(object, newParent, nextObject) {
         if (nextObject === null) nextObject = undefined;
 

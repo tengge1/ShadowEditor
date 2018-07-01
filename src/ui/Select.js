@@ -9,6 +9,7 @@ function Select(options) {
     options = options || {};
     this.options = options.options || [];
     this.value = options.value || '';
+    this.style = options.style || null;
     this.onChange = options.onChange || null;
 };
 
@@ -18,6 +19,11 @@ Select.prototype.constructor = Select;
 Select.prototype.render = function () {
     this.dom = document.createElement('select');
     this.dom.className = 'Select';
+
+    if (this.style) {
+        this.dom.style = this.style;
+    }
+
     this.dom.style.padding = '2px';
 
     var _this = this;
