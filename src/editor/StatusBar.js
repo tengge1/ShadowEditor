@@ -1,4 +1,4 @@
-﻿import UI2 from '../ui2/UI';
+﻿import UI from '../ui/UI';
 
 /**
  * 状态栏
@@ -7,17 +7,17 @@
 function StatusBar(app) {
     this.app = app;
 
-    this.container = new UI2.Div({
+    this.container = new UI.Div({
         parent: this.app.container,
         id: 'toolbar'
     });
 
-    this.buttons = new UI2.Div();
+    this.buttons = new UI.Div();
     this.container.add(this.buttons);
 
     // 平移
     var _this = this;
-    this.translateBtn = new UI2.Button({
+    this.translateBtn = new UI.Button({
         id: 'translateBtn',
         text: '平移',
         cls: 'Button selected',
@@ -29,7 +29,7 @@ function StatusBar(app) {
     this.buttons.add(this.translateBtn);
 
     // 旋转
-    this.rotateBtn = new UI2.Button({
+    this.rotateBtn = new UI.Button({
         id: 'rotateBtn',
         text: '旋转',
         title: 'E',
@@ -40,7 +40,7 @@ function StatusBar(app) {
     this.buttons.add(this.rotateBtn);
 
     // 缩放
-    this.scaleBtn = new UI2.Button({
+    this.scaleBtn = new UI.Button({
         id: 'scaleBtn',
         text: '缩放',
         title: 'R',
@@ -51,18 +51,18 @@ function StatusBar(app) {
     this.buttons.add(this.scaleBtn);
 
     // 网格数量
-    this.grid = new UI2.Number({
+    this.grid = new UI.Number({
         value: 25,
         style: 'width: 40px',
         onChange: function () {
             _this.app.call('gridChange', _this, this);
         }
     });
-    this.buttons.add(new UI2.Text({ text: '网格：' }));
+    this.buttons.add(new UI.Text({ text: '网格：' }));
     this.buttons.add(this.grid);
 
     // 单元格
-    this.snap = new UI2.Boolean({
+    this.snap = new UI.Boolean({
         value: false,
         text: '单元',
         onChange: function () {
@@ -72,7 +72,7 @@ function StatusBar(app) {
     this.buttons.add(this.snap);
 
     // 坐标系类型
-    this.local = new UI2.Boolean({
+    this.local = new UI.Boolean({
         value: false,
         text: '本地',
         onChange: function () {
@@ -82,7 +82,7 @@ function StatusBar(app) {
     this.buttons.add(this.local);
 
     // 显示 / 隐藏网格
-    this.showGrid = new UI2.Boolean({
+    this.showGrid = new UI.Boolean({
         value: true,
         text: '网格',
         onChange: function () {

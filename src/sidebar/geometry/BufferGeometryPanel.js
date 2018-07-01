@@ -1,5 +1,5 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI2 from '../../ui2/UI';
+import UI from '../../ui/UI';
 
 /**
  * 缓冲几何体
@@ -8,7 +8,7 @@ import UI2 from '../../ui2/UI';
 function BufferGeometryPanel(editor) {
     this.app = editor.app;
 
-    var container = new UI2.Row();
+    var container = new UI.Row();
     container.render();
 
     function update(object) {
@@ -26,14 +26,14 @@ function BufferGeometryPanel(editor) {
             var index = geometry.index;
 
             if (index !== null) {
-                var panel = new UI2.Row();
+                var panel = new UI.Row();
 
-                panel.add(new UI2.Text({
+                panel.add(new UI.Text({
                     text: '索引',
                     style: 'width: 90px;'
                 }));
 
-                panel.add(new UI2.Text({
+                panel.add(new UI.Text({
                     text: (index.count).format(),
                     style: 'font-size: 12px;'
                 }));
@@ -49,8 +49,8 @@ function BufferGeometryPanel(editor) {
 
                 var attribute = attributes[name];
 
-                var panel = new UI2.Row();
-                panel.add(new UI2.Text({
+                var panel = new UI.Row();
+                panel.add(new UI.Text({
                     text: name,
                     style: 'width: 90px;'
                 }));

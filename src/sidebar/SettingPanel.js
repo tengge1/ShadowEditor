@@ -1,4 +1,4 @@
-﻿import UI2 from '../ui2/UI';
+﻿import UI from '../ui/UI';
 
 /**
  * 设置面板
@@ -10,7 +10,7 @@ function SettingPanel(app) {
 
     var config = editor.config;
 
-    var container = new UI2.Div({
+    var container = new UI.Div({
         style: 'border-top: 0; padding-top: 20px;'
     });
 
@@ -21,9 +21,9 @@ function SettingPanel(app) {
         'assets/css/dark.css': '深色'
     };
 
-    var themeRow = new UI2.Row();
+    var themeRow = new UI.Row();
 
-    var theme = new UI2.Select({
+    var theme = new UI.Select({
         options: options,
         value: config.getKey('theme'),
         style: 'width: 150px',
@@ -35,7 +35,7 @@ function SettingPanel(app) {
         }
     });
 
-    themeRow.add(new UI2.Text({
+    themeRow.add(new UI.Text({
         text: '主题',
         style: 'width: 90px'
     }));

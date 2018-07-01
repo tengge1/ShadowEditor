@@ -1,4 +1,4 @@
-﻿import UI2 from '../ui2/UI';
+﻿import UI from '../ui/UI';
 
 /**
  * 历史记录面板
@@ -12,9 +12,9 @@ function HistoryPanel(app) {
     var config = editor.config;
     var history = editor.history;
 
-    var container = new UI2.Div();
+    var container = new UI.Div();
 
-    container.add(new UI2.Text({
+    container.add(new UI.Text({
         text: '历史记录'
     }));
 
@@ -22,7 +22,7 @@ function HistoryPanel(app) {
 
     var _this = this;
 
-    var persistent = new UI2.Boolean({
+    var persistent = new UI.Boolean({
         value: config.getKey('settings/history'),
         text: '永久',
         style: 'position: absolute, right: 8px;',
@@ -42,11 +42,11 @@ function HistoryPanel(app) {
 
     container.add(persistent);
 
-    container.add(new UI2.Break(), new UI2.Break());
+    container.add(new UI.Break(), new UI.Break());
 
     var ignoreObjectSelectedSignal = false;
 
-    var outliner = new UI2.Outliner({
+    var outliner = new UI.Outliner({
         editor: editor,
         onChange: function () {
             ignoreObjectSelectedSignal = true;

@@ -1,26 +1,26 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI2 from '../../ui2/UI';
+import UI from '../../ui/UI';
 
 /**
  * 圆形几何体
  * @author mrdoob / http://mrdoob.com/
  */
 function CircleGeometryPanel(editor, object) {
-    var container = new UI2.Row();
+    var container = new UI.Row();
 
     var geometry = object.geometry;
     var parameters = geometry.parameters;
 
     // radius
 
-    var radiusRow = new UI2.Row();
+    var radiusRow = new UI.Row();
 
-    var radius = new UI2.Number({
+    var radius = new UI.Number({
         value: parameters.radius,
         onChange: update
     });
 
-    radiusRow.add(new UI2.Text({
+    radiusRow.add(new UI.Text({
         text: '半径',
         style: 'width: 90px;'
     }));
@@ -31,15 +31,15 @@ function CircleGeometryPanel(editor, object) {
 
     // segments
 
-    var segmentsRow = new UI2.Row();
+    var segmentsRow = new UI.Row();
 
-    var segments = new UI2.Integer({
+    var segments = new UI.Integer({
         value: parameters.segments,
         range: [3, Infinity],
         onChange: update
     });
 
-    segmentsRow.add(new UI2.Text({
+    segmentsRow.add(new UI.Text({
         text: '段长',
         style: 'width: 90px;'
     }));
@@ -50,14 +50,14 @@ function CircleGeometryPanel(editor, object) {
 
     // thetaStart
 
-    var thetaStartRow = new UI2.Row();
+    var thetaStartRow = new UI.Row();
 
-    var thetaStart = new UI2.Number({
+    var thetaStart = new UI.Number({
         value: parameters.thetaStart,
         onChange: update
     });
 
-    thetaStartRow.add(new UI2.Text({
+    thetaStartRow.add(new UI.Text({
         text: 'θ开始',
         style: 'width: 90px;'
     }));
@@ -68,13 +68,13 @@ function CircleGeometryPanel(editor, object) {
 
     // thetaLength
 
-    var thetaLengthRow = new UI2.Row();
-    var thetaLength = new UI2.Number({
+    var thetaLengthRow = new UI.Row();
+    var thetaLength = new UI.Number({
         value: parameters.thetaLength,
         onChange: update
     });
 
-    thetaLengthRow.add(new UI2.Text({
+    thetaLengthRow.add(new UI.Text({
         text: 'θ长度',
         style: 'width: 90px;'
     }));

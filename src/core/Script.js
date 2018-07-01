@@ -1,4 +1,4 @@
-import UI2 from '../ui2/UI';
+import UI from '../ui/UI';
 import SetScriptValueCommand from '../command/SetScriptValueCommand';
 
 /**
@@ -10,23 +10,23 @@ function Script(app) {
     var editor = this.app.editor;
 
     // 渲染ui
-    var container = new UI2.Div({
+    var container = new UI.Div({
         parent: this.app.container,
         id: 'script',
         style: 'position: absolute; background-color: #272822; display: none;'
     });
 
-    var header = new UI2.Div({
+    var header = new UI.Div({
         style: 'padding: 10px;'
     });
     container.add(header);
 
-    var title = new UI2.Text({
+    var title = new UI.Text({
         style: 'color: #fff;'
     });
     header.add(title);
 
-    var close = new UI2.CloseButton({
+    var close = new UI.CloseButton({
         style: 'position: absolute; top: 3px; right: 1px; cursor: pointer',
         onClick: function () {
             container.dom.style.display = 'none';

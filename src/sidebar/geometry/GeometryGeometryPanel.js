@@ -1,5 +1,5 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI2 from '../../ui2/UI';
+import UI from '../../ui/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -7,14 +7,14 @@ import UI2 from '../../ui2/UI';
 function GeometryGeometryPanel(editor) {
     this.app = editor.app;
 
-    var container = new UI2.Row();
+    var container = new UI.Row();
 
     // vertices
 
-    var verticesRow = new UI2.Row();
-    var vertices = new UI2.Text();
+    var verticesRow = new UI.Row();
+    var vertices = new UI.Text();
 
-    verticesRow.add(new UI2.Text({
+    verticesRow.add(new UI.Text({
         text: '顶点',
         style: 'width: 90px;'
     }));
@@ -25,10 +25,10 @@ function GeometryGeometryPanel(editor) {
 
     // faces
 
-    var facesRow = new UI2.Row();
-    var faces = new UI2.Text();
+    var facesRow = new UI.Row();
+    var faces = new UI.Text();
 
-    facesRow.add(new UI2.Text({
+    facesRow.add(new UI.Text({
         text: '面',
         style: 'width: 90px;'
     }));

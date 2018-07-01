@@ -1,7 +1,7 @@
 ﻿import ObjectPanel from './ObjectPanel';
 import GeometryPanel from './geometry/GeometryPanel';
 import MaterialPanel from './MaterialPanel';
-import UI2 from '../ui2/UI';
+import UI from '../ui/UI';
 
 /**
  * 属性面板
@@ -11,24 +11,24 @@ function PropertyPanel(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var container = new UI2.Span();
+    var container = new UI.Span();
 
-    var objectTab = new UI2.Text({
+    var objectTab = new UI.Text({
         text: '物体',
         onClick: onClick
     });
 
-    var geometryTab = new UI2.Text({
+    var geometryTab = new UI.Text({
         text: '几何',
         onClick: onClick
     });
 
-    var materialTab = new UI2.Text({
+    var materialTab = new UI.Text({
         text: '材质',
         onClick: onClick
     });
 
-    var tabs = new UI2.Div({
+    var tabs = new UI.Div({
         id: 'tabs'
     });
 
@@ -46,7 +46,7 @@ function PropertyPanel(app) {
 
     //
 
-    var object = new UI2.Span();
+    var object = new UI.Span();
 
     object.render();
 
@@ -55,7 +55,7 @@ function PropertyPanel(app) {
 
     container.dom.appendChild(object.dom);
 
-    var geometry = new UI2.Span();
+    var geometry = new UI.Span();
     geometry.render();
 
     var geometryPanel = new GeometryPanel(editor);
@@ -64,7 +64,7 @@ function PropertyPanel(app) {
 
     container.dom.appendChild(geometry.dom);
 
-    var material = new UI2.Span();
+    var material = new UI.Span();
 
     material.render();
 

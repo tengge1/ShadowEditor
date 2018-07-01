@@ -1,5 +1,5 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI2 from '../../ui2/UI';
+import UI from '../../ui/UI';
 
 /**
  * 车床几何体
@@ -7,20 +7,20 @@ import UI2 from '../../ui2/UI';
  */
 function LatheGeometryPanel(editor, object) {
 
-    var container = new UI2.Row();
+    var container = new UI.Row();
 
     var geometry = object.geometry;
     var parameters = geometry.parameters;
 
     // segments
 
-    var segmentsRow = new UI2.Row();
-    var segments = new UI2.Integer({
+    var segmentsRow = new UI.Row();
+    var segments = new UI.Integer({
         value: parameters.segments,
         onChange: update
     });
 
-    segmentsRow.add(new UI2.Text({
+    segmentsRow.add(new UI.Text({
         text: '段数',
         style: 'width: 90px;'
     }));
@@ -31,14 +31,14 @@ function LatheGeometryPanel(editor, object) {
 
     // phiStart
 
-    var phiStartRow = new UI2.Row();
+    var phiStartRow = new UI.Row();
 
-    var phiStart = new UI2.Number({
+    var phiStart = new UI.Number({
         value: parameters.phiStart * 180 / Math.PI,
         onChange: update
     });
 
-    phiStartRow.add(new UI2.Text({
+    phiStartRow.add(new UI.Text({
         text: 'φ开始 (°)',
         style: 'width: 90px;'
     }));
@@ -49,14 +49,14 @@ function LatheGeometryPanel(editor, object) {
 
     // phiLength
 
-    var phiLengthRow = new UI2.Row();
+    var phiLengthRow = new UI.Row();
 
-    var phiLength = new UI2.Number({
+    var phiLength = new UI.Number({
         value: parameters.phiLength * 180 / Math.PI,
         onChange: update
     });
 
-    phiLengthRow.add(new UI2.Text({
+    phiLengthRow.add(new UI.Text({
         text: 'φ长度(°)',
         style: 'width: 90px;'
     }));
@@ -70,20 +70,20 @@ function LatheGeometryPanel(editor, object) {
     var lastPointIdx = 0;
     var pointsUI = [];
 
-    var pointsRow = new UI2.Row();
+    var pointsRow = new UI.Row();
 
-    pointsRow.add(new UI2.Text({
+    pointsRow.add(new UI.Text({
         text: '点',
         style: 'width: 90px;'
     }));
 
-    var points = new UI2.Span({
+    var points = new UI.Span({
         style: 'display: inline-block;'
     });
 
     pointsRow.add(points);
 
-    var pointsList = new UI2.Div();
+    var pointsList = new UI.Div();
 
     points.add(pointsList);
 
@@ -94,7 +94,7 @@ function LatheGeometryPanel(editor, object) {
 
     }
 
-    var addPointButton = new UI2.Button({
+    var addPointButton = new UI.Button({
         text: '+',
         onClick: function () {
             if (pointsUI.length === 0) {
@@ -116,21 +116,21 @@ function LatheGeometryPanel(editor, object) {
 
     function createPointRow(x, y) {
 
-        var pointRow = new UI2.Div();
+        var pointRow = new UI.Div();
 
-        var lbl = new UI2.Text({
+        var lbl = new UI.Text({
             text: lastPointIdx + 1,
             style: 'width: 20px;'
         });
 
-        var txtX = new UI2.Number({
+        var txtX = new UI.Number({
             value: x,
             range: [0, Infinity],
             style: 'width: 40px;',
             onChange: update
         });
 
-        var txtY = new UI2.Number({
+        var txtY = new UI.Number({
             value: y,
             style: 'width: 40px;',
             onChange: update
@@ -138,7 +138,7 @@ function LatheGeometryPanel(editor, object) {
 
         var idx = lastPointIdx;
 
-        var btn = new UI2.Button({
+        var btn = new UI.Button({
             text: '-',
             onClick: deletePointRow(idx)
         });

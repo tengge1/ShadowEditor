@@ -5,7 +5,7 @@ import ScriptPanel from './ScriptPanel';
 import ProjectPanel from './ProjectPanel';
 import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
-import UI2 from '../ui2/UI';
+import UI from '../ui/UI';
 
 /**
  * 侧边栏
@@ -15,28 +15,28 @@ function Sidebar(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var container = new UI2.Div({
+    var container = new UI.Div({
         id: 'sidebar'
     });
 
     //
 
-    var sceneTab = new UI2.Text({
+    var sceneTab = new UI.Text({
         text: '场景',
         onClick: onClick
     });
 
-    var projectTab = new UI2.Text({
+    var projectTab = new UI.Text({
         text: '工程',
         onClick: onClick
     });
 
-    var settingsTab = new UI2.Text({
+    var settingsTab = new UI.Text({
         text: '设置',
         onClick: onClick
     });
 
-    var tabs = new UI2.Div({
+    var tabs = new UI.Div({
         id: 'tabs'
     });
 
@@ -54,21 +54,21 @@ function Sidebar(app) {
 
     //
 
-    var scene = new UI2.Span();
+    var scene = new UI.Span();
     scene.render();
     scene.dom.appendChild(new ScenePanel(this.app).dom);
     scene.dom.appendChild(new PropertyPanel(this.app).dom);
     scene.dom.appendChild(new ScriptPanel(this.app).dom);
     container.dom.appendChild(scene.dom);
 
-    var project = new UI2.Span();
+    var project = new UI.Span();
     project.render();
 
     project.dom.appendChild(new ProjectPanel(this.app).dom);
 
     container.dom.appendChild(project.dom);
 
-    var settings = new UI2.Span();
+    var settings = new UI.Span();
     settings.render();
     settings.dom.appendChild(new SettingPanel(this.app));
     settings.dom.appendChild(new HistoryPanel(this.app));

@@ -1,1 +1,0 @@
-export { default as UI2 } from './UI';

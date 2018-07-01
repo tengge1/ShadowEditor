@@ -1,4 +1,4 @@
-﻿import UI2 from '../ui2/UI';
+﻿import UI from '../ui/UI';
 
 /**
  * 场景面板
@@ -8,7 +8,7 @@ function ScenePanel(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var container = new UI2.Div({
+    var container = new UI.Div({
         style: 'border-top: 0; padding-top: 20px;'
     });
 
@@ -57,7 +57,7 @@ function ScenePanel(app) {
 
     var ignoreObjectSelectedSignal = false;
 
-    var outliner = new UI2.Outliner({
+    var outliner = new UI.Outliner({
         editor: editor,
         id: 'outliner',
         onChange: function () {
@@ -71,7 +71,7 @@ function ScenePanel(app) {
     });
 
     container.add(outliner);
-    container.add(new UI2.Break());
+    container.add(new UI.Break());
 
     // background
     var _this = this;
@@ -80,14 +80,14 @@ function ScenePanel(app) {
         _this.app.call('sceneBackgroundChanged', _this, backgroundColor.getHexValue());
     }
 
-    var backgroundRow = new UI2.Row();
+    var backgroundRow = new UI.Row();
 
-    var backgroundColor = new UI2.Color({
+    var backgroundColor = new UI.Color({
         value: '#aaaaaa',
         onChange: onBackgroundChanged
     });
 
-    backgroundRow.add(new UI2.Text({
+    backgroundRow.add(new UI.Text({
         text: '背景',
         style: 'width: 90px;'
     }));
@@ -107,8 +107,8 @@ function ScenePanel(app) {
             fogDensity.getValue());
     }
 
-    var fogTypeRow = new UI2.Row();
-    var fogType = new UI2.Select({
+    var fogTypeRow = new UI.Row();
+    var fogType = new UI.Select({
         options: {
             'None': '无',
             'Fog': '线性',
@@ -121,7 +121,7 @@ function ScenePanel(app) {
         }
     });
 
-    fogTypeRow.add(new UI2.Text({
+    fogTypeRow.add(new UI.Text({
         text: '雾',
         style: 'width: 90px'
     }));
@@ -132,13 +132,13 @@ function ScenePanel(app) {
 
     // fog color
 
-    var fogPropertiesRow = new UI2.Row({
+    var fogPropertiesRow = new UI.Row({
         style: 'display: none; margin-left: 90px;'
     });
 
     container.add(fogPropertiesRow);
 
-    var fogColor = new UI2.Color({
+    var fogColor = new UI.Color({
         value: '#aaaaaa',
         onChange: onFogChanged
     });
@@ -147,7 +147,7 @@ function ScenePanel(app) {
 
     // fog near
 
-    var fogNear = new UI2.Number({
+    var fogNear = new UI.Number({
         value: 0.1,
         style: 'width: 40px;',
         range: [0, Infinity],
@@ -158,7 +158,7 @@ function ScenePanel(app) {
 
     // fog far
 
-    var fogFar = new UI2.Number({
+    var fogFar = new UI.Number({
         value: 50,
         style: 'width: 40px;',
         range: [0, Infinity],
@@ -169,7 +169,7 @@ function ScenePanel(app) {
 
     // fog density
 
-    var fogDensity = new UI2.Number({
+    var fogDensity = new UI.Number({
         value: 0.05,
         style: 'width: 40px;',
         range: [0, 0.1],

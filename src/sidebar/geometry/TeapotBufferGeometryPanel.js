@@ -1,5 +1,5 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI2 from '../../ui2/UI';
+import UI from '../../ui/UI';
 
 /**
  * 茶壶几何体
@@ -8,20 +8,20 @@ import UI2 from '../../ui2/UI';
 function TeapotBufferGeometryPanel(editor, object) {
     this.app = editor.app;
 
-    var container = new UI2.Row();
+    var container = new UI.Row();
 
     var parameters = object.geometry.parameters;
 
     // size
 
-    var sizeRow = new UI2.Row();
+    var sizeRow = new UI.Row();
 
-    var size = new UI2.Number({
+    var size = new UI.Number({
         value: parameters.size,
         onChange: update
     });
 
-    sizeRow.add(new UI2.Text({
+    sizeRow.add(new UI.Text({
         text: '尺寸',
         style: 'width: 90px;'
     }));
@@ -32,15 +32,15 @@ function TeapotBufferGeometryPanel(editor, object) {
 
     // segments
 
-    var segmentsRow = new UI2.Row();
+    var segmentsRow = new UI.Row();
 
-    var segments = new UI2.Integer({
+    var segments = new UI.Integer({
         value: parameters.segments,
         range: [1, Infinity],
         onChange: update
     });
 
-    segmentsRow.add(new UI2.Text({
+    segmentsRow.add(new UI.Text({
         text: '段数',
         style: 'width: 90px;'
     }));
@@ -51,14 +51,14 @@ function TeapotBufferGeometryPanel(editor, object) {
 
     // bottom
 
-    var bottomRow = new UI2.Row();
+    var bottomRow = new UI.Row();
 
-    var bottom = new UI2.Checkbox({
+    var bottom = new UI.Checkbox({
         value: parameters.bottom,
         onChange: update
     });
 
-    bottomRow.add(new UI2.Text({
+    bottomRow.add(new UI.Text({
         text: '底部',
         style: 'width: 90px;'
     }));
@@ -69,14 +69,14 @@ function TeapotBufferGeometryPanel(editor, object) {
 
     // lid
 
-    var lidRow = new UI2.Row();
+    var lidRow = new UI.Row();
 
-    var lid = new UI2.Checkbox({
+    var lid = new UI.Checkbox({
         value: parameters.lid,
         onChange: update
     });
 
-    lidRow.add(new UI2.Text({
+    lidRow.add(new UI.Text({
         text: '壶盖',
         style: 'width: 90px;'
     }));
@@ -87,13 +87,13 @@ function TeapotBufferGeometryPanel(editor, object) {
 
     // body
 
-    var bodyRow = new UI2.Row();
-    var body = new UI2.Checkbox({
+    var bodyRow = new UI.Row();
+    var body = new UI.Checkbox({
         value: parameters.body,
         onChange: update
     });
 
-    bodyRow.add(new UI2.Text({
+    bodyRow.add(new UI.Text({
         text: '壶体',
         style: 'width: 90px;'
     }));
@@ -103,14 +103,14 @@ function TeapotBufferGeometryPanel(editor, object) {
 
     // fitted lid
 
-    var fitLidRow = new UI2.Row();
+    var fitLidRow = new UI.Row();
 
-    var fitLid = new UI2.Checkbox({
+    var fitLid = new UI.Checkbox({
         value: parameters.fitLid,
         onChange: update
     });
 
-    fitLidRow.add(new UI2.Text({
+    fitLidRow.add(new UI.Text({
         text: '适合壶盖',
         style: 'width: 90px;'
     }));
@@ -121,14 +121,14 @@ function TeapotBufferGeometryPanel(editor, object) {
 
     // blinn-sized
 
-    var blinnRow = new UI2.Row();
+    var blinnRow = new UI.Row();
 
-    var blinn = new UI2.Checkbox({
+    var blinn = new UI.Checkbox({
         value: parameters.blinn,
         onChange: update
     });
 
-    blinnRow.add(new UI2.Text({
+    blinnRow.add(new UI.Text({
         text: 'Blinn缩放',
         style: 'width: 90px;'
     }));

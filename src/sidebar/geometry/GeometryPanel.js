@@ -14,7 +14,7 @@ import TeapotBufferGeometryPanel from './TeapotBufferGeometryPanel';
 import TorusGeometryPanel from './TorusGeometryPanel';
 import TorusKnotGeometryPanel from './TorusKnotGeometryPanel';
 
-import UI2 from '../../ui2/UI';
+import UI from '../../ui/UI';
 
 /**
  * 几何体面板
@@ -46,17 +46,17 @@ const GeometryPanels = {
 function GeometryPanel(editor) {
     this.app = editor.app;
 
-    var container = new UI2.Div({
+    var container = new UI.Div({
         style: 'border-top: 0; padding-top: 20px;'
     });
 
     // type
 
-    var geometryTypeRow = new UI2.Row();
+    var geometryTypeRow = new UI.Row();
 
-    var geometryType = new UI2.Text();
+    var geometryType = new UI.Text();
 
-    geometryTypeRow.add(new UI2.Text({
+    geometryTypeRow.add(new UI.Text({
         text: '类型',
         style: 'width: 90px;'
     }));
@@ -67,14 +67,14 @@ function GeometryPanel(editor) {
 
     // uuid
 
-    var geometryUUIDRow = new UI2.Row();
+    var geometryUUIDRow = new UI.Row();
 
-    var geometryUUID = new UI2.Input({
+    var geometryUUID = new UI.Input({
         style: 'width: 102px; font-size: 12px;',
         disabled: true
     });
 
-    var geometryUUIDRenew = new UI2.Button({
+    var geometryUUIDRenew = new UI.Button({
         text: '新建',
         style: 'margin-left: 7px;',
         onClick: function () {
@@ -83,7 +83,7 @@ function GeometryPanel(editor) {
         }
     });
 
-    geometryUUIDRow.add(new UI2.Text({
+    geometryUUIDRow.add(new UI.Text({
         text: 'UUID',
         style: 'width: 90px;'
     }));
@@ -96,16 +96,16 @@ function GeometryPanel(editor) {
 
     // name
 
-    var geometryNameRow = new UI2.Row();
+    var geometryNameRow = new UI.Row();
 
-    var geometryName = new UI2.Input({
+    var geometryName = new UI.Input({
         style: 'width: 150px; font-size: 12px;',
         onChange: function () {
             editor.execute(new SetGeometryValueCommand(editor.selected, 'name', geometryName.getValue()));
         }
     });
 
-    geometryNameRow.add(new UI2.Text({
+    geometryNameRow.add(new UI.Text({
         text: '名称',
         style: 'width: 90px;'
     }));
@@ -118,7 +118,7 @@ function GeometryPanel(editor) {
 
     // parameters
 
-    var parameters = new UI2.Span();
+    var parameters = new UI.Span();
     parameters.render();
 
     //

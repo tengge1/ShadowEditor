@@ -1,5 +1,5 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI2 from '../../ui2/UI';
+import UI from '../../ui/UI';
 
 /**
  * 几何体修改
@@ -8,7 +8,7 @@ import UI2 from '../../ui2/UI';
 function GeometryModifyPanel(editor, object) {
     this.app = editor.app;
 
-    var container = new UI2.Row({
+    var container = new UI.Row({
         style: 'padding-left: 90px;'
     });
 
@@ -16,7 +16,7 @@ function GeometryModifyPanel(editor, object) {
 
     // Compute Vertex Normals
 
-    var button = new UI2.Button({
+    var button = new UI.Button({
         text: '计算顶点法线',
         onClick: function () {
             geometry.computeVertexNormals();

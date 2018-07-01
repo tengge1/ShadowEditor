@@ -1,5 +1,5 @@
 ﻿import ViewportInfo from './ViewportInfo';
-import UI2 from '../ui2/UI';
+import UI from '../ui/UI';
 import RendererChangedEvent from '../event/viewport/RendererChangedEvent';
 
 /**
@@ -13,7 +13,7 @@ function Viewport(app) {
 
     // 用户界面
 
-    var container = new UI2.Div({
+    var container = new UI.Div({
         parent: this.app.container,
         id: 'viewport',
         style: 'position: absolute'

@@ -1,4 +1,4 @@
-﻿import UI2 from '../ui2/UI';
+﻿import UI from '../ui/UI';
 
 /**
  * 菜单栏
@@ -298,19 +298,19 @@ function Menubar(app) {
 
     // --------------- 渲染生成dom ----------------------
 
-    this.dom = new UI2.Div({
+    this.dom = new UI.Div({
         parent: this.app.container,
         id: 'menubar'
     });
 
     var _this = this;
     this.data.forEach(function (n) {
-        var menu = new UI2.Div({
+        var menu = new UI.Div({
             cls: 'menu'
         });
 
         // 菜单标题
-        var title = new UI2.Div({
+        var title = new UI.Div({
             id: n.id,
             cls: 'title',
             html: n.text
@@ -319,17 +319,17 @@ function Menubar(app) {
 
         if (n.children) {
             // 下拉菜单
-            var options = new UI2.Div({
+            var options = new UI.Div({
                 cls: 'options'
             });
             menu.add(options);
 
             n.children.forEach(function (m) {
                 if (m.text === '-') { // 分隔符
-                    var hr = new UI2.HorizontalRule();
+                    var hr = new UI.HorizontalRule();
                     options.add(hr);
                 } else { // 其他文字
-                    var option = new UI2.Div({
+                    var option = new UI.Div({
                         id: m.id,
                         cls: 'option',
                         html: m.text
@@ -353,12 +353,12 @@ function Menubar(app) {
     });
 
     // 状态菜单
-    var statusMenu = new UI2.Div({
+    var statusMenu = new UI.Div({
         id: 'mStatus',
         cls: 'menu right'
     });
 
-    var autosave = new UI2.Boolean({
+    var autosave = new UI.Boolean({
         text: '自动保存',
         value: this.app.editor.config.getKey('autosave'),
         style: 'color: #888 !important;',
@@ -369,7 +369,7 @@ function Menubar(app) {
     });
     statusMenu.add(autosave);
 
-    var version = new UI2.Text({
+    var version = new UI.Text({
         text: 'r' + THREE.REVISION,
         cls: 'title',
         style: 'opacity: 0.5'

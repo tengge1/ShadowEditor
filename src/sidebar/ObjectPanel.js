@@ -4,7 +4,7 @@ import SetScaleCommand from '../command/SetScaleCommand';
 import SetUuidCommand from '../command/SetUuidCommand';
 import SetValueCommand from '../command/SetValueCommand';
 import SetColorCommand from '../command/SetColorCommand';
-import UI2 from '../ui2/UI';
+import UI from '../ui/UI';
 
 /**
  * 物体面板
@@ -14,13 +14,13 @@ function ObjectPanel(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var container = new UI2.Div({
+    var container = new UI.Div({
         style: 'border-top: 0; padding-top: 20px; display: none;'
     });
 
     // Actions
 
-    var objectActions = new UI2.Select({
+    var objectActions = new UI.Select({
         options: {
             'Actions': '动作',
             'Reset Position': '重置位置',
@@ -52,10 +52,10 @@ function ObjectPanel(app) {
 
     // type
 
-    var objectTypeRow = new UI2.Row();
-    var objectType = new UI2.Text();
+    var objectTypeRow = new UI.Row();
+    var objectType = new UI.Text();
 
-    objectTypeRow.add(new UI2.Text({
+    objectTypeRow.add(new UI.Text({
         text: '类型',
         style: 'width: 90px;'
     }));
@@ -66,13 +66,13 @@ function ObjectPanel(app) {
 
     // uuid
 
-    var objectUUIDRow = new UI2.Row();
-    var objectUUID = new UI2.Input({
+    var objectUUIDRow = new UI.Row();
+    var objectUUID = new UI.Input({
         style: 'width: 102px; font-size: 12px;',
         disabled: true
     });
 
-    var objectUUIDRenew = new UI2.Button({
+    var objectUUIDRenew = new UI.Button({
         text: '新建',
         style: 'margin-left: 7px;',
         onClick: function () {
@@ -81,7 +81,7 @@ function ObjectPanel(app) {
         }
     });
 
-    objectUUIDRow.add(new UI2.Text({
+    objectUUIDRow.add(new UI.Text({
         text: 'UUID',
         style: 'width: 90px;'
     }));
@@ -93,16 +93,16 @@ function ObjectPanel(app) {
 
     // name
 
-    var objectNameRow = new UI2.Row();
+    var objectNameRow = new UI.Row();
 
-    var objectName = new UI2.Input({
+    var objectName = new UI.Input({
         style: 'width: 150px; font-size: 12px;',
         onChange: function () {
             editor.execute(new SetValueCommand(editor.selected, 'name', objectName.getValue()));
         }
     });
 
-    objectNameRow.add(new UI2.Text({
+    objectNameRow.add(new UI.Text({
         text: '名称',
         style: 'width: 90px;'
     }));
@@ -113,24 +113,24 @@ function ObjectPanel(app) {
 
     // position
 
-    var objectPositionRow = new UI2.Row();
+    var objectPositionRow = new UI.Row();
 
-    var objectPositionX = new UI2.Number({
+    var objectPositionX = new UI.Number({
         style: 'width: 50px;',
         onChange: update
     });
 
-    var objectPositionY = new UI2.Number({
+    var objectPositionY = new UI.Number({
         style: 'width: 50px;',
         onChange: update
     });
 
-    var objectPositionZ = new UI2.Number({
+    var objectPositionZ = new UI.Number({
         style: 'width: 50px;',
         onChange: update
     });
 
-    objectPositionRow.add(new UI2.Text({
+    objectPositionRow.add(new UI.Text({
         text: '位置',
         style: 'width: 90px;'
     }));
@@ -143,30 +143,30 @@ function ObjectPanel(app) {
 
     // rotation
 
-    var objectRotationRow = new UI2.Row();
+    var objectRotationRow = new UI.Row();
 
-    var objectRotationX = new UI2.Number({
+    var objectRotationX = new UI.Number({
         step: 10,
         unit: '°',
         style: 'width: 50px;',
         onChange: update
     });
 
-    var objectRotationY = new UI2.Number({
+    var objectRotationY = new UI.Number({
         step: 10,
         unit: '°',
         style: 'width: 50px;',
         onChange: update
     });
 
-    var objectRotationZ = new UI2.Number({
+    var objectRotationZ = new UI.Number({
         step: 10,
         unit: '°',
         style: 'width: 50px;',
         onChange: update
     });
 
-    objectRotationRow.add(new UI2.Text({
+    objectRotationRow.add(new UI.Text({
         text: '旋转',
         style: 'width: 90px;'
     }));
@@ -179,35 +179,35 @@ function ObjectPanel(app) {
 
     // scale
 
-    var objectScaleRow = new UI2.Row();
+    var objectScaleRow = new UI.Row();
 
-    var objectScaleLock = new UI2.Checkbox({
+    var objectScaleLock = new UI.Checkbox({
         value: true,
         style: 'position: absolute; left: 75px;'
     });
 
-    var objectScaleX = new UI2.Number({
+    var objectScaleX = new UI.Number({
         value: 1,
         range: [0.01, Infinity],
         style: 'width: 50px;',
         onChange: updateScaleX
     });
 
-    var objectScaleY = new UI2.Number({
+    var objectScaleY = new UI.Number({
         value: 1,
         range: [0.01, Infinity],
         style: 'width: 50px;',
         onChange: updateScaleY
     });
 
-    var objectScaleZ = new UI2.Number({
+    var objectScaleZ = new UI.Number({
         value: 1,
         range: [0.01, Infinity],
         style: 'width: 50px;',
         onChange: updateScaleZ
     });
 
-    objectScaleRow.add(new UI2.Text({
+    objectScaleRow.add(new UI.Text({
         text: '尺寸',
         style: 'width: 90px;'
     }));
@@ -221,12 +221,12 @@ function ObjectPanel(app) {
 
     // fov
 
-    var objectFovRow = new UI2.Row();
-    var objectFov = new UI2.Number({
+    var objectFovRow = new UI.Row();
+    var objectFov = new UI.Number({
         onChange: update
     });
 
-    objectFovRow.add(new UI2.Text({
+    objectFovRow.add(new UI.Text({
         text: '视场',
         style: 'width: 90px;'
     }));
@@ -237,12 +237,12 @@ function ObjectPanel(app) {
 
     // near
 
-    var objectNearRow = new UI2.Row();
-    var objectNear = new UI2.Number({
+    var objectNearRow = new UI.Row();
+    var objectNear = new UI.Number({
         onChange: update
     });
 
-    objectNearRow.add(new UI2.Text({
+    objectNearRow.add(new UI.Text({
         text: '近点',
         style: 'width: 90px;'
     }));
@@ -253,12 +253,12 @@ function ObjectPanel(app) {
 
     // far
 
-    var objectFarRow = new UI2.Row();
-    var objectFar = new UI2.Number({
+    var objectFarRow = new UI.Row();
+    var objectFar = new UI.Number({
         onChange: update
     });
 
-    objectFarRow.add(new UI2.Text({
+    objectFarRow.add(new UI.Text({
         text: '远点',
         style: 'width: 90px;'
     }));
@@ -269,13 +269,13 @@ function ObjectPanel(app) {
 
     // intensity
 
-    var objectIntensityRow = new UI2.Row();
-    var objectIntensity = new UI2.Number({
+    var objectIntensityRow = new UI.Row();
+    var objectIntensity = new UI.Number({
         range: [0, Infinity],
         onChange: update
     });
 
-    objectIntensityRow.add(new UI2.Text({
+    objectIntensityRow.add(new UI.Text({
         text: '强度',
         style: 'width: 90px;'
     }));
@@ -286,13 +286,13 @@ function ObjectPanel(app) {
 
     // color
 
-    var objectColorRow = new UI2.Row();
+    var objectColorRow = new UI.Row();
 
-    var objectColor = new UI2.Color({
+    var objectColor = new UI.Color({
         onChange: update
     });
 
-    objectColorRow.add(new UI2.Text({
+    objectColorRow.add(new UI.Text({
         text: '颜色',
         style: 'width: 90px;'
     }));
@@ -303,12 +303,12 @@ function ObjectPanel(app) {
 
     // ground color
 
-    var objectGroundColorRow = new UI2.Row();
-    var objectGroundColor = new UI2.Color({
+    var objectGroundColorRow = new UI.Row();
+    var objectGroundColor = new UI.Color({
         onChange: update
     });
 
-    objectGroundColorRow.add(new UI2.Text({
+    objectGroundColorRow.add(new UI.Text({
         text: '地面颜色',
         style: 'width: 90px;'
     }));
@@ -319,14 +319,14 @@ function ObjectPanel(app) {
 
     // distance
 
-    var objectDistanceRow = new UI2.Row();
+    var objectDistanceRow = new UI.Row();
 
-    var objectDistance = new UI2.Number({
+    var objectDistance = new UI.Number({
         range: [0, Infinity],
         onChange: update
     });
 
-    objectDistanceRow.add(new UI2.Text({
+    objectDistanceRow.add(new UI.Text({
         text: '距离',
         style: 'width: 90px;'
     }));
@@ -337,15 +337,15 @@ function ObjectPanel(app) {
 
     // angle
 
-    var objectAngleRow = new UI2.Row();
+    var objectAngleRow = new UI.Row();
 
-    var objectAngle = new UI2.Number({
+    var objectAngle = new UI.Number({
         precision: 3,
         range: [0, Math.PI / 2],
         onChange: update
     });
 
-    objectAngleRow.add(new UI2.Text({
+    objectAngleRow.add(new UI.Text({
         text: '角度',
         style: 'width: 90px;'
     }));
@@ -356,13 +356,13 @@ function ObjectPanel(app) {
 
     // penumbra
 
-    var objectPenumbraRow = new UI2.Row();
-    var objectPenumbra = new UI2.Number({
+    var objectPenumbraRow = new UI.Row();
+    var objectPenumbra = new UI.Number({
         range: [0, 1],
         onChange: update
     });
 
-    objectPenumbraRow.add(new UI2.Text({
+    objectPenumbraRow.add(new UI.Text({
         text: '边缘',
         style: 'width: 90px;'
     }));
@@ -373,14 +373,14 @@ function ObjectPanel(app) {
 
     // decay
 
-    var objectDecayRow = new UI2.Row();
+    var objectDecayRow = new UI.Row();
 
-    var objectDecay = new UI2.Number({
+    var objectDecay = new UI.Number({
         range: [0, Infinity],
         onChange: update
     });
 
-    objectDecayRow.add(new UI2.Text({
+    objectDecayRow.add(new UI.Text({
         text: '衰变',
         style: 'width: 90px;'
     }));
@@ -390,14 +390,14 @@ function ObjectPanel(app) {
 
     // shadow
 
-    var objectShadowRow = new UI2.Row();
+    var objectShadowRow = new UI.Row();
 
-    objectShadowRow.add(new UI2.Text({
+    objectShadowRow.add(new UI.Text({
         text: '阴影',
         style: 'width: 90px;'
     }));
 
-    var objectCastShadow = new UI2.Boolean({
+    var objectCastShadow = new UI.Boolean({
         value: false,
         text: '产生',
         update: update
@@ -405,7 +405,7 @@ function ObjectPanel(app) {
 
     objectShadowRow.add(objectCastShadow);
 
-    var objectReceiveShadow = new UI2.Boolean({
+    var objectReceiveShadow = new UI.Boolean({
         value: false,
         text: '接收',
         onChange: update
@@ -413,7 +413,7 @@ function ObjectPanel(app) {
 
     objectShadowRow.add(objectReceiveShadow);
 
-    var objectShadowRadius = new UI2.Number({
+    var objectShadowRadius = new UI.Number({
         value: 1,
         onChange: update
     });
@@ -424,13 +424,13 @@ function ObjectPanel(app) {
 
     // visible
 
-    var objectVisibleRow = new UI2.Row();
+    var objectVisibleRow = new UI.Row();
 
-    var objectVisible = new UI2.Checkbox({
+    var objectVisible = new UI.Checkbox({
         onChange: update
     });
 
-    objectVisibleRow.add(new UI2.Text({
+    objectVisibleRow.add(new UI.Text({
         text: '可见性',
         style: 'width: 90px;'
     }));
@@ -443,9 +443,9 @@ function ObjectPanel(app) {
 
     var timeout;
 
-    var objectUserDataRow = new UI2.Row();
+    var objectUserDataRow = new UI.Row();
 
-    var objectUserData = new UI2.TextArea({
+    var objectUserData = new UI.TextArea({
         style: 'width: 150px; height: 40px; font-size: 12px;',
         onChange: update,
         onKeyUp: function () {
@@ -466,7 +466,7 @@ function ObjectPanel(app) {
         }
     });
 
-    objectUserDataRow.add(new UI2.Text({
+    objectUserDataRow.add(new UI.Text({
         text: '用户数据',
         style: 'width: 90px'
     }));

@@ -1,4 +1,4 @@
-import UI2 from '../ui2/UI';
+import UI from '../ui/UI';
 
 /**
  * 播放器
@@ -8,7 +8,7 @@ function Player(app) {
     this.app = app;
     this.app.player = this;
 
-    var container = new UI2.Div({
+    var container = new UI.Div({
         parent: this.app.container,
         id: 'player',
         style: 'position: absolute; display: none;'

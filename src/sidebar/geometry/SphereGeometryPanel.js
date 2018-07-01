@@ -1,26 +1,26 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI2 from '../../ui2/UI';
+import UI from '../../ui/UI';
 
 /**
  * 球形几何体
  * @author mrdoob / http://mrdoob.com/
  */
 function SphereGeometryPanel(editor, object) {
-    var container = new UI2.Row();
+    var container = new UI.Row();
 
     var geometry = object.geometry;
     var parameters = geometry.parameters;
 
     // radius
 
-    var radiusRow = new UI2.Row();
+    var radiusRow = new UI.Row();
 
-    var radius = new UI2.Number({
+    var radius = new UI.Number({
         value: parameters.radius,
         onChange: update
     });
 
-    radiusRow.add(new UI2.Text({
+    radiusRow.add(new UI.Text({
         text: '半径',
         style: 'width: 90px;'
     }));
@@ -31,15 +31,15 @@ function SphereGeometryPanel(editor, object) {
 
     // widthSegments
 
-    var widthSegmentsRow = new UI2.Row();
+    var widthSegmentsRow = new UI.Row();
 
-    var widthSegments = new UI2.Integer({
+    var widthSegments = new UI.Integer({
         value: parameters.widthSegments,
         range: [1, Infinity],
         onChange: update
     });
 
-    widthSegmentsRow.add(new UI2.Text({
+    widthSegmentsRow.add(new UI.Text({
         text: '宽度段数',
         style: 'width: 90px;'
     }));
@@ -50,14 +50,14 @@ function SphereGeometryPanel(editor, object) {
 
     // heightSegments
 
-    var heightSegmentsRow = new UI2.Row();
-    var heightSegments = new UI2.Integer({
+    var heightSegmentsRow = new UI.Row();
+    var heightSegments = new UI.Integer({
         value: parameters.heightSegments,
         range: [1, Infinity],
         onChange: update
     });
 
-    heightSegmentsRow.add(new UI2.Text({
+    heightSegmentsRow.add(new UI.Text({
         text: '高度段数',
         style: 'width: 90px;'
     }));
@@ -68,14 +68,14 @@ function SphereGeometryPanel(editor, object) {
 
     // phiStart
 
-    var phiStartRow = new UI2.Row();
+    var phiStartRow = new UI.Row();
 
-    var phiStart = new UI2.Number({
+    var phiStart = new UI.Number({
         value: parameters.phiStart,
         onChange: update
     });
 
-    phiStartRow.add(new UI2.Text({
+    phiStartRow.add(new UI.Text({
         text: 'φ开始',
         style: 'width: 90px;'
     }));
@@ -86,13 +86,13 @@ function SphereGeometryPanel(editor, object) {
 
     // phiLength
 
-    var phiLengthRow = new UI2.Row();
-    var phiLength = new UI2.Number({
+    var phiLengthRow = new UI.Row();
+    var phiLength = new UI.Number({
         value: parameters.phiLength,
         onChange: update
     });
 
-    phiLengthRow.add(new UI2.Text({
+    phiLengthRow.add(new UI.Text({
         text: 'φ长度',
         style: 'width: 90px;'
     }));
@@ -103,14 +103,14 @@ function SphereGeometryPanel(editor, object) {
 
     // thetaStart
 
-    var thetaStartRow = new UI2.Row();
+    var thetaStartRow = new UI.Row();
 
-    var thetaStart = new UI2.Number({
+    var thetaStart = new UI.Number({
         value: parameters.thetaStart,
         onChange: update
     });
 
-    thetaStartRow.add(new UI2.Text({
+    thetaStartRow.add(new UI.Text({
         text: 'θ开始',
         style: 'width: 90px;'
     }));
@@ -121,14 +121,14 @@ function SphereGeometryPanel(editor, object) {
 
     // thetaLength
 
-    var thetaLengthRow = new UI2.Row();
+    var thetaLengthRow = new UI.Row();
 
-    var thetaLength = new UI2.Number({
+    var thetaLength = new UI.Number({
         value: parameters.thetaLength,
         onChange: update
     });
 
-    thetaLengthRow.add(new UI2.Text({
+    thetaLengthRow.add(new UI.Text({
         text: 'θ长度',
         style: 'width: 90px;'
     }));

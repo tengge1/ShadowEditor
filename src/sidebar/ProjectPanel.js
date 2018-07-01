@@ -1,4 +1,4 @@
-﻿import UI2 from '../ui2/UI';
+﻿import UI from '../ui/UI';
 
 /**
  * 工程面板
@@ -18,7 +18,7 @@ function ProjectPanel(app) {
         'RaytracingRenderer': THREE.RaytracingRenderer
     };
 
-    var container = new UI2.Div({
+    var container = new UI.Div({
         style: 'border-top: 0; padding-top: 20px;'
     });
 
@@ -34,9 +34,9 @@ function ProjectPanel(app) {
 
     }
 
-    var rendererTypeRow = new UI2.Row();
+    var rendererTypeRow = new UI.Row();
 
-    var rendererType = new UI2.Select({
+    var rendererType = new UI.Select({
         options: options,
         value: config.getKey('project/renderer'),
         style: 'width: 150px; ',
@@ -47,7 +47,7 @@ function ProjectPanel(app) {
         }
     });
 
-    rendererTypeRow.add(new UI2.Text({
+    rendererTypeRow.add(new UI.Text({
         text: '渲染器',
         style: 'width: 90px;'
     }));
@@ -58,11 +58,11 @@ function ProjectPanel(app) {
 
     // antialiasing
 
-    var rendererPropertiesRow = new UI2.Row({
+    var rendererPropertiesRow = new UI.Row({
         style: 'margin-left: 90px'
     });
 
-    var rendererAntialias = new UI2.Boolean({
+    var rendererAntialias = new UI.Boolean({
         value: config.getKey('project/renderer/antialias'),
         text: '抗锯齿',
         onChange: function () {
@@ -75,7 +75,7 @@ function ProjectPanel(app) {
 
     // shadow
 
-    var rendererShadows = new UI2.Boolean({
+    var rendererShadows = new UI.Boolean({
         value: config.getKey('project/renderer/shadows'),
         text: '阴影',
         onChange: function () {
@@ -86,11 +86,11 @@ function ProjectPanel(app) {
 
     rendererPropertiesRow.add(rendererShadows);
 
-    rendererPropertiesRow.add(new UI2.Break());
+    rendererPropertiesRow.add(new UI.Break());
 
     // gamma input
 
-    var rendererGammaInput = new UI2.Boolean({
+    var rendererGammaInput = new UI.Boolean({
         value: config.getKey('project/renderer/gammaInput'),
         text: 'γ输入',
         onChange: function () {
@@ -103,7 +103,7 @@ function ProjectPanel(app) {
 
     // gamma output
 
-    var rendererGammaOutput = new UI2.Boolean({
+    var rendererGammaOutput = new UI.Boolean({
         value: config.getKey('project/renderer/gammaOutput'),
         text: 'γ输出',
         onChange: function () {
@@ -120,8 +120,8 @@ function ProjectPanel(app) {
 
     // VR
 
-    var vrRow = new UI2.Row();
-    var vr = new UI2.Checkbox({
+    var vrRow = new UI.Row();
+    var vr = new UI.Checkbox({
         value: config.getKey('project/vr'),
         style: 'left: 100px;',
         onChange: function () {
@@ -130,7 +130,7 @@ function ProjectPanel(app) {
         }
     });
 
-    vrRow.add(new UI2.Text({
+    vrRow.add(new UI.Text({
         text: '虚拟现实',
         style: 'width: 90px;'
     }));

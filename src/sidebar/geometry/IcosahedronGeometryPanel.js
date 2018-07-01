@@ -1,5 +1,5 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI2 from '../../ui2/UI';
+import UI from '../../ui/UI';
 
 /**
  * 二十面体几何体
@@ -8,21 +8,21 @@ import UI2 from '../../ui2/UI';
 function IcosahedronGeometryPanel(editor, object) {
     this.app = editor.app;
 
-    var container = new UI2.Row();
+    var container = new UI.Row();
 
     var geometry = object.geometry;
     var parameters = geometry.parameters;
 
     // radius
 
-    var radiusRow = new UI2.Row();
+    var radiusRow = new UI.Row();
 
-    var radius = new UI2.Number({
+    var radius = new UI.Number({
         value: parameters.radius,
         onChange: update
     });
 
-    radiusRow.add(new UI2.Text({
+    radiusRow.add(new UI.Text({
         text: '半径',
         style: 'width: 90px;'
     }));
@@ -33,15 +33,15 @@ function IcosahedronGeometryPanel(editor, object) {
 
     // detail
 
-    var detailRow = new UI2.Row();
+    var detailRow = new UI.Row();
 
-    var detail = new UI2.Integer({
+    var detail = new UI.Integer({
         value: parameters.detail,
         range: [0, Infinity],
         onChange: update
     });
 
-    detailRow.add(new UI2.Text({
+    detailRow.add(new UI.Text({
         text: '详细',
         style: 'width: 90px;'
     }));

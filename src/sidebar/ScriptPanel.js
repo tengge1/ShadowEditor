@@ -1,7 +1,7 @@
 ﻿import AddScriptCommand from '../command/AddScriptCommand';
 import SetScriptValueCommand from '../command/SetScriptValueCommand';
 import RemoveScriptCommand from '../command/RemoveScriptCommand';
-import UI2 from '../ui2/UI';
+import UI from '../ui/UI';
 
 /**
  * 脚本面板
@@ -11,20 +11,20 @@ function ScriptPanel(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var container = new UI2.Div({
+    var container = new UI.Div({
         style: 'display: none'
     });
 
-    container.add(new UI2.Text({ text: '脚本' }));
-    container.add(new UI2.Break());
-    container.add(new UI2.Break());
+    container.add(new UI.Text({ text: '脚本' }));
+    container.add(new UI.Break());
+    container.add(new UI.Break());
 
     //
 
-    var scriptsContainer = new UI2.Row();
+    var scriptsContainer = new UI.Row();
     container.add(scriptsContainer);
 
-    var newScript = new UI2.Button({
+    var newScript = new UI.Button({
         text: '新建',
         onClick: function () {
             var script = { name: '', source: 'function update( event ) {}' };
@@ -61,7 +61,7 @@ function ScriptPanel(app) {
 
                 (function (object, script) {
 
-                    var name = new UI2.Input({
+                    var name = new UI.Input({
                         text: script.name,
                         style: 'width: 130px; font-size: 12px;',
                         onChange: function () {
@@ -71,7 +71,7 @@ function ScriptPanel(app) {
 
                     scriptsContainer.add(name);
 
-                    var edit = new UI2.Button({
+                    var edit = new UI.Button({
                         text: '编辑',
                         style: 'margin-left: 4px;',
                         onClick: function () {
@@ -81,7 +81,7 @@ function ScriptPanel(app) {
 
                     scriptsContainer.add(edit);
 
-                    var remove = new UI2.Button({
+                    var remove = new UI.Button({
                         text: '删除',
                         style: 'margin-left: 4px;',
                         onClick: function () {
@@ -93,7 +93,7 @@ function ScriptPanel(app) {
 
                     scriptsContainer.add(remove);
 
-                    scriptsContainer.add(new UI2.Break());
+                    scriptsContainer.add(new UI.Break());
 
                     scriptsContainer.render();
 
