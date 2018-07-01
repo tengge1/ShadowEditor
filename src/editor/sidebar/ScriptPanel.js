@@ -41,7 +41,9 @@ function ScriptPanel(app) {
 
     function update() {
         scriptsContainer.dom.parentElement.removeChild(scriptsContainer.dom);
-        scriptsContainer.dom.style.display = 'none';
+        // scriptsContainer.dom.style.display = 'none';
+        scriptsContainer.dom = null;
+        scriptsContainer.children.length = 0;
 
         var object = editor.selected;
 
@@ -52,7 +54,7 @@ function ScriptPanel(app) {
         var scripts = editor.scripts[object.uuid];
 
         if (scripts !== undefined) {
-            scriptsContainer.dom.style.display = 'block';
+            // scriptsContainer.dom.style.display = 'block';
 
             for (var i = 0; i < scripts.length; i++) {
 
@@ -72,6 +74,7 @@ function ScriptPanel(app) {
                         text: '编辑',
                         style: 'margin-left: 4px;',
                         onClick: function () {
+                            debugger
                             _this.app.call('editScript', _this, object, script);
                         }
                     });
