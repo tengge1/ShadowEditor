@@ -1,9 +1,9 @@
 ﻿import UI2 from '../ui2/UI';
 
 /**
+ * 设置面板
  * @author mrdoob / http://mrdoob.com/
  */
-
 function SettingPanel(app) {
     this.app = app;
     var editor = this.app.editor;

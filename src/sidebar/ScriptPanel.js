@@ -1,51 +1,47 @@
 ﻿import AddScriptCommand from '../command/AddScriptCommand';
 import SetScriptValueCommand from '../command/SetScriptValueCommand';
 import RemoveScriptCommand from '../command/RemoveScriptCommand';
-import UI from '../ui/UI';
+import UI2 from '../ui2/UI';
 
 /**
+ * 脚本面板
  * @author mrdoob / http://mrdoob.com/
  */
-
 function ScriptPanel(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var container = new UI.Panel();
-    container.setDisplay('none');
+    var container = new UI2.Div({
+        style: 'display: none'
+    });
 
-    container.add(new UI.Text('脚本'));
-    container.add(new UI.Break());
-    container.add(new UI.Break());
+    container.add(new UI2.Text({ text: '脚本' }));
+    container.add(new UI2.Break());
+    container.add(new UI2.Break());
 
     //
 
-    var scriptsContainer = new UI.Row();
+    var scriptsContainer = new UI2.Row();
     container.add(scriptsContainer);
 
-    var newScript = new UI.Button('新建');
-    newScript.onClick(function () {
-
-        var script = { name: '', source: 'function update( event ) {}' };
-        editor.execute(new AddScriptCommand(editor.selected, script));
-
+    var newScript = new UI2.Button({
+        text: '新建',
+        onClick: function () {
+            var script = { name: '', source: 'function update( event ) {}' };
+            editor.execute(new AddScriptCommand(editor.selected, script));
+        }
     });
+
     container.add(newScript);
 
-    /*
-	var loadScript = new UI.Button( 'Load' );
-	loadScript.setMarginLeft( '4px' );
-	container.add( loadScript );
-	*/
-
-    //
+    container.render();
 
     var _this = this;
 
     function update() {
 
-        scriptsContainer.clear();
-        scriptsContainer.setDisplay('none');
+        scriptsContainer.dom.innerHTML = '';
+        scriptsContainer.dom.style.display = 'none';
 
         var object = editor.selected;
 
@@ -59,44 +55,49 @@ function ScriptPanel(app) {
 
         if (scripts !== undefined) {
 
-            scriptsContainer.setDisplay('block');
+            scriptsContainer.dom.style.display = 'block';
 
             for (var i = 0; i < scripts.length; i++) {
 
                 (function (object, script) {
 
-                    var name = new UI.Input(script.name).setWidth('130px').setFontSize('12px');
-                    name.onChange(function () {
-
-                        editor.execute(new SetScriptValueCommand(editor.selected, script, 'name', this.getValue()));
-
+                    var name = new UI2.Input({
+                        text: script.name,
+                        style: 'width: 130px; font-size: 12px;',
+                        onChange: function () {
+                            editor.execute(new SetScriptValueCommand(editor.selected, script, 'name', this.getValue()));
+                        }
                     });
+
                     scriptsContainer.add(name);
 
-                    var edit = new UI.Button('编辑');
-                    edit.setMarginLeft('4px');
-                    edit.onClick(function () {
-                        _this.app.call('editScript', _this, object, script);
+                    var edit = new UI2.Button({
+                        text: '编辑',
+                        style: 'margin-left: 4px;',
+                        onClick: function () {
+                            _this.app.call('editScript', _this, object, script);
+                        }
                     });
+
                     scriptsContainer.add(edit);
 
-                    var remove = new UI.Button('删除');
-                    remove.setMarginLeft('4px');
-                    remove.onClick(function () {
-
-                        if (confirm('确定吗？')) {
-
-                            editor.execute(new RemoveScriptCommand(editor.selected, script));
-
+                    var remove = new UI2.Button({
+                        text: '删除',
+                        style: 'margin-left: 4px;',
+                        onClick: function () {
+                            if (confirm('确定吗？')) {
+                                editor.execute(new RemoveScriptCommand(editor.selected, script));
+                            }
                         }
-
                     });
+
                     scriptsContainer.add(remove);
 
-                    scriptsContainer.add(new UI.Break());
+                    scriptsContainer.add(new UI2.Break());
+
+                    scriptsContainer.render();
 
                 })(object, scripts[i])
-
             }
 
         }
@@ -106,17 +107,11 @@ function ScriptPanel(app) {
     this.app.on('objectSelected.ScriptPanel', function (object) {
 
         if (object !== null) {
-
-            container.setDisplay('block');
-
+            container.dom.style.display = 'block';
             update();
-
         } else {
-
-            container.setDisplay('none');
-
+            container.dom.style.display = 'none';
         }
-
     });
 
     this.app.on('scriptAdded.ScriptPanel', function () {
