@@ -1,52 +1,85 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI from '../../ui/UI';
+import UI2 from '../../ui2/UI';
 
 /**
+ * 平板几何体
  * @author mrdoob / http://mrdoob.com/
  */
-
 function PlaneGeometryPanel(editor, object) {
-    var container = new UI.Row();
+    var container = new UI2.Row();
 
     var geometry = object.geometry;
     var parameters = geometry.parameters;
 
     // width
 
-    var widthRow = new UI.Row();
-    var width = new UI.Number(parameters.width).onChange(update);
+    var widthRow = new UI2.Row();
 
-    widthRow.add(new UI.Text('宽度').setWidth('90px'));
+    var width = new UI2.Number({
+        value: parameters.width,
+        onChange: update
+    });
+
+    widthRow.add(new UI2.Text({
+        text: '宽度',
+        style: 'width: 90px;'
+    }));
+
     widthRow.add(width);
 
     container.add(widthRow);
 
     // height
 
-    var heightRow = new UI.Row();
-    var height = new UI.Number(parameters.height).onChange(update);
+    var heightRow = new UI2.Row();
 
-    heightRow.add(new UI.Text('高度').setWidth('90px'));
+    var height = new UI2.Number({
+        value: parameters.height,
+        onChange: update
+    });
+
+    heightRow.add(new UI2.Text({
+        text: '高度',
+        style: 'width: 90px;'
+    }));
+
     heightRow.add(height);
 
     container.add(heightRow);
 
     // widthSegments
 
-    var widthSegmentsRow = new UI.Row();
-    var widthSegments = new UI.Integer(parameters.widthSegments).setRange(1, Infinity).onChange(update);
+    var widthSegmentsRow = new UI2.Row();
+    var widthSegments = new UI2.Integer({
+        value: parameters.widthSegments,
+        range: [1, Infinity],
+        onChange: update
+    });
 
-    widthSegmentsRow.add(new UI.Text('宽度段数').setWidth('90px'));
+    widthSegmentsRow.add(new UI2.Text({
+        text: '宽度段数',
+        style: 'width: 90px;'
+    }));
+
     widthSegmentsRow.add(widthSegments);
 
     container.add(widthSegmentsRow);
 
     // heightSegments
 
-    var heightSegmentsRow = new UI.Row();
-    var heightSegments = new UI.Integer(parameters.heightSegments).setRange(1, Infinity).onChange(update);
+    var heightSegmentsRow = new UI2.Row();
 
-    heightSegmentsRow.add(new UI.Text('高度段数').setWidth('90px'));
+    var heightSegments = new UI2.Integer({
+        value: parameters.heightSegments,
+        range: [1, Infinity],
+        onChange: update
+    });
+
+    heightSegmentsRow.add(new UI2.Text({
+        text: '高度段数',
+        style: 'width: 90px;'
+    }));
+
     heightSegmentsRow.add(heightSegments);
 
     container.add(heightSegmentsRow);
@@ -65,8 +98,9 @@ function PlaneGeometryPanel(editor, object) {
 
     }
 
-    return container;
+    container.render();
 
+    return container;
 };
 
 export default PlaneGeometryPanel;

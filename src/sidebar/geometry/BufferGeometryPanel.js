@@ -1,13 +1,15 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI from '../../ui/UI';
+import UI2 from '../../ui2/UI';
 
 /**
+ * 缓冲几何体
  * @author mrdoob / http://mrdoob.com/
  */
-
 function BufferGeometryPanel(editor) {
     this.app = editor.app;
-    var container = new UI.Row();
+
+    var container = new UI2.Row();
+    container.render();
 
     function update(object) {
 
@@ -18,18 +20,27 @@ function BufferGeometryPanel(editor) {
 
         if (geometry instanceof THREE.BufferGeometry) {
 
-            container.clear();
-            container.setDisplay('block');
+            container.dom.innerHTML = '';
+            container.dom.style.display = 'block';
 
             var index = geometry.index;
 
             if (index !== null) {
+                var panel = new UI2.Row();
 
-                var panel = new UI.Row();
-                panel.add(new UI.Text('索引').setWidth('90px'));
-                panel.add(new UI.Text((index.count).format()).setFontSize('12px'));
-                container.add(panel);
+                panel.add(new UI2.Text({
+                    text: '索引',
+                    style: 'width: 90px;'
+                }));
 
+                panel.add(new UI2.Text({
+                    text: (index.count).format(),
+                    style: 'font-size: 12px;'
+                }));
+
+                panel.render();
+
+                container.dom.appendChild(panel.dom);
             }
 
             var attributes = geometry.attributes;
@@ -38,19 +49,23 @@ function BufferGeometryPanel(editor) {
 
                 var attribute = attributes[name];
 
-                var panel = new UI.Row();
-                panel.add(new UI.Text(name).setWidth('90px'));
-                panel.add(new UI.Text((attribute.count).format() + ' (' + attribute.itemSize + ')').setFontSize('12px'));
-                container.add(panel);
+                var panel = new UI2.Row();
+                panel.add(new UI2.Text({
+                    text: name,
+                    style: 'width: 90px;'
+                }));
+                panel.add(new UI.Text({
+                    text: (attribute.count).format() + ' (' + attribute.itemSize + ')',
+                    style: 'font-size: 12px;'
+                }));
 
+                panel.render();
+
+                container.dom.appendChild(panel.dom);
             }
-
         } else {
-
-            container.setDisplay('none');
-
+            container.dom.style.display = 'none';
         }
-
     }
 
     this.app.on('objectSelected.BufferGeometryPanel', function () {
@@ -62,7 +77,6 @@ function BufferGeometryPanel(editor) {
     });
 
     return container;
-
 };
 
 export default BufferGeometryPanel;

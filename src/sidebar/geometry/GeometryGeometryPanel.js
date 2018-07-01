@@ -1,30 +1,38 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI from '../../ui/UI';
+import UI2 from '../../ui2/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/
  */
-
 function GeometryGeometryPanel(editor) {
     this.app = editor.app;
-    var container = new UI.Row();
+
+    var container = new UI2.Row();
 
     // vertices
 
-    var verticesRow = new UI.Row();
-    var vertices = new UI.Text();
+    var verticesRow = new UI2.Row();
+    var vertices = new UI2.Text();
 
-    verticesRow.add(new UI.Text('顶点').setWidth('90px'));
+    verticesRow.add(new UI2.Text({
+        text: '顶点',
+        style: 'width: 90px;'
+    }));
+
     verticesRow.add(vertices);
 
     container.add(verticesRow);
 
     // faces
 
-    var facesRow = new UI.Row();
-    var faces = new UI.Text();
+    var facesRow = new UI2.Row();
+    var faces = new UI2.Text();
 
-    facesRow.add(new UI.Text('面').setWidth('90px'));
+    facesRow.add(new UI2.Text({
+        text: '面',
+        style: 'width: 90px;'
+    }));
+
     facesRow.add(faces);
 
     container.add(facesRow);
@@ -40,14 +48,14 @@ function GeometryGeometryPanel(editor) {
 
         if (geometry instanceof THREE.Geometry) {
 
-            container.setDisplay('block');
+            container.dom.style.display = 'block';
 
             vertices.setValue((geometry.vertices.length).format());
             faces.setValue((geometry.faces.length).format());
 
         } else {
 
-            container.setDisplay('none');
+            container.dom.style.display = 'none';
 
         }
 
@@ -60,6 +68,8 @@ function GeometryGeometryPanel(editor) {
     this.app.on('geometryChanged.GeometryGeometryPanel', function () {
         update();
     });
+
+    container.render();
 
     return container;
 

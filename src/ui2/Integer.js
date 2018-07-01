@@ -95,10 +95,10 @@ Integer.prototype.render = function () {
 
     onBlur();
 
-    dom.addEventListener('mousedown', onMouseDown, false);
-    dom.addEventListener('change', onChange, false);
-    dom.addEventListener('focus', onFocus, false);
-    dom.addEventListener('blur', onBlur, false);
+    this.dom.addEventListener('mousedown', onMouseDown, false);
+    this.dom.addEventListener('change', onChange, false);
+    this.dom.addEventListener('focus', onFocus, false);
+    this.dom.addEventListener('blur', onBlur, false);
 
     this.parent.appendChild(this.dom);
 };

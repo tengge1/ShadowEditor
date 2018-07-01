@@ -93,11 +93,11 @@ function GeometryPanel(editor) {
 
     // geometry
 
-    container.add(new GeometryGeometryPanel(editor));
+    container.dom.appendChild(new GeometryGeometryPanel(editor).dom);
 
     // buffergeometry
 
-    container.add(new BufferGeometryPanel(editor));
+    container.dom.appendChild(new BufferGeometryPanel(editor).dom);
 
     // parameters
 
@@ -127,9 +127,9 @@ function GeometryPanel(editor) {
             parameters.clear();
 
             if (geometry.type === 'BufferGeometry' || geometry.type === 'Geometry') {
-                parameters.add(new GeometryModifyPanel(editor, object));
+                parameters.dom.appendChild(new GeometryModifyPanel(editor, object).dom);
             } else if (GeometryPanels[geometry.type] !== undefined) {
-                parameters.add(new GeometryPanels[geometry.type](editor, object));
+                parameters.dom.appendChild(new GeometryPanels[geometry.type](editor, object).dom);
             }
 
         } else {

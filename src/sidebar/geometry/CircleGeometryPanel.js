@@ -1,52 +1,84 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI from '../../ui/UI';
+import UI2 from '../../ui2/UI';
 
 /**
+ * 圆形几何体
  * @author mrdoob / http://mrdoob.com/
  */
-
 function CircleGeometryPanel(editor, object) {
-    var container = new UI.Row();
+    var container = new UI2.Row();
 
     var geometry = object.geometry;
     var parameters = geometry.parameters;
 
     // radius
 
-    var radiusRow = new UI.Row();
-    var radius = new UI.Number(parameters.radius).onChange(update);
+    var radiusRow = new UI2.Row();
 
-    radiusRow.add(new UI.Text('半径').setWidth('90px'));
+    var radius = new UI2.Number({
+        value: parameters.radius,
+        onChange: update
+    });
+
+    radiusRow.add(new UI2.Text({
+        text: '半径',
+        style: 'width: 90px;'
+    }));
+
     radiusRow.add(radius);
 
     container.add(radiusRow);
 
     // segments
 
-    var segmentsRow = new UI.Row();
-    var segments = new UI.Integer(parameters.segments).setRange(3, Infinity).onChange(update);
+    var segmentsRow = new UI2.Row();
 
-    segmentsRow.add(new UI.Text('段长').setWidth('90px'));
+    var segments = new UI2.Integer({
+        value: parameters.segments,
+        range: [3, Infinity],
+        onChange: update
+    });
+
+    segmentsRow.add(new UI2.Text({
+        text: '段长',
+        style: 'width: 90px;'
+    }));
+
     segmentsRow.add(segments);
 
     container.add(segmentsRow);
 
     // thetaStart
 
-    var thetaStartRow = new UI.Row();
-    var thetaStart = new UI.Number(parameters.thetaStart).onChange(update);
+    var thetaStartRow = new UI2.Row();
 
-    thetaStartRow.add(new UI.Text('θ开始').setWidth('90px'));
+    var thetaStart = new UI2.Number({
+        value: parameters.thetaStart,
+        onChange: update
+    });
+
+    thetaStartRow.add(new UI2.Text({
+        text: 'θ开始',
+        style: 'width: 90px;'
+    }));
+
     thetaStartRow.add(thetaStart);
 
     container.add(thetaStartRow);
 
     // thetaLength
 
-    var thetaLengthRow = new UI.Row();
-    var thetaLength = new UI.Number(parameters.thetaLength).onChange(update);
+    var thetaLengthRow = new UI2.Row();
+    var thetaLength = new UI2.Number({
+        value: parameters.thetaLength,
+        onChange: update
+    });
 
-    thetaLengthRow.add(new UI.Text('θ长度').setWidth('90px'));
+    thetaLengthRow.add(new UI2.Text({
+        text: 'θ长度',
+        style: 'width: 90px;'
+    }));
+
     thetaLengthRow.add(thetaLength);
 
     container.add(thetaLengthRow);
@@ -64,8 +96,9 @@ function CircleGeometryPanel(editor, object) {
 
     }
 
-    return container;
+    container.render();
 
+    return container;
 };
 
 export default CircleGeometryPanel;
