@@ -154,7 +154,7 @@ function GeometryPanel(editor) {
 
         } else {
 
-            container.setDisplay('none');
+            container.dom.style.display = 'none';
 
         }
 
