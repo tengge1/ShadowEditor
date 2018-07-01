@@ -15,6 +15,7 @@ function ObjectPanel(app) {
     var editor = this.app.editor;
 
     var container = new UI.Div({
+        cls: 'Panel',
         style: 'border-top: 0; padding-top: 20px; display: none;'
     });
 

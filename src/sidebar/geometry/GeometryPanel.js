@@ -47,6 +47,7 @@ function GeometryPanel(editor) {
     this.app = editor.app;
 
     var container = new UI.Div({
+        cls: 'Panel',
         style: 'border-top: 0; padding-top: 20px;'
     });
 

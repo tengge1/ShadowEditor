@@ -12,7 +12,9 @@ function HistoryPanel(app) {
     var config = editor.config;
     var history = editor.history;
 
-    var container = new UI.Div();
+    var container = new UI.Div({
+        cls: 'Panel'
+    });
 
     container.add(new UI.Text({
         text: '历史记录'

@@ -17,6 +17,7 @@ function MaterialPanel(app) {
     var currentObject;
 
     var container = new UI.Div({
+        cls: 'Panel',
         style: 'border-top: 0; padding-top: 20px'
     });
 

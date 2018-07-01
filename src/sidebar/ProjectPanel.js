@@ -19,7 +19,8 @@ function ProjectPanel(app) {
     };
 
     var container = new UI.Div({
-        style: 'border-top: 0; padding-top: 20px;'
+        style: 'border-top: 0; padding-top: 20px;',
+        cls: 'Panel'
     });
 
     // class

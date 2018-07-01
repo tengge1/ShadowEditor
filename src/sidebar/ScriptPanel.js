@@ -12,6 +12,7 @@ function ScriptPanel(app) {
     var editor = this.app.editor;
 
     var container = new UI.Div({
+        cls: 'Panel',
         style: 'display: none'
     });
 
