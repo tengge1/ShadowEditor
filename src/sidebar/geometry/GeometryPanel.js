@@ -14,12 +14,12 @@ import TeapotBufferGeometryPanel from './TeapotBufferGeometryPanel';
 import TorusGeometryPanel from './TorusGeometryPanel';
 import TorusKnotGeometryPanel from './TorusKnotGeometryPanel';
 
-import UI from '../../ui/UI';
+import UI2 from '../../ui2/UI';
 
 /**
+ * 几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
-
 const GeometryPanels = {
     'BoxGeometry': BoxGeometryPanel,
     'BoxBufferGeometry': BoxGeometryPanel,
@@ -45,65 +45,81 @@ const GeometryPanels = {
 
 function GeometryPanel(editor) {
     this.app = editor.app;
-    var container = new UI.Panel();
-    container.setBorderTop('0');
-    container.setPaddingTop('20px');
+
+    var container = new UI2.Div({
+        style: 'border-top: 0; padding-top: 20px;'
+    });
 
     // type
 
-    var geometryTypeRow = new UI.Row();
-    var geometryType = new UI.Text();
+    var geometryTypeRow = new UI2.Row();
 
-    geometryTypeRow.add(new UI.Text('类型').setWidth('90px'));
+    var geometryType = new UI2.Text();
+
+    geometryTypeRow.add(new UI2.Text({
+        text: '类型',
+        style: 'width: 90px;'
+    }));
+
     geometryTypeRow.add(geometryType);
 
     container.add(geometryTypeRow);
 
     // uuid
 
-    var geometryUUIDRow = new UI.Row();
-    var geometryUUID = new UI.Input().setWidth('102px').setFontSize('12px').setDisabled(true);
-    var geometryUUIDRenew = new UI.Button('新建').setMarginLeft('7px').onClick(function () {
+    var geometryUUIDRow = new UI2.Row();
 
-        geometryUUID.setValue(THREE.Math.generateUUID());
-
-        editor.execute(new SetGeometryValueCommand(editor.selected, 'uuid', geometryUUID.getValue()));
-
+    var geometryUUID = new UI2.Input({
+        style: 'width: 102px; font-size: 12px;',
+        disabled: true
     });
 
-    geometryUUIDRow.add(new UI.Text('UUID').setWidth('90px'));
+    var geometryUUIDRenew = new UI2.Button({
+        text: '新建',
+        style: 'margin-left: 7px;',
+        onClick: function () {
+            geometryUUID.setValue(THREE.Math.generateUUID());
+            editor.execute(new SetGeometryValueCommand(editor.selected, 'uuid', geometryUUID.getValue()));
+        }
+    });
+
+    geometryUUIDRow.add(new UI2.Text({
+        text: 'UUID',
+        style: 'width: 90px;'
+    }));
+
     geometryUUIDRow.add(geometryUUID);
+
     geometryUUIDRow.add(geometryUUIDRenew);
 
     container.add(geometryUUIDRow);
 
     // name
 
-    var geometryNameRow = new UI.Row();
-    var geometryName = new UI.Input().setWidth('150px').setFontSize('12px').onChange(function () {
+    var geometryNameRow = new UI2.Row();
 
-        editor.execute(new SetGeometryValueCommand(editor.selected, 'name', geometryName.getValue()));
-
+    var geometryName = new UI2.Input({
+        style: 'width: 150px; font-size: 12px;',
+        onChange: function () {
+            editor.execute(new SetGeometryValueCommand(editor.selected, 'name', geometryName.getValue()));
+        }
     });
 
-    geometryNameRow.add(new UI.Text('名称').setWidth('90px'));
+    geometryNameRow.add(new UI2.Text({
+        text: '名称',
+        style: 'width: 90px;'
+    }));
+
     geometryNameRow.add(geometryName);
 
     container.add(geometryNameRow);
 
-    // geometry
-
-    container.dom.appendChild(new GeometryGeometryPanel(editor).dom);
-
-    // buffergeometry
-
-    container.dom.appendChild(new BufferGeometryPanel(editor).dom);
+    container.render();
 
     // parameters
 
-    var parameters = new UI.Span();
-    container.add(parameters);
-
+    var parameters = new UI2.Span();
+    parameters.render();
 
     //
 
@@ -115,7 +131,7 @@ function GeometryPanel(editor) {
 
             var geometry = object.geometry;
 
-            container.setDisplay('block');
+            container.dom.style.display = 'block';
 
             geometryType.setValue(geometry.type);
 
@@ -124,12 +140,16 @@ function GeometryPanel(editor) {
 
             //
 
-            parameters.clear();
+            parameters.dom.innerHTML = '';
 
             if (geometry.type === 'BufferGeometry' || geometry.type === 'Geometry') {
+
                 parameters.dom.appendChild(new GeometryModifyPanel(editor, object).dom);
+
             } else if (GeometryPanels[geometry.type] !== undefined) {
+
                 parameters.dom.appendChild(new GeometryPanels[geometry.type](editor, object).dom);
+
             }
 
         } else {
@@ -139,6 +159,16 @@ function GeometryPanel(editor) {
         }
 
     }
+
+    // geometry
+
+    container.dom.appendChild(new GeometryGeometryPanel(editor).dom);
+
+    // buffergeometry
+
+    container.dom.appendChild(new BufferGeometryPanel(editor).dom);
+
+    container.dom.appendChild(parameters.dom);
 
     this.app.on('objectSelected.GeometryPanel', function () {
         build();
