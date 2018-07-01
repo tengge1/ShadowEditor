@@ -13,6 +13,7 @@ function Text(options) {
     this.text = options.text || 'Text';
     this.cls = options.cls || 'Text';
     this.style = options.style || null;
+    this.onClick = options.onClick || null;
 };
 
 Text.prototype = Object.create(Control.prototype);
@@ -31,6 +32,10 @@ Text.prototype.render = function () {
     this.dom.style.display = 'inline-block';
     this.dom.style.verticalAlign = 'middle';
     this.setValue(this.text);
+
+    if (this.onClick) {
+        this.dom.addEventListener('click', this.onClick.bind(this));
+    }
 
     this.parent.appendChild(this.dom);
 };

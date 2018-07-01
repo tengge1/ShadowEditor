@@ -38,16 +38,18 @@ function Sidebar(app) {
     //
 
     var scene = new UI.Span().add(
-        new ScenePanel(this.app),
-        new PropertyPanel(this.app),
-        // new AnimationPanel(this.app),
-        new ScriptPanel(this.app)
+        new ScenePanel(this.app)
     );
+    scene.dom.appendChild(new PropertyPanel(this.app).dom);
+    scene.add(new ScriptPanel(this.app));
     container.add(scene);
 
-    var project = new UI.Span().add(
-        new ProjectPanel(this.app)
-    );
+    var project = new UI.Span();
+
+    var projectPanel = new ProjectPanel(this.app);
+
+    project.dom.appendChild(projectPanel.dom);
+
     container.add(project);
 
     var settings = new UI.Span();
