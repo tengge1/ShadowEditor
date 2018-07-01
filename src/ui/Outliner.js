@@ -7,6 +7,7 @@ import Control from './Control';
 function Outliner(options) {
     Control.call(this, options);
     options = options || {};
+    this.id = options.id || null;
     this.editor = options.editor || null;
 }
 
@@ -15,6 +16,11 @@ Outliner.prototype.constructor = Outliner;
 
 Outliner.prototype.render = function () {
     this.dom = document.createElement('div');
+
+    if (this.id) {
+        this.dom.id = this.id;
+    }
+
     this.dom.className = 'Outliner';
     this.dom.tabIndex = 0;	// keyup event is ignored without setting tabIndex
 
@@ -140,7 +146,7 @@ Outliner.prototype.setOptions = function (options) {
             moveObject(object, parentObject);
         }
     }
-
+    
     function moveObject(object, newParent, nextObject) {
         if (nextObject === null) nextObject = undefined;
 
@@ -152,7 +158,7 @@ Outliner.prototype.setOptions = function (options) {
 
         if (newParentIsChild) return;
 
-        editor.execute(new MoveObjectCommand(object, newParent, nextObject));
+        _this.editor.execute(new MoveObjectCommand(object, newParent, nextObject));
 
         var changeEvent = document.createEvent('HTMLEvents');
         changeEvent.initEvent('change', true, true);
