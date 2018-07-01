@@ -1,86 +1,141 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI from '../../ui/UI';
+import UI2 from '../../ui2/UI';
 
 /**
+ * 球形几何体
  * @author mrdoob / http://mrdoob.com/
  */
-
 function SphereGeometryPanel(editor, object) {
-    var container = new UI.Row();
+    var container = new UI2.Row();
 
     var geometry = object.geometry;
     var parameters = geometry.parameters;
 
     // radius
 
-    var radiusRow = new UI.Row();
-    var radius = new UI.Number(parameters.radius).onChange(update);
+    var radiusRow = new UI2.Row();
 
-    radiusRow.add(new UI.Text('半径').setWidth('90px'));
+    var radius = new UI2.Number({
+        value: parameters.radius,
+        onChange: update
+    });
+
+    radiusRow.add(new UI2.Text({
+        text: '半径',
+        style: 'width: 90px;'
+    }));
+
     radiusRow.add(radius);
 
     container.add(radiusRow);
 
     // widthSegments
 
-    var widthSegmentsRow = new UI.Row();
-    var widthSegments = new UI.Integer(parameters.widthSegments).setRange(1, Infinity).onChange(update);
+    var widthSegmentsRow = new UI2.Row();
 
-    widthSegmentsRow.add(new UI.Text('宽度段数').setWidth('90px'));
+    var widthSegments = new UI2.Integer({
+        value: parameters.widthSegments,
+        range: [1, Infinity],
+        onChange: update
+    });
+
+    widthSegmentsRow.add(new UI2.Text({
+        text: '宽度段数',
+        style: 'width: 90px;'
+    }));
+
     widthSegmentsRow.add(widthSegments);
 
     container.add(widthSegmentsRow);
 
     // heightSegments
 
-    var heightSegmentsRow = new UI.Row();
-    var heightSegments = new UI.Integer(parameters.heightSegments).setRange(1, Infinity).onChange(update);
+    var heightSegmentsRow = new UI2.Row();
+    var heightSegments = new UI2.Integer({
+        value: parameters.heightSegments,
+        range: [1, Infinity],
+        onChange: update
+    });
 
-    heightSegmentsRow.add(new UI.Text('高度段数').setWidth('90px'));
+    heightSegmentsRow.add(new UI2.Text({
+        text: '高度段数',
+        style: 'width: 90px;'
+    }));
+
     heightSegmentsRow.add(heightSegments);
 
     container.add(heightSegmentsRow);
 
     // phiStart
 
-    var phiStartRow = new UI.Row();
-    var phiStart = new UI.Number(parameters.phiStart).onChange(update);
+    var phiStartRow = new UI2.Row();
 
-    phiStartRow.add(new UI.Text('φ开始').setWidth('90px'));
+    var phiStart = new UI2.Number({
+        value: parameters.phiStart,
+        onChange: update
+    });
+
+    phiStartRow.add(new UI2.Text({
+        text: 'φ开始',
+        style: 'width: 90px;'
+    }));
+
     phiStartRow.add(phiStart);
 
     container.add(phiStartRow);
 
     // phiLength
 
-    var phiLengthRow = new UI.Row();
-    var phiLength = new UI.Number(parameters.phiLength).onChange(update);
+    var phiLengthRow = new UI2.Row();
+    var phiLength = new UI2.Number({
+        value: parameters.phiLength,
+        onChange: update
+    });
 
-    phiLengthRow.add(new UI.Text('φ长度').setWidth('90px'));
+    phiLengthRow.add(new UI2.Text({
+        text: 'φ长度',
+        style: 'width: 90px;'
+    }));
+
     phiLengthRow.add(phiLength);
 
     container.add(phiLengthRow);
 
     // thetaStart
 
-    var thetaStartRow = new UI.Row();
-    var thetaStart = new UI.Number(parameters.thetaStart).onChange(update);
+    var thetaStartRow = new UI2.Row();
 
-    thetaStartRow.add(new UI.Text('θ开始').setWidth('90px'));
+    var thetaStart = new UI2.Number({
+        value: parameters.thetaStart,
+        onChange: update
+    });
+
+    thetaStartRow.add(new UI2.Text({
+        text: 'θ开始',
+        style: 'width: 90px;'
+    }));
+
     thetaStartRow.add(thetaStart);
 
     container.add(thetaStartRow);
 
     // thetaLength
 
-    var thetaLengthRow = new UI.Row();
-    var thetaLength = new UI.Number(parameters.thetaLength).onChange(update);
+    var thetaLengthRow = new UI2.Row();
 
-    thetaLengthRow.add(new UI.Text('θ长度').setWidth('90px'));
+    var thetaLength = new UI2.Number({
+        value: parameters.thetaLength,
+        onChange: update
+    });
+
+    thetaLengthRow.add(new UI2.Text({
+        text: 'θ长度',
+        style: 'width: 90px;'
+    }));
+
     thetaLengthRow.add(thetaLength);
 
     container.add(thetaLengthRow);
-
 
     //
 
@@ -98,8 +153,9 @@ function SphereGeometryPanel(editor, object) {
 
     }
 
-    return container;
+    container.render();
 
+    return container;
 };
 
 export default SphereGeometryPanel;

@@ -1,69 +1,107 @@
 ﻿import SetGeometryCommand from '../../command/SetGeometryCommand';
-import UI from '../../ui/UI';
+import UI2 from '../../ui2/UI';
 
 /**
+ * 花托几何体
  * @author mrdoob / http://mrdoob.com/
  */
-
 function TorusGeometryPanel(editor, object) {
-    var container = new UI.Row();
+    var container = new UI2.Row();
 
     var geometry = object.geometry;
     var parameters = geometry.parameters;
 
     // radius
 
-    var radiusRow = new UI.Row();
-    var radius = new UI.Number(parameters.radius).onChange(update);
+    var radiusRow = new UI2.Row();
+    var radius = new UI2.Number({
+        value: parameters.radius,
+        onChange: update
+    });
 
-    radiusRow.add(new UI.Text('半径').setWidth('90px'));
+    radiusRow.add(new UI2.Text({
+        text: '半径',
+        style: 'width: 90px;'
+    }));
+
     radiusRow.add(radius);
 
     container.add(radiusRow);
 
     // tube
 
-    var tubeRow = new UI.Row();
-    var tube = new UI.Number(parameters.tube).onChange(update);
+    var tubeRow = new UI2.Row();
 
-    tubeRow.add(new UI.Text('管长').setWidth('90px'));
+    var tube = new UI2.Number({
+        value: parameters.tube,
+        onChange: update
+    });
+
+    tubeRow.add(new UI2.Text({
+        text: '管长',
+        style: 'width: 90px;'
+    }));
+
     tubeRow.add(tube);
 
     container.add(tubeRow);
 
     // radialSegments
 
-    var radialSegmentsRow = new UI.Row();
-    var radialSegments = new UI.Integer(parameters.radialSegments).setRange(1, Infinity).onChange(update);
+    var radialSegmentsRow = new UI2.Row();
 
-    radialSegmentsRow.add(new UI.Text('径向段数').setWidth('90px'));
+    var radialSegments = new UI2.Integer({
+        value: parameters.radialSegments,
+        range: [1, Infinity],
+        onChange: update
+    });
+
+    radialSegmentsRow.add(new UI2.Text({
+        text: '径向段数',
+        style: 'width: 90px;'
+    }));
+
     radialSegmentsRow.add(radialSegments);
 
     container.add(radialSegmentsRow);
 
     // tubularSegments
 
-    var tubularSegmentsRow = new UI.Row();
-    var tubularSegments = new UI.Integer(parameters.tubularSegments).setRange(1, Infinity).onChange(update);
+    var tubularSegmentsRow = new UI2.Row();
 
-    tubularSegmentsRow.add(new UI.Text('管长段数').setWidth('90px'));
+    var tubularSegments = new UI2.Integer({
+        value: parameters.tubularSegments,
+        range: [1, Infinity],
+        onChange: update
+    });
+
+    tubularSegmentsRow.add(new UI2.Text({
+        text: '管长段数',
+        style: 'width: 90px;'
+    }));
+
     tubularSegmentsRow.add(tubularSegments);
 
     container.add(tubularSegmentsRow);
 
     // arc
 
-    var arcRow = new UI.Row();
-    var arc = new UI.Number(parameters.arc).onChange(update);
+    var arcRow = new UI2.Row();
+    var arc = new UI2.Number({
+        value: parameters.arc,
+        onChange: update
+    });
 
-    arcRow.add(new UI.Text('弧长').setWidth('90px'));
+    arcRow.add(new UI2.Text({
+        text: '弧长',
+        style: 'width: 90px;'
+    }));
+
     arcRow.add(arc);
 
     container.add(arcRow);
 
-
     //
-
     function update() {
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
@@ -76,8 +114,9 @@ function TorusGeometryPanel(editor, object) {
 
     }
 
-    return container;
+    container.render();
 
+    return container;
 };
 
 export default TorusGeometryPanel;
