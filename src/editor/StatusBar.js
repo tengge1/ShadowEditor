@@ -12,7 +12,10 @@ function StatusBar(app) {
         id: 'toolbar'
     });
 
-    this.buttons = new UI.Div();
+    this.buttons = new UI.Div({
+        cls: 'Panel'
+    });
+
     this.container.add(this.buttons);
 
     // 平移
