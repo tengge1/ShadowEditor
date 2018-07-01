@@ -401,7 +401,7 @@ function ObjectPanel(app) {
     var objectCastShadow = new UI.Boolean({
         value: false,
         text: '产生',
-        update: update
+        onChange: update
     });
 
     objectShadowRow.add(objectCastShadow);
@@ -626,9 +626,7 @@ function ObjectPanel(app) {
             }
 
             if (object.castShadow !== undefined && object.castShadow !== objectCastShadow.getValue()) {
-
                 editor.execute(new SetValueCommand(object, 'castShadow', objectCastShadow.getValue()));
-
             }
 
             if (object.receiveShadow !== undefined && object.receiveShadow !== objectReceiveShadow.getValue()) {
