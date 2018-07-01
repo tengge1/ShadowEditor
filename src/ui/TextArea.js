@@ -8,6 +8,9 @@ function TextArea(options) {
     Control.call(this, options);
     options = options || {};
     this.value = options.value || '';
+    this.style = options.style || null;
+    this.onChange = options.onChange || null;
+    this.onKeyUp = options.onKeyUp || null;
 };
 
 TextArea.prototype = Object.create(Control.prototype);
@@ -16,10 +19,16 @@ TextArea.prototype.constructor = TextArea;
 TextArea.prototype.render = function () {
     this.dom = document.createElement('textarea');
     this.dom.className = 'TextArea';
+
+    if (this.style) {
+        this.dom.style = this.style;
+    }
+
     this.dom.style.padding = '2px';
     this.dom.spellcheck = false;
 
     var _this = this;
+
     this.dom.addEventListener('keydown', function (event) {
         event.stopPropagation();
 
@@ -35,6 +44,14 @@ TextArea.prototype.render = function () {
     }, false);
 
     this.parent.appendChild(this.dom);
+
+    if (this.onChange) {
+        this.dom.addEventListener('change', this.onChange.bind(this));
+    }
+
+    if (this.onKeyUp) {
+        this.dom.addEventListener('keyup', this.onKeyUp.bind(this));
+    }
 
     this.setValue(this.value);
 };

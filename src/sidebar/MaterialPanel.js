@@ -93,7 +93,8 @@ function MaterialPanel(app) {
 
     var materialUUIDRow = new UI.Row();
     var materialUUID = new UI.Input({
-        style: 'width: 102px; font-size: 12px; disabled: true;'
+        style: 'width: 102px; font-size: 12px;',
+        disabled: true
     });
 
     var materialUUIDRenew = new UI.Button({
