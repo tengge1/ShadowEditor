@@ -55,10 +55,6 @@ Outliner.prototype.render = function () {
     this.selectedValue = null;
 };
 
-
-Outliner.prototype = Object.create(Element.prototype);
-Outliner.prototype.constructor = Outliner;
-
 Outliner.prototype.selectIndex = function (index) {
     if (index >= 0 && index < this.options.length) {
 

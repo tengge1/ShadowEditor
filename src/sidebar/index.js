@@ -1,4 +1,3 @@
-export { default as AnimationPanel } from './AnimationPanel';
 export { default as HistoryPanel } from './HistoryPanel';
 export { default as MaterialPanel } from './MaterialPanel';
 export { default as ObjectPanel } from './ObjectPanel';

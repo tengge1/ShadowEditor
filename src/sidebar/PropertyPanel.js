@@ -40,9 +40,12 @@ function PropertyPanel(app) {
     );
     container.add(geometry);
 
-    var material = new UI.Span().add(
-        new MaterialPanel(this.app)
-    );
+    var material = new UI.Span();
+
+    var materialPanel = new MaterialPanel(this.app);
+
+    material.dom.appendChild(materialPanel.dom);
+
     container.add(material);
 
     //

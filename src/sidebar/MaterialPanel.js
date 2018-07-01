@@ -2,7 +2,7 @@
 import SetMaterialValueCommand from '../command/SetMaterialValueCommand';
 import SetMaterialColorCommand from '../command/SetMaterialColorCommand';
 import SetMaterialMapCommand from '../command/SetMaterialMapCommand';
-import UI from '../ui/UI';
+import UI2 from '../ui2/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -12,82 +12,102 @@ function MaterialPanel(app) {
     this.app = app;
     var editor = this.app.editor;
 
+    var _this = this;
+
     var currentObject;
 
-    var container = new UI.Panel();
-    container.setBorderTop('0');
-    container.setPaddingTop('20px');
+    var container = new UI2.Div({
+        style: 'border-top: 0; padding-top: 20px'
+    });
 
     // New / Copy / Paste
 
     var copiedMaterial;
-    var managerRow = new UI.Row();
+    var managerRow = new UI2.Row();
 
-    managerRow.add(new UI.Text('').setWidth('90px'));
-    managerRow.add(new UI.Button('新建').onClick(function () {
-
-        var material = new THREE[materialClass.getValue()]();
-        editor.execute(new SetMaterialCommand(currentObject, material), '新材质：' + materialClass.getValue());
-        update();
-
+    managerRow.add(new UI2.Text({ text: '', style: 'width: 90px;' }));
+    managerRow.add(new UI2.Button({
+        text: '新建',
+        onClick: function () {
+            var material = new THREE[materialClass.getValue()]();
+            editor.execute(new SetMaterialCommand(currentObject, material), '新材质：' + materialClass.getValue());
+            update();
+        }
     }));
 
-    managerRow.add(new UI.Button('复制').setMarginLeft('4px').onClick(function () {
-
-        copiedMaterial = currentObject.material;
-
+    managerRow.add(new UI2.Button({
+        text: '复制',
+        style: 'margin-left: 4px',
+        onClick: function () {
+            copiedMaterial = currentObject.material;
+        }
     }));
 
-    managerRow.add(new UI.Button('粘贴').setMarginLeft('4px').onClick(function () {
+    managerRow.add(new UI2.Button({
+        text: '粘贴',
+        style: 'margin-left: 4px',
+        onClick: function () {
+            if (copiedMaterial === undefined) return;
 
-        if (copiedMaterial === undefined) return;
-
-        editor.execute(new SetMaterialCommand(currentObject, copiedMaterial), '粘贴材质：' + materialClass.getValue());
-        refreshUI();
-        update();
-
+            editor.execute(new SetMaterialCommand(currentObject, copiedMaterial), '粘贴材质：' + materialClass.getValue());
+            refreshUI();
+            update();
+        }
     }));
 
     container.add(managerRow);
 
-
     // type
 
-    var materialClassRow = new UI.Row();
-    var materialClass = new UI.Select().setOptions({
+    var materialClassRow = new UI2.Row();
+    var materialClass = new UI2.Select({
+        options: {
+            'LineBasicMaterial': '线条材质',
+            'LineDashedMaterial': '虚线材质',
+            'MeshBasicMaterial': '基本材质',
+            'MeshDepthMaterial': '深度材质',
+            'MeshNormalMaterial': '法向量材质',
+            'MeshLambertMaterial': '兰伯特材质',
+            'MeshPhongMaterial': '冯氏材质',
+            'PointCloudMaterial': '点云材质',
+            'MeshStandardMaterial': '标准材质',
+            'MeshPhysicalMaterial': '物理材质',
+            'ShaderMaterial': '着色器材质',
+            'SpriteMaterial': '精灵材质'
+        },
+        style: 'width: 150px; font-size: 12px; ',
+        onChange: update
+    });
 
-        'LineBasicMaterial': '线条材质',
-        'LineDashedMaterial': '虚线材质',
-        'MeshBasicMaterial': '基本材质',
-        'MeshDepthMaterial': '深度材质',
-        'MeshNormalMaterial': '法向量材质',
-        'MeshLambertMaterial': '兰伯特材质',
-        'MeshPhongMaterial': '冯氏材质',
-        'PointCloudMaterial': '点云材质',
-        'MeshStandardMaterial': '标准材质',
-        'MeshPhysicalMaterial': '物理材质',
-        'ShaderMaterial': '着色器材质',
-        'SpriteMaterial': '精灵材质'
+    materialClassRow.add(new UI2.Text({
+        text: '类型',
+        style: 'width: 90px'
+    }));
 
-    }).setWidth('150px').setFontSize('12px').onChange(update);
-
-    materialClassRow.add(new UI.Text('类型').setWidth('90px'));
     materialClassRow.add(materialClass);
 
     container.add(materialClassRow);
 
     // uuid
 
-    var materialUUIDRow = new UI.Row();
-    var materialUUID = new UI.Input().setWidth('102px').setFontSize('12px').setDisabled(true);
-    var materialUUIDRenew = new UI.Button('新建').setMarginLeft('7px').onClick(function () {
-
-        materialUUID.setValue(THREE.Math.generateUUID());
-        update();
-
+    var materialUUIDRow = new UI2.Row();
+    var materialUUID = new UI2.Input({
+        style: 'width: 102px; font-size: 12px; disabled: true;'
     });
 
-    materialUUIDRow.add(new UI.Text('UUID').setWidth('90px'));
+    var materialUUIDRenew = new UI2.Button({
+        text: '新建',
+        style: 'margin-left: 7px;',
+        onClick: function () {
+            materialUUID.setValue(THREE.Math.generateUUID());
+            update();
+        }
+    });
+
+    materialUUIDRow.add(new UI2.Text({
+        text: 'UUID',
+        style: 'width: 90px'
+    }));
     materialUUIDRow.add(materialUUID);
     materialUUIDRow.add(materialUUIDRenew);
 
@@ -95,173 +115,288 @@ function MaterialPanel(app) {
 
     // name
 
-    var materialNameRow = new UI.Row();
-    var materialName = new UI.Input().setWidth('150px').setFontSize('12px').onChange(function () {
-
-        editor.execute(new SetMaterialValueCommand(editor.selected, 'name', materialName.getValue()));
-
+    var materialNameRow = new UI2.Row();
+    var materialName = new UI2.Input({
+        style: 'width: 150px; font-size: 12px;',
+        onChange: function () {
+            editor.execute(new SetMaterialValueCommand(editor.selected, 'name', materialName.getValue()));
+        }
     });
 
-    materialNameRow.add(new UI.Text('名称').setWidth('90px'));
+    materialNameRow.add(new UI2.Text({
+        text: '名称',
+        style: 'width: 90px'
+    }));
     materialNameRow.add(materialName);
 
     container.add(materialNameRow);
 
     // program
 
-    var materialProgramRow = new UI.Row();
-    materialProgramRow.add(new UI.Text('着色器程序').setWidth('90px'));
+    var materialProgramRow = new UI2.Row();
+    materialProgramRow.add(new UI2.Text({
+        text: '着色器程序',
+        style: 'width: 90px'
+    }));
 
-    var materialProgramInfo = new UI.Button('Info');
-    materialProgramInfo.setMarginLeft('4px');
-
-    var _this = this;
-    materialProgramInfo.onClick(function () {
-        _this.app.call('editScript', _this, currentObject, 'programInfo');
+    var materialProgramInfo = new UI2.Button({
+        text: '信息',
+        style: 'margin-left: 4px',
+        onClick: function () {
+            _this.app.call('editScript', _this, currentObject, 'programInfo');
+        }
     });
+
     materialProgramRow.add(materialProgramInfo);
 
-    var materialProgramVertex = new UI.Button('顶点着色器');
-    materialProgramVertex.setMarginLeft('4px');
-    materialProgramVertex.onClick(function () {
-        _this.app.call('editScript', _this, currentObject, 'vertexShader');
+    var materialProgramVertex = new UI2.Button({
+        text: '顶点着色器',
+        style: 'margin-left: 4px;',
+        onClick: function () {
+            _this.app.call('editScript', _this, currentObject, 'vertexShader');
+        }
     });
+
     materialProgramRow.add(materialProgramVertex);
 
-    var materialProgramFragment = new UI.Button('片源着色器');
-    materialProgramFragment.setMarginLeft('4px');
-    materialProgramFragment.onClick(function () {
-        _this.app.call('editScript', _this, currentObject, 'fragmentShader');
+    var materialProgramFragment = new UI2.Button({
+        text: '片源着色器',
+        style: 'margin-left: 4px;',
+        onClick: function () {
+            _this.app.call('editScript', _this, currentObject, 'fragmentShader');
+        }
     });
+
     materialProgramRow.add(materialProgramFragment);
 
     container.add(materialProgramRow);
 
     // color
 
-    var materialColorRow = new UI.Row();
-    var materialColor = new UI.Color().onChange(update);
+    var materialColorRow = new UI2.Row();
 
-    materialColorRow.add(new UI.Text('颜色').setWidth('90px'));
+    var materialColor = new UI2.Color({
+        onChange: update
+    });
+
+    materialColorRow.add(new UI2.Text({
+        text: '颜色',
+        style: 'width: 90px'
+    }));
+
     materialColorRow.add(materialColor);
 
     container.add(materialColorRow);
 
     // roughness
 
-    var materialRoughnessRow = new UI.Row();
-    var materialRoughness = new UI.Number(0.5).setWidth('60px').setRange(0, 1).onChange(update);
+    var materialRoughnessRow = new UI2.Row();
 
-    materialRoughnessRow.add(new UI.Text('粗糙度').setWidth('90px'));
+    var materialRoughness = new UI2.Number({
+        value: 0.5,
+        style: 'width: 60px',
+        range: [0, 1],
+        onChange: update
+    });
+
+    materialRoughnessRow.add(new UI2.Text({
+        text: '粗糙度',
+        style: 'width: 90px'
+    }));
+
     materialRoughnessRow.add(materialRoughness);
 
     container.add(materialRoughnessRow);
 
     // metalness
 
-    var materialMetalnessRow = new UI.Row();
-    var materialMetalness = new UI.Number(0.5).setWidth('60px').setRange(0, 1).onChange(update);
+    var materialMetalnessRow = new UI2.Row();
 
-    materialMetalnessRow.add(new UI.Text('金属度').setWidth('90px'));
+    var materialMetalness = new UI2.Number({
+        value: 0.5,
+        style: 'width: 60px;',
+        range: [0, 1],
+        onChange: update
+    });
+
+    materialMetalnessRow.add(new UI2.Text({
+        text: '金属度',
+        style: 'width: 90px;'
+    }));
     materialMetalnessRow.add(materialMetalness);
 
     container.add(materialMetalnessRow);
 
     // emissive
 
-    var materialEmissiveRow = new UI.Row();
-    var materialEmissive = new UI.Color().setHexValue(0x000000).onChange(update);
+    var materialEmissiveRow = new UI2.Row();
+    var materialEmissive = new UI2.Color({
+        value: 0x000000,
+        onChange: update
+    });
 
-    materialEmissiveRow.add(new UI.Text('放射性').setWidth('90px'));
+    materialEmissiveRow.add(new UI2.Text({
+        text: '放射性',
+        style: 'width: 90px;'
+    }));
+
     materialEmissiveRow.add(materialEmissive);
 
     container.add(materialEmissiveRow);
 
     // specular
 
-    var materialSpecularRow = new UI.Row();
-    var materialSpecular = new UI.Color().setHexValue(0x111111).onChange(update);
+    var materialSpecularRow = new UI2.Row();
+    var materialSpecular = new UI2.Color({
+        value: 0x111111,
+        onChange: update
+    });
 
-    materialSpecularRow.add(new UI.Text('镜面度').setWidth('90px'));
+    materialSpecularRow.add(new UI2.Text({
+        text: '镜面度',
+        style: 'width: 90px;'
+    }));
+
     materialSpecularRow.add(materialSpecular);
 
     container.add(materialSpecularRow);
 
     // shininess
 
-    var materialShininessRow = new UI.Row();
-    var materialShininess = new UI.Number(30).onChange(update);
+    var materialShininessRow = new UI2.Row();
 
-    materialShininessRow.add(new UI.Text('光亮度').setWidth('90px'));
+    var materialShininess = new UI2.Number({
+        value: 30,
+        onChange: update
+    });
+
+    materialShininessRow.add(new UI2.Text({
+        text: '光亮度',
+        style: 'width: 90px;'
+    }));
+
     materialShininessRow.add(materialShininess);
 
     container.add(materialShininessRow);
 
     // clearCoat
 
-    var materialClearCoatRow = new UI.Row();
-    var materialClearCoat = new UI.Number(1).setWidth('60px').setRange(0, 1).onChange(update);
+    var materialClearCoatRow = new UI2.Row();
 
-    materialClearCoatRow.add(new UI.Text('透明度').setWidth('90px'));
+    var materialClearCoat = new UI2.Number({
+        value: 1,
+        style: 'width: 60px;',
+        range: [0, 1],
+        onChange: update
+    });
+
+    materialClearCoatRow.add(new UI2.Text({
+        text: '透明度',
+        style: 'width: 90px;'
+    }));
     materialClearCoatRow.add(materialClearCoat);
 
     container.add(materialClearCoatRow);
 
     // clearCoatRoughness
 
-    var materialClearCoatRoughnessRow = new UI.Row();
-    var materialClearCoatRoughness = new UI.Number(1).setWidth('60px').setRange(0, 1).onChange(update);
+    var materialClearCoatRoughnessRow = new UI2.Row();
 
-    materialClearCoatRoughnessRow.add(new UI.Text('透明粗糙度').setWidth('90px'));
+    var materialClearCoatRoughness = new UI2.Number({
+        value: 1,
+        style: 'width: 60px;',
+        range: [0, 1],
+        onChange: update
+    });
+
+    materialClearCoatRoughnessRow.add(new UI2.Text({
+        text: '透明粗糙度',
+        style: 'width: 90px;'
+    }));
+
     materialClearCoatRoughnessRow.add(materialClearCoatRoughness);
 
     container.add(materialClearCoatRoughnessRow);
 
     // vertex colors
 
-    var materialVertexColorsRow = new UI.Row();
-    var materialVertexColors = new UI.Select().setOptions({
+    var materialVertexColorsRow = new UI2.Row();
 
-        0: '无',
-        1: '面',
-        2: '顶点'
+    var materialVertexColors = new UI2.Select({
+        options: {
+            0: '无',
+            1: '面',
+            2: '顶点'
+        },
+        onChange: update
+    });
 
-    }).onChange(update);
+    materialVertexColorsRow.add(new UI2.Text({
+        text: '顶点颜色',
+        style: 'width: 90px'
+    }));
 
-    materialVertexColorsRow.add(new UI.Text('顶点颜色').setWidth('90px'));
     materialVertexColorsRow.add(materialVertexColors);
 
     container.add(materialVertexColorsRow);
 
     // skinning
 
-    var materialSkinningRow = new UI.Row();
-    var materialSkinning = new UI.Checkbox(false).onChange(update);
+    var materialSkinningRow = new UI2.Row();
+    var materialSkinning = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
 
-    materialSkinningRow.add(new UI.Text('皮肤').setWidth('90px'));
+    materialSkinningRow.add(new UI2.Text({
+        text: '皮肤',
+        style: 'width: 90px;'
+    }));
+
     materialSkinningRow.add(materialSkinning);
 
     container.add(materialSkinningRow);
 
     // map
 
-    var materialMapRow = new UI.Row();
-    var materialMapEnabled = new UI.Checkbox(false).onChange(update);
-    var materialMap = new UI.Texture().onChange(update);
+    var materialMapRow = new UI2.Row();
+    var materialMapEnabled = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
 
-    materialMapRow.add(new UI.Text('纹理').setWidth('90px'));
+    var materialMap = new UI2.Texture({
+        onChange: update
+    });
+
+    materialMapRow.add(new UI2.Text({
+        text: '纹理',
+        style: 'width: 90px;'
+    }));
+
     materialMapRow.add(materialMapEnabled);
+
     materialMapRow.add(materialMap);
 
     container.add(materialMapRow);
 
     // alpha map
 
-    var materialAlphaMapRow = new UI.Row();
-    var materialAlphaMapEnabled = new UI.Checkbox(false).onChange(update);
-    var materialAlphaMap = new UI.Texture().onChange(update);
+    var materialAlphaMapRow = new UI2.Row();
+    var materialAlphaMapEnabled = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
 
-    materialAlphaMapRow.add(new UI.Text('透明纹理').setWidth('90px'));
+    var materialAlphaMap = new UI2.Texture({
+        onChange: update
+    });
+
+    materialAlphaMapRow.add(new UI2.Text({
+        text: '透明纹理',
+        style: 'width: 90px;'
+    }));
+
     materialAlphaMapRow.add(materialAlphaMapEnabled);
     materialAlphaMapRow.add(materialAlphaMap);
 
@@ -269,12 +404,27 @@ function MaterialPanel(app) {
 
     // bump map
 
-    var materialBumpMapRow = new UI.Row();
-    var materialBumpMapEnabled = new UI.Checkbox(false).onChange(update);
-    var materialBumpMap = new UI.Texture().onChange(update);
-    var materialBumpScale = new UI.Number(1).setWidth('30px').onChange(update);
+    var materialBumpMapRow = new UI2.Row();
+    var materialBumpMapEnabled = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
 
-    materialBumpMapRow.add(new UI.Text('凹凸纹理').setWidth('90px'));
+    var materialBumpMap = new UI2.Texture({
+        onChange: update
+    });
+
+    var materialBumpScale = new UI2.Number({
+        value: 1,
+        style: 'width: 30px;',
+        onChange: update
+    });
+
+    materialBumpMapRow.add(new UI2.Text({
+        text: '凹凸纹理',
+        width: '90px'
+    }));
+
     materialBumpMapRow.add(materialBumpMapEnabled);
     materialBumpMapRow.add(materialBumpMap);
     materialBumpMapRow.add(materialBumpScale);
@@ -283,11 +433,21 @@ function MaterialPanel(app) {
 
     // normal map
 
-    var materialNormalMapRow = new UI.Row();
-    var materialNormalMapEnabled = new UI.Checkbox(false).onChange(update);
-    var materialNormalMap = new UI.Texture().onChange(update);
+    var materialNormalMapRow = new UI2.Row();
+    var materialNormalMapEnabled = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
 
-    materialNormalMapRow.add(new UI.Text('法线纹理').setWidth('90px'));
+    var materialNormalMap = new UI2.Texture({
+        onChange: update
+    });
+
+    materialNormalMapRow.add(new UI2.Text({
+        text: '法线纹理',
+        style: 'width: 90px'
+    }));
+
     materialNormalMapRow.add(materialNormalMapEnabled);
     materialNormalMapRow.add(materialNormalMap);
 
@@ -295,12 +455,27 @@ function MaterialPanel(app) {
 
     // displacement map
 
-    var materialDisplacementMapRow = new UI.Row();
-    var materialDisplacementMapEnabled = new UI.Checkbox(false).onChange(update);
-    var materialDisplacementMap = new UI.Texture().onChange(update);
-    var materialDisplacementScale = new UI.Number(1).setWidth('30px').onChange(update);
+    var materialDisplacementMapRow = new UI2.Row();
+    var materialDisplacementMapEnabled = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
 
-    materialDisplacementMapRow.add(new UI.Text('位移纹理').setWidth('90px'));
+    var materialDisplacementMap = new UI2.Texture({
+        onChange: update
+    });
+
+    var materialDisplacementScale = new UI2.Number({
+        value: 1,
+        style: 'width: 30px;',
+        onChange: update
+    });
+
+    materialDisplacementMapRow.add(new UI2.Text({
+        text: '位移纹理',
+        style: 'width: 90px;'
+    }));
+
     materialDisplacementMapRow.add(materialDisplacementMapEnabled);
     materialDisplacementMapRow.add(materialDisplacementMap);
     materialDisplacementMapRow.add(materialDisplacementScale);
@@ -309,11 +484,21 @@ function MaterialPanel(app) {
 
     // roughness map
 
-    var materialRoughnessMapRow = new UI.Row();
-    var materialRoughnessMapEnabled = new UI.Checkbox(false).onChange(update);
-    var materialRoughnessMap = new UI.Texture().onChange(update);
+    var materialRoughnessMapRow = new UI2.Row();
+    var materialRoughnessMapEnabled = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
 
-    materialRoughnessMapRow.add(new UI.Text('粗糙纹理').setWidth('90px'));
+    var materialRoughnessMap = new UI2.Texture({
+        onChange: update
+    });
+
+    materialRoughnessMapRow.add(new UI2.Text({
+        text: '粗糙纹理',
+        style: 'width: 90px;'
+    }));
+
     materialRoughnessMapRow.add(materialRoughnessMapEnabled);
     materialRoughnessMapRow.add(materialRoughnessMap);
 
@@ -321,11 +506,21 @@ function MaterialPanel(app) {
 
     // metalness map
 
-    var materialMetalnessMapRow = new UI.Row();
-    var materialMetalnessMapEnabled = new UI.Checkbox(false).onChange(update);
-    var materialMetalnessMap = new UI.Texture().onChange(update);
+    var materialMetalnessMapRow = new UI2.Row();
+    var materialMetalnessMapEnabled = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
 
-    materialMetalnessMapRow.add(new UI.Text('金属纹理').setWidth('90px'));
+    var materialMetalnessMap = new UI2.Texture({
+        onChange: update
+    });
+
+    materialMetalnessMapRow.add(new UI2.Text({
+        text: '金属纹理',
+        style: 'width: 90px;'
+    }));
+
     materialMetalnessMapRow.add(materialMetalnessMapEnabled);
     materialMetalnessMapRow.add(materialMetalnessMap);
 
@@ -333,11 +528,21 @@ function MaterialPanel(app) {
 
     // specular map
 
-    var materialSpecularMapRow = new UI.Row();
-    var materialSpecularMapEnabled = new UI.Checkbox(false).onChange(update);
-    var materialSpecularMap = new UI.Texture().onChange(update);
+    var materialSpecularMapRow = new UI2.Row();
+    var materialSpecularMapEnabled = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
 
-    materialSpecularMapRow.add(new UI.Text('镜面纹理').setWidth('90px'));
+    var materialSpecularMap = new UI2.Texture({
+        onChange: update
+    });
+
+    materialSpecularMapRow.add(new UI2.Text({
+        text: '镜面纹理',
+        style: 'width: 90px;'
+    }));
+
     materialSpecularMapRow.add(materialSpecularMapEnabled);
     materialSpecularMapRow.add(materialSpecularMap);
 
@@ -345,12 +550,27 @@ function MaterialPanel(app) {
 
     // env map
 
-    var materialEnvMapRow = new UI.Row();
-    var materialEnvMapEnabled = new UI.Checkbox(false).onChange(update);
-    var materialEnvMap = new UI.Texture(THREE.SphericalReflectionMapping).onChange(update);
-    var materialReflectivity = new UI.Number(1).setWidth('30px').onChange(update);
+    var materialEnvMapRow = new UI2.Row();
+    var materialEnvMapEnabled = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
+    var materialEnvMap = new UI2.Texture({
+        mapping: THREE.SphericalReflectionMapping,
+        onChange: update
+    });
 
-    materialEnvMapRow.add(new UI.Text('环境纹理').setWidth('90px'));
+    var materialReflectivity = new UI2.Number({
+        value: 1,
+        style: 'width: 30px;',
+        onChange: update
+    });
+
+    materialEnvMapRow.add(new UI2.Text({
+        text: '环境纹理',
+        style: 'width: 90px;'
+    }));
+
     materialEnvMapRow.add(materialEnvMapEnabled);
     materialEnvMapRow.add(materialEnvMap);
     materialEnvMapRow.add(materialReflectivity);
@@ -359,11 +579,21 @@ function MaterialPanel(app) {
 
     // light map
 
-    var materialLightMapRow = new UI.Row();
-    var materialLightMapEnabled = new UI.Checkbox(false).onChange(update);
-    var materialLightMap = new UI.Texture().onChange(update);
+    var materialLightMapRow = new UI2.Row();
+    var materialLightMapEnabled = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
 
-    materialLightMapRow.add(new UI.Text('光照纹理').setWidth('90px'));
+    var materialLightMap = new UI2.Texture({
+        onChange: update
+    });
+
+    materialLightMapRow.add(new UI2.Text({
+        text: '光照纹理',
+        style: 'width: 90px;'
+    }));
+
     materialLightMapRow.add(materialLightMapEnabled);
     materialLightMapRow.add(materialLightMap);
 
@@ -371,12 +601,28 @@ function MaterialPanel(app) {
 
     // ambient occlusion map
 
-    var materialAOMapRow = new UI.Row();
-    var materialAOMapEnabled = new UI.Checkbox(false).onChange(update);
-    var materialAOMap = new UI.Texture().onChange(update);
-    var materialAOScale = new UI.Number(1).setRange(0, 1).setWidth('30px').onChange(update);
+    var materialAOMapRow = new UI2.Row();
+    var materialAOMapEnabled = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
 
-    materialAOMapRow.add(new UI.Text('遮挡纹理').setWidth('90px'));
+    var materialAOMap = new UI2.Texture({
+        onChange: update
+    });
+
+    var materialAOScale = new UI2.Number({
+        value: 1,
+        range: [0, 1],
+        style: 'width: 30px',
+        onChange: update
+    });
+
+    materialAOMapRow.add(new UI2.Text({
+        text: '遮挡纹理',
+        style: 'width: 90px;'
+    }));
+
     materialAOMapRow.add(materialAOMapEnabled);
     materialAOMapRow.add(materialAOMap);
     materialAOMapRow.add(materialAOScale);
@@ -385,11 +631,20 @@ function MaterialPanel(app) {
 
     // emissive map
 
-    var materialEmissiveMapRow = new UI.Row();
-    var materialEmissiveMapEnabled = new UI.Checkbox(false).onChange(update);
-    var materialEmissiveMap = new UI.Texture().onChange(update);
+    var materialEmissiveMapRow = new UI2.Row();
+    var materialEmissiveMapEnabled = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
+    var materialEmissiveMap = new UI2.Texture({
+        onChange: update
+    });
 
-    materialEmissiveMapRow.add(new UI.Text('放射纹理').setWidth('90px'));
+    materialEmissiveMapRow.add(new UI2.Text({
+        text: '放射纹理',
+        style: 'width: 90px;'
+    }));
+
     materialEmissiveMapRow.add(materialEmissiveMapEnabled);
     materialEmissiveMapRow.add(materialEmissiveMap);
 
@@ -397,96 +652,153 @@ function MaterialPanel(app) {
 
     // side
 
-    var materialSideRow = new UI.Row();
-    var materialSide = new UI.Select().setOptions({
+    var materialSideRow = new UI2.Row();
 
-        0: '正面',
-        1: '反面',
-        2: '双面'
+    var materialSide = new UI2.Select({
+        options: {
+            0: '正面',
+            1: '反面',
+            2: '双面'
+        },
+        style: 'width: 150px; font-size: 12px;',
+        onChange: update
+    });
 
-    }).setWidth('150px').setFontSize('12px').onChange(update);
+    materialSideRow.add(new UI2.Text({
+        text: '边',
+        style: 'width: 90px;'
+    }));
 
-    materialSideRow.add(new UI.Text('边').setWidth('90px'));
     materialSideRow.add(materialSide);
 
     container.add(materialSideRow);
 
     // shading
 
-    var materialShadingRow = new UI.Row();
-    var materialShading = new UI.Select().setOptions({
+    var materialShadingRow = new UI2.Row();
+    var materialShading = new UI2.Select({
+        options: {
+            0: '无',
+            1: '平坦',
+            2: '光滑'
+        },
+        style: 'width: 150px; font-size: 12px;',
+        onChange: update
+    });
 
-        0: '无',
-        1: '平坦',
-        2: '光滑'
+    materialShadingRow.add(new UI2.Text({
+        text: '着色',
+        style: 'width: 90px;'
+    }));
 
-    }).setWidth('150px').setFontSize('12px').onChange(update);
-
-    materialShadingRow.add(new UI.Text('着色').setWidth('90px'));
     materialShadingRow.add(materialShading);
 
     container.add(materialShadingRow);
 
     // blending
 
-    var materialBlendingRow = new UI.Row();
-    var materialBlending = new UI.Select().setOptions({
+    var materialBlendingRow = new UI2.Row();
+    var materialBlending = new UI2.Select({
+        options: {
+            0: '不混合',
+            1: '一般混合',
+            2: '和混合',
+            3: '差混合',
+            4: '积混合',
+            5: '自定义混合'
+        },
+        style: 'width: 150px; font-size: 12px;',
+        onChange: update
+    });
 
-        0: '不混合',
-        1: '一般混合',
-        2: '和混合',
-        3: '差混合',
-        4: '积混合',
-        5: '自定义混合'
-
-    }).setWidth('150px').setFontSize('12px').onChange(update);
-
-    materialBlendingRow.add(new UI.Text('混合').setWidth('90px'));
+    materialBlendingRow.add(new UI2.Text({
+        text: '混合',
+        style: 'width: 90px;'
+    }));
     materialBlendingRow.add(materialBlending);
 
     container.add(materialBlendingRow);
 
     // opacity
 
-    var materialOpacityRow = new UI.Row();
-    var materialOpacity = new UI.Number(1).setWidth('60px').setRange(0, 1).onChange(update);
+    var materialOpacityRow = new UI2.Row();
+    var materialOpacity = new UI2.Number({
+        value: 1,
+        style: 'width: 60px;',
+        range: [0, 1],
+        onChange: update
+    });
 
-    materialOpacityRow.add(new UI.Text('不透明度').setWidth('90px'));
+    materialOpacityRow.add(new UI2.Text({
+        text: '不透明度',
+        style: 'width: 90px;'
+    }));
+
     materialOpacityRow.add(materialOpacity);
 
     container.add(materialOpacityRow);
 
     // transparent
 
-    var materialTransparentRow = new UI.Row();
-    var materialTransparent = new UI.Checkbox().setLeft('100px').onChange(update);
+    var materialTransparentRow = new UI2.Row();
+    var materialTransparent = new UI2.Checkbox({
+        style: 'left: 100px;',
+        onChange: update
+    });
 
-    materialTransparentRow.add(new UI.Text('透明').setWidth('90px'));
+    materialTransparentRow.add(new UI2.Text({
+        text: '透明',
+        style: 'width: 90px;'
+    }));
+
     materialTransparentRow.add(materialTransparent);
 
     container.add(materialTransparentRow);
 
     // alpha test
 
-    var materialAlphaTestRow = new UI.Row();
-    var materialAlphaTest = new UI.Number().setWidth('60px').setRange(0, 1).onChange(update);
+    var materialAlphaTestRow = new UI2.Row();
+    var materialAlphaTest = new UI2.Number({
+        style: 'width: 60px;',
+        range: [0, 1],
+        onChange: update
+    });
 
-    materialAlphaTestRow.add(new UI.Text('α测试').setWidth('90px'));
+    materialAlphaTestRow.add(new UI2.Text({
+        text: 'α测试',
+        style: 'width: 90px;'
+    }));
+
     materialAlphaTestRow.add(materialAlphaTest);
 
     container.add(materialAlphaTestRow);
 
     // wireframe
 
-    var materialWireframeRow = new UI.Row();
-    var materialWireframe = new UI.Checkbox(false).onChange(update);
-    var materialWireframeLinewidth = new UI.Number(1).setWidth('60px').setRange(0, 100).onChange(update);
+    var materialWireframeRow = new UI2.Row();
+    var materialWireframe = new UI2.Checkbox({
+        value: false,
+        onChange: update
+    });
 
-    materialWireframeRow.add(new UI.Text('线框').setWidth('90px'));
+    var materialWireframeLinewidth = new UI2.Number({
+        value: 1,
+        style: 'width: 60px;',
+        range: [0, 100],
+        onChange: update
+    });
+
+    materialWireframeRow.add(new UI2.Text({
+        text: '线框',
+        style: 'width: 90px;'
+    }));
+
     materialWireframeRow.add(materialWireframe);
     materialWireframeRow.add(materialWireframeLinewidth);
 
     container.add(materialWireframeRow);
+
+    container.render();
 
     //
 
@@ -984,7 +1296,7 @@ function MaterialPanel(app) {
 
         for (var property in properties) {
 
-            properties[property].setDisplay(material[property] !== undefined ? '' : 'none');
+            properties[property].dom.style.display = material[property] !== undefined ? '' : 'none'
 
         }
 
@@ -1287,10 +1599,10 @@ function MaterialPanel(app) {
 
             currentObject = object;
             refreshUI(objectChanged);
-            container.setDisplay('');
+            container.dom.style.display = '';
         } else {
             currentObject = null;
-            container.setDisplay('none');
+            container.dom.style.display = 'none';
         }
     });
 

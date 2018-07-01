@@ -50,10 +50,9 @@ function Sidebar(app) {
     );
     container.add(project);
 
-    var settings = new UI.Span().add(
-        new SettingPanel(this.app),
-        new HistoryPanel(this.app)
-    );
+    var settings = new UI.Span();
+    settings.dom.appendChild(new SettingPanel(this.app));
+    settings.dom.appendChild(new HistoryPanel(this.app));
     container.add(settings);
 
     //

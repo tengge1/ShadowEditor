@@ -1,4 +1,4 @@
-﻿import UI from '../ui/UI';
+﻿import UI2 from '../ui2/UI';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -10,9 +10,9 @@ function SettingPanel(app) {
 
     var config = editor.config;
 
-    var container = new UI.Panel();
-    container.setBorderTop('0');
-    container.setPaddingTop('20px');
+    var container = new UI2.Div({
+        style: 'border-top: 0; padding-top: 20px;'
+    });
 
     // class
 
@@ -21,32 +21,32 @@ function SettingPanel(app) {
         'assets/css/dark.css': '深色'
     };
 
-    var themeRow = new UI.Row();
-    var theme = new UI.Select().setWidth('150px');
-    theme.setOptions(options);
+    var themeRow = new UI2.Row();
 
-    if (config.getKey('theme') !== undefined) {
+    var theme = new UI2.Select({
+        options: options,
+        value: config.getKey('theme'),
+        style: 'width: 150px',
+        onChange: function () {
+            var value = this.getValue();
 
-        theme.setValue(config.getKey('theme'));
-
-    }
-
-    theme.onChange(function () {
-
-        var value = this.getValue();
-
-        editor.setTheme(value);
-        editor.config.setKey('theme', value);
-
+            editor.setTheme(value);
+            editor.config.setKey('theme', value);
+        }
     });
 
-    themeRow.add(new UI.Text('主题').setWidth('90px'));
+    themeRow.add(new UI2.Text({
+        text: '主题',
+        style: 'width: 90px'
+    }));
+
     themeRow.add(theme);
 
     container.add(themeRow);
 
-    return container;
+    container.render();
 
+    return container.dom;
 };
 
 export default SettingPanel;

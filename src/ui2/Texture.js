@@ -50,57 +50,6 @@ Texture.prototype.render = function () {
     this.name.style.border = '1px solid #ccc';
     this.dom.appendChild(this.name);
 
-    function loadFile(file) {
-
-        if (file.type.match('image.*')) {
-
-            var reader = new FileReader();
-            if (file.type === 'image/targa') {
-                reader.addEventListener('load', function (event) {
-                    var canvas = new THREE.TGALoader().parse(event.target.result);
-                    var texture = new THREE.CanvasTexture(canvas, mapping);
-                    texture.sourceFile = file.name;
-
-                    _this.setValue(texture);
-
-                    if (_this.onChangeCallback) {
-                        _this.onChangeCallback();
-                    }
-                }, false);
-
-                reader.readAsArrayBuffer(file);
-
-            } else {
-
-                reader.addEventListener('load', function (event) {
-
-                    var image = document.createElement('img');
-                    image.addEventListener('load', function (event) {
-
-                        var texture = new THREE.Texture(this, mapping);
-                        texture.sourceFile = file.name;
-                        texture.format = file.type === 'image/jpeg' ? THREE.RGBFormat : THREE.RGBAFormat;
-                        texture.needsUpdate = true;
-
-                        _this.setValue(texture);
-
-                        if (_this.onChangeCallback) {
-                            _this.onChangeCallback();
-                        }
-
-                    }, false);
-
-                    image.src = event.target.result;
-
-                }, false);
-
-                reader.readAsDataURL(file);
-            }
-        }
-
-        _this.form.reset();
-    }
-
     this.parent.appendChild(this.dom);
     this.texture = null;
     this.onChangeCallback = null;
@@ -142,6 +91,57 @@ Texture.prototype.setValue = function (texture) {
     }
 
     this.texture = texture;
+};
+
+Texture.prototype.loadFile = function (file) {
+
+    if (file.type.match('image.*')) {
+
+        var reader = new FileReader();
+        if (file.type === 'image/targa') {
+            reader.addEventListener('load', function (event) {
+                var canvas = new THREE.TGALoader().parse(event.target.result);
+                var texture = new THREE.CanvasTexture(canvas, mapping);
+                texture.sourceFile = file.name;
+
+                _this.setValue(texture);
+
+                if (_this.onChangeCallback) {
+                    _this.onChangeCallback();
+                }
+            }, false);
+
+            reader.readAsArrayBuffer(file);
+
+        } else {
+
+            reader.addEventListener('load', function (event) {
+
+                var image = document.createElement('img');
+                image.addEventListener('load', function (event) {
+
+                    var texture = new THREE.Texture(this, mapping);
+                    texture.sourceFile = file.name;
+                    texture.format = file.type === 'image/jpeg' ? THREE.RGBFormat : THREE.RGBAFormat;
+                    texture.needsUpdate = true;
+
+                    _this.setValue(texture);
+
+                    if (_this.onChangeCallback) {
+                        _this.onChangeCallback();
+                    }
+
+                }, false);
+
+                image.src = event.target.result;
+
+            }, false);
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+    _this.form.reset();
 };
 
 Texture.prototype.onChange = function (callback) {

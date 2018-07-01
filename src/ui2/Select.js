@@ -7,7 +7,9 @@ import Control from './Control';
 function Select(options) {
     Control.call(this, options);
     options = options || {};
+    this.options = options.options || [];
     this.value = options.value || '';
+    this.onChange = options.onChange || null;
 };
 
 Select.prototype = Object.create(Control.prototype);
@@ -17,6 +19,26 @@ Select.prototype.render = function () {
     this.dom = document.createElement('select');
     this.dom.className = 'Select';
     this.dom.style.padding = '2px';
+
+    var _this = this;
+
+    if (this.options) {
+        Object.keys(this.options).forEach(function (n) {
+            var option = document.createElement('option');
+            option.value = n;
+            option.innerHTML = _this.options[n];
+
+            if (_this.value == n) {
+                option.selected = 'selected';
+            }
+
+            _this.dom.appendChild(option);
+        });
+    }
+
+    if (this.onChange) {
+        this.dom.addEventListener('change', this.onChange.bind(this));
+    }
 
     this.parent.appendChild(this.dom);
 };
