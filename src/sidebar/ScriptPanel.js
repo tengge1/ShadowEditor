@@ -40,22 +40,18 @@ function ScriptPanel(app) {
     var _this = this;
 
     function update() {
-
-        scriptsContainer.dom.innerHTML = '';
+        scriptsContainer.dom.parentElement.removeChild(scriptsContainer.dom);
         scriptsContainer.dom.style.display = 'none';
 
         var object = editor.selected;
 
         if (object === null) {
-
             return;
-
         }
 
         var scripts = editor.scripts[object.uuid];
 
         if (scripts !== undefined) {
-
             scriptsContainer.dom.style.display = 'block';
 
             for (var i = 0; i < scripts.length; i++) {
@@ -96,13 +92,10 @@ function ScriptPanel(app) {
 
                     scriptsContainer.add(new UI.Break());
 
-                    scriptsContainer.render();
-
                 })(object, scripts[i])
             }
-
         }
-
+        scriptsContainer.render();
     }
 
     this.app.on('objectSelected.ScriptPanel', function (object) {
