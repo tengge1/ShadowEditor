@@ -6,6 +6,8 @@ import Control from './Control';
  */
 function Color(options) {
     Control.call(this, options);
+    this.value = options.value || null;
+    this.onChange = options.onChange || null;
 };
 
 Color.prototype = Object.create(Control.prototype);
@@ -22,11 +24,24 @@ Color.prototype.render = function () {
 
     try {
         this.dom.type = 'color';
-        this.dom.value = '#ffffff';
+
+        if (this.value && Number.isNaN(this.value)) {
+            this.setHexValue(this.value);
+        } else if (this.value) {
+            this.setValue(this.value);
+        } else {
+            this.dom.value = '#ffffff';
+        }
+
     } catch (exception) {
 
     }
+
     this.parent.appendChild(this.dom);
+
+    if (this.onChange) {
+        this.dom.addEventListener('change', this.onChange.bind(this));
+    }
 };
 
 Color.prototype.getValue = function () {

@@ -93,8 +93,8 @@ Number.prototype.render = function () {
     function onChange(event) {
         _this.setValue(_this.dom.value);
 
-        if (typeof (this.onChange) === 'function') {
-            this.onChange.call(this, _this);
+        if (_this.onChange) {
+            _this.onChange.call(_this, _this.dom.value);
         }
     }
 
