@@ -1,7 +1,7 @@
 import Control from './Control';
 
 /**
- * Integer
+ * 整数
  * @param {*} options 
  */
 function Integer(options) {
@@ -11,10 +11,12 @@ function Integer(options) {
 
     this.value = options.value || 0;
 
-    this.min = - Infinity;
-    this.max = Infinity;
+    this.min = options.range ? options.range[0] : -Infinity;
+    this.max = options.range ? options.range[1] : Infinity;
 
-    this.step = 1;
+    this.step = options.step || 1;
+
+    this.onChange = options.onChange || null;
 };
 
 Integer.prototype = Object.create(Control.prototype);
@@ -46,7 +48,7 @@ Integer.prototype.render = function () {
         event.preventDefault();
 
         distance = 0;
-        onMouseDownValue = scope.value;
+        onMouseDownValue = _this.value;
         prevPointer = [event.clientX, event.clientY];
 
         document.addEventListener('mousemove', onMouseMove, false);
@@ -54,12 +56,12 @@ Integer.prototype.render = function () {
     }
 
     function onMouseMove(event) {
-        var currentValue = scope.value;
+        var currentValue = _this.value;
         pointer = [event.clientX, event.clientY];
         distance += (pointer[0] - prevPointer[0]) - (pointer[1] - prevPointer[1]);
 
         var value = onMouseDownValue + (distance / (event.shiftKey ? 5 : 50)) * _this.step;
-        value = Math.min(scope.max, Math.max(scope.min, value)) | 0;
+        value = Math.min(_this.max, Math.max(_this.min, value)) | 0;
 
         if (currentValue !== value) {
             _this.setValue(value);
@@ -80,7 +82,10 @@ Integer.prototype.render = function () {
     }
 
     function onChange(event) {
-        _this.setValue(dom.value);
+        _this.setValue(_this.dom.value);
+        if (_this.onChange) {
+            _this.onChange.call(_this, _this.dom.value);
+        }
     }
 
     function onFocus(event) {
