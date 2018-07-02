@@ -5,9 +5,9 @@ import SetMaterialMapCommand from '../../command/SetMaterialMapCommand';
 import UI from '../../ui/UI';
 
 /**
+ * 材质面板
  * @author mrdoob / http://mrdoob.com/
  */
-
 function MaterialPanel(app) {
     this.app = app;
     var editor = this.app.editor;
@@ -238,7 +238,7 @@ function MaterialPanel(app) {
     });
 
     materialEmissiveRow.add(new UI.Text({
-        text: '放射性',
+        text: '发光',
         style: 'width: 90px;'
     }));
 
@@ -424,7 +424,7 @@ function MaterialPanel(app) {
 
     materialBumpMapRow.add(new UI.Text({
         text: '凹凸纹理',
-        width: '90px'
+        style: 'width: 90px;'
     }));
 
     materialBumpMapRow.add(materialBumpMapEnabled);
