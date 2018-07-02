@@ -14,7 +14,7 @@ export { default as ScriptPanel } from './sidebar/ScriptPanel';
 export { default as SettingPanel } from './sidebar/SettingPanel';
 export { default as Sidebar } from './sidebar/Sidebar';
 
-export { default as GeometryGeometryPanel } from './sidebar/geometry/GeometryGeometryPanel';
+export { default as GeometryInfoPanel } from './sidebar/geometry/GeometryInfoPanel';
 export { default as BoxGeometryPanel } from './sidebar/geometry/BoxGeometryPanel';
 export { default as BufferGeometryPanel } from './sidebar/geometry/BufferGeometryPanel';
 export { default as CircleGeometryPanel } from './sidebar/geometry/CircleGeometryPanel';

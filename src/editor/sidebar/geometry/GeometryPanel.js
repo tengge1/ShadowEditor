@@ -1,5 +1,5 @@
 ﻿import SetGeometryValueCommand from '../../../command/SetGeometryValueCommand';
-import GeometryGeometryPanel from './GeometryGeometryPanel';
+import GeometryInfoPanel from './GeometryInfoPanel';
 import BufferGeometryPanel from './BufferGeometryPanel';
 import GeometryModifyPanel from './GeometryModifyPanel';
 
@@ -160,7 +160,7 @@ function GeometryPanel(editor) {
 
     // geometry
 
-    container.dom.appendChild(new GeometryGeometryPanel(editor).dom);
+    container.dom.appendChild(new GeometryInfoPanel(editor).dom);
 
     // buffergeometry
 

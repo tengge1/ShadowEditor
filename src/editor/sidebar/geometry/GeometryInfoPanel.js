@@ -1,10 +1,10 @@
-﻿import SetGeometryCommand from '../../../command/SetGeometryCommand';
-import UI from '../../../ui/UI';
+﻿import UI from '../../../ui/UI';
 
 /**
+ * 几何体信息面板
  * @author mrdoob / http://mrdoob.com/
  */
-function GeometryGeometryPanel(editor) {
+function GeometryInfoPanel(editor) {
     this.app = editor.app;
 
     var container = new UI.Row();
@@ -12,12 +12,13 @@ function GeometryGeometryPanel(editor) {
     // vertices
 
     var verticesRow = new UI.Row();
-    var vertices = new UI.Text();
 
     verticesRow.add(new UI.Text({
         text: '顶点',
         style: 'width: 90px;'
     }));
+
+    var vertices = new UI.Text();
 
     verticesRow.add(vertices);
 
@@ -26,12 +27,13 @@ function GeometryGeometryPanel(editor) {
     // faces
 
     var facesRow = new UI.Row();
-    var faces = new UI.Text();
 
     facesRow.add(new UI.Text({
         text: '面',
         style: 'width: 90px;'
     }));
+
+    var faces = new UI.Text();
 
     facesRow.add(faces);
 
@@ -40,33 +42,27 @@ function GeometryGeometryPanel(editor) {
     //
 
     function update(object) {
-
         if (object === null) return; // objectSelected.dispatch( null )
         if (object === undefined) return;
 
         var geometry = object.geometry;
 
         if (geometry instanceof THREE.Geometry) {
-
             container.dom.style.display = 'block';
 
             vertices.setValue((geometry.vertices.length).format());
             faces.setValue((geometry.faces.length).format());
-
         } else {
-
             container.dom.style.display = 'none';
-
         }
-
     }
 
-    this.app.on('objectSelected.GeometryGeometryPanel', function () {
-        update();
+    this.app.on('objectSelected.GeometryInfoPanel', function (mesh) {
+        update(mesh);
     });
 
-    this.app.on('geometryChanged.GeometryGeometryPanel', function () {
-        update();
+    this.app.on('geometryChanged.GeometryInfoPanel', function (mesh) {
+        update(mesh);
     });
 
     container.render();
@@ -75,4 +71,4 @@ function GeometryGeometryPanel(editor) {
 
 };
 
-export default GeometryGeometryPanel;
+export default GeometryInfoPanel;
