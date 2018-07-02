@@ -2,7 +2,7 @@
 import UI from '../../../ui/UI';
 
 /**
- * 缓冲几何体
+ * 缓冲几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
 function BufferGeometryPanel(editor) {
@@ -29,7 +29,7 @@ function BufferGeometryPanel(editor) {
                 var panel = new UI.Row();
 
                 panel.add(new UI.Text({
-                    text: '索引',
+                    text: '索引数',
                     style: 'width: 90px;'
                 }));
 
@@ -68,12 +68,12 @@ function BufferGeometryPanel(editor) {
         }
     }
 
-    this.app.on('objectSelected.BufferGeometryPanel', function () {
-        update();
+    this.app.on('objectSelected.BufferGeometryPanel', function (mesh) {
+        update(mesh);
     });
 
-    this.app.on('geometryChanged.BufferGeometryPanel', function () {
-        update();
+    this.app.on('geometryChanged.BufferGeometryPanel', function (mesh) {
+        update(mesh);
     });
 
     return container;
