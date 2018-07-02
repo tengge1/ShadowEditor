@@ -10,7 +10,6 @@ import IcosahedronGeometryPanel from './IcosahedronGeometryPanel';
 import LatheGeometryPanel from './LatheGeometryPanel';
 import PlaneGeometryPanel from './PlaneGeometryPanel';
 import SphereGeometryPanel from './SphereGeometryPanel';
-import TeapotBufferGeometryPanel from './TeapotBufferGeometryPanel';
 import TorusGeometryPanel from './TorusGeometryPanel';
 import TorusKnotGeometryPanel from './TorusKnotGeometryPanel';
 
@@ -35,8 +34,6 @@ const GeometryPanels = {
     'PlaneBufferGeometry': PlaneGeometryPanel,
     'SphereGeometry': SphereGeometryPanel,
     'SphereBufferGeometry': SphereGeometryPanel,
-    'TeapotBufferGeometry': TeapotBufferGeometryPanel,
-    'TeapotBufferGeometry': TeapotBufferGeometryPanel,
     'TorusGeometry': TorusGeometryPanel,
     'TorusBufferGeometry': TorusGeometryPanel,
     'TorusKnotGeometry': TorusKnotGeometryPanel,
@@ -144,12 +141,12 @@ function GeometryPanel(editor) {
             parameters.dom.innerHTML = '';
 
             if (geometry.type === 'BufferGeometry' || geometry.type === 'Geometry') {
-
                 parameters.dom.appendChild(new GeometryModifyPanel(editor, object).dom);
+            }
 
-            } else if (GeometryPanels[geometry.type] !== undefined) {
-
+            if (GeometryPanels[geometry.type] !== undefined) {
                 parameters.dom.appendChild(new GeometryPanels[geometry.type](editor, object).dom);
+            } else {
 
             }
 

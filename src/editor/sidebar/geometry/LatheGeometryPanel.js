@@ -21,7 +21,7 @@ function LatheGeometryPanel(editor, object) {
     });
 
     segmentsRow.add(new UI.Text({
-        text: '段数',
+        text: '径向段数',
         style: 'width: 90px;'
     }));
 
@@ -39,7 +39,7 @@ function LatheGeometryPanel(editor, object) {
     });
 
     phiStartRow.add(new UI.Text({
-        text: 'φ开始 (°)',
+        text: '开始角度',
         style: 'width: 90px;'
     }));
 
@@ -57,7 +57,7 @@ function LatheGeometryPanel(editor, object) {
     });
 
     phiLengthRow.add(new UI.Text({
-        text: 'φ长度(°)',
+        text: '结束角度',
         style: 'width: 90px;'
     }));
 
@@ -140,7 +140,9 @@ function LatheGeometryPanel(editor, object) {
 
         var btn = new UI.Button({
             text: '-',
-            onClick: deletePointRow(idx)
+            onClick: function () {
+                deletePointRow(idx);
+            }
         });
 
         pointsUI.push({ row: pointRow, lbl: lbl, x: txtX, y: txtY });
@@ -150,6 +152,8 @@ function LatheGeometryPanel(editor, object) {
         pointRow.add(txtX);
         pointRow.add(txtY);
         pointRow.add(btn);
+
+        pointRow.render();
 
         return pointRow;
 

@@ -24,7 +24,6 @@ export { default as IcosahedronGeometryPanel } from './sidebar/geometry/Icosahed
 export { default as LatheGeometryPanel } from './sidebar/geometry/LatheGeometryPanel';
 export { default as PlaneGeometryPanel } from './sidebar/geometry/PlaneGeometryPanel';
 export { default as SphereGeometryPanel } from './sidebar/geometry/SphereGeometryPanel';
-export { default as TeapotBufferGeometryPanel } from './sidebar/geometry/TeapotBufferGeometryPanel';
 export { default as TorusGeometryPanel } from './sidebar/geometry/TorusGeometryPanel';
 export { default as TorusKnotGeometryPanel } from './sidebar/geometry/TorusKnotGeometryPanel';
 export { default as GeometryPanel } from './sidebar/geometry/GeometryPanel';
