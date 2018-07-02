@@ -38,7 +38,7 @@ function TorusKnotGeometryPanel(editor, object) {
     });
 
     tubeRow.add(new UI.Text({
-        text: '管长',
+        text: '管粗',
         style: 'width: 90px;'
     }));
 
@@ -76,7 +76,7 @@ function TorusKnotGeometryPanel(editor, object) {
     });
 
     radialSegmentsRow.add(new UI.Text({
-        text: '径向段数',
+        text: '管粗段数',
         style: 'width: 90px;'
     }));
 
@@ -94,7 +94,7 @@ function TorusKnotGeometryPanel(editor, object) {
     });
 
     pRow.add(new UI.Text({
-        text: 'P',
+        text: '管长弧度',
         style: 'width: 90px;'
     }));
 
@@ -111,12 +111,12 @@ function TorusKnotGeometryPanel(editor, object) {
         onChange: update
     });
 
-    pRow.add(new UI.Text({
-        text: 'Q',
+    qRow.add(new UI.Text({
+        text: '扭曲弧度',
         style: 'width: 90px;'
     }));
 
-    pRow.add(q);
+    qRow.add(q);
 
     container.add(qRow);
 

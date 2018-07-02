@@ -35,7 +35,7 @@ const GeometryPanels = {
     'PlaneBufferGeometry': PlaneGeometryPanel,
     'SphereGeometry': SphereGeometryPanel,
     'SphereBufferGeometry': SphereGeometryPanel,
-    'TeapotGeometry': TeapotBufferGeometryPanel,
+    'TeapotBufferGeometry': TeapotBufferGeometryPanel,
     'TeapotBufferGeometry': TeapotBufferGeometryPanel,
     'TorusGeometry': TorusGeometryPanel,
     'TorusBufferGeometry': TorusGeometryPanel,

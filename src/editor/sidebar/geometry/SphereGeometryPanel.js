@@ -76,7 +76,7 @@ function SphereGeometryPanel(editor, object) {
     });
 
     phiStartRow.add(new UI.Text({
-        text: 'φ开始',
+        text: '开始经度',
         style: 'width: 90px;'
     }));
 
@@ -93,7 +93,7 @@ function SphereGeometryPanel(editor, object) {
     });
 
     phiLengthRow.add(new UI.Text({
-        text: 'φ长度',
+        text: '结束经度',
         style: 'width: 90px;'
     }));
 
@@ -111,7 +111,7 @@ function SphereGeometryPanel(editor, object) {
     });
 
     thetaStartRow.add(new UI.Text({
-        text: 'θ开始',
+        text: '开始纬度',
         style: 'width: 90px;'
     }));
 
@@ -129,7 +129,7 @@ function SphereGeometryPanel(editor, object) {
     });
 
     thetaLengthRow.add(new UI.Text({
-        text: 'θ长度',
+        text: '结束纬度',
         style: 'width: 90px;'
     }));
 

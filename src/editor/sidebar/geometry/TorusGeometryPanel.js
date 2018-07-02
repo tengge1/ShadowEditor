@@ -38,7 +38,7 @@ function TorusGeometryPanel(editor, object) {
     });
 
     tubeRow.add(new UI.Text({
-        text: '管长',
+        text: '管粗',
         style: 'width: 90px;'
     }));
 
@@ -57,7 +57,7 @@ function TorusGeometryPanel(editor, object) {
     });
 
     radialSegmentsRow.add(new UI.Text({
-        text: '径向段数',
+        text: '管粗段数',
         style: 'width: 90px;'
     }));
 
@@ -76,7 +76,7 @@ function TorusGeometryPanel(editor, object) {
     });
 
     tubularSegmentsRow.add(new UI.Text({
-        text: '管长段数',
+        text: '半径段数',
         style: 'width: 90px;'
     }));
 
@@ -93,7 +93,7 @@ function TorusGeometryPanel(editor, object) {
     });
 
     arcRow.add(new UI.Text({
-        text: '弧长',
+        text: '旋转弧度',
         style: 'width: 90px;'
     }));
 

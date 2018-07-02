@@ -75,7 +75,7 @@ function CylinderGeometryPanel(editor, object) {
     });
 
     radialSegmentsRow.add(new UI.Text({
-        text: '径向段数',
+        text: '两端段数',
         style: 'width: 90px;'
     }));
 
@@ -112,7 +112,7 @@ function CylinderGeometryPanel(editor, object) {
     });
 
     openEndedRow.add(new UI.Text({
-        text: '打开关闭',
+        text: '两端开口',
         style: 'width: 90px;'
     }));
 

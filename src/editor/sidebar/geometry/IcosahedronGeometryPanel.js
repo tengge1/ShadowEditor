@@ -42,7 +42,7 @@ function IcosahedronGeometryPanel(editor, object) {
     });
 
     detailRow.add(new UI.Text({
-        text: '详细',
+        text: '面片段数',
         style: 'width: 90px;'
     }));
 
