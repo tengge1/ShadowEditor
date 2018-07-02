@@ -6,6 +6,8 @@ import Control from './Control';
  */
 function Texture(options) {
     Control.call(this, options);
+    this.mapping = options.mapping || THREE.UVMapping;
+    this.onChange = options.onChange || null;
 }
 
 Texture.prototype = Object.create(Control.prototype);
@@ -52,7 +54,6 @@ Texture.prototype.render = function () {
 
     this.parent.appendChild(this.dom);
     this.texture = null;
-    this.onChangeCallback = null;
 };
 
 Texture.prototype.getValue = function () {
@@ -95,19 +96,21 @@ Texture.prototype.setValue = function (texture) {
 
 Texture.prototype.loadFile = function (file) {
 
+    var _this = this;
+
     if (file.type.match('image.*')) {
 
         var reader = new FileReader();
         if (file.type === 'image/targa') {
             reader.addEventListener('load', function (event) {
                 var canvas = new THREE.TGALoader().parse(event.target.result);
-                var texture = new THREE.CanvasTexture(canvas, mapping);
+                var texture = new THREE.CanvasTexture(canvas, _this.mapping);
                 texture.sourceFile = file.name;
 
                 _this.setValue(texture);
 
-                if (_this.onChangeCallback) {
-                    _this.onChangeCallback();
+                if (_this.onChange) {
+                    _this.onChange();
                 }
             }, false);
 
@@ -120,15 +123,15 @@ Texture.prototype.loadFile = function (file) {
                 var image = document.createElement('img');
                 image.addEventListener('load', function (event) {
 
-                    var texture = new THREE.Texture(this, mapping);
+                    var texture = new THREE.Texture(this, _this.mapping);
                     texture.sourceFile = file.name;
                     texture.format = file.type === 'image/jpeg' ? THREE.RGBFormat : THREE.RGBAFormat;
                     texture.needsUpdate = true;
 
                     _this.setValue(texture);
 
-                    if (_this.onChangeCallback) {
-                        _this.onChangeCallback();
+                    if (_this.onChange) {
+                        _this.onChange();
                     }
 
                 }, false);
@@ -141,13 +144,7 @@ Texture.prototype.loadFile = function (file) {
         }
     }
 
-    _this.form.reset();
-};
-
-Texture.prototype.onChange = function (callback) {
-    this.onChangeCallback = callback;
-
-    return this;
+    this.form.reset();
 };
 
 export default Texture;
