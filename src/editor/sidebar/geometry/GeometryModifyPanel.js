@@ -1,8 +1,7 @@
-﻿import SetGeometryCommand from '../../../command/SetGeometryCommand';
-import UI from '../../../ui/UI';
+﻿import UI from '../../../ui/UI';
 
 /**
- * 几何体修改
+ * 几何体修改面板
  * @author mrdoob / http://mrdoob.com/
  */
 function GeometryModifyPanel(editor, object) {
@@ -22,13 +21,9 @@ function GeometryModifyPanel(editor, object) {
             geometry.computeVertexNormals();
 
             if (geometry instanceof THREE.BufferGeometry) {
-
                 geometry.attributes.normal.needsUpdate = true;
-
             } else {
-
                 geometry.normalsNeedUpdate = true;
-
             }
 
             _this.app.call('geometryChanged', _this, object);
