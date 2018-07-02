@@ -2,7 +2,7 @@
 import UI from '../../../ui/UI';
 
 /**
- * 圆形几何体
+ * 圆形几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
 function CircleGeometryPanel(editor, object) {

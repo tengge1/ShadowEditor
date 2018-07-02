@@ -2,7 +2,7 @@
 import UI from '../../../ui/UI';
 
 /**
- * 球形几何体
+ * 球形几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
 function SphereGeometryPanel(editor, object) {

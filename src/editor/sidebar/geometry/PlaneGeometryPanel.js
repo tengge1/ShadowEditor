@@ -2,7 +2,7 @@
 import UI from '../../../ui/UI';
 
 /**
- * 平板几何体
+ * 平板几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
 function PlaneGeometryPanel(editor, object) {

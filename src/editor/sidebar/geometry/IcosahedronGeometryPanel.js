@@ -2,7 +2,7 @@
 import UI from '../../../ui/UI';
 
 /**
- * 二十面体几何体
+ * 二十面体几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
 function IcosahedronGeometryPanel(editor, object) {

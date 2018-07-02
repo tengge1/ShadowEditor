@@ -2,7 +2,7 @@
 import UI from '../../../ui/UI';
 
 /**
- * 车床几何体
+ * 车床几何体面板
  * @author rfm1201
  */
 function LatheGeometryPanel(editor, object) {

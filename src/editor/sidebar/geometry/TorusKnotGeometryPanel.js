@@ -2,7 +2,7 @@
 import UI from '../../../ui/UI';
 
 /**
- * 环面纽结几何体
+ * 环面纽结几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
 function TorusKnotGeometryPanel(editor, object) {

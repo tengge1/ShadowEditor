@@ -2,7 +2,7 @@
 import UI from '../../../ui/UI';
 
 /**
- * 花托几何体
+ * 花托几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
 function TorusGeometryPanel(editor, object) {
