@@ -40,10 +40,8 @@ function ScriptPanel(app) {
     var _this = this;
 
     function update() {
-        scriptsContainer.dom.parentElement.removeChild(scriptsContainer.dom);
-        // scriptsContainer.dom.style.display = 'none';
-        scriptsContainer.dom = null;
-        scriptsContainer.children.length = 0;
+        scriptsContainer.dom.innerHTML = '';
+        scriptsContainer.dom.style.display = 'none';
 
         var object = editor.selected;
 
@@ -54,34 +52,36 @@ function ScriptPanel(app) {
         var scripts = editor.scripts[object.uuid];
 
         if (scripts !== undefined) {
-            // scriptsContainer.dom.style.display = 'block';
+            scriptsContainer.dom.style.display = 'block';
 
             for (var i = 0; i < scripts.length; i++) {
 
                 (function (object, script) {
 
                     var name = new UI.Input({
-                        text: script.name,
+                        parent: scriptsContainer.dom,
+                        value: script.name,
                         style: 'width: 130px; font-size: 12px;',
                         onChange: function () {
                             editor.execute(new SetScriptValueCommand(editor.selected, script, 'name', this.getValue()));
                         }
                     });
 
-                    scriptsContainer.add(name);
+                    name.render();
 
                     var edit = new UI.Button({
+                        parent: scriptsContainer.dom,
                         text: '编辑',
                         style: 'margin-left: 4px;',
                         onClick: function () {
-                            debugger
                             _this.app.call('editScript', _this, object, script);
                         }
                     });
 
-                    scriptsContainer.add(edit);
+                    edit.render();
 
                     var remove = new UI.Button({
+                        parent: scriptsContainer.dom,
                         text: '删除',
                         style: 'margin-left: 4px;',
                         onClick: function () {
@@ -91,14 +91,18 @@ function ScriptPanel(app) {
                         }
                     });
 
-                    scriptsContainer.add(remove);
+                    remove.render();
 
-                    scriptsContainer.add(new UI.Break());
+                    var break1 = new UI.Break({
+                        parent: scriptsContainer.dom
+                    });
+
+                    break1.render();
 
                 })(object, scripts[i])
             }
         }
-        scriptsContainer.render();
+
     }
 
     this.app.on('objectSelected.ScriptPanel', function (object) {
