@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>Control Test</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+    <script src="../../dist/ShadowEditor.js"></script>
+    <script>
+        function HelloWorld(options) {
+            Shadow.UI.Control.call(this, options);
+        }
+
+        HelloWorld.prototype = Object.create(Shadow.UI.Control.prototype);
+        HelloWorld.prototype.constructor = HelloWorld;
+
+        HelloWorld.prototype.render = function () {
+            this.dom = document.createElement('div');
+            this.dom.innerHTML = 'Hello, world!';
+            this.parent.appendChild(this.dom);
+        };
+
+        var hello = new HelloWorld();
+        hello.render();
+    </script>
+</body>
+
+</html>

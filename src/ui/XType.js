@@ -1,7 +1,7 @@
 ﻿/**
  * 使用字符串表示一个类
  */
-function XType() {
+function XTypeCls() {
     this.xtypes = {};
 }
 
@@ -10,7 +10,7 @@ function XType() {
  * @param {*} name xtype字符串
  * @param {*} cls xtype对应类
  */
-XType.prototype.add = function (name, cls) {
+XTypeCls.prototype.add = function (name, cls) {
     if (this.xtypes[name] == null) {
         this.xtypes[name] = cls;
     } else {
@@ -22,7 +22,7 @@ XType.prototype.add = function (name, cls) {
  * 删除xtype
  * @param {*} name xtype字符串
  */
-XType.prototype.remove = function (name) {
+XTypeCls.prototype.remove = function (name) {
     delete this.xtypes[name];
 };
 
@@ -30,7 +30,7 @@ XType.prototype.remove = function (name) {
  * 通过配置将xtype转换为实例
  * @param {*} config xtype配置
  */
-XType.prototype.get = function (config) {
+XTypeCls.prototype.get = function (config) {
     if (config == null || config.xtype == null) {
         throw 'XType: config or config.xtype is undefined.';
     }
@@ -40,5 +40,10 @@ XType.prototype.get = function (config) {
     }
     return new cls(config);
 };
+
+/**
+ * XTypeCls唯一一个实例
+ */
+const XType = new XTypeCls();
 
 export default XType;

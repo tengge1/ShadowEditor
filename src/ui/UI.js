@@ -1,3 +1,4 @@
+import XType from './XType';
 import Control from './Control';
 import Container from './Container';
 import Div from './Div';
@@ -24,6 +25,8 @@ import CloseButton from './CloseButton';
  * 所有UI控件封装
  */
 const UI = {
+    XType: XType,
+
     // ui.js
     Control: Control,
     Container: Container,
