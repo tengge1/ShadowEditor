@@ -1,5 +1,3 @@
-import XType from './XType';
-
 var ID = -1;
 
 /**
@@ -18,7 +16,5 @@ function Control(options) {
 Control.prototype.render = function () {
 
 };
-
-XType.add('control', Control);
 
 export default Control;

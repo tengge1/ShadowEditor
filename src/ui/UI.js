@@ -1,6 +1,8 @@
 import XType from './XType';
 import Control from './Control';
+import Html from './Html';
 import Container from './Container';
+
 import Div from './Div';
 import Row from './Row';
 import Span from './Span';
@@ -26,11 +28,13 @@ import CloseButton from './CloseButton';
  */
 const UI = {
     XType: XType,
+    Control: Control,
+    Html: Html,
+    Container: Container,
+
+    Div: Div,
 
     // ui.js
-    Control: Control,
-    Container: Container,
-    Div: Div,
     Row: Row,
     Span: Span,
     Text: Text,

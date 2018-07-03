@@ -1,8 +1,12 @@
-﻿/**
- * 使用字符串表示一个类
+﻿import Control from './Control';
+
+/**
+ * 使用json对象表示控件实例
  */
 function XTypeCls() {
-    this.xtypes = {};
+    this.xtypes = {
+        control: Control
+    };
 }
 
 /**
@@ -27,17 +31,24 @@ XTypeCls.prototype.remove = function (name) {
 };
 
 /**
- * 通过配置将xtype转换为实例
+ * 通过json配置将xtype转换为实例
  * @param {*} config xtype配置
  */
-XTypeCls.prototype.get = function (config) {
+XTypeCls.prototype.create = function (config) {
+    if (config instanceof Control) { // config是Control实例
+        return config;
+    }
+
+    // config是json配置
     if (config == null || config.xtype == null) {
         throw 'XType: config or config.xtype is undefined.';
     }
+
     var cls = this.xtypes[config.xtype];
     if (cls == null) {
         throw `XType: xtype '${config.xtype}' is undefined.`;
     }
+
     return new cls(config);
 };
 

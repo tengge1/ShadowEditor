@@ -1,5 +1,5 @@
-import Control from './Control';
 import Container from './Container';
+import XType from './XType';
 
 /**
  * Div元素
@@ -8,11 +8,12 @@ import Container from './Container';
 function Div(options) {
     Container.call(this, options);
     options = options || {};
+
     this.id = options.id || null;
     this.html = options.html || null;
     this.cls = options.cls || null;
-    //this.cls = options.cls || 'Panel';
     this.style = options.style || null;
+
     this.onClick = options.onClick || null;
 };
 
@@ -46,13 +47,13 @@ Div.prototype.render = function () {
         this.dom.innerHTML = this.html;
     } else {
         this.children.forEach(function (n) {
-            if (!(n instanceof Control)) {
-                throw 'Div: n is not an instance of Control.';
-            }
-            n.parent = _this.dom;
-            n.render();
+            var obj = XType.create(n);
+            obj.parent = _this.dom;
+            obj.render();
         });
     }
 };
+
+XType.add('div', Div);
 
 export default Div;

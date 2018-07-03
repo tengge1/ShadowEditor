@@ -1,7 +1,8 @@
 import Control from './Control';
+import XType from './XType';
 
 /**
- * 所有带有子项的控件基类
+ * 容器（外层无div等元素包裹）
  * @param {*} options 
  */
 function Container(options) {
@@ -30,12 +31,12 @@ Container.prototype.remove = function (obj) {
 Container.prototype.render = function () {
     var _this = this;
     this.children.forEach(function (n) {
-        if (!(n instanceof Control)) {
-            throw 'Container: n is not an instance of Control.';
-        }
-        n.parent = _this.parent;
-        n.render();
+        var obj = XType.create(n);
+        obj.parent = _this.parent;
+        obj.render();
     });
 };
+
+XType.add('container', Container);
 
 export default Container;
