@@ -8,6 +8,7 @@ import Break from './Break';
 import Button from './Button';
 import Boolean from './Boolean';
 import Checkbox from './Checkbox';
+import CloseButton from './CloseButton';
 
 import Row from './Row';
 import Span from './Span';
@@ -22,7 +23,6 @@ import HorizontalRule from './HorizontalRule';
 import Modal from './Modal';
 import Texture from './Texture';
 import Outliner from './Outliner';
-import CloseButton from './CloseButton';
 
 /**
  * 所有UI控件封装
@@ -38,6 +38,7 @@ const UI = {
     Button: Button,
     Boolean: Boolean,
     Checkbox: Checkbox,
+    CloseButton: CloseButton,
 
     // ui.js
     Row: Row,
@@ -51,7 +52,6 @@ const UI = {
     Integer: Integer,
     HorizontalRule: HorizontalRule,
     Modal: Modal,
-    CloseButton: CloseButton,
 
     // ui.three.js
     Texture: Texture,

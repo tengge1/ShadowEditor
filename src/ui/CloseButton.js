@@ -1,4 +1,5 @@
 import Control from './Control';
+import XType from './XType';
 
 /**
  * 关闭按钮
@@ -7,7 +8,9 @@ import Control from './Control';
 function CloseButton(options) {
     Control.call(this, options);
     options = options || {};
+
     this.style = options.style || null;
+
     this.onClick = options.onClick || null;
 }
 
@@ -19,6 +22,7 @@ CloseButton.prototype.render = function () {
     this.dom.setAttribute('width', 32);
     this.dom.setAttribute('height', 32);
 
+    // TODO: 由于按钮默认白色，在白色背景上按钮将不可见！
     if (this.style) {
         this.dom.style = this.style;
     }
@@ -36,5 +40,6 @@ CloseButton.prototype.render = function () {
     this.dom.appendChild(this.path);
 };
 
-export default CloseButton;
+XType.add('closebutton', CloseButton);
 
+export default CloseButton;
