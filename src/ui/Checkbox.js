@@ -1,4 +1,5 @@
 import Control from './Control';
+import XType from './XType';
 
 /**
  * 复选框
@@ -7,9 +8,12 @@ import Control from './Control';
 function Checkbox(options) {
     Control.call(this, options);
     options = options || {};
+
+    this.id = options.id || null;
     this.value = options.value || false;
-    this.cls = options.cls || null;
+    this.cls = options.cls || 'Checkbox';
     this.style = options.style || null;
+
     this.onChange = options.onChange || null;
 };
 
@@ -21,11 +25,11 @@ Checkbox.prototype.render = function () {
 
     this.dom.type = 'checkbox';
 
-    if (this.cls) {
-        this.dom.className = this.cls;
-    } else {
-        this.dom.className = 'Checkbox';
+    if (this.id) {
+        this.dom.id = this.id;
     }
+
+    this.dom.className = this.cls;
 
     if (this.style) {
         this.dom.style = this.style;
@@ -45,12 +49,13 @@ Checkbox.prototype.getValue = function () {
 };
 
 Checkbox.prototype.setValue = function (value) {
-
     if (value !== undefined) {
         this.dom.checked = value;
     }
 
     return this;
 };
+
+XType.add('checkbox', Checkbox);
 
 export default Checkbox;

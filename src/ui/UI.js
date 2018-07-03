@@ -6,6 +6,8 @@ import Container from './Container';
 import Div from './Div';
 import Break from './Break';
 import Button from './Button';
+import Boolean from './Boolean';
+import Checkbox from './Checkbox';
 
 import Row from './Row';
 import Span from './Span';
@@ -13,7 +15,6 @@ import Text from './Text';
 import Input from './Input';
 import TextArea from './TextArea';
 import Select from './Select';
-import Checkbox from './Checkbox';
 import Color from './Color';
 import Number from './Number';
 import Integer from './Integer';
@@ -21,7 +22,6 @@ import HorizontalRule from './HorizontalRule';
 import Modal from './Modal';
 import Texture from './Texture';
 import Outliner from './Outliner';
-import Boolean from './Boolean';
 import CloseButton from './CloseButton';
 
 /**
@@ -36,6 +36,8 @@ const UI = {
     Div: Div,
     Break: Break,
     Button: Button,
+    Boolean: Boolean,
+    Checkbox: Checkbox,
 
     // ui.js
     Row: Row,
@@ -44,7 +46,6 @@ const UI = {
     Input: Input,
     TextArea: TextArea,
     Select: Select,
-    Checkbox: Checkbox,
     Color: Color,
     Number: Number,
     Integer: Integer,
@@ -54,8 +55,7 @@ const UI = {
 
     // ui.three.js
     Texture: Texture,
-    Outliner: Outliner,
-    Boolean: Boolean
+    Outliner: Outliner
 };
 
 export default UI;

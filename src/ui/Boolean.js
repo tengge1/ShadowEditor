@@ -1,8 +1,6 @@
 import Control from './Control';
 import XType from './XType';
 
-var ID = -1;
-
 /**
  * 布尔值
  * @param {*} options 
