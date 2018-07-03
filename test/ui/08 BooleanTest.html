@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>Boolean Test</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        .red {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../../dist/ShadowEditor.js"></script>
+    <script>
+        var control = Shadow.UI.XType.create({
+            xtype: 'boolean',
+            text: 'Auto Save',
+            value: true,
+            cls: 'red',
+            style: 'border-bottom: 1px solid #aaa;',
+            onChange: function () {
+                alert(this.getValue());
+            }
+        });
+
+        control.render();
+    </script>
+</body>
+
+</html>

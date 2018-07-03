@@ -1,4 +1,5 @@
 import Control from './Control';
+import XType from './XType';
 
 var ID = -1;
 
@@ -9,9 +10,13 @@ var ID = -1;
 function Boolean(options) {
     Control.call(this, options);
     options = options || {};
-    this.id = options.ID || 'Boolean' + ID--;
+
+    this.id = options.id || null;
     this.text = options.text || 'Boolean';
     this.value = options.value || false;
+    this.cls = options.cls || null;
+    this.style = options.style || null;
+
     this.onChange = options.onChange || null;
 };
 
@@ -20,8 +25,20 @@ Boolean.prototype.constructor = Boolean;
 
 Boolean.prototype.render = function () {
     this.dom = document.createElement('span');
-    this.dom.id = this.id;
+
+    if (this.id) {
+        this.dom.id = this.id;
+    }
+
+    if (this.cls) {
+        this.dom.className = this.cls;
+    }
+
+    if (this.style) {
+        this.dom.style = this.style;
+    }
     this.dom.style.marginRight = '10px';
+
     this.parent.appendChild(this.dom);
 
     this.input = document.createElement('input');
@@ -37,7 +54,7 @@ Boolean.prototype.render = function () {
 
     this.setValue(this.value);
 
-    if (typeof (this.onChange) === 'function') {
+    if (this.onChange) {
         this.input.addEventListener('change', this.onChange.bind(this), false);
     }
 };
@@ -49,5 +66,7 @@ Boolean.prototype.getValue = function () {
 Boolean.prototype.setValue = function (value) {
     this.input.checked = value;
 };
+
+XType.add('boolean', Boolean);
 
 export default Boolean;
