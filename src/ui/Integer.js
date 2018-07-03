@@ -1,4 +1,5 @@
 import Control from './Control';
+import XType from './XType';
 
 /**
  * 整数
@@ -6,15 +7,15 @@ import Control from './Control';
  */
 function Integer(options) {
     Control.call(this, options);
-
     options = options || {};
 
+    this.id = options.id || null;
     this.value = options.value || 0;
-
     this.min = options.range ? options.range[0] : -Infinity;
     this.max = options.range ? options.range[1] : Infinity;
-
-    this.step = options.step || 1;
+    this.step = options.step || 1; // TODO: step无效
+    this.cls = options.cls || 'Number';
+    this.style = options.style || null;
 
     this.onChange = options.onChange || null;
 };
@@ -24,7 +25,12 @@ Integer.prototype.constructor = Integer;
 
 Integer.prototype.render = function () {
     this.dom = document.createElement('input');
-    this.dom.className = 'Number';
+
+    if (this.id) {
+        this.dom.id = this.id;
+    }
+
+    this.dom.className = this.cls;
     this.dom.value = '0';
 
     this.dom.addEventListener('keydown', function (event) {
@@ -67,7 +73,6 @@ Integer.prototype.render = function () {
             _this.setValue(value);
             _this.dom.dispatchEvent(changeEvent);
         }
-
         prevPointer = [event.clientX, event.clientY];
     }
 
@@ -134,5 +139,7 @@ Integer.prototype.setRange = function (min, max) {
 
     return this;
 };
+
+XType.add('int', Integer);
 
 export default Integer;

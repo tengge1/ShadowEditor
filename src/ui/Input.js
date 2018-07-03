@@ -1,4 +1,5 @@
 import Control from './Control';
+import XType from './XType';
 
 /**
  * 输入框
@@ -7,9 +8,13 @@ import Control from './Control';
 function Input(options) {
     Control.call(this, options);
     options = options || {};
+
+    this.id = options.id || null;
     this.value = options.value || '';
+    this.cls = options.cls || 'Input';
     this.style = options.style || null;
     this.disabled = options.disabled || false;
+
     this.onChange = options.onChange || null;
 };
 
@@ -18,7 +23,12 @@ Input.prototype.constructor = Input;
 
 Input.prototype.render = function () {
     this.dom = document.createElement('input');
-    this.dom.className = 'Input';
+
+    if (this.id) {
+        this.dom.id = this.id;
+    }
+
+    this.dom.className = this.cls;
 
     if (this.style) {
         this.dom.style = this.style;
@@ -52,5 +62,7 @@ Input.prototype.setValue = function (value) {
     this.dom.value = value;
     return this;
 };
+
+XType.add('input', Input);
 
 export default Input;

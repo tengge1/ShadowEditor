@@ -1,4 +1,5 @@
 import Control from './Control';
+import XType from './XType';
 
 /**
  * 颜色选择器
@@ -6,7 +7,13 @@ import Control from './Control';
  */
 function Color(options) {
     Control.call(this, options);
+    options = options || {};
+
+    this.id = options.id || null;
     this.value = options.value || null;
+    this.cls = options.cls || 'Color';
+    this.style = options.style || 'width: 64px; height: 17px; border: none; padding: 2px; background-color: transparent;';
+
     this.onChange = options.onChange || null;
 };
 
@@ -15,26 +22,26 @@ Color.prototype.constructor = Color;
 
 Color.prototype.render = function () {
     this.dom = document.createElement('input');
-    this.dom.className = 'Color';
-    this.dom.style.width = '64px';
-    this.dom.style.height = '17px';
-    this.dom.style.border = '0px';
-    this.dom.style.padding = '2px';
-    this.dom.style.backgroundColor = 'transparent';
+
+    if (this.id) {
+        this.dom.id = this.id;
+    }
+
+    this.dom.className = this.cls;
+    this.dom.style = this.style;
 
     try {
         this.dom.type = 'color';
 
-        if (this.value && Number.isNaN(this.value)) {
-            this.setHexValue(this.value);
-        } else if (this.value) {
+        if (this.value && this.value.toString().startsWith('#')) { // #ffffff
             this.setValue(this.value);
+        } else if (this.value) { // 0xffffff
+            this.setHexValue(this.value);
         } else {
             this.dom.value = '#ffffff';
         }
-
     } catch (exception) {
-
+        console.warn(exception);
     }
 
     this.parent.appendChild(this.dom);
@@ -61,5 +68,7 @@ Color.prototype.setHexValue = function (hex) {
     this.dom.value = '#' + ('000000' + hex.toString(16)).slice(- 6);
     return this;
 };
+
+XType.add('color', Color);
 
 export default Color;
