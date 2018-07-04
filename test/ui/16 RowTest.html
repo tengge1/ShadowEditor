@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>Row Test</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+    <script src="../../dist/ShadowEditor.js"></script>
+    <script>
+        var control = Shadow.UI.XType.create({
+            xtype: 'container',
+            children: [{
+                xtype: 'row',
+                children: [{
+                    xtype: 'html',
+                    html: 'line 1'
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'html',
+                    html: 'line 2'
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'html',
+                    html: 'line 3'
+                }]
+            }]
+        });
+
+        control.render();
+    </script>
+</body>
+
+</html>

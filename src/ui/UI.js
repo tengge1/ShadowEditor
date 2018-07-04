@@ -9,17 +9,17 @@ import Button from './Button';
 import Boolean from './Boolean';
 import Checkbox from './Checkbox';
 import CloseButton from './CloseButton';
-
-import Row from './Row';
-import Span from './Span';
-import Text from './Text';
-import Input from './Input';
-import TextArea from './TextArea';
-import Select from './Select';
 import Color from './Color';
-import Number from './Number';
-import Integer from './Integer';
 import HorizontalRule from './HorizontalRule';
+import Input from './Input';
+import Integer from './Integer';
+import Number from './Number';
+import Row from './Row';
+import Select from './Select';
+import Span from './Span';
+
+import Text from './Text';
+import TextArea from './TextArea';
 import Modal from './Modal';
 import Texture from './Texture';
 import Outliner from './Outliner';
@@ -39,18 +39,18 @@ const UI = {
     Boolean: Boolean,
     Checkbox: Checkbox,
     CloseButton: CloseButton,
+    Color: Color,
+    HorizontalRule: HorizontalRule,
+    Input: Input,
+    Integer: Integer,
+    Number: Number,
+    Row: Row,
+    Select: Select,
+    Span: Span,
 
     // ui.js
-    Row: Row,
-    Span: Span,
     Text: Text,
-    Input: Input,
     TextArea: TextArea,
-    Select: Select,
-    Color: Color,
-    Number: Number,
-    Integer: Integer,
-    HorizontalRule: HorizontalRule,
     Modal: Modal,
 
     // ui.three.js

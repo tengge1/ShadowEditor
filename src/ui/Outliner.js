@@ -2,12 +2,13 @@ import Control from './Control';
 import MoveObjectCommand from '../command/MoveObjectCommand';
 
 /**
- * 外形
+ * 大纲控件
  * @param {*} options 
  */
 function Outliner(options) {
     Control.call(this, options);
     options = options || {};
+
     this.id = options.id || null;
     this.editor = options.editor || null;
     this.onChange = options.onChange || null;
@@ -74,7 +75,6 @@ Outliner.prototype.render = function () {
 
 Outliner.prototype.selectIndex = function (index) {
     if (index >= 0 && index < this.options.length) {
-
         this.setValue(this.options[index].value);
 
         var changeEvent = document.createEvent('HTMLEvents');
@@ -86,8 +86,8 @@ Outliner.prototype.selectIndex = function (index) {
 Outliner.prototype.setOptions = function (options) {
     var _this = this;
 
-    while (_this.dom.children.length > 0) {
-        _this.dom.removeChild(_this.dom.firstChild);
+    while (this.dom.children.length > 0) {
+        this.dom.removeChild(this.dom.firstChild);
     }
 
     function onClick() {
@@ -134,7 +134,6 @@ Outliner.prototype.setOptions = function (options) {
     }
 
     function onDrop(event) {
-
         if (this === currentDrag) {
             return;
         }
@@ -177,7 +176,6 @@ Outliner.prototype.setOptions = function (options) {
     }
 
     //
-
     _this.options = [];
 
     for (var i = 0; i < options.length; i++) {

@@ -1,6 +1,6 @@
 import Control from './Control';
 import Container from './Container';
-import Div from './Div';
+import XType from './XType';
 
 /**
  * 模态框
@@ -16,22 +16,14 @@ Modal.prototype.constructor = Modal;
 Modal.prototype.render = function () {
     this.dom = document.createElement('div');
 
-    this.dom.style.position = 'absolute';
-    this.dom.style.width = '100%';
-    this.dom.style.height = '100%';
-    this.dom.style.backgroundColor = 'rgba(0,0,0,0.5)';
-    this.dom.style.display = 'none';
-    this.dom.style.alignItems = 'center';
-    this.dom.style.justifyContent = 'center';
+    this.dom.style = 'position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); '
+        + 'display: none; align-items: center; justify-content: center;';
 
     this.parent.appendChild(this.dom);
 
-    var _this = this;
-    this.dom.addEventListener('click', function (event) {
-        _this.hide();
-    });
+    this.dom.addEventListener('click', this.hide.bind(this));
 
-    this.container = new Div();
+    this.container = document.createElement('div');
     this.container.dom.style.width = '200px';
     this.container.dom.style.padding = '20px';
     this.container.dom.style.backgroundColor = '#ffffff';
@@ -41,11 +33,8 @@ Modal.prototype.render = function () {
 };
 
 Modal.prototype.show = function (content) {
-    this.container.clear();
-    this.container.add(content);
-
+    this.container.innerHTML = content;
     this.dom.style.display = 'flex';
-
     return this;
 };
 
@@ -53,5 +42,7 @@ Modal.prototype.hide = function () {
     this.dom.style.display = 'none';
     return this;
 };
+
+XType.add('modal', Modal);
 
 export default Modal;

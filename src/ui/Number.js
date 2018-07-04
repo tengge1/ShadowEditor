@@ -1,4 +1,5 @@
 import Control from './Control';
+import XType from './XType';
 
 /**
  * 数字
@@ -8,15 +9,14 @@ function Number(options) {
     Control.call(this, options);
     options = options || {};
 
+    this.id = options.id || null;
     this.value = options.value === undefined ? 0 : options.value;
-
     this.min = options.min === undefined ? -Infinity : options.min;
     this.max = options.max === undefined ? Infinity : options.max;
-
     this.precision = options.precision === undefined ? 2 : options.precision; // 显示时保留几位小数
     this.step = options.step === undefined ? 1 : options.step; // 步长
     this.unit = options.unit === undefined ? '' : options.unit; // 单位（显示时跟在数字后面）
-
+    this.cls = options.cls || 'Number';
     this.style = options.style || null;
 
     this.onChange = options.onChange || null;
@@ -27,7 +27,13 @@ Number.prototype.constructor = Number;
 
 Number.prototype.render = function () {
     this.dom = document.createElement('input');
-    this.dom.className = 'Number';
+
+    if (this.id) {
+        this.dom.id = this.id;
+    }
+
+    this.dom.className = this.cls;
+
     this.dom.value = '0.00';
 
     if (this.style) {
@@ -136,5 +142,7 @@ Number.prototype.setValue = function (value) {
     this.value = value;
     this.dom.value = value.toFixed(this.precision) + this.unit;
 };
+
+XType.add('number', Number);
 
 export default Number;

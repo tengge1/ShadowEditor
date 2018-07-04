@@ -1,12 +1,16 @@
-import Control from './Control';
 import Container from './Container';
+import XType from './XType';
 
 /**
- * Row
+ * 行控件
  * @param {*} options 
  */
 function Row(options) {
     Container.call(this, options);
+    options = options || {};
+
+    this.cls = options.cls || 'Row';
+    this.style = options.style || null;
 };
 
 Row.prototype = Object.create(Container.prototype);
@@ -14,18 +18,24 @@ Row.prototype.constructor = Row;
 
 Row.prototype.render = function () {
     this.dom = document.createElement('div');
-    this.dom.className = 'Row';
+
+    this.dom.className = this.cls;
+
+    if (this.style) {
+        this.dom.style = this.style;
+    }
 
     this.parent.appendChild(this.dom);
 
     var _this = this;
+
     this.children.forEach(function (n) {
-        if (!(n instanceof Control)) {
-            throw 'Row: n is not an instance of Control.';
-        }
-        n.parent = _this.dom;
-        n.render();
+        var obj = XType.create(n);
+        obj.parent = _this.dom;
+        obj.render();
     });
 };
+
+XType.add('row', Row);
 
 export default Row;

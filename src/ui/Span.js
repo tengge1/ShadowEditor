@@ -1,8 +1,8 @@
-import Control from './Control';
 import Container from './Container';
+import XType from './XType';
 
 /**
- * Span
+ * 文本块
  * @param {*} options 
  */
 function Span(options) {
@@ -18,12 +18,12 @@ Span.prototype.render = function () {
 
     var _this = this;
     this.children.forEach(function (n) {
-        if (!(n instanceof Control)) {
-            throw 'Container: n is not an instance of Control.';
-        }
-        n.parent = _this.dom;
-        n.render();
+        var obj = XType.create(n);
+        obj.parent = _this.dom;
+        obj.render();
     });
 };
+
+XType.add('span', Span);
 
 export default Span;

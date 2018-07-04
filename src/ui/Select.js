@@ -1,4 +1,5 @@
 import Control from './Control';
+import XType from './XType';
 
 /**
  * 选择列表
@@ -7,9 +8,14 @@ import Control from './Control';
 function Select(options) {
     Control.call(this, options);
     options = options || {};
+
+    this.id = options.id || null;
     this.options = options.options || [];
     this.value = options.value || '';
+    this.cls = options.cls || 'Select';
     this.style = options.style || null;
+    this.multiple = options.multiple || false;
+
     this.onChange = options.onChange || null;
 };
 
@@ -18,13 +24,22 @@ Select.prototype.constructor = Select;
 
 Select.prototype.render = function () {
     this.dom = document.createElement('select');
-    this.dom.className = 'Select';
+
+    if (this.id) {
+        this.dom.id = this.id;
+    }
+
+    this.dom.className = this.cls;
 
     if (this.style) {
         this.dom.style = this.style;
     }
 
     this.dom.style.padding = '2px';
+
+    if (this.multiple) {
+        this.dom.multiple = this.multiple;
+    }
 
     var _this = this;
 
@@ -86,5 +101,7 @@ Select.prototype.setValue = function (value) {
 
     return this;
 };
+
+XType.add('select', Select);
 
 export default Select;
