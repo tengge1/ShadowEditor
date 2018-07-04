@@ -1,6 +1,5 @@
 import Control from './Control';
-
-var ID = -1;
+import XType from './XType';
 
 /**
  * 文本框
@@ -9,10 +8,12 @@ var ID = -1;
 function Text(options) {
     Control.call(this, options);
     options = options || {};
-    this.id = options.id || 'Text' + ID--;
+
+    this.id = options.id || null;
     this.text = options.text || 'Text';
     this.cls = options.cls || 'Text';
     this.style = options.style || null;
+
     this.onClick = options.onClick || null;
 };
 
@@ -21,16 +22,21 @@ Text.prototype.constructor = Text;
 
 Text.prototype.render = function () {
     this.dom = document.createElement('span');
+
     if (this.id) {
         this.dom.id = this.id;
     }
+
     this.dom.className = this.cls;
+
     if (this.style) {
         this.dom.style = this.style;
     }
+
     this.dom.style.cursor = 'default';
     this.dom.style.display = 'inline-block';
     this.dom.style.verticalAlign = 'middle';
+
     this.setValue(this.text);
 
     if (this.onClick) {
@@ -50,5 +56,7 @@ Text.prototype.setValue = function (value) {
     }
     return this;
 };
+
+XType.add('text', Text);
 
 export default Text;

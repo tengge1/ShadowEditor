@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>Text Test</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+    <script src="../../dist/ShadowEditor.js"></script>
+    <script>
+        var control = Shadow.UI.XType.create({
+            xtype: 'text',
+            text: 'Hello, world',
+            onClick: function () {
+                alert(`You clicked ${this.getValue()}`);
+            }
+        });
+
+        control.render();
+    </script>
+</body>
+
+</html>

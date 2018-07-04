@@ -47,14 +47,11 @@ const UI = {
     Row: Row,
     Select: Select,
     Span: Span,
-
-    // ui.js
     Text: Text,
     TextArea: TextArea,
-    Modal: Modal,
-
-    // ui.three.js
     Texture: Texture,
+
+    Modal: Modal,
     Outliner: Outliner
 };
 

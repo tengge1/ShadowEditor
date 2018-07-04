@@ -1,4 +1,5 @@
 import Control from './Control';
+import XType from './XType';
 
 /**
  * 文本域
@@ -7,8 +8,12 @@ import Control from './Control';
 function TextArea(options) {
     Control.call(this, options);
     options = options || {};
+
+    this.id = options.id || null;
     this.value = options.value || '';
+    this.cls = options.cls || 'TextArea';
     this.style = options.style || null;
+
     this.onChange = options.onChange || null;
     this.onKeyUp = options.onKeyUp || null;
 };
@@ -18,7 +23,12 @@ TextArea.prototype.constructor = TextArea;
 
 TextArea.prototype.render = function () {
     this.dom = document.createElement('textarea');
-    this.dom.className = 'TextArea';
+
+    if (this.id) {
+        this.dom.id = this.id;
+    }
+
+    this.dom.className = this.cls;
 
     if (this.style) {
         this.dom.style = this.style;
@@ -64,5 +74,7 @@ TextArea.prototype.setValue = function (value) {
     this.dom.value = value;
     return this;
 };
+
+XType.add('textarea', TextArea);
 
 export default TextArea;

@@ -1,4 +1,5 @@
 import Control from './Control';
+import XType from './XType';
 
 /**
  * 纹理
@@ -6,7 +7,10 @@ import Control from './Control';
  */
 function Texture(options) {
     Control.call(this, options);
+    options = options || {};
+
     this.mapping = options.mapping || THREE.UVMapping;
+
     this.onChange = options.onChange || null;
 }
 
@@ -22,9 +26,11 @@ Texture.prototype.render = function () {
     this.input.type = 'file';
 
     var _this = this;
+
     this.input.addEventListener('change', function (event) {
         _this.loadFile(event.target.files[0]);
     });
+
     this.form.appendChild(this.input);
 
     this.canvas = document.createElement('canvas');
@@ -53,6 +59,7 @@ Texture.prototype.render = function () {
     this.dom.appendChild(this.name);
 
     this.parent.appendChild(this.dom);
+
     this.texture = null;
 };
 
@@ -61,7 +68,6 @@ Texture.prototype.getValue = function () {
 };
 
 Texture.prototype.setValue = function (texture) {
-
     var canvas = this.dom.children[0];
     var name = this.dom.children[1];
     var context = canvas.getContext('2d');
@@ -80,14 +86,11 @@ Texture.prototype.setValue = function (texture) {
         }
 
     } else {
-
         name.value = '';
 
         if (context !== null) {
-
             // Seems like context can be null if the canvas is not visible
             context.clearRect(0, 0, canvas.width, canvas.height);
-
         }
     }
 
@@ -95,16 +98,16 @@ Texture.prototype.setValue = function (texture) {
 };
 
 Texture.prototype.loadFile = function (file) {
-
     var _this = this;
 
     if (file.type.match('image.*')) {
-
         var reader = new FileReader();
+
         if (file.type === 'image/targa') {
             reader.addEventListener('load', function (event) {
                 var canvas = new THREE.TGALoader().parse(event.target.result);
                 var texture = new THREE.CanvasTexture(canvas, _this.mapping);
+
                 texture.sourceFile = file.name;
 
                 _this.setValue(texture);
@@ -115,14 +118,11 @@ Texture.prototype.loadFile = function (file) {
             }, false);
 
             reader.readAsArrayBuffer(file);
-
         } else {
-
             reader.addEventListener('load', function (event) {
-
                 var image = document.createElement('img');
-                image.addEventListener('load', function (event) {
 
+                image.addEventListener('load', function (event) {
                     var texture = new THREE.Texture(this, _this.mapping);
                     texture.sourceFile = file.name;
                     texture.format = file.type === 'image/jpeg' ? THREE.RGBFormat : THREE.RGBAFormat;
@@ -133,11 +133,9 @@ Texture.prototype.loadFile = function (file) {
                     if (_this.onChange) {
                         _this.onChange();
                     }
-
                 }, false);
 
                 image.src = event.target.result;
-
             }, false);
 
             reader.readAsDataURL(file);
@@ -146,5 +144,7 @@ Texture.prototype.loadFile = function (file) {
 
     this.form.reset();
 };
+
+XType.add('texture', Texture);
 
 export default Texture;
