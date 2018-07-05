@@ -1,4 +1,5 @@
 import UI from '../ui/UI';
+import AppPlayer from './AppPlayer';
 
 /**
  * 播放器
@@ -17,7 +18,7 @@ function Player(app) {
 
     this.app.player.container = container;
 
-    var player = new APP.Player();
+    var player = new AppPlayer();
     container.dom.appendChild(player.dom);
 
     this.app.editor.player = player;
