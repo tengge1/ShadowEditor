@@ -1,199 +1,405 @@
+/* 通用 */
+
 html {
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 body {
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	overflow: hidden;
-}
-
-#container {
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    overflow: hidden;
+    user-select: none;
 }
 
 hr {
-	border: 0;
-	border-top: 1px solid #ccc;
+    border: 0;
+    border-top: 1px solid #ccc;
 }
 
 button {
-	position: relative;
+    position: relative;
+    color: #555;
+    background-color: #ddd;
+    border: 0px;
+    padding: 5px 8px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+}
+
+button:hover {
+    background-color: #fff;
+}
+
+button.selected {
+    background-color: #fff;
 }
 
 textarea {
-	tab-size: 4;
-	white-space: pre;
-	word-wrap: normal;
+    tab-size: 4;
+    white-space: pre;
+    word-wrap: normal;
+    outline: none;
+    border: 1px solid transparent;
+    color: #444;
 }
 
 textarea.success {
-	border-color: #8b8 !important;
+    border-color: #8b8 !important;
 }
 
 textarea.fail {
-	border-color: #f00 !important;
-	background-color: rgba(255, 0, 0, 0.05);
+    border-color: #f00 !important;
+    background-color: rgba(255, 0, 0, 0.05);
 }
 
-textarea,
 input {
-	outline: none;
+    outline: none;
+    border: 1px solid transparent;
+    color: #444;
 }
 
-/* osx */
-
-.Panel {
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	/* No support for these yet */
-	-o-user-select: none;
-	user-select: none;
+input.Number {
+    color: #08f !important;
+    font-size: 12px;
+    border: 0px;
+    padding: 2px;
+    cursor: col-resize;
 }
 
-.Panel.Collapsible .Static {
-	margin: 0;
+select {
+    color: #666;
+    background-color: #ddd;
+    border: 0px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
 }
 
-.Panel.Collapsible .Static .Button {
-	float: left;
-	margin-right: 6px;
-	width: 0;
-	height: 0;
-	border: 6px solid transparent;
+select:hover {
+    background-color: #fff;
 }
 
-.Panel.Collapsible.collapsed .Static .Button {
-	margin-top: 2px;
-	border-left-color: #bbb;
+#container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-.Panel.Collapsible:not(.collapsed) .Static .Button {
-	margin-top: 6px;
-	border-top-color: #bbb;
+/* 菜单栏 */
+
+#menubar {
+    position: absolute;
+    width: 100%;
+    height: 32px;
+    background: #eee;
+    padding: 0;
+    margin: 0;
+    right: 0;
+    top: 0;
+    z-index: 1;
 }
 
-.Panel.Collapsible.collapsed .Content {
-	display: none;
+#menubar .menu {
+    float: left;
+    cursor: pointer;
+    padding-right: 8px;
 }
 
-/* CodeMirror */
+#menubar .menu.right {
+    float: right;
+    cursor: auto;
+    padding-right: 0;
+    text-align: right;
+}
+
+#menubar .menu .title {
+    display: inline-block;
+    color: #888;
+    margin: 0;
+    padding: 8px;
+}
+
+#menubar .menu .options {
+    position: absolute;
+    display: none;
+    padding: 5px 0;
+    background: #eee;
+    width: 150px;
+}
+
+#menubar .menu:hover .options {
+    display: block;
+}
+
+#menubar .menu .options hr {
+    border-color: #ddd;
+}
+
+#menubar .menu .options .option {
+    color: #666;
+    background-color: transparent;
+    padding: 5px 10px;
+    margin: 0 !important;
+}
+
+#menubar .menu .options .option:hover {
+    color: #fff;
+    background-color: #08f;
+}
+
+#menubar .menu .options .option:active {
+    color: #666;
+    background: transparent;
+}
+
+#menubar .menu .options .inactive {
+    color: #bbb;
+    background-color: transparent;
+    padding: 5px 10px;
+    margin: 0 !important;
+}
+
+/* 场景编辑区 */
+
+#viewport {
+    position: absolute;
+    top: 32px;
+    left: 0;
+    right: 300px;
+    bottom: 32px;
+}
+
+#viewport #info {
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+}
+
+/* 状态栏 */
+
+#toolbar {
+    position: absolute;
+    left: 0;
+    right: 300px;
+    bottom: 0;
+    height: 32px;
+    background: #eee;
+    color: #333;
+}
+
+#toolbar * {
+    vertical-align: middle;
+}
+
+#toolbar .Panel {
+    padding: 4px;
+    color: #888;
+}
+
+#toolbar button {
+    margin-right: 6px;
+}
+
+/* 侧边栏 */
+
+#sidebar {
+    position: absolute;
+    right: 0;
+    top: 32px;
+    bottom: 0;
+    width: 300px;
+    background: #eee;
+    overflow: auto;
+}
+
+#sidebar * {
+    vertical-align: middle;
+}
+
+#sidebar .Panel {
+    color: #888;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+#sidebar .Panel.collapsed {
+    margin-bottom: 0;
+}
+
+#sidebar .Row {
+    min-height: 20px;
+    margin-bottom: 10px;
+}
+
+#tabs {
+    background-color: #ddd;
+    border-top: 1px solid #ccc;
+}
+
+#tabs span {
+    color: #aaa;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+}
+
+#tabs span.selected {
+    color: #888;
+    background-color: #eee;
+}
+
+/* 脚本编辑窗口 */
+
+#script {
+    position: absolute;
+    top: 32px;
+    left: 0;
+    right: 300px;
+    bottom: 32px;
+    opacity: 0.9;
+}
+
+/* 启动测试窗口 */
+
+#player {
+    position: absolute;
+    top: 32px;
+    left: 0;
+    right: 300px;
+    bottom: 32px;
+}
+
+/* CodeMirror插件 */
 
 .CodeMirror {
-	position: absolute !important;
-	top: 37px;
-	width: 100% !important;
-	height: calc(100% - 37px) !important;
+    position: absolute !important;
+    top: 37px;
+    width: 100% !important;
+    height: calc(100% - 37px) !important;
 }
 
 .CodeMirror .errorLine {
-	background: rgba(255, 0, 0, 0.25);
+    background: rgba(255, 0, 0, 0.25);
 }
 
 .CodeMirror .esprima-error {
-	color: #f00;
-	text-align: right;
-	padding: 0 20px;
+    color: #f00;
+    text-align: right;
+    padding: 0 20px;
 }
 
-/* outliner */
+/* 大纲控件 */
 
 #outliner .option {
-	border: 1px solid transparent;
+    border: 1px solid transparent;
 }
 
 #outliner .option.drag {
-	border: 1px dashed #999;
+    border: 1px dashed #999;
 }
 
 #outliner .option.dragTop {
-	border-top: 1px dashed #999;
+    border-top: 1px dashed #999;
 }
 
 #outliner .option.dragBottom {
-	border-bottom: 1px dashed #999;
+    border-bottom: 1px dashed #999;
 }
 
 #outliner .type {
-	position: relative;
-	top: -2px;
-	padding: 0 2px;
-	color: #ddd;
+    position: relative;
+    top: -2px;
+    padding: 0 2px;
+    color: #ddd;
 }
 
 #outliner .type:after {
-	content: '■';
+    content: '■';
 }
 
 #outliner .Scene {
-	color: #ccccff;
+    color: #ccccff;
 }
 
 #outliner .Object3D {
-	color: #aaaaee;
+    color: #aaaaee;
 }
 
 #outliner .Mesh {
-	color: #8888ee;
+    color: #8888ee;
 }
 
 #outliner .Line {
-	color: #88ee88;
+    color: #88ee88;
 }
 
 #outliner .LineSegments {
-	color: #88ee88;
+    color: #88ee88;
 }
 
 #outliner .Points {
-	color: #ee8888;
+    color: #ee8888;
 }
-
-/* */
 
 #outliner .PointLight {
-	color: #dddd00;
+    color: #dddd00;
 }
 
-/* */
-
 #outliner .Geometry {
-	color: #88ff88;
+    color: #88ff88;
 }
 
 #outliner .BoxGeometry {
-	color: #bbeebb;
+    color: #bbeebb;
 }
 
 #outliner .TorusGeometry {
-	color: #aaeeaa;
+    color: #aaeeaa;
 }
 
-/* */
-
 #outliner .Material {
-	color: #ff8888;
+    color: #ff8888;
 }
 
 #outliner .MeshPhongMaterial {
-	color: #ffaa88;
+    color: #ffaa88;
 }
 
-/* */
-
 #outliner .Script:after {
-	content: '{...}'/* ❮/❯ */
+    content: '{...}'/* ❮/❯ */
+}
+
+.Outliner {
+    color: #444;
+    background-color: #fff;
+    padding: 0;
+    width: 100%;
+    height: 140px;
+    font-size: 12px;
+    cursor: default;
+    overflow: auto;
+    outline: none !important;
+}
+
+.Outliner .option {
+    padding: 4px;
+    color: #666;
+    white-space: nowrap;
+}
+
+.Outliner .option:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.Outliner .option.active {
+    background-color: rgba(0, 0, 0, 0.04);
 }

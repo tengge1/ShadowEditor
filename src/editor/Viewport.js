@@ -15,8 +15,7 @@ function Viewport(app) {
 
     var container = new UI.Div({
         parent: this.app.container,
-        id: 'viewport',
-        style: 'position: absolute'
+        id: 'viewport'
     });
     this.container = container;
 

@@ -13,7 +13,7 @@ function Script(app) {
     var container = new UI.Div({
         parent: this.app.container,
         id: 'script',
-        style: 'position: absolute; background-color: #272822; display: none;'
+        style: 'background-color: #272822; display: none;'
     });
 
     var header = new UI.Div({

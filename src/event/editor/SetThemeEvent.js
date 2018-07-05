@@ -23,8 +23,11 @@ SetThemeEvent.prototype.stop = function () {
 };
 
 SetThemeEvent.prototype.onSetTheme = function (theme) {
-    document.getElementById('theme').href = theme;
-    this.app.call('themeChanged', this, theme);
+    var dom = document.getElementById('theme');
+    if (dom) {
+        dom.href = theme;
+        this.app.call('themeChanged', this, theme);
+    }
 };
 
 export default SetThemeEvent;
