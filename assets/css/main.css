@@ -195,13 +195,10 @@ select:hover {
     height: 32px;
     background: #eee;
     color: #333;
-}
-
-#toolbar * {
     vertical-align: middle;
 }
 
-#toolbar .Panel {
+#toolbar>div {
     padding: 4px;
     color: #888;
 }

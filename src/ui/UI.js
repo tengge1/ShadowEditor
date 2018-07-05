@@ -17,9 +17,10 @@ import Number from './Number';
 import Row from './Row';
 import Select from './Select';
 import Span from './Span';
-
 import Text from './Text';
 import TextArea from './TextArea';
+import Label from './Label';
+
 import Modal from './Modal';
 import Texture from './Texture';
 import Outliner from './Outliner';
@@ -49,9 +50,10 @@ const UI = {
     Span: Span,
     Text: Text,
     TextArea: TextArea,
+    Label: Label,
+
     Texture: Texture,
     Modal: Modal,
-
     Outliner: Outliner
 };
 
