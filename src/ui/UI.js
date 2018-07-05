@@ -50,8 +50,8 @@ const UI = {
     Text: Text,
     TextArea: TextArea,
     Texture: Texture,
-
     Modal: Modal,
+
     Outliner: Outliner
 };
 
