@@ -11,8 +11,8 @@ function Modal(options) {
     options = options || {};
 
     this.id = options.id || null;
-    this.width = options.width || 500;
-    this.height = options.height || 300;
+    this.width = options.width || '500px';
+    this.height = options.height || '300px';
 };
 
 Modal.prototype = Object.create(Container.prototype);
@@ -30,20 +30,26 @@ Modal.prototype.render = function () {
 
     this.parent.appendChild(this.dom);
 
-    this.dom.addEventListener('click', this.hide.bind(this));
-
     this.container = document.createElement('div');
-    this.container.dom.style.width = this.width + 'px';
-    this.container.dom.style.height = this.height + 'px';
-    this.container.dom.style.padding = '8px';
-    this.container.dom.style.backgroundColor = '#ffffff';
-    this.container.dom.style.boxShadow = '0px 5px 10px rgba(0,0,0,0.5)';
+    this.container.style.width = this.width;
+    this.container.style.height = this.height;
+    this.container.style.padding = '8px';
+    this.container.style.backgroundColor = '#ffffff';
+    this.container.style.boxShadow = '0px 5px 10px rgba(0,0,0,0.5)';
 
     this.dom.appendChild(this.container);
+
+    var _this = this;
+
+    this.children.forEach(function (n) {
+        var obj = XType.create(n);
+        obj.parent = _this.container;
+        obj.render();
+    });
 };
 
 Modal.prototype.show = function () {
-    this.dom.style.display = 'block';
+    this.dom.style.display = 'flex';
     return this;
 };
 
