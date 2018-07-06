@@ -82,8 +82,7 @@ function ObjectPanel(app) {
     });
 
     objectUUIDRow.add(new UI.Label({
-        text: 'UUID',
-        style: 'width: 90px;'
+        text: 'UUID'
     }));
 
     objectUUIDRow.add(objectUUID);
@@ -103,8 +102,7 @@ function ObjectPanel(app) {
     });
 
     objectNameRow.add(new UI.Label({
-        text: '名称',
-        style: 'width: 90px;'
+        text: '名称'
     }));
 
     objectNameRow.add(objectName);
@@ -131,8 +129,7 @@ function ObjectPanel(app) {
     });
 
     objectPositionRow.add(new UI.Label({
-        text: '位置',
-        style: 'width: 90px;'
+        text: '位置'
     }));
 
     objectPositionRow.add(objectPositionX);
@@ -167,8 +164,7 @@ function ObjectPanel(app) {
     });
 
     objectRotationRow.add(new UI.Label({
-        text: '旋转',
-        style: 'width: 90px;'
+        text: '旋转'
     }));
 
     objectRotationRow.add(objectRotationX);
@@ -208,8 +204,7 @@ function ObjectPanel(app) {
     });
 
     objectScaleRow.add(new UI.Label({
-        text: '尺寸',
-        style: 'width: 90px;'
+        text: '尺寸'
     }));
 
     objectScaleRow.add(objectScaleLock);
@@ -227,8 +222,7 @@ function ObjectPanel(app) {
     });
 
     objectFovRow.add(new UI.Label({
-        text: '视场',
-        style: 'width: 90px;'
+        text: '视场'
     }));
 
     objectFovRow.add(objectFov);
@@ -243,8 +237,7 @@ function ObjectPanel(app) {
     });
 
     objectNearRow.add(new UI.Label({
-        text: '近点',
-        style: 'width: 90px;'
+        text: '近点'
     }));
 
     objectNearRow.add(objectNear);
@@ -259,8 +252,7 @@ function ObjectPanel(app) {
     });
 
     objectFarRow.add(new UI.Label({
-        text: '远点',
-        style: 'width: 90px;'
+        text: '远点'
     }));
 
     objectFarRow.add(objectFar);
@@ -276,8 +268,7 @@ function ObjectPanel(app) {
     });
 
     objectIntensityRow.add(new UI.Label({
-        text: '强度',
-        style: 'width: 90px;'
+        text: '强度'
     }));
 
     objectIntensityRow.add(objectIntensity);
@@ -293,8 +284,7 @@ function ObjectPanel(app) {
     });
 
     objectColorRow.add(new UI.Label({
-        text: '颜色',
-        style: 'width: 90px;'
+        text: '颜色'
     }));
 
     objectColorRow.add(objectColor);
@@ -309,8 +299,7 @@ function ObjectPanel(app) {
     });
 
     objectGroundColorRow.add(new UI.Label({
-        text: '地面颜色',
-        style: 'width: 90px;'
+        text: '地面颜色'
     }));
 
     objectGroundColorRow.add(objectGroundColor);
@@ -327,8 +316,7 @@ function ObjectPanel(app) {
     });
 
     objectDistanceRow.add(new UI.Label({
-        text: '距离',
-        style: 'width: 90px;'
+        text: '距离'
     }));
 
     objectDistanceRow.add(objectDistance);
@@ -346,8 +334,7 @@ function ObjectPanel(app) {
     });
 
     objectAngleRow.add(new UI.Label({
-        text: '角度',
-        style: 'width: 90px;'
+        text: '角度'
     }));
 
     objectAngleRow.add(objectAngle);
@@ -363,8 +350,7 @@ function ObjectPanel(app) {
     });
 
     objectPenumbraRow.add(new UI.Label({
-        text: '边缘',
-        style: 'width: 90px;'
+        text: '边缘'
     }));
 
     objectPenumbraRow.add(objectPenumbra);
@@ -381,8 +367,7 @@ function ObjectPanel(app) {
     });
 
     objectDecayRow.add(new UI.Label({
-        text: '衰变',
-        style: 'width: 90px;'
+        text: '衰变'
     }));
     objectDecayRow.add(objectDecay);
 
@@ -393,8 +378,7 @@ function ObjectPanel(app) {
     var objectShadowRow = new UI.Row();
 
     objectShadowRow.add(new UI.Label({
-        text: '阴影',
-        style: 'width: 90px;'
+        text: '阴影'
     }));
 
     var objectCastShadow = new UI.Boolean({
@@ -431,8 +415,7 @@ function ObjectPanel(app) {
     });
 
     objectVisibleRow.add(new UI.Label({
-        text: '可见性',
-        style: 'width: 90px;'
+        text: '可见性'
     }));
 
     objectVisibleRow.add(objectVisible);
@@ -467,8 +450,7 @@ function ObjectPanel(app) {
     });
 
     objectUserDataRow.add(new UI.Label({
-        text: '用户数据',
-        style: 'width: 90px'
+        text: '用户数据'
     }));
 
     objectUserDataRow.add(objectUserData);

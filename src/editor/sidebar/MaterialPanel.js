@@ -26,7 +26,7 @@ function MaterialPanel(app) {
     var copiedMaterial;
     var managerRow = new UI.Row();
 
-    managerRow.add(new UI.Label({ text: '', style: 'width: 90px;' }));
+    managerRow.add(new UI.Label({ text: '' }));
     managerRow.add(new UI.Button({
         text: '新建',
         onClick: function () {
@@ -81,8 +81,7 @@ function MaterialPanel(app) {
     });
 
     materialClassRow.add(new UI.Label({
-        text: '类型',
-        style: 'width: 90px'
+        text: '类型'
     }));
 
     materialClassRow.add(materialClass);
@@ -107,8 +106,7 @@ function MaterialPanel(app) {
     });
 
     materialUUIDRow.add(new UI.Label({
-        text: 'UUID',
-        style: 'width: 90px'
+        text: 'UUID'
     }));
     materialUUIDRow.add(materialUUID);
     materialUUIDRow.add(materialUUIDRenew);
@@ -126,8 +124,7 @@ function MaterialPanel(app) {
     });
 
     materialNameRow.add(new UI.Label({
-        text: '名称',
-        style: 'width: 90px'
+        text: '名称'
     }));
     materialNameRow.add(materialName);
 
@@ -137,8 +134,7 @@ function MaterialPanel(app) {
 
     var materialProgramRow = new UI.Row();
     materialProgramRow.add(new UI.Label({
-        text: '着色器程序',
-        style: 'width: 90px'
+        text: '着色器程序'
     }));
 
     var materialProgramInfo = new UI.Button({
@@ -182,8 +178,7 @@ function MaterialPanel(app) {
     });
 
     materialColorRow.add(new UI.Label({
-        text: '颜色',
-        style: 'width: 90px'
+        text: '颜色'
     }));
 
     materialColorRow.add(materialColor);
@@ -202,8 +197,7 @@ function MaterialPanel(app) {
     });
 
     materialRoughnessRow.add(new UI.Label({
-        text: '粗糙度',
-        style: 'width: 90px'
+        text: '粗糙度'
     }));
 
     materialRoughnessRow.add(materialRoughness);
@@ -222,8 +216,7 @@ function MaterialPanel(app) {
     });
 
     materialMetalnessRow.add(new UI.Label({
-        text: '金属度',
-        style: 'width: 90px;'
+        text: '金属度'
     }));
     materialMetalnessRow.add(materialMetalness);
 
@@ -238,8 +231,7 @@ function MaterialPanel(app) {
     });
 
     materialEmissiveRow.add(new UI.Label({
-        text: '发光',
-        style: 'width: 90px;'
+        text: '发光'
     }));
 
     materialEmissiveRow.add(materialEmissive);
@@ -255,8 +247,7 @@ function MaterialPanel(app) {
     });
 
     materialSpecularRow.add(new UI.Label({
-        text: '镜面度',
-        style: 'width: 90px;'
+        text: '镜面度'
     }));
 
     materialSpecularRow.add(materialSpecular);
@@ -273,8 +264,7 @@ function MaterialPanel(app) {
     });
 
     materialShininessRow.add(new UI.Label({
-        text: '光亮度',
-        style: 'width: 90px;'
+        text: '光亮度'
     }));
 
     materialShininessRow.add(materialShininess);
@@ -293,8 +283,7 @@ function MaterialPanel(app) {
     });
 
     materialClearCoatRow.add(new UI.Label({
-        text: '透明度',
-        style: 'width: 90px;'
+        text: '透明度'
     }));
     materialClearCoatRow.add(materialClearCoat);
 
@@ -312,8 +301,7 @@ function MaterialPanel(app) {
     });
 
     materialClearCoatRoughnessRow.add(new UI.Label({
-        text: '透明粗糙度',
-        style: 'width: 90px;'
+        text: '透明粗糙度'
     }));
 
     materialClearCoatRoughnessRow.add(materialClearCoatRoughness);
@@ -334,8 +322,7 @@ function MaterialPanel(app) {
     });
 
     materialVertexColorsRow.add(new UI.Label({
-        text: '顶点颜色',
-        style: 'width: 90px'
+        text: '顶点颜色'
     }));
 
     materialVertexColorsRow.add(materialVertexColors);
@@ -351,8 +338,7 @@ function MaterialPanel(app) {
     });
 
     materialSkinningRow.add(new UI.Label({
-        text: '皮肤',
-        style: 'width: 90px;'
+        text: '皮肤'
     }));
 
     materialSkinningRow.add(materialSkinning);
@@ -372,8 +358,7 @@ function MaterialPanel(app) {
     });
 
     materialMapRow.add(new UI.Label({
-        text: '纹理',
-        style: 'width: 90px;'
+        text: '纹理'
     }));
 
     materialMapRow.add(materialMapEnabled);
@@ -395,8 +380,7 @@ function MaterialPanel(app) {
     });
 
     materialAlphaMapRow.add(new UI.Label({
-        text: '透明纹理',
-        style: 'width: 90px;'
+        text: '透明纹理'
     }));
 
     materialAlphaMapRow.add(materialAlphaMapEnabled);
@@ -423,8 +407,7 @@ function MaterialPanel(app) {
     });
 
     materialBumpMapRow.add(new UI.Label({
-        text: '凹凸纹理',
-        style: 'width: 90px;'
+        text: '凹凸纹理'
     }));
 
     materialBumpMapRow.add(materialBumpMapEnabled);
@@ -446,8 +429,7 @@ function MaterialPanel(app) {
     });
 
     materialNormalMapRow.add(new UI.Label({
-        text: '法线纹理',
-        style: 'width: 90px'
+        text: '法线纹理'
     }));
 
     materialNormalMapRow.add(materialNormalMapEnabled);
@@ -474,8 +456,7 @@ function MaterialPanel(app) {
     });
 
     materialDisplacementMapRow.add(new UI.Label({
-        text: '位移纹理',
-        style: 'width: 90px;'
+        text: '位移纹理'
     }));
 
     materialDisplacementMapRow.add(materialDisplacementMapEnabled);
@@ -497,8 +478,7 @@ function MaterialPanel(app) {
     });
 
     materialRoughnessMapRow.add(new UI.Label({
-        text: '粗糙纹理',
-        style: 'width: 90px;'
+        text: '粗糙纹理'
     }));
 
     materialRoughnessMapRow.add(materialRoughnessMapEnabled);
@@ -519,8 +499,7 @@ function MaterialPanel(app) {
     });
 
     materialMetalnessMapRow.add(new UI.Label({
-        text: '金属纹理',
-        style: 'width: 90px;'
+        text: '金属纹理'
     }));
 
     materialMetalnessMapRow.add(materialMetalnessMapEnabled);
@@ -541,8 +520,7 @@ function MaterialPanel(app) {
     });
 
     materialSpecularMapRow.add(new UI.Label({
-        text: '镜面纹理',
-        style: 'width: 90px;'
+        text: '镜面纹理'
     }));
 
     materialSpecularMapRow.add(materialSpecularMapEnabled);
@@ -569,8 +547,7 @@ function MaterialPanel(app) {
     });
 
     materialEnvMapRow.add(new UI.Label({
-        text: '环境纹理',
-        style: 'width: 90px;'
+        text: '环境纹理'
     }));
 
     materialEnvMapRow.add(materialEnvMapEnabled);
@@ -592,8 +569,7 @@ function MaterialPanel(app) {
     });
 
     materialLightMapRow.add(new UI.Label({
-        text: '光照纹理',
-        style: 'width: 90px;'
+        text: '光照纹理'
     }));
 
     materialLightMapRow.add(materialLightMapEnabled);
@@ -621,8 +597,7 @@ function MaterialPanel(app) {
     });
 
     materialAOMapRow.add(new UI.Label({
-        text: '遮挡纹理',
-        style: 'width: 90px;'
+        text: '遮挡纹理'
     }));
 
     materialAOMapRow.add(materialAOMapEnabled);
@@ -643,8 +618,7 @@ function MaterialPanel(app) {
     });
 
     materialEmissiveMapRow.add(new UI.Label({
-        text: '放射纹理',
-        style: 'width: 90px;'
+        text: '放射纹理'
     }));
 
     materialEmissiveMapRow.add(materialEmissiveMapEnabled);
@@ -667,8 +641,7 @@ function MaterialPanel(app) {
     });
 
     materialSideRow.add(new UI.Label({
-        text: '边',
-        style: 'width: 90px;'
+        text: '剔除'
     }));
 
     materialSideRow.add(materialSide);
@@ -689,8 +662,7 @@ function MaterialPanel(app) {
     });
 
     materialShadingRow.add(new UI.Label({
-        text: '着色',
-        style: 'width: 90px;'
+        text: '着色'
     }));
 
     materialShadingRow.add(materialShading);
@@ -714,8 +686,7 @@ function MaterialPanel(app) {
     });
 
     materialBlendingRow.add(new UI.Label({
-        text: '混合',
-        style: 'width: 90px;'
+        text: '混合'
     }));
     materialBlendingRow.add(materialBlending);
 
@@ -732,8 +703,7 @@ function MaterialPanel(app) {
     });
 
     materialOpacityRow.add(new UI.Label({
-        text: '不透明度',
-        style: 'width: 90px;'
+        text: '不透明度'
     }));
 
     materialOpacityRow.add(materialOpacity);
@@ -749,8 +719,7 @@ function MaterialPanel(app) {
     });
 
     materialTransparentRow.add(new UI.Label({
-        text: '透明',
-        style: 'width: 90px;'
+        text: '透明'
     }));
 
     materialTransparentRow.add(materialTransparent);
@@ -767,8 +736,7 @@ function MaterialPanel(app) {
     });
 
     materialAlphaTestRow.add(new UI.Label({
-        text: 'α测试',
-        style: 'width: 90px;'
+        text: 'α测试'
     }));
 
     materialAlphaTestRow.add(materialAlphaTest);
@@ -791,8 +759,7 @@ function MaterialPanel(app) {
     });
 
     materialWireframeRow.add(new UI.Label({
-        text: '线框',
-        style: 'width: 90px;'
+        text: '线框'
     }));
 
     materialWireframeRow.add(materialWireframe);

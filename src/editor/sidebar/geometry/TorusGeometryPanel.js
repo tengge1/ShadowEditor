@@ -19,9 +19,8 @@ function TorusGeometryPanel(editor, object) {
         onChange: update
     });
 
-    radiusRow.add(new UI.Text({
-        text: '半径',
-        style: 'width: 90px;'
+    radiusRow.add(new UI.Label({
+        text: '半径'
     }));
 
     radiusRow.add(radius);
@@ -37,9 +36,8 @@ function TorusGeometryPanel(editor, object) {
         onChange: update
     });
 
-    tubeRow.add(new UI.Text({
-        text: '管粗',
-        style: 'width: 90px;'
+    tubeRow.add(new UI.Label({
+        text: '管粗'
     }));
 
     tubeRow.add(tube);
@@ -56,9 +54,8 @@ function TorusGeometryPanel(editor, object) {
         onChange: update
     });
 
-    radialSegmentsRow.add(new UI.Text({
-        text: '管粗段数',
-        style: 'width: 90px;'
+    radialSegmentsRow.add(new UI.Label({
+        text: '管粗段数'
     }));
 
     radialSegmentsRow.add(radialSegments);
@@ -75,9 +72,8 @@ function TorusGeometryPanel(editor, object) {
         onChange: update
     });
 
-    tubularSegmentsRow.add(new UI.Text({
-        text: '半径段数',
-        style: 'width: 90px;'
+    tubularSegmentsRow.add(new UI.Label({
+        text: '半径段数'
     }));
 
     tubularSegmentsRow.add(tubularSegments);
@@ -92,9 +88,8 @@ function TorusGeometryPanel(editor, object) {
         onChange: update
     });
 
-    arcRow.add(new UI.Text({
-        text: '旋转弧度',
-        style: 'width: 90px;'
+    arcRow.add(new UI.Label({
+        text: '旋转弧度'
     }));
 
     arcRow.add(arc);

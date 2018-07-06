@@ -54,9 +54,8 @@ function GeometryPanel(editor) {
 
     var geometryType = new UI.Text();
 
-    geometryTypeRow.add(new UI.Text({
-        text: '类型',
-        style: 'width: 90px;'
+    geometryTypeRow.add(new UI.Label({
+        text: '类型'
     }));
 
     geometryTypeRow.add(geometryType);
@@ -81,9 +80,8 @@ function GeometryPanel(editor) {
         }
     });
 
-    geometryUUIDRow.add(new UI.Text({
-        text: 'UUID',
-        style: 'width: 90px;'
+    geometryUUIDRow.add(new UI.Label({
+        text: 'UUID'
     }));
 
     geometryUUIDRow.add(geometryUUID);
@@ -103,9 +101,8 @@ function GeometryPanel(editor) {
         }
     });
 
-    geometryNameRow.add(new UI.Text({
-        text: '名称',
-        style: 'width: 90px;'
+    geometryNameRow.add(new UI.Label({
+        text: '名称'
     }));
 
     geometryNameRow.add(geometryName);

@@ -13,9 +13,8 @@ function GeometryInfoPanel(editor) {
 
     var verticesRow = new UI.Row();
 
-    verticesRow.add(new UI.Text({
-        text: '顶点',
-        style: 'width: 90px;'
+    verticesRow.add(new UI.Label({
+        text: '顶点'
     }));
 
     var vertices = new UI.Text();
@@ -28,9 +27,8 @@ function GeometryInfoPanel(editor) {
 
     var facesRow = new UI.Row();
 
-    facesRow.add(new UI.Text({
-        text: '面',
-        style: 'width: 90px;'
+    facesRow.add(new UI.Label({
+        text: '面'
     }));
 
     var faces = new UI.Text();

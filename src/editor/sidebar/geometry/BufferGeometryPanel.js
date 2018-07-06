@@ -28,9 +28,8 @@ function BufferGeometryPanel(editor) {
             if (index !== null) {
                 var panel = new UI.Row();
 
-                panel.add(new UI.Text({
-                    text: '索引数',
-                    style: 'width: 90px;'
+                panel.add(new UI.Label({
+                    text: '索引数'
                 }));
 
                 panel.add(new UI.Text({
@@ -50,9 +49,8 @@ function BufferGeometryPanel(editor) {
                 var attribute = attributes[name];
 
                 var panel = new UI.Row();
-                panel.add(new UI.Text({
-                    text: name,
-                    style: 'width: 90px;'
+                panel.add(new UI.Label({
+                    text: name
                 }));
                 panel.add(new UI.Text({
                     text: (attribute.count).format() + ' (' + attribute.itemSize + ')',

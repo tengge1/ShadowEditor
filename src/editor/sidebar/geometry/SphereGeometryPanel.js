@@ -20,9 +20,8 @@ function SphereGeometryPanel(editor, object) {
         onChange: update
     });
 
-    radiusRow.add(new UI.Text({
-        text: '半径',
-        style: 'width: 90px;'
+    radiusRow.add(new UI.Label({
+        text: '半径'
     }));
 
     radiusRow.add(radius);
@@ -39,9 +38,8 @@ function SphereGeometryPanel(editor, object) {
         onChange: update
     });
 
-    widthSegmentsRow.add(new UI.Text({
-        text: '宽度段数',
-        style: 'width: 90px;'
+    widthSegmentsRow.add(new UI.Label({
+        text: '宽度段数'
     }));
 
     widthSegmentsRow.add(widthSegments);
@@ -57,9 +55,8 @@ function SphereGeometryPanel(editor, object) {
         onChange: update
     });
 
-    heightSegmentsRow.add(new UI.Text({
-        text: '高度段数',
-        style: 'width: 90px;'
+    heightSegmentsRow.add(new UI.Label({
+        text: '高度段数'
     }));
 
     heightSegmentsRow.add(heightSegments);
@@ -75,9 +72,8 @@ function SphereGeometryPanel(editor, object) {
         onChange: update
     });
 
-    phiStartRow.add(new UI.Text({
-        text: '开始经度',
-        style: 'width: 90px;'
+    phiStartRow.add(new UI.Label({
+        text: '开始经度'
     }));
 
     phiStartRow.add(phiStart);
@@ -92,9 +88,8 @@ function SphereGeometryPanel(editor, object) {
         onChange: update
     });
 
-    phiLengthRow.add(new UI.Text({
-        text: '结束经度',
-        style: 'width: 90px;'
+    phiLengthRow.add(new UI.Label({
+        text: '结束经度'
     }));
 
     phiLengthRow.add(phiLength);
@@ -110,9 +105,8 @@ function SphereGeometryPanel(editor, object) {
         onChange: update
     });
 
-    thetaStartRow.add(new UI.Text({
-        text: '开始纬度',
-        style: 'width: 90px;'
+    thetaStartRow.add(new UI.Label({
+        text: '开始纬度'
     }));
 
     thetaStartRow.add(thetaStart);
@@ -128,9 +122,8 @@ function SphereGeometryPanel(editor, object) {
         onChange: update
     });
 
-    thetaLengthRow.add(new UI.Text({
-        text: '结束纬度',
-        style: 'width: 90px;'
+    thetaLengthRow.add(new UI.Label({
+        text: '结束纬度'
     }));
 
     thetaLengthRow.add(thetaLength);

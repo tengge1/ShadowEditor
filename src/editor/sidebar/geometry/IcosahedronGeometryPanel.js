@@ -22,9 +22,8 @@ function IcosahedronGeometryPanel(editor, object) {
         onChange: update
     });
 
-    radiusRow.add(new UI.Text({
-        text: '半径',
-        style: 'width: 90px;'
+    radiusRow.add(new UI.Label({
+        text: '半径'
     }));
 
     radiusRow.add(radius);
@@ -41,9 +40,8 @@ function IcosahedronGeometryPanel(editor, object) {
         onChange: update
     });
 
-    detailRow.add(new UI.Text({
-        text: '面片段数',
-        style: 'width: 90px;'
+    detailRow.add(new UI.Label({
+        text: '面片段数'
     }));
 
     detailRow.add(detail);

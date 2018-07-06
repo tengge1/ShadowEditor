@@ -37,8 +37,7 @@ function SettingPanel(app) {
     });
 
     themeRow.add(new UI.Label({
-        text: '主题',
-        style: 'width: 90px'
+        text: '主题'
     }));
 
     themeRow.add(theme);

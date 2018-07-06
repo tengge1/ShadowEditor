@@ -19,9 +19,8 @@ function CylinderGeometryPanel(editor, object) {
         onChange: update
     });
 
-    radiusTopRow.add(new UI.Text({
-        text: '顶部半径',
-        style: 'width: 90px;'
+    radiusTopRow.add(new UI.Label({
+        text: '顶部半径'
     }));
 
     radiusTopRow.add(radiusTop);
@@ -37,9 +36,8 @@ function CylinderGeometryPanel(editor, object) {
         onChange: update
     });
 
-    radiusBottomRow.add(new UI.Text({
-        text: '底部半径',
-        style: 'width: 90px;'
+    radiusBottomRow.add(new UI.Label({
+        text: '底部半径'
     }));
 
     radiusBottomRow.add(radiusBottom);
@@ -55,9 +53,8 @@ function CylinderGeometryPanel(editor, object) {
         onChange: update
     });
 
-    heightRow.add(new UI.Text({
-        text: '高度',
-        style: 'width: 90px;'
+    heightRow.add(new UI.Label({
+        text: '高度'
     }));
 
     heightRow.add(height);
@@ -74,9 +71,8 @@ function CylinderGeometryPanel(editor, object) {
         onChange: update
     });
 
-    radialSegmentsRow.add(new UI.Text({
-        text: '两端段数',
-        style: 'width: 90px;'
+    radialSegmentsRow.add(new UI.Label({
+        text: '两端段数'
     }));
 
     radialSegmentsRow.add(radialSegments);
@@ -93,9 +89,8 @@ function CylinderGeometryPanel(editor, object) {
         onChange: update
     });
 
-    heightSegmentsRow.add(new UI.Text({
-        text: '高度段数',
-        style: 'width: 90px;'
+    heightSegmentsRow.add(new UI.Label({
+        text: '高度段数'
     }));
 
     heightSegmentsRow.add(heightSegments);
@@ -111,9 +106,8 @@ function CylinderGeometryPanel(editor, object) {
         onChange: update
     });
 
-    openEndedRow.add(new UI.Text({
-        text: '两端开口',
-        style: 'width: 90px;'
+    openEndedRow.add(new UI.Label({
+        text: '两端开口'
     }));
 
     openEndedRow.add(openEnded);

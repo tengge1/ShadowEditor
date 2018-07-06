@@ -20,9 +20,8 @@ function CircleGeometryPanel(editor, object) {
         onChange: update
     });
 
-    radiusRow.add(new UI.Text({
-        text: '半径',
-        style: 'width: 90px;'
+    radiusRow.add(new UI.Label({
+        text: '半径'
     }));
 
     radiusRow.add(radius);
@@ -39,9 +38,8 @@ function CircleGeometryPanel(editor, object) {
         onChange: update
     });
 
-    segmentsRow.add(new UI.Text({
-        text: '段数',
-        style: 'width: 90px;'
+    segmentsRow.add(new UI.Label({
+        text: '段数'
     }));
 
     segmentsRow.add(segments);
@@ -57,9 +55,8 @@ function CircleGeometryPanel(editor, object) {
         onChange: update
     });
 
-    thetaStartRow.add(new UI.Text({
-        text: '开始弧度',
-        style: 'width: 90px;'
+    thetaStartRow.add(new UI.Label({
+        text: '开始弧度'
     }));
 
     thetaStartRow.add(thetaStart);
@@ -75,9 +72,8 @@ function CircleGeometryPanel(editor, object) {
         value: Math.PI * 2
     });
 
-    thetaLengthRow.add(new UI.Text({
-        text: '结束弧度',
-        style: 'width: 90px;'
+    thetaLengthRow.add(new UI.Label({
+        text: '结束弧度'
     }));
 
     thetaLengthRow.add(thetaLength);

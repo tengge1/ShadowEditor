@@ -20,9 +20,8 @@ function PlaneGeometryPanel(editor, object) {
         onChange: update
     });
 
-    widthRow.add(new UI.Text({
-        text: '宽度',
-        style: 'width: 90px;'
+    widthRow.add(new UI.Label({
+        text: '宽度'
     }));
 
     widthRow.add(width);
@@ -38,9 +37,8 @@ function PlaneGeometryPanel(editor, object) {
         onChange: update
     });
 
-    heightRow.add(new UI.Text({
-        text: '高度',
-        style: 'width: 90px;'
+    heightRow.add(new UI.Label({
+        text: '高度'
     }));
 
     heightRow.add(height);
@@ -56,9 +54,8 @@ function PlaneGeometryPanel(editor, object) {
         onChange: update
     });
 
-    widthSegmentsRow.add(new UI.Text({
-        text: '宽度段数',
-        style: 'width: 90px;'
+    widthSegmentsRow.add(new UI.Label({
+        text: '宽度段数'
     }));
 
     widthSegmentsRow.add(widthSegments);
@@ -75,9 +72,8 @@ function PlaneGeometryPanel(editor, object) {
         onChange: update
     });
 
-    heightSegmentsRow.add(new UI.Text({
-        text: '高度段数',
-        style: 'width: 90px;'
+    heightSegmentsRow.add(new UI.Label({
+        text: '高度段数'
     }));
 
     heightSegmentsRow.add(heightSegments);
