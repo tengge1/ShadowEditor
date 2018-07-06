@@ -9,15 +9,17 @@ function ViewportInfo(app, container) {
 
     this.container = new UI.Div({
         parent: this.parent.dom,
-        style: 'position: absolute; left: 10px; bottom: 10px; font-size: 12px; color: #fff;'
+        cls: 'info'
     });
 
     // 物体数
-    this.objectsLabel = new UI.Text({ text: '物体' });
+    this.objectsLabel = new UI.Label({
+        text: '物体'
+    });
+
     this.objectsText = new UI.Text({
         id: 'objectsText',
-        text: '0',
-        style: 'margin-left: 6px'
+        text: '0'
     });
 
     this.container.add(this.objectsLabel);
@@ -25,11 +27,13 @@ function ViewportInfo(app, container) {
     this.container.add(new UI.Break());
 
     // 顶点数
-    this.verticesLabel = new UI.Text({ text: '顶点' });
+    this.verticesLabel = new UI.Label({
+        text: '顶点'
+    });
+
     this.verticesText = new UI.Text({
         id: 'verticesText',
-        text: '0',
-        style: 'margin-left: 6px'
+        text: '0'
     });
 
     this.container.add(this.verticesLabel);
@@ -37,12 +41,15 @@ function ViewportInfo(app, container) {
     this.container.add(new UI.Break());
 
     // 三角形数
-    this.trianglesLabel = new UI.Text({ text: '三角形' });
+    this.trianglesLabel = new UI.Label({
+        text: '三角形'
+    });
+
     this.trianglesText = new UI.Text({
         id: 'trianglesText',
-        text: '0',
-        style: 'margin-left: 6px'
+        text: '0'
     });
+
     this.container.add(this.trianglesLabel);
     this.container.add(this.trianglesText);
     this.container.add(new UI.Break());

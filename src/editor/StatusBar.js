@@ -12,7 +12,9 @@ function StatusBar(app) {
         id: 'toolbar'
     });
 
-    this.buttons = new UI.Div();
+    this.buttons = new UI.Div({
+        cls: 'wrap'
+    });
 
     this.container.add(this.buttons);
 
@@ -54,12 +56,11 @@ function StatusBar(app) {
     // 网格数量
     this.grid = new UI.Number({
         value: 25,
-        style: 'width: 40px',
         onChange: function () {
             _this.app.call('gridChange', _this, this);
         }
     });
-    this.buttons.add(new UI.Text({ text: '网格：' }));
+    this.buttons.add(new UI.Label({ text: '网格：' }));
     this.buttons.add(this.grid);
 
     // 单元格

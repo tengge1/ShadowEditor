@@ -12,7 +12,7 @@ function Boolean(options) {
     this.id = options.id || null;
     this.text = options.text || 'Boolean';
     this.value = options.value || false;
-    this.cls = options.cls || null;
+    this.cls = options.cls || 'Checkbox';
     this.style = options.style || null;
 
     this.onChange = options.onChange || null;
@@ -35,18 +35,14 @@ Boolean.prototype.render = function () {
     if (this.style) {
         this.dom.style = this.style;
     }
-    this.dom.style.marginRight = '10px';
 
     this.parent.appendChild(this.dom);
 
     this.input = document.createElement('input');
     this.input.type = 'checkbox';
-    this.input.className = 'Checkbox';
     this.dom.appendChild(this.input);
 
     this.span = document.createElement('span');
-    this.span.className = 'Text';
-    this.span.style = 'cursor: default; display: inline-block; vertical-align: middle; margin-left: 3px; color: rgb(136, 136, 136);';
     this.span.innerHTML = this.text;
     this.dom.appendChild(this.span);
 

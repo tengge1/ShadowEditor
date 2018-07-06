@@ -73,6 +73,8 @@ input.Number {
     border: 0px;
     padding: 2px;
     cursor: col-resize;
+    width: 50px;
+    background-color: transparent;
 }
 
 select {
@@ -86,6 +88,22 @@ select {
 
 select:hover {
     background-color: #fff;
+}
+
+span.Checkbox {
+    margin-right: 10px;
+}
+
+span.Checkbox>input {
+    vertical-align: middle;
+}
+
+span.Checkbox>span {
+    cursor: default;
+    display: inline-block;
+    margin-left: 3px;
+    color: rgb(136, 136, 136);
+    vertical-align: middle;
 }
 
 #container {
@@ -180,9 +198,27 @@ select:hover {
     bottom: 32px;
 }
 
-#viewport #info {
+#viewport .info {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    font-size: 12px;
+    color: #fff;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
     pointer-events: none;
+}
+
+#viewport .info label {
+    cursor: default;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#viewport .info span {
+    margin-left: 6px;
+    cursor: default;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 /* 状态栏 */
@@ -198,13 +234,17 @@ select:hover {
     vertical-align: middle;
 }
 
-#toolbar>div {
+#toolbar .wrap {
     padding: 4px;
     color: #888;
 }
 
 #toolbar button {
     margin-right: 6px;
+}
+
+#toolbar .wrap input.Number {
+    width: 40px;
 }
 
 /* 侧边栏 */
