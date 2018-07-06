@@ -188,6 +188,13 @@ span.Checkbox>span {
     margin: 0 !important;
 }
 
+#menubar .menu .version {
+    opacity: 0.5;
+    cursor: default;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 /* 场景编辑区 */
 
 #viewport {

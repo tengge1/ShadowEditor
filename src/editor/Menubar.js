@@ -371,8 +371,7 @@ function Menubar(app) {
 
     var version = new UI.Text({
         text: 'r' + THREE.REVISION,
-        cls: 'title',
-        style: 'opacity: 0.5'
+        cls: 'title version'
     });
     statusMenu.add(version);
 
