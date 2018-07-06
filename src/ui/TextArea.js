@@ -34,7 +34,6 @@ TextArea.prototype.render = function () {
         this.dom.style = this.style;
     }
 
-    this.dom.style.padding = '2px';
     this.dom.spellcheck = false;
 
     var _this = this;

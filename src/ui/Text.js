@@ -33,10 +33,6 @@ Text.prototype.render = function () {
         this.dom.style = this.style;
     }
 
-    this.dom.style.cursor = 'default';
-    this.dom.style.display = 'inline-block';
-    this.dom.style.verticalAlign = 'middle';
-
     this.setValue(this.text);
 
     if (this.onClick) {

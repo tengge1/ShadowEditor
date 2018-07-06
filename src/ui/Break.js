@@ -9,7 +9,7 @@ function Break(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.cls = options.cls || null; // Break
+    this.cls = options.cls || null;
 };
 
 Break.prototype = Object.create(Control.prototype);

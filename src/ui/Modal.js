@@ -11,6 +11,9 @@ function Modal(options) {
     options = options || {};
 
     this.id = options.id || null;
+    this.cls = options.cls || 'Modal';
+    this.style = options.style || null;
+
     this.width = options.width || '500px';
     this.height = options.height || '300px';
 };
@@ -25,17 +28,22 @@ Modal.prototype.render = function () {
         this.dom.id = this.id;
     }
 
-    this.dom.style = 'position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); '
-        + 'display: none; align-items: center; justify-content: center;';
+    if (this.cls) {
+        this.dom.className = this.cls;
+    }
+
+    if (this.style) {
+        this.dom.style = this.style;
+    }
 
     this.parent.appendChild(this.dom);
 
     this.container = document.createElement('div');
+
+    this.container.className = 'Container';
+
     this.container.style.width = this.width;
     this.container.style.height = this.height;
-    this.container.style.padding = '8px';
-    this.container.style.backgroundColor = '#ffffff';
-    this.container.style.boxShadow = '0px 5px 10px rgba(0,0,0,0.5)';
 
     this.dom.appendChild(this.container);
 

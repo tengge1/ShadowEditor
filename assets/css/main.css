@@ -50,6 +50,7 @@ textarea {
     outline: none;
     border: 1px solid transparent;
     color: #444;
+    padding: 2px;
 }
 
 textarea.success {
@@ -104,6 +105,12 @@ select:hover {
     background-color: #fff;
 }
 
+span.Text {
+    cursor: default;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 span.Checkbox {
     margin-right: 10px;
 }
@@ -133,6 +140,22 @@ div.Texture canvas {
 div.Texture input {
     width: 64px;
     border: 1px solid #ccc;
+}
+
+div.Modal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+div.Modal .Container {
+    padding: 8px;
+    background-color: #ffffff;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 #container {
