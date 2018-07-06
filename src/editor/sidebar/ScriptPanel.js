@@ -16,7 +16,7 @@ function ScriptPanel(app) {
         style: 'display: none'
     });
 
-    container.add(new UI.Text({ text: '脚本' }));
+    container.add(new UI.Label({ text: '脚本' }));
     container.add(new UI.Break());
     container.add(new UI.Break());
 

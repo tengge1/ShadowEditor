@@ -54,9 +54,9 @@ function ObjectPanel(app) {
     // type
 
     var objectTypeRow = new UI.Row();
-    var objectType = new UI.Text();
+    var objectType = new UI.Label();
 
-    objectTypeRow.add(new UI.Text({
+    objectTypeRow.add(new UI.Label({
         text: '类型',
         style: 'width: 90px;'
     }));
@@ -82,7 +82,7 @@ function ObjectPanel(app) {
         }
     });
 
-    objectUUIDRow.add(new UI.Text({
+    objectUUIDRow.add(new UI.Label({
         text: 'UUID',
         style: 'width: 90px;'
     }));
@@ -103,7 +103,7 @@ function ObjectPanel(app) {
         }
     });
 
-    objectNameRow.add(new UI.Text({
+    objectNameRow.add(new UI.Label({
         text: '名称',
         style: 'width: 90px;'
     }));
@@ -131,7 +131,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectPositionRow.add(new UI.Text({
+    objectPositionRow.add(new UI.Label({
         text: '位置',
         style: 'width: 90px;'
     }));
@@ -167,7 +167,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectRotationRow.add(new UI.Text({
+    objectRotationRow.add(new UI.Label({
         text: '旋转',
         style: 'width: 90px;'
     }));
@@ -208,7 +208,7 @@ function ObjectPanel(app) {
         onChange: updateScaleZ
     });
 
-    objectScaleRow.add(new UI.Text({
+    objectScaleRow.add(new UI.Label({
         text: '尺寸',
         style: 'width: 90px;'
     }));
@@ -227,7 +227,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectFovRow.add(new UI.Text({
+    objectFovRow.add(new UI.Label({
         text: '视场',
         style: 'width: 90px;'
     }));
@@ -243,7 +243,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectNearRow.add(new UI.Text({
+    objectNearRow.add(new UI.Label({
         text: '近点',
         style: 'width: 90px;'
     }));
@@ -259,7 +259,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectFarRow.add(new UI.Text({
+    objectFarRow.add(new UI.Label({
         text: '远点',
         style: 'width: 90px;'
     }));
@@ -276,7 +276,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectIntensityRow.add(new UI.Text({
+    objectIntensityRow.add(new UI.Label({
         text: '强度',
         style: 'width: 90px;'
     }));
@@ -293,7 +293,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectColorRow.add(new UI.Text({
+    objectColorRow.add(new UI.Label({
         text: '颜色',
         style: 'width: 90px;'
     }));
@@ -309,7 +309,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectGroundColorRow.add(new UI.Text({
+    objectGroundColorRow.add(new UI.Label({
         text: '地面颜色',
         style: 'width: 90px;'
     }));
@@ -327,7 +327,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectDistanceRow.add(new UI.Text({
+    objectDistanceRow.add(new UI.Label({
         text: '距离',
         style: 'width: 90px;'
     }));
@@ -346,7 +346,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectAngleRow.add(new UI.Text({
+    objectAngleRow.add(new UI.Label({
         text: '角度',
         style: 'width: 90px;'
     }));
@@ -363,7 +363,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectPenumbraRow.add(new UI.Text({
+    objectPenumbraRow.add(new UI.Label({
         text: '边缘',
         style: 'width: 90px;'
     }));
@@ -381,7 +381,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectDecayRow.add(new UI.Text({
+    objectDecayRow.add(new UI.Label({
         text: '衰变',
         style: 'width: 90px;'
     }));
@@ -393,7 +393,7 @@ function ObjectPanel(app) {
 
     var objectShadowRow = new UI.Row();
 
-    objectShadowRow.add(new UI.Text({
+    objectShadowRow.add(new UI.Label({
         text: '阴影',
         style: 'width: 90px;'
     }));
@@ -431,7 +431,7 @@ function ObjectPanel(app) {
         onChange: update
     });
 
-    objectVisibleRow.add(new UI.Text({
+    objectVisibleRow.add(new UI.Label({
         text: '可见性',
         style: 'width: 90px;'
     }));
@@ -467,7 +467,7 @@ function ObjectPanel(app) {
         }
     });
 
-    objectUserDataRow.add(new UI.Text({
+    objectUserDataRow.add(new UI.Label({
         text: '用户数据',
         style: 'width: 90px'
     }));

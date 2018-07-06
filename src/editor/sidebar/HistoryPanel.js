@@ -16,7 +16,7 @@ function HistoryPanel(app) {
         cls: 'Panel'
     });
 
-    container.add(new UI.Text({
+    container.add(new UI.Label({
         text: '历史记录'
     }));
 

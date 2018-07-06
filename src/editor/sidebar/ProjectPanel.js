@@ -48,7 +48,7 @@ function ProjectPanel(app) {
         }
     });
 
-    rendererTypeRow.add(new UI.Text({
+    rendererTypeRow.add(new UI.Label({
         text: '渲染器',
         style: 'width: 90px;'
     }));
@@ -131,7 +131,7 @@ function ProjectPanel(app) {
         }
     });
 
-    vrRow.add(new UI.Text({
+    vrRow.add(new UI.Label({
         text: '虚拟现实',
         style: 'width: 90px;'
     }));

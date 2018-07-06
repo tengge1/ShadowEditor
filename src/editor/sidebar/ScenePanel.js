@@ -88,7 +88,7 @@ function ScenePanel(app) {
         onChange: onBackgroundChanged
     });
 
-    backgroundRow.add(new UI.Text({
+    backgroundRow.add(new UI.Label({
         text: '背景',
         style: 'width: 90px;'
     }));
@@ -122,7 +122,7 @@ function ScenePanel(app) {
         }
     });
 
-    fogTypeRow.add(new UI.Text({
+    fogTypeRow.add(new UI.Label({
         text: '雾',
         style: 'width: 90px'
     }));

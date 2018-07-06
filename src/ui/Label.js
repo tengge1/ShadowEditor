@@ -19,14 +19,14 @@ Label.prototype = Object.create(Control.prototype);
 Label.prototype.constructor = Label;
 
 Label.prototype.render = function () {
-    this.dom = document.createElement('div');
+    this.dom = document.createElement('label');
 
     if (this.id) {
         this.dom.id = this.id;
     }
 
     if (this.text) {
-        this.dom.innerHTML = this.text;
+        this.setValue(this.text);
     }
 
     if (this.cls) {
@@ -38,6 +38,17 @@ Label.prototype.render = function () {
     }
 
     this.parent.appendChild(this.dom);
+};
+
+Label.prototype.getValue = function () {
+    return this.dom.textContent;
+};
+
+Label.prototype.setValue = function (value) {
+    if (value !== undefined) {
+        this.dom.textContent = value;
+    }
+    return this;
 };
 
 XType.add('label', Label);
