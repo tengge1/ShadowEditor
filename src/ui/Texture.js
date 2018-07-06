@@ -18,7 +18,9 @@ Texture.prototype = Object.create(Control.prototype);
 Texture.prototype.constructor = Texture;
 
 Texture.prototype.render = function () {
-    this.dom = document.createElement('span');
+    this.dom = document.createElement('div');
+
+    this.dom.className = 'Texture';
 
     this.form = document.createElement('form');
 
@@ -36,9 +38,6 @@ Texture.prototype.render = function () {
     this.canvas = document.createElement('canvas');
     this.canvas.width = 32;
     this.canvas.height = 16;
-    this.canvas.style.cursor = 'pointer';
-    this.canvas.style.marginRight = '5px';
-    this.canvas.style.border = '1px solid #888';
 
     this.canvas.addEventListener('click', function (event) {
         _this.input.click();
@@ -54,8 +53,6 @@ Texture.prototype.render = function () {
 
     this.name = document.createElement('input');
     this.name.disabled = true;
-    this.name.style.width = '64px';
-    this.name.style.border = '1px solid #ccc';
     this.dom.appendChild(this.name);
 
     this.parent.appendChild(this.dom);

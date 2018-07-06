@@ -34,9 +34,6 @@ Input.prototype.render = function () {
         this.dom.style = this.style;
     }
 
-    this.dom.style.padding = '2px';
-    this.dom.style.border = '1px solid transparent';
-
     if (this.disabled) {
         this.dom.disabled = 'disabled';
     }

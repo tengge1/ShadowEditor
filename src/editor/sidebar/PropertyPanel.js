@@ -11,7 +11,7 @@ function PropertyPanel(app) {
     this.app = app;
     var editor = this.app.editor;
 
-    var container = new UI.Span();
+    var container = new UI.Div();
 
     var objectTab = new UI.Text({
         text: '物体',
@@ -29,7 +29,7 @@ function PropertyPanel(app) {
     });
 
     var tabs = new UI.Div({
-        id: 'tabs'
+        cls: 'tabs'
     });
 
     tabs.add(objectTab);
@@ -46,7 +46,7 @@ function PropertyPanel(app) {
 
     //
 
-    var object = new UI.Span();
+    var object = new UI.Div();
 
     object.render();
 
@@ -55,7 +55,7 @@ function PropertyPanel(app) {
 
     container.dom.appendChild(object.dom);
 
-    var geometry = new UI.Span();
+    var geometry = new UI.Div();
     geometry.render();
 
     var geometryPanel = new GeometryPanel(editor);
@@ -64,7 +64,7 @@ function PropertyPanel(app) {
 
     container.dom.appendChild(geometry.dom);
 
-    var material = new UI.Span();
+    var material = new UI.Div();
 
     material.render();
 
@@ -100,7 +100,6 @@ function PropertyPanel(app) {
                 material.dom.style.display = '';
                 break;
         }
-
     }
 
     select('物体');

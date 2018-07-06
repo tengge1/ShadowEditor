@@ -54,11 +54,10 @@ function ObjectPanel(app) {
     // type
 
     var objectTypeRow = new UI.Row();
-    var objectType = new UI.Label();
+    var objectType = new UI.Text();
 
     objectTypeRow.add(new UI.Label({
-        text: '类型',
-        style: 'width: 90px;'
+        text: '类型'
     }));
 
     objectTypeRow.add(objectType);

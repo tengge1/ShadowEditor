@@ -37,7 +37,7 @@ function Sidebar(app) {
     });
 
     var tabs = new UI.Div({
-        id: 'tabs'
+        cls: 'tabs'
     });
 
     tabs.add(sceneTab);
@@ -54,21 +54,21 @@ function Sidebar(app) {
 
     //
 
-    var scene = new UI.Span();
+    var scene = new UI.Div();
     scene.render();
     scene.dom.appendChild(new ScenePanel(this.app).dom);
     scene.dom.appendChild(new PropertyPanel(this.app).dom);
     scene.dom.appendChild(new ScriptPanel(this.app).dom);
     container.dom.appendChild(scene.dom);
 
-    var project = new UI.Span();
+    var project = new UI.Div();
     project.render();
 
     project.dom.appendChild(new ProjectPanel(this.app).dom);
 
     container.dom.appendChild(project.dom);
 
-    var settings = new UI.Span();
+    var settings = new UI.Div();
     settings.render();
     settings.dom.appendChild(new SettingPanel(this.app));
     settings.dom.appendChild(new HistoryPanel(this.app));
@@ -77,7 +77,6 @@ function Sidebar(app) {
     //
 
     function select(section) {
-
         sceneTab.dom.className = '';
         projectTab.dom.className = '';
         settingsTab.dom.className = '';
@@ -100,7 +99,6 @@ function Sidebar(app) {
                 settings.dom.style.display = '';
                 break;
         }
-
     }
 
     select('场景');

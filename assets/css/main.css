@@ -67,6 +67,11 @@ input {
     color: #444;
 }
 
+input.Input {
+    padding: 2px;
+    border: 1px solid transparent;
+}
+
 input.Number {
     color: #08f !important;
     font-size: 12px;
@@ -77,6 +82,14 @@ input.Number {
     background-color: transparent;
 }
 
+input.Color {
+    width: 64px;
+    height: 17px;
+    border: none;
+    padding: 2px;
+    background-color: transparent;
+}
+
 select {
     color: #666;
     background-color: #ddd;
@@ -84,6 +97,7 @@ select {
     text-transform: uppercase;
     cursor: pointer;
     outline: none;
+    padding: 2px;
 }
 
 select:hover {
@@ -104,6 +118,21 @@ span.Checkbox>span {
     margin-left: 3px;
     color: rgb(136, 136, 136);
     vertical-align: middle;
+}
+
+div.Texture {
+    display: inline-block;
+}
+
+div.Texture canvas {
+    cursor: pointer;
+    margin-right: 5px;
+    border: 1px solid #888;
+}
+
+div.Texture input {
+    width: 64px;
+    border: 1px solid #ccc;
 }
 
 #container {
@@ -292,20 +321,28 @@ span.Checkbox>span {
     vertical-align: middle;
 }
 
-#tabs {
+.tabs {
     background-color: #ddd;
     border-top: 1px solid #ccc;
 }
 
-#tabs span {
+.tabs span {
     color: #aaa;
     border-right: 1px solid #ccc;
     padding: 10px;
+    cursor: default;
+    display: inline-block;
+    vertical-align: middle;
 }
 
-#tabs span.selected {
+.tabs span.selected {
     color: #888;
     background-color: #eee;
+}
+
+.tabs+div>div.Panel:first-child {
+    border-top: 0px;
+    padding-top: 20px;
 }
 
 /* 脚本编辑窗口 */

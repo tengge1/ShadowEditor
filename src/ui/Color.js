@@ -12,7 +12,7 @@ function Color(options) {
     this.id = options.id || null;
     this.value = options.value || null;
     this.cls = options.cls || 'Color';
-    this.style = options.style || 'width: 64px; height: 17px; border: none; padding: 2px; background-color: transparent;';
+    this.style = options.style || null;
 
     this.onChange = options.onChange || null;
 };

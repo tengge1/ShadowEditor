@@ -35,8 +35,6 @@ Select.prototype.render = function () {
         this.dom.style = this.style;
     }
 
-    this.dom.style.padding = '2px';
-
     if (this.multiple) {
         this.dom.multiple = this.multiple;
     }
