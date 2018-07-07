@@ -80,6 +80,8 @@ import ExampleEvent from './menu/example/ExampleEvent';
 import SourceCodeEvent from './menu/help/SourceCodeEvent';
 import AboutEvent from './menu/help/AboutEvent';
 
+import SavingStatusEvent from './menu/status/SavingStatusEvent';
+
 import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateViewportInfoEvent from './viewport/UpdateViewportInfoEvent';
 import RenderEvent from './viewport/RenderEvent';
@@ -191,6 +193,8 @@ function EventDispatcher(app) {
 
         new SourceCodeEvent(this.app),
         new AboutEvent(this.app),
+
+        new SavingStatusEvent(this.app),
 
         // viewport中的事件
         new TransformControlsEvent(this.app),

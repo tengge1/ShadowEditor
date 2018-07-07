@@ -32,8 +32,9 @@ PlayMenu.prototype.render = function () {
         }]
     };
 
-    this.dom = XType.create(data);
-    this.parent.appendChild(this.dom);
+    var control = XType.create(data);
+    control.parent = this.parent;
+    control.render();
 }
 
 export default PlayMenu;

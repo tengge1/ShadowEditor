@@ -31,7 +31,7 @@ EditMenu.prototype.render = function () {
             children: [{
                 xtype: 'div',
                 id: 'mUndo',
-                text: '撤销(Ctrl+Z)',
+                html: '撤销(Ctrl+Z)',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mUndo');
@@ -39,7 +39,7 @@ EditMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mRedo',
-                text: '重做(Ctrl+Shift+Z)',
+                html: '重做(Ctrl+Shift+Z)',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mRedo');
@@ -47,8 +47,8 @@ EditMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mClearHistory',
-                text: '清空历史记录',
-                cls: 'options',
+                html: '清空历史记录',
+                cls: 'option',
                 onClick: function () {
                     _this.app.call('mClearHistory');
                 }
@@ -57,7 +57,7 @@ EditMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mClone',
-                text: '复制',
+                html: '复制',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mClone');
@@ -65,7 +65,7 @@ EditMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mDelete',
-                text: '删除(Del)',
+                html: '删除(Del)',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mDelete');
@@ -73,7 +73,7 @@ EditMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mMinifyShader',
-                text: '压缩着色器程序',
+                html: '压缩着色器程序',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mMinifyShader');
@@ -82,8 +82,9 @@ EditMenu.prototype.render = function () {
         }]
     };
 
-    this.dom = XType.create(data);
-    this.parent.appendChild(this.dom);
+    var control = XType.create(data);
+    control.parent = this.parent;
+    control.render();
 }
 
 export default EditMenu;

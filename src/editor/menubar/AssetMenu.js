@@ -31,15 +31,17 @@ AssetMenu.prototype.render = function () {
             children: [{
                 xtype: 'div',
                 id: 'mImportAsset',
-                text: '导入',
+                html: '导入',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mImportAsset');
                 }
             }, {
+                xtype: 'hr'
+            }, {
                 xtype: 'div',
                 id: 'mExportGeometry',
-                text: '导出Geometry',
+                html: '导出Geometry',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mExportGeometry');
@@ -47,15 +49,15 @@ AssetMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mExportObject',
-                text: '导出Object',
-                cls: 'options',
+                html: '导出Object',
+                cls: 'option',
                 onClick: function () {
                     _this.app.call('mExportObject');
                 }
             }, {
                 xtype: 'div',
                 id: 'mExportScene',
-                text: '导出场景',
+                html: '导出场景',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mExportScene');
@@ -63,7 +65,7 @@ AssetMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mExportOBJ',
-                text: '导出OBJ',
+                html: '导出OBJ',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mExportOBJ');
@@ -71,7 +73,7 @@ AssetMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mExportSTL',
-                text: '导出STL',
+                html: '导出STL',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mExportSTL');
@@ -80,8 +82,9 @@ AssetMenu.prototype.render = function () {
         }]
     };
 
-    this.dom = XType.create(data);
-    this.parent.appendChild(this.dom);
+    var control = XType.create(data);
+    control.parent = this.parent;
+    control.render();
 }
 
 export default AssetMenu;

@@ -31,7 +31,7 @@ AddMenu.prototype.render = function () {
             children: [{
                 xtype: 'div',
                 id: 'mAddGroup',
-                text: '组',
+                html: '组',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddGroup');
@@ -41,7 +41,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddPlane',
-                text: '平板',
+                html: '平板',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddPlane');
@@ -49,15 +49,15 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddBox',
-                text: '正方体',
-                cls: 'options',
+                html: '正方体',
+                cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddBox');
                 }
             }, {
                 xtype: 'div',
                 id: 'mAddCircle',
-                text: '圆',
+                html: '圆',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddCircle');
@@ -65,7 +65,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddCylinder',
-                text: '圆柱体',
+                html: '圆柱体',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddCylinder');
@@ -73,7 +73,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddSphere',
-                text: '球体',
+                html: '球体',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddSphere');
@@ -81,7 +81,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddIcosahedron',
-                text: '二十面体',
+                html: '二十面体',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddIcosahedron');
@@ -89,7 +89,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddTorus',
-                text: '轮胎',
+                html: '轮胎',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddTorus');
@@ -97,7 +97,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddTorusKnot',
-                text: '扭结',
+                html: '扭结',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddTorusKnot');
@@ -105,7 +105,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddTeaport',
-                text: '茶壶',
+                html: '茶壶',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddTeaport');
@@ -113,7 +113,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddLathe',
-                text: '花瓶',
+                html: '花瓶',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddLathe');
@@ -121,7 +121,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddSprite',
-                text: '精灵',
+                html: '精灵',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddSprite');
@@ -131,7 +131,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddPointLight',
-                text: '点光源',
+                html: '点光源',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddPointLight');
@@ -139,7 +139,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddSpotLight',
-                text: '聚光灯',
+                html: '聚光灯',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddSpotLight');
@@ -147,7 +147,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddDirectionalLight',
-                text: '平行光源',
+                html: '平行光源',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddDirectionalLight');
@@ -155,7 +155,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddHemisphereLight',
-                text: '半球光',
+                html: '半球光',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddHemisphereLight');
@@ -163,7 +163,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddAmbientLight',
-                text: '环境光',
+                html: '环境光',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddAmbientLight');
@@ -173,7 +173,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddPerspectiveCamera',
-                text: '透视相机',
+                html: '透视相机',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddPerspectiveCamera');
@@ -182,8 +182,9 @@ AddMenu.prototype.render = function () {
         }]
     };
 
-    this.dom = XType.create(data);
-    this.parent.appendChild(this.dom);
+    var control = XType.create(data);
+    control.parent = this.parent;
+    control.render();
 }
 
 export default AddMenu;

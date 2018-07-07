@@ -2,20 +2,20 @@ import Control from '../../ui/Control';
 import XType from '../../ui/XType';
 
 /**
- * 场景菜单
+ * 示例菜单
  * @param {*} options 
  */
-function SceneMenu(options) {
+function ExampleMenu(options) {
     Control.call(this, options);
     options = options || {};
 
     this.app = options.app;
 }
 
-SceneMenu.prototype = Object.create(Control.prototype);
-SceneMenu.prototype.constructor = SceneMenu;
+ExampleMenu.prototype = Object.create(Control.prototype);
+ExampleMenu.prototype.constructor = ExampleMenu;
 
-SceneMenu.prototype.render = function () {
+ExampleMenu.prototype.render = function () {
     var _this = this;
 
     var data = {
@@ -24,43 +24,41 @@ SceneMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '场景'
+            html: '示例'
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
+                id: 'mArkanoid',
                 xtype: 'div',
-                id: 'mNewScene',
-                html: '新建',
                 cls: 'option',
+                html: '打砖块',
                 onClick: function () {
-                    _this.app.call('mNewScene');
+                    _this.app.call('mArkanoid');
                 }
             }, {
+                id: 'mCamera',
                 xtype: 'div',
-                id: 'mLoadScene',
-                html: '载入',
                 cls: 'option',
+                html: '相机',
                 onClick: function () {
-                    _this.app.call('mLoadScene');
+                    _this.app.call('mCamera');
                 }
             }, {
+                id: 'mParticles',
                 xtype: 'div',
-                id: 'mSaveScene',
-                html: '保存',
                 cls: 'option',
+                html: '粒子',
                 onClick: function () {
-                    _this.app.call('mSaveScene');
+                    _this.app.call('mParticles');
                 }
             }, {
-                xtype: 'hr'
-            }, {
+                id: 'mPong',
                 xtype: 'div',
-                id: 'mPublishScene',
-                html: '发布',
                 cls: 'option',
+                html: '乒乓球',
                 onClick: function () {
-                    _this.app.call('mPublishScene');
+                    _this.app.call('mPong');
                 }
             }]
         }]
@@ -71,4 +69,4 @@ SceneMenu.prototype.render = function () {
     control.render();
 }
 
-export default SceneMenu;
+export default ExampleMenu;

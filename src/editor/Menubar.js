@@ -1,4 +1,15 @@
-﻿import UI from '../ui/UI';
+﻿import Control from '../ui/Control';
+import Div from '../ui/Div';
+
+import SceneMenu from './menubar/SceneMenu';
+import EditMenu from './menubar/EditMenu';
+import AddMenu from './menubar/AddMenu';
+import AssetMenu from './menubar/AssetMenu';
+import PlayMenu from './menubar/PlayMenu';
+import ViewMenu from './menubar/ViewMenu';
+import ExampleMenu from './menubar/ExampleMenu';
+import HelpMenu from './menubar/HelpMenu';
+import StatusMenu from './menubar/StatusMenu';
 
 /**
  * 菜单栏
@@ -7,385 +18,35 @@
 function Menubar(app) {
     this.app = app;
 
-    // ---------------- 菜单数据 ----------------------
+    Control.call(this, { parent: this.app.container });
 
-    this.data = [{
-        text: '场景',
-        children: [{
-            id: 'mNewScene',
-            text: '新建',
-            onClick: function () {
-                app.call('mNewScene');
-            }
-        }, {
-            id: 'mLoadScene',
-            text: '载入',
-            onClick: function () {
-                app.call('mLoadScene');
-            }
-        }, {
-            id: 'mSaveScene',
-            text: '保存',
-            onClick: function () {
-                app.call('mSaveScene');
-            }
-        }, {
-            text: '-'
-        }, {
-            id: 'mPublishScene',
-            text: '发布',
-            onClick: function () {
-                app.call('mPublishScene');
-            }
-        }]
-    }, {
-        text: '编辑',
-        children: [{
-            id: 'mUndo',
-            text: '撤销(Ctrl+Z)',
-            onClick: function () {
-                app.call('mUndo');
-            }
-        }, {
-            id: 'mRedo',
-            text: '重做(Ctrl+Shift+Z)',
-            onClick: function () {
-                app.call('mRedo');
-            }
-        }, {
-            id: 'mClearHistory',
-            text: '清空历史记录',
-            onClick: function () {
-                app.call('mClearHistory');
-            }
-        }, {
-            text: '-'
-        }, {
-            id: 'mClone',
-            text: '复制',
-            onClick: function () {
-                app.call('mClone');
-            }
-        }, {
-            id: 'mDelete',
-            text: '删除(Del)',
-            onClick: function () {
-                app.call('mDelete');
-            }
-        }, {
-            id: 'mMinifyShader',
-            text: '压缩着色器程序',
-            onClick: function () {
-                app.call('mMinifyShader');
-            }
-        }]
-    }, {
-        text: '添加',
-        children: [{
-            id: 'mAddGroup',
-            text: '组',
-            onClick: function () {
-                app.call('mAddGroup');
-            }
-        }, {
-            text: '-'
-        }, {
-            id: 'mAddPlane',
-            text: '平板',
-            onClick: function () {
-                app.call('mAddPlane');
-            }
-        }, {
-            id: 'mAddBox',
-            text: '正方体',
-            onClick: function () {
-                app.call('mAddBox');
-            }
-        }, {
-            id: 'mAddCircle',
-            text: '圆',
-            onClick: function () {
-                app.call('mAddCircle');
-            }
-        }, {
-            id: 'mAddCylinder',
-            text: '圆柱体',
-            onClick: function () {
-                app.call('mAddCylinder');
-            }
-        }, {
-            id: 'mAddSphere',
-            text: '球体',
-            onClick: function () {
-                app.call('mAddSphere');
-            }
-        }, {
-            id: 'mAddIcosahedron',
-            text: '二十面体',
-            onClick: function () {
-                app.call('mAddIcosahedron');
-            }
-        }, {
-            id: 'mAddTorus',
-            text: '轮胎',
-            onClick: function () {
-                app.call('mAddTorus');
-            }
-        }, {
-            id: 'mAddTorusKnot',
-            text: '扭结',
-            onClick: function () {
-                app.call('mAddTorusKnot');
-            }
-        }, {
-            id: 'mAddTeaport',
-            text: '茶壶',
-            onClick: function () {
-                app.call('mAddTeaport');
-            }
-        }, {
-            id: 'mAddLathe',
-            text: '花瓶',
-            onClick: function () {
-                app.call('mAddLathe');
-            }
-        }, {
-            id: 'mAddSprite',
-            text: '精灵',
-            onClick: function () {
-                app.call('mAddSprite');
-            }
-        }, {
-            text: '-'
-        }, {
-            id: 'mAddPointLight',
-            text: '点光源',
-            onClick: function () {
-                app.call('mAddPointLight');
-            }
-        }, {
-            id: 'mAddSpotLight',
-            text: '聚光灯',
-            onClick: function () {
-                app.call('mAddSpotLight');
-            }
-        }, {
-            id: 'mAddDirectionalLight',
-            text: '平行光源',
-            onClick: function () {
-                app.call('mAddDirectionalLight');
-            }
-        }, {
-            id: 'mAddHemisphereLight',
-            text: '半球光',
-            onClick: function () {
-                app.call('mAddHemisphereLight');
-            }
-        }, {
-            id: 'mAddAmbientLight',
-            text: '环境光',
-            onClick: function () {
-                app.call('mAddAmbientLight');
-            }
-        }, {
-            text: '-'
-        }, {
-            id: 'mAddPerspectiveCamera',
-            text: '透视相机',
-            onClick: function () {
-                app.call('mAddPerspectiveCamera');
-            }
-        }]
-    }, {
-        text: '资源',
-        children: [{
-            id: 'mImportAsset',
-            text: '导入',
-            onClick: function () {
-                app.call('mImportAsset');
-            }
-        }, {
-            text: '-'
-        }, {
-            id: 'mExportGeometry',
-            text: '导出Geometry',
-            onClick: function () {
-                app.call('mExportGeometry');
-            }
-        }, {
-            id: 'mExportObject',
-            text: '导出Object',
-            onClick: function () {
-                app.call('mExportObject');
-            }
-        }, {
-            id: 'mExportScene',
-            text: '导出场景',
-            onClick: function () {
-                app.call('mExportScene');
-            }
-        }, {
-            id: 'mExportOBJ',
-            text: '导出OBJ',
-            onClick: function () {
-                app.call('mExportOBJ');
-            }
-        }, {
-            id: 'mExportSTL',
-            text: '导出STL',
-            onClick: function () {
-                app.call('mExportSTL');
-            }
-        }]
-    }, {
-        id: 'mPlay',
-        text: '启动',
-        onClick: function () {
-            app.call('mPlay');
-        }
-    }, {
-        text: '视图',
-        children: [{
-            id: 'mVRMode',
-            text: 'VR模式',
-            onClick: function () {
-                app.call('mVRMode');
-            }
-        }]
-    }, {
-        text: '示例',
-        children: [{
-            id: 'mArkanoid',
-            text: '打砖块',
-            onClick: function () {
-                app.call('mArkanoid');
-            }
-        }, {
-            id: 'mCamera',
-            text: '相机',
-            onClick: function () {
-                app.call('mCamera');
-            }
-        }, {
-            id: 'mParticles',
-            text: '粒子',
-            onClick: function () {
-                app.call('mParticles');
-            }
-        }, {
-            id: 'mPong',
-            text: '乒乓球',
-            onClick: function () {
-                app.call('mPong');
-            }
-        }]
-    }, {
-        text: '帮助',
-        children: [{
-            id: 'mSourceCode',
-            text: '源码',
-            onClick: function () {
-                app.call('mSourceCode');
-            }
-        }, {
-            id: 'mAbout',
-            text: '关于',
-            onClick: function () {
-                app.call('mAbout');
-            }
-        }]
-    }];
+    this.children = [
+        // 左侧
+        new SceneMenu({ app: this.app }),
+        new EditMenu({ app: this.app }),
+        new AddMenu({ app: this.app }),
+        new AssetMenu({ app: this.app }),
+        new PlayMenu({ app: this.app }),
+        new ViewMenu({ app: this.app }),
+        new ExampleMenu({ app: this.app }),
+        new HelpMenu({ app: this.app }),
 
-    // --------------- 渲染生成dom ----------------------
+        // 右侧
+        new StatusMenu({ app: this.app })
+    ];
+};
 
-    this.dom = new UI.Div({
-        parent: this.app.container,
-        id: 'menubar'
+Menubar.prototype = Object.create(Control.prototype);
+Menubar.prototype.constructor = Menubar;
+
+Menubar.prototype.render = function () {
+    this.dom = new Div({
+        parent: this.parent,
+        id: 'menubar',
+        children: this.children
     });
-
-    var _this = this;
-    this.data.forEach(function (n) {
-        var menu = new UI.Div({
-            cls: 'menu'
-        });
-
-        // 菜单标题
-        var title = new UI.Div({
-            id: n.id,
-            cls: 'title',
-            html: n.text
-        });
-        menu.add(title);
-
-        if (n.children) {
-            // 下拉菜单
-            var options = new UI.Div({
-                cls: 'options'
-            });
-            menu.add(options);
-
-            n.children.forEach(function (m) {
-                if (m.text === '-') { // 分隔符
-                    var hr = new UI.HorizontalRule();
-                    options.add(hr);
-                } else { // 其他文字
-                    var option = new UI.Div({
-                        id: m.id,
-                        cls: 'option',
-                        html: m.text
-                    });
-                    options.add(option);
-
-                    // 菜单子项click事件
-                    if (typeof (m.onClick) === 'function') {
-                        option.onClick = m.onClick; // this是具体菜单对应的Div
-                    }
-                }
-            });
-        }
-
-        // 主菜单click事件
-        if (typeof (n.onClick) === 'function') {
-            menu.onClick = n.onClick; // this是具体菜单对应的Div
-        }
-
-        _this.dom.add(menu);
-    });
-
-    // 状态菜单
-    var statusMenu = new UI.Div({
-        id: 'mStatus',
-        cls: 'menu right'
-    });
-
-    var autosave = new UI.Boolean({
-        text: '自动保存',
-        value: this.app.editor.config.getKey('autosave'),
-        style: 'color: #888 !important;',
-        onChange: function (e) {
-            _this.app.editor.config.setKey('autosave', e.target.checked);
-            _this.app.call('sceneGraphChanged', _this);
-        }
-    });
-    statusMenu.add(autosave);
-
-    var version = new UI.Text({
-        text: 'r' + THREE.REVISION,
-        cls: 'title version'
-    });
-    statusMenu.add(version);
-
-    this.dom.add(statusMenu);
 
     this.dom.render();
-
-    this.app.on('savingStarted.StatusMenu', function () {
-        autosave.span.style.textDecoration = 'underline';
-    });
-
-    this.app.on('savingFinished.StatusMenu', function () {
-        autosave.span.style.textDecoration = 'none';
-    });
 };
 
 export default Menubar;

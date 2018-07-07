@@ -28,7 +28,10 @@ function Application(container, options) {
 
     // 编辑器ui
     this.editor = new Editor(this); // 编辑器
+
     this.menubar = new Menubar(this); // 菜单栏
+    this.menubar.render();
+
     this.viewport = new Viewport(this); // 编辑区
     this.sidebar = new Sidebar(this); // 侧边栏
     this.statusBar = new StatusBar(this); // 状态栏
