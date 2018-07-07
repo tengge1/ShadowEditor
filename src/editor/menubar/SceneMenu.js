@@ -7,12 +7,17 @@ import XType from '../../ui/XType';
  */
 function SceneMenu(options) {
     Control.call(this, options);
+    options = options || {};
+
+    this.app = options.app;
 }
 
 SceneMenu.prototype = Object.create(Control.prototype);
 SceneMenu.prototype.constructor = SceneMenu;
 
 SceneMenu.prototype.render = function () {
+    var _this = this;
+
     var data = {
         xtype: 'div',
         cls: 'menu',
@@ -29,7 +34,7 @@ SceneMenu.prototype.render = function () {
                 text: '新建',
                 cls: 'option',
                 onClick: function () {
-                    app.call('mNewScene');
+                    _this.app.call('mNewScene');
                 }
             }, {
                 xtype: 'div',
@@ -37,7 +42,7 @@ SceneMenu.prototype.render = function () {
                 text: '载入',
                 cls: 'option',
                 onClick: function () {
-                    app.call('mLoadScene');
+                    _this.app.call('mLoadScene');
                 }
             }, {
                 xtype: 'div',
@@ -45,7 +50,7 @@ SceneMenu.prototype.render = function () {
                 text: '保存',
                 cls: 'options',
                 onClick: function () {
-                    app.call('mSaveScene');
+                    _this.app.call('mSaveScene');
                 }
             }, {
                 xtype: 'hr'
@@ -55,13 +60,14 @@ SceneMenu.prototype.render = function () {
                 text: '发布',
                 cls: 'option',
                 onClick: function () {
-                    app.call('mPublishScene');
+                    _this.app.call('mPublishScene');
                 }
             }]
         }]
     };
-}
 
-XType.add('sceneMenu', SceneMenu);
+    this.dom = XType.create(data);
+    this.parent.appendChild(this.dom);
+}
 
 export default SceneMenu;
