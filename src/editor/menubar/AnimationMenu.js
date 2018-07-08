@@ -2,20 +2,20 @@ import Control from '../../ui/Control';
 import XType from '../../ui/XType';
 
 /**
- * 粒子菜单
+ * 动画菜单
  * @param {*} options 
  */
-function ParticleMenu(options) {
+function AnimationMenu(options) {
     Control.call(this, options);
     options = options || {};
 
     this.app = options.app;
 }
 
-ParticleMenu.prototype = Object.create(Control.prototype);
-ParticleMenu.prototype.constructor = ParticleMenu;
+AnimationMenu.prototype = Object.create(Control.prototype);
+AnimationMenu.prototype.constructor = AnimationMenu;
 
-ParticleMenu.prototype.render = function () {
+AnimationMenu.prototype.render = function () {
     var _this = this;
 
     var data = {
@@ -24,7 +24,7 @@ ParticleMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '粒子'
+            html: '动画'
         }, {
             xtype: 'div',
             cls: 'options',
@@ -45,4 +45,4 @@ ParticleMenu.prototype.render = function () {
     control.render();
 }
 
-export default ParticleMenu;
+export default AnimationMenu;

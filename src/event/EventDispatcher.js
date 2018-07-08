@@ -73,7 +73,7 @@ import ExportSceneEvent from './menu/asset/ExportSceneEvent';
 import ExportOBJEvent from './menu/asset/ExportOBJEvent';
 import ExportSTLEvent from './menu/asset/ExportSTLEvent';
 
-import AddFireEvent from './menu/particle/AddFireEvent';
+import AddFireEvent from './menu/animation/AddFireEvent';
 
 import PlayEvent from './menu/play/PlayEvent';
 

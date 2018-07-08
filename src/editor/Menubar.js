@@ -5,7 +5,7 @@ import SceneMenu from './menubar/SceneMenu';
 import EditMenu from './menubar/EditMenu';
 import AddMenu from './menubar/AddMenu';
 import AssetMenu from './menubar/AssetMenu';
-import ParticleMenu from './menubar/ParticleMenu';
+import AnimationMenu from './menubar/AnimationMenu';
 import PlayMenu from './menubar/PlayMenu';
 import ViewMenu from './menubar/ViewMenu';
 import ExampleMenu from './menubar/ExampleMenu';
@@ -27,7 +27,7 @@ function Menubar(app) {
         new EditMenu({ app: this.app }),
         new AddMenu({ app: this.app }),
         new AssetMenu({ app: this.app }),
-        new ParticleMenu({ app: this.app }),
+        new AnimationMenu({ app: this.app }),
         new PlayMenu({ app: this.app }),
         new ViewMenu({ app: this.app }),
         new ExampleMenu({ app: this.app }),
