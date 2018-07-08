@@ -1,4 +1,5 @@
-﻿import UI from '../ui/UI';
+﻿import Control from '../ui/Control';
+import XType from '../ui/XType';
 
 /**
  * 状态栏
@@ -6,94 +7,92 @@
  */
 function StatusBar(app) {
     this.app = app;
+    Control.call(this, { parent: this.app.container });
+};
 
-    this.container = new UI.Div({
-        parent: this.app.container,
-        id: 'toolbar'
-    });
+StatusBar.prototype = Object.create(Control.prototype);
+StatusBar.prototype.constructor = StatusBar;
 
-    this.buttons = new UI.Div({
-        cls: 'wrap'
-    });
-
-    this.container.add(this.buttons);
-
-    // 平移
+StatusBar.prototype.render = function () {
     var _this = this;
-    this.translateBtn = new UI.Button({
-        id: 'translateBtn',
-        text: '平移',
-        cls: 'Button selected',
-        title: 'W',
-        onClick: function () {
-            _this.app.call('transformModeChanged', _this, 'translate');
-        }
-    });
-    this.buttons.add(this.translateBtn);
 
-    // 旋转
-    this.rotateBtn = new UI.Button({
-        id: 'rotateBtn',
-        text: '旋转',
-        title: 'E',
-        onClick: function () {
-            _this.app.call('transformModeChanged', _this, 'rotate');
-        }
-    });
-    this.buttons.add(this.rotateBtn);
+    var data = {
+        xtype: 'div',
+        parent: this.app.container,
+        id: 'toolbar',
+        children: [{
+            xtype: 'div',
+            cls: 'wrap',
+            children: [{
+                xtype: 'button',
+                id: 'translateBtn',
+                text: '平移',
+                cls: 'Button selected',
+                title: 'W',
+                onClick: function () {
+                    _this.app.call('transformModeChanged', _this, 'translate');
+                }
+            }, {
+                xtype: 'button',
+                id: 'rotateBtn',
+                text: '旋转',
+                title: 'E',
+                onClick: function () {
+                    _this.app.call('transformModeChanged', _this, 'rotate');
+                }
+            }, {
+                xtype: 'button',
+                id: 'scaleBtn',
+                text: '缩放',
+                title: 'R',
+                onClick: function () {
+                    _this.app.call('transformModeChanged', _this, 'scale');
+                }
+            }, {
+                xtype: 'label',
+                text: '网格：'
+            }, {
+                id: 'grid',
+                xtype: 'number',
+                value: 25, // 网格数量
+                onChange: function () {
+                    _this.app.call('gridChange', _this, this);
+                }
+            }, {
+                id: 'snap',
+                xtype: 'boolean',
+                value: false, // 对齐网格
+                text: '单元',
+                onChange: function () {
+                    _this.app.call('gridChange', _this, this);
+                }
+            }, {
+                id: 'local',
+                xtype: 'boolean',
+                value: false, // 坐标系
+                text: '本地',
+                onChange: function () {
+                    _this.app.call('gridChange', _this, this);
+                }
+            }, {
+                id: 'showGrid',
+                xtype: 'boolean',
+                value: true,
+                text: '网格', // 显示/隐藏网格
+                onChange: function () {
+                    _this.app.call('gridChange', _this, this);
+                }
+            }]
+        }]
+    };
 
-    // 缩放
-    this.scaleBtn = new UI.Button({
-        id: 'scaleBtn',
-        text: '缩放',
-        title: 'R',
-        onClick: function () {
-            _this.app.call('transformModeChanged', _this, 'scale');
-        }
-    });
-    this.buttons.add(this.scaleBtn);
+    var control = XType.create(data);
+    control.render();
 
-    // 网格数量
-    this.grid = new UI.Number({
-        value: 25,
-        onChange: function () {
-            _this.app.call('gridChange', _this, this);
-        }
-    });
-    this.buttons.add(new UI.Label({ text: '网格：' }));
-    this.buttons.add(this.grid);
-
-    // 单元格
-    this.snap = new UI.Boolean({
-        value: false,
-        text: '单元',
-        onChange: function () {
-            _this.app.call('gridChange', _this, this);
-        }
-    });
-    this.buttons.add(this.snap);
-
-    // 坐标系类型
-    this.local = new UI.Boolean({
-        value: false,
-        text: '本地',
-        onChange: function () {
-            _this.app.call('gridChange', _this, this);
-        }
-    });
-    this.buttons.add(this.local);
-
-    // 显示 / 隐藏网格
-    this.showGrid = new UI.Boolean({
-        value: true,
-        text: '网格',
-        onChange: function () {
-            _this.app.call('gridChange', _this, this);
-        }
-    });
-    this.buttons.add(this.showGrid);
-
-    this.container.render();
+    this.grid = XType.getControl('grid');
+    this.snap = XType.getControl('snap');
+    this.local = XType.getControl('local');
+    this.showGrid = XType.getControl('showGrid');
 };
 
 export default StatusBar;

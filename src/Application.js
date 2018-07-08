@@ -36,7 +36,10 @@ function Application(container, options) {
     this.editor = new Editor(this); // 编辑器
 
     this.sidebar = new Sidebar(this); // 侧边栏
+
     this.statusBar = new StatusBar(this); // 状态栏
+    this.statusBar.render();
+
     this.script = new Script(this); // 脚本编辑窗口
     this.player = new Player(this); // 启动窗口
 

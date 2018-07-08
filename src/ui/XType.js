@@ -4,8 +4,11 @@
  * 使用json对象表示控件实例
  */
 function XTypeCls() {
-    this.xtypes = {
+    this.xtypes = { // xtype缓存
         control: Control
+    };
+    this.objects = { // 实例缓存
+
     };
 }
 
@@ -31,6 +34,14 @@ XTypeCls.prototype.remove = function (name) {
 };
 
 /**
+ * 获取xtype
+ * @param {*} name xtype字符串
+ */
+XTypeCls.prototype.get = function (name) {
+    return this.xtypes[name];
+};
+
+/**
  * 通过json配置将xtype转换为实例
  * @param {*} config xtype配置
  */
@@ -49,7 +60,22 @@ XTypeCls.prototype.create = function (config) {
         throw `XType: xtype '${config.xtype}' is undefined.`;
     }
 
-    return new cls(config);
+    var control = new cls(config);
+    if (control.id && this.objects[control.id] !== undefined) {
+        throw `XType: the control with id equals to ${control.id} has already created.`;
+    } else if (control.id) {
+        this.objects[control.id] = control;
+    }
+
+    return control;
+};
+
+/**
+ * 根据id获取一个控件实例
+ * @param {*} id 控件id
+ */
+XTypeCls.prototype.getControl = function (id) {
+    return this.objects[id];
 };
 
 /**
