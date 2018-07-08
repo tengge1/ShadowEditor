@@ -46,6 +46,7 @@ AddFireEvent.prototype.onAddFire = function () {
     );
 
     fire.mesh.name = 'Fire ' + ID++;
+    fire.mesh.useSelectionBox = false;
     fire.mesh.geometry.boundingBox = new THREE.Box3(
         new THREE.Vector3(-fireWidth, -fireHeight, -fireDepth),
         new THREE.Vector3(fireWidth, fireHeight, fireDepth)

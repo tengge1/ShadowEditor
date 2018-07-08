@@ -49,7 +49,7 @@ TransformControlsEvent.prototype.onChange = function () {
 
     var object = transformControls.object;
 
-    if (object !== undefined) {
+    if (object !== undefined && object.useSelectionBox !== false) {
         selectionBox.setFromObject(object);
 
         if (editor.helpers[object.id] !== undefined) {

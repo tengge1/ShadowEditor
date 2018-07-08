@@ -62,7 +62,7 @@ function Editor(app) {
     this.grid = new THREE.GridHelper(60, 60);
     this.sceneHelpers.add(this.grid);
 
-    // 选中包围盒
+    // 选中包围盒（当mesh.useSelectionBox === false时，不使用包围盒）
     this.selectionBox = new THREE.BoxHelper();
     this.selectionBox.material.depthTest = false;
     this.selectionBox.material.transparent = true;

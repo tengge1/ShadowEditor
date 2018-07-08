@@ -52,7 +52,7 @@ ObjectEvent.prototype.onObjectChanged = function (object) {
     var selectionBox = editor.selectionBox;
     var transformControls = editor.transformControls;
 
-    if (editor.selected === object) {
+    if (editor.selected === object && object.useSelectionBox !== false) {
         selectionBox.setFromObject(object);
         transformControls.update();
     }
@@ -88,7 +88,7 @@ ObjectEvent.prototype.onObjectSelected = function (object) {
 
     if (object !== null && object !== scene) {
         box.setFromObject(object);
-        if (box.isEmpty() === false) {
+        if (box.isEmpty() === false && object.useSelectionBox !== false) {
             selectionBox.setFromObject(object);
             selectionBox.visible = true;
         }
