@@ -74,7 +74,8 @@ function MaterialPanel(app) {
             'MeshStandardMaterial': '标准材质',
             'MeshPhysicalMaterial': '物理材质',
             'ShaderMaterial': '着色器材质',
-            'SpriteMaterial': '精灵材质'
+            'SpriteMaterial': '精灵材质',
+            'RawShaderMaterial': '原始着色器材质'
         },
         style: 'width: 150px; font-size: 12px; ',
         onChange: update
