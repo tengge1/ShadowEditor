@@ -1,60 +1,53 @@
-﻿import UI from '../ui/UI';
+﻿import Control from '../ui/Control';
+import XType from '../ui/XType';
 
 /**
  * 场景信息面板
  * @author mrdoob / http://mrdoob.com/
  */
-function ViewportInfo(app, container) {
-    this.parent = container;
+function ViewportInfo(options) {
+    Control.call(this, options);
+};
 
-    this.container = new UI.Div({
-        parent: this.parent.dom,
-        cls: 'info'
-    });
+ViewportInfo.prototype = Object.create(Control.prototype);
+ViewportInfo.prototype.constructor = ViewportInfo;
 
-    // 物体数
-    this.objectsLabel = new UI.Label({
-        text: '物体'
-    });
+ViewportInfo.prototype.render = function () {
+    var data = {
+        xtype: 'div',
+        parent: this.parent,
+        cls: 'info',
+        children: [{
+            xtype: 'label',
+            text: '物体'
+        }, {
+            xtype: 'text',
+            id: 'objectsText',
+            text: '0' // 物体数
+        }, {
+            xtype: 'br'
+        }, {
+            xtype: 'label',
+            text: '顶点'
+        }, {
+            xtype: 'text',
+            id: 'verticesText',
+            text: '0' // 顶点数
+        }, {
+            xtype: 'br'
+        }, {
+            xtype: 'label',
+            text: '三角形'
+        }, {
+            xtype: 'text',
+            id: 'trianglesText',
+            text: '0' // 三角形数
+        }]
+    };
 
-    this.objectsText = new UI.Text({
-        id: 'objectsText',
-        text: '0'
-    });
-
-    this.container.add(this.objectsLabel);
-    this.container.add(this.objectsText);
-    this.container.add(new UI.Break());
-
-    // 顶点数
-    this.verticesLabel = new UI.Label({
-        text: '顶点'
-    });
-
-    this.verticesText = new UI.Text({
-        id: 'verticesText',
-        text: '0'
-    });
-
-    this.container.add(this.verticesLabel);
-    this.container.add(this.verticesText);
-    this.container.add(new UI.Break());
-
-    // 三角形数
-    this.trianglesLabel = new UI.Label({
-        text: '三角形'
-    });
-
-    this.trianglesText = new UI.Text({
-        id: 'trianglesText',
-        text: '0'
-    });
-
-    this.container.add(this.trianglesLabel);
-    this.container.add(this.trianglesText);
-    this.container.add(new UI.Break());
-
-    this.container.render();
+    var control = XType.create(data);
+    control.parent = this.parent;
+    control.render();
 };
 
 export default ViewportInfo;

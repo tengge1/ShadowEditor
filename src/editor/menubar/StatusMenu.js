@@ -26,7 +26,7 @@ StatusMenu.prototype.render = function () {
             id: 'bAutoSave',
             xtype: 'boolean',
             text: '自动保存',
-            value: this.app.editor.config.getKey('autosave'),
+            value: true,
             style: 'color: #888 !important;',
             onChange: function (e) {
                 _this.app.editor.config.setKey('autosave', e.target.checked);

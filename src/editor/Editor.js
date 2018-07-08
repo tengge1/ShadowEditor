@@ -2,6 +2,7 @@
 import History from '../core/History';
 import Storage from '../core/Storage';
 import Loader from '../core/Loader';
+import RendererChangedEvent from '../event/viewport/RendererChangedEvent';
 
 /**
  * 编辑器
@@ -9,6 +10,7 @@ import Loader from '../core/Loader';
  */
 function Editor(app) {
     this.app = app;
+    this.app.editor = this;
 
     // 基础
     this.config = new Config('threejs-editor');
@@ -41,16 +43,38 @@ function Editor(app) {
     };
 
     this.renderer = this.createRendererFromConfig();
+    this.app.viewport.container.dom.appendChild(this.renderer.domElement);
+    (new RendererChangedEvent(this.app)).onRendererChanged(this.renderer);
 
     // 缓存
     this.object = {};
+    this.objects = [];
     this.geometries = {};
     this.materials = {};
     this.textures = {};
     this.scripts = {};
     this.helpers = {};
 
+    // 当前选中物体
     this.selected = null;
+
+    // 网格
+    this.grid = new THREE.GridHelper(60, 60);
+    this.sceneHelpers.add(this.grid);
+
+    // 选中包围盒
+    this.selectionBox = new THREE.BoxHelper();
+    this.selectionBox.material.depthTest = false;
+    this.selectionBox.material.transparent = true;
+    this.selectionBox.visible = false;
+    this.sceneHelpers.add(this.selectionBox);
+
+    // 平移旋转缩放控件
+    this.transformControls = new THREE.TransformControls(this.camera, this.app.viewport.container.dom);
+    this.sceneHelpers.add(this.transformControls);
+
+    // 编辑器控件
+    this.controls = new THREE.EditorControls(this.camera, this.app.viewport.container.dom);
 };
 
 // ---------------------- 渲染器 ---------------------------

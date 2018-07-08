@@ -26,13 +26,15 @@ function Application(container, options) {
     this.call = this.event.call.bind(this.event);
     this.on = this.event.on.bind(this.event);
 
-    // 编辑器ui
-    this.editor = new Editor(this); // 编辑器
-
+    // 用户界面
     this.menubar = new Menubar(this); // 菜单栏
     this.menubar.render();
 
-    this.viewport = new Viewport(this); // 编辑区
+    this.viewport = new Viewport(this); // 场景编辑区
+    this.viewport.render();
+
+    this.editor = new Editor(this); // 编辑器
+
     this.sidebar = new Sidebar(this); // 侧边栏
     this.statusBar = new StatusBar(this); // 状态栏
     this.script = new Script(this); // 脚本编辑窗口
@@ -50,6 +52,7 @@ Application.prototype.start = function () {
     this.call('resize', this);
     this.call('initApp', this);
     this.call('appStarted', this);
+    this.call('animate', this);
 };
 
 Application.prototype.stop = function () {
