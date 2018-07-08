@@ -29,7 +29,7 @@
 
   }
 
-}( this, function () {
+}( window, function () {
 
   'use strict';
 
@@ -170,6 +170,12 @@
       // Mapping texture coordinate to -1 => 1 for xy, 0=> 1 for y
       'vec3 color = sampleFire( texOut, vec4( 1.0, 2.0, 1.0, 0.5 ) ).xyz;',
       'gl_FragColor = vec4( color * 1.5, 1 );',
+
+      'if(color.x < 0.01 && color.y < 0.01 && color.z < 0.01) {',
+
+      ' discard; ',
+
+      '}',
 
     '}',
 

@@ -1,3 +1,5 @@
+import { WEBVR } from '../third_party';
+
 /**
  * 播放器
  * @author mrdoob / http://mrdoob.com/

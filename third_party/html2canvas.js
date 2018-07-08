@@ -187,3 +187,5 @@ function html2canvas( element ) {
 	return canvas;
 
 }
+
+export default html2canvas;

@@ -45,6 +45,7 @@ AddFireEvent.prototype.onAddFire = function () {
     );
 
     fire.mesh.name = 'Fire ' + ID++;
+    fire.mesh.position.y = 2;
     editor.execute(new AddObjectCommand(fire.mesh));
 
     this.app.on(`animate.Fire${ID - 1}`, function (clock) {

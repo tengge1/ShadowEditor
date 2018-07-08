@@ -239,3 +239,5 @@ var WEBVR = {
 	}
 
 };
+
+export default WEBVR;

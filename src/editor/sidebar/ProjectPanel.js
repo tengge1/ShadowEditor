@@ -1,4 +1,5 @@
-﻿import UI from '../../ui/UI';
+﻿import { System } from '../../third_party';
+import UI from '../../ui/UI';
 
 /**
  * 工程面板

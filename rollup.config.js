@@ -31,6 +31,7 @@ export default {
         name: 'Shadow',
         file: 'dist/ShadowEditor.js'
     },
+    treeshake: true,
     external: [],
     plugins: [
         glsl(),
