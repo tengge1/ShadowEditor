@@ -37,7 +37,7 @@ KeyDownEvent.prototype.onKeyDown = function (event) {
 
             var object = editor.selected;
 
-            if (confirm('Delete ' + object.name + '?') === false) return;
+            if (confirm('删除 ' + object.name + '?') === false) return;
 
             var parent = object.parent;
             if (parent !== null) editor.execute(new RemoveObjectCommand(object));
