@@ -43,7 +43,7 @@ function Viewport(app) {
     renderer.gammaOutput = gammaOut;
     if (shadows && renderer.shadowMap) {
         renderer.shadowMap.enabled = true;
-        // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     }
 
     this.app.viewport = this;
