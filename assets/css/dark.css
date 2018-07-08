@@ -84,12 +84,12 @@ select:hover {
 
 /* 状态栏 */
 
-#toolbar {
+#statusBar {
 	background-color: #111;
 	color: #333;
 }
 
-#toolbar .Panel {
+#statusBar .Panel {
 	color: #888;
 }
 

@@ -199,7 +199,7 @@ select:hover {
 	background-color: #111;
 }
 
-#toolbar {
+#statusBar {
 	position: absolute;
 	left: 0;
 	right: 300px;
@@ -209,16 +209,16 @@ select:hover {
 	color: #333;
 }
 
-#toolbar * {
+#statusBar * {
 	vertical-align: middle;
 }
 
-#toolbar .Panel {
+#statusBar .Panel {
 	padding: 4px;
 	color: #888;
 }
 
-#toolbar button {
+#statusBar button {
 	margin-right: 6px;
 }
 

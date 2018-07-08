@@ -282,7 +282,7 @@ div.Modal .Container {
 
 /* 状态栏 */
 
-#toolbar {
+#statusBar {
     position: absolute;
     left: 0;
     right: 300px;
@@ -293,16 +293,16 @@ div.Modal .Container {
     vertical-align: middle;
 }
 
-#toolbar .wrap {
+#statusBar .wrap {
     padding: 4px;
     color: #888;
 }
 
-#toolbar button {
+#statusBar button {
     margin-right: 6px;
 }
 
-#toolbar .wrap input.Number {
+#statusBar .wrap input.Number {
     width: 40px;
 }
 
