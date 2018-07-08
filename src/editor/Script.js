@@ -1,4 +1,5 @@
-import UI from '../ui/UI';
+import Control from '../ui/Control';
+import XType from '../ui/XType';
 import SetScriptValueCommand from '../command/SetScriptValueCommand';
 
 /**
@@ -7,34 +8,43 @@ import SetScriptValueCommand from '../command/SetScriptValueCommand';
  */
 function Script(app) {
     this.app = app;
-    var editor = this.app.editor;
+    Control.call(this, { parent: this.app.container });
+};
 
-    // 渲染ui
-    var container = new UI.Div({
+Script.prototype = Object.create(Control.prototype);
+Script.prototype.constructor = Script;
+
+Script.prototype.render = function () {
+    var container;
+
+    var data = {
+        xtype: 'div',
         parent: this.app.container,
         id: 'script',
-        style: 'background-color: #272822; display: none;'
-    });
+        style: 'background-color: #272822; display: none;',
+        children: [{
+            xtype: 'div',
+            style: 'padding: 10px;',
+            children: [{
+                id: 'scriptTitle',
+                xtype: 'text',
+                style: 'color: #fff;'
+            }, {
+                xtype: 'closebutton',
+                style: 'position: absolute; top: 3px; right: 1px; cursor: pointer',
+                onClick: function () {
+                    if (container) {
+                        container.dom.style.display = 'none';
+                    }
+                }
+            }]
+        }]
+    };
 
-    var header = new UI.Div({
-        style: 'padding: 10px;'
-    });
-    container.add(header);
-
-    var title = new UI.Text({
-        style: 'color: #fff;'
-    });
-    header.add(title);
-
-    var close = new UI.CloseButton({
-        style: 'position: absolute; top: 3px; right: 1px; cursor: pointer',
-        onClick: function () {
-            container.dom.style.display = 'none';
-        }
-    });
-    header.add(close);
-
+    container = XType.create(data);
     container.render();
+
+    var title = XType.getControl('scriptTitle');
 
     // 业务逻辑
     var currentMode;
