@@ -6,57 +6,53 @@
     <meta charset="utf-8">
     <title>Shadow Editor</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!-- codemirror -->
+    <link rel="stylesheet" href="assets/css/codemirror.css">
+    <link rel="stylesheet" href="assets/css/theme/monokai.css">
+    <link rel="stylesheet" href="assets/css/addon/dialog.css">
+    <link rel="stylesheet" href="assets/css/addon/show-hint.css">
+    <link rel="stylesheet" href="assets/css/addon/tern.css">
+
+    <!-- Shadow Editor -->
     <link href="assets/css/main.css" rel="stylesheet" />
     <link id="theme" href="assets/css/light.css" rel="stylesheet" />
 </head>
 
 <body>
     <div id="container" tabindex="10"></div>
+
+    <!-- three.js -->
     <script src="node_modules/three/build/three.js"></script>
+
+    <!-- third-party -->
     <script src="assets/js/jszip.min.js"></script>
+    <script src="assets/js/lzma.js"></script>
+    <script src="assets/js/ctm.js"></script>
 
-    <script src="third_party/loaders/ctm/lzma.js"></script>
-    <script src="third_party/loaders/ctm/ctm.js"></script>
-    <script src="third_party/loaders/ctm/CTMLoader.js"></script>
-    <script src="third_party/exporters/OBJExporter.js"></script>
-    <script src="third_party/exporters/STLExporter.js"></script>
+    <script src="assets/js/codemirror.js"></script>
+    <script src="assets/js/mode/javascript.js"></script>
+    <script src="assets/js/mode/glsl.js"></script>
+    <script src="assets/js/esprima.js"></script>
+    <script src="assets/js/jsonlint.js"></script>
+    <script src="assets/js/glslprep.min.js"></script>
+    <script src="assets/js/addon/dialog.js"></script>
+    <script src="assets/js/addon/show-hint.js"></script>
+    <script src="assets/js/addon/tern.js"></script>
 
-    <script src="third_party/loaders/deprecated/SceneLoader.js"></script>
+    <script src="assets/js/acorn/acorn.js"></script>
+    <script src="assets/js/acorn/acorn_loose.js"></script>
+    <script src="assets/js/acorn/walk.js"></script>
 
-    <script src="third_party/renderers/Projector.js"></script>
-    <script src="third_party/renderers/CanvasRenderer.js"></script>
-    <script src="third_party/renderers/RaytracingRenderer.js"></script>
-    <script src="third_party/renderers/SoftwareRenderer.js"></script>
-    <script src="third_party/renderers/SVGRenderer.js"></script>
+    <script src="assets/js/ternjs/polyfill.js"></script>
+    <script src="assets/js/ternjs/signal.js"></script>
+    <script src="assets/js/ternjs/tern.js"></script>
+    <script src="assets/js/ternjs/def.js"></script>
+    <script src="assets/js/ternjs/comment.js"></script>
+    <script src="assets/js/ternjs/infer.js"></script>
+    <script src="assets/js/ternjs/doc_comment.js"></script>
+    <script src="assets/js/tern-threejs/threejs.js"></script>
 
-    <link rel="stylesheet" href="third_party/codemirror/codemirror.css">
-    <link rel="stylesheet" href="third_party/codemirror/theme/monokai.css">
-    <script src="third_party/codemirror/codemirror.js"></script>
-    <script src="third_party/codemirror/mode/javascript.js"></script>
-    <script src="third_party/codemirror/mode/glsl.js"></script>
-
-    <script src="third_party/esprima.js"></script>
-    <script src="third_party/jsonlint.js"></script>
-    <script src="third_party/glslprep.min.js"></script>
-
-    <link rel="stylesheet" href="third_party/codemirror/addon/dialog.css">
-    <link rel="stylesheet" href="third_party/codemirror/addon/show-hint.css">
-    <link rel="stylesheet" href="third_party/codemirror/addon/tern.css">
-    <script src="third_party/codemirror/addon/dialog.js"></script>
-    <script src="third_party/codemirror/addon/show-hint.js"></script>
-    <script src="third_party/codemirror/addon/tern.js"></script>
-    <script src="third_party/acorn/acorn.js"></script>
-    <script src="third_party/acorn/acorn_loose.js"></script>
-    <script src="third_party/acorn/walk.js"></script>
-    <script src="third_party/ternjs/polyfill.js"></script>
-    <script src="third_party/ternjs/signal.js"></script>
-    <script src="third_party/ternjs/tern.js"></script>
-    <script src="third_party/ternjs/def.js"></script>
-    <script src="third_party/ternjs/comment.js"></script>
-    <script src="third_party/ternjs/infer.js"></script>
-    <script src="third_party/ternjs/doc_comment.js"></script>
-    <script src="third_party/tern-threejs/threejs.js"></script>
-
+    <!-- Shadow Editor -->
     <script src="dist/ShadowEditor.js"></script>
     <script>
         var container = null;

@@ -23,6 +23,16 @@ import '../third_party/loaders/TGALoader.js';
 import '../third_party/loaders/UTF8Loader.js';
 import '../third_party/loaders/VRMLLoader.js';
 import '../third_party/loaders/VTKLoader.js';
+import '../third_party/loaders/ctm/CTMLoader.js';
+import '../third_party/exporters/OBJExporter.js';
+import '../third_party/exporters/STLExporter.js';
+import '../third_party/loaders/deprecated/SceneLoader.js';
+
+import '../third_party/renderers/Projector.js';
+import '../third_party/renderers/CanvasRenderer.js';
+import '../third_party/renderers/RaytracingRenderer.js';
+import '../third_party/renderers/SoftwareRenderer.js';
+import '../third_party/renderers/SVGRenderer.js';
 
 import '../third_party/effects/VREffect.js';
 import '../third_party/controls/VRControls.js';
