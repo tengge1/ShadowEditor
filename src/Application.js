@@ -1,12 +1,15 @@
 import Options from './Options';
-import Editor from './editor/Editor';
+
 import EventDispatcher from './event/EventDispatcher';
+
+import Menubar from './editor/Menubar';
 import Viewport from './editor/Viewport';
 import Script from './editor/Script';
-import Player from './core/Player';
+import Player from './editor/Player';
 import StatusBar from './editor/StatusBar';
-import Menubar from './editor/Menubar';
 import Sidebar from './editor/sidebar/Sidebar';
+
+import Editor from './editor/Editor';
 
 /**
  * 应用程序
@@ -40,10 +43,11 @@ function Application(container, options) {
     this.statusBar = new StatusBar(this); // 状态栏
     this.statusBar.render();
 
-    this.script = new Script(this); // 脚本编辑窗口
+    this.script = new Script(this); // 脚本编辑面板
     this.script.render();
 
-    this.player = new Player(this); // 启动窗口
+    this.player = new Player(this); // 播放器面板
+    this.player.render();
 
     // 是否从文件中加载场景，从文件中加载场景的url格式是index.html#file=xxx
     this.isLoadingFromHash = false;

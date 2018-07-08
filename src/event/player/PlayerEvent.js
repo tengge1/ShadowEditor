@@ -26,7 +26,7 @@ PlayerEvent.prototype.stop = function () {
 };
 
 PlayerEvent.prototype.onResize = function () {
-    var player = this.app.editor.player;
+    var player = this.app.player.player;
     var container = this.app.player.container;
 
     player.setSize(container.dom.clientWidth, container.dom.clientHeight);
@@ -34,7 +34,7 @@ PlayerEvent.prototype.onResize = function () {
 
 PlayerEvent.prototype.onStartPlayer = function () {
     var editor = this.app.editor;
-    var player = editor.player;
+    var player = this.app.player.player;
     var container = this.app.player.container;
 
     container.dom.style.display = '';
@@ -45,8 +45,7 @@ PlayerEvent.prototype.onStartPlayer = function () {
 };
 
 PlayerEvent.prototype.onStopPlayer = function () {
-    var editor = this.app.editor;
-    var player = editor.player;
+    var player = this.app.player.player;
     var container = this.app.player.container;
 
     container.dom.style.display = 'none';

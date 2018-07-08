@@ -4,6 +4,7 @@ export { default as Menubar } from './Menubar';
 export { default as StatusBar } from './StatusBar';
 export { default as Editor } from './Editor';
 export { default as Script } from './Script';
+export { default as Player } from './Player';
 
 export { default as HistoryPanel } from './sidebar/HistoryPanel';
 export { default as MaterialPanel } from './sidebar/MaterialPanel';

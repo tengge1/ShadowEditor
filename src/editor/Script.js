@@ -3,7 +3,7 @@ import XType from '../ui/XType';
 import SetScriptValueCommand from '../command/SetScriptValueCommand';
 
 /**
- * 脚本编辑窗口
+ * 脚本编辑面板
  * @author mrdoob / http://mrdoob.com/
  */
 function Script(app) {
