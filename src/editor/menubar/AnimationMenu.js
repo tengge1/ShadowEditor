@@ -36,6 +36,14 @@ AnimationMenu.prototype.render = function () {
                 onClick: function () {
                     _this.app.call('mAddFire', _this);
                 }
+            }, {
+                id: 'mSmoke',
+                xtype: 'div',
+                cls: 'option',
+                html: '烟',
+                onClick: function () {
+                    _this.app.call('mAddSmoke', _this);
+                }
             }]
         }]
     };

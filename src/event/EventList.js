@@ -137,6 +137,7 @@ var EventList = [
     'mExportSTL', // 导出stl模型
 
     'mAddFire', // 添加火焰
+    'mAddSmoke', // 添加烟
 
     'mPlay', // 启动
 

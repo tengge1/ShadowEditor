@@ -23,8 +23,12 @@ AnimateEvent.prototype.stop = function () {
 };
 
 AnimateEvent.prototype.onAnimate = function () {
+    this.app.editor.stats.begin();
+
     this.app.call('animate', this, this.clock);
     this.app.call('render', this);
+
+    this.app.editor.stats.end();
 
     if (this.running) {
         requestAnimationFrame(this.onAnimate.bind(this));
