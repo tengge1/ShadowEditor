@@ -11619,5 +11619,3 @@ https://github.com/nodeca/pako/blob/master/LICENSE
     }, {}]
   }, {}, [10])(10)
 });
-
-export { JSZip, ZStream };
