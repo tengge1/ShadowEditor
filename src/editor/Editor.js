@@ -31,7 +31,16 @@ function Editor(app) {
 
     this.camera = this.DEFAULT_CAMERA.clone();
 
+    // 渲染器
+    this.rendererTypes = {
+        'WebGLRenderer': THREE.WebGLRenderer,
+        'CanvasRenderer': THREE.CanvasRenderer,
+        'SVGRenderer': THREE.SVGRenderer,
+        'SoftwareRenderer': THREE.SoftwareRenderer,
+        'RaytracingRenderer': THREE.RaytracingRenderer
+    };
 
+    this.renderer = this.createRendererFromConfig();
 
     // 缓存
     this.object = {};
@@ -42,6 +51,43 @@ function Editor(app) {
     this.helpers = {};
 
     this.selected = null;
+};
+
+// ---------------------- 渲染器 ---------------------------
+
+Editor.prototype.createRenderer = function (options) { // 创建渲染器
+    var rendererType = options.rendererType === undefined ? 'WebGLRenderer' : options.rendererType;
+    var antialias = options.antialias === undefined ? true : options.antialias;
+    var shadows = options.shadows === undefined ? true : options.shadows;
+    var gammaIn = options.gammaIn === undefined ? false : options.gammaIn;
+    var gammaOut = options.gammaOut === undefined ? false : options.gammaOut;
+    var rendererTypes = this.rendererTypes;
+
+    var renderer = new rendererTypes[rendererType]({ antialias: antialias });
+    renderer.gammaInput = gammaIn;
+    renderer.gammaOutput = gammaOut;
+    if (shadows && renderer.shadowMap) {
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    };
+
+    return renderer;
+};
+
+Editor.prototype.createRendererFromConfig = function () { // 从配置创建渲染器
+    var rendererType = this.config.getKey('project/renderer');
+    var antialias = this.config.getKey('project/renderer/antialias');
+    var shadows = this.config.getKey('project/renderer/shadows');
+    var gammaIn = this.config.getKey('project/renderer/gammaInput');
+    var gammaOut = this.config.getKey('project/renderer/gammaOutput');
+
+    return this.createRenderer({
+        rendererType: rendererType,
+        antialias: antialias,
+        shadows: shadows,
+        gammaIn: gammaIn,
+        gammaOut: gammaOut
+    });
 };
 
 // -------------------- 编辑器 --------------------------

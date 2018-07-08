@@ -9,7 +9,6 @@ import RendererChangedEvent from '../event/viewport/RendererChangedEvent';
 function Viewport(app) {
     this.app = app;
     var editor = this.app.editor;
-    var _this = this;
 
     // 用户界面
 
@@ -23,31 +22,10 @@ function Viewport(app) {
 
     this.viewportInfo = new ViewportInfo(this.app, this.container);
 
-    // 创建渲染器
-    var rendererTypes = {
-        'WebGLRenderer': THREE.WebGLRenderer,
-        'CanvasRenderer': THREE.CanvasRenderer,
-        'SVGRenderer': THREE.SVGRenderer,
-        'SoftwareRenderer': THREE.SoftwareRenderer,
-        'RaytracingRenderer': THREE.RaytracingRenderer
-    };
-
-    var type = editor.config.getKey('project/renderer');
-    var antialias = editor.config.getKey('project/renderer/antialias');
-    var shadows = editor.config.getKey('project/renderer/shadows');
-    var gammaIn = editor.config.getKey('project/renderer/gammaInput');
-    var gammaOut = editor.config.getKey('project/renderer/gammaOutput');
-
-    var renderer = new rendererTypes[type]({ antialias: antialias });
-    renderer.gammaInput = gammaIn;
-    renderer.gammaOutput = gammaOut;
-    if (shadows && renderer.shadowMap) {
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    }
-
     this.app.viewport = this;
-    (new RendererChangedEvent(this.app)).onRendererChanged(renderer);
+
+    container.dom.appendChild(editor.renderer.domElement);
+    (new RendererChangedEvent(this.app)).onRendererChanged(editor.renderer);
 
 
     // 相机和场景
@@ -58,10 +36,6 @@ function Viewport(app) {
 
     var objects = [];
     editor.objects = objects;
-
-    //
-
-    var vrEffect;
 
     // helpers
 
