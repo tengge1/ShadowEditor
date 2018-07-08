@@ -136,6 +136,8 @@ var EventList = [
     'mExportOBJ', // 导出obj模型
     'mExportSTL', // 导出stl模型
 
+    'mAddFire', // 添加火焰
+
     'mPlay', // 启动
 
     'mVRMode', // VR模式

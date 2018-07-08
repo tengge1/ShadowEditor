@@ -2,6 +2,8 @@ import { dispatch } from '../third_party';
 import EventList from './EventList';
 import BaseEvent from './BaseEvent';
 
+import AnimateEvent from './AnimateEvent';
+
 import InitAppEvent from './app/InitAppEvent';
 
 import DragOverEvent from './dom/DragOverEvent';
@@ -71,6 +73,8 @@ import ExportSceneEvent from './menu/asset/ExportSceneEvent';
 import ExportOBJEvent from './menu/asset/ExportOBJEvent';
 import ExportSTLEvent from './menu/asset/ExportSTLEvent';
 
+import AddFireEvent from './menu/particle/AddFireEvent';
+
 import PlayEvent from './menu/play/PlayEvent';
 
 import VRModeEvent from './menu/view/VRModeEvent';
@@ -85,7 +89,6 @@ import SavingStatusEvent from './menu/status/SavingStatusEvent';
 import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateViewportInfoEvent from './viewport/UpdateViewportInfoEvent';
 import RenderEvent from './viewport/RenderEvent';
-import AnimateEvent from './viewport/AnimateEvent';
 import ShowGridChangedEvent from './viewport/ShowGridChangedEvent';
 import SceneFogChangedEvent from './viewport/SceneFogChangedEvent';
 import SceneBackgroundChangedEvent from './viewport/SceneBackgroundChangedEvent';
@@ -114,6 +117,8 @@ function EventDispatcher(app) {
     this.addDomEventListener();
 
     this.events = [
+        new AnimateEvent(this.app),
+
         // Application中的事件
         new DragOverEvent(this.app),
         new DropEvent(this.app),
@@ -185,6 +190,8 @@ function EventDispatcher(app) {
         new ExportOBJEvent(this.app),
         new ExportSTLEvent(this.app),
 
+        new AddFireEvent(this.app),
+
         new PlayEvent(this.app),
 
         new VRModeEvent(this.app),
@@ -200,7 +207,6 @@ function EventDispatcher(app) {
         new TransformControlsEvent(this.app),
         new UpdateViewportInfoEvent(this.app),
         new RenderEvent(this.app),
-        new AnimateEvent(this.app),
         new ShowGridChangedEvent(this.app),
         new SceneFogChangedEvent(this.app),
         new SceneBackgroundChangedEvent(this.app),

@@ -49,11 +49,15 @@ function Application(container, options) {
     this.player = new Player(this); // 播放器面板
     this.player.render();
 
+    this.running = false;
+
     // 是否从文件中加载场景，从文件中加载场景的url格式是index.html#file=xxx
     this.isLoadingFromHash = false;
 }
 
 Application.prototype.start = function () {
+    this.running = true;
+
     // 启动事件 - 事件要在ui创建完成后启动
     this.event.start();
 
@@ -61,10 +65,11 @@ Application.prototype.start = function () {
     this.call('resize', this);
     this.call('initApp', this);
     this.call('appStarted', this);
-    this.call('animate', this);
 };
 
 Application.prototype.stop = function () {
+    this.running = false;
+
     this.call('appStop', this);
     this.call('appStoped', this);
 
