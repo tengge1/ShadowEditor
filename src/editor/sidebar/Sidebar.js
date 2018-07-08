@@ -16,6 +16,7 @@ function Sidebar(app) {
     var editor = this.app.editor;
 
     var container = new UI.Div({
+        parent: this.app.container,
         id: 'sidebar'
     });
 
