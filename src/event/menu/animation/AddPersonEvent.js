@@ -30,6 +30,8 @@ AddPersonEvent.prototype.onAddPerson = function () {
     var editor = this.app.editor;
     var camera = editor.camera;
 
+    var _this = this;
+
     new THREE.ObjectLoader().load('assets/models/marine/marine_anims_core.json', function (loadedObject) {
         var mesh;
 
@@ -44,10 +46,10 @@ AddPersonEvent.prototype.onAddPerson = function () {
             return;
         }
 
+        mesh.scale.set(0.1, 0.1, 0.1);
         mesh.rotation.y = - 135 * Math.PI / 180;
         mesh.name = 'Fire ' + ID++;
         editor.execute(new AddObjectCommand(mesh));
-        this.persons.push(mesh);
 
         mesh.mixer = new THREE.AnimationMixer(mesh);
         mesh.idleAction = mesh.mixer.clipAction('idle');
@@ -55,9 +57,11 @@ AddPersonEvent.prototype.onAddPerson = function () {
         mesh.runAction = mesh.mixer.clipAction('run');
         mesh.actions = [mesh.idleAction, mesh.walkAction, mesh.runAction];
         mesh.walkAction.play();
-    });
 
-    this.app.on(`animate.` + this.id, this.onAnimate.bind(this));
+        _this.persons.push(mesh);
+
+        _this.app.on(`animate.` + _this.id, _this.onAnimate.bind(_this));
+    });
 };
 
 AddPersonEvent.prototype.onObjectRemoved = function (object) {

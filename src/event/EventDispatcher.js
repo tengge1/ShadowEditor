@@ -73,6 +73,7 @@ import ExportSceneEvent from './menu/asset/ExportSceneEvent';
 import ExportOBJEvent from './menu/asset/ExportOBJEvent';
 import ExportSTLEvent from './menu/asset/ExportSTLEvent';
 
+import AddPersonEvent from './menu/animation/AddPersonEvent';
 import AddFireEvent from './menu/animation/AddFireEvent';
 import AddSmokeEvent from './menu/animation/AddSmokeEvent';
 
@@ -191,6 +192,7 @@ function EventDispatcher(app) {
         new ExportOBJEvent(this.app),
         new ExportSTLEvent(this.app),
 
+        new AddPersonEvent(this.app),
         new AddFireEvent(this.app),
         new AddSmokeEvent(this.app),
 
