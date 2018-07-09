@@ -136,6 +136,7 @@ var EventList = [
     'mExportOBJ', // 导出obj模型
     'mExportSTL', // 导出stl模型
 
+    'mAddPerson', // 添加人
     'mAddFire', // 添加火焰
     'mAddSmoke', // 添加烟
 
