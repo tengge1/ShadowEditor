@@ -46,9 +46,9 @@ AddPersonEvent.prototype.onAddPerson = function () {
             return;
         }
 
-        mesh.scale.set(0.1, 0.1, 0.1);
+        mesh.scale.set(0.01, 0.01, 0.01);
         mesh.rotation.y = - 135 * Math.PI / 180;
-        mesh.name = 'Fire ' + ID++;
+        mesh.name = 'Person ' + ID++;
         editor.execute(new AddObjectCommand(mesh));
 
         mesh.mixer = new THREE.AnimationMixer(mesh);
@@ -78,10 +78,10 @@ AddPersonEvent.prototype.onObjectRemoved = function (object) {
 };
 
 AddPersonEvent.prototype.onAnimate = function (clock) {
-    var elapsed = clock.getElapsedTime();
+    var mixerUpdateDelta = clock.getDelta();
 
     this.persons.forEach(function (person) {
-        person.mixer.update(elapsed);
+        person.mixer.update(mixerUpdateDelta);
     });
 };
 

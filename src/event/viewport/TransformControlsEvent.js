@@ -52,7 +52,7 @@ TransformControlsEvent.prototype.onChange = function () {
     if (object !== undefined && object.useSelectionBox !== false) {
         selectionBox.setFromObject(object);
 
-        if (editor.helpers[object.id] !== undefined) {
+        if (editor.helpers[object.id] !== undefined && !(editor.helpers[object.id] instanceof THREE.SkeletonHelper)) {
             editor.helpers[object.id].update();
         }
 
