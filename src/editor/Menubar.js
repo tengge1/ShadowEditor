@@ -1,6 +1,7 @@
 ﻿import Control from '../ui/Control';
 import Div from '../ui/Div';
 
+import Logo from './menubar/Logo';
 import SceneMenu from './menubar/SceneMenu';
 import EditMenu from './menubar/EditMenu';
 import AddMenu from './menubar/AddMenu';
@@ -22,6 +23,9 @@ function Menubar(app) {
     Control.call(this, { parent: this.app.container });
 
     this.children = [
+        // Logo
+        new Logo({ app: this.app }),
+
         // 左侧
         new SceneMenu({ app: this.app }),
         new EditMenu({ app: this.app }),

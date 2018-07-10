@@ -6,6 +6,7 @@ import Container from './Container';
 import Div from './Div';
 import Break from './Break';
 import Button from './Button';
+import IconButton from './IconButton';
 import Boolean from './Boolean';
 import Checkbox from './Checkbox';
 import CloseButton from './CloseButton';
@@ -37,6 +38,7 @@ const UI = {
     Div: Div,
     Break: Break,
     Button: Button,
+    IconButton: IconButton,
     Boolean: Boolean,
     Checkbox: Checkbox,
     CloseButton: CloseButton,

@@ -3,6 +3,7 @@ import Options from './Options';
 import EventDispatcher from './event/EventDispatcher';
 
 import Menubar from './editor/Menubar';
+import Toolbar from './editor/Toolbar';
 import Viewport from './editor/Viewport';
 import Script from './editor/Script';
 import Player from './editor/Player';
@@ -32,6 +33,9 @@ function Application(container, options) {
     // 用户界面
     this.menubar = new Menubar(this); // 菜单栏
     this.menubar.render();
+
+    this.toolbar = new Toolbar(this); // 工具栏
+    this.toolbar.render();
 
     this.viewport = new Viewport(this); // 场景编辑区
     this.viewport.render();

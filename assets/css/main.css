@@ -43,6 +43,10 @@ button.selected {
     background-color: #fff;
 }
 
+.IconButton i {
+    font-size: 24px;
+}
+
 textarea {
     tab-size: 4;
     white-space: pre;
@@ -203,6 +207,19 @@ div.Modal .Container {
     z-index: 1;
 }
 
+#menubar .logo {
+    float: left;
+    width: 56px;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#menubar .logo i {
+    font-size: 26px;
+}
+
 #menubar .menu {
     float: left;
     cursor: pointer;
@@ -270,12 +287,35 @@ div.Modal .Container {
     vertical-align: middle;
 }
 
+/* 工具栏 */
+
+#toolbar {
+    position: absolute;
+    top: 32px;
+    left: 0;
+    bottom: 32px;
+    width: 48px;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+#toolbar .Button {
+    margin-top: 3px;
+}
+
+#toolbar .Button:first-child {
+    margin-top: 0;
+}
+
 /* 场景编辑区 */
 
 #viewport {
     position: absolute;
     top: 32px;
-    left: 0;
+    left: 48px;
     right: 300px;
     bottom: 32px;
 }

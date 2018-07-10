@@ -28,7 +28,7 @@ Button.prototype.render = function () {
         this.dom.id = this.id;
     }
 
-    this.dom.textContent = this.text;
+    this.dom.innerHTML = this.text;
 
     this.dom.className = this.cls;
 
