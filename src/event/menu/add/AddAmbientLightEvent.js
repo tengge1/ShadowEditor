@@ -28,7 +28,7 @@ AddAmbientLightEvent.prototype.stop = function () {
 AddAmbientLightEvent.prototype.onAddAmbientLightEvent = function () {
     var editor = this.app.editor;
 
-    var color = 0x222222;
+    var color = 0xaaaaaa;
 
     var light = new THREE.AmbientLight(color);
     light.name = 'AmbientLight ' + ID++;
