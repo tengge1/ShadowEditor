@@ -12,7 +12,7 @@ function BaseSerializer() {
  * @param {*} obj 对象
  */
 BaseSerializer.prototype.toJSON = function (obj) {
-
+    return {};
 };
 
 /**
@@ -20,7 +20,7 @@ BaseSerializer.prototype.toJSON = function (obj) {
  * @param {*} json json字符串
  */
 BaseSerializer.prototype.fromJSON = function (json) {
-
+    return null;
 };
 
 export default BaseSerializer;
