@@ -89,7 +89,7 @@ import AboutEvent from './menu/help/AboutEvent';
 import SavingStatusEvent from './menu/status/SavingStatusEvent';
 
 import TransformControlsEvent from './viewport/TransformControlsEvent';
-import UpdateViewportInfoEvent from './viewport/UpdateViewportInfoEvent';
+import UpdateSceneStatusEvent from './statusBar/UpdateSceneStatusEvent';
 import RenderEvent from './viewport/RenderEvent';
 import ShowGridChangedEvent from './viewport/ShowGridChangedEvent';
 import SceneFogChangedEvent from './viewport/SceneFogChangedEvent';
@@ -209,7 +209,7 @@ function EventDispatcher(app) {
 
         // viewport中的事件
         new TransformControlsEvent(this.app),
-        new UpdateViewportInfoEvent(this.app),
+        new UpdateSceneStatusEvent(this.app),
         new RenderEvent(this.app),
         new ShowGridChangedEvent(this.app),
         new SceneFogChangedEvent(this.app),

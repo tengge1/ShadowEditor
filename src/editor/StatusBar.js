@@ -20,6 +20,28 @@ StatusBar.prototype.render = function () {
         xtype: 'div',
         parent: this.app.container,
         id: 'statusBar',
+        children: [{
+            xtype: 'label',
+            text: '物体'
+        }, {
+            xtype: 'text',
+            id: 'objectsText',
+            text: '0' // 物体数
+        }, {
+            xtype: 'label',
+            text: '顶点'
+        }, {
+            xtype: 'text',
+            id: 'verticesText',
+            text: '0' // 顶点数
+        }, {
+            xtype: 'label',
+            text: '三角形'
+        }, {
+            xtype: 'text',
+            id: 'trianglesText',
+            text: '0' // 三角形数
+        }]
         // children: [{
         //     xtype: 'div',
         //     cls: 'wrap',
@@ -89,10 +111,10 @@ StatusBar.prototype.render = function () {
     var control = XType.create(data);
     control.render();
 
-    this.grid = XType.getControl('grid');
-    this.snap = XType.getControl('snap');
-    this.local = XType.getControl('local');
-    this.showGrid = XType.getControl('showGrid');
+    // this.grid = XType.getControl('grid');
+    // this.snap = XType.getControl('snap');
+    // this.local = XType.getControl('local');
+    // this.showGrid = XType.getControl('showGrid');
 };
 
 export default StatusBar;

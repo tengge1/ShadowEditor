@@ -1,36 +1,31 @@
 import BaseEvent from '../BaseEvent';
+import XType from '../../ui/XType';
 
 /**
  * 更新场景编辑区信息事件
  * @param {*} app 
  */
-function UpdateViewportInfoEvent(app) {
+function UpdateSceneStatusEvent(app) {
     BaseEvent.call(this, app);
 }
 
-UpdateViewportInfoEvent.prototype = Object.create(BaseEvent.prototype);
-UpdateViewportInfoEvent.prototype.constructor = UpdateViewportInfoEvent;
+UpdateSceneStatusEvent.prototype = Object.create(BaseEvent.prototype);
+UpdateSceneStatusEvent.prototype.constructor = UpdateSceneStatusEvent;
 
-UpdateViewportInfoEvent.prototype.start = function () {
+UpdateSceneStatusEvent.prototype.start = function () {
     var _this = this;
-    this.app.on('objectAdded.' + this.id, function () {
-        _this.onUpdateInfo();
-    });
-    this.app.on('objectRemoved.' + this.id, function () {
-        _this.onUpdateInfo();
-    });
-    this.app.on('geometryChanged.' + this.id, function () {
-        _this.onUpdateInfo();
-    });
+    this.app.on('objectAdded.' + this.id, this.onUpdateInfo.bind(this));
+    this.app.on('objectRemoved.' + this.id, this.onUpdateInfo.bind(this));
+    this.app.on('geometryChanged.' + this.id, this.onUpdateInfo.bind(this));
 };
 
-UpdateViewportInfoEvent.prototype.stop = function () {
+UpdateSceneStatusEvent.prototype.stop = function () {
     this.app.on('objectAdded.' + this.id, null);
     this.app.on('objectRemoved.' + this.id, null);
     this.app.on('geometryChanged.' + this.id, null);
 };
 
-UpdateViewportInfoEvent.prototype.onUpdateInfo = function () {
+UpdateSceneStatusEvent.prototype.onUpdateInfo = function () {
     var editor = this.app.editor;
 
     var scene = editor.scene;
@@ -62,9 +57,13 @@ UpdateViewportInfoEvent.prototype.onUpdateInfo = function () {
         });
     }
 
-    document.getElementById('objectsText').innerHTML = objects.format();
-    document.getElementById('verticesText').innerHTML = vertices.format();
-    document.getElementById('trianglesText').innerHTML = triangles.format();
+    var objectsText = XType.getControl('objectsText');
+    var verticesText = XType.getControl('verticesText');
+    var trianglesText = XType.getControl('trianglesText');
+
+    objectsText.setValue(objects.format());
+    verticesText.setValue(vertices.format());
+    trianglesText.setValue(triangles.format());
 };
 
-export default UpdateViewportInfoEvent;
+export default UpdateSceneStatusEvent;

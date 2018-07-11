@@ -353,20 +353,21 @@ div.Modal .Container {
     height: 32px;
     background: #eee;
     color: #333;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-#statusBar .wrap {
-    padding: 4px;
-    color: #888;
+#statusBar label {
+    margin-right: 8px;
 }
 
-#statusBar button {
-    margin-right: 6px;
+#statusBar label:first-child {
+    margin-left: 8px;
 }
 
-#statusBar .wrap input.Number {
-    width: 40px;
+#statusBar span {
+    margin-right: 16px;
 }
 
 /* 侧边栏 */

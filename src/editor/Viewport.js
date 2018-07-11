@@ -1,6 +1,5 @@
 ﻿import Control from '../ui/Control';
 import XType from '../ui/XType';
-import ViewportInfo from './ViewportInfo';
 
 /**
  * 场景编辑区
@@ -21,11 +20,6 @@ Viewport.prototype.render = function () {
         id: 'viewport'
     });
     this.container.render();
-
-    this.viewportInfo = new ViewportInfo({
-        parent: this.container.dom
-    });
-    this.viewportInfo.render();
 };
 
 export default Viewport;
