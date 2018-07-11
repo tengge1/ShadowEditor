@@ -1,3 +1,3 @@
-export { default as SerializationType } from './SerializationType';
-export { default as BaseSerialization } from './BaseSerialization';
-export { default as Serializer } from './Serializer';
+export { default as ObjectType } from './ObjectType';
+export { default as BaseSerializer } from './BaseSerializer';
+export { default as Serialization } from './Serialization';
