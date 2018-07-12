@@ -1,11 +1,16 @@
 import BaseSerializer from './BaseSerializer';
 import SerializerType from './SerializerType';
+import Metadata from './Metadata';
 
 /**
  * 应用序列化和反序列化
  */
 const Converter = {
     toJSON: function (app) {
+        var list = [];
+
+        var config = app.editor.config.toJSON();
+
         // 需要序列化的对象
         var config = app.editor.config;
         var camera = app.editor.camera;
@@ -16,8 +21,9 @@ const Converter = {
         debugger
 
         // 开始序列化
-        var list = [];
 
+
+        // 配置
         var configJSON = config.toJSON();
 
         return list;
