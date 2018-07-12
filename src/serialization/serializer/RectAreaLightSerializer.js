@@ -2,7 +2,7 @@ import BaseSerializer from '../BaseSerializer';
 import LightSerializer from './LightSerializer';
 
 /**
- * RectAreaLight串行化
+ * RectAreaLight序列化器
  */
 function RectAreaLightSerializer() {
     BaseSerializer.call(this);
@@ -12,12 +12,12 @@ RectAreaLightSerializer.prototype = Object.create(BaseSerializer.prototype);
 RectAreaLightSerializer.prototype.constructor = RectAreaLightSerializer;
 
 RectAreaLightSerializer.prototype.toJSON = function (obj) {
-    var obj = LightSerializer.prototype.toJSON(obj);
+    var json = LightSerializer.prototype.toJSON(obj);
 
-    obj.width = item.width;
-    oboj.height = item.height;
+    json.width = item.width;
+    json.height = item.height;
 
-    return obj;
+    return json;
 };
 
 RectAreaLightSerializer.prototype.fromJSON = function (json) {

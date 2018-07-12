@@ -2,7 +2,7 @@ import BaseSerializer from '../BaseSerializer';
 import LightSerializer from './LightSerializer';
 
 /**
- * SpotLight串行化
+ * SpotLight序列化器
  */
 function SpotLightSerializer() {
     BaseSerializer.call(this);
@@ -12,14 +12,14 @@ SpotLightSerializer.prototype = Object.create(BaseSerializer.prototype);
 SpotLightSerializer.prototype.constructor = SpotLightSerializer;
 
 SpotLightSerializer.prototype.toJSON = function (obj) {
-    var obj = LightSerializer.prototype.toJSON(obj);
+    var json = LightSerializer.prototype.toJSON(obj);
 
-    obj.distance = item.distance;
-    obj.angle = item.angle;
-    obj.penumbra = item.penumbra;
-    obj.decay = item.decay;
+    json.distance = item.distance;
+    json.angle = item.angle;
+    json.penumbra = item.penumbra;
+    json.decay = item.decay;
 
-    return obj;
+    return json;
 };
 
 SpotLightSerializer.prototype.fromJSON = function (json) {

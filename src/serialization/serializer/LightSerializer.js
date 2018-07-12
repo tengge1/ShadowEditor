@@ -2,7 +2,7 @@ import BaseSerializer from '../BaseSerializer';
 import Object3DSerializer from './Object3DSerializer';
 
 /**
- * 网格串行化
+ * Light序列化器
  */
 function LightSerializer() {
     BaseSerializer.call(this);
@@ -12,12 +12,12 @@ LightSerializer.prototype = Object.create(BaseSerializer.prototype);
 LightSerializer.prototype.constructor = LightSerializer;
 
 LightSerializer.prototype.toJSON = function (obj) {
-    var obj = Object3DSerializer.prototype.toJSON(obj);
+    var json = Object3DSerializer.prototype.toJSON(obj);
 
-    obj.color = item.color;
-    obj.intensity = item.intensity;
+    json.color = item.color;
+    json.intensity = item.intensity;
 
-    return obj;
+    return json;
 };
 
 LightSerializer.prototype.fromJSON = function (json) {
