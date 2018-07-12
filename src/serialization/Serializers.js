@@ -23,9 +23,9 @@ import MaterialSerializer from './serializer/MaterialSerializer';
 import MeshSerializer from './serializer/MeshSerializer';
 
 /**
- * 序列化类型
+ * 所有序列化器
  */
-var SerializerType = {
+var Serializers = {
     // 配置
     Config: {
         Serializer: ConfigSerializer,
@@ -147,4 +147,4 @@ var SerializerType = {
     }
 };
 
-export default SerializerType;
+export default Serializers;

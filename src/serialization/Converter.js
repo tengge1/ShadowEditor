@@ -1,6 +1,5 @@
 import BaseSerializer from './BaseSerializer';
-import SerializerType from './SerializerType';
-import Metadata from './Metadata';
+import Serializers from './Serializers';
 
 /**
  * 应用序列化和反序列化
@@ -9,7 +8,10 @@ const Converter = {
     toJSON: function (app) {
         var list = [];
 
-        var config = app.editor.config.toJSON();
+        var config = {
+            Metadata: Serializers.Config.Metadata,
+            Object: Serializers.Config.Serializer.toJSON(app.editor.config),
+        };
 
         // 需要序列化的对象
         var config = app.editor.config;

@@ -1,5 +1,5 @@
 export { default as BaseSerializer } from './BaseSerializer';
-export { default as SerializerType } from './SerializerType';
+
 export { default as GeometrySerializer } from './serializer/GeometrySerializer';
 export { default as HemisphereLightSerializer } from './serializer/HemisphereLightSerializer';
 export { default as LightSerializer } from './serializer/LightSerializer';
@@ -11,4 +11,5 @@ export { default as RectAreaLightSerializer } from './serializer/RectAreaLightSe
 export { default as SceneSerializer } from './serializer/SceneSerializer';
 export { default as SpotLightSerializer } from './serializer/SpotLightSerializer';
 
+export { default as Serializers } from './Serializers';
 export { default as Converter } from './Converter';
