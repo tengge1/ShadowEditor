@@ -44,6 +44,10 @@ function Config(name) {
 
         clear: function () {
             delete window.localStorage[name];
+        },
+
+        toJSON: function () {
+            return storage;
         }
     };
 };

@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import SceneUtils from '../../utils/SceneUtils';
+import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';
 
 /**
@@ -25,9 +25,8 @@ SaveEvent.prototype.stop = function () {
 };
 
 SaveEvent.prototype.onSave = function () {
-    var editor = this.app.editor;
+    var obj = Converter.toJSON(this.app);
 
-    var obj = SceneUtils.toJSON(editor.scene);
     Ajax.post(this.app.options.server + '/Service/SceneService.ashx?cmd=Save', {
         name: 'Scene1',
         data: JSON.stringify(obj)
