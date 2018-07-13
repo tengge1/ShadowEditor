@@ -1,6 +1,7 @@
 import Metadata from './Metadata';
 
 import ConfigSerializer from './serializer/ConfigSerializer';
+import ScriptSerializer from './serializer/ScriptSerializer';
 
 import Object3DSerializer from './serializer/Object3DSerializer';
 
@@ -28,16 +29,24 @@ import MeshSerializer from './serializer/MeshSerializer';
 var Serializers = {
     // 配置
     Config: {
-        Serializer: ConfigSerializer,
+        Serializer: new ConfigSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: ConfigSerializer.name,
-            type: 'Object'
+            type: 'Config'
+        })
+    },
+
+    Script: {
+        Serializer: new ScriptSerializer(),
+        Metadata: Object.assign({}, Metadata, {
+            generator: ScriptSerializer.name,
+            type: 'Script'
         })
     },
 
     // 物体
     Object3D: {
-        Serializer: Object3DSerializer,
+        Serializer: new Object3DSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: Object3DSerializer.name,
             type: THREE.Object3D.name
@@ -46,7 +55,7 @@ var Serializers = {
 
     // 场景
     Scene: {
-        Serializer: SceneSerializer,
+        Serializer: new SceneSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: SceneSerializer.name,
             type: THREE.Scene.name
@@ -55,7 +64,7 @@ var Serializers = {
 
     // 相机
     Camera: {
-        Serializer: CameraSerializer,
+        Serializer: new CameraSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: CameraSerializer.name,
             type: THREE.Camera.name
@@ -63,7 +72,7 @@ var Serializers = {
     },
 
     OrthographicCamera: {
-        Serializer: OrthographicCameraSerializer,
+        Serializer: new OrthographicCameraSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: OrthographicCameraSerializer.name,
             type: THREE.OrthographicCamera.name
@@ -71,7 +80,7 @@ var Serializers = {
     },
 
     PerspectiveCamera: {
-        Serializer: PerspectiveCameraSerializer,
+        Serializer: new PerspectiveCameraSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: PerspectiveCameraSerializer.name,
             type: THREE.PerspectiveCamera.name
@@ -80,7 +89,7 @@ var Serializers = {
 
     // 光源
     Light: {
-        Serializer: LightSerializer,
+        Serializer: new LightSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: LightSerializer.name,
             type: THREE.Light.name
@@ -88,7 +97,7 @@ var Serializers = {
     },
 
     PointLight: {
-        Serializer: PointLightSerializer,
+        Serializer: new PointLightSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: PointLightSerializer.name,
             type: THREE.PointLight.name
@@ -96,7 +105,7 @@ var Serializers = {
     },
 
     SpotLight: {
-        Serializer: SpotLightSerializer,
+        Serializer: new SpotLightSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: SpotLightSerializer.name,
             type: THREE.SpotLight.name
@@ -104,7 +113,7 @@ var Serializers = {
     },
 
     HemisphereLight: {
-        Serializer: HemisphereLightSerializer,
+        Serializer: new HemisphereLightSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: HemisphereLightSerializer.name,
             type: THREE.HemisphereLight.name
@@ -112,7 +121,7 @@ var Serializers = {
     },
 
     RectAreaLight: {
-        Serializer: RectAreaLightSerializer,
+        Serializer: new RectAreaLightSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: RectAreaLightSerializer.name,
             type: THREE.RectAreaLight.name
@@ -121,7 +130,7 @@ var Serializers = {
 
     // 集合体
     Geometry: {
-        Serializer: GeometrySerializer,
+        Serializer: new GeometrySerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: GeometrySerializer.name,
             type: THREE.Geometry.name
@@ -130,7 +139,7 @@ var Serializers = {
 
     // 材质
     Material: {
-        Serializer: MaterialSerializer,
+        Serializer: new MaterialSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: MaterialSerializer.name,
             type: THREE.Material.name
@@ -139,7 +148,7 @@ var Serializers = {
 
     // 网格
     Mesh: {
-        Serializer: MeshSerializer,
+        Serializer: new MeshSerializer(),
         Metadata: Object.assign({}, Metadata, {
             generator: MeshSerializer.name,
             type: THREE.Mesh.name

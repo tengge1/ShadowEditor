@@ -26,10 +26,10 @@ Object3DSerializer.prototype.toJSON = function (obj) {
     json.parent = obj.parent == null ? null : obj.parent.uuid;
     json.position = obj.position;
     json.quaternion = {
-        x: json.quaternion.x,
-        y: json.quaternion.y,
-        z: json.quaternion.z,
-        w: json.quaternion.w
+        x: obj.quaternion.x,
+        y: obj.quaternion.y,
+        z: obj.quaternion.z,
+        w: obj.quaternion.w
     };
     json.receiveShadow = obj.receiveShadow;
     json.renderOrder = obj.renderOrder;

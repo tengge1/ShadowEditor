@@ -14,9 +14,9 @@ SceneSerializer.prototype.constructor = SceneSerializer;
 SceneSerializer.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON(obj);
 
-    json.background = item.background;
-    json.fog = item.fog;
-    json.overrideMaterial = item.overrideMaterial;
+    json.background = obj.background;
+    json.fog = obj.fog;
+    json.overrideMaterial = obj.overrideMaterial;
 
     return json;
 };

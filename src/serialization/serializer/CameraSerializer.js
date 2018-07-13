@@ -14,8 +14,8 @@ CameraSerializer.prototype.constructor = CameraSerializer;
 CameraSerializer.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON(obj);
 
-    json.matrixWorldInverse = item.matrixWorldInverse;
-    json.projectionMatrix = item.projectionMatrix;
+    json.matrixWorldInverse = obj.matrixWorldInverse;
+    json.projectionMatrix = obj.projectionMatrix;
 
     return json;
 };

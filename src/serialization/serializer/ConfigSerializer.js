@@ -12,7 +12,7 @@ ConfigSerializer.prototype.constructor = ConfigSerializer;
 
 ConfigSerializer.prototype.toJSON = function (obj) {
     var json = obj.toJSON();
-    return obj;
+    return json;
 };
 
 ConfigSerializer.prototype.fromJSON = function (json) {
