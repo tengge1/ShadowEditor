@@ -25,7 +25,7 @@ SelectModeEvent.prototype.stop = function () {
 };
 
 SelectModeEvent.prototype.onClick = function () {
-    this.app.call('changeMode', 'this', 'select');
+    this.app.call('changeMode', this, 'select');
 };
 
 SelectModeEvent.prototype.onChangeMode = function (mode) {

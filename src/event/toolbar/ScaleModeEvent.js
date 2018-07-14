@@ -25,7 +25,7 @@ ScaleModeEvent.prototype.stop = function () {
 };
 
 ScaleModeEvent.prototype.onClick = function () {
-    this.app.call('changeMode', 'this', 'scale');
+    this.app.call('changeMode', this, 'scale');
 };
 
 ScaleModeEvent.prototype.onChangeMode = function (mode) {
@@ -33,11 +33,10 @@ ScaleModeEvent.prototype.onChangeMode = function (mode) {
 
     if (mode === 'scale') {
         btn.select();
+        this.app.call('transformModeChanged', this, 'scale');
     } else {
         btn.unselect();
     }
-
-    this.app.call('transformModeChanged', this, 'scale');
 };
 
 export default ScaleModeEvent;

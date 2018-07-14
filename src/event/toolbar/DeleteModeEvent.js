@@ -25,7 +25,7 @@ DeleteModeEvent.prototype.stop = function () {
 };
 
 DeleteModeEvent.prototype.onClick = function () {
-    this.app.call('changeMode', 'this', 'delete');
+    this.app.call('changeMode', this, 'delete');
 };
 
 DeleteModeEvent.prototype.onChangeMode = function (mode) {
@@ -36,8 +36,6 @@ DeleteModeEvent.prototype.onChangeMode = function (mode) {
     } else {
         btn.unselect();
     }
-
-    this.app.call('transformModeChanged', this, 'delete');
 };
 
 export default DeleteModeEvent;

@@ -25,7 +25,7 @@ RotateModeEvent.prototype.stop = function () {
 };
 
 RotateModeEvent.prototype.onClick = function () {
-    this.app.call('changeMode', 'this', 'rotate');
+    this.app.call('changeMode', this, 'rotate');
 };
 
 RotateModeEvent.prototype.onChangeMode = function (mode) {
@@ -33,11 +33,10 @@ RotateModeEvent.prototype.onChangeMode = function (mode) {
 
     if (mode === 'rotate') {
         btn.select();
+        this.app.call('transformModeChanged', this, 'rotate');
     } else {
         btn.unselect();
     }
-
-    this.app.call('transformModeChanged', this, 'rotate');
 };
 
 export default RotateModeEvent;
