@@ -32,7 +32,7 @@ EditMenu.prototype.render = function () {
                 xtype: 'div',
                 id: 'mUndo',
                 html: '撤销(Ctrl+Z)',
-                cls: 'option',
+                cls: 'option inactive',
                 onClick: function () {
                     _this.app.call('mUndo');
                 }
@@ -40,7 +40,7 @@ EditMenu.prototype.render = function () {
                 xtype: 'div',
                 id: 'mRedo',
                 html: '重做(Ctrl+Shift+Z)',
-                cls: 'option',
+                cls: 'option inactive',
                 onClick: function () {
                     _this.app.call('mRedo');
                 }

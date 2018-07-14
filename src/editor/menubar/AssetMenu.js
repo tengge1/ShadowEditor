@@ -41,7 +41,7 @@ AssetMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mExportGeometry',
-                html: '导出Geometry',
+                html: '导出几何体',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mExportGeometry');
@@ -49,7 +49,7 @@ AssetMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mExportObject',
-                html: '导出Object',
+                html: '导出物体',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mExportObject');
@@ -63,17 +63,51 @@ AssetMenu.prototype.render = function () {
                     _this.app.call('mExportScene');
                 }
             }, {
+                xtype: 'hr'
+            }, {
+                xtype: 'div',
+                id: 'mExportGLTF',
+                html: '导出gltf文件',
+                cls: 'option',
+                onClick: function () {
+                    _this.app.call('mExportGLTF');
+                }
+            }, {
+                xtype: 'div',
+                id: 'mExportMMD',
+                html: '导出mmd文件',
+                cls: 'option inactive',
+                onClick: function () {
+                    _this.app.call('mExportMMD');
+                }
+            }, {
                 xtype: 'div',
                 id: 'mExportOBJ',
-                html: '导出OBJ',
+                html: '导出obj文件',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mExportOBJ');
                 }
             }, {
                 xtype: 'div',
+                id: 'mExportPLY',
+                html: '导出ply文件',
+                cls: 'option',
+                onClick: function () {
+                    _this.app.call('mExportPLY');
+                }
+            }, {
+                xtype: 'div',
+                id: 'mExportSTLB',
+                html: '导出stl二进制文件',
+                cls: 'option',
+                onClick: function () {
+                    _this.app.call('mExportSTLB');
+                }
+            }, {
+                xtype: 'div',
                 id: 'mExportSTL',
-                html: '导出STL',
+                html: '导出stl文件',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mExportSTL');

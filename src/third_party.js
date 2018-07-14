@@ -24,8 +24,14 @@ import '../third_party/loaders/UTF8Loader.js';
 import '../third_party/loaders/VRMLLoader.js';
 import '../third_party/loaders/VTKLoader.js';
 import '../third_party/loaders/ctm/CTMLoader.js';
+
+import '../third_party/exporters/GLTFExporter.js';
+import '../third_party/exporters/MMDExporter.js';
 import '../third_party/exporters/OBJExporter.js';
+import '../third_party/exporters/PLYExporter.js';
+import '../third_party/exporters/STLBinaryExporter.js';
 import '../third_party/exporters/STLExporter.js';
+
 import '../third_party/loaders/deprecated/SceneLoader.js';
 
 import '../third_party/renderers/Projector.js';
