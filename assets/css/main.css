@@ -154,6 +154,8 @@ div.Modal {
     display: none;
     align-items: center;
     justify-content: center;
+    z-index: 1300;
+    border-radius: 3px;
 }
 
 div.Modal .Container {

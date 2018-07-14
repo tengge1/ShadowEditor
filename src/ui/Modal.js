@@ -13,9 +13,9 @@ function Modal(options) {
     this.id = options.id || null;
     this.cls = options.cls || 'Modal';
     this.style = options.style || null;
-
     this.width = options.width || '500px';
     this.height = options.height || '300px';
+    this.shadeClose = options.shadeClose || false;
 };
 
 Modal.prototype = Object.create(Container.prototype);
@@ -46,6 +46,14 @@ Modal.prototype.render = function () {
     this.container.style.height = this.height;
 
     this.dom.appendChild(this.container);
+
+    this.container.addEventListener('mousedown', function (event) {
+        event.stopPropagation();
+    });
+
+    if (this.shadeClose) {
+        this.dom.addEventListener('mousedown', this.hide.bind(this));
+    }
 
     var _this = this;
 

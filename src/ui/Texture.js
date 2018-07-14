@@ -73,7 +73,11 @@ Texture.prototype.setValue = function (texture) {
         var image = texture.image;
 
         if (image !== undefined && image.width > 0) {
-            name.value = texture.sourceFile;
+            if (texture.sourceFile) {
+                name.value = texture.sourceFile;
+            } else {
+                name.value = '';
+            }
 
             var scale = canvas.width / image.width;
             context.drawImage(image, 0, 0, image.width * scale, image.height * scale);
