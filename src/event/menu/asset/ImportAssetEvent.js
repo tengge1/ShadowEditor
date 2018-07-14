@@ -22,7 +22,9 @@ ImportAssetEvent.prototype.start = function () {
 
     var _this = this;
     this.fileInput.addEventListener('change', function (event) {
-        _this.app.editor.loader.loadFile(_this.fileInput.files[0]);
+        if (_this.fileInput.files.length > 0) {
+            _this.app.editor.loader.loadFile(_this.fileInput.files[0]);
+        }
     });
 };
 

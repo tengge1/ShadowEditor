@@ -35,6 +35,19 @@ import ClearEvent from './editor/ClearEvent';
 import LoadEvent from './editor/LoadEvent';
 import SaveEvent from './editor/SaveEvent';
 
+// 工具栏
+import SelectModeEvent from './toolbar/SelectModeEvent';
+import TranslateModeEvent from './toolbar/TranslateModeEvent';
+import RotateModeEvent from './toolbar/RotateModeEvent';
+import ScaleModeEvent from './toolbar/ScaleModeEvent';
+
+import AnchorPointEvent from './toolbar/AnchorPointEvent';
+import DeleteModeEvent from './toolbar/DeleteModeEvent';
+import HandModeEvent from './toolbar/HandModeEvent';
+import ModelEvent from './toolbar/ModelEvent';
+import PathModeEvent from './toolbar/PathModeEvent';
+
+// 菜单栏
 import NewSceneEvent from './menu/scene/NewSceneEvent';
 import LoadSceneEvent from './menu/scene/LoadSceneEvent';
 import SaveSceneEvent from './menu/scene/SaveSceneEvent';
@@ -107,7 +120,6 @@ import WindowResizeEvent from './viewport/WindowResizeEvent';
 import ThemeChangedEvent from './viewport/ThemeChangedEvent';
 import EditorControlsEvent from './viewport/EditorControlsEvent';
 
-import TransformModeChangedEvent from './statusBar/TransformModeChangedEvent';
 import GridChangeEvent from './statusBar/GridChangeEvent';
 
 import CodeMirrorChangeEvent from './script/CodeMirrorChangeEvent';
@@ -130,7 +142,7 @@ function EventDispatcher(app) {
         new DropEvent(this.app),
         new KeyDownEvent(this.app),
         new ResizeEvent(this.app),
-        //new MessageEvent(this.app),
+        new MessageEvent(this.app),
         new LoadFromHashEvent(this.app),
         new AutoSaveEvent(this.app),
         new VREvent(this.app),
@@ -156,6 +168,18 @@ function EventDispatcher(app) {
         new ClearEvent(this.app),
         new LoadEvent(this.app),
         new SaveEvent(this.app),
+
+        // 工具栏
+        new SelectModeEvent(this.app),
+        new TranslateModeEvent(this.app),
+        new RotateModeEvent(this.app),
+        new ScaleModeEvent(this.app),
+
+        new AnchorPointEvent(this.app),
+        new DeleteModeEvent(this.app),
+        new HandModeEvent(this.app),
+        new ModelEvent(this.app),
+        new PathModeEvent(this.app),
 
         // menubar中的事件
         new NewSceneEvent(this.app),
@@ -215,6 +239,9 @@ function EventDispatcher(app) {
 
         new SavingStatusEvent(this.app),
 
+        // 工具栏中的事件
+
+
         // viewport中的事件
         new TransformControlsEvent(this.app),
         new UpdateSceneStatusEvent(this.app),
@@ -232,7 +259,6 @@ function EventDispatcher(app) {
         new EditorControlsEvent(this.app),
 
         // statusBar中的事件
-        new TransformModeChangedEvent(this.app),
         new GridChangeEvent(this.app),
 
         // 代码编辑器中的事件

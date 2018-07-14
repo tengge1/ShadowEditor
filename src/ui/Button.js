@@ -47,6 +47,14 @@ Button.prototype.render = function () {
     }
 };
 
+Button.prototype.select = function () {
+    this.dom.classList.add('selected');
+};
+
+Button.prototype.unselect = function () {
+    this.dom.classList.remove('selected');
+};
+
 XType.add('button', Button);
 
 export default Button;

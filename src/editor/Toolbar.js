@@ -21,52 +21,50 @@ Toolbar.prototype.render = function () {
         id: 'toolbar',
         children: [{
             xtype: 'iconbutton',
+            id: 'selectBtn',
             icon: 'icon-select',
-            cls: 'Button IconButton',
+            cls: 'Button IconButton selected',
             title: '选择'
         }, {
             xtype: 'iconbutton',
             id: 'translateBtn',
             icon: 'icon-translate',
-            cls: 'Button IconButton selected',
-            title: '平移(W)',
-            onClick: function () {
-                _this.app.call('transformModeChanged', _this, 'translate');
-            }
+            title: '平移(W)'
         }, {
             xtype: 'iconbutton',
             id: 'rotateBtn',
             icon: 'icon-rotate',
-            title: '旋转(E)',
-            onClick: function () {
-                _this.app.call('transformModeChanged', _this, 'rotate');
-            }
+            title: '旋转(E)'
         }, {
             xtype: 'iconbutton',
             id: 'scaleBtn',
             icon: 'icon-scale',
-            title: '缩放(R)',
-            onClick: function () {
-                _this.app.call('transformModeChanged', _this, 'scale');
-            }
+            title: '缩放(R)'
         }, {
             xtype: 'iconbutton',
+            id: 'deleteBtn',
             icon: 'icon-delete',
             title: '删除'
         }, {
+            xtype: 'hr'
+        }, {
             xtype: 'iconbutton',
+            id: 'modelBtn',
             icon: 'icon-model-view',
             title: '模型'
         }, {
             xtype: 'iconbutton',
+            id: 'handBtn',
             icon: 'icon-hand',
             title: '抓手'
         }, {
             xtype: 'iconbutton',
+            id: 'anchorPointBtn',
             icon: 'icon-anchor-point',
             title: '添加锚点'
         }, {
             xtype: 'iconbutton',
+            id: 'pathBtn',
             icon: 'icon-path',
             title: '绘制路径'
         }]
