@@ -117,6 +117,7 @@
     <Compile Include="Base\JsonResult.cs" />
     <Compile Include="Base\WebApiConfig.cs" />
     <Compile Include="Base\XmlResult.cs" />
+    <Compile Include="Controllers\SceneController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -127,20 +128,19 @@
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\MongoHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\ConfigController.cs" />
-    <Compile Include="Controllers\SceneService.ashx.cs">
-      <DependentUpon>SceneService.ashx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Controllers\SceneService.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Upload\Model\" />
+    <Folder Include="Upload\Texture\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
