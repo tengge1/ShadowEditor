@@ -1,839 +1,347 @@
-﻿import SetPositionCommand from '../../command/SetPositionCommand';
-import SetRotationCommand from '../../command/SetRotationCommand';
-import SetScaleCommand from '../../command/SetScaleCommand';
+﻿import Control from '../../ui/Control';
+import XType from '../../ui/XType';
 import SetUuidCommand from '../../command/SetUuidCommand';
 import SetValueCommand from '../../command/SetValueCommand';
-import SetColorCommand from '../../command/SetColorCommand';
-import UI from '../../ui/UI';
 
 /**
  * 物体面板
  * @author mrdoob / http://mrdoob.com/
  */
-function ObjectPanel(app) {
-    this.app = app;
+function ObjectPanel(options) {
+    Control.call(this, options);
+    this.app = options.app;
+};
+
+ObjectPanel.prototype = Object.create(Control.prototype);
+ObjectPanel.prototype.constructor = ObjectPanel;
+
+ObjectPanel.prototype.render = function () {
     var editor = this.app.editor;
 
-    var container = new UI.Div({
+    var _this = this;
+
+    var update = function () {
+        _this.app.call('updateObject', _this);
+    };
+
+    var data = {
+        xtype: 'div',
+        id: 'objectPanel',
+        parent: this.parent,
         cls: 'Panel',
-        style: 'border-top: 0; padding-top: 20px; display: none;'
-    });
-
-    // Actions
-
-    var objectActions = new UI.Select({
-        options: {
-            'Actions': '动作',
-            'Reset Position': '重置位置',
-            'Reset Rotation': '重置旋转',
-            'Reset Scale': '重置缩放'
-        },
-        style: 'position: absolute; right: 8px; font-size: 11px;',
-        onClick: function (event) {
-            event.stopPropagation(); // Avoid panel collapsing
-        },
-        onChange: function (event) {
-            var object = editor.selected;
-
-            switch (this.getValue()) {
-                case '重置位置':
-                    editor.execute(new SetPositionCommand(object, new THREE.Vector3(0, 0, 0)));
-                    break;
-                case '重置旋转':
-                    editor.execute(new SetRotationCommand(object, new THREE.Euler(0, 0, 0)));
-                    break;
-                case '重置缩放':
-                    editor.execute(new SetScaleCommand(object, new THREE.Vector3(1, 1, 1)));
-                    break;
-            }
-
-            this.setValue('动作');
-        }
-    });
-
-    // type
-
-    var objectTypeRow = new UI.Row();
-    var objectType = new UI.Text();
-
-    objectTypeRow.add(new UI.Label({
-        text: '类型'
-    }));
-
-    objectTypeRow.add(objectType);
-
-    container.add(objectTypeRow);
-
-    // uuid
-
-    var objectUUIDRow = new UI.Row();
-    var objectUUID = new UI.Input({
-        style: 'width: 102px; font-size: 12px;',
-        disabled: true
-    });
-
-    var objectUUIDRenew = new UI.Button({
-        text: '新建',
-        style: 'margin-left: 7px;',
-        onClick: function () {
-            objectUUID.setValue(THREE.Math.generateUUID());
-            editor.execute(new SetUuidCommand(editor.selected, objectUUID.getValue()));
-        }
-    });
-
-    objectUUIDRow.add(new UI.Label({
-        text: 'UUID'
-    }));
-
-    objectUUIDRow.add(objectUUID);
-    objectUUIDRow.add(objectUUIDRenew);
-
-    container.add(objectUUIDRow);
-
-    // name
-
-    var objectNameRow = new UI.Row();
-
-    var objectName = new UI.Input({
-        style: 'width: 150px; font-size: 12px;',
-        onChange: function () {
-            editor.execute(new SetValueCommand(editor.selected, 'name', objectName.getValue()));
-        }
-    });
-
-    objectNameRow.add(new UI.Label({
-        text: '名称'
-    }));
-
-    objectNameRow.add(objectName);
-
-    container.add(objectNameRow);
-
-    // position
-
-    var objectPositionRow = new UI.Row();
-
-    var objectPositionX = new UI.Number({
-        style: 'width: 50px;',
-        onChange: update
-    });
-
-    var objectPositionY = new UI.Number({
-        style: 'width: 50px;',
-        onChange: update
-    });
-
-    var objectPositionZ = new UI.Number({
-        style: 'width: 50px;',
-        onChange: update
-    });
-
-    objectPositionRow.add(new UI.Label({
-        text: '位置'
-    }));
-
-    objectPositionRow.add(objectPositionX);
-    objectPositionRow.add(objectPositionY);
-    objectPositionRow.add(objectPositionZ);
-
-    container.add(objectPositionRow);
-
-    // rotation
-
-    var objectRotationRow = new UI.Row();
-
-    var objectRotationX = new UI.Number({
-        step: 10,
-        unit: '°',
-        style: 'width: 50px;',
-        onChange: update
-    });
-
-    var objectRotationY = new UI.Number({
-        step: 10,
-        unit: '°',
-        style: 'width: 50px;',
-        onChange: update
-    });
-
-    var objectRotationZ = new UI.Number({
-        step: 10,
-        unit: '°',
-        style: 'width: 50px;',
-        onChange: update
-    });
-
-    objectRotationRow.add(new UI.Label({
-        text: '旋转'
-    }));
-
-    objectRotationRow.add(objectRotationX);
-    objectRotationRow.add(objectRotationY);
-    objectRotationRow.add(objectRotationZ);
-
-    container.add(objectRotationRow);
-
-    // scale
-
-    var objectScaleRow = new UI.Row();
-
-    var objectScaleLock = new UI.Checkbox({
-        value: true,
-        style: 'position: absolute; left: 75px;'
-    });
-
-    var objectScaleX = new UI.Number({
-        value: 1,
-        range: [0.01, Infinity],
-        style: 'width: 50px;',
-        onChange: updateScaleX
-    });
-
-    var objectScaleY = new UI.Number({
-        value: 1,
-        range: [0.01, Infinity],
-        style: 'width: 50px;',
-        onChange: updateScaleY
-    });
-
-    var objectScaleZ = new UI.Number({
-        value: 1,
-        range: [0.01, Infinity],
-        style: 'width: 50px;',
-        onChange: updateScaleZ
-    });
-
-    objectScaleRow.add(new UI.Label({
-        text: '尺寸'
-    }));
-
-    objectScaleRow.add(objectScaleLock);
-    objectScaleRow.add(objectScaleX);
-    objectScaleRow.add(objectScaleY);
-    objectScaleRow.add(objectScaleZ);
-
-    container.add(objectScaleRow);
-
-    // fov
-
-    var objectFovRow = new UI.Row();
-    var objectFov = new UI.Number({
-        onChange: update
-    });
-
-    objectFovRow.add(new UI.Label({
-        text: '视场'
-    }));
-
-    objectFovRow.add(objectFov);
-
-    container.add(objectFovRow);
-
-    // near
-
-    var objectNearRow = new UI.Row();
-    var objectNear = new UI.Number({
-        onChange: update
-    });
-
-    objectNearRow.add(new UI.Label({
-        text: '近点'
-    }));
-
-    objectNearRow.add(objectNear);
-
-    container.add(objectNearRow);
-
-    // far
-
-    var objectFarRow = new UI.Row();
-    var objectFar = new UI.Number({
-        onChange: update
-    });
-
-    objectFarRow.add(new UI.Label({
-        text: '远点'
-    }));
-
-    objectFarRow.add(objectFar);
-
-    container.add(objectFarRow);
-
-    // intensity
-
-    var objectIntensityRow = new UI.Row();
-    var objectIntensity = new UI.Number({
-        range: [0, Infinity],
-        onChange: update
-    });
-
-    objectIntensityRow.add(new UI.Label({
-        text: '强度'
-    }));
-
-    objectIntensityRow.add(objectIntensity);
-
-    container.add(objectIntensityRow);
-
-    // color
-
-    var objectColorRow = new UI.Row();
-
-    var objectColor = new UI.Color({
-        onChange: update
-    });
-
-    objectColorRow.add(new UI.Label({
-        text: '颜色'
-    }));
-
-    objectColorRow.add(objectColor);
-
-    container.add(objectColorRow);
-
-    // ground color
-
-    var objectGroundColorRow = new UI.Row();
-    var objectGroundColor = new UI.Color({
-        onChange: update
-    });
-
-    objectGroundColorRow.add(new UI.Label({
-        text: '地面颜色'
-    }));
-
-    objectGroundColorRow.add(objectGroundColor);
-
-    container.add(objectGroundColorRow);
-
-    // distance
-
-    var objectDistanceRow = new UI.Row();
-
-    var objectDistance = new UI.Number({
-        range: [0, Infinity],
-        onChange: update
-    });
-
-    objectDistanceRow.add(new UI.Label({
-        text: '距离'
-    }));
-
-    objectDistanceRow.add(objectDistance);
-
-    container.add(objectDistanceRow);
-
-    // angle
-
-    var objectAngleRow = new UI.Row();
-
-    var objectAngle = new UI.Number({
-        precision: 3,
-        range: [0, Math.PI / 2],
-        onChange: update
-    });
-
-    objectAngleRow.add(new UI.Label({
-        text: '角度'
-    }));
-
-    objectAngleRow.add(objectAngle);
-
-    container.add(objectAngleRow);
-
-    // penumbra
-
-    var objectPenumbraRow = new UI.Row();
-    var objectPenumbra = new UI.Number({
-        range: [0, 1],
-        onChange: update
-    });
-
-    objectPenumbraRow.add(new UI.Label({
-        text: '边缘'
-    }));
-
-    objectPenumbraRow.add(objectPenumbra);
-
-    container.add(objectPenumbraRow);
-
-    // decay
-
-    var objectDecayRow = new UI.Row();
-
-    var objectDecay = new UI.Number({
-        range: [0, Infinity],
-        onChange: update
-    });
-
-    objectDecayRow.add(new UI.Label({
-        text: '衰变'
-    }));
-    objectDecayRow.add(objectDecay);
-
-    container.add(objectDecayRow);
-
-    // shadow
-
-    var objectShadowRow = new UI.Row();
-
-    objectShadowRow.add(new UI.Label({
-        text: '阴影'
-    }));
-
-    var objectCastShadow = new UI.Boolean({
-        value: false,
-        text: '产生',
-        onChange: update
-    });
-
-    objectShadowRow.add(objectCastShadow);
-
-    var objectReceiveShadow = new UI.Boolean({
-        value: false,
-        text: '接收',
-        onChange: update
-    });
-
-    objectShadowRow.add(objectReceiveShadow);
-
-    var objectShadowRadius = new UI.Number({
-        value: 1,
-        onChange: update
-    });
-
-    objectShadowRow.add(objectShadowRadius);
-
-    container.add(objectShadowRow);
-
-    // visible
-
-    var objectVisibleRow = new UI.Row();
-
-    var objectVisible = new UI.Checkbox({
-        onChange: update
-    });
-
-    objectVisibleRow.add(new UI.Label({
-        text: '可见性'
-    }));
-
-    objectVisibleRow.add(objectVisible);
-
-    container.add(objectVisibleRow);
-
-    // user data
-
-    var timeout;
-
-    var objectUserDataRow = new UI.Row();
-
-    var objectUserData = new UI.TextArea({
-        style: 'width: 150px; height: 40px; font-size: 12px;',
-        onChange: update,
-        onKeyUp: function () {
-            try {
-
-                JSON.parse(objectUserData.getValue());
-
-                objectUserData.dom.classList.add('success');
-                objectUserData.dom.classList.remove('fail');
-
-            } catch (error) {
-
-                objectUserData.dom.classList.remove('success');
-                objectUserData.dom.classList.add('fail');
-
-            }
-
-        }
-    });
-
-    objectUserDataRow.add(new UI.Label({
-        text: '用户数据'
-    }));
-
-    objectUserDataRow.add(objectUserData);
-
-    container.add(objectUserDataRow);
-
+        style: 'border-top: 0; padding-top: 20px; display: none;',
+        children: [{ // type
+            xtype: 'row',
+            id: 'objectTypeRow',
+            children: [{
+                xtype: 'label',
+                text: '类型'
+            }, {
+                xtype: 'text',
+                id: 'objectType'
+            }]
+        }, { // uuid
+            xtype: 'row',
+            id: 'objectUUIDRow',
+            children: [{
+                xtype: 'label',
+                text: 'UUID'
+            }, {
+                xtype: 'input',
+                id: 'objectUUID',
+                style: 'width: 102px; font-size: 12px;',
+                disabled: true
+            }, {
+                xtype: 'button',
+                id: 'objectUUIDRenew',
+                text: '新建',
+                style: 'margin-left: 7px;',
+                onClick: function () {
+                    var objectUUID = XType.getControl('objectUUID');
+                    objectUUID.setValue(THREE.Math.generateUUID());
+                    editor.execute(new SetUuidCommand(editor.selected, objectUUID.getValue()));
+                }
+            }]
+        }, { // name
+            xtype: 'row',
+            id: 'objectNameRow',
+            children: [{
+                xtype: 'label',
+                text: '名称'
+            }, {
+                xtype: 'input',
+                id: 'objectName',
+                style: 'width: 150px; font-size: 12px;',
+                onChange: function () {
+                    editor.execute(new SetValueCommand(editor.selected, 'name', this.getValue()));
+                }
+            }]
+        }, { // position
+            xtype: 'row',
+            id: 'objectPositionRow',
+            children: [{
+                xtype: 'label',
+                text: '位置'
+            }, {
+                xtype: 'number',
+                id: 'objectPositionX',
+                style: 'width: 50px;',
+                onChange: update
+            }, {
+                xtype: 'number',
+                id: 'objectPositionY',
+                style: 'width: 50px;',
+                onChange: update
+            }, {
+                xtype: 'number',
+                id: 'objectPositionZ',
+                style: 'width: 50px;',
+                onChange: update
+            }]
+        }, { // rotation
+            xtype: 'row',
+            id: 'objectRotationRow',
+            children: [{
+                xtype: 'label',
+                text: '旋转'
+            }, {
+                xtype: 'number',
+                id: 'objectRotationX',
+                step: 10,
+                unit: '°',
+                style: 'width: 50px;',
+                onChange: update
+            }, {
+                xtype: 'number',
+                id: 'objectRotationY',
+                step: 10,
+                unit: '°',
+                style: 'width: 50px;',
+                onChange: update
+            }, {
+                xtype: 'number',
+                id: 'objectRotationZ',
+                step: 10,
+                unit: '°',
+                style: 'width: 50px;',
+                onChange: update
+            }]
+        }, { // scale
+            xtype: 'row',
+            id: 'objectScaleRow',
+            children: [{
+                xtype: 'label',
+                text: '尺寸'
+            }, {
+                xtype: 'checkbox',
+                id: 'objectScaleLock',
+                value: true,
+                style: 'position: absolute; left: 75px;'
+            }, {
+                xtype: 'number',
+                id: 'objectScaleX',
+                value: 1,
+                range: [0.01, Infinity],
+                style: 'width: 50px;',
+                onChange: function () {
+                    _this.app.call('updateScaleX', _this);
+                }
+            }, {
+                xtype: 'number',
+                id: 'objectScaleY',
+                value: 1,
+                range: [0.01, Infinity],
+                style: 'width: 50px;',
+                onChange: function () {
+                    _this.app.call('updateScaleY', _this);
+                }
+            }, {
+                xtype: 'number',
+                id: 'objectScaleZ',
+                value: 1,
+                range: [0.01, Infinity],
+                style: 'width: 50px;',
+                onChange: function () {
+                    _this.app.call('updateScaleZ', _this);
+                }
+            }]
+        }, { // fov
+            xtype: 'row',
+            id: 'objectFovRow',
+            children: [{
+                xtype: 'label',
+                text: '视场'
+            }, {
+                xtype: 'number',
+                id: 'objectFov',
+                onChange: update
+            }]
+        }, { // near
+            xtype: 'row',
+            id: 'objectNearRow',
+            children: [{
+                xtype: 'label',
+                text: '近点'
+            }, {
+                xtype: 'number',
+                id: 'objectNear',
+                onChange: update
+            }]
+        }, { // far
+            xtype: 'row',
+            id: 'objectFarRow',
+            children: [{
+                xtype: 'label',
+                text: '远点'
+            }, {
+                xtype: 'number',
+                id: 'objectFar',
+                onChange: update
+            }]
+        }, { // intensity
+            xtype: 'row',
+            id: 'objectIntensityRow',
+            children: [{
+                xtype: 'label',
+                text: '强度'
+            }, {
+                xtype: 'number',
+                id: 'objectIntensity',
+                range: [0, Infinity],
+                onChange: update
+            }]
+        }, { // color
+            xtype: 'row',
+            id: 'objectColorRow',
+            children: [{
+                xtype: 'label',
+                text: '颜色'
+            }, {
+                xtype: 'color',
+                onChange: update
+            }]
+        }, { // ground color
+            xtype: 'row',
+            id: 'objectGroundColorRow',
+            children: [{
+                xtype: 'label',
+                text: '地面颜色'
+            }, {
+                xtype: 'color',
+                id: 'objectGroundColor',
+                onChange: update
+            }]
+        }, { // distance
+            xtype: 'row',
+            id: 'objectDistanceRow',
+            children: [{
+                xtype: 'label',
+                text: '距离'
+            }, {
+                xtype: 'number',
+                id: 'objectDistance',
+                range: [0, Infinity],
+                onChange: update
+            }]
+        }, { // angle
+            xtype: 'row',
+            id: 'objectAngleRow',
+            children: [{
+                xtype: 'label',
+                text: '角度'
+            }, {
+                xtype: 'number',
+                id: 'objectAngle',
+                precision: 3,
+                range: [0, Math.PI / 2],
+                onChange: update
+            }]
+        }, { // penumbra
+            xtype: 'row',
+            id: 'objectPenumbraRow',
+            children: [{
+                xtype: 'label',
+                text: '边缘'
+            }, {
+                xtype: 'number',
+                id: 'objectPenumbra',
+                range: [0, 1],
+                onChange: update
+            }]
+        }, { // decay
+            xtype: 'row',
+            id: 'objectDecayRow',
+            children: [{
+                xtype: 'label',
+                text: '衰变'
+            }, {
+                xtype: 'number',
+                id: 'objectDecay',
+                range: [0, Infinity],
+                onChange: update
+            }]
+        }, { // shadow
+            xtype: 'row',
+            id: 'objectShadowRow',
+            children: [{
+                xtype: 'label',
+                text: '阴影'
+            }, {
+                xtype: 'boolean',
+                id: 'objectCastShadow',
+                value: false,
+                text: '产生',
+                onChange: update
+            }, {
+                xtype: 'boolean',
+                id: 'objectReceiveShadow',
+                value: false,
+                text: '接收',
+                onChange: update
+            }, {
+                xtype: 'number',
+                id: 'objectShadowRadius',
+                value: 1,
+                onChange: update
+            }]
+        }, { // visible
+            xtype: 'row',
+            id: 'objectVisibleRow',
+            children: [{
+                xtype: 'label',
+                text: '可见性'
+            }, {
+                xtype: 'checkbox',
+                id: 'objectVisible',
+                onChange: update
+            }]
+        }, { // user data
+            xtype: 'row',
+            id: 'objectUserDataRow',
+            children: [{
+                xtype: 'label',
+                text: '用户数据'
+            }, {
+                xtype: 'textarea',
+                id: 'objectUserData',
+                style: 'width: 150px; height: 40px; font-size: 12px;',
+                onChange: update,
+                onKeyUp: function () {
+                    try {
+                        JSON.parse(this.getValue());
+                        this.dom.classList.add('success');
+                        this.dom.classList.remove('fail');
+                    } catch (error) {
+                        this.dom.classList.remove('success');
+                        this.dom.classList.add('fail');
+                    }
+                }
+            }]
+        }]
+    };
+
+    var container = XType.create(data);
     container.render();
-
-    //
-
-    function updateScaleX() {
-
-        var object = editor.selected;
-
-        if (objectScaleLock.getValue() === true) {
-
-            var scale = objectScaleX.getValue() / object.scale.x;
-
-            objectScaleY.setValue(objectScaleY.getValue() * scale);
-            objectScaleZ.setValue(objectScaleZ.getValue() * scale);
-
-        }
-
-        update();
-
-    }
-
-    function updateScaleY() {
-
-        var object = editor.selected;
-
-        if (objectScaleLock.getValue() === true) {
-
-            var scale = objectScaleY.getValue() / object.scale.y;
-
-            objectScaleX.setValue(objectScaleX.getValue() * scale);
-            objectScaleZ.setValue(objectScaleZ.getValue() * scale);
-
-        }
-
-        update();
-
-    }
-
-    function updateScaleZ() {
-
-        var object = editor.selected;
-
-        if (objectScaleLock.getValue() === true) {
-
-            var scale = objectScaleZ.getValue() / object.scale.z;
-
-            objectScaleX.setValue(objectScaleX.getValue() * scale);
-            objectScaleY.setValue(objectScaleY.getValue() * scale);
-
-        }
-
-        update();
-
-    }
-
-    function update() {
-
-        var object = editor.selected;
-
-        if (object !== null) {
-
-            var newPosition = new THREE.Vector3(objectPositionX.getValue(), objectPositionY.getValue(), objectPositionZ.getValue());
-            if (object.position.distanceTo(newPosition) >= 0.01) {
-
-                editor.execute(new SetPositionCommand(object, newPosition));
-
-            }
-
-            var newRotation = new THREE.Euler(objectRotationX.getValue() * THREE.Math.DEG2RAD, objectRotationY.getValue() * THREE.Math.DEG2RAD, objectRotationZ.getValue() * THREE.Math.DEG2RAD);
-            if (object.rotation.toVector3().distanceTo(newRotation.toVector3()) >= 0.01) {
-
-                editor.execute(new SetRotationCommand(object, newRotation));
-
-            }
-
-            var newScale = new THREE.Vector3(objectScaleX.getValue(), objectScaleY.getValue(), objectScaleZ.getValue());
-            if (object.scale.distanceTo(newScale) >= 0.01) {
-
-                editor.execute(new SetScaleCommand(object, newScale));
-
-            }
-
-            if (object.fov !== undefined && Math.abs(object.fov - objectFov.getValue()) >= 0.01) {
-
-                editor.execute(new SetValueCommand(object, 'fov', objectFov.getValue()));
-                object.updateProjectionMatrix();
-
-            }
-
-            if (object.near !== undefined && Math.abs(object.near - objectNear.getValue()) >= 0.01) {
-
-                editor.execute(new SetValueCommand(object, 'near', objectNear.getValue()));
-
-            }
-
-            if (object.far !== undefined && Math.abs(object.far - objectFar.getValue()) >= 0.01) {
-
-                editor.execute(new SetValueCommand(object, 'far', objectFar.getValue()));
-
-            }
-
-            if (object.intensity !== undefined && Math.abs(object.intensity - objectIntensity.getValue()) >= 0.01) {
-
-                editor.execute(new SetValueCommand(object, 'intensity', objectIntensity.getValue()));
-
-            }
-
-            if (object.color !== undefined && object.color.getHex() !== objectColor.getHexValue()) {
-
-                editor.execute(new SetColorCommand(object, 'color', objectColor.getHexValue()));
-
-            }
-
-            if (object.groundColor !== undefined && object.groundColor.getHex() !== objectGroundColor.getHexValue()) {
-
-                editor.execute(new SetColorCommand(object, 'groundColor', objectGroundColor.getHexValue()));
-
-            }
-
-            if (object.distance !== undefined && Math.abs(object.distance - objectDistance.getValue()) >= 0.01) {
-
-                editor.execute(new SetValueCommand(object, 'distance', objectDistance.getValue()));
-
-            }
-
-            if (object.angle !== undefined && Math.abs(object.angle - objectAngle.getValue()) >= 0.01) {
-
-                editor.execute(new SetValueCommand(object, 'angle', objectAngle.getValue()));
-
-            }
-
-            if (object.penumbra !== undefined && Math.abs(object.penumbra - objectPenumbra.getValue()) >= 0.01) {
-
-                editor.execute(new SetValueCommand(object, 'penumbra', objectPenumbra.getValue()));
-
-            }
-
-            if (object.decay !== undefined && Math.abs(object.decay - objectDecay.getValue()) >= 0.01) {
-
-                editor.execute(new SetValueCommand(object, 'decay', objectDecay.getValue()));
-
-            }
-
-            if (object.visible !== objectVisible.getValue()) {
-
-                editor.execute(new SetValueCommand(object, 'visible', objectVisible.getValue()));
-
-            }
-
-            if (object.castShadow !== undefined && object.castShadow !== objectCastShadow.getValue()) {
-                editor.execute(new SetValueCommand(object, 'castShadow', objectCastShadow.getValue()));
-            }
-
-            if (object.receiveShadow !== undefined && object.receiveShadow !== objectReceiveShadow.getValue()) {
-
-                editor.execute(new SetValueCommand(object, 'receiveShadow', objectReceiveShadow.getValue()));
-                object.material.needsUpdate = true;
-
-            }
-
-            if (object.shadow !== undefined) {
-
-                if (object.shadow.radius !== objectShadowRadius.getValue()) {
-
-                    editor.execute(new SetValueCommand(object.shadow, 'radius', objectShadowRadius.getValue()));
-
-                }
-
-            }
-
-            try {
-
-                var userData = JSON.parse(objectUserData.getValue());
-                if (JSON.stringify(object.userData) != JSON.stringify(userData)) {
-
-                    editor.execute(new SetValueCommand(object, 'userData', userData));
-
-                }
-
-            } catch (exception) {
-
-                console.warn(exception);
-
-            }
-
-        }
-
-    }
-
-    function updateRows(object) {
-
-        var properties = {
-            'fov': objectFovRow,
-            'near': objectNearRow,
-            'far': objectFarRow,
-            'intensity': objectIntensityRow,
-            'color': objectColorRow,
-            'groundColor': objectGroundColorRow,
-            'distance': objectDistanceRow,
-            'angle': objectAngleRow,
-            'penumbra': objectPenumbraRow,
-            'decay': objectDecayRow,
-            'castShadow': objectShadowRow,
-            'receiveShadow': objectReceiveShadow,
-            'shadow': objectShadowRadius
-        };
-
-        for (var property in properties) {
-
-            properties[property].dom.style.display = object[property] !== undefined ? '' : 'none';
-
-        }
-
-    }
-
-    function updateTransformRows(object) {
-
-        if (object instanceof THREE.Light ||
-            (object instanceof THREE.Object3D && object.userData.targetInverse)) {
-
-            objectRotationRow.dom.style.display = 'none';
-            objectScaleRow.dom.style.display = 'none';
-        } else {
-
-            objectRotationRow.dom.style.display = '';
-            objectScaleRow.dom.style.display = '';
-
-        }
-
-    }
-
-    // events
-    this.app.on('objectSelected.ObjectPanel', function (object) {
-
-        if (object !== null) {
-            container.dom.style.display = 'block';
-            updateRows(object);
-            updateUI(object);
-
-        } else {
-            container.dom.style.display = 'none';
-        }
-    });
-
-    this.app.on('objectChanged.ObjectPanel', function (object) {
-
-        if (object !== editor.selected) return;
-
-        updateUI(object);
-
-    });
-
-    this.app.on('refreshSidebarObject3D.ObjectPanel', function (object) {
-        if (object !== editor.selected) return;
-
-        updateUI(object);
-    });
-
-    function updateUI(object) {
-
-        objectType.setValue(object.type);
-
-        objectUUID.setValue(object.uuid);
-        objectName.setValue(object.name);
-
-        objectPositionX.setValue(object.position.x);
-        objectPositionY.setValue(object.position.y);
-        objectPositionZ.setValue(object.position.z);
-
-        objectRotationX.setValue(object.rotation.x * THREE.Math.RAD2DEG);
-        objectRotationY.setValue(object.rotation.y * THREE.Math.RAD2DEG);
-        objectRotationZ.setValue(object.rotation.z * THREE.Math.RAD2DEG);
-
-        objectScaleX.setValue(object.scale.x);
-        objectScaleY.setValue(object.scale.y);
-        objectScaleZ.setValue(object.scale.z);
-
-        if (object.fov !== undefined) {
-
-            objectFov.setValue(object.fov);
-
-        }
-
-        if (object.near !== undefined) {
-
-            objectNear.setValue(object.near);
-
-        }
-
-        if (object.far !== undefined) {
-
-            objectFar.setValue(object.far);
-
-        }
-
-        if (object.intensity !== undefined) {
-
-            objectIntensity.setValue(object.intensity);
-
-        }
-
-        if (object.color !== undefined) {
-
-            objectColor.setHexValue(object.color.getHexString());
-
-        }
-
-        if (object.groundColor !== undefined) {
-
-            objectGroundColor.setHexValue(object.groundColor.getHexString());
-
-        }
-
-        if (object.distance !== undefined) {
-
-            objectDistance.setValue(object.distance);
-
-        }
-
-        if (object.angle !== undefined) {
-
-            objectAngle.setValue(object.angle);
-
-        }
-
-        if (object.penumbra !== undefined) {
-
-            objectPenumbra.setValue(object.penumbra);
-
-        }
-
-        if (object.decay !== undefined) {
-
-            objectDecay.setValue(object.decay);
-
-        }
-
-        if (object.castShadow !== undefined) {
-
-            objectCastShadow.setValue(object.castShadow);
-
-        }
-
-        if (object.receiveShadow !== undefined) {
-
-            objectReceiveShadow.setValue(object.receiveShadow);
-
-        }
-
-        if (object.shadow !== undefined) {
-
-            objectShadowRadius.setValue(object.shadow.radius);
-
-        }
-
-        objectVisible.setValue(object.visible);
-
-        try {
-
-            objectUserData.setValue(JSON.stringify(object.userData, null, '  '));
-
-        } catch (error) {
-
-            console.log(error);
-
-        }
-
-        objectUserData.dom.style.borderColor = 'transparent';
-
-        objectUserData.dom.style.backgroundColor = '';
-
-        updateTransformRows(object);
-
-    }
-
-    return container;
-
 };
 
 export default ObjectPanel;

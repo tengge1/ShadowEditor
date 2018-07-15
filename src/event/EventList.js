@@ -167,6 +167,12 @@ var EventList = [
     'updateMaterial', // 根据材质面板更新材质
     'updateMaterialPanel', // 更新材质面板UI
 
+    'updateScaleX', // 物体面板更新缩放x
+    'updateScaleY', // 物体面板更新缩放y
+    'updateScaleZ', // 物体面板更新缩放z
+    'updateObject', // 更新物体属性
+    'updateObjectPanel', // 更新物体面板
+
     // 场景编辑区
     'transformControlsChange', // 变形控件改变
     'transformControlsMouseDown', // 变形控件按下鼠标键

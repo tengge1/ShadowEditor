@@ -50,8 +50,8 @@ function PropertyPanel(app) {
 
     object.render();
 
-    var objectPanel = new ObjectPanel(this.app);
-    object.dom.appendChild(objectPanel.dom);
+    var objectPanel = new ObjectPanel({ app: this.app, parent: object.dom });
+    objectPanel.render();
 
     container.dom.appendChild(object.dom);
 
