@@ -64,56 +64,6 @@ HistoryPanel.prototype.render = function () {
 
     var control = XType.create(data);
     control.render();
-
-    var outliner = XType.getControl('historyOutlinear');
-
-    //
-
-    var refreshUI = function () {
-        var options = [];
-        var enumerator = 1;
-
-        function buildOption(object) {
-            var option = document.createElement('div');
-            option.value = object.id;
-
-            return option;
-        }
-
-        (function addObjects(objects) {
-            for (var i = 0, l = objects.length; i < l; i++) {
-                var object = objects[i];
-                var option = buildOption(object);
-                option.innerHTML = '&nbsp;' + object.name;
-                options.push(option);
-            }
-        })(history.undos);
-
-
-        (function addObjects(objects, pad) {
-            for (var i = objects.length - 1; i >= 0; i--) {
-                var object = objects[i];
-                var option = buildOption(object);
-                option.innerHTML = '&nbsp;' + object.name;
-                option.style.opacity = 0.3;
-                options.push(option);
-            }
-        })(history.redos, '&nbsp;');
-        outliner.setOptions(options);
-    };
-
-    refreshUI();
-
-    // events
-    this.app.on('editorCleared.HistoryPanel', function () {
-        refreshUI();
-    });
-
-    this.app.on('historyChanged.HistoryPanel', function (cmd) {
-        refreshUI();
-
-        outliner.setValue(cmd !== undefined ? cmd.id : null);
-    });
 };
 
 export default HistoryPanel;
