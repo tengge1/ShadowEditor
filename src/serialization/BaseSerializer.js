@@ -8,7 +8,7 @@ function BaseSerializer() {
 }
 
 /**
- * 转为json字符串
+ * 转为json
  * @param {*} obj 对象
  */
 BaseSerializer.prototype.toJSON = function (obj) {
@@ -16,7 +16,7 @@ BaseSerializer.prototype.toJSON = function (obj) {
 };
 
 /**
- * json字符串转对象
+ * json转对象
  * @param {*} json json字符串
  */
 BaseSerializer.prototype.fromJSON = function (json) {
