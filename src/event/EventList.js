@@ -161,6 +161,12 @@ var EventList = [
     'historyChanged', // 历史改变事件
     'refreshScriptEditor', // 刷新脚本编辑器事件
 
+    'newMaterial', // 材质面板新建材质
+    'copyMaterial', // 材质面板复制材质
+    'pasteMaterial', // 材质面板粘贴材质
+    'updateMaterial', // 根据材质面板更新材质
+    'updateMaterialPanel', // 更新材质面板UI
+
     // 场景编辑区
     'transformControlsChange', // 变形控件改变
     'transformControlsMouseDown', // 变形控件按下鼠标键

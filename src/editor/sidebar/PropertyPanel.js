@@ -68,9 +68,8 @@ function PropertyPanel(app) {
 
     material.render();
 
-    var materialPanel = new MaterialPanel(this.app);
-
-    material.dom.appendChild(materialPanel.dom);
+    var materialPanel = new MaterialPanel({ app: this.app, parent: material.dom });
+    materialPanel.render();
 
     container.dom.appendChild(material.dom);
 

@@ -126,6 +126,9 @@ import CodeMirrorChangeEvent from './script/CodeMirrorChangeEvent';
 
 import PlayerEvent from './player/PlayerEvent';
 
+// 侧边栏
+import MaterialPanelEvent from './sideBar/MaterialPanelEvent';
+
 /**
  * 事件执行器
  */
@@ -239,8 +242,8 @@ function EventDispatcher(app) {
 
         new SavingStatusEvent(this.app),
 
-        // 工具栏中的事件
-
+        // 侧边栏
+        new MaterialPanelEvent(this.app),
 
         // viewport中的事件
         new TransformControlsEvent(this.app),

@@ -284,7 +284,7 @@ Editor.prototype.fromJSON = function (json) { // 根据json创建场景
     this.setScene(loader.parse(json.scene));
 };
 
-Editor.prototype.toJSON = function () { // 将json转换为场景
+Editor.prototype.toJSON = function () { // 将场景转换为json
     // scripts clean up
     var scene = this.scene;
     var scripts = this.scripts;
