@@ -2,31 +2,31 @@ import BaseEvent from '../BaseEvent';
 import XType from '../../ui/XType';
 
 /**
- * 历史面板改变事件
+ * 历史面板事件
  * @param {*} app 
  */
-function HistoryPanelEvent2(app) {
+function HistoryPanelEvent(app) {
     BaseEvent.call(this, app);
 
     this.currentObject = null;
     this.copiedMaterial = null;
 }
 
-HistoryPanelEvent2.prototype = Object.create(BaseEvent.prototype);
-HistoryPanelEvent2.prototype.constructor = HistoryPanelEvent2;
+HistoryPanelEvent.prototype = Object.create(BaseEvent.prototype);
+HistoryPanelEvent.prototype.constructor = HistoryPanelEvent;
 
-HistoryPanelEvent2.prototype.start = function () {
+HistoryPanelEvent.prototype.start = function () {
     this.app.on(`editorCleared.${this.id}`, this.refreshUI.bind(this));
     this.app.on(`historyChanged.${this.id}`, this.refreshUI.bind(this));
     this.refreshUI();
 };
 
-HistoryPanelEvent2.prototype.stop = function () {
+HistoryPanelEvent.prototype.stop = function () {
     this.app.on(`editorCleared.${this.id}`, null);
     this.app.on(`historyChanged.${this.id}`, null);
 };
 
-var refreshUI = function () {
+HistoryPanelEvent.prototype.refreshUI = function () {
     var editor = this.app.editor;
     var history = editor.history;
     var outliner = XType.getControl('historyOutlinear');
@@ -64,4 +64,4 @@ var refreshUI = function () {
 };
 
 
-export default HistoryPanelEvent2;
+export default HistoryPanelEvent;
