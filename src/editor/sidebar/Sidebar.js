@@ -72,7 +72,10 @@ function Sidebar(app) {
     var settings = new UI.Div();
     settings.render();
     settings.dom.appendChild(new SettingPanel(this.app));
-    settings.dom.appendChild(new HistoryPanel(this.app));
+
+    var historyPanel = new HistoryPanel({ app: this.app, parent: settings.dom });
+    historyPanel.render();
+
     container.dom.appendChild(settings.dom);
 
     //

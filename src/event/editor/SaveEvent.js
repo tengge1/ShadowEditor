@@ -27,9 +27,9 @@ SaveEvent.prototype.stop = function () {
 SaveEvent.prototype.onSave = function () {
     var obj = Converter.toJSON(this.app);
 
-    Ajax.post(this.app.options.server + '/Service/SceneService.ashx?cmd=Save', {
-        name: 'Scene1',
-        data: JSON.stringify(obj)
+    Ajax.post(this.app.options.server + '/api/Scene/Save', {
+        Name: 'Scene1',
+        Data: JSON.stringify(obj)
     }, function (result) {
         var obj = JSON.parse(result);
         alert(obj.Msg);

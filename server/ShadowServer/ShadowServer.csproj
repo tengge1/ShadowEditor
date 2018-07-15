@@ -117,6 +117,7 @@
     <Compile Include="Base\JsonResult.cs" />
     <Compile Include="Base\WebApiConfig.cs" />
     <Compile Include="Base\XmlResult.cs" />
+    <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\SceneController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
