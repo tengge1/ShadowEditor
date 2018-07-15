@@ -65,7 +65,8 @@ function Sidebar(app) {
     var project = new UI.Div();
     project.render();
 
-    project.dom.appendChild(new ProjectPanel(this.app).dom);
+    var projectPanel = new ProjectPanel({ app: this.app, parent: project.dom });
+    projectPanel.render();
 
     container.dom.appendChild(project.dom);
 

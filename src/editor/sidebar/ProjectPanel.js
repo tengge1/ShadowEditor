@@ -1,14 +1,21 @@
 ﻿import { System } from '../../third_party';
-import UI from '../../ui/UI';
+import Control from '../../ui/Control';
+import XType from '../../ui/XType';
 
 /**
  * 工程面板
  * @author mrdoob / http://mrdoob.com/
  */
-function ProjectPanel(app) {
-    this.app = app;
-    var editor = this.app.editor;
+function ProjectPanel(options) {
+    Control.call(this, options);
+    this.app = options.app;
+};
 
+ProjectPanel.prototype = Object.create(Control.prototype);
+ProjectPanel.prototype.constructor = ProjectPanel;
+
+ProjectPanel.prototype.render = function () {
+    var editor = this.app.editor;
     var config = editor.config;
 
     var rendererTypes = {
@@ -19,127 +26,103 @@ function ProjectPanel(app) {
         'RaytracingRenderer': THREE.RaytracingRenderer
     };
 
-    var container = new UI.Div({
-        style: 'border-top: 0; padding-top: 20px;',
-        cls: 'Panel'
-    });
-
-    // class
-
     var options = {};
 
     for (var key in rendererTypes) {
-
         if (key.indexOf('WebGL') >= 0 && System.support.webgl === false) continue;
-
         options[key] = key;
-
     }
 
-    var rendererTypeRow = new UI.Row();
+    var data = {
+        xtype: 'div',
+        id: 'projectPanel',
+        parent: this.parent,
+        style: 'border-top: 0; padding-top: 20px;',
+        cls: 'Panel',
+        children: [{ // class
+            xtype: 'row',
+            id: 'rendererTypeRow',
+            children: [{
+                xtype: 'label',
+                id: 'rendererType',
+                text: '渲染器',
+                style: 'width: 90px;'
+            }, {
+                xtype: 'select',
+                options: options,
+                value: config.getKey('project/renderer'),
+                style: 'width: 150px; ',
+                onChange: function () {
+                    var value = this.getValue();
+                    config.setKey('project/renderer', value);
+                    updateRenderer();
+                }
+            }]
+        }, {
+            xtype: 'row',
+            id: 'rendererPropertiesRow',
+            style: 'margin-left: 90px',
+            children: [{ // antialiasing
+                xtype: 'boolean',
+                id: 'rendererAntialias',
+                value: config.getKey('project/renderer/antialias'),
+                text: '抗锯齿',
+                onChange: function () {
+                    config.setKey('project/renderer/antialias', this.getValue());
+                    updateRenderer();
+                }
+            }, { // shadow
+                xtype: 'boolean',
+                id: 'rendererShadows',
+                value: config.getKey('project/renderer/shadows'),
+                text: '阴影',
+                onChange: function () {
+                    config.setKey('project/renderer/shadows', this.getValue());
+                    updateRenderer();
+                }
+            }, {
+                xtype: 'br'
+            }, { // gamma input
+                xtype: 'boolean',
+                id: 'rendererGammaInput',
+                value: config.getKey('project/renderer/gammaInput'),
+                text: 'γ输入',
+                onChange: function () {
+                    config.setKey('project/renderer/gammaInput', this.getValue());
+                    updateRenderer();
+                }
+            }, { // gamma output
+                xtype: 'boolean',
+                id: 'rendererGammaOutput',
+                value: config.getKey('project/renderer/gammaOutput'),
+                text: 'γ输出',
+                onChange: function () {
+                    config.setKey('project/renderer/gammaOutput', this.getValue());
+                    updateRenderer();
+                }
+            }]
+        }, { // VR
+            xtype: 'row',
+            id: 'vrRow',
+            children: [{
+                xtype: 'label',
+                text: '虚拟现实',
+                style: 'width: 90px;'
+            }, {
+                xtype: 'checkbox',
+                id: 'vr',
+                value: config.getKey('project/vr'),
+                style: 'left: 100px;',
+                onChange: function () {
+                    config.setKey('project/vr', this.getValue());
+                    // updateRenderer();
+                }
+            }]
+        }]
+    };
 
-    var rendererType = new UI.Select({
-        options: options,
-        value: config.getKey('project/renderer'),
-        style: 'width: 150px; ',
-        onChange: function () {
-            var value = this.getValue();
-            config.setKey('project/renderer', value);
-            updateRenderer();
-        }
-    });
-
-    rendererTypeRow.add(new UI.Label({
-        text: '渲染器',
-        style: 'width: 90px;'
-    }));
-
-    rendererTypeRow.add(rendererType);
-
-    container.add(rendererTypeRow);
-
-    // antialiasing
-
-    var rendererPropertiesRow = new UI.Row({
-        style: 'margin-left: 90px'
-    });
-
-    var rendererAntialias = new UI.Boolean({
-        value: config.getKey('project/renderer/antialias'),
-        text: '抗锯齿',
-        onChange: function () {
-            config.setKey('project/renderer/antialias', this.getValue());
-            updateRenderer();
-        }
-    });
-
-    rendererPropertiesRow.add(rendererAntialias);
-
-    // shadow
-
-    var rendererShadows = new UI.Boolean({
-        value: config.getKey('project/renderer/shadows'),
-        text: '阴影',
-        onChange: function () {
-            config.setKey('project/renderer/shadows', this.getValue());
-            updateRenderer();
-        }
-    });
-
-    rendererPropertiesRow.add(rendererShadows);
-
-    rendererPropertiesRow.add(new UI.Break());
-
-    // gamma input
-
-    var rendererGammaInput = new UI.Boolean({
-        value: config.getKey('project/renderer/gammaInput'),
-        text: 'γ输入',
-        onChange: function () {
-            config.setKey('project/renderer/gammaInput', this.getValue());
-            updateRenderer();
-        }
-    });
-
-    rendererPropertiesRow.add(rendererGammaInput);
-
-    // gamma output
-
-    var rendererGammaOutput = new UI.Boolean({
-        value: config.getKey('project/renderer/gammaOutput'),
-        text: 'γ输出',
-        onChange: function () {
-            config.setKey('project/renderer/gammaOutput', this.getValue());
-            updateRenderer();
-        }
-    });
-
-    rendererPropertiesRow.add(rendererGammaOutput);
-
-    container.add(rendererPropertiesRow);
-
-    container.render();
-
-    // VR
-
-    var vrRow = new UI.Row();
-    var vr = new UI.Checkbox({
-        value: config.getKey('project/vr'),
-        style: 'left: 100px;',
-        onChange: function () {
-            config.setKey('project/vr', this.getValue());
-            // updateRenderer();
-        }
-    });
-
-    vrRow.add(new UI.Label({
-        text: '虚拟现实',
-        style: 'width: 90px;'
-    }));
-
-    vrRow.add(vr);
-
-    container.add(vrRow);
+    var control = XType.create(data);
+    control.render();
 
     //
 
@@ -170,9 +153,6 @@ function ProjectPanel(app) {
     }
 
     createRenderer(config.getKey('project/renderer'), config.getKey('project/renderer/antialias'), config.getKey('project/renderer/shadows'), config.getKey('project/renderer/gammaInput'), config.getKey('project/renderer/gammaOutput'));
-
-    return container;
-
 };
 
 export default ProjectPanel;
