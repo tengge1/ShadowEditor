@@ -33,6 +33,12 @@ ProjectPanel.prototype.render = function () {
         options[key] = key;
     }
 
+    var _this = this;
+
+    var updateRenderer = function () {
+        _this.app.call('updateRenderer', _this);
+    };
+
     var data = {
         xtype: 'div',
         id: 'projectPanel',
@@ -44,11 +50,11 @@ ProjectPanel.prototype.render = function () {
             id: 'rendererTypeRow',
             children: [{
                 xtype: 'label',
-                id: 'rendererType',
                 text: '渲染器',
                 style: 'width: 90px;'
             }, {
                 xtype: 'select',
+                id: 'rendererType',
                 options: options,
                 value: config.getKey('project/renderer'),
                 style: 'width: 150px; ',
@@ -123,36 +129,6 @@ ProjectPanel.prototype.render = function () {
 
     var control = XType.create(data);
     control.render();
-
-    //
-
-    function updateRenderer() {
-        createRenderer(rendererType.getValue(), rendererAntialias.getValue(), rendererShadows.getValue(), rendererGammaInput.getValue(), rendererGammaOutput.getValue());
-    }
-
-    var _this = this;
-
-    function createRenderer(type, antialias, shadows, gammaIn, gammaOut) {
-        if (type === 'WebGLRenderer' && System.support.webgl === false) {
-            type = 'CanvasRenderer';
-        }
-
-        rendererPropertiesRow.dom.style.display = type === 'WebGLRenderer' ? '' : 'none';
-
-        var renderer = new rendererTypes[type]({ antialias: antialias });
-        renderer.gammaInput = gammaIn;
-        renderer.gammaOutput = gammaOut;
-        if (shadows && renderer.shadowMap) {
-
-            renderer.shadowMap.enabled = true;
-            // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-        }
-
-        _this.app.call('rendererChanged', _this, renderer);
-    }
-
-    createRenderer(config.getKey('project/renderer'), config.getKey('project/renderer/antialias'), config.getKey('project/renderer/shadows'), config.getKey('project/renderer/gammaInput'), config.getKey('project/renderer/gammaOutput'));
 };
 
 export default ProjectPanel;

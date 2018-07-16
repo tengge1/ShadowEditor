@@ -180,6 +180,9 @@ var EventList = [
     'render', // 渲染一次场景
     'animate', // 进行动画
 
+    // 侧边栏
+    'updateRenderer',
+
     // 状态栏
     'gridChange', // 状态栏网格改变事件
     'codeMirrorChange', // CodeMirror改变事件

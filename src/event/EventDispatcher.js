@@ -130,6 +130,7 @@ import PlayerEvent from './player/PlayerEvent';
 import ObjectPanelEvent from './sideBar/ObjectPanelEvent';
 import MaterialPanelEvent from './sideBar/MaterialPanelEvent';
 import HistoryPanelEvent from './sideBar/HistoryPanelEvent';
+import ProjectPanelEvent from './sidebar/ProjectPanelEvent';
 
 /**
  * 事件执行器
@@ -248,6 +249,7 @@ function EventDispatcher(app) {
         new ObjectPanelEvent(this.app),
         new MaterialPanelEvent(this.app),
         new HistoryPanelEvent(this.app),
+        new ProjectPanelEvent(this.app),
 
         // viewport中的事件
         new TransformControlsEvent(this.app),

@@ -218,6 +218,7 @@ ObjectPanel.prototype.render = function () {
                 text: '颜色'
             }, {
                 xtype: 'color',
+                id: 'objectColor',
                 onChange: update
             }]
         }, { // ground color
