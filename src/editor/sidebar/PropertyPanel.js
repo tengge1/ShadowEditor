@@ -1,50 +1,58 @@
-﻿import ObjectPanel from './ObjectPanel';
+﻿import Control from '../../ui/Control';
+import XType from '../../ui/XType';
+import ObjectPanel from './ObjectPanel';
 import GeometryPanel from './geometry/GeometryPanel';
 import MaterialPanel from './MaterialPanel';
-import UI from '../../ui/UI';
 
 /**
  * 属性面板
  * @author mrdoob / http://mrdoob.com/
  */
-function PropertyPanel(app) {
-    this.app = app;
+function PropertyPanel(options) {
+    Control.call(this, options);
+    this.app = options.app;
+};
+
+PropertyPanel.prototype = Object.create(Control.prototype);
+PropertyPanel.prototype.constructor = PropertyPanel;
+
+PropertyPanel.prototype.render = function () {
     var editor = this.app.editor;
 
-    var container = new UI.Div();
-
-    var objectTab = new UI.Text({
-        text: '物体',
-        onClick: onClick
-    });
-
-    var geometryTab = new UI.Text({
-        text: '几何',
-        onClick: onClick
-    });
-
-    var materialTab = new UI.Text({
-        text: '材质',
-        onClick: onClick
-    });
-
-    var tabs = new UI.Div({
-        cls: 'tabs'
-    });
-
-    tabs.add(objectTab);
-    tabs.add(geometryTab);
-    tabs.add(materialTab);
-
-    container.add(tabs);
-
-    function onClick(event) {
+    var onClick = function (event) {
         select(event.target.textContent);
-    }
+    };
 
-    container.render();
+    var data = {
+        xtype: 'div',
+        id: 'propertyPanel',
+        parent: this.parent,
+        children: [{
+            xtype: 'div',
+            cls: 'tabs',
+            children: [{
+                xtype: 'text',
+                text: '物体',
+                onClick: onClick
+            }, {
+                xtype: 'text',
+                text: '几何',
+                onClick: onClick
+            }, {
+                xtype: 'text',
+                text: '材质',
+                onClick: onClick
+            }]
+        }, {
+            xtype: 'div',
+            children: [
+                
+            ]
+        }]
+    };
 
-    //
+    var control = XType.create(data);
+    control.render();
 
     var object = new UI.Div();
 
@@ -102,8 +110,6 @@ function PropertyPanel(app) {
     }
 
     select('物体');
-
-    return container;
 };
 
 export default PropertyPanel;

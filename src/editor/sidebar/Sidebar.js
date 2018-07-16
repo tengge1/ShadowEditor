@@ -58,7 +58,10 @@ function Sidebar(app) {
     var scene = new UI.Div();
     scene.render();
     scene.dom.appendChild(new ScenePanel(this.app).dom);
-    scene.dom.appendChild(new PropertyPanel(this.app).dom);
+
+    var propertyPanel = new PropertyPanel({ app: this.app, parent: scene.dom });
+    propertyPanel.render();
+
     scene.dom.appendChild(new ScriptPanel(this.app).dom);
     container.dom.appendChild(scene.dom);
 
