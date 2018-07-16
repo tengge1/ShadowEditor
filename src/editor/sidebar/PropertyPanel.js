@@ -19,8 +19,10 @@ PropertyPanel.prototype.constructor = PropertyPanel;
 PropertyPanel.prototype.render = function () {
     var editor = this.app.editor;
 
+    var _this = this;
+
     var onClick = function (event) {
-        select(event.target.textContent);
+        _this.app.call('selectPropertyTab', _this, event.target.textContent);
     };
 
     var data = {
@@ -66,41 +68,6 @@ PropertyPanel.prototype.render = function () {
 
     var control = XType.create(data);
     control.render();
-
-    var objectTab = XType.getControl('objectTab');
-    var geometryTab = XType.getControl('geometryTab');
-    var materialTab = XType.getControl('materialTab');
-    var objectPanel = XType.getControl('objectPanel');
-    var geometryPanel = XType.getControl('geometryPanel');
-    var materialPanel = XType.getControl('materialPanel');
-
-    function select(section) {
-
-        objectTab.dom.className = '';
-        geometryTab.dom.className = '';
-        materialTab.dom.className = '';
-
-        objectPanel.dom.style.display = 'none';
-        geometryPanel.dom.style.display = 'none';
-        materialPanel.dom.style.display = 'none';
-
-        switch (section) {
-            case '物体':
-                objectTab.dom.className = 'selected';
-                objectPanel.dom.style.display = '';
-                break;
-            case '几何':
-                geometryTab.dom.className = 'selected';
-                geometryPanel.dom.style.display = '';
-                break;
-            case '材质':
-                materialTab.dom.className = 'selected';
-                materialPanel.dom.style.display = '';
-                break;
-        }
-    }
-
-    select('物体');
 };
 
 export default PropertyPanel;

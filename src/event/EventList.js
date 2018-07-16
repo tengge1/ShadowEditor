@@ -182,6 +182,7 @@ var EventList = [
 
     // 侧边栏
     'updateRenderer',
+    'selectPropertyTab', // 点击选择属性选项卡
 
     // 状态栏
     'gridChange', // 状态栏网格改变事件
