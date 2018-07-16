@@ -341,8 +341,8 @@ ObjectPanel.prototype.render = function () {
         }]
     };
 
-    var container = XType.create(data);
-    container.render();
+    var control = XType.create(data);
+    control.render();
 };
 
 export default ObjectPanel;

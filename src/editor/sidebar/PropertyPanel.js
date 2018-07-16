@@ -32,21 +32,34 @@ PropertyPanel.prototype.render = function () {
             cls: 'tabs',
             children: [{
                 xtype: 'text',
+                id: 'objectTab',
                 text: '物体',
                 onClick: onClick
             }, {
                 xtype: 'text',
+                id: 'geometryTab',
                 text: '几何',
                 onClick: onClick
             }, {
                 xtype: 'text',
+                id: 'materialTab',
                 text: '材质',
                 onClick: onClick
             }]
         }, {
             xtype: 'div',
             children: [
-                
+                new ObjectPanel({ app: this.app, id: 'object' })
+            ]
+        }, {
+            xtype: 'div',
+            children: [
+                new GeometryPanel({ app: this.app, id: 'geometry' })
+            ]
+        }, {
+            xtype: 'div',
+            children: [
+                new MaterialPanel({ app: this.app, id: 'material' })
             ]
         }]
     };
@@ -54,34 +67,12 @@ PropertyPanel.prototype.render = function () {
     var control = XType.create(data);
     control.render();
 
-    var object = new UI.Div();
-
-    object.render();
-
-    var objectPanel = new ObjectPanel({ app: this.app, parent: object.dom });
-    objectPanel.render();
-
-    container.dom.appendChild(object.dom);
-
-    var geometry = new UI.Div();
-    geometry.render();
-
-    var geometryPanel = new GeometryPanel(editor);
-
-    geometry.dom.appendChild(geometryPanel.dom);
-
-    container.dom.appendChild(geometry.dom);
-
-    var material = new UI.Div();
-
-    material.render();
-
-    var materialPanel = new MaterialPanel({ app: this.app, parent: material.dom });
-    materialPanel.render();
-
-    container.dom.appendChild(material.dom);
-
-    //
+    var objectTab = XType.getControl('objectTab');
+    var geometryTab = XType.getControl('geometryTab');
+    var materialTab = XType.getControl('materialTab');
+    var objectPanel = XType.getControl('objectPanel');
+    var geometryPanel = XType.getControl('geometryPanel');
+    var materialPanel = XType.getControl('materialPanel');
 
     function select(section) {
 
@@ -89,22 +80,22 @@ PropertyPanel.prototype.render = function () {
         geometryTab.dom.className = '';
         materialTab.dom.className = '';
 
-        object.dom.style.display = 'none';
-        geometry.dom.style.display = 'none';
-        material.dom.style.display = 'none';
+        objectPanel.dom.style.display = 'none';
+        geometryPanel.dom.style.display = 'none';
+        materialPanel.dom.style.display = 'none';
 
         switch (section) {
             case '物体':
                 objectTab.dom.className = 'selected';
-                object.dom.style.display = '';
+                objectPanel.dom.style.display = '';
                 break;
             case '几何':
                 geometryTab.dom.className = 'selected';
-                geometry.dom.style.display = '';
+                geometryPanel.dom.style.display = '';
                 break;
             case '材质':
                 materialTab.dom.className = 'selected';
-                material.dom.style.display = '';
+                materialPanel.dom.style.display = '';
                 break;
         }
     }

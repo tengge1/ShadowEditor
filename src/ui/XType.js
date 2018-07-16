@@ -47,6 +47,9 @@ XTypeCls.prototype.get = function (name) {
  */
 XTypeCls.prototype.create = function (config) {
     if (config instanceof Control) { // config是Control实例
+        if (config.id) {
+            this.objects[config.id] = config;
+        }
         return config;
     }
 
