@@ -27,7 +27,7 @@ MaterialPanel.prototype.render = function () {
         parent: this.parent,
         id: 'materialPanel',
         cls: 'Panel',
-        style: 'border-top: 0; padding-top: 20px',
+        style: 'border-top: 0; padding-top: 20px;',
         children: [{ // New Copy Paste
             xtype: 'row',
             children: [{
