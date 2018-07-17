@@ -234,6 +234,6 @@ Outliner.prototype.setValue = function (value) {
     return this;
 };
 
-XType.add('outlinear', Outliner);
+XType.add('outliner', Outliner);
 
 export default Outliner;

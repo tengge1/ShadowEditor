@@ -161,6 +161,14 @@ var EventList = [
     'historyChanged', // 历史改变事件
     'refreshScriptEditor', // 刷新脚本编辑器事件
 
+    // 场景编辑区
+    'transformControlsChange', // 变形控件改变
+    'transformControlsMouseDown', // 变形控件按下鼠标键
+    'transformControlsMouseUp', // 变形控件抬起鼠标键
+    'render', // 渲染一次场景
+    'animate', // 进行动画
+
+    // 侧边栏
     'newMaterial', // 材质面板新建材质
     'copyMaterial', // 材质面板复制材质
     'pasteMaterial', // 材质面板粘贴材质
@@ -173,16 +181,12 @@ var EventList = [
     'updateObject', // 更新物体属性
     'updateObjectPanel', // 更新物体面板
 
-    // 场景编辑区
-    'transformControlsChange', // 变形控件改变
-    'transformControlsMouseDown', // 变形控件按下鼠标键
-    'transformControlsMouseUp', // 变形控件抬起鼠标键
-    'render', // 渲染一次场景
-    'animate', // 进行动画
-
-    // 侧边栏
     'updateRenderer',
     'selectPropertyTab', // 点击选择属性选项卡
+
+    'updateScenePanel', // 刷新场景面板
+    'updateScenePanelFog', // 刷新场景面板雾效设置
+    'outlinerChange', // 场景大纲发生改变
 
     // 状态栏
     'gridChange', // 状态栏网格改变事件

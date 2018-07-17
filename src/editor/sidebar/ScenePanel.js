@@ -1,285 +1,133 @@
-﻿import UI from '../../ui/UI';
+﻿import Control from '../../ui/Control';
+import XType from '../../ui/XType';
 
 /**
  * 场景面板
  * @author mrdoob / http://mrdoob.com/
  */
-function ScenePanel(app) {
-    this.app = app;
+function ScenePanel(options) {
+    Control.call(this, options);
+    this.app = options.app;
+};
+
+ScenePanel.prototype = Object.create(Control.prototype);
+ScenePanel.prototype.constructor = ScenePanel;
+
+ScenePanel.prototype.render = function () {
     var editor = this.app.editor;
 
-    var container = new UI.Div({
-        cls: 'Panel',
-        style: 'border-top: 0; padding-top: 20px;'
-    });
-
-    // outliner
-
-    function buildOption(object, draggable) {
-        var option = document.createElement('div');
-        option.draggable = draggable;
-        option.innerHTML = buildHTML(object);
-        option.value = object.id;
-
-        return option;
-    }
-
-    function buildHTML(object) {
-
-        var html = '<span class="type ' + object.type + '"></span> ' + object.name;
-
-        if (object instanceof THREE.Mesh) {
-
-            var geometry = object.geometry;
-            var material = object.material;
-
-            html += ' <span class="type ' + geometry.type + '"></span> ' + geometry.name;
-            html += ' <span class="type ' + material.type + '"></span> ' + material.name;
-
-        }
-
-        html += getScript(object.uuid);
-
-        return html;
-
-    }
-
-    function getScript(uuid) {
-
-        if (editor.scripts[uuid] !== undefined) {
-
-            return ' <span class="type Script"></span>';
-
-        }
-
-        return '';
-
-    }
-
-    var ignoreObjectSelectedSignal = false;
-
-    var outliner = new UI.Outliner({
-        editor: editor,
-        id: 'outliner',
-        onChange: function () {
-            ignoreObjectSelectedSignal = true;
-            editor.selectById(parseInt(outliner.getValue()));
-            ignoreObjectSelectedSignal = false;
-        },
-        onDblClick: function () {
-            editor.focusById(parseInt(outliner.getValue()));
-        }
-    });
-
-    container.add(outliner);
-    container.add(new UI.Break());
-
-    // background
     var _this = this;
 
-    function onBackgroundChanged() {
-        _this.app.call('sceneBackgroundChanged', _this, backgroundColor.getHexValue());
-    }
+    var onFogChanged = function () {
+        var fogType = XType.getControl('fogType');
+        var fogColor = XType.getControl('fogColor');
+        var fogNear = XType.getControl('fogNear');
+        var fogFar = XType.getControl('fogFar');
+        var fogDensity = XType.getControl('fogDensity');
 
-    var backgroundRow = new UI.Row();
-
-    var backgroundColor = new UI.Color({
-        value: '#aaaaaa',
-        onChange: onBackgroundChanged
-    });
-
-    backgroundRow.add(new UI.Label({
-        text: '背景',
-        style: 'width: 90px;'
-    }));
-    backgroundRow.add(backgroundColor);
-
-    container.add(backgroundRow);
-
-    // fog
-
-    function onFogChanged() {
         _this.app.call('sceneFogChanged',
             _this,
             fogType.getValue(),
             fogColor.getHexValue(),
             fogNear.getValue(),
             fogFar.getValue(),
-            fogDensity.getValue());
-    }
+            fogDensity.getValue()
+        );
+    };
 
-    var fogTypeRow = new UI.Row();
-    var fogType = new UI.Select({
-        options: {
-            'None': '无',
-            'Fog': '线性',
-            'FogExp2': '指数型'
-        },
-        style: 'width: 150px;',
-        onChange: function () {
-            onFogChanged();
-            refreshFogUI();
-        }
-    });
+    var refreshFogUI = function () {
+        _this.app.call('updateScenePanelFog', _this);
+    };
 
-    fogTypeRow.add(new UI.Label({
-        text: '雾',
-        style: 'width: 90px'
-    }));
-
-    fogTypeRow.add(fogType);
-
-    container.add(fogTypeRow);
-
-    // fog color
-
-    var fogPropertiesRow = new UI.Row({
-        style: 'display: none; margin-left: 90px;'
-    });
-
-    container.add(fogPropertiesRow);
-
-    var fogColor = new UI.Color({
-        value: '#aaaaaa',
-        onChange: onFogChanged
-    });
-
-    fogPropertiesRow.add(fogColor);
-
-    // fog near
-
-    var fogNear = new UI.Number({
-        value: 0.1,
-        style: 'width: 40px;',
-        range: [0, Infinity],
-        onChange: onFogChanged
-    });
-
-    fogPropertiesRow.add(fogNear);
-
-    // fog far
-
-    var fogFar = new UI.Number({
-        value: 50,
-        style: 'width: 40px;',
-        range: [0, Infinity],
-        onChange: onFogChanged
-    });
-
-    fogPropertiesRow.add(fogFar);
-
-    // fog density
-
-    var fogDensity = new UI.Number({
-        value: 0.05,
-        style: 'width: 40px;',
-        range: [0, 0.1],
-        precision: 3,
-        onChange: onFogChanged
-    });
-
-    fogPropertiesRow.add(fogDensity);
-
-    container.render();
-
-    //
-
-    function refreshUI() {
-        var camera = editor.camera;
-        var scene = editor.scene;
-
-        var options = [];
-
-        options.push(buildOption(camera, false));
-        options.push(buildOption(scene, false));
-
-        (function addObjects(objects, pad) {
-            for (var i = 0, l = objects.length; i < l; i++) {
-
-                var object = objects[i];
-
-                var option = buildOption(object, true);
-                option.style.paddingLeft = (pad * 10) + 'px';
-                options.push(option);
-
-                addObjects(object.children, pad + 1);
-
+    var data = {
+        xtype: 'div',
+        id: 'scenePanel',
+        parent: this.parent,
+        cls: 'Panel',
+        children: [{ // outliner
+            xtype: 'outliner',
+            editor: editor,
+            id: 'outliner',
+            onChange: function () {
+                _this.app.call('outlinerChange', _this, this);
+            },
+            onDblClick: function () {
+                editor.focusById(parseInt(this.getValue()));
             }
-        })(scene.children, 1);
+        }, {
+            xtype: 'br'
+        }, { // background
+            xtype: 'row',
+            id: 'backgroundRow',
+            children: [{
+                xtype: 'label',
+                text: '背景',
+                style: 'width: 90px;'
+            }, {
+                xtype: 'color',
+                id: 'backgroundColor',
+                value: '#aaaaaa',
+                onChange: function () {
+                    _this.app.call('sceneBackgroundChanged', _this, this.getHexValue());
+                }
+            }]
+        }, { // fog
+            xtype: 'row',
+            id: 'fogTypeRow',
+            children: [{
+                xtype: 'label',
+                text: '雾',
+                style: 'width: 90px'
+            }, {
+                xtype: 'select',
+                id: 'fogType',
+                options: {
+                    'None': '无',
+                    'Fog': '线性',
+                    'FogExp2': '指数型'
+                },
+                style: 'width: 150px;',
+                onChange: function () {
+                    onFogChanged();
+                    refreshFogUI();
+                }
+            }]
+        }, {
+            xtype: 'row',
+            id: 'fogPropertiesRow',
+            children: [{ // fog color
+                xtype: 'color',
+                id: 'fogColor',
+                value: '#aaaaaa',
+                onChange: onFogChanged
+            }, { // fog near
+                xtype: 'number',
+                id: 'fogNear',
+                value: 0.1,
+                style: 'width: 40px;',
+                range: [0, Infinity],
+                onChange: onFogChanged
+            }, { // fog far
+                xtype: 'number',
+                id: 'fogFar',
+                value: 50,
+                style: 'width: 40px;',
+                range: [0, Infinity],
+                onChange: onFogChanged
+            }, { // fog density
+                xtype: 'number',
+                id: 'fogDensity',
+                value: 0.05,
+                style: 'width: 40px;',
+                range: [0, 0.1],
+                precision: 3,
+                onChange: onFogChanged
+            }]
+        }]
+    };
 
-        outliner.setOptions(options);
-
-        if (editor.selected !== null) {
-            outliner.setValue(editor.selected.id);
-        }
-
-        if (scene.background) {
-            backgroundColor.setHexValue(scene.background.getHex());
-        }
-
-        if (scene.fog) {
-            fogColor.setHexValue(scene.fog.color.getHex());
-
-            if (scene.fog instanceof THREE.Fog) {
-                fogType.setValue("Fog");
-                fogNear.setValue(scene.fog.near);
-                fogFar.setValue(scene.fog.far);
-            } else if (scene.fog instanceof THREE.FogExp2) {
-                fogType.setValue("FogExp2");
-                fogDensity.setValue(scene.fog.density);
-            }
-        } else {
-            fogType.setValue("None");
-        }
-
-        refreshFogUI();
-    }
-
-    function refreshFogUI() {
-        var type = fogType.getValue();
-
-        fogPropertiesRow.dom.style.display = type === 'None' ? 'none' : '';
-        fogNear.dom.style.display = type === 'Fog' ? '' : 'none';
-        fogFar.dom.style.display = type === 'Fog' ? '' : 'none';
-        fogDensity.dom.style.display = type === 'FogExp2' ? '' : 'none';
-    }
-
-    refreshUI();
-
-    // events
-
-    this.app.on('editorCleared.ScenePanel', function () {
-        refreshUI();
-    });
-
-    this.app.on('sceneGraphChanged.ScenePanel', function () {
-        refreshUI();
-    });
-
-    this.app.on('objectChanged.ScenePanel', function (object) {
-        var options = outliner.options;
-
-        for (var i = 0; i < options.length; i++) {
-
-            var option = options[i];
-
-            if (option.value === object.id) {
-
-                option.innerHTML = buildHTML(object);
-                return;
-
-            }
-
-        }
-    });
-
-    this.app.on('objectSelected.ScenePanel', function (object) {
-        if (ignoreObjectSelectedSignal === true) return;
-
-        outliner.setValue(object !== null ? object.id : null);
-    });
-
-    return container;
+    var control = XType.create(data);
+    control.render();
 };
 
 export default ScenePanel;

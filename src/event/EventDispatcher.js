@@ -105,6 +105,14 @@ import AboutEvent from './menu/help/AboutEvent';
 
 import SavingStatusEvent from './menu/status/SavingStatusEvent';
 
+// 侧边栏
+import ObjectPanelEvent from './sideBar/ObjectPanelEvent';
+import MaterialPanelEvent from './sideBar/MaterialPanelEvent';
+import HistoryPanelEvent from './sideBar/HistoryPanelEvent';
+import ProjectPanelEvent from './sidebar/ProjectPanelEvent';
+import PropertyPanelEvent from './sidebar/PropertyPanelEvent';
+import ScenePanelEvent from './sidebar/ScenePanelEvent';
+
 import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateSceneStatusEvent from './statusBar/UpdateSceneStatusEvent';
 import RenderEvent from './viewport/RenderEvent';
@@ -125,13 +133,6 @@ import GridChangeEvent from './statusBar/GridChangeEvent';
 import CodeMirrorChangeEvent from './script/CodeMirrorChangeEvent';
 
 import PlayerEvent from './player/PlayerEvent';
-
-// 侧边栏
-import ObjectPanelEvent from './sideBar/ObjectPanelEvent';
-import MaterialPanelEvent from './sideBar/MaterialPanelEvent';
-import HistoryPanelEvent from './sideBar/HistoryPanelEvent';
-import ProjectPanelEvent from './sidebar/ProjectPanelEvent';
-import PropertyPanelEvent from './sidebar/PropertyPanelEvent';
 
 /**
  * 事件执行器
@@ -252,6 +253,7 @@ function EventDispatcher(app) {
         new HistoryPanelEvent(this.app),
         new ProjectPanelEvent(this.app),
         new PropertyPanelEvent(this.app),
+        new ScenePanelEvent(this.app),
 
         // viewport中的事件
         new TransformControlsEvent(this.app),
@@ -269,7 +271,7 @@ function EventDispatcher(app) {
         new ThemeChangedEvent(this.app),
         new EditorControlsEvent(this.app),
 
-        // statusBar中的事件
+        // 状态栏事件
         new GridChangeEvent(this.app),
 
         // 代码编辑器中的事件

@@ -51,7 +51,7 @@ HistoryPanel.prototype.render = function () {
         }, {
             xtype: 'br'
         }, {
-            xtype: 'outlinear',
+            xtype: 'outliner',
             id: 'historyOutlinear',
             editor: editor,
             onChange: function () {
