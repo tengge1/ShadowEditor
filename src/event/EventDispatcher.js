@@ -113,6 +113,7 @@ import ProjectPanelEvent from './sidebar/ProjectPanelEvent';
 import PropertyPanelEvent from './sidebar/PropertyPanelEvent';
 import ScenePanelEvent from './sidebar/ScenePanelEvent';
 import ScriptPanelEvent from './sideBar/ScriptPanelEvent';
+import SidebarEvent from './sideBar/SidebarEvent';
 
 import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateSceneStatusEvent from './statusBar/UpdateSceneStatusEvent';
@@ -256,6 +257,7 @@ function EventDispatcher(app) {
         new PropertyPanelEvent(this.app),
         new ScenePanelEvent(this.app),
         new ScriptPanelEvent(this.app),
+        new SidebarEvent(this.app),
 
         // viewport中的事件
         new TransformControlsEvent(this.app),

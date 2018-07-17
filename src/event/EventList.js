@@ -182,6 +182,7 @@ var EventList = [
     'updateObjectPanel', // 更新物体面板
 
     'updateRenderer',
+    'selectTab', // 点击选择侧边栏选项卡
     'selectPropertyTab', // 点击选择属性选项卡
 
     'updateScenePanel', // 刷新场景面板

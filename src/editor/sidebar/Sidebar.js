@@ -1,121 +1,81 @@
-﻿import ScenePanel from './ScenePanel';
+﻿import Control from '../../ui/Control';
+import XType from '../../ui/XType';
+import ScenePanel from './ScenePanel';
 import PropertyPanel from './PropertyPanel';
-// import AnimationPanel from './AnimationPanel';
 import ScriptPanel from './ScriptPanel';
 import ProjectPanel from './ProjectPanel';
 import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
-import UI from '../../ui/UI';
 
 /**
  * 侧边栏
  * @author mrdoob / http://mrdoob.com/
  */
 function Sidebar(app) {
+    Control.call(this, { parent: app.container });
     this.app = app;
+};
+
+Sidebar.prototype = Object.create(Control.prototype);
+Sidebar.prototype.constructor = Sidebar;
+
+Sidebar.prototype.render = function () {
     var editor = this.app.editor;
-
-    var container = new UI.Div({
-        parent: this.app.container,
-        id: 'sidebar'
-    });
-
-    //
-
-    var sceneTab = new UI.Text({
-        text: '场景',
-        onClick: onClick
-    });
-
-    var projectTab = new UI.Text({
-        text: '工程',
-        onClick: onClick
-    });
-
-    var settingsTab = new UI.Text({
-        text: '设置',
-        onClick: onClick
-    });
-
-    var tabs = new UI.Div({
-        cls: 'tabs'
-    });
-
-    tabs.add(sceneTab);
-    tabs.add(projectTab);
-    tabs.add(settingsTab);
-
-    container.add(tabs);
-
-    container.render();
+    var _this = this;
 
     function onClick(event) {
-        select(event.target.textContent);
+        _this.app.call('selectTab', _this, event.target.textContent);
     }
 
-    //
+    var data = {
+        xtype: 'div',
+        id: 'sidebar',
+        parent: this.app.container,
+        children: [{
+            xtype: 'div',
+            cls: 'tabs',
+            children: [{
+                xtype: 'text',
+                id: 'sceneTab',
+                text: '场景',
+                onClick: onClick
+            }, {
+                xtype: 'text',
+                id: 'projectTab',
+                text: '工程',
+                onClick: onClick
+            }, {
+                xtype: 'text',
+                id: 'settingsTab',
+                text: '设置',
+                onClick: onClick
+            }]
+        }, { // scene
+            xtype: 'div',
+            id: 'scene',
+            children: [
+                new ScenePanel({ app: this.app }),
+                new PropertyPanel({ app: this.app }),
+                new ScriptPanel({ app: this.app })
+            ]
+        }, { // project
+            xtype: 'div',
+            id: 'project',
+            children: [
+                new ProjectPanel({ app: this.app })
+            ]
+        }, {
+            xtype: 'div',
+            id: 'settings',
+            children: [
+                new SettingPanel({ app: this.app }),
+                new HistoryPanel({ app: this.app })
+            ]
+        }]
+    };
 
-    var scene = new UI.Div();
-    scene.render();
-
-    var scenePanel = new ScenePanel({ app: this.app, parent: scene.dom });
-    scenePanel.render();
-
-    var propertyPanel = new PropertyPanel({ app: this.app, parent: scene.dom });
-    propertyPanel.render();
-
-    var scriptPanel = new ScriptPanel({ app: this.app, parent: scene.dom });
-    scriptPanel.render();
-
-    container.dom.appendChild(scene.dom);
-
-    var project = new UI.Div();
-    project.render();
-
-    var projectPanel = new ProjectPanel({ app: this.app, parent: project.dom });
-    projectPanel.render();
-
-    container.dom.appendChild(project.dom);
-
-    var settings = new UI.Div();
-    settings.render();
-
-    var settingPanel = new SettingPanel({ app: this.app, parent: settings.dom });
-    settingPanel.render();
-
-    var historyPanel = new HistoryPanel({ app: this.app, parent: settings.dom });
-    historyPanel.render();
-
-    container.dom.appendChild(settings.dom);
-
-    //
-
-    function select(section) {
-        sceneTab.dom.className = '';
-        projectTab.dom.className = '';
-        settingsTab.dom.className = '';
-
-        scene.dom.style.display = 'none';
-        project.dom.style.display = 'none';
-        settings.dom.style.display = 'none';
-
-        switch (section) {
-            case '场景':
-                sceneTab.dom.className = 'selected';
-                scene.dom.style.display = '';
-                break;
-            case '工程':
-                projectTab.dom.className = 'selected';
-                project.dom.style.display = '';
-                break;
-            case '设置':
-                settingsTab.dom.className = 'selected';
-                settings.dom.style.display = '';
-                break;
-        }
-    }
-
-    select('场景');
+    var control = XType.create(data);
+    control.render();
 };
 
 export default Sidebar;

@@ -43,6 +43,7 @@ function Application(container, options) {
     this.editor = new Editor(this); // 编辑器
 
     this.sidebar = new Sidebar(this); // 侧边栏
+    this.sidebar.render();
 
     this.statusBar = new StatusBar(this); // 状态栏
     this.statusBar.render();
