@@ -53,7 +53,7 @@ ScenePanelEvent.prototype.onObjectChanged = function (object) {
         var option = options[i];
 
         if (option.value === object.id) {
-            option.innerHTML = buildHTML(object);
+            option.innerHTML = this.buildHTML(object);
             return;
         }
     }
