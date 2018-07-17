@@ -138,7 +138,7 @@ GeometryPanel.prototype.render = function () {
             }
 
             if (GeometryPanels[geometry.type] !== undefined) {
-                parameters.dom.appendChild(new GeometryPanels[geometry.type](editor, object).dom);
+                (new GeometryPanels[geometry.type]({ app: app, object: object, parent: parameters.dom })).render();
             } else {
 
             }
