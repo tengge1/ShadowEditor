@@ -79,7 +79,9 @@ function Sidebar(app) {
 
     var settings = new UI.Div();
     settings.render();
-    settings.dom.appendChild(new SettingPanel(this.app));
+
+    var settingPanel = new SettingPanel({ app: this.app, parent: settings.dom });
+    settingPanel.render();
 
     var historyPanel = new HistoryPanel({ app: this.app, parent: settings.dom });
     historyPanel.render();
