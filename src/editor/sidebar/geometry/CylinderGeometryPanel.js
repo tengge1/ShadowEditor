@@ -1,122 +1,33 @@
-﻿import SetGeometryCommand from '../../../command/SetGeometryCommand';
-import UI from '../../../ui/UI';
+﻿import Control from '../../../ui/Control';
+import XType from '../../../ui/XType';
+import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
  * 圆柱体
  * @author mrdoob / http://mrdoob.com/
  */
-function CylinderGeometryPanel(editor, object) {
-    var container = new UI.Row();
+function CylinderGeometryPanel(options) {
+    Control.call(this, options);
+    this.app = options.app;
+    this.object = options.object;
+};
 
+CylinderGeometryPanel.prototype = Object.create(Control.prototype);
+CylinderGeometryPanel.prototype.constructor = CylinderGeometryPanel;
+
+CylinderGeometryPanel.prototype.render = function () {
+    var editor = this.app.editor;
+    var object = this.object;
     var geometry = object.geometry;
     var parameters = geometry.parameters;
 
-    // radiusTop
-
-    var radiusTopRow = new UI.Row();
-    var radiusTop = new UI.Number({
-        value: parameters.radiusTop,
-        onChange: update
-    });
-
-    radiusTopRow.add(new UI.Label({
-        text: '顶部半径'
-    }));
-
-    radiusTopRow.add(radiusTop);
-
-    container.add(radiusTopRow);
-
-    // radiusBottom
-
-    var radiusBottomRow = new UI.Row();
-
-    var radiusBottom = new UI.Number({
-        value: parameters.radiusBottom,
-        onChange: update
-    });
-
-    radiusBottomRow.add(new UI.Label({
-        text: '底部半径'
-    }));
-
-    radiusBottomRow.add(radiusBottom);
-
-    container.add(radiusBottomRow);
-
-    // height
-
-    var heightRow = new UI.Row();
-
-    var height = new UI.Number({
-        value: parameters.height,
-        onChange: update
-    });
-
-    heightRow.add(new UI.Label({
-        text: '高度'
-    }));
-
-    heightRow.add(height);
-
-    container.add(heightRow);
-
-    // radialSegments
-
-    var radialSegmentsRow = new UI.Row();
-
-    var radialSegments = new UI.Integer({
-        value: parameters.radialSegments,
-        range: [1, Infinity],
-        onChange: update
-    });
-
-    radialSegmentsRow.add(new UI.Label({
-        text: '两端段数'
-    }));
-
-    radialSegmentsRow.add(radialSegments);
-
-    container.add(radialSegmentsRow);
-
-    // heightSegments
-
-    var heightSegmentsRow = new UI.Row();
-
-    var heightSegments = new UI.Integer({
-        value: parameters.heightSegments,
-        range: [1, Infinity],
-        onChange: update
-    });
-
-    heightSegmentsRow.add(new UI.Label({
-        text: '高度段数'
-    }));
-
-    heightSegmentsRow.add(heightSegments);
-
-    container.add(heightSegmentsRow);
-
-    // openEnded
-
-    var openEndedRow = new UI.Row();
-
-    var openEnded = new UI.Checkbox({
-        value: parameters.openEnded,
-        onChange: update
-    });
-
-    openEndedRow.add(new UI.Label({
-        text: '两端开口'
-    }));
-
-    openEndedRow.add(openEnded);
-
-    container.add(openEndedRow);
-
-    //
-
-    function update() {
+    var update = function () {
+        var radiusTop = XType.getControl('cylinderGeometryRadiusTop');
+        var radiusBottom = XType.getControl('cylinderGeometryRadiusBottom');
+        var height = XType.getControl('cylinderGeometryHeight');
+        var radialSegments = XType.getControl('cylinderGeometryRadialSegments');
+        var heightSegments = XType.getControl('cylinderGeometryHeightSegments');
+        var openEnded = XType.getControl('cylinderGeometryOpenEnded');
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             radiusTop.getValue(),
@@ -126,12 +37,82 @@ function CylinderGeometryPanel(editor, object) {
             heightSegments.getValue(),
             openEnded.getValue()
         )));
+    };
 
-    }
+    var container = XType.create({ // radiusTop
+        xtype: 'row',
+        children: [{ // radiusTop
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '顶部半径'
+            }, {
+                xtype: 'number',
+                id: 'cylinderGeometryRadiusTop',
+                value: parameters.radiusTop,
+                onChange: update
+            }]
+        }, { // radiusBottom
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '底部半径'
+            }, {
+                xtype: 'number',
+                id: 'cylinderGeometryRadiusBottom',
+                value: parameters.radiusBottom,
+                onChange: update
+            }]
+        }, { // height
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '高度'
+            }, {
+                xtype: 'number',
+                id: 'cylinderGeometryHeight',
+                value: parameters.height,
+                onChange: update
+            }]
+        }, { // radialSegments
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '两端段数'
+            }, {
+                xtype: 'int',
+                id: 'cylinderGeometryRadialSegments',
+                value: parameters.radialSegments,
+                range: [1, Infinity],
+                onChange: update
+            }]
+        }, { // heightSegments
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '高度段数'
+            }, {
+                xtype: 'int',
+                id: 'cylinderGeometryHeightSegments',
+                value: parameters.heightSegments,
+                range: [1, Infinity],
+                onChange: update
+            }]
+        }, { // openEnded
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '两端开口'
+            }, {
+                xtype: 'checkbox',
+                id: 'cylinderGeometryOpenEnded',
+                value: parameters.openEnded,
+                onChange: update
+            }]
+        }]
+    });
 
     container.render();
-
-    return container;
 };
 
 export default CylinderGeometryPanel;
