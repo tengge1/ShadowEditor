@@ -4,7 +4,6 @@ import XType from '../../../ui/XType';
 import SetGeometryValueCommand from '../../../command/SetGeometryValueCommand';
 import GeometryInfoPanel from './GeometryInfoPanel';
 import BufferGeometryPanel from './BufferGeometryPanel';
-import GeometryModifyPanel from './GeometryModifyPanel';
 
 import BoxGeometryPanel from './BoxGeometryPanel';
 import CircleGeometryPanel from './CircleGeometryPanel';
@@ -132,10 +131,6 @@ GeometryPanel.prototype.render = function () {
             //
 
             parameters.dom.innerHTML = '';
-
-            if (geometry.type === 'BufferGeometry' || geometry.type === 'Geometry') {
-                parameters.dom.appendChild(new GeometryModifyPanel(editor, object).dom);
-            }
 
             if (GeometryPanels[geometry.type] !== undefined) {
                 (new GeometryPanels[geometry.type]({ app: app, object: object, parent: parameters.dom })).render();

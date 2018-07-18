@@ -20,7 +20,6 @@ export { default as BoxGeometryPanel } from './sidebar/geometry/BoxGeometryPanel
 export { default as BufferGeometryPanel } from './sidebar/geometry/BufferGeometryPanel';
 export { default as CircleGeometryPanel } from './sidebar/geometry/CircleGeometryPanel';
 export { default as CylinderGeometryPanel } from './sidebar/geometry/CylinderGeometryPanel';
-export { default as GeometryModifyPanel } from './sidebar/geometry/GeometryModifyPanel';
 export { default as IcosahedronGeometryPanel } from './sidebar/geometry/IcosahedronGeometryPanel';
 export { default as LatheGeometryPanel } from './sidebar/geometry/LatheGeometryPanel';
 export { default as PlaneGeometryPanel } from './sidebar/geometry/PlaneGeometryPanel';
