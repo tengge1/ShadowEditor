@@ -1,11 +1,26 @@
-﻿import SetGeometryCommand from '../../../command/SetGeometryCommand';
-import UI from '../../../ui/UI';
+﻿import Control from '../../../ui/Control';
+import XType from '../../../ui/XType';
+import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
  * 车床几何体面板
  * @author rfm1201
  */
-function LatheGeometryPanel(editor, object) {
+function LatheGeometryPanel(options) {
+    Control.call(this, options);
+    this.app = options.app;
+    this.object = options.object;
+};
+
+LatheGeometryPanel.prototype = Object.create(Control.prototype);
+LatheGeometryPanel.prototype.constructor = LatheGeometryPanel;
+
+LatheGeometryPanel.prototype.render = function () {
+    var editor = this.app.editor;
+    var object = this.object;
+    var geometry = object.geometry;
+    var parameters = geometry.parameters;
+    var _this = this;
 
     var container = new UI.Row();
 
@@ -193,8 +208,6 @@ function LatheGeometryPanel(editor, object) {
     }
 
     container.render();
-
-    return container;
 };
 
 export default LatheGeometryPanel;
