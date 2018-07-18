@@ -1,59 +1,30 @@
-﻿import SetGeometryCommand from '../../../command/SetGeometryCommand';
-import UI from '../../../ui/UI';
+﻿import Control from '../../../ui/Control';
+import XType from '../../../ui/XType';
+import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
  * 二十面体几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
-function IcosahedronGeometryPanel(editor, object) {
-    this.app = editor.app;
+function IcosahedronGeometryPanel(options) {
+    Control.call(this, options);
+    this.app = options.app;
+    this.object = options.object;
+};
 
-    var container = new UI.Row();
+IcosahedronGeometryPanel.prototype = Object.create(Control.prototype);
+IcosahedronGeometryPanel.prototype.constructor = IcosahedronGeometryPanel;
 
+IcosahedronGeometryPanel.prototype.render = function () {
+    var editor = this.app.editor;
+    var object = this.object;
     var geometry = object.geometry;
     var parameters = geometry.parameters;
-
-    // radius
-
-    var radiusRow = new UI.Row();
-
-    var radius = new UI.Number({
-        value: parameters.radius,
-        onChange: update
-    });
-
-    radiusRow.add(new UI.Label({
-        text: '半径'
-    }));
-
-    radiusRow.add(radius);
-
-    container.add(radiusRow);
-
-    // detail
-
-    var detailRow = new UI.Row();
-
-    var detail = new UI.Integer({
-        value: parameters.detail,
-        range: [0, Infinity],
-        onChange: update
-    });
-
-    detailRow.add(new UI.Label({
-        text: '面片段数'
-    }));
-
-    detailRow.add(detail);
-
-    container.add(detailRow);
-
-
-    //
-
     var _this = this;
 
-    function update() {
+    var update = function () {
+        var radius = XType.getControl('icosahedronGeometryRadius');
+        var detail = XType.getControl('icosahedronGeometryDetail');
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             radius.getValue(),
@@ -61,12 +32,39 @@ function IcosahedronGeometryPanel(editor, object) {
         )));
 
         _this.app.call('objectChanged', _this, object);
+    };
 
-    }
+    var data = {
+        xtype: 'row',
+        parent: this.parent,
+        children: [{ // radius
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '半径'
+            }, {
+                xtype: 'number',
+                id: 'icosahedronGeometryRadius',
+                value: parameters.radius,
+                onChange: update
+            }]
+        }, { // detail
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '面片段数'
+            }, {
+                xtype: 'int',
+                id: 'icosahedronGeometryDetail',
+                value: parameters.detail,
+                range: [0, Infinity],
+                onChange: update
+            }]
+        }]
+    };
 
+    var container = XType.create(data);
     container.render();
-
-    return container;
 };
 
 export default IcosahedronGeometryPanel;
