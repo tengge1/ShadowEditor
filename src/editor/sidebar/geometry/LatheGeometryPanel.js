@@ -20,113 +20,86 @@ LatheGeometryPanel.prototype.render = function () {
     var object = this.object;
     var geometry = object.geometry;
     var parameters = geometry.parameters;
-    var _this = this;
-
-    var container = new UI.Row();
-
-    var geometry = object.geometry;
-    var parameters = geometry.parameters;
-
-    // segments
-
-    var segmentsRow = new UI.Row();
-    var segments = new UI.Integer({
-        value: parameters.segments,
-        onChange: update
-    });
-
-    segmentsRow.add(new UI.Label({
-        text: '径向段数'
-    }));
-
-    segmentsRow.add(segments);
-
-    container.add(segmentsRow);
-
-    // phiStart
-
-    var phiStartRow = new UI.Row();
-
-    var phiStart = new UI.Number({
-        value: parameters.phiStart * 180 / Math.PI,
-        onChange: update
-    });
-
-    phiStartRow.add(new UI.Label({
-        text: '开始角度'
-    }));
-
-    phiStartRow.add(phiStart);
-
-    container.add(phiStartRow);
-
-    // phiLength
-
-    var phiLengthRow = new UI.Row();
-
-    var phiLength = new UI.Number({
-        value: parameters.phiLength * 180 / Math.PI,
-        onChange: update
-    });
-
-    phiLengthRow.add(new UI.Label({
-        text: '结束角度'
-    }));
-
-    phiLengthRow.add(phiLength);
-
-    container.add(phiLengthRow);
-
-    // points
-
     var lastPointIdx = 0;
     var pointsUI = [];
 
-    var pointsRow = new UI.Row();
+    var _this = this;
 
-    pointsRow.add(new UI.Label({
-        text: '点'
-    }));
+    var data = {
+        xtype: 'row',
+        parent: this.parent,
+        children: [{ // segments
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '径向段数'
+            }, {
+                xtype: 'int',
+                id: 'latheGeometrySegments',
+                value: parameters.segments,
+                onChange: update
+            }]
+        }, { // phiStart
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '开始角度'
+            }, {
+                xtype: 'number',
+                id: 'latheGeometryPhiStart',
+                value: parameters.phiStart * 180 / Math.PI,
+                onChange: update
+            }]
+        }, { // phiLength
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '结束角度'
+            }, {
+                xtype: 'number',
+                id: 'latheGeometryPhiLength',
+                value: parameters.phiLength * 180 / Math.PI,
+                onChange: update
+            }]
+        }, { // points
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '点'
+            }, {
+                xtype: 'span',
+                id: 'latheGeometryPoints',
+                style: 'display: inline-block;',
+                children: [{
+                    xtype: 'div',
+                    id: 'latheGeometryPointsList',
+                }]
+            }]
+        }]
+    };
 
-    var points = new UI.Span({
-        style: 'display: inline-block;'
-    });
+    var xtype = XType.create(data);
+    xtype.render();
 
-    pointsRow.add(points);
+    var points = XType.getControl('latheGeometryPoints');
+    var pointsList = XType.getControl('latheGeometryPointsList');
 
-    var pointsList = new UI.Div();
-
-    points.add(pointsList);
-
-    for (var i = 0; i < parameters.points.length; i++) {
-
-        var point = parameters.points[i];
-        pointsList.add(createPointRow(point.x, point.y));
-
-    }
-
-    var addPointButton = new UI.Button({
+    var addPointButton = XType.create({
+        xtype: 'button',
         text: '+',
         onClick: function () {
             if (pointsUI.length === 0) {
-                pointsList.add(createPointRow(0, 0));
+                pointsList.add(this.createPointRow(0, 0));
             } else {
                 var point = pointsUI[pointsUI.length - 1];
-                pointsList.add(createPointRow(point.x.getValue(), point.y.getValue()));
+                pointsList.add(this.createPointRow(point.x.getValue(), point.y.getValue()));
             }
 
-            update();
+            this.update();
         }
     });
 
-    points.add(addPointButton);
-
-    container.add(pointsRow);
-
-    //
-
-    function createPointRow(x, y) {
-
+    var createPointRow = function (x, y) {
         var pointRow = new UI.Div();
 
         var lbl = new UI.Text({
@@ -167,10 +140,9 @@ LatheGeometryPanel.prototype.render = function () {
         pointRow.render();
 
         return pointRow;
-
     }
 
-    function deletePointRow(idx) {
+    var deletePointRow = function (idx) {
 
         if (!pointsUI[idx]) return;
 
@@ -181,8 +153,7 @@ LatheGeometryPanel.prototype.render = function () {
 
     }
 
-    function update() {
-
+    var update = function () {
         var points = [];
         var count = 0;
 
@@ -204,10 +175,7 @@ LatheGeometryPanel.prototype.render = function () {
             phiStart.getValue() / 180 * Math.PI,
             phiLength.getValue() / 180 * Math.PI
         )));
-
     }
-
-    container.render();
 };
 
 export default LatheGeometryPanel;
