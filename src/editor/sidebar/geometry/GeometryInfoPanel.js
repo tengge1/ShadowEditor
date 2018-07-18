@@ -1,45 +1,54 @@
-﻿import UI from '../../../ui/UI';
+﻿import Control from '../../../ui/Control';
+import XType from '../../../ui/XType';
 
 /**
  * 几何体信息面板
  * @author mrdoob / http://mrdoob.com/
  */
-function GeometryInfoPanel(editor) {
-    this.app = editor.app;
+function GeometryInfoPanel(options) {
+    Control.call(this, options);
+    this.app = options.app;
+};
 
-    var container = new UI.Row();
+GeometryInfoPanel.prototype = Object.create(Control.prototype);
+GeometryInfoPanel.prototype.constructor = GeometryInfoPanel;
 
-    // vertices
+GeometryInfoPanel.prototype.render = function () {
+    var editor = this.app.editor;
 
-    var verticesRow = new UI.Row();
+    var data = {
+        'xtype': 'row',
+        parent: this.parent,
+        children: [{ // vertices
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '顶点'
+            }, {
+                xtype: 'text',
+                id: 'geometryInfoVertices'
+            }]
+        }, { // faces
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '面'
+            }, {
+                xtype: 'text',
+                id: 'geometryInfoFaces',
+            }]
+        }, {
 
-    verticesRow.add(new UI.Label({
-        text: '顶点'
-    }));
+        }]
+    };
 
-    var vertices = new UI.Text();
-
-    verticesRow.add(vertices);
-
-    container.add(verticesRow);
-
-    // faces
-
-    var facesRow = new UI.Row();
-
-    facesRow.add(new UI.Label({
-        text: '面'
-    }));
-
-    var faces = new UI.Text();
-
-    facesRow.add(faces);
-
-    container.add(facesRow);
-
-    //
+    var container = XType.create(data);
+    container.render();
 
     function update(object) {
+        var vertices = XType.getControl('geometryInfoVertices');
+        var faces = XType.getControl('geometryInfoFaces');
+
         if (object === null) return; // objectSelected.dispatch( null )
         if (object === undefined) return;
 
@@ -62,11 +71,6 @@ function GeometryInfoPanel(editor) {
     this.app.on('geometryChanged.GeometryInfoPanel', function (mesh) {
         update(mesh);
     });
-
-    container.render();
-
-    return container;
-
 };
 
 export default GeometryInfoPanel;

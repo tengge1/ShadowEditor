@@ -149,7 +149,8 @@ GeometryPanel.prototype.render = function () {
     }
 
     // geometry
-    container.dom.appendChild(new GeometryInfoPanel(editor).dom);
+    var geometryInfoPanel = new GeometryInfoPanel({ app: this.app, parent: container.dom });
+    geometryInfoPanel.render();
 
     // buffergeometry
     (new BufferGeometryPanel({ app: this.app, parent: container.dom })).render();
