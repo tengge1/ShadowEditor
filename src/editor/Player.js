@@ -1,5 +1,4 @@
-import Control from '../ui/Control';
-import XType from '../ui/XType';
+import UI from '../ui/UI';
 import AppPlayer from '../core/AppPlayer';
 
 /**
@@ -8,14 +7,14 @@ import AppPlayer from '../core/AppPlayer';
  */
 function Player(app) {
     this.app = app;
-    Control.call(this, { parent: this.app.container });
+    UI.Control.call(this, { parent: this.app.container });
 };
 
-Player.prototype = Object.create(Control.prototype);
+Player.prototype = Object.create(UI.Control.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.render = function () {
-    this.container = XType.create({
+    this.container = UI.create({
         xtype: 'div',
         parent: this.parent,
         id: 'player',

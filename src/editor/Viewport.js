@@ -14,7 +14,7 @@ Viewport.prototype = Object.create(Control.prototype);
 Viewport.prototype.constructor = Viewport;
 
 Viewport.prototype.render = function () {
-    this.container = XType.create({
+    this.container = UI.create({
         xtype: 'div',
         parent: this.app.container,
         id: 'viewport'

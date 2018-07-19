@@ -30,7 +30,7 @@ Container.prototype.remove = function (obj) {
 Container.prototype.render = function () {
     var _this = this;
     this.children.forEach(function (n) {
-        var obj = XType.create(n);
+        var obj = UI.create(n);
         obj.parent = _this.parent;
         obj.render();
     });

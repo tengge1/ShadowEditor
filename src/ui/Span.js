@@ -17,7 +17,7 @@ Span.prototype.render = function () {
 
     var _this = this;
     this.children.forEach(function (n) {
-        var obj = XType.create(n);
+        var obj = UI.create(n);
         obj.parent = _this.dom;
         obj.render();
     });

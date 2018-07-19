@@ -41,7 +41,7 @@ Script.prototype.render = function () {
         }]
     };
 
-    container = XType.create(data);
+    container = UI.create(data);
     container.render();
 
     var title = XType.getControl('scriptTitle');

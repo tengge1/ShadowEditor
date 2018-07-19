@@ -36,7 +36,7 @@ CircleGeometryPanel.prototype.render = function () {
 
     }
 
-    var container = XType.create({
+    var container = UI.create({
         xtype: 'row',
         children: [{ // radius
             xtype: 'row',

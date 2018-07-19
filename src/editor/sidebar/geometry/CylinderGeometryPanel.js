@@ -39,7 +39,7 @@ CylinderGeometryPanel.prototype.render = function () {
         )));
     };
 
-    var container = XType.create({ // radiusTop
+    var container = UI.create({ // radiusTop
         xtype: 'row',
         children: [{ // radiusTop
             xtype: 'row',

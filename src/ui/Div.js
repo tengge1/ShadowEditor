@@ -46,7 +46,7 @@ Div.prototype.render = function () {
         this.dom.innerHTML = this.html;
     } else {
         this.children.forEach(function (n) {
-            var obj = XType.create(n);
+            var obj = UI.create(n);
             obj.parent = _this.dom;
             obj.render();
         });

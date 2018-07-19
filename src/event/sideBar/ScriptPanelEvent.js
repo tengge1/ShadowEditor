@@ -90,7 +90,7 @@ ScriptPanelEvent.prototype.update = function () {
                     }]
                 };
 
-                XType.create(data).render();
+                UI.create(data).render();
             })(object, scripts[i])
         }
     }

@@ -108,7 +108,7 @@ GeometryPanel.prototype.render = function () {
         }]
     };
 
-    var container = XType.create(data);
+    var container = UI.create(data);
     container.render();
 
     var geometryType = XType.getControl('geometryType');

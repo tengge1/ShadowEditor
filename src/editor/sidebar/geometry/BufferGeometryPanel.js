@@ -23,7 +23,7 @@ BufferGeometryPanel.prototype.render = function () {
         parent: this.parent
     };
 
-    var container = XType.create(data);
+    var container = UI.create(data);
     container.render();
 
     function update(object) {
@@ -39,7 +39,7 @@ BufferGeometryPanel.prototype.render = function () {
             var index = geometry.index;
 
             if (index !== null) {
-                var panel = XType.create({
+                var panel = UI.create({
                     xtype: 'row',
                     parent: container.dom,
                     children: [{
@@ -61,7 +61,7 @@ BufferGeometryPanel.prototype.render = function () {
 
                 var attribute = attributes[name];
 
-                var panel = XType.create({
+                var panel = UI.create({
                     xtype: 'row',
                     parent: container.dom,
                     children: [{

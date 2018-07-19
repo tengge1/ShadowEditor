@@ -70,7 +70,7 @@ Toolbar.prototype.render = function () {
         }]
     };
 
-    var control = XType.create(data);
+    var control = UI.create(data);
     control.render();
 };
 

@@ -13,7 +13,7 @@
     <script src="../../node_modules/three/build/three.js"></script>
     <script src="../../dist/ShadowEditor.js"></script>
     <script>
-        var control = Shadow.UI.XType.create({
+        var control = Shadow.UI.UI.create({
             xtype: 'modal',
             width: '300px',
             height: '200px',
@@ -41,7 +41,7 @@
 
         control.render();
 
-        var button = Shadow.UI.XType.create({
+        var button = Shadow.UI.UI.create({
             xtype: 'button',
             text: 'Push me',
             onClick: function () {

@@ -78,13 +78,13 @@ LatheGeometryPanel.prototype.render = function () {
         }]
     };
 
-    var xtype = XType.create(data);
+    var xtype = UI.create(data);
     xtype.render();
 
     var points = XType.getControl('latheGeometryPoints');
     var pointsList = XType.getControl('latheGeometryPointsList');
 
-    var addPointButton = XType.create({
+    var addPointButton = UI.create({
         xtype: 'button',
         text: '+',
         onClick: function () {

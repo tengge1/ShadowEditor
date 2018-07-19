@@ -112,7 +112,7 @@ TorusKnotGeometryPanel.prototype.render = function () {
         }]
     };
 
-    var container = XType.create(data);
+    var container = UI.create(data);
     container.render();
 };
 
