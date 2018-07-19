@@ -1,103 +1,32 @@
-﻿import SetGeometryCommand from '../../../command/SetGeometryCommand';
-import UI from '../../../ui/UI';
+﻿import Control from '../../../ui/Control';
+import XType from '../../../ui/XType';
+import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
  * 花托几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
 function TorusGeometryPanel(editor, object) {
-    var container = new UI.Row();
+    Control.call(this, options);
+    this.app = options.app;
+    this.object = options.object;
+};
 
+TorusGeometryPanel.prototype = Object.create(Control.prototype);
+TorusGeometryPanel.prototype.constructor = TorusGeometryPanel;
+
+TorusGeometryPanel.prototype.render = function () {
+    var editor = this.app.editor;
+    var object = this.object;
     var geometry = object.geometry;
     var parameters = geometry.parameters;
 
-    // radius
-
-    var radiusRow = new UI.Row();
-    var radius = new UI.Number({
-        value: parameters.radius,
-        onChange: update
-    });
-
-    radiusRow.add(new UI.Label({
-        text: '半径'
-    }));
-
-    radiusRow.add(radius);
-
-    container.add(radiusRow);
-
-    // tube
-
-    var tubeRow = new UI.Row();
-
-    var tube = new UI.Number({
-        value: parameters.tube,
-        onChange: update
-    });
-
-    tubeRow.add(new UI.Label({
-        text: '管粗'
-    }));
-
-    tubeRow.add(tube);
-
-    container.add(tubeRow);
-
-    // radialSegments
-
-    var radialSegmentsRow = new UI.Row();
-
-    var radialSegments = new UI.Integer({
-        value: parameters.radialSegments,
-        range: [1, Infinity],
-        onChange: update
-    });
-
-    radialSegmentsRow.add(new UI.Label({
-        text: '管粗段数'
-    }));
-
-    radialSegmentsRow.add(radialSegments);
-
-    container.add(radialSegmentsRow);
-
-    // tubularSegments
-
-    var tubularSegmentsRow = new UI.Row();
-
-    var tubularSegments = new UI.Integer({
-        value: parameters.tubularSegments,
-        range: [1, Infinity],
-        onChange: update
-    });
-
-    tubularSegmentsRow.add(new UI.Label({
-        text: '半径段数'
-    }));
-
-    tubularSegmentsRow.add(tubularSegments);
-
-    container.add(tubularSegmentsRow);
-
-    // arc
-
-    var arcRow = new UI.Row();
-    var arc = new UI.Number({
-        value: parameters.arc,
-        onChange: update
-    });
-
-    arcRow.add(new UI.Label({
-        text: '旋转弧度'
-    }));
-
-    arcRow.add(arc);
-
-    container.add(arcRow);
-
-    //
-    function update() {
+    var update = function () {
+        var radius = XType.getControl('torusGeometryRadius');
+        var tube = XType.getControl('torusGeometryTube');
+        var radialSegments = XType.getControl('torusGeometryRadialSegments');
+        var tubularSegments = XType.getControl('torusGeometryTubularSegments');
+        var arc = XType.getControl('torusGeometryTubularArc');
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             radius.getValue(),
@@ -106,12 +35,85 @@ function TorusGeometryPanel(editor, object) {
             tubularSegments.getValue(),
             arc.getValue()
         )));
+    };
 
-    }
+    var data = {
+        xtype: 'row',
+        parent: this.parent,
+        children: [{
+            xtype: 'row',
+            children: [{ // radius
+                xtype: 'label',
+                text: '半径'
+            }, {
+                xtype: 'number',
+                id: 'torusGeometryRadius',
+                value: parameters.radius,
+                onChange: update
+            }]
+        }, { // tube
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '管粗'
+            }, {
+                xtype: 'number',
+                id: 'torusGeometryTube',
+                value: parameters.tube,
+                onChange: update
+            }]
+        }, { // radialSegments
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '管粗段数'
+            }, {
+                xtype: 'int',
+                id: 'torusGeometryRadialSegments',
+                value: parameters.radialSegments,
+                range: [1, Infinity],
+                onChange: update
+            }]
+        }, { // tubularSegments
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '半径段数'
+            }, {
+                xtype: 'int',
+                id: 'torusGeometryTubularSegments',
+                value: parameters.tubularSegments,
+                range: [1, Infinity],
+                onChange: update
+            }]
+        }, { // tubularSegments
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '半径段数'
+            }, {
+                xtype: 'int',
+                id: 'torusGeometryTubularSegments',
+                value: parameters.tubularSegments,
+                range: [1, Infinity],
+                onChange: update
+            }]
+        }, { // arc
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '旋转弧度'
+            }, {
+                xtype: 'number',
+                id: 'torusGeometryTubularArc',
+                value: parameters.arc,
+                onChange: update
+            }]
+        }]
+    };
 
+    var container = XType.create(data);
     container.render();
-
-    return container;
 };
 
 export default TorusGeometryPanel;
