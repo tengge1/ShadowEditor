@@ -1,6 +1,4 @@
-﻿import Control from '../ui/Control';
-import Div from '../ui/Div';
-
+﻿import UI from '../ui/UI';
 import Logo from './menubar/Logo';
 import SceneMenu from './menubar/SceneMenu';
 import EditMenu from './menubar/EditMenu';
@@ -20,7 +18,7 @@ import StatusMenu from './menubar/StatusMenu';
 function Menubar(app) {
     this.app = app;
 
-    Control.call(this, { parent: this.app.container });
+    UI.Control.call(this, { parent: this.app.container });
 
     this.children = [
         // Logo
@@ -46,9 +44,10 @@ Menubar.prototype = Object.create(Control.prototype);
 Menubar.prototype.constructor = Menubar;
 
 Menubar.prototype.render = function () {
-    this.dom = new Div({
-        parent: this.parent,
+    this.dom = UI.create({
+        xtype: 'div',
         id: 'menubar',
+        parent: this.parent,
         children: this.children
     });
 

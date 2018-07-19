@@ -1,18 +1,17 @@
-import Control from '../../ui/Control';
-import XType from '../../ui/XType';
+import UI from '../ui/UI';
 
 /**
  * 启动菜单
  * @param {*} options 
  */
 function PlayMenu(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     options = options || {};
 
     this.app = options.app;
 }
 
-PlayMenu.prototype = Object.create(Control.prototype);
+PlayMenu.prototype = Object.create(UI.Control.prototype);
 PlayMenu.prototype.constructor = PlayMenu;
 
 PlayMenu.prototype.render = function () {
@@ -20,6 +19,7 @@ PlayMenu.prototype.render = function () {
 
     var data = {
         xtype: 'div',
+        parent: this.parent,
         cls: 'menu',
         children: [{
             id: 'mPlay',
@@ -32,8 +32,7 @@ PlayMenu.prototype.render = function () {
         }]
     };
 
-    var control = XType.create(data);
-    control.parent = this.parent;
+    var control = UI.create(data);
     control.render();
 }
 

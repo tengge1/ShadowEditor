@@ -1,18 +1,17 @@
-import Control from '../../ui/Control';
-import XType from '../../ui/XType';
+import UI from '../ui/UI';
 
 /**
  * 示例菜单
  * @param {*} options 
  */
 function ExampleMenu(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     options = options || {};
 
     this.app = options.app;
 }
 
-ExampleMenu.prototype = Object.create(Control.prototype);
+ExampleMenu.prototype = Object.create(UI.Control.prototype);
 ExampleMenu.prototype.constructor = ExampleMenu;
 
 ExampleMenu.prototype.render = function () {
@@ -20,6 +19,7 @@ ExampleMenu.prototype.render = function () {
 
     var data = {
         xtype: 'div',
+        parent: this.parent,
         cls: 'menu',
         children: [{
             xtype: 'div',
@@ -65,7 +65,6 @@ ExampleMenu.prototype.render = function () {
     };
 
     var control = XType.create(data);
-    control.parent = this.parent;
     control.render();
 }
 
