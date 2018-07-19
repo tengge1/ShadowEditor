@@ -1,6 +1,5 @@
 import Control from './Control';
 import Container from './Container';
-import XType from './XType';
 
 /**
  * 模态框
@@ -73,7 +72,5 @@ Modal.prototype.hide = function () {
     this.dom.style.display = 'none';
     return this;
 };
-
-XType.add('modal', Modal);
 
 export default Modal;

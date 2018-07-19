@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 布尔值
@@ -60,7 +59,5 @@ Boolean.prototype.getValue = function () {
 Boolean.prototype.setValue = function (value) {
     this.input.checked = value;
 };
-
-XType.add('boolean', Boolean);
 
 export default Boolean;

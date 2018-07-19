@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 纹理
@@ -145,7 +144,5 @@ Texture.prototype.loadFile = function (file) {
 
     this.form.reset();
 };
-
-XType.add('texture', Texture);
 
 export default Texture;

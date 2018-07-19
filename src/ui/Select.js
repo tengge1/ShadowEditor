@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 选择列表
@@ -99,7 +98,5 @@ Select.prototype.setValue = function (value) {
 
     return this;
 };
-
-XType.add('select', Select);
 
 export default Select;

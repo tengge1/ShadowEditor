@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 标签控件
@@ -50,7 +49,5 @@ Label.prototype.setValue = function (value) {
     }
     return this;
 };
-
-XType.add('label', Label);
 
 export default Label;

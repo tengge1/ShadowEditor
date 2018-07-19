@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 import MoveObjectCommand from '../command/MoveObjectCommand';
 
 /**
@@ -233,7 +232,5 @@ Outliner.prototype.setValue = function (value) {
 
     return this;
 };
-
-XType.add('outliner', Outliner);
 
 export default Outliner;

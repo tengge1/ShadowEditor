@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 换行符
@@ -24,7 +23,5 @@ Break.prototype.render = function () {
 
     this.parent.appendChild(this.dom);
 };
-
-XType.add('br', Break);
 
 export default Break;

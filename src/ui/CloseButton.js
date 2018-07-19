@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 关闭按钮
@@ -39,7 +38,5 @@ CloseButton.prototype.render = function () {
 
     this.dom.appendChild(this.path);
 };
-
-XType.add('closebutton', CloseButton);
 
 export default CloseButton;

@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 整数
@@ -139,7 +138,5 @@ Integer.prototype.setRange = function (min, max) {
 
     return this;
 };
-
-XType.add('int', Integer);
 
 export default Integer;

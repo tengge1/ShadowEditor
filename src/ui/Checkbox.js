@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 复选框
@@ -55,7 +54,5 @@ Checkbox.prototype.setValue = function (value) {
 
     return this;
 };
-
-XType.add('checkbox', Checkbox);
 
 export default Checkbox;

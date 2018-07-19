@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 输入框
@@ -59,7 +58,5 @@ Input.prototype.setValue = function (value) {
     this.dom.value = value;
     return this;
 };
-
-XType.add('input', Input);
 
 export default Input;

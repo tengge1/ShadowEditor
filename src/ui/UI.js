@@ -1,4 +1,27 @@
+import Boolean from './Boolean';
+import Break from './Break';
+import Button from './Button';
+import Checkbox from './Checkbox';
+import CloseButton from './CloseButton';
+import Color from './Color';
+import Container from './Container';
 import Control from './Control';
+import Div from './Div';
+import HorizontalRule from './HorizontalRule';
+import Html from './Html';
+import IconButton from './IconButton';
+import Input from './Input';
+import Integer from './Integer';
+import Label from './Label';
+import Modal from './Modal';
+import Number from './Number';
+import Outliner from './Outliner';
+import Row from './Row';
+import Select from './Select';
+import Span from './Span';
+import Text from './Text';
+import TextArea from './TextArea';
+import Texture from './Texture';
 
 /**
  * UI类
@@ -128,5 +151,59 @@ UICls.prototype.create = function (config, scope = 'global') {
  * UICls唯一一个实例
  */
 const UI = new UICls();
+
+// 添加所有控件
+Object.assign(UI, {
+    Boolean: Boolean,
+    Break: Break,
+    Button: Button,
+    Checkbox: Checkbox,
+    CloseButton: CloseButton,
+    Color: Color,
+    Container: Container,
+    Control: Control,
+    Div: Div,
+    HorizontalRule: HorizontalRule,
+    Html: Html,
+    IconButton: IconButton,
+    Input: Input,
+    Integer: Integer,
+    Label: Label,
+    Modal: Modal,
+    Number: Number,
+    Outliner: Outliner,
+    Row: Row,
+    Select: Select,
+    Span: Span,
+    Text: Text,
+    TextArea: TextArea,
+    Texture: Texture
+});
+
+// 添加所有控件的XType
+UI.add('boolean', Boolean);
+UI.add('br', Break);
+UI.add('button', Button);
+UI.add('checkbox', Checkbox);
+UI.add('closebutton', CloseButton);
+UI.add('color', Color);
+UI.add('container', Container);
+UI.add('control', Control);
+UI.add('div', Div);
+UI.add('hr', HorizontalRule);
+UI.add('html', Html);
+UI.add('iconbutton', IconButton);
+UI.add('input', Input);
+UI.add('int', Integer);
+UI.add('label', Label);
+UI.add('modal', Modal);
+UI.add('number', Number);
+UI.add('outliner', Outliner);
+UI.add('row', Row);
+UI.add('select', Select);
+UI.add('span', Span);
+UI.add('text', Text);
+UI.add('textarea', TextArea);
+UI.add('texture', Texture);
 
 export default UI;

@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 容器（外层无div等元素包裹）
@@ -36,7 +35,5 @@ Container.prototype.render = function () {
         obj.render();
     });
 };
-
-XType.add('container', Container);
 
 export default Container;

@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 文本域
@@ -73,7 +72,5 @@ TextArea.prototype.setValue = function (value) {
     this.dom.value = value;
     return this;
 };
-
-XType.add('textarea', TextArea);
 
 export default TextArea;

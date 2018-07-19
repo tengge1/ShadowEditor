@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 原生html
@@ -19,7 +18,5 @@ Html.prototype.render = function () {
         this.parent.innerHTML += this.html;
     }
 };
-
-XType.add('html', Html);
 
 export default Html;

@@ -1,5 +1,4 @@
 import Container from './Container';
-import XType from './XType';
 
 /**
  * 文本块
@@ -23,7 +22,5 @@ Span.prototype.render = function () {
         obj.render();
     });
 };
-
-XType.add('span', Span);
 
 export default Span;

@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 水平线
@@ -22,7 +21,5 @@ HorizontalRule.prototype.render = function () {
 
     this.parent.appendChild(this.dom);
 };
-
-XType.add('hr', HorizontalRule);
 
 export default HorizontalRule;

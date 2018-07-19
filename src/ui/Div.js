@@ -1,5 +1,4 @@
 import Container from './Container';
-import XType from './XType';
 
 /**
  * Div元素
@@ -53,7 +52,5 @@ Div.prototype.render = function () {
         });
     }
 };
-
-XType.add('div', Div);
 
 export default Div;

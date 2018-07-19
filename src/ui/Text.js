@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 文本框
@@ -52,7 +51,5 @@ Text.prototype.setValue = function (value) {
     }
     return this;
 };
-
-XType.add('text', Text);
 
 export default Text;

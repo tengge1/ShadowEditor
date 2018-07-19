@@ -1,5 +1,4 @@
 import Control from './Control';
-import XType from './XType';
 
 /**
  * 按钮
@@ -54,7 +53,5 @@ Button.prototype.select = function () {
 Button.prototype.unselect = function () {
     this.dom.classList.remove('selected');
 };
-
-XType.add('button', Button);
 
 export default Button;
