@@ -1,138 +1,34 @@
-﻿import SetGeometryCommand from '../../../command/SetGeometryCommand';
-import UI from '../../../ui/UI';
+﻿import Control from '../../../ui/Control';
+import XType from '../../../ui/XType';
+import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
  * 球形几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
-function SphereGeometryPanel(editor, object) {
-    var container = new UI.Row();
+function SphereGeometryPanel(options) {
+    Control.call(this, options);
+    this.app = options.app;
+    this.object = options.object;
+};
 
+SphereGeometryPanel.prototype = Object.create(Control.prototype);
+SphereGeometryPanel.prototype.constructor = SphereGeometryPanel;
+
+SphereGeometryPanel.prototype.render = function () {
+    var editor = this.app.editor;
+    var object = this.object;
     var geometry = object.geometry;
     var parameters = geometry.parameters;
 
-    // radius
-
-    var radiusRow = new UI.Row();
-
-    var radius = new UI.Number({
-        value: parameters.radius,
-        onChange: update
-    });
-
-    radiusRow.add(new UI.Label({
-        text: '半径'
-    }));
-
-    radiusRow.add(radius);
-
-    container.add(radiusRow);
-
-    // widthSegments
-
-    var widthSegmentsRow = new UI.Row();
-
-    var widthSegments = new UI.Integer({
-        value: parameters.widthSegments,
-        range: [1, Infinity],
-        onChange: update
-    });
-
-    widthSegmentsRow.add(new UI.Label({
-        text: '宽度段数'
-    }));
-
-    widthSegmentsRow.add(widthSegments);
-
-    container.add(widthSegmentsRow);
-
-    // heightSegments
-
-    var heightSegmentsRow = new UI.Row();
-    var heightSegments = new UI.Integer({
-        value: parameters.heightSegments,
-        range: [1, Infinity],
-        onChange: update
-    });
-
-    heightSegmentsRow.add(new UI.Label({
-        text: '高度段数'
-    }));
-
-    heightSegmentsRow.add(heightSegments);
-
-    container.add(heightSegmentsRow);
-
-    // phiStart
-
-    var phiStartRow = new UI.Row();
-
-    var phiStart = new UI.Number({
-        value: parameters.phiStart,
-        onChange: update
-    });
-
-    phiStartRow.add(new UI.Label({
-        text: '开始经度'
-    }));
-
-    phiStartRow.add(phiStart);
-
-    container.add(phiStartRow);
-
-    // phiLength
-
-    var phiLengthRow = new UI.Row();
-    var phiLength = new UI.Number({
-        value: parameters.phiLength,
-        onChange: update
-    });
-
-    phiLengthRow.add(new UI.Label({
-        text: '结束经度'
-    }));
-
-    phiLengthRow.add(phiLength);
-
-    container.add(phiLengthRow);
-
-    // thetaStart
-
-    var thetaStartRow = new UI.Row();
-
-    var thetaStart = new UI.Number({
-        value: parameters.thetaStart,
-        onChange: update
-    });
-
-    thetaStartRow.add(new UI.Label({
-        text: '开始纬度'
-    }));
-
-    thetaStartRow.add(thetaStart);
-
-    container.add(thetaStartRow);
-
-    // thetaLength
-
-    var thetaLengthRow = new UI.Row();
-
-    var thetaLength = new UI.Number({
-        value: parameters.thetaLength,
-        onChange: update
-    });
-
-    thetaLengthRow.add(new UI.Label({
-        text: '结束纬度'
-    }));
-
-    thetaLengthRow.add(thetaLength);
-
-    container.add(thetaLengthRow);
-
-    //
-
-    function update() {
+    var update = function () {
+        var radius = XType.getControl('sphereGeometryRadius');
+        var widthSegments = XType.getControl('sphereGeometryWidthSegments');
+        var heightSegments = XType.getControl('sphereGeometryHeightSegments');
+        var phiStart = XType.getControl('sphereGeometryPhiStart');
+        var phiLength = XType.getControl('sphereGeometryPhiLength');
+        var thetaStart = XType.getControl('sphereGeometryThetaStart');
+        var thetaLength = XType.getControl('sphereGeometryThetaLength');
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             radius.getValue(),
@@ -143,12 +39,94 @@ function SphereGeometryPanel(editor, object) {
             thetaStart.getValue(),
             thetaLength.getValue()
         )));
+    };
 
-    }
+    var data = {
+        xtype: 'row',
+        children: [{ // radius
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '半径'
+            }, {
+                xtype: 'number',
+                id: 'sphereGeometryRadius',
+                value: parameters.radius,
+                onChange: update
+            }]
+        }, { // widthSegments
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '宽度段数'
+            }, {
+                xtype: 'int',
+                id: 'sphereGeometryWidthSegments',
+                value: parameters.widthSegments,
+                range: [1, Infinity],
+                onChange: update
+            }]
+        }, { // heightSegments
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '高度段数'
+            }, {
+                xtype: 'int',
+                id: 'sphereGeometryHeightSegments',
+                value: parameters.heightSegments,
+                range: [1, Infinity],
+                onChange: update
+            }]
+        }, { // phiStart
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '开始经度'
+            }, {
+                xtype: 'number',
+                id: 'sphereGeometryPhiStart',
+                value: parameters.phiStart,
+                onChange: update
+            }]
+        }, { // phiLength
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '结束经度'
+            }, {
+                xtype: 'number',
+                id: 'sphereGeometryPhiLength',
+                value: parameters.phiLength,
+                onChange: update
+            }]
+        }, { // thetaStart
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '开始纬度'
+            }, {
+                xtype: 'number',
+                id: 'sphereGeometryThetaStart',
+                value: parameters.thetaStart,
+                onChange: update
+            }]
+        }, { // thetaLength
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '结束纬度'
+            }, {
+                xtype: 'number',
+                id: 'sphereGeometryThetaLength',
+                value: parameters.thetaLength,
+                onChange: update
+            }]
+        }]
+    };
 
+    var container = XType.create(data);
     container.render();
-
-    return container;
 };
 
 export default SphereGeometryPanel;
