@@ -1,122 +1,34 @@
-﻿import SetGeometryCommand from '../../../command/SetGeometryCommand';
-import UI from '../../../ui/UI';
+﻿import Control from '../../../ui/Control';
+import XType from '../../../ui/XType';
+import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
  * 环面纽结几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
-function TorusKnotGeometryPanel(editor, object) {
-    var container = new UI.Row();
+function TorusKnotGeometryPanel(options) {
+    Control.call(this, options);
+    this.app = options.app;
+    this.object = options.object;
+};
 
+TorusKnotGeometryPanel.prototype = Object.create(Control.prototype);
+TorusKnotGeometryPanel.prototype.constructor = TorusKnotGeometryPanel;
+
+TorusKnotGeometryPanel.prototype.render = function () {
+    var editor = this.app.editor;
+    var object = this.object;
     var geometry = object.geometry;
     var parameters = geometry.parameters;
 
-    // radius
+    var update = function () {
+        var radius = XType.getControl('torusKnotGeometryRadius');
+        var tube = XType.getControl('torusKnotGeometryTube');
+        var tubularSegments = XType.getControl('torusKnotGeometryTubularSegments');
+        var radialSegments = XType.getControl('torusKnotGeometryRadialSegments');
+        var p = XType.getControl('torusKnotGeometryP');
+        var q = XType.getControl('torusKnotGeometryQ');
 
-    var radiusRow = new UI.Row();
-    var radius = new UI.Number({
-        value: parameters.radius,
-        onChange: update
-    });
-
-    radiusRow.add(new UI.Label({
-        text: '半径'
-    }));
-
-    radiusRow.add(radius);
-
-    container.add(radiusRow);
-
-    // tube
-
-    var tubeRow = new UI.Row();
-
-    var tube = new UI.Number({
-        value: parameters.tube,
-        onChange: update
-    });
-
-    tubeRow.add(new UI.Label({
-        text: '管粗'
-    }));
-
-    tubeRow.add(tube);
-
-    container.add(tubeRow);
-
-    // tubularSegments
-
-    var tubularSegmentsRow = new UI.Row();
-
-    var tubularSegments = new UI.Integer({
-        value: parameters.tubularSegments,
-        range: [1, Infinity],
-        onChange: update
-    });
-
-    tubularSegmentsRow.add(new UI.Label({
-        text: '管长段数'
-    }));
-
-    tubularSegmentsRow.add(tubularSegments);
-
-    container.add(tubularSegmentsRow);
-
-    // radialSegments
-
-    var radialSegmentsRow = new UI.Row();
-
-    var radialSegments = new UI.Integer({
-        value: parameters.radialSegments,
-        range: [1, Infinity],
-        onChange: update
-    });
-
-    radialSegmentsRow.add(new UI.Label({
-        text: '管粗段数'
-    }));
-
-    radialSegmentsRow.add(radialSegments);
-
-    container.add(radialSegmentsRow);
-
-    // p
-
-    var pRow = new UI.Row();
-
-    var p = new UI.Number({
-        value: parameters.p,
-        onChange: update
-    });
-
-    pRow.add(new UI.Label({
-        text: '管长弧度'
-    }));
-
-    pRow.add(p);
-
-    container.add(pRow);
-
-    // q
-
-    var qRow = new UI.Row();
-
-    var q = new UI.Number({
-        value: parameters.q,
-        onChange: update
-    });
-
-    qRow.add(new UI.Label({
-        text: '扭曲弧度'
-    }));
-
-    qRow.add(q);
-
-    container.add(qRow);
-
-    //
-
-    function update() {
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             radius.getValue(),
             tube.getValue(),
@@ -125,12 +37,83 @@ function TorusKnotGeometryPanel(editor, object) {
             p.getValue(),
             q.getValue()
         )));
-    }
+    };
 
+    var data = {
+        xtype: 'row',
+        children: [{ // radius
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '半径'
+            }, {
+                xtype: 'number',
+                id: 'torusKnotGeometryRadius',
+                value: parameters.radius,
+                onChange: update
+            }]
+        }, { // tube
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '管粗'
+            }, {
+                xtype: 'number',
+                id: 'torusKnotGeometryTube',
+                value: parameters.tube,
+                onChange: update
+            }]
+        }, { // tubularSegments
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '管长段数'
+            }, {
+                xtype: 'int',
+                id: 'torusKnotGeometryTubularSegments',
+                value: parameters.tubularSegments,
+                range: [1, Infinity],
+                onChange: update
+            }]
+        }, { // radialSegments
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '管粗段数'
+            }, {
+                xtype: 'int',
+                id: 'torusKnotGeometryRadialSegments',
+                value: parameters.radialSegments,
+                range: [1, Infinity],
+                onChange: update
+            }]
+        }, { // p
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '管长弧度'
+            }, {
+                xtype: 'number',
+                id: 'torusKnotGeometryP',
+                value: parameters.p,
+                onChange: update
+            }]
+        }, { // q
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '扭曲弧度'
+            }, {
+                xtype: 'number',
+                id: 'torusKnotGeometryQ',
+                value: parameters.q,
+                onChange: update
+            }]
+        }]
+    };
+
+    var container = XType.create(data);
     container.render();
-
-    return container;
-
 };
 
 export default TorusKnotGeometryPanel;

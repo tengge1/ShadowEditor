@@ -6,7 +6,7 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
  * 花托几何体面板
  * @author mrdoob / http://mrdoob.com/
  */
-function TorusGeometryPanel(editor, object) {
+function TorusGeometryPanel(options) {
     Control.call(this, options);
     this.app = options.app;
     this.object = options.object;
