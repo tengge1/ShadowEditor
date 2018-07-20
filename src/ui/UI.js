@@ -181,29 +181,31 @@ Object.assign(UI, {
 });
 
 // 添加所有控件的XType
-UI.add('boolean', Boolean);
-UI.add('br', Break);
-UI.add('button', Button);
-UI.add('checkbox', Checkbox);
-UI.add('closebutton', CloseButton);
-UI.add('color', Color);
-UI.add('container', Container);
-UI.add('control', Control);
-UI.add('div', Div);
-UI.add('hr', HorizontalRule);
-UI.add('html', Html);
-UI.add('iconbutton', IconButton);
-UI.add('input', Input);
-UI.add('int', Integer);
-UI.add('label', Label);
-UI.add('modal', Modal);
-UI.add('number', Number);
-UI.add('outliner', Outliner);
-UI.add('row', Row);
-UI.add('select', Select);
-UI.add('span', Span);
-UI.add('text', Text);
-UI.add('textarea', TextArea);
-UI.add('texture', Texture);
+UI.addXType('boolean', Boolean);
+UI.addXType('br', Break);
+UI.addXType('button', Button);
+UI.addXType('checkbox', Checkbox);
+UI.addXType('closebutton', CloseButton);
+UI.addXType('color', Color);
+UI.addXType('container', Container);
+UI.addXType('control', Control);
+UI.addXType('div', Div);
+UI.addXType('hr', HorizontalRule);
+UI.addXType('html', Html);
+UI.addXType('iconbutton', IconButton);
+UI.addXType('input', Input);
+UI.addXType('int', Integer);
+UI.addXType('label', Label);
+UI.addXType('modal', Modal);
+UI.addXType('number', Number);
+UI.addXType('outliner', Outliner);
+UI.addXType('row', Row);
+UI.addXType('select', Select);
+UI.addXType('span', Span);
+UI.addXType('text', Text);
+UI.addXType('textarea', TextArea);
+UI.addXType('texture', Texture);
+
+window.UI = UI;
 
 export default UI;

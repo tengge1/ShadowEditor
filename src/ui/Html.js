@@ -10,6 +10,9 @@ function Html(options) {
     this.html = options.html || null;
 }
 
+Html.prototype = Object.create(Control.prototype);
+Html.prototype.constructor = Html;
+
 /**
  * 渲染控件
  */

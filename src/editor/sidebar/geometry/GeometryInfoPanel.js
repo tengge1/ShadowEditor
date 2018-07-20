@@ -36,8 +36,6 @@ GeometryInfoPanel.prototype.render = function () {
                 xtype: 'text',
                 id: 'geometryInfoFaces',
             }]
-        }, {
-
         }]
     };
 

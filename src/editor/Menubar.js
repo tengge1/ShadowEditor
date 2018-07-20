@@ -40,7 +40,7 @@ function Menubar(app) {
     ];
 };
 
-Menubar.prototype = Object.create(Control.prototype);
+Menubar.prototype = Object.create(UI.Control.prototype);
 Menubar.prototype.constructor = Menubar;
 
 Menubar.prototype.render = function () {
