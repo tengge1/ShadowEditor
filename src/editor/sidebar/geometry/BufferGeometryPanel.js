@@ -1,5 +1,4 @@
-﻿import Control from '../../../ui/Control';
-import XType from '../../../ui/XType';
+﻿import UI from '../../../ui/UI';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -7,11 +6,11 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 function BufferGeometryPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
 };
 
-BufferGeometryPanel.prototype = Object.create(Control.prototype);
+BufferGeometryPanel.prototype = Object.create(UI.Control.prototype);
 BufferGeometryPanel.prototype.constructor = BufferGeometryPanel;
 
 BufferGeometryPanel.prototype.render = function () {

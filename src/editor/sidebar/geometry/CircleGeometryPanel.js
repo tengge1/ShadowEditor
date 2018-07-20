@@ -1,5 +1,4 @@
-﻿import Control from '../../../ui/Control';
-import XType from '../../../ui/XType';
+﻿import UI from '../../../ui/UI';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -7,12 +6,12 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 function CircleGeometryPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
     this.object = options.object;
 };
 
-CircleGeometryPanel.prototype = Object.create(Control.prototype);
+CircleGeometryPanel.prototype = Object.create(UI.Control.prototype);
 CircleGeometryPanel.prototype.constructor = CircleGeometryPanel;
 
 CircleGeometryPanel.prototype.render = function () {
@@ -22,10 +21,10 @@ CircleGeometryPanel.prototype.render = function () {
     var parameters = geometry.parameters;
 
     function update() {
-        var radius = XType.getControl('circleGeometryRadius');
-        var segments = XType.getControl('circleGeometrySegments');
-        var thetaStart = XType.getControl('circleGeometryThetaStart');
-        var thetaLength = XType.getControl('circleGeometryThetaLength');
+        var radius = UI.get('circleGeometryRadius');
+        var segments = UI.get('circleGeometrySegments');
+        var thetaStart = UI.get('circleGeometryThetaStart');
+        var thetaLength = UI.get('circleGeometryThetaLength');
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             radius.getValue(),

@@ -1,16 +1,15 @@
-﻿import Control from '../../../ui/Control';
-import XType from '../../../ui/XType';
+﻿import UI from '../../../ui/UI';
 
 /**
  * 几何体信息面板
  * @author mrdoob / http://mrdoob.com/
  */
 function GeometryInfoPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
 };
 
-GeometryInfoPanel.prototype = Object.create(Control.prototype);
+GeometryInfoPanel.prototype = Object.create(UI.Control.prototype);
 GeometryInfoPanel.prototype.constructor = GeometryInfoPanel;
 
 GeometryInfoPanel.prototype.render = function () {
@@ -46,8 +45,8 @@ GeometryInfoPanel.prototype.render = function () {
     container.render();
 
     function update(object) {
-        var vertices = XType.getControl('geometryInfoVertices');
-        var faces = XType.getControl('geometryInfoFaces');
+        var vertices = UI.get('geometryInfoVertices');
+        var faces = UI.get('geometryInfoFaces');
 
         if (object === null) return; // objectSelected.dispatch( null )
         if (object === undefined) return;

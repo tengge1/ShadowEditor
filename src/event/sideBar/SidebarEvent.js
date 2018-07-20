@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 侧边栏事件
@@ -22,12 +22,12 @@ SidebarEvent.prototype.stop = function () {
 };
 
 SidebarEvent.prototype.onSelectTab = function (section) {
-    var sceneTab = XType.getControl('sceneTab');
-    var projectTab = XType.getControl('projectTab');
-    var settingsTab = XType.getControl('settingsTab');
-    var scene = XType.getControl('scene');
-    var project = XType.getControl('project');
-    var settings = XType.getControl('settings');
+    var sceneTab = UI.get('sceneTab');
+    var projectTab = UI.get('projectTab');
+    var settingsTab = UI.get('settingsTab');
+    var scene = UI.get('scene');
+    var project = UI.get('project');
+    var settings = UI.get('settings');
 
     sceneTab.dom.className = '';
     projectTab.dom.className = '';

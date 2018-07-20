@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 更新场景编辑区信息事件
@@ -57,9 +57,9 @@ UpdateSceneStatusEvent.prototype.onUpdateInfo = function () {
         });
     }
 
-    var objectsText = XType.getControl('objectsText');
-    var verticesText = XType.getControl('verticesText');
-    var trianglesText = XType.getControl('trianglesText');
+    var objectsText = UI.get('objectsText');
+    var verticesText = UI.get('verticesText');
+    var trianglesText = UI.get('trianglesText');
 
     objectsText.setValue(objects.format());
     verticesText.setValue(vertices.format());

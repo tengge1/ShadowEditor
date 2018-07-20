@@ -1,5 +1,4 @@
-﻿import Control from '../../ui/Control';
-import XType from '../../ui/XType';
+﻿import UI from '../../ui/UI';
 import AddScriptCommand from '../../command/AddScriptCommand';
 
 /**
@@ -7,11 +6,11 @@ import AddScriptCommand from '../../command/AddScriptCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 function ScriptPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
 };
 
-ScriptPanel.prototype = Object.create(Control.prototype);
+ScriptPanel.prototype = Object.create(UI.Control.prototype);
 ScriptPanel.prototype.constructor = ScriptPanel;
 
 ScriptPanel.prototype.render = function () {

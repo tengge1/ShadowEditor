@@ -1,5 +1,4 @@
-﻿import Control from '../../ui/Control';
-import XType from '../../ui/XType';
+﻿import UI from '../../ui/UI';
 
 /**
  * 历史记录面板
@@ -7,11 +6,11 @@ import XType from '../../ui/XType';
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  */
 function HistoryPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
 };
 
-HistoryPanel.prototype = Object.create(Control.prototype);
+HistoryPanel.prototype = Object.create(UI.Control.prototype);
 HistoryPanel.prototype.constructor = HistoryPanel;
 
 HistoryPanel.prototype.render = function () {

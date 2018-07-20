@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 路径模式事件

@@ -1,16 +1,15 @@
-﻿import Control from '../../ui/Control';
-import XType from '../../ui/XType';
+﻿import UI from '../../ui/UI';
 
 /**
  * 场景面板
  * @author mrdoob / http://mrdoob.com/
  */
 function ScenePanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
 };
 
-ScenePanel.prototype = Object.create(Control.prototype);
+ScenePanel.prototype = Object.create(UI.Control.prototype);
 ScenePanel.prototype.constructor = ScenePanel;
 
 ScenePanel.prototype.render = function () {
@@ -19,11 +18,11 @@ ScenePanel.prototype.render = function () {
     var _this = this;
 
     var onFogChanged = function () {
-        var fogType = XType.getControl('fogType');
-        var fogColor = XType.getControl('fogColor');
-        var fogNear = XType.getControl('fogNear');
-        var fogFar = XType.getControl('fogFar');
-        var fogDensity = XType.getControl('fogDensity');
+        var fogType = UI.get('fogType');
+        var fogColor = UI.get('fogColor');
+        var fogNear = UI.get('fogNear');
+        var fogFar = UI.get('fogFar');
+        var fogDensity = UI.get('fogDensity');
 
         _this.app.call('sceneFogChanged',
             _this,

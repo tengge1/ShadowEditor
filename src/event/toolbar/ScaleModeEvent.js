@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 缩放模式事件
@@ -13,13 +13,13 @@ ScaleModeEvent.prototype = Object.create(BaseEvent.prototype);
 ScaleModeEvent.prototype.constructor = ScaleModeEvent;
 
 ScaleModeEvent.prototype.start = function () {
-    var btn = XType.getControl('scaleBtn');
+    var btn = UI.get('scaleBtn');
     btn.dom.addEventListener('click', this.onClick.bind(this));
     this.app.on(`changeMode.${this.id}`, this.onChangeMode.bind(this));
 };
 
 ScaleModeEvent.prototype.stop = function () {
-    var btn = XType.getControl('scaleBtn');
+    var btn = UI.get('scaleBtn');
     btn.dom.removeEventListener('click', this.onClick);
     this.app.on(`changeMode.${this.id}`, null);
 };
@@ -29,7 +29,7 @@ ScaleModeEvent.prototype.onClick = function () {
 };
 
 ScaleModeEvent.prototype.onChangeMode = function (mode) {
-    var btn = XType.getControl('scaleBtn');
+    var btn = UI.get('scaleBtn');
 
     if (mode === 'scale') {
         btn.select();

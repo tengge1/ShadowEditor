@@ -1,5 +1,4 @@
-﻿import Control from '../../ui/Control';
-import XType from '../../ui/XType';
+﻿import UI from '../../ui/UI';
 import SetMaterialValueCommand from '../../command/SetMaterialValueCommand';
 
 /**
@@ -7,11 +6,11 @@ import SetMaterialValueCommand from '../../command/SetMaterialValueCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 function MaterialPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
 };
 
-MaterialPanel.prototype = Object.create(Control.prototype);
+MaterialPanel.prototype = Object.create(UI.Control.prototype);
 MaterialPanel.prototype.constructor = MaterialPanel;
 
 MaterialPanel.prototype.render = function () {
@@ -100,7 +99,7 @@ MaterialPanel.prototype.render = function () {
                 text: '新建',
                 style: 'margin-left: 7px;',
                 onClick: function () {
-                    var materialUUID = XType.getControl('materialUUID');
+                    var materialUUID = UI.get('materialUUID');
                     materialUUID.setValue(THREE.Math.generateUUID());
                     _this.app.call('updateMaterial');
                 }

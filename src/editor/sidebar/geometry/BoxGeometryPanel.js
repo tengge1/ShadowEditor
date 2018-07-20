@@ -1,5 +1,4 @@
-﻿import Control from '../../../ui/Control';
-import XType from '../../../ui/XType';
+﻿import UI from '../../../ui/UI';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -7,12 +6,12 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 function BoxGeometryPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
     this.object = options.object;
 };
 
-BoxGeometryPanel.prototype = Object.create(Control.prototype);
+BoxGeometryPanel.prototype = Object.create(UI.Control.prototype);
 BoxGeometryPanel.prototype.constructor = BoxGeometryPanel;
 
 BoxGeometryPanel.prototype.render = function () {
@@ -22,12 +21,12 @@ BoxGeometryPanel.prototype.render = function () {
     var parameters = geometry.parameters;
 
     var update = function () {
-        var boxWidth = XType.getControl('boxWidth');
-        var boxHeight = XType.getControl('boxHeight');
-        var boxDepth = XType.getControl('boxDepth');
-        var boxWidthSegments = XType.getControl('boxWidthSegments');
-        var boxHeightSegments = XType.getControl('boxHeightSegments');
-        var boxDepthSegments = XType.getControl('boxDepthSegments');
+        var boxWidth = UI.get('boxWidth');
+        var boxHeight = UI.get('boxHeight');
+        var boxDepth = UI.get('boxDepth');
+        var boxWidthSegments = UI.get('boxWidthSegments');
+        var boxHeightSegments = UI.get('boxHeightSegments');
+        var boxDepthSegments = UI.get('boxDepthSegments');
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             boxWidth.getValue(),

@@ -1,6 +1,6 @@
 import { System } from '../../third_party';
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 工程面板事件
@@ -32,11 +32,11 @@ ProjectPanelEvent.prototype.stop = function () {
 };
 
 ProjectPanelEvent.prototype.updateRenderer = function () {
-    var rendererType = XType.getControl('rendererType');
-    var rendererAntialias = XType.getControl('rendererAntialias');
-    var rendererShadows = XType.getControl('rendererShadows');
-    var rendererGammaInput = XType.getControl('rendererGammaInput');
-    var rendererGammaOutput = XType.getControl('rendererGammaOutput');
+    var rendererType = UI.get('rendererType');
+    var rendererAntialias = UI.get('rendererAntialias');
+    var rendererShadows = UI.get('rendererShadows');
+    var rendererGammaInput = UI.get('rendererGammaInput');
+    var rendererGammaOutput = UI.get('rendererGammaOutput');
 
     this.createRenderer(
         rendererType.getValue(),
@@ -48,7 +48,7 @@ ProjectPanelEvent.prototype.updateRenderer = function () {
 };
 
 ProjectPanelEvent.prototype.createRenderer = function (type, antialias, shadows, gammaIn, gammaOut) {
-    var rendererPropertiesRow = XType.getControl('rendererPropertiesRow');
+    var rendererPropertiesRow = UI.get('rendererPropertiesRow');
 
     var rendererTypes = {
         'WebGLRenderer': THREE.WebGLRenderer,

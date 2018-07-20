@@ -1,5 +1,4 @@
-﻿import Control from '../../../ui/Control';
-import XType from '../../../ui/XType';
+﻿import UI from '../../../ui/UI';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -7,12 +6,12 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 function CylinderGeometryPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
     this.object = options.object;
 };
 
-CylinderGeometryPanel.prototype = Object.create(Control.prototype);
+CylinderGeometryPanel.prototype = Object.create(UI.Control.prototype);
 CylinderGeometryPanel.prototype.constructor = CylinderGeometryPanel;
 
 CylinderGeometryPanel.prototype.render = function () {
@@ -22,12 +21,12 @@ CylinderGeometryPanel.prototype.render = function () {
     var parameters = geometry.parameters;
 
     var update = function () {
-        var radiusTop = XType.getControl('cylinderGeometryRadiusTop');
-        var radiusBottom = XType.getControl('cylinderGeometryRadiusBottom');
-        var height = XType.getControl('cylinderGeometryHeight');
-        var radialSegments = XType.getControl('cylinderGeometryRadialSegments');
-        var heightSegments = XType.getControl('cylinderGeometryHeightSegments');
-        var openEnded = XType.getControl('cylinderGeometryOpenEnded');
+        var radiusTop = UI.get('cylinderGeometryRadiusTop');
+        var radiusBottom = UI.get('cylinderGeometryRadiusBottom');
+        var height = UI.get('cylinderGeometryHeight');
+        var radialSegments = UI.get('cylinderGeometryRadialSegments');
+        var heightSegments = UI.get('cylinderGeometryHeightSegments');
+        var openEnded = UI.get('cylinderGeometryOpenEnded');
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             radiusTop.getValue(),

@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 平移模式事件
@@ -13,13 +13,13 @@ TranslateModeEvent.prototype = Object.create(BaseEvent.prototype);
 TranslateModeEvent.prototype.constructor = TranslateModeEvent;
 
 TranslateModeEvent.prototype.start = function () {
-    var btn = XType.getControl('translateBtn');
+    var btn = UI.get('translateBtn');
     btn.dom.addEventListener('click', this.onClick.bind(this));
     this.app.on(`changeMode.${this.id}`, this.onChangeMode.bind(this));
 };
 
 TranslateModeEvent.prototype.stop = function () {
-    var btn = XType.getControl('translateBtn');
+    var btn = UI.get('translateBtn');
     btn.dom.removeEventListener('click', this.onClick);
     this.app.on(`changeMode.${this.id}`, null);
 };
@@ -29,7 +29,7 @@ TranslateModeEvent.prototype.onClick = function () {
 };
 
 TranslateModeEvent.prototype.onChangeMode = function (mode) {
-    var btn = XType.getControl('translateBtn');
+    var btn = UI.get('translateBtn');
 
     if (mode === 'translate') {
         btn.select();

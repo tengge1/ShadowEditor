@@ -1,5 +1,4 @@
-﻿import Control from '../ui/Control';
-import XType from '../ui/XType';
+﻿import UI from '../ui/UI';
 
 /**
  * 状态栏
@@ -7,10 +6,10 @@ import XType from '../ui/XType';
  */
 function StatusBar(app) {
     this.app = app;
-    Control.call(this, { parent: this.app.container });
+    UI.Control.call(this, { parent: this.app.container });
 };
 
-StatusBar.prototype = Object.create(Control.prototype);
+StatusBar.prototype = Object.create(UI.Control.prototype);
 StatusBar.prototype.constructor = StatusBar;
 
 StatusBar.prototype.render = function () {

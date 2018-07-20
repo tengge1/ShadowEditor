@@ -1,5 +1,4 @@
-﻿import Control from '../../../ui/Control';
-import XType from '../../../ui/XType';
+﻿import UI from '../../../ui/UI';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -7,12 +6,12 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 function SphereGeometryPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
     this.object = options.object;
 };
 
-SphereGeometryPanel.prototype = Object.create(Control.prototype);
+SphereGeometryPanel.prototype = Object.create(UI.Control.prototype);
 SphereGeometryPanel.prototype.constructor = SphereGeometryPanel;
 
 SphereGeometryPanel.prototype.render = function () {
@@ -22,13 +21,13 @@ SphereGeometryPanel.prototype.render = function () {
     var parameters = geometry.parameters;
 
     var update = function () {
-        var radius = XType.getControl('sphereGeometryRadius');
-        var widthSegments = XType.getControl('sphereGeometryWidthSegments');
-        var heightSegments = XType.getControl('sphereGeometryHeightSegments');
-        var phiStart = XType.getControl('sphereGeometryPhiStart');
-        var phiLength = XType.getControl('sphereGeometryPhiLength');
-        var thetaStart = XType.getControl('sphereGeometryThetaStart');
-        var thetaLength = XType.getControl('sphereGeometryThetaLength');
+        var radius = UI.get('sphereGeometryRadius');
+        var widthSegments = UI.get('sphereGeometryWidthSegments');
+        var heightSegments = UI.get('sphereGeometryHeightSegments');
+        var phiStart = UI.get('sphereGeometryPhiStart');
+        var phiLength = UI.get('sphereGeometryPhiLength');
+        var thetaStart = UI.get('sphereGeometryThetaStart');
+        var thetaLength = UI.get('sphereGeometryThetaLength');
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             radius.getValue(),

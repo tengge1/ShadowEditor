@@ -1,5 +1,4 @@
-﻿import Control from '../../../ui/Control';
-import XType from '../../../ui/XType';
+﻿import UI from '../../../ui/UI';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -7,12 +6,12 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 function IcosahedronGeometryPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
     this.object = options.object;
 };
 
-IcosahedronGeometryPanel.prototype = Object.create(Control.prototype);
+IcosahedronGeometryPanel.prototype = Object.create(UI.Control.prototype);
 IcosahedronGeometryPanel.prototype.constructor = IcosahedronGeometryPanel;
 
 IcosahedronGeometryPanel.prototype.render = function () {
@@ -23,8 +22,8 @@ IcosahedronGeometryPanel.prototype.render = function () {
     var _this = this;
 
     var update = function () {
-        var radius = XType.getControl('icosahedronGeometryRadius');
-        var detail = XType.getControl('icosahedronGeometryDetail');
+        var radius = UI.get('icosahedronGeometryRadius');
+        var detail = UI.get('icosahedronGeometryDetail');
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             radius.getValue(),

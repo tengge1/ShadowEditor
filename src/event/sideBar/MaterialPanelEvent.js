@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 import SetMaterialCommand from '../../command/SetMaterialCommand';
 import SetMaterialValueCommand from '../../command/SetMaterialValueCommand';
 import SetMaterialColorCommand from '../../command/SetMaterialColorCommand';
@@ -43,7 +43,7 @@ MaterialPanelEvent.prototype.stop = function () {
  * 新建材质
  */
 MaterialPanelEvent.prototype.onNewMaterial = function () {
-    var materialClass = XType.getControl('materialClass');
+    var materialClass = UI.get('materialClass');
     var editor = this.app.editor;
 
     var material = new THREE[materialClass.getValue()]();
@@ -62,7 +62,7 @@ MaterialPanelEvent.prototype.onCopyMaterial = function () {
  * 粘贴材质
  */
 MaterialPanelEvent.prototype.onPasteMaterial = function () {
-    var materialClass = XType.getControl('materialClass');
+    var materialClass = UI.get('materialClass');
     var copiedMaterial = this.copiedMaterial;
 
     if (copiedMaterial === undefined) return;
@@ -76,7 +76,7 @@ MaterialPanelEvent.prototype.onPasteMaterial = function () {
  * @param {*} object 
  */
 MaterialPanelEvent.prototype.onObjectSelected = function (object) {
-    var container = XType.getControl('materialPanel');
+    var container = UI.get('materialPanel');
 
     if (object && object.material) {
         var objectChanged = object !== this.currentObject;
@@ -100,37 +100,37 @@ MaterialPanelEvent.prototype.onMaterialChanged = function () {
  * 判断材质面板哪些行应该显示
  */
 MaterialPanelEvent.prototype.setRowVisibility = function () {
-    var materialNameRow = XType.getControl('materialNameRow');
-    var materialColorRow = XType.getControl('materialColorRow');
-    var materialRoughnessRow = XType.getControl('materialRoughnessRow');
-    var materialMetalnessRow = XType.getControl('materialMetalnessRow');
-    var materialEmissiveRow = XType.getControl('materialEmissiveRow');
-    var materialSpecularRow = XType.getControl('materialSpecularRow');
-    var materialShininessRow = XType.getControl('materialShininessRow');
-    var materialClearCoatRow = XType.getControl('materialClearCoatRow');
-    var materialClearCoatRoughnessRow = XType.getControl('materialClearCoatRoughnessRow');
-    var materialProgramRow = XType.getControl('materialProgramRow');
-    var materialVertexColorsRow = XType.getControl('materialVertexColorsRow');
-    var materialSkinningRow = XType.getControl('materialSkinningRow');
-    var materialMapRow = XType.getControl('materialMapRow');
-    var materialAlphaMapRow = XType.getControl('materialAlphaMapRow');
-    var materialBumpMapRow = XType.getControl('materialBumpMapRow');
-    var materialNormalMapRow = XType.getControl('materialNormalMapRow');
-    var materialDisplacementMapRow = XType.getControl('materialDisplacementMapRow');
-    var materialRoughnessMapRow = XType.getControl('materialRoughnessMapRow');
-    var materialMetalnessMapRow = XType.getControl('materialMetalnessMapRow');
-    var materialSpecularMapRow = XType.getControl('materialSpecularMapRow');
-    var materialEnvMapRow = XType.getControl('materialEnvMapRow');
-    var materialLightMapRow = XType.getControl('materialLightMapRow');
-    var materialAOMapRow = XType.getControl('materialAOMapRow');
-    var materialEmissiveMapRow = XType.getControl('materialEmissiveMapRow');
-    var materialSideRow = XType.getControl('materialSideRow');
-    var materialShadingRow = XType.getControl('materialShadingRow');
-    var materialBlendingRow = XType.getControl('materialBlendingRow');
-    var materialOpacityRow = XType.getControl('materialOpacityRow');
-    var materialTransparentRow = XType.getControl('materialTransparentRow');
-    var materialAlphaTestRow = XType.getControl('materialAlphaTestRow');
-    var materialWireframeRow = XType.getControl('materialWireframeRow');
+    var materialNameRow = UI.get('materialNameRow');
+    var materialColorRow = UI.get('materialColorRow');
+    var materialRoughnessRow = UI.get('materialRoughnessRow');
+    var materialMetalnessRow = UI.get('materialMetalnessRow');
+    var materialEmissiveRow = UI.get('materialEmissiveRow');
+    var materialSpecularRow = UI.get('materialSpecularRow');
+    var materialShininessRow = UI.get('materialShininessRow');
+    var materialClearCoatRow = UI.get('materialClearCoatRow');
+    var materialClearCoatRoughnessRow = UI.get('materialClearCoatRoughnessRow');
+    var materialProgramRow = UI.get('materialProgramRow');
+    var materialVertexColorsRow = UI.get('materialVertexColorsRow');
+    var materialSkinningRow = UI.get('materialSkinningRow');
+    var materialMapRow = UI.get('materialMapRow');
+    var materialAlphaMapRow = UI.get('materialAlphaMapRow');
+    var materialBumpMapRow = UI.get('materialBumpMapRow');
+    var materialNormalMapRow = UI.get('materialNormalMapRow');
+    var materialDisplacementMapRow = UI.get('materialDisplacementMapRow');
+    var materialRoughnessMapRow = UI.get('materialRoughnessMapRow');
+    var materialMetalnessMapRow = UI.get('materialMetalnessMapRow');
+    var materialSpecularMapRow = UI.get('materialSpecularMapRow');
+    var materialEnvMapRow = UI.get('materialEnvMapRow');
+    var materialLightMapRow = UI.get('materialLightMapRow');
+    var materialAOMapRow = UI.get('materialAOMapRow');
+    var materialEmissiveMapRow = UI.get('materialEmissiveMapRow');
+    var materialSideRow = UI.get('materialSideRow');
+    var materialShadingRow = UI.get('materialShadingRow');
+    var materialBlendingRow = UI.get('materialBlendingRow');
+    var materialOpacityRow = UI.get('materialOpacityRow');
+    var materialTransparentRow = UI.get('materialTransparentRow');
+    var materialAlphaTestRow = UI.get('materialAlphaTestRow');
+    var materialWireframeRow = UI.get('materialWireframeRow');
 
     var properties = {
         'name': materialNameRow,
@@ -179,55 +179,55 @@ MaterialPanelEvent.prototype.refreshUI = function (resetTextureSelectors) {
     var currentObject = this.currentObject;
     if (!currentObject) return;
 
-    var materialUUID = XType.getControl('materialUUID');
-    var materialName = XType.getControl('materialName');
-    var materialClass = XType.getControl('materialClass');
-    var materialColor = XType.getControl('materialColor');
-    var materialRoughness = XType.getControl('materialRoughness');
-    var materialMetalness = XType.getControl('materialMetalness');
-    var materialEmissive = XType.getControl('materialEmissive');
-    var materialSpecular = XType.getControl('materialSpecular');
-    var materialShininess = XType.getControl('materialShininess');
-    var materialClearCoat = XType.getControl('materialClearCoat');
-    var materialClearCoatRoughness = XType.getControl('materialClearCoatRoughness');
-    var materialVertexColors = XType.getControl('materialVertexColors');
-    var materialSkinning = XType.getControl('materialSkinning');
-    var materialMapEnabled = XType.getControl('materialMapEnabled');
-    var materialMap = XType.getControl('materialMap');
-    var materialAlphaMapEnabled = XType.getControl('materialAlphaMapEnabled');
-    var materialAlphaMap = XType.getControl('materialAlphaMap');
-    var materialBumpMapEnabled = XType.getControl('materialBumpMapEnabled');
-    var materialBumpMap = XType.getControl('materialBumpMap');
-    var materialBumpScale = XType.getControl('materialBumpScale');
-    var materialNormalMapEnabled = XType.getControl('materialNormalMapEnabled');
-    var materialNormalMap = XType.getControl('materialNormalMap');
-    var materialDisplacementMapEnabled = XType.getControl('materialDisplacementMapEnabled');
-    var materialDisplacementMap = XType.getControl('materialDisplacementMap');
-    var materialDisplacementScale = XType.getControl('materialDisplacementScale');
-    var materialRoughnessMapEnabled = XType.getControl('materialRoughnessMapEnabled');
-    var materialRoughnessMap = XType.getControl('materialRoughnessMap');
-    var materialMetalnessMapEnabled = XType.getControl('materialMetalnessMapEnabled');
-    var materialMetalnessMap = XType.getControl('materialMetalnessMap');
-    var materialSpecularMapEnabled = XType.getControl('materialSpecularMapEnabled');
-    var materialSpecularMap = XType.getControl('materialSpecularMap');
-    var materialEnvMapEnabled = XType.getControl('materialEnvMapEnabled');
-    var materialEnvMap = XType.getControl('materialEnvMap');
-    var materialReflectivity = XType.getControl('materialReflectivity');
-    var materialLightMapEnabled = XType.getControl('materialLightMapEnabled');
-    var materialLightMap = XType.getControl('materialLightMap');
-    var materialAOMapEnabled = XType.getControl('materialAOMapEnabled');
-    var materialAOMap = XType.getControl('materialAOMap');
-    var materialAOScale = XType.getControl('materialAOScale');
-    var materialEmissiveMapEnabled = XType.getControl('materialEmissiveMapEnabled');
-    var materialEmissiveMap = XType.getControl('materialEmissiveMap');
-    var materialSide = XType.getControl('materialSide');
-    var materialShading = XType.getControl('materialShading');
-    var materialBlending = XType.getControl('materialBlending');
-    var materialOpacity = XType.getControl('materialOpacity');
-    var materialTransparent = XType.getControl('materialTransparent');
-    var materialAlphaTest = XType.getControl('materialAlphaTest');
-    var materialWireframe = XType.getControl('materialWireframe');
-    var materialWireframeLinewidth = XType.getControl('materialWireframeLinewidth');
+    var materialUUID = UI.get('materialUUID');
+    var materialName = UI.get('materialName');
+    var materialClass = UI.get('materialClass');
+    var materialColor = UI.get('materialColor');
+    var materialRoughness = UI.get('materialRoughness');
+    var materialMetalness = UI.get('materialMetalness');
+    var materialEmissive = UI.get('materialEmissive');
+    var materialSpecular = UI.get('materialSpecular');
+    var materialShininess = UI.get('materialShininess');
+    var materialClearCoat = UI.get('materialClearCoat');
+    var materialClearCoatRoughness = UI.get('materialClearCoatRoughness');
+    var materialVertexColors = UI.get('materialVertexColors');
+    var materialSkinning = UI.get('materialSkinning');
+    var materialMapEnabled = UI.get('materialMapEnabled');
+    var materialMap = UI.get('materialMap');
+    var materialAlphaMapEnabled = UI.get('materialAlphaMapEnabled');
+    var materialAlphaMap = UI.get('materialAlphaMap');
+    var materialBumpMapEnabled = UI.get('materialBumpMapEnabled');
+    var materialBumpMap = UI.get('materialBumpMap');
+    var materialBumpScale = UI.get('materialBumpScale');
+    var materialNormalMapEnabled = UI.get('materialNormalMapEnabled');
+    var materialNormalMap = UI.get('materialNormalMap');
+    var materialDisplacementMapEnabled = UI.get('materialDisplacementMapEnabled');
+    var materialDisplacementMap = UI.get('materialDisplacementMap');
+    var materialDisplacementScale = UI.get('materialDisplacementScale');
+    var materialRoughnessMapEnabled = UI.get('materialRoughnessMapEnabled');
+    var materialRoughnessMap = UI.get('materialRoughnessMap');
+    var materialMetalnessMapEnabled = UI.get('materialMetalnessMapEnabled');
+    var materialMetalnessMap = UI.get('materialMetalnessMap');
+    var materialSpecularMapEnabled = UI.get('materialSpecularMapEnabled');
+    var materialSpecularMap = UI.get('materialSpecularMap');
+    var materialEnvMapEnabled = UI.get('materialEnvMapEnabled');
+    var materialEnvMap = UI.get('materialEnvMap');
+    var materialReflectivity = UI.get('materialReflectivity');
+    var materialLightMapEnabled = UI.get('materialLightMapEnabled');
+    var materialLightMap = UI.get('materialLightMap');
+    var materialAOMapEnabled = UI.get('materialAOMapEnabled');
+    var materialAOMap = UI.get('materialAOMap');
+    var materialAOScale = UI.get('materialAOScale');
+    var materialEmissiveMapEnabled = UI.get('materialEmissiveMapEnabled');
+    var materialEmissiveMap = UI.get('materialEmissiveMap');
+    var materialSide = UI.get('materialSide');
+    var materialShading = UI.get('materialShading');
+    var materialBlending = UI.get('materialBlending');
+    var materialOpacity = UI.get('materialOpacity');
+    var materialTransparent = UI.get('materialTransparent');
+    var materialAlphaTest = UI.get('materialAlphaTest');
+    var materialWireframe = UI.get('materialWireframe');
+    var materialWireframeLinewidth = UI.get('materialWireframeLinewidth');
 
     var material = currentObject.material;
 
@@ -430,55 +430,55 @@ MaterialPanelEvent.prototype.update = function () {
 
     var currentObject = this.currentObject;
 
-    var materialUUID = XType.getControl('materialUUID');
-    var materialName = XType.getControl('materialName');
-    var materialClass = XType.getControl('materialClass');
-    var materialColor = XType.getControl('materialColor');
-    var materialRoughness = XType.getControl('materialRoughness');
-    var materialMetalness = XType.getControl('materialMetalness');
-    var materialEmissive = XType.getControl('materialEmissive');
-    var materialSpecular = XType.getControl('materialSpecular');
-    var materialShininess = XType.getControl('materialShininess');
-    var materialClearCoat = XType.getControl('materialClearCoat');
-    var materialClearCoatRoughness = XType.getControl('materialClearCoatRoughness');
-    var materialVertexColors = XType.getControl('materialVertexColors');
-    var materialSkinning = XType.getControl('materialSkinning');
-    var materialMapEnabled = XType.getControl('materialMapEnabled');
-    var materialMap = XType.getControl('materialMap');
-    var materialAlphaMapEnabled = XType.getControl('materialAlphaMapEnabled');
-    var materialAlphaMap = XType.getControl('materialAlphaMap');
-    var materialBumpMapEnabled = XType.getControl('materialBumpMapEnabled');
-    var materialBumpMap = XType.getControl('materialBumpMap');
-    var materialBumpScale = XType.getControl('materialBumpScale');
-    var materialNormalMapEnabled = XType.getControl('materialNormalMapEnabled');
-    var materialNormalMap = XType.getControl('materialNormalMap');
-    var materialDisplacementMapEnabled = XType.getControl('materialDisplacementMapEnabled');
-    var materialDisplacementMap = XType.getControl('materialDisplacementMap');
-    var materialDisplacementScale = XType.getControl('materialDisplacementScale');
-    var materialRoughnessMapEnabled = XType.getControl('materialRoughnessMapEnabled');
-    var materialRoughnessMap = XType.getControl('materialRoughnessMap');
-    var materialMetalnessMapEnabled = XType.getControl('materialMetalnessMapEnabled');
-    var materialMetalnessMap = XType.getControl('materialMetalnessMap');
-    var materialSpecularMapEnabled = XType.getControl('materialSpecularMapEnabled');
-    var materialSpecularMap = XType.getControl('materialSpecularMap');
-    var materialEnvMapEnabled = XType.getControl('materialEnvMapEnabled');
-    var materialEnvMap = XType.getControl('materialEnvMap');
-    var materialReflectivity = XType.getControl('materialReflectivity');
-    var materialLightMapEnabled = XType.getControl('materialLightMapEnabled');
-    var materialLightMap = XType.getControl('materialLightMap');
-    var materialAOMapEnabled = XType.getControl('materialAOMapEnabled');
-    var materialAOMap = XType.getControl('materialAOMap');
-    var materialAOScale = XType.getControl('materialAOScale');
-    var materialEmissiveMapEnabled = XType.getControl('materialEmissiveMapEnabled');
-    var materialEmissiveMap = XType.getControl('materialEmissiveMap');
-    var materialSide = XType.getControl('materialSide');
-    var materialShading = XType.getControl('materialShading');
-    var materialBlending = XType.getControl('materialBlending');
-    var materialOpacity = XType.getControl('materialOpacity');
-    var materialTransparent = XType.getControl('materialTransparent');
-    var materialAlphaTest = XType.getControl('materialAlphaTest');
-    var materialWireframe = XType.getControl('materialWireframe');
-    var materialWireframeLinewidth = XType.getControl('materialWireframeLinewidth');
+    var materialUUID = UI.get('materialUUID');
+    var materialName = UI.get('materialName');
+    var materialClass = UI.get('materialClass');
+    var materialColor = UI.get('materialColor');
+    var materialRoughness = UI.get('materialRoughness');
+    var materialMetalness = UI.get('materialMetalness');
+    var materialEmissive = UI.get('materialEmissive');
+    var materialSpecular = UI.get('materialSpecular');
+    var materialShininess = UI.get('materialShininess');
+    var materialClearCoat = UI.get('materialClearCoat');
+    var materialClearCoatRoughness = UI.get('materialClearCoatRoughness');
+    var materialVertexColors = UI.get('materialVertexColors');
+    var materialSkinning = UI.get('materialSkinning');
+    var materialMapEnabled = UI.get('materialMapEnabled');
+    var materialMap = UI.get('materialMap');
+    var materialAlphaMapEnabled = UI.get('materialAlphaMapEnabled');
+    var materialAlphaMap = UI.get('materialAlphaMap');
+    var materialBumpMapEnabled = UI.get('materialBumpMapEnabled');
+    var materialBumpMap = UI.get('materialBumpMap');
+    var materialBumpScale = UI.get('materialBumpScale');
+    var materialNormalMapEnabled = UI.get('materialNormalMapEnabled');
+    var materialNormalMap = UI.get('materialNormalMap');
+    var materialDisplacementMapEnabled = UI.get('materialDisplacementMapEnabled');
+    var materialDisplacementMap = UI.get('materialDisplacementMap');
+    var materialDisplacementScale = UI.get('materialDisplacementScale');
+    var materialRoughnessMapEnabled = UI.get('materialRoughnessMapEnabled');
+    var materialRoughnessMap = UI.get('materialRoughnessMap');
+    var materialMetalnessMapEnabled = UI.get('materialMetalnessMapEnabled');
+    var materialMetalnessMap = UI.get('materialMetalnessMap');
+    var materialSpecularMapEnabled = UI.get('materialSpecularMapEnabled');
+    var materialSpecularMap = UI.get('materialSpecularMap');
+    var materialEnvMapEnabled = UI.get('materialEnvMapEnabled');
+    var materialEnvMap = UI.get('materialEnvMap');
+    var materialReflectivity = UI.get('materialReflectivity');
+    var materialLightMapEnabled = UI.get('materialLightMapEnabled');
+    var materialLightMap = UI.get('materialLightMap');
+    var materialAOMapEnabled = UI.get('materialAOMapEnabled');
+    var materialAOMap = UI.get('materialAOMap');
+    var materialAOScale = UI.get('materialAOScale');
+    var materialEmissiveMapEnabled = UI.get('materialEmissiveMapEnabled');
+    var materialEmissiveMap = UI.get('materialEmissiveMap');
+    var materialSide = UI.get('materialSide');
+    var materialShading = UI.get('materialShading');
+    var materialBlending = UI.get('materialBlending');
+    var materialOpacity = UI.get('materialOpacity');
+    var materialTransparent = UI.get('materialTransparent');
+    var materialAlphaTest = UI.get('materialAlphaTest');
+    var materialWireframe = UI.get('materialWireframe');
+    var materialWireframeLinewidth = UI.get('materialWireframeLinewidth');
 
     var object = currentObject;
 

@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 旋转模式事件
@@ -13,13 +13,13 @@ RotateModeEvent.prototype = Object.create(BaseEvent.prototype);
 RotateModeEvent.prototype.constructor = RotateModeEvent;
 
 RotateModeEvent.prototype.start = function () {
-    var btn = XType.getControl('rotateBtn');
+    var btn = UI.get('rotateBtn');
     btn.dom.addEventListener('click', this.onClick.bind(this));
     this.app.on(`changeMode.${this.id}`, this.onChangeMode.bind(this));
 };
 
 RotateModeEvent.prototype.stop = function () {
-    var btn = XType.getControl('rotateBtn');
+    var btn = UI.get('rotateBtn');
     btn.dom.removeEventListener('click', this.onClick);
     this.app.on(`changeMode.${this.id}`, null);
 };
@@ -29,7 +29,7 @@ RotateModeEvent.prototype.onClick = function () {
 };
 
 RotateModeEvent.prototype.onChangeMode = function (mode) {
-    var btn = XType.getControl('rotateBtn');
+    var btn = UI.get('rotateBtn');
 
     if (mode === 'rotate') {
         btn.select();

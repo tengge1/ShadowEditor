@@ -1,5 +1,4 @@
-import Control from '../ui/Control';
-import XType from '../ui/XType';
+import UI from '../ui/UI';
 import SetScriptValueCommand from '../command/SetScriptValueCommand';
 
 /**
@@ -8,10 +7,10 @@ import SetScriptValueCommand from '../command/SetScriptValueCommand';
  */
 function Script(app) {
     this.app = app;
-    Control.call(this, { parent: this.app.container });
+    UI.Control.call(this, { parent: this.app.container });
 };
 
-Script.prototype = Object.create(Control.prototype);
+Script.prototype = Object.create(UI.Control.prototype);
 Script.prototype.constructor = Script;
 
 Script.prototype.render = function () {
@@ -44,7 +43,7 @@ Script.prototype.render = function () {
     container = UI.create(data);
     container.render();
 
-    var title = XType.getControl('scriptTitle');
+    var title = UI.get('scriptTitle');
 
     // 业务逻辑
     var currentMode;

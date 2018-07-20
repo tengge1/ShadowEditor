@@ -1,5 +1,4 @@
-﻿import Control from '../../../ui/Control';
-import XType from '../../../ui/XType';
+﻿import UI from '../../../ui/UI';
 
 import SetGeometryValueCommand from '../../../command/SetGeometryValueCommand';
 import GeometryInfoPanel from './GeometryInfoPanel';
@@ -41,11 +40,11 @@ const GeometryPanels = {
 };
 
 function GeometryPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
 };
 
-GeometryPanel.prototype = Object.create(Control.prototype);
+GeometryPanel.prototype = Object.create(UI.Control.prototype);
 GeometryPanel.prototype.constructor = GeometryPanel;
 
 GeometryPanel.prototype.render = function () {
@@ -111,10 +110,10 @@ GeometryPanel.prototype.render = function () {
     var container = UI.create(data);
     container.render();
 
-    var geometryType = XType.getControl('geometryType');
-    var geometryUUID = XType.getControl('geometryUUID');
-    var geometryName = XType.getControl('geometryName');
-    var parameters = XType.getControl('geometryParameters');
+    var geometryType = UI.get('geometryType');
+    var geometryUUID = UI.get('geometryUUID');
+    var geometryName = UI.get('geometryName');
+    var parameters = UI.get('geometryParameters');
 
     function build() {
         var object = editor.selected;

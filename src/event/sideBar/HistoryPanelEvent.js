@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 历史面板事件
@@ -29,7 +29,7 @@ HistoryPanelEvent.prototype.stop = function () {
 HistoryPanelEvent.prototype.refreshUI = function () {
     var editor = this.app.editor;
     var history = editor.history;
-    var outliner = XType.getControl('historyOutlinear');
+    var outliner = UI.get('historyOutlinear');
 
     var options = [];
     var enumerator = 1;

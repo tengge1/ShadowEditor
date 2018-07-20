@@ -1,5 +1,4 @@
-﻿import Control from '../../ui/Control';
-import XType from '../../ui/XType';
+﻿import UI from '../../ui/UI';
 import ObjectPanel from './ObjectPanel';
 import GeometryPanel from './geometry/GeometryPanel';
 import MaterialPanel from './MaterialPanel';
@@ -9,11 +8,11 @@ import MaterialPanel from './MaterialPanel';
  * @author mrdoob / http://mrdoob.com/
  */
 function PropertyPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
 };
 
-PropertyPanel.prototype = Object.create(Control.prototype);
+PropertyPanel.prototype = Object.create(UI.Control.prototype);
 PropertyPanel.prototype.constructor = PropertyPanel;
 
 PropertyPanel.prototype.render = function () {

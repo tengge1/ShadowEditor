@@ -1,5 +1,4 @@
-﻿import Control from '../../../ui/Control';
-import XType from '../../../ui/XType';
+﻿import UI from '../../../ui/UI';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -7,12 +6,12 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 function TorusGeometryPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
     this.object = options.object;
 };
 
-TorusGeometryPanel.prototype = Object.create(Control.prototype);
+TorusGeometryPanel.prototype = Object.create(UI.Control.prototype);
 TorusGeometryPanel.prototype.constructor = TorusGeometryPanel;
 
 TorusGeometryPanel.prototype.render = function () {
@@ -22,11 +21,11 @@ TorusGeometryPanel.prototype.render = function () {
     var parameters = geometry.parameters;
 
     var update = function () {
-        var radius = XType.getControl('torusGeometryRadius');
-        var tube = XType.getControl('torusGeometryTube');
-        var radialSegments = XType.getControl('torusGeometryRadialSegments');
-        var tubularSegments = XType.getControl('torusGeometryTubularSegments');
-        var arc = XType.getControl('torusGeometryTubularArc');
+        var radius = UI.get('torusGeometryRadius');
+        var tube = UI.get('torusGeometryTube');
+        var radialSegments = UI.get('torusGeometryRadialSegments');
+        var tubularSegments = UI.get('torusGeometryTubularSegments');
+        var arc = UI.get('torusGeometryTubularArc');
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             radius.getValue(),

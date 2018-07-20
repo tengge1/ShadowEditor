@@ -1,6 +1,6 @@
 import { System } from '../../third_party';
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 场景面板事件
@@ -45,7 +45,7 @@ ScenePanelEvent.prototype.onOutlinerChange = function (control) {
  * @param {*} object 
  */
 ScenePanelEvent.prototype.onObjectChanged = function (object) {
-    var outliner = XType.getControl('outliner');
+    var outliner = UI.get('outliner');
 
     var options = outliner.options;
 
@@ -64,7 +64,7 @@ ScenePanelEvent.prototype.onObjectChanged = function (object) {
  * @param {*} object 
  */
 ScenePanelEvent.prototype.onObjectSelected = function (object) {
-    var outliner = XType.getControl('outliner');
+    var outliner = UI.get('outliner');
 
     if (this.ignoreObjectSelectedSignal === true) {
         return;
@@ -111,13 +111,13 @@ ScenePanelEvent.prototype.refreshUI = function () {
     var editor = this.app.editor;
     var camera = editor.camera;
     var scene = editor.scene;
-    var outliner = XType.getControl('outliner');
-    var backgroundColor = XType.getControl('backgroundColor');
-    var fogColor = XType.getControl('fogColor');
-    var fogType = XType.getControl('fogType');
-    var fogNear = XType.getControl('fogNear');
-    var fogFar = XType.getControl('fogFar');
-    var fogDensity = XType.getControl('fogDensity');
+    var outliner = UI.get('outliner');
+    var backgroundColor = UI.get('backgroundColor');
+    var fogColor = UI.get('fogColor');
+    var fogType = UI.get('fogType');
+    var fogNear = UI.get('fogNear');
+    var fogFar = UI.get('fogFar');
+    var fogDensity = UI.get('fogDensity');
 
     var options = [];
 
@@ -167,11 +167,11 @@ ScenePanelEvent.prototype.refreshUI = function () {
 };
 
 ScenePanelEvent.prototype.refreshFogUI = function () {
-    var fogType = XType.getControl('fogType');
-    var fogPropertiesRow = XType.getControl('fogPropertiesRow');
-    var fogNear = XType.getControl('fogNear');
-    var fogFar = XType.getControl('fogFar');
-    var fogDensity = XType.getControl('fogDensity');
+    var fogType = UI.get('fogType');
+    var fogPropertiesRow = UI.get('fogPropertiesRow');
+    var fogNear = UI.get('fogNear');
+    var fogFar = UI.get('fogFar');
+    var fogDensity = UI.get('fogDensity');
 
     var type = fogType.getValue();
 

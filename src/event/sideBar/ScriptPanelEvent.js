@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 import SetScriptValueCommand from '../../command/SetScriptValueCommand';
 import RemoveScriptCommand from '../../command/RemoveScriptCommand';
 
@@ -29,7 +29,7 @@ ScriptPanelEvent.prototype.stop = function () {
 };
 
 ScriptPanelEvent.prototype.onObjectSelected = function (object) {
-    var container = XType.getControl('scriptPanel');
+    var container = UI.get('scriptPanel');
 
     if (object !== null) {
         container.dom.style.display = 'block';
@@ -40,7 +40,7 @@ ScriptPanelEvent.prototype.onObjectSelected = function (object) {
 };
 
 ScriptPanelEvent.prototype.update = function () {
-    var scriptsContainer = XType.getControl('scriptsContainer');
+    var scriptsContainer = UI.get('scriptsContainer');
     var editor = this.app.editor;
     var _this = this;
 

@@ -1,15 +1,14 @@
-import Control from '../ui/Control';
-import XType from '../ui/XType';
+import UI from '../ui/UI';
 
 /**
  * 工具栏
  */
 function Toolbar(app) {
     this.app = app;
-    Control.call(this, { parent: this.app.container });
+    UI.Control.call(this, { parent: this.app.container });
 };
 
-Toolbar.prototype = Object.create(Control.prototype);
+Toolbar.prototype = Object.create(UI.Control.prototype);
 Toolbar.prototype.constructor = Toolbar;
 
 Toolbar.prototype.render = function () {

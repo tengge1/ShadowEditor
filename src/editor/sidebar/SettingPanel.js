@@ -1,16 +1,15 @@
-﻿import Control from '../../ui/Control';
-import XType from '../../ui/XType';
+﻿import UI from '../../ui/UI';
 
 /**
  * 设置面板
  * @author mrdoob / http://mrdoob.com/
  */
 function SettingPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
 };
 
-SettingPanel.prototype = Object.create(Control.prototype);
+SettingPanel.prototype = Object.create(UI.Control.prototype);
 SettingPanel.prototype.constructor = SettingPanel;
 
 SettingPanel.prototype.render = function () {

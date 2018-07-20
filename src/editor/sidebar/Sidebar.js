@@ -1,5 +1,4 @@
-﻿import Control from '../../ui/Control';
-import XType from '../../ui/XType';
+﻿import UI from '../../ui/UI';
 import ScenePanel from './ScenePanel';
 import PropertyPanel from './PropertyPanel';
 import ScriptPanel from './ScriptPanel';
@@ -12,11 +11,11 @@ import HistoryPanel from './HistoryPanel';
  * @author mrdoob / http://mrdoob.com/
  */
 function Sidebar(app) {
-    Control.call(this, { parent: app.container });
+    UI.Control.call(this, { parent: app.container });
     this.app = app;
 };
 
-Sidebar.prototype = Object.create(Control.prototype);
+Sidebar.prototype = Object.create(UI.Control.prototype);
 Sidebar.prototype.constructor = Sidebar;
 
 Sidebar.prototype.render = function () {

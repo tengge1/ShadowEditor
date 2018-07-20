@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 删除模式事件
@@ -13,13 +13,13 @@ DeleteModeEvent.prototype = Object.create(BaseEvent.prototype);
 DeleteModeEvent.prototype.constructor = DeleteModeEvent;
 
 DeleteModeEvent.prototype.start = function () {
-    var btn = XType.getControl('deleteBtn');
+    var btn = UI.get('deleteBtn');
     btn.dom.addEventListener('click', this.onClick.bind(this));
     this.app.on(`changeMode.${this.id}`, this.onChangeMode.bind(this));
 };
 
 DeleteModeEvent.prototype.stop = function () {
-    var btn = XType.getControl('deleteBtn');
+    var btn = UI.get('deleteBtn');
     btn.dom.removeEventListener('click', this.onClick);
     this.app.on(`changeMode.${this.id}`, null);
 };
@@ -29,7 +29,7 @@ DeleteModeEvent.prototype.onClick = function () {
 };
 
 DeleteModeEvent.prototype.onChangeMode = function (mode) {
-    var btn = XType.getControl('deleteBtn');
+    var btn = UI.get('deleteBtn');
 
     if (mode === 'delete') {
         btn.select();

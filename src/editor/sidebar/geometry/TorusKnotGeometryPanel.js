@@ -1,5 +1,4 @@
-﻿import Control from '../../../ui/Control';
-import XType from '../../../ui/XType';
+﻿import UI from '../../../ui/UI';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -7,12 +6,12 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 function TorusKnotGeometryPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
     this.object = options.object;
 };
 
-TorusKnotGeometryPanel.prototype = Object.create(Control.prototype);
+TorusKnotGeometryPanel.prototype = Object.create(UI.Control.prototype);
 TorusKnotGeometryPanel.prototype.constructor = TorusKnotGeometryPanel;
 
 TorusKnotGeometryPanel.prototype.render = function () {
@@ -22,12 +21,12 @@ TorusKnotGeometryPanel.prototype.render = function () {
     var parameters = geometry.parameters;
 
     var update = function () {
-        var radius = XType.getControl('torusKnotGeometryRadius');
-        var tube = XType.getControl('torusKnotGeometryTube');
-        var tubularSegments = XType.getControl('torusKnotGeometryTubularSegments');
-        var radialSegments = XType.getControl('torusKnotGeometryRadialSegments');
-        var p = XType.getControl('torusKnotGeometryP');
-        var q = XType.getControl('torusKnotGeometryQ');
+        var radius = UI.get('torusKnotGeometryRadius');
+        var tube = UI.get('torusKnotGeometryTube');
+        var tubularSegments = UI.get('torusKnotGeometryTubularSegments');
+        var radialSegments = UI.get('torusKnotGeometryRadialSegments');
+        var p = UI.get('torusKnotGeometryP');
+        var q = UI.get('torusKnotGeometryQ');
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             radius.getValue(),

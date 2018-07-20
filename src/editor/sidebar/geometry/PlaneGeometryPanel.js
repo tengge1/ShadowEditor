@@ -1,5 +1,4 @@
-﻿import Control from '../../../ui/Control';
-import XType from '../../../ui/XType';
+﻿import UI from '../../../ui/UI';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -7,12 +6,12 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 function PlaneGeometryPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
     this.object = options.object;
 };
 
-PlaneGeometryPanel.prototype = Object.create(Control.prototype);
+PlaneGeometryPanel.prototype = Object.create(UI.Control.prototype);
 PlaneGeometryPanel.prototype.constructor = PlaneGeometryPanel;
 
 PlaneGeometryPanel.prototype.render = function () {
@@ -22,10 +21,10 @@ PlaneGeometryPanel.prototype.render = function () {
     var parameters = geometry.parameters;
 
     var update = function () {
-        var width = XType.getControl('planeGeometryWidth');
-        var height = XType.getControl('planeGeometryHeight');
-        var widthSegments = XType.getControl('planeGeometryWidthSegments');
-        var heightSegments = XType.getControl('planeGeometryHeightSegments');
+        var width = UI.get('planeGeometryWidth');
+        var height = UI.get('planeGeometryHeight');
+        var widthSegments = UI.get('planeGeometryWidthSegments');
+        var heightSegments = UI.get('planeGeometryHeightSegments');
 
         editor.execute(new SetGeometryCommand(object, new THREE[geometry.type](
             width.getValue(),

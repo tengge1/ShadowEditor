@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 import SetPositionCommand from '../../command/SetPositionCommand';
 import SetRotationCommand from '../../command/SetRotationCommand';
 import SetScaleCommand from '../../command/SetScaleCommand';
@@ -45,7 +45,7 @@ ObjectPanelEvent.prototype.stop = function () {
  * @param {*} object 
  */
 ObjectPanelEvent.prototype.onObjectSelected = function (object) {
-    var container = XType.getControl('objectPanel');
+    var container = UI.get('objectPanel');
 
     if (object !== null) {
         container.dom.style.display = 'block';
@@ -84,10 +84,10 @@ ObjectPanelEvent.prototype.onRefreshSidebarObject3D = function (object) {
 ObjectPanelEvent.prototype.updateScaleX = function () {
     var editor = this.app.editor;
     var object = editor.selected;
-    var objectScaleLock = XType.getControl('objectScaleLock');
-    var objectScaleX = XType.getControl('objectScaleX');
-    var objectScaleY = XType.getControl('objectScaleY');
-    var objectScaleZ = XType.getControl('objectScaleZ');
+    var objectScaleLock = UI.get('objectScaleLock');
+    var objectScaleX = UI.get('objectScaleX');
+    var objectScaleY = UI.get('objectScaleY');
+    var objectScaleZ = UI.get('objectScaleZ');
 
     if (objectScaleLock.getValue() === true) {
         var scale = objectScaleX.getValue() / object.scale.x;
@@ -104,10 +104,10 @@ ObjectPanelEvent.prototype.updateScaleX = function () {
 ObjectPanelEvent.prototype.updateScaleY = function () {
     var editor = this.app.editor;
     var object = editor.selected;
-    var objectScaleLock = XType.getControl('objectScaleLock');
-    var objectScaleX = XType.getControl('objectScaleX');
-    var objectScaleY = XType.getControl('objectScaleY');
-    var objectScaleZ = XType.getControl('objectScaleZ');
+    var objectScaleLock = UI.get('objectScaleLock');
+    var objectScaleX = UI.get('objectScaleX');
+    var objectScaleY = UI.get('objectScaleY');
+    var objectScaleZ = UI.get('objectScaleZ');
 
     if (objectScaleLock.getValue() === true) {
         var scale = objectScaleY.getValue() / object.scale.y;
@@ -125,10 +125,10 @@ ObjectPanelEvent.prototype.updateScaleY = function () {
 ObjectPanelEvent.prototype.updateScaleZ = function () {
     var editor = this.app.editor;
     var object = editor.selected;
-    var objectScaleLock = XType.getControl('objectScaleLock');
-    var objectScaleX = XType.getControl('objectScaleX');
-    var objectScaleY = XType.getControl('objectScaleY');
-    var objectScaleZ = XType.getControl('objectScaleZ');
+    var objectScaleLock = UI.get('objectScaleLock');
+    var objectScaleX = UI.get('objectScaleX');
+    var objectScaleY = UI.get('objectScaleY');
+    var objectScaleZ = UI.get('objectScaleZ');
 
     if (objectScaleLock.getValue() === true) {
         var scale = objectScaleZ.getValue() / object.scale.z;
@@ -147,30 +147,30 @@ ObjectPanelEvent.prototype.update = function () {
     var editor = this.app.editor;
     var object = editor.selected;
 
-    var objectPositionX = XType.getControl('objectPositionX');
-    var objectPositionY = XType.getControl('objectPositionY');
-    var objectPositionZ = XType.getControl('objectPositionZ');
-    var objectRotationX = XType.getControl('objectRotationX');
-    var objectRotationY = XType.getControl('objectRotationY');
-    var objectRotationZ = XType.getControl('objectRotationZ');
-    var objectScaleX = XType.getControl('objectScaleX');
-    var objectScaleY = XType.getControl('objectScaleY');
-    var objectScaleZ = XType.getControl('objectScaleZ');
-    var objectFov = XType.getControl('objectFov');
-    var objectNear = XType.getControl('objectNear');
-    var objectFar = XType.getControl('objectFar');
-    var objectIntensity = XType.getControl('objectIntensity');
-    var objectColor = XType.getControl('objectColor');
-    var objectGroundColor = XType.getControl('objectGroundColor');
-    var objectDistance = XType.getControl('objectDistance');
-    var objectAngle = XType.getControl('objectAngle');
-    var objectPenumbra = XType.getControl('objectPenumbra');
-    var objectDecay = XType.getControl('objectDecay');
-    var objectVisible = XType.getControl('objectVisible');
-    var objectCastShadow = XType.getControl('objectCastShadow');
-    var objectReceiveShadow = XType.getControl('objectReceiveShadow');
-    var objectShadowRadius = XType.getControl('objectShadowRadius');
-    var objectUserData = XType.getControl('objectUserData');
+    var objectPositionX = UI.get('objectPositionX');
+    var objectPositionY = UI.get('objectPositionY');
+    var objectPositionZ = UI.get('objectPositionZ');
+    var objectRotationX = UI.get('objectRotationX');
+    var objectRotationY = UI.get('objectRotationY');
+    var objectRotationZ = UI.get('objectRotationZ');
+    var objectScaleX = UI.get('objectScaleX');
+    var objectScaleY = UI.get('objectScaleY');
+    var objectScaleZ = UI.get('objectScaleZ');
+    var objectFov = UI.get('objectFov');
+    var objectNear = UI.get('objectNear');
+    var objectFar = UI.get('objectFar');
+    var objectIntensity = UI.get('objectIntensity');
+    var objectColor = UI.get('objectColor');
+    var objectGroundColor = UI.get('objectGroundColor');
+    var objectDistance = UI.get('objectDistance');
+    var objectAngle = UI.get('objectAngle');
+    var objectPenumbra = UI.get('objectPenumbra');
+    var objectDecay = UI.get('objectDecay');
+    var objectVisible = UI.get('objectVisible');
+    var objectCastShadow = UI.get('objectCastShadow');
+    var objectReceiveShadow = UI.get('objectReceiveShadow');
+    var objectShadowRadius = UI.get('objectShadowRadius');
+    var objectUserData = UI.get('objectUserData');
 
     if (object !== null) {
         var newPosition = new THREE.Vector3(objectPositionX.getValue(), objectPositionY.getValue(), objectPositionZ.getValue());
@@ -269,19 +269,19 @@ ObjectPanelEvent.prototype.update = function () {
  * @param {*} object 
  */
 ObjectPanelEvent.prototype.updateRows = function (object) {
-    var objectFovRow = XType.getControl('objectFovRow');
-    var objectNearRow = XType.getControl('objectNearRow');
-    var objectFarRow = XType.getControl('objectFarRow');
-    var objectIntensityRow = XType.getControl('objectIntensityRow');
-    var objectColorRow = XType.getControl('objectColorRow');
-    var objectGroundColorRow = XType.getControl('objectGroundColorRow');
-    var objectDistanceRow = XType.getControl('objectDistanceRow');
-    var objectAngleRow = XType.getControl('objectAngleRow');
-    var objectPenumbraRow = XType.getControl('objectPenumbraRow');
-    var objectDecayRow = XType.getControl('objectDecayRow');
-    var objectShadowRow = XType.getControl('objectShadowRow');
-    var objectReceiveShadow = XType.getControl('objectReceiveShadow');
-    var objectShadowRadius = XType.getControl('objectShadowRadius');
+    var objectFovRow = UI.get('objectFovRow');
+    var objectNearRow = UI.get('objectNearRow');
+    var objectFarRow = UI.get('objectFarRow');
+    var objectIntensityRow = UI.get('objectIntensityRow');
+    var objectColorRow = UI.get('objectColorRow');
+    var objectGroundColorRow = UI.get('objectGroundColorRow');
+    var objectDistanceRow = UI.get('objectDistanceRow');
+    var objectAngleRow = UI.get('objectAngleRow');
+    var objectPenumbraRow = UI.get('objectPenumbraRow');
+    var objectDecayRow = UI.get('objectDecayRow');
+    var objectShadowRow = UI.get('objectShadowRow');
+    var objectReceiveShadow = UI.get('objectReceiveShadow');
+    var objectShadowRadius = UI.get('objectShadowRadius');
 
     var properties = {
         'fov': objectFovRow,
@@ -309,8 +309,8 @@ ObjectPanelEvent.prototype.updateRows = function (object) {
  * @param {*} object 
  */
 ObjectPanelEvent.prototype.updateTransformRows = function (object) {
-    var objectRotationRow = XType.getControl('objectRotationRow');
-    var objectScaleRow = XType.getControl('objectScaleRow');
+    var objectRotationRow = UI.get('objectRotationRow');
+    var objectScaleRow = UI.get('objectScaleRow');
 
     if (object instanceof THREE.Light || (object instanceof THREE.Object3D && object.userData.targetInverse)) {
         objectRotationRow.dom.style.display = 'none';
@@ -326,34 +326,34 @@ ObjectPanelEvent.prototype.updateTransformRows = function (object) {
  * @param {*} object 
  */
 ObjectPanelEvent.prototype.updateUI = function (object) {
-    var objectType = XType.getControl('objectType');
-    var objectUUID = XType.getControl('objectUUID');
-    var objectName = XType.getControl('objectName');
-    var objectPositionX = XType.getControl('objectPositionX');
-    var objectPositionY = XType.getControl('objectPositionY');
-    var objectPositionZ = XType.getControl('objectPositionZ');
-    var objectRotationX = XType.getControl('objectRotationX');
-    var objectRotationY = XType.getControl('objectRotationY');
-    var objectRotationZ = XType.getControl('objectRotationZ');
-    var objectScaleX = XType.getControl('objectScaleX');
-    var objectScaleY = XType.getControl('objectScaleY');
-    var objectScaleZ = XType.getControl('objectScaleZ');
-    var objectFov = XType.getControl('objectFov');
-    var objectNear = XType.getControl('objectNear');
-    var objectFar = XType.getControl('objectFar');
-    var objectIntensity = XType.getControl('objectIntensity');
-    var objectColor = XType.getControl('objectColor');
-    var objectGroundColor = XType.getControl('objectGroundColor');
-    var objectDistance = XType.getControl('objectDistance');
-    var objectAngle = XType.getControl('objectAngle');
-    var objectPenumbra = XType.getControl('objectPenumbra');
-    var objectDecay = XType.getControl('objectDecay');
-    var objectVisible = XType.getControl('objectVisible');
-    var objectCastShadow = XType.getControl('objectCastShadow');
-    var objectReceiveShadow = XType.getControl('objectReceiveShadow');
-    var objectShadowRadius = XType.getControl('objectShadowRadius');
-    var objectVisible = XType.getControl('objectVisible');
-    var objectUserData = XType.getControl('objectUserData');
+    var objectType = UI.get('objectType');
+    var objectUUID = UI.get('objectUUID');
+    var objectName = UI.get('objectName');
+    var objectPositionX = UI.get('objectPositionX');
+    var objectPositionY = UI.get('objectPositionY');
+    var objectPositionZ = UI.get('objectPositionZ');
+    var objectRotationX = UI.get('objectRotationX');
+    var objectRotationY = UI.get('objectRotationY');
+    var objectRotationZ = UI.get('objectRotationZ');
+    var objectScaleX = UI.get('objectScaleX');
+    var objectScaleY = UI.get('objectScaleY');
+    var objectScaleZ = UI.get('objectScaleZ');
+    var objectFov = UI.get('objectFov');
+    var objectNear = UI.get('objectNear');
+    var objectFar = UI.get('objectFar');
+    var objectIntensity = UI.get('objectIntensity');
+    var objectColor = UI.get('objectColor');
+    var objectGroundColor = UI.get('objectGroundColor');
+    var objectDistance = UI.get('objectDistance');
+    var objectAngle = UI.get('objectAngle');
+    var objectPenumbra = UI.get('objectPenumbra');
+    var objectDecay = UI.get('objectDecay');
+    var objectVisible = UI.get('objectVisible');
+    var objectCastShadow = UI.get('objectCastShadow');
+    var objectReceiveShadow = UI.get('objectReceiveShadow');
+    var objectShadowRadius = UI.get('objectShadowRadius');
+    var objectVisible = UI.get('objectVisible');
+    var objectUserData = UI.get('objectUserData');
 
     objectType.setValue(object.type);
 

@@ -1,17 +1,16 @@
 ﻿import { System } from '../../third_party';
-import Control from '../../ui/Control';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 工程面板
  * @author mrdoob / http://mrdoob.com/
  */
 function ProjectPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
 };
 
-ProjectPanel.prototype = Object.create(Control.prototype);
+ProjectPanel.prototype = Object.create(UI.Control.prototype);
 ProjectPanel.prototype.constructor = ProjectPanel;
 
 ProjectPanel.prototype.render = function () {

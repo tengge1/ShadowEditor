@@ -1,5 +1,5 @@
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 旋转模式事件
@@ -13,13 +13,13 @@ SelectModeEvent.prototype = Object.create(BaseEvent.prototype);
 SelectModeEvent.prototype.constructor = SelectModeEvent;
 
 SelectModeEvent.prototype.start = function () {
-    var btn = XType.getControl('selectBtn');
+    var btn = UI.get('selectBtn');
     btn.dom.addEventListener('click', this.onClick.bind(this));
     this.app.on(`changeMode.${this.id}`, this.onChangeMode.bind(this));
 };
 
 SelectModeEvent.prototype.stop = function () {
-    var btn = XType.getControl('selectBtn');
+    var btn = UI.get('selectBtn');
     btn.dom.removeEventListener('click', this.onClick);
     this.app.on(`changeMode.${this.id}`, null);
 };
@@ -29,7 +29,7 @@ SelectModeEvent.prototype.onClick = function () {
 };
 
 SelectModeEvent.prototype.onChangeMode = function (mode) {
-    var btn = XType.getControl('selectBtn');
+    var btn = UI.get('selectBtn');
 
     if (mode === 'select') {
         btn.select();

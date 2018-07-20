@@ -1,5 +1,4 @@
-﻿import Control from '../ui/Control';
-import XType from '../ui/XType';
+﻿import UI from '../ui/UI';
 
 /**
  * 场景编辑区
@@ -7,10 +6,10 @@ import XType from '../ui/XType';
  */
 function Viewport(app) {
     this.app = app;
-    Control.call(this, { parent: this.app.container });
+    UI.Control.call(this, { parent: this.app.container });
 };
 
-Viewport.prototype = Object.create(Control.prototype);
+Viewport.prototype = Object.create(UI.Control.prototype);
 Viewport.prototype.constructor = Viewport;
 
 Viewport.prototype.render = function () {

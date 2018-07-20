@@ -1,5 +1,4 @@
-﻿import Control from '../../ui/Control';
-import XType from '../../ui/XType';
+﻿import UI from '../../ui/UI';
 import SetUuidCommand from '../../command/SetUuidCommand';
 import SetValueCommand from '../../command/SetValueCommand';
 
@@ -8,11 +7,11 @@ import SetValueCommand from '../../command/SetValueCommand';
  * @author mrdoob / http://mrdoob.com/
  */
 function ObjectPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
 };
 
-ObjectPanel.prototype = Object.create(Control.prototype);
+ObjectPanel.prototype = Object.create(UI.Control.prototype);
 ObjectPanel.prototype.constructor = ObjectPanel;
 
 ObjectPanel.prototype.render = function () {
@@ -57,7 +56,7 @@ ObjectPanel.prototype.render = function () {
                 text: '新建',
                 style: 'margin-left: 7px;',
                 onClick: function () {
-                    var objectUUID = XType.getControl('objectUUID');
+                    var objectUUID = UI.get('objectUUID');
                     objectUUID.setValue(THREE.Math.generateUUID());
                     editor.execute(new SetUuidCommand(editor.selected, objectUUID.getValue()));
                 }

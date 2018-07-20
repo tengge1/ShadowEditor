@@ -1,5 +1,4 @@
-﻿import Control from '../../../ui/Control';
-import XType from '../../../ui/XType';
+﻿import UI from '../../../ui/UI';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -7,12 +6,12 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
  * @author rfm1201
  */
 function LatheGeometryPanel(options) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
     this.app = options.app;
     this.object = options.object;
 };
 
-LatheGeometryPanel.prototype = Object.create(Control.prototype);
+LatheGeometryPanel.prototype = Object.create(UI.Control.prototype);
 LatheGeometryPanel.prototype.constructor = LatheGeometryPanel;
 
 LatheGeometryPanel.prototype.render = function () {
@@ -78,11 +77,11 @@ LatheGeometryPanel.prototype.render = function () {
         }]
     };
 
-    var xtype = UI.create(data);
-    xtype.render();
+    var container = UI.create(data);
+    container.render();
 
-    var points = XType.getControl('latheGeometryPoints');
-    var pointsList = XType.getControl('latheGeometryPointsList');
+    var points = UI.get('latheGeometryPoints');
+    var pointsList = UI.get('latheGeometryPointsList');
 
     var addPointButton = UI.create({
         xtype: 'button',

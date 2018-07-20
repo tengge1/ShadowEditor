@@ -1,6 +1,6 @@
 import { System } from '../../third_party';
 import BaseEvent from '../BaseEvent';
-import XType from '../../ui/XType';
+import UI from '../../ui/UI';
 
 /**
  * 属性面板事件
@@ -28,12 +28,12 @@ PropertyPanelEvent.prototype.onAppStarted = function () {
 };
 
 PropertyPanelEvent.prototype.select = function (section) {
-    var objectTab = XType.getControl('objectTab');
-    var geometryTab = XType.getControl('geometryTab');
-    var materialTab = XType.getControl('materialTab');
-    var objectPanel = XType.getControl('objectPanel');
-    var geometryPanel = XType.getControl('geometryPanel');
-    var materialPanel = XType.getControl('materialPanel');
+    var objectTab = UI.get('objectTab');
+    var geometryTab = UI.get('geometryTab');
+    var materialTab = UI.get('materialTab');
+    var objectPanel = UI.get('objectPanel');
+    var geometryPanel = UI.get('geometryPanel');
+    var materialPanel = UI.get('materialPanel');
 
     objectTab.dom.className = '';
     geometryTab.dom.className = '';
