@@ -6,8 +6,6 @@ import UI from '../../ui/UI';
  */
 function ExampleMenu(options) {
     UI.Control.call(this, options);
-    options = options || {};
-
     this.app = options.app;
 }
 
@@ -17,7 +15,7 @@ ExampleMenu.prototype.constructor = ExampleMenu;
 ExampleMenu.prototype.render = function () {
     var _this = this;
 
-    var data = {
+    var container = UI.create({
         xtype: 'div',
         parent: this.parent,
         cls: 'menu',
@@ -62,10 +60,9 @@ ExampleMenu.prototype.render = function () {
                 }
             }]
         }]
-    };
+    });
 
-    var control = UI.create(data);
-    control.render();
+    container.render();
 }
 
 export default ExampleMenu;

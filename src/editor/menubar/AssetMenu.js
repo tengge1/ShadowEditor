@@ -6,8 +6,6 @@ import UI from '../../ui/UI';
  */
 function AssetMenu(options) {
     UI.Control.call(this, options);
-    options = options || {};
-
     this.app = options.app;
 }
 
@@ -17,7 +15,7 @@ AssetMenu.prototype.constructor = AssetMenu;
 AssetMenu.prototype.render = function () {
     var _this = this;
 
-    var data = {
+    var container = UI.create({
         xtype: 'div',
         parent: this.parent,
         cls: 'menu',
@@ -114,10 +112,9 @@ AssetMenu.prototype.render = function () {
                 }
             }]
         }]
-    };
+    });
 
-    var control = UI.create(data);
-    control.render();
+    container.render();
 }
 
 export default AssetMenu;

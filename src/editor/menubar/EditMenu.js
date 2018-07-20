@@ -6,8 +6,6 @@ import UI from '../../ui/UI';
  */
 function EditMenu(options) {
     UI.Control.call(this, options);
-    options = options || {};
-
     this.app = options.app;
 }
 
@@ -17,7 +15,7 @@ EditMenu.prototype.constructor = EditMenu;
 EditMenu.prototype.render = function () {
     var _this = this;
 
-    var data = {
+    var container = UI.create({
         xtype: 'div',
         parent: this.parent,
         cls: 'menu',
@@ -80,10 +78,9 @@ EditMenu.prototype.render = function () {
                 }
             }]
         }]
-    };
+    });
 
-    var control = UI.create(data);
-    control.render();
+    container.render();
 }
 
 export default EditMenu;

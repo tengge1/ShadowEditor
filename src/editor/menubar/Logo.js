@@ -6,8 +6,6 @@ import UI from '../../ui/UI';
  */
 function Logo(options) {
     UI.Control.call(this, options);
-    options = options || {};
-
     this.app = options.app;
 }
 
@@ -17,15 +15,14 @@ Logo.prototype.constructor = Logo;
 Logo.prototype.render = function () {
     var _this = this;
 
-    var data = {
+    var container = UI.create({
         xtype: 'div',
         parent: this.parent,
         cls: 'logo',
         html: '<i class="iconfont icon-shadow"></i>'
-    };
+    });
 
-    var control = UI.create(data);
-    control.render();
+    container.render();
 }
 
 export default Logo;

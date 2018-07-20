@@ -16,42 +16,41 @@ import StatusMenu from './menubar/StatusMenu';
  * @author mrdoob / http://mrdoob.com/
  */
 function Menubar(app) {
-    this.app = app;
-
     UI.Control.call(this, { parent: this.app.container });
-
-    this.children = [
-        // Logo
-        new Logo({ app: this.app }),
-
-        // 左侧
-        new SceneMenu({ app: this.app }),
-        new EditMenu({ app: this.app }),
-        new AddMenu({ app: this.app }),
-        new AssetMenu({ app: this.app }),
-        new AnimationMenu({ app: this.app }),
-        new PlayMenu({ app: this.app }),
-        new ViewMenu({ app: this.app }),
-        new ExampleMenu({ app: this.app }),
-        new HelpMenu({ app: this.app }),
-
-        // 右侧
-        new StatusMenu({ app: this.app })
-    ];
+    this.app = app;
 };
 
 Menubar.prototype = Object.create(UI.Control.prototype);
 Menubar.prototype.constructor = Menubar;
 
 Menubar.prototype.render = function () {
-    this.dom = UI.create({
+    var params = { app: this.app };
+
+    var container = UI.create({
         xtype: 'div',
         id: 'menubar',
         parent: this.parent,
-        children: this.children
+        children: [
+            // Logo
+            new Logo(params),
+
+            // 左侧
+            new SceneMenu(params),
+            new EditMenu(params),
+            new AddMenu(params),
+            new AssetMenu(params),
+            new AnimationMenu(params),
+            new PlayMenu(params),
+            new ViewMenu(params),
+            new ExampleMenu(params),
+            new HelpMenu(params),
+
+            // 右侧
+            new StatusMenu(params)
+        ]
     });
 
-    this.dom.render();
+    container.render();
 };
 
 export default Menubar;

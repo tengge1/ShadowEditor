@@ -6,8 +6,6 @@ import UI from '../../ui/UI';
  */
 function HelpMenu(options) {
     UI.Control.call(this, options);
-    options = options || {};
-
     this.app = options.app;
 }
 
@@ -17,7 +15,7 @@ HelpMenu.prototype.constructor = HelpMenu;
 HelpMenu.prototype.render = function () {
     var _this = this;
 
-    var data = {
+    var container = UI.create({
         xtype: 'div',
         parent: this.parent,
         cls: 'menu',
@@ -46,10 +44,9 @@ HelpMenu.prototype.render = function () {
                 }
             }]
         }]
-    };
+    });
 
-    var control = UI.create(data);
-    control.render();
+    container.render();
 }
 
 export default HelpMenu;

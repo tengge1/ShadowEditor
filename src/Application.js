@@ -5,10 +5,10 @@ import EventDispatcher from './event/EventDispatcher';
 import Menubar from './editor/Menubar';
 import Toolbar from './editor/Toolbar';
 import Viewport from './editor/Viewport';
+import Sidebar from './editor/sidebar/Sidebar';
+import StatusBar from './editor/StatusBar';
 import Script from './editor/Script';
 import Player from './editor/Player';
-import StatusBar from './editor/StatusBar';
-import Sidebar from './editor/sidebar/Sidebar';
 
 import Editor from './editor/Editor';
 

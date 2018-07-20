@@ -6,8 +6,6 @@ import UI from '../../ui/UI';
  */
 function PlayMenu(options) {
     UI.Control.call(this, options);
-    options = options || {};
-
     this.app = options.app;
 }
 
@@ -17,7 +15,7 @@ PlayMenu.prototype.constructor = PlayMenu;
 PlayMenu.prototype.render = function () {
     var _this = this;
 
-    var data = {
+    var container = UI.create({
         xtype: 'div',
         parent: this.parent,
         cls: 'menu',
@@ -30,10 +28,9 @@ PlayMenu.prototype.render = function () {
                 _this.app.call('mPlay');
             }
         }]
-    };
+    });
 
-    var control = UI.create(data);
-    control.render();
+    container.render();
 }
 
 export default PlayMenu;

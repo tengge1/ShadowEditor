@@ -6,8 +6,6 @@ import UI from '../../ui/UI';
  */
 function AnimationMenu(options) {
     UI.Control.call(this, options);
-    options = options || {};
-
     this.app = options.app;
 }
 
@@ -17,7 +15,7 @@ AnimationMenu.prototype.constructor = AnimationMenu;
 AnimationMenu.prototype.render = function () {
     var _this = this;
 
-    var data = {
+    var container = UI.create({
         xtype: 'div',
         parent: this.parent,
         cls: 'menu',
@@ -54,10 +52,9 @@ AnimationMenu.prototype.render = function () {
                 }
             }]
         }]
-    };
+    });
 
-    var control = UI.create(data);
-    control.render();
+    container.render();
 }
 
 export default AnimationMenu;

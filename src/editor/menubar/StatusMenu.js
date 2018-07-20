@@ -17,7 +17,7 @@ StatusMenu.prototype.constructor = StatusMenu;
 StatusMenu.prototype.render = function () {
     var _this = this;
 
-    var data = {
+    var container = UI.create({
         xtype: 'div',
         id: 'mStatus',
         parent: this.parent,
@@ -37,10 +37,9 @@ StatusMenu.prototype.render = function () {
             text: 'r' + THREE.REVISION,
             cls: 'title version'
         }]
-    };
+    });
 
-    var control = UI.create(data);
-    control.render();
+    container.render();
 }
 
 export default StatusMenu;
