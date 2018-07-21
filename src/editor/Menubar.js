@@ -15,9 +15,9 @@ import StatusMenu from './menubar/StatusMenu';
  * 菜单栏
  * @author mrdoob / http://mrdoob.com/
  */
-function Menubar(app) {
-    UI.Control.call(this, { parent: this.app.container });
-    this.app = app;
+function Menubar(options) {
+    UI.Control.call(this, options);
+    this.app = options.app;
 };
 
 Menubar.prototype = Object.create(UI.Control.prototype);

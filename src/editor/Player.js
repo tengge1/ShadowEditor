@@ -5,9 +5,9 @@ import AppPlayer from '../core/AppPlayer';
  * 播放器面板
  * @author mrdoob / http://mrdoob.com/
  */
-function Player(app) {
-    this.app = app;
-    UI.Control.call(this, { parent: this.app.container });
+function Player(options) {
+    UI.Control.call(this, options);
+    this.app = options.app;
 };
 
 Player.prototype = Object.create(UI.Control.prototype);

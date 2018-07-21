@@ -4,9 +4,9 @@
  * 场景编辑区
  * @author mrdoob / http://mrdoob.com/
  */
-function Viewport(app) {
-    this.app = app;
-    UI.Control.call(this, { parent: this.app.container });
+function Viewport(options) {
+    UI.Control.call(this, options);
+    this.app = options.app;
 };
 
 Viewport.prototype = Object.create(UI.Control.prototype);

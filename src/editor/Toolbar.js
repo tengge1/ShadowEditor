@@ -3,9 +3,9 @@ import UI from '../ui/UI';
 /**
  * 工具栏
  */
-function Toolbar(app) {
-    this.app = app;
-    UI.Control.call(this, { parent: this.app.container });
+function Toolbar(options) {
+    UI.Control.call(this, options);
+    this.app = options.app;
 };
 
 Toolbar.prototype = Object.create(UI.Control.prototype);

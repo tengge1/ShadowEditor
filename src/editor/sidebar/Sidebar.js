@@ -10,9 +10,9 @@ import HistoryPanel from './HistoryPanel';
  * 侧边栏
  * @author mrdoob / http://mrdoob.com/
  */
-function Sidebar(app) {
-    UI.Control.call(this, { parent: app.container });
-    this.app = app;
+function Sidebar(options) {
+    UI.Control.call(this, options);
+    this.app = options.app;
 };
 
 Sidebar.prototype = Object.create(UI.Control.prototype);

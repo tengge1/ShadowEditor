@@ -5,9 +5,9 @@ import SetScriptValueCommand from '../command/SetScriptValueCommand';
  * 脚本编辑面板
  * @author mrdoob / http://mrdoob.com/
  */
-function Script(app) {
-    this.app = app;
-    UI.Control.call(this, { parent: this.app.container });
+function Script(options) {
+    UI.Control.call(this, options);
+    this.app = options.app;
 };
 
 Script.prototype = Object.create(UI.Control.prototype);

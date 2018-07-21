@@ -30,28 +30,30 @@ function Application(container, options) {
     this.call = this.event.call.bind(this.event);
     this.on = this.event.on.bind(this.event);
 
+    var params = { app: this, parent: this.container };
+
     // 用户界面
-    this.menubar = new Menubar(this); // 菜单栏
+    this.menubar = new Menubar(params); // 菜单栏
     this.menubar.render();
 
-    this.toolbar = new Toolbar(this); // 工具栏
+    this.toolbar = new Toolbar(params); // 工具栏
     this.toolbar.render();
 
-    this.viewport = new Viewport(this); // 场景编辑区
+    this.viewport = new Viewport(params); // 场景编辑区
     this.viewport.render();
 
     this.editor = new Editor(this); // 编辑器
 
-    this.sidebar = new Sidebar(this); // 侧边栏
+    this.sidebar = new Sidebar(params); // 侧边栏
     this.sidebar.render();
 
-    this.statusBar = new StatusBar(this); // 状态栏
+    this.statusBar = new StatusBar(params); // 状态栏
     this.statusBar.render();
 
-    this.script = new Script(this); // 脚本编辑面板
+    this.script = new Script(params); // 脚本编辑面板
     this.script.render();
 
-    this.player = new Player(this); // 播放器面板
+    this.player = new Player(params); // 播放器面板
     this.player.render();
 
     this.running = false;

@@ -4,9 +4,9 @@
  * 状态栏
  * @author mrdoob / http://mrdoob.com/
  */
-function StatusBar(app) {
-    this.app = app;
-    UI.Control.call(this, { parent: this.app.container });
+function StatusBar(options) {
+    UI.Control.call(this, options);
+    this.app = options.app;
 };
 
 StatusBar.prototype = Object.create(UI.Control.prototype);
