@@ -76,16 +76,12 @@ MaterialPanelEvent.prototype.onPasteMaterial = function () {
  * @param {*} object 
  */
 MaterialPanelEvent.prototype.onObjectSelected = function (object) {
-    var container = UI.get('materialPanel');
-
     if (object && object.material) {
         var objectChanged = object !== this.currentObject;
         this.currentObject = object;
         this.refreshUI(objectChanged);
-        container.dom.style.display = '';
     } else {
         this.currentObject = null;
-        container.dom.style.display = 'none';
     }
 };
 

@@ -121,8 +121,6 @@ GeometryPanel.prototype.render = function () {
         if (object && object.geometry) {
             var geometry = object.geometry;
 
-            container.dom.style.display = 'block';
-
             geometryType.setValue(geometry.type);
             geometryUUID.setValue(geometry.uuid);
             geometryName.setValue(geometry.name);
@@ -136,10 +134,7 @@ GeometryPanel.prototype.render = function () {
             } else {
 
             }
-        } else {
-            container.dom.style.display = 'none';
         }
-
     }
 
     // geometry
