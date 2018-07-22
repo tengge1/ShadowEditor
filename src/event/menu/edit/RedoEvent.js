@@ -1,4 +1,5 @@
 import MenuEvent from '../MenuEvent';
+import UI from '../../../ui/UI';
 
 /**
  * 重做事件
@@ -34,7 +35,7 @@ RedoEvent.prototype.onRedo = function () {
 
 RedoEvent.prototype.onHistoryChanged = function () {
     var history = this.app.editor.history;
-    var dom = document.getElementById('mRedo');
+    var dom = UI.get('mRedo').dom;
 
     if (history.redos.length === 0) {
         if (!dom.classList.contains('inactive')) {

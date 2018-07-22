@@ -1,4 +1,5 @@
 import MenuEvent from '../MenuEvent';
+import UI from '../../../ui/UI';
 
 /**
  * 启动事件
@@ -28,11 +29,11 @@ PlayEvent.prototype.onPlay = function () {
 
     if (this.isPlaying === false) {
         this.isPlaying = true;
-        document.getElementById('mPlay').innerHTML = '停止';
+        UI.get('mPlay').dom.innerHTML = '停止';
         this.app.call('startPlayer', this);
     } else {
         this.isPlaying = false;
-        document.getElementById('mPlay').innerHTML = '启动';
+        UI.get('mPlay').dom.innerHTML = '启动';
         this.app.call('stopPlayer', this);
     }
 };

@@ -27,10 +27,6 @@ Number.prototype.constructor = Number;
 Number.prototype.render = function () {
     this.dom = document.createElement('input');
 
-    if (this.id) {
-        this.dom.id = this.id;
-    }
-
     this.dom.className = this.cls;
 
     this.dom.value = '0.00';

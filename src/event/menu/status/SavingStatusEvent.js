@@ -1,4 +1,5 @@
 import MenuEvent from '../MenuEvent';
+import UI from '../../../ui/UI';
 
 /**
  * 保存状态改变
@@ -24,15 +25,15 @@ SavingStatusEvent.prototype.stop = function () {
 };
 
 SavingStatusEvent.prototype.onInitApp = function () {
-    document.querySelector('#bAutoSave > input').checked = this.app.editor.config.getKey('autosave');
+    UI.get('bAutoSave').input.checked = this.app.editor.config.getKey('autosave');
 };
 
 SavingStatusEvent.prototype.onSavingStarted = function () {
-    document.querySelector('#bAutoSave > span').style.textDecoration = 'underline';
+    UI.get('bAutoSave').input.style.textDecoration = 'underline';
 };
 
 SavingStatusEvent.prototype.onSavingFinished = function () {
-    document.querySelector('#bAutoSave > span').style.textDecoration = 'none';
+    UI.get('bAutoSave').input.style.textDecoration = 'none';
 };
 
 export default SavingStatusEvent;

@@ -21,10 +21,6 @@ Outliner.prototype.constructor = Outliner;
 Outliner.prototype.render = function () {
     this.dom = document.createElement('div');
 
-    if (this.id) {
-        this.dom.id = this.id;
-    }
-
     this.dom.className = 'Outliner';
     this.dom.tabIndex = 0;	// keyup event is ignored without setting tabIndex
 

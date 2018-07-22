@@ -18,6 +18,7 @@ Player.prototype.render = function () {
         xtype: 'div',
         parent: this.parent,
         id: 'player',
+        cls: 'Panel player',
         style: 'position: absolute; display: none;'
     });
 

@@ -45,8 +45,8 @@ ScenePanel.prototype.render = function () {
         cls: 'Panel',
         children: [{ // outliner
             xtype: 'outliner',
-            editor: editor,
             id: 'outliner',
+            editor: editor,
             onChange: function () {
                 _this.app.call('outlinerChange', _this, this);
             },

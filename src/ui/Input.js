@@ -23,10 +23,6 @@ Input.prototype.constructor = Input;
 Input.prototype.render = function () {
     this.dom = document.createElement('input');
 
-    if (this.id) {
-        this.dom.id = this.id;
-    }
-
     this.dom.className = this.cls;
 
     if (this.style) {

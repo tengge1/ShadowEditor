@@ -22,10 +22,6 @@ Color.prototype.constructor = Color;
 Color.prototype.render = function () {
     this.dom = document.createElement('input');
 
-    if (this.id) {
-        this.dom.id = this.id;
-    }
-
     this.dom.className = this.cls;
     this.dom.style = this.style;
 

@@ -24,10 +24,6 @@ Checkbox.prototype.render = function () {
 
     this.dom.type = 'checkbox';
 
-    if (this.id) {
-        this.dom.id = this.id;
-    }
-
     this.dom.className = this.cls;
 
     if (this.style) {

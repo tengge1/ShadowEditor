@@ -23,10 +23,6 @@ TextArea.prototype.constructor = TextArea;
 TextArea.prototype.render = function () {
     this.dom = document.createElement('textarea');
 
-    if (this.id) {
-        this.dom.id = this.id;
-    }
-
     this.dom.className = this.cls;
 
     if (this.style) {

@@ -20,6 +20,7 @@ Script.prototype.render = function () {
         xtype: 'div',
         parent: this.app.container,
         id: 'script',
+        cls: 'script',
         style: 'background-color: #272822; display: none;',
         children: [{
             xtype: 'div',

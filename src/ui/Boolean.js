@@ -23,10 +23,6 @@ Boolean.prototype.constructor = Boolean;
 Boolean.prototype.render = function () {
     this.dom = document.createElement('span');
 
-    if (this.id) {
-        this.dom.id = this.id;
-    }
-
     if (this.cls) {
         this.dom.className = this.cls;
     }

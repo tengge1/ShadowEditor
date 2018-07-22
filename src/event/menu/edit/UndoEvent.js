@@ -1,4 +1,5 @@
 import MenuEvent from '../MenuEvent';
+import UI from '../../../ui/UI';
 
 /**
  * 撤销事件
@@ -34,7 +35,7 @@ UndoEvent.prototype.onUndo = function () {
 
 UndoEvent.prototype.onHistoryChanged = function () {
     var history = this.app.editor.history;
-    var dom = document.getElementById('mUndo');
+    var dom = UI.get('mUndo').dom;
 
     if (history.undos.length === 0) {
         if (!dom.classList.contains('inactive')) {

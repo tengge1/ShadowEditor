@@ -29,6 +29,7 @@ Menubar.prototype.render = function () {
     var container = UI.create({
         xtype: 'div',
         id: 'menubar',
+        cls: 'menubar',
         parent: this.parent,
         children: [
             // Logo

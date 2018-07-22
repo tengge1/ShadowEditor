@@ -23,10 +23,6 @@ Button.prototype.constructor = Button;
 Button.prototype.render = function () {
     this.dom = document.createElement('button');
 
-    if (this.id) {
-        this.dom.id = this.id;
-    }
-
     this.dom.innerHTML = this.text;
 
     this.dom.className = this.cls;

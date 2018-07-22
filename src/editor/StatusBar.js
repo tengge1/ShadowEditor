@@ -17,8 +17,9 @@ StatusBar.prototype.render = function () {
 
     var data = {
         xtype: 'div',
-        parent: this.app.container,
         id: 'statusBar',
+        parent: this.app.container,
+        cls: 'statusBar',
         children: [{
             xtype: 'label',
             text: '物体'

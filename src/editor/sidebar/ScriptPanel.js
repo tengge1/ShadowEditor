@@ -20,7 +20,7 @@ ScriptPanel.prototype.render = function () {
         xtype: 'div',
         id: 'scriptPanel',
         parent: this.parent,
-        cls: 'Panel',
+        cls: 'Panel scriptPanel',
         style: 'display: none',
         children: [{
             xtype: 'label',

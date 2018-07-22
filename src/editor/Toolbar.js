@@ -16,8 +16,9 @@ Toolbar.prototype.render = function () {
 
     var data = {
         xtype: 'div',
-        parent: this.app.container,
         id: 'toolbar',
+        parent: this.app.container,
+        cls: 'toolbar',
         children: [{
             xtype: 'iconbutton',
             id: 'selectBtn',

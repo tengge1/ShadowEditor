@@ -22,10 +22,6 @@ Div.prototype.constructor = Div;
 Div.prototype.render = function () {
     this.dom = document.createElement('div');
 
-    if (this.id) {
-        this.dom.id = this.id;
-    }
-
     if (this.cls) {
         this.dom.className = this.cls;
     }

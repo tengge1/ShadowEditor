@@ -22,10 +22,6 @@ Text.prototype.constructor = Text;
 Text.prototype.render = function () {
     this.dom = document.createElement('span');
 
-    if (this.id) {
-        this.dom.id = this.id;
-    }
-
     this.dom.className = this.cls;
 
     if (this.style) {

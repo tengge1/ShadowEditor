@@ -20,10 +20,6 @@ Label.prototype.constructor = Label;
 Label.prototype.render = function () {
     this.dom = document.createElement('label');
 
-    if (this.id) {
-        this.dom.id = this.id;
-    }
-
     if (this.text) {
         this.setValue(this.text);
     }

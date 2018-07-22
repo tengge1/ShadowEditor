@@ -24,10 +24,6 @@ Select.prototype.constructor = Select;
 Select.prototype.render = function () {
     this.dom = document.createElement('select');
 
-    if (this.id) {
-        this.dom.id = this.id;
-    }
-
     this.dom.className = this.cls;
 
     if (this.style) {
