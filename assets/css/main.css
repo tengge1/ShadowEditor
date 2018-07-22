@@ -416,7 +416,7 @@ div.Modal .Container {
 .script {
     position: absolute;
     top: 32px;
-    left: 0;
+    left: 48px;
     right: 300px;
     bottom: 32px;
     opacity: 0.9;
@@ -427,7 +427,7 @@ div.Modal .Container {
 .player {
     position: absolute;
     top: 32px;
-    left: 0;
+    left: 48px;
     right: 300px;
     bottom: 32px;
 }
