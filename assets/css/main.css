@@ -176,8 +176,37 @@ div.Modal {
 }
 
 div.Modal .Container {
+    position: relative;
     background-color: #fff;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+div.Window .Container {
+    display: flex;
+    flex-direction: column;
+}
+
+div.Window .header {
+    width: 100%;
+    padding: 8px;
+    background-color: #eee;
+    box-sizing: border-box;
+}
+
+div.Window .bbar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
+}
+
+div.Window .bbar .Button {
+    margin: 8px;
 }
 
 ::-webkit-scrollbar {
