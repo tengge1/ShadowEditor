@@ -53,6 +53,11 @@ button.IconButton:hover {
     background-color: #ddd;
 }
 
+button.IconButton.selected {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+}
+
 button.IconButton i {
     font-size: 20px;
 }

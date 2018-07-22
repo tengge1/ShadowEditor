@@ -1,5 +1,6 @@
 import Options from './Options';
 
+import UI from './ui/UI';
 import EventDispatcher from './event/EventDispatcher';
 
 import Menubar from './editor/Menubar';
@@ -33,6 +34,8 @@ function Application(container, options) {
     var params = { app: this, parent: this.container };
 
     // 用户界面
+    this.ui = UI;
+
     this.menubar = new Menubar(params); // 菜单栏
     this.menubar.render();
 
