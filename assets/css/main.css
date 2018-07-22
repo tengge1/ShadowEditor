@@ -43,8 +43,18 @@ button.selected {
     background-color: #fff;
 }
 
-.IconButton i {
-    font-size: 24px;
+button.IconButton {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+button.IconButton:hover {
+    background-color: #ddd;
+}
+
+button.IconButton i {
+    font-size: 20px;
 }
 
 textarea {
@@ -199,14 +209,15 @@ div.Modal .Container {
 
 .menubar {
     position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 32px;
-    background: #eee;
-    padding: 0;
-    margin: 0;
-    right: 0;
-    top: 0;
-    z-index: 1;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.88);
+    z-index: 24;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
 }
 
 .menubar .logo {
@@ -237,17 +248,17 @@ div.Modal .Container {
 
 .menubar .menu .title {
     display: inline-block;
-    color: #888;
-    margin: 0;
     padding: 8px;
 }
 
 .menubar .menu .options {
     position: absolute;
+    width: 150px;
     display: none;
     padding: 5px 0;
-    background: #eee;
-    width: 150px;
+    background-color: #fff;
+    z-index: 24;
+    border-radius: 3px;
 }
 
 .menubar .menu:hover .options {
@@ -259,7 +270,7 @@ div.Modal .Container {
 }
 
 .menubar .menu .options .option {
-    color: #666;
+    color: rgba(0, 0, 0, 0.88);
     background-color: transparent;
     padding: 5px 10px;
     margin: 0 !important;
@@ -297,11 +308,15 @@ div.Modal .Container {
     left: 0;
     bottom: 32px;
     width: 48px;
-    background-color: #eee;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
+    background-color: #eee;
+    color: rgba(0, 0, 0, 0.88);
+    z-index: 16;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
 }
 
 .toolbar .Button {
@@ -309,7 +324,7 @@ div.Modal .Container {
 }
 
 .toolbar .Button:first-child {
-    margin-top: 0;
+    margin-top: 8px;
 }
 
 /* 场景编辑区 */
@@ -326,15 +341,17 @@ div.Modal .Container {
 
 .statusBar {
     position: absolute;
-    left: 0;
+    left: 48px;
     right: 300px;
     bottom: 0;
     height: 32px;
-    background: #eee;
-    color: #333;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.88);
+    z-index: 8;
+    border-radius: 3px;
 }
 
 .statusBar label {
