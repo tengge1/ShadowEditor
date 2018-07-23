@@ -18,19 +18,32 @@ Window.prototype = Object.create(Modal.prototype);
 Window.prototype.constructor = Window;
 
 Window.prototype.render = function () {
+    this.content = this.children; // 内容
+    this.children = []; // 标题栏、内容区域、按钮工具栏
+
+    // 标题栏
     this.header = UI.create({
         xtype: 'div',
         cls: 'header',
         html: this.title
     });
-    this.children.splice(0, 0, this.header);
+    this.children.push(this.header);
 
-    this.bottomBar = UI.create({
+    // 内容区域
+    this.body = UI.create({
         xtype: 'div',
-        cls: 'bbar',
+        cls: 'body',
+        children: this.content
+    });
+    this.children.push(this.body);
+
+    // 按钮区域
+    this.footer = UI.create({
+        xtype: 'div',
+        cls: 'footer',
         children: this.buttons
     });
-    this.children.push(this.bottomBar);
+    this.children.push(this.footer);
 
     Modal.prototype.render.call(this);
 };
