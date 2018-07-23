@@ -319,10 +319,10 @@ div.Window .footer .Button {
     position: absolute;
     width: 150px;
     display: none;
-    padding: 5px 0;
+    padding: 4px 0;
     background-color: #fff;
     z-index: 24;
-    border-radius: 3px;
+    border-radius: 1px;
 }
 
 .menubar .menu:hover .options {

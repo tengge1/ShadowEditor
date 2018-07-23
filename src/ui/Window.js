@@ -34,7 +34,10 @@ Window.prototype.render = function () {
 
     // 关闭按钮
     this.closeBtn = UI.create({
-        xtype: 'closebutton'
+        xtype: 'closebutton',
+        onClick: () => {
+            this.hide();
+        }
     });
 
     // 标题栏
@@ -65,6 +68,42 @@ Window.prototype.render = function () {
     this.children.push(this.footer);
 
     Modal.prototype.render.call(this);
+
+    // 拖动标题栏
+    var isDown = false;
+    var offsetX = 0;
+    var offsetY = 0;
+
+    var _this = this;
+
+    function mouseDown(event) {
+        isDown = true;
+        var left = _this.container.style.left === '' ? 0 : parseInt(_this.container.style.left.replace('px', ''));
+        var top = _this.container.style.top === '' ? 0 : parseInt(_this.container.style.top.replace('px', ''));
+        offsetX = event.clientX - left;
+        offsetY = event.clientY - top;
+    }
+
+    function mouseMove(event) {
+        if (!isDown) {
+            return;
+        }
+        var dx = event.clientX - offsetX;
+        var dy = event.clientY - offsetY;
+
+        _this.container.style.left = dx + 'px';
+        _this.container.style.top = dy + 'px';
+    }
+
+    function mouseUp(event) {
+        isDown = false;
+        offsetX = 0;
+        offsetY = 0;
+    }
+
+    this.header.dom.addEventListener('mousedown', mouseDown);
+    document.body.addEventListener('mousemove', mouseMove);
+    document.body.addEventListener('mouseup', mouseUp);
 };
 
 export default Window;
