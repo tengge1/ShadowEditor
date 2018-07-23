@@ -27,11 +27,17 @@ namespace ShadowServer.Controllers
             var mongo = new MongoHelper();
             var docs = mongo.FindAll("_Model");
 
+            var data = docs.Select(o => new
+            {
+                Name = o["Name"].ToString(),
+                Model = o["Model"].ToString()
+            });
+
             return Json(new
             {
                 Code = 200,
                 Msg = "获取成功！",
-                Data = docs
+                Data = data
             });
         }
 

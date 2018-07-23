@@ -69,3 +69,5 @@ typings/
 /server/ShadowServer/ShadowServer.csproj.user
 /server/ShadowServer.Tests/bin
 /server/ShadowServer.Tests/obj
+/server/ShadowServer/Upload/Model
+/server/ShadowServer/Upload/Texture
