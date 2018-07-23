@@ -27,20 +27,23 @@ hr {
 button {
     position: relative;
     color: #555;
-    background-color: #ddd;
-    border: 0px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-weight: 400;
     padding: 5px 8px;
-    text-transform: uppercase;
     cursor: pointer;
     outline: none;
+    border-radius: 3px;
+    will-change: box-shadow;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 button:hover {
-    background-color: #fff;
+    background-color: #ddd;
 }
 
 button.selected {
-    background-color: #fff;
+    background-color: #ddd;
 }
 
 button.IconButton {
@@ -147,8 +150,6 @@ span.Checkbox>span {
 }
 
 div.CloseButton {
-    width: 32px;
-    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -157,7 +158,7 @@ div.CloseButton {
 }
 
 div.CloseButton>i {
-    font-size: 24px;
+    font-size: 20px;
 }
 
 div.Texture {

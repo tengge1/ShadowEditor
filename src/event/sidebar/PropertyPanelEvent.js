@@ -28,6 +28,8 @@ PropertyPanelEvent.prototype.onAppStarted = function () {
 };
 
 PropertyPanelEvent.prototype.select = function (section) {
+    var editor = this.app.editor;
+
     var objectTab = UI.get('objectTab');
     var geometryTab = UI.get('geometryTab');
     var materialTab = UI.get('materialTab');
@@ -46,15 +48,21 @@ PropertyPanelEvent.prototype.select = function (section) {
     switch (section) {
         case '物体':
             objectTab.dom.className = 'selected';
-            objectPanel.dom.style.display = '';
+            if (editor.selected) {
+                objectPanel.dom.style.display = '';
+            }
             break;
         case '几何':
             geometryTab.dom.className = 'selected';
-            geometryPanel.dom.style.display = '';
+            if (editor.selected) {
+                geometryPanel.dom.style.display = '';
+            }
             break;
         case '材质':
             materialTab.dom.className = 'selected';
-            materialPanel.dom.style.display = '';
+            if (editor.selected) {
+                materialPanel.dom.style.display = '';
+            }
             break;
     }
 };
