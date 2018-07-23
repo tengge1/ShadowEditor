@@ -146,6 +146,20 @@ span.Checkbox>span {
     vertical-align: middle;
 }
 
+div.CloseButton {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+div.CloseButton>i {
+    font-size: 24px;
+}
+
 div.Texture {
     display: inline-block;
 }
@@ -192,6 +206,17 @@ div.Window .header {
     padding: 8px;
     background-color: #eee;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.Window .header .caption {
+    flex: 1;
+}
+
+div.Window .header .CloseButton {
+    color: #555;
 }
 
 div.Window .body {

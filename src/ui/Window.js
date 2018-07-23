@@ -1,5 +1,6 @@
 import Modal from './Modal';
 import Button from './Button';
+import CloseButton from './CloseButton';
 
 /**
  * 模态框
@@ -21,11 +22,29 @@ Window.prototype.render = function () {
     this.content = this.children; // 内容
     this.children = []; // 标题栏、内容区域、按钮工具栏
 
+    // 标题
+    this.caption = UI.create({
+        xtype: 'container',
+        children: [{
+            xtype: 'div',
+            cls: 'caption',
+            html: this.title
+        }]
+    });
+
+    // 关闭按钮
+    this.closeBtn = UI.create({
+        xtype: 'closebutton'
+    });
+
     // 标题栏
     this.header = UI.create({
         xtype: 'div',
         cls: 'header',
-        html: this.title
+        children: [
+            this.caption,
+            this.closeBtn
+        ]
     });
     this.children.push(this.header);
 
