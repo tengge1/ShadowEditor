@@ -158,7 +158,7 @@ div.CloseButton {
 }
 
 div.CloseButton>i {
-    font-size: 20px;
+    font-size: 16px;
 }
 
 div.Texture {
@@ -205,11 +205,12 @@ div.Window .Container {
 div.Window .header {
     width: 100%;
     padding: 8px;
-    background-color: #eee;
+    background-color: rgba(0, 0, 0, 0.14);
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: move;
 }
 
 div.Window .header .caption {
@@ -223,6 +224,7 @@ div.Window .header .CloseButton {
 div.Window .body {
     background-color: #eee;
     flex: 1;
+    padding: 8px;
 }
 
 div.Window .footer {
