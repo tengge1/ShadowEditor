@@ -21,7 +21,20 @@ ModelWindow.prototype.render = function () {
         parent: this.app.container,
         title: '添加模型',
         width: '800px',
-        height: '500px'
+        height: '500px',
+        children: [{
+            xtype: 'row',
+            children: [{
+                xtype: 'button',
+                text: '添加'
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'imagelist',
+                id: 'modelWindowImages'
+            }]
+        }]
     });
     container.render();
 };
@@ -32,15 +45,15 @@ ModelWindow.prototype.show = function () {
 
     UI.get('modelWindow').show();
 
-    var loader = new THREE.BinaryLoader();
+    // var loader = new THREE.BinaryLoader();
 
-    Ajax.getJson(`${server}/api/Model/List`, (obj) => {
-        loader.load(server + obj.Data[0].Model, (geometry, materials) => {
-            var mesh = new THREE.Mesh(geometry, materials);
-            var cmd = new AddObjectCommand(mesh);
-            cmd.execute();
-        });
-    });
+    // Ajax.getJson(`${server}/api/Model/List`, (obj) => {
+    //     loader.load(server + obj.Data[0].Model, (geometry, materials) => {
+    //         var mesh = new THREE.Mesh(geometry, materials);
+    //         var cmd = new AddObjectCommand(mesh);
+    //         cmd.execute();
+    //     });
+    // });
 
 };
 
