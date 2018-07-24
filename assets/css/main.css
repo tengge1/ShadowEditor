@@ -245,6 +245,7 @@ div.ImageList {
 }
 
 div.ImageList .Container {
+    position: relative;
     display: inline-block;
     box-sizing: border-box;
     padding: 8px;
@@ -252,6 +253,25 @@ div.ImageList .Container {
 
 div.ImageList .Container img {
     width: 100%;
+    cursor: pointer;
+    border-radius: 3px;
+    filter: opacity(0.8)
+}
+
+div.ImageList .Container img:hover {
+    filter: none;
+}
+
+div.ImageList .Container .title {
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    right: 8px;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    color: #fff;
+    padding: 3px 8px;
+    pointer-events: none;
 }
 
 ::-webkit-scrollbar {

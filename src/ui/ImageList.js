@@ -47,21 +47,30 @@ ImageList.prototype.render = function () {
     };
 
     this.children.forEach((n, i) => {
-        var obj = UI.create(n);
-        if (!(obj instanceof Image)) {
-            console.warn(`ImageList: obj is not an instance of Image.`);
-        }
-
         // 容器
         var container = document.createElement('div');
         container.className = 'Container';
         container.style.width = this.columnWidth * 100 + '%';
         this.dom.appendChild(container);
 
+        // 图片
+        var title = n.title;
+        n.title = null;
+        var obj = UI.create(n);
+        if (!(obj instanceof Image)) {
+            console.warn(`ImageList: obj is not an instance of Image.`);
+        }
+
         obj.parent = container;
         obj.onClick = onClick.bind(this);
         obj.render();
         obj.dom.dataIndex = i; // 序号
+
+        // 说明
+        var description = document.createElement('div');
+        description.className = 'title';
+        description.innerHTML = title;
+        container.appendChild(description);
     });
 };
 
