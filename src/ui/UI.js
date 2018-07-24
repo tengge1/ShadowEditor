@@ -23,6 +23,7 @@ import Text from './Text';
 import TextArea from './TextArea';
 import Texture from './Texture';
 import Window from './Window';
+import Image from './Image';
 
 /**
  * UI类
@@ -207,6 +208,7 @@ UI.addXType('text', Text);
 UI.addXType('textarea', TextArea);
 UI.addXType('texture', Texture);
 UI.addXType('window', Window);
+UI.addXType('image', Image);
 
 window.UI = UI;
 
