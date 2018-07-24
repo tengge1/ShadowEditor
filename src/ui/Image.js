@@ -13,6 +13,8 @@ function Image(options) {
     this.alt = options.alt || null;
     this.cls = options.cls || null;
     this.style = options.style || null;
+
+    this.onClick = options.onClick || null;
 }
 
 Image.prototype = Object.create(Control.prototype);
@@ -36,6 +38,10 @@ Image.prototype.render = function () {
 
     if (this.style) {
         this.dom.style = this.style;
+    }
+
+    if (this.onClick) {
+        this.dom.addEventListener('click', this.onClick.bind(this));
     }
 
     this.parent.appendChild(this.dom);

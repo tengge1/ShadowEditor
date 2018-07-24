@@ -240,6 +240,20 @@ div.Window .footer .Button {
     margin: 8px;
 }
 
+div.ImageList {
+    box-sizing: border-box;
+}
+
+div.ImageList .Container {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 8px;
+}
+
+div.ImageList .Container img {
+    width: 100%;
+}
+
 ::-webkit-scrollbar {
     width: 0.2em;
 }
