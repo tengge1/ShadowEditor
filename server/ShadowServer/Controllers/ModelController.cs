@@ -49,26 +49,29 @@ namespace ShadowServer.Controllers
         /// <returns></returns>
         public JsonResult Add()
         {
+            var Request = HttpContext.Current.Request;
+            var Server = HttpContext.Current.Server;
+
             // 文件信息
-            var file = HttpContext.Current.Request.Files[0];
+            var file = Request.Files[0];
             var fileName = file.FileName;
             var fileSize = file.ContentLength;
             var fileType = file.ContentType;
 
-            // 保存信息
+            // 保存文件
             var now = DateTime.Now;
             var saveName = now.ToString("yyyyMMddHHmmss") + ".zip";
             var savePath = "/Upload/Model/" + saveName;
-            file.SaveAs(HttpContext.Current.Server.MapPath(savePath));
+            file.SaveAs(Server.MapPath(savePath));
 
             // 解压文件
-            var unzipDir = HttpContext.Current.Server.MapPath($"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}/");
+            var unzipDir = Server.MapPath($"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}/");
             if (!Directory.Exists(unzipDir))
             {
                 Directory.CreateDirectory(unzipDir);
             }
 
-            ZipHelper.Unzip(HttpContext.Current.Server.MapPath(savePath), unzipDir);
+            ZipHelper.Unzip(Server.MapPath(savePath), unzipDir);
 
             // 保存到Mongo
             var mongo = new MongoHelper();
@@ -81,6 +84,8 @@ namespace ShadowServer.Controllers
             doc["SaveName"] = saveName;
             doc["SavePath"] = savePath;
             doc["AddTime"] = BsonDateTime.Create(now);
+            doc["Model"] = $"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}/" + fileName.Replace(".zip", ".json");
+            doc["Thumbnail"] = ""; // 缩略图
 
             mongo.InsertOne("_Model", doc);
 

@@ -34,7 +34,8 @@ ModelWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'imagelist',
-                id: 'modelWindowImages'
+                id: 'modelWindowImages',
+                onClick: this.onLoadModel.bind(this)
             }]
         }]
     });
@@ -47,16 +48,16 @@ ModelWindow.prototype.show = function () {
 
     UI.get('modelWindow').show();
 
-    // var loader = new THREE.BinaryLoader();
+    // 刷新模型列表
+    Ajax.getJson(`${server}/api/Model/List`, (obj) => {
+        var loader = new THREE.BinaryLoader();
 
-    // Ajax.getJson(`${server}/api/Model/List`, (obj) => {
-    //     loader.load(server + obj.Data[0].Model, (geometry, materials) => {
-    //         var mesh = new THREE.Mesh(geometry, materials);
-    //         var cmd = new AddObjectCommand(mesh);
-    //         cmd.execute();
-    //     });
-    // });
-
+        loader.load(server + obj.Data[0].Model, (geometry, materials) => {
+            var mesh = new THREE.Mesh(geometry, materials);
+            var cmd = new AddObjectCommand(mesh);
+            cmd.execute();
+        });
+    });
 };
 
 ModelWindow.prototype.onAddFile = function () {
@@ -75,6 +76,17 @@ ModelWindow.prototype.onUploadFile = function (event) {
     UploadUtils.upload('modelWindowInput', `${this.app.options.server}/api/Model/Add`, function () {
         alert('上传成功！');
     });
+};
+
+ModelWindow.prototype.onLoadModel = function (event, index) {
+    debugger
+    // var loader = new THREE.BinaryLoader();
+
+    // loader.load(this.app.options.server + model, (geometry, materials) => {
+    //     var mesh = new THREE.Mesh(geometry, materials);
+    //     var cmd = new AddObjectCommand(mesh);
+    //     cmd.execute();
+    // });
 };
 
 export default ModelWindow;
