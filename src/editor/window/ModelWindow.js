@@ -1,6 +1,7 @@
 import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
 import AddObjectCommand from '../../command/AddObjectCommand';
+import UploadUtils from '../../utils/UploadUtils';
 
 /**
  * 模型窗口
@@ -19,14 +20,15 @@ ModelWindow.prototype.render = function () {
         xtype: 'window',
         id: 'modelWindow',
         parent: this.app.container,
-        title: '添加模型',
+        title: '模型列表',
         width: '800px',
         height: '500px',
         children: [{
             xtype: 'row',
             children: [{
                 xtype: 'button',
-                text: '添加'
+                text: '添加',
+                onClick: this.onAddFile.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -55,6 +57,22 @@ ModelWindow.prototype.show = function () {
     //     });
     // });
 
+};
+
+ModelWindow.prototype.onAddFile = function () {
+    var input = document.getElementById('modelWindowInput');
+    if (input == null) {
+        input = document.createElement('input');
+        input.id = 'modelWindowInput';
+        input.type = 'file';
+        document.body.appendChild(input);
+        input.onchange = this.onUploadFile.bind(this);
+    }
+    input.click();
+};
+
+ModelWindow.prototype.onUploadFile = function (event) {
+    UploadUtils.upload('modelWindowInput', '');
 };
 
 export default ModelWindow;
