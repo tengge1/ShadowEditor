@@ -73,6 +73,18 @@ namespace ShadowServer.Controllers
 
             ZipHelper.Unzip(Server.MapPath(savePath), unzipDir);
 
+            // 查找模型目录中的json文件
+            var jsonFileName = fileName.Replace(".zip", ".json");
+            var files = Directory.GetFiles(Server.MapPath($"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}/"));
+            foreach (var i in files)
+            {
+                if (i.EndsWith(".json"))
+                {
+                    jsonFileName = i;
+                    break;
+                }
+            }
+
             // 保存到Mongo
             var mongo = new MongoHelper();
 
@@ -84,7 +96,7 @@ namespace ShadowServer.Controllers
             doc["SaveName"] = saveName;
             doc["SavePath"] = savePath;
             doc["AddTime"] = BsonDateTime.Create(now);
-            doc["Model"] = $"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}/" + fileName.Replace(".zip", ".json");
+            doc["Model"] = $"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}/" + jsonFileName;
             doc["Thumbnail"] = ""; // 缩略图
 
             mongo.InsertOne("_Model", doc);
