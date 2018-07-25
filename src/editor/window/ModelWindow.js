@@ -10,6 +10,7 @@ import UploadUtils from '../../utils/UploadUtils';
 function ModelWindow(options) {
     UI.Control.call(this, options);
     this.app = options.app;
+    this.models = [];
 }
 
 ModelWindow.prototype = Object.create(UI.Control.prototype);
@@ -50,13 +51,20 @@ ModelWindow.prototype.show = function () {
 
     // 刷新模型列表
     Ajax.getJson(`${server}/api/Model/List`, (obj) => {
-        var loader = new THREE.BinaryLoader();
+        this.models = obj.Data;
 
-        loader.load(server + obj.Data[0].Model, (geometry, materials) => {
-            var mesh = new THREE.Mesh(geometry, materials);
-            var cmd = new AddObjectCommand(mesh);
-            cmd.execute();
-        });
+        var images = UI.get('modelWindowImages');
+        images.clear();
+
+        images.children = obj.Data.map((n) => {
+            return {
+                xtype: 'image',
+                src: n.Image == null ? 'test/image/girl.jpg' : (server + n.Image),
+                title: n.Name
+            };
+        });;
+
+        images.render();
     });
 };
 
@@ -79,14 +87,15 @@ ModelWindow.prototype.onUploadFile = function (event) {
 };
 
 ModelWindow.prototype.onLoadModel = function (event, index) {
-    debugger
-    // var loader = new THREE.BinaryLoader();
+    var model = this.models[index];
 
-    // loader.load(this.app.options.server + model, (geometry, materials) => {
-    //     var mesh = new THREE.Mesh(geometry, materials);
-    //     var cmd = new AddObjectCommand(mesh);
-    //     cmd.execute();
-    // });
+    var loader = new THREE.BinaryLoader();
+
+    loader.load(this.app.options.server + model.Model, (geometry, materials) => {
+        var mesh = new THREE.Mesh(geometry, materials);
+        var cmd = new AddObjectCommand(mesh);
+        cmd.execute();
+    });
 };
 
 export default ModelWindow;
