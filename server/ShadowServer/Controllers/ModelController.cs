@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
 using MongoDB.Bson;
@@ -41,30 +43,52 @@ namespace ShadowServer.Controllers
             });
         }
 
-        //public JsonResult Save()
-        //{
-        //    var list = JsonHelper.ToObject<JArray>(model.Data);
+        /// <summary>
+        /// 保存模型
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult Add()
+        {
+            // 文件信息
+            var file = HttpContext.Current.Request.Files[0];
+            var fileName = file.FileName;
+            var fileSize = file.ContentLength;
+            var fileType = file.ContentType;
 
-        //    var docs = new List<BsonDocument>();
+            // 保存信息
+            var now = DateTime.Now;
+            var saveName = now.ToString("yyyyMMddHHmmss") + ".zip";
+            var savePath = "/Upload/Model/" + saveName;
+            file.SaveAs(HttpContext.Current.Server.MapPath(savePath));
 
-        //    foreach (var i in list)
-        //    {
-        //        docs.Add(BsonDocument.Parse(i.ToString()));
-        //    }
+            // 解压文件
+            var unzipDir = HttpContext.Current.Server.MapPath($"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}/");
+            if (!Directory.Exists(unzipDir))
+            {
+                Directory.CreateDirectory(unzipDir);
+            }
 
-        //    var mongo = new MongoHelper();
+            ZipHelper.Unzip(HttpContext.Current.Server.MapPath(savePath), unzipDir);
 
-        //    // 删除原来所有数据
-        //    mongo.DeleteAll(model.Name);
+            // 保存到Mongo
+            var mongo = new MongoHelper();
 
-        //    // 重新添加修改过的数据
-        //    mongo.InsertMany(model.Name, docs);
+            var doc = new BsonDocument();
+            doc["Name"] = fileName;
+            doc["FileName"] = fileName;
+            doc["FileSize"] = fileSize;
+            doc["FileType"] = fileType;
+            doc["SaveName"] = saveName;
+            doc["SavePath"] = savePath;
+            doc["AddTime"] = BsonDateTime.Create(now);
 
-        //    return Json(new
-        //    {
-        //        Code = 200,
-        //        Msg = "保存成功！"
-        //    });
-        //}
+            mongo.InsertOne("_Model", doc);
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "保存成功！"
+            });
+        }
     }
 }
