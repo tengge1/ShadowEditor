@@ -27,7 +27,7 @@ Div.prototype.render = function () {
     }
 
     if (this.style) {
-        this.dom.style = this.style;
+        Object.assign(this.dom.style, this.style);
     }
 
     this.parent.appendChild(this.dom);

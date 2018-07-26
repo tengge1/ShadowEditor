@@ -32,7 +32,7 @@ Number.prototype.render = function () {
     this.dom.value = '0.00';
 
     if (this.style) {
-        this.dom.style = this.style;
+        Object.assign(this.dom.style, this.style);
     }
 
     var _this = this;

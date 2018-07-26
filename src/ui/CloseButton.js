@@ -24,7 +24,7 @@ CloseButton.prototype.render = function () {
 
     // TODO: 由于按钮默认白色，在白色背景上按钮将不可见！
     if (this.style) {
-        this.dom.style = this.style;
+        Object.assign(this.dom.style, this.style);
     }
 
     this.parent.appendChild(this.dom);

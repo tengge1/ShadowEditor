@@ -27,7 +27,7 @@ Select.prototype.render = function () {
     this.dom.className = this.cls;
 
     if (this.style) {
-        this.dom.style = this.style;
+        Object.assign(this.dom.style, this.style);
     }
 
     if (this.multiple) {

@@ -25,6 +25,10 @@ Integer.prototype.constructor = Integer;
 Integer.prototype.render = function () {
     this.dom = document.createElement('input');
 
+    if (this.style) {
+        Object.assign(this.dom.style, this.style);
+    }
+
     this.dom.className = this.cls;
     this.dom.value = '0';
 

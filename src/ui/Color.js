@@ -23,7 +23,10 @@ Color.prototype.render = function () {
     this.dom = document.createElement('input');
 
     this.dom.className = this.cls;
-    this.dom.style = this.style;
+
+    if (this.style) {
+        Object.assign(this.dom.style, this.style);
+    }
 
     try {
         this.dom.type = 'color';

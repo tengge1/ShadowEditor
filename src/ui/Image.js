@@ -37,7 +37,7 @@ Image.prototype.render = function () {
     }
 
     if (this.style) {
-        this.dom.style = this.style;
+        Object.assign(this.dom.style, this.style);
     }
 
     if (this.onClick) {
