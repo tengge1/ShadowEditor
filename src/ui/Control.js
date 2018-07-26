@@ -21,17 +21,19 @@ Control.prototype.render = function () {
  * 清除该控件所有内容
  */
 Control.prototype.clear = function () {
-    // 移除引用
-    (function remove(control) {
-        if (control.id) {
-            UI.remove(control.id, control.scope == null ? 'global' : control.scope);
+    // 移除所有子项引用
+    (function remove(items) {
+        if (items == null || items.length === 0) {
+            return;
         }
-        if (control.children) {
-            control.children.forEach((n) => {
-                remove(n);
-            });
-        }
-    })(this);
+
+        items.forEach((n) => {
+            if (n.id) {
+                UI.remove(n.id, n.scope == null ? 'global' : n.scope);
+            }
+            remove(n.children);
+        });
+    })(this.children);
 
     // 清空dom
     if (this.dom) {

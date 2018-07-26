@@ -93,6 +93,7 @@ ModelWindow.prototype.onLoadModel = function (event, index) {
 
     loader.load(this.app.options.server + model.Model, (geometry, materials) => {
         var mesh = new THREE.Mesh(geometry, materials);
+        mesh.rotation.x = -Math.PI / 2;
         var cmd = new AddObjectCommand(mesh);
         cmd.execute();
     });
