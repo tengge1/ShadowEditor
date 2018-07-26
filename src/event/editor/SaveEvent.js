@@ -1,4 +1,5 @@
 import BaseEvent from '../BaseEvent';
+import UI from '../../ui/UI';
 import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';
 
@@ -32,7 +33,7 @@ SaveEvent.prototype.onSave = function () {
         Data: JSON.stringify(obj)
     }, function (result) {
         var obj = JSON.parse(result);
-        alert(obj.Msg);
+        UI.msg(obj.Msg);
     });
 };
 

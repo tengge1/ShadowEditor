@@ -1,4 +1,5 @@
-﻿import AddObjectCommand from '../command/AddObjectCommand';
+﻿import UI from '../ui/UI';
+import AddObjectCommand from '../command/AddObjectCommand';
 import SetSceneCommand from '../command/SetSceneCommand';
 
 /**
@@ -221,7 +222,7 @@ function Loader(editor) {
 
                     } catch (error) {
 
-                        alert(error);
+                        UI.msg(error);
                         return;
 
                     }
@@ -418,7 +419,7 @@ function Loader(editor) {
 
             default:
 
-                alert('不支持的文件类型(' + extension + ').');
+                UI.msg('不支持的文件类型(' + extension + ').');
 
                 break;
 

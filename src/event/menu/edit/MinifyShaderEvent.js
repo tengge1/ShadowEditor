@@ -1,10 +1,11 @@
 import MenuEvent from '../MenuEvent';
+import UI from '../../../ui/UI';
 import RemoveObjectCommand from '../../../command/RemoveObjectCommand';
 import SetMaterialValueCommand from '../../../command/SetMaterialValueCommand';
 import MultiCmdsCommand from '../../../command/MultiCmdsCommand';
 
 /**
- * 缩小着色器事件
+ * 压缩着色器程序事件
  * @param {*} app 
  */
 function MinifyShaderEvent(app) {
@@ -80,8 +81,7 @@ MinifyShaderEvent.prototype.onMinifyShader = function () {
         editor.execute(new MultiCmdsCommand(cmds), 'Minify Shaders');
     }
 
-    window.alert(nMaterialsChanged +
-        "材质已经改变。\n" + errors.join("\n"));
+    UI.msg(nMaterialsChanged + "材质已经改变。\n" + errors.join("\n"));
 };
 
 export default MinifyShaderEvent;

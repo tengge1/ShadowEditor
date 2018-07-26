@@ -1,4 +1,5 @@
 import MenuEvent from '../MenuEvent';
+import UI from '../../../ui/UI';
 
 /**
  * 启动事件
@@ -26,7 +27,7 @@ VRModeEvent.prototype.onVRMode = function () {
     if (this.app.editor.renderer.vr.enabled) {
         this.app.call('enterVR', this);
     } else {
-        alert('WebVR不可用');
+        UI.msg('WebVR不可用');
     }
 };
 

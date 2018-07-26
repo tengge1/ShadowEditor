@@ -37,7 +37,7 @@ HistoryPanel.prototype.render = function () {
                 var value = this.getValue();
                 config.setKey('settings/history', value);
                 if (value) {
-                    alert('历史记录将被保存在会话中。\n这会对使用材质的性能产生影响。');
+                    UI.msg('历史记录将被保存在会话中。\n这会对使用材质的性能产生影响。');
                     var lastUndoCmd = history.undos[history.undos.length - 1];
                     var lastUndoId = (lastUndoCmd !== undefined) ? lastUndoCmd.id : 0;
                     editor.history.enableSerialization(lastUndoId);

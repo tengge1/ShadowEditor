@@ -1,4 +1,5 @@
 import MenuEvent from '../MenuEvent';
+import UI from '../../../ui/UI';
 import StringUtils from '../../../utils/StringUtils';
 
 /**
@@ -29,14 +30,14 @@ ExportGeometryEvent.prototype.onExportGeometry = function () {
     var object = editor.selected;
 
     if (object === null) {
-        alert('请选择物体');
+        UI.msg('请选择物体');
         return;
     }
 
     var geometry = object.geometry;
 
     if (geometry === undefined) {
-        alert('选中的对象不具有Geometry属性。');
+        UI.msg('选中的对象不具有Geometry属性。');
         return;
     }
 

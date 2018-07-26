@@ -1,4 +1,5 @@
 import BaseEvent from '../BaseEvent';
+import UI from '../../ui/UI';
 
 /**
  * 加载场景事件
@@ -23,7 +24,7 @@ LoadEvent.prototype.stop = function () {
 };
 
 LoadEvent.prototype.onLoad = function () {
-    alert('加载场景成功！');
+    UI.msg('加载场景成功！');
 };
 
 export default LoadEvent;

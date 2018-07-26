@@ -1,4 +1,5 @@
 ﻿import Command from '../command/Command';
+import UI from '../ui/UI';
 
 /**
  * 历史记录
@@ -91,7 +92,7 @@ Object.assign(History.prototype, {
 
     undo: function () {
         if (this.historyDisabled) {
-            alert("场景启动时撤销/重做将被禁用。");
+            UI.msg("场景启动时撤销/重做将被禁用。");
             return;
         }
 
@@ -116,7 +117,7 @@ Object.assign(History.prototype, {
 
     redo: function () {
         if (this.historyDisabled) {
-            alert("场景启动时撤销/重做将被禁用。");
+            UI.msg("场景启动时撤销/重做将被禁用。");
             return;
         }
 
@@ -202,7 +203,7 @@ Object.assign(History.prototype, {
 
     goToState: function (id) {
         if (this.historyDisabled) {
-            alert("场景启动时撤销/重做将被禁用。");
+            UI.msg("场景启动时撤销/重做将被禁用。");
             return;
         }
 

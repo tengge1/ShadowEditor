@@ -83,7 +83,7 @@ ModelWindow.prototype.onAddFile = function () {
 
 ModelWindow.prototype.onUploadFile = function (event) {
     UploadUtils.upload('modelWindowInput', `${this.app.options.server}/api/Model/Add`, function () {
-        alert('上传成功！');
+        UI.msg('上传成功！');
     });
 };
 

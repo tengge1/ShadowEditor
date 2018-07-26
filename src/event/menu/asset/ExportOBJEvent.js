@@ -1,4 +1,5 @@
 import MenuEvent from '../MenuEvent';
+import UI from '../../../ui/UI';
 import StringUtils from '../../../utils/StringUtils';
 
 /**
@@ -29,7 +30,7 @@ ExportOBJEvent.prototype.onExportOBJ = function () {
     var object = editor.selected;
 
     if (object === null) {
-        alert('请选择对象');
+        UI.msg('请选择对象');
         return;
     }
 

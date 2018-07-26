@@ -1,4 +1,5 @@
 import MenuEvent from '../MenuEvent';
+import UI from '../../../ui/UI';
 import AddObjectCommand from '../../../command/AddObjectCommand';
 
 var ID = 1;
@@ -42,7 +43,7 @@ AddPersonEvent.prototype.onAddPerson = function () {
         });
 
         if (mesh === undefined) {
-            alert('Unable to find a SkinnedMesh in this place:\n\n' + url + '\n\n');
+            UI.msg('Unable to find a SkinnedMesh in this place:\n\n' + url + '\n\n');
             return;
         }
 
