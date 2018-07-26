@@ -25,6 +25,7 @@ import Texture from './Texture';
 import Window from './Window';
 import Image from './Image';
 import ImageList from './ImageList';
+import MessageBox from './MessageBox';
 
 /**
  * UI类
@@ -140,11 +141,11 @@ UICls.prototype.create = function (config, scope = 'global') {
     }
 
     var control = new cls(config);
-    scope = config.scope || scope;
-    if (config.id && this.objects[`${scope}:${config.id}`] !== undefined) {
+    scope = control.scope || scope;
+    if (control.id && this.objects[`${scope}:${control.id}`] !== undefined) {
         console.warn(`UICls: control named ${control.id} has already be added.`);
     } else if (control.id) {
-        this.objects[`${scope}:${config.id}`] = control;
+        this.objects[`${scope}:${control.id}`] = control;
     }
 
     return control;
@@ -180,7 +181,11 @@ Object.assign(UI, {
     Span: Span,
     Text: Text,
     TextArea: TextArea,
-    Texture: Texture
+    Texture: Texture,
+    Window: Window,
+    Image: Image,
+    ImageList: ImageList,
+    MessageBox: MessageBox
 });
 
 // 添加所有控件的XType
@@ -211,6 +216,16 @@ UI.addXType('texture', Texture);
 UI.addXType('window', Window);
 UI.addXType('image', Image);
 UI.addXType('imagelist', ImageList);
+UI.addXType('msg', MessageBox);
+
+// 添加一些实用功能
+Object.assign(UI, {
+    msg: function (text) {
+        var msg = UI.create({ xtype: 'msg' });
+        msg.render();
+        msg.show(text);
+    }
+});
 
 window.UI = UI;
 

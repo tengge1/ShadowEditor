@@ -272,6 +272,20 @@ div.ImageList .Container .title {
     pointer-events: none;
 }
 
+div.MessageBox {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 16px 24px;
+    pointer-events: none;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
+}
+
 ::-webkit-scrollbar {
     width: 0.2em;
 }
