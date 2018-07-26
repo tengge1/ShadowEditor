@@ -75,12 +75,12 @@ namespace ShadowServer.Controllers
 
             // 查找模型目录中的json文件
             var jsonFileName = fileName.Replace(".zip", ".json");
-            var files = Directory.GetFiles(Server.MapPath($"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}/"));
+            var files = Directory.GetFiles(Server.MapPath($"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}/"), "*.json");
             foreach (var i in files)
             {
                 if (i.EndsWith(".json"))
                 {
-                    jsonFileName = i;
+                    jsonFileName = Path.GetFileName(i);
                     break;
                 }
             }
