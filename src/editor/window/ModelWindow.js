@@ -22,12 +22,21 @@ ModelWindow.prototype.render = function () {
         id: 'modelWindow',
         parent: this.app.container,
         title: '模型列表',
-        width: '800px',
+        width: '820px',
         height: '500px',
+        shade: false,
         children: [{
             xtype: 'row',
             style: {
-                paddingBottom: '8px'
+                position: 'sticky',
+                top: '-8px',
+                paddingBottom: '8px',
+                backgroundColor: '#eee',
+                borderBottom: '1px solid #ddd',
+                zIndex: 100,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start'
             },
             children: [{
                 xtype: 'button',

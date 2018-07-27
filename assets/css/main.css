@@ -190,10 +190,15 @@ div.Modal {
     border-radius: 3px;
 }
 
+div.Modal.NoShade {
+    visibility: hidden;
+}
+
 div.Modal .Container {
     position: relative;
     background-color: #fff;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    visibility: visible;
 }
 
 div.Window .Container {
@@ -223,6 +228,8 @@ div.Window .body {
     background-color: #eee;
     flex: 1;
     padding: 8px;
+    overflow-y: auto;
+    position: relative;
 }
 
 div.Window .footer {

@@ -14,6 +14,7 @@ function Modal(options) {
     this.style = options.style || null;
     this.width = options.width || '500px';
     this.height = options.height || '300px';
+    this.shade = options.shade === false ? false : true;
     this.shadeClose = options.shadeClose || false;
 };
 
@@ -25,6 +26,10 @@ Modal.prototype.render = function () {
 
     if (this.cls) {
         this.dom.className = this.cls;
+    }
+
+    if (this.shade === false) {
+        this.dom.classList.add('NoShade');
     }
 
     if (this.style) {
