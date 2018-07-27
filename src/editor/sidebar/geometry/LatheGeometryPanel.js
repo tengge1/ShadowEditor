@@ -68,7 +68,9 @@ LatheGeometryPanel.prototype.render = function () {
             }, {
                 xtype: 'span',
                 id: 'latheGeometryPoints',
-                style: 'display: inline-block;',
+                style: {
+                    display: 'inline-block'
+                },
                 children: [{
                     xtype: 'div',
                     id: 'latheGeometryPointsList',
@@ -103,19 +105,25 @@ LatheGeometryPanel.prototype.render = function () {
 
         var lbl = new UI.Text({
             text: lastPointIdx + 1,
-            style: 'width: 20px;'
+            style: {
+                width: '20px'
+            }
         });
 
         var txtX = new UI.Number({
             value: x,
             range: [0, Infinity],
-            style: 'width: 40px;',
+            style: {
+                width: '40px'
+            },
             onChange: update
         });
 
         var txtY = new UI.Number({
             value: y,
-            style: 'width: 40px;',
+            style: {
+                width: '40px'
+            },
             onChange: update
         });
 

@@ -21,17 +21,29 @@ Script.prototype.render = function () {
         parent: this.app.container,
         id: 'script',
         cls: 'script',
-        style: 'background-color: #272822; display: none;',
+        style: {
+            backgroundColor: '#272822',
+            display: 'none'
+        },
         children: [{
             xtype: 'div',
-            style: 'padding: 10px;',
+            style: {
+                padding: '10px'
+            },
             children: [{
                 id: 'scriptTitle',
                 xtype: 'text',
-                style: 'color: #fff;'
+                style: {
+                    color: '#fff'
+                }
             }, {
                 xtype: 'closebutton',
-                style: 'position: absolute; top: 3px; right: 1px; cursor: pointer',
+                style: {
+                    position: 'absolute',
+                    top: '3px',
+                    right: '1px',
+                    cursor: 'pointer'
+                },
                 onClick: function () {
                     if (container) {
                         container.dom.style.display = 'none';

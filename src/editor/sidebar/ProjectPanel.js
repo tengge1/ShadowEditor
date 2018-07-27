@@ -42,7 +42,10 @@ ProjectPanel.prototype.render = function () {
         xtype: 'div',
         id: 'projectPanel',
         parent: this.parent,
-        style: 'border-top: 0; padding-top: 20px;',
+        style: {
+            borderTop: 0,
+            paddingTop: '20px'
+        },
         cls: 'Panel',
         children: [{ // class
             xtype: 'row',
@@ -50,13 +53,17 @@ ProjectPanel.prototype.render = function () {
             children: [{
                 xtype: 'label',
                 text: '渲染器',
-                style: 'width: 90px;'
+                style: {
+                    width: '90px'
+                }
             }, {
                 xtype: 'select',
                 id: 'rendererType',
                 options: options,
                 value: config.getKey('project/renderer'),
-                style: 'width: 150px; ',
+                style: {
+                    width: '150px'
+                },
                 onChange: function () {
                     var value = this.getValue();
                     config.setKey('project/renderer', value);
@@ -66,7 +73,9 @@ ProjectPanel.prototype.render = function () {
         }, {
             xtype: 'row',
             id: 'rendererPropertiesRow',
-            style: 'margin-left: 90px',
+            style: {
+                marginLeft: '90px'
+            },
             children: [{ // antialiasing
                 xtype: 'boolean',
                 id: 'rendererAntialias',
@@ -112,12 +121,16 @@ ProjectPanel.prototype.render = function () {
             children: [{
                 xtype: 'label',
                 text: '虚拟现实',
-                style: 'width: 90px;'
+                style: {
+                    width: '90px'
+                }
             }, {
                 xtype: 'checkbox',
                 id: 'vr',
                 value: config.getKey('project/vr'),
-                style: 'left: 100px;',
+                style: {
+                    left: '100px'
+                },
                 onChange: function () {
                     config.setKey('project/vr', this.getValue());
                     // updateRenderer();

@@ -55,7 +55,10 @@ GeometryPanel.prototype.render = function () {
         id: 'geometryPanel',
         parent: this.parent,
         cls: 'Panel',
-        style: 'border-top: 0; padding-top: 20px;',
+        style: {
+            borderTop: 0,
+            paddingTop: '20px'
+        },
         children: [{ // type
             xtype: 'row',
             id: 'geometryTypeRow',
@@ -75,13 +78,18 @@ GeometryPanel.prototype.render = function () {
             }, {
                 xtype: 'input',
                 id: 'geometryUUID',
-                style: 'width: 102px; font-size: 12px;',
+                style: {
+                    width: '102px',
+                    fontSize: '12px'
+                },
                 disabled: true
             }, {
                 xtype: 'button',
                 id: 'geometryUUIDRenew',
                 text: '新建',
-                style: 'margin-left: 7px;',
+                style: {
+                    marginLeft: '7px'
+                },
                 onClick: function () {
                     geometryUUID.setValue(THREE.Math.generateUUID());
                     editor.execute(new SetGeometryValueCommand(editor.selected, 'uuid', geometryUUID.getValue()));
@@ -96,7 +104,10 @@ GeometryPanel.prototype.render = function () {
             }, {
                 xtype: 'input',
                 id: 'geometryName',
-                style: 'width: 150px; font-size: 12px;',
+                style: {
+                    width: '150px',
+                    fontSize: '12px'
+                },
                 onChange: function () {
                     editor.execute(new SetGeometryValueCommand(editor.selected, 'name', this.getValue()));
                 }

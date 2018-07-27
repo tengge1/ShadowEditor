@@ -47,7 +47,9 @@ BufferGeometryPanel.prototype.render = function () {
                     }, {
                         xtype: 'text',
                         text: (index.count).format(),
-                        style: 'font-size: 12px;'
+                        style: {
+                            fontSize: '12px'
+                        }
                     }]
                 });
 
@@ -69,7 +71,9 @@ BufferGeometryPanel.prototype.render = function () {
                     }, {
                         xtype: 'text',
                         text: (attribute.count).format() + ' (' + attribute.itemSize + ')',
-                        style: 'font-size: 12px;'
+                        style: {
+                            fontSize: '12px'
+                        }
                     }]
                 });
 

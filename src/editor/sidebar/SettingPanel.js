@@ -21,7 +21,10 @@ SettingPanel.prototype.render = function () {
         id: 'settingPanel',
         parent: this.parent,
         cls: 'Panel',
-        style: 'border-top: 0; padding-top: 20px;',
+        style: {
+            borderTop: 0,
+            paddingTop: '20px'
+        },
         children: [{
             xtype: 'row',
             id: 'themeRow',
@@ -35,7 +38,9 @@ SettingPanel.prototype.render = function () {
                     'assets/css/dark.css': '深色'
                 },
                 value: config.getKey('theme'),
-                style: 'width: 150px',
+                style: {
+                    width: '150px'
+                },
                 onChange: function () {
                     var value = this.getValue();
                     editor.setTheme(value);

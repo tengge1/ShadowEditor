@@ -19,7 +19,10 @@ Player.prototype.render = function () {
         parent: this.parent,
         id: 'player',
         cls: 'Panel player',
-        style: 'position: absolute; display: none;'
+        style: {
+            position: 'absolute',
+            display: 'none'
+        }
     });
 
     this.container.render();

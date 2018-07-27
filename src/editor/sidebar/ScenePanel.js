@@ -61,7 +61,9 @@ ScenePanel.prototype.render = function () {
             children: [{
                 xtype: 'label',
                 text: '背景',
-                style: 'width: 90px;'
+                style: {
+                    width: '90px'
+                }
             }, {
                 xtype: 'color',
                 id: 'backgroundColor',
@@ -76,7 +78,9 @@ ScenePanel.prototype.render = function () {
             children: [{
                 xtype: 'label',
                 text: '雾',
-                style: 'width: 90px'
+                style: {
+                    width: '90px'
+                }
             }, {
                 xtype: 'select',
                 id: 'fogType',
@@ -85,7 +89,9 @@ ScenePanel.prototype.render = function () {
                     'Fog': '线性',
                     'FogExp2': '指数型'
                 },
-                style: 'width: 150px;',
+                style: {
+                    width: '150px'
+                },
                 onChange: function () {
                     onFogChanged();
                     refreshFogUI();
@@ -103,21 +109,27 @@ ScenePanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'fogNear',
                 value: 0.1,
-                style: 'width: 40px;',
+                style: {
+                    width: '40px'
+                },
                 range: [0, Infinity],
                 onChange: onFogChanged
             }, { // fog far
                 xtype: 'number',
                 id: 'fogFar',
                 value: 50,
-                style: 'width: 40px;',
+                style: {
+                    width: '40px'
+                },
                 range: [0, Infinity],
                 onChange: onFogChanged
             }, { // fog density
                 xtype: 'number',
                 id: 'fogDensity',
                 value: 0.05,
-                style: 'width: 40px;',
+                style: {
+                    width: '40px'
+                },
                 range: [0, 0.1],
                 precision: 3,
                 onChange: onFogChanged

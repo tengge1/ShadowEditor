@@ -26,7 +26,10 @@ MaterialPanel.prototype.render = function () {
         parent: this.parent,
         id: 'materialPanel',
         cls: 'Panel',
-        style: 'border-top: 0; padding-top: 20px;',
+        style: {
+            borderTop: 0,
+            paddingTop: '20px'
+        },
         children: [{ // New Copy Paste
             xtype: 'row',
             children: [{
@@ -43,7 +46,9 @@ MaterialPanel.prototype.render = function () {
                 xtype: 'button',
                 id: 'btnCopyMaterial',
                 text: '复制',
-                style: 'margin-left: 4px',
+                style: {
+                    marginLeft: '4px'
+                },
                 onClick: function () {
                     this.app.call('copyMaterial', this);
                 }
@@ -51,7 +56,9 @@ MaterialPanel.prototype.render = function () {
                 xtype: 'button',
                 text: '粘贴',
                 id: 'btnPasteMaterial',
-                style: 'margin-left: 4px',
+                style: {
+                    marginLeft: '4px'
+                },
                 onClick: function () {
                     this.app.call('pasteMaterial', this);
                 }
@@ -79,7 +86,10 @@ MaterialPanel.prototype.render = function () {
                     'SpriteMaterial': '精灵材质',
                     'RawShaderMaterial': '原始着色器材质'
                 },
-                style: 'width: 150px; font-size: 12px; ',
+                style: {
+                    width: '150px',
+                    fontSize: '12px'
+                },
                 onChange: function () {
                     _this.app.call('updateMaterial');
                 }
@@ -92,12 +102,17 @@ MaterialPanel.prototype.render = function () {
             }, {
                 xtype: 'input',
                 id: 'materialUUID',
-                style: 'width: 102px; font-size: 12px;',
+                style: {
+                    width: '102px',
+                    fontSize: '12px'
+                },
                 disabled: true
             }, {
                 xtype: 'button',
                 text: '新建',
-                style: 'margin-left: 7px;',
+                style: {
+                    marginLeft: '7px'
+                },
                 onClick: function () {
                     var materialUUID = UI.get('materialUUID');
                     materialUUID.setValue(THREE.Math.generateUUID());
@@ -113,7 +128,10 @@ MaterialPanel.prototype.render = function () {
             }, {
                 xtype: 'input',
                 id: 'materialName',
-                style: 'width: 150px; font-size: 12px;',
+                style: {
+                    width: '150px',
+                    fontSize: '12px'
+                },
                 onChange: function () {
                     editor.execute(new SetMaterialValueCommand(editor.selected, 'name', this.getValue()));
                 }
@@ -127,21 +145,27 @@ MaterialPanel.prototype.render = function () {
             }, {
                 xtype: 'button',
                 text: '信息',
-                style: 'margin-left: 4px',
+                style: {
+                    marginLeft: '4px'
+                },
                 onClick: function () {
                     _this.app.call('editScript', _this, currentObject, 'programInfo');
                 }
             }, {
                 xtype: 'button',
                 text: '顶点着色器',
-                style: 'margin-left: 4px;',
+                style: {
+                    marginLeft: '4px'
+                },
                 onClick: function () {
                     _this.app.call('editScript', _this, currentObject, 'vertexShader');
                 }
             }, {
                 xtype: 'button',
                 text: '片源着色器',
-                style: 'margin-left: 4px;',
+                style: {
+                    marginLeft: '4px'
+                },
                 onClick: function () {
                     _this.app.call('editScript', _this, currentObject, 'fragmentShader');
                 }
@@ -167,7 +191,9 @@ MaterialPanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'materialRoughness',
                 value: 0.5,
-                style: 'width: 60px',
+                style: {
+                    width: '60px'
+                },
                 range: [0, 1],
                 onChange: update
             }]
@@ -181,7 +207,9 @@ MaterialPanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'materialMetalness',
                 value: 0.5,
-                style: 'width: 60px;',
+                style: {
+                    width: '60px'
+                },
                 range: [0, 1],
                 onChange: update
             }]
@@ -231,7 +259,9 @@ MaterialPanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'materialClearCoat',
                 value: 1,
-                style: 'width: 60px;',
+                style: {
+                    width: '60px'
+                },
                 range: [0, 1],
                 onChange: update
             }]
@@ -245,7 +275,9 @@ MaterialPanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'materialClearCoatRoughness',
                 value: 1,
-                style: 'width: 60px;',
+                style: {
+                    width: '60px'
+                },
                 range: [0, 1],
                 onChange: update
             }]
@@ -324,13 +356,17 @@ MaterialPanel.prototype.render = function () {
                 xtype: 'texture',
                 id: 'materialBumpMap',
                 value: 1,
-                style: 'width: 30px;',
+                style: {
+                    width: '30px'
+                },
                 onChange: update
             }, {
                 xtype: 'number',
                 id: 'materialBumpScale',
                 value: 1,
-                style: 'width: 30px;',
+                style: {
+                    width: '30px'
+                },
                 onChange: update
             }]
         }, { // normal map
@@ -368,7 +404,9 @@ MaterialPanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'materialDisplacementScale',
                 value: 1,
-                style: 'width: 30px;',
+                style: {
+                    width: '30px'
+                },
                 onChange: update
             }]
         }, { // roughness map
@@ -439,7 +477,9 @@ MaterialPanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'materialReflectivity',
                 value: 1,
-                style: 'width: 30px;',
+                style: {
+                    width: '30px'
+                },
                 onChange: update
             }]
         }, { // light map
@@ -478,7 +518,9 @@ MaterialPanel.prototype.render = function () {
                 id: 'materialAOScale',
                 value: 1,
                 range: [0, 1],
-                style: 'width: 30px',
+                style: {
+                    width: '30px'
+                },
                 onChange: update
             }]
         }, { // emissive map
@@ -511,7 +553,10 @@ MaterialPanel.prototype.render = function () {
                     1: '反面',
                     2: '双面'
                 },
-                style: 'width: 150px; font-size: 12px;',
+                style: {
+                    width: '150px',
+                    fontSize: '12px'
+                },
                 onChange: update
             }]
         }, { // shading
@@ -528,7 +573,10 @@ MaterialPanel.prototype.render = function () {
                     1: '平坦',
                     2: '光滑'
                 },
-                style: 'width: 150px; font-size: 12px;',
+                style: {
+                    width: '150px',
+                    fontSize: '12px'
+                },
                 onChange: update
             }]
         }, { // blending
@@ -548,7 +596,10 @@ MaterialPanel.prototype.render = function () {
                     4: '积混合',
                     5: '自定义混合'
                 },
-                style: 'width: 150px; font-size: 12px;',
+                style: {
+                    width: '150px',
+                    fontSize: '12px'
+                },
                 onChange: update
             }]
         }, { // opacity
@@ -561,7 +612,9 @@ MaterialPanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'materialOpacity',
                 value: 1,
-                style: 'width: 60px;',
+                style: {
+                    width: '60px'
+                },
                 range: [0, 1],
                 onChange: update
             }]
@@ -574,7 +627,9 @@ MaterialPanel.prototype.render = function () {
             }, {
                 xtype: 'checkbox',
                 id: 'materialTransparent',
-                style: 'left: 100px;',
+                style: {
+                    left: '100px'
+                },
                 onChange: update
             }]
         }, { // alpha test
@@ -586,7 +641,9 @@ MaterialPanel.prototype.render = function () {
             }, {
                 xtype: 'number',
                 id: 'materialAlphaTest',
-                style: 'width: 60px;',
+                style: {
+                    width: '60px'
+                },
                 range: [0, 1],
                 onChange: update
             }]
@@ -605,7 +662,9 @@ MaterialPanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'materialWireframeLinewidth',
                 value: 1,
-                style: 'width: 60px;',
+                style: {
+                    width: '60px'
+                },
                 range: [0, 100],
                 onChange: update
             }]

@@ -28,7 +28,11 @@ ObjectPanel.prototype.render = function () {
         id: 'objectPanel',
         parent: this.parent,
         cls: 'Panel',
-        style: 'border-top: 0; padding-top: 20px; display: none;',
+        style: {
+            borderTop: 0,
+            paddingTop: '20px',
+            display: 'none'
+        },
         children: [{ // type
             xtype: 'row',
             id: 'objectTypeRow',
@@ -48,13 +52,18 @@ ObjectPanel.prototype.render = function () {
             }, {
                 xtype: 'input',
                 id: 'objectUUID',
-                style: 'width: 102px; font-size: 12px;',
+                style: {
+                    width: '102px',
+                    fontSize: '12px'
+                },
                 disabled: true
             }, {
                 xtype: 'button',
                 id: 'objectUUIDRenew',
                 text: '新建',
-                style: 'margin-left: 7px;',
+                style: {
+                    marginLeft: '7px'
+                },
                 onClick: function () {
                     var objectUUID = UI.get('objectUUID');
                     objectUUID.setValue(THREE.Math.generateUUID());
@@ -70,7 +79,10 @@ ObjectPanel.prototype.render = function () {
             }, {
                 xtype: 'input',
                 id: 'objectName',
-                style: 'width: 150px; font-size: 12px;',
+                style: {
+                    width: '150px',
+                    fontSize: '12px'
+                },
                 onChange: function () {
                     editor.execute(new SetValueCommand(editor.selected, 'name', this.getValue()));
                 }
@@ -84,17 +96,23 @@ ObjectPanel.prototype.render = function () {
             }, {
                 xtype: 'number',
                 id: 'objectPositionX',
-                style: 'width: 50px;',
+                style: {
+                    width: '50px'
+                },
                 onChange: update
             }, {
                 xtype: 'number',
                 id: 'objectPositionY',
-                style: 'width: 50px;',
+                style: {
+                    width: '50px'
+                },
                 onChange: update
             }, {
                 xtype: 'number',
                 id: 'objectPositionZ',
-                style: 'width: 50px;',
+                style: {
+                    width: '50px'
+                },
                 onChange: update
             }]
         }, { // rotation
@@ -108,21 +126,27 @@ ObjectPanel.prototype.render = function () {
                 id: 'objectRotationX',
                 step: 10,
                 unit: '°',
-                style: 'width: 50px;',
+                style: {
+                    width: '50px'
+                },
                 onChange: update
             }, {
                 xtype: 'number',
                 id: 'objectRotationY',
                 step: 10,
                 unit: '°',
-                style: 'width: 50px;',
+                style: {
+                    width: '50px'
+                },
                 onChange: update
             }, {
                 xtype: 'number',
                 id: 'objectRotationZ',
                 step: 10,
                 unit: '°',
-                style: 'width: 50px;',
+                style: {
+                    width: '50px'
+                },
                 onChange: update
             }]
         }, { // scale
@@ -135,13 +159,18 @@ ObjectPanel.prototype.render = function () {
                 xtype: 'checkbox',
                 id: 'objectScaleLock',
                 value: true,
-                style: 'position: absolute; left: 75px;'
+                style: {
+                    position: 'absolute',
+                    left: '75px'
+                }
             }, {
                 xtype: 'number',
                 id: 'objectScaleX',
                 value: 1,
                 range: [0.01, Infinity],
-                style: 'width: 50px;',
+                style: {
+                    width: '50px'
+                },
                 onChange: function () {
                     _this.app.call('updateScaleX', _this);
                 }
@@ -150,7 +179,9 @@ ObjectPanel.prototype.render = function () {
                 id: 'objectScaleY',
                 value: 1,
                 range: [0.01, Infinity],
-                style: 'width: 50px;',
+                style: {
+                    width: '50px'
+                },
                 onChange: function () {
                     _this.app.call('updateScaleY', _this);
                 }
@@ -159,7 +190,9 @@ ObjectPanel.prototype.render = function () {
                 id: 'objectScaleZ',
                 value: 1,
                 range: [0.01, Infinity],
-                style: 'width: 50px;',
+                style: {
+                    width: '50px'
+                },
                 onChange: function () {
                     _this.app.call('updateScaleZ', _this);
                 }
@@ -324,7 +357,11 @@ ObjectPanel.prototype.render = function () {
             }, {
                 xtype: 'textarea',
                 id: 'objectUserData',
-                style: 'width: 150px; height: 40px; font-size: 12px;',
+                style: {
+                    width: '150px',
+                    height: '40px',
+                    fontSize: '12px'
+                },
                 onChange: update,
                 onKeyUp: function () {
                     try {

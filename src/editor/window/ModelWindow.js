@@ -26,7 +26,9 @@ ModelWindow.prototype.render = function () {
         height: '500px',
         children: [{
             xtype: 'row',
-            style: 'padding-bottom: 8px',
+            style: {
+                paddingBottom: '8px'
+            },
             children: [{
                 xtype: 'button',
                 text: '添加',

@@ -32,7 +32,10 @@ HistoryPanel.prototype.render = function () {
         }, {
             xtype: 'boolean',
             text: '永久',
-            style: 'position: absolute, right: 8px;',
+            style: {
+                position: 'absolute',
+                right: '8px'
+            },
             onChange: function () {
                 var value = this.getValue();
                 config.setKey('settings/history', value);

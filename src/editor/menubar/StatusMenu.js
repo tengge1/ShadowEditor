@@ -27,7 +27,9 @@ StatusMenu.prototype.render = function () {
             xtype: 'boolean',
             text: '自动保存',
             value: true,
-            style: 'color: #888 !important;',
+            style: {
+                color: '#888 !important;'
+            },
             onChange: function (e) {
                 _this.app.editor.config.setKey('autosave', e.target.checked);
                 _this.app.call('sceneGraphChanged', _this);
