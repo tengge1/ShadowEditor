@@ -65,21 +65,28 @@ ScriptPanelEvent.prototype.update = function () {
                     children: [{
                         xtype: 'input',
                         value: script.name,
-                        style: 'width: 130px; font-size: 12px;',
+                        style: {
+                            width: '130px',
+                            fontSize: '12px'
+                        },
                         onChange: function () {
                             editor.execute(new SetScriptValueCommand(editor.selected, script, 'name', this.getValue()));
                         }
                     }, {
                         xtype: 'button',
                         text: '编辑',
-                        style: 'margin-left: 4px;',
+                        style: {
+                            marginLeft: '4px'
+                        },
                         onClick: function () {
                             _this.app.call('editScript', _this, object, script);
                         }
                     }, {
                         xtype: 'button',
                         text: '删除',
-                        style: 'margin-left: 4px;',
+                        style: {
+                            marginLeft: '4px'
+                        },
                         onClick: function () {
                             if (confirm('确定吗？')) {
                                 editor.execute(new RemoveScriptCommand(editor.selected, script));

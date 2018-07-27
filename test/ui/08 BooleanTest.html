@@ -23,9 +23,11 @@
             text: 'Auto Save',
             value: true,
             cls: 'red',
-            style: 'border-bottom: 1px solid #aaa;',
+            style: {
+                borderBottom: '1px solid #aaa'
+            },
             onChange: function () {
-                alert(this.getValue());
+                UI.msg(this.getValue());
             }
         });
 

@@ -22,13 +22,15 @@
         var control = Shadow.UI.create({
             xtype: 'div',
             cls: 'bg',
-            style: 'color: red',
+            style: {
+                color: 'red'
+            },
             children: [{
                 xtype: 'html',
                 html: 'Hello, world!'
             }],
             onClick: function () {
-                alert('You clicked div!');
+                UI.msg('You clicked div!');
             }
         });
 

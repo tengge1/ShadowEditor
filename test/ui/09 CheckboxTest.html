@@ -16,9 +16,11 @@
         var control = Shadow.UI.create({
             xtype: 'checkbox',
             value: true,
-            style: 'border-bottom: 1px solid #aaa;',
+            style: {
+                borderBottom: '1px solid #aaa'
+            },
             onChange: function () {
-                alert(this.getValue());
+                UI.msg(this.getValue());
             }
         });
 

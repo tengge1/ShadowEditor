@@ -27,11 +27,13 @@
                 text: 'Button 1',
                 title: 'This is button 1.',
                 onClick: function () {
-                    alert('You clicked button 1.');
+                    UI.msg('You clicked button 1.');
                 }
             }, {
                 xtype: 'button',
-                style: 'color: green;',
+                style: {
+                    color: 'green'
+                },
                 text: 'Button 2'
             }]
         });
