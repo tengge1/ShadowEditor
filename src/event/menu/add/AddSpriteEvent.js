@@ -29,7 +29,7 @@ AddSpriteEvent.prototype.onAddSprite = function () {
     var editor = this.app.editor;
 
     var sprite = new THREE.Sprite(new THREE.SpriteMaterial());
-    sprite.name = 'Sprite ' + ID++;
+    sprite.name = '精灵 ' + ID++;
 
     editor.execute(new AddObjectCommand(sprite));
 };

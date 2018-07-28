@@ -47,7 +47,7 @@ AddPersonEvent.prototype.onAddPerson = function () {
             return;
         }
 
-        mesh.scale.set(0.01, 0.01, 0.01);
+        mesh.scale.set(1, 1, 1);
         mesh.rotation.y = - 135 * Math.PI / 180;
         mesh.name = 'Person ' + ID++;
         editor.execute(new AddObjectCommand(mesh));

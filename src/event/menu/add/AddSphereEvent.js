@@ -38,7 +38,7 @@ AddSphereEvent.prototype.onAddSphere = function () {
 
     var geometry = new THREE.SphereBufferGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength);
     var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
-    mesh.name = 'Sphere ' + ID++;
+    mesh.name = '球体 ' + ID++;
 
     editor.execute(new AddObjectCommand(mesh));
 };

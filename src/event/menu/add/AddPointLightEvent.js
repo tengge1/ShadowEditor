@@ -33,7 +33,7 @@ AddPointLightEvent.prototype.onAddPointLight = function () {
     var distance = 0;
 
     var light = new THREE.PointLight(color, intensity, distance);
-    light.name = 'PointLight ' + ID++;
+    light.name = '点光源 ' + ID++;
 
     editor.execute(new AddObjectCommand(light));
 };

@@ -36,7 +36,7 @@ AddTorusEvent.prototype.onAddTorus = function () {
 
     var geometry = new THREE.TorusBufferGeometry(radius, tube, radialSegments, tubularSegments, arc);
     var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
-    mesh.name = 'Torus ' + ID++;
+    mesh.name = '轮胎 ' + ID++;
 
     editor.execute(new AddObjectCommand(mesh));
 };

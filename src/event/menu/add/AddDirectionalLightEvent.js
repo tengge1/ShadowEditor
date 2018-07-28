@@ -32,7 +32,7 @@ AddDirectionalLightEvent.prototype.onAddDirectionalLight = function () {
     var intensity = 1;
 
     var light = new THREE.DirectionalLight(color, intensity);
-    light.name = 'DirectionalLight ' + ID;
+    light.name = '平行光 ' + ID;
     light.target.name = 'DirectionalLight ' + (ID++) + ' Target';
 
     light.position.set(5, 10, 7.5);

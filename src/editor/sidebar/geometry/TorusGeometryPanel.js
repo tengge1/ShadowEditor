@@ -85,14 +85,14 @@ TorusGeometryPanel.prototype.render = function () {
                 range: [1, Infinity],
                 onChange: update
             }]
-        }, { // tubularSegments
+        }, { // radialSegments
             xtype: 'row',
             children: [{
                 xtype: 'label',
                 text: '半径段数'
             }, {
                 xtype: 'int',
-                id: 'torusGeometryTubularSegments',
+                id: 'torusGeometryRadialSegments',
                 value: parameters.tubularSegments,
                 range: [1, Infinity],
                 onChange: update

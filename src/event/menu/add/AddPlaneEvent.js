@@ -31,7 +31,7 @@ AddPlaneEvent.prototype.onAddPlane = function () {
     var geometry = new THREE.PlaneBufferGeometry(2, 2);
     var material = new THREE.MeshStandardMaterial();
     var mesh = new THREE.Mesh(geometry, material);
-    mesh.name = 'Plane ' + ID++;
+    mesh.name = '平板 ' + ID++;
 
     editor.execute(new AddObjectCommand(mesh));
 };

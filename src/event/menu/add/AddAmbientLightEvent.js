@@ -31,7 +31,7 @@ AddAmbientLightEvent.prototype.onAddAmbientLightEvent = function () {
     var color = 0xaaaaaa;
 
     var light = new THREE.AmbientLight(color);
-    light.name = 'AmbientLight ' + ID++;
+    light.name = '环境光 ' + ID++;
 
     editor.execute(new AddObjectCommand(light));
 };

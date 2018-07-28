@@ -29,7 +29,7 @@ AddGroupEvent.prototype.onAddGroup = function () {
     var editor = this.app.editor;
 
     var mesh = new THREE.Group();
-    mesh.name = 'Group ' + ID++;
+    mesh.name = '组 ' + ID++;
 
     editor.execute(new AddObjectCommand(mesh));
 };
