@@ -41,11 +41,6 @@ Toolbar.prototype.render = function () {
             icon: 'icon-scale',
             title: '缩放(R)'
         }, {
-            xtype: 'iconbutton',
-            id: 'deleteBtn',
-            icon: 'icon-delete',
-            title: '删除'
-        }, {
             xtype: 'hr'
         }, {
             xtype: 'iconbutton',

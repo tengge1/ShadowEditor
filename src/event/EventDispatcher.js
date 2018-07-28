@@ -42,7 +42,6 @@ import RotateModeEvent from './toolbar/RotateModeEvent';
 import ScaleModeEvent from './toolbar/ScaleModeEvent';
 
 import AnchorPointEvent from './toolbar/AnchorPointEvent';
-import DeleteModeEvent from './toolbar/DeleteModeEvent';
 import HandModeEvent from './toolbar/HandModeEvent';
 import ModelEvent from './toolbar/ModelEvent';
 import PathModeEvent from './toolbar/PathModeEvent';
@@ -187,7 +186,6 @@ function EventDispatcher(app) {
         new ScaleModeEvent(this.app),
 
         new AnchorPointEvent(this.app),
-        new DeleteModeEvent(this.app),
         new HandModeEvent(this.app),
         new ModelEvent(this.app),
         new PathModeEvent(this.app),
