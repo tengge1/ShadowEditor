@@ -1,18 +1,18 @@
-﻿import UI from '../../../ui/UI';
+﻿import UI from '../../ui/UI';
 
-import SetGeometryValueCommand from '../../../command/SetGeometryValueCommand';
-import GeometryInfoPanel from './GeometryInfoPanel';
-import BufferGeometryPanel from './BufferGeometryPanel';
+import SetGeometryValueCommand from '../../command/SetGeometryValueCommand';
+import GeometryInfoPanel from './geometry/GeometryInfoPanel';
+import BufferGeometryPanel from './geometry/BufferGeometryPanel';
 
-import BoxGeometryPanel from './BoxGeometryPanel';
-import CircleGeometryPanel from './CircleGeometryPanel';
-import CylinderGeometryPanel from './CylinderGeometryPanel';
-import IcosahedronGeometryPanel from './IcosahedronGeometryPanel';
-import LatheGeometryPanel from './LatheGeometryPanel';
-import PlaneGeometryPanel from './PlaneGeometryPanel';
-import SphereGeometryPanel from './SphereGeometryPanel';
-import TorusGeometryPanel from './TorusGeometryPanel';
-import TorusKnotGeometryPanel from './TorusKnotGeometryPanel';
+import BoxGeometryPanel from './geometry/BoxGeometryPanel';
+import CircleGeometryPanel from './geometry/CircleGeometryPanel';
+import CylinderGeometryPanel from './geometry/CylinderGeometryPanel';
+import IcosahedronGeometryPanel from './geometry/IcosahedronGeometryPanel';
+import LatheGeometryPanel from './geometry/LatheGeometryPanel';
+import PlaneGeometryPanel from './geometry/PlaneGeometryPanel';
+import SphereGeometryPanel from './geometry/SphereGeometryPanel';
+import TorusGeometryPanel from './geometry/TorusGeometryPanel';
+import TorusKnotGeometryPanel from './geometry/TorusKnotGeometryPanel';
 
 /**
  * 几何体面板

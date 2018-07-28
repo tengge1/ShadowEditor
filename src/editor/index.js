@@ -26,4 +26,4 @@ export { default as PlaneGeometryPanel } from './sidebar/geometry/PlaneGeometryP
 export { default as SphereGeometryPanel } from './sidebar/geometry/SphereGeometryPanel';
 export { default as TorusGeometryPanel } from './sidebar/geometry/TorusGeometryPanel';
 export { default as TorusKnotGeometryPanel } from './sidebar/geometry/TorusKnotGeometryPanel';
-export { default as GeometryPanel } from './sidebar/geometry/GeometryPanel';
+export { default as GeometryPanel } from './sidebar/GeometryPanel';
