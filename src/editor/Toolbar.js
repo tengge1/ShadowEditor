@@ -52,22 +52,24 @@ Toolbar.prototype.render = function () {
             id: 'modelBtn',
             icon: 'icon-model-view',
             title: '模型'
-        }, {
-            xtype: 'iconbutton',
-            id: 'handBtn',
-            icon: 'icon-hand',
-            title: '抓手'
-        }, {
-            xtype: 'iconbutton',
-            id: 'anchorPointBtn',
-            icon: 'icon-anchor-point',
-            title: '添加锚点'
-        }, {
-            xtype: 'iconbutton',
-            id: 'pathBtn',
-            icon: 'icon-path',
-            title: '绘制路径'
-        }]
+        }
+            // , {
+            //     xtype: 'iconbutton',
+            //     id: 'handBtn',
+            //     icon: 'icon-hand',
+            //     title: '抓手'
+            // }, {
+            //     xtype: 'iconbutton',
+            //     id: 'anchorPointBtn',
+            //     icon: 'icon-anchor-point',
+            //     title: '添加锚点'
+            // }, {
+            //     xtype: 'iconbutton',
+            //     id: 'pathBtn',
+            //     icon: 'icon-path',
+            //     title: '绘制路径'
+            // }
+        ]
     };
 
     var control = UI.create(data);

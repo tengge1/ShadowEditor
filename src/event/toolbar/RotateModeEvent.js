@@ -33,7 +33,6 @@ RotateModeEvent.prototype.onChangeMode = function (mode) {
 
     if (mode === 'rotate') {
         btn.select();
-        this.app.call('transformModeChanged', this, 'rotate');
     } else {
         btn.unselect();
     }

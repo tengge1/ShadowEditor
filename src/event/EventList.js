@@ -85,7 +85,7 @@ var EventList = [
 
     // 工具栏事件
 
-    'changeMode', // 改变模式（select, translate, rotate, scale）
+    'changeMode', // 改变模式（select, translate, rotate, scale, delete）
 
     // editor事件
     'setTheme', // 设置编辑器主题
@@ -125,7 +125,6 @@ var EventList = [
 
     'themeChanged', // 改变主题事件
 
-    'transformModeChanged', // 平移旋转缩放模式改变事件
     'snapChanged', // 对齐单元格事件
     'spaceChanged', // 空间坐标系改变事件
     'rendererChanged', // 渲染模式改变事件

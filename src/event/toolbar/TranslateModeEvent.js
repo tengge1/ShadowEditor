@@ -33,7 +33,6 @@ TranslateModeEvent.prototype.onChangeMode = function (mode) {
 
     if (mode === 'translate') {
         btn.select();
-        this.app.call('transformModeChanged', this, 'translate');
     } else {
         btn.unselect();
     }

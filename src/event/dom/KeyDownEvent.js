@@ -63,15 +63,12 @@ KeyDownEvent.prototype.onKeyDown = function (event) {
             break;
 
         case 87: // Register W for translation transform mode
-            this.app.call('transformModeChanged', this, 'translate');
             break;
 
         case 69: // Register E for rotation transform mode
-            this.app.call('transformModeChanged', this, 'rotate');
             break;
 
         case 82: // Register R for scaling transform mode
-            this.app.call('transformModeChanged', this, 'scale');
             break;
 
     }

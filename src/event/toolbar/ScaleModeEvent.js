@@ -33,7 +33,6 @@ ScaleModeEvent.prototype.onChangeMode = function (mode) {
 
     if (mode === 'scale') {
         btn.select();
-        this.app.call('transformModeChanged', this, 'scale');
     } else {
         btn.unselect();
     }

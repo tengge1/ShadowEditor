@@ -79,12 +79,10 @@ ObjectEvent.prototype.onObjectRemoved = function (object) {
 ObjectEvent.prototype.onObjectSelected = function (object) {
     var editor = this.app.editor;
     var selectionBox = editor.selectionBox;
-    var transformControls = editor.transformControls;
     var scene = editor.scene;
     var box = this.box;
 
     selectionBox.visible = false;
-    transformControls.detach();
 
     if (object !== null && object !== scene) {
         box.setFromObject(object);
@@ -92,7 +90,6 @@ ObjectEvent.prototype.onObjectSelected = function (object) {
             selectionBox.setFromObject(object);
             selectionBox.visible = true;
         }
-        transformControls.attach(object);
     }
 
     this.app.call('render');
