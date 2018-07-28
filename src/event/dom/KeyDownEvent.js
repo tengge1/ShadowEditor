@@ -37,6 +37,10 @@ KeyDownEvent.prototype.onKeyDown = function (event) {
 
             var object = editor.selected;
 
+            if (object == null) {
+                return;
+            }
+
             if (confirm('删除 ' + object.name + '?') === false) return;
 
             var parent = object.parent;
