@@ -8,7 +8,6 @@ function TextArea(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.id = options.id || null;
     this.value = options.value || '';
     this.cls = options.cls || 'TextArea';
     this.style = options.style || null;

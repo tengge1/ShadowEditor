@@ -8,7 +8,46 @@ function Control(options) {
     options = options || {};
     this.parent = options.parent || document.body;
     this.id = options.id || 'Control' + ID--;
+    this.scope = options.scope || 'global';
+
+    // 添加引用
+    UI.add(this.id, this, this.scope);
 }
+
+/**
+ * 定义控件属性
+ */
+Object.defineProperties(Control.prototype, {
+    /**
+     * 控件id（必须在options中设置，而且设置后无法改变）
+     */
+    id: {
+        get: function () {
+            return this._id;
+        },
+        set: function (id) {
+            if (this._id != null) {
+                console.warn(`Control: It is not allowed to assign new value to id.`);
+            }
+            this._id = id;
+        }
+    },
+
+    /**
+     * 控件id作用域（必须在options中设置，而且设置后无法改变）
+     */
+    scope: {
+        get: function () {
+            return this._scope;
+        },
+        set: function (scope) {
+            if (this._scope != null) {
+                console.warn(`Control: It is not allowed to assign new value to scope.`);
+            }
+            this._scope = scope;
+        }
+    }
+});
 
 /**
  * 渲染控件

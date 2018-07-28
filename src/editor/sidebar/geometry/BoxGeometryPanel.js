@@ -38,7 +38,7 @@ BoxGeometryPanel.prototype.render = function () {
         )));
     };
 
-    var data = {
+    this.children = [{
         xtype: 'row',
         id: 'boxGeometryPanel',
         parent: this.parent,
@@ -112,9 +112,9 @@ BoxGeometryPanel.prototype.render = function () {
                 onChange: update
             }]
         }]
-    };
+    }];
 
-    var control = UI.create(data);
+    var control = UI.create(this.children[0]);
     control.render();
 };
 

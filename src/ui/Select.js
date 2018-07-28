@@ -8,7 +8,6 @@ function Select(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.id = options.id || null;
     this.options = options.options || [];
     this.value = options.value || '';
     this.cls = options.cls || 'Select';

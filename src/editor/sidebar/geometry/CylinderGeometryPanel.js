@@ -38,7 +38,7 @@ CylinderGeometryPanel.prototype.render = function () {
         )));
     };
 
-    var container = UI.create({ // radiusTop
+    this.children = [{ // radiusTop
         xtype: 'row',
         children: [{ // radiusTop
             xtype: 'row',
@@ -109,8 +109,9 @@ CylinderGeometryPanel.prototype.render = function () {
                 onChange: update
             }]
         }]
-    });
+    }];
 
+    var container = UI.create(this.children[0]);
     container.render();
 };
 

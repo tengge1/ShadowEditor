@@ -15,7 +15,7 @@ GeometryInfoPanel.prototype.constructor = GeometryInfoPanel;
 GeometryInfoPanel.prototype.render = function () {
     var editor = this.app.editor;
 
-    var data = {
+    this.children = {
         'xtype': 'row',
         parent: this.parent,
         children: [{ // vertices
@@ -39,7 +39,7 @@ GeometryInfoPanel.prototype.render = function () {
         }]
     };
 
-    var container = UI.create(data);
+    var container = UI.create(this.children);
     container.render();
 
     function update(object) {

@@ -9,7 +9,6 @@ function Outliner(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.id = options.id || null;
     this.editor = options.editor || null;
     this.onChange = options.onChange || null;
     this.onDblClick = options.onDblClick || null;

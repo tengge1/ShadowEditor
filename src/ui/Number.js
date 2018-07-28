@@ -8,7 +8,6 @@ function Number(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.id = options.id || null;
     this.value = options.value === undefined ? 0 : options.value;
     this.min = options.min === undefined ? -Infinity : options.min;
     this.max = options.max === undefined ? Infinity : options.max;

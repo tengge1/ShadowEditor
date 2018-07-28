@@ -7,6 +7,7 @@ import Control from './Control';
 function Html(options) {
     Control.call(this, options);
     options = options || {};
+
     this.html = options.html || null;
 }
 

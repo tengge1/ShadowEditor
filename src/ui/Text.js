@@ -8,7 +8,6 @@ function Text(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.id = options.id || null;
     this.text = options.text || '';
     this.cls = options.cls || 'Text';
     this.style = options.style || null;

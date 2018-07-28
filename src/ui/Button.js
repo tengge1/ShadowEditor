@@ -8,7 +8,6 @@ function Button(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.id = options.id || null;
     this.text = options.text || 'Button';
     this.cls = options.cls || 'Button';
     this.style = options.style || null;

@@ -36,7 +36,7 @@ TorusGeometryPanel.prototype.render = function () {
         )));
     };
 
-    var data = {
+    this.children = [{
         xtype: 'row',
         parent: this.parent,
         children: [{
@@ -109,9 +109,9 @@ TorusGeometryPanel.prototype.render = function () {
                 onChange: update
             }]
         }]
-    };
+    }];
 
-    var container = UI.create(data);
+    var container = UI.create(this.children[0]);
     container.render();
 };
 

@@ -35,7 +35,7 @@ CircleGeometryPanel.prototype.render = function () {
 
     }
 
-    var container = UI.create({
+    this.children = [{
         xtype: 'row',
         children: [{ // radius
             xtype: 'row',
@@ -84,8 +84,9 @@ CircleGeometryPanel.prototype.render = function () {
                 value: Math.PI * 2
             }]
         }]
-    });
+    }];
 
+    var container = UI.create(this.children[0]);
     container.render();
 };
 

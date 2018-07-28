@@ -8,7 +8,6 @@ function Div(options) {
     Container.call(this, options);
     options = options || {};
 
-    this.id = options.id || null;
     this.html = options.html || null;
     this.cls = options.cls || null;
     this.style = options.style || null;

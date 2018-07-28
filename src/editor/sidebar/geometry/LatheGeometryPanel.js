@@ -24,7 +24,7 @@ LatheGeometryPanel.prototype.render = function () {
 
     var _this = this;
 
-    var data = {
+    this.children = [{
         xtype: 'row',
         parent: this.parent,
         children: [{ // segments
@@ -77,9 +77,9 @@ LatheGeometryPanel.prototype.render = function () {
                 }]
             }]
         }]
-    };
+    }];
 
-    var container = UI.create(data);
+    var container = UI.create(this.children[0]);
     container.render();
 
     var points = UI.get('latheGeometryPoints');

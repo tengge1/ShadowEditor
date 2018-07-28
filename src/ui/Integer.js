@@ -8,7 +8,6 @@ function Integer(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.id = options.id || null;
     this.value = options.value || 0;
     this.min = options.range ? options.range[0] : -Infinity;
     this.max = options.range ? options.range[1] : Infinity;

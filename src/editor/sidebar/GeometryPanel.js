@@ -126,6 +126,8 @@ GeometryPanel.prototype.render = function () {
     var geometryName = UI.get('geometryName');
     var parameters = UI.get('geometryParameters');
 
+    var typedGeometryPanel = null;
+
     function build() {
         var object = editor.selected;
 
@@ -141,7 +143,11 @@ GeometryPanel.prototype.render = function () {
             parameters.dom.innerHTML = '';
 
             if (GeometryPanels[geometry.type] !== undefined) {
-                (new GeometryPanels[geometry.type]({ app: app, object: object, parent: parameters.dom })).render();
+                if (typedGeometryPanel) {
+                    typedGeometryPanel.destroy();
+                }
+                typedGeometryPanel = new GeometryPanels[geometry.type]({ app: app, object: object, parent: parameters.dom });
+                typedGeometryPanel.render();
             } else {
 
             }

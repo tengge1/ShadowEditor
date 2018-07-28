@@ -9,7 +9,6 @@ function Modal(options) {
     Container.call(this, options);
     options = options || {};
 
-    this.id = options.id || null;
     this.cls = options.cls || 'Modal';
     this.style = options.style || null;
     this.width = options.width || '500px';

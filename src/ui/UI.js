@@ -92,10 +92,10 @@ UICls.prototype.add = function (id, obj, scope = "global") {
  */
 UICls.prototype.remove = function (id, scope = 'global') {
     var key = `${scope}:${id}`;
-    if (this.objects[key] === undefined) {
-        console.warn(`UICls: object named ${id} is not defined.`);
-    } else {
+    if (this.objects[key] != undefined) {
         delete this.objects[key];
+    } else {
+        console.warn(`UICls: object named ${id} is not defined.`);
     }
 };
 
@@ -115,14 +115,9 @@ UICls.prototype.get = function (id, scope = 'global') {
 /**
  * 通过json配置创建UI实例，并自动将包含id的控件添加到缓存
  * @param {*} config xtype配置
- * @param {*} scope 对象作用域（默认为global）
  */
-UICls.prototype.create = function (config, scope = 'global') {
+UICls.prototype.create = function (config) {
     if (config instanceof Control) { // config是Control实例
-        if (config.id) {
-            scope = config.scope || scope;
-            this.objects[`${scope}:${config.id}`] = config;
-        }
         return config;
     }
 
@@ -140,15 +135,7 @@ UICls.prototype.create = function (config, scope = 'global') {
         throw `UICls: xtype named ${config.xtype} is undefined.`;
     }
 
-    var control = new cls(config);
-    scope = control.scope || scope;
-    if (control.id && this.objects[`${scope}:${control.id}`] !== undefined) {
-        console.warn(`UICls: control named ${control.id} has already be added.`);
-    } else if (control.id) {
-        this.objects[`${scope}:${control.id}`] = control;
-    }
-
-    return control;
+    return new cls(config);
 };
 
 /**

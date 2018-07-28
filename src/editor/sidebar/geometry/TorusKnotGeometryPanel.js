@@ -38,7 +38,7 @@ TorusKnotGeometryPanel.prototype.render = function () {
         )));
     };
 
-    var data = {
+    this.children = [{
         xtype: 'row',
         children: [{ // radius
             xtype: 'row',
@@ -109,9 +109,9 @@ TorusKnotGeometryPanel.prototype.render = function () {
                 onChange: update
             }]
         }]
-    };
+    }];
 
-    var container = UI.create(data);
+    var container = UI.create(this.children[0]);
     container.render();
 };
 

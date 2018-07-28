@@ -33,7 +33,7 @@ IcosahedronGeometryPanel.prototype.render = function () {
         _this.app.call('objectChanged', _this, object);
     };
 
-    var data = {
+    this.children = [{
         xtype: 'row',
         parent: this.parent,
         children: [{ // radius
@@ -60,9 +60,9 @@ IcosahedronGeometryPanel.prototype.render = function () {
                 onChange: update
             }]
         }]
-    };
+    }];
 
-    var container = UI.create(data);
+    var container = UI.create(this.children[0]);
     container.render();
 };
 

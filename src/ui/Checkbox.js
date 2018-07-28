@@ -8,7 +8,6 @@ function Checkbox(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.id = options.id || null;
     this.value = options.value || false;
     this.cls = options.cls || 'Checkbox';
     this.style = options.style || null;
