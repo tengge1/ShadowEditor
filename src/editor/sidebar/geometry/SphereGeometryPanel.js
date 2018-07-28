@@ -42,6 +42,7 @@ SphereGeometryPanel.prototype.render = function () {
 
     this.children = [{
         xtype: 'row',
+        parent: this.parent,
         children: [{ // radius
             xtype: 'row',
             children: [{

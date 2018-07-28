@@ -28,7 +28,8 @@ MaterialPanel.prototype.render = function () {
         cls: 'Panel',
         style: {
             borderTop: 0,
-            paddingTop: '20px'
+            paddingTop: '20px',
+            display: 'none'
         },
         children: [{ // New Copy Paste
             xtype: 'row',

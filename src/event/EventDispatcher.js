@@ -107,6 +107,7 @@ import SavingStatusEvent from './menu/status/SavingStatusEvent';
 
 // 侧边栏
 import ObjectPanelEvent from './sideBar/ObjectPanelEvent';
+import GeometryPanelEvent from './sideBar/GeometryPanelEvent';
 import MaterialPanelEvent from './sideBar/MaterialPanelEvent';
 import HistoryPanelEvent from './sideBar/HistoryPanelEvent';
 import ProjectPanelEvent from './sidebar/ProjectPanelEvent';
@@ -251,6 +252,7 @@ function EventDispatcher(app) {
 
         // 侧边栏
         new ObjectPanelEvent(this.app),
+        new GeometryPanelEvent(this.app),
         new MaterialPanelEvent(this.app),
         new HistoryPanelEvent(this.app),
         new ProjectPanelEvent(this.app),

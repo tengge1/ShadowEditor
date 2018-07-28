@@ -13,12 +13,14 @@ import SetColorCommand from '../../command/SetColorCommand';
  */
 function ObjectPanelEvent(app) {
     BaseEvent.call(this, app);
+    this.tabName = '物体';
 }
 
 ObjectPanelEvent.prototype = Object.create(BaseEvent.prototype);
 ObjectPanelEvent.prototype.constructor = ObjectPanelEvent;
 
 ObjectPanelEvent.prototype.start = function () {
+    this.app.on(`selectPropertyTab.${this.id}`, this.onSelectPropertyTab.bind(this));
     this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
     this.app.on(`refreshSidebarObject3D.${this.id}`, this.onRefreshSidebarObject3D.bind(this));
@@ -30,6 +32,7 @@ ObjectPanelEvent.prototype.start = function () {
 };
 
 ObjectPanelEvent.prototype.stop = function () {
+    this.app.on(`selectPropertyTab.${this.id}`, null);
     this.app.on(`objectSelected.${this.id}`, null);
     this.app.on(`objectChanged.${this.id}`, null);
     this.app.on(`refreshSidebarObject3D.${this.id}`, null);
@@ -41,18 +44,35 @@ ObjectPanelEvent.prototype.stop = function () {
 };
 
 /**
+ * 选择物体选项卡
+ * @param {*} tabName 
+ */
+ObjectPanelEvent.prototype.onSelectPropertyTab = function (tabName) {
+    this.tabName = tabName;
+    if (this.app.editor.selected != null && tabName === '物体') {
+        UI.get('objectPanel').dom.style.display = '';
+    } else {
+        UI.get('objectPanel').dom.style.display = 'none';
+    }
+};
+
+/**
  * 物体选中事件
  * @param {*} object 
  */
 ObjectPanelEvent.prototype.onObjectSelected = function (object) {
     var container = UI.get('objectPanel');
 
-    if (object !== null) {
-        container.dom.style.display = 'block';
-        this.updateRows(object);
-        this.app.call('updateObjectPanel', this, object);
+    // 设置物体面板显示隐藏
+    if (this.tabName === '物体' && object != null) {
+        container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
+    }
+
+    if (object !== null) {
+        this.updateRows(object);
+        this.app.call('updateObjectPanel', this, object);
     }
 };
 

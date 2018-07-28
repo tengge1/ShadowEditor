@@ -127,8 +127,9 @@ TransformControlsEvent.prototype.onMouseUp = function () {
  * @param {*} object 选中的物体
  */
 TransformControlsEvent.prototype.onObjectSelected = function (object) {
+    this.app.editor.transformControls.detach();
+
     if (object && ['translate', 'rotate', 'scale'].indexOf(this.mode) > -1) {
-        this.app.editor.transformControls.detach();
         this.app.editor.transformControls.attach(object);
     }
 };

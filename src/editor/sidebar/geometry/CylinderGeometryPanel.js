@@ -40,6 +40,7 @@ CylinderGeometryPanel.prototype.render = function () {
 
     this.children = [{ // radiusTop
         xtype: 'row',
+        parent: this.parent,
         children: [{ // radiusTop
             xtype: 'row',
             children: [{

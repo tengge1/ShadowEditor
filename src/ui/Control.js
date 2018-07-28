@@ -75,6 +75,8 @@ Control.prototype.clear = function () {
         });
     })(this.children);
 
+    this.children.length = 0;
+
     // 清空dom
     if (this.dom) {
         this.parent.removeChild(this.dom);
