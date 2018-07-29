@@ -21,26 +21,29 @@ StatusBar.prototype.render = function () {
         parent: this.app.container,
         cls: 'statusBar',
         children: [{
-            xtype: 'label',
-            text: '物体'
-        }, {
-            xtype: 'text',
-            id: 'objectsText',
-            text: '0' // 物体数
-        }, {
-            xtype: 'label',
-            text: '顶点'
-        }, {
-            xtype: 'text',
-            id: 'verticesText',
-            text: '0' // 顶点数
-        }, {
-            xtype: 'label',
-            text: '三角形'
-        }, {
-            xtype: 'text',
-            id: 'trianglesText',
-            text: '0' // 三角形数
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '物体'
+            }, {
+                xtype: 'text',
+                id: 'objectsText',
+                text: '0' // 物体数
+            }, {
+                xtype: 'label',
+                text: '顶点'
+            }, {
+                xtype: 'text',
+                id: 'verticesText',
+                text: '0' // 顶点数
+            }, {
+                xtype: 'label',
+                text: '三角形'
+            }, {
+                xtype: 'text',
+                id: 'trianglesText',
+                text: '0' // 三角形数
+            }]
         }]
     };
 
