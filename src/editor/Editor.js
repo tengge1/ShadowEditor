@@ -20,14 +20,14 @@ function Editor(app) {
 
     // 场景
     this.scene = new THREE.Scene();
-    this.scene.name = 'Scene';
+    this.scene.name = '场景';
     this.scene.background = new THREE.Color(0xaaaaaa);
 
     this.sceneHelpers = new THREE.Scene();
 
     // 相机
     this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 0.1, 10000);
-    this.DEFAULT_CAMERA.name = 'Camera';
+    this.DEFAULT_CAMERA.name = '默认相机';
     this.DEFAULT_CAMERA.position.set(20, 10, 20);
     this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
 

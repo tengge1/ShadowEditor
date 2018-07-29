@@ -36,7 +36,7 @@ AddSpotLightEvent.prototype.onAddSpotLight = function () {
 
     var light = new THREE.SpotLight(color, intensity, distance, angle, penumbra);
 
-    light.name = '聚光灯 ' + ID;
+    light.name = '聚光灯' + ID;
     light.target.name = 'SpotLight ' + (ID++) + ' Target';
 
     light.position.set(5, 10, 7.5);

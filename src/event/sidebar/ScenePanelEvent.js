@@ -91,7 +91,7 @@ ScenePanelEvent.prototype.buildHTML = function (object) {
         var material = object.material;
 
         html += ' <span class="type ' + geometry.type + '"></span> ' + geometry.name;
-        html += ' <span class="type ' + material.type + '"></span> ' + material.name;
+        html += ' <span class="type ' + material.type + '"></span> ' + (material.name == null ? '' : material.name);
     }
 
     html += this.getScript(object.uuid);

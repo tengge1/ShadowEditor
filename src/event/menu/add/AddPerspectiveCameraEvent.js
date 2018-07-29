@@ -29,7 +29,7 @@ AddPerspectiveCameraEvent.prototype.onAddPerspectiveCamera = function () {
     var editor = this.app.editor;
 
     var camera = new THREE.PerspectiveCamera(50, 1, 1, 10000);
-    camera.name = '透视相机 ' + ID++;
+    camera.name = '透视相机' + ID++;
 
     editor.execute(new AddObjectCommand(camera));
 };

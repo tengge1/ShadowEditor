@@ -30,7 +30,7 @@ AddBoxEvent.prototype.onAddBox = function () {
 
     var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
     var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
-    mesh.name = '正方体 ' + ID++;
+    mesh.name = '正方体' + ID++;
 
     editor.execute(new AddObjectCommand(mesh));
 };

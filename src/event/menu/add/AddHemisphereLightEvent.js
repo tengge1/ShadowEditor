@@ -33,7 +33,7 @@ AddHemisphereLightEvent.prototype.onAddHemisphereLight = function () {
     var intensity = 1;
 
     var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
-    light.name = '半球光 ' + ID++;
+    light.name = '半球光' + ID++;
 
     light.position.set(0, 10, 0);
 

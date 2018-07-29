@@ -38,7 +38,7 @@ AddTeaportEvent.prototype.onAddTeaport = function () {
 
     var geometry = new THREE.TeapotBufferGeometry(size, segments, bottom, lid, body, fitLid, blinn);
     var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
-    mesh.name = '茶壶 ' + ID++;
+    mesh.name = '茶壶' + ID++;
 
     editor.execute(new AddObjectCommand(mesh));
 };
