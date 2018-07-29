@@ -72,6 +72,8 @@ var EventList = [
     'mAddFire', // 添加火焰
     'mAddSmoke', // 添加烟
 
+    'mParticleEmitter', // 粒子发射器
+
     'mPlay', // 启动
 
     'mVRMode', // VR模式
