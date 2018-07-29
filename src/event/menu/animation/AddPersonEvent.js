@@ -49,7 +49,7 @@ AddPersonEvent.prototype.onAddPerson = function () {
 
         mesh.scale.set(1, 1, 1);
         mesh.rotation.y = - 135 * Math.PI / 180;
-        mesh.name = 'Person ' + ID++;
+        mesh.name = '人' + ID++;
         editor.execute(new AddObjectCommand(mesh));
 
         mesh.mixer = new THREE.AnimationMixer(mesh);
