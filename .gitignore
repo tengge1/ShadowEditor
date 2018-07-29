@@ -71,3 +71,4 @@ typings/
 /server/ShadowServer.Tests/obj
 /server/ShadowServer/Upload/Model
 /server/ShadowServer/Upload/Texture
+/ShadowEditor.code-workspace
