@@ -43,8 +43,11 @@ ModelWindow.prototype.render = function () {
             },
             children: [{
                 xtype: 'button',
-                text: '添加',
+                text: '上传模型',
                 onClick: this.onAddFile.bind(this)
+            }, {
+                xtype: 'button',
+                text: '编辑分组'
             }]
         }, {
             xtype: 'row',

@@ -1,7 +1,7 @@
 # Shadow Editor
 
 * 名称：Shadow Editor
-* 版本：v0.0.2
+* 版本：v0.0.3
 * 说明：Three.js自带编辑器的二次开发。
 * 示例：https://tengge1.github.io/ShadowEditor/demo/index.html
 * 文档：https://tengge1.github.io/ShadowEditor/docs/release/index.html
@@ -9,14 +9,31 @@
 ## 主要功能
 
 1. 3D场景在线编辑。
-2. 各种类型3D数据的导入导出。
-3. 材质编辑。
-4. 支持js脚本。
-5. 各种光源和雾效。
+2. 11种基本几何体、5种光源，支持雾效、阴影。
+2. 各种类型3D模型的导入导出。例如：`amf`、`awd`、`babylon`、`babylonmeshdata`、`ctm`、`dae`、
+`fbx`、`glb`、`gltf`、`js`、`json`、`3geo`、`3mat`、`3obj`、`3scn`、`kmz`、`md2`、
+`obj`、`playcanvas`、`ply`、`stl`、`vtk`、`wrl`。
+3. 场景树状显示。
+3. 物体、几何体、材质编辑。
+4. js脚本编辑智能提示。
 
 ## 项目截图
 
-![image](images/v0.0.2.png)
+**基本界面**
+
+![image](images/mesh20180729.png)
+
+**几何体编辑**
+
+![image](images/geometry20180729.png)
+
+**材质编辑**
+
+![image](images/material20180729.png)
+
+**脚本编辑**
+
+![image](images/script20180729.png)
 
 ## 开发日志
 
