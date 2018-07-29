@@ -231,6 +231,7 @@ div.Window .body {
     flex: 1;
     padding: 8px;
     box-sizing: border-box;
+    border-radius: 0 0 3px 3px;
     overflow-y: auto;
 }
 
