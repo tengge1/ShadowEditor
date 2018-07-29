@@ -23,6 +23,22 @@
 
 ![image](images/mesh20180729.png)
 
+**菜单栏**
+
+![image](images/menu20180729.png)
+
+**工具箱**
+
+![image](images/toolbar20180729.png)
+
+**场景层次图**
+
+![image](images/scene20180729.png)
+
+**物体编辑**
+
+![image](images/object20180729.png)
+
 **几何体编辑**
 
 ![image](images/geometry20180729.png)
@@ -30,6 +46,14 @@
 **材质编辑**
 
 ![image](images/material20180729.png)
+
+**渲染器设置**
+
+![image](images/project20180729.png)
+
+**主题和历史面板**
+
+![image](images/setting20180729.png)
 
 **脚本编辑**
 
