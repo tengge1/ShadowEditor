@@ -38336,7 +38336,7 @@
 	    if (confirm('任何未保存数据将丢失。确定吗？')) {
 	        var loader = new THREE.FileLoader();
 
-	        loader.load('examples/' + name, function (text) {
+	        loader.load('../examples/' + name, function (text) {
 	            editor.clear();
 	            editor.fromJSON(JSON.parse(text));
 	        });
