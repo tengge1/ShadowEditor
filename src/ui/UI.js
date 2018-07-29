@@ -26,6 +26,11 @@ import Window from './Window';
 import Image from './Image';
 import ImageList from './ImageList';
 import MessageBox from './MessageBox';
+import Table from './Table';
+import TableHead from './TableHead';
+import TableBody from './TableBody';
+import TableRow from './TableRow';
+import TableData from './TableData';
 
 /**
  * UI类
@@ -172,7 +177,12 @@ Object.assign(UI, {
     Window: Window,
     Image: Image,
     ImageList: ImageList,
-    MessageBox: MessageBox
+    MessageBox: MessageBox,
+    Table: Table,
+    TableHead: TableHead,
+    TableBody: TableBody,
+    TableRow: TableRow,
+    TableData: TableData
 });
 
 // 添加所有控件的XType
@@ -204,6 +214,11 @@ UI.addXType('window', Window);
 UI.addXType('image', Image);
 UI.addXType('imagelist', ImageList);
 UI.addXType('msg', MessageBox);
+UI.addXType('table', Table);
+UI.addXType('thead', TableHead);
+UI.addXType('tbody', TableBody);
+UI.addXType('tr', TableRow);
+UI.addXType('td', TableData);
 
 // 添加一些实用功能
 Object.assign(UI, {
