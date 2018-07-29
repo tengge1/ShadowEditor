@@ -78,6 +78,7 @@ import AddHemisphereLightEvent from './menu/add/AddHemisphereLightEvent';
 import AddAmbientLightEvent from './menu/add/AddAmbientLightEvent';
 import AddPerspectiveCameraEvent from './menu/add/AddPerspectiveCameraEvent';
 
+import AddAssetEvent from './menu/asset/AddAssetEvent';
 import ImportAssetEvent from './menu/asset/ImportAssetEvent';
 import ExportGeometryEvent from './menu/asset/ExportGeometryEvent';
 import ExportObjectEvent from './menu/asset/ExportObjectEvent';
@@ -222,6 +223,7 @@ function EventDispatcher(app) {
         new AddAmbientLightEvent(this.app),
         new AddPerspectiveCameraEvent(this.app),
 
+        new AddAssetEvent(this.app),
         new ImportAssetEvent(this.app),
         new ExportGeometryEvent(this.app),
         new ExportObjectEvent(this.app),

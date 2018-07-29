@@ -56,6 +56,7 @@ var EventList = [
     'mAddAmbientLight', // 添加环境光
     'mAddPerspectiveCamera', // 添加透视相机
 
+    'mAddAsset', // 添加模型
     'mImportAsset', // 导入资源
     'mExportGeometry', // 导出几何体
     'mExportObject', // 导出物体
