@@ -94,6 +94,8 @@ import AddPersonEvent from './menu/animation/AddPersonEvent';
 import AddFireEvent from './menu/animation/AddFireEvent';
 import AddSmokeEvent from './menu/animation/AddSmokeEvent';
 
+import ParticleEmitterEvent from './menu/component/ParticleEmitterEvent';
+
 import PlayEvent from './menu/play/PlayEvent';
 
 import VRModeEvent from './menu/view/VRModeEvent';
@@ -238,6 +240,8 @@ function EventDispatcher(app) {
         new AddPersonEvent(this.app),
         new AddFireEvent(this.app),
         new AddSmokeEvent(this.app),
+
+        new ParticleEmitterEvent(this.app),
 
         new PlayEvent(this.app),
 
