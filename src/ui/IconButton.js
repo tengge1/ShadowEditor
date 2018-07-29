@@ -9,6 +9,7 @@ function IconButton(options) {
 
     this.cls = options.cls || 'Button IconButton';
     this.icon = options.icon || null; // 对应assets/css/icon/iconfont.css中的css
+    this.title = options.title || null;
 }
 
 IconButton.prototype = Object.create(Button.prototype);

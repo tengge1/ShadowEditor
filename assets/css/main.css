@@ -225,11 +225,13 @@ div.Window .header .CloseButton {
 }
 
 div.Window .body {
+    position: relative;
+    height: calc(100% - 35px);
     background-color: #eee;
     flex: 1;
     padding: 8px;
+    box-sizing: border-box;
     overflow-y: auto;
-    position: relative;
 }
 
 div.Window .footer {
@@ -247,31 +249,62 @@ div.Window .footer .Button {
 
 div.ImageList {
     box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
 div.ImageList .Container {
     position: relative;
-    display: inline-block;
     box-sizing: border-box;
-    padding: 8px;
+    margin: 3px;
+}
+
+div.ImageList .Container .Item {
+    width: 160px;
+    margin: 2px;
+    display: inline-block;
 }
 
 div.ImageList .Container img {
     width: 100%;
     cursor: pointer;
     border-radius: 3px;
-    filter: opacity(0.8)
+    /* filter: opacity(0.8) */
 }
 
-div.ImageList .Container img:hover {
+/* div.ImageList .Container img:hover {
     filter: none;
+} */
+
+div.ImageList .Container .IconButton {
+    padding: 2px;
+    opacity: 0.8;
+}
+
+div.ImageList .Container .EditButton {
+    position: absolute;
+    right: 28px;
+    top: 4px;
+}
+
+div.ImageList .Container .DeleteButton {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+}
+
+div.ImageList .Container .IconButton i {
+    font-size: 14px;
 }
 
 div.ImageList .Container .title {
     position: absolute;
-    left: 8px;
-    bottom: 8px;
-    right: 8px;
+    left: 2px;
+    bottom: 2px;
+    right: 2px;
     background-color: rgba(0, 0, 0, 0.5);
     font-size: 16px;
     color: #fff;

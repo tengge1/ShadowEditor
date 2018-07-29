@@ -11,6 +11,8 @@ function Window(options) {
     options = options || {};
 
     this.cls = options.cls || 'Modal Window';
+    this.style = options.style || null;
+    this.bodyStyle = options.bodyStyle || null;
     this.title = options.title || '';
     this.buttons = options.buttons || [];
 };
@@ -55,6 +57,7 @@ Window.prototype.render = function () {
     this.body = UI.create({
         xtype: 'div',
         cls: 'body',
+        style: this.bodyStyle,
         children: this.content
     });
     this.children.push(this.body);

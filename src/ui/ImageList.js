@@ -8,12 +8,11 @@ import Image from './Image';
 function ImageList(options = {}) {
     Container.call(this, options);
 
-    this.width = options.width || '800px';
-    this.height = options.height || '500px';
-    this.columnWidth = options.columnWidth || 0.25;
-
     this.cls = options.cls || 'ImageList';
-    this.style = options.style || null;
+    this.style = options.style || {
+        width: '800px',
+        height: '500px'
+    };
 
     this.onClick = options.onClick || null;
 }
@@ -39,10 +38,10 @@ ImageList.prototype.render = function () {
 
     this.parent.appendChild(this.dom);
 
-    function onClick(event) {
+    function onClick(event, type) {
         var index = event.target.dataIndex;
         if (this.onClick) {
-            this.onClick(event, index);
+            this.onClick(event, index, type);
         }
     };
 
@@ -50,7 +49,6 @@ ImageList.prototype.render = function () {
         // 容器
         var container = document.createElement('div');
         container.className = 'Container';
-        container.style.width = this.columnWidth * 100 + '%';
         this.dom.appendChild(container);
 
         // 图片

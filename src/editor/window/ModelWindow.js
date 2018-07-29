@@ -22,15 +22,18 @@ ModelWindow.prototype.render = function () {
         id: 'modelWindow',
         parent: this.app.container,
         title: '模型列表',
-        width: '820px',
+        width: '700px',
         height: '500px',
+        bodyStyle: {
+            paddingTop: 0
+        },
         shade: false,
         children: [{
             xtype: 'row',
             style: {
                 position: 'sticky',
-                top: '-8px',
-                paddingBottom: '8px',
+                top: '0',
+                padding: '2px',
                 backgroundColor: '#eee',
                 borderBottom: '1px solid #ddd',
                 zIndex: 100,
@@ -48,7 +51,11 @@ ModelWindow.prototype.render = function () {
             children: [{
                 xtype: 'imagelist',
                 id: 'modelWindowImages',
-                onClick: this.onLoadModel.bind(this)
+                style: {
+                    width: '100%',
+                    height: '100%',
+                },
+                onClick: this.onClickImage.bind(this)
             }]
         }]
     });
@@ -98,18 +105,24 @@ ModelWindow.prototype.onUploadFile = function (event) {
     });
 };
 
-ModelWindow.prototype.onLoadModel = function (event, index) {
+ModelWindow.prototype.onClickImage = function (event, index, type) {
     var model = this.models[index];
 
-    var loader = new THREE.BinaryLoader();
+    if (type === 'edit') { // 编辑模型
+        UI.msg('开始编辑模型');
+    } else if (type === 'delete') { // 删除模型
+        UI.msg('开始删除模型');
+    } else { // 加载模型
+        var loader = new THREE.BinaryLoader();
 
-    loader.load(this.app.options.server + model.Model, (geometry, materials) => {
-        var mesh = new THREE.Mesh(geometry, materials);
-        mesh.name = model.Name;
-        mesh.rotation.x = -Math.PI / 2;
-        var cmd = new AddObjectCommand(mesh);
-        cmd.execute();
-    });
+        loader.load(this.app.options.server + model.Model, (geometry, materials) => {
+            var mesh = new THREE.Mesh(geometry, materials);
+            mesh.name = model.Name;
+            mesh.rotation.x = -Math.PI / 2;
+            var cmd = new AddObjectCommand(mesh);
+            cmd.execute();
+        });
+    }
 };
 
 export default ModelWindow;
