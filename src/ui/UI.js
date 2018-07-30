@@ -33,6 +33,7 @@ import TableRow from './TableRow';
 import TableData from './TableData';
 import Alert from './Alert';
 import Confirm from './Confirm';
+import Prompt from './Prompt';
 
 /**
  * UI类
@@ -186,7 +187,8 @@ Object.assign(UI, {
     TableRow: TableRow,
     TableData: TableData,
     Alert: Alert,
-    Confirm: Confirm
+    Confirm: Confirm,
+    Prompt: Prompt
 });
 
 // 添加所有控件的XType
@@ -225,6 +227,7 @@ UI.addXType('tr', TableRow);
 UI.addXType('td', TableData);
 UI.addXType('alert', Alert);
 UI.addXType('confirm', Confirm);
+UI.addXType('prompt', Prompt);
 
 // 添加一些实用功能
 Object.assign(UI, {

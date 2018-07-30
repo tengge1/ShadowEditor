@@ -1,17 +1,19 @@
 import Window from './Window';
 
 /**
- * 询问输入框
+ * 提示输入框
  * @param {*} options 选项
  */
 function Prompt(options) {
     Window.call(this, options);
     options = options || {};
 
-    this.title = options.title || '消息';
-    this.content = options.content || '';
+    this.title = options.title || '请输入';
+    this.label = options.label || '';
+    this.value = options.value || '';
 
     this.okText = options.okText || '确认';
+    this.cancelText = options.cancelText || '取消';
 
     this.width = options.width || '320px';
     this.height = options.height || '150px';
@@ -24,8 +26,14 @@ Prompt.prototype.constructor = Prompt;
 
 Prompt.prototype.render = function () {
     this.children = [{
-        xtype: 'html',
-        html: this.content
+        xtype: 'row',
+        children: [{
+            xtype: 'label',
+            text: this.label
+        }, {
+            xtype: 'input',
+            value: this.value
+        }]
     }];
 
     this.buttons = [{
@@ -34,6 +42,8 @@ Prompt.prototype.render = function () {
         onClick: (event) => {
             var result = true;
 
+            debugger
+
             if (this.callback) {
                 result = this.callback.call(this, event);
             }
@@ -41,6 +51,12 @@ Prompt.prototype.render = function () {
             if (result !== false) {
                 this.hide();
             }
+        }
+    }, {
+        xtype: 'button',
+        text: this.cancelText,
+        onClick: (event) => {
+            this.hide();
         }
     }];
 
