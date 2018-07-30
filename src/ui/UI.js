@@ -31,6 +31,7 @@ import TableHead from './TableHead';
 import TableBody from './TableBody';
 import TableRow from './TableRow';
 import TableData from './TableData';
+import Confirm from './Confirm';
 
 /**
  * UI类
@@ -182,7 +183,8 @@ Object.assign(UI, {
     TableHead: TableHead,
     TableBody: TableBody,
     TableRow: TableRow,
-    TableData: TableData
+    TableData: TableData,
+    Confirm: Confirm
 });
 
 // 添加所有控件的XType
@@ -219,6 +221,7 @@ UI.addXType('thead', TableHead);
 UI.addXType('tbody', TableBody);
 UI.addXType('tr', TableRow);
 UI.addXType('td', TableData);
+UI.addXType('confirm', Confirm);
 
 // 添加一些实用功能
 Object.assign(UI, {

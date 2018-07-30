@@ -125,6 +125,14 @@ AddMenu.prototype.render = function () {
                     _this.app.call('mAddSprite');
                 }
             }, {
+                xtype: 'div',
+                id: 'mAddText',
+                html: '文本',
+                cls: 'option',
+                onClick: function () {
+                    _this.app.call('mAddText');
+                }
+            }, {
                 xtype: 'hr'
             }, {
                 xtype: 'div',

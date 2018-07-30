@@ -54,6 +54,7 @@ var EventList = [
     'mAddDirectionalLight', // 添加平行光源
     'mAddHemisphereLight', // 添加半球光
     'mAddAmbientLight', // 添加环境光
+    'mAddText', // 添加文本
     'mAddPerspectiveCamera', // 添加透视相机
 
     'mAddAsset', // 添加模型
