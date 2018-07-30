@@ -1,4 +1,5 @@
 import BaseEvent from '../BaseEvent';
+import UI from '../../ui/UI';
 
 /**
  * 从文件中打开场景事件
@@ -19,20 +20,19 @@ LoadFromHashEvent.prototype.start = function () {
 
         var file = hash.substr(6);
 
-        if (confirm('未保存场景数据将丢失。确定打开文件？')) {
+        UI.confirm('询问', '未保存场景数据将丢失。确定打开文件？', function (event, btn) {
+            if (btn === 'ok') {
+                var loader = new THREE.FileLoader();
+                loader.crossOrigin = '';
 
-            var loader = new THREE.FileLoader();
-            loader.crossOrigin = '';
-            loader.load(file, function (text) {
+                loader.load(file, function (text) {
+                    editor.clear();
+                    editor.fromJSON(JSON.parse(text));
+                });
 
-                editor.clear();
-                editor.fromJSON(JSON.parse(text));
-
-            });
-
-            this.app.isLoadingFromHash = true;
-
-        }
+                this.app.isLoadingFromHash = true;
+            }
+        });
 
     }
 };

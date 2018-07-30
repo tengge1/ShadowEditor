@@ -1,4 +1,5 @@
 import MenuEvent from '../MenuEvent';
+import UI from '../../../ui/UI';
 
 /**
  * 重做事件
@@ -25,9 +26,11 @@ ClearHistoryEvent.prototype.stop = function () {
 ClearHistoryEvent.prototype.onClearHistory = function () {
     var editor = this.app.editor;
 
-    if (confirm('撤销/重做历史纪录将被清空。确定吗？')) {
-        editor.history.clear();
-    }
+    UI.confirm('询问', '撤销/重做历史纪录将被清空。确定吗？', function (event, btn) {
+        if (btn === 'ok') {
+            editor.history.clear();
+        }
+    });
 };
 
 export default ClearHistoryEvent;

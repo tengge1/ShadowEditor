@@ -1,5 +1,6 @@
 import BaseEvent from '../BaseEvent';
 import RemoveObjectCommand from '../../command/RemoveObjectCommand';
+import UI from '../../ui/UI';
 
 /**
  * 键盘按键事件
@@ -41,10 +42,12 @@ KeyDownEvent.prototype.onKeyDown = function (event) {
                 return;
             }
 
-            if (confirm('删除 ' + object.name + '?') === false) return;
-
-            var parent = object.parent;
-            if (parent !== null) editor.execute(new RemoveObjectCommand(object));
+            UI.confirm('询问', '删除 ' + object.name + '?', function (event, btn) {
+                if (btn === 'ok') {
+                    var parent = object.parent;
+                    if (parent !== null) editor.execute(new RemoveObjectCommand(object));
+                }
+            });
 
             break;
 

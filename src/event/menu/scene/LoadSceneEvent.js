@@ -1,4 +1,5 @@
 import MenuEvent from '../MenuEvent';
+import UI from '../../../ui/UI';
 
 /**
  * 载入场景
@@ -25,9 +26,11 @@ LoadSceneEvent.prototype.stop = function () {
 LoadSceneEvent.prototype.onLoadScene = function () {
     var editor = this.app.editor;
 
-    if (confirm('所有未保存数据将丢失，确定吗？')) {
-        editor.load();
-    }
+    UI.confirm('询问', '所有未保存数据将丢失，确定吗？', function (event, btn) {
+        if (btn === 'ok') {
+            editor.load();
+        }
+    });
 };
 
 export default LoadSceneEvent;

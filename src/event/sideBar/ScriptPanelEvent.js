@@ -88,9 +88,11 @@ ScriptPanelEvent.prototype.update = function () {
                             marginLeft: '4px'
                         },
                         onClick: function () {
-                            if (confirm('确定吗？')) {
-                                editor.execute(new RemoveScriptCommand(editor.selected, script));
-                            }
+                            UI.confirm('询问', '确定要删除吗？', function (event, btn) {
+                                if (btn === 'ok') {
+                                    editor.execute(new RemoveScriptCommand(editor.selected, script));
+                                }
+                            });
                         }
                     }, {
                         xtype: 'br'

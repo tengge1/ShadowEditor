@@ -1,5 +1,6 @@
 import MenuEvent from '../MenuEvent';
 import RemoveObjectCommand from '../../../command/RemoveObjectCommand';
+import UI from '../../../ui/UI';
 
 /**
  * 删除事件
@@ -28,12 +29,14 @@ DeleteEvent.prototype.onDelete = function () {
 
     var object = editor.selected;
 
-    if (confirm('删除 ' + object.name + '?') === false) return;
+    UI.confirm('询问', '删除 ' + object.name + '?', function (event, btn) {
+        if (btn === 'ok') {
+            var parent = object.parent;
+            if (parent === undefined) return; // avoid deleting the camera or scene
 
-    var parent = object.parent;
-    if (parent === undefined) return; // avoid deleting the camera or scene
-
-    editor.execute(new RemoveObjectCommand(object));
+            editor.execute(new RemoveObjectCommand(object));
+        }
+    });
 };
 
 export default DeleteEvent;

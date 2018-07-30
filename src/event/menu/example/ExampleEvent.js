@@ -1,4 +1,5 @@
 import MenuEvent from '../MenuEvent';
+import UI from '../../../ui/UI';
 
 /**
  * 示例事件
@@ -38,14 +39,16 @@ ExampleEvent.prototype.stop = function () {
 ExampleEvent.prototype.onExample = function (name) {
     var editor = this.app.editor;
 
-    if (confirm('任何未保存数据将丢失。确定吗？')) {
-        var loader = new THREE.FileLoader();
+    UI.confirm('询问', '任何未保存数据将丢失。确定吗？', function (event, btn) {
+        if (btn === 'ok') {
+            var loader = new THREE.FileLoader();
 
-        loader.load('examples/' + name, function (text) {
-            editor.clear();
-            editor.fromJSON(JSON.parse(text));
-        });
-    }
+            loader.load('examples/' + name, function (text) {
+                editor.clear();
+                editor.fromJSON(JSON.parse(text));
+            });
+        }
+    });
 };
 
 export default ExampleEvent;

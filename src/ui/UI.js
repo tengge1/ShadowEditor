@@ -225,10 +225,31 @@ UI.addXType('confirm', Confirm);
 
 // 添加一些实用功能
 Object.assign(UI, {
-    msg: function (text) {
+    msg: function (text) { // 简洁消息提示框，5秒自动消息并销毁dom
         var msg = UI.create({ xtype: 'msg' });
         msg.render();
         msg.show(text);
+    },
+
+    confirm: function (title, content, callback) { // 询问对话框，点击确认/取消/关闭后自动销毁dom
+        var confirm = UI.create({
+            xtype: 'confirm',
+            title: title,
+            content: content,
+            callback: function (event, btn) {
+                var result = true;
+
+                if (callback) {
+                    result = callback(event, btn);
+                }
+
+                this.destroy(); // 销毁dom
+
+                return result; // 返回true关闭窗口，返回false不关闭窗口
+            }
+        });
+        confirm.render();
+        confirm.show();
     }
 });
 
