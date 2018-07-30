@@ -273,12 +273,7 @@ div.ImageList .Container img {
     width: 100%;
     cursor: pointer;
     border-radius: 3px;
-    /* filter: opacity(0.8) */
 }
-
-/* div.ImageList .Container img:hover {
-    filter: none;
-} */
 
 div.ImageList .Container .IconButton {
     padding: 2px;
@@ -325,6 +320,27 @@ div.MessageBox {
     pointer-events: none;
     border-radius: 3px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
+}
+
+table.Table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.Table .TableHead {
+    font-weight: bold;
+}
+
+table.Table .TableHead td {
+    border: 1px solid #ddd;
+}
+
+table.Table .TableBody tr:nth-child(odd) {
+    background-color: #eee;
+}
+
+table.Table .TableBody td {
+    border: 1px solid #ddd;
 }
 
 ::-webkit-scrollbar {
