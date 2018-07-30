@@ -33,7 +33,7 @@ Confirm.prototype.render = function () {
 
     function onClick(event, btn) {
         if (_this.callback) {
-            if (_this.callback.call(_this, event, btn)) {
+            if (_this.callback.call(_this, event, btn) !== false) {
                 _this.hide();
             }
         }

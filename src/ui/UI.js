@@ -31,6 +31,7 @@ import TableHead from './TableHead';
 import TableBody from './TableBody';
 import TableRow from './TableRow';
 import TableData from './TableData';
+import Alert from './Alert';
 import Confirm from './Confirm';
 
 /**
@@ -184,6 +185,7 @@ Object.assign(UI, {
     TableBody: TableBody,
     TableRow: TableRow,
     TableData: TableData,
+    Alert: Alert,
     Confirm: Confirm
 });
 
@@ -221,6 +223,7 @@ UI.addXType('thead', TableHead);
 UI.addXType('tbody', TableBody);
 UI.addXType('tr', TableRow);
 UI.addXType('td', TableData);
+UI.addXType('alert', Alert);
 UI.addXType('confirm', Confirm);
 
 // 添加一些实用功能
@@ -229,6 +232,29 @@ Object.assign(UI, {
         var msg = UI.create({ xtype: 'msg' });
         msg.render();
         msg.show(text);
+    },
+
+    alert: function (title, content, callback) { // 消息框，点击确认/关闭窗口后自动销毁dom
+        var alert = UI.create({
+            xtype: 'alert',
+            title: title,
+            content: content,
+            callback: function (event) {
+                var result = true;
+
+                if (callback) {
+                    result = callback(event);
+                }
+
+                if (result) {
+                    this.destroy(); // 销毁dom
+                }
+
+                return result; // 返回true关闭窗口，返回false不关闭窗口
+            }
+        });
+        alert.render();
+        alert.show();
     },
 
     confirm: function (title, content, callback) { // 询问对话框，点击确认/取消/关闭后自动销毁dom
@@ -243,7 +269,9 @@ Object.assign(UI, {
                     result = callback(event, btn);
                 }
 
-                this.destroy(); // 销毁dom
+                if (result) {
+                    this.destroy(); // 销毁dom
+                }
 
                 return result; // 返回true关闭窗口，返回false不关闭窗口
             }
