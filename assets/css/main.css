@@ -329,14 +329,27 @@ table.Table {
 
 table.Table .TableHead {
     font-weight: bold;
+    background: #fff;
 }
 
 table.Table .TableHead td {
     border: 1px solid #ddd;
 }
 
+table.Table .TableHead {
+    border-bottom: 2px solid #ccc;
+}
+
+table.Table .TableBody {
+    background-color: #fff;
+}
+
 table.Table .TableBody tr:nth-child(odd) {
     background-color: #eee;
+}
+
+table.Table .TableBody tr:hover {
+    background-color: #ccc;
 }
 
 table.Table .TableBody td {
