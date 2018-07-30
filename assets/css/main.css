@@ -86,13 +86,12 @@ textarea.fail {
 
 input {
     outline: none;
-    border: 1px solid transparent;
+    border: 1px solid #ddd;
     color: #444;
 }
 
 input.Input {
-    padding: 2px;
-    border: 1px solid transparent;
+    padding: 4px;
 }
 
 input.Number {
