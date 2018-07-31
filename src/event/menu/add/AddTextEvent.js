@@ -31,7 +31,7 @@ AddTextEvent.prototype.onAddText = function () {
 AddTextEvent.prototype.drawText = function (text) {
     var canvas = document.createElement('canvas');
 
-    var fontSize = 48;
+    var fontSize = 64;
 
     var ctx = canvas.getContext('2d');
     ctx.font = `${fontSize}px sans-serif`;
