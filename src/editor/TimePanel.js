@@ -12,13 +12,19 @@ TimePanel.prototype = Object.create(Control.prototype);
 TimePanel.prototype.constructor = TimePanel;
 
 TimePanel.prototype.render = function () {
+    return;
     var target = {
         x: 0,
         y: 0,
         rotate: 0
     };
 
-    var timeliner = new Timeliner(target);
+    var timeliner = new Timeliner(target, {
+        position: 'absolute',
+        left: '48px',
+        right: '300px',
+        bottom: '32px'
+    });
 
     timeliner.load({
         'version': '1.2.0',
