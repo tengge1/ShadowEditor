@@ -10,6 +10,7 @@ import Sidebar from './editor/sidebar/Sidebar';
 import StatusBar from './editor/StatusBar';
 import Script from './editor/Script';
 import Player from './editor/Player';
+import TimePanel from './editor/TimePanel';
 
 import Editor from './editor/Editor';
 
@@ -58,6 +59,9 @@ function Application(container, options) {
 
     this.player = new Player(params); // 播放器面板
     this.player.render();
+
+    this.timePanel = new TimePanel(params); // 时间面板
+    this.timePanel.render();
 
     this.running = false;
 
