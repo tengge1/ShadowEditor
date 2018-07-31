@@ -1,8 +1,7 @@
 import MenuEvent from '../MenuEvent';
 import AddObjectCommand from '../../../command/AddObjectCommand';
 import UI from '../../../ui/UI';
-
-var ID = -1;
+import StringUtils from '../../../utils/StringUtils';
 
 /**
  * 添加文本事件
@@ -32,29 +31,37 @@ AddTextEvent.prototype.onAddText = function () {
 AddTextEvent.prototype.drawText = function (text) {
     var canvas = document.createElement('canvas');
 
-    var ctx = canvas.getContext('2d');
-    ctx.font = '24px 微软雅黑';
-    ctx.textBaseline = 'top';
+    var fontSize = 48;
 
-    var padding = 8;
+    var ctx = canvas.getContext('2d');
+    ctx.font = `${fontSize}px sans-serif`;
+
     var textMetrics = ctx.measureText(text);
-    canvas.width = (textMetrics.width + padding * 2);
-    canvas.height = (24 + padding * 2);
+    canvas.width = StringUtils.makePowOfTwo(textMetrics.width);
+    canvas.height = fontSize;
+    ctx.textBaseline = 'hanging';
+    ctx.font = `${fontSize}px sans-serif`; // 重新设置画布大小，前面设置的ctx属性全部失效
 
     ctx.fillStyle = 'rgba(0,0,0,0)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'rgba(255,255,255,1)';
-    ctx.fillText(text, padding, padding);
+    ctx.fillText(text, (canvas.width - textMetrics.width) / 2, 0);
+
+    var map = new THREE.CanvasTexture(canvas, );
 
     var geometry = new THREE.PlaneBufferGeometry(canvas.width / 10, canvas.height / 10);
     var material = new THREE.MeshBasicMaterial({
         color: 0xffffff,
-        map: new THREE.CanvasTexture(canvas)
+        map: map,
+        transparent: true
     });
 
     var mesh = new THREE.Mesh(geometry, material);
     mesh.name = text;
-    this.app.editor.scene.add(mesh);
+
+    var editor = this.app.editor;
+
+    editor.execute(new AddObjectCommand(mesh));
 };
 
 export default AddTextEvent;
