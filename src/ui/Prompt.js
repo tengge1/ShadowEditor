@@ -18,6 +18,13 @@ function Prompt(options) {
     this.width = options.width || '320px';
     this.height = options.height || '150px';
 
+    this.bodyStyle = options.bodyStyle || {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: this.label == null || this.label.trim() == '' ? 'center' : 'space-around'
+    };
+
     this.callback = options.callback || null;
 }
 
@@ -26,14 +33,12 @@ Prompt.prototype.constructor = Prompt;
 
 Prompt.prototype.render = function () {
     this.children = [{
-        xtype: 'row',
-        children: [{
-            xtype: 'label',
-            text: this.label
-        }, {
-            xtype: 'input',
-            value: this.value
-        }]
+        xtype: 'label',
+        text: this.label
+    }, {
+        xtype: 'input',
+        id: `${this.id}-input`,
+        value: this.value
     }];
 
     this.buttons = [{
@@ -42,10 +47,10 @@ Prompt.prototype.render = function () {
         onClick: (event) => {
             var result = true;
 
-            debugger
+            var value = UI.get(`${this.id}-input`).dom.value;
 
             if (this.callback) {
-                result = this.callback.call(this, event);
+                result = this.callback.call(this, event, value);
             }
 
             if (result !== false) {

@@ -64,12 +64,16 @@ Modal.prototype.render = function () {
 };
 
 Modal.prototype.show = function () {
-    this.dom.style.display = 'flex';
+    if (this.dom) {
+        this.dom.style.display = 'flex';
+    }
     return this;
 };
 
 Modal.prototype.hide = function () {
-    this.dom.style.display = 'none';
+    if (this.dom) {
+        this.dom.style.display = 'none';
+    }
     return this;
 };
 

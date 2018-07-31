@@ -17,16 +17,16 @@
         var control = UI.create({
             xtype: 'prompt',
             title: '输入',
-            content: '我吃饭了。',
-            callback: (event) => {
-                UI.msg('你点了确定！');
-                return true;
+            label: '姓名',
+            value: '张三',
+            callback: (event, value) => {
+                UI.msg(`你的姓名是${value}。`);
             }
         });
         control.render();
         control.show();
 
-        // 或者：UI.alert('你好', '测试', () => { console.log('done'); });
+        // 或者：UI.prompt('请输入', '年龄', '20', (event, value) => { console.log(value); });
     </script>
 </body>
 

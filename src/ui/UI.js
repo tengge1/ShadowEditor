@@ -249,7 +249,7 @@ Object.assign(UI, {
                     result = callback(event);
                 }
 
-                if (result) {
+                if (result !== false) {
                     this.destroy(); // 销毁dom
                 }
 
@@ -272,7 +272,7 @@ Object.assign(UI, {
                     result = callback(event, btn);
                 }
 
-                if (result) {
+                if (result !== false) {
                     this.destroy(); // 销毁dom
                 }
 
@@ -281,6 +281,30 @@ Object.assign(UI, {
         });
         confirm.render();
         confirm.show();
+    },
+
+    prompt: function (title, label, value, callback) {
+        var prompt = UI.create({
+            xtype: 'prompt',
+            title: title,
+            label: label,
+            value: value,
+            callback: function (event, value) {
+                var result = true;
+
+                if (callback) {
+                    result = callback(event, value);
+                }
+
+                if (result !== false) {
+                    this.destroy(); // 销毁dom
+                }
+
+                return result; // 返回true关闭窗口，返回false不关闭窗口
+            }
+        });
+        prompt.render();
+        prompt.show();
     }
 });
 
