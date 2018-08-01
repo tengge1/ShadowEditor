@@ -48,6 +48,13 @@ ModelWindow.prototype.render = function () {
             }, {
                 xtype: 'button',
                 text: '编辑分组'
+            }, {
+                xtype: 'toolbarfiller'
+            }, {
+                xtype: 'searchfield',
+                onClick: function () {
+
+                }
             }]
         }, {
             xtype: 'row',

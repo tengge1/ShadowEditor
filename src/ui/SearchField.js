@@ -20,6 +20,7 @@ SearchField.prototype.constructor = SearchField;
 SearchField.prototype.render = function () {
     this.children = [{
         xtype: 'div',
+        parent: this.parent,
         cls: this.cls,
         style: this.style,
         children: [{
