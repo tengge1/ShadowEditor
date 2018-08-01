@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowEditor.Server", "ShadowEditor.Server\ShadowEditor.Server.csproj", "{97CA5444-DA41-47BE-A06C-3684AE2BE234}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowEditor.Web", "ShadowEditor.Web\ShadowEditor.Web.csproj", "{151B5A3E-777B-42B0-9DCD-F1144DB00CAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowEditor.Server", "ShadowEditor.Server\ShadowEditor.Server.csproj", "{C36BA9AC-B45A-49F4-B84F-E588C0BAF86C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{97CA5444-DA41-47BE-A06C-3684AE2BE234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{97CA5444-DA41-47BE-A06C-3684AE2BE234}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{97CA5444-DA41-47BE-A06C-3684AE2BE234}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{97CA5444-DA41-47BE-A06C-3684AE2BE234}.Release|Any CPU.Build.0 = Release|Any CPU
 		{151B5A3E-777B-42B0-9DCD-F1144DB00CAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{151B5A3E-777B-42B0-9DCD-F1144DB00CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{151B5A3E-777B-42B0-9DCD-F1144DB00CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{151B5A3E-777B-42B0-9DCD-F1144DB00CAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C36BA9AC-B45A-49F4-B84F-E588C0BAF86C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C36BA9AC-B45A-49F4-B84F-E588C0BAF86C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C36BA9AC-B45A-49F4-B84F-E588C0BAF86C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C36BA9AC-B45A-49F4-B84F-E588C0BAF86C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

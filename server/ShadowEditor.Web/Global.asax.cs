@@ -9,7 +9,7 @@ using log4net.Config;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 
-namespace ShadowEditor.Server
+namespace ShadowEditor.Client
 {
     public class Global : System.Web.HttpApplication
     {
