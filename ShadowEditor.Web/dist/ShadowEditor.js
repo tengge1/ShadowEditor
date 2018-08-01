@@ -49345,7 +49345,7 @@
 	 */
 	function Options(options) {
 	    options = options || {};
-	    this.server = options.server || 'http://127.0.0.1:1050';
+	    this.server = options.server || location.origin;
 	}
 
 	/**
