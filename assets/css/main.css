@@ -321,6 +321,20 @@ div.MessageBox {
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
 }
 
+div.SearchField {
+    display: flex;
+    flex-direction: row;
+    max-width: 240px;
+}
+
+div.SearchField .Input {
+    flex: 1;
+}
+
+div.SearchField .IconButton i {
+    font-size: 14px;
+}
+
 table.Table {
     width: 100%;
     border-collapse: collapse;

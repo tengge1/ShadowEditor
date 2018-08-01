@@ -34,6 +34,7 @@ import TableData from './TableData';
 import Alert from './Alert';
 import Confirm from './Confirm';
 import Prompt from './Prompt';
+import SearchField from './SearchField';
 
 /**
  * UI类
@@ -188,7 +189,8 @@ Object.assign(UI, {
     TableData: TableData,
     Alert: Alert,
     Confirm: Confirm,
-    Prompt: Prompt
+    Prompt: Prompt,
+    SearchField: SearchField
 });
 
 // 添加所有控件的XType
@@ -228,6 +230,7 @@ UI.addXType('td', TableData);
 UI.addXType('alert', Alert);
 UI.addXType('confirm', Confirm);
 UI.addXType('prompt', Prompt);
+UI.addXType('searchfield', SearchField);
 
 // 添加一些实用功能
 Object.assign(UI, {
