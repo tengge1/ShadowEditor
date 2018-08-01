@@ -8,10 +8,14 @@ function SearchField(options) {
     Control.call(this, options);
     options = options || {};
 
+    this.showSearchButton = options.showSearchButton === undefined ? true : options.showSearchButton;
+    this.showResetButton = options.showResetButton === undefined ? false : options.showResetButton;
+
     this.cls = options.cls || 'SearchField';
     this.style = options.style || {};
 
-    this.onClick = options.onClick || null;
+    this.onSearch = options.onSearch || null;
+    this.onInput = options.onInput || null;
 }
 
 SearchField.prototype = Object.create(Control.prototype);
@@ -25,13 +29,35 @@ SearchField.prototype.render = function () {
         style: this.style,
         children: [{
             xtype: 'input',
-            id: `${this.id}-input`
-        }, {
-            xtype: 'iconbutton',
-            icon: 'icon-search',
-            onClick: this.onClick.bind(this)
+            id: `${this.id}-input`,
+            placeholder: '搜索内容',
+            onInput: this.onInput == null ? null : this.onInput.bind(this)
         }]
     }];
+
+    if (this.showSearchButton) {
+        this.children[0].children.push({
+            xtype: 'iconbutton',
+            icon: 'icon-search',
+            onClick: this.onSearch == null ? null : this.onSearch.bind(this)
+        });
+    }
+
+    if (this.showResetButton) {
+        this.children[0].children.push({
+            xtype: 'iconbutton',
+            icon: 'icon-close',
+            onClick: (event) => {
+                this.reset();
+                if (this.onInput) {
+                    this.onInput(event);
+                }
+                if (this.onSearch) {
+                    this.onSearch(event);
+                }
+            }
+        });
+    }
 
     var control = UI.create(this.children[0]);
     control.render();

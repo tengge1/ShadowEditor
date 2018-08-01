@@ -12,8 +12,10 @@ function Input(options) {
     this.cls = options.cls || 'Input';
     this.style = options.style || null;
     this.disabled = options.disabled || false;
+    this.placeholder = options.placeholder || null;
 
     this.onChange = options.onChange || null;
+    this.onInput = options.onInput || null;
 };
 
 Input.prototype = Object.create(Control.prototype);
@@ -32,6 +34,10 @@ Input.prototype.render = function () {
         this.dom.disabled = 'disabled';
     }
 
+    if (this.placeholder) {
+        this.dom.placeholder = this.placeholder;
+    }
+
     this.dom.addEventListener('keydown', function (event) {
         event.stopPropagation();
     }, false);
@@ -40,6 +46,10 @@ Input.prototype.render = function () {
 
     if (this.onChange) {
         this.dom.addEventListener('change', this.onChange.bind(this));
+    }
+
+    if (this.onInput) {
+        this.dom.addEventListener('input', this.onInput.bind(this));
     }
 
     this.setValue(this.value);

@@ -17,6 +17,8 @@ ModelWindow.prototype = Object.create(UI.Control.prototype);
 ModelWindow.prototype.constructor = ModelWindow;
 
 ModelWindow.prototype.render = function () {
+    var _this = this;
+
     var container = UI.create({
         xtype: 'window',
         id: 'modelWindow',
@@ -52,8 +54,10 @@ ModelWindow.prototype.render = function () {
                 xtype: 'toolbarfiller'
             }, {
                 xtype: 'searchfield',
-                onClick: function () {
-
+                showSearchButton: false,
+                showResetButton: true,
+                onInput: function () {
+                    _this.onSearch(this.getValue());
                 }
             }]
         }, {
@@ -72,6 +76,9 @@ ModelWindow.prototype.render = function () {
     container.render();
 };
 
+/**
+ * 显示模型文件列表
+ */
 ModelWindow.prototype.show = function () {
     var app = this.app;
     var server = app.options.server;
@@ -81,20 +88,39 @@ ModelWindow.prototype.show = function () {
     // 刷新模型列表
     Ajax.getJson(`${server}/api/Model/List`, (obj) => {
         this.models = obj.Data;
-
-        var images = UI.get('modelWindowImages');
-        images.clear();
-
-        images.children = obj.Data.map((n) => {
-            return {
-                xtype: 'image',
-                src: n.Image == null ? 'test/image/girl.jpg' : (server + n.Image),
-                title: n.Name
-            };
-        });;
-
-        images.render();
+        this.renderImages(this.models);
     });
+};
+
+ModelWindow.prototype.renderImages = function (models) {
+    var images = UI.get('modelWindowImages');
+    images.clear();
+
+    images.children = models.map((n) => {
+        return {
+            xtype: 'image',
+            src: n.Image == null ? 'test/image/girl.jpg' : (server + n.Image),
+            title: n.Name
+        };
+    });;
+
+    images.render();
+};
+
+/**
+ * 搜索模型文件
+ * @param {*} name 
+ */
+ModelWindow.prototype.onSearch = function (name) {
+    if (name.trim() === '') {
+        this.renderImages(this.models);
+        return;
+    }
+
+    var models = this.models.filter((n) => {
+        return n.Name.indexOf(name) > -1;
+    });
+    this.renderImages(models);
 };
 
 ModelWindow.prototype.onAddFile = function () {

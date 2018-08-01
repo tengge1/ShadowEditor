@@ -16,7 +16,7 @@
     <script>
         var control = UI.create({
             xtype: 'searchfield',
-            onClick: function () {
+            onSearch: function () {
                 UI.msg(`你搜索的是：${this.getValue()}`);
             }
         });
