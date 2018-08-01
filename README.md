@@ -17,6 +17,29 @@
 3. 物体、几何体、材质编辑。
 4. js脚本编辑智能提示。
 
+## 使用方法
+
+**该项目仅支持Windows系统，电脑上需要安装.Net Framework 4.5。**
+
+1. 安装`NodeJs`，转到`ShadowEditor.Web`目录，运行以下命令。
+
+```bash
+npm install
+npm run build
+```
+
+2. 下载`MongoDB`，安装并启动MongoDB服务
+
+3. 编辑文件`ShadowEditor.Web/Web.config`，将`27017`修改为你电脑上MongoDB服务的端口。
+
+```xml
+<add key="mongo_connection" value="mongodb://127.0.0.1:27017" />
+```
+
+4. 使用`Visual Studio 2017`打开项目，生成`ShadowEditor.Web`项目。
+
+5. 将`ShadowEditor.Web`部署在iis上即可在浏览器中访问。
+
 ## 项目截图
 
 **基本界面**
