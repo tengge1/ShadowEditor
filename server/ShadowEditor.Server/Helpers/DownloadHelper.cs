@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace ShadowServer.Helpers
+namespace ShadowEditor.Server.Helpers
 {
     /// <summary>
     /// 下载帮助类

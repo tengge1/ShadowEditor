@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using log4net;
 
-namespace ShadowServer.Helpers
+namespace ShadowEditor.Server.Helpers
 {
     /// <summary>
     /// 文件记录帮助类（记录在文本文件，可自动记录NHibernate和Spring.NET的日志）

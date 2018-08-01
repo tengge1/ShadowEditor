@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
-using ShadowServer.Helpers;
+using ShadowEditor.Server.Helpers;
 
-namespace ShadowServer.Base
+namespace ShadowEditor.Server.Base
 {
     /// <summary>
     /// 所有API控制器的基类

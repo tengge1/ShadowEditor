@@ -6,10 +6,10 @@ using System.Web.Http;
 using System.Web.Security;
 using System.Web.SessionState;
 using log4net.Config;
-using ShadowServer.Base;
-using ShadowServer.Helpers;
+using ShadowEditor.Server.Base;
+using ShadowEditor.Server.Helpers;
 
-namespace ShadowServer
+namespace ShadowEditor.Server
 {
     public class Global : System.Web.HttpApplication
     {

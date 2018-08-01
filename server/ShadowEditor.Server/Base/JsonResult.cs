@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowServer.Base
+namespace ShadowEditor.Server.Base
 {
     /// <summary>
     /// json执行结果

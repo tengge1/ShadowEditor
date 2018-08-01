@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace ShadowServer.Helpers
+namespace ShadowEditor.Server.Helpers
 {
     /// <summary>
     /// JSON帮助类

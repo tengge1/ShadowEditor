@@ -9,10 +9,10 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using MongoDB.Bson;
 using Newtonsoft.Json.Linq;
-using ShadowServer.Base;
-using ShadowServer.Helpers;
+using ShadowEditor.Server.Base;
+using ShadowEditor.Server.Helpers;
 
-namespace ShadowServer.Controllers
+namespace ShadowEditor.Server.Controllers
 {
     /// <summary>
     /// 模型控制器

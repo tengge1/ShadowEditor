@@ -6,7 +6,7 @@ using System.Text;
 using System.IO;
 using System.Net;
 
-namespace ShadowServer.Helpers
+namespace ShadowEditor.Server.Helpers
 {
     /// <summary>
     /// Http帮助类

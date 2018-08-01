@@ -8,7 +8,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using System.Web.Security;
 
-namespace ShadowServer.Base
+namespace ShadowEditor.Server.Base
 {
     /// <summary>
     /// ApiController权限验证属性

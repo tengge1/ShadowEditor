@@ -6,7 +6,7 @@ using System.Web;
 using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip;
 
-namespace ShadowServer.Helpers
+namespace ShadowEditor.Server.Helpers
 {
     /// <summary>
     /// Zip文件帮助类

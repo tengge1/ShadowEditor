@@ -8,7 +8,7 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using Newtonsoft.Json;
 
-namespace ShadowServer.Helpers
+namespace ShadowEditor.Server.Helpers
 {
     /// <summary>
     /// MongoDB帮助类
