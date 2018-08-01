@@ -3,7 +3,7 @@
 * 名称：Shadow Editor
 * 版本：v0.0.3
 * 说明：基于`three.js`的场景编辑器。
-* 示例：https://tengge1.github.io/ShadowEditor/demo/index.html
+* 示例：https://tengge1.github.io/ShadowEditor/ShadowEditor.Web/demo/index.html
 * 文档：https://tengge1.github.io/ShadowEditor/docs/release/index.html
 
 ## 主要功能
