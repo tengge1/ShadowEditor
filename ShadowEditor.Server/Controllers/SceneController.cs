@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
@@ -43,6 +44,16 @@ namespace ShadowEditor.Server.Controllers
         /// <returns></returns>
         public JsonResult Save(SaveSceneModel model)
         {
+            if (model.Name.StartsWith("_"))
+            {
+                return Json(new
+                {
+                    Code = 200,
+                    Msg = "场景名称不允许以下划线开头"
+                });
+            }
+
+            // 保存场景信息
             var list = JsonHelper.ToObject<JArray>(model.Data);
 
             var docs = new List<BsonDocument>();
@@ -54,11 +65,31 @@ namespace ShadowEditor.Server.Controllers
 
             var mongo = new MongoHelper();
 
-            // 删除原来所有数据
             mongo.DeleteAll(model.Name);
-
-            // 重新添加修改过的数据
             mongo.InsertMany(model.Name, docs);
+
+            // 保存场景综合信息
+            var filter = Builders<BsonDocument>.Filter.Eq("Name", model.Name);
+            var doc = mongo.FindOne("_Scene", filter);
+
+            var now = DateTime.Now;
+
+            if (doc.IsBsonNull)
+            {
+                doc = new BsonDocument();
+                doc["Name"] = model.Name;
+                doc["Version"] = 0;
+                doc["CreateTime"] = BsonDateTime.Create(now);
+                doc["UpdateTime"] = BsonDateTime.Create(now);
+                mongo.InsertOne("_Scene", doc);
+            }
+            else
+            {
+                var update1 = Builders<BsonDocument>.Update.Set("Version", int.Parse(doc["Version"].ToString()) + 1);
+                var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", BsonDateTime.Create(now));
+                var update = Builders<BsonDocument>.Update.Combine(update1, update2);
+                mongo.UpdateOne("_Scene", filter, update);
+            }
 
             return Json(new
             {
