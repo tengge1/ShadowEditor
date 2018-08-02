@@ -5,6 +5,8 @@
 function Options(options) {
     options = options || {};
     this.server = options.server || location.origin;
+
+    this.gravityConstant = -9.8; // 重力加速度
 }
 
 export default Options;

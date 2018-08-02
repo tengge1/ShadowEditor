@@ -25,6 +25,8 @@ function Editor(app) {
 
     this.sceneHelpers = new THREE.Scene();
 
+    this.sceneName = null; // 当前场景名称
+
     // 相机
     this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 0.1, 10000);
     this.DEFAULT_CAMERA.name = '默认相机';

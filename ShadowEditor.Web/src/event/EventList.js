@@ -73,6 +73,8 @@ var EventList = [
     'mAddFire', // 添加火焰
     'mAddSmoke', // 添加烟
 
+    'mAddCloth', // 添加布料
+
     'mParticleEmitter', // 粒子发射器
 
     'mPlay', // 启动

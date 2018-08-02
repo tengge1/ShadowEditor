@@ -50,8 +50,6 @@ const Converter = {
             }
         });
 
-        debugger
-
         return list;
     },
 

@@ -15,26 +15,42 @@ SaveEvent.prototype = Object.create(BaseEvent.prototype);
 SaveEvent.prototype.constructor = SaveEvent;
 
 SaveEvent.prototype.start = function () {
-    var _this = this;
-    this.app.on('save.' + this.id, function () {
-        _this.onSave();
-    });
+    this.app.on(`save.${this.id}`, this.onBeforeSave.bind(this));
 };
 
 SaveEvent.prototype.stop = function () {
-    this.app.on('save.' + this.id, null);
+    this.app.on(`save.${this.id}`, null);
 };
 
-SaveEvent.prototype.onSave = function () {
+SaveEvent.prototype.onBeforeSave = function () {
+    var sceneName = this.app.editor.sceneName;
+
+    if (sceneName == null) {
+        var tempName = 'Scene' + new Date().getTime();
+        UI.prompt('正在保存...', '场景名称', tempName, (event, name) => {
+            this.app.editor.sceneName = name;
+            document.title = name;
+            this.onSave(name);
+        });
+    } else {
+        this.onSave(sceneName);
+    }
+};
+
+SaveEvent.prototype.onSave = function (sceneName) {
     var obj = Converter.toJSON(this.app);
 
+    debugger
+
     Ajax.post(this.app.options.server + '/api/Scene/Save', {
-        Name: 'Scene1',
+        Name: sceneName,
         Data: JSON.stringify(obj)
     }, function (result) {
         var obj = JSON.parse(result);
         UI.msg(obj.Msg);
     });
 };
+
+
 
 export default SaveEvent;

@@ -28,19 +28,11 @@ PhysicsMenu.prototype.render = function () {
             cls: 'options',
             children: [{
                 xtype: 'div',
-                id: 'mParticleEmitter',
-                html: '刚体',
+                id: 'mAddCloth',
+                html: '添加布料',
                 cls: 'option',
                 onClick: function () {
-
-                }
-            }, {
-                xtype: 'div',
-                id: 'mParticleEmitter',
-                html: '软体',
-                cls: 'option',
-                onClick: function () {
-
+                    _this.app.call('mAddCloth', _this);
                 }
             }]
         }]

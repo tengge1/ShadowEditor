@@ -13,6 +13,7 @@ import Player from './editor/Player';
 import TimePanel from './editor/TimePanel';
 
 import Editor from './editor/Editor';
+import Physics from './editor/Physics';
 
 /**
  * 应用程序
@@ -62,6 +63,10 @@ function Application(container, options) {
 
     this.timePanel = new TimePanel(params); // 时间面板
     this.timePanel.render();
+
+    // 物理引擎
+    this.physics = new Physics(params);
+    this.physics.init();
 
     this.running = false;
 
