@@ -40,8 +40,6 @@ SaveEvent.prototype.onBeforeSave = function () {
 SaveEvent.prototype.onSave = function (sceneName) {
     var obj = Converter.toJSON(this.app);
 
-    debugger
-
     Ajax.post(this.app.options.server + '/api/Scene/Save', {
         Name: sceneName,
         Data: JSON.stringify(obj)
