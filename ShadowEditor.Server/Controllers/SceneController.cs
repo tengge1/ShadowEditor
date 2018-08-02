@@ -19,6 +19,38 @@ namespace ShadowEditor.Server.Controllers
     public class SceneController : ApiBase
     {
         /// <summary>
+        /// 获取场景列表
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult List()
+        {
+            var mongo = new MongoHelper();
+            var scenes = mongo.FindAll(Constant.SceneCollectionName);
+
+            var list = new List<SceneInfo>();
+
+            foreach (var i in scenes)
+            {
+                var info = new SceneInfo
+                {
+                    Name = i["Name"].AsString,
+                    CollectionName = i["CollectionName"].AsString,
+                    Version = i["Version"].AsInt32,
+                    CreateTime = i["CreateTime"].ToUniversalTime(),
+                    UpdateTime = i["UpdateTime"].ToUniversalTime()
+                };
+                list.Add(info);
+            }
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "获取成功！",
+                Data = list
+            });
+        }
+
+        /// <summary>
         /// 加载场景
         /// </summary>
         /// <param name="name">场景名称</param>
@@ -44,13 +76,59 @@ namespace ShadowEditor.Server.Controllers
         /// <returns></returns>
         public JsonResult Save(SaveSceneModel model)
         {
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "场景名称不允许为空。"
+                });
+            }
+
             if (model.Name.StartsWith("_"))
             {
                 return Json(new
                 {
-                    Code = 200,
-                    Msg = "场景名称不允许以下划线开头"
+                    Code = 300,
+                    Msg = "场景名称不允许以下划线开头。"
                 });
+            }
+
+            // 查询场景信息
+            var mongo = new MongoHelper();
+            var filter = Builders<BsonDocument>.Filter.Eq("Name", model.Name);
+            var doc = mongo.FindOne(Constant.SceneCollectionName, filter);
+
+            var now = DateTime.Now;
+
+            string collectionName;
+
+            if (doc.IsBsonNull)
+            {
+                collectionName = "Scene" + now.ToString("yyyyMMddHHmmss");
+            }
+            else
+            {
+                collectionName = doc["CollectionName"].ToString();
+            }
+
+            // 保存或更新场景综合信息
+            if (doc.IsBsonNull)
+            {
+                doc = new BsonDocument();
+                doc["Name"] = model.Name;
+                doc["CollectionName"] = collectionName;
+                doc["Version"] = 0;
+                doc["CreateTime"] = BsonDateTime.Create(now);
+                doc["UpdateTime"] = BsonDateTime.Create(now);
+                mongo.InsertOne(Constant.SceneCollectionName, doc);
+            }
+            else
+            {
+                var update1 = Builders<BsonDocument>.Update.Set("Version", int.Parse(doc["Version"].ToString()) + 1);
+                var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", BsonDateTime.Create(now));
+                var update = Builders<BsonDocument>.Update.Combine(update1, update2);
+                mongo.UpdateOne(Constant.SceneCollectionName, filter, update);
             }
 
             // 保存场景信息
@@ -63,33 +141,8 @@ namespace ShadowEditor.Server.Controllers
                 docs.Add(BsonDocument.Parse(i.ToString()));
             }
 
-            var mongo = new MongoHelper();
-
-            mongo.DeleteAll(model.Name);
-            mongo.InsertMany(model.Name, docs);
-
-            // 保存场景综合信息
-            var filter = Builders<BsonDocument>.Filter.Eq("Name", model.Name);
-            var doc = mongo.FindOne("_Scene", filter);
-
-            var now = DateTime.Now;
-
-            if (doc.IsBsonNull)
-            {
-                doc = new BsonDocument();
-                doc["Name"] = model.Name;
-                doc["Version"] = 0;
-                doc["CreateTime"] = BsonDateTime.Create(now);
-                doc["UpdateTime"] = BsonDateTime.Create(now);
-                mongo.InsertOne("_Scene", doc);
-            }
-            else
-            {
-                var update1 = Builders<BsonDocument>.Update.Set("Version", int.Parse(doc["Version"].ToString()) + 1);
-                var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", BsonDateTime.Create(now));
-                var update = Builders<BsonDocument>.Update.Combine(update1, update2);
-                mongo.UpdateOne("_Scene", filter, update);
-            }
+            mongo.DeleteAll(collectionName);
+            mongo.InsertMany(collectionName, docs);
 
             return Json(new
             {
@@ -113,5 +166,36 @@ namespace ShadowEditor.Server.Controllers
         /// 数据
         /// </summary>
         public string Data { get; set; }
+    }
+
+    /// <summary>
+    /// 场景信息
+    /// </summary>
+    public class SceneInfo
+    {
+        /// <summary>
+        /// 场景名称
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 场景表名
+        /// </summary>
+        public string CollectionName { get; set; }
+
+        /// <summary>
+        /// 场景版本号
+        /// </summary>
+        public int Version { get; set; }
+
+        /// <summary>
+        /// 场景创建时间
+        /// </summary>
+        public DateTime CreateTime { get; set; }
+
+        /// <summary>
+        /// 场景更新时间
+        /// </summary>
+        public DateTime UpdateTime { get; set; }
     }
 }

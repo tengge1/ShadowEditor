@@ -96,6 +96,7 @@
     <Compile Include="Base\JsonResult.cs" />
     <Compile Include="Base\WebApiConfig.cs" />
     <Compile Include="Base\XmlResult.cs" />
+    <Compile Include="Constant.cs" />
     <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\SceneController.cs" />
     <Compile Include="Helpers\DownloadHelper.cs" />
