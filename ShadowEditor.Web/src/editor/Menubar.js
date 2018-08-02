@@ -5,6 +5,7 @@ import EditMenu from './menubar/EditMenu';
 import AddMenu from './menubar/AddMenu';
 import AssetMenu from './menubar/AssetMenu';
 import AnimationMenu from './menubar/AnimationMenu';
+import PhysicsMenu from './menubar/PhysicsMenu';
 import ComponentMenu from './menubar/ComponentMenu';
 import PlayMenu from './menubar/PlayMenu';
 import ViewMenu from './menubar/ViewMenu';
@@ -42,6 +43,7 @@ Menubar.prototype.render = function () {
             new AddMenu(params),
             new AssetMenu(params),
             new AnimationMenu(params),
+            new PhysicsMenu(params),
             new ComponentMenu(params),
             new PlayMenu(params),
             new ViewMenu(params),

@@ -46421,6 +46421,54 @@
 	};
 
 	/**
+	 * 物体菜单
+	 * @param {*} options 
+	 */
+	function PhysicsMenu(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	PhysicsMenu.prototype = Object.create(UI$1.Control.prototype);
+	PhysicsMenu.prototype.constructor = PhysicsMenu;
+
+	PhysicsMenu.prototype.render = function () {
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'menu',
+	        children: [{
+	            xtype: 'div',
+	            cls: 'title',
+	            html: '物理'
+	        }, {
+	            xtype: 'div',
+	            cls: 'options',
+	            children: [{
+	                xtype: 'div',
+	                id: 'mParticleEmitter',
+	                html: '刚体',
+	                cls: 'option',
+	                onClick: function () {
+
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mParticleEmitter',
+	                html: '软体',
+	                cls: 'option',
+	                onClick: function () {
+
+	                }
+	            }]
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
 	 * 组件菜单
 	 * @param {*} options 
 	 */
@@ -46722,6 +46770,7 @@
 	            new AddMenu(params),
 	            new AssetMenu(params),
 	            new AnimationMenu(params),
+	            new PhysicsMenu(params),
 	            new ComponentMenu(params),
 	            new PlayMenu(params),
 	            new ViewMenu(params),
