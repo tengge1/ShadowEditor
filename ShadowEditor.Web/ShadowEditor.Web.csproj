@@ -848,7 +848,9 @@
     <Content Include="third_party\WaterShader.js" />
     <Content Include="third_party\workers\OffscreenCanvas.js" />
     <Content Include="third_party\zlib_and_gzip.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">

@@ -1,5 +1,5 @@
 import BaseSerializer from '../BaseSerializer';
-import Application from '../../Application';
+// import Application from '../../Application';
 
 /**
  * 配置序列化器
@@ -12,13 +12,16 @@ ConfigSerializer.prototype = Object.create(BaseSerializer.prototype);
 ConfigSerializer.prototype.constructor = ConfigSerializer;
 
 ConfigSerializer.prototype.filter = function (obj) {
-    if (obj instanceof Application) {
-        return true;
-    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
-        return true;
-    } else {
-        return false;
-    }
+    // TODO: 消除rollup打包Circular dependency警告
+
+    // if (obj instanceof Application) {
+    //     return true;
+    // } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
+    //     return true;
+    // } else {
+    //     return false;
+    // }
+    return false;
 };
 
 ConfigSerializer.prototype.toJSON = function (app) {
