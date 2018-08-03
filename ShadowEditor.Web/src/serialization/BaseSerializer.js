@@ -13,11 +13,11 @@ function BaseSerializer() {
 }
 
 /**
- * 判断对象或字符串是否满足转换条件，满足返回true，不满足返回false
+ * 判断对象是否满足转换条件，满足返回true，不满足返回false
  * @param {*} obj 
  */
 BaseSerializer.prototype.filter = function (obj) {
-
+    return false;
 };
 
 /**
@@ -25,14 +25,21 @@ BaseSerializer.prototype.filter = function (obj) {
  * @param {*} obj 对象
  */
 BaseSerializer.prototype.toJSON = function (obj) {
-    return {};
+    var json = {};
+    Object.assign(json, this.metadata);
+    return json;
 };
 
 /**
  * json转对象
- * @param {*} json json字符串
+ * @param {*} json json对象
+ * @param {*} parent 父对象
  */
-BaseSerializer.prototype.fromJSON = function (json) {
+BaseSerializer.prototype.fromJSON = function (json, parent) {
+    if (parent) {
+        return parent;
+    }
+
     return null;
 };
 

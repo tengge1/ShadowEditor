@@ -11,6 +11,16 @@ function PerspectiveCameraSerializer() {
 PerspectiveCameraSerializer.prototype = Object.create(BaseSerializer.prototype);
 PerspectiveCameraSerializer.prototype.constructor = PerspectiveCameraSerializer;
 
+PerspectiveCameraSerializer.prototype.filter = function (obj) {
+    if (obj instanceof THREE.PerspectiveCamera) {
+        return true;
+    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 PerspectiveCameraSerializer.prototype.toJSON = function (obj) {
     var json = CameraSerializer.prototype.toJSON(obj);
 
@@ -27,8 +37,12 @@ PerspectiveCameraSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-PerspectiveCameraSerializer.prototype.fromJSON = function (json) {
+PerspectiveCameraSerializer.prototype.fromJSON = function (json, parent) {
+    var obj = parent === undefined ? new THREE.PerspectiveCamera() : parent;
 
+    // TODO: THREE.PerspectiveCamera 反序列化
+
+    return obj;
 };
 
 export default PerspectiveCameraSerializer;

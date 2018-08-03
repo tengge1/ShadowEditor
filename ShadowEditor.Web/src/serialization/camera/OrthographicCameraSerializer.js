@@ -11,6 +11,16 @@ function OrthographicCameraSerializer() {
 OrthographicCameraSerializer.prototype = Object.create(BaseSerializer.prototype);
 OrthographicCameraSerializer.prototype.constructor = OrthographicCameraSerializer;
 
+OrthographicCameraSerializer.prototype.filter = function (obj) {
+    if (obj instanceof THREE.OrthographicCamera) {
+        return true;
+    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 OrthographicCameraSerializer.prototype.toJSON = function (obj) {
     var json = CameraSerializer.prototype.toJSON(obj);
 
@@ -26,8 +36,12 @@ OrthographicCameraSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-OrthographicCameraSerializer.prototype.fromJSON = function (json) {
+OrthographicCameraSerializer.prototype.fromJSON = function (json, parent) {
+    var obj = parent === undefined ? new THREE.OrthographicCamera() : parent;
 
+    // TODO: THREE.OrthographicCamera反序列化
+
+    return obj;
 };
 
 export default OrthographicCameraSerializer;

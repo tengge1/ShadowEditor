@@ -52,25 +52,23 @@ Converter.prototype = Object.create(BaseSerializer.prototype);
 Converter.prototype.constructor = Converter;
 
 Converter.prototype.filter = function (obj) {
-    return true;
+    return false;
 };
 
 Converter.prototype.toJSON = function (app) {
     var list = [];
 
     // 配置
-    var config = {
-        Metadata: Serializers.Config.Metadata,
-        Object: Serializers.Config.Serializer.toJSON(app.editor.config),
-    };
+    var config = (new ConfigSerializer()).toJSON(app);
     list.push(config);
 
     // 相机
-    var camera = {
-        Metadata: Serializers.PerspectiveCamera.Metadata,
-        Object: Serializers.PerspectiveCamera.Serializer.toJSON(app.editor.camera)
-    };
-    list.push(camera);
+    var camera;
+    if (app.editor.camera instanceof THREE.OrthographicCamera) {
+        camera = (new OrthographicCameraSerializer()).toJSON(app.editor.camera);
+    } else {
+        camera = (new PerspectiveCameraSerializer()).toJSON(app.editor.camera);
+    }
 
     // 脚本
     Object.keys(app.editor.scripts).forEach(function (id) {
@@ -88,17 +86,17 @@ Converter.prototype.toJSON = function (app) {
     });
 
     // 场景
-    app.editor.scene.traverse(function (obj) {
-        if (Serializers[obj.constructor.name] != null) {
-            var json = {
-                Metadata: Serializers[obj.constructor.name].Metadata,
-                Object: Serializers[obj.constructor.name].Serializer.toJSON(obj)
-            };
-            list.push(json);
-        } else {
-            console.log(`There is no serializer to serialize ${obj.name}`);
-        }
-    });
+    // app.editor.scene.traverse(function (obj) {
+    //     if (Serializers[obj.constructor.name] != null) {
+    //         var json = {
+    //             Metadata: Serializers[obj.constructor.name].Metadata,
+    //             Object: Serializers[obj.constructor.name].Serializer.toJSON(obj)
+    //         };
+    //         list.push(json);
+    //     } else {
+    //         console.log(`There is no serializer to serialize ${obj.name}`);
+    //     }
+    // });
 
     return list;
 };

@@ -10,13 +10,23 @@ function Object3DSerializer() {
 Object3DSerializer.prototype = Object.create(BaseSerializer.prototype);
 Object3DSerializer.prototype.constructor = Object3DSerializer;
 
+Object3DSerializer.prototype.filter = function (obj) {
+    if (obj instanceof THREE.Object3D) {
+        return true;
+    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 Object3DSerializer.prototype.toJSON = function (obj) {
     var json = BaseSerializer.prototype.toJSON(obj);
 
     json.type = obj.type;
     json.uuid = obj.uuid;
     json.castShadow = obj.castShadow;
-    json.children = obj.children.map(function (child) {
+    json.children = obj.children.map(child => {
         return child.uuid;
     });
     json.frustumCulled = obj.frustumCulled;
@@ -46,8 +56,12 @@ Object3DSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-Object3DSerializer.prototype.fromJSON = function (json) {
+Object3DSerializer.prototype.fromJSON = function (json, parent) {
+    var obj = parent === undefined ? THREE.Object3D : parent;
 
+    // TODO: Object3D反序列化
+
+    return obj;
 };
 
 export default Object3DSerializer;

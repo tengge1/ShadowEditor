@@ -35486,11 +35486,11 @@
 	}
 
 	/**
-	 * 判断对象或字符串是否满足转换条件，满足返回true，不满足返回false
+	 * 判断对象是否满足转换条件，满足返回true，不满足返回false
 	 * @param {*} obj 
 	 */
 	BaseSerializer.prototype.filter = function (obj) {
-
+	    return false;
 	};
 
 	/**
@@ -35498,14 +35498,21 @@
 	 * @param {*} obj 对象
 	 */
 	BaseSerializer.prototype.toJSON = function (obj) {
-	    return {};
+	    var json = {};
+	    Object.assign(json, this.metadata);
+	    return json;
 	};
 
 	/**
 	 * json转对象
-	 * @param {*} json json字符串
+	 * @param {*} json json对象
+	 * @param {*} parent 父对象
 	 */
-	BaseSerializer.prototype.fromJSON = function (json) {
+	BaseSerializer.prototype.fromJSON = function (json, parent) {
+	    if (parent) {
+	        return parent;
+	    }
+
 	    return null;
 	};
 
@@ -35519,13 +35526,23 @@
 	Object3DSerializer.prototype = Object.create(BaseSerializer.prototype);
 	Object3DSerializer.prototype.constructor = Object3DSerializer;
 
+	Object3DSerializer.prototype.filter = function (obj) {
+	    if (obj instanceof THREE.Object3D) {
+	        return true;
+	    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	};
+
 	Object3DSerializer.prototype.toJSON = function (obj) {
 	    var json = BaseSerializer.prototype.toJSON(obj);
 
 	    json.type = obj.type;
 	    json.uuid = obj.uuid;
 	    json.castShadow = obj.castShadow;
-	    json.children = obj.children.map(function (child) {
+	    json.children = obj.children.map(child => {
 	        return child.uuid;
 	    });
 	    json.frustumCulled = obj.frustumCulled;
@@ -35555,8 +35572,12 @@
 	    return json;
 	};
 
-	Object3DSerializer.prototype.fromJSON = function (json) {
+	Object3DSerializer.prototype.fromJSON = function (json, parent) {
+	    var obj = parent === undefined ? THREE.Object3D : parent;
 
+	    // TODO: Object3D反序列化
+
+	    return obj;
 	};
 
 	/**
@@ -35608,7 +35629,5599 @@
 	};
 
 	/**
-	 * Object3D序列化器
+	 * 配置选项
+	 * @param {*} options 配置选项
+	 */
+	function Options(options) {
+	    options = options || {};
+	    this.server = options.server || location.origin;
+
+	    this.gravityConstant = -9.8; // 重力加速度
+	}
+
+	/**
+	 * Logo标志
+	 * @param {*} options 
+	 */
+	function Logo(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	Logo.prototype = Object.create(UI$1.Control.prototype);
+	Logo.prototype.constructor = Logo;
+
+	Logo.prototype.render = function () {
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'logo',
+	        html: '<i class="iconfont icon-shadow"></i>'
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 场景菜单
+	 * @param {*} options 
+	 */
+	function SceneMenu(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	SceneMenu.prototype = Object.create(UI$1.Control.prototype);
+	SceneMenu.prototype.constructor = SceneMenu;
+
+	SceneMenu.prototype.render = function () {
+	    var _this = this;
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'menu',
+	        children: [{
+	            xtype: 'div',
+	            cls: 'title',
+	            html: '场景'
+	        }, {
+	            xtype: 'div',
+	            cls: 'options',
+	            children: [{
+	                xtype: 'div',
+	                id: 'mNewScene',
+	                html: '新建',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mNewScene');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mLoadScene',
+	                html: '载入',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mLoadScene');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mSaveScene',
+	                html: '保存',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mSaveScene');
+	                }
+	            }, {
+	                xtype: 'hr'
+	            }, {
+	                xtype: 'div',
+	                id: 'mPublishScene',
+	                html: '发布',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mPublishScene');
+	                }
+	            }]
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 编辑菜单
+	 * @param {*} options 
+	 */
+	function EditMenu(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	EditMenu.prototype = Object.create(UI$1.Control.prototype);
+	EditMenu.prototype.constructor = EditMenu;
+
+	EditMenu.prototype.render = function () {
+	    var _this = this;
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'menu',
+	        children: [{
+	            xtype: 'div',
+	            cls: 'title',
+	            html: '编辑'
+	        }, {
+	            xtype: 'div',
+	            cls: 'options',
+	            children: [{
+	                xtype: 'div',
+	                id: 'mUndo',
+	                html: '撤销(Ctrl+Z)',
+	                cls: 'option inactive',
+	                onClick: function () {
+	                    _this.app.call('mUndo');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mRedo',
+	                html: '重做(Ctrl+Shift+Z)',
+	                cls: 'option inactive',
+	                onClick: function () {
+	                    _this.app.call('mRedo');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mClearHistory',
+	                html: '清空历史记录',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mClearHistory');
+	                }
+	            }, {
+	                xtype: 'hr'
+	            }, {
+	                xtype: 'div',
+	                id: 'mClone',
+	                html: '复制',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mClone');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mDelete',
+	                html: '删除(Del)',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mDelete');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mMinifyShader',
+	                html: '压缩着色器程序',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mMinifyShader');
+	                }
+	            }]
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 添加菜单
+	 * @param {*} options 
+	 */
+	function AddMenu(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	AddMenu.prototype = Object.create(UI$1.Control.prototype);
+	AddMenu.prototype.constructor = AddMenu;
+
+	AddMenu.prototype.render = function () {
+	    var _this = this;
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'menu',
+	        children: [{
+	            xtype: 'div',
+	            cls: 'title',
+	            html: '添加'
+	        }, {
+	            xtype: 'div',
+	            cls: 'options',
+	            children: [{
+	                xtype: 'div',
+	                id: 'mAddGroup',
+	                html: '组',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddGroup');
+	                }
+	            }, {
+	                xtype: 'hr'
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddPlane',
+	                html: '平板',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddPlane');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddBox',
+	                html: '正方体',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddBox');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddCircle',
+	                html: '圆',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddCircle');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddCylinder',
+	                html: '圆柱体',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddCylinder');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddSphere',
+	                html: '球体',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddSphere');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddIcosahedron',
+	                html: '二十面体',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddIcosahedron');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddTorus',
+	                html: '轮胎',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddTorus');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddTorusKnot',
+	                html: '扭结',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddTorusKnot');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddTeaport',
+	                html: '茶壶',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddTeaport');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddLathe',
+	                html: '花瓶',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddLathe');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddSprite',
+	                html: '精灵',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddSprite');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddText',
+	                html: '文本',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddText');
+	                }
+	            }, {
+	                xtype: 'hr'
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddPointLight',
+	                html: '点光源',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddPointLight');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddSpotLight',
+	                html: '聚光灯',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddSpotLight');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddDirectionalLight',
+	                html: '平行光源',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddDirectionalLight');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddHemisphereLight',
+	                html: '半球光',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddHemisphereLight');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddAmbientLight',
+	                html: '环境光',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddAmbientLight');
+	                }
+	            }, {
+	                xtype: 'hr'
+	            }, {
+	                xtype: 'div',
+	                id: 'mAddPerspectiveCamera',
+	                html: '透视相机',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddPerspectiveCamera');
+	                }
+	            }]
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 资源菜单
+	 * @param {*} options 
+	 */
+	function AssetMenu(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	AssetMenu.prototype = Object.create(UI$1.Control.prototype);
+	AssetMenu.prototype.constructor = AssetMenu;
+
+	AssetMenu.prototype.render = function () {
+	    var _this = this;
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'menu',
+	        children: [{
+	            xtype: 'div',
+	            cls: 'title',
+	            html: '资源'
+	        }, {
+	            xtype: 'div',
+	            cls: 'options',
+	            children: [{
+	                xtype: 'div',
+	                id: 'mAddAsset',
+	                html: '添加模型',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddAsset');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mImportAsset',
+	                html: '导入模型',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mImportAsset');
+	                }
+	            }, {
+	                xtype: 'hr'
+	            }, {
+	                xtype: 'div',
+	                id: 'mExportGeometry',
+	                html: '导出几何体',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mExportGeometry');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mExportObject',
+	                html: '导出物体',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mExportObject');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mExportScene',
+	                html: '导出场景',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mExportScene');
+	                }
+	            }, {
+	                xtype: 'hr'
+	            }, {
+	                xtype: 'div',
+	                id: 'mExportGLTF',
+	                html: '导出gltf文件',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mExportGLTF');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mExportMMD',
+	                html: '导出mmd文件',
+	                cls: 'option inactive',
+	                onClick: function () {
+	                    _this.app.call('mExportMMD');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mExportOBJ',
+	                html: '导出obj文件',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mExportOBJ');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mExportPLY',
+	                html: '导出ply文件',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mExportPLY');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mExportSTLB',
+	                html: '导出stl二进制文件',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mExportSTLB');
+	                }
+	            }, {
+	                xtype: 'div',
+	                id: 'mExportSTL',
+	                html: '导出stl文件',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mExportSTL');
+	                }
+	            }]
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 动画菜单
+	 * @param {*} options 
+	 */
+	function AnimationMenu(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	AnimationMenu.prototype = Object.create(UI$1.Control.prototype);
+	AnimationMenu.prototype.constructor = AnimationMenu;
+
+	AnimationMenu.prototype.render = function () {
+	    var _this = this;
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'menu',
+	        children: [{
+	            xtype: 'div',
+	            cls: 'title',
+	            html: '动画'
+	        }, {
+	            xtype: 'div',
+	            cls: 'options',
+	            children: [{
+	                id: 'mPerson',
+	                xtype: 'div',
+	                cls: 'option',
+	                html: '人',
+	                onClick: function () {
+	                    _this.app.call('mAddPerson', _this);
+	                }
+	            }, {
+	                id: 'mFire',
+	                xtype: 'div',
+	                cls: 'option',
+	                html: '火焰',
+	                onClick: function () {
+	                    _this.app.call('mAddFire', _this);
+	                }
+	            }, {
+	                id: 'mSmoke',
+	                xtype: 'div',
+	                cls: 'option',
+	                html: '烟',
+	                onClick: function () {
+	                    _this.app.call('mAddSmoke', _this);
+	                }
+	            }]
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 物体菜单
+	 * @param {*} options 
+	 */
+	function PhysicsMenu(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	PhysicsMenu.prototype = Object.create(UI$1.Control.prototype);
+	PhysicsMenu.prototype.constructor = PhysicsMenu;
+
+	PhysicsMenu.prototype.render = function () {
+	    var _this = this;
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'menu',
+	        children: [{
+	            xtype: 'div',
+	            cls: 'title',
+	            html: '物理'
+	        }, {
+	            xtype: 'div',
+	            cls: 'options',
+	            children: [{
+	                xtype: 'div',
+	                id: 'mAddCloth',
+	                html: '添加布料',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mAddCloth', _this);
+	                }
+	            }]
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 组件菜单
+	 * @param {*} options 
+	 */
+	function ComponentMenu(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	ComponentMenu.prototype = Object.create(UI$1.Control.prototype);
+	ComponentMenu.prototype.constructor = ComponentMenu;
+
+	ComponentMenu.prototype.render = function () {
+	    var _this = this;
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'menu',
+	        children: [{
+	            xtype: 'div',
+	            cls: 'title',
+	            html: '组件'
+	        }, {
+	            xtype: 'div',
+	            cls: 'options',
+	            children: [{
+	                xtype: 'div',
+	                id: 'mParticleEmitter',
+	                html: '粒子发射器',
+	                cls: 'option',
+	                onClick: function () {
+	                    _this.app.call('mParticleEmitter');
+	                }
+	            }]
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 启动菜单
+	 * @param {*} options 
+	 */
+	function PlayMenu(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	PlayMenu.prototype = Object.create(UI$1.Control.prototype);
+	PlayMenu.prototype.constructor = PlayMenu;
+
+	PlayMenu.prototype.render = function () {
+	    var _this = this;
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'menu',
+	        children: [{
+	            id: 'mPlay',
+	            xtype: 'div',
+	            cls: 'title',
+	            html: '启动',
+	            onClick: function () {
+	                _this.app.call('mPlay');
+	            }
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 视图菜单
+	 * @param {*} options 
+	 */
+	function ViewMenu(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	ViewMenu.prototype = Object.create(UI$1.Control.prototype);
+	ViewMenu.prototype.constructor = ViewMenu;
+
+	ViewMenu.prototype.render = function () {
+	    var _this = this;
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'menu',
+	        children: [{
+	            xtype: 'div',
+	            cls: 'title',
+	            html: '视图'
+	        }, {
+	            xtype: 'div',
+	            cls: 'options',
+	            children: [{
+	                id: 'mVRMode',
+	                xtype: 'div',
+	                cls: 'option',
+	                html: 'VR模式',
+	                onClick: function () {
+	                    _this.app.call('mVRMode');
+	                }
+	            }]
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 示例菜单
+	 * @param {*} options 
+	 */
+	function ExampleMenu(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	ExampleMenu.prototype = Object.create(UI$1.Control.prototype);
+	ExampleMenu.prototype.constructor = ExampleMenu;
+
+	ExampleMenu.prototype.render = function () {
+	    var _this = this;
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'menu',
+	        children: [{
+	            xtype: 'div',
+	            cls: 'title',
+	            html: '示例'
+	        }, {
+	            xtype: 'div',
+	            cls: 'options',
+	            children: [{
+	                id: 'mArkanoid',
+	                xtype: 'div',
+	                cls: 'option',
+	                html: '打砖块',
+	                onClick: function () {
+	                    _this.app.call('mArkanoid');
+	                }
+	            }, {
+	                id: 'mCamera',
+	                xtype: 'div',
+	                cls: 'option',
+	                html: '相机',
+	                onClick: function () {
+	                    _this.app.call('mCamera');
+	                }
+	            }, {
+	                id: 'mParticles',
+	                xtype: 'div',
+	                cls: 'option',
+	                html: '粒子',
+	                onClick: function () {
+	                    _this.app.call('mParticles');
+	                }
+	            }, {
+	                id: 'mPong',
+	                xtype: 'div',
+	                cls: 'option',
+	                html: '乒乓球',
+	                onClick: function () {
+	                    _this.app.call('mPong');
+	                }
+	            }]
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 帮助菜单
+	 * @param {*} options 
+	 */
+	function HelpMenu(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+
+	HelpMenu.prototype = Object.create(UI$1.Control.prototype);
+	HelpMenu.prototype.constructor = HelpMenu;
+
+	HelpMenu.prototype.render = function () {
+	    var _this = this;
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'menu',
+	        children: [{
+	            xtype: 'div',
+	            cls: 'title',
+	            html: '帮助'
+	        }, {
+	            xtype: 'div',
+	            cls: 'options',
+	            children: [{
+	                id: 'mSourceCode',
+	                xtype: 'div',
+	                cls: 'option',
+	                html: '源码',
+	                onClick: function () {
+	                    _this.app.call('mSourceCode');
+	                }
+	            }, {
+	                id: 'mAbout',
+	                xtype: 'div',
+	                cls: 'option',
+	                html: '关于',
+	                onClick: function () {
+	                    _this.app.call('mAbout');
+	                }
+	            }]
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 状态菜单（菜单栏右侧）
+	 * @param {*} options 
+	 */
+	function StatusMenu(options) {
+	    UI$1.Control.call(this, options);
+	    options = options || {};
+
+	    this.app = options.app;
+	}
+
+	StatusMenu.prototype = Object.create(UI$1.Control.prototype);
+	StatusMenu.prototype.constructor = StatusMenu;
+
+	StatusMenu.prototype.render = function () {
+	    var _this = this;
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        id: 'mStatus',
+	        parent: this.parent,
+	        cls: 'menu right',
+	        children: [{
+	            id: 'bAutoSave',
+	            xtype: 'boolean',
+	            text: '自动保存',
+	            value: true,
+	            style: {
+	                color: '#888 !important;'
+	            },
+	            onChange: function (e) {
+	                _this.app.editor.config.setKey('autosave', e.target.checked);
+	                _this.app.call('sceneGraphChanged', _this);
+	            }
+	        }, {
+	            xtype: 'text',
+	            text: 'r' + THREE.REVISION,
+	            cls: 'title version'
+	        }]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 菜单栏
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function Menubar(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	Menubar.prototype = Object.create(UI$1.Control.prototype);
+	Menubar.prototype.constructor = Menubar;
+
+	Menubar.prototype.render = function () {
+	    var params = { app: this.app };
+
+	    var container = UI$1.create({
+	        xtype: 'div',
+	        id: 'menubar',
+	        cls: 'menubar',
+	        parent: this.parent,
+	        children: [
+	            // Logo
+	            new Logo(params),
+
+	            // 左侧
+	            new SceneMenu(params),
+	            new EditMenu(params),
+	            new AddMenu(params),
+	            new AssetMenu(params),
+	            new AnimationMenu(params),
+	            new PhysicsMenu(params),
+	            new ComponentMenu(params),
+	            new PlayMenu(params),
+	            new ViewMenu(params),
+	            new ExampleMenu(params),
+	            new HelpMenu(params),
+
+	            // 右侧
+	            new StatusMenu(params)
+	        ]
+	    });
+
+	    container.render();
+	};
+
+	/**
+	 * 工具栏
+	 */
+	function Toolbar(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	Toolbar.prototype = Object.create(UI$1.Control.prototype);
+	Toolbar.prototype.constructor = Toolbar;
+
+	Toolbar.prototype.render = function () {
+
+	    var data = {
+	        xtype: 'div',
+	        id: 'toolbar',
+	        parent: this.app.container,
+	        cls: 'toolbar',
+	        children: [{
+	            xtype: 'iconbutton',
+	            id: 'selectBtn',
+	            icon: 'icon-select',
+	            cls: 'Button IconButton selected',
+	            title: '选择'
+	        }, {
+	            xtype: 'iconbutton',
+	            id: 'translateBtn',
+	            icon: 'icon-translate',
+	            title: '平移(W)'
+	        }, {
+	            xtype: 'iconbutton',
+	            id: 'rotateBtn',
+	            icon: 'icon-rotate',
+	            title: '旋转(E)'
+	        }, {
+	            xtype: 'iconbutton',
+	            id: 'scaleBtn',
+	            icon: 'icon-scale',
+	            title: '缩放(R)'
+	        }, {
+	            xtype: 'hr'
+	        }, {
+	            xtype: 'iconbutton',
+	            id: 'modelBtn',
+	            icon: 'icon-model-view',
+	            title: '模型'
+	        }
+	            // , {
+	            //     xtype: 'iconbutton',
+	            //     id: 'handBtn',
+	            //     icon: 'icon-hand',
+	            //     title: '抓手'
+	            // }, {
+	            //     xtype: 'iconbutton',
+	            //     id: 'anchorPointBtn',
+	            //     icon: 'icon-anchor-point',
+	            //     title: '添加锚点'
+	            // }, {
+	            //     xtype: 'iconbutton',
+	            //     id: 'pathBtn',
+	            //     icon: 'icon-path',
+	            //     title: '绘制路径'
+	            // }
+	        ]
+	    };
+
+	    var control = UI$1.create(data);
+	    control.render();
+	};
+
+	/**
+	 * 场景编辑区
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function Viewport(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	Viewport.prototype = Object.create(UI$1.Control.prototype);
+	Viewport.prototype.constructor = Viewport;
+
+	Viewport.prototype.render = function () {
+	    this.container = UI$1.create({
+	        xtype: 'div',
+	        id: 'viewport',
+	        parent: this.app.container,
+	        cls: 'viewport'
+	    });
+	    this.container.render();
+	};
+
+	/**
+	 * 场景面板
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function ScenePanel(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	ScenePanel.prototype = Object.create(UI$1.Control.prototype);
+	ScenePanel.prototype.constructor = ScenePanel;
+
+	ScenePanel.prototype.render = function () {
+	    var editor = this.app.editor;
+
+	    var _this = this;
+
+	    var onFogChanged = function () {
+	        var fogType = UI$1.get('fogType');
+	        var fogColor = UI$1.get('fogColor');
+	        var fogNear = UI$1.get('fogNear');
+	        var fogFar = UI$1.get('fogFar');
+	        var fogDensity = UI$1.get('fogDensity');
+
+	        _this.app.call('sceneFogChanged',
+	            _this,
+	            fogType.getValue(),
+	            fogColor.getHexValue(),
+	            fogNear.getValue(),
+	            fogFar.getValue(),
+	            fogDensity.getValue()
+	        );
+	    };
+
+	    var refreshFogUI = function () {
+	        _this.app.call('updateScenePanelFog', _this);
+	    };
+
+	    var data = {
+	        xtype: 'div',
+	        id: 'scenePanel',
+	        parent: this.parent,
+	        cls: 'Panel',
+	        children: [{ // outliner
+	            xtype: 'outliner',
+	            id: 'outliner',
+	            editor: editor,
+	            onChange: function () {
+	                _this.app.call('outlinerChange', _this, this);
+	            },
+	            onDblClick: function () {
+	                editor.focusById(parseInt(this.getValue()));
+	            }
+	        }, {
+	            xtype: 'br'
+	        }, { // background
+	            xtype: 'row',
+	            id: 'backgroundRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '背景',
+	                style: {
+	                    width: '90px'
+	                }
+	            }, {
+	                xtype: 'color',
+	                id: 'backgroundColor',
+	                value: '#aaaaaa',
+	                onChange: function () {
+	                    _this.app.call('sceneBackgroundChanged', _this, this.getHexValue());
+	                }
+	            }]
+	        }, { // fog
+	            xtype: 'row',
+	            id: 'fogTypeRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '雾',
+	                style: {
+	                    width: '90px'
+	                }
+	            }, {
+	                xtype: 'select',
+	                id: 'fogType',
+	                options: {
+	                    'None': '无',
+	                    'Fog': '线性',
+	                    'FogExp2': '指数型'
+	                },
+	                style: {
+	                    width: '150px'
+	                },
+	                onChange: function () {
+	                    onFogChanged();
+	                    refreshFogUI();
+	                }
+	            }]
+	        }, {
+	            xtype: 'row',
+	            id: 'fogPropertiesRow',
+	            children: [{ // fog color
+	                xtype: 'color',
+	                id: 'fogColor',
+	                value: '#aaaaaa',
+	                onChange: onFogChanged
+	            }, { // fog near
+	                xtype: 'number',
+	                id: 'fogNear',
+	                value: 0.1,
+	                style: {
+	                    width: '40px'
+	                },
+	                range: [0, Infinity],
+	                onChange: onFogChanged
+	            }, { // fog far
+	                xtype: 'number',
+	                id: 'fogFar',
+	                value: 50,
+	                style: {
+	                    width: '40px'
+	                },
+	                range: [0, Infinity],
+	                onChange: onFogChanged
+	            }, { // fog density
+	                xtype: 'number',
+	                id: 'fogDensity',
+	                value: 0.05,
+	                style: {
+	                    width: '40px'
+	                },
+	                range: [0, 0.1],
+	                precision: 3,
+	                onChange: onFogChanged
+	            }]
+	        }]
+	    };
+
+	    var control = UI$1.create(data);
+	    control.render();
+	};
+
+	/**
+	 * @author dforrer / https://github.com/dforrer
+	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
+	 */
+
+	/**
+	 * @param object THREE.Object3D
+	 * @param newUuid string
+	 * @constructor
+	 */
+
+	function SetUuidCommand(object, newUuid) {
+
+		Command.call(this);
+
+		this.type = 'SetUuidCommand';
+		this.name = 'Update UUID';
+
+		this.object = object;
+
+		this.oldUuid = (object !== undefined) ? object.uuid : undefined;
+		this.newUuid = newUuid;
+
+	}
+	SetUuidCommand.prototype = Object.create(Command.prototype);
+
+	Object.assign(SetUuidCommand.prototype, {
+
+		constructor: SetUuidCommand,
+
+		execute: function () {
+
+			this.object.uuid = this.newUuid;
+			this.editor.app.call('objectChanged', this, this.object);
+			this.editor.app.call('sceneGraphChanged', this);
+
+		},
+
+		undo: function () {
+
+			this.object.uuid = this.oldUuid;
+			this.editor.app.call('objectChanged', this, this.object);
+			this.editor.app.call('sceneGraphChanged', this);
+
+		},
+
+		toJSON: function () {
+
+			var output = Command.prototype.toJSON.call(this);
+
+			output.oldUuid = this.oldUuid;
+			output.newUuid = this.newUuid;
+
+			return output;
+
+		},
+
+		fromJSON: function (json) {
+
+			Command.prototype.fromJSON.call(this, json);
+
+			this.oldUuid = json.oldUuid;
+			this.newUuid = json.newUuid;
+			this.object = this.editor.objectByUuid(json.oldUuid);
+
+			if (this.object === undefined) {
+
+				this.object = this.editor.objectByUuid(json.newUuid);
+
+			}
+
+		}
+
+	});
+
+	/**
+	 * @author dforrer / https://github.com/dforrer
+	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
+	 */
+
+	/**
+	 * @param object THREE.Object3D
+	 * @param attributeName string
+	 * @param newValue number, string, boolean or object
+	 * @constructor
+	 */
+
+	function SetValueCommand(object, attributeName, newValue) {
+
+		Command.call(this);
+
+		this.type = 'SetValueCommand';
+		this.name = 'Set ' + attributeName;
+		this.updatable = true;
+
+		this.object = object;
+		this.attributeName = attributeName;
+		this.oldValue = (object !== undefined) ? object[attributeName] : undefined;
+		this.newValue = newValue;
+
+	}
+	SetValueCommand.prototype = Object.create(Command.prototype);
+
+	Object.assign(SetValueCommand.prototype, {
+
+		constructor: SetValueCommand,
+
+		execute: function () {
+			this.object[this.attributeName] = this.newValue;
+			this.editor.app.call('objectChanged', this, this.object);
+		},
+
+		undo: function () {
+			this.object[this.attributeName] = this.oldValue;
+			this.editor.app.call('objectChanged', this, this.object);
+		},
+
+		update: function (cmd) {
+
+			this.newValue = cmd.newValue;
+
+		},
+
+		toJSON: function () {
+
+			var output = Command.prototype.toJSON.call(this);
+
+			output.objectUuid = this.object.uuid;
+			output.attributeName = this.attributeName;
+			output.oldValue = this.oldValue;
+			output.newValue = this.newValue;
+
+			return output;
+
+		},
+
+		fromJSON: function (json) {
+
+			Command.prototype.fromJSON.call(this, json);
+
+			this.attributeName = json.attributeName;
+			this.oldValue = json.oldValue;
+			this.newValue = json.newValue;
+			this.object = this.editor.objectByUuid(json.objectUuid);
+
+		}
+
+	});
+
+	/**
+	 * 物体面板
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function ObjectPanel(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	ObjectPanel.prototype = Object.create(UI$1.Control.prototype);
+	ObjectPanel.prototype.constructor = ObjectPanel;
+
+	ObjectPanel.prototype.render = function () {
+	    var editor = this.app.editor;
+
+	    var _this = this;
+
+	    var update = function () {
+	        _this.app.call('updateObject', _this);
+	    };
+
+	    var data = {
+	        xtype: 'div',
+	        id: 'objectPanel',
+	        parent: this.parent,
+	        cls: 'Panel',
+	        style: {
+	            borderTop: 0,
+	            paddingTop: '20px',
+	            display: 'none'
+	        },
+	        children: [{ // type
+	            xtype: 'row',
+	            id: 'objectTypeRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '类型'
+	            }, {
+	                xtype: 'text',
+	                id: 'objectType'
+	            }]
+	        }, { // uuid
+	            xtype: 'row',
+	            id: 'objectUUIDRow',
+	            children: [{
+	                xtype: 'label',
+	                text: 'UUID'
+	            }, {
+	                xtype: 'input',
+	                id: 'objectUUID',
+	                style: {
+	                    width: '102px',
+	                    fontSize: '12px'
+	                },
+	                disabled: true
+	            }, {
+	                xtype: 'button',
+	                id: 'objectUUIDRenew',
+	                text: '新建',
+	                style: {
+	                    marginLeft: '7px'
+	                },
+	                onClick: function () {
+	                    var objectUUID = UI$1.get('objectUUID');
+	                    objectUUID.setValue(THREE.Math.generateUUID());
+	                    editor.execute(new SetUuidCommand(editor.selected, objectUUID.getValue()));
+	                }
+	            }]
+	        }, { // name
+	            xtype: 'row',
+	            id: 'objectNameRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '名称'
+	            }, {
+	                xtype: 'input',
+	                id: 'objectName',
+	                style: {
+	                    width: '150px',
+	                    fontSize: '12px'
+	                },
+	                onChange: function () {
+	                    editor.execute(new SetValueCommand(editor.selected, 'name', this.getValue()));
+	                }
+	            }]
+	        }, { // position
+	            xtype: 'row',
+	            id: 'objectPositionRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '位置'
+	            }, {
+	                xtype: 'number',
+	                id: 'objectPositionX',
+	                style: {
+	                    width: '50px'
+	                },
+	                onChange: update
+	            }, {
+	                xtype: 'number',
+	                id: 'objectPositionY',
+	                style: {
+	                    width: '50px'
+	                },
+	                onChange: update
+	            }, {
+	                xtype: 'number',
+	                id: 'objectPositionZ',
+	                style: {
+	                    width: '50px'
+	                },
+	                onChange: update
+	            }]
+	        }, { // rotation
+	            xtype: 'row',
+	            id: 'objectRotationRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '旋转'
+	            }, {
+	                xtype: 'number',
+	                id: 'objectRotationX',
+	                step: 10,
+	                unit: '°',
+	                style: {
+	                    width: '50px'
+	                },
+	                onChange: update
+	            }, {
+	                xtype: 'number',
+	                id: 'objectRotationY',
+	                step: 10,
+	                unit: '°',
+	                style: {
+	                    width: '50px'
+	                },
+	                onChange: update
+	            }, {
+	                xtype: 'number',
+	                id: 'objectRotationZ',
+	                step: 10,
+	                unit: '°',
+	                style: {
+	                    width: '50px'
+	                },
+	                onChange: update
+	            }]
+	        }, { // scale
+	            xtype: 'row',
+	            id: 'objectScaleRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '尺寸'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'objectScaleLock',
+	                value: true,
+	                style: {
+	                    position: 'absolute',
+	                    left: '75px'
+	                }
+	            }, {
+	                xtype: 'number',
+	                id: 'objectScaleX',
+	                value: 1,
+	                range: [0.01, Infinity],
+	                style: {
+	                    width: '50px'
+	                },
+	                onChange: function () {
+	                    _this.app.call('updateScaleX', _this);
+	                }
+	            }, {
+	                xtype: 'number',
+	                id: 'objectScaleY',
+	                value: 1,
+	                range: [0.01, Infinity],
+	                style: {
+	                    width: '50px'
+	                },
+	                onChange: function () {
+	                    _this.app.call('updateScaleY', _this);
+	                }
+	            }, {
+	                xtype: 'number',
+	                id: 'objectScaleZ',
+	                value: 1,
+	                range: [0.01, Infinity],
+	                style: {
+	                    width: '50px'
+	                },
+	                onChange: function () {
+	                    _this.app.call('updateScaleZ', _this);
+	                }
+	            }]
+	        }, { // fov
+	            xtype: 'row',
+	            id: 'objectFovRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '视场'
+	            }, {
+	                xtype: 'number',
+	                id: 'objectFov',
+	                onChange: update
+	            }]
+	        }, { // near
+	            xtype: 'row',
+	            id: 'objectNearRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '近点'
+	            }, {
+	                xtype: 'number',
+	                id: 'objectNear',
+	                onChange: update
+	            }]
+	        }, { // far
+	            xtype: 'row',
+	            id: 'objectFarRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '远点'
+	            }, {
+	                xtype: 'number',
+	                id: 'objectFar',
+	                onChange: update
+	            }]
+	        }, { // intensity
+	            xtype: 'row',
+	            id: 'objectIntensityRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '强度'
+	            }, {
+	                xtype: 'number',
+	                id: 'objectIntensity',
+	                range: [0, Infinity],
+	                onChange: update
+	            }]
+	        }, { // color
+	            xtype: 'row',
+	            id: 'objectColorRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '颜色'
+	            }, {
+	                xtype: 'color',
+	                id: 'objectColor',
+	                onChange: update
+	            }]
+	        }, { // ground color
+	            xtype: 'row',
+	            id: 'objectGroundColorRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '地面颜色'
+	            }, {
+	                xtype: 'color',
+	                id: 'objectGroundColor',
+	                onChange: update
+	            }]
+	        }, { // distance
+	            xtype: 'row',
+	            id: 'objectDistanceRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '距离'
+	            }, {
+	                xtype: 'number',
+	                id: 'objectDistance',
+	                range: [0, Infinity],
+	                onChange: update
+	            }]
+	        }, { // angle
+	            xtype: 'row',
+	            id: 'objectAngleRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '角度'
+	            }, {
+	                xtype: 'number',
+	                id: 'objectAngle',
+	                precision: 3,
+	                range: [0, Math.PI / 2],
+	                onChange: update
+	            }]
+	        }, { // penumbra
+	            xtype: 'row',
+	            id: 'objectPenumbraRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '边缘'
+	            }, {
+	                xtype: 'number',
+	                id: 'objectPenumbra',
+	                range: [0, 1],
+	                onChange: update
+	            }]
+	        }, { // decay
+	            xtype: 'row',
+	            id: 'objectDecayRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '衰变'
+	            }, {
+	                xtype: 'number',
+	                id: 'objectDecay',
+	                range: [0, Infinity],
+	                onChange: update
+	            }]
+	        }, { // shadow
+	            xtype: 'row',
+	            id: 'objectShadowRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '阴影'
+	            }, {
+	                xtype: 'boolean',
+	                id: 'objectCastShadow',
+	                value: false,
+	                text: '产生',
+	                onChange: update
+	            }, {
+	                xtype: 'boolean',
+	                id: 'objectReceiveShadow',
+	                value: false,
+	                text: '接收',
+	                onChange: update
+	            }, {
+	                xtype: 'number',
+	                id: 'objectShadowRadius',
+	                value: 1,
+	                onChange: update
+	            }]
+	        }, { // visible
+	            xtype: 'row',
+	            id: 'objectVisibleRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '可见性'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'objectVisible',
+	                onChange: update
+	            }]
+	        }, { // user data
+	            xtype: 'row',
+	            id: 'objectUserDataRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '用户数据'
+	            }, {
+	                xtype: 'textarea',
+	                id: 'objectUserData',
+	                style: {
+	                    width: '150px',
+	                    height: '40px',
+	                    fontSize: '12px'
+	                },
+	                onChange: update,
+	                onKeyUp: function () {
+	                    try {
+	                        JSON.parse(this.getValue());
+	                        this.dom.classList.add('success');
+	                        this.dom.classList.remove('fail');
+	                    } catch (error) {
+	                        this.dom.classList.remove('success');
+	                        this.dom.classList.add('fail');
+	                    }
+	                }
+	            }]
+	        }]
+	    };
+
+	    var control = UI$1.create(data);
+	    control.render();
+	};
+
+	/**
+	 * @author dforrer / https://github.com/dforrer
+	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
+	 */
+
+	/**
+	 * @param object THREE.Object3D
+	 * @param attributeName string
+	 * @param newValue number, string, boolean or object
+	 * @constructor
+	 */
+
+	function SetGeometryValueCommand(object, attributeName, newValue) {
+
+		Command.call(this);
+
+		this.type = 'SetGeometryValueCommand';
+		this.name = 'Set Geometry.' + attributeName;
+
+		this.object = object;
+		this.attributeName = attributeName;
+		this.oldValue = (object !== undefined) ? object.geometry[attributeName] : undefined;
+		this.newValue = newValue;
+
+	}
+	SetGeometryValueCommand.prototype = Object.create(Command.prototype);
+
+	Object.assign(SetGeometryValueCommand.prototype, {
+
+		constructor: SetGeometryValueCommand,
+
+		execute: function () {
+
+			this.object.geometry[this.attributeName] = this.newValue;
+			this.editor.app.call('objectChanged', this, this.object);
+			this.editor.app.call('geometryChanged', this);
+			this.editor.app.call('sceneGraphChanged', this);
+
+		},
+
+		undo: function () {
+
+			this.object.geometry[this.attributeName] = this.oldValue;
+			this.editor.app.call('objectChanged', this, this.object);
+			this.editor.app.call('geometryChanged', this);
+			this.editor.app.call('sceneGraphChanged', this);
+
+		},
+
+		toJSON: function () {
+
+			var output = Command.prototype.toJSON.call(this);
+
+			output.objectUuid = this.object.uuid;
+			output.attributeName = this.attributeName;
+			output.oldValue = this.oldValue;
+			output.newValue = this.newValue;
+
+			return output;
+
+		},
+
+		fromJSON: function (json) {
+
+			Command.prototype.fromJSON.call(this, json);
+
+			this.object = this.editor.objectByUuid(json.objectUuid);
+			this.attributeName = json.attributeName;
+			this.oldValue = json.oldValue;
+			this.newValue = json.newValue;
+
+		}
+
+	});
+
+	/**
+	 * 几何体信息面板
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function GeometryInfoPanel(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	GeometryInfoPanel.prototype = Object.create(UI$1.Control.prototype);
+	GeometryInfoPanel.prototype.constructor = GeometryInfoPanel;
+
+	GeometryInfoPanel.prototype.render = function () {
+	    var editor = this.app.editor;
+
+	    this.children = {
+	        'xtype': 'row',
+	        parent: this.parent,
+	        children: [{ // vertices
+	            xtype: 'row',
+	            children: [{
+	                xtype: 'label',
+	                text: '顶点'
+	            }, {
+	                xtype: 'text',
+	                id: 'geometryInfoVertices'
+	            }]
+	        }, { // faces
+	            xtype: 'row',
+	            children: [{
+	                xtype: 'label',
+	                text: '面'
+	            }, {
+	                xtype: 'text',
+	                id: 'geometryInfoFaces',
+	            }]
+	        }]
+	    };
+
+	    var container = UI$1.create(this.children);
+	    container.render();
+
+	    function update(object) {
+	        var vertices = UI$1.get('geometryInfoVertices');
+	        var faces = UI$1.get('geometryInfoFaces');
+
+	        if (object === null) return; // objectSelected.dispatch( null )
+	        if (object === undefined) return;
+
+	        var geometry = object.geometry;
+
+	        if (geometry instanceof THREE.Geometry) {
+	            container.dom.style.display = 'block';
+
+	            vertices.setValue((geometry.vertices.length).format());
+	            faces.setValue((geometry.faces.length).format());
+	        } else {
+	            container.dom.style.display = 'none';
+	        }
+	    }
+
+	    this.app.on('objectSelected.GeometryInfoPanel', function (mesh) {
+	        update(mesh);
+	    });
+
+	    this.app.on('geometryChanged.GeometryInfoPanel', function (mesh) {
+	        update(mesh);
+	    });
+	};
+
+	/**
+	 * @author dforrer / https://github.com/dforrer
+	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
+	 */
+
+	/**
+	 * @param object THREE.Object3D
+	 * @param newGeometry THREE.Geometry
+	 * @constructor
+	 */
+
+	function SetGeometryCommand(object, newGeometry) {
+
+		Command.call(this);
+
+		this.type = 'SetGeometryCommand';
+		this.name = 'Set Geometry';
+		this.updatable = true;
+
+		this.object = object;
+		this.oldGeometry = (object !== undefined) ? object.geometry : undefined;
+		this.newGeometry = newGeometry;
+
+	}
+	SetGeometryCommand.prototype = Object.create(Command.prototype);
+
+	Object.assign(SetGeometryCommand.prototype, {
+
+		constructor: SetGeometryCommand,
+
+		execute: function () {
+
+			this.object.geometry.dispose();
+			this.object.geometry = this.newGeometry;
+			this.object.geometry.computeBoundingSphere();
+
+			this.editor.app.call('geometryChanged', this, this.object);
+			this.editor.app.call('sceneGraphChanged', this);
+
+		},
+
+		undo: function () {
+
+			this.object.geometry.dispose();
+			this.object.geometry = this.oldGeometry;
+			this.object.geometry.computeBoundingSphere();
+
+			this.editor.app.call('geometryChanged', this, this.object);
+			this.editor.app.call('sceneGraphChanged', this);
+
+		},
+
+		update: function (cmd) {
+
+			this.newGeometry = cmd.newGeometry;
+
+		},
+
+		toJSON: function () {
+
+			var output = Command.prototype.toJSON.call(this);
+
+			output.objectUuid = this.object.uuid;
+			output.oldGeometry = this.object.geometry.toJSON();
+			output.newGeometry = this.newGeometry.toJSON();
+
+			return output;
+
+		},
+
+		fromJSON: function (json) {
+
+			Command.prototype.fromJSON.call(this, json);
+
+			this.object = this.editor.objectByUuid(json.objectUuid);
+
+			this.oldGeometry = parseGeometry(json.oldGeometry);
+			this.newGeometry = parseGeometry(json.newGeometry);
+
+			function parseGeometry(data) {
+
+				var loader = new THREE.ObjectLoader();
+				return loader.parseGeometries([data])[data.uuid];
+
+			}
+
+		}
+
+	});
+
+	/**
+	 * 缓冲几何体面板
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function BufferGeometryPanel(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	BufferGeometryPanel.prototype = Object.create(UI$1.Control.prototype);
+	BufferGeometryPanel.prototype.constructor = BufferGeometryPanel;
+
+	BufferGeometryPanel.prototype.render = function () {
+	    var editor = this.app.editor;
+
+	    var data = {
+	        xtype: 'row',
+	        id: 'bufferGeometryPanel',
+	        parent: this.parent
+	    };
+
+	    var container = UI$1.create(data);
+	    container.render();
+
+	    function update(object) {
+	        if (object === null) return; // objectSelected.dispatch( null )
+	        if (object === undefined) return;
+
+	        var geometry = object.geometry;
+
+	        if (geometry instanceof THREE.BufferGeometry) {
+	            container.dom.innerHTML = '';
+	            container.dom.style.display = 'block';
+
+	            var index = geometry.index;
+
+	            if (index !== null) {
+	                var panel = UI$1.create({
+	                    xtype: 'row',
+	                    parent: container.dom,
+	                    children: [{
+	                        xtype: 'label',
+	                        text: '索引数'
+	                    }, {
+	                        xtype: 'text',
+	                        text: (index.count).format(),
+	                        style: {
+	                            fontSize: '12px'
+	                        }
+	                    }]
+	                });
+
+	                panel.render();
+	            }
+
+	            var attributes = geometry.attributes;
+
+	            for (var name in attributes) {
+
+	                var attribute = attributes[name];
+
+	                var panel = UI$1.create({
+	                    xtype: 'row',
+	                    parent: container.dom,
+	                    children: [{
+	                        xtype: 'label',
+	                        text: name
+	                    }, {
+	                        xtype: 'text',
+	                        text: (attribute.count).format() + ' (' + attribute.itemSize + ')',
+	                        style: {
+	                            fontSize: '12px'
+	                        }
+	                    }]
+	                });
+
+	                panel.render();
+	            }
+	        } else {
+	            container.dom.style.display = 'none';
+	        }
+	    }
+
+	    this.app.on('objectSelected.BufferGeometryPanel', function (mesh) {
+	        update(mesh);
+	    });
+
+	    this.app.on('geometryChanged.BufferGeometryPanel', function (mesh) {
+	        update(mesh);
+	    });
+	};
+
+	/**
+	 * 几何体面板
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function GeometryPanel(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	GeometryPanel.prototype = Object.create(UI$1.Control.prototype);
+	GeometryPanel.prototype.constructor = GeometryPanel;
+
+	GeometryPanel.prototype.render = function () {
+	    var editor = this.app.editor;
+
+	    this.children = [{
+	        xtype: 'div',
+	        id: 'geometryPanel',
+	        parent: this.parent,
+	        cls: 'Panel',
+	        style: {
+	            borderTop: 0,
+	            paddingTop: '20px',
+	            display: 'none'
+	        },
+	        children: [{ // type
+	            xtype: 'row',
+	            id: 'geometryTypeRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '类型'
+	            }, {
+	                xtype: 'text',
+	                id: 'geometryType'
+	            }]
+	        }, { // uuid
+	            xtype: 'row',
+	            id: 'geometryUUIDRow',
+	            children: [{
+	                xtype: 'label',
+	                text: 'UUID'
+	            }, {
+	                xtype: 'input',
+	                id: 'geometryUUID',
+	                style: {
+	                    width: '102px',
+	                    fontSize: '12px'
+	                },
+	                disabled: true
+	            }, {
+	                xtype: 'button',
+	                id: 'geometryUUIDRenew',
+	                text: '新建',
+	                style: {
+	                    marginLeft: '7px'
+	                },
+	                onClick: function () {
+	                    geometryUUID.setValue(THREE.Math.generateUUID());
+	                    editor.execute(new SetGeometryValueCommand(editor.selected, 'uuid', geometryUUID.getValue()));
+	                }
+	            }]
+	        }, { // name
+	            xtype: 'row',
+	            id: 'geometryNameRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '名称'
+	            }, {
+	                xtype: 'input',
+	                id: 'geometryName',
+	                style: {
+	                    width: '150px',
+	                    fontSize: '12px'
+	                },
+	                onChange: function () {
+	                    editor.execute(new SetGeometryValueCommand(editor.selected, 'name', this.getValue()));
+	                }
+	            }]
+	        }, {
+	            xtype: 'row',
+	            id: 'geometryParameters',
+	            children: [
+	                new BufferGeometryPanel({ app: this.app })
+	            ]
+	        },
+	        new GeometryInfoPanel({ app: this.app, id: 'geometryInfoPanel' })
+	        ]
+	    }];
+
+	    var container = UI$1.create(this.children[0]);
+	    container.render();
+	};
+
+	/**
+	 * @author dforrer / https://github.com/dforrer
+	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
+	 */
+
+	/**
+	 * @param object THREE.Object3D
+	 * @param attributeName string
+	 * @param newValue number, string, boolean or object
+	 * @constructor
+	 */
+
+	function SetMaterialValueCommand(object, attributeName, newValue) {
+
+		Command.call(this);
+
+		this.type = 'SetMaterialValueCommand';
+		this.name = 'Set Material.' + attributeName;
+		this.updatable = true;
+
+		this.object = object;
+		this.oldValue = (object !== undefined) ? object.material[attributeName] : undefined;
+		this.newValue = newValue;
+		this.attributeName = attributeName;
+
+	}
+	SetMaterialValueCommand.prototype = Object.create(Command.prototype);
+
+	Object.assign(SetMaterialValueCommand.prototype, {
+
+		constructor: SetMaterialValueCommand,
+
+		execute: function () {
+			this.object.material[this.attributeName] = this.newValue;
+			this.object.material.needsUpdate = true;
+			this.editor.app.call('objectChanged', this, this.object);
+			this.editor.app.call('materialChanged', this, this.object.material);
+		},
+
+		undo: function () {
+			this.object.material[this.attributeName] = this.oldValue;
+			this.object.material.needsUpdate = true;
+			this.editor.app.call('objectChanged', this, this.object);
+			this.editor.app.call('materialChanged', this, this.object.material);
+		},
+
+		update: function (cmd) {
+
+			this.newValue = cmd.newValue;
+
+		},
+
+		toJSON: function () {
+
+			var output = Command.prototype.toJSON.call(this);
+
+			output.objectUuid = this.object.uuid;
+			output.attributeName = this.attributeName;
+			output.oldValue = this.oldValue;
+			output.newValue = this.newValue;
+
+			return output;
+
+		},
+
+		fromJSON: function (json) {
+
+			Command.prototype.fromJSON.call(this, json);
+
+			this.attributeName = json.attributeName;
+			this.oldValue = json.oldValue;
+			this.newValue = json.newValue;
+			this.object = this.editor.objectByUuid(json.objectUuid);
+
+		}
+
+	});
+
+	/**
+	 * 材质面板
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function MaterialPanel(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	MaterialPanel.prototype = Object.create(UI$1.Control.prototype);
+	MaterialPanel.prototype.constructor = MaterialPanel;
+
+	MaterialPanel.prototype.render = function () {
+	    var _this = this;
+	    var editor = this.app.editor;
+
+	    var update = function () {
+	        _this.app.call('updateMaterial', _this);
+	    };
+
+	    var data = {
+	        xtype: 'div',
+	        parent: this.parent,
+	        id: 'materialPanel',
+	        cls: 'Panel',
+	        style: {
+	            borderTop: 0,
+	            paddingTop: '20px',
+	            display: 'none'
+	        },
+	        children: [{ // New Copy Paste
+	            xtype: 'row',
+	            children: [{
+	                xtype: 'label',
+	                text: ''
+	            }, {
+	                xtype: 'button',
+	                id: 'btnNewMaterial',
+	                text: '新建',
+	                onClick: function () {
+	                    this.app.call('newMaterial', this);
+	                }
+	            }, {
+	                xtype: 'button',
+	                id: 'btnCopyMaterial',
+	                text: '复制',
+	                style: {
+	                    marginLeft: '4px'
+	                },
+	                onClick: function () {
+	                    this.app.call('copyMaterial', this);
+	                }
+	            }, {
+	                xtype: 'button',
+	                text: '粘贴',
+	                id: 'btnPasteMaterial',
+	                style: {
+	                    marginLeft: '4px'
+	                },
+	                onClick: function () {
+	                    this.app.call('pasteMaterial', this);
+	                }
+	            }]
+	        }, { // type
+	            xtype: 'row',
+	            children: [{
+	                xtype: 'label',
+	                text: '类型'
+	            }, {
+	                xtype: 'select',
+	                id: 'materialClass',
+	                options: {
+	                    'LineBasicMaterial': '线条材质',
+	                    'LineDashedMaterial': '虚线材质',
+	                    'MeshBasicMaterial': '基本材质',
+	                    'MeshDepthMaterial': '深度材质',
+	                    'MeshNormalMaterial': '法向量材质',
+	                    'MeshLambertMaterial': '兰伯特材质',
+	                    'MeshPhongMaterial': '冯氏材质',
+	                    'PointCloudMaterial': '点云材质',
+	                    'MeshStandardMaterial': '标准材质',
+	                    'MeshPhysicalMaterial': '物理材质',
+	                    'ShaderMaterial': '着色器材质',
+	                    'SpriteMaterial': '精灵材质',
+	                    'RawShaderMaterial': '原始着色器材质'
+	                },
+	                style: {
+	                    width: '150px',
+	                    fontSize: '12px'
+	                },
+	                onChange: function () {
+	                    _this.app.call('updateMaterial');
+	                }
+	            }]
+	        }, { // uuid
+	            xtype: 'row',
+	            children: [{
+	                xtype: 'label',
+	                text: 'UUID'
+	            }, {
+	                xtype: 'input',
+	                id: 'materialUUID',
+	                style: {
+	                    width: '102px',
+	                    fontSize: '12px'
+	                },
+	                disabled: true
+	            }, {
+	                xtype: 'button',
+	                text: '新建',
+	                style: {
+	                    marginLeft: '7px'
+	                },
+	                onClick: function () {
+	                    var materialUUID = UI$1.get('materialUUID');
+	                    materialUUID.setValue(THREE.Math.generateUUID());
+	                    _this.app.call('updateMaterial');
+	                }
+	            }]
+	        }, { // name
+	            xtype: 'row',
+	            id: 'materialNameRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '名称'
+	            }, {
+	                xtype: 'input',
+	                id: 'materialName',
+	                style: {
+	                    width: '150px',
+	                    fontSize: '12px'
+	                },
+	                onChange: function () {
+	                    editor.execute(new SetMaterialValueCommand(editor.selected, 'name', this.getValue()));
+	                }
+	            }]
+	        }, { // program
+	            xtype: 'row',
+	            id: 'materialProgramRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '着色器程序'
+	            }, {
+	                xtype: 'button',
+	                text: '信息',
+	                style: {
+	                    marginLeft: '4px'
+	                },
+	                onClick: function () {
+	                    _this.app.call('editScript', _this, currentObject, 'programInfo');
+	                }
+	            }, {
+	                xtype: 'button',
+	                text: '顶点着色器',
+	                style: {
+	                    marginLeft: '4px'
+	                },
+	                onClick: function () {
+	                    _this.app.call('editScript', _this, currentObject, 'vertexShader');
+	                }
+	            }, {
+	                xtype: 'button',
+	                text: '片源着色器',
+	                style: {
+	                    marginLeft: '4px'
+	                },
+	                onClick: function () {
+	                    _this.app.call('editScript', _this, currentObject, 'fragmentShader');
+	                }
+	            }]
+	        }, { // color
+	            xtype: 'row',
+	            id: 'materialColorRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '颜色'
+	            }, {
+	                xtype: 'color',
+	                id: 'materialColor',
+	                onChange: update
+	            }]
+	        }, { // roughness
+	            xtype: 'row',
+	            id: 'materialRoughnessRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '粗糙度'
+	            }, {
+	                xtype: 'number',
+	                id: 'materialRoughness',
+	                value: 0.5,
+	                style: {
+	                    width: '60px'
+	                },
+	                range: [0, 1],
+	                onChange: update
+	            }]
+	        }, { // metalness
+	            xtype: 'row',
+	            id: 'materialMetalnessRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '金属度'
+	            }, {
+	                xtype: 'number',
+	                id: 'materialMetalness',
+	                value: 0.5,
+	                style: {
+	                    width: '60px'
+	                },
+	                range: [0, 1],
+	                onChange: update
+	            }]
+	        }, { // emissive
+	            xtype: 'row',
+	            id: 'materialEmissiveRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '发光'
+	            }, {
+	                xtype: 'color',
+	                id: 'materialEmissive',
+	                value: 0x000000,
+	                onChange: update
+	            }]
+	        }, { // specular
+	            xtype: 'row',
+	            id: 'materialSpecularRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '镜面度'
+	            }, {
+	                xtype: 'color',
+	                id: 'materialSpecular',
+	                value: 0x111111,
+	                onChange: update
+	            }]
+	        }, { // shininess
+	            xtype: 'row',
+	            id: 'materialShininessRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '光亮度'
+	            }, {
+	                xtype: 'number',
+	                id: 'materialShininess',
+	                value: 30,
+	                onChange: update
+	            }]
+	        }, { // clearCoat
+	            xtype: 'row',
+	            id: 'materialClearCoatRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '透明度'
+	            }, {
+	                xtype: 'number',
+	                id: 'materialClearCoat',
+	                value: 1,
+	                style: {
+	                    width: '60px'
+	                },
+	                range: [0, 1],
+	                onChange: update
+	            }]
+	        }, { // clearCoatRoughness
+	            xtype: 'row',
+	            id: 'materialClearCoatRoughnessRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '透明粗糙度'
+	            }, {
+	                xtype: 'number',
+	                id: 'materialClearCoatRoughness',
+	                value: 1,
+	                style: {
+	                    width: '60px'
+	                },
+	                range: [0, 1],
+	                onChange: update
+	            }]
+	        }, { // vertex colors
+	            xtype: 'row',
+	            id: 'materialVertexColorsRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '顶点颜色'
+	            }, {
+	                xtype: 'select',
+	                id: 'materialVertexColors',
+	                options: {
+	                    0: '无',
+	                    1: '面',
+	                    2: '顶点'
+	                },
+	                onChange: update
+	            }]
+	        }, { // skinning
+	            xtype: 'row',
+	            id: 'materialSkinningRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '皮肤'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialSkinning',
+	                value: false,
+	                onChange: update
+	            }]
+	        }, { // map
+	            xtype: 'row',
+	            id: 'materialMapRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '纹理'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialMapEnabled',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'texture',
+	                id: 'materialMap',
+	                onChange: update
+	            }]
+	        }, { // alpha map
+	            xtype: 'row',
+	            id: 'materialAlphaMapRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '透明纹理'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialAlphaMapEnabled',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'texture',
+	                id: 'materialAlphaMap',
+	                onChange: update
+	            }]
+	        }, { // bump map
+	            xtype: 'row',
+	            id: 'materialBumpMapRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '凹凸纹理'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialBumpMapEnabled',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'texture',
+	                id: 'materialBumpMap',
+	                value: 1,
+	                style: {
+	                    width: '30px'
+	                },
+	                onChange: update
+	            }, {
+	                xtype: 'number',
+	                id: 'materialBumpScale',
+	                value: 1,
+	                style: {
+	                    width: '30px'
+	                },
+	                onChange: update
+	            }]
+	        }, { // normal map
+	            xtype: 'row',
+	            id: 'materialNormalMapRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '法线纹理'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialNormalMapEnabled',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'texture',
+	                id: 'materialNormalMap',
+	                onChange: update
+	            }]
+	        }, { // displacement map
+	            xtype: 'row',
+	            id: 'materialDisplacementMapRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '位移纹理'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialDisplacementMapEnabled',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'texture',
+	                id: 'materialDisplacementMap',
+	                onChange: update
+	            }, {
+	                xtype: 'number',
+	                id: 'materialDisplacementScale',
+	                value: 1,
+	                style: {
+	                    width: '30px'
+	                },
+	                onChange: update
+	            }]
+	        }, { // roughness map
+	            xtype: 'row',
+	            id: 'materialRoughnessMapRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '粗糙纹理'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialRoughnessMapEnabled',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'texture',
+	                id: 'materialRoughnessMap',
+	                onChange: update
+	            }]
+	        }, { // metalness map
+	            xtype: 'row',
+	            id: 'materialMetalnessMapRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '金属纹理'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialMetalnessMapEnabled',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'texture',
+	                id: 'materialMetalnessMap',
+	                onChange: update
+	            }]
+	        }, { // specular map
+	            xtype: 'row',
+	            id: 'materialSpecularMapRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '镜面纹理'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialSpecularMapEnabled',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'texture',
+	                id: 'materialSpecularMap',
+	                onChange: update
+	            }]
+	        }, { // env map
+	            xtype: 'row',
+	            id: 'materialEnvMapRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '环境纹理'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialEnvMapEnabled',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'texture',
+	                id: 'materialEnvMap',
+	                mapping: THREE.SphericalReflectionMapping,
+	                onChange: update
+	            }, {
+	                xtype: 'number',
+	                id: 'materialReflectivity',
+	                value: 1,
+	                style: {
+	                    width: '30px'
+	                },
+	                onChange: update
+	            }]
+	        }, { // light map
+	            xtype: 'row',
+	            id: 'materialLightMapRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '光照纹理'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialLightMapEnabled',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'texture',
+	                id: 'materialLightMap',
+	                onChange: update
+	            }]
+	        }, { // ambient occlusion map
+	            xtype: 'row',
+	            id: 'materialAOMapRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '遮挡纹理'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialAOMapEnabled',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'texture',
+	                id: 'materialAOMap',
+	                onChange: update
+	            }, {
+	                xtype: 'number',
+	                id: 'materialAOScale',
+	                value: 1,
+	                range: [0, 1],
+	                style: {
+	                    width: '30px'
+	                },
+	                onChange: update
+	            }]
+	        }, { // emissive map
+	            xtype: 'row',
+	            id: 'materialEmissiveMapRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '放射纹理'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialEmissiveMapEnabled',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'texture',
+	                id: 'materialEmissiveMap',
+	                onChange: update
+	            }]
+	        }, { // side
+	            xtype: 'row',
+	            id: 'materialSideRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '剔除'
+	            }, {
+	                xtype: 'select',
+	                id: 'materialSide',
+	                options: {
+	                    0: '正面',
+	                    1: '反面',
+	                    2: '双面'
+	                },
+	                style: {
+	                    width: '150px',
+	                    fontSize: '12px'
+	                },
+	                onChange: update
+	            }]
+	        }, { // shading
+	            xtype: 'row',
+	            id: 'materialShadingRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '着色'
+	            }, {
+	                xtype: 'select',
+	                id: 'materialShading',
+	                options: {
+	                    0: '无',
+	                    1: '平坦',
+	                    2: '光滑'
+	                },
+	                style: {
+	                    width: '150px',
+	                    fontSize: '12px'
+	                },
+	                onChange: update
+	            }]
+	        }, { // blending
+	            xtype: 'row',
+	            id: 'materialBlendingRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '混合'
+	            }, {
+	                xtype: 'select',
+	                id: 'materialBlending',
+	                options: {
+	                    0: '不混合',
+	                    1: '一般混合',
+	                    2: '和混合',
+	                    3: '差混合',
+	                    4: '积混合',
+	                    5: '自定义混合'
+	                },
+	                style: {
+	                    width: '150px',
+	                    fontSize: '12px'
+	                },
+	                onChange: update
+	            }]
+	        }, { // opacity
+	            xtype: 'row',
+	            id: 'materialOpacityRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '不透明度'
+	            }, {
+	                xtype: 'number',
+	                id: 'materialOpacity',
+	                value: 1,
+	                style: {
+	                    width: '60px'
+	                },
+	                range: [0, 1],
+	                onChange: update
+	            }]
+	        }, { // transparent
+	            xtype: 'row',
+	            id: 'materialTransparentRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '透明'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialTransparent',
+	                style: {
+	                    left: '100px'
+	                },
+	                onChange: update
+	            }]
+	        }, { // alpha test
+	            xtype: 'row',
+	            id: 'materialAlphaTestRow',
+	            children: [{
+	                xtype: 'label',
+	                text: 'α测试'
+	            }, {
+	                xtype: 'number',
+	                id: 'materialAlphaTest',
+	                style: {
+	                    width: '60px'
+	                },
+	                range: [0, 1],
+	                onChange: update
+	            }]
+	        }, { // wireframe
+	            xtype: 'row',
+	            id: 'materialWireframeRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '线框'
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'materialWireframe',
+	                value: false,
+	                onChange: update
+	            }, {
+	                xtype: 'number',
+	                id: 'materialWireframeLinewidth',
+	                value: 1,
+	                style: {
+	                    width: '60px'
+	                },
+	                range: [0, 100],
+	                onChange: update
+	            }]
+	        }]
+	    };
+
+	    var control = UI$1.create(data);
+	    control.render();
+	};
+
+	/**
+	 * 属性面板
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function PropertyPanel(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	PropertyPanel.prototype = Object.create(UI$1.Control.prototype);
+	PropertyPanel.prototype.constructor = PropertyPanel;
+
+	PropertyPanel.prototype.render = function () {
+	    var editor = this.app.editor;
+
+	    var _this = this;
+
+	    var onClick = function (event) {
+	        _this.app.call('selectPropertyTab', _this, event.target.textContent);
+	    };
+
+	    var data = {
+	        xtype: 'div',
+	        id: 'propertyPanel',
+	        parent: this.parent,
+	        children: [{
+	            xtype: 'div',
+	            cls: 'tabs',
+	            children: [{
+	                xtype: 'text',
+	                id: 'objectTab',
+	                text: '物体',
+	                onClick: onClick
+	            }, {
+	                xtype: 'text',
+	                id: 'geometryTab',
+	                text: '几何',
+	                onClick: onClick
+	            }, {
+	                xtype: 'text',
+	                id: 'materialTab',
+	                text: '材质',
+	                onClick: onClick
+	            }]
+	        }, {
+	            xtype: 'div',
+	            children: [
+	                new ObjectPanel({ app: this.app, id: 'object' })
+	            ]
+	        }, {
+	            xtype: 'div',
+	            children: [
+	                new GeometryPanel({ app: this.app, id: 'geometry' })
+	            ]
+	        }, {
+	            xtype: 'div',
+	            children: [
+	                new MaterialPanel({ app: this.app, id: 'material' })
+	            ]
+	        }]
+	    };
+
+	    var control = UI$1.create(data);
+	    control.render();
+	};
+
+	/**
+	 * @author dforrer / https://github.com/dforrer
+	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
+	 */
+
+	/**
+	 * @param object THREE.Object3D
+	 * @param script javascript object
+	 * @constructor
+	 */
+
+	var AddScriptCommand = function (object, script) {
+
+		Command.call(this);
+
+		this.type = 'AddScriptCommand';
+		this.name = 'Add Script';
+
+		this.object = object;
+		this.script = script;
+
+	};
+
+	AddScriptCommand.prototype = Object.create(Command.prototype);
+
+	Object.assign(AddScriptCommand.prototype, {
+
+		constructor: AddScriptCommand,
+
+		execute: function () {
+			if (this.editor.scripts[this.object.uuid] === undefined) {
+				this.editor.scripts[this.object.uuid] = [];
+			}
+
+			this.editor.scripts[this.object.uuid].push(this.script);
+			this.editor.app.call('scriptAdded', this, this.script);
+		},
+
+		undo: function () {
+
+			if (this.editor.scripts[this.object.uuid] === undefined) return;
+
+			var index = this.editor.scripts[this.object.uuid].indexOf(this.script);
+
+			if (index !== - 1) {
+
+				this.editor.scripts[this.object.uuid].splice(index, 1);
+
+			}
+
+			this.editor.app.call('scriptRemoved', this, this.script);
+		},
+
+		toJSON: function () {
+
+			var output = Command.prototype.toJSON.call(this);
+
+			output.objectUuid = this.object.uuid;
+			output.script = this.script;
+
+			return output;
+
+		},
+
+		fromJSON: function (json) {
+
+			Command.prototype.fromJSON.call(this, json);
+
+			this.script = json.script;
+			this.object = this.editor.objectByUuid(json.objectUuid);
+
+		}
+
+	});
+
+	/**
+	 * 脚本面板
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function ScriptPanel(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	ScriptPanel.prototype = Object.create(UI$1.Control.prototype);
+	ScriptPanel.prototype.constructor = ScriptPanel;
+
+	ScriptPanel.prototype.render = function () {
+	    var editor = this.app.editor;
+
+	    var data = {
+	        xtype: 'div',
+	        id: 'scriptPanel',
+	        parent: this.parent,
+	        cls: 'Panel scriptPanel',
+	        style: {
+	            display: 'none'
+	        },
+	        children: [{
+	            xtype: 'label',
+	            text: '脚本'
+	        }, {
+	            xtype: 'br'
+	        }, {
+	            xtype: 'br'
+	        }, {
+	            xtype: 'row',
+	            id: 'scriptsContainer'
+	        }, {
+	            xtype: 'button',
+	            id: 'newScript',
+	            text: '新建',
+	            onClick: function () {
+	                var script = { name: '', source: 'function update( event ) {}' };
+	                editor.execute(new AddScriptCommand(editor.selected, script));
+	            }
+	        }]
+	    };
+
+	    var control = UI$1.create(data);
+	    control.render();
+	};
+
+	/**
+	 * 工程面板
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function ProjectPanel(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	ProjectPanel.prototype = Object.create(UI$1.Control.prototype);
+	ProjectPanel.prototype.constructor = ProjectPanel;
+
+	ProjectPanel.prototype.render = function () {
+	    var editor = this.app.editor;
+	    var config = editor.config;
+
+	    var rendererTypes = {
+	        'WebGLRenderer': THREE.WebGLRenderer,
+	        'CanvasRenderer': THREE.CanvasRenderer,
+	        'SVGRenderer': THREE.SVGRenderer,
+	        'SoftwareRenderer': THREE.SoftwareRenderer,
+	        'RaytracingRenderer': THREE.RaytracingRenderer
+	    };
+
+	    var options = {};
+
+	    for (var key in rendererTypes) {
+	        if (key.indexOf('WebGL') >= 0 && System.support.webgl === false) continue;
+	        options[key] = key;
+	    }
+
+	    var _this = this;
+
+	    var updateRenderer = function () {
+	        _this.app.call('updateRenderer', _this);
+	    };
+
+	    var data = {
+	        xtype: 'div',
+	        id: 'projectPanel',
+	        parent: this.parent,
+	        style: {
+	            borderTop: 0,
+	            paddingTop: '20px'
+	        },
+	        cls: 'Panel',
+	        children: [{ // class
+	            xtype: 'row',
+	            id: 'rendererTypeRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '渲染器',
+	                style: {
+	                    width: '90px'
+	                }
+	            }, {
+	                xtype: 'select',
+	                id: 'rendererType',
+	                options: options,
+	                value: config.getKey('project/renderer'),
+	                style: {
+	                    width: '150px'
+	                },
+	                onChange: function () {
+	                    var value = this.getValue();
+	                    config.setKey('project/renderer', value);
+	                    updateRenderer();
+	                }
+	            }]
+	        }, {
+	            xtype: 'row',
+	            id: 'rendererPropertiesRow',
+	            style: {
+	                marginLeft: '90px'
+	            },
+	            children: [{ // antialiasing
+	                xtype: 'boolean',
+	                id: 'rendererAntialias',
+	                value: config.getKey('project/renderer/antialias'),
+	                text: '抗锯齿',
+	                onChange: function () {
+	                    config.setKey('project/renderer/antialias', this.getValue());
+	                    updateRenderer();
+	                }
+	            }, { // shadow
+	                xtype: 'boolean',
+	                id: 'rendererShadows',
+	                value: config.getKey('project/renderer/shadows'),
+	                text: '阴影',
+	                onChange: function () {
+	                    config.setKey('project/renderer/shadows', this.getValue());
+	                    updateRenderer();
+	                }
+	            }, {
+	                xtype: 'br'
+	            }, { // gamma input
+	                xtype: 'boolean',
+	                id: 'rendererGammaInput',
+	                value: config.getKey('project/renderer/gammaInput'),
+	                text: 'γ输入',
+	                onChange: function () {
+	                    config.setKey('project/renderer/gammaInput', this.getValue());
+	                    updateRenderer();
+	                }
+	            }, { // gamma output
+	                xtype: 'boolean',
+	                id: 'rendererGammaOutput',
+	                value: config.getKey('project/renderer/gammaOutput'),
+	                text: 'γ输出',
+	                onChange: function () {
+	                    config.setKey('project/renderer/gammaOutput', this.getValue());
+	                    updateRenderer();
+	                }
+	            }]
+	        }, { // VR
+	            xtype: 'row',
+	            id: 'vrRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '虚拟现实',
+	                style: {
+	                    width: '90px'
+	                }
+	            }, {
+	                xtype: 'checkbox',
+	                id: 'vr',
+	                value: config.getKey('project/vr'),
+	                style: {
+	                    left: '100px'
+	                },
+	                onChange: function () {
+	                    config.setKey('project/vr', this.getValue());
+	                    // updateRenderer();
+	                }
+	            }]
+	        }]
+	    };
+
+	    var control = UI$1.create(data);
+	    control.render();
+	};
+
+	/**
+	 * 设置面板
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function SettingPanel(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	SettingPanel.prototype = Object.create(UI$1.Control.prototype);
+	SettingPanel.prototype.constructor = SettingPanel;
+
+	SettingPanel.prototype.render = function () {
+	    var editor = this.app.editor;
+	    var config = editor.config;
+
+	    var data = {
+	        xtype: 'div',
+	        id: 'settingPanel',
+	        parent: this.parent,
+	        cls: 'Panel',
+	        style: {
+	            borderTop: 0,
+	            paddingTop: '20px'
+	        },
+	        children: [{
+	            xtype: 'row',
+	            id: 'themeRow',
+	            children: [{
+	                xtype: 'label',
+	                text: '主题'
+	            }, { // class
+	                xtype: 'select',
+	                options: {
+	                    'assets/css/light.css': '浅色',
+	                    'assets/css/dark.css': '深色'
+	                },
+	                value: config.getKey('theme'),
+	                style: {
+	                    width: '150px'
+	                },
+	                onChange: function () {
+	                    var value = this.getValue();
+	                    editor.setTheme(value);
+	                    editor.config.setKey('theme', value);
+	                }
+	            }]
+	        }]
+	    };
+
+	    var control = UI$1.create(data);
+	    control.render();
+	};
+
+	/**
+	 * 历史记录面板
+	 * @author dforrer / https://github.com/dforrer
+	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
+	 */
+	function HistoryPanel(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	HistoryPanel.prototype = Object.create(UI$1.Control.prototype);
+	HistoryPanel.prototype.constructor = HistoryPanel;
+
+	HistoryPanel.prototype.render = function () {
+	    var editor = this.app.editor;
+	    var config = editor.config;
+	    var history = editor.history;
+
+	    var _this = this;
+
+	    var data = {
+	        xtype: 'div',
+	        parent: this.parent,
+	        cls: 'Panel',
+	        children: [{
+	            xtype: 'label',
+	            text: '历史记录'
+	        }, {
+	            xtype: 'boolean',
+	            text: '永久',
+	            style: {
+	                position: 'absolute',
+	                right: '8px'
+	            },
+	            onChange: function () {
+	                var value = this.getValue();
+	                config.setKey('settings/history', value);
+	                if (value) {
+	                    UI$1.msg('历史记录将被保存在会话中。\n这会对使用材质的性能产生影响。');
+	                    var lastUndoCmd = history.undos[history.undos.length - 1];
+	                    var lastUndoId = (lastUndoCmd !== undefined) ? lastUndoCmd.id : 0;
+	                    editor.history.enableSerialization(lastUndoId);
+	                } else {
+	                    _this.app.call('historyChanged');
+	                }
+	            }
+	        }, {
+	            xtype: 'br'
+	        }, {
+	            xtype: 'br'
+	        }, {
+	            xtype: 'outliner',
+	            id: 'historyOutlinear',
+	            editor: editor,
+	            onChange: function () {
+	                history.goToState(parseInt(this.getValue()));
+	            }
+	        }]
+	    };
+
+	    var control = UI$1.create(data);
+	    control.render();
+	};
+
+	/**
+	 * 侧边栏
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function Sidebar(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	Sidebar.prototype = Object.create(UI$1.Control.prototype);
+	Sidebar.prototype.constructor = Sidebar;
+
+	Sidebar.prototype.render = function () {
+	    var editor = this.app.editor;
+	    var _this = this;
+
+	    function onClick(event) {
+	        _this.app.call('selectTab', _this, event.target.textContent);
+	    }
+
+	    var data = {
+	        xtype: 'div',
+	        id: 'sidebar',
+	        cls: 'sidebar',
+	        parent: this.app.container,
+	        children: [{
+	            xtype: 'div',
+	            cls: 'tabs',
+	            children: [{
+	                xtype: 'text',
+	                id: 'sceneTab',
+	                text: '场景',
+	                onClick: onClick
+	            }, {
+	                xtype: 'text',
+	                id: 'projectTab',
+	                text: '工程',
+	                onClick: onClick
+	            }, {
+	                xtype: 'text',
+	                id: 'settingsTab',
+	                text: '设置',
+	                onClick: onClick
+	            }]
+	        }, { // scene
+	            xtype: 'div',
+	            id: 'scene',
+	            children: [
+	                new ScenePanel({ app: this.app }),
+	                new PropertyPanel({ app: this.app }),
+	                new ScriptPanel({ app: this.app })
+	            ]
+	        }, { // project
+	            xtype: 'div',
+	            id: 'project',
+	            children: [
+	                new ProjectPanel({ app: this.app })
+	            ]
+	        }, {
+	            xtype: 'div',
+	            id: 'settings',
+	            children: [
+	                new SettingPanel({ app: this.app }),
+	                new HistoryPanel({ app: this.app })
+	            ]
+	        }]
+	    };
+
+	    var control = UI$1.create(data);
+	    control.render();
+	};
+
+	/**
+	 * 状态栏
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function StatusBar(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	StatusBar.prototype = Object.create(UI$1.Control.prototype);
+	StatusBar.prototype.constructor = StatusBar;
+
+	StatusBar.prototype.render = function () {
+
+	    var data = {
+	        xtype: 'div',
+	        id: 'statusBar',
+	        parent: this.app.container,
+	        cls: 'statusBar',
+	        children: [{
+	            xtype: 'row',
+	            children: [{
+	                xtype: 'label',
+	                text: '物体'
+	            }, {
+	                xtype: 'text',
+	                id: 'objectsText',
+	                text: '0' // 物体数
+	            }, {
+	                xtype: 'label',
+	                text: '顶点'
+	            }, {
+	                xtype: 'text',
+	                id: 'verticesText',
+	                text: '0' // 顶点数
+	            }, {
+	                xtype: 'label',
+	                text: '三角形'
+	            }, {
+	                xtype: 'text',
+	                id: 'trianglesText',
+	                text: '0' // 三角形数
+	            }]
+	        }]
+	    };
+
+	    var control = UI$1.create(data);
+	    control.render();
+	};
+
+	/**
+	 * @author dforrer / https://github.com/dforrer
+	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
+	 */
+
+	/**
+	 * @param object THREE.Object3D
+	 * @param script javascript object
+	 * @param attributeName string
+	 * @param newValue string, object
+	 * @param cursorPosition javascript object with format {line: 2, ch: 3}
+	 * @param scrollInfo javascript object with values {left, top, width, height, clientWidth, clientHeight}
+	 * @constructor
+	 */
+
+	function SetScriptValueCommand(object, script, attributeName, newValue, cursorPosition, scrollInfo) {
+
+		Command.call(this);
+
+		this.type = 'SetScriptValueCommand';
+		this.name = 'Set Script.' + attributeName;
+		this.updatable = true;
+
+		this.object = object;
+		this.script = script;
+
+		this.attributeName = attributeName;
+		this.oldValue = (script !== undefined) ? script[this.attributeName] : undefined;
+		this.newValue = newValue;
+		this.cursorPosition = cursorPosition;
+		this.scrollInfo = scrollInfo;
+
+	}
+	SetScriptValueCommand.prototype = Object.create(Command.prototype);
+
+	Object.assign(SetScriptValueCommand.prototype, {
+
+		constructor: SetScriptValueCommand,
+
+		execute: function () {
+
+			this.script[this.attributeName] = this.newValue;
+
+			this.editor.app.call('scriptChanged', this);
+			this.editor.app.call('refreshScriptEditor', this, this.object, this.script, this.cursorPosition, this.scrollInfo);
+
+		},
+
+		undo: function () {
+
+			this.script[this.attributeName] = this.oldValue;
+
+			this.editor.app.call('scriptChanged', this);
+			this.editor.app.call('refreshScriptEditor', this, this.object, this.script, this.cursorPosition, this.scrollInfo);
+
+		},
+
+		update: function (cmd) {
+
+			this.cursorPosition = cmd.cursorPosition;
+			this.scrollInfo = cmd.scrollInfo;
+			this.newValue = cmd.newValue;
+
+		},
+
+		toJSON: function () {
+
+			var output = Command.prototype.toJSON.call(this);
+
+			output.objectUuid = this.object.uuid;
+			output.index = this.editor.scripts[this.object.uuid].indexOf(this.script);
+			output.attributeName = this.attributeName;
+			output.oldValue = this.oldValue;
+			output.newValue = this.newValue;
+			output.cursorPosition = this.cursorPosition;
+			output.scrollInfo = this.scrollInfo;
+
+			return output;
+
+		},
+
+		fromJSON: function (json) {
+
+			Command.prototype.fromJSON.call(this, json);
+
+			this.oldValue = json.oldValue;
+			this.newValue = json.newValue;
+			this.attributeName = json.attributeName;
+			this.object = this.editor.objectByUuid(json.objectUuid);
+			this.script = this.editor.scripts[json.objectUuid][json.index];
+			this.cursorPosition = json.cursorPosition;
+			this.scrollInfo = json.scrollInfo;
+
+		}
+
+	});
+
+	/**
+	 * 脚本编辑面板
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function Script(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	Script.prototype = Object.create(UI$1.Control.prototype);
+	Script.prototype.constructor = Script;
+
+	Script.prototype.render = function () {
+	    var container;
+
+	    var data = {
+	        xtype: 'div',
+	        parent: this.app.container,
+	        id: 'script',
+	        cls: 'script',
+	        style: {
+	            backgroundColor: '#272822',
+	            display: 'none'
+	        },
+	        children: [{
+	            xtype: 'div',
+	            style: {
+	                padding: '10px'
+	            },
+	            children: [{
+	                id: 'scriptTitle',
+	                xtype: 'text',
+	                style: {
+	                    color: '#fff'
+	                }
+	            }, {
+	                xtype: 'closebutton',
+	                style: {
+	                    position: 'absolute',
+	                    top: '3px',
+	                    right: '1px',
+	                    cursor: 'pointer'
+	                },
+	                onClick: function () {
+	                    if (container) {
+	                        container.dom.style.display = 'none';
+	                    }
+	                }
+	            }]
+	        }]
+	    };
+
+	    container = UI$1.create(data);
+	    container.render();
+
+	    var title = UI$1.get('scriptTitle');
+
+	    // 业务逻辑
+	    var currentMode;
+	    var currentScript;
+	    var currentObject;
+
+	    var _this = this;
+
+	    var codemirror = CodeMirror(container.dom, {
+	        value: '',
+	        lineNumbers: true,
+	        matchBrackets: true,
+	        indentWithTabs: true,
+	        tabSize: 4,
+	        indentUnit: 4,
+	        hintOptions: {
+	            completeSingle: false
+	        }
+	    });
+	    codemirror.setOption('theme', 'monokai');
+	    codemirror.on('change', function () {
+	        _this.app.call('codeMirrorChange', _this, codemirror, currentMode, currentScript, currentObject);
+	    });
+
+	    // 防止回退键删除物体
+	    var wrapper = codemirror.getWrapperElement();
+	    wrapper.addEventListener('keydown', function (event) {
+	        event.stopPropagation();
+	    });
+
+	    // tern js 自动完成
+	    var server = new CodeMirror.TernServer({
+	        caseInsensitive: true,
+	        plugins: { threejs: null }
+	    });
+
+	    codemirror.setOption('extraKeys', {
+	        'Ctrl-Space': function (cm) { server.complete(cm); },
+	        'Ctrl-I': function (cm) { server.showType(cm); },
+	        'Ctrl-O': function (cm) { server.showDocs(cm); },
+	        'Alt-.': function (cm) { server.jumpToDef(cm); },
+	        'Alt-,': function (cm) { server.jumpBack(cm); },
+	        'Ctrl-Q': function (cm) { server.rename(cm); },
+	        'Ctrl-.': function (cm) { server.selectName(cm); }
+	    });
+
+	    codemirror.on('cursorActivity', function (cm) {
+	        if (currentMode !== 'javascript') {
+	            return;
+	        }
+	        server.updateArgHints(cm);
+	    });
+
+	    codemirror.on('keypress', function (cm, kb) {
+	        if (currentMode !== 'javascript') {
+	            return;
+	        }
+	        var typed = String.fromCharCode(kb.which || kb.keyCode);
+	        if (/[\w\.]/.exec(typed)) {
+	            server.complete(cm);
+	        }
+	    });
+
+	    //
+	    this.app.on('editorCleared.Script', function () {
+	        container.dom.style.display = 'none';
+	    });
+
+	    this.app.on('editScript.Script', function (object, script) {
+	        var mode, name, source;
+
+	        if (typeof (script) === 'object') {
+	            mode = 'javascript';
+	            name = script.name;
+	            source = script.source;
+	            title.setValue(object.name + ' / ' + name);
+	        } else {
+	            switch (script) {
+	                case 'vertexShader':
+	                    mode = 'glsl';
+	                    name = 'Vertex Shader';
+	                    source = object.material.vertexShader || "";
+	                    break;
+	                case 'fragmentShader':
+	                    mode = 'glsl';
+	                    name = 'Fragment Shader';
+	                    source = object.material.fragmentShader || "";
+	                    break;
+	                case 'programInfo':
+	                    mode = 'json';
+	                    name = 'Program Properties';
+	                    var json = {
+	                        defines: object.material.defines,
+	                        uniforms: object.material.uniforms,
+	                        attributes: object.material.attributes
+	                    };
+	                    source = JSON.stringify(json, null, '\t');
+	            }
+	            title.setValue(object.material.name + ' / ' + name);
+	        }
+
+	        currentMode = mode;
+	        currentScript = script;
+	        currentObject = object;
+
+	        container.dom.style.display = 'block';
+	        codemirror.setValue(source);
+	        if (mode === 'json') mode = { name: 'javascript', json: true };
+	        codemirror.setOption('mode', mode);
+	    });
+
+	    this.app.on('scriptRemoved.Script', function (script) {
+	        if (currentScript === script) {
+	            container.dom.style.display = 'none';
+	        }
+	    });
+
+	    this.app.on('refreshScriptEditor.Script', function (object, script, cursorPosition, scrollInfo) {
+	        if (currentScript !== script) return;
+
+	        // copying the codemirror history because "codemirror.setValue(...)" alters its history
+
+	        var history = codemirror.getHistory();
+	        title.setValue(object.name + ' / ' + script.name);
+	        codemirror.setValue(script.source);
+
+	        if (cursorPosition !== undefined) {
+
+	            codemirror.setCursor(cursorPosition);
+	            codemirror.scrollTo(scrollInfo.left, scrollInfo.top);
+
+	        }
+	        codemirror.setHistory(history); // setting the history to previous state
+	    });
+	};
+
+	/**
+	 * 播放器
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function AppPlayer() {
+	    var loader = new THREE.ObjectLoader();
+	    var camera, scene, renderer;
+
+	    var events = {};
+
+	    var dom = document.createElement('div');
+
+	    this.dom = dom;
+
+	    this.width = 500;
+	    this.height = 500;
+
+	    this.load = function (json) {
+	        renderer = new THREE.WebGLRenderer({ antialias: true });
+	        renderer.setClearColor(0x000000);
+	        renderer.setPixelRatio(window.devicePixelRatio);
+
+	        var project = json.project;
+
+	        if (project.gammaInput) renderer.gammaInput = true;
+	        if (project.gammaOutput) renderer.gammaOutput = true;
+	        if (project.shadows) renderer.shadowMap.enabled = true;
+	        if (project.vr) renderer.vr.enabled = true;
+
+	        dom.appendChild(renderer.domElement);
+
+	        this.setScene(loader.parse(json.scene));
+	        this.setCamera(loader.parse(json.camera));
+
+	        events = {
+	            init: [],
+	            start: [],
+	            stop: [],
+	            keydown: [],
+	            keyup: [],
+	            mousedown: [],
+	            mouseup: [],
+	            mousemove: [],
+	            touchstart: [],
+	            touchend: [],
+	            touchmove: [],
+	            update: []
+	        };
+
+	        var scriptWrapParams = 'player,renderer,scene,camera';
+	        var scriptWrapResultObj = {};
+
+	        for (var eventKey in events) {
+	            scriptWrapParams += ',' + eventKey;
+	            scriptWrapResultObj[eventKey] = eventKey;
+	        }
+
+	        var scriptWrapResult = JSON.stringify(scriptWrapResultObj).replace(/\"/g, '');
+
+	        for (var uuid in json.scripts) {
+	            var object = scene.getObjectByProperty('uuid', uuid, true);
+
+	            if (object === undefined) {
+	                console.warn('APP.Player: Script without object.', uuid);
+	                continue;
+	            }
+
+	            var scripts = json.scripts[uuid];
+
+	            for (var i = 0; i < scripts.length; i++) {
+	                var script = scripts[i];
+
+	                var functions = (new Function(scriptWrapParams, script.source + '\nreturn ' + scriptWrapResult + ';').bind(object))(this, renderer, scene, camera);
+
+	                for (var name in functions) {
+
+	                    if (functions[name] === undefined) continue;
+
+	                    if (events[name] === undefined) {
+	                        console.warn('APP.Player: Event type not supported (', name, ')');
+	                        continue;
+	                    }
+
+	                    events[name].push(functions[name].bind(object));
+	                }
+
+	            }
+
+	        }
+
+	        dispatch$$1(events.init, arguments);
+
+	    };
+
+	    this.setCamera = function (value) {
+	        camera = value;
+	        camera.aspect = this.width / this.height;
+	        camera.updateProjectionMatrix();
+
+	        if (renderer.vr.enabled) {
+	            dom.appendChild(WEBVR.createButton(renderer));
+	        }
+	    };
+
+	    this.setScene = function (value) {
+	        scene = value;
+	    };
+
+	    this.setSize = function (width, height) {
+	        this.width = width;
+	        this.height = height;
+
+	        if (camera) {
+	            camera.aspect = this.width / this.height;
+	            camera.updateProjectionMatrix();
+	        }
+
+	        if (renderer) {
+	            renderer.setSize(width, height);
+	        }
+	    };
+
+	    function dispatch$$1(array, event) {
+	        for (var i = 0, l = array.length; i < l; i++) {
+	            array[i](event);
+	        }
+	    }
+
+	    var prevTime;
+
+	    function animate() {
+	        var time = performance.now();
+
+	        try {
+	            dispatch$$1(events.update, { time: time, delta: time - prevTime });
+	        } catch (e) {
+	            console.error((e.message || e), (e.stack || ""));
+	        }
+
+	        renderer.render(scene, camera);
+	        prevTime = time;
+	    }
+
+	    this.play = function () {
+	        prevTime = performance.now();
+
+	        document.addEventListener('keydown', onDocumentKeyDown);
+	        document.addEventListener('keyup', onDocumentKeyUp);
+	        document.addEventListener('mousedown', onDocumentMouseDown);
+	        document.addEventListener('mouseup', onDocumentMouseUp);
+	        document.addEventListener('mousemove', onDocumentMouseMove);
+	        document.addEventListener('touchstart', onDocumentTouchStart);
+	        document.addEventListener('touchend', onDocumentTouchEnd);
+	        document.addEventListener('touchmove', onDocumentTouchMove);
+
+	        dispatch$$1(events.start, arguments);
+
+	        renderer.setAnimationLoop(animate);
+	    };
+
+	    this.stop = function () {
+	        document.removeEventListener('keydown', onDocumentKeyDown);
+	        document.removeEventListener('keyup', onDocumentKeyUp);
+	        document.removeEventListener('mousedown', onDocumentMouseDown);
+	        document.removeEventListener('mouseup', onDocumentMouseUp);
+	        document.removeEventListener('mousemove', onDocumentMouseMove);
+	        document.removeEventListener('touchstart', onDocumentTouchStart);
+	        document.removeEventListener('touchend', onDocumentTouchEnd);
+	        document.removeEventListener('touchmove', onDocumentTouchMove);
+
+	        dispatch$$1(events.stop, arguments);
+
+	        renderer.setAnimationLoop(null);
+	    };
+
+	    this.dispose = function () {
+	        while (dom.children.length) {
+	            dom.removeChild(dom.firstChild);
+	        }
+
+	        renderer.dispose();
+
+	        camera = undefined;
+	        scene = undefined;
+	        renderer = undefined;
+	    };
+
+	    //
+
+	    function onDocumentKeyDown(event) {
+	        dispatch$$1(events.keydown, event);
+	    }
+
+	    function onDocumentKeyUp(event) {
+	        dispatch$$1(events.keyup, event);
+	    }
+
+	    function onDocumentMouseDown(event) {
+	        dispatch$$1(events.mousedown, event);
+	    }
+
+	    function onDocumentMouseUp(event) {
+	        dispatch$$1(events.mouseup, event);
+	    }
+
+	    function onDocumentMouseMove(event) {
+	        dispatch$$1(events.mousemove, event);
+	    }
+
+	    function onDocumentTouchStart(event) {
+	        dispatch$$1(events.touchstart, event);
+	    }
+
+	    function onDocumentTouchEnd(event) {
+	        dispatch$$1(events.touchend, event);
+	    }
+
+	    function onDocumentTouchMove(event) {
+	        dispatch$$1(events.touchmove, event);
+	    }
+	}
+
+	/**
+	 * 播放器面板
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function Player(options) {
+	    UI$1.Control.call(this, options);
+	    this.app = options.app;
+	}
+	Player.prototype = Object.create(UI$1.Control.prototype);
+	Player.prototype.constructor = Player;
+
+	Player.prototype.render = function () {
+	    this.container = UI$1.create({
+	        xtype: 'div',
+	        parent: this.parent,
+	        id: 'player',
+	        cls: 'Panel player',
+	        style: {
+	            position: 'absolute',
+	            display: 'none'
+	        }
+	    });
+
+	    this.container.render();
+
+	    this.player = new AppPlayer();
+	    this.container.dom.appendChild(this.player.dom);
+	};
+
+	/**
+	 * 时间线窗口
+	 * @param {*} options 
+	 */
+	function TimePanel(options) {
+	    Control.call(this, options);
+	}
+
+	TimePanel.prototype = Object.create(Control.prototype);
+	TimePanel.prototype.constructor = TimePanel;
+
+	TimePanel.prototype.render = function () {
+	    return;
+	    var target = {
+	        x: 0,
+	        y: 0,
+	        rotate: 0
+	    };
+
+	    var timeliner = new Timeliner(target, {
+	        position: 'absolute',
+	        left: '48px',
+	        right: '300px',
+	        bottom: '32px'
+	    });
+
+	    timeliner.load({
+	        'version': '1.2.0',
+	        'modified': 'Mon Dec 08 2014 10:41:11 GMT+0800 (SGT)',
+	        'title': 'Untitled',
+	        'layers': [{
+	            'name': 'x',
+	            'values': [{
+	                'time': 0.1,
+	                'value': 0,
+	                '_color': '#893c0f',
+	                'tween': 'quadEaseIn'
+	            }, {
+	                'time': 3,
+	                'value': 3.500023,
+	                '_color': '#b074a0'
+	            }],
+	            'tmpValue': 3.500023,
+	            '_color': '#6ee167'
+	        }, {
+	            'name': 'y',
+	            'values': [{
+	                'time': 0.1,
+	                'value': 0,
+	                '_color':
+	                    '#abac31',
+	                'tween': 'quadEaseOut'
+	            }, {
+	                'time': 0.5,
+	                'value': -1.000001,
+	                '_color': '#355ce8',
+	                'tween': 'quadEaseIn'
+	            }, {
+	                'time': 1.1,
+	                'value': 0,
+	                '_color': '#47e90',
+	                'tween': 'quadEaseOut'
+	            }, {
+	                'time': 1.7,
+	                'value': -0.5,
+	                '_color':
+	                    '#f76bca',
+	                'tween': 'quadEaseOut'
+	            }, {
+	                'time': 2.3,
+	                'value': 0,
+	                '_color': '#d59cfd'
+	            }],
+	            'tmpValue': -0.5,
+	            '_color': '#8bd589'
+	        }, {
+	            'name': 'rotate',
+	            'values': [{
+	                'time': 0.1,
+	                'value': -25.700014000000003,
+	                '_color': '#f50ae9',
+	                'tween': 'quadEaseInOut'
+	            }, {
+	                'time': 2.8,
+	                'value': 0,
+	                '_color': '#2e3712'
+	            }],
+	            'tmpValue': -25.700014000000003,
+	            '_color': '#2d9f57'
+	        }]
+	    });
+	};
+
+	/**
+	 * 系统配置
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function Config(name) {
+	    var storage = {
+	        'autosave': true,
+	        'theme': 'assets/css/light.css',
+
+	        'project/renderer': 'WebGLRenderer',
+	        'project/renderer/antialias': true,
+	        'project/renderer/gammaInput': false,
+	        'project/renderer/gammaOutput': false,
+	        'project/renderer/shadows': true,
+	        'project/vr': false,
+
+	        'settings/history': false
+	    };
+
+	    if (window.localStorage[name] === undefined) {
+	        window.localStorage[name] = JSON.stringify(storage);
+	    } else {
+	        var data = JSON.parse(window.localStorage[name]);
+
+	        for (var key in data) {
+	            storage[key] = data[key];
+	        }
+	    }
+
+	    return {
+	        getKey: function (key) {
+	            return storage[key];
+	        },
+
+	        setKey: function () { // key, value, key, value ...
+	            for (var i = 0, l = arguments.length; i < l; i += 2) {
+	                storage[arguments[i]] = arguments[i + 1];
+	            }
+
+	            window.localStorage[name] = JSON.stringify(storage);
+
+	            console.log('[' + /\d\d\:\d\d\:\d\d/.exec(new Date())[0] + ']', '保存配置到LocalStorage。');
+	        },
+
+	        clear: function () {
+	            delete window.localStorage[name];
+	        },
+
+	        toJSON: function () {
+	            return storage;
+	        }
+	    };
+	}
+
+	/**
+	 * 历史记录
+	 * @author dforrer / https://github.com/dforrer
+	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
+	 */
+	function History(editor) {
+	    this.app = editor.app;
+
+	    this.editor = editor;
+	    this.undos = [];
+	    this.redos = [];
+	    this.lastCmdTime = new Date();
+	    this.idCounter = 0;
+
+	    this.historyDisabled = false;
+	    this.config = editor.config;
+
+	    //Set editor-reference in Command
+
+	    Command.call(this, editor);
+
+	    var scope = this;
+
+	    this.app.on('startPlayer.History', function () {
+	        scope.historyDisabled = true;
+	    });
+
+	    this.app.on('stopPlayer.History', function () {
+	        scope.historyDisabled = false;
+	    });
+	}
+	History.prototype = Object.create(Command.prototype);
+
+	Object.assign(History.prototype, {
+
+	    constructor: History,
+
+	    execute: function (cmd, optionalName) {
+
+	        var lastCmd = this.undos[this.undos.length - 1];
+	        var timeDifference = new Date().getTime() - this.lastCmdTime.getTime();
+
+	        var isUpdatableCmd = lastCmd &&
+	            lastCmd.updatable &&
+	            cmd.updatable &&
+	            lastCmd.object === cmd.object &&
+	            lastCmd.type === cmd.type &&
+	            lastCmd.script === cmd.script &&
+	            lastCmd.attributeName === cmd.attributeName;
+
+	        if (isUpdatableCmd && cmd.type === "SetScriptValueCommand") {
+
+	            // When the cmd.type is "SetScriptValueCommand" the timeDifference is ignored
+
+	            lastCmd.update(cmd);
+	            cmd = lastCmd;
+
+	        } else if (isUpdatableCmd && timeDifference < 500) {
+
+	            lastCmd.update(cmd);
+	            cmd = lastCmd;
+
+	        } else {
+
+	            // the command is not updatable and is added as a new part of the history
+
+	            this.undos.push(cmd);
+	            cmd.id = ++this.idCounter;
+
+	        }
+	        cmd.name = (optionalName !== undefined) ? optionalName : cmd.name;
+	        cmd.execute();
+	        cmd.inMemory = true;
+
+	        if (this.config.getKey('settings/history')) {
+
+	            cmd.json = cmd.toJSON();	// serialize the cmd immediately after execution and append the json to the cmd
+
+	        }
+	        this.lastCmdTime = new Date();
+
+	        // clearing all the redo-commands
+
+	        this.redos = [];
+	        this.app.call('historyChanged', this, cmd);
+
+	    },
+
+	    undo: function () {
+	        if (this.historyDisabled) {
+	            UI$1.msg("场景启动时撤销/重做将被禁用。");
+	            return;
+	        }
+
+	        var cmd = undefined;
+
+	        if (this.undos.length > 0) {
+	            cmd = this.undos.pop();
+
+	            if (cmd.inMemory === false) {
+	                cmd.fromJSON(cmd.json);
+	            }
+	        }
+
+	        if (cmd !== undefined) {
+	            cmd.undo();
+	            this.redos.push(cmd);
+	            this.app.call('historyChanged', this, cmd);
+	        }
+
+	        return cmd;
+	    },
+
+	    redo: function () {
+	        if (this.historyDisabled) {
+	            UI$1.msg("场景启动时撤销/重做将被禁用。");
+	            return;
+	        }
+
+	        var cmd = undefined;
+
+	        if (this.redos.length > 0) {
+	            cmd = this.redos.pop();
+
+	            if (cmd.inMemory === false) {
+	                cmd.fromJSON(cmd.json);
+	            }
+	        }
+
+	        if (cmd !== undefined) {
+	            cmd.execute();
+	            this.undos.push(cmd);
+	            this.app.call('historyChanged', this, cmd);
+	        }
+
+	        return cmd;
+	    },
+
+	    toJSON: function () {
+	        var history = {};
+	        history.undos = [];
+	        history.redos = [];
+
+	        if (!this.config.getKey('settings/history')) {
+	            return history;
+	        }
+
+	        // Append Undos to History
+	        for (var i = 0; i < this.undos.length; i++) {
+	            if (this.undos[i].hasOwnProperty("json")) {
+	                history.undos.push(this.undos[i].json);
+	            }
+	        }
+
+	        // Append Redos to History
+	        for (var i = 0; i < this.redos.length; i++) {
+	            if (this.redos[i].hasOwnProperty("json")) {
+	                history.redos.push(this.redos[i].json);
+	            }
+	        }
+
+	        return history;
+	    },
+
+	    fromJSON: function (json) {
+	        if (json === undefined) return;
+
+	        for (var i = 0; i < json.undos.length; i++) {
+	            var cmdJSON = json.undos[i];
+	            var cmd = new window[cmdJSON.type]();	// creates a new object of type "json.type"
+	            cmd.json = cmdJSON;
+	            cmd.id = cmdJSON.id;
+	            cmd.name = cmdJSON.name;
+	            this.undos.push(cmd);
+	            this.idCounter = (cmdJSON.id > this.idCounter) ? cmdJSON.id : this.idCounter; // set last used idCounter
+	        }
+
+	        for (var i = 0; i < json.redos.length; i++) {
+	            var cmdJSON = json.redos[i];
+	            var cmd = new window[cmdJSON.type]();	// creates a new object of type "json.type"
+	            cmd.json = cmdJSON;
+	            cmd.id = cmdJSON.id;
+	            cmd.name = cmdJSON.name;
+	            this.redos.push(cmd);
+	            this.idCounter = (cmdJSON.id > this.idCounter) ? cmdJSON.id : this.idCounter; // set last used idCounter
+	        }
+
+	        // Select the last executed undo-command
+	        this.app.call('historyChanged', this, this.undos[this.undos.length - 1]);
+	    },
+
+	    clear: function () {
+	        this.undos = [];
+	        this.redos = [];
+	        this.idCounter = 0;
+
+	        this.app.call('historyChanged', this);
+	    },
+
+	    goToState: function (id) {
+	        if (this.historyDisabled) {
+	            UI$1.msg("场景启动时撤销/重做将被禁用。");
+	            return;
+	        }
+
+	        var cmd = this.undos.length > 0 ? this.undos[this.undos.length - 1] : undefined;	// next cmd to pop
+
+	        if (cmd === undefined || id > cmd.id) {
+	            cmd = this.redo();
+	            while (cmd !== undefined && id > cmd.id) {
+	                cmd = this.redo();
+	            }
+	        } else {
+	            while (true) {
+	                cmd = this.undos[this.undos.length - 1];	// next cmd to pop
+	                if (cmd === undefined || id === cmd.id) break;
+	                cmd = this.undo();
+	            }
+	        }
+
+	        this.editor.app.call('sceneGraphChanged', this);
+	        this.editor.app.call('historyChanged', this, cmd);
+	    },
+
+	    enableSerialization: function (id) {
+
+	        /**
+			 * because there might be commands in this.undos and this.redos
+			 * which have not been serialized with .toJSON() we go back
+			 * to the oldest command and redo one command after the other
+			 * while also calling .toJSON() on them.
+			 */
+
+	        this.goToState(-1);
+
+	        var cmd = this.redo();
+	        while (cmd !== undefined) {
+	            if (!cmd.hasOwnProperty("json")) {
+	                cmd.json = cmd.toJSON();
+	            }
+	            cmd = this.redo();
+	        }
+
+	        this.goToState(id);
+	    }
+	});
+
+	/**
+	 * 本地存储
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function Storage() {
+	    var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+
+	    if (indexedDB === undefined) {
+	        console.warn('Storage: IndexedDB不可用。');
+	        return { init: function () { }, get: function () { }, set: function () { }, clear: function () { } };
+	    }
+
+	    var name = 'threejs-editor';
+	    var version = 1;
+
+	    var database;
+
+	    return {
+	        init: function (callback) {
+	            var request = indexedDB.open(name, version);
+	            request.onupgradeneeded = function (event) {
+	                var db = event.target.result;
+
+	                if (db.objectStoreNames.contains('states') === false) {
+
+	                    db.createObjectStore('states');
+
+	                }
+	            };
+	            request.onsuccess = function (event) {
+	                database = event.target.result;
+
+	                callback();
+	            };
+	            request.onerror = function (event) {
+	                console.error('IndexedDB', event);
+	            };
+	        },
+
+	        get: function (callback) {
+	            var transaction = database.transaction(['states'], 'readwrite');
+	            var objectStore = transaction.objectStore('states');
+	            var request = objectStore.get(0);
+	            request.onsuccess = function (event) {
+	                callback(event.target.result);
+	            };
+
+	        },
+
+	        set: function (data, callback) {
+	            var start = performance.now();
+
+	            var transaction = database.transaction(['states'], 'readwrite');
+	            var objectStore = transaction.objectStore('states');
+	            var request = objectStore.put(data, 0);
+	            request.onsuccess = function (event) {
+	                console.log('[' + /\d\d\:\d\d\:\d\d/.exec(new Date())[0] + ']', '保存到IndexedDB中。 ' + (performance.now() - start).toFixed(2) + 'ms');
+	            };
+
+	        },
+
+	        clear: function () {
+	            if (database === undefined) return;
+
+	            var transaction = database.transaction(['states'], 'readwrite');
+	            var objectStore = transaction.objectStore('states');
+	            var request = objectStore.clear();
+	            request.onsuccess = function (event) {
+	                console.log('[' + /\d\d\:\d\d\:\d\d/.exec(new Date())[0] + ']', '清空IndexedDB。');
+	            };
+	        }
+	    };
+	}
+
+	/**
+	 * @author dforrer / https://github.com/dforrer
+	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
+	 */
+
+	/**
+	 * @param object THREE.Object3D
+	 * @constructor
+	 */
+
+	function AddObjectCommand(object) {
+
+		Command.call(this);
+
+		this.type = 'AddObjectCommand';
+
+		this.object = object;
+		if (object !== undefined) {
+
+			this.name = 'Add Object: ' + object.name;
+
+		}
+
+	}
+	AddObjectCommand.prototype = Object.create(Command.prototype);
+
+	Object.assign(AddObjectCommand.prototype, {
+
+		constructor: AddObjectCommand,
+
+		execute: function () {
+
+			this.editor.addObject(this.object);
+			this.editor.select(this.object);
+
+		},
+
+		undo: function () {
+
+			this.editor.removeObject(this.object);
+			this.editor.deselect();
+
+		},
+
+		toJSON: function () {
+
+			var output = Command.prototype.toJSON.call(this);
+			output.object = this.object.toJSON();
+
+			return output;
+
+		},
+
+		fromJSON: function (json) {
+
+			Command.prototype.fromJSON.call(this, json);
+
+			this.object = this.editor.objectByUuid(json.object.object.uuid);
+
+			if (this.object === undefined) {
+
+				var loader = new THREE.ObjectLoader();
+				this.object = loader.parse(json.object);
+
+			}
+
+		}
+
+	});
+
+	/**
+	 * @author dforrer / https://github.com/dforrer
+	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
+	 */
+
+	/**
+	 * @param scene containing children to import
+	 * @constructor
+	 */
+
+	function SetSceneCommand(scene) {
+
+		Command.call(this);
+
+		this.type = 'SetSceneCommand';
+		this.name = 'Set Scene';
+
+		this.cmdArray = [];
+
+		if (scene !== undefined) {
+
+			this.cmdArray.push(new SetUuidCommand(this.editor.scene, scene.uuid));
+			this.cmdArray.push(new SetValueCommand(this.editor.scene, 'name', scene.name));
+			this.cmdArray.push(new SetValueCommand(this.editor.scene, 'userData', JSON.parse(JSON.stringify(scene.userData))));
+
+			while (scene.children.length > 0) {
+
+				var child = scene.children.pop();
+				this.cmdArray.push(new AddObjectCommand(child));
+
+			}
+
+		}
+
+	}
+	SetSceneCommand.prototype = Object.create(Command.prototype);
+
+	Object.assign(SetSceneCommand.prototype, {
+
+		constructor: SetSceneCommand,
+
+		execute: function () {
+			for (var i = 0; i < this.cmdArray.length; i++) {
+
+				this.cmdArray[i].execute();
+
+			}
+			this.editor.app.call('sceneGraphChanged', this);
+		},
+
+		undo: function () {
+			for (var i = this.cmdArray.length - 1; i >= 0; i--) {
+
+				this.cmdArray[i].undo();
+
+			}
+			this.editor.app.call('sceneGraphChanged', this);
+		},
+
+		toJSON: function () {
+
+			var output = Command.prototype.toJSON.call(this);
+
+			var cmds = [];
+			for (var i = 0; i < this.cmdArray.length; i++) {
+
+				cmds.push(this.cmdArray[i].toJSON());
+
+			}
+			output.cmds = cmds;
+
+			return output;
+
+		},
+
+		fromJSON: function (json) {
+			Command.prototype.fromJSON.call(this, json);
+
+			var cmds = json.cmds;
+			for (var i = 0; i < cmds.length; i++) {
+				var cmd = new window[cmds[i].type]();	// creates a new object of type "json.type"
+				cmd.fromJSON(cmds[i]);
+				this.cmdArray.push(cmd);
+			}
+		}
+	});
+
+	/**
+	 * 模型加载
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function Loader(editor) {
+
+	    var scope = this;
+
+	    this.texturePath = '';
+
+	    this.loadFile = function (file) {
+
+	        var filename = file.name;
+	        var extension = filename.split('.').pop().toLowerCase();
+
+	        var reader = new FileReader();
+	        reader.addEventListener('progress', function (event) {
+
+	            var size = '(' + Math.floor(event.total / 1000).format() + ' KB)';
+	            var progress = Math.floor((event.loaded / event.total) * 100) + '%';
+	            console.log('加载中', filename, size, progress);
+
+	        });
+
+	        switch (extension) {
+
+	            case 'amf':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var loader = new THREE.AMFLoader();
+	                    var amfobject = loader.parse(event.target.result);
+
+	                    editor.execute(new AddObjectCommand(amfobject));
+
+	                }, false);
+	                reader.readAsArrayBuffer(file);
+
+	                break;
+
+	            case 'awd':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var loader = new THREE.AWDLoader();
+	                    var scene = loader.parse(event.target.result);
+
+	                    editor.execute(new SetSceneCommand(scene));
+
+	                }, false);
+	                reader.readAsArrayBuffer(file);
+
+	                break;
+
+	            case 'babylon':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+	                    var json = JSON.parse(contents);
+
+	                    var loader = new THREE.BabylonLoader();
+	                    var scene = loader.parse(json);
+
+	                    editor.execute(new SetSceneCommand(scene));
+
+	                }, false);
+	                reader.readAsText(file);
+
+	                break;
+
+	            case 'babylonmeshdata':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+	                    var json = JSON.parse(contents);
+
+	                    var loader = new THREE.BabylonLoader();
+
+	                    var geometry = loader.parseGeometry(json);
+	                    var material = new THREE.MeshStandardMaterial();
+
+	                    var mesh = new THREE.Mesh(geometry, material);
+	                    mesh.name = filename;
+
+	                    editor.execute(new AddObjectCommand(mesh));
+
+	                }, false);
+	                reader.readAsText(file);
+
+	                break;
+
+	            case 'ctm':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var data = new Uint8Array(event.target.result);
+
+	                    var stream = new CTM.Stream(data);
+	                    stream.offset = 0;
+
+	                    var loader = new THREE.CTMLoader();
+	                    loader.createModel(new CTM.File(stream), function (geometry) {
+
+	                        geometry.sourceType = "ctm";
+	                        geometry.sourceFile = file.name;
+
+	                        var material = new THREE.MeshStandardMaterial();
+
+	                        var mesh = new THREE.Mesh(geometry, material);
+	                        mesh.name = filename;
+
+	                        editor.execute(new AddObjectCommand(mesh));
+
+	                    });
+
+	                }, false);
+	                reader.readAsArrayBuffer(file);
+
+	                break;
+
+	            case 'dae':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+
+	                    var loader = new THREE.ColladaLoader();
+	                    var collada = loader.parse(contents);
+
+	                    collada.scene.name = filename;
+
+	                    editor.execute(new AddObjectCommand(collada.scene));
+
+	                }, false);
+	                reader.readAsText(file);
+
+	                break;
+
+	            case 'fbx':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+
+	                    var loader = new THREE.FBXLoader();
+	                    var object = loader.parse(contents);
+
+	                    editor.execute(new AddObjectCommand(object));
+
+	                }, false);
+	                reader.readAsText(file);
+
+	                break;
+
+	            case 'glb':
+	            case 'gltf':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+
+	                    var loader = new THREE.GLTFLoader();
+	                    loader.parse(contents, function (result) {
+
+	                        result.scene.name = filename;
+	                        editor.execute(new AddObjectCommand(result.scene));
+
+	                    });
+
+	                }, false);
+	                reader.readAsArrayBuffer(file);
+
+	                break;
+
+	            case 'js':
+	            case 'json':
+
+	            case '3geo':
+	            case '3mat':
+	            case '3obj':
+	            case '3scn':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+
+	                    // 2.0
+
+	                    if (contents.indexOf('postMessage') !== -1) {
+
+	                        var blob = new Blob([contents], { type: 'text/javascript' });
+	                        var url = URL.createObjectURL(blob);
+
+	                        var worker = new Worker(url);
+
+	                        worker.onmessage = function (event) {
+
+	                            event.data.metadata = { version: 2 };
+	                            handleJSON(event.data, file, filename);
+
+	                        };
+
+	                        worker.postMessage(Date.now());
+
+	                        return;
+
+	                    }
+
+	                    // >= 3.0
+
+	                    var data;
+
+	                    try {
+
+	                        data = JSON.parse(contents);
+
+	                    } catch (error) {
+
+	                        UI$1.msg(error);
+	                        return;
+
+	                    }
+
+	                    handleJSON(data, file, filename);
+
+	                }, false);
+	                reader.readAsText(file);
+
+	                break;
+
+
+	            case 'kmz':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var loader = new THREE.KMZLoader();
+	                    var collada = loader.parse(event.target.result);
+
+	                    collada.scene.name = filename;
+
+	                    editor.execute(new AddObjectCommand(collada.scene));
+
+	                }, false);
+	                reader.readAsArrayBuffer(file);
+
+	                break;
+
+	            case 'md2':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+
+	                    var geometry = new THREE.MD2Loader().parse(contents);
+	                    var material = new THREE.MeshStandardMaterial({
+	                        morphTargets: true,
+	                        morphNormals: true
+	                    });
+
+	                    var mesh = new THREE.Mesh(geometry, material);
+	                    mesh.mixer = new THREE.AnimationMixer(mesh);
+	                    mesh.name = filename;
+
+	                    editor.execute(new AddObjectCommand(mesh));
+
+	                }, false);
+	                reader.readAsArrayBuffer(file);
+
+	                break;
+
+	            case 'obj':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+
+	                    var object = new THREE.OBJLoader().parse(contents);
+	                    object.name = filename;
+
+	                    editor.execute(new AddObjectCommand(object));
+
+	                }, false);
+	                reader.readAsText(file);
+
+	                break;
+
+	            case 'playcanvas':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+	                    var json = JSON.parse(contents);
+
+	                    var loader = new THREE.PlayCanvasLoader();
+	                    var object = loader.parse(json);
+
+	                    editor.execute(new AddObjectCommand(object));
+
+	                }, false);
+	                reader.readAsText(file);
+
+	                break;
+
+	            case 'ply':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+
+	                    var geometry = new THREE.PLYLoader().parse(contents);
+	                    geometry.sourceType = "ply";
+	                    geometry.sourceFile = file.name;
+
+	                    var material = new THREE.MeshStandardMaterial();
+
+	                    var mesh = new THREE.Mesh(geometry, material);
+	                    mesh.name = filename;
+
+	                    editor.execute(new AddObjectCommand(mesh));
+
+	                }, false);
+	                reader.readAsArrayBuffer(file);
+
+	                break;
+
+	            case 'stl':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+
+	                    var geometry = new THREE.STLLoader().parse(contents);
+	                    geometry.sourceType = "stl";
+	                    geometry.sourceFile = file.name;
+
+	                    var material = new THREE.MeshStandardMaterial();
+
+	                    var mesh = new THREE.Mesh(geometry, material);
+	                    mesh.name = filename;
+
+	                    editor.execute(new AddObjectCommand(mesh));
+
+	                }, false);
+
+	                if (reader.readAsBinaryString !== undefined) {
+
+	                    reader.readAsBinaryString(file);
+
+	                } else {
+
+	                    reader.readAsArrayBuffer(file);
+
+	                }
+
+	                break;
+
+	            /*
+	            case 'utf8':
+	 
+	                reader.addEventListener( 'load', function ( event ) {
+	 
+	                    var contents = event.target.result;
+	 
+	                    var geometry = new THREE.UTF8Loader().parse( contents );
+	                    var material = new THREE.MeshLambertMaterial();
+	 
+	                    var mesh = new THREE.Mesh( geometry, material );
+	 
+	                    editor.execute( new AddObjectCommand( mesh ) );
+	 
+	                }, false );
+	                reader.readAsBinaryString( file );
+	 
+	                break;
+	            */
+
+	            case 'vtk':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+
+	                    var geometry = new THREE.VTKLoader().parse(contents);
+	                    geometry.sourceType = "vtk";
+	                    geometry.sourceFile = file.name;
+
+	                    var material = new THREE.MeshStandardMaterial();
+
+	                    var mesh = new THREE.Mesh(geometry, material);
+	                    mesh.name = filename;
+
+	                    editor.execute(new AddObjectCommand(mesh));
+
+	                }, false);
+	                reader.readAsText(file);
+
+	                break;
+
+	            case 'wrl':
+
+	                reader.addEventListener('load', function (event) {
+
+	                    var contents = event.target.result;
+
+	                    var result = new THREE.VRMLLoader().parse(contents);
+
+	                    editor.execute(new SetSceneCommand(result));
+
+	                }, false);
+	                reader.readAsText(file);
+
+	                break;
+
+	            default:
+
+	                UI$1.msg('不支持的文件类型(' + extension + ').');
+
+	                break;
+
+	        }
+
+	    };
+
+	    function handleJSON(data, file, filename) {
+
+	        if (data.metadata === undefined) { // 2.0
+
+	            data.metadata = { type: 'Geometry' };
+
+	        }
+
+	        if (data.metadata.type === undefined) { // 3.0
+
+	            data.metadata.type = 'Geometry';
+
+	        }
+
+	        if (data.metadata.formatVersion !== undefined) {
+
+	            data.metadata.version = data.metadata.formatVersion;
+
+	        }
+
+	        switch (data.metadata.type.toLowerCase()) {
+
+	            case 'buffergeometry':
+
+	                var loader = new THREE.BufferGeometryLoader();
+	                var result = loader.parse(data);
+
+	                var mesh = new THREE.Mesh(result);
+
+	                editor.execute(new AddObjectCommand(mesh));
+
+	                break;
+
+	            case 'geometry':
+
+	                var loader = new THREE.JSONLoader();
+	                loader.setTexturePath(scope.texturePath);
+
+	                var result = loader.parse(data);
+
+	                var geometry = result.geometry;
+	                var material;
+
+	                if (result.materials !== undefined) {
+
+	                    if (result.materials.length > 1) {
+
+	                        material = new THREE.MultiMaterial(result.materials);
+
+	                    } else {
+
+	                        material = result.materials[0];
+
+	                    }
+
+	                } else {
+
+	                    material = new THREE.MeshStandardMaterial();
+
+	                }
+
+	                geometry.sourceType = "ascii";
+	                geometry.sourceFile = file.name;
+
+	                var mesh;
+
+	                if (geometry.animation && geometry.animation.hierarchy) {
+
+	                    mesh = new THREE.SkinnedMesh(geometry, material);
+
+	                } else {
+
+	                    mesh = new THREE.Mesh(geometry, material);
+
+	                }
+
+	                mesh.name = filename;
+
+	                editor.execute(new AddObjectCommand(mesh));
+
+	                break;
+
+	            case 'object':
+
+	                var loader = new THREE.ObjectLoader();
+	                loader.setTexturePath(scope.texturePath);
+
+	                var result = loader.parse(data);
+
+	                if (result instanceof THREE.Scene) {
+
+	                    editor.execute(new SetSceneCommand(result));
+
+	                } else {
+
+	                    editor.execute(new AddObjectCommand(result));
+
+	                }
+
+	                break;
+
+	            case 'scene':
+
+	                // DEPRECATED
+
+	                var loader = new THREE.SceneLoader();
+	                loader.parse(data, function (result) {
+
+	                    editor.execute(new SetSceneCommand(result.scene));
+
+	                }, '');
+
+	                break;
+
+	            case 'app':
+
+	                editor.fromJSON(data);
+
+	                break;
+
+	        }
+
+	    }
+
+	}
+
+	/**
+	 * 渲染器改变事件
+	 * @param {*} app 
+	 */
+	function RendererChangedEvent(app) {
+	    BaseEvent.call(this, app);
+
+	    this.vrControls = null;
+	    this.vrCamera = null;
+	    this.vrEffect = null;
+	}
+
+	RendererChangedEvent.prototype = Object.create(BaseEvent.prototype);
+	RendererChangedEvent.prototype.constructor = RendererChangedEvent;
+
+	RendererChangedEvent.prototype.start = function () {
+	    this.app.on('rendererChanged.' + this.id, this.onRendererChanged.bind(this));
+	};
+
+	RendererChangedEvent.prototype.stop = function () {
+	    this.app.on('rendererChanged.' + this.id, null);
+	};
+
+	RendererChangedEvent.prototype.onRendererChanged = function (newRenderer) {
+	    var editor = this.app.editor;
+	    var renderer = this.app.editor.renderer;
+	    var container = this.app.viewport.container;
+
+	    if (renderer != null) {
+	        container.dom.removeChild(renderer.domElement);
+	    }
+
+	    renderer = newRenderer;
+	    this.app.editor.renderer = renderer;
+
+	    renderer.autoClear = false;
+	    renderer.autoUpdateScene = false;
+	    renderer.setPixelRatio(window.devicePixelRatio);
+	    renderer.setSize(container.dom.offsetWidth, container.dom.offsetHeight);
+
+	    container.dom.appendChild(renderer.domElement);
+
+	    if (renderer.vr && renderer.vr.enabled) {
+	        this.vrCamera = new THREE.PerspectiveCamera();
+	        this.vrCamera.projectionMatrix = editor.camera.projectionMatrix;
+	        editor.camera.add(this.vrCamera);
+	        editor.vrCamera = this.vrCamera;
+
+	        this.vrControls = new THREE.VRControls(this.vrCamera);
+	        editor.vrControls = this.vrControls;
+
+	        this.vrEffect = new THREE.VREffect(renderer);
+	        editor.vrEffect = this.vrEffect;
+
+	        var _this = this;
+
+	        window.addEventListener('vrdisplaypresentchange', function (event) {
+	            _this.vrEffect.isPresenting ? _this.app.call('enteredVR', _this) : _this.app.call('exitedVR', _this);
+	        }, false);
+	    }
+
+	    this.app.call('render');
+	};
+
+	/**
+	 * 编辑器
+	 * @author mrdoob / http://mrdoob.com/
+	 */
+	function Editor(app) {
+	    this.app = app;
+	    this.app.editor = this;
+
+	    // 基础
+	    this.config = new Config('threejs-editor');
+	    this.history = new History(this);
+	    this.storage = new Storage();
+	    this.loader = new Loader(this);
+
+	    // 场景
+	    this.scene = new THREE.Scene();
+	    this.scene.name = '场景';
+	    this.scene.background = new THREE.Color(0xaaaaaa);
+
+	    this.sceneHelpers = new THREE.Scene();
+
+	    this.sceneName = null; // 当前场景名称
+
+	    // 相机
+	    this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 0.1, 10000);
+	    this.DEFAULT_CAMERA.name = '默认相机';
+	    this.DEFAULT_CAMERA.position.set(20, 10, 20);
+	    this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
+
+	    this.camera = this.DEFAULT_CAMERA.clone();
+
+	    // 渲染器
+	    this.rendererTypes = {
+	        'WebGLRenderer': THREE.WebGLRenderer,
+	        'CanvasRenderer': THREE.CanvasRenderer,
+	        'SVGRenderer': THREE.SVGRenderer,
+	        'SoftwareRenderer': THREE.SoftwareRenderer,
+	        'RaytracingRenderer': THREE.RaytracingRenderer
+	    };
+
+	    this.renderer = this.createRendererFromConfig();
+	    this.app.viewport.container.dom.appendChild(this.renderer.domElement);
+	    (new RendererChangedEvent(this.app)).onRendererChanged(this.renderer);
+
+	    // 缓存
+	    this.object = {};
+	    this.objects = [];
+	    this.geometries = {};
+	    this.materials = {};
+	    this.textures = {};
+	    this.scripts = {};
+	    this.helpers = {};
+
+	    // 当前选中物体
+	    this.selected = null;
+
+	    // 网格
+	    this.grid = new THREE.GridHelper(30, 30, 0x444444, 0x888888);
+	    this.sceneHelpers.add(this.grid);
+
+	    // 选中包围盒（当mesh.useSelectionBox === false时，不使用包围盒）
+	    this.selectionBox = new THREE.BoxHelper();
+	    this.selectionBox.material.depthTest = false;
+	    this.selectionBox.material.transparent = true;
+	    this.selectionBox.visible = false;
+	    this.sceneHelpers.add(this.selectionBox);
+
+	    // 平移旋转缩放控件
+	    this.transformControls = new THREE.TransformControls(this.camera, this.app.viewport.container.dom);
+	    this.sceneHelpers.add(this.transformControls);
+
+	    // 编辑器控件
+	    this.controls = new THREE.EditorControls(this.camera, this.app.viewport.container.dom);
+
+	    // 性能控件
+	    this.stats = new Stats();
+	    this.stats.dom.style.position = 'absolute';
+	    this.stats.dom.style.left = '8px';
+	    this.stats.dom.style.top = '8px';
+	    this.stats.dom.style.zIndex = 'initial';
+	    this.app.viewport.container.dom.appendChild(this.stats.dom);
+	}
+	// ---------------------- 渲染器 ---------------------------
+
+	Editor.prototype.createRenderer = function (options) { // 创建渲染器
+	    var rendererType = options.rendererType === undefined ? 'WebGLRenderer' : options.rendererType;
+	    var antialias = options.antialias === undefined ? true : options.antialias;
+	    var shadows = options.shadows === undefined ? true : options.shadows;
+	    var gammaIn = options.gammaIn === undefined ? false : options.gammaIn;
+	    var gammaOut = options.gammaOut === undefined ? false : options.gammaOut;
+	    var rendererTypes = this.rendererTypes;
+
+	    var renderer = new rendererTypes[rendererType]({ antialias: antialias });
+	    renderer.gammaInput = gammaIn;
+	    renderer.gammaOutput = gammaOut;
+	    if (shadows && renderer.shadowMap) {
+	        renderer.shadowMap.enabled = true;
+	        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+	    }
+	    return renderer;
+	};
+
+	Editor.prototype.createRendererFromConfig = function () { // 从配置创建渲染器
+	    var rendererType = this.config.getKey('project/renderer');
+	    var antialias = this.config.getKey('project/renderer/antialias');
+	    var shadows = this.config.getKey('project/renderer/shadows');
+	    var gammaIn = this.config.getKey('project/renderer/gammaInput');
+	    var gammaOut = this.config.getKey('project/renderer/gammaOutput');
+
+	    return this.createRenderer({
+	        rendererType: rendererType,
+	        antialias: antialias,
+	        shadows: shadows,
+	        gammaIn: gammaIn,
+	        gammaOut: gammaOut
+	    });
+	};
+
+	// -------------------- 编辑器 --------------------------
+
+	Editor.prototype.setTheme = function (value) { // 设置主题
+	    this.app.call('setTheme', this, value);
+	};
+
+	Editor.prototype.setScene = function (scene) { // 设置场景
+	    this.app.call('setScene', this, scene);
+	};
+
+	// ---------------------- 物体 ---------------------------
+
+	Editor.prototype.objectByUuid = function (uuid) { // 根据uuid获取物体
+	    return this.scene.getObjectByProperty('uuid', uuid, true);
+	};
+
+	Editor.prototype.addObject = function (object) { // 添加物体
+	    this.app.call('addObject', this, object);
+	};
+
+	Editor.prototype.moveObject = function (object, parent, before) { // 移动物体
+	    this.app.call('moveObject', this, object, parent, before);
+	};
+
+	Editor.prototype.nameObject = function (object, name) { // 重命名物体
+	    this.app.call('nameObject', this, object, name);
+	};
+
+	Editor.prototype.removeObject = function (object) { // 移除物体
+	    this.app.call('removeObject', this, object);
+	};
+
+	Editor.prototype.addGeometry = function (geometry) { // 添加几何体
+	    this.app.call('addGeometry', this, geometry);
+	};
+
+	Editor.prototype.setGeometryName = function (geometry, name) { // 设置几何体名称
+	    this.app.call('setGeometryName', this, geometry, name);
+	};
+
+	Editor.prototype.addMaterial = function (material) { // 添加材质
+	    this.app.call('addMaterial', this, material);
+	};
+
+	Editor.prototype.setMaterialName = function (material, name) { // 设置材质名称事件
+	    this.app.call('setMaterialName', this, material, name);
+	};
+
+	Editor.prototype.addTexture = function (texture) { // 添加纹理事件
+	    this.app.call('addTexture', this, texture);
+	};
+
+	// ------------------------- 帮助 ------------------------------
+
+	Editor.prototype.addHelper = function (object) { // 添加物体帮助
+	    this.app.call('addHelper', this, object);
+	};
+
+	Editor.prototype.removeHelper = function (object) { // 移除物体帮助
+	    this.app.call('removeHelper', this, object);
+	};
+
+	// ------------------------ 脚本 ----------------------------
+
+	Editor.prototype.addScript = function (object, script) { // 添加脚本
+	    this.app.call('addScript', this, object, script);
+	};
+
+	Editor.prototype.removeScript = function (object, script) { // 移除脚本
+	    this.app.call('removeScript', this, object, script);
+	};
+
+	// ------------------------ 选中事件 --------------------------------
+
+	Editor.prototype.select = function (object) { // 选中物体
+	    this.app.call('select', this, object);
+	};
+
+	Editor.prototype.selectById = function (id) { // 根据id选中物体
+	    if (id === this.camera.id) {
+	        this.select(this.camera);
+	        return;
+	    }
+
+	    this.select(this.scene.getObjectById(id, true));
+	};
+
+	Editor.prototype.selectByUuid = function (uuid) { // 根据uuid选中物体
+	    var _this = this;
+	    this.scene.traverse(function (child) {
+	        if (child.uuid === uuid) {
+	            _this.select(child);
+	        }
+	    });
+	};
+
+	Editor.prototype.deselect = function () { // 取消选中物体
+	    this.select(null);
+	};
+
+	// ---------------------- 焦点事件 --------------------------
+
+	Editor.prototype.focus = function (object) { // 设置焦点
+	    this.app.call('objectFocused', this, object);
+	};
+
+	Editor.prototype.focusById = function (id) { // 根据id设置交点
+	    this.focus(this.scene.getObjectById(id, true));
+	};
+
+	// ----------------------- 场景事件 ----------------------------
+
+	Editor.prototype.clear = function () { // 清空场景
+	    this.app.call('clear', this);
+	};
+
+	Editor.prototype.load = function () { // 加载场景
+	    this.app.call('load', this);
+	};
+
+	Editor.prototype.save = function () { // 保存场景
+	    this.app.call('save', this);
+	};
+
+	// --------------------- 命令事件 ------------------------
+
+	Editor.prototype.execute = function (cmd, optionalName) { // 执行事件
+	    this.history.execute(cmd, optionalName);
+	};
+
+	Editor.prototype.undo = function () { // 撤销事件
+	    this.history.undo();
+	};
+
+	Editor.prototype.redo = function () { // 重做事件
+	    this.history.redo();
+	};
+
+	// ------------------------- 序列化 ----------------------------
+
+	Editor.prototype.fromJSON = function (json) { // 根据json创建场景
+	    var loader = new THREE.ObjectLoader();
+
+	    // backwards
+
+	    if (json.scene === undefined) {
+	        this.setScene(loader.parse(json));
+	        return;
+	    }
+
+	    var camera = loader.parse(json.camera);
+
+	    this.camera.copy(camera);
+	    this.camera.aspect = this.DEFAULT_CAMERA.aspect;
+	    this.camera.updateProjectionMatrix();
+
+	    this.history.fromJSON(json.history);
+	    this.scripts = json.scripts;
+
+	    this.setScene(loader.parse(json.scene));
+	};
+
+	Editor.prototype.toJSON = function () { // 将场景转换为json
+	    // scripts clean up
+	    var scene = this.scene;
+	    var scripts = this.scripts;
+
+	    for (var key in scripts) {
+	        var script = scripts[key];
+
+	        if (script.length === 0 || scene.getObjectByProperty('uuid', key) === undefined) {
+	            delete scripts[key];
+	        }
+	    }
+
+	    return {
+	        metadata: {},
+	        project: {
+	            gammaInput: this.config.getKey('project/renderer/gammaInput'),
+	            gammaOutput: this.config.getKey('project/renderer/gammaOutput'),
+	            shadows: this.config.getKey('project/renderer/shadows'),
+	            vr: this.config.getKey('project/vr')
+	        },
+	        camera: this.camera.toJSON(),
+	        scene: this.scene.toJSON(),
+	        scripts: this.scripts,
+	        history: this.history.toJSON()
+	    };
+	};
+
+	function Physics(options) {
+	    this.app = options.app;
+
+	    // Physics configuration
+	    this.collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
+	    this.dispatcher = new Ammo.btCollisionDispatcher(this.collisionConfiguration);
+	    this.broadphase = new Ammo.btDbvtBroadphase();
+	    this.solver = new Ammo.btSequentialImpulseConstraintSolver();
+	    this.softBodySolver = new Ammo.btDefaultSoftBodySolver();
+
+	    this.physicsWorld = new Ammo.btSoftRigidDynamicsWorld(this.dispatcher, this.broadphase, this.solver, this.collisionConfiguration, this.softBodySolver);
+	    this.physicsWorld.setGravity(new Ammo.btVector3(0, this.app.options.gravityConstant, 0));
+	    this.physicsWorld.getWorldInfo().set_m_gravity(new Ammo.btVector3(0, this.app.options.gravityConstant, 0));
+	}
+
+	Physics.prototype.init = function () {
+
+	};
+
+	/**
+	 * 应用程序
+	 */
+	function Application(container, options) {
+
+	    // 容器
+	    this.container = container;
+	    this.width = this.container.clientWidth;
+	    this.height = this.container.clientHeight;
+
+	    // 配置
+	    this.options = new Options(options);
+
+	    // 事件
+	    this.event = new EventDispatcher(this);
+	    this.call = this.event.call.bind(this.event);
+	    this.on = this.event.on.bind(this.event);
+
+	    var params = { app: this, parent: this.container };
+
+	    // 用户界面
+	    this.ui = UI$1;
+
+	    this.menubar = new Menubar(params); // 菜单栏
+	    this.menubar.render();
+
+	    this.toolbar = new Toolbar(params); // 工具栏
+	    this.toolbar.render();
+
+	    this.viewport = new Viewport(params); // 场景编辑区
+	    this.viewport.render();
+
+	    this.editor = new Editor(this); // 编辑器
+
+	    this.sidebar = new Sidebar(params); // 侧边栏
+	    this.sidebar.render();
+
+	    this.statusBar = new StatusBar(params); // 状态栏
+	    this.statusBar.render();
+
+	    this.script = new Script(params); // 脚本编辑面板
+	    this.script.render();
+
+	    this.player = new Player(params); // 播放器面板
+	    this.player.render();
+
+	    this.timePanel = new TimePanel(params); // 时间面板
+	    this.timePanel.render();
+
+	    // 物理引擎
+	    this.physics = new Physics(params);
+	    this.physics.init();
+
+	    this.running = false;
+
+	    // 是否从文件中加载场景，从文件中加载场景的url格式是index.html#file=xxx
+	    this.isLoadingFromHash = false;
+	}
+
+	Application.prototype.start = function () {
+	    this.running = true;
+
+	    // 启动事件 - 事件要在ui创建完成后启动
+	    this.event.start();
+
+	    this.call('appStart', this);
+	    this.call('resize', this);
+	    this.call('initApp', this);
+	    this.call('appStarted', this);
+	};
+
+	Application.prototype.stop = function () {
+	    this.running = false;
+
+	    this.call('appStop', this);
+	    this.call('appStoped', this);
+
+	    this.event.stop();
+	};
+
+	/**
+	 * 配置序列化器
 	 */
 	function ConfigSerializer() {
 	    BaseSerializer.call(this);
@@ -35617,13 +41230,26 @@
 	ConfigSerializer.prototype = Object.create(BaseSerializer.prototype);
 	ConfigSerializer.prototype.constructor = ConfigSerializer;
 
-	ConfigSerializer.prototype.toJSON = function (obj) {
-	    var json = obj.toJSON();
+	ConfigSerializer.prototype.filter = function (obj) {
+	    if (obj instanceof Application) {
+	        return true;
+	    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	};
+
+	ConfigSerializer.prototype.toJSON = function (app) {
+	    var json = BaseSerializer.prototype.toJSON(app);
+	    Object.assign(json, app.editor.config.toJSON());
 	    return json;
 	};
 
-	ConfigSerializer.prototype.fromJSON = function (json) {
-
+	ConfigSerializer.prototype.fromJSON = function (app, json) {
+	    Object.keys(json).forEach(key => {
+	        app.editor.config.setKey(key, json[key]);
+	    });
 	};
 
 	/**
@@ -35636,12 +41262,46 @@
 	ScriptSerializer.prototype = Object.create(BaseSerializer.prototype);
 	ScriptSerializer.prototype.constructor = ScriptSerializer;
 
-	ScriptSerializer.prototype.toJSON = function (obj) {
-	    return obj;
+	ScriptSerializer.prototype.filter = function (obj) {
+	    if (obj instanceof Application) {
+	        return true;
+	    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
+	        return true;
+	    } else {
+	        return false;
+	    }
 	};
 
-	ScriptSerializer.prototype.fromJSON = function (json) {
+	ScriptSerializer.prototype.toJSON = function (app) {
+	    var list = [];
 
+	    Object.keys(app.editor.scripts).forEach(id => {
+	        var json = BaseSerializer.prototype.toJSON(app);
+
+	        var name = app.editor.scripts[id].name;
+	        var source = app.editor.scripts[id].source;
+
+	        Object.assign(json, {
+	            id: id,
+	            name: name,
+	            source: source
+	        });
+
+	        list.push(json);
+	    });
+
+	    return list;
+	};
+
+	ScriptSerializer.prototype.fromJSON = function (app, json) {
+	    app.editor.scripts = {};
+
+	    json.forEach(n => {
+	        app.editor.scripts[id] = {
+	            name: n.name,
+	            source: n.source
+	        };
+	    });
 	};
 
 	/**
@@ -35654,6 +41314,16 @@
 	CameraSerializer$1.prototype = Object.create(BaseSerializer.prototype);
 	CameraSerializer$1.prototype.constructor = CameraSerializer$1;
 
+	CameraSerializer$1.prototype.filter = function (obj) {
+	    if (obj instanceof THREE.Camera) {
+	        return true;
+	    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	};
+
 	CameraSerializer$1.prototype.toJSON = function (obj) {
 	    var json = Object3DSerializer.prototype.toJSON(obj);
 
@@ -35663,8 +41333,12 @@
 	    return json;
 	};
 
-	CameraSerializer$1.prototype.fromJSON = function (json) {
+	CameraSerializer$1.prototype.fromJSON = function (json, parent) {
+	    var obj = parent === undefined ? new THREE.Camera() : parent;
 
+	    // TODO: Three.Camera反序列化
+
+	    return obj;
 	};
 
 	/**
@@ -35676,6 +41350,16 @@
 
 	OrthographicCameraSerializer.prototype = Object.create(BaseSerializer.prototype);
 	OrthographicCameraSerializer.prototype.constructor = OrthographicCameraSerializer;
+
+	OrthographicCameraSerializer.prototype.filter = function (obj) {
+	    if (obj instanceof THREE.OrthographicCamera) {
+	        return true;
+	    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	};
 
 	OrthographicCameraSerializer.prototype.toJSON = function (obj) {
 	    var json = CameraSerializer$1.prototype.toJSON(obj);
@@ -35692,8 +41376,12 @@
 	    return json;
 	};
 
-	OrthographicCameraSerializer.prototype.fromJSON = function (json) {
+	OrthographicCameraSerializer.prototype.fromJSON = function (json, parent) {
+	    var obj = parent === undefined ? new THREE.OrthographicCamera() : parent;
 
+	    // TODO: THREE.OrthographicCamera反序列化
+
+	    return obj;
 	};
 
 	/**
@@ -35705,6 +41393,16 @@
 
 	PerspectiveCameraSerializer.prototype = Object.create(BaseSerializer.prototype);
 	PerspectiveCameraSerializer.prototype.constructor = PerspectiveCameraSerializer;
+
+	PerspectiveCameraSerializer.prototype.filter = function (obj) {
+	    if (obj instanceof THREE.PerspectiveCamera) {
+	        return true;
+	    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	};
 
 	PerspectiveCameraSerializer.prototype.toJSON = function (obj) {
 	    var json = CameraSerializer$1.prototype.toJSON(obj);
@@ -35722,8 +41420,12 @@
 	    return json;
 	};
 
-	PerspectiveCameraSerializer.prototype.fromJSON = function (json) {
+	PerspectiveCameraSerializer.prototype.fromJSON = function (json, parent) {
+	    var obj = parent === undefined ? new THREE.PerspectiveCamera() : parent;
 
+	    // TODO: THREE.PerspectiveCamera 反序列化
+
+	    return obj;
 	};
 
 	/**
@@ -35876,25 +41578,23 @@
 	Converter.prototype.constructor = Converter;
 
 	Converter.prototype.filter = function (obj) {
-	    return true;
+	    return false;
 	};
 
 	Converter.prototype.toJSON = function (app) {
 	    var list = [];
 
 	    // 配置
-	    var config = {
-	        Metadata: Serializers.Config.Metadata,
-	        Object: Serializers.Config.Serializer.toJSON(app.editor.config),
-	    };
+	    var config = (new ConfigSerializer()).toJSON(app);
 	    list.push(config);
 
 	    // 相机
-	    var camera = {
-	        Metadata: Serializers.PerspectiveCamera.Metadata,
-	        Object: Serializers.PerspectiveCamera.Serializer.toJSON(app.editor.camera)
-	    };
-	    list.push(camera);
+	    var camera;
+	    if (app.editor.camera instanceof THREE.OrthographicCamera) {
+	        camera = (new OrthographicCameraSerializer()).toJSON(app.editor.camera);
+	    } else {
+	        camera = (new PerspectiveCameraSerializer()).toJSON(app.editor.camera);
+	    }
 
 	    // 脚本
 	    Object.keys(app.editor.scripts).forEach(function (id) {
@@ -35912,17 +41612,17 @@
 	    });
 
 	    // 场景
-	    app.editor.scene.traverse(function (obj) {
-	        if (Serializers[obj.constructor.name] != null) {
-	            var json = {
-	                Metadata: Serializers[obj.constructor.name].Metadata,
-	                Object: Serializers[obj.constructor.name].Serializer.toJSON(obj)
-	            };
-	            list.push(json);
-	        } else {
-	            console.log(`There is no serializer to serialize ${obj.name}`);
-	        }
-	    });
+	    // app.editor.scene.traverse(function (obj) {
+	    //     if (Serializers[obj.constructor.name] != null) {
+	    //         var json = {
+	    //             Metadata: Serializers[obj.constructor.name].Metadata,
+	    //             Object: Serializers[obj.constructor.name].Serializer.toJSON(obj)
+	    //         };
+	    //         list.push(json);
+	    //     } else {
+	    //         console.log(`There is no serializer to serialize ${obj.name}`);
+	    //     }
+	    // });
 
 	    return list;
 	};
@@ -36251,76 +41951,6 @@
 	HandModeEvent.prototype.stop = function () {
 
 	};
-
-	/**
-	 * @author dforrer / https://github.com/dforrer
-	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
-	 */
-
-	/**
-	 * @param object THREE.Object3D
-	 * @constructor
-	 */
-
-	function AddObjectCommand(object) {
-
-		Command.call(this);
-
-		this.type = 'AddObjectCommand';
-
-		this.object = object;
-		if (object !== undefined) {
-
-			this.name = 'Add Object: ' + object.name;
-
-		}
-
-	}
-	AddObjectCommand.prototype = Object.create(Command.prototype);
-
-	Object.assign(AddObjectCommand.prototype, {
-
-		constructor: AddObjectCommand,
-
-		execute: function () {
-
-			this.editor.addObject(this.object);
-			this.editor.select(this.object);
-
-		},
-
-		undo: function () {
-
-			this.editor.removeObject(this.object);
-			this.editor.deselect();
-
-		},
-
-		toJSON: function () {
-
-			var output = Command.prototype.toJSON.call(this);
-			output.object = this.object.toJSON();
-
-			return output;
-
-		},
-
-		fromJSON: function (json) {
-
-			Command.prototype.fromJSON.call(this, json);
-
-			this.object = this.editor.objectByUuid(json.object.object.uuid);
-
-			if (this.object === undefined) {
-
-				var loader = new THREE.ObjectLoader();
-				this.object = loader.parse(json.object);
-
-			}
-
-		}
-
-	});
 
 	/**
 	 * 文件上传器
@@ -37129,84 +42759,6 @@
 	        }
 	    });
 	};
-
-	/**
-	 * @author dforrer / https://github.com/dforrer
-	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
-	 */
-
-	/**
-	 * @param object THREE.Object3D
-	 * @param attributeName string
-	 * @param newValue number, string, boolean or object
-	 * @constructor
-	 */
-
-	function SetMaterialValueCommand(object, attributeName, newValue) {
-
-		Command.call(this);
-
-		this.type = 'SetMaterialValueCommand';
-		this.name = 'Set Material.' + attributeName;
-		this.updatable = true;
-
-		this.object = object;
-		this.oldValue = (object !== undefined) ? object.material[attributeName] : undefined;
-		this.newValue = newValue;
-		this.attributeName = attributeName;
-
-	}
-	SetMaterialValueCommand.prototype = Object.create(Command.prototype);
-
-	Object.assign(SetMaterialValueCommand.prototype, {
-
-		constructor: SetMaterialValueCommand,
-
-		execute: function () {
-			this.object.material[this.attributeName] = this.newValue;
-			this.object.material.needsUpdate = true;
-			this.editor.app.call('objectChanged', this, this.object);
-			this.editor.app.call('materialChanged', this, this.object.material);
-		},
-
-		undo: function () {
-			this.object.material[this.attributeName] = this.oldValue;
-			this.object.material.needsUpdate = true;
-			this.editor.app.call('objectChanged', this, this.object);
-			this.editor.app.call('materialChanged', this, this.object.material);
-		},
-
-		update: function (cmd) {
-
-			this.newValue = cmd.newValue;
-
-		},
-
-		toJSON: function () {
-
-			var output = Command.prototype.toJSON.call(this);
-
-			output.objectUuid = this.object.uuid;
-			output.attributeName = this.attributeName;
-			output.oldValue = this.oldValue;
-			output.newValue = this.newValue;
-
-			return output;
-
-		},
-
-		fromJSON: function (json) {
-
-			Command.prototype.fromJSON.call(this, json);
-
-			this.attributeName = json.attributeName;
-			this.oldValue = json.oldValue;
-			this.newValue = json.newValue;
-			this.object = this.editor.objectByUuid(json.objectUuid);
-
-		}
-
-	});
 
 	/**
 	 * @author dforrer / https://github.com/dforrer
@@ -39543,155 +45095,6 @@
 
 	/**
 	 * @param object THREE.Object3D
-	 * @param newUuid string
-	 * @constructor
-	 */
-
-	function SetUuidCommand(object, newUuid) {
-
-		Command.call(this);
-
-		this.type = 'SetUuidCommand';
-		this.name = 'Update UUID';
-
-		this.object = object;
-
-		this.oldUuid = (object !== undefined) ? object.uuid : undefined;
-		this.newUuid = newUuid;
-
-	}
-	SetUuidCommand.prototype = Object.create(Command.prototype);
-
-	Object.assign(SetUuidCommand.prototype, {
-
-		constructor: SetUuidCommand,
-
-		execute: function () {
-
-			this.object.uuid = this.newUuid;
-			this.editor.app.call('objectChanged', this, this.object);
-			this.editor.app.call('sceneGraphChanged', this);
-
-		},
-
-		undo: function () {
-
-			this.object.uuid = this.oldUuid;
-			this.editor.app.call('objectChanged', this, this.object);
-			this.editor.app.call('sceneGraphChanged', this);
-
-		},
-
-		toJSON: function () {
-
-			var output = Command.prototype.toJSON.call(this);
-
-			output.oldUuid = this.oldUuid;
-			output.newUuid = this.newUuid;
-
-			return output;
-
-		},
-
-		fromJSON: function (json) {
-
-			Command.prototype.fromJSON.call(this, json);
-
-			this.oldUuid = json.oldUuid;
-			this.newUuid = json.newUuid;
-			this.object = this.editor.objectByUuid(json.oldUuid);
-
-			if (this.object === undefined) {
-
-				this.object = this.editor.objectByUuid(json.newUuid);
-
-			}
-
-		}
-
-	});
-
-	/**
-	 * @author dforrer / https://github.com/dforrer
-	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
-	 */
-
-	/**
-	 * @param object THREE.Object3D
-	 * @param attributeName string
-	 * @param newValue number, string, boolean or object
-	 * @constructor
-	 */
-
-	function SetValueCommand(object, attributeName, newValue) {
-
-		Command.call(this);
-
-		this.type = 'SetValueCommand';
-		this.name = 'Set ' + attributeName;
-		this.updatable = true;
-
-		this.object = object;
-		this.attributeName = attributeName;
-		this.oldValue = (object !== undefined) ? object[attributeName] : undefined;
-		this.newValue = newValue;
-
-	}
-	SetValueCommand.prototype = Object.create(Command.prototype);
-
-	Object.assign(SetValueCommand.prototype, {
-
-		constructor: SetValueCommand,
-
-		execute: function () {
-			this.object[this.attributeName] = this.newValue;
-			this.editor.app.call('objectChanged', this, this.object);
-		},
-
-		undo: function () {
-			this.object[this.attributeName] = this.oldValue;
-			this.editor.app.call('objectChanged', this, this.object);
-		},
-
-		update: function (cmd) {
-
-			this.newValue = cmd.newValue;
-
-		},
-
-		toJSON: function () {
-
-			var output = Command.prototype.toJSON.call(this);
-
-			output.objectUuid = this.object.uuid;
-			output.attributeName = this.attributeName;
-			output.oldValue = this.oldValue;
-			output.newValue = this.newValue;
-
-			return output;
-
-		},
-
-		fromJSON: function (json) {
-
-			Command.prototype.fromJSON.call(this, json);
-
-			this.attributeName = json.attributeName;
-			this.oldValue = json.oldValue;
-			this.newValue = json.newValue;
-			this.object = this.editor.objectByUuid(json.objectUuid);
-
-		}
-
-	});
-
-	/**
-	 * @author dforrer / https://github.com/dforrer
-	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
-	 */
-
-	/**
-	 * @param object THREE.Object3D
 	 * @param attributeName string
 	 * @param newValue integer representing a hex color value
 	 * @constructor
@@ -40213,96 +45616,6 @@
 
 	    this.updateTransformRows(object);
 	};
-
-	/**
-	 * @author dforrer / https://github.com/dforrer
-	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
-	 */
-
-	/**
-	 * @param object THREE.Object3D
-	 * @param newGeometry THREE.Geometry
-	 * @constructor
-	 */
-
-	function SetGeometryCommand(object, newGeometry) {
-
-		Command.call(this);
-
-		this.type = 'SetGeometryCommand';
-		this.name = 'Set Geometry';
-		this.updatable = true;
-
-		this.object = object;
-		this.oldGeometry = (object !== undefined) ? object.geometry : undefined;
-		this.newGeometry = newGeometry;
-
-	}
-	SetGeometryCommand.prototype = Object.create(Command.prototype);
-
-	Object.assign(SetGeometryCommand.prototype, {
-
-		constructor: SetGeometryCommand,
-
-		execute: function () {
-
-			this.object.geometry.dispose();
-			this.object.geometry = this.newGeometry;
-			this.object.geometry.computeBoundingSphere();
-
-			this.editor.app.call('geometryChanged', this, this.object);
-			this.editor.app.call('sceneGraphChanged', this);
-
-		},
-
-		undo: function () {
-
-			this.object.geometry.dispose();
-			this.object.geometry = this.oldGeometry;
-			this.object.geometry.computeBoundingSphere();
-
-			this.editor.app.call('geometryChanged', this, this.object);
-			this.editor.app.call('sceneGraphChanged', this);
-
-		},
-
-		update: function (cmd) {
-
-			this.newGeometry = cmd.newGeometry;
-
-		},
-
-		toJSON: function () {
-
-			var output = Command.prototype.toJSON.call(this);
-
-			output.objectUuid = this.object.uuid;
-			output.oldGeometry = this.object.geometry.toJSON();
-			output.newGeometry = this.newGeometry.toJSON();
-
-			return output;
-
-		},
-
-		fromJSON: function (json) {
-
-			Command.prototype.fromJSON.call(this, json);
-
-			this.object = this.editor.objectByUuid(json.objectUuid);
-
-			this.oldGeometry = parseGeometry(json.oldGeometry);
-			this.newGeometry = parseGeometry(json.newGeometry);
-
-			function parseGeometry(data) {
-
-				var loader = new THREE.ObjectLoader();
-				return loader.parseGeometries([data])[data.uuid];
-
-			}
-
-		}
-
-	});
 
 	/**
 	 * 正方体几何体
@@ -42796,103 +48109,6 @@
 	/**
 	 * @param object THREE.Object3D
 	 * @param script javascript object
-	 * @param attributeName string
-	 * @param newValue string, object
-	 * @param cursorPosition javascript object with format {line: 2, ch: 3}
-	 * @param scrollInfo javascript object with values {left, top, width, height, clientWidth, clientHeight}
-	 * @constructor
-	 */
-
-	function SetScriptValueCommand(object, script, attributeName, newValue, cursorPosition, scrollInfo) {
-
-		Command.call(this);
-
-		this.type = 'SetScriptValueCommand';
-		this.name = 'Set Script.' + attributeName;
-		this.updatable = true;
-
-		this.object = object;
-		this.script = script;
-
-		this.attributeName = attributeName;
-		this.oldValue = (script !== undefined) ? script[this.attributeName] : undefined;
-		this.newValue = newValue;
-		this.cursorPosition = cursorPosition;
-		this.scrollInfo = scrollInfo;
-
-	}
-	SetScriptValueCommand.prototype = Object.create(Command.prototype);
-
-	Object.assign(SetScriptValueCommand.prototype, {
-
-		constructor: SetScriptValueCommand,
-
-		execute: function () {
-
-			this.script[this.attributeName] = this.newValue;
-
-			this.editor.app.call('scriptChanged', this);
-			this.editor.app.call('refreshScriptEditor', this, this.object, this.script, this.cursorPosition, this.scrollInfo);
-
-		},
-
-		undo: function () {
-
-			this.script[this.attributeName] = this.oldValue;
-
-			this.editor.app.call('scriptChanged', this);
-			this.editor.app.call('refreshScriptEditor', this, this.object, this.script, this.cursorPosition, this.scrollInfo);
-
-		},
-
-		update: function (cmd) {
-
-			this.cursorPosition = cmd.cursorPosition;
-			this.scrollInfo = cmd.scrollInfo;
-			this.newValue = cmd.newValue;
-
-		},
-
-		toJSON: function () {
-
-			var output = Command.prototype.toJSON.call(this);
-
-			output.objectUuid = this.object.uuid;
-			output.index = this.editor.scripts[this.object.uuid].indexOf(this.script);
-			output.attributeName = this.attributeName;
-			output.oldValue = this.oldValue;
-			output.newValue = this.newValue;
-			output.cursorPosition = this.cursorPosition;
-			output.scrollInfo = this.scrollInfo;
-
-			return output;
-
-		},
-
-		fromJSON: function (json) {
-
-			Command.prototype.fromJSON.call(this, json);
-
-			this.oldValue = json.oldValue;
-			this.newValue = json.newValue;
-			this.attributeName = json.attributeName;
-			this.object = this.editor.objectByUuid(json.objectUuid);
-			this.script = this.editor.scripts[json.objectUuid][json.index];
-			this.cursorPosition = json.cursorPosition;
-			this.scrollInfo = json.scrollInfo;
-
-		}
-
-	});
-
-	/**
-	 * @author dforrer / https://github.com/dforrer
-	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
-	 */
-
-	/**
-	 * @param object THREE.Object3D
-	 * @param script javascript object
 	 * @constructor
 	 */
 
@@ -43831,70 +49047,6 @@
 	};
 
 	/**
-	 * 渲染器改变事件
-	 * @param {*} app 
-	 */
-	function RendererChangedEvent(app) {
-	    BaseEvent.call(this, app);
-
-	    this.vrControls = null;
-	    this.vrCamera = null;
-	    this.vrEffect = null;
-	}
-
-	RendererChangedEvent.prototype = Object.create(BaseEvent.prototype);
-	RendererChangedEvent.prototype.constructor = RendererChangedEvent;
-
-	RendererChangedEvent.prototype.start = function () {
-	    this.app.on('rendererChanged.' + this.id, this.onRendererChanged.bind(this));
-	};
-
-	RendererChangedEvent.prototype.stop = function () {
-	    this.app.on('rendererChanged.' + this.id, null);
-	};
-
-	RendererChangedEvent.prototype.onRendererChanged = function (newRenderer) {
-	    var editor = this.app.editor;
-	    var renderer = this.app.editor.renderer;
-	    var container = this.app.viewport.container;
-
-	    if (renderer != null) {
-	        container.dom.removeChild(renderer.domElement);
-	    }
-
-	    renderer = newRenderer;
-	    this.app.editor.renderer = renderer;
-
-	    renderer.autoClear = false;
-	    renderer.autoUpdateScene = false;
-	    renderer.setPixelRatio(window.devicePixelRatio);
-	    renderer.setSize(container.dom.offsetWidth, container.dom.offsetHeight);
-
-	    container.dom.appendChild(renderer.domElement);
-
-	    if (renderer.vr && renderer.vr.enabled) {
-	        this.vrCamera = new THREE.PerspectiveCamera();
-	        this.vrCamera.projectionMatrix = editor.camera.projectionMatrix;
-	        editor.camera.add(this.vrCamera);
-	        editor.vrCamera = this.vrCamera;
-
-	        this.vrControls = new THREE.VRControls(this.vrCamera);
-	        editor.vrControls = this.vrControls;
-
-	        this.vrEffect = new THREE.VREffect(renderer);
-	        editor.vrEffect = this.vrEffect;
-
-	        var _this = this;
-
-	        window.addEventListener('vrdisplaypresentchange', function (event) {
-	            _this.vrEffect.isPresenting ? _this.app.call('enteredVR', _this) : _this.app.call('exitedVR', _this);
-	        }, false);
-	    }
-
-	    this.app.call('render');
-	};
-
-	/**
 	 * 渲染事件
 	 * @param {*} app 
 	 */
@@ -44559,4778 +49711,6 @@
 	};
 
 	/**
-	 * 系统配置
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function Config(name) {
-	    var storage = {
-	        'autosave': true,
-	        'theme': 'assets/css/light.css',
-
-	        'project/renderer': 'WebGLRenderer',
-	        'project/renderer/antialias': true,
-	        'project/renderer/gammaInput': false,
-	        'project/renderer/gammaOutput': false,
-	        'project/renderer/shadows': true,
-	        'project/vr': false,
-
-	        'settings/history': false
-	    };
-
-	    if (window.localStorage[name] === undefined) {
-	        window.localStorage[name] = JSON.stringify(storage);
-	    } else {
-	        var data = JSON.parse(window.localStorage[name]);
-
-	        for (var key in data) {
-	            storage[key] = data[key];
-	        }
-	    }
-
-	    return {
-	        getKey: function (key) {
-	            return storage[key];
-	        },
-
-	        setKey: function () { // key, value, key, value ...
-	            for (var i = 0, l = arguments.length; i < l; i += 2) {
-	                storage[arguments[i]] = arguments[i + 1];
-	            }
-
-	            window.localStorage[name] = JSON.stringify(storage);
-
-	            console.log('[' + /\d\d\:\d\d\:\d\d/.exec(new Date())[0] + ']', '保存配置到LocalStorage。');
-	        },
-
-	        clear: function () {
-	            delete window.localStorage[name];
-	        },
-
-	        toJSON: function () {
-	            return storage;
-	        }
-	    };
-	}
-
-	/**
-	 * 历史记录
-	 * @author dforrer / https://github.com/dforrer
-	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
-	 */
-	function History(editor) {
-	    this.app = editor.app;
-
-	    this.editor = editor;
-	    this.undos = [];
-	    this.redos = [];
-	    this.lastCmdTime = new Date();
-	    this.idCounter = 0;
-
-	    this.historyDisabled = false;
-	    this.config = editor.config;
-
-	    //Set editor-reference in Command
-
-	    Command.call(this, editor);
-
-	    var scope = this;
-
-	    this.app.on('startPlayer.History', function () {
-	        scope.historyDisabled = true;
-	    });
-
-	    this.app.on('stopPlayer.History', function () {
-	        scope.historyDisabled = false;
-	    });
-	}
-	History.prototype = Object.create(Command.prototype);
-
-	Object.assign(History.prototype, {
-
-	    constructor: History,
-
-	    execute: function (cmd, optionalName) {
-
-	        var lastCmd = this.undos[this.undos.length - 1];
-	        var timeDifference = new Date().getTime() - this.lastCmdTime.getTime();
-
-	        var isUpdatableCmd = lastCmd &&
-	            lastCmd.updatable &&
-	            cmd.updatable &&
-	            lastCmd.object === cmd.object &&
-	            lastCmd.type === cmd.type &&
-	            lastCmd.script === cmd.script &&
-	            lastCmd.attributeName === cmd.attributeName;
-
-	        if (isUpdatableCmd && cmd.type === "SetScriptValueCommand") {
-
-	            // When the cmd.type is "SetScriptValueCommand" the timeDifference is ignored
-
-	            lastCmd.update(cmd);
-	            cmd = lastCmd;
-
-	        } else if (isUpdatableCmd && timeDifference < 500) {
-
-	            lastCmd.update(cmd);
-	            cmd = lastCmd;
-
-	        } else {
-
-	            // the command is not updatable and is added as a new part of the history
-
-	            this.undos.push(cmd);
-	            cmd.id = ++this.idCounter;
-
-	        }
-	        cmd.name = (optionalName !== undefined) ? optionalName : cmd.name;
-	        cmd.execute();
-	        cmd.inMemory = true;
-
-	        if (this.config.getKey('settings/history')) {
-
-	            cmd.json = cmd.toJSON();	// serialize the cmd immediately after execution and append the json to the cmd
-
-	        }
-	        this.lastCmdTime = new Date();
-
-	        // clearing all the redo-commands
-
-	        this.redos = [];
-	        this.app.call('historyChanged', this, cmd);
-
-	    },
-
-	    undo: function () {
-	        if (this.historyDisabled) {
-	            UI$1.msg("场景启动时撤销/重做将被禁用。");
-	            return;
-	        }
-
-	        var cmd = undefined;
-
-	        if (this.undos.length > 0) {
-	            cmd = this.undos.pop();
-
-	            if (cmd.inMemory === false) {
-	                cmd.fromJSON(cmd.json);
-	            }
-	        }
-
-	        if (cmd !== undefined) {
-	            cmd.undo();
-	            this.redos.push(cmd);
-	            this.app.call('historyChanged', this, cmd);
-	        }
-
-	        return cmd;
-	    },
-
-	    redo: function () {
-	        if (this.historyDisabled) {
-	            UI$1.msg("场景启动时撤销/重做将被禁用。");
-	            return;
-	        }
-
-	        var cmd = undefined;
-
-	        if (this.redos.length > 0) {
-	            cmd = this.redos.pop();
-
-	            if (cmd.inMemory === false) {
-	                cmd.fromJSON(cmd.json);
-	            }
-	        }
-
-	        if (cmd !== undefined) {
-	            cmd.execute();
-	            this.undos.push(cmd);
-	            this.app.call('historyChanged', this, cmd);
-	        }
-
-	        return cmd;
-	    },
-
-	    toJSON: function () {
-	        var history = {};
-	        history.undos = [];
-	        history.redos = [];
-
-	        if (!this.config.getKey('settings/history')) {
-	            return history;
-	        }
-
-	        // Append Undos to History
-	        for (var i = 0; i < this.undos.length; i++) {
-	            if (this.undos[i].hasOwnProperty("json")) {
-	                history.undos.push(this.undos[i].json);
-	            }
-	        }
-
-	        // Append Redos to History
-	        for (var i = 0; i < this.redos.length; i++) {
-	            if (this.redos[i].hasOwnProperty("json")) {
-	                history.redos.push(this.redos[i].json);
-	            }
-	        }
-
-	        return history;
-	    },
-
-	    fromJSON: function (json) {
-	        if (json === undefined) return;
-
-	        for (var i = 0; i < json.undos.length; i++) {
-	            var cmdJSON = json.undos[i];
-	            var cmd = new window[cmdJSON.type]();	// creates a new object of type "json.type"
-	            cmd.json = cmdJSON;
-	            cmd.id = cmdJSON.id;
-	            cmd.name = cmdJSON.name;
-	            this.undos.push(cmd);
-	            this.idCounter = (cmdJSON.id > this.idCounter) ? cmdJSON.id : this.idCounter; // set last used idCounter
-	        }
-
-	        for (var i = 0; i < json.redos.length; i++) {
-	            var cmdJSON = json.redos[i];
-	            var cmd = new window[cmdJSON.type]();	// creates a new object of type "json.type"
-	            cmd.json = cmdJSON;
-	            cmd.id = cmdJSON.id;
-	            cmd.name = cmdJSON.name;
-	            this.redos.push(cmd);
-	            this.idCounter = (cmdJSON.id > this.idCounter) ? cmdJSON.id : this.idCounter; // set last used idCounter
-	        }
-
-	        // Select the last executed undo-command
-	        this.app.call('historyChanged', this, this.undos[this.undos.length - 1]);
-	    },
-
-	    clear: function () {
-	        this.undos = [];
-	        this.redos = [];
-	        this.idCounter = 0;
-
-	        this.app.call('historyChanged', this);
-	    },
-
-	    goToState: function (id) {
-	        if (this.historyDisabled) {
-	            UI$1.msg("场景启动时撤销/重做将被禁用。");
-	            return;
-	        }
-
-	        var cmd = this.undos.length > 0 ? this.undos[this.undos.length - 1] : undefined;	// next cmd to pop
-
-	        if (cmd === undefined || id > cmd.id) {
-	            cmd = this.redo();
-	            while (cmd !== undefined && id > cmd.id) {
-	                cmd = this.redo();
-	            }
-	        } else {
-	            while (true) {
-	                cmd = this.undos[this.undos.length - 1];	// next cmd to pop
-	                if (cmd === undefined || id === cmd.id) break;
-	                cmd = this.undo();
-	            }
-	        }
-
-	        this.editor.app.call('sceneGraphChanged', this);
-	        this.editor.app.call('historyChanged', this, cmd);
-	    },
-
-	    enableSerialization: function (id) {
-
-	        /**
-			 * because there might be commands in this.undos and this.redos
-			 * which have not been serialized with .toJSON() we go back
-			 * to the oldest command and redo one command after the other
-			 * while also calling .toJSON() on them.
-			 */
-
-	        this.goToState(-1);
-
-	        var cmd = this.redo();
-	        while (cmd !== undefined) {
-	            if (!cmd.hasOwnProperty("json")) {
-	                cmd.json = cmd.toJSON();
-	            }
-	            cmd = this.redo();
-	        }
-
-	        this.goToState(id);
-	    }
-	});
-
-	/**
-	 * 本地存储
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function Storage() {
-	    var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-
-	    if (indexedDB === undefined) {
-	        console.warn('Storage: IndexedDB不可用。');
-	        return { init: function () { }, get: function () { }, set: function () { }, clear: function () { } };
-	    }
-
-	    var name = 'threejs-editor';
-	    var version = 1;
-
-	    var database;
-
-	    return {
-	        init: function (callback) {
-	            var request = indexedDB.open(name, version);
-	            request.onupgradeneeded = function (event) {
-	                var db = event.target.result;
-
-	                if (db.objectStoreNames.contains('states') === false) {
-
-	                    db.createObjectStore('states');
-
-	                }
-	            };
-	            request.onsuccess = function (event) {
-	                database = event.target.result;
-
-	                callback();
-	            };
-	            request.onerror = function (event) {
-	                console.error('IndexedDB', event);
-	            };
-	        },
-
-	        get: function (callback) {
-	            var transaction = database.transaction(['states'], 'readwrite');
-	            var objectStore = transaction.objectStore('states');
-	            var request = objectStore.get(0);
-	            request.onsuccess = function (event) {
-	                callback(event.target.result);
-	            };
-
-	        },
-
-	        set: function (data, callback) {
-	            var start = performance.now();
-
-	            var transaction = database.transaction(['states'], 'readwrite');
-	            var objectStore = transaction.objectStore('states');
-	            var request = objectStore.put(data, 0);
-	            request.onsuccess = function (event) {
-	                console.log('[' + /\d\d\:\d\d\:\d\d/.exec(new Date())[0] + ']', '保存到IndexedDB中。 ' + (performance.now() - start).toFixed(2) + 'ms');
-	            };
-
-	        },
-
-	        clear: function () {
-	            if (database === undefined) return;
-
-	            var transaction = database.transaction(['states'], 'readwrite');
-	            var objectStore = transaction.objectStore('states');
-	            var request = objectStore.clear();
-	            request.onsuccess = function (event) {
-	                console.log('[' + /\d\d\:\d\d\:\d\d/.exec(new Date())[0] + ']', '清空IndexedDB。');
-	            };
-	        }
-	    };
-	}
-
-	/**
-	 * @author dforrer / https://github.com/dforrer
-	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
-	 */
-
-	/**
-	 * @param scene containing children to import
-	 * @constructor
-	 */
-
-	function SetSceneCommand(scene) {
-
-		Command.call(this);
-
-		this.type = 'SetSceneCommand';
-		this.name = 'Set Scene';
-
-		this.cmdArray = [];
-
-		if (scene !== undefined) {
-
-			this.cmdArray.push(new SetUuidCommand(this.editor.scene, scene.uuid));
-			this.cmdArray.push(new SetValueCommand(this.editor.scene, 'name', scene.name));
-			this.cmdArray.push(new SetValueCommand(this.editor.scene, 'userData', JSON.parse(JSON.stringify(scene.userData))));
-
-			while (scene.children.length > 0) {
-
-				var child = scene.children.pop();
-				this.cmdArray.push(new AddObjectCommand(child));
-
-			}
-
-		}
-
-	}
-	SetSceneCommand.prototype = Object.create(Command.prototype);
-
-	Object.assign(SetSceneCommand.prototype, {
-
-		constructor: SetSceneCommand,
-
-		execute: function () {
-			for (var i = 0; i < this.cmdArray.length; i++) {
-
-				this.cmdArray[i].execute();
-
-			}
-			this.editor.app.call('sceneGraphChanged', this);
-		},
-
-		undo: function () {
-			for (var i = this.cmdArray.length - 1; i >= 0; i--) {
-
-				this.cmdArray[i].undo();
-
-			}
-			this.editor.app.call('sceneGraphChanged', this);
-		},
-
-		toJSON: function () {
-
-			var output = Command.prototype.toJSON.call(this);
-
-			var cmds = [];
-			for (var i = 0; i < this.cmdArray.length; i++) {
-
-				cmds.push(this.cmdArray[i].toJSON());
-
-			}
-			output.cmds = cmds;
-
-			return output;
-
-		},
-
-		fromJSON: function (json) {
-			Command.prototype.fromJSON.call(this, json);
-
-			var cmds = json.cmds;
-			for (var i = 0; i < cmds.length; i++) {
-				var cmd = new window[cmds[i].type]();	// creates a new object of type "json.type"
-				cmd.fromJSON(cmds[i]);
-				this.cmdArray.push(cmd);
-			}
-		}
-	});
-
-	/**
-	 * 模型加载
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function Loader(editor) {
-
-	    var scope = this;
-
-	    this.texturePath = '';
-
-	    this.loadFile = function (file) {
-
-	        var filename = file.name;
-	        var extension = filename.split('.').pop().toLowerCase();
-
-	        var reader = new FileReader();
-	        reader.addEventListener('progress', function (event) {
-
-	            var size = '(' + Math.floor(event.total / 1000).format() + ' KB)';
-	            var progress = Math.floor((event.loaded / event.total) * 100) + '%';
-	            console.log('加载中', filename, size, progress);
-
-	        });
-
-	        switch (extension) {
-
-	            case 'amf':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var loader = new THREE.AMFLoader();
-	                    var amfobject = loader.parse(event.target.result);
-
-	                    editor.execute(new AddObjectCommand(amfobject));
-
-	                }, false);
-	                reader.readAsArrayBuffer(file);
-
-	                break;
-
-	            case 'awd':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var loader = new THREE.AWDLoader();
-	                    var scene = loader.parse(event.target.result);
-
-	                    editor.execute(new SetSceneCommand(scene));
-
-	                }, false);
-	                reader.readAsArrayBuffer(file);
-
-	                break;
-
-	            case 'babylon':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-	                    var json = JSON.parse(contents);
-
-	                    var loader = new THREE.BabylonLoader();
-	                    var scene = loader.parse(json);
-
-	                    editor.execute(new SetSceneCommand(scene));
-
-	                }, false);
-	                reader.readAsText(file);
-
-	                break;
-
-	            case 'babylonmeshdata':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-	                    var json = JSON.parse(contents);
-
-	                    var loader = new THREE.BabylonLoader();
-
-	                    var geometry = loader.parseGeometry(json);
-	                    var material = new THREE.MeshStandardMaterial();
-
-	                    var mesh = new THREE.Mesh(geometry, material);
-	                    mesh.name = filename;
-
-	                    editor.execute(new AddObjectCommand(mesh));
-
-	                }, false);
-	                reader.readAsText(file);
-
-	                break;
-
-	            case 'ctm':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var data = new Uint8Array(event.target.result);
-
-	                    var stream = new CTM.Stream(data);
-	                    stream.offset = 0;
-
-	                    var loader = new THREE.CTMLoader();
-	                    loader.createModel(new CTM.File(stream), function (geometry) {
-
-	                        geometry.sourceType = "ctm";
-	                        geometry.sourceFile = file.name;
-
-	                        var material = new THREE.MeshStandardMaterial();
-
-	                        var mesh = new THREE.Mesh(geometry, material);
-	                        mesh.name = filename;
-
-	                        editor.execute(new AddObjectCommand(mesh));
-
-	                    });
-
-	                }, false);
-	                reader.readAsArrayBuffer(file);
-
-	                break;
-
-	            case 'dae':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-
-	                    var loader = new THREE.ColladaLoader();
-	                    var collada = loader.parse(contents);
-
-	                    collada.scene.name = filename;
-
-	                    editor.execute(new AddObjectCommand(collada.scene));
-
-	                }, false);
-	                reader.readAsText(file);
-
-	                break;
-
-	            case 'fbx':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-
-	                    var loader = new THREE.FBXLoader();
-	                    var object = loader.parse(contents);
-
-	                    editor.execute(new AddObjectCommand(object));
-
-	                }, false);
-	                reader.readAsText(file);
-
-	                break;
-
-	            case 'glb':
-	            case 'gltf':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-
-	                    var loader = new THREE.GLTFLoader();
-	                    loader.parse(contents, function (result) {
-
-	                        result.scene.name = filename;
-	                        editor.execute(new AddObjectCommand(result.scene));
-
-	                    });
-
-	                }, false);
-	                reader.readAsArrayBuffer(file);
-
-	                break;
-
-	            case 'js':
-	            case 'json':
-
-	            case '3geo':
-	            case '3mat':
-	            case '3obj':
-	            case '3scn':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-
-	                    // 2.0
-
-	                    if (contents.indexOf('postMessage') !== -1) {
-
-	                        var blob = new Blob([contents], { type: 'text/javascript' });
-	                        var url = URL.createObjectURL(blob);
-
-	                        var worker = new Worker(url);
-
-	                        worker.onmessage = function (event) {
-
-	                            event.data.metadata = { version: 2 };
-	                            handleJSON(event.data, file, filename);
-
-	                        };
-
-	                        worker.postMessage(Date.now());
-
-	                        return;
-
-	                    }
-
-	                    // >= 3.0
-
-	                    var data;
-
-	                    try {
-
-	                        data = JSON.parse(contents);
-
-	                    } catch (error) {
-
-	                        UI$1.msg(error);
-	                        return;
-
-	                    }
-
-	                    handleJSON(data, file, filename);
-
-	                }, false);
-	                reader.readAsText(file);
-
-	                break;
-
-
-	            case 'kmz':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var loader = new THREE.KMZLoader();
-	                    var collada = loader.parse(event.target.result);
-
-	                    collada.scene.name = filename;
-
-	                    editor.execute(new AddObjectCommand(collada.scene));
-
-	                }, false);
-	                reader.readAsArrayBuffer(file);
-
-	                break;
-
-	            case 'md2':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-
-	                    var geometry = new THREE.MD2Loader().parse(contents);
-	                    var material = new THREE.MeshStandardMaterial({
-	                        morphTargets: true,
-	                        morphNormals: true
-	                    });
-
-	                    var mesh = new THREE.Mesh(geometry, material);
-	                    mesh.mixer = new THREE.AnimationMixer(mesh);
-	                    mesh.name = filename;
-
-	                    editor.execute(new AddObjectCommand(mesh));
-
-	                }, false);
-	                reader.readAsArrayBuffer(file);
-
-	                break;
-
-	            case 'obj':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-
-	                    var object = new THREE.OBJLoader().parse(contents);
-	                    object.name = filename;
-
-	                    editor.execute(new AddObjectCommand(object));
-
-	                }, false);
-	                reader.readAsText(file);
-
-	                break;
-
-	            case 'playcanvas':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-	                    var json = JSON.parse(contents);
-
-	                    var loader = new THREE.PlayCanvasLoader();
-	                    var object = loader.parse(json);
-
-	                    editor.execute(new AddObjectCommand(object));
-
-	                }, false);
-	                reader.readAsText(file);
-
-	                break;
-
-	            case 'ply':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-
-	                    var geometry = new THREE.PLYLoader().parse(contents);
-	                    geometry.sourceType = "ply";
-	                    geometry.sourceFile = file.name;
-
-	                    var material = new THREE.MeshStandardMaterial();
-
-	                    var mesh = new THREE.Mesh(geometry, material);
-	                    mesh.name = filename;
-
-	                    editor.execute(new AddObjectCommand(mesh));
-
-	                }, false);
-	                reader.readAsArrayBuffer(file);
-
-	                break;
-
-	            case 'stl':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-
-	                    var geometry = new THREE.STLLoader().parse(contents);
-	                    geometry.sourceType = "stl";
-	                    geometry.sourceFile = file.name;
-
-	                    var material = new THREE.MeshStandardMaterial();
-
-	                    var mesh = new THREE.Mesh(geometry, material);
-	                    mesh.name = filename;
-
-	                    editor.execute(new AddObjectCommand(mesh));
-
-	                }, false);
-
-	                if (reader.readAsBinaryString !== undefined) {
-
-	                    reader.readAsBinaryString(file);
-
-	                } else {
-
-	                    reader.readAsArrayBuffer(file);
-
-	                }
-
-	                break;
-
-	            /*
-	            case 'utf8':
-	 
-	                reader.addEventListener( 'load', function ( event ) {
-	 
-	                    var contents = event.target.result;
-	 
-	                    var geometry = new THREE.UTF8Loader().parse( contents );
-	                    var material = new THREE.MeshLambertMaterial();
-	 
-	                    var mesh = new THREE.Mesh( geometry, material );
-	 
-	                    editor.execute( new AddObjectCommand( mesh ) );
-	 
-	                }, false );
-	                reader.readAsBinaryString( file );
-	 
-	                break;
-	            */
-
-	            case 'vtk':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-
-	                    var geometry = new THREE.VTKLoader().parse(contents);
-	                    geometry.sourceType = "vtk";
-	                    geometry.sourceFile = file.name;
-
-	                    var material = new THREE.MeshStandardMaterial();
-
-	                    var mesh = new THREE.Mesh(geometry, material);
-	                    mesh.name = filename;
-
-	                    editor.execute(new AddObjectCommand(mesh));
-
-	                }, false);
-	                reader.readAsText(file);
-
-	                break;
-
-	            case 'wrl':
-
-	                reader.addEventListener('load', function (event) {
-
-	                    var contents = event.target.result;
-
-	                    var result = new THREE.VRMLLoader().parse(contents);
-
-	                    editor.execute(new SetSceneCommand(result));
-
-	                }, false);
-	                reader.readAsText(file);
-
-	                break;
-
-	            default:
-
-	                UI$1.msg('不支持的文件类型(' + extension + ').');
-
-	                break;
-
-	        }
-
-	    };
-
-	    function handleJSON(data, file, filename) {
-
-	        if (data.metadata === undefined) { // 2.0
-
-	            data.metadata = { type: 'Geometry' };
-
-	        }
-
-	        if (data.metadata.type === undefined) { // 3.0
-
-	            data.metadata.type = 'Geometry';
-
-	        }
-
-	        if (data.metadata.formatVersion !== undefined) {
-
-	            data.metadata.version = data.metadata.formatVersion;
-
-	        }
-
-	        switch (data.metadata.type.toLowerCase()) {
-
-	            case 'buffergeometry':
-
-	                var loader = new THREE.BufferGeometryLoader();
-	                var result = loader.parse(data);
-
-	                var mesh = new THREE.Mesh(result);
-
-	                editor.execute(new AddObjectCommand(mesh));
-
-	                break;
-
-	            case 'geometry':
-
-	                var loader = new THREE.JSONLoader();
-	                loader.setTexturePath(scope.texturePath);
-
-	                var result = loader.parse(data);
-
-	                var geometry = result.geometry;
-	                var material;
-
-	                if (result.materials !== undefined) {
-
-	                    if (result.materials.length > 1) {
-
-	                        material = new THREE.MultiMaterial(result.materials);
-
-	                    } else {
-
-	                        material = result.materials[0];
-
-	                    }
-
-	                } else {
-
-	                    material = new THREE.MeshStandardMaterial();
-
-	                }
-
-	                geometry.sourceType = "ascii";
-	                geometry.sourceFile = file.name;
-
-	                var mesh;
-
-	                if (geometry.animation && geometry.animation.hierarchy) {
-
-	                    mesh = new THREE.SkinnedMesh(geometry, material);
-
-	                } else {
-
-	                    mesh = new THREE.Mesh(geometry, material);
-
-	                }
-
-	                mesh.name = filename;
-
-	                editor.execute(new AddObjectCommand(mesh));
-
-	                break;
-
-	            case 'object':
-
-	                var loader = new THREE.ObjectLoader();
-	                loader.setTexturePath(scope.texturePath);
-
-	                var result = loader.parse(data);
-
-	                if (result instanceof THREE.Scene) {
-
-	                    editor.execute(new SetSceneCommand(result));
-
-	                } else {
-
-	                    editor.execute(new AddObjectCommand(result));
-
-	                }
-
-	                break;
-
-	            case 'scene':
-
-	                // DEPRECATED
-
-	                var loader = new THREE.SceneLoader();
-	                loader.parse(data, function (result) {
-
-	                    editor.execute(new SetSceneCommand(result.scene));
-
-	                }, '');
-
-	                break;
-
-	            case 'app':
-
-	                editor.fromJSON(data);
-
-	                break;
-
-	        }
-
-	    }
-
-	}
-
-	/**
-	 * 播放器
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function AppPlayer() {
-	    var loader = new THREE.ObjectLoader();
-	    var camera, scene, renderer;
-
-	    var events = {};
-
-	    var dom = document.createElement('div');
-
-	    this.dom = dom;
-
-	    this.width = 500;
-	    this.height = 500;
-
-	    this.load = function (json) {
-	        renderer = new THREE.WebGLRenderer({ antialias: true });
-	        renderer.setClearColor(0x000000);
-	        renderer.setPixelRatio(window.devicePixelRatio);
-
-	        var project = json.project;
-
-	        if (project.gammaInput) renderer.gammaInput = true;
-	        if (project.gammaOutput) renderer.gammaOutput = true;
-	        if (project.shadows) renderer.shadowMap.enabled = true;
-	        if (project.vr) renderer.vr.enabled = true;
-
-	        dom.appendChild(renderer.domElement);
-
-	        this.setScene(loader.parse(json.scene));
-	        this.setCamera(loader.parse(json.camera));
-
-	        events = {
-	            init: [],
-	            start: [],
-	            stop: [],
-	            keydown: [],
-	            keyup: [],
-	            mousedown: [],
-	            mouseup: [],
-	            mousemove: [],
-	            touchstart: [],
-	            touchend: [],
-	            touchmove: [],
-	            update: []
-	        };
-
-	        var scriptWrapParams = 'player,renderer,scene,camera';
-	        var scriptWrapResultObj = {};
-
-	        for (var eventKey in events) {
-	            scriptWrapParams += ',' + eventKey;
-	            scriptWrapResultObj[eventKey] = eventKey;
-	        }
-
-	        var scriptWrapResult = JSON.stringify(scriptWrapResultObj).replace(/\"/g, '');
-
-	        for (var uuid in json.scripts) {
-	            var object = scene.getObjectByProperty('uuid', uuid, true);
-
-	            if (object === undefined) {
-	                console.warn('APP.Player: Script without object.', uuid);
-	                continue;
-	            }
-
-	            var scripts = json.scripts[uuid];
-
-	            for (var i = 0; i < scripts.length; i++) {
-	                var script = scripts[i];
-
-	                var functions = (new Function(scriptWrapParams, script.source + '\nreturn ' + scriptWrapResult + ';').bind(object))(this, renderer, scene, camera);
-
-	                for (var name in functions) {
-
-	                    if (functions[name] === undefined) continue;
-
-	                    if (events[name] === undefined) {
-	                        console.warn('APP.Player: Event type not supported (', name, ')');
-	                        continue;
-	                    }
-
-	                    events[name].push(functions[name].bind(object));
-	                }
-
-	            }
-
-	        }
-
-	        dispatch$$1(events.init, arguments);
-
-	    };
-
-	    this.setCamera = function (value) {
-	        camera = value;
-	        camera.aspect = this.width / this.height;
-	        camera.updateProjectionMatrix();
-
-	        if (renderer.vr.enabled) {
-	            dom.appendChild(WEBVR.createButton(renderer));
-	        }
-	    };
-
-	    this.setScene = function (value) {
-	        scene = value;
-	    };
-
-	    this.setSize = function (width, height) {
-	        this.width = width;
-	        this.height = height;
-
-	        if (camera) {
-	            camera.aspect = this.width / this.height;
-	            camera.updateProjectionMatrix();
-	        }
-
-	        if (renderer) {
-	            renderer.setSize(width, height);
-	        }
-	    };
-
-	    function dispatch$$1(array, event) {
-	        for (var i = 0, l = array.length; i < l; i++) {
-	            array[i](event);
-	        }
-	    }
-
-	    var prevTime;
-
-	    function animate() {
-	        var time = performance.now();
-
-	        try {
-	            dispatch$$1(events.update, { time: time, delta: time - prevTime });
-	        } catch (e) {
-	            console.error((e.message || e), (e.stack || ""));
-	        }
-
-	        renderer.render(scene, camera);
-	        prevTime = time;
-	    }
-
-	    this.play = function () {
-	        prevTime = performance.now();
-
-	        document.addEventListener('keydown', onDocumentKeyDown);
-	        document.addEventListener('keyup', onDocumentKeyUp);
-	        document.addEventListener('mousedown', onDocumentMouseDown);
-	        document.addEventListener('mouseup', onDocumentMouseUp);
-	        document.addEventListener('mousemove', onDocumentMouseMove);
-	        document.addEventListener('touchstart', onDocumentTouchStart);
-	        document.addEventListener('touchend', onDocumentTouchEnd);
-	        document.addEventListener('touchmove', onDocumentTouchMove);
-
-	        dispatch$$1(events.start, arguments);
-
-	        renderer.setAnimationLoop(animate);
-	    };
-
-	    this.stop = function () {
-	        document.removeEventListener('keydown', onDocumentKeyDown);
-	        document.removeEventListener('keyup', onDocumentKeyUp);
-	        document.removeEventListener('mousedown', onDocumentMouseDown);
-	        document.removeEventListener('mouseup', onDocumentMouseUp);
-	        document.removeEventListener('mousemove', onDocumentMouseMove);
-	        document.removeEventListener('touchstart', onDocumentTouchStart);
-	        document.removeEventListener('touchend', onDocumentTouchEnd);
-	        document.removeEventListener('touchmove', onDocumentTouchMove);
-
-	        dispatch$$1(events.stop, arguments);
-
-	        renderer.setAnimationLoop(null);
-	    };
-
-	    this.dispose = function () {
-	        while (dom.children.length) {
-	            dom.removeChild(dom.firstChild);
-	        }
-
-	        renderer.dispose();
-
-	        camera = undefined;
-	        scene = undefined;
-	        renderer = undefined;
-	    };
-
-	    //
-
-	    function onDocumentKeyDown(event) {
-	        dispatch$$1(events.keydown, event);
-	    }
-
-	    function onDocumentKeyUp(event) {
-	        dispatch$$1(events.keyup, event);
-	    }
-
-	    function onDocumentMouseDown(event) {
-	        dispatch$$1(events.mousedown, event);
-	    }
-
-	    function onDocumentMouseUp(event) {
-	        dispatch$$1(events.mouseup, event);
-	    }
-
-	    function onDocumentMouseMove(event) {
-	        dispatch$$1(events.mousemove, event);
-	    }
-
-	    function onDocumentTouchStart(event) {
-	        dispatch$$1(events.touchstart, event);
-	    }
-
-	    function onDocumentTouchEnd(event) {
-	        dispatch$$1(events.touchend, event);
-	    }
-
-	    function onDocumentTouchMove(event) {
-	        dispatch$$1(events.touchmove, event);
-	    }
-	}
-
-	/**
-	 * @author dforrer / https://github.com/dforrer
-	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
-	 */
-
-	/**
-	 * @param object THREE.Object3D
-	 * @param script javascript object
-	 * @constructor
-	 */
-
-	var AddScriptCommand = function (object, script) {
-
-		Command.call(this);
-
-		this.type = 'AddScriptCommand';
-		this.name = 'Add Script';
-
-		this.object = object;
-		this.script = script;
-
-	};
-
-	AddScriptCommand.prototype = Object.create(Command.prototype);
-
-	Object.assign(AddScriptCommand.prototype, {
-
-		constructor: AddScriptCommand,
-
-		execute: function () {
-			if (this.editor.scripts[this.object.uuid] === undefined) {
-				this.editor.scripts[this.object.uuid] = [];
-			}
-
-			this.editor.scripts[this.object.uuid].push(this.script);
-			this.editor.app.call('scriptAdded', this, this.script);
-		},
-
-		undo: function () {
-
-			if (this.editor.scripts[this.object.uuid] === undefined) return;
-
-			var index = this.editor.scripts[this.object.uuid].indexOf(this.script);
-
-			if (index !== - 1) {
-
-				this.editor.scripts[this.object.uuid].splice(index, 1);
-
-			}
-
-			this.editor.app.call('scriptRemoved', this, this.script);
-		},
-
-		toJSON: function () {
-
-			var output = Command.prototype.toJSON.call(this);
-
-			output.objectUuid = this.object.uuid;
-			output.script = this.script;
-
-			return output;
-
-		},
-
-		fromJSON: function (json) {
-
-			Command.prototype.fromJSON.call(this, json);
-
-			this.script = json.script;
-			this.object = this.editor.objectByUuid(json.objectUuid);
-
-		}
-
-	});
-
-	/**
-	 * @author dforrer / https://github.com/dforrer
-	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
-	 */
-
-	/**
-	 * @param object THREE.Object3D
-	 * @param attributeName string
-	 * @param newValue number, string, boolean or object
-	 * @constructor
-	 */
-
-	function SetGeometryValueCommand(object, attributeName, newValue) {
-
-		Command.call(this);
-
-		this.type = 'SetGeometryValueCommand';
-		this.name = 'Set Geometry.' + attributeName;
-
-		this.object = object;
-		this.attributeName = attributeName;
-		this.oldValue = (object !== undefined) ? object.geometry[attributeName] : undefined;
-		this.newValue = newValue;
-
-	}
-	SetGeometryValueCommand.prototype = Object.create(Command.prototype);
-
-	Object.assign(SetGeometryValueCommand.prototype, {
-
-		constructor: SetGeometryValueCommand,
-
-		execute: function () {
-
-			this.object.geometry[this.attributeName] = this.newValue;
-			this.editor.app.call('objectChanged', this, this.object);
-			this.editor.app.call('geometryChanged', this);
-			this.editor.app.call('sceneGraphChanged', this);
-
-		},
-
-		undo: function () {
-
-			this.object.geometry[this.attributeName] = this.oldValue;
-			this.editor.app.call('objectChanged', this, this.object);
-			this.editor.app.call('geometryChanged', this);
-			this.editor.app.call('sceneGraphChanged', this);
-
-		},
-
-		toJSON: function () {
-
-			var output = Command.prototype.toJSON.call(this);
-
-			output.objectUuid = this.object.uuid;
-			output.attributeName = this.attributeName;
-			output.oldValue = this.oldValue;
-			output.newValue = this.newValue;
-
-			return output;
-
-		},
-
-		fromJSON: function (json) {
-
-			Command.prototype.fromJSON.call(this, json);
-
-			this.object = this.editor.objectByUuid(json.objectUuid);
-			this.attributeName = json.attributeName;
-			this.oldValue = json.oldValue;
-			this.newValue = json.newValue;
-
-		}
-
-	});
-
-	/**
-	 * 场景编辑区
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function Viewport(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	Viewport.prototype = Object.create(UI$1.Control.prototype);
-	Viewport.prototype.constructor = Viewport;
-
-	Viewport.prototype.render = function () {
-	    this.container = UI$1.create({
-	        xtype: 'div',
-	        id: 'viewport',
-	        parent: this.app.container,
-	        cls: 'viewport'
-	    });
-	    this.container.render();
-	};
-
-	/**
-	 * Logo标志
-	 * @param {*} options 
-	 */
-	function Logo(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-
-	Logo.prototype = Object.create(UI$1.Control.prototype);
-	Logo.prototype.constructor = Logo;
-
-	Logo.prototype.render = function () {
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'logo',
-	        html: '<i class="iconfont icon-shadow"></i>'
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 场景菜单
-	 * @param {*} options 
-	 */
-	function SceneMenu(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-
-	SceneMenu.prototype = Object.create(UI$1.Control.prototype);
-	SceneMenu.prototype.constructor = SceneMenu;
-
-	SceneMenu.prototype.render = function () {
-	    var _this = this;
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'menu',
-	        children: [{
-	            xtype: 'div',
-	            cls: 'title',
-	            html: '场景'
-	        }, {
-	            xtype: 'div',
-	            cls: 'options',
-	            children: [{
-	                xtype: 'div',
-	                id: 'mNewScene',
-	                html: '新建',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mNewScene');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mLoadScene',
-	                html: '载入',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mLoadScene');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mSaveScene',
-	                html: '保存',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mSaveScene');
-	                }
-	            }, {
-	                xtype: 'hr'
-	            }, {
-	                xtype: 'div',
-	                id: 'mPublishScene',
-	                html: '发布',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mPublishScene');
-	                }
-	            }]
-	        }]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 编辑菜单
-	 * @param {*} options 
-	 */
-	function EditMenu(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-
-	EditMenu.prototype = Object.create(UI$1.Control.prototype);
-	EditMenu.prototype.constructor = EditMenu;
-
-	EditMenu.prototype.render = function () {
-	    var _this = this;
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'menu',
-	        children: [{
-	            xtype: 'div',
-	            cls: 'title',
-	            html: '编辑'
-	        }, {
-	            xtype: 'div',
-	            cls: 'options',
-	            children: [{
-	                xtype: 'div',
-	                id: 'mUndo',
-	                html: '撤销(Ctrl+Z)',
-	                cls: 'option inactive',
-	                onClick: function () {
-	                    _this.app.call('mUndo');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mRedo',
-	                html: '重做(Ctrl+Shift+Z)',
-	                cls: 'option inactive',
-	                onClick: function () {
-	                    _this.app.call('mRedo');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mClearHistory',
-	                html: '清空历史记录',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mClearHistory');
-	                }
-	            }, {
-	                xtype: 'hr'
-	            }, {
-	                xtype: 'div',
-	                id: 'mClone',
-	                html: '复制',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mClone');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mDelete',
-	                html: '删除(Del)',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mDelete');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mMinifyShader',
-	                html: '压缩着色器程序',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mMinifyShader');
-	                }
-	            }]
-	        }]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 添加菜单
-	 * @param {*} options 
-	 */
-	function AddMenu(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-
-	AddMenu.prototype = Object.create(UI$1.Control.prototype);
-	AddMenu.prototype.constructor = AddMenu;
-
-	AddMenu.prototype.render = function () {
-	    var _this = this;
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'menu',
-	        children: [{
-	            xtype: 'div',
-	            cls: 'title',
-	            html: '添加'
-	        }, {
-	            xtype: 'div',
-	            cls: 'options',
-	            children: [{
-	                xtype: 'div',
-	                id: 'mAddGroup',
-	                html: '组',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddGroup');
-	                }
-	            }, {
-	                xtype: 'hr'
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddPlane',
-	                html: '平板',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddPlane');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddBox',
-	                html: '正方体',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddBox');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddCircle',
-	                html: '圆',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddCircle');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddCylinder',
-	                html: '圆柱体',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddCylinder');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddSphere',
-	                html: '球体',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddSphere');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddIcosahedron',
-	                html: '二十面体',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddIcosahedron');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddTorus',
-	                html: '轮胎',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddTorus');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddTorusKnot',
-	                html: '扭结',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddTorusKnot');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddTeaport',
-	                html: '茶壶',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddTeaport');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddLathe',
-	                html: '花瓶',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddLathe');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddSprite',
-	                html: '精灵',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddSprite');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddText',
-	                html: '文本',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddText');
-	                }
-	            }, {
-	                xtype: 'hr'
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddPointLight',
-	                html: '点光源',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddPointLight');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddSpotLight',
-	                html: '聚光灯',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddSpotLight');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddDirectionalLight',
-	                html: '平行光源',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddDirectionalLight');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddHemisphereLight',
-	                html: '半球光',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddHemisphereLight');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddAmbientLight',
-	                html: '环境光',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddAmbientLight');
-	                }
-	            }, {
-	                xtype: 'hr'
-	            }, {
-	                xtype: 'div',
-	                id: 'mAddPerspectiveCamera',
-	                html: '透视相机',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddPerspectiveCamera');
-	                }
-	            }]
-	        }]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 资源菜单
-	 * @param {*} options 
-	 */
-	function AssetMenu(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-
-	AssetMenu.prototype = Object.create(UI$1.Control.prototype);
-	AssetMenu.prototype.constructor = AssetMenu;
-
-	AssetMenu.prototype.render = function () {
-	    var _this = this;
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'menu',
-	        children: [{
-	            xtype: 'div',
-	            cls: 'title',
-	            html: '资源'
-	        }, {
-	            xtype: 'div',
-	            cls: 'options',
-	            children: [{
-	                xtype: 'div',
-	                id: 'mAddAsset',
-	                html: '添加模型',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddAsset');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mImportAsset',
-	                html: '导入模型',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mImportAsset');
-	                }
-	            }, {
-	                xtype: 'hr'
-	            }, {
-	                xtype: 'div',
-	                id: 'mExportGeometry',
-	                html: '导出几何体',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mExportGeometry');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mExportObject',
-	                html: '导出物体',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mExportObject');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mExportScene',
-	                html: '导出场景',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mExportScene');
-	                }
-	            }, {
-	                xtype: 'hr'
-	            }, {
-	                xtype: 'div',
-	                id: 'mExportGLTF',
-	                html: '导出gltf文件',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mExportGLTF');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mExportMMD',
-	                html: '导出mmd文件',
-	                cls: 'option inactive',
-	                onClick: function () {
-	                    _this.app.call('mExportMMD');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mExportOBJ',
-	                html: '导出obj文件',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mExportOBJ');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mExportPLY',
-	                html: '导出ply文件',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mExportPLY');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mExportSTLB',
-	                html: '导出stl二进制文件',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mExportSTLB');
-	                }
-	            }, {
-	                xtype: 'div',
-	                id: 'mExportSTL',
-	                html: '导出stl文件',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mExportSTL');
-	                }
-	            }]
-	        }]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 动画菜单
-	 * @param {*} options 
-	 */
-	function AnimationMenu(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-
-	AnimationMenu.prototype = Object.create(UI$1.Control.prototype);
-	AnimationMenu.prototype.constructor = AnimationMenu;
-
-	AnimationMenu.prototype.render = function () {
-	    var _this = this;
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'menu',
-	        children: [{
-	            xtype: 'div',
-	            cls: 'title',
-	            html: '动画'
-	        }, {
-	            xtype: 'div',
-	            cls: 'options',
-	            children: [{
-	                id: 'mPerson',
-	                xtype: 'div',
-	                cls: 'option',
-	                html: '人',
-	                onClick: function () {
-	                    _this.app.call('mAddPerson', _this);
-	                }
-	            }, {
-	                id: 'mFire',
-	                xtype: 'div',
-	                cls: 'option',
-	                html: '火焰',
-	                onClick: function () {
-	                    _this.app.call('mAddFire', _this);
-	                }
-	            }, {
-	                id: 'mSmoke',
-	                xtype: 'div',
-	                cls: 'option',
-	                html: '烟',
-	                onClick: function () {
-	                    _this.app.call('mAddSmoke', _this);
-	                }
-	            }]
-	        }]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 物体菜单
-	 * @param {*} options 
-	 */
-	function PhysicsMenu(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-
-	PhysicsMenu.prototype = Object.create(UI$1.Control.prototype);
-	PhysicsMenu.prototype.constructor = PhysicsMenu;
-
-	PhysicsMenu.prototype.render = function () {
-	    var _this = this;
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'menu',
-	        children: [{
-	            xtype: 'div',
-	            cls: 'title',
-	            html: '物理'
-	        }, {
-	            xtype: 'div',
-	            cls: 'options',
-	            children: [{
-	                xtype: 'div',
-	                id: 'mAddCloth',
-	                html: '添加布料',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mAddCloth', _this);
-	                }
-	            }]
-	        }]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 组件菜单
-	 * @param {*} options 
-	 */
-	function ComponentMenu(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-
-	ComponentMenu.prototype = Object.create(UI$1.Control.prototype);
-	ComponentMenu.prototype.constructor = ComponentMenu;
-
-	ComponentMenu.prototype.render = function () {
-	    var _this = this;
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'menu',
-	        children: [{
-	            xtype: 'div',
-	            cls: 'title',
-	            html: '组件'
-	        }, {
-	            xtype: 'div',
-	            cls: 'options',
-	            children: [{
-	                xtype: 'div',
-	                id: 'mParticleEmitter',
-	                html: '粒子发射器',
-	                cls: 'option',
-	                onClick: function () {
-	                    _this.app.call('mParticleEmitter');
-	                }
-	            }]
-	        }]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 启动菜单
-	 * @param {*} options 
-	 */
-	function PlayMenu(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-
-	PlayMenu.prototype = Object.create(UI$1.Control.prototype);
-	PlayMenu.prototype.constructor = PlayMenu;
-
-	PlayMenu.prototype.render = function () {
-	    var _this = this;
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'menu',
-	        children: [{
-	            id: 'mPlay',
-	            xtype: 'div',
-	            cls: 'title',
-	            html: '启动',
-	            onClick: function () {
-	                _this.app.call('mPlay');
-	            }
-	        }]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 视图菜单
-	 * @param {*} options 
-	 */
-	function ViewMenu(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-
-	ViewMenu.prototype = Object.create(UI$1.Control.prototype);
-	ViewMenu.prototype.constructor = ViewMenu;
-
-	ViewMenu.prototype.render = function () {
-	    var _this = this;
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'menu',
-	        children: [{
-	            xtype: 'div',
-	            cls: 'title',
-	            html: '视图'
-	        }, {
-	            xtype: 'div',
-	            cls: 'options',
-	            children: [{
-	                id: 'mVRMode',
-	                xtype: 'div',
-	                cls: 'option',
-	                html: 'VR模式',
-	                onClick: function () {
-	                    _this.app.call('mVRMode');
-	                }
-	            }]
-	        }]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 示例菜单
-	 * @param {*} options 
-	 */
-	function ExampleMenu(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-
-	ExampleMenu.prototype = Object.create(UI$1.Control.prototype);
-	ExampleMenu.prototype.constructor = ExampleMenu;
-
-	ExampleMenu.prototype.render = function () {
-	    var _this = this;
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'menu',
-	        children: [{
-	            xtype: 'div',
-	            cls: 'title',
-	            html: '示例'
-	        }, {
-	            xtype: 'div',
-	            cls: 'options',
-	            children: [{
-	                id: 'mArkanoid',
-	                xtype: 'div',
-	                cls: 'option',
-	                html: '打砖块',
-	                onClick: function () {
-	                    _this.app.call('mArkanoid');
-	                }
-	            }, {
-	                id: 'mCamera',
-	                xtype: 'div',
-	                cls: 'option',
-	                html: '相机',
-	                onClick: function () {
-	                    _this.app.call('mCamera');
-	                }
-	            }, {
-	                id: 'mParticles',
-	                xtype: 'div',
-	                cls: 'option',
-	                html: '粒子',
-	                onClick: function () {
-	                    _this.app.call('mParticles');
-	                }
-	            }, {
-	                id: 'mPong',
-	                xtype: 'div',
-	                cls: 'option',
-	                html: '乒乓球',
-	                onClick: function () {
-	                    _this.app.call('mPong');
-	                }
-	            }]
-	        }]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 帮助菜单
-	 * @param {*} options 
-	 */
-	function HelpMenu(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-
-	HelpMenu.prototype = Object.create(UI$1.Control.prototype);
-	HelpMenu.prototype.constructor = HelpMenu;
-
-	HelpMenu.prototype.render = function () {
-	    var _this = this;
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'menu',
-	        children: [{
-	            xtype: 'div',
-	            cls: 'title',
-	            html: '帮助'
-	        }, {
-	            xtype: 'div',
-	            cls: 'options',
-	            children: [{
-	                id: 'mSourceCode',
-	                xtype: 'div',
-	                cls: 'option',
-	                html: '源码',
-	                onClick: function () {
-	                    _this.app.call('mSourceCode');
-	                }
-	            }, {
-	                id: 'mAbout',
-	                xtype: 'div',
-	                cls: 'option',
-	                html: '关于',
-	                onClick: function () {
-	                    _this.app.call('mAbout');
-	                }
-	            }]
-	        }]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 状态菜单（菜单栏右侧）
-	 * @param {*} options 
-	 */
-	function StatusMenu(options) {
-	    UI$1.Control.call(this, options);
-	    options = options || {};
-
-	    this.app = options.app;
-	}
-
-	StatusMenu.prototype = Object.create(UI$1.Control.prototype);
-	StatusMenu.prototype.constructor = StatusMenu;
-
-	StatusMenu.prototype.render = function () {
-	    var _this = this;
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        id: 'mStatus',
-	        parent: this.parent,
-	        cls: 'menu right',
-	        children: [{
-	            id: 'bAutoSave',
-	            xtype: 'boolean',
-	            text: '自动保存',
-	            value: true,
-	            style: {
-	                color: '#888 !important;'
-	            },
-	            onChange: function (e) {
-	                _this.app.editor.config.setKey('autosave', e.target.checked);
-	                _this.app.call('sceneGraphChanged', _this);
-	            }
-	        }, {
-	            xtype: 'text',
-	            text: 'r' + THREE.REVISION,
-	            cls: 'title version'
-	        }]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 菜单栏
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function Menubar(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	Menubar.prototype = Object.create(UI$1.Control.prototype);
-	Menubar.prototype.constructor = Menubar;
-
-	Menubar.prototype.render = function () {
-	    var params = { app: this.app };
-
-	    var container = UI$1.create({
-	        xtype: 'div',
-	        id: 'menubar',
-	        cls: 'menubar',
-	        parent: this.parent,
-	        children: [
-	            // Logo
-	            new Logo(params),
-
-	            // 左侧
-	            new SceneMenu(params),
-	            new EditMenu(params),
-	            new AddMenu(params),
-	            new AssetMenu(params),
-	            new AnimationMenu(params),
-	            new PhysicsMenu(params),
-	            new ComponentMenu(params),
-	            new PlayMenu(params),
-	            new ViewMenu(params),
-	            new ExampleMenu(params),
-	            new HelpMenu(params),
-
-	            // 右侧
-	            new StatusMenu(params)
-	        ]
-	    });
-
-	    container.render();
-	};
-
-	/**
-	 * 状态栏
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function StatusBar(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	StatusBar.prototype = Object.create(UI$1.Control.prototype);
-	StatusBar.prototype.constructor = StatusBar;
-
-	StatusBar.prototype.render = function () {
-
-	    var data = {
-	        xtype: 'div',
-	        id: 'statusBar',
-	        parent: this.app.container,
-	        cls: 'statusBar',
-	        children: [{
-	            xtype: 'row',
-	            children: [{
-	                xtype: 'label',
-	                text: '物体'
-	            }, {
-	                xtype: 'text',
-	                id: 'objectsText',
-	                text: '0' // 物体数
-	            }, {
-	                xtype: 'label',
-	                text: '顶点'
-	            }, {
-	                xtype: 'text',
-	                id: 'verticesText',
-	                text: '0' // 顶点数
-	            }, {
-	                xtype: 'label',
-	                text: '三角形'
-	            }, {
-	                xtype: 'text',
-	                id: 'trianglesText',
-	                text: '0' // 三角形数
-	            }]
-	        }]
-	    };
-
-	    var control = UI$1.create(data);
-	    control.render();
-	};
-
-	/**
-	 * 编辑器
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function Editor(app) {
-	    this.app = app;
-	    this.app.editor = this;
-
-	    // 基础
-	    this.config = new Config('threejs-editor');
-	    this.history = new History(this);
-	    this.storage = new Storage();
-	    this.loader = new Loader(this);
-
-	    // 场景
-	    this.scene = new THREE.Scene();
-	    this.scene.name = '场景';
-	    this.scene.background = new THREE.Color(0xaaaaaa);
-
-	    this.sceneHelpers = new THREE.Scene();
-
-	    this.sceneName = null; // 当前场景名称
-
-	    // 相机
-	    this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 0.1, 10000);
-	    this.DEFAULT_CAMERA.name = '默认相机';
-	    this.DEFAULT_CAMERA.position.set(20, 10, 20);
-	    this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
-
-	    this.camera = this.DEFAULT_CAMERA.clone();
-
-	    // 渲染器
-	    this.rendererTypes = {
-	        'WebGLRenderer': THREE.WebGLRenderer,
-	        'CanvasRenderer': THREE.CanvasRenderer,
-	        'SVGRenderer': THREE.SVGRenderer,
-	        'SoftwareRenderer': THREE.SoftwareRenderer,
-	        'RaytracingRenderer': THREE.RaytracingRenderer
-	    };
-
-	    this.renderer = this.createRendererFromConfig();
-	    this.app.viewport.container.dom.appendChild(this.renderer.domElement);
-	    (new RendererChangedEvent(this.app)).onRendererChanged(this.renderer);
-
-	    // 缓存
-	    this.object = {};
-	    this.objects = [];
-	    this.geometries = {};
-	    this.materials = {};
-	    this.textures = {};
-	    this.scripts = {};
-	    this.helpers = {};
-
-	    // 当前选中物体
-	    this.selected = null;
-
-	    // 网格
-	    this.grid = new THREE.GridHelper(30, 30, 0x444444, 0x888888);
-	    this.sceneHelpers.add(this.grid);
-
-	    // 选中包围盒（当mesh.useSelectionBox === false时，不使用包围盒）
-	    this.selectionBox = new THREE.BoxHelper();
-	    this.selectionBox.material.depthTest = false;
-	    this.selectionBox.material.transparent = true;
-	    this.selectionBox.visible = false;
-	    this.sceneHelpers.add(this.selectionBox);
-
-	    // 平移旋转缩放控件
-	    this.transformControls = new THREE.TransformControls(this.camera, this.app.viewport.container.dom);
-	    this.sceneHelpers.add(this.transformControls);
-
-	    // 编辑器控件
-	    this.controls = new THREE.EditorControls(this.camera, this.app.viewport.container.dom);
-
-	    // 性能控件
-	    this.stats = new Stats();
-	    this.stats.dom.style.position = 'absolute';
-	    this.stats.dom.style.left = '8px';
-	    this.stats.dom.style.top = '8px';
-	    this.stats.dom.style.zIndex = 'initial';
-	    this.app.viewport.container.dom.appendChild(this.stats.dom);
-	}
-	// ---------------------- 渲染器 ---------------------------
-
-	Editor.prototype.createRenderer = function (options) { // 创建渲染器
-	    var rendererType = options.rendererType === undefined ? 'WebGLRenderer' : options.rendererType;
-	    var antialias = options.antialias === undefined ? true : options.antialias;
-	    var shadows = options.shadows === undefined ? true : options.shadows;
-	    var gammaIn = options.gammaIn === undefined ? false : options.gammaIn;
-	    var gammaOut = options.gammaOut === undefined ? false : options.gammaOut;
-	    var rendererTypes = this.rendererTypes;
-
-	    var renderer = new rendererTypes[rendererType]({ antialias: antialias });
-	    renderer.gammaInput = gammaIn;
-	    renderer.gammaOutput = gammaOut;
-	    if (shadows && renderer.shadowMap) {
-	        renderer.shadowMap.enabled = true;
-	        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-	    }
-	    return renderer;
-	};
-
-	Editor.prototype.createRendererFromConfig = function () { // 从配置创建渲染器
-	    var rendererType = this.config.getKey('project/renderer');
-	    var antialias = this.config.getKey('project/renderer/antialias');
-	    var shadows = this.config.getKey('project/renderer/shadows');
-	    var gammaIn = this.config.getKey('project/renderer/gammaInput');
-	    var gammaOut = this.config.getKey('project/renderer/gammaOutput');
-
-	    return this.createRenderer({
-	        rendererType: rendererType,
-	        antialias: antialias,
-	        shadows: shadows,
-	        gammaIn: gammaIn,
-	        gammaOut: gammaOut
-	    });
-	};
-
-	// -------------------- 编辑器 --------------------------
-
-	Editor.prototype.setTheme = function (value) { // 设置主题
-	    this.app.call('setTheme', this, value);
-	};
-
-	Editor.prototype.setScene = function (scene) { // 设置场景
-	    this.app.call('setScene', this, scene);
-	};
-
-	// ---------------------- 物体 ---------------------------
-
-	Editor.prototype.objectByUuid = function (uuid) { // 根据uuid获取物体
-	    return this.scene.getObjectByProperty('uuid', uuid, true);
-	};
-
-	Editor.prototype.addObject = function (object) { // 添加物体
-	    this.app.call('addObject', this, object);
-	};
-
-	Editor.prototype.moveObject = function (object, parent, before) { // 移动物体
-	    this.app.call('moveObject', this, object, parent, before);
-	};
-
-	Editor.prototype.nameObject = function (object, name) { // 重命名物体
-	    this.app.call('nameObject', this, object, name);
-	};
-
-	Editor.prototype.removeObject = function (object) { // 移除物体
-	    this.app.call('removeObject', this, object);
-	};
-
-	Editor.prototype.addGeometry = function (geometry) { // 添加几何体
-	    this.app.call('addGeometry', this, geometry);
-	};
-
-	Editor.prototype.setGeometryName = function (geometry, name) { // 设置几何体名称
-	    this.app.call('setGeometryName', this, geometry, name);
-	};
-
-	Editor.prototype.addMaterial = function (material) { // 添加材质
-	    this.app.call('addMaterial', this, material);
-	};
-
-	Editor.prototype.setMaterialName = function (material, name) { // 设置材质名称事件
-	    this.app.call('setMaterialName', this, material, name);
-	};
-
-	Editor.prototype.addTexture = function (texture) { // 添加纹理事件
-	    this.app.call('addTexture', this, texture);
-	};
-
-	// ------------------------- 帮助 ------------------------------
-
-	Editor.prototype.addHelper = function (object) { // 添加物体帮助
-	    this.app.call('addHelper', this, object);
-	};
-
-	Editor.prototype.removeHelper = function (object) { // 移除物体帮助
-	    this.app.call('removeHelper', this, object);
-	};
-
-	// ------------------------ 脚本 ----------------------------
-
-	Editor.prototype.addScript = function (object, script) { // 添加脚本
-	    this.app.call('addScript', this, object, script);
-	};
-
-	Editor.prototype.removeScript = function (object, script) { // 移除脚本
-	    this.app.call('removeScript', this, object, script);
-	};
-
-	// ------------------------ 选中事件 --------------------------------
-
-	Editor.prototype.select = function (object) { // 选中物体
-	    this.app.call('select', this, object);
-	};
-
-	Editor.prototype.selectById = function (id) { // 根据id选中物体
-	    if (id === this.camera.id) {
-	        this.select(this.camera);
-	        return;
-	    }
-
-	    this.select(this.scene.getObjectById(id, true));
-	};
-
-	Editor.prototype.selectByUuid = function (uuid) { // 根据uuid选中物体
-	    var _this = this;
-	    this.scene.traverse(function (child) {
-	        if (child.uuid === uuid) {
-	            _this.select(child);
-	        }
-	    });
-	};
-
-	Editor.prototype.deselect = function () { // 取消选中物体
-	    this.select(null);
-	};
-
-	// ---------------------- 焦点事件 --------------------------
-
-	Editor.prototype.focus = function (object) { // 设置焦点
-	    this.app.call('objectFocused', this, object);
-	};
-
-	Editor.prototype.focusById = function (id) { // 根据id设置交点
-	    this.focus(this.scene.getObjectById(id, true));
-	};
-
-	// ----------------------- 场景事件 ----------------------------
-
-	Editor.prototype.clear = function () { // 清空场景
-	    this.app.call('clear', this);
-	};
-
-	Editor.prototype.load = function () { // 加载场景
-	    this.app.call('load', this);
-	};
-
-	Editor.prototype.save = function () { // 保存场景
-	    this.app.call('save', this);
-	};
-
-	// --------------------- 命令事件 ------------------------
-
-	Editor.prototype.execute = function (cmd, optionalName) { // 执行事件
-	    this.history.execute(cmd, optionalName);
-	};
-
-	Editor.prototype.undo = function () { // 撤销事件
-	    this.history.undo();
-	};
-
-	Editor.prototype.redo = function () { // 重做事件
-	    this.history.redo();
-	};
-
-	// ------------------------- 序列化 ----------------------------
-
-	Editor.prototype.fromJSON = function (json) { // 根据json创建场景
-	    var loader = new THREE.ObjectLoader();
-
-	    // backwards
-
-	    if (json.scene === undefined) {
-	        this.setScene(loader.parse(json));
-	        return;
-	    }
-
-	    var camera = loader.parse(json.camera);
-
-	    this.camera.copy(camera);
-	    this.camera.aspect = this.DEFAULT_CAMERA.aspect;
-	    this.camera.updateProjectionMatrix();
-
-	    this.history.fromJSON(json.history);
-	    this.scripts = json.scripts;
-
-	    this.setScene(loader.parse(json.scene));
-	};
-
-	Editor.prototype.toJSON = function () { // 将场景转换为json
-	    // scripts clean up
-	    var scene = this.scene;
-	    var scripts = this.scripts;
-
-	    for (var key in scripts) {
-	        var script = scripts[key];
-
-	        if (script.length === 0 || scene.getObjectByProperty('uuid', key) === undefined) {
-	            delete scripts[key];
-	        }
-	    }
-
-	    return {
-	        metadata: {},
-	        project: {
-	            gammaInput: this.config.getKey('project/renderer/gammaInput'),
-	            gammaOutput: this.config.getKey('project/renderer/gammaOutput'),
-	            shadows: this.config.getKey('project/renderer/shadows'),
-	            vr: this.config.getKey('project/vr')
-	        },
-	        camera: this.camera.toJSON(),
-	        scene: this.scene.toJSON(),
-	        scripts: this.scripts,
-	        history: this.history.toJSON()
-	    };
-	};
-
-	/**
-	 * 脚本编辑面板
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function Script(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	Script.prototype = Object.create(UI$1.Control.prototype);
-	Script.prototype.constructor = Script;
-
-	Script.prototype.render = function () {
-	    var container;
-
-	    var data = {
-	        xtype: 'div',
-	        parent: this.app.container,
-	        id: 'script',
-	        cls: 'script',
-	        style: {
-	            backgroundColor: '#272822',
-	            display: 'none'
-	        },
-	        children: [{
-	            xtype: 'div',
-	            style: {
-	                padding: '10px'
-	            },
-	            children: [{
-	                id: 'scriptTitle',
-	                xtype: 'text',
-	                style: {
-	                    color: '#fff'
-	                }
-	            }, {
-	                xtype: 'closebutton',
-	                style: {
-	                    position: 'absolute',
-	                    top: '3px',
-	                    right: '1px',
-	                    cursor: 'pointer'
-	                },
-	                onClick: function () {
-	                    if (container) {
-	                        container.dom.style.display = 'none';
-	                    }
-	                }
-	            }]
-	        }]
-	    };
-
-	    container = UI$1.create(data);
-	    container.render();
-
-	    var title = UI$1.get('scriptTitle');
-
-	    // 业务逻辑
-	    var currentMode;
-	    var currentScript;
-	    var currentObject;
-
-	    var _this = this;
-
-	    var codemirror = CodeMirror(container.dom, {
-	        value: '',
-	        lineNumbers: true,
-	        matchBrackets: true,
-	        indentWithTabs: true,
-	        tabSize: 4,
-	        indentUnit: 4,
-	        hintOptions: {
-	            completeSingle: false
-	        }
-	    });
-	    codemirror.setOption('theme', 'monokai');
-	    codemirror.on('change', function () {
-	        _this.app.call('codeMirrorChange', _this, codemirror, currentMode, currentScript, currentObject);
-	    });
-
-	    // 防止回退键删除物体
-	    var wrapper = codemirror.getWrapperElement();
-	    wrapper.addEventListener('keydown', function (event) {
-	        event.stopPropagation();
-	    });
-
-	    // tern js 自动完成
-	    var server = new CodeMirror.TernServer({
-	        caseInsensitive: true,
-	        plugins: { threejs: null }
-	    });
-
-	    codemirror.setOption('extraKeys', {
-	        'Ctrl-Space': function (cm) { server.complete(cm); },
-	        'Ctrl-I': function (cm) { server.showType(cm); },
-	        'Ctrl-O': function (cm) { server.showDocs(cm); },
-	        'Alt-.': function (cm) { server.jumpToDef(cm); },
-	        'Alt-,': function (cm) { server.jumpBack(cm); },
-	        'Ctrl-Q': function (cm) { server.rename(cm); },
-	        'Ctrl-.': function (cm) { server.selectName(cm); }
-	    });
-
-	    codemirror.on('cursorActivity', function (cm) {
-	        if (currentMode !== 'javascript') {
-	            return;
-	        }
-	        server.updateArgHints(cm);
-	    });
-
-	    codemirror.on('keypress', function (cm, kb) {
-	        if (currentMode !== 'javascript') {
-	            return;
-	        }
-	        var typed = String.fromCharCode(kb.which || kb.keyCode);
-	        if (/[\w\.]/.exec(typed)) {
-	            server.complete(cm);
-	        }
-	    });
-
-	    //
-	    this.app.on('editorCleared.Script', function () {
-	        container.dom.style.display = 'none';
-	    });
-
-	    this.app.on('editScript.Script', function (object, script) {
-	        var mode, name, source;
-
-	        if (typeof (script) === 'object') {
-	            mode = 'javascript';
-	            name = script.name;
-	            source = script.source;
-	            title.setValue(object.name + ' / ' + name);
-	        } else {
-	            switch (script) {
-	                case 'vertexShader':
-	                    mode = 'glsl';
-	                    name = 'Vertex Shader';
-	                    source = object.material.vertexShader || "";
-	                    break;
-	                case 'fragmentShader':
-	                    mode = 'glsl';
-	                    name = 'Fragment Shader';
-	                    source = object.material.fragmentShader || "";
-	                    break;
-	                case 'programInfo':
-	                    mode = 'json';
-	                    name = 'Program Properties';
-	                    var json = {
-	                        defines: object.material.defines,
-	                        uniforms: object.material.uniforms,
-	                        attributes: object.material.attributes
-	                    };
-	                    source = JSON.stringify(json, null, '\t');
-	            }
-	            title.setValue(object.material.name + ' / ' + name);
-	        }
-
-	        currentMode = mode;
-	        currentScript = script;
-	        currentObject = object;
-
-	        container.dom.style.display = 'block';
-	        codemirror.setValue(source);
-	        if (mode === 'json') mode = { name: 'javascript', json: true };
-	        codemirror.setOption('mode', mode);
-	    });
-
-	    this.app.on('scriptRemoved.Script', function (script) {
-	        if (currentScript === script) {
-	            container.dom.style.display = 'none';
-	        }
-	    });
-
-	    this.app.on('refreshScriptEditor.Script', function (object, script, cursorPosition, scrollInfo) {
-	        if (currentScript !== script) return;
-
-	        // copying the codemirror history because "codemirror.setValue(...)" alters its history
-
-	        var history = codemirror.getHistory();
-	        title.setValue(object.name + ' / ' + script.name);
-	        codemirror.setValue(script.source);
-
-	        if (cursorPosition !== undefined) {
-
-	            codemirror.setCursor(cursorPosition);
-	            codemirror.scrollTo(scrollInfo.left, scrollInfo.top);
-
-	        }
-	        codemirror.setHistory(history); // setting the history to previous state
-	    });
-	};
-
-	/**
-	 * 播放器面板
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function Player(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	Player.prototype = Object.create(UI$1.Control.prototype);
-	Player.prototype.constructor = Player;
-
-	Player.prototype.render = function () {
-	    this.container = UI$1.create({
-	        xtype: 'div',
-	        parent: this.parent,
-	        id: 'player',
-	        cls: 'Panel player',
-	        style: {
-	            position: 'absolute',
-	            display: 'none'
-	        }
-	    });
-
-	    this.container.render();
-
-	    this.player = new AppPlayer();
-	    this.container.dom.appendChild(this.player.dom);
-	};
-
-	/**
-	 * 历史记录面板
-	 * @author dforrer / https://github.com/dforrer
-	 * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
-	 */
-	function HistoryPanel(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	HistoryPanel.prototype = Object.create(UI$1.Control.prototype);
-	HistoryPanel.prototype.constructor = HistoryPanel;
-
-	HistoryPanel.prototype.render = function () {
-	    var editor = this.app.editor;
-	    var config = editor.config;
-	    var history = editor.history;
-
-	    var _this = this;
-
-	    var data = {
-	        xtype: 'div',
-	        parent: this.parent,
-	        cls: 'Panel',
-	        children: [{
-	            xtype: 'label',
-	            text: '历史记录'
-	        }, {
-	            xtype: 'boolean',
-	            text: '永久',
-	            style: {
-	                position: 'absolute',
-	                right: '8px'
-	            },
-	            onChange: function () {
-	                var value = this.getValue();
-	                config.setKey('settings/history', value);
-	                if (value) {
-	                    UI$1.msg('历史记录将被保存在会话中。\n这会对使用材质的性能产生影响。');
-	                    var lastUndoCmd = history.undos[history.undos.length - 1];
-	                    var lastUndoId = (lastUndoCmd !== undefined) ? lastUndoCmd.id : 0;
-	                    editor.history.enableSerialization(lastUndoId);
-	                } else {
-	                    _this.app.call('historyChanged');
-	                }
-	            }
-	        }, {
-	            xtype: 'br'
-	        }, {
-	            xtype: 'br'
-	        }, {
-	            xtype: 'outliner',
-	            id: 'historyOutlinear',
-	            editor: editor,
-	            onChange: function () {
-	                history.goToState(parseInt(this.getValue()));
-	            }
-	        }]
-	    };
-
-	    var control = UI$1.create(data);
-	    control.render();
-	};
-
-	/**
-	 * 材质面板
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function MaterialPanel(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	MaterialPanel.prototype = Object.create(UI$1.Control.prototype);
-	MaterialPanel.prototype.constructor = MaterialPanel;
-
-	MaterialPanel.prototype.render = function () {
-	    var _this = this;
-	    var editor = this.app.editor;
-
-	    var update = function () {
-	        _this.app.call('updateMaterial', _this);
-	    };
-
-	    var data = {
-	        xtype: 'div',
-	        parent: this.parent,
-	        id: 'materialPanel',
-	        cls: 'Panel',
-	        style: {
-	            borderTop: 0,
-	            paddingTop: '20px',
-	            display: 'none'
-	        },
-	        children: [{ // New Copy Paste
-	            xtype: 'row',
-	            children: [{
-	                xtype: 'label',
-	                text: ''
-	            }, {
-	                xtype: 'button',
-	                id: 'btnNewMaterial',
-	                text: '新建',
-	                onClick: function () {
-	                    this.app.call('newMaterial', this);
-	                }
-	            }, {
-	                xtype: 'button',
-	                id: 'btnCopyMaterial',
-	                text: '复制',
-	                style: {
-	                    marginLeft: '4px'
-	                },
-	                onClick: function () {
-	                    this.app.call('copyMaterial', this);
-	                }
-	            }, {
-	                xtype: 'button',
-	                text: '粘贴',
-	                id: 'btnPasteMaterial',
-	                style: {
-	                    marginLeft: '4px'
-	                },
-	                onClick: function () {
-	                    this.app.call('pasteMaterial', this);
-	                }
-	            }]
-	        }, { // type
-	            xtype: 'row',
-	            children: [{
-	                xtype: 'label',
-	                text: '类型'
-	            }, {
-	                xtype: 'select',
-	                id: 'materialClass',
-	                options: {
-	                    'LineBasicMaterial': '线条材质',
-	                    'LineDashedMaterial': '虚线材质',
-	                    'MeshBasicMaterial': '基本材质',
-	                    'MeshDepthMaterial': '深度材质',
-	                    'MeshNormalMaterial': '法向量材质',
-	                    'MeshLambertMaterial': '兰伯特材质',
-	                    'MeshPhongMaterial': '冯氏材质',
-	                    'PointCloudMaterial': '点云材质',
-	                    'MeshStandardMaterial': '标准材质',
-	                    'MeshPhysicalMaterial': '物理材质',
-	                    'ShaderMaterial': '着色器材质',
-	                    'SpriteMaterial': '精灵材质',
-	                    'RawShaderMaterial': '原始着色器材质'
-	                },
-	                style: {
-	                    width: '150px',
-	                    fontSize: '12px'
-	                },
-	                onChange: function () {
-	                    _this.app.call('updateMaterial');
-	                }
-	            }]
-	        }, { // uuid
-	            xtype: 'row',
-	            children: [{
-	                xtype: 'label',
-	                text: 'UUID'
-	            }, {
-	                xtype: 'input',
-	                id: 'materialUUID',
-	                style: {
-	                    width: '102px',
-	                    fontSize: '12px'
-	                },
-	                disabled: true
-	            }, {
-	                xtype: 'button',
-	                text: '新建',
-	                style: {
-	                    marginLeft: '7px'
-	                },
-	                onClick: function () {
-	                    var materialUUID = UI$1.get('materialUUID');
-	                    materialUUID.setValue(THREE.Math.generateUUID());
-	                    _this.app.call('updateMaterial');
-	                }
-	            }]
-	        }, { // name
-	            xtype: 'row',
-	            id: 'materialNameRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '名称'
-	            }, {
-	                xtype: 'input',
-	                id: 'materialName',
-	                style: {
-	                    width: '150px',
-	                    fontSize: '12px'
-	                },
-	                onChange: function () {
-	                    editor.execute(new SetMaterialValueCommand(editor.selected, 'name', this.getValue()));
-	                }
-	            }]
-	        }, { // program
-	            xtype: 'row',
-	            id: 'materialProgramRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '着色器程序'
-	            }, {
-	                xtype: 'button',
-	                text: '信息',
-	                style: {
-	                    marginLeft: '4px'
-	                },
-	                onClick: function () {
-	                    _this.app.call('editScript', _this, currentObject, 'programInfo');
-	                }
-	            }, {
-	                xtype: 'button',
-	                text: '顶点着色器',
-	                style: {
-	                    marginLeft: '4px'
-	                },
-	                onClick: function () {
-	                    _this.app.call('editScript', _this, currentObject, 'vertexShader');
-	                }
-	            }, {
-	                xtype: 'button',
-	                text: '片源着色器',
-	                style: {
-	                    marginLeft: '4px'
-	                },
-	                onClick: function () {
-	                    _this.app.call('editScript', _this, currentObject, 'fragmentShader');
-	                }
-	            }]
-	        }, { // color
-	            xtype: 'row',
-	            id: 'materialColorRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '颜色'
-	            }, {
-	                xtype: 'color',
-	                id: 'materialColor',
-	                onChange: update
-	            }]
-	        }, { // roughness
-	            xtype: 'row',
-	            id: 'materialRoughnessRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '粗糙度'
-	            }, {
-	                xtype: 'number',
-	                id: 'materialRoughness',
-	                value: 0.5,
-	                style: {
-	                    width: '60px'
-	                },
-	                range: [0, 1],
-	                onChange: update
-	            }]
-	        }, { // metalness
-	            xtype: 'row',
-	            id: 'materialMetalnessRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '金属度'
-	            }, {
-	                xtype: 'number',
-	                id: 'materialMetalness',
-	                value: 0.5,
-	                style: {
-	                    width: '60px'
-	                },
-	                range: [0, 1],
-	                onChange: update
-	            }]
-	        }, { // emissive
-	            xtype: 'row',
-	            id: 'materialEmissiveRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '发光'
-	            }, {
-	                xtype: 'color',
-	                id: 'materialEmissive',
-	                value: 0x000000,
-	                onChange: update
-	            }]
-	        }, { // specular
-	            xtype: 'row',
-	            id: 'materialSpecularRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '镜面度'
-	            }, {
-	                xtype: 'color',
-	                id: 'materialSpecular',
-	                value: 0x111111,
-	                onChange: update
-	            }]
-	        }, { // shininess
-	            xtype: 'row',
-	            id: 'materialShininessRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '光亮度'
-	            }, {
-	                xtype: 'number',
-	                id: 'materialShininess',
-	                value: 30,
-	                onChange: update
-	            }]
-	        }, { // clearCoat
-	            xtype: 'row',
-	            id: 'materialClearCoatRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '透明度'
-	            }, {
-	                xtype: 'number',
-	                id: 'materialClearCoat',
-	                value: 1,
-	                style: {
-	                    width: '60px'
-	                },
-	                range: [0, 1],
-	                onChange: update
-	            }]
-	        }, { // clearCoatRoughness
-	            xtype: 'row',
-	            id: 'materialClearCoatRoughnessRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '透明粗糙度'
-	            }, {
-	                xtype: 'number',
-	                id: 'materialClearCoatRoughness',
-	                value: 1,
-	                style: {
-	                    width: '60px'
-	                },
-	                range: [0, 1],
-	                onChange: update
-	            }]
-	        }, { // vertex colors
-	            xtype: 'row',
-	            id: 'materialVertexColorsRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '顶点颜色'
-	            }, {
-	                xtype: 'select',
-	                id: 'materialVertexColors',
-	                options: {
-	                    0: '无',
-	                    1: '面',
-	                    2: '顶点'
-	                },
-	                onChange: update
-	            }]
-	        }, { // skinning
-	            xtype: 'row',
-	            id: 'materialSkinningRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '皮肤'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialSkinning',
-	                value: false,
-	                onChange: update
-	            }]
-	        }, { // map
-	            xtype: 'row',
-	            id: 'materialMapRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '纹理'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialMapEnabled',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'texture',
-	                id: 'materialMap',
-	                onChange: update
-	            }]
-	        }, { // alpha map
-	            xtype: 'row',
-	            id: 'materialAlphaMapRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '透明纹理'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialAlphaMapEnabled',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'texture',
-	                id: 'materialAlphaMap',
-	                onChange: update
-	            }]
-	        }, { // bump map
-	            xtype: 'row',
-	            id: 'materialBumpMapRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '凹凸纹理'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialBumpMapEnabled',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'texture',
-	                id: 'materialBumpMap',
-	                value: 1,
-	                style: {
-	                    width: '30px'
-	                },
-	                onChange: update
-	            }, {
-	                xtype: 'number',
-	                id: 'materialBumpScale',
-	                value: 1,
-	                style: {
-	                    width: '30px'
-	                },
-	                onChange: update
-	            }]
-	        }, { // normal map
-	            xtype: 'row',
-	            id: 'materialNormalMapRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '法线纹理'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialNormalMapEnabled',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'texture',
-	                id: 'materialNormalMap',
-	                onChange: update
-	            }]
-	        }, { // displacement map
-	            xtype: 'row',
-	            id: 'materialDisplacementMapRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '位移纹理'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialDisplacementMapEnabled',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'texture',
-	                id: 'materialDisplacementMap',
-	                onChange: update
-	            }, {
-	                xtype: 'number',
-	                id: 'materialDisplacementScale',
-	                value: 1,
-	                style: {
-	                    width: '30px'
-	                },
-	                onChange: update
-	            }]
-	        }, { // roughness map
-	            xtype: 'row',
-	            id: 'materialRoughnessMapRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '粗糙纹理'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialRoughnessMapEnabled',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'texture',
-	                id: 'materialRoughnessMap',
-	                onChange: update
-	            }]
-	        }, { // metalness map
-	            xtype: 'row',
-	            id: 'materialMetalnessMapRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '金属纹理'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialMetalnessMapEnabled',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'texture',
-	                id: 'materialMetalnessMap',
-	                onChange: update
-	            }]
-	        }, { // specular map
-	            xtype: 'row',
-	            id: 'materialSpecularMapRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '镜面纹理'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialSpecularMapEnabled',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'texture',
-	                id: 'materialSpecularMap',
-	                onChange: update
-	            }]
-	        }, { // env map
-	            xtype: 'row',
-	            id: 'materialEnvMapRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '环境纹理'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialEnvMapEnabled',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'texture',
-	                id: 'materialEnvMap',
-	                mapping: THREE.SphericalReflectionMapping,
-	                onChange: update
-	            }, {
-	                xtype: 'number',
-	                id: 'materialReflectivity',
-	                value: 1,
-	                style: {
-	                    width: '30px'
-	                },
-	                onChange: update
-	            }]
-	        }, { // light map
-	            xtype: 'row',
-	            id: 'materialLightMapRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '光照纹理'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialLightMapEnabled',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'texture',
-	                id: 'materialLightMap',
-	                onChange: update
-	            }]
-	        }, { // ambient occlusion map
-	            xtype: 'row',
-	            id: 'materialAOMapRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '遮挡纹理'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialAOMapEnabled',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'texture',
-	                id: 'materialAOMap',
-	                onChange: update
-	            }, {
-	                xtype: 'number',
-	                id: 'materialAOScale',
-	                value: 1,
-	                range: [0, 1],
-	                style: {
-	                    width: '30px'
-	                },
-	                onChange: update
-	            }]
-	        }, { // emissive map
-	            xtype: 'row',
-	            id: 'materialEmissiveMapRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '放射纹理'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialEmissiveMapEnabled',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'texture',
-	                id: 'materialEmissiveMap',
-	                onChange: update
-	            }]
-	        }, { // side
-	            xtype: 'row',
-	            id: 'materialSideRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '剔除'
-	            }, {
-	                xtype: 'select',
-	                id: 'materialSide',
-	                options: {
-	                    0: '正面',
-	                    1: '反面',
-	                    2: '双面'
-	                },
-	                style: {
-	                    width: '150px',
-	                    fontSize: '12px'
-	                },
-	                onChange: update
-	            }]
-	        }, { // shading
-	            xtype: 'row',
-	            id: 'materialShadingRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '着色'
-	            }, {
-	                xtype: 'select',
-	                id: 'materialShading',
-	                options: {
-	                    0: '无',
-	                    1: '平坦',
-	                    2: '光滑'
-	                },
-	                style: {
-	                    width: '150px',
-	                    fontSize: '12px'
-	                },
-	                onChange: update
-	            }]
-	        }, { // blending
-	            xtype: 'row',
-	            id: 'materialBlendingRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '混合'
-	            }, {
-	                xtype: 'select',
-	                id: 'materialBlending',
-	                options: {
-	                    0: '不混合',
-	                    1: '一般混合',
-	                    2: '和混合',
-	                    3: '差混合',
-	                    4: '积混合',
-	                    5: '自定义混合'
-	                },
-	                style: {
-	                    width: '150px',
-	                    fontSize: '12px'
-	                },
-	                onChange: update
-	            }]
-	        }, { // opacity
-	            xtype: 'row',
-	            id: 'materialOpacityRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '不透明度'
-	            }, {
-	                xtype: 'number',
-	                id: 'materialOpacity',
-	                value: 1,
-	                style: {
-	                    width: '60px'
-	                },
-	                range: [0, 1],
-	                onChange: update
-	            }]
-	        }, { // transparent
-	            xtype: 'row',
-	            id: 'materialTransparentRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '透明'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialTransparent',
-	                style: {
-	                    left: '100px'
-	                },
-	                onChange: update
-	            }]
-	        }, { // alpha test
-	            xtype: 'row',
-	            id: 'materialAlphaTestRow',
-	            children: [{
-	                xtype: 'label',
-	                text: 'α测试'
-	            }, {
-	                xtype: 'number',
-	                id: 'materialAlphaTest',
-	                style: {
-	                    width: '60px'
-	                },
-	                range: [0, 1],
-	                onChange: update
-	            }]
-	        }, { // wireframe
-	            xtype: 'row',
-	            id: 'materialWireframeRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '线框'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'materialWireframe',
-	                value: false,
-	                onChange: update
-	            }, {
-	                xtype: 'number',
-	                id: 'materialWireframeLinewidth',
-	                value: 1,
-	                style: {
-	                    width: '60px'
-	                },
-	                range: [0, 100],
-	                onChange: update
-	            }]
-	        }]
-	    };
-
-	    var control = UI$1.create(data);
-	    control.render();
-	};
-
-	/**
-	 * 物体面板
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function ObjectPanel(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	ObjectPanel.prototype = Object.create(UI$1.Control.prototype);
-	ObjectPanel.prototype.constructor = ObjectPanel;
-
-	ObjectPanel.prototype.render = function () {
-	    var editor = this.app.editor;
-
-	    var _this = this;
-
-	    var update = function () {
-	        _this.app.call('updateObject', _this);
-	    };
-
-	    var data = {
-	        xtype: 'div',
-	        id: 'objectPanel',
-	        parent: this.parent,
-	        cls: 'Panel',
-	        style: {
-	            borderTop: 0,
-	            paddingTop: '20px',
-	            display: 'none'
-	        },
-	        children: [{ // type
-	            xtype: 'row',
-	            id: 'objectTypeRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '类型'
-	            }, {
-	                xtype: 'text',
-	                id: 'objectType'
-	            }]
-	        }, { // uuid
-	            xtype: 'row',
-	            id: 'objectUUIDRow',
-	            children: [{
-	                xtype: 'label',
-	                text: 'UUID'
-	            }, {
-	                xtype: 'input',
-	                id: 'objectUUID',
-	                style: {
-	                    width: '102px',
-	                    fontSize: '12px'
-	                },
-	                disabled: true
-	            }, {
-	                xtype: 'button',
-	                id: 'objectUUIDRenew',
-	                text: '新建',
-	                style: {
-	                    marginLeft: '7px'
-	                },
-	                onClick: function () {
-	                    var objectUUID = UI$1.get('objectUUID');
-	                    objectUUID.setValue(THREE.Math.generateUUID());
-	                    editor.execute(new SetUuidCommand(editor.selected, objectUUID.getValue()));
-	                }
-	            }]
-	        }, { // name
-	            xtype: 'row',
-	            id: 'objectNameRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '名称'
-	            }, {
-	                xtype: 'input',
-	                id: 'objectName',
-	                style: {
-	                    width: '150px',
-	                    fontSize: '12px'
-	                },
-	                onChange: function () {
-	                    editor.execute(new SetValueCommand(editor.selected, 'name', this.getValue()));
-	                }
-	            }]
-	        }, { // position
-	            xtype: 'row',
-	            id: 'objectPositionRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '位置'
-	            }, {
-	                xtype: 'number',
-	                id: 'objectPositionX',
-	                style: {
-	                    width: '50px'
-	                },
-	                onChange: update
-	            }, {
-	                xtype: 'number',
-	                id: 'objectPositionY',
-	                style: {
-	                    width: '50px'
-	                },
-	                onChange: update
-	            }, {
-	                xtype: 'number',
-	                id: 'objectPositionZ',
-	                style: {
-	                    width: '50px'
-	                },
-	                onChange: update
-	            }]
-	        }, { // rotation
-	            xtype: 'row',
-	            id: 'objectRotationRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '旋转'
-	            }, {
-	                xtype: 'number',
-	                id: 'objectRotationX',
-	                step: 10,
-	                unit: '°',
-	                style: {
-	                    width: '50px'
-	                },
-	                onChange: update
-	            }, {
-	                xtype: 'number',
-	                id: 'objectRotationY',
-	                step: 10,
-	                unit: '°',
-	                style: {
-	                    width: '50px'
-	                },
-	                onChange: update
-	            }, {
-	                xtype: 'number',
-	                id: 'objectRotationZ',
-	                step: 10,
-	                unit: '°',
-	                style: {
-	                    width: '50px'
-	                },
-	                onChange: update
-	            }]
-	        }, { // scale
-	            xtype: 'row',
-	            id: 'objectScaleRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '尺寸'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'objectScaleLock',
-	                value: true,
-	                style: {
-	                    position: 'absolute',
-	                    left: '75px'
-	                }
-	            }, {
-	                xtype: 'number',
-	                id: 'objectScaleX',
-	                value: 1,
-	                range: [0.01, Infinity],
-	                style: {
-	                    width: '50px'
-	                },
-	                onChange: function () {
-	                    _this.app.call('updateScaleX', _this);
-	                }
-	            }, {
-	                xtype: 'number',
-	                id: 'objectScaleY',
-	                value: 1,
-	                range: [0.01, Infinity],
-	                style: {
-	                    width: '50px'
-	                },
-	                onChange: function () {
-	                    _this.app.call('updateScaleY', _this);
-	                }
-	            }, {
-	                xtype: 'number',
-	                id: 'objectScaleZ',
-	                value: 1,
-	                range: [0.01, Infinity],
-	                style: {
-	                    width: '50px'
-	                },
-	                onChange: function () {
-	                    _this.app.call('updateScaleZ', _this);
-	                }
-	            }]
-	        }, { // fov
-	            xtype: 'row',
-	            id: 'objectFovRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '视场'
-	            }, {
-	                xtype: 'number',
-	                id: 'objectFov',
-	                onChange: update
-	            }]
-	        }, { // near
-	            xtype: 'row',
-	            id: 'objectNearRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '近点'
-	            }, {
-	                xtype: 'number',
-	                id: 'objectNear',
-	                onChange: update
-	            }]
-	        }, { // far
-	            xtype: 'row',
-	            id: 'objectFarRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '远点'
-	            }, {
-	                xtype: 'number',
-	                id: 'objectFar',
-	                onChange: update
-	            }]
-	        }, { // intensity
-	            xtype: 'row',
-	            id: 'objectIntensityRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '强度'
-	            }, {
-	                xtype: 'number',
-	                id: 'objectIntensity',
-	                range: [0, Infinity],
-	                onChange: update
-	            }]
-	        }, { // color
-	            xtype: 'row',
-	            id: 'objectColorRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '颜色'
-	            }, {
-	                xtype: 'color',
-	                id: 'objectColor',
-	                onChange: update
-	            }]
-	        }, { // ground color
-	            xtype: 'row',
-	            id: 'objectGroundColorRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '地面颜色'
-	            }, {
-	                xtype: 'color',
-	                id: 'objectGroundColor',
-	                onChange: update
-	            }]
-	        }, { // distance
-	            xtype: 'row',
-	            id: 'objectDistanceRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '距离'
-	            }, {
-	                xtype: 'number',
-	                id: 'objectDistance',
-	                range: [0, Infinity],
-	                onChange: update
-	            }]
-	        }, { // angle
-	            xtype: 'row',
-	            id: 'objectAngleRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '角度'
-	            }, {
-	                xtype: 'number',
-	                id: 'objectAngle',
-	                precision: 3,
-	                range: [0, Math.PI / 2],
-	                onChange: update
-	            }]
-	        }, { // penumbra
-	            xtype: 'row',
-	            id: 'objectPenumbraRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '边缘'
-	            }, {
-	                xtype: 'number',
-	                id: 'objectPenumbra',
-	                range: [0, 1],
-	                onChange: update
-	            }]
-	        }, { // decay
-	            xtype: 'row',
-	            id: 'objectDecayRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '衰变'
-	            }, {
-	                xtype: 'number',
-	                id: 'objectDecay',
-	                range: [0, Infinity],
-	                onChange: update
-	            }]
-	        }, { // shadow
-	            xtype: 'row',
-	            id: 'objectShadowRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '阴影'
-	            }, {
-	                xtype: 'boolean',
-	                id: 'objectCastShadow',
-	                value: false,
-	                text: '产生',
-	                onChange: update
-	            }, {
-	                xtype: 'boolean',
-	                id: 'objectReceiveShadow',
-	                value: false,
-	                text: '接收',
-	                onChange: update
-	            }, {
-	                xtype: 'number',
-	                id: 'objectShadowRadius',
-	                value: 1,
-	                onChange: update
-	            }]
-	        }, { // visible
-	            xtype: 'row',
-	            id: 'objectVisibleRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '可见性'
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'objectVisible',
-	                onChange: update
-	            }]
-	        }, { // user data
-	            xtype: 'row',
-	            id: 'objectUserDataRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '用户数据'
-	            }, {
-	                xtype: 'textarea',
-	                id: 'objectUserData',
-	                style: {
-	                    width: '150px',
-	                    height: '40px',
-	                    fontSize: '12px'
-	                },
-	                onChange: update,
-	                onKeyUp: function () {
-	                    try {
-	                        JSON.parse(this.getValue());
-	                        this.dom.classList.add('success');
-	                        this.dom.classList.remove('fail');
-	                    } catch (error) {
-	                        this.dom.classList.remove('success');
-	                        this.dom.classList.add('fail');
-	                    }
-	                }
-	            }]
-	        }]
-	    };
-
-	    var control = UI$1.create(data);
-	    control.render();
-	};
-
-	/**
-	 * 工程面板
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function ProjectPanel(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	ProjectPanel.prototype = Object.create(UI$1.Control.prototype);
-	ProjectPanel.prototype.constructor = ProjectPanel;
-
-	ProjectPanel.prototype.render = function () {
-	    var editor = this.app.editor;
-	    var config = editor.config;
-
-	    var rendererTypes = {
-	        'WebGLRenderer': THREE.WebGLRenderer,
-	        'CanvasRenderer': THREE.CanvasRenderer,
-	        'SVGRenderer': THREE.SVGRenderer,
-	        'SoftwareRenderer': THREE.SoftwareRenderer,
-	        'RaytracingRenderer': THREE.RaytracingRenderer
-	    };
-
-	    var options = {};
-
-	    for (var key in rendererTypes) {
-	        if (key.indexOf('WebGL') >= 0 && System.support.webgl === false) continue;
-	        options[key] = key;
-	    }
-
-	    var _this = this;
-
-	    var updateRenderer = function () {
-	        _this.app.call('updateRenderer', _this);
-	    };
-
-	    var data = {
-	        xtype: 'div',
-	        id: 'projectPanel',
-	        parent: this.parent,
-	        style: {
-	            borderTop: 0,
-	            paddingTop: '20px'
-	        },
-	        cls: 'Panel',
-	        children: [{ // class
-	            xtype: 'row',
-	            id: 'rendererTypeRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '渲染器',
-	                style: {
-	                    width: '90px'
-	                }
-	            }, {
-	                xtype: 'select',
-	                id: 'rendererType',
-	                options: options,
-	                value: config.getKey('project/renderer'),
-	                style: {
-	                    width: '150px'
-	                },
-	                onChange: function () {
-	                    var value = this.getValue();
-	                    config.setKey('project/renderer', value);
-	                    updateRenderer();
-	                }
-	            }]
-	        }, {
-	            xtype: 'row',
-	            id: 'rendererPropertiesRow',
-	            style: {
-	                marginLeft: '90px'
-	            },
-	            children: [{ // antialiasing
-	                xtype: 'boolean',
-	                id: 'rendererAntialias',
-	                value: config.getKey('project/renderer/antialias'),
-	                text: '抗锯齿',
-	                onChange: function () {
-	                    config.setKey('project/renderer/antialias', this.getValue());
-	                    updateRenderer();
-	                }
-	            }, { // shadow
-	                xtype: 'boolean',
-	                id: 'rendererShadows',
-	                value: config.getKey('project/renderer/shadows'),
-	                text: '阴影',
-	                onChange: function () {
-	                    config.setKey('project/renderer/shadows', this.getValue());
-	                    updateRenderer();
-	                }
-	            }, {
-	                xtype: 'br'
-	            }, { // gamma input
-	                xtype: 'boolean',
-	                id: 'rendererGammaInput',
-	                value: config.getKey('project/renderer/gammaInput'),
-	                text: 'γ输入',
-	                onChange: function () {
-	                    config.setKey('project/renderer/gammaInput', this.getValue());
-	                    updateRenderer();
-	                }
-	            }, { // gamma output
-	                xtype: 'boolean',
-	                id: 'rendererGammaOutput',
-	                value: config.getKey('project/renderer/gammaOutput'),
-	                text: 'γ输出',
-	                onChange: function () {
-	                    config.setKey('project/renderer/gammaOutput', this.getValue());
-	                    updateRenderer();
-	                }
-	            }]
-	        }, { // VR
-	            xtype: 'row',
-	            id: 'vrRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '虚拟现实',
-	                style: {
-	                    width: '90px'
-	                }
-	            }, {
-	                xtype: 'checkbox',
-	                id: 'vr',
-	                value: config.getKey('project/vr'),
-	                style: {
-	                    left: '100px'
-	                },
-	                onChange: function () {
-	                    config.setKey('project/vr', this.getValue());
-	                    // updateRenderer();
-	                }
-	            }]
-	        }]
-	    };
-
-	    var control = UI$1.create(data);
-	    control.render();
-	};
-
-	/**
-	 * 几何体信息面板
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function GeometryInfoPanel(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	GeometryInfoPanel.prototype = Object.create(UI$1.Control.prototype);
-	GeometryInfoPanel.prototype.constructor = GeometryInfoPanel;
-
-	GeometryInfoPanel.prototype.render = function () {
-	    var editor = this.app.editor;
-
-	    this.children = {
-	        'xtype': 'row',
-	        parent: this.parent,
-	        children: [{ // vertices
-	            xtype: 'row',
-	            children: [{
-	                xtype: 'label',
-	                text: '顶点'
-	            }, {
-	                xtype: 'text',
-	                id: 'geometryInfoVertices'
-	            }]
-	        }, { // faces
-	            xtype: 'row',
-	            children: [{
-	                xtype: 'label',
-	                text: '面'
-	            }, {
-	                xtype: 'text',
-	                id: 'geometryInfoFaces',
-	            }]
-	        }]
-	    };
-
-	    var container = UI$1.create(this.children);
-	    container.render();
-
-	    function update(object) {
-	        var vertices = UI$1.get('geometryInfoVertices');
-	        var faces = UI$1.get('geometryInfoFaces');
-
-	        if (object === null) return; // objectSelected.dispatch( null )
-	        if (object === undefined) return;
-
-	        var geometry = object.geometry;
-
-	        if (geometry instanceof THREE.Geometry) {
-	            container.dom.style.display = 'block';
-
-	            vertices.setValue((geometry.vertices.length).format());
-	            faces.setValue((geometry.faces.length).format());
-	        } else {
-	            container.dom.style.display = 'none';
-	        }
-	    }
-
-	    this.app.on('objectSelected.GeometryInfoPanel', function (mesh) {
-	        update(mesh);
-	    });
-
-	    this.app.on('geometryChanged.GeometryInfoPanel', function (mesh) {
-	        update(mesh);
-	    });
-	};
-
-	/**
-	 * 缓冲几何体面板
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function BufferGeometryPanel(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	BufferGeometryPanel.prototype = Object.create(UI$1.Control.prototype);
-	BufferGeometryPanel.prototype.constructor = BufferGeometryPanel;
-
-	BufferGeometryPanel.prototype.render = function () {
-	    var editor = this.app.editor;
-
-	    var data = {
-	        xtype: 'row',
-	        id: 'bufferGeometryPanel',
-	        parent: this.parent
-	    };
-
-	    var container = UI$1.create(data);
-	    container.render();
-
-	    function update(object) {
-	        if (object === null) return; // objectSelected.dispatch( null )
-	        if (object === undefined) return;
-
-	        var geometry = object.geometry;
-
-	        if (geometry instanceof THREE.BufferGeometry) {
-	            container.dom.innerHTML = '';
-	            container.dom.style.display = 'block';
-
-	            var index = geometry.index;
-
-	            if (index !== null) {
-	                var panel = UI$1.create({
-	                    xtype: 'row',
-	                    parent: container.dom,
-	                    children: [{
-	                        xtype: 'label',
-	                        text: '索引数'
-	                    }, {
-	                        xtype: 'text',
-	                        text: (index.count).format(),
-	                        style: {
-	                            fontSize: '12px'
-	                        }
-	                    }]
-	                });
-
-	                panel.render();
-	            }
-
-	            var attributes = geometry.attributes;
-
-	            for (var name in attributes) {
-
-	                var attribute = attributes[name];
-
-	                var panel = UI$1.create({
-	                    xtype: 'row',
-	                    parent: container.dom,
-	                    children: [{
-	                        xtype: 'label',
-	                        text: name
-	                    }, {
-	                        xtype: 'text',
-	                        text: (attribute.count).format() + ' (' + attribute.itemSize + ')',
-	                        style: {
-	                            fontSize: '12px'
-	                        }
-	                    }]
-	                });
-
-	                panel.render();
-	            }
-	        } else {
-	            container.dom.style.display = 'none';
-	        }
-	    }
-
-	    this.app.on('objectSelected.BufferGeometryPanel', function (mesh) {
-	        update(mesh);
-	    });
-
-	    this.app.on('geometryChanged.BufferGeometryPanel', function (mesh) {
-	        update(mesh);
-	    });
-	};
-
-	/**
-	 * 几何体面板
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function GeometryPanel(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	GeometryPanel.prototype = Object.create(UI$1.Control.prototype);
-	GeometryPanel.prototype.constructor = GeometryPanel;
-
-	GeometryPanel.prototype.render = function () {
-	    var editor = this.app.editor;
-
-	    this.children = [{
-	        xtype: 'div',
-	        id: 'geometryPanel',
-	        parent: this.parent,
-	        cls: 'Panel',
-	        style: {
-	            borderTop: 0,
-	            paddingTop: '20px',
-	            display: 'none'
-	        },
-	        children: [{ // type
-	            xtype: 'row',
-	            id: 'geometryTypeRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '类型'
-	            }, {
-	                xtype: 'text',
-	                id: 'geometryType'
-	            }]
-	        }, { // uuid
-	            xtype: 'row',
-	            id: 'geometryUUIDRow',
-	            children: [{
-	                xtype: 'label',
-	                text: 'UUID'
-	            }, {
-	                xtype: 'input',
-	                id: 'geometryUUID',
-	                style: {
-	                    width: '102px',
-	                    fontSize: '12px'
-	                },
-	                disabled: true
-	            }, {
-	                xtype: 'button',
-	                id: 'geometryUUIDRenew',
-	                text: '新建',
-	                style: {
-	                    marginLeft: '7px'
-	                },
-	                onClick: function () {
-	                    geometryUUID.setValue(THREE.Math.generateUUID());
-	                    editor.execute(new SetGeometryValueCommand(editor.selected, 'uuid', geometryUUID.getValue()));
-	                }
-	            }]
-	        }, { // name
-	            xtype: 'row',
-	            id: 'geometryNameRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '名称'
-	            }, {
-	                xtype: 'input',
-	                id: 'geometryName',
-	                style: {
-	                    width: '150px',
-	                    fontSize: '12px'
-	                },
-	                onChange: function () {
-	                    editor.execute(new SetGeometryValueCommand(editor.selected, 'name', this.getValue()));
-	                }
-	            }]
-	        }, {
-	            xtype: 'row',
-	            id: 'geometryParameters',
-	            children: [
-	                new BufferGeometryPanel({ app: this.app })
-	            ]
-	        },
-	        new GeometryInfoPanel({ app: this.app, id: 'geometryInfoPanel' })
-	        ]
-	    }];
-
-	    var container = UI$1.create(this.children[0]);
-	    container.render();
-	};
-
-	/**
-	 * 属性面板
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function PropertyPanel(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	PropertyPanel.prototype = Object.create(UI$1.Control.prototype);
-	PropertyPanel.prototype.constructor = PropertyPanel;
-
-	PropertyPanel.prototype.render = function () {
-	    var editor = this.app.editor;
-
-	    var _this = this;
-
-	    var onClick = function (event) {
-	        _this.app.call('selectPropertyTab', _this, event.target.textContent);
-	    };
-
-	    var data = {
-	        xtype: 'div',
-	        id: 'propertyPanel',
-	        parent: this.parent,
-	        children: [{
-	            xtype: 'div',
-	            cls: 'tabs',
-	            children: [{
-	                xtype: 'text',
-	                id: 'objectTab',
-	                text: '物体',
-	                onClick: onClick
-	            }, {
-	                xtype: 'text',
-	                id: 'geometryTab',
-	                text: '几何',
-	                onClick: onClick
-	            }, {
-	                xtype: 'text',
-	                id: 'materialTab',
-	                text: '材质',
-	                onClick: onClick
-	            }]
-	        }, {
-	            xtype: 'div',
-	            children: [
-	                new ObjectPanel({ app: this.app, id: 'object' })
-	            ]
-	        }, {
-	            xtype: 'div',
-	            children: [
-	                new GeometryPanel({ app: this.app, id: 'geometry' })
-	            ]
-	        }, {
-	            xtype: 'div',
-	            children: [
-	                new MaterialPanel({ app: this.app, id: 'material' })
-	            ]
-	        }]
-	    };
-
-	    var control = UI$1.create(data);
-	    control.render();
-	};
-
-	/**
-	 * 场景面板
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function ScenePanel(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	ScenePanel.prototype = Object.create(UI$1.Control.prototype);
-	ScenePanel.prototype.constructor = ScenePanel;
-
-	ScenePanel.prototype.render = function () {
-	    var editor = this.app.editor;
-
-	    var _this = this;
-
-	    var onFogChanged = function () {
-	        var fogType = UI$1.get('fogType');
-	        var fogColor = UI$1.get('fogColor');
-	        var fogNear = UI$1.get('fogNear');
-	        var fogFar = UI$1.get('fogFar');
-	        var fogDensity = UI$1.get('fogDensity');
-
-	        _this.app.call('sceneFogChanged',
-	            _this,
-	            fogType.getValue(),
-	            fogColor.getHexValue(),
-	            fogNear.getValue(),
-	            fogFar.getValue(),
-	            fogDensity.getValue()
-	        );
-	    };
-
-	    var refreshFogUI = function () {
-	        _this.app.call('updateScenePanelFog', _this);
-	    };
-
-	    var data = {
-	        xtype: 'div',
-	        id: 'scenePanel',
-	        parent: this.parent,
-	        cls: 'Panel',
-	        children: [{ // outliner
-	            xtype: 'outliner',
-	            id: 'outliner',
-	            editor: editor,
-	            onChange: function () {
-	                _this.app.call('outlinerChange', _this, this);
-	            },
-	            onDblClick: function () {
-	                editor.focusById(parseInt(this.getValue()));
-	            }
-	        }, {
-	            xtype: 'br'
-	        }, { // background
-	            xtype: 'row',
-	            id: 'backgroundRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '背景',
-	                style: {
-	                    width: '90px'
-	                }
-	            }, {
-	                xtype: 'color',
-	                id: 'backgroundColor',
-	                value: '#aaaaaa',
-	                onChange: function () {
-	                    _this.app.call('sceneBackgroundChanged', _this, this.getHexValue());
-	                }
-	            }]
-	        }, { // fog
-	            xtype: 'row',
-	            id: 'fogTypeRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '雾',
-	                style: {
-	                    width: '90px'
-	                }
-	            }, {
-	                xtype: 'select',
-	                id: 'fogType',
-	                options: {
-	                    'None': '无',
-	                    'Fog': '线性',
-	                    'FogExp2': '指数型'
-	                },
-	                style: {
-	                    width: '150px'
-	                },
-	                onChange: function () {
-	                    onFogChanged();
-	                    refreshFogUI();
-	                }
-	            }]
-	        }, {
-	            xtype: 'row',
-	            id: 'fogPropertiesRow',
-	            children: [{ // fog color
-	                xtype: 'color',
-	                id: 'fogColor',
-	                value: '#aaaaaa',
-	                onChange: onFogChanged
-	            }, { // fog near
-	                xtype: 'number',
-	                id: 'fogNear',
-	                value: 0.1,
-	                style: {
-	                    width: '40px'
-	                },
-	                range: [0, Infinity],
-	                onChange: onFogChanged
-	            }, { // fog far
-	                xtype: 'number',
-	                id: 'fogFar',
-	                value: 50,
-	                style: {
-	                    width: '40px'
-	                },
-	                range: [0, Infinity],
-	                onChange: onFogChanged
-	            }, { // fog density
-	                xtype: 'number',
-	                id: 'fogDensity',
-	                value: 0.05,
-	                style: {
-	                    width: '40px'
-	                },
-	                range: [0, 0.1],
-	                precision: 3,
-	                onChange: onFogChanged
-	            }]
-	        }]
-	    };
-
-	    var control = UI$1.create(data);
-	    control.render();
-	};
-
-	/**
-	 * 脚本面板
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function ScriptPanel(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	ScriptPanel.prototype = Object.create(UI$1.Control.prototype);
-	ScriptPanel.prototype.constructor = ScriptPanel;
-
-	ScriptPanel.prototype.render = function () {
-	    var editor = this.app.editor;
-
-	    var data = {
-	        xtype: 'div',
-	        id: 'scriptPanel',
-	        parent: this.parent,
-	        cls: 'Panel scriptPanel',
-	        style: {
-	            display: 'none'
-	        },
-	        children: [{
-	            xtype: 'label',
-	            text: '脚本'
-	        }, {
-	            xtype: 'br'
-	        }, {
-	            xtype: 'br'
-	        }, {
-	            xtype: 'row',
-	            id: 'scriptsContainer'
-	        }, {
-	            xtype: 'button',
-	            id: 'newScript',
-	            text: '新建',
-	            onClick: function () {
-	                var script = { name: '', source: 'function update( event ) {}' };
-	                editor.execute(new AddScriptCommand(editor.selected, script));
-	            }
-	        }]
-	    };
-
-	    var control = UI$1.create(data);
-	    control.render();
-	};
-
-	/**
-	 * 设置面板
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function SettingPanel(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	SettingPanel.prototype = Object.create(UI$1.Control.prototype);
-	SettingPanel.prototype.constructor = SettingPanel;
-
-	SettingPanel.prototype.render = function () {
-	    var editor = this.app.editor;
-	    var config = editor.config;
-
-	    var data = {
-	        xtype: 'div',
-	        id: 'settingPanel',
-	        parent: this.parent,
-	        cls: 'Panel',
-	        style: {
-	            borderTop: 0,
-	            paddingTop: '20px'
-	        },
-	        children: [{
-	            xtype: 'row',
-	            id: 'themeRow',
-	            children: [{
-	                xtype: 'label',
-	                text: '主题'
-	            }, { // class
-	                xtype: 'select',
-	                options: {
-	                    'assets/css/light.css': '浅色',
-	                    'assets/css/dark.css': '深色'
-	                },
-	                value: config.getKey('theme'),
-	                style: {
-	                    width: '150px'
-	                },
-	                onChange: function () {
-	                    var value = this.getValue();
-	                    editor.setTheme(value);
-	                    editor.config.setKey('theme', value);
-	                }
-	            }]
-	        }]
-	    };
-
-	    var control = UI$1.create(data);
-	    control.render();
-	};
-
-	/**
-	 * 侧边栏
-	 * @author mrdoob / http://mrdoob.com/
-	 */
-	function Sidebar(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	Sidebar.prototype = Object.create(UI$1.Control.prototype);
-	Sidebar.prototype.constructor = Sidebar;
-
-	Sidebar.prototype.render = function () {
-	    var editor = this.app.editor;
-	    var _this = this;
-
-	    function onClick(event) {
-	        _this.app.call('selectTab', _this, event.target.textContent);
-	    }
-
-	    var data = {
-	        xtype: 'div',
-	        id: 'sidebar',
-	        cls: 'sidebar',
-	        parent: this.app.container,
-	        children: [{
-	            xtype: 'div',
-	            cls: 'tabs',
-	            children: [{
-	                xtype: 'text',
-	                id: 'sceneTab',
-	                text: '场景',
-	                onClick: onClick
-	            }, {
-	                xtype: 'text',
-	                id: 'projectTab',
-	                text: '工程',
-	                onClick: onClick
-	            }, {
-	                xtype: 'text',
-	                id: 'settingsTab',
-	                text: '设置',
-	                onClick: onClick
-	            }]
-	        }, { // scene
-	            xtype: 'div',
-	            id: 'scene',
-	            children: [
-	                new ScenePanel({ app: this.app }),
-	                new PropertyPanel({ app: this.app }),
-	                new ScriptPanel({ app: this.app })
-	            ]
-	        }, { // project
-	            xtype: 'div',
-	            id: 'project',
-	            children: [
-	                new ProjectPanel({ app: this.app })
-	            ]
-	        }, {
-	            xtype: 'div',
-	            id: 'settings',
-	            children: [
-	                new SettingPanel({ app: this.app }),
-	                new HistoryPanel({ app: this.app })
-	            ]
-	        }]
-	    };
-
-	    var control = UI$1.create(data);
-	    control.render();
-	};
-
-	/**
 	 * Geometry序列化器
 	 */
 	function GeometrySerializer$1() {
@@ -49585,278 +49965,6 @@
 
 	Socket.prototype.on = function (eventName, callback) {
 	    this.dispatch.on(eventName, callback);
-	};
-
-	/**
-	 * 配置选项
-	 * @param {*} options 配置选项
-	 */
-	function Options(options) {
-	    options = options || {};
-	    this.server = options.server || location.origin;
-
-	    this.gravityConstant = -9.8; // 重力加速度
-	}
-
-	/**
-	 * 工具栏
-	 */
-	function Toolbar(options) {
-	    UI$1.Control.call(this, options);
-	    this.app = options.app;
-	}
-	Toolbar.prototype = Object.create(UI$1.Control.prototype);
-	Toolbar.prototype.constructor = Toolbar;
-
-	Toolbar.prototype.render = function () {
-
-	    var data = {
-	        xtype: 'div',
-	        id: 'toolbar',
-	        parent: this.app.container,
-	        cls: 'toolbar',
-	        children: [{
-	            xtype: 'iconbutton',
-	            id: 'selectBtn',
-	            icon: 'icon-select',
-	            cls: 'Button IconButton selected',
-	            title: '选择'
-	        }, {
-	            xtype: 'iconbutton',
-	            id: 'translateBtn',
-	            icon: 'icon-translate',
-	            title: '平移(W)'
-	        }, {
-	            xtype: 'iconbutton',
-	            id: 'rotateBtn',
-	            icon: 'icon-rotate',
-	            title: '旋转(E)'
-	        }, {
-	            xtype: 'iconbutton',
-	            id: 'scaleBtn',
-	            icon: 'icon-scale',
-	            title: '缩放(R)'
-	        }, {
-	            xtype: 'hr'
-	        }, {
-	            xtype: 'iconbutton',
-	            id: 'modelBtn',
-	            icon: 'icon-model-view',
-	            title: '模型'
-	        }
-	            // , {
-	            //     xtype: 'iconbutton',
-	            //     id: 'handBtn',
-	            //     icon: 'icon-hand',
-	            //     title: '抓手'
-	            // }, {
-	            //     xtype: 'iconbutton',
-	            //     id: 'anchorPointBtn',
-	            //     icon: 'icon-anchor-point',
-	            //     title: '添加锚点'
-	            // }, {
-	            //     xtype: 'iconbutton',
-	            //     id: 'pathBtn',
-	            //     icon: 'icon-path',
-	            //     title: '绘制路径'
-	            // }
-	        ]
-	    };
-
-	    var control = UI$1.create(data);
-	    control.render();
-	};
-
-	/**
-	 * 时间线窗口
-	 * @param {*} options 
-	 */
-	function TimePanel(options) {
-	    Control.call(this, options);
-	}
-
-	TimePanel.prototype = Object.create(Control.prototype);
-	TimePanel.prototype.constructor = TimePanel;
-
-	TimePanel.prototype.render = function () {
-	    return;
-	    var target = {
-	        x: 0,
-	        y: 0,
-	        rotate: 0
-	    };
-
-	    var timeliner = new Timeliner(target, {
-	        position: 'absolute',
-	        left: '48px',
-	        right: '300px',
-	        bottom: '32px'
-	    });
-
-	    timeliner.load({
-	        'version': '1.2.0',
-	        'modified': 'Mon Dec 08 2014 10:41:11 GMT+0800 (SGT)',
-	        'title': 'Untitled',
-	        'layers': [{
-	            'name': 'x',
-	            'values': [{
-	                'time': 0.1,
-	                'value': 0,
-	                '_color': '#893c0f',
-	                'tween': 'quadEaseIn'
-	            }, {
-	                'time': 3,
-	                'value': 3.500023,
-	                '_color': '#b074a0'
-	            }],
-	            'tmpValue': 3.500023,
-	            '_color': '#6ee167'
-	        }, {
-	            'name': 'y',
-	            'values': [{
-	                'time': 0.1,
-	                'value': 0,
-	                '_color':
-	                    '#abac31',
-	                'tween': 'quadEaseOut'
-	            }, {
-	                'time': 0.5,
-	                'value': -1.000001,
-	                '_color': '#355ce8',
-	                'tween': 'quadEaseIn'
-	            }, {
-	                'time': 1.1,
-	                'value': 0,
-	                '_color': '#47e90',
-	                'tween': 'quadEaseOut'
-	            }, {
-	                'time': 1.7,
-	                'value': -0.5,
-	                '_color':
-	                    '#f76bca',
-	                'tween': 'quadEaseOut'
-	            }, {
-	                'time': 2.3,
-	                'value': 0,
-	                '_color': '#d59cfd'
-	            }],
-	            'tmpValue': -0.5,
-	            '_color': '#8bd589'
-	        }, {
-	            'name': 'rotate',
-	            'values': [{
-	                'time': 0.1,
-	                'value': -25.700014000000003,
-	                '_color': '#f50ae9',
-	                'tween': 'quadEaseInOut'
-	            }, {
-	                'time': 2.8,
-	                'value': 0,
-	                '_color': '#2e3712'
-	            }],
-	            'tmpValue': -25.700014000000003,
-	            '_color': '#2d9f57'
-	        }]
-	    });
-	};
-
-	function Physics(options) {
-	    this.app = options.app;
-
-	    // Physics configuration
-	    this.collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
-	    this.dispatcher = new Ammo.btCollisionDispatcher(this.collisionConfiguration);
-	    this.broadphase = new Ammo.btDbvtBroadphase();
-	    this.solver = new Ammo.btSequentialImpulseConstraintSolver();
-	    this.softBodySolver = new Ammo.btDefaultSoftBodySolver();
-
-	    this.physicsWorld = new Ammo.btSoftRigidDynamicsWorld(this.dispatcher, this.broadphase, this.solver, this.collisionConfiguration, this.softBodySolver);
-	    this.physicsWorld.setGravity(new Ammo.btVector3(0, this.app.options.gravityConstant, 0));
-	    this.physicsWorld.getWorldInfo().set_m_gravity(new Ammo.btVector3(0, this.app.options.gravityConstant, 0));
-	}
-
-	Physics.prototype.init = function () {
-
-	};
-
-	/**
-	 * 应用程序
-	 */
-	function Application(container, options) {
-
-	    // 容器
-	    this.container = container;
-	    this.width = this.container.clientWidth;
-	    this.height = this.container.clientHeight;
-
-	    // 配置
-	    this.options = new Options(options);
-
-	    // 事件
-	    this.event = new EventDispatcher(this);
-	    this.call = this.event.call.bind(this.event);
-	    this.on = this.event.on.bind(this.event);
-
-	    var params = { app: this, parent: this.container };
-
-	    // 用户界面
-	    this.ui = UI$1;
-
-	    this.menubar = new Menubar(params); // 菜单栏
-	    this.menubar.render();
-
-	    this.toolbar = new Toolbar(params); // 工具栏
-	    this.toolbar.render();
-
-	    this.viewport = new Viewport(params); // 场景编辑区
-	    this.viewport.render();
-
-	    this.editor = new Editor(this); // 编辑器
-
-	    this.sidebar = new Sidebar(params); // 侧边栏
-	    this.sidebar.render();
-
-	    this.statusBar = new StatusBar(params); // 状态栏
-	    this.statusBar.render();
-
-	    this.script = new Script(params); // 脚本编辑面板
-	    this.script.render();
-
-	    this.player = new Player(params); // 播放器面板
-	    this.player.render();
-
-	    this.timePanel = new TimePanel(params); // 时间面板
-	    this.timePanel.render();
-
-	    // 物理引擎
-	    this.physics = new Physics(params);
-	    this.physics.init();
-
-	    this.running = false;
-
-	    // 是否从文件中加载场景，从文件中加载场景的url格式是index.html#file=xxx
-	    this.isLoadingFromHash = false;
-	}
-
-	Application.prototype.start = function () {
-	    this.running = true;
-
-	    // 启动事件 - 事件要在ui创建完成后启动
-	    this.event.start();
-
-	    this.call('appStart', this);
-	    this.call('resize', this);
-	    this.call('initApp', this);
-	    this.call('appStarted', this);
-	};
-
-	Application.prototype.stop = function () {
-	    this.running = false;
-
-	    this.call('appStop', this);
-	    this.call('appStoped', this);
-
-	    this.event.stop();
 	};
 
 	exports.Options = Options;
