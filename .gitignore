@@ -72,3 +72,4 @@ typings/
 /ShadowEditor.Web/Upload/Model
 /ShadowEditor.Web/Upload/Texture
 /ShadowEditor.code-workspace
+/ShadowEditor.Web/dist
