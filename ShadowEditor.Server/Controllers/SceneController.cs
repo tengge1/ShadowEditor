@@ -22,6 +22,7 @@ namespace ShadowEditor.Server.Controllers
         /// 获取场景列表
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -103,7 +104,7 @@ namespace ShadowEditor.Server.Controllers
 
             string collectionName;
 
-            if (doc.IsBsonNull)
+            if (doc == null)
             {
                 collectionName = "Scene" + now.ToString("yyyyMMddHHmmss");
             }
@@ -113,7 +114,7 @@ namespace ShadowEditor.Server.Controllers
             }
 
             // 保存或更新场景综合信息
-            if (doc.IsBsonNull)
+            if (doc == null)
             {
                 doc = new BsonDocument();
                 doc["Name"] = model.Name;

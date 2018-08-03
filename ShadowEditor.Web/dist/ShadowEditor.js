@@ -35935,8 +35935,8 @@
 	    var json = Object3DSerializer.prototype.toJSON(obj);
 
 	    json.drawMode = obj.drawMode;
-	    json.geometry = geometryToJson(obj.geometry);
-	    json.material = materialToJson(obj.material);
+	    json.geometry = obj.geometry.toJSON();
+	    json.material = obj.material.toJSON();
 
 	    return json;
 	};
@@ -36894,7 +36894,7 @@
 	    UI$1.get('sceneWindow').show();
 
 	    // 刷新模型列表
-	    Ajax.getJson(`${server}/api/Model/List`, (obj) => {
+	    Ajax.getJson(`${server}/api/Scene/List`, (obj) => {
 	        this.models = obj.Data;
 	        this.renderImages(this.models);
 	    });
