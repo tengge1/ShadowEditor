@@ -1,3 +1,5 @@
+import Metadata from './Metadata';
+
 var ID = -1;
 
 /**
@@ -5,10 +7,21 @@ var ID = -1;
  */
 function BaseSerializer() {
     this.id = 'BaseSerializer' + ID--;
+    this.metadata = Object.assign({}, Metadata, {
+        generator: this.contructor.name
+    });
 }
 
 /**
- * 转为json
+ * 判断对象或字符串是否满足转换条件，满足返回true，不满足返回false
+ * @param {*} obj 
+ */
+BaseSerializer.prototype.filter = function (obj) {
+
+};
+
+/**
+ *对象转json
  * @param {*} obj 对象
  */
 BaseSerializer.prototype.toJSON = function (obj) {
