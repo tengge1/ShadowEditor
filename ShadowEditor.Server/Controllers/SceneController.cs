@@ -56,13 +56,28 @@ namespace ShadowEditor.Server.Controllers
         /// <summary>
         /// 加载场景
         /// </summary>
-        /// <param name="name">场景名称</param>
+        /// <param name="ID">场景ID</param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult Load(string name)
+        public JsonResult Load(string ID)
         {
             var mongo = new MongoHelper();
-            var docs = mongo.FindAll(name);
+
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
+            var doc = mongo.FindOne(Constant.SceneCollectionName, filter);
+
+            if (doc == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "该场景不存在！"
+                });
+            }
+
+            var collectionName = doc["CollectionName"].AsString;
+
+            var docs = mongo.FindAll(collectionName);
 
             return Json(new
             {
