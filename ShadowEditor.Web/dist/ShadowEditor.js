@@ -35481,7 +35481,7 @@
 	function BaseSerializer() {
 	    this.id = 'BaseSerializer' + ID$2--;
 	    this.metadata = Object.assign({}, Metadata, {
-	        generator: this.contructor.name
+	        generator: this.constructor.name
 	    });
 	}
 
@@ -36689,7 +36689,7 @@
 	    UI$1.get('modelWindow').show();
 
 	    // 刷新模型列表
-	    Ajax.getJson(`${server}/api/Model/List`, (obj) => {
+	    Ajax.getJson(`${server}/api/Mesh/List`, (obj) => {
 	        this.models = obj.Data;
 	        this.renderImages(this.models);
 	    });

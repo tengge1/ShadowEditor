@@ -8,7 +8,7 @@ var ID = -1;
 function BaseSerializer() {
     this.id = 'BaseSerializer' + ID--;
     this.metadata = Object.assign({}, Metadata, {
-        generator: this.contructor.name
+        generator: this.constructor.name
     });
 }
 

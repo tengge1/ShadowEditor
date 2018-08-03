@@ -86,7 +86,7 @@ ModelWindow.prototype.show = function () {
     UI.get('modelWindow').show();
 
     // 刷新模型列表
-    Ajax.getJson(`${server}/api/Model/List`, (obj) => {
+    Ajax.getJson(`${server}/api/Mesh/List`, (obj) => {
         this.models = obj.Data;
         this.renderImages(this.models);
     });
