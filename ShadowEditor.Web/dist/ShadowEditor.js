@@ -35512,43 +35512,6 @@
 	/**
 	 * Object3D序列化器
 	 */
-	function ConfigSerializer() {
-	    BaseSerializer.call(this);
-	}
-
-	ConfigSerializer.prototype = Object.create(BaseSerializer.prototype);
-	ConfigSerializer.prototype.constructor = ConfigSerializer;
-
-	ConfigSerializer.prototype.toJSON = function (obj) {
-	    var json = obj.toJSON();
-	    return json;
-	};
-
-	ConfigSerializer.prototype.fromJSON = function (json) {
-
-	};
-
-	/**
-	 * Object3D序列化器
-	 */
-	function ScriptSerializer() {
-	    BaseSerializer.call(this);
-	}
-
-	ScriptSerializer.prototype = Object.create(BaseSerializer.prototype);
-	ScriptSerializer.prototype.constructor = ScriptSerializer;
-
-	ScriptSerializer.prototype.toJSON = function (obj) {
-	    return obj;
-	};
-
-	ScriptSerializer.prototype.fromJSON = function (json) {
-
-	};
-
-	/**
-	 * Object3D序列化器
-	 */
 	function Object3DSerializer() {
 	    BaseSerializer.call(this);
 	}
@@ -35621,16 +35584,77 @@
 	};
 
 	/**
-	 * Camera序列化器
+	 * Mesh序列化器
 	 */
-	function CameraSerializer() {
+	function MeshSerializer() {
 	    BaseSerializer.call(this);
 	}
 
-	CameraSerializer.prototype = Object.create(BaseSerializer.prototype);
-	CameraSerializer.prototype.constructor = CameraSerializer;
+	MeshSerializer.prototype = Object.create(BaseSerializer.prototype);
+	MeshSerializer.prototype.constructor = MeshSerializer;
 
-	CameraSerializer.prototype.toJSON = function (obj) {
+	MeshSerializer.prototype.toJSON = function (obj) {
+	    var json = Object3DSerializer.prototype.toJSON(obj);
+
+	    json.drawMode = obj.drawMode;
+	    json.geometry = obj.geometry.toJSON();
+	    json.material = obj.material.toJSON();
+
+	    return json;
+	};
+
+	MeshSerializer.prototype.fromJSON = function (json) {
+
+	};
+
+	/**
+	 * Object3D序列化器
+	 */
+	function ConfigSerializer() {
+	    BaseSerializer.call(this);
+	}
+
+	ConfigSerializer.prototype = Object.create(BaseSerializer.prototype);
+	ConfigSerializer.prototype.constructor = ConfigSerializer;
+
+	ConfigSerializer.prototype.toJSON = function (obj) {
+	    var json = obj.toJSON();
+	    return json;
+	};
+
+	ConfigSerializer.prototype.fromJSON = function (json) {
+
+	};
+
+	/**
+	 * Object3D序列化器
+	 */
+	function ScriptSerializer() {
+	    BaseSerializer.call(this);
+	}
+
+	ScriptSerializer.prototype = Object.create(BaseSerializer.prototype);
+	ScriptSerializer.prototype.constructor = ScriptSerializer;
+
+	ScriptSerializer.prototype.toJSON = function (obj) {
+	    return obj;
+	};
+
+	ScriptSerializer.prototype.fromJSON = function (json) {
+
+	};
+
+	/**
+	 * Camera序列化器
+	 */
+	function CameraSerializer$1() {
+	    BaseSerializer.call(this);
+	}
+
+	CameraSerializer$1.prototype = Object.create(BaseSerializer.prototype);
+	CameraSerializer$1.prototype.constructor = CameraSerializer$1;
+
+	CameraSerializer$1.prototype.toJSON = function (obj) {
 	    var json = Object3DSerializer.prototype.toJSON(obj);
 
 	    json.matrixWorldInverse = obj.matrixWorldInverse;
@@ -35639,7 +35663,7 @@
 	    return json;
 	};
 
-	CameraSerializer.prototype.fromJSON = function (json) {
+	CameraSerializer$1.prototype.fromJSON = function (json) {
 
 	};
 
@@ -35654,7 +35678,7 @@
 	OrthographicCameraSerializer.prototype.constructor = OrthographicCameraSerializer;
 
 	OrthographicCameraSerializer.prototype.toJSON = function (obj) {
-	    var json = CameraSerializer.prototype.toJSON(obj);
+	    var json = CameraSerializer$1.prototype.toJSON(obj);
 
 	    json.bottom = obj.bottom;
 	    json.far = obj.far;
@@ -35683,7 +35707,7 @@
 	PerspectiveCameraSerializer.prototype.constructor = PerspectiveCameraSerializer;
 
 	PerspectiveCameraSerializer.prototype.toJSON = function (obj) {
-	    var json = CameraSerializer.prototype.toJSON(obj);
+	    var json = CameraSerializer$1.prototype.toJSON(obj);
 
 	    json.aspect = obj.aspect;
 	    json.far = obj.far;
@@ -35705,14 +35729,14 @@
 	/**
 	 * Light序列化器
 	 */
-	function LightSerializer() {
+	function LightSerializer$1() {
 	    BaseSerializer.call(this);
 	}
 
-	LightSerializer.prototype = Object.create(BaseSerializer.prototype);
-	LightSerializer.prototype.constructor = LightSerializer;
+	LightSerializer$1.prototype = Object.create(BaseSerializer.prototype);
+	LightSerializer$1.prototype.constructor = LightSerializer$1;
 
-	LightSerializer.prototype.toJSON = function (obj) {
+	LightSerializer$1.prototype.toJSON = function (obj) {
 	    var json = Object3DSerializer.prototype.toJSON(obj);
 
 	    json.color = item.color;
@@ -35721,7 +35745,7 @@
 	    return json;
 	};
 
-	LightSerializer.prototype.fromJSON = function (json) {
+	LightSerializer$1.prototype.fromJSON = function (json) {
 
 	};
 
@@ -35736,7 +35760,7 @@
 	PointLightSerializer.prototype.constructor = PointLightSerializer;
 
 	PointLightSerializer.prototype.toJSON = function (obj) {
-	    var json = LightSerializer.prototype.toJSON(obj);
+	    var json = LightSerializer$1.prototype.toJSON(obj);
 
 	    json.distance = item.distance;
 	    json.decay = item.decay;
@@ -35759,7 +35783,7 @@
 	SpotLightSerializer.prototype.constructor = SpotLightSerializer;
 
 	SpotLightSerializer.prototype.toJSON = function (obj) {
-	    var json = LightSerializer.prototype.toJSON(obj);
+	    var json = LightSerializer$1.prototype.toJSON(obj);
 
 	    json.distance = item.distance;
 	    json.angle = item.angle;
@@ -35784,7 +35808,7 @@
 	HemisphereLightSerializer.prototype.constructor = HemisphereLightSerializer;
 
 	HemisphereLightSerializer.prototype.toJSON = function (obj) {
-	    var json = LightSerializer.prototype.toJSON(obj);
+	    var json = LightSerializer$1.prototype.toJSON(obj);
 
 	    json.skyColor = item.skyColor;
 	    json.groundColor = item.groundColor;
@@ -35807,7 +35831,7 @@
 	RectAreaLightSerializer.prototype.constructor = RectAreaLightSerializer;
 
 	RectAreaLightSerializer.prototype.toJSON = function (obj) {
-	    var json = LightSerializer.prototype.toJSON(obj);
+	    var json = LightSerializer$1.prototype.toJSON(obj);
 
 	    json.width = item.width;
 	    json.height = item.height;
@@ -35817,276 +35841,6 @@
 
 	RectAreaLightSerializer.prototype.fromJSON = function (json) {
 
-	};
-
-	/**
-	 * Geometry序列化器
-	 */
-	function GeometrySerializer() {
-	    BaseSerializer.call(this);
-	}
-
-	GeometrySerializer.prototype = Object.create(BaseSerializer.prototype);
-	GeometrySerializer.prototype.constructor = GeometrySerializer;
-
-	GeometrySerializer.prototype.toJSON = function (obj) {
-	    var json = BaseSerializer.prototype.toJSON(obj);
-
-	    json.name = geometry.name;
-	    json.type = geometry.type;
-	    json.userData = geometry.userData;
-	    json.uuid = geometry.uuid;
-
-	    return json;
-	};
-
-	GeometrySerializer.prototype.fromJSON = function (json) {
-
-	};
-
-	/**
-	 * Material序列化器
-	 */
-	function MaterialSerializer() {
-	    BaseSerializer.call(this);
-	}
-
-	MaterialSerializer.prototype = Object.create(BaseSerializer.prototype);
-	MaterialSerializer.prototype.constructor = MaterialSerializer;
-
-	MaterialSerializer.prototype.toJSON = function (obj) {
-	    var json = BaseSerializer.prototype.toJSON(obj);
-
-	    json.alphaMap = material.alphaMap;
-	    json.alphaTest = material.alphaTest;
-	    json.aoMap = material.aoMap;
-	    json.aoMapIntensity = material.aoMapIntensity;
-	    json.blendDst = material.blendDst;
-	    json.blendDstAlpha = material.blendDstAlpha;
-	    json.blendEquation = material.blendEquation;
-	    json.blendEquationAlpha = material.blendEquationAlpha;
-	    json.blendSrc = material.blendSrc;
-	    json.blendSrcAlpha = material.blendSrcAlpha;
-	    json.blending = material.blending;
-	    json.bumpMap = material.bumpMap;
-	    json.bumpScale = material.bumpScale;
-	    json.clipIntersection = material.clipIntersection;
-	    json.clipShadow = material.clipShadow;
-	    json.clippingPlanes = material.clippingPlanes;
-	    json.color = material.color;
-	    json.colorWrite = material.colorWrite;
-	    json.depthFunc = material.depthFunc;
-	    json.depthTest = material.depthTest;
-	    json.depthWrite = material.depthWrite;
-	    json.displacementBias = material.displacementBias;
-	    json.displacementMap = material.displacementMap;
-	    json.displacementScale = material.displacementScale;
-	    json.dithering = material.dithering;
-	    json.emissive = material.emissive;
-	    json.emissiveIntensity = material.emissiveIntensity;
-	    json.emissiveMap = material.emissiveMap;
-	    json.envMap = material.envMap;
-	    json.envMapIntensity = material.envMapIntensity;
-	    json.flatShading = material.flatShading;
-	    json.fog = material.fog;
-	    json.lightMap = material.lightMap;
-	    json.lightMapIntensity = material.lightMapIntensity;
-	    json.lights = material.lights;
-	    json.linewidth = material.linewidth;
-	    json.map = material.map;
-	    json.metalness = material.metalness;
-	    json.metalnessMap = material.metalnessMap;
-	    json.morphNormals = material.morphNormals;
-	    json.morphTargets = material.morphTargets;
-	    json.name = material.name;
-	    json.normalMap = material.normalMap;
-	    json.normalScale = material.normalScale;
-	    json.opacity = material.opacity;
-	    json.overdraw = material.overdraw;
-	    json.polygonOffset = material.polygonOffset;
-	    json.polygonOffsetFactor = material.polygonOffsetFactor;
-	    json.polygonOffsetUnits = material.polygonOffsetUnits;
-	    json.precision = material.precision;
-	    json.premultipliedAlpha = material.premultipliedAlpha;
-	    json.refractionRatio = material.refractionRatio;
-	    json.roughness = material.roughness;
-	    json.roughnessMap = material.roughnessMap;
-	    json.shadowSide = material.shadowSide;
-	    json.side = material.side;
-	    json.skinning = material.skinning;
-	    json.transparent = material.transparent;
-	    json.type = material.type;
-	    json.userData = material.userData;
-	    json.uuid = material.uuid;
-	    json.vertexColors = material.vertexColors;
-	    json.visible = material.visible;
-	    json.wireframe = material.wireframe;
-	    json.wireframeLinecap = material.wireframeLinecap;
-	    json.wireframeLinejoin = material.wireframeLinejoin;
-	    json.wireframeLinewidth = material.wireframeLinewidth;
-
-	    return json;
-	};
-
-	MaterialSerializer.prototype.fromJSON = function (json) {
-
-	};
-
-	/**
-	 * Mesh序列化器
-	 */
-	function MeshSerializer() {
-	    BaseSerializer.call(this);
-	}
-
-	MeshSerializer.prototype = Object.create(BaseSerializer.prototype);
-	MeshSerializer.prototype.constructor = MeshSerializer;
-
-	MeshSerializer.prototype.toJSON = function (obj) {
-	    var json = Object3DSerializer.prototype.toJSON(obj);
-
-	    json.drawMode = obj.drawMode;
-	    json.geometry = obj.geometry.toJSON();
-	    json.material = obj.material.toJSON();
-
-	    return json;
-	};
-
-	MeshSerializer.prototype.fromJSON = function (json) {
-
-	};
-
-	/**
-	 * 所有序列化器
-	 */
-	var Serializers = {
-	    // 配置
-	    Config: {
-	        Serializer: new ConfigSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: ConfigSerializer.name,
-	            type: 'Config'
-	        })
-	    },
-
-	    Script: {
-	        Serializer: new ScriptSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: ScriptSerializer.name,
-	            type: 'Script'
-	        })
-	    },
-
-	    // 物体
-	    Object3D: {
-	        Serializer: new Object3DSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: Object3DSerializer.name,
-	            type: THREE.Object3D.name
-	        })
-	    },
-
-	    // 场景
-	    Scene: {
-	        Serializer: new SceneSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: SceneSerializer.name,
-	            type: THREE.Scene.name
-	        })
-	    },
-
-	    // 相机
-	    Camera: {
-	        Serializer: new CameraSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: CameraSerializer.name,
-	            type: THREE.Camera.name
-	        })
-	    },
-
-	    OrthographicCamera: {
-	        Serializer: new OrthographicCameraSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: OrthographicCameraSerializer.name,
-	            type: THREE.OrthographicCamera.name
-	        })
-	    },
-
-	    PerspectiveCamera: {
-	        Serializer: new PerspectiveCameraSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: PerspectiveCameraSerializer.name,
-	            type: THREE.PerspectiveCamera.name
-	        })
-	    },
-
-	    // 光源
-	    Light: {
-	        Serializer: new LightSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: LightSerializer.name,
-	            type: THREE.Light.name
-	        })
-	    },
-
-	    PointLight: {
-	        Serializer: new PointLightSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: PointLightSerializer.name,
-	            type: THREE.PointLight.name
-	        })
-	    },
-
-	    SpotLight: {
-	        Serializer: new SpotLightSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: SpotLightSerializer.name,
-	            type: THREE.SpotLight.name
-	        })
-	    },
-
-	    HemisphereLight: {
-	        Serializer: new HemisphereLightSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: HemisphereLightSerializer.name,
-	            type: THREE.HemisphereLight.name
-	        })
-	    },
-
-	    RectAreaLight: {
-	        Serializer: new RectAreaLightSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: RectAreaLightSerializer.name,
-	            type: THREE.RectAreaLight.name
-	        })
-	    },
-
-	    // 集合体
-	    Geometry: {
-	        Serializer: new GeometrySerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: GeometrySerializer.name,
-	            type: THREE.Geometry.name
-	        })
-	    },
-
-	    // 材质
-	    Material: {
-	        Serializer: new MaterialSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: MaterialSerializer.name,
-	            type: THREE.Material.name
-	        })
-	    },
-
-	    // 网格
-	    Mesh: {
-	        Serializer: new MeshSerializer(),
-	        Metadata: Object.assign({}, Metadata, {
-	            generator: MeshSerializer.name,
-	            type: THREE.Mesh.name
-	        })
-	    }
 	};
 
 	/**
@@ -49577,6 +49331,119 @@
 	};
 
 	/**
+	 * Geometry序列化器
+	 */
+	function GeometrySerializer$1() {
+	    BaseSerializer.call(this);
+	}
+
+	GeometrySerializer$1.prototype = Object.create(BaseSerializer.prototype);
+	GeometrySerializer$1.prototype.constructor = GeometrySerializer$1;
+
+	GeometrySerializer$1.prototype.toJSON = function (obj) {
+	    var json = BaseSerializer.prototype.toJSON(obj);
+
+	    json.name = geometry.name;
+	    json.type = geometry.type;
+	    json.userData = geometry.userData;
+	    json.uuid = geometry.uuid;
+
+	    return json;
+	};
+
+	GeometrySerializer$1.prototype.fromJSON = function (json) {
+
+	};
+
+	/**
+	 * Material序列化器
+	 */
+	function MaterialSerializer$1() {
+	    BaseSerializer.call(this);
+	}
+
+	MaterialSerializer$1.prototype = Object.create(BaseSerializer.prototype);
+	MaterialSerializer$1.prototype.constructor = MaterialSerializer$1;
+
+	MaterialSerializer$1.prototype.toJSON = function (obj) {
+	    var json = BaseSerializer.prototype.toJSON(obj);
+
+	    json.alphaMap = material.alphaMap;
+	    json.alphaTest = material.alphaTest;
+	    json.aoMap = material.aoMap;
+	    json.aoMapIntensity = material.aoMapIntensity;
+	    json.blendDst = material.blendDst;
+	    json.blendDstAlpha = material.blendDstAlpha;
+	    json.blendEquation = material.blendEquation;
+	    json.blendEquationAlpha = material.blendEquationAlpha;
+	    json.blendSrc = material.blendSrc;
+	    json.blendSrcAlpha = material.blendSrcAlpha;
+	    json.blending = material.blending;
+	    json.bumpMap = material.bumpMap;
+	    json.bumpScale = material.bumpScale;
+	    json.clipIntersection = material.clipIntersection;
+	    json.clipShadow = material.clipShadow;
+	    json.clippingPlanes = material.clippingPlanes;
+	    json.color = material.color;
+	    json.colorWrite = material.colorWrite;
+	    json.depthFunc = material.depthFunc;
+	    json.depthTest = material.depthTest;
+	    json.depthWrite = material.depthWrite;
+	    json.displacementBias = material.displacementBias;
+	    json.displacementMap = material.displacementMap;
+	    json.displacementScale = material.displacementScale;
+	    json.dithering = material.dithering;
+	    json.emissive = material.emissive;
+	    json.emissiveIntensity = material.emissiveIntensity;
+	    json.emissiveMap = material.emissiveMap;
+	    json.envMap = material.envMap;
+	    json.envMapIntensity = material.envMapIntensity;
+	    json.flatShading = material.flatShading;
+	    json.fog = material.fog;
+	    json.lightMap = material.lightMap;
+	    json.lightMapIntensity = material.lightMapIntensity;
+	    json.lights = material.lights;
+	    json.linewidth = material.linewidth;
+	    json.map = material.map;
+	    json.metalness = material.metalness;
+	    json.metalnessMap = material.metalnessMap;
+	    json.morphNormals = material.morphNormals;
+	    json.morphTargets = material.morphTargets;
+	    json.name = material.name;
+	    json.normalMap = material.normalMap;
+	    json.normalScale = material.normalScale;
+	    json.opacity = material.opacity;
+	    json.overdraw = material.overdraw;
+	    json.polygonOffset = material.polygonOffset;
+	    json.polygonOffsetFactor = material.polygonOffsetFactor;
+	    json.polygonOffsetUnits = material.polygonOffsetUnits;
+	    json.precision = material.precision;
+	    json.premultipliedAlpha = material.premultipliedAlpha;
+	    json.refractionRatio = material.refractionRatio;
+	    json.roughness = material.roughness;
+	    json.roughnessMap = material.roughnessMap;
+	    json.shadowSide = material.shadowSide;
+	    json.side = material.side;
+	    json.skinning = material.skinning;
+	    json.transparent = material.transparent;
+	    json.type = material.type;
+	    json.userData = material.userData;
+	    json.uuid = material.uuid;
+	    json.vertexColors = material.vertexColors;
+	    json.visible = material.visible;
+	    json.wireframe = material.wireframe;
+	    json.wireframeLinecap = material.wireframeLinecap;
+	    json.wireframeLinejoin = material.wireframeLinejoin;
+	    json.wireframeLinewidth = material.wireframeLinewidth;
+
+	    return json;
+	};
+
+	MaterialSerializer$1.prototype.fromJSON = function (json) {
+
+	};
+
+	/**
 	 * 异步加载css文件
 	 * @param {*} url css文件url
 	 */
@@ -50084,17 +49951,22 @@
 	exports.TorusKnotGeometryPanel = TorusKnotGeometryPanel;
 	exports.GeometryPanel = GeometryPanel;
 	exports.BaseSerializer = BaseSerializer;
-	exports.GeometrySerializer = GeometrySerializer;
-	exports.HemisphereLightSerializer = HemisphereLightSerializer;
-	exports.LightSerializer = LightSerializer;
-	exports.MaterialSerializer = MaterialSerializer;
-	exports.MeshSerializer = MeshSerializer;
+	exports.Metadata = Metadata;
 	exports.Object3DSerializer = Object3DSerializer;
+	exports.SceneSerializer = SceneSerializer;
+	exports.MeshSerializer = MeshSerializer;
+	exports.ConfigSerializer = ConfigSerializer;
+	exports.ScriptSerializer = ScriptSerializer;
+	exports.CameraSerializer = CameraSerializer$1;
+	exports.OrthographicCameraSerializer = OrthographicCameraSerializer;
+	exports.PerspectiveCameraSerializer = PerspectiveCameraSerializer;
+	exports.GeometrySerializer = GeometrySerializer$1;
+	exports.LightSerializer = LightSerializer$1;
+	exports.HemisphereLightSerializer = HemisphereLightSerializer;
 	exports.PointLightSerializer = PointLightSerializer;
 	exports.RectAreaLightSerializer = RectAreaLightSerializer;
-	exports.SceneSerializer = SceneSerializer;
 	exports.SpotLightSerializer = SpotLightSerializer;
-	exports.Serializers = Serializers;
+	exports.MaterialSerializer = MaterialSerializer$1;
 	exports.Converter = Converter;
 	exports.Ajax = Ajax;
 	exports.CssUtils = CssUtils;

@@ -1,28 +1,23 @@
 import BaseSerializer from './BaseSerializer';
-import Serializers from './Serializers';
 
-import ConfigSerializer from './serializer/ConfigSerializer';
-import ScriptSerializer from './serializer/ScriptSerializer';
+// core
+import Object3DSerializer from './core/Object3DSerializer';
+import SceneSerializer from './core/SceneSerializer';
+import MeshSerializer from './core/MeshSerializer';
 
-import Object3DSerializer from './serializer/Object3DSerializer';
+// app
+import ConfigSerializer from './app/ConfigSerializer';
+import ScriptSerializer from './app/ScriptSerializer';
 
-import SceneSerializer from './serializer/SceneSerializer';
+// camera
+import OrthographicCameraSerializer from './camera/OrthographicCameraSerializer';
+import PerspectiveCameraSerializer from './camera/PerspectiveCameraSerializer';
 
-import CameraSerializer from './serializer/CameraSerializer';
-import OrthographicCameraSerializer from './serializer/OrthographicCameraSerializer';
-import PerspectiveCameraSerializer from './serializer/PerspectiveCameraSerializer';
-
-import LightSerializer from './serializer/LightSerializer';
-import PointLightSerializer from './serializer/PointLightSerializer';
-import SpotLightSerializer from './serializer/SpotLightSerializer';
-import HemisphereLightSerializer from './serializer/HemisphereLightSerializer';
-import RectAreaLightSerializer from './serializer/RectAreaLightSerializer';
-
-import GeometrySerializer from './serializer/GeometrySerializer';
-
-import MaterialSerializer from './serializer/MaterialSerializer';
-
-import MeshSerializer from './serializer/MeshSerializer';
+// light
+import PointLightSerializer from './light/PointLightSerializer';
+import SpotLightSerializer from './light/SpotLightSerializer';
+import HemisphereLightSerializer from './light/HemisphereLightSerializer';
+import RectAreaLightSerializer from './light/RectAreaLightSerializer';
 
 /**
  * 场景序列化/反序列化类

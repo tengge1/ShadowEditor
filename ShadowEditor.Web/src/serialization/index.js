@@ -1,15 +1,32 @@
 export { default as BaseSerializer } from './BaseSerializer';
+export { default as Metadata } from './Metadata';
 
-export { default as GeometrySerializer } from './serializer/GeometrySerializer';
-export { default as HemisphereLightSerializer } from './serializer/HemisphereLightSerializer';
-export { default as LightSerializer } from './serializer/LightSerializer';
-export { default as MaterialSerializer } from './serializer/MaterialSerializer';
-export { default as MeshSerializer } from './serializer/MeshSerializer';
-export { default as Object3DSerializer } from './serializer/Object3DSerializer';
-export { default as PointLightSerializer } from './serializer/PointLightSerializer';
-export { default as RectAreaLightSerializer } from './serializer/RectAreaLightSerializer';
-export { default as SceneSerializer } from './serializer/SceneSerializer';
-export { default as SpotLightSerializer } from './serializer/SpotLightSerializer';
+// core
+export { default as Object3DSerializer } from './core/Object3DSerializer';
+export { default as SceneSerializer } from './core/SceneSerializer';
+export { default as MeshSerializer } from './core/MeshSerializer';
 
-export { default as Serializers } from './Serializers';
+// app
+export { default as ConfigSerializer } from './app/ConfigSerializer';
+export { default as ScriptSerializer } from './app/ScriptSerializer';
+
+// camera
+export { default as CameraSerializer } from './camera/CameraSerializer';
+export { default as OrthographicCameraSerializer } from './camera/OrthographicCameraSerializer';
+export { default as PerspectiveCameraSerializer } from './camera/PerspectiveCameraSerializer';
+
+// geometry
+export { default as GeometrySerializer } from './geometry/GeometrySerializer';
+
+// light
+export { default as LightSerializer } from './light/LightSerializer';
+export { default as HemisphereLightSerializer } from './light/HemisphereLightSerializer';
+export { default as PointLightSerializer } from './light/PointLightSerializer';
+export { default as RectAreaLightSerializer } from './light/RectAreaLightSerializer';
+export { default as SpotLightSerializer } from './light/SpotLightSerializer';
+
+// material
+export { default as MaterialSerializer } from './material/MaterialSerializer';
+
+// converter
 export { default as Converter } from './Converter';

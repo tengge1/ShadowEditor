@@ -1,5 +1,5 @@
 import BaseSerializer from '../BaseSerializer';
-import Object3DSerializer from './Object3DSerializer';
+import Object3DSerializer from '../core/Object3DSerializer';
 
 /**
  * Light序列化器
