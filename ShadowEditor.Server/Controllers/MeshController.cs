@@ -15,9 +15,9 @@ using ShadowEditor.Server.Helpers;
 namespace ShadowEditor.Server.Controllers
 {
     /// <summary>
-    /// 模型控制器
+    /// 网格模型控制器
     /// </summary>
-    public class ModelController : ApiBase
+    public class MeshController : ApiBase
     {
         /// <summary>
         /// 获取模型列表

@@ -10,6 +10,7 @@ using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
+using ShadowEditor.Server.Model;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -28,12 +29,13 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
             var scenes = mongo.FindAll(Constant.SceneCollectionName);
 
-            var list = new List<SceneInfo>();
+            var list = new List<SceneModel>();
 
             foreach (var i in scenes)
             {
-                var info = new SceneInfo
+                var info = new SceneModel
                 {
+                    ID = i["ID"].AsObjectId.ToString(),
                     Name = i["Name"].AsString,
                     CollectionName = i["CollectionName"].AsString,
                     Version = i["Version"].AsInt32,
@@ -77,6 +79,17 @@ namespace ShadowEditor.Server.Controllers
         /// <returns></returns>
         public JsonResult Save(SaveSceneModel model)
         {
+            var objectId = ObjectId.GenerateNewId();
+
+            if (!string.IsNullOrEmpty(model.ID) && !ObjectId.TryParse(model.ID, out objectId))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "场景ID不合法。"
+                });
+            }
+
             if (string.IsNullOrEmpty(model.Name))
             {
                 return Json(new
@@ -97,18 +110,18 @@ namespace ShadowEditor.Server.Controllers
 
             // 查询场景信息
             var mongo = new MongoHelper();
-            var filter = Builders<BsonDocument>.Filter.Eq("Name", model.Name);
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
             var doc = mongo.FindOne(Constant.SceneCollectionName, filter);
 
             var now = DateTime.Now;
 
             string collectionName;
 
-            if (doc == null)
+            if (doc == null) // 新建场景
             {
                 collectionName = "Scene" + now.ToString("yyyyMMddHHmmss");
             }
-            else
+            else // 编辑场景
             {
                 collectionName = doc["CollectionName"].ToString();
             }
@@ -117,6 +130,7 @@ namespace ShadowEditor.Server.Controllers
             if (doc == null)
             {
                 doc = new BsonDocument();
+                doc["ID"] = objectId;
                 doc["Name"] = model.Name;
                 doc["CollectionName"] = collectionName;
                 doc["Version"] = 0;
@@ -151,52 +165,5 @@ namespace ShadowEditor.Server.Controllers
                 Msg = "保存成功！"
             });
         }
-    }
-
-    /// <summary>
-    /// 场景保存模型
-    /// </summary>
-    public class SaveSceneModel
-    {
-        /// <summary>
-        /// 名称
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// 数据
-        /// </summary>
-        public string Data { get; set; }
-    }
-
-    /// <summary>
-    /// 场景信息
-    /// </summary>
-    public class SceneInfo
-    {
-        /// <summary>
-        /// 场景名称
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// 场景表名
-        /// </summary>
-        public string CollectionName { get; set; }
-
-        /// <summary>
-        /// 场景版本号
-        /// </summary>
-        public int Version { get; set; }
-
-        /// <summary>
-        /// 场景创建时间
-        /// </summary>
-        public DateTime CreateTime { get; set; }
-
-        /// <summary>
-        /// 场景更新时间
-        /// </summary>
-        public DateTime UpdateTime { get; set; }
     }
 }

@@ -97,7 +97,7 @@
     <Compile Include="Base\WebApiConfig.cs" />
     <Compile Include="Base\XmlResult.cs" />
     <Compile Include="Constant.cs" />
-    <Compile Include="Controllers\ModelController.cs" />
+    <Compile Include="Controllers\MeshController.cs" />
     <Compile Include="Controllers\SceneController.cs" />
     <Compile Include="Helpers\DownloadHelper.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
@@ -106,6 +106,8 @@
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\MongoHelper.cs" />
     <Compile Include="Helpers\ZipHelper.cs" />
+    <Compile Include="Model\SaveSceneModel.cs" />
+    <Compile Include="Model\SceneModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
