@@ -244,10 +244,6 @@ Editor.prototype.load = function () { // 加载场景
     this.app.call('load', this);
 };
 
-Editor.prototype.save = function () { // 保存场景
-    this.app.call('save', this);
-};
-
 // --------------------- 命令事件 ------------------------
 
 Editor.prototype.execute = function (cmd, optionalName) { // 执行事件

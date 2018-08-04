@@ -1,4 +1,6 @@
 import MenuEvent from '../MenuEvent';
+import Converter from '../../../serialization/Converter';
+import Ajax from '../../../utils/Ajax';
 
 /**
  * 保存场景
@@ -23,9 +25,30 @@ SaveSceneEvent.prototype.stop = function () {
 };
 
 SaveSceneEvent.prototype.onSaveScene = function () {
-    var editor = this.app.editor;
+    var sceneName = this.app.editor.sceneName;
 
-    editor.save();
+    if (sceneName == null) {
+        var tempName = 'Scene' + new Date().getTime();
+        UI.prompt('正在保存...', '场景名称', tempName, (event, name) => {
+            this.app.editor.sceneName = name;
+            document.title = name;
+            this.commitSave(name);
+        });
+    } else {
+        this.commitSave(sceneName);
+    }
+};
+
+SaveSceneEvent.prototype.commitSave = function (sceneName) {
+    var obj = (new Converter()).toJSON(this.app);
+
+    Ajax.post(this.app.options.server + '/api/Scene/Save', {
+        Name: sceneName,
+        Data: JSON.stringify(obj)
+    }, function (result) {
+        var obj = JSON.parse(result);
+        UI.msg(obj.Msg);
+    });
 };
 
 export default SaveSceneEvent;

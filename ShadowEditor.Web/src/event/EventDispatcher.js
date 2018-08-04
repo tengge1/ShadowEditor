@@ -33,7 +33,6 @@ import RemoveScriptEvent from './editor/RemoveScriptEvent';
 import SelectEvent from './editor/SelectEvent';
 import ClearEvent from './editor/ClearEvent';
 import LoadEvent from './editor/LoadEvent';
-import SaveEvent from './editor/SaveEvent';
 
 // 工具栏
 import SelectModeEvent from './toolbar/SelectModeEvent';
@@ -183,7 +182,6 @@ function EventDispatcher(app) {
         new SelectEvent(this.app),
         new ClearEvent(this.app),
         new LoadEvent(this.app),
-        new SaveEvent(this.app),
 
         // 工具栏
         new SelectModeEvent(this.app),

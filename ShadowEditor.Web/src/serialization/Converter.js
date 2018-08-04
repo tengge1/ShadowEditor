@@ -26,23 +26,12 @@ function Converter() {
     BaseSerializer.call(this);
 
     this.serializers = [
-        new ConfigSerializer(),
-        new ScriptSerializer(),
-        new Object3DSerializer(),
         new SceneSerializer(),
 
-        new CameraSerializer(),
-        new OrthographicCameraSerializer(),
-        new PerspectiveCameraSerializer(),
-
-        new LightSerializer(),
         new PointLightSerializer(),
         new SpotLightSerializer(),
         new HemisphereLightSerializer(),
         new RectAreaLightSerializer(),
-        new GeometrySerializer(),
-
-        new MaterialSerializer(),
 
         new MeshSerializer()
     ];
