@@ -22,7 +22,7 @@ CameraSerializer.prototype.filter = function (obj) {
 };
 
 CameraSerializer.prototype.toJSON = function (obj) {
-    var json = Object3DSerializer.prototype.toJSON(obj);
+    var json = Object3DSerializer.prototype.toJSON.call(this, obj);
 
     json.matrixWorldInverse = obj.matrixWorldInverse;
     json.projectionMatrix = obj.projectionMatrix;

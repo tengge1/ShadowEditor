@@ -12,7 +12,7 @@ RectAreaLightSerializer.prototype = Object.create(BaseSerializer.prototype);
 RectAreaLightSerializer.prototype.constructor = RectAreaLightSerializer;
 
 RectAreaLightSerializer.prototype.toJSON = function (obj) {
-    var json = LightSerializer.prototype.toJSON(obj);
+    var json = LightSerializer.prototype.toJSON.call(this, obj);
 
     json.width = item.width;
     json.height = item.height;

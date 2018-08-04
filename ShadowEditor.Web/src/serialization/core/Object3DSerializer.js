@@ -21,7 +21,7 @@ Object3DSerializer.prototype.filter = function (obj) {
 };
 
 Object3DSerializer.prototype.toJSON = function (obj) {
-    var json = BaseSerializer.prototype.toJSON(obj);
+    var json = BaseSerializer.prototype.toJSON.call(this, obj);
 
     json.type = obj.type;
     json.uuid = obj.uuid;

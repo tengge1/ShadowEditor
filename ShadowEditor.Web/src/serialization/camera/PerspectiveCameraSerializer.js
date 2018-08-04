@@ -22,7 +22,7 @@ PerspectiveCameraSerializer.prototype.filter = function (obj) {
 };
 
 PerspectiveCameraSerializer.prototype.toJSON = function (obj) {
-    var json = CameraSerializer.prototype.toJSON(obj);
+    var json = CameraSerializer.prototype.toJSON.call(this, obj);
 
     json.aspect = obj.aspect;
     json.far = obj.far;

@@ -25,8 +25,9 @@ BaseSerializer.prototype.filter = function (obj) {
  * @param {*} obj 对象
  */
 BaseSerializer.prototype.toJSON = function (obj) {
-    var json = {};
-    Object.assign(json, this.metadata);
+    var json = {
+        metadata: this.metadata
+    };
     return json;
 };
 

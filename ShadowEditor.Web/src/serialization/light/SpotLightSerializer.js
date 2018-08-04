@@ -12,7 +12,7 @@ SpotLightSerializer.prototype = Object.create(BaseSerializer.prototype);
 SpotLightSerializer.prototype.constructor = SpotLightSerializer;
 
 SpotLightSerializer.prototype.toJSON = function (obj) {
-    var json = LightSerializer.prototype.toJSON(obj);
+    var json = LightSerializer.prototype.toJSON.call(this, obj);
 
     json.distance = item.distance;
     json.angle = item.angle;

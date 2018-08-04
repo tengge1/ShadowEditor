@@ -25,7 +25,7 @@ ConfigSerializer.prototype.filter = function (obj) {
 };
 
 ConfigSerializer.prototype.toJSON = function (app) {
-    var json = BaseSerializer.prototype.toJSON(app);
+    var json = BaseSerializer.prototype.toJSON.call(this, app);
     Object.assign(json, app.editor.config.toJSON());
     return json;
 };

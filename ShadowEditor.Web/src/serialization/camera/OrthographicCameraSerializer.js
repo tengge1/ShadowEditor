@@ -22,7 +22,7 @@ OrthographicCameraSerializer.prototype.filter = function (obj) {
 };
 
 OrthographicCameraSerializer.prototype.toJSON = function (obj) {
-    var json = CameraSerializer.prototype.toJSON(obj);
+    var json = CameraSerializer.prototype.toJSON.call(this, obj);
 
     json.bottom = obj.bottom;
     json.far = obj.far;

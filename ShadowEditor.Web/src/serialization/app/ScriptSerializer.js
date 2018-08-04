@@ -29,7 +29,7 @@ ScriptSerializer.prototype.toJSON = function (app) {
     var list = [];
 
     Object.keys(app.editor.scripts).forEach(id => {
-        var json = BaseSerializer.prototype.toJSON(app);
+        var json = BaseSerializer.prototype.toJSON.call(this, app);
 
         var name = app.editor.scripts[id].name;
         var source = app.editor.scripts[id].source;

@@ -58,6 +58,7 @@ Converter.prototype.toJSON = function (app) {
     } else {
         camera = (new PerspectiveCameraSerializer()).toJSON(app.editor.camera);
     }
+    list.push(camera);
 
     // 脚本
     Object.keys(app.editor.scripts).forEach(function (id) {
