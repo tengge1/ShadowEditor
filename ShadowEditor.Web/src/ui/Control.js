@@ -10,6 +10,8 @@ function Control(options) {
     this.id = options.id || 'Control' + ID--;
     this.scope = options.scope || 'global';
 
+    this.data = options.data || null; // 自定义数据，例如：{ name: '小米', age: 20 }
+
     // 添加引用
     UI.add(this.id, this, this.scope);
 }

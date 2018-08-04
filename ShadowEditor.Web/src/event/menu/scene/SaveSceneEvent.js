@@ -28,7 +28,8 @@ SaveSceneEvent.prototype.onSaveScene = function () {
     var sceneName = this.app.editor.sceneName;
 
     if (sceneName == null) {
-        var tempName = 'Scene' + new Date().getTime();
+        // var tempName = 'Scene' + new Date().getTime();
+        var tempName = '新场景';
         UI.prompt('正在保存...', '场景名称', tempName, (event, name) => {
             this.app.editor.sceneName = name;
             document.title = name;

@@ -11,6 +11,7 @@ function SceneWindow(options) {
     UI.Control.call(this, options);
     this.app = options.app;
     this.models = [];
+    this.keyword = '';
 }
 
 SceneWindow.prototype = Object.create(UI.Control.prototype);
@@ -48,6 +49,7 @@ SceneWindow.prototype.render = function () {
                 showSearchButton: false,
                 showResetButton: true,
                 onInput: function () {
+                    _this.keyword = this.getValue();
                     _this.onSearch(this.getValue());
                 }
             }]
@@ -60,7 +62,9 @@ SceneWindow.prototype.render = function () {
                     width: '100%',
                     height: '100%',
                 },
-                onClick: this.onClickImage.bind(this)
+                onClick: function (event, index, btn) {
+                    _this.onClickImage(this, index, btn);
+                }
             }]
         }]
     });
@@ -71,31 +75,20 @@ SceneWindow.prototype.render = function () {
  * 显示模型文件列表
  */
 SceneWindow.prototype.show = function () {
+    UI.get('sceneWindow').show();
+
+    this.keyword = '';
+    this.updateSceneList();
+};
+
+SceneWindow.prototype.updateSceneList = function () {
     var app = this.app;
     var server = app.options.server;
 
-    UI.get('sceneWindow').show();
-
-    // 刷新模型列表
     Ajax.getJson(`${server}/api/Scene/List`, (obj) => {
         this.models = obj.Data;
-        this.renderImages(this.models);
+        this.onSearch(this.keyword);
     });
-};
-
-SceneWindow.prototype.renderImages = function (models) {
-    var images = UI.get('sceneWindowImages');
-    images.clear();
-
-    images.children = models.map((n) => {
-        return {
-            xtype: 'image',
-            src: n.Image == null ? 'test/image/girl.jpg' : (server + n.Image),
-            title: n.Name
-        };
-    });;
-
-    images.render();
 };
 
 /**
@@ -114,24 +107,69 @@ SceneWindow.prototype.onSearch = function (name) {
     this.renderImages(models);
 };
 
-SceneWindow.prototype.onClickImage = function (event, index, type) {
-    var model = this.models[index];
+SceneWindow.prototype.renderImages = function (models) {
+    var images = UI.get('sceneWindowImages');
+    images.clear();
 
-    if (type === 'edit') { // 编辑模型
-        UI.msg('开始编辑模型');
-    } else if (type === 'delete') { // 删除模型
-        UI.msg('开始删除模型');
-    } else { // 加载模型
-        var loader = new THREE.BinaryLoader();
+    images.children = models.map((n) => {
+        return {
+            xtype: 'image',
+            src: n.Image == null ? 'test/image/girl.jpg' : (server + n.Image),
+            title: n.Name,
+            data: n
+        };
+    });;
 
-        loader.load(this.app.options.server + model.Model, (geometry, materials) => {
-            var mesh = new THREE.Mesh(geometry, materials);
-            mesh.name = model.Name;
-            mesh.rotation.x = -Math.PI / 2;
-            var cmd = new AddObjectCommand(mesh);
-            cmd.execute();
-        });
+    images.render();
+};
+
+SceneWindow.prototype.onClickImage = function (imgs, index, btn) {
+    var data = imgs.children[index].data;
+
+    if (btn === 'edit') {
+        this.editScene(data);
+    } else if (btn === 'delete') {
+        this.deleteScene(data);
+    } else {
+        this.loadScene(data);
     }
+};
+
+/**
+ * 编辑场景
+ * @param {*} data 
+ */
+SceneWindow.prototype.editScene = function (data) {
+    UI.msg('开发中...');
+};
+
+/**
+ * 删除场景
+ * @param {*} data 
+ */
+SceneWindow.prototype.deleteScene = function (data) {
+    var app = this.app;
+    var server = app.options.server;
+
+    UI.confirm('询问', `是否删除场景${data.Name}？`, (event, btn) => {
+        if (btn === 'ok') {
+            Ajax.post(`${server}/api/Scene/Delete?ID=${data.ID}`, (json) => {
+                var obj = JSON.parse(json);
+                if (obj.Code === 200) {
+                    this.updateSceneList();
+                }
+                UI.msg(obj.Msg);
+            });
+        }
+    });
+};
+
+/**
+ * 加载场景
+ * @param {*} data 
+ */
+SceneWindow.prototype.loadScene = function (data) {
+    document.title = data.Name;
 };
 
 export default SceneWindow;

@@ -39,7 +39,13 @@ ImageList.prototype.render = function () {
     this.parent.appendChild(this.dom);
 
     function onClick(event, type) {
-        var index = event.target.dataIndex;
+        var index;
+        if (type === 'edit' || type === 'delete') {
+            index = event.target.parentNode.dataIndex;
+        } else {
+            index = event.target.dataIndex;
+        }
+
         if (this.onClick) {
             this.onClick(event, index, type);
         }

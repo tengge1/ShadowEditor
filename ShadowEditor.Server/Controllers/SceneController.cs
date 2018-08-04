@@ -92,6 +92,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <param name="model">保存场景模型</param>
         /// <returns></returns>
+        [HttpPost]
         public JsonResult Save(SaveSceneModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -178,6 +179,43 @@ namespace ShadowEditor.Server.Controllers
             {
                 Code = 200,
                 Msg = "保存成功！"
+            });
+        }
+
+        /// <summary>
+        /// 删除场景
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Delete(string ID)
+        {
+            var mongo = new MongoHelper();
+
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
+            var doc = mongo.FindOne(Constant.SceneCollectionName, filter);
+
+            if (doc == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "该场景不存在！"
+                });
+            }
+
+            // 删除场景综合信息
+            mongo.DeleteOne(Constant.SceneCollectionName, filter);
+
+            var collectionName = doc["CollectionName"].AsString;
+
+            // 删除场景数据集
+            mongo.DropCollection(collectionName);
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "删除场景成功！"
             });
         }
     }
