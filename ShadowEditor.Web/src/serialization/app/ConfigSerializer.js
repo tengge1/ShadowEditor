@@ -1,5 +1,5 @@
 import BaseSerializer from '../BaseSerializer';
-// import Application from '../../Application';
+import RendererChangedEvent from '../../event/viewport/RendererChangedEvent';
 
 /**
  * 配置序列化器
@@ -12,15 +12,13 @@ ConfigSerializer.prototype = Object.create(BaseSerializer.prototype);
 ConfigSerializer.prototype.constructor = ConfigSerializer;
 
 ConfigSerializer.prototype.filter = function (obj) {
-    // TODO: 消除rollup打包Circular dependency警告
-
-    // if (obj instanceof Application) {
-    //     return true;
-    // } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
-    //     return true;
-    // } else {
-    //     return false;
-    // }
+    if (obj.constructor.name === 'Application') {
+        return true;
+    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
+        return true;
+    } else {
+        return false;
+    }
     return false;
 };
 
@@ -32,8 +30,21 @@ ConfigSerializer.prototype.toJSON = function (app) {
 
 ConfigSerializer.prototype.fromJSON = function (app, json) {
     Object.keys(json).forEach(key => {
+        if (key === '_id' || key === 'metadata') {
+            return;
+        }
         app.editor.config.setKey(key, json[key]);
     });
+
+    // renderer
+    var renderer = app.editor.createRendererFromConfig();
+    app.call('rendererChanged', this, renderer);
+
+    // vr
+    UI.get('vr').setValue(json['project/vr']);
+
+    // theme
+    app.call('setTheme', this, json['theme']);
 };
 
 export default ConfigSerializer;

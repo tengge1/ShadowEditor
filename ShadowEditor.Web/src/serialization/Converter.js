@@ -92,7 +92,13 @@ Converter.prototype.toJSON = function (app) {
 };
 
 Converter.prototype.fromJson = function (app, json) {
-    debugger
+    var config = json.filter(n => {
+        return n.metadata && n.metadata.generator === 'ConfigSerializer';
+    })[0];
+    if (config) {
+        (new ConfigSerializer()).fromJSON(app, config);
+    }
+
 };
 
 export default Converter;
