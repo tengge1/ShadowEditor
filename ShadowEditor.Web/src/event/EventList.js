@@ -28,6 +28,7 @@ var EventList = [
     'mNewScene', // 新建
     'mLoadScene', // 载入
     'mSaveScene', // 保存
+    'mSaveSceneAs', // 另存为
     'mPublishScene', // 发布
 
     'mUndo', // 撤销

@@ -51,6 +51,14 @@ SceneMenu.prototype.render = function () {
                     _this.app.call('mSaveScene');
                 }
             }, {
+                xtype: 'div',
+                id: 'mSaveSceneAs',
+                html: '另存为',
+                cls: 'option',
+                onClick: function () {
+                    _this.app.call('mSaveSceneAs');
+                }
+            }, {
                 xtype: 'hr'
             }, {
                 xtype: 'div',

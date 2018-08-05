@@ -179,6 +179,7 @@ SceneWindow.prototype.deleteScene = function (data) {
  */
 SceneWindow.prototype.loadScene = function (data) {
     var app = this.app;
+    var editor = app.editor;
     var server = app.options.server;
     document.title = data.Name;
 
@@ -189,6 +190,10 @@ SceneWindow.prototype.loadScene = function (data) {
         }
 
         (new Converter()).fromJson(this.app, obj.Data);
+
+        editor.sceneID = data.ID;
+        editor.sceneName = data.Name;
+        document.title = data.Name;
 
         UI.msg('载入成功！');
     });

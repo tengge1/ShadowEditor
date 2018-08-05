@@ -13,10 +13,7 @@ PublishSceneEvent.prototype = Object.create(MenuEvent.prototype);
 PublishSceneEvent.prototype.constructor = PublishSceneEvent;
 
 PublishSceneEvent.prototype.start = function () {
-    var _this = this;
-    this.app.on('mPublishScene.' + this.id, function () {
-        _this.onPublishScene();
-    });
+    this.app.on(`mPublishScene.${this.id}`, this.onPublishScene.bind(this));
 
     this.link = document.createElement('a');
     this.link.style.display = 'none';
@@ -24,7 +21,7 @@ PublishSceneEvent.prototype.start = function () {
 };
 
 PublishSceneEvent.prototype.stop = function () {
-    this.app.on('mPublishScene.' + this.id, null);
+    this.app.on(`mPublishScene.${this.id}`, null);
 };
 
 PublishSceneEvent.prototype.onPublishScene = function () {

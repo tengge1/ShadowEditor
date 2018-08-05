@@ -49,6 +49,7 @@ import PathModeEvent from './toolbar/PathModeEvent';
 import NewSceneEvent from './menu/scene/NewSceneEvent';
 import LoadSceneEvent from './menu/scene/LoadSceneEvent';
 import SaveSceneEvent from './menu/scene/SaveSceneEvent';
+import SaveSceneAsEvent from './menu/scene/SaveSceneAsEvent';
 import PublishSceneEvent from './menu/scene/PublishSceneEvent';
 
 import UndoEvent from './menu/edit/UndoEvent';
@@ -198,6 +199,7 @@ function EventDispatcher(app) {
         new NewSceneEvent(this.app),
         new LoadSceneEvent(this.app),
         new SaveSceneEvent(this.app),
+        new SaveSceneAsEvent(this.app),
         new PublishSceneEvent(this.app),
 
         new UndoEvent(this.app),

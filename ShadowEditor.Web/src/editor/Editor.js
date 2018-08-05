@@ -25,6 +25,7 @@ function Editor(app) {
 
     this.sceneHelpers = new THREE.Scene();
 
+    this.sceneID = null; // 当前场景ID
     this.sceneName = null; // 当前场景名称
 
     // 相机
