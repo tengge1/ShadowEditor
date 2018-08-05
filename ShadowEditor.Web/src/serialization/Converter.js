@@ -132,9 +132,9 @@ Converter.prototype.fromJson = function (app, json) {
 
     var camera = null;
 
-    if (camera.metadata.generator === 'OrthographicCameraSerializer') {
+    if (cameraJson.metadata.generator === 'OrthographicCameraSerializer') {
         camera = (new OrthographicCameraSerializer()).fromJSON(cameraJson);
-    } else if (camera.metadata.generator === 'PerspectiveCameraSerializer') {
+    } else if (cameraJson.metadata.generator === 'PerspectiveCameraSerializer') {
         camera = (new PerspectiveCameraSerializer()).fromJSON(cameraJson);
     } else {
         console.warn(`Converter: 场景中不存在相机信息。`);

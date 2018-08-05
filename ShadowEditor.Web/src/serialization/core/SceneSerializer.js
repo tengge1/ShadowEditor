@@ -22,7 +22,28 @@ SceneSerializer.prototype.toJSON = function (obj) {
 };
 
 SceneSerializer.prototype.fromJSON = function (json) {
+    var obj = new THREE.Scene();
 
+    Object3DSerializer.prototype.fromJSON(json, obj);
+
+    if (json.background) {
+        obj.background = new THREE.Color(json.background);
+    }
+
+    if (json.fog && json.fog.type === 'Fog') {
+        obj.fog = new THREE.Fog(json.fog.color, json.fog.near, json.fog.far);
+    } else if (json.fog && json.fog.type === 'FogExp2') {
+        obj.fog = new THREE.FogExp2(json.fog.color, json.fog.density);
+    } else if (json.fog) {
+        console.warn(`SceneSerializer: unknown fog type ${json.fog.type}.`);
+    }
+
+    if (json.overrideMaterial) {
+        obj.overrideMaterial = json.overrideMaterial;
+        console.warn('TODO: //');
+    }
+
+    return obj;
 };
 
 export default SceneSerializer;

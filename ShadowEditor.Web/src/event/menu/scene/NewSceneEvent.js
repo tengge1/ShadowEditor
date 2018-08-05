@@ -13,10 +13,7 @@ NewSceneEvent.prototype = Object.create(MenuEvent.prototype);
 NewSceneEvent.prototype.constructor = NewSceneEvent;
 
 NewSceneEvent.prototype.start = function () {
-    var _this = this;
-    this.app.on('mNewScene.' + this.id, function () {
-        _this.onNewScene();
-    });
+    this.app.on('mNewScene.' + this.id, this.onNewScene.bind(this));
 };
 
 NewSceneEvent.prototype.stop = function () {
@@ -26,11 +23,12 @@ NewSceneEvent.prototype.stop = function () {
 NewSceneEvent.prototype.onNewScene = function () {
     var editor = this.app.editor;
 
-    UI.confirm('询问', '所有未保存数据将丢失，确定吗？', function (event, btn) {
-        if (btn === 'ok') {
-            editor.clear();
-        }
-    });
+    // UI.confirm('询问', '所有未保存数据将丢失，确定吗？', function (event, btn) {
+    //     if (btn === 'ok') {
+    editor.clear();
+    //     }
+    // });
+    document.title = '未命名';
 };
 
 export default NewSceneEvent;
