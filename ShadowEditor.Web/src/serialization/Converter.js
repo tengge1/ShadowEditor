@@ -115,30 +115,32 @@ Converter.prototype.toJSON = function (app) {
 
 Converter.prototype.fromJson = function (app, json) {
     // 配置
-    var config = json.filter(n => {
+    var configJson = json.filter(n => {
         return n.metadata && n.metadata.generator === 'ConfigSerializer';
     })[0];
 
-    if (config) {
-        (new ConfigSerializer()).fromJSON(app, config);
+    if (configJson) {
+        (new ConfigSerializer()).fromJSON(app, configJson);
     } else {
         console.warn(`Converter: 场景中不存在配置信息。`);
     }
 
     // 相机
-    var camera = json.filter(n => {
+    var cameraJson = json.filter(n => {
         return n.metadata && (n.metadata.generator === 'OrthographicCameraSerializer' || n.metadata.generator === 'PerspectiveCameraSerializer');
     })[0];
 
+    var camera = null;
+
     if (camera.metadata.generator === 'OrthographicCameraSerializer') {
-        camera = (new OrthographicCameraSerializer()).fromJSON(camera);
+        camera = (new OrthographicCameraSerializer()).fromJSON(cameraJson);
     } else if (camera.metadata.generator === 'PerspectiveCameraSerializer') {
-        camera = (new PerspectiveCameraSerializer()).fromJSON(camera);
+        camera = (new PerspectiveCameraSerializer()).fromJSON(cameraJson);
     } else {
         console.warn(`Converter: 场景中不存在相机信息。`);
     }
 
-    if (camera.isCamera) {
+    if (camera && camera.isCamera) {
         app.editor.camera.copy(camera);
         app.editor.camera.aspect = app.editor.DEFAULT_CAMERA.aspect;
         app.editor.camera.updateProjectionMatrix();
@@ -148,6 +150,21 @@ Converter.prototype.fromJson = function (app, json) {
 
 
     // 场景
+    var sceneJson = json.filter(n => {
+        return n.metadata && n.metadata.generator === 'SceneSerializer';
+    })[0];
+
+    var scene = null;
+
+    if (sceneJson) {
+        scene = (new SceneSerializer()).fromJSON(sceneJson);
+    } else {
+        console.warn(`Converter: 场景中不存在场景信息。`);
+    }
+
+    if (scene) {
+        app.editor.setScene(scene);
+    }
 };
 
 export default Converter;

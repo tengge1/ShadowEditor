@@ -47,6 +47,8 @@ namespace ShadowEditor.Server.Controllers
                 list.Add(info);
             }
 
+            list = list.OrderByDescending(o => o.UpdateTime).ToList();
+
             return Json(new
             {
                 Code = 200,
