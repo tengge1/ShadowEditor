@@ -14,14 +14,14 @@ SaveSceneAsEvent.prototype = Object.create(MenuEvent.prototype);
 SaveSceneAsEvent.prototype.constructor = SaveSceneAsEvent;
 
 SaveSceneAsEvent.prototype.start = function () {
-    this.app.on(`mSaveScene.${this.id}`, this.onSaveScene.bind(this));
+    this.app.on(`mSaveSceneAs.${this.id}`, this.onSaveSceneAs.bind(this));
 };
 
 SaveSceneAsEvent.prototype.stop = function () {
-    this.app.on(`mSaveScene.${this.id}`, null);
+    this.app.on(`mSaveSceneAs.${this.id}`, null);
 };
 
-SaveSceneAsEvent.prototype.onSaveScene = function () {
+SaveSceneAsEvent.prototype.onSaveSceneAs = function () {
     var sceneName = this.app.editor.sceneName;
 
     if (sceneName == null) {
