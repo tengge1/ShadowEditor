@@ -12,7 +12,7 @@ SceneSerializer.prototype = Object.create(BaseSerializer.prototype);
 SceneSerializer.prototype.constructor = SceneSerializer;
 
 SceneSerializer.prototype.toJSON = function (obj) {
-    var json = Object3DSerializer.prototype.toJSON(obj);
+    var json = Object3DSerializer.prototype.toJSON.call(this, obj);
 
     json.background = obj.background;
     json.fog = obj.fog;

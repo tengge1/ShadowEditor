@@ -76,17 +76,39 @@ Converter.prototype.toJSON = function (app) {
     // });
 
     // 场景
-    // app.editor.scene.traverse(function (obj) {
-    //     if (Serializers[obj.constructor.name] != null) {
-    //         var json = {
-    //             Metadata: Serializers[obj.constructor.name].Metadata,
-    //             Object: Serializers[obj.constructor.name].Serializer.toJSON(obj)
-    //         };
-    //         list.push(json);
-    //     } else {
-    //         console.log(`There is no serializer to serialize ${obj.name}`);
-    //     }
-    // });
+    app.editor.scene.traverse(function (obj) {
+        var json = null;
+        switch (obj.constructor.name) {
+            case 'Scene':
+                json = (new SceneSerializer()).toJSON(obj);
+                break;
+            // case 'Group':
+            //     break;
+            // case 'Mesh':
+            //     json = (new MeshSerializer()).toJSON(obj);
+            //     break;
+            // case 'Sprite':
+            //     break;
+            // case 'PointLight':
+            //     json = (new PointLightSerializer()).toJSON(obj);
+            //     break;
+            // case 'SpotLight':
+            //     json = (new SpotLightSerializer()).toJSON(obj);
+            //     break;
+            // case 'DirectionalLight':
+            //     break;
+            // case 'HemisphereLight':
+            //     json = (new HemisphereLightSerializer()).toJSON(obj);
+            //     break;
+            // case 'AmbientLight':
+            //     break;
+        }
+        if (json) {
+            list.push(json);
+        } else {
+            console.warn(`Converter: There is no serializer to serialize ${obj.constructor.name}`);
+        }
+    });
 
     return list;
 };
