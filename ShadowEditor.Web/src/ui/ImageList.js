@@ -69,7 +69,6 @@ ImageList.prototype.render = function () {
         obj.onClick = onClick.bind(this);
         obj.render();
         obj.dom.dataIndex = i; // 序号
-        obj.img.dataIndex = i;
         obj.editBtn.dom.dataIndex = i;
         obj.deleteBtn.dom.dataIndex = i;
 

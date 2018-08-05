@@ -264,34 +264,43 @@ div.ImageList .Container {
 
 div.ImageList .Container .Item {
     width: 160px;
+    height: 160px;
     margin: 2px;
     display: inline-block;
 }
 
-div.ImageList .Container img {
+div.ImageList .Container .Item img {
     width: 100%;
+    height: 100%;
     cursor: pointer;
     border-radius: 3px;
 }
 
-div.ImageList .Container .IconButton {
+div.ImageList .Container .Item>i {
+    position: absolute;
+    font-size: 36px;
+    left: calc(50% - 18px);
+    top: calc(50% - 18px);
+}
+
+div.ImageList .Container .Item .IconButton {
     padding: 2px;
     opacity: 0.8;
 }
 
-div.ImageList .Container .EditButton {
+div.ImageList .Container .Item .EditButton {
     position: absolute;
     right: 28px;
     top: 4px;
 }
 
-div.ImageList .Container .DeleteButton {
+div.ImageList .Container .Item .DeleteButton {
     position: absolute;
     right: 4px;
     top: 4px;
 }
 
-div.ImageList .Container .IconButton i {
+div.ImageList .Container .Item .IconButton i {
     font-size: 14px;
 }
 

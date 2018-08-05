@@ -8,11 +8,18 @@ function Image(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.src = options.src || '';
+    // 背景图片
+    this.src = options.src || null;
     this.title = options.title || null;
     this.alt = options.alt || null;
     this.cls = options.cls || 'Item';
     this.style = options.style || null;
+
+    // 字体图标
+    this.icon = options.icon || 'icon-shadow';
+
+    // 左上角文本
+    this.cornerText = options.cornerText || null;
 
     this.onClick = options.onClick || null;
 }
@@ -22,6 +29,7 @@ Image.prototype.constructor = Image;
 
 Image.prototype.render = function () {
     this.dom = document.createElement('div');
+    this.parent.appendChild(this.dom);
 
     if (this.cls) {
         this.dom.className = this.cls;
@@ -31,20 +39,29 @@ Image.prototype.render = function () {
         Object.assign(this.dom.style, this.style);
     }
 
-    // 图片
-    this.img = document.createElement('img');
+    // 背景图片
+    if (this.src) {
+        this.img = document.createElement('img');
 
-    this.img.src = this.src;
+        this.img.src = this.src;
 
-    if (this.title) {
-        this.img.title = this.title;
+        if (this.title) {
+            this.img.title = this.title;
+        }
+
+        if (this.alt) {
+            this.img.alt = this.alt;
+        }
+
+        this.dom.appendChild(this.img);
     }
 
-    if (this.alt) {
-        this.img.alt = this.alt;
+    // 字体图标
+    if (this.icon) {
+        this.i = document.createElement('i');
+        this.i.className = `iconfont ${this.icon}`;
+        this.dom.appendChild(this.i);
     }
-
-    this.dom.appendChild(this.img);
 
     // 事件
     var _this = this;
@@ -81,8 +98,6 @@ Image.prototype.render = function () {
     this.deleteBtn.render();
 
     this.dom.appendChild(this.deleteBtn.dom);
-
-    this.parent.appendChild(this.dom);
 };
 
 export default Image;
