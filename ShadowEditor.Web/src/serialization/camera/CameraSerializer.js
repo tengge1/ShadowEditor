@@ -33,7 +33,10 @@ CameraSerializer.prototype.toJSON = function (obj) {
 CameraSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.Camera() : parent;
 
-    // TODO: Three.Camera反序列化
+    Object3DSerializer.prototype.fromJSON.call(this, json, obj);
+
+    obj.matrixWorldInverse.copy(json.matrixWorldInverse);
+    obj.projectionMatrix.copy(json.projectionMatrix);
 
     return obj;
 };

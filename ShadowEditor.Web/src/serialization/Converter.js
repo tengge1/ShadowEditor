@@ -61,19 +61,19 @@ Converter.prototype.toJSON = function (app) {
     list.push(camera);
 
     // 脚本
-    Object.keys(app.editor.scripts).forEach(function (id) {
-        var name = app.editor.scripts[id].name;
-        var source = app.editor.scripts[id].source;
-        var script = {
-            Metadata: Serializers['Script'].Metadata,
-            Object: Serializers['Script'].Serializer.toJSON({
-                id: id,
-                name: name,
-                source: source
-            })
-        };
-        list.push(script);
-    });
+    // Object.keys(app.editor.scripts).forEach(function (id) {
+    //     var name = app.editor.scripts[id].name;
+    //     var source = app.editor.scripts[id].source;
+    //     var script = {
+    //         Metadata: Serializers['Script'].Metadata,
+    //         Object: Serializers['Script'].Serializer.toJSON({
+    //             id: id,
+    //             name: name,
+    //             source: source
+    //         })
+    //     };
+    //     list.push(script);
+    // });
 
     // 场景
     // app.editor.scene.traverse(function (obj) {
@@ -92,13 +92,40 @@ Converter.prototype.toJSON = function (app) {
 };
 
 Converter.prototype.fromJson = function (app, json) {
+    // 配置
     var config = json.filter(n => {
         return n.metadata && n.metadata.generator === 'ConfigSerializer';
     })[0];
+
     if (config) {
         (new ConfigSerializer()).fromJSON(app, config);
+    } else {
+        console.warn(`Converter: 场景中不存在配置信息。`);
     }
 
+    // 相机
+    var camera = json.filter(n => {
+        return n.metadata && (n.metadata.generator === 'OrthographicCameraSerializer' || n.metadata.generator === 'PerspectiveCameraSerializer');
+    })[0];
+
+    if (camera.metadata.generator === 'OrthographicCameraSerializer') {
+        camera = (new OrthographicCameraSerializer()).fromJSON(camera);
+    } else if (camera.metadata.generator === 'PerspectiveCameraSerializer') {
+        camera = (new PerspectiveCameraSerializer()).fromJSON(camera);
+    } else {
+        console.warn(`Converter: 场景中不存在相机信息。`);
+    }
+
+    if (camera.isCamera) {
+        app.editor.camera.copy(camera);
+        app.editor.camera.aspect = app.editor.DEFAULT_CAMERA.aspect;
+        app.editor.camera.updateProjectionMatrix();
+    }
+
+    // 脚本
+
+
+    // 场景
 };
 
 export default Converter;

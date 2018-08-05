@@ -59,7 +59,27 @@ Object3DSerializer.prototype.toJSON = function (obj) {
 Object3DSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? THREE.Object3D : parent;
 
-    // TODO: Object3D反序列化
+    BaseSerializer.prototype.fromJSON.call(this, json, obj);
+
+    obj.type = json.type;
+    obj.uuid = json.uuid;
+    obj.castShadow = json.castShadow;
+    // json.children = obj.children.map(child => {
+    //     return child.uuid;
+    // });
+    obj.frustumCulled = json.frustumCulled;
+    obj.matrix.copy(json.matrix);
+    obj.matrixAutoUpdate = json.matrixAutoUpdate;
+    obj.name = json.name;
+    // obj.parent = obj.parent == null ? null : obj.parent.uuid;
+    obj.position.copy(json.position);
+    obj.quaternion.copy(json.quaternion);
+    obj.receiveShadow = json.receiveShadow;
+    obj.renderOrder = json.renderOrder;
+    obj.rotation.set(json.rotation.x, json.rotation.y, json.rotation.z, json.rotation.order);
+    obj.scale.copy(json.scale);
+    obj.up.copy(json.up);
+    Object.assign(obj.userData, json.userData);
 
     return obj;
 };

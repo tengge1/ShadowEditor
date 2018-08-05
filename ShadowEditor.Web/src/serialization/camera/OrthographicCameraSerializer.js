@@ -39,7 +39,16 @@ OrthographicCameraSerializer.prototype.toJSON = function (obj) {
 OrthographicCameraSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.OrthographicCamera() : parent;
 
-    // TODO: THREE.OrthographicCamera反序列化
+    CameraSerializer.prototype.fromJSON.call(this, json, obj);
+
+    obj.bottom = json.bottom;
+    obj.far = json.far;
+    obj.left = json.left;
+    obj.near = json.near;
+    obj.right = json.right;
+    obj.top = json.top;
+    obj.view = json.view;
+    obj.zoom = json.zoom;
 
     return obj;
 };

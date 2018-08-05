@@ -40,7 +40,17 @@ PerspectiveCameraSerializer.prototype.toJSON = function (obj) {
 PerspectiveCameraSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.PerspectiveCamera() : parent;
 
-    // TODO: THREE.PerspectiveCamera 反序列化
+    CameraSerializer.prototype.fromJSON.call(this, json, obj);
+
+    obj.aspect = json.aspect;
+    obj.far = json.far;
+    obj.filmGauge = json.filmGauge;
+    obj.filmOffset = json.filmOffset;
+    obj.focus = json.focus;
+    obj.fov = json.fov;
+    obj.near = json.near;
+    obj.view = json.view;
+    obj.zoom = json.zoom;
 
     return obj;
 };
