@@ -24,17 +24,6 @@ import RectAreaLightSerializer from './light/RectAreaLightSerializer';
  */
 function Converter() {
     BaseSerializer.call(this);
-
-    this.serializers = [
-        new SceneSerializer(),
-
-        new PointLightSerializer(),
-        new SpotLightSerializer(),
-        new HemisphereLightSerializer(),
-        new RectAreaLightSerializer(),
-
-        new MeshSerializer()
-    ];
 }
 
 Converter.prototype = Object.create(BaseSerializer.prototype);
@@ -84,9 +73,9 @@ Converter.prototype.toJSON = function (app) {
                 break;
             // case 'Group':
             //     break;
-            // case 'Mesh':
-            //     json = (new MeshSerializer()).toJSON(obj);
-            //     break;
+            case 'Mesh':
+                json = (new MeshSerializer()).toJSON(obj);
+                break;
             // case 'Sprite':
             //     break;
             // case 'PointLight':
