@@ -91,8 +91,8 @@ Converter.prototype.toJSON = function (app) {
     return list;
 };
 
-Converter.prototype.fromJson = function (json) {
-
+Converter.prototype.fromJson = function (app, json) {
+    debugger
 };
 
 export default Converter;

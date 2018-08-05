@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import UploadUtils from '../../utils/UploadUtils';
+import Converter from '../../serialization/Converter';
 
 /**
  * 场景窗口
@@ -177,7 +178,20 @@ SceneWindow.prototype.deleteScene = function (data) {
  * @param {*} data 
  */
 SceneWindow.prototype.loadScene = function (data) {
+    var app = this.app;
+    var server = app.options.server;
     document.title = data.Name;
+
+    Ajax.get(`${server}/api/Scene/Load?ID=${data.ID}`, (json) => {
+        var obj = JSON.parse(json);
+        if (obj.Code === 200) {
+            UI.get('sceneWindow').hide();
+        }
+
+        (new Converter()).fromJson(this.app, obj.Data);
+
+        UI.msg('载入成功！');
+    });
 };
 
 export default SceneWindow;

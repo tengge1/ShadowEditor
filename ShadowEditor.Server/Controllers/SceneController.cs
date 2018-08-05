@@ -81,11 +81,19 @@ namespace ShadowEditor.Server.Controllers
 
             var docs = mongo.FindAll(collectionName);
 
+            var data = new JArray();
+
+            foreach (var i in docs)
+            {
+                i["_id"] = i["_id"].ToString(); // ObjectId
+                data.Add(JsonHelper.ToObject<JObject>(i.ToJson()));
+            }
+
             return Json(new
             {
                 Code = 200,
                 Msg = "获取成功！",
-                Data = docs
+                Data = data
             });
         }
 
