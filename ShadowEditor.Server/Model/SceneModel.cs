@@ -22,6 +22,16 @@ namespace ShadowEditor.Server.Model
         public string Name { get; set; }
 
         /// <summary>
+        /// 全拼
+        /// </summary>
+        public string TotalPinYin { get; set; }
+
+        /// <summary>
+        /// 首字母拼音
+        /// </summary>
+        public string FirstPinYin { get; set; }
+
+        /// <summary>
         /// 场景表名
         /// </summary>
         public string CollectionName { get; set; }

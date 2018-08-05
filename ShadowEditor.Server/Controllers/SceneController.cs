@@ -37,6 +37,8 @@ namespace ShadowEditor.Server.Controllers
                 {
                     ID = i["ID"].AsObjectId.ToString(),
                     Name = i["Name"].AsString,
+                    TotalPinYin = i["TotalPinYin"].ToString(),
+                    FirstPinYin = i["FirstPinYin"].ToString(),
                     CollectionName = i["CollectionName"].AsString,
                     Version = i["Version"].AsInt32,
                     CreateTime = i["CreateTime"].ToUniversalTime(),
@@ -145,9 +147,13 @@ namespace ShadowEditor.Server.Controllers
             // 保存或更新场景综合信息
             if (doc == null)
             {
+                var pinyin = PinYinHelper.GetTotalPinYin(model.Name);
+
                 doc = new BsonDocument();
                 doc["ID"] = objectId;
                 doc["Name"] = model.Name;
+                doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
+                doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
                 doc["CollectionName"] = collectionName;
                 doc["Version"] = 0;
                 doc["CreateTime"] = BsonDateTime.Create(now);

@@ -11,13 +11,14 @@ namespace ShadowEditor.Server.Helpers
     /// <summary>
     /// 拼音帮助类
     /// </summary>
+    /// <see cref="https://github.com/qq1206676756/PinYinParse"/>
     public class PinYinHelper
     {
-        public static PingYinModel GetTotalPingYin(string str)
+        public static PinYinModel GetTotalPinYin(string str)
         {
             var chs = str.ToCharArray();
             //记录每个汉字的全拼
-            Dictionary<int, List<string>> totalPingYins = new Dictionary<int, List<string>>();
+            Dictionary<int, List<string>> totalPinYins = new Dictionary<int, List<string>>();
             for (int i = 0; i < chs.Length; i++)
             {
                 var pinyins = new List<string>();
@@ -39,55 +40,55 @@ namespace ShadowEditor.Server.Helpers
                 pinyins = pinyins.Where(p => !string.IsNullOrWhiteSpace(p)).Distinct().ToList();
                 if (pinyins.Any())
                 {
-                    totalPingYins[i] = pinyins;
+                    totalPinYins[i] = pinyins;
                 }
             }
-            PingYinModel result = new PingYinModel();
-            foreach (var pinyins in totalPingYins)
+            PinYinModel result = new PinYinModel();
+            foreach (var pinyins in totalPinYins)
             {
                 var items = pinyins.Value;
-                if (result.TotalPingYin.Count <= 0)
+                if (result.TotalPinYin.Count <= 0)
                 {
-                    result.TotalPingYin = items;
-                    result.FirstPingYin = items.ConvertAll(p => p.Substring(0, 1)).Distinct().ToList();
+                    result.TotalPinYin = items;
+                    result.FirstPinYin = items.ConvertAll(p => p.Substring(0, 1)).Distinct().ToList();
                 }
                 else
                 {
                     //全拼循环匹配
-                    var newTotalPingYins = new List<string>();
-                    foreach (var totalPingYin in result.TotalPingYin)
+                    var newTotalPinYins = new List<string>();
+                    foreach (var totalPinYin in result.TotalPinYin)
                     {
-                        newTotalPingYins.AddRange(items.Select(item => totalPingYin + item));
+                        newTotalPinYins.AddRange(items.Select(item => totalPinYin + item));
                     }
-                    newTotalPingYins = newTotalPingYins.Distinct().ToList();
-                    result.TotalPingYin = newTotalPingYins;
+                    newTotalPinYins = newTotalPinYins.Distinct().ToList();
+                    result.TotalPinYin = newTotalPinYins;
 
                     //首字母循环匹配
-                    var newFirstPingYins = new List<string>();
-                    foreach (var firstPingYin in result.FirstPingYin)
+                    var newFirstPinYins = new List<string>();
+                    foreach (var firstPinYin in result.FirstPinYin)
                     {
-                        newFirstPingYins.AddRange(items.Select(item => firstPingYin + item.Substring(0, 1)));
+                        newFirstPinYins.AddRange(items.Select(item => firstPinYin + item.Substring(0, 1)));
                     }
-                    newFirstPingYins = newFirstPingYins.Distinct().ToList();
-                    result.FirstPingYin = newFirstPingYins;
+                    newFirstPinYins = newFirstPinYins.Distinct().ToList();
+                    result.FirstPinYin = newFirstPinYins;
                 }
             }
             return result;
         }
     }
 
-    public class PingYinModel
+    public class PinYinModel
     {
-        public PingYinModel()
+        public PinYinModel()
         {
-            TotalPingYin = new List<string>();
-            FirstPingYin = new List<string>();
+            TotalPinYin = new List<string>();
+            FirstPinYin = new List<string>();
         }
 
         //全拼
-        public List<string> TotalPingYin { get; set; }
+        public List<string> TotalPinYin { get; set; }
 
         //首拼
-        public List<string> FirstPingYin { get; set; }
+        public List<string> FirstPinYin { get; set; }
     }
 }
