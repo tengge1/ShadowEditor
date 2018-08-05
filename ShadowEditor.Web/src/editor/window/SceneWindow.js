@@ -101,8 +101,12 @@ SceneWindow.prototype.onSearch = function (name) {
         return;
     }
 
+    name = name.toLowerCase();
+
     var models = this.models.filter((n) => {
-        return n.Name.indexOf(name) > -1;
+        return n.Name.indexOf(name) > -1 ||
+            n.FirstPinYin.indexOf(name) > -1 ||
+            n.TotalPinYin.indexOf(name) > -1;
     });
     this.renderImages(models);
 };

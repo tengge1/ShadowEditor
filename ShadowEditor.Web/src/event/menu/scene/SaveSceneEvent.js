@@ -27,7 +27,7 @@ SaveSceneEvent.prototype.stop = function () {
 SaveSceneEvent.prototype.onSaveScene = function () {
     var sceneName = this.app.editor.sceneName;
 
-    if (sceneName == null) {
+    // if (sceneName == null) {
         // var tempName = 'Scene' + new Date().getTime();
         var tempName = '新场景';
         UI.prompt('正在保存...', '场景名称', tempName, (event, name) => {
@@ -35,9 +35,9 @@ SaveSceneEvent.prototype.onSaveScene = function () {
             document.title = name;
             this.commitSave(name);
         });
-    } else {
-        this.commitSave(sceneName);
-    }
+    // } else {
+    //     this.commitSave(sceneName);
+    // }
 };
 
 SaveSceneEvent.prototype.commitSave = function (sceneName) {
