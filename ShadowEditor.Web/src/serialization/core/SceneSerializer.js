@@ -1,5 +1,6 @@
 import BaseSerializer from '../BaseSerializer';
 import Object3DSerializer from './Object3DSerializer';
+import MeshSerializer from './MeshSerializer';
 
 /**
  * Scene序列化器
@@ -39,8 +40,7 @@ SceneSerializer.prototype.fromJSON = function (json) {
     }
 
     if (json.overrideMaterial) {
-        obj.overrideMaterial = json.overrideMaterial;
-        console.warn('TODO: //');
+        obj.overrideMaterial = json.overrideMaterial.toJSON();
     }
 
     return obj;

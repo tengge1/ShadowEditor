@@ -145,8 +145,41 @@ Converter.prototype.fromJson = function (app, json) {
 
     var scene = null;
 
+    /**
+     * 递归实例化场景所有子对象
+     * @param {*} json 父元素json对象
+     * @param {*} parent 父元素
+     * @param {*} list 所有对象json数据列表
+     */
+    function parseChildren(json, parent, list) {
+        if (json.children) {
+            json.children.forEach(n => {
+                var objJson = list.filter(o => o.uuid === n)[0];
+                if (objJson == null) {
+                    console.warn(`Converter: 场景中不存在uuid为${n}的对象数据。`);
+                    return;
+                }
+                var obj = null;
+                if (objJson.metadata.generator === 'MeshSerializer') {
+                    obj = (new MeshSerializer()).fromJSON(objJson);
+                } else {
+                    console.warn(`Converter: 不存在序列化${objJson.metadata.type}的反序列化器。`);
+                }
+
+                if (obj) {
+                    parent.add(obj);
+                }
+
+                if (objJson && objJson.children && obj) {
+                    parseChildren(objJson, obj, list);
+                }
+            });
+        }
+    }
+
     if (sceneJson) {
         scene = (new SceneSerializer()).fromJSON(sceneJson);
+        parseChildren(sceneJson, scene, json);
     } else {
         console.warn(`Converter: 场景中不存在场景信息。`);
     }

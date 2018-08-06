@@ -21,7 +21,7 @@ MeshSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-MeshSerializer.prototype.fromJSON = function (json) {
+MeshSerializer.prototype.fromJSON = function (json, parent) {
 
 };
 
