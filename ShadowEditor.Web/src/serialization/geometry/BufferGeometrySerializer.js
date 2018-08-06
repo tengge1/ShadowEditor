@@ -1,7 +1,7 @@
 import BaseSerializer from '../BaseSerializer';
 
 /**
- * BufferGeometry序列化器
+ * BufferGeometrySerializer
  */
 function BufferGeometrySerializer() {
     BaseSerializer.call(this);

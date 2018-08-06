@@ -11,7 +11,7 @@ MaterialSerializer.prototype = Object.create(BaseSerializer.prototype);
 MaterialSerializer.prototype.constructor = MaterialSerializer;
 
 MaterialSerializer.prototype.toJSON = function (obj) {
-    var json = BaseSerializer.prototype.toJSON(obj);
+    var json = BaseSerializer.prototype.toJSON.call(this, obj);
 
     json.alphaMap = material.alphaMap;
     json.alphaTest = material.alphaTest;
@@ -84,7 +84,7 @@ MaterialSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-MaterialSerializer.prototype.fromJSON = function (json) {
+MaterialSerializer.prototype.fromJSON = function (json, parent) {
 
 };
 
