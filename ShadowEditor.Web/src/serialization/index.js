@@ -15,18 +15,12 @@ export { default as CameraSerializer } from './camera/CameraSerializer';
 export { default as OrthographicCameraSerializer } from './camera/OrthographicCameraSerializer';
 export { default as PerspectiveCameraSerializer } from './camera/PerspectiveCameraSerializer';
 
-// geometry
-export { default as GeometrySerializer } from './geometry/GeometrySerializer';
-
 // light
 export { default as LightSerializer } from './light/LightSerializer';
 export { default as HemisphereLightSerializer } from './light/HemisphereLightSerializer';
 export { default as PointLightSerializer } from './light/PointLightSerializer';
 export { default as RectAreaLightSerializer } from './light/RectAreaLightSerializer';
 export { default as SpotLightSerializer } from './light/SpotLightSerializer';
-
-// material
-export { default as MaterialSerializer } from './material/MaterialSerializer';
 
 // converter
 export { default as Converter } from './Converter';
