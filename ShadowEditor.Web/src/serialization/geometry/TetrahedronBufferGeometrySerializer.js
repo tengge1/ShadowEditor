@@ -17,8 +17,8 @@ TetrahedronBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 TetrahedronBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.TetrahedronBufferGeometry(
-        json.radius,
-        json.detail
+        json.parameters.radius,
+        json.parameters.detail
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

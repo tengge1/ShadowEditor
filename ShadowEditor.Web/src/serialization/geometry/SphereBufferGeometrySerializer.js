@@ -17,13 +17,13 @@ SphereBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 SphereBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.SphereBufferGeometry(
-        json.radius,
-        json.widthSegments,
-        json.heightSegments,
-        json.phiStart,
-        json.phiLength,
-        json.thetaStart,
-        json.thetaLength
+        json.parameters.radius,
+        json.parameters.widthSegments,
+        json.parameters.heightSegments,
+        json.parameters.phiStart,
+        json.parameters.phiLength,
+        json.parameters.thetaStart,
+        json.parameters.thetaLength
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

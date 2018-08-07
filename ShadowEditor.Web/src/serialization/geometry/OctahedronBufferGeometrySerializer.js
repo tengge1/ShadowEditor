@@ -17,8 +17,8 @@ OctahedronBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 OctahedronBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.OctahedronBufferGeometry(
-        json.radius,
-        json.detail
+        json.parameters.radius,
+        json.parameters.detail
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

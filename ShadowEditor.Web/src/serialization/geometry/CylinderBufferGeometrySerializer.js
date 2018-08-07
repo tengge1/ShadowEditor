@@ -17,14 +17,14 @@ CylinderBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 CylinderBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.CylinderBufferGeometry(
-        json.radiusTop,
-        json.radiusBottom,
-        json.height,
-        json.radialSegments,
-        json.heightSegments,
-        json.openEnded,
-        json.thetaStart,
-        json.thetaLength
+        json.parameters.radiusTop,
+        json.parameters.radiusBottom,
+        json.parameters.height,
+        json.parameters.radialSegments,
+        json.parameters.heightSegments,
+        json.parameters.openEnded,
+        json.parameters.thetaStart,
+        json.parameters.thetaLength
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

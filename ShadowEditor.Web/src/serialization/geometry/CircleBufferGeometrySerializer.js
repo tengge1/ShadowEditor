@@ -17,10 +17,10 @@ CircleBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 CircleBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.CircleBufferGeometry(
-        json.radius,
-        json.segments,
-        json.thetaStart,
-        json.thetaLength
+        json.parameters.radius,
+        json.parameters.segments,
+        json.parameters.thetaStart,
+        json.parameters.thetaLength
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

@@ -17,9 +17,9 @@ ParametricBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 ParametricBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.ParametricBufferGeometry(
-        json.func,
-        json.slices,
-        json.stacks
+        json.parameters.func,
+        json.parameters.slices,
+        json.parameters.stacks
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

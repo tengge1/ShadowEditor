@@ -17,8 +17,8 @@ TextBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 TextBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.TextBufferGeometry(
-        json.text,
-        json.parameters
+        json.parameters.text,
+        json.parameters.parameters
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

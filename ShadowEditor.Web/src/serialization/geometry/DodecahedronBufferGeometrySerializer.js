@@ -17,8 +17,8 @@ DodecahedronBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 DodecahedronBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.DodecahedronBufferGeometry(
-        json.radius,
-        json.detail
+        json.parameters.radius,
+        json.parameters.detail
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

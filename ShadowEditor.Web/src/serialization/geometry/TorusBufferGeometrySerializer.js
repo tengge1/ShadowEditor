@@ -17,11 +17,11 @@ TorusBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 TorusBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.TorusBufferGeometry(
-        json.radius,
-        json.tube,
-        json.radialSegments,
-        json.tubularSegments,
-        json.arc
+        json.parameters.radius,
+        json.parameters.tube,
+        json.parameters.radialSegments,
+        json.parameters.tubularSegments,
+        json.parameters.arc
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

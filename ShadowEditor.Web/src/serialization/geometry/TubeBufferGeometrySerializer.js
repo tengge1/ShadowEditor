@@ -17,11 +17,11 @@ TubeBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 TubeBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.TubeBufferGeometry(
-        json.path,
-        json.tubularSegments,
-        json.radius,
-        json.radialSegments,
-        json.closed
+        json.parameters.path,
+        json.parameters.tubularSegments,
+        json.parameters.radius,
+        json.parameters.radialSegments,
+        json.parameters.closed
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

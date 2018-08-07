@@ -19,8 +19,8 @@ ExtrudeBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     // TODO
 
     var obj = parent === undefined ? new THREE.ExtrudeBufferGeometry(
-        json.shapes,
-        json.options
+        json.parameters.shapes,
+        json.parameters.options
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

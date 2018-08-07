@@ -17,8 +17,8 @@ IcosahedronBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 IcosahedronBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.IcosahedronBufferGeometry(
-        json.radius,
-        json.detail
+        json.parameters.radius,
+        json.parameters.detail
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

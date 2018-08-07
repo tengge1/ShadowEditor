@@ -17,13 +17,13 @@ ConeBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 ConeBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.ConeBufferGeometry(
-        json.radius,
-        json.height,
-        json.radialSegments,
-        json.heightSegments,
-        json.openEnded,
-        json.thetaStart,
-        json.thetaLength
+        json.parameters.radius,
+        json.parameters.height,
+        json.parameters.radialSegments,
+        json.parameters.heightSegments,
+        json.parameters.openEnded,
+        json.parameters.thetaStart,
+        json.parameters.thetaLength
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);

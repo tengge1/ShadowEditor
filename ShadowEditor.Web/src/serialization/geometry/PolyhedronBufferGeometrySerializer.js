@@ -17,10 +17,10 @@ PolyhedronBufferGeometrySerializer.prototype.toJSON = function (obj) {
 
 PolyhedronBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.PolyhedronBufferGeometry(
-        json.vertices,
-        json.indices,
-        json.radius,
-        json.detail
+        json.parameters.vertices,
+        json.parameters.indices,
+        json.parameters.radius,
+        json.parameters.detail
     ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);
