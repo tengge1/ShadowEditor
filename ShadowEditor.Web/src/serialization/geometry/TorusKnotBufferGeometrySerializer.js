@@ -16,7 +16,14 @@ TorusKnotBufferGeometrySerializer.prototype.toJSON = function (obj) {
 };
 
 TorusKnotBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.TorusKnotBufferGeometry() : parent;
+    var obj = parent === undefined ? new THREE.TorusKnotBufferGeometry(
+        json.radius,
+        json.tube,
+        json.tubularSegments,
+        json.radialSegments,
+        json.p,
+        json.q
+    ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);
 

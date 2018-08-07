@@ -16,7 +16,10 @@ ShapeBufferGeometrySerializer.prototype.toJSON = function (obj) {
 };
 
 ShapeBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.ShapeBufferGeometry() : parent;
+    var obj = parent === undefined ? new THREE.ShapeBufferGeometry(
+        json.shapes,
+        json.curveSegments
+    ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);
 

@@ -18,6 +18,8 @@ InstancedBufferGeometrySerializer.prototype.toJSON = function (obj) {
 InstancedBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.InstancedBufferGeometry() : parent;
 
+    // TODO: 
+
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);
 
     return obj;

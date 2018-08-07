@@ -87,7 +87,7 @@ MaterialsSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-MaterialsSerializer.prototype.fromJSON = function (json, parent) {
+MaterialsSerializer.prototype.fromJSON = function (json) {
 
 };
 

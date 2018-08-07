@@ -16,7 +16,14 @@ RingBufferGeometrySerializer.prototype.toJSON = function (obj) {
 };
 
 RingBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.RingBufferGeometry() : parent;
+    var obj = parent === undefined ? new THREE.RingBufferGeometry(
+        json.innerRadius,
+        json.outerRadius,
+        json.thetaSegments,
+        json.phiSegments,
+        json.thetaStart,
+        json.thetaLength
+    ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);
 

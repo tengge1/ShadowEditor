@@ -85,7 +85,7 @@ BufferGeometriesSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-BufferGeometriesSerializer.prototype.fromJSON = function (json, parent) {
+BufferGeometriesSerializer.prototype.fromJSON = function (json) {
     var obj = null;
 
     if (json.type === 'BoxBufferGeometry') {

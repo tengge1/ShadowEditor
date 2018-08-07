@@ -16,7 +16,12 @@ PlaneBufferGeometrySerializer.prototype.toJSON = function (obj) {
 };
 
 PlaneBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.PlaneBufferGeometry() : parent;
+    var obj = parent === undefined ? new THREE.PlaneBufferGeometry(
+        json.width,
+        json.height,
+        json.widthSegments,
+        json.heightSegments
+    ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);
 

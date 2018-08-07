@@ -16,7 +16,12 @@ LatheBufferGeometrySerializer.prototype.toJSON = function (obj) {
 };
 
 LatheBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.LatheBufferGeometry() : parent;
+    var obj = parent === undefined ? new THREE.LatheBufferGeometry(
+        json.points,
+        json.segments,
+        json.phiStart,
+        json.phiLength
+    ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);
 

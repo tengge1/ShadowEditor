@@ -16,7 +16,14 @@ BoxBufferGeometrySerializer.prototype.toJSON = function (obj) {
 };
 
 BoxBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.BoxBufferGeometry() : parent;
+    var obj = parent === undefined ? new THREE.BoxBufferGeometry(
+        json.width,
+        json.height,
+        json.depth,
+        json.widthSegments,
+        json.heightSegments,
+        json.depthSegments
+    ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, obj);
 
