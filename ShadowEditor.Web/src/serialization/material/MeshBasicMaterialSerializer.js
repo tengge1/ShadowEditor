@@ -18,7 +18,7 @@ MeshBasicMaterialSerializer.prototype.toJSON = function (obj) {
 MeshBasicMaterialSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.MeshBasicMaterial() : parent;
 
-    MaterialSerializer.prototype.fromJSON.call(this, obj);
+    MaterialSerializer.prototype.fromJSON.call(this, json, obj);
 
     return obj;
 };

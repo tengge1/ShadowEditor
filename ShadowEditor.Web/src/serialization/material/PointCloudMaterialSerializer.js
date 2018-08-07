@@ -18,7 +18,7 @@ PointCloudMaterialSerializer.prototype.toJSON = function (obj) {
 PointCloudMaterialSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.PointCloudMaterial() : parent;
 
-    MaterialSerializer.prototype.fromJSON.call(this, obj);
+    MaterialSerializer.prototype.fromJSON.call(this, json, obj);
 
     return obj;
 };

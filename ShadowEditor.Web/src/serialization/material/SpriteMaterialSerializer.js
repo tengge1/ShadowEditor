@@ -18,7 +18,7 @@ SpriteMaterialSerializer.prototype.toJSON = function (obj) {
 SpriteMaterialSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.SpriteMaterial() : parent;
 
-    MaterialSerializer.prototype.fromJSON.call(this, obj);
+    MaterialSerializer.prototype.fromJSON.call(this, json, obj);
 
     return obj;
 };

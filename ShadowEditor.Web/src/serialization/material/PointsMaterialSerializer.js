@@ -18,7 +18,7 @@ PointsMaterialSerializer.prototype.toJSON = function (obj) {
 PointsMaterialSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.PointsMaterial() : parent;
 
-    MaterialSerializer.prototype.fromJSON.call(this, obj);
+    MaterialSerializer.prototype.fromJSON.call(this, json, obj);
 
     return obj;
 };

@@ -18,7 +18,7 @@ MeshToonMaterialSerializer.prototype.toJSON = function (obj) {
 MeshToonMaterialSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.MeshToonMaterial() : parent;
 
-    MaterialSerializer.prototype.fromJSON.call(this, obj);
+    MaterialSerializer.prototype.fromJSON.call(this, json, obj);
 
     return obj;
 };
