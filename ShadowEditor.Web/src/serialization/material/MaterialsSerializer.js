@@ -88,7 +88,57 @@ MaterialsSerializer.prototype.toJSON = function (obj) {
 };
 
 MaterialsSerializer.prototype.fromJSON = function (json) {
+    var obj = null;
 
+    if (json.type === 'LineBasicMaterial') {
+        obj = (new LineBasicMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'LineDashedMaterial') {
+        obj = (new LineDashedMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'MeshBasicMaterial') {
+        obj = (new MeshBasicMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'MeshDepthMaterial') {
+        obj = (new MeshDepthMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'MeshDistanceMaterial') {
+        obj = (new MeshDistanceMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'MeshFaceMaterial') {
+        obj = (new MeshFaceMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'MeshLambertMaterial') {
+        obj = (new MeshLambertMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'MeshNormalMaterial') {
+        obj = (new MeshNormalMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'MeshPhongMaterial') {
+        obj = (new MeshPhongMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'MeshPhysicalMaterial') {
+        obj = (new MeshPhysicalMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'MeshStandardMaterial') {
+        obj = (new MeshStandardMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'MeshToonMaterial') {
+        obj = (new MeshToonMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'MultiMaterial') {
+        obj = (new MultiMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'ParticleBasicMaterial') {
+        obj = (new ParticleBasicMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'ParticleSystemMaterial') {
+        obj = (new ParticleSystemMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'PointCloudMaterial') {
+        obj = (new PointCloudMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'PointsMaterial') {
+        obj = (new PointsMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'RawShaderMaterial') {
+        obj = (new RawShaderMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'ShaderMaterial') {
+        obj = (new ShaderMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'ShadowMaterial') {
+        obj = (new ShadowMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'SpriteCanvasMaterial') {
+        obj = (new SpriteCanvasMaterialSerializer()).fromJSON(json);
+    } else if (json.type === 'SpriteMaterial') {
+        obj = (new SpriteMaterialSerializer()).fromJSON(json);
+    } else {
+        console.warn(`MaterialsSerializer: 不支持的材质类型${json.type}。`);
+    }
+
+    return obj;
 };
 
 export default MaterialsSerializer;
