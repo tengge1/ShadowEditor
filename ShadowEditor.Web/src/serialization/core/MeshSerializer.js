@@ -28,6 +28,14 @@ MeshSerializer.prototype.fromJSON = function (json, parent) {
     var geometry, material;
 
     if (parent === undefined) {
+        if (json.geometry == null) {
+            console.warn(`MeshSerializer: ${json.name} json.geometry未定义。`);
+            return null;
+        }
+        if (json.material == null) {
+            console.warn(`MeshSerializer: ${json.name} json.material未定义。`);
+            return null;
+        }
         geometry = (new BufferGeometriesSerializer()).fromJSON(json.geometry);
         material = (new MaterialsSerializer()).fromJSON(json.material);
     }

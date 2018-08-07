@@ -36,15 +36,31 @@ BufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     BaseSerializer.prototype.fromJSON.call(this, json, obj);
 
     // obj.attributes = json.attributes;
-    obj.boundingBox = json.boundingBox;
-    obj.boundingSphere = json.boundingSphere;
-    obj.drawRange = json.drawRange;
+    // if (json.boundingBox) {
+    //     obj.boundingBox = new THREE.Box3(
+    //         new THREE.Vector3().copy(json.boundingBox.min),
+    //         new THREE.Vector3().copy(json.boundingBox.max),
+    //     );
+    // }
+
+    // if (json.boundingSphere) {
+    //     obj.boundingSphere = new THREE.Sphere(
+    //         new THREE.Vector3().copy(json.boundingSphere.center),
+    //         json.boundingSphere.radius
+    //     );
+    // }
+
+    // if (json.drawRange) {
+    //     obj.drawRange.start = json.drawRange.start;
+    //     obj.drawRange.count = json.drawRange.count === null ? Infinity : json.drawRange.count;
+    // }
+
     obj.groups = json.groups;
-    obj.index = json.index;
+    // obj.index = json.index;
     obj.morphAttributes = json.morphAttributes;
     obj.name = json.name;
     obj.parameters = json.parameters;
-    obj.type = json.type;
+    // obj.type = json.type;
     obj.userData = json.userData;
     obj.uuid = json.uuid;
 

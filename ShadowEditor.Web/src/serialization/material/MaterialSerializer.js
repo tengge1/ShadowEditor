@@ -103,7 +103,11 @@ MaterialSerializer.prototype.fromJSON = function (json, parent) {
     obj.clipIntersection = json.clipIntersection;
     obj.clipShadow = json.clipShadow;
     obj.clippingPlanes = json.clippingPlanes;
-    obj.color = json.color;
+
+    if (json.color) {
+        obj.color = new THREE.Color(json.color);
+    }
+
     obj.colorWrite = json.colorWrite;
     obj.depthFunc = json.depthFunc;
     obj.depthTest = json.depthTest;
@@ -112,7 +116,11 @@ MaterialSerializer.prototype.fromJSON = function (json, parent) {
     obj.displacementMap = json.displacementMap;
     obj.displacementScale = json.displacementScale;
     obj.dithering = json.dithering;
-    obj.emissive = json.emissive;
+
+    if (json.emissive) {
+        obj.emissive = new THREE.Color(json.emissive);
+    }
+
     obj.emissiveIntensity = json.emissiveIntensity;
     obj.emissiveMap = json.emissiveMap;
     obj.envMap = json.envMap;
@@ -130,7 +138,11 @@ MaterialSerializer.prototype.fromJSON = function (json, parent) {
     obj.morphTargets = json.morphTargets;
     obj.name = json.name;
     obj.normalMap = json.normalMap;
-    obj.normalScale = json.normalScale;
+
+    if (json.normalScale) {
+        obj.normalScale = new THREE.Vector2().copy(json.normalScale);
+    }
+
     obj.opacity = json.opacity;
     obj.overdraw = json.overdraw;
     obj.polygonOffset = json.polygonOffset;
@@ -145,7 +157,7 @@ MaterialSerializer.prototype.fromJSON = function (json, parent) {
     obj.side = json.side;
     obj.skinning = json.skinning;
     obj.transparent = json.transparent;
-    obj.type = json.type;
+    // obj.type = json.type;
     obj.userData = json.userData;
     obj.uuid = json.uuid;
     obj.vertexColors = json.vertexColors;
