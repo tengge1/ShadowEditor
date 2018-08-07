@@ -4,6 +4,7 @@ import BaseSerializer from './BaseSerializer';
 import Object3DSerializer from './core/Object3DSerializer';
 import SceneSerializer from './core/SceneSerializer';
 import MeshSerializer from './core/MeshSerializer';
+import GroupSerializer from './core/GroupSerializer';
 
 // app
 import ConfigSerializer from './app/ConfigSerializer';
@@ -73,8 +74,9 @@ Converter.prototype.toJSON = function (app) {
             case 'Scene':
                 json = (new SceneSerializer()).toJSON(obj);
                 break;
-            // case 'Group':
-            //     break;
+            case 'Group':
+                json = (new GroupSerializer()).toJSON(obj);
+                break;
             case 'Mesh':
                 json = (new MeshSerializer()).toJSON(obj);
                 break;
@@ -160,6 +162,7 @@ Converter.prototype.fromJson = function (app, json) {
      */
     function parseChildren(json, parent, list) {
         if (json.children) {
+            debugger
             json.children.forEach(n => {
                 var objJson = list.filter(o => o.uuid === n)[0];
                 if (objJson == null) {
