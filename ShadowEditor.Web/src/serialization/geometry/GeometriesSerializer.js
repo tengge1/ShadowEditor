@@ -49,16 +49,16 @@ var Serializers = {
 };
 
 /**
- * BufferGeometriesSerializer
+ * GeometriesSerializer
  */
 function BufferGeometriesSerializer() {
     BaseSerializer.call(this);
 }
 
-BufferGeometriesSerializer.prototype = Object.create(BaseSerializer.prototype);
-BufferGeometriesSerializer.prototype.constructor = BufferGeometriesSerializer;
+GeometriesSerializer.prototype = Object.create(BaseSerializer.prototype);
+GeometriesSerializer.prototype.constructor = GeometriesSerializer;
 
-BufferGeometriesSerializer.prototype.toJSON = function (obj) {
+GeometriesSerializer.prototype.toJSON = function (obj) {
     var json = null;
 
     if (obj instanceof THREE.BoxBufferGeometry) {
@@ -104,21 +104,21 @@ BufferGeometriesSerializer.prototype.toJSON = function (obj) {
     } else if (obj instanceof THREE.TubeBufferGeometry) {
         json = (new TubeBufferGeometrySerializer()).toJSON(obj);
     } else {
-        console.warn(`BufferGeometriesSerializer: 未知Geometry类型 ${obj.type}`);
+        console.warn(`GeometriesSerializer: 未知Geometry类型 ${obj.type}`);
     }
 
     return json;
 };
 
-BufferGeometriesSerializer.prototype.fromJSON = function (json) {
+GeometriesSerializer.prototype.fromJSON = function (json) {
     var generator = json.metadata.generator;
 
     if (Serializers[generator] === undefined) {
-        console.warn(`BufferGeometriesSerializer: 不存在 ${generator} 的反序列化器`);
+        console.warn(`GeometriesSerializer: 不存在 ${generator} 的反序列化器`);
         return null;
     }
 
     return (new (Serializers[generator])()).fromJSON(json);
 };
 
-export default BufferGeometriesSerializer;
+export default GeometriesSerializer;
