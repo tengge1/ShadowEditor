@@ -23,6 +23,31 @@ import TorusBufferGeometrySerializer from './TorusBufferGeometrySerializer';
 import TorusKnotBufferGeometrySerializer from './TorusKnotBufferGeometrySerializer';
 import TubeBufferGeometrySerializer from './TubeBufferGeometrySerializer';
 
+var Serializers = {
+    'BoxBufferGeometrySerializer': BoxBufferGeometrySerializer,
+    'CircleBufferGeometrySerializer': CircleBufferGeometrySerializer,
+    'ConeBufferGeometrySerializer': ConeBufferGeometrySerializer,
+    'CylinderBufferGeometrySerializer': CylinderBufferGeometrySerializer,
+    'DodecahedronBufferGeometrySerializer': DodecahedronBufferGeometrySerializer,
+    'ExtrudeBufferGeometrySerializer': ExtrudeBufferGeometrySerializer,
+    'IcosahedronBufferGeometrySerializer': IcosahedronBufferGeometrySerializer,
+    'InstancedBufferGeometrySerializer': InstancedBufferGeometrySerializer,
+    'LatheBufferGeometrySerializer': LatheBufferGeometrySerializer,
+    'OctahedronBufferGeometrySerializer': OctahedronBufferGeometrySerializer,
+    'ParametricBufferGeometrySerializer': ParametricBufferGeometrySerializer,
+    'PlaneBufferGeometrySerializer': PlaneBufferGeometrySerializer,
+    'PolyhedronBufferGeometrySerializer': PolyhedronBufferGeometrySerializer,
+    'RingBufferGeometrySerializer': RingBufferGeometrySerializer,
+    'ShapeBufferGeometrySerializer': ShapeBufferGeometrySerializer,
+    'SphereBufferGeometrySerializer': SphereBufferGeometrySerializer,
+    'TeapotBufferGeometrySerializer': TeapotBufferGeometrySerializer,
+    'TetrahedronBufferGeometrySerializer': TetrahedronBufferGeometrySerializer,
+    'TextBufferGeometrySerializer': TextBufferGeometrySerializer,
+    'TorusBufferGeometrySerializer': TorusBufferGeometrySerializer,
+    'TorusKnotBufferGeometrySerializer': TorusKnotBufferGeometrySerializer,
+    'TubeBufferGeometrySerializer': TubeBufferGeometrySerializer
+};
+
 /**
  * BufferGeometriesSerializer
  */
@@ -86,55 +111,14 @@ BufferGeometriesSerializer.prototype.toJSON = function (obj) {
 };
 
 BufferGeometriesSerializer.prototype.fromJSON = function (json) {
-    var obj = null;
+    var generator = json.metadata.generator;
 
-    if (json.type === 'BoxBufferGeometry') {
-        obj = (new BoxBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'CircleBufferGeometry') {
-        obj = (new CircleBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'ConeBufferGeometry') {
-        obj = (new ConeBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'CylinderBufferGeometry') {
-        obj = (new CylinderBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'DodecahedronBufferGeometry') {
-        obj = (new DodecahedronBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'ExtrudeBufferGeometry') {
-        obj = (new ExtrudeBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'IcosahedronBufferGeometry') {
-        obj = (new IcosahedronBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'InstancedBufferGeometry') {
-        obj = (new InstancedBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'LatheBufferGeometry') {
-        obj = (new LatheBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'OctahedronBufferGeometry') {
-        obj = (new OctahedronBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'ParametricBufferGeometry') {
-        obj = (new ParametricBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'PlaneBufferGeometry') {
-        obj = (new PlaneBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'RingBufferGeometry') {
-        obj = (new RingBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'ShapeBufferGeometry') {
-        obj = (new ShapeBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'SphereBufferGeometry') {
-        obj = (new SphereBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'TeapotBufferGeometry') {
-        obj = (new TeapotBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'TetrahedronBufferGeometry') {
-        obj = (new TetrahedronBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'TextBufferGeometry') {
-        obj = (new TextBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'TorusBufferGeometry') {
-        obj = (new TorusBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'TorusKnotBufferGeometry') {
-        obj = (new TorusKnotBufferGeometrySerializer()).fromJSON(json);
-    } else if (json.type === 'TubeBufferGeometry') {
-        obj = (new TubeBufferGeometrySerializer()).fromJSON(json);
-    } else {
-        console.warn(`BufferGeometriesSerializer: 无法反序列化 ${obj.type}`);
+    if (Serializers[generator] === undefined) {
+        console.warn(`BufferGeometriesSerializer: 不存在 ${generator} 的反序列化器`);
+        return null;
     }
 
-    return obj;
+    return (new (Serializers[generator])()).fromJSON(json);
 };
 
 export default BufferGeometriesSerializer;
