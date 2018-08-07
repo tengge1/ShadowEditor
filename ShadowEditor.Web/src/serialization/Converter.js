@@ -179,6 +179,7 @@ Converter.prototype.fromJson = function (app, json) {
 
     if (sceneJson) {
         scene = (new SceneSerializer()).fromJSON(sceneJson);
+        debugger
         parseChildren(sceneJson, scene, json);
     } else {
         console.warn(`Converter: 场景中不存在场景信息。`);

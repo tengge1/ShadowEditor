@@ -18,14 +18,21 @@ MeshSerializer.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON.call(this, obj);
 
     json.drawMode = obj.drawMode;
-    json.geometry = (new BufferGeometriesSerializer()).toJSON.call(this, obj.geometry);
-    json.material = (new MaterialsSerializer()).toJSON.call(this, obj.material);
+    json.geometry = (new BufferGeometriesSerializer()).toJSON(obj.geometry);
+    json.material = (new MaterialsSerializer()).toJSON(obj.material);
 
     return json;
 };
 
 MeshSerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new Mesh() : parent;
+    var geometry, material;
+
+    if (parent === undefined) {
+        geometry = (new BufferGeometriesSerializer()).fromJSON(json.geometry);
+        material = (new MaterialsSerializer()).fromJSON(json.material);
+    }
+
+    var obj = parent === undefined ? new Mesh(geometry, material) : parent;
 
     Object3DSerializer.prototype.fromJSON.call(this, json, obj);
 

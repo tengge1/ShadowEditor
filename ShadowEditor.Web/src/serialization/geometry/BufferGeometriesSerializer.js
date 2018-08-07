@@ -37,47 +37,47 @@ BufferGeometriesSerializer.prototype.toJSON = function (obj) {
     var json = null;
 
     if (obj instanceof THREE.BoxBufferGeometry) {
-        json = (new BoxBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new BoxBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.CircleBufferGeometry) {
-        json = (new CircleBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new CircleBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.ConeBufferGeometry) {
-        json = (new ConeBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new ConeBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.CylinderBufferGeometry) {
-        json = (new CylinderBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new CylinderBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.DodecahedronBufferGeometry) {
-        json = (new DodecahedronBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new DodecahedronBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.ExtrudeBufferGeometry) {
-        json = (new ExtrudeBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new ExtrudeBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.IcosahedronBufferGeometry) {
-        json = (new IcosahedronBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new IcosahedronBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.InstancedBufferGeometry) {
-        json = (new InstancedBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new InstancedBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.LatheBufferGeometry) {
-        json = (new LatheBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new LatheBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.OctahedronBufferGeometry) {
-        json = (new OctahedronBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new OctahedronBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.ParametricBufferGeometry) {
-        json = (new ParametricBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new ParametricBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.PlaneBufferGeometry) {
-        json = (new PlaneBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new PlaneBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.RingBufferGeometry) {
-        json = (new RingBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new RingBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.ShapeBufferGeometry) {
-        json = (new ShapeBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new ShapeBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.SphereBufferGeometry) {
-        json = (new SphereBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new SphereBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.TeapotBufferGeometry) {
-        json = (new TeapotBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new TeapotBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.TetrahedronBufferGeometry) {
-        json = (new TetrahedronBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new TetrahedronBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.TextBufferGeometry) {
-        json = (new TextBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new TextBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.TorusBufferGeometry) {
-        json = (new TorusBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new TorusBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.TorusKnotBufferGeometry) {
-        json = (new TorusKnotBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new TorusKnotBufferGeometrySerializer()).toJSON(obj);
     } else if (obj instanceof THREE.TubeBufferGeometry) {
-        json = (new TubeBufferGeometrySerializer()).toJSON.call(this, obj);
+        json = (new TubeBufferGeometrySerializer()).toJSON(obj);
     } else {
         console.warn(`BufferGeometriesSerializer: 未知Geometry类型 ${obj.type}`);
     }
@@ -86,7 +86,55 @@ BufferGeometriesSerializer.prototype.toJSON = function (obj) {
 };
 
 BufferGeometriesSerializer.prototype.fromJSON = function (json, parent) {
+    var obj = null;
 
+    if (json.type === 'BoxBufferGeometry') {
+        obj = (new BoxBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'CircleBufferGeometry') {
+        obj = (new CircleBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'ConeBufferGeometry') {
+        obj = (new ConeBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'CylinderBufferGeometry') {
+        obj = (new CylinderBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'DodecahedronBufferGeometry') {
+        obj = (new DodecahedronBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'ExtrudeBufferGeometry') {
+        obj = (new ExtrudeBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'IcosahedronBufferGeometry') {
+        obj = (new IcosahedronBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'InstancedBufferGeometry') {
+        obj = (new InstancedBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'LatheBufferGeometry') {
+        obj = (new LatheBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'OctahedronBufferGeometry') {
+        obj = (new OctahedronBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'ParametricBufferGeometry') {
+        obj = (new ParametricBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'PlaneBufferGeometry') {
+        obj = (new PlaneBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'RingBufferGeometry') {
+        obj = (new RingBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'ShapeBufferGeometry') {
+        obj = (new ShapeBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'SphereBufferGeometry') {
+        obj = (new SphereBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'TeapotBufferGeometry') {
+        obj = (new TeapotBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'TetrahedronBufferGeometry') {
+        obj = (new TetrahedronBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'TextBufferGeometry') {
+        obj = (new TextBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'TorusBufferGeometry') {
+        obj = (new TorusBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'TorusKnotBufferGeometry') {
+        obj = (new TorusKnotBufferGeometrySerializer()).fromJSON(json);
+    } else if (json.type === 'TubeBufferGeometry') {
+        obj = (new TubeBufferGeometrySerializer()).fromJSON(json);
+    } else {
+        console.warn(`BufferGeometriesSerializer: 无法反序列化 ${obj.type}`);
+    }
+
+    return obj;
 };
 
 export default BufferGeometriesSerializer;
