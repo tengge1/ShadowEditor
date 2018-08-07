@@ -14,8 +14,8 @@ RectAreaLightSerializer.prototype.constructor = RectAreaLightSerializer;
 RectAreaLightSerializer.prototype.toJSON = function (obj) {
     var json = LightSerializer.prototype.toJSON.call(this, obj);
 
-    json.width = item.width;
-    json.height = item.height;
+    json.width = obj.width;
+    json.height = obj.height;
 
     return json;
 };

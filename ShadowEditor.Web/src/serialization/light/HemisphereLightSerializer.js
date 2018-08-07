@@ -14,8 +14,8 @@ HemisphereLightSerializer.prototype.constructor = HemisphereLightSerializer;
 HemisphereLightSerializer.prototype.toJSON = function (obj) {
     var json = LightSerializer.prototype.toJSON.call(this, obj);
 
-    json.skyColor = item.skyColor;
-    json.groundColor = item.groundColor;
+    json.skyColor = obj.skyColor;
+    json.groundColor = obj.groundColor;
 
     return json;
 };

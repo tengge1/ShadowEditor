@@ -14,8 +14,8 @@ PointLightSerializer.prototype.constructor = PointLightSerializer;
 PointLightSerializer.prototype.toJSON = function (obj) {
     var json = LightSerializer.prototype.toJSON.call(this, obj);
 
-    json.distance = item.distance;
-    json.decay = item.decay;
+    json.distance = obj.distance;
+    json.decay = obj.decay;
 
     return json;
 };

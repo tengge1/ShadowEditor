@@ -14,10 +14,10 @@ SpotLightSerializer.prototype.constructor = SpotLightSerializer;
 SpotLightSerializer.prototype.toJSON = function (obj) {
     var json = LightSerializer.prototype.toJSON.call(this, obj);
 
-    json.distance = item.distance;
-    json.angle = item.angle;
-    json.penumbra = item.penumbra;
-    json.decay = item.decay;
+    json.distance = obj.distance;
+    json.angle = obj.angle;
+    json.penumbra = obj.penumbra;
+    json.decay = obj.decay;
 
     return json;
 };

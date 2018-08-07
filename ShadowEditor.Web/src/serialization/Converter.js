@@ -14,9 +14,11 @@ import OrthographicCameraSerializer from './camera/OrthographicCameraSerializer'
 import PerspectiveCameraSerializer from './camera/PerspectiveCameraSerializer';
 
 // light
+import AmbientLightSerializer from './light/AmbientLightSerializer';
+import DirectionalLightSerializer from './light/DirectionalLightSerializer';
+import HemisphereLightSerializer from './light/HemisphereLightSerializer';
 import PointLightSerializer from './light/PointLightSerializer';
 import SpotLightSerializer from './light/SpotLightSerializer';
-import HemisphereLightSerializer from './light/HemisphereLightSerializer';
 import RectAreaLightSerializer from './light/RectAreaLightSerializer';
 
 /**
@@ -78,19 +80,24 @@ Converter.prototype.toJSON = function (app) {
                 break;
             // case 'Sprite':
             //     break;
-            // case 'PointLight':
-            //     json = (new PointLightSerializer()).toJSON(obj);
-            //     break;
-            // case 'SpotLight':
-            //     json = (new SpotLightSerializer()).toJSON(obj);
-            //     break;
-            // case 'DirectionalLight':
-            //     break;
-            // case 'HemisphereLight':
-            //     json = (new HemisphereLightSerializer()).toJSON(obj);
-            //     break;
-            // case 'AmbientLight':
-            //     break;
+            case 'AmbientLight':
+                json = (new AmbientLightSerializer()).toJSON(obj);
+                break;
+            case 'DirectionalLight':
+                json = (new DirectionalLightSerializer()).toJSON(obj);
+                break;
+            case 'HemisphereLight':
+                json = (new HemisphereLightSerializer()).toJSON(obj);
+                break;
+            case 'PointLight':
+                json = (new PointLightSerializer()).toJSON(obj);
+                break;
+            case 'RectAreaLight':
+                json = (new RectAreaLightSerializer()).toJSON(obj);
+                break;
+            case 'SpotLight':
+                json = (new SpotLightSerializer()).toJSON(obj);
+                break;
         }
         if (json) {
             list.push(json);

@@ -14,8 +14,8 @@ LightSerializer.prototype.constructor = LightSerializer;
 LightSerializer.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON.call(this, obj);
 
-    json.color = item.color;
-    json.intensity = item.intensity;
+    json.color = obj.color;
+    json.intensity = obj.intensity;
 
     return json;
 };
