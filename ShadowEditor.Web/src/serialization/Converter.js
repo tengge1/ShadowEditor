@@ -67,6 +67,7 @@ Converter.prototype.toJSON = function (app) {
     // 场景
     app.editor.scene.traverse(function (obj) {
         var json = null;
+        debugger
         switch (obj.constructor.name) {
             case 'Scene':
                 json = (new SceneSerializer()).toJSON(obj);

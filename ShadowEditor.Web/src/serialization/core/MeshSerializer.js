@@ -18,8 +18,8 @@ MeshSerializer.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON.call(this, obj);
 
     json.drawMode = obj.drawMode;
-    json.geometry = (new BufferGeometriesSerializer()).toJSON(obj.geometry);
-    json.material = (new MaterialsSerializer()).toJSON(obj.material);
+    json.geometry = (new BufferGeometriesSerializer()).toJSON.call(this, obj.geometry);
+    json.material = (new MaterialsSerializer()).toJSON.call(this, obj.material);
 
     return json;
 };

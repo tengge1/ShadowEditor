@@ -13,7 +13,8 @@ BufferGeometrySerializer.prototype.constructor = BufferGeometrySerializer;
 BufferGeometrySerializer.prototype.toJSON = function (obj) {
     var json = BaseSerializer.prototype.toJSON.call(this, obj);
 
-    json.attributes = obj.attributes;
+    // json.attributes太大，不要保存在Mongo
+    // json.attributes = obj.attributes;
     json.boundingBox = obj.boundingBox;
     json.boundingSphere = obj.boundingSphere;
     json.drawRange = obj.drawRange;
@@ -34,7 +35,7 @@ BufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
 
     BaseSerializer.prototype.fromJSON.call(this, obj);
 
-    obj.attributes = json.attributes;
+    // obj.attributes = json.attributes;
     obj.boundingBox = json.boundingBox;
     obj.boundingSphere = json.boundingSphere;
     obj.drawRange = json.drawRange;
