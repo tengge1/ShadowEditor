@@ -25,7 +25,7 @@ TorusKnotBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
         json.parameters.q
     ) : parent;
 
-    BufferGeometrySerializer.prototype.fromJSON.call(this, obj);
+    BufferGeometrySerializer.prototype.fromJSON.call(this, json, obj);
 
     return obj;
 };

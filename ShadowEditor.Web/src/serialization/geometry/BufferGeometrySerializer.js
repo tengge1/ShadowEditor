@@ -33,7 +33,7 @@ BufferGeometrySerializer.prototype.toJSON = function (obj) {
 BufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.BufferGeometry() : parent;
 
-    BaseSerializer.prototype.fromJSON.call(this, obj);
+    BaseSerializer.prototype.fromJSON.call(this, json, obj);
 
     // obj.attributes = json.attributes;
     obj.boundingBox = json.boundingBox;

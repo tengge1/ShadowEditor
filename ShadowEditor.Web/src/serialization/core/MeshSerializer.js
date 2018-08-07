@@ -32,7 +32,7 @@ MeshSerializer.prototype.fromJSON = function (json, parent) {
         material = (new MaterialsSerializer()).fromJSON(json.material);
     }
 
-    var obj = parent === undefined ? new Mesh(geometry, material) : parent;
+    var obj = parent === undefined ? new THREE.Mesh(geometry, material) : parent;
 
     Object3DSerializer.prototype.fromJSON.call(this, json, obj);
 

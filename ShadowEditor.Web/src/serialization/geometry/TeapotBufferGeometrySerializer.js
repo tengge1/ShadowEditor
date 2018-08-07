@@ -20,7 +20,7 @@ TeapotBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
 
     // TODO
 
-    BufferGeometrySerializer.prototype.fromJSON.call(this, obj);
+    BufferGeometrySerializer.prototype.fromJSON.call(this, json, obj);
 
     return obj;
 };

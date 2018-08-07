@@ -24,7 +24,7 @@ TorusBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
         json.parameters.arc
     ) : parent;
 
-    BufferGeometrySerializer.prototype.fromJSON.call(this, obj);
+    BufferGeometrySerializer.prototype.fromJSON.call(this, json, obj);
 
     return obj;
 };
