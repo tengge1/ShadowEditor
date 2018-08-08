@@ -51,7 +51,7 @@ var Serializers = {
 /**
  * GeometriesSerializer
  */
-function BufferGeometriesSerializer() {
+function GeometriesSerializer() {
     BaseSerializer.call(this);
 }
 
