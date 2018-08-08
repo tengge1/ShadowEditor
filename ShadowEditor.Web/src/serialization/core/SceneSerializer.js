@@ -22,8 +22,8 @@ SceneSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-SceneSerializer.prototype.fromJSON = function (json) {
-    var obj = new THREE.Scene();
+SceneSerializer.prototype.fromJSON = function (json, parent) {
+    var obj = parent === undefined ? new THREE.Scene() : parent;
 
     Object3DSerializer.prototype.fromJSON(json, obj);
     obj.background = json.background == null ? null : new THREE.Color(json.background);

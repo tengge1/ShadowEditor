@@ -161,7 +161,7 @@ Converter.prototype.fromJson = function (app, json) {
      * @param {*} list 所有对象json数据列表
      */
     function parseChildren(json, parent, list) {
-        if (json.children) {
+        if (json.children && json.children.length > 0) {
             json.children.forEach(n => {
                 var objJson = list.filter(o => o.uuid === n)[0];
                 if (objJson == null) {

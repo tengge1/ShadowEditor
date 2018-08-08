@@ -41,7 +41,7 @@ BaseSerializer.prototype.fromJSON = function (json, parent) {
         return parent;
     }
 
-    return null;
+    return {};
 };
 
 export default BaseSerializer;
