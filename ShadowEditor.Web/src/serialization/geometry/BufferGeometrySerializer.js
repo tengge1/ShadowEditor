@@ -60,7 +60,7 @@ BufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
     obj.morphAttributes = json.morphAttributes;
     obj.name = json.name;
     obj.parameters = json.parameters;
-    // obj.type = json.type;
+    obj.type = json.type;
     obj.userData = json.userData;
     obj.uuid = json.uuid;
 
