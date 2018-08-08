@@ -1,6 +1,6 @@
 import BaseSerializer from '../BaseSerializer';
 import Object3DSerializer from './Object3DSerializer';
-import MeshSerializer from './MeshSerializer';
+import MaterialsSerializer from '../material/MaterialsSerializer';
 
 /**
  * Scene序列化器
@@ -17,7 +17,7 @@ SceneSerializer.prototype.toJSON = function (obj) {
 
     json.background = obj.background;
     json.fog = obj.fog;
-    json.overrideMaterial = obj.overrideMaterial;
+    json.overrideMaterial = obj.overrideMaterial == null ? null : (new MaterialsSerializer()).toJSON(obj.overrideMaterial);
 
     return json;
 };
@@ -26,10 +26,7 @@ SceneSerializer.prototype.fromJSON = function (json) {
     var obj = new THREE.Scene();
 
     Object3DSerializer.prototype.fromJSON(json, obj);
-
-    if (json.background) {
-        obj.background = new THREE.Color(json.background);
-    }
+    obj.background = json.background == null ? null : new THREE.Color(json.background);
 
     if (json.fog && json.fog.type === 'Fog') {
         obj.fog = new THREE.Fog(json.fog.color, json.fog.near, json.fog.far);
@@ -39,9 +36,7 @@ SceneSerializer.prototype.fromJSON = function (json) {
         console.warn(`SceneSerializer: unknown fog type ${json.fog.type}.`);
     }
 
-    if (json.overrideMaterial) {
-        obj.overrideMaterial = json.overrideMaterial.toJSON();
-    }
+    obj.overrideMaterial = json.overrideMaterial == null ? null : (new MaterialsSerializer()).fromJSON(json.overrideMaterial);
 
     return obj;
 };
