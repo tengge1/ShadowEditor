@@ -74,7 +74,7 @@ Converter.prototype.toJSON = function (app) {
             case 'Scene':
                 json = (new SceneSerializer()).toJSON(obj);
                 break;
-            case 'Group':
+            case 'Group': // 组跟Object3D完全相同
                 json = (new GroupSerializer()).toJSON(obj);
                 break;
             case 'Mesh':
@@ -161,31 +161,29 @@ Converter.prototype.fromJson = function (app, json) {
      * @param {*} list 所有对象json数据列表
      */
     function parseChildren(json, parent, list) {
-        if (json.children && json.children.length > 0) {
-            json.children.forEach(n => {
-                var objJson = list.filter(o => o.uuid === n)[0];
-                if (objJson == null) {
-                    console.warn(`Converter: 场景中不存在uuid为${n}的对象数据。`);
-                    return;
-                }
-                var obj = null;
-                if (objJson.metadata.generator === 'GroupSerializer') {
-                    obj = (new GroupSerializer()).fromJSON(objJson);
-                } else if (objJson.metadata.generator === 'MeshSerializer') {
-                    obj = (new MeshSerializer()).fromJSON(objJson);
-                } else {
-                    console.warn(`Converter: 不存在序列化${objJson.metadata.type}的反序列化器。`);
-                }
+        json.children.forEach(n => {
+            var objJson = list.filter(o => o.uuid === n)[0];
+            if (objJson == null) {
+                console.warn(`Converter: 场景中不存在uuid为${n}的对象数据。`);
+                return;
+            }
+            var obj = null;
+            if (objJson.metadata.generator === 'GroupSerializer') {
+                obj = (new GroupSerializer()).fromJSON(objJson);
+            } else if (objJson.metadata.generator === 'MeshSerializer') {
+                obj = (new MeshSerializer()).fromJSON(objJson);
+            } else {
+                console.warn(`Converter: 不存在序列化${objJson.metadata.type}的反序列化器。`);
+            }
 
-                if (obj) {
-                    parent.add(obj);
-                }
+            if (obj) {
+                parent.add(obj);
+            }
 
-                if (objJson && objJson.children && obj) {
-                    parseChildren(objJson, obj, list);
-                }
-            });
-        }
+            if (objJson && objJson.children && objJson.children.length > 0 && obj) {
+                parseChildren(objJson, obj, list);
+            }
+        });
     }
 
     if (sceneJson) {
