@@ -162,7 +162,6 @@ Converter.prototype.fromJson = function (app, json) {
      */
     function parseChildren(json, parent, list) {
         if (json.children) {
-            debugger
             json.children.forEach(n => {
                 var objJson = list.filter(o => o.uuid === n)[0];
                 if (objJson == null) {
@@ -170,7 +169,9 @@ Converter.prototype.fromJson = function (app, json) {
                     return;
                 }
                 var obj = null;
-                if (objJson.metadata.generator === 'MeshSerializer') {
+                if (objJson.metadata.generator === 'GroupSerializer') {
+                    obj = (new GroupSerializer()).fromJSON(objJson);
+                } else if (objJson.metadata.generator === 'MeshSerializer') {
                     obj = (new MeshSerializer()).fromJSON(objJson);
                 } else {
                     console.warn(`Converter: 不存在序列化${objJson.metadata.type}的反序列化器。`);
