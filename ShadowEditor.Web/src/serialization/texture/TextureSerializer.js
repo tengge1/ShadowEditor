@@ -49,14 +49,13 @@ TextureSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.Texture() : parent;
 
     obj.anisotropy = json.anisotropy;
-    obj.center = json.center;
+    obj.center.copy(json.center);
     obj.encoding = json.encoding;
     obj.flipY = json.flipY;
     obj.format = json.format;
     obj.generateMipmaps = json.generateMipmaps;
-    obj.id = json.id;
     if (json.image) {
-        var img = document.createElement(img);
+        var img = document.createElement('img');
         img.src = json.image.src;
         img.onload = function () {
             obj.needsUpdate = true;
@@ -65,14 +64,14 @@ TextureSerializer.prototype.fromJSON = function (json, parent) {
     }
     obj.magFilter = json.magFilter;
     obj.mapping = json.mapping;
-    obj.matrix = json.matrix;
+    obj.matrix.copy(json.matrix);
     obj.matrixAutoUpdate = json.matrixAutoUpdate;
     obj.minFilter = json.minFilter;
     obj.mipmaps = json.mipmaps;
     obj.name = json.name;
-    obj.offset = json.offset;
+    obj.offset.copy(json.offset);
     obj.premultiplyAlpha = json.premultiplyAlpha;
-    obj.repeat = json.repeat;
+    obj.repeat.copy(json.repeat);
     obj.rotation = json.rotation;
     obj.type = json.type;
     obj.unpackAlignment = json.unpackAlignment;

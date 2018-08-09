@@ -26,24 +26,22 @@ SpriteSerializer.prototype.toJSON = function (obj) {
 };
 
 SpriteSerializer.prototype.fromJSON = function (json, parent) {
-    var geometry, material;
+    var material;
 
     if (parent === undefined) {
-        if (json.geometry == null) {
-            console.warn(`SpriteSerializer: ${json.name} json.geometry未定义。`);
-            return null;
-        }
         if (json.material == null) {
             console.warn(`SpriteSerializer: ${json.name} json.material未定义。`);
             return null;
         }
-        geometry = (new GeometriesSerializer()).fromJSON(json.geometry);
         material = (new MaterialsSerializer()).fromJSON(json.material);
     }
 
-    var obj = parent === undefined ? new THREE.Mesh(geometry, material) : parent;
+    var obj = parent === undefined ? new THREE.Sprite(material) : parent;
 
     Object3DSerializer.prototype.fromJSON.call(this, json, obj);
+
+    obj.center.copy(json.center);
+    obj.z = json.z;
 
     return obj;
 };
