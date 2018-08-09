@@ -24,28 +24,28 @@ import SpriteCanvasMaterialSerializer from './SpriteCanvasMaterialSerializer';
 import SpriteMaterialSerializer from './SpriteMaterialSerializer';
 
 var Serializers = {
-    'LineBasicMaterialSerializer': LineBasicMaterialSerializer,
-    'LineDashedMaterialSerializer': LineDashedMaterialSerializer,
-    'MeshBasicMaterialSerializer': MeshBasicMaterialSerializer,
-    'MeshDepthMaterialSerializer': MeshDepthMaterialSerializer,
-    'MeshDistanceMaterialSerializer': MeshDistanceMaterialSerializer,
-    'MeshFaceMaterialSerializer': MeshFaceMaterialSerializer,
-    'MeshLambertMaterialSerializer': MeshLambertMaterialSerializer,
-    'MeshNormalMaterialSerializer': MeshNormalMaterialSerializer,
-    'MeshPhongMaterialSerializer': MeshPhongMaterialSerializer,
-    'MeshPhysicalMaterialSerializer': MeshPhysicalMaterialSerializer,
-    'MeshStandardMaterialSerializer': MeshStandardMaterialSerializer,
-    'MeshToonMaterialSerializer': MeshToonMaterialSerializer,
-    'MultiMaterialSerializer': MultiMaterialSerializer,
-    'ParticleBasicMaterialSerializer': ParticleBasicMaterialSerializer,
-    'ParticleSystemMaterialSerializer': ParticleSystemMaterialSerializer,
-    'PointCloudMaterialSerializer': PointCloudMaterialSerializer,
-    'PointsMaterialSerializer': PointsMaterialSerializer,
-    'RawShaderMaterialSerializer': RawShaderMaterialSerializer,
-    'ShaderMaterialSerializer': ShaderMaterialSerializer,
-    'ShadowMaterialSerializer': ShadowMaterialSerializer,
-    'SpriteCanvasMaterialSerializer': SpriteCanvasMaterialSerializer,
-    'SpriteMaterialSerializer': SpriteMaterialSerializer
+    'LineBasicMaterial': LineBasicMaterialSerializer,
+    'LineDashedMaterial': LineDashedMaterialSerializer,
+    'MeshBasicMaterial': MeshBasicMaterialSerializer,
+    'MeshDepthMaterial': MeshDepthMaterialSerializer,
+    'MeshDistanceMaterial': MeshDistanceMaterialSerializer,
+    'MeshFaceMaterial': MeshFaceMaterialSerializer,
+    'MeshLambertMaterial': MeshLambertMaterialSerializer,
+    'MeshNormalMaterial': MeshNormalMaterialSerializer,
+    'MeshPhongMaterial': MeshPhongMaterialSerializer,
+    'MeshPhysicalMaterial': MeshPhysicalMaterialSerializer,
+    'MeshStandardMaterial': MeshStandardMaterialSerializer,
+    'MeshToonMaterial': MeshToonMaterialSerializer,
+    'MultiMaterial': MultiMaterialSerializer,
+    'ParticleBasicMaterial': ParticleBasicMaterialSerializer,
+    'ParticleSystemMaterial': ParticleSystemMaterialSerializer,
+    'PointCloudMaterial': PointCloudMaterialSerializer,
+    'PointsMaterial': PointsMaterialSerializer,
+    'RawShaderMaterial': RawShaderMaterialSerializer,
+    'ShaderMaterial': ShaderMaterialSerializer,
+    'ShadowMaterial': ShadowMaterialSerializer,
+    'SpriteCanvasMaterial': SpriteCanvasMaterialSerializer,
+    'SpriteMaterial': SpriteMaterialSerializer
 };
 
 /**
@@ -59,68 +59,27 @@ MaterialsSerializer.prototype = Object.create(BaseSerializer.prototype);
 MaterialsSerializer.prototype.constructor = MaterialsSerializer;
 
 MaterialsSerializer.prototype.toJSON = function (obj) {
-    var json = null;
+    var serializer = obj[obj.type];
 
-    if (obj instanceof THREE.LineBasicMaterial) {
-        json = (new LineBasicMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.LineDashedMaterial) {
-        json = (new LineDashedMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.MeshBasicMaterial) {
-        json = (new MeshBasicMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.MeshDepthMaterial) {
-        json = (new MeshDepthMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.MeshDistanceMaterial) {
-        json = (new MeshDistanceMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.MeshFaceMaterial) {
-        json = (new MeshFaceMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.MeshLambertMaterial) {
-        json = (new MeshLambertMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.MeshNormalMaterial) {
-        json = (new MeshNormalMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.MeshPhongMaterial) {
-        json = (new MeshPhongMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.MeshPhysicalMaterial) {
-        json = (new MeshPhysicalMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.MeshStandardMaterial) {
-        json = (new MeshStandardMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.MeshToonMaterial) {
-        json = (new MeshToonMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.MultiMaterial) {
-        json = (new MultiMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.ParticleBasicMaterial) {
-        json = (new ParticleBasicMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.ParticleSystemMaterial) {
-        json = (new ParticleSystemMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.PointCloudMaterial) {
-        json = (new PointCloudMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.PointsMaterial) {
-        json = (new PointsMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.RawShaderMaterial) {
-        json = (new RawShaderMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.ShaderMaterial) {
-        json = (new ShaderMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.ShadowMaterial) {
-        json = (new ShadowMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.SpriteCanvasMaterial) {
-        json = (new SpriteCanvasMaterialSerializer()).toJSON(obj);
-    } else if (obj instanceof THREE.SpriteMaterial) {
-        json = (new SpriteMaterialSerializer()).toJSON(obj);
-    } else {
-        console.warn(`MaterialsSerializer: 不支持的材质类型${obj.type}。`);
+    if (serializer === undefined) {
+        console.warn(`MaterialsSerializer: 无法序列化${obj.type}。`);
+        return null;
     }
 
-    return json;
+    return (new serializer()).toJSON(obj);
 };
 
 MaterialsSerializer.prototype.fromJSON = function (json) {
     var generator = json.metadata.generator;
 
-    if (Serializers[generator] === undefined) {
-        console.warn(`MaterialsSerializer: 不存在 ${generator} 的反序列化器`);
+    var serializer = Serializers[generator.replace('Serializer', '')];
+
+    if (serializer === undefined) {
+        console.warn(`MaterialsSerializer: 不存在 ${generator} 的反序列化器。`);
         return null;
     }
 
-    return (new (Serializers[generator])()).fromJSON(json);
+    return (new serializer()).fromJSON(json);
 };
 
 export default MaterialsSerializer;
