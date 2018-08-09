@@ -28,7 +28,7 @@ TexturesSerializer.prototype = Object.create(BaseSerializer.prototype);
 TexturesSerializer.prototype.constructor = TexturesSerializer;
 
 TexturesSerializer.prototype.toJSON = function (obj) {
-    var serializer = Serializers[obj.type];
+    var serializer = Serializers[obj.constructor.name];
 
     if (serializer === undefined) {
         console.warn(`TexturesSerializer: 无法序列化${obj.type}。`);

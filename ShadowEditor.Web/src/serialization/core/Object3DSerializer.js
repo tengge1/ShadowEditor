@@ -23,16 +23,19 @@ Object3DSerializer.prototype.filter = function (obj) {
 Object3DSerializer.prototype.toJSON = function (obj) {
     var json = BaseSerializer.prototype.toJSON.call(this, obj);
 
-    json.type = obj.type;
-    json.uuid = obj.uuid;
     json.castShadow = obj.castShadow;
     json.children = obj.children.map(child => {
         return child.uuid;
     });
     json.frustumCulled = obj.frustumCulled;
+    json.layers = obj.layers;
     json.matrix = obj.matrix;
     json.matrixAutoUpdate = obj.matrixAutoUpdate;
+    json.matrixWorld = obj.matrixWorld;
+    json.matrixWorldNeedsUpdate = obj.matrixWorldNeedsUpdate;
+    json.modelViewMatrix = obj.modelViewMatrix;
     json.name = obj.name;
+    json.normalMatrix = obj.normalMatrix;
     json.parent = obj.parent == null ? null : obj.parent.uuid;
     json.position = obj.position;
     json.quaternion = {
@@ -50,8 +53,12 @@ Object3DSerializer.prototype.toJSON = function (obj) {
         order: obj.rotation.order
     };
     json.scale = obj.scale;
+    json.type = obj.type;
     json.up = obj.up;
     json.userData = obj.userData;
+    json.uuid = obj.uuid;
+    json.visible = obj.visible;
+    json.isObject3D = obj.isObject3D;
 
     return json;
 };
@@ -61,17 +68,14 @@ Object3DSerializer.prototype.fromJSON = function (json, parent) {
 
     BaseSerializer.prototype.fromJSON.call(this, json, obj);
 
+    obj.castShadow = json.castShadow;
+    obj.frustumCulled = json.frustumCulled;
     obj.type = json.type;
     obj.uuid = json.uuid;
-    obj.castShadow = json.castShadow;
-    // json.children = obj.children.map(child => {
-    //     return child.uuid;
-    // });
-    obj.frustumCulled = json.frustumCulled;
+
     obj.matrix.copy(json.matrix);
     obj.matrixAutoUpdate = json.matrixAutoUpdate;
     obj.name = json.name;
-    // obj.parent = obj.parent == null ? null : obj.parent.uuid;
     obj.position.copy(json.position);
     obj.quaternion.copy(json.quaternion);
     obj.receiveShadow = json.receiveShadow;
@@ -79,6 +83,7 @@ Object3DSerializer.prototype.fromJSON = function (json, parent) {
     obj.rotation.set(json.rotation.x, json.rotation.y, json.rotation.z, json.rotation.order);
     obj.scale.copy(json.scale);
     obj.up.copy(json.up);
+    obj.visible = json.visible;
     Object.assign(obj.userData, json.userData);
 
     return obj;

@@ -5,6 +5,7 @@ import Object3DSerializer from './core/Object3DSerializer';
 import SceneSerializer from './core/SceneSerializer';
 import MeshSerializer from './core/MeshSerializer';
 import GroupSerializer from './core/GroupSerializer';
+import SpriteSerializer from './core/SpriteSerializer';
 
 // app
 import ConfigSerializer from './app/ConfigSerializer';
@@ -80,8 +81,9 @@ Converter.prototype.toJSON = function (app) {
             case 'Mesh':
                 json = (new MeshSerializer()).toJSON(obj);
                 break;
-            // case 'Sprite':
-            //     break;
+            case 'Sprite':
+                json = (new SpriteSerializer()).toJSON(obj);
+                break;
             case 'AmbientLight':
                 json = (new AmbientLightSerializer()).toJSON(obj);
                 break;
@@ -172,6 +174,8 @@ Converter.prototype.fromJson = function (app, json) {
                 obj = (new GroupSerializer()).fromJSON(objJson);
             } else if (objJson.metadata.generator === 'MeshSerializer') {
                 obj = (new MeshSerializer()).fromJSON(objJson);
+            } else if (objJson.metadata.generator === 'SpriteSerializer') {
+                obj = (new SpriteSerializer()).fromJSON(objJson);
             } else {
                 console.warn(`Converter: 不存在序列化${objJson.metadata.type}的反序列化器。`);
             }

@@ -12,7 +12,9 @@ SpriteMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);
 SpriteMaterialSerializer.prototype.constructor = SpriteMaterialSerializer;
 
 SpriteMaterialSerializer.prototype.toJSON = function (obj) {
-    return MaterialSerializer.prototype.toJSON.call(this, obj);
+    var json = MaterialSerializer.prototype.toJSON.call(this, obj);
+    json.isSpriteMaterial = true;
+    return json;
 };
 
 SpriteMaterialSerializer.prototype.fromJSON = function (json, parent) {
