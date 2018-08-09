@@ -16,9 +16,15 @@ TeapotBufferGeometrySerializer.prototype.toJSON = function (obj) {
 };
 
 TeapotBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.TeapotBufferGeometry() : parent;
-
-    // TODO
+    var obj = parent === undefined ? new THREE.TeapotBufferGeometry(
+        json.size,
+        json.segments,
+        json.bottom,
+        json.lid,
+        json.body,
+        json.fitLid,
+        json.blinn
+    ) : parent;
 
     BufferGeometrySerializer.prototype.fromJSON.call(this, json, obj);
 
