@@ -31,7 +31,7 @@ AddIcosahedronEvent.prototype.onAddIcosahedron = function () {
     var radius = 1;
     var detail = 2;
 
-    var geometry = new THREE.IcosahedronGeometry(radius, detail);
+    var geometry = new THREE.IcosahedronBufferGeometry(radius, detail);
     var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
     mesh.name = '二十面体' + ID++;
 
