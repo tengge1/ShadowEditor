@@ -14,7 +14,8 @@ var Serializers = {
     'CubeTexture': CubeTextureSerializer,
     'DataTexture': DataTextureSerializer,
     'DepthTexture': DepthTextureSerializer,
-    'VideoTexture': VideoTextureSerializer
+    'VideoTexture': VideoTextureSerializer,
+    'Texture': TextureSerializer
 };
 
 /**
