@@ -19,8 +19,9 @@ TextureSerializer.prototype.toJSON = function (obj) {
     json.flipY = obj.flipY;
     json.format = obj.format;
     json.generateMipmaps = obj.generateMipmaps;
-    json.id = obj.id;
-    // json.image = obj.image; // 不同类型Texture需要根据自身情况处理
+    json.image = obj.image == null ? null : {
+        src: obj.image.src
+    };
     json.magFilter = obj.magFilter;
     json.mapping = obj.mapping;
     json.matrix = obj.matrix;
@@ -54,7 +55,14 @@ TextureSerializer.prototype.fromJSON = function (json, parent) {
     obj.format = json.format;
     obj.generateMipmaps = json.generateMipmaps;
     obj.id = json.id;
-    obj.image = json.image;
+    if (json.image) {
+        var img = document.createElement(img);
+        img.src = json.image.src;
+        img.onload = function () {
+            obj.needsUpdate = true;
+        };
+        obj.image = img;
+    }
     obj.magFilter = json.magFilter;
     obj.mapping = json.mapping;
     obj.matrix = json.matrix;
@@ -73,7 +81,7 @@ TextureSerializer.prototype.fromJSON = function (json, parent) {
     obj.wrapS = json.wrapS;
     obj.wrapT = json.wrapT;
     obj.isTexture = json.isTexture;
-    obj.needsUpdate = json.needsUpdate;
+    obj.needsUpdate = true;
 
     return obj;
 };
