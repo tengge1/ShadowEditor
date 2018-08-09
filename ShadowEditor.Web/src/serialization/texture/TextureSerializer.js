@@ -19,9 +19,25 @@ TextureSerializer.prototype.toJSON = function (obj) {
     json.flipY = obj.flipY;
     json.format = obj.format;
     json.generateMipmaps = obj.generateMipmaps;
-    json.image = obj.image == null ? null : {
-        src: obj.image.src
-    };
+
+    if (obj.image && obj.image.tagName.toLowerCase() === 'img') { // img
+        json.image = {
+            tagName: 'img',
+            src: obj.image.src,
+            width: obj.image.width,
+            height: obj.image.height
+        };
+    } else if (obj.image && obj.image.tagName.toLowerCase() === 'canvas') { // canvas
+        json.image = {
+            tagName: 'canvas',
+            src: obj.image.toDataURL(),
+            width: obj.image.width,
+            height: obj.image.height
+        };
+    } else {
+        json.image = null;
+    }
+
     json.magFilter = obj.magFilter;
     json.mapping = obj.mapping;
     json.matrix = obj.matrix;
@@ -54,14 +70,35 @@ TextureSerializer.prototype.fromJSON = function (json, parent) {
     obj.flipY = json.flipY;
     obj.format = json.format;
     obj.generateMipmaps = json.generateMipmaps;
-    if (json.image) {
+
+    if (json.image && json.image.tagName === 'img') {
         var img = document.createElement('img');
         img.src = json.image.src;
+        img.width = json.image.width;
+        img.height = json.image.height;
         img.onload = function () {
             obj.needsUpdate = true;
         };
         obj.image = img;
+    } else if (json.image && json.image.tagName === 'canvas') {
+        var canvas = document.createElement('canvas');
+        canvas.width = 256;
+        canvas.height = 256;
+        var ctx = canvas.getContext('2d');
+
+        var img = document.createElement('img');
+        img.src = json.image.src;
+        img.onload = function () {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+
+            obj.needsUpdate = true;
+        };
+
+        obj.image = canvas;
     }
+
     obj.magFilter = json.magFilter;
     obj.mapping = json.mapping;
     obj.matrix.copy(json.matrix);
