@@ -170,18 +170,43 @@ Converter.prototype.fromJson = function (app, json) {
                 return;
             }
             var obj = null;
-            if (objJson.metadata.generator === 'GroupSerializer') {
-                obj = (new GroupSerializer()).fromJSON(objJson);
-            } else if (objJson.metadata.generator === 'MeshSerializer') {
-                obj = (new MeshSerializer()).fromJSON(objJson);
-            } else if (objJson.metadata.generator === 'SpriteSerializer') {
-                obj = (new SpriteSerializer()).fromJSON(objJson);
-            } else {
-                console.warn(`Converter: 不存在序列化${objJson.metadata.type}的反序列化器。`);
+            switch (objJson.metadata.generator) {
+                case 'SceneSerializer':
+                    obj = (new SceneSerializer()).fromJSON(objJson);
+                    break;
+                case 'GroupSerializer': // 组跟Object3D完全相同
+                    obj = (new GroupSerializer()).fromJSON(objJson);
+                    break;
+                case 'MeshSerializer':
+                    obj = (new MeshSerializer()).fromJSON(objJson);
+                    break;
+                case 'SpriteSerializer':
+                    obj = (new SpriteSerializer()).fromJSON(objJson);
+                    break;
+                case 'AmbientLightSerializer':
+                    obj = (new AmbientLightSerializer()).fromJSON(objJson);
+                    break;
+                case 'DirectionalLightSerializer':
+                    obj = (new DirectionalLightSerializer()).fromJSON(objJson);
+                    break;
+                case 'HemisphereLightSerializer':
+                    obj = (new HemisphereLightSerializer()).fromJSON(objJson);
+                    break;
+                case 'PointLightSerializer':
+                    obj = (new PointLightSerializer()).fromJSON(objJson);
+                    break;
+                case 'RectAreaLightSerializer':
+                    obj = (new RectAreaLightSerializer()).fromJSON(objJson);
+                    break;
+                case 'SpotLightSerializer':
+                    obj = (new SpotLightSerializer()).fromJSON(objJson);
+                    break;
             }
 
             if (obj) {
                 parent.add(obj);
+            } else {
+                console.warn(`Converter: 不存在序列化${objJson.metadata.type}的反序列化器。`);
             }
 
             if (objJson && objJson.children && objJson.children.length > 0 && obj) {

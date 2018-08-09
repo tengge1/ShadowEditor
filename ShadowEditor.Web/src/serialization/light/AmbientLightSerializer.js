@@ -14,14 +14,19 @@ AmbientLightSerializer.prototype.constructor = AmbientLightSerializer;
 AmbientLightSerializer.prototype.toJSON = function (obj) {
     var json = LightSerializer.prototype.toJSON.call(this, obj);
 
-    json.color = obj.color;
-    json.intensity = obj.intensity;
+    json.isAmbientLight = obj.isAmbientLight;
 
     return json;
 };
 
-AmbientLightSerializer.prototype.fromJSON = function (json) {
+AmbientLightSerializer.prototype.fromJSON = function (json, parent) {
+    var obj = parent === undefined ? new THREE.AmbientLight(json.color, json.intensity) : parent;
 
+    LightSerializer.prototype.fromJSON.call(this, json, obj);
+
+    obj.isAmbientLight = json.isAmbientLight;
+
+    return obj;
 };
 
 export default AmbientLightSerializer;
