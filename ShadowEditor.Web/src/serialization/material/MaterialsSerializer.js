@@ -59,7 +59,7 @@ MaterialsSerializer.prototype = Object.create(BaseSerializer.prototype);
 MaterialsSerializer.prototype.constructor = MaterialsSerializer;
 
 MaterialsSerializer.prototype.toJSON = function (obj) {
-    var serializer = obj[obj.type];
+    var serializer = Serializers[obj.type];
 
     if (serializer === undefined) {
         console.warn(`MaterialsSerializer: 无法序列化${obj.type}。`);
