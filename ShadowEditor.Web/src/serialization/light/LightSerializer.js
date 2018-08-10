@@ -26,15 +26,15 @@ LightSerializer.prototype.toJSON = function (obj) {
 LightSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.Light() : parent;
 
-    debugger
-
     Object3DSerializer.prototype.fromJSON.call(this, json, obj);
 
     obj.color = new THREE.Color(json.color);
     obj.intensity = json.intensity;
     obj.isLight = json.isLight;
 
-    obj.shadow = json.shadow == null ? null : (new LightShadowsSerializer()).fromJSON(json.shadow);
+    if (json.shadow) {
+        obj.shadow = (new LightShadowsSerializer()).fromJSON(json.shadow);
+    }
 
     return obj;
 };
