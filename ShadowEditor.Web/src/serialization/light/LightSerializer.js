@@ -1,8 +1,9 @@
 import BaseSerializer from '../BaseSerializer';
 import Object3DSerializer from '../core/Object3DSerializer';
+import LightShadowsSerializer from './shadow/LightShadowsSerializer';
 
 /**
- * Light序列化器
+ * LightSerializer
  */
 function LightSerializer() {
     BaseSerializer.call(this);
@@ -17,7 +18,7 @@ LightSerializer.prototype.toJSON = function (obj) {
     json.color = obj.color;
     json.intensity = obj.intensity;
     json.isLight = obj.isLight;
-    json.shadow = obj.shadow;
+    json.shadow = obj.shadow == null ? null : (new LightShadowsSerializer()).toJSON(obj.shadow);
 
     return json;
 };
@@ -25,12 +26,15 @@ LightSerializer.prototype.toJSON = function (obj) {
 LightSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.Light() : parent;
 
+    debugger
+
     Object3DSerializer.prototype.fromJSON.call(this, json, obj);
 
     obj.color = new THREE.Color(json.color);
     obj.intensity = json.intensity;
     obj.isLight = json.isLight;
-    obj.shadow = json.shadow;
+
+    obj.shadow = json.shadow == null ? null : (new LightShadowsSerializer()).fromJSON(json.shadow);
 
     return obj;
 };

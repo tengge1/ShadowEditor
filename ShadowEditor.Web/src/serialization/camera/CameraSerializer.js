@@ -2,7 +2,7 @@ import BaseSerializer from '../BaseSerializer';
 import Object3DSerializer from '../core/Object3DSerializer';
 
 /**
- * Camera序列化器
+ * CameraSerializer
  */
 function CameraSerializer() {
     BaseSerializer.call(this);
