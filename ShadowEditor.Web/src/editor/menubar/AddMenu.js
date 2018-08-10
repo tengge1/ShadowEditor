@@ -136,6 +136,22 @@ AddMenu.prototype.render = function () {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
+                id: 'mAddAmbientLight',
+                html: '环境光',
+                cls: 'option',
+                onClick: function () {
+                    _this.app.call('mAddAmbientLight');
+                }
+            }, {
+                xtype: 'div',
+                id: 'mAddDirectionalLight',
+                html: '平行光',
+                cls: 'option',
+                onClick: function () {
+                    _this.app.call('mAddDirectionalLight');
+                }
+            }, {
+                xtype: 'div',
                 id: 'mAddPointLight',
                 html: '点光源',
                 cls: 'option',
@@ -152,14 +168,6 @@ AddMenu.prototype.render = function () {
                 }
             }, {
                 xtype: 'div',
-                id: 'mAddDirectionalLight',
-                html: '平行光源',
-                cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddDirectionalLight');
-                }
-            }, {
-                xtype: 'div',
                 id: 'mAddHemisphereLight',
                 html: '半球光',
                 cls: 'option',
@@ -168,11 +176,11 @@ AddMenu.prototype.render = function () {
                 }
             }, {
                 xtype: 'div',
-                id: 'mAddAmbientLight',
-                html: '环境光',
+                id: 'mAddRectAreaLight',
+                html: '矩形光',
                 cls: 'option',
                 onClick: function () {
-                    _this.app.call('mAddAmbientLight');
+                    // _this.app.call('mAddHemisphereLight');
                 }
             }, {
                 xtype: 'hr'
