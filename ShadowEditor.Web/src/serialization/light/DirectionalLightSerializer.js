@@ -20,8 +20,13 @@ DirectionalLightSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-DirectionalLightSerializer.prototype.fromJSON = function (json) {
+DirectionalLightSerializer.prototype.fromJSON = function (json, parent) {
+    var obj = parent === undefined? new THREE.DirectionalLight(json.color, json.intensity) : parent;
 
+    obj.color = json.color;
+    obj.intensity = json.intensity;
+
+    return json;
 };
 
 export default DirectionalLightSerializer;
