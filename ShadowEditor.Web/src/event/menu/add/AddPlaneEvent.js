@@ -28,10 +28,11 @@ AddPlaneEvent.prototype.stop = function () {
 AddPlaneEvent.prototype.onAddPlane = function () {
     var editor = this.app.editor;
 
-    var geometry = new THREE.PlaneBufferGeometry(2, 2);
+    var geometry = new THREE.PlaneBufferGeometry(50, 50);
     var material = new THREE.MeshStandardMaterial();
     var mesh = new THREE.Mesh(geometry, material);
     mesh.name = '平板' + ID++;
+    mesh.rotation.x = -Math.PI / 2;
 
     editor.execute(new AddObjectCommand(mesh));
 };

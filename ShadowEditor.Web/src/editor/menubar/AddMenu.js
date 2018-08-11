@@ -180,7 +180,7 @@ AddMenu.prototype.render = function () {
                 html: '矩形光',
                 cls: 'option',
                 onClick: function () {
-                    // _this.app.call('mAddHemisphereLight');
+                    _this.app.call('mAddRectAreaLight');
                 }
             }, {
                 xtype: 'hr'

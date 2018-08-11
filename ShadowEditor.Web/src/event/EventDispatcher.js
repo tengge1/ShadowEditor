@@ -76,6 +76,7 @@ import AddSpotLightEvent from './menu/add/AddSpotLightEvent';
 import AddDirectionalLightEvent from './menu/add/AddDirectionalLightEvent';
 import AddHemisphereLightEvent from './menu/add/AddHemisphereLightEvent';
 import AddAmbientLightEvent from './menu/add/AddAmbientLightEvent';
+import AddRectAreaLightEvent from './menu/add/AddRectAreaLightEvent';
 import AddTextEvent from './menu/add/AddTextEvent';
 import AddPerspectiveCameraEvent from './menu/add/AddPerspectiveCameraEvent';
 
@@ -226,6 +227,7 @@ function EventDispatcher(app) {
         new AddDirectionalLightEvent(this.app),
         new AddHemisphereLightEvent(this.app),
         new AddAmbientLightEvent(this.app),
+        new AddRectAreaLightEvent(this.app),
         new AddTextEvent(this.app),
         new AddPerspectiveCameraEvent(this.app),
 
