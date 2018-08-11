@@ -115,7 +115,7 @@ MaterialSerializer.prototype.fromJSON = function (json, parent) {
     obj.displacementMap = json.displacementMap == null ? null : (new TexturesSerializer(this.app)).fromJSON(json.displacementMap);
     obj.displacementScale = json.displacementScale;
     obj.dithering = json.dithering;
-    obj.emissive = json.emissive == null ? null : new THREE.Color(json.emissive);
+    obj.emissive = json.emissive == null ? undefined : new THREE.Color(json.emissive);
     obj.emissiveIntensity = json.emissiveIntensity;
     obj.emissiveMap = json.emissiveMap == null ? null : (new TexturesSerializer(this.app)).fromJSON(json.emissiveMap);
     obj.envMap = json.envMap == null ? null : (new TexturesSerializer(this.app)).fromJSON(json.envMap);
