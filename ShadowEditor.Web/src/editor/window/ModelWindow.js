@@ -69,7 +69,9 @@ ModelWindow.prototype.render = function () {
                     width: '100%',
                     height: '100%',
                 },
-                onClick: this.onClickImage.bind(this)
+                onClick: function (event, index, btn) {
+                    _this.onClickImage(this, index, btn);
+                }
             }]
         }]
     });
@@ -99,8 +101,13 @@ ModelWindow.prototype.renderImages = function (models) {
     images.children = models.map((n) => {
         return {
             xtype: 'image',
-            src: n.Image == null ? 'test/image/girl.jpg' : (server + n.Image),
-            title: n.Name
+            src: n.Image == null ? null : (server + n.Image),
+            title: n.Name,
+            data: n,
+            icon: 'icon-model',
+            style: {
+                backgroundColor: '#eee'
+            }
         };
     });;
 
@@ -141,12 +148,12 @@ ModelWindow.prototype.onUploadFile = function (event) {
     });
 };
 
-ModelWindow.prototype.onClickImage = function (event, index, type) {
-    var model = this.models[index];
+ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
+    var model = imgs.children[index].data;
 
-    if (type === 'edit') { // 编辑模型
+    if (btn === 'edit') { // 编辑模型
         UI.msg('开始编辑模型');
-    } else if (type === 'delete') { // 删除模型
+    } else if (btn === 'delete') { // 删除模型
         UI.msg('开始删除模型');
     } else { // 加载模型
         var loader = new THREE.BinaryLoader();
