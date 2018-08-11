@@ -54,6 +54,8 @@ AutoSaveEvent.prototype.stop = function () {
 AutoSaveEvent.prototype.SaveState = function () {
     var editor = this.app.editor;
 
+    return;
+
     if (editor.config.getKey('autosave') === false) {
         return;
     }
