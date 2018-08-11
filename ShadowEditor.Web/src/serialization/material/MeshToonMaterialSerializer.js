@@ -3,9 +3,10 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * MeshToonMaterialSerializer
+ * @param {*} app 
  */
-function MeshToonMaterialSerializer() {
-    BaseSerializer.call(this);
+function MeshToonMaterialSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 MeshToonMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

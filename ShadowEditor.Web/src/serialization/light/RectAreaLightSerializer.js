@@ -2,10 +2,11 @@ import BaseSerializer from '../BaseSerializer';
 import LightSerializer from './LightSerializer';
 
 /**
- * RectAreaLight序列化器
+ * RectAreaLightSerializer
+ * @param {*} app 
  */
-function RectAreaLightSerializer() {
-    BaseSerializer.call(this);
+function RectAreaLightSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 RectAreaLightSerializer.prototype = Object.create(BaseSerializer.prototype);

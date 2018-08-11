@@ -3,9 +3,10 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 
 /**
  * TorusBufferGeometrySerializer
+ * @param {*} app 
  */
-function TorusBufferGeometrySerializer() {
-    BaseSerializer.call(this);
+function TorusBufferGeometrySerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 TorusBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

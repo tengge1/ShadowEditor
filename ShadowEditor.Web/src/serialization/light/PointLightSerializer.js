@@ -2,10 +2,11 @@ import BaseSerializer from '../BaseSerializer';
 import LightSerializer from './LightSerializer';
 
 /**
- * PointLight序列化器
+ * PointLightSerializer
+ * @param {*} app 
  */
-function PointLightSerializer() {
-    BaseSerializer.call(this);
+function PointLightSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 PointLightSerializer.prototype = Object.create(BaseSerializer.prototype);

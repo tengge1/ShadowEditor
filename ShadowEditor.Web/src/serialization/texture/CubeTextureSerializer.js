@@ -3,9 +3,10 @@ import TextureSerializer from './TextureSerializer';
 
 /**
  * CubeTextureSerializer
+ * @param {*} app 
  */
-function CubeTextureSerializer() {
-    BaseSerializer.call(this);
+function CubeTextureSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 CubeTextureSerializer.prototype = Object.create(BaseSerializer.prototype);

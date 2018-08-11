@@ -3,9 +3,10 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 
 /**
  * ConeBufferGeometrySerializer
+ * @param {*} app 
  */
-function ConeBufferGeometrySerializer() {
-    BaseSerializer.call(this);
+function ConeBufferGeometrySerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 ConeBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

@@ -3,9 +3,10 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 
 /**
  * ExtrudeBufferGeometrySerializer
+ * @param {*} app 
  */
-function ExtrudeBufferGeometrySerializer() {
-    BaseSerializer.call(this);
+function ExtrudeBufferGeometrySerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 ExtrudeBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

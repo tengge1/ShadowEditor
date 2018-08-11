@@ -2,9 +2,10 @@ import BaseSerializer from '../BaseSerializer';
 
 /**
  * TextureSerializer
+ * @param {*} app 
  */
-function TextureSerializer() {
-    BaseSerializer.call(this);
+function TextureSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 TextureSerializer.prototype = Object.create(BaseSerializer.prototype);

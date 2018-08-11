@@ -3,9 +3,10 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * MeshPhysicalMaterialSerializer
+ * @param {*} app 
  */
-function MeshPhysicalMaterialSerializer() {
-    BaseSerializer.call(this);
+function MeshPhysicalMaterialSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 MeshPhysicalMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

@@ -2,24 +2,15 @@ import BaseSerializer from '../BaseSerializer';
 import CameraSerializer from './CameraSerializer';
 
 /**
- * OrthographicCamera序列化器
+ * OrthographicCameraSerializer
+ * @param {*} app 
  */
-function OrthographicCameraSerializer() {
-    BaseSerializer.call(this);
+function OrthographicCameraSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 OrthographicCameraSerializer.prototype = Object.create(BaseSerializer.prototype);
 OrthographicCameraSerializer.prototype.constructor = OrthographicCameraSerializer;
-
-OrthographicCameraSerializer.prototype.filter = function (obj) {
-    if (obj instanceof THREE.OrthographicCamera) {
-        return true;
-    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
-        return true;
-    } else {
-        return false;
-    }
-};
 
 OrthographicCameraSerializer.prototype.toJSON = function (obj) {
     var json = CameraSerializer.prototype.toJSON.call(this, obj);

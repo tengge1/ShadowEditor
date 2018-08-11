@@ -2,22 +2,25 @@ import BaseSerializer from '../BaseSerializer';
 
 /**
  * ScriptSerializer
+ * @param {*} app 
  */
-function ScriptSerializer() {
-    BaseSerializer.call(this);
+function ScriptSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 ScriptSerializer.prototype = Object.create(BaseSerializer.prototype);
 ScriptSerializer.prototype.constructor = ScriptSerializer;
 
-ScriptSerializer.prototype.toJSON = function (app) {
+ScriptSerializer.prototype.toJSON = function () {
     var list = [];
 
-    Object.keys(app.editor.scripts).forEach(id => {
-        var json = BaseSerializer.prototype.toJSON.call(this, app);
+    var scripts = this.app.editor.scripts;
 
-        var name = app.editor.scripts[id].name;
-        var source = app.editor.scripts[id].source;
+    Object.keys(scripts).forEach(id => {
+        var json = BaseSerializer.prototype.toJSON.call(this, this.app);
+
+        var name = scripts[id].name;
+        var source = scripts[id].source;
 
         Object.assign(json, {
             id: id,
@@ -31,11 +34,11 @@ ScriptSerializer.prototype.toJSON = function (app) {
     return list;
 };
 
-ScriptSerializer.prototype.fromJSON = function (app, json) {
-    app.editor.scripts = {};
+ScriptSerializer.prototype.fromJSON = function (json) {
+    this.app.editor.scripts = {};
 
     json.forEach(n => {
-        app.editor.scripts[id] = {
+        this.app.editor.scripts[id] = {
             name: n.name,
             source: n.source
         };

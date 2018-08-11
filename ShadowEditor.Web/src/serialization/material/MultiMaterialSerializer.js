@@ -3,9 +3,10 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * MultiMaterialSerializer
+ * @param {*} app 
  */
-function MultiMaterialSerializer() {
-    BaseSerializer.call(this);
+function MultiMaterialSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 MultiMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

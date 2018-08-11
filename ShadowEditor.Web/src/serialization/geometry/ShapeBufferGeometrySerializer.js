@@ -2,10 +2,11 @@ import BaseSerializer from '../BaseSerializer';
 import BufferGeometrySerializer from './BufferGeometrySerializer';
 
 /**
- * RingBufferGeometrySerializer
+ * ShapeBufferGeometrySerializer
+ * @param {*} app 
  */
-function ShapeBufferGeometrySerializer() {
-    BaseSerializer.call(this);
+function ShapeBufferGeometrySerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 ShapeBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

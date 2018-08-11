@@ -3,9 +3,10 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * MeshPhongMaterialSerializer
+ * @param {*} app 
  */
-function MeshPhongMaterialSerializer() {
-    BaseSerializer.call(this);
+function MeshPhongMaterialSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 MeshPhongMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

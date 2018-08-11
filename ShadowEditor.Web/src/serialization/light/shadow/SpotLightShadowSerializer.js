@@ -3,9 +3,10 @@ import LightShadowSerializer from './LightShadowSerializer';
 
 /**
  * SpotLightShadowSerializer
+ * @param {*} app 
  */
-function SpotLightShadowSerializer() {
-    BaseSerializer.call(this);
+function SpotLightShadowSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 SpotLightShadowSerializer.prototype = Object.create(BaseSerializer.prototype);

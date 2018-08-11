@@ -1,24 +1,15 @@
 import BaseSerializer from '../BaseSerializer';
 
 /**
- * Object3D序列化器
+ * Object3DSerializer
+ * @param {*} app 
  */
-function Object3DSerializer() {
-    BaseSerializer.call(this);
+function Object3DSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 Object3DSerializer.prototype = Object.create(BaseSerializer.prototype);
 Object3DSerializer.prototype.constructor = Object3DSerializer;
-
-Object3DSerializer.prototype.filter = function (obj) {
-    if (obj instanceof THREE.Object3D) {
-        return true;
-    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
-        return true;
-    } else {
-        return false;
-    }
-};
 
 Object3DSerializer.prototype.toJSON = function (obj) {
     var json = BaseSerializer.prototype.toJSON.call(this, obj);

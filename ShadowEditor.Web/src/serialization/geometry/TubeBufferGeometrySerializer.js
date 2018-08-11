@@ -3,9 +3,10 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 
 /**
  * TubeBufferGeometrySerializer
+ * @param {*} app 
  */
-function TubeBufferGeometrySerializer() {
-    BaseSerializer.call(this);
+function TubeBufferGeometrySerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 TubeBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

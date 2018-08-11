@@ -3,9 +3,10 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * RawShaderMaterialSerializer
+ * @param {*} app 
  */
-function RawShaderMaterialSerializer() {
-    BaseSerializer.call(this);
+function RawShaderMaterialSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 RawShaderMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

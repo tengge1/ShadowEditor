@@ -50,9 +50,10 @@ var Serializers = {
 
 /**
  * GeometriesSerializer
+ * @param {*} app 
  */
-function GeometriesSerializer() {
-    BaseSerializer.call(this);
+function GeometriesSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 GeometriesSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -66,7 +67,7 @@ GeometriesSerializer.prototype.toJSON = function (obj) {
         return null;
     }
 
-    return (new serializer()).toJSON(obj);
+    return (new serializer(this.app)).toJSON(obj);
 };
 
 GeometriesSerializer.prototype.fromJSON = function (json) {
@@ -79,7 +80,7 @@ GeometriesSerializer.prototype.fromJSON = function (json) {
         return null;
     }
 
-    return (new serializer()).fromJSON(json);
+    return (new serializer(this.app)).fromJSON(json);
 };
 
 export default GeometriesSerializer;

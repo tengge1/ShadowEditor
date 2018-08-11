@@ -3,9 +3,10 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * ParticleSystemMaterialSerializer
+ * @param {*} app 
  */
-function ParticleSystemMaterialSerializer() {
-    BaseSerializer.call(this);
+function ParticleSystemMaterialSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 ParticleSystemMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

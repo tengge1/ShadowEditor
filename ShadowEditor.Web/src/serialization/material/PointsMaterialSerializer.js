@@ -3,9 +3,10 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * PointsMaterialSerializer
+ * @param {*} app 
  */
-function PointsMaterialSerializer() {
-    BaseSerializer.call(this);
+function PointsMaterialSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 PointsMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

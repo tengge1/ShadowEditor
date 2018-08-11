@@ -5,10 +5,11 @@ import GeometriesSerializer from '../geometry/GeometriesSerializer';
 import MaterialsSerializer from '../material/MaterialsSerializer';
 
 /**
- * Mesh序列化器
+ * MeshSerializer
+ * @param {*} app 
  */
-function MeshSerializer() {
-    BaseSerializer.call(this);
+function MeshSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 MeshSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -22,8 +23,8 @@ MeshSerializer.prototype.toJSON = function (obj) {
     if (obj.userData.Type === 'Model') { // 服务端模型
         json.userData = Object.assign({}, obj.userData);
     } else {
-        json.geometry = (new GeometriesSerializer()).toJSON(obj.geometry);
-        json.material = (new MaterialsSerializer()).toJSON(obj.material);
+        json.geometry = (new GeometriesSerializer(this.app)).toJSON(obj.geometry);
+        json.material = (new MaterialsSerializer(this.app)).toJSON(obj.material);
     }
 
     return json;
@@ -44,7 +45,7 @@ MeshSerializer.prototype.fromJSON = function (json, parent) {
             if (format === 'Binary') {
                 var loader = new THREE.BinaryLoader();
 
-                loader.load(location.origin + '/' + json.userData.Model, (geometry, materials) => {
+                loader.load(this.app.options.server + json.userData.Model, (geometry, materials) => {
                     var mesh = new THREE.Mesh(geometry, materials);
 
                     Object3DSerializer.prototype.fromJSON.call(this, json, mesh);
@@ -68,8 +69,8 @@ MeshSerializer.prototype.fromJSON = function (json, parent) {
         return null;
     }
 
-    var geometry = (new GeometriesSerializer()).fromJSON(json.geometry);
-    var material = (new MaterialsSerializer()).fromJSON(json.material);
+    var geometry = (new GeometriesSerializer(this.app)).fromJSON(json.geometry);
+    var material = (new MaterialsSerializer(this.app)).fromJSON(json.material);
 
     var obj = new THREE.Mesh(geometry, material);
 

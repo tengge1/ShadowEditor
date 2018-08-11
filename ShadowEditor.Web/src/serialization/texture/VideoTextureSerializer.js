@@ -3,9 +3,10 @@ import TextureSerializer from './TextureSerializer';
 
 /**
  * VideoTextureSerializer
+ * @param {*} app 
  */
-function VideoTextureSerializer() {
-    BaseSerializer.call(this);
+function VideoTextureSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 VideoTextureSerializer.prototype = Object.create(BaseSerializer.prototype);

@@ -3,10 +3,11 @@ import Object3DSerializer from './Object3DSerializer';
 import MaterialsSerializer from '../material/MaterialsSerializer';
 
 /**
- * Scene序列化器
+ * SceneSerializer
+ * @param {*} app 
  */
-function SceneSerializer() {
-    BaseSerializer.call(this);
+function SceneSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 SceneSerializer.prototype = Object.create(BaseSerializer.prototype);

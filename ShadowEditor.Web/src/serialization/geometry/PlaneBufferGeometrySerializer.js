@@ -3,9 +3,10 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 
 /**
  * PlaneBufferGeometrySerializer
+ * @param {*} app 
  */
-function PlaneBufferGeometrySerializer() {
-    BaseSerializer.call(this);
+function PlaneBufferGeometrySerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 PlaneBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

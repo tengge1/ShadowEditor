@@ -4,21 +4,15 @@ var ID = -1;
 
 /**
  * 序列化器基类
+ * @param {*} app 
  */
-function BaseSerializer() {
+function BaseSerializer(app) {
     this.id = 'BaseSerializer' + ID--;
+    this.app = app;
     this.metadata = Object.assign({}, Metadata, {
         generator: this.constructor.name
     });
 }
-
-/**
- * 判断对象是否满足转换条件，满足返回true，不满足返回false
- * @param {*} obj 
- */
-BaseSerializer.prototype.filter = function (obj) {
-    return false;
-};
 
 /**
  *对象转json

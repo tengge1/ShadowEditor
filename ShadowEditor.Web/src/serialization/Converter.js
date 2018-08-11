@@ -22,66 +22,69 @@ import PointLightSerializer from './light/PointLightSerializer';
 import SpotLightSerializer from './light/SpotLightSerializer';
 import RectAreaLightSerializer from './light/RectAreaLightSerializer';
 
+import AddObjectCommand from '../command/AddObjectCommand';
+
 /**
  * 场景序列化/反序列化类
+ * @param {*} app 
  */
-function Converter() {
-    BaseSerializer.call(this);
+function Converter(app) {
+    BaseSerializer.call(this, app);
 }
 
 Converter.prototype = Object.create(BaseSerializer.prototype);
 Converter.prototype.constructor = Converter;
 
-Converter.prototype.toJSON = function (app) {
+Converter.prototype.toJSON = function () {
     var list = [];
 
     // 配置
-    var config = (new ConfigSerializer()).toJSON(app);
+    var config = (new ConfigSerializer(this.app)).toJSON();
     list.push(config);
 
     // 相机
-    var camera = (new CamerasSerializer()).toJSON(app.editor.camera);
+    var camera = (new CamerasSerializer(this.app)).toJSON(this.app.editor.camera);
     list.push(camera);
 
     // 脚本
-    var scripts = (new ScriptSerializer()).toJSON(app);
+    var scripts = (new ScriptSerializer(this.app)).toJSON();
     scripts.forEach(n => {
         list.push(n);
     });
 
     // 场景
-    app.editor.scene.traverse(function (obj) {
+    this.app.editor.scene.traverse(obj => {
         var json = null;
         switch (obj.constructor.name) {
             case 'Scene':
-                json = (new SceneSerializer()).toJSON(obj);
+                json = (new SceneSerializer(this.app)).toJSON(obj);
                 break;
             case 'Group':
-                json = (new GroupSerializer()).toJSON(obj);
+                json = (new GroupSerializer(this.app)).toJSON(obj);
                 break;
             case 'Mesh':
-                json = (new MeshSerializer()).toJSON(obj);
+                json = (new MeshSerializer(this.app)).toJSON(obj);
                 break;
             case 'Sprite':
-                json = (new SpriteSerializer()).toJSON(obj);
+                json = (new SpriteSerializer(this.app)).toJSON(obj);
                 break;
             case 'AmbientLight':
-                json = (new AmbientLightSerializer()).toJSON(obj);
+                json = (new AmbientLightSerializer(this.app)).toJSON(obj);
                 break;
             case 'DirectionalLight':
-                json = (new DirectionalLightSerializer()).toJSON(obj);
+                json = (new DirectionalLightSerializer(this.app)).toJSON(obj);
                 break;
             case 'HemisphereLight':
-                json = (new HemisphereLightSerializer()).toJSON(obj);
+                json = (new HemisphereLightSerializer(this.app)).toJSON(obj);
                 break;
             case 'PointLight':
-                json = (new PointLightSerializer()).toJSON(obj);
+                json = (new PointLightSerializer(this.app)).toJSON(obj);
                 break;
             case 'RectAreaLight':
-                json = (new RectAreaLightSerializer()).toJSON(obj);
+                json = (new RectAreaLightSerializer(this.app)).toJSON(obj);
                 break;
             case 'SpotLight':
-                json = (new SpotLightSerializer()).toJSON(obj);
+                json = (new SpotLightSerializer(this.app)).toJSON(obj);
                 break;
         }
         if (json) {
@@ -94,12 +97,12 @@ Converter.prototype.toJSON = function (app) {
     return list;
 };
 
-Converter.prototype.fromJson = function (app, json) {
+Converter.prototype.fromJson = function (json) {
     // 配置
     var configJson = json.filter(n => n.metadata && n.metadata.generator === 'ConfigSerializer')[0];
 
     if (configJson) {
-        (new ConfigSerializer()).fromJSON(app, configJson);
+        (new ConfigSerializer(this.app)).fromJSON(configJson);
     } else {
         console.warn(`Converter: 场景中不存在配置信息。`);
     }
@@ -108,10 +111,10 @@ Converter.prototype.fromJson = function (app, json) {
     var cameraJson = json.filter(n => n.metadata && n.metadata.generator.indexOf('CameraSerializer') > -1)[0];
 
     if (cameraJson) {
-        var camera = (new CamerasSerializer()).fromJSON(cameraJson);
+        var camera = (new CamerasSerializer(this.app)).fromJSON(cameraJson);
         if (camera) {
-            app.editor.camera.copy(camera);
-            app.editor.camera.updateProjectionMatrix();
+            this.app.editor.camera.copy(camera);
+            this.app.editor.camera.updateProjectionMatrix();
         } else {
             console.warn(`Converter: 无法序列化${n.metadata.generator}。`);
         }
@@ -122,7 +125,7 @@ Converter.prototype.fromJson = function (app, json) {
     // 脚本
     var scriptJsons = json.filter(n => n.metadata && n.metadata.generator === 'ScriptSerializer' > -1);
     if (scriptJsons) {
-        (new ScriptSerializer()).fromJSON(app, scriptJsons);
+        (new ScriptSerializer(this.app)).fromJSON(scriptJsons);
     }
 
     // 场景
@@ -146,41 +149,41 @@ Converter.prototype.fromJson = function (app, json) {
             var obj = null;
             switch (objJson.metadata.generator) {
                 case 'SceneSerializer':
-                    obj = (new SceneSerializer()).fromJSON(objJson);
+                    obj = (new SceneSerializer(this.app)).fromJSON(objJson);
                     break;
                 case 'GroupSerializer':
-                    obj = (new GroupSerializer()).fromJSON(objJson);
+                    obj = (new GroupSerializer(this.app)).fromJSON(objJson);
                     break;
                 case 'MeshSerializer':
-                    obj = (new MeshSerializer()).fromJSON(objJson);
+                    obj = (new MeshSerializer(this.app)).fromJSON(objJson);
                     break;
                 case 'SpriteSerializer':
-                    obj = (new SpriteSerializer()).fromJSON(objJson);
+                    obj = (new SpriteSerializer(this.app)).fromJSON(objJson);
                     break;
                 case 'AmbientLightSerializer':
-                    obj = (new AmbientLightSerializer()).fromJSON(objJson);
+                    obj = (new AmbientLightSerializer(this.app)).fromJSON(objJson);
                     break;
                 case 'DirectionalLightSerializer':
-                    obj = (new DirectionalLightSerializer()).fromJSON(objJson);
+                    obj = (new DirectionalLightSerializer(this.app)).fromJSON(objJson);
                     break;
                 case 'HemisphereLightSerializer':
-                    obj = (new HemisphereLightSerializer()).fromJSON(objJson);
+                    obj = (new HemisphereLightSerializer(this.app)).fromJSON(objJson);
                     break;
                 case 'PointLightSerializer':
-                    obj = (new PointLightSerializer()).fromJSON(objJson);
+                    obj = (new PointLightSerializer(this.app)).fromJSON(objJson);
                     break;
                 case 'RectAreaLightSerializer':
-                    obj = (new RectAreaLightSerializer()).fromJSON(objJson);
+                    obj = (new RectAreaLightSerializer(this.app)).fromJSON(objJson);
                     break;
                 case 'SpotLightSerializer':
-                    obj = (new SpotLightSerializer()).fromJSON(objJson);
+                    obj = (new SpotLightSerializer(this.app)).fromJSON(objJson);
                     break;
             }
 
             if (obj instanceof Promise) {
                 obj.then(mesh => {
                     if (mesh) {
-                        app.editor.scene.add(mesh);
+                        this.app.editor.scene.add(mesh);
                     }
                 });
             } else if (obj) {
@@ -190,20 +193,20 @@ Converter.prototype.fromJson = function (app, json) {
             }
 
             if (objJson && objJson.children && objJson.children.length > 0 && obj) {
-                parseChildren(objJson, obj, list);
+                parseChildren.call(this, objJson, obj, list);
             }
         });
     }
 
     if (sceneJson) {
-        scene = (new SceneSerializer()).fromJSON(sceneJson);
-        parseChildren(sceneJson, scene, json);
+        scene = (new SceneSerializer(this.app)).fromJSON(sceneJson);
+        parseChildren.call(this, sceneJson, scene, json);
     } else {
         console.warn(`Converter: 场景中不存在场景信息。`);
     }
 
     if (scene) {
-        app.editor.setScene(scene);
+        this.app.editor.setScene(scene);
     }
 };
 

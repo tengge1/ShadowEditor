@@ -190,7 +190,7 @@ SceneWindow.prototype.loadScene = function (data) {
         }
 
         editor.clear();
-        (new Converter()).fromJson(this.app, obj.Data);
+        (new Converter(this.app)).fromJson(obj.Data);
 
         editor.sceneID = data.ID;
         editor.sceneName = data.Name;

@@ -37,7 +37,7 @@ SaveSceneEvent.prototype.onSaveScene = function () {
 };
 
 SaveSceneEvent.prototype.commitSave = function (sceneName) {
-    var obj = (new Converter()).toJSON(this.app);
+    var obj = (new Converter(this.app)).toJSON();
 
     Ajax.post(this.app.options.server + '/api/Scene/Save', {
         Name: sceneName,

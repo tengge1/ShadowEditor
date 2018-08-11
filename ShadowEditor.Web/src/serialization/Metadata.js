@@ -1,3 +1,6 @@
+/**
+ * 场景序列化信息
+ */
 var Metadata = {
     generator: 'ShadowEditor',
     type: 'Object',

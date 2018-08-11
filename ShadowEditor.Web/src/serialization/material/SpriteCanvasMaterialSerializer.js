@@ -3,9 +3,10 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * SpriteCanvasMaterialSerializer
+ * @param {*} app 
  */
-function SpriteCanvasMaterialSerializer() {
-    BaseSerializer.call(this);
+function SpriteCanvasMaterialSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 SpriteCanvasMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

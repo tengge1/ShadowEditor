@@ -3,9 +3,10 @@ import LightSerializer from './LightSerializer';
 
 /**
  * HemisphereLightSerializer
+ * @param {*} app 
  */
-function HemisphereLightSerializer() {
-    BaseSerializer.call(this);
+function HemisphereLightSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 HemisphereLightSerializer.prototype = Object.create(BaseSerializer.prototype);

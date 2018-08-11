@@ -3,9 +3,10 @@ import TextureSerializer from './TextureSerializer';
 
 /**
  * CanvasTextureSerializer
+ * @param {*} app 
  */
-function CanvasTextureSerializer() {
-    BaseSerializer.call(this);
+function CanvasTextureSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 CanvasTextureSerializer.prototype = Object.create(BaseSerializer.prototype);

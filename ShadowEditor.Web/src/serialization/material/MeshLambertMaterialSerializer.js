@@ -3,9 +3,10 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * MeshLambertMaterialSerializer
+ * @param {*} app 
  */
-function MeshLambertMaterialSerializer() {
-    BaseSerializer.call(this);
+function MeshLambertMaterialSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 MeshLambertMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

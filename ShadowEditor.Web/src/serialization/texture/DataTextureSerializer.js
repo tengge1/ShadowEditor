@@ -3,9 +3,10 @@ import TextureSerializer from './TextureSerializer';
 
 /**
  * DataTextureSerializer
+ * @param {*} app 
  */
-function DataTextureSerializer() {
-    BaseSerializer.call(this);
+function DataTextureSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 DataTextureSerializer.prototype = Object.create(BaseSerializer.prototype);

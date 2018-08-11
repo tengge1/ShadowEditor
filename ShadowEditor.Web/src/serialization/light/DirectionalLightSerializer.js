@@ -3,9 +3,10 @@ import LightSerializer from './LightSerializer';
 
 /**
  * DirectionalLightSerializer
+ * @param {*} app 
  */
-function DirectionalLightSerializer() {
-    BaseSerializer.call(this);
+function DirectionalLightSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 DirectionalLightSerializer.prototype = Object.create(BaseSerializer.prototype);

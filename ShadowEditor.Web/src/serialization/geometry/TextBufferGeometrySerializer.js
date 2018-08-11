@@ -3,9 +3,10 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 
 /**
  * TextBufferGeometrySerializer
+ * @param {*} app 
  */
-function TextBufferGeometrySerializer() {
-    BaseSerializer.call(this);
+function TextBufferGeometrySerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 TextBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

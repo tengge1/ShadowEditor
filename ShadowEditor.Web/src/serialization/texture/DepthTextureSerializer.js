@@ -3,9 +3,10 @@ import TextureSerializer from './TextureSerializer';
 
 /**
  * DepthTextureSerializer
+ * @param {*} app 
  */
-function DepthTextureSerializer() {
-    BaseSerializer.call(this);
+function DepthTextureSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 DepthTextureSerializer.prototype = Object.create(BaseSerializer.prototype);

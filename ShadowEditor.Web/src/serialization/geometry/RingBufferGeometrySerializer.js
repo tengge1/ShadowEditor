@@ -3,9 +3,10 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 
 /**
  * RingBufferGeometrySerializer
+ * @param {*} app 
  */
-function RingBufferGeometrySerializer() {
-    BaseSerializer.call(this);
+function RingBufferGeometrySerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 RingBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

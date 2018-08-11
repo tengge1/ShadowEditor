@@ -3,9 +3,10 @@ import Object3DSerializer from '../core/Object3DSerializer';
 
 /**
  * CameraSerializer
+ * @param {*} app 
  */
-function CameraSerializer() {
-    BaseSerializer.call(this);
+function CameraSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 CameraSerializer.prototype = Object.create(BaseSerializer.prototype);

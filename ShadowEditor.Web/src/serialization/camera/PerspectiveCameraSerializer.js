@@ -2,24 +2,15 @@ import BaseSerializer from '../BaseSerializer';
 import CameraSerializer from './CameraSerializer';
 
 /**
- * PerspectiveCamera序列化器
+ * PerspectiveCameraSerializer
+ * @param {*} app 
  */
-function PerspectiveCameraSerializer() {
-    BaseSerializer.call(this);
+function PerspectiveCameraSerializer(app) {
+    BaseSerializer.call(this, app);
 }
 
 PerspectiveCameraSerializer.prototype = Object.create(BaseSerializer.prototype);
 PerspectiveCameraSerializer.prototype.constructor = PerspectiveCameraSerializer;
-
-PerspectiveCameraSerializer.prototype.filter = function (obj) {
-    if (obj instanceof THREE.PerspectiveCamera) {
-        return true;
-    } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
-        return true;
-    } else {
-        return false;
-    }
-};
 
 PerspectiveCameraSerializer.prototype.toJSON = function (obj) {
     var json = CameraSerializer.prototype.toJSON.call(this, obj);
