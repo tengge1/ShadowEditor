@@ -44,8 +44,10 @@ Converter.prototype.toJSON = function (app) {
     list.push(camera);
 
     // 脚本
-    var script = (new ScriptSerializer()).toJSON(app);
-    list.push(script);
+    var scripts = (new ScriptSerializer()).toJSON(app);
+    scripts.forEach(n => {
+        list.push(n);
+    });
 
     // 场景
     app.editor.scene.traverse(function (obj) {
@@ -118,9 +120,9 @@ Converter.prototype.fromJson = function (app, json) {
     }
 
     // 脚本
-    var scriptJson = json.filter(n => n.metadata && n.metadata.generator === 'ScriptSerializer' > -1)[0];
-    if (scriptJson) {
-        (new ScriptSerializer()).fromJSON(app, scriptJson);
+    var scriptJsons = json.filter(n => n.metadata && n.metadata.generator === 'ScriptSerializer' > -1);
+    if (scriptJsons) {
+        (new ScriptSerializer()).fromJSON(app, scriptJsons);
     }
 
     // 场景
@@ -146,7 +148,7 @@ Converter.prototype.fromJson = function (app, json) {
                 case 'SceneSerializer':
                     obj = (new SceneSerializer()).fromJSON(objJson);
                     break;
-                case 'GroupSerializer': // 组跟Object3D完全相同
+                case 'GroupSerializer':
                     obj = (new GroupSerializer()).fromJSON(objJson);
                     break;
                 case 'MeshSerializer':
@@ -175,7 +177,13 @@ Converter.prototype.fromJson = function (app, json) {
                     break;
             }
 
-            if (obj) {
+            if (obj instanceof Promise) {
+                obj.then(mesh => {
+                    if (mesh) {
+                        app.editor.scene.add(mesh);
+                    }
+                });
+            } else if (obj) {
                 parent.add(obj);
             } else {
                 console.warn(`Converter: 不存在序列化${objJson.metadata.type}的反序列化器。`);

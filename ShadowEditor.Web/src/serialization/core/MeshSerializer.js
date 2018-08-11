@@ -39,7 +39,23 @@ MeshSerializer.prototype.fromJSON = function (json, parent) {
 
     // 服务端模型
     if (json.userData && json.userData.Type === 'Model') {
-        return null;
+        var format = json.userData.Format;
+        return new Promise((resolve, reject) => {
+            if (format === 'Binary') {
+                var loader = new THREE.BinaryLoader();
+
+                loader.load(location.origin + '/' + json.userData.Model, (geometry, materials) => {
+                    var mesh = new THREE.Mesh(geometry, materials);
+
+                    Object3DSerializer.prototype.fromJSON.call(this, json, mesh);
+
+                    resolve(mesh);
+                });
+            } else {
+                console.warn(`MeshSerializer: 未知模型类型${format}。`);
+                resolve(null);
+            }
+        });
     }
 
     // 其他模型
