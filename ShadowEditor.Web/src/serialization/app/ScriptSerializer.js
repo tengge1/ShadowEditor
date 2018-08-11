@@ -1,8 +1,7 @@
 import BaseSerializer from '../BaseSerializer';
-// import Application from '../../Application';
 
 /**
- * Object3D序列化器
+ * ScriptSerializer
  */
 function ScriptSerializer() {
     BaseSerializer.call(this);
@@ -10,20 +9,6 @@ function ScriptSerializer() {
 
 ScriptSerializer.prototype = Object.create(BaseSerializer.prototype);
 ScriptSerializer.prototype.constructor = ScriptSerializer;
-
-ScriptSerializer.prototype.filter = function (obj) {
-    // TODO: 消除rollup打包Circular dependency警告
-
-    // if (obj instanceof Application) {
-    //     return true;
-    // } else if (obj.metadata && obj.metadata.generator === this.constructor.name) {
-    //     return true;
-    // } else {
-    //     return false;
-    // }
-
-    return false;
-};
 
 ScriptSerializer.prototype.toJSON = function (app) {
     var list = [];

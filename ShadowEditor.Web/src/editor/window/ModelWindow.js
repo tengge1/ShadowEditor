@@ -162,6 +162,13 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
             var mesh = new THREE.Mesh(geometry, materials);
             mesh.name = model.Name;
             mesh.rotation.x = -Math.PI / 2;
+
+            // 写入基础信息，便于保存在mongo中
+            Object.assign(mesh.userData, model, {
+                Type: 'Model',
+                Format: 'Binary'
+            });
+
             var cmd = new AddObjectCommand(mesh);
             cmd.execute();
         });
