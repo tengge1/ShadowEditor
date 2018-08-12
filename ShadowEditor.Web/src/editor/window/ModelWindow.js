@@ -11,6 +11,7 @@ function ModelWindow(options) {
     UI.Control.call(this, options);
     this.app = options.app;
     this.models = [];
+    this.keyword = '';
 }
 
 ModelWindow.prototype = Object.create(UI.Control.prototype);
@@ -82,16 +83,40 @@ ModelWindow.prototype.render = function () {
  * 显示模型文件列表
  */
 ModelWindow.prototype.show = function () {
+    UI.get('modelWindow').show();
+
+    this.keyword = '';
+    this.updateModelList();
+};
+
+ModelWindow.prototype.updateModelList = function () {
     var app = this.app;
     var server = app.options.server;
 
-    UI.get('modelWindow').show();
-
-    // 刷新模型列表
     Ajax.getJson(`${server}/api/Mesh/List`, (obj) => {
         this.models = obj.Data;
-        this.renderImages(this.models);
+        this.onSearch(this.keyword);
     });
+};
+
+/**
+ * 搜索模型文件
+ * @param {*} name 
+ */
+ModelWindow.prototype.onSearch = function (name) {
+    if (name.trim() === '') {
+        this.renderImages(this.models);
+        return;
+    }
+
+    name = name.toLowerCase();
+
+    var models = this.models.filter((n) => {
+        return n.Name.indexOf(name) > -1 ||
+            n.FirstPinYin.indexOf(name) > -1 ||
+            n.TotalPinYin.indexOf(name) > -1;
+    });
+    this.renderImages(models);
 };
 
 ModelWindow.prototype.renderImages = function (models) {
@@ -115,22 +140,6 @@ ModelWindow.prototype.renderImages = function (models) {
     images.render();
 };
 
-/**
- * 搜索模型文件
- * @param {*} name 
- */
-ModelWindow.prototype.onSearch = function (name) {
-    if (name.trim() === '') {
-        this.renderImages(this.models);
-        return;
-    }
-
-    var models = this.models.filter((n) => {
-        return n.Name.indexOf(name) > -1;
-    });
-    this.renderImages(models);
-};
-
 ModelWindow.prototype.onAddFile = function () {
     var input = document.getElementById('modelWindowInput');
     if (input == null) {
@@ -146,7 +155,7 @@ ModelWindow.prototype.onAddFile = function () {
 ModelWindow.prototype.onUploadFile = function (event) {
     UploadUtils.upload('modelWindowInput', `${this.app.options.server}/api/Mesh/Add`, (e) => {
         if (e.target.status === 200) {
-            this.onSearch('');
+            this.updateModelList();
             UI.msg('上传成功！');
         } else {
             UI.msg('上传失败！');
