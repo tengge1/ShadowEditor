@@ -105,6 +105,7 @@ ModelWindow.prototype.renderImages = function (models) {
             title: n.Name,
             data: n,
             icon: 'icon-model',
+            cornerText: n.Type,
             style: {
                 backgroundColor: '#eee'
             }
@@ -143,9 +144,13 @@ ModelWindow.prototype.onAddFile = function () {
 };
 
 ModelWindow.prototype.onUploadFile = function (event) {
-    UploadUtils.upload('modelWindowInput', `${this.app.options.server}/api/Mesh/Add`, function (json) {
-        debugger
-        UI.msg('上传成功！');
+    UploadUtils.upload('modelWindowInput', `${this.app.options.server}/api/Mesh/Add`, (e) => {
+        if (e.target.status === 200) {
+            this.onSearch('');
+            UI.msg('上传成功！');
+        } else {
+            UI.msg('上传失败！');
+        }
     });
 };
 

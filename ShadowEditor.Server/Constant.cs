@@ -24,11 +24,11 @@ namespace ShadowEditor.Server
         /// <summary>
         /// 模型分类表名
         /// </summary>
-        public const string ModelTypeCollectionName = "_ModelType";
+        public const string MeshTypeCollectionName = "_ModelType";
 
         /// <summary>
         /// 模型表名
         /// </summary>
-        public const string ModelCollectionName = "_Model";
+        public const string MeshCollectionName = "_Model";
     }
 }

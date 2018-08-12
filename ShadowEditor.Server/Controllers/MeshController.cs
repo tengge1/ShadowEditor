@@ -28,11 +28,13 @@ namespace ShadowEditor.Server.Controllers
         public JsonResult List()
         {
             var mongo = new MongoHelper();
-            var docs = mongo.FindAll("_Model");
+            var docs = mongo.FindAll(Constant.MeshCollectionName);
 
             var data = docs.Select(o => new
             {
                 Name = o["Name"].ToString(),
+                TotalPinYin = o["TotalPinYin"].ToString(),
+                FirstPinYin = o["FirstPinYin"].ToString(),
                 Type = o["Type"].ToString(),
                 Url = o["Url"].ToString(),
                 Thumbnail = o["Thumbnail"].ToString()
@@ -84,14 +86,16 @@ namespace ShadowEditor.Server.Controllers
             doc["FileName"] = meshInfo.FileName;
             doc["FileSize"] = meshInfo.FileSize;
             doc["FileType"] = meshInfo.FileType;
+            doc["FirstPinYin"] = meshInfo.FirstPinYin;
             doc["Name"] = meshInfo.Name;
             doc["SaveName"] = meshInfo.SaveName;
             doc["SavePath"] = meshInfo.SavePath;
             doc["Thumbnail"] = meshInfo.Thumbnail;
             doc["Type"] = meshInfo.Type.ToString();
+            doc["TotalPinYin"] = meshInfo.TotalPinYin;
             doc["Url"] = meshInfo.Url;
 
-            mongo.InsertOne("_Model", doc);
+            mongo.InsertOne(Constant.MeshCollectionName, doc);
 
             return Json(new
             {

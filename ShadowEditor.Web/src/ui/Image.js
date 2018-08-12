@@ -63,6 +63,14 @@ Image.prototype.render = function () {
         this.dom.appendChild(this.i);
     }
 
+    // 左上角文本
+    if (this.cornerText) {
+        this.corner = document.createElement('span');
+        this.corner.className = 'cornerText';
+        this.corner.innerHTML = this.cornerText;
+        this.dom.appendChild(this.corner);
+    }
+
     // 事件
     var _this = this;
 

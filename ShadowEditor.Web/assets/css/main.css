@@ -285,6 +285,13 @@ div.ImageList .Container .Item>i {
     pointer-events: none;
 }
 
+div.ImageList .Container .Item .cornerText {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    font-weight: bold;
+}
+
 div.ImageList .Container .Item .IconButton {
     padding: 2px;
     opacity: 0.8;

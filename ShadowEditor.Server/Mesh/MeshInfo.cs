@@ -17,6 +17,16 @@ namespace ShadowEditor.Server.Mesh
         public string Name { get; set; }
 
         /// <summary>
+        /// 全拼
+        /// </summary>
+        public string TotalPinYin { get; set; }
+
+        /// <summary>
+        /// 首字母拼音
+        /// </summary>
+        public string FirstPinYin { get; set; }
+
+        /// <summary>
         /// 模型类型
         /// </summary>
         public MeshType Type { get; set; }

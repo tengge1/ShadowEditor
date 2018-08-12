@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShadowEditor.Server.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace ShadowEditor.Server.Mesh
             var fileName = file.FileName;
             var fileSize = file.ContentLength;
             var fileType = file.ContentType;
+            var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
 
             // 保存文件
             var now = DateTime.Now;
@@ -38,16 +40,20 @@ namespace ShadowEditor.Server.Mesh
 
             file.SaveAs($"{physicalPath}/{fileName}");
 
+            var pinyin = PinYinHelper.GetTotalPinYin(fileNameWithoutExt);
+
             var info = new MeshInfo
             {
                 AddTime = now,
                 FileName = fileName,
                 FileSize = fileSize,
                 FileType = fileType,
-                Name = fileName,
+                FirstPinYin = string.Join("", pinyin.FirstPinYin),
+                Name = fileNameWithoutExt,
                 SaveName = fileName,
                 SavePath = savePath,
                 Thumbnail = "",
+                TotalPinYin = string.Join("", pinyin.TotalPinYin),
                 Type = meshType,
                 Url = $"{savePath}/{fileName}"
             };
