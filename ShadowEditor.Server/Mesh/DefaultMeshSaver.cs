@@ -1,5 +1,4 @@
-﻿using ShadowEditor.Server.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,9 +9,10 @@ using System.Web;
 namespace ShadowEditor.Server.Mesh
 {
     /// <summary>
-    /// Binary模型保存器
+    /// 默认模型保存器
     /// </summary>
-    public class BinaryMeshSaver : IMeshSaver
+    /// <remarks>仅仅将上传的文件保存在Upload/Model/{yyyyMMddHHmmss}目录，并返回保存信息。</remarks>
+    public class DefaultMeshSaver : IMeshSaver
     {
         public MeshInfo Save(MeshType meshType = MeshType.unknown)
         {
@@ -31,32 +31,12 @@ namespace ShadowEditor.Server.Mesh
             var savePath = $"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}";
             var physicalPath = Server.MapPath(savePath);
 
-            var tempPath = physicalPath + "\\temp"; // zip压缩文件临时保存目录
-
-            if (!Directory.Exists(tempPath))
+            if (!Directory.Exists(physicalPath))
             {
-                Directory.CreateDirectory(tempPath);
+                Directory.CreateDirectory(physicalPath);
             }
 
-            file.SaveAs(tempPath);
-
-            // 解压文件
-            ZipHelper.Unzip($"{tempPath}/{fileName}", savePath);
-
-            // 删除临时目录
-            Directory.Delete(tempPath, true);
-
-            // 查找模型目录中的json文件
-            var jsonFileName = fileName.Replace(".zip", ".json");
-            var files = Directory.GetFiles(physicalPath, "*.json");
-            foreach (var i in files)
-            {
-                if (i.EndsWith(".json"))
-                {
-                    jsonFileName = Path.GetFileName(i);
-                    break;
-                }
-            }
+            file.SaveAs($"{physicalPath}/{fileName}");
 
             var info = new MeshInfo
             {
@@ -69,7 +49,7 @@ namespace ShadowEditor.Server.Mesh
                 SavePath = savePath,
                 Thumbnail = "",
                 Type = meshType,
-                Url = savePath + "/" + jsonFileName
+                Url = $"{savePath}/{fileName}"
             };
 
             return info;

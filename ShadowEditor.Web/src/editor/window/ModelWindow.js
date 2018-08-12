@@ -143,7 +143,8 @@ ModelWindow.prototype.onAddFile = function () {
 };
 
 ModelWindow.prototype.onUploadFile = function (event) {
-    UploadUtils.upload('modelWindowInput', `${this.app.options.server}/api/Model/Add`, function () {
+    UploadUtils.upload('modelWindowInput', `${this.app.options.server}/api/Mesh/Add`, function (json) {
+        debugger
         UI.msg('上传成功！');
     });
 };
@@ -153,25 +154,47 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
 
     if (btn === 'edit') { // 编辑模型
         UI.msg('开始编辑模型');
-    } else if (btn === 'delete') { // 删除模型
+        return;
+    }
+
+    if (btn === 'delete') { // 删除模型
         UI.msg('开始删除模型');
-    } else { // 加载模型
+        return;
+    }
+
+    // 添加模型
+    if (model.Type === 'amf') {
+        var loader = new THREE.AMFLoader();
+        loader.load(this.app.options.server + model.Url, (group) => {
+            group.name = model.Name;
+            group.rotation.x = -Math.PI / 2;
+
+            // 写入基础信息，便于保存在mongo中
+            Object.assign(group.userData, model, {
+                Server: true
+            });
+
+            var cmd = new AddObjectCommand(group);
+            cmd.execute();
+        });
+    } else if (model.Type === 'binary') {
         var loader = new THREE.BinaryLoader();
 
-        loader.load(this.app.options.server + model.Model, (geometry, materials) => {
+        loader.load(this.app.options.server + model.Url, (geometry, materials) => {
             var mesh = new THREE.Mesh(geometry, materials);
             mesh.name = model.Name;
             mesh.rotation.x = -Math.PI / 2;
 
             // 写入基础信息，便于保存在mongo中
             Object.assign(mesh.userData, model, {
-                Type: 'Model',
-                Format: 'Binary'
+                Server: true
             });
 
             var cmd = new AddObjectCommand(mesh);
             cmd.execute();
         });
+    } else {
+        console.warn(`ModelWindow: 未知模型类型${model.Type}`);
     }
 };
 

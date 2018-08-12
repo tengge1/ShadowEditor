@@ -11,11 +11,12 @@ using MongoDB.Bson;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
+using ShadowEditor.Server.Mesh;
 
 namespace ShadowEditor.Server.Controllers
 {
     /// <summary>
-    /// 网格模型控制器
+    /// 模型控制器
     /// </summary>
     public class MeshController : ApiBase
     {
@@ -32,7 +33,9 @@ namespace ShadowEditor.Server.Controllers
             var data = docs.Select(o => new
             {
                 Name = o["Name"].ToString(),
-                Model = o["Model"].ToString()
+                Type = o["Type"].ToString(),
+                Url = o["Url"].ToString(),
+                Thumbnail = o["Thumbnail"].ToString()
             });
 
             return Json(new
@@ -55,49 +58,38 @@ namespace ShadowEditor.Server.Controllers
             // 文件信息
             var file = Request.Files[0];
             var fileName = file.FileName;
-            var fileSize = file.ContentLength;
-            var fileType = file.ContentType;
 
-            // 保存文件
-            var now = DateTime.Now;
-            var saveName = now.ToString("yyyyMMddHHmmss") + ".zip";
-            var savePath = "/Upload/Model/" + saveName;
-            file.SaveAs(Server.MapPath(savePath));
+            MeshInfo meshInfo = null;
 
-            // 解压文件
-            var unzipDir = Server.MapPath($"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}/");
-            if (!Directory.Exists(unzipDir))
+            var ext = Path.GetExtension(fileName);
+
+            switch (ext.ToLower())
             {
-                Directory.CreateDirectory(unzipDir);
-            }
-
-            ZipHelper.Unzip(Server.MapPath(savePath), unzipDir);
-
-            // 查找模型目录中的json文件
-            var jsonFileName = fileName.Replace(".zip", ".json");
-            var files = Directory.GetFiles(Server.MapPath($"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}/"), "*.json");
-            foreach (var i in files)
-            {
-                if (i.EndsWith(".json"))
-                {
-                    jsonFileName = Path.GetFileName(i);
+                case ".amf": // amf格式
+                    meshInfo = new DefaultMeshSaver().Save(MeshType.amf);
                     break;
-                }
+                case ".zip": // Binary格式
+                    meshInfo = new BinaryMeshSaver().Save(MeshType.binary);
+                    break;
+                default: // 其他格式
+                    meshInfo = new DefaultMeshSaver().Save(MeshType.unknown);
+                    break;
             }
 
             // 保存到Mongo
             var mongo = new MongoHelper();
 
             var doc = new BsonDocument();
-            doc["Name"] = fileName;
-            doc["FileName"] = fileName;
-            doc["FileSize"] = fileSize;
-            doc["FileType"] = fileType;
-            doc["SaveName"] = saveName;
-            doc["SavePath"] = savePath;
-            doc["AddTime"] = BsonDateTime.Create(now);
-            doc["Model"] = $"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}/" + jsonFileName;
-            doc["Thumbnail"] = ""; // 缩略图
+            doc["AddTime"] = BsonDateTime.Create(meshInfo.AddTime);
+            doc["FileName"] = meshInfo.FileName;
+            doc["FileSize"] = meshInfo.FileSize;
+            doc["FileType"] = meshInfo.FileType;
+            doc["Name"] = meshInfo.Name;
+            doc["SaveName"] = meshInfo.SaveName;
+            doc["SavePath"] = meshInfo.SavePath;
+            doc["Thumbnail"] = meshInfo.Thumbnail;
+            doc["Type"] = meshInfo.Type.ToString();
+            doc["Url"] = meshInfo.Url;
 
             mongo.InsertOne("_Model", doc);
 
