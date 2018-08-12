@@ -162,7 +162,19 @@ Converter.prototype.fromJson = function (json) {
                 console.warn(`Converter: 场景中不存在uuid为${n}的对象数据。`);
                 return;
             }
+
             var obj = null;
+
+            if (objJson.userData && objJson.userData.Server === true) { // 服务端对象
+                var promise = (new ServerObject(this.app)).fromJSON(objJson);
+                promise.then(obj => {
+                    if (obj) {
+                        this.app.editor.scene.add(obj);
+                    }
+                });
+                return;
+            }
+
             switch (objJson.metadata.generator) {
                 case 'SceneSerializer':
                     obj = (new SceneSerializer(this.app)).fromJSON(objJson);
@@ -196,13 +208,7 @@ Converter.prototype.fromJson = function (json) {
                     break;
             }
 
-            if (obj instanceof Promise) {
-                obj.then(mesh => {
-                    if (mesh) {
-                        this.app.editor.scene.add(mesh);
-                    }
-                });
-            } else if (obj) {
+            if (obj) {
                 parent.add(obj);
             } else {
                 console.warn(`Converter: 不存在序列化${objJson.metadata.type}的反序列化器。`);

@@ -19,13 +19,8 @@ MeshSerializer.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON.call(this, obj);
 
     json.drawMode = obj.drawMode;
-
-    if (obj.userData.Server === true) { // 服务端模型
-        json.userData = Object.assign({}, obj.userData);
-    } else {
-        json.geometry = (new GeometriesSerializer(this.app)).toJSON(obj.geometry);
-        json.material = (new MaterialsSerializer(this.app)).toJSON(obj.material);
-    }
+    json.geometry = (new GeometriesSerializer(this.app)).toJSON(obj.geometry);
+    json.material = (new MaterialsSerializer(this.app)).toJSON(obj.material);
 
     return json;
 };
@@ -36,32 +31,6 @@ MeshSerializer.prototype.fromJSON = function (json, parent) {
         var obj = parent;
         Object3DSerializer.prototype.fromJSON.call(this, json, obj);
         return obj;
-    }
-
-    // 服务端模型
-    if (json.userData && json.userData.Server === true) {
-        var type = json.userData.Type;
-        return new Promise((resolve, reject) => {
-            if (type === 'amf') {
-                var loader = new THREE.AMFLoader();
-                loader.load(this.app.options.server + json.userData.Url, (group) => {
-                    Object3DSerializer.prototype.fromJSON.call(this, json, mesh);
-                    resolve(group);
-                });
-            } else if (type === 'binary') {
-                var loader = new THREE.BinaryLoader();
-
-                loader.load(this.app.options.server + json.userData.Url, (geometry, materials) => {
-                    var mesh = new THREE.Mesh(geometry, materials);
-
-                    Object3DSerializer.prototype.fromJSON.call(this, json, mesh);
-                    resolve(mesh);
-                });
-            } else {
-                console.warn(`MeshSerializer: 未知模型类型${type}。`);
-                resolve(null);
-            }
-        });
     }
 
     // 其他模型
