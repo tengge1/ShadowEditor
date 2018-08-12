@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.Model
+namespace ShadowEditor.Server.Scene
 {
     /// <summary>
     /// 场景保存模型

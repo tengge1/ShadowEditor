@@ -115,8 +115,8 @@
     <Compile Include="Mesh\IMeshSaver.cs" />
     <Compile Include="Mesh\MeshInfo.cs" />
     <Compile Include="Mesh\MeshType.cs" />
-    <Compile Include="Model\SaveSceneModel.cs" />
-    <Compile Include="Model\SceneModel.cs" />
+    <Compile Include="Scene\SaveSceneModel.cs" />
+    <Compile Include="Scene\SceneModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

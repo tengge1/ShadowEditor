@@ -10,7 +10,7 @@ using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
-using ShadowEditor.Server.Model;
+using ShadowEditor.Server.Scene;
 
 namespace ShadowEditor.Server.Controllers
 {
