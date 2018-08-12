@@ -6,6 +6,7 @@ import SceneSerializer from './core/SceneSerializer';
 import MeshSerializer from './core/MeshSerializer';
 import GroupSerializer from './core/GroupSerializer';
 import SpriteSerializer from './core/SpriteSerializer';
+import ServerObject from './core/ServerObject';
 
 // app
 import ConfigSerializer from './app/ConfigSerializer';
@@ -58,7 +59,9 @@ Converter.prototype.toJSON = function () {
             var json = null;
 
             if (obj.userData && obj.userData.Server === true) { // 服务器对象
-
+                json = (new ServerObject(this.app)).toJSON(obj);
+                list.push(json);
+                return;
             }
 
             switch (obj.constructor.name) {
@@ -98,10 +101,14 @@ Converter.prototype.toJSON = function () {
             } else {
                 console.warn(`Converter: There is no serializer to serialize ${obj.constructor.name}`);
             }
+
+            if (obj.children && obj.children.length > 0) {
+                serializerChildren(obj);
+            }
         });
     };
 
-    serializerChildren(app.editor.scene);
+    serializerChildren.call(this, app.editor.scene);
 
     return list;
 };
