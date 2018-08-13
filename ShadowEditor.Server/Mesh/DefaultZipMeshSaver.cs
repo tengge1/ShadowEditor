@@ -12,7 +12,6 @@ namespace ShadowEditor.Server.Mesh
     /// <summary>
     /// 默认zip文件模型保存器
     /// </summary>
-    /// <remarks>仅仅将上传的文件保存在Upload/Model/{yyyyMMddHHmmss}目录，并返回保存信息。</remarks>
     public class DefaultZipMeshSaver : IMeshSaver
     {
         public MeshInfo Save(MeshType meshType = MeshType.unknown)
@@ -33,12 +32,32 @@ namespace ShadowEditor.Server.Mesh
             var savePath = $"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}";
             var physicalPath = Server.MapPath(savePath);
 
-            if (!Directory.Exists(physicalPath))
+            var tempPath = physicalPath + "\\temp"; // zip压缩文件临时保存目录
+
+            if (!Directory.Exists(tempPath))
             {
-                Directory.CreateDirectory(physicalPath);
+                Directory.CreateDirectory(tempPath);
             }
 
-            file.SaveAs($"{physicalPath}/{fileName}");
+            file.SaveAs($"{tempPath}\\{fileName}");
+
+            // 解压文件
+            ZipHelper.Unzip($"{tempPath}\\{fileName}", physicalPath);
+
+            // 删除临时目录
+            Directory.Delete(tempPath, true);
+
+            // 查找模型目录中的json文件
+            var jsonFileName = fileName.Replace(".zip", ".json");
+            var files = Directory.GetFiles(physicalPath, "*.json");
+            foreach (var i in files)
+            {
+                if (i.EndsWith(".json"))
+                {
+                    jsonFileName = Path.GetFileName(i);
+                    break;
+                }
+            }
 
             var pinyin = PinYinHelper.GetTotalPinYin(fileNameWithoutExt);
 
@@ -55,7 +74,7 @@ namespace ShadowEditor.Server.Mesh
                 Thumbnail = "",
                 TotalPinYin = string.Join("", pinyin.TotalPinYin),
                 Type = meshType,
-                Url = $"{savePath}/{fileName}"
+                Url = savePath + "/" + jsonFileName
             };
 
             return info;
