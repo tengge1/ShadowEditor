@@ -24,7 +24,7 @@ ServerObject.prototype.fromJSON = function (json) {
         if (type === 'amf') {
             var loader = new THREE.AMFLoader();
             loader.load(this.app.options.server + json.userData.Url, (group) => {
-                Object3DSerializer.prototype.fromJSON.call(this, json, mesh);
+                Object3DSerializer.prototype.fromJSON.call(this, json, group);
                 resolve(group);
             });
         } else if (type === 'binary') {

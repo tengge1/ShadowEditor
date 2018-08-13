@@ -55,56 +55,54 @@ Converter.prototype.toJSON = function () {
 
     // 序列化场景
     function serializerChildren(obj) {
-        obj.children.forEach(n => {
-            var json = null;
+        var json = null;
 
-            if (obj.userData && obj.userData.Server === true) { // 服务器对象
-                json = (new ServerObject(this.app)).toJSON(obj);
-                list.push(json);
-                return;
-            }
+        if (obj.userData && obj.userData.Server === true) { // 服务器对象
+            json = (new ServerObject(this.app)).toJSON(obj);
+            list.push(json);
+            return;
+        }
 
-            switch (obj.constructor.name) {
-                case 'Scene':
-                    json = (new SceneSerializer(this.app)).toJSON(obj);
-                    break;
-                case 'Group':
-                    json = (new GroupSerializer(this.app)).toJSON(obj);
-                    break;
-                case 'Mesh':
-                    json = (new MeshSerializer(this.app)).toJSON(obj);
-                    break;
-                case 'Sprite':
-                    json = (new SpriteSerializer(this.app)).toJSON(obj);
-                    break;
-                case 'AmbientLight':
-                    json = (new AmbientLightSerializer(this.app)).toJSON(obj);
-                    break;
-                case 'DirectionalLight':
-                    json = (new DirectionalLightSerializer(this.app)).toJSON(obj);
-                    break;
-                case 'HemisphereLight':
-                    json = (new HemisphereLightSerializer(this.app)).toJSON(obj);
-                    break;
-                case 'PointLight':
-                    json = (new PointLightSerializer(this.app)).toJSON(obj);
-                    break;
-                case 'RectAreaLight':
-                    json = (new RectAreaLightSerializer(this.app)).toJSON(obj);
-                    break;
-                case 'SpotLight':
-                    json = (new SpotLightSerializer(this.app)).toJSON(obj);
-                    break;
-            }
-            if (json) {
-                list.push(json);
-            } else {
-                console.warn(`Converter: There is no serializer to serialize ${obj.constructor.name}`);
-            }
+        switch (obj.constructor.name) {
+            case 'Scene':
+                json = (new SceneSerializer(this.app)).toJSON(obj);
+                break;
+            case 'Group':
+                json = (new GroupSerializer(this.app)).toJSON(obj);
+                break;
+            case 'Mesh':
+                json = (new MeshSerializer(this.app)).toJSON(obj);
+                break;
+            case 'Sprite':
+                json = (new SpriteSerializer(this.app)).toJSON(obj);
+                break;
+            case 'AmbientLight':
+                json = (new AmbientLightSerializer(this.app)).toJSON(obj);
+                break;
+            case 'DirectionalLight':
+                json = (new DirectionalLightSerializer(this.app)).toJSON(obj);
+                break;
+            case 'HemisphereLight':
+                json = (new HemisphereLightSerializer(this.app)).toJSON(obj);
+                break;
+            case 'PointLight':
+                json = (new PointLightSerializer(this.app)).toJSON(obj);
+                break;
+            case 'RectAreaLight':
+                json = (new RectAreaLightSerializer(this.app)).toJSON(obj);
+                break;
+            case 'SpotLight':
+                json = (new SpotLightSerializer(this.app)).toJSON(obj);
+                break;
+        }
+        if (json) {
+            list.push(json);
+        } else {
+            console.warn(`Converter: There is no serializer to serialize ${obj.constructor.name}`);
+        }
 
-            if (obj.children && obj.children.length > 0) {
-                serializerChildren(obj);
-            }
+        obj.children && obj.children.forEach(n => {
+            serializerChildren.call(this, n);
         });
     };
 
