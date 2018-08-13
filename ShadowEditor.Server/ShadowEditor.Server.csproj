@@ -110,6 +110,7 @@
     <Compile Include="Helpers\MongoHelper.cs" />
     <Compile Include="Helpers\PinYinHelper.cs" />
     <Compile Include="Helpers\ZipHelper.cs" />
+    <Compile Include="Mesh\DefaultZipMeshSaver.cs" />
     <Compile Include="Mesh\DefaultMeshSaver.cs" />
     <Compile Include="Mesh\BinaryMeshSaver.cs" />
     <Compile Include="Mesh\IMeshSaver.cs" />
