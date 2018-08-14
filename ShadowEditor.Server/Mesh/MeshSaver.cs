@@ -69,11 +69,18 @@ namespace ShadowEditor.Server.Mesh
                 {
                     entryFileName = i;
                     meshType = MeshType.amf;
+                    break;
                 }
                 else if (i.EndsWith(".json")) // binary文件
                 {
                     entryFileName = i;
                     meshType = MeshType.binary;
+                    break;
+                }
+                else if (i.EndsWith(".awd")) // awd文件
+                {
+                    entryFileName = i;
+                    meshType = MeshType.awd;
                     break;
                 }
             }

@@ -30,6 +30,8 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
             var docs = mongo.FindAll(Constant.MeshCollectionName);
 
+            docs.Reverse();
+
             var data = docs.Select(o => new
             {
                 Name = o["Name"].ToString(),

@@ -211,6 +211,21 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
             var cmd = new AddObjectCommand(mesh);
             cmd.execute();
         });
+    } else if (model.Type === 'awd') {
+        var loader = new THREE.AWDLoader();
+
+        loader.load(this.app.options.server + model.Url, (obj3d) => {
+            obj3d.name = model.Name;
+            obj3d.rotation.x = -Math.PI / 2;
+
+            // 写入基础信息，便于保存在mongo中
+            Object.assign(obj3d.userData, model, {
+                Server: true
+            });
+
+            var cmd = new AddObjectCommand(obj3d);
+            cmd.execute();
+        });
     } else {
         console.warn(`ModelWindow: 未知模型类型${model.Type}`);
     }

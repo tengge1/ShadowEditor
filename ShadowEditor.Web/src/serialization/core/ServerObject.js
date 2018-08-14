@@ -36,6 +36,13 @@ ServerObject.prototype.fromJSON = function (json) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, mesh);
                 resolve(mesh);
             });
+        } else if (type === 'awd') {
+            var loader = new THREE.AWDLoader();
+
+            loader.load(this.app.options.server + json.userData.Url, (obj3d) => {
+                Object3DSerializer.prototype.fromJSON.call(this, json, obj3d);
+                resolve(obj3d);
+            });
         } else {
             console.warn(`MeshSerializer: 未知模型类型${type}。`);
             resolve(null);
