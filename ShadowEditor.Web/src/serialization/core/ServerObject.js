@@ -52,6 +52,15 @@ ServerObject.prototype.fromJSON = function (json) {
                 obj3d.children = scene.children;
                 resolve(obj3d);
             });
+        } else if (type === 'ctm') {
+            var loader = new THREE.CTMLoader();
+
+            loader.load(this.app.options.server + json.userData.Url, (geometry) => {
+                var material = new THREE.MeshStandardMaterial();
+                var mesh = new THREE.Mesh(geometry, material);
+                Object3DSerializer.prototype.fromJSON.call(this, json, mesh);
+                resolve(mesh);
+            });
         } else {
             console.warn(`MeshSerializer: 未知模型类型${type}。`);
             resolve(null);
