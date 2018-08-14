@@ -93,6 +93,11 @@ namespace ShadowEditor.Server.Mesh
                     entryFileName = i;
                     meshType = MeshType.ctm;
                 }
+                else if (i.EndsWith(".dae"))
+                {
+                    entryFileName = i;
+                    meshType = MeshType.dae;
+                }
             }
 
             if (entryFileName == null || meshType == MeshType.unknown)
