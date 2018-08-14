@@ -15,8 +15,8 @@ namespace ShadowEditor.Server.Mesh
         /// <summary>
         /// 保存模型
         /// </summary>
-        /// <param name="meshType">模型类型</param>
+        /// <param name="context">Web上下文环境</param>
         /// <returns></returns>
-        MeshInfo Save(MeshType meshType);
+        Result Save(HttpContext context);
     }
 }

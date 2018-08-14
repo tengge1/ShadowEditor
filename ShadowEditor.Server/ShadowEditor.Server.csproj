@@ -110,12 +110,11 @@
     <Compile Include="Helpers\MongoHelper.cs" />
     <Compile Include="Helpers\PinYinHelper.cs" />
     <Compile Include="Helpers\ZipHelper.cs" />
-    <Compile Include="Mesh\DefaultZipMeshSaver.cs" />
-    <Compile Include="Mesh\DefaultMeshSaver.cs" />
-    <Compile Include="Mesh\BinaryMeshSaver.cs" />
     <Compile Include="Mesh\IMeshSaver.cs" />
     <Compile Include="Mesh\MeshInfo.cs" />
+    <Compile Include="Mesh\MeshSaver.cs" />
     <Compile Include="Mesh\MeshType.cs" />
+    <Compile Include="Result.cs" />
     <Compile Include="Scene\SaveSceneModel.cs" />
     <Compile Include="Scene\SceneModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

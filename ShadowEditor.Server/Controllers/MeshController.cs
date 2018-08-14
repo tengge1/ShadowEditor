@@ -54,54 +54,9 @@ namespace ShadowEditor.Server.Controllers
         /// <returns></returns>
         public JsonResult Add()
         {
-            var Request = HttpContext.Current.Request;
-            var Server = HttpContext.Current.Server;
-
-            // 文件信息
-            var file = Request.Files[0];
-            var fileName = file.FileName;
-
-            MeshInfo meshInfo = null;
-
-            var ext = Path.GetExtension(fileName);
-
-            switch (ext.ToLower())
-            {
-                case ".amf": // amf格式
-                    meshInfo = new DefaultMeshSaver().Save(MeshType.amf);
-                    break;
-                case ".zip": // Binary格式
-                    meshInfo = new BinaryMeshSaver().Save(MeshType.binary);
-                    break;
-                default: // 其他格式
-                    meshInfo = new DefaultMeshSaver().Save(MeshType.unknown);
-                    break;
-            }
-
-            // 保存到Mongo
-            var mongo = new MongoHelper();
-
-            var doc = new BsonDocument();
-            doc["AddTime"] = BsonDateTime.Create(meshInfo.AddTime);
-            doc["FileName"] = meshInfo.FileName;
-            doc["FileSize"] = meshInfo.FileSize;
-            doc["FileType"] = meshInfo.FileType;
-            doc["FirstPinYin"] = meshInfo.FirstPinYin;
-            doc["Name"] = meshInfo.Name;
-            doc["SaveName"] = meshInfo.SaveName;
-            doc["SavePath"] = meshInfo.SavePath;
-            doc["Thumbnail"] = meshInfo.Thumbnail;
-            doc["Type"] = meshInfo.Type.ToString();
-            doc["TotalPinYin"] = meshInfo.TotalPinYin;
-            doc["Url"] = meshInfo.Url;
-
-            mongo.InsertOne(Constant.MeshCollectionName, doc);
-
-            return Json(new
-            {
-                Code = 200,
-                Msg = "保存成功！"
-            });
+            var saver = new MeshSaver();
+            var result = saver.Save(HttpContext.Current);
+            return Json(result);
         }
     }
 }
