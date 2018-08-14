@@ -25,7 +25,17 @@ namespace ShadowEditor.Server.Mesh
             var fileName = file.FileName;
             var fileSize = file.ContentLength;
             var fileType = file.ContentType;
+            var fileExt = Path.GetExtension(fileName);
             var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
+
+            if (fileExt == null || fileExt.ToLower() != ".zip")
+            {
+                return new Result
+                {
+                    Code = 300,
+                    Msg = "只允许上传zip格式文件！"
+                };
+            }
 
             // 保存文件
             var now = DateTime.Now;
@@ -55,7 +65,12 @@ namespace ShadowEditor.Server.Mesh
             var files = Directory.GetFiles(physicalPath);
             foreach (var i in files)
             {
-                if (i.EndsWith(".json")) // binary文件
+                if (i.EndsWith(".amf")) // amf文件
+                {
+                    entryFileName = i;
+                    meshType = MeshType.amf;
+                }
+                else if (i.EndsWith(".json")) // binary文件
                 {
                     entryFileName = i;
                     meshType = MeshType.binary;
@@ -65,6 +80,8 @@ namespace ShadowEditor.Server.Mesh
 
             if (entryFileName == null || meshType == MeshType.unknown)
             {
+                Directory.Delete(physicalPath, true);
+
                 return new Result
                 {
                     Code = 300,
@@ -88,15 +105,15 @@ namespace ShadowEditor.Server.Mesh
             doc["SavePath"] = savePath;
             doc["Thumbnail"] = "";
             doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
-            doc["Type"] = meshType;
-            doc["Url"] = savePath + "/" + entryFileName;
+            doc["Type"] = meshType.ToString();
+            doc["Url"] = $"{savePath}/{Path.GetFileName(entryFileName)}";
 
             mongo.InsertOne(Constant.MeshCollectionName, doc);
 
             return new Result
             {
                 Code = 200,
-                Msg = "保存成功！"
+                Msg = "上传成功！"
             };
         }
     }

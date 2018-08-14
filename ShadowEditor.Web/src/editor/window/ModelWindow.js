@@ -141,10 +141,10 @@ ModelWindow.prototype.renderImages = function (models) {
 };
 
 ModelWindow.prototype.onAddFile = function () {
-    var input = document.getElementById('modelWindowInput');
+    var input = document.getElementById('modelWindowFileInput');
     if (input == null) {
         input = document.createElement('input');
-        input.id = 'modelWindowInput';
+        input.id = 'modelWindowFileInput';
         input.type = 'file';
         document.body.appendChild(input);
         input.onchange = this.onUploadFile.bind(this);
@@ -153,12 +153,16 @@ ModelWindow.prototype.onAddFile = function () {
 };
 
 ModelWindow.prototype.onUploadFile = function (event) {
-    UploadUtils.upload('modelWindowInput', `${this.app.options.server}/api/Mesh/Add`, (e) => {
+    UploadUtils.upload('modelWindowFileInput', `${this.app.options.server}/api/Mesh/Add`, (e) => {
+        document.getElementById('modelWindowFileInput').value = null;
         if (e.target.status === 200) {
-            this.updateModelList();
-            UI.msg('上传成功！');
+            var obj = JSON.parse(e.target.responseText);
+            if (obj.Code === 200) {
+                this.updateModelList();
+            }
+            UI.msg(obj.Msg);
         } else {
-            UI.msg('上传失败！');
+            UI.msg('服务器错误！');
         }
     });
 };
