@@ -168,6 +168,7 @@ Converter.prototype.fromJson = function (json) {
                 promise.then(obj => {
                     if (obj) {
                         this.app.editor.scene.add(obj);
+                        this.app.call('updateScenePanel', this);
                     }
                 });
                 return;

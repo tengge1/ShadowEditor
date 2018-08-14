@@ -187,7 +187,6 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
             group.name = model.Name;
             group.rotation.x = -Math.PI / 2;
 
-            // 写入基础信息，便于保存在mongo中
             Object.assign(group.userData, model, {
                 Server: true
             });
@@ -203,7 +202,6 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
             mesh.name = model.Name;
             mesh.rotation.x = -Math.PI / 2;
 
-            // 写入基础信息，便于保存在mongo中
             Object.assign(mesh.userData, model, {
                 Server: true
             });
@@ -218,10 +216,26 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
             obj3d.name = model.Name;
             obj3d.rotation.x = -Math.PI / 2;
 
-            // 写入基础信息，便于保存在mongo中
             Object.assign(obj3d.userData, model, {
                 Server: true
             });
+
+            var cmd = new AddObjectCommand(obj3d);
+            cmd.execute();
+        });
+    } else if (model.Type === 'babylon') {
+        var loader = new THREE.BabylonLoader();
+
+        loader.load(this.app.options.server + model.Url, (scene) => {
+            var obj3d = new THREE.Object3D();
+            obj3d.name = model.Name;
+            obj3d.rotation.x = -Math.PI / 2;
+
+            Object.assign(obj3d.userData, model, {
+                Server: true
+            });
+
+            obj3d.children = scene.children;
 
             var cmd = new AddObjectCommand(obj3d);
             cmd.execute();

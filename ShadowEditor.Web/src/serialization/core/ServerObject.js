@@ -43,6 +43,15 @@ ServerObject.prototype.fromJSON = function (json) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, obj3d);
                 resolve(obj3d);
             });
+        } else if (type === 'babylon') {
+            var loader = new THREE.BabylonLoader();
+
+            loader.load(this.app.options.server + json.userData.Url, (scene) => {
+                var obj3d = new THREE.Object3D();
+                Object3DSerializer.prototype.fromJSON.call(this, json, obj3d);
+                obj3d.children = scene.children;
+                resolve(obj3d);
+            });
         } else {
             console.warn(`MeshSerializer: 未知模型类型${type}。`);
             resolve(null);
