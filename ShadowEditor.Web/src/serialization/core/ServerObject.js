@@ -69,6 +69,13 @@ ServerObject.prototype.fromJSON = function (json) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, obj3d);
                 resolve(obj3d);
             });
+        } else if (type === 'fbx') {
+            var loader = new THREE.FBXLoader();
+
+            loader.load(this.app.options.server + json.userData.Url, (obj3d) => {
+                Object3DSerializer.prototype.fromJSON.call(this, json, obj3d);
+                resolve(obj3d);
+            });
         } else {
             console.warn(`MeshSerializer: 未知模型类型${type}。`);
             resolve(null);

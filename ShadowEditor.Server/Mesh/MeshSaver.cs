@@ -98,6 +98,11 @@ namespace ShadowEditor.Server.Mesh
                     entryFileName = i;
                     meshType = MeshType.dae;
                 }
+                else if (i.EndsWith(".fbx"))
+                {
+                    entryFileName = i;
+                    meshType = MeshType.fbx;
+                }
             }
 
             if (entryFileName == null || meshType == MeshType.unknown)
