@@ -88,6 +88,11 @@ namespace ShadowEditor.Server.Mesh
                     entryFileName = i;
                     meshType = MeshType.babylon;
                 }
+                else if (i.EndsWith(".ctm")) // ctm文件
+                {
+                    entryFileName = i;
+                    meshType = MeshType.ctm;
+                }
             }
 
             if (entryFileName == null || meshType == MeshType.unknown)

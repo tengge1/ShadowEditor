@@ -324,6 +324,7 @@ div.ImageList .Container .title {
     color: #fff;
     padding: 3px 8px;
     pointer-events: none;
+    word-break: break-word;
 }
 
 div.MessageBox {
