@@ -28,11 +28,17 @@ PhysicsMenu.prototype.render = function () {
             cls: 'options',
             children: [{
                 xtype: 'div',
-                id: 'mAddCloth',
+                html: '添加平板',
+                cls: 'option',
+                onClick: function () {
+                    _this.app.call('mAddPhysicsPlane', _this);
+                }
+            }, {
+                xtype: 'div',
                 html: '添加布料',
                 cls: 'option',
                 onClick: function () {
-                    _this.app.call('mAddCloth', _this);
+                    _this.app.call('mAddPhysicsCloth', _this);
                 }
             }]
         }]

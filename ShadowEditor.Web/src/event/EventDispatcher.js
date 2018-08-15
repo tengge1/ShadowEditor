@@ -96,7 +96,7 @@ import AddPersonEvent from './menu/animation/AddPersonEvent';
 import AddFireEvent from './menu/animation/AddFireEvent';
 import AddSmokeEvent from './menu/animation/AddSmokeEvent';
 
-import AddClothEvent from './menu/physics/AddClothEvent';
+import AddPhysicsClothEvent from './menu/physics/AddPhysicsClothEvent';
 
 import ParticleEmitterEvent from './menu/component/ParticleEmitterEvent';
 
@@ -247,7 +247,7 @@ function EventDispatcher(app) {
         new AddFireEvent(this.app),
         new AddSmokeEvent(this.app),
 
-        new AddClothEvent(this.app),
+        new AddPhysicsClothEvent(this.app),
 
         new ParticleEmitterEvent(this.app),
 

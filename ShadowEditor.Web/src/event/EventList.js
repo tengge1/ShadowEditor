@@ -75,7 +75,8 @@ var EventList = [
     'mAddFire', // 添加火焰
     'mAddSmoke', // 添加烟
 
-    'mAddCloth', // 添加布料
+    'mAddPhysicsPlane', // 添加平板
+    'mAddPhysicsCloth', // 添加布料
 
     'mParticleEmitter', // 粒子发射器
 

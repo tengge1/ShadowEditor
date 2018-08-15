@@ -1,25 +1,25 @@
 import MenuEvent from '../MenuEvent';
 
 /**
- * 添加布料
+ * 添加物理布料
  * @param {*} app 
  */
-function AddClothEvent(app) {
+function AddPhysicsClothEvent(app) {
     MenuEvent.call(this, app);
 }
 
-AddClothEvent.prototype = Object.create(MenuEvent.prototype);
-AddClothEvent.prototype.constructor = AddClothEvent;
+AddPhysicsClothEvent.prototype = Object.create(MenuEvent.prototype);
+AddPhysicsClothEvent.prototype.constructor = AddPhysicsClothEvent;
 
-AddClothEvent.prototype.start = function () {
-    this.app.on(`mAddCloth.${this.id}`, this.onAddCloth.bind(this));
+AddPhysicsClothEvent.prototype.start = function () {
+    this.app.on(`mAddPhysicsCloth.${this.id}`, this.onAddCloth.bind(this));
 };
 
-AddClothEvent.prototype.stop = function () {
-    this.app.on(`mAddCloth.${this.id}`, null);
+AddPhysicsClothEvent.prototype.stop = function () {
+    this.app.on(`mAddPhysicsCloth.${this.id}`, null);
 };
 
-AddClothEvent.prototype.onAddCloth = function () {
+AddPhysicsClothEvent.prototype.onAddCloth = function () {
     return;
 
     var pos = new THREE.Vector3();
@@ -145,4 +145,4 @@ AddClothEvent.prototype.onAddCloth = function () {
     physicsWorld.addConstraint(hinge, true);
 };
 
-export default AddClothEvent;
+export default AddPhysicsClothEvent;
