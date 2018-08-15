@@ -93,7 +93,7 @@ namespace ShadowEditor.Server.Mesh
                     entryFileName = i;
                     meshType = MeshType.ctm;
                 }
-                else if (i.EndsWith(".dae"))
+                else if (i.EndsWith(".dae")) // dae文件
                 {
                     entryFileName = i;
                     meshType = MeshType.dae;
@@ -102,6 +102,46 @@ namespace ShadowEditor.Server.Mesh
                 {
                     entryFileName = i;
                     meshType = MeshType.fbx;
+                }
+                else if (i.EndsWith(".glb"))
+                {
+                    entryFileName = i;
+                    meshType = MeshType.glb;
+                }
+                else if (i.EndsWith(".gltf"))
+                {
+                    entryFileName = i;
+                    meshType = MeshType.gltf;
+                }
+                else if (i.EndsWith(".kmz"))
+                {
+                    entryFileName = i;
+                    meshType = MeshType.kmz;
+                }
+                else if (i.EndsWith(".md2"))
+                {
+                    entryFileName = i;
+                    meshType = MeshType.md2;
+                }
+                else if (i.EndsWith(".obj"))
+                {
+                    entryFileName = i;
+                    meshType = MeshType.obj;
+                }
+                else if (i.EndsWith(".ply"))
+                {
+                    entryFileName = i;
+                    meshType = MeshType.ply;
+                }
+                else if (i.EndsWith(".stl"))
+                {
+                    entryFileName = i;
+                    meshType = MeshType.stl;
+                }
+                else if (i.EndsWith(".vtk"))
+                {
+                    entryFileName = i;
+                    meshType = MeshType.vtk;
                 }
             }
 
