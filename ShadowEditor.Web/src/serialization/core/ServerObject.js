@@ -92,6 +92,15 @@ ServerObject.prototype.fromJSON = function (json) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, obj3d);
                 resolve(obj3d);
             });
+        } else if (type === 'ply') {
+            var loader = new THREE.PLYLoader();
+
+            loader.load(this.app.options.server + json.userData.Url, (geometry) => {
+                var material = new THREE.MeshStandardMaterial();
+                var mesh = new THREE.Mesh(geometry, material);
+                Object3DSerializer.prototype.fromJSON.call(this, json, mesh);
+                resolve(mesh);
+            });
         } else {
             console.warn(`MeshSerializer: 未知模型类型${type}。`);
             resolve(null);
