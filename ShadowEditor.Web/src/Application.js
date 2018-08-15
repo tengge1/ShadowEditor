@@ -66,7 +66,6 @@ function Application(container, options) {
 
     // 物理引擎
     this.physics = new Physics(params);
-    this.physics.init();
 
     this.running = false;
 
