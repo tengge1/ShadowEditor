@@ -50,8 +50,6 @@ net start MongoDB
 
 ![image](images/scene_list20180815.png)
 
-![image](images/model_list20180815.png)
-
 ## 开发日志
 
 **v0.0.3**
@@ -68,7 +66,7 @@ net start MongoDB
 
 1. 物理引擎。
 2. 粒子发射器和粒子动画。
-3. 骨骼动画和补间动画。
+3. 骨骼动画和补间动画，mmd动画支持。
 4. 三维滤镜。
 
 **v0.0.2**
