@@ -76,6 +76,14 @@ ServerObject.prototype.fromJSON = function (json) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, obj3d);
                 resolve(obj3d);
             });
+        } else if (type === 'glb' || type === 'gltf') {
+            var loader = new THREE.GLTFLoader();
+
+            loader.load(this.app.options.server + json.userData.Url, (result) => {
+                var obj3d = result.scene;
+                Object3DSerializer.prototype.fromJSON.call(this, json, obj3d);
+                resolve(obj3d);
+            });
         } else {
             console.warn(`MeshSerializer: 未知模型类型${type}。`);
             resolve(null);

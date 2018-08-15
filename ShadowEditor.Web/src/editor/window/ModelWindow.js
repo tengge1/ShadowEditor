@@ -285,6 +285,21 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
             var cmd = new AddObjectCommand(obj3d);
             cmd.execute();
         });
+    } else if (model.Type === 'glb' || model.Type === 'gltf') {
+        var loader = new THREE.GLTFLoader();
+
+        loader.load(this.app.options.server + model.Url, (result) => {
+            var obj3d = result.scene;
+            obj3d.name = model.Name;
+            obj3d.rotation.x = -Math.PI / 2;
+
+            Object.assign(obj3d.userData, model, {
+                Server: true
+            });
+
+            var cmd = new AddObjectCommand(obj3d);
+            cmd.execute();
+        });
     } else {
         console.warn(`ModelWindow: 未知模型类型${model.Type}`);
     }
