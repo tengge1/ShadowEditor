@@ -132,6 +132,15 @@ ServerObject.prototype.fromJSON = function (json) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, mesh);
                 resolve(mesh);
             });
+        } else if (type === 'vtk') {
+            var loader = new THREE.VTKLoader();
+
+            loader.load(this.app.options.server + json.userData.Url, (geometry) => {
+                var material = new THREE.MeshStandardMaterial();
+                var mesh = new THREE.Mesh(geometry, material);
+                Object3DSerializer.prototype.fromJSON.call(this, json, mesh);
+                resolve(mesh);
+            });
         } else {
             console.warn(`MeshSerializer: 未知模型类型${type}。`);
             resolve(null);
