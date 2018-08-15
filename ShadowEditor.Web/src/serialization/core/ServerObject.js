@@ -108,6 +108,21 @@ ServerObject.prototype.fromJSON = function (json) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, obj);
                 resolve(obj);
             });
+        } else if (type === 'md2') {
+            var loader = new THREE.MD2Loader();
+
+            loader.load(this.app.options.server + json.userData.Url, (geometry) => {
+                var material = new THREE.MeshStandardMaterial({
+                    morphTargets: true,
+                    morphNormals: true
+                });
+
+                var mesh = new THREE.Mesh(geometry, material);
+                mesh.mixer = new THREE.AnimationMixer(mesh);
+
+                Object3DSerializer.prototype.fromJSON.call(this, json, mesh);
+                resolve(mesh);
+            });
         } else {
             console.warn(`MeshSerializer: 未知模型类型${type}。`);
             resolve(null);
