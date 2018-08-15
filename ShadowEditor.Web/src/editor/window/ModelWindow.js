@@ -331,6 +331,20 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
             var cmd = new AddObjectCommand(mesh);
             cmd.execute();
         });
+    } else if (model.Type === 'obj') {
+        var loader = new THREE.OBJLoader();
+
+        loader.load(this.app.options.server + model.Url, (obj) => {
+            obj.name = model.Name;
+            obj.rotation.x = -Math.PI / 2;
+
+            Object.assign(obj.userData, model, {
+                Server: true
+            });
+
+            var cmd = new AddObjectCommand(obj);
+            cmd.execute();
+        });
     } else {
         console.warn(`ModelWindow: 未知模型类型${model.Type}`);
     }

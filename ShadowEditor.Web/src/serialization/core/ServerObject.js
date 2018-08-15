@@ -101,6 +101,13 @@ ServerObject.prototype.fromJSON = function (json) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, mesh);
                 resolve(mesh);
             });
+        } else if (type === 'obj') {
+            var loader = new THREE.OBJLoader();
+
+            loader.load(this.app.options.server + json.userData.Url, (obj) => {
+                Object3DSerializer.prototype.fromJSON.call(this, json, obj);
+                resolve(obj);
+            });
         } else {
             console.warn(`MeshSerializer: 未知模型类型${type}。`);
             resolve(null);
