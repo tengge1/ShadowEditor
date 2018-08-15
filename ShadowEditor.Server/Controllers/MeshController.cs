@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
@@ -34,6 +35,7 @@ namespace ShadowEditor.Server.Controllers
 
             var data = docs.Select(o => new
             {
+                ID = o["_id"].ToString(),
                 Name = o["Name"].ToString(),
                 TotalPinYin = o["TotalPinYin"].ToString(),
                 FirstPinYin = o["FirstPinYin"].ToString(),
@@ -59,6 +61,55 @@ namespace ShadowEditor.Server.Controllers
             var saver = new MeshSaver();
             var result = saver.Save(HttpContext.Current);
             return Json(result);
+        }
+
+        /// <summary>
+        /// 删除模型
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Delete(string ID)
+        {
+            var mongo = new MongoHelper();
+
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", BsonObjectId.Create(ID));
+            var doc = mongo.FindOne(Constant.MeshCollectionName, filter);
+
+            if (doc == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "该模型不存在！"
+                });
+            }
+
+            // 删除模型所在目录
+            var path = doc["SavePath"].ToString();
+            var physicalPath = HttpContext.Current.Server.MapPath(path);
+
+            try
+            {
+                Directory.Delete(physicalPath, true);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = ex.Message
+                });
+            }
+
+            // 删除模型信息
+            mongo.DeleteOne(Constant.MeshCollectionName, filter);
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "删除模型成功！"
+            });
         }
     }
 }

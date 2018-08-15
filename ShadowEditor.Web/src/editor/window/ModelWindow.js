@@ -176,11 +176,39 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
     }
 
     if (btn === 'delete') { // 删除模型
-        UI.msg('开始删除模型');
+        this.onDeleteModel(model);
         return;
     }
 
-    // 添加模型
+    this.onLoadModel(model);
+};
+
+/**
+ * 删除模型
+ * @param {*} model 
+ */
+ModelWindow.prototype.onDeleteModel = function (model) {
+    var app = this.app;
+    var server = app.options.server;
+
+    UI.confirm('询问', '是否删除该模型？', (event, btn) => {
+        if (btn === 'ok') {
+            Ajax.post(`${server}/api/Mesh/Delete?ID=${model.ID}`, (json) => {
+                var obj = JSON.parse(json);
+                if (obj.Code === 200) {
+                    this.updateModelList();
+                }
+                UI.msg(obj.Msg);
+            });
+        }
+    });
+};
+
+/**
+ * 添加模型到场景
+ * @param {*} model 
+ */
+ModelWindow.prototype.onLoadModel = function (model) {
     if (model.Type === 'amf') {
         var loader = new THREE.AMFLoader();
         loader.load(this.app.options.server + model.Url, (group) => {
