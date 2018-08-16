@@ -83,6 +83,9 @@ Application.prototype.start = function () {
     this.call('resize', this);
     this.call('initApp', this);
     this.call('appStarted', this);
+
+    // 启动物体引擎
+    this.physics.start();
 };
 
 Application.prototype.stop = function () {
