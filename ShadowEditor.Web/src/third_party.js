@@ -24,6 +24,7 @@ import '../third_party/loaders/UTF8Loader.js';
 import '../third_party/loaders/VRMLLoader.js';
 import '../third_party/loaders/VTKLoader.js';
 import '../third_party/loaders/ctm/CTMLoader.js';
+import '../third_party/loaders/MMDLoader.js';
 
 import '../third_party/exporters/GLTFExporter.js';
 import '../third_party/exporters/MMDExporter.js';
@@ -40,8 +41,15 @@ import '../third_party/renderers/RaytracingRenderer.js';
 import '../third_party/renderers/SoftwareRenderer.js';
 import '../third_party/renderers/SVGRenderer.js';
 
+import '../third_party/effects/OutlineEffect.js';
 import '../third_party/effects/VREffect.js';
+
+import '../third_party/animation/CCDIKSolver.js';
+import '../third_party/animation/MMDPhysics.js';
+import '../third_party/animation/MMDAnimationHelper.js';
+
 import '../third_party/controls/VRControls.js';
+
 export { default as WEBVR } from '../third_party/vr/WebVR.js';
 export { default as html2canvas } from '../third_party/html2canvas.js';
 import '../third_party/three.html.js';
