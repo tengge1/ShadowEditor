@@ -50,6 +50,14 @@ AnimationMenu.prototype.render = function () {
                 onClick: function () {
                     _this.app.call('mAddSmoke', _this);
                 }
+            }, {
+                id: 'mMiku',
+                xtype: 'div',
+                cls: 'option',
+                html: '初音未来',
+                onClick: function () {
+                    _this.app.call('mAddMiku', _this);
+                }
             }]
         }]
     });

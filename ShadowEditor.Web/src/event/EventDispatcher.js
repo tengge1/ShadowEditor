@@ -95,6 +95,7 @@ import ExportSTLEvent from './menu/asset/ExportSTLEvent';
 import AddPersonEvent from './menu/animation/AddPersonEvent';
 import AddFireEvent from './menu/animation/AddFireEvent';
 import AddSmokeEvent from './menu/animation/AddSmokeEvent';
+import AddMikuEvent from './menu/animation/AddMikuEvent';
 
 import AddClothEvent from './menu/physics/AddClothEvent';
 
@@ -246,6 +247,7 @@ function EventDispatcher(app) {
         new AddPersonEvent(this.app),
         new AddFireEvent(this.app),
         new AddSmokeEvent(this.app),
+        new AddMikuEvent(this.app),
 
         new AddClothEvent(this.app),
 

@@ -74,6 +74,7 @@ var EventList = [
     'mAddPerson', // 添加人
     'mAddFire', // 添加火焰
     'mAddSmoke', // 添加烟
+    'mAddMiku', // 初音未来
 
     'mAddCloth', // 添加布料
 
