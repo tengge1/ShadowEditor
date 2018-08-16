@@ -25,7 +25,7 @@ function Physics(options) {
 }
 
 Physics.prototype.start = function () {
-    this.app.on(`animate.Physics`, this.update.bind(this));
+    // this.app.on(`animate.Physics`, this.update.bind(this));
 };
 
 /**
@@ -84,9 +84,7 @@ Physics.prototype.createParalellepiped = function (sx, sy, sz, mass, pos, quat, 
     return threeObject;
 };
 
-Physics.prototype.update = function (clock) {
-    var deltaTime = clock.getDelta();
-
+Physics.prototype.update = function (clock, deltaTime) {
     this.world.stepSimulation(deltaTime, 10);
 
     // Update rigid bodies

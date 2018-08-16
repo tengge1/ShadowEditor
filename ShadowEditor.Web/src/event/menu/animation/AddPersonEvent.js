@@ -78,11 +78,9 @@ AddPersonEvent.prototype.onObjectRemoved = function (object) {
     }
 };
 
-AddPersonEvent.prototype.onAnimate = function (clock) {
-    var mixerUpdateDelta = clock.getDelta();
-
+AddPersonEvent.prototype.onAnimate = function (clock, deltaTime) {
     this.persons.forEach(function (person) {
-        person.mixer.update(mixerUpdateDelta);
+        person.mixer.update(deltaTime);
     });
 };
 

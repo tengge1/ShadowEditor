@@ -84,9 +84,9 @@ ParticleEmitterEvent.prototype.onObjectRemoved = function (object) {
     }
 };
 
-ParticleEmitterEvent.prototype.onAnimate = function (clock) {
+ParticleEmitterEvent.prototype.onAnimate = function (clock, deltaTime) {
     this.groups.forEach((group) => {
-        group.tick(clock.getDelta());
+        group.tick(deltaTime);
     });
 };
 

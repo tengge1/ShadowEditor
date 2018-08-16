@@ -25,7 +25,9 @@ AnimateEvent.prototype.stop = function () {
 AnimateEvent.prototype.onAnimate = function () {
     this.app.editor.stats.begin();
 
-    this.app.call('animate', this, this.clock);
+    var deltaTime = this.clock.getDelta();
+
+    this.app.call('animate', this, this.clock, deltaTime);
     this.app.call('render', this);
 
     this.app.editor.stats.end();

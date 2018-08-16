@@ -65,8 +65,8 @@ AddMikuEvent.prototype.onAddMiku = function () {
     });
 };
 
-AddMikuEvent.prototype.onAnimate = function (clock) {
-    this.helper.update(clock.getDelta());
+AddMikuEvent.prototype.onAnimate = function (clock, deltaTime) {
+    this.helper.update(deltaTime);
     this.effect.render(this.app.editor.scene, this.app.editor.camera);
 };
 
