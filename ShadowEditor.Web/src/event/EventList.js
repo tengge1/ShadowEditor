@@ -77,7 +77,7 @@ var EventList = [
     'mAddMiku', // 初音未来
 
     'mAddPhysicsPlane', // 添加平板
-    'mAddWall', // 添加墙
+    'mAddPhysicsWall', // 添加墙
     'mAddPhysicsCloth', // 添加布料
     'mThrowBall', // 探测小球
 

@@ -33,12 +33,12 @@ PhysicsMenu.prototype.render = function () {
                 onClick: function () {
                     _this.app.call('mAddPhysicsPlane', _this);
                 }
-            },{
+            }, {
                 xtype: 'div',
                 html: '添加墙',
                 cls: 'option',
                 onClick: function () {
-                    _this.app.call('mAddWall', _this);
+                    _this.app.call('mAddPhysicsWall', _this);
                 }
             }, {
                 xtype: 'div',

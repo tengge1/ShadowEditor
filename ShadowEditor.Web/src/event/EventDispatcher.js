@@ -98,6 +98,7 @@ import AddSmokeEvent from './menu/animation/AddSmokeEvent';
 import AddMikuEvent from './menu/animation/AddMikuEvent';
 
 import AddPhysicsPlaneEvent from './menu/physics/AddPhysicsPlaneEvent';
+import AddPhysicsWallEvent from './menu/physics/AddPhysicsWallEvent';
 import AddPhysicsClothEvent from './menu/physics/AddPhysicsClothEvent';
 
 import ParticleEmitterEvent from './menu/component/ParticleEmitterEvent';
@@ -251,6 +252,7 @@ function EventDispatcher(app) {
         new AddMikuEvent(this.app),
 
         new AddPhysicsPlaneEvent(this.app),
+        new AddPhysicsWallEvent(this.app),
         new AddPhysicsClothEvent(this.app),
 
         new ParticleEmitterEvent(this.app),
