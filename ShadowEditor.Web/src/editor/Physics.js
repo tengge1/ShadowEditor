@@ -22,10 +22,14 @@ function Physics(options) {
     this.world = new Ammo.btSoftRigidDynamicsWorld(this.dispatcher, this.broadphase, this.solver, this.collisionConfiguration, this.softBodySolver);
     this.world.setGravity(new Ammo.btVector3(0, this.gravityConstant, 0));
     this.world.getWorldInfo().set_m_gravity(new Ammo.btVector3(0, this.gravityConstant, 0));
+
+    // 扔球
+    this.throwBall = false;
 }
 
 Physics.prototype.start = function () {
-    // this.app.on(`animate.Physics`, this.update.bind(this));
+    this.app.on(`click.Physics`, this.onThrowBall.bind(this));
+    this.app.on(`animate.Physics`, this.update.bind(this));
 };
 
 /**
@@ -62,6 +66,8 @@ Physics.prototype.createRigidBody = function (threeObject, physicsShape, mass, p
     }
 
     this.world.addRigidBody(body);
+
+    return body;
 };
 
 /**
@@ -82,6 +88,41 @@ Physics.prototype.createParalellepiped = function (sx, sy, sz, mass, pos, quat, 
     this.createRigidBody(threeObject, shape, mass, pos, quat);
 
     return threeObject;
+};
+
+Physics.prototype.onThrowBall = function (event) {
+    var mouse = new THREE.Vector2();
+    var raycaster = new THREE.Raycaster();
+    var camera = this.app.editor.camera;
+
+    mouse.set((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1);
+    raycaster.setFromCamera(mouse, camera);
+
+    // Creates a ball and throws it
+    var ballMass = 35;
+    var ballRadius = 0.4;
+    var ballMaterial = new THREE.MeshPhongMaterial({ color: 0x202020 });
+
+    var ball = new THREE.Mesh(new THREE.SphereBufferGeometry(ballRadius, 14, 10), ballMaterial);
+    ball.castShadow = true;
+    ball.receiveShadow = true;
+
+    var ballShape = new Ammo.btSphereShape(ballRadius);
+    ballShape.setMargin(this.margin);
+
+    var pos = new THREE.Vector3();
+    pos.copy(raycaster.ray.direction);
+    pos.add(raycaster.ray.origin);
+
+    var quat = new THREE.Quaternion();
+    quat.set(0, 0, 0, 1);
+
+    var ballBody = this.createRigidBody(ball, ballShape, ballMass, pos, quat);
+
+    pos.copy(raycaster.ray.direction);
+    pos.multiplyScalar(24);
+
+    ballBody.setLinearVelocity(new Ammo.btVector3(pos.x, pos.y, pos.z));
 };
 
 Physics.prototype.update = function (clock, deltaTime) {

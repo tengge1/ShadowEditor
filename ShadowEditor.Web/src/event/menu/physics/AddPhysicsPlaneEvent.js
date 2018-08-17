@@ -26,7 +26,7 @@ AddPhysicsPlaneEvent.prototype.onAddPlane = function () {
     var pos = new THREE.Vector3(0, -0.5, 0);
     var quat = new THREE.Quaternion();
 
-    var ground = this.app.physics.createParalellepiped(40, 1, 40, 1, pos, quat, new THREE.MeshPhongMaterial({ color: 0xFFFFFF }));
+    var ground = this.app.physics.createParalellepiped(40, 1, 40, 0, pos, quat, new THREE.MeshPhongMaterial({ color: 0xFFFFFF }));
     ground.name = '物理平板' + ID--;
     ground.castShadow = true;
     ground.receiveShadow = true;
