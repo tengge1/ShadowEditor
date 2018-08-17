@@ -1,3 +1,7 @@
+/**
+ * 物理
+ * @param {*} options 
+ */
 function Physics(options) {
     this.app = options.app;
     this.app.physics = this;
@@ -95,7 +99,10 @@ Physics.prototype.onThrowBall = function (event) {
     var raycaster = new THREE.Raycaster();
     var camera = this.app.editor.camera;
 
-    mouse.set((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1);
+    var width = UI.get('viewport').dom.clientWidth;
+    var height = UI.get('viewport').dom.clientHeight;
+
+    mouse.set((event.offsetX / width) * 2 - 1, -(event.offsetY / height) * 2 + 1);
     raycaster.setFromCamera(mouse, camera);
 
     // Creates a ball and throws it
@@ -106,6 +113,7 @@ Physics.prototype.onThrowBall = function (event) {
     var ball = new THREE.Mesh(new THREE.SphereBufferGeometry(ballRadius, 14, 10), ballMaterial);
     ball.castShadow = true;
     ball.receiveShadow = true;
+    this.app.editor.scene.add(ball);
 
     var ballShape = new Ammo.btSphereShape(ballRadius);
     ballShape.setMargin(this.margin);
