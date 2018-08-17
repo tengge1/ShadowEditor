@@ -10,7 +10,7 @@ var ID = 1;
  */
 function AddMikuEvent(app) {
     MenuEvent.call(this, app);
-    this.persons = [];
+    this.ready = false;
 }
 
 AddMikuEvent.prototype = Object.create(MenuEvent.prototype);
@@ -33,10 +33,12 @@ AddMikuEvent.prototype.onAddMiku = function () {
     var modelFile = 'assets/models/miku/miku_v2.pmd';
     var vmdFiles = ['assets/models/vmds/wavefile_v2.vmd'];
 
+    var audioFile = 'assets/audios/wavefile_short.mp3';
+    var audioParams = { delayTime: 160 * 1 / 30 };
+
     var loader = new THREE.MMDLoader();
     loader.loadWithAnimation(modelFile, vmdFiles, (mmd) => {
         var mesh = mmd.mesh;
-        mesh.position.y = - 10;
 
         editor.execute(new AddObjectCommand(mesh));
 
@@ -51,22 +53,24 @@ AddMikuEvent.prototype.onAddMiku = function () {
             physics: true
         });
 
-        var ikHelper = helper.objects.get(mesh).ikSolver.createHelper();
-        ikHelper.visible = false;
-
-        editor.execute(new AddObjectCommand(ikHelper));
-
-        var physicsHelper = helper.objects.get(mesh).physics.createHelper();
-        physicsHelper.visible = false;
-
-        editor.execute(new AddObjectCommand(physicsHelper));
+        new THREE.AudioLoader().load(audioFile, (buffer) => {
+            var listener = new THREE.AudioListener();
+            var audio = new THREE.Audio(listener).setBuffer(buffer);
+            listener.position.z = 1;
+            helper.add(audio, audioParams);
+            editor.execute(new AddObjectCommand(audio));
+            editor.execute(new AddObjectCommand(listener));
+            this.ready = true;
+        });
 
         this.app.on(`animate.` + this.id, this.onAnimate.bind(this));
     });
 };
 
 AddMikuEvent.prototype.onAnimate = function (clock, deltaTime) {
-    this.helper.update(deltaTime);
+    if (this.ready) {
+        this.helper.update(deltaTime);
+    }
     this.effect.render(this.app.editor.scene, this.app.editor.camera);
 };
 

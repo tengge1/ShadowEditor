@@ -53,11 +53,13 @@ AddHelperEvent.prototype.onAddHelper = function (object) {
 
         helper = new THREE.HemisphereLightHelper(object, 1);
 
-    } else if (object instanceof THREE.SkinnedMesh) { // 带皮肤网格
+    } 
+    // else if (object instanceof THREE.SkinnedMesh) { // 带皮肤网格
 
-        helper = new THREE.SkeletonHelper(object);
+    //     helper = new THREE.SkeletonHelper(object);
 
-    } else {
+    // } 
+    else {
 
         // no helper for this object type
         return;
