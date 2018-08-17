@@ -78,6 +78,7 @@ var EventList = [
 
     'mAddPhysicsPlane', // 添加平板
     'mAddPhysicsCloth', // 添加布料
+    'mThrowBall', // 探测小球
 
     'mParticleEmitter', // 粒子发射器
 

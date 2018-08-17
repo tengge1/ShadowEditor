@@ -40,6 +40,14 @@ PhysicsMenu.prototype.render = function () {
                 onClick: function () {
                     _this.app.call('mAddPhysicsCloth', _this);
                 }
+            }, {
+                xtype: 'div',
+                id: 'mThrowBall',
+                html: '开启探测小球',
+                cls: 'option',
+                onClick: function () {
+                    _this.app.call('mThrowBall', _this);
+                }
             }]
         }]
     });

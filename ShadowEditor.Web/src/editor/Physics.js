@@ -28,12 +28,12 @@ function Physics(options) {
     this.world.getWorldInfo().set_m_gravity(new Ammo.btVector3(0, this.gravityConstant, 0));
 
     // 扔球
-    this.throwBall = false;
+    this.enableThrowBall = false;
 }
 
 Physics.prototype.start = function () {
-    this.app.on(`click.Physics`, this.onThrowBall.bind(this));
     this.app.on(`animate.Physics`, this.update.bind(this));
+    this.app.on(`mThrowBall.Physics`, this.onEnableThrowBall.bind(this));
 };
 
 /**
@@ -148,6 +148,18 @@ Physics.prototype.update = function (clock, deltaTime) {
             objThree.position.set(p.x(), p.y(), p.z());
             objThree.quaternion.set(q.x(), q.y(), q.z(), q.w());
         }
+    }
+};
+
+Physics.prototype.onEnableThrowBall = function () {
+    if (this.enableThrowBall) {
+        this.enableThrowBall = false;
+        UI.get('mThrowBall').dom.innerHTML = '开启探测小球';
+        this.app.on(`click.Physics`, null);
+    } else {
+        this.enableThrowBall = true;
+        UI.get('mThrowBall').dom.innerHTML = '关闭探测小球';
+        this.app.on(`click.Physics`, this.onThrowBall.bind(this));
     }
 };
 
