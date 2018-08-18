@@ -52,7 +52,9 @@ PhysicsMenu.prototype.render = function () {
                 id: 'mThrowBall',
                 html: '开启探测小球',
                 cls: 'option',
-                onClick: function () {
+                onClick: function (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     _this.app.call('mThrowBall', _this);
                 }
             }]
