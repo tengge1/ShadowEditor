@@ -12,17 +12,14 @@ WindowResizeEvent.prototype = Object.create(BaseEvent.prototype);
 WindowResizeEvent.prototype.constructor = WindowResizeEvent;
 
 WindowResizeEvent.prototype.start = function () {
-    var _this = this;
-    this.app.on('windowResize.' + this.id, function () {
-        _this.onWindowResize();
-    });
+    this.app.on('resize.' + this.id, this.onResize.bind(this));
 };
 
 WindowResizeEvent.prototype.stop = function () {
-    this.app.on('windowResize.' + this.id, null);
+    this.app.on('resize.' + this.id, null);
 };
 
-WindowResizeEvent.prototype.onWindowResize = function () {
+WindowResizeEvent.prototype.onResize = function () {
     var editor = this.app.editor;
     var container = this.app.viewport.container;
     var camera = editor.camera;

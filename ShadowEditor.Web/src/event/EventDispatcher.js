@@ -5,7 +5,6 @@ import BaseEvent from './BaseEvent';
 import AnimateEvent from './AnimateEvent';
 
 import KeyDownEvent from './dom/KeyDownEvent';
-import ResizeEvent from './dom/ResizeEvent';
 import LoadFromHashEvent from './editor/LoadFromHashEvent';
 import AutoSaveEvent from './editor/AutoSaveEvent';
 import VREvent from './editor/VREvent';
@@ -153,7 +152,6 @@ function EventDispatcher(app) {
 
         // Application中的事件
         new KeyDownEvent(this.app),
-        new ResizeEvent(this.app),
         new LoadFromHashEvent(this.app),
         new AutoSaveEvent(this.app),
         new VREvent(this.app),

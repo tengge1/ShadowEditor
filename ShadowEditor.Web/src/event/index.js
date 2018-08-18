@@ -3,7 +3,6 @@ export { default as BaseEvent } from './BaseEvent';
 export { default as EventDispatcher } from './EventDispatcher';
 
 export { default as KeyDownEvent } from './dom/KeyDownEvent';
-export { default as ResizeEvent } from './dom/ResizeEvent';
 
 export { default as AddGeometryEvent } from './editor/AddGeometryEvent';
 export { default as AddHelperEvent } from './editor/AddHelperEvent';
