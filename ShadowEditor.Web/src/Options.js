@@ -4,7 +4,7 @@
  */
 function Options(options) {
     options = options || {};
-    this.server = options.server || location.origin;
+    this.server = options.server || location.origin; // 服务端地址
 }
 
 export default Options;

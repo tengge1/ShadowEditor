@@ -66,16 +66,9 @@ function Application(container, options) {
 
     // 物理引擎
     this.physics = new Physics(params);
-
-    this.running = false;
-
-    // 是否从文件中加载场景，从文件中加载场景的url格式是index.html#file=xxx
-    this.isLoadingFromHash = false;
 }
 
 Application.prototype.start = function () {
-    this.running = true;
-
     // 启动事件 - 事件要在ui创建完成后启动
     this.event.start();
 
@@ -89,8 +82,6 @@ Application.prototype.start = function () {
 };
 
 Application.prototype.stop = function () {
-    this.running = false;
-
     this.call('appStop', this);
     this.call('appStoped', this);
 
