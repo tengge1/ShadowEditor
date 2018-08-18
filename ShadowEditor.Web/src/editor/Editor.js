@@ -149,10 +149,6 @@ Editor.prototype.moveObject = function (object, parent, before) { // 移动物�
     this.app.call('moveObject', this, object, parent, before);
 };
 
-Editor.prototype.nameObject = function (object, name) { // 重命名物体
-    this.app.call('nameObject', this, object, name);
-};
-
 Editor.prototype.removeObject = function (object) { // 移除物体
     this.app.call('removeObject', this, object);
 };

@@ -21,7 +21,6 @@ export { default as ClearEvent } from './editor/ClearEvent';
 export { default as LoadEvent } from './editor/LoadEvent';
 export { default as LoadFromHashEvent } from './editor/LoadFromHashEvent';
 export { default as MoveObjectEvent } from './editor/MoveObjectEvent';
-export { default as NameObjectEvent } from './editor/NameObjectEvent';
 export { default as RemoveHelperEvent } from './editor/RemoveHelperEvent';
 export { default as RemoveObjectEvent } from './editor/RemoveObjectEvent';
 export { default as RemoveScriptEvent } from './editor/RemoveScriptEvent';
