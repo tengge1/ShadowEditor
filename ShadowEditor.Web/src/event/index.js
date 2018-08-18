@@ -2,8 +2,6 @@ export { default as EventList } from './EventList';
 export { default as BaseEvent } from './BaseEvent';
 export { default as EventDispatcher } from './EventDispatcher';
 
-export { default as InitAppEvent } from './app/InitAppEvent';
-
 export { default as DragOverEvent } from './dom/DragOverEvent';
 export { default as DropEvent } from './dom/DropEvent';
 export { default as KeyDownEvent } from './dom/KeyDownEvent';
