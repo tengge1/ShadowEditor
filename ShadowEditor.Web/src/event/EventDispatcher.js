@@ -4,7 +4,7 @@ import BaseEvent from './BaseEvent';
 
 import AnimateEvent from './AnimateEvent';
 
-import KeyDownEvent from './dom/KeyDownEvent';
+import KeyDownEvent from './KeyDownEvent';
 import LoadFromHashEvent from './editor/LoadFromHashEvent';
 import AutoSaveEvent from './editor/AutoSaveEvent';
 import VREvent from './editor/VREvent';
