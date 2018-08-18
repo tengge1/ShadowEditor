@@ -25,7 +25,6 @@ KeyDownEvent.prototype.onKeyDown = function (event) {
     var editor = this.app.editor;
 
     switch (event.keyCode) {
-
         case 8: // 回退键
             event.preventDefault(); // 阻止浏览器返回
             break;

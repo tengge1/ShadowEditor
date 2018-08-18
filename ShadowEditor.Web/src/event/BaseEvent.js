@@ -5,7 +5,7 @@ var ID = -1;
  */
 function BaseEvent(app) {
     this.app = app;
-    this.id = 'BaseEvent' + ID--;
+    this.id = `BaseEvent${ID--}`;
 }
 
 /**

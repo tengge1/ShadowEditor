@@ -300,7 +300,7 @@ EventDispatcher.prototype.constructor = EventDispatcher;
  * 启动
  */
 EventDispatcher.prototype.start = function () {
-    this.events.forEach(function (n) {
+    this.events.forEach(n => {
         n.start();
     });
 };
@@ -309,7 +309,7 @@ EventDispatcher.prototype.start = function () {
  * 停止
  */
 EventDispatcher.prototype.stop = function () {
-    this.events.forEach(function (n) {
+    this.events.forEach(n => {
         n.stop();
     });
 };
