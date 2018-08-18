@@ -13,7 +13,6 @@ export { default as AddTextureEvent } from './editor/AddTextureEvent';
 export { default as AutoSaveEvent } from './editor/AutoSaveEvent';
 export { default as ClearEvent } from './editor/ClearEvent';
 export { default as LoadEvent } from './editor/LoadEvent';
-export { default as LoadFromHashEvent } from './editor/LoadFromHashEvent';
 export { default as MoveObjectEvent } from './editor/MoveObjectEvent';
 export { default as RemoveHelperEvent } from './editor/RemoveHelperEvent';
 export { default as RemoveObjectEvent } from './editor/RemoveObjectEvent';
