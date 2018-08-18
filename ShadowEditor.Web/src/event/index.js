@@ -2,10 +2,7 @@ export { default as EventList } from './EventList';
 export { default as BaseEvent } from './BaseEvent';
 export { default as EventDispatcher } from './EventDispatcher';
 
-export { default as DragOverEvent } from './dom/DragOverEvent';
-export { default as DropEvent } from './dom/DropEvent';
 export { default as KeyDownEvent } from './dom/KeyDownEvent';
-export { default as MessageEvent } from './dom/MessageEvent';
 export { default as ResizeEvent } from './dom/ResizeEvent';
 
 export { default as AddGeometryEvent } from './editor/AddGeometryEvent';

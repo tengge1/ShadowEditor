@@ -13,9 +13,6 @@ var EventList = [
     'mouseup', // 抬起鼠标按键
     'mousewheel', // 鼠标滚轮
     'resize', // 窗口大小改变
-    'dragover', // 拖入dom
-    'drop', // 放置到dom中
-    'message', // 收到Worker消息
 
     // app事件
     'appStart', // 应用程序开始前调用

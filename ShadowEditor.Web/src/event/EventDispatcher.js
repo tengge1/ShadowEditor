@@ -4,11 +4,8 @@ import BaseEvent from './BaseEvent';
 
 import AnimateEvent from './AnimateEvent';
 
-import DragOverEvent from './dom/DragOverEvent';
-import DropEvent from './dom/DropEvent';
 import KeyDownEvent from './dom/KeyDownEvent';
 import ResizeEvent from './dom/ResizeEvent';
-import MessageEvent from './dom/MessageEvent';
 import LoadFromHashEvent from './editor/LoadFromHashEvent';
 import AutoSaveEvent from './editor/AutoSaveEvent';
 import VREvent from './editor/VREvent';
@@ -155,11 +152,8 @@ function EventDispatcher(app) {
         new AnimateEvent(this.app),
 
         // Application中的事件
-        new DragOverEvent(this.app),
-        new DropEvent(this.app),
         new KeyDownEvent(this.app),
         new ResizeEvent(this.app),
-        new MessageEvent(this.app),
         new LoadFromHashEvent(this.app),
         new AutoSaveEvent(this.app),
         new VREvent(this.app),
@@ -384,9 +378,6 @@ EventDispatcher.prototype.addDomEventListener = function () {
     document.addEventListener('drop', (event) => {
         this.dispatch.call('drop', this, event);
     }, false);
-    window.addEventListener('message', (event) => {
-        this.dispatch.call('message', this, event);
-    });
 };
 
 export default EventDispatcher;
