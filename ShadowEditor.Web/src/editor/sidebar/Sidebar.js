@@ -2,7 +2,6 @@
 import ScenePanel from './ScenePanel';
 import PropertyPanel from './PropertyPanel';
 import ScriptPanel from './ScriptPanel';
-import ProjectPanel from './ProjectPanel';
 import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
 
@@ -41,11 +40,6 @@ Sidebar.prototype.render = function () {
                 onClick: onClick
             }, {
                 xtype: 'text',
-                id: 'projectTab',
-                text: '工程',
-                onClick: onClick
-            }, {
-                xtype: 'text',
                 id: 'settingsTab',
                 text: '设置',
                 onClick: onClick
@@ -57,12 +51,6 @@ Sidebar.prototype.render = function () {
                 new ScenePanel({ app: this.app }),
                 new PropertyPanel({ app: this.app }),
                 new ScriptPanel({ app: this.app })
-            ]
-        }, { // project
-            xtype: 'div',
-            id: 'project',
-            children: [
-                new ProjectPanel({ app: this.app })
             ]
         }, {
             xtype: 'div',

@@ -100,7 +100,6 @@ import ObjectPanelEvent from './sideBar/ObjectPanelEvent';
 import GeometryPanelEvent from './sideBar/GeometryPanelEvent';
 import MaterialPanelEvent from './sideBar/MaterialPanelEvent';
 import HistoryPanelEvent from './sideBar/HistoryPanelEvent';
-import ProjectPanelEvent from './sidebar/ProjectPanelEvent';
 import PropertyPanelEvent from './sidebar/PropertyPanelEvent';
 import ScenePanelEvent from './sidebar/ScenePanelEvent';
 import ScriptPanelEvent from './sideBar/ScriptPanelEvent';
@@ -115,7 +114,6 @@ import SceneBackgroundChangedEvent from './viewport/SceneBackgroundChangedEvent'
 import ObjectEvent from './viewport/ObjectEvent';
 import GeometryEvent from './viewport/GeometryEvent';
 import PickEvent from './viewport/PickEvent';
-import RendererChangedEvent from './viewport/RendererChangedEvent';
 import WindowResizeEvent from './viewport/WindowResizeEvent';
 import ThemeChangedEvent from './viewport/ThemeChangedEvent';
 import EditorControlsEvent from './viewport/EditorControlsEvent';
@@ -235,7 +233,6 @@ function EventDispatcher(app) {
         new GeometryPanelEvent(this.app),
         new MaterialPanelEvent(this.app),
         new HistoryPanelEvent(this.app),
-        new ProjectPanelEvent(this.app),
         new PropertyPanelEvent(this.app),
         new ScenePanelEvent(this.app),
         new ScriptPanelEvent(this.app),
@@ -251,7 +248,6 @@ function EventDispatcher(app) {
         new ObjectEvent(this.app),
         new GeometryEvent(this.app),
         new PickEvent(this.app),
-        new RendererChangedEvent(this.app),
         new WindowResizeEvent(this.app),
         new ThemeChangedEvent(this.app),
         new EditorControlsEvent(this.app),

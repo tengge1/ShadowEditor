@@ -2,7 +2,6 @@
 import History from '../core/History';
 import Storage from '../core/Storage';
 import Loader from '../core/Loader';
-import RendererChangedEvent from '../event/viewport/RendererChangedEvent';
 
 /**
  * 编辑器
@@ -37,24 +36,21 @@ function Editor(app) {
     this.camera = this.DEFAULT_CAMERA.clone();
 
     // 渲染器
-    this.rendererTypes = {
-        'WebGLRenderer': THREE.WebGLRenderer,
-        'CanvasRenderer': THREE.CanvasRenderer,
-        'SVGRenderer': THREE.SVGRenderer,
-        'SoftwareRenderer': THREE.SoftwareRenderer,
-        'RaytracingRenderer': THREE.RaytracingRenderer
-    };
+    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.renderer.gammaInput = false;
+    this.renderer.gammaOutput = false;
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.renderer.autoClear = false;
+    this.renderer.autoUpdateScene = false;
+    this.renderer.setPixelRatio(window.devicePixelRatio);
 
-    this.renderer = this.createRendererFromConfig();
     this.app.viewport.container.dom.appendChild(this.renderer.domElement);
-    (new RendererChangedEvent(this.app)).onRendererChanged(this.renderer);
+    this.renderer.setSize(this.app.viewport.container.dom.offsetWidth, this.app.viewport.container.dom.offsetHeight);
 
     // 缓存
     this.object = {};
     this.objects = [];
-    this.geometries = {};
-    this.materials = {};
-    this.textures = {};
     this.scripts = {};
     this.helpers = {};
 
@@ -86,43 +82,6 @@ function Editor(app) {
     this.stats.dom.style.top = '8px';
     this.stats.dom.style.zIndex = 'initial';
     this.app.viewport.container.dom.appendChild(this.stats.dom);
-};
-
-// ---------------------- 渲染器 ---------------------------
-
-Editor.prototype.createRenderer = function (options) { // 创建渲染器
-    var rendererType = options.rendererType === undefined ? 'WebGLRenderer' : options.rendererType;
-    var antialias = options.antialias === undefined ? true : options.antialias;
-    var shadows = options.shadows === undefined ? true : options.shadows;
-    var gammaIn = options.gammaIn === undefined ? false : options.gammaIn;
-    var gammaOut = options.gammaOut === undefined ? false : options.gammaOut;
-    var rendererTypes = this.rendererTypes;
-
-    var renderer = new rendererTypes[rendererType]({ antialias: antialias });
-    renderer.gammaInput = gammaIn;
-    renderer.gammaOutput = gammaOut;
-    if (shadows && renderer.shadowMap) {
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    };
-
-    return renderer;
-};
-
-Editor.prototype.createRendererFromConfig = function () { // 从配置创建渲染器
-    var rendererType = this.config.getKey('project/renderer');
-    var antialias = this.config.getKey('project/renderer/antialias');
-    var shadows = this.config.getKey('project/renderer/shadows');
-    var gammaIn = this.config.getKey('project/renderer/gammaInput');
-    var gammaOut = this.config.getKey('project/renderer/gammaOutput');
-
-    return this.createRenderer({
-        rendererType: rendererType,
-        antialias: antialias,
-        shadows: shadows,
-        gammaIn: gammaIn,
-        gammaOut: gammaOut
-    });
 };
 
 // -------------------- 编辑器 --------------------------

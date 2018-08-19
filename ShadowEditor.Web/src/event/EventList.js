@@ -120,7 +120,6 @@ var EventList = [
 
     'snapChanged', // 对齐单元格事件
     'spaceChanged', // 空间坐标系改变事件
-    'rendererChanged', // 渲染模式改变事件
 
     'sceneBackgroundChanged', // 场景背景改变事件
     'sceneFogChanged', // 场景雾效改变事件

@@ -8,7 +8,6 @@ export { default as Player } from './Player';
 export { default as HistoryPanel } from './sidebar/HistoryPanel';
 export { default as MaterialPanel } from './sidebar/MaterialPanel';
 export { default as ObjectPanel } from './sidebar/ObjectPanel';
-export { default as ProjectPanel } from './sidebar/ProjectPanel';
 export { default as PropertyPanel } from './sidebar/PropertyPanel';
 export { default as ScenePanel } from './sidebar/ScenePanel';
 export { default as ScriptPanel } from './sidebar/ScriptPanel';

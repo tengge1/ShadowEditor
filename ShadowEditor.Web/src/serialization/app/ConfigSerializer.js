@@ -1,5 +1,4 @@
 import BaseSerializer from '../BaseSerializer';
-import RendererChangedEvent from '../../event/viewport/RendererChangedEvent';
 
 /**
  * ConfigSerializer
@@ -28,8 +27,7 @@ ConfigSerializer.prototype.fromJSON = function (json) {
     });
 
     // renderer
-    var renderer = this.app.editor.createRendererFromConfig();
-    this.app.call('rendererChanged', this, renderer);
+    this.app.editor.createRendererFromConfig();
 
     // theme
     this.app.call('setTheme', this, json['theme']);
