@@ -14,7 +14,6 @@ SettingPanel.prototype.constructor = SettingPanel;
 
 SettingPanel.prototype.render = function () {
     var editor = this.app.editor;
-    var config = editor.config;
 
     var data = {
         xtype: 'div',
@@ -37,14 +36,12 @@ SettingPanel.prototype.render = function () {
                     'assets/css/light.css': '浅色',
                     'assets/css/dark.css': '深色'
                 },
-                value: config.getKey('theme'),
+                // value: config.getKey('theme'),
                 style: {
                     width: '150px'
                 },
                 onChange: function () {
-                    var value = this.getValue();
-                    editor.setTheme(value);
-                    editor.config.setKey('theme', value);
+
                 }
             }]
         }]

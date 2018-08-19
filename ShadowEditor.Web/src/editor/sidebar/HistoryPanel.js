@@ -15,7 +15,6 @@ HistoryPanel.prototype.constructor = HistoryPanel;
 
 HistoryPanel.prototype.render = function () {
     var editor = this.app.editor;
-    var config = editor.config;
     var history = editor.history;
 
     var _this = this;
@@ -29,25 +28,6 @@ HistoryPanel.prototype.render = function () {
         children: [{
             xtype: 'label',
             text: '历史记录'
-        }, {
-            xtype: 'boolean',
-            text: '永久',
-            style: {
-                position: 'absolute',
-                right: '8px'
-            },
-            onChange: function () {
-                var value = this.getValue();
-                config.setKey('settings/history', value);
-                if (value) {
-                    UI.msg('历史记录将被保存在会话中。\n这会对使用材质的性能产生影响。');
-                    var lastUndoCmd = history.undos[history.undos.length - 1];
-                    var lastUndoId = (lastUndoCmd !== undefined) ? lastUndoCmd.id : 0;
-                    editor.history.enableSerialization(lastUndoId);
-                } else {
-                    _this.app.call('historyChanged');
-                }
-            }
         }, {
             xtype: 'br'
         }, {

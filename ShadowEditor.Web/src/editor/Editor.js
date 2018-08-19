@@ -1,5 +1,4 @@
-﻿import Config from '../core/Config';
-import History from '../core/History';
+﻿import History from '../core/History';
 import Storage from '../core/Storage';
 
 /**
@@ -11,7 +10,6 @@ function Editor(app) {
     this.app.editor = this;
 
     // 基础
-    this.config = new Config('threejs-editor');
     this.history = new History(this);
     this.storage = new Storage();
 

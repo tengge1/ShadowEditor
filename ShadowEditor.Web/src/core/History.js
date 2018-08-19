@@ -16,7 +16,6 @@ function History(editor) {
     this.idCounter = 0;
 
     this.historyDisabled = false;
-    this.config = editor.config;
 
     //Set editor-reference in Command
 
@@ -76,11 +75,6 @@ Object.assign(History.prototype, {
         cmd.execute();
         cmd.inMemory = true;
 
-        if (this.config.getKey('settings/history')) {
-
-            cmd.json = cmd.toJSON();	// serialize the cmd immediately after execution and append the json to the cmd
-
-        }
         this.lastCmdTime = new Date();
 
         // clearing all the redo-commands

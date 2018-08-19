@@ -5,6 +5,7 @@
 function Options(options) {
     options = options || {};
     this.server = options.server || location.origin; // 服务端地址
+    this.theme = options.theme || 'assets/css/light.css'; // 皮肤
 }
 
 export default Options;

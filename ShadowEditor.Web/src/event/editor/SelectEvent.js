@@ -35,7 +35,6 @@ SelectEvent.prototype.onSelect = function (object) {
 
     editor.selected = object;
 
-    editor.config.setKey('selected', uuid);
     this.app.call('objectSelected', this, object);
 };
 
