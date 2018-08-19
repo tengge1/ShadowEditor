@@ -11,7 +11,6 @@ import SetSceneEvent from './editor/SetSceneEvent';
 import AddObjectEvent from './editor/AddObjectEvent';
 import MoveObjectEvent from './editor/MoveObjectEvent';
 import RemoveObjectEvent from './editor/RemoveObjectEvent';
-import SetMaterialNameEvent from './editor/SetMaterialNameEvent';
 import AddTextureEvent from './editor/AddTextureEvent';
 import AddHelperEvent from './editor/AddHelperEvent';
 import RemoveHelperEvent from './editor/RemoveHelperEvent';
@@ -148,7 +147,6 @@ function EventDispatcher(app) {
         new AddObjectEvent(this.app),
         new MoveObjectEvent(this.app),
         new RemoveObjectEvent(this.app),
-        new SetMaterialNameEvent(this.app),
         new AddTextureEvent(this.app),
         new AddHelperEvent(this.app),
         new RemoveHelperEvent(this.app),

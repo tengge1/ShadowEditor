@@ -15,6 +15,5 @@ export { default as RemoveHelperEvent } from './editor/RemoveHelperEvent';
 export { default as RemoveObjectEvent } from './editor/RemoveObjectEvent';
 export { default as RemoveScriptEvent } from './editor/RemoveScriptEvent';
 export { default as SelectEvent } from './editor/SelectEvent';
-export { default as SetMaterialNameEvent } from './editor/SetMaterialNameEvent';
 export { default as SetSceneEvent } from './editor/SetSceneEvent';
 export { default as SetThemeEvent } from './editor/SetThemeEvent';
