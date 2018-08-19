@@ -26,8 +26,6 @@ AddObjectEvent.prototype.onAddObject = function (object) {
     var editor = this.app.editor;
 
     object.traverse(function (child) {
-        if (child.material !== undefined) editor.addMaterial(child.material);
-
         editor.addHelper(child);
     });
 

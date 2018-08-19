@@ -101,7 +101,6 @@ var EventList = [
     'moveObject', // 移动物体
     'removeObject', // 删除物体
     'setGeometryName', // 设置几何体名称事件
-    'addMaterial', // 添加材质事件
     'setMaterialName', // 设置材质名称
     'addTexture', // 添加纹理
     'addHelper', // 添加帮助事件
@@ -119,9 +118,6 @@ var EventList = [
     'stopPlayer', // 停止播放器事件
 
     'editorCleared', // 编辑器已经清空事件
-
-    'savingStarted', // 开始保存事件
-    'savingFinished', // 保存完成事件
 
     'themeChanged', // 改变主题事件
 

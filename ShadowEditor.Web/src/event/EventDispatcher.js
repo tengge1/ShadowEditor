@@ -5,7 +5,6 @@ import BaseEvent from './BaseEvent';
 import AnimateEvent from './AnimateEvent';
 
 import KeyDownEvent from './KeyDownEvent';
-import AutoSaveEvent from './editor/AutoSaveEvent';
 
 import SetThemeEvent from './editor/SetThemeEvent';
 import SetSceneEvent from './editor/SetSceneEvent';
@@ -13,7 +12,6 @@ import AddObjectEvent from './editor/AddObjectEvent';
 import MoveObjectEvent from './editor/MoveObjectEvent';
 import RemoveObjectEvent from './editor/RemoveObjectEvent';
 import SetGeometryNameEvent from './editor/SetGeometryNameEvent';
-import AddMaterialEvent from './editor/AddMaterialEvent';
 import SetMaterialNameEvent from './editor/SetMaterialNameEvent';
 import AddTextureEvent from './editor/AddTextureEvent';
 import AddHelperEvent from './editor/AddHelperEvent';
@@ -100,8 +98,6 @@ import ExampleEvent from './menu/example/ExampleEvent';
 import SourceCodeEvent from './menu/help/SourceCodeEvent';
 import AboutEvent from './menu/help/AboutEvent';
 
-import SavingStatusEvent from './menu/status/SavingStatusEvent';
-
 // 侧边栏
 import ObjectPanelEvent from './sideBar/ObjectPanelEvent';
 import GeometryPanelEvent from './sideBar/GeometryPanelEvent';
@@ -146,7 +142,6 @@ function EventDispatcher(app) {
 
         // Application中的事件
         new KeyDownEvent(this.app),
-        new AutoSaveEvent(this.app),
 
         // Editor中的事件
         new SetThemeEvent(this.app),
@@ -155,7 +150,6 @@ function EventDispatcher(app) {
         new MoveObjectEvent(this.app),
         new RemoveObjectEvent(this.app),
         new SetGeometryNameEvent(this.app),
-        new AddMaterialEvent(this.app),
         new SetMaterialNameEvent(this.app),
         new AddTextureEvent(this.app),
         new AddHelperEvent(this.app),
@@ -241,8 +235,6 @@ function EventDispatcher(app) {
 
         new SourceCodeEvent(this.app),
         new AboutEvent(this.app),
-
-        new SavingStatusEvent(this.app),
 
         // 侧边栏
         new ObjectPanelEvent(this.app),

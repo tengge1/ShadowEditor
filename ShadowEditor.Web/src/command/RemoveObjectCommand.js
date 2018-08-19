@@ -46,11 +46,7 @@ Object.assign(RemoveObjectCommand.prototype, {
 		var scope = this.editor;
 
 		this.object.traverse(function (child) {
-
-			if (child.material !== undefined) scope.addMaterial(child.material);
-
 			scope.addHelper(child);
-
 		});
 
 		this.parent.children.splice(this.index, 0, this.object);

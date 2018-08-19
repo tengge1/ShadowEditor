@@ -38,8 +38,6 @@ ClearEvent.prototype.onClear = function () {
         editor.removeObject(objects[0]);
     }
 
-    editor.geometries = {};
-    editor.materials = {};
     editor.textures = {};
     editor.scripts = {};
 

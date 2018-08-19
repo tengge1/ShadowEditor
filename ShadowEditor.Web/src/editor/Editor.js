@@ -157,10 +157,6 @@ Editor.prototype.setGeometryName = function (geometry, name) { // 设置几何�
     this.app.call('setGeometryName', this, geometry, name);
 };
 
-Editor.prototype.addMaterial = function (material) { // 添加材质
-    this.app.call('addMaterial', this, material);
-};
-
 Editor.prototype.setMaterialName = function (material, name) { // 设置材质名称事件
     this.app.call('setMaterialName', this, material, name);
 };

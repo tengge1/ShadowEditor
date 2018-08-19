@@ -23,18 +23,6 @@ StatusMenu.prototype.render = function () {
         parent: this.parent,
         cls: 'menu right',
         children: [{
-            id: 'bAutoSave',
-            xtype: 'boolean',
-            text: '自动保存',
-            value: true,
-            style: {
-                color: '#888 !important;'
-            },
-            onChange: function (e) {
-                _this.app.editor.config.setKey('autosave', e.target.checked);
-                _this.app.call('sceneGraphChanged', _this);
-            }
-        }, {
             xtype: 'text',
             text: 'r' + THREE.REVISION,
             cls: 'title version'
