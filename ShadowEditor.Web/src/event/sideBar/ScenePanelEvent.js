@@ -21,7 +21,6 @@ ScenePanelEvent.prototype.start = function () {
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
     this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
     this.app.on(`outlinerChange.${this.id}`, this.onOutlinerChange.bind(this));
-    this.app.on(`updateScenePanel.${this.id}`, this.refreshUI.bind(this));
     this.refreshUI();
 };
 

@@ -175,7 +175,6 @@ var EventList = [
     'selectTab', // 点击选择侧边栏选项卡
     'selectPropertyTab', // 点击选择属性选项卡
 
-    'updateScenePanel', // 刷新场景面板
     'updateScenePanelFog', // 刷新场景面板雾效设置
     'outlinerChange', // 场景大纲发生改变
 
