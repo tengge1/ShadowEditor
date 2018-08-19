@@ -13,13 +13,11 @@ RemoveHelperEvent.prototype.constructor = RemoveHelperEvent;
 
 RemoveHelperEvent.prototype.start = function () {
     var _this = this;
-    this.app.on('removeHelper.' + this.id, function (object) {
-        _this.onRemoveHelper(object);
-    });
+    this.app.on(`removeHelper.${this.id}`, this.onRemoveHelper.bind(this));
 };
 
 RemoveHelperEvent.prototype.stop = function () {
-    this.app.on('removeHelper.' + this.id, null);
+    this.app.on(`removeHelper.${this.id}`, null);
 };
 
 RemoveHelperEvent.prototype.onRemoveHelper = function (object) {
@@ -31,7 +29,8 @@ RemoveHelperEvent.prototype.onRemoveHelper = function (object) {
         helper.parent.remove(helper);
         delete editor.helpers[object.id];
 
-        this.app.call('helperRemoved', this, helper);
+        var objects = editor.objects;
+        objects.splice(objects.indexOf(helper.getObjectByName('picker')), 1);
     }
 };
 

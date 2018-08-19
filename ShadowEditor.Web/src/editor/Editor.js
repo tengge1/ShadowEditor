@@ -171,7 +171,7 @@ Editor.prototype.addTexture = function (texture) { // 添加纹理事件
 
 // ------------------------- 帮助 ------------------------------
 
-Editor.prototype.addHelper = function (object) { // 添加物体帮助
+Editor.prototype.addHelper = function (object) { // 添加物体帮助器
     this.app.call('addHelper', this, object);
 };
 
@@ -224,7 +224,10 @@ Editor.prototype.focus = function (object) { // 设置焦点
 };
 
 Editor.prototype.focusById = function (id) { // 根据id设置交点
-    this.focus(this.scene.getObjectById(id, true));
+    var obj = this.scene.getObjectById(id, true);
+    if (obj) {
+        this.focus(obj);
+    }
 };
 
 // ----------------------- 场景事件 ----------------------------

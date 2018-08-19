@@ -144,9 +144,6 @@ var EventList = [
     'objectChanged', // 物体改变事件
     'objectRemoved', // 物体移除事件
 
-    'helperAdded', // 添加帮助事件
-    'helperRemoved', // 移除帮助事件
-
     'materialChanged', // 材质改变事件
 
     'scriptAdded', // 添加脚本事件

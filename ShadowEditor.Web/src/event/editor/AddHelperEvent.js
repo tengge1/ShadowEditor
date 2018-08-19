@@ -1,7 +1,7 @@
 import BaseEvent from '../BaseEvent';
 
 /**
- * 添加帮助事件
+ * 添加帮助器事件
  * @param {*} app 
  */
 function AddHelperEvent(app) {
@@ -12,14 +12,11 @@ AddHelperEvent.prototype = Object.create(BaseEvent.prototype);
 AddHelperEvent.prototype.constructor = AddHelperEvent;
 
 AddHelperEvent.prototype.start = function () {
-    var _this = this;
-    this.app.on('addHelper.' + this.id, function (object) {
-        _this.onAddHelper(object);
-    });
+    this.app.on(`addHelper.${this.id}`, this.onAddHelper.bind(this));
 };
 
 AddHelperEvent.prototype.stop = function () {
-    this.app.on('addHelper.' + this.id, null);
+    this.app.on(`addHelper.${this.id}`, null);
 };
 
 AddHelperEvent.prototype.onAddHelper = function (object) {
@@ -53,8 +50,8 @@ AddHelperEvent.prototype.onAddHelper = function (object) {
 
         helper = new THREE.HemisphereLightHelper(object, 1);
 
-    } 
-    // else if (object instanceof THREE.SkinnedMesh) { // 带皮肤网格
+    }
+    // else if (object instanceof THREE.SkinnedMesh) { // 带皮肤模型
 
     //     helper = new THREE.SkeletonHelper(object);
 
@@ -73,8 +70,7 @@ AddHelperEvent.prototype.onAddHelper = function (object) {
 
     editor.sceneHelpers.add(helper);
     editor.helpers[object.id] = helper;
-
-    editor.app.call('helperAdded', this, helper);
+    editor.objects.push(picker);
 };
 
 export default AddHelperEvent;

@@ -119,7 +119,6 @@ import RenderEvent from './viewport/RenderEvent';
 import ShowGridChangedEvent from './viewport/ShowGridChangedEvent';
 import SceneFogChangedEvent from './viewport/SceneFogChangedEvent';
 import SceneBackgroundChangedEvent from './viewport/SceneBackgroundChangedEvent';
-import HelperEvent from './viewport/HelperEvent';
 import ObjectEvent from './viewport/ObjectEvent';
 import GeometryEvent from './viewport/GeometryEvent';
 import PickEvent from './viewport/PickEvent';
@@ -263,7 +262,6 @@ function EventDispatcher(app) {
         new ShowGridChangedEvent(this.app),
         new SceneFogChangedEvent(this.app),
         new SceneBackgroundChangedEvent(this.app),
-        new HelperEvent(this.app),
         new ObjectEvent(this.app),
         new GeometryEvent(this.app),
         new PickEvent(this.app),
