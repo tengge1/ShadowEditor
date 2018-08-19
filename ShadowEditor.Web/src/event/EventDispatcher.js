@@ -91,6 +91,8 @@ import PlayEvent from './menu/play/PlayEvent';
 
 import ExampleEvent from './menu/example/ExampleEvent';
 
+import OptionsEvent from './menu/tool/OptionsEvent';
+
 import SourceCodeEvent from './menu/help/SourceCodeEvent';
 import AboutEvent from './menu/help/AboutEvent';
 
@@ -222,6 +224,8 @@ function EventDispatcher(app) {
         new PlayEvent(this.app),
 
         new ExampleEvent(this.app),
+
+        new OptionsEvent(this.app),
 
         new SourceCodeEvent(this.app),
         new AboutEvent(this.app),

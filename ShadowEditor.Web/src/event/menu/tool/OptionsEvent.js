@@ -13,17 +13,15 @@ OptionsEvent.prototype.constructor = OptionsEvent;
 
 OptionsEvent.prototype.start = function () {
     var _this = this;
-    this.app.on('mAbout.' + this.id, function () {
-        _this.onAbout();
-    });
+    this.app.on('mOptions.' + this.id, this.onOptions.bind(this));
 };
 
 OptionsEvent.prototype.stop = function () {
-    this.app.on('mAbout.' + this.id, null);
+    this.app.on('mOptions.' + this.id, null);
 };
 
-OptionsEvent.prototype.onAbout = function () {
-    window.open('http://threejs.org', '_blank');
+OptionsEvent.prototype.onOptions = function () {
+    debugger
 };
 
 export default OptionsEvent;

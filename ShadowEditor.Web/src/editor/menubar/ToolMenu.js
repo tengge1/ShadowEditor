@@ -30,9 +30,9 @@ ToolMenu.prototype.render = function () {
                 id: 'mSourceCode',
                 xtype: 'div',
                 cls: 'option',
-                html: '配置',
-                onClick: function () {
-
+                html: '选项',
+                onClick: () => {
+                    this.app.call('mOptions', this);
                 }
             }]
         }]
