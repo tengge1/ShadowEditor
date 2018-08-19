@@ -153,10 +153,6 @@ Editor.prototype.removeObject = function (object) { // 移除物体
     this.app.call('removeObject', this, object);
 };
 
-Editor.prototype.setGeometryName = function (geometry, name) { // 设置几何体名称
-    this.app.call('setGeometryName', this, geometry, name);
-};
-
 Editor.prototype.setMaterialName = function (material, name) { // 设置材质名称事件
     this.app.call('setMaterialName', this, material, name);
 };
