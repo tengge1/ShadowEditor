@@ -10,7 +10,7 @@ import ServerObject from './core/ServerObject';
 import WebGLRendererSerializer from './core/WebGLRendererSerializer';
 
 // app
-import ConfigSerializer from './app/ConfigSerializer';
+import OptionsSerializer from './app/OptionsSerializer';
 import ScriptSerializer from './app/ScriptSerializer';
 
 // camera
@@ -40,8 +40,8 @@ Converter.prototype.constructor = Converter;
 Converter.prototype.toJSON = function () {
     var list = [];
 
-    // 配置
-    var config = (new ConfigSerializer(this.app)).toJSON();
+    // 选项
+    var config = (new OptionsSerializer(this.app)).toJSON(this.app.options);
     list.push(config);
 
     // 相机
@@ -117,11 +117,11 @@ Converter.prototype.toJSON = function () {
 };
 
 Converter.prototype.fromJson = function (json) {
-    // 配置
-    var configJson = json.filter(n => n.metadata && n.metadata.generator === 'ConfigSerializer')[0];
+    // 选项
+    var optionsJson = json.filter(n => n.metadata && n.metadata.generator === 'OptionsSerializer')[0];
 
-    if (configJson) {
-        (new ConfigSerializer(this.app)).fromJSON(configJson);
+    if (optionsJson) {
+        (new OptionsSerializer(this.app)).fromJSON(optionsJson, this.app.options);
     } else {
         console.warn(`Converter: 场景中不存在配置信息。`);
     }

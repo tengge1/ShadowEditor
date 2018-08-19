@@ -7,7 +7,7 @@ export { default as SceneSerializer } from './core/SceneSerializer';
 export { default as MeshSerializer } from './core/MeshSerializer';
 
 // app
-export { default as ConfigSerializer } from './app/ConfigSerializer';
+export { default as OptionsSerializer } from './app/OptionsSerializer';
 export { default as ScriptSerializer } from './app/ScriptSerializer';
 
 // camera
