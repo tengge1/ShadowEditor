@@ -38,27 +38,16 @@ RenderEvent.prototype.onRender = function () {
     var editor = this.app.editor;
     var sceneHelpers = editor.sceneHelpers;
     var scene = editor.scene;
-    var vrEffect = editor.vrEffect;
-    var vrControls = editor.vrControls;
     var camera = editor.camera;
     var renderer = editor.renderer;
 
     sceneHelpers.updateMatrixWorld();
     scene.updateMatrixWorld();
 
-    if (vrEffect && vrEffect.isPresenting) {
-        vrControls.update();
+    renderer.render(scene, camera);
 
-        camera.updateMatrixWorld();
-
-        vrEffect.render(scene, vrCamera);
-        vrEffect.render(sceneHelpers, vrCamera);
-    } else {
-        renderer.render(scene, camera);
-
-        if (renderer instanceof THREE.RaytracingRenderer === false) {
-            renderer.render(sceneHelpers, camera);
-        }
+    if (renderer instanceof THREE.RaytracingRenderer === false) {
+        renderer.render(sceneHelpers, camera);
     }
 };
 

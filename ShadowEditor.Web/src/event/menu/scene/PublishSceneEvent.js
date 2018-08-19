@@ -34,8 +34,6 @@ PublishSceneEvent.prototype.onPublishScene = function () {
     output.metadata.type = 'App';
     delete output.history;
 
-    var vr = output.project.vr;
-
     output = JSON.stringify(output, MathUtils.parseNumber, '\t');
     output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
 
@@ -52,12 +50,6 @@ PublishSceneEvent.prototype.onPublishScene = function () {
     loader.load('third_party/app/index.html', function (content) {
         var includes = [];
 
-        if (vr) {
-            includes.push('<script src="third_party/controls/VRControls.js"></script>');
-            includes.push('<script src="third_party/effects/VREffect.js"></script>');
-            includes.push('<script src="third_party/vr/WebVR.js"></script>');
-        }
-
         content = content.replace('<!-- includes -->', includes.join('\n\t\t'));
         zip.file('index.html', content);
     });
@@ -67,20 +59,6 @@ PublishSceneEvent.prototype.onPublishScene = function () {
     loader.load('node_modules/three/build/three.min.js', function (content) {
         zip.file('js/three.min.js', content);
     });
-
-    if (vr) {
-        loader.load('third_party/controls/VRControls.js', function (content) {
-            zip.file('js/VRControls.js', content);
-        });
-
-        loader.load('third_party/effects/VREffect.js', function (content) {
-            zip.file('js/VREffect.js', content);
-        });
-
-        loader.load('third_party/vr/WebVR.js', function (content) {
-            zip.file('js/WebVR.js', content);
-        });
-    }
 };
 
 PublishSceneEvent.prototype.save = function (blob, filename) {

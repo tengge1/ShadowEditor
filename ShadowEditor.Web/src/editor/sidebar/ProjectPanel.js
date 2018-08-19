@@ -115,27 +115,6 @@ ProjectPanel.prototype.render = function () {
                     updateRenderer();
                 }
             }]
-        }, { // VR
-            xtype: 'row',
-            id: 'vrRow',
-            children: [{
-                xtype: 'label',
-                text: '虚拟现实',
-                style: {
-                    width: '90px'
-                }
-            }, {
-                xtype: 'checkbox',
-                id: 'vr',
-                value: config.getKey('project/vr'),
-                style: {
-                    left: '100px'
-                },
-                onChange: function () {
-                    config.setKey('project/vr', this.getValue());
-                    // updateRenderer();
-                }
-            }]
         }]
     };
 

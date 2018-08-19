@@ -42,15 +42,11 @@ import '../third_party/renderers/SoftwareRenderer.js';
 import '../third_party/renderers/SVGRenderer.js';
 
 import '../third_party/effects/OutlineEffect.js';
-import '../third_party/effects/VREffect.js';
 
 import '../third_party/animation/CCDIKSolver.js';
 import '../third_party/animation/MMDPhysics.js';
 import '../third_party/animation/MMDAnimationHelper.js';
 
-import '../third_party/controls/VRControls.js';
-
-export { default as WEBVR } from '../third_party/vr/WebVR.js';
 export { default as html2canvas } from '../third_party/html2canvas.js';
 import '../third_party/three.html.js';
 

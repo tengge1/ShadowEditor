@@ -31,9 +31,6 @@ ConfigSerializer.prototype.fromJSON = function (json) {
     var renderer = this.app.editor.createRendererFromConfig();
     this.app.call('rendererChanged', this, renderer);
 
-    // vr
-    UI.get('vr').setValue(json['project/vr']);
-
     // theme
     this.app.call('setTheme', this, json['theme']);
 };

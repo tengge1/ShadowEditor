@@ -6,10 +6,6 @@ import BaseEvent from '../BaseEvent';
  */
 function RendererChangedEvent(app) {
     BaseEvent.call(this, app);
-
-    this.vrControls = null;
-    this.vrCamera = null;
-    this.vrEffect = null;
 }
 
 RendererChangedEvent.prototype = Object.create(BaseEvent.prototype);
@@ -41,25 +37,6 @@ RendererChangedEvent.prototype.onRendererChanged = function (newRenderer) {
     renderer.setSize(container.dom.offsetWidth, container.dom.offsetHeight);
 
     container.dom.appendChild(renderer.domElement);
-
-    if (renderer.vr && renderer.vr.enabled) {
-        this.vrCamera = new THREE.PerspectiveCamera();
-        this.vrCamera.projectionMatrix = editor.camera.projectionMatrix;
-        editor.camera.add(this.vrCamera);
-        editor.vrCamera = this.vrCamera;
-
-        this.vrControls = new THREE.VRControls(this.vrCamera);
-        editor.vrControls = this.vrControls;
-
-        this.vrEffect = new THREE.VREffect(renderer);
-        editor.vrEffect = this.vrEffect;
-
-        var _this = this;
-
-        window.addEventListener('vrdisplaypresentchange', function (event) {
-            _this.vrEffect.isPresenting ? _this.app.call('enteredVR', _this) : _this.app.call('exitedVR', _this);
-        }, false);
-    }
 
     this.app.call('render');
 };

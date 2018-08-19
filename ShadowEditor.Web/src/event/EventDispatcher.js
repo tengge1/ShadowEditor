@@ -6,7 +6,6 @@ import AnimateEvent from './AnimateEvent';
 
 import KeyDownEvent from './KeyDownEvent';
 import AutoSaveEvent from './editor/AutoSaveEvent';
-import VREvent from './editor/VREvent';
 
 import SetThemeEvent from './editor/SetThemeEvent';
 import SetSceneEvent from './editor/SetSceneEvent';
@@ -96,8 +95,6 @@ import ParticleEmitterEvent from './menu/component/ParticleEmitterEvent';
 
 import PlayEvent from './menu/play/PlayEvent';
 
-import VRModeEvent from './menu/view/VRModeEvent';
-
 import ExampleEvent from './menu/example/ExampleEvent';
 
 import SourceCodeEvent from './menu/help/SourceCodeEvent';
@@ -151,7 +148,6 @@ function EventDispatcher(app) {
         // Application中的事件
         new KeyDownEvent(this.app),
         new AutoSaveEvent(this.app),
-        new VREvent(this.app),
 
         // Editor中的事件
         new SetThemeEvent(this.app),
@@ -241,8 +237,6 @@ function EventDispatcher(app) {
         new ParticleEmitterEvent(this.app),
 
         new PlayEvent(this.app),
-
-        new VRModeEvent(this.app),
 
         new ExampleEvent(this.app),
 

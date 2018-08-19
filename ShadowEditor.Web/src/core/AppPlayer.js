@@ -1,5 +1,3 @@
-import { WEBVR } from '../third_party';
-
 /**
  * 播放器
  * @author mrdoob / http://mrdoob.com/
@@ -27,7 +25,6 @@ function AppPlayer() {
         if (project.gammaInput) renderer.gammaInput = true;
         if (project.gammaOutput) renderer.gammaOutput = true;
         if (project.shadows) renderer.shadowMap.enabled = true;
-        if (project.vr) renderer.vr.enabled = true;
 
         dom.appendChild(renderer.domElement);
 
@@ -98,10 +95,6 @@ function AppPlayer() {
         camera = value;
         camera.aspect = this.width / this.height;
         camera.updateProjectionMatrix();
-
-        if (renderer.vr.enabled) {
-            dom.appendChild(WEBVR.createButton(renderer));
-        }
     };
 
     this.setScene = function (value) {

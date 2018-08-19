@@ -82,8 +82,6 @@ var EventList = [
 
     'mPlay', // 启动
 
-    'mVRMode', // VR模式
-
     'mArkanoid', // 打砖块
     'mCamera', // 相机
     'mParticles', // 粒子
@@ -119,10 +117,6 @@ var EventList = [
 
     'startPlayer', // 启动播放器事件
     'stopPlayer', // 停止播放器事件
-
-    'enterVR', // 进入VR事件
-    'enteredVR', // 已经进入VR事件
-    'exitedVR', // 已经退出VR事件
 
     'editorCleared', // 编辑器已经清空事件
 

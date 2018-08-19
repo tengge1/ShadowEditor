@@ -21,4 +21,3 @@ export { default as SetGeometryNameEvent } from './editor/SetGeometryNameEvent';
 export { default as SetMaterialNameEvent } from './editor/SetMaterialNameEvent';
 export { default as SetSceneEvent } from './editor/SetSceneEvent';
 export { default as SetThemeEvent } from './editor/SetThemeEvent';
-export { default as VREvent } from './editor/VREvent';
