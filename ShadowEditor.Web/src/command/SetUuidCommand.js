@@ -12,7 +12,7 @@ function SetUuidCommand(object, newUuid) {
 	Command.call(this);
 
 	this.type = 'SetUuidCommand';
-	this.name = 'Update UUID';
+	this.name = '更新UUID';
 
 	this.object = object;
 

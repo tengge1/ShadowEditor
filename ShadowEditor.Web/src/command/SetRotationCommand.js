@@ -13,7 +13,7 @@ function SetRotationCommand(object, newRotation, optionalOldRotation) {
 	Command.call(this);
 
 	this.type = 'SetRotationCommand';
-	this.name = 'Set Rotation';
+	this.name = '设置旋转';
 	this.updatable = true;
 
 	this.object = object;

@@ -16,7 +16,7 @@ function SetScriptValueCommand(object, script, attributeName, newValue, cursorPo
 	Command.call(this);
 
 	this.type = 'SetScriptValueCommand';
-	this.name = 'Set Script.' + attributeName;
+	this.name = '设置脚本.' + attributeName;
 	this.updatable = true;
 
 	this.object = object;

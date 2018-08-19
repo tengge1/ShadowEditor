@@ -12,7 +12,7 @@ function SetGeometryCommand(object, newGeometry) {
 	Command.call(this);
 
 	this.type = 'SetGeometryCommand';
-	this.name = 'Set Geometry';
+	this.name = '设置几何体';
 	this.updatable = true;
 
 	this.object = object;

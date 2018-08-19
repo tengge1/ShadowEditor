@@ -13,7 +13,7 @@ function SetMaterialValueCommand(object, attributeName, newValue) {
 	Command.call(this);
 
 	this.type = 'SetMaterialValueCommand';
-	this.name = 'Set Material.' + attributeName;
+	this.name = '设置材质.' + attributeName;
 	this.updatable = true;
 
 	this.object = object;

@@ -13,7 +13,7 @@ function SetGeometryValueCommand(object, attributeName, newValue) {
 	Command.call(this);
 
 	this.type = 'SetGeometryValueCommand';
-	this.name = 'Set Geometry.' + attributeName;
+	this.name = '设置几何体.' + attributeName;
 
 	this.object = object;
 	this.attributeName = attributeName;

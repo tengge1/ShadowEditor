@@ -13,7 +13,7 @@ function SetPositionCommand(object, newPosition, optionalOldPosition) {
 	Command.call(this);
 
 	this.type = 'SetPositionCommand';
-	this.name = 'Set Position';
+	this.name = '设置位置';
 	this.updatable = true;
 
 	this.object = object;
