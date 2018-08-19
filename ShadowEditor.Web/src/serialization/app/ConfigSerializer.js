@@ -26,9 +26,6 @@ ConfigSerializer.prototype.fromJSON = function (json) {
         this.app.editor.config.setKey(key, json[key]);
     });
 
-    // renderer
-    this.app.editor.createRendererFromConfig();
-
     // theme
     this.app.call('setTheme', this, json['theme']);
 };

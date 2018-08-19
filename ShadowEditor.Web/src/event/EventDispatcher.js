@@ -66,7 +66,6 @@ import AddTextEvent from './menu/add/AddTextEvent';
 import AddPerspectiveCameraEvent from './menu/add/AddPerspectiveCameraEvent';
 
 import AddAssetEvent from './menu/asset/AddAssetEvent';
-import ImportAssetEvent from './menu/asset/ImportAssetEvent';
 import ExportGeometryEvent from './menu/asset/ExportGeometryEvent';
 import ExportObjectEvent from './menu/asset/ExportObjectEvent';
 import ExportSceneEvent from './menu/asset/ExportSceneEvent';
@@ -199,7 +198,6 @@ function EventDispatcher(app) {
         new AddPerspectiveCameraEvent(this.app),
 
         new AddAssetEvent(this.app),
-        new ImportAssetEvent(this.app),
         new ExportGeometryEvent(this.app),
         new ExportObjectEvent(this.app),
         new ExportSceneEvent(this.app),

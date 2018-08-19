@@ -13,22 +13,11 @@ ObjectEvent.prototype = Object.create(BaseEvent.prototype);
 ObjectEvent.prototype.constructor = ObjectEvent;
 
 ObjectEvent.prototype.start = function () {
-    var _this = this;
-    this.app.on('objectAdded.' + this.id, function (object) {
-        _this.onObjectAdded(object);
-    });
-    this.app.on('objectChanged.' + this.id, function (object) {
-        _this.onObjectChanged(object);
-    });
-    this.app.on('objectRemoved.' + this.id, function (object) {
-        _this.onObjectRemoved(object);
-    });
-    this.app.on('objectSelected.' + this.id, function (object) {
-        _this.onObjectSelected(object);
-    });
-    this.app.on('objectFocused.' + this.id, function (object) {
-        _this.onObjectFocused(object);
-    });
+    this.app.on('objectAdded.' + this.id, this.onObjectAdded.bind(this));
+    this.app.on('objectChanged.' + this.id, this.onObjectChanged.bind(this));
+    this.app.on('objectRemoved.' + this.id, this.onObjectRemoved.bind(this));
+    this.app.on('objectSelected.' + this.id, this.onObjectSelected.bind(this));
+    this.app.on('objectFocused.' + this.id, this.onObjectFocused.bind(this));
 };
 
 ObjectEvent.prototype.stop = function () {

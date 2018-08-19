@@ -35,14 +35,6 @@ AssetMenu.prototype.render = function () {
                     _this.app.call('mAddAsset');
                 }
             }, {
-                xtype: 'div',
-                id: 'mImportAsset',
-                html: '导入模型',
-                cls: 'option',
-                onClick: function () {
-                    _this.app.call('mImportAsset');
-                }
-            }, {
                 xtype: 'hr'
             }, {
                 xtype: 'div',

@@ -1,7 +1,6 @@
 ﻿import Config from '../core/Config';
 import History from '../core/History';
 import Storage from '../core/Storage';
-import Loader from '../core/Loader';
 
 /**
  * 编辑器
@@ -15,7 +14,6 @@ function Editor(app) {
     this.config = new Config('threejs-editor');
     this.history = new History(this);
     this.storage = new Storage();
-    this.loader = new Loader(this);
 
     // 场景
     this.scene = new THREE.Scene();
