@@ -26,12 +26,9 @@ AddObjectEvent.prototype.onAddObject = function (object) {
     var editor = this.app.editor;
 
     object.traverse(function (child) {
-
-        if (child.geometry !== undefined) editor.addGeometry(child.geometry);
         if (child.material !== undefined) editor.addMaterial(child.material);
 
         editor.addHelper(child);
-
     });
 
     editor.scene.add(object);

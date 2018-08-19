@@ -13,7 +13,6 @@ import SetSceneEvent from './editor/SetSceneEvent';
 import AddObjectEvent from './editor/AddObjectEvent';
 import MoveObjectEvent from './editor/MoveObjectEvent';
 import RemoveObjectEvent from './editor/RemoveObjectEvent';
-import AddGeometryEvent from './editor/AddGeometryEvent';
 import SetGeometryNameEvent from './editor/SetGeometryNameEvent';
 import AddMaterialEvent from './editor/AddMaterialEvent';
 import SetMaterialNameEvent from './editor/SetMaterialNameEvent';
@@ -160,7 +159,6 @@ function EventDispatcher(app) {
         new AddObjectEvent(this.app),
         new MoveObjectEvent(this.app),
         new RemoveObjectEvent(this.app),
-        new AddGeometryEvent(this.app),
         new SetGeometryNameEvent(this.app),
         new AddMaterialEvent(this.app),
         new SetMaterialNameEvent(this.app),

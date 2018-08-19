@@ -102,7 +102,6 @@ var EventList = [
     'addObject', // 添加物体
     'moveObject', // 移动物体
     'removeObject', // 删除物体
-    'addGeometry', // 添加几何体事件
     'setGeometryName', // 设置几何体名称事件
     'addMaterial', // 添加材质事件
     'setMaterialName', // 设置材质名称
