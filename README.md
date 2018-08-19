@@ -4,7 +4,7 @@
 * 版本：v0.0.3
 * 说明：基于`three.js`的场景编辑器。
 * 源码：https://github.com/tengge1/ShadowEditor
-* 示例：https://tengge1.github.io/ShadowEditor/ShadowEditor.Web/demo/index.html
+* 示例：https://github.com/tengge1/ShadowEditor-examples
 * 文档：https://tengge1.github.io/ShadowEditor/docs/release/index.html
 
 ## 主要功能
@@ -49,6 +49,8 @@ net start MongoDB
 ![image](images/scene20180815.png)
 
 ![image](images/scene_list20180815.png)
+
+更多截图请参见示例：https://github.com/tengge1/ShadowEditor-examples
 
 ## 开发日志
 
