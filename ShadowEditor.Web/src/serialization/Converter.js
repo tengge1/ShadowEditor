@@ -7,6 +7,7 @@ import MeshSerializer from './core/MeshSerializer';
 import GroupSerializer from './core/GroupSerializer';
 import SpriteSerializer from './core/SpriteSerializer';
 import ServerObject from './core/ServerObject';
+import WebGLRendererSerializer from './core/WebGLRendererSerializer';
 
 // app
 import ConfigSerializer from './app/ConfigSerializer';
@@ -46,6 +47,10 @@ Converter.prototype.toJSON = function () {
     // 相机
     var camera = (new CamerasSerializer(this.app)).toJSON(this.app.editor.camera);
     list.push(camera);
+
+    // 渲染器
+    var renderer = (new WebGLRendererSerializer(this.app)).toJSON(this.app.editor.renderer);
+    list.push(renderer);
 
     // 脚本
     var scripts = (new ScriptSerializer(this.app)).toJSON();
@@ -134,6 +139,14 @@ Converter.prototype.fromJson = function (json) {
         }
     } else {
         console.warn(`Converter: 场景中不存在相机信息。`);
+    }
+
+    // 渲染器
+    var rendererJson = json.filter(n => n.metadata && n.metadata.generator.indexOf('WebGLRendererSerializer') > -1)[0];
+    if (rendererJson) {
+        (new WebGLRendererSerializer(this.app)).fromJSON(rendererJson, this.app.editor.renderer);
+    } else {
+        console.warn(`Converter: 场景中不存在渲染器信息。`);
     }
 
     // 脚本
