@@ -153,10 +153,6 @@ Editor.prototype.removeObject = function (object) { // 移除物体
     this.app.call('removeObject', this, object);
 };
 
-Editor.prototype.addTexture = function (texture) { // 添加纹理事件
-    this.app.call('addTexture', this, texture);
-};
-
 // ------------------------- 帮助 ------------------------------
 
 Editor.prototype.addHelper = function (object) { // 添加物体帮助器

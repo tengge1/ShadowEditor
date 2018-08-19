@@ -39,6 +39,7 @@ AddMikuEvent.prototype.onAddMiku = function () {
     var loader = new THREE.MMDLoader();
     loader.loadWithAnimation(modelFile, vmdFiles, (mmd) => {
         var mesh = mmd.mesh;
+        mesh.name = '初音未来';
 
         editor.execute(new AddObjectCommand(mesh));
 

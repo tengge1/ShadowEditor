@@ -100,7 +100,6 @@ var EventList = [
     'addObject', // 添加物体
     'moveObject', // 移动物体
     'removeObject', // 删除物体
-    'addTexture', // 添加纹理
     'addHelper', // 添加帮助事件
     'removeHelper', // 移除脚本
     'addScript', // 添加脚本

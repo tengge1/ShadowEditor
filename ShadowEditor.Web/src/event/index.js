@@ -7,7 +7,6 @@ export { default as KeyDownEvent } from './KeyDownEvent';
 export { default as AddHelperEvent } from './editor/AddHelperEvent';
 export { default as AddObjectEvent } from './editor/AddObjectEvent';
 export { default as AddScriptEvent } from './editor/AddScriptEvent';
-export { default as AddTextureEvent } from './editor/AddTextureEvent';
 export { default as ClearEvent } from './editor/ClearEvent';
 export { default as LoadEvent } from './editor/LoadEvent';
 export { default as MoveObjectEvent } from './editor/MoveObjectEvent';
