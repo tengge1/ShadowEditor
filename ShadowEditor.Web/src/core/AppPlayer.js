@@ -16,15 +16,11 @@ function AppPlayer() {
     this.height = 500;
 
     this.load = function (json) {
-        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer = new THREE.WebGLRenderer({
+            antialias: true
+        });
         renderer.setClearColor(0x000000);
         renderer.setPixelRatio(window.devicePixelRatio);
-
-        var project = json.project;
-
-        if (project.gammaInput) renderer.gammaInput = true;
-        if (project.gammaOutput) renderer.gammaOutput = true;
-        if (project.shadows) renderer.shadowMap.enabled = true;
 
         dom.appendChild(renderer.domElement);
 
@@ -127,7 +123,10 @@ function AppPlayer() {
         var time = performance.now();
 
         try {
-            dispatch(events.update, { time: time, delta: time - prevTime });
+            dispatch(events.update, {
+                time: time,
+                delta: time - prevTime
+            });
         } catch (e) {
             console.error((e.message || e), (e.stack || ""));
         }

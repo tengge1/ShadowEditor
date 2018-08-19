@@ -32,7 +32,9 @@ function Editor(app) {
     this.camera = this.DEFAULT_CAMERA.clone();
 
     // 渲染器
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
     this.renderer.gammaInput = false;
     this.renderer.gammaOutput = false;
     this.renderer.shadowMap.enabled = true;
@@ -232,11 +234,6 @@ Editor.prototype.toJSON = function () { // 将场景转换为json
 
     return {
         metadata: {},
-        project: {
-            gammaInput: this.config.getKey('project/renderer/gammaInput'),
-            gammaOutput: this.config.getKey('project/renderer/gammaOutput'),
-            shadows: this.config.getKey('project/renderer/shadows')
-        },
         camera: this.camera.toJSON(),
         scene: this.scene.toJSON(),
         scripts: this.scripts,

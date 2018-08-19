@@ -139,10 +139,6 @@ Object.assign(History.prototype, {
         history.undos = [];
         history.redos = [];
 
-        if (!this.config.getKey('settings/history')) {
-            return history;
-        }
-
         // Append Undos to History
         for (var i = 0; i < this.undos.length; i++) {
             if (this.undos[i].hasOwnProperty("json")) {
@@ -165,7 +161,7 @@ Object.assign(History.prototype, {
 
         for (var i = 0; i < json.undos.length; i++) {
             var cmdJSON = json.undos[i];
-            var cmd = new window[cmdJSON.type]();	// creates a new object of type "json.type"
+            var cmd = new window[cmdJSON.type](); // creates a new object of type "json.type"
             cmd.json = cmdJSON;
             cmd.id = cmdJSON.id;
             cmd.name = cmdJSON.name;
@@ -175,7 +171,7 @@ Object.assign(History.prototype, {
 
         for (var i = 0; i < json.redos.length; i++) {
             var cmdJSON = json.redos[i];
-            var cmd = new window[cmdJSON.type]();	// creates a new object of type "json.type"
+            var cmd = new window[cmdJSON.type](); // creates a new object of type "json.type"
             cmd.json = cmdJSON;
             cmd.id = cmdJSON.id;
             cmd.name = cmdJSON.name;
@@ -201,7 +197,7 @@ Object.assign(History.prototype, {
             return;
         }
 
-        var cmd = this.undos.length > 0 ? this.undos[this.undos.length - 1] : undefined;	// next cmd to pop
+        var cmd = this.undos.length > 0 ? this.undos[this.undos.length - 1] : undefined; // next cmd to pop
 
         if (cmd === undefined || id > cmd.id) {
             cmd = this.redo();
@@ -210,7 +206,7 @@ Object.assign(History.prototype, {
             }
         } else {
             while (true) {
-                cmd = this.undos[this.undos.length - 1];	// next cmd to pop
+                cmd = this.undos[this.undos.length - 1]; // next cmd to pop
                 if (cmd === undefined || id === cmd.id) break;
                 cmd = this.undo();
             }
@@ -223,11 +219,11 @@ Object.assign(History.prototype, {
     enableSerialization: function (id) {
 
         /**
-		 * because there might be commands in this.undos and this.redos
-		 * which have not been serialized with .toJSON() we go back
-		 * to the oldest command and redo one command after the other
-		 * while also calling .toJSON() on them.
-		 */
+         * because there might be commands in this.undos and this.redos
+         * which have not been serialized with .toJSON() we go back
+         * to the oldest command and redo one command after the other
+         * while also calling .toJSON() on them.
+         */
 
         this.goToState(-1);
 
