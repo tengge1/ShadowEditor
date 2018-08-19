@@ -130,13 +130,8 @@ Converter.prototype.fromJson = function (json) {
     var cameraJson = json.filter(n => n.metadata && n.metadata.generator.indexOf('CameraSerializer') > -1)[0];
 
     if (cameraJson) {
-        var camera = (new CamerasSerializer(this.app)).fromJSON(cameraJson);
-        if (camera) {
-            this.app.editor.camera.copy(camera);
-            this.app.editor.camera.updateProjectionMatrix();
-        } else {
-            console.warn(`Converter: 无法序列化${n.metadata.generator}。`);
-        }
+        (new CamerasSerializer(this.app)).fromJSON(cameraJson, this.app.editor.camera);
+        this.app.editor.camera.updateProjectionMatrix();
     } else {
         console.warn(`Converter: 场景中不存在相机信息。`);
     }

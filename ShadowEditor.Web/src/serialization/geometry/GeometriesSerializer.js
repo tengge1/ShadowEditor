@@ -70,7 +70,7 @@ GeometriesSerializer.prototype.toJSON = function (obj) {
     return (new serializer(this.app)).toJSON(obj);
 };
 
-GeometriesSerializer.prototype.fromJSON = function (json) {
+GeometriesSerializer.prototype.fromJSON = function (json, parent) {
     var generator = json.metadata.generator;
 
     var serializer = Serializers[generator.replace('Serializer', '')];
@@ -80,7 +80,7 @@ GeometriesSerializer.prototype.fromJSON = function (json) {
         return null;
     }
 
-    return (new serializer(this.app)).fromJSON(json);
+    return (new serializer(this.app)).fromJSON(json, parent);
 };
 
 export default GeometriesSerializer;
