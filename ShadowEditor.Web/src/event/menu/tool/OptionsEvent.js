@@ -1,4 +1,5 @@
 import MenuEvent from '../MenuEvent';
+import OptionsWindow from '../../../editor/window/OptionsWindow';
 
 /**
  * 选项菜单事件
@@ -21,7 +22,11 @@ OptionsEvent.prototype.stop = function () {
 };
 
 OptionsEvent.prototype.onOptions = function () {
-    debugger
+    if (this.window === undefined) {
+        this.window = new OptionsWindow({ app: this.app });
+        this.window.render();
+    }
+    this.window.show();
 };
 
 export default OptionsEvent;
