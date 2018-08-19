@@ -1,23 +1,19 @@
 import Command from './Command';
 
 /**
+ * 移动物体命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- */
-
-/**
  * @param object THREE.Object3D
  * @param newParent THREE.Object3D
  * @param newBefore THREE.Object3D
  * @constructor
  */
-
 function MoveObjectCommand(object, newParent, newBefore) {
-
 	Command.call(this);
 
 	this.type = 'MoveObjectCommand';
-	this.name = 'Move Object';
+	this.name = '移动物体';
 
 	this.object = object;
 	this.oldParent = (object !== undefined) ? object.parent : undefined;
@@ -25,33 +21,24 @@ function MoveObjectCommand(object, newParent, newBefore) {
 	this.newParent = newParent;
 
 	if (newBefore !== undefined) {
-
 		this.newIndex = (newParent !== undefined) ? newParent.children.indexOf(newBefore) : undefined;
-
 	} else {
-
 		this.newIndex = (newParent !== undefined) ? newParent.children.length : undefined;
-
 	}
 
 	if (this.oldParent === this.newParent && this.newIndex > this.oldIndex) {
-
 		this.newIndex--;
-
 	}
 
 	this.newBefore = newBefore;
-
 };
 
 MoveObjectCommand.prototype = Object.create(Command.prototype);
 
 Object.assign(MoveObjectCommand.prototype, {
-
 	constructor: MoveObjectCommand,
 
 	execute: function () {
-
 		this.oldParent.remove(this.object);
 
 		var children = this.newParent.children;
@@ -59,11 +46,9 @@ Object.assign(MoveObjectCommand.prototype, {
 		this.object.parent = this.newParent;
 
 		this.editor.app.call('sceneGraphChanged', this);
-
 	},
 
 	undo: function () {
-
 		this.newParent.remove(this.object);
 
 		var children = this.oldParent.children;
@@ -74,7 +59,6 @@ Object.assign(MoveObjectCommand.prototype, {
 	},
 
 	toJSON: function () {
-
 		var output = Command.prototype.toJSON.call(this);
 
 		output.objectUuid = this.object.uuid;
@@ -84,11 +68,9 @@ Object.assign(MoveObjectCommand.prototype, {
 		output.oldIndex = this.oldIndex;
 
 		return output;
-
 	},
 
 	fromJSON: function (json) {
-
 		Command.prototype.fromJSON.call(this, json);
 
 		this.object = this.editor.objectByUuid(json.objectUuid);
@@ -106,9 +88,7 @@ Object.assign(MoveObjectCommand.prototype, {
 		}
 		this.newIndex = json.newIndex;
 		this.oldIndex = json.oldIndex;
-
 	}
-
 });
 
 export default MoveObjectCommand;

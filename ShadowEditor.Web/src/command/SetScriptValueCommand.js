@@ -1,11 +1,9 @@
 import Command from './Command';
 
 /**
+ * 设置脚本值命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- */
-
-/**
  * @param object THREE.Object3D
  * @param script javascript object
  * @param attributeName string
@@ -14,9 +12,7 @@ import Command from './Command';
  * @param scrollInfo javascript object with values {left, top, width, height, clientWidth, clientHeight}
  * @constructor
  */
-
 function SetScriptValueCommand(object, script, attributeName, newValue, cursorPosition, scrollInfo) {
-
 	Command.call(this);
 
 	this.type = 'SetScriptValueCommand';
@@ -31,43 +27,34 @@ function SetScriptValueCommand(object, script, attributeName, newValue, cursorPo
 	this.newValue = newValue;
 	this.cursorPosition = cursorPosition;
 	this.scrollInfo = scrollInfo;
-
 };
 
 SetScriptValueCommand.prototype = Object.create(Command.prototype);
 
 Object.assign(SetScriptValueCommand.prototype, {
-
 	constructor: SetScriptValueCommand,
 
 	execute: function () {
-
 		this.script[this.attributeName] = this.newValue;
 
 		this.editor.app.call('scriptChanged', this);
 		this.editor.app.call('refreshScriptEditor', this, this.object, this.script, this.cursorPosition, this.scrollInfo);
-
 	},
 
 	undo: function () {
-
 		this.script[this.attributeName] = this.oldValue;
 
 		this.editor.app.call('scriptChanged', this);
 		this.editor.app.call('refreshScriptEditor', this, this.object, this.script, this.cursorPosition, this.scrollInfo);
-
 	},
 
 	update: function (cmd) {
-
 		this.cursorPosition = cmd.cursorPosition;
 		this.scrollInfo = cmd.scrollInfo;
 		this.newValue = cmd.newValue;
-
 	},
 
 	toJSON: function () {
-
 		var output = Command.prototype.toJSON.call(this);
 
 		output.objectUuid = this.object.uuid;
@@ -79,11 +66,9 @@ Object.assign(SetScriptValueCommand.prototype, {
 		output.scrollInfo = this.scrollInfo;
 
 		return output;
-
 	},
 
 	fromJSON: function (json) {
-
 		Command.prototype.fromJSON.call(this, json);
 
 		this.oldValue = json.oldValue;
@@ -93,9 +78,7 @@ Object.assign(SetScriptValueCommand.prototype, {
 		this.script = this.editor.scripts[json.objectUuid][json.index];
 		this.cursorPosition = json.cursorPosition;
 		this.scrollInfo = json.scrollInfo;
-
 	}
-
 });
 
 export default SetScriptValueCommand;

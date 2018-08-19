@@ -1,18 +1,14 @@
 import Command from './Command';
 
 /**
+ * 设置几何体命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- */
-
-/**
  * @param object THREE.Object3D
  * @param newGeometry THREE.Geometry
  * @constructor
  */
-
 function SetGeometryCommand(object, newGeometry) {
-
 	Command.call(this);
 
 	this.type = 'SetGeometryCommand';
@@ -22,45 +18,36 @@ function SetGeometryCommand(object, newGeometry) {
 	this.object = object;
 	this.oldGeometry = (object !== undefined) ? object.geometry : undefined;
 	this.newGeometry = newGeometry;
-
 };
 
 SetGeometryCommand.prototype = Object.create(Command.prototype);
 
 Object.assign(SetGeometryCommand.prototype, {
-
 	constructor: SetGeometryCommand,
 
 	execute: function () {
-
 		this.object.geometry.dispose();
 		this.object.geometry = this.newGeometry;
 		this.object.geometry.computeBoundingSphere();
 
 		this.editor.app.call('geometryChanged', this, this.object);
 		this.editor.app.call('sceneGraphChanged', this);
-
 	},
 
 	undo: function () {
-
 		this.object.geometry.dispose();
 		this.object.geometry = this.oldGeometry;
 		this.object.geometry.computeBoundingSphere();
 
 		this.editor.app.call('geometryChanged', this, this.object);
 		this.editor.app.call('sceneGraphChanged', this);
-
 	},
 
 	update: function (cmd) {
-
 		this.newGeometry = cmd.newGeometry;
-
 	},
 
 	toJSON: function () {
-
 		var output = Command.prototype.toJSON.call(this);
 
 		output.objectUuid = this.object.uuid;
@@ -68,11 +55,9 @@ Object.assign(SetGeometryCommand.prototype, {
 		output.newGeometry = this.newGeometry.toJSON();
 
 		return output;
-
 	},
 
 	fromJSON: function (json) {
-
 		Command.prototype.fromJSON.call(this, json);
 
 		this.object = this.editor.objectByUuid(json.objectUuid);
@@ -81,14 +66,10 @@ Object.assign(SetGeometryCommand.prototype, {
 		this.newGeometry = parseGeometry(json.newGeometry);
 
 		function parseGeometry(data) {
-
 			var loader = new THREE.ObjectLoader();
 			return loader.parseGeometries([data])[data.uuid];
-
 		}
-
 	}
-
 });
 
 export default SetGeometryCommand;

@@ -1,54 +1,44 @@
 import Command from './Command';
 
 /**
+ * 设置材质纹理命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- */
-
-/**
  * @param object THREE.Object3D
  * @param mapName string
  * @param newMap THREE.Texture
  * @constructor
  */
-
 function SetMaterialMapCommand(object, mapName, newMap) {
-
 	Command.call(this);
+
 	this.type = 'SetMaterialMapCommand';
-	this.name = 'Set Material.' + mapName;
+	this.name = '设置材质.' + mapName;
 
 	this.object = object;
 	this.mapName = mapName;
 	this.oldMap = (object !== undefined) ? object.material[mapName] : undefined;
 	this.newMap = newMap;
-
 };
 
 SetMaterialMapCommand.prototype = Object.create(Command.prototype);
 
 Object.assign(SetMaterialMapCommand.prototype, {
-
 	constructor: SetMaterialMapCommand,
 
 	execute: function () {
-
 		this.object.material[this.mapName] = this.newMap;
 		this.object.material.needsUpdate = true;
 		this.editor.app.call('materialChanged', this, this.object.material);
-
 	},
 
 	undo: function () {
-
 		this.object.material[this.mapName] = this.oldMap;
 		this.object.material.needsUpdate = true;
 		this.editor.app.call('materialChanged', this, this.object.material);
-
 	},
 
 	toJSON: function () {
-
 		var output = Command.prototype.toJSON.call(this);
 
 		output.objectUuid = this.object.uuid;
@@ -61,7 +51,6 @@ Object.assign(SetMaterialMapCommand.prototype, {
 		// serializes a map (THREE.Texture)
 
 		function serializeMap(map) {
-
 			if (map === null || map === undefined) return null;
 
 			var meta = {
@@ -77,7 +66,6 @@ Object.assign(SetMaterialMapCommand.prototype, {
 			json.sourceFile = map.sourceFile;
 
 			return json;
-
 		}
 
 		// Note: The function 'extractFromCache' is copied from Object3D.toJSON()
@@ -86,7 +74,6 @@ Object.assign(SetMaterialMapCommand.prototype, {
 		// remove metadata on each item
 		// and return as array
 		function extractFromCache(cache) {
-
 			var values = [];
 			for (var key in cache) {
 
@@ -96,13 +83,10 @@ Object.assign(SetMaterialMapCommand.prototype, {
 
 			}
 			return values;
-
 		}
-
 	},
 
 	fromJSON: function (json) {
-
 		Command.prototype.fromJSON.call(this, json);
 
 		this.object = this.editor.objectByUuid(json.objectUuid);
@@ -111,7 +95,6 @@ Object.assign(SetMaterialMapCommand.prototype, {
 		this.newMap = parseTexture(json.newMap);
 
 		function parseTexture(json) {
-
 			var map = null;
 			if (json !== null) {
 
@@ -123,11 +106,8 @@ Object.assign(SetMaterialMapCommand.prototype, {
 
 			}
 			return map;
-
 		}
-
 	}
-
 });
 
 export default SetMaterialMapCommand;
