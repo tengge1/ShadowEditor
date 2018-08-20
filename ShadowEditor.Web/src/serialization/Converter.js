@@ -139,7 +139,8 @@ Converter.prototype.fromJson = function (json) {
     // 渲染器
     var rendererJson = json.filter(n => n.metadata && n.metadata.generator.indexOf('WebGLRendererSerializer') > -1)[0];
     if (rendererJson) {
-        (new WebGLRendererSerializer(this.app)).fromJSON(rendererJson, this.app.editor.renderer);
+        this.app.editor.renderer = (new WebGLRendererSerializer(this.app)).fromJSON(rendererJson);
+        this.app.call('render', this);
     } else {
         console.warn(`Converter: 场景中不存在渲染器信息。`);
     }

@@ -1,4 +1,5 @@
 import UI from '../../ui/UI';
+import WebGLRendererSerializer from '../../serialization/core/WebGLRendererSerializer';
 
 /**
  * 选项窗口
@@ -175,18 +176,24 @@ OptionsWindow.prototype.save = function () {
     var gammaFactor = UI.get('gammaFactor').getValue();
 
     var renderer = this.app.editor.renderer;
+    var json = (new WebGLRendererSerializer(this.app)).toJSON(renderer);
+    var newRenderer = (new WebGLRendererSerializer(this.app)).fromJSON(json);
 
     if (shadowMapType === -1) {
-        renderer.shadowMap.enabled = false;
+        newRenderer.shadowMap.enabled = false;
     } else {
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = shadowMapType;
+        newRenderer.shadowMap.enabled = true;
+        newRenderer.shadowMap.type = shadowMapType;
     }
-    renderer.gammaInput = gammaInput;
-    renderer.gammaOutput = gammaOutput;
-    renderer.gammaFactor = gammaFactor;
+    newRenderer.gammaInput = gammaInput;
+    newRenderer.gammaOutput = gammaOutput;
+    newRenderer.gammaFactor = gammaFactor;
 
-    this.app.call('sceneGraphChanged', this);
+    this.app.viewport.container.dom.removeChild(renderer.domElement);
+    this.app.viewport.container.dom.appendChild(newRenderer.domElement);
+    this.app.editor.renderer = newRenderer;
+    this.app.editor.renderer.setSize(this.app.viewport.container.dom.offsetWidth, this.app.viewport.container.dom.offsetHeight);
+    this.app.call('render', this);
 
     // 隐藏窗口
     this.hide();
