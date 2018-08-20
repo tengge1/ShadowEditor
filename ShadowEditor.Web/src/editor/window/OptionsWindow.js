@@ -65,7 +65,6 @@ OptionsWindow.prototype.render = function () {
             cls: 'TabPanel',
             children: [{
                 xtype: 'row',
-                id: 'themeRow',
                 children: [{
                     xtype: 'label',
                     text: '主题'

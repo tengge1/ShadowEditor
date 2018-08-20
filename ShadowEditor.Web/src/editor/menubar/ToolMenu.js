@@ -27,7 +27,6 @@ ToolMenu.prototype.render = function () {
             xtype: 'div',
             cls: 'options',
             children: [{
-                id: 'mSourceCode',
                 xtype: 'div',
                 cls: 'option',
                 html: '选项',
