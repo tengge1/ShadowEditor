@@ -82,6 +82,7 @@ OptionsWindow.prototype.render = function () {
                     text: '阴影'
                 }, {
                     xtype: 'select',
+                    id: 'shadowMapType',
                     options: {
                         [-1]: '禁用',
                         [THREE.BasicShadowMap]: '基本阴影', // 0
@@ -97,6 +98,7 @@ OptionsWindow.prototype.render = function () {
                     text: 'γ输入'
                 }, {
                     xtype: 'boolean',
+                    id: 'gammaInput',
                     value: renderer.gammaInput
                 }]
             }, {
@@ -106,6 +108,7 @@ OptionsWindow.prototype.render = function () {
                     text: 'γ输出'
                 }, {
                     xtype: 'boolean',
+                    id: 'gammaOutput',
                     value: renderer.gammaOutput
                 }]
             }, {
@@ -115,6 +118,7 @@ OptionsWindow.prototype.render = function () {
                     text: 'γ因子'
                 }, {
                     xtype: 'number',
+                    id: 'gammaFactor',
                     value: renderer.gammaFactor
                 }]
             }]
@@ -163,6 +167,24 @@ OptionsWindow.prototype.save = function () {
     var theme = UI.get('theme').getValue();
     this.app.options.theme = theme;
     document.getElementById('theme').href = theme;
+
+    // 渲染器
+    var shadowMapType = parseInt(UI.get('shadowMapType').getValue());
+    var gammaInput = UI.get('gammaInput').getValue();
+    var gammaOutput = UI.get('gammaOutput').getValue();
+    var gammaFactor = UI.get('gammaFactor').getValue();
+
+    var renderer = this.app.editor.renderer;
+
+    if (shadowMapType === -1) {
+        renderer.shadowMap.enabled = false;
+    } else {
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = shadowMapType;
+    }
+    renderer.gammaInput = gammaInput;
+    renderer.gammaOutput = gammaOutput;
+    renderer.gammaFactor = gammaFactor;
 
     // 隐藏窗口
     this.hide();
