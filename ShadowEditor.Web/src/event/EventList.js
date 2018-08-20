@@ -169,7 +169,6 @@ var EventList = [
     'updateObject', // 更新物体属性
     'updateObjectPanel', // 更新物体面板
 
-    'updateRenderer',
     'selectTab', // 点击选择侧边栏选项卡
     'selectPropertyTab', // 点击选择属性选项卡
 
