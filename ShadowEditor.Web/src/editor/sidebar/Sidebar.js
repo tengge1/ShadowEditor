@@ -2,7 +2,6 @@
 import ScenePanel from './ScenePanel';
 import PropertyPanel from './PropertyPanel';
 import ScriptPanel from './ScriptPanel';
-import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
 
 /**
@@ -40,8 +39,8 @@ Sidebar.prototype.render = function () {
                 onClick: onClick
             }, {
                 xtype: 'text',
-                id: 'settingsTab',
-                text: '设置',
+                id: 'historyTab',
+                text: '历史',
                 onClick: onClick
             }]
         }, { // scene
@@ -54,9 +53,8 @@ Sidebar.prototype.render = function () {
             ]
         }, {
             xtype: 'div',
-            id: 'settings',
+            id: 'histories',
             children: [
-                new SettingPanel({ app: this.app }),
                 new HistoryPanel({ app: this.app })
             ]
         }]

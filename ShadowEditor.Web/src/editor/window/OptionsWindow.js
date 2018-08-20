@@ -15,7 +15,7 @@ OptionsWindow.prototype.constructor = OptionsWindow;
 OptionsWindow.prototype.render = function () {
     var _this = this;
 
-    function changeTab(name) {
+    function changeTab(name) { // 切换选项卡
         if (name === '外观') {
             UI.get('surfaceTab').dom.classList.add('selected');
             UI.get('rendererTab').dom.classList.remove('selected');
@@ -70,16 +70,14 @@ OptionsWindow.prototype.render = function () {
                     text: '主题'
                 }, { // class
                     xtype: 'select',
+                    id: 'theme',
                     options: {
                         'assets/css/light.css': '浅色',
                         'assets/css/dark.css': '深色'
                     },
-                    // value: config.getKey('theme'),
+                    value: this.app.options.theme,
                     style: {
                         width: '150px'
-                    },
-                    onChange: function () {
-
                     }
                 }]
             }]
@@ -98,13 +96,13 @@ OptionsWindow.prototype.render = function () {
             xtype: 'button',
             text: '保存',
             onClick: () => {
-
+                this.save();
             }
         }, {
             xtype: 'button',
             text: '取消',
             onClick: () => {
-
+                this.hide();
             }
         }]
     });
@@ -113,6 +111,21 @@ OptionsWindow.prototype.render = function () {
 
 OptionsWindow.prototype.show = function () {
     UI.get('optionsWindow').show();
+};
+
+OptionsWindow.prototype.hide = function () {
+    UI.get('optionsWindow').hide();
+};
+
+OptionsWindow.prototype.save = function () {
+    // 主题
+    var theme = UI.get('theme').getValue();
+    this.app.options.theme = theme;
+    document.getElementById('theme').href = theme;
+
+    // 隐藏窗口
+    this.hide();
+    UI.msg('保存成功。');
 };
 
 export default OptionsWindow;

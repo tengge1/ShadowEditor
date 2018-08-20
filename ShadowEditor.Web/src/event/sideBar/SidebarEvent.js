@@ -23,25 +23,25 @@ SidebarEvent.prototype.stop = function () {
 
 SidebarEvent.prototype.onSelectTab = function (section) {
     var sceneTab = UI.get('sceneTab');
-    var settingsTab = UI.get('settingsTab');
+    var historyTab = UI.get('historyTab');
 
     var scene = UI.get('scene');
-    var settings = UI.get('settings');
+    var histories = UI.get('histories');
 
     sceneTab.dom.className = '';
-    settingsTab.dom.className = '';
+    historyTab.dom.className = '';
 
     scene.dom.style.display = 'none';
-    settings.dom.style.display = 'none';
+    histories.dom.style.display = 'none';
 
     switch (section) {
         case '场景':
             sceneTab.dom.className = 'selected';
             scene.dom.style.display = '';
             break;
-        case '设置':
-            settingsTab.dom.className = 'selected';
-            settings.dom.style.display = '';
+        case '历史':
+            historyTab.dom.className = 'selected';
+            histories.dom.style.display = '';
             break;
     }
 };

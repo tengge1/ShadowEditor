@@ -11,7 +11,6 @@ export { default as ObjectPanel } from './sidebar/ObjectPanel';
 export { default as PropertyPanel } from './sidebar/PropertyPanel';
 export { default as ScenePanel } from './sidebar/ScenePanel';
 export { default as ScriptPanel } from './sidebar/ScriptPanel';
-export { default as SettingPanel } from './sidebar/SettingPanel';
 export { default as Sidebar } from './sidebar/Sidebar';
 
 export { default as GeometryInfoPanel } from './sidebar/geometry/GeometryInfoPanel';
