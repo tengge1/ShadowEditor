@@ -86,7 +86,8 @@ var EventList = [
     'mParticles', // 粒子
     'mPong', // 乒乓球
 
-    'mOptions', // 配置
+    'mSurfaceOptions', // 外观选项
+    'mRendererOptions', // 渲染器选项
 
     'mSourceCode', // 源码
     'mAbout', // 关于

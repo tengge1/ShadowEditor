@@ -116,9 +116,10 @@ UICls.prototype.remove = function (id, scope = 'global') {
  */
 UICls.prototype.get = function (id, scope = 'global') {
     var key = `${scope}:${id}`;
-    if (this.objects[key] === undefined) {
-        console.warn(`UICls: object named ${id} is not defined.`);
-    }
+    // 经常需要通过该方法判断是否已经注册某个元素，所以不能产生警告。
+    // if (this.objects[key] === undefined) {
+    //     console.warn(`UICls: object named ${id} is not defined.`);
+    // }
     return this.objects[key];
 };
 

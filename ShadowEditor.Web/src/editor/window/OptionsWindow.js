@@ -17,23 +17,8 @@ OptionsWindow.prototype.render = function () {
     var renderer = app.editor.renderer;
     var shadowMap = renderer.shadowMap;
 
-    function changeTab(name) { // 切换选项卡
-        if (name === '外观') {
-            UI.get('surfaceTab').dom.classList.add('selected');
-            UI.get('rendererTab').dom.classList.remove('selected');
-            UI.get('surfacePanel').dom.style.display = '';
-            UI.get('rendererPanel').dom.style.display = 'none';
-        } else if (name === '渲染器') {
-            UI.get('surfaceTab').dom.classList.remove('selected');
-            UI.get('rendererTab').dom.classList.add('selected');
-            UI.get('surfacePanel').dom.style.display = 'none';
-            UI.get('rendererPanel').dom.style.display = '';
-        }
-    }
-
-    var container = UI.create({
+    this.window = UI.create({
         xtype: 'window',
-        id: 'optionsWindow',
         parent: this.app.container,
         title: '选项窗口',
         width: '700px',
@@ -51,14 +36,14 @@ OptionsWindow.prototype.render = function () {
                 text: '外观',
                 cls: 'selected',
                 onClick: () => {
-                    changeTab('外观');
+                    this.changeTab('外观');
                 }
             }, {
                 xtype: 'text',
                 id: 'rendererTab',
                 text: '渲染器',
                 onClick: () => {
-                    changeTab('渲染器');
+                    this.changeTab('渲染器');
                 }
             }]
         }, {
@@ -148,15 +133,29 @@ OptionsWindow.prototype.render = function () {
             }
         }]
     });
-    container.render();
+    this.window.render();
 };
 
 OptionsWindow.prototype.show = function () {
-    UI.get('optionsWindow').show();
+    this.window.show();
 };
 
 OptionsWindow.prototype.hide = function () {
-    UI.get('optionsWindow').hide();
+    this.window.hide();
+};
+
+OptionsWindow.prototype.changeTab = function (name) {
+    if (name === '外观') {
+        UI.get('surfaceTab').dom.classList.add('selected');
+        UI.get('rendererTab').dom.classList.remove('selected');
+        UI.get('surfacePanel').dom.style.display = '';
+        UI.get('rendererPanel').dom.style.display = 'none';
+    } else if (name === '渲染器') {
+        UI.get('surfaceTab').dom.classList.remove('selected');
+        UI.get('rendererTab').dom.classList.add('selected');
+        UI.get('surfacePanel').dom.style.display = 'none';
+        UI.get('rendererPanel').dom.style.display = '';
+    }
 };
 
 OptionsWindow.prototype.save = function () {

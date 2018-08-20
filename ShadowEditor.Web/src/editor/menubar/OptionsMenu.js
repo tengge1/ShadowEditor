@@ -1,18 +1,18 @@
 import UI from '../../ui/UI';
 
 /**
- * 工具菜单
+ * 选项菜单
  * @param {*} options 
  */
-function ToolMenu(options) {
+function OptionsMenu(options) {
     UI.Control.call(this, options);
     this.app = options.app;
 }
 
-ToolMenu.prototype = Object.create(UI.Control.prototype);
-ToolMenu.prototype.constructor = ToolMenu;
+OptionsMenu.prototype = Object.create(UI.Control.prototype);
+OptionsMenu.prototype.constructor = OptionsMenu;
 
-ToolMenu.prototype.render = function () {
+OptionsMenu.prototype.render = function () {
     var _this = this;
 
     var container = UI.create({
@@ -22,16 +22,23 @@ ToolMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '工具'
+            html: '选项'
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
                 xtype: 'div',
                 cls: 'option',
-                html: '选项',
+                html: '外观',
                 onClick: () => {
-                    this.app.call('mOptions', this);
+                    this.app.call('mSurfaceOptions', this);
+                }
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: '渲染器',
+                onClick: () => {
+                    this.app.call('mRendererOptions', this);
                 }
             }]
         }]
@@ -40,4 +47,4 @@ ToolMenu.prototype.render = function () {
     container.render();
 }
 
-export default ToolMenu;
+export default OptionsMenu;

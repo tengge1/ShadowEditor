@@ -91,7 +91,8 @@ import PlayEvent from './menu/play/PlayEvent';
 
 import ExampleEvent from './menu/example/ExampleEvent';
 
-import OptionsEvent from './menu/tool/OptionsEvent';
+import SurfaceOptionsEvent from './menu/options/SurfaceOptionsEvent';
+import RendererOptionsEvent from './menu/options/RendererOptionsEvent';
 
 import SourceCodeEvent from './menu/help/SourceCodeEvent';
 import AboutEvent from './menu/help/AboutEvent';
@@ -225,7 +226,8 @@ function EventDispatcher(app) {
 
         new ExampleEvent(this.app),
 
-        new OptionsEvent(this.app),
+        new SurfaceOptionsEvent(this.app),
+        new RendererOptionsEvent(this.app),
 
         new SourceCodeEvent(this.app),
         new AboutEvent(this.app),

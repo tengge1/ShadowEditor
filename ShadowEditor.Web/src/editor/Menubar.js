@@ -9,7 +9,7 @@ import PhysicsMenu from './menubar/PhysicsMenu';
 import ComponentMenu from './menubar/ComponentMenu';
 import PlayMenu from './menubar/PlayMenu';
 import ExampleMenu from './menubar/ExampleMenu';
-import ToolMenu from './menubar/ToolMenu';
+import OptionsMenu from './menubar/OptionsMenu';
 import HelpMenu from './menubar/HelpMenu';
 import StatusMenu from './menubar/StatusMenu';
 
@@ -47,7 +47,7 @@ Menubar.prototype.render = function () {
             new ComponentMenu(params),
             new PlayMenu(params),
             new ExampleMenu(params),
-            new ToolMenu(params),
+            new OptionsMenu(params),
             new HelpMenu(params),
 
             // 右侧
