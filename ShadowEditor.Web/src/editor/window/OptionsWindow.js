@@ -186,6 +186,8 @@ OptionsWindow.prototype.save = function () {
     renderer.gammaOutput = gammaOutput;
     renderer.gammaFactor = gammaFactor;
 
+    this.app.call('sceneGraphChanged', this);
+
     // 隐藏窗口
     this.hide();
     UI.msg('保存成功。');
