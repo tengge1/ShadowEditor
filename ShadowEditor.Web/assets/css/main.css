@@ -116,7 +116,6 @@ select {
     color: #666;
     background-color: #ddd;
     border: 0px;
-    text-transform: uppercase;
     cursor: pointer;
     outline: none;
     padding: 2px;
@@ -237,23 +236,21 @@ div.Window .body {
 div.Window .body .TabPanel {
     height: calc(100% - 40px);
     overflow-y: auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: flex-start;
 }
 
 div.Window .body .TabPanel .Row {
     width: 50%;
     height: 32px;
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 div.Window .body .TabPanel .Row label {
+    width: 80px;
+    text-align: right;
+    margin-left: 24px;
     margin-right: 16px;
 }
 

@@ -8,7 +8,7 @@ function Boolean(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.text = options.text || 'Boolean';
+    this.text = options.text || '';
     this.value = options.value || false;
     this.cls = options.cls || 'Checkbox';
     this.style = options.style || null;

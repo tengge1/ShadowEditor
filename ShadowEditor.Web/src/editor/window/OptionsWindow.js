@@ -13,7 +13,9 @@ OptionsWindow.prototype = Object.create(UI.Control.prototype);
 OptionsWindow.prototype.constructor = OptionsWindow;
 
 OptionsWindow.prototype.render = function () {
-    var _this = this;
+    var app = this.app;
+    var renderer = app.editor.renderer;
+    var shadowMap = renderer.shadowMap;
 
     function changeTab(name) { // 切换选项卡
         if (name === '外观') {
@@ -75,7 +77,7 @@ OptionsWindow.prototype.render = function () {
                         'assets/css/light.css': '浅色',
                         'assets/css/dark.css': '深色'
                     },
-                    value: this.app.options.theme,
+                    value: app.options.theme,
                     style: {
                         width: '150px'
                     }
@@ -88,9 +90,49 @@ OptionsWindow.prototype.render = function () {
             style: {
                 display: 'none'
             },
-            children: [
-
-            ]
+            children: [{
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '阴影'
+                }, {
+                    xtype: 'select',
+                    options: {
+                        [-1]: '禁用',
+                        [THREE.BasicShadowMap]: '基本阴影', // 0
+                        [THREE.PCFShadowMap]: 'PCF阴影', // 1
+                        [THREE.PCFSoftShadowMap]: 'PCF软阴影' // 2
+                    },
+                    value: shadowMap.enabled === false ? -1 : shadowMap.type
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: 'γ输入'
+                }, {
+                    xtype: 'boolean',
+                    value: renderer.gammaInput
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: 'γ输出'
+                }, {
+                    xtype: 'boolean',
+                    value: renderer.gammaOutput
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: 'γ因子'
+                }, {
+                    xtype: 'number',
+                    value: renderer.gammaFactor
+                }]
+            }]
         }],
         buttons: [{
             xtype: 'button',
