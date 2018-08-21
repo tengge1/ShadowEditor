@@ -26,9 +26,6 @@ AddMikuEvent.prototype.stop = function () {
 
 AddMikuEvent.prototype.onAddMiku = function () {
     var editor = this.app.editor;
-    var effect = new THREE.OutlineEffect(editor.renderer);
-
-    this.effect = effect;
 
     var modelFile = 'assets/models/miku/miku_v2.pmd';
     var vmdFiles = ['assets/models/vmds/wavefile_v2.vmd'];
@@ -72,7 +69,6 @@ AddMikuEvent.prototype.onAnimate = function (clock, deltaTime) {
     if (this.ready) {
         this.helper.update(deltaTime);
     }
-    this.effect.render(this.app.editor.scene, this.app.editor.camera);
 };
 
 export default AddMikuEvent;

@@ -35,7 +35,14 @@ RenderEvent.prototype.onRender = function () {
     sceneHelpers.updateMatrixWorld();
     scene.updateMatrixWorld();
 
+    // 渲染场景
     renderer.render(scene, camera);
+
+    // 渲染外轮廓（有个黑边，不好看）
+    // var effect = new THREE.OutlineEffect(renderer);
+    // effect.render(scene, camera);
+
+    // 渲染帮助器
     renderer.render(sceneHelpers, camera);
 };
 
