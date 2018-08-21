@@ -25,8 +25,6 @@ SetThemeEvent.prototype.stop = function () {
 SetThemeEvent.prototype.onSetTheme = function (theme) {
     var dom = document.getElementById('theme');
     if (dom) {
-        dom.href = theme;
-        this.app.call('themeChanged', this, theme);
     }
 };
 

@@ -116,7 +116,6 @@ import SceneBackgroundChangedEvent from './viewport/SceneBackgroundChangedEvent'
 import ObjectEvent from './viewport/ObjectEvent';
 import PickEvent from './viewport/PickEvent';
 import WindowResizeEvent from './viewport/WindowResizeEvent';
-import ThemeChangedEvent from './viewport/ThemeChangedEvent';
 import EditorControlsEvent from './viewport/EditorControlsEvent';
 
 import GridChangeEvent from './statusBar/GridChangeEvent';
@@ -251,7 +250,6 @@ function EventDispatcher(app) {
         new ObjectEvent(this.app),
         new PickEvent(this.app),
         new WindowResizeEvent(this.app),
-        new ThemeChangedEvent(this.app),
         new EditorControlsEvent(this.app),
 
         // 状态栏事件

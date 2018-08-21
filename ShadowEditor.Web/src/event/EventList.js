@@ -118,8 +118,6 @@ var EventList = [
 
     'editorCleared', // 编辑器已经清空事件
 
-    'themeChanged', // 改变主题事件
-
     'snapChanged', // 对齐单元格事件
     'spaceChanged', // 空间坐标系改变事件
 
