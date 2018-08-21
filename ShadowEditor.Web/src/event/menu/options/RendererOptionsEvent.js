@@ -14,11 +14,11 @@ RendererOptionsEvent.prototype.constructor = RendererOptionsEvent;
 
 RendererOptionsEvent.prototype.start = function () {
     var _this = this;
-    this.app.on('mRendererOptions.' + this.id, this.onOptions.bind(this));
+    this.app.on(`mRendererOptions.${this.id}`, this.onOptions.bind(this));
 };
 
 RendererOptionsEvent.prototype.stop = function () {
-    this.app.on('mRendererOptions.' + this.id, null);
+    this.app.on(`mRendererOptions.${this.id}`, null);
 };
 
 RendererOptionsEvent.prototype.onOptions = function () {

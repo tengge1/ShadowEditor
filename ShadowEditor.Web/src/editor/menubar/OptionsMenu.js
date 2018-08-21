@@ -36,6 +36,13 @@ OptionsMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 cls: 'option',
+                html: '场景',
+                onClick: () => {
+                    this.app.call('mSceneOptions', this);
+                }
+            }, {
+                xtype: 'div',
+                cls: 'option',
                 html: '渲染器',
                 onClick: () => {
                     this.app.call('mRendererOptions', this);

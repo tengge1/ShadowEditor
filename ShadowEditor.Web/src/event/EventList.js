@@ -87,6 +87,7 @@ var EventList = [
     'mPong', // 乒乓球
 
     'mSurfaceOptions', // 外观选项
+    'mSceneOptions', // 场景选项
     'mRendererOptions', // 渲染器选项
 
     'mSourceCode', // 源码
