@@ -73,7 +73,7 @@ RenderEvent.prototype.onRender = function () {
 
         // 绘制轮廓
         var oldScale = box.scale.clone();
-        box.scale.set(1.1, 1.1, 1.1);
+        box.scale.set(oldScale.x * 1.1, oldScale.y * 1.1, oldScale.z * 1.1);
 
         state.buffers.stencil.setOp(context.KEEP, context.REPLACE, context.REPLACE);
         state.buffers.stencil.setFunc(context.NOTEQUAL, 1, 0xff);
