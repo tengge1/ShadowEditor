@@ -6,6 +6,7 @@ import BaseEvent from '../BaseEvent';
  */
 function RenderEvent(app) {
     BaseEvent.call(this, app);
+    this.sceneSelected = new THREE.Scene();
 }
 
 RenderEvent.prototype = Object.create(BaseEvent.prototype);
@@ -38,66 +39,55 @@ RenderEvent.prototype.onRender = function () {
     // 渲染场景
     renderer.render(scene, camera);
 
-    // 渲染外轮廓（有个黑边，不好看）
-    // var effect = new THREE.OutlineEffect(renderer);
-    // effect.render(scene, camera);
+    // 为选中的Mesh渲染边框
+    if (editor.selected && editor.selected instanceof THREE.Mesh) {
+        var box = new THREE.Mesh(editor.selected.geometry, new THREE.MeshBasicMaterial({
+            color: 0xec651a
+        }));
+        box.position.copy(editor.selected.position);
+        box.rotation.copy(editor.selected.rotation);
+        box.scale.copy(editor.selected.scale);
+
+        var state = renderer.state;
+        var context = renderer.context;
+
+        this.sceneSelected.children.length = 0;
+        this.sceneSelected.add(box);
+
+        // 绘制模板
+        renderer.clearStencil();
+        state.buffers.stencil.setTest(true);
+        state.buffers.stencil.setClear(0x00);
+
+        state.buffers.color.setMask(false);
+        state.buffers.stencil.setMask(0xff);
+        state.buffers.stencil.setFunc(context.ALWAYS, 1, 0xff);
+
+        state.buffers.color.setLocked(true);
+
+        renderer.render(this.sceneSelected, camera);
+
+        state.buffers.color.setLocked(false);
+        state.buffers.color.setMask(true);
+        state.buffers.stencil.setMask(0x00);
+
+        // 绘制轮廓
+        var oldScale = box.scale.clone();
+        box.scale.set(1.1, 1.1, 1.1);
+
+        state.buffers.stencil.setOp(context.KEEP, context.REPLACE, context.REPLACE);
+        state.buffers.stencil.setFunc(context.NOTEQUAL, 1, 0xff);
+
+        renderer.render(this.sceneSelected, camera);
+
+        // 恢复原来状态
+        box.scale.copy(oldScale);
+
+        state.buffers.stencil.setTest(false);
+    }
 
     // 渲染帮助器
     renderer.render(sceneHelpers, camera);
-
-    // 为选中的Mesh渲染边框
-    // if (editor.selected && editor.selected instanceof THREE.Mesh) {
-    //     var state = renderer.state;
-
-    //     // 设置模板缓冲区掩码和填充值
-    //     state.buffers.stencil.setClear(0x00); // 设置清除模板缓冲填充值
-
-    //     // ============================================ 正常绘制 ===========================================
-
-    //     renderer.render(scene, camera);
-
-    //     // ============================================ 绘制轮廓 ===========================================
-
-    //     // 记录原来缩放，并放大一点
-    //     if (box1.oldScale == null) {
-    //         box1.oldScale = box1.scale.clone();
-    //     }
-    //     if (box2.oldScale == null) {
-    //         box2.oldScale = box2.scale.clone();
-    //     }
-    //     box1.scale.set(1.1, 1.1, 1.1);
-    //     box2.scale.set(1.1, 1.1, 1.1);
-
-    //     // 记录原来颜色，并设置轮廓颜色
-    //     if (box1.material.oldColor == null) {
-    //         box1.material.oldColor = box1.material.color.clone();
-    //     }
-    //     if (box2.material.oldColor == null) {
-    //         box2.material.oldColor = box2.material.color.clone();
-    //     }
-    //     box1.material.color.setRGB(1.0, 1.0, 0.0);
-    //     box2.material.color.setRGB(1.0, 1.0, 0.0);
-    //     box1.material.needsUpdate = true;
-    //     box2.material.needsUpdate = true;
-
-    //     // 模板测试
-    //     state.buffers.depth.setMask(false);
-    //     state.buffers.stencil.setMask(0x00);
-
-    //     state.buffers.stencil.setTest(true); // 开启模板测试
-    //     state.buffers.stencil.setOp(context.KEEP, context.REPLACE, context.REPLACE); // 模板测试通过时替换，不通过时保留
-    //     state.buffers.stencil.setFunc(context.NOTEQUAL, 1, 0xff);
-
-    //     renderer.render(scene, camera);
-
-    //     // 恢复原来的缩放和颜色
-    //     box1.scale.copy(box1.oldScale);
-    //     box2.scale.copy(box2.oldScale);
-    //     box1.material.color.copy(box1.material.oldColor);
-    //     box2.material.color.copy(box2.material.oldColor);
-    //     box1.material.needsUpdate = true;
-    //     box2.material.needsUpdate = true;
-    // }
 };
 
 export default RenderEvent;
