@@ -23,12 +23,6 @@ GeometryEvent.prototype.stop = function () {
 };
 
 GeometryEvent.prototype.onGeometryChanged = function (object) {
-    var selectionBox = this.app.editor.selectionBox;
-
-    if (object !== undefined && object.useSelectionBox !== false) {
-        selectionBox.setFromObject(object);
-    }
-
     this.app.call('render');
 };
 

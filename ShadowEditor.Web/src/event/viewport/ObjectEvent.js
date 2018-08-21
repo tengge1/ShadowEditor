@@ -38,11 +38,9 @@ ObjectEvent.prototype.onObjectAdded = function (object) {
 
 ObjectEvent.prototype.onObjectChanged = function (object) {
     var editor = this.app.editor;
-    var selectionBox = editor.selectionBox;
     var transformControls = editor.transformControls;
 
-    if (editor.selected === object && object.useSelectionBox !== false) {
-        selectionBox.setFromObject(object);
+    if (editor.selected === object) {
         transformControls.update();
     }
 
@@ -67,19 +65,8 @@ ObjectEvent.prototype.onObjectRemoved = function (object) {
 
 ObjectEvent.prototype.onObjectSelected = function (object) {
     var editor = this.app.editor;
-    var selectionBox = editor.selectionBox;
     var scene = editor.scene;
     var box = this.box;
-
-    selectionBox.visible = false;
-
-    if (object !== null && object !== scene) {
-        box.setFromObject(object);
-        if (box.isEmpty() === false && object.useSelectionBox !== false) {
-            selectionBox.setFromObject(object);
-            selectionBox.visible = true;
-        }
-    }
 
     this.app.call('render');
 };

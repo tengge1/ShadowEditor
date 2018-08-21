@@ -57,9 +57,6 @@ TransformControlsEvent.prototype.onChange = function () {
         return;
     }
 
-    // 重新设置包围盒位置
-    editor.selectionBox.setFromObject(object);
-
     if (editor.helpers[object.id] !== undefined && !(editor.helpers[object.id] instanceof THREE.SkeletonHelper)) {
         editor.helpers[object.id].update();
     }

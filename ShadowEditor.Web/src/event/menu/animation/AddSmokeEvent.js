@@ -35,7 +35,6 @@ AddSmokeEvent.prototype.onAddSmoke = function () {
     var smoke = new Smoke(camera, renderer);
 
     smoke.mesh.name = '烟' + ID++;
-    smoke.mesh.useSelectionBox = false;
     smoke.mesh.position.y = 3;
     smoke.mesh.scale
     editor.execute(new AddObjectCommand(smoke.mesh));
