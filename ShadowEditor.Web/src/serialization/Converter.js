@@ -139,7 +139,10 @@ Converter.prototype.fromJson = function (json) {
     // 渲染器
     var rendererJson = json.filter(n => n.metadata && n.metadata.generator.indexOf('WebGLRendererSerializer') > -1)[0];
     if (rendererJson) {
+        this.app.viewport.container.dom.removeChild(this.app.editor.renderer.domElement);
         this.app.editor.renderer = (new WebGLRendererSerializer(this.app)).fromJSON(rendererJson);
+        this.app.viewport.container.dom.appendChild(this.app.editor.renderer.domElement);
+        this.app.editor.renderer.setSize(this.app.viewport.container.dom.offsetWidth, this.app.viewport.container.dom.offsetHeight);
         this.app.call('render', this);
     } else {
         console.warn(`Converter: 场景中不存在渲染器信息。`);
