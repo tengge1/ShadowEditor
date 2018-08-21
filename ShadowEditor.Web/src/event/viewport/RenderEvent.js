@@ -12,26 +12,17 @@ RenderEvent.prototype = Object.create(BaseEvent.prototype);
 RenderEvent.prototype.constructor = RenderEvent;
 
 RenderEvent.prototype.start = function () {
-    var _this = this;
-    this.app.on('render.' + this.id, function () {
-        _this.onRender();
-    });
-    this.app.on('materialChanged.' + this.id, function (material) {
-        _this.onRender();
-    });
-    this.app.on('sceneGraphChanged.' + this.id, function () {
-        _this.onRender();
-    });
-    this.app.on('cameraChanged.' + this.id, function () {
-        _this.onRender();
-    });
+    this.app.on(`render.${this.id}`, this.onRender.bind(this));
+    this.app.on(`materialChanged.${this.id}`, this.onRender.bind(this));
+    this.app.on(`sceneGraphChanged.${this.id}`, this.onRender.bind(this));
+    this.app.on(`cameraChanged.${this.id}`, this.onRender.bind(this));
 };
 
 RenderEvent.prototype.stop = function () {
-    this.app.on('render.' + this.id, null);
-    this.app.on('materialChanged.' + this.id, null);
-    this.app.on('sceneGraphChanged.' + this.id, null);
-    this.app.on('cameraChanged.' + this.id, null);
+    this.app.on(`render.${this.id}`, null);
+    this.app.on(`materialChanged.${this.id}`, null);
+    this.app.on(`sceneGraphChanged.${this.id}`, null);
+    this.app.on(`cameraChanged.${this.id}`, null);
 };
 
 RenderEvent.prototype.onRender = function () {
@@ -45,10 +36,7 @@ RenderEvent.prototype.onRender = function () {
     scene.updateMatrixWorld();
 
     renderer.render(scene, camera);
-
-    if (renderer instanceof THREE.RaytracingRenderer === false) {
-        renderer.render(sceneHelpers, camera);
-    }
+    renderer.render(sceneHelpers, camera);
 };
 
 export default RenderEvent;
