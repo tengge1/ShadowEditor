@@ -77,10 +77,6 @@ function Editor(app) {
 
 // -------------------- 编辑器 --------------------------
 
-Editor.prototype.setTheme = function (value) { // 设置主题
-    this.app.call('setTheme', this, value);
-};
-
 Editor.prototype.setScene = function (scene) { // 设置场景
     this.app.call('setScene', this, scene);
 };

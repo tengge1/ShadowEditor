@@ -6,7 +6,6 @@ import AnimateEvent from './AnimateEvent';
 
 import KeyDownEvent from './KeyDownEvent';
 
-import SetThemeEvent from './editor/SetThemeEvent';
 import SetSceneEvent from './editor/SetSceneEvent';
 import AddObjectEvent from './editor/AddObjectEvent';
 import MoveObjectEvent from './editor/MoveObjectEvent';
@@ -140,7 +139,6 @@ function EventDispatcher(app) {
         new KeyDownEvent(this.app),
 
         // Editor中的事件
-        new SetThemeEvent(this.app),
         new SetSceneEvent(this.app),
         new AddObjectEvent(this.app),
         new MoveObjectEvent(this.app),

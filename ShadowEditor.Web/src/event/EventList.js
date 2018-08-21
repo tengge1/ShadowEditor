@@ -98,7 +98,6 @@ var EventList = [
     'changeMode', // 改变模式（select, translate, rotate, scale, delete）
 
     // editor事件
-    'setTheme', // 设置编辑器主题
     'setScene', // 设置编辑器场景
     'addObject', // 添加物体
     'moveObject', // 移动物体
