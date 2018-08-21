@@ -114,7 +114,6 @@ import ShowGridChangedEvent from './viewport/ShowGridChangedEvent';
 import SceneFogChangedEvent from './viewport/SceneFogChangedEvent';
 import SceneBackgroundChangedEvent from './viewport/SceneBackgroundChangedEvent';
 import ObjectEvent from './viewport/ObjectEvent';
-import GeometryEvent from './viewport/GeometryEvent';
 import PickEvent from './viewport/PickEvent';
 import WindowResizeEvent from './viewport/WindowResizeEvent';
 import ThemeChangedEvent from './viewport/ThemeChangedEvent';
@@ -250,7 +249,6 @@ function EventDispatcher(app) {
         new SceneFogChangedEvent(this.app),
         new SceneBackgroundChangedEvent(this.app),
         new ObjectEvent(this.app),
-        new GeometryEvent(this.app),
         new PickEvent(this.app),
         new WindowResizeEvent(this.app),
         new ThemeChangedEvent(this.app),
