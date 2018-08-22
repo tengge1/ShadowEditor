@@ -18,6 +18,29 @@ OptionsWindow.prototype.render = function () {
     var renderer = app.editor.renderer;
     var shadowMap = renderer.shadowMap;
 
+    var _this = this;
+
+    var onFogChanged = function () {
+        var fogType = UI.get('fogType');
+        var fogColor = UI.get('fogColor');
+        var fogNear = UI.get('fogNear');
+        var fogFar = UI.get('fogFar');
+        var fogDensity = UI.get('fogDensity');
+
+        _this.app.call('sceneFogChanged',
+            _this,
+            fogType.getValue(),
+            fogColor.getHexValue(),
+            fogNear.getValue(),
+            fogFar.getValue(),
+            fogDensity.getValue()
+        );
+    };
+
+    var refreshFogUI = function () {
+        _this.app.call('updateScenePanelFog', _this);
+    };
+
     this.window = UI.create({
         xtype: 'window',
         parent: this.app.container,
@@ -88,7 +111,86 @@ OptionsWindow.prototype.render = function () {
             style: {
                 display: 'none'
             },
-            children: []
+            children: [{ // background
+                xtype: 'row',
+                id: 'backgroundRow',
+                children: [{
+                    xtype: 'label',
+                    text: '背景',
+                    style: {
+                        width: '90px'
+                    }
+                }, {
+                    xtype: 'color',
+                    id: 'backgroundColor',
+                    value: '#aaaaaa',
+                    onChange: function () {
+                        _this.app.call('sceneBackgroundChanged', _this, this.getHexValue());
+                    }
+                }]
+            }, { // fog
+                xtype: 'row',
+                id: 'fogTypeRow',
+                children: [{
+                    xtype: 'label',
+                    text: '雾',
+                    style: {
+                        width: '90px'
+                    }
+                }, {
+                    xtype: 'select',
+                    id: 'fogType',
+                    options: {
+                        'None': '无',
+                        'Fog': '线性',
+                        'FogExp2': '指数型'
+                    },
+                    style: {
+                        width: '150px'
+                    },
+                    onChange: function () {
+                        onFogChanged();
+                        refreshFogUI();
+                    }
+                }]
+            }, {
+                xtype: 'row',
+                id: 'fogPropertiesRow',
+                children: [{ // fog color
+                    xtype: 'color',
+                    id: 'fogColor',
+                    value: '#aaaaaa',
+                    onChange: onFogChanged
+                }, { // fog near
+                    xtype: 'number',
+                    id: 'fogNear',
+                    value: 0.1,
+                    style: {
+                        width: '40px'
+                    },
+                    range: [0, Infinity],
+                    onChange: onFogChanged
+                }, { // fog far
+                    xtype: 'number',
+                    id: 'fogFar',
+                    value: 50,
+                    style: {
+                        width: '40px'
+                    },
+                    range: [0, Infinity],
+                    onChange: onFogChanged
+                }, { // fog density
+                    xtype: 'number',
+                    id: 'fogDensity',
+                    value: 0.05,
+                    style: {
+                        width: '40px'
+                    },
+                    range: [0, 0.1],
+                    precision: 3,
+                    onChange: onFogChanged
+                }]
+            }]
         }, {
             xtype: 'div',
             id: 'rendererPanel',

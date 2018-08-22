@@ -15,7 +15,7 @@ ScenePanelEvent.prototype = Object.create(BaseEvent.prototype);
 ScenePanelEvent.prototype.constructor = ScenePanelEvent;
 
 ScenePanelEvent.prototype.start = function () {
-    this.app.on(`updateScenePanelFog.${this.id}`, this.refreshFogUI.bind(this));
+    // this.app.on(`updateScenePanelFog.${this.id}`, this.refreshFogUI.bind(this));
     this.app.on(`editorCleared.${this.id}`, this.refreshUI.bind(this));
     this.app.on(`sceneGraphChanged.${this.id}`, this.refreshUI.bind(this));
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
@@ -25,7 +25,7 @@ ScenePanelEvent.prototype.start = function () {
 };
 
 ScenePanelEvent.prototype.stop = function () {
-    this.app.on(`updateScenePanelFog.${this.id}`, null);
+    // this.app.on(`updateScenePanelFog.${this.id}`, null);
     this.app.on(`editorCleared.${this.id}`, null);
     this.app.on(`sceneGraphChanged.${this.id}`, null);
     this.app.on(`objectChanged.${this.id}`, null);
@@ -113,12 +113,12 @@ ScenePanelEvent.prototype.refreshUI = function () {
     var camera = editor.camera;
     var scene = editor.scene;
     var outliner = UI.get('outliner');
-    var backgroundColor = UI.get('backgroundColor');
-    var fogColor = UI.get('fogColor');
-    var fogType = UI.get('fogType');
-    var fogNear = UI.get('fogNear');
-    var fogFar = UI.get('fogFar');
-    var fogDensity = UI.get('fogDensity');
+    // var backgroundColor = UI.get('backgroundColor');
+    // var fogColor = UI.get('fogColor');
+    // var fogType = UI.get('fogType');
+    // var fogNear = UI.get('fogNear');
+    // var fogFar = UI.get('fogFar');
+    // var fogDensity = UI.get('fogDensity');
 
     var options = [];
 
@@ -145,41 +145,41 @@ ScenePanelEvent.prototype.refreshUI = function () {
         outliner.setValue(editor.selected.id);
     }
 
-    if (scene.background) {
-        backgroundColor.setHexValue(scene.background.getHex());
-    }
+    // if (scene.background) {
+    //     backgroundColor.setHexValue(scene.background.getHex());
+    // }
 
-    if (scene.fog) {
-        fogColor.setHexValue(scene.fog.color.getHex());
+    // if (scene.fog) {
+    //     fogColor.setHexValue(scene.fog.color.getHex());
 
-        if (scene.fog instanceof THREE.Fog) {
-            fogType.setValue("Fog");
-            fogNear.setValue(scene.fog.near);
-            fogFar.setValue(scene.fog.far);
-        } else if (scene.fog instanceof THREE.FogExp2) {
-            fogType.setValue("FogExp2");
-            fogDensity.setValue(scene.fog.density);
-        }
-    } else {
-        fogType.setValue("None");
-    }
+    //     if (scene.fog instanceof THREE.Fog) {
+    //         fogType.setValue("Fog");
+    //         fogNear.setValue(scene.fog.near);
+    //         fogFar.setValue(scene.fog.far);
+    //     } else if (scene.fog instanceof THREE.FogExp2) {
+    //         fogType.setValue("FogExp2");
+    //         fogDensity.setValue(scene.fog.density);
+    //     }
+    // } else {
+    //     fogType.setValue("None");
+    // }
 
-    this.refreshFogUI();
+    // this.refreshFogUI();
 };
 
-ScenePanelEvent.prototype.refreshFogUI = function () {
-    var fogType = UI.get('fogType');
-    var fogPropertiesRow = UI.get('fogPropertiesRow');
-    var fogNear = UI.get('fogNear');
-    var fogFar = UI.get('fogFar');
-    var fogDensity = UI.get('fogDensity');
+// ScenePanelEvent.prototype.refreshFogUI = function () {
+//     var fogType = UI.get('fogType');
+//     var fogPropertiesRow = UI.get('fogPropertiesRow');
+//     var fogNear = UI.get('fogNear');
+//     var fogFar = UI.get('fogFar');
+//     var fogDensity = UI.get('fogDensity');
 
-    var type = fogType.getValue();
+//     var type = fogType.getValue();
 
-    fogPropertiesRow.dom.style.display = type === 'None' ? 'none' : '';
-    fogNear.dom.style.display = type === 'Fog' ? '' : 'none';
-    fogFar.dom.style.display = type === 'Fog' ? '' : 'none';
-    fogDensity.dom.style.display = type === 'FogExp2' ? '' : 'none';
-}
+//     fogPropertiesRow.dom.style.display = type === 'None' ? 'none' : '';
+//     fogNear.dom.style.display = type === 'Fog' ? '' : 'none';
+//     fogFar.dom.style.display = type === 'Fog' ? '' : 'none';
+//     fogDensity.dom.style.display = type === 'FogExp2' ? '' : 'none';
+// }
 
 export default ScenePanelEvent;
