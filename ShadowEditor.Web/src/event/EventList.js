@@ -122,7 +122,6 @@ var EventList = [
     'spaceChanged', // 空间坐标系改变事件
 
     'sceneBackgroundChanged', // 场景背景改变事件
-    'sceneFogChanged', // 场景雾效改变事件
     'sceneGraphChanged', // 场景内容改变事件
 
     'cameraChanged', // 相机改变事件

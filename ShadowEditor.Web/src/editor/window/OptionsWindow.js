@@ -20,35 +20,12 @@ OptionsWindow.prototype.render = function () {
     var renderer = editor.renderer;
     var shadowMap = renderer.shadowMap;
 
-    var _this = this;
-
-    var onFogChanged = function () {
-        var fogType = UI.get('fogType');
-        var fogColor = UI.get('fogColor');
-        var fogNear = UI.get('fogNear');
-        var fogFar = UI.get('fogFar');
-        var fogDensity = UI.get('fogDensity');
-
-        _this.app.call('sceneFogChanged',
-            _this,
-            fogType.getValue(),
-            fogColor.getHexValue(),
-            fogNear.getValue(),
-            fogFar.getValue(),
-            fogDensity.getValue()
-        );
-    };
-
-    var refreshFogUI = function () {
-        _this.app.call('updateScenePanelFog', _this);
-    };
-
     this.window = UI.create({
         xtype: 'window',
         parent: this.app.container,
         title: '选项窗口',
-        width: '700px',
-        height: '500px',
+        width: '500px',
+        height: '300px',
         bodyStyle: {
             padding: 0
         },
@@ -138,10 +115,13 @@ OptionsWindow.prototype.render = function () {
                         'Fog': '线性',
                         'FogExp2': '指数型'
                     },
-                    value: scene.fog == null ? 'None' : ((scene.fog instanceof THREE.FogExp2) ? 'FogExp2' : 'Fog')
+                    value: scene.fog == null ? 'None' : ((scene.fog instanceof THREE.FogExp2) ? 'FogExp2' : 'Fog'),
+                    onChange: this.onChangeFogType.bind(this)
                 }]
             }, {
                 xtype: 'row',
+                id: 'fogColorRow',
+                scope: this.id,
                 children: [{
                     xtype: 'label',
                     text: '雾颜色'
@@ -149,13 +129,15 @@ OptionsWindow.prototype.render = function () {
                     xtype: 'color',
                     id: 'fogColor',
                     scope: this.id,
-                    value: `#${scene.fog == null ? 'aaaaaa' : scene.fog.color.getHexString()}`,
-                    // style: {
-                    //     display: scene.fog == null ? 'none' : ''
-                    // }
-                }]
+                    value: `#${scene.fog == null ? 'aaaaaa' : scene.fog.color.getHexString()}`
+                }],
+                style: {
+                    display: scene.fog == null ? 'none' : ''
+                }
             }, {
                 xtype: 'row',
+                id: 'fogNearRow',
+                scope: this.id,
                 children: [{
                     xtype: 'label',
                     text: '雾近点'
@@ -163,32 +145,47 @@ OptionsWindow.prototype.render = function () {
                     xtype: 'number',
                     id: 'fogNear',
                     scope: this.id,
-                    value: 0.1,
+                    value: (scene.fog && scene.fog instanceof THREE.Fog) ? scene.fog.near : 0.1,
                     range: [0, Infinity]
-                }]
+                }],
+                style: {
+                    display: (scene.fog && scene.fog instanceof THREE.Fog) ? '' : 'none'
+                }
             }, {
                 xtype: 'row',
+                id: 'fogFarRow',
+                scope: this.id,
                 children: [{
                     xtype: 'label',
                     text: '雾远点'
                 }, {
                     xtype: 'number',
                     id: 'fogFar',
-                    value: 50,
+                    scope: this.id,
+                    value: (scene.fog && scene.fog instanceof THREE.Fog) ? scene.fog.far : 50,
                     range: [0, Infinity]
-                }]
+                }],
+                style: {
+                    display: (scene.fog && scene.fog instanceof THREE.Fog) ? '' : 'none'
+                }
             }, {
                 xtype: 'row',
+                id: 'fogDensityRow',
+                scope: this.id,
                 children: [{
                     xtype: 'label',
                     text: '雾浓度'
                 }, {
                     xtype: 'number',
                     id: 'fogDensity',
-                    value: 0.05,
+                    scope: this.id,
+                    value: (scene.fog && scene.fog instanceof THREE.FogExp2) ? fog.density : 0.05,
                     range: [0, 0.1],
                     precision: 3
-                }]
+                }],
+                style: {
+                    display: (scene.fog && scene.fog instanceof THREE.FogExp2) ? '' : 'none'
+                }
             }]
         }, { // 渲染器选项卡
             xtype: 'div',
@@ -296,11 +293,64 @@ OptionsWindow.prototype.changeTab = function (name) {
     }
 };
 
+OptionsWindow.prototype.onChangeFogType = function () {
+    var fogType = UI.get('fogType', this.id).getValue();
+    var fogColorRow = UI.get('fogColorRow', this.id).dom;
+    var fogNearRow = UI.get('fogNearRow', this.id).dom;
+    var fogFarRow = UI.get('fogFarRow', this.id).dom;
+    var fogDensityRow = UI.get('fogDensityRow', this.id).dom;
+
+    switch (fogType) {
+        case 'None':
+            fogColorRow.style.display = 'none';
+            fogNearRow.style.display = 'none';
+            fogFarRow.style.display = 'none';
+            fogDensityRow.style.display = 'none';
+            break;
+        case 'Fog':
+            fogColorRow.style.display = '';
+            fogNearRow.style.display = '';
+            fogFarRow.style.display = '';
+            fogDensityRow.style.display = 'none';
+            break;
+        case 'FogExp2':
+            fogColorRow.style.display = '';
+            fogNearRow.style.display = 'none';
+            fogFarRow.style.display = 'none';
+            fogDensityRow.style.display = '';
+            break;
+    }
+};
+
 OptionsWindow.prototype.save = function () {
     // 主题
     var theme = UI.get('theme').getValue();
     this.app.options.theme = theme;
     document.getElementById('theme').href = theme;
+
+    // 场景
+    var scene = this.app.editor.scene;
+
+    var backgroundColor = UI.get('backgroundColor', this.id).getHexValue();
+    scene.background = new THREE.Color(backgroundColor);
+
+    var fogType = UI.get('fogType', this.id).getValue();
+    var fogColor = UI.get('fogColor', this.id).getHexValue();
+    var fogNear = UI.get('fogNear', this.id).getValue();
+    var fogFar = UI.get('fogFar', this.id).getValue();
+    var fogDensity = UI.get('fogDensity', this.id).getValue();
+
+    switch (fogType) {
+        case 'None':
+            scene.fog = null;
+            break;
+        case 'Fog':
+            scene.fog = new THREE.Fog(fogColor, fogNear, fogFar);
+            break;
+        case 'FogExp2':
+            scene.fog = new THREE.FogExp2(fogColor, fogDensity);
+            break;
+    }
 
     // 渲染器
     var shadowMapType = parseInt(UI.get('shadowMapType').getValue());

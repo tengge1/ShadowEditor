@@ -111,7 +111,6 @@ import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateSceneStatusEvent from './statusBar/UpdateSceneStatusEvent';
 import RenderEvent from './viewport/RenderEvent';
 import ShowGridChangedEvent from './viewport/ShowGridChangedEvent';
-import SceneFogChangedEvent from './viewport/SceneFogChangedEvent';
 import SceneBackgroundChangedEvent from './viewport/SceneBackgroundChangedEvent';
 import ObjectEvent from './viewport/ObjectEvent';
 import PickEvent from './viewport/PickEvent';
@@ -245,7 +244,6 @@ function EventDispatcher(app) {
         new UpdateSceneStatusEvent(this.app),
         new RenderEvent(this.app),
         new ShowGridChangedEvent(this.app),
-        new SceneFogChangedEvent(this.app),
         new SceneBackgroundChangedEvent(this.app),
         new ObjectEvent(this.app),
         new PickEvent(this.app),
