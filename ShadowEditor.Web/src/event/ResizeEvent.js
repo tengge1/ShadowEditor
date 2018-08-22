@@ -1,25 +1,25 @@
-import BaseEvent from '../BaseEvent';
+import BaseEvent from './BaseEvent';
 
 /**
  * 渲染事件
  * @param {*} app 
  */
-function WindowResizeEvent(app) {
+function ResizeEvent(app) {
     BaseEvent.call(this, app);
 }
 
-WindowResizeEvent.prototype = Object.create(BaseEvent.prototype);
-WindowResizeEvent.prototype.constructor = WindowResizeEvent;
+ResizeEvent.prototype = Object.create(BaseEvent.prototype);
+ResizeEvent.prototype.constructor = ResizeEvent;
 
-WindowResizeEvent.prototype.start = function () {
+ResizeEvent.prototype.start = function () {
     this.app.on('resize.' + this.id, this.onResize.bind(this));
 };
 
-WindowResizeEvent.prototype.stop = function () {
+ResizeEvent.prototype.stop = function () {
     this.app.on('resize.' + this.id, null);
 };
 
-WindowResizeEvent.prototype.onResize = function () {
+ResizeEvent.prototype.onResize = function () {
     var editor = this.app.editor;
     var container = this.app.viewport.container;
     var camera = editor.camera;
@@ -36,4 +36,4 @@ WindowResizeEvent.prototype.onResize = function () {
     this.app.call('render', this);
 };
 
-export default WindowResizeEvent;
+export default ResizeEvent;

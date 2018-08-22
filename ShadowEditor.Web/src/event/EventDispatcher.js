@@ -112,7 +112,7 @@ import UpdateSceneStatusEvent from './statusBar/UpdateSceneStatusEvent';
 import RenderEvent from './viewport/RenderEvent';
 import ObjectEvent from './viewport/ObjectEvent';
 import PickEvent from './viewport/PickEvent';
-import WindowResizeEvent from './viewport/WindowResizeEvent';
+import ResizeEvent from './ResizeEvent';
 import EditorControlsEvent from './viewport/EditorControlsEvent';
 
 import GridChangeEvent from './statusBar/GridChangeEvent';
@@ -130,10 +130,10 @@ function EventDispatcher(app) {
     this.addDomEventListener();
 
     this.events = [
+        // 核心事件
         new AnimateEvent(this.app),
-
-        // Application中的事件
         new KeyDownEvent(this.app),
+        new ResizeEvent(this.app),
 
         // Editor中的事件
         new SetSceneEvent(this.app),
@@ -243,7 +243,6 @@ function EventDispatcher(app) {
         new RenderEvent(this.app),
         new ObjectEvent(this.app),
         new PickEvent(this.app),
-        new WindowResizeEvent(this.app),
         new EditorControlsEvent(this.app),
 
         // 状态栏事件
