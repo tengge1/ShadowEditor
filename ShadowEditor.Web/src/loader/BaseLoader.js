@@ -1,7 +1,7 @@
 var ID = -1;
 
 /**
- * 模型加载器基类
+ * BaseLoader
  * @param {*} app 
  */
 function BaseLoader(app) {
