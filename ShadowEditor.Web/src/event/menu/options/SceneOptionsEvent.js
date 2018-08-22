@@ -14,11 +14,11 @@ SceneOptionsEvent.prototype.constructor = SceneOptionsEvent;
 
 SceneOptionsEvent.prototype.start = function () {
     var _this = this;
-    this.app.on(`mSurfaceOptions.${this.id}`, this.onOptions.bind(this));
+    this.app.on(`mSceneOptions.${this.id}`, this.onOptions.bind(this));
 };
 
 SceneOptionsEvent.prototype.stop = function () {
-    this.app.on(`mSurfaceOptions.${this.id}`, null);
+    this.app.on(`mSceneOptions.${this.id}`, null);
 };
 
 SceneOptionsEvent.prototype.onOptions = function () {

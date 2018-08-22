@@ -34,6 +34,7 @@ OptionsWindow.prototype.render = function () {
             children: [{
                 xtype: 'text',
                 id: 'surfaceTab',
+                scope: this.id,
                 text: '外观',
                 cls: 'selected',
                 onClick: () => {
@@ -41,7 +42,16 @@ OptionsWindow.prototype.render = function () {
                 }
             }, {
                 xtype: 'text',
+                id: 'sceneTab',
+                scope: this.id,
+                text: '场景',
+                onClick: () => {
+                    this.changeTab('场景');
+                }
+            }, {
+                xtype: 'text',
                 id: 'rendererTab',
+                scope: this.id,
                 text: '渲染器',
                 onClick: () => {
                     this.changeTab('渲染器');
@@ -50,6 +60,7 @@ OptionsWindow.prototype.render = function () {
         }, {
             xtype: 'div',
             id: 'surfacePanel',
+            scope: this.id,
             cls: 'TabPanel',
             children: [{
                 xtype: 'row',
@@ -71,7 +82,17 @@ OptionsWindow.prototype.render = function () {
             }]
         }, {
             xtype: 'div',
+            id: 'scenePanel',
+            scope: this.id,
+            cls: 'TabPanel',
+            style: {
+                display: 'none'
+            },
+            children: []
+        }, {
+            xtype: 'div',
             id: 'rendererPanel',
+            scope: this.id,
             cls: 'TabPanel',
             style: {
                 display: 'none'
@@ -151,15 +172,26 @@ OptionsWindow.prototype.hide = function () {
 
 OptionsWindow.prototype.changeTab = function (name) {
     if (name === '外观') {
-        UI.get('surfaceTab').dom.classList.add('selected');
-        UI.get('rendererTab').dom.classList.remove('selected');
-        UI.get('surfacePanel').dom.style.display = '';
-        UI.get('rendererPanel').dom.style.display = 'none';
+        UI.get('surfaceTab', this.id).dom.classList.add('selected');
+        UI.get('sceneTab', this.id).dom.classList.remove('selected');
+        UI.get('rendererTab', this.id).dom.classList.remove('selected');
+        UI.get('surfacePanel', this.id).dom.style.display = '';
+        UI.get('scenePanel', this.id).dom.style.display = 'none';
+        UI.get('rendererPanel', this.id).dom.style.display = 'none';
+    } else if (name === '场景') {
+        UI.get('surfaceTab', this.id).dom.classList.remove('selected');
+        UI.get('sceneTab', this.id).dom.classList.add('selected');
+        UI.get('rendererTab', this.id).dom.classList.remove('selected');
+        UI.get('surfacePanel', this.id).dom.style.display = 'none';
+        UI.get('scenePanel', this.id).dom.style.display = '';
+        UI.get('rendererPanel', this.id).dom.style.display = 'none';
     } else if (name === '渲染器') {
-        UI.get('surfaceTab').dom.classList.remove('selected');
-        UI.get('rendererTab').dom.classList.add('selected');
-        UI.get('surfacePanel').dom.style.display = 'none';
-        UI.get('rendererPanel').dom.style.display = '';
+        UI.get('surfaceTab', this.id).dom.classList.remove('selected');
+        UI.get('sceneTab', this.id).dom.classList.remove('selected');
+        UI.get('rendererTab', this.id).dom.classList.add('selected');
+        UI.get('surfacePanel', this.id).dom.style.display = 'none';
+        UI.get('scenePanel', this.id).dom.style.display = 'none';
+        UI.get('rendererPanel', this.id).dom.style.display = '';
     }
 };
 
