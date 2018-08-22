@@ -1,7 +1,7 @@
 import BaseEvent from './BaseEvent';
 
 /**
- * 渲染事件
+ * 窗口大小改变事件
  * @param {*} app 
  */
 function ResizeEvent(app) {
@@ -12,11 +12,11 @@ ResizeEvent.prototype = Object.create(BaseEvent.prototype);
 ResizeEvent.prototype.constructor = ResizeEvent;
 
 ResizeEvent.prototype.start = function () {
-    this.app.on('resize.' + this.id, this.onResize.bind(this));
+    this.app.on(`resize.${this.id}`, this.onResize.bind(this));
 };
 
 ResizeEvent.prototype.stop = function () {
-    this.app.on('resize.' + this.id, null);
+    this.app.on(`resize.${this.id}`, null);
 };
 
 ResizeEvent.prototype.onResize = function () {

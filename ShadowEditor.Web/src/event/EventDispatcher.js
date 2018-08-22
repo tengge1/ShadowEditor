@@ -109,7 +109,7 @@ import SidebarEvent from './sideBar/SidebarEvent';
 
 import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateSceneStatusEvent from './statusBar/UpdateSceneStatusEvent';
-import RenderEvent from './viewport/RenderEvent';
+import RenderEvent from './RenderEvent';
 import ObjectEvent from './viewport/ObjectEvent';
 import PickEvent from './viewport/PickEvent';
 import ResizeEvent from './ResizeEvent';
@@ -133,6 +133,7 @@ function EventDispatcher(app) {
         // 核心事件
         new AnimateEvent(this.app),
         new KeyDownEvent(this.app),
+        new RenderEvent(this.app),
         new ResizeEvent(this.app),
 
         // Editor中的事件
@@ -240,7 +241,6 @@ function EventDispatcher(app) {
         // viewport中的事件
         new TransformControlsEvent(this.app),
         new UpdateSceneStatusEvent(this.app),
-        new RenderEvent(this.app),
         new ObjectEvent(this.app),
         new PickEvent(this.app),
         new EditorControlsEvent(this.app),
