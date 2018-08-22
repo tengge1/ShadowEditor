@@ -30,7 +30,6 @@ GridChangeEvent.prototype.onGridChange = function (statusBar) {
 
     this.app.call('snapChanged', this, snap.getValue() === true ? grid.getValue() : null);
     this.app.call('spaceChanged', this, local.getValue() === true ? 'local' : 'world');
-    this.app.call('showGridChanged', this, showGrid.getValue());
 };
 
 export default GridChangeEvent;

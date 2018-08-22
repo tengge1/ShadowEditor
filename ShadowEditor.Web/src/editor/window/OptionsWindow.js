@@ -186,6 +186,17 @@ OptionsWindow.prototype.render = function () {
                 style: {
                     display: (scene.fog && scene.fog instanceof THREE.FogExp2) ? '' : 'none'
                 }
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '网格'
+                }, {
+                    xtype: 'boolean',
+                    id: 'showGrid',
+                    scope: this.id,
+                    value: this.app.editor.grid.visible
+                }]
             }]
         }, { // 渲染器选项卡
             xtype: 'div',
@@ -351,6 +362,9 @@ OptionsWindow.prototype.save = function () {
             scene.fog = new THREE.FogExp2(fogColor, fogDensity);
             break;
     }
+
+    var showGrid = UI.get('showGrid', this.id).getValue();
+    this.app.editor.grid.visible = showGrid;
 
     // 渲染器
     var shadowMapType = parseInt(UI.get('shadowMapType').getValue());
