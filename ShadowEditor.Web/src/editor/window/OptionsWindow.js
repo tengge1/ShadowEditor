@@ -15,7 +15,9 @@ OptionsWindow.prototype.constructor = OptionsWindow;
 
 OptionsWindow.prototype.render = function () {
     var app = this.app;
-    var renderer = app.editor.renderer;
+    var editor = app.editor;
+    var scene = editor.scene;
+    var renderer = editor.renderer;
     var shadowMap = renderer.shadowMap;
 
     var _this = this;
@@ -80,7 +82,7 @@ OptionsWindow.prototype.render = function () {
                     this.changeTab('渲染器');
                 }
             }]
-        }, {
+        }, { // 外观选项卡
             xtype: 'div',
             id: 'surfacePanel',
             scope: this.id,
@@ -90,7 +92,7 @@ OptionsWindow.prototype.render = function () {
                 children: [{
                     xtype: 'label',
                     text: '主题'
-                }, { // class
+                }, {
                     xtype: 'select',
                     id: 'theme',
                     options: {
@@ -103,7 +105,7 @@ OptionsWindow.prototype.render = function () {
                     }
                 }]
             }]
-        }, {
+        }, { // 场景选项卡
             xtype: 'div',
             id: 'scenePanel',
             scope: this.id,
@@ -111,87 +113,84 @@ OptionsWindow.prototype.render = function () {
             style: {
                 display: 'none'
             },
-            children: [{ // background
+            children: [{
                 xtype: 'row',
-                id: 'backgroundRow',
                 children: [{
                     xtype: 'label',
-                    text: '背景',
-                    style: {
-                        width: '90px'
-                    }
+                    text: '背景'
                 }, {
                     xtype: 'color',
                     id: 'backgroundColor',
-                    value: '#aaaaaa',
-                    onChange: function () {
-                        _this.app.call('sceneBackgroundChanged', _this, this.getHexValue());
-                    }
+                    scope: this.id,
+                    value: `#${scene.background.getHexString()}`
                 }]
-            }, { // fog
+            }, {
                 xtype: 'row',
-                id: 'fogTypeRow',
                 children: [{
                     xtype: 'label',
-                    text: '雾',
-                    style: {
-                        width: '90px'
-                    }
+                    text: '雾'
                 }, {
                     xtype: 'select',
                     id: 'fogType',
+                    scope: this.id,
                     options: {
                         'None': '无',
                         'Fog': '线性',
                         'FogExp2': '指数型'
                     },
-                    style: {
-                        width: '150px'
-                    },
-                    onChange: function () {
-                        onFogChanged();
-                        refreshFogUI();
-                    }
+                    value: scene.fog == null ? 'None' : ((scene.fog instanceof THREE.FogExp2) ? 'FogExp2' : 'Fog')
                 }]
             }, {
                 xtype: 'row',
-                id: 'fogPropertiesRow',
-                children: [{ // fog color
+                children: [{
+                    xtype: 'label',
+                    text: '雾颜色'
+                }, {
                     xtype: 'color',
                     id: 'fogColor',
-                    value: '#aaaaaa',
-                    onChange: onFogChanged
-                }, { // fog near
+                    scope: this.id,
+                    value: `#${scene.fog == null ? 'aaaaaa' : scene.fog.color.getHexString()}`,
+                    // style: {
+                    //     display: scene.fog == null ? 'none' : ''
+                    // }
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '雾近点'
+                }, {
                     xtype: 'number',
                     id: 'fogNear',
+                    scope: this.id,
                     value: 0.1,
-                    style: {
-                        width: '40px'
-                    },
-                    range: [0, Infinity],
-                    onChange: onFogChanged
-                }, { // fog far
+                    range: [0, Infinity]
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '雾远点'
+                }, {
                     xtype: 'number',
                     id: 'fogFar',
                     value: 50,
-                    style: {
-                        width: '40px'
-                    },
-                    range: [0, Infinity],
-                    onChange: onFogChanged
-                }, { // fog density
+                    range: [0, Infinity]
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '雾浓度'
+                }, {
                     xtype: 'number',
                     id: 'fogDensity',
                     value: 0.05,
-                    style: {
-                        width: '40px'
-                    },
                     range: [0, 0.1],
-                    precision: 3,
-                    onChange: onFogChanged
+                    precision: 3
                 }]
             }]
-        }, {
+        }, { // 渲染器选项卡
             xtype: 'div',
             id: 'rendererPanel',
             scope: this.id,
