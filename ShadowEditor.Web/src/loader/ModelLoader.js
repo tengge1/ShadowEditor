@@ -45,15 +45,16 @@ ModelLoader.prototype.constructor = ModelLoader;
 
 ModelLoader.prototype.load = function (url, options) {
     var paths = url.split('.');
-    var ext = paths[paths.length - 1];
+    var ext = paths[paths.length - 1].toLowerCase();
 
     return new Promise(resolve => {
-        var loader = Loaders[paths];
+        var loader = Loaders[ext];
         if (loader === undefined) {
             console.warn(`ModelLoader: 不存在加载${ext}后缀模型的加载器。`);
             resolve(null);
+            return;
         }
-        loader.load(url, options).then(obj => {
+        (new loader(this.app)).load(url, options).then(obj => {
             resolve(obj);
         });
     });

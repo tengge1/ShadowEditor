@@ -1,5 +1,6 @@
 import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
+import ModelLoader from '../../loader/ModelLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import UploadUtils from '../../utils/UploadUtils';
 
@@ -184,6 +185,29 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
 };
 
 /**
+ * 添加模型到场景
+ * @param {*} model 
+ */
+ModelWindow.prototype.onLoadModel = function (model) {
+    var loader = new ModelLoader(this.app);
+
+    loader.load(this.app.options.server + model.Url).then(obj => {
+        if (!obj) {
+            return;
+        }
+        obj.name = model.Name;
+        obj.rotation.x = -Math.PI / 2;
+
+        Object.assign(obj.userData, model, {
+            Server: true
+        });
+
+        var cmd = new AddObjectCommand(obj);
+        cmd.execute();
+    });
+};
+
+/**
  * 删除模型
  * @param {*} model 
  */
@@ -202,234 +226,6 @@ ModelWindow.prototype.onDeleteModel = function (model) {
             });
         }
     });
-};
-
-/**
- * 添加模型到场景
- * @param {*} model 
- */
-ModelWindow.prototype.onLoadModel = function (model) {
-    if (model.Type === 'amf') {
-        var loader = new THREE.AMFLoader();
-        loader.load(this.app.options.server + model.Url, (group) => {
-            group.name = model.Name;
-            group.rotation.x = -Math.PI / 2;
-
-            Object.assign(group.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(group);
-            cmd.execute();
-        });
-    } else if (model.Type === 'binary') {
-        var loader = new THREE.BinaryLoader();
-
-        loader.load(this.app.options.server + model.Url, (geometry, materials) => {
-            var mesh = new THREE.Mesh(geometry, materials);
-            mesh.name = model.Name;
-            mesh.rotation.x = -Math.PI / 2;
-
-            Object.assign(mesh.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(mesh);
-            cmd.execute();
-        });
-    } else if (model.Type === 'awd') {
-        var loader = new THREE.AWDLoader();
-
-        loader.load(this.app.options.server + model.Url, (obj3d) => {
-            obj3d.name = model.Name;
-            obj3d.rotation.x = -Math.PI / 2;
-
-            Object.assign(obj3d.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(obj3d);
-            cmd.execute();
-        });
-    } else if (model.Type === 'babylon') {
-        var loader = new THREE.BabylonLoader();
-
-        loader.load(this.app.options.server + model.Url, (scene) => {
-            var obj3d = new THREE.Object3D();
-            obj3d.name = model.Name;
-            obj3d.rotation.x = -Math.PI / 2;
-
-            Object.assign(obj3d.userData, model, {
-                Server: true
-            });
-
-            obj3d.children = scene.children;
-
-            var cmd = new AddObjectCommand(obj3d);
-            cmd.execute();
-        });
-    } else if (model.Type === 'ctm') {
-        var loader = new THREE.CTMLoader();
-
-        loader.load(this.app.options.server + model.Url, (geometry) => {
-            var material = new THREE.MeshStandardMaterial();
-            var mesh = new THREE.Mesh(geometry, material);
-            mesh.name = model.Name;
-            mesh.rotation.x = -Math.PI / 2;
-
-            Object.assign(mesh.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(mesh);
-            cmd.execute();
-        });
-    } else if (model.Type === 'dae') {
-        var loader = new THREE.ColladaLoader();
-
-        loader.load(this.app.options.server + model.Url, (collada) => {
-            var obj3d = collada.scene;
-            obj3d.name = model.Name;
-            obj3d.rotation.x = -Math.PI / 2;
-
-            Object.assign(obj3d.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(obj3d);
-            cmd.execute();
-        });
-    } else if (model.Type === 'fbx') {
-        var loader = new THREE.FBXLoader();
-
-        loader.load(this.app.options.server + model.Url, (obj3d) => {
-            obj3d.name = model.Name;
-            obj3d.rotation.x = -Math.PI / 2;
-
-            Object.assign(obj3d.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(obj3d);
-            cmd.execute();
-        });
-    } else if (model.Type === 'glb' || model.Type === 'gltf') {
-        var loader = new THREE.GLTFLoader();
-
-        loader.load(this.app.options.server + model.Url, (result) => {
-            var obj3d = result.scene;
-            obj3d.name = model.Name;
-            obj3d.rotation.x = -Math.PI / 2;
-
-            Object.assign(obj3d.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(obj3d);
-            cmd.execute();
-        });
-    } else if (model.Type === 'kmz') {
-        var loader = new THREE.KMZLoader();
-
-        loader.load(this.app.options.server + model.Url, (collada) => {
-            var obj3d = collada.scene;
-            obj3d.name = model.Name;
-            obj3d.rotation.x = -Math.PI / 2;
-
-            Object.assign(obj3d.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(obj3d);
-            cmd.execute();
-        });
-    } else if (model.Type === 'ply') {
-        var loader = new THREE.PLYLoader();
-
-        loader.load(this.app.options.server + model.Url, (geometry) => {
-            var material = new THREE.MeshStandardMaterial();
-            var mesh = new THREE.Mesh(geometry, material);
-            mesh.name = model.Name;
-            mesh.rotation.x = -Math.PI / 2;
-
-            Object.assign(mesh.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(mesh);
-            cmd.execute();
-        });
-    } else if (model.Type === 'obj') {
-        var loader = new THREE.OBJLoader();
-
-        loader.load(this.app.options.server + model.Url, (obj) => {
-            obj.name = model.Name;
-            obj.rotation.x = -Math.PI / 2;
-
-            Object.assign(obj.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(obj);
-            cmd.execute();
-        });
-    } else if (model.Type === 'md2') {
-        var loader = new THREE.MD2Loader();
-
-        loader.load(this.app.options.server + model.Url, (geometry) => {
-            var material = new THREE.MeshStandardMaterial({
-                morphTargets: true,
-                morphNormals: true
-            });
-
-            var mesh = new THREE.Mesh(geometry, material);
-            mesh.mixer = new THREE.AnimationMixer(mesh);
-
-            mesh.name = model.Name;
-            mesh.rotation.x = -Math.PI / 2;
-
-            Object.assign(mesh.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(mesh);
-            cmd.execute();
-        });
-    } else if (model.Type === 'stl') {
-        var loader = new THREE.STLLoader();
-
-        loader.load(this.app.options.server + model.Url, (geometry) => {
-            var material = new THREE.MeshStandardMaterial();
-            var mesh = new THREE.Mesh(geometry, material);
-            mesh.name = model.Name;
-            mesh.rotation.x = -Math.PI / 2;
-
-            Object.assign(mesh.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(mesh);
-            cmd.execute();
-        });
-    } else if (model.Type === 'vtk') {
-        var loader = new THREE.VTKLoader();
-
-        loader.load(this.app.options.server + model.Url, (geometry) => {
-            var material = new THREE.MeshStandardMaterial();
-            var mesh = new THREE.Mesh(geometry, material);
-            mesh.name = model.Name;
-            mesh.rotation.x = -Math.PI / 2;
-
-            Object.assign(mesh.userData, model, {
-                Server: true
-            });
-
-            var cmd = new AddObjectCommand(mesh);
-            cmd.execute();
-        });
-    } else {
-        console.warn(`ModelWindow: 未知模型类型${model.Type}`);
-    }
 };
 
 export default ModelWindow;
