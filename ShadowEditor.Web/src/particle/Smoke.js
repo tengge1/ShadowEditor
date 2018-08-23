@@ -4,6 +4,12 @@ import fragmentShader from './shader/smoke_fragment.glsl';
 
 /**
  * 烟
+ * @author yomotsu / http://yomotsu.net
+ * ported from http://webgl-fire.appspot.com/html/fire.html
+ *
+ * https://www.youtube.com/watch?v=jKRHmQmduDI
+ * https://graphics.ethz.ch/teaching/former/imagesynthesis_06/miniprojects/p3/
+ * https://www.iusb.edu/math-compsci/_prior-thesis/YVanzine_thesis.pdf
  * @param {*} options 
  */
 function Smoke(camera, renderer, options) {

@@ -2,6 +2,7 @@ import BaseLoader from './BaseLoader';
 
 /**
  * STLLoader
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function STLLoader(app) {

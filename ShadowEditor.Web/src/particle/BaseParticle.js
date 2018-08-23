@@ -2,6 +2,7 @@ var ID = -1;
 
 /**
  * 粒子基类
+ * @author tengge / https://github.com/tengge1
  * @param {*} camera 相机
  * @param {*} renderer 渲染器
  * @param {*} options 选项

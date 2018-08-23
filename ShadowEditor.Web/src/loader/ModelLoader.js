@@ -34,6 +34,7 @@ const Loaders = {
 
 /**
  * ModelLoader
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ModelLoader(app) {

@@ -2,6 +2,7 @@ import BaseLoader from './BaseLoader';
 
 /**
  * BabylonLoader
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function BabylonLoader(app) {

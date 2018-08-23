@@ -2,6 +2,7 @@ import BaseLoader from './BaseLoader';
 
 /**
  * VTKLoader
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function VTKLoader(app) {

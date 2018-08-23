@@ -2,6 +2,7 @@ var ID = -1;
 
 /**
  * BaseLoader
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function BaseLoader(app) {

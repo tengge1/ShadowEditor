@@ -2,6 +2,7 @@ import BaseLoader from './BaseLoader';
 
 /**
  * FBXLoader
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function FBXLoader(app) {
