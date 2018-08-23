@@ -90,9 +90,6 @@ var EventList = [
     'mSceneOptions', // 场景选项
     'mRendererOptions', // 渲染器选项
 
-    'mSourceCode', // 源码
-    'mAbout', // 关于
-
     // 工具栏事件
 
     'changeMode', // 改变模式（select, translate, rotate, scale, delete）

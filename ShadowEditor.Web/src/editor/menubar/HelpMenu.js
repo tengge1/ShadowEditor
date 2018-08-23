@@ -27,26 +27,51 @@ HelpMenu.prototype.render = function () {
             xtype: 'div',
             cls: 'options',
             children: [{
-                id: 'mSourceCode',
                 xtype: 'div',
                 cls: 'option',
                 html: '源码',
-                onClick: function () {
-                    _this.app.call('mSourceCode');
+                onClick: () => {
+                    window.open('https://github.com/tengge1/ShadowEditor', '_blank');
                 }
             }, {
-                id: 'mAbout',
+                xtype: 'div',
+                cls: 'option',
+                html: '示例',
+                onClick: () => {
+                    window.open('https://github.com/tengge1/ShadowEditor-examples', '_blank');
+                }
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: '文档',
+                onClick: () => {
+                    window.open('https://tengge1.github.io/ShadowEditor/docs/release/index.html', '_blank');
+                }
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: 'three.js',
+                onClick: () => {
+                    window.open('https://threejs.org/', '_blank');
+                }
+            }, {
                 xtype: 'div',
                 cls: 'option',
                 html: '关于',
-                onClick: function () {
-                    _this.app.call('mAbout');
+                onClick: () => {
+                    UI.alert(
+                        `About`,
+                        `Name: ShadowEditor<br />
+                        Author: tengge<br />
+                        License: MIT<br />
+                        Thanks to three.js and everyone who helped us.`
+                    );
                 }
             }]
         }]
     });
 
     container.render();
-}
+};
 
 export default HelpMenu;

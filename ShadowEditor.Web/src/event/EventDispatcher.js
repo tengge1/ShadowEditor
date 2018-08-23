@@ -94,9 +94,6 @@ import SurfaceOptionsEvent from './menu/options/SurfaceOptionsEvent';
 import SceneOptionsEvent from './menu/options/SceneOptionsEvent';
 import RendererOptionsEvent from './menu/options/RendererOptionsEvent';
 
-import SourceCodeEvent from './menu/help/SourceCodeEvent';
-import AboutEvent from './menu/help/AboutEvent';
-
 // 侧边栏
 import ObjectPanelEvent from './sideBar/ObjectPanelEvent';
 import GeometryPanelEvent from './sideBar/GeometryPanelEvent';
@@ -223,9 +220,6 @@ function EventDispatcher(app) {
         new SurfaceOptionsEvent(this.app),
         new SceneOptionsEvent(this.app),
         new RendererOptionsEvent(this.app),
-
-        new SourceCodeEvent(this.app),
-        new AboutEvent(this.app),
 
         // 侧边栏
         new ObjectPanelEvent(this.app),
