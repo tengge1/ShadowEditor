@@ -119,6 +119,7 @@ import PlayerEvent from './player/PlayerEvent';
 
 /**
  * 事件执行器
+ * @author tengge / https://github.com/tengge1
  */
 function EventDispatcher(app) {
     this.app = app;

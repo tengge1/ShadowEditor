@@ -2,6 +2,7 @@ import BaseEvent from '../BaseEvent';
 
 /**
  * 添加帮助器事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function AddHelperEvent(app) {

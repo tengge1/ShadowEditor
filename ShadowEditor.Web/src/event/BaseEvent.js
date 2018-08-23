@@ -2,6 +2,7 @@ var ID = -1;
 
 /**
  * 事件基类
+ * @author tengge / https://github.com/tengge1
  */
 function BaseEvent(app) {
     this.app = app;

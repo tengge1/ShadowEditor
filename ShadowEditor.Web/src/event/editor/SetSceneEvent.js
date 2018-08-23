@@ -2,6 +2,7 @@ import BaseEvent from '../BaseEvent';
 
 /**
  * 设置场景事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function SetSceneEvent(app) {

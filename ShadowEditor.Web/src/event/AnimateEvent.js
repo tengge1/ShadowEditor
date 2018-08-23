@@ -2,6 +2,7 @@ import BaseEvent from './BaseEvent';
 
 /**
  * 动画事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function AnimateEvent(app) {

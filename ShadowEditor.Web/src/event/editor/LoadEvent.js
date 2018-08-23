@@ -3,6 +3,7 @@ import UI from '../../ui/UI';
 
 /**
  * 加载场景事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function LoadEvent(app) {

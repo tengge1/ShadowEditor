@@ -4,6 +4,7 @@ import UI from '../ui/UI';
 
 /**
  * 键盘按键事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function KeyDownEvent(app) {

@@ -2,6 +2,7 @@ import BaseEvent from '../BaseEvent';
 
 /**
  * 选中事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function SelectEvent(app) {

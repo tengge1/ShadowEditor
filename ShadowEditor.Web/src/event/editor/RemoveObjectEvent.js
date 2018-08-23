@@ -2,6 +2,7 @@ import BaseEvent from '../BaseEvent';
 
 /**
  * 删除物体事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function RemoveObjectEvent(app) {

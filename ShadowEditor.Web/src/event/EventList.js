@@ -1,5 +1,6 @@
 /**
  * 自定义事件列表
+ * @author tengge / https://github.com/tengge1
  */
 var EventList = [
     // dom事件

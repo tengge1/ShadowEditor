@@ -2,6 +2,7 @@ import BaseEvent from './BaseEvent';
 
 /**
  * 窗口大小改变事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ResizeEvent(app) {
