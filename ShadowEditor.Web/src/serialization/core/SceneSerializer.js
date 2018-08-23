@@ -4,6 +4,7 @@ import MaterialsSerializer from '../material/MaterialsSerializer';
 
 /**
  * SceneSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function SceneSerializer(app) {

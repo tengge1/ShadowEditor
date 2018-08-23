@@ -12,6 +12,7 @@ var Serializers = {
 
 /**
  * CamerasSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function CamerasSerializer(app) {

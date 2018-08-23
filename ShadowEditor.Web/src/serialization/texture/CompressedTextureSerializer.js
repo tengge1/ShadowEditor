@@ -3,6 +3,7 @@ import TextureSerializer from './TextureSerializer';
 
 /**
  * CompressedTextureSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function CompressedTextureSerializer(app) {

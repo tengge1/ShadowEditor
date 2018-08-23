@@ -50,6 +50,7 @@ var Serializers = {
 
 /**
  * GeometriesSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function GeometriesSerializer(app) {

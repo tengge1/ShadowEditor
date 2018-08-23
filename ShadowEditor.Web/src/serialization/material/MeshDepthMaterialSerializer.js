@@ -3,6 +3,7 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * MeshDepthMaterialSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function MeshDepthMaterialSerializer(app) {

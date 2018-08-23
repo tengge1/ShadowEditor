@@ -3,6 +3,7 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * ParticleSystemMaterialSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ParticleSystemMaterialSerializer(app) {

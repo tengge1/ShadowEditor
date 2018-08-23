@@ -2,6 +2,7 @@ import BaseSerializer from '../BaseSerializer';
 
 /**
  * ScriptSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ScriptSerializer(app) {

@@ -3,6 +3,7 @@ import TextureSerializer from './TextureSerializer';
 
 /**
  * CubeTextureSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function CubeTextureSerializer(app) {

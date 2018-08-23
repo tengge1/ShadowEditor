@@ -3,6 +3,7 @@ import TexturesSerializer from '../texture/TexturesSerializer';
 
 /**
  * WebGLRenderTargetSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function WebGLRenderTargetSerializer(app) {

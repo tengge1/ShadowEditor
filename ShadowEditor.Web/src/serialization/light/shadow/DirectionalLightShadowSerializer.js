@@ -3,6 +3,7 @@ import LightShadowSerializer from './LightShadowSerializer';
 
 /**
  * DirectionalLightShadowSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function DirectionalLightShadowSerializer(app) {

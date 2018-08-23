@@ -6,6 +6,7 @@ import MaterialsSerializer from '../material/MaterialsSerializer';
 
 /**
  * SpriteSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function SpriteSerializer(app) {

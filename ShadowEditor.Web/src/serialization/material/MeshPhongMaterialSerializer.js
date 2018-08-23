@@ -3,6 +3,7 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * MeshPhongMaterialSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function MeshPhongMaterialSerializer(app) {

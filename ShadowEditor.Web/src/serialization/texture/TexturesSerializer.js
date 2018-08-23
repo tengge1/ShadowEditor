@@ -20,6 +20,7 @@ var Serializers = {
 
 /**
  * TexturesSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function TexturesSerializer(app) {

@@ -3,6 +3,7 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 
 /**
  * CylinderBufferGeometrySerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function CylinderBufferGeometrySerializer(app) {

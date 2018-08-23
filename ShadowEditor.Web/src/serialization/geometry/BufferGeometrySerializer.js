@@ -2,6 +2,7 @@ import BaseSerializer from '../BaseSerializer';
 
 /**
  * BufferGeometrySerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function BufferGeometrySerializer(app) {

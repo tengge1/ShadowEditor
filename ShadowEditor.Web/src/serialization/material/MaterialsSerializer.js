@@ -50,6 +50,7 @@ var Serializers = {
 
 /**
  * MaterialsSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function MaterialsSerializer(app) {

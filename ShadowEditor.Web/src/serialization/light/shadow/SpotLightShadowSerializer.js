@@ -3,6 +3,7 @@ import LightShadowSerializer from './LightShadowSerializer';
 
 /**
  * SpotLightShadowSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function SpotLightShadowSerializer(app) {

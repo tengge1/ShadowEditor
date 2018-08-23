@@ -3,6 +3,7 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 
 /**
  * ConeBufferGeometrySerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ConeBufferGeometrySerializer(app) {

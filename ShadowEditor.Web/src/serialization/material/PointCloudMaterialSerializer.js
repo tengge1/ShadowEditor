@@ -3,6 +3,7 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * PointCloudMaterialSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function PointCloudMaterialSerializer(app) {

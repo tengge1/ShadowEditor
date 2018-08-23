@@ -3,6 +3,7 @@ import MaterialSerializer from './MaterialSerializer';
 
 /**
  * MeshPhysicalMaterialSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function MeshPhysicalMaterialSerializer(app) {

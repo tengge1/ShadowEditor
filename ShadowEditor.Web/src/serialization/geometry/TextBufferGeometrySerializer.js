@@ -3,6 +3,7 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 
 /**
  * TextBufferGeometrySerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function TextBufferGeometrySerializer(app) {

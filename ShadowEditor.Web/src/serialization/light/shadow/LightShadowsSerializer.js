@@ -12,6 +12,7 @@ var Serializers = {
 
 /**
  * LightShadowsSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function LightShadowsSerializer(app) {

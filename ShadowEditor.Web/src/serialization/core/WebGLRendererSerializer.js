@@ -3,6 +3,7 @@ import WebGLShadowMapSerializer from './WebGLShadowMapSerializer';
 
 /**
  * WebGLRendererSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function WebGLRendererSerializer(app) {

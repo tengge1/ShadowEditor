@@ -3,6 +3,7 @@ import LightSerializer from './LightSerializer';
 
 /**
  * HemisphereLightSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function HemisphereLightSerializer(app) {

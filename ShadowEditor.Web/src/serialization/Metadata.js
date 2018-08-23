@@ -1,5 +1,6 @@
 /**
  * 场景序列化信息
+ * @author tengge / https://github.com/tengge1
  */
 var Metadata = {
     generator: 'ShadowEditor',

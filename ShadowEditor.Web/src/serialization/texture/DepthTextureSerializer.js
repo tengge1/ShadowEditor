@@ -3,6 +3,7 @@ import TextureSerializer from './TextureSerializer';
 
 /**
  * DepthTextureSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function DepthTextureSerializer(app) {

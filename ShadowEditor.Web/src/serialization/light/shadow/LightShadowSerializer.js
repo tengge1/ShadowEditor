@@ -4,6 +4,7 @@ import WebGLRenderTargetSerializer from '../../core/WebGLRenderTargetSerializer'
 
 /**
  * LightShadowSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function LightShadowSerializer(app) {

@@ -2,6 +2,7 @@ import BaseSerializer from '../BaseSerializer';
 
 /**
  * TextureSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function TextureSerializer(app) {

@@ -3,6 +3,7 @@ import Object3DSerializer from '../core/Object3DSerializer';
 
 /**
  * CameraSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function CameraSerializer(app) {

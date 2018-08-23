@@ -4,6 +4,7 @@ import TexturesSerializer from '../texture/TexturesSerializer';
 
 /**
  * MaterialSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function MaterialSerializer(app) {

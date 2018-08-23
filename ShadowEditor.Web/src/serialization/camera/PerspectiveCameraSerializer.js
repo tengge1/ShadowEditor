@@ -3,6 +3,7 @@ import CameraSerializer from './CameraSerializer';
 
 /**
  * PerspectiveCameraSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function PerspectiveCameraSerializer(app) {

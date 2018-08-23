@@ -4,6 +4,7 @@ import ModelLoader from '../../loader/ModelLoader';
 
 /**
  * ServerObject
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ServerObject(app) {

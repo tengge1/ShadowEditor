@@ -4,6 +4,7 @@ import LightShadowsSerializer from './shadow/LightShadowsSerializer';
 
 /**
  * LightSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function LightSerializer(app) {

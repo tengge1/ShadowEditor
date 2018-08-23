@@ -3,6 +3,7 @@ import Object3DSerializer from './Object3DSerializer';
 
 /**
  * GroupSerializer
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function GroupSerializer(app) {
