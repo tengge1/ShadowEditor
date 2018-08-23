@@ -1,7 +1,8 @@
 ﻿import UI from '../../ui/UI';
-import ScenePanel from './ScenePanel';
+import HierachyPanel from './HierachyPanel';
 import PropertyPanel from './PropertyPanel';
 import ScriptPanel from './ScriptPanel';
+import ComponentPanel from './ComponentPanel';
 import HistoryPanel from './HistoryPanel';
 
 /**
@@ -17,13 +18,6 @@ Sidebar.prototype = Object.create(UI.Control.prototype);
 Sidebar.prototype.constructor = Sidebar;
 
 Sidebar.prototype.render = function () {
-    var editor = this.app.editor;
-    var _this = this;
-
-    function onClick(event) {
-        _this.app.call('selectTab', _this, event.target.textContent);
-    }
-
     var data = {
         xtype: 'div',
         id: 'sidebar',
@@ -36,24 +30,41 @@ Sidebar.prototype.render = function () {
                 xtype: 'text',
                 id: 'sceneTab',
                 text: '场景',
-                onClick: onClick
+                onClick: () => {
+                    this.selectTab('场景');
+                }
+            }, {
+                xtype: 'text',
+                id: 'componentTab',
+                text: '组件',
+                onClick: () => {
+                    this.selectTab('组件');
+                }
             }, {
                 xtype: 'text',
                 id: 'historyTab',
                 text: '历史',
-                onClick: onClick
+                onClick: () => {
+                    this.selectTab('历史');
+                }
             }]
-        }, { // scene
+        }, { // 场景面板
             xtype: 'div',
-            id: 'scene',
+            id: 'scenePanel',
             children: [
-                new ScenePanel({ app: this.app }),
+                new HierachyPanel({ app: this.app }),
                 new PropertyPanel({ app: this.app }),
                 new ScriptPanel({ app: this.app })
             ]
-        }, {
+        }, { // 组件面板
             xtype: 'div',
-            id: 'histories',
+            id: 'componentPanel',
+            children: [
+                new ComponentPanel({ app: this.app }),
+            ]
+        }, { // 历史纪录面板
+            xtype: 'div',
+            id: 'historyPanel',
             children: [
                 new HistoryPanel({ app: this.app })
             ]
@@ -62,6 +73,43 @@ Sidebar.prototype.render = function () {
 
     var control = UI.create(data);
     control.render();
+
+    this.app.on(`appStarted.${this.id}`, () => {
+        this.selectTab('场景');
+    });
+};
+
+Sidebar.prototype.selectTab = function (tabName) {
+    const sceneTab = UI.get('sceneTab');
+    const componentTab = UI.get('componentTab');
+    const historyTab = UI.get('historyTab');
+
+    const scenePanel = UI.get('scenePanel');
+    const componentPanel = UI.get('componentPanel');
+    const historyPanel = UI.get('historyPanel');
+
+    sceneTab.dom.className = '';
+    componentTab.dom.className = '';
+    historyTab.dom.className = '';
+
+    scenePanel.dom.style.display = 'none';
+    componentPanel.dom.style.display = 'none';
+    historyPanel.dom.style.display = 'none';
+
+    switch (tabName) {
+        case '场景':
+            sceneTab.dom.className = 'selected';
+            scenePanel.dom.style.display = '';
+            break;
+        case '组件':
+            componentTab.dom.className = 'selected';
+            componentPanel.dom.style.display = '';
+            break;
+        case '历史':
+            historyTab.dom.className = 'selected';
+            historyPanel.dom.style.display = '';
+            break;
+    }
 };
 
 export default Sidebar;

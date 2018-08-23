@@ -4,22 +4,21 @@
  * 场景面板
  * @author mrdoob / http://mrdoob.com/
  */
-function ScenePanel(options) {
+function HierachyPanel(options) {
     UI.Control.call(this, options);
     this.app = options.app;
 };
 
-ScenePanel.prototype = Object.create(UI.Control.prototype);
-ScenePanel.prototype.constructor = ScenePanel;
+HierachyPanel.prototype = Object.create(UI.Control.prototype);
+HierachyPanel.prototype.constructor = HierachyPanel;
 
-ScenePanel.prototype.render = function () {
+HierachyPanel.prototype.render = function () {
     var editor = this.app.editor;
 
     var _this = this;
 
     var data = {
         xtype: 'div',
-        id: 'scenePanel',
         parent: this.parent,
         cls: 'Panel',
         children: [{ // outliner
@@ -39,4 +38,4 @@ ScenePanel.prototype.render = function () {
     control.render();
 };
 
-export default ScenePanel;
+export default HierachyPanel;

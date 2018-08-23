@@ -164,7 +164,6 @@ var EventList = [
     'updateObject', // 更新物体属性
     'updateObjectPanel', // 更新物体面板
 
-    'selectTab', // 点击选择侧边栏选项卡
     'selectPropertyTab', // 点击选择属性选项卡
 
     'updateScenePanelFog', // 刷新场景面板雾效设置
