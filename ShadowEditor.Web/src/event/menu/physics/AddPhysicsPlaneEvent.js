@@ -5,6 +5,7 @@ var ID = -1;
 
 /**
  * 添加物理平板
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function AddPhysicsPlaneEvent(app) {

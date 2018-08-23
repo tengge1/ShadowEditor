@@ -5,6 +5,7 @@ var ID = 1;
 
 /**
  * 添加二十面体事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function AddIcosahedronEvent(app) {

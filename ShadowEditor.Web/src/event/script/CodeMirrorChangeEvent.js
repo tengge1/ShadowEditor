@@ -4,6 +4,7 @@ import SetMaterialValueCommand from '../../command/SetMaterialValueCommand';
 
 /**
  * CodeMirror改变事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function CodeMirrorChangeEvent(app) {

@@ -3,6 +3,7 @@ import UI from '../../ui/UI';
 
 /**
  * 锚点事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function AnchorPointEvent(app) {

@@ -5,6 +5,7 @@ var ID = 1;
 
 /**
  * 添加火焰事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function AddFireEvent(app) {

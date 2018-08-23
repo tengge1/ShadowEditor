@@ -3,6 +3,7 @@ import MathUtils from '../../../utils/MathUtils';
 
 /**
  * 发布场景
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function PublishSceneEvent(app) {

@@ -4,6 +4,7 @@ import StringUtils from '../../../utils/StringUtils';
 
 /**
  * 导出几何体事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ExportGeometryEvent(app) {

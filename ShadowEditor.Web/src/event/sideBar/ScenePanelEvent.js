@@ -4,6 +4,7 @@ import UI from '../../ui/UI';
 
 /**
  * 场景面板事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ScenePanelEvent(app) {

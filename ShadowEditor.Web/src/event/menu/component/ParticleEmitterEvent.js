@@ -5,6 +5,7 @@ var ID = 1;
 
 /**
  * 粒子发射器
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ParticleEmitterEvent(app) {

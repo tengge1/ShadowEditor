@@ -4,6 +4,7 @@ import Ajax from '../../../utils/Ajax';
 
 /**
  * 保存场景
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function SaveSceneEvent(app) {

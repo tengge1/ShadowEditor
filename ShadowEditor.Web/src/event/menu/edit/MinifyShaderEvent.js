@@ -6,6 +6,7 @@ import MultiCmdsCommand from '../../../command/MultiCmdsCommand';
 
 /**
  * 压缩着色器程序事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function MinifyShaderEvent(app) {

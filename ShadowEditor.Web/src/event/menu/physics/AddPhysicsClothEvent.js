@@ -3,6 +3,7 @@ import AddObjectCommand from '../../../command/AddObjectCommand';
 
 /**
  * 添加物理布料
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function AddPhysicsClothEvent(app) {

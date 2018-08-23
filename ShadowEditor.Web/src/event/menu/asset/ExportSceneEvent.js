@@ -3,6 +3,7 @@ import StringUtils from '../../../utils/StringUtils';
 
 /**
  * 导出场景事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ExportSceneEvent(app) {

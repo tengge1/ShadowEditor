@@ -7,6 +7,7 @@ import SetMaterialMapCommand from '../../command/SetMaterialMapCommand';
 
 /**
  * 材质改变事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function MaterialPanelEvent(app) {

@@ -2,6 +2,7 @@ import BaseEvent from '../BaseEvent';
 
 /**
  * 编辑器控件事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function EditorControlsEvent(app) {

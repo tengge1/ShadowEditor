@@ -3,6 +3,7 @@ import UI from '../../../ui/UI';
 
 /**
  * 启动事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function PlayEvent(app) {

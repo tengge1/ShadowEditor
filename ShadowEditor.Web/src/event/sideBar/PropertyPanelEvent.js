@@ -4,6 +4,7 @@ import UI from '../../ui/UI';
 
 /**
  * 属性面板事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function PropertyPanelEvent(app) {

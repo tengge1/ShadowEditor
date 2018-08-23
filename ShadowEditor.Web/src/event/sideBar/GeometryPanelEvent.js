@@ -34,6 +34,7 @@ const GeometryPanels = {
 
 /**
  * 物体面板事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function GeometryPanelEvent(app) {

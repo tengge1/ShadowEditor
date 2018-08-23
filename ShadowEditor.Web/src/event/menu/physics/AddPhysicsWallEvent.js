@@ -5,6 +5,7 @@ var ID = -1;
 
 /**
  * 添加物理墙
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function AddPhysicsWallEvent(app) {

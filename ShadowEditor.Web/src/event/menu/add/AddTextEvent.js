@@ -5,6 +5,7 @@ import StringUtils from '../../../utils/StringUtils';
 
 /**
  * 添加文本事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function AddTextEvent(app) {

@@ -3,6 +3,7 @@ import StringUtils from '../../../utils/StringUtils';
 
 /**
  * 导出mmd文件事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ExportMMDEvent(app) {

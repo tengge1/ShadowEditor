@@ -3,6 +3,7 @@ import AddObjectCommand from '../../../command/AddObjectCommand';
 
 /**
  * 拷贝事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function CloneEvent(app) {

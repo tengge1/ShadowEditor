@@ -3,6 +3,7 @@ import UI from '../../../ui/UI';
 
 /**
  * 新建场景
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function NewSceneEvent(app) {

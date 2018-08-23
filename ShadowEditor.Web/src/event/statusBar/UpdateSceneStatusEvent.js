@@ -3,6 +3,7 @@ import UI from '../../ui/UI';
 
 /**
  * 更新场景编辑区信息事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function UpdateSceneStatusEvent(app) {

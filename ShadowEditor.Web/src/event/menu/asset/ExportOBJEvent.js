@@ -4,6 +4,7 @@ import StringUtils from '../../../utils/StringUtils';
 
 /**
  * 导出obj文件事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ExportOBJEvent(app) {

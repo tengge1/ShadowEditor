@@ -4,6 +4,7 @@ import SceneWindow from '../../../editor/window/SceneWindow';
 
 /**
  * 载入场景
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function LoadSceneEvent(app) {

@@ -3,6 +3,7 @@ import OptionsWindow from '../../../editor/window/OptionsWindow';
 
 /**
  * 渲染器选项事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function RendererOptionsEvent(app) {

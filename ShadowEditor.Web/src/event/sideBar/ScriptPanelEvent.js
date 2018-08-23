@@ -5,6 +5,7 @@ import RemoveScriptCommand from '../../command/RemoveScriptCommand';
 
 /**
  * 脚本面板事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ScriptPanelEvent(app) {

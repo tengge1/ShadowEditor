@@ -4,6 +4,7 @@ import ModelWindow from '../../editor/window/ModelWindow';
 
 /**
  * 模型事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ModelEvent(app) {

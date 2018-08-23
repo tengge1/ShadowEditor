@@ -5,6 +5,7 @@ import SetScaleCommand from '../../command/SetScaleCommand';
 
 /**
  * 平移旋转缩放控件事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function TransformControlsEvent(app) {

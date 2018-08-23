@@ -4,6 +4,7 @@ import UI from '../../../ui/UI';
 
 /**
  * 删除事件
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function DeleteEvent(app) {
