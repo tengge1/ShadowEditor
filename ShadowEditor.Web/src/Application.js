@@ -17,6 +17,8 @@ import Physics from './editor/Physics';
 
 /**
  * 应用程序
+ * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  */
 function Application(container, options) {
 

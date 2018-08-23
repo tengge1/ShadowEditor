@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 容器（外层无div等元素包裹）
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Container(options) {

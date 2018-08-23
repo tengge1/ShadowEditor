@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 输入框
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Input(options) {

@@ -2,6 +2,7 @@ import Container from './Container';
 
 /**
  * 行控件
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Row(options) {

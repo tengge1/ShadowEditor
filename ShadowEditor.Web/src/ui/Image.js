@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 图片
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 选项
  */
 function Image(options) {

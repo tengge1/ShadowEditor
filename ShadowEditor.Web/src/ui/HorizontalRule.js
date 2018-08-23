@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 水平线
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function HorizontalRule(options) {

@@ -3,6 +3,7 @@ import Image from './Image';
 
 /**
  * 图片列表
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 选项
  */
 function ImageList(options = {}) {

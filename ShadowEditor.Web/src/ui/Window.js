@@ -3,7 +3,8 @@ import Button from './Button';
 import CloseButton from './CloseButton';
 
 /**
- * 模态框
+ * 窗口
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Window(options) {

@@ -2,6 +2,7 @@ import Container from './Container';
 
 /**
  * Div元素
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Div(options) {

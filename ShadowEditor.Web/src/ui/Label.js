@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 标签控件
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Label(options) {

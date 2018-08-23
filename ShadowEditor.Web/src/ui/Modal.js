@@ -3,6 +3,7 @@ import Container from './Container';
 
 /**
  * 模态框
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Modal(options) {

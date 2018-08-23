@@ -1,5 +1,6 @@
 /**
  * 配置选项
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 配置选项
  */
 function Options(options) {

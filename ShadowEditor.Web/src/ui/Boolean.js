@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 布尔值
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Boolean(options) {

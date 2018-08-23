@@ -3,6 +3,7 @@ import Container from './Container';
 
 /**
  * 消息框
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function MessageBox(options) {

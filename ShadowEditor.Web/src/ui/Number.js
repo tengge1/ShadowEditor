@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 数字
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Number(options) {

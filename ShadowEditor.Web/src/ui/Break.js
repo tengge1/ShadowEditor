@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 换行符
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Break(options) {

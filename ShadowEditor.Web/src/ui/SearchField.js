@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 搜索框
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 搜索框
  */
 function SearchField(options) {

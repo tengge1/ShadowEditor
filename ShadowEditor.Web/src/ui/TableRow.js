@@ -2,6 +2,7 @@ import Container from './Container';
 
 /**
  * 表格一行
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 配置
  */
 function TableRow(options) {

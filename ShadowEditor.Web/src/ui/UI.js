@@ -39,6 +39,7 @@ import ToolbarFiller from './ToolbarFiller';
 
 /**
  * UI类
+ * @author tengge / https://github.com/tengge1
  */
 function UICls() {
     this.xtypes = {};

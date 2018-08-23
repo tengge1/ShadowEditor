@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 选择列表
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Select(options) {

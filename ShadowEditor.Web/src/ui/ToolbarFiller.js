@@ -1,5 +1,10 @@
 import Control from './Control';
 
+/**
+ * 工具栏填充器
+ * @author tengge / https://github.com/tengge1
+ * @param {*} options 
+ */
 function ToolbarFiller(options) {
     Control.call(this, options);
 }

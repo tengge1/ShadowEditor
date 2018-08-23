@@ -3,6 +3,7 @@ import MoveObjectCommand from '../command/MoveObjectCommand';
 
 /**
  * 大纲控件
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Outliner(options) {

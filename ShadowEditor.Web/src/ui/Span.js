@@ -2,6 +2,7 @@ import Container from './Container';
 
 /**
  * 文本块
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Span(options) {

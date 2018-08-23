@@ -2,6 +2,7 @@ import Button from './Button';
 
 /**
  * 图标按钮
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function IconButton(options) {

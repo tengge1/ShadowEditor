@@ -2,6 +2,7 @@ import Window from './Window';
 
 /**
  * 提示输入框
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 选项
  */
 function Prompt(options) {

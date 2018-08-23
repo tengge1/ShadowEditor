@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 关闭按钮
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function CloseButton(options) {

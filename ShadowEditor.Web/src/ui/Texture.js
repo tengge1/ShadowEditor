@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 纹理
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Texture(options) {

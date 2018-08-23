@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 整数
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Integer(options) {

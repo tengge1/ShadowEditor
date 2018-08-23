@@ -2,6 +2,7 @@ import Control from './Control';
 
 /**
  * 颜色选择器
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Color(options) {
