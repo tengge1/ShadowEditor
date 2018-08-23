@@ -3,7 +3,7 @@ import Options from './Options';
 import UI from './ui/UI';
 import EventDispatcher from './event/EventDispatcher';
 
-import Menubar from './editor/Menubar';
+import Menubar from './editor/menubar/Menubar';
 import Toolbar from './editor/Toolbar';
 import Viewport from './editor/Viewport';
 import Sidebar from './editor/sidebar/Sidebar';

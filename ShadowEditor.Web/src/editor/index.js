@@ -1,5 +1,5 @@
 export { default as Viewport } from './Viewport';
-export { default as Menubar } from './Menubar';
+export { default as Menubar } from './menubar/Menubar';
 export { default as StatusBar } from './StatusBar';
 export { default as Editor } from './Editor';
 export { default as Script } from './Script';

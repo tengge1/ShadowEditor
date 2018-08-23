@@ -1,17 +1,17 @@
-﻿import UI from '../ui/UI';
-import Logo from './menubar/Logo';
-import SceneMenu from './menubar/SceneMenu';
-import EditMenu from './menubar/EditMenu';
-import AddMenu from './menubar/AddMenu';
-import AssetMenu from './menubar/AssetMenu';
-import AnimationMenu from './menubar/AnimationMenu';
-import PhysicsMenu from './menubar/PhysicsMenu';
-import ComponentMenu from './menubar/ComponentMenu';
-import PlayMenu from './menubar/PlayMenu';
-import ExampleMenu from './menubar/ExampleMenu';
-import OptionsMenu from './menubar/OptionsMenu';
-import HelpMenu from './menubar/HelpMenu';
-import StatusMenu from './menubar/StatusMenu';
+﻿import UI from '../../ui/UI';
+import Logo from './Logo';
+import SceneMenu from './SceneMenu';
+import EditMenu from './EditMenu';
+import AddMenu from './AddMenu';
+import AssetMenu from './AssetMenu';
+import AnimationMenu from './AnimationMenu';
+import PhysicsMenu from './PhysicsMenu';
+import ComponentMenu from './ComponentMenu';
+import PlayMenu from './PlayMenu';
+import ExampleMenu from './ExampleMenu';
+import OptionsMenu from './OptionsMenu';
+import HelpMenu from './HelpMenu';
+import StatusMenu from './StatusMenu';
 
 /**
  * 菜单栏
