@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 
 /**
  * 组件面板
+ * @author tengge / https://github.com/tengge1
  */
 function ComponentPanel(options) {
     UI.Control.call(this, options);

@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 
 /**
  * 状态菜单（菜单栏右侧）
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function StatusMenu(options) {

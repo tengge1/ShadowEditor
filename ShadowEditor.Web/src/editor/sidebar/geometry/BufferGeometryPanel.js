@@ -4,6 +4,7 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
 /**
  * 缓冲几何体面板
  * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  */
 function BufferGeometryPanel(options) {
     UI.Control.call(this, options);

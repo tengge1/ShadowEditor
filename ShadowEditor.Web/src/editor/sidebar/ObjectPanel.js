@@ -5,6 +5,7 @@ import SetValueCommand from '../../command/SetValueCommand';
 /**
  * 物体面板
  * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  */
 function ObjectPanel(options) {
     UI.Control.call(this, options);

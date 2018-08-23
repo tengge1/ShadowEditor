@@ -2,6 +2,7 @@ import Control from '../ui/Control';
 
 /**
  * 时间线窗口
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function TimePanel(options) {

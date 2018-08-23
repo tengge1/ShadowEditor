@@ -3,6 +3,7 @@
 /**
  * 状态栏
  * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  */
 function StatusBar(options) {
     UI.Control.call(this, options);

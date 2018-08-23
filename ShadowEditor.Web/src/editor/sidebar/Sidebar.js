@@ -9,6 +9,7 @@ import HistoryPanel from './HistoryPanel';
 /**
  * 侧边栏
  * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  */
 function Sidebar(options) {
     UI.Control.call(this, options);

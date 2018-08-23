@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 
 /**
  * 编辑菜单
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function EditMenu(options) {

@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 
 /**
  * 场景菜单
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function SceneMenu(options) {

@@ -6,6 +6,7 @@ import UploadUtils from '../../utils/UploadUtils';
 
 /**
  * 模型窗口
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function ModelWindow(options) {

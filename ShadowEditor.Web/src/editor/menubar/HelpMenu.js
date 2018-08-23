@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 
 /**
  * 帮助菜单
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function HelpMenu(options) {

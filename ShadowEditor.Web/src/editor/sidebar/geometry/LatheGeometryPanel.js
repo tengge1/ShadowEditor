@@ -4,6 +4,7 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
 /**
  * 车床几何体面板
  * @author rfm1201
+ * @author tengge / https://github.com/tengge1
  */
 function LatheGeometryPanel(options) {
     UI.Control.call(this, options);

@@ -4,6 +4,7 @@ import SetGeometryCommand from '../../../command/SetGeometryCommand';
 /**
  * 球形几何体面板
  * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  */
 function SphereGeometryPanel(options) {
     UI.Control.call(this, options);

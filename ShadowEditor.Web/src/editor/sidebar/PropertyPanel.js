@@ -6,6 +6,7 @@ import MaterialPanel from './MaterialPanel';
 /**
  * 属性面板
  * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  */
 function PropertyPanel(options) {
     UI.Control.call(this, options);

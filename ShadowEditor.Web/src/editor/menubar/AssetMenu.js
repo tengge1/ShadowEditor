@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 
 /**
  * 资源菜单
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function AssetMenu(options) {

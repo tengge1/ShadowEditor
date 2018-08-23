@@ -3,6 +3,7 @@ import WebGLRendererSerializer from '../../serialization/core/WebGLRendererSeria
 
 /**
  * 选项窗口
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function OptionsWindow(options) {

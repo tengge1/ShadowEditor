@@ -7,6 +7,7 @@ import BufferGeometryPanel from './geometry/BufferGeometryPanel';
 /**
  * 几何体面板
  * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  */
 function GeometryPanel(options) {
     UI.Control.call(this, options);

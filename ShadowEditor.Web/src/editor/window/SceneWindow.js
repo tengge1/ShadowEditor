@@ -6,6 +6,7 @@ import Converter from '../../serialization/Converter';
 
 /**
  * 场景窗口
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function SceneWindow(options) {

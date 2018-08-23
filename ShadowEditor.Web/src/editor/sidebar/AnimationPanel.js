@@ -1,7 +1,8 @@
 import UI from '../../ui/UI';
 
 /**
- * 组件面板
+ * 动画面板
+ * @author tengge / https://github.com/tengge1
  */
 function AnimationPanel(options) {
     UI.Control.call(this, options);

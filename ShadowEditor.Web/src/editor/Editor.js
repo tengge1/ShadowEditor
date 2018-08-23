@@ -4,6 +4,7 @@ import Storage from '../core/Storage';
 /**
  * 编辑器
  * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  */
 function Editor(app) {
     this.app = app;

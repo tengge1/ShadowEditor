@@ -3,6 +3,7 @@
 /**
  * 场景编辑区
  * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  */
 function Viewport(options) {
     UI.Control.call(this, options);

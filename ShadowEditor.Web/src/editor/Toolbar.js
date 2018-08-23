@@ -2,6 +2,7 @@ import UI from '../ui/UI';
 
 /**
  * 工具栏
+ * @author tengge / https://github.com/tengge1
  */
 function Toolbar(options) {
     UI.Control.call(this, options);

@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 
 /**
  * Logo标志
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function Logo(options) {

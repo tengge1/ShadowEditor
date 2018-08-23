@@ -16,6 +16,7 @@ import StatusMenu from './StatusMenu';
 /**
  * 菜单栏
  * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  */
 function Menubar(options) {
     UI.Control.call(this, options);
