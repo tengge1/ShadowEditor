@@ -15,7 +15,21 @@ import STLLoader from './STLLoader';
 import VTKLoader from './VTKLoader';
 
 const Loaders = {
-    
+    'amf': AMFLoader,
+    'awd': AWDLoader,
+    'babylon': BabylonLoader,
+    'binary': BinaryLoader,
+    'ctm': CTMLoader,
+    'dae': ColladaLoader,
+    'fbx': FBXLoader,
+    'glb': GLTFLoader,
+    'gltf': GLTFLoader,
+    'kmz': KMZLoader,
+    'md2': MD2Loader,
+    'obj': OBJLoader,
+    'ply': PLYLoader,
+    'stl': STLLoader,
+    'vtk': VTKLoader
 };
 
 /**
@@ -29,9 +43,19 @@ function ModelLoader(app) {
 ModelLoader.prototype = Object.create(BaseLoader.prototype);
 ModelLoader.prototype.constructor = ModelLoader;
 
-ModelLoader.prototype.load = function (url) {
-    return new Promise(resolve => {
+ModelLoader.prototype.load = function (url, options) {
+    var paths = url.split('.');
+    var ext = paths[paths.length - 1];
 
+    return new Promise(resolve => {
+        var loader = Loaders[paths];
+        if (loader === undefined) {
+            console.warn(`ModelLoader: 不存在加载${ext}后缀模型的加载器。`);
+            resolve(null);
+        }
+        loader.load(url, options).then(obj => {
+            resolve(obj);
+        });
     });
 };
 
