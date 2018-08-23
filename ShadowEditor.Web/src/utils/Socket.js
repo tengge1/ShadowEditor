@@ -2,6 +2,7 @@ import { dispatch } from '../third_party';
 
 /**
  * Socket工具类
+ * @author tengge / https://github.com/tengge1
  * @param {*} url Socket服务器地址 
  */
 function Socket(url) {

@@ -4,6 +4,8 @@ document.body.appendChild(link); // Firefox workaround, see #6594
 
 /**
  * 将数字凑成2的指数次幂
+ * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  * @param {*} num 数字
  */
 function makePowOfTwo(num) {

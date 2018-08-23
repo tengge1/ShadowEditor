@@ -1,5 +1,6 @@
 /**
  * 判断是否是three.js内置类
+ * @author tengge / https://github.com/tengge1
  * @param {*} geometry 几何体
  */
 function isBuildInGeometry(geometry) {

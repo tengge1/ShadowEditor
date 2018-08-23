@@ -1,5 +1,6 @@
 /**
  * ajax
+ * @author tengge / https://github.com/tengge1
  * @param {*} params 参数
  */
 function ajax(params) {

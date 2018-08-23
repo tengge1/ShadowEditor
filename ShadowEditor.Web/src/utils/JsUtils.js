@@ -1,5 +1,6 @@
 /**
  * 异步加载js文件
+ * @author tengge / https://github.com/tengge1
  * @param {*} url js文件url
  * @param {*} callback 回调函数
  */

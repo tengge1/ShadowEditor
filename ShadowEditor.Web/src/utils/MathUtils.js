@@ -1,5 +1,6 @@
 /**
  * 精度
+ * @author mrdoob / http://mrdoob.com/
  */
 var NUMBER_PRECISION = 6;
 

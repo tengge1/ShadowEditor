@@ -1,5 +1,6 @@
 /**
  * 文件上传器
+ * @author tengge / https://github.com/tengge1
  */
 function Uploader() {
 
