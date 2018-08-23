@@ -28,7 +28,20 @@ ComponentMenu.prototype.render = function () {
             cls: 'options',
             children: [{
                 xtype: 'div',
-                id: 'mParticleEmitter',
+                html: '刚体',
+                cls: 'option',
+                onClick: function () {
+
+                }
+            }, {
+                xtype: 'div',
+                html: '碰撞体',
+                cls: 'option',
+                onClick: function () {
+
+                }
+            }, {
+                xtype: 'div',
                 html: '粒子发射器',
                 cls: 'option',
                 onClick: function () {
