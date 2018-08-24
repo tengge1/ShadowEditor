@@ -30,5 +30,15 @@ namespace ShadowEditor.Server
         /// 模型表名
         /// </summary>
         public const string MeshCollectionName = "_Model";
+
+        /// <summary>
+        /// 纹理类型表名
+        /// </summary>
+        public const string TextureTypeCollectionName = "_TextureType";
+
+        /// <summary>
+        /// 纹理表名
+        /// </summary>
+        public const string TextureCollectionName = "_Texture";
     }
 }

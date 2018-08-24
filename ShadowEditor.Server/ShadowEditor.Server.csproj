@@ -101,6 +101,7 @@
     <Compile Include="Base\XmlResult.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="Controllers\MeshController.cs" />
+    <Compile Include="Controllers\TextureController.cs" />
     <Compile Include="Controllers\SceneController.cs" />
     <Compile Include="Helpers\DownloadHelper.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Scene\SaveSceneModel.cs" />
     <Compile Include="Scene\SceneModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Texture\TextureModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

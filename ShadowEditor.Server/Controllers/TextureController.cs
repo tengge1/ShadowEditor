@@ -15,9 +15,9 @@ using ShadowEditor.Server.Scene;
 namespace ShadowEditor.Server.Controllers
 {
     /// <summary>
-    /// 场景控制器
+    /// 纹理控制器
     /// </summary>
-    public class SceneController : ApiBase
+    public class TextureController : ApiBase
     {
         /// <summary>
         /// 获取场景列表
@@ -27,7 +27,7 @@ namespace ShadowEditor.Server.Controllers
         public JsonResult List()
         {
             var mongo = new MongoHelper();
-            var scenes = mongo.FindAll(Constant.SceneCollectionName);
+            var scenes = mongo.FindAll(Constant.TextureCollectionName);
 
             var list = new List<SceneModel>();
 

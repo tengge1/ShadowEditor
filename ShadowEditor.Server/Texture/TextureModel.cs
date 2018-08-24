@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace ShadowEditor.Server.Scene
 {
     /// <summary>
-    /// 场景模型
+    /// 纹理模型
     /// </summary>
-    public class SceneModel
+    public class TextureModel
     {
         /// <summary>
         /// ID
@@ -32,9 +32,9 @@ namespace ShadowEditor.Server.Scene
         public string FirstPinYin { get; set; }
 
         /// <summary>
-        /// 表名
+        /// 下载地址
         /// </summary>
-        public string CollectionName { get; set; }
+        public string Url { get; set; }
 
         /// <summary>
         /// 版本号
@@ -47,7 +47,7 @@ namespace ShadowEditor.Server.Scene
         public DateTime CreateTime { get; set; }
 
         /// <summary>
-        /// 更新时间
+        /// 最后更新时间
         /// </summary>
         public DateTime UpdateTime { get; set; }
     }
