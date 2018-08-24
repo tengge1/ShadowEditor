@@ -10,7 +10,7 @@ using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
-using ShadowEditor.Server.Scene;
+using ShadowEditor.Server.Texture;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -20,7 +20,7 @@ namespace ShadowEditor.Server.Controllers
     public class TextureController : ApiBase
     {
         /// <summary>
-        /// 获取场景列表
+        /// 获取列表
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -29,17 +29,17 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
             var scenes = mongo.FindAll(Constant.TextureCollectionName);
 
-            var list = new List<SceneModel>();
+            var list = new List<TextureModel>();
 
             foreach (var i in scenes)
             {
-                var info = new SceneModel
+                var info = new TextureModel
                 {
                     ID = i["ID"].AsObjectId.ToString(),
                     Name = i["Name"].AsString,
                     TotalPinYin = i["TotalPinYin"].ToString(),
                     FirstPinYin = i["FirstPinYin"].ToString(),
-                    CollectionName = i["CollectionName"].AsString,
+                    Url = i["Url"].AsString,
                     Version = i["Version"].AsInt32,
                     CreateTime = i["CreateTime"].ToUniversalTime(),
                     UpdateTime = i["UpdateTime"].ToUniversalTime()
@@ -58,54 +58,12 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 加载场景
+        /// 保存纹理
         /// </summary>
-        /// <param name="ID">场景ID</param>
-        /// <returns></returns>
-        [HttpGet]
-        public JsonResult Load(string ID)
-        {
-            var mongo = new MongoHelper();
-
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
-            var doc = mongo.FindOne(Constant.SceneCollectionName, filter);
-
-            if (doc == null)
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "该场景不存在！"
-                });
-            }
-
-            var collectionName = doc["CollectionName"].AsString;
-
-            var docs = mongo.FindAll(collectionName);
-
-            var data = new JArray();
-
-            foreach (var i in docs)
-            {
-                i["_id"] = i["_id"].ToString(); // ObjectId
-                data.Add(JsonHelper.ToObject<JObject>(i.ToJson()));
-            }
-
-            return Json(new
-            {
-                Code = 200,
-                Msg = "获取成功！",
-                Data = data
-            });
-        }
-
-        /// <summary>
-        /// 保存场景
-        /// </summary>
-        /// <param name="model">保存场景模型</param>
+        /// <param name="model">保存模型</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Save(SaveSceneModel model)
+        public JsonResult Save(SaveTextureModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -123,36 +81,16 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "场景名称不允许为空。"
+                    Msg = "纹理名称不允许为空。"
                 });
             }
 
-            if (model.Name.StartsWith("_"))
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "场景名称不允许以下划线开头。"
-                });
-            }
-
-            // 查询场景信息
+            // 查询纹理信息
             var mongo = new MongoHelper();
             var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-            var doc = mongo.FindOne(Constant.SceneCollectionName, filter);
+            var doc = mongo.FindOne(Constant.TextureCollectionName, filter);
 
             var now = DateTime.Now;
-
-            string collectionName;
-
-            if (doc == null) // 新建场景
-            {
-                collectionName = "Scene" + now.ToString("yyyyMMddHHmmss");
-            }
-            else // 编辑场景
-            {
-                collectionName = doc["CollectionName"].ToString();
-            }
 
             // 保存或更新场景综合信息
             if (doc == null)
@@ -164,32 +102,19 @@ namespace ShadowEditor.Server.Controllers
                 doc["Name"] = model.Name;
                 doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
                 doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
-                doc["CollectionName"] = collectionName;
+                doc["Url"] = "";
                 doc["Version"] = 0;
                 doc["CreateTime"] = BsonDateTime.Create(now);
                 doc["UpdateTime"] = BsonDateTime.Create(now);
-                mongo.InsertOne(Constant.SceneCollectionName, doc);
+                mongo.InsertOne(Constant.TextureCollectionName, doc);
             }
             else
             {
                 var update1 = Builders<BsonDocument>.Update.Set("Version", int.Parse(doc["Version"].ToString()) + 1);
                 var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", BsonDateTime.Create(now));
                 var update = Builders<BsonDocument>.Update.Combine(update1, update2);
-                mongo.UpdateOne(Constant.SceneCollectionName, filter, update);
+                mongo.UpdateOne(Constant.TextureCollectionName, filter, update);
             }
-
-            // 保存场景信息
-            var list = JsonHelper.ToObject<JArray>(model.Data);
-
-            var docs = new List<BsonDocument>();
-
-            foreach (var i in list)
-            {
-                docs.Add(BsonDocument.Parse(i.ToString()));
-            }
-
-            mongo.DeleteAll(collectionName);
-            mongo.InsertMany(collectionName, docs);
 
             return Json(new
             {
@@ -199,7 +124,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 删除场景
+        /// 删除纹理
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
@@ -209,29 +134,23 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
-            var doc = mongo.FindOne(Constant.SceneCollectionName, filter);
+            var doc = mongo.FindOne(Constant.TextureCollectionName, filter);
 
             if (doc == null)
             {
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该场景不存在！"
+                    Msg = "该纹理不存在！"
                 });
             }
 
-            // 删除场景综合信息
-            mongo.DeleteOne(Constant.SceneCollectionName, filter);
-
-            var collectionName = doc["CollectionName"].AsString;
-
-            // 删除场景数据集
-            mongo.DropCollection(collectionName);
+            mongo.DeleteOne(Constant.TextureCollectionName, filter);
 
             return Json(new
             {
                 Code = 200,
-                Msg = "删除场景成功！"
+                Msg = "删除纹理成功！"
             });
         }
     }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.Scene
+namespace ShadowEditor.Server.Texture
 {
     /// <summary>
     /// 纹理模型

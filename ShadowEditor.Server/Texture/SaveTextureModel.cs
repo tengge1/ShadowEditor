@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.Scene
+namespace ShadowEditor.Server.Texture
 {
     /// <summary>
-    /// 保存场景模型
+    /// 保存纹理模型
     /// </summary>
-    public class SaveSceneModel
+    public class SaveTextureModel
     {
         /// <summary>
         /// ID
@@ -20,10 +20,5 @@ namespace ShadowEditor.Server.Scene
         /// 名称
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// 数据
-        /// </summary>
-        public string Data { get; set; }
     }
 }

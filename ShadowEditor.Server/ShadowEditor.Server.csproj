@@ -119,6 +119,7 @@
     <Compile Include="Scene\SaveSceneModel.cs" />
     <Compile Include="Scene\SceneModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Texture\SaveTextureModel.cs" />
     <Compile Include="Texture\TextureModel.cs" />
   </ItemGroup>
   <ItemGroup>
