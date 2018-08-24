@@ -56,6 +56,29 @@ function Editor(app) {
     // 当前选中物体
     this.selected = null;
 
+    // 天空
+    this.sky = new THREE.Sky();
+    this.sky.name = '天空盒';
+    this.sky.scale.setScalar(450000);
+    this.scene.add(this.sky);
+
+    var uniforms = this.sky.material.uniforms;
+    uniforms.turbidity.value = 10;
+    uniforms.rayleigh.value = 2;
+    uniforms.luminance.value = 1;
+    uniforms.mieCoefficient.value = 0.005;
+    uniforms.mieDirectionalG.value = 0.8;
+
+    var theta = Math.PI * (0.49 - 0.5);
+    var phi = 2 * Math.PI * (0.25 - 0.5);
+    var distance = 400000;
+
+    var x = distance * Math.cos(phi);
+    var y = distance * Math.sin(phi) * Math.sin(theta);
+    var z = distance * Math.sin(phi) * Math.cos(theta);
+
+    uniforms.sunPosition.value.set(x, y, z);
+
     // 网格
     this.grid = new THREE.GridHelper(30, 30, 0x444444, 0x888888);
     this.sceneHelpers.add(this.grid);
