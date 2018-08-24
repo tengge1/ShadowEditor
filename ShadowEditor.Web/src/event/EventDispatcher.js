@@ -99,7 +99,6 @@ import ObjectPanelEvent from './sideBar/ObjectPanelEvent';
 import GeometryPanelEvent from './sideBar/GeometryPanelEvent';
 import MaterialPanelEvent from './sideBar/MaterialPanelEvent';
 import HistoryPanelEvent from './sideBar/HistoryPanelEvent';
-import PropertyPanelEvent from './sidebar/PropertyPanelEvent';
 import ScenePanelEvent from './sidebar/ScenePanelEvent';
 import ScriptPanelEvent from './sideBar/ScriptPanelEvent';
 
@@ -227,7 +226,6 @@ function EventDispatcher(app) {
         new GeometryPanelEvent(this.app),
         new MaterialPanelEvent(this.app),
         new HistoryPanelEvent(this.app),
-        new PropertyPanelEvent(this.app),
         new ScenePanelEvent(this.app),
         new ScriptPanelEvent(this.app),
 

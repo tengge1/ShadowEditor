@@ -162,10 +162,9 @@ var EventList = [
     'updateObject', // 更新物体属性
     'updateObjectPanel', // 更新物体面板
 
-    'selectPropertyTab', // 点击选择属性选项卡
-
-    'updateScenePanelFog', // 刷新场景面板雾效设置
     'outlinerChange', // 场景大纲发生改变
+
+    'selectPropertyTab',
 
     // 状态栏
     'gridChange', // 状态栏网格改变事件

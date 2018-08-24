@@ -17,14 +17,6 @@ PropertyPanel.prototype = Object.create(UI.Control.prototype);
 PropertyPanel.prototype.constructor = PropertyPanel;
 
 PropertyPanel.prototype.render = function () {
-    var editor = this.app.editor;
-
-    var _this = this;
-
-    var onClick = function (event) {
-        _this.app.call('selectPropertyTab', _this, event.target.textContent);
-    };
-
     var data = {
         xtype: 'div',
         id: 'propertyPanel',
@@ -36,17 +28,23 @@ PropertyPanel.prototype.render = function () {
                 xtype: 'text',
                 id: 'objectTab',
                 text: '物体',
-                onClick: onClick
+                onClick: () => {
+                    this.selectTab('物体');
+                }
             }, {
                 xtype: 'text',
                 id: 'geometryTab',
                 text: '几何',
-                onClick: onClick
+                onClick: () => {
+                    this.selectTab('几何');
+                }
             }, {
                 xtype: 'text',
                 id: 'materialTab',
                 text: '材质',
-                onClick: onClick
+                onClick: () => {
+                    this.selectTab('材质');
+                }
             }]
         }, {
             xtype: 'div',
@@ -68,6 +66,36 @@ PropertyPanel.prototype.render = function () {
 
     var control = UI.create(data);
     control.render();
+
+    this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+};
+
+PropertyPanel.prototype.onAppStarted = function () {
+    this.selectTab('物体');
+};
+
+PropertyPanel.prototype.selectTab = function (tabName) {
+    var objectTab = UI.get('objectTab');
+    var geometryTab = UI.get('geometryTab');
+    var materialTab = UI.get('materialTab');
+
+    objectTab.dom.className = '';
+    geometryTab.dom.className = '';
+    materialTab.dom.className = '';
+
+    switch (tabName) {
+        case '物体':
+            objectTab.dom.className = 'selected';
+            break;
+        case '几何':
+            geometryTab.dom.className = 'selected';
+            break;
+        case '材质':
+            materialTab.dom.className = 'selected';
+            break;
+    }
+
+    this.app.call('selectPropertyTab', this, tabName);
 };
 
 export default PropertyPanel;

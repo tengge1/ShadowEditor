@@ -16,7 +16,6 @@ ScenePanelEvent.prototype = Object.create(BaseEvent.prototype);
 ScenePanelEvent.prototype.constructor = ScenePanelEvent;
 
 ScenePanelEvent.prototype.start = function () {
-    // this.app.on(`updateScenePanelFog.${this.id}`, this.refreshFogUI.bind(this));
     this.app.on(`editorCleared.${this.id}`, this.refreshUI.bind(this));
     this.app.on(`sceneGraphChanged.${this.id}`, this.refreshUI.bind(this));
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
@@ -26,7 +25,6 @@ ScenePanelEvent.prototype.start = function () {
 };
 
 ScenePanelEvent.prototype.stop = function () {
-    // this.app.on(`updateScenePanelFog.${this.id}`, null);
     this.app.on(`editorCleared.${this.id}`, null);
     this.app.on(`sceneGraphChanged.${this.id}`, null);
     this.app.on(`objectChanged.${this.id}`, null);
