@@ -125,7 +125,7 @@ Editor.prototype.setScene = function (scene) { // 设置场景
     this.app.call('sceneGraphChanged', this);
 };
 
-Editor.prototype.clear = function () { // 清空场景
+Editor.prototype.clear = function (addObject = true) { // 清空场景
     this.history.clear();
     this.storage.clear();
 
@@ -145,14 +145,16 @@ Editor.prototype.clear = function () { // 清空场景
     this.deselect();
 
     // 添加默认元素
-    var light1 = new THREE.AmbientLight(0xffffff, 0.24);
-    light1.name = '环境光';
-    this.addObject(light1);
+    if (addObject) {
+        var light1 = new THREE.AmbientLight(0xffffff, 0.24);
+        light1.name = '环境光';
+        this.addObject(light1);
 
-    var light2 = new THREE.DirectionalLight(0xffffff, 0.56);
-    light2.name = '平行光';
-    light2.position.set(5, 10, 7.5);
-    this.addObject(light2);
+        var light2 = new THREE.DirectionalLight(0xffffff, 0.56);
+        light2.name = '平行光';
+        light2.position.set(5, 10, 7.5);
+        this.addObject(light2);
+    }
 
     this.app.call('editorCleared', this);
 };

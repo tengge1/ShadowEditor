@@ -190,7 +190,7 @@ SceneWindow.prototype.loadScene = function (data) {
             UI.get('sceneWindow').hide();
         }
 
-        editor.clear();
+        editor.clear(false);
         (new Converter(this.app)).fromJson(obj.Data);
 
         editor.sceneID = data.ID;
