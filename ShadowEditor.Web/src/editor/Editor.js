@@ -144,10 +144,6 @@ Editor.prototype.clear = function () { // 清空场景
     this.app.call('editorCleared', this);
 };
 
-Editor.prototype.load = function () { // 加载场景
-    this.app.call('load', this);
-};
-
 // ---------------------- 物体 ---------------------------
 
 Editor.prototype.objectByUuid = function (uuid) { // 根据uuid获取物体

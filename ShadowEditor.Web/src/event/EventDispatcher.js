@@ -13,7 +13,6 @@ import RemoveHelperEvent from './editor/RemoveHelperEvent';
 import AddScriptEvent from './editor/AddScriptEvent';
 import RemoveScriptEvent from './editor/RemoveScriptEvent';
 import SelectEvent from './editor/SelectEvent';
-import LoadEvent from './editor/LoadEvent';
 
 // 工具栏
 import SelectModeEvent from './toolbar/SelectModeEvent';
@@ -137,7 +136,6 @@ function EventDispatcher(app) {
         new AddScriptEvent(this.app),
         new RemoveScriptEvent(this.app),
         new SelectEvent(this.app),
-        new LoadEvent(this.app),
 
         // 工具栏
         new SelectModeEvent(this.app),
