@@ -1,3 +1,4 @@
+import { } from './polyfills';
 export { default as System } from '../third_party/System.js';
 import '../third_party/controls/EditorControls.js';
 import '../third_party/controls/TransformControls.js';
