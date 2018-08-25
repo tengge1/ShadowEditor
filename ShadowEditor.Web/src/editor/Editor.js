@@ -342,7 +342,7 @@ Editor.prototype.focusById = function (id) { // 根据id设置交点
     }
 };
 
-// --------------------- 命令事件 ------------------------
+// ----------------------- 命令事件 --------------------------
 
 Editor.prototype.execute = function (cmd, optionalName) { // 执行事件
     this.history.execute(cmd, optionalName);

@@ -70,6 +70,8 @@ function Application(container, options) {
     this.physics = new Physics(params);
 }
 
+// ------------------------- 程序控制 -------------------------------
+
 Application.prototype.start = function () {
     // 启动事件 - 事件要在ui创建完成后启动
     this.event.start();
@@ -80,13 +82,31 @@ Application.prototype.start = function () {
 
     // 启动物体引擎
     this.physics.start();
+
+    this.log('程序启动成功。');
 };
 
 Application.prototype.stop = function () {
     this.call('appStop', this);
     this.call('appStoped', this);
 
+    this.log('程序已经停止');
+
     this.event.stop();
+};
+
+// ----------------------- 记录日志  --------------------------------
+
+Application.prototype.log = function (content) { // 普通日志
+    this.call('log', this, content);
+};
+
+Application.prototype.warn = function (content) { // 警告日志
+    this.call('log', this, content, 'warn');
+};
+
+Application.prototype.error = function (content) { // 错误日志
+    this.call('log', this, content, 'error');
 };
 
 export default Application;
