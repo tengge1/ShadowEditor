@@ -33,28 +33,28 @@ Sidebar.prototype.render = function () {
                 id: 'sceneTab',
                 text: '场景',
                 onClick: () => {
-                    this.selectTab('场景');
+                    this.selectTab('scene');
                 }
             }, {
                 xtype: 'text',
                 id: 'settingTab',
                 text: '设置',
                 onClick: () => {
-                    this.selectTab('设置');
+                    this.selectTab('setting');
                 }
             }, {
                 xtype: 'text',
                 id: 'historyTab',
                 text: '历史',
                 onClick: () => {
-                    this.selectTab('历史');
+                    this.selectTab('history');
                 }
             }, {
                 xtype: 'text',
                 id: 'logTab',
                 text: '日志',
                 onClick: () => {
-                    this.selectTab('日志');
+                    this.selectTab('log');
                 }
             }]
         }, { // 场景面板
@@ -90,7 +90,7 @@ Sidebar.prototype.render = function () {
     control.render();
 
     this.app.on(`appStarted.${this.id}`, () => {
-        this.selectTab('场景');
+        this.selectTab('scene');
     });
 };
 
@@ -116,23 +116,25 @@ Sidebar.prototype.selectTab = function (tabName) {
     logPanel.dom.style.display = 'none';
 
     switch (tabName) {
-        case '场景':
+        case 'scene':
             sceneTab.dom.className = 'selected';
             scenePanel.dom.style.display = '';
             break;
-        case '设置':
+        case 'setting':
             settingTab.dom.className = 'selected';
             settingPanel.dom.style.display = '';
             break;
-        case '历史':
+        case 'history':
             historyTab.dom.className = 'selected';
             historyPanel.dom.style.display = '';
             break;
-        case '日志':
+        case 'log':
             logTab.dom.className = 'selected';
             logPanel.dom.style.display = '';
             break;
     }
+
+    this.app.call('selectTab', this, tabName);
 };
 
 export default Sidebar;

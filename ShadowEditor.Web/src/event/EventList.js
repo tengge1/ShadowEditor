@@ -154,7 +154,8 @@ var EventList = [
     'updateObject', // 更新物体属性
     'updateObjectPanel', // 更新物体面板
 
-    'selectPropertyTab',
+    'selectTab', // 切换侧边栏选项卡 scene,setting,history,log
+    'selectPropertyTab', // 切换属性选项卡
 
     // 状态栏
     'gridChange', // 状态栏网格改变事件

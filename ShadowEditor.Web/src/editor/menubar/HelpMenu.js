@@ -51,13 +51,6 @@ HelpMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: 'three.js',
-                onClick: () => {
-                    window.open('https://threejs.org/', '_blank');
-                }
-            }, {
-                xtype: 'div',
-                cls: 'option',
                 html: '关于',
                 onClick: () => {
                     UI.alert(
