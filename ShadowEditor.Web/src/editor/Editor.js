@@ -286,7 +286,13 @@ Editor.prototype.removeScript = function (object, script) { // 移除脚本
 // ------------------------ 选中事件 --------------------------------
 
 Editor.prototype.select = function (object) { // 选中物体
-    this.app.call('select', this, object);
+    if (this.selected === object) {
+        return;
+    }
+
+    this.selected = object;
+
+    this.app.call('objectSelected', this, object);
 };
 
 Editor.prototype.selectById = function (id) { // 根据id选中物体

@@ -6,8 +6,6 @@ import AnimateEvent from './AnimateEvent';
 
 import KeyDownEvent from './KeyDownEvent';
 
-import SelectEvent from './editor/SelectEvent';
-
 // 工具栏
 import SelectModeEvent from './toolbar/SelectModeEvent';
 import TranslateModeEvent from './toolbar/TranslateModeEvent';
@@ -121,9 +119,6 @@ function EventDispatcher(app) {
         new KeyDownEvent(this.app),
         new RenderEvent(this.app),
         new ResizeEvent(this.app),
-
-        // Editor中的事件
-        new SelectEvent(this.app),
 
         // 工具栏
         new SelectModeEvent(this.app),
