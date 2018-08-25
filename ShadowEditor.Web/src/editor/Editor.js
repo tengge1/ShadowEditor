@@ -57,27 +57,29 @@ function Editor(app) {
     this.selected = null;
 
     // 天空
-    this.sky = new THREE.Sky();
-    this.sky.name = '天空盒';
-    this.sky.scale.setScalar(450000);
-    this.scene.add(this.sky);
+    // this.sky = new THREE.Sky();
+    // this.sky.name = '天空盒';
+    // this.sky.scale.setScalar(450000);
+    // this.scene.add(this.sky);
 
-    var uniforms = this.sky.material.uniforms;
-    uniforms.turbidity.value = 10;
-    uniforms.rayleigh.value = 2;
-    uniforms.luminance.value = 1;
-    uniforms.mieCoefficient.value = 0.005;
-    uniforms.mieDirectionalG.value = 0.8;
+    // var uniforms = this.sky.material.uniforms;
+    // uniforms.turbidity.value = 10;
+    // uniforms.rayleigh.value = 2;
+    // uniforms.luminance.value = 1;
+    // uniforms.mieCoefficient.value = 0.005;
+    // uniforms.mieDirectionalG.value = 0.8;
 
-    var theta = Math.PI * (0.49 - 0.5);
-    var phi = 2 * Math.PI * (0.25 - 0.5);
-    var distance = 400000;
+    // var theta = Math.PI * (0.49 - 0.5);
+    // var phi = 2 * Math.PI * (0.25 - 0.5);
+    // var distance = 400000;
 
-    var x = distance * Math.cos(phi);
-    var y = distance * Math.sin(phi) * Math.sin(theta);
-    var z = distance * Math.sin(phi) * Math.cos(theta);
+    // var x = distance * Math.cos(phi);
+    // var y = distance * Math.sin(phi) * Math.sin(theta);
+    // var z = distance * Math.sin(phi) * Math.cos(theta);
 
-    uniforms.sunPosition.value.set(x, y, z);
+    // uniforms.sunPosition.value.set(x, y, z);
+
+    this.clear();
 
     // 网格
     this.grid = new THREE.GridHelper(30, 30, 0x444444, 0x888888);
@@ -140,6 +142,16 @@ Editor.prototype.clear = function () { // 清空场景
     this.scripts = {};
 
     this.deselect();
+
+    // 添加默认元素
+    var light1 = new THREE.AmbientLight(0xffffff, 0.24);
+    light1.name = '环境光';
+    this.addObject(light1);
+
+    var light2 = new THREE.DirectionalLight(0xffffff, 0.56);
+    light2.name = '平行光';
+    light2.position.set(5, 10, 7.5);
+    this.addObject(light2);
 
     this.app.call('editorCleared', this);
 };
