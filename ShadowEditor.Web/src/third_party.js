@@ -42,6 +42,8 @@ import '../third_party/renderers/SVGRenderer.js';
 
 import '../third_party/objects/Sky.js';
 import '../third_party/effects/OutlineEffect.js';
+import '../third_party/effects/AnaglyphEffect.js';
+import '../third_party/effects/VREffect';
 
 import '../third_party/animation/CCDIKSolver.js';
 import '../third_party/animation/MMDPhysics.js';

@@ -38,20 +38,35 @@ RenderEvent.prototype.onRender = function () {
     scene.updateMatrixWorld();
 
     // 渲染场景
-    if (this.app.options.outline && this.outlineEffect == null) {
-        this.outlineEffect = new THREE.OutlineEffect(renderer, {
-            defaultThickness: 0.01,
-            defaultColor: [0, 0, 0],
-            defaultAlpha: 0.8,
-            defaultKeepAlive: true // keeps outline material in cache even if material is removed from scene
-        });
-    }
 
-    if (this.app.options.outline) {
-        this.outlineEffect.render(scene, camera);
-    } else {
-        renderer.render(scene, camera);
-    }
+    // 边框
+    // if (this.app.options.outline && this.outlineEffect == null) {
+    //     this.outlineEffect = new THREE.OutlineEffect(renderer, {
+    //         defaultThickness: 0.01,
+    //         defaultColor: [0, 0, 0],
+    //         defaultAlpha: 0.8,
+    //         defaultKeepAlive: true // keeps outline material in cache even if material is removed from scene
+    //     });
+    // }
+
+    // if (this.app.options.outline) {
+    //     this.outlineEffect.render(scene, camera);
+    // } else {
+    //     renderer.render(scene, camera);
+    // }
+
+    // 浮雕效果
+    // if (this.anaglyphEffect == null) {
+    //     this.anaglyphEffect = new THREE.AnaglyphEffect(renderer);
+    // }
+    // this.anaglyphEffect.render(scene, camera);
+
+    // ascii字符效果
+    // if (this.effect == null) {
+    //     this.effect = new THREE.VREffect(renderer);
+    //     // this.effect.setSize(renderer.domElement.width, renderer.domElement.height);
+    // }
+    renderer.render(scene, camera);
 
     // 为选中的Mesh渲染边框
     if (editor.selected && editor.selected instanceof THREE.Mesh) {

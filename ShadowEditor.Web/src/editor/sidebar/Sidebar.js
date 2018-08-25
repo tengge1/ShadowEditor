@@ -2,7 +2,9 @@
 import HierachyPanel from './HierachyPanel';
 import PropertyPanel from './PropertyPanel';
 import ScriptPanel from './ScriptPanel';
+import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
+import LogPanel from './LogPanel';
 
 /**
  * 侧边栏
@@ -35,10 +37,24 @@ Sidebar.prototype.render = function () {
                 }
             }, {
                 xtype: 'text',
+                id: 'settingTab',
+                text: '设置',
+                onClick: () => {
+                    this.selectTab('设置');
+                }
+            }, {
+                xtype: 'text',
                 id: 'historyTab',
                 text: '历史',
                 onClick: () => {
                     this.selectTab('历史');
+                }
+            }, {
+                xtype: 'text',
+                id: 'logTab',
+                text: '日志',
+                onClick: () => {
+                    this.selectTab('日志');
                 }
             }]
         }, { // 场景面板
@@ -49,11 +65,23 @@ Sidebar.prototype.render = function () {
                 new PropertyPanel({ app: this.app }),
                 new ScriptPanel({ app: this.app })
             ]
+        }, { // 设置面板
+            xtype: 'div',
+            id: 'settingPanel',
+            children: [
+                new SettingPanel({ app: this.app })
+            ]
         }, { // 历史纪录面板
             xtype: 'div',
             id: 'historyPanel',
             children: [
                 new HistoryPanel({ app: this.app })
+            ]
+        }, {
+            xtype: 'div',
+            id: 'logPanel',
+            children: [
+                new LogPanel({ app: this.app })
             ]
         }]
     };
@@ -68,25 +96,41 @@ Sidebar.prototype.render = function () {
 
 Sidebar.prototype.selectTab = function (tabName) {
     const sceneTab = UI.get('sceneTab');
+    const settingTab = UI.get('settingTab');
     const historyTab = UI.get('historyTab');
+    const logTab = UI.get('logTab');
 
     const scenePanel = UI.get('scenePanel');
+    const settingPanel = UI.get('settingPanel');
     const historyPanel = UI.get('historyPanel');
+    const logPanel = UI.get('logPanel');
 
     sceneTab.dom.className = '';
+    settingTab.dom.className = '';
     historyTab.dom.className = '';
+    logTab.dom.className = '';
 
     scenePanel.dom.style.display = 'none';
+    settingPanel.dom.style.display = 'none';
     historyPanel.dom.style.display = 'none';
+    logPanel.dom.style.display = 'none';
 
     switch (tabName) {
         case '场景':
             sceneTab.dom.className = 'selected';
             scenePanel.dom.style.display = '';
             break;
+        case '设置':
+            settingTab.dom.className = 'selected';
+            settingPanel.dom.style.display = '';
+            break;
         case '历史':
             historyTab.dom.className = 'selected';
             historyPanel.dom.style.display = '';
+            break;
+        case '日志':
+            logTab.dom.className = 'selected';
+            logPanel.dom.style.display = '';
             break;
     }
 };
