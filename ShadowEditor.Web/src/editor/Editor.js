@@ -162,7 +162,20 @@ Editor.prototype.addObject = function (object) { // 添加物体
 };
 
 Editor.prototype.moveObject = function (object, parent, before) { // 移动物体
-    this.app.call('moveObject', this, object, parent, before);
+    if (parent === undefined) {
+        parent = this.scene;
+    }
+
+    parent.add(object);
+
+    // sort children array
+    if (before !== undefined) {
+        var index = parent.children.indexOf(before);
+        parent.children.splice(index, 0, object);
+        parent.children.pop();
+    }
+
+    this.app.call('sceneGraphChanged', this);
 };
 
 Editor.prototype.removeObject = function (object) { // 移除物体
