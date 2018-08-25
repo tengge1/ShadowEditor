@@ -179,7 +179,18 @@ Editor.prototype.moveObject = function (object, parent, before) { // 移动物�
 };
 
 Editor.prototype.removeObject = function (object) { // 移除物体
-    this.app.call('removeObject', this, object);
+    if (object.parent === null) { // 避免删除相机或场景
+        return;
+    }
+
+    object.traverse(child => {
+        this.removeHelper(child);
+    });
+
+    object.parent.remove(object);
+
+    this.app.call('objectRemoved', this, object);
+    this.app.call('sceneGraphChanged', this);
 };
 
 // ------------------------- 帮助 ------------------------------
