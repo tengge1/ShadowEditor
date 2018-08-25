@@ -2,9 +2,11 @@ import { dispatch } from '../third_party';
 import EventList from './EventList';
 import BaseEvent from './BaseEvent';
 
+// 核心
 import AnimateEvent from './AnimateEvent';
-
 import KeyDownEvent from './KeyDownEvent';
+import RenderEvent from './RenderEvent';
+import ResizeEvent from './ResizeEvent';
 
 // 工具栏
 import SelectModeEvent from './toolbar/SelectModeEvent';
@@ -92,10 +94,8 @@ import ScriptPanelEvent from './sideBar/ScriptPanelEvent';
 
 import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateSceneStatusEvent from './statusBar/UpdateSceneStatusEvent';
-import RenderEvent from './RenderEvent';
 import ObjectEvent from './viewport/ObjectEvent';
 import PickEvent from './viewport/PickEvent';
-import ResizeEvent from './ResizeEvent';
 import EditorControlsEvent from './viewport/EditorControlsEvent';
 
 import GridChangeEvent from './statusBar/GridChangeEvent';
