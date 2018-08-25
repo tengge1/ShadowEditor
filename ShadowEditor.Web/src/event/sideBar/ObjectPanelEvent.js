@@ -273,17 +273,19 @@ ObjectPanelEvent.prototype.update = function () {
         if (reflector) { // 开启镜面
             var mirror = new THREE.Reflector(object.geometry, {
                 clipBias: 0.003,
-                textureWidth: 512 * window.devicePixelRatio,
-                textureHeight: 512 * window.devicePixelRatio,
+                textureWidth: 2048 * window.devicePixelRatio,
+                textureHeight: 2048 * window.devicePixelRatio,
                 color: 0x777777,
                 recursion: 1
             });
-            mirror.material.polygonOffset = true;
-            mirror.material.polygonOffsetFactor = 1;
-            // mirror.position.z = 10;
+            mirror.name = 'mirror';
+            mirror.position.z = 0.01;
             object.add(mirror);
         } else { // 关闭镜面
-
+            var mirror = object.children.filter(n => n.name === 'mirror')[0];
+            if (mirror) {
+                object.remove(mirror);
+            }
         }
 
         if (object.shadow !== undefined) {
