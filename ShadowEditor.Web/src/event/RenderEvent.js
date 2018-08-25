@@ -43,7 +43,8 @@ RenderEvent.prototype.onRender = function () {
     // 为选中的Mesh渲染边框
     if (editor.selected && editor.selected instanceof THREE.Mesh) {
         var box = new THREE.Mesh(editor.selected.geometry, new THREE.MeshBasicMaterial({
-            color: 0xec651a
+            color: 0xec651a,
+            depthTest: false
         }));
         box.position.copy(editor.selected.position);
         box.rotation.copy(editor.selected.rotation);
@@ -83,8 +84,8 @@ RenderEvent.prototype.onRender = function () {
 
         // 恢复原来状态
         box.scale.copy(oldScale);
-
         state.buffers.stencil.setTest(false);
+        state.buffers.stencil.setOp(context.KEEP, context.KEEP, context.REPLACE);
     }
 
     // 渲染帮助器
