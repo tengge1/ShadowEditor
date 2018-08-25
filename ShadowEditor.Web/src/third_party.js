@@ -47,7 +47,4 @@ import '../third_party/animation/CCDIKSolver.js';
 import '../third_party/animation/MMDPhysics.js';
 import '../third_party/animation/MMDAnimationHelper.js';
 
-export { default as html2canvas } from '../third_party/html2canvas.js';
-import '../third_party/three.html.js';
-
 export { dispatch } from 'd3-dispatch';
