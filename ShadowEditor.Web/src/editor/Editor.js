@@ -126,7 +126,7 @@ Editor.prototype.clear = function () { // 清空场景
     this.history.clear();
     this.storage.clear();
 
-    this.camera.copy(editor.DEFAULT_CAMERA);
+    this.camera.copy(this.DEFAULT_CAMERA);
     this.scene.background.setHex(0xaaaaaa);
     this.scene.fog = null;
 
@@ -196,21 +196,91 @@ Editor.prototype.removeObject = function (object) { // 移除物体
 // ------------------------- 帮助 ------------------------------
 
 Editor.prototype.addHelper = function (object) { // 添加物体帮助器
-    this.app.call('addHelper', this, object);
+    var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
+    var material = new THREE.MeshBasicMaterial({
+        color: 0xff0000,
+        visible: false
+    });
+
+    var helper;
+
+    if (object instanceof THREE.Camera) { // 相机
+
+        helper = new THREE.CameraHelper(object, 1);
+
+    } else if (object instanceof THREE.PointLight) { // 点光源
+
+        helper = new THREE.PointLightHelper(object, 1);
+
+    } else if (object instanceof THREE.DirectionalLight) { // 平行光
+
+        helper = new THREE.DirectionalLightHelper(object, 1);
+
+    } else if (object instanceof THREE.SpotLight) { // 聚光灯
+
+        helper = new THREE.SpotLightHelper(object, 1);
+
+    } else if (object instanceof THREE.HemisphereLight) { // 半球光
+
+        helper = new THREE.HemisphereLightHelper(object, 1);
+
+    }
+    // else if (object instanceof THREE.SkinnedMesh) { // 带皮肤模型
+
+    //     helper = new THREE.SkeletonHelper(object);
+
+    // } 
+    else {
+        // no helper for this object type
+        return;
+    }
+
+    var picker = new THREE.Mesh(geometry, material);
+    picker.name = 'picker';
+    picker.userData.object = object;
+    helper.add(picker);
+
+    this.sceneHelpers.add(helper);
+    this.helpers[object.id] = helper;
+    this.objects.push(picker);
 };
 
 Editor.prototype.removeHelper = function (object) { // 移除物体帮助
-    this.app.call('removeHelper', this, object);
+    if (this.helpers[object.id] !== undefined) {
+
+        var helper = this.helpers[object.id];
+        helper.parent.remove(helper);
+        delete this.helpers[object.id];
+
+        var objects = this.objects;
+        objects.splice(objects.indexOf(helper.getObjectByName('picker')), 1);
+    }
 };
 
 // ------------------------ 脚本 ----------------------------
 
 Editor.prototype.addScript = function (object, script) { // 添加脚本
-    this.app.call('addScript', this, object, script);
+    if (this.scripts[object.uuid] === undefined) {
+        this.scripts[object.uuid] = [];
+    }
+
+    this.scripts[object.uuid].push(script);
+
+    this.app.call('scriptAdded', this, script);
 };
 
 Editor.prototype.removeScript = function (object, script) { // 移除脚本
-    this.app.call('removeScript', this, object, script);
+    if (this.scripts[object.uuid] === undefined) {
+        return;
+    }
+
+    var index = this.scripts[object.uuid].indexOf(script);
+
+    if (index !== -1) {
+        this.scripts[object.uuid].splice(index, 1);
+    }
+
+    this.app.call('scriptRemoved', this);
 };
 
 // ------------------------ 选中事件 --------------------------------

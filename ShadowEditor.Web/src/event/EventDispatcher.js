@@ -6,10 +6,6 @@ import AnimateEvent from './AnimateEvent';
 
 import KeyDownEvent from './KeyDownEvent';
 
-import AddHelperEvent from './editor/AddHelperEvent';
-import RemoveHelperEvent from './editor/RemoveHelperEvent';
-import AddScriptEvent from './editor/AddScriptEvent';
-import RemoveScriptEvent from './editor/RemoveScriptEvent';
 import SelectEvent from './editor/SelectEvent';
 
 // 工具栏
@@ -127,10 +123,6 @@ function EventDispatcher(app) {
         new ResizeEvent(this.app),
 
         // Editor中的事件
-        new AddHelperEvent(this.app),
-        new RemoveHelperEvent(this.app),
-        new AddScriptEvent(this.app),
-        new RemoveScriptEvent(this.app),
         new SelectEvent(this.app),
 
         // 工具栏

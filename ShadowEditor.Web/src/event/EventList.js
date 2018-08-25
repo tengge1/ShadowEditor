@@ -96,11 +96,6 @@ var EventList = [
     'changeMode', // 改变模式（select, translate, rotate, scale, delete）
 
     // editor事件
-    'removeObject', // 删除物体
-    'addHelper', // 添加帮助事件
-    'removeHelper', // 移除脚本
-    'addScript', // 添加脚本
-    'removeScript', // 移除脚本
     'select', // 选中事件
     'clear', // 清空场景
     'load', // 加载场景
