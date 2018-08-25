@@ -1,7 +1,7 @@
 ﻿import UI from '../../ui/UI';
 
 /**
- * 场景面板
+ * 场景层次图面板
  * @author mrdoob / http://mrdoob.com/
  * @author tengge / https://github.com/tengge1
  */
@@ -16,27 +16,35 @@ HierachyPanel.prototype.constructor = HierachyPanel;
 HierachyPanel.prototype.render = function () {
     var editor = this.app.editor;
 
-    var _this = this;
-
     var data = {
         xtype: 'div',
         parent: this.parent,
         cls: 'Panel',
-        children: [{ // outliner
+        children: [{
             xtype: 'outliner',
             id: 'outliner',
             editor: editor,
-            onChange: function () {
-                _this.app.call('outlinerChange', _this, this);
-            },
-            onDblClick: function () {
-                editor.focusById(parseInt(this.getValue()));
-            }
+            onChange: this.onChange.bind(this),
+            onDblClick: this.onDblClick.bind(this)
         }]
     };
 
     var control = UI.create(data);
     control.render();
+};
+
+HierachyPanel.prototype.onChange = function () {
+    var editor = this.app.editor;
+    var outliner = UI.get('outliner');
+
+    editor.selectById(parseInt(outliner.getValue()));
+};
+
+HierachyPanel.prototype.onDblClick = function () {
+    var editor = this.app.editor;
+    var outliner = UI.get('outliner');
+
+    editor.focusById(parseInt(outliner.getValue()));
 };
 
 export default HierachyPanel;

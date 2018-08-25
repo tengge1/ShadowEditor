@@ -27,6 +27,7 @@ function Editor(app) {
     // 相机
     this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 0.1, 10000);
     this.DEFAULT_CAMERA.name = '默认相机';
+    this.DEFAULT_CAMERA.userData.isDefault = true;
     this.DEFAULT_CAMERA.position.set(20, 10, 20);
     this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
 

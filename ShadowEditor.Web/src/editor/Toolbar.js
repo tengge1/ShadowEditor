@@ -24,12 +24,12 @@ Toolbar.prototype.render = function () {
             xtype: 'iconbutton',
             id: 'selectBtn',
             icon: 'icon-select',
-            cls: 'Button IconButton selected',
             title: '选择'
         }, {
             xtype: 'iconbutton',
             id: 'translateBtn',
             icon: 'icon-translate',
+            cls: 'Button IconButton selected',
             title: '平移(W)'
         }, {
             xtype: 'iconbutton',

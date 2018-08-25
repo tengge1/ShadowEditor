@@ -20,7 +20,6 @@ ScenePanelEvent.prototype.start = function () {
     this.app.on(`sceneGraphChanged.${this.id}`, this.refreshUI.bind(this));
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
     this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`outlinerChange.${this.id}`, this.onOutlinerChange.bind(this));
     this.refreshUI();
 };
 
@@ -29,15 +28,6 @@ ScenePanelEvent.prototype.stop = function () {
     this.app.on(`sceneGraphChanged.${this.id}`, null);
     this.app.on(`objectChanged.${this.id}`, null);
     this.app.on(`objectSelected.${this.id}`, null);
-    this.app.on(`outlinerChange.${this.id}`, null);
-};
-
-ScenePanelEvent.prototype.onOutlinerChange = function (control) {
-    var editor = this.app.editor;
-
-    this.ignoreObjectSelectedSignal = true;
-    editor.selectById(parseInt(control.getValue()));
-    this.ignoreObjectSelectedSignal = false;
 };
 
 /**

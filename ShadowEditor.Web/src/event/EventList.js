@@ -154,8 +154,6 @@ var EventList = [
     'updateObject', // 更新物体属性
     'updateObjectPanel', // 更新物体面板
 
-    'outlinerChange', // 场景大纲发生改变
-
     'selectPropertyTab',
 
     // 状态栏

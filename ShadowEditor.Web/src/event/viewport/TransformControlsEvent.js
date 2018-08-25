@@ -11,7 +11,7 @@ import SetScaleCommand from '../../command/SetScaleCommand';
 function TransformControlsEvent(app) {
     BaseEvent.call(this, app);
 
-    this.mode = 'select';
+    this.mode = 'translate';
 
     this.objectPosition = null;
     this.objectRotation = null;
@@ -127,7 +127,11 @@ TransformControlsEvent.prototype.onMouseUp = function () {
 TransformControlsEvent.prototype.onObjectSelected = function (object) {
     this.app.editor.transformControls.detach();
 
-    if (object && ['translate', 'rotate', 'scale'].indexOf(this.mode) > -1) {
+    if (['translate', 'rotate', 'scale'].indexOf(this.mode) === -1) {
+        return;
+    }
+
+    if (object && !(object instanceof THREE.Scene) && !(object instanceof THREE.PerspectiveCamera && object.userData.isDefault === true)) {
         this.app.editor.transformControls.attach(object);
     }
 };
