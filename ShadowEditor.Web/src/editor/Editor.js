@@ -99,24 +99,53 @@ function Editor(app) {
     this.app.viewport.container.dom.appendChild(this.stats.dom);
 };
 
-// -------------------- 编辑器 --------------------------
+// -------------------- 场景 --------------------------
 
 Editor.prototype.setScene = function (scene) { // 设置场景
-    var editor = this.editor;
+    this.scene.uuid = scene.uuid;
+    this.scene.name = scene.name;
 
-    editor.scene.uuid = scene.uuid;
-    editor.scene.name = scene.name;
+    if (scene.background !== null) {
+        this.scene.background = scene.background.clone();
+    }
 
-    if (scene.background !== null) editor.scene.background = scene.background.clone();
-    if (scene.fog !== null) editor.scene.fog = scene.fog.clone();
+    if (scene.fog !== null) {
+        this.scene.fog = scene.fog.clone();
+    }
 
-    editor.scene.userData = JSON.parse(JSON.stringify(scene.userData));
+    this.scene.userData = JSON.parse(JSON.stringify(scene.userData));
 
     while (scene.children.length > 0) {
-        editor.addObject(scene.children[0]);
+        this.addObject(scene.children[0]);
     }
 
     this.app.call('sceneGraphChanged', this);
+};
+
+Editor.prototype.clear = function () { // 清空场景
+    this.history.clear();
+    this.storage.clear();
+
+    this.camera.copy(editor.DEFAULT_CAMERA);
+    this.scene.background.setHex(0xaaaaaa);
+    this.scene.fog = null;
+
+    var objects = this.scene.children;
+
+    while (objects.length > 0) {
+        this.removeObject(objects[0]);
+    }
+
+    this.textures = {};
+    this.scripts = {};
+
+    this.deselect();
+
+    this.app.call('editorCleared', this);
+};
+
+Editor.prototype.load = function () { // 加载场景
+    this.app.call('load', this);
 };
 
 // ---------------------- 物体 ---------------------------
@@ -203,16 +232,6 @@ Editor.prototype.focusById = function (id) { // 根据id设置交点
     if (obj) {
         this.focus(obj);
     }
-};
-
-// ----------------------- 场景事件 ----------------------------
-
-Editor.prototype.clear = function () { // 清空场景
-    this.app.call('clear', this);
-};
-
-Editor.prototype.load = function () { // 加载场景
-    this.app.call('load', this);
 };
 
 // --------------------- 命令事件 ------------------------
