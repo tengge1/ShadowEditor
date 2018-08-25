@@ -6,7 +6,6 @@ import AnimateEvent from './AnimateEvent';
 
 import KeyDownEvent from './KeyDownEvent';
 
-import AddObjectEvent from './editor/AddObjectEvent';
 import MoveObjectEvent from './editor/MoveObjectEvent';
 import RemoveObjectEvent from './editor/RemoveObjectEvent';
 import AddHelperEvent from './editor/AddHelperEvent';
@@ -132,7 +131,6 @@ function EventDispatcher(app) {
         new ResizeEvent(this.app),
 
         // Editor中的事件
-        new AddObjectEvent(this.app),
         new MoveObjectEvent(this.app),
         new RemoveObjectEvent(this.app),
         new AddHelperEvent(this.app),

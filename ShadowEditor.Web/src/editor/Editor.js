@@ -126,7 +126,14 @@ Editor.prototype.objectByUuid = function (uuid) { // 根据uuid获取物体
 };
 
 Editor.prototype.addObject = function (object) { // 添加物体
-    this.app.call('addObject', this, object);
+    this.scene.add(object);
+
+    object.traverse(child => {
+        this.addHelper(child);
+    });
+
+    this.app.call('objectAdded', this, object);
+    this.app.call('sceneGraphChanged', this);
 };
 
 Editor.prototype.moveObject = function (object, parent, before) { // 移动物体
