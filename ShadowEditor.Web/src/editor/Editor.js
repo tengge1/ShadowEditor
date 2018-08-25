@@ -102,7 +102,21 @@ function Editor(app) {
 // -------------------- 编辑器 --------------------------
 
 Editor.prototype.setScene = function (scene) { // 设置场景
-    this.app.call('setScene', this, scene);
+    var editor = this.editor;
+
+    editor.scene.uuid = scene.uuid;
+    editor.scene.name = scene.name;
+
+    if (scene.background !== null) editor.scene.background = scene.background.clone();
+    if (scene.fog !== null) editor.scene.fog = scene.fog.clone();
+
+    editor.scene.userData = JSON.parse(JSON.stringify(scene.userData));
+
+    while (scene.children.length > 0) {
+        editor.addObject(scene.children[0]);
+    }
+
+    this.app.call('sceneGraphChanged', this);
 };
 
 // ---------------------- 物体 ---------------------------
