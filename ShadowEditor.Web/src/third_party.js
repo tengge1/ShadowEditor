@@ -40,7 +40,9 @@ import '../third_party/renderers/RaytracingRenderer.js';
 import '../third_party/renderers/SoftwareRenderer.js';
 import '../third_party/renderers/SVGRenderer.js';
 
+import '../third_party/objects/Reflector.js';
 import '../third_party/objects/Sky.js';
+
 import '../third_party/effects/OutlineEffect.js';
 import '../third_party/effects/AnaglyphEffect.js';
 import '../third_party/effects/VREffect';

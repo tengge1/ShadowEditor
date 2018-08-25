@@ -6,6 +6,7 @@ import SetScaleCommand from '../../command/SetScaleCommand';
 import SetUuidCommand from '../../command/SetUuidCommand';
 import SetValueCommand from '../../command/SetValueCommand';
 import SetColorCommand from '../../command/SetColorCommand';
+import AddObjectCommand from '../../command/AddObjectCommand';
 
 /**
  * 物体面板事件
@@ -191,6 +192,7 @@ ObjectPanelEvent.prototype.update = function () {
     var objectCastShadow = UI.get('objectCastShadow');
     var objectReceiveShadow = UI.get('objectReceiveShadow');
     var objectShadowRadius = UI.get('objectShadowRadius');
+    var objectReflector = UI.get('objectReflector');
     var objectUserData = UI.get('objectUserData');
 
     if (object !== null) {
@@ -265,6 +267,23 @@ ObjectPanelEvent.prototype.update = function () {
         if (object.receiveShadow !== undefined && object.receiveShadow !== objectReceiveShadow.getValue()) {
             editor.execute(new SetValueCommand(object, 'receiveShadow', objectReceiveShadow.getValue()));
             object.material.needsUpdate = true;
+        }
+
+        var reflector = objectReflector.getValue();
+        if (reflector) { // 开启镜面
+            var mirror = new THREE.Reflector(object.geometry, {
+                clipBias: 0.003,
+                textureWidth: 512 * window.devicePixelRatio,
+                textureHeight: 512 * window.devicePixelRatio,
+                color: 0x777777,
+                recursion: 1
+            });
+            mirror.material.polygonOffset = true;
+            mirror.material.polygonOffsetFactor = 1;
+            // mirror.position.z = 10;
+            object.add(mirror);
+        } else { // 关闭镜面
+
         }
 
         if (object.shadow !== undefined) {

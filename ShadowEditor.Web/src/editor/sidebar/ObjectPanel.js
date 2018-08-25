@@ -338,6 +338,17 @@ ObjectPanel.prototype.render = function () {
                 value: 1,
                 onChange: update
             }]
+        }, {
+            xtype: 'row',
+            id: 'objectReflectorRow',
+            children: [{
+                xtype: 'label',
+                text: '镜面'
+            }, {
+                xtype: 'checkbox',
+                id: 'objectReflector',
+                onChange: update
+            }]
         }, { // visible
             xtype: 'row',
             id: 'objectVisibleRow',
