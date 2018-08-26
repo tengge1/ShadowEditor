@@ -63,86 +63,81 @@ namespace ShadowEditor.Server.Mesh
             var meshType = MeshType.unknown;
 
             var files = Directory.GetFiles(physicalPath);
-            foreach (var i in files)
+
+            if (files.Where(o => o.ToLower().EndsWith(".amf")).Count() > 0) // amf文件
             {
-                if (i.EndsWith(".amf")) // amf文件
-                {
-                    entryFileName = i;
-                    meshType = MeshType.amf;
-                    break;
-                }
-                else if (i.EndsWith(".json")) // binary文件
-                {
-                    entryFileName = i;
-                    meshType = MeshType.binary;
-                    break;
-                }
-                else if (i.EndsWith(".awd")) // awd文件
-                {
-                    entryFileName = i;
-                    meshType = MeshType.awd;
-                    break;
-                }
-                else if (i.EndsWith(".babylon")) // babylon文件
-                {
-                    entryFileName = i;
-                    meshType = MeshType.babylon;
-                }
-                else if (i.EndsWith(".ctm")) // ctm文件
-                {
-                    entryFileName = i;
-                    meshType = MeshType.ctm;
-                }
-                else if (i.EndsWith(".dae")) // dae文件
-                {
-                    entryFileName = i;
-                    meshType = MeshType.dae;
-                }
-                else if (i.EndsWith(".fbx"))
-                {
-                    entryFileName = i;
-                    meshType = MeshType.fbx;
-                }
-                else if (i.EndsWith(".glb"))
-                {
-                    entryFileName = i;
-                    meshType = MeshType.glb;
-                }
-                else if (i.EndsWith(".gltf"))
-                {
-                    entryFileName = i;
-                    meshType = MeshType.gltf;
-                }
-                else if (i.EndsWith(".kmz"))
-                {
-                    entryFileName = i;
-                    meshType = MeshType.kmz;
-                }
-                else if (i.EndsWith(".md2"))
-                {
-                    entryFileName = i;
-                    meshType = MeshType.md2;
-                }
-                else if (i.EndsWith(".obj"))
-                {
-                    entryFileName = i;
-                    meshType = MeshType.obj;
-                }
-                else if (i.EndsWith(".ply"))
-                {
-                    entryFileName = i;
-                    meshType = MeshType.ply;
-                }
-                else if (i.EndsWith(".stl"))
-                {
-                    entryFileName = i;
-                    meshType = MeshType.stl;
-                }
-                else if (i.EndsWith(".vtk"))
-                {
-                    entryFileName = i;
-                    meshType = MeshType.vtk;
-                }
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".amf")).FirstOrDefault();
+                meshType = MeshType.amf;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".json")).Count() > 0) // binary文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".json")).FirstOrDefault();
+                meshType = MeshType.binary;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".awd")).Count() > 0) // awd文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".awd")).FirstOrDefault();
+                meshType = MeshType.awd;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".babylon")).Count() > 0) // babylon文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".babylon")).FirstOrDefault();
+                meshType = MeshType.babylon;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".ctm")).Count() > 0) // ctm文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".ctm")).FirstOrDefault();
+                meshType = MeshType.ctm;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".dae")).Count() > 0) // dae文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".dae")).FirstOrDefault();
+                meshType = MeshType.dae;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".fbx")).Count() > 0) // fbx文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".fbx")).FirstOrDefault();
+                meshType = MeshType.fbx;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".glb")).Count() > 0) // glb文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".glb")).FirstOrDefault();
+                meshType = MeshType.glb;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".gltf")).Count() > 0) // gltf文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".gltf")).FirstOrDefault();
+                meshType = MeshType.gltf;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".kmz")).Count() > 0) // kmz文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".kmz")).FirstOrDefault();
+                meshType = MeshType.kmz;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".md2")).Count() > 0) // md2文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".md2")).FirstOrDefault();
+                meshType = MeshType.md2;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".obj")).Count() > 0) // obj文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".obj")).FirstOrDefault();
+                meshType = MeshType.obj;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".ply")).Count() > 0) // ply文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".ply")).FirstOrDefault();
+                meshType = MeshType.ply;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".stl")).Count() > 0) // stl文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".stl")).FirstOrDefault();
+                meshType = MeshType.stl;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".vtk")).Count() > 0) // vtk文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".vtk")).FirstOrDefault();
+                meshType = MeshType.vtk;
             }
 
             if (entryFileName == null || meshType == MeshType.unknown)
