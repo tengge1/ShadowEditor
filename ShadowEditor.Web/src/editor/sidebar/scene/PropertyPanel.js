@@ -1,4 +1,4 @@
-﻿import UI from '../../ui/UI';
+﻿import UI from '../../../ui/UI';
 import ObjectPanel from './ObjectPanel';
 import GeometryPanel from './GeometryPanel';
 import MaterialPanel from './MaterialPanel';

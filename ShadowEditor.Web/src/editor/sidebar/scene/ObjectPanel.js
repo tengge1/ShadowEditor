@@ -1,6 +1,6 @@
-﻿import UI from '../../ui/UI';
-import SetUuidCommand from '../../command/SetUuidCommand';
-import SetValueCommand from '../../command/SetValueCommand';
+﻿import UI from '../../../ui/UI';
+import SetUuidCommand from '../../../command/SetUuidCommand';
+import SetValueCommand from '../../../command/SetValueCommand';
 
 /**
  * 物体面板

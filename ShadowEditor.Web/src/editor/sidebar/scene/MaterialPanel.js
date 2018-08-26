@@ -1,5 +1,5 @@
-﻿import UI from '../../ui/UI';
-import SetMaterialValueCommand from '../../command/SetMaterialValueCommand';
+﻿import UI from '../../../ui/UI';
+import SetMaterialValueCommand from '../../../command/SetMaterialValueCommand';
 
 /**
  * 材质面板

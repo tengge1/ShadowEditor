@@ -1,5 +1,5 @@
-﻿import UI from '../../ui/UI';
-import AddScriptCommand from '../../command/AddScriptCommand';
+﻿import UI from '../../../ui/UI';
+import AddScriptCommand from '../../../command/AddScriptCommand';
 
 /**
  * 脚本面板

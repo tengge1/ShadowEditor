@@ -1,8 +1,8 @@
-﻿import UI from '../../ui/UI';
+﻿import UI from '../../../ui/UI';
 
-import SetGeometryValueCommand from '../../command/SetGeometryValueCommand';
-import GeometryInfoPanel from './geometry/GeometryInfoPanel';
-import BufferGeometryPanel from './geometry/BufferGeometryPanel';
+import SetGeometryValueCommand from '../../../command/SetGeometryValueCommand';
+import GeometryInfoPanel from '../geometry/GeometryInfoPanel';
+import BufferGeometryPanel from '../geometry/BufferGeometryPanel';
 
 /**
  * 几何体面板

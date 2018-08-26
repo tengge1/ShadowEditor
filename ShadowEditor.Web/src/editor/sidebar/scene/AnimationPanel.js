@@ -1,4 +1,4 @@
-import UI from '../../ui/UI';
+import UI from '../../../ui/UI';
 
 /**
  * 动画面板
