@@ -32,6 +32,11 @@ namespace ShadowEditor.Server.Texture
         public string FirstPinYin { get; set; }
 
         /// <summary>
+        /// 纹理类型
+        /// </summary>
+        public string Type { get; set; }
+
+        /// <summary>
         /// 下载地址
         /// </summary>
         public string Url { get; set; }
@@ -50,5 +55,10 @@ namespace ShadowEditor.Server.Texture
         /// 最后更新时间
         /// </summary>
         public DateTime UpdateTime { get; set; }
+
+        /// <summary>
+        /// 缩略图
+        /// </summary>
+        public string Thumbnail { get; set; }
     }
 }

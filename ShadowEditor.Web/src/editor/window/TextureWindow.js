@@ -123,13 +123,13 @@ TextureWindow.prototype.renderImages = function (textures) {
     var images = UI.get('textureWindowImages');
     images.clear();
 
-    images.children = textures.map((n) => {
+    images.children = textures.map(n => {
         return {
             xtype: 'image',
-            src: n.Image == null ? null : (server + n.Image),
+            src: n.Thumbnail == null ? null : (this.app.options.server + n.Thumbnail),
             title: n.Name,
             data: n,
-            icon: 'icon-texture',
+            icon: n.Thumbnail == null ? 'icon-texture' : null,
             cornerText: n.Type,
             style: {
                 backgroundColor: '#eee'

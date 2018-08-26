@@ -17,7 +17,7 @@ function Image(options) {
     this.style = options.style || null;
 
     // 字体图标
-    this.icon = options.icon || 'icon-shadow';
+    this.icon = options.icon || null;
 
     // 左上角文本
     this.cornerText = options.cornerText || null;

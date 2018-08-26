@@ -41,10 +41,11 @@ namespace ShadowEditor.Server.Controllers
                     Name = i["Name"].AsString,
                     TotalPinYin = i["TotalPinYin"].ToString(),
                     FirstPinYin = i["FirstPinYin"].ToString(),
+                    Type = i["Type"].AsString,
                     Url = i["Url"].AsString,
-                    Version = i["Version"].AsInt32,
                     CreateTime = i["CreateTime"].ToUniversalTime(),
-                    UpdateTime = i["UpdateTime"].ToUniversalTime()
+                    UpdateTime = i["UpdateTime"].ToUniversalTime(),
+                    Thumbnail = i["Thumbnail"].ToString()
                 };
                 list.Add(info);
             }
@@ -101,6 +102,7 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             var doc = new BsonDocument();
+            doc["ID"] = ObjectId.GenerateNewId();
             doc["AddTime"] = BsonDateTime.Create(now);
             doc["FileName"] = fileName;
             doc["FileSize"] = fileSize;
@@ -111,8 +113,10 @@ namespace ShadowEditor.Server.Controllers
             doc["SavePath"] = savePath;
             doc["Thumbnail"] = $"{savePath}/{fileName}";
             doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
-            doc["Type"] = TextureType.unknown;
+            doc["Type"] = TextureType.unknown.ToString();
             doc["Url"] = $"{savePath}/{fileName}";
+            doc["CreateTime"] = now;
+            doc["UpdateTime"] = now;
 
             mongo.InsertOne(Constant.TextureCollectionName, doc);
 
