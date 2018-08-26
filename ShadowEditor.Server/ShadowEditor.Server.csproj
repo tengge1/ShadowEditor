@@ -94,6 +94,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio\SaveAudioModel.cs" />
+    <Compile Include="Audio\AudioModel.cs" />
     <Compile Include="Base\ApiAuthAttribute.cs" />
     <Compile Include="Base\ApiBase.cs" />
     <Compile Include="Base\JsonResult.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Base\XmlResult.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="Controllers\MeshController.cs" />
+    <Compile Include="Controllers\AudioController.cs" />
     <Compile Include="Controllers\TextureController.cs" />
     <Compile Include="Controllers\SceneController.cs" />
     <Compile Include="Helpers\DownloadHelper.cs" />

@@ -40,5 +40,15 @@ namespace ShadowEditor.Server
         /// 纹理表名
         /// </summary>
         public const string TextureCollectionName = "_Texture";
+
+        /// <summary>
+        /// 音频分类表名
+        /// </summary>
+        public const string AudioTypeCollectionName = "_AudioType";
+
+        /// <summary>
+        /// 音频表名
+        /// </summary>
+        public const string AudioCollectionName = "_Audio";
     }
 }
