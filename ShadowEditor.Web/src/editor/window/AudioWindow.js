@@ -127,7 +127,6 @@ AudioWindow.prototype.renderImages = function (models) {
     images.children = models.map((n) => {
         return {
             xtype: 'image',
-            src: n.Image == null ? null : (server + n.Image),
             title: n.Name,
             data: n,
             icon: 'icon-audio',

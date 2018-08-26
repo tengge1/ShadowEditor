@@ -147,6 +147,24 @@ namespace ShadowEditor.Server.Controllers
                 });
             }
 
+            // 删除音频所在目录
+            var path = doc["SavePath"].ToString();
+            var physicalPath = HttpContext.Current.Server.MapPath(path);
+
+            try
+            {
+                Directory.Delete(physicalPath, true);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = ex.Message
+                });
+            }
+
+            // 删除音频信息
             mongo.DeleteOne(Constant.AudioCollectionName, filter);
 
             return Json(new

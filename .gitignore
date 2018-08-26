@@ -75,3 +75,4 @@ typings/
 /ShadowEditor.Web/dist
 /ShadowEditor.Web/assets/models
 /ShadowEditor.Web/assets/audios
+/ShadowEditor.Web/Upload/Audio

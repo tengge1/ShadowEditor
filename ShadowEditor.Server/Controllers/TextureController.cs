@@ -149,6 +149,24 @@ namespace ShadowEditor.Server.Controllers
                 });
             }
 
+            // 删除纹理所在目录
+            var path = doc["SavePath"].ToString();
+            var physicalPath = HttpContext.Current.Server.MapPath(path);
+
+            try
+            {
+                Directory.Delete(physicalPath, true);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = ex.Message
+                });
+            }
+
+            // 删除纹理信息
             mongo.DeleteOne(Constant.TextureCollectionName, filter);
 
             return Json(new
