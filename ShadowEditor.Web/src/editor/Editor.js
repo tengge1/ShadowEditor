@@ -105,23 +105,7 @@ function Editor(app) {
 // -------------------- 场景 --------------------------
 
 Editor.prototype.setScene = function (scene) { // 设置场景
-    this.scene.uuid = scene.uuid;
-    this.scene.name = scene.name;
-
-    if (scene.background !== null) {
-        this.scene.background = scene.background.clone();
-    }
-
-    if (scene.fog !== null) {
-        this.scene.fog = scene.fog.clone();
-    }
-
-    this.scene.userData = JSON.parse(JSON.stringify(scene.userData));
-
-    while (scene.children.length > 0) {
-        this.addObject(scene.children[0]);
-    }
-
+    this.scene = scene;
     this.app.call('sceneGraphChanged', this);
 };
 
@@ -130,7 +114,13 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
     this.storage.clear();
 
     this.camera.copy(this.DEFAULT_CAMERA);
-    this.scene.background.setHex(0xaaaaaa);
+
+    if (this.scene.background instanceof THREE.Texture) {
+        this.scene.background = new THREE.Color(0xaaaaaa);
+    } else {
+        this.scene.background.setHex(0xaaaaaa);
+    }
+
     this.scene.fog = null;
 
     var objects = this.scene.children;

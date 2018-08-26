@@ -266,7 +266,7 @@ SettingPanel.prototype.onSelectTab = function (tabName) {
     backgroundColor.setValue(`#${scene.background instanceof THREE.Color ? scene.background.getHexString() : 'aaaaaa'}`);
 
     backgroundImageRow.dom.style.display = (scene.background instanceof THREE.Texture && !(scene.background instanceof THREE.CubeTexture)) ? '' : 'none';
-    backgroundImage.setValue((scene.background instanceof THREE.Texture && !(scene.background instanceof THREE.CubeTexture)) ? scene.background.map : null);
+    backgroundImage.setValue((scene.background instanceof THREE.Texture && !(scene.background instanceof THREE.CubeTexture)) ? scene.background : null);
 
     backgroundUpRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
     backgroundDownRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
