@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
 using MongoDB.Bson;
@@ -60,66 +62,64 @@ namespace ShadowEditor.Server.Controllers
         /// <summary>
         /// 保存纹理
         /// </summary>
-        /// <param name="model">保存模型</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Save(SaveTextureModel model)
+        public JsonResult Add()
         {
-            var objectId = ObjectId.GenerateNewId();
+            var file = HttpContext.Current.Request.Files[0];
+            var fileName = file.FileName;
+            var fileSize = file.ContentLength;
+            var fileType = file.ContentType;
+            var fileExt = Path.GetExtension(fileName);
+            var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
 
-            if (!string.IsNullOrEmpty(model.ID) && !ObjectId.TryParse(model.ID, out objectId))
+            if (fileExt == null || fileExt.ToLower() != ".jpg" && fileExt.ToLower() != ".jpeg" && fileExt.ToLower() != ".png")
             {
-                return Json(new
+                return Json(new Result
                 {
                     Code = 300,
-                    Msg = "场景ID不合法。"
+                    Msg = "只允许上传jpg或png格式文件！"
                 });
             }
 
-            if (string.IsNullOrEmpty(model.Name))
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "纹理名称不允许为空。"
-                });
-            }
-
-            // 查询纹理信息
-            var mongo = new MongoHelper();
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-            var doc = mongo.FindOne(Constant.TextureCollectionName, filter);
-
+            // 保存文件
             var now = DateTime.Now;
 
-            // 保存或更新场景综合信息
-            if (doc == null)
-            {
-                var pinyin = PinYinHelper.GetTotalPinYin(model.Name);
+            var savePath = $"/Upload/Texture/{now.ToString("yyyyMMddHHmmss")}";
+            var physicalPath = HttpContext.Current.Server.MapPath(savePath);
 
-                doc = new BsonDocument();
-                doc["ID"] = objectId;
-                doc["Name"] = model.Name;
-                doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
-                doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
-                doc["Url"] = "";
-                doc["Version"] = 0;
-                doc["CreateTime"] = BsonDateTime.Create(now);
-                doc["UpdateTime"] = BsonDateTime.Create(now);
-                mongo.InsertOne(Constant.TextureCollectionName, doc);
-            }
-            else
+            if (!Directory.Exists(physicalPath))
             {
-                var update1 = Builders<BsonDocument>.Update.Set("Version", int.Parse(doc["Version"].ToString()) + 1);
-                var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", BsonDateTime.Create(now));
-                var update = Builders<BsonDocument>.Update.Combine(update1, update2);
-                mongo.UpdateOne(Constant.TextureCollectionName, filter, update);
+                Directory.CreateDirectory(physicalPath);
             }
 
-            return Json(new
+            file.SaveAs($"{physicalPath}\\{fileName}");
+
+            var pinyin = PinYinHelper.GetTotalPinYin(fileNameWithoutExt);
+
+            // 保存到Mongo
+            var mongo = new MongoHelper();
+
+            var doc = new BsonDocument();
+            doc["AddTime"] = BsonDateTime.Create(now);
+            doc["FileName"] = fileName;
+            doc["FileSize"] = fileSize;
+            doc["FileType"] = fileType;
+            doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
+            doc["Name"] = fileNameWithoutExt;
+            doc["SaveName"] = fileName;
+            doc["SavePath"] = savePath;
+            doc["Thumbnail"] = $"{savePath}/{fileName}";
+            doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
+            doc["Type"] = TextureType.unknown;
+            doc["Url"] = $"{savePath}/{fileName}";
+
+            mongo.InsertOne(Constant.TextureCollectionName, doc);
+
+            return Json(new Result
             {
                 Code = 200,
-                Msg = "保存成功！"
+                Msg = "上传成功！"
             });
         }
 
