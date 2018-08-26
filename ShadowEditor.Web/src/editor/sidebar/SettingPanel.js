@@ -27,8 +27,117 @@ SettingPanel.prototype.render = function () {
                 xtype: 'label',
                 text: '背景'
             }, {
+                xtype: 'select',
+                id: 'backgroundType',
+                scope: this.id,
+                options: {
+                    'Color': '纯色',
+                    'Image': '图片',
+                    'SkyBox': '天空盒'
+                },
+                onChange: this.onChangeBackgroundType.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'backgroundColorRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '背景颜色'
+            }, {
                 xtype: 'color',
                 id: 'backgroundColor',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'backgroundImageRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '背景图片'
+            }, {
+                xtype: 'texture',
+                id: 'backgroundImage',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'backgroundUpRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '背景上'
+            }, {
+                xtype: 'texture',
+                id: 'backgroundUp',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'backgroundDownRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '背景下'
+            }, {
+                xtype: 'texture',
+                id: 'backgroundDown',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'backgroundLeftRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '背景左'
+            }, {
+                xtype: 'texture',
+                id: 'backgroundLeft',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'backgroundRightRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '背景右'
+            }, {
+                xtype: 'texture',
+                id: 'backgroundRight',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'backgroundNearRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '背景近'
+            }, {
+                xtype: 'texture',
+                id: 'backgroundNear',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'backgroundFarRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '背景远'
+            }, {
+                xtype: 'texture',
+                id: 'backgroundFar',
                 scope: this.id,
                 onChange: this.update.bind(this)
             }]
@@ -132,8 +241,39 @@ SettingPanel.prototype.onSelectTab = function (tabName) {
     var scene = this.app.editor.scene;
 
     // 背景
+    var backgroundColorRow = UI.get('backgroundColorRow', this.id);
+    var backgroundImageRow = UI.get('backgroundImageRow', this.id);
+    var backgroundUpRow = UI.get('backgroundUpRow', this.id);
+    var backgroundDownRow = UI.get('backgroundDownRow', this.id);
+    var backgroundLeftRow = UI.get('backgroundLeftRow', this.id);
+    var backgroundRightRow = UI.get('backgroundRightRow', this.id);
+    var backgroundNearRow = UI.get('backgroundNearRow', this.id);
+    var backgroundFarRow = UI.get('backgroundFarRow', this.id);
+
+    var backgroundType = UI.get('backgroundType', this.id);
     var backgroundColor = UI.get('backgroundColor', this.id);
-    backgroundColor.setValue(`#${scene.background.getHexString()}`);
+    var backgroundImage = UI.get('backgroundImage', this.id);
+    var backgroundUp = UI.get('backgroundUp', this.id);
+    var backgroundDown = UI.get('backgroundDown', this.id);
+    var backgroundLeft = UI.get('backgroundLeft', this.id);
+    var backgroundRight = UI.get('backgroundRight', this.id);
+    var backgroundNear = UI.get('backgroundNear', this.id);
+    var backgroundFar = UI.get('backgroundFar', this.id);
+
+    backgroundType.setValue(`${scene.background instanceof THREE.CubeTexture ? 'SkyBox' : (scene.background instanceof THREE.Texture ? 'Image' : 'Color')}`);
+
+    backgroundColorRow.dom.style.display = scene.background instanceof THREE.Color ? '' : 'none';
+    backgroundColor.setValue(`#${scene.background instanceof THREE.Color ? scene.background.getHexString() : 'aaaaaa'}`);
+
+    backgroundImageRow.dom.style.display = (scene.background instanceof THREE.Texture && !(scene.background instanceof THREE.CubeTexture)) ? '' : 'none';
+    backgroundImage.setValue((scene.background instanceof THREE.Texture && !(scene.background instanceof THREE.CubeTexture)) ? scene.background.map : null);
+
+    backgroundUpRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
+    backgroundDownRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
+    backgroundLeftRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
+    backgroundRightRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
+    backgroundNearRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
+    backgroundFarRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
 
     // 雾效
     var fogColorRow = UI.get('fogColorRow', this.id);
@@ -166,31 +306,79 @@ SettingPanel.prototype.onSelectTab = function (tabName) {
     showGrid.setValue(this.app.editor.grid.visible);
 };
 
-SettingPanel.prototype.onChangeFogType = function () {
-    var fogType = UI.get('fogType', this.id).getValue();
-    var fogColorRow = UI.get('fogColorRow', this.id).dom;
-    var fogNearRow = UI.get('fogNearRow', this.id).dom;
-    var fogFarRow = UI.get('fogFarRow', this.id).dom;
-    var fogDensityRow = UI.get('fogDensityRow', this.id).dom;
+SettingPanel.prototype.onChangeBackgroundType = function () { // 切换背景类型
+    var backgroundType = UI.get('backgroundType', this.id);
 
-    switch (fogType) {
+    var backgroundColorRow = UI.get('backgroundColorRow', this.id);
+    var backgroundImageRow = UI.get('backgroundImageRow', this.id);
+    var backgroundUpRow = UI.get('backgroundUpRow', this.id);
+    var backgroundDownRow = UI.get('backgroundDownRow', this.id);
+    var backgroundLeftRow = UI.get('backgroundLeftRow', this.id);
+    var backgroundRightRow = UI.get('backgroundRightRow', this.id);
+    var backgroundNearRow = UI.get('backgroundNearRow', this.id);
+    var backgroundFarRow = UI.get('backgroundFarRow', this.id);
+
+    switch (backgroundType.getValue()) {
+        case 'Color':
+            backgroundColorRow.dom.style.display = '';
+            backgroundImageRow.dom.style.display = 'none';
+            backgroundUpRow.dom.style.display = 'none';
+            backgroundDownRow.dom.style.display = 'none';
+            backgroundLeftRow.dom.style.display = 'none';
+            backgroundRightRow.dom.style.display = 'none';
+            backgroundNearRow.dom.style.display = 'none';
+            backgroundFarRow.dom.style.display = 'none';
+            break;
+        case 'Image':
+            backgroundColorRow.dom.style.display = 'none';
+            backgroundImageRow.dom.style.display = '';
+            backgroundUpRow.dom.style.display = 'none';
+            backgroundDownRow.dom.style.display = 'none';
+            backgroundLeftRow.dom.style.display = 'none';
+            backgroundRightRow.dom.style.display = 'none';
+            backgroundNearRow.dom.style.display = 'none';
+            backgroundFarRow.dom.style.display = 'none';
+            break;
+        case 'SkyBox':
+            backgroundColorRow.dom.style.display = 'none';
+            backgroundImageRow.dom.style.display = 'none';
+            backgroundUpRow.dom.style.display = '';
+            backgroundDownRow.dom.style.display = '';
+            backgroundLeftRow.dom.style.display = '';
+            backgroundRightRow.dom.style.display = '';
+            backgroundNearRow.dom.style.display = '';
+            backgroundFarRow.dom.style.display = '';
+            break;
+    }
+
+    this.update();
+};
+
+SettingPanel.prototype.onChangeFogType = function () { // 切换雾类型
+    var fogType = UI.get('fogType', this.id);
+    var fogColorRow = UI.get('fogColorRow', this.id);
+    var fogNearRow = UI.get('fogNearRow', this.id);
+    var fogFarRow = UI.get('fogFarRow', this.id);
+    var fogDensityRow = UI.get('fogDensityRow', this.id);
+
+    switch (fogType.getValue()) {
         case 'None':
-            fogColorRow.style.display = 'none';
-            fogNearRow.style.display = 'none';
-            fogFarRow.style.display = 'none';
-            fogDensityRow.style.display = 'none';
+            fogColorRow.dom.style.display = 'none';
+            fogNearRow.dom.style.display = 'none';
+            fogFarRow.dom.style.display = 'none';
+            fogDensityRow.dom.style.display = 'none';
             break;
         case 'Fog':
-            fogColorRow.style.display = '';
-            fogNearRow.style.display = '';
-            fogFarRow.style.display = '';
-            fogDensityRow.style.display = 'none';
+            fogColorRow.dom.style.display = '';
+            fogNearRow.dom.style.display = '';
+            fogFarRow.dom.style.display = '';
+            fogDensityRow.dom.style.display = 'none';
             break;
         case 'FogExp2':
-            fogColorRow.style.display = '';
-            fogNearRow.style.display = 'none';
-            fogFarRow.style.display = 'none';
-            fogDensityRow.style.display = '';
+            fogColorRow.dom.style.display = '';
+            fogNearRow.dom.style.display = 'none';
+            fogFarRow.dom.style.display = 'none';
+            fogDensityRow.dom.style.display = '';
             break;
     }
 
@@ -200,9 +388,31 @@ SettingPanel.prototype.onChangeFogType = function () {
 SettingPanel.prototype.update = function () {
     var scene = this.app.editor.scene;
 
+    // 背景
+    var backgroundType = UI.get('backgroundType', this.id).getValue();
     var backgroundColor = UI.get('backgroundColor', this.id).getHexValue();
-    scene.background = new THREE.Color(backgroundColor);
+    var backgroundImage = UI.get('backgroundImage', this.id).getValue();
+    var backgroundUp = UI.get('backgroundUp', this.id).getValue();
+    var backgroundDown = UI.get('backgroundDown', this.id).getValue();
+    var backgroundLeft = UI.get('backgroundLeft', this.id).getValue();
+    var backgroundRight = UI.get('backgroundRight', this.id).getValue();
+    var backgroundNear = UI.get('backgroundNear', this.id).getValue();
+    var backgroundFar = UI.get('backgroundFar', this.id).getValue();
 
+    switch (backgroundType) {
+        case 'Color':
+            scene.background = new THREE.Color(backgroundColor);
+            break;
+        case 'Image':
+            if (backgroundImage) {
+                scene.background = backgroundImage;
+            }
+            break;
+        case 'SkyBox':
+            break;
+    }
+
+    // 雾
     var fogType = UI.get('fogType', this.id).getValue();
     var fogColor = UI.get('fogColor', this.id).getHexValue();
     var fogNear = UI.get('fogNear', this.id).getValue();
@@ -221,6 +431,7 @@ SettingPanel.prototype.update = function () {
             break;
     }
 
+    // 网格
     var showGrid = UI.get('showGrid', this.id).getValue();
     this.app.editor.grid.visible = showGrid;
 };
