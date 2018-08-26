@@ -55,6 +55,7 @@ AddMikuEvent.prototype.onAddMiku = function () {
         new THREE.AudioLoader().load(audioFile, (buffer) => {
             var listener = new THREE.AudioListener();
             var audio = new THREE.Audio(listener).setBuffer(buffer);
+            audio.setLoop(false);
             listener.position.z = 1;
             helper.add(audio, audioParams);
             editor.execute(new AddObjectCommand(audio));
