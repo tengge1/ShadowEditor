@@ -56,7 +56,6 @@ var EventList = [
     'mAddText', // 添加文本
     'mAddPerspectiveCamera', // 添加透视相机
 
-    'mAddAsset', // 添加模型
     'mExportGeometry', // 导出几何体
     'mExportObject', // 导出物体
     'mExportScene', // 导出场景

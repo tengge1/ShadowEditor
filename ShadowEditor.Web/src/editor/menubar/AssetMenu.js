@@ -32,19 +32,16 @@ AssetMenu.prototype.render = function () {
             cls: 'options',
             children: [{
                 xtype: 'div',
-                id: 'mAddAsset',
                 html: '模型管理',
                 cls: 'option',
                 onClick: this.onManageModel.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddAsset',
                 html: '纹理管理',
                 cls: 'option',
                 onClick: this.onManageTexture.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddAsset',
                 html: '音频管理',
                 cls: 'option',
                 onClick: this.onManageAudio.bind(this)
