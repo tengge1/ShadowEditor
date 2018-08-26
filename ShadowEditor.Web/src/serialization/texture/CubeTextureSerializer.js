@@ -32,7 +32,7 @@ CubeTextureSerializer.prototype.toJSON = function (obj) {
 };
 
 CubeTextureSerializer.prototype.fromJSON = function (json, parent) {
-    // 用一个像素的图片初始化CubeTexture，避免图片载入前报错
+    // 用一个像素的图片初始化CubeTexture，避免图片载入前的警告信息。
     var img = ImageUtils.onePixelCanvas();
     var obj = parent === undefined ? new THREE.CubeTexture([img, img, img, img, img, img]) : parent;
 

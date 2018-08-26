@@ -1,4 +1,5 @@
 import BaseSerializer from '../BaseSerializer';
+import ImageUtils from '../../utils/ImageUtils';
 
 /**
  * TextureSerializer
@@ -65,7 +66,9 @@ TextureSerializer.prototype.toJSON = function (obj) {
 };
 
 TextureSerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.Texture() : parent;
+    // 用一个像素的图片初始化Texture，避免图片载入前的警告信息。
+    var img = ImageUtils.onePixelCanvas();
+    var obj = parent === undefined ? new THREE.Texture(img) : parent;
 
     obj.anisotropy = json.anisotropy;
     obj.center.copy(json.center);
@@ -80,9 +83,9 @@ TextureSerializer.prototype.fromJSON = function (json, parent) {
         img.width = json.image.width;
         img.height = json.image.height;
         img.onload = function () {
+            obj.image = img;
             obj.needsUpdate = true;
         };
-        obj.image = img;
     } else if (json.image && !Array.isArray(obj.image) && json.image.tagName === 'canvas') { // 画布
         var canvas = document.createElement('canvas');
         canvas.width = 256;
