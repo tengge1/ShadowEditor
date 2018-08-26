@@ -4,6 +4,7 @@ import SceneMenu from './SceneMenu';
 import EditMenu from './EditMenu';
 import AddMenu from './AddMenu';
 import AssetMenu from './AssetMenu';
+import TerrainMenu from './TerrainMenu';
 import AnimationMenu from './AnimationMenu';
 import PhysicsMenu from './PhysicsMenu';
 import ComponentMenu from './ComponentMenu';
@@ -43,6 +44,7 @@ Menubar.prototype.render = function () {
             new EditMenu(params),
             new AddMenu(params),
             new AssetMenu(params),
+            new TerrainMenu(params),
             new AnimationMenu(params),
             new PhysicsMenu(params),
             new ComponentMenu(params),
