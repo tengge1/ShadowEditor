@@ -22,24 +22,15 @@ TextureSerializer.prototype.toJSON = function (obj) {
     json.format = obj.format;
     json.generateMipmaps = obj.generateMipmaps;
 
-    if (Array.isArray(obj.image)) { // 立体贴图
-        json.image = [];
-        obj.image.forEach(n => {
-            json.image.push({
-                tagName: 'img',
-                src: n.src,
-                width: n.width,
-                height: n.height
-            });
-        });
-    } else if (obj.image && obj.image.tagName.toLowerCase() === 'img') { // 图片
+    // 说明：立体贴图obj.image是一个图片数组。
+    if (obj.image && !Array.isArray(obj.image) && obj.image.tagName.toLowerCase() === 'img') { // 图片
         json.image = {
             tagName: 'img',
             src: obj.image.src,
             width: obj.image.width,
             height: obj.image.height
         };
-    } else if (obj.image && obj.image.tagName.toLowerCase() === 'canvas') { // 画布
+    } else if (obj.image && !Array.isArray(obj.image) && obj.image.tagName.toLowerCase() === 'canvas') { // 画布
         json.image = {
             tagName: 'canvas',
             src: obj.image.toDataURL(),
@@ -83,7 +74,7 @@ TextureSerializer.prototype.fromJSON = function (json, parent) {
     obj.format = json.format;
     obj.generateMipmaps = json.generateMipmaps;
 
-    if (json.image && json.image.tagName === 'img') {
+    if (json.image && !Array.isArray(json.image) && json.image.tagName === 'img') { // 图片
         var img = document.createElement('img');
         img.src = json.image.src;
         img.width = json.image.width;
@@ -92,7 +83,7 @@ TextureSerializer.prototype.fromJSON = function (json, parent) {
             obj.needsUpdate = true;
         };
         obj.image = img;
-    } else if (json.image && json.image.tagName === 'canvas') {
+    } else if (json.image && !Array.isArray(obj.image) && json.image.tagName === 'canvas') { // 画布
         var canvas = document.createElement('canvas');
         canvas.width = 256;
         canvas.height = 256;
