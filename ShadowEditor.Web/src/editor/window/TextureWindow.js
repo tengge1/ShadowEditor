@@ -69,6 +69,7 @@ TextureWindow.prototype.render = function () {
                 style: {
                     width: '100%',
                     height: '100%',
+                    color: '#fff'
                 },
                 onClick: function (event, index, btn) {
                     _this.onClickImage(this, index, btn);
