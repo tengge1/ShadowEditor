@@ -27,10 +27,11 @@ AddMikuEvent.prototype.stop = function () {
 
 AddMikuEvent.prototype.onAddMiku = function () {
     var editor = this.app.editor;
+    var camera = editor.camera;
 
     var modelFile = 'assets/models/miku/miku_v2.pmd';
     var vmdFiles = ['assets/models/vmds/wavefile_v2.vmd'];
-
+    var cameraFiles = ['assets/models/vmds/wavefile_camera.vmd'];
     var audioFile = 'assets/audios/wavefile_short.mp3';
     var audioParams = { delayTime: 160 * 1 / 30 };
 
@@ -52,15 +53,24 @@ AddMikuEvent.prototype.onAddMiku = function () {
             physics: true
         });
 
-        new THREE.AudioLoader().load(audioFile, (buffer) => {
-            var listener = new THREE.AudioListener();
-            var audio = new THREE.Audio(listener).setBuffer(buffer);
-            audio.setLoop(false);
-            listener.position.z = 1;
-            helper.add(audio, audioParams);
-            editor.execute(new AddObjectCommand(audio));
-            editor.execute(new AddObjectCommand(listener));
-            this.ready = true;
+        loader.loadAnimation(cameraFiles, camera, cameraAnimation => {
+            helper.add(camera, {
+                animation: cameraAnimation
+            });
+            new THREE.AudioLoader().load(audioFile, (buffer) => {
+                var listener = new THREE.AudioListener();
+                var audio = new THREE.Audio(listener).setBuffer(buffer);
+
+                listener.name = '音频监听器';
+                audio.name = '音频';
+
+                audio.setLoop(false);
+                listener.position.z = 1;
+                helper.add(audio, audioParams);
+                editor.execute(new AddObjectCommand(audio));
+                editor.execute(new AddObjectCommand(listener));
+                this.ready = true;
+            });
         });
 
         this.app.on(`animate.` + this.id, this.onAnimate.bind(this));
