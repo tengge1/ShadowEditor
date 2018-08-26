@@ -48,10 +48,10 @@ CubeTextureSerializer.prototype.fromJSON = function (json, parent) {
                 img.onload = () => {
                     resolve(img);
                 };
-                obj.image.push(img);
             });
         });
-        Promise.all(promises).then(n => {
+        Promise.all(promises).then(imgs => {
+            obj.image = imgs;
             obj.needsUpdate = true;
         });
     }
