@@ -1,4 +1,7 @@
 import UI from '../../ui/UI';
+import ModelWindow from '../window/ModelWindow';
+import TextureWindow from '../window/TextureWindow';
+import AudioWindow from '../window/AudioWindow';
 
 /**
  * 资源菜单
@@ -30,11 +33,21 @@ AssetMenu.prototype.render = function () {
             children: [{
                 xtype: 'div',
                 id: 'mAddAsset',
-                html: '添加模型',
+                html: '模型管理',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddAsset');
-                }
+                onClick: this.onManageModel.bind(this)
+            }, {
+                xtype: 'div',
+                id: 'mAddAsset',
+                html: '纹理管理',
+                cls: 'option',
+                onClick: this.onManageTexture.bind(this)
+            }, {
+                xtype: 'div',
+                id: 'mAddAsset',
+                html: '音频管理',
+                cls: 'option',
+                onClick: this.onManageAudio.bind(this)
             }, {
                 xtype: 'hr'
             }, {
@@ -117,5 +130,29 @@ AssetMenu.prototype.render = function () {
 
     container.render();
 }
+
+AssetMenu.prototype.onManageModel = function () {
+    if (this.modelWindow == null) {
+        this.modelWindow = new ModelWindow({ parent: this.app.container, app: this.app });
+        this.modelWindow.render();
+    }
+    this.modelWindow.show();
+};
+
+AssetMenu.prototype.onManageTexture = function () {
+    if (this.textureWindow == null) {
+        this.textureWindow = new TextureWindow({ parent: this.app.container, app: this.app });
+        this.textureWindow.render();
+    }
+    this.textureWindow.show();
+};
+
+AssetMenu.prototype.onManageAudio = function () {
+    if (this.audioWindow == null) {
+        this.audioWindow = new AudioWindow({ parent: this.app.container, app: this.app });
+        this.audioWindow.render();
+    }
+    this.audioWindow.show();
+};
 
 export default AssetMenu;

@@ -11,7 +11,7 @@ import UploadUtils from '../../utils/UploadUtils';
 function AudioWindow(options) {
     UI.Control.call(this, options);
     this.app = options.app;
-    this.models = [];
+    this.audios = [];
     this.keyword = '';
 }
 
@@ -23,9 +23,9 @@ AudioWindow.prototype.render = function () {
 
     var container = UI.create({
         xtype: 'window',
-        id: 'modelWindow',
+        id: 'audioWindow',
         parent: this.app.container,
-        title: '模型列表',
+        title: '音频列表',
         width: '700px',
         height: '500px',
         bodyStyle: {
@@ -47,7 +47,7 @@ AudioWindow.prototype.render = function () {
             },
             children: [{
                 xtype: 'button',
-                text: '上传模型',
+                text: '上传音频',
                 onClick: this.onAddFile.bind(this)
             }, {
                 xtype: 'button',
@@ -66,7 +66,7 @@ AudioWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'imagelist',
-                id: 'modelWindowImages',
+                id: 'audioWindowImages',
                 style: {
                     width: '100%',
                     height: '100%',
@@ -81,38 +81,38 @@ AudioWindow.prototype.render = function () {
 };
 
 /**
- * 显示模型文件列表
+ * 显示音频文件列表
  */
 AudioWindow.prototype.show = function () {
-    UI.get('modelWindow').show();
+    UI.get('audioWindow').show();
 
     this.keyword = '';
-    this.updateModelList();
+    this.updateList();
 };
 
-AudioWindow.prototype.updateModelList = function () {
+AudioWindow.prototype.updateList = function () {
     var app = this.app;
     var server = app.options.server;
 
-    Ajax.getJson(`${server}/api/Mesh/List`, (obj) => {
-        this.models = obj.Data;
+    Ajax.getJson(`${server}/api/Audio/List`, (obj) => {
+        this.audios = obj.Data;
         this.onSearch(this.keyword);
     });
 };
 
 /**
- * 搜索模型文件
+ * 搜索音频文件
  * @param {*} name 
  */
 AudioWindow.prototype.onSearch = function (name) {
     if (name.trim() === '') {
-        this.renderImages(this.models);
+        this.renderImages(this.audios);
         return;
     }
 
     name = name.toLowerCase();
 
-    var models = this.models.filter((n) => {
+    var models = this.audios.filter((n) => {
         return n.Name.indexOf(name) > -1 ||
             n.FirstPinYin.indexOf(name) > -1 ||
             n.TotalPinYin.indexOf(name) > -1;
@@ -121,7 +121,7 @@ AudioWindow.prototype.onSearch = function (name) {
 };
 
 AudioWindow.prototype.renderImages = function (models) {
-    var images = UI.get('modelWindowImages');
+    var images = UI.get('audioWindowImages');
     images.clear();
 
     images.children = models.map((n) => {
@@ -130,7 +130,7 @@ AudioWindow.prototype.renderImages = function (models) {
             src: n.Image == null ? null : (server + n.Image),
             title: n.Name,
             data: n,
-            icon: 'icon-model',
+            icon: 'icon-audio',
             cornerText: n.Type,
             style: {
                 backgroundColor: '#eee'
@@ -142,10 +142,10 @@ AudioWindow.prototype.renderImages = function (models) {
 };
 
 AudioWindow.prototype.onAddFile = function () {
-    var input = document.getElementById('modelWindowFileInput');
+    var input = document.getElementById('audioWindowFileInput');
     if (input == null) {
         input = document.createElement('input');
-        input.id = 'modelWindowFileInput';
+        input.id = 'audioWindowFileInput';
         input.type = 'file';
         document.body.appendChild(input);
         input.onchange = this.onUploadFile.bind(this);
@@ -154,12 +154,12 @@ AudioWindow.prototype.onAddFile = function () {
 };
 
 AudioWindow.prototype.onUploadFile = function (event) {
-    UploadUtils.upload('modelWindowFileInput', `${this.app.options.server}/api/Mesh/Add`, (e) => {
-        document.getElementById('modelWindowFileInput').value = null;
+    UploadUtils.upload('audioWindowFileInput', `${this.app.options.server}/api/Audio/Add`, (e) => {
+        document.getElementById('audioWindowFileInput').value = null;
         if (e.target.status === 200) {
             var obj = JSON.parse(e.target.responseText);
             if (obj.Code === 200) {
-                this.updateModelList();
+                this.updateList();
             }
             UI.msg(obj.Msg);
         } else {
@@ -172,12 +172,12 @@ AudioWindow.prototype.onClickImage = function (imgs, index, btn) {
     var model = imgs.children[index].data;
 
     if (btn === 'edit') { // 编辑模型
-        UI.msg('开始编辑模型');
+        UI.msg('开始编辑音频');
         return;
     }
 
     if (btn === 'delete') { // 删除模型
-        this.onDeleteModel(model);
+        this.onDelete(model);
         return;
     }
 
@@ -189,38 +189,23 @@ AudioWindow.prototype.onClickImage = function (imgs, index, btn) {
  * @param {*} model 
  */
 AudioWindow.prototype.onLoadModel = function (model) {
-    var loader = new ModelLoader(this.app);
 
-    loader.load(this.app.options.server + model.Url).then(obj => {
-        if (!obj) {
-            return;
-        }
-        obj.name = model.Name;
-        obj.rotation.x = -Math.PI / 2;
-
-        Object.assign(obj.userData, model, {
-            Server: true
-        });
-
-        var cmd = new AddObjectCommand(obj);
-        cmd.execute();
-    });
 };
 
 /**
- * 删除模型
+ * 删除音频
  * @param {*} model 
  */
-AudioWindow.prototype.onDeleteModel = function (model) {
+AudioWindow.prototype.onDelete = function (model) {
     var app = this.app;
     var server = app.options.server;
 
     UI.confirm('询问', '是否删除该模型？', (event, btn) => {
         if (btn === 'ok') {
-            Ajax.post(`${server}/api/Mesh/Delete?ID=${model.ID}`, (json) => {
+            Ajax.post(`${server}/api/Audio/Delete?ID=${model.ID}`, (json) => {
                 var obj = JSON.parse(json);
                 if (obj.Code === 200) {
-                    this.updateModelList();
+                    this.updateList();
                 }
                 UI.msg(obj.Msg);
             });
