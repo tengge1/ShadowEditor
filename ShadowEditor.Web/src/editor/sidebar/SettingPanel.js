@@ -32,8 +32,8 @@ SettingPanel.prototype.render = function () {
                 scope: this.id,
                 options: {
                     'Color': '纯色',
-                    'Image': '图片',
-                    'SkyBox': '天空盒'
+                    'Image': '背景图片',
+                    'SkyBox': '立体贴图'
                 },
                 onChange: this.onChangeBackgroundType.bind(this)
             }]
@@ -65,79 +65,79 @@ SettingPanel.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
-            id: 'backgroundUpRow',
+            id: 'backgroundPosXRow',
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '背景上'
+                text: 'x轴正向'
             }, {
                 xtype: 'texture',
-                id: 'backgroundUp',
+                id: 'backgroundPosX',
                 scope: this.id,
                 onChange: this.update.bind(this)
             }]
         }, {
             xtype: 'row',
-            id: 'backgroundDownRow',
+            id: 'backgroundNegXRow',
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '背景下'
+                text: 'x轴负向'
             }, {
                 xtype: 'texture',
-                id: 'backgroundDown',
+                id: 'backgroundNegX',
                 scope: this.id,
                 onChange: this.update.bind(this)
             }]
         }, {
             xtype: 'row',
-            id: 'backgroundLeftRow',
+            id: 'backgroundPosYRow',
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '背景左'
+                text: 'y轴正向'
             }, {
                 xtype: 'texture',
-                id: 'backgroundLeft',
+                id: 'backgroundPosY',
                 scope: this.id,
                 onChange: this.update.bind(this)
             }]
         }, {
             xtype: 'row',
-            id: 'backgroundRightRow',
+            id: 'backgroundNegYRow',
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '背景右'
+                text: 'y轴负向'
             }, {
                 xtype: 'texture',
-                id: 'backgroundRight',
+                id: 'backgroundNegY',
                 scope: this.id,
                 onChange: this.update.bind(this)
             }]
         }, {
             xtype: 'row',
-            id: 'backgroundNearRow',
+            id: 'backgroundPosZRow',
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '背景近'
+                text: 'z轴正向'
             }, {
                 xtype: 'texture',
-                id: 'backgroundNear',
+                id: 'backgroundPosZ',
                 scope: this.id,
                 onChange: this.update.bind(this)
             }]
         }, {
             xtype: 'row',
-            id: 'backgroundFarRow',
+            id: 'backgroundNegZRow',
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '背景远'
+                text: 'z轴负向'
             }, {
                 xtype: 'texture',
-                id: 'backgroundFar',
+                id: 'backgroundNegZ',
                 scope: this.id,
                 onChange: this.update.bind(this)
             }]
@@ -243,22 +243,22 @@ SettingPanel.prototype.onSelectTab = function (tabName) {
     // 背景
     var backgroundColorRow = UI.get('backgroundColorRow', this.id);
     var backgroundImageRow = UI.get('backgroundImageRow', this.id);
-    var backgroundUpRow = UI.get('backgroundUpRow', this.id);
-    var backgroundDownRow = UI.get('backgroundDownRow', this.id);
-    var backgroundLeftRow = UI.get('backgroundLeftRow', this.id);
-    var backgroundRightRow = UI.get('backgroundRightRow', this.id);
-    var backgroundNearRow = UI.get('backgroundNearRow', this.id);
-    var backgroundFarRow = UI.get('backgroundFarRow', this.id);
+    var backgroundPosXRow = UI.get('backgroundPosXRow', this.id);
+    var backgroundNegXRow = UI.get('backgroundNegXRow', this.id);
+    var backgroundPosYRow = UI.get('backgroundPosYRow', this.id);
+    var backgroundNegYRow = UI.get('backgroundNegYRow', this.id);
+    var backgroundPosZRow = UI.get('backgroundPosZRow', this.id);
+    var backgroundNegZRow = UI.get('backgroundNegZRow', this.id);
 
     var backgroundType = UI.get('backgroundType', this.id);
     var backgroundColor = UI.get('backgroundColor', this.id);
     var backgroundImage = UI.get('backgroundImage', this.id);
-    var backgroundUp = UI.get('backgroundUp', this.id);
-    var backgroundDown = UI.get('backgroundDown', this.id);
-    var backgroundLeft = UI.get('backgroundLeft', this.id);
-    var backgroundRight = UI.get('backgroundRight', this.id);
-    var backgroundNear = UI.get('backgroundNear', this.id);
-    var backgroundFar = UI.get('backgroundFar', this.id);
+    var backgroundPosX = UI.get('backgroundPosX', this.id);
+    var backgroundNegX = UI.get('backgroundNegX', this.id);
+    var backgroundPosY = UI.get('backgroundPosY', this.id);
+    var backgroundNegY = UI.get('backgroundNegY', this.id);
+    var backgroundPosZ = UI.get('backgroundPosZ', this.id);
+    var backgroundNegZ = UI.get('backgroundNegZ', this.id);
 
     backgroundType.setValue(`${scene.background instanceof THREE.CubeTexture ? 'SkyBox' : (scene.background instanceof THREE.Texture ? 'Image' : 'Color')}`);
 
@@ -268,12 +268,12 @@ SettingPanel.prototype.onSelectTab = function (tabName) {
     backgroundImageRow.dom.style.display = (scene.background instanceof THREE.Texture && !(scene.background instanceof THREE.CubeTexture)) ? '' : 'none';
     backgroundImage.setValue((scene.background instanceof THREE.Texture && !(scene.background instanceof THREE.CubeTexture)) ? scene.background : null);
 
-    backgroundUpRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
-    backgroundDownRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
-    backgroundLeftRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
-    backgroundRightRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
-    backgroundNearRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
-    backgroundFarRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
+    backgroundPosXRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
+    backgroundNegXRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
+    backgroundPosYRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
+    backgroundNegYRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
+    backgroundPosZRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
+    backgroundNegZRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
 
     // 雾效
     var fogColorRow = UI.get('fogColorRow', this.id);
@@ -311,43 +311,43 @@ SettingPanel.prototype.onChangeBackgroundType = function () { // 切换背景类
 
     var backgroundColorRow = UI.get('backgroundColorRow', this.id);
     var backgroundImageRow = UI.get('backgroundImageRow', this.id);
-    var backgroundUpRow = UI.get('backgroundUpRow', this.id);
-    var backgroundDownRow = UI.get('backgroundDownRow', this.id);
-    var backgroundLeftRow = UI.get('backgroundLeftRow', this.id);
-    var backgroundRightRow = UI.get('backgroundRightRow', this.id);
-    var backgroundNearRow = UI.get('backgroundNearRow', this.id);
-    var backgroundFarRow = UI.get('backgroundFarRow', this.id);
+    var backgroundPosXRow = UI.get('backgroundPosXRow', this.id);
+    var backgroundNegXRow = UI.get('backgroundNegXRow', this.id);
+    var backgroundPosYRow = UI.get('backgroundPosYRow', this.id);
+    var backgroundNegYRow = UI.get('backgroundNegYRow', this.id);
+    var backgroundPosZRow = UI.get('backgroundPosZRow', this.id);
+    var backgroundNegZRow = UI.get('backgroundNegZRow', this.id);
 
     switch (backgroundType.getValue()) {
         case 'Color':
             backgroundColorRow.dom.style.display = '';
             backgroundImageRow.dom.style.display = 'none';
-            backgroundUpRow.dom.style.display = 'none';
-            backgroundDownRow.dom.style.display = 'none';
-            backgroundLeftRow.dom.style.display = 'none';
-            backgroundRightRow.dom.style.display = 'none';
-            backgroundNearRow.dom.style.display = 'none';
-            backgroundFarRow.dom.style.display = 'none';
+            backgroundPosXRow.dom.style.display = 'none';
+            backgroundNegXRow.dom.style.display = 'none';
+            backgroundPosYRow.dom.style.display = 'none';
+            backgroundNegYRow.dom.style.display = 'none';
+            backgroundPosZRow.dom.style.display = 'none';
+            backgroundNegZRow.dom.style.display = 'none';
             break;
         case 'Image':
             backgroundColorRow.dom.style.display = 'none';
             backgroundImageRow.dom.style.display = '';
-            backgroundUpRow.dom.style.display = 'none';
-            backgroundDownRow.dom.style.display = 'none';
-            backgroundLeftRow.dom.style.display = 'none';
-            backgroundRightRow.dom.style.display = 'none';
-            backgroundNearRow.dom.style.display = 'none';
-            backgroundFarRow.dom.style.display = 'none';
+            backgroundPosXRow.dom.style.display = 'none';
+            backgroundNegXRow.dom.style.display = 'none';
+            backgroundPosYRow.dom.style.display = 'none';
+            backgroundNegYRow.dom.style.display = 'none';
+            backgroundPosZRow.dom.style.display = 'none';
+            backgroundNegZRow.dom.style.display = 'none';
             break;
         case 'SkyBox':
             backgroundColorRow.dom.style.display = 'none';
             backgroundImageRow.dom.style.display = 'none';
-            backgroundUpRow.dom.style.display = '';
-            backgroundDownRow.dom.style.display = '';
-            backgroundLeftRow.dom.style.display = '';
-            backgroundRightRow.dom.style.display = '';
-            backgroundNearRow.dom.style.display = '';
-            backgroundFarRow.dom.style.display = '';
+            backgroundPosXRow.dom.style.display = '';
+            backgroundNegXRow.dom.style.display = '';
+            backgroundPosYRow.dom.style.display = '';
+            backgroundNegYRow.dom.style.display = '';
+            backgroundPosZRow.dom.style.display = '';
+            backgroundNegZRow.dom.style.display = '';
             break;
     }
 
@@ -392,12 +392,12 @@ SettingPanel.prototype.update = function () {
     var backgroundType = UI.get('backgroundType', this.id).getValue();
     var backgroundColor = UI.get('backgroundColor', this.id).getHexValue();
     var backgroundImage = UI.get('backgroundImage', this.id).getValue();
-    var backgroundUp = UI.get('backgroundUp', this.id).getValue();
-    var backgroundDown = UI.get('backgroundDown', this.id).getValue();
-    var backgroundLeft = UI.get('backgroundLeft', this.id).getValue();
-    var backgroundRight = UI.get('backgroundRight', this.id).getValue();
-    var backgroundNear = UI.get('backgroundNear', this.id).getValue();
-    var backgroundFar = UI.get('backgroundFar', this.id).getValue();
+    var backgroundPosX = UI.get('backgroundPosX', this.id).getValue();
+    var backgroundNegX = UI.get('backgroundNegX', this.id).getValue();
+    var backgroundPosY = UI.get('backgroundPosY', this.id).getValue();
+    var backgroundNegY = UI.get('backgroundNegY', this.id).getValue();
+    var backgroundPosZ = UI.get('backgroundPosZ', this.id).getValue();
+    var backgroundNegZ = UI.get('backgroundNegZ', this.id).getValue();
 
     switch (backgroundType) {
         case 'Color':
@@ -409,6 +409,17 @@ SettingPanel.prototype.update = function () {
             }
             break;
         case 'SkyBox':
+            if (backgroundPosX && backgroundNegX && backgroundPosY && backgroundNegY && backgroundPosZ && backgroundNegZ) {
+                scene.background = new THREE.CubeTexture([
+                    backgroundPosX.image,
+                    backgroundNegX.image,
+                    backgroundPosY.image,
+                    backgroundNegY.image,
+                    backgroundPosZ.image,
+                    backgroundNegZ.image
+                ]);
+                scene.background.needsUpdate = true;
+            }
             break;
     }
 
