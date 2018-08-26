@@ -45,13 +45,19 @@ ModelLoader.prototype = Object.create(BaseLoader.prototype);
 ModelLoader.prototype.constructor = ModelLoader;
 
 ModelLoader.prototype.load = function (url, options) {
-    var paths = url.split('.');
-    var ext = paths[paths.length - 1].toLowerCase();
+    options = options || {};
+    var type = options.type;
+
+    if (type === undefined) {
+        console.warn(`ModelLoader: 未传递type参数，则使用文件后缀判断文件类型。`);
+        var paths = url.split('.');
+        type = paths[paths.length - 1].toLowerCase();
+    }
 
     return new Promise(resolve => {
-        var loader = Loaders[ext];
+        var loader = Loaders[type];
         if (loader === undefined) {
-            console.warn(`ModelLoader: 不存在加载${ext}后缀模型的加载器。`);
+            console.warn(`ModelLoader: 不存在加载${type}后缀模型的加载器。`);
             resolve(null);
             return;
         }

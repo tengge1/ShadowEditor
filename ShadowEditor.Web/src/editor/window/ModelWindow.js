@@ -192,7 +192,7 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
 ModelWindow.prototype.onLoadModel = function (model) {
     var loader = new ModelLoader(this.app);
 
-    loader.load(this.app.options.server + model.Url).then(obj => {
+    loader.load(this.app.options.server + model.Url, { type: model.Type }).then(obj => {
         if (!obj) {
             return;
         }
