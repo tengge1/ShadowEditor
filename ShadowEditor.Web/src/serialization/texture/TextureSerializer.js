@@ -22,14 +22,24 @@ TextureSerializer.prototype.toJSON = function (obj) {
     json.format = obj.format;
     json.generateMipmaps = obj.generateMipmaps;
 
-    if (obj.image && obj.image.tagName.toLowerCase() === 'img') { // img
+    if (Array.isArray(obj.image)) { // 立体贴图
+        json.image = [];
+        obj.image.forEach(n => {
+            json.image.push({
+                tagName: 'img',
+                src: n.src,
+                width: n.width,
+                height: n.height
+            });
+        });
+    } else if (obj.image && obj.image.tagName.toLowerCase() === 'img') { // 图片
         json.image = {
             tagName: 'img',
             src: obj.image.src,
             width: obj.image.width,
             height: obj.image.height
         };
-    } else if (obj.image && obj.image.tagName.toLowerCase() === 'canvas') { // canvas
+    } else if (obj.image && obj.image.tagName.toLowerCase() === 'canvas') { // 画布
         json.image = {
             tagName: 'canvas',
             src: obj.image.toDataURL(),
