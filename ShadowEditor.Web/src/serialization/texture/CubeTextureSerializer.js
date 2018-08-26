@@ -1,5 +1,6 @@
 import BaseSerializer from '../BaseSerializer';
 import TextureSerializer from './TextureSerializer';
+import ImageUtils from '../../utils/ImageUtils';
 
 /**
  * CubeTextureSerializer
@@ -31,7 +32,9 @@ CubeTextureSerializer.prototype.toJSON = function (obj) {
 };
 
 CubeTextureSerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.CubeTexture() : parent;
+    // 用一个像素的图片初始化CubeTexture，避免图片载入前报错
+    var img = ImageUtils.onePixelCanvas();
+    var obj = parent === undefined ? new THREE.CubeTexture([img, img, img, img, img, img]) : parent;
 
     TextureSerializer.prototype.fromJSON.call(this, json, obj);
 
