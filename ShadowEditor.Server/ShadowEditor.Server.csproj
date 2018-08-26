@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Audio\SaveAudioModel.cs" />
     <Compile Include="Audio\AudioModel.cs" />
+    <Compile Include="Audio\AudioType.cs" />
     <Compile Include="Base\ApiAuthAttribute.cs" />
     <Compile Include="Base\ApiBase.cs" />
     <Compile Include="Base\JsonResult.cs" />

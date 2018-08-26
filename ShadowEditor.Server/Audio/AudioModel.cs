@@ -32,6 +32,11 @@ namespace ShadowEditor.Server.Audio
         public string FirstPinYin { get; set; }
 
         /// <summary>
+        /// 纹理类型
+        /// </summary>
+        public string Type { get; set; }
+
+        /// <summary>
         /// 下载地址
         /// </summary>
         public string Url { get; set; }

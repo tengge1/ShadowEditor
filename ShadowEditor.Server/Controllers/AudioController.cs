@@ -11,6 +11,8 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using ShadowEditor.Server.Audio;
+using System.Web;
+using System.IO;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -39,8 +41,8 @@ namespace ShadowEditor.Server.Controllers
                     Name = i["Name"].AsString,
                     TotalPinYin = i["TotalPinYin"].ToString(),
                     FirstPinYin = i["FirstPinYin"].ToString(),
+                    Type = i["Type"].AsString,
                     Url = i["Url"].AsString,
-                    Version = i["Version"].AsInt32,
                     CreateTime = i["CreateTime"].ToUniversalTime(),
                     UpdateTime = i["UpdateTime"].ToUniversalTime()
                 };
@@ -60,65 +62,66 @@ namespace ShadowEditor.Server.Controllers
         /// <summary>
         /// 保存音频
         /// </summary>
-        /// <param name="model">保存模型</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Save(SaveAudioModel model)
+        public JsonResult Add()
         {
-            var objectId = ObjectId.GenerateNewId();
+            var file = HttpContext.Current.Request.Files[0];
+            var fileName = file.FileName;
+            var fileSize = file.ContentLength;
+            var fileType = file.ContentType;
+            var fileExt = Path.GetExtension(fileName);
+            var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
 
-            if (!string.IsNullOrEmpty(model.ID) && !ObjectId.TryParse(model.ID, out objectId))
+            if (fileExt == null || fileExt.ToLower() != ".mp3" && fileExt.ToLower() != ".wav" && fileExt.ToLower() != ".ogg")
             {
-                return Json(new
+                return Json(new Result
                 {
                     Code = 300,
-                    Msg = "音频ID不合法。"
+                    Msg = "只允许上传mp3、wav或ogg格式文件！"
                 });
             }
 
-            if (string.IsNullOrEmpty(model.Name))
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "音频名称不允许为空。"
-                });
-            }
-
-            // 查询音频信息
-            var mongo = new MongoHelper();
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-            var doc = mongo.FindOne(Constant.AudioCollectionName, filter);
-
+            // 保存文件
             var now = DateTime.Now;
 
-            if (doc == null)
-            {
-                var pinyin = PinYinHelper.GetTotalPinYin(model.Name);
+            var savePath = $"/Upload/Audio/{now.ToString("yyyyMMddHHmmss")}";
+            var physicalPath = HttpContext.Current.Server.MapPath(savePath);
 
-                doc = new BsonDocument();
-                doc["ID"] = objectId;
-                doc["Name"] = model.Name;
-                doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
-                doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
-                doc["Url"] = "";
-                doc["Version"] = 0;
-                doc["CreateTime"] = BsonDateTime.Create(now);
-                doc["UpdateTime"] = BsonDateTime.Create(now);
-                mongo.InsertOne(Constant.AudioCollectionName, doc);
-            }
-            else
+            if (!Directory.Exists(physicalPath))
             {
-                var update1 = Builders<BsonDocument>.Update.Set("Version", int.Parse(doc["Version"].ToString()) + 1);
-                var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", BsonDateTime.Create(now));
-                var update = Builders<BsonDocument>.Update.Combine(update1, update2);
-                mongo.UpdateOne(Constant.AudioCollectionName, filter, update);
+                Directory.CreateDirectory(physicalPath);
             }
 
-            return Json(new
+            file.SaveAs($"{physicalPath}\\{fileName}");
+
+            var pinyin = PinYinHelper.GetTotalPinYin(fileNameWithoutExt);
+
+            // 保存到Mongo
+            var mongo = new MongoHelper();
+
+            var doc = new BsonDocument();
+            doc["ID"] = ObjectId.GenerateNewId();
+            doc["AddTime"] = BsonDateTime.Create(now);
+            doc["FileName"] = fileName;
+            doc["FileSize"] = fileSize;
+            doc["FileType"] = fileType;
+            doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
+            doc["Name"] = fileNameWithoutExt;
+            doc["SaveName"] = fileName;
+            doc["SavePath"] = savePath;
+            doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
+            doc["Type"] = AudioType.unknown.ToString();
+            doc["Url"] = $"{savePath}/{fileName}";
+            doc["CreateTime"] = now;
+            doc["UpdateTime"] = now;
+
+            mongo.InsertOne(Constant.AudioCollectionName, doc);
+
+            return Json(new Result
             {
                 Code = 200,
-                Msg = "保存成功！"
+                Msg = "上传成功！"
             });
         }
 
