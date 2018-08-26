@@ -28,7 +28,6 @@ TerrainMenu.prototype.render = function () {
             xtype: 'div',
             cls: 'options',
             children: [{
-                id: 'mPerson',
                 xtype: 'div',
                 cls: 'option',
                 html: '生成地形',
@@ -36,7 +35,6 @@ TerrainMenu.prototype.render = function () {
 
                 }
             }, {
-                id: 'mFire',
                 xtype: 'div',
                 cls: 'option',
                 html: '抬高地形',
@@ -44,7 +42,6 @@ TerrainMenu.prototype.render = function () {
 
                 }
             }, {
-                id: 'mSmoke',
                 xtype: 'div',
                 cls: 'option',
                 html: '降低地形',
@@ -52,7 +49,6 @@ TerrainMenu.prototype.render = function () {
 
                 }
             }, {
-                id: 'mMiku',
                 xtype: 'div',
                 cls: 'option',
                 html: '批量种树',

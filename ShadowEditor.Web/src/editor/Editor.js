@@ -84,6 +84,7 @@ function Editor(app) {
 
     // 网格
     this.grid = new THREE.GridHelper(30, 30, 0x444444, 0x888888);
+    this.grid.visible = this.app.options.showGrid;
     this.sceneHelpers.add(this.grid);
 
     // 平移旋转缩放控件

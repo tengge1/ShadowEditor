@@ -28,7 +28,6 @@ AnimationMenu.prototype.render = function () {
             xtype: 'div',
             cls: 'options',
             children: [{
-                id: 'mPerson',
                 xtype: 'div',
                 cls: 'option',
                 html: '人',
@@ -36,7 +35,6 @@ AnimationMenu.prototype.render = function () {
                     _this.app.call('mAddPerson', _this);
                 }
             }, {
-                id: 'mFire',
                 xtype: 'div',
                 cls: 'option',
                 html: '火焰',
@@ -44,7 +42,6 @@ AnimationMenu.prototype.render = function () {
                     _this.app.call('mAddFire', _this);
                 }
             }, {
-                id: 'mSmoke',
                 xtype: 'div',
                 cls: 'option',
                 html: '烟',
@@ -52,7 +49,6 @@ AnimationMenu.prototype.render = function () {
                     _this.app.call('mAddSmoke', _this);
                 }
             }, {
-                id: 'mMiku',
                 xtype: 'div',
                 cls: 'option',
                 html: '初音未来',

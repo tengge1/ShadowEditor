@@ -29,6 +29,8 @@ OptionsSerializer.prototype.fromJSON = function (json, parent) {
         }
         parent[n] = json[n];
     });
+
+    this.app.editor.grid.visible = json.showGrid === undefined ? true : json.showGrid;
 };
 
 export default OptionsSerializer;
