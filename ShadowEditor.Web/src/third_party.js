@@ -15,35 +15,20 @@ import '../third_party/loaders/GLTFLoader.js';
 import '../third_party/loaders/KMZLoader.js';
 import '../third_party/loaders/MD2Loader.js';
 import '../third_party/loaders/OBJLoader.js';
-import '../third_party/loaders/PlayCanvasLoader.js';
 import '../third_party/loaders/PLYLoader.js';
 import '../third_party/loaders/STLLoader.js';
 import '../third_party/loaders/TGALoader.js';
-import '../third_party/loaders/UTF8Loader.js';
-import '../third_party/loaders/VRMLLoader.js';
 import '../third_party/loaders/VTKLoader.js';
 import '../third_party/loaders/ctm/CTMLoader.js';
 import '../third_party/loaders/MMDLoader.js';
 
 import '../third_party/exporters/GLTFExporter.js';
-import '../third_party/exporters/MMDExporter.js';
 import '../third_party/exporters/OBJExporter.js';
 import '../third_party/exporters/PLYExporter.js';
 import '../third_party/exporters/STLBinaryExporter.js';
 import '../third_party/exporters/STLExporter.js';
 
-import '../third_party/renderers/Projector.js';
-import '../third_party/renderers/CanvasRenderer.js';
-import '../third_party/renderers/RaytracingRenderer.js';
-import '../third_party/renderers/SoftwareRenderer.js';
-import '../third_party/renderers/SVGRenderer.js';
-
 import '../third_party/objects/Reflector.js';
-import '../third_party/objects/Sky.js';
-
-import '../third_party/effects/OutlineEffect.js';
-import '../third_party/effects/AnaglyphEffect.js';
-import '../third_party/effects/VREffect';
 
 import '../third_party/animation/CCDIKSolver.js';
 import '../third_party/animation/MMDPhysics.js';

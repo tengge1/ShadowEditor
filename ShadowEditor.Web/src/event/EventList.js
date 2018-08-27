@@ -59,8 +59,7 @@ var EventList = [
     'mExportGeometry', // 导出几何体
     'mExportObject', // 导出物体
     'mExportScene', // 导出场景
-    'mExportGLTF', // 导出gltf文件
-    'mExportMMD', // 导出mmd文件
+    'mExportGLTF', // 导出gltf文件a
     'mExportOBJ', // 导出obj模型
     'mExportPLY', // 导出ply文件
     'mExportSTLB', // 导出stl二进制文件

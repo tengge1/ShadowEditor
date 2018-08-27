@@ -83,14 +83,6 @@ AssetMenu.prototype.render = function () {
                 }
             }, {
                 xtype: 'div',
-                id: 'mExportMMD',
-                html: '导出mmd文件',
-                cls: 'option inactive',
-                onClick: function () {
-                    _this.app.call('mExportMMD');
-                }
-            }, {
-                xtype: 'div',
                 id: 'mExportOBJ',
                 html: '导出obj文件',
                 cls: 'option',

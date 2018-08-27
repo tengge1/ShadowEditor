@@ -58,7 +58,6 @@ import ExportGeometryEvent from './menu/asset/ExportGeometryEvent';
 import ExportObjectEvent from './menu/asset/ExportObjectEvent';
 import ExportSceneEvent from './menu/asset/ExportSceneEvent';
 import ExportGLTFEvent from './menu/asset/ExportGLTFEvent';
-import ExportMMDEvent from './menu/asset/ExportMMDEvent';
 import ExportOBJEvent from './menu/asset/ExportOBJEvent';
 import ExportPLYEvent from './menu/asset/ExportPLYEvent';
 import ExportSTLBEvent from './menu/asset/ExportSTLBEvent';
@@ -169,7 +168,6 @@ function EventDispatcher(app) {
         new ExportObjectEvent(this.app),
         new ExportSceneEvent(this.app),
         new ExportGLTFEvent(this.app),
-        new ExportMMDEvent(this.app),
         new ExportOBJEvent(this.app),
         new ExportPLYEvent(this.app),
         new ExportSTLBEvent(this.app),
