@@ -197,7 +197,6 @@ ModelWindow.prototype.onLoadModel = function (model) {
             return;
         }
         obj.name = model.Name;
-        obj.rotation.x = -Math.PI / 2;
 
         Object.assign(obj.userData, model, {
             Server: true
