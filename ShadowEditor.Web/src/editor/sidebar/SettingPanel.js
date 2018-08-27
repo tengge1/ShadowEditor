@@ -444,6 +444,7 @@ SettingPanel.prototype.update = function () {
 
     // 网格
     var showGrid = UI.get('showGrid', this.id).getValue();
+    this.app.options.showGrid = showGrid;
     this.app.editor.grid.visible = showGrid;
 };
 
