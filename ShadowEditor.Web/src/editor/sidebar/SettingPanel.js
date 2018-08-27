@@ -25,6 +25,16 @@ SettingPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
+                style: {
+                    color: '#555',
+                    fontWeight: 'bold'
+                },
+                text: '场景'
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
                 text: '背景'
             }, {
                 xtype: 'select',
@@ -217,10 +227,86 @@ SettingPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
+                style: {
+                    color: '#555',
+                    fontWeight: 'bold'
+                },
+                text: '帮助器'
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
                 text: '网格'
             }, {
                 xtype: 'boolean',
                 id: 'showGrid',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '相机'
+            }, {
+                xtype: 'boolean',
+                id: 'showCamera',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '点光源'
+            }, {
+                xtype: 'boolean',
+                id: 'showPointLight',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '平行光源'
+            }, {
+                xtype: 'boolean',
+                id: 'showDirectionalLight',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '聚光灯'
+            }, {
+                xtype: 'boolean',
+                id: 'showSpotLight',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '半球光'
+            }, {
+                xtype: 'boolean',
+                id: 'showHemisphereLight',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '骨骼'
+            }, {
+                xtype: 'boolean',
+                id: 'showSkeleton',
                 scope: this.id,
                 onChange: this.update.bind(this)
             }]
