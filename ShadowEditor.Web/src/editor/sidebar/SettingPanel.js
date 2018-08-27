@@ -387,9 +387,16 @@ SettingPanel.prototype.onSelectTab = function (tabName) {
     fogDensityRow.dom.style.display = (scene.fog && scene.fog instanceof THREE.FogExp2) ? '' : 'none';
     fogDensity.setValue((scene.fog && scene.fog instanceof THREE.FogExp2) ? fog.density : 0.05);
 
-    // 网格
+    // 帮助器
     var showGrid = UI.get('showGrid', this.id);
-    showGrid.setValue(this.app.editor.grid.visible);
+    showGrid.setValue(this.app.options.showGrid);
+
+    var showPointLight = UI.get('showPointLight', this.id);
+    showPointLight.setValue(this.app.options.showPointLightHelper);
+
+    var showDirectionalLight = UI.get('showDirectionalLight', this.id);
+    showDirectionalLight.setValue(this.app.options.showDirectionalLightHelper);
+
 };
 
 SettingPanel.prototype.onChangeBackgroundType = function () { // 切换背景类型
