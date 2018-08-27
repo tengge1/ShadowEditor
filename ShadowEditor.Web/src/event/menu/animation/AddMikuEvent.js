@@ -35,51 +35,53 @@ AddMikuEvent.prototype.onAddMiku = function () {
     var audioFile = 'assets/audios/wavefile_short.mp3';
     var audioParams = { delayTime: 160 * 1 / 30 };
 
+    var helper = new THREE.MMDHelper();
+    this.helper = helper;
+
     var loader = new THREE.MMDLoader();
-    loader.loadWithAnimation(modelFile, vmdFiles, (mmd) => {
-        var mesh = mmd.mesh;
+
+    loader.load(modelFile, vmdFiles, mesh => {
         mesh.name = '初音未来';
 
-        editor.execute(new AddObjectCommand(mesh));
+        helper.add(mesh);
+        helper.setAnimation(mesh);
+        helper.setPhysics(mesh);
 
-        var helper = new THREE.MMDAnimationHelper({
-            afterglow: 2.0
-        });
+        loader.loadVmds(cameraFiles, vmd => {
+            helper.setCamera(camera);
 
-        this.helper = helper;
+            loader.pourVmdIntoCamera(camera, vmd);
+            helper.setCameraAnimation(camera);
 
-        helper.add(mesh, {
-            animation: mmd.animation,
-            physics: true
-        });
-
-        loader.loadAnimation(cameraFiles, camera, cameraAnimation => {
-            helper.add(camera, {
-                animation: cameraAnimation
-            });
-            new THREE.AudioLoader().load(audioFile, (buffer) => {
-                var listener = new THREE.AudioListener();
-                var audio = new THREE.Audio(listener).setBuffer(buffer);
-
-                listener.name = '音频监听器';
-                audio.name = '音频';
-
-                audio.setLoop(false);
+            loader.loadAudio(audioFile, (audio, listener) => {
                 listener.position.z = 1;
-                helper.add(audio, audioParams);
+
+                helper.setAudio(audio, listener, audioParams);
+
+                audio.name = '音频';
+                listener.name = '监听器';
+
+                /*
+                 * Note: call this method after you set all animations
+                 *       including camera and audio.
+                 */
+                helper.unifyAnimationDuration();
+
                 editor.execute(new AddObjectCommand(audio));
                 editor.execute(new AddObjectCommand(listener));
+                editor.execute(new AddObjectCommand(mesh));
+
                 this.ready = true;
+
+                this.app.on(`animate.` + this.id, this.onAnimate.bind(this));
             });
         });
-
-        this.app.on(`animate.` + this.id, this.onAnimate.bind(this));
     });
 };
 
 AddMikuEvent.prototype.onAnimate = function (clock, deltaTime) {
     if (this.ready) {
-        this.helper.update(deltaTime);
+        this.helper.animate(deltaTime);
     }
 };
 

@@ -32,6 +32,5 @@ import '../third_party/objects/Reflector.js';
 
 import '../third_party/animation/CCDIKSolver.js';
 import '../third_party/animation/MMDPhysics.js';
-import '../third_party/animation/MMDAnimationHelper.js';
 
 export { dispatch } from 'd3-dispatch';
