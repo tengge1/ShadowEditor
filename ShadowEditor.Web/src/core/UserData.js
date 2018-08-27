@@ -15,7 +15,13 @@ function UserData() {
 
     this.Server = true; // 是否从服务端加载
 
-    this.customData = {}; // 自定义数据
+    this.Scripts = { // 模型绑定脚本
+        Start: [], // 开始允许时仅执行一次
+        Update: [], // 每帧都要执行
+        Stop: [] // 结束运行时仅执行一次
+    };
+
+    this.CustomData = {}; // 自定义数据
 }
 
 export default UserData;
