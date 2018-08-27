@@ -398,12 +398,23 @@ SettingPanel.prototype.onSelectTab = function (tabName) {
     var showGrid = UI.get('showGrid', this.id);
     showGrid.setValue(this.app.options.showGrid);
 
+    var showCamera = UI.get('showCamera', this.id);
+    showCamera.setValue(this.app.options.showCameraHelper);
+
     var showPointLight = UI.get('showPointLight', this.id);
     showPointLight.setValue(this.app.options.showPointLightHelper);
 
     var showDirectionalLight = UI.get('showDirectionalLight', this.id);
     showDirectionalLight.setValue(this.app.options.showDirectionalLightHelper);
 
+    var showSpotLight = UI.get('showSpotLight', this.id);
+    showSpotLight.setValue(this.app.options.showSpotLightHelper);
+
+    var showHemisphereLight = UI.get('showHemisphereLight', this.id);
+    showHemisphereLight.setValue(this.app.options.showHemisphereLightHelper);
+
+    var showSkeleton = UI.get('showSkeleton', this.id);
+    showSkeleton.setValue(this.app.options.showSkeletonHelper);
 };
 
 SettingPanel.prototype.onChangeBackgroundType = function () { // 切换背景类型
@@ -542,10 +553,44 @@ SettingPanel.prototype.update = function () {
             break;
     }
 
-    // 网格
+    // 帮助器
     var showGrid = UI.get('showGrid', this.id).getValue();
     this.app.options.showGrid = showGrid;
     this.app.editor.grid.visible = showGrid;
+
+    var showCamera = UI.get('showCamera', this.id).getValue();
+    this.app.options.showCameraHelper = showCamera;
+
+    var showPointLight = UI.get('showPointLight', this.id).getValue();
+    this.app.options.showPointLightHelper = showPointLight;
+
+    var showDirectionalLight = UI.get('showDirectionalLight', this.id).getValue();
+    this.app.options.showDirectionalLightHelper = showDirectionalLight;
+
+    var showSpotLight = UI.get('showSpotLight', this.id).getValue();
+    this.app.options.showSpotLightHelper = showSpotLight;
+
+    var showHemisphereLight = UI.get('showHemisphereLight', this.id).getValue();
+    this.app.options.showHemisphereLightHelper = showHemisphereLight;
+
+    var showSkeleton = UI.get('showSkeleton', this.id).getValue();
+    this.app.options.showSkeletonHelper = showSkeleton;
+
+    Object.values(this.app.editor.helpers).forEach(n => {
+        if (n instanceof THREE.CameraHelper) {
+            n.visible = showCamera;
+        } else if (n instanceof THREE.PointLightHelper) {
+            n.visible = showPointLight;
+        } else if (n instanceof THREE.DirectionalLightHelper) {
+            n.visible = showDirectionalLight;
+        } else if (n instanceof THREE.SpotLightHelper) {
+            n.visible = showSpotLight;
+        } else if (n instanceof THREE.HemisphereLightHelper) {
+            n.visible = showHemisphereLight;
+        } else if (n instanceof THREE.SkeletonHelper) {
+            n.visible = showSkeleton;
+        }
+    });
 };
 
 export default SettingPanel;
