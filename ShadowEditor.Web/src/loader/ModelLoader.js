@@ -9,6 +9,7 @@ import FBXLoader from './FBXLoader';
 import GLTFLoader from './GLTFLoader';
 import KMZLoader from './KMZLoader';
 import MD2Loader from './MD2Loader';
+import ObjectLoader from './ObjectLoader';
 import OBJLoader from './OBJLoader';
 import PLYLoader from './PLYLoader';
 import STLLoader from './STLLoader';
@@ -26,6 +27,7 @@ const Loaders = {
     'gltf': GLTFLoader,
     'kmz': KMZLoader,
     'md2': MD2Loader,
+    'json': ObjectLoader,
     'obj': OBJLoader,
     'ply': PLYLoader,
     'stl': STLLoader,
