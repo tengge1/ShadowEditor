@@ -361,6 +361,13 @@ SettingPanel.prototype.onSelectTab = function (tabName) {
     backgroundPosZRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
     backgroundNegZRow.dom.style.display = scene.background instanceof THREE.CubeTexture ? '' : 'none';
 
+    backgroundPosX.setValue(scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[0]) : null);
+    backgroundNegX.setValue(scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[1]) : null);
+    backgroundPosY.setValue(scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[2]) : null);
+    backgroundNegY.setValue(scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[3]) : null);
+    backgroundPosZ.setValue(scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[4]) : null);
+    backgroundNegZ.setValue(scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[5]) : null);
+
     // 雾效
     var fogColorRow = UI.get('fogColorRow', this.id);
     var fogNearRow = UI.get('fogNearRow', this.id);
