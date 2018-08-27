@@ -1,4 +1,3 @@
-import { System } from '../../third_party';
 import BaseEvent from '../BaseEvent';
 import UI from '../../ui/UI';
 
