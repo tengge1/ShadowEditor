@@ -9,7 +9,6 @@ import AnimationMenu from './AnimationMenu';
 import PhysicsMenu from './PhysicsMenu';
 import ComponentMenu from './ComponentMenu';
 import PlayMenu from './PlayMenu';
-import ExampleMenu from './ExampleMenu';
 import OptionsMenu from './OptionsMenu';
 import HelpMenu from './HelpMenu';
 import StatusMenu from './StatusMenu';
@@ -49,7 +48,6 @@ Menubar.prototype.render = function () {
             new PhysicsMenu(params),
             new ComponentMenu(params),
             new PlayMenu(params),
-            new ExampleMenu(params),
             new OptionsMenu(params),
             new HelpMenu(params),
 

@@ -77,11 +77,6 @@ var EventList = [
 
     'mParticleEmitter', // 粒子发射器
 
-    'mArkanoid', // 打砖块
-    'mCamera', // 相机
-    'mParticles', // 粒子
-    'mPong', // 乒乓球
-
     'mSurfaceOptions', // 外观选项
     'mSceneOptions', // 场景选项
     'mRendererOptions', // 渲染器选项

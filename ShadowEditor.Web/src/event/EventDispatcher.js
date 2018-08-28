@@ -74,8 +74,6 @@ import AddPhysicsClothEvent from './menu/physics/AddPhysicsClothEvent';
 
 import ParticleEmitterEvent from './menu/component/ParticleEmitterEvent';
 
-import ExampleEvent from './menu/example/ExampleEvent';
-
 import SurfaceOptionsEvent from './menu/options/SurfaceOptionsEvent';
 import SceneOptionsEvent from './menu/options/SceneOptionsEvent';
 import RendererOptionsEvent from './menu/options/RendererOptionsEvent';
@@ -179,8 +177,6 @@ function EventDispatcher(app) {
         new AddPhysicsClothEvent(this.app),
 
         new ParticleEmitterEvent(this.app),
-
-        new ExampleEvent(this.app),
 
         new SurfaceOptionsEvent(this.app),
         new SceneOptionsEvent(this.app),

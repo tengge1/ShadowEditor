@@ -27,7 +27,7 @@ Player.prototype.render = function () {
 
     this.container.render();
 
-    this.player = new AppPlayer();
+    this.player = new AppPlayer(this.app);
     this.container.dom.appendChild(this.player.dom);
 
     this.app.on(`resize.${this.id}`, this.onResize.bind(this));

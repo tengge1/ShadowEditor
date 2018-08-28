@@ -1,10 +1,14 @@
+import SceneSerializer from '../serialization/core/SceneSerializer';
+import CamerasSerializer from '../serialization/camera/CamerasSerializer';
+import ScriptSerializer from '../serialization/app/ScriptSerializer';
+
 /**
  * 播放器
  * @author mrdoob / http://mrdoob.com/
  * @author tengge / https://github.com/tengge1
+ * @param {*} app 
  */
-function AppPlayer() {
-    var loader = new THREE.ObjectLoader();
+function AppPlayer(app) {
     var camera, scene, renderer;
 
     var events = {};
@@ -25,8 +29,11 @@ function AppPlayer() {
 
         dom.appendChild(renderer.domElement);
 
-        this.setScene(loader.parse(json.scene));
-        this.setCamera(loader.parse(json.camera));
+        var scene = new SceneSerializer(this.app).fromJSON(json.filter(n => n.metadata.generator === 'SceneSerializer')[0]);
+        this.setScene(scene);
+
+        var camera = new CamerasSerializer(this.app).fromJSON(json.filter(n => n.metadata.generator === 'PerspectiveCameraSerializer')[0]);
+        this.setCamera(camera);
 
         events = {
             init: [],
@@ -53,7 +60,9 @@ function AppPlayer() {
 
         var scriptWrapResult = JSON.stringify(scriptWrapResultObj).replace(/\"/g, '');
 
-        for (var uuid in json.scripts) {
+        var all_scripts = new ScriptSerializer(this.app).fromJSON(json.filter(n => n.metadata.generator === 'ScriptSerializer')[0]);
+
+        for (var uuid in all_scripts) {
             var object = scene.getObjectByProperty('uuid', uuid, true);
 
             if (object === undefined) {
@@ -61,7 +70,7 @@ function AppPlayer() {
                 continue;
             }
 
-            var scripts = json.scripts[uuid];
+            var scripts = all_scripts[uuid];
 
             for (var i = 0; i < scripts.length; i++) {
                 var script = scripts[i];
