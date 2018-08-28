@@ -1,7 +1,7 @@
 ﻿import UI from '../../ui/UI';
 import HierachyPanel from './scene/HierachyPanel';
 import PropertyPanel from './scene/PropertyPanel';
-import ScriptPanel from './scene/ScriptPanel';
+import ScriptPanel from './ScriptPanel';
 import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
 import LogPanel from './LogPanel';
@@ -37,6 +37,13 @@ Sidebar.prototype.render = function () {
                 }
             }, {
                 xtype: 'text',
+                id: 'scriptTab',
+                text: '脚本',
+                onClick: () => {
+                    this.selectTab('script');
+                }
+            }, {
+                xtype: 'text',
                 id: 'settingTab',
                 text: '设置',
                 onClick: () => {
@@ -62,7 +69,12 @@ Sidebar.prototype.render = function () {
             id: 'scenePanel',
             children: [
                 new HierachyPanel({ app: this.app }),
-                new PropertyPanel({ app: this.app }),
+                new PropertyPanel({ app: this.app })
+            ]
+        }, {
+            xtype: 'div',
+            id: 'scriptPanel',
+            children: [
                 new ScriptPanel({ app: this.app })
             ]
         }, { // 设置面板

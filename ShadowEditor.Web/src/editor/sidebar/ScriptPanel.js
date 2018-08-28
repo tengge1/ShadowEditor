@@ -1,5 +1,5 @@
-﻿import UI from '../../../ui/UI';
-import AddScriptCommand from '../../../command/AddScriptCommand';
+﻿import UI from '../../ui/UI';
+import AddScriptCommand from '../../command/AddScriptCommand';
 
 /**
  * 脚本面板
@@ -19,7 +19,6 @@ ScriptPanel.prototype.render = function () {
 
     var data = {
         xtype: 'div',
-        id: 'scriptPanel',
         parent: this.parent,
         cls: 'Panel scriptPanel',
         style: {
