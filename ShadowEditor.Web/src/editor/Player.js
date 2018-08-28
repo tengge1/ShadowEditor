@@ -29,6 +29,12 @@ Player.prototype.render = function () {
 
     this.player = new AppPlayer();
     this.container.dom.appendChild(this.player.dom);
+
+    this.app.on(`resize.${this.id}`, this.onResize.bind(this));
+};
+
+Player.prototype.onResize = function () {
+    this.player.setSize(this.container.dom.clientWidth, this.container.dom.clientHeight);
 };
 
 export default Player;

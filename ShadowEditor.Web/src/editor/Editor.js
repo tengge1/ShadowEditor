@@ -95,7 +95,7 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
 
     if (this.scene.background instanceof THREE.Texture) {
         this.scene.background = new THREE.Color(0xaaaaaa);
-    } else {
+    } else if (this.scene.background instanceof THREE.Color) {
         this.scene.background.setHex(0xaaaaaa);
     }
 

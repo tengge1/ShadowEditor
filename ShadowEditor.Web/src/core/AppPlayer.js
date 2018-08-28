@@ -1,6 +1,7 @@
 /**
  * 播放器
  * @author mrdoob / http://mrdoob.com/
+ * @author tengge / https://github.com/tengge1
  */
 function AppPlayer() {
     var loader = new THREE.ObjectLoader();

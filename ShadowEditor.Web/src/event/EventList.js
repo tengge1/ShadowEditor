@@ -77,8 +77,6 @@ var EventList = [
 
     'mParticleEmitter', // 粒子发射器
 
-    'mPlay', // 启动
-
     'mArkanoid', // 打砖块
     'mCamera', // 相机
     'mParticles', // 粒子
@@ -100,9 +98,6 @@ var EventList = [
 
     // signal事件
     'editScript', // 编辑脚本事件
-
-    'startPlayer', // 启动播放器事件
-    'stopPlayer', // 停止播放器事件
 
     'editorCleared', // 编辑器已经清空事件
 

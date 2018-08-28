@@ -74,8 +74,6 @@ import AddPhysicsClothEvent from './menu/physics/AddPhysicsClothEvent';
 
 import ParticleEmitterEvent from './menu/component/ParticleEmitterEvent';
 
-import PlayEvent from './menu/play/PlayEvent';
-
 import ExampleEvent from './menu/example/ExampleEvent';
 
 import SurfaceOptionsEvent from './menu/options/SurfaceOptionsEvent';
@@ -99,8 +97,6 @@ import EditorControlsEvent from './viewport/EditorControlsEvent';
 import GridChangeEvent from './statusBar/GridChangeEvent';
 
 import CodeMirrorChangeEvent from './script/CodeMirrorChangeEvent';
-
-import PlayerEvent from './player/PlayerEvent';
 
 /**
  * 事件执行器
@@ -184,8 +180,6 @@ function EventDispatcher(app) {
 
         new ParticleEmitterEvent(this.app),
 
-        new PlayEvent(this.app),
-
         new ExampleEvent(this.app),
 
         new SurfaceOptionsEvent(this.app),
@@ -212,9 +206,6 @@ function EventDispatcher(app) {
 
         // 代码编辑器中的事件
         new CodeMirrorChangeEvent(this.app),
-
-        // 播放器中的事件
-        new PlayerEvent(this.app),
     ];
 }
 

@@ -15,21 +15,7 @@ function History(editor) {
     this.lastCmdTime = new Date();
     this.idCounter = 0;
 
-    this.historyDisabled = false;
-
-    //Set editor-reference in Command
-
     Command.call(this, editor);
-
-    var scope = this;
-
-    this.app.on('startPlayer.History', function () {
-        scope.historyDisabled = true;
-    });
-
-    this.app.on('stopPlayer.History', function () {
-        scope.historyDisabled = false;
-    });
 };
 
 History.prototype = Object.create(Command.prototype);
@@ -85,11 +71,6 @@ Object.assign(History.prototype, {
     },
 
     undo: function () {
-        if (this.historyDisabled) {
-            UI.msg("场景启动时撤销/重做将被禁用。");
-            return;
-        }
-
         var cmd = undefined;
 
         if (this.undos.length > 0) {
@@ -110,11 +91,6 @@ Object.assign(History.prototype, {
     },
 
     redo: function () {
-        if (this.historyDisabled) {
-            UI.msg("场景启动时撤销/重做将被禁用。");
-            return;
-        }
-
         var cmd = undefined;
 
         if (this.redos.length > 0) {
@@ -192,11 +168,6 @@ Object.assign(History.prototype, {
     },
 
     goToState: function (id) {
-        if (this.historyDisabled) {
-            UI.msg("场景启动时撤销/重做将被禁用。");
-            return;
-        }
-
         var cmd = this.undos.length > 0 ? this.undos[this.undos.length - 1] : undefined; // next cmd to pop
 
         if (cmd === undefined || id > cmd.id) {
