@@ -22,8 +22,14 @@ RectAreaLightSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-RectAreaLightSerializer.prototype.fromJSON = function (json) {
+RectAreaLightSerializer.prototype.fromJSON = function (json, parent) {
+    var obj = parent === undefined ? new THREE.RectAreaLight(json.color, json.intensity, json.width, json.height) : parent;
 
+    LightSerializer.prototype.fromJSON.call(this, json, obj);
+
+    obj.isRectAreaLight = true;
+
+    return obj;
 };
 
 export default RectAreaLightSerializer;
