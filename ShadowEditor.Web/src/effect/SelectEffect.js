@@ -16,11 +16,16 @@ SelectEffect.prototype = Object.create(BaseEffect.prototype);
 SelectEffect.prototype.constructor = SelectEffect;
 
 SelectEffect.prototype.render = function (obj) {
+    if (obj instanceof THREE.SkinnedMesh) {
+        return;
+    }
+
     var renderer = this.app.editor.renderer;
     var scene = this.scene;
     var camera = this.app.editor.camera;
 
     var geometry = obj.geometry;
+
     var material = new THREE.RawShaderMaterial({
         uniforms: {
             time: {
@@ -32,6 +37,10 @@ SelectEffect.prototype.render = function (obj) {
     });
 
     var mesh = new THREE.Mesh(geometry, material);
+    mesh.position.copy(obj.position);
+    mesh.rotation.copy(obj.rotation);
+    mesh.scale.copy(obj.scale);
+
     scene.children.length = 0;
     scene.add(mesh);
 
