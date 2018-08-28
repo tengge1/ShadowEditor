@@ -21,9 +21,6 @@ ScriptPanel.prototype.render = function () {
         xtype: 'div',
         parent: this.parent,
         cls: 'Panel scriptPanel',
-        style: {
-            display: 'none'
-        },
         children: [{
             xtype: 'label',
             text: '脚本'

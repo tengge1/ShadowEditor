@@ -16,28 +16,15 @@ ScriptPanelEvent.prototype = Object.create(BaseEvent.prototype);
 ScriptPanelEvent.prototype.constructor = ScriptPanelEvent;
 
 ScriptPanelEvent.prototype.start = function () {
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
     this.app.on(`scriptAdded.${this.id}`, this.update.bind(this));
     this.app.on(`scriptRemoved.${this.id}`, this.update.bind(this));
     this.app.on(`scriptChanged.${this.id}`, this.update.bind(this));
 };
 
 ScriptPanelEvent.prototype.stop = function () {
-    this.app.on(`objectSelected.${this.id}`, null);
     this.app.on(`scriptAdded.${this.id}`, null);
     this.app.on(`scriptRemoved.${this.id}`, null);
     this.app.on(`scriptChanged.${this.id}`, null);
-};
-
-ScriptPanelEvent.prototype.onObjectSelected = function (object) {
-    var container = UI.get('scriptPanel');
-
-    if (object !== null) {
-        container.dom.style.display = 'block';
-        this.update();
-    } else {
-        container.dom.style.display = 'none';
-    }
 };
 
 ScriptPanelEvent.prototype.update = function () {
