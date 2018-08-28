@@ -19,6 +19,7 @@ function Options(options) {
     this.showDirectionalLightHelper = true; // 是否显示平行光帮助器
     this.showSpotLightHelper = true; // 是否显示聚光灯帮助器
     this.showHemisphereLightHelper = true; // 是否显示半球光帮助器
+    this.showRectAreaLightHelper = true; // 是否显示矩形光帮助器
     this.showSkeletonHelper = false; // 是否显示骨骼帮助器
 }
 
