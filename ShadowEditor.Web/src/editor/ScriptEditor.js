@@ -13,9 +13,10 @@ function ScriptEditor(options) {
     this.codemirror = null;
     this.server = null;
 
-    this.currentMode = null;
-    this.currentScript = null;
-    this.currentObject = null;
+    this.name = null;
+    this.mode = null;
+    this.source = null;
+    this.title = null;
 };
 
 ScriptEditor.prototype = Object.create(UI.Control.prototype);
@@ -50,7 +51,7 @@ ScriptEditor.prototype.render = function () {
                     right: '1px',
                     cursor: 'pointer'
                 },
-                onClick: this.onClose.bind(this)
+                onClick: this.hide.bind(this)
             }]
         }]
     };
@@ -60,16 +61,93 @@ ScriptEditor.prototype.render = function () {
 
     // 绑定事件
     this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
-    // this.app.on(`editorCleared.${this.id}`, this.onEditorCleared.bind(this));
-    // this.app.on(`editScript.${this.id}`, this.onEditScript.bind(this));
-    // this.app.on(`scriptRemoved.${this.id}`, this.onScriptRemoved.bind(this));
-    // this.app.on(`refreshScriptEditor.${this.id}`, this.onRefreshScriptEditor.bind(this));
 };
 
-ScriptEditor.prototype.onClose = function () {
+/**
+ * 打开脚本文件
+ * @param {*} name 名称
+ * @param {*} mode 类型 javascript、glsl、json 默认：javascript
+ * @param {*} source 源码 文件初始代码 默认：空
+ * @param {*} title 标题 文件标题 默认：未命名.${文件类型}
+ */
+ScriptEditor.prototype.open = function (name, mode, source, title) {
+    var container = UI.get('scriptEditor');
+    var title = UI.get('scriptTitle');
+
+    // programInfo信息
+    // var json = {
+    //     defines: object.material.defines,
+    //     uniforms: object.material.uniforms,
+    //     attributes: object.material.attributes
+    // };
+    // source = JSON.stringify(json, null, '\t');
+
+    name = name || 'No Name';
+    mode = mode || 'javascript';
+    source = source || '';
+    title = title || `未命名.${mode === 'glsl' ? '.glsl' : (mode === 'json' ? '.json' : '.js')}`;
+
+    this.name = name;
+    this.mode = mode;
+    this.source = source;
+    this.title = title;
+
+    this.show();
+
+    this.codemirror.setValue(source);
+
+    // 设置codemirror模式
+    if (mode === 'json') {
+        this.codemirror.setOption('mode', {
+            name: 'javascript',
+            json: true
+        });
+    } else {
+        this.codemirror.setOption('mode', mode);
+    }
+};
+
+/**
+ * 显示脚本编辑器
+ */
+ScriptEditor.prototype.show = function () {
+    var container = UI.get('scriptEditor');
+    container.dom.style.display = 'block';
+};
+
+/**
+ * 隐藏脚本编辑器
+ */
+ScriptEditor.prototype.hide = function () {
     var container = UI.get('scriptEditor');
     container.dom.style.display = 'none';
 };
+
+/**
+ * 刷新脚本编辑器
+ * @param {*} title 标题
+ * @param {*} source 代码
+ * @param {*} cursorPosition 光标位置
+ * @param {*} scrollInfo 滚动信息
+ */
+ScriptEditor.prototype.refresh = function (title, source, cursorPosition, scrollInfo) {
+    var container = UI.get('scriptEditor');
+    var title = UI.get('scriptTitle');
+
+    // 复制codemirror的历史记录，因为"codemirror.setValue(...)"函数会改变它的历史。
+    var history = this.codemirror.getHistory();
+    title.setValue(title);
+    this.codemirror.setValue(source);
+
+    if (cursorPosition !== undefined) {
+        this.codemirror.setCursor(cursorPosition);
+        this.codemirror.scrollTo(scrollInfo.left, scrollInfo.top);
+    }
+
+    this.codemirror.setHistory(history); // 设置历史到先前状态
+};
+
+// 内部方法
 
 ScriptEditor.prototype.onAppStarted = function () {
     var container = UI.get('scriptEditor');
@@ -88,7 +166,7 @@ ScriptEditor.prototype.onAppStarted = function () {
 
     codemirror.setOption('theme', 'monokai');
     codemirror.on('change', () => {
-        this.app.call('codeMirrorChange', this, codemirror, this.currentMode, this.currentScript, this.currentObject);
+        // this.app.call('codeMirrorChange', this, codemirror, this.currentMode, this.currentScript, this.currentObject);
     });
 
     // 防止回退键删除物体
@@ -103,25 +181,26 @@ ScriptEditor.prototype.onAppStarted = function () {
         plugins: { threejs: null }
     });
 
+    // 快捷键
     codemirror.setOption('extraKeys', {
-        'Ctrl-Space': function (cm) { server.complete(cm); },
-        'Ctrl-I': function (cm) { server.showType(cm); },
-        'Ctrl-O': function (cm) { server.showDocs(cm); },
-        'Alt-.': function (cm) { server.jumpToDef(cm); },
-        'Alt-,': function (cm) { server.jumpBack(cm); },
-        'Ctrl-Q': function (cm) { server.rename(cm); },
-        'Ctrl-.': function (cm) { server.selectName(cm); }
+        'Ctrl-Space': cm => { server.complete(cm); },
+        'Ctrl-I': cm => { server.showType(cm); },
+        'Ctrl-O': cm => { server.showDocs(cm); },
+        'Alt-.': cm => { server.jumpToDef(cm); },
+        'Alt-,': cm => { server.jumpBack(cm); },
+        'Ctrl-Q': cm => { server.rename(cm); },
+        'Ctrl-.': cm => { server.selectName(cm); }
     });
 
     codemirror.on('cursorActivity', cm => {
-        if (this.currentMode !== 'javascript') {
+        if (this.mode !== 'javascript') {
             return;
         }
         server.updateArgHints(cm);
     });
 
     codemirror.on('keypress', (cm, kb) => {
-        if (this.currentMode !== 'javascript') {
+        if (this.mode !== 'javascript') {
             return;
         }
         var typed = String.fromCharCode(kb.which || kb.keyCode);
@@ -132,93 +211,6 @@ ScriptEditor.prototype.onAppStarted = function () {
 
     this.codemirror = codemirror;
     this.server = server;
-};
-
-ScriptEditor.prototype.onEditorCleared = function () {
-    var container = UI.get('scriptEditor');
-    container.dom.style.display = 'none';
-};
-
-ScriptEditor.prototype.onEditScript = function (object, script) {
-    var container = UI.get('scriptEditor');
-    var title = UI.get('scriptTitle');
-
-    var mode, name, source;
-
-    if (typeof (script) === 'object') { // 编辑javascript脚本
-        mode = 'javascript';
-        name = script.name;
-        source = script.source;
-        title.setValue(object.name + ' / ' + name);
-    } else { // 编辑着色器程序和材质信息
-        switch (script) {
-            case 'vertexShader':
-                mode = 'glsl';
-                name = 'Vertex Shader';
-                source = object.material.vertexShader || "";
-                break;
-            case 'fragmentShader':
-                mode = 'glsl';
-                name = 'Fragment Shader';
-                source = object.material.fragmentShader || "";
-                break;
-            case 'programInfo':
-                mode = 'json';
-                name = 'Program Properties';
-                var json = {
-                    defines: object.material.defines,
-                    uniforms: object.material.uniforms,
-                    attributes: object.material.attributes
-                };
-                source = JSON.stringify(json, null, '\t');
-        }
-        title.setValue(object.material.name + ' / ' + name);
-    }
-
-    this.currentMode = mode;
-    this.currentScript = script;
-    this.currentObject = object;
-
-    container.dom.style.display = 'block';
-    this.codemirror.setValue(source);
-
-    if (mode === 'json') {
-        mode = {
-            name: 'javascript',
-            json: true
-        };
-    }
-
-    this.codemirror.setOption('mode', mode);
-};
-
-ScriptEditor.prototype.onScriptRemoved = function (script) {
-    var container = UI.get('scriptEditor');
-
-    if (this.currentScript === script) {
-        container.dom.style.display = 'none';
-    }
-};
-
-ScriptEditor.prototype.onRefreshScriptEditor = function (object, script, cursorPosition, scrollInfo) {
-    if (this.currentScript !== script) {
-        return;
-    }
-
-    var container = UI.get('scriptEditor');
-    var title = UI.get('scriptTitle');
-
-    // 复制codemirror的历史记录，因为"codemirror.setValue(...)"函数会改变它的历史。
-    var history = this.codemirror.getHistory();
-    title.setValue(object.name + ' / ' + script.name);
-    this.codemirror.setValue(script.source);
-
-    if (cursorPosition !== undefined) {
-        this.codemirror.setCursor(cursorPosition);
-        this.codemirror.scrollTo(scrollInfo.left, scrollInfo.top);
-    }
-
-    this.codemirror.setHistory(history); // 设置历史到先前状态
 };
 
 export default ScriptEditor;
