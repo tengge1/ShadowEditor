@@ -20,6 +20,9 @@ HierachyPanel.prototype.render = function () {
         xtype: 'div',
         parent: this.parent,
         cls: 'Panel',
+        style: {
+            paddingTop: '10px'
+        },
         children: [{
             xtype: 'outliner',
             id: 'outliner',

@@ -303,6 +303,17 @@ SettingPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
+                text: '矩形光'
+            }, {
+                xtype: 'boolean',
+                id: 'showRectAreaLight',
+                scope: this.id,
+                onChange: this.update.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
                 text: '骨骼'
             }, {
                 xtype: 'boolean',
@@ -412,6 +423,9 @@ SettingPanel.prototype.onSelectTab = function (tabName) {
 
     var showHemisphereLight = UI.get('showHemisphereLight', this.id);
     showHemisphereLight.setValue(this.app.options.showHemisphereLightHelper);
+
+    var showRectAreaLight = UI.get('showRectAreaLight', this.id);
+    showRectAreaLight.setValue(this.app.options.showRectAreaLightHelper);
 
     var showSkeleton = UI.get('showSkeleton', this.id);
     showSkeleton.setValue(this.app.options.showSkeletonHelper);
@@ -573,6 +587,9 @@ SettingPanel.prototype.update = function () {
     var showHemisphereLight = UI.get('showHemisphereLight', this.id).getValue();
     this.app.options.showHemisphereLightHelper = showHemisphereLight;
 
+    var showRectAreaLight = UI.get('showRectAreaLight', this.id).getValue();
+    this.app.options.showRectAreaLightHelper = showRectAreaLight;
+
     var showSkeleton = UI.get('showSkeleton', this.id).getValue();
     this.app.options.showSkeletonHelper = showSkeleton;
 
@@ -587,6 +604,8 @@ SettingPanel.prototype.update = function () {
             n.visible = showSpotLight;
         } else if (n instanceof THREE.HemisphereLightHelper) {
             n.visible = showHemisphereLight;
+        } else if (n instanceof THREE.RectAreaLight) {
+            n.visible = showRectAreaLight;
         } else if (n instanceof THREE.SkeletonHelper) {
             n.visible = showSkeleton;
         }

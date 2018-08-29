@@ -205,7 +205,7 @@ Editor.prototype.addHelper = function (object) { // 添加物体帮助器
         helper = new THREE.HemisphereLightHelper(object, 1);
         helper.visible = options.showHemisphereLightHelper;
     } else if (object instanceof THREE.RectAreaLight) { // 矩形光
-        helper = new THREE.RectAreaLightHelper(object, 1);
+        helper = new THREE.RectAreaLightHelper(object, 0xffffff);
         helper.visible = options.showRectAreaLightHelper;
     } else if (object instanceof THREE.SkinnedMesh) { // 骨骼
         helper = new THREE.SkeletonHelper(object);

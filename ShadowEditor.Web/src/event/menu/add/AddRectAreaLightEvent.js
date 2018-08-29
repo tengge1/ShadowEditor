@@ -37,7 +37,7 @@ AddRectAreaLightEvent.prototype.onAddHemisphereLight = function () {
     var light = new THREE.RectAreaLight(color, intensity, width, height);
     light.name = '矩形光' + ID++;
 
-    light.position.set(0, 5, 0);
+    light.position.set(0, 6, 0);
 
     editor.execute(new AddObjectCommand(light));
 };
