@@ -1,4 +1,4 @@
-import BaseEvent from '../BaseEvent';
+import BaseEvent from './BaseEvent';
 
 /**
  * 选取事件

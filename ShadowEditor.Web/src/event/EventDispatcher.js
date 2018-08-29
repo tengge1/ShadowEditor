@@ -89,7 +89,7 @@ import ScriptPanelEvent from './sideBar/ScriptPanelEvent';
 import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateSceneStatusEvent from './statusBar/UpdateSceneStatusEvent';
 import ObjectEvent from './viewport/ObjectEvent';
-import PickEvent from './viewport/PickEvent';
+import PickEvent from './PickEvent';
 import EditorControlsEvent from './viewport/EditorControlsEvent';
 
 import GridChangeEvent from './statusBar/GridChangeEvent';
