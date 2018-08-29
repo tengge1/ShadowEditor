@@ -8,7 +8,7 @@ import Toolbar from './editor/Toolbar';
 import Viewport from './editor/Viewport';
 import Sidebar from './editor/sidebar/Sidebar';
 import StatusBar from './editor/StatusBar';
-import Script from './editor/Script';
+import ScriptEditor from './editor/ScriptEditor';
 import Player from './editor/Player';
 import TimePanel from './editor/TimePanel';
 
@@ -57,7 +57,7 @@ function Application(container, options) {
     this.statusBar = new StatusBar(params); // 状态栏
     this.statusBar.render();
 
-    this.script = new Script(params); // 脚本编辑面板
+    this.script = new ScriptEditor(params); // 脚本编辑器
     this.script.render();
 
     this.player = new Player(params); // 播放器面板
