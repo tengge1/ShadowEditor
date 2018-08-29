@@ -60,10 +60,10 @@ ScriptEditor.prototype.render = function () {
 
     // 绑定事件
     this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
-    this.app.on(`editorCleared.${this.id}`, this.onEditorCleared.bind(this));
-    this.app.on(`editScript.${this.id}`, this.onEditScript.bind(this));
-    this.app.on(`scriptRemoved.${this.id}`, this.onScriptRemoved.bind(this));
-    this.app.on(`refreshScriptEditor.${this.id}`, this.onRefreshScriptEditor.bind(this));
+    // this.app.on(`editorCleared.${this.id}`, this.onEditorCleared.bind(this));
+    // this.app.on(`editScript.${this.id}`, this.onEditScript.bind(this));
+    // this.app.on(`scriptRemoved.${this.id}`, this.onScriptRemoved.bind(this));
+    // this.app.on(`refreshScriptEditor.${this.id}`, this.onRefreshScriptEditor.bind(this));
 };
 
 ScriptEditor.prototype.onClose = function () {
