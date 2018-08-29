@@ -270,7 +270,7 @@ SettingPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '平行光源'
+                text: '平行光'
             }, {
                 xtype: 'boolean',
                 id: 'showDirectionalLight',
@@ -604,7 +604,7 @@ SettingPanel.prototype.update = function () {
             n.visible = showSpotLight;
         } else if (n instanceof THREE.HemisphereLightHelper) {
             n.visible = showHemisphereLight;
-        } else if (n instanceof THREE.RectAreaLight) {
+        } else if (n instanceof THREE.RectAreaLightHelper) {
             n.visible = showRectAreaLight;
         } else if (n instanceof THREE.SkeletonHelper) {
             n.visible = showSkeleton;
