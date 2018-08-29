@@ -197,6 +197,11 @@ SceneWindow.prototype.loadScene = function (data) {
         editor.sceneName = data.Name;
         document.title = data.Name;
 
+        // 添加帮助器
+        editor.scene.traverse(n => {
+            editor.addHelper(n);
+        });
+
         UI.msg('载入成功！');
     });
 };
