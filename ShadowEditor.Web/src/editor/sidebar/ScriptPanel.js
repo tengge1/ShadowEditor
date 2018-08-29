@@ -22,28 +22,59 @@ ScriptPanel.prototype.render = function () {
         parent: this.parent,
         cls: 'Panel scriptPanel',
         children: [{
-            xtype: 'label',
-            text: '脚本'
-        }, {
-            xtype: 'br'
-        }, {
-            xtype: 'br'
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                style: {
+                    color: '#555',
+                    fontWeight: 'bold'
+                },
+                text: '常用脚本'
+            }]
         }, {
             xtype: 'row',
-            id: 'scriptsContainer'
+            id: 'commonScriptContainer'
         }, {
             xtype: 'button',
-            id: 'newScript',
-            text: '新建',
-            onClick: function () {
-                var script = { name: '', source: 'function update( event ) {}' };
-                editor.execute(new AddScriptCommand(editor.selected, script));
-            }
+            id: 'newCommonScript',
+            text: '新建脚本',
+            onClick: this.createNewCommonScript.bind(this)
+        }, {
+            xtype: 'row',
+            style: {
+                paddingTop: '5px',
+            },
+            children: [{
+                xtype: 'label',
+                style: {
+                    color: '#555',
+                    fontWeight: 'bold'
+                },
+                text: '自定义脚本'
+            }]
+        }, {
+            xtype: 'row',
+            id: 'customScriptContainer'
+        }, {
+            xtype: 'button',
+            id: 'newCustomScript',
+            text: '新建脚本',
+            onClick: this.createNewCustomScript.bind(this)
         }]
     };
 
     var control = UI.create(data);
     control.render();
+};
+
+ScriptPanel.prototype.createNewCommonScript = function () {
+    // var script = { name: '', source: 'function update( event ) {}' };
+    // editor.execute(new AddScriptCommand(editor.selected, script));
+};
+
+ScriptPanel.prototype.createNewCustomScript = function () {
+    // var script = { name: '', source: 'function update( event ) {}' };
+    // editor.execute(new AddScriptCommand(editor.selected, script));
 };
 
 export default ScriptPanel;

@@ -48,10 +48,16 @@ function Editor(app) {
     this.app.viewport.container.dom.appendChild(this.renderer.domElement);
     this.renderer.setSize(this.app.viewport.container.dom.offsetWidth, this.app.viewport.container.dom.offsetHeight);
 
-    // 缓存
+    // 物体
     this.object = {};
+
+    // 物体
     this.objects = [];
+
+    // 脚本 格式：{ uuid: { id: 'mongoDB id', name: 'Script Name', source: 'Source Code' } }，其中，uuid是随机产生，id是mongo数据库ID字段，脚本名称随便填
     this.scripts = {};
+
+    // 帮助器
     this.helpers = {};
 
     // 当前选中物体
