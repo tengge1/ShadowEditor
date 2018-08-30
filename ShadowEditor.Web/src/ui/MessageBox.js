@@ -10,7 +10,7 @@ function MessageBox(options) {
     Container.call(this, options);
     options = options || {};
 
-    this.time = options.time || 5000;
+    this.time = options.time || 3000;
 };
 
 MessageBox.prototype = Object.create(Container.prototype);
