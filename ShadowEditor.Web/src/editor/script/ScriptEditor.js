@@ -73,15 +73,7 @@ ScriptEditor.prototype.render = function () {
 ScriptEditor.prototype.open = function (name, mode, source, title) {
     var scriptTitle = UI.get('scriptTitle');
 
-    // programInfo信息
-    // var json = {
-    //     defines: object.material.defines,
-    //     uniforms: object.material.uniforms,
-    //     attributes: object.material.attributes
-    // };
-    // source = JSON.stringify(json, null, '\t');
-
-    name = name || 'No Name';
+    name = name || '未命名';
     mode = mode || 'javascript';
     source = source || '';
     title = title || '未命名';
