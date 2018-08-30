@@ -34,14 +34,6 @@ ScriptPanel.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
-            id: 'commonScriptContainer'
-        }, {
-            xtype: 'button',
-            id: 'newCommonScript',
-            text: '新建脚本',
-            onClick: this.createNewCommonScript.bind(this)
-        }, {
-            xtype: 'row',
             style: {
                 paddingTop: '5px',
             },
@@ -55,12 +47,12 @@ ScriptPanel.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
-            id: 'customScriptContainer'
+            id: 'scriptsContainer'
         }, {
             xtype: 'button',
             id: 'newCustomScript',
             text: '新建脚本',
-            onClick: this.createNewCustomScript.bind(this)
+            onClick: this.createNewScript.bind(this)
         }]
     };
 
@@ -68,89 +60,84 @@ ScriptPanel.prototype.render = function () {
     control.render();
 };
 
-ScriptPanel.prototype.createNewCommonScript = function () {
+ScriptPanel.prototype.createNewScript = function () {
     if (this.window == null) {
-        this.window = new ScriptWindow({ app: this.app });
+        this.window = new ScriptWindow({
+            app: this.app,
+            onChange: this.update.bind(this)
+        });
         this.window.render();
     }
     this.window.reset();
     this.window.show();
 };
-
-ScriptPanel.prototype.createNewCustomScript = function () {
-    if (this.window == null) {
-        this.window = new ScriptWindow({ app: this.app });
-        this.window.render();
-    }
-    this.window.reset();
-    this.window.show();
-};
-
 
 ScriptPanel.prototype.update = function () {
-    var scriptsContainer = UI.get('scriptsContainer');
-    var editor = this.app.editor;
-    var _this = this;
+    var container = UI.get('scriptsContainer');
+    container.dom.innerHTML = '';
+    container.dom.style.display = 'none';
 
-    scriptsContainer.dom.innerHTML = '';
-    scriptsContainer.dom.style.display = 'none';
+    var scripts = this.app.editor.scripts;
 
-    var object = editor.selected;
-    if (object === null) {
+    if (Object.keys(scripts).length === 0) {
         return;
     }
 
-    var scripts = editor.scripts[object.uuid];
+    container.dom.style.display = 'block';
 
-    if (scripts !== undefined) {
-        scriptsContainer.dom.style.display = 'block';
+    Object.keys(scripts).forEach(n => {
+        var script = scripts[n];
+        var name = script.name;
+        var extension;
 
-        for (var i = 0; i < scripts.length; i++) {
-            (function (object, script) {
-                var data = {
-                    xtype: 'container',
-                    parent: scriptsContainer.dom,
-                    children: [{
-                        xtype: 'input',
-                        value: script.name,
-                        style: {
-                            width: '130px',
-                            fontSize: '12px'
-                        },
-                        onChange: function () {
-                            editor.execute(new SetScriptValueCommand(editor.selected, script, 'name', this.getValue()));
-                        }
-                    }, {
-                        xtype: 'button',
-                        text: '编辑',
-                        style: {
-                            marginLeft: '4px'
-                        },
-                        onClick: function () {
-                            _this.app.call('editScript', _this, object, script);
-                        }
-                    }, {
-                        xtype: 'button',
-                        text: '删除',
-                        style: {
-                            marginLeft: '4px'
-                        },
-                        onClick: function () {
-                            UI.confirm('询问', '确定要删除吗？', function (event, btn) {
-                                if (btn === 'ok') {
-                                    editor.execute(new RemoveScriptCommand(editor.selected, script));
-                                }
-                            });
-                        }
-                    }, {
-                        xtype: 'br'
-                    }]
-                };
-
-                UI.create(data).render();
-            })(object, scripts[i])
+        switch (script.type) {
+            case 'javascript':
+                extension = '.js';
+                break;
+            case 'vertexShader':
+            case 'fragmentShader':
+                extension = '.glsl';
+                break;
+            case 'json':
+                extension = '.json';
+                break;
         }
-    }
+
+        var data = {
+            xtype: 'container',
+            parent: container.dom,
+            children: [{
+                xtype: 'text',
+                text: name + extension,
+                style: {
+                    width: '130px',
+                    fontSize: '12px'
+                }
+            }, {
+                xtype: 'button',
+                text: '编辑',
+                style: {
+                    marginLeft: '4px'
+                },
+                onClick: function () {
+
+                }
+            }, {
+                xtype: 'button',
+                text: '删除',
+                style: {
+                    marginLeft: '4px'
+                },
+                onClick: function () {
+
+                }
+            }, {
+                xtype: 'br'
+            }]
+        };
+
+        UI.create(data).render();
+    });
 };
 
 export default ScriptPanel;

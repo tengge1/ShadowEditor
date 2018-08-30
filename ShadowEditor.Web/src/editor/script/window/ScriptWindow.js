@@ -11,7 +11,10 @@ import JsonStarter from '../code/JsonStarter';
  */
 function ScriptWindow(options) {
     UI.Control.call(this, options);
+    options = options || {};
+
     this.app = options.app;
+    this.onChange = options.onChange || null;
 }
 
 ScriptWindow.prototype = Object.create(UI.Control.prototype);
@@ -118,6 +121,20 @@ ScriptWindow.prototype.onCreateScript = function () {
     }
 
     this.app.script.open(scriptName, scriptType, initCode, scriptName);
+
+    var uuid = THREE.Math.generateUUID();
+
+    this.app.editor.scripts[uuid] = {
+        id: 0,
+        name: scriptName,
+        type: scriptType,
+        source: initCode,
+        uuid: uuid
+    };
+
+    if (this.onChange) {
+        this.onChange();
+    }
 };
 
 ScriptWindow.prototype.onCancelScript = function () {
