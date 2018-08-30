@@ -136,8 +136,6 @@ ScriptEditor.prototype.hide = function () {
         script.source = this.codemirror.getValue();
     }
     container.dom.style.display = 'none';
-
-    UI.msg('脚本保存成功');
 };
 
 /**

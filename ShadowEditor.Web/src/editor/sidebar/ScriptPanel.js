@@ -137,7 +137,10 @@ ScriptPanel.prototype.update = function () {
  * @param {*} uuid 
  */
 ScriptPanel.prototype.editScript = function (uuid) {
-
+    var script = this.app.editor.scripts[uuid];
+    if (script) {
+        this.app.script.open(uuid, script.name, script.type, script.source, script.name);
+    }
 };
 
 /**
