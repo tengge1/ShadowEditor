@@ -24,16 +24,6 @@ ScriptPanel.prototype.render = function () {
         cls: 'Panel scriptPanel',
         children: [{
             xtype: 'row',
-            children: [{
-                xtype: 'label',
-                style: {
-                    color: '#555',
-                    fontWeight: 'bold'
-                },
-                text: '常用脚本'
-            }]
-        }, {
-            xtype: 'row',
             style: {
                 paddingTop: '5px',
             },
@@ -43,7 +33,7 @@ ScriptPanel.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '自定义脚本'
+                text: '脚本列表'
             }]
         }, {
             xtype: 'row',
