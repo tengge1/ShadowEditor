@@ -239,7 +239,7 @@ div.Window .body .TabPanel {
 }
 
 div.Window .body .Row {
-    height: 32px;
+    min-height: 32px;
     display: flex;
     flex-direction: row;
     align-items: center;

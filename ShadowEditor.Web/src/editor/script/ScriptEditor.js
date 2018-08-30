@@ -80,6 +80,17 @@ ScriptEditor.prototype.render = function () {
 ScriptEditor.prototype.open = function (uuid, name, mode, source, title) {
     var scriptTitle = UI.get('scriptTitle');
 
+    // 连续打开脚本时，自动保存上次打开的文件
+    if (this.uuid != null) {
+        this.save();
+        this.uuid = null;
+        this.name = null;
+        this.mode = null;
+        this.source = null;
+        this.title = null;
+    }
+
+    // 打开新文件
     name = name || '未命名';
     mode = mode || 'javascript';
     source = source || '';
@@ -130,12 +141,24 @@ ScriptEditor.prototype.show = function () {
 ScriptEditor.prototype.hide = function () {
     var container = UI.get('scriptEditor');
 
-    // 保存修改后的脚本信息
+    this.save();
+    container.dom.style.display = 'none';
+
+    this.uuid = null;
+    this.name = null;
+    this.mode = null;
+    this.source = null;
+    this.title = null;
+};
+
+/**
+ * 保存脚本
+ */
+ScriptEditor.prototype.save = function () {
     var script = this.app.editor.scripts[this.uuid];
     if (script) {
         script.source = this.codemirror.getValue();
     }
-    container.dom.style.display = 'none';
 };
 
 /**
