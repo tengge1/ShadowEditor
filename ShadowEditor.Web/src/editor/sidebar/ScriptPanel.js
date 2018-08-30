@@ -88,6 +88,7 @@ ScriptPanel.prototype.update = function () {
 
     Object.keys(scripts).forEach(n => {
         var script = scripts[n];
+        var uuid = script.uuid;
         var name = script.name;
         var extension;
 
@@ -120,8 +121,8 @@ ScriptPanel.prototype.update = function () {
                 style: {
                     marginLeft: '4px'
                 },
-                onClick: function () {
-
+                onClick: () => {
+                    this.editScript(uuid);
                 }
             }, {
                 xtype: 'button',
@@ -129,8 +130,8 @@ ScriptPanel.prototype.update = function () {
                 style: {
                     marginLeft: '4px'
                 },
-                onClick: function () {
-
+                onClick: () => {
+                    this.deleteScript(uuid);
                 }
             }, {
                 xtype: 'br'
@@ -138,6 +139,30 @@ ScriptPanel.prototype.update = function () {
         };
 
         UI.create(data).render();
+    });
+};
+
+/**
+ * 编辑脚本
+ * @param {*} uuid 
+ */
+ScriptPanel.prototype.editScript = function (uuid) {
+
+};
+
+/**
+ * 删除脚本
+ * @param {*} uuid 
+ */
+ScriptPanel.prototype.deleteScript = function (uuid) {
+    var script = this.app.editor.scripts[uuid];
+
+    UI.confirm('询问', `是否删除脚本${script.name}？`, (event, btn) => {
+        if (btn === 'ok') {
+            delete this.app.editor.scripts[uuid];
+            this.app.call('scriptChange', this);
+            UI.msg(`${script.name}删除成功！`);
+        }
     });
 };
 
