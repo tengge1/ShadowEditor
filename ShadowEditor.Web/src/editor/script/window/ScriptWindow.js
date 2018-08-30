@@ -119,9 +119,9 @@ ScriptWindow.prototype.onCreateScript = function () {
             break;
     }
 
-    this.app.script.open(scriptName, scriptType, initCode, scriptName);
-
     var uuid = THREE.Math.generateUUID();
+
+    this.app.script.open(uuid, scriptName, scriptType, initCode, scriptName);
 
     this.app.editor.scripts[uuid] = {
         id: 0,

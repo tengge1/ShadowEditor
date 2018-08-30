@@ -15,6 +15,7 @@ function ScriptEditor(options) {
     this.delay = null; // 代码校验延迟函数
     this.delayTime = 1000; // 代码校验间隔时间（毫秒）
 
+    this.uuid = null;
     this.name = null;
     this.mode = null;
     this.source = null;
@@ -70,12 +71,13 @@ ScriptEditor.prototype.render = function () {
 
 /**
  * 打开脚本文件
+ * @param {*} uuid 脚本uuid
  * @param {*} name 名称
  * @param {*} mode 类型 javascript、glsl、json 默认：javascript
  * @param {*} source 源码 文件初始代码 默认：空
  * @param {*} title 标题 文件标题 默认：未命名.${文件类型}
  */
-ScriptEditor.prototype.open = function (name, mode, source, title) {
+ScriptEditor.prototype.open = function (uuid, name, mode, source, title) {
     var scriptTitle = UI.get('scriptTitle');
 
     name = name || '未命名';
@@ -84,6 +86,7 @@ ScriptEditor.prototype.open = function (name, mode, source, title) {
     title = title || '未命名';
     title = `${title}.${(mode === 'vertexShader' || mode === 'fragmentShader') ? '.glsl' : (mode === 'json' ? '.json' : '.js')}`;
 
+    this.uuid = uuid;
     this.name = name;
     this.mode = mode;
     this.source = source;
@@ -126,7 +129,15 @@ ScriptEditor.prototype.show = function () {
  */
 ScriptEditor.prototype.hide = function () {
     var container = UI.get('scriptEditor');
+
+    // 保存修改后的脚本信息
+    var script = this.app.editor.scripts[this.uuid];
+    if (script) {
+        script.source = this.codemirror.getValue();
+    }
     container.dom.style.display = 'none';
+
+    UI.msg('脚本保存成功');
 };
 
 /**

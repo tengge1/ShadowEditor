@@ -55,7 +55,7 @@ function Editor(app) {
     this.objects = [];
 
     // 脚本 格式：{ uuid: { id: 'mongoDB id', name: 'Script Name', type: 'Script Type', source: 'Source Code', uuid: 'uuid' }}
-    // 其中，uuid是创建脚本时自动生成，id是mongo数据库ID字段；name：随便填写；type：javascript，vertexShader, fragmentShader, json；source：源码。
+    // 其中，uuid是创建脚本时自动生成，不可改变，关联时使用，id是mongo数据库ID字段；name：随便填写；type：javascript，vertexShader, fragmentShader, json；source：源码。
     this.scripts = {};
 
     // 帮助器
