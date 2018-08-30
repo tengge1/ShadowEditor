@@ -94,8 +94,6 @@ import EditorControlsEvent from './viewport/EditorControlsEvent';
 
 import GridChangeEvent from './statusBar/GridChangeEvent';
 
-import CodeMirrorChangeEvent from './script/CodeMirrorChangeEvent';
-
 /**
  * 事件执行器
  * @author tengge / https://github.com/tengge1
@@ -198,10 +196,7 @@ function EventDispatcher(app) {
         new EditorControlsEvent(this.app),
 
         // 状态栏事件
-        new GridChangeEvent(this.app),
-
-        // 代码编辑器中的事件
-        new CodeMirrorChangeEvent(this.app),
+        new GridChangeEvent(this.app)
     ];
 }
 
