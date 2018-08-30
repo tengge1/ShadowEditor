@@ -12,11 +12,16 @@ function ScriptEditor(options) {
 
     this.codemirror = null;
     this.server = null;
+    this.delay = null; // 代码校验延迟函数
+    this.delayTime = 1000; // 代码校验间隔时间（毫秒）
 
     this.name = null;
     this.mode = null;
     this.source = null;
     this.title = null;
+
+    this.errorLines = []; // 代码错误行数
+    this.widgets = [];
 };
 
 ScriptEditor.prototype = Object.create(UI.Control.prototype);
@@ -77,7 +82,7 @@ ScriptEditor.prototype.open = function (name, mode, source, title) {
     mode = mode || 'javascript';
     source = source || '';
     title = title || '未命名';
-    title = `${title}.${mode === 'glsl' ? '.glsl' : (mode === 'json' ? '.json' : '.js')}`;
+    title = `${title}.${(mode === 'vertexShader' || mode === 'fragmentShader') ? '.glsl' : (mode === 'json' ? '.json' : '.js')}`;
 
     this.name = name;
     this.mode = mode;
@@ -96,6 +101,8 @@ ScriptEditor.prototype.open = function (name, mode, source, title) {
             name: 'javascript',
             json: true
         });
+    } if (mode === 'vertexShader' || mode === 'fragmentShader') {
+        this.codemirror.setOption('mode', 'glsl');
     } else {
         this.codemirror.setOption('mode', mode);
     }
@@ -164,9 +171,7 @@ ScriptEditor.prototype.onAppStarted = function () {
     });
 
     codemirror.setOption('theme', 'monokai');
-    codemirror.on('change', () => {
-
-    });
+    codemirror.on('change', this.onCodeMirrorChange.bind(this));
 
     // 防止回退键删除物体
     var wrapper = codemirror.getWrapperElement();
@@ -212,64 +217,38 @@ ScriptEditor.prototype.onAppStarted = function () {
     this.server = server;
 };
 
-ScriptEditor.prototype.onCodeMirrorChange = function (codemirror, currentMode, currentScript, currentObject) {
-    if (codemirror.state.focused === false) {
+/**
+ * 代码修改事件
+ */
+ScriptEditor.prototype.onCodeMirrorChange = function () {
+    if (this.codemirror.state.focused === false) {
         return;
     }
 
-    clearTimeout(this.delay);
+    if (this.delay) {
+        clearTimeout(this.delay);
+    }
 
-    var _this = this;
-
-    this.delay = setTimeout(function () {
-        var value = codemirror.getValue();
-
-        if (!_this.validate(codemirror, currentMode, currentObject, value)) {
-            return;
-        }
-
-        if (typeof (currentScript) === 'object') {
-            if (value !== currentScript.source) {
-                _this.app.editor.execute(new SetScriptValueCommand(currentObject, currentScript, 'source', value, codemirror.getCursor(), codemirror.getScrollInfo()));
-            }
-            return;
-        }
-
-        if (currentScript !== 'programInfo') {
-            return;
-        }
-
-        var json = JSON.parse(value);
-
-        if (JSON.stringify(currentObject.material.defines) !== JSON.stringify(json.defines)) {
-            var cmd = new SetMaterialValueCommand(currentObject, 'defines', json.defines);
-            cmd.updatable = false;
-            editor.execute(cmd);
-        }
-        if (JSON.stringify(currentObject.material.uniforms) !== JSON.stringify(json.uniforms)) {
-            var cmd = new SetMaterialValueCommand(currentObject, 'uniforms', json.uniforms);
-            cmd.updatable = false;
-            editor.execute(cmd);
-        }
-        if (JSON.stringify(currentObject.material.attributes) !== JSON.stringify(json.attributes)) {
-            var cmd = new SetMaterialValueCommand(currentObject, 'attributes', json.attributes);
-            cmd.updatable = false;
-            editor.execute(cmd);
-        }
-    }, 1000);
+    this.delay = setTimeout(() => {
+        var code = this.codemirror.getValue();
+        this.validate(code);
+    }, this.delayTime);
 };
 
-ScriptEditor.prototype.validate = function (codemirror, currentMode, currentObject, string) {
+/**
+ * 校验编辑器中代码正确性
+ * @param {*} string 
+ */
+ScriptEditor.prototype.validate = function (string) {
+    var codemirror = this.codemirror;
+    var mode = this.mode;
+
     var errorLines = this.errorLines;
     var widgets = this.widgets;
 
-    var valid;
     var errors = [];
 
-    var _this = this;
-
-    return codemirror.operation(function () {
-
+    return codemirror.operation(() => {
         while (errorLines.length > 0) {
             codemirror.removeLineClass(errorLines.shift(), 'background', 'errorLine');
         }
@@ -278,8 +257,7 @@ ScriptEditor.prototype.validate = function (codemirror, currentMode, currentObje
             codemirror.removeLineWidget(widgets.shift());
         }
 
-        //
-        switch (currentMode) {
+        switch (mode) {
             case 'javascript':
                 try {
                     var syntax = esprima.parse(string, { tolerant: true });
@@ -297,9 +275,7 @@ ScriptEditor.prototype.validate = function (codemirror, currentMode, currentObje
                 }
                 break;
             case 'json':
-                errors = [];
-
-                jsonlint.parseError = function (message, info) {
+                jsonlint.parseError = (message, info) => {
                     message = message.split('\n')[3];
                     errors.push({
                         lineNumber: info.loc.first_line - 1,
@@ -313,10 +289,10 @@ ScriptEditor.prototype.validate = function (codemirror, currentMode, currentObje
                     // ignore failed error recovery
                 }
                 break;
-            case 'glsl':
+            case 'vertexShader':
+            case 'fragmentShader':
                 try {
-                    var shaderType = currentScript === 'vertexShader' ?
-                        glslprep.Shader.VERTEX : glslprep.Shader.FRAGMENT;
+                    var shaderType = mode === 'vertexShader' ? glslprep.Shader.VERTEX : glslprep.Shader.FRAGMENT;
                     glslprep.parseGlsl(string, shaderType);
                 } catch (error) {
                     if (error instanceof glslprep.SyntaxError) {
@@ -328,51 +304,7 @@ ScriptEditor.prototype.validate = function (codemirror, currentMode, currentObje
                         console.error(error.stack || error);
                     }
                 }
-
-                if (errors.length !== 0) {
-                    break;
-                }
-                if (_this.app.editor.renderer instanceof THREE.WebGLRenderer === false) {
-                    break;
-                }
-
-                currentObject.material[currentScript] = string;
-                currentObject.material.needsUpdate = true;
-
-                _this.app.call('materialChanged', _this, currentObject.material);
-
-                var programs = _this.app.editor.renderer.info.programs;
-
-                valid = true;
-                var parseMessage = /^(?:ERROR|WARNING): \d+:(\d+): (.*)/g;
-
-                for (var i = 0, n = programs.length; i !== n; ++i) {
-                    var diagnostics = programs[i].diagnostics;
-
-                    if (diagnostics === undefined || diagnostics.material !== currentObject.material) {
-                        continue;
-                    }
-
-                    if (!diagnostics.runnable) {
-                        valid = false;
-                    }
-
-                    var shaderInfo = diagnostics[currentScript];
-                    var lineOffset = shaderInfo.prefix.split(/\r\n|\r|\n/).length;
-
-                    while (true) {
-                        var parseResult = parseMessage.exec(shaderInfo.log);
-                        if (parseResult === null) break;
-
-                        errors.push({
-                            lineNumber: parseResult[1] - lineOffset,
-                            message: parseResult[2]
-                        });
-                    } // messages
-                    break;
-                } // programs
-
-        } // mode switch
+        }
 
         for (var i = 0; i < errors.length; i++) {
             var error = errors[i];
@@ -390,7 +322,7 @@ ScriptEditor.prototype.validate = function (codemirror, currentMode, currentObje
             widgets.push(widget);
         }
 
-        return valid !== undefined ? valid : errors.length === 0;
+        return errors.length === 0;
     });
 };
 

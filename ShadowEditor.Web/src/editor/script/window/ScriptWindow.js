@@ -54,7 +54,7 @@ ScriptWindow.prototype.render = function () {
                     'javascript': 'JavaScript',
                     'vertexShader': '顶点着色器',
                     'fragmentShader': '片源着色器',
-                    'json': 'Json'
+                    'json': '着色器程序信息'
                 },
                 value: 'javascript'
             }]
@@ -104,11 +104,9 @@ ScriptWindow.prototype.onCreateScript = function () {
             initCode = JavaScriptStarter;
             break;
         case 'vertexShader':
-            scriptType = 'glsl';
             initCode = VertexShaderStarter;
             break;
         case 'fragmentShader':
-            scriptType = 'glsl';
             initCode = FragmentShaderStarter;
             break;
         case 'json':
