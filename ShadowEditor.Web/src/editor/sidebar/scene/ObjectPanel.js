@@ -10,7 +10,7 @@ import SetValueCommand from '../../../command/SetValueCommand';
 function ObjectPanel(options) {
     UI.Control.call(this, options);
     this.app = options.app;
-};
+}
 
 ObjectPanel.prototype = Object.create(UI.Control.prototype);
 ObjectPanel.prototype.constructor = ObjectPanel;
@@ -34,7 +34,17 @@ ObjectPanel.prototype.render = function () {
             paddingTop: '20px',
             display: 'none'
         },
-        children: [{ // type
+        children: [{
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                style: {
+                    color: '#555',
+                    fontWeight: 'bold'
+                },
+                text: '属性'
+            }]
+        }, { // type
             xtype: 'row',
             id: 'objectTypeRow',
             children: [{
