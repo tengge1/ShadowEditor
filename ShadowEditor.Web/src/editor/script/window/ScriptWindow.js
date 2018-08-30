@@ -97,6 +97,13 @@ ScriptWindow.prototype.onCreateScript = function () {
     var scriptName = UI.get('scriptName', this.id).getValue();
     var scriptType = UI.get('scriptType', this.id).getValue();
 
+    // 判断脚本名称是否重复
+    var scripts = Object.values(this.app.editor.scripts);
+    if (scripts.filter(n => n.name === scriptName).length > 0) {
+        UI.msg('脚本名称重复！');
+        return;
+    }
+
     this.hide();
 
     var initCode;
