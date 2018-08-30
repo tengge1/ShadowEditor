@@ -1,6 +1,6 @@
 ﻿import UI from '../../ui/UI';
 import AddScriptCommand from '../../command/AddScriptCommand';
-import ScriptWindow from './window/ScriptWindow';
+import ScriptWindow from '../script/window/ScriptWindow';
 
 /**
  * 脚本面板

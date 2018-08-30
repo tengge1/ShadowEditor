@@ -1,5 +1,5 @@
-import UI from '../ui/UI';
-import SetScriptValueCommand from '../command/SetScriptValueCommand';
+import UI from '../../ui/UI';
+import SetScriptValueCommand from '../../command/SetScriptValueCommand';
 
 /**
  * 脚本编辑器
@@ -71,8 +71,7 @@ ScriptEditor.prototype.render = function () {
  * @param {*} title 标题 文件标题 默认：未命名.${文件类型}
  */
 ScriptEditor.prototype.open = function (name, mode, source, title) {
-    var container = UI.get('scriptEditor');
-    var title = UI.get('scriptTitle');
+    var scriptTitle = UI.get('scriptTitle');
 
     // programInfo信息
     // var json = {
@@ -85,7 +84,8 @@ ScriptEditor.prototype.open = function (name, mode, source, title) {
     name = name || 'No Name';
     mode = mode || 'javascript';
     source = source || '';
-    title = title || `未命名.${mode === 'glsl' ? '.glsl' : (mode === 'json' ? '.json' : '.js')}`;
+    title = title || '未命名';
+    title = `${title}.${mode === 'glsl' ? '.glsl' : (mode === 'json' ? '.json' : '.js')}`;
 
     this.name = name;
     this.mode = mode;
@@ -93,6 +93,8 @@ ScriptEditor.prototype.open = function (name, mode, source, title) {
     this.title = title;
 
     this.show();
+
+    scriptTitle.setValue(title);
 
     this.codemirror.setValue(source);
 
@@ -105,6 +107,11 @@ ScriptEditor.prototype.open = function (name, mode, source, title) {
     } else {
         this.codemirror.setOption('mode', mode);
     }
+    this.codemirror.focus();
+    this.codemirror.setCursor({
+        line: 0,
+        ch: 0
+    });
 };
 
 /**

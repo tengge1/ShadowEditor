@@ -8,7 +8,7 @@ import Toolbar from './editor/Toolbar';
 import Viewport from './editor/Viewport';
 import Sidebar from './editor/sidebar/Sidebar';
 import StatusBar from './editor/StatusBar';
-import ScriptEditor from './editor/ScriptEditor';
+import ScriptEditor from './editor/script/ScriptEditor';
 import Player from './editor/Player';
 import TimePanel from './editor/TimePanel';
 

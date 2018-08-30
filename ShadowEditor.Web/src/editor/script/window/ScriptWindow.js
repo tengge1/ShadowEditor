@@ -1,4 +1,8 @@
 import UI from '../../../ui/UI';
+import JavaScriptStarter from '../code/JavaScriptStarter';
+import VertexShaderStarter from '../code/VertexShaderStarter';
+import FragmentShaderStarter from '../code/FragmentShaderStarter';
+import JsonStarter from '../code/JsonStarter';
 
 /**
  * 脚本创建窗口
@@ -48,7 +52,8 @@ ScriptWindow.prototype.render = function () {
                 scope: this.id,
                 options: {
                     'javascript': 'JavaScript',
-                    'glsl': '着色器脚本',
+                    'vertexShader': '顶点着色器',
+                    'fragmentShader': '片源着色器',
                     'json': 'Json'
                 },
                 value: 'javascript'
@@ -87,12 +92,34 @@ ScriptWindow.prototype.reset = function () {
 };
 
 ScriptWindow.prototype.onCreateScript = function () {
-    var scriptName = UI.get('scriptName', this.id);
-    var scriptType = UI.get('scriptType', this.id);
+    var scriptName = UI.get('scriptName', this.id).getValue();
+    var scriptType = UI.get('scriptType', this.id).getValue();
 
     this.hide();
 
-    this.app.script.open(scriptName, scriptType, '', scriptName);
+    var initCode;
+
+    switch (scriptType) {
+        case 'javascript':
+            initCode = JavaScriptStarter;
+            break;
+        case 'vertexShader':
+            scriptType = 'glsl';
+            initCode = VertexShaderStarter;
+            break;
+        case 'fragmentShader':
+            scriptType = 'glsl';
+            initCode = FragmentShaderStarter;
+            break;
+        case 'json':
+            initCode = JsonStarter;
+            break;
+        default:
+            initCode = JavaScriptStarter;
+            break;
+    }
+
+    this.app.script.open(scriptName, scriptType, initCode, scriptName);
 };
 
 ScriptWindow.prototype.onCancelScript = function () {
