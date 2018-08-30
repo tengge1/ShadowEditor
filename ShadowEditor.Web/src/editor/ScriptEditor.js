@@ -166,6 +166,7 @@ ScriptEditor.prototype.onAppStarted = function () {
 
     codemirror.setOption('theme', 'monokai');
     codemirror.on('change', () => {
+        debugger
         // this.app.call('codeMirrorChange', this, codemirror, this.currentMode, this.currentScript, this.currentObject);
     });
 

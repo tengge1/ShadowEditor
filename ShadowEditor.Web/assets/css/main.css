@@ -238,16 +238,15 @@ div.Window .body .TabPanel {
     overflow-y: auto;
 }
 
-div.Window .body .TabPanel .Row {
-    width: 50%;
+div.Window .body .Row {
     height: 32px;
-    display: inline-flex;
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
 }
 
-div.Window .body .TabPanel .Row label {
+div.Window .body .Row label {
     width: 80px;
     text-align: right;
     margin-left: 24px;

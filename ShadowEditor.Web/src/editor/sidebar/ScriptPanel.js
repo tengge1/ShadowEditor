@@ -1,5 +1,6 @@
 ﻿import UI from '../../ui/UI';
 import AddScriptCommand from '../../command/AddScriptCommand';
+import ScriptWindow from './window/ScriptWindow';
 
 /**
  * 脚本面板
@@ -68,13 +69,88 @@ ScriptPanel.prototype.render = function () {
 };
 
 ScriptPanel.prototype.createNewCommonScript = function () {
-    // var script = { name: '', source: 'function update( event ) {}' };
-    // editor.execute(new AddScriptCommand(editor.selected, script));
+    if (this.window == null) {
+        this.window = new ScriptWindow({ app: this.app });
+        this.window.render();
+    }
+    this.window.reset();
+    this.window.show();
 };
 
 ScriptPanel.prototype.createNewCustomScript = function () {
-    // var script = { name: '', source: 'function update( event ) {}' };
-    // editor.execute(new AddScriptCommand(editor.selected, script));
+    if (this.window == null) {
+        this.window = new ScriptWindow({ app: this.app });
+        this.window.render();
+    }
+    this.window.reset();
+    this.window.show();
+};
+
+
+ScriptPanel.prototype.update = function () {
+    var scriptsContainer = UI.get('scriptsContainer');
+    var editor = this.app.editor;
+    var _this = this;
+
+    scriptsContainer.dom.innerHTML = '';
+    scriptsContainer.dom.style.display = 'none';
+
+    var object = editor.selected;
+    if (object === null) {
+        return;
+    }
+
+    var scripts = editor.scripts[object.uuid];
+
+    if (scripts !== undefined) {
+        scriptsContainer.dom.style.display = 'block';
+
+        for (var i = 0; i < scripts.length; i++) {
+            (function (object, script) {
+                var data = {
+                    xtype: 'container',
+                    parent: scriptsContainer.dom,
+                    children: [{
+                        xtype: 'input',
+                        value: script.name,
+                        style: {
+                            width: '130px',
+                            fontSize: '12px'
+                        },
+                        onChange: function () {
+                            editor.execute(new SetScriptValueCommand(editor.selected, script, 'name', this.getValue()));
+                        }
+                    }, {
+                        xtype: 'button',
+                        text: '编辑',
+                        style: {
+                            marginLeft: '4px'
+                        },
+                        onClick: function () {
+                            _this.app.call('editScript', _this, object, script);
+                        }
+                    }, {
+                        xtype: 'button',
+                        text: '删除',
+                        style: {
+                            marginLeft: '4px'
+                        },
+                        onClick: function () {
+                            UI.confirm('询问', '确定要删除吗？', function (event, btn) {
+                                if (btn === 'ok') {
+                                    editor.execute(new RemoveScriptCommand(editor.selected, script));
+                                }
+                            });
+                        }
+                    }, {
+                        xtype: 'br'
+                    }]
+                };
+
+                UI.create(data).render();
+            })(object, scripts[i])
+        }
+    }
 };
 
 export default ScriptPanel;
