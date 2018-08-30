@@ -54,7 +54,7 @@ function Editor(app) {
     // 物体
     this.objects = [];
 
-    // 脚本 格式：{ uuid: { id: 'mongoDB id', name: 'Script Name', type: 'Script Type', source: 'Source Code' }}
+    // 脚本 格式：{ uuid: { id: 'mongoDB id', name: 'Script Name', type: 'Script Type', source: 'Source Code', uuid: 'uuid' }}
     // 其中，uuid是创建脚本时自动生成，id是mongo数据库ID字段；name：随便填写；type：javascript，vertexShader, fragmentShader, json；source：源码。
     this.scripts = {};
 
@@ -132,6 +132,7 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
     }
 
     this.app.call('editorCleared', this);
+    this.app.call('scriptChange', this);
 };
 
 // ---------------------- 物体 ---------------------------

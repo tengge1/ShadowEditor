@@ -150,7 +150,7 @@ Converter.prototype.fromJson = function (json) {
     }
 
     // 脚本
-    var scriptJsons = json.filter(n => n.metadata && n.metadata.generator === 'ScriptSerializer' > -1);
+    var scriptJsons = json.filter(n => n.metadata && n.metadata.generator === 'ScriptSerializer');
     if (scriptJsons) {
         (new ScriptSerializer(this.app)).fromJSON(scriptJsons);
     }

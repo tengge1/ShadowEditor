@@ -17,16 +17,17 @@ ScriptSerializer.prototype.toJSON = function () {
 
     var scripts = this.app.editor.scripts;
 
-    Object.keys(scripts).forEach(id => {
+    Object.keys(scripts).forEach(uuid => {
         var json = BaseSerializer.prototype.toJSON.call(this, this.app);
 
-        var name = scripts[id].name;
-        var source = scripts[id].source;
+        var script = scripts[uuid];
 
         Object.assign(json, {
-            id: id,
-            name: name,
-            source: source
+            id: script.id,
+            name: script.name,
+            type: script.type,
+            source: script.source,
+            uuid: script.uuid
         });
 
         list.push(json);
@@ -35,15 +36,21 @@ ScriptSerializer.prototype.toJSON = function () {
     return list;
 };
 
-ScriptSerializer.prototype.fromJSON = function (json) {
-    this.app.editor.scripts = {};
+ScriptSerializer.prototype.fromJSON = function (jsons) {
+    var scripts = {};
 
-    json.forEach(n => {
-        this.app.editor.scripts[id] = {
-            name: n.name,
-            source: n.source
+    jsons.forEach(json => {
+        scripts[json.uuid] = {
+            id: json.id,
+            name: json.name,
+            type: json.type,
+            source: json.source,
+            uuid: json.uuid
         };
     });
+
+    this.app.editor.scripts = scripts;
+    this.app.call('scriptChange', this);
 };
 
 export default ScriptSerializer;

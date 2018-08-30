@@ -146,7 +146,8 @@ var EventList = [
     'selectPropertyTab', // 切换属性选项卡
 
     // 状态栏
-    'gridChange' // 状态栏网格改变事件
+    'gridChange', // 状态栏网格改变事件
+    'scriptChange' // 脚本发生改变
 ];
 
 export default EventList;

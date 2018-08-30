@@ -14,7 +14,6 @@ function ScriptWindow(options) {
     options = options || {};
 
     this.app = options.app;
-    this.onChange = options.onChange || null;
 }
 
 ScriptWindow.prototype = Object.create(UI.Control.prototype);
@@ -132,9 +131,7 @@ ScriptWindow.prototype.onCreateScript = function () {
         uuid: uuid
     };
 
-    if (this.onChange) {
-        this.onChange();
-    }
+    this.app.call('scriptChange', this);
 };
 
 ScriptWindow.prototype.onCancelScript = function () {
