@@ -102,7 +102,7 @@ ScriptPanel.prototype.update = function () {
                 xtype: 'text',
                 text: name + extension,
                 style: {
-                    width: '130px',
+                    width: '180px',
                     fontSize: '12px'
                 }
             }, {
