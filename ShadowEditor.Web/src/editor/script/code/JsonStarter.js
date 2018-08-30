@@ -1,12 +1,12 @@
 var JsonStarter = `
 {
-    defines: {
+    "defines": {
 
     },
-    uniforms: {
+    "uniforms": {
 
     },
-    attributes: {
+    "attributes": {
 
     }
 }
