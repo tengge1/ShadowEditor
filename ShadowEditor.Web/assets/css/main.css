@@ -688,6 +688,7 @@ table.Table .TableBody td {
     left: 48px;
     right: 300px;
     bottom: 32px;
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 /* CodeMirror插件 */

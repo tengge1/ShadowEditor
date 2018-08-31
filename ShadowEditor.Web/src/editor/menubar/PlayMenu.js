@@ -46,12 +46,10 @@ PlayMenu.prototype.onTogglePlay = function () {
 };
 
 PlayMenu.prototype.startPlayer = function () { // 启动播放器
-    UI.get('player').dom.style.display = '';
     this.app.player.start();
 };
 
 PlayMenu.prototype.stopPlayer = function () { // 停止播放器
-    UI.get('player').dom.style.display = 'none';
     this.app.player.stop();
 };
 
