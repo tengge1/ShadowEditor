@@ -12,10 +12,8 @@ function ScriptSerializer(app) {
 ScriptSerializer.prototype = Object.create(BaseSerializer.prototype);
 ScriptSerializer.prototype.constructor = ScriptSerializer;
 
-ScriptSerializer.prototype.toJSON = function () {
+ScriptSerializer.prototype.toJSON = function (scripts) {
     var list = [];
-
-    var scripts = this.app.editor.scripts;
 
     Object.keys(scripts).forEach(uuid => {
         var json = BaseSerializer.prototype.toJSON.call(this, this.app);

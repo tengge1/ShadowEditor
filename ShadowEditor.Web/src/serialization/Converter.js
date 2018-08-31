@@ -38,29 +38,39 @@ function Converter(app) {
 Converter.prototype = Object.create(BaseSerializer.prototype);
 Converter.prototype.constructor = Converter;
 
-Converter.prototype.toJSON = function () {
+/**
+ * 将应用转为json
+ * @param {*} obj 格式：{ options: options, camera: camera, renderer: renderer, scripts: scripts, scene: scene }
+ */
+Converter.prototype.toJSON = function (obj) {
+    var options = obj.options;
+    var camera = obj.camera;
+    var renderer = obj.renderer;
+    var scripts = obj.scripts;
+    var scene = obj.scene;
+
     var list = [];
 
     // 选项
-    var config = (new OptionsSerializer(this.app)).toJSON(this.app.options);
+    var config = (new OptionsSerializer(this.app)).toJSON(options);
     list.push(config);
 
     // 相机
-    var camera = (new CamerasSerializer(this.app)).toJSON(this.app.editor.camera);
+    var camera = (new CamerasSerializer(this.app)).toJSON(camera);
     list.push(camera);
 
     // 渲染器
-    var renderer = (new WebGLRendererSerializer(this.app)).toJSON(this.app.editor.renderer);
+    var renderer = (new WebGLRendererSerializer(this.app)).toJSON(renderer);
     list.push(renderer);
 
     // 脚本
-    var scripts = (new ScriptSerializer(this.app)).toJSON();
+    var scripts = (new ScriptSerializer(this.app)).toJSON(scripts);
     scripts.forEach(n => {
         list.push(n);
     });
 
     // 场景
-    this.sceneToJson(this.app.editor.scene, list);
+    this.sceneToJson(scene, list);
 
     return list;
 };
