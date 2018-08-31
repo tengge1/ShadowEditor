@@ -59,67 +59,76 @@ Converter.prototype.toJSON = function () {
         list.push(n);
     });
 
-    // 序列化场景
-    function serializerChildren(obj) {
+    // 场景
+    this.sceneToJson(this.app.editor.scene, list);
+
+    return list;
+};
+
+/**
+ * 场景转json
+ * @param {*} scene 场景
+ * @param {*} list 用于保存json的空数组
+ */
+Converter.prototype.sceneToJson = function (scene, list) {
+    var app = this.app;
+
+    (function serializer(obj) {
         var json = null;
 
         if (obj.userData && obj.userData.Server === true) { // 服务器对象
-            json = (new ServerObject(this.app)).toJSON(obj);
+            json = (new ServerObject(app)).toJSON(obj);
             list.push(json);
             return;
         }
 
         switch (obj.constructor.name) {
             case 'Scene':
-                json = (new SceneSerializer(this.app)).toJSON(obj);
+                json = (new SceneSerializer(app)).toJSON(obj);
                 break;
             case 'Group':
-                json = (new GroupSerializer(this.app)).toJSON(obj);
+                json = (new GroupSerializer(app)).toJSON(obj);
                 break;
             case 'Mesh':
-                json = (new MeshSerializer(this.app)).toJSON(obj);
+                json = (new MeshSerializer(app)).toJSON(obj);
                 break;
             case 'Sprite':
-                json = (new SpriteSerializer(this.app)).toJSON(obj);
+                json = (new SpriteSerializer(app)).toJSON(obj);
                 break;
             case 'AmbientLight':
-                json = (new AmbientLightSerializer(this.app)).toJSON(obj);
+                json = (new AmbientLightSerializer(app)).toJSON(obj);
                 break;
             case 'DirectionalLight':
-                json = (new DirectionalLightSerializer(this.app)).toJSON(obj);
+                json = (new DirectionalLightSerializer(app)).toJSON(obj);
                 break;
             case 'HemisphereLight':
-                json = (new HemisphereLightSerializer(this.app)).toJSON(obj);
+                json = (new HemisphereLightSerializer(app)).toJSON(obj);
                 break;
             case 'PointLight':
-                json = (new PointLightSerializer(this.app)).toJSON(obj);
+                json = (new PointLightSerializer(app)).toJSON(obj);
                 break;
             case 'RectAreaLight':
-                json = (new RectAreaLightSerializer(this.app)).toJSON(obj);
+                json = (new RectAreaLightSerializer(app)).toJSON(obj);
                 break;
             case 'SpotLight':
-                json = (new SpotLightSerializer(this.app)).toJSON(obj);
+                json = (new SpotLightSerializer(app)).toJSON(obj);
                 break;
         }
         if (json) {
             list.push(json);
         } else {
-            console.warn(`Converter: There is no serializer to serialize ${obj.constructor.name}`);
+            console.warn(`Converter: 没有 ${obj.constructor.name} 的序列化器。`);
         }
 
         obj.children && obj.children.forEach(n => {
-            serializerChildren.call(this, n);
+            serializer.call(this, n);
         });
-    };
-
-    serializerChildren.call(this, app.editor.scene);
-
-    return list;
+    })(scene);
 };
 
-Converter.prototype.fromJson = function (json) {
+Converter.prototype.fromJson = function (jsons) {
     // 选项
-    var optionsJson = json.filter(n => n.metadata && n.metadata.generator === 'OptionsSerializer')[0];
+    var optionsJson = jsons.filter(n => n.metadata && n.metadata.generator === 'OptionsSerializer')[0];
 
     if (optionsJson) {
         (new OptionsSerializer(this.app)).fromJSON(optionsJson, this.app.options);
@@ -128,7 +137,7 @@ Converter.prototype.fromJson = function (json) {
     }
 
     // 相机
-    var cameraJson = json.filter(n => n.metadata && n.metadata.generator.indexOf('CameraSerializer') > -1)[0];
+    var cameraJson = jsons.filter(n => n.metadata && n.metadata.generator.indexOf('CameraSerializer') > -1)[0];
 
     if (cameraJson) {
         (new CamerasSerializer(this.app)).fromJSON(cameraJson, this.app.editor.camera);
@@ -138,7 +147,7 @@ Converter.prototype.fromJson = function (json) {
     }
 
     // 渲染器
-    var rendererJson = json.filter(n => n.metadata && n.metadata.generator.indexOf('WebGLRendererSerializer') > -1)[0];
+    var rendererJson = jsons.filter(n => n.metadata && n.metadata.generator.indexOf('WebGLRendererSerializer') > -1)[0];
     if (rendererJson) {
         this.app.viewport.container.dom.removeChild(this.app.editor.renderer.domElement);
         this.app.editor.renderer = (new WebGLRendererSerializer(this.app)).fromJSON(rendererJson);
@@ -150,23 +159,36 @@ Converter.prototype.fromJson = function (json) {
     }
 
     // 脚本
-    var scriptJsons = json.filter(n => n.metadata && n.metadata.generator === 'ScriptSerializer');
+    var scriptJsons = jsons.filter(n => n.metadata && n.metadata.generator === 'ScriptSerializer');
     if (scriptJsons) {
         (new ScriptSerializer(this.app)).fromJSON(scriptJsons);
     }
 
     // 场景
-    var sceneJson = json.filter(n => n.metadata && n.metadata.generator === 'SceneSerializer')[0];
+    var scene = this.sceneFromJson(jsons);
 
-    var scene = null;
+    if (scene) {
+        this.app.editor.setScene(scene);
+    }
+};
 
-    /**
-     * 递归实例化场景所有子对象
-     * @param {*} json 父元素json对象
-     * @param {*} parent 父元素
-     * @param {*} list 所有对象json数据列表
-     */
-    function parseChildren(json, parent, list) {
+/**
+ * json转场景
+ * @param {*} jsons 
+ */
+Converter.prototype.sceneFromJson = function (jsons) {
+    var app = this.app;
+
+    var sceneJson = jsons.filter(n => n.metadata && n.metadata.generator === 'SceneSerializer')[0];
+
+    if (sceneJson === undefined) {
+        console.warn(`Converter: 场景中不存在场景信息。`);
+        return new THREE.Scene();
+    }
+
+    var scene = (new SceneSerializer(app)).fromJSON(sceneJson);
+
+    (function parse(json, parent, list) {
         json.children.forEach(n => {
             var objJson = list.filter(o => o.uuid === n)[0];
             if (objJson == null) {
@@ -177,11 +199,11 @@ Converter.prototype.fromJson = function (json) {
             var obj = null;
 
             if (objJson.userData && objJson.userData.Server === true) { // 服务端对象
-                var promise = (new ServerObject(this.app)).fromJSON(objJson);
+                var promise = (new ServerObject(app)).fromJSON(objJson);
                 promise.then(obj => {
                     if (obj) {
-                        this.app.editor.scene.add(obj);
-                        this.app.call('sceneGraphChanged', this);
+                        scene.add(obj);
+                        app.call('sceneGraphChanged', this);
                     }
                 });
                 return;
@@ -189,34 +211,34 @@ Converter.prototype.fromJson = function (json) {
 
             switch (objJson.metadata.generator) {
                 case 'SceneSerializer':
-                    obj = (new SceneSerializer(this.app)).fromJSON(objJson);
+                    obj = (new SceneSerializer(app)).fromJSON(objJson);
                     break;
                 case 'GroupSerializer':
-                    obj = (new GroupSerializer(this.app)).fromJSON(objJson);
+                    obj = (new GroupSerializer(app)).fromJSON(objJson);
                     break;
                 case 'MeshSerializer':
-                    obj = (new MeshSerializer(this.app)).fromJSON(objJson);
+                    obj = (new MeshSerializer(app)).fromJSON(objJson);
                     break;
                 case 'SpriteSerializer':
-                    obj = (new SpriteSerializer(this.app)).fromJSON(objJson);
+                    obj = (new SpriteSerializer(app)).fromJSON(objJson);
                     break;
                 case 'AmbientLightSerializer':
-                    obj = (new AmbientLightSerializer(this.app)).fromJSON(objJson);
+                    obj = (new AmbientLightSerializer(app)).fromJSON(objJson);
                     break;
                 case 'DirectionalLightSerializer':
-                    obj = (new DirectionalLightSerializer(this.app)).fromJSON(objJson);
+                    obj = (new DirectionalLightSerializer(app)).fromJSON(objJson);
                     break;
                 case 'HemisphereLightSerializer':
-                    obj = (new HemisphereLightSerializer(this.app)).fromJSON(objJson);
+                    obj = (new HemisphereLightSerializer(app)).fromJSON(objJson);
                     break;
                 case 'PointLightSerializer':
-                    obj = (new PointLightSerializer(this.app)).fromJSON(objJson);
+                    obj = (new PointLightSerializer(app)).fromJSON(objJson);
                     break;
                 case 'RectAreaLightSerializer':
-                    obj = (new RectAreaLightSerializer(this.app)).fromJSON(objJson);
+                    obj = (new RectAreaLightSerializer(app)).fromJSON(objJson);
                     break;
                 case 'SpotLightSerializer':
-                    obj = (new SpotLightSerializer(this.app)).fromJSON(objJson);
+                    obj = (new SpotLightSerializer(app)).fromJSON(objJson);
                     break;
             }
 
@@ -227,21 +249,12 @@ Converter.prototype.fromJson = function (json) {
             }
 
             if (objJson && objJson.children && objJson.children.length > 0 && obj) {
-                parseChildren.call(this, objJson, obj, list);
+                parse.call(this, objJson, obj, list);
             }
         });
-    }
+    })(sceneJson, scene, jsons);
 
-    if (sceneJson) {
-        scene = (new SceneSerializer(this.app)).fromJSON(sceneJson);
-        parseChildren.call(this, sceneJson, scene, json);
-    } else {
-        console.warn(`Converter: 场景中不存在场景信息。`);
-    }
-
-    if (scene) {
-        this.app.editor.setScene(scene);
-    }
+    return scene;
 };
 
 export default Converter;

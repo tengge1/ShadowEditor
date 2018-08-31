@@ -9,6 +9,10 @@ function Player(options) {
     UI.Control.call(this, options);
     this.app = options.app;
 
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+
     this.isPlaying = false;
 };
 
@@ -40,11 +44,10 @@ Player.prototype.start = function () {
     this.isPlaying = true;
 
     var container = UI.get('player');
-    var renderer = this.app.editor.renderer;
 
     container.dom.style.display = '';
-    container.dom.innerHTML = '';
-    container.dom.appendChild(renderer.domElement);
+
+    this.create();
 
     requestAnimationFrame(this.animate.bind(this));
 };
@@ -63,9 +66,30 @@ Player.prototype.stop = function () {
 };
 
 /**
+ * 创建场景
+ */
+Player.prototype.create = function () {
+    var container = UI.get('player');
+
+    if (this.renderer !== null) {
+        container.dom.removeChild(this.renderer.domElement);
+    }
+    this.renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+    container.dom.appendChild(this.renderer.domElement);
+
+    this.camera = this.app.editor.camera.clone();
+
+    this.scene = this.app.editor.camera.scene.clone();
+};
+
+/**
  * 动画
  */
 Player.prototype.animate = function () {
+    var container = UI.get('player');
+
     var scene = this.app.editor.scene;
     var camera = this.app.editor.camera;
     var renderer = this.app.editor.renderer;
