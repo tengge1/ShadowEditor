@@ -1,8 +1,7 @@
-import UI from '../ui/UI';
-import AppPlayer from '../core/AppPlayer';
+import UI from '../../ui/UI';
 
 /**
- * 播放器面板
+ * 播放器
  * @author mrdoob / http://mrdoob.com/
  */
 function Player(options) {
@@ -26,15 +25,20 @@ Player.prototype.render = function () {
     });
 
     this.container.render();
-
-    this.player = new AppPlayer(this.app);
-    this.container.dom.appendChild(this.player.dom);
-
-    this.app.on(`resize.${this.id}`, this.onResize.bind(this));
 };
 
-Player.prototype.onResize = function () {
-    this.player.setSize(this.container.dom.clientWidth, this.container.dom.clientHeight);
+/**
+ * 启动播放器
+ */
+Player.prototype.start = function () {
+    UI.msg('播放器启动成功！');
+};
+
+/**
+ * 停止播放器
+ */
+Player.prototype.stop = function () {
+    UI.msg('播放器停止成功！');
 };
 
 export default Player;

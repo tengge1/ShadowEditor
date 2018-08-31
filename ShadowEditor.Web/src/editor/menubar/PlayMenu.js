@@ -1,5 +1,4 @@
 import UI from '../../ui/UI';
-import Converter from '../../serialization/Converter';
 
 /**
  * 启动菜单
@@ -47,29 +46,13 @@ PlayMenu.prototype.onTogglePlay = function () {
 };
 
 PlayMenu.prototype.startPlayer = function () { // 启动播放器
-    var editor = this.app.editor;
-    var player = this.app.player.player;
-    var container = this.app.player.container;
-
-    container.dom.style.display = '';
-
-    var converter = new Converter(this.app);
-    var json = converter.toJSON();
-
-    debugger
-    player.load(json);
-    player.setSize(container.dom.clientWidth, container.dom.clientHeight);
-    player.play();
+    UI.get('player').dom.style.display = '';
+    this.app.player.start();
 };
 
 PlayMenu.prototype.stopPlayer = function () { // 停止播放器
-    var player = this.app.player.player;
-    var container = this.app.player.container;
-
-    container.dom.style.display = 'none';
-
-    player.stop();
-    player.dispose();
+    UI.get('player').dom.style.display = 'none';
+    this.app.player.stop();
 };
 
 export default PlayMenu;

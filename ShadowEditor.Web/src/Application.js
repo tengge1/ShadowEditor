@@ -9,7 +9,7 @@ import Viewport from './editor/Viewport';
 import Sidebar from './editor/sidebar/Sidebar';
 import StatusBar from './editor/StatusBar';
 import ScriptEditor from './editor/script/ScriptEditor';
-import Player from './editor/Player';
+import Player from './editor/player/Player';
 import TimePanel from './editor/TimePanel';
 
 import Editor from './editor/Editor';
