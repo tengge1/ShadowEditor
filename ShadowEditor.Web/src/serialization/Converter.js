@@ -136,12 +136,24 @@ Converter.prototype.sceneToJson = function (scene, list) {
     })(scene);
 };
 
+/**
+ * 场景反序列化
+ * @param {*} jsons json对象（列表）
+ */
 Converter.prototype.fromJson = function (jsons) {
+    var obj = {
+        options: null,
+        camera: null,
+        renderer: null,
+        scripts: null,
+        scene: null
+    };
+
     // 选项
     var optionsJson = jsons.filter(n => n.metadata && n.metadata.generator === 'OptionsSerializer')[0];
 
     if (optionsJson) {
-        (new OptionsSerializer(this.app)).fromJSON(optionsJson, this.app.options);
+        (new OptionsSerializer(this.app)).fromJSON(optionsJson, obj.options);
     } else {
         console.warn(`Converter: 场景中不存在配置信息。`);
     }
@@ -150,8 +162,9 @@ Converter.prototype.fromJson = function (jsons) {
     var cameraJson = jsons.filter(n => n.metadata && n.metadata.generator.indexOf('CameraSerializer') > -1)[0];
 
     if (cameraJson) {
-        (new CamerasSerializer(this.app)).fromJSON(cameraJson, this.app.editor.camera);
-        this.app.editor.camera.updateProjectionMatrix();
+        obj.camera = new THREE.PerspectiveCamera();
+        (new CamerasSerializer(this.app)).fromJSON(cameraJson, obj.camera);
+        // this.app.editor.camera.updateProjectionMatrix();
     } else {
         console.warn(`Converter: 场景中不存在相机信息。`);
     }
@@ -159,11 +172,16 @@ Converter.prototype.fromJson = function (jsons) {
     // 渲染器
     var rendererJson = jsons.filter(n => n.metadata && n.metadata.generator.indexOf('WebGLRendererSerializer') > -1)[0];
     if (rendererJson) {
-        this.app.viewport.container.dom.removeChild(this.app.editor.renderer.domElement);
-        this.app.editor.renderer = (new WebGLRendererSerializer(this.app)).fromJSON(rendererJson);
-        this.app.viewport.container.dom.appendChild(this.app.editor.renderer.domElement);
-        this.app.editor.renderer.setSize(this.app.viewport.container.dom.offsetWidth, this.app.viewport.container.dom.offsetHeight);
-        this.app.call('render', this);
+        var renderer = new THREE.WebGLRenderer({
+            antialias: true
+        });
+        obj.renderer = (new WebGLRendererSerializer(this.app)).fromJSON(rendererJson);
+
+        // this.app.viewport.container.dom.removeChild(this.app.editor.renderer.domElement);
+        // this.app.editor.renderer = (new WebGLRendererSerializer(this.app)).fromJSON(rendererJson);
+        // this.app.viewport.container.dom.appendChild(this.app.editor.renderer.domElement);
+        // this.app.editor.renderer.setSize(this.app.viewport.container.dom.offsetWidth, this.app.viewport.container.dom.offsetHeight);
+        // this.app.call('render', this);
     } else {
         console.warn(`Converter: 场景中不存在渲染器信息。`);
     }
@@ -171,7 +189,7 @@ Converter.prototype.fromJson = function (jsons) {
     // 脚本
     var scriptJsons = jsons.filter(n => n.metadata && n.metadata.generator === 'ScriptSerializer');
     if (scriptJsons) {
-        (new ScriptSerializer(this.app)).fromJSON(scriptJsons);
+        (new ScriptSerializer(this.app)).fromJSON(scriptJsons, obj.scripts);
     }
 
     // 场景

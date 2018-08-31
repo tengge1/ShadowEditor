@@ -34,11 +34,11 @@ ScriptSerializer.prototype.toJSON = function (scripts) {
     return list;
 };
 
-ScriptSerializer.prototype.fromJSON = function (jsons) {
-    var scripts = {};
+ScriptSerializer.prototype.fromJSON = function (jsons, parent) {
+    parent = parent || {};
 
     jsons.forEach(json => {
-        scripts[json.uuid] = {
+        parent[json.uuid] = {
             id: json.id,
             name: json.name,
             type: json.type,
@@ -47,8 +47,9 @@ ScriptSerializer.prototype.fromJSON = function (jsons) {
         };
     });
 
-    this.app.editor.scripts = scripts;
-    this.app.call('scriptChange', this);
+    // this.app.editor.scripts = scripts;
+    // this.app.call('scriptChange', this);
+    return parent;
 };
 
 export default ScriptSerializer;
