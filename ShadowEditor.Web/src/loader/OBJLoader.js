@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * OBJLoader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function OBJLoader(app) {
-    BaseLoader.call(this, app);
+function OBJLoader() {
+    BaseLoader.call(this);
 }
 
 OBJLoader.prototype = Object.create(BaseLoader.prototype);

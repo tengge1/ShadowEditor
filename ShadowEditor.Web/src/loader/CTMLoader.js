@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * CTMLoader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function CTMLoader(app) {
-    BaseLoader.call(this, app);
+function CTMLoader() {
+    BaseLoader.call(this);
 }
 
 CTMLoader.prototype = Object.create(BaseLoader.prototype);

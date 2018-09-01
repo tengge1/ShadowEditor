@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * GLTFLoader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function GLTFLoader(app) {
-    BaseLoader.call(this, app);
+function GLTFLoader() {
+    BaseLoader.call(this);
 }
 
 GLTFLoader.prototype = Object.create(BaseLoader.prototype);

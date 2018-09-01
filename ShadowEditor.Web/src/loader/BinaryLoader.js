@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * BinaryLoader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function BinaryLoader(app) {
-    BaseLoader.call(this, app);
+function BinaryLoader() {
+    BaseLoader.call(this);
 }
 
 BinaryLoader.prototype = Object.create(BaseLoader.prototype);

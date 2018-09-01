@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * STLLoader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function STLLoader(app) {
-    BaseLoader.call(this, app);
+function STLLoader() {
+    BaseLoader.call(this);
 }
 
 STLLoader.prototype = Object.create(BaseLoader.prototype);

@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * ColladaLoader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function ColladaLoader(app) {
-    BaseLoader.call(this, app);
+function ColladaLoader() {
+    BaseLoader.call(this);
 }
 
 ColladaLoader.prototype = Object.create(BaseLoader.prototype);

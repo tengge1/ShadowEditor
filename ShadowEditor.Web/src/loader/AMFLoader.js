@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * AMFLoader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function AMFLoader(app) {
-    BaseLoader.call(this, app);
+function AMFLoader() {
+    BaseLoader.call(this);
 }
 
 AMFLoader.prototype = Object.create(BaseLoader.prototype);

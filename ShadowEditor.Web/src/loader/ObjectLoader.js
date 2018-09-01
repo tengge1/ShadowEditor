@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * ObjectLoader（json文件加载器）
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function ObjectLoader(app) {
-    BaseLoader.call(this, app);
+function ObjectLoader() {
+    BaseLoader.call(this);
 }
 
 ObjectLoader.prototype = Object.create(BaseLoader.prototype);

@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * PLYLoader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function PLYLoader(app) {
-    BaseLoader.call(this, app);
+function PLYLoader() {
+    BaseLoader.call(this);
 }
 
 PLYLoader.prototype = Object.create(BaseLoader.prototype);

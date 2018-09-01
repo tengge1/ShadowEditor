@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * KMZLoader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function KMZLoader(app) {
-    BaseLoader.call(this, app);
+function KMZLoader() {
+    BaseLoader.call(this);
 }
 
 KMZLoader.prototype = Object.create(BaseLoader.prototype);

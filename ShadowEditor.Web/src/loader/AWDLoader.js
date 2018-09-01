@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * AWDLoader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function AWDLoader(app) {
-    BaseLoader.call(this, app);
+function AWDLoader() {
+    BaseLoader.call(this);
 }
 
 AWDLoader.prototype = Object.create(BaseLoader.prototype);

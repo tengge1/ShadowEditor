@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * MD2Loader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function MD2Loader(app) {
-    BaseLoader.call(this, app);
+function MD2Loader() {
+    BaseLoader.call(this);
 }
 
 MD2Loader.prototype = Object.create(BaseLoader.prototype);

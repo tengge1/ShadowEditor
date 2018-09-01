@@ -37,10 +37,9 @@ const Loaders = {
 /**
  * ModelLoader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function ModelLoader(app) {
-    BaseLoader.call(this, app);
+function ModelLoader() {
+    BaseLoader.call(this);
 }
 
 ModelLoader.prototype = Object.create(BaseLoader.prototype);

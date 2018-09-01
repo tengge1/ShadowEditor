@@ -3,10 +3,9 @@ import BaseLoader from './BaseLoader';
 /**
  * FBXLoader
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function FBXLoader(app) {
-    BaseLoader.call(this, app);
+function FBXLoader() {
+    BaseLoader.call(this);
 }
 
 FBXLoader.prototype = Object.create(BaseLoader.prototype);
