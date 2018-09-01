@@ -51,10 +51,9 @@ var Serializers = {
 /**
  * GeometriesSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function GeometriesSerializer(app) {
-    BaseSerializer.call(this, app);
+function GeometriesSerializer() {
+    BaseSerializer.call(this);
 }
 
 GeometriesSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -68,7 +67,7 @@ GeometriesSerializer.prototype.toJSON = function (obj) {
         return null;
     }
 
-    return (new serializer(this.app)).toJSON(obj);
+    return (new serializer()).toJSON(obj);
 };
 
 GeometriesSerializer.prototype.fromJSON = function (json, parent) {
@@ -81,7 +80,7 @@ GeometriesSerializer.prototype.fromJSON = function (json, parent) {
         return null;
     }
 
-    return (new serializer(this.app)).fromJSON(json, parent);
+    return (new serializer()).fromJSON(json, parent);
 };
 
 export default GeometriesSerializer;

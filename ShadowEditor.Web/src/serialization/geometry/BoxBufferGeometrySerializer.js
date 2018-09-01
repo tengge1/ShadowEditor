@@ -4,10 +4,9 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 /**
  * BoxBufferGeometrySerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function BoxBufferGeometrySerializer(app) {
-    BaseSerializer.call(this, app);
+function BoxBufferGeometrySerializer() {
+    BaseSerializer.call(this);
 }
 
 BoxBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

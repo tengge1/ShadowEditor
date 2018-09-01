@@ -4,10 +4,9 @@ import CameraSerializer from './CameraSerializer';
 /**
  * OrthographicCameraSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function OrthographicCameraSerializer(app) {
-    BaseSerializer.call(this, app);
+function OrthographicCameraSerializer() {
+    BaseSerializer.call(this);
 }
 
 OrthographicCameraSerializer.prototype = Object.create(BaseSerializer.prototype);

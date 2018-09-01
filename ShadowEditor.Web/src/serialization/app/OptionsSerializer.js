@@ -3,10 +3,9 @@ import BaseSerializer from '../BaseSerializer';
 /**
  * OptionsSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function OptionsSerializer(app) {
-    BaseSerializer.call(this, app);
+function OptionsSerializer() {
+    BaseSerializer.call(this);
 }
 
 OptionsSerializer.prototype = Object.create(BaseSerializer.prototype);

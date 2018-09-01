@@ -4,10 +4,9 @@ import Object3DSerializer from './Object3DSerializer';
 /**
  * GroupSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function GroupSerializer(app) {
-    BaseSerializer.call(this, app);
+function GroupSerializer() {
+    BaseSerializer.call(this);
 }
 
 GroupSerializer.prototype = Object.create(BaseSerializer.prototype);

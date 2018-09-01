@@ -6,10 +6,9 @@ import TexturesSerializer from '../texture/TexturesSerializer';
 /**
  * SceneSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function SceneSerializer(app) {
-    BaseSerializer.call(this, app);
+function SceneSerializer() {
+    BaseSerializer.call(this);
 }
 
 SceneSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -19,7 +18,7 @@ SceneSerializer.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON.call(this, obj);
 
     if (obj.background instanceof THREE.Texture) { // 天空盒和背景图片
-        json.background = new TexturesSerializer(this.app).toJSON(obj.background);
+        json.background = new TexturesSerializer().toJSON(obj.background);
     } else { // 纯色
         json.background = obj.background;
     }
@@ -39,7 +38,7 @@ SceneSerializer.prototype.fromJSON = function (json, parent) {
         (json.background.metadata.generator === 'CubeTextureSerializer' ||
             json.background.metadata.generator === 'TextureSerializer')
     ) { // 天空盒和背景图片
-        obj.background = new TexturesSerializer(this.app).fromJSON(json.background);
+        obj.background = new TexturesSerializer().fromJSON(json.background);
     } else { // 纯色
         obj.background = new THREE.Color(json.background);
     }

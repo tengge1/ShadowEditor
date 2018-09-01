@@ -4,10 +4,9 @@ import TextureSerializer from './TextureSerializer';
 /**
  * VideoTextureSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function VideoTextureSerializer(app) {
-    BaseSerializer.call(this, app);
+function VideoTextureSerializer() {
+    BaseSerializer.call(this);
 }
 
 VideoTextureSerializer.prototype = Object.create(BaseSerializer.prototype);

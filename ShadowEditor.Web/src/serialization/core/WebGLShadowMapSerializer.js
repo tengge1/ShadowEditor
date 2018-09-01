@@ -4,10 +4,9 @@ import TexturesSerializer from '../texture/TexturesSerializer';
 /**
  * WebGLShadowMapSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function WebGLShadowMapSerializer(app) {
-    BaseSerializer.call(this, app);
+function WebGLShadowMapSerializer() {
+    BaseSerializer.call(this);
 }
 
 WebGLShadowMapSerializer.prototype = Object.create(BaseSerializer.prototype);

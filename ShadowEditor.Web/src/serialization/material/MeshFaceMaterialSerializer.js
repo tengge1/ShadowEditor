@@ -4,10 +4,9 @@ import MaterialSerializer from './MaterialSerializer';
 /**
  * MeshFaceMaterialSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function MeshFaceMaterialSerializer(app) {
-    BaseSerializer.call(this, app);
+function MeshFaceMaterialSerializer() {
+    BaseSerializer.call(this);
 }
 
 MeshFaceMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

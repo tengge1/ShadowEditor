@@ -4,10 +4,9 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 /**
  * CircleBufferGeometrySerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function CircleBufferGeometrySerializer(app) {
-    BaseSerializer.call(this, app);
+function CircleBufferGeometrySerializer() {
+    BaseSerializer.call(this);
 }
 
 CircleBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

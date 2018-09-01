@@ -3,10 +3,9 @@ import BaseSerializer from '../BaseSerializer';
 /**
  * Object3DSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function Object3DSerializer(app) {
-    BaseSerializer.call(this, app);
+function Object3DSerializer() {
+    BaseSerializer.call(this);
 }
 
 Object3DSerializer.prototype = Object.create(BaseSerializer.prototype);

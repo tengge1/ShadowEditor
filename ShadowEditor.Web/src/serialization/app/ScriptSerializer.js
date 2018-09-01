@@ -3,10 +3,9 @@ import BaseSerializer from '../BaseSerializer';
 /**
  * ScriptSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function ScriptSerializer(app) {
-    BaseSerializer.call(this, app);
+function ScriptSerializer() {
+    BaseSerializer.call(this);
 }
 
 ScriptSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -16,7 +15,7 @@ ScriptSerializer.prototype.toJSON = function (scripts) {
     var list = [];
 
     Object.keys(scripts).forEach(uuid => {
-        var json = BaseSerializer.prototype.toJSON.call(this, this.app);
+        var json = BaseSerializer.prototype.toJSON.call(this);
 
         var script = scripts[uuid];
 
@@ -47,8 +46,6 @@ ScriptSerializer.prototype.fromJSON = function (jsons, parent) {
         };
     });
 
-    // this.app.editor.scripts = scripts;
-    // this.app.call('scriptChange', this);
     return parent;
 };
 

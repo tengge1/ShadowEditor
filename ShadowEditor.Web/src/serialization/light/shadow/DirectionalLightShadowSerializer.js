@@ -4,10 +4,9 @@ import LightShadowSerializer from './LightShadowSerializer';
 /**
  * DirectionalLightShadowSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function DirectionalLightShadowSerializer(app) {
-    BaseSerializer.call(this, app);
+function DirectionalLightShadowSerializer() {
+    BaseSerializer.call(this);
 }
 
 DirectionalLightShadowSerializer.prototype = Object.create(BaseSerializer.prototype);

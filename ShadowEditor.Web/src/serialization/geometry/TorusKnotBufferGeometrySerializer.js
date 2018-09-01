@@ -4,10 +4,9 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 /**
  * TorusKnotBufferGeometrySerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function TorusKnotBufferGeometrySerializer(app) {
-    BaseSerializer.call(this, app);
+function TorusKnotBufferGeometrySerializer() {
+    BaseSerializer.call(this);
 }
 
 TorusKnotBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

@@ -4,10 +4,9 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 /**
  * IcosahedronBufferGeometrySerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function IcosahedronBufferGeometrySerializer(app) {
-    BaseSerializer.call(this, app);
+function IcosahedronBufferGeometrySerializer() {
+    BaseSerializer.call(this);
 }
 
 IcosahedronBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

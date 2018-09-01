@@ -5,10 +5,9 @@ import LightShadowsSerializer from './shadow/LightShadowsSerializer';
 /**
  * LightSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function LightSerializer(app) {
-    BaseSerializer.call(this, app);
+function LightSerializer() {
+    BaseSerializer.call(this);
 }
 
 LightSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -20,7 +19,7 @@ LightSerializer.prototype.toJSON = function (obj) {
     json.color = obj.color;
     json.intensity = obj.intensity;
     json.isLight = obj.isLight;
-    json.shadow = obj.shadow == null ? null : (new LightShadowsSerializer(this.app)).toJSON(obj.shadow);
+    json.shadow = obj.shadow == null ? null : (new LightShadowsSerializer()).toJSON(obj.shadow);
 
     return json;
 };
@@ -35,7 +34,7 @@ LightSerializer.prototype.fromJSON = function (json, parent) {
     obj.isLight = json.isLight;
 
     if (json.shadow) {
-        obj.shadow = (new LightShadowsSerializer(this.app)).fromJSON(json.shadow);
+        obj.shadow = (new LightShadowsSerializer()).fromJSON(json.shadow);
     }
 
     return obj;

@@ -13,10 +13,9 @@ var Serializers = {
 /**
  * LightShadowsSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function LightShadowsSerializer(app) {
-    BaseSerializer.call(this, app);
+function LightShadowsSerializer() {
+    BaseSerializer.call(this);
 }
 
 LightShadowsSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -30,7 +29,7 @@ LightShadowsSerializer.prototype.toJSON = function (obj) {
         return null;
     }
 
-    return (new serializer(this.app)).toJSON(obj);
+    return (new serializer()).toJSON(obj);
 };
 
 LightShadowsSerializer.prototype.fromJSON = function (json) {
@@ -43,7 +42,7 @@ LightShadowsSerializer.prototype.fromJSON = function (json) {
         return null;
     }
 
-    return (new serializer(this.app)).fromJSON(json);
+    return (new serializer()).fromJSON(json);
 };
 
 export default LightShadowsSerializer;

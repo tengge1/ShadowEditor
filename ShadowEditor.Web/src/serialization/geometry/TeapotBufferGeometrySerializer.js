@@ -4,10 +4,9 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 /**
  * TeapotBufferGeometrySerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function TeapotBufferGeometrySerializer(app) {
-    BaseSerializer.call(this, app);
+function TeapotBufferGeometrySerializer() {
+    BaseSerializer.call(this);
 }
 
 TeapotBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

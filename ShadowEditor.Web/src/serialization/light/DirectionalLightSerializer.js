@@ -4,10 +4,9 @@ import LightSerializer from './LightSerializer';
 /**
  * DirectionalLightSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function DirectionalLightSerializer(app) {
-    BaseSerializer.call(this, app);
+function DirectionalLightSerializer() {
+    BaseSerializer.call(this);
 }
 
 DirectionalLightSerializer.prototype = Object.create(BaseSerializer.prototype);

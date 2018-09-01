@@ -4,10 +4,9 @@ import ImageUtils from '../../utils/ImageUtils';
 /**
  * TextureSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function TextureSerializer(app) {
-    BaseSerializer.call(this, app);
+function TextureSerializer() {
+    BaseSerializer.call(this);
 }
 
 TextureSerializer.prototype = Object.create(BaseSerializer.prototype);

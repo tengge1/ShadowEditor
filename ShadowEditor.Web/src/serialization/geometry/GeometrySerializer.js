@@ -3,10 +3,9 @@ import BaseSerializer from '../BaseSerializer';
 /**
  * GeometrySerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function GeometrySerializer(app) {
-    BaseSerializer.call(this, app);
+function GeometrySerializer() {
+    BaseSerializer.call(this);
 }
 
 GeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

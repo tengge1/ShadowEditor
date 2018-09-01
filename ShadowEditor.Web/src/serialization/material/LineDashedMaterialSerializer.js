@@ -4,10 +4,9 @@ import MaterialSerializer from './MaterialSerializer';
 /**
  * LineDashedMaterialSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function LineDashedMaterialSerializer(app) {
-    BaseSerializer.call(this, app);
+function LineDashedMaterialSerializer() {
+    BaseSerializer.call(this);
 }
 
 LineDashedMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

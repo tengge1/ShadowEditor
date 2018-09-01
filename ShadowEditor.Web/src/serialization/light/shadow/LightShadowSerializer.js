@@ -5,10 +5,9 @@ import WebGLRenderTargetSerializer from '../../core/WebGLRenderTargetSerializer'
 /**
  * LightShadowSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function LightShadowSerializer(app) {
-    BaseSerializer.call(this, app);
+function LightShadowSerializer() {
+    BaseSerializer.call(this);
 }
 
 LightShadowSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -18,8 +17,8 @@ LightShadowSerializer.prototype.toJSON = function (obj) {
     var json = BaseSerializer.prototype.toJSON.call(this, obj);
 
     json.bias = obj.bias;
-    json.camera = (new CamerasSerializer(this.app)).toJSON(obj.camera);
-    json.map = obj.map == null ? null : (new WebGLRenderTargetSerializer(this.app)).toJSON(obj.map);
+    json.camera = (new CamerasSerializer()).toJSON(obj.camera);
+    json.map = obj.map == null ? null : (new WebGLRenderTargetSerializer()).toJSON(obj.map);
     json.mapSize = obj.mapSize;
     json.matrix = obj.matrix;
     json.radius = obj.radius;
@@ -31,7 +30,7 @@ LightShadowSerializer.prototype.fromJSON = function (json, parent) {
     var camera;
 
     if (parent === undefined) {
-        camera = (new CamerasSerializer(this.app)).fromJSON(json.camera);
+        camera = (new CamerasSerializer()).fromJSON(json.camera);
     }
 
     var obj = parent === undefined ? new THREE.LightShadow(camera) : parent;

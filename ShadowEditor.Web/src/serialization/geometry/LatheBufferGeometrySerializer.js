@@ -4,10 +4,9 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 /**
  * LatheBufferGeometrySerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function LatheBufferGeometrySerializer(app) {
-    BaseSerializer.call(this, app);
+function LatheBufferGeometrySerializer() {
+    BaseSerializer.call(this);
 }
 
 LatheBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

@@ -4,10 +4,9 @@ import MaterialSerializer from './MaterialSerializer';
 /**
  * SpriteMaterialSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function SpriteMaterialSerializer(app) {
-    BaseSerializer.call(this, app);
+function SpriteMaterialSerializer() {
+    BaseSerializer.call(this);
 }
 
 SpriteMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

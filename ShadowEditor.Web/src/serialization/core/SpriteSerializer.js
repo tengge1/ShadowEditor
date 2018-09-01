@@ -7,10 +7,9 @@ import MaterialsSerializer from '../material/MaterialsSerializer';
 /**
  * SpriteSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function SpriteSerializer(app) {
-    BaseSerializer.call(this, app);
+function SpriteSerializer() {
+    BaseSerializer.call(this);
 }
 
 SpriteSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -20,7 +19,7 @@ SpriteSerializer.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON.call(this, obj);
 
     json.center = obj.center;
-    json.material = (new MaterialsSerializer(this.app)).toJSON(obj.material);
+    json.material = (new MaterialsSerializer()).toJSON(obj.material);
     json.z = obj.z;
     json.isSprite = obj.isSprite;
 
@@ -35,7 +34,7 @@ SpriteSerializer.prototype.fromJSON = function (json, parent) {
             console.warn(`SpriteSerializer: ${json.name} json.material未定义。`);
             return null;
         }
-        material = (new MaterialsSerializer(this.app)).fromJSON(json.material);
+        material = (new MaterialsSerializer()).fromJSON(json.material);
     }
 
     var obj = parent === undefined ? new THREE.Sprite(material) : parent;

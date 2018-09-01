@@ -4,10 +4,9 @@ import MaterialSerializer from './MaterialSerializer';
 /**
  * ParticleBasicMaterialSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function ParticleBasicMaterialSerializer(app) {
-    BaseSerializer.call(this, app);
+function ParticleBasicMaterialSerializer() {
+    BaseSerializer.call(this);
 }
 
 ParticleBasicMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

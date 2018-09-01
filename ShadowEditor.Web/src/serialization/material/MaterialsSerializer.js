@@ -51,10 +51,9 @@ var Serializers = {
 /**
  * MaterialsSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function MaterialsSerializer(app) {
-    BaseSerializer.call(this, app);
+function MaterialsSerializer() {
+    BaseSerializer.call(this);
 }
 
 MaterialsSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -68,7 +67,7 @@ MaterialsSerializer.prototype.toJSON = function (obj) {
         return null;
     }
 
-    return (new serializer(this.app)).toJSON(obj);
+    return (new serializer()).toJSON(obj);
 };
 
 MaterialsSerializer.prototype.fromJSON = function (json, parent) {
@@ -81,7 +80,7 @@ MaterialsSerializer.prototype.fromJSON = function (json, parent) {
         return null;
     }
 
-    return (new serializer(this.app)).fromJSON(json, parent);
+    return (new serializer()).fromJSON(json, parent);
 };
 
 export default MaterialsSerializer;

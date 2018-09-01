@@ -7,10 +7,9 @@ import MaterialsSerializer from '../material/MaterialsSerializer';
 /**
  * MeshSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function MeshSerializer(app) {
-    BaseSerializer.call(this, app);
+function MeshSerializer() {
+    BaseSerializer.call(this);
 }
 
 MeshSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -20,8 +19,8 @@ MeshSerializer.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON.call(this, obj);
 
     json.drawMode = obj.drawMode;
-    json.geometry = (new GeometriesSerializer(this.app)).toJSON(obj.geometry);
-    json.material = (new MaterialsSerializer(this.app)).toJSON(obj.material);
+    json.geometry = (new GeometriesSerializer()).toJSON(obj.geometry);
+    json.material = (new MaterialsSerializer()).toJSON(obj.material);
 
     return json;
 };
@@ -44,8 +43,8 @@ MeshSerializer.prototype.fromJSON = function (json, parent) {
         return null;
     }
 
-    var geometry = (new GeometriesSerializer(this.app)).fromJSON(json.geometry);
-    var material = (new MaterialsSerializer(this.app)).fromJSON(json.material);
+    var geometry = (new GeometriesSerializer()).fromJSON(json.geometry);
+    var material = (new MaterialsSerializer()).fromJSON(json.material);
 
     var obj = new THREE.Mesh(geometry, material);
 

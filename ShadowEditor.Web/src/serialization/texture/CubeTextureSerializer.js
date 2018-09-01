@@ -5,10 +5,9 @@ import ImageUtils from '../../utils/ImageUtils';
 /**
  * CubeTextureSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function CubeTextureSerializer(app) {
-    BaseSerializer.call(this, app);
+function CubeTextureSerializer() {
+    BaseSerializer.call(this);
 }
 
 CubeTextureSerializer.prototype = Object.create(BaseSerializer.prototype);

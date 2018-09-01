@@ -4,10 +4,9 @@ import LightSerializer from './LightSerializer';
 /**
  * HemisphereLightSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function HemisphereLightSerializer(app) {
-    BaseSerializer.call(this, app);
+function HemisphereLightSerializer() {
+    BaseSerializer.call(this);
 }
 
 HemisphereLightSerializer.prototype = Object.create(BaseSerializer.prototype);

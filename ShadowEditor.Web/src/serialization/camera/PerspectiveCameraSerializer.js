@@ -4,10 +4,9 @@ import CameraSerializer from './CameraSerializer';
 /**
  * PerspectiveCameraSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function PerspectiveCameraSerializer(app) {
-    BaseSerializer.call(this, app);
+function PerspectiveCameraSerializer() {
+    BaseSerializer.call(this);
 }
 
 PerspectiveCameraSerializer.prototype = Object.create(BaseSerializer.prototype);

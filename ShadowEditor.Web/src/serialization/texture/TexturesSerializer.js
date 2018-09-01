@@ -21,10 +21,9 @@ var Serializers = {
 /**
  * TexturesSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function TexturesSerializer(app) {
-    BaseSerializer.call(this, app);
+function TexturesSerializer() {
+    BaseSerializer.call(this);
 }
 
 TexturesSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -38,7 +37,7 @@ TexturesSerializer.prototype.toJSON = function (obj) {
         return null;
     }
 
-    return (new serializer(this.app)).toJSON(obj);
+    return (new serializer()).toJSON(obj);
 };
 
 TexturesSerializer.prototype.fromJSON = function (json, parent) {
@@ -51,7 +50,7 @@ TexturesSerializer.prototype.fromJSON = function (json, parent) {
         return null;
     }
 
-    return (new serializer(this.app)).fromJSON(json, parent);
+    return (new serializer()).fromJSON(json, parent);
 };
 
 export default TexturesSerializer;

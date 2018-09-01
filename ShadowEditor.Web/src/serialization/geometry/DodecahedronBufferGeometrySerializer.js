@@ -4,10 +4,9 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
 /**
  * DodecahedronBufferGeometrySerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function DodecahedronBufferGeometrySerializer(app) {
-    BaseSerializer.call(this, app);
+function DodecahedronBufferGeometrySerializer() {
+    BaseSerializer.call(this);
 }
 
 DodecahedronBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);

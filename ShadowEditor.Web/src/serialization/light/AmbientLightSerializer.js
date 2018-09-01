@@ -4,10 +4,9 @@ import LightSerializer from './LightSerializer';
 /**
  * AmbientLightSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function AmbientLightSerializer(app) {
-    BaseSerializer.call(this, app);
+function AmbientLightSerializer() {
+    BaseSerializer.call(this);
 }
 
 AmbientLightSerializer.prototype = Object.create(BaseSerializer.prototype);

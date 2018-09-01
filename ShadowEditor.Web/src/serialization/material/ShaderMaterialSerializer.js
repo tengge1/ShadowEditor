@@ -4,10 +4,9 @@ import MaterialSerializer from './MaterialSerializer';
 /**
  * ShaderMaterialSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function ShaderMaterialSerializer(app) {
-    BaseSerializer.call(this, app);
+function ShaderMaterialSerializer() {
+    BaseSerializer.call(this);
 }
 
 ShaderMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

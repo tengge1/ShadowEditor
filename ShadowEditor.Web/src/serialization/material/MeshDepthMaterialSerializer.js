@@ -4,10 +4,9 @@ import MaterialSerializer from './MaterialSerializer';
 /**
  * MeshDepthMaterialSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function MeshDepthMaterialSerializer(app) {
-    BaseSerializer.call(this, app);
+function MeshDepthMaterialSerializer() {
+    BaseSerializer.call(this);
 }
 
 MeshDepthMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);

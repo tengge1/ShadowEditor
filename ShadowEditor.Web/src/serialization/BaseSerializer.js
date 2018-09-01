@@ -5,11 +5,9 @@ var ID = -1;
 /**
  * 序列化器基类
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function BaseSerializer(app) {
+function BaseSerializer() {
     this.id = 'BaseSerializer' + ID--;
-    this.app = app;
     this.metadata = Object.assign({}, Metadata, {
         generator: this.constructor.name
     });

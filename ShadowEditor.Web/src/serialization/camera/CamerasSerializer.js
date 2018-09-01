@@ -13,10 +13,9 @@ var Serializers = {
 /**
  * CamerasSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function CamerasSerializer(app) {
-    BaseSerializer.call(this, app);
+function CamerasSerializer() {
+    BaseSerializer.call(this);
 }
 
 CamerasSerializer.prototype = Object.create(BaseSerializer.prototype);
@@ -30,7 +29,7 @@ CamerasSerializer.prototype.toJSON = function (obj) {
         return null;
     }
 
-    return (new serializer(this.app)).toJSON(obj);
+    return (new serializer()).toJSON(obj);
 };
 
 CamerasSerializer.prototype.fromJSON = function (json, parent) {
@@ -43,7 +42,7 @@ CamerasSerializer.prototype.fromJSON = function (json, parent) {
         return null;
     }
 
-    return (new serializer(this.app)).fromJSON(json, parent);
+    return (new serializer()).fromJSON(json, parent);
 };
 
 export default CamerasSerializer;

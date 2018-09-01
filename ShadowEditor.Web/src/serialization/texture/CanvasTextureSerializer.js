@@ -4,10 +4,9 @@ import TextureSerializer from './TextureSerializer';
 /**
  * CanvasTextureSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function CanvasTextureSerializer(app) {
-    BaseSerializer.call(this, app);
+function CanvasTextureSerializer() {
+    BaseSerializer.call(this);
 }
 
 CanvasTextureSerializer.prototype = Object.create(BaseSerializer.prototype);

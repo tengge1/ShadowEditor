@@ -4,10 +4,9 @@ import LightSerializer from './LightSerializer';
 /**
  * RectAreaLightSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function RectAreaLightSerializer(app) {
-    BaseSerializer.call(this, app);
+function RectAreaLightSerializer() {
+    BaseSerializer.call(this);
 }
 
 RectAreaLightSerializer.prototype = Object.create(BaseSerializer.prototype);

@@ -4,10 +4,9 @@ import MaterialSerializer from './MaterialSerializer';
 /**
  * MeshDistanceMaterialSerializer
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function MeshDistanceMaterialSerializer(app) {
-    BaseSerializer.call(this, app);
+function MeshDistanceMaterialSerializer() {
+    BaseSerializer.call(this);
 }
 
 MeshDistanceMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);
