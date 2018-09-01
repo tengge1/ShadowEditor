@@ -26,6 +26,8 @@ MD2Loader.prototype.load = function (url) {
             mesh.mixer = new THREE.AnimationMixer(mesh);
 
             resolve(mesh);
+        }, undefined, () => {
+            resolve(null);
         });
     });
 };

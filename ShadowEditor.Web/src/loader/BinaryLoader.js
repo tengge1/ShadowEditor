@@ -19,6 +19,8 @@ BinaryLoader.prototype.load = function (url) {
         loader.load(url, (geometry, materials) => {
             var mesh = new THREE.Mesh(geometry, materials);
             resolve(mesh);
+        }, undefined, () => {
+            resolve(null);
         });
     });
 };

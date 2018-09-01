@@ -22,6 +22,8 @@ ObjectLoader.prototype.load = function (url) {
             } else {
                 resolve(obj);
             }
+        }, undefined, () => {
+            resolve(null);
         });
     });
 };

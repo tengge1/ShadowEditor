@@ -17,6 +17,8 @@ AMFLoader.prototype.load = function (url) {
         var loader = new THREE.AMFLoader();
         loader.load(url, (group) => {
             resolve(group);
+        }, undefined, () => {
+            resolve(null);
         });
     });
 };

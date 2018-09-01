@@ -18,6 +18,8 @@ FBXLoader.prototype.load = function (url) {
 
         loader.load(url, obj3d => {
             resolve(obj3d);
+        }, undefined, () => {
+            resolve(null);
         });
     });
 };

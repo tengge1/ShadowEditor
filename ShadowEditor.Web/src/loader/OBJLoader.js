@@ -18,6 +18,8 @@ OBJLoader.prototype.load = function (url) {
 
         loader.load(url, obj => {
             resolve(obj);
+        }, undefined, () => {
+            resolve(null);
         });
     });
 };

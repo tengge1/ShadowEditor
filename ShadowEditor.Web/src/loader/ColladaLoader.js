@@ -19,6 +19,8 @@ ColladaLoader.prototype.load = function (url) {
         loader.load(url, collada => {
             var obj3d = collada.scene;
             resolve(obj3d);
+        }, undefined, () => {
+            resolve(null);
         });
     });
 };

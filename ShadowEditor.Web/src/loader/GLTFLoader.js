@@ -19,6 +19,8 @@ GLTFLoader.prototype.load = function (url) {
         loader.load(url, result => {
             var obj3d = result.scene;
             resolve(obj3d);
+        }, undefined, () => {
+            resolve(null);
         });
     });
 };

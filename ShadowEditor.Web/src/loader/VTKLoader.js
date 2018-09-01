@@ -20,6 +20,8 @@ VTKLoader.prototype.load = function (url) {
             var material = new THREE.MeshStandardMaterial();
             var mesh = new THREE.Mesh(geometry, material);
             resolve(mesh);
+        }, undefined, () => {
+            resolve(null);
         });
     });
 };

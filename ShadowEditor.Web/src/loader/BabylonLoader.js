@@ -20,6 +20,8 @@ BabylonLoader.prototype.load = function (url) {
             var obj3d = new THREE.Object3D();
             obj3d.children = scene.children;
             resolve(obj3d);
+        }, undefined, () => {
+            resolve(null);
         });
     });
 };
