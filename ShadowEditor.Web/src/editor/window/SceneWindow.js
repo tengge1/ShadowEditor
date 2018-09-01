@@ -191,18 +191,21 @@ SceneWindow.prototype.loadScene = function (data) {
         }
 
         editor.clear(false);
-        (new Converter(this.app)).fromJson(obj.Data);
 
-        editor.sceneID = data.ID;
-        editor.sceneName = data.Name;
-        document.title = data.Name;
+        (new Converter()).fromJson(obj.Data, { server: this.app.options.server }).then(obj => {
+            debugger
 
-        // 添加帮助器
-        editor.scene.traverse(n => {
-            editor.addHelper(n);
+            editor.sceneID = data.ID;
+            editor.sceneName = data.Name;
+            document.title = data.Name;
+
+            // 添加帮助器
+            editor.scene.traverse(n => {
+                editor.addHelper(n);
+            });
+
+            UI.msg('载入成功！');
         });
-
-        UI.msg('载入成功！');
     });
 };
 

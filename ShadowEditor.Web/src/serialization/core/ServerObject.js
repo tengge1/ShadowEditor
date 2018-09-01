@@ -19,11 +19,11 @@ ServerObject.prototype.toJSON = function (obj) {
     return json;
 };
 
-ServerObject.prototype.fromJSON = function (json) {
+ServerObject.prototype.fromJSON = function (json, options) {
     var type = json.userData.Type;
     return new Promise(resolve => {
         var loader = new ModelLoader();
-        loader.load(this.app.options.server + json.userData.Url, { type: type }).then(obj => {
+        loader.load(options.server + json.userData.Url, { type: type }).then(obj => {
             if (obj) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, obj);
                 resolve(obj);

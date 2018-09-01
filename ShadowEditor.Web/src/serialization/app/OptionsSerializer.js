@@ -17,17 +17,17 @@ OptionsSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-OptionsSerializer.prototype.fromJSON = function (json, parent) {
-    if (parent === undefined) {
-        console.warn(`OptionsSerializer: parent是undefined。`);
-        return null;
-    }
+OptionsSerializer.prototype.fromJSON = function (json) {
+    var obj = {};
+
     Object.keys(json).forEach(n => {
         if (n === '_id' || n === 'metadata' || n === 'server') { // 由于不同服务器的服务端不一样，所以不能反序列化server配置
             return;
         }
-        parent[n] = json[n];
+        obj[n] = json[n];
     });
+
+    return obj;
 };
 
 export default OptionsSerializer;

@@ -136,8 +136,9 @@ Converter.prototype.sceneToJson = function (scene, list) {
 /**
  * 场景反序列化
  * @param {*} jsons json对象（列表）
+ * @param {*} options 配置选项 格式：{ server: serverUrl } 其中，serverUrl为服务端地址，用于下载模型、纹理等资源
  */
-Converter.prototype.fromJson = function (jsons) {
+Converter.prototype.fromJson = function (jsons, options) {
     var obj = {
         options: null,
         camera: null,
@@ -148,20 +149,16 @@ Converter.prototype.fromJson = function (jsons) {
 
     // 选项
     var optionsJson = jsons.filter(n => n.metadata && n.metadata.generator === 'OptionsSerializer')[0];
-
     if (optionsJson) {
-        (new OptionsSerializer()).fromJSON(optionsJson, obj.options);
+        obj.options = (new OptionsSerializer()).fromJSON(optionsJson);
     } else {
         console.warn(`Converter: 场景中不存在配置信息。`);
     }
 
     // 相机
     var cameraJson = jsons.filter(n => n.metadata && n.metadata.generator.indexOf('CameraSerializer') > -1)[0];
-
     if (cameraJson) {
-        obj.camera = new THREE.PerspectiveCamera();
-        (new CamerasSerializer()).fromJSON(cameraJson, obj.camera);
-        // this.app.editor.camera.updateProjectionMatrix();
+        obj.camera = (new CamerasSerializer()).fromJSON(cameraJson);
     } else {
         console.warn(`Converter: 场景中不存在相机信息。`);
     }
@@ -169,16 +166,7 @@ Converter.prototype.fromJson = function (jsons) {
     // 渲染器
     var rendererJson = jsons.filter(n => n.metadata && n.metadata.generator.indexOf('WebGLRendererSerializer') > -1)[0];
     if (rendererJson) {
-        var renderer = new THREE.WebGLRenderer({
-            antialias: true
-        });
         obj.renderer = (new WebGLRendererSerializer()).fromJSON(rendererJson);
-
-        // this.app.viewport.container.dom.removeChild(this.app.editor.renderer.domElement);
-        // this.app.editor.renderer = (new WebGLRendererSerializer()).fromJSON(rendererJson);
-        // this.app.viewport.container.dom.appendChild(this.app.editor.renderer.domElement);
-        // this.app.editor.renderer.setSize(this.app.viewport.container.dom.offsetWidth, this.app.viewport.container.dom.offsetHeight);
-        // this.app.call('render', this);
     } else {
         console.warn(`Converter: 场景中不存在渲染器信息。`);
     }
@@ -186,98 +174,108 @@ Converter.prototype.fromJson = function (jsons) {
     // 脚本
     var scriptJsons = jsons.filter(n => n.metadata && n.metadata.generator === 'ScriptSerializer');
     if (scriptJsons) {
-        (new ScriptSerializer()).fromJSON(scriptJsons, obj.scripts);
+        obj.scripts = (new ScriptSerializer()).fromJSON(scriptJsons);
     }
 
     // 场景
-    var scene = this.sceneFromJson(jsons);
-
-    if (scene) {
-        this.app.editor.setScene(scene);
-    }
+    return new Promise(resolve => {
+        this.sceneFromJson(jsons, options).then(scene => {
+            obj.scene = scene;
+            resolve(obj);
+        });
+    });
 };
 
 /**
  * json转场景
- * @param {*} jsons 
+ * @param {*} jsons 反序列化对象列表
+ * @param {*} options 配置信息
  */
-Converter.prototype.sceneFromJson = function (jsons) {
+Converter.prototype.sceneFromJson = function (jsons, options) {
     var sceneJson = jsons.filter(n => n.metadata && n.metadata.generator === 'SceneSerializer')[0];
-
     if (sceneJson === undefined) {
         console.warn(`Converter: 场景中不存在场景信息。`);
-        return new THREE.Scene();
+        return new Promise(resolve => {
+            resolve(new THREE.Scene());
+        });
     }
 
     var scene = (new SceneSerializer()).fromJSON(sceneJson);
+    sceneJson._parent = scene;
 
-    (function parse(json, parent, list) {
-        json.children.forEach(n => {
-            var objJson = list.filter(o => o.uuid === n)[0];
-            if (objJson == null) {
-                console.warn(`Converter: 场景中不存在uuid为${n}的对象数据。`);
+    var queue = [sceneJson];
+
+    return new Promise(resolve => {
+        (function parse() {
+            if (queue.length === 0) {
+                resolve(scene);
+                return;
+            }
+            var json = queue.shift();
+
+            if (json.userData && json.userData.Server === true) { // 服务端对象
+                (new ServerObject()).fromJSON(json, options).then(obj => {
+                    json._parent.add(obj);
+                    parse();
+                });
                 return;
             }
 
             var obj = null;
 
-            if (objJson.userData && objJson.userData.Server === true) { // 服务端对象
-                var promise = (new ServerObject()).fromJSON(objJson);
-                promise.then(obj => {
-                    if (obj) {
-                        scene.add(obj);
-                        // app.call('sceneGraphChanged', this);
-                    }
-                });
-                return;
-            }
-
-            switch (objJson.metadata.generator) {
+            switch (json.metadata.generator) {
                 case 'SceneSerializer':
-                    obj = (new SceneSerializer()).fromJSON(objJson);
+                    obj = (new SceneSerializer()).fromJSON(json);
                     break;
                 case 'GroupSerializer':
-                    obj = (new GroupSerializer()).fromJSON(objJson);
+                    obj = (new GroupSerializer()).fromJSON(json);
                     break;
                 case 'MeshSerializer':
-                    obj = (new MeshSerializer()).fromJSON(objJson);
+                    obj = (new MeshSerializer()).fromJSON(json);
                     break;
                 case 'SpriteSerializer':
-                    obj = (new SpriteSerializer()).fromJSON(objJson);
+                    obj = (new SpriteSerializer()).fromJSON(json);
                     break;
                 case 'AmbientLightSerializer':
-                    obj = (new AmbientLightSerializer()).fromJSON(objJson);
+                    obj = (new AmbientLightSerializer()).fromJSON(json);
                     break;
                 case 'DirectionalLightSerializer':
-                    obj = (new DirectionalLightSerializer()).fromJSON(objJson);
+                    obj = (new DirectionalLightSerializer()).fromJSON(json);
                     break;
                 case 'HemisphereLightSerializer':
-                    obj = (new HemisphereLightSerializer()).fromJSON(objJson);
+                    obj = (new HemisphereLightSerializer()).fromJSON(json);
                     break;
                 case 'PointLightSerializer':
-                    obj = (new PointLightSerializer()).fromJSON(objJson);
+                    obj = (new PointLightSerializer()).fromJSON(json);
                     break;
                 case 'RectAreaLightSerializer':
-                    obj = (new RectAreaLightSerializer()).fromJSON(objJson);
+                    obj = (new RectAreaLightSerializer()).fromJSON(json);
                     break;
                 case 'SpotLightSerializer':
-                    obj = (new SpotLightSerializer()).fromJSON(objJson);
+                    obj = (new SpotLightSerializer()).fromJSON(json);
                     break;
             }
 
             if (obj) {
-                parent.add(obj);
+                json._parent.add(obj);
             } else {
-                console.warn(`Converter: 不存在序列化${objJson.metadata.type}的反序列化器。`);
+                console.warn(`Converter: 不存在${json.metadata.type}的反序列化器。`);
             }
 
-            if (objJson && objJson.children && objJson.children.length > 0 && obj) {
-                parse.call(this, objJson, obj, list);
+            if (json.children && Array.isArray(json.children) && obj) {
+                json.children.forEach(uuid => {
+                    var childJson = jsons.filter(n => n.id === uuid)[0];
+                    if (childJson) {
+                        childJson._parent = obj;
+                        queue.push(childJson);
+                    } else {
+                        console.warn(`Converter: 场景中不存在${uuid}的对象。`);
+                    }
+                });
             }
-        });
-    })(sceneJson, scene, jsons);
-
-    return scene;
+            parse();
+        })();
+    });
 };
 
 export default Converter;
