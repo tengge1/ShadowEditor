@@ -193,7 +193,7 @@ SceneWindow.prototype.loadScene = function (data) {
         editor.clear(false);
 
         (new Converter()).fromJson(obj.Data, { server: this.app.options.server }).then(obj => {
-            debugger
+            this.onLoadScene(obj);
 
             editor.sceneID = data.ID;
             editor.sceneName = data.Name;
@@ -207,6 +207,37 @@ SceneWindow.prototype.loadScene = function (data) {
             UI.msg('载入成功！');
         });
     });
+};
+
+SceneWindow.prototype.onLoadScene = function (obj) {
+    if (obj.options) {
+        Object.assign(this.app.options, obj.options);
+    }
+
+    if (obj.camera) {
+        this.app.editor.camera.copy(obj.camera);
+        this.app.editor.camera.updateProjectionMatrix();
+    }
+
+    if (obj.renderer) {
+        var viewport = this.app.viewport.container.dom;
+        var oldRenderer = this.app.editor.renderer;
+
+        viewport.removeChild(oldRenderer.domElement);
+        viewport.appendChild(obj.renderer.domElement);
+        this.app.editor.renderer = obj.renderer;
+        this.app.editor.renderer.setSize(viewport.offsetWidth, viewport.offsetHeight);
+    }
+
+    if (obj.scripts) {
+        Object.assign(this.app.editor.scripts, obj.scripts);
+    }
+
+    if (obj.scene) {
+        this.app.editor.setScene(obj.scene);
+    }
+
+    this.app.call('render', this);
 };
 
 export default SceneWindow;
