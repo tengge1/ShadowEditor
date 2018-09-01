@@ -29,7 +29,6 @@ import AddObjectCommand from '../command/AddObjectCommand';
 /**
  * 场景序列化/反序列化类
  * @author tengge / https://github.com/tengge1
-
  */
 function Converter() {
     BaseSerializer.call(this);

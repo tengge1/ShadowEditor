@@ -38,7 +38,8 @@ SaveSceneEvent.prototype.onSaveScene = function () {
 };
 
 SaveSceneEvent.prototype.commitSave = function (sceneName) {
-    var obj = (new Converter(this.app)).toJSON({
+    debugger
+    var obj = (new Converter()).toJSON({
         options: this.app.options,
         camera: this.app.editor.camera,
         renderer: this.app.editor.renderer,
