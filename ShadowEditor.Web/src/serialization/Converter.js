@@ -194,87 +194,102 @@ Converter.prototype.fromJson = function (jsons, options) {
 Converter.prototype.sceneFromJson = function (jsons, options) {
     var sceneJson = jsons.filter(n => n.metadata && n.metadata.generator === 'SceneSerializer')[0];
     if (sceneJson === undefined) {
-        console.warn(`Converter: 场景中不存在场景信息。`);
+        console.warn(`Converter: 数据中不存在场景信息。`);
         return new Promise(resolve => {
             resolve(new THREE.Scene());
         });
     }
 
     var scene = (new SceneSerializer()).fromJSON(sceneJson);
-    sceneJson._parent = scene;
 
-    var queue = [sceneJson];
+    var serverObjects = [];
 
-    return new Promise(resolve => {
-        (function parse() {
-            if (queue.length === 0) {
-                resolve(scene);
+    (function parseJson(json, parent, list) {
+        json.children.forEach(n => {
+            var objJson = list.filter(o => o.uuid === n)[0];
+            if (objJson == null) {
+                console.warn(`Converter: 数据中不存在uuid为${n}的对象数据。`);
                 return;
             }
-            var json = queue.shift();
 
-            if (json.userData && json.userData.Server === true) { // 服务端对象
-                (new ServerObject()).fromJSON(json, options).then(obj => {
-                    json._parent.add(obj);
-                    parse();
+            if (objJson.userData && objJson.userData.Server === true) { // 服务端对象
+                serverObjects.push({
+                    parent: parent,
+                    json: objJson
                 });
                 return;
             }
 
             var obj = null;
 
-            switch (json.metadata.generator) {
+            switch (objJson.metadata.generator) {
                 case 'SceneSerializer':
-                    obj = (new SceneSerializer()).fromJSON(json);
+                    obj = (new SceneSerializer()).fromJSON(objJson);
                     break;
                 case 'GroupSerializer':
-                    obj = (new GroupSerializer()).fromJSON(json);
+                    obj = (new GroupSerializer()).fromJSON(objJson);
                     break;
                 case 'MeshSerializer':
-                    obj = (new MeshSerializer()).fromJSON(json);
+                    obj = (new MeshSerializer()).fromJSON(objJson);
                     break;
                 case 'SpriteSerializer':
-                    obj = (new SpriteSerializer()).fromJSON(json);
+                    obj = (new SpriteSerializer()).fromJSON(objJson);
                     break;
                 case 'AmbientLightSerializer':
-                    obj = (new AmbientLightSerializer()).fromJSON(json);
+                    obj = (new AmbientLightSerializer()).fromJSON(objJson);
                     break;
                 case 'DirectionalLightSerializer':
-                    obj = (new DirectionalLightSerializer()).fromJSON(json);
+                    obj = (new DirectionalLightSerializer()).fromJSON(objJson);
                     break;
                 case 'HemisphereLightSerializer':
-                    obj = (new HemisphereLightSerializer()).fromJSON(json);
+                    obj = (new HemisphereLightSerializer()).fromJSON(objJson);
                     break;
                 case 'PointLightSerializer':
-                    obj = (new PointLightSerializer()).fromJSON(json);
+                    obj = (new PointLightSerializer()).fromJSON(objJson);
                     break;
                 case 'RectAreaLightSerializer':
-                    obj = (new RectAreaLightSerializer()).fromJSON(json);
+                    obj = (new RectAreaLightSerializer()).fromJSON(objJson);
                     break;
                 case 'SpotLightSerializer':
-                    obj = (new SpotLightSerializer()).fromJSON(json);
+                    obj = (new SpotLightSerializer()).fromJSON(objJson);
                     break;
             }
 
             if (obj) {
-                json._parent.add(obj);
+                parent.add(obj);
             } else {
-                console.warn(`Converter: 不存在${json.metadata.type}的反序列化器。`);
+                console.warn(`Converter: 不存在${objJson.metadata.type}的反序列化器。`);
             }
 
-            if (json.children && Array.isArray(json.children) && obj) {
-                json.children.forEach(uuid => {
-                    var childJson = jsons.filter(n => n.id === uuid)[0];
-                    if (childJson) {
-                        childJson._parent = obj;
-                        queue.push(childJson);
-                    } else {
-                        console.warn(`Converter: 场景中不存在${uuid}的对象。`);
-                    }
-                });
+            if (objJson.children && Array.isArray(objJson.children) && objJson.children.length > 0 && obj) {
+                parseJson(objJson, obj, list);
             }
-            parse();
-        })();
+        });
+    })(sceneJson, scene, jsons);
+
+    if (serverObjects.length === 0) {
+        return new Promise(resolve => {
+            resolve(scene);
+        });
+    }
+
+    var promises = serverObjects.map(serverObj => {
+        return new Promise(resolve => {
+            (new ServerObject()).fromJSON(serverObj.json, options).then(obj => {
+                if (obj) {
+                    serverObj.parent.add(obj);
+                } else {
+                    console.warn(`Converter: 服务器资源${serverObj.json.uuid}下载失败。`);
+                }
+                resolve();
+            });
+        });
+    })
+
+    return new Promise(resolve => {
+        Promise.all(promises).then(() => {
+            resolve(scene);
+        });
     });
 };
 
