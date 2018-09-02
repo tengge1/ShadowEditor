@@ -15,7 +15,10 @@ function Player(options) {
     this.renderer = null;
     this.scripts = null;
 
+    this.events = null;
+
     this.isPlaying = false;
+    this.clock = null;
 };
 
 Player.prototype = Object.create(UI.Control.prototype);
@@ -66,6 +69,15 @@ Player.prototype.start = function () {
 
     promise.then(obj => {
         this.initPlayer(obj);
+        this.initScript();
+        this.clock = new THREE.Clock();
+        this.events.forEach(n => {
+            n.init();
+        });
+        this.renderScene();
+        this.events.forEach(n => {
+            n.start();
+        });
         requestAnimationFrame(this.animate.bind(this));
     });
 };
@@ -74,6 +86,10 @@ Player.prototype.start = function () {
  * 停止播放器
  */
 Player.prototype.stop = function () {
+    this.events.forEach(n => {
+        n.stop();
+    });
+
     if (!this.isPlaying) {
         return;
     }
@@ -126,10 +142,43 @@ Player.prototype.initPlayer = function (obj) {
 };
 
 /**
+ * 初始化脚本
+ */
+Player.prototype.initScript = function () {
+    var dom = this.renderer.domElement;
+
+    this.events = Object.keys(this.scripts).map(uuid => {
+        var script = this.scripts[uuid];
+        return (new Function(
+            'app',
+            'scene',
+            'camera',
+            'renderer',
+            script.source +
+            '; return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, ' +
+            ' onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onMouseWheel, onResize };'
+        ))(this.app, this.scene, this.camera, this.renderer);
+    });
+};
+
+/**
+ * 渲染
+ */
+Player.prototype.renderScene = function () {
+    this.renderer.render(this.scene, this.camera);
+};
+
+/**
  * 动画
  */
 Player.prototype.animate = function () {
-    this.renderer.render(this.scene, this.camera);
+    this.renderScene();
+
+    var deltaTime = this.clock.getDelta();
+
+    this.events.forEach(n => {
+        n.update(this.clock, deltaTime);
+    });
 
     if (this.isPlaying) {
         requestAnimationFrame(this.animate.bind(this));

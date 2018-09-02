@@ -1,11 +1,21 @@
 var JavaScriptStarter = `
-// 程序开始运行时执行一次
+// 场景渲染前执行一次
+function init() {
+
+}
+
+// 场景渲染后执行一次
 function start() {
 
 }
 
 // 程序运行过程中，每帧都要执行
 function update(clock, deltaTime) {
+
+}
+
+// 程序结束运行后执行一次
+function stop() {
 
 }
 

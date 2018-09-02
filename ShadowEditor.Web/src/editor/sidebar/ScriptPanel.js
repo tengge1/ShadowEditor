@@ -49,7 +49,7 @@ ScriptPanel.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`scriptChange.${this.id}`, this.update.bind(this));
+    this.app.on(`scriptChanged.${this.id}`, this.update.bind(this));
 };
 
 ScriptPanel.prototype.createNewScript = function () {

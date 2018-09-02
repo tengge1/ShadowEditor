@@ -84,7 +84,6 @@ import GeometryPanelEvent from './sideBar/GeometryPanelEvent';
 import MaterialPanelEvent from './sideBar/MaterialPanelEvent';
 import HistoryPanelEvent from './sideBar/HistoryPanelEvent';
 import ScenePanelEvent from './sidebar/ScenePanelEvent';
-import ScriptPanelEvent from './sideBar/ScriptPanelEvent';
 
 import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateSceneStatusEvent from './statusBar/UpdateSceneStatusEvent';
@@ -186,7 +185,6 @@ function EventDispatcher(app) {
         new MaterialPanelEvent(this.app),
         new HistoryPanelEvent(this.app),
         new ScenePanelEvent(this.app),
-        new ScriptPanelEvent(this.app),
 
         // viewport中的事件
         new TransformControlsEvent(this.app),
