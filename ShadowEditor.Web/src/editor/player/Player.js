@@ -150,14 +150,13 @@ Player.prototype.initScript = function () {
     this.events = Object.keys(this.scripts).map(uuid => {
         var script = this.scripts[uuid];
         return (new Function(
-            'app',
             'scene',
             'camera',
             'renderer',
             script.source +
             '; return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, ' +
             ' onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onMouseWheel, onResize };'
-        ))(this.app, this.scene, this.camera, this.renderer);
+        ))(this.scene, this.camera, this.renderer);
     });
 };
 
