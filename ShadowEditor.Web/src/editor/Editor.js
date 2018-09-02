@@ -93,7 +93,21 @@ function Editor(app) {
 // -------------------- 场景 --------------------------
 
 Editor.prototype.setScene = function (scene) { // 设置场景
+    // 移除原有物体
+    var objects = this.scene.children;
+    while (objects.length > 0) {
+        this.removeObject(objects[0]);
+    }
+
+    // 添加新物体
+    var children = scene.children.slice();
+    scene.children.length = 0;
     this.scene = scene;
+
+    children.forEach(n => {
+        this.addObject(n);
+    });
+
     this.app.call('sceneGraphChanged', this);
 };
 
