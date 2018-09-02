@@ -72,11 +72,15 @@ Player.prototype.start = function () {
         this.initScript();
         this.clock = new THREE.Clock();
         this.events.forEach(n => {
-            n.init();
+            if (typeof (n.init) === 'function') {
+                n.init();
+            }
         });
         this.renderScene();
         this.events.forEach(n => {
-            n.start();
+            if (typeof (n.start) === 'function') {
+                n.start();
+            }
         });
         requestAnimationFrame(this.animate.bind(this));
     });
@@ -87,7 +91,9 @@ Player.prototype.start = function () {
  */
 Player.prototype.stop = function () {
     this.events.forEach(n => {
-        n.stop();
+        if (typeof (n.stop) === 'function') {
+            n.stop();
+        }
     });
 
     if (!this.isPlaying) {
@@ -155,8 +161,38 @@ Player.prototype.initScript = function () {
             'renderer',
             script.source +
             '; return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, ' +
-            ' onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onMouseWheel, onResize };'
-        ))(this.scene, this.camera, this.renderer);
+            ' onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onResize };'
+        )).call(this.scene, this.scene, this.camera, this.renderer);
+    });
+
+    this.events.forEach(n => {
+        if (typeof (n.onClick) === 'function') {
+            dom.addEventListener('click', n.onClick.bind(this.scene));
+        }
+        if (typeof (n.onDblClick) === 'function') {
+            dom.addEventListener('dblclick', n.onDblClick.bind(this.scene));
+        }
+        if (typeof (n.onKeyDown) === 'function') {
+            dom.addEventListener('keydown', n.onKeyDown.bind(this.scene));
+        }
+        if (typeof (n.onKeyUp) === 'function') {
+            dom.addEventListener('keyup', n.onKeyUp.bind(this.scene));
+        }
+        if (typeof (n.onMouseDown) === 'function') {
+            dom.addEventListener('mousedown', n.onMouseDown.bind(this.scene));
+        }
+        if (typeof (n.onMouseMove) === 'function') {
+            dom.addEventListener('mousemove', n.onMouseMove.bind(this.scene));
+        }
+        if (typeof (n.onMouseUp) === 'function') {
+            dom.addEventListener('mouseup', n.onMouseUp.bind(this.scene));
+        }
+        if (typeof (n.onMouseWheel) === 'function') {
+            dom.addEventListener('mousewheel', n.onMouseWheel.bind(this.scene));
+        }
+        if (typeof (n.onResize) === 'function') {
+            window.addEventListener('resize', n.onResize.bind(this.scene));
+        }
     });
 };
 
@@ -176,7 +212,9 @@ Player.prototype.animate = function () {
     var deltaTime = this.clock.getDelta();
 
     this.events.forEach(n => {
-        n.update(this.clock, deltaTime);
+        if (typeof (n.update) === 'function') {
+            n.update(this.clock, deltaTime);
+        }
     });
 
     if (this.isPlaying) {
