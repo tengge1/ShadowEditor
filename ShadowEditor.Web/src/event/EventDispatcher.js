@@ -63,10 +63,10 @@ import ExportPLYEvent from './menu/asset/ExportPLYEvent';
 import ExportSTLBEvent from './menu/asset/ExportSTLBEvent';
 import ExportSTLEvent from './menu/asset/ExportSTLEvent';
 
-import AddPersonEvent from './menu/animation/AddPersonEvent';
-import AddFireEvent from './menu/animation/AddFireEvent';
-import AddSmokeEvent from './menu/animation/AddSmokeEvent';
-import AddMikuEvent from './menu/animation/AddMikuEvent';
+import AddPersonEvent from '../editor/menubar/animation/AddPersonEvent';
+import AddFireEvent from '../editor/menubar/animation/AddFireEvent';
+import AddSmokeEvent from '../editor/menubar/animation/AddSmokeEvent';
+import AddMikuEvent from '../editor/menubar/animation/AddMikuEvent';
 
 import AddPhysicsPlaneEvent from './menu/physics/AddPhysicsPlaneEvent';
 import AddPhysicsWallEvent from './menu/physics/AddPhysicsWallEvent';

@@ -1,4 +1,4 @@
-import MenuEvent from '../MenuEvent';
+import MenuEvent from '../../../event/menu/MenuEvent';
 import UI from '../../../ui/UI';
 import AddObjectCommand from '../../../command/AddObjectCommand';
 

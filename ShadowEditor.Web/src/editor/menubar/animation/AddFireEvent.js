@@ -1,4 +1,4 @@
-import MenuEvent from '../MenuEvent';
+import MenuEvent from '../../../event/menu/MenuEvent';
 import AddObjectCommand from '../../../command/AddObjectCommand';
 
 var ID = 1;
