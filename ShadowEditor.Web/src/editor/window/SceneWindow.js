@@ -204,6 +204,10 @@ SceneWindow.prototype.loadScene = function (data) {
                 editor.addHelper(n);
             });
 
+            if (obj.options) {
+                this.app.call('optionsChanged', this, this.app.options);
+            }
+
             UI.msg('载入成功！');
         });
     });
@@ -212,7 +216,6 @@ SceneWindow.prototype.loadScene = function (data) {
 SceneWindow.prototype.onLoadScene = function (obj) {
     if (obj.options) {
         Object.assign(this.app.options, obj.options);
-        this.app.call('optionsChanged', this, this.app.options);
     }
 
     if (obj.camera) {
@@ -232,6 +235,7 @@ SceneWindow.prototype.onLoadScene = function (obj) {
 
     if (obj.scripts) {
         Object.assign(this.app.editor.scripts, obj.scripts);
+        this.app.call('scriptChanged', this);
     }
 
     if (obj.scene) {

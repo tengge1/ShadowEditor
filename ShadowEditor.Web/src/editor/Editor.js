@@ -85,6 +85,9 @@ function Editor(app) {
     this.stats.dom.style.top = '8px';
     this.stats.dom.style.zIndex = 'initial';
     this.app.viewport.container.dom.appendChild(this.stats.dom);
+
+    // 事件
+    this.app.on(`optionsChanged.${this.id}`, this.onOptionsChanged.bind(this));
 };
 
 // -------------------- 场景 --------------------------
@@ -243,6 +246,28 @@ Editor.prototype.removeHelper = function (object) { // 移除物体帮助
         var objects = this.objects;
         objects.splice(objects.indexOf(helper.getObjectByName('picker')), 1);
     }
+};
+
+Editor.prototype.onOptionsChanged = function (options) { // 帮助器改变事件
+    this.grid.visible = options.showGrid === undefined ? true : options.showGrid;
+    Object.keys(this.helpers).forEach(n => {
+        var helper = this.helpers[n];
+        if (helper instanceof THREE.CameraHelper) {
+            helper.visible = options.showCameraHelper;
+        } else if (helper instanceof THREE.PointLightHelper) {
+            helper.visible = options.showPointLightHelper;
+        } else if (helper instanceof THREE.DirectionalLightHelper) {
+            helper.visible = options.showDirectionalLightHelper;
+        } else if (helper instanceof THREE.SpotLightHelper) {
+            helper.visible = options.showSpotLightHelper;
+        } else if (helper instanceof THREE.HemisphereLightHelper) {
+            helper.visible = options.showHemisphereLightHelper;
+        } else if (helper instanceof THREE.RectAreaLightHelper) {
+            helper.visible = options.showRectAreaLightHelper;
+        } else if (helper instanceof THREE.SkeletonHelper) {
+            helper.visible = options.showSkeletonHelper;
+        }
+    });
 };
 
 // ------------------------ 脚本 ----------------------------
