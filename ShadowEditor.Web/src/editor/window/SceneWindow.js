@@ -208,6 +208,14 @@ SceneWindow.prototype.loadScene = function (data) {
                 this.app.call('optionsChanged', this, this.app.options);
             }
 
+            if (obj.scripts) {
+                this.app.call('scriptChanged', this);
+            }
+
+            if (obj.scene) {
+                this.app.call('sceneGraphChanged', this);
+            }
+
             UI.msg('载入成功！');
         });
     });
@@ -235,14 +243,11 @@ SceneWindow.prototype.onLoadScene = function (obj) {
 
     if (obj.scripts) {
         Object.assign(this.app.editor.scripts, obj.scripts);
-        this.app.call('scriptChanged', this);
     }
 
     if (obj.scene) {
         this.app.editor.setScene(obj.scene);
     }
-
-    this.app.call('render', this);
 };
 
 export default SceneWindow;

@@ -1,4 +1,5 @@
 import UI from '../../ui/UI';
+import Converter from '../../serialization/Converter';
 
 /**
  * 播放器
@@ -12,6 +13,7 @@ function Player(options) {
     this.scene = null;
     this.camera = null;
     this.renderer = null;
+    this.scripts = null;
 
     this.isPlaying = false;
 };
@@ -44,12 +46,28 @@ Player.prototype.start = function () {
     this.isPlaying = true;
 
     var container = UI.get('player');
-
     container.dom.style.display = '';
 
-    this.create();
+    if (this.renderer !== null) {
+        container.dom.removeChild(this.renderer.domElement);
+    }
 
-    requestAnimationFrame(this.animate.bind(this));
+    var jsons = (new Converter()).toJSON({
+        options: this.app.options,
+        camera: this.app.editor.camera,
+        renderer: this.app.editor.renderer,
+        scripts: this.app.editor.scripts,
+        scene: this.app.editor.scene
+    });
+
+    var promise = (new Converter()).fromJson(jsons, {
+        server: this.app.options.server
+    });
+
+    promise.then(obj => {
+        this.initPlayer(obj);
+        requestAnimationFrame(this.animate.bind(this));
+    });
 };
 
 /**
@@ -66,35 +84,52 @@ Player.prototype.stop = function () {
 };
 
 /**
- * 创建场景
+ * 初始化播放器
+ * @param {*} obj 
  */
-Player.prototype.create = function () {
+Player.prototype.initPlayer = function (obj) {
     var container = UI.get('player');
+    var editor = this.app.editor;
 
-    if (this.renderer !== null) {
-        container.dom.removeChild(this.renderer.domElement);
+    // 相机
+    if (obj.camera) {
+        this.camera = obj.camera;
+    } else {
+        this.camera = new THREE.PerspectiveCamera(editor.DEFAULT_CAMERA.fov, container.clientWidth / container.clientHeight, editor.DEFAULT_CAMERA.near, editor.DEFAULT_CAMERA.far);
     }
-    this.renderer = new THREE.WebGLRenderer({
-        antialias: true
-    });
+    this.camera.updateProjectionMatrix();
+
+    // 渲染器
+    if (obj.renderer) {
+        this.renderer = obj.renderer;
+    } else {
+        this.renderer = new THREE.WebGLRenderer({
+            antialias: true
+        });
+    }
+    this.renderer.setSize(container.dom.clientWidth, container.dom.clientHeight);
     container.dom.appendChild(this.renderer.domElement);
 
-    this.camera = this.app.editor.camera.clone();
+    // 脚本
+    if (obj.scripts) {
+        this.scripts = obj.scripts;
+    } else {
+        this.scripts = {};
+    }
 
-    this.scene = this.app.editor.camera.scene.clone();
+    // 场景
+    if (obj.scene) {
+        this.scene = obj.scene;
+    } else {
+        this.scene = new THREE.Scene();
+    }
 };
 
 /**
  * 动画
  */
 Player.prototype.animate = function () {
-    var container = UI.get('player');
-
-    var scene = this.app.editor.scene;
-    var camera = this.app.editor.camera;
-    var renderer = this.app.editor.renderer;
-
-    renderer.render(scene, camera);
+    this.renderer.render(this.scene, this.camera);
 
     if (this.isPlaying) {
         requestAnimationFrame(this.animate.bind(this));
