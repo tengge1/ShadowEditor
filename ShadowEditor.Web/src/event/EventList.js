@@ -21,6 +21,9 @@ var EventList = [
     'appStop', // 程序开始结束前调用
     'appStoped', // 程序结束后调用
 
+    // 配置
+    'optionsChanged', // 配置改变事件
+
     // 菜单栏事件
     'mNewScene', // 新建
     'mLoadScene', // 载入

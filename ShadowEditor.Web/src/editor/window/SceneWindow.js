@@ -212,6 +212,7 @@ SceneWindow.prototype.loadScene = function (data) {
 SceneWindow.prototype.onLoadScene = function (obj) {
     if (obj.options) {
         Object.assign(this.app.options, obj.options);
+        this.app.call('optionsChanged', this, this.app.options);
     }
 
     if (obj.camera) {
