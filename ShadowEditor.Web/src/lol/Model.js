@@ -1,3 +1,4 @@
+import { dispatch } from '../third_party';
 import DataView from './DataView2';
 import Vertex from './Vertex';
 import Texture from './Texture';
@@ -36,7 +37,7 @@ function Model(options) {
     self.tmpVec = vec4.create();
     self.ANIMATED = true;
 
-    self.dispatch = d3.dispatch('load');
+    self.dispatch = dispatch('load');
 
     self.hiddenBones = null;
     var hiddenBones = HiddenBones;
@@ -266,7 +267,7 @@ Model.prototype.update = function (time) {
 
 Model.prototype.load = function () {
     var self = this;
-    var url = 'models/' + self.champion + '_' + self.skin + '.lmesh';
+    var url = 'assets/models/lol/models/' + self.champion + '_' + self.skin + '.lmesh';
     var loader = new THREE.FileLoader();
     loader.setResponseType('arraybuffer');
     loader.load(url, function (buffer) {
@@ -299,7 +300,7 @@ Model.prototype.loadMesh = function (buffer) {
     var animFile = r.getString();
     var textureFile = r.getString();
     if (animFile && animFile.length > 0) {
-        var url = "models/" + animFile + ".lanim";
+        var url = "assets/models/lol/models/" + animFile + ".lanim";
         var loader = new THREE.FileLoader();
         loader.setResponseType('arraybuffer');
         loader.load(url, function (buffer) {
@@ -307,7 +308,7 @@ Model.prototype.loadMesh = function (buffer) {
         });
     }
     if (textureFile && textureFile.length > 0) {
-        self.texture = new Texture(self, "textures/" + self.champion + "/" + textureFile + ".png")
+        self.texture = new Texture(self, "assets/models/lol/textures/" + self.champion + "/" + textureFile + ".png")
     }
     var numMeshes = r.getUint32();
     if (numMeshes > 0) {

@@ -1,6 +1,7 @@
 import UI from '../../ui/UI';
 import ObjectLoader from '../../loader/ObjectLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';
+import LolModel from '../../lol/Model';
 
 var ID = 1;
 
@@ -55,6 +56,11 @@ AnimationMenu.prototype.render = function () {
                 onClick: () => {
                     this.app.call('mAddMiku', this);
                 }
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: '寒冰射手',
+                onClick: this.onAddAshe.bind(this)
             }]
         }]
     });
@@ -107,6 +113,32 @@ AnimationMenu.prototype.setPersonScript = function (name) {
         uuid: uuid
     };
     this.app.call('scriptChanged', this);
+};
+
+/**
+ * 添加寒冰射手
+ */
+AnimationMenu.prototype.onAddAshe = function () {
+    var editor = this.app.editor;
+
+    var model = new LolModel({
+        champion: '22',
+        skin: 0
+    });
+    model.load();
+    model.on('load', () => {
+        var geometry = model.geometry;
+        var material = model.material;
+        var mesh = new THREE.Mesh(geometry, material);
+        mesh.name = '寒冰射手';
+        mesh.scale.set(0.1, 0.1, 0.1);
+        model.setAnimation('idle');
+
+        editor.execute(new AddObjectCommand(mesh));
+        this.app.on('animate.Ashe', (clock, deltaTime) => {
+            model.update(clock.getElapsedTime() * 1000);
+        });
+    });
 };
 
 export default AnimationMenu;
