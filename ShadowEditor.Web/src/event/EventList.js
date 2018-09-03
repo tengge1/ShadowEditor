@@ -67,8 +67,7 @@ var EventList = [
     'mExportPLY', // 导出ply文件
     'mExportSTLB', // 导出stl二进制文件
     'mExportSTL', // 导出stl模型
-
-    'mAddPerson', // 添加人
+    
     'mAddFire', // 添加火焰
     'mAddSmoke', // 添加烟
     'mAddMiku', // 初音未来

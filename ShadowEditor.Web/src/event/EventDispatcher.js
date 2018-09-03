@@ -63,7 +63,6 @@ import ExportPLYEvent from './menu/asset/ExportPLYEvent';
 import ExportSTLBEvent from './menu/asset/ExportSTLBEvent';
 import ExportSTLEvent from './menu/asset/ExportSTLEvent';
 
-import AddPersonEvent from '../editor/menubar/animation/AddPersonEvent';
 import AddFireEvent from '../editor/menubar/animation/AddFireEvent';
 import AddSmokeEvent from '../editor/menubar/animation/AddSmokeEvent';
 import AddMikuEvent from '../editor/menubar/animation/AddMikuEvent';
@@ -164,7 +163,6 @@ function EventDispatcher(app) {
         new ExportSTLBEvent(this.app),
         new ExportSTLEvent(this.app),
 
-        new AddPersonEvent(this.app),
         new AddFireEvent(this.app),
         new AddSmokeEvent(this.app),
         new AddMikuEvent(this.app),

@@ -159,9 +159,22 @@ Player.prototype.initScript = function () {
             'scene',
             'camera',
             'renderer',
-            script.source +
-            '; return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, ' +
-            ' onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onResize };'
+            script.source + `
+            var init = init || null;
+            var start = start || null;
+            var update = update || null;
+            var stop = stop || null;
+            var onClick = onClick || null;
+            var onDblClick = onDblClick || null;
+            var onKeyDown = onKeyDown || null;
+            var onKeyUp = onKeyUp || null;
+            var onMouseDown = onMouseDown || null;
+            var onMouseMove = onMouseMove || null;
+            var onMouseUp = onMouseUp || null;
+            var onMouseWheel = onMouseWheel || null;
+            var onResize = onResize || null;
+            return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onResize };
+            `
         )).call(this.scene, this.scene, this.camera, this.renderer);
     });
 
