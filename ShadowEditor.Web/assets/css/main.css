@@ -568,7 +568,7 @@ table.Table .TableBody td {
     top: 32px;
     left: 48px;
     right: 440px;
-    bottom: 32px;
+    bottom: 272px;
 }
 
 /* 状态栏 */
@@ -676,6 +676,18 @@ table.Table .TableBody td {
     right: 220px;
     border-right: 1px solid #ddd;
     box-sizing: border-box;
+}
+
+/* 底部面板 */
+
+.bottomPanel {
+    position: absolute;
+    left: 48px;
+    right: 440px;
+    top: auto;
+    bottom: 32px;
+    width: auto;
+    height: 240px;
 }
 
 /* 脚本编辑窗口 */

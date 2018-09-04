@@ -8,10 +8,10 @@ import Toolbar from './editor/Toolbar';
 import Viewport from './editor/Viewport';
 import Sidebar from './editor/sidebar/Sidebar';
 import Sidebar2 from './editor/sidebar2/Sidebar';
+import BottomPanel from './editor/bottom/BottomPanel';
 import StatusBar from './editor/StatusBar';
 import ScriptEditor from './editor/script/ScriptEditor';
 import Player from './editor/player/Player';
-import TimePanel from './editor/TimePanel';
 
 import Editor from './editor/Editor';
 import Physics from './editor/Physics';
@@ -58,6 +58,9 @@ function Application(container, options) {
     this.sidebar2 = new Sidebar2(params); // 侧边栏2
     this.sidebar2.render();
 
+    this.bottomPanel = new BottomPanel(params); // 底部面板
+    this.bottomPanel.render();
+
     this.statusBar = new StatusBar(params); // 状态栏
     this.statusBar.render();
 
@@ -66,9 +69,6 @@ function Application(container, options) {
 
     this.player = new Player(params); // 播放器面板
     this.player.render();
-
-    this.timePanel = new TimePanel(params); // 时间面板
-    this.timePanel.render();
 
     // 物理引擎
     this.physics = new Physics(params);

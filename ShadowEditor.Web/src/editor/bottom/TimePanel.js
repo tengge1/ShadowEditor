@@ -1,4 +1,4 @@
-import Control from '../ui/Control';
+import Control from '../../ui/Control';
 
 /**
  * 时间线窗口
@@ -13,7 +13,6 @@ TimePanel.prototype = Object.create(Control.prototype);
 TimePanel.prototype.constructor = TimePanel;
 
 TimePanel.prototype.render = function () {
-    return;
     var target = {
         x: 0,
         y: 0,
