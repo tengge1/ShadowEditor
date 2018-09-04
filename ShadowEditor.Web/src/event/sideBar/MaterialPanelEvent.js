@@ -15,14 +15,12 @@ function MaterialPanelEvent(app) {
 
     this.currentObject = null;
     this.copiedMaterial = null;
-    this.tabName = '物体';
 }
 
 MaterialPanelEvent.prototype = Object.create(BaseEvent.prototype);
 MaterialPanelEvent.prototype.constructor = MaterialPanelEvent;
 
 MaterialPanelEvent.prototype.start = function () {
-    this.app.on(`selectPropertyTab.${this.id}`, this.onSelectPropertyTab.bind(this));
     this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
     this.app.on(`materialChanged.${this.id}`, this.onMaterialChanged.bind(this));
     this.app.on(`newMaterial.${this.id}`, this.onNewMaterial.bind(this));
@@ -33,7 +31,6 @@ MaterialPanelEvent.prototype.start = function () {
 };
 
 MaterialPanelEvent.prototype.stop = function () {
-    this.app.on(`selectPropertyTab.${this.id}`, null);
     this.app.on(`objectSelected.${this.id}`, null);
     this.app.on(`materialChanged.${this.id}`, null);
     this.app.on(`newMaterial.${this.id}`, null);
@@ -41,19 +38,6 @@ MaterialPanelEvent.prototype.stop = function () {
     this.app.on(`pasteMaterial.${this.id}`, null);
     this.app.on(`updateMaterial.${this.id}`, null);
     this.app.on(`updateMaterialPanel.${this.id}`, null);
-};
-
-/**
- * 选择材质选项卡
- * @param {*} tabName 
- */
-MaterialPanelEvent.prototype.onSelectPropertyTab = function (tabName) {
-    this.tabName = tabName;
-    if (this.app.editor.selected != null && tabName === '材质') {
-        UI.get('materialPanel').dom.style.display = '';
-    } else {
-        UI.get('materialPanel').dom.style.display = 'none';
-    }
 };
 
 /**
@@ -93,7 +77,7 @@ MaterialPanelEvent.prototype.onPasteMaterial = function () {
  * @param {*} object 
  */
 MaterialPanelEvent.prototype.onObjectSelected = function (object) {
-    if (this.tabName === '材质' && object != null) {
+    if (object != null) {
         UI.get('materialPanel').dom.style.display = '';
     } else {
         UI.get('materialPanel').dom.style.display = 'none';

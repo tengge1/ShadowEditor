@@ -39,8 +39,6 @@ const GeometryPanels = {
  */
 function GeometryPanelEvent(app) {
     BaseEvent.call(this, app);
-
-    this.tabName = '物体';
     this.typedGeometryPanel = null;
 }
 
@@ -48,32 +46,17 @@ GeometryPanelEvent.prototype = Object.create(BaseEvent.prototype);
 GeometryPanelEvent.prototype.constructor = GeometryPanelEvent;
 
 GeometryPanelEvent.prototype.start = function () {
-    this.app.on(`selectPropertyTab.${this.id}`, this.onSelectPropertyTab.bind(this));
     this.app.on(`objectSelected.${this.id}`, this.update.bind(this));
     this.app.on(`geometryChanged.${this.id}`, this.update.bind(this));
 };
 
 GeometryPanelEvent.prototype.stop = function () {
-    this.app.on(`selectPropertyTab.${this.id}`, null);
     this.app.on(`objectSelected.${this.id}`, null);
     this.app.on(`geometryChanged.${this.id}`, null);
 };
 
-/**
- * 选择几何体选项卡
- * @param {*} tabName 
- */
-GeometryPanelEvent.prototype.onSelectPropertyTab = function (tabName) {
-    this.tabName = tabName;
-    if (this.app.editor.selected != null && tabName === '几何') {
-        UI.get('geometryPanel').dom.style.display = '';
-    } else {
-        UI.get('geometryPanel').dom.style.display = 'none';
-    }
-};
-
 GeometryPanelEvent.prototype.update = function () {
-    if (this.app.editor.selected != null && this.tabName === '几何') {
+    if (this.app.editor.selected != null) {
         UI.get('geometryPanel').dom.style.display = '';
     } else {
         UI.get('geometryPanel').dom.style.display = 'none';

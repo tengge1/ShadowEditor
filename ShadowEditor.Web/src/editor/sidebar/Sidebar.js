@@ -21,11 +21,16 @@ Sidebar.prototype.render = function () {
     var data = {
         xtype: 'div',
         id: 'sidebar',
-        cls: 'sidebar',
         parent: this.app.container,
+        cls: 'sidebar',
         children: [{
             xtype: 'div',
             cls: 'tabs',
+            style: {
+                position: 'sticky',
+                top: 0,
+                zIndex: 10
+            },
             children: [{
                 xtype: 'text',
                 id: 'propertyTab',
