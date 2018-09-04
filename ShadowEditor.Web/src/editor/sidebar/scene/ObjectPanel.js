@@ -42,7 +42,7 @@ ObjectPanel.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '属性'
+                text: '基本属性'
             }]
         }, { // type
             xtype: 'row',
@@ -91,7 +91,7 @@ ObjectPanel.prototype.render = function () {
                 xtype: 'input',
                 id: 'objectName',
                 style: {
-                    width: '150px',
+                    width: '100px',
                     fontSize: '12px'
                 },
                 onChange: function () {
@@ -108,21 +108,21 @@ ObjectPanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'objectPositionX',
                 style: {
-                    width: '50px'
+                    width: '40px'
                 },
                 onChange: update
             }, {
                 xtype: 'number',
                 id: 'objectPositionY',
                 style: {
-                    width: '50px'
+                    width: '40px'
                 },
                 onChange: update
             }, {
                 xtype: 'number',
                 id: 'objectPositionZ',
                 style: {
-                    width: '50px'
+                    width: '40px'
                 },
                 onChange: update
             }]
@@ -138,7 +138,7 @@ ObjectPanel.prototype.render = function () {
                 step: 10,
                 unit: '°',
                 style: {
-                    width: '50px'
+                    width: '40px'
                 },
                 onChange: update
             }, {
@@ -147,7 +147,7 @@ ObjectPanel.prototype.render = function () {
                 step: 10,
                 unit: '°',
                 style: {
-                    width: '50px'
+                    width: '40px'
                 },
                 onChange: update
             }, {
@@ -156,7 +156,7 @@ ObjectPanel.prototype.render = function () {
                 step: 10,
                 unit: '°',
                 style: {
-                    width: '50px'
+                    width: '40px'
                 },
                 onChange: update
             }]

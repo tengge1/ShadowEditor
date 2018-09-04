@@ -639,7 +639,7 @@ table.Table .TableBody td {
 }
 
 .sidebar label {
-    width: 90px;
+    width: 60px;
     cursor: default;
     display: inline-block;
     vertical-align: middle;

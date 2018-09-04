@@ -35,6 +35,16 @@ MaterialPanel.prototype.render = function () {
         children: [{ // New Copy Paste
             xtype: 'row',
             children: [{
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    style: {
+                        color: '#555',
+                        fontWeight: 'bold'
+                    },
+                    text: '材质属性'
+                }]
+            }, {
                 xtype: 'label',
                 text: ''
             }, {

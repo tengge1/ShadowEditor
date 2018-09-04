@@ -30,7 +30,17 @@ GeometryPanel.prototype.render = function () {
             paddingTop: '20px',
             display: 'none'
         },
-        children: [{ // type
+        children: [{
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                style: {
+                    color: '#555',
+                    fontWeight: 'bold'
+                },
+                text: '几何属性'
+            }]
+        }, { // type
             xtype: 'row',
             id: 'geometryTypeRow',
             children: [{
