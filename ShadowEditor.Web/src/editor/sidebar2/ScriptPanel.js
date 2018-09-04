@@ -89,7 +89,7 @@ ScriptPanel.prototype.update = function () {
                 xtype: 'text',
                 text: name + extension,
                 style: {
-                    width: '180px',
+                    width: '100px',
                     fontSize: '12px'
                 }
             }, {
