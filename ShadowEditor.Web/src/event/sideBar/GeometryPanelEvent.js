@@ -64,7 +64,6 @@ GeometryPanelEvent.prototype.update = function () {
 
     var editor = this.app.editor;
     var geometryType = UI.get('geometryType');
-    var geometryUUID = UI.get('geometryUUID');
     var geometryName = UI.get('geometryName');
     var parameters = UI.get('geometryParameters');
 
@@ -77,7 +76,6 @@ GeometryPanelEvent.prototype.update = function () {
     var geometry = object.geometry;
 
     geometryType.setValue(geometry.type);
-    geometryUUID.setValue(geometry.uuid);
     geometryName.setValue(geometry.name);
 
     parameters.clear();

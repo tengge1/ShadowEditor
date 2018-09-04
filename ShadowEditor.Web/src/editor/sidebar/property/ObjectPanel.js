@@ -54,33 +54,6 @@ ObjectPanel.prototype.render = function () {
                 xtype: 'text',
                 id: 'objectType'
             }]
-        }, { // uuid
-            xtype: 'row',
-            id: 'objectUUIDRow',
-            children: [{
-                xtype: 'label',
-                text: 'UUID'
-            }, {
-                xtype: 'input',
-                id: 'objectUUID',
-                style: {
-                    width: '102px',
-                    fontSize: '12px'
-                },
-                disabled: true
-            }, {
-                xtype: 'button',
-                id: 'objectUUIDRenew',
-                text: '新建',
-                style: {
-                    marginLeft: '7px'
-                },
-                onClick: function () {
-                    var objectUUID = UI.get('objectUUID');
-                    objectUUID.setValue(THREE.Math.generateUUID());
-                    editor.execute(new SetUuidCommand(editor.selected, objectUUID.getValue()));
-                }
-            }]
         }, { // name
             xtype: 'row',
             id: 'objectNameRow',
@@ -103,7 +76,7 @@ ObjectPanel.prototype.render = function () {
             id: 'objectPositionRow',
             children: [{
                 xtype: 'label',
-                text: '位置'
+                text: '平移'
             }, {
                 xtype: 'number',
                 id: 'objectPositionX',
@@ -165,14 +138,14 @@ ObjectPanel.prototype.render = function () {
             id: 'objectScaleRow',
             children: [{
                 xtype: 'label',
-                text: '尺寸'
+                text: '缩放'
             }, {
                 xtype: 'checkbox',
                 id: 'objectScaleLock',
                 value: true,
                 style: {
                     position: 'absolute',
-                    left: '75px'
+                    left: '50px'
                 }
             }, {
                 xtype: 'number',
@@ -180,7 +153,7 @@ ObjectPanel.prototype.render = function () {
                 value: 1,
                 range: [0.01, Infinity],
                 style: {
-                    width: '50px'
+                    width: '40px'
                 },
                 onChange: function () {
                     _this.app.call('updateScaleX', _this);
@@ -191,7 +164,7 @@ ObjectPanel.prototype.render = function () {
                 value: 1,
                 range: [0.01, Infinity],
                 style: {
-                    width: '50px'
+                    width: '40px'
                 },
                 onChange: function () {
                     _this.app.call('updateScaleY', _this);
@@ -202,7 +175,7 @@ ObjectPanel.prototype.render = function () {
                 value: 1,
                 range: [0.01, Infinity],
                 style: {
-                    width: '50px'
+                    width: '40px'
                 },
                 onChange: function () {
                     _this.app.call('updateScaleZ', _this);

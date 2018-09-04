@@ -3,7 +3,6 @@ import UI from '../../ui/UI';
 import SetPositionCommand from '../../command/SetPositionCommand';
 import SetRotationCommand from '../../command/SetRotationCommand';
 import SetScaleCommand from '../../command/SetScaleCommand';
-import SetUuidCommand from '../../command/SetUuidCommand';
 import SetValueCommand from '../../command/SetValueCommand';
 import SetColorCommand from '../../command/SetColorCommand';
 import AddObjectCommand from '../../command/AddObjectCommand';
@@ -353,7 +352,6 @@ ObjectPanelEvent.prototype.updateTransformRows = function (object) {
  */
 ObjectPanelEvent.prototype.updateUI = function (object) {
     var objectType = UI.get('objectType');
-    var objectUUID = UI.get('objectUUID');
     var objectName = UI.get('objectName');
     var objectPositionX = UI.get('objectPositionX');
     var objectPositionY = UI.get('objectPositionY');
@@ -383,7 +381,6 @@ ObjectPanelEvent.prototype.updateUI = function (object) {
 
     objectType.setValue(object.type);
 
-    objectUUID.setValue(object.uuid);
     objectName.setValue(object.name);
 
     objectPositionX.setValue(object.position.x);

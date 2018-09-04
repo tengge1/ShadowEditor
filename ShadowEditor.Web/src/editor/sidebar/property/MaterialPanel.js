@@ -28,8 +28,6 @@ MaterialPanel.prototype.render = function () {
         id: 'materialPanel',
         cls: 'Panel',
         style: {
-            borderTop: 0,
-            paddingTop: '20px',
             display: 'none'
         },
         children: [{ // New Copy Paste
@@ -44,9 +42,6 @@ MaterialPanel.prototype.render = function () {
                     },
                     text: '材质属性'
                 }]
-            }, {
-                xtype: 'label',
-                text: ''
             }, {
                 xtype: 'button',
                 id: 'btnNewMaterial',
@@ -99,35 +94,10 @@ MaterialPanel.prototype.render = function () {
                     'RawShaderMaterial': '原始着色器材质'
                 },
                 style: {
-                    width: '150px',
+                    width: '100px',
                     fontSize: '12px'
                 },
                 onChange: function () {
-                    _this.app.call('updateMaterial');
-                }
-            }]
-        }, { // uuid
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: 'UUID'
-            }, {
-                xtype: 'input',
-                id: 'materialUUID',
-                style: {
-                    width: '102px',
-                    fontSize: '12px'
-                },
-                disabled: true
-            }, {
-                xtype: 'button',
-                text: '新建',
-                style: {
-                    marginLeft: '7px'
-                },
-                onClick: function () {
-                    var materialUUID = UI.get('materialUUID');
-                    materialUUID.setValue(THREE.Math.generateUUID());
                     _this.app.call('updateMaterial');
                 }
             }]
@@ -141,7 +111,7 @@ MaterialPanel.prototype.render = function () {
                 xtype: 'input',
                 id: 'materialName',
                 style: {
-                    width: '150px',
+                    width: '100px',
                     fontSize: '12px'
                 },
                 onChange: function () {
@@ -566,7 +536,7 @@ MaterialPanel.prototype.render = function () {
                     2: '双面'
                 },
                 style: {
-                    width: '150px',
+                    width: '100px',
                     fontSize: '12px'
                 },
                 onChange: update
@@ -586,7 +556,7 @@ MaterialPanel.prototype.render = function () {
                     2: '光滑'
                 },
                 style: {
-                    width: '150px',
+                    width: '100px',
                     fontSize: '12px'
                 },
                 onChange: update
@@ -609,7 +579,7 @@ MaterialPanel.prototype.render = function () {
                     5: '自定义混合'
                 },
                 style: {
-                    width: '150px',
+                    width: '100px',
                     fontSize: '12px'
                 },
                 onChange: update

@@ -170,7 +170,7 @@ div.Texture canvas {
 }
 
 div.Texture input {
-    width: 64px;
+    width: 40px;
     border: 1px solid #ccc;
 }
 
@@ -627,7 +627,7 @@ table.Table .TableBody td {
 .sidebar .Panel {
     color: #888;
     padding: 10px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #ddd;
 }
 
 .sidebar .Panel.collapsed {

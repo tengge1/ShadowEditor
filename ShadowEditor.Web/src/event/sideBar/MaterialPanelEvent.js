@@ -182,7 +182,6 @@ MaterialPanelEvent.prototype.refreshUI = function (resetTextureSelectors) {
     var currentObject = this.currentObject;
     if (!currentObject) return;
 
-    var materialUUID = UI.get('materialUUID');
     var materialName = UI.get('materialName');
     var materialClass = UI.get('materialClass');
     var materialColor = UI.get('materialColor');
@@ -233,10 +232,6 @@ MaterialPanelEvent.prototype.refreshUI = function (resetTextureSelectors) {
     var materialWireframeLinewidth = UI.get('materialWireframeLinewidth');
 
     var material = currentObject.material;
-
-    if (material.uuid !== undefined) {
-        materialUUID.setValue(material.uuid);
-    }
 
     if (material.name !== undefined) {
         materialName.setValue(material.name);
@@ -433,7 +428,6 @@ MaterialPanelEvent.prototype.update = function () {
 
     var currentObject = this.currentObject;
 
-    var materialUUID = UI.get('materialUUID');
     var materialName = UI.get('materialName');
     var materialClass = UI.get('materialClass');
     var materialColor = UI.get('materialColor');
@@ -496,9 +490,6 @@ MaterialPanelEvent.prototype.update = function () {
     if (geometry instanceof THREE.BufferGeometry && geometry.attributes.uv !== undefined) objectHasUvs = true;
 
     if (material) {
-        if (material.uuid !== undefined && material.uuid !== materialUUID.getValue()) {
-            editor.execute(new SetMaterialValueCommand(currentObject, 'uuid', materialUUID.getValue()));
-        }
 
         if (material instanceof THREE[materialClass.getValue()] === false) {
             material = new THREE[materialClass.getValue()]();
