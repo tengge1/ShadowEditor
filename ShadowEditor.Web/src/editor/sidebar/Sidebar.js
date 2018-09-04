@@ -28,10 +28,10 @@ Sidebar.prototype.render = function () {
             cls: 'tabs',
             children: [{
                 xtype: 'text',
-                id: 'sceneTab',
-                text: '场景',
+                id: 'propertyTab',
+                text: '属性',
                 onClick: () => {
-                    this.selectTab('scene');
+                    this.selectTab('property');
                 }
             }, {
                 xtype: 'text',
@@ -55,19 +55,19 @@ Sidebar.prototype.render = function () {
                     this.selectTab('log');
                 }
             }]
-        }, { // 场景面板
+        }, {
             xtype: 'div',
-            id: 'scenePanel',
+            id: 'propertyPanel',
             children: [
                 new PropertyPanel({ app: this.app })
             ]
-        }, { // 设置面板
+        }, {
             xtype: 'div',
             id: 'settingPanel',
             children: [
                 new SettingPanel({ app: this.app })
             ]
-        }, { // 历史纪录面板
+        }, {
             xtype: 'div',
             id: 'historyPanel',
             children: [
@@ -86,35 +86,35 @@ Sidebar.prototype.render = function () {
     control.render();
 
     this.app.on(`appStarted.${this.id}`, () => {
-        this.selectTab('scene');
+        this.selectTab('property');
     });
 };
 
 Sidebar.prototype.selectTab = function (tabName) {
-    const sceneTab = UI.get('sceneTab');
+    const propertyTab = UI.get('propertyTab');
     const settingTab = UI.get('settingTab');
     const historyTab = UI.get('historyTab');
     const logTab = UI.get('logTab');
 
-    const scenePanel = UI.get('scenePanel');
+    const propertyPanel = UI.get('propertyPanel');
     const settingPanel = UI.get('settingPanel');
     const historyPanel = UI.get('historyPanel');
     const logPanel = UI.get('logPanel');
 
-    sceneTab.dom.className = '';
+    propertyTab.dom.className = '';
     settingTab.dom.className = '';
     historyTab.dom.className = '';
     logTab.dom.className = '';
 
-    scenePanel.dom.style.display = 'none';
+    propertyPanel.dom.style.display = 'none';
     settingPanel.dom.style.display = 'none';
     historyPanel.dom.style.display = 'none';
     logPanel.dom.style.display = 'none';
 
     switch (tabName) {
-        case 'scene':
-            sceneTab.dom.className = 'selected';
-            scenePanel.dom.style.display = '';
+        case 'property':
+            propertyTab.dom.className = 'selected';
+            propertyPanel.dom.style.display = '';
             break;
         case 'setting':
             settingTab.dom.className = 'selected';
