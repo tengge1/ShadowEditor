@@ -42,9 +42,9 @@ RenderEvent.prototype.onRender = function () {
     // 渲染场景
     renderer.render(scene, camera);
 
-    if (editor.selected && editor.selected instanceof THREE.Mesh) {
-        this.selectEffect.render(editor.selected);
-    }
+    // if (editor.selected && editor.selected instanceof THREE.Mesh) {
+    //     this.selectEffect.render(editor.selected);
+    // }
 
     // // 为选中的Mesh渲染边框
     // if (editor.selected && editor.selected instanceof THREE.Mesh) {
