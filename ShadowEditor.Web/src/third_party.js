@@ -1,7 +1,5 @@
 import { } from './polyfills';
 
-import '../third_party/objects/Reflector.js';
-
 import '../third_party/animation/CCDIKSolver.js';
 import '../third_party/animation/MMDPhysics.js';
 
