@@ -138,7 +138,7 @@ ScriptWindow.prototype.onCreateScript = function () {
         uuid: uuid
     };
 
-    this.app.call('scriptChange', this);
+    this.app.call('scriptChanged', this);
 };
 
 ScriptWindow.prototype.onCancelScript = function () {

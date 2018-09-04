@@ -140,7 +140,7 @@ ScriptPanel.prototype.deleteScript = function (uuid) {
     UI.confirm('询问', `是否删除脚本${script.name}？`, (event, btn) => {
         if (btn === 'ok') {
             delete this.app.editor.scripts[uuid];
-            this.app.call('scriptChange', this);
+            this.app.call('scriptChanged', this);
             UI.msg(`${script.name}删除成功！`);
         }
     });
