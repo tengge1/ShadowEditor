@@ -1,7 +1,5 @@
 ﻿import UI from '../../ui/UI';
-import HierachyPanel from './scene/HierachyPanel';
 import PropertyPanel from './scene/PropertyPanel';
-import ScriptPanel from './ScriptPanel';
 import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
 import LogPanel from './LogPanel';
@@ -37,13 +35,6 @@ Sidebar.prototype.render = function () {
                 }
             }, {
                 xtype: 'text',
-                id: 'scriptTab',
-                text: '脚本',
-                onClick: () => {
-                    this.selectTab('script');
-                }
-            }, {
-                xtype: 'text',
                 id: 'settingTab',
                 text: '设置',
                 onClick: () => {
@@ -68,14 +59,7 @@ Sidebar.prototype.render = function () {
             xtype: 'div',
             id: 'scenePanel',
             children: [
-                new HierachyPanel({ app: this.app }),
                 new PropertyPanel({ app: this.app })
-            ]
-        }, {
-            xtype: 'div',
-            id: 'scriptPanel',
-            children: [
-                new ScriptPanel({ app: this.app })
             ]
         }, { // 设置面板
             xtype: 'div',
@@ -108,25 +92,21 @@ Sidebar.prototype.render = function () {
 
 Sidebar.prototype.selectTab = function (tabName) {
     const sceneTab = UI.get('sceneTab');
-    const scriptTab = UI.get('scriptTab');
     const settingTab = UI.get('settingTab');
     const historyTab = UI.get('historyTab');
     const logTab = UI.get('logTab');
 
     const scenePanel = UI.get('scenePanel');
-    const scriptPanel = UI.get('scriptPanel');
     const settingPanel = UI.get('settingPanel');
     const historyPanel = UI.get('historyPanel');
     const logPanel = UI.get('logPanel');
 
     sceneTab.dom.className = '';
-    scriptTab.dom.className = '';
     settingTab.dom.className = '';
     historyTab.dom.className = '';
     logTab.dom.className = '';
 
     scenePanel.dom.style.display = 'none';
-    scriptPanel.dom.style.display = 'none';
     settingPanel.dom.style.display = 'none';
     historyPanel.dom.style.display = 'none';
     logPanel.dom.style.display = 'none';
@@ -135,10 +115,6 @@ Sidebar.prototype.selectTab = function (tabName) {
         case 'scene':
             sceneTab.dom.className = 'selected';
             scenePanel.dom.style.display = '';
-            break;
-        case 'script':
-            scriptTab.dom.className = 'selected';
-            scriptPanel.dom.style.display = '';
             break;
         case 'setting':
             settingTab.dom.className = 'selected';

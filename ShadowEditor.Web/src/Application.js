@@ -7,6 +7,7 @@ import Menubar from './editor/menubar/Menubar';
 import Toolbar from './editor/Toolbar';
 import Viewport from './editor/Viewport';
 import Sidebar from './editor/sidebar/Sidebar';
+import Sidebar2 from './editor/sidebar2/Sidebar';
 import StatusBar from './editor/StatusBar';
 import ScriptEditor from './editor/script/ScriptEditor';
 import Player from './editor/player/Player';
@@ -53,6 +54,9 @@ function Application(container, options) {
 
     this.sidebar = new Sidebar(params); // 侧边栏
     this.sidebar.render();
+
+    this.sidebar2 = new Sidebar2(params); // 侧边栏2
+    this.sidebar2.render();
 
     this.statusBar = new StatusBar(params); // 状态栏
     this.statusBar.render();

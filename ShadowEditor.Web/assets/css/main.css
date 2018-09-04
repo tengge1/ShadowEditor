@@ -567,7 +567,7 @@ table.Table .TableBody td {
     position: absolute;
     top: 32px;
     left: 48px;
-    right: 300px;
+    right: 440px;
     bottom: 32px;
 }
 
@@ -576,7 +576,7 @@ table.Table .TableBody td {
 .statusBar {
     position: absolute;
     left: 48px;
-    right: 300px;
+    right: 440px;
     bottom: 0;
     height: 32px;
     display: flex;
@@ -615,7 +615,7 @@ table.Table .TableBody td {
     right: 0;
     top: 32px;
     bottom: 0;
-    width: 300px;
+    width: 220px;
     background: #eee;
     overflow: auto;
 }
@@ -667,6 +667,15 @@ table.Table .TableBody td {
 .tabs+div>div.Panel:first-child {
     border-top: 0px;
     padding-top: 20px;
+}
+
+/* 侧边栏2 */
+
+.sidebar2 {
+    position: absolute;
+    right: 220px;
+    border-right: 1px solid #ddd;
+    box-sizing: border-box;
 }
 
 /* 脚本编辑窗口 */

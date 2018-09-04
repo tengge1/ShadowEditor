@@ -24,19 +24,6 @@ ScriptPanel.prototype.render = function () {
         cls: 'Panel scriptPanel',
         children: [{
             xtype: 'row',
-            style: {
-                paddingTop: '5px',
-            },
-            children: [{
-                xtype: 'label',
-                style: {
-                    color: '#555',
-                    fontWeight: 'bold'
-                },
-                text: '脚本列表'
-            }]
-        }, {
-            xtype: 'row',
             id: 'scriptsContainer'
         }, {
             xtype: 'button',
