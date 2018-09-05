@@ -1,4 +1,5 @@
 import Control from '../../ui/Control';
+import LogPanel from './LogPanel';
 
 /**
  * 底部面板
@@ -46,7 +47,7 @@ BottomPanel.prototype.render = function () {
             xtype: 'div',
             id: 'logPanel',
             children: [
-
+                new LogPanel({ app: this.app })
             ]
         }]
     };

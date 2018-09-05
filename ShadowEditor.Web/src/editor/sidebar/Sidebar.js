@@ -2,7 +2,6 @@
 import PropertyPanel from './property/PropertyPanel';
 import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
-import LogPanel from './LogPanel';
 
 /**
  * 侧边栏
@@ -52,13 +51,6 @@ Sidebar.prototype.render = function () {
                 onClick: () => {
                     this.selectTab('history');
                 }
-            }, {
-                xtype: 'text',
-                id: 'logTab',
-                text: '日志',
-                onClick: () => {
-                    this.selectTab('log');
-                }
             }]
         }, {
             xtype: 'div',
@@ -78,12 +70,6 @@ Sidebar.prototype.render = function () {
             children: [
                 new HistoryPanel({ app: this.app })
             ]
-        }, {
-            xtype: 'div',
-            id: 'logPanel',
-            children: [
-                new LogPanel({ app: this.app })
-            ]
         }]
     };
 
@@ -99,22 +85,18 @@ Sidebar.prototype.selectTab = function (tabName) {
     const propertyTab = UI.get('propertyTab');
     const settingTab = UI.get('settingTab');
     const historyTab = UI.get('historyTab');
-    const logTab = UI.get('logTab');
 
     const propertyPanel = UI.get('propertyPanel');
     const settingPanel = UI.get('settingPanel');
     const historyPanel = UI.get('historyPanel');
-    const logPanel = UI.get('logPanel');
 
     propertyTab.dom.className = '';
     settingTab.dom.className = '';
     historyTab.dom.className = '';
-    logTab.dom.className = '';
 
     propertyPanel.dom.style.display = 'none';
     settingPanel.dom.style.display = 'none';
     historyPanel.dom.style.display = 'none';
-    logPanel.dom.style.display = 'none';
 
     switch (tabName) {
         case 'property':
@@ -128,10 +110,6 @@ Sidebar.prototype.selectTab = function (tabName) {
         case 'history':
             historyTab.dom.className = 'selected';
             historyPanel.dom.style.display = '';
-            break;
-        case 'log':
-            logTab.dom.className = 'selected';
-            logPanel.dom.style.display = '';
             break;
     }
 

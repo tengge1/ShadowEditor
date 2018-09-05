@@ -29,7 +29,7 @@ LogPanel.prototype.render = function () {
         }, {
             xtype: 'div',
             style: {
-                height: this.app.container.clientHeight - 160 + 'px',
+                height: '140px',
                 marginTop: '8px',
                 backgroundColor: '#fff',
                 overflowY: 'auto'
