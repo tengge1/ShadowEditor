@@ -666,7 +666,6 @@ table.Table .TableBody td {
 
 .tabs+div>div.Panel:first-child {
     border-top: 0px;
-    padding-top: 20px;
 }
 
 /* 侧边栏2 */
@@ -833,4 +832,19 @@ table.Table .TableBody td {
 
 .Outliner .Script:after {
     content: '{...}'/* ❮/❯ */
+}
+
+/* 动画面板 */
+
+.animation-panel .controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 1px solid #ddd;
+}
+
+.animation-panel .controls .IconButton {
+    margin: 2px;
+    padding: 2px 4px;
 }

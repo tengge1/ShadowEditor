@@ -36,6 +36,7 @@ import Confirm from './Confirm';
 import Prompt from './Prompt';
 import SearchField from './SearchField';
 import ToolbarFiller from './ToolbarFiller';
+import Canvas from './Canvas';
 
 /**
  * UI类
@@ -194,7 +195,8 @@ Object.assign(UI, {
     Confirm: Confirm,
     Prompt: Prompt,
     SearchField: SearchField,
-    ToolbarFiller: ToolbarFiller
+    ToolbarFiller: ToolbarFiller,
+    Canvas: Canvas
 });
 
 // 添加所有控件的XType
@@ -236,6 +238,7 @@ UI.addXType('confirm', Confirm);
 UI.addXType('prompt', Prompt);
 UI.addXType('searchfield', SearchField);
 UI.addXType('toolbarfiller', ToolbarFiller);
+UI.addXType('canvas', Canvas);
 
 // 添加一些实用功能
 Object.assign(UI, {

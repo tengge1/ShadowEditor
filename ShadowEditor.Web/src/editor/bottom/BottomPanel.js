@@ -1,4 +1,5 @@
 import Control from '../../ui/Control';
+import AnimationPanel from './AnimationPanel';
 import LogPanel from './LogPanel';
 
 /**
@@ -41,7 +42,7 @@ BottomPanel.prototype.render = function () {
             xtype: 'div',
             id: 'animationPanel',
             children: [
-
+                new AnimationPanel({ app: this.app })
             ]
         }, {
             xtype: 'div',
