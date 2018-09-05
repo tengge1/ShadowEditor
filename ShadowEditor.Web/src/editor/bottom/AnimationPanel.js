@@ -33,6 +33,10 @@ AnimationPanel.prototype.render = function () {
                 xtype: 'iconbutton',
                 icon: 'icon-stop'
             }]
+        }, {
+            xtype: 'canvas',
+            cls: 'timeline',
+            id: 'timeline'
         }]
     };
 

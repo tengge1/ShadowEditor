@@ -848,3 +848,8 @@ table.Table .TableBody td {
     margin: 2px;
     padding: 2px 4px;
 }
+
+.animation-panel .timeline {
+    width: 100%;
+    height: 32px;
+}
