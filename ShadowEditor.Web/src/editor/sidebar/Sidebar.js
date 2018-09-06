@@ -20,7 +20,7 @@ Sidebar.prototype.render = function () {
     var data = {
         xtype: 'div',
         id: 'sidebar',
-        parent: this.app.container,
+        parent: this.parent,
         cls: 'sidebar',
         children: [{
             xtype: 'div',

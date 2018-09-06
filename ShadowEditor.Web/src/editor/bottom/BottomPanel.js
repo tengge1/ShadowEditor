@@ -19,7 +19,7 @@ BottomPanel.prototype.render = function () {
     var data = {
         xtype: 'div',
         cls: 'sidebar bottomPanel',
-        parent: this.app.container,
+        parent: this.parent,
         children: [{
             xtype: 'div',
             cls: 'tabs',

@@ -19,7 +19,7 @@ StatusBar.prototype.render = function () {
     var data = {
         xtype: 'div',
         id: 'statusBar',
-        parent: this.app.container,
+        parent: this.parent,
         cls: 'statusBar',
         children: [{
             xtype: 'row',

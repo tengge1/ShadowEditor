@@ -437,14 +437,13 @@ table.Table .TableBody td {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 /* 菜单栏 */
 
 .menubar {
-    position: absolute;
-    left: 0;
-    top: 0;
     width: 100%;
     height: 32px;
     background-color: #fff;
@@ -493,6 +492,7 @@ table.Table .TableBody td {
     background-color: #fff;
     z-index: 24;
     border-radius: 1px;
+    border: 1px solid #ddd;
 }
 
 .menubar .menu:hover .options {
@@ -537,11 +537,8 @@ table.Table .TableBody td {
 /* 工具栏 */
 
 .toolbar {
-    position: absolute;
-    top: 32px;
-    left: 0;
-    bottom: 0;
     width: 48px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -551,6 +548,7 @@ table.Table .TableBody td {
     z-index: 16;
     border-radius: 3px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
+    box-sizing: border-box;
 }
 
 .toolbar .Button {
@@ -564,20 +562,15 @@ table.Table .TableBody td {
 /* 场景编辑区 */
 
 .viewport {
-    position: absolute;
-    top: 32px;
-    left: 48px;
-    right: 440px;
-    bottom: 272px;
+    position: relative;
+    width: 100%;
+    flex: 1;
 }
 
 /* 状态栏 */
 
 .statusBar {
-    position: absolute;
-    left: 48px;
-    right: 440px;
-    bottom: 0;
+    width: 100%;
     height: 32px;
     display: flex;
     background-color: #fff;
@@ -611,12 +604,11 @@ table.Table .TableBody td {
 /* 侧边栏 */
 
 .sidebar {
-    position: absolute;
-    right: 0;
-    top: 32px;
-    bottom: 0;
     width: 220px;
+    height: 100%;
     background: #eee;
+    border-left: 1px solid #ddd;
+    box-sizing: border-box;
     overflow: auto;
 }
 
@@ -668,24 +660,10 @@ table.Table .TableBody td {
     border-top: 0px;
 }
 
-/* 侧边栏2 */
-
-.sidebar2 {
-    position: absolute;
-    right: 220px;
-    border-right: 1px solid #ddd;
-    box-sizing: border-box;
-}
-
 /* 底部面板 */
 
 .bottomPanel {
-    position: absolute;
-    left: 48px;
-    right: 440px;
-    top: auto;
-    bottom: 32px;
-    width: auto;
+    width: 100%;
     height: 240px;
 }
 
