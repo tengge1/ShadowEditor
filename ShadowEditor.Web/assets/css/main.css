@@ -604,6 +604,7 @@ table.Table .TableBody td {
 /* 侧边栏 */
 
 .sidebar {
+    position: relative;
     width: 220px;
     height: 100%;
     background: #eee;
