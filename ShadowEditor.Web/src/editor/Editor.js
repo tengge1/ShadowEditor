@@ -64,8 +64,6 @@ function Editor(app) {
     // 当前选中物体
     this.selected = null;
 
-    this.clear();
-
     // 网格
     this.grid = new THREE.GridHelper(30, 30, 0x444444, 0x888888);
     this.grid.visible = this.app.options.showGrid;
@@ -87,7 +85,12 @@ function Editor(app) {
     this.app.viewport.container.dom.appendChild(this.stats.dom);
 
     // 事件
+    this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
     this.app.on(`optionsChanged.${this.id}`, this.onOptionsChanged.bind(this));
+};
+
+Editor.prototype.onAppStarted = function () {
+    this.clear();
 };
 
 // -------------------- 场景 --------------------------

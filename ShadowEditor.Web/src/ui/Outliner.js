@@ -10,7 +10,6 @@ function Outliner(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.editor = options.editor || null;
     this.onChange = options.onChange || null;
     this.onDblClick = options.onDblClick || null;
 }
@@ -23,9 +22,6 @@ Outliner.prototype.render = function () {
 
     this.dom.className = 'Outliner';
     this.dom.tabIndex = 0;	// keyup event is ignored without setting tabIndex
-
-    // hack
-    this.scene = this.editor.scene;
 
     // Prevent native scroll behavior
     this.dom.addEventListener('keydown', function (event) {
@@ -81,6 +77,12 @@ Outliner.prototype.selectIndex = function (index) {
 
 Outliner.prototype.setOptions = function (options) {
     var _this = this;
+
+    if (_this.editor === undefined) {
+        throw 'Outliner: editor is undefined.';
+    }
+
+    _this.scene = _this.editor.scene;
 
     while (this.dom.children.length > 0) {
         this.dom.removeChild(this.dom.firstChild);

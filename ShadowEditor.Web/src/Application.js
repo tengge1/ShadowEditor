@@ -50,8 +50,6 @@ function Application(container, options) {
     this.viewport = new Viewport(params); // 场景编辑区
     this.viewport.render();
 
-    this.editor = new Editor(this); // 编辑器
-
     this.sidebar = new Sidebar(params); // 侧边栏
     this.sidebar.render();
 
@@ -71,6 +69,7 @@ function Application(container, options) {
     this.player.render();
 
     // 物理引擎
+    this.editor = new Editor(this); // 编辑器
     this.physics = new Physics(params);
 }
 

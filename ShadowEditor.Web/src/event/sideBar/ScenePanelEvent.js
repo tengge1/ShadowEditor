@@ -15,11 +15,11 @@ ScenePanelEvent.prototype = Object.create(BaseEvent.prototype);
 ScenePanelEvent.prototype.constructor = ScenePanelEvent;
 
 ScenePanelEvent.prototype.start = function () {
+    this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
     this.app.on(`editorCleared.${this.id}`, this.refreshUI.bind(this));
     this.app.on(`sceneGraphChanged.${this.id}`, this.refreshUI.bind(this));
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
     this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.refreshUI();
 };
 
 ScenePanelEvent.prototype.stop = function () {
@@ -27,6 +27,10 @@ ScenePanelEvent.prototype.stop = function () {
     this.app.on(`sceneGraphChanged.${this.id}`, null);
     this.app.on(`objectChanged.${this.id}`, null);
     this.app.on(`objectSelected.${this.id}`, null);
+};
+
+ScenePanelEvent.prototype.onAppStarted = function () {
+    this.refreshUI();
 };
 
 /**
@@ -101,6 +105,10 @@ ScenePanelEvent.prototype.refreshUI = function () {
     var camera = editor.camera;
     var scene = editor.scene;
     var outliner = UI.get('outliner');
+
+    if(outliner.editor === undefined) {
+        outliner.editor = editor;
+    }
 
     var options = [];
 
