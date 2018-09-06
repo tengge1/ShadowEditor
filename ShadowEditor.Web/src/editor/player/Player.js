@@ -31,7 +31,6 @@ Player.prototype.render = function () {
         id: 'player',
         cls: 'Panel player',
         style: {
-            position: 'absolute',
             display: 'none'
         }
     });

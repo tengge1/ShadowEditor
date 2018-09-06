@@ -31,7 +31,7 @@ ScriptEditor.prototype.constructor = ScriptEditor;
 ScriptEditor.prototype.render = function () {
     var data = {
         xtype: 'div',
-        parent: this.app.container,
+        parent: this.parent,
         id: 'scriptEditor',
         cls: 'script',
         style: {
@@ -132,6 +132,7 @@ ScriptEditor.prototype.open = function (uuid, name, mode, source, title) {
  */
 ScriptEditor.prototype.show = function () {
     var container = UI.get('scriptEditor');
+
     container.dom.style.display = 'block';
 };
 

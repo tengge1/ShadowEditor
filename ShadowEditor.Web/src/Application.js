@@ -66,6 +66,7 @@ function Application(container, options) {
                     this.toolbar, {
                         xtype: 'div',
                         style: {
+                            position: 'relative',
                             flex: 1,
                             display: 'flex',
                             flexDirection: 'column'
@@ -73,15 +74,15 @@ function Application(container, options) {
                         children: [
                             this.viewport,
                             this.bottomPanel,
-                            this.statusBar
+                            this.statusBar,
+                            this.script,
+                            this.player
                         ]
                     },
                     this.sidebar2,
                     this.sidebar
                 ]
-            },
-            this.script,
-            this.player
+            }
         ]
     }).render();
 
