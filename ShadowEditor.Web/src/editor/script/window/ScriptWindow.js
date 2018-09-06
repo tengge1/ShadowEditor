@@ -58,7 +58,8 @@ ScriptWindow.prototype.render = function () {
                     'fragmentShader': '片源着色器',
                     'json': '着色器程序信息'
                 },
-                value: 'javascript'
+                value: 'javascript',
+                disabled: true
             }]
         }],
         buttons: [{

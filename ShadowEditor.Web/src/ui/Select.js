@@ -14,6 +14,7 @@ function Select(options) {
     this.cls = options.cls || 'Select';
     this.style = options.style || null;
     this.multiple = options.multiple || false;
+    this.disabled = options.disabled || false;
 
     this.onChange = options.onChange || null;
 };
@@ -34,19 +35,23 @@ Select.prototype.render = function () {
         this.dom.multiple = this.multiple;
     }
 
+    if (this.disabled) {
+        this.dom.disabled = 'disabled';
+    }
+
     var _this = this;
 
     if (this.options) {
-        Object.keys(this.options).forEach(function (n) {
+        Object.keys(this.options).forEach(n => {
             var option = document.createElement('option');
             option.value = n;
-            option.innerHTML = _this.options[n];
+            option.innerHTML = this.options[n];
 
-            if (_this.value == n) {
+            if (this.value === n) {
                 option.selected = 'selected';
             }
 
-            _this.dom.appendChild(option);
+            this.dom.appendChild(option);
         });
     }
 
