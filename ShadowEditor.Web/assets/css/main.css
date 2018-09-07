@@ -564,7 +564,7 @@ table.Table .TableBody td {
 .viewport {
     position: relative;
     width: 100%;
-    flex: 1;
+    height: 100%;
 }
 
 /* 状态栏 */

@@ -71,12 +71,20 @@ function Application(container, options) {
                             display: 'flex',
                             flexDirection: 'column'
                         },
-                        children: [
-                            this.viewport,
-                            this.bottomPanel,
-                            this.statusBar,
-                            this.script,
-                            this.player
+                        children: [{
+                            xtype: 'div',
+                            style: {
+                                position: 'relative',
+                                flex: 1
+                            },
+                            children: [
+                                this.viewport,
+                                this.script,
+                                this.player
+                            ]
+                        },
+                        this.bottomPanel,
+                        this.statusBar
                         ]
                     },
                     this.sidebar2,
