@@ -41,9 +41,17 @@ AnimationPanel.prototype.render = function () {
                 text: 'X1'
             }]
         }, {
-            xtype: 'canvas',
-            cls: 'timeline',
-            id: 'timeline'
+            xtype: 'div',
+            cls: 'box',
+            children: [{
+                xtype: 'canvas',
+                cls: 'timeline',
+                id: 'timeline'
+            }, {
+                xtype: 'div',
+                cls: 'slider',
+                id: 'slider'
+            }]
         }]
     };
 

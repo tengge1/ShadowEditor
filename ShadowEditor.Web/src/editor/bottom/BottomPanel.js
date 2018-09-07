@@ -41,6 +41,9 @@ BottomPanel.prototype.render = function () {
         }, {
             xtype: 'div',
             id: 'animationPanel',
+            style: {
+                flex: 1
+            },
             children: [
                 new AnimationPanel({ app: this.app })
             ]

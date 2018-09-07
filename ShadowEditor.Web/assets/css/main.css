@@ -666,6 +666,8 @@ table.Table .TableBody td {
 .bottomPanel {
     width: 100%;
     height: 240px;
+    display: flex;
+    flex-direction: column;
 }
 
 /* 脚本编辑窗口 */
@@ -815,6 +817,13 @@ table.Table .TableBody td {
 
 /* 动画面板 */
 
+.animation-panel {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .animation-panel .controls {
     display: flex;
     flex-direction: row;
@@ -828,8 +837,23 @@ table.Table .TableBody td {
     padding: 2px 4px;
 }
 
-.animation-panel .timeline {
+.animation-panel .box {
+    position: relative;
+    flex: 1;
+}
+
+.animation-panel .box .timeline {
     width: 100%;
     height: 32px;
     border-bottom: 1px solid #ddd;
+}
+
+.animation-panel .box .slider {
+    position: absolute;
+    left: 10px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    border: 1px solid red;
+    box-sizing: border-box;
 }
