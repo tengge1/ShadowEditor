@@ -228,13 +228,17 @@ LightComponent.prototype.updateUI = function () {
         objectColorRow.dom.style.display = 'none';
     } else {
         objectColorRow.dom.style.display = '';
+        objectColor.setValue(`#${this.selected.color.getHexString()}`);
     }
 
     objectIntensityRow.dom.style.display = '';
+    objectIntensity.setValue(this.selected.intensity);
 
     if (this.selected instanceof THREE.PointLight || this.selected instanceof THREE.SpotLight) {
         objectDistanceRow.dom.style.display = '';
         objectDecayRow.dom.style.display = '';
+        objectDistance.setValue(this.selected.distance);
+        objectDecay.setValue(this.selected.decay);
     } else {
         objectDistanceRow.dom.style.display = 'none';
         objectDecayRow.dom.style.display = 'none';
@@ -243,6 +247,8 @@ LightComponent.prototype.updateUI = function () {
     if (this.selected instanceof THREE.SpotLight) {
         objectAngleRow.dom.style.display = '';
         objectPenumbraRow.dom.style.display = '';
+        objectAngle.setValue(this.selected.angle);
+        objectPenumbra.setValue(this.selected.penumbra);
     } else {
         objectAngleRow.dom.style.display = 'none';
         objectPenumbraRow.dom.style.display = 'none';
@@ -251,6 +257,8 @@ LightComponent.prototype.updateUI = function () {
     if (this.selected instanceof THREE.HemisphereLight) {
         objectSkyColorRow.dom.style.display = '';
         objectGroundColorRow.dom.style.display = '';
+        objectSkyColor.setValue(`#${this.selected.color.getHexString()}`);
+        objectGroundColor.setValue(`#${this.selected.groundColor.getHexString()}`);
     } else {
         objectSkyColorRow.dom.style.display = 'none';
         objectGroundColorRow.dom.style.display = 'none';
@@ -259,6 +267,8 @@ LightComponent.prototype.updateUI = function () {
     if (this.selected instanceof THREE.RectAreaLight) {
         objectWidthRow.dom.style.display = '';
         objectHeightRow.dom.style.display = '';
+        objectWidth.setValue(this.selected.width);
+        objectHeight.setValue(this.selected.height);
     } else {
         objectWidthRow.dom.style.display = 'none';
         objectHeightRow.dom.style.display = 'none';
