@@ -7,6 +7,7 @@ import SetValueCommand from '../command/SetValueCommand';
  */
 function TransformComponent(options) {
     BaseComponent.call(this, options);
+    this.selected = null;
 }
 
 TransformComponent.prototype = Object.create(BaseComponent.prototype);
@@ -175,6 +176,32 @@ TransformComponent.prototype.updateUI = function () {
         container.dom.style.display = 'none';
         return;
     }
+
+    this.selected = editor.selected;
+
+    var objectPositionX = UI.get('objectPositionX', this.id);
+    var objectPositionY = UI.get('objectPositionY', this.id);
+    var objectPositionZ = UI.get('objectPositionZ', this.id);
+
+    var objectRotationX = UI.get('objectRotationX', this.id);
+    var objectRotationY = UI.get('objectRotationY', this.id);
+    var objectRotationZ = UI.get('objectRotationZ', this.id);
+
+    var objectScaleX = UI.get('objectScaleX', this.id);
+    var objectScaleY = UI.get('objectScaleY', this.id);
+    var objectScaleZ = UI.get('objectScaleZ', this.id);
+
+    objectPositionX.setValue(this.selected.position.x);
+    objectPositionY.setValue(this.selected.position.y);
+    objectPositionZ.setValue(this.selected.position.z);
+
+    objectRotationX.setValue(this.selected.rotation.x);
+    objectRotationY.setValue(this.selected.rotation.y);
+    objectRotationZ.setValue(this.selected.rotation.z);
+
+    objectScaleX.setValue(this.selected.scale.x);
+    objectScaleY.setValue(this.selected.scale.y);
+    objectScaleZ.setValue(this.selected.scale.z);
 };
 
 TransformComponent.prototype.onChangePositionX = function () {
