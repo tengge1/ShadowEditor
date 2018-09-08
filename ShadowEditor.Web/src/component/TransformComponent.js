@@ -223,8 +223,17 @@ TransformComponent.prototype.onChangeRotation = function () {
     this.app.editor.execute(new SetRotationCommand(this.selected, new THREE.Euler(x * Math.PI / 180, y * Math.PI / 180, z * Math.PI / 180)));
 };
 
-TransformComponent.prototype.onChangeScale = function () {
+TransformComponent.prototype.onChangeScale = function (value) {
+    var x = UI.get('objectScaleX', this.id).getValue();
+    var y = UI.get('objectScaleY', this.id).getValue();
+    var z = UI.get('objectScaleZ', this.id).getValue();
+    var locked = UI.get('objectScaleLock', this.id).getValue();
 
+    if (locked) {
+        this.app.editor.execute(new SetScaleCommand(this.selected, new THREE.Vector3(value, value, value)));
+    } else {
+        this.app.editor.execute(new SetScaleCommand(this.selected, new THREE.Vector3(x, y, z)));
+    }
 };
 
 export default TransformComponent;
