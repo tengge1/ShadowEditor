@@ -4,6 +4,7 @@ import GeometryPanel from './GeometryPanel';
 import MaterialPanel from './MaterialPanel';
 import BasicComponent from '../../../component/BasicComponent';
 import TransformComponent from '../../../component/TransformComponent';
+import CameraComponent from '../../../component/CameraComponent';
 
 /**
  * 属性面板
@@ -25,6 +26,7 @@ PropertyPanel.prototype.render = function () {
         children: [
             new BasicComponent({ app: this.app }),
             new TransformComponent({ app: this.app }),
+            new CameraComponent({ app: this.app }),
             {
                 xtype: 'div',
                 id: 'objectPanel',
