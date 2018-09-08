@@ -110,7 +110,7 @@ LightComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '衰变'
+                text: '衰减'
             }, {
                 xtype: 'number',
                 id: 'objectDecay',
@@ -144,6 +144,34 @@ LightComponent.prototype.render = function () {
                 scope: this.id,
                 onChange: this.onChangeGroundColor.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            id: 'objectWidthRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '宽度'
+            }, {
+                xtype: 'number',
+                id: 'objectWidth',
+                scope: this.id,
+                range: [0, Infinity],
+                onChange: this.onChangeWidth.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'objectHeightRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '高度'
+            }, {
+                xtype: 'number',
+                id: 'objectHeight',
+                scope: this.id,
+                range: [0, Infinity],
+                onChange: this.onChangeHeight.bind(this)
+            }]
         }]
     };
 
@@ -174,6 +202,67 @@ LightComponent.prototype.updateUI = function () {
 
     this.selected = editor.selected;
 
+    var objectColorRow = UI.get('objectColorRow', this.id);
+    var objectIntensityRow = UI.get('objectIntensityRow', this.id);
+    var objectDistanceRow = UI.get('objectDistanceRow', this.id);
+    var objectAngleRow = UI.get('objectAngleRow', this.id);
+    var objectPenumbraRow = UI.get('objectPenumbraRow', this.id);
+    var objectDecayRow = UI.get('objectDecayRow', this.id);
+    var objectSkyColorRow = UI.get('objectSkyColorRow', this.id);
+    var objectGroundColorRow = UI.get('objectGroundColorRow', this.id);
+    var objectWidthRow = UI.get('objectWidthRow', this.id);
+    var objectHeightRow = UI.get('objectHeightRow', this.id);
+
+    var objectColor = UI.get('objectColor', this.id);
+    var objectIntensity = UI.get('objectIntensity', this.id);
+    var objectDistance = UI.get('objectDistance', this.id);
+    var objectAngle = UI.get('objectAngle', this.id);
+    var objectPenumbra = UI.get('objectPenumbra', this.id);
+    var objectDecay = UI.get('objectDecay', this.id);
+    var objectSkyColor = UI.get('objectSkyColor', this.id);
+    var objectGroundColor = UI.get('objectGroundColor', this.id);
+    var objectWidth = UI.get('objectWidth', this.id);
+    var objectHeight = UI.get('objectHeight', this.id);
+
+    if (this.selected instanceof THREE.HemisphereLight) {
+        objectColorRow.dom.style.display = 'none';
+    } else {
+        objectColorRow.dom.style.display = '';
+    }
+
+    objectIntensityRow.dom.style.display = '';
+
+    if (this.selected instanceof THREE.PointLight || this.selected instanceof THREE.SpotLight) {
+        objectDistanceRow.dom.style.display = '';
+        objectDecayRow.dom.style.display = '';
+    } else {
+        objectDistanceRow.dom.style.display = 'none';
+        objectDecayRow.dom.style.display = 'none';
+    }
+
+    if (this.selected instanceof THREE.SpotLight) {
+        objectAngleRow.dom.style.display = '';
+        objectPenumbraRow.dom.style.display = '';
+    } else {
+        objectAngleRow.dom.style.display = 'none';
+        objectPenumbraRow.dom.style.display = 'none';
+    }
+
+    if (this.selected instanceof THREE.HemisphereLight) {
+        objectSkyColorRow.dom.style.display = '';
+        objectGroundColorRow.dom.style.display = '';
+    } else {
+        objectSkyColorRow.dom.style.display = 'none';
+        objectGroundColorRow.dom.style.display = 'none';
+    }
+
+    if (this.selected instanceof THREE.RectAreaLight) {
+        objectWidthRow.dom.style.display = '';
+        objectHeightRow.dom.style.display = '';
+    } else {
+        objectWidthRow.dom.style.display = 'none';
+        objectHeightRow.dom.style.display = 'none';
+    }
 };
 
 LightComponent.prototype.onChangeColor = function () {
@@ -205,6 +294,14 @@ LightComponent.prototype.onChangeSkyColor = function () {
 };
 
 LightComponent.prototype.onChangeGroundColor = function () {
+
+};
+
+LightComponent.prototype.onChangeWidth = function () {
+
+};
+
+LightComponent.prototype.onChangeHeight = function () {
 
 };
 
