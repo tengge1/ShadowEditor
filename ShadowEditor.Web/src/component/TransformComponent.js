@@ -198,9 +198,9 @@ TransformComponent.prototype.updateUI = function () {
     objectPositionY.setValue(this.selected.position.y);
     objectPositionZ.setValue(this.selected.position.z);
 
-    objectRotationX.setValue(this.selected.rotation.x);
-    objectRotationY.setValue(this.selected.rotation.y);
-    objectRotationZ.setValue(this.selected.rotation.z);
+    objectRotationX.setValue(this.selected.rotation.x * 180 / Math.PI);
+    objectRotationY.setValue(this.selected.rotation.y * 180 / Math.PI);
+    objectRotationZ.setValue(this.selected.rotation.z * 180 / Math.PI);
 
     objectScaleX.setValue(this.selected.scale.x);
     objectScaleY.setValue(this.selected.scale.y);
@@ -216,7 +216,11 @@ TransformComponent.prototype.onChangePosition = function () {
 };
 
 TransformComponent.prototype.onChangeRotation = function () {
+    var x = UI.get('objectRotationX', this.id).getValue();
+    var y = UI.get('objectRotationY', this.id).getValue();
+    var z = UI.get('objectRotationZ', this.id).getValue();
 
+    this.app.editor.execute(new SetRotationCommand(this.selected, new THREE.Euler(x * Math.PI / 180, y * Math.PI / 180, z * Math.PI / 180)));
 };
 
 TransformComponent.prototype.onChangeScale = function () {
