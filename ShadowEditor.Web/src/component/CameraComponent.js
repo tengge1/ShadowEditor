@@ -107,17 +107,17 @@ CameraComponent.prototype.updateUI = function () {
 };
 
 CameraComponent.prototype.onSetObjectFov = function () {
-    var fov = UI.get('objectFov').getValue();
+    var fov = UI.get('objectFov', this.id).getValue();
     this.app.editor.execute(new SetValueCommand(this.selected, 'fov', fov));
 };
 
 CameraComponent.prototype.onSetObjectNear = function () {
-    var near = UI.get('objectNear').getValue();
+    var near = UI.get('objectNear', this.id).getValue();
     this.app.editor.execute(new SetValueCommand(this.selected, 'near', near));
 };
 
 CameraComponent.prototype.onSetObjectFar = function () {
-    var far = UI.get('objectFar').getValue();
+    var far = UI.get('objectFar', this.id).getValue();
     this.app.editor.execute(new SetValueCommand(this.selected, 'far', far));
 };
 
