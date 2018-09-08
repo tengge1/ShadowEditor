@@ -23,7 +23,6 @@ PickEvent.prototype.start = function () {
     var container = this.app.viewport.container;
 
     container.dom.addEventListener('mousedown', this.onMouseDown.bind(this), false);
-    container.dom.addEventListener('touchstart', this.onTouchStart.bind(this), false);
     container.dom.addEventListener('dblclick', this.onDoubleClick.bind(this), false);
 };
 
@@ -31,7 +30,6 @@ PickEvent.prototype.stop = function () {
     var container = this.app.viewport.container;
 
     container.dom.removeEventListener('mousedown', this.onMouseDown, false);
-    container.dom.removeEventListener('touchstart', this.onTouchStart, false);
     container.dom.removeEventListener('dblclick', this.onDoubleClick, false);
 };
 
@@ -56,30 +54,6 @@ PickEvent.prototype.onMouseUp = function (event) {
 
     document.removeEventListener('mouseup', this.onMouseUp, false);
 };
-
-PickEvent.prototype.onTouchStart = function (event) {
-    var container = this.app.viewport.container;
-
-    var touch = event.changedTouches[0];
-
-    var array = this.getMousePosition(container.dom, touch.clientX, touch.clientY);
-    this.onDownPosition.fromArray(array);
-
-    document.addEventListener('touchend', this.onTouchEnd.bind(this), false);
-};
-
-PickEvent.prototype.onTouchEnd = function (event) {
-    var container = this.app.viewport.container;
-
-    var touch = event.changedTouches[0];
-
-    var array = this.getMousePosition(container.dom, touch.clientX, touch.clientY);
-    this.onUpPosition.fromArray(array);
-
-    this.handleClick();
-
-    document.removeEventListener('touchend', this.onTouchEnd, false);
-}
 
 PickEvent.prototype.onDoubleClick = function (event) {
     var container = this.app.viewport.container;

@@ -2,6 +2,7 @@
 import ObjectPanel from './ObjectPanel';
 import GeometryPanel from './GeometryPanel';
 import MaterialPanel from './MaterialPanel';
+import BasicComponent from '../../../component/BasicComponent';
 
 /**
  * 属性面板
@@ -20,28 +21,29 @@ PropertyPanel.prototype.render = function () {
     var data = {
         xtype: 'div',
         parent: this.parent,
-        children: [{ // 物体面板
-            xtype: 'div',
-            id: 'objectPanel',
-            scope: this.id,
-            children: [
-                new ObjectPanel({ app: this.app })
-            ]
-        }, { // 几何面板
-            xtype: 'div',
-            id: 'geometryPanel',
-            scope: this.id,
-            children: [
-                new GeometryPanel({ app: this.app })
-            ]
-        }, { // 材质面板
-            xtype: 'div',
-            id: 'materialPanel',
-            scope: this.id,
-            children: [
-                new MaterialPanel({ app: this.app })
-            ]
-        }]
+        children: [
+            new BasicComponent({ app: this.app }), { // 物体面板
+                xtype: 'div',
+                id: 'objectPanel',
+                scope: this.id,
+                children: [
+                    new ObjectPanel({ app: this.app })
+                ]
+            }, { // 几何面板
+                xtype: 'div',
+                id: 'geometryPanel',
+                scope: this.id,
+                children: [
+                    new GeometryPanel({ app: this.app })
+                ]
+            }, { // 材质面板
+                xtype: 'div',
+                id: 'materialPanel',
+                scope: this.id,
+                children: [
+                    new MaterialPanel({ app: this.app })
+                ]
+            }]
     };
 
     var control = UI.create(data);

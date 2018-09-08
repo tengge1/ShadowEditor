@@ -16,8 +16,6 @@ ObjectPanel.prototype = Object.create(UI.Control.prototype);
 ObjectPanel.prototype.constructor = ObjectPanel;
 
 ObjectPanel.prototype.render = function () {
-    var editor = this.app.editor;
-
     var _this = this;
 
     var update = function () {
@@ -67,9 +65,7 @@ ObjectPanel.prototype.render = function () {
                     width: '100px',
                     fontSize: '12px'
                 },
-                onChange: function () {
-                    editor.execute(new SetValueCommand(editor.selected, 'name', this.getValue()));
-                }
+                onChange: this.onChangeName.bind(this)
             }]
         }, { // position
             xtype: 'row',
@@ -374,6 +370,13 @@ ObjectPanel.prototype.render = function () {
 
     var control = UI.create(data);
     control.render();
+};
+
+ObjectPanel.prototype.onChangeName = function () {
+    var editor = this.app.editor;
+    var objectName = UI.get('objectName');
+
+    editor.execute(new SetValueCommand(editor.selected, 'name', objectName.getValue()));
 };
 
 export default ObjectPanel;
