@@ -62,7 +62,9 @@ TransformControlsEvent.prototype.onChange = function () {
         editor.helpers[object.id].update();
     }
 
-    this.app.call('refreshSidebarObject3D', this, object);
+    // 不再支持refreshSidebarObject3D事件
+    // this.app.call('refreshSidebarObject3D', this, object);
+    this.app.call('objectChanged', this, object);
     this.app.call('render');
 };
 
