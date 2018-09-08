@@ -1,5 +1,8 @@
 import BaseComponent from './BaseComponent';
 import SetValueCommand from '../command/SetValueCommand';
+import SetPositionCommand from '../command/SetPositionCommand';
+import SetRotationCommand from '../command/SetRotationCommand';
+import SetScaleCommand from '../command/SetScaleCommand';
 
 /**
  * 位移组件
@@ -49,7 +52,7 @@ TransformComponent.prototype.render = function () {
                     style: {
                         width: '40px'
                     },
-                    onChange: this.onChangePositionX.bind(this)
+                    onChange: this.onChangePosition.bind(this)
                 }, {
                     xtype: 'number',
                     id: 'objectPositionY',
@@ -57,7 +60,7 @@ TransformComponent.prototype.render = function () {
                     style: {
                         width: '40px'
                     },
-                    onChange: this.onChangePositionY.bind(this)
+                    onChange: this.onChangePosition.bind(this)
                 }, {
                     xtype: 'number',
                     id: 'objectPositionZ',
@@ -65,7 +68,7 @@ TransformComponent.prototype.render = function () {
                     style: {
                         width: '40px'
                     },
-                    onChange: this.onChangePositionZ.bind(this)
+                    onChange: this.onChangePosition.bind(this)
                 }]
             }, {
                 xtype: 'row',
@@ -81,7 +84,7 @@ TransformComponent.prototype.render = function () {
                     style: {
                         width: '40px'
                     },
-                    onChange: this.onChangeRotationX.bind(this)
+                    onChange: this.onChangeRotation.bind(this)
                 }, {
                     xtype: 'number',
                     id: 'objectRotationY',
@@ -91,7 +94,7 @@ TransformComponent.prototype.render = function () {
                     style: {
                         width: '40px'
                     },
-                    onChange: this.onChangeRotationY.bind(this)
+                    onChange: this.onChangeRotation.bind(this)
                 }, {
                     xtype: 'number',
                     id: 'objectRotationZ',
@@ -101,7 +104,7 @@ TransformComponent.prototype.render = function () {
                     style: {
                         width: '40px'
                     },
-                    onChange: this.onChangeRotationZ.bind(this)
+                    onChange: this.onChangeRotation.bind(this)
                 }]
             }, {
                 xtype: 'row',
@@ -126,7 +129,7 @@ TransformComponent.prototype.render = function () {
                     style: {
                         width: '40px'
                     },
-                    onChange: this.onChangeScaleX.bind(this)
+                    onChange: this.onChangeScale.bind(this)
                 }, {
                     xtype: 'number',
                     id: 'objectScaleY',
@@ -136,7 +139,7 @@ TransformComponent.prototype.render = function () {
                     style: {
                         width: '40px'
                     },
-                    onChange: this.onChangeScaleY.bind(this)
+                    onChange: this.onChangeScale.bind(this)
                 }, {
                     xtype: 'number',
                     id: 'objectScaleZ',
@@ -146,7 +149,7 @@ TransformComponent.prototype.render = function () {
                     style: {
                         width: '40px'
                     },
-                    onChange: this.onChangeScaleZ.bind(this)
+                    onChange: this.onChangeScale.bind(this)
                 }]
             }]
         }]
@@ -204,39 +207,19 @@ TransformComponent.prototype.updateUI = function () {
     objectScaleZ.setValue(this.selected.scale.z);
 };
 
-TransformComponent.prototype.onChangePositionX = function () {
+TransformComponent.prototype.onChangePosition = function () {
+    var x = UI.get('objectPositionX', this.id).getValue();
+    var y = UI.get('objectPositionY', this.id).getValue();
+    var z = UI.get('objectPositionZ', this.id).getValue();
+
+    this.app.editor.execute(new SetPositionCommand(this.selected, new THREE.Vector3(x, y, z)));
+};
+
+TransformComponent.prototype.onChangeRotation = function () {
 
 };
 
-TransformComponent.prototype.onChangePositionY = function () {
-
-};
-
-TransformComponent.prototype.onChangePositionZ = function () {
-
-};
-
-TransformComponent.prototype.onChangeRotationX = function () {
-
-};
-
-TransformComponent.prototype.onChangeRotationY = function () {
-
-};
-
-TransformComponent.prototype.onChangeRotationZ = function () {
-
-};
-
-TransformComponent.prototype.onChangeScaleX = function () {
-
-};
-
-TransformComponent.prototype.onChangeScaleY = function () {
-
-};
-
-TransformComponent.prototype.onChangeScaleZ = function () {
+TransformComponent.prototype.onChangeScale = function () {
 
 };
 
