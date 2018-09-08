@@ -276,43 +276,53 @@ LightComponent.prototype.updateUI = function () {
 };
 
 LightComponent.prototype.onChangeColor = function () {
-
+    var objectColor = UI.get('objectColor', this.id);
+    this.selected.color = new THREE.Color(objectColor.getHexValue());
 };
 
 LightComponent.prototype.onChangeIntensity = function () {
-
+    var objectIntensity = UI.get('objectIntensity', this.id);
+    this.selected.intensity = objectIntensity.getValue();
 };
 
 LightComponent.prototype.onChangeDistance = function () {
-
+    var objectDistance = UI.get('objectDistance', this.id);
+    this.selected.distance = objectDistance.getValue();
 };
 
 LightComponent.prototype.onChangeAngle = function () {
-
+    var objectAngle = UI.get('objectAngle', this.id);
+    this.selected.angle = objectAngle.getValue();
 };
 
 LightComponent.prototype.onChangePenumbra = function () {
-
+    var objectPenumbra = UI.get('objectPenumbra', this.id);
+    this.selected.penumbra = objectPenumbra.getValue();
 };
 
 LightComponent.prototype.onChangeDecay = function () {
-
+    var objectDecay = UI.get('objectDecay', this.id);
+    this.selected.decay = objectDecay.getValue();
 };
 
 LightComponent.prototype.onChangeSkyColor = function () {
-
+    var objectSkyColor = UI.get('objectSkyColor', this.id);
+    this.selected.color = new THREE.Color(objectSkyColor.getHexValue());
 };
 
 LightComponent.prototype.onChangeGroundColor = function () {
-
+    var objectGroundColor = UI.get('objectGroundColor', this.id);
+    this.selected.groundColor = new THREE.Color(objectGroundColor.getHexValue());
 };
 
 LightComponent.prototype.onChangeWidth = function () {
-
+    var objectWidth = UI.get('objectWidth', this.id);
+    this.selected.width = objectWidth.getValue();
 };
 
 LightComponent.prototype.onChangeHeight = function () {
-
+    var objectHeight = UI.get('objectHeight', this.id);
+    this.selected.height = objectHeight.getValue();
 };
 
 export default LightComponent;
