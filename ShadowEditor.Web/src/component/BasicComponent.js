@@ -7,6 +7,7 @@ import SetValueCommand from '../command/SetValueCommand';
  */
 function BasicComponent(options) {
     BaseComponent.call(this, options);
+    this.selected = null;
 }
 
 BasicComponent.prototype = Object.create(BaseComponent.prototype);
@@ -87,16 +88,16 @@ BasicComponent.prototype.updateUI = function () {
         return;
     }
 
-    var selected = editor.selected;
-    UI.get('objectName', this.id).setValue(selected.name);
-    UI.get('objectType', this.id).setValue(selected.constructor.name);
+    this.selected = editor.selected;
+    UI.get('objectName', this.id).setValue(this.selected.name);
+    UI.get('objectType', this.id).setValue(this.selected.constructor.name);
 };
 
 BasicComponent.prototype.onChangeName = function () {
     var objectName = UI.get('objectName', this.id);
     var editor = this.app.editor;
 
-    editor.execute(new SetValueCommand(editor.selected, 'name', objectName.getValue()));
+    editor.execute(new SetValueCommand(this.selected, 'name', objectName.getValue()));
 };
 
 export default BasicComponent;
