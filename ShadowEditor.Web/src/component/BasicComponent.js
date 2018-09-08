@@ -7,7 +7,6 @@ import SetValueCommand from '../command/SetValueCommand';
  */
 function BasicComponent(options) {
     BaseComponent.call(this, options);
-    this.selected = null;
 }
 
 BasicComponent.prototype = Object.create(BaseComponent.prototype);

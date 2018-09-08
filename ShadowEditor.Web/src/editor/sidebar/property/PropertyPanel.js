@@ -3,6 +3,7 @@ import ObjectPanel from './ObjectPanel';
 import GeometryPanel from './GeometryPanel';
 import MaterialPanel from './MaterialPanel';
 import BasicComponent from '../../../component/BasicComponent';
+import TransformComponent from '../../../component/TransformComponent';
 
 /**
  * 属性面板
@@ -22,7 +23,9 @@ PropertyPanel.prototype.render = function () {
         xtype: 'div',
         parent: this.parent,
         children: [
-            new BasicComponent({ app: this.app }), { // 物体面板
+            new BasicComponent({ app: this.app }),
+            new TransformComponent({ app: this.app }),
+            {
                 xtype: 'div',
                 id: 'objectPanel',
                 scope: this.id,
