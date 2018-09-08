@@ -619,7 +619,7 @@ table.Table .TableBody td {
 
 .sidebar .Panel {
     color: #888;
-    padding: 10px;
+    padding: 8px;
     border-top: 1px solid #ddd;
 }
 
@@ -628,7 +628,11 @@ table.Table .TableBody td {
 }
 
 .sidebar .Row {
-    margin-bottom: 10px;
+    margin-top: 8px;
+}
+
+.sidebar .Row:nth-child(1) {
+    margin-top: 0;
 }
 
 .sidebar label {
