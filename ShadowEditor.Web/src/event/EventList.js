@@ -119,8 +119,7 @@ var EventList = [
     'scriptAdded', // 添加脚本事件
     'scriptChanged', // 脚本改变事件
     'scriptRemoved', // 脚本移除事件
-
-    'refreshSidebarObject3D', // 刷新Object3D侧边栏事件
+    
     'historyChanged', // 历史改变事件
     'refreshScriptEditor', // 刷新脚本编辑器事件
 

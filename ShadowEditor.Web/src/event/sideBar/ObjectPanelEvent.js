@@ -22,7 +22,6 @@ ObjectPanelEvent.prototype.constructor = ObjectPanelEvent;
 ObjectPanelEvent.prototype.start = function () {
     this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
-    this.app.on(`refreshSidebarObject3D.${this.id}`, this.onRefreshSidebarObject3D.bind(this));
     this.app.on(`updateScaleX.${this.id}`, this.updateScaleX.bind(this));
     this.app.on(`updateScaleY.${this.id}`, this.updateScaleY.bind(this));
     this.app.on(`updateScaleZ.${this.id}`, this.updateScaleZ.bind(this));
@@ -33,7 +32,6 @@ ObjectPanelEvent.prototype.start = function () {
 ObjectPanelEvent.prototype.stop = function () {
     this.app.on(`objectSelected.${this.id}`, null);
     this.app.on(`objectChanged.${this.id}`, null);
-    this.app.on(`refreshSidebarObject3D.${this.id}`, null);
     this.app.on(`updateScaleX.${this.id}`, null);
     this.app.on(`updateScaleY.${this.id}`, null);
     this.app.on(`updateScaleZ.${this.id}`, null);
@@ -66,17 +64,6 @@ ObjectPanelEvent.prototype.onObjectSelected = function (object) {
  * @param {*} object 
  */
 ObjectPanelEvent.prototype.onObjectChanged = function (object) {
-    var editor = this.app.editor;
-    if (object !== editor.selected) return;
-
-    this.app.call('updateObjectPanel', this, object);
-};
-
-/**
- * 刷新物体面板
- * @param {*} object 
- */
-ObjectPanelEvent.prototype.onRefreshSidebarObject3D = function (object) {
     var editor = this.app.editor;
     if (object !== editor.selected) return;
 
