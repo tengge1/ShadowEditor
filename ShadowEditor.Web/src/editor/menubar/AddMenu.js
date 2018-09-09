@@ -112,7 +112,7 @@ AddMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 id: 'mAddLathe',
-                html: '花瓶',
+                html: '酒杯',
                 cls: 'option',
                 onClick: function () {
                     _this.app.call('mAddLathe');
