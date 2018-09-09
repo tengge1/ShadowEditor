@@ -5,6 +5,7 @@ import CircleGeometryComponent from './geometry/CircleGeometryComponent';
 import CylinderGeometryComponent from './geometry/CylinderGeometryComponent';
 import SphereGeometryComponent from './geometry/SphereGeometryComponent';
 import IcosahedronGeometryComponent from './geometry/IcosahedronGeometryComponent';
+import TorusGeometryComponent from './geometry/TorusGeometryComponent';
 
 /**
  * 几何体组件
@@ -55,7 +56,8 @@ GeometryComponent.prototype.render = function () {
         new CircleGeometryComponent({ app: this.app }),
         new CylinderGeometryComponent({ app: this.app }),
         new SphereGeometryComponent({ app: this.app }),
-        new IcosahedronGeometryComponent({ app: this.app })
+        new IcosahedronGeometryComponent({ app: this.app }),
+        new TorusGeometryComponent({ app: this.app })
         ]
     };
 
