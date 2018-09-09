@@ -8,6 +8,7 @@ import IcosahedronGeometryComponent from './geometry/IcosahedronGeometryComponen
 import TorusGeometryComponent from './geometry/TorusGeometryComponent';
 import TorusKnotGeometryComponent from './geometry/TorusKnotGeometryComponent';
 import LatheGeometryComponent from './geometry/LatheGeometryComponent';
+import TeapotGeometryComponent from './geometry/TeapotGeometryComponent';
 
 /**
  * 几何体组件
@@ -61,7 +62,8 @@ GeometryComponent.prototype.render = function () {
         new IcosahedronGeometryComponent({ app: this.app }),
         new TorusGeometryComponent({ app: this.app }),
         new TorusKnotGeometryComponent({ app: this.app }),
-        new LatheGeometryComponent({ app: this.app })
+        new LatheGeometryComponent({ app: this.app }),
+        new TeapotGeometryComponent({ app: this.app })
         ]
     };
 
@@ -78,12 +80,18 @@ GeometryComponent.prototype.onObjectSelected = function () {
 GeometryComponent.prototype.updateUI = function () {
     var container = UI.get('geometryPanel', this.id);
     var editor = this.app.editor;
+
+    var name = UI.get('name', this.id);
+
     if (editor.selected && editor.selected instanceof THREE.Mesh) {
         container.dom.style.display = '';
-        UI.get('name', this.id).setValue(editor.selected.geometry.constructor.name);
+        if (editor.selected instanceof THREE.TeapotBufferGeometry) {
+            name.setValue('TeapotBufferGeometry');
+        }
+        name.setValue(editor.selected.geometry.constructor.name);
     } else {
         container.dom.style.display = 'none';
-        UI.get('name', this.id).setValue('');
+        name.setValue('');
     }
 };
 
