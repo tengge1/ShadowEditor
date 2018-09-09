@@ -75,6 +75,7 @@ function Application(container, options) {
                             xtype: 'div',
                             style: {
                                 position: 'relative',
+                                height: 'calc(100% - 272px)',
                                 flex: 1
                             },
                             children: [
