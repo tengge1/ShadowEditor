@@ -6,6 +6,7 @@ import TransformComponent from '../../../component/TransformComponent';
 import CameraComponent from '../../../component/CameraComponent';
 import LightComponent from '../../../component/LightComponent';
 import ShadowComponent from '../../../component/ShadowComponent';
+import GeometryComponent from '../../../component/GeometryComponent';
 
 /**
  * 属性面板
@@ -30,6 +31,7 @@ PropertyPanel.prototype.render = function () {
             new CameraComponent({ app: this.app }),
             new LightComponent({ app: this.app }),
             new ShadowComponent({ app: this.app }),
+            new GeometryComponent({ app: this.app }),
             { // 几何面板
                 xtype: 'div',
                 id: 'geometryPanel',
