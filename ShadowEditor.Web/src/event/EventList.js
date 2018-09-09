@@ -67,7 +67,7 @@ var EventList = [
     'mExportPLY', // 导出ply文件
     'mExportSTLB', // 导出stl二进制文件
     'mExportSTL', // 导出stl模型
-    
+
     'mAddFire', // 添加火焰
     'mAddSmoke', // 添加烟
     'mAddMiku', // 初音未来
@@ -119,7 +119,7 @@ var EventList = [
     'scriptAdded', // 添加脚本事件
     'scriptChanged', // 脚本改变事件
     'scriptRemoved', // 脚本移除事件
-    
+
     'historyChanged', // 历史改变事件
     'refreshScriptEditor', // 刷新脚本编辑器事件
 
@@ -136,12 +136,6 @@ var EventList = [
     'pasteMaterial', // 材质面板粘贴材质
     'updateMaterial', // 根据材质面板更新材质
     'updateMaterialPanel', // 更新材质面板UI
-
-    'updateScaleX', // 物体面板更新缩放x
-    'updateScaleY', // 物体面板更新缩放y
-    'updateScaleZ', // 物体面板更新缩放z
-    'updateObject', // 更新物体属性
-    'updateObjectPanel', // 更新物体面板
 
     'selectTab', // 切换侧边栏选项卡 scene,setting,history,log
     'selectPropertyTab', // 切换属性选项卡

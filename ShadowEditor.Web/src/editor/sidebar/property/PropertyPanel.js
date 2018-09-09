@@ -1,5 +1,4 @@
 ﻿import UI from '../../../ui/UI';
-import ObjectPanel from './ObjectPanel';
 import GeometryPanel from './GeometryPanel';
 import MaterialPanel from './MaterialPanel';
 import BasicComponent from '../../../component/BasicComponent';
@@ -31,14 +30,7 @@ PropertyPanel.prototype.render = function () {
             new CameraComponent({ app: this.app }),
             new LightComponent({ app: this.app }),
             new ShadowComponent({ app: this.app }),
-            {
-                xtype: 'div',
-                id: 'objectPanel',
-                scope: this.id,
-                children: [
-                    new ObjectPanel({ app: this.app })
-                ]
-            }, { // 几何面板
+            { // 几何面板
                 xtype: 'div',
                 id: 'geometryPanel',
                 scope: this.id,
