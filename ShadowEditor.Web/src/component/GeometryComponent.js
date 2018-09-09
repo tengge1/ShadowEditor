@@ -85,10 +85,11 @@ GeometryComponent.prototype.updateUI = function () {
 
     if (editor.selected && editor.selected instanceof THREE.Mesh) {
         container.dom.style.display = '';
-        if (editor.selected instanceof THREE.TeapotBufferGeometry) {
+        if (editor.selected.geometry instanceof THREE.TeapotBufferGeometry) {
             name.setValue('TeapotBufferGeometry');
+        } else {
+            name.setValue(editor.selected.geometry.constructor.name);
         }
-        name.setValue(editor.selected.geometry.constructor.name);
     } else {
         container.dom.style.display = 'none';
         name.setValue('');
