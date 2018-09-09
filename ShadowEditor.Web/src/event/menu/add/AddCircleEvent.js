@@ -35,6 +35,8 @@ AddCircleEvent.prototype.onAddCircle = function () {
     var geometry = new THREE.CircleBufferGeometry(radius, segments);
     var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
     mesh.name = '圆' + ID++;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
 
     editor.execute(new AddObjectCommand(mesh));
 };

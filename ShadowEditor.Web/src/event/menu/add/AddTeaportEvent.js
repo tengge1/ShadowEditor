@@ -55,6 +55,8 @@ AddTeaportEvent.prototype.onAddTeaport = function () {
 
     var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
     mesh.name = '茶壶' + ID++;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
 
     editor.execute(new AddObjectCommand(mesh));
 };

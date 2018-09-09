@@ -34,6 +34,8 @@ AddPlaneEvent.prototype.onAddPlane = function () {
     var mesh = new THREE.Mesh(geometry, material);
     mesh.name = '平板' + ID++;
     mesh.rotation.x = -Math.PI / 2;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
 
     editor.execute(new AddObjectCommand(mesh));
 };

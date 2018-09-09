@@ -39,6 +39,8 @@ AddTorusKnotEvent.prototype.onAddTorusKnot = function () {
     var geometry = new THREE.TorusKnotBufferGeometry(radius, tube, tubularSegments, radialSegments, p, q);
     var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
     mesh.name = '纽结' + ID++;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
 
     editor.execute(new AddObjectCommand(mesh));
 };

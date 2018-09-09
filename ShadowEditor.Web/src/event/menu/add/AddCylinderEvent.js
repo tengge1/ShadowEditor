@@ -39,6 +39,8 @@ AddCylinderEvent.prototype.onAddCylinder = function () {
     var geometry = new THREE.CylinderBufferGeometry(radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded);
     var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
     mesh.name = '圆柱体' + ID++;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
 
     editor.execute(new AddObjectCommand(mesh));
 };

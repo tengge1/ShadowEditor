@@ -38,6 +38,8 @@ AddTorusEvent.prototype.onAddTorus = function () {
     var geometry = new THREE.TorusBufferGeometry(radius, tube, radialSegments, tubularSegments, arc);
     var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
     mesh.name = '轮胎' + ID++;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
 
     editor.execute(new AddObjectCommand(mesh));
 };

@@ -147,6 +147,7 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
 
         var light2 = new THREE.DirectionalLight(0xffffff, 0.56);
         light2.name = '平行光';
+        light2.castShadow = true;
         light2.position.set(5, 10, 7.5);
         this.addObject(light2);
     }

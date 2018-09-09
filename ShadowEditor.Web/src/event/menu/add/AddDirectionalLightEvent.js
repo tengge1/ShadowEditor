@@ -35,6 +35,7 @@ AddDirectionalLightEvent.prototype.onAddDirectionalLight = function () {
     var light = new THREE.DirectionalLight(color, intensity);
     light.name = '平行光' + ID;
     light.target.name = 'DirectionalLight ' + (ID++) + ' Target';
+    light.castShadow = true;
 
     light.position.set(5, 10, 7.5);
 

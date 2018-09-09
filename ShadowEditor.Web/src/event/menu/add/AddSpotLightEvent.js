@@ -39,6 +39,7 @@ AddSpotLightEvent.prototype.onAddSpotLight = function () {
 
     light.name = '聚光灯' + ID;
     light.target.name = 'SpotLight ' + (ID++) + ' Target';
+    light.castShadow = true;
 
     light.position.set(5, 10, 7.5);
 

@@ -49,6 +49,8 @@ AddLatheEvent.prototype.onAddLathe = function () {
     var geometry = new THREE.LatheBufferGeometry(points, segments, phiStart, phiLength);
     var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ side: THREE.DoubleSide }));
     mesh.name = '花瓶' + ID++;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
 
     editor.execute(new AddObjectCommand(mesh));
 };
