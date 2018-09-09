@@ -1,5 +1,6 @@
 import BaseComponent from './BaseComponent';
 import PlaneGeometryComponent from './geometry/PlaneGeometryComponent';
+import BoxGeometryComponent from './geometry/BoxGeometryComponent';
 
 /**
  * 几何体组件
@@ -44,7 +45,8 @@ GeometryComponent.prototype.render = function () {
                 text: ''
             }]
         },
-        new PlaneGeometryComponent({ app: this.app })
+        new PlaneGeometryComponent({ app: this.app }),
+        new BoxGeometryComponent({ app: this.app })
         ]
     };
 
