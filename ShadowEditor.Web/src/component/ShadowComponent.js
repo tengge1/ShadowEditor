@@ -69,6 +69,25 @@ ShadowComponent.prototype.render = function () {
                 value: 1,
                 onChange: this.onChangeShadowRadius.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            id: 'objectMapSizeRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '贴图尺寸'
+            }, {
+                xtype: 'select',
+                id: 'objectMapSize',
+                scope: this.id,
+                options: {
+                    512: '512*512',
+                    1024: '1024*1024',
+                    2018: '2048*2048'
+                },
+                value: 512,
+                onChange: this.onChangeMapSize.bind(this)
+            }]
         }]
     };
 
@@ -100,20 +119,26 @@ ShadowComponent.prototype.updateUI = function () {
     this.selected = editor.selected;
 
     var objectShadowRadiusRow = UI.get('objectShadowRadiusRow', this.id);
+    var objectMapSizeRow = UI.get('objectMapSizeRow', this.id);
 
     var objectCastShadow = UI.get('objectCastShadow', this.id);
     var objectReceiveShadow = UI.get('objectReceiveShadow', this.id);
     var objectShadowRadius = UI.get('objectShadowRadius', this.id);
+    var objectMapSize = UI.get('objectMapSize', this.id);
 
     objectCastShadow.setValue(this.selected.castShadow);
 
     if (this.selected instanceof THREE.Light) {
         objectReceiveShadow.dom.style.display = 'none';
         objectShadowRadiusRow.dom.style.display = '';
+        objectMapSizeRow.dom.style.display = '';
         objectShadowRadius.setValue(this.selected.shadow.radius);
+        var mapSize = this.selected.shadow.mapSize;
+        objectMapSize.setValue(mapSize.x);
     } else {
         objectReceiveShadow.dom.style.display = '';
         objectShadowRadiusRow.dom.style.display = 'none';
+        objectMapSizeRow.dom.style.display = 'none';
         objectReceiveShadow.setValue(this.selected.receiveShadow);
     }
 };
@@ -147,6 +172,12 @@ ShadowComponent.prototype.updateMaterial = function (material) {
     } else {
         material.needsUpdate = true;
     }
+};
+
+ShadowComponent.prototype.onChangeMapSize = function () {
+    var objectMapSize = UI.get('objectMapSize', this.id);
+    var mapSize = objectMapSize.getValue();
+    this.selected.shadow.mapSize.x = this.selected.shadow.mapSize.y = parseInt(mapSize);
 };
 
 export default ShadowComponent;
