@@ -16,9 +16,9 @@ PlaneGeometryComponent.prototype.constructor = PlaneGeometryComponent;
 PlaneGeometryComponent.prototype.render = function () {
     var data = {
         xtype: 'div',
+        parent: this.parent,
         id: 'geometryPanel',
         scope: this.id,
-        parent: this.parent,
         cls: 'Panel',
         style: {
             borderTop: 0,
@@ -26,7 +26,56 @@ PlaneGeometryComponent.prototype.render = function () {
         },
         children: [{
             xtype: 'row',
-            children: []
+            children: [{
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '宽度'
+                }, {
+                    xtype: 'number',
+                    id: 'width',
+                    scope: this.id,
+                    value: 1,
+                    onChange: this.onChangeWidth.bind(this)
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '高度'
+                }, {
+                    xtype: 'number',
+                    id: 'height',
+                    scope: this.id,
+                    value: 1,
+                    onChange: this.onChangeHeight.bind(this)
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '宽度段数'
+                }, {
+                    xtype: 'int',
+                    id: 'widthSegments',
+                    scope: this.id,
+                    value: 1,
+                    range: [1, Infinity],
+                    onChange: this.onChangeWidthSegments.bind(this)
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '高度段数'
+                }, {
+                    xtype: 'int',
+                    id: 'heightSegments',
+                    value: 1,
+                    range: [1, Infinity],
+                    onChange: this.onChangeHeightSegments.bind(this)
+                }]
+            }]
         }]
     };
 
@@ -56,6 +105,22 @@ PlaneGeometryComponent.prototype.updateUI = function () {
     }
 
     this.selected = editor.selected;
+};
+
+PlaneGeometryComponent.prototype.onChangeWidth = function () {
+
+};
+
+PlaneGeometryComponent.prototype.onChangeHeight = function () {
+
+};
+
+PlaneGeometryComponent.prototype.onChangeWidthSegments = function () {
+
+};
+
+PlaneGeometryComponent.prototype.onChangeHeightSegments = function () {
+
 };
 
 export default PlaneGeometryComponent;
