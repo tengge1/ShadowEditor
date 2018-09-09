@@ -1,5 +1,5 @@
 import BaseComponent from '../BaseComponent';
-import SetValueCommand from '../../command/SetValueCommand';
+import SetGeometryCommand from '../../command/SetGeometryCommand';
 
 /**
  * 平板组件
@@ -36,7 +36,7 @@ PlaneGeometryComponent.prototype.render = function () {
                     id: 'width',
                     scope: this.id,
                     value: 1,
-                    onChange: this.onChangeWidth.bind(this)
+                    onChange: this.onChangeGeometry.bind(this)
                 }]
             }, {
                 xtype: 'row',
@@ -48,7 +48,7 @@ PlaneGeometryComponent.prototype.render = function () {
                     id: 'height',
                     scope: this.id,
                     value: 1,
-                    onChange: this.onChangeHeight.bind(this)
+                    onChange: this.onChangeGeometry.bind(this)
                 }]
             }, {
                 xtype: 'row',
@@ -61,7 +61,7 @@ PlaneGeometryComponent.prototype.render = function () {
                     scope: this.id,
                     value: 1,
                     range: [1, Infinity],
-                    onChange: this.onChangeWidthSegments.bind(this)
+                    onChange: this.onChangeGeometry.bind(this)
                 }]
             }, {
                 xtype: 'row',
@@ -71,9 +71,10 @@ PlaneGeometryComponent.prototype.render = function () {
                 }, {
                     xtype: 'int',
                     id: 'heightSegments',
+                    scope: this.id,
                     value: 1,
                     range: [1, Infinity],
-                    onChange: this.onChangeHeightSegments.bind(this)
+                    onChange: this.onChangeGeometry.bind(this)
                 }]
             }]
         }]
@@ -105,22 +106,30 @@ PlaneGeometryComponent.prototype.updateUI = function () {
     }
 
     this.selected = editor.selected;
+
+    var width = UI.get('width', this.id);
+    var height = UI.get('height', this.id);
+    var widthSegments = UI.get('widthSegments', this.id);
+    var heightSegments = UI.get('heightSegments', this.id);
+
+    width.setValue(this.selected.geometry.parameters.width);
+    height.setValue(this.selected.geometry.parameters.height);
+    widthSegments.setValue(this.selected.geometry.parameters.widthSegments);
+    heightSegments.setValue(this.selected.geometry.parameters.heightSegments);
 };
 
-PlaneGeometryComponent.prototype.onChangeWidth = function () {
+PlaneGeometryComponent.prototype.onChangeGeometry = function () {
+    var width = UI.get('width', this.id);
+    var height = UI.get('height', this.id);
+    var widthSegments = UI.get('widthSegments', this.id);
+    var heightSegments = UI.get('heightSegments', this.id);
 
-};
-
-PlaneGeometryComponent.prototype.onChangeHeight = function () {
-
-};
-
-PlaneGeometryComponent.prototype.onChangeWidthSegments = function () {
-
-};
-
-PlaneGeometryComponent.prototype.onChangeHeightSegments = function () {
-
+    this.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.PlaneBufferGeometry(
+        width.getValue(),
+        height.getValue(),
+        widthSegments.getValue(),
+        heightSegments.getValue()
+    )));
 };
 
 export default PlaneGeometryComponent;
