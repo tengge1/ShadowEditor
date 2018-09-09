@@ -32,6 +32,17 @@ GeometryComponent.prototype.render = function () {
                 },
                 text: '几何组件'
             }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '类型'
+            }, {
+                xtype: 'text',
+                id: 'name',
+                scope: this.id,
+                text: ''
+            }]
         },
         new PlaneGeometryComponent({ app: this.app })
         ]
@@ -52,8 +63,10 @@ GeometryComponent.prototype.updateUI = function () {
     var editor = this.app.editor;
     if (editor.selected && editor.selected instanceof THREE.Mesh) {
         container.dom.style.display = '';
+        UI.get('name', this.id).setValue(editor.selected.geometry.constructor.name);
     } else {
         container.dom.style.display = 'none';
+        UI.get('name', this.id).setValue('');
     }
 };
 
