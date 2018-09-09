@@ -36,6 +36,8 @@ ShadowComponent.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
+            id: 'objectShadowRow',
+            scope: this.id,
             children: [{
                 xtype: 'label',
                 text: '阴影'
@@ -53,6 +55,14 @@ ShadowComponent.prototype.render = function () {
                 value: false,
                 text: '接收',
                 onChange: this.onChangeReceiveShadow.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'objectShadowRadiusRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '半径'
             }, {
                 xtype: 'number',
                 id: 'objectShadowRadius',
@@ -90,7 +100,23 @@ ShadowComponent.prototype.updateUI = function () {
 
     this.selected = editor.selected;
 
+    var objectShadowRadiusRow = UI.get('objectShadowRadiusRow', this.id);
 
+    var objectCastShadow = UI.get('objectCastShadow', this.id);
+    var objectReceiveShadow = UI.get('objectReceiveShadow', this.id);
+    var objectShadowRadius = UI.get('objectShadowRadius', this.id);
+
+    objectCastShadow.setValue(this.selected.castShadow);
+
+    if (this.selected instanceof THREE.Light) {
+        objectReceiveShadow.dom.style.display = 'none';
+        objectShadowRadiusRow.dom.style.display = '';
+        objectShadowRadius.setValue(this.selected.shadow.radius);
+    } else {
+        objectReceiveShadow.dom.style.display = '';
+        objectShadowRadiusRow.dom.style.display = 'none';
+        objectReceiveShadow.setValue(this.selected.receiveShadow);
+    }
 };
 
 ShadowComponent.prototype.onChangeCastShadow = function () {
