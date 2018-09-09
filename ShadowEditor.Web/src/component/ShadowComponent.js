@@ -103,6 +103,96 @@ ShadowComponent.prototype.render = function () {
                 range: [0, 1],
                 onChange: this.onChangeBias.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            id: 'objectCameraLeftRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '相机左'
+            }, {
+                xtype: 'number',
+                id: 'objectCameraLeft',
+                scope: this.id,
+                value: -5,
+                range: [0, Infinity],
+                onChange: this.onChangeCameraLeft.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'objectCameraRightRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '相机右'
+            }, {
+                xtype: 'number',
+                id: 'objectCameraRight',
+                scope: this.id,
+                value: 5,
+                range: [0, Infinity],
+                onChange: this.onChangeCameraRight.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'objectCameraTopRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '相机上'
+            }, {
+                xtype: 'number',
+                id: 'objectCameraTop',
+                scope: this.id,
+                value: 5,
+                range: [0, Infinity],
+                onChange: this.onChangeCameraTop.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'objectCameraBottomRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '相机下'
+            }, {
+                xtype: 'number',
+                id: 'objectCameraBottom',
+                scope: this.id,
+                value: -5,
+                range: [0, Infinity],
+                onChange: this.onChangeCameraBottom.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'objectCameraNearRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '相机近'
+            }, {
+                xtype: 'number',
+                id: 'objectCameraNear',
+                scope: this.id,
+                value: 0.5,
+                range: [0, Infinity],
+                onChange: this.onChangeCameraNear.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'objectCameraFarRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '相机远'
+            }, {
+                xtype: 'number',
+                id: 'objectCameraFar',
+                scope: this.id,
+                value: 0.5,
+                range: [0, Infinity],
+                onChange: this.onChangeCameraFar.bind(this)
+            }]
         }]
     };
 
@@ -136,12 +226,24 @@ ShadowComponent.prototype.updateUI = function () {
     var objectShadowRadiusRow = UI.get('objectShadowRadiusRow', this.id);
     var objectMapSizeRow = UI.get('objectMapSizeRow', this.id);
     var objectBiasRow = UI.get('objectBiasRow', this.id);
+    var objectCameraLeftRow = UI.get('objectCameraLeftRow', this.id);
+    var objectCameraRightRow = UI.get('objectCameraRightRow', this.id);
+    var objectCameraTopRow = UI.get('objectCameraTopRow', this.id);
+    var objectCameraBottomRow = UI.get('objectCameraBottomRow', this.id);
+    var objectCameraNearRow = UI.get('objectCameraNearRow', this.id);
+    var objectCameraFarRow = UI.get('objectCameraFarRow', this.id);
 
     var objectCastShadow = UI.get('objectCastShadow', this.id);
     var objectReceiveShadow = UI.get('objectReceiveShadow', this.id);
     var objectShadowRadius = UI.get('objectShadowRadius', this.id);
     var objectMapSize = UI.get('objectMapSize', this.id);
     var objectBias = UI.get('objectBias', this.id);
+    var objectCameraLeft = UI.get('objectCameraLeft', this.id);
+    var objectCameraRight = UI.get('objectCameraRight', this.id);
+    var objectCameraTop = UI.get('objectCameraTop', this.id);
+    var objectCameraBottom = UI.get('objectCameraBottom', this.id);
+    var objectCameraNear = UI.get('objectCameraNear', this.id);
+    var objectCameraFar = UI.get('objectCameraFar', this.id);
 
     objectCastShadow.setValue(this.selected.castShadow);
 
@@ -150,15 +252,35 @@ ShadowComponent.prototype.updateUI = function () {
         objectShadowRadiusRow.dom.style.display = '';
         objectMapSizeRow.dom.style.display = '';
         objectBiasRow.dom.style.display = '';
+        objectCameraLeftRow.dom.style.display = '';
+        objectCameraRightRow.dom.style.display = '';
+        objectCameraTopRow.dom.style.display = '';
+        objectCameraBottomRow.dom.style.display = '';
+        objectCameraNearRow.dom.style.display = '';
+        objectCameraFarRow.dom.style.display = '';
+
         objectShadowRadius.setValue(this.selected.shadow.radius);
         var mapSize = this.selected.shadow.mapSize;
         objectMapSize.setValue(mapSize.x);
         objectBias.setValue(this.selected.shadow.bias);
+        objectCameraLeft.setValue(this.selected.shadow.camera.left);
+        objectCameraRight.setValue(this.selected.shadow.camera.right);
+        objectCameraTop.setValue(this.selected.shadow.camera.top);
+        objectCameraBottom.setValue(this.selected.shadow.camera.bottom);
+        objectCameraNear.setValue(this.selected.shadow.camera.near);
+        objectCameraFar.setValue(this.selected.shadow.camera.far);
     } else {
         objectReceiveShadow.dom.style.display = '';
         objectShadowRadiusRow.dom.style.display = 'none';
         objectMapSizeRow.dom.style.display = 'none';
         objectBiasRow.dom.style.display = 'none';
+        objectCameraLeftRow.dom.style.display = 'none';
+        objectCameraRightRow.dom.style.display = 'none';
+        objectCameraTopRow.dom.style.display = 'none';
+        objectCameraBottomRow.dom.style.display = 'none';
+        objectCameraNearRow.dom.style.display = 'none';
+        objectCameraFarRow.dom.style.display = 'none';
+
         objectReceiveShadow.setValue(this.selected.receiveShadow);
     }
 };
@@ -203,6 +325,30 @@ ShadowComponent.prototype.onChangeMapSize = function () {
 ShadowComponent.prototype.onChangeBias = function () {
     var objectBias = UI.get('objectBias', this.id);
     this.selected.shadow.bias = objectBias.getValue();
+};
+
+ShadowComponent.prototype.onChangeCameraLeft = function () {
+
+};
+
+ShadowComponent.prototype.onChangeCameraRight = function () {
+
+};
+
+ShadowComponent.prototype.onChangeCameraTop = function () {
+
+};
+
+ShadowComponent.prototype.onChangeCameraBottom = function () {
+
+};
+
+ShadowComponent.prototype.onChangeCameraNear = function () {
+
+};
+
+ShadowComponent.prototype.onChangeCameraFar = function () {
+
 };
 
 export default ShadowComponent;
