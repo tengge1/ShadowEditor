@@ -4,6 +4,7 @@ import BoxGeometryComponent from './geometry/BoxGeometryComponent';
 import CircleGeometryComponent from './geometry/CircleGeometryComponent';
 import CylinderGeometryComponent from './geometry/CylinderGeometryComponent';
 import SphereGeometryComponent from './geometry/SphereGeometryComponent';
+import IcosahedronGeometryComponent from './geometry/IcosahedronGeometryComponent';
 
 /**
  * 几何体组件
@@ -53,7 +54,8 @@ GeometryComponent.prototype.render = function () {
         new BoxGeometryComponent({ app: this.app }),
         new CircleGeometryComponent({ app: this.app }),
         new CylinderGeometryComponent({ app: this.app }),
-        new SphereGeometryComponent({ app: this.app })
+        new SphereGeometryComponent({ app: this.app }),
+        new IcosahedronGeometryComponent({ app: this.app })
         ]
     };
 
