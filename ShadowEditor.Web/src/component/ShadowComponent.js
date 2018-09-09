@@ -88,6 +88,21 @@ ShadowComponent.prototype.render = function () {
                 value: 512,
                 onChange: this.onChangeMapSize.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            id: 'objectBiasRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '偏差'
+            }, {
+                xtype: 'number',
+                id: 'objectBias',
+                scope: this.id,
+                value: 0,
+                range: [0, 1],
+                onChange: this.onChangeBias.bind(this)
+            }]
         }]
     };
 
@@ -120,11 +135,13 @@ ShadowComponent.prototype.updateUI = function () {
 
     var objectShadowRadiusRow = UI.get('objectShadowRadiusRow', this.id);
     var objectMapSizeRow = UI.get('objectMapSizeRow', this.id);
+    var objectBiasRow = UI.get('objectBiasRow', this.id);
 
     var objectCastShadow = UI.get('objectCastShadow', this.id);
     var objectReceiveShadow = UI.get('objectReceiveShadow', this.id);
     var objectShadowRadius = UI.get('objectShadowRadius', this.id);
     var objectMapSize = UI.get('objectMapSize', this.id);
+    var objectBias = UI.get('objectBias', this.id);
 
     objectCastShadow.setValue(this.selected.castShadow);
 
@@ -132,13 +149,16 @@ ShadowComponent.prototype.updateUI = function () {
         objectReceiveShadow.dom.style.display = 'none';
         objectShadowRadiusRow.dom.style.display = '';
         objectMapSizeRow.dom.style.display = '';
+        objectBiasRow.dom.style.display = '';
         objectShadowRadius.setValue(this.selected.shadow.radius);
         var mapSize = this.selected.shadow.mapSize;
         objectMapSize.setValue(mapSize.x);
+        objectBias.setValue(this.selected.shadow.bias);
     } else {
         objectReceiveShadow.dom.style.display = '';
         objectShadowRadiusRow.dom.style.display = 'none';
         objectMapSizeRow.dom.style.display = 'none';
+        objectBiasRow.dom.style.display = 'none';
         objectReceiveShadow.setValue(this.selected.receiveShadow);
     }
 };
@@ -178,6 +198,11 @@ ShadowComponent.prototype.onChangeMapSize = function () {
     var objectMapSize = UI.get('objectMapSize', this.id);
     var mapSize = objectMapSize.getValue();
     this.selected.shadow.mapSize.x = this.selected.shadow.mapSize.y = parseInt(mapSize);
+};
+
+ShadowComponent.prototype.onChangeBias = function () {
+    var objectBias = UI.get('objectBias', this.id);
+    this.selected.shadow.bias = objectBias.getValue();
 };
 
 export default ShadowComponent;
