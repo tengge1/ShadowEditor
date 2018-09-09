@@ -59,6 +59,17 @@ BasicComponent.prototype.render = function () {
                 id: 'objectType',
                 scope: this.id
             }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '可见性'
+            }, {
+                xtype: 'checkbox',
+                id: 'objectVisible',
+                scope: this.id,
+                onChange: this.onChangeVisible.bind(this)
+            }]
         }]
     };
 
@@ -90,6 +101,7 @@ BasicComponent.prototype.updateUI = function () {
     this.selected = editor.selected;
     UI.get('objectName', this.id).setValue(this.selected.name);
     UI.get('objectType', this.id).setValue(this.selected.constructor.name);
+    UI.get('objectVisible', this.id).setValue(this.selected.visible);
 };
 
 BasicComponent.prototype.onChangeName = function () {
@@ -97,6 +109,10 @@ BasicComponent.prototype.onChangeName = function () {
     var editor = this.app.editor;
 
     editor.execute(new SetValueCommand(this.selected, 'name', objectName.getValue()));
+};
+
+BasicComponent.prototype.onChangeVisible = function () {
+    this.selected.visible = UI.get('objectVisible', this.id).getValue();
 };
 
 export default BasicComponent;
