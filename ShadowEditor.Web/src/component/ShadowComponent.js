@@ -108,7 +108,7 @@ ShadowComponent.prototype.updateUI = function () {
 
     objectCastShadow.setValue(this.selected.castShadow);
 
-    if (this.selected instanceof THREE.Light) {
+    if (this.selected instanceof THREE.DirectionalLight || this.selected instanceof THREE.PointLight || this.selected instanceof THREE.SpotLight) {
         objectReceiveShadow.dom.style.display = 'none';
         objectShadowRadiusRow.dom.style.display = '';
         objectShadowRadius.setValue(this.selected.shadow.radius);
@@ -120,15 +120,18 @@ ShadowComponent.prototype.updateUI = function () {
 };
 
 ShadowComponent.prototype.onChangeCastShadow = function () {
-
+    var objectCastShadow = UI.get('objectCastShadow', this.id);
+    this.selected.castShadow = objectCastShadow.getValue();
 };
 
 ShadowComponent.prototype.onChangeReceiveShadow = function () {
-
+    var objectReceiveShadow = UI.get('objectReceiveShadow', this.id);
+    this.selected.receiveShadow = objectReceiveShadow.getValue();
 };
 
 ShadowComponent.prototype.onChangeShadowRadius = function () {
-
+    var objectShadowRadius = UI.get('objectShadowRadius', this.id);
+    this.selected.shadow.radius = objectShadowRadius.getValue();
 };
 
 export default ShadowComponent;
