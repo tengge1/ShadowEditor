@@ -2,6 +2,7 @@ import BaseComponent from './BaseComponent';
 import PlaneGeometryComponent from './geometry/PlaneGeometryComponent';
 import BoxGeometryComponent from './geometry/BoxGeometryComponent';
 import CircleGeometryComponent from './geometry/CircleGeometryComponent';
+import CylinderGeometryComponent from './geometry/CylinderGeometryComponent';
 
 /**
  * 几何体组件
@@ -48,7 +49,8 @@ GeometryComponent.prototype.render = function () {
         },
         new PlaneGeometryComponent({ app: this.app }),
         new BoxGeometryComponent({ app: this.app }),
-        new CircleGeometryComponent({ app: this.app })
+        new CircleGeometryComponent({ app: this.app }),
+        new CylinderGeometryComponent({ app: this.app })
         ]
     };
 
