@@ -66,7 +66,7 @@ BoxGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '宽度段数'
+                    text: '宽度分段'
                 }, {
                     xtype: 'int',
                     id: 'widthSegments',
@@ -79,7 +79,7 @@ BoxGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '高度段数'
+                    text: '高度分段'
                 }, {
                     xtype: 'int',
                     id: 'heightSegments',
@@ -92,7 +92,7 @@ BoxGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '深度段数'
+                    text: '深度分段'
                 }, {
                     xtype: 'int',
                     id: 'depthSegments',

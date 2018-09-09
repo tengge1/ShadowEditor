@@ -54,7 +54,7 @@ PlaneGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '宽度段数'
+                    text: '宽度分段'
                 }, {
                     xtype: 'int',
                     id: 'widthSegments',
@@ -67,7 +67,7 @@ PlaneGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '高度段数'
+                    text: '高度分段'
                 }, {
                     xtype: 'int',
                     id: 'heightSegments',

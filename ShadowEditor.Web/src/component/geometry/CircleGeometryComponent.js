@@ -40,7 +40,7 @@ CircleGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '段数'
+                text: '分段'
             }, {
                 xtype: 'int',
                 id: 'segments',
