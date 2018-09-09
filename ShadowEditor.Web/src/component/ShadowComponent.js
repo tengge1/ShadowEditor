@@ -328,27 +328,39 @@ ShadowComponent.prototype.onChangeBias = function () {
 };
 
 ShadowComponent.prototype.onChangeCameraLeft = function () {
-
+    var objectCameraLeft = UI.get('objectCameraLeft', this.id);
+    this.selected.shadow.camera.left = objectCameraLeft.getValue();
+    this.selected.shadow.camera.updateProjectionMatrix();
 };
 
 ShadowComponent.prototype.onChangeCameraRight = function () {
-
+    var objectCameraRight = UI.get('objectCameraRight', this.id);
+    this.selected.shadow.camera.right = objectCameraRight.getValue();
+    this.selected.shadow.camera.updateProjectionMatrix();
 };
 
 ShadowComponent.prototype.onChangeCameraTop = function () {
-
+    var objectCameraTop = UI.get('objectCameraTop', this.id);
+    this.selected.shadow.camera.top = objectCameraTop.getValue();
+    this.selected.shadow.camera.updateProjectionMatrix();
 };
 
 ShadowComponent.prototype.onChangeCameraBottom = function () {
-
+    var objectCameraBottom = UI.get('objectCameraBottom', this.id);
+    this.selected.shadow.camera.bottom = objectCameraBottom.getValue();
+    this.selected.shadow.camera.updateProjectionMatrix();
 };
 
 ShadowComponent.prototype.onChangeCameraNear = function () {
-
+    var objectCameraNear = UI.get('objectCameraNear', this.id);
+    this.selected.shadow.camera.near = objectCameraNear.getValue();
+    this.selected.shadow.camera.updateProjectionMatrix();
 };
 
 ShadowComponent.prototype.onChangeCameraFar = function () {
-
+    var objectCameraFar = UI.get('objectCameraFar', this.id);
+    this.selected.shadow.camera.far = objectCameraFar.getValue();
+    this.selected.shadow.camera.updateProjectionMatrix();
 };
 
 export default ShadowComponent;
