@@ -78,7 +78,6 @@ import SceneOptionsEvent from './menu/options/SceneOptionsEvent';
 import RendererOptionsEvent from './menu/options/RendererOptionsEvent';
 
 // 侧边栏
-import GeometryPanelEvent from './sideBar/GeometryPanelEvent';
 import MaterialPanelEvent from './sideBar/MaterialPanelEvent';
 import ScenePanelEvent from './sidebar/ScenePanelEvent';
 
@@ -176,7 +175,6 @@ function EventDispatcher(app) {
         new RendererOptionsEvent(this.app),
 
         // 侧边栏
-        new GeometryPanelEvent(this.app),
         new MaterialPanelEvent(this.app),
         new ScenePanelEvent(this.app),
 
