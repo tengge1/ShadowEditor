@@ -91,7 +91,7 @@ ShadowComponent.prototype.onObjectChanged = function () {
 ShadowComponent.prototype.updateUI = function () {
     var container = UI.get('shadowPanel', this.id);
     var editor = this.app.editor;
-    if (editor.selected && (editor.selected instanceof THREE.Mesh || editor.selected instanceof THREE.Light)) {
+    if (editor.selected && (editor.selected instanceof THREE.Mesh || editor.selected instanceof THREE.DirectionalLight || editor.selected instanceof THREE.PointLight || editor.selected instanceof THREE.SpotLight)) {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
@@ -108,7 +108,7 @@ ShadowComponent.prototype.updateUI = function () {
 
     objectCastShadow.setValue(this.selected.castShadow);
 
-    if (this.selected instanceof THREE.DirectionalLight || this.selected instanceof THREE.PointLight || this.selected instanceof THREE.SpotLight) {
+    if (this.selected instanceof THREE.Light) {
         objectReceiveShadow.dom.style.display = 'none';
         objectShadowRadiusRow.dom.style.display = '';
         objectShadowRadius.setValue(this.selected.shadow.radius);
@@ -122,16 +122,32 @@ ShadowComponent.prototype.updateUI = function () {
 ShadowComponent.prototype.onChangeCastShadow = function () {
     var objectCastShadow = UI.get('objectCastShadow', this.id);
     this.selected.castShadow = objectCastShadow.getValue();
+    if (this.selected instanceof THREE.Mesh) {
+        this.updateMaterial(this.selected.material);
+    }
 };
 
 ShadowComponent.prototype.onChangeReceiveShadow = function () {
     var objectReceiveShadow = UI.get('objectReceiveShadow', this.id);
     this.selected.receiveShadow = objectReceiveShadow.getValue();
+    if (this.selected instanceof THREE.Mesh) {
+        this.updateMaterial(this.selected.material);
+    }
 };
 
 ShadowComponent.prototype.onChangeShadowRadius = function () {
     var objectShadowRadius = UI.get('objectShadowRadius', this.id);
     this.selected.shadow.radius = objectShadowRadius.getValue();
+};
+
+ShadowComponent.prototype.updateMaterial = function (material) {
+    if (Array.isArray(material)) {
+        material.forEach(n => {
+            n.needsUpdate = true;
+        });
+    } else {
+        material.needsUpdate = true;
+    }
 };
 
 export default ShadowComponent;
