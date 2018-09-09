@@ -7,6 +7,7 @@ import SphereGeometryComponent from './geometry/SphereGeometryComponent';
 import IcosahedronGeometryComponent from './geometry/IcosahedronGeometryComponent';
 import TorusGeometryComponent from './geometry/TorusGeometryComponent';
 import TorusKnotGeometryComponent from './geometry/TorusKnotGeometryComponent';
+import LatheGeometryComponent from './geometry/LatheGeometryComponent';
 
 /**
  * 几何体组件
@@ -59,7 +60,8 @@ GeometryComponent.prototype.render = function () {
         new SphereGeometryComponent({ app: this.app }),
         new IcosahedronGeometryComponent({ app: this.app }),
         new TorusGeometryComponent({ app: this.app }),
-        new TorusKnotGeometryComponent({ app: this.app })
+        new TorusKnotGeometryComponent({ app: this.app }),
+        new LatheGeometryComponent({ app: this.app })
         ]
     };
 
