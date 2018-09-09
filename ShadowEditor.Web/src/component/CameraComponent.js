@@ -21,7 +21,6 @@ CameraComponent.prototype.render = function () {
         parent: this.parent,
         cls: 'Panel',
         style: {
-            borderTop: 0,
             display: 'none'
         },
         children: [{
