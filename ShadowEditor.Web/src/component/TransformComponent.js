@@ -6,6 +6,7 @@ import SetScaleCommand from '../command/SetScaleCommand';
 
 /**
  * 位移组件
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function TransformComponent(options) {

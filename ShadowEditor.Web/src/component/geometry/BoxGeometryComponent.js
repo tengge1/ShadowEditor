@@ -3,6 +3,7 @@ import SetGeometryCommand from '../../command/SetGeometryCommand';
 
 /**
  * 正方体组件
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function BoxGeometryComponent(options) {

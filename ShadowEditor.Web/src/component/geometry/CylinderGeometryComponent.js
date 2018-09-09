@@ -3,6 +3,7 @@ import SetGeometryCommand from '../../command/SetGeometryCommand';
 
 /**
  * 圆柱组件
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function CylinderGeometryComponent(options) {

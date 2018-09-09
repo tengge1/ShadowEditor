@@ -3,6 +3,7 @@ import SetValueCommand from '../command/SetValueCommand';
 
 /**
  * 基本信息组件
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function BasicComponent(options) {

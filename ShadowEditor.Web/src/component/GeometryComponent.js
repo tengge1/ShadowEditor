@@ -6,6 +6,7 @@ import CylinderGeometryComponent from './geometry/CylinderGeometryComponent';
 
 /**
  * 几何体组件
+ * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
 function GeometryComponent(options) {
