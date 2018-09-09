@@ -1,8 +1,8 @@
-import BaseComponent from './BaseComponent';
-import SetValueCommand from '../command/SetValueCommand';
+import BaseComponent from '../BaseComponent';
+import SetValueCommand from '../../command/SetValueCommand';
 
 /**
- * 基本信息组件
+ * 平板组件
  * @param {*} options 
  */
 function PlaneGeometryComponent(options) {
@@ -16,7 +16,7 @@ PlaneGeometryComponent.prototype.constructor = PlaneGeometryComponent;
 PlaneGeometryComponent.prototype.render = function () {
     var data = {
         xtype: 'div',
-        id: 'objectPanel',
+        id: 'geometryPanel',
         scope: this.id,
         parent: this.parent,
         cls: 'Panel',
@@ -26,50 +26,7 @@ PlaneGeometryComponent.prototype.render = function () {
         },
         children: [{
             xtype: 'row',
-            children: [{
-                xtype: 'label',
-                style: {
-                    color: '#555',
-                    fontWeight: 'bold'
-                },
-                text: '基本信息'
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: '名称'
-            }, {
-                xtype: 'input',
-                id: 'objectName',
-                scope: this.id,
-                style: {
-                    width: '100px',
-                    fontSize: '12px'
-                },
-                onChange: this.onChangeName.bind(this)
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: '类型'
-            }, {
-                xtype: 'text',
-                id: 'objectType',
-                scope: this.id
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: '可见性'
-            }, {
-                xtype: 'checkbox',
-                id: 'objectVisible',
-                scope: this.id,
-                onChange: this.onChangeVisible.bind(this)
-            }]
+            children: []
         }]
     };
 
@@ -89,9 +46,9 @@ PlaneGeometryComponent.prototype.onObjectChanged = function () {
 };
 
 PlaneGeometryComponent.prototype.updateUI = function () {
-    var container = UI.get('objectPanel', this.id);
+    var container = UI.get('geometryPanel', this.id);
     var editor = this.app.editor;
-    if (editor.selected) {
+    if (editor.selected && editor.selected instanceof THREE.Mesh && editor.selected.geometry instanceof THREE.PlaneBufferGeometry) {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
@@ -99,20 +56,6 @@ PlaneGeometryComponent.prototype.updateUI = function () {
     }
 
     this.selected = editor.selected;
-    UI.get('objectName', this.id).setValue(this.selected.name);
-    UI.get('objectType', this.id).setValue(this.selected.constructor.name);
-    UI.get('objectVisible', this.id).setValue(this.selected.visible);
-};
-
-PlaneGeometryComponent.prototype.onChangeName = function () {
-    var objectName = UI.get('objectName', this.id);
-    var editor = this.app.editor;
-
-    editor.execute(new SetValueCommand(this.selected, 'name', objectName.getValue()));
-};
-
-PlaneGeometryComponent.prototype.onChangeVisible = function () {
-    this.selected.visible = UI.get('objectVisible', this.id).getValue();
 };
 
 export default PlaneGeometryComponent;
