@@ -22,7 +22,6 @@ MaterialComponent.prototype.render = function () {
         parent: this.parent,
         cls: 'Panel',
         style: {
-            borderTop: 0,
             display: 'none'
         },
         children: [{
@@ -639,24 +638,15 @@ MaterialComponent.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
-            id: 'shadingRow',
+            id: 'flatShadingRow',
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '着色'
+                text: '平滑'
             }, {
-                xtype: 'select',
-                id: 'shading',
+                xtype: 'checkbox',
+                id: 'flatShading',
                 scope: this.id,
-                options: {
-                    0: '无',
-                    1: '平坦',
-                    2: '光滑'
-                },
-                style: {
-                    width: '100px',
-                    fontSize: '12px'
-                },
                 onChange: () => {
 
                 }
@@ -803,11 +793,82 @@ MaterialComponent.prototype.updateUI = function () {
 
     this.selected = editor.selected;
 
-    var material = this.selected.material;
+    this.setRowVisibility();
+    this.setRowValue();
+};
 
-    // 根据选中物体为控件赋值
+MaterialComponent.prototype.setRowVisibility = function () {
     var programRow = UI.get('programRow', this.id);
+    var colorRow = UI.get('colorRow', this.id);
+    var roughnessRow = UI.get('roughnessRow', this.id);
+    var metalnessRow = UI.get('metalnessRow', this.id);
+    var emissiveRow = UI.get('emissiveRow', this.id);
+    var specularRow = UI.get('specularRow', this.id);
+    var shininessRow = UI.get('shininessRow', this.id);
+    var clearCoatRow = UI.get('clearCoatRow', this.id);
+    var clearCoatRoughnessRow = UI.get('clearCoatRoughnessRow', this.id);
+    var vertexColorsRow = UI.get('vertexColorsRow', this.id);
+    var skinningRow = UI.get('skinningRow', this.id);
+    var mapRow = UI.get('mapRow', this.id);
+    var alphaMapRow = UI.get('alphaMapRow', this.id);
+    var bumpMapRow = UI.get('bumpMapRow', this.id);
+    var normalMapRow = UI.get('normalMapRow', this.id);
+    var displacementMapRow = UI.get('displacementMapRow', this.id);
+    var roughnessMapRow = UI.get('roughnessMapRow', this.id);
+    var metalnessMapRow = UI.get('metalnessMapRow', this.id);
+    var specularMapRow = UI.get('specularMapRow', this.id);
+    var envMapRow = UI.get('envMapRow', this.id);
+    var lightMapRow = UI.get('lightMapRow', this.id);
+    var aoMapRow = UI.get('aoMapRow', this.id);
+    var emissiveMapRow = UI.get('emissiveMapRow', this.id);
+    var sideRow = UI.get('sideRow', this.id);
+    var flatShadingRow = UI.get('flatShadingRow', this.id);
+    var blendingRow = UI.get('blendingRow', this.id);
+    var opacityRow = UI.get('opacityRow', this.id);
+    var transparentRow = UI.get('transparentRow', this.id);
+    var alphaTestRow = UI.get('alphaTestRow', this.id);
+    var wireframeRow = UI.get('wireframeRow', this.id);
 
+    var properties = {
+        'vertexShader': programRow,
+        'color': colorRow,
+        'roughness': roughnessRow,
+        'metalness': metalnessRow,
+        'emissive': emissiveRow,
+        'specular': specularRow,
+        'shininess': shininessRow,
+        'clearCoat': clearCoatRow,
+        'clearCoatRoughness': clearCoatRoughnessRow,
+        'vertexColors': vertexColorsRow,
+        'skinning': skinningRow,
+        'map': mapRow,
+        'alphaMap': alphaMapRow,
+        'bumpMap': bumpMapRow,
+        'normalMap': normalMapRow,
+        'displacementMap': displacementMapRow,
+        'roughnessMap': roughnessMapRow,
+        'metalnessMap': metalnessMapRow,
+        'specularMap': specularMapRow,
+        'envMap': envMapRow,
+        'lightMap': lightMapRow,
+        'aoMap': aoMapRow,
+        'emissiveMap': emissiveMapRow,
+        'side': sideRow,
+        'flatShading': flatShadingRow,
+        'blending': blendingRow,
+        'opacity': opacityRow,
+        'transparent': transparentRow,
+        'alphaTest': alphaTestRow,
+        'wireframe': wireframeRow
+    };
+
+    var material = this.selected.material;
+    for (var property in properties) {
+        properties[property].dom.style.display = material[property] === undefined ? 'none' : ''
+    }
+};
+
+MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     var type = UI.get('type', this.id);
     var color = UI.get('color', this.id);
     var roughness = UI.get('roughness', this.id);
@@ -815,21 +876,228 @@ MaterialComponent.prototype.updateUI = function () {
     var emissive = UI.get('emissive', this.id);
     var specular = UI.get('specular', this.id);
     var shininess = UI.get('shininess', this.id);
+    var clearCoat = UI.get('clearCoat', this.id);
+    var clearCoatRoughness = UI.get('clearCoatRoughness', this.id);
+    var vertexColors = UI.get('vertexColors', this.id);
+    var skinning = UI.get('skinning', this.id);
+    var mapEnabled = UI.get('mapEnabled', this.id);
+    var map = UI.get('map', this.id);
+    var alphaMapEnabled = UI.get('alphaMapEnabled', this.id);
+    var alphaMap = UI.get('alphaMap', this.id);
+    var bumpMapEnabled = UI.get('bumpMapEnabled', this.id);
+    var bumpMap = UI.get('bumpMap', this.id);
+    var bumpScale = UI.get('bumpScale', this.id);
+    var normalMapEnabled = UI.get('normalMapEnabled', this.id);
+    var normalMap = UI.get('normalMap', this.id);
+    var displacementMapEnabled = UI.get('displacementMapEnabled', this.id);
+    var displacementMap = UI.get('displacementMap', this.id);
+    var displacementScale = UI.get('displacementScale', this.id);
+    var roughnessMapEnabled = UI.get('roughnessMapEnabled', this.id);
+    var roughnessMap = UI.get('roughnessMap', this.id);
+    var metalnessMapEnabled = UI.get('metalnessMapEnabled', this.id);
+    var metalnessMap = UI.get('metalnessMap', this.id);
+    var specularMapEnabled = UI.get('specularMapEnabled', this.id);
+    var specularMap = UI.get('specularMap', this.id);
+    var envMapEnabled = UI.get('envMapEnabled', this.id);
+    var envMap = UI.get('envMap', this.id);
+    var reflectivity = UI.get('reflectivity', this.id);
+    var lightMapEnabled = UI.get('lightMapEnabled', this.id);
+    var lightMap = UI.get('lightMap', this.id);
+    var aoMapEnabled = UI.get('aoMapEnabled', this.id);
+    var aoMap = UI.get('aoMap', this.id);
+    var aoScale = UI.get('aoScale', this.id);
+    var emissiveMapEnabled = UI.get('emissiveMapEnabled', this.id);
+    var emissiveMap = UI.get('emissiveMap', this.id);
+    var side = UI.get('side', this.id);
+    var flatShading = UI.get('flatShading', this.id);
+    var blending = UI.get('blending', this.id);
+    var opacity = UI.get('opacity', this.id);
+    var transparent = UI.get('transparent', this.id);
+    var alphaTest = UI.get('alphaTest', this.id);
+    var wireframe = UI.get('wireframe', this.id);
+    var wireframeLinewidth = UI.get('wireframeLinewidth', this.id);
 
-    type.setValue(material.constructor.name);
+    var material = this.selected.material;
 
-    if (material instanceof THREE.ShaderMaterial || material instanceof THREE.RawShaderMaterial) {
-        programRow.dom.style.display = '';
-    } else {
-        programRow.dom.style.display = 'none';
+    type.setValue(material.type);
+
+    if (material.color !== undefined) {
+        color.setHexValue(material.color.getHexString());
     }
 
-    color.setValue(`#${material.color.getHexString()}`);
-    roughness.setValue(material.roughness);
-    metalness.setValue(material.metalness);
-    emissive.setValue(`#${material.emissive.getHexString()}`);
-    specular.setValue(`#${material.specular === undefined ? '111111' : material.specular.getHexString()}`);
-    shininess.setValue(material.shininess);
+    if (material.roughness !== undefined) {
+        roughness.setValue(material.roughness);
+    }
+
+    if (material.metalness !== undefined) {
+        metalness.setValue(material.metalness);
+    }
+
+    if (material.emissive !== undefined) {
+        emissive.setHexValue(material.emissive.getHexString());
+    }
+
+    if (material.specular !== undefined) {
+        specular.setHexValue(material.specular.getHexString());
+    }
+
+    if (material.shininess !== undefined) {
+        shininess.setValue(material.shininess);
+    }
+
+    if (material.clearCoat !== undefined) {
+        clearCoat.setValue(material.clearCoat);
+    }
+
+    if (material.clearCoatRoughness !== undefined) {
+        clearCoatRoughness.setValue(material.clearCoatRoughness);
+    }
+
+    if (material.vertexColors !== undefined) {
+        vertexColors.setValue(material.vertexColors);
+    }
+
+    if (material.skinning !== undefined) {
+        skinning.setValue(material.skinning);
+    }
+
+    if (material.map !== undefined) {
+        mapEnabled.setValue(material.map !== null);
+
+        if (material.map !== null || resetTextureSelectors) {
+            map.setValue(material.map);
+        }
+    }
+
+    if (material.alphaMap !== undefined) {
+        alphaMapEnabled.setValue(material.alphaMap !== null);
+
+        if (material.alphaMap !== null || resetTextureSelectors) {
+            alphaMap.setValue(material.alphaMap);
+        }
+    }
+
+    if (material.bumpMap !== undefined) {
+        bumpMapEnabled.setValue(material.bumpMap !== null);
+
+        if (material.bumpMap !== null || resetTextureSelectors) {
+            bumpMap.setValue(material.bumpMap);
+        }
+
+        bumpScale.setValue(material.bumpScale);
+    }
+
+    if (material.normalMap !== undefined) {
+        normalMapEnabled.setValue(material.normalMap !== null);
+
+        if (material.normalMap !== null || resetTextureSelectors) {
+            normalMap.setValue(material.normalMap);
+        }
+    }
+
+    if (material.displacementMap !== undefined) {
+        displacementMapEnabled.setValue(material.displacementMap !== null);
+
+        if (material.displacementMap !== null || resetTextureSelectors) {
+            displacementMap.setValue(material.displacementMap);
+        }
+
+        displacementScale.setValue(material.displacementScale);
+    }
+
+    if (material.roughnessMap !== undefined) {
+        roughnessMapEnabled.setValue(material.roughnessMap !== null);
+
+        if (material.roughnessMap !== null || resetTextureSelectors) {
+            roughnessMap.setValue(material.roughnessMap);
+        }
+    }
+
+    if (material.metalnessMap !== undefined) {
+        metalnessMapEnabled.setValue(material.metalnessMap !== null);
+
+        if (material.metalnessMap !== null || resetTextureSelectors) {
+            metalnessMap.setValue(material.metalnessMap);
+        }
+    }
+
+    if (material.specularMap !== undefined) {
+        specularMapEnabled.setValue(material.specularMap !== null);
+
+        if (material.specularMap !== null || resetTextureSelectors) {
+            specularMap.setValue(material.specularMap);
+        }
+    }
+
+    if (material.envMap !== undefined) {
+        envMapEnabled.setValue(material.envMap !== null);
+
+        if (material.envMap !== null || resetTextureSelectors) {
+            envMap.setValue(material.envMap);
+        }
+    }
+
+    if (material.reflectivity !== undefined) {
+        reflectivity.setValue(material.reflectivity);
+    }
+
+    if (material.lightMap !== undefined) {
+        lightMapEnabled.setValue(material.lightMap !== null);
+
+        if (material.lightMap !== null || resetTextureSelectors) {
+            lightMap.setValue(material.lightMap);
+        }
+    }
+
+    if (material.aoMap !== undefined) {
+        aoMapEnabled.setValue(material.aoMap !== null);
+
+        if (material.aoMap !== null || resetTextureSelectors) {
+            aoMap.setValue(material.aoMap);
+        }
+
+        aoScale.setValue(material.aoMapIntensity);
+    }
+
+    if (material.emissiveMap !== undefined) {
+        emissiveMapEnabled.setValue(material.emissiveMap !== null);
+
+        if (material.emissiveMap !== null || resetTextureSelectors) {
+            emissiveMap.setValue(material.emissiveMap);
+        }
+    }
+
+    if (material.side !== undefined) {
+        side.setValue(material.side);
+    }
+
+    if (material.flatShading !== undefined) {
+        flatShading.setValue(material.flatShading);
+    }
+
+    if (material.blending !== undefined) {
+        blending.setValue(material.blending);
+    }
+
+    if (material.opacity !== undefined) {
+        opacity.setValue(material.opacity);
+    }
+
+    if (material.transparent !== undefined) {
+        transparent.setValue(material.transparent);
+    }
+
+    if (material.alphaTest !== undefined) {
+        alphaTest.setValue(material.alphaTest);
+    }
+
+    if (material.wireframe !== undefined) {
+        wireframe.setValue(material.wireframe);
+    }
+
+    if (material.wireframeLinewidth !== undefined) {
+        wireframeLinewidth.setValue(material.wireframeLinewidth);
+    }
 };
 
 export default MaterialComponent;
