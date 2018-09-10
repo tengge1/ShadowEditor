@@ -78,7 +78,6 @@ import SceneOptionsEvent from './menu/options/SceneOptionsEvent';
 import RendererOptionsEvent from './menu/options/RendererOptionsEvent';
 
 // 侧边栏
-import MaterialPanelEvent from './sideBar/MaterialPanelEvent';
 import ScenePanelEvent from './sidebar/ScenePanelEvent';
 
 import TransformControlsEvent from './viewport/TransformControlsEvent';
@@ -175,7 +174,6 @@ function EventDispatcher(app) {
         new RendererOptionsEvent(this.app),
 
         // 侧边栏
-        new MaterialPanelEvent(this.app),
         new ScenePanelEvent(this.app),
 
         // viewport中的事件

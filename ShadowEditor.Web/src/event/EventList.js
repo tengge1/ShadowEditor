@@ -131,13 +131,7 @@ var EventList = [
     'animate', // 进行动画
 
     // 侧边栏
-    'newMaterial', // 材质面板新建材质
-    'copyMaterial', // 材质面板复制材质
-    'pasteMaterial', // 材质面板粘贴材质
-    'updateMaterial', // 根据材质面板更新材质
-    'updateMaterialPanel', // 更新材质面板UI
-
-    'selectTab', // 切换侧边栏选项卡 scene,setting,history,log
+    'selectTab', // 切换侧边栏选项卡 scene,setting,history
     'selectPropertyTab', // 切换属性选项卡
 
     // 状态栏

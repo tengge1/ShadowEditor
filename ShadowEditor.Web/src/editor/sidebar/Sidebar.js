@@ -1,5 +1,5 @@
 ﻿import UI from '../../ui/UI';
-import PropertyPanel from './property/PropertyPanel';
+import PropertyPanel from './PropertyPanel';
 import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
 

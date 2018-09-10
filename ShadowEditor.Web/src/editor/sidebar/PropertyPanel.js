@@ -1,12 +1,11 @@
-﻿import UI from '../../../ui/UI';
-import MaterialPanel from './MaterialPanel';
-import BasicComponent from '../../../component/BasicComponent';
-import TransformComponent from '../../../component/TransformComponent';
-import CameraComponent from '../../../component/CameraComponent';
-import LightComponent from '../../../component/LightComponent';
-import ShadowComponent from '../../../component/ShadowComponent';
-import GeometryComponent from '../../../component/GeometryComponent';
-import MaterialComponent from '../../../component/MaterialComponent';
+﻿import UI from '../../ui/UI';
+import BasicComponent from '../../component/BasicComponent';
+import TransformComponent from '../../component/TransformComponent';
+import CameraComponent from '../../component/CameraComponent';
+import LightComponent from '../../component/LightComponent';
+import ShadowComponent from '../../component/ShadowComponent';
+import GeometryComponent from '../../component/GeometryComponent';
+import MaterialComponent from '../../component/MaterialComponent';
 
 /**
  * 属性面板
@@ -33,14 +32,7 @@ PropertyPanel.prototype.render = function () {
             new ShadowComponent({ app: this.app }),
             new GeometryComponent({ app: this.app }),
             new MaterialComponent({ app: this.app }),
-            {
-                xtype: 'div',
-                id: 'materialPanel',
-                scope: this.id,
-                children: [
-                    new MaterialPanel({ app: this.app })
-                ]
-            }]
+        ]
     };
 
     var control = UI.create(data);
