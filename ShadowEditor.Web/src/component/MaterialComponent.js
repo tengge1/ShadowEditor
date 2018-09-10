@@ -1,8 +1,12 @@
 import BaseComponent from './BaseComponent';
+import SetMaterialCommand from '../command/SetMaterialCommand';
+import SetMaterialColorCommand from '../command/SetMaterialColorCommand';
 import SetMaterialValueCommand from '../command/SetMaterialValueCommand';
+import SetMaterialMapCommand from '../command/SetMaterialMapCommand';
 
 /**
  * 材质组件
+ * @author mrdoob / http://mrdoob.com/
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
@@ -62,9 +66,7 @@ MaterialComponent.prototype.render = function () {
                     width: '100px',
                     fontSize: '12px'
                 },
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -118,9 +120,7 @@ MaterialComponent.prototype.render = function () {
                 xtype: 'color',
                 id: 'color',
                 scope: this.id,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -138,9 +138,7 @@ MaterialComponent.prototype.render = function () {
                     width: '60px'
                 },
                 range: [0, 1],
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -158,9 +156,7 @@ MaterialComponent.prototype.render = function () {
                     width: '60px'
                 },
                 range: [0, 1],
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -174,9 +170,7 @@ MaterialComponent.prototype.render = function () {
                 id: 'emissive',
                 scope: this.id,
                 value: 0x000000,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -190,9 +184,7 @@ MaterialComponent.prototype.render = function () {
                 id: 'specular',
                 scope: this.id,
                 value: 0x111111,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -206,9 +198,7 @@ MaterialComponent.prototype.render = function () {
                 id: 'shininess',
                 scope: this.id,
                 value: 30,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -226,9 +216,7 @@ MaterialComponent.prototype.render = function () {
                     width: '60px'
                 },
                 range: [0, 1],
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -246,9 +234,7 @@ MaterialComponent.prototype.render = function () {
                     width: '60px'
                 },
                 range: [0, 1],
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -266,9 +252,7 @@ MaterialComponent.prototype.render = function () {
                     1: '面',
                     2: '顶点'
                 },
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -282,9 +266,7 @@ MaterialComponent.prototype.render = function () {
                 id: 'skinning',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -298,16 +280,12 @@ MaterialComponent.prototype.render = function () {
                 id: 'mapEnabled',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'texture',
                 id: 'map',
                 scope: this.id,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -321,16 +299,12 @@ MaterialComponent.prototype.render = function () {
                 id: 'alphaMapEnabled',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'texture',
                 id: 'alphaMap',
                 scope: this.id,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -344,9 +318,7 @@ MaterialComponent.prototype.render = function () {
                 id: 'bumpMapEnabled',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'texture',
                 id: 'bumpMap',
@@ -355,9 +327,7 @@ MaterialComponent.prototype.render = function () {
                 style: {
                     width: '30px'
                 },
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'number',
                 id: 'bumpScale',
@@ -366,9 +336,7 @@ MaterialComponent.prototype.render = function () {
                 style: {
                     width: '30px'
                 },
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -382,16 +350,12 @@ MaterialComponent.prototype.render = function () {
                 id: 'normalMapEnabled',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'texture',
                 id: 'normalMap',
                 scope: this.id,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -405,16 +369,12 @@ MaterialComponent.prototype.render = function () {
                 id: 'displacementMapEnabled',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'texture',
                 id: 'displacementMap',
                 scope: this.id,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'number',
                 id: 'displacementScale',
@@ -423,9 +383,7 @@ MaterialComponent.prototype.render = function () {
                 style: {
                     width: '30px'
                 },
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -439,16 +397,12 @@ MaterialComponent.prototype.render = function () {
                 id: 'roughnessMapEnabled',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'texture',
                 id: 'roughnessMap',
                 scope: this.id,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -462,16 +416,12 @@ MaterialComponent.prototype.render = function () {
                 id: 'metalnessMapEnabled',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'texture',
                 id: 'metalnessMap',
                 scope: this.id,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -485,16 +435,12 @@ MaterialComponent.prototype.render = function () {
                 id: 'specularMapEnabled',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'texture',
                 id: 'specularMap',
                 scope: this.id,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -508,17 +454,13 @@ MaterialComponent.prototype.render = function () {
                 id: 'envMapEnabled',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'texture',
                 id: 'envMap',
                 scope: this.id,
                 mapping: THREE.SphericalReflectionMapping,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'number',
                 id: 'reflectivity',
@@ -527,9 +469,7 @@ MaterialComponent.prototype.render = function () {
                 style: {
                     width: '30px'
                 },
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -543,16 +483,12 @@ MaterialComponent.prototype.render = function () {
                 id: 'lightMapEnabled',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'texture',
                 id: 'lightMap',
                 scope: this.id,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -566,16 +502,12 @@ MaterialComponent.prototype.render = function () {
                 id: 'aoMapEnabled',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'texture',
                 id: 'aoMap',
                 scope: this.id,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'number',
                 id: 'aoScale',
@@ -585,9 +517,7 @@ MaterialComponent.prototype.render = function () {
                 style: {
                     width: '30px'
                 },
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -601,16 +531,12 @@ MaterialComponent.prototype.render = function () {
                 id: 'emissiveMapEnabled',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'texture',
                 id: 'emissiveMap',
                 scope: this.id,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -632,9 +558,7 @@ MaterialComponent.prototype.render = function () {
                     width: '100px',
                     fontSize: '12px'
                 },
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -647,9 +571,7 @@ MaterialComponent.prototype.render = function () {
                 xtype: 'checkbox',
                 id: 'flatShading',
                 scope: this.id,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -674,9 +596,7 @@ MaterialComponent.prototype.render = function () {
                     width: '100px',
                     fontSize: '12px'
                 },
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -694,9 +614,7 @@ MaterialComponent.prototype.render = function () {
                     width: '60px'
                 },
                 range: [0, 1],
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -712,9 +630,7 @@ MaterialComponent.prototype.render = function () {
                 style: {
                     left: '100px'
                 },
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -731,9 +647,7 @@ MaterialComponent.prototype.render = function () {
                     width: '60px'
                 },
                 range: [0, 1],
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -747,9 +661,7 @@ MaterialComponent.prototype.render = function () {
                 id: 'wireframe',
                 scope: this.id,
                 value: false,
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }, {
                 xtype: 'number',
                 id: 'wireframeLinewidth',
@@ -759,9 +671,7 @@ MaterialComponent.prototype.render = function () {
                     width: '60px'
                 },
                 range: [0, 100],
-                onChange: () => {
-
-                }
+                onChange: this.updateMaterial.bind(this)
             }]
         }]
     };
@@ -1097,6 +1007,355 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
 
     if (material.wireframeLinewidth !== undefined) {
         wireframeLinewidth.setValue(material.wireframeLinewidth);
+    }
+};
+
+MaterialComponent.prototype.updateMaterial = function () {
+    var type = UI.get('type', this.id);
+    var color = UI.get('color', this.id);
+    var roughness = UI.get('roughness', this.id);
+    var metalness = UI.get('metalness', this.id);
+    var emissive = UI.get('emissive', this.id);
+    var specular = UI.get('specular', this.id);
+    var shininess = UI.get('shininess', this.id);
+    var clearCoat = UI.get('clearCoat', this.id);
+    var clearCoatRoughness = UI.get('clearCoatRoughness', this.id);
+    var vertexColors = UI.get('vertexColors', this.id);
+    var skinning = UI.get('skinning', this.id);
+    var mapEnabled = UI.get('mapEnabled', this.id);
+    var map = UI.get('map', this.id);
+    var alphaMapEnabled = UI.get('alphaMapEnabled', this.id);
+    var alphaMap = UI.get('alphaMap', this.id);
+    var bumpMapEnabled = UI.get('bumpMapEnabled', this.id);
+    var bumpMap = UI.get('bumpMap', this.id);
+    var bumpScale = UI.get('bumpScale', this.id);
+    var normalMapEnabled = UI.get('normalMapEnabled', this.id);
+    var normalMap = UI.get('normalMap', this.id);
+    var displacementMapEnabled = UI.get('displacementMapEnabled', this.id);
+    var displacementMap = UI.get('displacementMap', this.id);
+    var displacementScale = UI.get('displacementScale', this.id);
+    var roughnessMapEnabled = UI.get('roughnessMapEnabled', this.id);
+    var roughnessMap = UI.get('roughnessMap', this.id);
+    var metalnessMapEnabled = UI.get('metalnessMapEnabled', this.id);
+    var metalnessMap = UI.get('metalnessMap', this.id);
+    var specularMapEnabled = UI.get('specularMapEnabled', this.id);
+    var specularMap = UI.get('specularMap', this.id);
+    var envMapEnabled = UI.get('envMapEnabled', this.id);
+    var envMap = UI.get('envMap', this.id);
+    var reflectivity = UI.get('reflectivity', this.id);
+    var lightMapEnabled = UI.get('lightMapEnabled', this.id);
+    var lightMap = UI.get('lightMap', this.id);
+    var aoMapEnabled = UI.get('aoMapEnabled', this.id);
+    var aoMap = UI.get('aoMap', this.id);
+    var aoScale = UI.get('aoScale', this.id);
+    var emissiveMapEnabled = UI.get('emissiveMapEnabled', this.id);
+    var emissiveMap = UI.get('emissiveMap', this.id);
+    var side = UI.get('side', this.id);
+    var flatShading = UI.get('flatShading', this.id);
+    var blending = UI.get('blending', this.id);
+    var opacity = UI.get('opacity', this.id);
+    var transparent = UI.get('transparent', this.id);
+    var alphaTest = UI.get('alphaTest', this.id);
+    var wireframe = UI.get('wireframe', this.id);
+    var wireframeLinewidth = UI.get('wireframeLinewidth', this.id);
+
+    var editor = this.app.editor;
+    var object = this.selected;
+    var geometry = object.geometry;
+    var material = object.material;
+
+    var textureWarning = false;
+    var objectHasUvs = false;
+
+    if (object instanceof THREE.Sprite) {
+        objectHasUvs = true;
+    }
+
+    if (geometry instanceof THREE.Geometry && geometry.faceVertexUvs[0].length > 0) {
+        objectHasUvs = true;
+    }
+
+    if (geometry instanceof THREE.BufferGeometry && geometry.attributes.uv !== undefined) {
+        objectHasUvs = true;
+    }
+
+    if (material instanceof THREE[type.getValue()] === false) {
+        material = new THREE[type.getValue()]();
+        editor.execute(new SetMaterialCommand(object, material), '新材质：' + type.getValue());
+    }
+
+    if (material.color !== undefined && material.color.getHex() !== color.getHexValue()) {
+        editor.execute(new SetMaterialColorCommand(object, 'color', color.getHexValue()));
+    }
+
+    if (material.roughness !== undefined && Math.abs(material.roughness - roughness.getValue()) >= 0.01) {
+        editor.execute(new SetMaterialValueCommand(object, 'roughness', roughness.getValue()));
+    }
+
+    if (material.metalness !== undefined && Math.abs(material.metalness - metalness.getValue()) >= 0.01) {
+        editor.execute(new SetMaterialValueCommand(object, 'metalness', metalness.getValue()));
+    }
+
+    if (material.emissive !== undefined && material.emissive.getHex() !== emissive.getHexValue()) {
+        editor.execute(new SetMaterialColorCommand(object, 'emissive', emissive.getHexValue()));
+    }
+
+    if (material.specular !== undefined && material.specular.getHex() !== specular.getHexValue()) {
+        editor.execute(new SetMaterialColorCommand(object, 'specular', specular.getHexValue()));
+    }
+
+    if (material.shininess !== undefined && Math.abs(material.shininess - shininess.getValue()) >= 0.01) {
+        editor.execute(new SetMaterialValueCommand(object, 'shininess', shininess.getValue()));
+    }
+
+    if (material.clearCoat !== undefined && Math.abs(material.clearCoat - clearCoat.getValue()) >= 0.01) {
+        editor.execute(new SetMaterialValueCommand(object, 'clearCoat', clearCoat.getValue()));
+    }
+
+    if (material.clearCoatRoughness !== undefined && Math.abs(material.clearCoatRoughness - clearCoatRoughness.getValue()) >= 0.01) {
+        editor.execute(new SetMaterialValueCommand(object, 'clearCoatRoughness', clearCoatRoughness.getValue()));
+    }
+
+    if (material.vertexColors !== undefined) {
+        if (material.vertexColors !== parseInt(vertexColors.getValue())) {
+            editor.execute(new SetMaterialValueCommand(object, 'vertexColors', parseInt(vertexColors.getValue())));
+        }
+    }
+
+    if (material.skinning !== undefined && material.skinning !== skinning.getValue()) {
+        editor.execute(new SetMaterialValueCommand(object, 'skinning', skinning.getValue()));
+    }
+
+    if (material.map !== undefined) {
+        var mapEnabled = mapEnabled.getValue() === true;
+        if (objectHasUvs) {
+            var map = mapEnabled ? map.getValue() : null;
+            if (material.map !== map) {
+                editor.execute(new SetMaterialMapCommand(object, 'map', map));
+            }
+        } else {
+            if (mapEnabled) textureWarning = true;
+        }
+    }
+
+    if (material.alphaMap !== undefined) {
+        var mapEnabled = alphaMapEnabled.getValue() === true;
+
+        if (objectHasUvs) {
+            var alphaMap = mapEnabled ? alphaMap.getValue() : null;
+
+            if (material.alphaMap !== alphaMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'alphaMap', alphaMap));
+            }
+        } else {
+            if (mapEnabled) textureWarning = true;
+        }
+    }
+
+    if (material.bumpMap !== undefined) {
+        var bumpMapEnabled = bumpMapEnabled.getValue() === true;
+
+        if (objectHasUvs) {
+            var bumpMap = bumpMapEnabled ? bumpMap.getValue() : null;
+
+            if (material.bumpMap !== bumpMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'bumpMap', bumpMap));
+            }
+
+            if (material.bumpScale !== bumpScale.getValue()) {
+                editor.execute(new SetMaterialValueCommand(object, 'bumpScale', bumpScale.getValue()));
+            }
+        } else {
+            if (bumpMapEnabled) textureWarning = true;
+        }
+    }
+
+    if (material.normalMap !== undefined) {
+        var normalMapEnabled = normalMapEnabled.getValue() === true;
+
+        if (objectHasUvs) {
+            var normalMap = normalMapEnabled ? normalMap.getValue() : null;
+
+            if (material.normalMap !== normalMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'normalMap', normalMap));
+            }
+        } else {
+            if (normalMapEnabled) textureWarning = true;
+        }
+    }
+
+    if (material.displacementMap !== undefined) {
+        var displacementMapEnabled = displacementMapEnabled.getValue() === true;
+
+        if (objectHasUvs) {
+            var displacementMap = displacementMapEnabled ? displacementMap.getValue() : null;
+
+            if (material.displacementMap !== displacementMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'displacementMap', displacementMap));
+            }
+
+            if (material.displacementScale !== displacementScale.getValue()) {
+                editor.execute(new SetMaterialValueCommand(object, 'displacementScale', displacementScale.getValue()));
+            }
+        } else {
+            if (displacementMapEnabled) textureWarning = true;
+        }
+
+    }
+
+    if (material.roughnessMap !== undefined) {
+        var roughnessMapEnabled = roughnessMapEnabled.getValue() === true;
+
+        if (objectHasUvs) {
+            var roughnessMap = roughnessMapEnabled ? roughnessMap.getValue() : null;
+
+            if (material.roughnessMap !== roughnessMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'roughnessMap', roughnessMap));
+            }
+        } else {
+            if (roughnessMapEnabled) textureWarning = true;
+        }
+    }
+
+    if (material.metalnessMap !== undefined) {
+        var metalnessMapEnabled = metalnessMapEnabled.getValue() === true;
+
+        if (objectHasUvs) {
+            var metalnessMap = metalnessMapEnabled ? metalnessMap.getValue() : null;
+
+            if (material.metalnessMap !== metalnessMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'metalnessMap', metalnessMap));
+            }
+        } else {
+            if (metalnessMapEnabled) textureWarning = true;
+        }
+    }
+
+    if (material.specularMap !== undefined) {
+        var specularMapEnabled = specularMapEnabled.getValue() === true;
+
+        if (objectHasUvs) {
+            var specularMap = specularMapEnabled ? specularMap.getValue() : null;
+
+            if (material.specularMap !== specularMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'specularMap', specularMap));
+            }
+        } else {
+            if (specularMapEnabled) textureWarning = true;
+        }
+    }
+
+    if (material.envMap !== undefined) {
+        var envMapEnabled = envMapEnabled.getValue() === true;
+        var envMap = envMapEnabled ? envMap.getValue() : null;
+
+        if (material.envMap !== envMap) {
+            editor.execute(new SetMaterialMapCommand(object, 'envMap', envMap));
+        }
+    }
+
+    if (material.reflectivity !== undefined) {
+        var reflectivity = reflectivity.getValue();
+
+        if (material.reflectivity !== reflectivity) {
+            editor.execute(new SetMaterialValueCommand(object, 'reflectivity', reflectivity));
+        }
+    }
+
+    if (material.lightMap !== undefined) {
+        var lightMapEnabled = lightMapEnabled.getValue() === true;
+
+        if (objectHasUvs) {
+            var lightMap = lightMapEnabled ? lightMap.getValue() : null;
+
+            if (material.lightMap !== lightMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'lightMap', lightMap));
+            }
+        } else {
+            if (lightMapEnabled) textureWarning = true;
+        }
+    }
+
+    if (material.aoMap !== undefined) {
+        var aoMapEnabled = aoMapEnabled.getValue() === true;
+
+        if (objectHasUvs) {
+            var aoMap = aoMapEnabled ? aoMap.getValue() : null;
+
+            if (material.aoMap !== aoMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'aoMap', aoMap));
+            }
+
+            if (material.aoMapIntensity !== aoScale.getValue()) {
+                editor.execute(new SetMaterialValueCommand(object, 'aoMapIntensity', aoScale.getValue()));
+            }
+        } else {
+            if (aoMapEnabled) textureWarning = true;
+        }
+    }
+
+    if (material.emissiveMap !== undefined) {
+        var emissiveMapEnabled = emissiveMapEnabled.getValue() === true;
+
+        if (objectHasUvs) {
+            var emissiveMap = emissiveMapEnabled ? emissiveMap.getValue() : null;
+
+            if (material.emissiveMap !== emissiveMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'emissiveMap', emissiveMap));
+            }
+        } else {
+            if (emissiveMapEnabled) textureWarning = true;
+        }
+    }
+
+    if (material.side !== undefined) {
+        var side = parseInt(side.getValue());
+
+        if (material.side !== side) {
+            editor.execute(new SetMaterialValueCommand(object, 'side', side));
+        }
+    }
+
+    if (material.flatShading !== undefined) {
+        var flatShading = flatShading.getValue();
+
+        if (material.flatShading != flatShading) {
+            editor.execute(new SetMaterialValueCommand(object, 'flatShading', flatShading));
+        }
+    }
+
+    if (material.blending !== undefined) {
+        var blending = parseInt(blending.getValue());
+
+        if (material.blending !== blending) {
+            editor.execute(new SetMaterialValueCommand(object, 'blending', blending));
+        }
+    }
+
+    if (material.opacity !== undefined && Math.abs(material.opacity - opacity.getValue()) >= 0.01) {
+        editor.execute(new SetMaterialValueCommand(object, 'opacity', opacity.getValue()));
+    }
+
+    if (material.transparent !== undefined && material.transparent !== transparent.getValue()) {
+        editor.execute(new SetMaterialValueCommand(object, 'transparent', transparent.getValue()));
+    }
+
+    if (material.alphaTest !== undefined && Math.abs(material.alphaTest - alphaTest.getValue()) >= 0.01) {
+        editor.execute(new SetMaterialValueCommand(object, 'alphaTest', alphaTest.getValue()));
+    }
+
+    if (material.wireframe !== undefined && material.wireframe !== wireframe.getValue()) {
+        editor.execute(new SetMaterialValueCommand(object, 'wireframe', wireframe.getValue()));
+    }
+
+    if (material.wireframeLinewidth !== undefined && Math.abs(material.wireframeLinewidth - wireframeLinewidth.getValue()) >= 0.01) {
+        editor.execute(new SetMaterialValueCommand(object, 'wireframeLinewidth', wireframeLinewidth.getValue()));
+    }
+
+    this.updateUI();
+
+    if (textureWarning) {
+        console.warn(`无法设置纹理，${this.selected.name}的材质没有纹理坐标！`);
     }
 };
 
