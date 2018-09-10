@@ -778,7 +778,7 @@ MaterialComponent.prototype.setRowVisibility = function () {
     }
 };
 
-MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
+MaterialComponent.prototype.setRowValue = function () {
     var type = UI.get('type', this.id);
     var color = UI.get('color', this.id);
     var roughness = UI.get('roughness', this.id);
@@ -874,7 +874,7 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     if (material.map !== undefined) {
         mapEnabled.setValue(material.map !== null);
 
-        if (material.map !== null || resetTextureSelectors) {
+        if (material.map !== null) {
             map.setValue(material.map);
         }
     }
@@ -882,7 +882,7 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     if (material.alphaMap !== undefined) {
         alphaMapEnabled.setValue(material.alphaMap !== null);
 
-        if (material.alphaMap !== null || resetTextureSelectors) {
+        if (material.alphaMap !== null) {
             alphaMap.setValue(material.alphaMap);
         }
     }
@@ -890,7 +890,7 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     if (material.bumpMap !== undefined) {
         bumpMapEnabled.setValue(material.bumpMap !== null);
 
-        if (material.bumpMap !== null || resetTextureSelectors) {
+        if (material.bumpMap !== null) {
             bumpMap.setValue(material.bumpMap);
         }
 
@@ -900,7 +900,7 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     if (material.normalMap !== undefined) {
         normalMapEnabled.setValue(material.normalMap !== null);
 
-        if (material.normalMap !== null || resetTextureSelectors) {
+        if (material.normalMap !== null) {
             normalMap.setValue(material.normalMap);
         }
     }
@@ -908,7 +908,7 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     if (material.displacementMap !== undefined) {
         displacementMapEnabled.setValue(material.displacementMap !== null);
 
-        if (material.displacementMap !== null || resetTextureSelectors) {
+        if (material.displacementMap !== null) {
             displacementMap.setValue(material.displacementMap);
         }
 
@@ -918,7 +918,7 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     if (material.roughnessMap !== undefined) {
         roughnessMapEnabled.setValue(material.roughnessMap !== null);
 
-        if (material.roughnessMap !== null || resetTextureSelectors) {
+        if (material.roughnessMap !== null) {
             roughnessMap.setValue(material.roughnessMap);
         }
     }
@@ -926,7 +926,7 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     if (material.metalnessMap !== undefined) {
         metalnessMapEnabled.setValue(material.metalnessMap !== null);
 
-        if (material.metalnessMap !== null || resetTextureSelectors) {
+        if (material.metalnessMap !== null) {
             metalnessMap.setValue(material.metalnessMap);
         }
     }
@@ -934,7 +934,7 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     if (material.specularMap !== undefined) {
         specularMapEnabled.setValue(material.specularMap !== null);
 
-        if (material.specularMap !== null || resetTextureSelectors) {
+        if (material.specularMap !== null) {
             specularMap.setValue(material.specularMap);
         }
     }
@@ -942,7 +942,7 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     if (material.envMap !== undefined) {
         envMapEnabled.setValue(material.envMap !== null);
 
-        if (material.envMap !== null || resetTextureSelectors) {
+        if (material.envMap !== null) {
             envMap.setValue(material.envMap);
         }
     }
@@ -954,7 +954,7 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     if (material.lightMap !== undefined) {
         lightMapEnabled.setValue(material.lightMap !== null);
 
-        if (material.lightMap !== null || resetTextureSelectors) {
+        if (material.lightMap !== null) {
             lightMap.setValue(material.lightMap);
         }
     }
@@ -962,7 +962,7 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     if (material.aoMap !== undefined) {
         aoMapEnabled.setValue(material.aoMap !== null);
 
-        if (material.aoMap !== null || resetTextureSelectors) {
+        if (material.aoMap !== null) {
             aoMap.setValue(material.aoMap);
         }
 
@@ -972,7 +972,7 @@ MaterialComponent.prototype.setRowValue = function (resetTextureSelectors) {
     if (material.emissiveMap !== undefined) {
         emissiveMapEnabled.setValue(material.emissiveMap !== null);
 
-        if (material.emissiveMap !== null || resetTextureSelectors) {
+        if (material.emissiveMap !== null) {
             emissiveMap.setValue(material.emissiveMap);
         }
     }
