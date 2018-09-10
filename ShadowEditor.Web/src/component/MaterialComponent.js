@@ -810,6 +810,11 @@ MaterialComponent.prototype.updateUI = function () {
 
     var type = UI.get('type', this.id);
     var color = UI.get('color', this.id);
+    var roughness = UI.get('roughness', this.id);
+    var metalness = UI.get('metalness', this.id);
+    var emissive = UI.get('emissive', this.id);
+    var specular = UI.get('specular', this.id);
+    var shininess = UI.get('shininess', this.id);
 
     type.setValue(material.constructor.name);
 
@@ -820,7 +825,11 @@ MaterialComponent.prototype.updateUI = function () {
     }
 
     color.setValue(`#${material.color.getHexString()}`);
-
+    roughness.setValue(material.roughness);
+    metalness.setValue(material.metalness);
+    emissive.setValue(`#${material.emissive.getHexString()}`);
+    specular.setValue(`#${material.specular === undefined ? '111111' : material.specular.getHexString()}`);
+    shininess.setValue(material.shininess);
 };
 
 export default MaterialComponent;
