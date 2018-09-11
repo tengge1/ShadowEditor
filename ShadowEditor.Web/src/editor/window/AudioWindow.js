@@ -3,6 +3,8 @@ import Ajax from '../../utils/Ajax';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import UploadUtils from '../../utils/UploadUtils';
 
+var ID = -1;
+
 /**
  * 音频窗口
  * @author tengge / https://github.com/tengge1
@@ -180,15 +182,26 @@ AudioWindow.prototype.onClickImage = function (imgs, index, btn) {
         return;
     }
 
-    this.onLoadModel(model);
+    this.onLoad(model);
 };
 
 /**
  * 添加模型到场景
  * @param {*} model 
  */
-AudioWindow.prototype.onLoadModel = function (model) {
-    
+AudioWindow.prototype.onLoad = function (model) {
+    var listener = this.app.editor.audioListener;
+
+    var sound = new THREE.Audio(listener);
+
+    var loader = new THREE.AudioLoader();
+
+    loader.load(this.app.options.server + model.Url, buffer => {
+        sound.setBuffer(buffer);
+        sound.setLoop(true);
+        sound.setVolume(1.0);
+        sound.play();
+    });
 };
 
 /**
