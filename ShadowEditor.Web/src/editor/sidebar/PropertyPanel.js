@@ -7,6 +7,7 @@ import ShadowComponent from '../../component/ShadowComponent';
 import GeometryComponent from '../../component/GeometryComponent';
 import MaterialComponent from '../../component/MaterialComponent';
 import SceneComponent from '../../component/SceneComponent';
+import AudioListenerComponent from '../../component/audio/AudioListenerComponent';
 
 /**
  * 属性面板
@@ -34,6 +35,7 @@ PropertyPanel.prototype.render = function () {
             new ShadowComponent({ app: this.app }),
             new GeometryComponent({ app: this.app }),
             new MaterialComponent({ app: this.app }),
+            new AudioListenerComponent({ app: this.app })
         ]
     };
 
