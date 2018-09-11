@@ -35,6 +35,7 @@ namespace ShadowEditor.Server.Mesh
         ply,
         stl,
         vtk,
-        wrl
+        wrl,
+        lol
     }
 }

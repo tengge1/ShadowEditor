@@ -144,6 +144,33 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".vtk")).FirstOrDefault();
                 meshType = MeshType.vtk;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".lmesh")).Count() > 0) // lol文件
+            {
+                if (files.Where(o => o.ToLower().EndsWith(".lanim")).Count() == -1)
+                {
+                    Directory.Delete(physicalPath, true);
+
+                    return new Result
+                    {
+                        Code = 300,
+                        Msg = "未上传动画(.lanim)文件！"
+                    };
+                }
+
+                if (files.Where(o => o.ToLower().EndsWith(".png")).Count() == -1)
+                {
+                    Directory.Delete(physicalPath, true);
+
+                    return new Result
+                    {
+                        Code = 300,
+                        Msg = "未上传贴图(.png)文件！"
+                    };
+                }
+
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".lmesh")).FirstOrDefault();
+                meshType = MeshType.lol;
+            }
 
             if (entryFileName == null || meshType == MeshType.unknown)
             {
