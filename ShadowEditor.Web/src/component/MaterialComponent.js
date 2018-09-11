@@ -3,6 +3,8 @@ import SetMaterialCommand from '../command/SetMaterialCommand';
 import SetMaterialColorCommand from '../command/SetMaterialColorCommand';
 import SetMaterialValueCommand from '../command/SetMaterialValueCommand';
 import SetMaterialMapCommand from '../command/SetMaterialMapCommand';
+import ShaderMaterialVertex from './shader/shader_material_vertex.glsl';
+import ShaderMaterialFragment from './shader/shader_material_fragment.glsl';
 import RawShaderMaterialVertex from './shader/raw_shader_material_vertex.glsl';
 import RawShaderMaterialFragment from './shader/raw_shader_material_fragment.glsl';
 
@@ -1084,9 +1086,21 @@ MaterialComponent.prototype.updateMaterial = function () {
     if (material instanceof THREE[type.getValue()] === false) {
         material = new THREE[type.getValue()]();
 
+        if (material instanceof THREE.ShaderMaterial) {
+            material.uniforms = {
+                time: {
+                    value: 1.0
+                }
+            };
+            material.vertexShader = ShaderMaterialVertex;
+            material.fragmentShader = ShaderMaterialFragment;
+        }
+
         if (material instanceof THREE.RawShaderMaterial) {
             material.uniforms = {
-                time: { value: 1.0 }
+                time: {
+                    value: 1.0
+                }
             };
             material.vertexShader = RawShaderMaterialVertex;
             material.fragmentShader = RawShaderMaterialFragment;
