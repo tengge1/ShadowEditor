@@ -44,8 +44,7 @@ AudioListenerComponent.prototype.render = function () {
                 xtype: 'number',
                 id: 'masterVolume',
                 scope: this.id,
-                min: 0,
-                max: 1,
+                range: [0, 1],
                 value: 1,
                 onChange: this.onChangeMasterVolume.bind(this)
             }]

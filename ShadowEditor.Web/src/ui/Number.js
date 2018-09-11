@@ -10,10 +10,12 @@ function Number(options) {
     options = options || {};
 
     this.value = options.value === undefined ? 0 : options.value;
-    this.min = options.min === undefined ? -Infinity : options.min;
-    this.max = options.max === undefined ? Infinity : options.max;
+
+    this.min = options.range ? options.range[0] : -Infinity;
+    this.max = options.range ? options.range[1] : Infinity;
+
     this.precision = options.precision === undefined ? 2 : options.precision; // 显示时保留几位小数
-    this.step = options.step === undefined ? 1 : options.step; // 步长
+    this.step = options.step === undefined ? 0.1 : options.step; // 步长
     this.unit = options.unit === undefined ? '' : options.unit; // 单位（显示时跟在数字后面）
     this.cls = options.cls || 'Number';
     this.style = options.style || null;
