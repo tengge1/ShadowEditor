@@ -18,6 +18,7 @@ function AnimationPanel(options) {
 
     this.status = STOP;
     this.sliderLeft = 0;
+    this.speed = 4;
 };
 
 AnimationPanel.prototype = Object.create(UI.Control.prototype);
@@ -60,7 +61,14 @@ AnimationPanel.prototype.render = function () {
                 onClick: this.onStop.bind(this)
             }, {
                 xtype: 'text',
-                text: 'X1'
+                id: 'speed',
+                scope: this.id,
+                style: {
+                    marginLeft: '8px',
+                    color: '#555',
+                    fontSize: '12px'
+                },
+                text: 'X 1'
             }]
         }, {
             xtype: 'div',
@@ -137,16 +145,20 @@ AnimationPanel.prototype.onAppStarted = function () {
 
 AnimationPanel.prototype.updateUI = function () {
     var slider = UI.get('slider', this.id);
+    var speed = UI.get('speed', this.id);
+
     slider.dom.style.left = this.sliderLeft + 'px';
+
+    if (this.speed >= 4) {
+        speed.dom.innerHTML = `X ${this.speed / 4}`;
+    } else {
+        speed.dom.innerHTML = `X 1/${4 / this.speed}`;
+    }
 };
 
 AnimationPanel.prototype.onAnimate = function () {
-    this.sliderLeft++;
+    this.sliderLeft += this.speed / 4;
     this.updateUI();
-};
-
-AnimationPanel.prototype.onBackward = function () {
-
 };
 
 AnimationPanel.prototype.onPlay = function () {
@@ -175,7 +187,17 @@ AnimationPanel.prototype.onPause = function () {
 };
 
 AnimationPanel.prototype.onForward = function () {
+    if (this.speed >= 16) {
+        return;
+    }
+    this.speed *= 2;
+};
 
+AnimationPanel.prototype.onBackward = function () {
+    if (this.speed <= 1) {
+        return;
+    }
+    this.speed /= 2;
 };
 
 AnimationPanel.prototype.onStop = function () {
