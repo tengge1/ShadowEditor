@@ -188,7 +188,7 @@ AudioWindow.prototype.onClickImage = function (imgs, index, btn) {
  * @param {*} model 
  */
 AudioWindow.prototype.onLoadModel = function (model) {
-
+    
 };
 
 /**

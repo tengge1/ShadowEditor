@@ -48,6 +48,10 @@ function Editor(app) {
     this.app.viewport.container.dom.appendChild(this.renderer.domElement);
     this.renderer.setSize(this.app.viewport.container.dom.offsetWidth, this.app.viewport.container.dom.offsetHeight);
 
+    // 音频监听器
+    this.audioListener = new THREE.AudioListener();
+    this.audioListener.name = '音频监听器';
+
     // 物体
     this.object = {};
 
@@ -119,6 +123,10 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
     this.storage.clear();
 
     this.camera.copy(this.DEFAULT_CAMERA);
+
+    if (this.camera.children.findIndex(o => o instanceof THREE.AudioListener) === -1) {
+        this.camera.add(this.audioListener);
+    }
 
     if (this.scene.background instanceof THREE.Texture) {
         this.scene.background = new THREE.Color(0xaaaaaa);
