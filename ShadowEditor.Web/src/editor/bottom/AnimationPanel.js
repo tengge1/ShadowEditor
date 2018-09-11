@@ -1,5 +1,9 @@
 import UI from '../../ui/UI';
 
+const STOP = 0;
+const PLAY = 1;
+const PAUSE = 2;
+
 /**
  * 动画面板
  * @author tengge / https://github.com/tengge1
@@ -12,7 +16,7 @@ function AnimationPanel(options) {
     this.canvas = null;
     this.context = null;
 
-    this.isPlaying = false;
+    this.status = STOP;
     this.sliderLeft = 0;
 };
 
@@ -33,8 +37,19 @@ AnimationPanel.prototype.render = function () {
                 onClick: this.onBackward.bind(this)
             }, {
                 xtype: 'iconbutton',
+                id: 'btnPlay',
+                scope: this.id,
                 icon: 'icon-play',
                 onClick: this.onPlay.bind(this)
+            }, {
+                xtype: 'iconbutton',
+                id: 'btnPause',
+                scope: this.id,
+                icon: 'icon-pause',
+                style: {
+                    display: 'none'
+                },
+                onClick: this.onPause.bind(this)
             }, {
                 xtype: 'iconbutton',
                 icon: 'icon-forward',
@@ -75,7 +90,9 @@ AnimationPanel.prototype.onAppStarted = function () {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    var context = canvas.getContext('2d', { alpha: false });
+    var context = canvas.getContext('2d', {
+        alpha: false
+    });
 
     this.canvas = canvas;
     this.context = context;
@@ -92,7 +109,8 @@ AnimationPanel.prototype.onAppStarted = function () {
     var scale4 = scale / 4;
 
     for (var i = 0.5; i <= width; i += scale) {
-        context.moveTo(i + (scale4 * 0), 22); context.lineTo(i + (scale4 * 0), 30);
+        context.moveTo(i + (scale4 * 0), 22);
+        context.lineTo(i + (scale4 * 0), 30);
 
         if (scale > 16) context.moveTo(i + (scale4 * 1), 26), context.lineTo(i + (scale4 * 1), 30);
         if (scale > 8) context.moveTo(i + (scale4 * 2), 26), context.lineTo(i + (scale4 * 2), 30);
@@ -111,7 +129,7 @@ AnimationPanel.prototype.onAppStarted = function () {
         var minute = Math.floor(i / 60);
         var second = Math.floor(i % 60);
 
-        var text = (minute > 0 ? minute + ':' : '') + ('0' + second).slice(- 2);
+        var text = (minute > 0 ? minute + ':' : '') + ('0' + second).slice(-2);
 
         context.fillText(text, i * scale, 16);
     }
@@ -132,11 +150,28 @@ AnimationPanel.prototype.onBackward = function () {
 };
 
 AnimationPanel.prototype.onPlay = function () {
-    if (this.isPlaying) {
+    if (this.status === PLAY) {
         return;
     }
-    this.isPlaying = true;
+    this.status = PLAY;
+
+    UI.get('btnPlay', this.id).dom.style.display = 'none';
+    UI.get('btnPause', this.id).dom.style.display = '';
+
     this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
+};
+
+AnimationPanel.prototype.onPause = function () {
+    if (this.status === PAUSE) {
+        return;
+    }
+    this.status = PAUSE;
+
+    UI.get('btnPlay', this.id).dom.style.display = '';
+    UI.get('btnPause', this.id).dom.style.display = 'none';
+
+    this.app.on(`animate.${this.id}`, null);
+    this.updateUI();
 };
 
 AnimationPanel.prototype.onForward = function () {
@@ -144,10 +179,14 @@ AnimationPanel.prototype.onForward = function () {
 };
 
 AnimationPanel.prototype.onStop = function () {
-    if (!this.isPlaying) {
+    if (this.status === STOP) {
         return;
     }
-    this.isPlaying = false;
+    this.status = STOP;
+
+    UI.get('btnPlay', this.id).dom.style.display = '';
+    UI.get('btnPause', this.id).dom.style.display = 'none';
+
     this.app.on(`animate.${this.id}`, null);
     this.sliderLeft = 0;
     this.updateUI();
