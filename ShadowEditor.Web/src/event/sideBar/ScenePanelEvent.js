@@ -8,7 +8,6 @@ import UI from '../../ui/UI';
  */
 function ScenePanelEvent(app) {
     BaseEvent.call(this, app);
-    this.ignoreObjectSelectedSignal = false;
 }
 
 ScenePanelEvent.prototype = Object.create(BaseEvent.prototype);
@@ -58,11 +57,6 @@ ScenePanelEvent.prototype.onObjectChanged = function (object) {
  */
 ScenePanelEvent.prototype.onObjectSelected = function (object) {
     var outliner = UI.get('outliner');
-
-    if (this.ignoreObjectSelectedSignal === true) {
-        return;
-    }
-
     outliner.setValue(object !== null ? object.id : null);
 };
 

@@ -3,6 +3,8 @@ import SetMaterialCommand from '../command/SetMaterialCommand';
 import SetMaterialColorCommand from '../command/SetMaterialColorCommand';
 import SetMaterialValueCommand from '../command/SetMaterialValueCommand';
 import SetMaterialMapCommand from '../command/SetMaterialMapCommand';
+import VertexShaderStarter from '../editor/script/code/VertexShaderStarter';
+import FragmentShaderStarter from '../editor/script/FragmentShaderStarter';
 
 /**
  * 材质组件
@@ -1081,6 +1083,12 @@ MaterialComponent.prototype.updateMaterial = function () {
 
     if (material instanceof THREE[type.getValue()] === false) {
         material = new THREE[type.getValue()]();
+
+        if (material instanceof THREE.RawShaderMaterial) {
+            material.vertexShader = '';
+            material.fragmentShader = '';
+        }
+
         editor.execute(new SetMaterialCommand(object, material), '新材质：' + type.getValue());
     }
 
