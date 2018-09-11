@@ -11,6 +11,9 @@ function AnimationPanel(options) {
 
     this.canvas = null;
     this.context = null;
+
+    this.isPlaying = false;
+    this.sliderLeft = 0;
 };
 
 AnimationPanel.prototype = Object.create(UI.Control.prototype);
@@ -26,16 +29,20 @@ AnimationPanel.prototype.render = function () {
             cls: 'controls',
             children: [{
                 xtype: 'iconbutton',
-                icon: 'icon-backward'
+                icon: 'icon-backward',
+                onClick: this.onBackward.bind(this)
             }, {
                 xtype: 'iconbutton',
-                icon: 'icon-play'
+                icon: 'icon-play',
+                onClick: this.onPlay.bind(this)
             }, {
                 xtype: 'iconbutton',
-                icon: 'icon-forward'
+                icon: 'icon-forward',
+                onClick: this.onForward.bind(this)
             }, {
                 xtype: 'iconbutton',
-                icon: 'icon-stop'
+                icon: 'icon-stop',
+                onClick: this.onStop.bind(this)
             }, {
                 xtype: 'text',
                 text: 'X1'
@@ -46,11 +53,13 @@ AnimationPanel.prototype.render = function () {
             children: [{
                 xtype: 'canvas',
                 cls: 'timeline',
-                id: 'timeline'
+                id: 'timeline',
+                scope: this.id
             }, {
                 xtype: 'div',
                 cls: 'slider',
-                id: 'slider'
+                id: 'slider',
+                scope: this.id
             }]
         }]
     };
@@ -62,7 +71,7 @@ AnimationPanel.prototype.render = function () {
 };
 
 AnimationPanel.prototype.onAppStarted = function () {
-    var canvas = UI.get('timeline').dom;
+    var canvas = UI.get('timeline', this.id).dom;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
@@ -106,6 +115,42 @@ AnimationPanel.prototype.onAppStarted = function () {
 
         context.fillText(text, i * scale, 16);
     }
+};
+
+AnimationPanel.prototype.updateUI = function () {
+    var slider = UI.get('slider', this.id);
+    slider.dom.style.left = this.sliderLeft + 'px';
+};
+
+AnimationPanel.prototype.onAnimate = function () {
+    this.sliderLeft++;
+    this.updateUI();
+};
+
+AnimationPanel.prototype.onBackward = function () {
+
+};
+
+AnimationPanel.prototype.onPlay = function () {
+    if (this.isPlaying) {
+        return;
+    }
+    this.isPlaying = true;
+    this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
+};
+
+AnimationPanel.prototype.onForward = function () {
+
+};
+
+AnimationPanel.prototype.onStop = function () {
+    if (!this.isPlaying) {
+        return;
+    }
+    this.isPlaying = false;
+    this.app.on(`animate.${this.id}`, null);
+    this.sliderLeft = 0;
+    this.updateUI();
 };
 
 export default AnimationPanel;
