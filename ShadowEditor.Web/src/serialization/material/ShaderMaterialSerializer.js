@@ -13,13 +13,25 @@ ShaderMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);
 ShaderMaterialSerializer.prototype.constructor = ShaderMaterialSerializer;
 
 ShaderMaterialSerializer.prototype.toJSON = function (obj) {
-    return MaterialSerializer.prototype.toJSON.call(this, obj);
+    var json = MaterialSerializer.prototype.toJSON.call(this, obj);
+
+    json.defines = obj.defines;
+    json.uniforms = obj.uniforms;
+    json.vertexShader = obj.vertexShader;
+    json.fragmentShader = obj.fragmentShader;
+
+    return json;
 };
 
 ShaderMaterialSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.ShaderMaterial() : parent;
 
     MaterialSerializer.prototype.fromJSON.call(this, json, obj);
+
+    obj.defines = json.defines;
+    obj.uniforms = json.uniforms;
+    obj.vertexShader = json.vertexShader;
+    obj.fragmentShader = json.fragmentShader;
 
     return obj;
 };
