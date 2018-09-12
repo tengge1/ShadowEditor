@@ -1391,14 +1391,19 @@ MaterialComponent.prototype.editProgramInfo = function () {
             material.uniforms = obj.uniforms;
             material.attributes = obj.attributes;
             material.needsUpdate = true;
-        } catch(e) {
+        } catch (e) {
             this.app.error(this.selected.name + '-着色器信息 无法反序列化。');
         }
     });
 };
 
 MaterialComponent.prototype.editVertexShader = function () {
+    var material = this.selected.material;
 
+    this.app.script.open(material.uuid, this.selected.name + '-VertexShader', 'vertexShader', material.vertexShader, this.selected.name + '-顶点着色器', source => {
+        material.vertexShader = source;
+        material.needsUpdate = true;
+    });
 };
 
 MaterialComponent.prototype.editFragmentShader = function () {
