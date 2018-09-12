@@ -1407,7 +1407,12 @@ MaterialComponent.prototype.editVertexShader = function () {
 };
 
 MaterialComponent.prototype.editFragmentShader = function () {
+    var material = this.selected.material;
 
+    this.app.script.open(material.uuid, this.selected.name + '-FragmentShader', 'fragmentShader', material.fragmentShader, this.selected.name + '-片源着色器', source => {
+        material.fragmentShader = source;
+        material.needsUpdate = true;
+    });
 };
 
 export default MaterialComponent;
