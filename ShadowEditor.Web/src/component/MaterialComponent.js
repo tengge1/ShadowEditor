@@ -81,37 +81,28 @@ MaterialComponent.prototype.render = function () {
                 text: '着色程序'
             }, {
                 xtype: 'button',
-                id: 'btnProgramInfo',
                 scope: this.id,
                 text: '信息',
                 style: {
                     marginLeft: '4px'
                 },
-                onClick: () => {
-
-                }
+                onClick: this.editProgramInfo.bind(this)
             }, {
                 xtype: 'button',
-                id: 'btnVertexSHader',
                 scope: this.id,
                 text: '顶点',
                 style: {
                     marginLeft: '4px'
                 },
-                onClick: () => {
-
-                }
+                onClick: this.editVertexShader.bind(this)
             }, {
                 xtype: 'button',
-                id: 'btnFragmentShader',
                 scope: this.id,
                 text: '片源',
                 style: {
                     marginLeft: '4px'
                 },
-                onClick: () => {
-
-                }
+                onClick: this.editFragmentShader.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -1382,6 +1373,36 @@ MaterialComponent.prototype.updateMaterial = function () {
     if (textureWarning) {
         console.warn(`无法设置纹理，${this.selected.name}的材质没有纹理坐标！`);
     }
+};
+
+MaterialComponent.prototype.editProgramInfo = function () {
+    var material = this.selected.material;
+
+    var obj = {
+        defines: material.defines,
+        uniforms: material.uniforms,
+        attributes: material.attributes
+    };
+
+    this.app.script.open(material.uuid, this.selected.name + '-ProgramInfo', 'json', JSON.stringify(obj), this.selected.name + '-着色器信息', source => {
+        try {
+            obj = JSON.parse(source);
+            material.defines = obj.defines;
+            material.uniforms = obj.uniforms;
+            material.attributes = obj.attributes;
+            material.needsUpdate = true;
+        } catch(e) {
+            this.app.error(this.selected.name + '-着色器信息 无法反序列化。');
+        }
+    });
+};
+
+MaterialComponent.prototype.editVertexShader = function () {
+
+};
+
+MaterialComponent.prototype.editFragmentShader = function () {
+
 };
 
 export default MaterialComponent;

@@ -75,7 +75,7 @@ ScriptEditor.prototype.render = function () {
  * 打开脚本文件
  * @param {*} uuid 脚本uuid
  * @param {*} name 名称
- * @param {*} mode 类型 javascript、glsl、json 默认：javascript
+ * @param {*} mode 类型 javascript、vertexShader、fragmentShader、json 默认：javascript
  * @param {*} source 源码 文件初始代码 默认：空
  * @param {*} title 标题 文件标题 默认：未命名.${文件类型}
  * @param {*} callback 回调函数
