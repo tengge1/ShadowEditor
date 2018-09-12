@@ -77,9 +77,6 @@ import SurfaceOptionsEvent from './menu/options/SurfaceOptionsEvent';
 import SceneOptionsEvent from './menu/options/SceneOptionsEvent';
 import RendererOptionsEvent from './menu/options/RendererOptionsEvent';
 
-// 侧边栏
-import ScenePanelEvent from './sidebar/ScenePanelEvent';
-
 import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateSceneStatusEvent from './statusBar/UpdateSceneStatusEvent';
 import ObjectEvent from './viewport/ObjectEvent';
@@ -172,9 +169,6 @@ function EventDispatcher(app) {
         new SurfaceOptionsEvent(this.app),
         new SceneOptionsEvent(this.app),
         new RendererOptionsEvent(this.app),
-
-        // 侧边栏
-        new ScenePanelEvent(this.app),
 
         // viewport中的事件
         new TransformControlsEvent(this.app),
