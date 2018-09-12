@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 import ObjectLoader from '../../loader/ObjectLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import LolModel from '../../lol/Model';
+import Unity3DLoader from '../../loader/unity3d/Unity3DLoader';
 
 var ID = 1;
 
@@ -26,7 +27,7 @@ AnimationMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '动画'
+            html: '测试'
         }, {
             xtype: 'div',
             cls: 'options',
@@ -61,6 +62,11 @@ AnimationMenu.prototype.render = function () {
                 cls: 'option',
                 html: '寒冰射手',
                 onClick: this.onAddAshe.bind(this)
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: 'Unity3D教室',
+                onClick: this.onAddClassRoom.bind(this)
             }]
         }]
     });
@@ -138,6 +144,17 @@ AnimationMenu.prototype.onAddAshe = function () {
         this.app.on('animate.Ashe', (clock, deltaTime) => {
             model.update(clock.getElapsedTime() * 1000);
         });
+    });
+};
+
+AnimationMenu.prototype.onAddClassRoom = function () {
+    var editor = this.app.editor;
+
+    var loader = new Unity3DLoader();
+    loader.load(this.app.options.server + '/Upload/JP_Classroom/Scene/Classroom.unity', scene => {
+        if (scene) {
+            editor.setScene(scene);
+        }
     });
 };
 

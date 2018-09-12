@@ -6,6 +6,7 @@
     "dependencies": {
         "d3-dispatch": "^1.0.3",
         "http": "0.0.0",
+        "js-yaml": "^3.12.0",
         "mongodb": "^3.0.10",
         "three": "^0.93.0"
     },
