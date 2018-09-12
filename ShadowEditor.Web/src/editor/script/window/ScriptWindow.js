@@ -129,7 +129,10 @@ ScriptWindow.prototype.onCreateScript = function () {
 
     var uuid = THREE.Math.generateUUID();
 
-    this.app.script.open(uuid, scriptName, scriptType, initCode, scriptName);
+    this.app.script.open(uuid, scriptName, scriptType, initCode, scriptName, source => {
+        var script = this.app.editor.scripts[uuid];
+        script.source = source;
+    });
 
     this.app.editor.scripts[uuid] = {
         id: 0,

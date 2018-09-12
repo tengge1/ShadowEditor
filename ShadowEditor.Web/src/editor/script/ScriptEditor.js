@@ -23,6 +23,8 @@ function ScriptEditor(options) {
 
     this.errorLines = []; // 代码错误行数
     this.widgets = [];
+
+    this.callback = null;
 };
 
 ScriptEditor.prototype = Object.create(UI.Control.prototype);
@@ -76,8 +78,9 @@ ScriptEditor.prototype.render = function () {
  * @param {*} mode 类型 javascript、glsl、json 默认：javascript
  * @param {*} source 源码 文件初始代码 默认：空
  * @param {*} title 标题 文件标题 默认：未命名.${文件类型}
+ * @param {*} callback 回调函数
  */
-ScriptEditor.prototype.open = function (uuid, name, mode, source, title) {
+ScriptEditor.prototype.open = function (uuid, name, mode, source, title, callback) {
     var scriptTitle = UI.get('scriptTitle');
 
     // 连续打开脚本时，自动保存上次打开的文件
@@ -102,6 +105,7 @@ ScriptEditor.prototype.open = function (uuid, name, mode, source, title) {
     this.mode = mode;
     this.source = source;
     this.title = title;
+    this.callback = callback;
 
     this.show();
 
@@ -156,10 +160,13 @@ ScriptEditor.prototype.hide = function () {
  * 保存脚本
  */
 ScriptEditor.prototype.save = function () {
-    var script = this.app.editor.scripts[this.uuid];
-    if (script) {
-        script.source = this.codemirror.getValue();
+    var value = this.codemirror.getValue();
+
+    if (typeof (this.callback) === 'function') {
+        this.callback.call(this, value);
     }
+
+    this.app.log(`${this.uuid}脚本保存成功！`);
 };
 
 /**

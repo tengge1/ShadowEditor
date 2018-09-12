@@ -126,7 +126,9 @@ ScriptPanel.prototype.update = function () {
 ScriptPanel.prototype.editScript = function (uuid) {
     var script = this.app.editor.scripts[uuid];
     if (script) {
-        this.app.script.open(uuid, script.name, script.type, script.source, script.name);
+        this.app.script.open(uuid, script.name, script.type, script.source, script.name, source => {
+            script.source = source;
+        });
     }
 };
 
