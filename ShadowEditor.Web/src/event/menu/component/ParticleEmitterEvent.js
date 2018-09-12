@@ -65,7 +65,9 @@ ParticleEmitterEvent.prototype.onAddParticleEmitter = function () {
     });
 
     group.addEmitter(emitter);
-    this.app.editor.scene.add(group.mesh);
+
+    group.mesh.name = '粒子发射器';
+    this.app.editor.execute(new AddObjectCommand(group.mesh));
 
     this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
 
