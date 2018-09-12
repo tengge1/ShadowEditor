@@ -62,8 +62,8 @@ MaterialComponent.prototype.render = function () {
                     'PointCloudMaterial': '点云材质',
                     'MeshStandardMaterial': '标准材质',
                     'MeshPhysicalMaterial': '物理材质',
-                    'ShaderMaterial': '着色器材质',
                     'SpriteMaterial': '精灵材质',
+                    'ShaderMaterial': '着色器材质',
                     'RawShaderMaterial': '原始着色器材质'
                 },
                 style: {
