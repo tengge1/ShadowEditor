@@ -13,14 +13,14 @@ Unity3DLoader.prototype.constructor = Unity3DLoader;
 
 Unity3DLoader.prototype.load = function (url) {
     return new Promise(resolve => {
-        // var loader = new THREE.ColladaLoader();
+        var loader = new THREE.FileLoader();
 
-        // loader.load(url, collada => {
-        //     var obj3d = collada.scene;
-        //     resolve(obj3d);
-        // }, undefined, () => {
-        //     resolve(null);
-        // });
+        loader.load(url, data => {
+            var obj = jsyaml.safeLoad(data);
+            debugger
+        }, undefined, () => {
+            resolve(null);
+        });
     });
 };
 
