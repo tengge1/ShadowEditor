@@ -689,7 +689,7 @@ MaterialComponent.prototype.onObjectChanged = function () {
 MaterialComponent.prototype.updateUI = function () {
     var container = UI.get('materialPanel', this.id);
     var editor = this.app.editor;
-    if (editor.selected && editor.selected instanceof THREE.Mesh && !Array.isArray(editor.selected.material)) {
+    if (editor.selected && (editor.selected instanceof THREE.Mesh || editor.selected instanceof THREE.Sprite) && !Array.isArray(editor.selected.material)) {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
