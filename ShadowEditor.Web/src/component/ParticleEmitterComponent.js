@@ -25,223 +25,221 @@ ParticleEmitterComponent.prototype.render = function () {
             display: 'none'
         },
         children: [{
+            xtype: 'label',
+            style: {
+                width: '100%',
+                color: '#555',
+                fontWeight: 'bold'
+            },
+            text: '粒子发射器'
+        }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                style: {
-                    color: '#555',
-                    fontWeight: 'bold'
-                },
-                text: '粒子发射'
+                text: '位置'
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '位置'
-                }, {
-                    xtype: 'number',
-                    id: 'positionX',
-                    scope: this.id,
-                }, {
-                    xtype: 'number',
-                    id: 'positionY',
-                    scope: this.id,
-                }, {
-                    xtype: 'number',
-                    id: 'positionZ',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'positionX',
+                scope: this.id,
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '位置发散'
-                }, {
-                    xtype: 'number',
-                    id: 'positionSpreadX',
-                    scope: this.id,
-                }, {
-                    xtype: 'number',
-                    id: 'positionSpreadY',
-                    scope: this.id,
-                }, {
-                    xtype: 'number',
-                    id: 'positionSpreadZ',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'positionY',
+                scope: this.id,
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '速度'
-                }, {
-                    xtype: 'number',
-                    id: 'velocityX',
-                    scope: this.id,
-                }, {
-                    xtype: 'number',
-                    id: 'velocityY',
-                    scope: this.id,
-                }, {
-                    xtype: 'number',
-                    id: 'velocityZ',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'positionZ',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '位置发散'
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '速度发散'
-                }, {
-                    xtype: 'number',
-                    id: 'velocitySpreadX',
-                    scope: this.id,
-                }, {
-                    xtype: 'number',
-                    id: 'velocitySpreadY',
-                    scope: this.id,
-                }, {
-                    xtype: 'number',
-                    id: 'velocitySpreadZ',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'positionSpreadX',
+                scope: this.id,
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '加速度'
-                }, {
-                    xtype: 'number',
-                    id: 'accelerationX',
-                    scope: this.id,
-                }, {
-                    xtype: 'number',
-                    id: 'accelerationY',
-                    scope: this.id,
-                }, {
-                    xtype: 'number',
-                    id: 'accelerationZ',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'positionSpreadY',
+                scope: this.id,
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '加速度发散'
-                }, {
-                    xtype: 'number',
-                    id: 'accelerationSpreadX',
-                    scope: this.id,
-                }, {
-                    xtype: 'number',
-                    id: 'accelerationSpreadY',
-                    scope: this.id,
-                }, {
-                    xtype: 'number',
-                    id: 'accelerationSpreadZ',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'positionSpreadZ',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '速度'
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '颜色1'
-                }, {
-                    xtype: 'color',
-                    id: 'color1',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'velocityX',
+                scope: this.id,
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '颜色2'
-                }, {
-                    xtype: 'color',
-                    id: 'color2',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'velocityY',
+                scope: this.id,
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '颜色3'
-                }, {
-                    xtype: 'color',
-                    id: 'color3',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'velocityZ',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '速度发散'
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '颜色4'
-                }, {
-                    xtype: 'color',
-                    id: 'color4',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'velocitySpreadX',
+                scope: this.id,
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '尺寸'
-                }, {
-                    xtype: 'number',
-                    id: 'size',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'velocitySpreadY',
+                scope: this.id,
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '尺寸发散'
-                }, {
-                    xtype: 'number',
-                    id: 'sizeSpread',
-                    scope: this.id
-                }]
+                xtype: 'number',
+                id: 'velocitySpreadZ',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '加速度'
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '纹理'
-                }, {
-                    xtype: 'texture',
-                    id: 'texture',
-                    scope: this.id
-                }]
+                xtype: 'number',
+                id: 'accelerationX',
+                scope: this.id,
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '粒子数量'
-                }, {
-                    xtype: 'int',
-                    range: [1, Infinity],
-                    id: 'particleCount',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'accelerationY',
+                scope: this.id,
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '持续时长'
-                }, {
-                    xtype: 'number',
-                    id: 'maxAge',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'accelerationZ',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '加速度发散'
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '持续时长发散'
-                }, {
-                    xtype: 'number',
-                    id: 'maxAgeSpread',
-                    scope: this.id,
-                }]
+                xtype: 'number',
+                id: 'accelerationSpreadX',
+                scope: this.id,
+            }, {
+                xtype: 'number',
+                id: 'accelerationSpreadY',
+                scope: this.id,
+            }, {
+                xtype: 'number',
+                id: 'accelerationSpreadZ',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '颜色1'
+            }, {
+                xtype: 'color',
+                id: 'color1',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '颜色2'
+            }, {
+                xtype: 'color',
+                id: 'color2',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '颜色3'
+            }, {
+                xtype: 'color',
+                id: 'color3',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '颜色4'
+            }, {
+                xtype: 'color',
+                id: 'color4',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '尺寸'
+            }, {
+                xtype: 'number',
+                id: 'size',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '尺寸发散'
+            }, {
+                xtype: 'number',
+                id: 'sizeSpread',
+                scope: this.id
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '纹理'
+            }, {
+                xtype: 'texture',
+                id: 'texture',
+                scope: this.id
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '粒子数量'
+            }, {
+                xtype: 'int',
+                range: [1, Infinity],
+                id: 'particleCount',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '持续时长'
+            }, {
+                xtype: 'number',
+                id: 'maxAge',
+                scope: this.id,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '持续时长发散'
+            }, {
+                xtype: 'number',
+                id: 'maxAgeSpread',
+                scope: this.id,
             }]
         }]
     };
