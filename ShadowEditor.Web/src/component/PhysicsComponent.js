@@ -35,6 +35,20 @@ PhysicsComponent.prototype.render = function () {
                 },
                 text: '物理环境'
             }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '碰撞配置'
+            }, {
+                xtype: 'select',
+                id: 'configType',
+                scope: this.id,
+                options: {
+                    'btDefaultCollisionConfiguration': '默认碰撞配置',
+                    'btSoftBodyRigidBodyCollisionConfiguration': '软体刚体碰撞配置'
+                }
+            }]
         }]
     };
 
@@ -63,7 +77,15 @@ PhysicsComponent.prototype.updateUI = function () {
         return;
     }
 
-    this.selected = editor.selected;
+    this.selected = app.physics;
+
+    var configType = UI.get('configType', this.id);
+
+    if (this.selected.collisionConfiguration instanceof Ammo.btSoftBodyRigidBodyCollisionConfiguration) {
+        configType.setValue('btSoftBodyRigidBodyCollisionConfiguration');
+    } else {
+        configType.setValue('btDefaultCollisionConfiguration');
+    }
 };
 
 export default PhysicsComponent;
