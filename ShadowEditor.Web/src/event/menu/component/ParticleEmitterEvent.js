@@ -29,8 +29,9 @@ ParticleEmitterEvent.prototype.stop = function () {
 ParticleEmitterEvent.prototype.onAddParticleEmitter = function () {
     var group = new SPE.Group({
         texture: {
-            value: THREE.ImageUtils.loadTexture('assets/textures/SPE/smokeparticle.png')
-        }
+            value: new THREE.TextureLoader().load('assets/textures/SPE/smokeparticle.png')
+        },
+        maxParticleCount: 2000
     });
 
     var emitter = new SPE.Emitter({
