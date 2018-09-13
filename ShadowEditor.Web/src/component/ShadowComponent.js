@@ -116,7 +116,6 @@ ShadowComponent.prototype.render = function () {
                 id: 'objectCameraLeft',
                 scope: this.id,
                 value: -5,
-                range: [0, Infinity],
                 onChange: this.onChangeCameraLeft.bind(this)
             }]
         }, {
@@ -131,7 +130,6 @@ ShadowComponent.prototype.render = function () {
                 id: 'objectCameraRight',
                 scope: this.id,
                 value: 5,
-                range: [0, Infinity],
                 onChange: this.onChangeCameraRight.bind(this)
             }]
         }, {
@@ -146,7 +144,6 @@ ShadowComponent.prototype.render = function () {
                 id: 'objectCameraTop',
                 scope: this.id,
                 value: 5,
-                range: [0, Infinity],
                 onChange: this.onChangeCameraTop.bind(this)
             }]
         }, {
@@ -161,7 +158,6 @@ ShadowComponent.prototype.render = function () {
                 id: 'objectCameraBottom',
                 scope: this.id,
                 value: -5,
-                range: [0, Infinity],
                 onChange: this.onChangeCameraBottom.bind(this)
             }]
         }, {
