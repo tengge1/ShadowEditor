@@ -407,6 +407,9 @@ ParticleEmitterComponent.prototype.onChangeVelocity = function () {
     var velocitySpreadY = UI.get('velocitySpreadY', this.id);
     var velocitySpreadZ = UI.get('velocitySpreadZ', this.id);
 
+    var group = this.selected.userData.obj;
+    var emitter = group.emitters[0];
+
     emitter.velocity.value.x = velocityX.getValue();
     emitter.velocity.value.y = velocityY.getValue();
     emitter.velocity.value.z = velocityZ.getValue();
@@ -427,6 +430,9 @@ ParticleEmitterComponent.prototype.onChangeAcceleration = function () {
     var accelerationSpreadY = UI.get('accelerationSpreadY', this.id);
     var accelerationSpreadZ = UI.get('accelerationSpreadZ', this.id);
 
+    var group = this.selected.userData.obj;
+    var emitter = group.emitters[0];
+
     emitter.acceleration.value.x = accelerationX.getValue();
     emitter.acceleration.value.y = accelerationY.getValue();
     emitter.acceleration.value.z = accelerationZ.getValue();
@@ -444,6 +450,9 @@ ParticleEmitterComponent.prototype.onChangeColor = function () {
     var color3 = UI.get('color3', this.id);
     var color4 = UI.get('color4', this.id);
 
+    var group = this.selected.userData.obj;
+    var emitter = group.emitters[0];
+
     emitter.color.value[0] = new THREE.Color(color1.getHexValue());
     emitter.color.value[1] = new THREE.Color(color2.getHexValue());
     emitter.color.value[2] = new THREE.Color(color3.getHexValue());
@@ -456,6 +465,9 @@ ParticleEmitterComponent.prototype.onChangeSize = function () {
     var size = UI.get('size', this.id);
     var sizeSpread = UI.get('sizeSpread', this.id);
 
+    var group = this.selected.userData.obj;
+    var emitter = group.emitters[0];
+
     for (var i = 0; i < emitter.size.value.length; i++) {
         emitter.size.value[i] = size.getValue();
         emitter.size.spread[i] = sizeSpread.getValue();
@@ -467,12 +479,18 @@ ParticleEmitterComponent.prototype.onChangeSize = function () {
 ParticleEmitterComponent.prototype.onChangeTexture = function () {
     var texture = UI.get('texture', this.id);
 
+    var group = this.selected.userData.obj;
+    var emitter = group.emitters[0];
+
     group.texture = texture.getValue();
     group.texture.needsUpdate = true;
 };
 
 ParticleEmitterComponent.prototype.onChangeParticleCount = function () {
     var particleCount = UI.get('particleCount', this.id);
+
+    var group = this.selected.userData.obj;
+    var emitter = group.emitters[0];
 
     emitter.particleCount = particleCount.getValue();
 
@@ -482,6 +500,9 @@ ParticleEmitterComponent.prototype.onChangeParticleCount = function () {
 ParticleEmitterComponent.prototype.onChangeMaxAge = function () {
     var maxAge = UI.get('maxAge', this.id);
 
+    var group = this.selected.userData.obj;
+    var emitter = group.emitters[0];
+
     emitter.maxAge.value = maxAge.getValue();
 
     emitter.updateFlags.params = true;
@@ -489,6 +510,9 @@ ParticleEmitterComponent.prototype.onChangeMaxAge = function () {
 
 ParticleEmitterComponent.prototype.onChangeMaxAgeSpread = function () {
     var maxAgeSpread = UI.get('maxAgeSpread', this.id);
+
+    var group = this.selected.userData.obj;
+    var emitter = group.emitters[0];
 
     emitter.maxAge.spread = maxAgeSpread.getValue();
 
