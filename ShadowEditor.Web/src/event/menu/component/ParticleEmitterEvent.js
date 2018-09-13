@@ -17,7 +17,6 @@ ParticleEmitterEvent.prototype = Object.create(MenuEvent.prototype);
 ParticleEmitterEvent.prototype.constructor = ParticleEmitterEvent;
 
 ParticleEmitterEvent.prototype.start = function () {
-    var _this = this;
     this.app.on(`mParticleEmitter.${this.id}`, this.onAddParticleEmitter.bind(this));
     this.app.on('objectRemoved.' + this.id, this.onObjectRemoved.bind(this));
 };
@@ -67,6 +66,10 @@ ParticleEmitterEvent.prototype.onAddParticleEmitter = function () {
     group.addEmitter(emitter);
 
     group.mesh.name = '粒子发射器';
+
+    group.mesh.userData.type = 'ParticleEmitter';
+    group.mesh.userData.obj = group;
+
     this.app.editor.execute(new AddObjectCommand(group.mesh));
 
     this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
