@@ -145,10 +145,40 @@ ParticleEmitterComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '颜色'
+                    text: '颜色1'
                 }, {
                     xtype: 'color',
-                    id: 'color',
+                    id: 'color1',
+                    scope: this.id,
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '颜色2'
+                }, {
+                    xtype: 'color',
+                    id: 'color2',
+                    scope: this.id,
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '颜色3'
+                }, {
+                    xtype: 'color',
+                    id: 'color3',
+                    scope: this.id,
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '颜色4'
+                }, {
+                    xtype: 'color',
+                    id: 'color4',
                     scope: this.id,
                 }]
             }, {
@@ -160,6 +190,16 @@ ParticleEmitterComponent.prototype.render = function () {
                     xtype: 'number',
                     id: 'size',
                     scope: this.id,
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '尺寸发散'
+                }, {
+                    xtype: 'number',
+                    id: 'sizeSpread',
+                    scope: this.id
                 }]
             }, {
                 xtype: 'row',
@@ -190,6 +230,16 @@ ParticleEmitterComponent.prototype.render = function () {
                 }, {
                     xtype: 'number',
                     id: 'maxAge',
+                    scope: this.id,
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'label',
+                    text: '持续时长发散'
+                }, {
+                    xtype: 'number',
+                    id: 'maxAgeSpread',
                     scope: this.id,
                 }]
             }]
@@ -247,11 +297,17 @@ ParticleEmitterComponent.prototype.updateUI = function () {
     var accelerationSpreadY = UI.get('accelerationSpreadY', this.id);
     var accelerationSpreadZ = UI.get('accelerationSpreadZ', this.id);
 
-    var color = UI.get('color', this.id);
+    var color1 = UI.get('color1', this.id);
+    var color2 = UI.get('color2', this.id);
+    var color3 = UI.get('color3', this.id);
+    var color4 = UI.get('color4', this.id);
+
     var size = UI.get('size', this.id);
+    var sizeSpread = UI.get('sizeSpread', this.id);
     var texture = UI.get('texture', this.id);
     var particleCount = UI.get('particleCount', this.id);
     var maxAge = UI.get('maxAge', this.id);
+    var maxAgeSpread = UI.get('maxAgeSpread', this.id);
 
     var group = this.selected.userData.obj;
     var emitter = group.emitters[0];
@@ -279,6 +335,18 @@ ParticleEmitterComponent.prototype.updateUI = function () {
     accelerationSpreadX.setValue(emitter.acceleration.spread.x);
     accelerationSpreadY.setValue(emitter.acceleration.spread.y);
     accelerationSpreadZ.setValue(emitter.acceleration.spread.z);
+
+    color1.setValue(`#${emitter.color.value[0].getHexString()}`);
+    color2.setValue(`#${emitter.color.value[1].getHexString()}`);
+    color3.setValue(`#${emitter.color.value[2].getHexString()}`);
+    color4.setValue(`#${emitter.color.value[3].getHexString()}`);
+
+    size.setValue(emitter.size.value[0]);
+    sizeSpread.setValue(emitter.size.spread[0]);
+    texture.setValue(group.texture);
+    particleCount.setValue(emitter.particleCount);
+    maxAge.setValue(emitter.maxAge.value);
+    maxAgeSpread.setValue(emitter.maxAge.spread);
 };
 
 export default ParticleEmitterComponent;
