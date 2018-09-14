@@ -29,11 +29,11 @@ namespace ShadowEditor.Server.Controllers
         public JsonResult List()
         {
             var mongo = new MongoHelper();
-            var scenes = mongo.FindAll(Constant.TextureCollectionName);
+            var docs = mongo.FindAll(Constant.TextureCollectionName);
 
             var list = new List<TextureModel>();
 
-            foreach (var i in scenes)
+            foreach (var i in docs)
             {
                 var info = new TextureModel
                 {

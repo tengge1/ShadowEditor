@@ -16,11 +16,11 @@ function Physics(options) {
     this.armMovement = 0;
 
     // 物理环境配置
-    this.collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
-    this.dispatcher = new Ammo.btCollisionDispatcher(this.collisionConfiguration);
-    this.broadphase = new Ammo.btDbvtBroadphase();
-    this.solver = new Ammo.btSequentialImpulseConstraintSolver();
-    this.softBodySolver = new Ammo.btDefaultSoftBodySolver();
+    this.collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration(); // 软体刚体碰撞配置
+    this.dispatcher = new Ammo.btCollisionDispatcher(this.collisionConfiguration); // 碰撞调度器
+    this.broadphase = new Ammo.btDbvtBroadphase(); // dbvt粗测
+    this.solver = new Ammo.btSequentialImpulseConstraintSolver(); // 顺序脉冲约束求解器
+    this.softBodySolver = new Ammo.btDefaultSoftBodySolver(); // 默认软体求解器
 
     this.world = new Ammo.btSoftRigidDynamicsWorld(this.dispatcher, this.broadphase, this.solver, this.collisionConfiguration, this.softBodySolver);
 
@@ -111,7 +111,9 @@ Physics.prototype.onThrowBall = function (event) {
     // Creates a ball and throws it
     var ballMass = 35;
     var ballRadius = 0.4;
-    var ballMaterial = new THREE.MeshPhongMaterial({ color: 0x202020 });
+    var ballMaterial = new THREE.MeshPhongMaterial({
+        color: 0x202020
+    });
 
     var ball = new THREE.Mesh(new THREE.SphereBufferGeometry(ballRadius, 14, 10), ballMaterial);
     ball.castShadow = true;
