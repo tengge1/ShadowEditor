@@ -8,10 +8,8 @@ function Physics(options) {
     this.app.physics = this;
 
     // 各种参数
-    this.gravityConstant = -9.8;
-    this.rigidBodies = [];
+    var gravityConstant = -9.8;
     this.margin = 0.05;
-    this.hinge;
     this.transformAux1 = new Ammo.btTransform();
 
     this.time = 0;
@@ -25,8 +23,12 @@ function Physics(options) {
     this.softBodySolver = new Ammo.btDefaultSoftBodySolver();
 
     this.world = new Ammo.btSoftRigidDynamicsWorld(this.dispatcher, this.broadphase, this.solver, this.collisionConfiguration, this.softBodySolver);
-    this.world.setGravity(new Ammo.btVector3(0, this.gravityConstant, 0));
-    this.world.getWorldInfo().set_m_gravity(new Ammo.btVector3(0, this.gravityConstant, 0));
+
+    var gravity = new Ammo.btVector3(0, gravityConstant, 0);
+    this.world.setGravity(gravity);
+    this.world.getWorldInfo().set_m_gravity(gravity);
+
+    this.rigidBodies = [];
 
     // 扔球
     this.enableThrowBall = false;

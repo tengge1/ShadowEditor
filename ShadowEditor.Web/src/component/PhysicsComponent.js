@@ -45,9 +45,31 @@ PhysicsComponent.prototype.render = function () {
                 id: 'configType',
                 scope: this.id,
                 options: {
-                    'btDefaultCollisionConfiguration': '默认碰撞配置',
+                    'btDefaultCollisionConfiguration': '默认碰撞配置', // 无法使用布料
                     'btSoftBodyRigidBodyCollisionConfiguration': '软体刚体碰撞配置'
-                }
+                },
+                onChange: this.onChangeConfigType.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '重力常数'
+            }, {
+                xtype: 'number',
+                id: 'gravityConstantX',
+                scope: this.id,
+                onChange: this.onChangeGravityConstant.bind(this)
+            }, {
+                xtype: 'number',
+                id: 'gravityConstantY',
+                scope: this.id,
+                onChange: this.onChangeGravityConstant.bind(this)
+            }, {
+                xtype: 'number',
+                id: 'gravityConstantZ',
+                scope: this.id,
+                onChange: this.onChangeGravityConstant.bind(this)
             }]
         }]
     };
@@ -80,12 +102,41 @@ PhysicsComponent.prototype.updateUI = function () {
     this.selected = app.physics;
 
     var configType = UI.get('configType', this.id);
+    var gravityConstantX = UI.get('gravityConstantX', this.id);
+    var gravityConstantY = UI.get('gravityConstantY', this.id);
+    var gravityConstantZ = UI.get('gravityConstantZ', this.id);
 
     if (this.selected.collisionConfiguration instanceof Ammo.btSoftBodyRigidBodyCollisionConfiguration) {
         configType.setValue('btSoftBodyRigidBodyCollisionConfiguration');
     } else {
         configType.setValue('btDefaultCollisionConfiguration');
     }
+
+    var gravity = this.selected.world.getGravity();
+    gravityConstantX.setValue(gravity.x());
+    gravityConstantY.setValue(gravity.y());
+    gravityConstantZ.setValue(gravity.z());
+};
+
+PhysicsComponent.prototype.onChangeConfigType = function () {
+    var configType = UI.get('configType', this.id);
+    if (configType === 'btSoftBodyRigidBodyCollisionConfiguration') {
+        this.selected.collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
+    } else {
+        this.selected.collisionConfiguration = new Ammo.btDefaultCollisionConfiguration();
+    }
+    this.selected.dispatcher = new Ammo.btCollisionDispatcher(this.selected.collisionConfiguration);
+    this.selected.world.dispatcher = this.selected.dispatcher;
+};
+
+PhysicsComponent.prototype.onChangeGravityConstant = function () {
+    var gravityConstantX = UI.get('gravityConstantX', this.id);
+    var gravityConstantY = UI.get('gravityConstantY', this.id);
+    var gravityConstantZ = UI.get('gravityConstantZ', this.id);
+
+    var gravity = new Ammo.btVector3(gravityConstantX.getValue(), gravityConstantY.getValue(), gravityConstantZ.getValue());
+    this.selected.world.setGravity(gravity);
+    this.selected.world.getWorldInfo().set_m_gravity(gravity);
 };
 
 export default PhysicsComponent;
