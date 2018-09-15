@@ -11,13 +11,13 @@ function ObjectLoader() {
 ObjectLoader.prototype = Object.create(BaseLoader.prototype);
 ObjectLoader.prototype.constructor = ObjectLoader;
 
-ObjectLoader.prototype.load = function (url) {
+ObjectLoader.prototype.load = function (url, options) {
     return new Promise(resolve => {
         var loader = new THREE.ObjectLoader();
 
         loader.load(url, obj => {
             if (obj instanceof THREE.Scene && obj.children.length > 0 && obj.children[0] instanceof THREE.SkinnedMesh) {
-                resolve(this.loadSkinnedMesh(obj));
+                resolve(this.loadSkinnedMesh(obj, options));
             } else {
                 resolve(obj);
             }
@@ -27,7 +27,7 @@ ObjectLoader.prototype.load = function (url) {
     });
 };
 
-ObjectLoader.prototype.loadSkinnedMesh = function (scene) {
+ObjectLoader.prototype.loadSkinnedMesh = function (scene, options) {
     var mesh = null;
 
     scene.traverse(child => {
@@ -35,6 +35,35 @@ ObjectLoader.prototype.loadSkinnedMesh = function (scene) {
             mesh = child;
         }
     });
+
+    var animations = mesh.geometry.animations;
+
+    if (options.name && animations && animations.length > 0) {
+
+        var names = animations.map(n => n.name);
+
+        var source1 = `var mesh = this.getObjectByName('${options.name}');\nvar mixer = new THREE.AnimationMixer(mesh);\n\n`;
+
+        var source2 = ``;
+
+        names.forEach(n => {
+            source2 += `var ${n}Animation = mixer.clipAction('${n}');\n`;
+        });
+
+        var source3 = `\n${names[0]}Animation.play();\n\n`;
+
+        var source4 = `function update(clock, deltaTime) { \n    mixer.update(deltaTime); \n}`;
+
+        var source = source1 + source2 + source3 + source4;
+
+        mesh.userData.scripts = [{
+            id: null,
+            name: '动画',
+            type: 'javascript',
+            source: source,
+            uuid: THREE.Math.generateUUID()
+        }];
+    }
 
     return mesh;
 };

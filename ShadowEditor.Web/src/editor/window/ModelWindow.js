@@ -192,7 +192,10 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
 ModelWindow.prototype.onLoadModel = function (model) {
     var loader = new ModelLoader(this.app);
 
-    loader.load(this.app.options.server + model.Url, { type: model.Type }).then(obj => {
+    loader.load(this.app.options.server + model.Url, {
+        name: model.Name,
+        type: model.Type
+    }).then(obj => {
         if (!obj) {
             return;
         }
@@ -204,6 +207,13 @@ ModelWindow.prototype.onLoadModel = function (model) {
 
         var cmd = new AddObjectCommand(obj);
         cmd.execute();
+
+        if (obj.userData.scripts) {
+            obj.userData.scripts.forEach(n => {
+                this.app.editor.scripts[n.uuid] = n;
+            });
+            this.app.call('scriptChanged', this);
+        }
     });
 };
 
