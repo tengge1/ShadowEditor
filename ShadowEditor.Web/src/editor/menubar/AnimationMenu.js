@@ -34,11 +34,6 @@ AnimationMenu.prototype.render = function () {
             children: [{
                 xtype: 'div',
                 cls: 'option',
-                html: '人',
-                onClick: this.onAddPerson.bind(this)
-            }, {
-                xtype: 'div',
-                cls: 'option',
                 html: '火焰',
                 onClick: () => {
                     this.app.call('mAddFire', this);
@@ -73,53 +68,6 @@ AnimationMenu.prototype.render = function () {
 
     container.render();
 }
-
-/**
- * 添加人
- */
-AnimationMenu.prototype.onAddPerson = function () {
-    var editor = this.app.editor;
-
-    var loader = new ObjectLoader();
-    var url = this.app.options.server + '/assets/models/marine/marine_anims_core.json';
-    loader.load(url).then(mesh => {
-        mesh.scale.set(0.1, 0.1, 0.1);
-        mesh.name = '人' + ID++;
-        mesh.userData = {
-            Server: true,
-            Type: 'json',
-            Url: '/assets/models/marine/marine_anims_core.json'
-        };
-        editor.execute(new AddObjectCommand(mesh));
-        this.setPersonScript(mesh.name);
-    });
-};
-
-AnimationMenu.prototype.setPersonScript = function (name) {
-    var source = `
-    var mesh = this.getObjectByName('${name}');
-    var mixer = new THREE.AnimationMixer(mesh);
-    var idleAction = mixer.clipAction('idle');
-    var walkAction = mixer.clipAction('walk');
-    var runAction = mixer.clipAction('run');
-    var actions = [idleAction, walkAction, runAction];
-    walkAction.play();
-
-    function update(clock, deltaTime) {
-        mixer.update(deltaTime);
-    }
-    `;
-
-    var uuid = THREE.Math.generateUUID();
-    this.app.editor.scripts[uuid] = {
-        id: 0,
-        name: `${name}动画`,
-        type: 'javascript',
-        source: source,
-        uuid: uuid
-    };
-    this.app.call('scriptChanged', this);
-};
 
 /**
  * 添加寒冰射手
