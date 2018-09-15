@@ -25,18 +25,11 @@ var EventList = [
     'optionsChanged', // 配置改变事件
 
     // 菜单栏事件
-    'mNewScene', // 新建
-    'mLoadScene', // 载入
-    'mSaveScene', // 保存
-    'mSaveSceneAs', // 另存为
-    'mPublishScene', // 发布
-
     'mUndo', // 撤销
     'mRedo', // 重做
     'mClearHistory', // 清空历史记录
     'mClone', // 复制
     'mDelete', // 删除
-    'mMinifyShader', // 清除着色器
 
     'mAddGroup', // 添加组
     'mAddPlane', // 添加平板
