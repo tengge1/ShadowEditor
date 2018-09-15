@@ -1,8 +1,6 @@
 import MenuEvent from '../MenuEvent';
 import AddObjectCommand from '../../../command/AddObjectCommand';
 
-var ID = -1;
-
 /**
  * 添加物理平板
  * @author tengge / https://github.com/tengge1
@@ -28,7 +26,7 @@ AddPhysicsPlaneEvent.prototype.onAddPlane = function () {
     var quat = new THREE.Quaternion();
 
     var ground = this.app.physics.createParalellepiped(40, 1, 40, 0, pos, quat, new THREE.MeshPhongMaterial({ color: 0xFFFFFF }));
-    ground.name = '物理平板' + ID--;
+    ground.name = '物理平板';
     ground.castShadow = true;
     ground.receiveShadow = true;
 

@@ -40,7 +40,7 @@ AddPhysicsClothEvent.prototype.onAddCloth = function () {
     var cloth = new THREE.Mesh(clothGeometry, clothMaterial);
     cloth.name = '布';
     cloth.castShadow = true;
-    cloth.receiveShadow = true;
+    cloth.receiveShadow = false;
 
     this.app.editor.execute(new AddObjectCommand(cloth));
 

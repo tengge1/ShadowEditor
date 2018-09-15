@@ -1,8 +1,6 @@
 import MenuEvent from '../MenuEvent';
 import AddObjectCommand from '../../../command/AddObjectCommand';
 
-var ID = -1;
-
 /**
  * 添加物理墙
  * @author tengge / https://github.com/tengge1
@@ -58,7 +56,7 @@ AddPhysicsWallEvent.prototype.onAddWall = function () {
             var brick = this.app.physics.createParalellepiped(brickDepth, brickHeight, brickLengthCurrent, brickMassCurrent, pos, quat, material);
             brick.castShadow = true;
             brick.receiveShadow = true;
-            editor.execute(new AddObjectCommand(brick));
+            editor.scene.add(brick);
 
             if (oddRow && (i == 0 || i == nRow - 2)) {
                 pos.z += 0.75 * brickLength;
