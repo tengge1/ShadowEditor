@@ -239,6 +239,7 @@ SceneWindow.prototype.onLoadScene = function (obj) {
         viewport.appendChild(obj.renderer.domElement);
         this.app.editor.renderer = obj.renderer;
         this.app.editor.renderer.setSize(viewport.offsetWidth, viewport.offsetHeight);
+        this.app.call('resize', this);
     }
 
     if (obj.scripts) {

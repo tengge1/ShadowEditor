@@ -110,19 +110,6 @@ BackgroundMusicComponent.prototype.onSelectAudio = function (obj) {
     Object.assign(this.selected.userData.backgroundMusic, obj);
     this.updateUI();
     this.window.hide();
-
-    // var listener = this.app.editor.audioListener;
-
-    // var sound = new THREE.Audio(listener);
-
-    // var loader = new THREE.AudioLoader();
-
-    // loader.load(this.app.options.server + model.Url, buffer => {
-    //     sound.setBuffer(buffer);
-    //     sound.setLoop(true);
-    //     sound.setVolume(1.0);
-    //     sound.play();
-    // });
 };
 
 export default BackgroundMusicComponent;

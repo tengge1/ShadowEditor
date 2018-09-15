@@ -15,6 +15,10 @@ function Player(options) {
     this.renderer = null;
     this.scripts = null;
 
+    this.audioListener = null;
+
+    this.assets = {};
+
     this.events = null;
 
     this.isPlaying = false;
@@ -54,6 +58,8 @@ Player.prototype.start = function () {
         container.dom.removeChild(this.renderer.domElement);
     }
 
+    this.assets = {};
+
     var jsons = (new Converter()).toJSON({
         options: this.app.options,
         camera: this.app.editor.camera,
@@ -69,19 +75,22 @@ Player.prototype.start = function () {
     promise.then(obj => {
         this.initPlayer(obj);
         this.initScript();
-        this.clock = new THREE.Clock();
-        this.events.forEach(n => {
-            if (typeof (n.init) === 'function') {
-                n.init();
-            }
+        this.loadAssets().then(() => {
+            this.clock = new THREE.Clock();
+            this.events.forEach(n => {
+                if (typeof (n.init) === 'function') {
+                    n.init();
+                }
+            });
+            this.renderScene();
+            this.initScene();
+            this.events.forEach(n => {
+                if (typeof (n.start) === 'function') {
+                    n.start();
+                }
+            });
+            requestAnimationFrame(this.animate.bind(this));
         });
-        this.renderScene();
-        this.events.forEach(n => {
-            if (typeof (n.start) === 'function') {
-                n.start();
-            }
-        });
-        requestAnimationFrame(this.animate.bind(this));
     });
 };
 
@@ -99,6 +108,8 @@ Player.prototype.stop = function () {
         return;
     }
     this.isPlaying = false;
+
+    this.destroyScene();
 
     var container = UI.get('player');
     container.dom.style.display = 'none';
@@ -137,6 +148,9 @@ Player.prototype.initPlayer = function (obj) {
     } else {
         this.scripts = {};
     }
+
+    this.audioListener = new THREE.AudioListener();
+    this.camera.add(this.audioListener);
 
     // 场景
     if (obj.scene) {
@@ -209,10 +223,59 @@ Player.prototype.initScript = function () {
 };
 
 /**
+ * 下载资源
+ */
+Player.prototype.loadAssets = function () {
+    return new Promise(resolve => {
+        var backgroundMusic = this.scene.userData.backgroundMusic;
+
+        if (backgroundMusic) {
+            var loader = new THREE.AudioLoader();
+
+            loader.load(this.app.options.server + backgroundMusic.Url, buffer => {
+                this.assets[backgroundMusic.Url] = buffer;
+                resolve();
+            }, undefined, () => {
+                this.app.error(`Player: ${backgroundMusic.Url}下载失败。`);
+                resolve();
+            });
+        } else {
+            resolve();
+        }
+    });
+};
+
+/**
  * 渲染
  */
 Player.prototype.renderScene = function () {
     this.renderer.render(this.scene, this.camera);
+};
+
+Player.prototype.initScene = function () {
+    var backgroundMusic = this.scene.userData.backgroundMusic;
+    if (backgroundMusic) {
+        var buffer = this.assets[backgroundMusic.Url];
+
+        if (buffer === undefined) {
+            this.app.error(`Player: 加载背景音乐失败。`);
+            return;
+        }
+
+        this.backgroundMusic = new THREE.Audio(this.audioListener);
+        this.backgroundMusic.setBuffer(buffer);
+        this.backgroundMusic.setLoop(true);
+        this.backgroundMusic.setVolume(1.0);
+        this.backgroundMusic.play();
+    }
+};
+
+Player.prototype.destroyScene = function () {
+    if (this.backgroundMusic) {
+        if (this.backgroundMusic.isPlaying) {
+            this.backgroundMusic.stop();
+        }
+    }
 };
 
 /**
