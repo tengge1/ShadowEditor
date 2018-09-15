@@ -240,11 +240,11 @@ Player.prototype.loadAssets = function () {
                 promises.push(new Promise(resolve1 => {
                     var loader = new THREE.AudioLoader();
 
-                    loader.load(this.app.options.server + backgroundMusic.Url, buffer => {
-                        this.assets[backgroundMusic.Url] = buffer;
+                    loader.load(this.app.options.server + n.userData.Url, buffer => {
+                        this.assets[n.userData.Url] = buffer;
                         resolve1();
                     }, undefined, () => {
-                        this.app.error(`Player: ${backgroundMusic.Url}下载失败。`);
+                        this.app.error(`Player: ${n.userData.Url}下载失败。`);
                         resolve1();
                     });
                 }));
@@ -271,9 +271,9 @@ Player.prototype.renderScene = function () {
 Player.prototype.initScene = function () {
     this.audios = [];
 
-    this.scene.children.traverse(n => {
+    this.scene.traverse(n => {
         if (n instanceof THREE.Audio) {
-            var buffer = this.assets[n.Url];
+            var buffer = this.assets[n.userData.Url];
 
             if (buffer === undefined) {
                 this.app.error(`Player: 加载背景音乐失败。`);
@@ -281,18 +281,23 @@ Player.prototype.initScene = function () {
             }
 
             n.setBuffer(buffer);
-            // n.play();
+
+            if (n.userData.autoplay) {
+                n.autoplay = n.userData.autoplay;
+                n.play();
+            }
+
             this.audios.push(n);
         }
     });
 };
 
 Player.prototype.destroyScene = function () {
-    // if (this.backgroundMusic) {
-    //     if (this.backgroundMusic.isPlaying) {
-    //         this.backgroundMusic.stop();
-    //     }
-    // }
+    this.audios.forEach(n => {
+        if (n.isPlaying) {
+            n.stop();
+        }
+    });
 };
 
 /**
