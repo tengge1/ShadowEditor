@@ -20,12 +20,6 @@ import ModelEvent from './toolbar/ModelEvent';
 import PathModeEvent from './toolbar/PathModeEvent';
 
 // 菜单栏
-import UndoEvent from './menu/edit/UndoEvent';
-import RedoEvent from './menu/edit/RedoEvent';
-import ClearHistoryEvent from './menu/edit/ClearHistoryEvent';
-import CloneEvent from './menu/edit/CloneEvent';
-import DeleteEvent from './menu/edit/DeleteEvent';
-
 import AddGroupEvent from './menu/add/AddGroupEvent';
 import AddPlaneEvent from './menu/add/AddPlaneEvent';
 import AddBoxEvent from './menu/add/AddBoxEvent';
@@ -106,12 +100,6 @@ function EventDispatcher(app) {
         new PathModeEvent(this.app),
 
         // menubar中的事件
-        new UndoEvent(this.app),
-        new RedoEvent(this.app),
-        new ClearHistoryEvent(this.app),
-        new CloneEvent(this.app),
-        new DeleteEvent(this.app),
-
         new AddGroupEvent(this.app),
         new AddPlaneEvent(this.app),
         new AddBoxEvent(this.app),
