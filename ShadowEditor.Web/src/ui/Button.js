@@ -42,6 +42,11 @@ Button.prototype.render = function () {
     }
 };
 
+Button.prototype.setText = function (text) {
+    this.text = text;
+    this.dom.innerHTML = this.text;
+};
+
 Button.prototype.select = function () {
     this.dom.classList.add('selected');
 };

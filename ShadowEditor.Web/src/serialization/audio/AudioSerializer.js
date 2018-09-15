@@ -22,9 +22,11 @@ AudioSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-AudioSerializer.prototype.fromJSON = function (json, parent) {
-    var listener = new THREE.AudioListener();
-    var obj = parent === undefined ? new THREE.Audio(listener) : parent;
+AudioSerializer.prototype.fromJSON = function (json, parent, audioListener) {
+    if (audioListener === undefined) {
+        audioListener = new THREE.AudioListener();
+    }
+    var obj = parent === undefined ? new THREE.Audio(audioListener) : parent;
 
     Object3DSerializer.prototype.fromJSON.call(this, json, obj);
 

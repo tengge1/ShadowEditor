@@ -64,7 +64,7 @@ BackgroundMusicComponent.prototype.render = function () {
                 xtype: 'checkbox',
                 id: 'autoplay',
                 scope: this.id,
-                value: true,
+                value: false,
                 onChange: this.onChange.bind(this)
             }]
         }, {
@@ -90,6 +90,20 @@ BackgroundMusicComponent.prototype.render = function () {
                 scope: this.id,
                 range: [0, 1],
                 onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label'
+            }, {
+                xtype: 'button',
+                id: 'btnPlay',
+                scope: this.id,
+                text: '播放',
+                style: {
+                    display: 'none'
+                },
+                onClick: this.onPlay.bind(this)
             }]
         }]
     };
@@ -126,11 +140,23 @@ BackgroundMusicComponent.prototype.updateUI = function () {
     var autoplay = UI.get('autoplay', this.id);
     var loop = UI.get('loop', this.id);
     var volumn = UI.get('volumn', this.id);
+    var btnPlay = UI.get('btnPlay', this.id);
 
     name.setValue(this.selected.userData.Name);
-    autoplay.setValue(this.selected.autoplay);
+    autoplay.setValue(this.selected.userData.autoplay);
     loop.setValue(this.selected.getLoop());
     volumn.setValue(this.selected.getVolume());
+
+    if (this.selected.buffer) {
+        btnPlay.dom.style.display = '';
+        if (this.selected.isPlaying) {
+            btnPlay.setText('停止');
+        } else {
+            btnPlay.setText('播放');
+        }
+    } else {
+        btnPlay.dom.style.display = 'none';
+    }
 };
 
 BackgroundMusicComponent.prototype.onSelect = function () {
@@ -149,15 +175,41 @@ BackgroundMusicComponent.prototype.onChange = function (obj) {
     var autoplay = UI.get('autoplay', this.id);
     var loop = UI.get('loop', this.id);
     var volumn = UI.get('volumn', this.id);
+    var btnPlay = UI.get('btnPlay', this.id);
 
-    Object.assign(this.selected.userData, obj);
-    this.selected.autoplay = autoplay.getValue();
+    if (obj) { // 仅选择窗口会传递obj参数
+        Object.assign(this.selected.userData, obj);
+        var loader = new THREE.AudioLoader();
+        loader.load(obj.Url, buffer => {
+            this.selected.setBuffer(buffer);
+            btnPlay.dom.style.display = '';
+        });
+    }
+
+    this.selected.userData.autoplay = autoplay.getValue(); // 这里不能给this.selected赋值，否则音频会自动播放
     this.selected.setLoop(loop.getValue());
     this.selected.setVolume(volumn.getValue());
     this.updateUI();
 
     if (this.window) {
         this.window.hide();
+    }
+};
+
+BackgroundMusicComponent.prototype.onPlay = function () {
+    var btnPlay = UI.get('btnPlay', this.id);
+
+    if (this.selected.buffer) {
+        btnPlay.dom.style.display = '';
+        if (this.selected.isPlaying) {
+            this.selected.stop();
+            btnPlay.setText('播放');
+        } else {
+            this.selected.play();
+            btnPlay.setText('停止');
+        }
+    } else {
+        btnPlay.dom.style.display = 'none';
     }
 };
 

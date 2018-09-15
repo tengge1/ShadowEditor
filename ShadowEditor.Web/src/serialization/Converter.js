@@ -198,11 +198,12 @@ Converter.prototype.fromJson = function (jsons, options) {
         console.warn(`Converter: 场景种不存在音频监听器信息。`);
         audioListener = new THREE.AudioListener();
     }
+    obj.audioListener = audioListener;
     obj.camera.add(audioListener);
 
     // 场景
     return new Promise(resolve => {
-        this.sceneFromJson(jsons, options).then(scene => {
+        this.sceneFromJson(jsons, options, audioListener).then(scene => {
             obj.scene = scene;
             resolve(obj);
         });
@@ -213,8 +214,9 @@ Converter.prototype.fromJson = function (jsons, options) {
  * json转场景
  * @param {*} jsons 反序列化对象列表
  * @param {*} options 配置信息
+ * @param {*} audioListener 音频监听器
  */
-Converter.prototype.sceneFromJson = function (jsons, options) {
+Converter.prototype.sceneFromJson = function (jsons, options, audioListener) {
     var sceneJson = jsons.filter(n => n.metadata && n.metadata.generator === 'SceneSerializer')[0];
     if (sceneJson === undefined) {
         console.warn(`Converter: 数据中不存在场景信息。`);
@@ -277,7 +279,7 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                     obj = (new SpotLightSerializer()).fromJSON(objJson);
                     break;
                 case 'AudioSerializer':
-                    obj = (new AudioSerializer()).fromJSON(objJson);
+                    obj = (new AudioSerializer()).fromJSON(objJson, undefined, audioListener);
                     break;
             }
 

@@ -67,9 +67,11 @@ ComponentMenu.prototype.onAddBackgroundMusic = function () {
 
     var audio = new THREE.Audio(listener);
     audio.name = `背景音乐`;
-    audio.autoplay = true;
+    audio.autoplay = false;
     audio.setLoop(true);
     audio.setVolume(1.0);
+
+    audio.userData.autoplay = true;
 
     this.app.editor.execute(new AddObjectCommand(audio));
 };
