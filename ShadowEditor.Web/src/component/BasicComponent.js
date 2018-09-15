@@ -167,6 +167,8 @@ BasicComponent.prototype.onChangeReflect = function () {
             var index = editor.scene.children.indexOf(this.selected);
             if (index > -1) {
                 editor.scene.children[index] = reflector;
+                reflector.parent = this.selected.parent;
+                this.selected.parent = null;
                 this.app.call(`objectRemoved`, this, this.selected);
                 this.app.call(`objectAdded`, this, reflector);
                 editor.select(reflector);
@@ -188,6 +190,8 @@ BasicComponent.prototype.onChangeReflect = function () {
             var index = editor.scene.children.indexOf(this.selected);
             if (index > -1) {
                 editor.scene.children[index] = mesh;
+                mesh.parent = this.selected.parent;
+                this.selected.parent = null;
                 this.app.call(`objectRemoved`, this, this.selected);
                 this.app.call(`objectAdded`, this, mesh);
                 editor.select(mesh);
