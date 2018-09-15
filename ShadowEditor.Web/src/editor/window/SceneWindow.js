@@ -228,7 +228,18 @@ SceneWindow.prototype.onLoadScene = function (obj) {
 
     if (obj.camera) {
         this.app.editor.camera.copy(obj.camera);
-        this.app.editor.camera.updateProjectionMatrix();
+
+        this.app.editor.camera.children.forEach(n => {
+            if (n instanceof THREE.AudioListener) {
+                this.app.editor.camera.remove(n);
+            }
+        });
+
+        var audioListener = obj.camera.children.filter(n => n instanceof THREE.AudioListener)[0];
+        if (audioListener) {
+            this.app.editor.audioListener = audioListener;
+            this.app.editor.camera.add(audioListener);
+        }
     }
 
     if (obj.renderer) {
@@ -249,6 +260,8 @@ SceneWindow.prototype.onLoadScene = function (obj) {
     if (obj.scene) {
         this.app.editor.setScene(obj.scene);
     }
+
+    this.app.editor.camera.updateProjectionMatrix();
 };
 
 export default SceneWindow;

@@ -22,7 +22,6 @@ AudioListenerComponent.prototype.render = function () {
         scope: this.id,
         cls: 'Panel',
         style: {
-            borderTop: 0,
             display: 'none'
         },
         children: [{
@@ -30,10 +29,11 @@ AudioListenerComponent.prototype.render = function () {
             children: [{
                 xtype: 'label',
                 style: {
+                    width: '100%',
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '音频监听'
+                text: '音频监听器'
             }]
         }, {
             xtype: 'row',

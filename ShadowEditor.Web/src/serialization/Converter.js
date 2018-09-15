@@ -26,6 +26,7 @@ import RectAreaLightSerializer from './light/RectAreaLightSerializer';
 
 // audio
 import AudioSerializer from './audio/AudioSerializer';
+import AudioListenerSerializer from './audio/AudioListenerSerializer';
 
 /**
  * 场景序列化/反序列化类
@@ -52,22 +53,29 @@ Converter.prototype.toJSON = function (obj) {
     var list = [];
 
     // 选项
-    var config = (new OptionsSerializer()).toJSON(options);
-    list.push(config);
+    var configJson = (new OptionsSerializer()).toJSON(options);
+    list.push(configJson);
 
     // 相机
-    var camera = (new CamerasSerializer()).toJSON(camera);
-    list.push(camera);
+    var cameraJson = (new CamerasSerializer()).toJSON(camera);
+    list.push(cameraJson);
 
     // 渲染器
-    var renderer = (new WebGLRendererSerializer()).toJSON(renderer);
-    list.push(renderer);
+    var rendererJson = (new WebGLRendererSerializer()).toJSON(renderer);
+    list.push(rendererJson);
 
     // 脚本
-    var scripts = (new ScriptSerializer()).toJSON(scripts);
-    scripts.forEach(n => {
+    var scriptsJson = (new ScriptSerializer()).toJSON(scripts);
+    scriptsJson.forEach(n => {
         list.push(n);
     });
+
+    // 音频监听器
+    var audioListener = camera.children.filter(n => n instanceof THREE.AudioListener)[0];
+    if (audioListener) {
+        var audioListenerJson = (new AudioListenerSerializer()).toJSON(audioListener);
+        list.push(audioListenerJson);
+    }
 
     // 场景
     this.sceneToJson(scene, list);
@@ -180,6 +188,17 @@ Converter.prototype.fromJson = function (jsons, options) {
     if (scriptJsons) {
         obj.scripts = (new ScriptSerializer()).fromJSON(scriptJsons);
     }
+
+    // 音频监听器
+    var audioListenerJson = jsons.filter(n => n.metadata && n.metadata.generator === 'AudioListenerSerializer')[0];
+    var audioListener;
+    if (audioListenerJson) {
+        audioListener = (new AudioListenerSerializer()).fromJSON(audioListenerJson);
+    } else {
+        console.warn(`Converter: 场景种不存在音频监听器信息。`);
+        audioListener = new THREE.AudioListener();
+    }
+    obj.camera.add(audioListener);
 
     // 场景
     return new Promise(resolve => {
