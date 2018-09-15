@@ -269,6 +269,15 @@ ParticleEmitterComponent.prototype.render = function () {
                 scope: this.id,
                 onChange: this.onChangeMaxAgeSpread.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label'
+            }, {
+                xtype: 'button',
+                text: '预览',
+                onClick: this.onPreview.bind(this)
+            }]
         }]
     };
 
@@ -517,6 +526,10 @@ ParticleEmitterComponent.prototype.onChangeMaxAgeSpread = function () {
     emitter.maxAge.spread = maxAgeSpread.getValue();
 
     emitter.updateFlags.params = true;
+};
+
+ParticleEmitterComponent.prototype.onPreview = function () {
+
 };
 
 export default ParticleEmitterComponent;

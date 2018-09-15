@@ -1,5 +1,7 @@
 import BaseComponent from './BaseComponent';
 import SetValueCommand from '../command/SetValueCommand';
+import RemoveObjectCommand from '../command/RemoveObjectCommand';
+import AddObjectCommand from '../command/AddObjectCommand';
 
 /**
  * 基本信息组件
@@ -17,7 +19,7 @@ BasicComponent.prototype.constructor = BasicComponent;
 BasicComponent.prototype.render = function () {
     var data = {
         xtype: 'div',
-        id: 'objectPanel',
+        id: 'basicPanel',
         scope: this.id,
         parent: this.parent,
         cls: 'Panel',
@@ -42,7 +44,7 @@ BasicComponent.prototype.render = function () {
                 text: '名称'
             }, {
                 xtype: 'input',
-                id: 'objectName',
+                id: 'name',
                 scope: this.id,
                 style: {
                     width: '100px',
@@ -57,7 +59,7 @@ BasicComponent.prototype.render = function () {
                 text: '类型'
             }, {
                 xtype: 'text',
-                id: 'objectType',
+                id: 'type',
                 scope: this.id
             }]
         }, {
@@ -67,9 +69,22 @@ BasicComponent.prototype.render = function () {
                 text: '可见性'
             }, {
                 xtype: 'checkbox',
-                id: 'objectVisible',
+                id: 'visible',
                 scope: this.id,
                 onChange: this.onChangeVisible.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'reflectRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '反光'
+            }, {
+                xtype: 'checkbox',
+                id: 'reflect',
+                scope: this.id,
+                onChange: this.onChangeReflect.bind(this)
             }]
         }]
     };
@@ -90,7 +105,7 @@ BasicComponent.prototype.onObjectChanged = function () {
 };
 
 BasicComponent.prototype.updateUI = function () {
-    var container = UI.get('objectPanel', this.id);
+    var container = UI.get('basicPanel', this.id);
     var editor = this.app.editor;
     if (editor.selected) {
         container.dom.style.display = '';
@@ -100,20 +115,86 @@ BasicComponent.prototype.updateUI = function () {
     }
 
     this.selected = editor.selected;
-    UI.get('objectName', this.id).setValue(this.selected.name);
-    UI.get('objectType', this.id).setValue(this.selected.constructor.name);
-    UI.get('objectVisible', this.id).setValue(this.selected.visible);
+
+    var reflectRow = UI.get('reflectRow', this.id);
+
+    var name = UI.get('name', this.id);
+    var type = UI.get('type', this.id);
+    var visible = UI.get('visible', this.id);
+    var reflect = UI.get('reflect', this.id);
+
+    if (this.selected instanceof THREE.Mesh) {
+        reflectRow.dom.style.display = '';
+    } else {
+        reflectRow.dom.style.display = 'none';
+    }
+
+    name.setValue(this.selected.name);
+    type.setValue(this.selected.constructor.name);
+    visible.setValue(this.selected.visible);
+    reflect.setValue(this.selected instanceof THREE.Reflector);
 };
 
 BasicComponent.prototype.onChangeName = function () {
-    var objectName = UI.get('objectName', this.id);
+    var name = UI.get('name', this.id);
     var editor = this.app.editor;
 
-    editor.execute(new SetValueCommand(this.selected, 'name', objectName.getValue()));
+    editor.execute(new SetValueCommand(this.selected, 'name', name.getValue()));
 };
 
 BasicComponent.prototype.onChangeVisible = function () {
-    this.selected.visible = UI.get('objectVisible', this.id).getValue();
+    this.selected.visible = UI.get('visible', this.id).getValue();
+};
+
+BasicComponent.prototype.onChangeReflect = function () {
+    var reflect = UI.get('reflect', this.id);
+
+    var editor = this.app.editor;
+
+    if (reflect.getValue()) {
+        if (!(this.selected instanceof THREE.Reflector)) {
+            var reflector = new THREE.Reflector(this.selected.geometry);
+
+            reflector.name = this.selected.name;
+            reflector.position.copy(this.selected.position);
+            reflector.rotation.copy(this.selected.rotation);
+            reflector.scale.copy(this.selected.scale);
+
+            Object.assign(reflector.userData, this.selected.userData, {
+                mesh: this.selected
+            });
+
+            var index = editor.scene.children.indexOf(this.selected);
+            if (index > -1) {
+                editor.scene.children[index] = reflector;
+                this.app.call(`objectRemoved`, this, this.selected);
+                this.app.call(`objectAdded`, this, reflector);
+                editor.select(reflector);
+                this.app.call('sceneGraphChanged', this.id);
+            }
+        }
+    } else {
+        if (this.selected instanceof THREE.Reflector) {
+            var mesh = this.selected.userData.mesh;
+            this.selected.userData.mesh = null;
+
+            mesh.name = this.selected.name;
+            mesh.position.copy(this.selected.position);
+            mesh.rotation.copy(this.selected.rotation);
+            mesh.scale.copy(this.selected.scale);
+
+            Object.assign(mesh.userData, this.selected.userData);
+
+            var index = editor.scene.children.indexOf(this.selected);
+            if (index > -1) {
+                editor.scene.children[index] = mesh;
+                this.app.call(`objectRemoved`, this, this.selected);
+                this.app.call(`objectAdded`, this, mesh);
+                editor.select(mesh);
+                this.app.call('sceneGraphChanged', this.id);
+            }
+        }
+    }
 };
 
 export default BasicComponent;
