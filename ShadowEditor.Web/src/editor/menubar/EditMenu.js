@@ -69,14 +69,6 @@ EditMenu.prototype.render = function () {
                 onClick: function () {
                     _this.app.call('mDelete');
                 }
-            }, {
-                xtype: 'div',
-                id: 'mMinifyShader',
-                html: '压缩着色器程序',
-                cls: 'option',
-                onClick: function () {
-                    _this.app.call('mMinifyShader');
-                }
             }]
         }]
     });

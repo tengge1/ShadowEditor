@@ -31,7 +31,6 @@ import RedoEvent from './menu/edit/RedoEvent';
 import ClearHistoryEvent from './menu/edit/ClearHistoryEvent';
 import CloneEvent from './menu/edit/CloneEvent';
 import DeleteEvent from './menu/edit/DeleteEvent';
-import MinifyShaderEvent from './menu/edit/MinifyShaderEvent';
 
 import AddGroupEvent from './menu/add/AddGroupEvent';
 import AddPlaneEvent from './menu/add/AddPlaneEvent';
@@ -124,7 +123,6 @@ function EventDispatcher(app) {
         new ClearHistoryEvent(this.app),
         new CloneEvent(this.app),
         new DeleteEvent(this.app),
-        new MinifyShaderEvent(this.app),
 
         new AddGroupEvent(this.app),
         new AddPlaneEvent(this.app),
