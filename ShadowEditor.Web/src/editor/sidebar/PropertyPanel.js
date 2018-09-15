@@ -10,6 +10,7 @@ import PhysicsComponent from '../../component/PhysicsComponent';
 import AudioListenerComponent from '../../component/audio/AudioListenerComponent';
 import ParticleEmitterComponent from '../../component/ParticleEmitterComponent';
 import SceneComponent from '../../component/SceneComponent';
+import BackgroundMusicComponent from '../../component/audio/BackgroundMusicComponent';
 
 /**
  * 属性面板
@@ -35,10 +36,11 @@ PropertyPanel.prototype.render = function () {
             new CameraComponent({ app: this.app }),
             new LightComponent({ app: this.app }),
             new ShadowComponent({ app: this.app }),
+            new AudioListenerComponent({ app: this.app }),
+            new BackgroundMusicComponent({ app: this.app }),
             new PhysicsComponent({ app: this.app }),
             new GeometryComponent({ app: this.app }),
             new MaterialComponent({ app: this.app }),
-            new AudioListenerComponent({ app: this.app }),
             new ParticleEmitterComponent({ app: this.app })
         ]
     };

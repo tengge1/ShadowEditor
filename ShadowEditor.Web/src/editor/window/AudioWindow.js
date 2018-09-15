@@ -3,8 +3,6 @@ import Ajax from '../../utils/Ajax';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import UploadUtils from '../../utils/UploadUtils';
 
-var ID = -1;
-
 /**
  * 音频窗口
  * @author tengge / https://github.com/tengge1
@@ -13,7 +11,9 @@ var ID = -1;
 function AudioWindow(options) {
     UI.Control.call(this, options);
     this.app = options.app;
-    this.audios = [];
+    this.onSelect = options.onSelect;
+
+    this.list = [];
     this.keyword = '';
 }
 
@@ -21,11 +21,10 @@ AudioWindow.prototype = Object.create(UI.Control.prototype);
 AudioWindow.prototype.constructor = AudioWindow;
 
 AudioWindow.prototype.render = function () {
-    var _this = this;
-
     var container = UI.create({
         xtype: 'window',
-        id: 'audioWindow',
+        id: 'window',
+        scope: this.id,
         parent: this.app.container,
         title: '音频列表',
         width: '700px',
@@ -58,24 +57,23 @@ AudioWindow.prototype.render = function () {
                 xtype: 'toolbarfiller'
             }, {
                 xtype: 'searchfield',
+                id: 'searchName',
+                scope: this.id,
                 showSearchButton: false,
                 showResetButton: true,
-                onInput: function () {
-                    _this.onSearch(this.getValue());
-                }
+                onInput: this.onClickSearchButton.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'imagelist',
-                id: 'audioWindowImages',
+                id: 'images',
+                scope: this.id,
                 style: {
                     width: '100%',
                     height: '100%',
                 },
-                onClick: function (event, index, btn) {
-                    _this.onClickImage(this, index, btn);
-                }
+                onClick: this.onClickImage.bind(this)
             }]
         }]
     });
@@ -83,50 +81,57 @@ AudioWindow.prototype.render = function () {
 };
 
 /**
- * 显示音频文件列表
+ * 显示窗口
  */
 AudioWindow.prototype.show = function () {
-    UI.get('audioWindow').show();
+    UI.get('window', this.id).show();
 
     this.keyword = '';
     this.updateList();
+};
+
+/**
+ * 隐藏窗口
+ */
+AudioWindow.prototype.hide = function () {
+    UI.get('window', this.id).hide();
 };
 
 AudioWindow.prototype.updateList = function () {
     var app = this.app;
     var server = app.options.server;
 
-    Ajax.getJson(`${server}/api/Audio/List`, (obj) => {
-        this.audios = obj.Data;
+    Ajax.getJson(`${server}/api/Audio/List`, obj => {
+        this.list = obj.Data;
         this.onSearch(this.keyword);
     });
 };
 
 /**
- * 搜索音频文件
+ * 搜索文件
  * @param {*} name 
  */
 AudioWindow.prototype.onSearch = function (name) {
     if (name.trim() === '') {
-        this.renderImages(this.audios);
+        this.renderList(this.list);
         return;
     }
 
     name = name.toLowerCase();
 
-    var models = this.audios.filter((n) => {
+    var list = this.list.filter(n => {
         return n.Name.indexOf(name) > -1 ||
             n.FirstPinYin.indexOf(name) > -1 ||
             n.TotalPinYin.indexOf(name) > -1;
     });
-    this.renderImages(models);
+    this.renderList(list);
 };
 
-AudioWindow.prototype.renderImages = function (models) {
-    var images = UI.get('audioWindowImages');
+AudioWindow.prototype.renderList = function (list) {
+    var images = UI.get('images', this.id);
     images.clear();
 
-    images.children = models.map((n) => {
+    images.children = list.map(n => {
         return {
             xtype: 'image',
             title: n.Name,
@@ -142,11 +147,14 @@ AudioWindow.prototype.renderImages = function (models) {
     images.render();
 };
 
+/**
+ * 点击上传按钮
+ */
 AudioWindow.prototype.onAddFile = function () {
-    var input = document.getElementById('audioWindowFileInput');
+    var input = document.getElementById(`${this.id}-fileInput`);
     if (input == null) {
         input = document.createElement('input');
-        input.id = 'audioWindowFileInput';
+        input.id = `${this.id}-fileInput`;
         input.type = 'file';
         document.body.appendChild(input);
         input.onchange = this.onUploadFile.bind(this);
@@ -155,8 +163,8 @@ AudioWindow.prototype.onAddFile = function () {
 };
 
 AudioWindow.prototype.onUploadFile = function (event) {
-    UploadUtils.upload('audioWindowFileInput', `${this.app.options.server}/api/Audio/Add`, (e) => {
-        document.getElementById('audioWindowFileInput').value = null;
+    UploadUtils.upload(`${this.id}-fileInput`, `${this.app.options.server}/api/Audio/Add`, e => {
+        document.getElementById(`${this.id}-fileInput`).value = null;
         if (e.target.status === 200) {
             var obj = JSON.parse(e.target.responseText);
             if (obj.Code === 200) {
@@ -169,52 +177,49 @@ AudioWindow.prototype.onUploadFile = function (event) {
     });
 };
 
-AudioWindow.prototype.onClickImage = function (imgs, index, btn) {
-    var model = imgs.children[index].data;
-
-    if (btn === 'edit') { // 编辑模型
-        UI.msg('开始编辑音频');
-        return;
-    }
-
-    if (btn === 'delete') { // 删除模型
-        this.onDelete(model);
-        return;
-    }
-
-    this.onLoad(model);
-};
-
 /**
- * 添加模型到场景
- * @param {*} model 
+ * 点击搜索按钮
  */
-AudioWindow.prototype.onLoad = function (model) {
-    var listener = this.app.editor.audioListener;
-
-    var sound = new THREE.Audio(listener);
-
-    var loader = new THREE.AudioLoader();
-
-    loader.load(this.app.options.server + model.Url, buffer => {
-        sound.setBuffer(buffer);
-        sound.setLoop(true);
-        sound.setVolume(1.0);
-        sound.play();
-    });
+AudioWindow.prototype.onClickSearchButton = function () {
+    var name = UI.get('searchName', this.id);
+    this.onSearch(name.getValue());
 };
 
 /**
- * 删除音频
+ * 点击图片列表
+ * @param {*} event 
+ * @param {*} index 
+ * @param {*} btn 
+ * @param {*} imgs 
+ */
+AudioWindow.prototype.onClickImage = function (event, index, btn, imgs) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    var data = imgs.children[index].data;
+
+    if (btn === 'edit') {
+        UI.msg('开始编辑');
+    } else if (btn === 'delete') {
+        this.onDelete(data);
+    } else if (typeof (this.onSelect) === 'function') {
+        this.onSelect(data);
+    } else {
+        UI.msg('请在属性窗口添加音频！');
+    }
+};
+
+/**
+ * 删除
  * @param {*} model 
  */
 AudioWindow.prototype.onDelete = function (model) {
     var app = this.app;
     var server = app.options.server;
 
-    UI.confirm('询问', '是否删除该模型？', (event, btn) => {
+    UI.confirm('询问', '是否删除？', (event, btn) => {
         if (btn === 'ok') {
-            Ajax.post(`${server}/api/Audio/Delete?ID=${model.ID}`, (json) => {
+            Ajax.post(`${server}/api/Audio/Delete?ID=${model.ID}`, json => {
                 var obj = JSON.parse(json);
                 if (obj.Code === 200) {
                     this.updateList();

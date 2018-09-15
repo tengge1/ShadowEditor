@@ -48,7 +48,7 @@ ImageList.prototype.render = function () {
         }
 
         if (this.onClick) {
-            this.onClick(event, index, type);
+            this.onClick(event, index, type, this);
         }
     };
 
