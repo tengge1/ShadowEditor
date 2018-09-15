@@ -1,4 +1,5 @@
 import UI from '../../ui/UI';
+import AddObjectCommand from '../../command/AddObjectCommand';
 
 /**
  * 组件菜单
@@ -43,6 +44,11 @@ ComponentMenu.prototype.render = function () {
                 }
             }, {
                 xtype: 'div',
+                html: '背景音乐',
+                cls: 'option',
+                onClick: this.onAddBackgroundMusic.bind(this)
+            }, {
+                xtype: 'div',
                 html: '粒子发射器',
                 cls: 'option',
                 onClick: function () {
@@ -54,5 +60,18 @@ ComponentMenu.prototype.render = function () {
 
     container.render();
 }
+
+ComponentMenu.prototype.onAddBackgroundMusic = function () {
+    var editor = this.app.editor;
+    var listener = editor.audioListener;
+
+    var audio = new THREE.Audio(listener);
+    audio.name = `背景音乐`;
+    audio.autoplay = true;
+    audio.setLoop(true);
+    audio.setVolume(1.0);
+
+    this.app.editor.execute(new AddObjectCommand(audio));
+};
 
 export default ComponentMenu;

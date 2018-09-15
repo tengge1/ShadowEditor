@@ -24,7 +24,8 @@ import PointLightSerializer from './light/PointLightSerializer';
 import SpotLightSerializer from './light/SpotLightSerializer';
 import RectAreaLightSerializer from './light/RectAreaLightSerializer';
 
-import AddObjectCommand from '../command/AddObjectCommand';
+// audio
+import AudioSerializer from './audio/AudioSerializer';
 
 /**
  * 场景序列化/反序列化类
@@ -119,6 +120,9 @@ Converter.prototype.sceneToJson = function (scene, list) {
                 break;
             case 'SpotLight':
                 json = (new SpotLightSerializer()).toJSON(obj);
+                break;
+            case 'Audio':
+                json = (new AudioSerializer()).toJSON(obj);
                 break;
         }
         if (json) {
@@ -252,6 +256,9 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                     break;
                 case 'SpotLightSerializer':
                     obj = (new SpotLightSerializer()).fromJSON(objJson);
+                    break;
+                case 'AudioSerializer':
+                    obj = (new AudioSerializer()).fromJSON(objJson);
                     break;
             }
 

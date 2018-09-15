@@ -39,7 +39,7 @@ BackgroundMusicComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '音乐'
+                text: '音频'
             }, {
                 xtype: 'text',
                 id: 'name',
@@ -54,6 +54,42 @@ BackgroundMusicComponent.prototype.render = function () {
                 xtype: 'button',
                 text: '选择',
                 onClick: this.onSelect.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '自动播放'
+            }, {
+                xtype: 'checkbox',
+                id: 'autoplay',
+                scope: this.id,
+                value: true,
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '循环播放'
+            }, {
+                xtype: 'checkbox',
+                id: 'loop',
+                scope: this.id,
+                value: true,
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '音量'
+            }, {
+                xtype: 'number',
+                id: 'volumn',
+                scope: this.id,
+                range: [0, 1],
+                onChange: this.onChange.bind(this)
             }]
         }]
     };
@@ -77,7 +113,7 @@ BackgroundMusicComponent.prototype.updateUI = function () {
     var container = UI.get('backgroundMusicPanel', this.id);
 
     var editor = this.app.editor;
-    if (editor.selected && editor.selected instanceof THREE.Scene) {
+    if (editor.selected && editor.selected instanceof THREE.Audio) {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
@@ -86,30 +122,43 @@ BackgroundMusicComponent.prototype.updateUI = function () {
 
     this.selected = editor.selected;
 
-    var backgroundMusic = this.selected.userData.backgroundMusic;
+    var name = UI.get('name', this.id);
+    var autoplay = UI.get('autoplay', this.id);
+    var loop = UI.get('loop', this.id);
+    var volumn = UI.get('volumn', this.id);
 
-    if (backgroundMusic) {
-        var name = UI.get('name', this.id);
-        name.setValue(backgroundMusic.Name);
-    }
+    name.setValue(this.selected.userData.Name);
+    autoplay.setValue(this.selected.autoplay);
+    loop.setValue(this.selected.getLoop());
+    volumn.setValue(this.selected.getVolume());
 };
 
 BackgroundMusicComponent.prototype.onSelect = function () {
     if (this.window === undefined) {
         this.window = new AudioWindow({
             app: this.app,
-            onSelect: this.onSelectAudio.bind(this)
+            onSelect: this.onChange.bind(this)
         });
         this.window.render();
     }
     this.window.show();
 };
 
-BackgroundMusicComponent.prototype.onSelectAudio = function (obj) {
-    this.selected.userData.backgroundMusic = this.selected.userData.backgroundMusic || {};
-    Object.assign(this.selected.userData.backgroundMusic, obj);
+BackgroundMusicComponent.prototype.onChange = function (obj) {
+    var name = UI.get('name', this.id);
+    var autoplay = UI.get('autoplay', this.id);
+    var loop = UI.get('loop', this.id);
+    var volumn = UI.get('volumn', this.id);
+
+    Object.assign(this.selected.userData, obj);
+    this.selected.autoplay = autoplay.getValue();
+    this.selected.setLoop(loop.getValue());
+    this.selected.setVolume(volumn.getValue());
     this.updateUI();
-    this.window.hide();
+
+    if (this.window) {
+        this.window.hide();
+    }
 };
 
 export default BackgroundMusicComponent;
