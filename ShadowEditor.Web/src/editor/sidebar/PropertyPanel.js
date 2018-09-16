@@ -13,6 +13,7 @@ import SceneComponent from '../../component/SceneComponent';
 import BackgroundMusicComponent from '../../component/audio/BackgroundMusicComponent';
 import FireComponent from '../../component/FireComponent';
 import SmokeComponent from '../../component/SmokeComponent';
+import ReflectorComponent from '../../component/ReflectorComponent';
 
 /**
  * 属性面板
@@ -38,6 +39,7 @@ PropertyPanel.prototype.render = function () {
             new CameraComponent({ app: this.app }),
             new LightComponent({ app: this.app }),
             new ShadowComponent({ app: this.app }),
+            new ReflectorComponent({ app: this.app }),
             new AudioListenerComponent({ app: this.app }),
             new BackgroundMusicComponent({ app: this.app }),
             new PhysicsComponent({ app: this.app }),
