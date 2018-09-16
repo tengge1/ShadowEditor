@@ -151,7 +151,33 @@ ComponentMenu.prototype.ParticleEmitter = function () {
 // ---------------------------- 添加火焰 -------------------------------------
 
 ComponentMenu.prototype.onAddFire = function () {
+    var editor = this.app.editor;
+    var camera = editor.camera;
 
+    VolumetricFire.texturePath = 'assets/textures/VolumetricFire/';
+
+    var fireWidth = 2;
+    var fireHeight = 4;
+    var fireDepth = 2;
+    var sliceSpacing = 0.5;
+
+    var fire = new VolumetricFire(
+        fireWidth,
+        fireHeight,
+        fireDepth,
+        sliceSpacing,
+        camera
+    );
+
+    fire.mesh.name = '火焰';
+    fire.mesh.position.y = 2;
+    fire.mesh.userData.type = 'Fire';
+    fire.mesh.userData.fire = fire;
+
+    editor.execute(new AddObjectCommand(fire.mesh));
+
+    // 烧一下，在场景中留下痕迹
+    fire.update(0);
 };
 
 // ------------------------------ 添加烟 ------------------------------------
