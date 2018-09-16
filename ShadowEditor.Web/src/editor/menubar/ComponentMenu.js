@@ -1,5 +1,6 @@
 import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
+import Smoke from '../../particle/Smoke';
 
 /**
  * 组件菜单
@@ -187,7 +188,21 @@ ComponentMenu.prototype.onAddFire = function () {
 // ------------------------------ 添加烟 ------------------------------------
 
 ComponentMenu.prototype.onAddSmoke = function () {
+    var editor = this.app.editor;
+    var camera = editor.camera;
+    var renderer = editor.renderer;
 
+    var smoke = new Smoke(camera, renderer);
+
+    smoke.mesh.name = '烟';
+    smoke.mesh.position.y = 3;
+
+    smoke.mesh.userData.type = 'Smoke';
+    smoke.mesh.userData.smoke = smoke;
+
+    editor.execute(new AddObjectCommand(smoke.mesh));
+
+    smoke.update(0);
 };
 
 export default ComponentMenu;
