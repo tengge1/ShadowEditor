@@ -179,8 +179,14 @@ ReflectorComponent.prototype.onChangeReflect = function () {
     var editor = this.app.editor;
 
     if (reflect.getValue()) {
+        color = color.getHexValue();
+
+        if (!(this.selected instanceof THREE.Reflector) && !Array.isArray(this.selected.material) && this.selected.material.color) {
+            color = this.selected.material.color.getHex();
+        }
+
         var reflector = new THREE.Reflector(this.selected.geometry, {
-            color: color.getHexValue(),
+            color: color,
             textureWidth: parseInt(size.getValue()),
             textureHeight: parseInt(size.getValue()),
             clipBias: clipBias.getValue(),
@@ -202,7 +208,7 @@ ReflectorComponent.prototype.onChangeReflect = function () {
             });
         }
 
-        reflector.userData.color = color.getHexValue();
+        reflector.userData.color = color;
         reflector.userData.size = size.getValue();
         reflector.userData.clipBias = clipBias.getValue();
         reflector.userData.recursion = recursion.getValue();
@@ -228,6 +234,10 @@ ReflectorComponent.prototype.onChangeReflect = function () {
             mesh.scale.copy(this.selected.scale);
             mesh.castShadow = this.selected.castShadow;
             mesh.receiveShadow = this.selected.receiveShadow;
+
+            if (!Array.isArray(mesh.material) && mesh.material.color) {
+                mesh.material.color = new THREE.Color(color.getHexValue());
+            }
 
             Object.assign(mesh.userData, this.selected.userData);
 
