@@ -57,16 +57,12 @@ var EventList = [
     'mExportSTLB', // 导出stl二进制文件
     'mExportSTL', // 导出stl模型
 
-    'mAddFire', // 添加火焰
-    'mAddSmoke', // 添加烟
     'mAddMiku', // 初音未来
 
     'mAddPhysicsPlane', // 添加平板
     'mAddPhysicsWall', // 添加墙
     'mAddPhysicsCloth', // 添加布料
     'mThrowBall', // 探测小球
-
-    'mParticleEmitter', // 粒子发射器
 
     'mSurfaceOptions', // 外观选项
     'mSceneOptions', // 场景选项

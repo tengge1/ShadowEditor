@@ -50,15 +50,11 @@ import ExportPLYEvent from './menu/asset/ExportPLYEvent';
 import ExportSTLBEvent from './menu/asset/ExportSTLBEvent';
 import ExportSTLEvent from './menu/asset/ExportSTLEvent';
 
-import AddFireEvent from '../editor/menubar/animation/AddFireEvent';
-import AddSmokeEvent from '../editor/menubar/animation/AddSmokeEvent';
 import AddMikuEvent from '../editor/menubar/animation/AddMikuEvent';
 
 import AddPhysicsPlaneEvent from './menu/physics/AddPhysicsPlaneEvent';
 import AddPhysicsWallEvent from './menu/physics/AddPhysicsWallEvent';
 import AddPhysicsClothEvent from './menu/physics/AddPhysicsClothEvent';
-
-import ParticleEmitterEvent from './menu/component/ParticleEmitterEvent';
 
 import SurfaceOptionsEvent from './menu/options/SurfaceOptionsEvent';
 import SceneOptionsEvent from './menu/options/SceneOptionsEvent';
@@ -130,15 +126,11 @@ function EventDispatcher(app) {
         new ExportSTLBEvent(this.app),
         new ExportSTLEvent(this.app),
 
-        new AddFireEvent(this.app),
-        new AddSmokeEvent(this.app),
         new AddMikuEvent(this.app),
 
         new AddPhysicsPlaneEvent(this.app),
         new AddPhysicsWallEvent(this.app),
         new AddPhysicsClothEvent(this.app),
-
-        new ParticleEmitterEvent(this.app),
 
         new SurfaceOptionsEvent(this.app),
         new SceneOptionsEvent(this.app),

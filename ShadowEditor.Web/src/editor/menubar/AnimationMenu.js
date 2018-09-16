@@ -34,20 +34,6 @@ AnimationMenu.prototype.render = function () {
             children: [{
                 xtype: 'div',
                 cls: 'option',
-                html: '火焰',
-                onClick: () => {
-                    this.app.call('mAddFire', this);
-                }
-            }, {
-                xtype: 'div',
-                cls: 'option',
-                html: '烟',
-                onClick: () => {
-                    this.app.call('mAddSmoke', this);
-                }
-            }, {
-                xtype: 'div',
-                cls: 'option',
                 html: '初音未来',
                 onClick: () => {
                     this.app.call('mAddMiku', this);
