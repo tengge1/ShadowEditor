@@ -76,6 +76,7 @@ TerrainMenu.prototype.createTerrain = function () {
 
     var mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ map: texture }));
     mesh.name = '地形';
+    mesh.scale.set(0.01, 0.01, 0.01);
 
     var editor = this.app.editor;
     editor.execute(new AddObjectCommand(mesh));
