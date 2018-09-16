@@ -97,52 +97,32 @@ Converter.prototype.sceneToJson = function (scene, list) {
 
         if (obj.userData && obj.userData.Server === true) { // 服务器对象
             json = (new ServerObject()).toJSON(obj);
-            list.push(json);
-            return;
-        }
-
-        if (obj instanceof THREE.Reflector) {
+        } else if (obj instanceof THREE.Scene) {
+            json = (new SceneSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.Group) {
+            json = (new GroupSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.Reflector) {
             json = (new ReflectorSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.Mesh) {
+            json = (new MeshSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.Sprite) {
+            json = (new SpriteSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.AmbientLight) {
+            json = (new AmbientLightSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.DirectionalLight) {
+            json = (new DirectionalLightSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.HemisphereLight) {
+            json = (new HemisphereLightSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.PointLight) {
+            json = (new PointLightSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.RectAreaLight) {
+            json = (new RectAreaLightSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.SpotLight) {
+            json = (new SpotLightSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.Audio) {
+            json = (new AudioSerializer()).toJSON(obj);
         }
 
-        switch (obj.constructor.name) {
-            case 'Scene':
-                json = (new SceneSerializer()).toJSON(obj);
-                break;
-            case 'Group':
-                json = (new GroupSerializer()).toJSON(obj);
-                break;
-            case 'Reflector':
-                json = (new ReflectorSerializer()).toJSON(obj);
-                break;
-            case 'Mesh':
-                json = (new MeshSerializer()).toJSON(obj);
-                break;
-            case 'Sprite':
-                json = (new SpriteSerializer()).toJSON(obj);
-                break;
-            case 'AmbientLight':
-                json = (new AmbientLightSerializer()).toJSON(obj);
-                break;
-            case 'DirectionalLight':
-                json = (new DirectionalLightSerializer()).toJSON(obj);
-                break;
-            case 'HemisphereLight':
-                json = (new HemisphereLightSerializer()).toJSON(obj);
-                break;
-            case 'PointLight':
-                json = (new PointLightSerializer()).toJSON(obj);
-                break;
-            case 'RectAreaLight':
-                json = (new RectAreaLightSerializer()).toJSON(obj);
-                break;
-            case 'SpotLight':
-                json = (new SpotLightSerializer()).toJSON(obj);
-                break;
-            case 'Audio':
-                json = (new AudioSerializer()).toJSON(obj);
-                break;
-        }
         if (json) {
             list.push(json);
         } else {
