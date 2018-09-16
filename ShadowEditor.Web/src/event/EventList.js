@@ -14,6 +14,8 @@ var EventList = [
     'mouseup', // 抬起鼠标按键
     'mousewheel', // 鼠标滚轮
     'resize', // 窗口大小改变
+    'dragover', // 拖动到某元素上
+    'drop', // 放置到某元素上
 
     // app事件
     'appStart', // 应用程序开始前调用

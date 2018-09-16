@@ -201,42 +201,42 @@ EventDispatcher.prototype.on = function (eventName, callback) {
  */
 EventDispatcher.prototype.addDomEventListener = function () {
     var container = this.app.container;
-    container.addEventListener('click', (event) => {
+    container.addEventListener('click', event => {
         this.dispatch.call('click', this, event);
     });
-    container.addEventListener('contextmenu', (event) => {
+    container.addEventListener('contextmenu', event => {
         this.dispatch.call('contextmenu', this, event);
         event.preventDefault();
         return false;
     });
-    container.addEventListener('dblclick', (event) => {
+    container.addEventListener('dblclick', event => {
         this.dispatch.call('dblclick', this, event);
     });
-    document.addEventListener('keydown', (event) => {
+    document.addEventListener('keydown', event => {
         this.dispatch.call('keydown', this, event);
     });
-    document.addEventListener('keyup', (event) => {
+    document.addEventListener('keyup', event => {
         this.dispatch.call('keyup', this, event);
     });
-    container.addEventListener('mousedown', (event) => {
+    container.addEventListener('mousedown', event => {
         this.dispatch.call('mousedown', this, event);
     });
-    container.addEventListener('mousemove', (event) => {
+    container.addEventListener('mousemove', event => {
         this.dispatch.call('mousemove', this, event);
     });
-    container.addEventListener('mouseup', (event) => {
+    container.addEventListener('mouseup', event => {
         this.dispatch.call('mouseup', this, event);
     });
-    container.addEventListener('mousewheel', (event) => {
+    container.addEventListener('mousewheel', event => {
         this.dispatch.call('mousewheel', this, event);
     });
-    window.addEventListener('resize', (event) => {
+    window.addEventListener('resize', event => {
         this.dispatch.call('resize', this, event);
     }, false);
-    document.addEventListener('dragover', (event) => {
+    document.addEventListener('dragover', event => {
         this.dispatch.call('dragover', this, event);
     }, false);
-    document.addEventListener('drop', (event) => {
+    document.addEventListener('drop', event => {
         this.dispatch.call('drop', this, event);
     }, false);
 };

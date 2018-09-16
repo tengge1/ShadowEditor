@@ -9,6 +9,8 @@ import SetValueCommand from '../command/SetValueCommand';
 function ParticleEmitterComponent(options) {
     BaseComponent.call(this, options);
     this.selected = null;
+
+    this.isPlaying = false;
 }
 
 ParticleEmitterComponent.prototype = Object.create(BaseComponent.prototype);
@@ -275,6 +277,8 @@ ParticleEmitterComponent.prototype.render = function () {
                 xtype: 'label'
             }, {
                 xtype: 'button',
+                id: 'btnPreview',
+                scope: this.id,
                 text: '预览',
                 onClick: this.onPreview.bind(this)
             }]
@@ -343,8 +347,9 @@ ParticleEmitterComponent.prototype.updateUI = function () {
     var particleCount = UI.get('particleCount', this.id);
     var maxAge = UI.get('maxAge', this.id);
     var maxAgeSpread = UI.get('maxAgeSpread', this.id);
+    var btnPreview = UI.get('btnPreview', this.id);
 
-    var group = this.selected.userData.obj;
+    var group = this.selected.userData.group;
     var emitter = group.emitters[0];
 
     positionX.setValue(emitter.position.value.x);
@@ -382,6 +387,12 @@ ParticleEmitterComponent.prototype.updateUI = function () {
     particleCount.setValue(emitter.particleCount);
     maxAge.setValue(emitter.maxAge.value);
     maxAgeSpread.setValue(emitter.maxAge.spread);
+
+    if (this.isPlaying) {
+        btnPreview.setText('取消');
+    } else {
+        btnPreview.setText('预览');
+    }
 };
 
 ParticleEmitterComponent.prototype.onChangePosition = function () {
@@ -393,7 +404,7 @@ ParticleEmitterComponent.prototype.onChangePosition = function () {
     var positionSpreadY = UI.get('positionSpreadY', this.id);
     var positionSpreadZ = UI.get('positionSpreadZ', this.id);
 
-    var group = this.selected.userData.obj;
+    var group = this.selected.userData.group;
     var emitter = group.emitters[0];
 
     emitter.position.value.x = positionX.getValue();
@@ -416,7 +427,7 @@ ParticleEmitterComponent.prototype.onChangeVelocity = function () {
     var velocitySpreadY = UI.get('velocitySpreadY', this.id);
     var velocitySpreadZ = UI.get('velocitySpreadZ', this.id);
 
-    var group = this.selected.userData.obj;
+    var group = this.selected.userData.group;
     var emitter = group.emitters[0];
 
     emitter.velocity.value.x = velocityX.getValue();
@@ -439,7 +450,7 @@ ParticleEmitterComponent.prototype.onChangeAcceleration = function () {
     var accelerationSpreadY = UI.get('accelerationSpreadY', this.id);
     var accelerationSpreadZ = UI.get('accelerationSpreadZ', this.id);
 
-    var group = this.selected.userData.obj;
+    var group = this.selected.userData.group;
     var emitter = group.emitters[0];
 
     emitter.acceleration.value.x = accelerationX.getValue();
@@ -459,7 +470,7 @@ ParticleEmitterComponent.prototype.onChangeColor = function () {
     var color3 = UI.get('color3', this.id);
     var color4 = UI.get('color4', this.id);
 
-    var group = this.selected.userData.obj;
+    var group = this.selected.userData.group;
     var emitter = group.emitters[0];
 
     emitter.color.value[0] = new THREE.Color(color1.getHexValue());
@@ -474,7 +485,7 @@ ParticleEmitterComponent.prototype.onChangeSize = function () {
     var size = UI.get('size', this.id);
     var sizeSpread = UI.get('sizeSpread', this.id);
 
-    var group = this.selected.userData.obj;
+    var group = this.selected.userData.group;
     var emitter = group.emitters[0];
 
     for (var i = 0; i < emitter.size.value.length; i++) {
@@ -488,17 +499,20 @@ ParticleEmitterComponent.prototype.onChangeSize = function () {
 ParticleEmitterComponent.prototype.onChangeTexture = function () {
     var texture = UI.get('texture', this.id);
 
-    var group = this.selected.userData.obj;
+    var group = this.selected.userData.group;
     var emitter = group.emitters[0];
 
-    group.texture = texture.getValue();
-    group.texture.needsUpdate = true;
+    texture = texture.getValue();
+    texture.needsUpdate = true;
+
+    group.texture = texture;
+    group.material.uniforms.texture.value = texture;
 };
 
 ParticleEmitterComponent.prototype.onChangeParticleCount = function () {
     var particleCount = UI.get('particleCount', this.id);
 
-    var group = this.selected.userData.obj;
+    var group = this.selected.userData.group;
     var emitter = group.emitters[0];
 
     emitter.particleCount = particleCount.getValue();
@@ -509,7 +523,7 @@ ParticleEmitterComponent.prototype.onChangeParticleCount = function () {
 ParticleEmitterComponent.prototype.onChangeMaxAge = function () {
     var maxAge = UI.get('maxAge', this.id);
 
-    var group = this.selected.userData.obj;
+    var group = this.selected.userData.group;
     var emitter = group.emitters[0];
 
     emitter.maxAge.value = maxAge.getValue();
@@ -520,7 +534,7 @@ ParticleEmitterComponent.prototype.onChangeMaxAge = function () {
 ParticleEmitterComponent.prototype.onChangeMaxAgeSpread = function () {
     var maxAgeSpread = UI.get('maxAgeSpread', this.id);
 
-    var group = this.selected.userData.obj;
+    var group = this.selected.userData.group;
     var emitter = group.emitters[0];
 
     emitter.maxAge.spread = maxAgeSpread.getValue();
@@ -529,7 +543,41 @@ ParticleEmitterComponent.prototype.onChangeMaxAgeSpread = function () {
 };
 
 ParticleEmitterComponent.prototype.onPreview = function () {
+    if (this.isPlaying) {
+        this.stopPreview();
+    } else {
+        this.startPreview();
+    }
+};
 
+ParticleEmitterComponent.prototype.startPreview = function () {
+    var btnPreview = UI.get('btnPreview', this.id);
+
+    this.isPlaying = true;
+    btnPreview.setText('取消');
+
+    this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
+};
+
+ParticleEmitterComponent.prototype.stopPreview = function () {
+    var btnPreview = UI.get('btnPreview', this.id);
+
+    this.isPlaying = false;
+    btnPreview.setText('预览');
+
+    var group = this.selected.userData.group;
+    var emitter = this.selected.userData.emitter;
+
+    group.removeEmitter(emitter);
+    group.addEmitter(emitter);
+    group.tick(0);
+
+    this.app.on(`animate.${this.id}`, null);
+};
+
+ParticleEmitterComponent.prototype.onAnimate = function (clock, deltaTime) {
+    var group = this.selected.userData.group;
+    group.tick(deltaTime);
 };
 
 export default ParticleEmitterComponent;
