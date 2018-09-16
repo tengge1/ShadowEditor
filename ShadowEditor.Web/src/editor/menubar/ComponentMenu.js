@@ -173,6 +173,10 @@ ComponentMenu.prototype.onAddFire = function () {
     fire.mesh.position.y = 2;
     fire.mesh.userData.type = 'Fire';
     fire.mesh.userData.fire = fire;
+    fire.mesh.userData.width = fireWidth;
+    fire.mesh.userData.height = fireHeight;
+    fire.mesh.userData.depth = fireDepth;
+    fire.mesh.userData.sliceSpacing = sliceSpacing;
 
     editor.execute(new AddObjectCommand(fire.mesh));
 

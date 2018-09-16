@@ -11,6 +11,7 @@ import AudioListenerComponent from '../../component/audio/AudioListenerComponent
 import ParticleEmitterComponent from '../../component/ParticleEmitterComponent';
 import SceneComponent from '../../component/SceneComponent';
 import BackgroundMusicComponent from '../../component/audio/BackgroundMusicComponent';
+import FireComponent from '../../component/FireComponent';
 
 /**
  * 属性面板
@@ -41,7 +42,8 @@ PropertyPanel.prototype.render = function () {
             new PhysicsComponent({ app: this.app }),
             new GeometryComponent({ app: this.app }),
             new MaterialComponent({ app: this.app }),
-            new ParticleEmitterComponent({ app: this.app })
+            new ParticleEmitterComponent({ app: this.app }),
+            new FireComponent({ app: this.app })
         ]
     };
 
