@@ -86,6 +86,67 @@ BasicComponent.prototype.render = function () {
                 scope: this.id,
                 onChange: this.onChangeReflect.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            id: 'colorRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '颜色'
+            }, {
+                xtype: 'color',
+                id: 'color',
+                scope: this.id,
+                value: 0xffffff,
+                onChange: this.onChangeReflect.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'sizeRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '贴图尺寸'
+            }, {
+                xtype: 'select',
+                id: 'size',
+                scope: this.id,
+                options: {
+                    512: '512*512',
+                    1024: '1024*1024',
+                    2018: '2048*2048'
+                },
+                value: '1024',
+                onChange: this.onChangeReflect.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'clipBiasRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '裁剪偏移'
+            }, {
+                xtype: 'number',
+                id: 'clipBias',
+                scope: this.id,
+                value: 0,
+                onChange: this.onChangeReflect.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            id: 'recursionRow',
+            scope: this.id,
+            children: [{
+                xtype: 'label',
+                text: '递归'
+            }, {
+                xtype: 'checkbox',
+                id: 'recursion',
+                scope: this.id,
+                value: false,
+                onChange: this.onChangeReflect.bind(this)
+            }]
         }]
     };
 
@@ -117,11 +178,19 @@ BasicComponent.prototype.updateUI = function () {
     this.selected = editor.selected;
 
     var reflectRow = UI.get('reflectRow', this.id);
+    var colorRow = UI.get('colorRow', this.id);
+    var sizeRow = UI.get('sizeRow', this.id);
+    var clipBiasRow = UI.get('clipBiasRow', this.id);
+    var recursionRow = UI.get('recursionRow', this.id);
 
     var name = UI.get('name', this.id);
     var type = UI.get('type', this.id);
     var visible = UI.get('visible', this.id);
     var reflect = UI.get('reflect', this.id);
+    var color = UI.get('color', this.id);
+    var size = UI.get('size', this.id);
+    var clipBias = UI.get('clipBias', this.id);
+    var recursion = UI.get('recursion', this.id);
 
     if (this.selected instanceof THREE.Mesh) {
         reflectRow.dom.style.display = '';
@@ -133,6 +202,22 @@ BasicComponent.prototype.updateUI = function () {
     type.setValue(this.selected.constructor.name);
     visible.setValue(this.selected.visible);
     reflect.setValue(this.selected instanceof THREE.Reflector);
+
+    if (this.selected instanceof THREE.Reflector) {
+        colorRow.dom.style.display = '';
+        sizeRow.dom.style.display = '';
+        clipBiasRow.dom.style.display = '';
+        recursionRow.dom.style.display = '';
+        color.setHexValue(this.selected.userData.color);
+        size.setValue(this.selected.userData.size);
+        clipBias.setValue(this.selected.userData.clipBias);
+        recursion.setValue(this.selected.userData.recursion);
+    } else {
+        colorRow.dom.style.display = 'none';
+        sizeRow.dom.style.display = 'none';
+        clipBiasRow.dom.style.display = 'none';
+        recursionRow.dom.style.display = 'none';
+    }
 };
 
 BasicComponent.prototype.onChangeName = function () {
@@ -148,32 +233,51 @@ BasicComponent.prototype.onChangeVisible = function () {
 
 BasicComponent.prototype.onChangeReflect = function () {
     var reflect = UI.get('reflect', this.id);
+    var color = UI.get('color', this.id);
+    var size = UI.get('size', this.id);
+    var clipBias = UI.get('clipBias', this.id);
+    var recursion = UI.get('recursion', this.id);
 
     var editor = this.app.editor;
 
     if (reflect.getValue()) {
-        if (!(this.selected instanceof THREE.Reflector)) {
-            var reflector = new THREE.Reflector(this.selected.geometry);
+        var reflector = new THREE.Reflector(this.selected.geometry, {
+            color: color.getHexValue(),
+            textureWidth: parseInt(size.getValue()),
+            textureHeight: parseInt(size.getValue()),
+            clipBias: clipBias.getValue(),
+            recursion: recursion.getValue() ? 1 : 0
+        });
 
-            reflector.name = this.selected.name;
-            reflector.position.copy(this.selected.position);
-            reflector.rotation.copy(this.selected.rotation);
-            reflector.scale.copy(this.selected.scale);
+        reflector.name = this.selected.name;
+        reflector.position.copy(this.selected.position);
+        reflector.rotation.copy(this.selected.rotation);
+        reflector.scale.copy(this.selected.scale);
+        reflector.castShadow = this.selected.castShadow;
+        reflector.receiveShadow = this.selected.receiveShadow;
 
+        if (this.selected instanceof THREE.Reflector) {
+            Object.assign(reflector.userData, this.selected.userData);
+        } else {
             Object.assign(reflector.userData, this.selected.userData, {
                 mesh: this.selected
             });
+        }
 
-            var index = editor.scene.children.indexOf(this.selected);
-            if (index > -1) {
-                editor.scene.children[index] = reflector;
-                reflector.parent = this.selected.parent;
-                this.selected.parent = null;
-                this.app.call(`objectRemoved`, this, this.selected);
-                this.app.call(`objectAdded`, this, reflector);
-                editor.select(reflector);
-                this.app.call('sceneGraphChanged', this.id);
-            }
+        reflector.userData.color = color.getHexValue();
+        reflector.userData.size = size.getValue();
+        reflector.userData.clipBias = clipBias.getValue();
+        reflector.userData.recursion = recursion.getValue();
+
+        var index = editor.scene.children.indexOf(this.selected);
+        if (index > -1) {
+            editor.scene.children[index] = reflector;
+            reflector.parent = this.selected.parent;
+            this.selected.parent = null;
+            this.app.call(`objectRemoved`, this, this.selected);
+            this.app.call(`objectAdded`, this, reflector);
+            editor.select(reflector);
+            this.app.call('sceneGraphChanged', this.id);
         }
     } else {
         if (this.selected instanceof THREE.Reflector) {
@@ -184,6 +288,8 @@ BasicComponent.prototype.onChangeReflect = function () {
             mesh.position.copy(this.selected.position);
             mesh.rotation.copy(this.selected.rotation);
             mesh.scale.copy(this.selected.scale);
+            mesh.castShadow = this.selected.castShadow;
+            mesh.receiveShadow = this.selected.receiveShadow;
 
             Object.assign(mesh.userData, this.selected.userData);
 
