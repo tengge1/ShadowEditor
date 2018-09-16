@@ -30,6 +30,7 @@ import AudioListenerSerializer from './audio/AudioListenerSerializer';
 
 // objects
 import ReflectorSerializer from './objects/ReflectorSerializer';
+import FireSerializer from './objects/FireSerializer';
 
 /**
  * 场景序列化/反序列化类
@@ -95,8 +96,10 @@ Converter.prototype.sceneToJson = function (scene, list) {
     (function serializer(obj) {
         var json = null;
 
-        if (obj.userData && obj.userData.Server === true) { // 服务器对象
+        if (obj.userData.Server === true) { // 服务器对象
             json = (new ServerObject()).toJSON(obj);
+        } else if (obj.userData.type === 'Fire') { // 火焰
+            json = (new FireSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Scene) {
             json = (new SceneSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Group) {
@@ -193,7 +196,7 @@ Converter.prototype.fromJson = function (jsons, options) {
 
     // 场景
     return new Promise(resolve => {
-        this.sceneFromJson(jsons, options, audioListener).then(scene => {
+        this.sceneFromJson(jsons, options, audioListener, obj.camera).then(scene => {
             obj.scene = scene;
             resolve(obj);
         });
@@ -205,8 +208,9 @@ Converter.prototype.fromJson = function (jsons, options) {
  * @param {*} jsons 反序列化对象列表
  * @param {*} options 配置信息
  * @param {*} audioListener 音频监听器
+ * @param {*} camera 相机
  */
-Converter.prototype.sceneFromJson = function (jsons, options, audioListener) {
+Converter.prototype.sceneFromJson = function (jsons, options, audioListener, camera) {
     var sceneJson = jsons.filter(n => n.metadata && n.metadata.generator === 'SceneSerializer')[0];
     if (sceneJson === undefined) {
         console.warn(`Converter: 数据中不存在场景信息。`);
@@ -273,6 +277,9 @@ Converter.prototype.sceneFromJson = function (jsons, options, audioListener) {
                     break;
                 case 'AudioSerializer':
                     obj = (new AudioSerializer()).fromJSON(objJson, undefined, audioListener);
+                    break;
+                case 'FireSerializer':
+                    obj = (new FireSerializer()).fromJSON(objJson, undefined, camera);
                     break;
             }
 
