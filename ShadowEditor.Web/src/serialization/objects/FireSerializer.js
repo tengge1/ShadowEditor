@@ -35,6 +35,8 @@ FireSerializer.prototype.fromJSON = function (json, parent, camera) {
 
     obj.mesh.userData.fire = obj;
 
+    obj.update(0);
+
     return obj.mesh;
 };
 

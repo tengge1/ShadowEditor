@@ -46,7 +46,10 @@ Object3DSerializer.prototype.toJSON = function (obj) {
     json.scale = obj.scale;
     json.type = obj.type;
     json.up = obj.up;
-    json.userData = obj.userData;
+
+    json.userData = {};
+    Object.assign(json.userData, obj.userData);
+
     json.uuid = obj.uuid;
     json.visible = obj.visible;
     json.isObject3D = obj.isObject3D;
