@@ -12,6 +12,7 @@ import ParticleEmitterComponent from '../../component/ParticleEmitterComponent';
 import SceneComponent from '../../component/SceneComponent';
 import BackgroundMusicComponent from '../../component/audio/BackgroundMusicComponent';
 import FireComponent from '../../component/FireComponent';
+import SmokeComponent from '../../component/SmokeComponent';
 
 /**
  * 属性面板
@@ -43,7 +44,8 @@ PropertyPanel.prototype.render = function () {
             new GeometryComponent({ app: this.app }),
             new MaterialComponent({ app: this.app }),
             new ParticleEmitterComponent({ app: this.app }),
-            new FireComponent({ app: this.app })
+            new FireComponent({ app: this.app }),
+            new SmokeComponent({ app: this.app })
         ]
     };
 
