@@ -28,6 +28,9 @@ import RectAreaLightSerializer from './light/RectAreaLightSerializer';
 import AudioSerializer from './audio/AudioSerializer';
 import AudioListenerSerializer from './audio/AudioListenerSerializer';
 
+// objects
+import ReflectorSerializer from './objects/ReflectorSerializer';
+
 /**
  * 场景序列化/反序列化类
  * @author tengge / https://github.com/tengge1
@@ -98,12 +101,19 @@ Converter.prototype.sceneToJson = function (scene, list) {
             return;
         }
 
+        if (obj instanceof THREE.Reflector) {
+            json = (new ReflectorSerializer()).toJSON(obj);
+        }
+
         switch (obj.constructor.name) {
             case 'Scene':
                 json = (new SceneSerializer()).toJSON(obj);
                 break;
             case 'Group':
                 json = (new GroupSerializer()).toJSON(obj);
+                break;
+            case 'Reflector':
+                json = (new ReflectorSerializer()).toJSON(obj);
                 break;
             case 'Mesh':
                 json = (new MeshSerializer()).toJSON(obj);
@@ -253,6 +263,9 @@ Converter.prototype.sceneFromJson = function (jsons, options, audioListener) {
                     break;
                 case 'GroupSerializer':
                     obj = (new GroupSerializer()).fromJSON(objJson);
+                    break;
+                case 'ReflectorSerializer':
+                    obj = (new ReflectorSerializer()).fromJSON(objJson);
                     break;
                 case 'MeshSerializer':
                     obj = (new MeshSerializer()).fromJSON(objJson);
