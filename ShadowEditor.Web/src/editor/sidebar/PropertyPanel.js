@@ -14,6 +14,7 @@ import BackgroundMusicComponent from '../../component/audio/BackgroundMusicCompo
 import FireComponent from '../../component/FireComponent';
 import SmokeComponent from '../../component/SmokeComponent';
 import ReflectorComponent from '../../component/ReflectorComponent';
+import LMeshComponent from '../../component/LMeshComponent';
 
 /**
  * 属性面板
@@ -43,11 +44,12 @@ PropertyPanel.prototype.render = function () {
             new AudioListenerComponent({ app: this.app }),
             new BackgroundMusicComponent({ app: this.app }),
             new PhysicsComponent({ app: this.app }),
-            new GeometryComponent({ app: this.app }),
-            new MaterialComponent({ app: this.app }),
             new ParticleEmitterComponent({ app: this.app }),
             new FireComponent({ app: this.app }),
-            new SmokeComponent({ app: this.app })
+            new SmokeComponent({ app: this.app }),
+            new LMeshComponent({ app: this.app }),
+            new GeometryComponent({ app: this.app }),
+            new MaterialComponent({ app: this.app })
         ]
     };
 
