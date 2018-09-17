@@ -13,9 +13,11 @@ LOLLoader.prototype.constructor = LOLLoader;
 
 LOLLoader.prototype.load = function (url) {
     return new Promise(resolve => {
+        debugger
         var model = new LolModel({
             champion: '22',
-            skin: 0
+            skin: 0,
+            url: url
         });
         model.load();
         model.on('load', () => {
@@ -25,7 +27,7 @@ LOLLoader.prototype.load = function (url) {
             mesh.name = '寒冰射手';
             mesh.scale.set(0.1, 0.1, 0.1);
             model.setAnimation('idle');
-    
+
             editor.execute(new AddObjectCommand(mesh));
             this.app.on('animate.Ashe', (clock, deltaTime) => {
                 model.update(clock.getElapsedTime() * 1000);
