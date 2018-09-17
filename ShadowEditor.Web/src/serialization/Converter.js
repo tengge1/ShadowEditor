@@ -199,7 +199,7 @@ Converter.prototype.fromJson = function (jsons, options) {
 
     // 场景
     return new Promise(resolve => {
-        this.sceneFromJson(jsons, options, audioListener, obj.camera).then(scene => {
+        this.sceneFromJson(jsons, options, audioListener, obj.camera, obj.renderer).then(scene => {
             obj.scene = scene;
             resolve(obj);
         });
@@ -212,8 +212,9 @@ Converter.prototype.fromJson = function (jsons, options) {
  * @param {*} options 配置信息
  * @param {*} audioListener 音频监听器
  * @param {*} camera 相机
+ * @param {*} renderer 渲染器
  */
-Converter.prototype.sceneFromJson = function (jsons, options, audioListener, camera) {
+Converter.prototype.sceneFromJson = function (jsons, options, audioListener, camera, renderer) {
     var sceneJson = jsons.filter(n => n.metadata && n.metadata.generator === 'SceneSerializer')[0];
     if (sceneJson === undefined) {
         console.warn(`Converter: 数据中不存在场景信息。`);
@@ -285,7 +286,7 @@ Converter.prototype.sceneFromJson = function (jsons, options, audioListener, cam
                     obj = (new FireSerializer()).fromJSON(objJson, undefined, camera);
                     break;
                 case 'SmokeSerializer':
-                    obj = (new SmokeSerializer()).fromJSON(objJson, undefined);
+                    obj = (new SmokeSerializer()).fromJSON(objJson, undefined, camera, renderer);
                     break;
             }
 
