@@ -59,7 +59,7 @@ LOLLoader.prototype.load = function (url, options) {
             textureUrl: png
         });
         model.load();
-        model.on('load', () => {
+        model.on('load.LOLLoader', () => {
             var geometry = model.geometry;
             var material = model.material;
 
@@ -68,10 +68,27 @@ LOLLoader.prototype.load = function (url, options) {
 
             mesh.userData.type = 'lol';
             mesh.userData.model = model;
+            mesh.userData.scripts = [{
+                id: null,
+                name: `${options.name}动画`,
+                type: 'javascript',
+                source: this.createScripts(options.name, model),
+                uuid: THREE.Math.generateUUID()
+            }];
 
             resolve(mesh);
         });
     });
+};
+
+LOLLoader.prototype.createScripts = function (name, model) {
+    var animations = model.getAnimations();
+
+    return `var mesh = this.getObjectByName('${name}');\n` +
+        `var model = mesh.userData.model;\n\n` +
+        `// animNames: ${animations.join(',')}\n` +
+        `model.setAnimation('${animations[0]}');\n\n` +
+        `function update(clock, deltaTime) { \n    model.update(clock.getElapsedTime() * 1000); \n}`;
 };
 
 export default LOLLoader;

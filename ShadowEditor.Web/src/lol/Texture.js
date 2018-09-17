@@ -24,6 +24,8 @@ Texture.prototype.onLoad = function (texture) {
     self.model.material.uniforms.uHasTexture.value = 1;
     self.model.material.uniforms.uTexture.value = texture;
     self.model.material.needsUpdate = true;
+
+    self.model.dispatch.call('loadTexture');
 };
 
 export default Texture;

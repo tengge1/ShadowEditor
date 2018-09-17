@@ -42,7 +42,7 @@ function Model(options) {
     self.tmpVec = vec4.create();
     self.ANIMATED = true;
 
-    self.dispatch = dispatch('load');
+    self.dispatch = dispatch('load', 'loadMesh', 'loadTexture', 'loadAnim');
 
     self.hiddenBones = null;
     var hiddenBones = HiddenBones;
@@ -93,6 +93,25 @@ function Model(options) {
         },
         vertexShader: vertShader,
         fragmentShader: fragShader,
+    });
+
+    var promise1 = new Promise(resolve => {
+        self.dispatch.on('loadMesh.Model', () => {
+            resolve();
+        });
+    });
+    var promise2 = new Promise(resolve => {
+        self.dispatch.on('loadTexture.Model', () => {
+            resolve();
+        });
+    });
+    var promise3 = new Promise(resolve => {
+        self.dispatch.on('loadAnim.Model', () => {
+            resolve();
+        });
+    });
+    Promise.all([promise1, promise2, promise3]).then(() => {
+        self.dispatch.call('load');
     });
 };
 
@@ -308,6 +327,7 @@ Model.prototype.loadMesh = function (buffer) {
         loader.setResponseType('arraybuffer');
         loader.load(self.animUrl, function (buffer) {
             self.loadAnim(buffer)
+            self.dispatch.call('loadAnim');
         });
     }
     if (textureFile && textureFile.length > 0) {
@@ -383,7 +403,7 @@ Model.prototype.loadMesh = function (buffer) {
         }
     }
     self.loaded = true;
-    self.dispatch.call('load');
+    self.dispatch.call('loadMesh');
 };
 
 Model.prototype.loadAnim = function (buffer) {
