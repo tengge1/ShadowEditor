@@ -168,7 +168,12 @@ namespace ShadowEditor.Server.Mesh
                     };
                 }
 
-                entryFileName = files.Where(o => o.ToLower().EndsWith(".lmesh")).FirstOrDefault();
+                var lmeshName = files.Where(o => o.ToLower().EndsWith(".lmesh")).FirstOrDefault();
+                var lanimName = files.Where(o => o.ToLower().EndsWith(".lanim")).FirstOrDefault();
+                var ltextureName = files.Where(o => o.ToLower().EndsWith(".png")).FirstOrDefault();
+
+                entryFileName = $"{lmeshName};{lanimName};{ltextureName}";
+
                 meshType = MeshType.lol;
             }
 
