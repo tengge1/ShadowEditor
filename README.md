@@ -128,3 +128,4 @@ function update(clock, deltaTime) {
 
 * Three.js官网：https://threejs.org/
 * Three.js源码：https://github.com/mrdoob/three.js/
+* LOL模型：http://www.lolking.net/models
