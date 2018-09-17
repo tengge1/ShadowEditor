@@ -1,4 +1,5 @@
 import BaseLoader from './BaseLoader';
+import LolModel from '../lol/Model';
 
 /**
  * LOLLoader
@@ -11,39 +12,64 @@ function LOLLoader() {
 LOLLoader.prototype = Object.create(BaseLoader.prototype);
 LOLLoader.prototype.constructor = LOLLoader;
 
-LOLLoader.prototype.load = function (url) {
+LOLLoader.prototype.load = function (url, options) {
+    if (!Array.isArray(url) || url.length < 3) {
+        console.warn(`LOLLoader: url必须是数组，而且包含.lmesh、.lanim、.png三个文件地址。`);
+        return new Promise(resolve => {
+            resolve(null);
+        });
+    }
+
+    var lmesh = url.filter(n => n.endsWith('.lmesh'))[0];
+    var lanim = url.filter(n => n.endsWith('.lanim'))[0];
+    var png = url.filter(n => n.endsWith('.png'))[0];
+
+    if (lmesh === undefined) {
+        console.warn(`LOLLoader: url中不包含.lmesh文件地址。`);
+        return new Promise(resolve => {
+            resolve(null);
+        });
+    }
+
+    if (lanim === undefined) {
+        console.warn(`LOLLoader: url中不包含.lanim文件地址。`);
+        return new Promise(resolve => {
+            resolve(null);
+        });
+    }
+
+    if (png === undefined) {
+        console.warn(`LOLLoader: url中不包含.png文件地址。`);
+        return new Promise(resolve => {
+            resolve(null);
+        });
+    }
+
+    var fileName = lmesh.split('/')[lmesh.split('/').length - 1];
+    var fileNameNoExt = fileName.split('.')[0];
+    var champion = fileNameNoExt.split('_')[0];
+    var skin = fileNameNoExt.split('_')[1];
+
     return new Promise(resolve => {
-        debugger
         var model = new LolModel({
-            champion: '22',
-            skin: 0,
-            url: url
+            champion: champion,
+            skin: parseInt(skin),
+            meshUrl: lmesh,
+            animUrl: lanim,
+            textureUrl: png
         });
         model.load();
         model.on('load', () => {
             var geometry = model.geometry;
             var material = model.material;
+
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.name = '寒冰射手';
-            mesh.scale.set(0.1, 0.1, 0.1);
-            model.setAnimation('idle');
+            mesh.name = options.name;
 
-            editor.execute(new AddObjectCommand(mesh));
-            this.app.on('animate.Ashe', (clock, deltaTime) => {
-                model.update(clock.getElapsedTime() * 1000);
-            });
-        });
+            mesh.userData.type = 'lol';
+            mesh.userData.model = model;
 
-        var loader = new THREE.ObjectLoader();
-
-        loader.load(url, obj => {
-            if (obj instanceof THREE.Scene && obj.children.length > 0 && obj.children[0] instanceof THREE.SkinnedMesh) {
-                resolve(this.loadSkinnedMesh(obj));
-            } else {
-                resolve(obj);
-            }
-        }, undefined, () => {
-            resolve(null);
+            resolve(mesh);
         });
     });
 };

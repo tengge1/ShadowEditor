@@ -1,4 +1,6 @@
-import { dispatch } from '../third_party';
+import {
+    dispatch
+} from '../third_party';
 import DataView from './DataView2';
 import Vertex from './Vertex';
 import Texture from './Texture';
@@ -18,6 +20,9 @@ function Model(options) {
     var self = this;
     self.champion = options.champion || "1";
     self.skin = options.skin || 0;
+    self.meshUrl = options.meshUrl;
+    self.animUrl = options.animUrl;
+    self.textureUrl = options.textureUrl;
 
     self.loaded = false;
     self.animsLoaded = false;
@@ -267,10 +272,9 @@ Model.prototype.update = function (time) {
 
 Model.prototype.load = function () {
     var self = this;
-    var url = 'assets/models/lol/models/' + self.champion + '_' + self.skin + '.lmesh';
     var loader = new THREE.FileLoader();
     loader.setResponseType('arraybuffer');
-    loader.load(url, function (buffer) {
+    loader.load(self.meshUrl, function (buffer) {
         self.loadMesh(buffer);
     });
 };
@@ -300,15 +304,14 @@ Model.prototype.loadMesh = function (buffer) {
     var animFile = r.getString();
     var textureFile = r.getString();
     if (animFile && animFile.length > 0) {
-        var url = "assets/models/lol/models/" + animFile + ".lanim";
         var loader = new THREE.FileLoader();
         loader.setResponseType('arraybuffer');
-        loader.load(url, function (buffer) {
+        loader.load(self.animUrl, function (buffer) {
             self.loadAnim(buffer)
         });
     }
     if (textureFile && textureFile.length > 0) {
-        self.texture = new Texture(self, "assets/models/lol/textures/" + self.champion + "/" + textureFile + ".png")
+        self.texture = new Texture(self, self.textureUrl)
     }
     var numMeshes = r.getUint32();
     if (numMeshes > 0) {
