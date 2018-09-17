@@ -15,25 +15,17 @@ SmokeSerializer.prototype.constructor = SmokeSerializer;
 SmokeSerializer.prototype.toJSON = function (obj) {
     var json = MeshSerializer.prototype.toJSON.call(this, obj);
 
-    json.userData.fire = null;
+    json.userData.smoke = null;
 
     return json;
 };
 
-SmokeSerializer.prototype.fromJSON = function (json, parent, camera) {
-    VolumetricFire.texturePath = 'assets/textures/VolumetricFire/';
-
-    var obj = parent || new VolumetricFire(
-        json.userData.width,
-        json.userData.height,
-        json.userData.depth,
-        json.userData.sliceSpacing,
-        camera
-    );
+SmokeSerializer.prototype.fromJSON = function (json, parent, camera, renderer) {
+    var smoke = parent || new Smoke(camera, renderer);
 
     MeshSerializer.prototype.fromJSON.call(this, json, obj.mesh);
 
-    obj.mesh.userData.fire = obj;
+    obj.mesh.userData.smoke = obj;
 
     obj.update(0);
 

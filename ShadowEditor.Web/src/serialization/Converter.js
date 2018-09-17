@@ -31,6 +31,7 @@ import AudioListenerSerializer from './audio/AudioListenerSerializer';
 // objects
 import ReflectorSerializer from './objects/ReflectorSerializer';
 import FireSerializer from './objects/FireSerializer';
+import SmokeSerializer from './objects/SmokeSerializer';
 
 /**
  * 场景序列化/反序列化类
@@ -100,6 +101,8 @@ Converter.prototype.sceneToJson = function (scene, list) {
             json = (new ServerObject()).toJSON(obj);
         } else if (obj.userData.type === 'Fire') { // 火焰
             json = (new FireSerializer()).toJSON(obj);
+        } else if (obj.userData.type === 'Smoke') { // 烟
+            json = (new SmokeSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Scene) {
             json = (new SceneSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Group) {
@@ -280,6 +283,9 @@ Converter.prototype.sceneFromJson = function (jsons, options, audioListener, cam
                     break;
                 case 'FireSerializer':
                     obj = (new FireSerializer()).fromJSON(objJson, undefined, camera);
+                    break;
+                case 'SmokeSerializer':
+                    obj = (new SmokeSerializer()).fromJSON(objJson, undefined);
                     break;
             }
 
