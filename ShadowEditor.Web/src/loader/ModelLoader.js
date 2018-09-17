@@ -54,9 +54,10 @@ ModelLoader.prototype.load = function (url, options) {
     var type = options.type;
 
     if (type === undefined) {
-        console.warn(`ModelLoader: 未传递type参数，则使用文件后缀判断文件类型。`);
-        var paths = url.split('.');
-        type = paths[paths.length - 1].toLowerCase();
+        console.warn(`ModelLoader: 未传递type参数，无法加载。`);
+        return new Promise(resolve => {
+            resolve(null);
+        });
     }
 
     return new Promise(resolve => {

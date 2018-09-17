@@ -192,7 +192,15 @@ ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
 ModelWindow.prototype.onLoadModel = function (model) {
     var loader = new ModelLoader(this.app);
 
-    loader.load(this.app.options.server + model.Url, {
+    var url = model.Url;
+
+    if (model.Url.indexOf(';') > -1) { // 包含多个入口文件
+        url = url.split(';').map(n => this.app.options.server + n);
+    } else {
+        url = this.app.options.server + model.Url;
+    }
+
+    loader.load(url, {
         name: model.Name,
         type: model.Type
     }).then(obj => {
