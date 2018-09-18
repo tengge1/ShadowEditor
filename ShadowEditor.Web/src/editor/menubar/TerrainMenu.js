@@ -1,5 +1,7 @@
 import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
+import TerrainVertexShader from './shader/terrain_vertex.glsl';
+import TerrainFragmentShader from './shader/terrain_fragment.glsl';
 
 /**
  * 地形菜单
@@ -31,6 +33,11 @@ TerrainMenu.prototype.render = function () {
                 cls: 'option',
                 html: '创建地形',
                 onClick: this.createTerrain.bind(this)
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: '创建地形2',
+                onClick: this.createTerrain2.bind(this)
             }, {
                 xtype: 'div',
                 cls: 'option',
@@ -154,6 +161,161 @@ TerrainMenu.prototype.generateTexture = function (data, width, height) {
 
     context.putImageData(image, 0, 0);
     return canvasScaled;
+};
+
+// ---------------------------- 创建地形2 ----------------------------------------
+
+TerrainMenu.prototype.createTerrain2 = function () {
+    var rx = 256, ry = 256;
+
+    this.animDelta = 0;
+    this.animDeltaDir = -1;
+    this.lightVal = 0;
+    this.lightDir = 1;
+
+    var width = this.app.viewport.container.dom.clientWidth;
+    var height = this.app.viewport.container.dom.clientHeight;
+
+    this.sceneRenderTarget = new THREE.Scene();
+    this.cameraOrtho = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, -10000, 10000);
+    this.cameraOrtho.position.z = 100;
+    this.sceneRenderTarget.add(this.cameraOrtho);
+
+    var pars = {
+        minFilter: THREE.LinearFilter,
+        magFilter: THREE.LinearFilter,
+        format: THREE.RGBFormat
+    };
+
+    var heightMap = new THREE.WebGLRenderTarget(rx, ry, pars);
+    heightMap.texture.generateMipmaps = false;
+    this.heightMap = heightMap;
+
+    var normalMap = new THREE.WebGLRenderTarget(rx, ry, pars);
+    normalMap.texture.generateMipmaps = false;
+    this.normalMap = normalMap;
+
+    var uniformsNoise = {
+        time: { value: 1.0 },
+        scale: { value: new THREE.Vector2(1.5, 1.5) },
+        offset: { value: new THREE.Vector2(0, 0) }
+    };
+
+    this.uniformsNoise = uniformsNoise;
+
+    var uniformsNormal = THREE.UniformsUtils.clone(THREE.NormalMapShader.uniforms);
+    uniformsNormal.height.value = 0.05;
+    uniformsNormal.resolution.value.set(rx, ry);
+    uniformsNormal.heightMap.value = heightMap.texture;
+
+    // TEXTURES
+    var terrain;
+
+    var loadingManager = new THREE.LoadingManager(function () {
+        terrain.visible = true;
+    });
+
+    var textureLoader = new THREE.TextureLoader(loadingManager);
+    var specularMap = new THREE.WebGLRenderTarget(2048, 2048, pars);
+    specularMap.texture.generateMipmaps = false;
+
+    var diffuseTexture1 = textureLoader.load("assets/textures/terrain/grasslight-big.jpg");
+    var diffuseTexture2 = textureLoader.load("assets/textures/terrain/backgrounddetailed6.jpg");
+    var detailTexture = textureLoader.load("assets/textures/terrain/grasslight-big-nm.jpg");
+
+    diffuseTexture1.wrapS = diffuseTexture1.wrapT = THREE.RepeatWrapping;
+    diffuseTexture2.wrapS = diffuseTexture2.wrapT = THREE.RepeatWrapping;
+    detailTexture.wrapS = detailTexture.wrapT = THREE.RepeatWrapping;
+    specularMap.texture.wrapS = specularMap.texture.wrapT = THREE.RepeatWrapping;
+
+    // TERRAIN SHADER
+    var terrainShader = THREE.ShaderTerrain["terrain"];
+
+    var uniformsTerrain = THREE.UniformsUtils.clone(terrainShader.uniforms);
+    uniformsTerrain['tNormal'].value = normalMap.texture;
+    uniformsTerrain['uNormalScale'].value = 3.5;
+    uniformsTerrain['tDisplacement'].value = heightMap.texture;
+    uniformsTerrain['tDiffuse1'].value = diffuseTexture1;
+    uniformsTerrain['tDiffuse2'].value = diffuseTexture2;
+    uniformsTerrain['tSpecular'].value = specularMap.texture;
+    uniformsTerrain['tDetail'].value = detailTexture;
+    uniformsTerrain['enableDiffuse1'].value = true;
+    uniformsTerrain['enableDiffuse2'].value = true;
+    uniformsTerrain['enableSpecular'].value = true;
+    uniformsTerrain['diffuse'].value.setHex(0xffffff);
+    uniformsTerrain['specular'].value.setHex(0xffffff);
+    uniformsTerrain['shininess'].value = 30;
+    uniformsTerrain['uDisplacementScale'].value = 375;
+    uniformsTerrain['uRepeatOverlay'].value.set(6, 6);
+
+    this.uniformsTerrain = uniformsTerrain;
+
+    var params = [
+        ['heightmap', TerrainFragmentShader, TerrainVertexShader, uniformsNoise, false],
+        ['normal', THREE.NormalMapShader.fragmentShader, THREE.NormalMapShader.vertexShader, uniformsNormal, false],
+        ['terrain', terrainShader.fragmentShader, terrainShader.vertexShader, uniformsTerrain, true]
+    ];
+
+    this.mlib = {};
+
+    for (var i = 0; i < params.length; i++) {
+        var material = new THREE.ShaderMaterial({
+            uniforms: params[i][3],
+            vertexShader: params[i][2],
+            fragmentShader: params[i][1],
+            lights: params[i][4],
+            fog: true
+        });
+        this.mlib[params[i][0]] = material;
+    }
+
+    var plane = new THREE.PlaneBufferGeometry(width, height);
+    this.quadTarget = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({ color: 0x000000 }));
+    this.quadTarget.position.z = -500;
+
+    this.sceneRenderTarget.add(this.quadTarget);
+
+    // TERRAIN MESH
+    var geometryTerrain = new THREE.PlaneBufferGeometry(6000, 6000, 256, 256);
+    THREE.BufferGeometryUtils.computeTangents(geometryTerrain);
+
+    var terrain = new THREE.Mesh(geometryTerrain, this.mlib['terrain']);
+    terrain.name = '地形2';
+    terrain.position.set(0, -30, 0);
+    terrain.rotation.x = -Math.PI / 2;
+    terrain.scale.set(0.1, 0.1, 0.1);
+    terrain.visible = false;
+
+    this.terrain2 = terrain;
+
+    this.app.editor.execute(new AddObjectCommand(terrain));
+
+    this.app.on(`animate.Terrain2`, this.onTerrain2Animate.bind(this));
+};
+
+TerrainMenu.prototype.onTerrain2Animate = function (clock, deltaTime) {
+    var terrain = this.terrain2;
+    var renderer = this.app.editor.renderer;
+
+    if (terrain.visible) {
+        var fLow = 0.1, fHigh = 0.8;
+        this.lightVal = THREE.Math.clamp(this.lightVal + 0.5 * deltaTime * this.lightDir, fLow, fHigh);
+        var valNorm = (this.lightVal - fLow) / (fHigh - fLow);
+
+        this.uniformsTerrain['uNormalScale'].value = THREE.Math.mapLinear(valNorm, 0, 1, 0.6, 3.5);
+
+        if (true) {
+            this.animDelta = THREE.Math.clamp(this.animDelta + 0.00075 * this.animDeltaDir, 0, 0.05);
+            this.uniformsNoise['time'].value += deltaTime * this.animDelta;
+            // this.uniformsNoise['offset'].value.x += deltaTime * 0.05;
+            // this.uniformsTerrain['uOffset'].value.x = 4 * this.uniformsNoise['offset'].value.x;
+
+            this.quadTarget.material = this.mlib['heightmap'];
+            renderer.render(this.sceneRenderTarget, this.cameraOrtho, this.heightMap, true);
+            this.quadTarget.material = this.mlib['normal'];
+            renderer.render(this.sceneRenderTarget, this.cameraOrtho, this.normalMap, true);
+        }
+    }
 };
 
 // ---------------------------- 升高地形 -----------------------------------
