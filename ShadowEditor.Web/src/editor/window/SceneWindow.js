@@ -192,7 +192,10 @@ SceneWindow.prototype.loadScene = function (data) {
 
         editor.clear(false);
 
-        (new Converter()).fromJson(obj.Data, { server: this.app.options.server }).then(obj => {
+        (new Converter()).fromJson(obj.Data, {
+            server: this.app.options.server,
+            camera: this.app.editor.camera
+        }).then(obj => {
             this.onLoadScene(obj);
 
             editor.sceneID = data.ID;
