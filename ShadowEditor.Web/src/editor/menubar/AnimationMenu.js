@@ -41,11 +41,6 @@ AnimationMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '寒冰射手',
-                onClick: this.onAddAshe.bind(this)
-            }, {
-                xtype: 'div',
-                cls: 'option',
                 html: 'Unity3D教室',
                 onClick: this.onAddClassRoom.bind(this)
             }]
@@ -54,32 +49,6 @@ AnimationMenu.prototype.render = function () {
 
     container.render();
 }
-
-/**
- * 添加寒冰射手
- */
-AnimationMenu.prototype.onAddAshe = function () {
-    var editor = this.app.editor;
-
-    var model = new LolModel({
-        champion: '22',
-        skin: 0
-    });
-    model.load();
-    model.on('load', () => {
-        var geometry = model.geometry;
-        var material = model.material;
-        var mesh = new THREE.Mesh(geometry, material);
-        mesh.name = '寒冰射手';
-        mesh.scale.set(0.1, 0.1, 0.1);
-        model.setAnimation('idle');
-
-        editor.execute(new AddObjectCommand(mesh));
-        this.app.on('animate.Ashe', (clock, deltaTime) => {
-            model.update(clock.getElapsedTime() * 1000);
-        });
-    });
-};
 
 AnimationMenu.prototype.onAddClassRoom = function () {
     var editor = this.app.editor;
