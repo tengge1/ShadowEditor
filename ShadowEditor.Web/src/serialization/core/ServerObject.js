@@ -16,14 +16,24 @@ ServerObject.prototype.constructor = ServerObject;
 ServerObject.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON.call(this, obj);
     json.userData = Object.assign({}, obj.userData);
+    delete json.userData.model;
     return json;
 };
 
 ServerObject.prototype.fromJSON = function (json, options) {
     var type = json.userData.Type;
+
+    var url = json.userData.Url;
+
+    if (url.indexOf(';') > -1) { // 包含多个入口文件
+        url = url.split(';').map(n => options.server + n);
+    } else {
+        url = options.server + url;
+    }
+
     return new Promise(resolve => {
         var loader = new ModelLoader();
-        loader.load(options.server + json.userData.Url, { type: type }).then(obj => {
+        loader.load(url, { type: type }).then(obj => {
             if (obj) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, obj);
                 resolve(obj);
