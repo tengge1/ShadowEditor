@@ -39,6 +39,7 @@ var EventList = [
     'mAddTeaport', // 添加茶壶
     'mAddLathe', // 添加花瓶
     'mAddSprite', // 添加精灵
+    'mAddText', // 添加文本
 
     'mExportGeometry', // 导出几何体
     'mExportObject', // 导出物体
