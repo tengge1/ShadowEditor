@@ -39,14 +39,6 @@ var EventList = [
     'mAddTeaport', // 添加茶壶
     'mAddLathe', // 添加花瓶
     'mAddSprite', // 添加精灵
-    'mAddPointLight', // 添加点光源
-    'mAddSpotLight', // 添加聚光灯
-    'mAddDirectionalLight', // 添加平行光源
-    'mAddHemisphereLight', // 添加半球光
-    'mAddAmbientLight', // 添加环境光
-    'mAddRectAreaLight', // 添加矩形光
-    'mAddText', // 添加文本
-    'mAddPerspectiveCamera', // 添加透视相机
 
     'mExportGeometry', // 导出几何体
     'mExportObject', // 导出物体

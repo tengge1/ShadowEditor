@@ -32,14 +32,7 @@ import AddTorusKnotEvent from './menu/add/AddTorusKnotEvent';
 import AddTeaportEvent from './menu/add/AddTeaportEvent';
 import AddLatheEvent from './menu/add/AddLatheEvent';
 import AddSpriteEvent from './menu/add/AddSpriteEvent';
-import AddPointLightEvent from './menu/add/AddPointLightEvent';
-import AddSpotLightEvent from './menu/add/AddSpotLightEvent';
-import AddDirectionalLightEvent from './menu/add/AddDirectionalLightEvent';
-import AddHemisphereLightEvent from './menu/add/AddHemisphereLightEvent';
-import AddAmbientLightEvent from './menu/add/AddAmbientLightEvent';
-import AddRectAreaLightEvent from './menu/add/AddRectAreaLightEvent';
 import AddTextEvent from './menu/add/AddTextEvent';
-import AddPerspectiveCameraEvent from './menu/add/AddPerspectiveCameraEvent';
 
 import ExportGeometryEvent from './menu/asset/ExportGeometryEvent';
 import ExportObjectEvent from './menu/asset/ExportObjectEvent';
@@ -108,14 +101,7 @@ function EventDispatcher(app) {
         new AddTeaportEvent(this.app),
         new AddLatheEvent(this.app),
         new AddSpriteEvent(this.app),
-        new AddPointLightEvent(this.app),
-        new AddSpotLightEvent(this.app),
-        new AddDirectionalLightEvent(this.app),
-        new AddHemisphereLightEvent(this.app),
-        new AddAmbientLightEvent(this.app),
-        new AddRectAreaLightEvent(this.app),
         new AddTextEvent(this.app),
-        new AddPerspectiveCameraEvent(this.app),
 
         new ExportGeometryEvent(this.app),
         new ExportObjectEvent(this.app),
