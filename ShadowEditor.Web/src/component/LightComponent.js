@@ -312,11 +312,21 @@ LightComponent.prototype.onChangeDecay = function () {
 LightComponent.prototype.onChangeSkyColor = function () {
     var objectSkyColor = UI.get('objectSkyColor', this.id);
     this.selected.color = new THREE.Color(objectSkyColor.getHexValue());
+
+    var sky = this.selected.children.filter(n => n.userData.type === 'sky')[0];
+    if (sky) {
+        sky.material.uniforms.topColor.value = this.selected.color;
+    }
 };
 
 LightComponent.prototype.onChangeGroundColor = function () {
     var objectGroundColor = UI.get('objectGroundColor', this.id);
     this.selected.groundColor = new THREE.Color(objectGroundColor.getHexValue());
+
+    var sky = this.selected.children.filter(n => n.userData.type === 'sky')[0];
+    if (sky) {
+        sky.material.uniforms.bottomColor.value = this.selected.groundColor;
+    }
 };
 
 LightComponent.prototype.onChangeWidth = function () {
