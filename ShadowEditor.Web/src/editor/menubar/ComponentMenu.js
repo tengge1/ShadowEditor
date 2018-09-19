@@ -1,5 +1,6 @@
 import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
+import Sky from '../../object/Sky';
 import Smoke from '../../particle/Smoke';
 
 /**
@@ -29,18 +30,6 @@ ComponentMenu.prototype.render = function () {
             cls: 'options',
             children: [{
                 xtype: 'div',
-                html: '刚体',
-                cls: 'option',
-                onClick: this.addRigidBody.bind(this)
-            }, {
-                xtype: 'div',
-                html: '碰撞体',
-                cls: 'option',
-                onClick: this.addCollision.bind(this)
-            }, {
-                xtype: 'hr'
-            }, {
-                xtype: 'div',
                 html: '背景音乐',
                 cls: 'option',
                 onClick: this.onAddBackgroundMusic.bind(this)
@@ -51,6 +40,11 @@ ComponentMenu.prototype.render = function () {
                 onClick: this.ParticleEmitter.bind(this)
             }, {
                 xtype: 'div',
+                html: '天空',
+                cls: 'option',
+                onClick: this.onAddSky.bind(this)
+            }, {
+                xtype: 'div',
                 html: '火焰',
                 cls: 'option',
                 onClick: this.onAddFire.bind(this)
@@ -59,24 +53,24 @@ ComponentMenu.prototype.render = function () {
                 html: '烟',
                 cls: 'option',
                 onClick: this.onAddSmoke.bind(this)
+            }, {
+                xtype: 'hr'
+            }, {
+                xtype: 'div',
+                html: '刚体',
+                cls: 'option',
+                onClick: this.addRigidBody.bind(this)
+            }, {
+                xtype: 'div',
+                html: '碰撞体',
+                cls: 'option',
+                onClick: this.addCollision.bind(this)
             }]
         }]
     });
 
     container.render();
 }
-
-// --------------------------- 添加刚体 ------------------------------------
-
-ComponentMenu.prototype.addRigidBody = function () {
-
-};
-
-// ---------------------------- 添加碰撞体 -----------------------------------
-
-ComponentMenu.prototype.addCollision = function () {
-
-};
 
 // ---------------------------- 添加背景音乐 ----------------------------------
 
@@ -147,6 +141,13 @@ ComponentMenu.prototype.ParticleEmitter = function () {
 
     // 稍微喷一点，让纹理正常加载
     group.tick(0);
+};
+
+// ---------------------------- 天空 ----------------------------------------
+
+ComponentMenu.prototype.onAddSky = function () {
+    var obj = new Sky();
+    this.app.editor.execute(new AddObjectCommand(obj));
 };
 
 // ---------------------------- 添加火焰 -------------------------------------
@@ -221,6 +222,18 @@ ComponentMenu.prototype.onAddSmoke = function () {
     editor.execute(new AddObjectCommand(smoke.mesh));
 
     smoke.update(0);
+};
+
+// --------------------------- 添加刚体 ------------------------------------
+
+ComponentMenu.prototype.addRigidBody = function () {
+
+};
+
+// ---------------------------- 添加碰撞体 -----------------------------------
+
+ComponentMenu.prototype.addCollision = function () {
+
 };
 
 export default ComponentMenu;
