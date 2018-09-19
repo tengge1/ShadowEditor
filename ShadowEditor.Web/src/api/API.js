@@ -1,3 +1,5 @@
+import UIAPI from './UIAPI';
+
 /**
  * 编辑器API
  */
@@ -5,8 +7,6 @@ function API() {
 
 }
 
-API.prototype.addMenu = function () {
-    alert('添加菜单');
-};
+Object.assign(API.prototype, UIAPI.prototype);
 
 export default API;
