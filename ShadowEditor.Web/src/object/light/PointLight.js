@@ -8,6 +8,7 @@ function PointLight(color, intensity, distance, decay) {
     var material = new THREE.MeshBasicMaterial({ color: color });
     var mesh = new THREE.Mesh(geometry, material);
 
+    mesh.name = '小球';
     mesh.userData.type = 'helper';
 
     this.add(mesh);
