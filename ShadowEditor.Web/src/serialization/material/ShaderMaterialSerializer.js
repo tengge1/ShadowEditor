@@ -47,6 +47,7 @@ ShaderMaterialSerializer.prototype.fromJSON = function (json, parent) {
     obj.defines = json.defines;
 
     obj.uniforms = {};
+
     for (var i in json.uniforms) {
         var uniform = json.uniforms[i];
         if (uniform.type === 'color') {

@@ -16,7 +16,23 @@ RawShaderMaterialSerializer.prototype.toJSON = function (obj) {
     var json = MaterialSerializer.prototype.toJSON.call(this, obj);
 
     json.defines = obj.defines;
-    json.uniforms = obj.uniforms;
+
+    json.uniforms = {};
+
+    for (var i in obj.uniforms) {
+        var uniform = obj.uniforms[i];
+        if (uniform.value instanceof THREE.Color) {
+            json.uniforms[i] = {
+                type: 'color',
+                value: uniform.value
+            };
+        } else {
+            json.uniforms[i] = {
+                value: uniform.value
+            };
+        }
+    }
+
     json.vertexShader = obj.vertexShader;
     json.fragmentShader = obj.fragmentShader;
 
@@ -29,7 +45,22 @@ RawShaderMaterialSerializer.prototype.fromJSON = function (json, parent) {
     MaterialSerializer.prototype.fromJSON.call(this, json, obj);
 
     obj.defines = json.defines;
-    obj.uniforms = json.uniforms;
+
+    obj.uniforms = {};
+
+    for (var i in json.uniforms) {
+        var uniform = json.uniforms[i];
+        if (uniform.type === 'color') {
+            obj.uniforms[i] = {
+                value: new THREE.Color(uniform.value)
+            };
+        } else {
+            obj.uniforms[i] = {
+                value: uniform.value
+            };
+        }
+    }
+
     obj.vertexShader = json.vertexShader;
     obj.fragmentShader = json.fragmentShader;
 
