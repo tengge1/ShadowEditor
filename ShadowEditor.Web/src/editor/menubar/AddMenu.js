@@ -139,50 +139,34 @@ AddMenu.prototype.render = function () {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                id: 'mAddAmbientLight',
                 html: '环境光',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddAmbientLight');
-                }
+                onClick: this.addAmbientLight.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddDirectionalLight',
                 html: '平行光',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddDirectionalLight');
-                }
+                onClick: this.addDirectionalLight.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddPointLight',
                 html: '点光源',
                 cls: 'option',
                 onClick: this.addPointLight.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddSpotLight',
                 html: '聚光灯',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddSpotLight');
-                }
+                onClick: this.addSpotLight.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddHemisphereLight',
                 html: '半球光',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddHemisphereLight');
-                }
+                onClick: this.addHemisphereLight.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddRectAreaLight',
                 html: '矩形光',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddRectAreaLight');
-                }
+                onClick: this.addRectAreaLight.bind(this)
             }]
         }]
     });
@@ -192,7 +176,33 @@ AddMenu.prototype.render = function () {
 
 // ------------------------- 环境光 ------------------------------
 
+AddMenu.prototype.addAmbientLight = function () {
+    var editor = this.app.editor;
+
+    var color = 0xaaaaaa;
+
+    var light = new THREE.AmbientLight(color);
+    light.name = '环境光';
+
+    editor.execute(new AddObjectCommand(light));
+};
+
 // ------------------------- 平行光 ------------------------------
+
+AddMenu.prototype.addDirectionalLight = function () {
+    var editor = this.app.editor;
+
+    var color = 0xffffff;
+    var intensity = 1;
+
+    var light = new THREE.DirectionalLight(color, intensity);
+    light.name = '平行光';
+    light.castShadow = true;
+
+    light.position.set(5, 10, 7.5);
+
+    editor.execute(new AddObjectCommand(light));
+};
 
 // ------------------------- 点光源 ------------------------------
 
@@ -213,8 +223,58 @@ AddMenu.prototype.addPointLight = function () {
 
 // ------------------------- 聚光灯 ------------------------------
 
+AddMenu.prototype.addSpotLight = function () {
+    var editor = this.app.editor;
+
+    var color = 0xffffff;
+    var intensity = 1;
+    var distance = 0;
+    var angle = Math.PI * 0.1;
+    var penumbra = 0;
+
+    var light = new THREE.SpotLight(color, intensity, distance, angle, penumbra);
+
+    light.name = '聚光灯';
+    light.castShadow = true;
+
+    light.position.set(5, 10, 7.5);
+
+    editor.execute(new AddObjectCommand(light));
+};
+
 // ------------------------- 半球光 ------------------------------
 
+AddMenu.prototype.addHemisphereLight = function () {
+    var editor = this.app.editor;
+
+    var skyColor = 0x00aaff;
+    var groundColor = 0xffaa00;
+    var intensity = 1;
+
+    var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+    light.name = '半球光';
+
+    light.position.set(0, 10, 0);
+
+    editor.execute(new AddObjectCommand(light));
+};
+
 // ------------------------- 矩形光 ------------------------------
+
+AddMenu.prototype.addRectAreaLight = function () {
+    var editor = this.app.editor;
+
+    var color = 0xffffff;
+    var intensity = 1;
+    var width = 20;
+    var height = 10;
+
+    var light = new THREE.RectAreaLight(color, intensity, width, height);
+    light.name = '矩形光';
+
+    light.position.set(0, 6, 0);
+
+    editor.execute(new AddObjectCommand(light));
+};
 
 export default AddMenu;
