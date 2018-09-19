@@ -1,6 +1,7 @@
 import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import PointLight from '../../object/light/PointLight';
+import HemisphereLight from '../../object/light/HemisphereLight';
 
 /**
  * 添加菜单
@@ -251,7 +252,7 @@ AddMenu.prototype.addHemisphereLight = function () {
     var groundColor = 0xffaa00;
     var intensity = 1;
 
-    var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+    var light = new HemisphereLight(skyColor, groundColor, intensity);
     light.name = '半球光';
 
     light.position.set(0, 10, 0);
