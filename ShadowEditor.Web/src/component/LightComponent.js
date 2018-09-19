@@ -278,6 +278,10 @@ LightComponent.prototype.updateUI = function () {
 LightComponent.prototype.onChangeColor = function () {
     var objectColor = UI.get('objectColor', this.id);
     this.selected.color = new THREE.Color(objectColor.getHexValue());
+    var helper = this.selected.children.filter(n => n.userData.type === 'helper')[0];
+    if (helper) {
+        helper.material.color = this.selected.color;
+    }
 };
 
 LightComponent.prototype.onChangeIntensity = function () {

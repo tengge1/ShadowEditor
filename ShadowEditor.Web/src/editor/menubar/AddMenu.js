@@ -1,4 +1,6 @@
 import UI from '../../ui/UI';
+import AddObjectCommand from '../../command/AddObjectCommand';
+import PointLight from '../../object/light/PointLight';
 
 /**
  * 添加菜单
@@ -156,9 +158,7 @@ AddMenu.prototype.render = function () {
                 id: 'mAddPointLight',
                 html: '点光源',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddPointLight');
-                }
+                onClick: this.addPointLight.bind(this)
             }, {
                 xtype: 'div',
                 id: 'mAddSpotLight',
@@ -183,21 +183,38 @@ AddMenu.prototype.render = function () {
                 onClick: function () {
                     _this.app.call('mAddRectAreaLight');
                 }
-            }, {
-                xtype: 'hr'
-            }, {
-                xtype: 'div',
-                id: 'mAddPerspectiveCamera',
-                html: '透视相机',
-                cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddPerspectiveCamera');
-                }
             }]
         }]
     });
 
     container.render();
 }
+
+// ------------------------- 环境光 ------------------------------
+
+// ------------------------- 平行光 ------------------------------
+
+// ------------------------- 点光源 ------------------------------
+
+AddMenu.prototype.addPointLight = function () {
+    var editor = this.app.editor;
+
+    var color = 0xffffff;
+    var intensity = 1;
+    var distance = 0;
+
+    var light = new PointLight(color, intensity, distance);
+    light.name = '点光源';
+    light.position.y = 5;
+    light.castShadow = true;
+
+    editor.execute(new AddObjectCommand(light));
+};
+
+// ------------------------- 聚光灯 ------------------------------
+
+// ------------------------- 半球光 ------------------------------
+
+// ------------------------- 矩形光 ------------------------------
 
 export default AddMenu;

@@ -1,5 +1,6 @@
 import MenuEvent from '../MenuEvent';
 import AddObjectCommand from '../../../command/AddObjectCommand';
+import PointLight from '../../../object/light/PointLight';
 
 var ID = 1;
 
@@ -33,7 +34,7 @@ AddPointLightEvent.prototype.onAddPointLight = function () {
     var intensity = 1;
     var distance = 0;
 
-    var light = new THREE.PointLight(color, intensity, distance);
+    var light = new PointLight(color, intensity, distance);
     light.name = '点光源' + ID++;
     light.position.y = 5;
     light.castShadow = true;
