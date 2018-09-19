@@ -147,6 +147,8 @@ ComponentMenu.prototype.ParticleEmitter = function () {
 
 ComponentMenu.prototype.onAddSky = function () {
     var obj = new Sky();
+    obj.name = '天空';
+    obj.userData.type = 'Sky';
     this.app.editor.execute(new AddObjectCommand(obj));
 };
 
