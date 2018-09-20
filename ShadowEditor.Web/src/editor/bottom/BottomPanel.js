@@ -1,5 +1,6 @@
 import Control from '../../ui/Control';
 import AnimationPanel from './AnimationPanel';
+import ModelPanel from './ModelPanel';
 import LogPanel from './LogPanel';
 
 /**
@@ -32,6 +33,13 @@ BottomPanel.prototype.render = function () {
                 }
             }, {
                 xtype: 'text',
+                id: 'modelTab',
+                text: '模型',
+                onClick: () => {
+                    this.selectTab('model');
+                }
+            }, {
+                xtype: 'text',
                 id: 'logTab',
                 text: '日志',
                 onClick: () => {
@@ -46,6 +54,15 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new AnimationPanel({ app: this.app })
+            ]
+        }, {
+            xtype: 'div',
+            id: 'modelPanel',
+            style: {
+                flex: 1
+            },
+            children: [
+                new ModelPanel({ app: this.app })
             ]
         }, {
             xtype: 'div',
@@ -65,22 +82,30 @@ BottomPanel.prototype.render = function () {
 };
 
 BottomPanel.prototype.selectTab = function (tabName) {
-    const animationTab = UI.get('animationTab');
-    const logTab = UI.get('logTab');
+    var animationTab = UI.get('animationTab');
+    var modelTab = UI.get('modelTab');
+    var logTab = UI.get('logTab');
 
-    const animationPanel = UI.get('animationPanel');
-    const logPanel = UI.get('logPanel');
+    var animationPanel = UI.get('animationPanel');
+    var modelPanel = UI.get('modelPanel');
+    var logPanel = UI.get('logPanel');
 
     animationTab.dom.className = '';
+    modelTab.dom.className = '';
     logTab.dom.className = '';
 
     animationPanel.dom.style.display = 'none';
+    modelPanel.dom.style.display = 'none';
     logPanel.dom.style.display = 'none';
 
     switch (tabName) {
         case 'animation':
             animationTab.dom.className = 'selected';
             animationPanel.dom.style.display = '';
+            break;
+        case 'model':
+            modelTab.dom.className = 'selected';
+            modelPanel.dom.style.display = '';
             break;
         case 'log':
             logTab.dom.className = 'selected';
