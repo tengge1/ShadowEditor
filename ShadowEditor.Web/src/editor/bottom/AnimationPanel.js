@@ -141,6 +141,14 @@ AnimationPanel.prototype.onAppStarted = function () {
 
         context.fillText(text, i * scale, 16);
     }
+
+    var timeline = UI.get('timeline', this.id);
+
+    timeline.dom.addEventListener(`click.${this.id}`, this.onClick.bind(this));
+    timeline.dom.addEventListener(`dblclick.${this.id}`, this.onDblClick.bind(this));
+    timeline.dom.addEventListener(`mousedown.${this.id}`, this.onMouseDown.bind(this));
+    timeline.dom.addEventListener(`mousemove.${this.id}`, this.onMouseMove.bind(this));
+    timeline.dom.addEventListener(`mouseup.${this.id}`, this.onMouseUp.bind(this));
 };
 
 AnimationPanel.prototype.updateUI = function () {
@@ -212,6 +220,26 @@ AnimationPanel.prototype.onStop = function () {
     this.app.on(`animate.${this.id}`, null);
     this.sliderLeft = 0;
     this.updateUI();
+};
+
+AnimationPanel.prototype.onClick = function () {
+
+};
+
+AnimationPanel.prototype.onDblClick = function () {
+
+};
+
+AnimationPanel.prototype.onMouseDown = function () {
+
+};
+
+AnimationPanel.prototype.onMouseMove = function () {
+
+};
+
+AnimationPanel.prototype.onMouseUp = function () {
+
 };
 
 export default AnimationPanel;
