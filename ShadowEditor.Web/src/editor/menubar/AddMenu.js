@@ -3,6 +3,7 @@ import AddObjectCommand from '../../command/AddObjectCommand';
 import StringUtils from '../../utils/StringUtils';
 import PointLight from '../../object/light/PointLight';
 import HemisphereLight from '../../object/light/HemisphereLight';
+import RectAreaLight from '../../object/light/RectAreaLight';
 
 /**
  * 添加菜单
@@ -513,7 +514,7 @@ AddMenu.prototype.addRectAreaLight = function () {
     var width = 20;
     var height = 10;
 
-    var light = new THREE.RectAreaLight(color, intensity, width, height);
+    var light = new RectAreaLight(color, intensity, width, height);
     light.name = '矩形光';
 
     light.position.set(0, 6, 0);
