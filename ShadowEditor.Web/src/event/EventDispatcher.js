@@ -20,20 +20,6 @@ import ModelEvent from './toolbar/ModelEvent';
 import PathModeEvent from './toolbar/PathModeEvent';
 
 // 菜单栏
-import AddGroupEvent from './menu/add/AddGroupEvent';
-import AddPlaneEvent from './menu/add/AddPlaneEvent';
-import AddBoxEvent from './menu/add/AddBoxEvent';
-import AddCircleEvent from './menu/add/AddCircleEvent';
-import AddCylinderEvent from './menu/add/AddCylinderEvent';
-import AddSphereEvent from './menu/add/AddSphereEvent';
-import AddIcosahedronEvent from './menu/add/AddIcosahedronEvent';
-import AddTorusEvent from './menu/add/AddTorusEvent';
-import AddTorusKnotEvent from './menu/add/AddTorusKnotEvent';
-import AddTeaportEvent from './menu/add/AddTeaportEvent';
-import AddLatheEvent from './menu/add/AddLatheEvent';
-import AddSpriteEvent from './menu/add/AddSpriteEvent';
-import AddTextEvent from './menu/add/AddTextEvent';
-
 import ExportGeometryEvent from './menu/asset/ExportGeometryEvent';
 import ExportObjectEvent from './menu/asset/ExportObjectEvent';
 import ExportSceneEvent from './menu/asset/ExportSceneEvent';
@@ -89,20 +75,6 @@ function EventDispatcher(app) {
         new PathModeEvent(this.app),
 
         // menubar中的事件
-        new AddGroupEvent(this.app),
-        new AddPlaneEvent(this.app),
-        new AddBoxEvent(this.app),
-        new AddCircleEvent(this.app),
-        new AddCylinderEvent(this.app),
-        new AddSphereEvent(this.app),
-        new AddIcosahedronEvent(this.app),
-        new AddTorusEvent(this.app),
-        new AddTorusKnotEvent(this.app),
-        new AddTeaportEvent(this.app),
-        new AddLatheEvent(this.app),
-        new AddSpriteEvent(this.app),
-        new AddTextEvent(this.app),
-
         new ExportGeometryEvent(this.app),
         new ExportObjectEvent(this.app),
         new ExportSceneEvent(this.app),

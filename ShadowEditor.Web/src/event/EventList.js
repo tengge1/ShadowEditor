@@ -27,20 +27,6 @@ var EventList = [
     'optionsChanged', // 配置改变事件
 
     // 菜单栏事件
-    'mAddGroup', // 添加组
-    'mAddPlane', // 添加平板
-    'mAddBox', // 添加正方体
-    'mAddCircle', // 添加圆
-    'mAddCylinder', // 添加圆柱体
-    'mAddSphere', // 添加球体
-    'mAddIcosahedron', // 添加二十面体
-    'mAddTorus', // 添加轮胎
-    'mAddTorusKnot', // 添加纽结
-    'mAddTeaport', // 添加茶壶
-    'mAddLathe', // 添加花瓶
-    'mAddSprite', // 添加精灵
-    'mAddText', // 添加文本
-
     'mExportGeometry', // 导出几何体
     'mExportObject', // 导出物体
     'mExportScene', // 导出场景

@@ -1,5 +1,6 @@
 import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
+import StringUtils from '../../utils/StringUtils';
 import PointLight from '../../object/light/PointLight';
 import HemisphereLight from '../../object/light/HemisphereLight';
 
@@ -17,8 +18,6 @@ AddMenu.prototype = Object.create(UI.Control.prototype);
 AddMenu.prototype.constructor = AddMenu;
 
 AddMenu.prototype.render = function () {
-    var _this = this;
-
     var container = UI.create({
         xtype: 'div',
         parent: this.parent,
@@ -32,110 +31,72 @@ AddMenu.prototype.render = function () {
             cls: 'options',
             children: [{
                 xtype: 'div',
-                id: 'mAddGroup',
                 html: '组',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddGroup');
-                }
+                onClick: this.addGroup.bind(this)
             }, {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                id: 'mAddPlane',
                 html: '平板',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddPlane');
-                }
+                onClick: this.addPlane.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddBox',
                 html: '正方体',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddBox');
-                }
+                onClick: this.addBox.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddCircle',
                 html: '圆',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddCircle');
-                }
+                onClick: this.addCircle.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddCylinder',
                 html: '圆柱体',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddCylinder');
-                }
+                onClick: this.addCylinder.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddSphere',
                 html: '球体',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddSphere');
-                }
+                onClick: this.addSphere.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddIcosahedron',
                 html: '二十面体',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddIcosahedron');
-                }
+                onClick: this.addIcosahedron.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddTorus',
                 html: '轮胎',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddTorus');
-                }
+                onClick: this.addTorus.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddTorusKnot',
                 html: '扭结',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddTorusKnot');
-                }
+                onClick: this.addTorusKnot.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddTeaport',
                 html: '茶壶',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddTeaport');
-                }
+                onClick: this.addTeaport.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddLathe',
                 html: '酒杯',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddLathe');
-                }
+                onClick: this.addLathe.bind(this)
             }, {
                 xtype: 'div',
                 id: 'mAddSprite',
                 html: '精灵',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddSprite');
-                }
+                onClick: this.addSprite.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mAddText',
                 html: '文本',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mAddText');
-                }
+                onClick: this.addText.bind(this)
             }, {
                 xtype: 'hr'
             }, {
@@ -177,29 +138,285 @@ AddMenu.prototype.render = function () {
 
 // ------------------------- 组 ---------------------------------
 
+AddMenu.prototype.addGroup = function () {
+    var editor = this.app.editor;
+
+    var mesh = new THREE.Group();
+    mesh.name = '组';
+
+    editor.execute(new AddObjectCommand(mesh));
+};
+
 // ------------------------- 平板 -------------------------------
+
+AddMenu.prototype.addPlane = function () {
+    var editor = this.app.editor;
+
+    var geometry = new THREE.PlaneBufferGeometry(50, 50);
+    var material = new THREE.MeshStandardMaterial();
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.name = '平板';
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    editor.execute(new AddObjectCommand(mesh));
+};
 
 // ------------------------ 正方体 -----------------------------
 
+AddMenu.prototype.addBox = function () {
+    var editor = this.app.editor;
+
+    var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
+    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+    mesh.name = '正方体';
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    editor.execute(new AddObjectCommand(mesh));
+};
+
 // ------------------------ 圆 ----------------------------------
+
+AddMenu.prototype.addCircle = function () {
+    var editor = this.app.editor;
+
+    var radius = 1;
+    var segments = 32;
+
+    var geometry = new THREE.CircleBufferGeometry(radius, segments);
+    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+    mesh.name = '圆';
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    editor.execute(new AddObjectCommand(mesh));
+};
 
 // ------------------------圆柱体 -------------------------------
 
+AddMenu.prototype.addCylinder = function () {
+    var editor = this.app.editor;
+
+    var radiusTop = 1;
+    var radiusBottom = 1;
+    var height = 2;
+    var radiusSegments = 32;
+    var heightSegments = 1;
+    var openEnded = false;
+
+    var geometry = new THREE.CylinderBufferGeometry(radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded);
+    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+    mesh.name = '圆柱体';
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    editor.execute(new AddObjectCommand(mesh));
+};
+
 // ------------------------ 球体 -------------------------------
+
+AddMenu.prototype.addSphere = function () {
+    var editor = this.app.editor;
+
+    var radius = 1;
+    var widthSegments = 32;
+    var heightSegments = 16;
+    var phiStart = 0;
+    var phiLength = Math.PI * 2;
+    var thetaStart = 0;
+    var thetaLength = Math.PI;
+
+    var geometry = new THREE.SphereBufferGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength);
+    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+    mesh.name = '球体';
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    editor.execute(new AddObjectCommand(mesh));
+};
 
 // ----------------------- 二十面体 -----------------------------
 
+AddMenu.prototype.addIcosahedron = function () {
+    var editor = this.app.editor;
+
+    var radius = 1;
+    var detail = 2;
+
+    var geometry = new THREE.IcosahedronBufferGeometry(radius, detail);
+    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+    mesh.name = '二十面体';
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    editor.execute(new AddObjectCommand(mesh));
+};
+
 // ----------------------- 轮胎 ---------------------------------
+
+AddMenu.prototype.addTorus = function () {
+    var editor = this.app.editor;
+
+    var radius = 2;
+    var tube = 1;
+    var radialSegments = 32;
+    var tubularSegments = 12;
+    var arc = Math.PI * 2;
+
+    var geometry = new THREE.TorusBufferGeometry(radius, tube, radialSegments, tubularSegments, arc);
+    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+    mesh.name = '轮胎';
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    editor.execute(new AddObjectCommand(mesh));
+};
 
 // ----------------------- 纽结 ---------------------------------
 
+AddMenu.prototype.addTorusKnot = function () {
+    var editor = this.app.editor;
+
+    var radius = 2;
+    var tube = 0.8;
+    var tubularSegments = 64;
+    var radialSegments = 12;
+    var p = 2;
+    var q = 3;
+
+    var geometry = new THREE.TorusKnotBufferGeometry(radius, tube, tubularSegments, radialSegments, p, q);
+    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+    mesh.name = '纽结';
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    editor.execute(new AddObjectCommand(mesh));
+};
+
 // ---------------------- 茶壶 ----------------------------------
+
+AddMenu.prototype.addTeaport = function () {
+    var editor = this.app.editor;
+
+    var size = 3;
+    var segments = 10;
+    var bottom = true;
+    var lid = true;
+    var body = true;
+    var fitLid = true;
+    var blinn = true;
+
+    var geometry = new THREE.TeapotBufferGeometry(size, segments, bottom, lid, body, fitLid, blinn);
+
+    // 修改TeapotBufferGeometry类型错误问题，原来是BufferGeometry
+    geometry.type = 'TeapotBufferGeometry';
+
+    // 修复TeapotBufferGeometry缺少parameters参数问题
+    geometry.parameters = {
+        size: 3,
+        segments: 10,
+        bottom: true,
+        lid: true,
+        body: true,
+        fitLid: true,
+        blinn: true
+    };
+
+    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
+    mesh.name = '茶壶';
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    editor.execute(new AddObjectCommand(mesh));
+};
 
 // ---------------------- 酒杯 ----------------------------------
 
+AddMenu.prototype.addLathe = function () {
+    var editor = this.app.editor;
+
+    var points = [
+        new THREE.Vector2(0, 0),
+        new THREE.Vector2(4, 0),
+        new THREE.Vector2(3.5, 0.5),
+        new THREE.Vector2(1, 0.75),
+        new THREE.Vector2(0.8, 1),
+        new THREE.Vector2(0.8, 4),
+        new THREE.Vector2(1, 4.2),
+        new THREE.Vector2(1.4, 4.8),
+        new THREE.Vector2(2, 5),
+        new THREE.Vector2(2.5, 5.4),
+        new THREE.Vector2(3, 12)
+    ];
+    var segments = 20;
+    var phiStart = 0;
+    var phiLength = 2 * Math.PI;
+
+    var geometry = new THREE.LatheBufferGeometry(points, segments, phiStart, phiLength);
+    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ side: THREE.DoubleSide }));
+    mesh.name = '酒杯';
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    editor.execute(new AddObjectCommand(mesh));
+};
+
 // ---------------------- 精灵 -----------------------------------
 
+AddMenu.prototype.addSprite = function () {
+    var editor = this.app.editor;
+
+    var sprite = new THREE.Sprite(new THREE.SpriteMaterial());
+    sprite.name = '精灵';
+
+    editor.execute(new AddObjectCommand(sprite));
+};
+
 // ---------------------- 文本 ----------------------------------
+
+AddMenu.prototype.addText = function () {
+    UI.prompt('请输入', null, '一些文字', (event, value) => {
+        this.drawText(value);
+    });
+};
+
+AddMenu.prototype.drawText = function (text) {
+    var canvas = document.createElement('canvas');
+
+    var fontSize = 64;
+
+    var ctx = canvas.getContext('2d');
+    ctx.font = `${fontSize}px sans-serif`;
+
+    var textMetrics = ctx.measureText(text);
+    canvas.width = StringUtils.makePowOfTwo(textMetrics.width);
+    canvas.height = fontSize;
+    ctx.textBaseline = 'hanging';
+    ctx.font = `${fontSize}px sans-serif`; // 重新设置画布大小，前面设置的ctx属性全部失效
+
+    ctx.fillStyle = 'rgba(0,0,0,0)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'rgba(255,255,255,1)';
+    ctx.fillText(text, (canvas.width - textMetrics.width) / 2, 0);
+
+    var map = new THREE.CanvasTexture(canvas, );
+
+    var geometry = new THREE.PlaneBufferGeometry(canvas.width / 10, canvas.height / 10);
+    var material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        map: map,
+        transparent: true
+    });
+
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.name = text;
+
+    var editor = this.app.editor;
+
+    editor.execute(new AddObjectCommand(mesh));
+};
 
 // ------------------------- 环境光 ------------------------------
 
