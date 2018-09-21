@@ -862,10 +862,8 @@ table.Table .TableBody td {
 .animation-panel .box .groups .group {
     width: 100%;
     height: 32px;
-    border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     box-sizing: border-box;
-    margin-top: 4px;
 }
 
 .animation-panel .box .slider {

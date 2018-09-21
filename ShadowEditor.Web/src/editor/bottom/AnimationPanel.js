@@ -100,7 +100,20 @@ AnimationPanel.prototype.render = function () {
                 xtype: 'div',
                 cls: 'groups',
                 id: 'groups',
-                scope: this.id
+                scope: this.id,
+                children: [{
+                    xtype: 'div',
+                    cls: 'group'
+                }, {
+                    xtype: 'div',
+                    cls: 'group'
+                }, {
+                    xtype: 'div',
+                    cls: 'group'
+                }, {
+                    xtype: 'div',
+                    cls: 'group'
+                }]
             }, {
                 xtype: 'div',
                 cls: 'slider',
