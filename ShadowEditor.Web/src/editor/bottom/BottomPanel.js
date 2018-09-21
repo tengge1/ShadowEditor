@@ -27,6 +27,11 @@ BottomPanel.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'tabs',
+            style: {
+                position: 'sticky',
+                top: 0,
+                zIndex: 10
+            },
             children: [{
                 xtype: 'text',
                 id: 'animationTab',
