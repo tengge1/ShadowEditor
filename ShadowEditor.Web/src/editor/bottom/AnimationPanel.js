@@ -187,7 +187,11 @@ AnimationPanel.prototype.onAppStarted = function () {
     timeline.dom.addEventListener(`mouseup.${this.id}`, this.onMouseUp.bind(this));
 };
 
-AnimationPanel.prototype.updateUI = function () {
+AnimationEvent.prototype.updateGroup = function () {
+
+};
+
+AnimationPanel.prototype.updateSlider = function () {
     var slider = UI.get('slider', this.id);
     var speed = UI.get('speed', this.id);
 
@@ -202,7 +206,7 @@ AnimationPanel.prototype.updateUI = function () {
 
 AnimationPanel.prototype.onAnimate = function () {
     this.sliderLeft += this.speed / 4;
-    this.updateUI();
+    this.updateSlider();
 };
 
 AnimationPanel.prototype.onAddGroup = function () {
@@ -239,7 +243,7 @@ AnimationPanel.prototype.onPause = function () {
     UI.get('btnPause', this.id).dom.style.display = 'none';
 
     this.app.on(`animate.${this.id}`, null);
-    this.updateUI();
+    this.updateSlider();
 };
 
 AnimationPanel.prototype.onForward = function () {
@@ -267,7 +271,7 @@ AnimationPanel.prototype.onStop = function () {
 
     this.app.on(`animate.${this.id}`, null);
     this.sliderLeft = 0;
-    this.updateUI();
+    this.updateSlider();
 };
 
 AnimationPanel.prototype.onClick = function () {
