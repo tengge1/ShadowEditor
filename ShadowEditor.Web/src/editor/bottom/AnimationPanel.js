@@ -193,7 +193,11 @@ AnimationPanel.prototype.onAnimate = function () {
 };
 
 AnimationPanel.prototype.onAddGroup = function () {
+    var groups = UI.get('groups', this.id);
 
+    var group = document.createElement('div');
+    group.className = 'group';
+    groups.dom.appendChild(group);
 };
 
 AnimationPanel.prototype.onRemoveGroup = function () {
