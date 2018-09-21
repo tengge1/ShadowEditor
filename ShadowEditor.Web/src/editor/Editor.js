@@ -62,6 +62,9 @@ function Editor(app) {
     // 其中，uuid是创建脚本时自动生成，不可改变，关联时使用，id是mongo数据库ID字段；name：随便填写；type：javascript，vertexShader, fragmentShader, json；source：源码。
     this.scripts = {};
 
+    // 动画 格式：{ uuid: { id: 'mongoDB id', name: 'Animation Name', type: 'Animation Type', startTime: startTime, endTime: endTime, script: script } }
+    this.animations = {};
+
     // 帮助器
     this.helpers = {};
 
