@@ -843,13 +843,20 @@ table.Table .TableBody td {
 
 .animation-panel .box {
     position: relative;
+    display: flex;
     flex: 1;
+    flex-direction: column;
 }
 
 .animation-panel .box .timeline {
     width: 100%;
     height: 32px;
     border-bottom: 1px solid #ddd;
+}
+
+.animation-panel .box .trunk {
+    width: 100%;
+    flex: 1;
 }
 
 .animation-panel .box .slider {

@@ -80,6 +80,11 @@ AnimationPanel.prototype.render = function () {
                 scope: this.id
             }, {
                 xtype: 'div',
+                cls: 'trunk',
+                id: 'trunk',
+                scope: this.id
+            }, {
+                xtype: 'div',
                 cls: 'slider',
                 id: 'slider',
                 scope: this.id
