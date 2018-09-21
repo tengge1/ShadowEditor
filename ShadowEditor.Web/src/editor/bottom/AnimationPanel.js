@@ -34,6 +34,24 @@ AnimationPanel.prototype.render = function () {
             cls: 'controls',
             children: [{
                 xtype: 'iconbutton',
+                icon: 'icon-add',
+                onClick: this.onAddGroup.bind(this)
+            }, {
+                xtype: 'iconbutton',
+                icon: 'icon-delete',
+                onClick: this.onRemoveGroup.bind(this)
+            }, {
+                xtype: 'div',
+                style: {
+                    width: '2px',
+                    height: '20px',
+                    borderLeft: '1px solid #aaa',
+                    borderRight: '1px solid #aaa',
+                    boxSizing: 'border-box',
+                    margin: '5px 8px'
+                }
+            }, {
+                xtype: 'iconbutton',
                 icon: 'icon-backward',
                 onClick: this.onBackward.bind(this)
             }, {
@@ -80,8 +98,8 @@ AnimationPanel.prototype.render = function () {
                 scope: this.id
             }, {
                 xtype: 'div',
-                cls: 'trunk',
-                id: 'trunk',
+                cls: 'groups',
+                id: 'groups',
                 scope: this.id
             }, {
                 xtype: 'div',
@@ -172,6 +190,14 @@ AnimationPanel.prototype.updateUI = function () {
 AnimationPanel.prototype.onAnimate = function () {
     this.sliderLeft += this.speed / 4;
     this.updateUI();
+};
+
+AnimationPanel.prototype.onAddGroup = function () {
+
+};
+
+AnimationPanel.prototype.onRemoveGroup = function () {
+
 };
 
 AnimationPanel.prototype.onPlay = function () {
