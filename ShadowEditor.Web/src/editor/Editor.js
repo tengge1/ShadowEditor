@@ -119,7 +119,6 @@ Editor.prototype.setScene = function (scene) { // 设置场景
     });
 
     this.app.call('sceneGraphChanged', this);
-    this.app.call('AnimationChanged', this);
 };
 
 Editor.prototype.clear = function (addObject = true) { // 清空场景
@@ -184,6 +183,7 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
 
     this.app.call('editorCleared', this);
     this.app.call('scriptChanged', this);
+    this.app.call('AnimationChanged', this);
 };
 
 // ---------------------- 物体 ---------------------------

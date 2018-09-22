@@ -12,9 +12,6 @@ function AnimationPanel(options) {
     UI.Control.call(this, options);
     this.app = options.app;
 
-    this.canvas = null;
-    this.context = null;
-
     this.status = STOP;
     this.sliderLeft = 0;
     this.speed = 4;
@@ -100,19 +97,7 @@ AnimationPanel.prototype.render = function () {
                 cls: 'groups',
                 id: 'groups',
                 scope: this.id,
-                children: [{
-                    xtype: 'div',
-                    cls: 'group'
-                }, {
-                    xtype: 'div',
-                    cls: 'group'
-                }, {
-                    xtype: 'div',
-                    cls: 'group'
-                }, {
-                    xtype: 'div',
-                    cls: 'group'
-                }]
+                children: []
             }, {
                 xtype: 'div',
                 cls: 'slider',
@@ -142,7 +127,16 @@ AnimationPanel.prototype.onAppStarted = function () {
 };
 
 AnimationPanel.prototype.onUpdateUI = function () {
+    var animations = this.app.editor.animations;
 
+    var groups = UI.get('groups', this.id);
+    groups.dom.innerHTML = '';
+
+    animations.forEach(n => {
+        var group = document.createElement('div');
+        group.className = 'group';
+        groups.dom.appendChild(group);
+    });
 };
 
 AnimationPanel.prototype.updateSlider = function () {
