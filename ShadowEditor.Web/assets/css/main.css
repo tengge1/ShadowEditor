@@ -889,7 +889,7 @@ table.Table .TableBody td {
     position: absolute;
     left: 0;
     top: 0;
-    width: 1px;
+    width: 0;
     height: 100%;
     border: 1px solid red;
     box-sizing: border-box;
