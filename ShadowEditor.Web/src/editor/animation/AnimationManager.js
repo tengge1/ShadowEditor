@@ -47,10 +47,18 @@ AnimationManager.prototype.insert = function (group, index = 0) {
 };
 
 /**
- * 获取所有动画组
+ * 获取动画
  */
-AnimationManager.prototype.getAll = function () {
+AnimationManager.prototype.getAnimations = function () {
     return this.animations;
+};
+
+/**
+ * 设置动画
+ * @param {*} animations 
+ */
+AnimationManager.prototype.setAnimations = function (animations) {
+    this.animations = animations;
 };
 
 export default AnimationManager;

@@ -127,11 +127,11 @@ AnimationPanel.prototype.onAppStarted = function () {
     groups.dom.addEventListener(`mousemove`, this.onMouseMove.bind(this));
     groups.dom.addEventListener(`mouseup`, this.onMouseUp.bind(this));
 
-    this.app.on(`AnimationChanged.${this.id}`, this.onUpdateUI.bind(this));
+    this.app.on(`animationChanged.${this.id}`, this.onUpdateUI.bind(this));
 };
 
 AnimationPanel.prototype.onUpdateUI = function () {
-    var animations = this.app.editor.animation.getAll();
+    var animations = this.app.editor.animation.getAnimations();
 
     var groups = UI.get('groups', this.id);
 
@@ -246,7 +246,7 @@ AnimationPanel.prototype.onDblClick = function (event) {
         var animation = new Animation();
         event.target.data.add(animation);
 
-        this.app.call('AnimationChanged', this);
+        this.app.call('animationChanged', this);
     }
 };
 

@@ -165,7 +165,7 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
 
     this.app.call('editorCleared', this);
     this.app.call('scriptChanged', this);
-    this.app.call('AnimationChanged', this);
+    this.app.call('animationChanged', this);
 };
 
 // ---------------------- 物体 ---------------------------

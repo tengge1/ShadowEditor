@@ -3,6 +3,8 @@ import Ajax from '../../utils/Ajax';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import UploadUtils from '../../utils/UploadUtils';
 import Converter from '../../serialization/Converter';
+import AnimationGroup from '../animation/AnimationGroup';
+import Animation from '../animation/Animation';
 
 /**
  * 场景窗口
@@ -213,6 +215,28 @@ SceneWindow.prototype.loadScene = function (data) {
 
             if (obj.scripts) {
                 this.app.call('scriptChanged', this);
+            }
+
+            if (obj.animation) {
+                this.app.editor.animation.setAnimations(obj.animation.map(n => {
+                    return new AnimationGroup({
+                        id: n.id,
+                        uuid: n.uuid,
+                        name: n.name,
+                        index: n.index,
+                        animations: n.animations.map(m => {
+                            return new Animation({
+                                id: m.id,
+                                uuid: m.uuid,
+                                name: m.name,
+                                type: m.type,
+                                startTime: m.startTime,
+                                endTime: m.endTime
+                            })
+                        })
+                    })
+                }));
+                this.app.call('animationChanged', this);
             }
 
             if (obj.scene) {

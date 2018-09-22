@@ -84,7 +84,7 @@ var EventList = [
     'scriptChanged', // 脚本改变事件
     'scriptRemoved', // 脚本移除事件
 
-    'AnimationChanged', // 动画改变事件
+    'animationChanged', // 动画改变事件
 
     'historyChanged', // 历史改变事件
     'refreshScriptEditor', // 刷新脚本编辑器事件
