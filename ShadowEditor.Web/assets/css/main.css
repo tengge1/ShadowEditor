@@ -423,7 +423,7 @@ table.Table .TableBody td {
 
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: rgba(255, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.3);
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
