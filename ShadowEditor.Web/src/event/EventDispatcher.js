@@ -8,17 +8,6 @@ import KeyDownEvent from './KeyDownEvent';
 import RenderEvent from './RenderEvent';
 import ResizeEvent from './ResizeEvent';
 
-// 工具栏
-import SelectModeEvent from './toolbar/SelectModeEvent';
-import TranslateModeEvent from './toolbar/TranslateModeEvent';
-import RotateModeEvent from './toolbar/RotateModeEvent';
-import ScaleModeEvent from './toolbar/ScaleModeEvent';
-
-import AnchorPointEvent from './toolbar/AnchorPointEvent';
-import HandModeEvent from './toolbar/HandModeEvent';
-import ModelEvent from './toolbar/ModelEvent';
-import PathModeEvent from './toolbar/PathModeEvent';
-
 // 菜单栏
 import ExportGeometryEvent from './menu/asset/ExportGeometryEvent';
 import ExportObjectEvent from './menu/asset/ExportObjectEvent';
@@ -60,17 +49,6 @@ function EventDispatcher(app) {
         new KeyDownEvent(this.app),
         new RenderEvent(this.app),
         new ResizeEvent(this.app),
-
-        // 工具栏
-        new SelectModeEvent(this.app),
-        new TranslateModeEvent(this.app),
-        new RotateModeEvent(this.app),
-        new ScaleModeEvent(this.app),
-
-        new AnchorPointEvent(this.app),
-        new HandModeEvent(this.app),
-        new ModelEvent(this.app),
-        new PathModeEvent(this.app),
 
         // menubar中的事件
         new ExportGeometryEvent(this.app),
