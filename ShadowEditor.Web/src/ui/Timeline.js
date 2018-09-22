@@ -11,8 +11,8 @@ function Timeline(options) {
     Control.call(this, options);
     options = options || {};
 
-    this.duration = options.duration || 240;
-    this.scale = options.scale || 32;
+    this.duration = options.duration || 120; // 持续时长(秒)
+    this.scale = options.scale || 30; // 尺寸，1秒=30像素
 
     this.cls = options.cls || 'TimeLine';
     this.style = options.style || null;
@@ -38,43 +38,58 @@ Timeline.prototype.render = function () {
 };
 
 Timeline.prototype.drawTimeline = function () {
+    var duration = this.duration; // 持续秒数
+    var scale = this.scale; // 1秒像素数
+    var width = duration * scale; // 画布宽度
+    var scale5 = scale / 5; // 0.2秒像素数
+    var margin = 0; // 时间轴前后间距
+
+    this.dom.style.width = (width + margin * 2) + 'px';
+    this.dom.width = this.dom.clientWidth;
+
     var context = this.dom.getContext('2d');
 
+    // 时间轴背景
     context.fillStyle = '#eee';
     context.fillRect(0, 0, this.dom.width, this.dom.height);
 
+    // 时间轴刻度
     context.strokeStyle = '#555';
     context.beginPath();
 
-    var duration = this.duration;
-    var scale = this.scale;
-    var width = duration * scale;
-    var scale4 = scale / 4;
-
-    for (var i = 0.5; i <= width; i += scale) {
-        context.moveTo(i + (scale4 * 0), 22);
-        context.lineTo(i + (scale4 * 0), 30);
-
-        if (scale > 16) context.moveTo(i + (scale4 * 1), 26), context.lineTo(i + (scale4 * 1), 30);
-        if (scale > 8) context.moveTo(i + (scale4 * 2), 26), context.lineTo(i + (scale4 * 2), 30);
-        if (scale > 16) context.moveTo(i + (scale4 * 3), 26), context.lineTo(i + (scale4 * 3), 30);
+    for (var i = margin; i <= width + margin; i += scale) { // 绘制每一秒
+        for (var j = 0; j < 5; j++) { // 绘制每个小格
+            if (j === 0) { // 长刻度
+                context.moveTo(i + scale5 * j, 22);
+                context.lineTo(i + scale5 * j, 30);
+            } else { // 短刻度
+                context.moveTo(i + scale5 * j, 26);
+                context.lineTo(i + scale5 * j, 30);
+            }
+        }
     }
 
     context.stroke();
 
+    // 时间轴文字
     context.font = '12px Arial';
     context.fillStyle = '#888'
-    context.textAlign = 'center';
 
-    var step = Math.max(1, Math.floor(64 / scale));
-
-    for (var i = 0; i < duration; i += step) {
+    for (var i = 0; i <= duration; i += 2) { // 对于每两秒
         var minute = Math.floor(i / 60);
         var second = Math.floor(i % 60);
 
         var text = (minute > 0 ? minute + ':' : '') + ('0' + second).slice(-2);
 
-        context.fillText(text, i * scale, 16);
+        if (i === 0) {
+            context.textAlign = 'left';
+        } else if (i === duration) {
+            context.textAlign = 'right';
+        } else {
+            context.textAlign = 'center';
+        }
+
+        context.fillText(text, margin + i * scale, 16);
     }
 };
 

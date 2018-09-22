@@ -846,10 +846,11 @@ table.Table .TableBody td {
     display: flex;
     flex: 1;
     flex-direction: column;
+    overflow: auto;
 }
 
 .animation-panel .box .timeline {
-    width: 100%;
+    position: absolute;
     height: 32px;
     border-bottom: 1px solid #ddd;
 }
