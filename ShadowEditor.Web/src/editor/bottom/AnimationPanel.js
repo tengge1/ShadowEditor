@@ -92,8 +92,7 @@ AnimationPanel.prototype.render = function () {
             xtype: 'div',
             cls: 'box',
             children: [{
-                xtype: 'canvas',
-                cls: 'timeline',
+                xtype: 'timeline',
                 id: 'timeline',
                 scope: this.id
             }, {
@@ -130,55 +129,9 @@ AnimationPanel.prototype.render = function () {
 };
 
 AnimationPanel.prototype.onAppStarted = function () {
-    var canvas = UI.get('timeline', this.id).dom;
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-
-    var context = canvas.getContext('2d', {
-        alpha: false
-    });
-
-    this.canvas = canvas;
-    this.context = context;
-
-    context.fillStyle = '#eee';
-    context.fillRect(0, 0, canvas.width, canvas.height);
-
-    context.strokeStyle = '#555';
-    context.beginPath();
-
-    var duration = 240;
-    var scale = 32;
-    var width = duration * scale;
-    var scale4 = scale / 4;
-
-    for (var i = 0.5; i <= width; i += scale) {
-        context.moveTo(i + (scale4 * 0), 22);
-        context.lineTo(i + (scale4 * 0), 30);
-
-        if (scale > 16) context.moveTo(i + (scale4 * 1), 26), context.lineTo(i + (scale4 * 1), 30);
-        if (scale > 8) context.moveTo(i + (scale4 * 2), 26), context.lineTo(i + (scale4 * 2), 30);
-        if (scale > 16) context.moveTo(i + (scale4 * 3), 26), context.lineTo(i + (scale4 * 3), 30);
-    }
-
-    context.stroke();
-
-    context.font = '12px Arial';
-    context.fillStyle = '#888'
-    context.textAlign = 'center';
-
-    var step = Math.max(1, Math.floor(64 / scale));
-
-    for (var i = 0; i < duration; i += step) {
-        var minute = Math.floor(i / 60);
-        var second = Math.floor(i % 60);
-
-        var text = (minute > 0 ? minute + ':' : '') + ('0' + second).slice(-2);
-
-        context.fillText(text, i * scale, 16);
-    }
-
     var timeline = UI.get('timeline', this.id);
+
+    this.app.on(`AnimationChanged.${this.id}`, this.onUpdateUI.bind(this));
 
     timeline.dom.addEventListener(`click.${this.id}`, this.onClick.bind(this));
     timeline.dom.addEventListener(`dblclick.${this.id}`, this.onDblClick.bind(this));
@@ -187,7 +140,7 @@ AnimationPanel.prototype.onAppStarted = function () {
     timeline.dom.addEventListener(`mouseup.${this.id}`, this.onMouseUp.bind(this));
 };
 
-AnimationEvent.prototype.updateGroup = function () {
+AnimationPanel.prototype.onUpdateUI = function () {
 
 };
 

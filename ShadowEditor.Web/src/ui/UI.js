@@ -37,6 +37,7 @@ import Prompt from './Prompt';
 import SearchField from './SearchField';
 import ToolbarFiller from './ToolbarFiller';
 import Canvas from './Canvas';
+import Timeline from './Timeline';
 
 /**
  * UI类
@@ -196,7 +197,8 @@ Object.assign(UI, {
     Prompt: Prompt,
     SearchField: SearchField,
     ToolbarFiller: ToolbarFiller,
-    Canvas: Canvas
+    Canvas: Canvas,
+    Timeline: Timeline
 });
 
 // 添加所有控件的XType
@@ -239,6 +241,7 @@ UI.addXType('prompt', Prompt);
 UI.addXType('searchfield', SearchField);
 UI.addXType('toolbarfiller', ToolbarFiller);
 UI.addXType('canvas', Canvas);
+UI.addXType('timeline', Timeline);
 
 // 添加一些实用功能
 Object.assign(UI, {
