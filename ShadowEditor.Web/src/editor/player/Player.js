@@ -65,6 +65,7 @@ Player.prototype.start = function () {
         camera: this.app.editor.camera,
         renderer: this.app.editor.renderer,
         scripts: this.app.editor.scripts,
+        animation: this.app.editor.animation,
         scene: this.app.editor.scene
     });
 
