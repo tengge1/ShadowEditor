@@ -33,8 +33,6 @@ AnimationSerializer.prototype.toJSON = function (manager) {
         });
     });
 
-    debugger
-
     return list;
 };
 
