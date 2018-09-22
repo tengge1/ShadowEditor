@@ -27,15 +27,12 @@ LightShadowSerializer.prototype.toJSON = function (obj) {
 };
 
 LightShadowSerializer.prototype.fromJSON = function (json, parent) {
-    var camera;
-
-    if (parent === undefined) {
-        camera = (new CamerasSerializer()).fromJSON(json.camera);
-    }
+    var camera = (new CamerasSerializer()).fromJSON(json.camera);
 
     var obj = parent === undefined ? new THREE.LightShadow(camera) : parent;
 
     obj.bias = json.bias;
+    obj.camera.copy(camera);
     // 纹理时自动生成的，不要反序列化
     // obj.map = json.map == null ? null : (new WebGLRenderTargetSerializer()).fromJSON(json.map);
     obj.mapSize.copy(json.mapSize);
