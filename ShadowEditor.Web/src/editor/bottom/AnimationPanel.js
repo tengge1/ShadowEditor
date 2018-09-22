@@ -133,6 +133,7 @@ AnimationPanel.prototype.onAppStarted = function () {
 AnimationPanel.prototype.onUpdateUI = function () {
     var animations = this.app.editor.animation.getAnimations();
 
+    var timeline = UI.get('timeline', this.id);
     var groups = UI.get('groups', this.id);
 
     while (groups.dom.children.length) {
@@ -150,6 +151,8 @@ AnimationPanel.prototype.onUpdateUI = function () {
         n.animations.forEach(m => {
             var item = document.createElement('div');
             item.className = 'item';
+            item.style.left = m.startTime * timeline.scale + 'px';
+            item.style.width = (m.endTime - m.startTime) * timeline.scale + 'px';
             item.innerHTML = m.name;
             group.appendChild(item);
         });
@@ -240,10 +243,16 @@ AnimationPanel.prototype.onClick = function () {
 };
 
 AnimationPanel.prototype.onDblClick = function (event) {
+    var timeline = UI.get('timeline', this.id);
+
     if (event.target.data && event.target.data.type === 'AnimationGroup') {
         event.stopPropagation();
 
-        var animation = new Animation();
+        var animation = new Animation({
+            startTime: event.offsetX / timeline.scale,
+            endTime: (event.offsetX + 80) / timeline.scale
+        });
+
         event.target.data.add(animation);
 
         this.app.call('animationChanged', this);
