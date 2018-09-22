@@ -45,8 +45,6 @@ import ObjectEvent from './viewport/ObjectEvent';
 import PickEvent from './PickEvent';
 import EditorControlsEvent from './viewport/EditorControlsEvent';
 
-import GridChangeEvent from './statusBar/GridChangeEvent';
-
 /**
  * 事件执行器
  * @author tengge / https://github.com/tengge1
@@ -99,10 +97,7 @@ function EventDispatcher(app) {
         new UpdateSceneStatusEvent(this.app),
         new ObjectEvent(this.app),
         new PickEvent(this.app),
-        new EditorControlsEvent(this.app),
-
-        // 状态栏事件
-        new GridChangeEvent(this.app)
+        new EditorControlsEvent(this.app)
     ];
 }
 

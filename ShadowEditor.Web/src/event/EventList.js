@@ -98,10 +98,7 @@ var EventList = [
 
     // 侧边栏
     'selectTab', // 切换侧边栏选项卡 scene,setting,history
-    'selectPropertyTab', // 切换属性选项卡
-
-    // 状态栏
-    'gridChange' // 状态栏网格改变事件
+    'selectPropertyTab' // 切换属性选项卡
 ];
 
 export default EventList;
