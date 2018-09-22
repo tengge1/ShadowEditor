@@ -149,18 +149,22 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
     this.scripts = {};
 
     this.animations = [{
+        type: 'AnimationGroup',
         name: 'Group 1',
         index: 0,
         animations: []
     }, {
+        type: 'AnimationGroup',
         name: 'Group 2',
         index: 1,
         animations: []
     }, {
+        type: 'AnimationGroup',
         name: 'Group 3',
         index: 2,
         animations: []
     }, {
+        type: 'AnimationGroup',
         name: 'Group 4',
         index: 3,
         animations: []

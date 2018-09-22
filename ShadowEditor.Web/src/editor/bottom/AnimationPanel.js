@@ -115,26 +115,33 @@ AnimationPanel.prototype.render = function () {
 
 AnimationPanel.prototype.onAppStarted = function () {
     var timeline = UI.get('timeline', this.id);
+    var groups = UI.get('groups', this.id);
+
     timeline.updateUI();
 
-    this.app.on(`AnimationChanged.${this.id}`, this.onUpdateUI.bind(this));
+    groups.dom.addEventListener(`click`, this.onClick.bind(this));
+    groups.dom.addEventListener(`dblclick`, this.onDblClick.bind(this));
+    groups.dom.addEventListener(`mousedown`, this.onMouseDown.bind(this));
+    groups.dom.addEventListener(`mousemove`, this.onMouseMove.bind(this));
+    groups.dom.addEventListener(`mouseup`, this.onMouseUp.bind(this));
 
-    timeline.dom.addEventListener(`click.${this.id}`, this.onClick.bind(this));
-    timeline.dom.addEventListener(`dblclick.${this.id}`, this.onDblClick.bind(this));
-    timeline.dom.addEventListener(`mousedown.${this.id}`, this.onMouseDown.bind(this));
-    timeline.dom.addEventListener(`mousemove.${this.id}`, this.onMouseMove.bind(this));
-    timeline.dom.addEventListener(`mouseup.${this.id}`, this.onMouseUp.bind(this));
+    this.app.on(`AnimationChanged.${this.id}`, this.onUpdateUI.bind(this));
 };
 
 AnimationPanel.prototype.onUpdateUI = function () {
     var animations = this.app.editor.animations;
 
     var groups = UI.get('groups', this.id);
-    groups.dom.innerHTML = '';
+
+    groups.children.forEach(n => {
+        n.data = null;
+        groups.removeChild(n);
+    });
 
     animations.forEach(n => {
         var group = document.createElement('div');
         group.className = 'group';
+        group.data = n;
         groups.dom.appendChild(group);
     });
 };
@@ -158,11 +165,7 @@ AnimationPanel.prototype.onAnimate = function () {
 };
 
 AnimationPanel.prototype.onAddGroup = function () {
-    var groups = UI.get('groups', this.id);
 
-    var group = document.createElement('div');
-    group.className = 'group';
-    groups.dom.appendChild(group);
 };
 
 AnimationPanel.prototype.onRemoveGroup = function () {
@@ -226,8 +229,14 @@ AnimationPanel.prototype.onClick = function () {
 
 };
 
-AnimationPanel.prototype.onDblClick = function () {
+AnimationPanel.prototype.onDblClick = function (event) {
+    if (event.target.data && event.target.data.type === 'AnimationGroup') {
+        event.stopPropagation();
 
+        var item = document.createElement('div');
+        item.className = 'item';
+        event.target.appendChild(item);
+    }
 };
 
 AnimationPanel.prototype.onMouseDown = function () {

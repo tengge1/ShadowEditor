@@ -860,10 +860,23 @@ table.Table .TableBody td {
 }
 
 .animation-panel .box .groups .group {
+    position: relative;
     width: 100%;
     height: 32px;
     border-bottom: 1px solid #ddd;
     box-sizing: border-box;
+}
+
+.animation-panel .box .groups .group .item {
+    position: absolute;
+    left: 0;
+    width: 80px;
+    height: 100%;
+    background-color: #ddd;
+}
+
+.animation-panel .box .groups .group .item:hover {
+    background-color: #ccc;
 }
 
 .animation-panel .box .slider {
