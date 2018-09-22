@@ -19,32 +19,21 @@ AnimationSerializer.prototype.toJSON = function (manager) {
     groups.forEach(n => {
         var json = BaseSerializer.prototype.toJSON.call(this, n);
 
-        Object.assign(json, {
-            id: n.id,
-            uuid: n.uuid,
-            name: n.name,
-            type: n.type,
-            index: n.index,
-            animations: n.animations.map(m => m.uuid)
-        });
+        Object.assign(json, n);
+        json.animations = n.animations.map(m => m.uuid);
 
         list.push(json);
 
         n.animations.forEach(m => {
             var json1 = BaseSerializer.prototype.toJSON.call(this, m);
 
-            Object.assign(json1, {
-                id: m.id,
-                uuid: m.uuid,
-                name: m.name,
-                type: m.type,
-                startTime: m.startTime,
-                endTime: m.endTime
-            });
+            Object.assign(json1, m);
 
             list.push(json1);
         });
     });
+
+    debugger
 
     return list;
 };
