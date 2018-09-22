@@ -9,8 +9,6 @@ import HiddenBones from './HiddenBones';
 import Animation from './Animation';
 import BaseAnimations from './BaseAnimations';
 import AnimationBone from './AnimationBone';
-import vertShader from './shader/lol_vertex.glsl';
-import fragShader from './shader/lol_fragment.glsl';
 
 /**
  * @author lolking / http://www.lolking.net/models
