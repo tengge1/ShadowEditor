@@ -873,6 +873,11 @@ table.Table .TableBody td {
     width: 80px;
     height: 100%;
     background-color: #ddd;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .animation-panel .box .groups .group .item:hover {

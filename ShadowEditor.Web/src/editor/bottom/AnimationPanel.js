@@ -1,4 +1,6 @@
 import UI from '../../ui/UI';
+import AnimationGroup from '../animation/AnimationGroup';
+import Animation from '../animation/Animation';
 
 const STOP = 0;
 const PLAY = 1;
@@ -129,20 +131,28 @@ AnimationPanel.prototype.onAppStarted = function () {
 };
 
 AnimationPanel.prototype.onUpdateUI = function () {
-    var animations = this.app.editor.animations;
+    var animations = this.app.editor.animation.getAll();
 
     var groups = UI.get('groups', this.id);
 
-    groups.children.forEach(n => {
-        n.data = null;
-        groups.removeChild(n);
-    });
+    while (groups.dom.children.length) {
+        var child = groups.dom.children[0];
+        child.data = null;
+        groups.dom.removeChild(child);
+    }
 
     animations.forEach(n => {
         var group = document.createElement('div');
         group.className = 'group';
         group.data = n;
         groups.dom.appendChild(group);
+
+        n.animations.forEach(m => {
+            var item = document.createElement('div');
+            item.className = 'item';
+            item.innerHTML = m.name;
+            group.appendChild(item);
+        });
     });
 };
 
@@ -233,9 +243,10 @@ AnimationPanel.prototype.onDblClick = function (event) {
     if (event.target.data && event.target.data.type === 'AnimationGroup') {
         event.stopPropagation();
 
-        var item = document.createElement('div');
-        item.className = 'item';
-        event.target.appendChild(item);
+        var animation = new Animation();
+        event.target.data.add(animation);
+
+        this.app.call('AnimationChanged', this);
     }
 };
 

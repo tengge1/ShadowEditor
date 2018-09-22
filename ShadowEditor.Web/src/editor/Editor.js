@@ -1,5 +1,6 @@
 ﻿import History from '../core/History';
 import Storage from '../core/Storage';
+import AnimationManager from './animation/AnimationManager';
 
 /**
  * 编辑器
@@ -61,9 +62,7 @@ function Editor(app) {
     // 脚本 格式：{ uuid: { id: 'mongoDB id', name: 'Script Name', type: 'Script Type', source: 'Source Code', uuid: 'uuid' }}
     // 其中，uuid是创建脚本时自动生成，不可改变，关联时使用，id是mongo数据库ID字段；name：随便填写；type：javascript，vertexShader, fragmentShader, json；source：源码。
     this.scripts = {};
-
-    // 动画 格式：[{ name: 'Group Name', index: 'Group Index', animations: { id: 'mongoDB id', name: 'Animation Name', type: 'Animation Type', startTime: startTime, endTime: endTime, script: script } }]
-    this.animations = [];
+    this.animation = new AnimationManager(this.app);
 
     // 帮助器
     this.helpers = {};
@@ -147,28 +146,7 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
 
     this.textures = {};
     this.scripts = {};
-
-    this.animations = [{
-        type: 'AnimationGroup',
-        name: 'Group 1',
-        index: 0,
-        animations: []
-    }, {
-        type: 'AnimationGroup',
-        name: 'Group 2',
-        index: 1,
-        animations: []
-    }, {
-        type: 'AnimationGroup',
-        name: 'Group 3',
-        index: 2,
-        animations: []
-    }, {
-        type: 'AnimationGroup',
-        name: 'Group 4',
-        index: 3,
-        animations: []
-    }]
+    this.animation.clear();
 
     this.deselect();
 
