@@ -120,6 +120,7 @@ SceneMenu.prototype.commitSave = function (sceneName) {
         camera: this.app.editor.camera,
         renderer: this.app.editor.renderer,
         scripts: this.app.editor.scripts,
+        animation: this.app.editor.animation,
         scene: this.app.editor.scene
     });
 
@@ -154,6 +155,7 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
         camera: this.app.editor.camera,
         renderer: this.app.editor.renderer,
         scripts: this.app.editor.scripts,
+        animation: this.app.editor.animation,
         scene: this.app.editor.scene
     });
 

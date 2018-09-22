@@ -12,6 +12,7 @@ import WebGLRendererSerializer from './core/WebGLRendererSerializer';
 // app
 import OptionsSerializer from './app/OptionsSerializer';
 import ScriptSerializer from './app/ScriptSerializer';
+import AnimationSerializer from './app/AnimationSerializer';
 
 // camera
 import CamerasSerializer from './camera/CamerasSerializer';
@@ -53,6 +54,7 @@ Converter.prototype.toJSON = function (obj) {
     var camera = obj.camera;
     var renderer = obj.renderer;
     var scripts = obj.scripts;
+    var animation = obj.animation;
     var scene = obj.scene;
 
     var list = [];
@@ -72,6 +74,12 @@ Converter.prototype.toJSON = function (obj) {
     // 脚本
     var scriptsJson = (new ScriptSerializer()).toJSON(scripts);
     scriptsJson.forEach(n => {
+        list.push(n);
+    });
+
+    // 动画
+    var animationJson = (new AnimationSerializer()).toJSON(animation);
+    animationJson.forEach(n => {
         list.push(n);
     });
 
@@ -152,6 +160,7 @@ Converter.prototype.fromJson = function (jsons, options) {
         camera: null,
         renderer: null,
         scripts: null,
+        animation: null,
         scene: null
     };
 
@@ -191,6 +200,12 @@ Converter.prototype.fromJson = function (jsons, options) {
     var scriptJsons = jsons.filter(n => n.metadata && n.metadata.generator === 'ScriptSerializer');
     if (scriptJsons) {
         obj.scripts = (new ScriptSerializer()).fromJSON(scriptJsons);
+    }
+
+    // 动画
+    var animationJsons = jsons.filter(n => n.metadata && n.metadata.generator === 'AnimationSerializer');
+    if (animationJsons) {
+        obj.animation = (new AnimationSerializer()).fromJSON(animationJsons);
     }
 
     // 音频监听器

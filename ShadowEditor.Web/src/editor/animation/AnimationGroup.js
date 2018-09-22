@@ -8,6 +8,8 @@ var ID = 1;
  */
 function AnimationGroup(options) {
     options = options || {};
+    this.id = options.id || null; // MongoDB _id字段
+    this.uuid = options.uuid || THREE.Math.generateUUID(); // uuid
     this.name = options.name || `组-${ID++}`; // 组名
     this.type = 'AnimationGroup'; // 组类型
     this.index = options.index || ID; // 组序号
