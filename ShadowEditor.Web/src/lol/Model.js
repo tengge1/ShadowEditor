@@ -64,36 +64,7 @@ function Model(options) {
 
     self.texture = null;
     self.geometry = new THREE.BufferGeometry();
-    self.material = new THREE.RawShaderMaterial({
-        uniforms: {
-            uAmbientColor: {
-                value: new THREE.Vector4().fromArray(self.ambientColor)
-            },
-            uPrimaryColor: {
-                value: new THREE.Vector4().fromArray(self.primaryColor)
-            },
-            uSecondaryColor: {
-                value: new THREE.Vector4().fromArray(self.secondaryColor)
-            },
-            uLightDir1: {
-                value: new THREE.Vector3().fromArray(self.lightDir1)
-            },
-            uLightDir2: {
-                value: new THREE.Vector3().fromArray(self.lightDir2)
-            },
-            uLightDir3: {
-                value: new THREE.Vector3().fromArray(self.lightDir3)
-            },
-            uHasTexture: {
-                value: 0
-            },
-            uTexture: {
-                value: null
-            }
-        },
-        vertexShader: vertShader,
-        fragmentShader: fragShader,
-    });
+    self.material = new THREE.MeshPhongMaterial();
 
     var promise1 = new Promise(resolve => {
         self.dispatch.on('loadMesh.Model', () => {
