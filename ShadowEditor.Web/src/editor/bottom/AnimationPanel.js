@@ -120,6 +120,7 @@ AnimationPanel.prototype.onAppStarted = function () {
     var groups = UI.get('groups', this.id);
 
     timeline.updateUI();
+    groups.dom.style.width = timeline.dom.clientWidth + 'px';
 
     groups.dom.addEventListener(`click`, this.onClick.bind(this));
     groups.dom.addEventListener(`dblclick`, this.onDblClick.bind(this));
