@@ -7,7 +7,6 @@ const PAUSE = 2;
 /**
  * 动画面板
  * @author tengge / https://github.com/tengge1
- * @description 时间轴代码来自https://github.com/mrdoob/frame.js/blob/master/editor/js/Timeline.js
  */
 function AnimationPanel(options) {
     UI.Control.call(this, options);
@@ -94,6 +93,7 @@ AnimationPanel.prototype.render = function () {
             children: [{
                 xtype: 'timeline',
                 id: 'timeline',
+                cls: 'timeline',
                 scope: this.id
             }, {
                 xtype: 'div',
@@ -130,6 +130,7 @@ AnimationPanel.prototype.render = function () {
 
 AnimationPanel.prototype.onAppStarted = function () {
     var timeline = UI.get('timeline', this.id);
+    timeline.updateUI();
 
     this.app.on(`AnimationChanged.${this.id}`, this.onUpdateUI.bind(this));
 

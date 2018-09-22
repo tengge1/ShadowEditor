@@ -2,8 +2,10 @@ import Control from './Control';
 
 /**
  * 时间轴
+ * @author mrdoob / http://mrdoob.com/
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
+ * @description 时间轴代码来自https://github.com/mrdoob/frame.js/blob/master/editor/js/Timeline.js
  */
 function Timeline(options) {
     Control.call(this, options);
@@ -32,8 +34,11 @@ Timeline.prototype.render = function () {
         Object.assign(this.dom.style, this.style);
     }
 
+    this.drawTimeline();
+};
+
+Timeline.prototype.drawTimeline = function () {
     var context = this.dom.getContext('2d');
-    this.context = context;
 
     context.fillStyle = '#eee';
     context.fillRect(0, 0, this.dom.width, this.dom.height);
@@ -71,6 +76,18 @@ Timeline.prototype.render = function () {
 
         context.fillText(text, i * scale, 16);
     }
+};
+
+Timeline.prototype.updateUI = function () {
+    if (this.dom === undefined) {
+        this.render();
+        return;
+    }
+
+    this.dom.width = this.dom.clientWidth;
+    this.dom.height = this.dom.clientHeight;
+
+    this.drawTimeline();
 };
 
 export default Timeline;
