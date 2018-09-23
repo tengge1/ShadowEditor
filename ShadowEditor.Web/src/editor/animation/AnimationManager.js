@@ -16,7 +16,7 @@ function AnimationManager(app) {
 AnimationManager.prototype.clear = function () {
     this.animations = [];
 
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 3; i++) {
         var group = new AnimationGroup({
             name: `组${i + 1}`,
             index: i

@@ -17,6 +17,8 @@ function AnimationPanel(options) {
     this.status = STOP;
     this.sliderLeft = 0;
     this.speed = 4;
+
+    this.isDragging = false;
 };
 
 AnimationPanel.prototype = Object.create(UI.Control.prototype);
@@ -147,7 +149,7 @@ AnimationPanel.prototype.onAppStarted = function () {
     groups.dom.addEventListener(`dblclick`, this.onDblClick.bind(this));
     groups.dom.addEventListener(`mousedown`, this.onMouseDown.bind(this));
     groups.dom.addEventListener(`mousemove`, this.onMouseMove.bind(this));
-    groups.dom.addEventListener(`mouseup`, this.onMouseUp.bind(this));
+    document.body.addEventListener(`mouseup`, this.onMouseUp.bind(this));
 
     this.app.on(`animationChanged.${this.id}`, this.onUpdateUI.bind(this));
 };
@@ -167,15 +169,24 @@ AnimationPanel.prototype.onUpdateUI = function () {
     animations.forEach(n => {
         var group = document.createElement('div');
         group.className = 'group';
+        group.setAttribute('droppable', true);
         group.data = n;
+        group.addEventListener('dragenter', this.onDragEnterGroup.bind(this));
+        group.addEventListener('dragover', this.onDragOverGroup.bind(this));
+        group.addEventListener('dragleave', this.onDragLeaveGroup.bind(this));
+        group.addEventListener('drop', this.onDropGroup.bind(this));
         groups.dom.appendChild(group);
 
         n.animations.forEach(m => {
             var item = document.createElement('div');
+            item.data = m;
             item.className = 'item';
+            item.setAttribute('draggable', true);
             item.style.left = m.startTime * timeline.scale + 'px';
             item.style.width = (m.endTime - m.startTime) * timeline.scale + 'px';
             item.innerHTML = m.name;
+            item.addEventListener('dragstart', this.onDragStartAnimation.bind(this));
+            item.addEventListener('dragend', this.onDragEndAnimation.bind(this));
             group.appendChild(item);
         });
     });
@@ -295,7 +306,10 @@ AnimationPanel.prototype.onDblClick = function (event) {
 };
 
 AnimationPanel.prototype.onMouseDown = function () {
-
+    if (this.isDragging) {
+        return;
+    }
+    this.isDragging = true;
 };
 
 AnimationPanel.prototype.onMouseMove = function () {
@@ -303,7 +317,48 @@ AnimationPanel.prototype.onMouseMove = function () {
 };
 
 AnimationPanel.prototype.onMouseUp = function () {
+    this.isDragging = false;
+};
 
+// ----------------------- 拖动动画事件 ---------------------------------------------
+
+AnimationPanel.prototype.onDragStartAnimation = function (event) {
+    event.dataTransfer.setData('uuid', event.target.data.uuid);
+};
+
+AnimationPanel.prototype.onDragEndAnimation = function (event) {
+    event.dataTransfer.clearData();
+};
+
+AnimationPanel.prototype.onDragEnterGroup = function (event) {
+    event.preventDefault();
+};
+
+AnimationPanel.prototype.onDragOverGroup = function (event) {
+    event.preventDefault();
+};
+
+AnimationPanel.prototype.onDragLeaveGroup = function (event) {
+    event.preventDefault();
+};
+
+AnimationPanel.prototype.onDropGroup = function (event) {
+    event.preventDefault();
+    var uuid = event.dataTransfer.getData('uuid');
+
+    var groups = this.app.editor.animation.getAnimations();
+    var group = groups.filter(n => n.animations.findIndex(m => m.uuid === uuid) > -1)[0];
+    var animation = group.animations.filter(n => n.uuid === uuid)[0];
+    group.remove(animation);
+
+    var timeline = UI.get('timeline', this.id);
+    var length = animation.endTime - animation.startTime;
+    animation.startTime = event.offsetX / timeline.scale;
+    animation.endTime = animation.startTime + length;
+
+    event.target.data.add(animation);
+
+    this.onUpdateUI();
 };
 
 export default AnimationPanel;

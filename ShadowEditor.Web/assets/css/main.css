@@ -857,6 +857,7 @@ table.Table .TableBody td {
 
 .animation-panel .box .groups {
     position: absolute;
+    top: 34px;
     width: 100%;
     flex: 1;
 }

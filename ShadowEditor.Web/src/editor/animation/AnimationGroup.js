@@ -50,7 +50,7 @@ AnimationGroup.prototype.remove = function (animation) {
  * 移除
  * @param {*} index 
  */
-Animation.prototype.removeAt = function (index) {
+AnimationGroup.prototype.removeAt = function (index) {
     this.animations.splice(index, 1);
 };
 
