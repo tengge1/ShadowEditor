@@ -324,6 +324,7 @@ AnimationPanel.prototype.onMouseUp = function () {
 
 AnimationPanel.prototype.onDragStartAnimation = function (event) {
     event.dataTransfer.setData('uuid', event.target.data.uuid);
+    event.dataTransfer.setData('offsetX', event.offsetX);
 };
 
 AnimationPanel.prototype.onDragEndAnimation = function (event) {
@@ -345,6 +346,7 @@ AnimationPanel.prototype.onDragLeaveGroup = function (event) {
 AnimationPanel.prototype.onDropGroup = function (event) {
     event.preventDefault();
     var uuid = event.dataTransfer.getData('uuid');
+    var offsetX = event.dataTransfer.getData('offsetX');
 
     var groups = this.app.editor.animation.getAnimations();
     var group = groups.filter(n => n.animations.findIndex(m => m.uuid === uuid) > -1)[0];
@@ -353,7 +355,7 @@ AnimationPanel.prototype.onDropGroup = function (event) {
 
     var timeline = UI.get('timeline', this.id);
     var length = animation.endTime - animation.startTime;
-    animation.startTime = event.offsetX / timeline.scale;
+    animation.startTime = (event.offsetX - offsetX) / timeline.scale;
     animation.endTime = animation.startTime + length;
 
     event.target.data.add(animation);
