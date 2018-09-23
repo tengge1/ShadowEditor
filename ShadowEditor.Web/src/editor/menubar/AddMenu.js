@@ -443,7 +443,12 @@ AddMenu.prototype.addDirectionalLight = function () {
     var light = new THREE.DirectionalLight(color, intensity);
     light.name = '平行光';
     light.castShadow = true;
-
+    light.shadow.mapSize.x = 2048;
+    light.shadow.mapSize.y = 2048;
+    light.shadow.camera.left = -100;
+    light.shadow.camera.right = 100;
+    light.shadow.camera.top = 100;
+    light.shadow.camera.bottom = -100;
     light.position.set(5, 10, 7.5);
 
     editor.execute(new AddObjectCommand(light));
