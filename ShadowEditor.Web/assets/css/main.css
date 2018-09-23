@@ -845,24 +845,56 @@ table.Table .TableBody td {
     position: relative;
     display: flex;
     flex: 1;
+    flex-direction: row;
+}
+
+.animation-panel .box .left-area {
+    position: relative;
+    width: 64px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ccc;
+    box-sizing: border-box;
+    padding-top: 34px;
+}
+
+.animation-panel .box .left-area .group-info {
+    position: relative;
+    height: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.animation-panel .box .left-area .group-info:first-child {
+    border-top: 1px solid #ddd;
+}
+
+.animation-panel .box .right-area {
+    position: relative;
+    display: flex;
+    flex: 1;
     flex-direction: column;
     overflow: auto;
 }
 
-.animation-panel .box .timeline {
+.animation-panel .box .right-area .timeline {
     position: absolute;
     height: 32px;
     border-bottom: 1px solid #ddd;
 }
 
-.animation-panel .box .groups {
+.animation-panel .box .right-area .groups {
     position: absolute;
     top: 34px;
     width: 100%;
     flex: 1;
 }
 
-.animation-panel .box .groups .group {
+.animation-panel .box .right-area .groups .group {
     position: relative;
     width: 100%;
     height: 32px;
@@ -870,7 +902,7 @@ table.Table .TableBody td {
     box-sizing: border-box;
 }
 
-.animation-panel .box .groups .group .item {
+.animation-panel .box .right-area .groups .group .item {
     position: absolute;
     left: 0;
     width: 80px;
@@ -883,11 +915,11 @@ table.Table .TableBody td {
     justify-content: center;
 }
 
-.animation-panel .box .groups .group .item:hover {
+.animation-panel .box .right-area .groups .group .item:hover {
     background-color: #ccc;
 }
 
-.animation-panel .box .slider {
+.animation-panel .box .right-area .slider {
     position: absolute;
     left: 0;
     top: 0;

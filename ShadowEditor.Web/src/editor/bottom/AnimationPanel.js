@@ -113,21 +113,30 @@ AnimationPanel.prototype.render = function () {
             xtype: 'div',
             cls: 'box',
             children: [{
-                xtype: 'timeline',
-                id: 'timeline',
-                cls: 'timeline',
+                xtype: 'div',
+                cls: 'left-area',
+                id: 'groupInfo',
                 scope: this.id
             }, {
                 xtype: 'div',
-                cls: 'groups',
-                id: 'groups',
-                scope: this.id,
-                children: []
-            }, {
-                xtype: 'div',
-                cls: 'slider',
-                id: 'slider',
-                scope: this.id
+                cls: 'right-area',
+                children: [{
+                    xtype: 'timeline',
+                    id: 'timeline',
+                    cls: 'timeline',
+                    scope: this.id
+                }, {
+                    xtype: 'div',
+                    cls: 'groups',
+                    id: 'groups',
+                    scope: this.id,
+                    children: []
+                }, {
+                    xtype: 'div',
+                    cls: 'slider',
+                    id: 'slider',
+                    scope: this.id
+                }]
             }]
         }]
     };
@@ -157,8 +166,14 @@ AnimationPanel.prototype.onAppStarted = function () {
 AnimationPanel.prototype.onUpdateUI = function () {
     var animations = this.app.editor.animation.getAnimations();
 
+    var groupInfo = UI.get('groupInfo', this.id);
     var timeline = UI.get('timeline', this.id);
     var groups = UI.get('groups', this.id);
+
+    while (groupInfo.dom.children.length) {
+        var child = groupInfo.dom.children[0];
+        groupInfo.dom.removeChild(child);
+    }
 
     while (groups.dom.children.length) {
         var child = groups.dom.children[0];
@@ -167,6 +182,13 @@ AnimationPanel.prototype.onUpdateUI = function () {
     }
 
     animations.forEach(n => {
+        // 动画组信息区
+        var groupName = document.createElement('div');
+        groupName.className = 'group-info';
+        groupName.innerHTML = `<input type="checkbox" />${n.name}`;
+        groupInfo.dom.appendChild(groupName);
+
+        // 动画区
         var group = document.createElement('div');
         group.className = 'group';
         group.setAttribute('droppable', true);
