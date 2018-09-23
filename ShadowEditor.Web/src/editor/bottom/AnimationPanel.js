@@ -204,6 +204,7 @@ AnimationPanel.prototype.updateUI = function () {
             item.data = m;
             item.className = 'item';
             item.setAttribute('draggable', true);
+            item.setAttribute('droppable', false);
             item.style.left = m.startTime * timeline.scale + 'px';
             item.style.width = (m.endTime - m.startTime) * timeline.scale + 'px';
             item.innerHTML = m.name;
@@ -401,7 +402,11 @@ AnimationPanel.prototype.onDropGroup = function (event) {
     animation.startTime = (event.offsetX - offsetX) / timeline.scale;
     animation.endTime = animation.startTime + length;
 
-    event.target.data.add(animation);
+    if (event.target.data instanceof Animation) { // 拖动到其他动画上
+        event.target.parentElement.data.add(animation);
+    } else { // 拖动到动画组上
+        event.target.data.add(animation);
+    }
 
     this.updateUI();
 };
