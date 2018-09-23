@@ -185,7 +185,7 @@ AnimationPanel.prototype.updateUI = function () {
         // 动画组信息区
         var groupName = document.createElement('div');
         groupName.className = 'group-info';
-        groupName.innerHTML = `<input type="checkbox" />${n.name}`;
+        groupName.innerHTML = `<input type="checkbox" data-uuid="${n.uuid}" />${n.name}`;
         groupInfo.dom.appendChild(groupName);
 
         // 动画区
@@ -252,7 +252,26 @@ AnimationPanel.prototype.onAddGroup = function () {
 };
 
 AnimationPanel.prototype.onRemoveGroup = function () {
+    var inputs = document.querySelectorAll('.animation-panel .left-area input:checked');
 
+    var uuids = [];
+    inputs.forEach(n => {
+        uuids.push(n.getAttribute('data-uuid'));
+    });
+
+    if (uuids.length === 0) {
+        UI.msg('请勾选需要删除的组！');
+        return;
+    }
+
+    UI.confirm('询问', '删除组会删除组上的所有动画。是否删除？', (event, btn) => {
+        if (btn === 'ok') {
+            uuids.forEach(n => {
+                this.app.editor.animation.removeByUUID(n);
+            });
+            this.updateUI();
+        }
+    });
 };
 
 AnimationPanel.prototype.onPlay = function () {

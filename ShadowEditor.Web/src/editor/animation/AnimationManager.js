@@ -47,6 +47,28 @@ AnimationManager.prototype.insert = function (group, index = 0) {
 };
 
 /**
+ * 删除组
+ * @param {*} group 动画组
+ */
+AnimationManager.prototype.remove = function (group) {
+    var index = this.animations.indexOf(group);
+    if (index > -1) {
+        this.animations.splice(index, 1);
+    }
+};
+
+/**
+ * 根据uuid删除组
+ * @param {*} uuid 
+ */
+AnimationManager.prototype.removeByUUID = function (uuid) {
+    var index = this.animations.findIndex(n => n.uuid === uuid);
+    if (index > -1) {
+        this.animations.splice(index, 1);
+    }
+};
+
+/**
  * 获取动画
  */
 AnimationManager.prototype.getAnimations = function () {
