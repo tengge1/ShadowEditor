@@ -30,7 +30,7 @@ BottomPanel.prototype.render = function () {
             style: {
                 position: 'sticky',
                 top: 0,
-                zIndex: 10
+                zIndex: 20
             },
             children: [{
                 xtype: 'text',

@@ -160,10 +160,10 @@ AnimationPanel.prototype.onAppStarted = function () {
     groups.dom.addEventListener(`mousemove`, this.onMouseMove.bind(this));
     document.body.addEventListener(`mouseup`, this.onMouseUp.bind(this));
 
-    this.app.on(`animationChanged.${this.id}`, this.onUpdateUI.bind(this));
+    this.app.on(`animationChanged.${this.id}`, this.updateUI.bind(this));
 };
 
-AnimationPanel.prototype.onUpdateUI = function () {
+AnimationPanel.prototype.updateUI = function () {
     var animations = this.app.editor.animation.getAnimations();
 
     var groupInfo = UI.get('groupInfo', this.id);
@@ -246,7 +246,9 @@ AnimationPanel.prototype.onAnimate = function () {
 };
 
 AnimationPanel.prototype.onAddGroup = function () {
-
+    var group = new AnimationGroup();
+    this.app.editor.animation.add(group);
+    this.updateUI();
 };
 
 AnimationPanel.prototype.onRemoveGroup = function () {
@@ -382,7 +384,7 @@ AnimationPanel.prototype.onDropGroup = function (event) {
 
     event.target.data.add(animation);
 
-    this.onUpdateUI();
+    this.updateUI();
 };
 
 export default AnimationPanel;
