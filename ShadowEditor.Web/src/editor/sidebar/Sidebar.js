@@ -36,7 +36,7 @@ Sidebar.prototype.render = function () {
                 scope: this.id,
                 text: '属性',
                 onClick: () => {
-                    this.selectTab('property');
+                    this.app.call('selectTab', this, 'property');
                 }
             }, {
                 xtype: 'text',
@@ -44,7 +44,7 @@ Sidebar.prototype.render = function () {
                 scope: this.id,
                 text: '动画',
                 onClick: () => {
-                    this.selectTab('animation')
+                    this.app.call('selectTab', this, 'animation');
                 }
             }, {
                 xtype: 'text',
@@ -52,7 +52,7 @@ Sidebar.prototype.render = function () {
                 scope: this.id,
                 text: '设置',
                 onClick: () => {
-                    this.selectTab('setting');
+                    this.app.call('selectTab', this, 'setting');
                 }
             }, {
                 xtype: 'text',
@@ -60,7 +60,7 @@ Sidebar.prototype.render = function () {
                 scope: this.id,
                 text: '历史',
                 onClick: () => {
-                    this.selectTab('history');
+                    this.app.call('selectTab', this, 'history');
                 }
             }]
         }, {
@@ -97,12 +97,25 @@ Sidebar.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`appStarted.${this.id}`, () => {
-        this.selectTab('property');
-    });
+    this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+    this.app.on(`selectTab.${this.id}`, this.selectTab.bind(this));
+};
+
+Sidebar.prototype.onAppStarted = function () {
+    this.app.call('selectTab', this, 'property');
 };
 
 Sidebar.prototype.selectTab = function (tabName) {
+    var tabNames = [
+        'property',
+        'animation',
+        'setting',
+        'history'
+    ];
+    if (tabNames.indexOf(tabName) === -1) {
+        return;
+    }
+
     var propertyTab = UI.get('propertyTab', this.id);
     var animationTab = UI.get('animationTab', this.id);
     var settingTab = UI.get('settingTab', this.id);
@@ -141,8 +154,6 @@ Sidebar.prototype.selectTab = function (tabName) {
             historyPanel.dom.style.display = '';
             break;
     }
-
-    this.app.call('selectTab', this, tabName);
 };
 
 export default Sidebar;

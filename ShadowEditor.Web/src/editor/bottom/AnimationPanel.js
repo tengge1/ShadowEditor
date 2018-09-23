@@ -328,8 +328,12 @@ AnimationPanel.prototype.onStop = function () {
     this.updateSlider();
 };
 
-AnimationPanel.prototype.onClick = function () {
-
+AnimationPanel.prototype.onClick = function (event) {
+    if (event.target.data.type === 'AnimationGroup') {
+        return;
+    }
+    this.app.call('selectTab', this, 'animation');
+    this.app.call('showAnimation', this, event.target.data);
 };
 
 AnimationPanel.prototype.onDblClick = function (event) {

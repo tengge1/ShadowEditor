@@ -98,7 +98,7 @@ var EventList = [
 
     // 侧边栏
     'selectTab', // 切换侧边栏选项卡 scene,setting,history
-    'selectPropertyTab' // 切换属性选项卡
+    'showAnimation', // 在动画面板显示动画
 ];
 
 export default EventList;
