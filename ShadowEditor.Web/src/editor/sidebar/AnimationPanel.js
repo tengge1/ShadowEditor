@@ -6,6 +6,7 @@ import UI from '../../ui/UI';
 function AnimationPanel(options) {
     UI.Control.call(this, options);
     this.app = options.app;
+    this.uuid = null;
 };
 
 AnimationPanel.prototype = Object.create(UI.Control.prototype);
@@ -37,7 +38,8 @@ AnimationPanel.prototype.render = function () {
                 scope: this.id,
                 style: {
                     width: '120px'
-                }
+                },
+                onInput: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -54,7 +56,8 @@ AnimationPanel.prototype.render = function () {
                     Audio: '播放音乐',
                     Filter: '滤镜动画',
                     Particle: '粒子动画'
-                }
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -65,7 +68,8 @@ AnimationPanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'startTime',
                 scope: this.id,
-                range: [0, Infinity]
+                range: [0, Infinity],
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -76,7 +80,8 @@ AnimationPanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'endTime',
                 scope: this.id,
-                range: [0, Infinity]
+                range: [0, Infinity],
+                onChange: this.onChange.bind(this)
             }]
         }]
     };
@@ -88,6 +93,8 @@ AnimationPanel.prototype.render = function () {
 };
 
 AnimationPanel.prototype.showAnimation = function (animation) {
+    this.uuid = animation.uuid;
+
     var name = UI.get('name', this.id);
     var type = UI.get('type', this.id);
     var startTime = UI.get('startTime', this.id);
@@ -97,6 +104,21 @@ AnimationPanel.prototype.showAnimation = function (animation) {
     type.setValue(animation.type);
     startTime.setValue(animation.startTime);
     endTime.setValue(animation.endTime);
+};
+
+AnimationPanel.prototype.onChange = function () {
+    var name = UI.get('name', this.id);
+    var type = UI.get('type', this.id);
+    var startTime = UI.get('startTime', this.id);
+    var endTime = UI.get('endTime', this.id);
+
+    var animation = this.app.editor.animation.getAnimationByUUID(this.uuid);
+    animation.name = name.getValue();
+    animation.type = type.getValue();
+    animation.startTime = startTime.getValue();
+    animation.endTime = endTime.getValue();
+
+    this.app.call('animationChanged', this, animation);
 };
 
 export default AnimationPanel;

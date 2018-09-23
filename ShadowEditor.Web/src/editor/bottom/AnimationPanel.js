@@ -164,7 +164,7 @@ AnimationPanel.prototype.onAppStarted = function () {
 };
 
 AnimationPanel.prototype.updateUI = function () {
-    var animations = this.app.editor.animation.getAnimations();
+    var animations = this.app.editor.animation.getAnimationGroups();
 
     var groupInfo = UI.get('groupInfo', this.id);
     var timeline = UI.get('timeline', this.id);
@@ -396,7 +396,7 @@ AnimationPanel.prototype.onDropGroup = function (event) {
     var uuid = event.dataTransfer.getData('uuid');
     var offsetX = event.dataTransfer.getData('offsetX');
 
-    var groups = this.app.editor.animation.getAnimations();
+    var groups = this.app.editor.animation.getAnimationGroups();
     var group = groups.filter(n => n.animations.findIndex(m => m.uuid === uuid) > -1)[0];
     var animation = group.animations.filter(n => n.uuid === uuid)[0];
     group.remove(animation);

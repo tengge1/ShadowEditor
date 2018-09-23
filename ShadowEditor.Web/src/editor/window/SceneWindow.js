@@ -218,7 +218,7 @@ SceneWindow.prototype.loadScene = function (data) {
             }
 
             if (obj.animation) {
-                this.app.editor.animation.setAnimations(obj.animation.map(n => {
+                this.app.editor.animation.setAnimationGroups(obj.animation.map(n => {
                     return new AnimationGroup({
                         id: n.id,
                         uuid: n.uuid,

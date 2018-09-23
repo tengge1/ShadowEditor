@@ -71,7 +71,7 @@ AnimationManager.prototype.removeByUUID = function (uuid) {
 /**
  * 获取动画
  */
-AnimationManager.prototype.getAnimations = function () {
+AnimationManager.prototype.getAnimationGroups = function () {
     return this.animations;
 };
 
@@ -79,8 +79,20 @@ AnimationManager.prototype.getAnimations = function () {
  * 设置动画
  * @param {*} animations 
  */
-AnimationManager.prototype.setAnimations = function (animations) {
+AnimationManager.prototype.setAnimationGroups = function (animations) {
     this.animations = animations;
+};
+
+/**
+ * 根据uuid获取动画
+ * @param {*} uuid 
+ */
+AnimationManager.prototype.getAnimationByUUID = function (uuid) {
+    var group = this.animations.filter(n => n.animations.findIndex(m => m.uuid === uuid) > -1)[0];
+    if (group === undefined) {
+        return null;
+    }
+    return group.animations.filter(n => n.uuid === uuid)[0];
 };
 
 export default AnimationManager;
