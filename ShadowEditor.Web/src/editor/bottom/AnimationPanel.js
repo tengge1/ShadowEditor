@@ -77,14 +77,35 @@ AnimationPanel.prototype.render = function () {
                 onClick: this.onStop.bind(this)
             }, {
                 xtype: 'text',
-                id: 'speed',
+                id: 'time',
                 scope: this.id,
                 style: {
                     marginLeft: '8px',
                     color: '#555',
                     fontSize: '12px'
                 },
+                text: '00:00'
+            }, {
+                xtype: 'text',
+                id: 'speed',
+                scope: this.id,
+                style: {
+                    marginLeft: '8px',
+                    color: '#aaa',
+                    fontSize: '12px'
+                },
                 text: 'X 1'
+            }, {
+                xtype: 'toolbarfiller'
+            }, {
+                xtype: 'text',
+                scope: this.id,
+                style: {
+                    marginLeft: '8px',
+                    color: '#aaa',
+                    fontSize: '12px'
+                },
+                text: '说明：双击时间轴下方添加动画。'
             }]
         }, {
             xtype: 'div',
@@ -161,10 +182,17 @@ AnimationPanel.prototype.onUpdateUI = function () {
 };
 
 AnimationPanel.prototype.updateSlider = function () {
+    var timeline = UI.get('timeline', this.id);
     var slider = UI.get('slider', this.id);
+    var time = UI.get('time', this.id);
     var speed = UI.get('speed', this.id);
 
     slider.dom.style.left = this.sliderLeft + 'px';
+
+    var minute = ('0' + Math.floor(this.sliderLeft / timeline.scale / 60)).slice(-2);
+    var second = ('0' + Math.floor(this.sliderLeft / timeline.scale % 60)).slice(-2);
+
+    time.setValue(`${minute}:${second}`);
 
     if (this.speed >= 4) {
         speed.dom.innerHTML = `X ${this.speed / 4}`;
@@ -174,7 +202,13 @@ AnimationPanel.prototype.updateSlider = function () {
 };
 
 AnimationPanel.prototype.onAnimate = function () {
+    var timeline = UI.get('timeline', this.id);
     this.sliderLeft += this.speed / 4;
+
+    if (this.sliderLeft >= timeline.dom.clientWidth) {
+        this.sliderLeft = 0;
+    }
+
     this.updateSlider();
 };
 
