@@ -232,7 +232,7 @@ SceneWindow.prototype.loadScene = function (data) {
                                 name: m.name,
                                 target: m.target,
                                 type: m.type,
-                                startTime: m.startTime,
+                                beginTime: m.beginTime,
                                 endTime: m.endTime,
 
                                 // 补间动画

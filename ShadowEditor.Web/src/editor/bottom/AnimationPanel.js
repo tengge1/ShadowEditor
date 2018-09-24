@@ -208,8 +208,8 @@ AnimationPanel.prototype.updateUI = function () {
             item.className = 'item';
             item.setAttribute('draggable', true);
             item.setAttribute('droppable', false);
-            item.style.left = m.startTime * timeline.scale + 'px';
-            item.style.width = (m.endTime - m.startTime) * timeline.scale + 'px';
+            item.style.left = m.beginTime * timeline.scale + 'px';
+            item.style.width = (m.endTime - m.beginTime) * timeline.scale + 'px';
             item.innerHTML = m.name;
             item.addEventListener('dragstart', this.onDragStartAnimation.bind(this));
             item.addEventListener('dragend', this.onDragEndAnimation.bind(this));
@@ -357,7 +357,7 @@ AnimationPanel.prototype.onDblClick = function (event) {
         event.stopPropagation();
 
         var animation = new Animation({
-            startTime: event.offsetX / timeline.scale,
+            beginTime: event.offsetX / timeline.scale,
             endTime: (event.offsetX + 80) / timeline.scale
         });
 
@@ -416,9 +416,9 @@ AnimationPanel.prototype.onDropGroup = function (event) {
     group.remove(animation);
 
     var timeline = UI.get('timeline', this.id);
-    var length = animation.endTime - animation.startTime;
-    animation.startTime = (event.offsetX - offsetX) / timeline.scale;
-    animation.endTime = animation.startTime + length;
+    var length = animation.endTime - animation.beginTime;
+    animation.beginTime = (event.offsetX - offsetX) / timeline.scale;
+    animation.endTime = animation.beginTime + length;
 
     if (event.target.data instanceof Animation) { // 拖动到其他动画上
         event.target.parentElement.data.add(animation);

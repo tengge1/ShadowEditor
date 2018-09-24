@@ -16,7 +16,7 @@ function Animation(options) {
     this.name = options.name || `动画${ID--}`; // 动画名称
     this.target = options.target || null; // 动画对象uuid
     this.type = options.type || AnimationType.Tween; // 动画类型
-    this.startTime = options.startTime || 0; // 开始时间（秒）
+    this.beginTime = options.beginTime || 0; // 开始时间（秒）
     this.endTime = options.endTime || 10; // 结束时间（秒）
 
     // 补间动画

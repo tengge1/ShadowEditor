@@ -95,7 +95,7 @@ BasicAnimationComponent.prototype.render = function () {
                 text: '开始时间'
             }, {
                 xtype: 'number',
-                id: 'startTime',
+                id: 'beginTime',
                 scope: this.id,
                 range: [0, Infinity],
                 onChange: this.onChange.bind(this)
@@ -144,7 +144,7 @@ BasicAnimationComponent.prototype.updateUI = function (animation) {
     var name = UI.get('name', this.id);
     var target = UI.get('target', this.id);
     var type = UI.get('type', this.id);
-    var startTime = UI.get('startTime', this.id);
+    var beginTime = UI.get('beginTime', this.id);
     var endTime = UI.get('endTime', this.id);
 
     name.setValue(this.animation.name);
@@ -162,7 +162,7 @@ BasicAnimationComponent.prototype.updateUI = function (animation) {
     }
 
     type.setValue(this.animation.type);
-    startTime.setValue(this.animation.startTime);
+    beginTime.setValue(this.animation.beginTime);
     endTime.setValue(this.animation.endTime);
 };
 
@@ -180,12 +180,12 @@ BasicAnimationComponent.prototype.onSetTarget = function () {
 BasicAnimationComponent.prototype.onChange = function () {
     var name = UI.get('name', this.id);
     var type = UI.get('type', this.id);
-    var startTime = UI.get('startTime', this.id);
+    var beginTime = UI.get('beginTime', this.id);
     var endTime = UI.get('endTime', this.id);
 
     this.animation.name = name.getValue();
     this.animation.type = type.getValue();
-    this.animation.startTime = startTime.getValue();
+    this.animation.beginTime = beginTime.getValue();
     this.animation.endTime = endTime.getValue();
 
     this.app.call('animationChanged', this, this.animation);
