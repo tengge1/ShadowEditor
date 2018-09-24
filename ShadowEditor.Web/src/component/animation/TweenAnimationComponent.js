@@ -44,7 +44,7 @@ TweenAnimationComponent.prototype.render = function () {
                 id: 'beginStatus',
                 scope: this.id,
                 options: {
-                    Current: '当前位置',
+                    Current: '当前状态',
                     Custom: '自定义'
                 },
                 onChange: this.onChange.bind(this)
@@ -226,7 +226,7 @@ TweenAnimationComponent.prototype.render = function () {
                 id: 'endStatus',
                 scope: this.id,
                 options: {
-                    Current: '当前位置',
+                    Current: '当前状态',
                     Custom: '自定义'
                 },
                 onChange: this.onChange.bind(this)
