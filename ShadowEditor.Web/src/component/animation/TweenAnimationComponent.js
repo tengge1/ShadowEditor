@@ -476,6 +476,80 @@ TweenAnimationComponent.prototype.onChange = function () {
     var endRotationRow = UI.get('endRotationRow', this.id);
     var endScaleRow = UI.get('endScaleRow', this.id);
 
+    var beginStatus = UI.get('beginStatus', this.id);
+    var beginPositionX = UI.get('beginPositionX', this.id);
+    var beginPositionY = UI.get('beginPositionY', this.id);
+    var beginPositionZ = UI.get('beginPositionZ', this.id);
+    var beginRotationX = UI.get('beginRotationX', this.id);
+    var beginRotationY = UI.get('beginRotationY', this.id);
+    var beginRotationZ = UI.get('beginRotationZ', this.id);
+    var beginScaleLock = UI.get('beginScaleLock', this.id);
+    var beginScaleX = UI.get('beginScaleX', this.id);
+    var beginScaleY = UI.get('beginScaleY', this.id);
+    var beginScaleZ = UI.get('beginScaleZ', this.id);
+    var ease = UI.get('ease', this.id);
+    var endStatus = UI.get('endStatus', this.id);
+    var endPositionX = UI.get('endPositionX', this.id);
+    var endPositionY = UI.get('endPositionY', this.id);
+    var endPositionZ = UI.get('endPositionZ', this.id);
+    var endRotationX = UI.get('endRotationX', this.id);
+    var endRotationY = UI.get('endRotationY', this.id);
+    var endRotationZ = UI.get('endRotationZ', this.id);
+    var endScaleLock = UI.get('endScaleLock', this.id);
+    var endScaleX = UI.get('endScaleX', this.id);
+    var endScaleY = UI.get('endScaleY', this.id);
+    var endScaleZ = UI.get('endScaleZ', this.id);
+
+    switch (beginStatus.getValue()) {
+        case 'Current':
+            beginPositionRow.dom.style.display = 'none';
+            beginRotationRow.dom.style.display = 'none';
+            beginScaleRow.dom.style.display = 'none';
+            break;
+        case 'Custom':
+            beginPositionRow.dom.style.display = '';
+            beginRotationRow.dom.style.display = '';
+            beginScaleRow.dom.style.display = '';
+            break;
+    }
+
+    switch (endStatus.getValue()) {
+        case 'Current':
+            endPositionRow.dom.style.display = 'none';
+            endRotationRow.dom.style.display = 'none';
+            endScaleRow.dom.style.display = 'none';
+            break;
+        case 'Custom':
+            endPositionRow.dom.style.display = '';
+            endRotationRow.dom.style.display = '';
+            endScaleRow.dom.style.display = '';
+            break;
+    }
+
+    this.animation.beginStatus = beginStatus.getValue();
+    this.animation.beginPositionX = beginPositionX.getValue();
+    this.animation.beginPositionY = beginPositionY.getValue();
+    this.animation.beginPositionZ = beginPositionZ.getValue();
+    this.animation.beginRotationX = beginRotationX.getValue();
+    this.animation.beginRotationY = beginRotationY.getValue();
+    this.animation.beginRotationZ = beginRotationZ.getValue();
+    this.animation.beginScaleLock = beginScaleLock.getValue();
+    this.animation.beginScaleX = beginScaleX.getValue();
+    this.animation.beginScaleY = beginScaleY.getValue();
+    this.animation.beginScaleZ = beginScaleZ.getValue();
+    this.animation.ease = ease.getValue();
+    this.animation.endStatus = endStatus.getValue();
+    this.animation.endPositionX = endPositionX.getValue();
+    this.animation.endPositionY = endPositionY.getValue();
+    this.animation.endPositionZ = endPositionZ.getValue();
+    this.animation.endRotationX = endRotationX.getValue();
+    this.animation.endRotationY = endRotationY.getValue();
+    this.animation.endRotationZ = endRotationZ.getValue();
+    this.animation.endScaleLock = endScaleLock.getValue();
+    this.animation.endScaleX = endScaleX.getValue();
+    this.animation.endScaleY = endScaleY.getValue();
+    this.animation.endScaleZ = endScaleZ.getValue();
+
     this.app.call('animationChanged', this, this.animation);
 };
 
