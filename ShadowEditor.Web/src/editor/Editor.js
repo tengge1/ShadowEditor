@@ -1,6 +1,6 @@
 ﻿import History from '../core/History';
 import Storage from '../core/Storage';
-import AnimationManager from './animation/AnimationManager';
+import AnimationManager from '../animation/AnimationManager';
 
 /**
  * 编辑器

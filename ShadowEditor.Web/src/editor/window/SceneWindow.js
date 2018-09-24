@@ -3,8 +3,8 @@ import Ajax from '../../utils/Ajax';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import UploadUtils from '../../utils/UploadUtils';
 import Converter from '../../serialization/Converter';
-import AnimationGroup from '../animation/AnimationGroup';
-import Animation from '../animation/Animation';
+import AnimationGroup from '../../animation/AnimationGroup';
+import Animation from '../../animation/Animation';
 
 /**
  * 场景窗口

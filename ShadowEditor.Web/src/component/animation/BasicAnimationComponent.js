@@ -33,7 +33,7 @@ BasicAnimationComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '动画基本信息'
+                text: '基本信息'
             }]
         }, {
             xtype: 'row',

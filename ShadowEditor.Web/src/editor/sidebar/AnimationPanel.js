@@ -1,5 +1,6 @@
 import UI from '../../ui/UI';
 import BasicAnimationComponent from '../../component/animation/BasicAnimationComponent';
+import TweenAnimationComponent from '../../component/animation/TweenAnimationComponent';
 
 /**
  * 动画面板
@@ -18,6 +19,7 @@ AnimationPanel.prototype.render = function () {
         parent: this.parent,
         children: [
             new BasicAnimationComponent({ app: this.app }),
+            new TweenAnimationComponent({ app: this.app }),
         ]
     };
 
