@@ -41,7 +41,7 @@ TweenAnimationComponent.prototype.render = function () {
                 text: '开始状态'
             }, {
                 xtype: 'select',
-                id: 'startStatus',
+                id: 'beginStatus',
                 scope: this.id,
                 options: {
                     Current: '当前位置',
@@ -51,12 +51,17 @@ TweenAnimationComponent.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
+            id: 'beginPositionRow',
+            scope: this.id,
+            style: {
+                display: 'none'
+            },
             children: [{
                 xtype: 'label',
                 text: '平移'
             }, {
                 xtype: 'number',
-                id: 'startPositionX',
+                id: 'beginPositionX',
                 scope: this.id,
                 style: {
                     width: '40px'
@@ -64,7 +69,7 @@ TweenAnimationComponent.prototype.render = function () {
                 onChange: this.onChange.bind(this)
             }, {
                 xtype: 'number',
-                id: 'startPositionY',
+                id: 'beginPositionY',
                 scope: this.id,
                 style: {
                     width: '40px'
@@ -72,7 +77,7 @@ TweenAnimationComponent.prototype.render = function () {
                 onChange: this.onChange.bind(this)
             }, {
                 xtype: 'number',
-                id: 'startPositionZ',
+                id: 'beginPositionZ',
                 scope: this.id,
                 style: {
                     width: '40px'
@@ -81,12 +86,17 @@ TweenAnimationComponent.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
+            id: 'beginRotationRow',
+            scope: this.id,
+            style: {
+                display: 'none'
+            },
             children: [{
                 xtype: 'label',
                 text: '旋转'
             }, {
                 xtype: 'number',
-                id: 'startRotationX',
+                id: 'beginRotationX',
                 scope: this.id,
                 step: 10,
                 unit: '°',
@@ -96,7 +106,7 @@ TweenAnimationComponent.prototype.render = function () {
                 onChange: this.onChange.bind(this)
             }, {
                 xtype: 'number',
-                id: 'startRotationY',
+                id: 'beginRotationY',
                 scope: this.id,
                 step: 10,
                 unit: '°',
@@ -106,7 +116,7 @@ TweenAnimationComponent.prototype.render = function () {
                 onChange: this.onChange.bind(this)
             }, {
                 xtype: 'number',
-                id: 'startRotationZ',
+                id: 'beginRotationZ',
                 scope: this.id,
                 step: 10,
                 unit: '°',
@@ -117,12 +127,17 @@ TweenAnimationComponent.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
+            id: 'beginScaleRow',
+            scope: this.id,
+            style: {
+                display: 'none'
+            },
             children: [{
                 xtype: 'label',
                 text: '缩放'
             }, {
                 xtype: 'checkbox',
-                id: 'startScaleLock',
+                id: 'beginScaleLock',
                 scope: this.id,
                 value: true,
                 style: {
@@ -131,7 +146,7 @@ TweenAnimationComponent.prototype.render = function () {
                 }
             }, {
                 xtype: 'number',
-                id: 'startScaleX',
+                id: 'beginScaleX',
                 scope: this.id,
                 value: 1,
                 range: [0.01, Infinity],
@@ -141,7 +156,7 @@ TweenAnimationComponent.prototype.render = function () {
                 onChange: this.onChange.bind(this)
             }, {
                 xtype: 'number',
-                id: 'startScaleY',
+                id: 'beginScaleY',
                 scope: this.id,
                 value: 1,
                 range: [0.01, Infinity],
@@ -151,12 +166,53 @@ TweenAnimationComponent.prototype.render = function () {
                 onChange: this.onChange.bind(this)
             }, {
                 xtype: 'number',
-                id: 'startScaleZ',
+                id: 'beginScaleZ',
                 scope: this.id,
                 value: 1,
                 range: [0.01, Infinity],
                 style: {
                     width: '40px'
+                },
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '插值函数'
+            }, {
+                xtype: 'select',
+                id: 'ease',
+                scope: this.id,
+                options: {
+                    linear: 'Linear',
+                    quadIn: 'Quad In',
+                    quadOut: 'Quad Out',
+                    quadInOut: 'Quad In Out',
+                    cubicIn: 'Cubic In',
+                    cubicOut: 'Cubic Out',
+                    cubicInOut: 'Cubic InOut',
+                    quartIn: 'Quart In',
+                    quartOut: 'Quart Out',
+                    quartInOut: 'Quart InOut',
+                    quintIn: 'Quint In',
+                    quintOut: 'Quint Out',
+                    quintInOut: 'Quint In Out',
+                    sineIn: 'Sine In',
+                    sineOut: 'Sine Out',
+                    sineInOut: 'Sine In Out',
+                    backIn: 'Back In',
+                    backOut: 'Back Out',
+                    backInOut: 'Back In Out',
+                    circIn: 'Circ In',
+                    circOut: 'Circ Out',
+                    circInOut: 'Circ In Out',
+                    bounceIn: 'Bounce In',
+                    bounceOut: 'Bounce Out',
+                    bounceInOut: 'Bounce In Out',
+                    elasticIn: 'Elastic In',
+                    elasticOut: 'Elastic Out',
+                    elasticInOut: 'Elastic In Out'
                 },
                 onChange: this.onChange.bind(this)
             }]
@@ -177,6 +233,11 @@ TweenAnimationComponent.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
+            id: 'endPositionRow',
+            scope: this.id,
+            style: {
+                display: 'none'
+            },
             children: [{
                 xtype: 'label',
                 text: '平移'
@@ -207,6 +268,11 @@ TweenAnimationComponent.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
+            id: 'endRotationRow',
+            scope: this.id,
+            style: {
+                display: 'none'
+            },
             children: [{
                 xtype: 'label',
                 text: '旋转'
@@ -243,6 +309,11 @@ TweenAnimationComponent.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
+            id: 'endScaleRow',
+            scope: this.id,
+            style: {
+                display: 'none'
+            },
             children: [{
                 xtype: 'label',
                 text: '缩放'
@@ -314,9 +385,47 @@ TweenAnimationComponent.prototype.updateUI = function (animation) {
     }
 
     this.animation = animation;
+
+    var beginPositionRow = UI.get('beginPositionRow', this.id);
+    var beginRotationRow = UI.get('beginRotationRow', this.id);
+    var beginScaleRow = UI.get('beginScaleRow', this.id);
+    var endPositionRow = UI.get('endPositionRow', this.id);
+    var endRotationRow = UI.get('endRotationRow', this.id);
+    var endScaleRow = UI.get('endScaleRow', this.id);
+
+    var beginStatus = UI.get('beginStatus', this.id);
+    var beginPositionX = UI.get('beginPositionX', this.id);
+    var beginPositionY = UI.get('beginPositionY', this.id);
+    var beginPositionZ = UI.get('beginPositionZ', this.id);
+    var beginRotationX = UI.get('beginRotationX', this.id);
+    var beginRotationY = UI.get('beginRotationY', this.id);
+    var beginRotationZ = UI.get('beginRotationZ', this.id);
+    var beginScaleLock = UI.get('beginScaleLock', this.id);
+    var beginScaleX = UI.get('beginScaleX', this.id);
+    var beginScaleY = UI.get('beginScaleY', this.id);
+    var beginScaleZ = UI.get('beginScaleZ', this.id);
+    var ease = UI.get('ease', this.id);
+    var endStatus = UI.get('endStatus', this.id);
+    var endPositionX = UI.get('endPositionX', this.id);
+    var endPositionY = UI.get('endPositionY', this.id);
+    var endPositionZ = UI.get('endPositionZ', this.id);
+    var endRotationX = UI.get('endRotationX', this.id);
+    var endRotationY = UI.get('endRotationY', this.id);
+    var endRotationZ = UI.get('endRotationZ', this.id);
+    var endScaleLock = UI.get('endScaleLock', this.id);
+    var endScaleX = UI.get('endScaleX', this.id);
+    var endScaleY = UI.get('endScaleY', this.id);
+    var endScaleZ = UI.get('endScaleZ', this.id);
+
 };
 
 TweenAnimationComponent.prototype.onChange = function () {
+    var beginPositionRow = UI.get('beginPositionRow', this.id);
+    var beginRotationRow = UI.get('beginRotationRow', this.id);
+    var beginScaleRow = UI.get('beginScaleRow', this.id);
+    var endPositionRow = UI.get('endPositionRow', this.id);
+    var endRotationRow = UI.get('endRotationRow', this.id);
+    var endScaleRow = UI.get('endScaleRow', this.id);
 
     this.app.call('animationChanged', this, this.animation);
 };
