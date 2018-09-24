@@ -226,12 +226,38 @@ SceneWindow.prototype.loadScene = function (data) {
                         index: n.index,
                         animations: n.animations.map(m => {
                             return new Animation({
+                                // 基本信息
                                 id: m.id,
                                 uuid: m.uuid,
                                 name: m.name,
                                 type: m.type,
                                 startTime: m.startTime,
-                                endTime: m.endTime
+                                endTime: m.endTime,
+
+                                // 补间动画
+                                beginStatus: m.beginStatus,
+                                beginPositionX: m.beginPositionX,
+                                beginPositionY: m.beginPositionY,
+                                beginPositionZ: m.beginPositionZ,
+                                beginRotationX: m.beginRotationX,
+                                beginRotationY: m.beginRotationY,
+                                beginRotationZ: m.beginRotationZ,
+                                beginScaleLock: m.beginScaleLock,
+                                beginScaleX: m.beginScaleX,
+                                beginScaleY: m.beginScaleY,
+                                beginScaleZ: m.beginScaleZ,
+                                ease: m.ease,
+                                endStatus: m.endStatus,
+                                endPositionX: m.endPositionX,
+                                endPositionY: m.endPositionY,
+                                endPositionZ: m.endPositionZ,
+                                endRotationX: m.endRotationX,
+                                endRotationY: m.endRotationY,
+                                endRotationZ: m.endRotationZ,
+                                endScaleLock: m.endScaleLock,
+                                endScaleX: m.endScaleX,
+                                endScaleY: m.endScaleY,
+                                endScaleZ: m.endScaleZ
                             })
                         })
                     })
