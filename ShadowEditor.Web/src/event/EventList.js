@@ -98,6 +98,9 @@ var EventList = [
     'tabSelected', // 选项卡选中事件
     'animationSelected', // 动画选中事件
     'animationChanged', // 动画发生改变事件
+    'resetAnimation', // 重制动画时间轴
+    'startAnimation', // 开始播放动画
+    'animationTime', // 时间轴发送当前动画时间
 ];
 
 export default EventList;

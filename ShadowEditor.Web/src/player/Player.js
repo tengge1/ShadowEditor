@@ -14,6 +14,8 @@ function Player(options) {
     this.camera = null;
     this.renderer = null;
     this.scripts = null;
+    this.animation = null;
+    this.animationTime = 0;
 
     this.audioListener = null;
 
@@ -165,6 +167,17 @@ Player.prototype.initPlayer = function (obj) {
     } else {
         this.scene = new THREE.Scene();
     }
+
+    // 动画
+    this.animation = obj.animation;
+    this.animationTime = 0;
+    this.animation.forEach(n => {
+        n.animations.forEach(m => {
+            if (m.endTime > this.animationTime) {
+                this.animationTime = m.endTime;
+            }
+        });
+    });
 };
 
 /**
@@ -272,6 +285,7 @@ Player.prototype.renderScene = function () {
 Player.prototype.initScene = function () {
     this.audios = [];
 
+    // 音乐
     this.scene.traverse(n => {
         if (n instanceof THREE.Audio) {
             var buffer = this.assets[n.userData.Url];
@@ -291,6 +305,10 @@ Player.prototype.initScene = function () {
             this.audios.push(n);
         }
     });
+
+    // 动画
+    this.app.call(`resetAnimation`, this.id);
+    this.app.call(`startAnimation`, this.id);
 };
 
 Player.prototype.destroyScene = function () {

@@ -161,6 +161,9 @@ AnimationPanel.prototype.onAppStarted = function () {
     document.body.addEventListener(`mouseup`, this.onMouseUp.bind(this));
 
     this.app.on(`animationChanged.${this.id}`, this.updateUI.bind(this));
+
+    this.app.on(`resetAnimation.${this.id}`, this.onResetAnimation.bind(this));
+    this.app.on(`startAnimation.${this.id}`, this.onPlay.bind(this));
 };
 
 AnimationPanel.prototype.updateUI = function () {
@@ -223,8 +226,10 @@ AnimationPanel.prototype.updateSlider = function () {
 
     slider.dom.style.left = this.sliderLeft + 'px';
 
-    var minute = ('0' + Math.floor(this.sliderLeft / timeline.scale / 60)).slice(-2);
-    var second = ('0' + Math.floor(this.sliderLeft / timeline.scale % 60)).slice(-2);
+    var animationTime = this.sliderLeft / timeline.scale;
+
+    var minute = ('0' + Math.floor(animationTime / 60)).slice(-2);
+    var second = ('0' + Math.floor(animationTime % 60)).slice(-2);
 
     time.setValue(`${minute}:${second}`);
 
@@ -233,6 +238,8 @@ AnimationPanel.prototype.updateSlider = function () {
     } else {
         speed.dom.innerHTML = `X 1/${4 / this.speed}`;
     }
+
+    this.app.call('animationTime', this, animationTime);
 };
 
 AnimationPanel.prototype.onAnimate = function () {
@@ -274,6 +281,8 @@ AnimationPanel.prototype.onRemoveGroup = function () {
         }
     });
 };
+
+// ----------------------------------- 播放器事件 -------------------------------------------
 
 AnimationPanel.prototype.onPlay = function () {
     if (this.status === PLAY) {
@@ -326,6 +335,11 @@ AnimationPanel.prototype.onStop = function () {
     this.app.on(`animate.${this.id}`, null);
     this.sliderLeft = 0;
     this.updateSlider();
+};
+
+AnimationPanel.prototype.onResetAnimation = function () {
+    this.onStop();
+    this.speed = 4;
 };
 
 AnimationPanel.prototype.onClick = function (event) {

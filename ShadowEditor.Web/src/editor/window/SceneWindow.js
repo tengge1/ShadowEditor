@@ -230,6 +230,7 @@ SceneWindow.prototype.loadScene = function (data) {
                                 id: m.id,
                                 uuid: m.uuid,
                                 name: m.name,
+                                target: m.target,
                                 type: m.type,
                                 startTime: m.startTime,
                                 endTime: m.endTime,

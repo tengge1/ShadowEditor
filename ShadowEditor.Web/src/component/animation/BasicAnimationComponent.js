@@ -53,6 +53,27 @@ BasicAnimationComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
+                text: '目标'
+            }, {
+                xtype: 'input',
+                id: 'target',
+                scope: this.id,
+                disabled: true,
+                style: {
+                    width: '80px',
+                    marginRight: '8px'
+                }
+            }, {
+                xtype: 'button',
+                id: 'btnSetTarget',
+                scope: this.id,
+                text: '设置',
+                onClick: this.onSetTarget.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
                 text: '类型'
             }, {
                 xtype: 'select',
@@ -121,14 +142,39 @@ BasicAnimationComponent.prototype.updateUI = function (animation) {
     this.animation = animation;
 
     var name = UI.get('name', this.id);
+    var target = UI.get('target', this.id);
     var type = UI.get('type', this.id);
     var startTime = UI.get('startTime', this.id);
     var endTime = UI.get('endTime', this.id);
 
     name.setValue(this.animation.name);
+
+    if (this.animation.target === null) {
+        target.setValue('(无)');
+    } else {
+        var obj = this.app.editor.objectByUuid(this.animation.target);
+        if (obj === null) {
+            target.setValue('(无)');
+            console.warn(`BasicAnimationComponent: 动作物体${this.animation.target}在场景中不存在。`);
+        } else {
+            target.setValue(obj.name);
+        }
+    }
+
     type.setValue(this.animation.type);
     startTime.setValue(this.animation.startTime);
     endTime.setValue(this.animation.endTime);
+};
+
+BasicAnimationComponent.prototype.onSetTarget = function () {
+    var selected = this.app.editor.selected;
+    if (selected == null) {
+        this.animation.target = null;
+    } else {
+        this.animation.target = selected.uuid;
+    }
+
+    this.app.call('animationChanged', this, this.animation);
 };
 
 BasicAnimationComponent.prototype.onChange = function () {
