@@ -11,7 +11,7 @@ import Sidebar2 from './editor/sidebar2/Sidebar';
 import BottomPanel from './editor/bottom/BottomPanel';
 import StatusBar from './editor/StatusBar';
 import ScriptEditor from './editor/script/ScriptEditor';
-import Player from './editor/player/Player';
+import Player from './player/Player';
 
 import Editor from './editor/Editor';
 import Physics from './editor/Physics';

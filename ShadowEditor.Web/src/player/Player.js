@@ -1,5 +1,5 @@
-import UI from '../../ui/UI';
-import Converter from '../../serialization/Converter';
+import UI from '../ui/UI';
+import Converter from '../serialization/Converter';
 
 /**
  * 播放器
