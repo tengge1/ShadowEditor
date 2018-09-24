@@ -332,8 +332,8 @@ AnimationPanel.prototype.onClick = function (event) {
     if (event.target.data.type === 'AnimationGroup') {
         return;
     }
-    this.app.call('selectTab', this, 'animation');
-    this.app.call('showAnimation', this, event.target.data);
+    this.app.call('tabSelected', this, 'animation');
+    this.app.call('animationSelected', this, event.target.data);
 };
 
 AnimationPanel.prototype.onDblClick = function (event) {

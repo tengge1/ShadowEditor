@@ -84,8 +84,6 @@ var EventList = [
     'scriptChanged', // 脚本改变事件
     'scriptRemoved', // 脚本移除事件
 
-    'animationChanged', // 动画改变事件
-
     'historyChanged', // 历史改变事件
     'refreshScriptEditor', // 刷新脚本编辑器事件
 
@@ -97,8 +95,9 @@ var EventList = [
     'animate', // 进行动画
 
     // 侧边栏
-    'selectTab', // 切换侧边栏选项卡 scene,setting,history
-    'showAnimation', // 在动画面板显示动画
+    'tabSelected', // 选项卡选中事件
+    'animationSelected', // 动画选中事件
+    'animationChanged', // 动画发生改变事件
 ];
 
 export default EventList;

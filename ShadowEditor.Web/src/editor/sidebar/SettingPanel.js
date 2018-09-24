@@ -125,10 +125,10 @@ SettingPanel.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`selectTab.${this.id}`, this.onSelectTab.bind(this));
+    this.app.on(`tabSelected.${this.id}`, this.onTabSelected.bind(this));
 };
 
-SettingPanel.prototype.onSelectTab = function (tabName) {
+SettingPanel.prototype.onTabSelected = function (tabName) {
     if (tabName !== 'setting') {
         return;
     }

@@ -36,7 +36,7 @@ Sidebar.prototype.render = function () {
                 scope: this.id,
                 text: '属性',
                 onClick: () => {
-                    this.app.call('selectTab', this, 'property');
+                    this.app.call('tabSelected', this, 'property');
                 }
             }, {
                 xtype: 'text',
@@ -44,7 +44,7 @@ Sidebar.prototype.render = function () {
                 scope: this.id,
                 text: '动画',
                 onClick: () => {
-                    this.app.call('selectTab', this, 'animation');
+                    this.app.call('tabSelected', this, 'animation');
                 }
             }, {
                 xtype: 'text',
@@ -52,7 +52,7 @@ Sidebar.prototype.render = function () {
                 scope: this.id,
                 text: '设置',
                 onClick: () => {
-                    this.app.call('selectTab', this, 'setting');
+                    this.app.call('tabSelected', this, 'setting');
                 }
             }, {
                 xtype: 'text',
@@ -60,7 +60,7 @@ Sidebar.prototype.render = function () {
                 scope: this.id,
                 text: '历史',
                 onClick: () => {
-                    this.app.call('selectTab', this, 'history');
+                    this.app.call('tabSelected', this, 'history');
                 }
             }]
         }, {
@@ -98,14 +98,14 @@ Sidebar.prototype.render = function () {
     control.render();
 
     this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
-    this.app.on(`selectTab.${this.id}`, this.selectTab.bind(this));
+    this.app.on(`tabSelected.${this.id}`, this.onTabSelected.bind(this));
 };
 
 Sidebar.prototype.onAppStarted = function () {
-    this.app.call('selectTab', this, 'property');
+    this.app.call('tabSelected', this, 'property');
 };
 
-Sidebar.prototype.selectTab = function (tabName) {
+Sidebar.prototype.onTabSelected = function (tabName) {
     var tabNames = [
         'property',
         'animation',
