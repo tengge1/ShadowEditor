@@ -120,6 +120,8 @@ AssetMenu.prototype.render = function () {
     container.render();
 }
 
+// --------------------------------- 模型管理 --------------------------------------
+
 AssetMenu.prototype.onManageModel = function () {
     if (this.modelWindow == null) {
         this.modelWindow = new ModelWindow({ parent: this.app.container, app: this.app });
@@ -128,6 +130,8 @@ AssetMenu.prototype.onManageModel = function () {
     this.modelWindow.show();
 };
 
+// --------------------------------- 纹理管理 --------------------------------------
+
 AssetMenu.prototype.onManageTexture = function () {
     if (this.textureWindow == null) {
         this.textureWindow = new TextureWindow({ parent: this.app.container, app: this.app });
@@ -135,6 +139,8 @@ AssetMenu.prototype.onManageTexture = function () {
     }
     this.textureWindow.show();
 };
+
+// --------------------------------- 音频管理 --------------------------------------
 
 AssetMenu.prototype.onManageAudio = function () {
     if (this.audioWindow == null) {
