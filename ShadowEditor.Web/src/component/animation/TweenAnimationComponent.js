@@ -417,6 +417,55 @@ TweenAnimationComponent.prototype.updateUI = function (animation) {
     var endScaleY = UI.get('endScaleY', this.id);
     var endScaleZ = UI.get('endScaleZ', this.id);
 
+    switch (this.animation.beginStatus) {
+        case 'Current':
+            beginPositionRow.dom.style.display = 'none';
+            beginRotationRow.dom.style.display = 'none';
+            beginScaleRow.dom.style.display = 'none';
+            break;
+        case 'Custom':
+            beginPositionRow.dom.style.display = '';
+            beginRotationRow.dom.style.display = '';
+            beginScaleRow.dom.style.display = '';
+            break;
+    }
+
+    switch (this.animation.endStatus) {
+        case 'Current':
+            endPositionRow.dom.style.display = 'none';
+            endRotationRow.dom.style.display = 'none';
+            endScaleRow.dom.style.display = 'none';
+            break;
+        case 'Custom':
+            endPositionRow.dom.style.display = '';
+            endRotationRow.dom.style.display = '';
+            endScaleRow.dom.style.display = '';
+            break;
+    }
+
+    beginStatus.setValue(this.animation.beginStatus);
+    beginPositionX.setValue(this.animation.beginPositionX);
+    beginPositionY.setValue(this.animation.beginPositionY);
+    beginPositionZ.setValue(this.animation.beginPositionZ);
+    beginRotationX.setValue(this.animation.beginRotationX);
+    beginRotationY.setValue(this.animation.beginRotationY);
+    beginRotationZ.setValue(this.animation.beginRotationZ);
+    beginScaleLock.setValue(this.animation.beginScaleLock);
+    beginScaleX.setValue(this.animation.beginScaleX);
+    beginScaleY.setValue(this.animation.beginScaleY);
+    beginScaleZ.setValue(this.animation.beginScaleZ);
+    ease.setValue(this.animation.ease);
+    endStatus.setValue(this.animation.endStatus);
+    endPositionX.setValue(this.animation.endPositionX);
+    endPositionY.setValue(this.animation.endPositionY);
+    endPositionZ.setValue(this.animation.endPositionZ);
+    endRotationX.setValue(this.animation.endRotationX);
+    endRotationY.setValue(this.animation.endRotationY);
+    endRotationZ.setValue(this.animation.endRotationZ);
+    endScaleLock.setValue(this.animation.endScaleLock);
+    endScaleX.setValue(this.animation.endScaleX);
+    endScaleY.setValue(this.animation.endScaleY);
+    endScaleZ.setValue(this.animation.endScaleZ);
 };
 
 TweenAnimationComponent.prototype.onChange = function () {
