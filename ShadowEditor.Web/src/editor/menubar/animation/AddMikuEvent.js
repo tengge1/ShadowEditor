@@ -29,7 +29,7 @@ AddMikuEvent.prototype.onAddMiku = function () {
     var editor = this.app.editor;
     var camera = editor.camera;
 
-    var modelFile = 'assets/models/miku/miku_v2.pmd';
+    var modelFile = 'assets/models/miku2/Appearance Miku_BDEF_SPM.pmx';
     var vmdFiles = ['assets/models/vmds/wavefile_v2.vmd'];
     var cameraFiles = ['assets/models/vmds/wavefile_camera.vmd'];
     var audioFile = 'assets/audios/wavefile_short.mp3';
