@@ -67,12 +67,9 @@ AssetMenu.prototype.render = function () {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                id: 'mExportGLTF',
                 html: '导出gltf文件',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mExportGLTF');
-                }
+                onClick: this.onExportGLTF.bind(this)
             }, {
                 xtype: 'div',
                 id: 'mExportOBJ',
@@ -215,6 +212,14 @@ AssetMenu.prototype.onExportScene = function () {
 };
 
 // ------------------------------ 导出gltf文件 ----------------------------------------
+
+AssetMenu.prototype.onExportGLTF = function () {
+    var exporter = new THREE.GLTFExporter();
+
+    exporter.parse(app.editor.scene, function (result) {
+        StringUtils.saveString(JSON.stringify(result), 'model.gltf');
+    });
+};
 
 // ------------------------------ 导出obj文件 -----------------------------------------
 
