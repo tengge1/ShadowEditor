@@ -18,8 +18,6 @@ AssetMenu.prototype = Object.create(UI.Control.prototype);
 AssetMenu.prototype.constructor = AssetMenu;
 
 AssetMenu.prototype.render = function () {
-    var _this = this;
-
     var container = UI.create({
         xtype: 'div',
         parent: this.parent,
@@ -91,9 +89,7 @@ AssetMenu.prototype.render = function () {
                 id: 'mExportSTL',
                 html: '导出stl文件',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mExportSTL');
-                }
+                onClick: this.onExportSTL.bind(this)
             }]
         }]
     });
@@ -258,5 +254,13 @@ AssetMenu.prototype.onExportSTLB = function () {
 };
 
 // ------------------------------- 导出stl文件 -----------------------------------------
+
+AssetMenu.prototype.onExportSTL = function () {
+    var editor = this.app.editor;
+
+    var exporter = new THREE.STLExporter();
+
+    StringUtils.saveString(exporter.parse(editor.scene), 'model.stl');
+};
 
 export default AssetMenu;
