@@ -50,26 +50,19 @@ AssetMenu.prototype.render = function () {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                id: 'mExportGeometry',
                 html: '导出几何体',
                 cls: 'option',
                 onClick: this.onExportGeometry.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mExportObject',
                 html: '导出物体',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mExportObject');
-                }
+                onClick: this.onExportObject.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mExportScene',
                 html: '导出场景',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mExportScene');
-                }
+                onClick: this.onExportScene.bind(this)
             }, {
                 xtype: 'hr'
             }, {
@@ -182,7 +175,44 @@ AssetMenu.prototype.onExportGeometry = function () {
 
 // ------------------------------- 导出物体 ------------------------------------------
 
+AssetMenu.prototype.onExportObject = function () {
+    var editor = this.app.editor;
+
+    var object = editor.selected;
+
+    if (object === null) {
+        UI.msg('请选择对象');
+        return;
+    }
+
+    var output = object.toJSON();
+
+    try {
+        output = JSON.stringify(output, parseNumber, '\t');
+        output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
+    } catch (e) {
+        output = JSON.stringify(output);
+    }
+
+    StringUtils.saveString(output, 'model.json');
+};
+
 // ------------------------------- 导出场景 ------------------------------------------
+
+AssetMenu.prototype.onExportScene = function () {
+    var editor = this.app.editor;
+
+    var output = editor.scene.toJSON();
+
+    try {
+        output = JSON.stringify(output, parseNumber, '\t');
+        output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
+    } catch (e) {
+        output = JSON.stringify(output);
+    }
+
+    StringUtils.saveString(output, 'scene.json');
+};
 
 // ------------------------------ 导出gltf文件 ----------------------------------------
 
