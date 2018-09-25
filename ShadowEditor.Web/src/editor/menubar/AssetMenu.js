@@ -77,12 +77,9 @@ AssetMenu.prototype.render = function () {
                 onClick: this.onExportOBJ.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mExportPLY',
                 html: '导出ply文件',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mExportPLY');
-                }
+                onClick: this.onExportPLY.bind(this)
             }, {
                 xtype: 'div',
                 id: 'mExportSTLB',
@@ -235,6 +232,22 @@ AssetMenu.prototype.onExportOBJ = function () {
 };
 
 // ------------------------------- 导出ply文件 ----------------------------------------
+
+AssetMenu.prototype.onExportPLY = function () {
+    var editor = this.app.editor;
+
+    var object = editor.selected;
+
+    if (object === null) {
+        UI.msg('请选择对象');
+        return;
+    }
+
+    var exporter = new THREE.PLYExporter();
+    StringUtils.saveString(exporter.parse(object, {
+        excludeAttributes: ['normal', 'uv', 'color', 'index']
+    }), 'model.ply');
+};
 
 // ------------------------------- 导出stl二进制文件 -----------------------------------
 
