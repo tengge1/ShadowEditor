@@ -85,9 +85,7 @@ AssetMenu.prototype.render = function () {
                 id: 'mExportSTLB',
                 html: '导出stl二进制文件',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mExportSTLB');
-                }
+                onClick: this.onExportSTLB.bind(this)
             }, {
                 xtype: 'div',
                 id: 'mExportSTL',
@@ -250,6 +248,14 @@ AssetMenu.prototype.onExportPLY = function () {
 };
 
 // ------------------------------- 导出stl二进制文件 -----------------------------------
+
+AssetMenu.prototype.onExportSTLB = function () {
+    var editor = this.app.editor;
+
+    var exporter = new THREE.STLBinaryExporter();
+
+    StringUtils.saveString(exporter.parse(editor.scene), 'model.stl');
+};
 
 // ------------------------------- 导出stl文件 -----------------------------------------
 
