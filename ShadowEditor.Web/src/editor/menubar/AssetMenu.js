@@ -72,12 +72,9 @@ AssetMenu.prototype.render = function () {
                 onClick: this.onExportGLTF.bind(this)
             }, {
                 xtype: 'div',
-                id: 'mExportOBJ',
                 html: '导出obj文件',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mExportOBJ');
-                }
+                onClick: this.onExportOBJ.bind(this)
             }, {
                 xtype: 'div',
                 id: 'mExportPLY',
@@ -222,6 +219,20 @@ AssetMenu.prototype.onExportGLTF = function () {
 };
 
 // ------------------------------ 导出obj文件 -----------------------------------------
+
+AssetMenu.prototype.onExportOBJ = function () {
+    var editor = this.app.editor;
+
+    var object = editor.selected;
+
+    if (object === null) {
+        UI.msg('请选择对象');
+        return;
+    }
+
+    var exporter = new THREE.OBJExporter();
+    StringUtils.saveString(exporter.parse(object), 'model.obj');
+};
 
 // ------------------------------- 导出ply文件 ----------------------------------------
 
