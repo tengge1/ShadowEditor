@@ -105,6 +105,7 @@
     <Compile Include="Constant.cs" />
     <Compile Include="Controllers\MeshController.cs" />
     <Compile Include="Controllers\AudioController.cs" />
+    <Compile Include="Controllers\MMDController.cs" />
     <Compile Include="Controllers\TextureController.cs" />
     <Compile Include="Controllers\SceneController.cs" />
     <Compile Include="Helpers\DownloadHelper.cs" />
@@ -119,6 +120,10 @@
     <Compile Include="Mesh\MeshInfo.cs" />
     <Compile Include="Mesh\MeshSaver.cs" />
     <Compile Include="Mesh\MeshType.cs" />
+    <Compile Include="MMD\IMMDSaver.cs" />
+    <Compile Include="MMD\MMDInfo.cs" />
+    <Compile Include="MMD\MMDSaver.cs" />
+    <Compile Include="MMD\MMDType.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="Scene\SaveSceneModel.cs" />
     <Compile Include="Scene\SceneModel.cs" />

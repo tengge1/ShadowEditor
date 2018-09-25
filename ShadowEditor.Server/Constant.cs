@@ -50,5 +50,10 @@ namespace ShadowEditor.Server
         /// 音频表名
         /// </summary>
         public const string AudioCollectionName = "_Audio";
+
+        /// <summary>
+        /// MMD表名
+        /// </summary>
+        public const string MMDCollectionName = "_MMD";
     }
 }
