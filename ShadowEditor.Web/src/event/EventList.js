@@ -27,16 +27,7 @@ var EventList = [
     'optionsChanged', // 配置改变事件
 
     // 菜单栏事件
-    'mExportGeometry', // 导出几何体
-    'mExportObject', // 导出物体
-    'mExportScene', // 导出场景
-    'mExportGLTF', // 导出gltf文件a
-    'mExportOBJ', // 导出obj模型
-    'mExportPLY', // 导出ply文件
-    'mExportSTLB', // 导出stl二进制文件
-    'mExportSTL', // 导出stl模型
-
-    'mAddMiku', // 初音未来
+    'mAddMiku',
 
     'mAddPhysicsPlane', // 添加平板
     'mAddPhysicsWall', // 添加墙

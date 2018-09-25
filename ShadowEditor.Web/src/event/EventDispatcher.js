@@ -9,15 +9,6 @@ import RenderEvent from './RenderEvent';
 import ResizeEvent from './ResizeEvent';
 
 // 菜单栏
-import ExportGeometryEvent from './menu/asset/ExportGeometryEvent';
-import ExportObjectEvent from './menu/asset/ExportObjectEvent';
-import ExportSceneEvent from './menu/asset/ExportSceneEvent';
-import ExportGLTFEvent from './menu/asset/ExportGLTFEvent';
-import ExportOBJEvent from './menu/asset/ExportOBJEvent';
-import ExportPLYEvent from './menu/asset/ExportPLYEvent';
-import ExportSTLBEvent from './menu/asset/ExportSTLBEvent';
-import ExportSTLEvent from './menu/asset/ExportSTLEvent';
-
 import AddMikuEvent from '../editor/menubar/animation/AddMikuEvent';
 
 import AddPhysicsPlaneEvent from './menu/physics/AddPhysicsPlaneEvent';
@@ -51,15 +42,6 @@ function EventDispatcher(app) {
         new ResizeEvent(this.app),
 
         // menubar中的事件
-        new ExportGeometryEvent(this.app),
-        new ExportObjectEvent(this.app),
-        new ExportSceneEvent(this.app),
-        new ExportGLTFEvent(this.app),
-        new ExportOBJEvent(this.app),
-        new ExportPLYEvent(this.app),
-        new ExportSTLBEvent(this.app),
-        new ExportSTLEvent(this.app),
-
         new AddMikuEvent(this.app),
 
         new AddPhysicsPlaneEvent(this.app),
