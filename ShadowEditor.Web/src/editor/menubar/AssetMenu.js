@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 import ModelWindow from '../window/ModelWindow';
 import TextureWindow from '../window/TextureWindow';
 import AudioWindow from '../window/AudioWindow';
+import StringUtils from '../../utils/StringUtils';
 
 /**
  * 资源菜单
@@ -52,9 +53,7 @@ AssetMenu.prototype.render = function () {
                 id: 'mExportGeometry',
                 html: '导出几何体',
                 cls: 'option',
-                onClick: function () {
-                    _this.app.call('mExportGeometry');
-                }
+                onClick: this.onExportGeometry.bind(this)
             }, {
                 xtype: 'div',
                 id: 'mExportObject',
@@ -151,6 +150,35 @@ AssetMenu.prototype.onManageAudio = function () {
 };
 
 // ------------------------------- 导出几何体 ----------------------------------------
+
+AssetMenu.prototype.onExportGeometry = function () {
+    var editor = this.app.editor;
+
+    var object = editor.selected;
+
+    if (object === null) {
+        UI.msg('请选择物体');
+        return;
+    }
+
+    var geometry = object.geometry;
+
+    if (geometry === undefined) {
+        UI.msg('选中的对象不具有Geometry属性。');
+        return;
+    }
+
+    var output = geometry.toJSON();
+
+    try {
+        output = JSON.stringify(output, parseNumber, '\t');
+        output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
+    } catch (e) {
+        output = JSON.stringify(output);
+    }
+
+    StringUtils.saveString(output, 'geometry.json');
+};
 
 // ------------------------------- 导出物体 ------------------------------------------
 
