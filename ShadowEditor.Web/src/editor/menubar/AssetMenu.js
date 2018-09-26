@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 import ModelWindow from '../window/ModelWindow';
 import TextureWindow from '../window/TextureWindow';
 import AudioWindow from '../window/AudioWindow';
+import MMDWindow from '../window/MMDWindow';
 import StringUtils from '../../utils/StringUtils';
 
 /**
@@ -44,6 +45,11 @@ AssetMenu.prototype.render = function () {
                 html: '音频管理',
                 cls: 'option',
                 onClick: this.onManageAudio.bind(this)
+            }, {
+                xtype: 'div',
+                html: 'MMD资源管理',
+                cls: 'option',
+                onClick: this.onManageMMD.bind(this)
             }, {
                 xtype: 'hr'
             }, {
@@ -125,6 +131,16 @@ AssetMenu.prototype.onManageAudio = function () {
         this.audioWindow.render();
     }
     this.audioWindow.show();
+};
+
+// ------------------------------- MMD资源管理 --------------------------------------
+
+AssetMenu.prototype.onManageMMD = function () {
+    if (this.mmdWindow == null) {
+        this.mmdWindow = new MMDWindow({ parent: this.app.container, app: this.app });
+        this.mmdWindow.render();
+    }
+    this.mmdWindow.show();
 };
 
 // ------------------------------- 导出几何体 ----------------------------------------
