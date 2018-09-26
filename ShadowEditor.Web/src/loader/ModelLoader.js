@@ -15,6 +15,7 @@ import PLYLoader from './PLYLoader';
 import STLLoader from './STLLoader';
 import VTKLoader from './VTKLoader';
 import LOLLoader from './LOLLoader';
+import PMDLoader from './PMDLoader';
 
 const Loaders = {
     'amf': AMFLoader,
@@ -33,7 +34,9 @@ const Loaders = {
     'ply': PLYLoader,
     'stl': STLLoader,
     'vtk': VTKLoader,
-    'lol': LOLLoader
+    'lol': LOLLoader,
+    'pmd': PMDLoader,
+    'pmx': PMDLoader,
 };
 
 /**
