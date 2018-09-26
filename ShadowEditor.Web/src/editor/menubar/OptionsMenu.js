@@ -14,8 +14,6 @@ OptionsMenu.prototype = Object.create(UI.Control.prototype);
 OptionsMenu.prototype.constructor = OptionsMenu;
 
 OptionsMenu.prototype.render = function () {
-    var _this = this;
-
     var container = UI.create({
         xtype: 'div',
         parent: this.parent,
@@ -31,28 +29,40 @@ OptionsMenu.prototype.render = function () {
                 xtype: 'div',
                 cls: 'option',
                 html: '外观',
-                onClick: () => {
-                    this.app.call('mSurfaceOptions', this);
-                }
+                onClick: this.onSurfaceOptions.bind(this)
             }, {
                 xtype: 'div',
                 cls: 'option',
                 html: '场景',
-                onClick: () => {
-                    this.app.call('mSceneOptions', this);
-                }
+                onClick: this.onSceneOptions.bind(this)
             }, {
                 xtype: 'div',
                 cls: 'option',
                 html: '渲染器',
-                onClick: () => {
-                    this.app.call('mRendererOptions', this);
-                }
+                onClick: this.onRendererOptions.bind(this)
             }]
         }]
     });
 
     container.render();
 }
+
+// ---------------------------------- 外观选项 ---------------------------------------
+
+OptionsMenu.prototype.onSurfaceOptions = function () {
+
+};
+
+// ---------------------------------- 场景选项 ---------------------------------------
+
+OptionsMenu.prototype.onSceneOptions = function () {
+
+};
+
+// ---------------------------------- 渲染器选项 -------------------------------------
+
+OptionsMenu.prototype.onRendererOptions = function () {
+
+};
 
 export default OptionsMenu;
