@@ -16,7 +16,6 @@ import AddPhysicsWallEvent from './menu/physics/AddPhysicsWallEvent';
 import AddPhysicsClothEvent from './menu/physics/AddPhysicsClothEvent';
 
 import TransformControlsEvent from './viewport/TransformControlsEvent';
-import UpdateSceneStatusEvent from './statusBar/UpdateSceneStatusEvent';
 import ObjectEvent from './viewport/ObjectEvent';
 import PickEvent from './PickEvent';
 import EditorControlsEvent from './viewport/EditorControlsEvent';
@@ -46,7 +45,6 @@ function EventDispatcher(app) {
 
         // viewport中的事件
         new TransformControlsEvent(this.app),
-        new UpdateSceneStatusEvent(this.app),
         new ObjectEvent(this.app),
         new PickEvent(this.app),
         new EditorControlsEvent(this.app)
