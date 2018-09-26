@@ -15,6 +15,7 @@ import FireComponent from '../../component/FireComponent';
 import SmokeComponent from '../../component/SmokeComponent';
 import ReflectorComponent from '../../component/ReflectorComponent';
 import LMeshComponent from '../../component/LMeshComponent';
+import MMDComponent from '../../component/MMDComponent';
 
 /**
  * 属性面板
@@ -48,6 +49,7 @@ PropertyPanel.prototype.render = function () {
             new FireComponent({ app: this.app }),
             new SmokeComponent({ app: this.app }),
             new LMeshComponent({ app: this.app }),
+            new MMDComponent({ app: this.app }),
             new GeometryComponent({ app: this.app }),
             new MaterialComponent({ app: this.app })
         ]
