@@ -190,6 +190,11 @@ MMDWindow.prototype.onClickImage = function (imgs, index, btn) {
  * @param {*} model 
  */
 MMDWindow.prototype.onLoadModel = function (model) {
+    if (model.Type === 'vmd') {
+        UI.msg(`无法将动画文件添加到场景。`);
+        return;
+    }
+
     var loader = new ModelLoader(this.app);
 
     var url = model.Url;
