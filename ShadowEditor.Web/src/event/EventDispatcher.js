@@ -15,10 +15,6 @@ import AddPhysicsPlaneEvent from './menu/physics/AddPhysicsPlaneEvent';
 import AddPhysicsWallEvent from './menu/physics/AddPhysicsWallEvent';
 import AddPhysicsClothEvent from './menu/physics/AddPhysicsClothEvent';
 
-import SurfaceOptionsEvent from './menu/options/SurfaceOptionsEvent';
-import SceneOptionsEvent from './menu/options/SceneOptionsEvent';
-import RendererOptionsEvent from './menu/options/RendererOptionsEvent';
-
 import TransformControlsEvent from './viewport/TransformControlsEvent';
 import UpdateSceneStatusEvent from './statusBar/UpdateSceneStatusEvent';
 import ObjectEvent from './viewport/ObjectEvent';
@@ -47,10 +43,6 @@ function EventDispatcher(app) {
         new AddPhysicsPlaneEvent(this.app),
         new AddPhysicsWallEvent(this.app),
         new AddPhysicsClothEvent(this.app),
-
-        new SurfaceOptionsEvent(this.app),
-        new SceneOptionsEvent(this.app),
-        new RendererOptionsEvent(this.app),
 
         // viewport中的事件
         new TransformControlsEvent(this.app),

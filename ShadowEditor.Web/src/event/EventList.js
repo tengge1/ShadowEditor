@@ -34,10 +34,6 @@ var EventList = [
     'mAddPhysicsCloth', // 添加布料
     'mThrowBall', // 探测小球
 
-    'mSurfaceOptions', // 外观选项
-    'mSceneOptions', // 场景选项
-    'mRendererOptions', // 渲染器选项
-
     // 工具栏事件
 
     'changeMode', // 改变模式（select, translate, rotate, scale, delete）

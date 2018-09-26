@@ -1,4 +1,5 @@
 import UI from '../../ui/UI';
+import OptionsWindow from '../window/OptionsWindow';
 
 /**
  * 选项菜单
@@ -50,19 +51,34 @@ OptionsMenu.prototype.render = function () {
 // ---------------------------------- 外观选项 ---------------------------------------
 
 OptionsMenu.prototype.onSurfaceOptions = function () {
-
+    if (this.optionsWindow === undefined) {
+        this.optionsWindow = new OptionsWindow({ app: this.app });
+        this.optionsWindow.render();
+    }
+    this.optionsWindow.show();
+    this.optionsWindow.changeTab('外观');
 };
 
 // ---------------------------------- 场景选项 ---------------------------------------
 
 OptionsMenu.prototype.onSceneOptions = function () {
-
+    if (this.optionsWindow === undefined) {
+        this.optionsWindow = new OptionsWindow({ app: this.app });
+        this.optionsWindow.render();
+    }
+    this.optionsWindow.show();
+    this.optionsWindow.changeTab('场景');
 };
 
 // ---------------------------------- 渲染器选项 -------------------------------------
 
 OptionsMenu.prototype.onRendererOptions = function () {
-
+    if (this.optionsWindow === undefined) {
+        this.optionsWindow = new OptionsWindow({ app: this.app });
+        this.optionsWindow.render();
+    }
+    this.optionsWindow.show();
+    this.optionsWindow.changeTab('渲染器');
 };
 
 export default OptionsMenu;
