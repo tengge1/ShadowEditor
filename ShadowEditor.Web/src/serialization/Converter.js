@@ -5,6 +5,7 @@ import Object3DSerializer from './core/Object3DSerializer';
 import SceneSerializer from './core/SceneSerializer';
 import MeshSerializer from './core/MeshSerializer';
 import GroupSerializer from './core/GroupSerializer';
+import BoneSerializer from './core/BoneSerializer';
 import SpriteSerializer from './core/SpriteSerializer';
 import ServerObject from './core/ServerObject';
 import WebGLRendererSerializer from './core/WebGLRendererSerializer';
@@ -135,6 +136,8 @@ Converter.prototype.sceneToJson = function (scene, list) {
             json = (new SpotLightSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Audio) {
             json = (new AudioSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.Bone) {
+            json = (new BoneSerializer()).toJSON(obj);
         }
 
         if (json) {
@@ -308,6 +311,10 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                     break;
                 case 'SmokeSerializer':
                     obj = (new SmokeSerializer()).fromJSON(objJson, undefined, options.camera, options.renderer);
+                    break;
+                case 'BoneSerializer':
+                    obj = (new BoneSerializer()).fromJSON(objJson);
+                    debugger
                     break;
             }
 
