@@ -21,6 +21,8 @@ function Player(options) {
 
     this.audioListener = null;
 
+    this.mmdHelper = new THREE.MMDHelper();
+
     this.assets = {};
 
     this.events = null;
@@ -264,6 +266,11 @@ Player.prototype.loadAssets = function () {
                         resolve1();
                     });
                 }));
+            } else if (n instanceof THREE.SkinnedMesh && (n.userData.Type === 'pmd' || n.userData.Type === 'pmx')) {
+                // promises.push(new Promise(resolve1 => {
+                //     var loader = new THREE.MMDLoader();
+
+                // }));
             }
         });
 

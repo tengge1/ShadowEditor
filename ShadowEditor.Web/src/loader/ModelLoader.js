@@ -52,7 +52,7 @@ ModelLoader.prototype.constructor = ModelLoader;
 
 ModelLoader.prototype.load = function (url, options) {
     options = options || {};
-    var type = options.type;
+    var type = options.Type;
 
     if (type === undefined) {
         console.warn(`ModelLoader: 未传递type参数，无法加载。`);

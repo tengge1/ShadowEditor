@@ -314,7 +314,6 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                     break;
                 case 'BoneSerializer':
                     obj = (new BoneSerializer()).fromJSON(objJson);
-                    debugger
                     break;
             }
 

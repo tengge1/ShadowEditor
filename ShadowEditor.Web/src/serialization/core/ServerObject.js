@@ -21,8 +21,6 @@ ServerObject.prototype.toJSON = function (obj) {
 };
 
 ServerObject.prototype.fromJSON = function (json, options) {
-    var type = json.userData.Type;
-
     var url = json.userData.Url;
 
     if (url.indexOf(';') > -1) { // 包含多个入口文件
@@ -33,7 +31,7 @@ ServerObject.prototype.fromJSON = function (json, options) {
 
     return new Promise(resolve => {
         var loader = new ModelLoader();
-        loader.load(url, { type: type }).then(obj => {
+        loader.load(url, json.userData).then(obj => {
             if (obj) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, obj);
                 resolve(obj);

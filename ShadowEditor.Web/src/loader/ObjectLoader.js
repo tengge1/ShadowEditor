@@ -38,11 +38,11 @@ ObjectLoader.prototype.loadSkinnedMesh = function (scene, options) {
 
     var animations = mesh.geometry.animations;
 
-    if (options.name && animations && animations.length > 0) {
+    if (options.Name && animations && animations.length > 0) {
 
         var names = animations.map(n => n.name);
 
-        var source1 = `var mesh = this.getObjectByName('${options.name}');\nvar mixer = new THREE.AnimationMixer(mesh);\n\n`;
+        var source1 = `var mesh = this.getObjectByName('${options.Name}');\nvar mixer = new THREE.AnimationMixer(mesh);\n\n`;
 
         var source2 = ``;
 
@@ -58,7 +58,7 @@ ObjectLoader.prototype.loadSkinnedMesh = function (scene, options) {
 
         mesh.userData.scripts = [{
             id: null,
-            name: `${options.name}动画`,
+            name: `${options.Name}动画`,
             type: 'javascript',
             source: source,
             uuid: THREE.Math.generateUUID()

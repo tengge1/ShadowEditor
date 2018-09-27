@@ -64,13 +64,13 @@ LOLLoader.prototype.load = function (url, options) {
             var material = model.material;
 
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.name = options.name;
+            mesh.name = options.Name;
 
             mesh.userData.type = 'lol';
             mesh.userData.model = model;
             mesh.userData.scripts = [{
                 id: null,
-                name: `${options.name}动画`,
+                name: `${options.Name}动画`,
                 type: 'javascript',
                 source: this.createScripts(options.name, model),
                 uuid: THREE.Math.generateUUID()
