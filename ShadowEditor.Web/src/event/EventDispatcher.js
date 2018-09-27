@@ -9,8 +9,6 @@ import RenderEvent from './RenderEvent';
 import ResizeEvent from './ResizeEvent';
 
 // 菜单栏
-import AddMikuEvent from '../editor/menubar/animation/AddMikuEvent';
-
 import AddPhysicsPlaneEvent from './menu/physics/AddPhysicsPlaneEvent';
 import AddPhysicsWallEvent from './menu/physics/AddPhysicsWallEvent';
 import AddPhysicsClothEvent from './menu/physics/AddPhysicsClothEvent';
@@ -37,8 +35,6 @@ function EventDispatcher(app) {
         new ResizeEvent(this.app),
 
         // menubar中的事件
-        new AddMikuEvent(this.app),
-
         new AddPhysicsPlaneEvent(this.app),
         new AddPhysicsWallEvent(this.app),
         new AddPhysicsClothEvent(this.app),
