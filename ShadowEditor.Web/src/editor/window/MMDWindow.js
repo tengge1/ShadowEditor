@@ -12,6 +12,9 @@ import UploadUtils from '../../utils/UploadUtils';
 function MMDWindow(options) {
     UI.Control.call(this, options);
     this.app = options.app;
+
+    this.onSelect = options.onSelect;
+
     this.models = [];
     this.keyword = '';
 }
@@ -191,7 +194,11 @@ MMDWindow.prototype.onClickImage = function (imgs, index, btn) {
  */
 MMDWindow.prototype.onLoadModel = function (model) {
     if (model.Type === 'vmd') {
-        UI.msg(`无法将动画文件添加到场景。`);
+        if (this.onSelect) {
+            this.onSelect(model);
+        } else {
+            UI.msg(`无法将动画文件添加到场景。`);
+        }
         return;
     }
 

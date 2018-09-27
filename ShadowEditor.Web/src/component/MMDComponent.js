@@ -2,6 +2,7 @@ import BaseComponent from './BaseComponent';
 import SetValueCommand from '../command/SetValueCommand';
 import RemoveObjectCommand from '../command/RemoveObjectCommand';
 import AddObjectCommand from '../command/AddObjectCommand';
+import MMDWindow from '../editor/window/MMDWindow';
 
 /**
  * MMD模型组件
@@ -44,7 +45,7 @@ MMDComponent.prototype.render = function () {
                 text: '模型动画'
             }, {
                 xtype: 'input',
-                id: 'modelAnimation',
+                id: 'animation',
                 scope: this.id,
                 disabled: true,
                 style: {
@@ -53,25 +54,8 @@ MMDComponent.prototype.render = function () {
                 }
             }, {
                 xtype: 'button',
-                text: '选择'
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: '相机动画'
-            }, {
-                xtype: 'input',
-                id: 'cameraAnimation',
-                scope: this.id,
-                disabled: true,
-                style: {
-                    width: '80px',
-                    fontSize: '12px'
-                }
-            }, {
-                xtype: 'button',
-                text: '选择'
+                text: '选择',
+                onClick: this.selectAnimation.bind(this)
             }]
         }]
     };
@@ -102,6 +86,29 @@ MMDComponent.prototype.updateUI = function () {
     }
 
     this.selected = editor.selected;
+
+    var animation = UI.get('animation', this.id);
+
+    if (this.selected.userData.Animation) {
+        animation.setValue(this.selected.userData.Animation.Name);
+    }
+};
+
+MMDComponent.prototype.selectAnimation = function () {
+    if (this.mmdWindow === undefined) {
+        this.mmdWindow = new MMDWindow({
+            app: this.app,
+            onSelect: this.onSelectAnimation.bind(this)
+        });
+        this.mmdWindow.render();
+    }
+    this.mmdWindow.show();
+};
+
+MMDComponent.prototype.onSelectAnimation = function (data) {
+    this.selected.userData.Animation = {};
+    Object.assign(this.selected.userData.Animation, data);
+    this.updateUI();
 };
 
 export default MMDComponent;
