@@ -200,10 +200,7 @@ ModelWindow.prototype.onLoadModel = function (model) {
         url = this.app.options.server + model.Url;
     }
 
-    loader.load(url, {
-        name: model.Name,
-        type: model.Type
-    }).then(obj => {
+    loader.load(url, model).then(obj => {
         if (!obj) {
             return;
         }
