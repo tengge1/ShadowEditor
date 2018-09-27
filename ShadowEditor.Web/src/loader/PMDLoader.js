@@ -16,7 +16,26 @@ PMDLoader.prototype.load = function (url, options) {
         var loader = new THREE.MMDLoader();
 
         loader.loadModel(url, mesh => {
-            mesh.name = options.name;
+            mesh.name = options.Name;
+            if (options.Animation) {
+                this.loadAnimation(mesh, options.Animation).then(() => {
+                    resolve(mesh);
+                });
+            } else {
+                resolve(mesh);
+            }
+        }, undefined, () => {
+            // 某个图片下载失败会导致返回null
+            // resolve(null);
+        });
+    });
+};
+
+PMDLoader.prototype.loadAnimation = function (mesh, animation) {
+    return new Promise(resolve => {
+        var loader = new THREE.MMDLoader();
+        loader.loadVmd(animation.Url, vmd => {
+            loader.pourVmdIntoModel(mesh, vmd);
             resolve(mesh);
         }, undefined, () => {
             resolve(null);

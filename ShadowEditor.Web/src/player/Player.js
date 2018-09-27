@@ -172,7 +172,7 @@ Player.prototype.initPlayer = function (obj) {
         this.scene = new THREE.Scene();
     }
 
-    // 动画
+    // 补间动画
     this.animation = obj.animation;
     this.maxAnimationTime = 0;
     this.animation.forEach(n => {
@@ -181,6 +181,16 @@ Player.prototype.initPlayer = function (obj) {
                 this.maxAnimationTime = m.endTime;
             }
         });
+    });
+
+    // mmd动画
+    this.scene.traverse(n => {
+        if (n instanceof THREE.SkinnedMesh && (n.userData.Type === 'pmd' || n.userData.Type === 'pmx')) {
+            this.mmdHelper.add(n);
+            this.mmdHelper.setAnimation(n);
+            this.mmdHelper.setPhysics(n);
+            this.mmdHelper.unifyAnimationDuration();
+        }
     });
 };
 
@@ -266,11 +276,6 @@ Player.prototype.loadAssets = function () {
                         resolve1();
                     });
                 }));
-            } else if (n instanceof THREE.SkinnedMesh && (n.userData.Type === 'pmd' || n.userData.Type === 'pmx')) {
-                // promises.push(new Promise(resolve1 => {
-                //     var loader = new THREE.MMDLoader();
-
-                // }));
             }
         });
 
@@ -363,6 +368,9 @@ Player.prototype.animate = function () {
         this.app.call(`resetAnimation`, this.id);
         this.app.call(`startAnimation`, this.id);
     }
+
+    // mmd动画
+    this.mmdHelper.animate(deltaTime);
 
     if (this.isPlaying) {
         requestAnimationFrame(this.animate.bind(this));
