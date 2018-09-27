@@ -41,24 +41,6 @@ MMDComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '背景音乐'
-            }, {
-                xtype: 'input',
-                id: 'audio',
-                scope: this.id,
-                disabled: true,
-                style: {
-                    width: '80px',
-                    fontSize: '12px'
-                }
-            }, {
-                xtype: 'button',
-                text: '选择'
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
                 text: '模型动画'
             }, {
                 xtype: 'input',
