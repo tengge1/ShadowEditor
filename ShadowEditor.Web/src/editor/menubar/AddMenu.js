@@ -1,6 +1,9 @@
 import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import StringUtils from '../../utils/StringUtils';
+
+import Plane from '../../object/geometry/Plane';
+
 import PointLight from '../../object/light/PointLight';
 import HemisphereLight from '../../object/light/HemisphereLight';
 import RectAreaLight from '../../object/light/RectAreaLight';
@@ -151,17 +154,7 @@ AddMenu.prototype.addGroup = function () {
 // ------------------------- 平板 -------------------------------
 
 AddMenu.prototype.addPlane = function () {
-    var editor = this.app.editor;
-
-    var geometry = new THREE.PlaneBufferGeometry(50, 50);
-    var material = new THREE.MeshStandardMaterial();
-    var mesh = new THREE.Mesh(geometry, material);
-    mesh.name = '平板';
-    mesh.rotation.x = -Math.PI / 2;
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-
-    editor.execute(new AddObjectCommand(mesh));
+    this.app.editor.execute(new AddObjectCommand(new Plane()));
 };
 
 // ------------------------ 正方体 -----------------------------
