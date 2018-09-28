@@ -1,4 +1,4 @@
-import BaseEvent from '../BaseEvent';
+import BaseEvent from './BaseEvent';
 
 /**
  * 物体事件

@@ -1,7 +1,7 @@
-import BaseEvent from '../BaseEvent';
-import SetPositionCommand from '../../command/SetPositionCommand';
-import SetRotationCommand from '../../command/SetRotationCommand';
-import SetScaleCommand from '../../command/SetScaleCommand';
+import BaseEvent from './BaseEvent';
+import SetPositionCommand from './../command/SetPositionCommand';
+import SetRotationCommand from './../command/SetRotationCommand';
+import SetScaleCommand from './../command/SetScaleCommand';
 
 /**
  * 平移旋转缩放控件事件

@@ -13,10 +13,10 @@ import AddPhysicsPlaneEvent from './menu/physics/AddPhysicsPlaneEvent';
 import AddPhysicsWallEvent from './menu/physics/AddPhysicsWallEvent';
 import AddPhysicsClothEvent from './menu/physics/AddPhysicsClothEvent';
 
-import TransformControlsEvent from './viewport/TransformControlsEvent';
-import ObjectEvent from './viewport/ObjectEvent';
+import TransformControlsEvent from './TransformControlsEvent';
+import ObjectEvent from './ObjectEvent';
 import PickEvent from './PickEvent';
-import EditorControlsEvent from './viewport/EditorControlsEvent';
+import EditorControlsEvent from './EditorControlsEvent';
 
 /**
  * 事件执行器
