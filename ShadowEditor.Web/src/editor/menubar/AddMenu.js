@@ -3,6 +3,7 @@ import AddObjectCommand from '../../command/AddObjectCommand';
 import StringUtils from '../../utils/StringUtils';
 
 import Plane from '../../object/geometry/Plane';
+import Box from '../../object/geometry/Box';
 
 import PointLight from '../../object/light/PointLight';
 import HemisphereLight from '../../object/light/HemisphereLight';
@@ -160,15 +161,7 @@ AddMenu.prototype.addPlane = function () {
 // ------------------------ 正方体 -----------------------------
 
 AddMenu.prototype.addBox = function () {
-    var editor = this.app.editor;
-
-    var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
-    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
-    mesh.name = '正方体';
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-
-    editor.execute(new AddObjectCommand(mesh));
+    this.app.editor.execute(new AddObjectCommand(new Box()));
 };
 
 // ------------------------ 圆 ----------------------------------
