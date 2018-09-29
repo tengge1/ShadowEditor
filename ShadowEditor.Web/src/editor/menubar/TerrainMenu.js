@@ -171,9 +171,11 @@ TerrainMenu.prototype.createShaderTerrain = function () {
 
     this.app.editor.execute(new AddObjectCommand(terrain));
 
-    this.app.on(`animate.Terrain2`, (clock, deltaTime) => {
-        terrain.update(deltaTime);
-    });
+    terrain.update(0);
+
+    // this.app.on(`animate.Terrain2`, (clock, deltaTime) => {
+    //     terrain.update(deltaTime);
+    // });
 };
 
 // ---------------------------- 升高地形 -----------------------------------
