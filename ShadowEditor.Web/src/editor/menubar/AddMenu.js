@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import StringUtils from '../../utils/StringUtils';
 
+import Group from '../../object/geometry/Group';
 import Plane from '../../object/geometry/Plane';
 import Box from '../../object/geometry/Box';
 import Circle from '../../object/geometry/Circle';
@@ -145,12 +146,7 @@ AddMenu.prototype.render = function () {
 // ------------------------- 组 ---------------------------------
 
 AddMenu.prototype.addGroup = function () {
-    var editor = this.app.editor;
-
-    var mesh = new THREE.Group();
-    mesh.name = '组';
-
-    editor.execute(new AddObjectCommand(mesh));
+    this.app.editor.execute(new AddObjectCommand(new Group()));
 };
 
 // ------------------------- 平板 -------------------------------
