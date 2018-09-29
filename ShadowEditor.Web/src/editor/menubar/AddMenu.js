@@ -6,6 +6,9 @@ import Group from '../../object/geometry/Group';
 import Plane from '../../object/geometry/Plane';
 import Box from '../../object/geometry/Box';
 import Circle from '../../object/geometry/Circle';
+import Cylinder from '../../object/geometry/Cylinder';
+import Sphere from '../../object/geometry/Sphere';
+import Icosahedron from '../../object/geometry/Icosahedron';
 
 import PointLight from '../../object/light/PointLight';
 import HemisphereLight from '../../object/light/HemisphereLight';
@@ -170,61 +173,19 @@ AddMenu.prototype.addCircle = function () {
 // ------------------------圆柱体 -------------------------------
 
 AddMenu.prototype.addCylinder = function () {
-    var editor = this.app.editor;
-
-    var radiusTop = 1;
-    var radiusBottom = 1;
-    var height = 2;
-    var radiusSegments = 32;
-    var heightSegments = 1;
-    var openEnded = false;
-
-    var geometry = new THREE.CylinderBufferGeometry(radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded);
-    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
-    mesh.name = '圆柱体';
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-
-    editor.execute(new AddObjectCommand(mesh));
+    this.app.editor.execute(new AddObjectCommand(new Cylinder()));
 };
 
 // ------------------------ 球体 -------------------------------
 
 AddMenu.prototype.addSphere = function () {
-    var editor = this.app.editor;
-
-    var radius = 1;
-    var widthSegments = 32;
-    var heightSegments = 16;
-    var phiStart = 0;
-    var phiLength = Math.PI * 2;
-    var thetaStart = 0;
-    var thetaLength = Math.PI;
-
-    var geometry = new THREE.SphereBufferGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength);
-    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
-    mesh.name = '球体';
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-
-    editor.execute(new AddObjectCommand(mesh));
+    this.app.editor.execute(new AddObjectCommand(new Sphere()));
 };
 
 // ----------------------- 二十面体 -----------------------------
 
 AddMenu.prototype.addIcosahedron = function () {
-    var editor = this.app.editor;
-
-    var radius = 1;
-    var detail = 2;
-
-    var geometry = new THREE.IcosahedronBufferGeometry(radius, detail);
-    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
-    mesh.name = '二十面体';
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-
-    editor.execute(new AddObjectCommand(mesh));
+    this.app.editor.execute(new AddObjectCommand(new Icosahedron()));
 };
 
 // ----------------------- 轮胎 ---------------------------------
