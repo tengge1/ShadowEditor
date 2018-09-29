@@ -13,6 +13,7 @@ import Torus from '../../object/geometry/Torus';
 import TorusKnot from '../../object/geometry/TorusKnot';
 import Teapot from '../../object/geometry/Teapot';
 import Lathe from '../../object/geometry/Lathe';
+import Sprite from '../../object/geometry/Sprite';
 
 import PointLight from '../../object/light/PointLight';
 import HemisphereLight from '../../object/light/HemisphereLight';
@@ -219,12 +220,7 @@ AddMenu.prototype.addLathe = function () {
 // ---------------------- 精灵 -----------------------------------
 
 AddMenu.prototype.addSprite = function () {
-    var editor = this.app.editor;
-
-    var sprite = new THREE.Sprite(new THREE.SpriteMaterial());
-    sprite.name = '精灵';
-
-    editor.execute(new AddObjectCommand(sprite));
+    this.app.editor.execute(new AddObjectCommand(new Sprite()));
 };
 
 // ---------------------- 文本 ----------------------------------
