@@ -9,6 +9,7 @@ import Circle from '../../object/geometry/Circle';
 import Cylinder from '../../object/geometry/Cylinder';
 import Sphere from '../../object/geometry/Sphere';
 import Icosahedron from '../../object/geometry/Icosahedron';
+import Torus from '../../object/geometry/Torus';
 
 import PointLight from '../../object/light/PointLight';
 import HemisphereLight from '../../object/light/HemisphereLight';
@@ -191,21 +192,7 @@ AddMenu.prototype.addIcosahedron = function () {
 // ----------------------- 轮胎 ---------------------------------
 
 AddMenu.prototype.addTorus = function () {
-    var editor = this.app.editor;
-
-    var radius = 2;
-    var tube = 1;
-    var radialSegments = 32;
-    var tubularSegments = 12;
-    var arc = Math.PI * 2;
-
-    var geometry = new THREE.TorusBufferGeometry(radius, tube, radialSegments, tubularSegments, arc);
-    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
-    mesh.name = '轮胎';
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-
-    editor.execute(new AddObjectCommand(mesh));
+    this.app.editor.execute(new AddObjectCommand(new Torus()));
 };
 
 // ----------------------- 纽结 ---------------------------------
