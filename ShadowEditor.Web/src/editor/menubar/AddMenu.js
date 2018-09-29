@@ -10,6 +10,9 @@ import Cylinder from '../../object/geometry/Cylinder';
 import Sphere from '../../object/geometry/Sphere';
 import Icosahedron from '../../object/geometry/Icosahedron';
 import Torus from '../../object/geometry/Torus';
+import TorusKnot from '../../object/geometry/TorusKnot';
+import Teapot from '../../object/geometry/Teapot';
+import Lathe from '../../object/geometry/Lathe';
 
 import PointLight from '../../object/light/PointLight';
 import HemisphereLight from '../../object/light/HemisphereLight';
@@ -198,90 +201,19 @@ AddMenu.prototype.addTorus = function () {
 // ----------------------- 纽结 ---------------------------------
 
 AddMenu.prototype.addTorusKnot = function () {
-    var editor = this.app.editor;
-
-    var radius = 2;
-    var tube = 0.8;
-    var tubularSegments = 64;
-    var radialSegments = 12;
-    var p = 2;
-    var q = 3;
-
-    var geometry = new THREE.TorusKnotBufferGeometry(radius, tube, tubularSegments, radialSegments, p, q);
-    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
-    mesh.name = '纽结';
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-
-    editor.execute(new AddObjectCommand(mesh));
+    this.app.editor.execute(new AddObjectCommand(new TorusKnot()));
 };
 
 // ---------------------- 茶壶 ----------------------------------
 
 AddMenu.prototype.addTeaport = function () {
-    var editor = this.app.editor;
-
-    var size = 3;
-    var segments = 10;
-    var bottom = true;
-    var lid = true;
-    var body = true;
-    var fitLid = true;
-    var blinn = true;
-
-    var geometry = new THREE.TeapotBufferGeometry(size, segments, bottom, lid, body, fitLid, blinn);
-
-    // 修改TeapotBufferGeometry类型错误问题，原来是BufferGeometry
-    geometry.type = 'TeapotBufferGeometry';
-
-    // 修复TeapotBufferGeometry缺少parameters参数问题
-    geometry.parameters = {
-        size: 3,
-        segments: 10,
-        bottom: true,
-        lid: true,
-        body: true,
-        fitLid: true,
-        blinn: true
-    };
-
-    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
-    mesh.name = '茶壶';
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-
-    editor.execute(new AddObjectCommand(mesh));
+    this.app.editor.execute(new AddObjectCommand(new Teapot()));
 };
 
 // ---------------------- 酒杯 ----------------------------------
 
 AddMenu.prototype.addLathe = function () {
-    var editor = this.app.editor;
-
-    var points = [
-        new THREE.Vector2(0, 0),
-        new THREE.Vector2(4, 0),
-        new THREE.Vector2(3.5, 0.5),
-        new THREE.Vector2(1, 0.75),
-        new THREE.Vector2(0.8, 1),
-        new THREE.Vector2(0.8, 4),
-        new THREE.Vector2(1, 4.2),
-        new THREE.Vector2(1.4, 4.8),
-        new THREE.Vector2(2, 5),
-        new THREE.Vector2(2.5, 5.4),
-        new THREE.Vector2(3, 12)
-    ];
-    var segments = 20;
-    var phiStart = 0;
-    var phiLength = 2 * Math.PI;
-
-    var geometry = new THREE.LatheBufferGeometry(points, segments, phiStart, phiLength);
-    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ side: THREE.DoubleSide }));
-    mesh.name = '酒杯';
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-
-    editor.execute(new AddObjectCommand(mesh));
+    this.app.editor.execute(new AddObjectCommand(new Lathe()));
 };
 
 // ---------------------- 精灵 -----------------------------------
