@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import Terrain from '../../object/terrain/Terrain';
 import ShaderTerrain from '../../object/terrain/ShaderTerrain';
+import PhysicsTerrain from '../../object/terrain/PhysicsTerrain';
 
 /**
  * 地形菜单
@@ -38,6 +39,11 @@ TerrainMenu.prototype.render = function () {
                 cls: 'option',
                 html: '创建着色器地形',
                 onClick: this.createShaderTerrain.bind(this)
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: '创建物理地形',
+                onClick: this.createPhysicsTerrain.bind(this)
             }, {
                 xtype: 'div',
                 cls: 'option',
@@ -80,6 +86,12 @@ TerrainMenu.prototype.createShaderTerrain = function () {
     // this.app.on(`animate.Terrain2`, (clock, deltaTime) => {
     //     terrain.update(deltaTime);
     // });
+};
+
+// ----------------------------- 创建物理地形 ---------------------------------
+
+TerrainMenu.prototype.createPhysicsTerrain = function () {
+    this.app.editor.execute(new AddObjectCommand(new PhysicsTerrain()));
 };
 
 // ---------------------------- 升高地形 -----------------------------------
