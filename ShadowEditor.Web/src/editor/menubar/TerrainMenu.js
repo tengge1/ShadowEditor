@@ -91,7 +91,16 @@ TerrainMenu.prototype.createShaderTerrain = function () {
 // ----------------------------- 创建物理地形 ---------------------------------
 
 TerrainMenu.prototype.createPhysicsTerrain = function () {
-    this.app.editor.execute(new AddObjectCommand(new PhysicsTerrain()));
+    var terrain = new PhysicsTerrain();
+
+    this.app.editor.execute(new AddObjectCommand(terrain));
+
+    this.app.physics.world.addRigidBody(terrain.userData.physicsBody);
+    this.app.physics.rigidBodies.push(terrain);
+
+    //     this.app.on(`animate.${this.id}`, (clock, deltaTime) => {
+    //         terrain.update(deltaTime, this.app.physics.world);
+    //     });
 };
 
 // ---------------------------- 升高地形 -----------------------------------
