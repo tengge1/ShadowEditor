@@ -1,7 +1,7 @@
 # Shadow Editor
 
 * 名称：Shadow Editor
-* 版本：v0.0.6(开发中)
+* 版本：v0.0.6
 * 说明：基于`three.js`的场景编辑器。
 * 源码：https://github.com/tengge1/ShadowEditor
 * 示例：https://github.com/tengge1/ShadowEditor-examples
@@ -16,6 +16,7 @@
 5. 可视化修改场景、相机、几何体、材质、音频播放器、粒子发射器等属性。
 6. js脚本、着色器脚本在线编辑，带智能提示。
 7. 自带播放器，实时演示场景动态效果。
+8. 支持补间动画、骨骼动画、粒子动画，支持mmd动画，支持lmesh动画。
 
 ## 使用方法
 
@@ -54,6 +55,16 @@ net start MongoDB
 更多截图请参见示例：https://github.com/tengge1/ShadowEditor-examples
 
 ## 开发日志
+
+**v0.0.6**
+
+* 发布日期：2018年9月30日
+* 更新日志：
+
+1. 提供补间动画支持。可以在时间轴上可视化修改补间动画，并在播放器中播放。
+2. 新增上传mmd模型（pmd和pmx格式）和mmd动画，可以在播放器中播放。
+3. 新增上传lmesh模型，可在播放器中播放。
+4. 基本几何体、光源、地形封装，便于进一步开发。
 
 **v0.0.5**
 
