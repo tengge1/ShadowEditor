@@ -49,20 +49,24 @@ function PhysicsTerrain() {
         material.needsUpdate = true;
     });
 
-    // 创建地形刚体
-    var groundShape = this.createTerrainShape(terrainWidth, terrainDepth, terrainWidthExtents, terrainDepthExtents, heightData, terrainMinHeight, terrainMaxHeight);
-    var groundTransform = new Ammo.btTransform();
-    groundTransform.setIdentity();
-    // 由于子弹将其重新定位在其边界框上，因此会改变地形。
-    groundTransform.setOrigin(new Ammo.btVector3(0, (terrainMinHeight + terrainMaxHeight) / 2, 0));
+    // 物理
+    var mass = 0;
+    var position = this.position;
+    var quaternion = this.quaternion;
 
-    // 初始化刚体参数
-    var groundMass = 0;
-    var groundLocalInertia = new Ammo.btVector3(0, 0, 0); // 惯性
-    var groundMotionState = new Ammo.btDefaultMotionState(groundTransform);
-    var groundBody = new Ammo.btRigidBody(new Ammo.btRigidBodyConstructionInfo(groundMass, groundMotionState, groundShape, groundLocalInertia));
+    var transform = new Ammo.btTransform();
+    transform.setIdentity();
+    transform.setOrigin(new Ammo.btVector3(position.x, position.y, position.z));
+    transform.setRotation(new Ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
+    var state = new Ammo.btDefaultMotionState(transform);
 
-    this.userData.physicsBody = groundBody;
+    var shape = this.createTerrainShape(terrainWidth, terrainDepth, terrainWidthExtents, terrainDepthExtents, heightData, terrainMinHeight, terrainMaxHeight);
+
+    var localInertia = new Ammo.btVector3(0, 0, 0);
+
+    var body = new Ammo.btRigidBody(new Ammo.btRigidBodyConstructionInfo(mass, state, shape, localInertia));
+
+    this.userData.physicsBody = body;
 }
 
 PhysicsTerrain.prototype = Object.create(THREE.Mesh.prototype);
@@ -118,10 +122,11 @@ PhysicsTerrain.prototype.createTerrainShape = function (terrainWidth, terrainDep
     // 将javascript高度数据数组复制到Ammo。
     var p = 0;
     var p2 = 0;
+    var dh = (terrainMinHeight + terrainMaxHeight) / 2;
     for (var j = 0; j < terrainDepth; j++) {
         for (var i = 0; i < terrainWidth; i++) {
             // 将32位浮点数写入内存。
-            Ammo.HEAPF32[ammoHeightData + p2 >> 2] = heightData[p];
+            Ammo.HEAPF32[ammoHeightData + p2 >> 2] = heightData[p] + dh;
             p++;
             // 4个字节/浮点数
             p2 += 4;
