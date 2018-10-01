@@ -1,5 +1,6 @@
 import UI from '../ui/UI';
 import Converter from '../serialization/Converter';
+import PlayerEvent from './PlayerEvent';
 import Ease from '../animation/Ease';
 
 /**
@@ -25,7 +26,7 @@ function Player(options) {
 
     this.assets = {};
 
-    this.events = null;
+    this.event = null;
 
     this.isPlaying = false;
     this.clock = null;
@@ -81,21 +82,13 @@ Player.prototype.start = function () {
 
     promise.then(obj => {
         this.initPlayer(obj);
-        this.initScript();
+        this.event = new PlayerEvent(this.scripts, this.scene, this.camera, this.renderer);
         this.loadAssets().then(() => {
             this.clock = new THREE.Clock();
-            this.events.forEach(n => {
-                if (typeof (n.init) === 'function') {
-                    n.init();
-                }
-            });
+            this.event.init();
             this.renderScene();
             this.initScene();
-            this.events.forEach(n => {
-                if (typeof (n.start) === 'function') {
-                    n.start();
-                }
-            });
+            this.event.start();
             requestAnimationFrame(this.animate.bind(this));
         });
     });
@@ -105,17 +98,14 @@ Player.prototype.start = function () {
  * 停止播放器
  */
 Player.prototype.stop = function () {
-    this.events.forEach(n => {
-        if (typeof (n.stop) === 'function') {
-            n.stop();
-        }
-    });
+    this.event.stop();
 
     if (!this.isPlaying) {
         return;
     }
     this.isPlaying = false;
 
+    this.event.dispose(this.renderer);
     this.destroyScene();
 
     var container = UI.get('player');
@@ -190,68 +180,6 @@ Player.prototype.initPlayer = function (obj) {
             this.mmdHelper.setAnimation(n);
             this.mmdHelper.setPhysics(n);
             this.mmdHelper.unifyAnimationDuration();
-        }
-    });
-};
-
-/**
- * 初始化脚本
- */
-Player.prototype.initScript = function () {
-    var dom = this.renderer.domElement;
-
-    this.events = Object.keys(this.scripts).map(uuid => {
-        var script = this.scripts[uuid];
-        return (new Function(
-            'scene',
-            'camera',
-            'renderer',
-            script.source + `
-            var init = init || null;
-            var start = start || null;
-            var update = update || null;
-            var stop = stop || null;
-            var onClick = onClick || null;
-            var onDblClick = onDblClick || null;
-            var onKeyDown = onKeyDown || null;
-            var onKeyUp = onKeyUp || null;
-            var onMouseDown = onMouseDown || null;
-            var onMouseMove = onMouseMove || null;
-            var onMouseUp = onMouseUp || null;
-            var onMouseWheel = onMouseWheel || null;
-            var onResize = onResize || null;
-            return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onResize };
-            `
-        )).call(this.scene, this.scene, this.camera, this.renderer);
-    });
-
-    this.events.forEach(n => {
-        if (typeof (n.onClick) === 'function') {
-            dom.addEventListener('click', n.onClick.bind(this.scene));
-        }
-        if (typeof (n.onDblClick) === 'function') {
-            dom.addEventListener('dblclick', n.onDblClick.bind(this.scene));
-        }
-        if (typeof (n.onKeyDown) === 'function') {
-            dom.addEventListener('keydown', n.onKeyDown.bind(this.scene));
-        }
-        if (typeof (n.onKeyUp) === 'function') {
-            dom.addEventListener('keyup', n.onKeyUp.bind(this.scene));
-        }
-        if (typeof (n.onMouseDown) === 'function') {
-            dom.addEventListener('mousedown', n.onMouseDown.bind(this.scene));
-        }
-        if (typeof (n.onMouseMove) === 'function') {
-            dom.addEventListener('mousemove', n.onMouseMove.bind(this.scene));
-        }
-        if (typeof (n.onMouseUp) === 'function') {
-            dom.addEventListener('mouseup', n.onMouseUp.bind(this.scene));
-        }
-        if (typeof (n.onMouseWheel) === 'function') {
-            dom.addEventListener('mousewheel', n.onMouseWheel.bind(this.scene));
-        }
-        if (typeof (n.onResize) === 'function') {
-            window.addEventListener('resize', n.onResize.bind(this.scene));
         }
     });
 };
@@ -350,11 +278,7 @@ Player.prototype.animate = function () {
     // 脚本事件
     var deltaTime = this.clock.getDelta();
 
-    this.events.forEach(n => {
-        if (typeof (n.update) === 'function') {
-            n.update(this.clock, deltaTime);
-        }
-    });
+    this.event.update(this.clock, deltaTime);
 
     // 动画
     this.animation.forEach(n => {

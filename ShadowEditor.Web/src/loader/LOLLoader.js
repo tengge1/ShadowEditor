@@ -72,7 +72,7 @@ LOLLoader.prototype.load = function (url, options) {
                 id: null,
                 name: `${options.Name}动画`,
                 type: 'javascript',
-                source: this.createScripts(options.name, model),
+                source: this.createScripts(options.Name, model),
                 uuid: THREE.Math.generateUUID()
             }];
 
