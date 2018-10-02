@@ -1,7 +1,7 @@
 import UI from '../ui/UI';
 import Converter from '../serialization/Converter';
 import PlayerEvent from './PlayerEvent';
-import PlayerAnimation from './PlayerAnimation';
+import PlayerAnimation from './component/PlayerAnimation';
 
 /**
  * 播放器

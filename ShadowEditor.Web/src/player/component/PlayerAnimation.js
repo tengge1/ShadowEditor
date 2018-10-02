@@ -1,5 +1,5 @@
 import PlayerComponent from './PlayerComponent';
-import Ease from '../animation/Ease';
+import Ease from '../../animation/Ease';
 
 /**
  * 播放器动画
