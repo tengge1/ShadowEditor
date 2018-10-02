@@ -30,7 +30,7 @@ PlayerComponent.prototype.update = function (clock, deltaTime) {
 };
 
 /**
- * 析构函数
+ * 析构
  * @param {*} scene 
  * @param {*} camera 
  * @param {*} renderer 

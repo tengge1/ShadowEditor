@@ -16,7 +16,6 @@ function Player(options) {
     this.scene = null;
     this.camera = null;
     this.renderer = null;
-    this.scripts = null;
 
     this.event = new PlayerEvent(this.app);
     this.animation = new PlayerAnimation(this.app);
@@ -136,13 +135,6 @@ Player.prototype.initPlayer = function (obj) {
     }
     this.renderer.setSize(container.dom.clientWidth, container.dom.clientHeight);
     container.dom.appendChild(this.renderer.domElement);
-
-    // 脚本
-    if (obj.scripts) {
-        this.scripts = obj.scripts;
-    } else {
-        this.scripts = {};
-    }
 
     // 音频监听器
     if (obj.audioListener) {
