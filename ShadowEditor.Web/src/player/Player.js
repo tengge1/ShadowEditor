@@ -1,7 +1,7 @@
 import UI from '../ui/UI';
 import Converter from '../serialization/Converter';
 import PlayerEvent from './PlayerEvent';
-import Ease from '../animation/Ease';
+import PlayerAnimation from './PlayerAnimation';
 
 /**
  * 播放器
@@ -16,13 +16,10 @@ function Player(options) {
     this.camera = null;
     this.renderer = null;
     this.scripts = null;
-    this.animation = null;
-    this.maxAnimationTime = 0;
-    this.currentAnimationTime = 0;
+
+    this.animation = new PlayerAnimation(this.app);
 
     this.audioListener = null;
-
-    this.mmdHelper = new THREE.MMDHelper();
 
     this.assets = {};
 
@@ -83,6 +80,7 @@ Player.prototype.start = function () {
     promise.then(obj => {
         this.initPlayer(obj);
         this.event = new PlayerEvent(this.scripts, this.scene, this.camera, this.renderer);
+        this.animation.init(this.scene, this.camera, this.renderer, obj.animation);
         this.loadAssets().then(() => {
             this.clock = new THREE.Clock();
             this.event.init();
@@ -106,6 +104,7 @@ Player.prototype.stop = function () {
     this.isPlaying = false;
 
     this.event.dispose(this.renderer);
+    this.animation.dispose();
     this.destroyScene();
 
     var container = UI.get('player');
@@ -161,27 +160,6 @@ Player.prototype.initPlayer = function (obj) {
     } else {
         this.scene = new THREE.Scene();
     }
-
-    // 补间动画
-    this.animation = obj.animation;
-    this.maxAnimationTime = 0;
-    this.animation.forEach(n => {
-        n.animations.forEach(m => {
-            if (m.endTime > this.maxAnimationTime) {
-                this.maxAnimationTime = m.endTime;
-            }
-        });
-    });
-
-    // mmd动画
-    this.scene.traverse(n => {
-        if (n instanceof THREE.SkinnedMesh && (n.userData.Type === 'pmd' || n.userData.Type === 'pmx')) {
-            this.mmdHelper.add(n);
-            this.mmdHelper.setAnimation(n);
-            this.mmdHelper.setPhysics(n);
-            this.mmdHelper.unifyAnimationDuration();
-        }
-    });
 };
 
 /**
@@ -217,13 +195,6 @@ Player.prototype.loadAssets = function () {
     });
 };
 
-/**
- * 渲染
- */
-Player.prototype.renderScene = function () {
-    this.renderer.render(this.scene, this.camera);
-};
-
 Player.prototype.initScene = function () {
     this.audios = [];
 
@@ -247,13 +218,10 @@ Player.prototype.initScene = function () {
             this.audios.push(n);
         }
     });
+};
 
-    // 动画
-    this.app.call(`resetAnimation`, this.id);
-    this.app.call(`startAnimation`, this.id);
-    this.app.on(`animationTime.${this.id}`, (time) => {
-        this.currentAnimationTime = time;
-    });
+Player.prototype.renderScene = function () {
+    this.renderer.render(this.scene, this.camera);
 };
 
 Player.prototype.destroyScene = function () {
@@ -262,96 +230,21 @@ Player.prototype.destroyScene = function () {
             n.stop();
         }
     });
-
-    this.app.on(`animationTime.${this.id}`, null);
-    this.app.call(`resetAnimation`, this.id);
-    this.currentAnimationTime = 0;
-    this.maxAnimationTime = 0;
 };
 
-/**
- * 动画
- */
 Player.prototype.animate = function () {
+    if (!this.isPlaying) {
+        return;
+    }
+
     this.renderScene();
 
-    // 脚本事件
     var deltaTime = this.clock.getDelta();
 
     this.event.update(this.clock, deltaTime);
+    this.animation.update(this.clock, deltaTime);
 
-    // 动画
-    this.animation.forEach(n => {
-        n.animations.forEach(m => {
-            this.tweenObject(m); // 补间动画
-        });
-    });
-
-    // 超过最大动画时间，重置动画
-    if (this.currentAnimationTime > this.maxAnimationTime) {
-        this.app.call(`resetAnimation`, this.id);
-        this.app.call(`startAnimation`, this.id);
-    }
-
-    // mmd动画
-    this.mmdHelper.animate(deltaTime);
-
-    if (this.isPlaying) {
-        requestAnimationFrame(this.animate.bind(this));
-    }
-};
-
-/**
- * 补间动画处理
- * @param {*} animation 
- */
-Player.prototype.tweenObject = function (animation) {
-    var time = this.currentAnimationTime;
-
-    // 条件判断
-    if (animation.type !== 'Tween' || time < animation.beginTime || time > animation.endTime || animation.target == null) {
-        return;
-    }
-
-    // 获取对象
-    var target = this.scene.getObjectByProperty('uuid', animation.target);
-    if (target == null) {
-        console.warn(`Player: 场景中不存在uuid为${animation.target}的物体。`);
-        return;
-    }
-
-    // 获取插值函数
-    var ease = Ease[animation.ease];
-    if (ease == null) {
-        console.warn(`Player: 不存在名称为${animation.ease}的插值函数。`);
-        return;
-    }
-
-    var result = ease((time - animation.beginTime) / (animation.endTime - animation.beginTime));
-
-    var positionX = animation.beginPositionX + (animation.endPositionX - animation.beginPositionX) * result;
-    var positionY = animation.beginPositionY + (animation.endPositionY - animation.beginPositionY) * result;
-    var positionZ = animation.beginPositionZ + (animation.endPositionZ - animation.beginPositionZ) * result;
-
-    var rotationX = animation.beginRotationX + (animation.endRotationX - animation.beginRotationX) * result;
-    var rotationY = animation.beginRotationY + (animation.endRotationY - animation.beginRotationY) * result;
-    var rotationZ = animation.beginRotationZ + (animation.endRotationZ - animation.beginRotationZ) * result;
-
-    var scaleX = animation.beginScaleX + (animation.endScaleX - animation.beginScaleX) * result;
-    var scaleY = animation.beginScaleY + (animation.endScaleY - animation.beginScaleY) * result;
-    var scaleZ = animation.beginScaleZ + (animation.endScaleZ - animation.beginScaleZ) * result;
-
-    target.position.x = positionX;
-    target.position.y = positionY;
-    target.position.z = positionZ;
-
-    target.rotation.x = rotationX;
-    target.rotation.y = rotationY;
-    target.rotation.z = rotationZ;
-
-    target.scale.x = scaleX;
-    target.scale.y = scaleY;
-    target.scale.z = scaleZ;
+    requestAnimationFrame(this.animate.bind(this));
 };
 
 export default Player;
