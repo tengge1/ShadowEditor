@@ -10,13 +10,13 @@ function PlayerComponent(app) {
 }
 
 /**
- * 初始化
+ * 创建
  * @param {*} scene 
  * @param {*} camera 
  * @param {*} renderer 
  * @param {*} others 
  */
-PlayerComponent.prototype.init = function (scene, camera, renderer, others) {
+PlayerComponent.prototype.create = function (scene, camera, renderer, others) {
 
 };
 

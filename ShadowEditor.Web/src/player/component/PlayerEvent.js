@@ -1,12 +1,22 @@
+import PlayerComponent from './PlayerComponent';
+
 /**
  * 播放器事件
- * @author tengge / https://github.com/tengge1
- * @param {*} scripts 脚本列表
- * @param {*} scene 场景
- * @param {*} camera 相机
- * @param {*} renderer 渲染器
+ * @param {*} app 应用
  */
-function PlayerEvent(scripts, scene, camera, renderer) {
+function PlayerEvent(app) {
+    PlayerComponent.call(this, app);
+}
+
+PlayerEvent.prototype = Object.create(PlayerComponent.prototype);
+PlayerEvent.prototype.constructor = PlayerEvent;
+
+PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
+    this.scene = scene;
+    this.camera = camera;
+    this.renderer = renderer;
+    this.scripts = scripts;
+
     var dom = renderer.domElement;
 
     this.events = Object.keys(scripts).map(uuid => {
@@ -63,7 +73,7 @@ function PlayerEvent(scripts, scene, camera, renderer) {
             window.addEventListener('resize', n.onResize.bind(this.scene));
         }
     });
-}
+};
 
 /**
  * 场景载入前执行一次
@@ -113,10 +123,9 @@ PlayerEvent.prototype.stop = function () {
 
 /**
  * 析构PlayerEvent
- * @param {*} renderer 渲染器
  */
-PlayerEvent.prototype.dispose = function (renderer) {
-    var dom = renderer.domElement;
+PlayerEvent.prototype.dispose = function () {
+    var dom = this.renderer.domElement;
 
     this.events.forEach(n => {
         if (typeof (n.onClick) === 'function') {
@@ -147,6 +156,11 @@ PlayerEvent.prototype.dispose = function (renderer) {
             window.removeEventListener('resize', n.onResize.bind(this.scene));
         }
     });
+
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+    this.scripts = null;
     this.events.length = 0;
 };
 

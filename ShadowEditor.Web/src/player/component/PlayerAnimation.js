@@ -18,7 +18,7 @@ function PlayerAnimation(app) {
 PlayerAnimation.prototype = Object.create(PlayerComponent.prototype);
 PlayerAnimation.prototype.constructor = PlayerAnimation;
 
-PlayerAnimation.prototype.init = function (scene, camera, renderer, animations) {
+PlayerAnimation.prototype.create = function (scene, camera, renderer, animations) {
     this.maxTime = 0;
     this.currentTime = 0;
     this.scene = scene;

@@ -1,6 +1,7 @@
 import UI from '../ui/UI';
 import Converter from '../serialization/Converter';
-import PlayerEvent from './PlayerEvent';
+
+import PlayerEvent from './component/PlayerEvent';
 import PlayerAnimation from './component/PlayerAnimation';
 
 /**
@@ -17,13 +18,12 @@ function Player(options) {
     this.renderer = null;
     this.scripts = null;
 
+    this.event = new PlayerEvent(this.app);
     this.animation = new PlayerAnimation(this.app);
 
     this.audioListener = null;
 
     this.assets = {};
-
-    this.event = null;
 
     this.isPlaying = false;
     this.clock = null;
@@ -79,8 +79,8 @@ Player.prototype.start = function () {
 
     promise.then(obj => {
         this.initPlayer(obj);
-        this.event = new PlayerEvent(this.scripts, this.scene, this.camera, this.renderer);
-        this.animation.init(this.scene, this.camera, this.renderer, obj.animation);
+        this.event.create(this.scene, this.camera, this.renderer, obj.scripts);
+        this.animation.create(this.scene, this.camera, this.renderer, obj.animation);
         this.loadAssets().then(() => {
             this.clock = new THREE.Clock();
             this.event.init();
@@ -96,14 +96,13 @@ Player.prototype.start = function () {
  * 停止播放器
  */
 Player.prototype.stop = function () {
-    this.event.stop();
-
     if (!this.isPlaying) {
         return;
     }
     this.isPlaying = false;
 
-    this.event.dispose(this.renderer);
+    this.event.stop();
+    this.event.dispose();
     this.animation.dispose();
     this.destroyScene();
 
