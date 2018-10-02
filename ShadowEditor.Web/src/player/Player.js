@@ -1,6 +1,7 @@
 import UI from '../ui/UI';
 import Converter from '../serialization/Converter';
 
+import PlayerLoader from './component/PlayerLoader';
 import PlayerEvent from './component/PlayerEvent';
 import PlayerAnimation from './component/PlayerAnimation';
 
@@ -17,6 +18,7 @@ function Player(options) {
     this.camera = null;
     this.renderer = null;
 
+    this.loader = new PlayerLoader(this.app);
     this.event = new PlayerEvent(this.app);
     this.animation = new PlayerAnimation(this.app);
 
