@@ -3,6 +3,7 @@ import Converter from '../serialization/Converter';
 
 import PlayerLoader from './component/PlayerLoader';
 import PlayerEvent from './component/PlayerEvent';
+import PlayerAudio from './component/PlayerAudio';
 import PlayerAnimation from './component/PlayerAnimation';
 
 /**
@@ -20,6 +21,7 @@ function Player(options) {
 
     this.loader = new PlayerLoader(this.app);
     this.event = new PlayerEvent(this.app);
+    this.audio = new PlayerAudio(this.app);
     this.animation = new PlayerAnimation(this.app);
 
     this.isPlaying = false;
@@ -67,12 +69,12 @@ Player.prototype.start = function () {
         this.initPlayer(obj);
 
         this.event.create(this.scene, this.camera, this.renderer, obj.scripts);
+        this.audio.create(this.scene, this.camera, this.renderer, this.loader);
         this.animation.create(this.scene, this.camera, this.renderer, obj.animation);
 
         this.clock.start();
         this.event.init();
         this.renderScene();
-        this.initScene();
         this.event.start();
 
         requestAnimationFrame(this.animate.bind(this));
@@ -92,9 +94,8 @@ Player.prototype.stop = function () {
 
     this.loader.dispose();
     this.event.dispose();
+    this.audio.dispose();
     this.animation.dispose();
-
-    this.dispose();
 
     var container = UI.get('player', this.id);
     container.dom.removeChild(this.renderer.domElement);
@@ -135,40 +136,8 @@ Player.prototype.initPlayer = function (obj) {
     this.scene = obj.scene || new THREE.Scene();
 };
 
-Player.prototype.initScene = function () {
-    this.audios = [];
-
-    this.scene.traverse(n => {
-        if (n instanceof THREE.Audio) {
-            var buffer = this.loader.getAsset(n.userData.Url);
-
-            if (buffer === undefined) {
-                this.app.error(`Player: 加载背景音乐失败。`);
-                return;
-            }
-
-            n.setBuffer(buffer);
-
-            if (n.userData.autoplay) {
-                n.autoplay = n.userData.autoplay;
-                n.play();
-            }
-
-            this.audios.push(n);
-        }
-    });
-};
-
 Player.prototype.renderScene = function () {
     this.renderer.render(this.scene, this.camera);
-};
-
-Player.prototype.dispose = function () {
-    this.audios.forEach(n => {
-        if (n.isPlaying) {
-            n.stop();
-        }
-    });
 };
 
 Player.prototype.animate = function () {
