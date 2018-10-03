@@ -54,11 +54,6 @@ Player.prototype.start = function () {
     var container = UI.get('player', this.id);
     container.dom.style.display = '';
 
-    if (this.renderer !== null) {
-        container.dom.removeChild(this.renderer.domElement);
-        this.renderer = null;
-    }
-
     var jsons = (new Converter()).toJSON({
         options: this.app.options,
         scene: this.app.editor.scene,
@@ -99,12 +94,17 @@ Player.prototype.stop = function () {
     this.event.dispose();
     this.animation.dispose();
 
-    this.clock.stop();
-
     this.dispose();
 
     var container = UI.get('player', this.id);
+    container.dom.removeChild(this.renderer.domElement);
     container.dom.style.display = 'none';
+
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+
+    this.clock.stop();
 };
 
 /**
