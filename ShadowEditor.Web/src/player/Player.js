@@ -22,29 +22,24 @@ function Player(options) {
     this.event = new PlayerEvent(this.app);
     this.animation = new PlayerAnimation(this.app);
 
-    this.audioListener = null;
-
-    this.assets = {};
-
     this.isPlaying = false;
-    this.clock = null;
+    this.clock = new THREE.Clock(false);
 };
 
 Player.prototype = Object.create(UI.Control.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.render = function () {
-    this.container = UI.create({
+    (UI.create({
         xtype: 'div',
         parent: this.parent,
         id: 'player',
+        scope: this.id,
         cls: 'Panel player',
         style: {
             display: 'none'
         }
-    });
-
-    this.container.render();
+    })).render();
 };
 
 /**
@@ -56,40 +51,36 @@ Player.prototype.start = function () {
     }
     this.isPlaying = true;
 
-    var container = UI.get('player');
+    var container = UI.get('player', this.id);
     container.dom.style.display = '';
 
     if (this.renderer !== null) {
         container.dom.removeChild(this.renderer.domElement);
+        this.renderer = null;
     }
-
-    this.assets = {};
 
     var jsons = (new Converter()).toJSON({
         options: this.app.options,
+        scene: this.app.editor.scene,
         camera: this.app.editor.camera,
         renderer: this.app.editor.renderer,
         scripts: this.app.editor.scripts,
         animation: this.app.editor.animation,
-        scene: this.app.editor.scene
     });
 
-    var promise = (new Converter()).fromJson(jsons, {
-        server: this.app.options.server
-    });
-
-    promise.then(obj => {
+    this.loader.create(jsons).then(obj => {
         this.initPlayer(obj);
+
         this.event.create(this.scene, this.camera, this.renderer, obj.scripts);
         this.animation.create(this.scene, this.camera, this.renderer, obj.animation);
-        this.loadAssets().then(() => {
-            this.clock = new THREE.Clock();
-            this.event.init();
-            this.renderScene();
-            this.initScene();
-            this.event.start();
-            requestAnimationFrame(this.animate.bind(this));
-        });
+
+        this.clock.start();
+        this.event.init();
+        this.renderScene();
+        this.initScene();
+        this.event.start();
+
+        requestAnimationFrame(this.animate.bind(this));
     });
 };
 
@@ -103,11 +94,16 @@ Player.prototype.stop = function () {
     this.isPlaying = false;
 
     this.event.stop();
+
+    this.loader.dispose();
     this.event.dispose();
     this.animation.dispose();
-    this.destroyScene();
 
-    var container = UI.get('player');
+    this.clock.stop();
+
+    this.dispose();
+
+    var container = UI.get('player', this.id);
     container.dom.style.display = 'none';
 };
 
@@ -116,85 +112,35 @@ Player.prototype.stop = function () {
  * @param {*} obj 
  */
 Player.prototype.initPlayer = function (obj) {
-    var container = UI.get('player');
+    var container = UI.get('player', this.id);
     var editor = this.app.editor;
 
-    // 相机
-    if (obj.camera) {
-        this.camera = obj.camera;
-    } else {
-        this.camera = new THREE.PerspectiveCamera(editor.DEFAULT_CAMERA.fov, container.clientWidth / container.clientHeight, editor.DEFAULT_CAMERA.near, editor.DEFAULT_CAMERA.far);
-    }
+    this.camera = obj.camera || new THREE.PerspectiveCamera(
+        editor.DEFAULT_CAMERA.fov,
+        container.dom.clientWidth / container.dom.clientHeight,
+        editor.DEFAULT_CAMERA.near,
+        editor.DEFAULT_CAMERA.far
+    );
     this.camera.updateProjectionMatrix();
 
-    // 渲染器
-    if (obj.renderer) {
-        this.renderer = obj.renderer;
-    } else {
-        this.renderer = new THREE.WebGLRenderer({
-            antialias: true
-        });
-    }
+    this.renderer = obj.renderer || new THREE.WebGLRenderer({
+        antialias: true
+    });;
     this.renderer.setSize(container.dom.clientWidth, container.dom.clientHeight);
     container.dom.appendChild(this.renderer.domElement);
 
-    // 音频监听器
-    if (obj.audioListener) {
-        this.audioListener = obj.audioListener;
-    } else {
-        this.app.warn(`Player: 场景中不存在音频监听器信息。`);
-        this.audioListener = new THREE.AudioListener();
-    }
-    this.camera.add(this.audioListener);
+    var listener = obj.audioListener || new THREE.AudioListener();
+    this.camera.add(listener);
 
-    // 场景
-    if (obj.scene) {
-        this.scene = obj.scene;
-    } else {
-        this.scene = new THREE.Scene();
-    }
-};
-
-/**
- * 下载资源
- */
-Player.prototype.loadAssets = function () {
-    return new Promise(resolve => {
-        var promises = [];
-
-        this.scene.traverse(n => {
-            if (n instanceof THREE.Audio) {
-                promises.push(new Promise(resolve1 => {
-                    var loader = new THREE.AudioLoader();
-
-                    loader.load(this.app.options.server + n.userData.Url, buffer => {
-                        this.assets[n.userData.Url] = buffer;
-                        resolve1();
-                    }, undefined, () => {
-                        this.app.error(`Player: ${n.userData.Url}下载失败。`);
-                        resolve1();
-                    });
-                }));
-            }
-        });
-
-        if (promises.length > 0) {
-            Promise.all(promises).then(() => {
-                resolve();
-            });
-        } else {
-            resolve();
-        }
-    });
+    this.scene = obj.scene || new THREE.Scene();
 };
 
 Player.prototype.initScene = function () {
     this.audios = [];
 
-    // 音乐
     this.scene.traverse(n => {
         if (n instanceof THREE.Audio) {
-            var buffer = this.assets[n.userData.Url];
+            var buffer = this.loader.getAsset(n.userData.Url);
 
             if (buffer === undefined) {
                 this.app.error(`Player: 加载背景音乐失败。`);
@@ -217,7 +163,7 @@ Player.prototype.renderScene = function () {
     this.renderer.render(this.scene, this.camera);
 };
 
-Player.prototype.destroyScene = function () {
+Player.prototype.dispose = function () {
     this.audios.forEach(n => {
         if (n.isPlaying) {
             n.stop();
