@@ -1,6 +1,8 @@
 import PlayerComponent from './PlayerComponent';
 import Ease from '../../animation/Ease';
 
+import MMDAnimator from '../animator/MMDAnimator';
+
 /**
  * 播放器动画
  * @param {*} app 应用
@@ -12,7 +14,9 @@ function PlayerAnimation(app) {
     this.currentTime = 0; // 当前动画时间（单位：秒）
     this.animations = null;
 
-    this.mmdHelper = new THREE.MMDHelper();
+    this.animators = [
+        new MMDAnimator(this.app)
+    ];
 }
 
 PlayerAnimation.prototype = Object.create(PlayerComponent.prototype);
@@ -34,13 +38,8 @@ PlayerAnimation.prototype.create = function (scene, camera, renderer, animations
         });
     });
 
-    scene.traverse(n => {
-        if (n instanceof THREE.SkinnedMesh && (n.userData.Type === 'pmd' || n.userData.Type === 'pmx')) {
-            this.mmdHelper.add(n);
-            this.mmdHelper.setAnimation(n);
-            this.mmdHelper.setPhysics(n);
-            this.mmdHelper.unifyAnimationDuration();
-        }
+    this.animators.forEach(n => {
+        n.create(scene, camera, renderer, animations);
     });
 
     this.app.call(`resetAnimation`, this);
@@ -65,7 +64,9 @@ PlayerAnimation.prototype.update = function (clock, deltaTime) {
         this.app.call(`startAnimation`, this.id);
     }
 
-    this.mmdHelper.animate(deltaTime);
+    this.animators.forEach(n => {
+        n.update(clock, deltaTime);
+    });
 };
 
 /**
@@ -128,6 +129,10 @@ PlayerAnimation.prototype.dispose = function () {
     this.camera = null;
     this.renderer = null;
     this.animations = null;
+
+    this.animators.forEach(n => {
+        n.dispose();
+    });
 
     this.app.on(`animationTime.${this.id}`, null);
     this.app.call(`resetAnimation`, this);
