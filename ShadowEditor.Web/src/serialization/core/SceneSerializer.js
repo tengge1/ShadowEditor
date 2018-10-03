@@ -43,9 +43,9 @@ SceneSerializer.prototype.fromJSON = function (json, parent) {
         obj.background = new THREE.Color(json.background);
     }
 
-    if (json.fog && json.fog.type === 'Fog') {
+    if (json.fog && (json.fog.type === 'Fog' || json.fog instanceof THREE.Fog)) {
         obj.fog = new THREE.Fog(json.fog.color, json.fog.near, json.fog.far);
-    } else if (json.fog && json.fog.type === 'FogExp2') {
+    } else if (json.fog && (json.fog.type === 'FogExp2' || json.fog instanceof THREE.FogExp2)) {
         obj.fog = new THREE.FogExp2(json.fog.color, json.fog.density);
     } else if (json.fog) {
         console.warn(`SceneSerializer: unknown fog type ${json.fog.type}.`);
