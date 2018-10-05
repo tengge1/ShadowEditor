@@ -73,7 +73,7 @@ Player.prototype.start = function () {
         this.event.create(this.scene, this.camera, this.renderer, obj.scripts);
         this.audio.create(this.scene, this.camera, this.renderer, this.loader);
         this.animation.create(this.scene, this.camera, this.renderer, obj.animation);
-        this.physics.create(this.scene, this, camera, this.renderer);
+        this.physics.create(this.scene, this.camera, this.renderer);
 
         this.clock.start();
         this.event.init();

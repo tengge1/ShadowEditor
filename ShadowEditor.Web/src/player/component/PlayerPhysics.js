@@ -1,4 +1,5 @@
 import PlayerComponent from './PlayerComponent';
+import PlysicsUtils from '../../physics/PlysicsUtils';
 
 /**
  * 播放器物理
@@ -41,7 +42,7 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
 
     this.scene.traverse(n => {
         if (n.userData && n.userData.physics) {
-
+            n.userData.physics.body = PlysicsUtils.createRigidBody(n);
         }
     });
 };
@@ -49,11 +50,14 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
 PlayerPhysics.prototype.update = function (clock, deltaTime) {
     this.world.stepSimulation(deltaTime, 10);
 
-    var rigidBodies = this.scene.children.filter(n => n.userData && n.userData.rigidBody !== undefined);
+    var rigidBodies = this.scene.children.filter(n => n.userData && n.userData.physics !== undefined);
 
     for (var i = 0, l = rigidBodies.length; i < l; i++) {
         var objThree = rigidBodies[i];
-        var objPhys = objThree.userData.physicsBody;
+        var objPhys = objThree.userData.physics.body;
+        if (!objPhys) {
+            continue;
+        }
         var ms = objPhys.getMotionState();
         if (ms) {
             ms.getWorldTransform(this.transformAux1);
@@ -66,6 +70,12 @@ PlayerPhysics.prototype.update = function (clock, deltaTime) {
 };
 
 PlayerPhysics.prototype.dispose = function () {
+    this.scene.traverse(n => {
+        if (n.userData && n.userData.physics && n.userData.physics) {
+            n.userData.physicsBody = PlysicsUtils.createRigidBody(n);
+        }
+    });
+
     this.scene = null;
 };
 

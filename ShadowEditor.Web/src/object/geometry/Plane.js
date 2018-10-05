@@ -15,7 +15,7 @@ function Plane(geometry = new THREE.PlaneBufferGeometry(50, 50), material = new 
 
     this.userData.physics = Object.assign({}, PhysicsData, {
         shape: 'btStaticPlaneShape',
-        mass: 1
+        mass: 0
     });
 }
 
