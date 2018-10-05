@@ -16,11 +16,11 @@ var PlysicsUtils = {
         if (obj.geometry instanceof THREE.PlaneBufferGeometry) {
             sx = obj.geometry.parameters.width;
             sy = obj.geometry.parameters.height;
-            sx = 1;
+            sz = 1;
         } else if (obj.geometry instanceof THREE.BoxBufferGeometry) {
             sx = obj.geometry.parameters.width;
             sy = obj.geometry.parameters.height;
-            sx = obj.geometry.parameters.depth;
+            sz = obj.geometry.parameters.depth;
         } else {
             console.warn(`PlysicsUtils: 无法为${obj.name}创建刚体组件。`);
             return null;

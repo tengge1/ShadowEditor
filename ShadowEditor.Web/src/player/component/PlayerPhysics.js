@@ -85,9 +85,11 @@ PlayerPhysics.prototype.dispose = function () {
         this.world.removeRigidBody(body);
     });
 
+    this.rigidBodies.length = 0;
+
     this.scene.traverse(n => {
         if (n.userData && n.userData.physics && n.userData.physics) {
-            n.userData.physicsBody = null;
+            n.userData.physics.body = null;
         }
     });
 
