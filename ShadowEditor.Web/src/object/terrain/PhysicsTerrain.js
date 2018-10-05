@@ -7,8 +7,6 @@ function PhysicsTerrain() {
     var terrainDepthExtents = 100; // 地形深度范围
     var terrainWidth = 128; // 地形宽度
     var terrainDepth = 128; // 地形深度
-    var terrainHalfWidth = terrainWidth / 2;
-    var terrainHalfDepth = terrainDepth / 2;
     var terrainMinHeight = -2;
     var terrainMaxHeight = 8;
 

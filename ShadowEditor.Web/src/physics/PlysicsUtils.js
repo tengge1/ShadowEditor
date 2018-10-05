@@ -7,26 +7,8 @@ var PlysicsUtils = {
         var quaternion = obj.quaternion;
         var scale = obj.scale;
 
-        var shape = obj.userData.physics.shape;
         var mass = obj.userData.physics.mass;
         var inertia = obj.userData.physics.inertia;
-
-        var sx = 0;
-        var sy = 0;
-        var sz = 0;
-
-        if (obj.geometry instanceof THREE.PlaneBufferGeometry) {
-            sx = obj.geometry.parameters.width * scale.x;
-            sy = obj.geometry.parameters.height * scale.y;
-            sz = 1 * scale.z;
-        } else if (obj.geometry instanceof THREE.BoxBufferGeometry) {
-            sx = obj.geometry.parameters.width * scale.x;
-            sy = obj.geometry.parameters.height * scale.y;
-            sz = obj.geometry.parameters.depth * scale.z;
-        } else {
-            console.warn(`PlysicsUtils: 无法为${obj.name}创建刚体组件。`);
-            return null;
-        }
 
         var transform = new Ammo.btTransform();
         transform.setIdentity();
@@ -34,7 +16,24 @@ var PlysicsUtils = {
         transform.setRotation(new Ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
         var motionState = new Ammo.btDefaultMotionState(transform);
 
-        var shape = new Ammo.btBoxShape(new Ammo.btVector3(sx * 0.5, sy * 0.5, sz * 0.5));
+        var shape = null;
+        if (obj.geometry instanceof THREE.PlaneBufferGeometry) {
+            var x = obj.geometry.parameters.width * scale.x;
+            var y = obj.geometry.parameters.height * scale.y;
+            shape = new Ammo.btBoxShape(new Ammo.btVector3(x * 0.5, y * 0.5, 0));
+        } else if (obj.geometry instanceof THREE.BoxBufferGeometry) {
+            var x = obj.geometry.parameters.width * scale.x;
+            var y = obj.geometry.parameters.height * scale.y;
+            var z = obj.geometry.parameters.depth * scale.z;
+            shape = new Ammo.btBoxShape(new Ammo.btVector3(x * 0.5, y * 0.5, z * 0.5));
+        } else if (obj.geometry instanceof THREE.SphereBufferGeometry) {
+            var radius = obj.geometry.parameters.radius;
+            shape = new Ammo.btSphereShape(radius);
+        } else {
+            console.warn(`PlysicsUtils: 无法为${obj.name}创建刚体组件。`);
+            return null;
+        }
+
         shape.setMargin(margin);
         var localInertia = new Ammo.btVector3(inertia.x, inertia.y, inertia.z);
         shape.calculateLocalInertia(mass, localInertia);
