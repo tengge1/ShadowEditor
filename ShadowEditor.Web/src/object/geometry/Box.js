@@ -1,3 +1,5 @@
+import PhysicsData from '../../physics/PhysicsData';
+
 /**
  * 正方体
  * @param {*} geometry 几何体
@@ -9,6 +11,10 @@ function Box(geometry = new THREE.BoxBufferGeometry(1, 1, 1), material = new THR
     this.name = '正方体';
     this.castShadow = true;
     this.receiveShadow = true;
+
+    this.userData.physics = Object.assign({}, PhysicsData, {
+        shape: 'btBoxShape',
+    });
 
     // 物理
     // var position = this.position;

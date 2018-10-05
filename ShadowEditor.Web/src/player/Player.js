@@ -5,6 +5,7 @@ import PlayerLoader from './component/PlayerLoader';
 import PlayerEvent from './component/PlayerEvent';
 import PlayerAudio from './component/PlayerAudio';
 import PlayerAnimation from './component/PlayerAnimation';
+import PlayerPhysics from './component/PlayerPhysics';
 
 /**
  * 播放器
@@ -23,6 +24,7 @@ function Player(options) {
     this.event = new PlayerEvent(this.app);
     this.audio = new PlayerAudio(this.app);
     this.animation = new PlayerAnimation(this.app);
+    this.physics = new PlayerPhysics(this.app);
 
     this.isPlaying = false;
     this.clock = new THREE.Clock(false);
@@ -71,6 +73,7 @@ Player.prototype.start = function () {
         this.event.create(this.scene, this.camera, this.renderer, obj.scripts);
         this.audio.create(this.scene, this.camera, this.renderer, this.loader);
         this.animation.create(this.scene, this.camera, this.renderer, obj.animation);
+        this.physics.create(this.scene, this, camera, this.renderer);
 
         this.clock.start();
         this.event.init();
@@ -96,6 +99,7 @@ Player.prototype.stop = function () {
     this.event.dispose();
     this.audio.dispose();
     this.animation.dispose();
+    this.physics.dispose();
 
     var container = UI.get('player', this.id);
     container.dom.removeChild(this.renderer.domElement);
@@ -151,6 +155,7 @@ Player.prototype.animate = function () {
 
     this.event.update(this.clock, deltaTime);
     this.animation.update(this.clock, deltaTime);
+    this.physics.update(this.clock, deltaTime);
 
     requestAnimationFrame(this.animate.bind(this));
 };
