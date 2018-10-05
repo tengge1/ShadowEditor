@@ -32,6 +32,7 @@ function PlayerPhysics(app) {
     this.world.getWorldInfo().set_m_gravity(gravity);
 
     this.transformAux1 = new Ammo.btTransform();
+    this.rigidBodies = [];
 }
 
 PlayerPhysics.prototype = Object.create(PlayerComponent.prototype);
@@ -42,15 +43,20 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
 
     this.scene.traverse(n => {
         if (n.userData && n.userData.physics) {
-            n.userData.physics.body = PlysicsUtils.createRigidBody(n);
+            var body = PlysicsUtils.createRigidBody(n);
+            if (body) {
+                n.userData.physics.body = body;
+                this.world.addRigidBody(body);
+                this.rigidBodies.push(n);
+            }
         }
     });
 };
 
 PlayerPhysics.prototype.update = function (clock, deltaTime) {
-    this.world.stepSimulation(deltaTime, 10);
+    var rigidBodies = this.rigidBodies;
 
-    var rigidBodies = this.scene.children.filter(n => n.userData && n.userData.physics !== undefined);
+    this.world.stepSimulation(deltaTime, 10);
 
     for (var i = 0, l = rigidBodies.length; i < l; i++) {
         var objThree = rigidBodies[i];
@@ -70,9 +76,14 @@ PlayerPhysics.prototype.update = function (clock, deltaTime) {
 };
 
 PlayerPhysics.prototype.dispose = function () {
+    this.rigidBodies.forEach(n => {
+        var body = n.userData.physics.body;
+        this.world.removeRigidBody(body);
+    });
+
     this.scene.traverse(n => {
         if (n.userData && n.userData.physics && n.userData.physics) {
-            n.userData.physicsBody = PlysicsUtils.createRigidBody(n);
+            n.userData.physicsBody = null;
         }
     });
 
