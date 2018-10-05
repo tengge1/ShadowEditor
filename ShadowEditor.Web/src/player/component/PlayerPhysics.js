@@ -43,7 +43,7 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
 
     this.scene.traverse(n => {
         if (n.userData && n.userData.physics) {
-            var body = PlysicsUtils.createRigidBody(n);
+            var body = PlysicsUtils.createRigidBody(n, this.margin);
             if (body) {
                 n.userData.physics.body = body;
                 this.world.addRigidBody(body);
@@ -56,7 +56,7 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
 PlayerPhysics.prototype.update = function (clock, deltaTime) {
     var rigidBodies = this.rigidBodies;
 
-    this.world.stepSimulation(deltaTime, 10);
+    this.world.stepSimulation(deltaTime, 100);
 
     for (var i = 0, l = rigidBodies.length; i < l; i++) {
         var objThree = rigidBodies[i];
