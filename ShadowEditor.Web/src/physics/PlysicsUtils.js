@@ -5,6 +5,8 @@ var PlysicsUtils = {
     createRigidBody: function (obj, margin = 0.05) {
         var position = obj.position;
         var quaternion = obj.quaternion;
+        var scale = obj.scale;
+
         var shape = obj.userData.physics.shape;
         var mass = obj.userData.physics.mass;
         var inertia = obj.userData.physics.inertia;
@@ -14,13 +16,13 @@ var PlysicsUtils = {
         var sz = 0;
 
         if (obj.geometry instanceof THREE.PlaneBufferGeometry) {
-            sx = obj.geometry.parameters.width;
-            sy = obj.geometry.parameters.height;
-            sz = 1;
+            sx = obj.geometry.parameters.width * scale.x;
+            sy = obj.geometry.parameters.height * scale.y;
+            sz = 1 * scale.z;
         } else if (obj.geometry instanceof THREE.BoxBufferGeometry) {
-            sx = obj.geometry.parameters.width;
-            sy = obj.geometry.parameters.height;
-            sz = obj.geometry.parameters.depth;
+            sx = obj.geometry.parameters.width * scale.x;
+            sy = obj.geometry.parameters.height * scale.y;
+            sz = obj.geometry.parameters.depth * scale.z;
         } else {
             console.warn(`PlysicsUtils: 无法为${obj.name}创建刚体组件。`);
             return null;
