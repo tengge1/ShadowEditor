@@ -125,10 +125,35 @@ RigidBodyComponent.prototype.updateUI = function () {
 
     this.selected = editor.selected;
 
+    var shape = UI.get('shape', this.id);
+    var mass = UI.get('mass', this.id);
+    var inertiaX = UI.get('inertiaX', this.id);
+    var inertiaY = UI.get('inertiaY', this.id);
+    var inertiaZ = UI.get('inertiaZ', this.id);
+
+    var physics = this.selected.userData.physics;
+
+    shape.setValue(physics.shape);
+    mass.setValue(physics.mass);
+    inertiaX.setValue(physics.inertia.x);
+    inertiaY.setValue(physics.inertia.y);
+    inertiaZ.setValue(physics.inertia.z);
 };
 
 RigidBodyComponent.prototype.onChange = function () {
+    var shape = UI.get('shape', this.id);
+    var mass = UI.get('mass', this.id);
+    var inertiaX = UI.get('inertiaX', this.id);
+    var inertiaY = UI.get('inertiaY', this.id);
+    var inertiaZ = UI.get('inertiaZ', this.id);
 
+    var physics = this.selected.userData.physics;
+
+    physics.shape = shape.getValue();
+    physics.mass = mass.getValue();
+    physics.inertia.x = inertiaX.getValue();
+    physics.inertia.y = inertiaY.getValue();
+    physics.inertia.z = inertiaZ.getValue();
 };
 
 export default RigidBodyComponent;
