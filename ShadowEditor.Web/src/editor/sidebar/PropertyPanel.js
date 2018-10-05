@@ -16,6 +16,7 @@ import SmokeComponent from '../../component/SmokeComponent';
 import ReflectorComponent from '../../component/ReflectorComponent';
 import LMeshComponent from '../../component/LMeshComponent';
 import MMDComponent from '../../component/MMDComponent';
+import RigidBodyComponent from '../../component/physics/RigidBodyComponent';
 
 /**
  * 属性面板
@@ -50,6 +51,7 @@ PropertyPanel.prototype.render = function () {
             new SmokeComponent({ app: this.app }),
             new LMeshComponent({ app: this.app }),
             new MMDComponent({ app: this.app }),
+            new RigidBodyComponent({ app: this.app }),
             new GeometryComponent({ app: this.app }),
             new MaterialComponent({ app: this.app })
         ]

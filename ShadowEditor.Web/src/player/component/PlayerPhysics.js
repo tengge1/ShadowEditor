@@ -47,7 +47,11 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
             if (body) {
                 n.userData.physics.body = body;
                 this.world.addRigidBody(body);
-                this.rigidBodies.push(n);
+
+                if (n.userData.physics.mass > 0) {
+                    this.rigidBodies.push(n);
+                    body.setActivationState(4);
+                }
             }
         }
     });
