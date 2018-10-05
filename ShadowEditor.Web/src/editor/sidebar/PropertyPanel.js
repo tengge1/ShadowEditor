@@ -6,7 +6,7 @@ import LightComponent from '../../component/LightComponent';
 import ShadowComponent from '../../component/ShadowComponent';
 import GeometryComponent from '../../component/GeometryComponent';
 import MaterialComponent from '../../component/MaterialComponent';
-import PhysicsComponent from '../../component/PhysicsComponent';
+import PhysicsWorldComponent from '../../component/physics/PhysicsWorldComponent';
 import AudioListenerComponent from '../../component/audio/AudioListenerComponent';
 import ParticleEmitterComponent from '../../component/ParticleEmitterComponent';
 import SceneComponent from '../../component/SceneComponent';
@@ -45,7 +45,7 @@ PropertyPanel.prototype.render = function () {
             new ReflectorComponent({ app: this.app }),
             new AudioListenerComponent({ app: this.app }),
             new BackgroundMusicComponent({ app: this.app }),
-            new PhysicsComponent({ app: this.app }),
+            new PhysicsWorldComponent({ app: this.app }),
             new ParticleEmitterComponent({ app: this.app }),
             new FireComponent({ app: this.app }),
             new SmokeComponent({ app: this.app }),

@@ -116,7 +116,7 @@ RigidBodyComponent.prototype.onObjectChanged = function () {
 RigidBodyComponent.prototype.updateUI = function () {
     var container = UI.get('rigidBodyPanel', this.id);
     var editor = this.app.editor;
-    if (editor.selected && editor.selected instanceof THREE.Mesh) {
+    if (editor.selected && editor.selected instanceof THREE.Mesh && editor.selected.userData.physics) {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';

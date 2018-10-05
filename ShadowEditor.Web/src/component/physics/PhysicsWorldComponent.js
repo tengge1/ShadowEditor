@@ -1,20 +1,19 @@
-import BaseComponent from './BaseComponent';
-import SetValueCommand from '../command/SetValueCommand';
+import BaseComponent from '../BaseComponent';
 
 /**
  * 基本信息组件
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function PhysicsComponent(options) {
+function PhysicsWorldComponent(options) {
     BaseComponent.call(this, options);
     this.selected = null;
 }
 
-PhysicsComponent.prototype = Object.create(BaseComponent.prototype);
-PhysicsComponent.prototype.constructor = PhysicsComponent;
+PhysicsWorldComponent.prototype = Object.create(BaseComponent.prototype);
+PhysicsWorldComponent.prototype.constructor = PhysicsWorldComponent;
 
-PhysicsComponent.prototype.render = function () {
+PhysicsWorldComponent.prototype.render = function () {
     var data = {
         xtype: 'div',
         id: 'objectPanel',
@@ -80,15 +79,15 @@ PhysicsComponent.prototype.render = function () {
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
-PhysicsComponent.prototype.onObjectSelected = function () {
+PhysicsWorldComponent.prototype.onObjectSelected = function () {
     this.updateUI();
 };
 
-PhysicsComponent.prototype.onObjectChanged = function () {
+PhysicsWorldComponent.prototype.onObjectChanged = function () {
     this.updateUI();
 };
 
-PhysicsComponent.prototype.updateUI = function () {
+PhysicsWorldComponent.prototype.updateUI = function () {
     var container = UI.get('objectPanel', this.id);
     var editor = this.app.editor;
     if (editor.selected && editor.selected instanceof THREE.Scene) {
@@ -117,7 +116,7 @@ PhysicsComponent.prototype.updateUI = function () {
     gravityConstantZ.setValue(gravity.z());
 };
 
-PhysicsComponent.prototype.onChangeConfigType = function () {
+PhysicsWorldComponent.prototype.onChangeConfigType = function () {
     var configType = UI.get('configType', this.id);
     if (configType === 'btSoftBodyRigidBodyCollisionConfiguration') {
         this.selected.collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
@@ -128,7 +127,7 @@ PhysicsComponent.prototype.onChangeConfigType = function () {
     this.selected.world.dispatcher = this.selected.dispatcher;
 };
 
-PhysicsComponent.prototype.onChangeGravityConstant = function () {
+PhysicsWorldComponent.prototype.onChangeGravityConstant = function () {
     var gravityConstantX = UI.get('gravityConstantX', this.id);
     var gravityConstantY = UI.get('gravityConstantY', this.id);
     var gravityConstantZ = UI.get('gravityConstantZ', this.id);
@@ -138,4 +137,4 @@ PhysicsComponent.prototype.onChangeGravityConstant = function () {
     this.selected.world.getWorldInfo().set_m_gravity(gravity);
 };
 
-export default PhysicsComponent;
+export default PhysicsWorldComponent;
