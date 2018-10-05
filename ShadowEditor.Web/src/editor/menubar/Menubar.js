@@ -2,7 +2,8 @@
 import Logo from './Logo';
 import SceneMenu from './SceneMenu';
 import EditMenu from './EditMenu';
-import AddMenu from './AddMenu';
+import GeometryMenu from './GeometryMenu';
+import LightMenu from './LightMenu';
 import AssetMenu from './AssetMenu';
 import TerrainMenu from './TerrainMenu';
 import PhysicsMenu from './PhysicsMenu';
@@ -40,7 +41,8 @@ Menubar.prototype.render = function () {
             // 左侧
             new SceneMenu(params),
             new EditMenu(params),
-            new AddMenu(params),
+            new GeometryMenu(params),
+            new LightMenu(params),
             new AssetMenu(params),
             new TerrainMenu(params),
             new PhysicsMenu(params),
