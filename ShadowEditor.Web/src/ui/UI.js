@@ -38,6 +38,7 @@ import SearchField from './SearchField';
 import ToolbarFiller from './ToolbarFiller';
 import Canvas from './Canvas';
 import Timeline from './Timeline';
+import ImageListWindow from './ImageListWindow';
 
 /**
  * UI类
@@ -198,7 +199,8 @@ Object.assign(UI, {
     SearchField: SearchField,
     ToolbarFiller: ToolbarFiller,
     Canvas: Canvas,
-    Timeline: Timeline
+    Timeline: Timeline,
+    ImageListWindow: ImageListWindow
 });
 
 // 添加所有控件的XType
@@ -242,6 +244,7 @@ UI.addXType('searchfield', SearchField);
 UI.addXType('toolbarfiller', ToolbarFiller);
 UI.addXType('canvas', Canvas);
 UI.addXType('timeline', Timeline);
+UI.addXType('imagelistwindow', ImageListWindow);
 
 // 添加一些实用功能
 Object.assign(UI, {
