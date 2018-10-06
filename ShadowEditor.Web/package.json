@@ -28,7 +28,7 @@
     "scripts": {
         "build": "rollup -c",
         "clear": "npm prune",
-        "book": "gitbook build docs"
+        "book": "gitbook build ../docs"
     },
     "repository": {
         "type": "git",
