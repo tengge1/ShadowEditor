@@ -106,6 +106,7 @@
     <Compile Include="Controllers\MeshController.cs" />
     <Compile Include="Controllers\AudioController.cs" />
     <Compile Include="Controllers\MMDController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\TextureController.cs" />
     <Compile Include="Controllers\SceneController.cs" />
     <Compile Include="Helpers\DownloadHelper.cs" />

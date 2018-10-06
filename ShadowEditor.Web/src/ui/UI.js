@@ -39,6 +39,7 @@ import ToolbarFiller from './ToolbarFiller';
 import Canvas from './Canvas';
 import Timeline from './Timeline';
 import ImageListWindow from './ImageListWindow';
+import ImageUploader from './ImageUploader';
 
 /**
  * UI类
@@ -200,7 +201,8 @@ Object.assign(UI, {
     ToolbarFiller: ToolbarFiller,
     Canvas: Canvas,
     Timeline: Timeline,
-    ImageListWindow: ImageListWindow
+    ImageListWindow: ImageListWindow,
+    ImageUploader: ImageUploader
 });
 
 // 添加所有控件的XType
@@ -245,6 +247,7 @@ UI.addXType('toolbarfiller', ToolbarFiller);
 UI.addXType('canvas', Canvas);
 UI.addXType('timeline', Timeline);
 UI.addXType('imagelistwindow', ImageListWindow);
+UI.addXType('imageuploader', ImageUploader);
 
 // 添加一些实用功能
 Object.assign(UI, {

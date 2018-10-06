@@ -55,10 +55,7 @@ Image.prototype.render = function () {
         }
 
         this.dom.appendChild(this.img);
-    }
-
-    // 字体图标
-    if (this.icon) {
+    } else if (this.icon) { // 没图片则显示字体图标
         this.i = document.createElement('i');
         this.i.className = `iconfont ${this.icon}`;
         this.dom.appendChild(this.i);

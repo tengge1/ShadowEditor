@@ -50,5 +50,10 @@ namespace ShadowEditor.Server.Scene
         /// 更新时间
         /// </summary>
         public DateTime UpdateTime { get; set; }
+
+        /// <summary>
+        /// 缩略图
+        /// </summary>
+        public string Thumbnail { get; set; }
     }
 }

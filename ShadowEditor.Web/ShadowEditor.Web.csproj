@@ -656,6 +656,7 @@
   <ItemGroup>
     <Folder Include="test\three\" />
     <Folder Include="Upload\Audio\" />
+    <Folder Include="Upload\File\" />
     <Folder Include="Upload\Model\" />
     <Folder Include="Upload\Texture\" />
   </ItemGroup>

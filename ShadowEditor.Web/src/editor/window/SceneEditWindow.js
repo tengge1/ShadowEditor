@@ -23,8 +23,8 @@ SceneEditWindow.prototype.render = function () {
         parent: this.parent,
         title: '编辑场景',
         width: '320px',
-        height: '400px',
-        shade: false,
+        height: '280px',
+        shade: true,
         children: [{
             xtype: 'row',
             children: [{
@@ -36,11 +36,21 @@ SceneEditWindow.prototype.render = function () {
                 scope: this.id
             }]
         }, {
-            xtype: 'row'
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '缩略图'
+            }, {
+                xtype: 'imageuploader',
+                id: 'image',
+                scope: this.id,
+                server: this.app.options.server
+            }]
         }, {
             xtype: 'row',
             style: {
-                justifyContent: 'center'
+                justifyContent: 'center',
+                marginTop: '8px'
             },
             children: [{
                 xtype: 'button',
@@ -81,7 +91,9 @@ SceneEditWindow.prototype.updateUI = function () {
     }
 
     var name = UI.get('name', this.id);
+    var image = UI.get('image', this.id);
     name.setValue(this.data.Name);
+    image.setValue(this.data.Thumbnail);
 };
 
 SceneEditWindow.prototype.save = function () {
@@ -92,10 +104,12 @@ SceneEditWindow.prototype.save = function () {
     }
 
     var name = UI.get('name', this.id);
+    var image = UI.get('image', this.id);
 
     Ajax.post(`${server}/api/Scene/Edit`, {
         ID: this.data.ID,
-        Name: name.getValue()
+        Name: name.getValue(),
+        Image: image.getValue()
     }, json => {
         var obj = JSON.parse(json);
         UI.msg(obj.Msg);

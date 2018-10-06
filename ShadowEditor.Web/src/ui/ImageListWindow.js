@@ -14,8 +14,8 @@ function ImageListWindow(options) {
     this.firstPinYinField = options.firstPinYinField || 'FirstPinYin'; // 拼音首字母字段，用于搜索
     this.totalPinYinField = options.totalPinYinField || 'TotalPinYin'; // 全拼字段，用于搜索
     this.cornerTextField = options.cornerTextField || null; // 显示在左上角文字字段
-    this.imageField = options.imageField || 'Image'; // 图片字段，用于显示缩略图
-    this.preImageUrl = options.preImageUrl || 'http://localhost:2000'; // 缩略图url前缀，一般是服务端url
+    this.imageField = options.imageField || 'Thumbnail'; // 图片字段，用于显示缩略图
+    this.preImageUrl = options.preImageUrl || '/'; // 缩略图url前缀，一般是服务端url
 
     this.beforeUpdateList = options.beforeUpdateList || null; // 图片列表刷新前调用，返回Promise，resolve(data)。
     this.onClick = options.onClick || null; // 点击图片列表

@@ -42,7 +42,8 @@ namespace ShadowEditor.Server.Controllers
                     CollectionName = i["CollectionName"].AsString,
                     Version = i["Version"].AsInt32,
                     CreateTime = i["CreateTime"].ToUniversalTime(),
-                    UpdateTime = i["UpdateTime"].ToUniversalTime()
+                    UpdateTime = i["UpdateTime"].ToUniversalTime(),
+                    Thumbnail = i.Contains("Thumbnail") ? i["Thumbnail"].ToString() : null
                 };
                 list.Add(info);
             }
@@ -139,7 +140,9 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-            var update = Builders<BsonDocument>.Update.Set("Name", model.Name);
+            var update1 = Builders<BsonDocument>.Update.Set("Name", model.Name);
+            var update2 = Builders<BsonDocument>.Update.Set("Thumbnail", model.Image);
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2);
             mongo.UpdateOne(Constant.SceneCollectionName, filter, update);
 
             return Json(new

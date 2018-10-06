@@ -55,5 +55,10 @@ namespace ShadowEditor.Server
         /// MMD表名
         /// </summary>
         public const string MMDCollectionName = "_MMD";
+
+        /// <summary>
+        /// 上传文件表名
+        /// </summary>
+        public const string FileCollectionName = "_File";
     }
 }

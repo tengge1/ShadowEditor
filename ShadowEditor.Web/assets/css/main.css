@@ -345,6 +345,17 @@ div.ImageList .Container .title {
     word-break: break-word;
 }
 
+div.NoImage {
+    width: 160px;
+    height: 120px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
 div.MessageBox {
     position: fixed;
     left: 0;
@@ -401,6 +412,13 @@ table.Table .TableBody tr:nth-child(odd) {
 
 table.Table .TableBody tr:hover {
     background-color: #ccc;
+}
+
+img.Uploader {
+    max-width: 160px;
+    max-height: 120px;
+    border-radius: 3px;
+    cursor: pointer;
 }
 
 table.Table .TableBody td {
