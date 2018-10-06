@@ -9,6 +9,7 @@ import Ajax from '../../utils/Ajax';
 function SceneEditWindow(options) {
     UI.Control.call(this, options);
     this.app = options.app;
+    this.callback = options.callback || null;
 }
 
 SceneEditWindow.prototype = Object.create(UI.Control.prototype);
@@ -46,13 +47,15 @@ SceneEditWindow.prototype.render = function () {
                 text: '确定',
                 style: {
                     margin: '0 8px'
-                }
+                },
+                onClick: this.save.bind(this)
             }, {
                 xtype: 'button',
                 text: '取消',
                 style: {
                     margin: '0 8px'
-                }
+                },
+                onClick: this.hide.bind(this)
             }]
         }]
     });
@@ -79,6 +82,30 @@ SceneEditWindow.prototype.updateUI = function () {
 
     var name = UI.get('name', this.id);
     name.setValue(this.data.Name);
+};
+
+SceneEditWindow.prototype.save = function () {
+    var server = this.app.options.server;
+
+    if (this.data === undefined) {
+        return;
+    }
+
+    var name = UI.get('name', this.id);
+
+    Ajax.post(`${server}/api/Scene/Edit`, {
+        ID: this.data.ID,
+        Name: name.getValue()
+    }, json => {
+        var obj = JSON.parse(json);
+        UI.msg(obj.Msg);
+        if (obj.Code === 200) {
+            this.hide();
+            if (typeof (this.callback) === 'function') {
+                this.callback(obj);
+            }
+        }
+    });
 };
 
 export default SceneEditWindow;

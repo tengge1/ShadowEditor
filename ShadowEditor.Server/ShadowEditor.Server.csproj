@@ -125,6 +125,7 @@
     <Compile Include="MMD\MMDSaver.cs" />
     <Compile Include="MMD\MMDType.cs" />
     <Compile Include="Result.cs" />
+    <Compile Include="Scene\EditSceneModel.cs" />
     <Compile Include="Scene\SaveSceneModel.cs" />
     <Compile Include="Scene\SceneModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

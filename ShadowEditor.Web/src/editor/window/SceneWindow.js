@@ -181,7 +181,8 @@ SceneWindow.prototype.onEditScene = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new SceneEditWindow({
             app: this.app,
-            parent: this.parent
+            parent: this.parent,
+            callback: this.update.bind(this)
         });
         this.editWindow.render();
     }

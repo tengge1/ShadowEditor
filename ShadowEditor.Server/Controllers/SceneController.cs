@@ -100,6 +100,56 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
+        /// 编辑场景信息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Edit(EditSceneModel model)
+        {
+            var objectId = ObjectId.GenerateNewId();
+
+            if (!string.IsNullOrEmpty(model.ID) && !ObjectId.TryParse(model.ID, out objectId))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "场景ID不合法。"
+                });
+            }
+
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "场景名称不允许为空。"
+                });
+            }
+
+            if (model.Name.StartsWith("_"))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "场景名称不允许以下划线开头。"
+                });
+            }
+
+            var mongo = new MongoHelper();
+
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
+            var update = Builders<BsonDocument>.Update.Set("Name", model.Name);
+            mongo.UpdateOne(Constant.SceneCollectionName, filter, update);
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "编辑场景成功！"
+            });
+        }
+
+        /// <summary>
         /// 保存场景
         /// </summary>
         /// <param name="model">保存场景模型</param>
