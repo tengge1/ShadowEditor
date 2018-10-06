@@ -5,6 +5,7 @@ import UploadUtils from '../../utils/UploadUtils';
 import Converter from '../../serialization/Converter';
 import AnimationGroup from '../../animation/AnimationGroup';
 import Animation from '../../animation/Animation';
+import SceneEditWindow from './SceneEditWindow';
 
 /**
  * 场景窗口
@@ -177,7 +178,15 @@ SceneWindow.prototype.onLoadScene = function (obj) {
 };
 
 SceneWindow.prototype.onEditScene = function (data) {
-    UI.msg('开发中...');
+    if (this.editWindow === undefined) {
+        this.editWindow = new SceneEditWindow({
+            app: this.app,
+            parent: this.parent
+        });
+        this.editWindow.render();
+    }
+    this.editWindow.setData(data);
+    this.editWindow.show();
 };
 
 SceneWindow.prototype.onDeleteScene = function (data) {
