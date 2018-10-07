@@ -123,6 +123,7 @@
     <Compile Include="Mesh\MeshInfo.cs" />
     <Compile Include="Mesh\MeshSaver.cs" />
     <Compile Include="Mesh\MeshType.cs" />
+    <Compile Include="MMD\EditMMDModel.cs" />
     <Compile Include="MMD\IMMDSaver.cs" />
     <Compile Include="MMD\MMDInfo.cs" />
     <Compile Include="MMD\MMDSaver.cs" />

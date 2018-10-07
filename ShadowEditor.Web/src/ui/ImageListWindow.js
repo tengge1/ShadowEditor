@@ -127,6 +127,7 @@ ImageListWindow.prototype.update = function () {
 };
 
 ImageListWindow.prototype.onClickUpload = function () {
+    this.input.value = null;
     this.input.click();
 };
 

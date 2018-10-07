@@ -41,7 +41,7 @@ namespace ShadowEditor.Server.Controllers
                 FirstPinYin = o["FirstPinYin"].ToString(),
                 Type = o["Type"].ToString(),
                 Url = o["Url"].ToString(),
-                Thumbnail = o["Thumbnail"].ToString()
+                Thumbnail = o.Contains("Thumbnail") && !o["Thumbnail"].IsBsonNull ? o["Thumbnail"].ToString() : null
             });
 
             return Json(new
@@ -61,6 +61,53 @@ namespace ShadowEditor.Server.Controllers
             var saver = new MMDSaver();
             var result = saver.Save(HttpContext.Current);
             return Json(result);
+        }
+
+        /// <summary>
+        /// 编辑信息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Edit(EditMMDModel model)
+        {
+            var objectId = ObjectId.GenerateNewId();
+
+            if (!string.IsNullOrEmpty(model.ID) && !ObjectId.TryParse(model.ID, out objectId))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "ID不合法。"
+                });
+            }
+
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "名称不允许为空。"
+                });
+            }
+
+            var mongo = new MongoHelper();
+
+            var pinyin = PinYinHelper.GetTotalPinYin(model.Name);
+
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", objectId);
+            var update1 = Builders<BsonDocument>.Update.Set("Name", model.Name);
+            var update2 = Builders<BsonDocument>.Update.Set("TotalPinYin", pinyin.TotalPinYin);
+            var update3 = Builders<BsonDocument>.Update.Set("FirstPinYin", pinyin.FirstPinYin);
+            var update4 = Builders<BsonDocument>.Update.Set("Thumbnail", model.Image);
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4);
+            mongo.UpdateOne(Constant.MMDCollectionName, filter, update);
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "保存成功！"
+            });
         }
 
         /// <summary>

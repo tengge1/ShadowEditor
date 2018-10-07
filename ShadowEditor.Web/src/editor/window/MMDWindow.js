@@ -2,7 +2,7 @@ import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
 import ModelLoader from '../../loader/ModelLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';
-import UploadUtils from '../../utils/UploadUtils';
+import MMDEditWindow from './MMDEditWindow';
 
 /**
  * MMD窗口
@@ -10,189 +10,44 @@ import UploadUtils from '../../utils/UploadUtils';
  * @param {*} options 
  */
 function MMDWindow(options) {
-    UI.Control.call(this, options);
+    UI.ImageListWindow.call(this, options);
     this.app = options.app;
 
-    this.onSelect = options.onSelect;
+    this.title = 'MMD资源列表';
+    this.imageIcon = 'icon-model';
+    this.cornerTextField = 'Type';
+    this.uploadUrl = `${this.app.options.server}/api/MMD/Add`;
+    this.preImageUrl = this.app.options.server;
+    this.showUploadButton = true;
 
-    this.models = [];
-    this.keyword = '';
+    this.beforeUpdateList = this.beforeUpdateMMDList;
+    this.onUpload = this.onUploadMMD;
+    this.onClick = this.onClickMMD;
+    this.onEdit = this.onEditMMD;
+    this.onDelete = this.onDeleteMMD;
+
+    this.onSelect = options.onSelect || null;
 }
 
-MMDWindow.prototype = Object.create(UI.Control.prototype);
+MMDWindow.prototype = Object.create(UI.ImageListWindow.prototype);
 MMDWindow.prototype.constructor = MMDWindow;
 
-MMDWindow.prototype.render = function () {
-    var _this = this;
+MMDWindow.prototype.beforeUpdateMMDList = function () {
+    var server = this.app.options.server;
 
-    var container = UI.create({
-        xtype: 'window',
-        id: 'mmdWindow',
-        parent: this.app.container,
-        title: 'MMD资源列表',
-        width: '700px',
-        height: '500px',
-        bodyStyle: {
-            paddingTop: 0
-        },
-        shade: false,
-        children: [{
-            xtype: 'row',
-            style: {
-                position: 'sticky',
-                top: '0',
-                padding: '2px',
-                backgroundColor: '#eee',
-                borderBottom: '1px solid #ddd',
-                zIndex: 100,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start'
-            },
-            children: [{
-                xtype: 'button',
-                text: '上传资源',
-                onClick: this.onAddFile.bind(this)
-            }, {
-                xtype: 'button',
-                text: '编辑分组'
-            }, {
-                xtype: 'toolbarfiller'
-            }, {
-                xtype: 'searchfield',
-                showSearchButton: false,
-                showResetButton: true,
-                onInput: function () {
-                    _this.onSearch(this.getValue());
-                }
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'imagelist',
-                id: 'mmdWindowImages',
-                style: {
-                    width: '100%',
-                    height: '100%',
-                },
-                onClick: function (event, index, btn) {
-                    _this.onClickImage(this, index, btn);
-                }
-            }]
-        }]
-    });
-    container.render();
-};
-
-/**
- * 显示MMD资源列表
- */
-MMDWindow.prototype.show = function () {
-    UI.get('mmdWindow').show();
-
-    this.keyword = '';
-    this.updateModelList();
-};
-
-MMDWindow.prototype.updateModelList = function () {
-    var app = this.app;
-    var server = app.options.server;
-
-    Ajax.getJson(`${server}/api/MMD/List`, (obj) => {
-        this.models = obj.Data;
-        this.onSearch(this.keyword);
+    return new Promise(resolve => {
+        Ajax.getJson(`${server}/api/MMD/List`, obj => {
+            resolve(obj.Data);
+        });
     });
 };
 
-/**
- * 搜索MMD文件
- * @param {*} name 
- */
-MMDWindow.prototype.onSearch = function (name) {
-    if (name.trim() === '') {
-        this.renderImages(this.models);
-        return;
-    }
-
-    name = name.toLowerCase();
-
-    var models = this.models.filter((n) => {
-        return n.Name.indexOf(name) > -1 ||
-            n.FirstPinYin.indexOf(name) > -1 ||
-            n.TotalPinYin.indexOf(name) > -1;
-    });
-    this.renderImages(models);
+MMDWindow.prototype.onUploadMMD = function (obj) {
+    this.update();
+    UI.msg(obj.Msg);
 };
 
-MMDWindow.prototype.renderImages = function (models) {
-    var images = UI.get('mmdWindowImages');
-    images.clear();
-
-    images.children = models.map((n) => {
-        return {
-            xtype: 'image',
-            src: n.Image == null ? null : (server + n.Image),
-            title: n.Name,
-            data: n,
-            icon: 'icon-model',
-            cornerText: n.Type,
-            style: {
-                backgroundColor: '#eee'
-            }
-        };
-    });;
-
-    images.render();
-};
-
-MMDWindow.prototype.onAddFile = function () {
-    var input = document.getElementById('mmdWindowFileInput');
-    if (input == null) {
-        input = document.createElement('input');
-        input.id = 'mmdWindowFileInput';
-        input.type = 'file';
-        document.body.appendChild(input);
-        input.onchange = this.onUploadFile.bind(this);
-    }
-    input.click();
-};
-
-MMDWindow.prototype.onUploadFile = function (event) {
-    UploadUtils.upload('mmdWindowFileInput', `${this.app.options.server}/api/MMD/Add`, (e) => {
-        document.getElementById('mmdWindowFileInput').value = null;
-        if (e.target.status === 200) {
-            var obj = JSON.parse(e.target.responseText);
-            if (obj.Code === 200) {
-                this.updateModelList();
-            }
-            UI.msg(obj.Msg);
-        } else {
-            UI.msg('服务器错误！');
-        }
-    });
-};
-
-MMDWindow.prototype.onClickImage = function (imgs, index, btn) {
-    var model = imgs.children[index].data;
-
-    if (btn === 'edit') {
-        UI.msg('开始编辑MMD');
-        return;
-    }
-
-    if (btn === 'delete') {
-        this.onDeleteModel(model);
-        return;
-    }
-
-    this.onLoadModel(model);
-};
-
-/**
- * 添加MMD到场景
- * @param {*} model 
- */
-MMDWindow.prototype.onLoadModel = function (model) {
+MMDWindow.prototype.onClickMMD = function (model) {
     if (model.Type === 'vmd') {
         if (this.onSelect) {
             this.onSelect(model);
@@ -231,23 +86,33 @@ MMDWindow.prototype.onLoadModel = function (model) {
             });
             this.app.call('scriptChanged', this);
         }
+
+        this.hide();
     });
 };
 
-/**
- * 删除模型
- * @param {*} model 
- */
-MMDWindow.prototype.onDeleteModel = function (model) {
-    var app = this.app;
-    var server = app.options.server;
+MMDWindow.prototype.onEditMMD = function (data) {
+    if (this.editWindow === undefined) {
+        this.editWindow = new MMDEditWindow({
+            app: this.app,
+            parent: this.parent,
+            callback: this.update.bind(this)
+        });
+        this.editWindow.render();
+    }
+    this.editWindow.setData(data);
+    this.editWindow.show();
+};
 
-    UI.confirm('询问', '是否删除该MMD资源？', (event, btn) => {
+MMDWindow.prototype.onDeleteMMD = function (data) {
+    var server = this.app.options.server;
+
+    UI.confirm('询问', `是否删除MMD资源${data.Name}？`, (event, btn) => {
         if (btn === 'ok') {
-            Ajax.post(`${server}/api/MMD/Delete?ID=${model.ID}`, (json) => {
+            Ajax.post(`${server}/api/MMD/Delete?ID=${data.ID}`, json => {
                 var obj = JSON.parse(json);
                 if (obj.Code === 200) {
-                    this.updateModelList();
+                    this.update();
                 }
                 UI.msg(obj.Msg);
             });

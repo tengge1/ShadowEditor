@@ -48,7 +48,7 @@ net start MongoDB
 
 ## 项目截图
 
-![image](images/scene20181003.png)
+![image](images/scene20181007.png)
 
 更多请参见示例：https://github.com/tengge1/ShadowEditor-examples
 
