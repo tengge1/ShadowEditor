@@ -14,12 +14,12 @@ function TextureWindow(options) {
 
     this.title = '纹理列表';
     this.imageIcon = 'icon-texture';
-    this.cornerTextField = 'Type';
+    // this.cornerTextField = 'Type';
     this.uploadUrl = `${this.app.options.server}/api/Texture/Add`;
     this.preImageUrl = this.app.options.server;
     this.showUploadButton = true;
 
-    this.beforeUpdateList = this.beforeUpdateSceneList;
+    this.beforeUpdateList = this.beforeUpdateTextureList;
     this.onUpload = this.onUploadTexture;
     this.onClick = this.onClickTexture;
     this.onEdit = this.onEditTexture;
@@ -29,7 +29,7 @@ function TextureWindow(options) {
 TextureWindow.prototype = Object.create(UI.ImageListWindow.prototype);
 TextureWindow.prototype.constructor = TextureWindow;
 
-TextureWindow.prototype.beforeUpdateSceneList = function () {
+TextureWindow.prototype.beforeUpdateTextureList = function () {
     var server = this.app.options.server;
 
     return new Promise(resolve => {
