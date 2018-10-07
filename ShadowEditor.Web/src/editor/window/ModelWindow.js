@@ -2,7 +2,6 @@ import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
 import ModelLoader from '../../loader/ModelLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';
-import UploadUtils from '../../utils/UploadUtils';
 import ModelEditWindow from './ModelEditWindow';
 
 /**
