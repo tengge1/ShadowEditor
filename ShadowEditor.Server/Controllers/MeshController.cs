@@ -95,7 +95,7 @@ namespace ShadowEditor.Server.Controllers
 
             var pinyin = PinYinHelper.GetTotalPinYin(model.Name);
 
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", objectId);
             var update1 = Builders<BsonDocument>.Update.Set("Name", model.Name);
             var update2 = Builders<BsonDocument>.Update.Set("TotalPinYin", pinyin.TotalPinYin);
             var update3 = Builders<BsonDocument>.Update.Set("FirstPinYin", pinyin.FirstPinYin);

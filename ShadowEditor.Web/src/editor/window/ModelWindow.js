@@ -3,6 +3,7 @@ import Ajax from '../../utils/Ajax';
 import ModelLoader from '../../loader/ModelLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import UploadUtils from '../../utils/UploadUtils';
+import ModelEditWindow from './ModelEditWindow';
 
 /**
  * 模型窗口
@@ -80,7 +81,7 @@ ModelWindow.prototype.onClickModel = function (model) {
 
 ModelWindow.prototype.onEditModel = function (data) {
     if (this.editWindow === undefined) {
-        this.editWindow = new SceneEditWindow({
+        this.editWindow = new ModelEditWindow({
             app: this.app,
             parent: this.parent,
             callback: this.update.bind(this)

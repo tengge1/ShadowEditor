@@ -2,26 +2,26 @@ import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
 
 /**
- * 场景编辑窗口
+ * 模型编辑窗口
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SceneEditWindow(options) {
+function ModelEditWindow(options) {
     UI.Control.call(this, options);
     this.app = options.app;
     this.callback = options.callback || null;
 }
 
-SceneEditWindow.prototype = Object.create(UI.Control.prototype);
-SceneEditWindow.prototype.constructor = SceneEditWindow;
+ModelEditWindow.prototype = Object.create(UI.Control.prototype);
+ModelEditWindow.prototype.constructor = ModelEditWindow;
 
-SceneEditWindow.prototype.render = function () {
+ModelEditWindow.prototype.render = function () {
     var container = UI.create({
         xtype: 'window',
         id: 'window',
         scope: this.id,
         parent: this.parent,
-        title: '编辑场景',
+        title: '编辑模型',
         width: '320px',
         height: '280px',
         shade: true,
@@ -72,20 +72,20 @@ SceneEditWindow.prototype.render = function () {
     container.render();
 };
 
-SceneEditWindow.prototype.show = function () {
+ModelEditWindow.prototype.show = function () {
     UI.get('window', this.id).show();
 };
 
-SceneEditWindow.prototype.hide = function () {
+ModelEditWindow.prototype.hide = function () {
     UI.get('window', this.id).hide();
 };
 
-SceneEditWindow.prototype.setData = function (data) {
+ModelEditWindow.prototype.setData = function (data) {
     this.data = data;
     this.updateUI();
 };
 
-SceneEditWindow.prototype.updateUI = function () {
+ModelEditWindow.prototype.updateUI = function () {
     if (this.data === undefined) {
         return;
     }
@@ -96,7 +96,7 @@ SceneEditWindow.prototype.updateUI = function () {
     image.setValue(this.data.Thumbnail);
 };
 
-SceneEditWindow.prototype.save = function () {
+ModelEditWindow.prototype.save = function () {
     var server = this.app.options.server;
 
     if (this.data === undefined) {
@@ -106,7 +106,7 @@ SceneEditWindow.prototype.save = function () {
     var name = UI.get('name', this.id);
     var image = UI.get('image', this.id);
 
-    Ajax.post(`${server}/api/Scene/Edit`, {
+    Ajax.post(`${server}/api/Mesh/Edit`, {
         ID: this.data.ID,
         Name: name.getValue(),
         Image: image.getValue()
@@ -122,4 +122,4 @@ SceneEditWindow.prototype.save = function () {
     });
 };
 
-export default SceneEditWindow;
+export default ModelEditWindow;
