@@ -12,9 +12,9 @@ function Sphere(geometry = new THREE.SphereBufferGeometry(1, 32, 16, 0, Math.PI 
     this.castShadow = true;
     this.receiveShadow = true;
 
-    this.userData.physics = Object.assign({}, PhysicsData, {
-        shape: 'btSphereShape',
-    });
+    // this.userData.physics = Object.assign({}, PhysicsData, {
+    //     shape: 'btSphereShape',
+    // });
 }
 
 Sphere.prototype = Object.create(THREE.Mesh.prototype);

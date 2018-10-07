@@ -13,10 +13,10 @@ function Plane(geometry = new THREE.PlaneBufferGeometry(50, 50), material = new 
     this.castShadow = true;
     this.receiveShadow = true;
 
-    this.userData.physics = Object.assign({}, PhysicsData, {
-        shape: 'btStaticPlaneShape',
-        mass: 0
-    });
+    // this.userData.physics = Object.assign({}, PhysicsData, {
+    //     shape: 'btStaticPlaneShape',
+    //     mass: 0
+    // });
 }
 
 Plane.prototype = Object.create(THREE.Mesh.prototype);

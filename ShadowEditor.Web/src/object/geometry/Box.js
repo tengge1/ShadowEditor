@@ -12,9 +12,9 @@ function Box(geometry = new THREE.BoxBufferGeometry(1, 1, 1), material = new THR
     this.castShadow = true;
     this.receiveShadow = true;
 
-    this.userData.physics = Object.assign({}, PhysicsData, {
-        shape: 'btBoxShape',
-    });
+    // this.userData.physics = Object.assign({}, PhysicsData, {
+    //     shape: 'btBoxShape',
+    // });
 }
 
 Box.prototype = Object.create(THREE.Mesh.prototype);
