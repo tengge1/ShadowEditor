@@ -6,6 +6,7 @@
 * 源码：https://github.com/tengge1/ShadowEditor
 * 示例：https://github.com/tengge1/ShadowEditor-examples
 * 文档：https://tengge1.github.io/ShadowEditor/docs/release/index.html
+* 截图：请[点击此处](images/README.md)
 * 资源（见截图）：https://pan.baidu.com/s/1yk7luPAdRB9sAH2-Byghww
 * 提取码: qdds
 
@@ -52,7 +53,7 @@ net start MongoDB
 
 ![image](images/scene20181007.png)
 
-更多请参见示例：https://github.com/tengge1/ShadowEditor-examples
+[点击此处](images/README.md)查看更多截图
 
 ## 开发日志
 
