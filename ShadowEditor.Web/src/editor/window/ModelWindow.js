@@ -10,186 +10,42 @@ import UploadUtils from '../../utils/UploadUtils';
  * @param {*} options 
  */
 function ModelWindow(options) {
-    UI.Control.call(this, options);
+    UI.ImageListWindow.call(this, options);
     this.app = options.app;
-    this.models = [];
-    this.keyword = '';
+
+    this.title = '模型列表';
+    this.imageIcon = 'icon-model';
+    this.cornerTextField = 'Type';
+    this.uploadUrl = `${this.app.options.server}/api/Mesh/Add`;
+    this.preImageUrl = this.app.options.server;
+    this.showUploadButton = true;
+
+    this.beforeUpdateList = this.beforeUpdateModelList;
+    this.onUpload = this.onUploadModel;
+    this.onClick = this.onClickModel;
+    this.onEdit = this.onEditModel;
+    this.onDelete = this.onDeleteModel;
 }
 
-ModelWindow.prototype = Object.create(UI.Control.prototype);
+ModelWindow.prototype = Object.create(UI.ImageListWindow.prototype);
 ModelWindow.prototype.constructor = ModelWindow;
 
-ModelWindow.prototype.render = function () {
-    var _this = this;
+ModelWindow.prototype.beforeUpdateModelList = function () {
+    var server = this.app.options.server;
 
-    var container = UI.create({
-        xtype: 'window',
-        id: 'modelWindow',
-        parent: this.app.container,
-        title: '模型列表',
-        width: '700px',
-        height: '500px',
-        bodyStyle: {
-            paddingTop: 0
-        },
-        shade: false,
-        children: [{
-            xtype: 'row',
-            style: {
-                position: 'sticky',
-                top: '0',
-                padding: '2px',
-                backgroundColor: '#eee',
-                borderBottom: '1px solid #ddd',
-                zIndex: 100,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start'
-            },
-            children: [{
-                xtype: 'button',
-                text: '上传模型',
-                onClick: this.onAddFile.bind(this)
-            }, {
-                xtype: 'button',
-                text: '编辑分组'
-            }, {
-                xtype: 'toolbarfiller'
-            }, {
-                xtype: 'searchfield',
-                showSearchButton: false,
-                showResetButton: true,
-                onInput: function () {
-                    _this.onSearch(this.getValue());
-                }
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'imagelist',
-                id: 'modelWindowImages',
-                style: {
-                    width: '100%',
-                    height: '100%',
-                },
-                onClick: function (event, index, btn) {
-                    _this.onClickImage(this, index, btn);
-                }
-            }]
-        }]
-    });
-    container.render();
-};
-
-/**
- * 显示模型文件列表
- */
-ModelWindow.prototype.show = function () {
-    UI.get('modelWindow').show();
-
-    this.keyword = '';
-    this.updateModelList();
-};
-
-ModelWindow.prototype.updateModelList = function () {
-    var app = this.app;
-    var server = app.options.server;
-
-    Ajax.getJson(`${server}/api/Mesh/List`, (obj) => {
-        this.models = obj.Data;
-        this.onSearch(this.keyword);
+    return new Promise(resolve => {
+        Ajax.getJson(`${server}/api/Mesh/List`, obj => {
+            resolve(obj.Data);
+        });
     });
 };
 
-/**
- * 搜索模型文件
- * @param {*} name 
- */
-ModelWindow.prototype.onSearch = function (name) {
-    if (name.trim() === '') {
-        this.renderImages(this.models);
-        return;
-    }
-
-    name = name.toLowerCase();
-
-    var models = this.models.filter((n) => {
-        return n.Name.indexOf(name) > -1 ||
-            n.FirstPinYin.indexOf(name) > -1 ||
-            n.TotalPinYin.indexOf(name) > -1;
-    });
-    this.renderImages(models);
+ModelWindow.prototype.onUploadModel = function (obj) {
+    this.update();
+    UI.msg(obj.Msg);
 };
 
-ModelWindow.prototype.renderImages = function (models) {
-    var images = UI.get('modelWindowImages');
-    images.clear();
-
-    images.children = models.map((n) => {
-        return {
-            xtype: 'image',
-            src: n.Image == null ? null : (server + n.Image),
-            title: n.Name,
-            data: n,
-            icon: 'icon-model',
-            cornerText: n.Type,
-            style: {
-                backgroundColor: '#eee'
-            }
-        };
-    });;
-
-    images.render();
-};
-
-ModelWindow.prototype.onAddFile = function () {
-    var input = document.getElementById('modelWindowFileInput');
-    if (input == null) {
-        input = document.createElement('input');
-        input.id = 'modelWindowFileInput';
-        input.type = 'file';
-        document.body.appendChild(input);
-        input.onchange = this.onUploadFile.bind(this);
-    }
-    input.click();
-};
-
-ModelWindow.prototype.onUploadFile = function (event) {
-    UploadUtils.upload('modelWindowFileInput', `${this.app.options.server}/api/Mesh/Add`, (e) => {
-        document.getElementById('modelWindowFileInput').value = null;
-        if (e.target.status === 200) {
-            var obj = JSON.parse(e.target.responseText);
-            if (obj.Code === 200) {
-                this.updateModelList();
-            }
-            UI.msg(obj.Msg);
-        } else {
-            UI.msg('服务器错误！');
-        }
-    });
-};
-
-ModelWindow.prototype.onClickImage = function (imgs, index, btn) {
-    var model = imgs.children[index].data;
-
-    if (btn === 'edit') { // 编辑模型
-        UI.msg('开始编辑模型');
-        return;
-    }
-
-    if (btn === 'delete') { // 删除模型
-        this.onDeleteModel(model);
-        return;
-    }
-
-    this.onLoadModel(model);
-};
-
-/**
- * 添加模型到场景
- * @param {*} model 
- */
-ModelWindow.prototype.onLoadModel = function (model) {
+ModelWindow.prototype.onClickModel = function (model) {
     var loader = new ModelLoader(this.app);
 
     var url = model.Url;
@@ -222,20 +78,28 @@ ModelWindow.prototype.onLoadModel = function (model) {
     });
 };
 
-/**
- * 删除模型
- * @param {*} model 
- */
-ModelWindow.prototype.onDeleteModel = function (model) {
-    var app = this.app;
-    var server = app.options.server;
+ModelWindow.prototype.onEditModel = function (data) {
+    if (this.editWindow === undefined) {
+        this.editWindow = new SceneEditWindow({
+            app: this.app,
+            parent: this.parent,
+            callback: this.update.bind(this)
+        });
+        this.editWindow.render();
+    }
+    this.editWindow.setData(data);
+    this.editWindow.show();
+};
 
-    UI.confirm('询问', '是否删除该模型？', (event, btn) => {
+ModelWindow.prototype.onDeleteModel = function (data) {
+    var server = this.app.options.server;
+
+    UI.confirm('询问', `是否删除模型${data.Name}？`, (event, btn) => {
         if (btn === 'ok') {
-            Ajax.post(`${server}/api/Mesh/Delete?ID=${model.ID}`, (json) => {
+            Ajax.post(`${server}/api/Mesh/Delete?ID=${data.ID}`, json => {
                 var obj = JSON.parse(json);
                 if (obj.Code === 200) {
-                    this.updateModelList();
+                    this.update();
                 }
                 UI.msg(obj.Msg);
             });

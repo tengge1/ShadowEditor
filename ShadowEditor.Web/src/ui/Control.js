@@ -8,7 +8,7 @@ var ID = -1;
 function Control(options) {
     options = options || {};
     this.parent = options.parent || document.body;
-    this.id = options.id || 'Control' + ID--;
+    this.id = options.id || this.constructor.name + ID--;
     this.scope = options.scope || 'global';
 
     this.data = options.data || null; // 自定义数据，例如：{ name: '小米', age: 20 }

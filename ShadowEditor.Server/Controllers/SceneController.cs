@@ -115,7 +115,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "场景ID不合法。"
+                    Msg = "ID不合法。"
                 });
             }
 
@@ -124,7 +124,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "场景名称不允许为空。"
+                    Msg = "名称不允许为空。"
                 });
             }
 
@@ -133,22 +133,26 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "场景名称不允许以下划线开头。"
+                    Msg = "名称不允许以下划线开头。"
                 });
             }
 
             var mongo = new MongoHelper();
 
+            var pinyin = PinYinHelper.GetTotalPinYin(model.Name);
+
             var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
             var update1 = Builders<BsonDocument>.Update.Set("Name", model.Name);
-            var update2 = Builders<BsonDocument>.Update.Set("Thumbnail", model.Image);
-            var update = Builders<BsonDocument>.Update.Combine(update1, update2);
+            var update2 = Builders<BsonDocument>.Update.Set("TotalPinYin", pinyin.TotalPinYin);
+            var update3 = Builders<BsonDocument>.Update.Set("FirstPinYin", pinyin.FirstPinYin);
+            var update4 = Builders<BsonDocument>.Update.Set("Thumbnail", model.Image);
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4);
             mongo.UpdateOne(Constant.SceneCollectionName, filter, update);
 
             return Json(new
             {
                 Code = 200,
-                Msg = "编辑场景成功！"
+                Msg = "保存成功！"
             });
         }
 

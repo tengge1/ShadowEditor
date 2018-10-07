@@ -31,6 +31,7 @@ SearchField.prototype.render = function () {
         children: [{
             xtype: 'input',
             id: `${this.id}-input`,
+            scope: this.scope,
             placeholder: '搜索内容',
             onInput: this.onInput == null ? null : this.onInput.bind(this)
         }]
@@ -67,11 +68,11 @@ SearchField.prototype.render = function () {
 };
 
 SearchField.prototype.getValue = function () {
-    return UI.get(`${this.id}-input`).dom.value;
+    return UI.get(`${this.id}-input`, this.scope).dom.value;
 };
 
 SearchField.prototype.setValue = function (value) {
-    UI.get(`${this.id}-input`).dom.value = value;
+    UI.get(`${this.id}-input`, this.scope).dom.value = value;
 };
 
 SearchField.prototype.reset = function () {

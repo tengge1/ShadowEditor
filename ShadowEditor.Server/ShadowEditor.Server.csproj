@@ -117,6 +117,7 @@
     <Compile Include="Helpers\MongoHelper.cs" />
     <Compile Include="Helpers\PinYinHelper.cs" />
     <Compile Include="Helpers\ZipHelper.cs" />
+    <Compile Include="Mesh\EditMeshModel.cs" />
     <Compile Include="Mesh\IMeshSaver.cs" />
     <Compile Include="Mesh\MeshInfo.cs" />
     <Compile Include="Mesh\MeshSaver.cs" />

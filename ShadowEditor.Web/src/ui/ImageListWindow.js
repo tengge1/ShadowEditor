@@ -1,4 +1,5 @@
 import Control from './Control';
+import UploadUtils from '../utils/UploadUtils';
 
 /**
  * 图片列表窗口
@@ -15,22 +16,32 @@ function ImageListWindow(options) {
     this.totalPinYinField = options.totalPinYinField || 'TotalPinYin'; // 全拼字段，用于搜索
     this.cornerTextField = options.cornerTextField || null; // 显示在左上角文字字段
     this.imageField = options.imageField || 'Thumbnail'; // 图片字段，用于显示缩略图
+    this.uploadUrl = options.uploadUrl || '/api/Upload/Upload';
     this.preImageUrl = options.preImageUrl || '/'; // 缩略图url前缀，一般是服务端url
+    this.showUploadButton = options.showUploadButton || false; // 是否显示上传按钮
 
     this.beforeUpdateList = options.beforeUpdateList || null; // 图片列表刷新前调用，返回Promise，resolve(data)。
+    this.onUpload = options.onUpload || null; // 上传成功回调
     this.onClick = options.onClick || null; // 点击图片列表
     this.onEdit = options.onEdit || null; // 编辑图片列表
     this.onDelete = options.onDelete || null; // 删除图片列表
 
     this.data = [];
     this.keyword = '';
+
+    this.input = document.createElement('input');
+    this.input.id = `file_${this.id}`;
+    this.input.type = 'file';
+    this.input.style.display = 'none';
+    this.input.addEventListener('change', this.onChange.bind(this));
+    document.body.appendChild(this.input);
 }
 
 ImageListWindow.prototype = Object.create(Control.prototype);
 ImageListWindow.prototype.constructor = ImageListWindow;
 
 ImageListWindow.prototype.render = function () {
-    var container = UI.create({
+    var data = {
         xtype: 'window',
         id: 'window',
         scope: this.id,
@@ -76,7 +87,22 @@ ImageListWindow.prototype.render = function () {
                 onClick: this.onClickImage.bind(this)
             }]
         }]
-    });
+    };
+
+    if (this.showUploadButton) {
+        data.children[0].children.splice(0, 0, {
+            xtype: 'button',
+            text: '上传',
+            onClick: this.onClickUpload.bind(this)
+        });
+        data.children[0].children[1].style = {
+            position: 'absolute',
+            right: 0,
+            marginRight: '8px'
+        };
+    }
+
+    var container = UI.create(data);
     container.render();
 };
 
@@ -98,6 +124,24 @@ ImageListWindow.prototype.update = function () {
             this.onSearch(this.keyword);
         });
     }
+};
+
+ImageListWindow.prototype.onClickUpload = function () {
+    this.input.click();
+};
+
+ImageListWindow.prototype.onChange = function () {
+    UploadUtils.upload(`file_${this.id}`, this.uploadUrl, event => {
+        if (event.target.status === 200) {
+            var response = event.target.response;
+            var obj = JSON.parse(response);
+            this.onUpload(obj);
+        } else {
+            UI.msg('上传失败！');
+        }
+    }, () => {
+        UI.msg('上传失败！');
+    });
 };
 
 ImageListWindow.prototype.onSearch = function (name) {
@@ -128,7 +172,7 @@ ImageListWindow.prototype.renderImages = function (models) {
     images.children = models.map(n => {
         return {
             xtype: 'image',
-            src: n[this.imageField] == null ? null : (this.preImageUrl + n[this.imageField]),
+            src: (n[this.imageField] === undefined || n[this.imageField] === null || n[this.imageField].trim() === '') ? null : (this.preImageUrl + n[this.imageField]),
             title: n[this.nameField],
             data: n,
             icon: this.imageIcon,
