@@ -1,6 +1,7 @@
 import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
 import UploadUtils from '../../utils/UploadUtils';
+import TextureEditWindow from './TextureEditWindow';
 
 /**
  * 纹理窗口
@@ -49,7 +50,7 @@ TextureWindow.prototype.onClickTexture = function (data) {
 
 TextureWindow.prototype.onEditTexture = function (data) {
     if (this.editWindow === undefined) {
-        this.editWindow = new SceneEditWindow({
+        this.editWindow = new TextureEditWindow({
             app: this.app,
             parent: this.parent,
             callback: this.update.bind(this)
