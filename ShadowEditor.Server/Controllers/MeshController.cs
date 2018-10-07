@@ -41,7 +41,7 @@ namespace ShadowEditor.Server.Controllers
                 FirstPinYin = o["FirstPinYin"].ToString(),
                 Type = o["Type"].ToString(),
                 Url = o["Url"].ToString(),
-                Thumbnail = o["Thumbnail"].ToString()
+                Thumbnail = o.Contains("Thumbnail") && !o["Thumbnail"].IsBsonNull ? o["Thumbnail"].ToString() : null
             });
 
             return Json(new

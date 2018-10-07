@@ -70,7 +70,7 @@ namespace ShadowEditor.Server.Controllers
             doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
             doc["Url"] = $"{savePath}/{fileName}";
 
-            mongo.InsertOne(Constant.MeshCollectionName, doc);
+            mongo.InsertOne(Constant.FileCollectionName, doc);
 
             return Json(new
             {

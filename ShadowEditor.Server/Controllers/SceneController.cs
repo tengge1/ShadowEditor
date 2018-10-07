@@ -43,7 +43,7 @@ namespace ShadowEditor.Server.Controllers
                     Version = i["Version"].AsInt32,
                     CreateTime = i["CreateTime"].ToUniversalTime(),
                     UpdateTime = i["UpdateTime"].ToUniversalTime(),
-                    Thumbnail = i.Contains("Thumbnail") ? i["Thumbnail"].ToString() : null
+                    Thumbnail = i.Contains("Thumbnail") && !i["Thumbnail"].IsBsonNull ? i["Thumbnail"].ToString() : null
                 };
                 list.Add(info);
             }
