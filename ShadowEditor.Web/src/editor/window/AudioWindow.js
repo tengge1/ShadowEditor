@@ -1,6 +1,6 @@
 import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
-import UploadUtils from '../../utils/UploadUtils';
+import AudioEditWindow from './AudioEditWindow';
 
 /**
  * 纹理窗口
@@ -55,7 +55,7 @@ AudioWindow.prototype.onClickAudio = function (data) {
 
 AudioWindow.prototype.onEditAudio = function (data) {
     if (this.editWindow === undefined) {
-        this.editWindow = new TextureEditWindow({
+        this.editWindow = new AudioEditWindow({
             app: this.app,
             parent: this.parent,
             callback: this.update.bind(this)

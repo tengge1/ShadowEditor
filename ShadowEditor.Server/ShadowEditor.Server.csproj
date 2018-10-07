@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio\EditAudioModel.cs" />
     <Compile Include="Audio\SaveAudioModel.cs" />
     <Compile Include="Audio\AudioModel.cs" />
     <Compile Include="Audio\AudioType.cs" />
