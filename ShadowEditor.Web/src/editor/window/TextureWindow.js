@@ -24,6 +24,8 @@ function TextureWindow(options) {
     this.onClick = this.onClickTexture;
     this.onEdit = this.onEditTexture;
     this.onDelete = this.onDeleteTexture;
+
+    this.onSelect = options.onSelect || null;
 }
 
 TextureWindow.prototype = Object.create(UI.ImageListWindow.prototype);
@@ -45,7 +47,11 @@ TextureWindow.prototype.onUploadTexture = function (obj) {
 };
 
 TextureWindow.prototype.onClickTexture = function (data) {
-    UI.msg('请在材质控件中修改纹理。');
+    if (typeof (this.onSelect) === 'function') {
+        this.onSelect(data);
+    } else {
+        UI.msg('请在材质控件中修改纹理。');
+    }
 };
 
 TextureWindow.prototype.onEditTexture = function (data) {
