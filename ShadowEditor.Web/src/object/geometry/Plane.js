@@ -1,5 +1,3 @@
-import PhysicsData from '../../physics/PhysicsData';
-
 /**
  * 平板
  * @param {*} geometry 几何体
@@ -12,11 +10,6 @@ function Plane(geometry = new THREE.PlaneBufferGeometry(50, 50), material = new 
     this.rotation.x = -Math.PI / 2;
     this.castShadow = true;
     this.receiveShadow = true;
-
-    // this.userData.physics = Object.assign({}, PhysicsData, {
-    //     shape: 'btStaticPlaneShape',
-    //     mass: 0
-    // });
 }
 
 Plane.prototype = Object.create(THREE.Mesh.prototype);

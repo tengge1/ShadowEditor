@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import Sky from '../../object/Sky';
 import Smoke from '../../particle/Smoke';
+import PlysicsUtils from '../../physics/PlysicsUtils';
 
 /**
  * 组件菜单
@@ -60,11 +61,6 @@ ComponentMenu.prototype.render = function () {
                 html: '刚体',
                 cls: 'option',
                 onClick: this.addRigidBody.bind(this)
-            }, {
-                xtype: 'div',
-                html: '碰撞体',
-                cls: 'option',
-                onClick: this.addCollision.bind(this)
             }]
         }]
     });
@@ -229,13 +225,16 @@ ComponentMenu.prototype.onAddSmoke = function () {
 // --------------------------- 添加刚体 ------------------------------------
 
 ComponentMenu.prototype.addRigidBody = function () {
+    var selected = this.app.editor.selected;
+    if (!selected) {
+        UI.msg('请选择几何体！');
+        return;
+    }
 
-};
-
-// ---------------------------- 添加碰撞体 -----------------------------------
-
-ComponentMenu.prototype.addCollision = function () {
-
+    if (PlysicsUtils.addRigidBodyData(selected) !== false) {
+        this.app.call('objectChanged', this, selected);
+        UI.msg('添加刚体组件成功！');
+    }
 };
 
 export default ComponentMenu;

@@ -1,8 +1,43 @@
+import UI from '../ui/UI';
+import PhysicsData from './PhysicsData';
+
 /**
  * 物理工具
  */
 var PlysicsUtils = {
-    createRigidBody: function (obj, margin = 0.05) {
+    /**
+     * 为Object3D对象添加刚体数据结构
+     */
+    addRigidBodyData: function (obj) {
+        if (!(obj instanceof THREE.Mesh)) {
+            UI.msg('暂时只能为THREE.Mesh添加刚体组件。');
+            return false;
+        }
+        if (obj.geometry instanceof THREE.PlaneBufferGeometry) {
+            obj.userData.physics = Object.assign({}, PhysicsData, {
+                shape: 'btStaticPlaneShape',
+                mass: 0
+            });
+        } else if (obj.geometry instanceof THREE.BoxBufferGeometry) {
+            obj.userData.physics = Object.assign({}, PhysicsData, {
+                shape: 'btBoxShape',
+            });
+        } else if (obj.geometry instanceof THREE.SphereBufferGeometry) {
+            obj.userData.physics = Object.assign({}, PhysicsData, {
+                shape: 'btSphereShape',
+            });
+        } else {
+            UI.msg(`暂不支持为${obj.geometry.constructor.name}几何体添加刚体组件。`);
+            return false;
+        }
+    },
+
+    /**
+     * 为Object3D对象添加刚体组件
+     */
+    createRigidBody: function (obj, margin) {
+        margin = margin || 0.05;
+
         var position = obj.position;
         var quaternion = obj.quaternion;
         var scale = obj.scale;
