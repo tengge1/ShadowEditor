@@ -10,6 +10,9 @@ function ImageListWindow(options) {
     Control.call(this, options);
 
     this.title = options.title || '图片列表';
+    this.width = options.width || '700px';
+    this.height = options.height || '500px';
+
     this.imageIcon = options.imageIcon || null; // 图片列表默认图标
     this.nameField = options.nameField || 'Name'; // 名称字段，用于显示图片标题，按文字搜索
     this.firstPinYinField = options.firstPinYinField || 'FirstPinYin'; // 拼音首字母字段，用于搜索
@@ -19,6 +22,8 @@ function ImageListWindow(options) {
     this.uploadUrl = options.uploadUrl || '/api/Upload/Upload';
     this.preImageUrl = options.preImageUrl || '/'; // 缩略图url前缀，一般是服务端url
     this.showUploadButton = options.showUploadButton || false; // 是否显示上传按钮
+
+    this.settingPanel = options.settingPanel || null; // 设置面板，格式：{ xtype: 'div', children: [ ... ] }
 
     this.beforeUpdateList = options.beforeUpdateList || this.beforeUpdateList; // 图片列表刷新前调用，返回Promise，resolve(data)。
     this.onUpload = options.onUpload || this.onUpload; // 上传成功回调
@@ -47,59 +52,71 @@ ImageListWindow.prototype.render = function () {
         scope: this.id,
         parent: this.parent,
         title: this.title,
-        width: '700px',
-        height: '500px',
+        width: this.width,
+        height: this.height,
         bodyStyle: {
-            paddingTop: 0
+            paddingTop: 0,
+            display: 'flex',
+            flexDirection: 'row'
         },
         shade: false,
         children: [{
-            xtype: 'row',
+            xtype: 'div',
             style: {
-                position: 'sticky',
-                top: '0',
-                padding: '2px',
-                backgroundColor: '#eee',
-                borderBottom: '1px solid #ddd',
-                zIndex: 100,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start'
+                flex: 1
             },
             children: [{
-                xtype: 'searchfield',
-                id: 'search',
-                scope: this.id,
-                showSearchButton: false,
-                showResetButton: true,
-                onInput: this.onInputSearchField.bind(this)
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'imagelist',
-                id: 'windowImages',
-                scope: this.id,
+                xtype: 'row',
                 style: {
-                    width: '100%',
-                    height: '100%',
+                    position: 'sticky',
+                    top: '0',
+                    padding: '2px',
+                    backgroundColor: '#eee',
+                    borderBottom: '1px solid #ddd',
+                    zIndex: 100,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start'
                 },
-                onClick: this.onClickImage.bind(this)
+                children: [{
+                    xtype: 'searchfield',
+                    id: 'search',
+                    scope: this.id,
+                    showSearchButton: false,
+                    showResetButton: true,
+                    onInput: this.onInputSearchField.bind(this)
+                }]
+            }, {
+                xtype: 'row',
+                children: [{
+                    xtype: 'imagelist',
+                    id: 'windowImages',
+                    scope: this.id,
+                    style: {
+                        width: '100%',
+                        height: '100%',
+                    },
+                    onClick: this.onClickImage.bind(this)
+                }]
             }]
         }]
     };
 
     if (this.showUploadButton) {
-        data.children[0].children.splice(0, 0, {
+        data.children[0].children[0].children.splice(0, 0, {
             xtype: 'button',
             text: '上传',
             onClick: this.onClickUpload.bind(this)
         });
-        data.children[0].children[1].style = {
+        data.children[0].children[0].children[1].style = {
             position: 'absolute',
             right: 0,
             marginRight: '8px'
         };
+    }
+
+    if (this.settingPanel) {
+        data.children.push(this.settingPanel);
     }
 
     var container = UI.create(data);
