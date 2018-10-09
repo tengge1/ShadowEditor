@@ -8,6 +8,8 @@ import ShaderMaterialFragment from './shader/shader_material_fragment.glsl';
 import RawShaderMaterialVertex from './shader/raw_shader_material_vertex.glsl';
 import RawShaderMaterialFragment from './shader/raw_shader_material_fragment.glsl';
 
+import TextureSelectControl from '../editor/control/TextureSelectControl';
+
 /**
  * 材质组件
  * @author mrdoob / http://mrdoob.com/
@@ -276,12 +278,19 @@ MaterialComponent.prototype.render = function () {
                 scope: this.id,
                 value: false,
                 onChange: this.updateMaterial.bind(this)
-            }, {
-                xtype: 'texture',
+            },
+            new TextureSelectControl({
                 id: 'map',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
-            }]
+            })
+                // {
+                //     xtype: 'texture',
+                //     id: 'map',
+                //     scope: this.id,
+                //     onChange: this.updateMaterial.bind(this)
+                // }
+            ]
         }, {
             xtype: 'row',
             id: 'alphaMapRow',
