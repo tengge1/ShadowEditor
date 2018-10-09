@@ -18,19 +18,13 @@ function AudioWindow(options) {
     this.preImageUrl = this.app.options.server;
     this.showUploadButton = true;
 
-    this.beforeUpdateList = this.beforeUpdateAudioList;
-    this.onUpload = this.onUploadAudio;
-    this.onClick = this.onClickAudio;
-    this.onEdit = this.onEditAudio;
-    this.onDelete = this.onDeleteAudio;
-
     this.onSelect = options.onSelect || null;
 }
 
 AudioWindow.prototype = Object.create(UI.ImageListWindow.prototype);
 AudioWindow.prototype.constructor = AudioWindow;
 
-AudioWindow.prototype.beforeUpdateAudioList = function () {
+AudioWindow.prototype.beforeUpdateList = function () {
     var server = this.app.options.server;
 
     return new Promise(resolve => {
@@ -40,12 +34,12 @@ AudioWindow.prototype.beforeUpdateAudioList = function () {
     });
 };
 
-AudioWindow.prototype.onUploadAudio = function (obj) {
+AudioWindow.prototype.onUpload = function (obj) {
     this.update();
     UI.msg(obj.Msg);
 };
 
-AudioWindow.prototype.onClickAudio = function (data) {
+AudioWindow.prototype.onClick = function (data) {
     if (typeof (this.onSelect) === 'function') {
         this.onSelect(data);
     } else {
@@ -53,7 +47,7 @@ AudioWindow.prototype.onClickAudio = function (data) {
     }
 };
 
-AudioWindow.prototype.onEditAudio = function (data) {
+AudioWindow.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new AudioEditWindow({
             app: this.app,
@@ -66,7 +60,7 @@ AudioWindow.prototype.onEditAudio = function (data) {
     this.editWindow.show();
 };
 
-AudioWindow.prototype.onDeleteAudio = function (data) {
+AudioWindow.prototype.onDelete = function (data) {
     var server = this.app.options.server;
 
     UI.confirm('询问', `是否删除音频${data.Name}？`, (event, btn) => {

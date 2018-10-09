@@ -19,19 +19,13 @@ function TextureWindow(options) {
     this.preImageUrl = this.app.options.server;
     this.showUploadButton = true;
 
-    this.beforeUpdateList = this.beforeUpdateTextureList;
-    this.onUpload = this.onUploadTexture;
-    this.onClick = this.onClickTexture;
-    this.onEdit = this.onEditTexture;
-    this.onDelete = this.onDeleteTexture;
-
     this.onSelect = options.onSelect || null;
 }
 
 TextureWindow.prototype = Object.create(UI.ImageListWindow.prototype);
 TextureWindow.prototype.constructor = TextureWindow;
 
-TextureWindow.prototype.beforeUpdateTextureList = function () {
+TextureWindow.prototype.beforeUpdateList = function () {
     var server = this.app.options.server;
 
     return new Promise(resolve => {
@@ -41,12 +35,12 @@ TextureWindow.prototype.beforeUpdateTextureList = function () {
     });
 };
 
-TextureWindow.prototype.onUploadTexture = function (obj) {
+TextureWindow.prototype.onUpload = function (obj) {
     this.update();
     UI.msg(obj.Msg);
 };
 
-TextureWindow.prototype.onClickTexture = function (data) {
+TextureWindow.prototype.onClick = function (data) {
     if (typeof (this.onSelect) === 'function') {
         this.onSelect(data);
     } else {
@@ -54,7 +48,7 @@ TextureWindow.prototype.onClickTexture = function (data) {
     }
 };
 
-TextureWindow.prototype.onEditTexture = function (data) {
+TextureWindow.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new TextureEditWindow({
             app: this.app,
@@ -67,7 +61,7 @@ TextureWindow.prototype.onEditTexture = function (data) {
     this.editWindow.show();
 };
 
-TextureWindow.prototype.onDeleteTexture = function (data) {
+TextureWindow.prototype.onDelete = function (data) {
     var server = this.app.options.server;
 
     UI.confirm('询问', `是否删除纹理${data.Name}？`, (event, btn) => {

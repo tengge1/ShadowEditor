@@ -20,19 +20,13 @@ function MMDWindow(options) {
     this.preImageUrl = this.app.options.server;
     this.showUploadButton = true;
 
-    this.beforeUpdateList = this.beforeUpdateMMDList;
-    this.onUpload = this.onUploadMMD;
-    this.onClick = this.onClickMMD;
-    this.onEdit = this.onEditMMD;
-    this.onDelete = this.onDeleteMMD;
-
     this.onSelect = options.onSelect || null;
 }
 
 MMDWindow.prototype = Object.create(UI.ImageListWindow.prototype);
 MMDWindow.prototype.constructor = MMDWindow;
 
-MMDWindow.prototype.beforeUpdateMMDList = function () {
+MMDWindow.prototype.beforeUpdateList = function () {
     var server = this.app.options.server;
 
     return new Promise(resolve => {
@@ -42,12 +36,12 @@ MMDWindow.prototype.beforeUpdateMMDList = function () {
     });
 };
 
-MMDWindow.prototype.onUploadMMD = function (obj) {
+MMDWindow.prototype.onUpload = function (obj) {
     this.update();
     UI.msg(obj.Msg);
 };
 
-MMDWindow.prototype.onClickMMD = function (model) {
+MMDWindow.prototype.onClick = function (model) {
     if (model.Type === 'vmd') {
         if (this.onSelect) {
             this.onSelect(model);
@@ -91,7 +85,7 @@ MMDWindow.prototype.onClickMMD = function (model) {
     });
 };
 
-MMDWindow.prototype.onEditMMD = function (data) {
+MMDWindow.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new MMDEditWindow({
             app: this.app,
@@ -104,7 +98,7 @@ MMDWindow.prototype.onEditMMD = function (data) {
     this.editWindow.show();
 };
 
-MMDWindow.prototype.onDeleteMMD = function (data) {
+MMDWindow.prototype.onDelete = function (data) {
     var server = this.app.options.server;
 
     UI.confirm('询问', `是否删除MMD资源${data.Name}？`, (event, btn) => {

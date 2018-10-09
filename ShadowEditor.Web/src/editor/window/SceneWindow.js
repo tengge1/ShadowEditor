@@ -19,17 +19,12 @@ function SceneWindow(options) {
     this.title = '场景列表';
     this.imageIcon = 'icon-scenes';
     this.preImageUrl = this.app.options.server;
-
-    this.beforeUpdateList = this.beforeUpdateSceneList;
-    this.onClick = this.onClickScene;
-    this.onEdit = this.onEditScene;
-    this.onDelete = this.onDeleteScene;
 }
 
 SceneWindow.prototype = Object.create(UI.ImageListWindow.prototype);
 SceneWindow.prototype.constructor = SceneWindow;
 
-SceneWindow.prototype.beforeUpdateSceneList = function () {
+SceneWindow.prototype.beforeUpdateList = function () {
     var server = this.app.options.server;
 
     return new Promise(resolve => {
@@ -39,7 +34,7 @@ SceneWindow.prototype.beforeUpdateSceneList = function () {
     });
 };
 
-SceneWindow.prototype.onClickScene = function (data) {
+SceneWindow.prototype.onClick = function (data) {
     var app = this.app;
     var editor = app.editor;
     var server = app.options.server;
@@ -177,7 +172,7 @@ SceneWindow.prototype.onLoadScene = function (obj) {
     this.app.editor.camera.updateProjectionMatrix();
 };
 
-SceneWindow.prototype.onEditScene = function (data) {
+SceneWindow.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new SceneEditWindow({
             app: this.app,
@@ -190,7 +185,7 @@ SceneWindow.prototype.onEditScene = function (data) {
     this.editWindow.show();
 };
 
-SceneWindow.prototype.onDeleteScene = function (data) {
+SceneWindow.prototype.onDelete = function (data) {
     var server = this.app.options.server;
 
     UI.confirm('询问', `是否删除场景${data.Name}？`, (event, btn) => {

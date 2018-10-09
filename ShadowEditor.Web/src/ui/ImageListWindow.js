@@ -20,11 +20,11 @@ function ImageListWindow(options) {
     this.preImageUrl = options.preImageUrl || '/'; // 缩略图url前缀，一般是服务端url
     this.showUploadButton = options.showUploadButton || false; // 是否显示上传按钮
 
-    this.beforeUpdateList = options.beforeUpdateList || null; // 图片列表刷新前调用，返回Promise，resolve(data)。
-    this.onUpload = options.onUpload || null; // 上传成功回调
-    this.onClick = options.onClick || null; // 点击图片列表
-    this.onEdit = options.onEdit || null; // 编辑图片列表
-    this.onDelete = options.onDelete || null; // 删除图片列表
+    this.beforeUpdateList = options.beforeUpdateList || this.beforeUpdateList; // 图片列表刷新前调用，返回Promise，resolve(data)。
+    this.onUpload = options.onUpload || this.onUpload; // 上传成功回调
+    this.onClick = options.onClick || this.onClick; // 点击图片列表
+    this.onEdit = options.onEdit || this.onEdit; // 编辑图片列表
+    this.onDelete = options.onDelete || this.onDelete; // 删除图片列表
 
     this.data = [];
     this.keyword = '';

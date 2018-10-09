@@ -19,18 +19,12 @@ function ModelWindow(options) {
     this.uploadUrl = `${this.app.options.server}/api/Mesh/Add`;
     this.preImageUrl = this.app.options.server;
     this.showUploadButton = true;
-
-    this.beforeUpdateList = this.beforeUpdateModelList;
-    this.onUpload = this.onUploadModel;
-    this.onClick = this.onClickModel;
-    this.onEdit = this.onEditModel;
-    this.onDelete = this.onDeleteModel;
 }
 
 ModelWindow.prototype = Object.create(UI.ImageListWindow.prototype);
 ModelWindow.prototype.constructor = ModelWindow;
 
-ModelWindow.prototype.beforeUpdateModelList = function () {
+ModelWindow.prototype.beforeUpdateList = function () {
     var server = this.app.options.server;
 
     return new Promise(resolve => {
@@ -40,12 +34,12 @@ ModelWindow.prototype.beforeUpdateModelList = function () {
     });
 };
 
-ModelWindow.prototype.onUploadModel = function (obj) {
+ModelWindow.prototype.onUpload = function (obj) {
     this.update();
     UI.msg(obj.Msg);
 };
 
-ModelWindow.prototype.onClickModel = function (model) {
+ModelWindow.prototype.onClick = function (model) {
     var loader = new ModelLoader(this.app);
 
     var url = model.Url;
@@ -78,7 +72,7 @@ ModelWindow.prototype.onClickModel = function (model) {
     });
 };
 
-ModelWindow.prototype.onEditModel = function (data) {
+ModelWindow.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new ModelEditWindow({
             app: this.app,
@@ -91,7 +85,7 @@ ModelWindow.prototype.onEditModel = function (data) {
     this.editWindow.show();
 };
 
-ModelWindow.prototype.onDeleteModel = function (data) {
+ModelWindow.prototype.onDelete = function (data) {
     var server = this.app.options.server;
 
     UI.confirm('询问', `是否删除模型${data.Name}？`, (event, btn) => {
