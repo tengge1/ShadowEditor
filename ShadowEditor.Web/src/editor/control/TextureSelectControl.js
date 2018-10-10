@@ -8,7 +8,9 @@ import TextureWindow from '../window/TextureWindow';
 function TextureSelectControl(options) {
     Control.call(this, options);
 
-    this.mapping = options.mapping || THREE.UVMapping;
+    this.app = options.app;
+
+    this.texture = null;
 
     this.onChange = options.onChange || null;
 }
@@ -18,64 +20,39 @@ TextureSelectControl.prototype.constructor = TextureSelectControl;
 
 TextureSelectControl.prototype.render = function () {
     this.dom = document.createElement('div');
-
     this.dom.className = 'Texture';
-
-    this.form = document.createElement('form');
-
-    this.input = document.createElement('input');
-    this.input.type = 'file';
-
-    var _this = this;
-
-    this.input.addEventListener('change', function (event) {
-        _this.loadFile(event.target.files[0]);
-    });
-
-    this.form.appendChild(this.input);
 
     this.canvas = document.createElement('canvas');
     this.canvas.width = 32;
     this.canvas.height = 16;
-
-    this.canvas.addEventListener('click', function (event) {
-        _this.input.click();
-    }, false);
-
     this.dom.appendChild(this.canvas);
+
+    this.canvas.addEventListener('click', this.onClick.bind(this));
 
     this.name = document.createElement('input');
     this.name.disabled = true;
     this.dom.appendChild(this.name);
 
     this.parent.appendChild(this.dom);
-
-    this.texture = null;
 };
 
-TextureSelectControl.prototype.getValue = function () {
-    return this.texture;
-};
-
-TextureSelectControl.prototype.setValue = function (texture) {
+TextureSelectControl.prototype.updateUI = function () {
     var canvas = this.dom.children[0];
     var name = this.dom.children[1];
     var context = canvas.getContext('2d');
 
-    if (texture !== null) {
+    var texture = this.texture;
+
+    if (texture !== undefined && texture !== null) {
         var image = texture.image;
 
         if (image !== undefined && image.width > 0) {
-            if (texture.sourceFile) {
-                name.value = texture.sourceFile;
-            } else {
-                name.value = '';
-            }
+            name.value = texture.name;
 
             var scale = canvas.width / image.width;
             context.drawImage(image, 0, 0, image.width * scale, image.height * scale);
         } else {
-            name.value = (texture.sourceFile == null ? '' : texture.sourceFile) + '错误';
+            name.value = '无图片';
             context.clearRect(0, 0, canvas.width, canvas.height);
         }
 
@@ -86,56 +63,37 @@ TextureSelectControl.prototype.setValue = function (texture) {
             context.clearRect(0, 0, canvas.width, canvas.height);
         }
     }
-
-    this.texture = texture;
 };
 
-TextureSelectControl.prototype.loadFile = function (file) {
-    var _this = this;
+TextureSelectControl.prototype.getValue = function () {
+    return this.texture;
+};
 
-    if (file.type.match('image.*')) {
-        var reader = new FileReader();
+TextureSelectControl.prototype.setValue = function (texture) {
+    this.texture = texture;
+    this.updateUI();
+};
 
-        if (file.type === 'image/targa') {
-            reader.addEventListener('load', function (event) {
-                var canvas = new THREE.TGALoader().parse(event.target.result);
-                var texture = new THREE.CanvasTexture(canvas, _this.mapping);
-
-                texture.sourceFile = file.name;
-
-                _this.setValue(texture);
-
-                if (_this.onChange) {
-                    _this.onChange();
-                }
-            }, false);
-
-            reader.readAsArrayBuffer(file);
-        } else {
-            reader.addEventListener('load', function (event) {
-                var image = document.createElement('img');
-
-                image.addEventListener('load', function (event) {
-                    var texture = new THREE.Texture(this, _this.mapping);
-                    texture.sourceFile = file.name;
-                    texture.format = file.type === 'image/jpeg' ? THREE.RGBFormat : THREE.RGBAFormat;
-                    texture.needsUpdate = true;
-
-                    _this.setValue(texture);
-
-                    if (_this.onChange) {
-                        _this.onChange();
-                    }
-                }, false);
-
-                image.src = event.target.result;
-            }, false);
-
-            reader.readAsDataURL(file);
-        }
+TextureSelectControl.prototype.onClick = function () {
+    if (this.window === undefined) {
+        this.window = new TextureWindow({
+            app: this.app,
+            onSelect: this.onSelect.bind(this)
+        });
+        this.window.render();
     }
+    this.window.show();
+};
 
-    this.form.reset();
+TextureSelectControl.prototype.onSelect = function (data) {
+    var loader = new THREE.TextureLoader();
+    loader.load(data.Url, texture => {
+        this.texture = texture;
+        this.texture.name = data.Name;
+        this.window.hide();
+        this.updateUI();
+        this.onChange();
+    });
 };
 
 export default TextureSelectControl;

@@ -280,6 +280,7 @@ MaterialComponent.prototype.render = function () {
                 onChange: this.updateMaterial.bind(this)
             },
             new TextureSelectControl({
+                app: this.app,
                 id: 'map',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
