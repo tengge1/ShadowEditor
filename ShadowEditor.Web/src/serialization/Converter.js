@@ -34,6 +34,9 @@ import AudioListenerSerializer from './audio/AudioListenerSerializer';
 import ReflectorSerializer from './objects/ReflectorSerializer';
 import FireSerializer from './objects/FireSerializer';
 import SmokeSerializer from './objects/SmokeSerializer';
+import SkySerializer from './objects/SkySerializer';
+
+import Sky from '../object/Sky';
 
 /**
  * 场景序列化/反序列化类
@@ -138,6 +141,8 @@ Converter.prototype.sceneToJson = function (scene, list) {
             json = (new AudioSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Bone) {
             json = (new BoneSerializer()).toJSON(obj);
+        } else if (obj instanceof Sky) {
+            json = (new SkySerializer()).toJSON(obj);
         }
 
         if (json) {
@@ -314,6 +319,9 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                     break;
                 case 'BoneSerializer':
                     obj = (new BoneSerializer()).fromJSON(objJson);
+                    break;
+                case 'SkySerializer':
+                    obj = (new SkySerializer()).fromJSON(objJson);
                     break;
             }
 

@@ -1,11 +1,9 @@
-import BaseObject from './BaseObject';
-
 /**
  * 天空
  * @param {*} options 选项
  */
 function Sky(options) {
-    BaseObject.call(this);
+    THREE.Object3D.call(this);
 
     options = options || {};
 
@@ -45,9 +43,18 @@ function Sky(options) {
     sunSphere.position.z = distance * Math.sin(phi) * Math.cos(theta);
     sunSphere.visible = true;
     uniforms.sunPosition.value.copy(sunSphere.position);
+
+    this.userData = {
+        type: 'sky',
+        turbidity: turbidity,
+        rayleigh: rayleigh,
+        luminance: luminance,
+        mieCoefficient: mieCoefficient,
+        mieDirectionalG: mieDirectionalG
+    };
 }
 
-Sky.prototype = Object.create(BaseObject.prototype);
+Sky.prototype = Object.create(THREE.Object3D.prototype);
 Sky.prototype.constructor = Sky;
 
 export default Sky;
