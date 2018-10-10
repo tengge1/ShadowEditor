@@ -17,6 +17,7 @@ import ReflectorComponent from '../../component/ReflectorComponent';
 import LMeshComponent from '../../component/LMeshComponent';
 import MMDComponent from '../../component/MMDComponent';
 import RigidBodyComponent from '../../component/physics/RigidBodyComponent';
+import SkyComponent from '../../component/object/SkyComponent';
 
 /**
  * 属性面板
@@ -43,6 +44,7 @@ PropertyPanel.prototype.render = function () {
             new LightComponent({ app: this.app }),
             new ShadowComponent({ app: this.app }),
             new ReflectorComponent({ app: this.app }),
+            new SkyComponent({ app: this.app }),
             new AudioListenerComponent({ app: this.app }),
             new BackgroundMusicComponent({ app: this.app }),
             new PhysicsWorldComponent({ app: this.app }),

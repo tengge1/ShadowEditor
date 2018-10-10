@@ -8,7 +8,7 @@ function Sky(options) {
     options = options || {};
 
     var turbidity = options.turbidity || 10; // 浑浊度
-    var rayleigh = options.rayleigh || 2;
+    var rayleigh = options.rayleigh || 2; // 瑞利
     var luminance = options.luminance || 1; // 亮度
     var mieCoefficient = options.mieCoefficient || 0.005;
     var mieDirectionalG = options.mieDirectionalG || 0.8;
@@ -45,7 +45,7 @@ function Sky(options) {
     uniforms.sunPosition.value.copy(sunSphere.position);
 
     this.userData = {
-        type: 'sky',
+        type: 'Sky',
         turbidity: turbidity,
         rayleigh: rayleigh,
         luminance: luminance,
