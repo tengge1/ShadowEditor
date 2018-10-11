@@ -9,6 +9,7 @@ import RawShaderMaterialVertex from './shader/raw_shader_material_vertex.glsl';
 import RawShaderMaterialFragment from './shader/raw_shader_material_fragment.glsl';
 
 import TextureSelectControl from '../editor/control/TextureSelectControl';
+import TextureSettingWindow from '../editor/window/TextureSettingWindow';
 
 /**
  * 材质组件
@@ -284,8 +285,14 @@ MaterialComponent.prototype.render = function () {
                 id: 'map',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
-            })
-            ]
+            }), {
+                xtype: 'linkbutton',
+                text: '设置',
+                style: {
+                    marginLeft: '4px'
+                },
+                onClick: this.onSetMap.bind(this)
+            }]
         }, {
             xtype: 'row',
             id: 'alphaMapRow',
@@ -1414,6 +1421,23 @@ MaterialComponent.prototype.editFragmentShader = function () {
         material.fragmentShader = source;
         material.needsUpdate = true;
     });
+};
+
+MaterialComponent.prototype.onSetMap = function () {
+    if (this.mapSettingWindow === undefined) {
+        this.mapSettingWindow = new TextureSettingWindow({
+            app: this.app
+        });
+        this.mapSettingWindow.render();
+    }
+
+    if (!this.selected.material.map) {
+        UI.msg('请先为该物体选择纹理！');
+        return;
+    }
+
+    this.mapSettingWindow.setData(this.selected.material.map);
+    this.mapSettingWindow.show();
 };
 
 export default MaterialComponent;

@@ -40,6 +40,7 @@ import Canvas from './Canvas';
 import Timeline from './Timeline';
 import ImageListWindow from './ImageListWindow';
 import ImageUploader from './ImageUploader';
+import LinkButton from './LinkButton';
 
 /**
  * UI类
@@ -202,7 +203,8 @@ Object.assign(UI, {
     Canvas: Canvas,
     Timeline: Timeline,
     ImageListWindow: ImageListWindow,
-    ImageUploader: ImageUploader
+    ImageUploader: ImageUploader,
+    LinkButton: LinkButton
 });
 
 // 添加所有控件的XType
@@ -248,6 +250,7 @@ UI.addXType('canvas', Canvas);
 UI.addXType('timeline', Timeline);
 UI.addXType('imagelistwindow', ImageListWindow);
 UI.addXType('imageuploader', ImageUploader);
+UI.addXType('linkbutton', LinkButton);
 
 // 添加一些实用功能
 Object.assign(UI, {
