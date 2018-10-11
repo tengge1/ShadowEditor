@@ -27,43 +27,6 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '各向异性'
-            }, {
-                xtype: 'int',
-                id: 'anisotropy',
-                scope: this.id,
-                style: {
-                    width: '80px'
-                },
-                range: [1, 16],
-                onChange: this.onChange.bind(this)
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: '中心点'
-            }, {
-                xtype: 'number',
-                id: 'centerX',
-                scope: this.id,
-                style: {
-                    width: '40px'
-                },
-                onChange: this.onChange.bind(this)
-            }, {
-                xtype: 'number',
-                id: 'centerY',
-                scope: this.id,
-                style: {
-                    width: '40px'
-                },
-                onChange: this.onChange.bind(this)
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
                 text: '偏移'
             }, {
                 xtype: 'number',
@@ -86,7 +49,81 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '重复'
+                text: '旋转中心'
+            }, {
+                xtype: 'number',
+                id: 'centerX',
+                scope: this.id,
+                style: {
+                    width: '40px'
+                },
+                onChange: this.onChange.bind(this)
+            }, {
+                xtype: 'number',
+                id: 'centerY',
+                scope: this.id,
+                style: {
+                    width: '40px'
+                },
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '旋转'
+            }, {
+                xtype: 'number',
+                id: 'rotation',
+                scope: this.id,
+                style: {
+                    width: '40px'
+                },
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '横向填充'
+            }, {
+                xtype: 'select',
+                id: 'wrapS',
+                scope: this.id,
+                options: {
+                    [THREE.ClampToEdgeWrapping]: '拉伸',
+                    [THREE.RepeatWrapping]: '重复',
+                    [THREE.MirroredRepeatWrapping]: '镜像'
+                },
+                style: {
+                    width: '160px'
+                },
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '纵向填充'
+            }, {
+                xtype: 'select',
+                id: 'wrapT',
+                scope: this.id,
+                options: {
+                    [THREE.ClampToEdgeWrapping]: '拉伸',
+                    [THREE.RepeatWrapping]: '重复',
+                    [THREE.MirroredRepeatWrapping]: '镜像'
+                },
+                style: {
+                    width: '160px'
+                },
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '填充次数'
             }, {
                 xtype: 'int',
                 id: 'repeatX',
@@ -108,13 +145,50 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '旋转'
+                text: '反转Y'
             }, {
-                xtype: 'number',
-                id: 'rotation',
+                xtype: 'checkbox',
+                id: 'flipY',
                 scope: this.id,
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '放大过滤'
+            }, {
+                xtype: 'select',
+                id: 'magFilter',
+                scope: this.id,
+                options: {
+                    [THREE.LinearFilter]: 'LinearFilter',
+                    [THREE.NearestFilter]: 'NearestFilter'
+                },
                 style: {
-                    width: '40px'
+                    width: '160px'
+                },
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '缩小过滤'
+            }, {
+                xtype: 'select',
+                id: 'minFilter',
+                scope: this.id,
+                options: {
+                    [THREE.LinearMipMapLinearFilter]: 'LinearMipMapLinearFilter',
+                    [THREE.NearestFilter]: 'NearestFilter',
+                    [THREE.NearestMipMapNearestFilter]: 'NearestMipMapNearestFilter',
+                    [THREE.NearestMipMapLinearFilter]: 'NearestMipMapLinearFilter',
+                    [THREE.LinearFilter]: 'LinearFilter',
+                    [THREE.LinearMipMapNearestFilter]: 'LinearMipMapNearestFilter'
+                },
+                style: {
+                    width: '160px'
                 },
                 onChange: this.onChange.bind(this)
             }]
@@ -176,17 +250,6 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '反转Y'
-            }, {
-                xtype: 'checkbox',
-                id: 'flipY',
-                scope: this.id,
-                onChange: this.onChange.bind(this)
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
                 text: '格式'
             }, {
                 xtype: 'select',
@@ -216,46 +279,6 @@ TextureSettingWindow.prototype.render = function () {
                 xtype: 'checkbox',
                 id: 'generateMipmaps',
                 scope: this.id,
-                onChange: this.onChange.bind(this)
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: '放大过滤'
-            }, {
-                xtype: 'select',
-                id: 'magFilter',
-                scope: this.id,
-                options: {
-                    [THREE.LinearFilter]: 'LinearFilter',
-                    [THREE.NearestFilter]: 'NearestFilter'
-                },
-                style: {
-                    width: '160px'
-                },
-                onChange: this.onChange.bind(this)
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: '缩小过滤'
-            }, {
-                xtype: 'select',
-                id: 'minFilter',
-                scope: this.id,
-                options: {
-                    [THREE.LinearMipMapLinearFilter]: 'LinearMipMapLinearFilter',
-                    [THREE.NearestFilter]: 'NearestFilter',
-                    [THREE.NearestMipMapNearestFilter]: 'NearestMipMapNearestFilter',
-                    [THREE.NearestMipMapLinearFilter]: 'NearestMipMapLinearFilter',
-                    [THREE.LinearFilter]: 'LinearFilter',
-                    [THREE.LinearMipMapNearestFilter]: 'LinearMipMapNearestFilter'
-                },
-                style: {
-                    width: '160px'
-                },
                 onChange: this.onChange.bind(this)
             }]
         }, {
@@ -317,38 +340,15 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '横向包装'
+                text: '各向异性'
             }, {
-                xtype: 'select',
-                id: 'wrapS',
+                xtype: 'int',
+                id: 'anisotropy',
                 scope: this.id,
-                options: {
-                    [THREE.ClampToEdgeWrapping]: 'ClampToEdgeWrapping',
-                    [THREE.RepeatWrapping]: 'RepeatWrapping',
-                    [THREE.MirroredRepeatWrapping]: 'MirroredRepeatWrapping'
-                },
                 style: {
-                    width: '160px'
+                    width: '80px'
                 },
-                onChange: this.onChange.bind(this)
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: '纵向包装'
-            }, {
-                xtype: 'select',
-                id: 'wrapT',
-                scope: this.id,
-                options: {
-                    [THREE.ClampToEdgeWrapping]: 'ClampToEdgeWrapping',
-                    [THREE.RepeatWrapping]: 'RepeatWrapping',
-                    [THREE.MirroredRepeatWrapping]: 'MirroredRepeatWrapping'
-                },
-                style: {
-                    width: '160px'
-                },
+                range: [1, 16],
                 onChange: this.onChange.bind(this)
             }]
         }]
