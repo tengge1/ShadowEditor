@@ -285,12 +285,6 @@ MaterialComponent.prototype.render = function () {
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
             })
-                // {
-                //     xtype: 'texture',
-                //     id: 'map',
-                //     scope: this.id,
-                //     onChange: this.updateMaterial.bind(this)
-                // }
             ]
         }, {
             xtype: 'row',
@@ -876,7 +870,7 @@ MaterialComponent.prototype.setRowValue = function () {
         skinning.setValue(material.skinning);
     }
 
-    if (material.map !== undefined) {
+    if (material.map) {
         mapEnabled.setValue(material.map !== null);
 
         if (material.map !== null) {
@@ -897,9 +891,8 @@ MaterialComponent.prototype.setRowValue = function () {
 
         if (material.bumpMap !== null) {
             bumpMap.setValue(material.bumpMap);
+            bumpScale.setValue(material.bumpScale);
         }
-
-        bumpScale.setValue(material.bumpScale);
     }
 
     if (material.normalMap !== undefined) {
@@ -915,9 +908,8 @@ MaterialComponent.prototype.setRowValue = function () {
 
         if (material.displacementMap !== null) {
             displacementMap.setValue(material.displacementMap);
+            displacementScale.setValue(material.displacementScale);
         }
-
-        displacementScale.setValue(material.displacementScale);
     }
 
     if (material.roughnessMap !== undefined) {
@@ -969,9 +961,8 @@ MaterialComponent.prototype.setRowValue = function () {
 
         if (material.aoMap !== null) {
             aoMap.setValue(material.aoMap);
+            aoScale.setValue(material.aoMapIntensity);
         }
-
-        aoScale.setValue(material.aoMapIntensity);
     }
 
     if (material.emissiveMap !== undefined) {
