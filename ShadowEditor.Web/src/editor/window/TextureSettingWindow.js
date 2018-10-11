@@ -17,8 +17,8 @@ TextureSettingWindow.prototype.render = function () {
     this.window = UI.create({
         xtype: 'window',
         title: '纹理设置',
-        width: '500px',
-        height: '300px',
+        width: '300px',
+        height: '450px',
         bodyStyle: {
             padding: 0
         },
@@ -35,7 +35,8 @@ TextureSettingWindow.prototype.render = function () {
                 style: {
                     width: '80px'
                 },
-                range: [1, 16]
+                range: [1, 16],
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -48,14 +49,16 @@ TextureSettingWindow.prototype.render = function () {
                 scope: this.id,
                 style: {
                     width: '40px'
-                }
+                },
+                onChange: this.onChange.bind(this)
             }, {
                 xtype: 'number',
                 id: 'centerY',
                 scope: this.id,
                 style: {
                     width: '40px'
-                }
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -68,14 +71,16 @@ TextureSettingWindow.prototype.render = function () {
                 scope: this.id,
                 style: {
                     width: '40px'
-                }
+                },
+                onChange: this.onChange.bind(this)
             }, {
                 xtype: 'number',
                 id: 'offsetY',
                 scope: this.id,
                 style: {
                     width: '40px'
-                }
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -88,14 +93,16 @@ TextureSettingWindow.prototype.render = function () {
                 scope: this.id,
                 style: {
                     width: '40px'
-                }
+                },
+                onChange: this.onChange.bind(this)
             }, {
                 xtype: 'int',
-                id: 'repearY',
+                id: 'repeatY',
                 scope: this.id,
                 style: {
                     width: '40px'
-                }
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -108,7 +115,8 @@ TextureSettingWindow.prototype.render = function () {
                 scope: this.id,
                 style: {
                     width: '40px'
-                }
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -134,8 +142,9 @@ TextureSettingWindow.prototype.render = function () {
                     [THREE.UnsignedInt248Type]: 'UnsignedInt248Type'
                 },
                 style: {
-                    width: '120px'
-                }
+                    width: '160px'
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -159,8 +168,9 @@ TextureSettingWindow.prototype.render = function () {
                     [THREE.RGBADepthPacking]: 'RGBADepthPacking'
                 },
                 style: {
-                    width: '120px'
-                }
+                    width: '160px'
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -170,7 +180,8 @@ TextureSettingWindow.prototype.render = function () {
             }, {
                 xtype: 'checkbox',
                 id: 'flipY',
-                scope: this.id
+                scope: this.id,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -192,8 +203,9 @@ TextureSettingWindow.prototype.render = function () {
                     [THREE.DepthStencilFormat]: 'DepthStencilFormat'
                 },
                 style: {
-                    width: '120px'
-                }
+                    width: '160px'
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -203,7 +215,8 @@ TextureSettingWindow.prototype.render = function () {
             }, {
                 xtype: 'checkbox',
                 id: 'generateMipmaps',
-                scope: this.id
+                scope: this.id,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -219,8 +232,9 @@ TextureSettingWindow.prototype.render = function () {
                     [THREE.NearestFilter]: 'NearestFilter'
                 },
                 style: {
-                    width: '120px'
-                }
+                    width: '160px'
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -240,8 +254,9 @@ TextureSettingWindow.prototype.render = function () {
                     [THREE.LinearMipMapNearestFilter]: 'LinearMipMapNearestFilter'
                 },
                 style: {
-                    width: '120px'
-                }
+                    width: '160px'
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -263,8 +278,9 @@ TextureSettingWindow.prototype.render = function () {
                     [THREE.CubeUVRefractionMapping]: 'CubeUVRefractionMapping'
                 },
                 style: {
-                    width: '120px'
-                }
+                    width: '160px'
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -274,7 +290,8 @@ TextureSettingWindow.prototype.render = function () {
             }, {
                 xtype: 'checkbox',
                 id: 'premultiplyAlpha',
-                scope: this.id
+                scope: this.id,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -292,8 +309,9 @@ TextureSettingWindow.prototype.render = function () {
                     [8]: '8'
                 },
                 style: {
-                    width: '120px'
-                }
+                    width: '160px'
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -310,8 +328,9 @@ TextureSettingWindow.prototype.render = function () {
                     [THREE.MirroredRepeatWrapping]: 'MirroredRepeatWrapping'
                 },
                 style: {
-                    width: '120px'
-                }
+                    width: '160px'
+                },
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -328,8 +347,9 @@ TextureSettingWindow.prototype.render = function () {
                     [THREE.MirroredRepeatWrapping]: 'MirroredRepeatWrapping'
                 },
                 style: {
-                    width: '120px'
-                }
+                    width: '160px'
+                },
+                onChange: this.onChange.bind(this)
             }]
         }]
     });
@@ -365,6 +385,77 @@ TextureSettingWindow.prototype.setData = function (texture) {
     var unpackAlignment = UI.get('unpackAlignment', this.id);
     var wrapS = UI.get('wrapS', this.id);
     var wrapT = UI.get('wrapT', this.id);
+
+    this.texture = texture;
+
+    anisotropy.setValue(texture.anisotropy);
+    centerX.setValue(texture.center.x);
+    centerY.setValue(texture.center.y);
+    offsetX.setValue(texture.offset.x);
+    offsetY.setValue(texture.offset.y);
+    repeatX.setValue(texture.repeat.x);
+    repeatY.setValue(texture.repeat.y);
+    rotation.setValue(texture.rotation);
+    type.setValue(texture.type);
+    encoding.setValue(texture.encoding);
+    flipY.setValue(texture.flipY);
+    format.setValue(texture.format);
+    generateMipmaps.setValue(texture.generateMipmaps);
+    magFilter.setValue(texture.magFilter);
+    minFilter.setValue(texture.minFilter);
+    mapping.setValue(texture.mapping);
+    premultiplyAlpha.setValue(texture.premultiplyAlpha);
+    unpackAlignment.setValue(texture.unpackAlignment);
+    wrapS.setValue(texture.wrapS);
+    wrapT.setValue(texture.wrapT);
+};
+
+TextureSettingWindow.prototype.onChange = function () {
+    var anisotropy = UI.get('anisotropy', this.id);
+    var centerX = UI.get('centerX', this.id);
+    var centerY = UI.get('centerY', this.id);
+    var offsetX = UI.get('offsetX', this.id);
+    var offsetY = UI.get('offsetY', this.id);
+    var repeatX = UI.get('repeatX', this.id);
+    var repeatY = UI.get('repeatY', this.id);
+    var rotation = UI.get('rotation', this.id);
+    var type = UI.get('type', this.id);
+    var encoding = UI.get('encoding', this.id);
+    var flipY = UI.get('flipY', this.id);
+    var format = UI.get('format', this.id);
+    var generateMipmaps = UI.get('generateMipmaps', this.id);
+    var magFilter = UI.get('magFilter', this.id);
+    var minFilter = UI.get('minFilter', this.id);
+    var mapping = UI.get('mapping', this.id);
+    var premultiplyAlpha = UI.get('premultiplyAlpha', this.id);
+    var unpackAlignment = UI.get('unpackAlignment', this.id);
+    var wrapS = UI.get('wrapS', this.id);
+    var wrapT = UI.get('wrapT', this.id);
+
+    var texture = this.texture;
+
+    texture.anisotropy = anisotropy.getValue();
+    texture.center.x = centerX.getValue();
+    texture.center.y = centerY.getValue();
+    texture.offset.x = offsetX.getValue();
+    texture.offset.y = offsetY.getValue();
+    texture.repeat.x = repeatX.getValue();
+    texture.repeat.y = repeatY.getValue();
+    texture.rotation = rotation.getValue();
+    texture.type = parseInt(type.getValue());
+    texture.encoding = parseInt(encoding.getValue());
+    texture.flipY = flipY.getValue();
+    texture.format = parseInt(format.getValue());
+    texture.generateMipmaps = generateMipmaps.getValue();
+    texture.magFilter = parseInt(magFilter.getValue());
+    texture.minFilter = parseInt(minFilter.getValue());
+    texture.mapping = parseInt(mapping.getValue());
+    texture.premultiplyAlpha = premultiplyAlpha.getValue();
+    texture.unpackAlignment = parseInt(unpackAlignment.getValue());
+    texture.wrapS = parseInt(wrapS.getValue());
+    texture.wrapT = parseInt(wrapT.getValue());
+
+    texture.needsUpdate = true;
 };
 
 export default TextureSettingWindow;
