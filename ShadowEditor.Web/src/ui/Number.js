@@ -58,8 +58,6 @@ Number.prototype.render = function () {
 
     var pointer = [0, 0];
     var prevPointer = [0, 0];
-    var offsetX = 0;
-    var offsetY = 0;
 
     function onMouseDown(event) {
         event.preventDefault();
@@ -68,16 +66,9 @@ Number.prototype.render = function () {
         prevPointer = [event.clientX, event.clientY];
         document.addEventListener('mousemove', onMouseMove, false);
         document.addEventListener('mouseup', onMouseUp, false);
-
-        if (this.autoChangeInterval === undefined) {
-            this.autoChangeInterval = setInterval(autoChange, 0);
-        }
     }
 
     function onMouseMove(event) {
-        offsetX = event.offsetX;
-        offsetY = event.offsetY;
-
         var currentValue = _this.value;
         pointer = [event.clientX, event.clientY];
         distance += (pointer[0] - prevPointer[0]) - (pointer[1] - prevPointer[1]);
@@ -100,11 +91,6 @@ Number.prototype.render = function () {
             _this.dom.focus();
             _this.dom.select();
         }
-
-        if (this.autoChangeInterval !== undefined) {
-            clearInterval(this.autoChangeInterval);
-            this.autoChangeInterval = undefined;
-        }
     }
 
     function onChange(event) {
@@ -126,10 +112,6 @@ Number.prototype.render = function () {
     }
 
     onBlur();
-
-    function autoChange() {
-
-    }
 
     this.dom.addEventListener('mousedown', onMouseDown, false);
     this.dom.addEventListener('change', onChange, false);
