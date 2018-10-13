@@ -151,9 +151,12 @@ Converter.prototype.sceneToJson = function (scene, list) {
             console.warn(`Converter: 没有 ${obj.constructor.name} 的序列化器。`);
         }
 
-        obj.children && obj.children.forEach(n => {
-            serializer.call(this, n);
-        });
+        // 如果obj.userData.type不为空，则为内置类型，其子项不应该序列化
+        if (obj.children && obj.userData.type === undefined) {
+            obj.children.forEach(n => {
+                serializer.call(this, n);
+            });
+        }
     })(scene);
 };
 
