@@ -43,6 +43,8 @@ function ParticleEmitter() {
 
     group.addEmitter(emitter);
 
+    group.mesh.name = '粒子';
+
     this.add(group.mesh);
 
     this.name = '粒子发射器';
