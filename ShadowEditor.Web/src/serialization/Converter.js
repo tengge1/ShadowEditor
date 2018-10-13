@@ -334,7 +334,8 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                 console.warn(`Converter: 不存在${objJson.metadata.type}的反序列化器。`);
             }
 
-            if (objJson.children && Array.isArray(objJson.children) && objJson.children.length > 0 && obj) {
+            // objJson.userData.type不为空，说明它是内置类型，其子项不应该被反序列化
+            if (objJson.userData.type === undefined && objJson.children && Array.isArray(objJson.children) && objJson.children.length > 0 && obj) {
                 parseJson(objJson, obj, list);
             }
         });
