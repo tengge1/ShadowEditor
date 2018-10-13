@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import Sky from '../../object/Sky';
 import Smoke from '../../particle/Smoke';
+import ParticleEmitter from '../../object/component/ParticleEmitter';
 import PlysicsUtils from '../../physics/PlysicsUtils';
 
 /**
@@ -88,55 +89,9 @@ ComponentMenu.prototype.onAddBackgroundMusic = function () {
 // ---------------------------- 添加粒子发射器 --------------------------------------------
 
 ComponentMenu.prototype.ParticleEmitter = function () {
-    var group = new SPE.Group({
-        texture: {
-            value: new THREE.TextureLoader().load('assets/textures/SPE/smokeparticle.png')
-        },
-        maxParticleCount: 2000
-    });
-
-    var emitter = new SPE.Emitter({
-        maxAge: {
-            value: 2
-        },
-        position: {
-            value: new THREE.Vector3(0, 0, 0),
-            spread: new THREE.Vector3(0, 0, 0)
-        },
-
-        acceleration: {
-            value: new THREE.Vector3(0, -10, 0),
-            spread: new THREE.Vector3(10, 0, 10)
-        },
-
-        velocity: {
-            value: new THREE.Vector3(0, 25, 0),
-            spread: new THREE.Vector3(10, 7.5, 10)
-        },
-
-        color: {
-            value: [new THREE.Color('white'), new THREE.Color('red')]
-        },
-
-        size: {
-            value: 1
-        },
-
-        particleCount: 2000
-    });
-
-    group.addEmitter(emitter);
-
-    group.mesh.name = '粒子发射器';
-
-    group.mesh.userData.type = 'ParticleEmitter';
-    group.mesh.userData.group = group;
-    group.mesh.userData.emitter = emitter;
-
-    this.app.editor.execute(new AddObjectCommand(group.mesh));
-
-    // 稍微喷一点，让纹理正常加载
-    group.tick(0);
+    var emitter = new ParticleEmitter();
+    this.app.editor.execute(new AddObjectCommand(emitter));
+    emitter.userData.group.tick(0);
 };
 
 // ---------------------------- 天空 ----------------------------------------
