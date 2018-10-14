@@ -35,8 +35,7 @@ import ReflectorSerializer from './objects/ReflectorSerializer';
 import FireSerializer from './objects/FireSerializer';
 import SmokeSerializer from './objects/SmokeSerializer';
 import SkySerializer from './objects/SkySerializer';
-
-import Sky from '../object/Sky';
+import ParticleEmitterSerializer from './objects/ParticleEmitterSerializer';
 
 /**
  * 场景序列化/反序列化类
@@ -111,10 +110,14 @@ Converter.prototype.sceneToJson = function (scene, list) {
 
         if (obj.userData.Server === true) { // 服务器对象
             json = (new ServerObject()).toJSON(obj);
+        } else if (obj.userData.type === 'Sky') {
+            json = (new SkySerializer()).toJSON(obj);
         } else if (obj.userData.type === 'Fire') { // 火焰
             json = (new FireSerializer()).toJSON(obj);
         } else if (obj.userData.type === 'Smoke') { // 烟
             json = (new SmokeSerializer()).toJSON(obj);
+        } else if (obj.userData.type === 'ParticleEmitter') { // 粒子发射器
+            json = (new ParticleEmitterSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Scene) {
             json = (new SceneSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Group) {
@@ -141,8 +144,6 @@ Converter.prototype.sceneToJson = function (scene, list) {
             json = (new AudioSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Bone) {
             json = (new BoneSerializer()).toJSON(obj);
-        } else if (obj instanceof Sky) {
-            json = (new SkySerializer()).toJSON(obj);
         }
 
         if (json) {
