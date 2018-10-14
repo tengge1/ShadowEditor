@@ -2,7 +2,7 @@
 
 * [简介](README.md)
 * [用户界面](ui/UI.md)
-    * 菜单栏
+    * [菜单栏](ui/MenuBar.md)
         * [场景](ui/menu/Scene.md)
         * [编辑](ui/menu/Edit.md)
         * [几何体](ui/menu/Geometry.md)
