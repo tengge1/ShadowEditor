@@ -1,6 +1,6 @@
 import BaseSerializer from '../BaseSerializer';
 import Object3DSerializer from '../core/Object3DSerializer';
-import Sky from '../../object/Sky';
+import Sky from '../../object/component/Sky';
 
 /**
  * SkySerializer

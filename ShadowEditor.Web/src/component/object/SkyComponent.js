@@ -1,5 +1,5 @@
 import BaseComponent from '../BaseComponent';
-import Sky from '../../object/Sky';
+import Sky from '../../object/component/Sky';
 
 /**
  * 天空组件

@@ -1,6 +1,6 @@
 import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
-import Sky from '../../object/Sky';
+import Sky from '../../object/component/Sky';
 import Fire from '../../object/component/Fire';
 import Smoke from '../../object/component/Smoke';
 import ParticleEmitter from '../../object/component/ParticleEmitter';
