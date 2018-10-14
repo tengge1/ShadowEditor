@@ -1,6 +1,7 @@
 import BaseSerializer from '../BaseSerializer';
 import Object3DSerializer from '../core/Object3DSerializer';
 import TexturesSerializer from '../texture/TexturesSerializer';
+import ParticleEmitter from '../../object/component/ParticleEmitter';
 
 /**
  * ParticleEmitterSerializer
@@ -22,7 +23,8 @@ ParticleEmitterSerializer.prototype.toJSON = function (obj) {
     var emitter = json.userData.emitter;
 
     json.userData.group = {
-        texture: (new TexturesSerializer()).toJSON(group.texture)
+        texture: (new TexturesSerializer()).toJSON(group.texture),
+        maxParticleCount: group.maxParticleCount
     };
 
     json.userData.emitter = {
@@ -64,10 +66,10 @@ ParticleEmitterSerializer.prototype.toJSON = function (obj) {
         },
         color: {
             value: [
-                emitter.color.value[0].getHexString(),
-                emitter.color.value[1].getHexString(),
-                emitter.color.value[2].getHexString(),
-                emitter.color.value[3].getHexString()
+                emitter.color.value[0].getHex(),
+                emitter.color.value[1].getHex(),
+                emitter.color.value[2].getHex(),
+                emitter.color.value[3].getHex()
             ]
         },
         size: {
@@ -84,11 +86,63 @@ ParticleEmitterSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-ParticleEmitterSerializer.prototype.fromJSON = function (json, parent, camera) {
+ParticleEmitterSerializer.prototype.fromJSON = function (json) {
+    var groupJson = json.userData.group;
+    var emitterJson = json.userData.emitter;
 
-    debugger
+    var group = new SPE.Group({
+        texture: {
+            value: (new TexturesSerializer()).fromJSON(groupJson.texture)
+        },
+        maxParticleCount: groupJson.maxParticleCount
+    });
 
-    return obj.mesh;
+    var emitter = new SPE.Emitter({
+        maxAge: {
+            value: emitterJson.maxAge.value
+        },
+        position: {
+            value: new THREE.Vector3().copy(emitterJson.position.value),
+            spread: new THREE.Vector3().copy(emitterJson.position.spread)
+        },
+
+        acceleration: {
+            value: new THREE.Vector3().copy(emitterJson.acceleration.value),
+            spread: new THREE.Vector3().copy(emitterJson.acceleration.spread)
+        },
+
+        velocity: {
+            value: new THREE.Vector3().copy(emitterJson.velocity.value),
+            spread: new THREE.Vector3().copy(emitterJson.velocity.spread)
+        },
+
+        color: {
+            value: [
+                new THREE.Color(emitterJson.color.value[0]),
+                new THREE.Color(emitterJson.color.value[1]),
+                new THREE.Color(emitterJson.color.value[2]),
+                new THREE.Color(emitterJson.color.value[3])
+            ]
+        },
+
+        size: {
+            value: emitterJson.size.value.slice(),
+            spread: emitterJson.size.spread.slice()
+        },
+
+        particleCount: emitterJson.particleCount
+    });
+
+    var obj = new ParticleEmitter(group, emitter);
+
+    delete json.userData.group;
+    delete json.userData.emitter;
+
+    Object3DSerializer.prototype.fromJSON.call(this, json, obj);
+
+    obj.userData.group.tick(0);
+
+    return obj;
 };
 
 export default ParticleEmitterSerializer;

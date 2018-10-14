@@ -1,17 +1,17 @@
 /**
  * 粒子发射器
  */
-function ParticleEmitter() {
+function ParticleEmitter(group, emitter) {
     THREE.Object3D.call(this);
 
-    var group = new SPE.Group({
+    group = group || new SPE.Group({
         texture: {
             value: new THREE.TextureLoader().load('assets/textures/SPE/smokeparticle.png')
         },
         maxParticleCount: 2000
     });
 
-    var emitter = new SPE.Emitter({
+    emitter = emitter || new SPE.Emitter({
         maxAge: {
             value: 2
         },

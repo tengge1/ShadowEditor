@@ -327,6 +327,9 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                 case 'SkySerializer':
                     obj = (new SkySerializer()).fromJSON(objJson);
                     break;
+                case 'ParticleEmitterSerializer':
+                    obj = (new ParticleEmitterSerializer()).fromJSON(objJson);
+                    break;
             }
 
             if (obj) {
