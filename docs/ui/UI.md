@@ -1,8 +1,8 @@
-# 编辑器
+# 用户界面
 
 Shader Editor的用户界面可以分成菜单栏、场景编辑区、状态栏、侧边栏等几部分。
 
-![image](image/structure.png)
+![image](image/ui.png)
 
 ## 菜单栏
 
