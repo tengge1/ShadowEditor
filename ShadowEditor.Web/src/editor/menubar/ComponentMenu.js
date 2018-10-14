@@ -137,24 +137,6 @@ ComponentMenu.prototype.onAddFire = function () {
 
     // 烧一下，在场景中留下痕迹
     fire.update(0);
-
-    var source = `var mesh = this.getObjectByName('${fire.mesh.name}');\n\n` +
-        `function update(clock, deltaTime) {\n` +
-        `    var elapsed = clock.getElapsedTime();\n` +
-        `    mesh.userData.fire.update(elapsed);\n` +
-        `}`;
-
-    var uuid = THREE.Math.generateUUID();
-
-    editor.scripts[uuid] = {
-        id: null,
-        name: `${fire.mesh.name}动画`,
-        type: 'javascript',
-        source: source,
-        uuid: uuid
-    };
-
-    this.app.call('scriptChanged', this);
 };
 
 // ------------------------------ 添加烟 ------------------------------------
