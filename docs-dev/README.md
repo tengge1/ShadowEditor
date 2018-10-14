@@ -7,7 +7,7 @@
 * 说明：基于`three.js`的场景编辑器。
 * 源码：https://github.com/tengge1/ShadowEditor
 * 示例：https://github.com/tengge1/ShadowEditor-examples
-* 文档：https://tengge1.github.io/ShadowEditor/docs/release/index.html
+* 文档：https://tengge1.github.io/ShadowEditor/
 * 截图：https://github.com/tengge1/ShadowEditor/blob/master/images/README.md
 * 资源：https://pan.baidu.com/s/1yk7luPAdRB9sAH2-Byghww
 * 提取码: qdds
