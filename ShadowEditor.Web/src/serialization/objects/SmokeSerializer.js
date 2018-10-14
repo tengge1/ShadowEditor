@@ -1,6 +1,6 @@
 import BaseSerializer from '../BaseSerializer';
 import MeshSerializer from '../core/MeshSerializer';
-import Smoke from '../../particle/Smoke';
+import Smoke from '../../object/component/Smoke';
 
 /**
  * SmokeSerializer
@@ -16,21 +16,17 @@ SmokeSerializer.prototype.constructor = SmokeSerializer;
 SmokeSerializer.prototype.toJSON = function (obj) {
     var json = MeshSerializer.prototype.toJSON.call(this, obj);
 
-    json.userData.smoke = null;
-
     return json;
 };
 
 SmokeSerializer.prototype.fromJSON = function (json, parent, camera, renderer) {
     var obj = parent || new Smoke(camera, renderer);
 
-    MeshSerializer.prototype.fromJSON.call(this, json, obj.mesh);
-
-    obj.mesh.userData.smoke = obj;
+    MeshSerializer.prototype.fromJSON.call(this, json, obj);
 
     obj.update(0);
 
-    return obj.mesh;
+    return obj;
 };
 
 export default SmokeSerializer;

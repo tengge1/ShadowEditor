@@ -112,9 +112,7 @@ SmokeComponent.prototype.stopPreview = function () {
 
 SmokeComponent.prototype.onAnimate = function (clock, deltaTime) {
     var elapsed = clock.getElapsedTime();
-
-    var smoke = this.selected.userData.smoke;
-    smoke.update(elapsed);
+    this.selected.update(elapsed);
 };
 
 export default SmokeComponent;

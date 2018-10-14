@@ -2,7 +2,7 @@ import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import Sky from '../../object/Sky';
 import Fire from '../../object/component/Fire';
-import Smoke from '../../particle/Smoke';
+import Smoke from '../../object/component/Smoke';
 import ParticleEmitter from '../../object/component/ParticleEmitter';
 import PlysicsUtils from '../../physics/PlysicsUtils';
 
@@ -125,13 +125,9 @@ ComponentMenu.prototype.onAddSmoke = function () {
 
     var smoke = new Smoke(camera, renderer);
 
-    smoke.mesh.name = '烟';
-    smoke.mesh.position.y = 3;
+    smoke.position.y = 3;
 
-    smoke.mesh.userData.type = 'Smoke';
-    smoke.mesh.userData.smoke = smoke;
-
-    editor.execute(new AddObjectCommand(smoke.mesh));
+    editor.execute(new AddObjectCommand(smoke));
 
     smoke.update(0);
 };
