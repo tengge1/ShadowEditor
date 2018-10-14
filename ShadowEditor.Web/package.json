@@ -27,14 +27,14 @@
     },
     "scripts": {
         "build": "rollup -c",
-        "clear": "npm prune",
-        "book": "gitbook build ../docs"
+        "clear": "npm prune"
     },
     "repository": {
         "type": "git",
         "url": "git+ssh://git@github.com/tengge1/ShadowEditor.git"
     },
     "keywords": [
+        "shadoweditor",
         "3d",
         "editor",
         "three.js"
