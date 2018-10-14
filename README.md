@@ -1,7 +1,7 @@
 # Shadow Editor
 
 * 名称：Shadow Editor
-* 版本：v0.0.7
+* 版本：v0.0.8（开发中）
 * 说明：基于`three.js`的场景编辑器。
 * 源码：https://github.com/tengge1/ShadowEditor
 * 示例：https://github.com/tengge1/ShadowEditor-examples
