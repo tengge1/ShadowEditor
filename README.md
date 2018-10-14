@@ -97,21 +97,7 @@ net start MongoDB
 * 发布日期：2018年9月2日
 * 更新日志：
 
-1. 脚本编辑优化，脚本不再跟物体绑定，可以跟场景一起保存载入，提供[`javascript`](ShadowEditor.Web/src/editor/script/code/JavaScriptStarter.js)、[`vertexShader`](ShadowEditor.Web/src/editor/script/code/VertexShaderStarter.js)、[`fragmentShader`](ShadowEditor.Web/src/editor/script/code/FragmentShaderStarter.js)、
-[`programInfo`](ShadowEditor.Web/src/editor/script/code/JsonStarter.js)示例脚本。
-
-说明：自定义脚本中，默认有`scene`、`camera`、`renderer`三个全局变量，全局和事件中`this`都指代`scene`，可以使用函数
-`scene.getObjectByName`获取场景对象，例如：
-
-```javascript
-var box = this.getObjectByName('正方体1');
-
-// 程序运行过程中，每帧都要执行
-function update(clock, deltaTime) {
-	box.rotation.x += 0.01;
-}
-```
-
+1. 脚本编辑优化，脚本不再跟物体绑定，可以跟场景一起保存载入，提供javascript、vertexShader、fragmentShader、programInfo示例脚本。
 自定义脚本种支持`init`、`start`、`update`、`stop`、`onClick`、`onDblClick`、`onKeyDown`、`onKeyUp`、`onMouseDown`、`onMouseMove`、
 `onMouseUp`、`onMouseWheel`、`onResize` 13种事件。
 
