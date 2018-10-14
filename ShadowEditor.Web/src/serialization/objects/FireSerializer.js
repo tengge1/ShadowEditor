@@ -1,5 +1,6 @@
 import BaseSerializer from '../BaseSerializer';
-import MeshSerializer from '../core/MeshSerializer';
+import Object3DSerializer from '../core/Object3DSerializer';
+import Fire from '../../object/component/Fire';
 
 /**
  * FireSerializer
@@ -13,31 +14,26 @@ FireSerializer.prototype = Object.create(BaseSerializer.prototype);
 FireSerializer.prototype.constructor = FireSerializer;
 
 FireSerializer.prototype.toJSON = function (obj) {
-    var json = MeshSerializer.prototype.toJSON.call(this, obj);
+    var json = Object3DSerializer.prototype.toJSON.call(this, obj);
 
-    json.userData.fire = null;
+    delete json.userData.fire;
 
     return json;
 };
 
 FireSerializer.prototype.fromJSON = function (json, parent, camera) {
-    VolumetricFire.texturePath = 'assets/textures/VolumetricFire/';
+    var fire = new Fire(camera, {
+        width: json.userData.width,
+        height: json.userData.height,
+        depth: json.userData.depth,
+        sliceSpacing: json.userData.sliceSpacing
+    });
 
-    var obj = parent || new VolumetricFire(
-        json.userData.width,
-        json.userData.height,
-        json.userData.depth,
-        json.userData.sliceSpacing,
-        camera
-    );
+    Object3DSerializer.prototype.fromJSON.call(this, json, fire);
 
-    MeshSerializer.prototype.fromJSON.call(this, json, obj.mesh);
+    fire.userData.fire.update(0);
 
-    obj.mesh.userData.fire = obj;
-
-    obj.update(0);
-
-    return obj.mesh;
+    return fire;
 };
 
 export default FireSerializer;

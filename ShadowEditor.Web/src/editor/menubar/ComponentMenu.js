@@ -1,6 +1,7 @@
 import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import Sky from '../../object/Sky';
+import Fire from '../../object/component/Fire';
 import Smoke from '../../particle/Smoke';
 import ParticleEmitter from '../../object/component/ParticleEmitter';
 import PlysicsUtils from '../../physics/PlysicsUtils';
@@ -107,36 +108,12 @@ ComponentMenu.prototype.onAddSky = function () {
 
 ComponentMenu.prototype.onAddFire = function () {
     var editor = this.app.editor;
-    var camera = editor.camera;
 
-    VolumetricFire.texturePath = 'assets/textures/VolumetricFire/';
+    var fire = new Fire(editor.camera);
 
-    var fireWidth = 2;
-    var fireHeight = 4;
-    var fireDepth = 2;
-    var sliceSpacing = 0.5;
+    editor.execute(new AddObjectCommand(fire));
 
-    var fire = new VolumetricFire(
-        fireWidth,
-        fireHeight,
-        fireDepth,
-        sliceSpacing,
-        camera
-    );
-
-    fire.mesh.name = '火焰';
-    fire.mesh.position.y = 2;
-    fire.mesh.userData.type = 'Fire';
-    fire.mesh.userData.fire = fire;
-    fire.mesh.userData.width = fireWidth;
-    fire.mesh.userData.height = fireHeight;
-    fire.mesh.userData.depth = fireDepth;
-    fire.mesh.userData.sliceSpacing = sliceSpacing;
-
-    editor.execute(new AddObjectCommand(fire.mesh));
-
-    // 烧一下，在场景中留下痕迹
-    fire.update(0);
+    fire.userData.fire.update(0);
 };
 
 // ------------------------------ 添加烟 ------------------------------------
