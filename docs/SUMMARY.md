@@ -1,8 +1,7 @@
 # Summary
 
 * [简介](README.md)
-* 用户界面
-    * [编辑器](ui/structure.md)
+* [用户界面](ui/UI.md)
     * 菜单栏
         * [场景](ui/menu/Scene.md)
         * [编辑](ui/menu/Edit.md)
