@@ -3,6 +3,7 @@ import Ease from '../../animation/Ease';
 
 import TweenAnimator from '../animator/TweenAnimator';
 import MMDAnimator from '../animator/MMDAnimator';
+import ParticleAnimator from '../animator/ParticleAnimator';
 
 /**
  * 播放器动画
@@ -17,7 +18,8 @@ function PlayerAnimation(app) {
 
     this.animators = [
         new TweenAnimator(this.app),
-        new MMDAnimator(this.app)
+        new MMDAnimator(this.app),
+        new ParticleAnimator(this.app)
     ];
 }
 
