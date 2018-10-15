@@ -3,6 +3,7 @@
 * [简介](README.md)
 * [用户界面](ui/UI.md)
     * [菜单栏](ui/MenuBar.md)
+    * [工具栏](ui/Toolbar.md)
     * [场景编辑区](ui/Scene.md)
     * [状态栏](ui/StatusBar.md)
     * 侧边栏
