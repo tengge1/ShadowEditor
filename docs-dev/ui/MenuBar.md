@@ -56,49 +56,73 @@
 
 添加一个平板。
 
+![image](image/Plane.png)
+
 **正方体**
 
 添加一个正方体。
+
+![image](image/Box.png)
 
 **圆**
 
 添加一个圆。
 
+![image](image/Circle.png)
+
 **圆柱体**
 
 添加一个圆柱体。
+
+![image](image/Cylinder.png)
 
 **球体**
 
 添加一个球体。
 
+![image](image/Sphere.png)
+
 **二十面体**
 
-添加一个二十面体
+添加一个二十面体。
+
+![image](image/Icosahedron.png)
 
 **轮胎**
 
-添加一个轮胎
+添加一个轮胎。
+
+![image](image/Torus.png)
 
 **纽结**
 
 添加一个纽结。
 
+![image](image/TorusKnot.png)
+
 **茶壶**
 
 添加一个茶壶。
+
+![image](image/Teapot.png)
 
 **酒杯**
 
 添加一个酒杯。
 
+![image](image/Lathe.png)
+
 **精灵**
 
 添加一个精灵，该物体总是朝向照相机。
 
+![image](image/Sprit.png)
+
 **文本**
 
 在场景中添加文本，支持中文。
+
+![image](image/Text.png)
 
 ## 光源
 
@@ -110,21 +134,31 @@
 
 添加平行光。
 
+![image](image/DirectionalLight.png)
+
 **点光源**
 
 添加点光源。该光源自带一个表示发光体的小球，默认开启光晕。
+
+![image](image/PointLight.png)
 
 **聚光灯**
 
 添加聚光灯。
 
+![image](image/SpotLight.png)
+
 **半球光**
 
 添加半球光。该光源自带一个表示天空和地面的包围盒。
 
+![image](image/HemisphereLight.png)
+
 **矩形光**
 
 添加矩形光。该光源自带一个矩形物体表示发光体。
+
+![image](image/RectAreaLight.png)
 
 ## 资源
 
@@ -190,6 +224,8 @@
 
 创建一个地形。
 
+![image](image/Terrain.png)
+
 **升高地形**
 
 开发中。
@@ -212,20 +248,64 @@
 
 添加一个粒子发射器组件，可在属性面板修改属性。
 
+![image](image/ParticleEmitter.png)
+
 **天空**
 
 添加一个天空组件，可在属性面板修改属性。
+
+![image](image/Sky.png)
 
 **火焰**
 
 添加一个火焰组件，可在属性面板修改属性。
 
+![image](image/Fire.png)
+
 **烟**
 
 添加一个烟组件，可在属性面板修改属性。
+
+![image](image/Smoke.png)
 
 ## 启动
 
 启动播放器。会播放背景音乐，执行场景中的脚本和动画。
 
 ## 选项
+
+**外观**
+
+修改主题。
+
+![image](image/OutlookOptions.png)
+
+**场景（待删除）**
+
+修改场景设置。请点击场景层次图中的场景，在属性面板设置。
+
+![image](image/SceneOptions.png)
+
+**渲染器（待删除）**
+
+修改渲染器设置。
+
+![image](image/RendererOptions.png)
+
+## 帮助
+
+**源码**
+
+查看该项目源码。
+
+**文档**
+
+查看该项目文档。
+
+**示例**
+
+查看该项目示例。
+
+**关于**
+
+查看该项目维护人员信息。
