@@ -5,12 +5,11 @@
     * [菜单栏](ui/MenuBar.md)
     * [工具栏](ui/Toolbar.md)
     * [场景编辑区](ui/Scene.md)
+    * 场景层次图
+    * 脚本列表
+    * 属性面板
+    * 动画编辑区
     * [状态栏](ui/StatusBar.md)
-    * 侧边栏
-        * [场景层次](ui/sidebar/Hierachy.md)
-        * [工程选项](ui/sidebar/Project.md)
-        * [编辑器设置](ui/sidebar/Setting.md)
-        * [物体属性](ui/sidebar/Object.md)
-        * [几何属性](ui/sidebar/Geometry.md)
-        * [材质属性](ui/sidebar/Material.md)
+    * 脚本编辑器
+    * 场景播放器
 * 脚本
