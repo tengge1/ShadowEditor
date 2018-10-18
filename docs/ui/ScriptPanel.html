@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>状态栏 · Shadow Editor文档</title>
+        <title>脚本面板 · Shadow Editor文档</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="PropertyPanel.html" />
     
-    <link rel="prev" href="LogPanel.html" />
+    
+    <link rel="prev" href="Hierachy.html" />
     
 
     </head>
@@ -178,7 +180,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.5" data-path="ScriptPanel.html">
+        <li class="chapter active" data-level="1.2.5" data-path="ScriptPanel.html">
             
                 <a href="ScriptPanel.html">
             
@@ -268,7 +270,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.11" data-path="StatusBar.html">
+        <li class="chapter " data-level="1.2.11" data-path="StatusBar.html">
             
                 <a href="StatusBar.html">
             
@@ -333,7 +335,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >状态栏</a>
+        <a href=".." >脚本面板</a>
     </h1>
 </div>
 
@@ -348,9 +350,30 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="&#x72B6;&#x6001;&#x680F;">&#x72B6;&#x6001;&#x680F;</h1>
-<p>&#x5728;&#x573A;&#x666F;&#x7F16;&#x8F91;&#x5668;&#x5DE6;&#x4E0B;&#x89D2;&#x663E;&#x793A;&#x573A;&#x666F;&#x7F16;&#x8F91;&#x533A;&#x72B6;&#x6001;&#xFF0C;&#x6709;&#x7269;&#x4F53;&#x6570;&#x91CF;&#x3001;&#x9876;&#x70B9;&#x6570;&#x91CF;&#x548C;&#x4E09;&#x89D2;&#x5F62;&#x6570;&#x91CF;&#x3002;</p>
-<p><img src="image/scene_status.png" alt="image"></p>
+                                <h1 id="&#x811A;&#x672C;&#x9762;&#x677F;">&#x811A;&#x672C;&#x9762;&#x677F;</h1>
+<p>&#x811A;&#x672C;&#x9762;&#x677F;&#x7528;&#x6765;&#x7BA1;&#x7406;&#x5F53;&#x524D;&#x573A;&#x666F;&#x4E2D;&#x7684;<code>Javascript</code>&#x811A;&#x672C;&#x3002;</p>
+<p><img src="image/scriptPanel.png" alt="image"></p>
+<h2 id="&#x65B0;&#x5EFA;&#x811A;&#x672C;">&#x65B0;&#x5EFA;&#x811A;&#x672C;</h2>
+<p>&#x5355;&#x51FB;&#x65B0;&#x5EFA;&#x811A;&#x672C;&#x6309;&#x94AE;&#xFF0C;&#x5F39;&#x51FA;&#x65B0;&#x5EFA;&#x811A;&#x672C;&#x7A97;&#x53E3;&#x3002;&#x8F93;&#x5165;&#x811A;&#x672C;&#x540D;&#x79F0;&#xFF08;&#x4E2D;&#x82F1;&#x6587;&#x90FD;&#x884C;&#xFF09;&#xFF0C;&#x70B9;&#x786E;&#x5B9A;&#xFF0C;&#x6253;&#x5F00;&#x811A;&#x672C;&#x7F16;&#x8F91;&#x5668;&#x3002;</p>
+<p><img src="image/createScript.png" alt="image"></p>
+<p>&#x811A;&#x672C;&#x7F16;&#x8F91;&#x5668;&#x4F1A;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x811A;&#x672C;&#x6A21;&#x677F;&#xFF0C;&#x91CC;&#x9762;&#x63D0;&#x4F9B;13&#x4E2A;&#x4E8B;&#x4EF6;&#xFF0C;&#x4F1A;&#x5728;&#x4E0D;&#x540C;&#x60C5;&#x51B5;&#x4E0B;&#x81EA;&#x52A8;&#x8C03;&#x7528;&#xFF1A;&#x573A;&#x666F;&#x6E32;&#x67D3;&#x524D;&#x3001;&#x573A;&#x666F;&#x6E32;&#x67D3;&#x540E;&#x3001;&#x6BCF;&#x5E27;&#x3001;&#x7ED3;&#x675F;&#x3001;&#x5355;&#x51FB;&#x3001;&#x53CC;&#x51FB;&#x3001;&#x952E;&#x76D8;&#x6309;&#x4E0B;&#x3001;&#x952E;&#x76D8;&#x62AC;&#x8D77;&#x3001;&#x9F20;&#x6807;&#x6309;&#x4E0B;&#x3001;&#x9F20;&#x6807;&#x79FB;&#x52A8;&#x3001;&#x9F20;&#x6807;&#x62AC;&#x8D77;&#x3001;&#x9F20;&#x6807;&#x6EDA;&#x8F6E;&#x6EDA;&#x52A8;&#x3001;&#x5C4F;&#x5E55;&#x5927;&#x5C0F;&#x6539;&#x53D8;&#x3002;</p>
+<p>&#x811A;&#x672C;&#x7F16;&#x8F91;&#x5668;&#x4E2D;&#xFF0C;&#x9ED8;&#x8BA4;&#x63D0;&#x4F9B;scene&#x3001;camera&#x3001;renderer&#x4E09;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x57FA;&#x672C;&#x7528;&#x6CD5;&#x662F;&#x4F7F;&#x7528;<code>scene.getObjectByName(&apos;&#x540D;&#x79F0;&apos;)</code>&#x83B7;&#x53D6;&#x573A;&#x666F;&#x4E2D;&#x7684;&#x7269;&#x4F53;&#xFF0C;&#x7136;&#x540E;&#x53EF;&#x4EE5;&#x5BF9;&#x7269;&#x4F53;&#x5C5E;&#x6027;&#x8FDB;&#x884C;&#x5404;&#x79CD;&#x4FEE;&#x6539;&#x3002;</p>
+<p><img src="image/scriptEditor.png" alt="image"></p>
+<p>&#x6211;&#x4EEC;&#x7528;&#x4E00;&#x4E2A;&#x6700;&#x7B80;&#x5355;&#x7684;&#x4F8B;&#x5B50;&#x6765;&#x8BF4;&#x660E;&#x7528;&#x6CD5;&#x3002;&#x5047;&#x8BBE;&#x573A;&#x666F;&#x4E2D;&#x6709;&#x4E2A;&#x53EB;&#x201C;&#x6B63;&#x65B9;&#x4F53;&#x201D;&#x7684;&#x7269;&#x4F53;&#xFF0C;&#x521B;&#x5EFA;<code>&#x6B63;&#x65B9;&#x4F53;&#x65CB;&#x8F6C;</code>&#x811A;&#x672C;&#xFF0C;&#x8F93;&#x5165;&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> box = scene.getObjectByName(<span class="hljs-string">&apos;&#x6B63;&#x65B9;&#x4F53;&apos;</span>);
+
+<span class="hljs-comment">// &#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6BCF;&#x5E27;&#x90FD;&#x8981;&#x6267;&#x884C;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span>(<span class="hljs-params">clock, deltaTime</span>) </span>{
+    box.rotation.x += <span class="hljs-number">0.1</span>;
+}
+</code></pre>
+<p>&#x5173;&#x95ED;&#x811A;&#x672C;&#x7F16;&#x8F91;&#x5668;&#x7A97;&#x53E3;&#xFF0C;&#x4F1A;&#x81EA;&#x52A8;&#x4FDD;&#x5B58;&#x811A;&#x672C;&#x3002;&#x70B9;&#x51FB;&#x542F;&#x52A8;&#x6309;&#x94AE;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6B63;&#x65B9;&#x4F53;&#x65CB;&#x8F6C;&#x8D77;&#x6765;&#x4E86;&#x3002;</p>
+<h2 id="&#x7F16;&#x8F91;&#x811A;&#x672C;">&#x7F16;&#x8F91;&#x811A;&#x672C;</h2>
+<p>&#x70B9;&#x51FB;&#x7F16;&#x8F91;&#x6309;&#x94AE;&#xFF0C;&#x53EF;&#x4EE5;&#x7F16;&#x8F91;&#x811A;&#x672C;&#x3002;</p>
+<h2 id="&#x4FDD;&#x5B58;&#x811A;&#x672C;">&#x4FDD;&#x5B58;&#x811A;&#x672C;</h2>
+<p>&#x5173;&#x95ED;&#x811A;&#x672C;&#x7F16;&#x8F91;&#x5668;&#x6309;&#x94AE;&#xFF0C;&#x53EF;&#x4EE5;&#x81EA;&#x52A8;&#x4FDD;&#x5B58;&#x811A;&#x672C;&#x3002;</p>
+<h2 id="&#x5220;&#x9664;&#x811A;&#x672C;">&#x5220;&#x9664;&#x811A;&#x672C;</h2>
+<p>&#x70B9;&#x51FB;&#x5220;&#x9664;&#xFF0C;&#x53EF;&#x4EE5;&#x5F39;&#x51FA;&#x5220;&#x9664;&#x811A;&#x672C;&#x5BF9;&#x8BDD;&#x6846;&#x3002;&#x70B9;&#x51FB;&#x786E;&#x8BA4;&#xFF0C;&#x53EF;&#x4EE5;&#x5220;&#x9664;&#x811A;&#x672C;&#x3002;</p>
 
                                 
                                 </section>
@@ -378,10 +401,14 @@
 
             
                 
-                <a href="LogPanel.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 日志面板">
+                <a href="Hierachy.html" class="navigation navigation-prev " aria-label="Previous page: 场景层次图">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="PropertyPanel.html" class="navigation navigation-next " aria-label="Next page: 属性面板">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -390,7 +417,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"状态栏","level":"1.2.11","depth":2,"next":{"title":"脚本","level":"1.3","depth":1,"ref":"","articles":[]},"previous":{"title":"日志面板","level":"1.2.10","depth":2,"path":"ui/LogPanel.md","ref":"ui/LogPanel.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":36,"bottom":36},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Shadow Editor文档","gitbook":"*","description":"Shadow Editor开发文档"},"file":{"path":"ui/StatusBar.md","mtime":"2018-10-17T14:11:48.048Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-18T13:23:58.055Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"脚本面板","level":"1.2.5","depth":2,"next":{"title":"属性面板","level":"1.2.6","depth":2,"path":"ui/PropertyPanel.md","ref":"ui/PropertyPanel.md","articles":[]},"previous":{"title":"场景层次图","level":"1.2.4","depth":2,"path":"ui/Hierachy.md","ref":"ui/Hierachy.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":36,"bottom":36},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Shadow Editor文档","gitbook":"*","description":"Shadow Editor开发文档"},"file":{"path":"ui/ScriptPanel.md","mtime":"2018-10-18T12:46:04.205Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-18T13:23:58.055Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

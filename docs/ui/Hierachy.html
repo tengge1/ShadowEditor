@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>状态栏 · Shadow Editor文档</title>
+        <title>场景层次图 · Shadow Editor文档</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="ScriptPanel.html" />
     
-    <link rel="prev" href="LogPanel.html" />
+    
+    <link rel="prev" href="Scene.html" />
     
 
     </head>
@@ -163,7 +165,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.4" data-path="Hierachy.html">
+        <li class="chapter active" data-level="1.2.4" data-path="Hierachy.html">
             
                 <a href="Hierachy.html">
             
@@ -268,7 +270,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.11" data-path="StatusBar.html">
+        <li class="chapter " data-level="1.2.11" data-path="StatusBar.html">
             
                 <a href="StatusBar.html">
             
@@ -333,7 +335,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >状态栏</a>
+        <a href=".." >场景层次图</a>
     </h1>
 </div>
 
@@ -348,9 +350,19 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="&#x72B6;&#x6001;&#x680F;">&#x72B6;&#x6001;&#x680F;</h1>
-<p>&#x5728;&#x573A;&#x666F;&#x7F16;&#x8F91;&#x5668;&#x5DE6;&#x4E0B;&#x89D2;&#x663E;&#x793A;&#x573A;&#x666F;&#x7F16;&#x8F91;&#x533A;&#x72B6;&#x6001;&#xFF0C;&#x6709;&#x7269;&#x4F53;&#x6570;&#x91CF;&#x3001;&#x9876;&#x70B9;&#x6570;&#x91CF;&#x548C;&#x4E09;&#x89D2;&#x5F62;&#x6570;&#x91CF;&#x3002;</p>
-<p><img src="image/scene_status.png" alt="image"></p>
+                                <h1 id="&#x573A;&#x666F;&#x5C42;&#x6B21;&#x56FE;">&#x573A;&#x666F;&#x5C42;&#x6B21;&#x56FE;</h1>
+<p>&#x573A;&#x666F;&#x5C42;&#x6B21;&#x56FE;&#x7528;&#x6811;&#x6765;&#x8868;&#x793A;&#x573A;&#x666F;&#x4E2D;&#x5404;&#x7269;&#x4F53;&#x7684;&#x76F8;&#x5BF9;&#x5173;&#x7CFB;&#x3002;</p>
+<p><img src="image/hierachy.png" alt="image"></p>
+<h2 id="&#x9009;&#x4E2D;&#x7269;&#x4F53;">&#x9009;&#x4E2D;&#x7269;&#x4F53;</h2>
+<p>&#x5355;&#x51FB;&#x6811;&#x4E0A;&#x7684;&#x8282;&#x70B9;&#x9009;&#x4E2D;&#x7269;&#x4F53;&#xFF0C;&#x5E76;&#x5728;&#x5C5E;&#x6027;&#x9762;&#x677F;&#x663E;&#x793A;&#x7269;&#x4F53;&#x5C5E;&#x6027;&#x3002;</p>
+<p><img src="image/translate.png" alt="image"></p>
+<p><img src="image/propertyPanel.png" alt="image"></p>
+<h2 id="&#x5207;&#x6362;&#x89C6;&#x89D2;">&#x5207;&#x6362;&#x89C6;&#x89D2;</h2>
+<p>&#x53CC;&#x51FB;&#x6811;&#x4E0A;&#x7684;&#x8282;&#x70B9;&#x5207;&#x6362;&#x5230;&#x8BE5;&#x7269;&#x4F53;&#x89C6;&#x89D2;&#x3002;</p>
+<h2 id="&#x8BBE;&#x7F6E;&#x5C42;&#x6B21;&#x5173;&#x7CFB;&#xFF08;&#x6709;bug&#xFF09;">&#x8BBE;&#x7F6E;&#x5C42;&#x6B21;&#x5173;&#x7CFB;&#xFF08;&#x6709;bug&#xFF09;</h2>
+<p>&#x5C06;&#x4E00;&#x4E2A;&#x7269;&#x4F53;&#x62D6;&#x52A8;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x7269;&#x4F53;&#x4E0A;&#xFF0C;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x540E;&#x4E00;&#x4E2A;&#x7269;&#x4F53;&#x662F;&#x524D;&#x4E00;&#x4E2A;&#x7269;&#x4F53;&#x7684;&#x5B50;&#x5143;&#x7D20;&#x3002;</p>
+<h2 id="&#x5220;&#x9664;&#x7269;&#x4F53;">&#x5220;&#x9664;&#x7269;&#x4F53;</h2>
+<p>&#x9009;&#x4E2D;&#x6811;&#x4E0A;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x6309;<code>Del</code>&#x952E;&#xFF0C;&#x53EF;&#x4EE5;&#x5220;&#x9664;&#x7269;&#x4F53;&#x3002;</p>
 
                                 
                                 </section>
@@ -378,10 +390,14 @@
 
             
                 
-                <a href="LogPanel.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 日志面板">
+                <a href="Scene.html" class="navigation navigation-prev " aria-label="Previous page: 场景编辑区">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="ScriptPanel.html" class="navigation navigation-next " aria-label="Next page: 脚本面板">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -390,7 +406,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"状态栏","level":"1.2.11","depth":2,"next":{"title":"脚本","level":"1.3","depth":1,"ref":"","articles":[]},"previous":{"title":"日志面板","level":"1.2.10","depth":2,"path":"ui/LogPanel.md","ref":"ui/LogPanel.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":36,"bottom":36},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Shadow Editor文档","gitbook":"*","description":"Shadow Editor开发文档"},"file":{"path":"ui/StatusBar.md","mtime":"2018-10-17T14:11:48.048Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-18T13:23:58.055Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"场景层次图","level":"1.2.4","depth":2,"next":{"title":"脚本面板","level":"1.2.5","depth":2,"path":"ui/ScriptPanel.md","ref":"ui/ScriptPanel.md","articles":[]},"previous":{"title":"场景编辑区","level":"1.2.3","depth":2,"path":"ui/Scene.md","ref":"ui/Scene.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":36,"bottom":36},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Shadow Editor文档","gitbook":"*","description":"Shadow Editor开发文档"},"file":{"path":"ui/Hierachy.md","mtime":"2018-10-18T12:23:41.127Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-18T13:23:58.055Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
