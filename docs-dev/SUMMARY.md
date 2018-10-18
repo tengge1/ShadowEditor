@@ -7,7 +7,7 @@
     * [场景编辑区](ui/Scene.md)
     * [场景层次图](ui/Hierachy.md)
     * [脚本面板](ui/ScriptPanel.md)
-    * 属性面板
+    * [属性面板](ui/PropertyPanel.md)
     * 动画编辑区
     * [状态栏](ui/StatusBar.md)
     * 脚本编辑器
