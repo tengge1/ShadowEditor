@@ -13,4 +13,5 @@
     * [时间轴面板](ui/TimelinePanel.md)
     * [日志面板](ui/LogPanel.md)
     * [状态栏](ui/StatusBar.md)
+* [组件](ui/Component.md)
 * 脚本
