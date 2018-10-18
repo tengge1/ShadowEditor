@@ -5,7 +5,7 @@
     * [菜单栏](ui/MenuBar.md)
     * [工具栏](ui/Toolbar.md)
     * [场景编辑区](ui/Scene.md)
-    * 场景层次图
+    * [场景层次图](ui/Hierachy.md)
     * 脚本列表
     * 属性面板
     * 动画编辑区
