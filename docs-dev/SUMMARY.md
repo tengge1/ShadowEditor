@@ -9,8 +9,8 @@
     * [脚本面板](ui/ScriptPanel.md)
     * [属性面板](ui/PropertyPanel.md)
     * [设置面板](ui/SettingPanel.md)
-    * 动画编辑区
+    * [历史记录面板](ui/HistoryPanel.md)
+    * [时间轴面板](ui/TimelinePanel.md)
+    * [日志面板](ui/LogPanel.md)
     * [状态栏](ui/StatusBar.md)
-    * 脚本编辑器
-    * 场景播放器
 * 脚本
