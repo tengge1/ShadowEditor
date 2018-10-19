@@ -13,4 +13,4 @@
     * [时间轴面板](ui/TimelinePanel.md)
     * [日志面板](ui/LogPanel.md)
     * [状态栏](ui/StatusBar.md)
-* 脚本
+* [脚本](script/Script.md)
