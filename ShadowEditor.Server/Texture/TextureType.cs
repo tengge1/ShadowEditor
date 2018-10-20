@@ -45,6 +45,9 @@ namespace ShadowEditor.Server.Texture
         normalMap,
 
         // 粗糙度贴图
-        roughnessMap
+        roughnessMap,
+
+        // 立体贴图
+        cube,
     }
 }
