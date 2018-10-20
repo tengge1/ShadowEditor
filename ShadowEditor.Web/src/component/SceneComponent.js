@@ -1,6 +1,5 @@
 import BaseComponent from './BaseComponent';
-import SetValueCommand from '../command/SetValueCommand';
-import AddObjectCommand from '../command/AddObjectCommand';
+import Ajax from '../utils/Ajax';
 
 /**
  * 场景组件
@@ -159,6 +158,9 @@ SceneComponent.prototype.render = function () {
             xtype: 'row',
             id: 'cubeTextureCommandRow',
             scope: this.id,
+            style: {
+                display: 'none'
+            },
             children: [{
                 xtype: 'button',
                 text: '读取',
@@ -355,6 +357,8 @@ SceneComponent.prototype.onChangeBackgroundType = function () { // 切换背景�
     var backgroundPosZRow = UI.get('backgroundPosZRow', this.id);
     var backgroundNegZRow = UI.get('backgroundNegZRow', this.id);
 
+    var cubeTextureCommandRow = UI.get('cubeTextureCommandRow', this.id);
+
     switch (backgroundType.getValue()) {
         case 'Color':
             backgroundColorRow.dom.style.display = '';
@@ -365,6 +369,7 @@ SceneComponent.prototype.onChangeBackgroundType = function () { // 切换背景�
             backgroundNegYRow.dom.style.display = 'none';
             backgroundPosZRow.dom.style.display = 'none';
             backgroundNegZRow.dom.style.display = 'none';
+            cubeTextureCommandRow.dom.style.display = 'none';
             break;
         case 'Image':
             backgroundColorRow.dom.style.display = 'none';
@@ -375,6 +380,7 @@ SceneComponent.prototype.onChangeBackgroundType = function () { // 切换背景�
             backgroundNegYRow.dom.style.display = 'none';
             backgroundPosZRow.dom.style.display = 'none';
             backgroundNegZRow.dom.style.display = 'none';
+            cubeTextureCommandRow.dom.style.display = 'none';
             break;
         case 'SkyBox':
             backgroundColorRow.dom.style.display = 'none';
@@ -385,6 +391,7 @@ SceneComponent.prototype.onChangeBackgroundType = function () { // 切换背景�
             backgroundNegYRow.dom.style.display = '';
             backgroundPosZRow.dom.style.display = '';
             backgroundNegZRow.dom.style.display = '';
+            cubeTextureCommandRow.dom.style.display = '';
             break;
     }
 
@@ -396,7 +403,24 @@ SceneComponent.prototype.onLoadCubeTexture = function () { // 加载立体贴图
 };
 
 SceneComponent.prototype.onSaveCubeTexture = function () { // 保存立体贴图
+    var texturePosX = UI.get('backgroundPosX', this.id).getValue();
+    var textureNegX = UI.get('backgroundNegX', this.id).getValue();
+    var texturePosY = UI.get('backgroundPosY', this.id).getValue();
+    var textureNegY = UI.get('backgroundNegY', this.id).getValue();
+    var texturePosZ = UI.get('backgroundPosZ', this.id).getValue();
+    var textureNegZ = UI.get('backgroundNegZ', this.id).getValue();
 
+    if (!texturePosX || !textureNegX || !texturePosY || !textureNegY || !texturePosZ || !textureNegZ) {
+        UI.msg(`请上传所有立体贴图后再点击保存！`);
+        return;
+    }
+
+    // Ajax.post(`${this.app.options.server}/`)
+
+    // var data = {
+    //     posX: texturePosX.image.src,
+    //     posY: texturePosY.
+    // };
 };
 
 SceneComponent.prototype.onChangeFogType = function () { // 切换雾类型
