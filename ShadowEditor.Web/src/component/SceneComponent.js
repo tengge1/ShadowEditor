@@ -1,4 +1,5 @@
 import BaseComponent from './BaseComponent';
+import Converter from '../utils/Converter';
 import Ajax from '../utils/Ajax';
 
 /**
@@ -415,12 +416,27 @@ SceneComponent.prototype.onSaveCubeTexture = function () { // 保存立体贴图
         return;
     }
 
-    // Ajax.post(`${this.app.options.server}/`)
+    var promises = [
+        Converter.dataURLtoFile(texturePosX.image.src, 'posX'),
+        Converter.dataURLtoFile(textureNegX.image.src, 'negX'),
+        Converter.dataURLtoFile(texturePosY.image.src, 'posY'),
+        Converter.dataURLtoFile(textureNegY.image.src, 'negY'),
+        Converter.dataURLtoFile(texturePosZ.image.src, 'posZ'),
+        Converter.dataURLtoFile(textureNegZ.image.src, 'negZ'),
+    ];
 
-    // var data = {
-    //     posX: texturePosX.image.src,
-    //     posY: texturePosY.
-    // };
+    Promise.all(promises).then(files => {
+        Ajax.post(`${this.app.options.server}/api/Texture/Add`, {
+            posX: files[0],
+            negX: files[1],
+            posY: files[2],
+            negY: files[3],
+            posZ: files[4],
+            negZ: files[5],
+        }, result => {
+            debugger
+        });
+    });
 };
 
 SceneComponent.prototype.onChangeFogType = function () { // 切换雾类型

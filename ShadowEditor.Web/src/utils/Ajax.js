@@ -18,20 +18,29 @@ function ajax(params) {
         }
     }
 
-    var body;
+    var formData;
     if (data) {
-        var bodies = [];
+        var hasFile = false;
+
+        formData = new FormData();
+
         for (var name in data) {
-            bodies.push(name + '=' + encodeURIComponent(data[name]));
+            if (data[name] instanceof Blob) {
+                hasFile = true;
+                formData.append(name, data[name], data[name].name);
+            } else {
+                formData.append(name, encodeURIComponent(data[name]));
+            }
         }
 
-        body = bodies.join('&');
-        if (body.length) {
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        if (hasFile) {
+            xhr.setRequestHeader('Content-type', 'application/multipart/form-data');
+        } else {
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         }
     }
 
-    xhr.send(body);
+    xhr.send(formData);
 }
 
 /**
