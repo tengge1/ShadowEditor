@@ -157,6 +157,22 @@ SceneComponent.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
+            id: 'cubeTextureCommandRow',
+            scope: this.id,
+            children: [{
+                xtype: 'button',
+                text: '读取',
+                onClick: this.onLoadCubeTexture.bind(this)
+            }, {
+                xtype: 'button',
+                text: '保存',
+                style: {
+                    marginLeft: '8px'
+                },
+                onClick: this.onSaveCubeTexture.bind(this)
+            }]
+        }, {
+            xtype: 'row',
             children: [{
                 xtype: 'label',
                 text: '雾'
@@ -373,6 +389,14 @@ SceneComponent.prototype.onChangeBackgroundType = function () { // 切换背景�
     }
 
     this.update();
+};
+
+SceneComponent.prototype.onLoadCubeTexture = function () { // 加载立体贴图
+
+};
+
+SceneComponent.prototype.onSaveCubeTexture = function () { // 保存立体贴图
+
 };
 
 SceneComponent.prototype.onChangeFogType = function () { // 切换雾类型
