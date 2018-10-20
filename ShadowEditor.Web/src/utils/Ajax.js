@@ -1,3 +1,5 @@
+import MIMETypeUtils from './MIMETypeUtils';
+
 /**
  * ajax
  * @author tengge / https://github.com/tengge1
@@ -27,17 +29,18 @@ function ajax(params) {
         for (var name in data) {
             if (data[name] instanceof Blob) {
                 hasFile = true;
-                formData.append(name, data[name], data[name].name);
+                formData.append(name, data[name], `${data[name].name}.${MIMETypeUtils.getExtension(data[name].type)}`);
             } else {
                 formData.append(name, encodeURIComponent(data[name]));
             }
         }
 
-        if (hasFile) {
-            xhr.setRequestHeader('Content-type', 'application/multipart/form-data');
-        } else {
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        }
+        // 不要设置Content-type, 否则文件上传会失败
+        // if (hasFile) {
+        //     xhr.setRequestHeader('Content-type', 'multipart/form-data');
+        // } else {
+        //     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        // }
     }
 
     xhr.send(formData);

@@ -434,7 +434,8 @@ SceneComponent.prototype.onSaveCubeTexture = function () { // 保存立体贴图
             posZ: files[4],
             negZ: files[5],
         }, result => {
-            debugger
+            var obj = JSON.parse(result);
+            UI.msg(obj.Msg);
         });
     });
 };
