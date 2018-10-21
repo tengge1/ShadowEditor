@@ -15,6 +15,7 @@ import Player from './player/Player';
 
 import Editor from './editor/Editor';
 import Physics from './editor/Physics';
+
 import API from './api/API';
 
 /**
@@ -98,6 +99,10 @@ function Application(container, options) {
     // 核心
     this.editor = new Editor(this); // 编辑器
     this.physics = new Physics(params);
+
+    // Html5 Worker
+    // var script = document.querySelector('script[src$="ShadowEditor.js" i]').src; // http://localhost:2000/dist/ShadowEditor.js
+    // this.worker = new Worker(script);
 }
 
 // ------------------------- 程序控制 -------------------------------
