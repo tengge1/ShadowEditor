@@ -194,9 +194,13 @@ SceneMenu.prototype.publishScene = function () {
         return;
     }
 
-    Ajax.post(`${this.app.options.server}/api/Publish/Publish?ID=${sceneID}`, function (result) {
-        var obj = JSON.parse(result);
-        UI.msg(obj.Msg);
+    UI.confirm('发布场景', '是否发布当前场景？', (event, btn) => {
+        if (btn === 'ok') {
+            Ajax.post(`${this.app.options.server}/api/Publish/Publish?ID=${sceneID}`, function (result) {
+                var obj = JSON.parse(result);
+                UI.msg(obj.Msg);
+            });
+        }
     });
 };
 
