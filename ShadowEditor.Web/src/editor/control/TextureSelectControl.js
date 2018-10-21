@@ -86,8 +86,10 @@ TextureSelectControl.prototype.onClick = function () {
 };
 
 TextureSelectControl.prototype.onSelect = function (data) {
+    var urls = data.Url.split(';'); // 立体贴图data.Url多于一张，只取第一个。
+
     var loader = new THREE.TextureLoader();
-    loader.load(data.Url, texture => {
+    loader.load(`${this.app.options.server}${urls[0]}`, texture => {
         this.texture = texture;
         this.texture.name = data.Name;
         this.window.hide();
