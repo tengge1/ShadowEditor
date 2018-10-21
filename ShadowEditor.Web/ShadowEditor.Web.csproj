@@ -654,6 +654,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="examples\" />
     <Folder Include="test\three\" />
     <Folder Include="Upload\Audio\" />
     <Folder Include="Upload\File\" />

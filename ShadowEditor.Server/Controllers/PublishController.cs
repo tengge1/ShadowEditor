@@ -5,12 +5,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
+using System.Web;
+using System.IO;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
-using ShadowEditor.Server.Scene;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -45,20 +46,35 @@ namespace ShadowEditor.Server.Controllers
 
             var docs = mongo.FindAll(collectionName);
 
-            var data = new JArray();
-
-            foreach (var i in docs)
-            {
-                i["_id"] = i["_id"].ToString(); // ObjectId
-                data.Add(JsonHelper.ToObject<JObject>(i.ToJson()));
-            }
+            this.RunPublish(docs);
 
             return Json(new
             {
                 Code = 200,
-                Msg = "获取成功！",
-                Data = data
+                Msg = "发布成功！"
             });
+        }
+
+        /// <summary>
+        /// 开始发布场景
+        /// </summary>
+        /// <param name="docs"></param>
+        private void RunPublish(List<BsonDocument> docs)
+        {
+            this.CopyAssets();
+        }
+
+        /// <summary>
+        /// 复制资源到示例文件夹
+        /// </summary>
+        private void CopyAssets()
+        {
+            var server = HttpContext.Current.Server;
+
+            var sourceDirName = server.MapPath("~/assets");
+            var destDirName = server.MapPath("~/examples/assets");
+
+            DirectoryHelper.Copy(sourceDirName, destDirName);
         }
     }
 }

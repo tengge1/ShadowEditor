@@ -112,6 +112,7 @@
     <Compile Include="Controllers\TextureController.cs" />
     <Compile Include="Controllers\SceneController.cs" />
     <Compile Include="Helpers\DownloadHelper.cs" />
+    <Compile Include="Helpers\DirectoryHelper.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
