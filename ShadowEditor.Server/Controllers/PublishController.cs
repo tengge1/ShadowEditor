@@ -51,14 +51,23 @@ namespace ShadowEditor.Server.Controllers
 
             File.Copy(sourceName, destName, true);
 
-            var text = File.ReadAllText(destName).Replace("location.origin", "'.'");
+            var text = File.ReadAllText(destName).Replace("location.origin", "'.'"); // 使api路径变为当前目录
             File.WriteAllText(destName, text);
 
             // 复制dist文件夹
-            sourceName = server.MapPath("~/dist");
-            destName = server.MapPath("~/examples/dist");
+            var dirName = server.MapPath("~/examples/dist/");
+            sourceName = server.MapPath("~/dist/ShadowEditor.js");
+            destName = server.MapPath("~/examples/dist/ShadowEditor.js");
 
-            DirectoryHelper.Copy(sourceName, destName);
+            if (!Directory.Exists(dirName))
+            {
+                Directory.CreateDirectory(dirName);
+            }
+
+            File.Copy(sourceName, destName, true);
+
+            text = File.ReadAllText(destName).Replace("Load?ID=", "Scene_"); // 转换场景加载路径
+            File.WriteAllText(destName, text);
 
             // 复制assets文件夹
             sourceName = server.MapPath("~/assets");
@@ -96,6 +105,7 @@ namespace ShadowEditor.Server.Controllers
             this.CreateAudioDataFile();
             this.CreateMeshDataFile();
             this.CreateMMDDataFile();
+            this.CreatePublishDataFile();
             this.CreateSceneDataFile();
             this.CreateTextureDataFile();
             this.CreateUploadDataFile();
@@ -204,6 +214,32 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
+        /// 创建发布数据文件
+        /// </summary>
+        private void CreatePublishDataFile()
+        {
+            var server = HttpContext.Current.Server;
+
+            var dirName = server.MapPath("~/examples/api/Publish/");
+
+            if (!Directory.Exists(dirName))
+            {
+                Directory.CreateDirectory(dirName);
+            }
+
+            // 其他接口
+            var apiList = new string[] { "/examples/api/Publish/Publish" };
+
+            var data = JsonConvert.SerializeObject(new { Code = 300, Msg = "静态网站，操作失败！" });
+
+            foreach (var i in apiList)
+            {
+                var fileName = server.MapPath($"~{i}");
+                File.WriteAllText(fileName, data);
+            }
+        }
+
+        /// <summary>
         /// 创建场景数据文件
         /// </summary>
         private void CreateSceneDataFile()
@@ -224,6 +260,20 @@ namespace ShadowEditor.Server.Controllers
             // 获取列表
             var fileName = server.MapPath("~/examples/api/Scene/List");
             File.WriteAllText(fileName, result);
+
+            // 导出场景
+            var obj = JsonConvert.DeserializeObject<JObject>(result);
+            var array = obj["Data"] as JArray;
+
+            foreach (var i in array)
+            {
+                var id = i["ID"].ToString();
+                result = HttpHelper.Get($"http://{host}:{port}/api/Scene/Load?ID={id}");
+
+                fileName = server.MapPath($"~/examples/api/Scene/Scene_{id}");
+
+                File.WriteAllText(fileName, result);
+            }
 
             // 其他接口
             var apiList = new string[] { "/examples/api/Scene/Edit", "/examples/api/Scene/Save", "/examples/api/Scene/Delete" };
