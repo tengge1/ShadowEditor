@@ -3,12 +3,17 @@
 * 名称：Shadow Editor
 * 版本：v0.0.8（开发中）
 * 说明：基于`three.js`的场景编辑器。
-* 源码：https://github.com/tengge1/ShadowEditor
-* 示例：https://github.com/tengge1/ShadowEditor-examples
-* 文档：https://tengge1.github.io/ShadowEditor/
-* 截图：请[点击此处](images/README.md)
-* 资源（见截图）：https://pan.baidu.com/s/1yk7luPAdRB9sAH2-Byghww
-* 提取码: qdds
+
+* 源码一：https://gitee.com/tengge1/ShadowEditor
+* 源码二：https://github.com/tengge1/ShadowEditor
+
+* 文档一：https://tengge1.gitee.io/shadoweditor/
+* 文档二：https://tengge1.github.io/ShadowEditor/
+
+* 示例一：https://tengge1.gitee.io/shadoweditor-examples/
+* 示例二：https://github.com/tengge1/ShadowEditor-examples
+
+* 推荐使用`Chrome`浏览器查看示例，不保证兼容其他浏览器。
 
 ## 主要功能
 
@@ -132,7 +137,6 @@ net start MongoDB
 * 更新日志：
 
 1. 主要完成three.js自带编辑器的翻译。
-
 
 ## 相关链接
 
