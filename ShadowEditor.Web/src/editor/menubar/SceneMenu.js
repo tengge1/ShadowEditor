@@ -52,9 +52,9 @@ SceneMenu.prototype.render = function () {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                html: '发布',
+                html: '发布静态网站',
                 cls: 'option',
-                onClick: this.publishScene.bind(this)
+                onClick: this.publish.bind(this)
             }]
         }]
     });
@@ -184,19 +184,12 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
     });
 };
 
-// ------------------------- 发布场景 ------------------------------
+// ------------------------- 发布静态网站 ------------------------------
 
-SceneMenu.prototype.publishScene = function () {
-    var sceneID = this.app.editor.sceneID;
-
-    if (!sceneID) {
-        UI.msg('请先保存场景！');
-        return;
-    }
-
-    UI.confirm('发布场景', '是否发布当前场景？', (event, btn) => {
+SceneMenu.prototype.publish = function () {
+    UI.confirm('发布网站', '是否把所有场景、资源发布为静态网站？', (event, btn) => {
         if (btn === 'ok') {
-            Ajax.post(`${this.app.options.server}/api/Publish/Publish?ID=${sceneID}`, function (result) {
+            Ajax.post(`${this.app.options.server}/api/Publish/Publish`, function (result) {
                 var obj = JSON.parse(result);
                 UI.msg(obj.Msg);
             });

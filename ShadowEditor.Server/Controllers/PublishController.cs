@@ -21,47 +21,19 @@ namespace ShadowEditor.Server.Controllers
     public class PublishController : ApiBase
     {
         /// <summary>
-        /// 发布场景
+        /// 发布静态网站
         /// </summary>
-        /// <param name="ID">场景ID</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Publish(string ID)
+        public JsonResult Publish()
         {
-            var mongo = new MongoHelper();
-
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
-            var doc = mongo.FindOne(Constant.SceneCollectionName, filter);
-
-            if (doc == null)
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "该场景不存在！"
-                });
-            }
-
-            var collectionName = doc["CollectionName"].AsString;
-
-            var docs = mongo.FindAll(collectionName);
-
-            this.RunPublish(docs);
+            this.CopyAssets();
 
             return Json(new
             {
                 Code = 200,
                 Msg = "发布成功！"
             });
-        }
-
-        /// <summary>
-        /// 开始发布场景
-        /// </summary>
-        /// <param name="docs"></param>
-        private void RunPublish(List<BsonDocument> docs)
-        {
-            this.CopyAssets();
         }
 
         /// <summary>
@@ -89,11 +61,17 @@ namespace ShadowEditor.Server.Controllers
 
             DirectoryHelper.Copy(sourceName, destName);
 
+            // 复制Upload文件夹
+            sourceName = server.MapPath("~/Upload");
+            destName = server.MapPath("~/examples/Upload");
+
+            DirectoryHelper.Copy(sourceName, destName);
+
             // 复制网站图标
             sourceName = server.MapPath("~/favicon.ico");
             destName = server.MapPath("~/examples/favicon.ico");
 
-            File.Copy(sourceName, destName);
+            File.Copy(sourceName, destName, true);
         }
     }
 }
