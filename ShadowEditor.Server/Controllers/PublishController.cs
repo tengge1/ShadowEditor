@@ -24,7 +24,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <param name="ID">场景ID</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         public JsonResult Publish(string ID)
         {
             var mongo = new MongoHelper();

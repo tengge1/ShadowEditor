@@ -124,7 +124,7 @@ SceneMenu.prototype.commitSave = function (sceneName) {
         scene: editor.scene
     });
 
-    Ajax.post(this.app.options.server + '/api/Scene/Save', {
+    Ajax.post(`${this.app.options.server}/api/Scene/Save`, {
         Name: sceneName,
         Data: JSON.stringify(obj)
     }, function (result) {
@@ -168,7 +168,7 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
         scene: editor.scene
     });
 
-    Ajax.post(this.app.options.server + '/api/Scene/Save', {
+    Ajax.post(`${this.app.options.server}/api/Scene/Save`, {
         Name: sceneName,
         Data: JSON.stringify(obj)
     }, function (result) {
@@ -194,9 +194,7 @@ SceneMenu.prototype.publishScene = function () {
         return;
     }
 
-    Ajax.post(`${this.app.options.server}/api/Publish/Publish`, {
-        ID: sceneID
-    }, function (result) {
+    Ajax.post(`${this.app.options.server}/api/Publish/Publish?ID=${sceneID}`, function (result) {
         var obj = JSON.parse(result);
         UI.msg(obj.Msg);
     });
