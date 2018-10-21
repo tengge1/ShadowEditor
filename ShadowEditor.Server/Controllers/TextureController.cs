@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
@@ -35,6 +36,22 @@ namespace ShadowEditor.Server.Controllers
 
             foreach (var i in docs)
             {
+                var builder = new StringBuilder();
+
+                if (i["Url"].IsBsonDocument) // 立体贴图
+                {
+                    builder.Append($"{i["Url"]["PosX"].AsString};");
+                    builder.Append($"{i["Url"]["NegX"].AsString};");
+                    builder.Append($"{i["Url"]["PosY"].AsString};");
+                    builder.Append($"{i["Url"]["NegY"].AsString};");
+                    builder.Append($"{i["Url"]["PosZ"].AsString};");
+                    builder.Append($"{i["Url"]["NegZ"].AsString};");
+                }
+                else // 其他贴图
+                {
+                    builder.Append(i["Url"].AsString);
+                }
+
                 var info = new TextureModel
                 {
                     ID = i["ID"].AsObjectId.ToString(),
@@ -42,7 +59,7 @@ namespace ShadowEditor.Server.Controllers
                     TotalPinYin = i["TotalPinYin"].ToString(),
                     FirstPinYin = i["FirstPinYin"].ToString(),
                     Type = i["Type"].AsString,
-                    Url = i["Url"].AsString,
+                    Url = builder.ToString(),
                     CreateTime = i["CreateTime"].ToUniversalTime(),
                     UpdateTime = i["UpdateTime"].ToUniversalTime(),
                     Thumbnail = i["Thumbnail"].ToString()
@@ -67,20 +84,31 @@ namespace ShadowEditor.Server.Controllers
         [HttpPost]
         public JsonResult Add()
         {
-            var file = HttpContext.Current.Request.Files[0];
-            var fileName = file.FileName;
-            var fileSize = file.ContentLength;
-            var fileType = file.ContentType;
-            var fileExt = Path.GetExtension(fileName);
-            var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
+            var files = HttpContext.Current.Request.Files;
 
-            if (fileExt == null || fileExt.ToLower() != ".jpg" && fileExt.ToLower() != ".jpeg" && fileExt.ToLower() != ".png")
+            // 校验上传文件
+            if (files.Count != 1 && files.Count != 6)
             {
                 return Json(new Result
                 {
                     Code = 300,
-                    Msg = "只允许上传jpg或png格式文件！"
+                    Msg = "只允许上传1个或6个文件！"
                 });
+            }
+
+            for (var i = 0; i < files.Count; i++)
+            {
+                var file1 = files[i];
+                var fileName1 = file1.FileName;
+                var fileExt1 = Path.GetExtension(fileName1);
+                if (fileExt1 == null || fileExt1.ToLower() != ".jpg" && fileExt1.ToLower() != ".jpeg" && fileExt1.ToLower() != ".png")
+                {
+                    return Json(new Result
+                    {
+                        Code = 300,
+                        Msg = "只允许上传jpg或png格式文件！"
+                    });
+                }
             }
 
             // 保存文件
@@ -94,11 +122,25 @@ namespace ShadowEditor.Server.Controllers
                 Directory.CreateDirectory(physicalPath);
             }
 
-            file.SaveAs($"{physicalPath}\\{fileName}");
+            for (var i = 0; i < files.Count; i++)
+            {
+                var file1 = files[i];
+                var fileName1 = file1.FileName;
+
+                file1.SaveAs($"{physicalPath}\\{fileName1}");
+            }
+
+            // 保存到Mongo
+            // 立体贴图的情况，除Url外，所有信息取posX的信息即可。
+            var file = files[0];
+            var fileName = file.FileName;
+            var fileSize = file.ContentLength;
+            var fileType = file.ContentType;
+            var fileExt = Path.GetExtension(fileName);
+            var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
 
             var pinyin = PinYinHelper.GetTotalPinYin(fileNameWithoutExt);
 
-            // 保存到Mongo
             var mongo = new MongoHelper();
 
             var doc = new BsonDocument();
@@ -113,8 +155,27 @@ namespace ShadowEditor.Server.Controllers
             doc["SavePath"] = savePath;
             doc["Thumbnail"] = $"{savePath}/{fileName}";
             doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
-            doc["Type"] = TextureType.unknown.ToString();
-            doc["Url"] = $"{savePath}/{fileName}";
+
+            if (files.Count == 6)
+            {
+                doc["Type"] = TextureType.cube.ToString();
+
+                var doc1 = new BsonDocument();
+                doc1["PosX"] = $"{savePath}/{files["posX"].FileName}";
+                doc1["NegX"] = $"{savePath}/{files["negX"].FileName}";
+                doc1["PosY"] = $"{savePath}/{files["posY"].FileName}";
+                doc1["NegY"] = $"{savePath}/{files["negY"].FileName}";
+                doc1["PosZ"] = $"{savePath}/{files["posZ"].FileName}";
+                doc1["NegZ"] = $"{savePath}/{files["negZ"].FileName}";
+
+                doc["Url"] = doc1;
+            }
+            else
+            {
+                doc["Type"] = TextureType.unknown.ToString();
+                doc["Url"] = $"{savePath}/{fileName}";
+            }
+
             doc["CreateTime"] = now;
             doc["UpdateTime"] = now;
 

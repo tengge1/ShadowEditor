@@ -164,11 +164,11 @@ SceneComponent.prototype.render = function () {
             },
             children: [{
                 xtype: 'button',
-                text: '读取',
+                text: '获取',
                 onClick: this.onLoadCubeTexture.bind(this)
             }, {
                 xtype: 'button',
-                text: '保存',
+                text: '上传',
                 style: {
                     marginLeft: '8px'
                 },
