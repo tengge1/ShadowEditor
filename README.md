@@ -54,6 +54,15 @@ net start MongoDB
 
 5. 将`ShadowEditor.Web`部署在iis上即可在浏览器中访问。
 
+6. 为了保存各种类型文件能正常下载，需要在iis上添加以下两个MIME类型。
+
+| 文件扩展名 | MIME类型 | 说明 |
+| --------- | -------- | ---- |
+| .* | application/octet-stream | 各种格式后缀文件 |
+| . | application/octet-stream | 无后缀文件 |
+
+各种
+
 ## 项目截图
 
 ![image](images/scene20181007.png)
