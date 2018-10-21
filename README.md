@@ -97,8 +97,7 @@ net start MongoDB
 * 发布日期：2018年9月2日
 * 更新日志：
 
-1. 脚本编辑优化，脚本不再跟物体绑定，可以跟场景一起保存载入，提供javascript、vertexShader、fragmentShader、programInfo示例脚本。
-自定义脚本种支持`init`、`start`、`update`、`stop`、`onClick`、`onDblClick`、`onKeyDown`、`onKeyUp`、`onMouseDown`、`onMouseMove`、
+1. 脚本编辑优化，脚本不再跟物体绑定，可以跟场景一起保存载入，提供javascript、vertexShader、fragmentShader、programInfo示例脚本。自定义脚本支持`init`、`start`、`update`、`stop`、`onClick`、`onDblClick`、`onKeyDown`、`onKeyUp`、`onMouseDown`、`onMouseMove`、
 `onMouseUp`、`onMouseWheel`、`onResize` 13种事件。
 
 2. 背景支持纯色、背景图片、立体贴图三种不同类型，可以保存载入。
