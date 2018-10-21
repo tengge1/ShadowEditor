@@ -71,10 +71,29 @@ namespace ShadowEditor.Server.Controllers
         {
             var server = HttpContext.Current.Server;
 
-            var sourceDirName = server.MapPath("~/assets");
-            var destDirName = server.MapPath("~/examples/assets");
+            // 复制html文件
+            var sourceName = server.MapPath("~/index.html");
+            var destName = server.MapPath("~/examples/index.html");
 
-            DirectoryHelper.Copy(sourceDirName, destDirName);
+            File.Copy(sourceName, destName, true);
+
+            // 复制dist文件夹
+            sourceName = server.MapPath("~/dist");
+            destName = server.MapPath("~/examples/dist");
+
+            DirectoryHelper.Copy(sourceName, destName);
+
+            // 复制assets文件夹
+            sourceName = server.MapPath("~/assets");
+            destName = server.MapPath("~/examples/assets");
+
+            DirectoryHelper.Copy(sourceName, destName);
+
+            // 复制网站图标
+            sourceName = server.MapPath("~/favicon.ico");
+            destName = server.MapPath("~/examples/favicon.ico");
+
+            File.Copy(sourceName, destName);
         }
     }
 }
