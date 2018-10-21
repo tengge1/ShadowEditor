@@ -1,6 +1,7 @@
 import BaseComponent from './BaseComponent';
 import Converter from '../utils/Converter';
 import Ajax from '../utils/Ajax';
+import TextureWindow from '../editor/window/TextureWindow';
 
 /**
  * 场景组件
@@ -400,7 +401,48 @@ SceneComponent.prototype.onChangeBackgroundType = function () { // 切换背景�
 };
 
 SceneComponent.prototype.onLoadCubeTexture = function () { // 加载立体贴图
+    if (this.textureWindow === undefined) {
+        this.textureWindow = new TextureWindow({
+            app: this.app,
+            onSelect: this.onSelectCubeTexture.bind(this)
+        });
+        this.textureWindow.render();
+    }
+    this.textureWindow.show();
+};
 
+SceneComponent.prototype.onSelectCubeTexture = function (model) {
+    if (model.Type !== 'cube') {
+        UI.msg('只允许选择立体贴图！');
+        return;
+    }
+
+    var urls = model.Url.split(';');
+
+    var loader = new THREE.TextureLoader();
+
+    var promises = urls.map(url => {
+        return new Promise(resolve => {
+            loader.load(`${this.app.options.server}${url}`, texture => {
+                resolve(texture);
+            }, undefined, error => {
+                console.error(error);
+                UI.msg('立体贴图获取失败！');
+            });
+        });
+    });
+
+    Promise.all(promises).then(textures => {
+        UI.get('backgroundPosX', this.id).setValue(textures[0]);
+        UI.get('backgroundNegX', this.id).setValue(textures[1]);
+        UI.get('backgroundPosY', this.id).setValue(textures[2]);
+        UI.get('backgroundNegY', this.id).setValue(textures[3]);
+        UI.get('backgroundPosZ', this.id).setValue(textures[4]);
+        UI.get('backgroundNegZ', this.id).setValue(textures[5]);
+
+        this.textureWindow.hide();
+        this.update();
+    });
 };
 
 SceneComponent.prototype.onSaveCubeTexture = function () { // 保存立体贴图

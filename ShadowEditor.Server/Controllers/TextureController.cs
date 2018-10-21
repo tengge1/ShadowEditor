@@ -59,7 +59,7 @@ namespace ShadowEditor.Server.Controllers
                     TotalPinYin = i["TotalPinYin"].ToString(),
                     FirstPinYin = i["FirstPinYin"].ToString(),
                     Type = i["Type"].AsString,
-                    Url = builder.ToString(),
+                    Url = builder.ToString().TrimEnd(';'),
                     CreateTime = i["CreateTime"].ToUniversalTime(),
                     UpdateTime = i["UpdateTime"].ToUniversalTime(),
                     Thumbnail = i["Thumbnail"].ToString()
