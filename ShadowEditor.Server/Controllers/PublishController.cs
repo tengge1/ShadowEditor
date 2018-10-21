@@ -51,6 +51,9 @@ namespace ShadowEditor.Server.Controllers
 
             File.Copy(sourceName, destName, true);
 
+            var text = File.ReadAllText(destName).Replace("location.origin", "'.'");
+            File.WriteAllText(destName, text);
+
             // 复制dist文件夹
             sourceName = server.MapPath("~/dist");
             destName = server.MapPath("~/examples/dist");

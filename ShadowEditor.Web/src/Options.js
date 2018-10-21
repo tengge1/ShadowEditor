@@ -7,7 +7,7 @@ function Options(options) {
     options = options || {};
 
     // 服务器配置
-    this.server = options.server || location.origin; // 服务端地址
+    this.server = options.server === undefined ? location.origin : options.server; // 服务端地址
 
     // 外观配置
     this.theme = options.theme || 'assets/css/light.css'; // 皮肤

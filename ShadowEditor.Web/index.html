@@ -118,7 +118,9 @@
 
         var start = function () {
             container = document.getElementById('container');
-            app = new Shadow.Application(container);
+            app = new Shadow.Application(container, {
+                server: location.origin
+            });
             app.start();
         };
 
