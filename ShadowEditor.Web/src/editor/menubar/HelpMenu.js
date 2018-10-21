@@ -46,7 +46,7 @@ HelpMenu.prototype.render = function () {
                 cls: 'option',
                 html: '文档',
                 onClick: () => {
-                    window.open('https://tengge1.github.io/ShadowEditor/docs/release/index.html', '_blank');
+                    window.open('https://tengge1.github.io/ShadowEditor/', '_blank');
                 }
             }, {
                 xtype: 'div',
