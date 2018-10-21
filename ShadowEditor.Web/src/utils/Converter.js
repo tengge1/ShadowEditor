@@ -1,10 +1,6 @@
 /**
- * 类型转换工具
- * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
- */
-
-/**
  * canvas转DataURL
+ * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
  * @param {*} canvas 画布
  * @param {*} type 图片类型 image/png或image/jpeg
  * @param {*} quality jpeg图片质量
@@ -19,6 +15,7 @@ function canvasToDataURL(canvas, type = 'image/png', quality = 0.8) {
 
 /**
  * Blob转DataURL
+ * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
  * @param {*} blob Blob对象
  */
 function blobToDataURL(blob) {
@@ -34,6 +31,7 @@ function blobToDataURL(blob) {
 
 /**
  * 文件转DataURL
+ * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
  * @param {*} file 文件
  */
 function fileToDataURL(file) {
@@ -42,6 +40,7 @@ function fileToDataURL(file) {
 
 /**
  * DataURL转Blob
+ * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
  * @param {*} dataURL 
  */
 function dataURLToBlob(dataURL) {
@@ -58,6 +57,7 @@ function dataURLToBlob(dataURL) {
 
 /**
  * DataURL转File
+ * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
  * @param {*} dataURL 
  * @param {*} filename 文件名
  */
@@ -75,6 +75,7 @@ function dataURLtoFile(dataURL, filename) {
 
 /**
  * DataURL转图片
+ * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
  * @param {*} dataURL 
  */
 function dataURLToImage(dataURL) {
@@ -97,6 +98,7 @@ function dataURLToImage(dataURL) {
 
 /**
  * Blob转图片
+ * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
  * @param {*} blob 
  */
 function BlobToImage(blob) {
@@ -111,6 +113,7 @@ function BlobToImage(blob) {
 
 /**
  * 文件转图片
+ * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
  * @param {*} file 文件
  */
 function FileToImage(file) {
@@ -118,8 +121,40 @@ function FileToImage(file) {
 }
 
 /**
- * 类型转换工具
+ * 图片转画布
  * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
+ * @param {*} image 图片
+ */
+function ImageToCanvas(image) {
+    var canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    var context = canvas.getContext('2d');
+    context.drawImage(image, 0, 0);
+
+    return canvas;
+}
+
+/**
+ * 画布转图片
+ * @param {*} canvas 画布
+ * @param {*} type 类型
+ * @param {*} quality jpeg图片质量
+ */
+function CanvasToImage(canvas, type = 'image/png', quality = 0.8) {
+    var image = new Image();
+    if (type === 'image/jpeg') {
+        image.src = canvas.toDataURL('image/jpeg', quality);
+    } else {
+        image.src = canvas.toDataURL('image/png');
+    }
+    return image;
+}
+
+/**
+ * 类型转换工具
+ * @author tengge / https://github.com/tengge1
  */
 const Converter = {
     canvasToDataURL: canvasToDataURL,
@@ -130,6 +165,8 @@ const Converter = {
     dataURLToImage: dataURLToImage,
     BlobToImage: BlobToImage,
     FileToImage: FileToImage,
+    imageToCanvas: ImageToCanvas,
+    canvasToImage: CanvasToImage,
 };
 
 export default Converter;

@@ -458,13 +458,52 @@ SceneComponent.prototype.onSaveCubeTexture = function () { // 保存立体贴图
         return;
     }
 
+    var posXSrc = texturePosX.image.src;
+    var negXSrc = textureNegX.image.src;
+    var posYSrc = texturePosY.image.src;
+    var negYSrc = textureNegY.image.src;
+    var posZSrc = texturePosZ.image.src;
+    var negZSrc = textureNegZ.image.src;
+
+    if (posXSrc.startsWith('http') || negXSrc.startsWith('http') || posYSrc.startsWith('http') || negYSrc.startsWith('http') || posZSrc.startsWith('http') || negZSrc.startsWith('http')) {
+        UI.msg(`立体贴图已经存在于服务端，无需重复上传。`);
+        return;
+    }
+
+    // TODO: 下面代码转换出的DataURL太大，不行！！！
+
+    // 如果src是服务端地址，则需要转成DataURL
+    // if (posXSrc.startsWith('http')) {
+    //     posXSrc = Converter.canvasToDataURL(Converter.imageToCanvas(texturePosX.image));
+    // }
+
+    // if (negXSrc.startsWith('http')) {
+    //     negXSrc = Converter.canvasToDataURL(Converter.imageToCanvas(textureNegX.image));
+    // }
+
+    // if (posYSrc.startsWith('http')) {
+    //     posYSrc = Converter.canvasToDataURL(Converter.imageToCanvas(texturePosY.image));
+    // }
+
+    // if (negYSrc.startsWith('http')) {
+    //     negYSrc = Converter.canvasToDataURL(Converter.imageToCanvas(textureNegY.image));
+    // }
+
+    // if (posZSrc.startsWith('http')) {
+    //     posZSrc = Converter.canvasToDataURL(Converter.imageToCanvas(texturePosZ.image));
+    // }
+
+    // if (negZSrc.startsWith('http')) {
+    //     negZSrc = Converter.canvasToDataURL(Converter.imageToCanvas(textureNegZ.image));
+    // }
+
     var promises = [
-        Converter.dataURLtoFile(texturePosX.image.src, 'posX'),
-        Converter.dataURLtoFile(textureNegX.image.src, 'negX'),
-        Converter.dataURLtoFile(texturePosY.image.src, 'posY'),
-        Converter.dataURLtoFile(textureNegY.image.src, 'negY'),
-        Converter.dataURLtoFile(texturePosZ.image.src, 'posZ'),
-        Converter.dataURLtoFile(textureNegZ.image.src, 'negZ'),
+        Converter.dataURLtoFile(posXSrc, 'posX'),
+        Converter.dataURLtoFile(negXSrc, 'negX'),
+        Converter.dataURLtoFile(posYSrc, 'posY'),
+        Converter.dataURLtoFile(negYSrc, 'negY'),
+        Converter.dataURLtoFile(posZSrc, 'posZ'),
+        Converter.dataURLtoFile(negZSrc, 'negZ'),
     ];
 
     Promise.all(promises).then(files => {
