@@ -171,46 +171,52 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
 // ------------------------- 发布场景 ------------------------------
 
 SceneMenu.prototype.publishScene = function () {
-    var editor = this.app.editor;
-
-    var zip = new JSZip();
-    //
-
-    var obj = (new Converter()).toJSON({
-        options: this.app.options,
-        camera: this.app.editor.camera,
-        renderer: this.app.editor.renderer,
-        scripts: this.app.editor.scripts,
-        scene: this.app.editor.scene
-    });
-
-    var output = JSON.stringify(obj);
-
-    zip.file('scene.json', output);
-
-    // 保存数据
-
-    var manager = new THREE.LoadingManager(() => {
-        this.savePublishScene(zip.generate({
-            type: 'blob'
-        }), `${editor.sceneName}.zip`);
-    });
-
-    var loader = new THREE.FileLoader(manager);
-    loader.load('index.html', content => {
-        zip.file('index.html', content);
-    });
-    loader.load('dist/ShadowEditor.js', function (content) {
-        zip.file('dist/ShadowEditor.js', content);
-    });
+    UI.msg('发布场景成功！');
 };
 
-SceneMenu.prototype.savePublishScene = function (text, filename) {
-    var blob = new Blob([text], { type: 'text/plain' });
+// ------------------------ 本地打包发布 ---------------------------------------
 
-    this.link.href = URL.createObjectURL(blob);
-    this.link.download = filename;
-    this.link.click();
-};
+// SceneMenu.prototype.publishSceneLocal = function () {
+//     var editor = this.app.editor;
+
+//     var zip = new JSZip();
+//     //
+
+//     var obj = (new Converter()).toJSON({
+//         options: this.app.options,
+//         camera: this.app.editor.camera,
+//         renderer: this.app.editor.renderer,
+//         scripts: this.app.editor.scripts,
+//         scene: this.app.editor.scene
+//     });
+
+//     var output = JSON.stringify(obj);
+
+//     zip.file('scene.json', output);
+
+//     // 保存数据
+
+//     var manager = new THREE.LoadingManager(() => {
+//         this.savePublishScene(zip.generate({
+//             type: 'blob'
+//         }), `${editor.sceneName}.zip`);
+//     });
+
+//     var loader = new THREE.FileLoader(manager);
+//     loader.load('index.html', content => {
+//         zip.file('index.html', content);
+//     });
+//     loader.load('dist/ShadowEditor.js', function (content) {
+//         zip.file('dist/ShadowEditor.js', content);
+//     });
+// };
+
+// SceneMenu.prototype.savePublishScene = function (text, filename) {
+//     var blob = new Blob([text], { type: 'text/plain' });
+
+//     this.link.href = URL.createObjectURL(blob);
+//     this.link.download = filename;
+//     this.link.click();
+// };
 
 export default SceneMenu;
