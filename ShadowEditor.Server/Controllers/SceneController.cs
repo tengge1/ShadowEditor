@@ -251,7 +251,8 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "保存成功！"
+                Msg = "保存成功！",
+                ID = objectId
             });
         }
 

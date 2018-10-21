@@ -61,9 +61,9 @@ SceneMenu.prototype.render = function () {
 
     container.render();
 
-    this.link = document.createElement('a');
-    this.link.style.display = 'none';
-    document.body.appendChild(this.link); // Firefox workaround, see #6594
+    // this.link = document.createElement('a');
+    // this.link.style.display = 'none';
+    // document.body.appendChild(this.link); // Firefox workaround, see #6594
 }
 
 // ---------------------------- 新建场景 ---------------------------------
@@ -105,8 +105,6 @@ SceneMenu.prototype.saveScene = function () { // 保存场景
 
     if (sceneName == null) {
         UI.prompt('保存场景', '名称', '新场景', (event, name) => {
-            this.app.editor.sceneName = name;
-            document.title = name;
             this.commitSave(name);
         });
     } else {
@@ -115,13 +113,15 @@ SceneMenu.prototype.saveScene = function () { // 保存场景
 };
 
 SceneMenu.prototype.commitSave = function (sceneName) {
+    var editor = this.app.editor;
+
     var obj = (new Converter()).toJSON({
         options: this.app.options,
-        camera: this.app.editor.camera,
-        renderer: this.app.editor.renderer,
-        scripts: this.app.editor.scripts,
-        animation: this.app.editor.animation,
-        scene: this.app.editor.scene
+        camera: editor.camera,
+        renderer: editor.renderer,
+        scripts: editor.scripts,
+        animation: editor.animation,
+        scene: editor.scene
     });
 
     Ajax.post(this.app.options.server + '/api/Scene/Save', {
@@ -129,6 +129,13 @@ SceneMenu.prototype.commitSave = function (sceneName) {
         Data: JSON.stringify(obj)
     }, function (result) {
         var obj = JSON.parse(result);
+
+        if (obj.Code === 200) {
+            editor.sceneID = obj.ID;
+            editor.sceneName = sceneName;
+            document.title = sceneName;
+        }
+
         UI.msg(obj.Msg);
     });
 };
@@ -150,13 +157,15 @@ SceneMenu.prototype.saveAsScene = function () {
 };
 
 SceneMenu.prototype.commitSaveAs = function (sceneName) {
+    var editor = this.app.editor;
+
     var obj = (new Converter()).toJSON({
         options: this.app.options,
-        camera: this.app.editor.camera,
-        renderer: this.app.editor.renderer,
-        scripts: this.app.editor.scripts,
-        animation: this.app.editor.animation,
-        scene: this.app.editor.scene
+        camera: editor.camera,
+        renderer: editor.renderer,
+        scripts: editor.scripts,
+        animation: editor.animation,
+        scene: editor.scene
     });
 
     Ajax.post(this.app.options.server + '/api/Scene/Save', {
@@ -164,6 +173,13 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
         Data: JSON.stringify(obj)
     }, function (result) {
         var obj = JSON.parse(result);
+
+        if (obj.Code === 200) {
+            editor.sceneID = obj.ID;
+            editor.sceneName = sceneName;
+            document.title = sceneName;
+        }
+
         UI.msg(obj.Msg);
     });
 };
@@ -171,7 +187,19 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
 // ------------------------- 发布场景 ------------------------------
 
 SceneMenu.prototype.publishScene = function () {
-    UI.msg('发布场景成功！');
+    var sceneID = this.app.editor.sceneID;
+
+    if (!sceneID) {
+        UI.msg('请先保存场景！');
+        return;
+    }
+
+    Ajax.post(`${this.app.options.server}/api/Publish/Publish`, {
+        ID: sceneID
+    }, function (result) {
+        var obj = JSON.parse(result);
+        UI.msg(obj.Msg);
+    });
 };
 
 // ------------------------ 本地打包发布 ---------------------------------------
