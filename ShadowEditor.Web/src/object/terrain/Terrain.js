@@ -38,17 +38,14 @@ Terrain.prototype = Object.create(THREE.Mesh.prototype);
 Terrain.prototype.constructor = Terrain;
 
 Terrain.prototype.generateHeight = function (width, height) {
-    var size = width * height,
-        data = new Uint8Array(size),
-        perlin = new ImprovedNoise(),
-        quality = 1;
+    var data = new Uint8Array(width * height);
+    var perlin = new ImprovedNoise();
+    var quality = 50; // 质量，数越大，起伏越大，质量越高。
 
-    for (var j = 0; j < 4; j++) {
-        for (var i = 0; i < size; i++) {
-            var x = i % width, y = parseInt(i / width);
-            data[i] += Math.abs(perlin.noise(x / quality, y / quality, 0) * quality);
+    for (var i = 0; i < width; i++) {
+        for (var j = 0; j < height; j++) {
+            data[i * height + j] = Math.abs(perlin.noise(i / quality, j / quality, 0) * quality);
         }
-        quality *= 2;
     }
 
     return data;
