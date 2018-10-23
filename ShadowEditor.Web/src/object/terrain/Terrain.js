@@ -41,15 +41,14 @@ Terrain.prototype.generateHeight = function (width, height) {
     var size = width * height,
         data = new Uint8Array(size),
         perlin = new ImprovedNoise(),
-        quality = 1,
-        z = Math.random();
+        quality = 1;
 
     for (var j = 0; j < 4; j++) {
         for (var i = 0; i < size; i++) {
-            var x = i % width, y = ~~(i / width);
+            var x = i % width, y = parseInt(i / width);
             data[i] += Math.abs(perlin.noise(x / quality, y / quality, 0) * quality);
         }
-        quality *= 5;
+        quality *= 2;
     }
 
     return data;
