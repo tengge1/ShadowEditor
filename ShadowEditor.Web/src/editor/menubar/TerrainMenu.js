@@ -32,7 +32,7 @@ TerrainMenu.prototype.render = function () {
             children: [{
                 xtype: 'div',
                 cls: 'option',
-                html: '创建地形',
+                html: '柏林随机地形',
                 onClick: this.createTerrain.bind(this)
             }, {
                 xtype: 'div',
