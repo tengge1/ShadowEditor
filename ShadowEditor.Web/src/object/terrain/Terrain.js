@@ -56,7 +56,7 @@ Terrain.prototype.generateHeight = function (width, height) {
 };
 
 Terrain.prototype.generateTexture = function (data, width, height) {
-    // bake lighting into texture
+    // 烘培光照到纹理上
     var canvas, canvasScaled, context, image, imageData, vector3, sun, shade;
 
     vector3 = new THREE.Vector3(0, 0, 0);
