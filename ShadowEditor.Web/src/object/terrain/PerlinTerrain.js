@@ -1,9 +1,9 @@
 /**
- * 地形
+ * 柏林随机地形
  * @param {*} width 地形宽度
  * @param {*} depth 地形高度
  */
-function Terrain(width = 256, depth = 256) {
+function PerlinTerrain(width = 256, depth = 256) {
     var halfWidth = width / 2,
         halfDepth = depth / 2;
 
@@ -34,10 +34,10 @@ function Terrain(width = 256, depth = 256) {
     this.scale.set(0.01, 0.01, 0.01);
 }
 
-Terrain.prototype = Object.create(THREE.Mesh.prototype);
-Terrain.prototype.constructor = Terrain;
+PerlinTerrain.prototype = Object.create(THREE.Mesh.prototype);
+PerlinTerrain.prototype.constructor = PerlinTerrain;
 
-Terrain.prototype.generateHeight = function (width, height) {
+PerlinTerrain.prototype.generateHeight = function (width, height) {
     var data = new Uint8Array(width * height);
     var perlin = new ImprovedNoise();
     var quality = 100; // 质量，数越大，起伏越大，质量越高。
@@ -51,7 +51,7 @@ Terrain.prototype.generateHeight = function (width, height) {
     return data;
 };
 
-Terrain.prototype.generateTexture = function (data, width, height) {
+PerlinTerrain.prototype.generateTexture = function (data, width, height) {
     // 烘培光照到纹理上
     var canvas, canvasScaled, context, image, imageData, vector3, sun, shade;
 
@@ -107,4 +107,4 @@ Terrain.prototype.generateTexture = function (data, width, height) {
     return canvasScaled;
 };
 
-export default Terrain;
+export default PerlinTerrain;

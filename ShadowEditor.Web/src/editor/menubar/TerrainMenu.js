@@ -1,6 +1,6 @@
 import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
-import Terrain from '../../object/terrain/Terrain';
+import PerlinTerrain from '../../object/terrain/PerlinTerrain';
 import ShaderTerrain from '../../object/terrain/ShaderTerrain';
 import PhysicsTerrain from '../../object/terrain/PhysicsTerrain';
 
@@ -33,7 +33,7 @@ TerrainMenu.prototype.render = function () {
                 xtype: 'div',
                 cls: 'option',
                 html: '柏林随机地形',
-                onClick: this.createTerrain.bind(this)
+                onClick: this.createPerlinTerrain.bind(this)
             }, {
                 xtype: 'div',
                 cls: 'option',
@@ -68,8 +68,8 @@ TerrainMenu.prototype.render = function () {
 
 // ---------------------------- 创建地形 -----------------------------------
 
-TerrainMenu.prototype.createTerrain = function () {
-    this.app.editor.execute(new AddObjectCommand(new Terrain()));
+TerrainMenu.prototype.createPerlinTerrain = function () {
+    this.app.editor.execute(new AddObjectCommand(new PerlinTerrain()));
 };
 
 // ---------------------------- 创建着色器地形 ----------------------------------------
