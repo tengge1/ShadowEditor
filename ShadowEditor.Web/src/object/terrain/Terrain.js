@@ -40,7 +40,7 @@ Terrain.prototype.constructor = Terrain;
 Terrain.prototype.generateHeight = function (width, height) {
     var data = new Uint8Array(width * height);
     var perlin = new ImprovedNoise();
-    var quality = 50; // 质量，数越大，起伏越大，质量越高。
+    var quality = 100; // 质量，数越大，起伏越大，质量越高。
 
     for (var i = 0; i < width; i++) {
         for (var j = 0; j < height; j++) {
