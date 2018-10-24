@@ -1,25 +1,28 @@
 /**
  * 柏林地形
  * @param {*} width 地形宽度
- * @param {*} depth 地形高度
+ * @param {*} depth 地形深度
+ * @param {*} widthSegments 宽度分段
+ * @param {*} depthSegments 深度分段
+ * @param {*} quality 地形质量
  */
-function PerlinTerrain(width = 256, depth = 256) {
+function PerlinTerrain(width = 1000, depth = 1000, widthSegments = 256, depthSegments = 256, quality = 80) {
     // 创建地形几何体
-    var geometry = new THREE.PlaneBufferGeometry(1000, 1000, width - 1, depth - 1);
+    var geometry = new THREE.PlaneBufferGeometry(width, depth, widthSegments - 1, depthSegments - 1);
     geometry.rotateX(-Math.PI / 2);
 
     var vertices = geometry.attributes.position.array;
 
-    var data = this.generateHeight(width, depth);
+    var data = this.generateHeight(widthSegments, depthSegments, quality);
 
     for (var i = 0, l = vertices.length; i < l; i++) {
-        vertices[i * 3 + 1] = data[i];
+        vertices[i * 3 + 1] = data[i]; // 给顶点数组y分量赋值（地面高度）
     }
 
     geometry.computeFaceNormals();
 
     // 创建光照贴图
-    var texture = new THREE.CanvasTexture(this.generateTexture(data, width, depth));
+    var texture = new THREE.CanvasTexture(this.generateTexture(data, widthSegments, depthSegments));
     texture.wrapS = THREE.ClampToEdgeWrapping;
     texture.wrapT = THREE.ClampToEdgeWrapping;
 
@@ -33,10 +36,15 @@ function PerlinTerrain(width = 256, depth = 256) {
 PerlinTerrain.prototype = Object.create(THREE.Mesh.prototype);
 PerlinTerrain.prototype.constructor = PerlinTerrain;
 
-PerlinTerrain.prototype.generateHeight = function (width, height) {
+/**
+ * 生成高程数据
+ * @param {*} width 宽度
+ * @param {*} height 高度
+ * @param {*} quality 质量
+ */
+PerlinTerrain.prototype.generateHeight = function (width, height, quality) {
     var data = new Uint8Array(width * height);
     var perlin = new ImprovedNoise();
-    var quality = 80; // 质量，数越大，起伏越大，质量越高。
 
     for (var i = 0; i < width; i++) {
         for (var j = 0; j < height; j++) {
@@ -47,25 +55,31 @@ PerlinTerrain.prototype.generateHeight = function (width, height) {
     return data;
 };
 
+/**
+ * 将光照烘培到贴图上
+ * @param {*} data 高程数据
+ * @param {*} width 宽度
+ * @param {*} height 高度
+ */
 PerlinTerrain.prototype.generateTexture = function (data, width, height) {
-    // 烘培光照到纹理上
-    var canvas, canvasScaled, context, image, imageData, vector3, sun, shade;
-
-    vector3 = new THREE.Vector3(0, 0, 0);
-
-    sun = new THREE.Vector3(1, 1, 1);
-    sun.normalize();
-
-    canvas = document.createElement('canvas');
+    // 创建ImageData
+    var canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
 
-    context = canvas.getContext('2d');
+    var context = canvas.getContext('2d');
     context.fillStyle = '#000';
     context.fillRect(0, 0, width, height);
 
-    image = context.getImageData(0, 0, canvas.width, canvas.height);
-    imageData = image.data;
+    var image = context.getImageData(0, 0, canvas.width, canvas.height);
+    var imageData = image.data;
+
+    // 计算光照强度
+    var sun = new THREE.Vector3(1, 1, 1);
+    sun.normalize();
+
+    var vector3 = new THREE.Vector3(0, 0, 0);
+    var shade;
 
     for (var i = 0, j = 0, l = imageData.length; i < l; i += 4, j++) {
         vector3.x = data[j - 2] - data[j + 2];
@@ -78,6 +92,7 @@ PerlinTerrain.prototype.generateTexture = function (data, width, height) {
         imageData[i + 2] = (shade * 96) * (0.5 + data[j] * 0.007);
     }
 
+    // 将光照强度写入canvas
     context.putImageData(image, 0, 0);
 
     return canvas;
