@@ -49,5 +49,8 @@ namespace ShadowEditor.Server.Texture
 
         // 立体贴图
         cube,
+
+        // 视频贴图
+        video,
     }
 }

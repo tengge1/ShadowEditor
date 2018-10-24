@@ -43,6 +43,7 @@ TextureWindow.prototype.onUpload = function (obj) {
 
 TextureWindow.prototype.onClick = function (data) {
     if (typeof (this.onSelect) === 'function') {
+        debugger
         this.onSelect(data);
     } else {
         UI.msg('请在材质控件中修改纹理。');

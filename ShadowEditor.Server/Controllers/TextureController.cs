@@ -165,7 +165,7 @@ namespace ShadowEditor.Server.Controllers
 
             doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
 
-            if (files.Count == 6)
+            if (files.Count == 6) // 立体贴图
             {
                 doc["Type"] = TextureType.cube.ToString();
 
@@ -178,6 +178,11 @@ namespace ShadowEditor.Server.Controllers
                 doc1["NegZ"] = $"{savePath}/{files["negZ"].FileName}";
 
                 doc["Url"] = doc1;
+            }
+            else if (Path.GetExtension(files[0].FileName).ToLower() == ".mp4") // 视频贴图
+            {
+                doc["Type"] = TextureType.video.ToString();
+                doc["Url"] = $"{savePath}/{fileName}";
             }
             else
             {
