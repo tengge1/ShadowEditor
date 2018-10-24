@@ -1,4 +1,5 @@
 import BaseComponent from '../BaseComponent';
+import PerlinTerrain from '../../object/terrain/PerlinTerrain';
 
 /**
  * 柏林地形组件
@@ -17,7 +18,7 @@ PerlinTerrainComponent.prototype.render = function () {
     var data = {
         xtype: 'div',
         parent: this.parent,
-        id: 'skyPanel',
+        id: 'perlinPanel',
         scope: this.id,
         cls: 'Panel',
         style: {
@@ -32,72 +33,71 @@ PerlinTerrainComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '天空'
+                text: '柏林地形'
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '浑浊度'
+                text: '宽度'
             }, {
-                xtype: 'number',
-                id: 'turbidity',
+                xtype: 'int',
+                id: 'width',
                 scope: this.id,
                 range: [0, Infinity],
-                value: 10,
+                value: 1000,
                 onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '瑞利'
+                text: '深度'
             }, {
-                xtype: 'number',
-                id: 'rayleigh',
+                xtype: 'int',
+                id: 'depth',
                 scope: this.id,
                 range: [0, Infinity],
-                value: 2,
+                value: 1000,
                 onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '亮度'
+                text: '宽度分段'
             }, {
-                xtype: 'number',
-                id: 'luminance',
+                xtype: 'int',
+                id: 'widthSegments',
                 scope: this.id,
                 range: [0, Infinity],
-                value: 1,
+                value: 256,
                 onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'Mie系数'
+                text: '深度分段'
             }, {
-                xtype: 'number',
-                id: 'mieCoefficient',
+                xtype: 'int',
+                id: 'depthSegments',
                 scope: this.id,
                 range: [0, Infinity],
-                value: 0.005,
-                unit: '%',
+                value: 256,
                 onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'Mie方向'
+                text: '质量'
             }, {
-                xtype: 'number',
-                id: 'mieDirectionalG',
+                xtype: 'int',
+                id: 'quality',
                 scope: this.id,
                 range: [0, Infinity],
-                value: 0.005,
+                value: 80,
                 onChange: this.onChange.bind(this)
             }]
         }]
@@ -119,9 +119,9 @@ PerlinTerrainComponent.prototype.onObjectChanged = function () {
 };
 
 PerlinTerrainComponent.prototype.updateUI = function () {
-    var container = UI.get('skyPanel', this.id);
+    var container = UI.get('perlinPanel', this.id);
     var editor = this.app.editor;
-    if (editor.selected && editor.selected instanceof Sky) {
+    if (editor.selected && editor.selected instanceof PerlinTerrain) {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
@@ -130,20 +130,28 @@ PerlinTerrainComponent.prototype.updateUI = function () {
 
     this.selected = editor.selected;
 
-    var turbidity = UI.get('turbidity', this.id);
-    var rayleigh = UI.get('rayleigh', this.id);
-    var luminance = UI.get('luminance', this.id);
-    var mieCoefficient = UI.get('mieCoefficient', this.id);
-    var mieDirectionalG = UI.get('mieDirectionalG', this.id);
+    var width = UI.get('width', this.id);
+    var depth = UI.get('depth', this.id);
+    var widthSegments = UI.get('widthSegments', this.id);
+    var depthSegments = UI.get('depthSegments', this.id);
+    var quality = UI.get('quality', this.id);
 
-    turbidity.setValue(this.selected.userData.turbidity);
-    rayleigh.setValue(this.selected.userData.rayleigh);
-    luminance.setValue(this.selected.userData.luminance);
-    mieCoefficient.setValue(this.selected.userData.mieCoefficient * 100);
-    mieDirectionalG.setValue(this.selected.userData.mieDirectionalG);
+    width.setValue(this.selected.userData.width);
+    depth.setValue(this.selected.userData.depth);
+    widthSegments.setValue(this.selected.userData.widthSegments);
+    depthSegments.setValue(this.selected.userData.depthSegments);
+    quality.setValue(this.selected.userData.quality);
 };
 
 PerlinTerrainComponent.prototype.onChange = function () {
+    var width = UI.get('width', this.id);
+    var depth = UI.get('depth', this.id);
+    var widthSegments = UI.get('widthSegments', this.id);
+    var depthSegments = UI.get('depthSegments', this.id);
+    var quality = UI.get('quality', this.id);
+
+    // TODO
+
     this.app.call(`objectSelected`, this, this.selected);
 };
 
