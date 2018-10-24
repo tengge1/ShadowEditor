@@ -101,7 +101,7 @@ namespace ShadowEditor.Server.Controllers
                 var file1 = files[i];
                 var fileName1 = file1.FileName;
                 var fileExt1 = Path.GetExtension(fileName1);
-                if (fileExt1 == null || fileExt1.ToLower() != ".jpg" && fileExt1.ToLower() != ".jpeg" && fileExt1.ToLower() != ".png")
+                if (fileExt1 == null || fileExt1.ToLower() != ".jpg" && fileExt1.ToLower() != ".jpeg" && fileExt1.ToLower() != ".png" || fileExt1.ToLower() != ".mp4")
                 {
                     return Json(new Result
                     {
@@ -153,7 +153,16 @@ namespace ShadowEditor.Server.Controllers
             doc["Name"] = fileNameWithoutExt;
             doc["SaveName"] = fileName;
             doc["SavePath"] = savePath;
-            doc["Thumbnail"] = $"{savePath}/{fileName}";
+            if (Path.GetExtension(files[0].FileName).ToLower() == ".mp4")
+            {
+                // TODO: 通过插件获取mp4缩略图
+                doc["Thumbnail"] = $"";
+            }
+            else
+            {
+                doc["Thumbnail"] = $"{savePath}/{fileName}";
+            }
+
             doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
 
             if (files.Count == 6)
