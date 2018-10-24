@@ -30,7 +30,17 @@ function PerlinTerrain(width = 1000, depth = 1000, widthSegments = 256, depthSeg
     THREE.Mesh.call(this, geometry, new THREE.MeshLambertMaterial({ map: texture }));
 
     this.name = '地形';
+
     this.position.y = -50;
+
+    Object.assign(this.userData, {
+        type: 'PerlinTerrain',
+        width: width,
+        depth: depth,
+        widthSegments: widthSegments,
+        depthSegments: depthSegments,
+        quality: quality,
+    });
 }
 
 PerlinTerrain.prototype = Object.create(THREE.Mesh.prototype);
