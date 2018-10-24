@@ -1,28 +1,24 @@
 /**
- * 柏林随机地形
+ * 柏林地形
  * @param {*} width 地形宽度
  * @param {*} depth 地形高度
  */
 function PerlinTerrain(width = 256, depth = 256) {
-    var halfWidth = width / 2,
-        halfDepth = depth / 2;
-
-    // 创建高程贴图
-    var data = this.generateHeight(width, depth);
-
     // 创建地形几何体
-    var geometry = new THREE.PlaneBufferGeometry(7500, 7500, width - 1, depth - 1);
+    var geometry = new THREE.PlaneBufferGeometry(1000, 1000, width - 1, depth - 1);
     geometry.rotateX(-Math.PI / 2);
 
     var vertices = geometry.attributes.position.array;
 
-    for (var i = 0, j = 0, l = vertices.length; i < l; i++ , j += 3) {
-        vertices[j + 1] = data[i] * 10;
+    var data = this.generateHeight(width, depth);
+
+    for (var i = 0, l = vertices.length; i < l; i++) {
+        vertices[i * 3 + 1] = data[i];
     }
 
     geometry.computeFaceNormals();
 
-    // 创建颜色贴图
+    // 创建光照贴图
     var texture = new THREE.CanvasTexture(this.generateTexture(data, width, depth));
     texture.wrapS = THREE.ClampToEdgeWrapping;
     texture.wrapT = THREE.ClampToEdgeWrapping;
@@ -31,7 +27,7 @@ function PerlinTerrain(width = 256, depth = 256) {
     THREE.Mesh.call(this, geometry, new THREE.MeshLambertMaterial({ map: texture }));
 
     this.name = '地形';
-    this.scale.set(0.01, 0.01, 0.01);
+    this.position.y = -50;
 }
 
 PerlinTerrain.prototype = Object.create(THREE.Mesh.prototype);
@@ -40,7 +36,7 @@ PerlinTerrain.prototype.constructor = PerlinTerrain;
 PerlinTerrain.prototype.generateHeight = function (width, height) {
     var data = new Uint8Array(width * height);
     var perlin = new ImprovedNoise();
-    var quality = 100; // 质量，数越大，起伏越大，质量越高。
+    var quality = 80; // 质量，数越大，起伏越大，质量越高。
 
     for (var i = 0; i < width; i++) {
         for (var j = 0; j < height; j++) {
@@ -84,27 +80,7 @@ PerlinTerrain.prototype.generateTexture = function (data, width, height) {
 
     context.putImageData(image, 0, 0);
 
-    // Scaled 4x
-    canvasScaled = document.createElement('canvas');
-    canvasScaled.width = width * 4;
-    canvasScaled.height = height * 4;
-
-    context = canvasScaled.getContext('2d');
-    context.scale(4, 4);
-    context.drawImage(canvas, 0, 0);
-
-    image = context.getImageData(0, 0, canvasScaled.width, canvasScaled.height);
-    imageData = image.data;
-
-    for (var i = 0, l = imageData.length; i < l; i += 4) {
-        var v = ~ ~(Math.random() * 5);
-        imageData[i] += v;
-        imageData[i + 1] += v;
-        imageData[i + 2] += v;
-    }
-
-    context.putImageData(image, 0, 0);
-    return canvasScaled;
+    return canvas;
 };
 
 export default PerlinTerrain;
