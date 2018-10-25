@@ -91,7 +91,7 @@ PerlinTerrain.prototype.generateTexture = function (data, width, height) {
     var vector3 = new THREE.Vector3(0, 0, 0);
     var shade;
 
-    for (var i = 0, j = 0, l = imageData.length; i < l; i += 4, j++) {
+    for (var i = 0, j = 0, l = imageData.length; i < l; i += 4, j++) { // i-像素RGBA分量索引，j-高程数据索引
         vector3.x = data[j - 2] - data[j + 2];
         vector3.y = 2;
         vector3.z = data[j - width * 2] - data[j + width * 2];
