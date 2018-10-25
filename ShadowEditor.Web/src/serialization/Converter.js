@@ -36,6 +36,7 @@ import FireSerializer from './objects/FireSerializer';
 import SmokeSerializer from './objects/SmokeSerializer';
 import SkySerializer from './objects/SkySerializer';
 import ParticleEmitterSerializer from './objects/ParticleEmitterSerializer';
+import PerlinTerrainSerializer from './objects/PerlinTerrainSerializer';
 
 /**
  * 场景序列化/反序列化类
@@ -118,6 +119,8 @@ Converter.prototype.sceneToJson = function (scene, list) {
             json = (new SmokeSerializer()).toJSON(obj);
         } else if (obj.userData.type === 'ParticleEmitter') { // 粒子发射器
             json = (new ParticleEmitterSerializer()).toJSON(obj);
+        } else if (obj.userData.type === 'PerlinTerrain') {
+            json = (new PerlinTerrainSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Scene) {
             json = (new SceneSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Group) {
@@ -329,6 +332,9 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                     break;
                 case 'ParticleEmitterSerializer':
                     obj = (new ParticleEmitterSerializer()).fromJSON(objJson);
+                    break;
+                case 'PerlinTerrainSerializer':
+                    obj = (new PerlinTerrainSerializer()).fromJSON(objJson);
                     break;
             }
 
