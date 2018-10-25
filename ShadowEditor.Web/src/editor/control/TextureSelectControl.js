@@ -88,14 +88,32 @@ TextureSelectControl.prototype.onClick = function () {
 TextureSelectControl.prototype.onSelect = function (data) {
     var urls = data.Url.split(';'); // 立体贴图data.Url多于一张，只取第一个。
 
-    var loader = new THREE.TextureLoader();
-    loader.load(`${this.app.options.server}${urls[0]}`, texture => {
-        this.texture = texture;
-        this.texture.name = data.Name;
-        this.window.hide();
-        this.updateUI();
-        this.onChange();
-    });
+    if (data.Type === 'video') { // 视频贴图
+        var video = document.createElement('video');
+        video.src = `${this.app.options.server}${urls[0]}`;
+        video.loop = 'loop';
+        video.autoplay = 'autoplay';
+        video.onplay = () => {
+            var texture = new THREE.VideoTexture(video);
+            texture.minFilter = THREE.LinearFilter;
+            texture.magFilter = THREE.LinearFilter;
+            texture.format = THREE.RGBFormat;
+            this.texture = texture;
+            this.texture.name = data.Name;
+            this.window.hide();
+            this.updateUI();
+            this.onChange();
+        }
+    } else { // 其他
+        var loader = new THREE.TextureLoader();
+        loader.load(`${this.app.options.server}${urls[0]}`, texture => {
+            this.texture = texture;
+            this.texture.name = data.Name;
+            this.window.hide();
+            this.updateUI();
+            this.onChange();
+        });
+    }
 };
 
 export default TextureSelectControl;
