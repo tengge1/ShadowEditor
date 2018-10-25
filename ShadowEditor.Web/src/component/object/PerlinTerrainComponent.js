@@ -150,9 +150,26 @@ PerlinTerrainComponent.prototype.onChange = function () {
     var depthSegments = UI.get('depthSegments', this.id);
     var quality = UI.get('quality', this.id);
 
-    // TODO
+    var terrain = new PerlinTerrain(
+        width.getValue(),
+        depth.getValue(),
+        widthSegments.getValue(),
+        depthSegments.getValue(),
+        quality.getValue()
+    );
 
-    this.app.call(`objectSelected`, this, this.selected);
+    var editor = this.app.editor;
+
+    var index = editor.scene.children.indexOf(this.selected);
+    if (index > -1) {
+        editor.scene.children[index] = terrain;
+        terrain.parent = this.selected.parent;
+        this.selected.parent = null;
+        this.app.call(`objectRemoved`, this, this.selected);
+        this.app.call(`objectAdded`, this, terrain);
+        editor.select(terrain);
+        this.app.call('sceneGraphChanged', this.id);
+    }
 };
 
 export default PerlinTerrainComponent;
