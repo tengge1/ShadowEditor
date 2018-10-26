@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import Sky from '../../object/component/Sky';
 import Fire from '../../object/component/Fire';
+import Water from '../../object/water/Water';
 import Smoke from '../../object/component/Smoke';
 import ParticleEmitter from '../../object/component/ParticleEmitter';
 import PlysicsUtils from '../../physics/PlysicsUtils';
@@ -51,6 +52,11 @@ ComponentMenu.prototype.render = function () {
                 html: '火焰',
                 cls: 'option',
                 onClick: this.onAddFire.bind(this)
+            }, {
+                xtype: 'div',
+                html: '液体',
+                cls: 'option',
+                onClick: this.onAddWater.bind(this)
             }, {
                 xtype: 'div',
                 html: '烟',
@@ -131,6 +137,20 @@ ComponentMenu.prototype.onAddFire = function () {
     editor.execute(new AddObjectCommand(fire));
 
     fire.userData.fire.update(0);
+};
+
+// -------------------------- 添加水 ---------------------------------------
+
+ComponentMenu.prototype.onAddWater = function () {
+    var editor = this.app.editor;
+
+    var water = new Water(editor.renderer);
+
+    editor.execute(new AddObjectCommand(water));
+
+    this.app.on(`animate.${this.id}`, () => {
+        water.update();
+    });
 };
 
 // ------------------------------ 添加烟 ------------------------------------
