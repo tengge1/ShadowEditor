@@ -17,7 +17,9 @@ function Water(renderer) {
     var material = new THREE.ShaderMaterial({
         uniforms: THREE.UniformsUtils.merge([
             THREE.ShaderLib['phong'].uniforms, {
-                heightmap: { value: null }
+                heightmap: {
+                    value: null
+                }
             }
         ]),
         vertexShader: WaterVertexShader,
@@ -44,7 +46,7 @@ function Water(renderer) {
 
     this.name = '液体';
 
-    this.rotation.x = - Math.PI / 2;
+    this.rotation.x = -Math.PI / 2;
 
     this.matrixAutoUpdate = false;
     this.updateMatrix();
@@ -57,9 +59,15 @@ function Water(renderer) {
     var heightmapVariable = gpuCompute.addVariable('heightmap', HeightmapFragmentShader, heightmap0);
     gpuCompute.setVariableDependencies(heightmapVariable, [heightmapVariable]);
 
-    heightmapVariable.material.uniforms.mousePos = { value: new THREE.Vector2(10000, 10000) };
-    heightmapVariable.material.uniforms.mouseSize = { value: 20.0 };
-    heightmapVariable.material.uniforms.viscosityConstant = { value: 0.03 };
+    heightmapVariable.material.uniforms.mousePos = {
+        value: new THREE.Vector2(10000, 10000)
+    };
+    heightmapVariable.material.uniforms.mouseSize = {
+        value: 20.0
+    };
+    heightmapVariable.material.uniforms.viscosityConstant = {
+        value: 0
+    };
     heightmapVariable.material.defines.BOUNDS = BOUNDS.toFixed(1);
 
     var error = gpuCompute.init();
@@ -67,7 +75,11 @@ function Water(renderer) {
         console.error(error);
     }
 
-    var smoothShader = gpuCompute.createShaderMaterial(SmoothFragmentShader, { texture: { value: null } });
+    var smoothShader = gpuCompute.createShaderMaterial(SmoothFragmentShader, {
+        texture: {
+            value: null
+        }
+    });
 
     this.heightmapVariable = heightmapVariable;
     this.gpuCompute = gpuCompute;
@@ -108,17 +120,6 @@ Water.prototype.fillTexture = function (texture, WIDTH) {
         }
     }
 };
-
-// Water.prototype.smoothWater = function () {
-//     var currentRenderTarget = gpuCompute.getCurrentRenderTarget(heightmapVariable);
-//     var alternateRenderTarget = gpuCompute.getAlternateRenderTarget(heightmapVariable);
-//     for (var i = 0; i < 10; i++) {
-//         smoothShader.uniforms.texture.value = currentRenderTarget.texture;
-//         gpuCompute.doRenderTarget(smoothShader, alternateRenderTarget);
-//         smoothShader.uniforms.texture.value = alternateRenderTarget.texture;
-//         gpuCompute.doRenderTarget(smoothShader, currentRenderTarget);
-//     }
-// };
 
 Water.prototype.update = function () {
     var heightmapVariable = this.heightmapVariable;
