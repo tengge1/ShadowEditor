@@ -1,7 +1,7 @@
 # Shadow Editor
 
 * 名称：Shadow Editor
-* 版本：v0.0.8（开发中）
+* 版本：v0.0.8
 * 说明：基于`three.js`的场景编辑器。
 
 * 源码一：https://gitee.com/tengge1/ShadowEditor
@@ -61,8 +61,6 @@ net start MongoDB
 | .* | application/octet-stream | 各种格式后缀文件 |
 | . | application/octet-stream | 无后缀文件 |
 
-各种
-
 ## 项目截图
 
 ![image](images/scene20181007.png)
@@ -70,6 +68,18 @@ net start MongoDB
 [点击此处](images/README.md)查看更多截图
 
 ## 开发日志
+
+**v0.0.8**
+
+* 发布日期：2018年10月27日
+* 更新日志：
+
+1. 编辑器文档更新。
+2. 立体贴图上传服务端，并可设置为场景背景。
+3. 所有场景一键发布静态网站，便于部署到`GitHub Pages`服务上。
+4. 柏林地形组件、序列化和反序列化，并可在播放器中展示。
+5. 上传mp4视频贴图，并可以设置到材质上，在三维场景中播放视频。
+6. 增加液体组件（测试）。
 
 **v0.0.7**
 
