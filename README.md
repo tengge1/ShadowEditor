@@ -11,7 +11,7 @@
 * 文档二：https://tengge1.github.io/ShadowEditor/
 
 * 示例一：https://tengge1.gitee.io/shadoweditor-examples/
-* 示例二：https://github.com/tengge1/ShadowEditor-examples
+* 示例二：https://tengge1.github.io/ShadowEditor-examples/
 
 * 推荐使用`Chrome`浏览器查看示例，不保证兼容其他浏览器。
 
