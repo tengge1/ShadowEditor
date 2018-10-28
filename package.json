@@ -13,7 +13,7 @@
         "rollup-plugin-copy": "^0.2.3"
     },
     "scripts": {
-        "build": "rollup -c",
+        "build": "rollup -c ShadowEditor.Web/rollup.config.js",
         "build-docs": "gitbook build docs-dev",
         "clear": "npm prune"
     },
