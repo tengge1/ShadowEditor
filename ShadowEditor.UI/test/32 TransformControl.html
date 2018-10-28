@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>31 Hello World</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link href="../assets/css/main.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="../dist/ShadowUI.js"></script>
+    <script>
+        var control = UI.create({
+            xtype: 'div',
+            id: 'transformPanel',
+            parent: document.body,
+            cls: 'Panel',
+            children: [{
+                xtype: 'row',
+                children: [{
+                    xtype: 'row',
+                    children: [{
+                        xtype: 'label',
+                        style: {
+                            color: '#555',
+                            fontWeight: 'bold'
+                        },
+                        text: '位移组件'
+                    }]
+                }, {
+                    xtype: 'row',
+                    children: [{
+                        xtype: 'label',
+                        text: '平移'
+                    }, {
+                        xtype: 'number',
+                        id: 'objectPositionX',
+                        style: {
+                            width: '40px'
+                        }
+                    }, {
+                        xtype: 'number',
+                        id: 'objectPositionY',
+                        style: {
+                            width: '40px'
+                        }
+                    }, {
+                        xtype: 'number',
+                        id: 'objectPositionZ',
+                        style: {
+                            width: '40px'
+                        }
+                    }]
+                }, {
+                    xtype: 'row',
+                    children: [{
+                        xtype: 'label',
+                        text: '旋转'
+                    }, {
+                        xtype: 'number',
+                        id: 'objectRotationX',
+                        step: 10,
+                        unit: '°',
+                        style: {
+                            width: '40px'
+                        }
+                    }, {
+                        xtype: 'number',
+                        id: 'objectRotationY',
+                        step: 10,
+                        unit: '°',
+                        style: {
+                            width: '40px'
+                        }
+                    }, {
+                        xtype: 'number',
+                        id: 'objectRotationZ',
+                        step: 10,
+                        unit: '°',
+                        style: {
+                            width: '40px'
+                        }
+                    }]
+                }, {
+                    xtype: 'row',
+                    children: [{
+                        xtype: 'label',
+                        text: '缩放'
+                    }, {
+                        xtype: 'number',
+                        id: 'objectScaleX',
+                        value: 1,
+                        range: [0.01, Infinity],
+                        style: {
+                            width: '40px'
+                        },
+                    }, {
+                        xtype: 'number',
+                        id: 'objectScaleY',
+                        value: 1,
+                        range: [0.01, Infinity],
+                        style: {
+                            width: '40px'
+                        }
+                    }, {
+                        xtype: 'number',
+                        id: 'objectScaleZ',
+                        value: 1,
+                        range: [0.01, Infinity],
+                        style: {
+                            width: '40px'
+                        }
+                    }]
+                }]
+            }]
+        });
+
+        control.render();
+    </script>
+</body>
+
+</html>

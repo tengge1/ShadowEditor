@@ -1,0 +1,954 @@
+/* 通用 */
+
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    overflow: hidden;
+    user-select: none;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+
+button {
+    position: relative;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-weight: 400;
+    padding: 5px 8px;
+    cursor: pointer;
+    outline: none;
+    border-radius: 3px;
+    will-change: box-shadow;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+button.selected {
+    background-color: #ddd;
+}
+
+button.IconButton {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+button.IconButton:hover {
+    background-color: #ddd;
+}
+
+button.IconButton.selected {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+}
+
+button.IconButton i {
+    font-size: 20px;
+}
+
+textarea {
+    tab-size: 4;
+    white-space: pre;
+    word-wrap: normal;
+    outline: none;
+    border: 1px solid transparent;
+    color: #444;
+    padding: 2px;
+}
+
+textarea.success {
+    border-color: #8b8 !important;
+}
+
+textarea.fail {
+    border-color: #f00 !important;
+    background-color: rgba(255, 0, 0, 0.05);
+}
+
+input {
+    outline: none;
+    border: 1px solid #ddd;
+    color: #444;
+}
+
+input.Input {
+    padding: 4px;
+}
+
+input.Number {
+    color: #08f !important;
+    font-size: 12px;
+    border: 0px;
+    padding: 2px;
+    cursor: col-resize;
+    width: 40px;
+    background-color: transparent;
+}
+
+input.Color {
+    width: 64px;
+    height: 17px;
+    border: none;
+    padding: 2px;
+    background-color: transparent;
+}
+
+select {
+    color: #666;
+    background-color: #ddd;
+    border: 0px;
+    cursor: pointer;
+    outline: none;
+    padding: 2px;
+}
+
+select:hover {
+    background-color: #fff;
+}
+
+span.Text {
+    cursor: default;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+span.Checkbox {
+    margin-right: 10px;
+}
+
+span.Checkbox>input {
+    vertical-align: middle;
+}
+
+span.Checkbox>span {
+    cursor: default;
+    display: inline-block;
+    margin-left: 3px;
+    color: rgb(136, 136, 136);
+    vertical-align: middle;
+}
+
+div.CloseButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+div.CloseButton>i {
+    font-size: 16px;
+}
+
+div.Texture {
+    display: inline-block;
+}
+
+div.Texture canvas {
+    cursor: pointer;
+    margin-right: 5px;
+    border: 1px solid #888;
+}
+
+div.Texture input {
+    width: 40px;
+    border: 1px solid #ccc;
+}
+
+div.Modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1300;
+    border-radius: 3px;
+}
+
+div.Modal.NoShade {
+    visibility: hidden;
+}
+
+div.Modal .Container {
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    visibility: visible;
+}
+
+div.Window .Container {
+    border-radius: 3px;
+}
+
+div.Window .header {
+    width: 100%;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.14);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: move;
+}
+
+div.Window .header .caption {
+    flex: 1;
+}
+
+div.Window .header .CloseButton {
+    color: #555;
+}
+
+div.Window .body {
+    position: relative;
+    height: calc(100% - 35px);
+    background-color: #eee;
+    flex: 1;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 0 0 3px 3px;
+    overflow-y: auto;
+}
+
+div.Window .body .TabPanel {
+    height: calc(100% - 40px);
+    overflow-y: auto;
+}
+
+div.Window .body .Row {
+    min-height: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+div.Window .body .Row label {
+    width: 80px;
+    text-align: right;
+    margin-right: 16px;
+}
+
+div.Window .footer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
+}
+
+div.Window .footer .Button {
+    margin: 8px;
+}
+
+div.ImageList {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+div.ImageList .Container {
+    position: relative;
+    box-sizing: border-box;
+    margin: 3px;
+}
+
+div.ImageList .Container .Item {
+    width: 160px;
+    height: 160px;
+    margin: 2px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+div.ImageList .Container .Item img {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    pointer-events: none;
+}
+
+div.ImageList .Container .Item>i {
+    position: absolute;
+    font-size: 36px;
+    left: calc(50% - 18px);
+    top: calc(50% - 18px);
+    pointer-events: none;
+}
+
+div.ImageList .Container .Item .cornerText {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    font-weight: bold;
+}
+
+div.ImageList .Container .Item .IconButton {
+    padding: 2px;
+    opacity: 0.8;
+    pointer-events: all;
+}
+
+div.ImageList .Container .Item .EditButton {
+    position: absolute;
+    right: 28px;
+    top: 4px;
+}
+
+div.ImageList .Container .Item .DeleteButton {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+}
+
+div.ImageList .Container .Item .IconButton i {
+    font-size: 14px;
+}
+
+div.ImageList .Container .title {
+    position: absolute;
+    left: 2px;
+    bottom: 2px;
+    right: 2px;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    color: #fff;
+    padding: 3px 8px;
+    pointer-events: none;
+    word-break: break-word;
+}
+
+div.NoImage {
+    width: 160px;
+    height: 120px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+div.MessageBox {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 16px 24px;
+    pointer-events: none;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
+}
+
+div.SearchField {
+    display: flex;
+    flex-direction: row;
+    max-width: 240px;
+}
+
+div.SearchField .Input {
+    flex: 1;
+}
+
+div.SearchField .IconButton i {
+    font-size: 14px;
+}
+
+table.Table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.Table .TableHead {
+    font-weight: bold;
+    background: #fff;
+}
+
+table.Table .TableHead td {
+    border: 1px solid #ddd;
+}
+
+table.Table .TableHead {
+    border-bottom: 2px solid #ccc;
+}
+
+table.Table .TableBody {
+    background-color: #fff;
+}
+
+table.Table .TableBody tr:nth-child(odd) {
+    background-color: #eee;
+}
+
+table.Table .TableBody tr:hover {
+    background-color: #ccc;
+}
+
+img.Uploader {
+    max-width: 160px;
+    max-height: 120px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+table.Table .TableBody td {
+    border: 1px solid #ddd;
+}
+
+::-webkit-scrollbar {
+    width: 0.2em;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 0.5em;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(169, 169, 169, 0.4);
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 菜单栏 */
+
+.menubar {
+    width: 100%;
+    height: 32px;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.88);
+    z-index: 24;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
+}
+
+.menubar .logo {
+    float: left;
+    width: 56px;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menubar .logo i {
+    font-size: 26px;
+}
+
+.menubar .menu {
+    float: left;
+    cursor: pointer;
+    padding-right: 8px;
+}
+
+.menubar .menu.right {
+    float: right;
+    cursor: auto;
+    padding-right: 0;
+    text-align: right;
+}
+
+.menubar .menu .title {
+    display: inline-block;
+    padding: 8px;
+}
+
+.menubar .menu .options {
+    position: absolute;
+    width: 150px;
+    display: none;
+    padding: 4px 0;
+    background-color: #fff;
+    z-index: 24;
+    border-radius: 1px;
+    border: 1px solid #ddd;
+}
+
+.menubar .menu:hover .options {
+    display: block;
+}
+
+.menubar .menu .options hr {
+    border-color: #ddd;
+}
+
+.menubar .menu .options .option {
+    color: rgba(0, 0, 0, 0.88);
+    background-color: transparent;
+    padding: 5px 10px;
+    margin: 0 !important;
+}
+
+.menubar .menu .options .option:hover {
+    color: #fff;
+    background-color: #08f;
+}
+
+.menubar .menu .options .option:active {
+    color: #666;
+    background: transparent;
+}
+
+.menubar .menu .options .inactive {
+    color: #bbb;
+    background-color: transparent;
+    padding: 5px 10px;
+    margin: 0 !important;
+}
+
+.menubar .menu .version {
+    opacity: 0.5;
+    cursor: default;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* 工具栏 */
+
+.toolbar {
+    width: 48px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    background-color: #eee;
+    color: rgba(0, 0, 0, 0.88);
+    z-index: 16;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
+    box-sizing: border-box;
+}
+
+.toolbar .Button {
+    margin-top: 3px;
+}
+
+.toolbar .Button:first-child {
+    margin-top: 8px;
+}
+
+/* 场景编辑区 */
+
+.viewport {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* 状态栏 */
+
+.statusBar {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.88);
+    z-index: 8;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.statusBar .Row {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    align-self: center;
+}
+
+.statusBar label {
+    margin-right: 8px;
+}
+
+.statusBar label:first-child {
+    margin-left: 16px;
+}
+
+.statusBar span {
+    min-width: 32px;
+    margin-right: 16px;
+}
+
+/* 侧边栏 */
+
+.sidebar {
+    position: relative;
+    width: 220px;
+    height: 100%;
+    background: #eee;
+    border-left: 1px solid #ddd;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.sidebar * {
+    vertical-align: middle;
+}
+
+.sidebar .Panel {
+    color: #888;
+    padding: 8px;
+    border-top: 1px solid #ddd;
+}
+
+.sidebar .Panel.collapsed {
+    margin-bottom: 0;
+}
+
+.sidebar .Row {
+    margin-top: 8px;
+}
+
+.sidebar .Row:nth-child(1) {
+    margin-top: 0;
+}
+
+.sidebar label {
+    width: 60px;
+    cursor: default;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.tabs {
+    background-color: #ddd;
+    border-top: 1px solid #ccc;
+}
+
+.tabs span {
+    color: #aaa;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+    cursor: default;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.tabs span.selected {
+    color: #888;
+    background-color: #eee;
+}
+
+.tabs+div>div.Panel:first-child {
+    border-top: 0px;
+}
+
+/* 底部面板 */
+
+.bottomPanel {
+    width: 100%;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 脚本编辑窗口 */
+
+.script {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.97;
+}
+
+/* 启动测试窗口 */
+
+.player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* CodeMirror插件 */
+
+.CodeMirror {
+    position: absolute !important;
+    top: 37px;
+    width: 100% !important;
+    height: calc(100% - 37px) !important;
+}
+
+.CodeMirror .errorLine {
+    background: rgba(255, 0, 0, 0.25);
+}
+
+.CodeMirror .esprima-error {
+    color: #f00;
+    text-align: right;
+    padding: 0 20px;
+}
+
+/* 大纲控件 */
+
+.Outliner {
+    color: #444;
+    background-color: #fff;
+    padding: 0;
+    width: 100%;
+    height: 320px;
+    font-size: 12px;
+    cursor: default;
+    overflow: auto;
+    outline: none !important;
+}
+
+.Outliner .option {
+    padding: 4px;
+    color: #666;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+.Outliner .option:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.Outliner .option.active {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.Outliner .option.drag {
+    border: 1px dashed #999;
+}
+
+.Outliner .option.dragTop {
+    border-top: 1px dashed #999;
+}
+
+.Outliner .option.dragBottom {
+    border-bottom: 1px dashed #999;
+}
+
+.Outliner .type {
+    position: relative;
+    top: -2px;
+    padding: 0 2px;
+    color: #ddd;
+}
+
+.Outliner .type:after {
+    content: '■';
+}
+
+.Outliner .Scene {
+    color: #ccccff;
+}
+
+.Outliner .Object3D {
+    color: #aaaaee;
+}
+
+.Outliner .Mesh {
+    color: #8888ee;
+}
+
+.Outliner .Line {
+    color: #88ee88;
+}
+
+.Outliner .LineSegments {
+    color: #88ee88;
+}
+
+.Outliner .Points {
+    color: #ee8888;
+}
+
+.Outliner .PointLight {
+    color: #dddd00;
+}
+
+.Outliner.Geometry {
+    color: #88ff88;
+}
+
+.Outliner .BoxGeometry {
+    color: #bbeebb;
+}
+
+.Outliner .TorusGeometry {
+    color: #aaeeaa;
+}
+
+.Outliner .Material {
+    color: #ff8888;
+}
+
+.Outliner .MeshPhongMaterial {
+    color: #ffaa88;
+}
+
+.Outliner .Script:after {
+    content: '{...}'/* ❮/❯ */
+}
+
+/* 动画面板 */
+
+.animation-panel {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.animation-panel .controls {
+    position: sticky;
+    top: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #eee;
+    border-bottom: 1px solid #ddd;
+    z-index: 20;
+}
+
+.animation-panel .controls .IconButton {
+    margin: 2px;
+    padding: 2px 4px;
+}
+
+.animation-panel .box {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    overflow: auto;
+}
+
+.animation-panel .box .left-area {
+    position: sticky;
+    left: 0;
+    width: 64px;
+    display: flex;
+    flex-direction: column;
+    background-color: #eee;
+    border-right: 1px solid #ccc;
+    box-sizing: border-box;
+    padding-top: 34px;
+    z-index: 10;
+}
+
+.animation-panel .box .left-area .group-info {
+    position: relative;
+    height: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.animation-panel .box .left-area .group-info:first-child {
+    border-top: 1px solid #ddd;
+}
+
+.animation-panel .box .right-area {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.animation-panel .box .right-area .timeline {
+    position: absolute;
+    height: 32px;
+    border-bottom: 1px solid #ddd;
+}
+
+.animation-panel .box .right-area .groups {
+    position: absolute;
+    top: 34px;
+    width: 100%;
+    flex: 1;
+}
+
+.animation-panel .box .right-area .groups .group {
+    position: relative;
+    width: 100%;
+    height: 32px;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.animation-panel .box .right-area .groups .group .item {
+    position: absolute;
+    left: 0;
+    width: 80px;
+    height: 100%;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.animation-panel .box .right-area .groups .group .item:hover {
+    background-color: #ccc;
+}
+
+.animation-panel .box .right-area .slider {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    border: 1px solid red;
+    box-sizing: border-box;
+}

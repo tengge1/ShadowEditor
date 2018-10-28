@@ -1,0 +1,144 @@
+/* 深色主题 */
+
+/* 通用 */
+
+button {
+	color: #aaa;
+	background-color: #222;
+}
+
+button:hover {
+	color: #ccc;
+	background-color: #444;
+}
+
+button.selected {
+	color: #fff;
+	background-color: #08f;
+}
+
+textarea {
+	background-color: #222;
+	color: #888;
+}
+
+input {
+	background-color: #222;
+	color: #888;
+}
+
+input.Number {
+	color: #08f !important;
+}
+
+select {
+	color: #aaa;
+	background-color: #222;
+}
+
+select:hover {
+	color: #ccc;
+	background-color: #444;
+}
+
+/* 菜单栏 */
+
+#menubar {
+	background: #111;
+}
+
+#menubar .menu .title {
+	color: #888;
+}
+
+#menubar .menu .options {
+	background: #111;
+}
+
+#menubar .menu .options hr {
+	border-color: #222;
+}
+
+#menubar .menu .options .option {
+	color: #888;
+}
+
+#menubar .menu .options .option:hover {
+	color: #fff;
+	background-color: #08f;
+}
+
+#menubar .menu .options .inactive {
+	color: #444;
+}
+
+/* 场景编辑区 */
+
+#viewport #info {
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+#sidebar {
+	background-color: #111;
+}
+
+/* 状态栏 */
+
+#statusBar {
+	background-color: #111;
+	color: #333;
+}
+
+#statusBar .Panel {
+	color: #888;
+}
+
+/* 侧边栏 */
+
+#sidebar .Panel {
+	color: #888;
+	border-top: 1px solid #222;
+}
+
+#sidebar .Panel.Material canvas {
+	border: solid 1px #5A5A5A;
+}
+
+#tabs {
+	background-color: #1b1b1b;
+	border-top: 1px solid #222;
+}
+
+#tabs span {
+	color: #555;
+	border-right: 1px solid #222;
+	padding: 10px;
+}
+
+#tabs span.selected {
+	color: #888;
+	background-color: #111;
+}
+
+/* 大纲控件 */
+
+.Outliner {
+	color: #888;
+	background: #222;
+}
+
+.Outliner .option:hover {
+	background-color: rgba(21, 60, 94, 0.5);
+}
+
+.Outliner .option.active {
+	background-color: rgba(21, 60, 94, 1);
+}
+
+.Panel.Collapsible.collapsed .Static .Button {
+	border-left-color: #444;
+}
+
+.Panel.Collapsible:not(.collapsed) .Static .Button {
+	border-top-color: #444;
+}

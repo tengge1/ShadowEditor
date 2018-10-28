@@ -241,7 +241,6 @@ UI.addXType('searchfield', SearchField);
 UI.addXType('toolbarfiller', ToolbarFiller);
 UI.addXType('canvas', Canvas);
 UI.addXType('timeline', Timeline);
-UI.addXType('imageuploader', ImageUploader);
 UI.addXType('linkbutton', LinkButton);
 
 // 添加一些实用功能
