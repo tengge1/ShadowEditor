@@ -23,12 +23,12 @@ function glsl() {
 }
 
 export default {
-    input: 'src/index.js',
+    input: 'ShadowEditor.Web/src/index.js',
     output: {
         indent: '\t',
         format: 'umd',
         name: 'Shadow',
-        file: 'dist/ShadowEditor.js'
+        file: 'ShadowEditor.Web/dist/ShadowEditor.js'
     },
     treeshake: true,
     external: [],
