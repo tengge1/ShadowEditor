@@ -32,7 +32,9 @@ hello.render();
 |   Boolean         |    boolean         |   复选框带说明。      |   Break            |   br               |   换行。              |
 |   Button          |    button          |   按钮。             |   Checkbox         |   checkbox         |   复选框。             |
 |   CloseButton     |    closebutton     |   关闭按钮。          |   Color            |   color            |   颜色选择。          |
-|   Container       |    container       |   容器。             |   Div              |   div               |   div元素。          |
+|   Container       |    container       |   容器。             |    Div             |    div             |   div元素。           |
+|   HorizontalRule  |    hr              |   横线。             |    Html            |    html            |   原生html。          |
+|   IconButton      |    iconbutton      |   图标按钮。         |    Input            |    input           |   文本输入框。        |
 
 ## 原理
 
