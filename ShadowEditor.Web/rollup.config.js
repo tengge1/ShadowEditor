@@ -1,4 +1,3 @@
-// import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import copy from 'rollup-plugin-copy';
 
@@ -35,11 +34,6 @@ export default {
     external: [],
     plugins: [
         glsl(),
-        // babel({
-        //     exclude: 'node_modules/**',
-        //     runtimeHelpers: true,
-        //     externalHelpers: false
-        // }),
         resolve({
             customResolveOptions: {
                 moduleDirectory: 'node_modules'
