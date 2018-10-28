@@ -179,10 +179,10 @@ control.render();
 ## 注意事项
 
 * 目前，ShadowEditor.UI提供控件类型太少，每个控件的属性和方法太少，远远无法满足需要。建议直接使用源码，遇到缺少的控件、属性、方法自行添加。
-* ShadowEditor.UI采用[ECMAScript6](http://es6.ruanyifeng.com/)的一些语法，不兼容不支持ECMAScript6的浏览器，推荐使用最新版谷歌浏览器开发使用。
+* ShadowEditor.UI采用[ECMAScript6](http://es6.ruanyifeng.com/)的一些语法，不兼容不支持[ECMAScript6](http://es6.ruanyifeng.com/)的浏览器，推荐使用最新版谷歌浏览器开发使用。
 
 ## 特别感谢
 
 * [ExtJs](https://www.sencha.com/products/extjs/)提供UI框架架构思路。
-* [three.js](https://threejs.org/)编辑器提供的UI样式。
+* [three.js](https://threejs.org/)编辑器提供最初的UI样式。
 * [bootstrap-es6](https://github.com/tengge1/bootstrap-es6)提供练手机会。
