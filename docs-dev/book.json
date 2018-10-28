@@ -1,7 +1,9 @@
 {
     "title": "Shadow Editor文档",
     "description": "Shadow Editor开发文档",
-    "plugins": [],
+    "plugins": [
+        "expandable-chapters-small"
+    ],
     "pluginsConfig": {
         "theme-default": {
             "showLevel": true

@@ -30,7 +30,7 @@
 
 **该项目仅支持Windows系统，电脑上需要安装.Net Framework 4.5。**
 
-1. 安装`NodeJs`，转到`ShadowEditor.Web`目录，执行以下命令。
+1. 安装`NodeJs`，在当前目录，执行以下命令。
 
 ```bash
 npm install
@@ -60,6 +60,24 @@ net start MongoDB
 | --------- | -------- | ---- |
 | .* | application/octet-stream | 各种格式后缀文件 |
 | . | application/octet-stream | 无后缀文件 |
+
+7. 编译文档，请安装gitbook。
+
+```bash
+npm install -g gitbook-cli
+```
+
+然后切换到`docs-dev`目录，安装gitbook插件。
+
+```bash
+gitbook install
+```
+
+然后切换到上级目录，执行以下命令生成文档。
+
+```bash
+npm run build-docs
+```
 
 ## 项目截图
 
