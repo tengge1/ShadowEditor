@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowEditor.Web", "ShadowE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowEditor.Server", "ShadowEditor.Server\ShadowEditor.Server.csproj", "{C36BA9AC-B45A-49F4-B84F-E588C0BAF86C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowEditor.UI", "ShadowEditor.UI\ShadowEditor.UI.csproj", "{09713F65-0237-408E-989D-1B2333DC80D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C36BA9AC-B45A-49F4-B84F-E588C0BAF86C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C36BA9AC-B45A-49F4-B84F-E588C0BAF86C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C36BA9AC-B45A-49F4-B84F-E588C0BAF86C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09713F65-0237-408E-989D-1B2333DC80D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09713F65-0237-408E-989D-1B2333DC80D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09713F65-0237-408E-989D-1B2333DC80D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09713F65-0237-408E-989D-1B2333DC80D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

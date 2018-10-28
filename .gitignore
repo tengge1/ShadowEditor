@@ -82,3 +82,6 @@ typings/
 /docs-dev/_book
 /ShadowEditor.Web/examples
 /design-dev/_book
+/ShadowEditor.UI/bin
+/ShadowEditor.UI/obj
+/ShadowEditor.UI/ShadowEditor.UI.csproj.user
