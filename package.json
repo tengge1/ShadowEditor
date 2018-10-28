@@ -14,6 +14,7 @@
     },
     "scripts": {
         "build": "rollup -c",
+        "build-docs": "gitbook build docs-dev",
         "clear": "npm prune"
     },
     "repository": {
