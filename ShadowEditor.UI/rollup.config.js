@@ -7,7 +7,7 @@ export default {
     output: {
         indent: '\t',
         format: 'umd',
-        name: 'Shadow.UI',
+        name: 'Shadow',
         file: 'ShadowEditor.UI/dist/ShadowUI.js'
     },
     treeshake: true,
