@@ -32,7 +32,23 @@ hello.render();
 |   Boolean         |    boolean         |   复选框带说明。      |   Break            |   br               |   换行。              |
 |   Button          |    button          |   按钮。             |   Checkbox         |   checkbox         |   复选框。             |
 |   CloseButton     |    closebutton     |   关闭按钮。          |   Color            |   color            |   颜色选择。          |
-|   Container       |    container       |   容器。             |   Div              |   div               |   div元素。          |
+|   Container       |    container       |   容器。             |    Div             |    div             |   div元素。           |
+|   HorizontalRule  |    hr              |   横线。             |    Html            |    html            |   原生html。          |
+|   IconButton      |    iconbutton      |   图标按钮。         |    Input            |   input           |   文本输入框。         |
+|   Integer         |    int             |   整数输入。         |    Label           |    label           |   标签。              |
+|   Modal           |    modal           |   模态框。           |    Number           |    number         |   浮点数输入。         |
+|   Row             |    row             |   一行。             |    Select           |    select         |   下拉列表。          |
+|   Span            |    span            |   span元素。         |    Text             |    text           |   文本标签。          |
+|   TextArea        |    textarea        |   文本域。           |    Texture          |    texture         |   选择纹理。          |
+|   Window          |    window          |   窗口。             |    Image            |    image           |   图片。             |
+|   ImageList       |    imagelist       |   图片列表。         |    MessageBox       |     msg            |   消息框。            |
+|   Table           |    table           |   表格。             |    TableHead       |      thead          |   thead元素。        |
+|   TableBody       |    tbody           |   tbody元素。        |    TableRow        |      tr             |   tr元素。           |
+|   TableData       |    td              |   td元素。           |    Alert           |      alert          |   提示框。           |
+|   Confirm         |    confirm         |   询问框。           |    Prompt           |     prompt         |   弹出输入框。        |
+|   SearchField     |    searchfield     |   查询框。           |    ToolbarFiller    |     toolbarfiller  |   工具栏填充。        |
+|   Canvas          |    canvas          |   画布。             |    Timeline         |     timeline       |   时间轴。           |
+|   LinkButton      |    linkbutton      |   链接按钮。         |                     |                    |                      |
 
 ## 原理
 
