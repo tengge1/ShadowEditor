@@ -5,13 +5,13 @@
     "description": "3D Editor with three.js.",
     "dependencies": {
         "d3-dispatch": "^1.0.3",
-        "rollup-plugin-node-resolve": "^3.4.0",
-        "three": "^0.93.0"
+        "three": "^0.97.0"
     },
     "devDependencies": {
-        "less": "^3.8.1",
         "rollup": "^0.59.2",
-        "rollup-plugin-copy": "^0.2.3"
+        "rollup-plugin-copy": "^0.2.3",
+        "rollup-plugin-node-resolve": "^3.4.0",
+        "rollup-plugin-postcss": "^1.6.2"
     },
     "scripts": {
         "build": "rollup -c ShadowEditor.Web/rollup.config.js",

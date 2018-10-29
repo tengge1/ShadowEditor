@@ -322,6 +322,4 @@ Object.assign(UI, {
     }
 });
 
-window.UI = UI;
-
 export default UI;
