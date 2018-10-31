@@ -1,3 +1,6 @@
+import CssLoader from './loaders/CssLoader';
+import JsLoader from './loaders/JsLoader';
+
 /**
  * 包管理器
  * @author tengge / https://github.com/tengge1
@@ -6,6 +9,8 @@
 function PackageManager(path = 'packages') {
     this._path = path;
     this._packages = {};
+    this._cssExtension = ['.css'];
+    this._jsExtension = ['.js'];
 };
 
 /**
@@ -70,10 +75,12 @@ PackageManager.prototype.get = function (name) {
 /**
  * 加载一个包
  * @param {*} name 
- * @param {*} scope 
  */
-PackageManager.prototype.load = function (name, scope = "global") {
-
+PackageManager.prototype.load = function (name) {
+    var pkg = this.get(name);
+    if (!pkg) {
+        return;
+    }
 };
 
 /**

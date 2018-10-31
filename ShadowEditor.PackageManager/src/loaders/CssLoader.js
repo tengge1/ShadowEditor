@@ -1,9 +1,12 @@
 /**
- * 异步加载css文件
+ * CSS下载器
  * @author tengge / https://github.com/tengge1
- * @param {*} url css文件url
  */
-function loadCss(url) {
+function CssLoader() {
+
+};
+
+CssLoader.prototype.load = function (url) {
     var head = document.getElementsByTagName('head')[0];
     var link = document.createElement('link');
     link.type = 'text/css';
@@ -12,11 +15,4 @@ function loadCss(url) {
     head.appendChild(link);
 };
 
-/**
- * css工具类
- */
-const CssUtils = {
-    load: loadCss
-};
-
-export default CssUtils;
+export default CssLoader;
