@@ -101,3 +101,4 @@ typings/
 /ShadowEditor.Plugins/bin
 /ShadowEditor.Plugins/obj
 /ShadowEditor.Plugins/ShadowEditor.Plugins.csproj.user
+/ShadowEditor.PackageManager/dist
