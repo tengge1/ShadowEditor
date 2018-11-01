@@ -96,12 +96,35 @@ PackageManager.prototype.get = function (name) {
 
 /**
  * 加载一个包
- * @param {*} name 
+ * @param {*} names 包名或包名列表
  */
-PackageManager.prototype.load = function (name) {
-    var pkg = this.get(name);
-    if (!pkg) {
-        return;
+PackageManager.prototype.load = function (names) {
+    var assets = [];
+
+    if (Array.isArray(names)) {
+        names.forEach(n => {
+            var pkg = this.get(n);
+            if (pkg && !pkg.loaded) {
+                pkg.loaded = true;
+                pkg.assets.forEach(m => {
+                    assets.push(m);
+                });
+            }
+        });
+    } else {
+        var pkg = this.get(name);
+        if (pkg && !pkg.loaded) {
+            pkg.loaded = true;
+            pkg.assets.forEach(m => {
+                assets.push(m);
+            });
+        }
+    }
+
+    if (assets.length === 0) {
+        return new Promise(resolve => {
+            resolve();
+        });
     }
 
     var cssExtension = this._cssExtension;
@@ -110,7 +133,7 @@ PackageManager.prototype.load = function (name) {
     var cssLoader = new CssLoader();
     var jsLoader = new JsLoader();
 
-    return Promise.all(pkg.assets.map(n => {
+    return Promise.all(assets.map(n => {
         var path = this._path.endsWith('/') ? this._path : (this._path + '/');
 
         var isCss = cssExtension.some(m => {
