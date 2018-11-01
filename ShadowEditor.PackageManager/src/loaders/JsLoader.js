@@ -14,13 +14,12 @@ JsLoader.prototype.load = function (url) {
     head.appendChild(script);
 
     return new Promise(resolve => {
-        script.onload = script.onreadystatechange = () => {
-            if (this.readyState === "loaded" || this.readyState === "complete") {
-                script.onload = script.onreadystatechange = null;
-                resolve(script);
-            }
+        script.onload = event => {
+            script.onload = script.onerror = null;
+            resolve(script);
         };
-        script.onerror = () => {
+        script.onerror = event => {
+            script.onload = script.onerror = null;
             console.warn(`JsLoader: ${url}加载失败！`);
             resolve(null);
         };

@@ -1,8 +1,7 @@
 {
     "name": "ShadowEditor.Packages",
     "version": "0.0.1",
-    "packages": [
-        {
+    "packages": [{
             "name": "ShadowEditor",
             "assets": [
                 "css/main.css",

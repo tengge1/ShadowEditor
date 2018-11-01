@@ -47,6 +47,28 @@ PackageManager.prototype.add = function (name, assets = []) {
 };
 
 /**
+ * 从文件批量添加包
+ * @param {*} path 文件路径
+ */
+PackageManager.prototype.addFromFile = function (path) {
+    return new Promise(resolve => {
+        fetch(path).then(response => {
+            if (response.ok) {
+                response.json().then(json => {
+                    json.packages.forEach(n => {
+                        this.add(n.name, n.assets);
+                    });
+                    resolve(this._packages);
+                });
+            } else {
+                console.warn(`PackageManager: 获取${path}失败！`);
+                resolve(null);
+            }
+        });
+    });
+};
+
+/**
  * 移除一个包
  * @param {*} name 包名
  */
@@ -64,7 +86,7 @@ PackageManager.prototype.remove = function (name) {
  * @param {*} name 包名
  */
 PackageManager.prototype.get = function (name) {
-    if (this._packages[name] !== undefined) {
+    if (this._packages[name] === undefined) {
         console.warn(`PackageManager: 包${name}不存在。`);
         return null;
     }
@@ -94,7 +116,7 @@ PackageManager.prototype.load = function (name) {
         });
 
         if (isCss) {
-            return cssLoader.load(this.path + n);
+            return cssLoader.load(this._path + n);
         }
 
         var isJs = jsExtension.some(m => {
@@ -102,7 +124,7 @@ PackageManager.prototype.load = function (name) {
         });
 
         if (isJs) {
-            return jsLoader.load(this.path + n);
+            return jsLoader.load(this._path + n);
         }
 
         return new Promise(resolve => {
@@ -110,14 +132,6 @@ PackageManager.prototype.load = function (name) {
             resolve(null);
         });
     }));
-};
-
-/**
- * 从文件中加载包
- * @param {*} path 文件路径
- */
-PackageManager.prototype.loadFromFile = function (path) {
-
 };
 
 export default PackageManager;

@@ -15,10 +15,12 @@ CssLoader.prototype.load = function (url) {
     head.appendChild(link);
 
     return new Promise(resolve => {
-        link.onload = () => {
+        link.onload = event => {
+            link.onload = link.onerror = null;
             resolve(link);
         };
-        link.onerror = () => {
+        link.onerror = event => {
+            link.onload = link.onerror = null;
             console.warn(`CssLoader: ${url}加载失败。`);
             resolve(null);
         };
