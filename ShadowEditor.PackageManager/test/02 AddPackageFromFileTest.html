@@ -13,12 +13,11 @@
     <script>
         var pm = new Shadow.PackageManager();
         pm.setPath('../../ShadowEditor.Web/assets');
-        pm.add('three', [
-            'js/three.js'
-        ]);
-        pm.load('three').then(() => {
-            var scene = new THREE.Scene();
-            alert(scene);
+        pm.addFromFile('../../ShadowEditor.Web/assets/packages.json').then(() => {
+            pm.load('three').then(() => {
+                var scene = new THREE.Scene();
+                alert(scene);
+            });
         });
     </script>
 </body>

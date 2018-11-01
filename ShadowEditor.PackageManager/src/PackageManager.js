@@ -111,12 +111,14 @@ PackageManager.prototype.load = function (name) {
     var jsLoader = new JsLoader();
 
     return Promise.all(pkg.assets.map(n => {
+        var path = this._path.endsWith('/') ? this._path : (this._path + '/');
+
         var isCss = cssExtension.some(m => {
             return n.endsWith(m);
         });
 
         if (isCss) {
-            return cssLoader.load(this._path + n);
+            return cssLoader.load(path + n);
         }
 
         var isJs = jsExtension.some(m => {
@@ -124,7 +126,7 @@ PackageManager.prototype.load = function (name) {
         });
 
         if (isJs) {
-            return jsLoader.load(this._path + n);
+            return jsLoader.load(path + n);
         }
 
         return new Promise(resolve => {
