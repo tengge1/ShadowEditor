@@ -81,6 +81,35 @@ PackageManager.prototype.load = function (name) {
     if (!pkg) {
         return;
     }
+
+    var cssExtension = this._cssExtension;
+    var jsExtension = this._jsExtension;
+
+    var cssLoader = new CssLoader();
+    var jsLoader = new JsLoader();
+
+    return Promise.all(pkg.assets.map(n => {
+        var isCss = cssExtension.some(m => {
+            return n.endsWith(m);
+        });
+
+        if (isCss) {
+            return cssLoader.load(this.path + n);
+        }
+
+        var isJs = jsExtension.some(m => {
+            return n.endsWith(m);
+        });
+
+        if (isJs) {
+            return jsLoader.load(this.path + n);
+        }
+
+        return new Promise(resolve => {
+            console.warn(`PackageManager: 未知资源类型${n}。`);
+            resolve(null);
+        });
+    }));
 };
 
 /**

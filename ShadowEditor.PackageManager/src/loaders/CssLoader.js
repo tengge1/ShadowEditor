@@ -13,6 +13,16 @@ CssLoader.prototype.load = function (url) {
     link.rel = 'stylesheet';
     link.href = url;
     head.appendChild(link);
+
+    return new Promise(resolve => {
+        link.onload = () => {
+            resolve(link);
+        };
+        link.onerror = () => {
+            console.warn(`CssLoader: ${url}加载失败。`);
+            resolve(null);
+        };
+    });
 };
 
 export default CssLoader;
