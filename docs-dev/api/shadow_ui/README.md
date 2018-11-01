@@ -190,7 +190,7 @@ control.render();
 
 效果图：
 
-![image](../images/transform.png)
+![image](../../../images/transform.png)
 
 ## 注意事项
 

@@ -15,4 +15,5 @@
     * [状态栏](ui/StatusBar.md)
 * [脚本](script/Script.md)
 * [API文档](api/README.md)
-    * [ShadowEditor.UI](api/shadow_ui/README.md)
+    * [PackageManager](api/package_manager/README.md)
+    * [UI](api/shadow_ui/README.md)
