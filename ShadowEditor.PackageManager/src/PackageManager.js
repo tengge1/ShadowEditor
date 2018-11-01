@@ -112,7 +112,7 @@ PackageManager.prototype.load = function (names) {
             }
         });
     } else {
-        var pkg = this.get(name);
+        var pkg = this.get(names);
         if (pkg && !pkg.loaded) {
             pkg.loaded = true;
             pkg.assets.forEach(m => {
