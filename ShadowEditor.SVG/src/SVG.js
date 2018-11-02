@@ -1,6 +1,7 @@
 import SvgControl from './SvgControl';
 import SvgContainer from './SvgContainer';
 import SvgDom from './SvgDom';
+import SvgCircle from './SvgCircle';
 
 /**
  * SVG类
@@ -125,12 +126,14 @@ Object.assign(SVG, {
     SvgControl: SvgControl,
     SvgContainer: SvgContainer,
     SvgDom: SvgDom,
+    SvgCircle: SvgCircle,
 });
 
 // 添加所有SVG控件的XType
 SVG.addXType('svgcontrol', SvgControl);
 SVG.addXType('svgcontainer', SvgContainer);
 SVG.addXType('svgdom', SvgDom);
+SVG.addXType('svgcircle', SvgCircle);
 
 window.SVG = SVG;
 
