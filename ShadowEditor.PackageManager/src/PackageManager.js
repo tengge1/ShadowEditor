@@ -127,6 +127,38 @@ PackageManager.prototype.load = function (names) {
         });
     }
 
+    return this.loadAssets(assets);
+};
+
+/**
+ * 加载所有包
+ */
+PackageManager.prototype.loadAll = function () {
+    var assets = [];
+
+    Object.values(this._packages).forEach(n => {
+        if (n && !n.loaded) {
+            n.loaded = true;
+            n.assets.forEach(m => {
+                assets.push(m);
+            });
+        }
+    });
+
+    if (assets.length === 0) {
+        return new Promise(resolve => {
+            resolve();
+        });
+    }
+
+    return this.loadAssets(assets);
+};
+
+/**
+ * 加载资源
+ * @param {*} assets 资源列表
+ */
+PackageManager.prototype.loadAssets = function (assets = []) {
     var cssExtension = this._cssExtension;
     var jsExtension = this._jsExtension;
 

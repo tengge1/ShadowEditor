@@ -41,7 +41,7 @@ pm.getPath(); // 获取资源目录
 
 pm.setPath(path); // 设置资源目录
 
-pm.add((name, assets = [])); // 添加一个包，name为包名，assets为资源列表，assets=[资源1相对路径, 资源2相对路径, ...]
+pm.add((name, assets = [])); // 添加一个包，name为包名，assets为资源列表，assets=[url1, url2, ...]
 
 pm.addFromFile(path); // 从文件添加包，文件格式见packages.json文件格式一部分。
 
@@ -50,6 +50,10 @@ pm.remove(name); // 移除一个包
 pm.get(name); // 获取一个包
 
 pm.load(names); // 加载一个或一些包
+
+pm.loadAll(); // 加载所有包
+
+pm.loadAssets(assets); // 加载资源列表，assets为资源列表，assets=[url1, url2, ...]
 
 ```
 
