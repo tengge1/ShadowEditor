@@ -51,6 +51,9 @@ pm.get(name); // 获取一个包
 
 pm.load(names); // 加载一个或一些包
 
+pm.loadAll(); // 加载所有包
+
+pm.loadAssets(assets); // 加载资源列表，assets为资源列表，assets=[url1, url2, ...]
 ```
 
 ## `packages.json`文件格式
