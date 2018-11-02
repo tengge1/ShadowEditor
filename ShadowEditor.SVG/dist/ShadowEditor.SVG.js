@@ -11,8 +11,7 @@
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 选项
 	 */
-	function SvgControl(options) {
-	    options = options || {};
+	function SvgControl(options = {}) {
 	    this.parent = options.parent || document.body;
 	    this.id = options.id || this.constructor.name + ID--;
 	    this.scope = options.scope || 'global';
@@ -20,7 +19,7 @@
 	    this.data = options.data || null; // 自定义数据，例如：{ name: '小米', age: 20 }
 
 	    // 添加引用
-	    // UI.add(this.id, this, this.scope);
+	    SVG.add(this.id, this, this.scope);
 	}
 
 	/**
@@ -63,6 +62,112 @@
 	 */
 	SvgControl.prototype.render = function () {
 
+	};
+
+	/**
+	 * 清除该控件内部所有内容。
+	 * 该控件仍然可以通过UI.get获取，可以通过render函数重写渲染该控件。
+	 */
+	SvgControl.prototype.clear = function () {
+	    // 移除所有子项引用
+	    (function remove(items) {
+	        if (items == null || items.length === 0) {
+	            return;
+	        }
+
+	        items.forEach((n) => {
+	            if (n.id) {
+	                SVG.remove(n.id, n.scope == null ? 'global' : n.scope);
+	            }
+	            remove(n.children);
+	        });
+	    })(this.children);
+
+	    this.children.length = 0;
+
+	    // 清空dom
+	    if (this.dom) {
+	        this.parent.removeChild(this.dom);
+	        this.dom = null;
+	    }
+
+	    // TODO: 未清除绑定在dom上的事件
+	};
+
+	/**
+	 * 彻底摧毁该控件，并删除在UI中的引用。
+	 */
+	SvgControl.prototype.destroy = function () {
+	    this.clear();
+	    if (this.id) {
+	        SVG.remove(this.id, this.scope == null ? 'global' : this.scope);
+	    }
+	};
+
+	/**
+	 * SVG容器
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function SvgContainer(options = {}) {
+	    SvgControl.call(this, options);
+
+	    this.children = options.children || [];
+	}
+
+	SvgContainer.prototype = Object.create(SvgControl.prototype);
+	SvgContainer.prototype.constructor = SvgContainer;
+
+	SvgContainer.prototype.add = function (obj) {
+	    if (!(obj instanceof SvgControl)) {
+	        throw 'SvgContainer: obj is not an instance of SvgControl.';
+	    }
+	    this.children.push(obj);
+	};
+
+	SvgContainer.prototype.remove = function (obj) {
+	    var index = this.children.indexOf(obj);
+	    if (index > -1) {
+	        this.children.splice(index, 1);
+	    }
+	};
+
+	SvgContainer.prototype.render = function () {
+	    this.children.forEach(n => {
+	        var obj = SVG.create(n);
+	        obj.parent = this.parent;
+	        obj.render();
+	    });
+	};
+
+	/**
+	 * SVG文档
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function SvgDom(options = {}) {
+	    SvgContainer.call(this, options);
+
+	    this.style = options.style || null;
+	}
+
+	SvgDom.prototype = Object.create(SvgContainer.prototype);
+	SvgDom.prototype.constructor = SvgDom;
+
+	SvgDom.prototype.render = function () {
+	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+
+	    if (this.style) {
+	        Object.assign(this.dom.style, this.style);
+	    }
+
+	    this.children.forEach(n => {
+	        var obj = SVG.create(n);
+	        obj.parent = this.dom;
+	        obj.render();
+	    });
+
+	    this.parent.appendChild(this.dom);
 	};
 
 	/**
@@ -157,7 +262,7 @@
 	 * @param {*} config xtype配置
 	 */
 	SVGCls.prototype.create = function (config) {
-	    if (config instanceof Control) { // config是Control实例
+	    if (config instanceof SvgControl) { // config是SvgControl实例
 	        return config;
 	    }
 
@@ -181,17 +286,23 @@
 	/**
 	 * SVGCls
 	 */
-	const SVG = new SVGCls();
+	const SVG$1 = new SVGCls();
 
 	// 添加所有SVG控件
-	Object.assign(SVG, {
+	Object.assign(SVG$1, {
 	    SvgControl: SvgControl,
+	    SvgContainer: SvgContainer,
+	    SvgDom: SvgDom,
 	});
 
 	// 添加所有SVG控件的XType
-	SVG.addXType('svgcontrol', SvgControl);
+	SVG$1.addXType('svgcontrol', SvgControl);
+	SVG$1.addXType('svgcontainer', SvgContainer);
+	SVG$1.addXType('svgdom', SvgDom);
 
-	exports.SVG = SVG;
+	window.SVG = SVG$1;
+
+	exports.SVG = SVG$1;
 
 	Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -1,4 +1,6 @@
 import SvgControl from './SvgControl';
+import SvgContainer from './SvgContainer';
+import SvgDom from './SvgDom';
 
 /**
  * SVG类
@@ -92,7 +94,7 @@ SVGCls.prototype.get = function (id, scope = 'global') {
  * @param {*} config xtype配置
  */
 SVGCls.prototype.create = function (config) {
-    if (config instanceof Control) { // config是Control实例
+    if (config instanceof SvgControl) { // config是SvgControl实例
         return config;
     }
 
@@ -121,9 +123,15 @@ const SVG = new SVGCls();
 // 添加所有SVG控件
 Object.assign(SVG, {
     SvgControl: SvgControl,
+    SvgContainer: SvgContainer,
+    SvgDom: SvgDom,
 });
 
 // 添加所有SVG控件的XType
 SVG.addXType('svgcontrol', SvgControl);
+SVG.addXType('svgcontainer', SvgContainer);
+SVG.addXType('svgdom', SvgDom);
+
+window.SVG = SVG;
 
 export default SVG;

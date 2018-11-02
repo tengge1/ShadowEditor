@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>01 SvgDomTest</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+    <script src="../dist/ShadowEditor.SVG.js"></script>
+    <script>
+        function CustomControl(options = {}) {
+            SVG.SvgControl.call(this, options);
+
+            this.style = options.style || null;
+        }
+
+        CustomControl.prototype = Object.create(SVG.SvgControl.prototype);
+        CustomControl.prototype.constructor = CustomControl;
+
+        CustomControl.prototype.render = function () {
+            this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+
+            if (this.style) {
+                Object.assign(this.dom.style, this.style);
+            }
+
+            this.parent.appendChild(this.dom);
+        };
+
+        var svg = SVG.create({
+            xtype: 'svgdom',
+            id: 'svg1',
+            parent: document.body,
+            style: {
+                width: 800,
+                height: 600,
+            },
+            children: [
+                new CustomControl({
+                    style: {
+                        cx: 80,
+                        cy: 80,
+                        r: 50,
+                        stroke: '#555',
+                        strokeWidth: 2,
+                        fill: '#f00'
+                    }
+                })
+            ]
+        });
+        svg.render();
+    </script>
+</body>
+
+</html>
