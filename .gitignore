@@ -102,3 +102,6 @@ typings/
 /ShadowEditor.Plugins/obj
 /ShadowEditor.Plugins/ShadowEditor.Plugins.csproj.user
 /ShadowEditor.PackageManager/dist
+/ShadowEditor.SVG/bin
+/ShadowEditor.SVG/obj
+/ShadowEditor.SVG/ShadowEditor.SVG.csproj.user
