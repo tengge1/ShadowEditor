@@ -12,6 +12,7 @@ function SvgControl(options = {}) {
 
     this.data = options.data || null; // 自定义数据，例如：{ name: '小米', age: 20 }
 
+    this.attr = options.attr || null;
     this.style = options.style || null;
     this.listeners = options.listeners || null;
 
@@ -72,9 +73,16 @@ SvgControl.prototype.clear = function () {
             return;
         }
 
-        items.forEach((n) => {
+        items.forEach(n => {
             if (n.id) {
                 SVG.remove(n.id, n.scope == null ? 'global' : n.scope);
+            }
+            if (n.listeners) { // 移除所有事件
+                Object.keys(n.listeners).forEach(m => {
+                    if (n.dom) {
+                        n.dom[m] = null;
+                    }
+                });
             }
             remove(n.children);
         });
@@ -85,10 +93,15 @@ SvgControl.prototype.clear = function () {
     // 清空dom
     if (this.dom) {
         this.parent.removeChild(this.dom);
+
+        if (this.listeners) {
+            this.listeners.forEach(n => {
+                this.dom[n] = null;
+            });
+        }
+
         this.dom = null;
     }
-
-    // TODO: 未清除绑定在dom上的事件
 };
 
 /**

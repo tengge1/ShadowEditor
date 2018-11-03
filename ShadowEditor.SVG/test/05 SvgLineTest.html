@@ -15,25 +15,19 @@
             xtype: 'svgdom',
             id: 'svg1',
             parent: document.body,
-            style: {
+            attr: {
                 width: 800,
                 height: 600,
             },
             children: [{
                 xtype: 'svgline',
-                style: {
+                attr: {
                     x1: 20,
                     y1: 30,
                     x2: 80,
                     y2: 50,
-                    stroke: '#555',
-                    strokeWidth: 2,
-                    fill: '#f00'
-                },
-                listeners: {
-                    onclick: () => {
-                        alert('You clicked!');
-                    }
+                    stroke: '#f00',
+                    'stroke-width': 2
                 }
             }]
         });

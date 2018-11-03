@@ -18,6 +18,7 @@
 
 	    this.data = options.data || null; // 自定义数据，例如：{ name: '小米', age: 20 }
 
+	    this.attr = options.attr || null;
 	    this.style = options.style || null;
 	    this.listeners = options.listeners || null;
 
@@ -78,9 +79,16 @@
 	            return;
 	        }
 
-	        items.forEach((n) => {
+	        items.forEach(n => {
 	            if (n.id) {
 	                SVG.remove(n.id, n.scope == null ? 'global' : n.scope);
+	            }
+	            if (n.listeners) { // 移除所有事件
+	                Object.keys(n.listeners).forEach(m => {
+	                    if (n.dom) {
+	                        n.dom[m] = null;
+	                    }
+	                });
 	            }
 	            remove(n.children);
 	        });
@@ -91,10 +99,15 @@
 	    // 清空dom
 	    if (this.dom) {
 	        this.parent.removeChild(this.dom);
+
+	        if (this.listeners) {
+	            this.listeners.forEach(n => {
+	                this.dom[n] = null;
+	            });
+	        }
+
 	        this.dom = null;
 	    }
-
-	    // TODO: 未清除绑定在dom上的事件
 	};
 
 	/**
@@ -158,6 +171,12 @@
 	SvgDom.prototype.render = function () {
 	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
+	    if (this.attr) {
+	        Object.keys(this.attr).forEach(n => {
+	            this.dom.setAttribute(n, this.attr[n]);
+	        });
+	    }
+
 	    if (this.style) {
 	        Object.assign(this.dom.style, this.style);
 	    }
@@ -190,6 +209,12 @@
 	SvgCircle.prototype.render = function () {
 	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 
+	    if (this.attr) {
+	        Object.keys(this.attr).forEach(n => {
+	            this.dom.setAttribute(n, this.attr[n]);
+	        });
+	    }
+
 	    if (this.style) {
 	        Object.assign(this.dom.style, this.style);
 	    }
@@ -215,6 +240,12 @@
 
 	SvgRect.prototype.render = function () {
 	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+
+	    if (this.attr) {
+	        Object.keys(this.attr).forEach(n => {
+	            this.dom.setAttribute(n, this.attr[n]);
+	        });
+	    }
 
 	    if (this.style) {
 	        Object.assign(this.dom.style, this.style);
@@ -242,6 +273,12 @@
 	SvgEllipse.prototype.render = function () {
 	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
 
+	    if (this.attr) {
+	        Object.keys(this.attr).forEach(n => {
+	            this.dom.setAttribute(n, this.attr[n]);
+	        });
+	    }
+
 	    if (this.style) {
 	        Object.assign(this.dom.style, this.style);
 	    }
@@ -267,6 +304,12 @@
 
 	SvgLine.prototype.render = function () {
 	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+
+	    if (this.attr) {
+	        Object.keys(this.attr).forEach(n => {
+	            this.dom.setAttribute(n, this.attr[n]);
+	        });
+	    }
 
 	    if (this.style) {
 	        Object.assign(this.dom.style, this.style);

@@ -15,6 +15,12 @@ SvgEllipse.prototype.constructor = SvgEllipse;
 SvgEllipse.prototype.render = function () {
     this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
 
+    if (this.attr) {
+        Object.keys(this.attr).forEach(n => {
+            this.dom.setAttribute(n, this.attr[n]);
+        });
+    }
+
     if (this.style) {
         Object.assign(this.dom.style, this.style);
     }

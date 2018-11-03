@@ -15,6 +15,12 @@ SvgCircle.prototype.constructor = SvgCircle;
 SvgCircle.prototype.render = function () {
     this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 
+    if (this.attr) {
+        Object.keys(this.attr).forEach(n => {
+            this.dom.setAttribute(n, this.attr[n]);
+        });
+    }
+
     if (this.style) {
         Object.assign(this.dom.style, this.style);
     }

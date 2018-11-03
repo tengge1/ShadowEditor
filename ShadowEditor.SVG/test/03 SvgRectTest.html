@@ -15,19 +15,19 @@
             xtype: 'svgdom',
             id: 'svg1',
             parent: document.body,
-            style: {
+            attr: {
                 width: 800,
                 height: 600,
             },
             children: [{
                 xtype: 'svgrect',
-                style: {
+                attr: {
                     x: 20,
                     y: 20,
                     width: 150,
                     height: 80,
                     stroke: '#555',
-                    strokeWidth: 2,
+                    'stroke-width': 2,
                     fill: '#f00'
                 },
                 listeners: {
