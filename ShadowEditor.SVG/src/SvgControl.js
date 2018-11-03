@@ -12,6 +12,9 @@ function SvgControl(options = {}) {
 
     this.data = options.data || null; // 自定义数据，例如：{ name: '小米', age: 20 }
 
+    this.style = options.style || null;
+    this.listeners = options.listeners || null;
+
     // 添加引用
     SVG.add(this.id, this, this.scope);
 }

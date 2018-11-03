@@ -7,8 +7,6 @@ import SvgContainer from './SvgContainer';
  */
 function SvgDom(options = {}) {
     SvgContainer.call(this, options);
-
-    this.style = options.style || null;
 }
 
 SvgDom.prototype = Object.create(SvgContainer.prototype);
@@ -19,6 +17,10 @@ SvgDom.prototype.render = function () {
 
     if (this.style) {
         Object.assign(this.dom.style, this.style);
+    }
+
+    if (this.listeners) {
+        Object.assign(this.dom, this.listeners);
     }
 
     this.children.forEach(n => {

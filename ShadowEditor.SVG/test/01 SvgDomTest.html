@@ -13,8 +13,6 @@
     <script>
         function CustomControl(options = {}) {
             SVG.SvgControl.call(this, options);
-
-            this.style = options.style || null;
         }
 
         CustomControl.prototype = Object.create(SVG.SvgControl.prototype);
@@ -25,6 +23,10 @@
 
             if (this.style) {
                 Object.assign(this.dom.style, this.style);
+            }
+
+            if (this.listeners) {
+                Object.assign(this.dom, this.listeners);
             }
 
             this.parent.appendChild(this.dom);
@@ -47,6 +49,11 @@
                         stroke: '#555',
                         strokeWidth: 2,
                         fill: '#f00'
+                    },
+                    listeners: {
+                        onclick: () => {
+                            alert('You clicked!');
+                        }
                     }
                 })
             ]

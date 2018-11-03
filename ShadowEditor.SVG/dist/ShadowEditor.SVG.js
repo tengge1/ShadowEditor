@@ -18,6 +18,9 @@
 
 	    this.data = options.data || null; // 自定义数据，例如：{ name: '小米', age: 20 }
 
+	    this.style = options.style || null;
+	    this.listeners = options.listeners || null;
+
 	    // 添加引用
 	    SVG.add(this.id, this, this.scope);
 	}
@@ -147,8 +150,6 @@
 	 */
 	function SvgDom(options = {}) {
 	    SvgContainer.call(this, options);
-
-	    this.style = options.style || null;
 	}
 
 	SvgDom.prototype = Object.create(SvgContainer.prototype);
@@ -159,6 +160,10 @@
 
 	    if (this.style) {
 	        Object.assign(this.dom.style, this.style);
+	    }
+
+	    if (this.listeners) {
+	        Object.assign(this.dom, this.listeners);
 	    }
 
 	    this.children.forEach(n => {
@@ -176,8 +181,6 @@
 	 */
 	function SvgCircle(options = {}) {
 	    SvgControl.call(this, options);
-
-	    this.style = options.style || null;
 	}
 
 	SvgCircle.prototype = Object.create(SvgControl.prototype);
@@ -188,6 +191,10 @@
 
 	    if (this.style) {
 	        Object.assign(this.dom.style, this.style);
+	    }
+
+	    if (this.listeners) {
+	        Object.assign(this.dom, this.listeners);
 	    }
 
 	    this.parent.appendChild(this.dom);

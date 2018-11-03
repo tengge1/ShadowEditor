@@ -6,8 +6,6 @@ import SvgControl from './SvgControl';
  */
 function SvgCircle(options = {}) {
     SvgControl.call(this, options);
-
-    this.style = options.style || null;
 }
 
 SvgCircle.prototype = Object.create(SvgControl.prototype);
@@ -18,6 +16,10 @@ SvgCircle.prototype.render = function () {
 
     if (this.style) {
         Object.assign(this.dom.style, this.style);
+    }
+
+    if (this.listeners) {
+        Object.assign(this.dom, this.listeners);
     }
 
     this.parent.appendChild(this.dom);
