@@ -1,19 +1,19 @@
 import SvgControl from './SvgControl';
 
 /**
- * SVG圆
+ * SVG矩形
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SvgCircle(options = {}) {
+function SvgRect(options = {}) {
     SvgControl.call(this, options);
 }
 
-SvgCircle.prototype = Object.create(SvgControl.prototype);
-SvgCircle.prototype.constructor = SvgCircle;
+SvgRect.prototype = Object.create(SvgControl.prototype);
+SvgRect.prototype.constructor = SvgRect;
 
-SvgCircle.prototype.render = function () {
-    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+SvgRect.prototype.render = function () {
+    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 
     if (this.style) {
         Object.assign(this.dom.style, this.style);
@@ -26,4 +26,4 @@ SvgCircle.prototype.render = function () {
     this.parent.appendChild(this.dom);
 };
 
-export default SvgCircle;
+export default SvgRect;

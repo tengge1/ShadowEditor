@@ -1,19 +1,19 @@
 import SvgControl from './SvgControl';
 
 /**
- * SVG圆
+ * SVG椭圆
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SvgCircle(options = {}) {
+function SvgEllipse(options = {}) {
     SvgControl.call(this, options);
 }
 
-SvgCircle.prototype = Object.create(SvgControl.prototype);
-SvgCircle.prototype.constructor = SvgCircle;
+SvgEllipse.prototype = Object.create(SvgControl.prototype);
+SvgEllipse.prototype.constructor = SvgEllipse;
 
-SvgCircle.prototype.render = function () {
-    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+SvgEllipse.prototype.render = function () {
+    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
 
     if (this.style) {
         Object.assign(this.dom.style, this.style);
@@ -26,4 +26,4 @@ SvgCircle.prototype.render = function () {
     this.parent.appendChild(this.dom);
 };
 
-export default SvgCircle;
+export default SvgEllipse;

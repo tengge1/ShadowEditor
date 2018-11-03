@@ -177,6 +177,7 @@
 
 	/**
 	 * SVG圆
+	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
 	function SvgCircle(options = {}) {
@@ -188,6 +189,84 @@
 
 	SvgCircle.prototype.render = function () {
 	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+
+	    if (this.style) {
+	        Object.assign(this.dom.style, this.style);
+	    }
+
+	    if (this.listeners) {
+	        Object.assign(this.dom, this.listeners);
+	    }
+
+	    this.parent.appendChild(this.dom);
+	};
+
+	/**
+	 * SVG矩形
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function SvgRect(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	SvgRect.prototype = Object.create(SvgControl.prototype);
+	SvgRect.prototype.constructor = SvgRect;
+
+	SvgRect.prototype.render = function () {
+	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+
+	    if (this.style) {
+	        Object.assign(this.dom.style, this.style);
+	    }
+
+	    if (this.listeners) {
+	        Object.assign(this.dom, this.listeners);
+	    }
+
+	    this.parent.appendChild(this.dom);
+	};
+
+	/**
+	 * SVG椭圆
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function SvgEllipse(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	SvgEllipse.prototype = Object.create(SvgControl.prototype);
+	SvgEllipse.prototype.constructor = SvgEllipse;
+
+	SvgEllipse.prototype.render = function () {
+	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+
+	    if (this.style) {
+	        Object.assign(this.dom.style, this.style);
+	    }
+
+	    if (this.listeners) {
+	        Object.assign(this.dom, this.listeners);
+	    }
+
+	    this.parent.appendChild(this.dom);
+	};
+
+	/**
+	 * SVG线
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function SvgLine(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	SvgLine.prototype = Object.create(SvgControl.prototype);
+	SvgLine.prototype.constructor = SvgLine;
+
+	SvgLine.prototype.render = function () {
+	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 
 	    if (this.style) {
 	        Object.assign(this.dom.style, this.style);
@@ -324,6 +403,9 @@
 	    SvgContainer: SvgContainer,
 	    SvgDom: SvgDom,
 	    SvgCircle: SvgCircle,
+	    SvgRect: SvgRect,
+	    SvgEllipse: SvgEllipse,
+	    SvgLine: SvgLine,
 	});
 
 	// 添加所有SVG控件的XType
@@ -331,6 +413,9 @@
 	SVG$1.addXType('svgcontainer', SvgContainer);
 	SVG$1.addXType('svgdom', SvgDom);
 	SVG$1.addXType('svgcircle', SvgCircle);
+	SVG$1.addXType('svgrect', SvgRect);
+	SVG$1.addXType('svgellipse', SvgEllipse);
+	SVG$1.addXType('svgline', SvgLine);
 
 	window.SVG = SVG$1;
 

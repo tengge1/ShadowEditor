@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>04 SvgEllipseTest</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+    <script src="../dist/ShadowEditor.SVG.js"></script>
+    <script>
+        var svg = SVG.create({
+            xtype: 'svgdom',
+            id: 'svg1',
+            parent: document.body,
+            style: {
+                width: 800,
+                height: 600,
+            },
+            children: [{
+                xtype: 'svgellipse',
+                style: {
+                    cx: 300,
+                    cy: 200,
+                    rx: 80,
+                    ry: 50,
+                    stroke: '#555',
+                    strokeWidth: 2,
+                    fill: '#f00'
+                },
+                listeners: {
+                    onclick: () => {
+                        alert('You clicked!');
+                    }
+                }
+            }]
+        });
+        svg.render();
+    </script>
+</body>
+
+</html>

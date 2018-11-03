@@ -2,6 +2,9 @@ import SvgControl from './SvgControl';
 import SvgContainer from './SvgContainer';
 import SvgDom from './SvgDom';
 import SvgCircle from './SvgCircle';
+import SvgRect from './SvgRect';
+import SvgEllipse from './SvgEllipse';
+import SvgLine from './SvgLine';
 
 /**
  * SVG类
@@ -127,6 +130,9 @@ Object.assign(SVG, {
     SvgContainer: SvgContainer,
     SvgDom: SvgDom,
     SvgCircle: SvgCircle,
+    SvgRect: SvgRect,
+    SvgEllipse: SvgEllipse,
+    SvgLine: SvgLine,
 });
 
 // 添加所有SVG控件的XType
@@ -134,6 +140,9 @@ SVG.addXType('svgcontrol', SvgControl);
 SVG.addXType('svgcontainer', SvgContainer);
 SVG.addXType('svgdom', SvgDom);
 SVG.addXType('svgcircle', SvgCircle);
+SVG.addXType('svgrect', SvgRect);
+SVG.addXType('svgellipse', SvgEllipse);
+SVG.addXType('svgline', SvgLine);
 
 window.SVG = SVG;
 
