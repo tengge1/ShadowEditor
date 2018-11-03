@@ -419,6 +419,76 @@
 	};
 
 	/**
+	 * SVG文本
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function SvgText(options = {}) {
+	    SvgControl.call(this, options);
+
+	    this.text = options.text || null;
+	}
+
+	SvgText.prototype = Object.create(SvgControl.prototype);
+	SvgText.prototype.constructor = SvgText;
+
+	SvgText.prototype.render = function () {
+	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+
+	    if (this.attr) {
+	        Object.keys(this.attr).forEach(n => {
+	            this.dom.setAttribute(n, this.attr[n]);
+	        });
+	    }
+
+	    if (this.style) {
+	        Object.assign(this.dom.style, this.style);
+	    }
+
+	    if (this.listeners) {
+	        Object.assign(this.dom, this.listeners);
+	    }
+
+	    if (this.text) {
+	        this.dom.innerHTML = this.text;
+	    }
+
+	    this.parent.appendChild(this.dom);
+	};
+
+	/**
+	 * SVG定义
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function SvgDefs(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	SvgDefs.prototype = Object.create(SvgControl.prototype);
+	SvgDefs.prototype.constructor = SvgDefs;
+
+	SvgDefs.prototype.render = function () {
+	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+
+	    if (this.attr) {
+	        Object.keys(this.attr).forEach(n => {
+	            this.dom.setAttribute(n, this.attr[n]);
+	        });
+	    }
+
+	    if (this.style) {
+	        Object.assign(this.dom.style, this.style);
+	    }
+
+	    if (this.listeners) {
+	        Object.assign(this.dom, this.listeners);
+	    }
+
+	    this.parent.appendChild(this.dom);
+	};
+
+	/**
 	 * SVG类
 	 * @author tengge / https://github.com/tengge1
 	 */
@@ -548,6 +618,8 @@
 	    SvgPolyline: SvgPolyline,
 	    SvgPolygon: SvgPolygon,
 	    SvgPath: SvgPath,
+	    SvgText: SvgText,
+	    SvgDefs: SvgDefs,
 	});
 
 	// 添加所有SVG控件的XType
@@ -561,6 +633,8 @@
 	SVG$1.addXType('svgpolyline', SvgPolyline);
 	SVG$1.addXType('svgpolygon', SvgPolygon);
 	SVG$1.addXType('svgpath', SvgPath);
+	SVG$1.addXType('svgtext', SvgText);
+	SVG$1.addXType('svgdefs', SvgDefs);
 
 	window.SVG = SVG$1;
 

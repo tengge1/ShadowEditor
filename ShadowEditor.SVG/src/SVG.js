@@ -8,6 +8,8 @@ import SvgLine from './SvgLine';
 import SvgPolyline from './SvgPolyline';
 import SvgPolygon from './SvgPolygon';
 import SvgPath from './SvgPath';
+import SvgText from './SvgText';
+import SvgDefs from './defs/SvgDefs';
 
 /**
  * SVG类
@@ -139,6 +141,8 @@ Object.assign(SVG, {
     SvgPolyline: SvgPolyline,
     SvgPolygon: SvgPolygon,
     SvgPath: SvgPath,
+    SvgText: SvgText,
+    SvgDefs: SvgDefs,
 });
 
 // 添加所有SVG控件的XType
@@ -152,6 +156,8 @@ SVG.addXType('svgline', SvgLine);
 SVG.addXType('svgpolyline', SvgPolyline);
 SVG.addXType('svgpolygon', SvgPolygon);
 SVG.addXType('svgpath', SvgPath);
+SVG.addXType('svgtext', SvgText);
+SVG.addXType('svgdefs', SvgDefs);
 
 window.SVG = SVG;
 
