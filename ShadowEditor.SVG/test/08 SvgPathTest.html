@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>08 SvgPathTest</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+    <script src="../dist/ShadowEditor.SVG.js"></script>
+    <script>
+        var svg = SVG.create({
+            xtype: 'svgdom',
+            id: 'svg1',
+            parent: document.body,
+            attr: {
+                width: 800,
+                height: 600,
+            },
+            children: [{
+                xtype: 'svgpath',
+                attr: {
+                    d: 'M0 0 L10 30 L40 60 L200, 100 Z',
+                    stroke: '#f00',
+                    'stroke-width': 2,
+                    fill: '#f00'
+                },
+                listeners: {
+                    onclick: () => {
+                        alert('You clicked!');
+                    }
+                }
+            }]
+        });
+        svg.render();
+    </script>
+</body>
+
+</html>
