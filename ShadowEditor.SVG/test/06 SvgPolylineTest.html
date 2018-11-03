@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>06 SvgPolylineTest</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+    <script src="../dist/ShadowEditor.SVG.js"></script>
+    <script>
+        var svg = SVG.create({
+            xtype: 'svgdom',
+            id: 'svg1',
+            parent: document.body,
+            attr: {
+                width: 800,
+                height: 600,
+            },
+            children: [{
+                xtype: 'svgpolyline',
+                attr: {
+                    points: [0, 0, 10, 30, 40, 60, 200, 100],
+                    stroke: '#f00',
+                    'stroke-width': 2,
+                    fill: 'none'
+                }
+            }]
+        });
+        svg.render();
+    </script>
+</body>
+
+</html>
