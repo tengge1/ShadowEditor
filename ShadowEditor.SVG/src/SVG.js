@@ -6,6 +6,7 @@ import SvgRect from './SvgRect';
 import SvgEllipse from './SvgEllipse';
 import SvgLine from './SvgLine';
 import SvgPolyline from './SvgPolyline';
+import SvgPolygon from './SvgPolygon';
 
 /**
  * SVG类
@@ -135,6 +136,7 @@ Object.assign(SVG, {
     SvgEllipse: SvgEllipse,
     SvgLine: SvgLine,
     SvgPolyline: SvgPolyline,
+    SvgPolygon: SvgPolygon,
 });
 
 // 添加所有SVG控件的XType
@@ -146,6 +148,7 @@ SVG.addXType('svgrect', SvgRect);
 SVG.addXType('svgellipse', SvgEllipse);
 SVG.addXType('svgline', SvgLine);
 SVG.addXType('svgpolyline', SvgPolyline);
+SVG.addXType('svgpolygon', SvgPolygon);
 
 window.SVG = SVG;
 
