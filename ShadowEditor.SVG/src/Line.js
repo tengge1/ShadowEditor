@@ -5,18 +5,18 @@ import { Control, UI } from './third_party';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SvgLine(options = {}) {
+function Line(options = {}) {
     Control.call(this, options);
 }
 
-SvgLine.prototype = Object.create(Control.prototype);
-SvgLine.prototype.constructor = SvgLine;
+Line.prototype = Object.create(Control.prototype);
+Line.prototype.constructor = Line;
 
-SvgLine.prototype.render = function () {
+Line.prototype.render = function () {
     var dom = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     this.renderDom(dom);
 };
 
-UI.addXType('svgline', SvgLine);
+UI.addXType('svgline', Line);
 
-export default SvgLine;
+export default Line;

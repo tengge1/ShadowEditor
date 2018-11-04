@@ -5,18 +5,18 @@ import { Control, UI } from './third_party';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SvgAnchor(options = {}) {
+function Anchor(options = {}) {
     Control.call(this, options);
 }
 
-SvgAnchor.prototype = Object.create(Control.prototype);
-SvgAnchor.prototype.constructor = SvgAnchor;
+Anchor.prototype = Object.create(Control.prototype);
+Anchor.prototype.constructor = Anchor;
 
-SvgAnchor.prototype.render = function () {
+Anchor.prototype.render = function () {
     var dom = document.createElementNS('http://www.w3.org/2000/svg', 'a');
     this.renderDom(dom);
 };
 
-UI.addXType('svga', SvgAnchor);
+UI.addXType('svga', Anchor);
 
-export default SvgAnchor;
+export default Anchor;

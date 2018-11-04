@@ -5,18 +5,18 @@ import { Control, UI } from '../third_party';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SvgUse(options = {}) {
+function Use(options = {}) {
     Control.call(this, options);
 }
 
-SvgUse.prototype = Object.create(Control.prototype);
-SvgUse.prototype.constructor = SvgUse;
+Use.prototype = Object.create(Control.prototype);
+Use.prototype.constructor = Use;
 
-SvgUse.prototype.render = function () {
+Use.prototype.render = function () {
     var dom = document.createElementNS('http://www.w3.org/2000/svg', 'use');
     this.renderDom(dom);
 };
 
-UI.addXType('svguse', SvgUse);
+UI.addXType('svguse', Use);
 
-export default SvgUse;
+export default Use;

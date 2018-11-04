@@ -1,19 +1,19 @@
-import './SvgDom';
-import './SvgCircle';
-import './SvgRect';
-import './SvgEllipse';
-import './SvgLine';
-import './SvgPolyline';
-import './SvgPolygon';
-import './SvgPath';
-import './SvgText';
-import './SvgTextPath';
-import './SvgAnchor';
+import './Dom';
+import './Circle';
+import './Rect';
+import './Ellipse';
+import './Line';
+import './Polyline';
+import './Polygon';
+import './Path';
+import './Text';
+import './TextPath';
+import './Anchor';
 
-import './defs/SvgDefs';
-import './defs/SvgUse';
+import './defs/Defs';
+import './defs/Use';
 
-import './filter/SvgFilter';
+import './filter/Filter';
 import './filter/feGaussianBlur';
 import './filter/feOffset';
 import './filter/feBlend';

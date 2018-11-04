@@ -5,18 +5,18 @@ import { Control, UI } from './third_party';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SvgPolygon(options = {}) {
+function Polygon(options = {}) {
     Control.call(this, options);
 }
 
-SvgPolygon.prototype = Object.create(Control.prototype);
-SvgPolygon.prototype.constructor = SvgPolygon;
+Polygon.prototype = Object.create(Control.prototype);
+Polygon.prototype.constructor = Polygon;
 
-SvgPolygon.prototype.render = function () {
+Polygon.prototype.render = function () {
     var dom = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
     this.renderDom(dom);
 };
 
-UI.addXType('svgpolygon', SvgPolygon);
+UI.addXType('svgpolygon', Polygon);
 
-export default SvgPolygon;
+export default Polygon;

@@ -5,18 +5,18 @@ import { Control, UI } from './third_party';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SvgPolyline(options = {}) {
+function Polyline(options = {}) {
     Control.call(this, options);
 }
 
-SvgPolyline.prototype = Object.create(Control.prototype);
-SvgPolyline.prototype.constructor = SvgPolyline;
+Polyline.prototype = Object.create(Control.prototype);
+Polyline.prototype.constructor = Polyline;
 
-SvgPolyline.prototype.render = function () {
+Polyline.prototype.render = function () {
     var dom = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
     this.renderDom(dom);
 };
 
-UI.addXType('svgpolyline', SvgPolyline);
+UI.addXType('svgpolyline', Polyline);
 
-export default SvgPolyline;
+export default Polyline;

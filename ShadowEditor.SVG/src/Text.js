@@ -5,20 +5,20 @@ import { Control, UI } from './third_party';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SvgText(options = {}) {
+function Text(options = {}) {
     Control.call(this, options);
 
     this.text = options.text || null;
 }
 
-SvgText.prototype = Object.create(Control.prototype);
-SvgText.prototype.constructor = SvgText;
+Text.prototype = Object.create(Control.prototype);
+Text.prototype.constructor = Text;
 
-SvgText.prototype.render = function () {
+Text.prototype.render = function () {
     var dom = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     this.renderDom(dom);
 };
 
-UI.addXType('svgtext', SvgText);
+UI.addXType('svgtext', Text);
 
-export default SvgText;
+export default Text;

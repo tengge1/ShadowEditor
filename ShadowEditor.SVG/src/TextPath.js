@@ -5,20 +5,20 @@ import { Control, UI } from './third_party';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SvgTextPath(options = {}) {
+function TextPath(options = {}) {
     Control.call(this, options);
 
     this.text = options.text || null;
 }
 
-SvgTextPath.prototype = Object.create(Control.prototype);
-SvgTextPath.prototype.constructor = SvgTextPath;
+TextPath.prototype = Object.create(Control.prototype);
+TextPath.prototype.constructor = TextPath;
 
-SvgTextPath.prototype.render = function () {
+TextPath.prototype.render = function () {
     var dom = document.createElementNS('http://www.w3.org/2000/svg', 'textPath');
     this.renderDom(dom);
 };
 
-UI.addXType('svgtextpath', SvgTextPath);
+UI.addXType('svgtextpath', TextPath);
 
-export default SvgTextPath;
+export default TextPath;

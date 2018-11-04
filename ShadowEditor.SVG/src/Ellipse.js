@@ -5,18 +5,18 @@ import { Control, UI } from './third_party';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SvgEllipse(options = {}) {
+function Ellipse(options = {}) {
     Control.call(this, options);
 }
 
-SvgEllipse.prototype = Object.create(Control.prototype);
-SvgEllipse.prototype.constructor = SvgEllipse;
+Ellipse.prototype = Object.create(Control.prototype);
+Ellipse.prototype.constructor = Ellipse;
 
-SvgEllipse.prototype.render = function () {
+Ellipse.prototype.render = function () {
     var dom = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
     this.renderDom(dom);
 };
 
-UI.addXType('svgellipse', SvgEllipse);
+UI.addXType('svgellipse', Ellipse);
 
-export default SvgEllipse;
+export default Ellipse;

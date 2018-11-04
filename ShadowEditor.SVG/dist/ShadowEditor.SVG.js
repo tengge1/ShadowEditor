@@ -380,270 +380,270 @@
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgDom(options = {}) {
+	function Dom(options = {}) {
 	    Control.call(this, options);
 	}
 
-	SvgDom.prototype = Object.create(Control.prototype);
-	SvgDom.prototype.constructor = SvgDom;
+	Dom.prototype = Object.create(Control.prototype);
+	Dom.prototype.constructor = Dom;
 
-	SvgDom.prototype.render = function () {
+	Dom.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svgdom', SvgDom);
+	UI.addXType('svgdom', Dom);
 
 	/**
 	 * SVG圆
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgCircle(options = {}) {
+	function Circle(options = {}) {
 	    Control.call(this, options);
 	}
 
-	SvgCircle.prototype = Object.create(Control.prototype);
-	SvgCircle.prototype.constructor = SvgCircle;
+	Circle.prototype = Object.create(Control.prototype);
+	Circle.prototype.constructor = Circle;
 
-	SvgCircle.prototype.render = function () {
+	Circle.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svgcircle', SvgCircle);
+	UI.addXType('svgcircle', Circle);
 
 	/**
 	 * SVG矩形
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgRect(options = {}) {
+	function Rect(options = {}) {
 	    Control.call(this, options);
 	}
 
-	SvgRect.prototype = Object.create(Control.prototype);
-	SvgRect.prototype.constructor = SvgRect;
+	Rect.prototype = Object.create(Control.prototype);
+	Rect.prototype.constructor = Rect;
 
-	SvgRect.prototype.render = function () {
+	Rect.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svgrect', SvgRect);
+	UI.addXType('svgrect', Rect);
 
 	/**
 	 * SVG椭圆
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgEllipse(options = {}) {
+	function Ellipse(options = {}) {
 	    Control.call(this, options);
 	}
 
-	SvgEllipse.prototype = Object.create(Control.prototype);
-	SvgEllipse.prototype.constructor = SvgEllipse;
+	Ellipse.prototype = Object.create(Control.prototype);
+	Ellipse.prototype.constructor = Ellipse;
 
-	SvgEllipse.prototype.render = function () {
+	Ellipse.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svgellipse', SvgEllipse);
+	UI.addXType('svgellipse', Ellipse);
 
 	/**
 	 * SVG线
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgLine(options = {}) {
+	function Line(options = {}) {
 	    Control.call(this, options);
 	}
 
-	SvgLine.prototype = Object.create(Control.prototype);
-	SvgLine.prototype.constructor = SvgLine;
+	Line.prototype = Object.create(Control.prototype);
+	Line.prototype.constructor = Line;
 
-	SvgLine.prototype.render = function () {
+	Line.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svgline', SvgLine);
+	UI.addXType('svgline', Line);
 
 	/**
 	 * SVG曲线
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgPolyline(options = {}) {
+	function Polyline(options = {}) {
 	    Control.call(this, options);
 	}
 
-	SvgPolyline.prototype = Object.create(Control.prototype);
-	SvgPolyline.prototype.constructor = SvgPolyline;
+	Polyline.prototype = Object.create(Control.prototype);
+	Polyline.prototype.constructor = Polyline;
 
-	SvgPolyline.prototype.render = function () {
+	Polyline.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svgpolyline', SvgPolyline);
+	UI.addXType('svgpolyline', Polyline);
 
 	/**
 	 * SVG面
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgPolygon(options = {}) {
+	function Polygon(options = {}) {
 	    Control.call(this, options);
 	}
 
-	SvgPolygon.prototype = Object.create(Control.prototype);
-	SvgPolygon.prototype.constructor = SvgPolygon;
+	Polygon.prototype = Object.create(Control.prototype);
+	Polygon.prototype.constructor = Polygon;
 
-	SvgPolygon.prototype.render = function () {
+	Polygon.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svgpolygon', SvgPolygon);
+	UI.addXType('svgpolygon', Polygon);
 
 	/**
 	 * SVG线
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgPath(options = {}) {
+	function Path(options = {}) {
 	    Control.call(this, options);
 	}
 
-	SvgPath.prototype = Object.create(Control.prototype);
-	SvgPath.prototype.constructor = SvgPath;
+	Path.prototype = Object.create(Control.prototype);
+	Path.prototype.constructor = Path;
 
-	SvgPath.prototype.render = function () {
+	Path.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svgpath', SvgPath);
+	UI.addXType('svgpath', Path);
 
 	/**
 	 * SVG文本
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgText(options = {}) {
+	function Text(options = {}) {
 	    Control.call(this, options);
 
 	    this.text = options.text || null;
 	}
 
-	SvgText.prototype = Object.create(Control.prototype);
-	SvgText.prototype.constructor = SvgText;
+	Text.prototype = Object.create(Control.prototype);
+	Text.prototype.constructor = Text;
 
-	SvgText.prototype.render = function () {
+	Text.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svgtext', SvgText);
+	UI.addXType('svgtext', Text);
 
 	/**
 	 * SVG文本路径
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgTextPath(options = {}) {
+	function TextPath(options = {}) {
 	    Control.call(this, options);
 
 	    this.text = options.text || null;
 	}
 
-	SvgTextPath.prototype = Object.create(Control.prototype);
-	SvgTextPath.prototype.constructor = SvgTextPath;
+	TextPath.prototype = Object.create(Control.prototype);
+	TextPath.prototype.constructor = TextPath;
 
-	SvgTextPath.prototype.render = function () {
+	TextPath.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'textPath');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svgtextpath', SvgTextPath);
+	UI.addXType('svgtextpath', TextPath);
 
 	/**
 	 * SVG链接
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgAnchor(options = {}) {
+	function Anchor(options = {}) {
 	    Control.call(this, options);
 	}
 
-	SvgAnchor.prototype = Object.create(Control.prototype);
-	SvgAnchor.prototype.constructor = SvgAnchor;
+	Anchor.prototype = Object.create(Control.prototype);
+	Anchor.prototype.constructor = Anchor;
 
-	SvgAnchor.prototype.render = function () {
+	Anchor.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'a');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svga', SvgAnchor);
+	UI.addXType('svga', Anchor);
 
 	/**
 	 * SVG定义
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgDefs(options = {}) {
+	function Defs(options = {}) {
 	    Control.call(this, options);
 	}
 
-	SvgDefs.prototype = Object.create(Control.prototype);
-	SvgDefs.prototype.constructor = SvgDefs;
+	Defs.prototype = Object.create(Control.prototype);
+	Defs.prototype.constructor = Defs;
 
-	SvgDefs.prototype.render = function () {
+	Defs.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svgdefs', SvgDefs);
+	UI.addXType('svgdefs', Defs);
 
 	/**
 	 * SVG Use
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgUse(options = {}) {
+	function Use(options = {}) {
 	    Control.call(this, options);
 	}
 
-	SvgUse.prototype = Object.create(Control.prototype);
-	SvgUse.prototype.constructor = SvgUse;
+	Use.prototype = Object.create(Control.prototype);
+	Use.prototype.constructor = Use;
 
-	SvgUse.prototype.render = function () {
+	Use.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'use');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svguse', SvgUse);
+	UI.addXType('svguse', Use);
 
 	/**
 	 * SVG滤镜
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgFilter(options = {}) {
+	function Filter(options = {}) {
 	    Control.call(this, options);
 	}
 
-	SvgFilter.prototype = Object.create(Control.prototype);
-	SvgFilter.prototype.constructor = SvgFilter;
+	Filter.prototype = Object.create(Control.prototype);
+	Filter.prototype.constructor = Filter;
 
-	SvgFilter.prototype.render = function () {
+	Filter.prototype.render = function () {
 	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
 	    this.renderDom(dom);
 	};
 
-	UI.addXType('svgfilter', SvgFilter);
+	UI.addXType('svgfilter', Filter);
 
 	/**
 	 * SVG高斯滤镜
