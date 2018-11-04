@@ -11,9 +11,9 @@
 <body>
     <script src="../dist/ShadowEditor.SVG.js"></script>
     <script>
-        var svg = SVG.create({
+        var dom = UI.create({
             xtype: 'svgdom',
-            id: 'svg1',
+            id: 'dom1',
             parent: document.body,
             attr: {
                 width: 800,
@@ -21,7 +21,7 @@
             },
             children: [{
                 xtype: 'svgtext',
-                text: 'I Love SVG.',
+                html: 'I Love SVG.',
                 attr: {
                     x: 100,
                     y: 100,
@@ -29,13 +29,14 @@
                     fill: '#f00'
                 },
                 listeners: {
-                    onclick: () => {
+                    click: () => {
                         alert('You clicked!');
                     }
                 }
             }]
         });
-        svg.render();
+
+        dom.render();
     </script>
 </body>
 

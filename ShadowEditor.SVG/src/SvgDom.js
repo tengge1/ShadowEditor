@@ -1,4 +1,4 @@
-import SvgControl from './SvgControl';
+import { Control, UI } from './third_party';
 
 /**
  * SVG文档
@@ -6,36 +6,17 @@ import SvgControl from './SvgControl';
  * @param {*} options 
  */
 function SvgDom(options = {}) {
-    SvgControl.call(this, options);
+    Control.call(this, options);
 }
 
-SvgDom.prototype = Object.create(SvgControl.prototype);
+SvgDom.prototype = Object.create(Control.prototype);
 SvgDom.prototype.constructor = SvgDom;
 
 SvgDom.prototype.render = function () {
-    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-
-    if (this.attr) {
-        Object.keys(this.attr).forEach(n => {
-            this.dom.setAttribute(n, this.attr[n]);
-        });
-    }
-
-    if (this.style) {
-        Object.assign(this.dom.style, this.style);
-    }
-
-    if (this.listeners) {
-        Object.assign(this.dom, this.listeners);
-    }
-
-    this.children.forEach(n => {
-        var obj = SVG.create(n);
-        obj.parent = this.dom;
-        obj.render();
-    });
-
-    this.parent.appendChild(this.dom);
+    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    this.renderDom(dom);
 };
+
+UI.addXType('svgdom', SvgDom);
 
 export default SvgDom;

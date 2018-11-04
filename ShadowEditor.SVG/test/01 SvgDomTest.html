@@ -12,35 +12,20 @@
     <script src="../dist/ShadowEditor.SVG.js"></script>
     <script>
         function CustomControl(options = {}) {
-            SVG.SvgControl.call(this, options);
+            Shadow.Control.call(this, options);
         }
 
-        CustomControl.prototype = Object.create(SVG.SvgControl.prototype);
+        CustomControl.prototype = Object.create(Shadow.Control.prototype);
         CustomControl.prototype.constructor = CustomControl;
 
         CustomControl.prototype.render = function () {
-            this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-
-            if (this.attr) {
-                Object.keys(this.attr).forEach(n => {
-                    this.dom.setAttribute(n, this.attr[n]);
-                });
-            }
-
-            if (this.style) {
-                Object.assign(this.dom.style, this.style);
-            }
-
-            if (this.listeners) {
-                Object.assign(this.dom, this.listeners);
-            }
-
-            this.parent.appendChild(this.dom);
+            var dom = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            this.renderDom(dom);
         };
 
-        var svg = SVG.create({
+        var dom = UI.create({
             xtype: 'svgdom',
-            id: 'svg1',
+            id: 'dom1',
             parent: document.body,
             attr: {
                 width: 800,
@@ -57,14 +42,15 @@
                         fill: '#f00'
                     },
                     listeners: {
-                        onclick: () => {
+                        click: () => {
                             alert('You clicked!');
                         }
                     }
                 })
             ]
         });
-        svg.render();
+
+        dom.render();
     </script>
 </body>
 

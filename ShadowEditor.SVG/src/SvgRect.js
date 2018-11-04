@@ -1,4 +1,4 @@
-import SvgControl from './SvgControl';
+import { Control, UI } from './third_party';
 
 /**
  * SVG矩形
@@ -6,30 +6,17 @@ import SvgControl from './SvgControl';
  * @param {*} options 
  */
 function SvgRect(options = {}) {
-    SvgControl.call(this, options);
+    Control.call(this, options);
 }
 
-SvgRect.prototype = Object.create(SvgControl.prototype);
+SvgRect.prototype = Object.create(Control.prototype);
 SvgRect.prototype.constructor = SvgRect;
 
 SvgRect.prototype.render = function () {
-    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-
-    if (this.attr) {
-        Object.keys(this.attr).forEach(n => {
-            this.dom.setAttribute(n, this.attr[n]);
-        });
-    }
-
-    if (this.style) {
-        Object.assign(this.dom.style, this.style);
-    }
-
-    if (this.listeners) {
-        Object.assign(this.dom, this.listeners);
-    }
-
-    this.parent.appendChild(this.dom);
+    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    this.renderDom(dom);
 };
+
+UI.addXType('svgrect', SvgRect);
 
 export default SvgRect;
