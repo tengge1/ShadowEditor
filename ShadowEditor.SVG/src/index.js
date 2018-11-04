@@ -17,5 +17,6 @@ import './filter/SvgFilter';
 import './filter/feGaussianBlur';
 import './filter/feOffset';
 import './filter/feBlend';
+import './filter/feColorMatrix';
 
 export { Control, UI } from './third_party';
