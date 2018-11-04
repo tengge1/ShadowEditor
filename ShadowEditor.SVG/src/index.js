@@ -13,4 +13,7 @@ import './SvgAnchor';
 import './defs/SvgDefs';
 import './defs/SvgUse';
 
+import './filter/SvgFilter';
+import './filter/feGaussianBlur';
+
 export { Control, UI } from './third_party';

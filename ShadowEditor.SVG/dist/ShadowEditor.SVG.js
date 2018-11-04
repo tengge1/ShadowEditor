@@ -626,6 +626,44 @@
 
 	UI.addXType('svguse', SvgUse);
 
+	/**
+	 * SVG滤镜
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function SvgFilter(options = {}) {
+	    Control.call(this, options);
+	}
+
+	SvgFilter.prototype = Object.create(Control.prototype);
+	SvgFilter.prototype.constructor = SvgFilter;
+
+	SvgFilter.prototype.render = function () {
+	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+	    this.renderDom(dom);
+	};
+
+	UI.addXType('svgfilter', SvgFilter);
+
+	/**
+	 * SVG高斯滤镜
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feGaussianBlur(options = {}) {
+	    Control.call(this, options);
+	}
+
+	feGaussianBlur.prototype = Object.create(Control.prototype);
+	feGaussianBlur.prototype.constructor = feGaussianBlur;
+
+	feGaussianBlur.prototype.render = function () {
+	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
+	    this.renderDom(dom);
+	};
+
+	UI.addXType('svgfegaussianblur', feGaussianBlur);
+
 	exports.Control = Control;
 	exports.UI = UI;
 
