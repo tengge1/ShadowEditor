@@ -16,6 +16,8 @@
 	    this.id = options.id || this.constructor.name + ID--;
 	    this.scope = options.scope || 'global';
 
+	    this.children = options.children || [];
+
 	    this.data = options.data || null; // 自定义数据，例如：{ name: '小米', age: 20 }
 
 	    this.attr = options.attr || null;
@@ -62,10 +64,36 @@
 	});
 
 	/**
+	 * 添加子元素
+	 * @param {*} obj 
+	 */
+	SvgControl.prototype.add = function (obj) {
+	    if (!(obj instanceof SvgControl)) {
+	        throw 'SvgControl: obj is not an instance of SvgControl.';
+	    }
+	    this.children.push(obj);
+	};
+
+	/**
+	 * 移除子元素
+	 * @param {*} obj 
+	 */
+	SvgControl.prototype.remove = function (obj) {
+	    var index = this.children.indexOf(obj);
+	    if (index > -1) {
+	        this.children.splice(index, 1);
+	    }
+	};
+
+	/**
 	 * 渲染SVG控件
 	 */
 	SvgControl.prototype.render = function () {
-
+	    this.children.forEach(n => {
+	        var obj = SVG.create(n);
+	        obj.parent = this.parent;
+	        obj.render();
+	    });
 	};
 
 	/**
@@ -121,51 +149,15 @@
 	};
 
 	/**
-	 * SVG容器
-	 * @author tengge / https://github.com/tengge1
-	 * @param {*} options 
-	 */
-	function SvgContainer(options = {}) {
-	    SvgControl.call(this, options);
-
-	    this.children = options.children || [];
-	}
-
-	SvgContainer.prototype = Object.create(SvgControl.prototype);
-	SvgContainer.prototype.constructor = SvgContainer;
-
-	SvgContainer.prototype.add = function (obj) {
-	    if (!(obj instanceof SvgControl)) {
-	        throw 'SvgContainer: obj is not an instance of SvgControl.';
-	    }
-	    this.children.push(obj);
-	};
-
-	SvgContainer.prototype.remove = function (obj) {
-	    var index = this.children.indexOf(obj);
-	    if (index > -1) {
-	        this.children.splice(index, 1);
-	    }
-	};
-
-	SvgContainer.prototype.render = function () {
-	    this.children.forEach(n => {
-	        var obj = SVG.create(n);
-	        obj.parent = this.parent;
-	        obj.render();
-	    });
-	};
-
-	/**
 	 * SVG文档
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
 	function SvgDom(options = {}) {
-	    SvgContainer.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	SvgDom.prototype = Object.create(SvgContainer.prototype);
+	SvgDom.prototype = Object.create(SvgControl.prototype);
 	SvgDom.prototype.constructor = SvgDom;
 
 	SvgDom.prototype.render = function () {
@@ -457,6 +449,44 @@
 	};
 
 	/**
+	 * SVG链接
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function SvgA(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	SvgA.prototype = Object.create(SvgControl.prototype);
+	SvgA.prototype.constructor = SvgA;
+
+	SvgA.prototype.render = function () {
+	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'a');
+
+	    if (this.attr) {
+	        Object.keys(this.attr).forEach(n => {
+	            this.dom.setAttribute(n, this.attr[n]);
+	        });
+	    }
+
+	    if (this.style) {
+	        Object.assign(this.dom.style, this.style);
+	    }
+
+	    if (this.listeners) {
+	        Object.assign(this.dom, this.listeners);
+	    }
+
+	    this.children.forEach(n => {
+	        var obj = SVG.create(n);
+	        obj.parent = this.dom;
+	        obj.render();
+	    });
+
+	    this.parent.appendChild(this.dom);
+	};
+
+	/**
 	 * SVG定义
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
@@ -609,7 +639,6 @@
 	// 添加所有SVG控件
 	Object.assign(SVG$1, {
 	    SvgControl: SvgControl,
-	    SvgContainer: SvgContainer,
 	    SvgDom: SvgDom,
 	    SvgCircle: SvgCircle,
 	    SvgRect: SvgRect,
@@ -620,11 +649,11 @@
 	    SvgPath: SvgPath,
 	    SvgText: SvgText,
 	    SvgDefs: SvgDefs,
+	    SvgA: SvgA,
 	});
 
 	// 添加所有SVG控件的XType
 	SVG$1.addXType('svgcontrol', SvgControl);
-	SVG$1.addXType('svgcontainer', SvgContainer);
 	SVG$1.addXType('svgdom', SvgDom);
 	SVG$1.addXType('svgcircle', SvgCircle);
 	SVG$1.addXType('svgrect', SvgRect);
@@ -635,6 +664,7 @@
 	SVG$1.addXType('svgpath', SvgPath);
 	SVG$1.addXType('svgtext', SvgText);
 	SVG$1.addXType('svgdefs', SvgDefs);
+	SVG$1.addXType('svga', SvgA);
 
 	window.SVG = SVG$1;
 

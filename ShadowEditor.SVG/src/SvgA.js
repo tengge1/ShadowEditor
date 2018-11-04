@@ -1,19 +1,19 @@
 import SvgControl from './SvgControl';
 
 /**
- * SVG文档
+ * SVG链接
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SvgDom(options = {}) {
+function SvgA(options = {}) {
     SvgControl.call(this, options);
 }
 
-SvgDom.prototype = Object.create(SvgControl.prototype);
-SvgDom.prototype.constructor = SvgDom;
+SvgA.prototype = Object.create(SvgControl.prototype);
+SvgA.prototype.constructor = SvgA;
 
-SvgDom.prototype.render = function () {
-    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+SvgA.prototype.render = function () {
+    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'a');
 
     if (this.attr) {
         Object.keys(this.attr).forEach(n => {
@@ -38,4 +38,4 @@ SvgDom.prototype.render = function () {
     this.parent.appendChild(this.dom);
 };
 
-export default SvgDom;
+export default SvgA;

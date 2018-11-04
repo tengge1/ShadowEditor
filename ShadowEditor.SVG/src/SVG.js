@@ -1,5 +1,5 @@
 import SvgControl from './SvgControl';
-import SvgContainer from './SvgContainer';
+
 import SvgDom from './SvgDom';
 import SvgCircle from './SvgCircle';
 import SvgRect from './SvgRect';
@@ -9,6 +9,8 @@ import SvgPolyline from './SvgPolyline';
 import SvgPolygon from './SvgPolygon';
 import SvgPath from './SvgPath';
 import SvgText from './SvgText';
+import SvgA from './SvgA';
+
 import SvgDefs from './defs/SvgDefs';
 
 /**
@@ -132,7 +134,6 @@ const SVG = new SVGCls();
 // 添加所有SVG控件
 Object.assign(SVG, {
     SvgControl: SvgControl,
-    SvgContainer: SvgContainer,
     SvgDom: SvgDom,
     SvgCircle: SvgCircle,
     SvgRect: SvgRect,
@@ -143,11 +144,11 @@ Object.assign(SVG, {
     SvgPath: SvgPath,
     SvgText: SvgText,
     SvgDefs: SvgDefs,
+    SvgA: SvgA,
 });
 
 // 添加所有SVG控件的XType
 SVG.addXType('svgcontrol', SvgControl);
-SVG.addXType('svgcontainer', SvgContainer);
 SVG.addXType('svgdom', SvgDom);
 SVG.addXType('svgcircle', SvgCircle);
 SVG.addXType('svgrect', SvgRect);
@@ -158,6 +159,7 @@ SVG.addXType('svgpolygon', SvgPolygon);
 SVG.addXType('svgpath', SvgPath);
 SVG.addXType('svgtext', SvgText);
 SVG.addXType('svgdefs', SvgDefs);
+SVG.addXType('svga', SvgA);
 
 window.SVG = SVG;
 

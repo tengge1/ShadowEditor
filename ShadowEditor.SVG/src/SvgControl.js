@@ -10,6 +10,8 @@ function SvgControl(options = {}) {
     this.id = options.id || this.constructor.name + ID--;
     this.scope = options.scope || 'global';
 
+    this.children = options.children || [];
+
     this.data = options.data || null; // 自定义数据，例如：{ name: '小米', age: 20 }
 
     this.attr = options.attr || null;
@@ -56,10 +58,36 @@ Object.defineProperties(SvgControl.prototype, {
 });
 
 /**
+ * 添加子元素
+ * @param {*} obj 
+ */
+SvgControl.prototype.add = function (obj) {
+    if (!(obj instanceof SvgControl)) {
+        throw 'SvgControl: obj is not an instance of SvgControl.';
+    }
+    this.children.push(obj);
+};
+
+/**
+ * 移除子元素
+ * @param {*} obj 
+ */
+SvgControl.prototype.remove = function (obj) {
+    var index = this.children.indexOf(obj);
+    if (index > -1) {
+        this.children.splice(index, 1);
+    }
+};
+
+/**
  * 渲染SVG控件
  */
 SvgControl.prototype.render = function () {
-
+    this.children.forEach(n => {
+        var obj = SVG.create(n);
+        obj.parent = this.parent;
+        obj.render();
+    });
 };
 
 /**
