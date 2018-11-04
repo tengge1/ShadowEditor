@@ -9,7 +9,7 @@ import SvgPolyline from './SvgPolyline';
 import SvgPolygon from './SvgPolygon';
 import SvgPath from './SvgPath';
 import SvgText from './SvgText';
-import SvgA from './SvgA';
+import SvgAnchor from './SvgAnchor';
 
 import SvgDefs from './defs/SvgDefs';
 
@@ -144,7 +144,7 @@ Object.assign(SVG, {
     SvgPath: SvgPath,
     SvgText: SvgText,
     SvgDefs: SvgDefs,
-    SvgA: SvgA,
+    SvgA: SvgAnchor,
 });
 
 // 添加所有SVG控件的XType
@@ -159,7 +159,7 @@ SVG.addXType('svgpolygon', SvgPolygon);
 SVG.addXType('svgpath', SvgPath);
 SVG.addXType('svgtext', SvgText);
 SVG.addXType('svgdefs', SvgDefs);
-SVG.addXType('svga', SvgA);
+SVG.addXType('svga', SvgAnchor);
 
 window.SVG = SVG;
 

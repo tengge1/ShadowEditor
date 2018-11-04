@@ -453,14 +453,14 @@
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function SvgA(options = {}) {
+	function SvgAnchor(options = {}) {
 	    SvgControl.call(this, options);
 	}
 
-	SvgA.prototype = Object.create(SvgControl.prototype);
-	SvgA.prototype.constructor = SvgA;
+	SvgAnchor.prototype = Object.create(SvgControl.prototype);
+	SvgAnchor.prototype.constructor = SvgAnchor;
 
-	SvgA.prototype.render = function () {
+	SvgAnchor.prototype.render = function () {
 	    this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'a');
 
 	    if (this.attr) {
@@ -649,7 +649,7 @@
 	    SvgPath: SvgPath,
 	    SvgText: SvgText,
 	    SvgDefs: SvgDefs,
-	    SvgA: SvgA,
+	    SvgA: SvgAnchor,
 	});
 
 	// 添加所有SVG控件的XType
@@ -664,7 +664,7 @@
 	SVG$1.addXType('svgpath', SvgPath);
 	SVG$1.addXType('svgtext', SvgText);
 	SVG$1.addXType('svgdefs', SvgDefs);
-	SVG$1.addXType('svga', SvgA);
+	SVG$1.addXType('svga', SvgAnchor);
 
 	window.SVG = SVG$1;
 

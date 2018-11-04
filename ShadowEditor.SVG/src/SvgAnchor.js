@@ -5,14 +5,14 @@ import SvgControl from './SvgControl';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SvgA(options = {}) {
+function SvgAnchor(options = {}) {
     SvgControl.call(this, options);
 }
 
-SvgA.prototype = Object.create(SvgControl.prototype);
-SvgA.prototype.constructor = SvgA;
+SvgAnchor.prototype = Object.create(SvgControl.prototype);
+SvgAnchor.prototype.constructor = SvgAnchor;
 
-SvgA.prototype.render = function () {
+SvgAnchor.prototype.render = function () {
     this.dom = document.createElementNS('http://www.w3.org/2000/svg', 'a');
 
     if (this.attr) {
@@ -38,4 +38,4 @@ SvgA.prototype.render = function () {
     this.parent.appendChild(this.dom);
 };
 
-export default SvgA;
+export default SvgAnchor;
