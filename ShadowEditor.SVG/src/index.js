@@ -13,6 +13,7 @@ import './Anchor';
 import './defs/Defs';
 import './defs/Use';
 import './defs/linearGradient';
+import './Group';
 
 import './filter/Filter';
 import './filter/feGaussianBlur';

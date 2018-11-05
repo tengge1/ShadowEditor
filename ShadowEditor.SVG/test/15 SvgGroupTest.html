@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>15 SvgGroupTest</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+    <script src="../dist/ShadowEditor.SVG.js"></script>
+    <script>
+        var dom = UI.create({
+            xtype: 'svgdom',
+            id: 'dom1',
+            parent: document.body,
+            attr: {
+                viewBox: '0 0 100 100'
+            },
+            children: [{
+                xtype: 'svggroup',
+                attr: {
+                    fill: 'white',
+                    stroke: 'green',
+                    strokeWidth: 5
+                },
+                children: [{
+                    xtype: 'svgcircle',
+                    attr: {
+                        cx: 40,
+                        cy: 40,
+                        r: 25
+                    }
+                }, {
+                    xtype: 'svgcircle',
+                    attr: {
+                        cx: 60,
+                        cy: 60,
+                        r: 25
+                    }
+                }]
+            }]
+        });
+
+        dom.render();
+    </script>
+</body>
+
+</html>
