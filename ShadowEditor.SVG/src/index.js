@@ -1,3 +1,9 @@
+import { SvgControl, Manager } from './third_party';
+
+const SVG = new Manager();
+
+window.SVG = SVG;
+
 import './Dom';
 import './Circle';
 import './Rect';
@@ -21,4 +27,4 @@ import './filter/feOffset';
 import './filter/feBlend';
 import './filter/feColorMatrix';
 
-export { Control, UI } from './third_party';
+export { SvgControl, SVG };
