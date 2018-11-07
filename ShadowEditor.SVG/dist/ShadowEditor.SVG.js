@@ -743,6 +743,60 @@
 	SVG.addXType('use', Use);
 
 	/**
+	 * 线性渐变
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function LinearGradient(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	LinearGradient.prototype = Object.create(SvgControl.prototype);
+	LinearGradient.prototype.constructor = LinearGradient;
+
+	LinearGradient.prototype.render = function () {
+	    this.renderDom(this.createElement('linearGradient'));
+	};
+
+	SVG.addXType('lineargradient', LinearGradient);
+
+	/**
+	 * 径向渐变
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function RadialGradient(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	RadialGradient.prototype = Object.create(SvgControl.prototype);
+	RadialGradient.prototype.constructor = RadialGradient;
+
+	RadialGradient.prototype.render = function () {
+	    this.renderDom(this.createElement('radialGradient'));
+	};
+
+	SVG.addXType('radialgradient', RadialGradient);
+
+	/**
+	 * 停止渐变
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function Stop(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	Stop.prototype = Object.create(SvgControl.prototype);
+	Stop.prototype.constructor = Stop;
+
+	Stop.prototype.render = function () {
+	    this.renderDom(this.createElement('stop'));
+	};
+
+	SVG.addXType('stop', Stop);
+
+	/**
 	 * SVG文本路径
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
@@ -759,24 +813,6 @@
 	};
 
 	SVG.addXType('textpath', TextPath);
-
-	/**
-	 * 线性渐变
-	 * @author tengge / https://github.com/tengge1
-	 * @param {*} options 
-	 */
-	function linearGradient(options = {}) {
-	    SvgControl.call(this, options);
-	}
-
-	linearGradient.prototype = Object.create(SvgControl.prototype);
-	linearGradient.prototype.constructor = linearGradient;
-
-	linearGradient.prototype.render = function () {
-	    this.renderDom(this.createElement('linearGradient'));
-	};
-
-	SVG.addXType('lineargradient', linearGradient);
 
 	/**
 	 * SVG滤镜

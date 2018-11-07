@@ -25,8 +25,12 @@ import './graphics/Path';
 import './graphics/Text';
 import './graphics/Use';
 
+// gradient
+import './gradient/linearGradient';
+import './gradient/RadialGradient';
+import './gradient/Stop';
+
 import './TextPath';
-import './defs/linearGradient';
 
 import './filter/Filter';
 import './filter/feGaussianBlur';
