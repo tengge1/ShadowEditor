@@ -19,6 +19,29 @@ import './container/Pattern';
 import './container/Switch';
 import './container/Symbol';
 
+// filter
+import './filter/feBlend';
+import './filter/feColorMatrix';
+import './filter/feComponentTransfer';
+import './filter/feComposite';
+import './filter/feConvolveMatrix';
+import './filter/feDiffuseLighting';
+import './filter/feDisplacementMap';
+import './filter/feDropShadow';
+import './filter/feFlood';
+import './filter/feFuncA';
+import './filter/feFuncB';
+import './filter/feFuncG';
+import './filter/feGaussianBlur';
+import './filter/feImage';
+import './filter/feMerge';
+import './filter/feMergeNode';
+import './filter/feMorphology';
+import './filter/feOffset';
+import './filter/feSpecularLighting';
+import './filter/feTile';
+import './filter/feTurbulence';
+
 // graphics
 import './graphics/Image';
 import './graphics/Path';
@@ -31,11 +54,6 @@ import './gradient/RadialGradient';
 import './gradient/Stop';
 
 import './TextPath';
-
 import './filter/Filter';
-import './filter/feGaussianBlur';
-import './filter/feOffset';
-import './filter/feBlend';
-import './filter/feColorMatrix';
 
 export { SvgControl, SVG } from './third_party';

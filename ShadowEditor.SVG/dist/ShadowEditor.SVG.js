@@ -671,6 +671,384 @@
 	SVG.addXType('symbol', Symbol);
 
 	/**
+	 * SVG融合滤镜
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feBlend(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feBlend.prototype = Object.create(SvgControl.prototype);
+	feBlend.prototype.constructor = feBlend;
+
+	feBlend.prototype.render = function () {
+	    this.renderDom(this.createElement('feBlend'));
+	};
+
+	SVG.addXType('feblend', feBlend);
+
+	/**
+	 * SVG融合滤镜
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feColorMatrix(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feColorMatrix.prototype = Object.create(SvgControl.prototype);
+	feColorMatrix.prototype.constructor = feColorMatrix;
+
+	feColorMatrix.prototype.render = function () {
+	    this.renderDom(this.createElement('feColorMatrix'));
+	};
+
+	SVG.addXType('fecolormatrix', feColorMatrix);
+
+	/**
+	 * feComponentTransfer
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feComponentTransfer(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feComponentTransfer.prototype = Object.create(SvgControl.prototype);
+	feComponentTransfer.prototype.constructor = feComponentTransfer;
+
+	feComponentTransfer.prototype.render = function () {
+	    this.renderDom(this.createElement('feComponentTransfer'));
+	};
+
+	SVG.addXType('fecomponenttransfer', feComponentTransfer);
+
+	/**
+	 * feComposite
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feComposite(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feComposite.prototype = Object.create(SvgControl.prototype);
+	feComposite.prototype.constructor = feComposite;
+
+	feComposite.prototype.render = function () {
+	    this.renderDom(this.createElement('feComposite'));
+	};
+
+	SVG.addXType('fecomposite', feComposite);
+
+	/**
+	 * feConvolveMatrix
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feConvolveMatrix(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feConvolveMatrix.prototype = Object.create(SvgControl.prototype);
+	feConvolveMatrix.prototype.constructor = feConvolveMatrix;
+
+	feConvolveMatrix.prototype.render = function () {
+	    this.renderDom(this.createElement('feConvolveMatrix'));
+	};
+
+	SVG.addXType('feconvolvematrix', feConvolveMatrix);
+
+	/**
+	 * feDiffuseLighting
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feDiffuseLighting(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feDiffuseLighting.prototype = Object.create(SvgControl.prototype);
+	feDiffuseLighting.prototype.constructor = feDiffuseLighting;
+
+	feDiffuseLighting.prototype.render = function () {
+	    this.renderDom(this.createElement('feDiffuseLighting'));
+	};
+
+	SVG.addXType('fediffuselighting', feDiffuseLighting);
+
+	/**
+	 * feDisplacementMap
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feDisplacementMap(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feDisplacementMap.prototype = Object.create(SvgControl.prototype);
+	feDisplacementMap.prototype.constructor = feDisplacementMap;
+
+	feDisplacementMap.prototype.render = function () {
+	    this.renderDom(this.createElement('feDisplacementMap'));
+	};
+
+	SVG.addXType('fedisplacementmap', feDisplacementMap);
+
+	/**
+	 * feDropShadow
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feDropShadow(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feDropShadow.prototype = Object.create(SvgControl.prototype);
+	feDropShadow.prototype.constructor = feDropShadow;
+
+	feDropShadow.prototype.render = function () {
+	    this.renderDom(this.createElement('feDropShadow'));
+	};
+
+	SVG.addXType('fedropshadow', feDropShadow);
+
+	/**
+	 * feFlood
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feFlood(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feFlood.prototype = Object.create(SvgControl.prototype);
+	feFlood.prototype.constructor = feFlood;
+
+	feFlood.prototype.render = function () {
+	    this.renderDom(this.createElement('feFlood'));
+	};
+
+	SVG.addXType('feflood', feFlood);
+
+	/**
+	 * feFuncA
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feFuncA(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feFuncA.prototype = Object.create(SvgControl.prototype);
+	feFuncA.prototype.constructor = feFuncA;
+
+	feFuncA.prototype.render = function () {
+	    this.renderDom(this.createElement('feFuncA'));
+	};
+
+	SVG.addXType('fefunca', feFuncA);
+
+	/**
+	 * feFuncB
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feFuncB(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feFuncB.prototype = Object.create(SvgControl.prototype);
+	feFuncB.prototype.constructor = feFuncB;
+
+	feFuncB.prototype.render = function () {
+	    this.renderDom(this.createElement('feFuncB'));
+	};
+
+	SVG.addXType('fefuncb', feFuncB);
+
+	/**
+	 * feFuncG
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feFuncG(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feFuncG.prototype = Object.create(SvgControl.prototype);
+	feFuncG.prototype.constructor = feFuncG;
+
+	feFuncG.prototype.render = function () {
+	    this.renderDom(this.createElement('feFuncG'));
+	};
+
+	SVG.addXType('fefuncg', feFuncG);
+
+	/**
+	 * feGaussianBlur
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feGaussianBlur(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feGaussianBlur.prototype = Object.create(SvgControl.prototype);
+	feGaussianBlur.prototype.constructor = feGaussianBlur;
+
+	feGaussianBlur.prototype.render = function () {
+	    this.renderDom(this.createElement('feGaussianBlur'));
+	};
+
+	SVG.addXType('fegaussianblur', feGaussianBlur);
+
+	/**
+	 * feImage
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feImage(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feImage.prototype = Object.create(SvgControl.prototype);
+	feImage.prototype.constructor = feImage;
+
+	feImage.prototype.render = function () {
+	    this.renderDom(this.createElement('feImage'));
+	};
+
+	SVG.addXType('feimage', feImage);
+
+	/**
+	 * feMerge
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feMerge(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feMerge.prototype = Object.create(SvgControl.prototype);
+	feMerge.prototype.constructor = feMerge;
+
+	feMerge.prototype.render = function () {
+	    this.renderDom(this.createElement('feMerge'));
+	};
+
+	SVG.addXType('femerge', feMerge);
+
+	/**
+	 * feMergeNode
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feMergeNode(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feMergeNode.prototype = Object.create(SvgControl.prototype);
+	feMergeNode.prototype.constructor = feMergeNode;
+
+	feMergeNode.prototype.render = function () {
+	    this.renderDom(this.createElement('feMergeNode'));
+	};
+
+	SVG.addXType('femergenode', feMergeNode);
+
+	/**
+	 * feMorphology
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feMorphology(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feMorphology.prototype = Object.create(SvgControl.prototype);
+	feMorphology.prototype.constructor = feMorphology;
+
+	feMorphology.prototype.render = function () {
+	    this.renderDom(this.createElement('feMorphology'));
+	};
+
+	SVG.addXType('femorphology', feMorphology);
+
+	/**
+	 * SVG偏移滤镜
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feOffset(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feOffset.prototype = Object.create(SvgControl.prototype);
+	feOffset.prototype.constructor = feOffset;
+
+	feOffset.prototype.render = function () {
+	    this.renderDom(this.createElement('feOffset'));
+	};
+
+	SVG.addXType('feoffset', feOffset);
+
+	/**
+	 * feSpecularLighting
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feSpecularLighting(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feSpecularLighting.prototype = Object.create(SvgControl.prototype);
+	feSpecularLighting.prototype.constructor = feSpecularLighting;
+
+	feSpecularLighting.prototype.render = function () {
+	    this.renderDom(this.createElement('feSpecularLighting'));
+	};
+
+	SVG.addXType('fespecularlighting', feSpecularLighting);
+
+	/**
+	 * feTile
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feTile(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feTile.prototype = Object.create(SvgControl.prototype);
+	feTile.prototype.constructor = feTile;
+
+	feTile.prototype.render = function () {
+	    this.renderDom(this.createElement('feTile'));
+	};
+
+	SVG.addXType('fetile', feTile);
+
+	/**
+	 * feTurbulence
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function feTurbulence(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	feTurbulence.prototype = Object.create(SvgControl.prototype);
+	feTurbulence.prototype.constructor = feTurbulence;
+
+	feTurbulence.prototype.render = function () {
+	    this.renderDom(this.createElement('feTurbulence'));
+	};
+
+	SVG.addXType('feturbulence', feTurbulence);
+
+	/**
 	 * 图片
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
@@ -831,78 +1209,6 @@
 	};
 
 	SVG.addXType('filter', Filter);
-
-	/**
-	 * SVG高斯滤镜
-	 * @author tengge / https://github.com/tengge1
-	 * @param {*} options 
-	 */
-	function feGaussianBlur(options = {}) {
-	    SvgControl.call(this, options);
-	}
-
-	feGaussianBlur.prototype = Object.create(SvgControl.prototype);
-	feGaussianBlur.prototype.constructor = feGaussianBlur;
-
-	feGaussianBlur.prototype.render = function () {
-	    this.renderDom(this.createElement('feGaussianBlur'));
-	};
-
-	SVG.addXType('fegaussianblur', feGaussianBlur);
-
-	/**
-	 * SVG偏移滤镜
-	 * @author tengge / https://github.com/tengge1
-	 * @param {*} options 
-	 */
-	function feOffset(options = {}) {
-	    SvgControl.call(this, options);
-	}
-
-	feOffset.prototype = Object.create(SvgControl.prototype);
-	feOffset.prototype.constructor = feOffset;
-
-	feOffset.prototype.render = function () {
-	    this.renderDom(this.createElement('feOffset'));
-	};
-
-	SVG.addXType('feoffset', feOffset);
-
-	/**
-	 * SVG融合滤镜
-	 * @author tengge / https://github.com/tengge1
-	 * @param {*} options 
-	 */
-	function feBlend(options = {}) {
-	    SvgControl.call(this, options);
-	}
-
-	feBlend.prototype = Object.create(SvgControl.prototype);
-	feBlend.prototype.constructor = feBlend;
-
-	feBlend.prototype.render = function () {
-	    this.renderDom(this.createElement('feBlend'));
-	};
-
-	SVG.addXType('feblend', feBlend);
-
-	/**
-	 * SVG融合滤镜
-	 * @author tengge / https://github.com/tengge1
-	 * @param {*} options 
-	 */
-	function feColorMatrix(options = {}) {
-	    SvgControl.call(this, options);
-	}
-
-	feColorMatrix.prototype = Object.create(SvgControl.prototype);
-	feColorMatrix.prototype.constructor = feColorMatrix;
-
-	feColorMatrix.prototype.render = function () {
-	    this.renderDom(this.createElement('feColorMatrix'));
-	};
-
-	SVG.addXType('fecolormatrix', feColorMatrix);
 
 	// dom
 
