@@ -4,25 +4,33 @@
 
 <head>
     <meta charset="utf-8">
-    <title>06 SvgPolylineTest</title>
+    <title>06 PolylineTest</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 
 <body>
     <script src="../dist/ShadowEditor.SVG.js"></script>
     <script>
-        var dom = UI.create({
-            xtype: 'svgdom',
-            id: 'dom1',
+        var dom = Shadow.SVG.create({
+            xtype: 'dom',
             parent: document.body,
             attr: {
-                width: 800,
-                height: 600,
+                width: 400,
+                height: 400,
+                viewBox: '0 0 200 100'
             },
             children: [{
-                xtype: 'svgpolyline',
+                xtype: 'polyline',
                 attr: {
-                    points: [0, 0, 10, 30, 40, 60, 200, 100],
+                    points: '0,100 50,25 50,75 100,0',
+                    stroke: '#f00',
+                    'stroke-width': 2,
+                    fill: '#f00'
+                }
+            }, {
+                xtype: 'polyline',
+                attr: {
+                    points: '100,100 150,25 150,75 200,0',
                     stroke: '#f00',
                     'stroke-width': 2,
                     fill: 'none'

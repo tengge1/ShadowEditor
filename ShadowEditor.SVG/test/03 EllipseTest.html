@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>02 SvgCircleTest</title>
+    <title>03 EllipseTest</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 
@@ -15,15 +15,17 @@
             xtype: 'dom',
             parent: document.body,
             attr: {
-                width: 800,
-                height: 600,
+                width: 400,
+                height: 400,
+                viewBox: '0 0 200 100'
             },
             children: [{
-                xtype: 'circle',
+                xtype: 'ellipse',
                 attr: {
-                    cx: 80,
-                    cy: 80,
-                    r: 50,
+                    cx: 100,
+                    cy: 50,
+                    rx: 80,
+                    ry: 40,
                     stroke: '#555',
                     'stroke-width': 2,
                     fill: '#f00'
