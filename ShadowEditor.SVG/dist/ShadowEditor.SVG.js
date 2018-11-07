@@ -527,6 +527,150 @@
 	SVG.addXType('rect', Rect);
 
 	/**
+	 * SVG链接
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function Anchor(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	Anchor.prototype = Object.create(SvgControl.prototype);
+	Anchor.prototype.constructor = Anchor;
+
+	Anchor.prototype.render = function () {
+	    this.renderDom(this.createElement('a'));
+	};
+
+	SVG.addXType('a', Anchor);
+
+	/**
+	 * SVG定义
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function Defs(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	Defs.prototype = Object.create(SvgControl.prototype);
+	Defs.prototype.constructor = Defs;
+
+	Defs.prototype.render = function () {
+	    this.renderDom(this.createElement('defs'));
+	};
+
+	SVG.addXType('defs', Defs);
+
+	/**
+	 * SVG线
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function Group(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	Group.prototype = Object.create(SvgControl.prototype);
+	Group.prototype.constructor = Group;
+
+	Group.prototype.render = function () {
+	    this.renderDom(this.createElement('g'));
+	};
+
+	SVG.addXType('g', Group);
+
+	/**
+	 * 箭头
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function Marker(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	Marker.prototype = Object.create(SvgControl.prototype);
+	Marker.prototype.constructor = Marker;
+
+	Marker.prototype.render = function () {
+	    this.renderDom(this.createElement('marker'));
+	};
+
+	SVG.addXType('marker', Marker);
+
+	/**
+	 * 蒙版
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function Mask(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	Mask.prototype = Object.create(SvgControl.prototype);
+	Mask.prototype.constructor = Mask;
+
+	Mask.prototype.render = function () {
+	    this.renderDom(this.createElement('mask'));
+	};
+
+	SVG.addXType('mask', Mask);
+
+	/**
+	 * 模式
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function Pattern(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	Pattern.prototype = Object.create(SvgControl.prototype);
+	Pattern.prototype.constructor = Pattern;
+
+	Pattern.prototype.render = function () {
+	    this.renderDom(this.createElement('pattern'));
+	};
+
+	SVG.addXType('pattern', Pattern);
+
+	/**
+	 * 选择
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function Switch(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	Switch.prototype = Object.create(SvgControl.prototype);
+	Switch.prototype.constructor = Switch;
+
+	Switch.prototype.render = function () {
+	    this.renderDom(this.createElement('switch'));
+	};
+
+	SVG.addXType('switch', Switch);
+
+	/**
+	 * 标记
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function Symbol(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	Symbol.prototype = Object.create(SvgControl.prototype);
+	Symbol.prototype.constructor = Symbol;
+
+	Symbol.prototype.render = function () {
+	    this.renderDom(this.createElement('symbol'));
+	};
+
+	SVG.addXType('symbol', Symbol);
+
+	/**
 	 * SVG线
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
@@ -581,42 +725,6 @@
 	SVG.addXType('textpath', TextPath);
 
 	/**
-	 * SVG链接
-	 * @author tengge / https://github.com/tengge1
-	 * @param {*} options 
-	 */
-	function Anchor(options = {}) {
-	    SvgControl.call(this, options);
-	}
-
-	Anchor.prototype = Object.create(SvgControl.prototype);
-	Anchor.prototype.constructor = Anchor;
-
-	Anchor.prototype.render = function () {
-	    this.renderDom(this.createElement('a'));
-	};
-
-	SVG.addXType('a', Anchor);
-
-	/**
-	 * SVG定义
-	 * @author tengge / https://github.com/tengge1
-	 * @param {*} options 
-	 */
-	function Defs(options = {}) {
-	    SvgControl.call(this, options);
-	}
-
-	Defs.prototype = Object.create(SvgControl.prototype);
-	Defs.prototype.constructor = Defs;
-
-	Defs.prototype.render = function () {
-	    this.renderDom(this.createElement('defs'));
-	};
-
-	SVG.addXType('defs', Defs);
-
-	/**
 	 * SVG Use
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
@@ -651,24 +759,6 @@
 	};
 
 	SVG.addXType('lineargradient', linearGradient);
-
-	/**
-	 * SVG线
-	 * @author tengge / https://github.com/tengge1
-	 * @param {*} options 
-	 */
-	function Group(options = {}) {
-	    SvgControl.call(this, options);
-	}
-
-	Group.prototype = Object.create(SvgControl.prototype);
-	Group.prototype.constructor = Group;
-
-	Group.prototype.render = function () {
-	    this.renderDom(this.createElement('g'));
-	};
-
-	SVG.addXType('g', Group);
 
 	/**
 	 * SVG滤镜

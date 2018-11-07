@@ -9,15 +9,22 @@ import './shape/Polygon';
 import './shape/Polyline';
 import './shape/Rect';
 
+// container
+import './container/Anchor';
+import './container/Defs';
+import './container/Group';
+import './container/Marker';
+import './container/Mask';
+import './container/Pattern';
+import './container/Switch';
+import './container/Symbol';
+
 import './Path';
 import './Text';
 import './TextPath';
-import './Anchor';
 
-import './defs/Defs';
 import './defs/Use';
 import './defs/linearGradient';
-import './Group';
 
 import './filter/Filter';
 import './filter/feGaussianBlur';
@@ -25,4 +32,4 @@ import './filter/feOffset';
 import './filter/feBlend';
 import './filter/feColorMatrix';
 
-export { SvgControl, SVG } from './third_party';;
+export { SvgControl, SVG } from './third_party';
