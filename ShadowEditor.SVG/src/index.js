@@ -19,11 +19,13 @@ import './container/Pattern';
 import './container/Switch';
 import './container/Symbol';
 
-import './Path';
-import './Text';
-import './TextPath';
+// graphics
+import './graphics/Image';
+import './graphics/Path';
+import './graphics/Text';
+import './graphics/Use';
 
-import './defs/Use';
+import './TextPath';
 import './defs/linearGradient';
 
 import './filter/Filter';

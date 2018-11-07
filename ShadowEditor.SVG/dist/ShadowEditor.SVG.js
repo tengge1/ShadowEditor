@@ -671,7 +671,25 @@
 	SVG.addXType('symbol', Symbol);
 
 	/**
-	 * SVG线
+	 * 图片
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function Image(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	Image.prototype = Object.create(SvgControl.prototype);
+	Image.prototype.constructor = Image;
+
+	Image.prototype.render = function () {
+	    this.renderDom(this.createElement('image'));
+	};
+
+	SVG.addXType('image', Image);
+
+	/**
+	 * 线
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
@@ -707,24 +725,6 @@
 	SVG.addXType('text', Text);
 
 	/**
-	 * SVG文本路径
-	 * @author tengge / https://github.com/tengge1
-	 * @param {*} options 
-	 */
-	function TextPath(options = {}) {
-	    SvgControl.call(this, options);
-	}
-
-	TextPath.prototype = Object.create(SvgControl.prototype);
-	TextPath.prototype.constructor = TextPath;
-
-	TextPath.prototype.render = function () {
-	    this.renderDom(this.createElement('textPath'));
-	};
-
-	SVG.addXType('textpath', TextPath);
-
-	/**
 	 * SVG Use
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
@@ -741,6 +741,24 @@
 	};
 
 	SVG.addXType('use', Use);
+
+	/**
+	 * SVG文本路径
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function TextPath(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	TextPath.prototype = Object.create(SvgControl.prototype);
+	TextPath.prototype.constructor = TextPath;
+
+	TextPath.prototype.render = function () {
+	    this.renderDom(this.createElement('textPath'));
+	};
+
+	SVG.addXType('textpath', TextPath);
 
 	/**
 	 * 线性渐变
