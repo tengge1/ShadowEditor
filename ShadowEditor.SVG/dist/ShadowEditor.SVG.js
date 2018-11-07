@@ -414,7 +414,7 @@
 	    this.renderDom(this.createElement('svg'));
 	};
 
-	window.SVG.addXType('svg', Dom);
+	window.SVG.addXType('dom', Dom);
 
 	/**
 	 * SVG圆
@@ -433,24 +433,6 @@
 	};
 
 	window.SVG.addXType('circle', Circle);
-
-	/**
-	 * SVG矩形
-	 * @author tengge / https://github.com/tengge1
-	 * @param {*} options 
-	 */
-	function Rect(options = {}) {
-	    SvgControl.call(this, options);
-	}
-
-	Rect.prototype = Object.create(SvgControl.prototype);
-	Rect.prototype.constructor = Rect;
-
-	Rect.prototype.render = function () {
-	    this.renderDom(this.createElement('rect'));
-	};
-
-	window.SVG.addXType('rect', Rect);
 
 	/**
 	 * SVG椭圆
@@ -489,6 +471,24 @@
 	window.SVG.addXType('line', Line);
 
 	/**
+	 * SVG面
+	 * @author tengge / https://github.com/tengge1
+	 * @param {*} options 
+	 */
+	function Polygon(options = {}) {
+	    SvgControl.call(this, options);
+	}
+
+	Polygon.prototype = Object.create(SvgControl.prototype);
+	Polygon.prototype.constructor = Polygon;
+
+	Polygon.prototype.render = function () {
+	    this.renderDom(this.createElement('polygon'));
+	};
+
+	window.SVG.addXType('polygon', Polygon);
+
+	/**
 	 * SVG曲线
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
@@ -507,22 +507,22 @@
 	window.SVG.addXType('polyline', Polyline);
 
 	/**
-	 * SVG面
+	 * SVG矩形
 	 * @author tengge / https://github.com/tengge1
 	 * @param {*} options 
 	 */
-	function Polygon(options = {}) {
+	function Rect(options = {}) {
 	    SvgControl.call(this, options);
 	}
 
-	Polygon.prototype = Object.create(SvgControl.prototype);
-	Polygon.prototype.constructor = Polygon;
+	Rect.prototype = Object.create(SvgControl.prototype);
+	Rect.prototype.constructor = Rect;
 
-	Polygon.prototype.render = function () {
-	    this.renderDom(this.createElement('polygon'));
+	Rect.prototype.render = function () {
+	    this.renderDom(this.createElement('rect'));
 	};
 
-	window.SVG.addXType('polygon', Polygon);
+	window.SVG.addXType('rect', Rect);
 
 	/**
 	 * SVG线

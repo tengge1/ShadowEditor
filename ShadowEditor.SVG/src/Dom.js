@@ -16,6 +16,6 @@ Dom.prototype.render = function () {
     this.renderDom(this.createElement('svg'));
 };
 
-window.SVG.addXType('svg', Dom);
+window.SVG.addXType('dom', Dom);
 
 export default Dom;

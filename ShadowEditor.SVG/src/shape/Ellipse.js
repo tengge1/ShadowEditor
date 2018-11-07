@@ -1,4 +1,4 @@
-import { SvgControl } from './third_party';
+import { SvgControl } from '../third_party';
 
 /**
  * SVG椭圆

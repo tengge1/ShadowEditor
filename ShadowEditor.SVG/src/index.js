@@ -4,13 +4,17 @@ const SVG = new Manager();
 
 window.SVG = SVG;
 
+// dom
 import './Dom';
-import './Circle';
-import './Rect';
-import './Ellipse';
-import './Line';
-import './Polyline';
-import './Polygon';
+
+// shape
+import './shape/Circle';
+import './shape/Ellipse';
+import './shape/Line';
+import './shape/Polygon';
+import './shape/Polyline';
+import './shape/Rect';
+
 import './Path';
 import './Text';
 import './TextPath';
