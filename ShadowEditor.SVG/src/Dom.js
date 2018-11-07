@@ -1,4 +1,4 @@
-import { SvgControl } from './third_party';
+import { SvgControl, SVG } from './third_party';
 
 /**
  * SVG文档
@@ -16,6 +16,6 @@ Dom.prototype.render = function () {
     this.renderDom(this.createElement('svg'));
 };
 
-window.SVG.addXType('dom', Dom);
+SVG.addXType('dom', Dom);
 
 export default Dom;

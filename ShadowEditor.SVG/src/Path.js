@@ -1,4 +1,4 @@
-import { SvgControl } from './third_party';
+import { SvgControl, SVG } from './third_party';
 
 /**
  * SVG线
@@ -16,6 +16,6 @@ Path.prototype.render = function () {
     this.renderDom(this.createElement('path'));
 };
 
-window.SVG.addXType('path', Path);
+SVG.addXType('path', Path);
 
 export default Path;

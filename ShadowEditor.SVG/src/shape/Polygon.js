@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG面
@@ -16,6 +16,6 @@ Polygon.prototype.render = function () {
     this.renderDom(this.createElement('polygon'));
 };
 
-window.SVG.addXType('polygon', Polygon);
+SVG.addXType('polygon', Polygon);
 
 export default Polygon;

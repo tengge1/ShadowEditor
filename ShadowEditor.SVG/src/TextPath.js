@@ -1,4 +1,4 @@
-import { SvgControl } from './third_party';
+import { SvgControl, SVG } from './third_party';
 
 /**
  * SVG文本路径
@@ -16,6 +16,6 @@ TextPath.prototype.render = function () {
     this.renderDom(this.createElement('textPath'));
 };
 
-window.SVG.addXType('textpath', TextPath);
+SVG.addXType('textpath', TextPath);
 
 export default TextPath;

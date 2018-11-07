@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * 线性渐变
@@ -16,6 +16,6 @@ linearGradient.prototype.render = function () {
     this.renderDom(this.createElement('linearGradient'));
 };
 
-window.SVG.addXType('lineargradient', linearGradient);
+SVG.addXType('lineargradient', linearGradient);
 
 export default linearGradient;

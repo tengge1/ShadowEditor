@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG椭圆
@@ -16,6 +16,6 @@ Ellipse.prototype.render = function () {
     this.renderDom(this.createElement('ellipse'));
 };
 
-window.SVG.addXType('ellipse', Ellipse);
+SVG.addXType('ellipse', Ellipse);
 
 export default Ellipse;

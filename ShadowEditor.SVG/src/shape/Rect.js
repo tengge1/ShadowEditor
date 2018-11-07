@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG矩形
@@ -16,6 +16,6 @@ Rect.prototype.render = function () {
     this.renderDom(this.createElement('rect'));
 };
 
-window.SVG.addXType('rect', Rect);
+SVG.addXType('rect', Rect);
 
 export default Rect;

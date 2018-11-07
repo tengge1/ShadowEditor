@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG线
@@ -16,6 +16,6 @@ Line.prototype.render = function () {
     this.renderDom(this.createElement('line'));
 };
 
-window.SVG.addXType('line', Line);
+SVG.addXType('line', Line);
 
 export default Line;

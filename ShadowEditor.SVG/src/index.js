@@ -1,9 +1,3 @@
-import { SvgControl, Manager } from './third_party';
-
-const SVG = new Manager();
-
-window.SVG = SVG;
-
 // dom
 import './Dom';
 
@@ -31,4 +25,4 @@ import './filter/feOffset';
 import './filter/feBlend';
 import './filter/feColorMatrix';
 
-export { SvgControl, SVG };
+export { SvgControl, SVG } from './third_party';;

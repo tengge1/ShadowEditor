@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG曲线
@@ -16,6 +16,6 @@ Polyline.prototype.render = function () {
     this.renderDom(this.createElement('polyline'));
 };
 
-window.SVG.addXType('polyline', Polyline);
+SVG.addXType('polyline', Polyline);
 
 export default Polyline;

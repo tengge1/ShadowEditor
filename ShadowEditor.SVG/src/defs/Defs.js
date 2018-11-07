@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG定义
@@ -16,6 +16,6 @@ Defs.prototype.render = function () {
     this.renderDom(this.createElement('defs'));
 };
 
-window.SVG.addXType('defs', Defs);
+SVG.addXType('defs', Defs);
 
 export default Defs;

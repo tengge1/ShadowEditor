@@ -1,4 +1,4 @@
-import { SvgControl } from './third_party';
+import { SvgControl, SVG } from './third_party';
 
 /**
  * SVG文本
@@ -7,8 +7,6 @@ import { SvgControl } from './third_party';
  */
 function Text(options = {}) {
     SvgControl.call(this, options);
-
-    this.text = options.text || null;
 }
 
 Text.prototype = Object.create(SvgControl.prototype);
@@ -18,6 +16,6 @@ Text.prototype.render = function () {
     this.renderDom(this.createElement('text'));
 };
 
-window.SVG.addXType('text', Text);
+SVG.addXType('text', Text);
 
 export default Text;

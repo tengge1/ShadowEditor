@@ -398,6 +398,8 @@
 	    return control;
 	};
 
+	const SVG = new Manager();
+
 	/**
 	 * SVG文档
 	 * @author tengge / https://github.com/tengge1
@@ -414,7 +416,7 @@
 	    this.renderDom(this.createElement('svg'));
 	};
 
-	window.SVG.addXType('dom', Dom);
+	SVG.addXType('dom', Dom);
 
 	/**
 	 * SVG圆
@@ -432,7 +434,7 @@
 	    this.renderDom(this.createElement('circle'));
 	};
 
-	window.SVG.addXType('circle', Circle);
+	SVG.addXType('circle', Circle);
 
 	/**
 	 * SVG椭圆
@@ -450,7 +452,7 @@
 	    this.renderDom(this.createElement('ellipse'));
 	};
 
-	window.SVG.addXType('ellipse', Ellipse);
+	SVG.addXType('ellipse', Ellipse);
 
 	/**
 	 * SVG线
@@ -468,7 +470,7 @@
 	    this.renderDom(this.createElement('line'));
 	};
 
-	window.SVG.addXType('line', Line);
+	SVG.addXType('line', Line);
 
 	/**
 	 * SVG面
@@ -486,7 +488,7 @@
 	    this.renderDom(this.createElement('polygon'));
 	};
 
-	window.SVG.addXType('polygon', Polygon);
+	SVG.addXType('polygon', Polygon);
 
 	/**
 	 * SVG曲线
@@ -504,7 +506,7 @@
 	    this.renderDom(this.createElement('polyline'));
 	};
 
-	window.SVG.addXType('polyline', Polyline);
+	SVG.addXType('polyline', Polyline);
 
 	/**
 	 * SVG矩形
@@ -522,7 +524,7 @@
 	    this.renderDom(this.createElement('rect'));
 	};
 
-	window.SVG.addXType('rect', Rect);
+	SVG.addXType('rect', Rect);
 
 	/**
 	 * SVG线
@@ -540,7 +542,7 @@
 	    this.renderDom(this.createElement('path'));
 	};
 
-	window.SVG.addXType('path', Path);
+	SVG.addXType('path', Path);
 
 	/**
 	 * SVG文本
@@ -549,8 +551,6 @@
 	 */
 	function Text(options = {}) {
 	    SvgControl.call(this, options);
-
-	    this.text = options.text || null;
 	}
 
 	Text.prototype = Object.create(SvgControl.prototype);
@@ -560,7 +560,7 @@
 	    this.renderDom(this.createElement('text'));
 	};
 
-	window.SVG.addXType('text', Text);
+	SVG.addXType('text', Text);
 
 	/**
 	 * SVG文本路径
@@ -578,7 +578,7 @@
 	    this.renderDom(this.createElement('textPath'));
 	};
 
-	window.SVG.addXType('textpath', TextPath);
+	SVG.addXType('textpath', TextPath);
 
 	/**
 	 * SVG链接
@@ -596,7 +596,7 @@
 	    this.renderDom(this.createElement('a'));
 	};
 
-	window.SVG.addXType('a', Anchor);
+	SVG.addXType('a', Anchor);
 
 	/**
 	 * SVG定义
@@ -614,7 +614,7 @@
 	    this.renderDom(this.createElement('defs'));
 	};
 
-	window.SVG.addXType('defs', Defs);
+	SVG.addXType('defs', Defs);
 
 	/**
 	 * SVG Use
@@ -632,7 +632,7 @@
 	    this.renderDom(this.createElement('use'));
 	};
 
-	window.SVG.addXType('use', Use);
+	SVG.addXType('use', Use);
 
 	/**
 	 * 线性渐变
@@ -650,7 +650,7 @@
 	    this.renderDom(this.createElement('linearGradient'));
 	};
 
-	window.SVG.addXType('lineargradient', linearGradient);
+	SVG.addXType('lineargradient', linearGradient);
 
 	/**
 	 * SVG线
@@ -668,7 +668,7 @@
 	    this.renderDom(this.createElement('g'));
 	};
 
-	window.SVG.addXType('g', Group);
+	SVG.addXType('g', Group);
 
 	/**
 	 * SVG滤镜
@@ -686,7 +686,7 @@
 	    this.renderDom(this.createElement('filter'));
 	};
 
-	window.SVG.addXType('filter', Filter);
+	SVG.addXType('filter', Filter);
 
 	/**
 	 * SVG高斯滤镜
@@ -704,7 +704,7 @@
 	    this.renderDom(this.createElement('feGaussianBlur'));
 	};
 
-	window.SVG.addXType('fegaussianblur', feGaussianBlur);
+	SVG.addXType('fegaussianblur', feGaussianBlur);
 
 	/**
 	 * SVG偏移滤镜
@@ -722,7 +722,7 @@
 	    this.renderDom(this.createElement('feOffset'));
 	};
 
-	window.SVG.addXType('feoffset', feOffset);
+	SVG.addXType('feoffset', feOffset);
 
 	/**
 	 * SVG融合滤镜
@@ -740,7 +740,7 @@
 	    this.renderDom(this.createElement('feBlend'));
 	};
 
-	window.SVG.addXType('feblend', feBlend);
+	SVG.addXType('feblend', feBlend);
 
 	/**
 	 * SVG融合滤镜
@@ -758,11 +758,9 @@
 	    this.renderDom(this.createElement('feColorMatrix'));
 	};
 
-	window.SVG.addXType('fecolormatrix', feColorMatrix);
+	SVG.addXType('fecolormatrix', feColorMatrix);
 
-	const SVG = new Manager();
-
-	window.SVG = SVG;
+	// dom
 
 	exports.SvgControl = SvgControl;
 	exports.SVG = SVG;

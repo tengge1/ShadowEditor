@@ -12,20 +12,18 @@
     <script src="../dist/ShadowEditor.SVG.js"></script>
     <script>
         function CustomControl(options = {}) {
-            Shadow.Control.call(this, options);
+            Shadow.SvgControl.call(this, options);
         }
 
-        CustomControl.prototype = Object.create(Shadow.Control.prototype);
+        CustomControl.prototype = Object.create(Shadow.SvgControl.prototype);
         CustomControl.prototype.constructor = CustomControl;
 
         CustomControl.prototype.render = function () {
-            var dom = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            this.renderDom(dom);
+            this.renderDom(this.createElement('circle'));
         };
 
-        var dom = UI.create({
-            xtype: 'svgdom',
-            id: 'dom1',
+        var dom = Shadow.SVG.create({
+            xtype: 'dom',
             parent: document.body,
             attr: {
                 width: 800,

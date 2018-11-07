@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>02 SvgCircleTest</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+    <script src="../dist/ShadowEditor.SVG.js"></script>
+    <script>
+        var dom = Shadow.SVG.create({
+            xtype: 'dom',
+            parent: document.body,
+            attr: {
+                width: 800,
+                height: 600,
+            },
+            children: [{
+                xtype: 'circle',
+                attr: {
+                    cx: 80,
+                    cy: 80,
+                    r: 50,
+                    stroke: '#555',
+                    'stroke-width': 2,
+                    fill: '#f00'
+                },
+                listeners: {
+                    click: () => {
+                        alert('You clicked!');
+                    }
+                }
+            }]
+        });
+
+        dom.render();
+    </script>
+</body>
+
+</html>

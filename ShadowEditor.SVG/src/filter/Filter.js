@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG滤镜
@@ -16,6 +16,6 @@ Filter.prototype.render = function () {
     this.renderDom(this.createElement('filter'));
 };
 
-window.SVG.addXType('filter', Filter);
+SVG.addXType('filter', Filter);
 
 export default Filter;

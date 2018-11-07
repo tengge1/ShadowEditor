@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG Use
@@ -16,6 +16,6 @@ Use.prototype.render = function () {
     this.renderDom(this.createElement('use'));
 };
 
-window.SVG.addXType('use', Use);
+SVG.addXType('use', Use);
 
 export default Use;

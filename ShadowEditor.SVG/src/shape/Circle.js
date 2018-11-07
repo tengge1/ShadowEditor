@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG圆
@@ -16,6 +16,6 @@ Circle.prototype.render = function () {
     this.renderDom(this.createElement('circle'));
 };
 
-window.SVG.addXType('circle', Circle);
+SVG.addXType('circle', Circle);
 
 export default Circle;

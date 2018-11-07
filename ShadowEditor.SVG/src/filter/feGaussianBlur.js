@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG高斯滤镜
@@ -16,6 +16,6 @@ feGaussianBlur.prototype.render = function () {
     this.renderDom(this.createElement('feGaussianBlur'));
 };
 
-window.SVG.addXType('fegaussianblur', feGaussianBlur);
+SVG.addXType('fegaussianblur', feGaussianBlur);
 
 export default feGaussianBlur;

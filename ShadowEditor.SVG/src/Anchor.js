@@ -1,4 +1,4 @@
-import { SvgControl } from './third_party';
+import { SvgControl, SVG } from './third_party';
 
 /**
  * SVG链接
@@ -16,6 +16,6 @@ Anchor.prototype.render = function () {
     this.renderDom(this.createElement('a'));
 };
 
-window.SVG.addXType('a', Anchor);
+SVG.addXType('a', Anchor);
 
 export default Anchor;

@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG融合滤镜
@@ -16,6 +16,6 @@ feColorMatrix.prototype.render = function () {
     this.renderDom(this.createElement('feColorMatrix'));
 };
 
-window.SVG.addXType('fecolormatrix', feColorMatrix);
+SVG.addXType('fecolormatrix', feColorMatrix);
 
 export default feColorMatrix;

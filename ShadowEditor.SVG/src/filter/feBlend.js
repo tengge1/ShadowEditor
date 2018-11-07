@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG融合滤镜
@@ -16,6 +16,6 @@ feBlend.prototype.render = function () {
     this.renderDom(this.createElement('feBlend'));
 };
 
-window.SVG.addXType('feblend', feBlend);
+SVG.addXType('feblend', feBlend);
 
 export default feBlend;

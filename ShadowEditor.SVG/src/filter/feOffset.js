@@ -1,4 +1,4 @@
-import { SvgControl } from '../third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
  * SVG偏移滤镜
@@ -16,6 +16,6 @@ feOffset.prototype.render = function () {
     this.renderDom(this.createElement('feOffset'));
 };
 
-window.SVG.addXType('feoffset', feOffset);
+SVG.addXType('feoffset', feOffset);
 
 export default feOffset;
