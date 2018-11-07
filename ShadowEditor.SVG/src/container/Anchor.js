@@ -1,7 +1,7 @@
 import { SvgControl, SVG } from '../third_party';
 
 /**
- * SVG链接
+ * Anchor
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
