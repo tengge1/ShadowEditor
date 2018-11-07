@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { SvgControl } from './third_party';
 
 /**
  * SVG文本路径
@@ -6,19 +6,16 @@ import { Control, UI } from './third_party';
  * @param {*} options 
  */
 function TextPath(options = {}) {
-    Control.call(this, options);
-
-    this.text = options.text || null;
+    SvgControl.call(this, options);
 }
 
-TextPath.prototype = Object.create(Control.prototype);
+TextPath.prototype = Object.create(SvgControl.prototype);
 TextPath.prototype.constructor = TextPath;
 
 TextPath.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'textPath');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('textPath'));
 };
 
-UI.addXType('svgtextpath', TextPath);
+window.SVG.addXType('textpath', TextPath);
 
 export default TextPath;

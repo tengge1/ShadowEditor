@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { SvgControl } from './third_party';
 
 /**
  * SVG线
@@ -6,17 +6,16 @@ import { Control, UI } from './third_party';
  * @param {*} options 
  */
 function Line(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-Line.prototype = Object.create(Control.prototype);
+Line.prototype = Object.create(SvgControl.prototype);
 Line.prototype.constructor = Line;
 
 Line.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('line'));
 };
 
-UI.addXType('svgline', Line);
+window.SVG.addXType('line', Line);
 
 export default Line;

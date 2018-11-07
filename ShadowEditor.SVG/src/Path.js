@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { SvgControl } from './third_party';
 
 /**
  * SVG线
@@ -6,17 +6,16 @@ import { Control, UI } from './third_party';
  * @param {*} options 
  */
 function Path(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-Path.prototype = Object.create(Control.prototype);
+Path.prototype = Object.create(SvgControl.prototype);
 Path.prototype.constructor = Path;
 
 Path.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('path'));
 };
 
-UI.addXType('svgpath', Path);
+window.SVG.addXType('path', Path);
 
 export default Path;

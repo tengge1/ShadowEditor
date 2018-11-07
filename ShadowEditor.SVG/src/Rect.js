@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { SvgControl } from './third_party';
 
 /**
  * SVG矩形
@@ -6,17 +6,16 @@ import { Control, UI } from './third_party';
  * @param {*} options 
  */
 function Rect(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-Rect.prototype = Object.create(Control.prototype);
+Rect.prototype = Object.create(SvgControl.prototype);
 Rect.prototype.constructor = Rect;
 
 Rect.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('rect'));
 };
 
-UI.addXType('svgrect', Rect);
+window.SVG.addXType('rect', Rect);
 
 export default Rect;

@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { SvgControl } from './third_party';
 
 /**
  * SVG圆
@@ -6,17 +6,16 @@ import { Control, UI } from './third_party';
  * @param {*} options 
  */
 function Circle(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-Circle.prototype = Object.create(Control.prototype);
+Circle.prototype = Object.create(SvgControl.prototype);
 Circle.prototype.constructor = Circle;
 
 Circle.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('circle'));
 };
 
-UI.addXType('svgcircle', Circle);
+window.SVG.addXType('circle', Circle);
 
 export default Circle;

@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { SvgControl } from './third_party';
 
 /**
  * SVG文本
@@ -6,19 +6,18 @@ import { Control, UI } from './third_party';
  * @param {*} options 
  */
 function Text(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 
     this.text = options.text || null;
 }
 
-Text.prototype = Object.create(Control.prototype);
+Text.prototype = Object.create(SvgControl.prototype);
 Text.prototype.constructor = Text;
 
 Text.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('text'));
 };
 
-UI.addXType('svgtext', Text);
+window.SVG.addXType('text', Text);
 
 export default Text;

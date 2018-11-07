@@ -1,4 +1,4 @@
-import { Control, UI } from '../third_party';
+import { SvgControl } from '../third_party';
 
 /**
  * SVG偏移滤镜
@@ -6,17 +6,16 @@ import { Control, UI } from '../third_party';
  * @param {*} options 
  */
 function feOffset(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-feOffset.prototype = Object.create(Control.prototype);
+feOffset.prototype = Object.create(SvgControl.prototype);
 feOffset.prototype.constructor = feOffset;
 
 feOffset.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'feOffset');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('feOffset'));
 };
 
-UI.addXType('svgfeoffset', feOffset);
+window.SVG.addXType('feoffset', feOffset);
 
 export default feOffset;

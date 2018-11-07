@@ -1,4 +1,4 @@
-import { Control, UI } from '../third_party';
+import { SvgControl } from '../third_party';
 
 /**
  * SVG融合滤镜
@@ -6,17 +6,16 @@ import { Control, UI } from '../third_party';
  * @param {*} options 
  */
 function feBlend(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-feBlend.prototype = Object.create(Control.prototype);
+feBlend.prototype = Object.create(SvgControl.prototype);
 feBlend.prototype.constructor = feBlend;
 
 feBlend.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'feBlend');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('feBlend'));
 };
 
-UI.addXType('svgfeblend', feBlend);
+window.SVG.addXType('feblend', feBlend);
 
 export default feBlend;

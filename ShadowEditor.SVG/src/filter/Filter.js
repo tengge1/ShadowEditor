@@ -1,4 +1,4 @@
-import { Control, UI } from '../third_party';
+import { SvgControl } from '../third_party';
 
 /**
  * SVG滤镜
@@ -6,17 +6,16 @@ import { Control, UI } from '../third_party';
  * @param {*} options 
  */
 function Filter(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-Filter.prototype = Object.create(Control.prototype);
+Filter.prototype = Object.create(SvgControl.prototype);
 Filter.prototype.constructor = Filter;
 
 Filter.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('filter'));
 };
 
-UI.addXType('svgfilter', Filter);
+window.SVG.addXType('filter', Filter);
 
 export default Filter;

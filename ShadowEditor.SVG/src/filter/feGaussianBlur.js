@@ -1,4 +1,4 @@
-import { Control, UI } from '../third_party';
+import { SvgControl } from '../third_party';
 
 /**
  * SVG高斯滤镜
@@ -6,17 +6,16 @@ import { Control, UI } from '../third_party';
  * @param {*} options 
  */
 function feGaussianBlur(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-feGaussianBlur.prototype = Object.create(Control.prototype);
+feGaussianBlur.prototype = Object.create(SvgControl.prototype);
 feGaussianBlur.prototype.constructor = feGaussianBlur;
 
 feGaussianBlur.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('feGaussianBlur'));
 };
 
-UI.addXType('svgfegaussianblur', feGaussianBlur);
+window.SVG.addXType('fegaussianblur', feGaussianBlur);
 
 export default feGaussianBlur;

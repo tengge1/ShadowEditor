@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { SvgControl } from './third_party';
 
 /**
  * SVG链接
@@ -6,17 +6,16 @@ import { Control, UI } from './third_party';
  * @param {*} options 
  */
 function Anchor(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-Anchor.prototype = Object.create(Control.prototype);
+Anchor.prototype = Object.create(SvgControl.prototype);
 Anchor.prototype.constructor = Anchor;
 
 Anchor.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'a');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('a'));
 };
 
-UI.addXType('svga', Anchor);
+window.SVG.addXType('a', Anchor);
 
 export default Anchor;

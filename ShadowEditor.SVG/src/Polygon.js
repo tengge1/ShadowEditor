@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { SvgControl } from './third_party';
 
 /**
  * SVG面
@@ -6,17 +6,16 @@ import { Control, UI } from './third_party';
  * @param {*} options 
  */
 function Polygon(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-Polygon.prototype = Object.create(Control.prototype);
+Polygon.prototype = Object.create(SvgControl.prototype);
 Polygon.prototype.constructor = Polygon;
 
 Polygon.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('polygon'));
 };
 
-UI.addXType('svgpolygon', Polygon);
+window.SVG.addXType('polygon', Polygon);
 
 export default Polygon;

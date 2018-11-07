@@ -26,7 +26,7 @@
 	    this.listeners = options.listeners || null; // 监听器
 	    this.userData = options.userData || null; // 自定义数据
 
-	    window.UI.add(this._id, this, this._scope);
+	    this.manager = null; // Manager.create时自动赋值
 	}
 
 	Object.defineProperties(Control.prototype, {
@@ -81,6 +81,7 @@
 	Control.prototype.remove = function (obj) {
 	    var index = this.children.indexOf(obj);
 	    if (index > -1) {
+	        this.children[index].manager = null;
 	        this.children.splice(index, 1);
 	    }
 	};
@@ -90,10 +91,18 @@
 	 */
 	Control.prototype.render = function () {
 	    this.children.forEach(n => {
-	        var obj = window.UI.create(n);
+	        var obj = this.manager.create(n);
 	        obj.parent = this.parent;
 	        obj.render();
 	    });
+	};
+
+	/**
+	 * 创建元素
+	 * @param {*} tag 标签
+	 */
+	Control.prototype.createElement = function (tag) {
+	    return document.createElement(tag);
 	};
 
 	/**
@@ -146,7 +155,7 @@
 
 	    // 渲染子节点
 	    this.children.forEach(n => {
-	        var control = window.UI.create(n);
+	        var control = this.manager.create(n);
 	        control.parent = this.dom;
 	        control.render();
 	    });
@@ -163,7 +172,7 @@
 
 	        items.forEach(n => {
 	            if (n.id) {
-	                window.UI.remove(n.id, n.scope);
+	                this.manager.remove(n.id, n.scope);
 	            }
 	            if (n.listeners) {
 	                Object.keys(n.listeners).forEach(m => {
@@ -200,141 +209,37 @@
 	        this.parent = null;
 	    }
 	    if (this.id) {
-	        window.UI.remove(this._id, this._scope);
+	        this.manager.remove(this._id, this._scope);
 	    }
+	    this.manager = null;
 	};
 
+	const svgNS = 'http://www.w3.org/2000/svg';
+	const xlinkNS = "http://www.w3.org/1999/xlink";
+
 	/**
-	 * UI类
-	 * @author tengge / https://github.com/tengge1
+	 * SVG控件
+	 * @param {*} options 选项
 	 */
-	function UICls() {
-	    this.xtypes = {};
-	    this.objects = {};
+	function SvgControl(options = {}) {
+	    Control.call(this, options);
 	}
 
-	/**
-	 * 添加xtype
-	 * @param {*} name xtype字符串
-	 * @param {*} cls xtype对应类
-	 */
-	UICls.prototype.addXType = function (name, cls) {
-	    if (this.xtypes[name] === undefined) {
-	        this.xtypes[name] = cls;
-	    } else {
-	        console.warn(`UICls: xtype named ${name} has already been added.`);
-	    }
+	SvgControl.prototype = Object.create(Control.prototype);
+	SvgControl.prototype.constructor = SvgControl;
+
+	SvgControl.prototype.createElement = function (tag) {
+	    return document.createElementNS(svgNS, tag);
 	};
 
-	/**
-	 * 删除xtype
-	 * @param {*} name xtype字符串
-	 */
-	UICls.prototype.removeXType = function (name) {
-	    if (this.xtypes[name] !== undefined) {
-	        delete this.xtypes[name];
-	    } else {
-	        console.warn(`UICls: xtype named ${name} is not defined.`);
-	    }
-	};
-
-	/**
-	 * 获取xtype
-	 * @param {*} name xtype字符串
-	 */
-	UICls.prototype.getXType = function (name) {
-	    if (this.xtypes[name] === undefined) {
-	        console.warn(`UICls: xtype named ${name} is not defined.`);
-	    }
-	    return this.xtypes[name];
-	};
-
-	/**
-	 * 添加一个对象到缓存
-	 * @param {*} id 对象id
-	 * @param {*} obj 对象
-	 * @param {*} scope 对象作用域（默认为global）
-	 */
-	UICls.prototype.add = function (id, obj, scope = "global") {
-	    var key = `${scope}:${id}`;
-	    if (this.objects[key] !== undefined) {
-	        console.warn(`UICls: object named ${id} has already been added.`);
-	    }
-	    this.objects[key] = obj;
-	};
-
-	/**
-	 * 从缓存中移除一个对象
-	 * @param {*} id 对象id
-	 * @param {*} scope 对象作用域（默认为global）
-	 */
-	UICls.prototype.remove = function (id, scope = 'global') {
-	    var key = `${scope}:${id}`;
-	    if (this.objects[key] != undefined) {
-	        delete this.objects[key];
-	    } else {
-	        console.warn(`UICls: object named ${id} is not defined.`);
-	    }
-	};
-
-	/**
-	 * 从缓存中获取一个对象
-	 * @param {*} id 控件id
-	 * @param {*} scope 对象作用域（默认为global）
-	 */
-	UICls.prototype.get = function (id, scope = 'global') {
-	    var key = `${scope}:${id}`;
-	    return this.objects[key];
-	};
-
-	/**
-	 * 通过json配置创建UI实例，并自动将包含id的控件添加到缓存
-	 * @param {*} config xtype配置
-	 */
-	UICls.prototype.create = function (config) {
-	    if (config instanceof Control) { // config是Control实例
-	        return config;
-	    }
-
-	    // config是json配置
-	    if (config == null || config.xtype == null) {
-	        throw 'UICls: config is undefined.';
-	    }
-
-	    if (config.xtype === undefined) {
-	        throw 'UICls: config.xtype is undefined.';
-	    }
-
-	    var cls = this.xtypes[config.xtype];
-	    if (cls == null) {
-	        throw `UICls: xtype named ${config.xtype} is undefined.`;
-	    }
-
-	    return new cls(config);
-	};
-
-	/**
-	 * UICls
-	 */
-	const UI = new UICls();
-
-	window.UI = UI;
-
-	const xlinkns = "http://www.w3.org/1999/xlink";
-
-	/**
-	* 渲染dom
-	* @param {*} dom 
-	*/
-	Control.prototype.renderDom = function (dom) {
+	SvgControl.prototype.renderDom = function (dom) {
 	    this.dom = dom;
 	    this.parent.appendChild(this.dom);
 
 	    if (this.attr) {
 	        Object.keys(this.attr).forEach(n => {
-	            // 对于类似`xlink:href`的属性，需要使用setAttributeNS设置属性，否则svg显示不出来
 	            if (n.startsWith('xlink')) {
-	                this.dom.setAttributeNS(xlinkns, n, this.attr[n]);
+	                this.dom.setAttributeNS(xlinkNS, n, this.attr[n]);
 	            } else {
 	                this.dom.setAttribute(n, this.attr[n]);
 	            }
@@ -369,10 +274,128 @@
 	    }
 
 	    this.children.forEach(n => {
-	        var control = window.UI.create(n);
+	        var control = this.manager.create(n);
 	        control.parent = this.dom;
 	        control.render();
 	    });
+	};
+
+	/**
+	 * Manager类
+	 * @author tengge / https://github.com/tengge1
+	 */
+	function Manager() {
+	    this.xtypes = {};
+	    this.objects = {};
+	}
+
+	/**
+	 * 添加xtype
+	 * @param {*} name xtype字符串
+	 * @param {*} cls xtype对应类
+	 */
+	Manager.prototype.addXType = function (name, cls) {
+	    if (this.xtypes[name] === undefined) {
+	        this.xtypes[name] = cls;
+	    } else {
+	        console.warn(`Manager: xtype named ${name} has already been added.`);
+	    }
+	};
+
+	/**
+	 * 删除xtype
+	 * @param {*} name xtype字符串
+	 */
+	Manager.prototype.removeXType = function (name) {
+	    if (this.xtypes[name] !== undefined) {
+	        delete this.xtypes[name];
+	    } else {
+	        console.warn(`Manager: xtype named ${name} is not defined.`);
+	    }
+	};
+
+	/**
+	 * 获取xtype
+	 * @param {*} name xtype字符串
+	 */
+	Manager.prototype.getXType = function (name) {
+	    if (this.xtypes[name] === undefined) {
+	        console.warn(`Manager: xtype named ${name} is not defined.`);
+	    }
+	    return this.xtypes[name];
+	};
+
+	/**
+	 * 添加一个对象到缓存
+	 * @param {*} id 对象id
+	 * @param {*} obj 对象
+	 * @param {*} scope 对象作用域（默认为global）
+	 */
+	Manager.prototype.add = function (id, obj, scope = "global") {
+	    var key = `${scope}:${id}`;
+	    if (this.objects[key] !== undefined) {
+	        console.warn(`Manager: object named ${id} has already been added.`);
+	    }
+
+	    obj.manager = this;
+	    this.objects[key] = obj;
+	};
+
+	/**
+	 * 从缓存中移除一个对象
+	 * @param {*} id 对象id
+	 * @param {*} scope 对象作用域（默认为global）
+	 */
+	Manager.prototype.remove = function (id, scope = 'global') {
+	    var key = `${scope}:${id}`;
+	    if (this.objects[key] != undefined) {
+	        this.objects[key].manager = null;
+	        delete this.objects[key];
+	    } else {
+	        console.warn(`Manager: object named ${id} is not defined.`);
+	    }
+	};
+
+	/**
+	 * 从缓存中获取一个对象
+	 * @param {*} id 控件id
+	 * @param {*} scope 对象作用域（默认为global）
+	 */
+	Manager.prototype.get = function (id, scope = 'global') {
+	    var key = `${scope}:${id}`;
+	    return this.objects[key];
+	};
+
+	/**
+	 * 通过json配置创建Control实例，并自动将包含id的控件添加到缓存
+	 * @param {*} config xtype配置
+	 */
+	Manager.prototype.create = function (config) {
+	    if (config instanceof Control) { // config是Control实例
+
+	        this.add(config.id, this, config.scope);
+	        return config;
+	    }
+
+	    // config是json配置
+	    if (config == null || config.xtype == null) {
+	        console.warn('Manager: config is undefined.');
+	    }
+
+	    if (config.xtype === undefined) {
+	        console.warn('Manager: config.xtype is undefined.');
+	    }
+
+	    var cls = this.xtypes[config.xtype];
+	    if (cls == null) {
+	        console.warn(`Manager: xtype named ${config.xtype} is undefined.`);
+	    }
+
+	    var control = new cls(config);
+
+	    this.add(control.id, control, control.scope);
+
+	    return control;
 	};
 
 	/**
@@ -381,18 +404,17 @@
 	 * @param {*} options 
 	 */
 	function Dom(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Dom.prototype = Object.create(Control.prototype);
+	Dom.prototype = Object.create(SvgControl.prototype);
 	Dom.prototype.constructor = Dom;
 
 	Dom.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('svg'));
 	};
 
-	UI.addXType('svgdom', Dom);
+	window.SVG.addXType('svg', Dom);
 
 	/**
 	 * SVG圆
@@ -400,18 +422,17 @@
 	 * @param {*} options 
 	 */
 	function Circle(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Circle.prototype = Object.create(Control.prototype);
+	Circle.prototype = Object.create(SvgControl.prototype);
 	Circle.prototype.constructor = Circle;
 
 	Circle.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('circle'));
 	};
 
-	UI.addXType('svgcircle', Circle);
+	window.SVG.addXType('circle', Circle);
 
 	/**
 	 * SVG矩形
@@ -419,18 +440,17 @@
 	 * @param {*} options 
 	 */
 	function Rect(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Rect.prototype = Object.create(Control.prototype);
+	Rect.prototype = Object.create(SvgControl.prototype);
 	Rect.prototype.constructor = Rect;
 
 	Rect.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('rect'));
 	};
 
-	UI.addXType('svgrect', Rect);
+	window.SVG.addXType('rect', Rect);
 
 	/**
 	 * SVG椭圆
@@ -438,18 +458,17 @@
 	 * @param {*} options 
 	 */
 	function Ellipse(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Ellipse.prototype = Object.create(Control.prototype);
+	Ellipse.prototype = Object.create(SvgControl.prototype);
 	Ellipse.prototype.constructor = Ellipse;
 
 	Ellipse.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('ellipse'));
 	};
 
-	UI.addXType('svgellipse', Ellipse);
+	window.SVG.addXType('ellipse', Ellipse);
 
 	/**
 	 * SVG线
@@ -457,18 +476,17 @@
 	 * @param {*} options 
 	 */
 	function Line(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Line.prototype = Object.create(Control.prototype);
+	Line.prototype = Object.create(SvgControl.prototype);
 	Line.prototype.constructor = Line;
 
 	Line.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('line'));
 	};
 
-	UI.addXType('svgline', Line);
+	window.SVG.addXType('line', Line);
 
 	/**
 	 * SVG曲线
@@ -476,18 +494,17 @@
 	 * @param {*} options 
 	 */
 	function Polyline(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Polyline.prototype = Object.create(Control.prototype);
+	Polyline.prototype = Object.create(SvgControl.prototype);
 	Polyline.prototype.constructor = Polyline;
 
 	Polyline.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('polyline'));
 	};
 
-	UI.addXType('svgpolyline', Polyline);
+	window.SVG.addXType('polyline', Polyline);
 
 	/**
 	 * SVG面
@@ -495,18 +512,17 @@
 	 * @param {*} options 
 	 */
 	function Polygon(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Polygon.prototype = Object.create(Control.prototype);
+	Polygon.prototype = Object.create(SvgControl.prototype);
 	Polygon.prototype.constructor = Polygon;
 
 	Polygon.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('polygon'));
 	};
 
-	UI.addXType('svgpolygon', Polygon);
+	window.SVG.addXType('polygon', Polygon);
 
 	/**
 	 * SVG线
@@ -514,18 +530,17 @@
 	 * @param {*} options 
 	 */
 	function Path(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Path.prototype = Object.create(Control.prototype);
+	Path.prototype = Object.create(SvgControl.prototype);
 	Path.prototype.constructor = Path;
 
 	Path.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('path'));
 	};
 
-	UI.addXType('svgpath', Path);
+	window.SVG.addXType('path', Path);
 
 	/**
 	 * SVG文本
@@ -533,20 +548,19 @@
 	 * @param {*} options 
 	 */
 	function Text(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 
 	    this.text = options.text || null;
 	}
 
-	Text.prototype = Object.create(Control.prototype);
+	Text.prototype = Object.create(SvgControl.prototype);
 	Text.prototype.constructor = Text;
 
 	Text.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('text'));
 	};
 
-	UI.addXType('svgtext', Text);
+	window.SVG.addXType('text', Text);
 
 	/**
 	 * SVG文本路径
@@ -554,20 +568,17 @@
 	 * @param {*} options 
 	 */
 	function TextPath(options = {}) {
-	    Control.call(this, options);
-
-	    this.text = options.text || null;
+	    SvgControl.call(this, options);
 	}
 
-	TextPath.prototype = Object.create(Control.prototype);
+	TextPath.prototype = Object.create(SvgControl.prototype);
 	TextPath.prototype.constructor = TextPath;
 
 	TextPath.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'textPath');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('textPath'));
 	};
 
-	UI.addXType('svgtextpath', TextPath);
+	window.SVG.addXType('textpath', TextPath);
 
 	/**
 	 * SVG链接
@@ -575,18 +586,17 @@
 	 * @param {*} options 
 	 */
 	function Anchor(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Anchor.prototype = Object.create(Control.prototype);
+	Anchor.prototype = Object.create(SvgControl.prototype);
 	Anchor.prototype.constructor = Anchor;
 
 	Anchor.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'a');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('a'));
 	};
 
-	UI.addXType('svga', Anchor);
+	window.SVG.addXType('a', Anchor);
 
 	/**
 	 * SVG定义
@@ -594,18 +604,17 @@
 	 * @param {*} options 
 	 */
 	function Defs(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Defs.prototype = Object.create(Control.prototype);
+	Defs.prototype = Object.create(SvgControl.prototype);
 	Defs.prototype.constructor = Defs;
 
 	Defs.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('defs'));
 	};
 
-	UI.addXType('svgdefs', Defs);
+	window.SVG.addXType('defs', Defs);
 
 	/**
 	 * SVG Use
@@ -613,18 +622,17 @@
 	 * @param {*} options 
 	 */
 	function Use(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Use.prototype = Object.create(Control.prototype);
+	Use.prototype = Object.create(SvgControl.prototype);
 	Use.prototype.constructor = Use;
 
 	Use.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('use'));
 	};
 
-	UI.addXType('svguse', Use);
+	window.SVG.addXType('use', Use);
 
 	/**
 	 * 线性渐变
@@ -632,18 +640,17 @@
 	 * @param {*} options 
 	 */
 	function linearGradient(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	linearGradient.prototype = Object.create(Control.prototype);
+	linearGradient.prototype = Object.create(SvgControl.prototype);
 	linearGradient.prototype.constructor = linearGradient;
 
 	linearGradient.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('linearGradient'));
 	};
 
-	UI.addXType('svglineargradient', linearGradient);
+	window.SVG.addXType('lineargradient', linearGradient);
 
 	/**
 	 * SVG线
@@ -651,18 +658,17 @@
 	 * @param {*} options 
 	 */
 	function Group(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Group.prototype = Object.create(Control.prototype);
+	Group.prototype = Object.create(SvgControl.prototype);
 	Group.prototype.constructor = Group;
 
 	Group.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('g'));
 	};
 
-	UI.addXType('svggroup', Group);
+	window.SVG.addXType('g', Group);
 
 	/**
 	 * SVG滤镜
@@ -670,18 +676,17 @@
 	 * @param {*} options 
 	 */
 	function Filter(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	Filter.prototype = Object.create(Control.prototype);
+	Filter.prototype = Object.create(SvgControl.prototype);
 	Filter.prototype.constructor = Filter;
 
 	Filter.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('filter'));
 	};
 
-	UI.addXType('svgfilter', Filter);
+	window.SVG.addXType('filter', Filter);
 
 	/**
 	 * SVG高斯滤镜
@@ -689,18 +694,17 @@
 	 * @param {*} options 
 	 */
 	function feGaussianBlur(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	feGaussianBlur.prototype = Object.create(Control.prototype);
+	feGaussianBlur.prototype = Object.create(SvgControl.prototype);
 	feGaussianBlur.prototype.constructor = feGaussianBlur;
 
 	feGaussianBlur.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('feGaussianBlur'));
 	};
 
-	UI.addXType('svgfegaussianblur', feGaussianBlur);
+	window.SVG.addXType('fegaussianblur', feGaussianBlur);
 
 	/**
 	 * SVG偏移滤镜
@@ -708,18 +712,17 @@
 	 * @param {*} options 
 	 */
 	function feOffset(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	feOffset.prototype = Object.create(Control.prototype);
+	feOffset.prototype = Object.create(SvgControl.prototype);
 	feOffset.prototype.constructor = feOffset;
 
 	feOffset.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'feOffset');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('feOffset'));
 	};
 
-	UI.addXType('svgfeoffset', feOffset);
+	window.SVG.addXType('feoffset', feOffset);
 
 	/**
 	 * SVG融合滤镜
@@ -727,18 +730,17 @@
 	 * @param {*} options 
 	 */
 	function feBlend(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	feBlend.prototype = Object.create(Control.prototype);
+	feBlend.prototype = Object.create(SvgControl.prototype);
 	feBlend.prototype.constructor = feBlend;
 
 	feBlend.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'feBlend');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('feBlend'));
 	};
 
-	UI.addXType('svgfeblend', feBlend);
+	window.SVG.addXType('feblend', feBlend);
 
 	/**
 	 * SVG融合滤镜
@@ -746,21 +748,24 @@
 	 * @param {*} options 
 	 */
 	function feColorMatrix(options = {}) {
-	    Control.call(this, options);
+	    SvgControl.call(this, options);
 	}
 
-	feColorMatrix.prototype = Object.create(Control.prototype);
+	feColorMatrix.prototype = Object.create(SvgControl.prototype);
 	feColorMatrix.prototype.constructor = feColorMatrix;
 
 	feColorMatrix.prototype.render = function () {
-	    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'feColorMatrix');
-	    this.renderDom(dom);
+	    this.renderDom(this.createElement('feColorMatrix'));
 	};
 
-	UI.addXType('svgfecolormatrix', feColorMatrix);
+	window.SVG.addXType('fecolormatrix', feColorMatrix);
 
-	exports.Control = Control;
-	exports.UI = UI;
+	const SVG = new Manager();
+
+	window.SVG = SVG;
+
+	exports.SvgControl = SvgControl;
+	exports.SVG = SVG;
 
 	Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -1,4 +1,4 @@
-import { Control, UI } from '../third_party';
+import { SvgControl } from '../third_party';
 
 /**
  * SVG定义
@@ -6,17 +6,16 @@ import { Control, UI } from '../third_party';
  * @param {*} options 
  */
 function Defs(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-Defs.prototype = Object.create(Control.prototype);
+Defs.prototype = Object.create(SvgControl.prototype);
 Defs.prototype.constructor = Defs;
 
 Defs.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('defs'));
 };
 
-UI.addXType('svgdefs', Defs);
+window.SVG.addXType('defs', Defs);
 
 export default Defs;

@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { SvgControl } from './third_party';
 
 /**
  * SVG椭圆
@@ -6,17 +6,16 @@ import { Control, UI } from './third_party';
  * @param {*} options 
  */
 function Ellipse(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-Ellipse.prototype = Object.create(Control.prototype);
+Ellipse.prototype = Object.create(SvgControl.prototype);
 Ellipse.prototype.constructor = Ellipse;
 
 Ellipse.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('ellipse'));
 };
 
-UI.addXType('svgellipse', Ellipse);
+window.SVG.addXType('ellipse', Ellipse);
 
 export default Ellipse;

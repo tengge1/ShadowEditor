@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { SvgControl } from './third_party';
 
 /**
  * SVG曲线
@@ -6,17 +6,16 @@ import { Control, UI } from './third_party';
  * @param {*} options 
  */
 function Polyline(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-Polyline.prototype = Object.create(Control.prototype);
+Polyline.prototype = Object.create(SvgControl.prototype);
 Polyline.prototype.constructor = Polyline;
 
 Polyline.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('polyline'));
 };
 
-UI.addXType('svgpolyline', Polyline);
+window.SVG.addXType('polyline', Polyline);
 
 export default Polyline;

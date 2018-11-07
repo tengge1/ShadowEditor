@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { SvgControl } from './third_party';
 
 /**
  * SVG线
@@ -6,17 +6,16 @@ import { Control, UI } from './third_party';
  * @param {*} options 
  */
 function Group(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-Group.prototype = Object.create(Control.prototype);
+Group.prototype = Object.create(SvgControl.prototype);
 Group.prototype.constructor = Group;
 
 Group.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('g'));
 };
 
-UI.addXType('svggroup', Group);
+window.SVG.addXType('g', Group);
 
 export default Group;

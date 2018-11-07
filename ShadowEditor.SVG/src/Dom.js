@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { SvgControl } from './third_party';
 
 /**
  * SVG文档
@@ -6,17 +6,16 @@ import { Control, UI } from './third_party';
  * @param {*} options 
  */
 function Dom(options = {}) {
-    Control.call(this, options);
+    SvgControl.call(this, options);
 }
 
-Dom.prototype = Object.create(Control.prototype);
+Dom.prototype = Object.create(SvgControl.prototype);
 Dom.prototype.constructor = Dom;
 
 Dom.prototype.render = function () {
-    var dom = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    this.renderDom(dom);
+    this.renderDom(this.createElement('svg'));
 };
 
-UI.addXType('svgdom', Dom);
+window.SVG.addXType('svg', Dom);
 
 export default Dom;
