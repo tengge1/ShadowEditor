@@ -6,7 +6,7 @@ import './animation/Animate';
 import './animation/AnimateMotion';
 import './animation/AnimateTransform';
 import './animation/Discard';
-import './animation/Mpath';
+import './animation/MPath';
 import './animation/Set';
 
 // shape

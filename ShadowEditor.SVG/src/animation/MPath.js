@@ -1,21 +1,21 @@
 import { SvgControl, SVG } from '../third_party';
 
 /**
- * Mpath
+ * MPath
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function Mpath(options = {}) {
+function MPath(options = {}) {
     SvgControl.call(this, options);
 }
 
-Mpath.prototype = Object.create(SvgControl.prototype);
-Mpath.prototype.constructor = Mpath;
+MPath.prototype = Object.create(SvgControl.prototype);
+MPath.prototype.constructor = MPath;
 
-Mpath.prototype.render = function () {
+MPath.prototype.render = function () {
     this.renderDom(this.createElement('mpath'));
 };
 
-SVG.addXType('mpath', Mpath);
+SVG.addXType('mpath', MPath);
 
-export default Mpath;
+export default MPath;
