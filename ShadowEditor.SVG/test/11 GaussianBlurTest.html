@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>11 GaussianBlurTest</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+    <script src="../dist/ShadowEditor.SVG.js"></script>
+    <script>
+        var dom = Shadow.SVG.create({
+            xtype: 'svg',
+            parent: document.body,
+            attr: {
+                width: 230,
+                height: 120,
+            },
+            children: [{
+                xtype: 'filter',
+                attr: {
+                    id: 'blurMe'
+                },
+                children: [{
+                    xtype: 'fegaussianblur',
+                    attr: {
+                        in: 'SourceGraphic',
+                        stdDeviation: 5
+                    }
+                }]
+            }, {
+                xtype: 'circle',
+                attr: {
+                    cx: 60,
+                    cy: 60,
+                    r: 50,
+                    fill: 'green'
+                }
+            }, {
+                xtype: 'circle',
+                attr: {
+                    cx: 170,
+                    cy: 60,
+                    r: 50,
+                    fill: 'green',
+                    filter: 'url(#blurMe)'
+                }
+            }]
+        });
+
+        dom.render();
+    </script>
+</body>
+
+</html>

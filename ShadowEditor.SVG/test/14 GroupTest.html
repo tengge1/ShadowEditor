@@ -4,36 +4,37 @@
 
 <head>
     <meta charset="utf-8">
-    <title>15 SvgGroupTest</title>
+    <title>14 GroupTest</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 
 <body>
     <script src="../dist/ShadowEditor.SVG.js"></script>
     <script>
-        var dom = UI.create({
-            xtype: 'svgdom',
-            id: 'dom1',
+        var dom = Shadow.SVG.create({
+            xtype: 'svg',
             parent: document.body,
             attr: {
+                width: 400,
+                height: 400,
                 viewBox: '0 0 100 100'
             },
             children: [{
-                xtype: 'svggroup',
+                xtype: 'g',
                 attr: {
                     fill: 'white',
                     stroke: 'green',
                     strokeWidth: 5
                 },
                 children: [{
-                    xtype: 'svgcircle',
+                    xtype: 'circle',
                     attr: {
                         cx: 40,
                         cy: 40,
                         r: 25
                     }
                 }, {
-                    xtype: 'svgcircle',
+                    xtype: 'circle',
                     attr: {
                         cx: 60,
                         cy: 60,

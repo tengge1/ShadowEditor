@@ -4,25 +4,24 @@
 
 <head>
     <meta charset="utf-8">
-    <title>14 SvgColorMatrixTest</title>
+    <title>13 ColorMatrixTest</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 
 <body>
     <script src="../dist/ShadowEditor.SVG.js"></script>
     <script>
-        var dom = UI.create({
-            xtype: 'svgdom',
-            id: 'dom1',
+        var dom = Shadow.SVG.create({
+            xtype: 'svg',
             parent: document.body,
             attr: {
                 width: 800,
                 height: 600,
             },
             children: [{
-                xtype: 'svgdefs',
+                xtype: 'defs',
                 children: [{
-                    xtype: 'svgfilter',
+                    xtype: 'filter',
                     attr: {
                         id: 'filter1',
                         x: 0,
@@ -31,7 +30,7 @@
                         height: '200%'
                     },
                     children: [{
-                        xtype: 'svgfeoffset',
+                        xtype: 'feoffset',
                         attr: {
                             result: 'offOut',
                             in: 'SourceGraphic',
@@ -39,7 +38,7 @@
                             dy: 20
                         }
                     }, {
-                        xtype: 'svgfecolormatrix',
+                        xtype: 'fecolormatrix',
                         attr: {
                             result: 'matrixOut',
                             in: 'offOut',
@@ -47,14 +46,14 @@
                             values: '0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0'
                         }
                     }, {
-                        xtype: 'svgfegaussianblur',
+                        xtype: 'fegaussianblur',
                         attr: {
                             result: 'blurOut',
                             in: 'matrixOut',
                             stdDeviation: 10
                         }
                     }, {
-                        xtype: 'svgfeblend',
+                        xtype: 'feblend',
                         attr: {
                             in: 'SourceGraphic',
                             in2: 'blurOut',
@@ -63,7 +62,7 @@
                     }]
                 }]
             }, {
-                xtype: 'svgrect',
+                xtype: 'rect',
                 attr: {
                     x: 10,
                     y: 10,

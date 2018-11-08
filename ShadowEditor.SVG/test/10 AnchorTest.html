@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>10 AnchorTest</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+    <script src="../dist/ShadowEditor.SVG.js"></script>
+    <script>
+        var dom = Shadow.SVG.create({
+            xtype: 'svg',
+            parent: document.body,
+            attr: {
+                width: 140,
+                height: 30,
+            },
+            children: [{
+                xtype: 'a',
+                attr: {
+                    href: 'https://developer.mozilla.org/en-US/docs/SVG',
+                    target: '_blank',
+                },
+                children: [{
+                    xtype: 'rect',
+                    attr: {
+                        x: 0,
+                        y: 0,
+                        width: 120,
+                        height: 30,
+                        rx: 15
+                    }
+                }, {
+                    xtype: 'text',
+                    attr: {
+                        fill: 'white',
+                        'text-anchor': 'middle',
+                        x: 60,
+                        y: 21,
+                    },
+                    html: 'SVG on MDN'
+                }]
+            }]
+        });
+
+        dom.render();
+    </script>
+</body>
+
+</html>
