@@ -1,6 +1,14 @@
 // dom
 import './Dom';
 
+// animation
+import './animation/Animate';
+import './animation/AnimateMotion';
+import './animation/AnimateTransform';
+import './animation/Discard';
+import './animation/Mpath';
+import './animation/Set';
+
 // shape
 import './shape/Circle';
 import './shape/Ellipse';
