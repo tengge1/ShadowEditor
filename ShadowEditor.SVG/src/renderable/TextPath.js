@@ -1,7 +1,7 @@
-import { SvgControl, SVG } from './third_party';
+import { SvgControl, SVG } from '../third_party';
 
 /**
- * SVG文本路径
+ * TextPath
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */

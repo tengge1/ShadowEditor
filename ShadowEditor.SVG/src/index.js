@@ -9,23 +9,11 @@ import './animation/Discard';
 import './animation/MPath';
 import './animation/Set';
 
-// shape
-import './shape/Circle';
-import './shape/Ellipse';
-import './shape/Line';
-import './shape/Polygon';
-import './shape/Polyline';
-import './shape/Rect';
-
 // container
-import './container/Anchor';
 import './container/Defs';
-import './container/Group';
 import './container/Marker';
 import './container/Mask';
 import './container/Pattern';
-import './container/Switch';
-import './container/Symbol';
 
 // descriptive
 import './descriptive/Desc';
@@ -55,18 +43,39 @@ import './filter/feSpecularLighting';
 import './filter/feTile';
 import './filter/feTurbulence';
 
-// graphics
-import './graphics/Image';
-import './graphics/Path';
-import './graphics/Text';
-import './graphics/Use';
+// font
+import './font/Font';
 
 // gradient
 import './gradient/linearGradient';
 import './gradient/RadialGradient';
 import './gradient/Stop';
 
-import './TextPath';
+// light
+import './light/feDistantLight';
+import './light/fePointLight';
+import './light/feSpotLight';
+
+// renderable
+import './renderable/Anchor';
+import './renderable/Circle';
+import './renderable/Ellipse';
+import './renderable/ForeignObject';
+import './renderable/Group';
+import './renderable/Image';
+import './renderable/Line';
+import './renderable/Path';
+import './renderable/Polygon';
+import './renderable/Polyline';
+import './renderable/Rect';
+import './renderable/Switch';
+import './renderable/Symbol';
+import './renderable/Text';
+import './renderable/TextPath';
+import './renderable/TSpan';
+import './renderable/Use';
+
+
 import './filter/Filter';
 
 export { SvgControl, SVG } from './third_party';
