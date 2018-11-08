@@ -27,6 +27,11 @@ import './container/Pattern';
 import './container/Switch';
 import './container/Symbol';
 
+// descriptive
+import './descriptive/Desc';
+import './descriptive/MetaData';
+import './descriptive/Title';
+
 // filter
 import './filter/feBlend';
 import './filter/feColorMatrix';
