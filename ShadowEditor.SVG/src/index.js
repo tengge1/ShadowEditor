@@ -1,6 +1,3 @@
-// dom
-import './Dom';
-
 // animation
 import './animation/Animate';
 import './animation/AnimateMotion';
@@ -14,6 +11,7 @@ import './container/Defs';
 import './container/Marker';
 import './container/Mask';
 import './container/Pattern';
+import './container/SvgDom';
 
 // descriptive
 import './descriptive/Desc';
@@ -75,7 +73,12 @@ import './renderable/TextPath';
 import './renderable/TSpan';
 import './renderable/Use';
 
-
-import './filter/Filter';
+// others
+import './ClipPath';
+import './ColorProfile';
+import './Filter';
+import './Script';
+import './Style';
+import './View';
 
 export { SvgControl, SVG } from './third_party';

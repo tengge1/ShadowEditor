@@ -1,7 +1,7 @@
-import { SvgControl, SVG } from '../third_party';
+import { SvgControl, SVG } from './third_party';
 
 /**
- * SVG滤镜
+ * Filter
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
