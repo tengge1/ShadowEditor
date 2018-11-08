@@ -4,29 +4,28 @@
 
 <head>
     <meta charset="utf-8">
-    <title>09 SvgTextTest</title>
+    <title>08 PathTest</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 
 <body>
     <script src="../dist/ShadowEditor.SVG.js"></script>
     <script>
-        var dom = UI.create({
-            xtype: 'svgdom',
-            id: 'dom1',
+        var dom = Shadow.SVG.create({
+            xtype: 'svg',
             parent: document.body,
             attr: {
-                width: 800,
-                height: 600,
+                width: 400,
+                height: 400,
+                viewBox: '0 0 400 400'
             },
             children: [{
-                xtype: 'svgtext',
-                html: 'I Love SVG.',
+                xtype: 'path',
                 attr: {
-                    x: 100,
-                    y: 100,
-                    transform: 'rotate(30 20,40)',
-                    fill: '#f00'
+                    d: 'M 100 100 L 300 100 L 200 300 z',
+                    stroke: 'blank',
+                    'stroke-width': 3,
+                    fill: 'orange'
                 },
                 listeners: {
                     click: () => {
