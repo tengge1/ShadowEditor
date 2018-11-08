@@ -16,6 +16,6 @@ fePointLight.prototype.render = function () {
     this.renderDom(this.createElement('fePointLight'));
 };
 
-SVG.addXType('fePointLight', fePointLight);
+SVG.addXType('fepointlight', fePointLight);
 
 export default fePointLight;

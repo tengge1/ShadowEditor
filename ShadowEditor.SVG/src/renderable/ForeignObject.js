@@ -16,6 +16,6 @@ ForeignObject.prototype.render = function () {
     this.renderDom(this.createElement('foreignObject'));
 };
 
-SVG.addXType('foreignObject', ForeignObject);
+SVG.addXType('foreignobject', ForeignObject);
 
 export default ForeignObject;

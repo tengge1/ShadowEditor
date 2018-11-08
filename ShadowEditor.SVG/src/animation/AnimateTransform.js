@@ -16,6 +16,6 @@ AnimateTransform.prototype.render = function () {
     this.renderDom(this.createElement('animateTransform'));
 };
 
-SVG.addXType('animateTransform', AnimateTransform);
+SVG.addXType('animatetransform', AnimateTransform);
 
 export default AnimateTransform;

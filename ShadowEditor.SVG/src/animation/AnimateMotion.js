@@ -16,6 +16,6 @@ AnimateMotion.prototype.render = function () {
     this.renderDom(this.createElement('animateMotion'));
 };
 
-SVG.addXType('animateMotion', AnimateMotion);
+SVG.addXType('animatemotion', AnimateMotion);
 
 export default AnimateMotion;

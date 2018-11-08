@@ -16,6 +16,6 @@ feDistantLight.prototype.render = function () {
     this.renderDom(this.createElement('feDistantLight'));
 };
 
-SVG.addXType('feDistantLight', feDistantLight);
+SVG.addXType('fedistantlight', feDistantLight);
 
 export default feDistantLight;

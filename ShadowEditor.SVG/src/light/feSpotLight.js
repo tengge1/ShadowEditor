@@ -16,6 +16,6 @@ feSpotLight.prototype.render = function () {
     this.renderDom(this.createElement('feSpotLight'));
 };
 
-SVG.addXType('feSpotLight', feSpotLight);
+SVG.addXType('fespotlight', feSpotLight);
 
 export default feSpotLight;
