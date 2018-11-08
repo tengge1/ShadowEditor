@@ -28,9 +28,9 @@
 
 ## 组件
 
-[ShadowEditor.PackageManager](/ShadowEditor.PackageManager/): ShadowEditor包管理器。
-[ShadowEditor.UI](/ShadowEditor.UI/): ShadowEditor UI框架。
-[ShadowEditor.SVG](/ShadowEditor.SVG/): ShadowEditor SVG控件封装。
+* [ShadowEditor.PackageManager](/ShadowEditor.PackageManager/): ShadowEditor包管理器。
+* [ShadowEditor.UI](/ShadowEditor.UI/): ShadowEditor UI框架。
+* [ShadowEditor.SVG](/ShadowEditor.SVG/): ShadowEditor SVG控件封装。
 
 ## 使用方法
 
