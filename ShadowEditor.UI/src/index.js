@@ -1,7 +1,12 @@
 import '../assets/css/main.css';
 
-import UI from './UI';
+// root
+import './root/HtmlDom';
 
-window.UI = UI;
+// metadata
+import './metadata/Link';
+import './metadata/Meta';
+import './metadata/Style';
+import './metadata/Title';
 
-export { default as UI } from './UI';
+export { Control, UI } from './third_party';
