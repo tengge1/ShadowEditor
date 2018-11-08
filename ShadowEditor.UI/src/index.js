@@ -9,4 +9,8 @@ import './metadata/Meta';
 import './metadata/Style';
 import './metadata/Title';
 
+// section
+import './section/Head';
+import './section/Body';
+
 export { Control, UI } from './third_party';
