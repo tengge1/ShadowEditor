@@ -23,25 +23,67 @@ import './section/H5';
 import './section/H6';
 import './section/Head';
 import './section/Header';
-import './section/HGroup';
 import './section/Nav';
 import './section/Section';
 
 // text
-import './text/BlockQuote';
 import './text/DD';
-import './text/Dir';
 import './text/Div';
 import './text/DL';
 import './text/DT';
-import './text/FigCaption';
-import './text/Figure';
 import './text/HR';
 import './text/Li';
-import './text/Main';
 import './text/OL';
 import './text/P';
 import './text/Pre';
 import './text/UL';
+
+// inline
+import './inline/A';
+import './inline/B';
+import './inline/Br';
+import './inline/Code';
+import './inline/I';
+import './inline/Small';
+import './inline/Span';
+import './inline/Strong';
+
+// media
+import './media/Audio';
+import './media/Img';
+import './media/Video';
+
+// embed
+import './embed/Embed';
+import './embed/IFrame';
+import './embed/Source';
+
+// script
+import './script/Canvas';
+import './script/Script';
+
+// table
+import './table/Caption';
+import './table/Table';
+import './table/TBody';
+import './table/TD';
+import './table/TFoot';
+import './table/TH';
+import './table/THead';
+import './table/TR';
+
+// form
+import './form/Button';
+import './form/DataList';
+import './form/FieldSet';
+import './form/Form';
+import './form/Input';
+import './form/Label';
+import './form/Legend';
+import './form/OptGroup';
+import './form/Option';
+import './form/Progress';
+import './form/Select';
+import './form/TextArea';
 
 export { Control, UI } from './third_party';
