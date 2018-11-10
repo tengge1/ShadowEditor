@@ -4,9 +4,10 @@
     "private": true,
     "description": "3D Editor with three.js.",
     "dependencies": {
-        "@tengge1/xtype-html5": "0.0.3",
-        "@tengge1/xtype-svg": "0.0.1",
-        "@tengge1/xtype.js": "^3.0.0",
+        "@tengge1/package-manager": "0.0.2",
+        "@tengge1/xtype-html5": "0.0.4",
+        "@tengge1/xtype-svg": "0.0.2",
+        "@tengge1/xtype.js": "^3.0.1",
         "d3-dispatch": "^1.0.3",
         "three": "^0.97.0"
     },
@@ -18,9 +19,7 @@
     },
     "scripts": {
         "build": "rollup -c ShadowEditor.Web/rollup.config.js",
-        "build-pm": "rollup -c ShadowEditor.PackageManager/rollup.config.js",
         "build-ui": "rollup -c ShadowEditor.UI/rollup.config.js",
-        "build-svg": "rollup -c ShadowEditor.SVG/rollup.config.js",
         "build-docs": "gitbook build docs-dev",
         "clear": "npm prune"
     },
