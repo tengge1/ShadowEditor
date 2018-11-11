@@ -1,18 +1,15 @@
-import Control from './Control';
+import { Control, UI } from './third_party';
 
 /**
  * 布尔值
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function Boolean(options) {
+function Boolean(options = {}) {
     Control.call(this, options);
-    options = options || {};
 
     this.text = options.text || '';
     this.value = options.value || false;
-    this.cls = options.cls || 'Checkbox';
-    this.style = options.style || null;
 
     this.onChange = options.onChange || null;
 };

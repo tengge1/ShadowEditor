@@ -4,19 +4,24 @@
 
 <head>
     <meta charset="utf-8">
-    <title>XType Test</title>
+    <title>02 XTypeTest</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 
 <body>
-    <script src="../dist/ShadowUI.js"></script>
+    <script src="../dist/ShadowEditor.UI.js"></script>
     <script>
+        const {
+            Control,
+            UI
+        } = Shadow;
+
         var obj = UI.create({
-            xtype: 'control'
+            xtype: 'div'
         });
 
-        if (obj instanceof UI.Control) {
-            UI.msg('obj是Shadow.UI.Control的实例！');
+        if (obj instanceof Control) {
+            alert('obj是Control的实例！');
         }
     </script>
 </body>

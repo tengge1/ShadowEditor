@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Div Test</title>
+    <title>05 DivTest</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <style>
         .bg {
@@ -15,20 +15,24 @@
 </head>
 
 <body>
-    <script src="../dist/ShadowUI.js"></script>
+    <script src="../dist/ShadowEditor.UI.js"></script>
     <script>
+        const {
+            Control,
+            UI
+        } = Shadow;
+
         var control = UI.create({
             xtype: 'div',
             cls: 'bg',
             style: {
                 color: 'red'
             },
-            children: [{
-                xtype: 'html',
-                html: 'Hello, world!'
-            }],
-            onClick: function () {
-                UI.msg('You clicked div!');
+            html: 'Hello, world!',
+            listeners: {
+                click: function () {
+                    alert('You clicked div!');
+                }
             }
         });
 

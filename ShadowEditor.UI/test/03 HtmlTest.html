@@ -4,15 +4,20 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Html Test</title>
+    <title>03 HtmlTest</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 
 <body>
-    <script src="../dist/ShadowUI.js"></script>
+    <script src="../dist/ShadowEditor.UI.js"></script>
     <script>
+        const {
+            Control,
+            UI
+        } = Shadow;
+
         var html = UI.create({
-            xtype: 'html',
+            xtype: 'div',
             html: 'Hello, world!'
         });
 

@@ -4,22 +4,27 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Break Test</title>
+    <title>06 BreakTest</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 
 <body>
-    <script src="../dist/ShadowUI.js"></script>
+    <script src="../dist/ShadowEditor.UI.js"></script>
     <script>
+        const {
+            Control,
+            UI
+        } = Shadow;
+
         var control = UI.create({
             xtype: 'div',
             children: [{
-                xtype: 'html',
+                xtype: 'span',
                 html: 'First line.'
             }, {
                 xtype: 'br'
             }, {
-                xtype: 'html',
+                xtype: 'span',
                 html: 'Second line.'
             }]
         });

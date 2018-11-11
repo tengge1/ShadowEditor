@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Button Test</title>
+    <title>07 ButtonTest</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <style>
         .red {
@@ -14,25 +14,34 @@
 </head>
 
 <body>
-    <script src="../dist/ShadowUI.js"></script>
+    <script src="../dist/ShadowEditor.UI.js"></script>
     <script>
+        const {
+            Control,
+            UI
+        } = Shadow;
+
         var control = UI.create({
             xtype: 'div',
             children: [{
                 xtype: 'button',
-                id: 'button1',
+                attr: {
+                    id: 'button1',
+                    title: 'This is button 1.',
+                },
                 cls: 'red',
-                text: 'Button 1',
-                title: 'This is button 1.',
-                onClick: function () {
-                    UI.msg('You clicked button 1.');
+                html: 'Button 1',
+                listeners: {
+                    click: function () {
+                        alert('You clicked button 1.');
+                    }
                 }
             }, {
                 xtype: 'button',
                 style: {
                     color: 'green'
                 },
-                text: 'Button 2'
+                html: 'Button 2'
             }]
         });
 
