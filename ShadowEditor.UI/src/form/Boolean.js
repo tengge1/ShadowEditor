@@ -1,4 +1,4 @@
-import { Control, UI } from './third_party';
+import { Control, UI } from '../third_party';
 
 /**
  * 布尔值
@@ -52,5 +52,7 @@ Boolean.prototype.getValue = function () {
 Boolean.prototype.setValue = function (value) {
     this.input.checked = value;
 };
+
+UI.addXType('boolean', Boolean);
 
 export default Boolean;

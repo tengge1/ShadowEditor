@@ -1,13 +1,12 @@
-import Control from './Control';
+import { Control, UI } from '../third_party';
 
 /**
  * 复选框
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function Checkbox(options) {
+function Checkbox(options = {}) {
     Control.call(this, options);
-    options = options || {};
 
     this.value = options.value || false;
     this.cls = options.cls || 'Checkbox';
@@ -50,5 +49,7 @@ Checkbox.prototype.setValue = function (value) {
 
     return this;
 };
+
+UI.addXType('checkbox', Checkbox);
 
 export default Checkbox;

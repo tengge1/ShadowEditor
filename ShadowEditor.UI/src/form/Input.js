@@ -1,4 +1,4 @@
-import Control from './Control';
+import { Control, UI } from '../third_party';
 
 /**
  * 输入框

@@ -1,4 +1,4 @@
-import Control from './Control';
+import { Control, UI } from '../third_party';
 
 /**
  * 颜色选择器
@@ -66,5 +66,7 @@ Color.prototype.setHexValue = function (hex) {
     this.dom.value = '#' + ('000000' + hex.toString(16)).slice(- 6);
     return this;
 };
+
+UI.addXType('color', Color);
 
 export default Color;
