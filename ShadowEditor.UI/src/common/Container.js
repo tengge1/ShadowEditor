@@ -1,7 +1,7 @@
 import { Control, UI } from '../third_party';
 
 /**
- * 容器（外层无div等元素包裹）
+ * 容器
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */

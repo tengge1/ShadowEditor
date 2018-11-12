@@ -18,7 +18,10 @@
 
         var html = UI.create({
             xtype: 'div',
-            html: 'Hello, world!'
+            children: [{
+                xtype: 'html',
+                html: 'Hello, world!'
+            }]
         });
 
         html.render();
