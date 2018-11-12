@@ -106,3 +106,4 @@ typings/
 /ShadowEditor.SVG/obj
 /ShadowEditor.SVG/ShadowEditor.SVG.csproj.user
 /ShadowEditor.SVG/dist
+/ShadowEditor.CodeEditor/dist
