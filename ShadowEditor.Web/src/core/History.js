@@ -1,5 +1,5 @@
 ﻿import Command from '../command/Command';
-import UI from '../ui/UI';
+import { UI } from '../third_party';
 
 /**
  * 历史记录

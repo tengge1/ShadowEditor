@@ -1,4 +1,4 @@
-import UI from '../../ui/UI';
+import { UI } from '../../third_party';
 import AddObjectCommand from '../../command/AddObjectCommand';
 
 import Group from '../../object/geometry/Group';

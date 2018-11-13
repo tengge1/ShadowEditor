@@ -1,4 +1,5 @@
-import UI from '../../ui/UI';
+import { UI } from '../../third_party';
+import ImageListWindow from '../../ui/ImageListWindow';
 import Ajax from '../../utils/Ajax';
 import ModelLoader from '../../loader/ModelLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';
@@ -10,7 +11,7 @@ import MMDEditWindow from './MMDEditWindow';
  * @param {*} options 
  */
 function MMDWindow(options) {
-    UI.ImageListWindow.call(this, options);
+    ImageListWindow.call(this, options);
     this.app = options.app;
 
     this.title = 'MMD资源列表';
@@ -23,7 +24,7 @@ function MMDWindow(options) {
     this.onSelect = options.onSelect || null;
 }
 
-MMDWindow.prototype = Object.create(UI.ImageListWindow.prototype);
+MMDWindow.prototype = Object.create(ImageListWindow.prototype);
 MMDWindow.prototype.constructor = MMDWindow;
 
 MMDWindow.prototype.beforeUpdateList = function () {

@@ -1,4 +1,4 @@
-import UI from '../../ui/UI';
+import { UI } from '../../third_party';
 import OptionsWindow from '../window/OptionsWindow';
 
 /**

@@ -1,6 +1,6 @@
 import BaseEvent from './BaseEvent';
 import RemoveObjectCommand from '../command/RemoveObjectCommand';
-import UI from '../ui/UI';
+import { UI } from '../third_party';
 
 /**
  * 键盘按键事件

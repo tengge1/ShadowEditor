@@ -1,4 +1,4 @@
-import Control from '../../ui/Control';
+import { Control } from '../../third_party';
 import AnimationPanel from './AnimationPanel';
 import ModelPanel from './ModelPanel';
 import TexturePanel from './TexturePanel';

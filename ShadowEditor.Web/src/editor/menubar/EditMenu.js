@@ -1,4 +1,4 @@
-import UI from '../../ui/UI';
+import { UI } from '../../third_party';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import RemoveObjectCommand from '../../command/RemoveObjectCommand';
 

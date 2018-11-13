@@ -1,4 +1,4 @@
-﻿import UI from '../ui/UI';
+﻿import { UI } from '../third_party';
 
 /**
  * 状态栏

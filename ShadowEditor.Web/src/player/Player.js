@@ -1,4 +1,4 @@
-import UI from '../ui/UI';
+import { UI } from '../third_party';
 import Converter from '../serialization/Converter';
 
 import PlayerLoader from './component/PlayerLoader';

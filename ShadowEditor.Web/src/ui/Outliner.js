@@ -1,4 +1,4 @@
-import Control from './Control';
+import { Control, UI } from '../third_party';
 import MoveObjectCommand from '../command/MoveObjectCommand';
 
 /**
@@ -230,5 +230,7 @@ Outliner.prototype.setValue = function (value) {
 
     return this;
 };
+
+UI.addXType('outliner', Outliner);
 
 export default Outliner;

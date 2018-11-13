@@ -37,7 +37,6 @@ import SearchField from './SearchField';
 import ToolbarFiller from './ToolbarFiller';
 import Canvas from './Canvas';
 import Timeline from './Timeline';
-import ImageUploader from './ImageUploader';
 import LinkButton from './LinkButton';
 
 /**
@@ -199,7 +198,6 @@ Object.assign(UI, {
     ToolbarFiller: ToolbarFiller,
     Canvas: Canvas,
     Timeline: Timeline,
-    ImageUploader: ImageUploader,
     LinkButton: LinkButton
 });
 
@@ -243,7 +241,6 @@ UI.addXType('searchfield', SearchField);
 UI.addXType('toolbarfiller', ToolbarFiller);
 UI.addXType('canvas', Canvas);
 UI.addXType('timeline', Timeline);
-UI.addXType('imageuploader', ImageUploader);
 UI.addXType('linkbutton', LinkButton);
 
 // 添加一些实用功能

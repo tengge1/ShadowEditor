@@ -1,6 +1,6 @@
 import Options from './Options';
 
-import UI from './ui/UI';
+import { UI } from './third_party';
 import EventDispatcher from './event/EventDispatcher';
 
 import Menubar from './editor/menubar/Menubar';

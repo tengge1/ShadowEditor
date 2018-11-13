@@ -1,4 +1,4 @@
-﻿import UI from '../../ui/UI';
+﻿import { UI } from '../../third_party';
 import PropertyPanel from './PropertyPanel';
 import AnimationPanel from './AnimationPanel';
 import SettingPanel from './SettingPanel';

@@ -1,4 +1,5 @@
-import UI from '../../ui/UI';
+import { UI } from '../../third_party';
+import ImageListWindow from '../../ui/ImageListWindow';
 import Ajax from '../../utils/Ajax';
 import UploadUtils from '../../utils/UploadUtils';
 import TextureEditWindow from './TextureEditWindow';
@@ -9,7 +10,7 @@ import TextureEditWindow from './TextureEditWindow';
  * @param {*} options 
  */
 function TextureWindow(options) {
-    UI.ImageListWindow.call(this, options);
+    ImageListWindow.call(this, options);
     this.app = options.app;
 
     this.title = '纹理列表';
@@ -23,7 +24,7 @@ function TextureWindow(options) {
     this.onSelect = options.onSelect || null;
 }
 
-TextureWindow.prototype = Object.create(UI.ImageListWindow.prototype);
+TextureWindow.prototype = Object.create(ImageListWindow.prototype);
 TextureWindow.prototype.constructor = TextureWindow;
 
 TextureWindow.prototype.beforeUpdateList = function () {

@@ -1,4 +1,4 @@
-﻿import UI from '../../ui/UI';
+﻿import { UI } from '../../third_party';
 import Logo from './Logo';
 import SceneMenu from './SceneMenu';
 import EditMenu from './EditMenu';

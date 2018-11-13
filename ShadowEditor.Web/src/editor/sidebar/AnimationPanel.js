@@ -1,4 +1,4 @@
-import UI from '../../ui/UI';
+import { UI } from '../../third_party';
 import BasicAnimationComponent from '../../component/animation/BasicAnimationComponent';
 import TweenAnimationComponent from '../../component/animation/TweenAnimationComponent';
 
