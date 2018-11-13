@@ -37,7 +37,6 @@ import SearchField from './SearchField';
 import ToolbarFiller from './ToolbarFiller';
 import Canvas from './Canvas';
 import Timeline from './Timeline';
-import ImageListWindow from './ImageListWindow';
 import ImageUploader from './ImageUploader';
 import LinkButton from './LinkButton';
 
@@ -200,7 +199,6 @@ Object.assign(UI, {
     ToolbarFiller: ToolbarFiller,
     Canvas: Canvas,
     Timeline: Timeline,
-    ImageListWindow: ImageListWindow,
     ImageUploader: ImageUploader,
     LinkButton: LinkButton
 });
@@ -245,7 +243,6 @@ UI.addXType('searchfield', SearchField);
 UI.addXType('toolbarfiller', ToolbarFiller);
 UI.addXType('canvas', Canvas);
 UI.addXType('timeline', Timeline);
-UI.addXType('imagelistwindow', ImageListWindow);
 UI.addXType('imageuploader', ImageUploader);
 UI.addXType('linkbutton', LinkButton);
 

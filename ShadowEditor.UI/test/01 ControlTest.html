@@ -11,29 +11,21 @@
 <body>
     <script src="../dist/ShadowEditor.UI.js"></script>
     <script>
-        const {
-            Control,
-            UI
-        } = Shadow;
-
         function HelloWorld(options) {
-            Control.call(this, options);
+            Shadow.Control.call(this, options);
         }
 
-        HelloWorld.prototype = Object.create(Control.prototype);
+        HelloWorld.prototype = Object.create(Shadow.Control.prototype);
         HelloWorld.prototype.constructor = HelloWorld;
 
         HelloWorld.prototype.render = function () {
-            this.renderDom(this.createElement('div'));
+            var dom = this.createElement('div');
+            dom.innerHTML = 'Hello, world!';
+            this.renderDom(dom);
         };
 
-        UI.addXType('hello', HelloWorld);
-
-        let dom = UI.create({
-            xtype: 'hello',
-            html: 'Hello, world!'
-        });
-        dom.render();
+        var hello = new HelloWorld();
+        hello.render();
     </script>
 </body>
 
