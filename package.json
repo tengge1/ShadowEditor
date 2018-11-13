@@ -5,11 +5,7 @@
     "description": "3D Editor with three.js.",
     "dependencies": {
         "@tengge1/package-manager": "0.0.2",
-        "@tengge1/xtype-html5": "0.0.4",
-        "@tengge1/xtype-svg": "0.0.2",
-        "@tengge1/xtype.js": "^3.0.1",
-        "d3-dispatch": "^1.0.3",
-        "three": "^0.97.0"
+        "d3-dispatch": "^1.0.3"
     },
     "devDependencies": {
         "rollup": "^0.59.2",
