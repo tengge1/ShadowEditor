@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>01 Script Editor Test</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/codemirror.css">
+    <link rel="stylesheet" href="css/theme/monokai.css">
+    <link rel="stylesheet" href="css/addon/dialog.css">
+    <link rel="stylesheet" href="css/addon/show-hint.css">
+    <link rel="stylesheet" href="css/addon/tern.css">
+    <style>
+        #container {
+            width: 800px;
+            height: 500px;
+        }
+
+        /* CodeMirror插件 */
+
+        .CodeMirror .errorLine {
+            background: rgba(255, 0, 0, 0.25);
+        }
+
+        .CodeMirror .esprima-error {
+            color: #f00;
+            text-align: right;
+            padding: 0 20px;
+        }
+    </style>
+
+    <script src="js/codemirror.js"></script>
+    <script src="js/mode/javascript.js"></script>
+    <script src="js/mode/glsl.js"></script>
+    <script src="js/esprima.js"></script>
+    <script src="js/jsonlint.js"></script>
+    <script src="js/glslprep.min.js"></script>
+    <script src="js/addon/dialog.js"></script>
+    <script src="js/addon/show-hint.js"></script>
+    <script src="js/addon/tern.js"></script>
+
+    <script src="js/acorn/acorn.js"></script>
+    <script src="js/acorn/acorn_loose.js"></script>
+    <script src="js/acorn/walk.js"></script>
+
+    <script src="js/ternjs/polyfill.js"></script>
+    <script src="js/ternjs/signal.js"></script>
+    <script src="js/ternjs/tern.js"></script>
+    <script src="js/ternjs/def.js"></script>
+    <script src="js/ternjs/comment.js"></script>
+    <script src="js/ternjs/infer.js"></script>
+    <script src="js/ternjs/doc_comment.js"></script>
+    <script src="js/tern-threejs/threejs.js"></script>
+
+    <script src="../dist/ShadowEditor.ScriptEditor.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <br />
+    <button type="button" onclick="setJavaScriptCode()">设置JavaScript代码</button>
+    <button type="button" onclick="setVertexShaderCode()">设置VertexShader代码</button>
+    <button type="button" onclick="setFragmentShaderCode()">设置FragmentShader代码</button>
+    <button type="button" onclick="getCode()">获取代码</button>
+    <script>
+        var container = document.getElementById('container');
+        var editor = new Shadow.ScriptEditor(container);
+
+        function setJavaScriptCode() {
+            fetch(`template/JavaScriptCode.js`).then(response => {
+                if (response.ok) {
+                    response.text().then(text => {
+                        editor.setValue(text, 'javascript');
+                    });
+                }
+            });
+        }
+
+        function setVertexShaderCode() {
+            fetch(`template/VertexShader.glsl`).then(response => {
+                if (response.ok) {
+                    response.text().then(text => {
+                        editor.setValue(text, 'vertexShader');
+                    });
+                }
+            });
+        }
+
+        function setFragmentShaderCode() {
+            fetch(`template/FragmentShader.glsl`).then(response => {
+                if (response.ok) {
+                    response.text().then(text => {
+                        editor.setValue(text, 'fragmentShader');
+                    });
+                }
+            });
+        }
+
+        function getCode() {
+            var code = editor.getValue();
+            alert(code);
+        }
+    </script>
+</body>
+
+</html>

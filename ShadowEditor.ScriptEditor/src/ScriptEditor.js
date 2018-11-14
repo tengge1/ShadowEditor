@@ -1,204 +1,21 @@
-import { UI } from '../../third_party';
-import SetScriptValueCommand from '../../command/SetScriptValueCommand';
-
 /**
  * 脚本编辑器
  * @author mrdoob / http://mrdoob.com/
  * @author tengge / https://github.com/tengge1
+ * @param {*} container 容器
  */
-function ScriptEditor(options) {
-    UI.Control.call(this, options);
-    this.app = options.app;
-
-    this.codemirror = null;
-    this.server = null;
+function ScriptEditor(container = document.body) {
     this.delay = null; // 代码校验延迟函数
     this.delayTime = 1000; // 代码校验间隔时间（毫秒）
 
-    this.uuid = null;
-    this.name = null;
-    this.mode = null;
-    this.source = null;
-    this.title = null;
+    this.mode = 'javascript'; // 模式：json, vertexShader, fragmentShader, javascript
+    this.source = ''; // 代码
 
     this.errorLines = []; // 代码错误行数
     this.widgets = [];
 
-    this.callback = null;
-};
-
-ScriptEditor.prototype = Object.create(UI.Control.prototype);
-ScriptEditor.prototype.constructor = ScriptEditor;
-
-ScriptEditor.prototype.render = function () {
-    var data = {
-        xtype: 'div',
-        parent: this.parent,
-        id: 'scriptEditor',
-        cls: 'script',
-        style: {
-            backgroundColor: '#272822',
-            display: 'none'
-        },
-        children: [{
-            xtype: 'div',
-            style: {
-                padding: '10px'
-            },
-            children: [{
-                xtype: 'text',
-                id: 'scriptTitle',
-                style: {
-                    color: '#fff'
-                }
-            }, {
-                xtype: 'closebutton',
-                style: {
-                    position: 'absolute',
-                    top: '3px',
-                    right: '1px',
-                    cursor: 'pointer'
-                },
-                onClick: this.hide.bind(this)
-            }]
-        }]
-    };
-
-    var container = UI.create(data);
-    container.render();
-
-    // 绑定事件
-    this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
-};
-
-/**
- * 打开脚本文件
- * @param {*} uuid 脚本uuid
- * @param {*} name 名称
- * @param {*} mode 类型 javascript、vertexShader、fragmentShader、json 默认：javascript
- * @param {*} source 源码 文件初始代码 默认：空
- * @param {*} title 标题 文件标题 默认：未命名.${文件类型}
- * @param {*} callback 回调函数
- */
-ScriptEditor.prototype.open = function (uuid, name, mode, source, title, callback) {
-    var scriptTitle = UI.get('scriptTitle');
-
-    // 连续打开脚本时，自动保存上次打开的文件
-    if (this.uuid != null) {
-        this.save();
-        this.uuid = null;
-        this.name = null;
-        this.mode = null;
-        this.source = null;
-        this.title = null;
-    }
-
-    // 打开新文件
-    name = name || '未命名';
-    mode = mode || 'javascript';
-    source = source || '';
-    title = title || '未命名';
-    title = `${title}.${(mode === 'vertexShader' || mode === 'fragmentShader') ? '.glsl' : (mode === 'json' ? '.json' : '.js')}`;
-
-    this.uuid = uuid;
-    this.name = name;
-    this.mode = mode;
-    this.source = source;
-    this.title = title;
-    this.callback = callback;
-
-    this.show();
-
-    scriptTitle.setValue(title);
-
-    this.codemirror.setValue(source);
-
-    // 设置codemirror模式
-    if (mode === 'json') {
-        this.codemirror.setOption('mode', {
-            name: 'javascript',
-            json: true
-        });
-    } if (mode === 'vertexShader' || mode === 'fragmentShader') {
-        this.codemirror.setOption('mode', 'glsl');
-    } else {
-        this.codemirror.setOption('mode', mode);
-    }
-    this.codemirror.focus();
-    this.codemirror.setCursor({
-        line: 0,
-        ch: 0
-    });
-};
-
-/**
- * 显示脚本编辑器
- */
-ScriptEditor.prototype.show = function () {
-    var container = UI.get('scriptEditor');
-
-    container.dom.style.display = 'block';
-};
-
-/**
- * 隐藏脚本编辑器
- */
-ScriptEditor.prototype.hide = function () {
-    var container = UI.get('scriptEditor');
-
-    this.save();
-    container.dom.style.display = 'none';
-
-    this.uuid = null;
-    this.name = null;
-    this.mode = null;
-    this.source = null;
-    this.title = null;
-};
-
-/**
- * 保存脚本
- */
-ScriptEditor.prototype.save = function () {
-    var value = this.codemirror.getValue();
-
-    if (typeof (this.callback) === 'function') {
-        this.callback.call(this, value);
-    }
-
-    this.app.log(`${this.uuid}脚本保存成功！`);
-};
-
-/**
- * 刷新脚本编辑器
- * @param {*} title 标题
- * @param {*} source 代码
- * @param {*} cursorPosition 光标位置
- * @param {*} scrollInfo 滚动信息
- */
-ScriptEditor.prototype.refresh = function (title, source, cursorPosition, scrollInfo) {
-    var container = UI.get('scriptEditor');
-    var title = UI.get('scriptTitle');
-
-    // 复制codemirror的历史记录，因为"codemirror.setValue(...)"函数会改变它的历史。
-    var history = this.codemirror.getHistory();
-    title.setValue(title);
-    this.codemirror.setValue(source);
-
-    if (cursorPosition !== undefined) {
-        this.codemirror.setCursor(cursorPosition);
-        this.codemirror.scrollTo(scrollInfo.left, scrollInfo.top);
-    }
-
-    this.codemirror.setHistory(history); // 设置历史到先前状态
-};
-
-// 内部方法
-
-ScriptEditor.prototype.onAppStarted = function () {
-    var container = UI.get('scriptEditor');
-
-    var codemirror = CodeMirror(container.dom, {
+    // Code Mirror
+    var codemirror = CodeMirror(container, {
         value: '',
         lineNumbers: true,
         matchBrackets: true,
@@ -254,14 +71,72 @@ ScriptEditor.prototype.onAppStarted = function () {
     });
 
     this.codemirror = codemirror;
-    this.server = server;
 };
+
+/**
+ * 设置编辑器脚本代码
+ * @param {*} source 源码
+ * @param {*} mode 模式 javascript, vertexShader, fragmentShader, json
+ * @param {*} cursorPosition 光标位置
+ * @param {*} scrollInfo 滚动信息
+ */
+ScriptEditor.prototype.setValue = function (
+    source = '',
+    mode = 'javascript',
+    cursorPosition = { line: 0, ch: 0 },
+    scrollInfo = { left: 0, top: 0 }
+) {
+    this.source = source;
+    this.mode = mode;
+
+    var codemirror = this.codemirror;
+
+    var history = codemirror.getHistory();
+
+    codemirror.setValue(source);
+
+    if (mode === 'json') {
+        codemirror.setOption('mode', {
+            name: 'javascript',
+            json: true
+        });
+    } else if (mode === 'vertexShader' || mode === 'fragmentShader') {
+        codemirror.setOption('mode', 'glsl');
+    } else {
+        codemirror.setOption('mode', mode);
+    }
+
+    codemirror.focus();
+
+    codemirror.setCursor(cursorPosition);
+    codemirror.scrollTo(scrollInfo.left, scrollInfo.top);
+
+    codemirror.setHistory(history);
+};
+
+/**
+ * 获取编辑器脚本代码
+ */
+ScriptEditor.prototype.getValue = function () {
+    return this.codemirror.getValue();
+};
+
+/**
+ * 清空编辑器
+ */
+ScriptEditor.prototype.clear = function () {
+    this.setValue();
+};
+
+// ---------------------- 内部函数 -----------------------------------------
 
 /**
  * 代码修改事件
  */
 ScriptEditor.prototype.onCodeMirrorChange = function () {
-    if (this.codemirror.state.focused === false) {
+    var codemirror = this.codemirror;
+
+    if (codemirror.state.focused === false) {
         return;
     }
 
@@ -270,7 +145,7 @@ ScriptEditor.prototype.onCodeMirrorChange = function () {
     }
 
     this.delay = setTimeout(() => {
-        var code = this.codemirror.getValue();
+        var code = codemirror.getValue();
         this.validate(code);
     }, this.delayTime);
 };
