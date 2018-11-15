@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27703.2000
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowEditor.Web", "ShadowEditor.Web\ShadowEditor.Web.csproj", "{151B5A3E-777B-42B0-9DCD-F1144DB00CAB}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowEditor.Plugins", "ShadowEditor.Plugins\ShadowEditor.Plugins.csproj", "{B6EEB25B-FDA5-4EFA-BBC2-09F799A16CE3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowEditor.ScriptEditor", "ShadowEditor.ScriptEditor\ShadowEditor.ScriptEditor.csproj", "{D7614283-E9ED-4DF5-B2A3-63EE37EB503F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowEditor.PackageManager", "ShadowEditor.PackageManager\ShadowEditor.PackageManager.csproj", "{780F149B-FDA4-4B20-AA08-5FFEF8C58A62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{D7614283-E9ED-4DF5-B2A3-63EE37EB503F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7614283-E9ED-4DF5-B2A3-63EE37EB503F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7614283-E9ED-4DF5-B2A3-63EE37EB503F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{780F149B-FDA4-4B20-AA08-5FFEF8C58A62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{780F149B-FDA4-4B20-AA08-5FFEF8C58A62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{780F149B-FDA4-4B20-AA08-5FFEF8C58A62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{780F149B-FDA4-4B20-AA08-5FFEF8C58A62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
