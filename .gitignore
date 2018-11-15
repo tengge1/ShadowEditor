@@ -110,3 +110,4 @@ typings/
 /ShadowEditor.ScriptEditor/bin
 /ShadowEditor.ScriptEditor/obj
 /ShadowEditor.ScriptEditor/ShadowEditor.ScriptEditor.csproj.user
+/ShadowEditor.ScriptEditor/dist
