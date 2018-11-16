@@ -28,7 +28,9 @@
 
 ## 组件
 
+* [ShadowEditor.PackaeManager](/ShadowEditor.PackageManager/): ShadowEditor包管理器。
 * [ShadowEditor.UI](/ShadowEditor.UI/): ShadowEditor UI框架。
+* [ShadowEditor.ScriptEditor](/ShadowEditor.ScriptEditor/): ShadowEditor脚本编辑器。
 
 ## 使用方法
 
