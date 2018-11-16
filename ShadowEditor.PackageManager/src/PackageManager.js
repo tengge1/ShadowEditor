@@ -6,7 +6,7 @@ import JsLoader from './loaders/JsLoader';
  * @author tengge / https://github.com/tengge1
  * @param {*} path 资源目录
  */
-function Manager(path = 'packages') {
+function PackageManager(path = 'packages') {
     this._path = path;
     this._packages = {};
     this._cssExtension = ['.css'];
@@ -16,7 +16,7 @@ function Manager(path = 'packages') {
 /**
  * 获取资源目录
  */
-Manager.prototype.getPath = function () {
+PackageManager.prototype.getPath = function () {
     return this._path;
 };
 
@@ -24,7 +24,7 @@ Manager.prototype.getPath = function () {
  * 设置资源目录
  * @param {*} path 资源目录
  */
-Manager.prototype.setPath = function (path) {
+PackageManager.prototype.setPath = function (path) {
     this._path = path;
 };
 
@@ -33,7 +33,7 @@ Manager.prototype.setPath = function (path) {
  * @param {*} name 包名
  * @param {*} assets 资源列表，例如[url1, url2, url3, ...]
  */
-Manager.prototype.add = function (name, assets = []) {
+PackageManager.prototype.add = function (name, assets = []) {
     if (this._packages[name] !== undefined) {
         console.warn(`PackageManager: 包${name}已添加。`);
         return;
@@ -50,7 +50,7 @@ Manager.prototype.add = function (name, assets = []) {
  * 从文件批量添加包
  * @param {*} path 文件路径
  */
-Manager.prototype.addFromFile = function (path) {
+PackageManager.prototype.addFromFile = function (path) {
     return new Promise(resolve => {
         fetch(path).then(response => {
             if (response.ok) {
@@ -72,7 +72,7 @@ Manager.prototype.addFromFile = function (path) {
  * 移除一个包
  * @param {*} name 包名
  */
-Manager.prototype.remove = function (name) {
+PackageManager.prototype.remove = function (name) {
     if (this._packages[name] !== undefined) {
         console.warn(`PackageManager: 包${name}不存在。`);
         return;
@@ -85,7 +85,7 @@ Manager.prototype.remove = function (name) {
  * 获取一个包
  * @param {*} name 包名
  */
-Manager.prototype.get = function (name) {
+PackageManager.prototype.get = function (name) {
     if (this._packages[name] === undefined) {
         console.warn(`PackageManager: 包${name}不存在。`);
         return null;
@@ -98,7 +98,7 @@ Manager.prototype.get = function (name) {
  * 加载一个包
  * @param {*} names 包名或包名列表
  */
-Manager.prototype.load = function (names) {
+PackageManager.prototype.load = function (names) {
     var assets = [];
 
     if (Array.isArray(names)) {
@@ -133,7 +133,7 @@ Manager.prototype.load = function (names) {
 /**
  * 加载所有包
  */
-Manager.prototype.loadAll = function () {
+PackageManager.prototype.loadAll = function () {
     var assets = [];
 
     Object.values(this._packages).forEach(n => {
@@ -158,7 +158,7 @@ Manager.prototype.loadAll = function () {
  * 加载资源
  * @param {*} assets 资源列表
  */
-Manager.prototype.require = function (assets = []) {
+PackageManager.prototype.require = function (assets = []) {
     var cssExtension = this._cssExtension;
     var jsExtension = this._jsExtension;
 
@@ -195,4 +195,4 @@ Manager.prototype.require = function (assets = []) {
     }));
 };
 
-export default Manager;
+export default PackageManager;

@@ -6,12 +6,12 @@
     <meta charset="utf-8">
     <title>01 LoadPackageTest</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <script src="../dist/PackageManager.js"></script>
+    <script src="../dist/ShadowEditor.PackageManager.js"></script>
 </head>
 
 <body>
     <script>
-        var pm = new PM.Manager();
+        var pm = new Shadow.PackageManager();
         pm.setPath('./packages');
         pm.add('moduleA', [
             'ModuleA.js'

@@ -1,6 +1,6 @@
-# Package Manager包管理器
+# ShadowEditor.PackageManager
 
-Package Manager包管理器，提供包的管理和动态加载功能，避免开始加载资源过多，导致载入缓慢。
+包管理器，提供包的管理和动态加载功能，避免开始加载资源过多，导致载入缓慢。
 
 ## 依赖项
 
@@ -11,7 +11,7 @@ Package Manager包管理器，提供包的管理和动态加载功能，避免�
 **示例一**
 
 ```javascript
-var pm = new PM.Manager();
+var pm = new Shadow.PackageManager();
 
 pm.setPath('./packages');
 
@@ -28,7 +28,7 @@ pm.load('moduleA').then(() => {
 **示例二**
 
 ```javascript
-var pm = new PM.Manager();
+var pm = new Shadow.PackageManager();
 
 pm.addFromFile('./packages/my-packages.json').then(() => {
     pm.loadAll().then(() => {
@@ -43,7 +43,7 @@ pm.addFromFile('./packages/my-packages.json').then(() => {
 **示例三**
 
 ```javascript
-var pm = new PM.Manager();
+var pm = new Shadow.PackageManager();
 
 pm.setPath('./packages');
 
@@ -62,7 +62,7 @@ pm.require([
 ## API参考
 
 ```javascript
-var pm = new PM.Manager(path = 'packages'); // 创建包管理器：path为资源目录
+var pm = new Shadow.PackageManager(path = 'packages'); // 创建包管理器：path为资源目录
 
 pm.getPath(); // 获取资源目录
 
