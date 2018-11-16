@@ -1,20 +1,8 @@
 import Options from './Options';
 
-import { UI } from './third_party';
 import EventDispatcher from './event/EventDispatcher';
 
-import Menubar from './editor/menubar/Menubar';
-import Toolbar from './editor/Toolbar';
-import Viewport from './editor/Viewport';
-import Sidebar from './editor/sidebar/Sidebar';
-import Sidebar2 from './editor/sidebar2/Sidebar';
-import BottomPanel from './editor/bottom/BottomPanel';
-import StatusBar from './editor/StatusBar';
-import ScriptEditor from './editor/script/ScriptEditor';
-import Player from './player/Player';
-
-import Editor from './editor/Editor';
-import Physics from './editor/Physics';
+import Physics from './physics/Physics';
 
 import API from './api/API';
 
@@ -51,50 +39,6 @@ function Application(container, options) {
     this.statusBar = new StatusBar(params); // 状态栏
     this.script = new ScriptEditor(params); // 脚本编辑器
     this.player = new Player(params); // 播放器面板
-
-    UI.create({
-        xtype: 'container',
-        parent: this.container,
-        children: [
-            new Menubar(params), {
-                xtype: 'div',
-                style: {
-                    width: '100%',
-                    flex: 1,
-                    display: 'flex',
-                    flexDirection: 'row',
-                },
-                children: [
-                    this.toolbar, {
-                        xtype: 'div',
-                        style: {
-                            position: 'relative',
-                            flex: 1,
-                            display: 'flex',
-                            flexDirection: 'column'
-                        },
-                        children: [{
-                            xtype: 'div',
-                            style: {
-                                position: 'relative',
-                                flex: 1
-                            },
-                            children: [
-                                this.viewport,
-                                this.script,
-                                this.player
-                            ]
-                        },
-                        this.bottomPanel,
-                        this.statusBar
-                        ]
-                    },
-                    this.sidebar2,
-                    this.sidebar
-                ]
-            }
-        ]
-    }).render();
 
     // 核心
     this.editor = new Editor(this); // 编辑器
