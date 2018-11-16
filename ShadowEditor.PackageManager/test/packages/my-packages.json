@@ -1,0 +1,19 @@
+{
+    "name": "My Packages",
+    "version": "0.0.1",
+    "packages": [
+        {
+            "name": "ModuleA",
+            "assets": [
+                "MyCss.css",
+                "ModuleA.js"
+            ]
+        },
+        {
+            "name": "ModuleB",
+            "assets": [
+                "ModuleB.js"
+            ]
+        }
+    ]
+}

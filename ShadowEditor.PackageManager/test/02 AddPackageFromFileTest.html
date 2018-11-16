@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>02 AddPackageFromFileTest</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="../dist/PackageManager.js"></script>
+</head>
+
+<body>
+    <div>Hello, world!</div>
+    <script>
+        var pm = new PM.Manager();
+        pm.addFromFile('./packages/my-packages.json').then(() => {
+            pm.loadAll().then(() => {
+                alert(moduleNameA);
+                alert(moduleNameB);
+                FunctionA();
+                FunctionB();
+            });
+        });
+    </script>
+</body>
+
+</html>
