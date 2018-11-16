@@ -4,7 +4,7 @@ import BaseEvent from './BaseEvent';
 
 // 核心
 import AnimateEvent from './AnimateEvent';
-import KeyDownEvent from './KeyDownEvent';
+// import KeyDownEvent from './KeyDownEvent';
 import RenderEvent from './RenderEvent';
 import ResizeEvent from './ResizeEvent';
 
@@ -30,7 +30,7 @@ function EventDispatcher(app) {
     this.events = [
         // 核心事件
         new AnimateEvent(this.app),
-        new KeyDownEvent(this.app),
+        // new KeyDownEvent(this.app),
         new RenderEvent(this.app),
         new ResizeEvent(this.app),
 
