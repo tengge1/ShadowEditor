@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>Shadow Editor</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!-- codemirror -->
+    <link rel="stylesheet" href="assets/css/codemirror.css">
+    <link rel="stylesheet" href="assets/css/theme/monokai.css">
+    <link rel="stylesheet" href="assets/css/addon/dialog.css">
+    <link rel="stylesheet" href="assets/css/addon/show-hint.css">
+    <link rel="stylesheet" href="assets/css/addon/tern.css">
+
+    <!-- iconfont -->
+    <link href="assets/css/icon/iconfont.css" rel="stylesheet" />
+
+    <!-- Shadow Editor -->
+    <link href="assets/css/main.css" rel="stylesheet" />
+    <link id="theme" href="assets/css/light.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="container" tabindex="10"></div>
+
+    <!-- three.js -->
+    <script src="assets/js/three.js"></script>
+    <script src="assets/js/stats.min.js"></script>
+    <script src="assets/js/three.bas.js"></script>
+    <script src="assets/js/SPE.js"></script>
+    <script src="assets/js/mmdparser.min.js"></script>
+    <script src="assets/js/ammo.js"></script>
+    <script src="assets/js/VolumetricFire.js"></script>
+    <script src="assets/js/utils/BufferGeometryUtils.js"></script>
+    <script src="assets/js/shaders/NormalMapShader.js"></script>
+    <script src="assets/js/ShaderTerrain.js"></script>
+
+    <!-- controls -->
+    <script src="assets/js/controls/EditorControls.js"></script>
+    <script src="assets/js/controls/TransformControls.js"></script>
+
+    <!-- third-party -->
+    <script src="assets/js/jszip.min.js"></script>
+    <script src="assets/js/lzma.js"></script>
+    <script src="assets/js/ctm.js"></script>
+    <script src="assets/js/inflate.min.js"></script>
+    <script src="assets/js/gl-matrix.js"></script>
+    <script src="assets/js/pako.js"></script>
+    <script src="assets/js/SimplexNoise.js"></script>
+    <script src="assets/js/ImprovedNoise.js"></script>
+    <script src="assets/js/GPUComputationRenderer.js"></script>
+
+    <script src="assets/js/codemirror.js"></script>
+    <script src="assets/js/mode/javascript.js"></script>
+    <script src="assets/js/mode/glsl.js"></script>
+    <script src="assets/js/esprima.js"></script>
+    <script src="assets/js/jsonlint.js"></script>
+    <script src="assets/js/glslprep.min.js"></script>
+    <script src="assets/js/addon/dialog.js"></script>
+    <script src="assets/js/addon/show-hint.js"></script>
+    <script src="assets/js/addon/tern.js"></script>
+
+    <script src="assets/js/acorn/acorn.js"></script>
+    <script src="assets/js/acorn/acorn_loose.js"></script>
+    <script src="assets/js/acorn/walk.js"></script>
+
+    <script src="assets/js/ternjs/polyfill.js"></script>
+    <script src="assets/js/ternjs/signal.js"></script>
+    <script src="assets/js/ternjs/tern.js"></script>
+    <script src="assets/js/ternjs/def.js"></script>
+    <script src="assets/js/ternjs/comment.js"></script>
+    <script src="assets/js/ternjs/infer.js"></script>
+    <script src="assets/js/ternjs/doc_comment.js"></script>
+    <script src="assets/js/tern-threejs/threejs.js"></script>
+
+    <!-- geometries -->
+    <script src="assets/js/geometries/TeapotBufferGeometry.js"></script>
+
+    <!-- loaders -->
+    <script src="assets/js/loaders/AMFLoader.js"></script>
+    <script src="assets/js/loaders/AWDLoader.js"></script>
+    <script src="assets/js/loaders/BabylonLoader.js"></script>
+    <script src="assets/js/loaders/BinaryLoader.js"></script>
+    <script src="assets/js/loaders/ColladaLoader2.js"></script>
+    <script src="assets/js/loaders/FBXLoader.js"></script>
+    <script src="assets/js/loaders/GLTFLoader.js"></script>
+    <script src="assets/js/loaders/KMZLoader.js"></script>
+    <script src="assets/js/loaders/MD2Loader.js"></script>
+    <script src="assets/js/loaders/OBJLoader.js"></script>
+    <script src="assets/js/loaders/PLYLoader.js"></script>
+    <script src="assets/js/loaders/STLLoader.js"></script>
+    <script src="assets/js/loaders/TGALoader.js"></script>
+    <script src="assets/js/loaders/VTKLoader.js"></script>
+    <script src="assets/js/loaders/ctm/CTMLoader.js"></script>
+    <script src="assets/js/loaders/MMDLoader.js"></script>
+
+    <!-- exporters -->
+    <script src="assets/js/exporters/GLTFExporter.js"></script>
+    <script src="assets/js/exporters/OBJExporter.js"></script>
+    <script src="assets/js/exporters/PLYExporter.js"></script>
+    <script src="assets/js/exporters/STLBinaryExporter.js"></script>
+    <script src="assets/js/exporters/STLExporter.js"></script>
+
+    <!-- objects -->
+    <script src="assets/js/objects/Sky.js"></script>
+    <script src="assets/js/objects/Reflector.js"></script>
+    <script src="assets/js/objects/Lensflare.js"></script>
+
+    <!-- animation -->
+    <script src="assets/js/animation/CCDIKSolver.js"></script>
+    <script src="assets/js/animation/MMDPhysics.js"></script>
+
+    <!-- Shadow Editor -->
+    <script src="dist/ShadowEditor.js"></script>
+    <script>
+        var container = null;
+        var app = null;
+
+        var start = function () {
+            container = document.getElementById('container');
+            app = new Shadow.Application(container, {
+                server: location.origin
+            });
+            app.start();
+        };
+
+        window.onload = start;
+    </script>
+</body>
+
+</html>
