@@ -4,7 +4,6 @@
     "private": true,
     "description": "3D Editor with three.js.",
     "dependencies": {
-        "@tengge1/package-manager": "0.0.2",
         "d3-dispatch": "^1.0.3"
     },
     "devDependencies": {
