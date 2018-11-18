@@ -1,4 +1,4 @@
-import { UI } from '../third_party';
+import UI from '../ui/UI';
 
 /**
  * 所有组件基类

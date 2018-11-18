@@ -1,4 +1,4 @@
-import { UI } from '../../third_party';
+import UI from '../../ui/UI';
 
 /**
  * 物体菜单

@@ -1,4 +1,4 @@
-import { Control, UI } from '../third_party';
+import Control from './Control';
 import UploadUtils from '../utils/UploadUtils';
 
 /**
@@ -221,7 +221,5 @@ ImageListWindow.prototype.onClickImage = function (event, index, btn, control) {
         }
     }
 };
-
-UI.addXType('imagelistwindow', ImageListWindow);
 
 export default ImageListWindow;

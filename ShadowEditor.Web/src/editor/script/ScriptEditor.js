@@ -1,4 +1,4 @@
-import { UI } from '../../third_party';
+import UI from '../../ui/UI';
 import SetScriptValueCommand from '../../command/SetScriptValueCommand';
 
 /**

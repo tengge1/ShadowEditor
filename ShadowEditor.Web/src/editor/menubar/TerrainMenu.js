@@ -1,4 +1,4 @@
-import { UI } from '../../third_party';
+import UI from '../../ui/UI';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import PerlinTerrain from '../../object/terrain/PerlinTerrain';
 import ShaderTerrain from '../../object/terrain/ShaderTerrain';

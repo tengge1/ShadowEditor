@@ -1,4 +1,4 @@
-import { UI } from '../../third_party';
+import UI from '../../ui/UI';
 import AnimationGroup from '../../animation/AnimationGroup';
 import Animation from '../../animation/Animation';
 

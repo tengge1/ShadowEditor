@@ -1,5 +1,4 @@
-import { UI } from '../../third_party';
-import ImageListWindow from '../../ui/ImageListWindow';
+import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
 import AudioEditWindow from './AudioEditWindow';
 
@@ -9,7 +8,7 @@ import AudioEditWindow from './AudioEditWindow';
  * @param {*} options 
  */
 function AudioWindow(options) {
-    ImageListWindow.call(this, options);
+    UI.ImageListWindow.call(this, options);
     this.app = options.app;
 
     this.title = '音频列表';
@@ -22,7 +21,7 @@ function AudioWindow(options) {
     this.onSelect = options.onSelect || null;
 }
 
-AudioWindow.prototype = Object.create(ImageListWindow.prototype);
+AudioWindow.prototype = Object.create(UI.ImageListWindow.prototype);
 AudioWindow.prototype.constructor = AudioWindow;
 
 AudioWindow.prototype.beforeUpdateList = function () {

@@ -1,4 +1,4 @@
-import { Control } from '../../third_party';
+import Control from '../../ui/Control';
 import TextureWindow from '../window/TextureWindow';
 
 /**

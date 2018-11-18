@@ -1,4 +1,4 @@
-﻿import { UI } from '../../third_party';
+﻿import UI from '../../ui/UI';
 
 /**
  * 历史记录面板

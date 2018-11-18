@@ -1,4 +1,4 @@
-import { UI } from '../../third_party';
+import UI from '../../ui/UI';
 import ModelWindow from '../window/ModelWindow';
 import TextureWindow from '../window/TextureWindow';
 import AudioWindow from '../window/AudioWindow';

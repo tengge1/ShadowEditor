@@ -1,4 +1,4 @@
-import { UI } from '../../third_party';
+import UI from '../../ui/UI';
 
 /**
  * 状态菜单（菜单栏右侧）

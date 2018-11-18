@@ -1,5 +1,4 @@
-import { UI } from '../../third_party';
-import ImageListWindow from '../../ui/ImageListWindow';
+import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
 import ModelLoader from '../../loader/ModelLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';
@@ -11,7 +10,7 @@ import ModelEditWindow from './ModelEditWindow';
  * @param {*} options 
  */
 function ModelWindow(options) {
-    ImageListWindow.call(this, options);
+    UI.ImageListWindow.call(this, options);
     this.app = options.app;
 
     this.title = '模型列表';
@@ -22,7 +21,7 @@ function ModelWindow(options) {
     this.showUploadButton = true;
 }
 
-ModelWindow.prototype = Object.create(ImageListWindow.prototype);
+ModelWindow.prototype = Object.create(UI.ImageListWindow.prototype);
 ModelWindow.prototype.constructor = ModelWindow;
 
 ModelWindow.prototype.beforeUpdateList = function () {

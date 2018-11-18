@@ -1,4 +1,4 @@
-﻿import { UI } from '../../third_party';
+﻿import UI from '../../ui/UI';
 import AddScriptCommand from '../../command/AddScriptCommand';
 import ScriptWindow from '../script/window/ScriptWindow';
 

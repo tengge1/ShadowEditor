@@ -1,4 +1,4 @@
-import { UI } from '../../third_party';
+import UI from '../../ui/UI';
 import SceneWindow from '../window/SceneWindow';
 import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';

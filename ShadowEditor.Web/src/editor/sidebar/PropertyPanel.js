@@ -1,4 +1,4 @@
-﻿import { UI } from '../../third_party';
+﻿import UI from '../../ui/UI';
 import BasicComponent from '../../component/BasicComponent';
 import TransformComponent from '../../component/TransformComponent';
 import CameraComponent from '../../component/CameraComponent';

@@ -1,5 +1,4 @@
-import { UI } from '../../third_party';
-import ImageListWindow from '../../ui/ImageListWindow';
+import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import UploadUtils from '../../utils/UploadUtils';
@@ -14,7 +13,7 @@ import SceneEditWindow from './SceneEditWindow';
  * @param {*} options 
  */
 function SceneWindow(options) {
-    ImageListWindow.call(this, options);
+    UI.ImageListWindow.call(this, options);
     this.app = options.app;
 
     this.title = '场景列表';
@@ -22,7 +21,7 @@ function SceneWindow(options) {
     this.preImageUrl = this.app.options.server;
 }
 
-SceneWindow.prototype = Object.create(ImageListWindow.prototype);
+SceneWindow.prototype = Object.create(UI.ImageListWindow.prototype);
 SceneWindow.prototype.constructor = SceneWindow;
 
 SceneWindow.prototype.beforeUpdateList = function () {

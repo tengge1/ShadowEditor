@@ -1,4 +1,4 @@
-import { UI } from '../../../third_party';
+import UI from '../../../ui/UI';
 import JavaScriptStarter from '../code/JavaScriptStarter';
 import VertexShaderStarter from '../code/VertexShaderStarter';
 import FragmentShaderStarter from '../code/FragmentShaderStarter';
