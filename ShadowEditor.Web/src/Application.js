@@ -16,6 +16,7 @@ import Player from './player/Player';
 import Editor from './editor/Editor';
 import Physics from './editor/Physics';
 
+import PackageManager from './core/PackageManager';
 import API from './api/API';
 
 /**
@@ -97,7 +98,8 @@ function Application(container, options) {
     }).render();
 
     // 核心
-    this.editor = new Editor(this); // 编辑器
+    this.packageManager = new PackageManager();
+    this.editor = new Editor(this);
     this.physics = new Physics(params);
 
     // Html5 Worker
