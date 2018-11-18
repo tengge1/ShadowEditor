@@ -26,20 +26,6 @@ function Application(container, options) {
     this.call = this.event.call.bind(this.event);
     this.on = this.event.on.bind(this.event);
 
-    var params = { app: this };
-
-    // 用户界面
-    this.ui = UI;
-    this.menubar = new Menubar(params); // 菜单栏
-    this.toolbar = new Toolbar(params); // 工具栏
-    this.viewport = new Viewport(params); // 场景编辑区
-    this.sidebar = new Sidebar(params); // 侧边栏
-    this.sidebar2 = new Sidebar2(params); // 侧边栏2
-    this.bottomPanel = new BottomPanel(params); // 底部面板
-    this.statusBar = new StatusBar(params); // 状态栏
-    this.script = new ScriptEditor(params); // 脚本编辑器
-    this.player = new Player(params); // 播放器面板
-
     // 核心
     this.editor = new Editor(this); // 编辑器
     this.physics = new Physics(params);
