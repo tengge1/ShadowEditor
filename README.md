@@ -26,14 +26,6 @@
 7. 自带播放器，实时演示场景动态效果。
 8. 支持补间动画、骨骼动画、粒子动画，支持mmd动画，支持lmesh动画。
 
-## 组件
-
-| 名称 | 功能 |
-| ---- | ---- |
-| [ShadowEditor.PackageManager](/ShadowEditor.PackageManager/) | ShadowEditor包管理器。 |
-| [ShadowEditor.UI](/ShadowEditor.UI/) | ShadowEditor UI框架。 |
-| [ShadowEditor.ScriptEditor](/ShadowEditor.ScriptEditor/) | ShadowEditor脚本编辑器。 |
-
 ## 使用方法
 
 **该项目仅支持Windows系统，电脑上需要安装.Net Framework 4.5。**
@@ -188,4 +180,3 @@ npm run build-docs
 * Three.js官网：https://threejs.org/
 * Three.js源码：https://github.com/mrdoob/three.js/
 * LOL模型：http://www.lolking.net/models
-* xtype.js: https://github.com/tengge1/xtype.js

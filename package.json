@@ -14,11 +14,6 @@
     },
     "scripts": {
         "build": "rollup -c ShadowEditor.Web/rollup.config.js",
-        "build-pm": "rollup -c ShadowEditor.PackageManager/rollup.config.js",
-        "build-ui": "rollup -c ShadowEditor.UI/rollup.config.js",
-        "build-code": "rollup -c ShadowEditor.ScriptEditor/rollup.config.js",
-        "build-core": "rollup -c ShadowEditor.Core/rollup.config.js",
-        "build-player": "rollup -c ShadowEditor.Player/rollup.config.js",
         "build-docs": "gitbook build docs-dev",
         "clear": "npm prune"
     },
