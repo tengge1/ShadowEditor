@@ -30,6 +30,12 @@
             "assets": [
                 "js/three.js"
             ]
+        },
+        {
+            "name": "Cloth",
+            "assets": [
+                "js/Cloth.js"
+            ]
         }
     ]
 }

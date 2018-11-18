@@ -98,7 +98,9 @@ function Application(container, options) {
     }).render();
 
     // 核心
-    this.packageManager = new PackageManager();
+    this.packageManager = new PackageManager('assets');
+    this.packageManager.addFromFile('assets/packages.json');
+
     this.editor = new Editor(this);
     this.physics = new Physics(params);
 

@@ -63,6 +63,11 @@ ComponentMenu.prototype.render = function () {
                 cls: 'option',
                 onClick: this.onAddSmoke.bind(this)
             }, {
+                xtype: 'div',
+                html: '布',
+                cls: 'option',
+                onClick: this.onAddCloth.bind(this)
+            }, {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
@@ -169,6 +174,14 @@ ComponentMenu.prototype.onAddSmoke = function () {
     editor.execute(new AddObjectCommand(smoke));
 
     smoke.update(0);
+};
+
+// ----------------------------- 添加布 ------------------------------------
+
+ComponentMenu.prototype.onAddCloth = function () {
+    this.app.packageManager.load('Cloth').then(() => {
+        debugger
+    });
 };
 
 // --------------------------- 添加刚体 ------------------------------------
