@@ -24,7 +24,9 @@ ParticleAnimator.prototype.update = function (clock, deltaTime, time) {
             n.userData.fire.update(elapsed);
         } else if (n.userData.type === 'Smoke') {
             n.update(elapsed);
-        } if (n.userData.type === 'ParticleEmitter') {
+        } else if (n.userData.type === 'Water') {
+            n.update();
+        } else if (n.userData.type === 'ParticleEmitter') {
             n.userData.group.tick(deltaTime);
         }
     });
