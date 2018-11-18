@@ -44,7 +44,7 @@ function Water(renderer) {
     // 创建网格
     THREE.Mesh.call(this, geometry, material);
 
-    this.name = '液体';
+    this.name = '水';
 
     this.rotation.x = -Math.PI / 2;
 
@@ -84,6 +84,10 @@ function Water(renderer) {
     this.heightmapVariable = heightmapVariable;
     this.gpuCompute = gpuCompute;
     this.waterUniforms = waterUniforms;
+
+    Object.assign(this.userData, {
+        type: 'Water'
+    });
 }
 
 Water.prototype = Object.create(THREE.Mesh.prototype);

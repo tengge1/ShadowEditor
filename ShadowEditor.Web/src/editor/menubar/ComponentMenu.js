@@ -54,7 +54,7 @@ ComponentMenu.prototype.render = function () {
                 onClick: this.onAddFire.bind(this)
             }, {
                 xtype: 'div',
-                html: '液体',
+                html: '水',
                 cls: 'option',
                 onClick: this.onAddWater.bind(this)
             }, {
@@ -148,9 +148,11 @@ ComponentMenu.prototype.onAddWater = function () {
 
     editor.execute(new AddObjectCommand(water));
 
-    this.app.on(`animate.${this.id}`, () => {
-        water.update();
-    });
+    water.update();
+
+    // this.app.on(`animate.${this.id}`, () => {
+
+    // });
 };
 
 // ------------------------------ 添加烟 ------------------------------------

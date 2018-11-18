@@ -19,6 +19,7 @@ import MMDComponent from '../../component/MMDComponent';
 import RigidBodyComponent from '../../component/physics/RigidBodyComponent';
 import SkyComponent from '../../component/object/SkyComponent';
 import PerlinTerrainComponent from '../../component/object/PerlinTerrainComponent';
+import WaterComponent from '../../component/water/WaterComponent';
 
 /**
  * 属性面板
@@ -53,6 +54,7 @@ PropertyPanel.prototype.render = function () {
             new ParticleEmitterComponent({ app: this.app }),
             new FireComponent({ app: this.app }),
             new SmokeComponent({ app: this.app }),
+            new WaterComponent({ app: this.app }),
             new LMeshComponent({ app: this.app }),
             new MMDComponent({ app: this.app }),
             new RigidBodyComponent({ app: this.app }),
