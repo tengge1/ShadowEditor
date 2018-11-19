@@ -1,3 +1,6 @@
+/**
+ * 布料
+ */
 function Cloth() {
     var pinsFormation = [];
     var pins = [6];

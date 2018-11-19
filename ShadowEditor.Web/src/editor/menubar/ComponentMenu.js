@@ -176,8 +176,11 @@ ComponentMenu.prototype.onAddSmoke = function () {
 // ----------------------------- 添加布 ------------------------------------
 
 ComponentMenu.prototype.onAddCloth = function () {
+    var editor = this.app.editor;
+
     this.app.packageManager.load('Cloth').then(() => {
         var cloth = new Cloth();
+        editor.execute(new AddObjectCommand(cloth));
 
         this.app.on(`animate.${this.id}`, () => {
             cloth.update();
