@@ -224,7 +224,7 @@ function Cloth( w, h ) {
 
 }
 
-function simulate( time ) {
+function simulate( time, clothGeometry, pins ) {
 
 	if ( ! lastTime ) {
 
@@ -277,31 +277,6 @@ function simulate( time ) {
 		satisfyConstraints( constraint[ 0 ], constraint[ 1 ], constraint[ 2 ] );
 
 	}
-
-	// Ball Constraints
-
-	ballPosition.z = - Math.sin( Date.now() / 600 ) * 90 ; //+ 40;
-	ballPosition.x = Math.cos( Date.now() / 400 ) * 70;
-
-	if ( sphere.visible ) {
-
-		for ( particles = cloth.particles, i = 0, il = particles.length; i < il; i ++ ) {
-
-			particle = particles[ i ];
-			var pos = particle.position;
-			diff.subVectors( pos, ballPosition );
-			if ( diff.length() < ballSize ) {
-
-				// collided
-				diff.normalize().multiplyScalar( ballSize );
-				pos.copy( ballPosition ).add( diff );
-
-			}
-
-		}
-
-	}
-
 
 	// Floor Constraints
 

@@ -4,6 +4,7 @@ import Sky from '../../object/component/Sky';
 import Fire from '../../object/component/Fire';
 import Water from '../../object/component/Water';
 import Smoke from '../../object/component/Smoke';
+import Cloth from '../../object/component/Cloth';
 import ParticleEmitter from '../../object/component/ParticleEmitter';
 import PlysicsUtils from '../../physics/PlysicsUtils';
 
@@ -154,10 +155,6 @@ ComponentMenu.prototype.onAddWater = function () {
     editor.execute(new AddObjectCommand(water));
 
     water.update();
-
-    // this.app.on(`animate.${this.id}`, () => {
-
-    // });
 };
 
 // ------------------------------ 添加烟 ------------------------------------
@@ -180,7 +177,11 @@ ComponentMenu.prototype.onAddSmoke = function () {
 
 ComponentMenu.prototype.onAddCloth = function () {
     this.app.packageManager.load('Cloth').then(() => {
-        debugger
+        var cloth = new Cloth();
+
+        this.app.on(`animate.${this.id}`, () => {
+            cloth.update();
+        });
     });
 };
 
