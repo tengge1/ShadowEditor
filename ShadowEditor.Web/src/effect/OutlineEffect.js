@@ -27,13 +27,23 @@ OutlineEffect.prototype.init = function () {
     };
 
     var scene = this.app.editor.scene;
+    var sceneHelpers = this.app.editor.sceneHelpers;
     var camera = this.app.editor.camera;
     var renderer = this.app.editor.renderer;
 
+    if (this.composer) {
+        this.composer.reset();
+    }
+
     var composer = new THREE.EffectComposer(renderer);
 
-    var renderPass = new THREE.RenderPass(scene, camera);
-    composer.addPass(renderPass);
+    var renderPass1 = new THREE.RenderPass(scene, camera);
+    renderPass1.clear = false;
+    composer.addPass(renderPass1);
+
+    var renderPass2 = new THREE.RenderPass(sceneHelpers, camera);
+    renderPass2.clear = false;
+    composer.addPass(renderPass2);
 
     var outlinePass = new THREE.OutlinePass(new THREE.Vector2(renderer.domElement.width, renderer.domElement.height), scene, camera);
     outlinePass.edgeStrength = params.edgeStrength;

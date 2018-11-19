@@ -34,21 +34,13 @@ RenderEvent.prototype.onRender = function () {
     var camera = editor.camera;
     var renderer = editor.renderer;
 
-    sceneHelpers.updateMatrixWorld();
     scene.updateMatrixWorld();
+    sceneHelpers.updateMatrixWorld();
 
-    // 渲染场景
-    renderer.render(scene, camera);
-
-    // 渲染边框
     if (this.outlineEffect === undefined) {
         this.outlineEffect = new OutlineEffect(this.app);
     }
-
     this.outlineEffect.render();
-
-    // 渲染帮助器
-    renderer.render(sceneHelpers, camera);
 };
 
 export default RenderEvent;
