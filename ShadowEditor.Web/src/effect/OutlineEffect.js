@@ -8,6 +8,14 @@ import BaseEffect from './BaseEffect';
 function OutlineEffect(app) {
     BaseEffect.call(this, app);
 
+    this.init();
+    this.app.on(`sceneLoaded.${this.id}`, this.onSceneLoaded.bind(this));
+};
+
+OutlineEffect.prototype = Object.create(BaseEffect.prototype);
+OutlineEffect.prototype.constructor = OutlineEffect;
+
+OutlineEffect.prototype.init = function () {
     var params = {
         edgeStrength: 10,
         edgeGlow: 0.4,
@@ -54,9 +62,6 @@ function OutlineEffect(app) {
     this.composer = composer;
 };
 
-OutlineEffect.prototype = Object.create(BaseEffect.prototype);
-OutlineEffect.prototype.constructor = OutlineEffect;
-
 OutlineEffect.prototype.render = function (obj) {
     if (this.app.editor.selected) {
         this.outlinePass.selectedObjects = [this.app.editor.selected];
@@ -65,6 +70,10 @@ OutlineEffect.prototype.render = function (obj) {
     }
 
     this.composer.render();
+};
+
+OutlineEffect.prototype.onSceneLoaded = function () {
+    this.init();
 };
 
 export default OutlineEffect;

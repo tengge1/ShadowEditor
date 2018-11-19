@@ -74,6 +74,8 @@ var EventList = [
     'historyChanged', // 历史改变事件
     'refreshScriptEditor', // 刷新脚本编辑器事件
 
+    'sceneLoaded', // 场景载入
+
     // 场景编辑区
     'transformControlsChange', // 变形控件改变
     'transformControlsMouseDown', // 变形控件按下鼠标键

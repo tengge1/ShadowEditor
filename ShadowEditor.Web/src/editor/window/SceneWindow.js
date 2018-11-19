@@ -170,6 +170,8 @@ SceneWindow.prototype.onLoadScene = function (obj) {
     }
 
     this.app.editor.camera.updateProjectionMatrix();
+
+    this.app.call('sceneLoaded', this);
 };
 
 SceneWindow.prototype.onEdit = function (data) {
