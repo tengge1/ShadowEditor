@@ -50,18 +50,18 @@ OutlineEffect.prototype.init = function () {
     outlinePass.edgeGlow = params.edgeGlow;
     outlinePass.edgeThickness = params.edgeThickness;
     outlinePass.pulsePeriod = params.pulsePeriod;
-    outlinePass.usePatternTexture = true;
+    // outlinePass.usePatternTexture = true;
     outlinePass.visibleEdgeColor.set(params.visibleEdgeColor);
     outlinePass.hiddenEdgeColor.set(params.hiddenEdgeColor);
     composer.addPass(outlinePass);
 
     var loader = new THREE.TextureLoader();
 
-    loader.load('assets/textures/tri_pattern.jpg', texture => {
-        outlinePass.patternTexture = texture;
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.RepeatWrapping;
-    });
+    // loader.load('assets/textures/tri_pattern.jpg', texture => {
+    //     outlinePass.patternTexture = texture;
+    //     texture.wrapS = THREE.RepeatWrapping;
+    //     texture.wrapT = THREE.RepeatWrapping;
+    // });
 
     var effectFXAA = new THREE.ShaderPass(THREE.FXAAShader);
     effectFXAA.uniforms['resolution'].value.set(1 / renderer.domElement.width, 1 / renderer.domElement.height);
