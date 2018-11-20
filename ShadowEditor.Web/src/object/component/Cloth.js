@@ -32,7 +32,7 @@ function plane(width, height) {
 var clothFunction = plane(restDistance * xSegs, restDistance * ySegs);
 
 var GRAVITY = 981 * 1.4;
-var gravity = new THREE.Vector3(0, - GRAVITY, 0).multiplyScalar(MASS);
+var gravity = new THREE.Vector3(0, -GRAVITY, 0).multiplyScalar(MASS);
 
 var TIMESTEP = 18 / 1000;
 var TIMESTEP_SQ = TIMESTEP * TIMESTEP;
@@ -171,13 +171,15 @@ function Cloth() {
 
     THREE.Mesh.call(this, clothGeometry, clothMaterial);
 
+    this.scale.multiplyScalar(0.02);
+
     this.castShadow = true;
 
-    this.customDepthMaterial = new THREE.MeshDepthMaterial({
-        depthPacking: THREE.RGBADepthPacking,
-        map: clothTexture,
-        alphaTest: 0.5
-    });
+    // this.customDepthMaterial = new THREE.MeshDepthMaterial({
+    //     depthPacking: THREE.RGBADepthPacking,
+    //     map: clothTexture,
+    //     alphaTest: 0.5
+    // });
 
     this.pins = pins;
     this.clothGeometry = clothGeometry;
@@ -220,7 +222,8 @@ Cloth.prototype.simulate = function (time) {
 
     // Aerodynamics forces
     if (wind) {
-        var face, faces = this.clothGeometry.faces, normal;
+        var face, faces = this.clothGeometry.faces,
+            normal;
         particles = this.particles;
 
         for (i = 0, il = faces.length; i < il; i++) {
@@ -254,8 +257,8 @@ Cloth.prototype.simulate = function (time) {
     for (particles = this.particles, i = 0, il = particles.length; i < il; i++) {
         particle = particles[i];
         var pos = particle.position;
-        if (pos.y < - 250) {
-            pos.y = - 250;
+        if (pos.y < -250) {
+            pos.y = -250;
         }
     }
 
