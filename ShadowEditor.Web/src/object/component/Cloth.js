@@ -175,11 +175,9 @@ function Cloth() {
 
     this.castShadow = true;
 
-    // this.customDepthMaterial = new THREE.MeshDepthMaterial({
-    //     depthPacking: THREE.RGBADepthPacking,
-    //     map: clothTexture,
-    //     alphaTest: 0.5
-    // });
+    Object.assign(this.userData, {
+        type: 'Cloth'
+    });
 
     this.pins = pins;
     this.clothGeometry = clothGeometry;
