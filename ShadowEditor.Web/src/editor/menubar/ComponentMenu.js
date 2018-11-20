@@ -180,10 +180,6 @@ ComponentMenu.prototype.onAddCloth = function () {
 
     var cloth = new Cloth();
     editor.execute(new AddObjectCommand(cloth));
-
-    this.app.on(`animate.${this.id}`, () => {
-        cloth.update();
-    });
 };
 
 // --------------------------- 添加刚体 ------------------------------------
