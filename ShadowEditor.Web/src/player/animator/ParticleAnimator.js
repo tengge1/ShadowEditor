@@ -28,6 +28,8 @@ ParticleAnimator.prototype.update = function (clock, deltaTime, time) {
             n.update();
         } else if (n.userData.type === 'ParticleEmitter') {
             n.userData.group.tick(deltaTime);
+        } else if (n.userData.type === 'Cloth') {
+            n.update();
         }
     });
 };
