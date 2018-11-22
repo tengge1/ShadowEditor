@@ -29,13 +29,7 @@ EditorControlsEvent.prototype.stop = function () {
 };
 
 EditorControlsEvent.prototype.onChange = function () {
-    var editor = this.app.editor;
-    var transformControls = editor.transformControls;
-    var camera = editor.camera;
-
-    transformControls.update();
-
-    this.app.call('cameraChanged', this, camera);
+    this.app.call('cameraChanged', this, this.app.editor.camera);
 };
 
 EditorControlsEvent.prototype.onEditorCleared = function () {

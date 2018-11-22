@@ -39,11 +39,6 @@ ObjectEvent.prototype.onObjectAdded = function (object) {
 
 ObjectEvent.prototype.onObjectChanged = function (object) {
     var editor = this.app.editor;
-    var transformControls = editor.transformControls;
-
-    if (editor.selected === object) {
-        transformControls.update();
-    }
 
     if (object instanceof THREE.PerspectiveCamera) {
         object.updateProjectionMatrix();
