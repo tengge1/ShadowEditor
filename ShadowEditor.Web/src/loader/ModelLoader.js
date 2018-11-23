@@ -16,6 +16,7 @@ import STLLoader from './STLLoader';
 import VTKLoader from './VTKLoader';
 import LOLLoader from './LOLLoader';
 import PMDLoader from './PMDLoader';
+import JsLoader from './JsLoader';
 
 const Loaders = {
     'amf': AMFLoader,
@@ -37,6 +38,7 @@ const Loaders = {
     'lol': LOLLoader,
     'pmd': PMDLoader,
     'pmx': PMDLoader,
+    'js': JsLoader,
 };
 
 /**

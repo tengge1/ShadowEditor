@@ -27,7 +27,7 @@ GLTFLoader.prototype.load = function (url, options) {
                     id: null,
                     name: `${options.Name}动画`,
                     type: 'javascript',
-                    source: this.createScripts(options.Name, result),
+                    source: this.createScripts(options.Name),
                     uuid: THREE.Math.generateUUID()
                 }];
             }
@@ -38,7 +38,7 @@ GLTFLoader.prototype.load = function (url, options) {
     });
 };
 
-GLTFLoader.prototype.createScripts = function (name, result) {
+GLTFLoader.prototype.createScripts = function (name) {
     return `var mesh = this.getObjectByName('${name}');\n` +
         `var obj = mesh.userData.obj;\n\n` +
         `var mixer = new THREE.AnimationMixer(obj.scene)\n` +
