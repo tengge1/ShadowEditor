@@ -67,6 +67,10 @@ Player.prototype.start = function () {
         animation: this.app.editor.animation,
     });
 
+    // 转为字符串，再转回来，避免编辑器和播放器互相干扰
+    jsons = JSON.stringify(jsons);
+    jsons = JSON.parse(jsons);
+
     this.loader.create(jsons).then(obj => {
         this.initPlayer(obj);
 

@@ -20,6 +20,7 @@ GLTFLoader.prototype.load = function (url, options) {
 
         loader.load(url, result => {
             var obj3d = result.scene;
+
             obj3d.userData.obj = result;
 
             if (result.animations && result.animations.length > 0) {
