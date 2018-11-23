@@ -82,6 +82,12 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType.json;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".js")).Count() > 0) // Skinned json文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".js")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.js;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".awd")).Count() > 0) // awd文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".awd")).FirstOrDefault();
