@@ -162,7 +162,7 @@ Converter.prototype.sceneToJson = function (scene, list) {
         }
 
         // 如果obj.userData.type不为空，则为内置类型，其子项不应该序列化
-        if (obj.children && obj.userData.type === undefined) {
+        if (obj.children && obj.userData.type === undefined && obj.userData.Server !== true) {
             obj.children.forEach(n => {
                 serializer.call(this, n);
             });
@@ -357,7 +357,13 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
             }
 
             // objJson.userData.type不为空，说明它是内置类型，其子项不应该被反序列化
-            if (objJson.userData.type === undefined && objJson.children && Array.isArray(objJson.children) && objJson.children.length > 0 && obj) {
+            // objJson.userData.Server为true是模型，子项不应被反序列化
+            if (objJson.userData.type === undefined &&
+                objJson.userData.Server !== true &&
+                objJson.children &&
+                Array.isArray(objJson.children) &&
+                objJson.children.length > 0 &&
+                obj) {
                 parseJson(objJson, obj, list);
             }
         });

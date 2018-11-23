@@ -41,7 +41,7 @@ GLTFLoader.prototype.load = function (url, options) {
 GLTFLoader.prototype.createScripts = function (name) {
     return `var mesh = this.getObjectByName('${name}');\n` +
         `var obj = mesh.userData.obj;\n\n` +
-        `var mixer = new THREE.AnimationMixer(obj.scene)\n` +
+        `var mixer = new THREE.AnimationMixer(obj.scene);\n` +
         `mixer.clipAction(obj.animations[0]).play();\n\n` +
         `function update(clock, deltaTime) { \n    mixer.update(deltaTime); \n}`;
 };
