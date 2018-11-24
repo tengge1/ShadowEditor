@@ -43,6 +43,7 @@ var EventList = [
     'clear', // 清空场景
     'load', // 加载场景
     'log', // 日志事件
+    'intersect', // 碰撞事件
 
     // signal事件
     'editScript', // 编辑脚本事件

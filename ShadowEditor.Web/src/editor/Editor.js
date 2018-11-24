@@ -90,9 +90,16 @@ function Editor(app) {
     this.stats.dom.style.zIndex = 'initial';
     this.app.viewport.container.dom.appendChild(this.stats.dom);
 
+    // 碰撞检测
+    this.raycaster = new THREE.Raycaster();
+    this.mouse = new THREE.Vector2();
+
     // 事件
     this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
     this.app.on(`optionsChanged.${this.id}`, this.onOptionsChanged.bind(this));
+
+    this.app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
+    this.app.on(`mousemove.${this.id}`, this.onMouseMove.bind(this));
 };
 
 Editor.prototype.onAppStarted = function () {
@@ -391,6 +398,22 @@ Editor.prototype.undo = function () { // 撤销事件
 
 Editor.prototype.redo = function () { // 重做事件
     this.history.redo();
+};
+
+// ---------------------- 碰撞检测 -----------------------------
+
+Editor.prototype.onMouseDown = function (event) {
+    this.raycaster.setFromCamera(this.mouse, this.camera);
+    var intersect = this.raycaster.intersectObjects(this.scene.children, true)[0];
+
+    if (intersect) {
+        this.app.call(`intersect`, this, intersect);
+    }
+};
+
+Editor.prototype.onMouseMove = function (event) {
+    this.mouse.x = (event.offsetX / this.renderer.domElement.clientWidth) * 2 - 1;
+    this.mouse.y = - (event.offsetY / this.renderer.domElement.clientHeight) * 2 + 1;
 };
 
 export default Editor;
