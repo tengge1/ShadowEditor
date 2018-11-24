@@ -38,7 +38,7 @@ OutlineEffect.prototype.init = function () {
     var composer = new THREE.EffectComposer(renderer);
 
     var renderPass1 = new THREE.RenderPass(scene, camera);
-    renderPass1.clear = false;
+    renderPass1.clear = true;
     composer.addPass(renderPass1);
 
     var renderPass2 = new THREE.RenderPass(sceneHelpers, camera);

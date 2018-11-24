@@ -40,6 +40,7 @@ RenderEvent.prototype.onRender = function () {
     if (this.outlineEffect === undefined) {
         this.outlineEffect = new OutlineEffect(this.app);
     }
+
     this.outlineEffect.render();
 };
 
