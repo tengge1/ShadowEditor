@@ -407,7 +407,7 @@ Editor.prototype.onMouseDown = function (event) {
     var intersect = this.raycaster.intersectObjects(this.scene.children, true)[0];
 
     if (intersect) {
-        this.app.call(`intersect`, this, intersect);
+        this.app.call(`intersect`, this, intersect, event);
     }
 };
 

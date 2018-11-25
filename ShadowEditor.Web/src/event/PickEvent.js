@@ -34,6 +34,10 @@ PickEvent.prototype.stop = function () {
 };
 
 PickEvent.prototype.onMouseDown = function (event) {
+    if (event.button !== 0) { // 只允许左键选中
+        return;
+    }
+
     var container = this.app.viewport.container;
 
     event.preventDefault();
