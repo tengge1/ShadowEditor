@@ -29,10 +29,8 @@ RenderEvent.prototype.stop = function () {
 
 RenderEvent.prototype.onRender = function () {
     var editor = this.app.editor;
-    var sceneHelpers = editor.sceneHelpers;
     var scene = editor.scene;
-    var camera = editor.camera;
-    var renderer = editor.renderer;
+    var sceneHelpers = editor.sceneHelpers;
 
     scene.updateMatrixWorld();
     sceneHelpers.updateMatrixWorld();

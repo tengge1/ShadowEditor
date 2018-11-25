@@ -206,30 +206,18 @@ Toolbar.prototype.onAddLine = function () {
 
         var geometry = new THREE.LineGeometry();
 
-        geometry.setPositions([
-            0, 0, 0, 10, 20, 30
-        ]);
-
-        geometry.setColors([
-            0.9, 0, 0,
-            0, 0.9, 0
-        ]);
-
         var material = new THREE.LineMaterial({
             color: 0xffffff,
             linewidth: 5, // in pixels
             vertexColors: THREE.VertexColors,
-            dashed: false,
-            polygonOffset: true,
-            polygonOffsetFactor: -40,
+            dashed: false
         });
 
+        var renderer = this.app.editor.renderer;
+        material.resolution.set(renderer.domElement.clientWidth, renderer.domElement.clientHeight);
+
         this.line = new THREE.Line2(geometry, material);
-
         this.line.name = '线';
-
-        this.line.computeLineDistances();
-        this.line.scale.set(1, 1, 1);
 
         this.app.editor.execute(new AddObjectCommand(this.line));
     } else {
@@ -237,6 +225,8 @@ Toolbar.prototype.onAddLine = function () {
         this.app.on(`intersect.${this.id}AddLine`, null);
         this.app.on(`dblclick.${this.id}AddLine`, null);
 
+        this.linePositions = null;
+        this.lineColors = null;
         this.line = null;
     }
 };
@@ -259,8 +249,9 @@ Toolbar.prototype.onAddLineIntersect = function (obj, event) { // 向线添加�
     geometry.setPositions(this.linePositions);
     geometry.setColors(this.lineColors);
 
+    geometry.maxInstancedCount = this.linePositions.length / 3 - 1;
+
     this.line.computeLineDistances();
-    this.line.scale.set(1, 1, 1);
 };
 
 Toolbar.prototype.onAddLineDblClick = function (obj) { // 停止画线，并开始绘制新的一条线
