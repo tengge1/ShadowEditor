@@ -1,6 +1,6 @@
 {
     "name": "shadoweditor",
-    "version": "0.0.9",
+    "version": "0.1.0",
     "private": true,
     "description": "3D Editor with three.js.",
     "dependencies": {
