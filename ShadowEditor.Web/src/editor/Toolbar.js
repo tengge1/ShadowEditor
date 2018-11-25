@@ -201,19 +201,35 @@ Toolbar.prototype.onAddLine = function () {
         this.app.on(`intersect.${this.id}AddLine`, this.onAddLineIntersect.bind(this));
         this.app.on(`dblclick.${this.id}AddLine`, this.onAddLineDblClick.bind(this));
 
-        var geometry = new THREE.BufferGeometry();
-        geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(300), 3));
-        geometry.attributes.position.count = 0
+        this.linePositions = [];
+        this.lineColors = [];
 
-        var material = new THREE.LineBasicMaterial({
-            color: 0xffffff * Math.random(),
+        var geometry = new THREE.LineGeometry();
+
+        geometry.setPositions([
+            0, 0, 0, 10, 20, 30
+        ]);
+
+        geometry.setColors([
+            0.9, 0, 0,
+            0, 0.9, 0
+        ]);
+
+        var material = new THREE.LineMaterial({
+            color: 0xffffff,
+            linewidth: 5, // in pixels
+            vertexColors: THREE.VertexColors,
+            dashed: false,
             polygonOffset: true,
             polygonOffsetFactor: -40,
         });
 
-        this.line = new THREE.Line(geometry, material);
+        this.line = new THREE.Line2(geometry, material);
 
         this.line.name = '线';
+
+        this.line.computeLineDistances();
+        this.line.scale.set(1, 1, 1);
 
         this.app.editor.execute(new AddObjectCommand(this.line));
     } else {
@@ -230,13 +246,21 @@ Toolbar.prototype.onAddLineIntersect = function (obj, event) { // 向线添加�
         return;
     }
 
-    var position = this.line.geometry.attributes.position;
+    this.linePositions.push(obj.point.x, obj.point.y, obj.point.z);
 
-    position.setXYZ(position.count, obj.point.x, obj.point.y, obj.point.z);
+    var color = new THREE.Color(0xffffff * Math.random());
+    this.lineColors.push(color.r, color.g, color.b);
 
-    position.count++;
+    if (this.linePositions.length < 6) {
+        return;
+    }
 
-    position.needsUpdate = true;
+    var geometry = this.line.geometry;
+    geometry.setPositions(this.linePositions);
+    geometry.setColors(this.lineColors);
+
+    this.line.computeLineDistances();
+    this.line.scale.set(1, 1, 1);
 };
 
 Toolbar.prototype.onAddLineDblClick = function (obj) { // 停止画线，并开始绘制新的一条线
@@ -254,14 +278,49 @@ Toolbar.prototype.onAddPolygon = function () {
     if (this.isAddingPolygon) {
         addPolygonBtn.select();
         this.app.on(`intersect.${this.id}AddPolygon`, this.onAddPolygonIntersect.bind(this));
+        this.app.on(`dblclick.${this.id}AddPolygon`, this.onAddPolygonDblClick.bind(this));
+
+        var geometry = new THREE.BufferGeometry();
+        geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(300), 3));
+        geometry.attributes.position.count = 0
+
+        var material = new THREE.MeshBasicMaterial({
+            color: 0xffffff * Math.random(),
+            polygonOffset: true,
+            polygonOffsetFactor: -40,
+        });
+
+        this.line = new THREE.Line(geometry, material);
+
+        this.line.name = '线';
+
+        this.app.editor.execute(new AddObjectCommand(this.line));
     } else {
         addPolygonBtn.unselect();
         this.app.on(`intersect.${this.id}AddPolygon`, null);
+        this.app.on(`dblclick.${this.id}AddPolygon`, null);
+
+        this.line = null;
     }
 };
 
 Toolbar.prototype.onAddPolygonIntersect = function (obj) {
-    alert('画面');
+    if (event.button !== 0) {
+        return;
+    }
+
+    var position = this.line.geometry.attributes.position;
+
+    position.setXYZ(position.count, obj.point.x, obj.point.y, obj.point.z);
+
+    position.count++;
+
+    position.needsUpdate = true;
+};
+
+Toolbar.prototype.onAddPolygonDblClick = function (obj) { // 停止画线，并开始绘制新的一条线
+    this.isAddingLine = !this.isAddingLine;
+    this.onAddLine();
 };
 
 // -------------------------------- 贴花工具 ---------------------------------------
