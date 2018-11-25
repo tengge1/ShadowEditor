@@ -179,6 +179,9 @@ ComponentMenu.prototype.onAddCloth = function () {
     var editor = this.app.editor;
 
     var cloth = new Cloth();
+
+    cloth.name = '布';
+
     editor.execute(new AddObjectCommand(cloth));
 };
 

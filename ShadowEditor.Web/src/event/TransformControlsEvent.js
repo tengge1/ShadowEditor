@@ -131,9 +131,11 @@ TransformControlsEvent.prototype.onObjectSelected = function (object) {
         return;
     }
 
-    if (object && !(object instanceof THREE.Scene) && !(object instanceof THREE.PerspectiveCamera && object.userData.isDefault === true)) {
-        this.app.editor.transformControls.attach(object);
+    if (!object || object === this.app.editor.scene || object === this.app.editor.camera) {
+        return;
     }
+
+    this.app.editor.transformControls.attach(object);
 };
 
 /**

@@ -1,7 +1,7 @@
 # Shadow Editor
 
 * 名称：Shadow Editor
-* 版本：v0.0.9(开发中)
+* 版本：v0.0.9
 * 说明：基于`three.js`的场景编辑器。
 
 * 源码一：https://gitee.com/tengge1/ShadowEditor
@@ -81,11 +81,24 @@ npm run build-docs
 
 ## 项目截图
 
-![image](images/scene20181007.png)
+![image](images/scene20181125.png)
 
 [点击此处](images/README.md)查看更多截图
 
 ## 开发日志
+
+**v0.0.9**
+
+* 发布日期：2018年11月25日
+* 更新日志：
+
+1. 新增布料带动画。
+2. gltf模型导入带动画。
+3. skinned morph(*.js)模型导入带动画。(新版three.js示例中已经移除该模型。)
+4. 平面画点工具。
+5. 平面画线工具。
+6. 平面贴花工具。
+7. 选中物体效果优化。
 
 **v0.0.8**
 
@@ -97,7 +110,7 @@ npm run build-docs
 3. 所有场景一键发布静态网站，便于部署到`GitHub Pages`服务上。
 4. 柏林地形组件、序列化和反序列化，并可在播放器中展示。
 5. 上传mp4视频贴图，并可以设置到材质上，在三维场景中播放视频。
-6. 增加液体组件（测试）。
+6. 增加水组件。
 
 **v0.0.7**
 

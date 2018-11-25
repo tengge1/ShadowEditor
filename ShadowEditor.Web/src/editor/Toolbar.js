@@ -1,5 +1,6 @@
 import UI from '../ui/UI';
 import AddObjectCommand from '../command/AddObjectCommand';
+import Earcut from '../utils/Earcut';
 
 /**
  * 工具栏
@@ -70,14 +71,16 @@ Toolbar.prototype.render = function () {
             icon: 'icon-line',
             title: '画线',
             onClick: this.onAddLine.bind(this)
-        }, {
-            xtype: 'iconbutton',
-            id: 'addPolygonBtn',
-            scope: this.id,
-            icon: 'icon-polygon',
-            title: '画面',
-            onClick: this.onAddPolygon.bind(this)
-        }, {
+        },
+        // {
+        //     xtype: 'iconbutton',
+        //     id: 'addPolygonBtn',
+        //     scope: this.id,
+        //     icon: 'icon-polygon',
+        //     title: '画面',
+        //     onClick: this.onAddPolygon.bind(this)
+        // }, 
+        {
             xtype: 'iconbutton',
             id: 'sprayBtn',
             scope: this.id,
@@ -167,7 +170,7 @@ Toolbar.prototype.onAddPointIntersect = function (obj, event) {
         return;
     }
 
-    var geometry = new THREE.CircleBufferGeometry(0.1, 32, 0, Math.PI * 2);
+    var geometry = new THREE.CircleBufferGeometry(0.4, 32, 0, Math.PI * 2);
 
     var material = new THREE.PointsMaterial({
         color: 0xffffff * Math.random(),
@@ -208,9 +211,11 @@ Toolbar.prototype.onAddLine = function () {
 
         var material = new THREE.LineMaterial({
             color: 0xffffff,
-            linewidth: 5, // in pixels
+            linewidth: 8, // in pixels
             vertexColors: THREE.VertexColors,
-            dashed: false
+            dashed: false,
+            polygonOffset: true,
+            polygonOffsetFactor: -40,
         });
 
         var renderer = this.app.editor.renderer;
@@ -271,29 +276,39 @@ Toolbar.prototype.onAddPolygon = function () {
         this.app.on(`intersect.${this.id}AddPolygon`, this.onAddPolygonIntersect.bind(this));
         this.app.on(`dblclick.${this.id}AddPolygon`, this.onAddPolygonDblClick.bind(this));
 
-        var shape = new THREE.Shape();
-        var geometry = new THREE.ShapeBufferGeometry(shape);
+        var geometry = new THREE.BufferGeometry();
+
+        geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(300), 3));
+        geometry.addAttribute('normal', new THREE.BufferAttribute(new Float32Array(300), 3));
+        geometry.addAttribute('uv', new THREE.BufferAttribute(new Float32Array(200), 2));
+
+        geometry.attributes.position.count = 0;
+        geometry.attributes.normal.count = 0;
+        geometry.attributes.uv.count = 0;
 
         var material = new THREE.MeshBasicMaterial({
             color: 0xffffff * Math.random(),
             polygonOffset: true,
             polygonOffsetFactor: -40,
+            side: THREE.DoubleSide,
         });
 
         this.polygon = new THREE.Mesh(geometry, material);
 
         this.polygon.name = '面';
+        this.polygon.drawMode = THREE.TriangleStripDrawMode;
 
         this.app.editor.execute(new AddObjectCommand(this.polygon));
 
-        this.polygonVertices = [];
+        this.polygonPoints = [];
     } else {
         addPolygonBtn.unselect();
         this.app.on(`intersect.${this.id}AddPolygon`, null);
         this.app.on(`dblclick.${this.id}AddPolygon`, null);
 
         this.polygon = null;
-        this.polygonVertices = null;
+
+        this.polygonPoints = null;
     }
 };
 
@@ -302,32 +317,32 @@ Toolbar.prototype.onAddPolygonIntersect = function (obj) {
         return;
     }
 
-    this.polygonVertices.push(obj.point.x, obj.point.y, obj.point.z);
+    this.polygonPoints.push(obj.point);
 
-    var shape = new THREE.Shape();
-    shape.autoClose = true;
+    var position = this.polygon.geometry.attributes.position;
+    var normal = this.polygon.geometry.attributes.normal;
+    var uv = this.polygon.geometry.attributes.uv;
 
-    for (var i = 0; i < this.polygonVertices.length / 3; i++) {
-        var x = this.polygonVertices[i * 3];
-        var y = this.polygonVertices[i * 3 + 1];
-        var z = this.polygonVertices[i * 3 + 2];
+    var index = position.count;
 
-        if (i === 0) {
-            shape.moveTo(x, y, z);
-        } else {
-            shape.lineTo(x, y, z);
-        }
-    }
+    position.setXYZ(
+        index,
+        obj.point.x,
+        obj.point.y,
+        obj.point.z,
+    );
 
-    var geometry = this.polygon.geometry;
-    geometry.dispose();
+    normal.setXYZ(index, obj.face.normal.x, obj.face.normal.y, obj.face.normal.z);
 
-    geometry = new THREE.ShapeBufferGeometry(shape, this.polygonVertices.length);
-    geometry.attributes.position.needsUpdate = true;
-    geometry.attributes.normal.needsUpdate = true;
-    geometry.attributes.uv.needsUpdate = true;
+    uv.setXY(index, obj.uv.x, obj.uv.y);
 
-    this.polygon.geometry = geometry;
+    position.count++;
+    normal.count++;
+    uv.count++;
+
+    position.needsUpdate = true;
+    normal.needsUpdate = true;
+    uv.needsUpdate = true;
 };
 
 Toolbar.prototype.onAddPolygonDblClick = function (obj) {
