@@ -9,6 +9,9 @@ function Toolbar(options) {
     UI.Control.call(this, options);
     this.app = options.app;
 
+    this.isAddingPoint = false;
+    this.isAddingLine = false;
+    this.isAddingPolygon = false;
     this.isSpraying = false;
 };
 
@@ -53,6 +56,27 @@ Toolbar.prototype.render = function () {
             onClick: this.enterScaleMode.bind(this)
         }, {
             xtype: 'hr'
+        }, {
+            xtype: 'iconbutton',
+            id: 'addPointBtn',
+            scope: this.id,
+            icon: 'icon-point',
+            title: '画点',
+            onClick: this.onAddPoint.bind(this)
+        }, {
+            xtype: 'iconbutton',
+            id: 'addLineBtn',
+            scope: this.id,
+            icon: 'icon-line',
+            title: '画线',
+            onClick: this.onAddLine.bind(this)
+        }, {
+            xtype: 'iconbutton',
+            id: 'addPolygonBtn',
+            scope: this.id,
+            icon: 'icon-polygon',
+            title: '画面',
+            onClick: this.onAddPolygon.bind(this)
         }, {
             xtype: 'iconbutton',
             id: 'sprayBtn',
@@ -122,7 +146,67 @@ Toolbar.prototype.onChangeMode = function (mode) {
     }
 };
 
-// -------------------------------- 喷水工具 ---------------------------------------
+// --------------------------------- 画点 ------------------------------------------
+
+Toolbar.prototype.onAddPoint = function () {
+    this.isAddingPoint = !this.isAddingPoint;
+
+    var addPointBtn = UI.get('addPointBtn', this.id);
+
+    if (this.isAddingPoint) {
+        addPointBtn.select();
+        this.app.on(`intersect.${this.id}AddPoint`, this.onAddPointIntersect.bind(this));
+    } else {
+        addPointBtn.unselect();
+        this.app.on(`intersect.${this.id}AddPoint`, null);
+    }
+};
+
+Toolbar.prototype.onAddPointIntersect = function (obj) {
+    alert('画点');
+};
+
+// ---------------------------------- 画线 -----------------------------------------
+
+Toolbar.prototype.onAddLine = function () {
+    this.isAddingLine = !this.isAddingLine;
+
+    var addLineBtn = UI.get('addLineBtn', this.id);
+
+    if (this.isAddingLine) {
+        addLineBtn.select();
+        this.app.on(`intersect.${this.id}AddLine`, this.onAddLineIntersect.bind(this));
+    } else {
+        addLineBtn.unselect();
+        this.app.on(`intersect.${this.id}AddLine`, null);
+    }
+};
+
+Toolbar.prototype.onAddLineIntersect = function (obj) {
+    alert('画线');
+};
+
+// ---------------------------------- 画面 ------------------------------------------
+
+Toolbar.prototype.onAddPolygon = function () {
+    this.isAddingPolygon = !this.isAddingPolygon;
+
+    var addPolygonBtn = UI.get('addPolygonBtn', this.id);
+
+    if (this.isAddingPolygon) {
+        addPolygonBtn.select();
+        this.app.on(`intersect.${this.id}AddPolygon`, this.onAddPolygonIntersect.bind(this));
+    } else {
+        addPolygonBtn.unselect();
+        this.app.on(`intersect.${this.id}AddPolygon`, null);
+    }
+};
+
+Toolbar.prototype.onAddPolygonIntersect = function (obj) {
+    alert('画面');
+};
+
+// -------------------------------- 贴花工具 ---------------------------------------
 
 Toolbar.prototype.onSpray = function () {
     this.isSpraying = !this.isSpraying;
@@ -131,14 +215,14 @@ Toolbar.prototype.onSpray = function () {
 
     if (this.isSpraying) {
         sprayBtn.select();
-        this.app.on(`intersect.${this.id}Spray`, this.onIntersect.bind(this));
+        this.app.on(`intersect.${this.id}Spray`, this.onSprayIntersect.bind(this));
     } else {
         sprayBtn.unselect();
         this.app.on(`intersect.${this.id}Spray`, null);
     }
 };
 
-Toolbar.prototype.onIntersect = function (obj) {
+Toolbar.prototype.onSprayIntersect = function (obj) {
     var mesh = obj.object;
     var position = obj.point;
 
@@ -169,7 +253,7 @@ Toolbar.prototype.onIntersect = function (obj) {
             depthTest: true,
             depthWrite: false,
             polygonOffset: true,
-            polygonOffsetFactor: - 4,
+            polygonOffsetFactor: -4,
             wireframe: false
         });
     }
