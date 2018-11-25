@@ -163,7 +163,23 @@ Toolbar.prototype.onAddPoint = function () {
 };
 
 Toolbar.prototype.onAddPointIntersect = function (obj) {
-    alert('画点');
+    var geometry = new THREE.BufferGeometry();
+
+    var vertices = obj.point.toArray();
+
+    geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+    var material = new THREE.PointsMaterial({
+        color: 0xffffff * Math.random(),
+        polygonOffset: true,
+        polygonOffsetFactor: -4,
+    });
+
+    var point = new THREE.Points(geometry, material);
+
+    point.name = '点';
+
+    this.app.editor.execute(new AddObjectCommand(point));
 };
 
 // ---------------------------------- 画线 -----------------------------------------
