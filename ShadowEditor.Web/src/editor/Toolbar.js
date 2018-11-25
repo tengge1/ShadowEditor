@@ -162,24 +162,31 @@ Toolbar.prototype.onAddPoint = function () {
     }
 };
 
-Toolbar.prototype.onAddPointIntersect = function (obj) {
-    var geometry = new THREE.BufferGeometry();
+Toolbar.prototype.onAddPointIntersect = function (obj, event) {
+    if (event.button !== 0) {
+        return;
+    }
 
-    var vertices = obj.point.toArray();
-
-    geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    var geometry = new THREE.CircleBufferGeometry(0.5, 32, 0, Math.PI * 2);
 
     var material = new THREE.PointsMaterial({
         color: 0xffffff * Math.random(),
         polygonOffset: true,
-        polygonOffsetFactor: -4,
+        polygonOffsetFactor: -40,
     });
 
-    var point = new THREE.Points(geometry, material);
+    var mesh = new THREE.Mesh(geometry, material);
 
-    point.name = '点';
+    mesh.position.copy(obj.point);
 
-    this.app.editor.execute(new AddObjectCommand(point));
+    var normal = obj.face.normal.clone();
+    normal.transformDirection(obj.object.matrixWorld);
+
+    mesh.lookAt(new THREE.Vector3().addVectors(obj.point, normal));
+
+    mesh.name = '点';
+
+    this.app.editor.execute(new AddObjectCommand(mesh));
 };
 
 // ---------------------------------- 画线 -----------------------------------------
@@ -238,9 +245,17 @@ Toolbar.prototype.onSpray = function () {
     }
 };
 
-Toolbar.prototype.onSprayIntersect = function (obj) {
+Toolbar.prototype.onSprayIntersect = function (obj, event) {
+    if (event.button !== 0) {
+        return;
+    }
+
     var mesh = obj.object;
     var position = obj.point;
+
+    if (mesh instanceof THREE.Points) {
+        return;
+    }
 
     var normal = obj.face.normal.clone();
     normal.transformDirection(obj.object.matrixWorld);
