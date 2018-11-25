@@ -199,14 +199,49 @@ Toolbar.prototype.onAddLine = function () {
     if (this.isAddingLine) {
         addLineBtn.select();
         this.app.on(`intersect.${this.id}AddLine`, this.onAddLineIntersect.bind(this));
+        this.app.on(`dblclick.${this.id}AddLine`, this.onAddLineDblClick.bind(this));
+
+        var geometry = new THREE.BufferGeometry();
+        geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(300), 3));
+        geometry.attributes.position.count = 0
+
+        var material = new THREE.LineBasicMaterial({
+            color: 0xffffff * Math.random(),
+            polygonOffset: true,
+            polygonOffsetFactor: -40,
+        });
+
+        this.line = new THREE.Line(geometry, material);
+
+        this.line.name = '线';
+
+        this.app.editor.execute(new AddObjectCommand(this.line));
     } else {
         addLineBtn.unselect();
         this.app.on(`intersect.${this.id}AddLine`, null);
+        this.app.on(`dblclick.${this.id}AddLine`, null);
+
+        this.line = null;
     }
 };
 
-Toolbar.prototype.onAddLineIntersect = function (obj) {
-    alert('画线');
+Toolbar.prototype.onAddLineIntersect = function (obj, event) { // 向线添加顶点
+    if (event.button !== 0) {
+        return;
+    }
+
+    var position = this.line.geometry.attributes.position;
+
+    position.setXYZ(position.count, obj.point.x, obj.point.y, obj.point.z);
+
+    position.count++;
+
+    position.needsUpdate = true;
+};
+
+Toolbar.prototype.onAddLineDblClick = function (obj) { // 停止画线，并开始绘制新的一条线
+    this.isAddingLine = !this.isAddingLine;
+    this.onAddLine();
 };
 
 // ---------------------------------- 画面 ------------------------------------------
