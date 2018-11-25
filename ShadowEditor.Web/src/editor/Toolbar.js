@@ -167,7 +167,7 @@ Toolbar.prototype.onAddPointIntersect = function (obj, event) {
         return;
     }
 
-    var geometry = new THREE.CircleBufferGeometry(0.5, 32, 0, Math.PI * 2);
+    var geometry = new THREE.CircleBufferGeometry(0.1, 32, 0, Math.PI * 2);
 
     var material = new THREE.PointsMaterial({
         color: 0xffffff * Math.random(),
@@ -271,9 +271,8 @@ Toolbar.prototype.onAddPolygon = function () {
         this.app.on(`intersect.${this.id}AddPolygon`, this.onAddPolygonIntersect.bind(this));
         this.app.on(`dblclick.${this.id}AddPolygon`, this.onAddPolygonDblClick.bind(this));
 
-        var geometry = new THREE.BufferGeometry();
-        geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(300), 3));
-        geometry.attributes.position.count = 0
+        var shape = new THREE.Shape();
+        var geometry = new THREE.ShapeBufferGeometry(shape);
 
         var material = new THREE.MeshBasicMaterial({
             color: 0xffffff * Math.random(),
@@ -281,17 +280,20 @@ Toolbar.prototype.onAddPolygon = function () {
             polygonOffsetFactor: -40,
         });
 
-        this.line = new THREE.Line(geometry, material);
+        this.polygon = new THREE.Mesh(geometry, material);
 
-        this.line.name = '线';
+        this.polygon.name = '面';
 
-        this.app.editor.execute(new AddObjectCommand(this.line));
+        this.app.editor.execute(new AddObjectCommand(this.polygon));
+
+        this.polygonVertices = [];
     } else {
         addPolygonBtn.unselect();
         this.app.on(`intersect.${this.id}AddPolygon`, null);
         this.app.on(`dblclick.${this.id}AddPolygon`, null);
 
-        this.line = null;
+        this.polygon = null;
+        this.polygonVertices = null;
     }
 };
 
@@ -300,18 +302,37 @@ Toolbar.prototype.onAddPolygonIntersect = function (obj) {
         return;
     }
 
-    var position = this.line.geometry.attributes.position;
+    this.polygonVertices.push(obj.point.x, obj.point.y, obj.point.z);
 
-    position.setXYZ(position.count, obj.point.x, obj.point.y, obj.point.z);
+    var shape = new THREE.Shape();
+    shape.autoClose = true;
 
-    position.count++;
+    for (var i = 0; i < this.polygonVertices.length / 3; i++) {
+        var x = this.polygonVertices[i * 3];
+        var y = this.polygonVertices[i * 3 + 1];
+        var z = this.polygonVertices[i * 3 + 2];
 
-    position.needsUpdate = true;
+        if (i === 0) {
+            shape.moveTo(x, y, z);
+        } else {
+            shape.lineTo(x, y, z);
+        }
+    }
+
+    var geometry = this.polygon.geometry;
+    geometry.dispose();
+
+    geometry = new THREE.ShapeBufferGeometry(shape, this.polygonVertices.length);
+    geometry.attributes.position.needsUpdate = true;
+    geometry.attributes.normal.needsUpdate = true;
+    geometry.attributes.uv.needsUpdate = true;
+
+    this.polygon.geometry = geometry;
 };
 
-Toolbar.prototype.onAddPolygonDblClick = function (obj) { // 停止画线，并开始绘制新的一条线
-    this.isAddingLine = !this.isAddingLine;
-    this.onAddLine();
+Toolbar.prototype.onAddPolygonDblClick = function (obj) {
+    this.isAddingPolygon = !this.isAddingPolygon;
+    this.onAddPolygon();
 };
 
 // -------------------------------- 贴花工具 ---------------------------------------
