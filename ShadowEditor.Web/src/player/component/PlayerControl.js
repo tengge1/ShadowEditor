@@ -49,7 +49,7 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
         this.control = new THREE.PointerLockControls(camera, renderer.domElement);
         this.control.lock();
     } else if (type === 'TrackballControls') {
-
+        this.control = new THREE.TrackballControls(camera, renderer.domElement);
     } else {
 
     }
@@ -57,7 +57,8 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
 
 PlayerControl.prototype.update = function (clock, deltaTime) {
     if (this.control instanceof THREE.FirstPersonControls ||
-        this.control instanceof THREE.FlyControls
+        this.control instanceof THREE.FlyControls ||
+        this.control instanceof THREE.TrackballControls
     ) {
         this.control.update(deltaTime);
     }
