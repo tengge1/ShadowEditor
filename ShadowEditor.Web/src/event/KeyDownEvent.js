@@ -51,17 +51,18 @@ KeyDownEvent.prototype.onKeyDown = function (event) {
             }
             break;
 
-        case 87: // 注册 W 移动模式
-            this.app.call('changeMode', this, 'translate');
-            break;
+        // TODO： 和第一人称控制器ASDW冲突
+        // case 87: // 注册 W 移动模式
+        //     this.app.call('changeMode', this, 'translate');
+        //     break;
 
-        case 69: // 注册 E 旋转模式
-            this.app.call('changeMode', this, 'rotate');
-            break;
+        // case 69: // 注册 E 旋转模式
+        //     this.app.call('changeMode', this, 'rotate');
+        //     break;
 
-        case 82: // 注册 R 缩放模式
-            this.app.call('changeMode', this, 'scale');
-            break;
+        // case 82: // 注册 R 缩放模式
+        //     this.app.call('changeMode', this, 'scale');
+        //     break;
     }
 };
 
