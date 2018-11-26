@@ -56,6 +56,14 @@ ControlComponent.prototype.render = function () {
                 },
                 onChange: this.onChangeType.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '类型'
+            }, {
+                xtype: 'input'
+            }]
         }]
     };
 
