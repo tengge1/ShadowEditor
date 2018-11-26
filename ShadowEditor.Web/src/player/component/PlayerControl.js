@@ -16,10 +16,11 @@ PlayerControl.prototype.constructor = PlayerControl;
 PlayerControl.prototype.create = function (scene, camera, renderer) {
     var type = camera.userData.control;
 
-    if (type === 'DeviceOrientationControls') {
-
-    } else if (type === 'FirstPersonControls') {
-
+    if (type === 'FirstPersonControls') {
+        var object = scene.getObjectByName('Player');
+        if (object) {
+            this.control = new THREE.FirstPersonControls(object, renderer.domElement);
+        }
     } else if (type === 'FlyControls') {
 
     } else if (type === 'OrbitControls') {
@@ -48,6 +49,12 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
 
     } else {
 
+    }
+};
+
+PlayerControl.prototype.update = function (clock, deltaTime) {
+    if (this.control instanceof THREE.FirstPersonControls) {
+        this.control.update(deltaTime);
     }
 };
 

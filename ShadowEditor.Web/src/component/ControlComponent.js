@@ -48,7 +48,6 @@ ControlComponent.prototype.render = function () {
                 scope: this.id,
                 options: {
                     '': '无',
-                    'DeviceOrientationControls': '设备方向控制器',
                     'FirstPersonControls': '第一人称控制器',
                     'FlyControls': '飞行控制器',
                     'OrbitControls': '轨道控制器',

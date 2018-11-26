@@ -162,6 +162,7 @@ Player.prototype.animate = function () {
     var deltaTime = this.clock.getDelta();
 
     this.event.update(this.clock, deltaTime);
+    this.control.update(this.clock, deltaTime);
     this.animation.update(this.clock, deltaTime);
     this.physics.update(this.clock, deltaTime);
 
