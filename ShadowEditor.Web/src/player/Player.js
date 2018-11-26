@@ -3,6 +3,7 @@ import Converter from '../serialization/Converter';
 
 import PlayerLoader from './component/PlayerLoader';
 import PlayerEvent from './component/PlayerEvent';
+import PlayerControl from './component/PlayerControl';
 import PlayerAudio from './component/PlayerAudio';
 import PlayerAnimation from './component/PlayerAnimation';
 import PlayerPhysics from './component/PlayerPhysics';
@@ -22,6 +23,7 @@ function Player(options) {
 
     this.loader = new PlayerLoader(this.app);
     this.event = new PlayerEvent(this.app);
+    this.control = new PlayerControl(this.app);
     this.audio = new PlayerAudio(this.app);
     this.animation = new PlayerAnimation(this.app);
     this.physics = new PlayerPhysics(this.app);
@@ -75,6 +77,7 @@ Player.prototype.start = function () {
         this.initPlayer(obj);
 
         this.event.create(this.scene, this.camera, this.renderer, obj.scripts);
+        this.control.create(this.scene, this.camera, this.renderer);
         this.audio.create(this.scene, this.camera, this.renderer, this.loader);
         this.animation.create(this.scene, this.camera, this.renderer, obj.animation);
         this.physics.create(this.scene, this.camera, this.renderer);
@@ -101,6 +104,7 @@ Player.prototype.stop = function () {
 
     this.loader.dispose();
     this.event.dispose();
+    this.control.dispose();
     this.audio.dispose();
     this.animation.dispose();
     this.physics.dispose();
