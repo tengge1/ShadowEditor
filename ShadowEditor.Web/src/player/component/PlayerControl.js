@@ -46,7 +46,8 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
         this.control.enableRotate = true;
         this.control.rotateSpeed = 0.5;
     } else if (type === 'PointerLockControls') {
-
+        this.control = new THREE.PointerLockControls(camera, renderer.domElement);
+        this.control.lock();
     } else if (type === 'TrackballControls') {
 
     } else {
