@@ -39,7 +39,7 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
         //设置相机距离原点的最近距离
         this.control.minDistance = 0;
         //设置相机距离原点的最远距离
-        this.control.maxDistance = 1000;
+        this.control.maxDistance = 10000;
         //是否开启右键拖拽
         this.control.enablePan = true;
         this.control.panSpeed = 0.5;

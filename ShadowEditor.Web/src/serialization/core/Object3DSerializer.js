@@ -54,6 +54,7 @@ Object3DSerializer.prototype.toJSON = function (obj) {
     // 重要bug：由于obj.userData.obj缓存下载模型
     // 如果不把json.userData上的obj删除，则会导致播放器中的obj和场景中的obj是同一个。
     delete json.userData.obj;
+    delete json.userData.root;
 
     json.uuid = obj.uuid;
     json.visible = obj.visible;

@@ -21,16 +21,22 @@ GLTFLoader.prototype.load = function (url, options) {
         loader.load(url, result => {
             var obj3d = result.scene;
 
-            obj3d.userData.obj = result;
+            Object.assign(obj3d.userData, {
+                obj: result,
+                root: result.scene,
+            });
 
             if (result.animations && result.animations.length > 0) {
-                obj3d.userData.scripts = [{
-                    id: null,
-                    name: `${options.Name}动画`,
-                    type: 'javascript',
-                    source: this.createScripts(options.Name),
-                    uuid: THREE.Math.generateUUID()
-                }];
+                Object.assign(obj3d.userData, {
+                    animNames: result.animations.map(n => n.name),
+                    scripts: [{
+                        id: null,
+                        name: `${options.Name}动画`,
+                        type: 'javascript',
+                        source: this.createScripts(options.Name),
+                        uuid: THREE.Math.generateUUID()
+                    }]
+                });
             }
             resolve(obj3d);
         }, undefined, () => {
@@ -40,9 +46,10 @@ GLTFLoader.prototype.load = function (url, options) {
 };
 
 GLTFLoader.prototype.createScripts = function (name) {
-    return `var mesh = this.getObjectByName('${name}');\n` +
+    return `var mesh = this.getObjectByName('${name}');\n\n` +
         `var obj = mesh.userData.obj;\n\n` +
-        `var mixer = new THREE.AnimationMixer(obj.scene);\n` +
+        `var root = mesh.userData.root;\n\n` +
+        `var mixer = new THREE.AnimationMixer(root);\n\n` +
         `mixer.clipAction(obj.animations[0]).play();\n\n` +
         `function update(clock, deltaTime) { \n    mixer.update(deltaTime); \n}`;
 };
