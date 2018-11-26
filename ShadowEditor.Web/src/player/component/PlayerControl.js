@@ -16,14 +16,16 @@ PlayerControl.prototype.constructor = PlayerControl;
 PlayerControl.prototype.create = function (scene, camera, renderer) {
     var type = camera.userData.control;
 
-    if (type === 'FirstPersonControls') {
+    if (type === 'FirstPersonControls') { // 第一视角控制器
         var object = scene.getObjectByName('Player');
         if (object) {
             this.control = new THREE.FirstPersonControls(object, renderer.domElement);
         }
-    } else if (type === 'FlyControls') {
-
-    } else if (type === 'OrbitControls') {
+    } else if (type === 'FlyControls') { // 飞行控制器
+        this.control = new THREE.FlyControls(camera, renderer.domElement);
+        this.control.movementSpeed = 20.0;
+        this.control.rollSpeed = 0.2;
+    } else if (type === 'OrbitControls') { // 轨道控制器
         // 参考：https://blog.csdn.net/wendelle/article/details/80058486
         this.control = new THREE.OrbitControls(camera, renderer.domElement);
         // 使用阻尼,指定是否有惯性
@@ -53,7 +55,9 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
 };
 
 PlayerControl.prototype.update = function (clock, deltaTime) {
-    if (this.control instanceof THREE.FirstPersonControls) {
+    if (this.control instanceof THREE.FirstPersonControls ||
+        this.control instanceof THREE.FlyControls
+    ) {
         this.control.update(deltaTime);
     }
 };
