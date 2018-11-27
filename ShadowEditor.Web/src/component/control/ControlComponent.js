@@ -1,7 +1,4 @@
-import BaseComponent from './BaseComponent';
-import SetValueCommand from '../command/SetValueCommand';
-import RemoveObjectCommand from '../command/RemoveObjectCommand';
-import AddObjectCommand from '../command/AddObjectCommand';
+import BaseComponent from '../BaseComponent';
 
 /**
  * 控制组件
@@ -35,7 +32,7 @@ ControlComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '场景控制'
+                text: '场景控制器'
             }]
         }, {
             xtype: 'row',
@@ -48,21 +45,13 @@ ControlComponent.prototype.render = function () {
                 scope: this.id,
                 options: {
                     '': '无',
-                    'FirstPersonControls': '第一人称控制器',
+                    'FirstPersonControls': '第一视角控制器',
                     'FlyControls': '飞行控制器',
                     'OrbitControls': '轨道控制器',
                     'PointerLockControls': '指针锁定控制器',
                     'TrackballControls': '轨迹球控制器'
                 },
                 onChange: this.onChangeType.bind(this)
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: '类型'
-            }, {
-                xtype: 'input'
             }]
         }]
     };

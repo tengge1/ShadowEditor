@@ -21,7 +21,8 @@ import SkyComponent from '../../component/object/SkyComponent';
 import PerlinTerrainComponent from '../../component/object/PerlinTerrainComponent';
 import WaterComponent from '../../component/water/WaterComponent';
 import ClothComponent from '../../component/object/ClothComponent';
-import ControlComponent from '../../component/ControlComponent';
+import ControlComponent from '../../component/control/ControlComponent';
+import FirstPersonControlComponent from '../../component/control/FirstPersonControlComponent';
 
 /**
  * 属性面板
@@ -48,6 +49,7 @@ PropertyPanel.prototype.render = function () {
             new LightComponent({ app: this.app }),
             new ShadowComponent({ app: this.app }),
             new ControlComponent({ app: this.app }),
+            new FirstPersonControlComponent({ app: this.app }),
             new ReflectorComponent({ app: this.app }),
             new SkyComponent({ app: this.app }),
             new PerlinTerrainComponent({ app: this.app }),
