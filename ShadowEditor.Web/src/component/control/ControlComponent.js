@@ -30,7 +30,8 @@ ControlComponent.prototype.render = function () {
                 xtype: 'label',
                 style: {
                     color: '#555',
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    width: '100%'
                 },
                 text: '场景控制器'
             }]
@@ -92,6 +93,8 @@ ControlComponent.prototype.onChangeType = function () {
     var type = UI.get('type', this.id);
 
     this.selected.userData.control = type.getValue();
+
+    this.app.call('objectChanged', this, this.selected);
 };
 
 export default ControlComponent;

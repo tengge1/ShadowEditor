@@ -30,7 +30,8 @@ FirstPersonControlComponent.prototype.render = function () {
                 xtype: 'label',
                 style: {
                     color: '#555',
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    width: '100%'
                 },
                 text: '第一视角控制器'
             }]
