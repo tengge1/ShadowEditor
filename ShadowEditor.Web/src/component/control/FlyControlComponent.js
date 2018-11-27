@@ -118,7 +118,7 @@ FlyControlComponent.prototype.updateUI = function () {
     var dragToLook = UI.get('dragToLook', this.id);
     var autoForward = UI.get('autoForward', this.id);
 
-    var options = this.selected.userData.firstPersonOptions || {
+    var options = this.selected.userData.flyOptions || {
         movementSpeed: 20.0,
         rollSpeed: 0.2,
         dragToLook: false,
@@ -142,7 +142,7 @@ FlyControlComponent.prototype.onChange = function () {
     var dragToLook = UI.get('dragToLook', this.id);
     var autoForward = UI.get('autoForward', this.id);
 
-    Object.assign(this.selected.userData.firstPersonOptions, {
+    Object.assign(this.selected.userData.flyOptions, {
         movementSpeed: movementSpeed.getValue(),
         rollSpeed: rollSpeed.getValue(),
         dragToLook: dragToLook.getValue(),
