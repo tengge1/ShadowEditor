@@ -23,8 +23,9 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
         }
     } else if (type === 'FlyControls') { // 飞行控制器
         this.control = new THREE.FlyControls(camera, renderer.domElement);
-        this.control.movementSpeed = 20.0;
-        this.control.rollSpeed = 0.2;
+        if (camera.userData.flyOptions) {
+            Object.assign(this.control, camera.userData.flyOptions);
+        }
     } else if (type === 'OrbitControls') { // 轨道控制器
         // 参考：https://blog.csdn.net/wendelle/article/details/80058486
         this.control = new THREE.OrbitControls(camera, renderer.domElement);
