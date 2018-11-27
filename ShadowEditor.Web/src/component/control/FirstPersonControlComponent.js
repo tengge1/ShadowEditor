@@ -21,7 +21,7 @@ FirstPersonControlComponent.prototype.render = function () {
         parent: this.parent,
         cls: 'Panel',
         style: {
-            borderTop: 0,
+            borderTop: '1px solid #ddd',
             display: 'none'
         },
         children: [{
@@ -39,133 +39,145 @@ FirstPersonControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'movementSpeed'
+                text: '移动速度'
             }, {
                 xtype: 'number',
                 id: 'movementSpeed',
                 scope: this.id,
-                value: 10.0
+                value: 10.0,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'lookSpeed'
+                text: '观望速度'
             }, {
                 xtype: 'number',
                 id: 'lookSpeed',
                 scope: this.id,
-                value: 0.05
+                value: 0.05,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'lookVertical'
+                text: '朝上看'
             }, {
                 xtype: 'checkbox',
                 id: 'lookVertical',
                 scope: this.id,
-                value: true
+                value: true,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'autoForward'
+                text: '自动前进'
             }, {
                 xtype: 'checkbox',
                 id: 'autoForward',
                 scope: this.id,
-                value: false
+                value: false,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'activeLook'
+                text: '启用观望'
             }, {
                 xtype: 'checkbox',
                 id: 'activeLook',
                 scope: this.id,
-                value: true
+                value: true,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'heightSpeed'
+                text: '高度速度'
             }, {
                 xtype: 'checkbox',
                 id: 'heightSpeed',
                 scope: this.id,
-                value: false
+                value: false,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'heightCoef'
+                text: '高度系数'
             }, {
                 xtype: 'number',
                 id: 'heightCoef',
                 scope: this.id,
-                value: 1.0
+                value: 1.0,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'heightMin'
+                text: '最小高度'
             }, {
                 xtype: 'number',
                 id: 'heightMin',
                 scope: this.id,
-                value: 0.0
+                value: 0.0,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'heightMax'
+                text: '最大高度'
             }, {
                 xtype: 'number',
                 id: 'heightMax',
                 scope: this.id,
-                value: 1.0
+                value: 1.0,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'constrainVertical'
+                text: '限制仰角'
             }, {
                 xtype: 'checkbox',
                 id: 'constrainVertical',
                 scope: this.id,
-                value: false
+                value: false,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'verticalMin'
+                text: '最小仰角'
             }, {
                 xtype: 'number',
                 id: 'verticalMin',
                 scope: this.id,
-                value: 0
+                value: 0,
+                onChange: this.onChange.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'verticalMax'
+                text: '最大仰角'
             }, {
                 xtype: 'number',
                 id: 'verticalMax',
                 scope: this.id,
-                value: 3.14
+                value: 3.14,
+                onChange: this.onChange.bind(this)
             }]
         }]
     };
@@ -207,13 +219,71 @@ FirstPersonControlComponent.prototype.updateUI = function () {
     var heightMin = UI.get('heightMin', this.id);
     var heightMax = UI.get('heightMax', this.id);
     var constrainVertical = UI.get('constrainVertical', this.id);
+    var verticalMin = UI.get('verticalMin', this.id);
     var verticalMax = UI.get('verticalMax', this.id);
+
+    var options = this.selected.userData.firstPersonOptions || {
+        movementSpeed: 10.0,
+        lookSpeed: 0.05,
+        lookVertical: true,
+        autoForward: false,
+        activeLook: true,
+        heightSpeed: false,
+        heightCoef: 1.0,
+        heightMin: 0.0,
+        heightMax: 1.0,
+        constrainVertical: false,
+        verticalMin: 0,
+        verticalMax: 3.14,
+    };
+
+    if (this.selected.userData.firstPersonOptions === undefined) {
+        this.selected.userData.firstPersonOptions = {};
+        Object.assign(this.selected.userData.firstPersonOptions, options);
+    }
+
+    movementSpeed.setValue(options.movementSpeed);
+    lookSpeed.setValue(options.lookSpeed);
+    lookVertical.setValue(options.lookVertical);
+    autoForward.setValue(options.autoForward);
+    activeLook.setValue(options.activeLook);
+    heightSpeed.setValue(options.heightSpeed);
+    heightCoef.setValue(options.heightCoef);
+    heightMin.setValue(options.heightMin);
+    heightMax.setValue(options.heightMax);
+    constrainVertical.setValue(options.constrainVertical);
+    verticalMin.setValue(options.verticalMin);
+    verticalMax.setValue(options.verticalMax);
 };
 
-FirstPersonControlComponent.prototype.onChangeType = function () {
-    var type = UI.get('type', this.id);
+FirstPersonControlComponent.prototype.onChange = function () {
+    var movementSpeed = UI.get('movementSpeed', this.id);
+    var lookSpeed = UI.get('lookSpeed', this.id);
+    var lookVertical = UI.get('lookVertical', this.id);
+    var autoForward = UI.get('autoForward', this.id);
+    var activeLook = UI.get('activeLook', this.id);
+    var heightSpeed = UI.get('heightSpeed', this.id);
+    var heightCoef = UI.get('heightCoef', this.id);
+    var heightMin = UI.get('heightMin', this.id);
+    var heightMax = UI.get('heightMax', this.id);
+    var constrainVertical = UI.get('constrainVertical', this.id);
+    var verticalMin = UI.get('verticalMin', this.id);
+    var verticalMax = UI.get('verticalMax', this.id);
 
-    this.selected.userData.control = type.getValue();
+    Object.assign(this.selected.userData.firstPersonOptions, {
+        movementSpeed: movementSpeed.getValue(),
+        lookSpeed: lookSpeed.getValue(),
+        lookVertical: lookVertical.getValue(),
+        autoForward: autoForward.getValue(),
+        activeLook: activeLook.getValue(),
+        heightSpeed: heightSpeed.getValue(),
+        heightCoef: heightCoef.getValue(),
+        heightMin: heightMin.getValue(),
+        heightMax: heightMax.getValue(),
+        constrainVertical: constrainVertical.getValue(),
+        verticalMin: verticalMin.getValue(),
+        verticalMax: verticalMax.getValue(),
+    });
 };
 
 export default FirstPersonControlComponent;

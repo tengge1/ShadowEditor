@@ -17,9 +17,9 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
     var type = camera.userData.control;
 
     if (type === 'FirstPersonControls') { // 第一视角控制器
-        var object = scene.getObjectByName('Player');
-        if (object) {
-            this.control = new THREE.FirstPersonControls(object, renderer.domElement);
+        this.control = new THREE.FirstPersonControls(camera, renderer.domElement);
+        if (camera.userData.firstPersonOptions) {
+            Object.assign(this.control, camera.userData.firstPersonOptions);
         }
     } else if (type === 'FlyControls') { // 飞行控制器
         this.control = new THREE.FlyControls(camera, renderer.domElement);
