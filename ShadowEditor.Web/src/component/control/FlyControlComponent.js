@@ -104,7 +104,7 @@ FlyControlComponent.prototype.onObjectChanged = function () {
 FlyControlComponent.prototype.updateUI = function () {
     var container = UI.get('controlPanel', this.id);
     var editor = this.app.editor;
-    if (editor.selected && editor.selected === this.app.editor.camera && editor.selected.userData.control === 'FirstPersonControls') {
+    if (editor.selected && editor.selected === this.app.editor.camera && editor.selected.userData.control === 'FlyControls') {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
@@ -119,8 +119,8 @@ FlyControlComponent.prototype.updateUI = function () {
     var autoForward = UI.get('autoForward', this.id);
 
     var options = this.selected.userData.firstPersonOptions || {
-        movementSpeed: 10.0,
-        rollSpeed: 0.05,
+        movementSpeed: 20.0,
+        rollSpeed: 0.2,
         dragToLook: false,
         autoForward: false,
     };
