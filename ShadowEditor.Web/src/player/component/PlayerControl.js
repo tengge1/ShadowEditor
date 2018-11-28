@@ -44,6 +44,9 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
         }
     } else if (type === 'TrackballControls') { // 轨迹球控制器
         this.control = new THREE.TrackballControls(camera, renderer.domElement);
+        if (camera.userData.trackballOptions) {
+            Object.assign(this.control, camera.userData.trackballOptions);
+        }
     } else {
 
     }
