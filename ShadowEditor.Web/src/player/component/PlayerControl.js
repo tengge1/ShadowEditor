@@ -33,9 +33,20 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
         }
     } else if (type === 'PointerLockControls') { // 指针锁定控制器
         this.control = new THREE.PointerLockControls(camera, renderer.domElement);
-        this.control.lock();
+        if (camera.userData.pointerLockOptions) {
+            Object.assign(this.control, camera.userData.pointerLockOptions);
+
+            if (this.control.isLocked) {
+                this.control.lock();
+            } else {
+                this.control.unlock();
+            }
+        }
     } else if (type === 'TrackballControls') { // 轨迹球控制器
         this.control = new THREE.TrackballControls(camera, renderer.domElement);
+        if (camera.userData.trackballOptions) {
+            Object.assign(this.control, camera.userData.trackballOptions);
+        }
     } else {
 
     }

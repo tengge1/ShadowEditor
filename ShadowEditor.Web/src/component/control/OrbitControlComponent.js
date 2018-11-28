@@ -313,13 +313,13 @@ OrbitControlComponent.prototype.updateUI = function () {
     var autoRotateSpeed = UI.get('autoRotateSpeed', this.id);
     var enableKeys = UI.get('enableKeys', this.id);
 
-    var options = this.selected.userData.flyOptions || {
+    var options = this.selected.userData.orbitOptions || {
         minDistance: 0,
-        maxDistance: Infinity,
+        maxDistance: 99999,
         minPolarAngle: 0,
         maxPolarAngle: Math.PI,
-        minAzimuthAngle: - Infinity,
-        maxAzimuthAngle: Infinity,
+        minAzimuthAngle: - 9999,
+        maxAzimuthAngle: 9999,
         enableDamping: false,
         dampingFactor: 0.25,
         enableZoom: true,

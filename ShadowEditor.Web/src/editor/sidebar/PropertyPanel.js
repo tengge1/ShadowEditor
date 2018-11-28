@@ -25,6 +25,8 @@ import ControlComponent from '../../component/control/ControlComponent';
 import FirstPersonControlComponent from '../../component/control/FirstPersonControlComponent';
 import FlyControlComponent from '../../component/control/FlyControlComponent';
 import OrbitControlComponent from '../../component/control/OrbitControlComponent';
+import PointerLockControlComponent from '../../component/control/PointerLockControlComponent';
+import TrackballControlComponent from '../../component/control/TrackballControlComponent';
 
 /**
  * 属性面板
@@ -54,6 +56,8 @@ PropertyPanel.prototype.render = function () {
             new FirstPersonControlComponent({ app: this.app }),
             new FlyControlComponent({ app: this.app }),
             new OrbitControlComponent({ app: this.app }),
+            new PointerLockControlComponent({ app: this.app }),
+            new TrackballControlComponent({ app: this.app }),
             new ReflectorComponent({ app: this.app }),
             new SkyComponent({ app: this.app }),
             new PerlinTerrainComponent({ app: this.app }),
