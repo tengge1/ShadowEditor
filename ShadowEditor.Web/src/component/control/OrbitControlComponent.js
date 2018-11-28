@@ -315,11 +315,11 @@ OrbitControlComponent.prototype.updateUI = function () {
 
     var options = this.selected.userData.orbitOptions || {
         minDistance: 0,
-        maxDistance: Infinity,
+        maxDistance: 99999,
         minPolarAngle: 0,
         maxPolarAngle: Math.PI,
-        minAzimuthAngle: - Infinity,
-        maxAzimuthAngle: Infinity,
+        minAzimuthAngle: - 9999,
+        maxAzimuthAngle: 9999,
         enableDamping: false,
         dampingFactor: 0.25,
         enableZoom: true,
