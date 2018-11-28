@@ -126,7 +126,9 @@ Number.prototype.getValue = function () {
 };
 
 Number.prototype.setValue = function (value) {
-    value = parseFloat(value);
+    if (value !== Infinity && value !== - Infinity) {
+        value = parseFloat(value);
+    }
 
     if (value < this.min) {
         value = this.min;
@@ -137,7 +139,12 @@ Number.prototype.setValue = function (value) {
     }
 
     this.value = value;
-    this.dom.value = value.toFixed(this.precision) + this.unit;
+
+    if (value === Infinity || value === -Infinity) {
+        this.dom.value = value;
+    } else {
+        this.dom.value = value.toFixed(this.precision) + this.unit;
+    }
 };
 
 export default Number;
