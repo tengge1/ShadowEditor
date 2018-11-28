@@ -24,13 +24,17 @@ JsLoader.prototype.load = function (url, options) {
 
             var mesh = new THREE.SkinnedMesh(geometry, materials);
 
-            mesh.userData.scripts = [{
-                id: null,
-                name: `${options.Name}动画`,
-                type: 'javascript',
-                source: this.createScripts(options.Name),
-                uuid: THREE.Math.generateUUID()
-            }];
+            Object.assign(mesh.userData, {
+                obj: [geometry, materials],
+                root: mesh,
+                scripts: [{
+                    id: null,
+                    name: `${options.Name}动画`,
+                    type: 'javascript',
+                    source: this.createScripts(options.Name),
+                    uuid: THREE.Math.generateUUID()
+                }]
+            });
 
             resolve(mesh);
         }, undefined, () => {
