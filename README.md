@@ -89,4 +89,4 @@ npm run build-docs
 * 更新日志：[点此查看](UpdateLog.md)
 * Three.js官网：https://threejs.org/
 * Three.js源码：https://github.com/mrdoob/three.js/
-* LOL模型：http://www.lolking.net/models
+* LOL模型查看器：https://github.com/tengge1/lol-model-viewer
