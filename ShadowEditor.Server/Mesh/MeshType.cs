@@ -12,6 +12,7 @@ namespace ShadowEditor.Server.Mesh
     public enum MeshType
     {
         unknown, // 未知类型
+        _3ds,
         amf,
         awd,
         binary,

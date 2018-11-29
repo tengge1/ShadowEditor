@@ -1,20 +1,21 @@
 import BaseLoader from './BaseLoader';
 
 /**
- * AMFLoader
+ * 3DSLoader
  * @author tengge / https://github.com/tengge1
  */
-function AMFLoader() {
+function _3DSLoader() {
     BaseLoader.call(this);
 }
 
-AMFLoader.prototype = Object.create(BaseLoader.prototype);
-AMFLoader.prototype.constructor = AMFLoader;
+_3DSLoader.prototype = Object.create(BaseLoader.prototype);
+_3DSLoader.prototype.constructor = _3DSLoader;
 
-AMFLoader.prototype.load = function (url) {
+_3DSLoader.prototype.load = function (url) {
     return new Promise(resolve => {
-        var loader = new THREE.AMFLoader();
+        var loader = new THREE.TDSLoader();
         loader.load(url, group => {
+            debugger
             resolve(group);
         }, undefined, () => {
             resolve(null);
@@ -22,4 +23,4 @@ AMFLoader.prototype.load = function (url) {
     });
 };
 
-export default AMFLoader;
+export default _3DSLoader;

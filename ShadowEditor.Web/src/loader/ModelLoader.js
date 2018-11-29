@@ -17,8 +17,10 @@ import VTKLoader from './VTKLoader';
 import LOLLoader from './LOLLoader';
 import PMDLoader from './PMDLoader';
 import JsLoader from './JsLoader';
+import _3DSLoader from './_3DSLoader';
 
 const Loaders = {
+    '_3ds': _3DSLoader,
     'amf': AMFLoader,
     'awd': AWDLoader,
     'babylon': BabylonLoader,

@@ -64,7 +64,13 @@ namespace ShadowEditor.Server.Mesh
 
             var files = Directory.GetFiles(physicalPath);
 
-            if (files.Where(o => o.ToLower().EndsWith(".amf")).Count() > 0) // amf文件
+            if (files.Where(o => o.ToLower().EndsWith(".3ds")).Count() > 0) // 3ds文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".3ds")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType._3ds;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".amf")).Count() > 0) // amf文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".amf")).FirstOrDefault();
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
