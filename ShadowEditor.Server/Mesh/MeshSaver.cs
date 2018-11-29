@@ -82,6 +82,12 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType.amf;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".assimp")).Count() > 0) // assimp文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".assimp")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.assimp;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".json")).Count() > 0 && files.Where(o => o.ToLower().EndsWith(".bin")).Count() > 0) // binary文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".json")).FirstOrDefault();

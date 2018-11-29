@@ -15,6 +15,7 @@ namespace ShadowEditor.Server.Mesh
         _3ds,
         _3mf,
         amf,
+        assimp,
         awd,
         binary,
         babylon,

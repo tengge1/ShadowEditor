@@ -19,11 +19,13 @@ import PMDLoader from './PMDLoader';
 import JsLoader from './JsLoader';
 import _3DSLoader from './_3DSLoader';
 import _3MFLoader from './_3MFLoader';
+import AssimpLoader from './AssimpLoader';
 
 const Loaders = {
     '_3ds': _3DSLoader,
     '_3mf': _3MFLoader,
     'amf': AMFLoader,
+    'assimp': AssimpLoader,
     'awd': AWDLoader,
     'babylon': BabylonLoader,
     'binary': BinaryLoader,

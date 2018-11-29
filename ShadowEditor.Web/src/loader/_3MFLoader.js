@@ -15,7 +15,6 @@ _3MFLoader.prototype.load = function (url) {
     return new Promise(resolve => {
         var loader = new THREE.ThreeMFLoader();
         loader.load(url, object => {
-            debugger
             resolve(object);
         }, undefined, () => {
             resolve(null);
