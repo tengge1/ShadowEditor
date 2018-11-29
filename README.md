@@ -83,14 +83,10 @@ npm run build-docs
 
 ![image](images/scene20181125.png)
 
-[点此查看](images/README.md)更多截图
-
-## 更新日志
-
-[点此查看](UpdateLog.md)更新日志
-
 ## 相关链接
 
+* 更多截图：[点此查看](images/README.md)
+* 更新日志：[点此查看](UpdateLog.md)
 * Three.js官网：https://threejs.org/
 * Three.js源码：https://github.com/mrdoob/three.js/
 * LOL模型：http://www.lolking.net/models
