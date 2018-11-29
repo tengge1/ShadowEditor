@@ -15,7 +15,6 @@ _3DSLoader.prototype.load = function (url) {
     return new Promise(resolve => {
         var loader = new THREE.TDSLoader();
         loader.load(url, group => {
-            debugger
             resolve(group);
         }, undefined, () => {
             resolve(null);

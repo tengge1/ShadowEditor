@@ -13,6 +13,7 @@ namespace ShadowEditor.Server.Mesh
     {
         unknown, // 未知类型
         _3ds,
+        _3mf,
         amf,
         awd,
         binary,

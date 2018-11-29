@@ -18,9 +18,11 @@ import LOLLoader from './LOLLoader';
 import PMDLoader from './PMDLoader';
 import JsLoader from './JsLoader';
 import _3DSLoader from './_3DSLoader';
+import _3MFLoader from './_3MFLoader';
 
 const Loaders = {
     '_3ds': _3DSLoader,
+    '_3mf': _3MFLoader,
     'amf': AMFLoader,
     'awd': AWDLoader,
     'babylon': BabylonLoader,

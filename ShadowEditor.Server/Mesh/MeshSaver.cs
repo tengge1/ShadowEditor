@@ -70,6 +70,12 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType._3ds;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".3mf")).Count() > 0) // 3mf文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".3mf")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType._3mf;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".amf")).Count() > 0) // amf文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".amf")).FirstOrDefault();
