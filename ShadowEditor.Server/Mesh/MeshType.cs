@@ -20,6 +20,7 @@ namespace ShadowEditor.Server.Mesh
         binary,
         babylon,
         babylonmeshdata,
+        bvh,
         ctm,
         dae,
         fbx,

@@ -118,6 +118,12 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType.babylon;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".bvh")).Count() > 0) // bvh文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".bvh")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.bvh;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".ctm")).Count() > 0) // ctm文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".ctm")).FirstOrDefault();
