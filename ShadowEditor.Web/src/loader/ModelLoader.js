@@ -20,6 +20,7 @@ import JsLoader from './JsLoader';
 import _3DSLoader from './_3DSLoader';
 import _3MFLoader from './_3MFLoader';
 import AssimpLoader from './AssimpLoader';
+import BVHLoader from './BVHLoader';
 
 const Loaders = {
     '_3ds': _3DSLoader,
@@ -29,6 +30,7 @@ const Loaders = {
     'awd': AWDLoader,
     'babylon': BabylonLoader,
     'binary': BinaryLoader,
+    'bvh': BVHLoader,
     'ctm': CTMLoader,
     'dae': ColladaLoader,
     'fbx': FBXLoader,
