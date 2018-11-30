@@ -37,6 +37,30 @@ TextureEditWindow.prototype.render = function () {
             }]
         }, {
             xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '类型'
+            }, {
+                xtype: 'select',
+                options: {
+                    'unknown': '请选择',
+                    'alphaMap': '透明度贴图',
+                    'aoMap': '环境遮挡贴图',
+                    'bumpMap': '凹凸贴图',
+                    'displacementMap': '置换贴图',
+                    'emissiveMap': '发光贴图',
+                    'envMap': '环境贴图',
+                    'lightMap': '光照贴图',
+                    'map': '颜色贴图',
+                    'metalnessMap': '金属度贴图',
+                    'normalMap': '法线贴图',
+                    'roughnessMap': '粗糙度贴图',
+                    'cube': '立体贴图',
+                    'video': '视频贴图'
+                }
+            }]
+        }, {
+            xtype: 'row',
             style: {
                 justifyContent: 'center',
                 marginTop: '8px'
