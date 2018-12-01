@@ -144,6 +144,18 @@ npm run build-docs
         <td>贴花<br><img src="images/examples/贴花.png"></td>
         <td></td>
     </tr>
+    <tr valign="top">
+        <td>3ds模型<br><img src="images/examples/3ds模型.png"></td>
+        <td>3mf模型<br><img src="images/examples/3mf模型.png"></td>
+        <td>amf模型<br><img src="images/examples/amf模型.png"></td>
+        <td>assimp模型(anim)<br><img src="images/examples/assimp模型.png"></td>
+    </tr>
+    <tr valign="top">
+        <td>awd模型<br><img src="images/examples/awd模型.png"></td>
+        <td>babylon模型<br><img src="images/examples/babylon模型.png"></td>
+        <td>bvh模型(anim)<br><img src="images/examples/bvh模型.png"></td>
+        <td>collada模型<br><img src="images/examples/collada模型.png"></td>
+    </tr>
 </table>
 
 ## 相关链接
