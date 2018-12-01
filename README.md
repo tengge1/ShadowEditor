@@ -109,8 +109,8 @@ npm run build-docs
         <td>聚光灯<br><img src="images/examples/聚光灯.png"></td>
     </tr>
     <tr valign="top">
+        <td>半球光<br><img src="images/examples/半球光.png"></td>
         <td>矩形光<br><img src="images/examples/矩形光.png"></td>
-        <td></td>
         <td></td>
         <td></td>
     </tr>
