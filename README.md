@@ -4,10 +4,24 @@
 * 版本：v0.1.0（开发中）
 * 简介：基于`three.js`的场景编辑器。
 
-| 名称 | Shadow Editor | | 版本 | v0.1.0-开发中 | |
-| :-: | :-: | :-: | :-: | :-: | :-: |
-| 源码 | [GitHub](https://github.com/tengge1/ShadowEditor) | [码云](https://gitee.com/tengge1/ShadowEditor) | 文档 | [GitHub](https://tengge1.github.io/ShadowEditor/) | [码云](https://tengge1.gitee.io/shadoweditor/) |
-| 演示 | [GitHub](https://tengge1.github.io/ShadowEditor-examples/) | [码云](https://tengge1.gitee.io/shadoweditor-examples/) |  | [安装指南](UserGuide.md) | [更新日志](UpdateLog.md) |
+<table>
+    <tr>
+        <td>源码</td>
+        <td><a href="https://github.com/tengge1/ShadowEditor">GitHub</a></td>
+        <td><a href="https://gitee.com/tengge1/ShadowEditor">码云</a></td>
+        <td>文档</td>
+        <td><a href="https://tengge1.github.io/ShadowEditor/">GitHub</a></td>
+        <td><a href="https://tengge1.gitee.io/shadoweditor/">码云</a></td>
+    </tr>
+    <tr>
+        <td>演示</td>
+        <td><a href="https://tengge1.github.io/ShadowEditor-examples/">GitHub</a></td>
+        <td><a href="ttps://tengge1.gitee.io/shadoweditor/">码云</a></td>
+        <td></td>
+        <td><a href="UserGuide.md">安装指南</a></td>
+        <td><a href="UpdateLog.md">更新日志</a></td>
+    </tr>
+</table>
 
 ## 主要功能
 
