@@ -138,6 +138,12 @@ npm run build-docs
         <td>柏林地形<br><img src="images/examples/柏林地形.png"></td>
         <td>着色器地形<br><img src="images/examples/着色器地形.png"></td>
     </tr>
+    <tr valign="top">
+        <td>画点<br><img src="images/examples/画点.png"></td>
+        <td>画线<br><img src="images/examples/画线.png"></td>
+        <td>贴花<br><img src="images/examples/贴花.png"></td>
+        <td></td>
+    </tr>
 </table>
 
 ## 相关链接
