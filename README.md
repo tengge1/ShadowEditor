@@ -16,7 +16,7 @@
     <tr>
         <td>演示</td>
         <td><a href="https://tengge1.github.io/ShadowEditor-examples/">GitHub</a></td>
-        <td><a href="ttps://tengge1.gitee.io/shadoweditor/">码云</a></td>
+        <td><a href="https://tengge1.gitee.io/shadoweditor/">码云</a></td>
         <td></td>
         <td><a href="UserGuide.md">安装指南</a></td>
         <td><a href="UpdateLog.md">更新日志</a></td>
