@@ -4,7 +4,7 @@
 * 版本：v0.1.0（开发中）
 * 简介：基于`three.js`的场景编辑器。
 
-| | | | | | |
+| 名称 | Shadow Editor | | 版本 | v0.1.0-开发中 | |
 | :-: | :-: | :-: | :-: | :-: | :-: |
 | 源码 | [GitHub](https://github.com/tengge1/ShadowEditor) | [码云](https://gitee.com/tengge1/ShadowEditor) | 文档 | [GitHub](https://tengge1.github.io/ShadowEditor/) | [码云](https://tengge1.gitee.io/shadoweditor/) |
 | 演示 | [GitHub](https://tengge1.github.io/ShadowEditor-examples/) | [码云](https://tengge1.gitee.io/shadoweditor-examples/) |  | [安装指南](UserGuide.md) | [更新日志](UpdateLog.md) |
