@@ -148,6 +148,12 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType.fbx;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".gcode")).Count() > 0) // gcode文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".gcode")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.gcode;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".glb")).Count() > 0) // glb文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".glb")).FirstOrDefault();

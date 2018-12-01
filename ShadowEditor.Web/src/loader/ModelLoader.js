@@ -22,6 +22,7 @@ import _3MFLoader from './_3MFLoader';
 import AssimpLoader from './AssimpLoader';
 import BVHLoader from './BVHLoader';
 import DRACOLoader from './DRACOLoader';
+import GCodeLoader from './GCodeLoader';
 
 const Loaders = {
     '_3ds': _3DSLoader,
@@ -49,6 +50,7 @@ const Loaders = {
     'pmx': PMDLoader,
     'js': JsLoader,
     'drc': DRACOLoader,
+    'gcode': GCodeLoader,
 };
 
 /**

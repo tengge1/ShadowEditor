@@ -25,6 +25,7 @@ namespace ShadowEditor.Server.Mesh
         dae,
         drc,
         fbx,
+        gcode,
         glb,
         gltf,
         js,
