@@ -156,6 +156,18 @@ npm run build-docs
         <td>bvh模型(anim)<br><img src="images/examples/bvh模型.png"></td>
         <td>collada模型<br><img src="images/examples/collada模型.png"></td>
     </tr>
+    <tr valign="top">
+        <td>ctm模型<br><img src="images/examples/ctm模型.png"></td>
+        <td>draco模型<br><img src="images/examples/draco模型.png"></td>
+        <td>fbx模型(anim)<br><img src="images/examples/fbx模型.png"></td>
+        <td>gcode模型<br><img src="images/examples/gcode模型.png"></td>
+    </tr>
+    <tr valign="top">
+        <td>gltf模型(anim)<br><img src="images/examples/gltf模型.png"></td>
+        <td>json模型(anim)<br><img src="images/examples/json模型.png"></td>
+        <td>kmz模型<br><img src="images/examples/kmz模型.png"></td>
+        <td>lmesh模型(anim)<br><img src="images/examples/lmesh模型.png"></td>
+    </tr>
 </table>
 
 ## 相关链接
