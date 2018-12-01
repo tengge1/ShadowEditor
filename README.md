@@ -83,8 +83,6 @@ npm run build-docs
 
 ![image](images/scene20181125.png)
 
-## 功能示例
-
 <table>
     <tr valign="top">
         <td width="25%">平板<br><img src="images/examples/平板.png"></td>
@@ -103,6 +101,18 @@ npm run build-docs
         <td>酒杯<br><img src="images/examples/酒杯.png"></td>
         <td>精灵<br><img src="images/examples/精灵.png"></td>
         <td>文本<br><img src="images/examples/文本.png"></td>
+    </tr>
+    <tr valign="top">
+        <td>环境光<br><img src="images/examples/环境光.png"></td>
+        <td>平行光<br><img src="images/examples/平行光.png"></td>
+        <td>点光源<br><img src="images/examples/点光源.png"></td>
+        <td>聚光灯<br><img src="images/examples/聚光灯.png"></td>
+    </tr>
+    <tr valign="top">
+        <td>矩形光<br><img src="images/examples/矩形光.png"></td>
+        <td>平行光<br><img src="images/examples/平行光.png"></td>
+        <td>点光源<br><img src="images/examples/点光源.png"></td>
+        <td>聚光灯<br><img src="images/examples/聚光灯.png"></td>
     </tr>
 </table>
 
