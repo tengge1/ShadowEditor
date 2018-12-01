@@ -110,9 +110,21 @@ npm run build-docs
     </tr>
     <tr valign="top">
         <td>矩形光<br><img src="images/examples/矩形光.png"></td>
-        <td>平行光<br><img src="images/examples/平行光.png"></td>
-        <td>点光源<br><img src="images/examples/点光源.png"></td>
-        <td>聚光灯<br><img src="images/examples/聚光灯.png"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr valign="top">
+        <td>基本材质<br><img src="images/examples/基本材质.png"></td>
+        <td>冯氏材质<br><img src="images/examples/冯氏材质.png"></td>
+        <td>兰伯特材质<br><img src="images/examples/兰伯特材质.png"></td>
+        <td>标准材质<br><img src="images/examples/标准材质.png"></td>
+    </tr>
+    <tr valign="top">
+        <td>物理材质<br><img src="images/examples/物理材质.png"></td>
+        <td>法向量材质<br><img src="images/examples/法向量材质.png"></td>
+        <td></td>
+        <td></td>
     </tr>
 </table>
 

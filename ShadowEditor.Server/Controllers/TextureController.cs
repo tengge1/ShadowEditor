@@ -101,7 +101,7 @@ namespace ShadowEditor.Server.Controllers
                 var file1 = files[i];
                 var fileName1 = file1.FileName;
                 var fileExt1 = Path.GetExtension(fileName1);
-                if (fileExt1 == null || fileExt1.ToLower() != ".jpg" && fileExt1.ToLower() != ".jpeg" && fileExt1.ToLower() != ".png" && fileExt1.ToLower() != ".mp4")
+                if (fileExt1 == null || fileExt1.ToLower() != ".jpg" && fileExt1.ToLower() != ".jpeg" && fileExt1.ToLower() != ".png" && fileExt1.ToLower() != ".gif" && fileExt1.ToLower() != ".mp4")
                 {
                     return Json(new Result
                     {
