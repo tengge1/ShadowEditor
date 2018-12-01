@@ -83,6 +83,29 @@ npm run build-docs
 
 ![image](images/scene20181125.png)
 
+## 功能示例
+
+<table>
+    <tr valign="top">
+        <td width="25%">平板<br><img src="images/examples/平板.png"></td>
+        <td width="25%">正方体<br><img src="images/examples/正方体.png"></td>
+        <td width="25%">圆<br><img src="images/examples/圆.png"></td>
+        <td width="25%">圆柱体<br><img src="images/examples/圆柱体.png"></td>
+    </tr>
+    <tr valign="top">
+        <td>球体<br><img src="images/examples/球体.png"></td>
+        <td>二十面体<br><img src="images/examples/二十面体.png"></td>
+        <td>轮胎<br><img src="images/examples/轮胎.png"></td>
+        <td>纽结<br><img src="images/examples/纽结.png"></td>
+    </tr>
+    <tr valign="top">
+        <td>茶壶<br><img src="images/examples/茶壶.png"></td>
+        <td>酒杯<br><img src="images/examples/酒杯.png"></td>
+        <td>精灵<br><img src="images/examples/精灵.png"></td>
+        <td>文本<br><img src="images/examples/文本.png"></td>
+    </tr>
+</table>
+
 ## 相关链接
 
 * 更多截图：[点此查看](images/README.md)
