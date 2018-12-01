@@ -168,6 +168,12 @@ npm run build-docs
         <td>kmz模型<br><img src="images/examples/kmz模型.png"></td>
         <td>lmesh模型(anim)<br><img src="images/examples/lmesh模型.png"></td>
     </tr>
+    <tr valign="top">
+        <td>md2模型<br><img src="images/examples/md2模型.png"></td>
+        <td>mmd模型(anim)<br><img src="images/examples/mmd模型.png"></td>
+        <td></td>
+        <td></td>
+    </tr>
 </table>
 
 ## 相关链接
