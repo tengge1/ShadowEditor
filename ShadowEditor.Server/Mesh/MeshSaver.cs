@@ -136,6 +136,12 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType.dae;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".drc")).Count() > 0) // drc文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".drc")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.drc;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".fbx")).Count() > 0) // fbx文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".fbx")).FirstOrDefault();

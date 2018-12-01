@@ -23,6 +23,7 @@ namespace ShadowEditor.Server.Mesh
         bvh,
         ctm,
         dae,
+        drc,
         fbx,
         glb,
         gltf,
