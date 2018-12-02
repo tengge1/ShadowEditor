@@ -119,15 +119,21 @@
     </tr>
     <tr valign="top">
         <td>gltf模型(anim)<br><img src="images/examples/gltf模型.png"></td>
+        <td>js模型(anim)<br><img src="images/examples/js模型.png"></td>
         <td>json模型(anim)<br><img src="images/examples/json模型.png"></td>
         <td>kmz模型<br><img src="images/examples/kmz模型.png"></td>
-        <td>lmesh模型(anim)<br><img src="images/examples/lmesh模型.png"></td>
     </tr>
     <tr valign="top">
+        <td>lmesh模型(anim)<br><img src="images/examples/lmesh模型.png"></td>
         <td>md2模型<br><img src="images/examples/md2模型.png"></td>
         <td>mmd模型(anim)<br><img src="images/examples/mmd模型.png"></td>
-        <td></td>
-        <td></td>
+        <td>obj模型<br><img src="images/examples/obj模型.png"></td>
+    </tr>
+    <tr valign="top">
+        <td>lmesh模型(anim)<br><img src="images/examples/lmesh模型.png"></td>
+        <td>nrrd模型<br><img src="images/examples/nrrd模型.png"></td>
+        <td>pcd模型<br><img src="images/examples/pcd模型.png"></td>
+        <td>pdb模型<br><img src="images/examples/pdb模型.png"></td>
     </tr>
 </table>
 
