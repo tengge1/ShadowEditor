@@ -196,6 +196,12 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType.pcd;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".pdb")).Count() > 0) // pdb文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".pdb")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.pdb;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".ply")).Count() > 0) // ply文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".ply")).FirstOrDefault();
