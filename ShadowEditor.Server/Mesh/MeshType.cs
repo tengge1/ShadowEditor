@@ -38,6 +38,7 @@ namespace ShadowEditor.Server.Mesh
         md2,
         nrrd,
         obj,
+        pcd,
         playcanvas,
         ply,
         stl,

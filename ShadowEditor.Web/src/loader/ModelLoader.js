@@ -24,6 +24,7 @@ import BVHLoader from './BVHLoader';
 import DRACOLoader from './DRACOLoader';
 import GCodeLoader from './GCodeLoader';
 import NRRDLoader from './NRRDLoader';
+import PCDLoader from './PCDLoader';
 
 const Loaders = {
     '_3ds': _3DSLoader,
@@ -53,6 +54,7 @@ const Loaders = {
     'drc': DRACOLoader,
     'gcode': GCodeLoader,
     'nrrd': NRRDLoader,
+    'pcd': PCDLoader,
 };
 
 /**

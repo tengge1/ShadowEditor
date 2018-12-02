@@ -190,6 +190,12 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType.obj;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".pcd")).Count() > 0) // pcd文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".pcd")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.pcd;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".ply")).Count() > 0) // ply文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".ply")).FirstOrDefault();
