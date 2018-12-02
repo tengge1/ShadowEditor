@@ -137,9 +137,9 @@
     </tr>
     <tr valign="top">
         <td>prwm模型<br><img src="images/examples/prwm模型.png"></td>
-        <td>sea3d模型<br><img src="images/examples/sea3d模型.png"></td>
+        <td>sea3d模型(anim)<br><img src="images/examples/sea3d模型.png"></td>
         <td>stl模型<br><img src="images/examples/stl模型.png"></td>
-        <td></td>
+        <td>vrm模型<br><img src="images/examples/vrm模型.png"></td>
     </tr>
 </table>
 
