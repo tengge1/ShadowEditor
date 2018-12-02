@@ -377,9 +377,7 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
 
     var promises = serverObjects.map(serverObj => {
         return new Promise(resolve => {
-            options.scene = serverObj.parent;
             (new ServerObject()).fromJSON(serverObj.json, options).then(obj => {
-                delete options.scene;
                 if (obj) {
                     serverObj.parent.add(obj);
                 } else {
