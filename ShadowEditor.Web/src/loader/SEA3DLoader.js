@@ -26,7 +26,22 @@ SEA3DLoader.prototype.load = function (url, options) {
         };
 
         loader.load(url);
+
+        Object.assign(obj.userData, {
+            animNames: ['Animation1'],
+            scripts: [{
+                id: null,
+                name: `${options.Name}动画`,
+                type: 'javascript',
+                source: this.createScripts(options.Name),
+                uuid: THREE.Math.generateUUID()
+            }]
+        });
     });
+};
+
+SEA3DLoader.prototype.createScripts = function (name) {
+    return `function update(clock, deltaTime) { \n    THREE.SEA3D.AnimationHandler.update(deltaTime); \n}`;
 };
 
 export default SEA3DLoader;
