@@ -137,7 +137,10 @@
     </tr>
 </table>
 
-说明：带`anim`标注的是支持动画的模型。
+说明：
+
+1. 带`anim`标注的是支持动画的模型。
+2. lmesh模型来自`http://www.lolking.net/models`，其他模型来自`three.js`官网示例。
 
 ## 相关链接
 
