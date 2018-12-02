@@ -178,6 +178,12 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType.md2;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".nrrd")).Count() > 0) // nrrd文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".nrrd")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.nrrd;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".obj")).Count() > 0) // obj文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".obj")).FirstOrDefault();

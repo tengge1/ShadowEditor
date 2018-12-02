@@ -36,6 +36,7 @@ namespace ShadowEditor.Server.Mesh
         _3scn,
         kmz,
         md2,
+        nrrd,
         obj,
         playcanvas,
         ply,
