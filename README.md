@@ -135,6 +135,12 @@
         <td>pcd模型<br><img src="images/examples/pcd模型.png"></td>
         <td>pdb模型<br><img src="images/examples/pdb模型.png"></td>
     </tr>
+    <tr valign="top">
+        <td>ply模型<br><img src="images/examples/ply模型.png"></td>
+        <td>prwm模型<br><img src="images/examples/prwm模型.png"></td>
+        <td>sea3d模型<br><img src="images/examples/sea3d模型.png"></td>
+        <td>stl模型<br><img src="images/examples/stl模型.png"></td>
+    </tr>
 </table>
 
 说明：
