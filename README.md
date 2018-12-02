@@ -144,7 +144,7 @@
     <tr valign="top">
         <td>vrml模型<br><img src="images/examples/vrml模型.png"></td>
         <td>vtk模型<br><img src="images/examples/vtk模型.png"></td>
-        <td></td>
+        <td>x模型<br><img src="images/examples/x模型.png"></td>
         <td></td>
     </tr>
 </table>
