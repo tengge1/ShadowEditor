@@ -232,6 +232,12 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType.vrm;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".wrl")).Count() > 0) // vrml文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".wrl")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.vrml;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".vtk")).Count() > 0) // vtk文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".vtk")).FirstOrDefault();

@@ -46,6 +46,7 @@ namespace ShadowEditor.Server.Mesh
         sea3d,
         stl,
         vrm,
+        vrml,
         vtk,
         wrl,
         lol

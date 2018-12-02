@@ -141,6 +141,12 @@
         <td>stl模型<br><img src="images/examples/stl模型.png"></td>
         <td>vrm模型<br><img src="images/examples/vrm模型.png"></td>
     </tr>
+    <tr valign="top">
+        <td>vrml模型<br><img src="images/examples/vrml模型.png"></td>
+        <td>vtk模型<br><img src="images/examples/vtk模型.png"></td>
+        <td></td>
+        <td></td>
+    </tr>
 </table>
 
 说明：
