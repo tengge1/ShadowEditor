@@ -30,6 +30,7 @@ import PRWMLoader from './PRWMLoader';
 import SEA3DLoader from './SEA3DLoader';
 import VRMLoader from './VRMLoader';
 import VRMLLoader from './VRMLLoader';
+import XLoader from './XLoader';
 
 const Loaders = {
     '_3ds': _3DSLoader,
@@ -65,6 +66,7 @@ const Loaders = {
     'sea3d': SEA3DLoader,
     'vrm': VRMLoader,
     'vrml': VRMLLoader,
+    'x': XLoader,
 };
 
 /**

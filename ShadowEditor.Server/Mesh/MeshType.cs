@@ -49,6 +49,7 @@ namespace ShadowEditor.Server.Mesh
         vrml,
         vtk,
         wrl,
-        lol
+        lol,
+        x,
     }
 }

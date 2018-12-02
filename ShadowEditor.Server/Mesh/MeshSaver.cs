@@ -280,6 +280,12 @@ namespace ShadowEditor.Server.Mesh
 
                 meshType = MeshType.lol;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".x")).Count() > 0) // x文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".x")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.x;
+            }
 
             if (entryFileName == null || meshType == MeshType.unknown)
             {
