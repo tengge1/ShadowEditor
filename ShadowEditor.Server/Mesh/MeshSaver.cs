@@ -208,6 +208,12 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType.ply;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".prwm")).Count() > 0) // prwm文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".prwm")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.prwm;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".stl")).Count() > 0) // stl文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".stl")).FirstOrDefault();
