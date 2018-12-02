@@ -43,6 +43,7 @@ namespace ShadowEditor.Server.Mesh
         playcanvas,
         ply,
         prwm,
+        sea3d,
         stl,
         vtk,
         wrl,

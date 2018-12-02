@@ -214,6 +214,12 @@ namespace ShadowEditor.Server.Mesh
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType.prwm;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".sea")).Count() > 0) // sea3d文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".sea")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.sea3d;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".stl")).Count() > 0) // stl文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".stl")).FirstOrDefault();

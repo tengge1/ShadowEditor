@@ -50,7 +50,9 @@ ModelWindow.prototype.onClick = function (model) {
         url = this.app.options.server + model.Url;
     }
 
+    model.scene = this.app.editor.scene;
     loader.load(url, model).then(obj => {
+        model.scene = null;
         if (!obj) {
             return;
         }

@@ -27,6 +27,7 @@ import NRRDLoader from './NRRDLoader';
 import PCDLoader from './PCDLoader';
 import PDBLoader from './PDBLoader';
 import PRWMLoader from './PRWMLoader';
+import SEA3DLoader from './SEA3DLoader';
 
 const Loaders = {
     '_3ds': _3DSLoader,
@@ -59,6 +60,7 @@ const Loaders = {
     'pcd': PCDLoader,
     'pdb': PDBLoader,
     'prwm': PRWMLoader,
+    'sea3d': SEA3DLoader,
 };
 
 /**
