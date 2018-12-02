@@ -39,7 +39,9 @@ function Application(container, options) {
     this.call = this.event.call.bind(this.event);
     this.on = this.event.on.bind(this.event);
 
-    var params = { app: this };
+    var params = {
+        app: this
+    };
 
     // 用户界面
     this.ui = UI;
@@ -75,19 +77,19 @@ function Application(container, options) {
                             flexDirection: 'column'
                         },
                         children: [{
-                            xtype: 'div',
-                            style: {
-                                position: 'relative',
-                                flex: 1
+                                xtype: 'div',
+                                style: {
+                                    position: 'relative',
+                                    flex: 1
+                                },
+                                children: [
+                                    this.viewport,
+                                    this.script,
+                                    this.player
+                                ]
                             },
-                            children: [
-                                this.viewport,
-                                this.script,
-                                this.player
-                            ]
-                        },
-                        this.bottomPanel,
-                        this.statusBar
+                            this.bottomPanel,
+                            this.statusBar
                         ]
                     },
                     this.sidebar2,

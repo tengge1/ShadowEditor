@@ -15,6 +15,7 @@ import LogPanel from './LogPanel';
 function BottomPanel(options) {
     Control.call(this, options);
     this.app = options.app;
+    this.show = true;
 };
 
 BottomPanel.prototype = Object.create(Control.prototype);
@@ -31,7 +32,8 @@ BottomPanel.prototype.render = function () {
             style: {
                 position: 'sticky',
                 top: 0,
-                zIndex: 20
+                zIndex: 20,
+                display: 'flex',
             },
             children: [{
                 xtype: 'text',
@@ -82,6 +84,18 @@ BottomPanel.prototype.render = function () {
                 onClick: () => {
                     this.selectTab('log');
                 }
+            }, {
+                xtype: 'toolbarfiller'
+            }, {
+                xtype: 'iconbutton',
+                icon: 'icon-down-arrow',
+                title: '折叠',
+                style: {
+                    margin: '5px',
+                    padding: '2px 4px',
+                    boxSizing: 'border-box',
+                },
+                onClick: this.toggleShowPanel.bind(this)
             }]
         }, {
             xtype: 'div',
@@ -217,6 +231,10 @@ BottomPanel.prototype.selectTab = function (tabName) {
             logPanel.dom.style.display = '';
             break;
     }
+};
+
+BottomPanel.prototype.toggleShowPanel = function () {
+
 };
 
 export default BottomPanel;
