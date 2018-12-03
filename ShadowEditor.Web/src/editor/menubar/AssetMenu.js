@@ -42,6 +42,11 @@ AssetMenu.prototype.render = function () {
                 onClick: this.onManageTexture.bind(this)
             }, {
                 xtype: 'div',
+                html: '材质管理',
+                cls: 'option',
+                onClick: this.onManageMaterial.bind(this)
+            }, {
+                xtype: 'div',
                 html: '音频管理',
                 cls: 'option',
                 onClick: this.onManageAudio.bind(this)
@@ -121,6 +126,12 @@ AssetMenu.prototype.onManageTexture = function () {
         this.textureWindow.render();
     }
     this.textureWindow.show();
+};
+
+// --------------------------------- 材质管理 --------------------------------------
+
+AssetMenu.prototype.onManageMaterial = function () {
+    UI.msg('材质管理');
 };
 
 // --------------------------------- 音频管理 --------------------------------------
