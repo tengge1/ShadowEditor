@@ -391,11 +391,13 @@ div.SearchField .IconButton i {
 
 div.Category {
     max-height: 100%;
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
 }
 
 div.Category .item {
-    padding: 6px;
+    margin: 6px;
     box-sizing: border-box;
 }
 

@@ -71,10 +71,10 @@ MapPanel.prototype.initMapPanel = function () {
                         category2: '分类2',
                         category3: '分类3',
                         category4: '分类4',
-                        // category5: '分类5',
-                        // category6: '分类6',
-                        // category7: '分类7',
-                        // category8: '分类8',
+                        category5: '分类5',
+                        category6: '分类6',
+                        category7: '分类7',
+                        category8: '分类8',
                     }
                 }]
             }]
