@@ -231,6 +231,8 @@ BottomPanel.prototype.selectTab = function (tabName) {
             logPanel.dom.style.display = '';
             break;
     }
+
+    this.app.call(`showBottomPanel`, this, tabName);
 };
 
 BottomPanel.prototype.toggleShowPanel = function () {

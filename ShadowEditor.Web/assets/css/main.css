@@ -36,6 +36,7 @@ button {
     border-radius: 3px;
     will-change: box-shadow;
     transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
 }
 
 button:hover {
@@ -91,6 +92,7 @@ input {
 }
 
 input.Input {
+    box-sizing: border-box;
     padding: 4px;
 }
 
@@ -371,17 +373,34 @@ div.MessageBox {
 }
 
 div.SearchField {
-    display: flex;
-    flex-direction: row;
-    max-width: 240px;
+    display: relative;
+    max-width: 200px;
 }
 
 div.SearchField .Input {
-    flex: 1;
+    width: calc(100% - 32px);
+}
+
+div.SearchField .IconButton {
+    width: 32px;
 }
 
 div.SearchField .IconButton i {
     font-size: 14px;
+}
+
+div.Category {
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+div.Category .item {
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+div.Category .item input {
+    margin-right: 4px;
 }
 
 table.Table {

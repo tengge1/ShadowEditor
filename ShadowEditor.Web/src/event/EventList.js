@@ -27,15 +27,12 @@ var EventList = [
     'optionsChanged', // 配置改变事件
 
     // 菜单栏事件
-    'mAddMiku',
-
     'mAddPhysicsPlane', // 添加平板
     'mAddPhysicsWall', // 添加墙
     'mAddPhysicsCloth', // 添加布料
     'mThrowBall', // 探测小球
 
     // 工具栏事件
-
     'changeMode', // 改变模式（select, translate, rotate, scale, delete）
 
     // editor事件
@@ -45,9 +42,7 @@ var EventList = [
     'log', // 日志事件
     'intersect', // 碰撞事件
 
-    // signal事件
     'editScript', // 编辑脚本事件
-
     'editorCleared', // 编辑器已经清空事件
 
     'snapChanged', // 对齐单元格事件
@@ -91,6 +86,9 @@ var EventList = [
     'resetAnimation', // 重制动画时间轴
     'startAnimation', // 开始播放动画
     'animationTime', // 时间轴发送当前动画时间
+
+    // 底部面板事件
+    'showBottomPanel', // 显示某个底部面板
 ];
 
 export default EventList;
