@@ -3,6 +3,7 @@ import AnimationPanel from './AnimationPanel';
 import ModelPanel from './ModelPanel';
 import MapPanel from './MapPanel';
 import TexturePanel from './TexturePanel';
+import MaterialPanel from './MaterialPanel';
 import AudioPanel from './AudioPanel';
 import ParticlePanel from './ParticlePanel';
 import LogPanel from './LogPanel';
@@ -60,6 +61,13 @@ BottomPanel.prototype.render = function () {
                 text: '纹理',
                 onClick: () => {
                     this.selectTab('texture');
+                }
+            }, {
+                xtype: 'text',
+                id: 'materialTab',
+                text: '材质',
+                onClick: () => {
+                    this.selectTab('material');
                 }
             }, {
                 xtype: 'text',
@@ -140,6 +148,17 @@ BottomPanel.prototype.render = function () {
             ]
         }, {
             xtype: 'div',
+            id: 'materialPanel',
+            style: {
+                height: 'calc(100% - 40px)'
+            },
+            children: [
+                new MaterialPanel({
+                    app: this.app
+                })
+            ]
+        }, {
+            xtype: 'div',
             id: 'audioPanel',
             style: {
                 height: 'calc(100% - 40px)'
@@ -187,6 +206,7 @@ BottomPanel.prototype.selectTab = function (tabName) {
     var modelTab = UI.get('modelTab');
     var mapTab = UI.get('mapTab');
     var textureTab = UI.get('textureTab');
+    var materialTab = UI.get('materialTab');
     var audioTab = UI.get('audioTab');
     var particleTab = UI.get('particleTab');
     var logTab = UI.get('logTab');
@@ -195,6 +215,7 @@ BottomPanel.prototype.selectTab = function (tabName) {
     var modelPanel = UI.get('modelPanel');
     var mapPanel = UI.get('mapPanel');
     var texturePanel = UI.get('texturePanel');
+    var materialPanel = UI.get('materialPanel');
     var audioPanel = UI.get('audioPanel');
     var particlePanel = UI.get('particlePanel');
     var logPanel = UI.get('logPanel');
@@ -203,6 +224,7 @@ BottomPanel.prototype.selectTab = function (tabName) {
     modelTab.dom.className = '';
     mapTab.dom.className = '';
     textureTab.dom.className = '';
+    materialTab.dom.className = '';
     audioTab.dom.className = '';
     particleTab.dom.className = '';
     logTab.dom.className = '';
@@ -211,6 +233,7 @@ BottomPanel.prototype.selectTab = function (tabName) {
     modelPanel.dom.style.display = 'none';
     mapPanel.dom.style.display = 'none';
     texturePanel.dom.style.display = 'none';
+    materialPanel.dom.style.display = 'none';
     audioPanel.dom.style.display = 'none';
     particlePanel.dom.style.display = 'none';
     logPanel.dom.style.display = 'none';
@@ -231,6 +254,10 @@ BottomPanel.prototype.selectTab = function (tabName) {
         case 'texture':
             textureTab.dom.className = 'selected';
             texturePanel.dom.style.display = '';
+            break;
+        case 'material':
+            materialTab.dom.className = 'selected';
+            materialPanel.dom.style.display = '';
             break;
         case 'audio':
             audioTab.dom.className = 'selected';
