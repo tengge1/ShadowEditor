@@ -33,7 +33,7 @@ BottomPanel.prototype.render = function () {
                 position: 'sticky',
                 top: 0,
                 zIndex: 20,
-                display: 'flex',
+                display: 'block',
             },
             children: [{
                 xtype: 'text',
@@ -86,17 +86,19 @@ BottomPanel.prototype.render = function () {
                 }
             }, {
                 xtype: 'toolbarfiller'
-            }, {
-                xtype: 'iconbutton',
-                icon: 'icon-down-arrow',
-                title: '折叠',
-                style: {
-                    margin: '5px',
-                    padding: '2px 4px',
-                    boxSizing: 'border-box',
-                },
-                onClick: this.toggleShowPanel.bind(this)
-            }]
+            }
+                // , {
+                //     xtype: 'iconbutton',
+                //     icon: 'icon-down-arrow',
+                //     title: '折叠',
+                //     style: {
+                //         margin: '5px',
+                //         padding: '2px 4px',
+                //         boxSizing: 'border-box',
+                //     },
+                //     onClick: this.toggleShowPanel.bind(this)
+                // }
+            ]
         }, {
             xtype: 'div',
             id: 'animationPanel',
@@ -231,6 +233,8 @@ BottomPanel.prototype.selectTab = function (tabName) {
             logPanel.dom.style.display = '';
             break;
     }
+
+    this.app.call(`showBottomPanel`, this, tabName);
 };
 
 BottomPanel.prototype.toggleShowPanel = function () {
