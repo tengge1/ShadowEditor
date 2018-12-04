@@ -49,6 +49,17 @@
     <Compile Include="Math\Interpolant.cs" />
     <Compile Include="Math\Line3.cs" />
     <Compile Include="Math\Math.cs" />
+    <Compile Include="Math\Matrix3.cs" />
+    <Compile Include="Math\Matrix4.cs" />
+    <Compile Include="Math\Plane.cs" />
+    <Compile Include="Math\Quaternion.cs" />
+    <Compile Include="Math\Ray.cs" />
+    <Compile Include="Math\Sphere.cs" />
+    <Compile Include="Math\Spherical.cs" />
+    <Compile Include="Math\Triangle.cs" />
+    <Compile Include="Math\Vector2.cs" />
+    <Compile Include="Math\Vector3.cs" />
+    <Compile Include="Math\Vector4.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
