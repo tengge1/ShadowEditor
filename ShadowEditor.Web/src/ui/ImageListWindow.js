@@ -84,7 +84,7 @@ ImageListWindow.prototype.render = function () {
                     scope: this.id,
                     showSearchButton: false,
                     showResetButton: true,
-                    onInput: this.onInputSearchField.bind(this)
+                    onInput: this.onSearch.bind(this)
                 }]
             }, {
                 xtype: 'row',
@@ -176,11 +176,6 @@ ImageListWindow.prototype.onSearch = function (name) {
             n[this.totalPinYinField].indexOf(name) > -1;
     });
     this.renderImages(models);
-};
-
-ImageListWindow.prototype.onInputSearchField = function () {
-    var search = UI.get('search', this.id);
-    this.onSearch(search.getValue());
 };
 
 ImageListWindow.prototype.renderImages = function (models) {

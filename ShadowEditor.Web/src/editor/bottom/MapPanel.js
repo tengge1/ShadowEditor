@@ -1,4 +1,5 @@
 import UI from '../../ui/UI';
+import Ajax from '../../utils/Ajax';
 
 /**
  * 贴图面板
@@ -9,6 +10,9 @@ function MapPanel(options) {
     this.app = options.app;
 
     this.firstShow = true;
+
+    this.keywords = '';
+    this.data = [];
 };
 
 MapPanel.prototype = Object.create(UI.Control.prototype);
@@ -25,11 +29,12 @@ MapPanel.prototype.onShowPanel = function (tabName) {
 
     if (this.firstShow) {
         this.firstShow = false;
-        this.initMapPanel();
+        this.renderUI();
+        this.update();
     }
 };
 
-MapPanel.prototype.initMapPanel = function () {
+MapPanel.prototype.renderUI = function () {
     var control = UI.create({
         xtype: 'div',
         parent: this.parent,
@@ -81,16 +86,82 @@ MapPanel.prototype.initMapPanel = function () {
         }, {
             xtype: 'div',
             style: {
-                flex: 1
-            }
+                width: '100%',
+                height: '100%',
+                flex: 1,
+                overflow: 'auto'
+            },
+            children: [{
+                xtype: 'imagelist',
+                id: 'images',
+                scope: this.id,
+                style: {
+                    width: '100%',
+                    height: '100%',
+                },
+                onClick: this.onClick.bind(this)
+            }]
         }]
     });
 
     control.render();
 };
 
+MapPanel.prototype.update = function () {
+    var server = this.app.options.server;
+
+    this.keywords = '';
+
+    Ajax.getJson(`${server}/api/Texture/List`, obj => {
+        this.data = obj.Data;
+        this.onSearch('');
+    });
+};
+
 MapPanel.prototype.onSearch = function (name) {
-    debugger
+    if (name.trim() === '') {
+        this.renderList(this.data);
+        return;
+    }
+
+    name = name.toLowerCase();
+
+    var list = this.data.filter(n => {
+        return n.Name.indexOf(name) > -1 ||
+            n.FirstPinYin.indexOf(name) > -1 ||
+            n.TotalPinYin.indexOf(name) > -1;
+    });
+
+    this.renderList(list);
+};
+
+MapPanel.prototype.renderList = function (list) {
+    var images = UI.get('images', this.id);
+    images.clear();
+
+    images.children = list.map(n => {
+        return {
+            xtype: 'image',
+            src: n.Thumbnail ? n.Thumbnail : null,
+            title: n.Name,
+            data: n,
+            icon: 'icon-scenes',
+            cornerText: n.Type,
+            style: {
+                backgroundColor: '#eee'
+            }
+        };
+    });;
+
+    images.render();
+};
+
+MapPanel.prototype.onClick = function (data) {
+    if (typeof (this.onSelect) === 'function') {
+        this.onSelect(data);
+    } else {
+        UI.msg('请在材质控件中修改纹理。');
+    }
 };
 
 export default MapPanel;

@@ -33,7 +33,7 @@ SearchField.prototype.render = function () {
             id: `${this.id}-input`,
             scope: this.scope,
             placeholder: '搜索内容',
-            onInput: this.onInput == null ? null : this.onInput.bind(this)
+            onInput: this.onFieldInput.bind(this)
         }]
     }];
 
@@ -41,7 +41,7 @@ SearchField.prototype.render = function () {
         this.children[0].children.push({
             xtype: 'iconbutton',
             icon: 'icon-search',
-            onClick: this.onSearch == null ? null : this.onSearch.bind(this)
+            onClick: this.onFieldSearch.bind(this)
         });
     }
 
@@ -51,12 +51,8 @@ SearchField.prototype.render = function () {
             icon: 'icon-close',
             onClick: (event) => {
                 this.reset();
-                if (this.onInput) {
-                    this.onInput(event);
-                }
-                if (this.onSearch) {
-                    this.onSearch(event);
-                }
+                this.onFieldInput();
+                this.onFieldSearch();
             }
         });
     }
@@ -77,6 +73,22 @@ SearchField.prototype.setValue = function (value) {
 
 SearchField.prototype.reset = function () {
     this.setValue('');
+};
+
+SearchField.prototype.onFieldInput = function () {
+    var value = this.getValue();
+
+    if (this.onInput) {
+        this.onInput(value);
+    }
+};
+
+SearchField.prototype.onFieldSearch = function () {
+    var value = this.getValue();
+
+    if (this.onSearch) {
+        this.onSearch(value);
+    }
 };
 
 export default SearchField;
