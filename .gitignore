@@ -81,3 +81,5 @@ typings/
 /ShadowEditor.Web/Upload/File
 /docs-dev/_book
 /ShadowEditor.Web/examples
+/THREE/bin
+/THREE/obj
