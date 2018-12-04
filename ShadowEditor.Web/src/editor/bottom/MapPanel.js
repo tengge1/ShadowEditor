@@ -62,7 +62,7 @@ MapPanel.prototype.initMapPanel = function () {
             }, {
                 xtype: 'div',
                 style: {
-                    flex: 1,
+                    height: 'calc(100% - 30px)'
                 },
                 children: [{
                     xtype: 'category',

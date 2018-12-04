@@ -30,8 +30,6 @@ BottomPanel.prototype.render = function () {
             xtype: 'div',
             cls: 'tabs',
             style: {
-                position: 'sticky',
-                top: 0,
                 zIndex: 20,
                 display: 'block',
             },
@@ -85,79 +83,93 @@ BottomPanel.prototype.render = function () {
                     this.selectTab('log');
                 }
             }, {
-                xtype: 'toolbarfiller'
-            }
-                // , {
-                //     xtype: 'iconbutton',
-                //     icon: 'icon-down-arrow',
-                //     title: '折叠',
-                //     style: {
-                //         margin: '5px',
-                //         padding: '2px 4px',
-                //         boxSizing: 'border-box',
-                //     },
-                //     onClick: this.toggleShowPanel.bind(this)
-                // }
-            ]
+                xtype: 'iconbutton',
+                icon: 'icon-down-arrow',
+                title: '折叠',
+                style: {
+                    margin: '5px',
+                    padding: '2px 4px',
+                    boxSizing: 'border-box',
+                    float: 'right'
+                },
+                onClick: this.toggleShowPanel.bind(this)
+            }]
         }, {
             xtype: 'div',
             id: 'animationPanel',
             style: {
-                flex: 1
+                height: 'calc(100% - 40px)'
             },
             children: [
-                new AnimationPanel({ app: this.app })
+                new AnimationPanel({
+                    app: this.app
+                })
             ]
         }, {
             xtype: 'div',
             id: 'modelPanel',
             style: {
-                flex: 1
+                height: 'calc(100% - 40px)'
             },
             children: [
-                new ModelPanel({ app: this.app })
+                new ModelPanel({
+                    app: this.app
+                })
             ]
         }, {
             xtype: 'div',
             id: 'mapPanel',
             style: {
-                flex: 1
+                height: 'calc(100% - 40px)'
             },
             children: [
-                new MapPanel({ app: this.app })
+                new MapPanel({
+                    app: this.app
+                })
             ]
         }, {
             xtype: 'div',
             id: 'texturePanel',
             style: {
-                flex: 1
+                height: 'calc(100% - 40px)'
             },
             children: [
-                new TexturePanel({ app: this.app })
+                new TexturePanel({
+                    app: this.app
+                })
             ]
         }, {
             xtype: 'div',
             id: 'audioPanel',
             style: {
-                flex: 1
+                height: 'calc(100% - 40px)'
             },
             children: [
-                new AudioPanel({ app: this.app })
+                new AudioPanel({
+                    app: this.app
+                })
             ]
         }, {
             xtype: 'div',
             id: 'particlePanel',
             style: {
-                flex: 1
+                height: 'calc(100% - 40px)'
             },
             children: [
-                new ParticlePanel({ app: this.app })
+                new ParticlePanel({
+                    app: this.app
+                })
             ]
         }, {
             xtype: 'div',
             id: 'logPanel',
+            style: {
+                height: 'calc(100% - 40px)'
+            },
             children: [
-                new LogPanel({ app: this.app })
+                new LogPanel({
+                    app: this.app
+                })
             ]
         }]
     };
