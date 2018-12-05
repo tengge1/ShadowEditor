@@ -152,6 +152,12 @@
         <td>x模型<br><img src="images/examples/x模型.png"></td>
         <td></td>
     </tr>
+    <tr valign="top">
+        <td>立体贴图<br><img src="images/examples/立体贴图.png"></td>
+        <td>雾效<br><img src="images/examples/雾效.png"></td>
+        <td>视频贴图<br><img src="images/examples/视频贴图.png"></td>
+        <td></td>
+    </tr>
 </table>
 
 说明：
