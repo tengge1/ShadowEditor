@@ -280,6 +280,8 @@ div.ImageList .Container {
     position: relative;
     box-sizing: border-box;
     margin: 3px;
+    background-color: #fff;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 div.ImageList .Container .Item {
