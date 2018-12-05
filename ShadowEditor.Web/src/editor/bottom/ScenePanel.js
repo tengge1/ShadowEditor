@@ -56,7 +56,17 @@ ScenePanel.prototype.renderUI = function () {
             },
             children: [{
                 xtype: 'div',
+                style: {
+                    display: 'flex'
+                },
                 children: [{
+                    xtype: 'iconbutton',
+                    icon: 'icon-save',
+                    style: {
+                        padding: '2px'
+                    },
+                    onClick: this.onSave.bind(this)
+                }, {
                     xtype: 'searchfield',
                     id: 'search',
                     scope: this.id,
@@ -161,6 +171,12 @@ ScenePanel.prototype.onClick = function (data) {
     // } else {
     //     UI.msg('请在材质控件中修改纹理。');
     // }
+};
+
+// ------------------------------- 保存场景 --------------------------------------
+
+ScenePanel.prototype.onSave = function () {
+    UI.msg('场景保存成功！');
 };
 
 export default ScenePanel;
