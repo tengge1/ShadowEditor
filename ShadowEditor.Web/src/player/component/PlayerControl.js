@@ -53,7 +53,7 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
 };
 
 PlayerControl.prototype.update = function (clock, deltaTime) {
-    if (!(this.control instanceof THREE.PointerLockControls)) {
+    if (this.control && !(this.control instanceof THREE.PointerLockControls)) {
         this.control.update(deltaTime);
     }
 };
