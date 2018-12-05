@@ -1,5 +1,6 @@
 import Control from '../../ui/Control';
 import AnimationPanel from './AnimationPanel';
+import ScenePanel from './ScenePanel';
 import ModelPanel from './ModelPanel';
 import MapPanel from './MapPanel';
 import MaterialPanel from './MaterialPanel';
@@ -39,6 +40,13 @@ BottomPanel.prototype.render = function () {
                 text: '动画',
                 onClick: () => {
                     this.selectTab('animation');
+                }
+            }, {
+                xtype: 'text',
+                id: 'sceneTab',
+                text: '场景',
+                onClick: () => {
+                    this.selectTab('scene');
                 }
             }, {
                 xtype: 'text',
@@ -102,6 +110,17 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new AnimationPanel({
+                    app: this.app
+                })
+            ]
+        }, {
+            xtype: 'div',
+            id: 'scenePanel',
+            style: {
+                height: 'calc(100% - 40px)'
+            },
+            children: [
+                new ScenePanel({
                     app: this.app
                 })
             ]
@@ -184,6 +203,7 @@ BottomPanel.prototype.render = function () {
 
 BottomPanel.prototype.selectTab = function (tabName) {
     var animationTab = UI.get('animationTab');
+    var sceneTab = UI.get('sceneTab');
     var modelTab = UI.get('modelTab');
     var mapTab = UI.get('mapTab');
     var materialTab = UI.get('materialTab');
@@ -192,6 +212,7 @@ BottomPanel.prototype.selectTab = function (tabName) {
     var logTab = UI.get('logTab');
 
     var animationPanel = UI.get('animationPanel');
+    var scenePanel = UI.get('scenePanel');
     var modelPanel = UI.get('modelPanel');
     var mapPanel = UI.get('mapPanel');
     var materialPanel = UI.get('materialPanel');
@@ -200,6 +221,7 @@ BottomPanel.prototype.selectTab = function (tabName) {
     var logPanel = UI.get('logPanel');
 
     animationTab.dom.className = '';
+    sceneTab.dom.className = '';
     modelTab.dom.className = '';
     mapTab.dom.className = '';
     materialTab.dom.className = '';
@@ -208,6 +230,7 @@ BottomPanel.prototype.selectTab = function (tabName) {
     logTab.dom.className = '';
 
     animationPanel.dom.style.display = 'none';
+    scenePanel.dom.style.display = 'none';
     modelPanel.dom.style.display = 'none';
     mapPanel.dom.style.display = 'none';
     materialPanel.dom.style.display = 'none';
@@ -219,6 +242,10 @@ BottomPanel.prototype.selectTab = function (tabName) {
         case 'animation':
             animationTab.dom.className = 'selected';
             animationPanel.dom.style.display = '';
+            break;
+        case 'scene':
+            sceneTab.dom.className = 'selected';
+            scenePanel.dom.style.display = '';
             break;
         case 'model':
             modelTab.dom.className = 'selected';
