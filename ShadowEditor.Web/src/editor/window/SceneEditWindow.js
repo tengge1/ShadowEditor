@@ -130,6 +130,7 @@ SceneEditWindow.prototype.updateUI = function () {
                     options[n.ID] = n.Name;
                 });
                 category.options = options;
+                category.value = this.data.CategoryID;
                 category.render();
             });
         }

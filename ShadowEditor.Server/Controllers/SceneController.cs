@@ -27,16 +27,35 @@ namespace ShadowEditor.Server.Controllers
         public JsonResult List()
         {
             var mongo = new MongoHelper();
+
+            // 获取所有类别
+            var categories = mongo.FindAll(Constant.SceneCategoryCollectionName);
+
             var scenes = mongo.FindAll(Constant.SceneCollectionName);
 
             var list = new List<SceneModel>();
 
             foreach (var i in scenes)
             {
+                var categoryID = "";
+                var categoryName = "";
+
+                if (i.Contains("Category") && !i["Category"].IsBsonNull && !string.IsNullOrEmpty(i["Category"].ToString()))
+                {
+                    var doc = categories.Where(n => n["_id"].ToString() == i["Category"].ToString()).FirstOrDefault();
+                    if (doc != null)
+                    {
+                        categoryID = doc["_id"].ToString();
+                        categoryName = doc["Name"].ToString();
+                    }
+                }
+
                 var info = new SceneModel
                 {
                     ID = i["ID"].AsObjectId.ToString(),
                     Name = i["Name"].AsString,
+                    CategoryID = categoryID,
+                    CategoryName = categoryName,
                     TotalPinYin = i["TotalPinYin"].ToString(),
                     FirstPinYin = i["FirstPinYin"].ToString(),
                     CollectionName = i["CollectionName"].AsString,
