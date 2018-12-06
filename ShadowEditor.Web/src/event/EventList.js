@@ -31,6 +31,7 @@ var EventList = [
     'mAddPhysicsWall', // 添加墙
     'mAddPhysicsCloth', // 添加布料
     'mThrowBall', // 探测小球
+    'sceneSaved', // 场景保存成功
 
     // 工具栏事件
     'changeMode', // 改变模式（select, translate, rotate, scale, delete）

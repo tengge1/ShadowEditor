@@ -60,10 +60,6 @@ SceneMenu.prototype.render = function () {
     });
 
     container.render();
-
-    // this.link = document.createElement('a');
-    // this.link.style.display = 'none';
-    // document.body.appendChild(this.link); // Firefox workaround, see #6594
 }
 
 // ---------------------------- 新建场景 ---------------------------------
@@ -127,7 +123,7 @@ SceneMenu.prototype.commitSave = function (sceneName) {
     Ajax.post(`${this.app.options.server}/api/Scene/Save`, {
         Name: sceneName,
         Data: JSON.stringify(obj)
-    }, function (result) {
+    }, result => {
         var obj = JSON.parse(result);
 
         if (obj.Code === 200) {
@@ -135,6 +131,8 @@ SceneMenu.prototype.commitSave = function (sceneName) {
             editor.sceneName = sceneName;
             document.title = sceneName;
         }
+
+        this.app.call(`sceneSaved`, this);
 
         UI.msg(obj.Msg);
     });
@@ -171,7 +169,7 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
     Ajax.post(`${this.app.options.server}/api/Scene/Save`, {
         Name: sceneName,
         Data: JSON.stringify(obj)
-    }, function (result) {
+    }, result => {
         var obj = JSON.parse(result);
 
         if (obj.Code === 200) {
@@ -179,6 +177,8 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
             editor.sceneName = sceneName;
             document.title = sceneName;
         }
+
+        this.app.call(`sceneSaved`, this);
 
         UI.msg(obj.Msg);
     });

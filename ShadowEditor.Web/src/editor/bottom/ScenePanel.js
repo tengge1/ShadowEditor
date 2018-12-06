@@ -119,6 +119,8 @@ ScenePanel.prototype.renderUI = function () {
     });
 
     control.render();
+
+    this.app.on(`sceneSaved.${this.id}`, this.update.bind(this));
 };
 
 ScenePanel.prototype.update = function () {
