@@ -39,6 +39,24 @@ SceneEditWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
+                text: '类别'
+            }, {
+                xtype: 'select',
+                id: 'type',
+                scope: this.id
+            }, {
+                xtype: 'button',
+                id: 'btnEditType',
+                scope: this.id,
+                text: '编辑类型',
+                style: {
+                    marginLeft: '8px'
+                }
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
                 text: '缩略图'
             }, {
                 xtype: 'imageuploader',

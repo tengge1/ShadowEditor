@@ -115,6 +115,7 @@ input.Color {
 }
 
 select {
+    min-width: 80px;
     color: #666;
     background-color: #ddd;
     border: 0px;
