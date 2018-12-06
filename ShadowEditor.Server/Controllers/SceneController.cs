@@ -146,7 +146,19 @@ namespace ShadowEditor.Server.Controllers
             var update2 = Builders<BsonDocument>.Update.Set("TotalPinYin", pinyin.TotalPinYin);
             var update3 = Builders<BsonDocument>.Update.Set("FirstPinYin", pinyin.FirstPinYin);
             var update4 = Builders<BsonDocument>.Update.Set("Thumbnail", model.Image);
-            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4);
+
+            UpdateDefinition<BsonDocument> update5;
+
+            if (string.IsNullOrEmpty(model.Category))
+            {
+                update5 = Builders<BsonDocument>.Update.Unset("Category");
+            }
+            else
+            {
+                update5 = Builders<BsonDocument>.Update.Set("Category", model.Category);
+            }
+
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4, update5);
             mongo.UpdateOne(Constant.SceneCollectionName, filter, update);
 
             return Json(new

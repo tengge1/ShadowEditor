@@ -22,6 +22,11 @@ namespace ShadowEditor.Server.Scene
         public string Name { get; set; }
 
         /// <summary>
+        /// 类别
+        /// </summary>
+        public string Category { get; set; }
+
+        /// <summary>
         /// 缩略图
         /// </summary>
         public string Image { get; set; }

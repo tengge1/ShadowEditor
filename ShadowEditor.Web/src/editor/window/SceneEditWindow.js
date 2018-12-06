@@ -42,7 +42,7 @@ SceneEditWindow.prototype.render = function () {
                 text: '类别'
             }, {
                 xtype: 'select',
-                id: 'type',
+                id: 'category',
                 scope: this.id
             }, {
                 xtype: 'button',
@@ -116,9 +116,9 @@ SceneEditWindow.prototype.updateUI = function () {
     image.setValue(this.data.Thumbnail);
 
     // 更新场景类型
-    var type = UI.get('type', this.id);
+    var category = UI.get('category', this.id);
 
-    type.clear();
+    category.clear();
 
     fetch(`/api/SceneCategory/List`).then(response => {
         if (response.ok) {
@@ -129,8 +129,8 @@ SceneEditWindow.prototype.updateUI = function () {
                 json.Data.forEach(n => {
                     options[n.ID] = n.Name;
                 });
-                type.options = options;
-                type.render();
+                category.options = options;
+                category.render();
             });
         }
     });
@@ -144,11 +144,13 @@ SceneEditWindow.prototype.save = function () {
     }
 
     var name = UI.get('name', this.id);
+    var category = UI.get('category', this.id);
     var image = UI.get('image', this.id);
 
     Ajax.post(`${server}/api/Scene/Edit`, {
         ID: this.data.ID,
         Name: name.getValue(),
+        Category: category.getValue(),
         Image: image.getValue()
     }, json => {
         var obj = JSON.parse(json);
