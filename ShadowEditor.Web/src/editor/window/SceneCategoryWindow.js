@@ -48,11 +48,9 @@ SceneEditWindow.prototype.render = function () {
                 xtype: 'button',
                 id: 'btnEditType',
                 scope: this.id,
-                text: '编辑',
+                text: '编辑类型',
                 style: {
-                    position: 'absolute',
-                    right: 0,
-                    marginRight: '24px'
+                    marginLeft: '8px'
                 }
             }]
         }, {
@@ -118,19 +116,10 @@ SceneEditWindow.prototype.updateUI = function () {
     // 更新场景类型
     var type = UI.get('type', this.id);
 
-    type.clear();
-
     fetch(`/api/SceneCategory/List`).then(response => {
         if (response.ok) {
             response.json().then(json => {
-                var options = {
-                    '': '未设置'
-                };
-                json.Data.forEach(n => {
-                    options[n.ID] = n.Name;
-                });
-                type.options = options;
-                type.render();
+                debugger
             });
         }
     });

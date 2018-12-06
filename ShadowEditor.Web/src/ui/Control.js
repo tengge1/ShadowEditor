@@ -65,20 +65,22 @@ Control.prototype.render = function () {
  */
 Control.prototype.clear = function () {
     // 移除所有子项引用
-    (function remove(items) {
-        if (items == null || items.length === 0) {
-            return;
-        }
-
-        items.forEach((n) => {
-            if (n.id) {
-                UI.remove(n.id, n.scope == null ? 'global' : n.scope);
+    if (this.children) {
+        (function remove(items) {
+            if (items == null || items.length === 0) {
+                return;
             }
-            remove(n.children);
-        });
-    })(this.children);
 
-    this.children.length = 0;
+            items.forEach((n) => {
+                if (n.id) {
+                    UI.remove(n.id, n.scope == null ? 'global' : n.scope);
+                }
+                remove(n.children);
+            });
+        })(this.children);
+
+        this.children.length = 0;
+    }
 
     // 清空dom
     if (this.dom) {
