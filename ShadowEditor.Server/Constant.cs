@@ -12,9 +12,9 @@ namespace ShadowEditor.Server
     public static class Constant
     {
         /// <summary>
-        /// 场景分类表名
+        /// 场景类别表名
         /// </summary>
-        public const string SceneTypeCollectionName = "_SceneType";
+        public const string SceneCategoryCollectionName = "_SceneCategory";
 
         /// <summary>
         /// 场景表名
