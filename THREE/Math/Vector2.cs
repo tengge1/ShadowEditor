@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _Math = System.Math;
 
 namespace THREE.Math
 {
@@ -17,7 +18,7 @@ namespace THREE.Math
             this.y = y;
         }
 
-        public double width
+        public double Width
         {
             get
             {
@@ -29,7 +30,7 @@ namespace THREE.Math
             }
         }
 
-        public double height
+        public double Height
         {
             get
             {
@@ -149,10 +150,8 @@ namespace THREE.Math
         {
             if (w != null)
             {
-
                 Console.WriteLine("THREE.Vector2: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.");
                 return this.SubVectors(v, w);
-
             }
 
             this.x -= v.x;
@@ -161,7 +160,7 @@ namespace THREE.Math
             return this;
         }
 
-	     public Vector2 SubScalar(double s)
+        public Vector2 SubScalar(double s)
         {
             this.x -= s;
             this.y -= s;
@@ -169,7 +168,7 @@ namespace THREE.Math
             return this;
         }
 
-	    public Vector2 SubVectors(Vector2 a, Vector2 b)
+        public Vector2 SubVectors(Vector2 a, Vector2 b)
         {
             this.x = a.x - b.x;
             this.y = a.y - b.y;
@@ -177,7 +176,7 @@ namespace THREE.Math
             return this;
         }
 
-	    public Vector2 Multiply(Vector2 v)
+        public Vector2 Multiply(Vector2 v)
         {
             this.x *= v.x;
             this.y *= v.y;
@@ -185,7 +184,7 @@ namespace THREE.Math
             return this;
         }
 
-	    public Vector2 MultiplyScalar(double scalar)
+        public Vector2 MultiplyScalar(double scalar)
         {
             this.x *= scalar;
             this.y *= scalar;
@@ -193,7 +192,7 @@ namespace THREE.Math
             return this;
         }
 
-	    public Vector2 Divide(Vector2 v)
+        public Vector2 Divide(Vector2 v)
         {
             this.x /= v.x;
             this.y /= v.y;
@@ -201,12 +200,12 @@ namespace THREE.Math
             return this;
         }
 
-	    public Vector2 DivideScalar(double scalar)
+        public Vector2 DivideScalar(double scalar)
         {
             return this.MultiplyScalar(1 / scalar);
         }
 
-	    public Vector2 ApplyMatrix3(Matrix3 m)
+        public Vector2 ApplyMatrix3(Matrix3 m)
         {
             double x = this.x, y = this.y;
             var e = m.elements;
@@ -217,255 +216,194 @@ namespace THREE.Math
             return this;
         }
 
-	     public Vector2 Min(Vector2 v)
+        public Vector2 Min(Vector2 v)
         {
-            this.x = System.Math.Min(this.x, v.x);
-            this.y = System.Math.Min(this.y, v.y);
+            this.x = _Math.Min(this.x, v.x);
+            this.y = _Math.Min(this.y, v.y);
 
             return this;
         }
 
-	    public Vector2 Max(Vector2 v)
+        public Vector2 Max(Vector2 v)
         {
-            this.x = System.Math.Max(this.x, v.x);
-            this.y = System.Math.Max(this.y, v.y);
+            this.x = _Math.Max(this.x, v.x);
+            this.y = _Math.Max(this.y, v.y);
 
             return this;
         }
 
-	    public Vector2 Clamp(Vector2 min, Vector2 max)
+        public Vector2 Clamp(Vector2 min, Vector2 max)
         {
             // assumes min < max, componentwise
-            this.x = System.Math.Max(min.x, System.Math.Min(max.x, this.x));
-            this.y = System.Math.Max(min.y, System.Math.Min(max.y, this.y));
+            this.x = _Math.Max(min.x, _Math.Min(max.x, this.x));
+            this.y = _Math.Max(min.y, _Math.Min(max.y, this.y));
 
             return this;
         }
 
-	     public Vector2 ClampScalar(Vector2 minVal, Vector2 maxVal)
+        public Vector2 ClampScalar(double minVal, double maxVal)
         {
             var min = new Vector2();
             var max = new Vector2();
 
-            min.set(minVal, minVal);
-            max.set(maxVal, maxVal);
+            min.Set(minVal, minVal);
+            max.Set(maxVal, maxVal);
 
-            return this.clamp(min, max);
+            return this.Clamp(min, max);
         }
 
-	clampLength: function(min, max )
+        public Vector2 ClampLength(double min, double max)
         {
+            var length = this.Length();
 
-            var length = this.length();
+            return this.DivideScalar(length == 0 ? 1.0 : length).MultiplyScalar(_Math.Max(min, _Math.Min(max, length)));
+        }
 
-            return this.divideScalar(length || 1).multiplyScalar(Math.max(min, Math.min(max, length)));
-
-        },
-
-	floor: function()
+        public Vector2 Floor()
         {
-
-            this.x = Math.floor(this.x);
-            this.y = Math.floor(this.y);
+            this.x = _Math.Floor(this.x);
+            this.y = _Math.Floor(this.y);
 
             return this;
+        }
 
-        },
-
-	ceil: function()
+        public Vector2 Ceil()
         {
-
-            this.x = Math.ceil(this.x);
-            this.y = Math.ceil(this.y);
+            this.x = _Math.Ceiling(this.x);
+            this.y = _Math.Ceiling(this.y);
 
             return this;
+        }
 
-        },
-
-	round: function()
+        public Vector2 Round()
         {
-
-            this.x = Math.round(this.x);
-            this.y = Math.round(this.y);
+            this.x = _Math.Round(this.x);
+            this.y = _Math.Round(this.y);
 
             return this;
+        }
 
-        },
-
-	roundToZero: function()
+        public Vector2 RoundToZero()
         {
-
-            this.x = (this.x < 0) ? Math.ceil(this.x) : Math.floor(this.x);
-            this.y = (this.y < 0) ? Math.ceil(this.y) : Math.floor(this.y);
+            this.x = (this.x < 0) ? _Math.Ceiling(this.x) : _Math.Floor(this.x);
+            this.y = (this.y < 0) ? _Math.Ceiling(this.y) : _Math.Floor(this.y);
 
             return this;
+        }
 
-        },
-
-	negate: function()
+        public Vector2 Negate()
         {
-
             this.x = -this.x;
             this.y = -this.y;
 
             return this;
+        }
 
-        },
-
-	dot: function(v )
+        public double Dot(Vector2 v)
         {
-
             return this.x * v.x + this.y * v.y;
+        }
 
-        },
-
-	cross: function(v )
+        public double Cross(Vector2 v)
         {
-
             return this.x * v.y - this.y * v.x;
+        }
 
-        },
-
-	lengthSq: function()
+        public double LengthSq()
         {
-
             return this.x * this.x + this.y * this.y;
+        }
 
-        },
-
-	length: function()
+        public double Length()
         {
+            return _Math.Sqrt(this.x * this.x + this.y * this.y);
+        }
 
-            return Math.sqrt(this.x * this.x + this.y * this.y);
-
-        },
-
-	manhattanLength: function()
+        public double ManhattanLength()
         {
+            return _Math.Abs(this.x) + _Math.Abs(this.y);
+        }
 
-            return Math.abs(this.x) + Math.abs(this.y);
-
-        },
-
-	normalize: function()
+        public Vector2 Normalize()
         {
+            var length = this.Length();
+            return this.DivideScalar(length == 0 ? 1.0 : length);
+        }
 
-            return this.divideScalar(this.length() || 1);
-
-        },
-
-	angle: function()
+        public double Angle()
         {
-
             // computes the angle in radians with respect to the positive x-axis
+            var angle = _Math.Atan2(this.y, this.x);
 
-            var angle = Math.atan2(this.y, this.x);
-
-            if (angle < 0) angle += 2 * Math.PI;
+            if (angle < 0) angle += 2 * _Math.PI;
 
             return angle;
+        }
 
-        },
-
-	distanceTo: function(v )
+        public double DistanceTo(Vector2 v)
         {
+            return _Math.Sqrt(this.DistanceToSquared(v));
+        }
 
-            return Math.sqrt(this.distanceToSquared(v));
-
-        },
-
-	distanceToSquared: function(v )
+        public double DistanceToSquared(Vector2 v)
         {
-
-            var dx = this.x - v.x, dy = this.y - v.y;
+            double dx = this.x - v.x, dy = this.y - v.y;
             return dx * dx + dy * dy;
+        }
 
-        },
-
-	manhattanDistanceTo: function(v )
+        public double ManhattanDistanceTo(Vector2 v)
         {
+            return _Math.Abs(this.x - v.x) + _Math.Abs(this.y - v.y);
+        }
 
-            return Math.abs(this.x - v.x) + Math.abs(this.y - v.y);
-
-        },
-
-	setLength: function(length )
+        public Vector2 SetLength(double length)
         {
+            return this.Normalize().MultiplyScalar(length);
+        }
 
-            return this.normalize().multiplyScalar(length);
-
-        },
-
-	lerp: function(v, alpha )
+        public Vector2 Lerp(Vector2 v, double alpha)
         {
-
             this.x += (v.x - this.x) * alpha;
             this.y += (v.y - this.y) * alpha;
 
             return this;
+        }
 
-        },
-
-	lerpVectors: function(v1, v2, alpha )
+        public Vector2 LerpVectors(Vector2 v1, Vector2 v2, double alpha)
         {
+            return this.SubVectors(v2, v1).MultiplyScalar(alpha).Add(v1);
+        }
 
-            return this.subVectors(v2, v1).multiplyScalar(alpha).add(v1);
-
-        },
-
-	equals: function(v )
+        public bool Equals(Vector2 v)
         {
+            return (v.x == this.x) && (v.y == this.y);
+        }
 
-            return ((v.x === this.x) && (v.y === this.y));
-
-        },
-
-	fromArray: function(array, offset )
+        public Vector2 FromArray(double[] array, int? offset = null)
         {
+            if (offset == null) offset = 0;
 
-            if (offset === undefined) offset = 0;
-
-            this.x = array[offset];
-            this.y = array[offset + 1];
+            this.x = array[offset.Value];
+            this.y = array[offset.Value + 1];
 
             return this;
+        }
 
-        },
-
-	toArray: function(array, offset )
+        public double[] ToArray(double[] array = null, int? offset = null)
         {
 
-            if (array === undefined) array = [];
-            if (offset === undefined) offset = 0;
+            if (array == null) array = new double[2];
+            if (offset == null) offset = 0;
 
-            array[offset] = this.x;
-            array[offset + 1] = this.y;
+            array[offset.Value] = this.x;
+            array[offset.Value + 1] = this.y;
 
             return array;
+        }
 
-        },
-
-	fromBufferAttribute: function(attribute, index, offset )
+        public Vector2 RotateAround(Vector2 center, double angle)
         {
-
-            if (offset !== undefined)
-            {
-
-                console.warn('THREE.Vector2: offset has been removed from .fromBufferAttribute().');
-
-            }
-
-            this.x = attribute.getX(index);
-            this.y = attribute.getY(index);
-
-            return this;
-
-        },
-
-	rotateAround: function(center, angle )
-        {
-
-            var c = Math.cos(angle), s = Math.sin(angle);
+            double c = _Math.Cos(angle), s = _Math.Sin(angle);
 
             var x = this.x - center.x;
             var y = this.y - center.y;
@@ -474,7 +412,6 @@ namespace THREE.Math
             this.y = x * s + y * c + center.y;
 
             return this;
-
         }
     }
 }
