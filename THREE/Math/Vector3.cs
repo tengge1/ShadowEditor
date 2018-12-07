@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using _Math = System.Math;
 
-namespace THREE.Math
+namespace THREE
 {
     public class Vector3
     {

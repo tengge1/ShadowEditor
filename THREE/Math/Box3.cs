@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace THREE.Math
+namespace THREE
 {
-    class Box3
+    public class Box3
     {
+
     }
 }

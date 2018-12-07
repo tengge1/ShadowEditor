@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace THREE.Math
+namespace THREE
 {
-    class Frustum
+    public class Frustum
     {
+
     }
 }
