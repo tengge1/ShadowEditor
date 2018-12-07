@@ -379,24 +379,21 @@ namespace THREE.Math
             return (v.x == this.x) && (v.y == this.y);
         }
 
-        public Vector2 FromArray(double[] array, int? offset = null)
+        public Vector2 FromArray(double[] array, int offset = 0)
         {
-            if (offset == null) offset = 0;
-
-            this.x = array[offset.Value];
-            this.y = array[offset.Value + 1];
+            this.x = array[offset];
+            this.y = array[offset + 1];
 
             return this;
         }
 
-        public double[] ToArray(double[] array = null, int? offset = null)
+        public double[] ToArray(double[] array = null, int offset = 0)
         {
 
             if (array == null) array = new double[2];
-            if (offset == null) offset = 0;
 
-            array[offset.Value] = this.x;
-            array[offset.Value + 1] = this.y;
+            array[offset] = this.x;
+            array[offset + 1] = this.y;
 
             return array;
         }

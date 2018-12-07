@@ -151,10 +151,6 @@
       <Project>{e14b80f9-e4a3-4280-8ffe-ad794e6ec3d8}</Project>
       <Name>ShadowEditor.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\THREE\THREE.csproj">
-      <Project>{563cda1e-d835-4486-a291-0ecbf646f7ae}</Project>
-      <Name>THREE</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
