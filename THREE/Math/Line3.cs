@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace THREE
 {
+    /// <summary>
+    /// @author bhouston / http://clara.io
+    /// </summary>
     public class Line3
     {
         function Line3(start, end )

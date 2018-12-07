@@ -7,6 +7,10 @@ using _Math = System.Math;
 
 namespace THREE
 {
+    /// <summary>
+    /// @author alteredq / http://alteredqualia.com/
+    /// @author mrdoob / http://mrdoob.com/
+    /// </summary>
     public class Math
     {
         public static double DEG2RAD = _Math.PI / 180;

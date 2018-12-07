@@ -4,8 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/**
+ * @author bhouston / http://clara.io
+ * @author WestLangley / http://github.com/WestLangley
+ *
+ * Ref: https://en.wikipedia.org/wiki/Spherical_coordinate_system
+ *
+ * The polar angle (phi) is measured from the positive y-axis. The positive y-axis is up.
+ * The azimuthal angle (theta) is measured from the positive z-axiz.
+ */
+
 namespace THREE
 {
+    /// <summary>
+    /// @author bhouston / http://clara.io
+    /// @author WestLangley / http://github.com/WestLangley
+    /// </summary>
     public class Spherical
     {
         function Spherical(radius, phi, theta )

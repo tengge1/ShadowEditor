@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace THREE
 {
+    /// <summary>
+    /// @author bhouston / http://clara.io
+    /// @author WestLangley / http://github.com/WestLangley
+    /// </summary>
     public class Box3
     {
         public Box3(min, max )

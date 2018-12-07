@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace THREE
 {
+    /// <summary>
+    /// @author bhouston / http://clara.io
+    /// @author mrdoob / http://mrdoob.com/
+    /// </summary>
     public class Triangle
     {
         function Triangle(a, b, c )

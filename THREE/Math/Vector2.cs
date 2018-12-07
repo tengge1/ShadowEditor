@@ -7,6 +7,12 @@ using _Math = System.Math;
 
 namespace THREE
 {
+    /// <summary>
+    /// @author mrdoob / http://mrdoob.com/
+    /// @author philogb / http://blog.thejit.org/
+    /// @author egraether / http://egraether.com/
+    /// @author zz85 / http://www.lab4games.net/zz85/blog
+    /// </summary>
     public class Vector2
     {
         public double x = 0.0;

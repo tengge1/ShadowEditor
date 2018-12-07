@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace THREE
 {
+    /// <summary>
+    /// @author mrdoob / http://mrdoob.com/
+    /// @author WestLangley / http://github.com/WestLangley
+    /// @author bhouston / http://clara.io
+    /// </summary>
     public class Euler
     {
         Euler.RotationOrders = [ 'XYZ', 'YZX', 'ZXY', 'XZY', 'YXZ', 'ZYX' ];

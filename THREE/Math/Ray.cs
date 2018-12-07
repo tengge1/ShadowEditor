@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace THREE
 {
+    /// <summary>
+    /// @author bhouston / http://clara.io
+    /// </summary>
     public class Ray
     {
         function Ray(origin, direction )

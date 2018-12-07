@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace THREE
 {
+    /// <summary>
+    /// @author mrdoob / http://mrdoob.com/
+    /// @author alteredq / http://alteredqualia.com/
+    /// @author bhouston / http://clara.io
+    /// </summary>
     public class Frustum
     {
         function Frustum(p0, p1, p2, p3, p4, p5 )

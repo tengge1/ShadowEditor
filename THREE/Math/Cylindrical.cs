@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace THREE
 {
+    /// <summary>
+    /// @author Mugen87 / https://github.com/Mugen87
+    /// Ref: https://en.wikipedia.org/wiki/Cylindrical_coordinate_system
+    /// </summary>
     public class Cylindrical
     {
         function Cylindrical(radius, theta, y )

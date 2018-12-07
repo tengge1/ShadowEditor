@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace THREE
 {
+    /// <summary>
+    /// @author alteredq / http://alteredqualia.com/
+    /// @author WestLangley / http://github.com/WestLangley
+    /// @author bhouston / http://clara.io
+    /// @author tschw
+    /// </summary>
     public class Matrix3
     {
         public double[] elements;

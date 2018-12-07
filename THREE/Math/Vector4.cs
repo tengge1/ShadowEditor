@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace THREE
 {
+    /// <summary>
+    /// @author supereggbert / http://www.paulbrunt.co.uk/
+    /// @author philogb / http://blog.thejit.org/
+    /// @author mikael emtinger / http://gomo.se/
+    /// @author egraether / http://egraether.com/
+    /// @author WestLangley / http://github.com/WestLangley
+    /// </summary>
     public class Vector4
     {
         function Vector4(x, y, z, w )

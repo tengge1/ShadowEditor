@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace THREE
 {
+    /// <summary>
+    /// @author mikael emtinger / http://gomo.se/
+    /// @author alteredq / http://alteredqualia.com/
+    /// @author WestLangley / http://github.com/WestLangley
+    /// @author bhouston / http://clara.io
+    /// </summary>
     public class Quaternion
     {
         function Quaternion(x, y, z, w )
