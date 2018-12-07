@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace THREE.Math
 {
-    class Matrix3
+    public class Matrix3
     {
+        public double[] elements;
+
+        public Matrix3()
+        {
+            this.elements = new double[] {
+                1, 0, 0,
+                0, 1, 0,
+                0, 0, 1
+            };
+        }
     }
 }
