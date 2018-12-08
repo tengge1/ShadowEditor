@@ -20,258 +20,191 @@ namespace THREE
             this.max = (max != null) ? max : new Vector2(double.NegativeInfinity, double.NegativeInfinity);
         }
 
-        public Box2 set(Vector2 min, Vector2 max)
+        public Box2 Set(Vector2 min, Vector2 max)
         {
-
-            this.min.copy(min);
-            this.max.copy(max);
+            this.min.Copy(min);
+            this.max.Copy(max);
 
             return this;
+        }
 
-        },
-
-	setFromPoints: function(points )
+        public Box2 SetFromPoints(Vector2[] points)
         {
+            this.MakeEmpty();
 
-            this.makeEmpty();
-
-            for (var i = 0, il = points.length; i < il; i++)
+            for (int i = 0, il = points.Length; i < il; i++)
             {
-
-                this.expandByPoint(points[i]);
-
+                this.ExpandByPoint(points[i]);
             }
 
             return this;
+        }
 
-        },
-
-	setFromCenterAndSize: function()
+        public Box2 SetFromCenterAndSize(Vector2 center, Vector2 size)
         {
-
             var v1 = new Vector2();
 
-            return function setFromCenterAndSize(center, size) {
+            var halfSize = v1.Copy(size).MultiplyScalar(0.5);
+            this.min.Copy(center).Sub(halfSize);
+            this.max.Copy(center).Add(halfSize);
 
-                var halfSize = v1.copy(size).multiplyScalar(0.5);
-                this.min.copy(center).sub(halfSize);
-                this.max.copy(center).add(halfSize);
-
-                return this;
-
-            };
-
+            return this;
         }
-        (),
 
-	clone: function()
+        public Box2 Clone()
         {
+            return new Box2().Copy(this);
+        }
 
-            return new this.constructor().copy(this);
-
-        },
-
-	copy: function(box )
+        public Box2 Copy(Box2 box)
         {
-
-            this.min.copy(box.min);
-            this.max.copy(box.max);
+            this.min.Copy(box.min);
+            this.max.Copy(box.max);
 
             return this;
+        }
 
-        },
-
-	makeEmpty: function()
+        public Box2 MakeEmpty()
         {
-
-            this.min.x = this.min.y = +Infinity;
-            this.max.x = this.max.y = -Infinity;
+            this.min.x = this.min.y = double.PositiveInfinity;
+            this.max.x = this.max.y = double.NegativeInfinity;
 
             return this;
+        }
 
-        },
-
-	isEmpty: function()
+        public bool IsEmpty()
         {
-
             // this is a more robust check for empty than ( volume <= 0 ) because volume can get positive with two negative axes
+            return this.max.x < this.min.x || this.max.y < this.min.y;
+        }
 
-            return (this.max.x < this.min.x) || (this.max.y < this.min.y);
-
-        },
-
-	getCenter: function(target )
+        public Vector2 GetCenter(Vector2 target = null)
         {
-
-            if (target === undefined)
+            if (target == null)
             {
-
-                console.warn('THREE.Box2: .getCenter() target is now required');
+                Console.WriteLine("THREE.Box2: .getCenter() target is now required");
                 target = new Vector2();
-
             }
 
-            return this.isEmpty() ? target.set(0, 0) : target.addVectors(this.min, this.max).multiplyScalar(0.5);
+            return this.IsEmpty() ? target.Set(0, 0) : target.AddVectors(this.min, this.max).MultiplyScalar(0.5);
+        }
 
-        },
-
-	getSize: function(target )
+        public Vector2 GetSize(Vector2 target = null)
         {
-
-            if (target === undefined)
+            if (target == null)
             {
-
-                console.warn('THREE.Box2: .getSize() target is now required');
+                Console.WriteLine("THREE.Box2: .getSize() target is now required");
                 target = new Vector2();
-
             }
 
-            return this.isEmpty() ? target.set(0, 0) : target.subVectors(this.max, this.min);
+            return this.IsEmpty() ? target.Set(0, 0) : target.SubVectors(this.max, this.min);
+        }
 
-        },
-
-	expandByPoint: function(point )
+        public Box2 ExpandByPoint(Vector2 point)
         {
-
-            this.min.min(point);
-            this.max.max(point);
+            this.min.Min(point);
+            this.max.Max(point);
 
             return this;
+        }
 
-        },
-
-	expandByVector: function(vector )
+        public Box2 ExpandByVector(Vector2 vector)
         {
-
-            this.min.sub(vector);
-            this.max.add(vector);
+            this.min.Sub(vector);
+            this.max.Add(vector);
 
             return this;
+        }
 
-        },
-
-	expandByScalar: function(scalar )
+        public Box2 ExpandByScalar(double scalar)
         {
-
-            this.min.addScalar(-scalar);
-            this.max.addScalar(scalar);
+            this.min.AddScalar(-scalar);
+            this.max.AddScalar(scalar);
 
             return this;
+        }
 
-        },
-
-	containsPoint: function(point )
+        public bool ContainsPoint(Vector2 point)
         {
-
             return point.x < this.min.x || point.x > this.max.x ||
                 point.y < this.min.y || point.y > this.max.y ? false : true;
+        }
 
-        },
-
-	containsBox: function(box )
+        public bool ContainsBox(Box2 box)
         {
-
             return this.min.x <= box.min.x && box.max.x <= this.max.x &&
                 this.min.y <= box.min.y && box.max.y <= this.max.y;
+        }
 
-        },
-
-	getParameter: function(point, target )
+        public Vector2 GetParameter(Vector2 point, Vector2 target = null)
         {
-
             // This can potentially have a divide by zero if the box
             // has a size dimension of 0.
-
-            if (target === undefined)
+            if (target == null)
             {
-
-                console.warn('THREE.Box2: .getParameter() target is now required');
+                Console.WriteLine("THREE.Box2: .getParameter() target is now required");
                 target = new Vector2();
-
             }
 
-            return target.set(
+            return target.Set(
                 (point.x - this.min.x) / (this.max.x - this.min.x),
                 (point.y - this.min.y) / (this.max.y - this.min.y)
             );
+        }
 
-        },
-
-	intersectsBox: function(box )
+        public bool IntersectsBox(Box2 box)
         {
-
             // using 4 splitting planes to rule out intersections
-
             return box.max.x < this.min.x || box.min.x > this.max.x ||
                 box.max.y < this.min.y || box.min.y > this.max.y ? false : true;
+        }
 
-        },
-
-	clampPoint: function(point, target )
+        public Vector2 ClampPoint(Vector2 point, Vector2 target = null)
         {
-
-            if (target === undefined)
+            if (target == null)
             {
-
-                console.warn('THREE.Box2: .clampPoint() target is now required');
+                Console.WriteLine("THREE.Box2: .clampPoint() target is now required");
                 target = new Vector2();
-
             }
 
-            return target.copy(point).clamp(this.min, this.max);
+            return target.Copy(point).Clamp(this.min, this.max);
+        }
 
-        },
-
-	distanceToPoint: function()
+        public double DistanceToPoint(Vector2 point)
         {
-
             var v1 = new Vector2();
 
-            return function distanceToPoint(point) {
-
-                var clampedPoint = v1.copy(point).clamp(this.min, this.max);
-                return clampedPoint.sub(point).length();
-
-            };
-
+            var clampedPoint = v1.Copy(point).Clamp(this.min, this.max);
+            return clampedPoint.Sub(point).Length();
         }
-        (),
 
-	intersect: function(box )
+        public Box2 Intersect(Box2 box)
         {
-
-            this.min.max(box.min);
-            this.max.min(box.max);
+            this.min.Max(box.min);
+            this.max.Min(box.max);
 
             return this;
+        }
 
-        },
-
-	union: function(box )
+        public Box2 Union(Box2 box)
         {
-
-            this.min.min(box.min);
-            this.max.max(box.max);
+            this.min.Min(box.min);
+            this.max.Max(box.max);
 
             return this;
+        }
 
-        },
-
-	translate: function(offset )
+        public Box2 Translate(Vector2 offset)
         {
-
-            this.min.add(offset);
-            this.max.add(offset);
+            this.min.Add(offset);
+            this.max.Add(offset);
 
             return this;
+        }
 
-        },
-
-	equals: function(box )
+        public bool Equals(Box2 box)
         {
-
-            return box.min.equals(this.min) && box.max.equals(this.max);
-
+            return box.min.Equals(this.min) && box.max.Equals(this.max);
         }
     }
 }

@@ -114,6 +114,14 @@ namespace THREE
             return this;
         }
 
+        public Vector2 Copy(Vector2 v)
+        {
+            this.x = v.x;
+            this.y = v.y;
+
+            return this;
+        }
+
         public Vector2 Add(Vector2 v, Vector2 w = null)
         {
             if (w != null)
