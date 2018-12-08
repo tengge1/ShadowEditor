@@ -16,11 +16,6 @@ namespace THREE
         public static double DEG2RAD = _Math.PI / 180;
         public static double RAD2DEG = 180 / _Math.PI;
 
-        public static int operator |(double d, int zero)
-        {
-            return Convert.ToInt32(d > 0 ? _Math.Floor(d) : _Math.Ceiling(d));
-        }
-
         public static string GenerateUUID()
         {
             // http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
@@ -34,141 +29,117 @@ namespace THREE
 
             var ran = new Random();
 
-            var d0 = ran.NextDouble() * 0xffffffff | 0;
-            var d1 = ran.NextDouble() * 0xffffffff | 0;
-            var d2 = ran.NextDouble() * 0xffffffff | 0;
-            var d3 = ran.NextDouble() * 0xffffffff | 0;
+            var d0 = ran.NextDouble() * 0xffffffff;
+            var d1 = ran.NextDouble() * 0xffffffff;
+            var d2 = ran.NextDouble() * 0xffffffff;
+            var d3 = ran.NextDouble() * 0xffffffff;
 
-            var uuid = lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] + '-' +
-                lut[d1 & 0xff] + lut[d1 >> 8 & 0xff] + '-' + lut[d1 >> 16 & 0x0f | 0x40] + lut[d1 >> 24 & 0xff] + '-' +
-                lut[d2 & 0x3f | 0x80] + lut[d2 >> 8 & 0xff] + '-' + lut[d2 >> 16 & 0xff] + lut[d2 >> 24 & 0xff] +
-                lut[d3 & 0xff] + lut[d3 >> 8 & 0xff] + lut[d3 >> 16 & 0xff] + lut[d3 >> 24 & 0xff];
+            int n0 = Convert.ToInt32(d0 > 0 ? _Math.Floor(d0) : _Math.Ceiling(d0));
+            int n1 = Convert.ToInt32(d1 > 0 ? _Math.Floor(d1) : _Math.Ceiling(d1));
+            int n2 = Convert.ToInt32(d2 > 0 ? _Math.Floor(d2) : _Math.Ceiling(d2));
+            int n3 = Convert.ToInt32(d3 > 0 ? _Math.Floor(d3) : _Math.Ceiling(d3));
+
+            var uuid = lut[n0 & 0xff] + lut[n0 >> 8 & 0xff] + lut[n0 >> 16 & 0xff] + lut[n0 >> 24 & 0xff] + '-' +
+                lut[n1 & 0xff] + lut[n1 >> 8 & 0xff] + '-' + lut[n1 >> 16 & 0x0f | 0x40] + lut[n1 >> 24 & 0xff] + '-' +
+                lut[n2 & 0x3f | 0x80] + lut[n2 >> 8 & 0xff] + '-' + lut[n2 >> 16 & 0xff] + lut[n2 >> 24 & 0xff] +
+                lut[n3 & 0xff] + lut[n3 >> 8 & 0xff] + lut[n3 >> 16 & 0xff] + lut[n3 >> 24 & 0xff];
 
             // .toUpperCase() here flattens concatenated strings to save heap memory space.
-            return uuid.ToUpperCase();
+            return uuid.ToUpper();
         }
 
-        public Clamp(value, min, max )
+        public double Clamp(double value, double min, double max)
         {
+            return _Math.Max(min, _Math.Min(max, value));
+        }
 
-            return Math.max(min, Math.min(max, value));
+        // compute euclidian modulo of m % n
+        // https://en.wikipedia.org/wiki/Modulo_operation
 
-        },
-
-	// compute euclidian modulo of m % n
-	// https://en.wikipedia.org/wiki/Modulo_operation
-
-	euclideanModulo(n, m )
+        public double EuclideanModulo(double n, double m)
         {
-
             return ((n % m) + m) % m;
+        }
 
-        },
+        // Linear mapping from range <a1, a2> to range <b1, b2>
 
-	// Linear mapping from range <a1, a2> to range <b1, b2>
-
-	mapLinear(x, a1, a2, b1, b2 )
+        public double MapLinear(double x, double a1, double a2, double b1, double b2)
         {
-
             return b1 + (x - a1) * (b2 - b1) / (a2 - a1);
+        }
 
-        },
-
-	// https://en.wikipedia.org/wiki/Linear_interpolation
-
-	lerp(x, y, t )
+        // https://en.wikipedia.org/wiki/Linear_interpolation
+        public double Lerp(double x, double y, double t)
         {
-
             return (1 - t) * x + t * y;
+        }
 
-        },
+        // http://en.wikipedia.org/wiki/Smoothstep
 
-	// http://en.wikipedia.org/wiki/Smoothstep
-
-	smoothstep(x, min, max )
+        public double Smoothstep(double x, double min, double max)
         {
-
             if (x <= min) return 0;
             if (x >= max) return 1;
 
             x = (x - min) / (max - min);
 
             return x * x * (3 - 2 * x);
+        }
 
-        },
-
-	smootherstep(x, min, max )
+        public double Smootherstep(double x, double min, double max)
         {
-
             if (x <= min) return 0;
             if (x >= max) return 1;
 
             x = (x - min) / (max - min);
 
             return x * x * x * (x * (x * 6 - 15) + 10);
+        }
 
-        },
-
-	// Random integer from <low, high> interval
-
-	randInt(low, high )
+        // Random integer from <low, high> interval
+        public double RandInt(double low, double high)
         {
+            var ran = new Random();
+            return low + _Math.Floor(ran.NextDouble() * (high - low + 1));
+        }
 
-            return low + Math.floor(Math.random() * (high - low + 1));
-
-        },
-
-	// Random float from <low, high> interval
-
-	randFloat(low, high )
+        // Random float from <low, high> interval
+        public double RandFloat(double low, double high)
         {
+            var ran = new Random();
+            return low + ran.NextDouble() * (high - low);
+        }
 
-            return low + Math.random() * (high - low);
-
-        },
-
-	// Random float from <-range/2, range/2> interval
-
-	randFloatSpread(range )
+        // Random float from <-range/2, range/2> interval
+        public double RandFloatSpread(double range)
         {
+            var ran = new Random();
+            return range * (0.5 - ran.NextDouble());
+        }
 
-            return range * (0.5 - Math.random());
-
-        },
-
-	degToRad(degrees )
+        public double DegToRad(double degrees)
         {
+            return degrees * Math.DEG2RAD;
+        }
 
-            return degrees * _Math.DEG2RAD;
-
-        },
-
-	radToDeg(radians )
+        public double RadToDeg(double radians)
         {
+            return radians * Math.RAD2DEG;
+        }
 
-            return radians * _Math.RAD2DEG;
-
-        },
-
-	isPowerOfTwo(value )
+        public bool IsPowerOfTwo(int value)
         {
+            return (value & (value - 1)) == 0 && value != 0;
+        }
 
-            return (value & (value - 1)) === 0 && value !== 0;
-
-        },
-
-	ceilPowerOfTwo(value )
+        public double CeilPowerOfTwo(double value)
         {
+            return _Math.Pow(2, _Math.Ceiling(_Math.Log(value) / _Math.Log(2)));
+        }
 
-            return Math.pow(2, Math.ceil(Math.log(value) / Math.LN2));
-
-        },
-
-	floorPowerOfTwo(value )
+        public double FloorPowerOfTwo(double value)
         {
-
-            return Math.pow(2, Math.floor(Math.log(value) / Math.LN2));
-
+            return _Math.Pow(2, _Math.Floor(_Math.Log(value) / _Math.Log(2)));
         }
     }
 }
