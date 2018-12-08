@@ -8,6 +8,7 @@ namespace THREE
 {
     /// <summary>
     /// @author bhouston / http://clara.io
+    /// @author tengge / https://github.com/tengge1
     /// </summary>
     public class Box2
     {
