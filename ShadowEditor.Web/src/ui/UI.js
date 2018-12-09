@@ -42,6 +42,7 @@ import ImageListWindow from './ImageListWindow';
 import ImageUploader from './ImageUploader';
 import LinkButton from './LinkButton';
 import Category from './Category';
+import DataTable from './DataTable';
 
 /**
  * UI类
@@ -207,6 +208,7 @@ Object.assign(UI, {
     ImageUploader: ImageUploader,
     LinkButton: LinkButton,
     Category: Category,
+    DataTable: DataTable,
 });
 
 // 添加所有控件的XType
@@ -254,6 +256,7 @@ UI.addXType('imagelistwindow', ImageListWindow);
 UI.addXType('imageuploader', ImageUploader);
 UI.addXType('linkbutton', LinkButton);
 UI.addXType('category', Category);
+UI.addXType('datatable', DataTable);
 
 // 添加一些实用功能
 Object.assign(UI, {
