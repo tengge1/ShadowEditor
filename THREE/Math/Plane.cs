@@ -8,268 +8,207 @@ namespace THREE
 {
     /// <summary>
     /// @author bhouston / http://clara.io
+    /// @author tengge / https://github.com/tengge1
     /// </summary>
     public class Plane
     {
-        function Plane(normal, constant )
-        {
+        public Vector3 normal;
+        public double constant;
 
+        public Plane(Vector3 normal = null, double constant = 0.0)
+        {
             // normal is assumed to be normalized
 
-            this.normal = (normal !== undefined) ? normal : new Vector3(1, 0, 0);
-            this.constant = (constant !== undefined) ? constant : 0;
-
+            if (normal == null)
+            {
+                normal = new Vector3(1, 0, 0);
+            }
         }
 
-        set: function(normal, constant )
+        public Plane Set(Vector3 normal, double constant)
         {
-
-            this.normal.copy(normal);
+            this.normal.Copy(normal);
             this.constant = constant;
 
             return this;
+        }
 
-        },
-
-	setComponents: function(x, y, z, w )
+        public Plane SetComponents(double x, double y, double z, double w)
         {
-
-            this.normal.set(x, y, z);
+            this.normal.Set(x, y, z);
             this.constant = w;
 
             return this;
+        }
 
-        },
-
-	setFromNormalAndCoplanarPoint: function(normal, point )
+        public Plane SetFromNormalAndCoplanarPoint(Vector3 normal, Vector3 point)
         {
-
-            this.normal.copy(normal);
-            this.constant = -point.dot(this.normal);
+            this.normal.Copy(normal);
+            this.constant = -point.Dot(this.normal);
 
             return this;
+        }
 
-        },
-
-	setFromCoplanarPoints: function()
+        public Plane SetFromCoplanarPoints(Vector3 a, Vector3 b, Vector3 c)
         {
-
             var v1 = new Vector3();
             var v2 = new Vector3();
 
-            return function setFromCoplanarPoints(a, b, c) {
+            var normal = v1.SubVectors(c, b).Cross(v2.SubVectors(a, b)).Normalize();
 
-                var normal = v1.subVectors(c, b).cross(v2.subVectors(a, b)).normalize();
+            // Q: should an error be thrown if normal is zero (e.g. degenerate plane)?
 
-                // Q: should an error be thrown if normal is zero (e.g. degenerate plane)?
+            this.SetFromNormalAndCoplanarPoint(normal, a);
 
-                this.setFromNormalAndCoplanarPoint(normal, a);
-
-                return this;
-
-            };
-
+            return this;
         }
-        (),
 
-	clone: function()
+        public Plane Clone()
         {
+            return new Plane().Copy(this);
+        }
 
-            return new this.constructor().copy(this);
-
-        },
-
-	copy: function(plane )
+        public Plane Copy(Plane plane)
         {
-
-            this.normal.copy(plane.normal);
+            this.normal.Copy(plane.normal);
             this.constant = plane.constant;
 
             return this;
+        }
 
-        },
-
-	normalize: function()
+        public Plane Normalize()
         {
-
             // Note: will lead to a divide by zero if the plane is invalid.
 
-            var inverseNormalLength = 1.0 / this.normal.length();
-            this.normal.multiplyScalar(inverseNormalLength);
+            var inverseNormalLength = 1.0 / this.normal.Length();
+            this.normal.MultiplyScalar(inverseNormalLength);
             this.constant *= inverseNormalLength;
 
             return this;
+        }
 
-        },
-
-	negate: function()
+        public Plane Negate()
         {
-
             this.constant *= -1;
-            this.normal.negate();
+            this.normal.Negate();
 
             return this;
+        }
 
-        },
-
-	distanceToPoint: function(point )
+        public double DistanceToPoint(Vector3 point)
         {
+            return this.normal.Dot(point) + this.constant;
+        }
 
-            return this.normal.dot(point) + this.constant;
-
-        },
-
-	distanceToSphere: function(sphere )
+        public double DistanceToSphere(Sphere sphere)
         {
+            return this.DistanceToPoint(sphere.center) - sphere.radius;
+        }
 
-            return this.distanceToPoint(sphere.center) - sphere.radius;
-
-        },
-
-	projectPoint: function(point, target )
+        public Vector3 ProjectPoint(Vector3 point, Vector3 target = null)
         {
-
-            if (target === undefined)
+            if (target == null)
             {
-
-                console.warn('THREE.Plane: .projectPoint() target is now required');
+                Console.WriteLine("THREE.Plane: .projectPoint() target is now required");
                 target = new Vector3();
-
             }
 
-            return target.copy(this.normal).multiplyScalar(-this.distanceToPoint(point)).add(point);
-
-        },
-
-	intersectLine: function()
-        {
-
-            var v1 = new Vector3();
-
-            return function intersectLine(line, target) {
-
-                if (target === undefined)
-                {
-
-                    console.warn('THREE.Plane: .intersectLine() target is now required');
-                    target = new Vector3();
-
-                }
-
-                var direction = line.delta(v1);
-
-                var denominator = this.normal.dot(direction);
-
-                if (denominator === 0)
-                {
-
-                    // line is coplanar, return origin
-                    if (this.distanceToPoint(line.start) === 0)
-                    {
-
-                        return target.copy(line.start);
-
-                    }
-
-                    // Unsure if this is the correct method to handle this case.
-                    return undefined;
-
-                }
-
-                var t = -(line.start.dot(this.normal) + this.constant) / denominator;
-
-                if (t < 0 || t > 1)
-                {
-
-                    return undefined;
-
-                }
-
-                return target.copy(direction).multiplyScalar(t).add(line.start);
-
-            };
-
+            return target.Copy(this.normal).MultiplyScalar(-this.DistanceToPoint(point)).Add(point);
         }
-        (),
 
-	intersectsLine: function(line )
+        public Vector3 IntersectLine(Line3 line, Vector3 target = null)
         {
+            var v1 = new Vector3();
+            if (target == null)
+            {
+                Console.WriteLine("THREE.Plane: .intersectLine() target is now required");
+                target = new Vector3();
+            }
 
+            var direction = line.Delta(v1);
+
+            var denominator = this.normal.Dot(direction);
+
+            if (denominator == 0)
+            {
+                // line is coplanar, return origin
+                if (this.DistanceToPoint(line.start) == 0)
+                {
+                    return target.Copy(line.start);
+                }
+
+                // Unsure if this is the correct method to handle this case.
+                return null;
+            }
+
+            var t = -(line.start.dot(this.normal) + this.constant) / denominator;
+
+            if (t < 0 || t > 1)
+            {
+                return null;
+            }
+
+            return target.Copy(direction).multiplyScalar(t).add(line.start);
+        }
+
+        public bool IntersectsLine(Line3 line)
+        {
             // Note: this tests if a line intersects the plane, not whether it (or its end-points) are coplanar with it.
 
-            var startSign = this.distanceToPoint(line.start);
-            var endSign = this.distanceToPoint(line.end);
+            var startSign = this.DistanceToPoint(line.start);
+            var endSign = this.DistanceToPoint(line.end);
 
-            return (startSign < 0 && endSign > 0) || (endSign < 0 && startSign > 0);
+            return startSign < 0 && endSign > 0 || endSign < 0 && startSign > 0;
+        }
 
-        },
-
-	intersectsBox: function(box )
+        public bool IntersectsBox(Box3 box)
         {
+            return box.IntersectsPlane(this);
+        }
 
-            return box.intersectsPlane(this);
-
-        },
-
-	intersectsSphere: function(sphere )
+        public Vector3 IntersectsSphere(Sphere sphere)
         {
+            return sphere.IntersectsPlane(this);
+        }
 
-            return sphere.intersectsPlane(this);
-
-        },
-
-	coplanarPoint: function(target )
+        public Vector3 CoplanarPoint(Vector3 target = null)
         {
-
-            if (target === undefined)
+            if (target == null)
             {
-
-                console.warn('THREE.Plane: .coplanarPoint() target is now required');
+                Console.WriteLine("THREE.Plane: .coplanarPoint() target is now required");
                 target = new Vector3();
-
             }
 
-            return target.copy(this.normal).multiplyScalar(-this.constant);
+            return target.Copy(this.normal).MultiplyScalar(-this.constant);
+        }
 
-        },
-
-	applyMatrix4: function()
+        public Plane ApplyMatrix4(Matrix4 matrix, Matrix4 optionalNormalMatrix)
         {
 
             var v1 = new Vector3();
             var m1 = new Matrix3();
 
-            return function applyMatrix4(matrix, optionalNormalMatrix) {
+            var normalMatrix = optionalNormalMatrix || m1.GetNormalMatrix(matrix);
 
-                var normalMatrix = optionalNormalMatrix || m1.getNormalMatrix(matrix);
+            var referencePoint = this.coplanarPoint(v1).ApplyMatrix4(matrix);
 
-                var referencePoint = this.coplanarPoint(v1).applyMatrix4(matrix);
+            var normal = this.normal.ApplyMatrix3(normalMatrix).normalize();
 
-                var normal = this.normal.applyMatrix3(normalMatrix).normalize();
-
-                this.constant = -referencePoint.dot(normal);
-
-                return this;
-
-            };
-
-        }
-        (),
-
-	translate: function(offset )
-        {
-
-            this.constant -= offset.dot(this.normal);
+            this.constant = -referencePoint.Dot(normal);
 
             return this;
+        }
 
-        },
-
-	equals: function(plane )
+        public Plane Translate(Vector3 offset)
         {
+            this.constant -= offset.Dot(this.normal);
 
-            return plane.normal.equals(this.normal) && (plane.constant === this.constant);
+            return this;
+        }
 
+        public bool Equals(Plane plane)
+        {
+            return plane.normal.Equals(this.normal) && (plane.constant == this.constant);
         }
     }
 }

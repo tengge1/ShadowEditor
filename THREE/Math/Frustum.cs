@@ -10,6 +10,7 @@ namespace THREE
     /// @author mrdoob / http://mrdoob.com/
     /// @author alteredq / http://alteredqualia.com/
     /// @author bhouston / http://clara.io
+    /// @author tengge / https://github.com/tengge1
     /// </summary>
     public class Frustum
     {
