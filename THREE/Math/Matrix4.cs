@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _Math = System.Math;
 
 namespace THREE
 {
@@ -17,6 +18,7 @@ namespace THREE
     /// @author timknip / http://www.floorplanner.com/
     /// @author bhouston / http://clara.io
     /// @author WestLangley / http://github.com/WestLangley
+    /// @author tengge / https://github.com/tengge1
     /// </summary>
     public class Matrix4
     {
@@ -32,11 +34,10 @@ namespace THREE
             };
         }
 
-        isMatrix4: true,
+        public const bool isMatrix4 = true;
 
-	set: function(n11, n12, n13, n14, n21, n22, n23, n24, n31, n32, n33, n34, n41, n42, n43, n44 )
+        public Matrix4 Set(double n11, double n12, double n13, double n14, double n21, double n22, double n23, double n24, double n31, double n32, double n33, double n34, double n41, double n42, double n43, double n44)
         {
-
             var te = this.elements;
 
             te[0] = n11; te[4] = n12; te[8] = n13; te[12] = n14;
@@ -45,35 +46,27 @@ namespace THREE
             te[3] = n41; te[7] = n42; te[11] = n43; te[15] = n44;
 
             return this;
+        }
 
-        },
-
-	identity: function()
+        public Matrix4 Identity()
         {
-
-            this.set(
-
+            this.Set(
                 1, 0, 0, 0,
                 0, 1, 0, 0,
                 0, 0, 1, 0,
                 0, 0, 0, 1
-
             );
 
             return this;
+        }
 
-        },
-
-	clone: function()
+        public Matrix4 Clone()
         {
+            return new Matrix4().FromArray(this.elements);
+        }
 
-            return new Matrix4().fromArray(this.elements);
-
-        },
-
-	copy: function(m )
+        public Matrix4 Copy(Matrix4 m)
         {
-
             var te = this.elements;
             var me = m.elements;
 
@@ -83,37 +76,31 @@ namespace THREE
             te[12] = me[12]; te[13] = me[13]; te[14] = me[14]; te[15] = me[15];
 
             return this;
+        }
 
-        },
-
-	copyPosition: function(m )
+        public Matrix4 CopyPosition(Matrix4 m)
         {
-
-            var te = this.elements, me = m.elements;
+            double[] te = this.elements, me = m.elements;
 
             te[12] = me[12];
             te[13] = me[13];
             te[14] = me[14];
 
             return this;
+        }
 
-        },
-
-	extractBasis: function(xAxis, yAxis, zAxis )
+        public Matrix4 ExtractBasis(Vector3 xAxis, Vector3 yAxis, Vector3 zAxis)
         {
-
-            xAxis.setFromMatrixColumn(this, 0);
-            yAxis.setFromMatrixColumn(this, 1);
-            zAxis.setFromMatrixColumn(this, 2);
+            xAxis.SetFromMatrixColumn(this, 0);
+            yAxis.SetFromMatrixColumn(this, 1);
+            zAxis.SetFromMatrixColumn(this, 2);
 
             return this;
+        }
 
-        },
-
-	makeBasis: function(xAxis, yAxis, zAxis )
+        public Matrix4 MakeBasis(Vector3 xAxis, Vector3 yAxis, Vector3 zAxis)
         {
-
-            this.set(
+            this.Set(
                 xAxis.x, yAxis.x, zAxis.x, 0,
                 xAxis.y, yAxis.y, zAxis.y, 0,
                 xAxis.z, yAxis.z, zAxis.z, 0,
@@ -121,73 +108,57 @@ namespace THREE
             );
 
             return this;
+        }
 
-        },
-
-	extractRotation: function()
+        public Matrix4 ExtractRotation(Matrix4 m)
         {
-
             var v1 = new Vector3();
 
-            return function extractRotation(m) {
-
-                // this method does not support reflection matrices
-
-                var te = this.elements;
-                var me = m.elements;
-
-                var scaleX = 1 / v1.setFromMatrixColumn(m, 0).length();
-                var scaleY = 1 / v1.setFromMatrixColumn(m, 1).length();
-                var scaleZ = 1 / v1.setFromMatrixColumn(m, 2).length();
-
-                te[0] = me[0] * scaleX;
-                te[1] = me[1] * scaleX;
-                te[2] = me[2] * scaleX;
-                te[3] = 0;
-
-                te[4] = me[4] * scaleY;
-                te[5] = me[5] * scaleY;
-                te[6] = me[6] * scaleY;
-                te[7] = 0;
-
-                te[8] = me[8] * scaleZ;
-                te[9] = me[9] * scaleZ;
-                te[10] = me[10] * scaleZ;
-                te[11] = 0;
-
-                te[12] = 0;
-                te[13] = 0;
-                te[14] = 0;
-                te[15] = 1;
-
-                return this;
-
-            };
-
-        }
-        (),
-
-	makeRotationFromEuler: function(euler )
-        {
-
-            if (!(euler && euler.isEuler))
-            {
-
-                console.error('THREE.Matrix4: .makeRotationFromEuler() now expects a Euler rotation rather than a Vector3 and order.');
-
-            }
+            // this method does not support reflection matrices
 
             var te = this.elements;
+            var me = m.elements;
 
-            var x = euler.x, y = euler.y, z = euler.z;
-            var a = Math.cos(x), b = Math.sin(x);
-            var c = Math.cos(y), d = Math.sin(y);
-            var e = Math.cos(z), f = Math.sin(z);
+            var scaleX = 1 / v1.SetFromMatrixColumn(m, 0).Length();
+            var scaleY = 1 / v1.SetFromMatrixColumn(m, 1).Length();
+            var scaleZ = 1 / v1.SetFromMatrixColumn(m, 2).Length();
 
-            if (euler.order === 'XYZ')
+            te[0] = me[0] * scaleX;
+            te[1] = me[1] * scaleX;
+            te[2] = me[2] * scaleX;
+            te[3] = 0;
+
+            te[4] = me[4] * scaleY;
+            te[5] = me[5] * scaleY;
+            te[6] = me[6] * scaleY;
+            te[7] = 0;
+
+            te[8] = me[8] * scaleZ;
+            te[9] = me[9] * scaleZ;
+            te[10] = me[10] * scaleZ;
+            te[11] = 0;
+
+            te[12] = 0;
+            te[13] = 0;
+            te[14] = 0;
+            te[15] = 1;
+
+            return this;
+
+        }
+
+        public Matrix4 MakeRotationFromEuler(Euler euler)
+        {
+            var te = this.elements;
+
+            double x = euler._x, y = euler._y, z = euler._z;
+            double a = _Math.Cos(x), b = _Math.Sin(x);
+            double c = _Math.Cos(y), d = _Math.Sin(y);
+            double e = _Math.Cos(z), f = _Math.Sin(z);
+
+            if (euler._order == "XYZ")
             {
-
-                var ae = a * e, af = a * f, be = b * e, bf = b * f;
+                double ae = a * e, af = a * f, be = b * e, bf = b * f;
 
                 te[0] = c * e;
                 te[4] = -c * f;
@@ -200,12 +171,10 @@ namespace THREE
                 te[2] = bf - ae * d;
                 te[6] = be + af * d;
                 te[10] = a * c;
-
             }
-            else if (euler.order === 'YXZ')
+            else if (euler._order == "YXZ")
             {
-
-                var ce = c * e, cf = c * f, de = d * e, df = d * f;
+                double ce = c * e, cf = c * f, de = d * e, df = d * f;
 
                 te[0] = ce + df * b;
                 te[4] = de * b - cf;
@@ -218,12 +187,10 @@ namespace THREE
                 te[2] = cf * b - de;
                 te[6] = df + ce * b;
                 te[10] = a * c;
-
             }
-            else if (euler.order === 'ZXY')
+            else if (euler._order == "ZXY")
             {
-
-                var ce = c * e, cf = c * f, de = d * e, df = d * f;
+                double ce = c * e, cf = c * f, de = d * e, df = d * f;
 
                 te[0] = ce - df * b;
                 te[4] = -a * f;
@@ -236,12 +203,10 @@ namespace THREE
                 te[2] = -a * d;
                 te[6] = b;
                 te[10] = a * c;
-
             }
-            else if (euler.order === 'ZYX')
+            else if (euler._order == "ZYX")
             {
-
-                var ae = a * e, af = a * f, be = b * e, bf = b * f;
+                double ae = a * e, af = a * f, be = b * e, bf = b * f;
 
                 te[0] = c * e;
                 te[4] = be * d - af;
@@ -254,12 +219,10 @@ namespace THREE
                 te[2] = -d;
                 te[6] = b * c;
                 te[10] = a * c;
-
             }
-            else if (euler.order === 'YZX')
+            else if (euler._order == "YZX")
             {
-
-                var ac = a * c, ad = a * d, bc = b * c, bd = b * d;
+                double ac = a * c, ad = a * d, bc = b * c, bd = b * d;
 
                 te[0] = c * e;
                 te[4] = bd - ac * f;
@@ -272,12 +235,10 @@ namespace THREE
                 te[2] = -d * e;
                 te[6] = ad * f + bc;
                 te[10] = ac - bd * f;
-
             }
-            else if (euler.order === 'XZY')
+            else if (euler._order == "XZY")
             {
-
-                var ac = a * c, ad = a * d, bc = b * c, bd = b * d;
+                double ac = a * c, ad = a * d, bc = b * c, bd = b * d;
 
                 te[0] = c * e;
                 te[4] = -f;
@@ -290,7 +251,6 @@ namespace THREE
                 te[2] = bc * f - ad;
                 te[6] = b * e;
                 te[10] = bd * f + ac;
-
             }
 
             // bottom row
@@ -305,124 +265,95 @@ namespace THREE
             te[15] = 1;
 
             return this;
+        }
 
-        },
-
-	makeRotationFromQuaternion: function()
+        public Matrix4 MakeRotationFromQuaternion(Quaternion q)
         {
-
             var zero = new Vector3(0, 0, 0);
             var one = new Vector3(1, 1, 1);
 
-            return function makeRotationFromQuaternion(q) {
-
-                return this.compose(zero, q, one);
-
-            };
-
+            return this.Compose(zero, q, one);
         }
-        (),
 
-	lookAt: function()
+        public Matrix4 LookAt(Vector3 eye, Vector3 target, Vector3 up)
         {
-
             var x = new Vector3();
             var y = new Vector3();
             var z = new Vector3();
 
-            return function lookAt(eye, target, up) {
+            var te = this.elements;
 
-                var te = this.elements;
+            z.SubVectors(eye, target);
 
-                z.subVectors(eye, target);
-
-                if (z.lengthSq() === 0)
-                {
-
-                    // eye and target are in the same position
-
-                    z.z = 1;
-
-                }
-
-                z.normalize();
-                x.crossVectors(up, z);
-
-                if (x.lengthSq() === 0)
-                {
-
-                    // up and z are parallel
-
-                    if (Math.abs(up.z) === 1)
-                    {
-
-                        z.x += 0.0001;
-
-                    }
-                    else
-                    {
-
-                        z.z += 0.0001;
-
-                    }
-
-                    z.normalize();
-                    x.crossVectors(up, z);
-
-                }
-
-                x.normalize();
-                y.crossVectors(z, x);
-
-                te[0] = x.x; te[4] = y.x; te[8] = z.x;
-                te[1] = x.y; te[5] = y.y; te[9] = z.y;
-                te[2] = x.z; te[6] = y.z; te[10] = z.z;
-
-                return this;
-
-            };
-
-        }
-        (),
-
-	multiply: function(m, n )
-        {
-
-            if (n !== undefined)
+            if (z.LengthSq() == 0)
             {
+                // eye and target are in the same position
 
-                console.warn('THREE.Matrix4: .multiply() now only accepts one argument. Use .multiplyMatrices( a, b ) instead.');
-                return this.multiplyMatrices(m, n);
-
+                z.z = 1;
             }
 
-            return this.multiplyMatrices(this, m);
+            z.Normalize();
+            x.CrossVectors(up, z);
 
-        },
+            if (x.LengthSq() == 0)
+            {
 
-	premultiply: function(m )
+                // up and z are parallel
+
+                if (_Math.Abs(up.z) == 1)
+                {
+                    z.x += 0.0001;
+                }
+                else
+                {
+                    z.z += 0.0001;
+                }
+
+                z.Normalize();
+                x.CrossVectors(up, z);
+            }
+
+            x.Normalize();
+            y.CrossVectors(z, x);
+
+            te[0] = x.x; te[4] = y.x; te[8] = z.x;
+            te[1] = x.y; te[5] = y.y; te[9] = z.y;
+            te[2] = x.z; te[6] = y.z; te[10] = z.z;
+
+            return this;
+        }
+
+        public Matrix4 Multiply(Matrix4 m, Matrix4 n = null)
         {
+            if (n != null)
+            {
+                Console.WriteLine("THREE.Matrix4: .multiply() now only accepts one argument. Use .multiplyMatrices( a, b ) instead.");
+                return this.MultiplyMatrices(m, n);
+            }
 
-            return this.multiplyMatrices(m, this);
+            return this.MultiplyMatrices(this, m);
+        }
 
-        },
-
-	multiplyMatrices: function(a, b )
+        public Matrix4 Premultiply(Matrix4 m)
         {
+            return this.MultiplyMatrices(m, this);
+        }
 
+        public Matrix4 MultiplyMatrices(Matrix4 a, Matrix4 b)
+        {
             var ae = a.elements;
             var be = b.elements;
             var te = this.elements;
 
-            var a11 = ae[0], a12 = ae[4], a13 = ae[8], a14 = ae[12];
-            var a21 = ae[1], a22 = ae[5], a23 = ae[9], a24 = ae[13];
-            var a31 = ae[2], a32 = ae[6], a33 = ae[10], a34 = ae[14];
-            var a41 = ae[3], a42 = ae[7], a43 = ae[11], a44 = ae[15];
+            double a11 = ae[0], a12 = ae[4], a13 = ae[8], a14 = ae[12];
+            double a21 = ae[1], a22 = ae[5], a23 = ae[9], a24 = ae[13];
+            double a31 = ae[2], a32 = ae[6], a33 = ae[10], a34 = ae[14];
+            double a41 = ae[3], a42 = ae[7], a43 = ae[11], a44 = ae[15];
 
-            var b11 = be[0], b12 = be[4], b13 = be[8], b14 = be[12];
-            var b21 = be[1], b22 = be[5], b23 = be[9], b24 = be[13];
-            var b31 = be[2], b32 = be[6], b33 = be[10], b34 = be[14];
-            var b41 = be[3], b42 = be[7], b43 = be[11], b44 = be[15];
+            double b11 = be[0], b12 = be[4], b13 = be[8], b14 = be[12];
+            double b21 = be[1], b22 = be[5], b23 = be[9], b24 = be[13];
+            double b31 = be[2], b32 = be[6], b33 = be[10], b34 = be[14];
+            double b41 = be[3], b42 = be[7], b43 = be[11], b44 = be[15];
 
             te[0] = a11 * b11 + a12 * b21 + a13 * b31 + a14 * b41;
             te[4] = a11 * b12 + a12 * b22 + a13 * b32 + a14 * b42;
@@ -445,12 +376,10 @@ namespace THREE
             te[15] = a41 * b14 + a42 * b24 + a43 * b34 + a44 * b44;
 
             return this;
+        }
 
-        },
-
-	multiplyScalar: function(s )
+        public Matrix4 MultiplyScalar(double s)
         {
-
             var te = this.elements;
 
             te[0] *= s; te[4] *= s; te[8] *= s; te[12] *= s;
@@ -459,45 +388,16 @@ namespace THREE
             te[3] *= s; te[7] *= s; te[11] *= s; te[15] *= s;
 
             return this;
-
-        },
-
-	applyToBufferAttribute: function()
-        {
-
-            var v1 = new Vector3();
-
-            return function applyToBufferAttribute(attribute) {
-
-                for (var i = 0, l = attribute.count; i < l; i++)
-                {
-
-                    v1.x = attribute.getX(i);
-                    v1.y = attribute.getY(i);
-                    v1.z = attribute.getZ(i);
-
-                    v1.applyMatrix4(this);
-
-                    attribute.setXYZ(i, v1.x, v1.y, v1.z);
-
-                }
-
-                return attribute;
-
-            };
-
         }
-        (),
 
-	determinant: function()
+        public double Determinant()
         {
-
             var te = this.elements;
 
-            var n11 = te[0], n12 = te[4], n13 = te[8], n14 = te[12];
-            var n21 = te[1], n22 = te[5], n23 = te[9], n24 = te[13];
-            var n31 = te[2], n32 = te[6], n33 = te[10], n34 = te[14];
-            var n41 = te[3], n42 = te[7], n43 = te[11], n44 = te[15];
+            double n11 = te[0], n12 = te[4], n13 = te[8], n14 = te[12];
+            double n21 = te[1], n22 = te[5], n23 = te[9], n24 = te[13];
+            double n31 = te[2], n32 = te[6], n33 = te[10], n34 = te[14];
+            double n41 = te[3], n42 = te[7], n43 = te[11], n44 = te[15];
 
             //TODO: make this more efficient
             //( based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm )
@@ -538,13 +438,12 @@ namespace THREE
 
             );
 
-        },
+        }
 
-	transpose: function()
+        public Matrix4 Transpose()
         {
-
             var te = this.elements;
-            var tmp;
+            double tmp;
 
             tmp = te[1]; te[1] = te[4]; te[4] = tmp;
             tmp = te[2]; te[2] = te[8]; te[8] = tmp;
@@ -555,12 +454,10 @@ namespace THREE
             tmp = te[11]; te[11] = te[14]; te[14] = tmp;
 
             return this;
+        }
 
-        },
-
-	setPosition: function(v )
+        public Matrix4 SetPosition(Vector3 v)
         {
-
             var te = this.elements;
 
             te[12] = v.x;
@@ -568,48 +465,40 @@ namespace THREE
             te[14] = v.z;
 
             return this;
+        }
 
-        },
-
-	getInverse: function(m, throwOnDegenerate )
+        public Matrix4 GetInverse(Matrix4 m, bool throwOnDegenerate = false)
         {
-
             // based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
-            var te = this.elements,
-                me = m.elements,
+            double[] te = this.elements,
+                me = m.elements;
 
-                n11 = me[0], n21 = me[1], n31 = me[2], n41 = me[3],
-                n12 = me[4], n22 = me[5], n32 = me[6], n42 = me[7],
-                n13 = me[8], n23 = me[9], n33 = me[10], n43 = me[11],
-                n14 = me[12], n24 = me[13], n34 = me[14], n44 = me[15],
+            double n11 = me[0], n21 = me[1], n31 = me[2], n41 = me[3],
+            n12 = me[4], n22 = me[5], n32 = me[6], n42 = me[7],
+            n13 = me[8], n23 = me[9], n33 = me[10], n43 = me[11],
+            n14 = me[12], n24 = me[13], n34 = me[14], n44 = me[15],
 
-                t11 = n23 * n34 * n42 - n24 * n33 * n42 + n24 * n32 * n43 - n22 * n34 * n43 - n23 * n32 * n44 + n22 * n33 * n44,
-                t12 = n14 * n33 * n42 - n13 * n34 * n42 - n14 * n32 * n43 + n12 * n34 * n43 + n13 * n32 * n44 - n12 * n33 * n44,
-                t13 = n13 * n24 * n42 - n14 * n23 * n42 + n14 * n22 * n43 - n12 * n24 * n43 - n13 * n22 * n44 + n12 * n23 * n44,
-                t14 = n14 * n23 * n32 - n13 * n24 * n32 - n14 * n22 * n33 + n12 * n24 * n33 + n13 * n22 * n34 - n12 * n23 * n34;
+            t11 = n23 * n34 * n42 - n24 * n33 * n42 + n24 * n32 * n43 - n22 * n34 * n43 - n23 * n32 * n44 + n22 * n33 * n44,
+            t12 = n14 * n33 * n42 - n13 * n34 * n42 - n14 * n32 * n43 + n12 * n34 * n43 + n13 * n32 * n44 - n12 * n33 * n44,
+            t13 = n13 * n24 * n42 - n14 * n23 * n42 + n14 * n22 * n43 - n12 * n24 * n43 - n13 * n22 * n44 + n12 * n23 * n44,
+            t14 = n14 * n23 * n32 - n13 * n24 * n32 - n14 * n22 * n33 + n12 * n24 * n33 + n13 * n22 * n34 - n12 * n23 * n34;
 
             var det = n11 * t11 + n21 * t12 + n31 * t13 + n41 * t14;
 
-            if (det === 0)
+            if (det == 0)
             {
-
                 var msg = "THREE.Matrix4: .getInverse() can't invert matrix, determinant is 0";
 
-                if (throwOnDegenerate === true)
+                if (throwOnDegenerate)
                 {
-
-                    throw new Error(msg);
-
+                    throw new Exception(msg);
                 }
                 else
                 {
-
-                    console.warn(msg);
-
+                    Console.WriteLine(msg);
                 }
 
-                return this.identity();
-
+                return this.Identity();
             }
 
             var detInv = 1 / det;
@@ -635,14 +524,12 @@ namespace THREE
             te[15] = (n12 * n23 * n31 - n13 * n22 * n31 + n13 * n21 * n32 - n11 * n23 * n32 - n12 * n21 * n33 + n11 * n22 * n33) * detInv;
 
             return this;
+        }
 
-        },
-
-	scale: function(v )
+        public Matrix4 Scale(Vector3 v)
         {
-
             var te = this.elements;
-            var x = v.x, y = v.y, z = v.z;
+            double x = v.x, y = v.y, z = v.z;
 
             te[0] *= x; te[4] *= y; te[8] *= z;
             te[1] *= x; te[5] *= y; te[9] *= z;
@@ -650,27 +537,22 @@ namespace THREE
             te[3] *= x; te[7] *= y; te[11] *= z;
 
             return this;
+        }
 
-        },
-
-	getMaxScaleOnAxis: function()
+        public double GetMaxScaleOnAxis()
         {
-
             var te = this.elements;
 
             var scaleXSq = te[0] * te[0] + te[1] * te[1] + te[2] * te[2];
             var scaleYSq = te[4] * te[4] + te[5] * te[5] + te[6] * te[6];
             var scaleZSq = te[8] * te[8] + te[9] * te[9] + te[10] * te[10];
 
-            return Math.sqrt(Math.max(scaleXSq, scaleYSq, scaleZSq));
+            return _Math.Sqrt(_Math.Max(_Math.Max(scaleXSq, scaleYSq), scaleZSq));
+        }
 
-        },
-
-	makeTranslation: function(x, y, z )
+        public Matrix4 MakeTranslation(double x, double y, double z)
         {
-
-            this.set(
-
+            this.Set(
                 1, 0, 0, x,
                 0, 1, 0, y,
                 0, 0, 1, z,
@@ -679,91 +561,73 @@ namespace THREE
             );
 
             return this;
+        }
 
-        },
-
-	makeRotationX: function(theta )
+        public Matrix4 MakeRotationX(double theta)
         {
+            double c = _Math.Cos(theta), s = _Math.Sin(theta);
 
-            var c = Math.cos(theta), s = Math.sin(theta);
-
-            this.set(
-
+            this.Set(
                 1, 0, 0, 0,
                 0, c, -s, 0,
                 0, s, c, 0,
                 0, 0, 0, 1
-
             );
 
             return this;
+        }
 
-        },
-
-	makeRotationY: function(theta )
+        public Matrix4 MakeRotationY(double theta)
         {
+            double c = _Math.Cos(theta), s = _Math.Sin(theta);
 
-            var c = Math.cos(theta), s = Math.sin(theta);
-
-            this.set(
-
+            this.Set(
                  c, 0, s, 0,
                  0, 1, 0, 0,
                 -s, 0, c, 0,
                  0, 0, 0, 1
-
             );
 
             return this;
+        }
 
-        },
-
-	makeRotationZ: function(theta )
+        public Matrix4 MakeRotationZ(double theta)
         {
+            double c = _Math.Cos(theta), s = _Math.Sin(theta);
 
-            var c = Math.cos(theta), s = Math.sin(theta);
-
-            this.set(
-
+            this.Set(
                 c, -s, 0, 0,
                 s, c, 0, 0,
                 0, 0, 1, 0,
                 0, 0, 0, 1
-
             );
 
             return this;
+        }
 
-        },
-
-	makeRotationAxis: function(axis, angle )
+        public Matrix4 MakeRotationAxis(Vector3 axis, double angle)
         {
-
             // Based on http://www.gamedev.net/reference/articles/article1199.asp
 
-            var c = Math.cos(angle);
-            var s = Math.sin(angle);
+            var c = _Math.Cos(angle);
+            var s = _Math.Sin(angle);
             var t = 1 - c;
-            var x = axis.x, y = axis.y, z = axis.z;
-            var tx = t * x, ty = t * y;
+            double x = axis.x, y = axis.y, z = axis.z;
+            double tx = t * x, ty = t * y;
 
-            this.set(
-
+            this.Set(
                 tx * x + c, tx * y - s * z, tx * z + s * y, 0,
                 tx * y + s * z, ty * y + c, ty * z - s * x, 0,
                 tx * z - s * y, ty * z + s * x, t * z * z + c, 0,
                 0, 0, 0, 1
-
             );
 
             return this;
+        }
 
-        },
-
-	makeScale: function(x, y, z )
+        public Matrix4 MakeScale(double x, double y, double z)
         {
-
-            this.set(
+            this.Set(
 
                 x, 0, 0, 0,
                 0, y, 0, 0,
@@ -773,37 +637,31 @@ namespace THREE
             );
 
             return this;
+        }
 
-        },
-
-	makeShear: function(x, y, z )
+        public Matrix4 MakeShear(double x, double y, double z)
         {
-
-            this.set(
-
+            this.Set(
                 1, y, z, 0,
                 x, 1, z, 0,
                 x, y, 1, 0,
                 0, 0, 0, 1
-
             );
 
             return this;
+        }
 
-        },
-
-	compose: function(position, quaternion, scale )
+        public Matrix4 Compose(Vector3 position, Quaternion quaternion, Vector3 scale)
         {
-
             var te = this.elements;
 
-            var x = quaternion._x, y = quaternion._y, z = quaternion._z, w = quaternion._w;
-            var x2 = x + x, y2 = y + y, z2 = z + z;
-            var xx = x * x2, xy = x * y2, xz = x * z2;
-            var yy = y * y2, yz = y * z2, zz = z * z2;
-            var wx = w * x2, wy = w * y2, wz = w * z2;
+            double x = quaternion._x, y = quaternion._y, z = quaternion._z, w = quaternion._w;
+            double x2 = x + x, y2 = y + y, z2 = z + z;
+            double xx = x * x2, xy = x * y2, xz = x * z2;
+            double yy = y * y2, yz = y * z2, zz = z * z2;
+            double wx = w * x2, wy = w * y2, wz = w * z2;
 
-            var sx = scale.x, sy = scale.y, sz = scale.z;
+            double sx = scale.x, sy = scale.y, sz = scale.z;
 
             te[0] = (1 - (yy + zz)) * sx;
             te[1] = (xy + wz) * sx;
@@ -826,73 +684,57 @@ namespace THREE
             te[15] = 1;
 
             return this;
+        }
 
-        },
-
-	decompose: function()
+        public Matrix4 Decompose(Vector3 position, Quaternion quaternion, Vector3 scale)
         {
-
             var vector = new Vector3();
             var matrix = new Matrix4();
 
-            return function decompose(position, quaternion, scale) {
+            var te = this.elements;
 
-                var te = this.elements;
+            var sx = vector.Set(te[0], te[1], te[2]).Length();
+            var sy = vector.Set(te[4], te[5], te[6]).Length();
+            var sz = vector.Set(te[8], te[9], te[10]).Length();
 
-                var sx = vector.set(te[0], te[1], te[2]).length();
-                var sy = vector.set(te[4], te[5], te[6]).length();
-                var sz = vector.set(te[8], te[9], te[10]).length();
+            // if determine is negative, we need to invert one scale
+            var det = this.Determinant();
+            if (det < 0) sx = -sx;
 
-                // if determine is negative, we need to invert one scale
-                var det = this.determinant();
-                if (det < 0) sx = -sx;
+            position.x = te[12];
+            position.y = te[13];
+            position.z = te[14];
 
-                position.x = te[12];
-                position.y = te[13];
-                position.z = te[14];
+            // scale the rotation part
+            matrix.Copy(this);
 
-                // scale the rotation part
-                matrix.copy(this);
+            var invSX = 1 / sx;
+            var invSY = 1 / sy;
+            var invSZ = 1 / sz;
 
-                var invSX = 1 / sx;
-                var invSY = 1 / sy;
-                var invSZ = 1 / sz;
+            matrix.elements[0] *= invSX;
+            matrix.elements[1] *= invSX;
+            matrix.elements[2] *= invSX;
 
-                matrix.elements[0] *= invSX;
-                matrix.elements[1] *= invSX;
-                matrix.elements[2] *= invSX;
+            matrix.elements[4] *= invSY;
+            matrix.elements[5] *= invSY;
+            matrix.elements[6] *= invSY;
 
-                matrix.elements[4] *= invSY;
-                matrix.elements[5] *= invSY;
-                matrix.elements[6] *= invSY;
+            matrix.elements[8] *= invSZ;
+            matrix.elements[9] *= invSZ;
+            matrix.elements[10] *= invSZ;
 
-                matrix.elements[8] *= invSZ;
-                matrix.elements[9] *= invSZ;
-                matrix.elements[10] *= invSZ;
+            quaternion.SetFromRotationMatrix(matrix);
 
-                quaternion.setFromRotationMatrix(matrix);
+            scale.x = sx;
+            scale.y = sy;
+            scale.z = sz;
 
-                scale.x = sx;
-                scale.y = sy;
-                scale.z = sz;
-
-                return this;
-
-            };
-
+            return this;
         }
-        (),
 
-	makePerspective: function(left, right, top, bottom, near, far )
+        public Matrix4 MakePerspective(double left, double right, double top, double bottom, double near, double far)
         {
-
-            if (far === undefined)
-            {
-
-                console.warn('THREE.Matrix4: .makePerspective() has been redefined and has a new signature. Please check the docs.');
-
-            }
-
             var te = this.elements;
             var x = 2 * near / (right - left);
             var y = 2 * near / (top - bottom);
@@ -908,12 +750,10 @@ namespace THREE
             te[3] = 0; te[7] = 0; te[11] = -1; te[15] = 0;
 
             return this;
+        }
 
-        },
-
-	makeOrthographic: function(left, right, top, bottom, near, far )
+        public Matrix4 MakeOrthographic(double left, double right, double top, double bottom, double near, double far)
         {
-
             var te = this.elements;
             var w = 1.0 / (right - left);
             var h = 1.0 / (top - bottom);
@@ -929,47 +769,34 @@ namespace THREE
             te[3] = 0; te[7] = 0; te[11] = 0; te[15] = 1;
 
             return this;
+        }
 
-        },
-
-	equals: function(matrix )
+        public bool Equals(Matrix4 matrix)
         {
-
             var te = this.elements;
             var me = matrix.elements;
 
             for (var i = 0; i < 16; i++)
             {
-
-                if (te[i] !== me[i]) return false;
-
+                if (te[i] != me[i]) return false;
             }
 
             return true;
+        }
 
-        },
-
-	fromArray: function(array, offset )
+        public Matrix4 FromArray(double[] array, int offset = 0)
         {
-
-            if (offset === undefined) offset = 0;
-
             for (var i = 0; i < 16; i++)
             {
-
                 this.elements[i] = array[i + offset];
-
             }
 
             return this;
+        }
 
-        },
-
-	toArray: function(array, offset )
+        public double[] ToArray(double[] array = null, int offset = 0)
         {
-
-            if (array === undefined) array = [];
-            if (offset === undefined) offset = 0;
+            if (array == null) array = new double[16];
 
             var te = this.elements;
 
@@ -994,7 +821,6 @@ namespace THREE
             array[offset + 15] = te[15];
 
             return array;
-
         }
     }
 }
