@@ -377,7 +377,7 @@ namespace THREE
 
             this.GetCenter(target.center);
 
-            target.radius = this.getSize(v1).length() * 0.5;
+            target.radius = this.GetSize(v1).Length() * 0.5;
 
             return target;
         }
