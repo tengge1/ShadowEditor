@@ -48,7 +48,6 @@
     <Compile Include="Math\Cylindrical.cs" />
     <Compile Include="Math\Euler.cs" />
     <Compile Include="Math\Frustum.cs" />
-    <Compile Include="Math\Interpolant.cs" />
     <Compile Include="Math\Line3.cs" />
     <Compile Include="Math\Math.cs" />
     <Compile Include="Math\Matrix3.cs" />
