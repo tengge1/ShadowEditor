@@ -16,7 +16,7 @@ import Player from './player/Player';
 import Editor from './editor/Editor';
 import Physics from './editor/Physics';
 
-import PackageManager from './core/PackageManager';
+import PackageManager from './package/PackageManager';
 import API from './api/API';
 
 /**
