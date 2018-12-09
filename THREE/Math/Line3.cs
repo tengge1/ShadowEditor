@@ -17,8 +17,8 @@ namespace THREE
 
         public Line3(Vector3 start = null, Vector3 end = null)
         {
-            this.start = (start != null) ? start : new Vector3();
-            this.end = (end != null) ? end : new Vector3();
+            this.start = start ?? new Vector3();
+            this.end = end ?? new Vector3();
         }
 
         public Line3 Set(Vector3 start, Vector3 end)

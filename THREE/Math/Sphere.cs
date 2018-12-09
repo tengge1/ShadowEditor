@@ -3,203 +3,159 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _Math = System.Math;
 
 namespace THREE
 {
     /// <summary>
     /// @author bhouston / http://clara.io
     /// @author mrdoob / http://mrdoob.com/
+    /// @author tengge / https://github.com/tengge1
     /// </summary>
     public class Sphere
     {
-        function Sphere(center, radius )
+        public Vector3 center;
+        public double radius;
+
+        public Sphere(Vector3 center = null, double radius = 0)
         {
-
-            this.center = (center !== undefined) ? center : new Vector3();
-            this.radius = (radius !== undefined) ? radius : 0;
-
+            this.center = center ?? new Vector3();
+            this.radius = radius;
         }
 
-        set: function(center, radius )
+        public Sphere Set(Vector3 center, double radius)
         {
-
-            this.center.copy(center);
+            this.center.Copy(center);
             this.radius = radius;
 
             return this;
+        }
 
-        },
-
-	setFromPoints: function()
+        public Sphere SetFromPoints(Vector3[] points, Vector3 optionalCenter = null)
         {
-
             var box = new Box3();
 
-            return function setFromPoints(points, optionalCenter) {
+            var center = this.center;
 
-                var center = this.center;
+            if (optionalCenter != null)
+            {
+                center.Copy(optionalCenter);
+            }
+            else
+            {
+                box.SetFromPoints(points).GetCenter(center);
+            }
 
-                if (optionalCenter !== undefined)
-                {
+            var maxRadiusSq = 0.0;
 
-                    center.copy(optionalCenter);
+            for (int i = 0, il = points.Length; i < il; i++)
+            {
+                maxRadiusSq = _Math.Max(maxRadiusSq, center.DistanceToSquared(points[i]));
+            }
 
-                }
-                else
-                {
+            this.radius = _Math.Sqrt(maxRadiusSq);
 
-                    box.setFromPoints(points).getCenter(center);
-
-                }
-
-                var maxRadiusSq = 0;
-
-                for (var i = 0, il = points.length; i < il; i++)
-                {
-
-                    maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(points[i]));
-
-                }
-
-                this.radius = Math.sqrt(maxRadiusSq);
-
-                return this;
-
-            };
-
+            return this;
         }
-        (),
 
-	clone: function()
+        public Sphere Clone()
         {
+            return new Sphere().Copy(this);
+        }
 
-            return new this.constructor().copy(this);
-
-        },
-
-	copy: function(sphere )
+        public Sphere Copy(Sphere sphere)
         {
-
-            this.center.copy(sphere.center);
+            this.center.Copy(sphere.center);
             this.radius = sphere.radius;
 
             return this;
+        }
 
-        },
-
-	empty: function()
+        public bool Empty()
         {
+            return this.radius <= 0;
+        }
 
-            return (this.radius <= 0);
-
-        },
-
-	containsPoint: function(point )
+        public bool ContainsPoint(Vector3 point)
         {
+            return point.DistanceToSquared(this.center) <= this.radius * this.radius;
+        }
 
-            return (point.distanceToSquared(this.center) <= (this.radius * this.radius));
-
-        },
-
-	distanceToPoint: function(point )
+        public double DistanceToPoint(Vector3 point)
         {
+            return point.DistanceTo(this.center) - this.radius;
+        }
 
-            return (point.distanceTo(this.center) - this.radius);
-
-        },
-
-	intersectsSphere: function(sphere )
+        public bool IntersectsSphere(Sphere sphere)
         {
-
             var radiusSum = this.radius + sphere.radius;
 
-            return sphere.center.distanceToSquared(this.center) <= (radiusSum * radiusSum);
+            return sphere.center.DistanceToSquared(this.center) <= radiusSum * radiusSum;
+        }
 
-        },
-
-	intersectsBox: function(box )
+        public bool IntersectsBox(Box3 box)
         {
+            return box.IntersectsSphere(this);
+        }
 
-            return box.intersectsSphere(this);
-
-        },
-
-	intersectsPlane: function(plane )
+        public bool IntersectsPlane(Plane plane)
         {
+            return _Math.Abs(plane.DistanceToPoint(this.center)) <= this.radius;
+        }
 
-            return Math.abs(plane.distanceToPoint(this.center)) <= this.radius;
-
-        },
-
-	clampPoint: function(point, target )
+        public Vector3 ClampPoint(Vector3 point, Vector3 target = null)
         {
+            var deltaLengthSq = this.center.DistanceToSquared(point);
 
-            var deltaLengthSq = this.center.distanceToSquared(point);
-
-            if (target === undefined)
+            if (target == null)
             {
-
-                console.warn('THREE.Sphere: .clampPoint() target is now required');
+                Console.WriteLine("THREE.Sphere: .clampPoint() target is now required");
                 target = new Vector3();
-
             }
 
-            target.copy(point);
+            target.Copy(point);
 
-            if (deltaLengthSq > (this.radius * this.radius))
+            if (deltaLengthSq > this.radius * this.radius)
             {
-
-                target.sub(this.center).normalize();
-                target.multiplyScalar(this.radius).add(this.center);
-
+                target.Sub(this.center).Normalize();
+                target.MultiplyScalar(this.radius).Add(this.center);
             }
 
             return target;
+        }
 
-        },
-
-	getBoundingBox: function(target )
+        public Box3 GetBoundingBox(Box3 target = null)
         {
-
-            if (target === undefined)
+            if (target == null)
             {
-
-                console.warn('THREE.Sphere: .getBoundingBox() target is now required');
+                Console.WriteLine("THREE.Sphere: .getBoundingBox() target is now required");
                 target = new Box3();
-
             }
 
-            target.set(this.center, this.center);
-            target.expandByScalar(this.radius);
+            target.Set(this.center, this.center);
+            target.ExpandByScalar(this.radius);
 
             return target;
+        }
 
-        },
-
-	applyMatrix4: function(matrix )
+        public Sphere ApplyMatrix4(Matrix4 matrix)
         {
-
-            this.center.applyMatrix4(matrix);
-            this.radius = this.radius * matrix.getMaxScaleOnAxis();
+            this.center.ApplyMatrix4(matrix);
+            this.radius = this.radius * matrix.GetMaxScaleOnAxis();
 
             return this;
+        }
 
-        },
-
-	translate: function(offset )
+        public Sphere Translate(Vector3 offset)
         {
-
-            this.center.add(offset);
+            this.center.Add(offset);
 
             return this;
+        }
 
-        },
-
-	equals: function(sphere )
+        public bool Equals(Sphere sphere)
         {
-
-            return sphere.center.equals(this.center) && (sphere.radius === this.radius);
-
+            return sphere.center.Equals(this.center) && sphere.radius == this.radius;
         }
     }
 }
