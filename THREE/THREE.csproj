@@ -44,6 +44,7 @@
     <Compile Include="Math\Box2.cs" />
     <Compile Include="Math\Box3.cs" />
     <Compile Include="Math\Color.cs" />
+    <Compile Include="Math\ColorKeywords.cs" />
     <Compile Include="Math\Cylindrical.cs" />
     <Compile Include="Math\Euler.cs" />
     <Compile Include="Math\Frustum.cs" />
