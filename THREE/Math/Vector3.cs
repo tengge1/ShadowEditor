@@ -229,11 +229,6 @@ namespace THREE
 
         public Vector3 ApplyEuler(Euler euler)
         {
-            if (!(euler && euler.isEuler))
-            {
-                Console.WriteLine("THREE.Vector3: .applyEuler() now expects an Euler rotation rather than a Vector3 and order.");
-            }
-
             var quaternion = new Quaternion();
 
             return this.ApplyQuaternion(quaternion.SetFromEuler(euler));
@@ -276,7 +271,7 @@ namespace THREE
         public Vector3 ApplyQuaternion(Quaternion q)
         {
             double x = this.x, y = this.y, z = this.z;
-            double qx = q.x, qy = q.y, qz = q.z, qw = q.w;
+            double qx = q._x, qy = q._y, qz = q._z, qw = q._w;
 
             // calculate quat * vector
             var ix = qw * x + qy * z - qz * y;
