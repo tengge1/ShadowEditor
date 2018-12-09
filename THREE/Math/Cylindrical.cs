@@ -50,7 +50,7 @@ namespace THREE
 
         public Cylindrical SetFromVector3(Vector3 v)
         {
-            return this.setFromCartesianCoords(v.x, v.y, v.z);
+            return this.SetFromCartesianCoords(v.x, v.y, v.z);
         }
 
         Cylindrical SetFromCartesianCoords(double x, double y, double z)
