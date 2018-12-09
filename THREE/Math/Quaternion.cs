@@ -14,14 +14,17 @@ namespace THREE
     /// </summary>
     public class Quaternion
     {
-        function Quaternion(x, y, z, w )
+        public double _x;
+        public double _y;
+        public double _z;
+        public double _w;
+
+        public Quaternion(double x = 0.0, double y = 0.0, double z = 0.0, double w = 1.0)
         {
-
-            this._x = x || 0;
-            this._y = y || 0;
-            this._z = z || 0;
-            this._w = (w !== undefined) ? w : 1;
-
+            this._x = x;
+            this._y = y;
+            this._z = z;
+            this._w = w;
         }
 
         slerp: function(qa, qb, qm, t )

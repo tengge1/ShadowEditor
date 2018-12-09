@@ -53,7 +53,7 @@ namespace THREE
             return this.setFromCartesianCoords(v.x, v.y, v.z);
         }
 
-        Cylindrical setFromCartesianCoords(double x, double y, double z)
+        Cylindrical SetFromCartesianCoords(double x, double y, double z)
         {
             this.radius = _Math.Sqrt(x * x + z * z);
             this.theta = _Math.Atan2(x, z);

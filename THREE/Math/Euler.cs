@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _Math = System.Math;
 
 namespace THREE
 {
@@ -10,399 +11,292 @@ namespace THREE
     /// @author mrdoob / http://mrdoob.com/
     /// @author WestLangley / http://github.com/WestLangley
     /// @author bhouston / http://clara.io
+    /// @author tengge / https://github.com/tengge1
     /// </summary>
     public class Euler
     {
-        Euler.RotationOrders = [ 'XYZ', 'YZX', 'ZXY', 'XZY', 'YXZ', 'ZYX' ];
+        public static string[] RotationOrders = new string[] { "XYZ", "YZX", "ZXY", "XZY", "YXZ", "ZYX" };
+        public static string DefaultOrder = "XYZ";
 
-Euler.DefaultOrder = 'XYZ';
+        public double _x;
+        public double _y;
+        public double _z;
+        public string _order;
 
-        function Euler(x, y, z, order )
+        public Euler(double x = 0, double y = 0, double z = 0, string order = "XYZ")
+        {
+            this._x = x;
+            this._y = y;
+            this._z = z;
+            this._order = order;
+        }
+
+        public double X
+        {
+            get { return this._x; }
+            set
+            {
+                this._x = value;
+                this.OnChangeCallback();
+            }
+        }
+
+        public double Y
+        {
+            get { return this._y; }
+            set
+            {
+                this._y = value;
+                this.OnChangeCallback();
+            }
+        }
+
+        public double Z
+        {
+            get { return this._z; }
+            set
+            {
+                this._z = value;
+                this.OnChangeCallback();
+            }
+        }
+
+        public string Order
         {
 
-            this._x = x || 0;
-            this._y = y || 0;
-            this._z = z || 0;
-            this._order = order || Euler.DefaultOrder;
+            get { return this._order; }
+            set
+            {
+                this._order = value;
+                this.OnChangeCallback();
+            }
 
         }
 
-        x: {
+        public const bool isEuler = true;
 
-		get: function()
+        public Euler Set(double x, double y, double z, string order = null)
         {
+            this._x = x;
+            this._y = y;
+            this._z = z;
 
-            return this._x;
+            this._order = order == null ? this._order : order;
 
-        },
+            this.OnChangeCallback();
 
-		set: function(value )
-        {
-
-            this._x = value;
-            this.onChangeCallback();
-
+            return this;
         }
 
-    },
-
-	y: {
-
-		get: function()
-    {
-
-        return this._y;
-
-    },
-
-		set: function(value )
-    {
-
-        this._y = value;
-        this.onChangeCallback();
-
-    }
-
-},
-
-	z: {
-
-		get: function()
-{
-
-    return this._z;
-
-},
-
-		set: function(value )
-{
-
-    this._z = value;
-    this.onChangeCallback();
-
-}
-
-	},
-
-	order: {
-
-		get: function()
-{
-
-    return this._order;
-
-},
-
-		set: function(value )
-{
-
-    this._order = value;
-    this.onChangeCallback();
-
-}
-
-	}
-
-} );
-
-Object.assign(Euler.prototype, {
-
-	isEuler: true,
-
-	set: function(x, y, z, order )
-{
-
-    this._x = x;
-    this._y = y;
-    this._z = z;
-    this._order = order || this._order;
-
-    this.onChangeCallback();
-
-    return this;
-
-},
-
-	clone: function()
-{
-
-    return new this.constructor(this._x, this._y, this._z, this._order);
-
-},
-
-	copy: function(euler )
-{
-
-    this._x = euler._x;
-    this._y = euler._y;
-    this._z = euler._z;
-    this._order = euler._order;
-
-    this.onChangeCallback();
-
-    return this;
-
-},
-
-	setFromRotationMatrix: function(m, order, update )
-{
-
-    var clamp = _Math.clamp;
-
-    // assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
-
-    var te = m.elements;
-    var m11 = te[0], m12 = te[4], m13 = te[8];
-    var m21 = te[1], m22 = te[5], m23 = te[9];
-    var m31 = te[2], m32 = te[6], m33 = te[10];
-
-    order = order || this._order;
-
-    if (order === 'XYZ')
-    {
-
-        this._y = Math.asin(clamp(m13, -1, 1));
-
-        if (Math.abs(m13) < 0.99999)
+        public Euler Clone()
         {
-
-            this._x = Math.atan2(-m23, m33);
-            this._z = Math.atan2(-m12, m11);
-
-        }
-        else
-        {
-
-            this._x = Math.atan2(m32, m22);
-            this._z = 0;
-
+            return new Euler(this._x, this._y, this._z, this._order);
         }
 
-    }
-    else if (order === 'YXZ')
-    {
-
-        this._x = Math.asin(-clamp(m23, -1, 1));
-
-        if (Math.abs(m23) < 0.99999)
+        public Euler Copy(Euler euler)
         {
+            this._x = euler._x;
+            this._y = euler._y;
+            this._z = euler._z;
+            this._order = euler._order;
 
-            this._y = Math.atan2(m13, m33);
-            this._z = Math.atan2(m21, m22);
+            this.OnChangeCallback();
 
-        }
-        else
-        {
-
-            this._y = Math.atan2(-m31, m11);
-            this._z = 0;
-
+            return this;
         }
 
-    }
-    else if (order === 'ZXY')
-    {
-
-        this._x = Math.asin(clamp(m32, -1, 1));
-
-        if (Math.abs(m32) < 0.99999)
+        public Euler SetFromRotationMatrix(Matrix4 m, string order = null, bool update = true)
         {
+            // assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
 
-            this._y = Math.atan2(-m31, m33);
-            this._z = Math.atan2(-m12, m22);
+            var te = m.elements;
+            double m11 = te[0], m12 = te[4], m13 = te[8];
+            double m21 = te[1], m22 = te[5], m23 = te[9];
+            double m31 = te[2], m32 = te[6], m33 = te[10];
 
+            order = order == null ? this._order : order;
+
+            if (order == "XYZ")
+            {
+                this._y = _Math.Asin(Math.Clamp(m13, -1, 1));
+
+                if (_Math.Abs(m13) < 0.99999)
+                {
+                    this._x = _Math.Atan2(-m23, m33);
+                    this._z = _Math.Atan2(-m12, m11);
+                }
+                else
+                {
+                    this._x = _Math.Atan2(m32, m22);
+                    this._z = 0;
+                }
+            }
+            else if (order == "YXZ")
+            {
+                this._x = _Math.Asin(-Math.Clamp(m23, -1, 1));
+
+                if (_Math.Abs(m23) < 0.99999)
+                {
+                    this._y = _Math.Atan2(m13, m33);
+                    this._z = _Math.Atan2(m21, m22);
+                }
+                else
+                {
+                    this._y = _Math.Atan2(-m31, m11);
+                    this._z = 0;
+                }
+            }
+            else if (order == "ZXY")
+            {
+                this._x = _Math.Asin(Math.Clamp(m32, -1, 1));
+
+                if (_Math.Abs(m32) < 0.99999)
+                {
+                    this._y = _Math.Atan2(-m31, m33);
+                    this._z = _Math.Atan2(-m12, m22);
+                }
+                else
+                {
+                    this._y = 0;
+                    this._z = _Math.Atan2(m21, m11);
+                }
+            }
+            else if (order == "ZYX")
+            {
+                this._y = _Math.Asin(-Math.Clamp(m31, -1, 1));
+
+                if (_Math.Abs(m31) < 0.99999)
+                {
+                    this._x = _Math.Atan2(m32, m33);
+                    this._z = _Math.Atan2(m21, m11);
+                }
+                else
+                {
+                    this._x = 0;
+                    this._z = _Math.Atan2(-m12, m22);
+                }
+            }
+            else if (order == "YZX")
+            {
+                this._z = _Math.Asin(Math.Clamp(m21, -1, 1));
+
+                if (_Math.Abs(m21) < 0.99999)
+                {
+                    this._x = _Math.Atan2(-m23, m22);
+                    this._y = _Math.Atan2(-m31, m11);
+                }
+                else
+                {
+                    this._x = 0;
+                    this._y = _Math.Atan2(m13, m33);
+                }
+            }
+            else if (order == "XZY")
+            {
+                this._z = _Math.Asin(-Math.Clamp(m12, -1, 1));
+
+                if (_Math.Abs(m12) < 0.99999)
+                {
+                    this._x = _Math.Atan2(m32, m22);
+                    this._y = _Math.Atan2(m13, m11);
+                }
+                else
+                {
+                    this._x = _Math.Atan2(-m23, m33);
+                    this._y = 0;
+                }
+            }
+            else
+            {
+                Console.WriteLine("THREE.Euler: .setFromRotationMatrix() given unsupported order: " + order);
+            }
+
+            this._order = order;
+
+            if (update != false) this.OnChangeCallback();
+
+            return this;
         }
-        else
+
+        public Euler SetFromQuaternion(Quaternion q, string order, bool update = true)
         {
+            var matrix = new Matrix4();
 
-            this._y = 0;
-            this._z = Math.atan2(m21, m11);
+            matrix.MakeRotationFromQuaternion(q);
 
+            return this.SetFromRotationMatrix(matrix, order, update);
         }
 
-    }
-    else if (order === 'ZYX')
-    {
-
-        this._y = Math.asin(-clamp(m31, -1, 1));
-
-        if (Math.abs(m31) < 0.99999)
+        public Euler SetFromVector3(Vector3 v, string order = null)
         {
+            order = order == null ? this._order : order;
 
-            this._x = Math.atan2(m32, m33);
-            this._z = Math.atan2(m21, m11);
-
+            return this.Set(v.x, v.y, v.z, order);
         }
-        else
+
+        public Euler Reorder(string newOrder)
         {
+            // WARNING: this discards revolution information -bhouston
+            var q = new Quaternion();
 
-            this._x = 0;
-            this._z = Math.atan2(-m12, m22);
+            q.SetFromEuler(this);
 
+            return this.SetFromQuaternion(q, newOrder);
         }
 
-    }
-    else if (order === 'YZX')
-    {
-
-        this._z = Math.asin(clamp(m21, -1, 1));
-
-        if (Math.abs(m21) < 0.99999)
+        public bool Equals(Euler euler)
         {
-
-            this._x = Math.atan2(-m23, m22);
-            this._y = Math.atan2(-m31, m11);
-
+            return euler._x == this._x && euler._y == this._y && euler._z == this._z && euler._order == this._order;
         }
-        else
+
+        public Euler FromArray(double[] array, string order = null)
         {
+            this._x = array[0];
+            this._y = array[1];
+            this._z = array[2];
+            if (order != null) this._order = order;
 
-            this._x = 0;
-            this._y = Math.atan2(m13, m33);
+            this.OnChangeCallback();
 
+            return this;
         }
 
-    }
-    else if (order === 'XZY')
-    {
-
-        this._z = Math.asin(-clamp(m12, -1, 1));
-
-        if (Math.abs(m12) < 0.99999)
+        public double[] ToArray(ref string order, double[] array = null, int offset = 0)
         {
+            if (array == null)
+            {
+                array = new double[3];
+            }
 
-            this._x = Math.atan2(m32, m22);
-            this._y = Math.atan2(m13, m11);
+            array[offset] = this._x;
+            array[offset + 1] = this._y;
+            array[offset + 2] = this._z;
+            order = this._order;
 
+            return array;
         }
-        else
+
+        public Vector3 ToVector3(Vector3 optionalResult = null)
         {
-
-            this._x = Math.atan2(-m23, m33);
-            this._y = 0;
-
+            if (optionalResult != null)
+            {
+                return optionalResult.Set(this._x, this._y, this._z);
+            }
+            else
+            {
+                return new Vector3(this._x, this._y, this._z);
+            }
         }
 
-    }
-    else
-    {
+        public Euler OnChange(OnChangeCallBackFun callback)
+        {
+            this.OnChangeCallback = callback;
 
-        console.warn('THREE.Euler: .setFromRotationMatrix() given unsupported order: ' + order);
+            return this;
+        }
 
-    }
+        public delegate void OnChangeCallBackFun();
 
-    this._order = order;
-
-    if (update !== false) this.onChangeCallback();
-
-    return this;
-
-},
-
-	setFromQuaternion: function()
-{
-
-    var matrix = new Matrix4();
-
-    return function setFromQuaternion(q, order, update) {
-
-        matrix.makeRotationFromQuaternion(q);
-
-        return this.setFromRotationMatrix(matrix, order, update);
-
-    };
-
-}
-(),
-
-	setFromVector3: function(v, order )
-{
-
-    return this.set(v.x, v.y, v.z, order || this._order);
-
-},
-
-	reorder: function()
-{
-
-    // WARNING: this discards revolution information -bhouston
-
-    var q = new Quaternion();
-
-    return function reorder(newOrder) {
-
-        q.setFromEuler(this);
-
-        return this.setFromQuaternion(q, newOrder);
-
-    };
-
-}
-(),
-
-	equals: function(euler )
-{
-
-    return (euler._x === this._x) && (euler._y === this._y) && (euler._z === this._z) && (euler._order === this._order);
-
-},
-
-	fromArray: function(array )
-{
-
-    this._x = array[0];
-    this._y = array[1];
-    this._z = array[2];
-    if (array[3] !== undefined) this._order = array[3];
-
-    this.onChangeCallback();
-
-    return this;
-
-},
-
-	toArray: function(array, offset )
-{
-
-    if (array === undefined) array = [];
-    if (offset === undefined) offset = 0;
-
-    array[offset] = this._x;
-    array[offset + 1] = this._y;
-    array[offset + 2] = this._z;
-    array[offset + 3] = this._order;
-
-    return array;
-
-},
-
-	toVector3: function(optionalResult )
-{
-
-    if (optionalResult)
-    {
-
-        return optionalResult.set(this._x, this._y, this._z);
-
-    }
-    else
-    {
-
-        return new Vector3(this._x, this._y, this._z);
-
-    }
-
-},
-
-	onChange: function(callback )
-{
-
-    this.onChangeCallback = callback;
-
-    return this;
-
-},
-
-	onChangeCallback: function() { }
+        public OnChangeCallBackFun OnChangeCallback;
     }
 }
