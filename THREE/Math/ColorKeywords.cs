@@ -159,6 +159,6 @@ namespace THREE
         public const int white = 0xFFFFFF;
         public const int whitesmoke = 0xF5F5F5;
         public const int yellow = 0xFFFF00;
-        public const int yellowgreen = 0x9ACD32
+        public const int yellowgreen = 0x9ACD32;
     }
 }
