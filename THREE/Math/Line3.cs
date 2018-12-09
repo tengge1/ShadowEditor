@@ -8,165 +8,128 @@ namespace THREE
 {
     /// <summary>
     /// @author bhouston / http://clara.io
+    /// @author tengge / https://github.com/tengge1
     /// </summary>
     public class Line3
     {
-        function Line3(start, end )
+        public Vector3 start;
+        public Vector3 end;
+
+        public Line3(Vector3 start = null, Vector3 end = null)
         {
-
-            this.start = (start !== undefined) ? start : new Vector3();
-            this.end = (end !== undefined) ? end : new Vector3();
-
+            this.start = (start != null) ? start : new Vector3();
+            this.end = (end != null) ? end : new Vector3();
         }
 
-        set: function(start, end )
+        public Line3 Set(Vector3 start, Vector3 end)
         {
-
-            this.start.copy(start);
-            this.end.copy(end);
+            this.start.Copy(start);
+            this.end.Copy(end);
 
             return this;
+        }
 
-        },
-
-	clone: function()
+        public Line3 Clone()
         {
+            return new Line3().Copy(this);
+        }
 
-            return new this.constructor().copy(this);
-
-        },
-
-	copy: function(line )
+        public Line3 Copy(Line3 line)
         {
-
-            this.start.copy(line.start);
-            this.end.copy(line.end);
+            this.start.Copy(line.start);
+            this.end.Copy(line.end);
 
             return this;
+        }
 
-        },
-
-	getCenter: function(target )
+        public Vector3 GetCenter(Vector3 target = null)
         {
-
-            if (target === undefined)
+            if (target == null)
             {
-
-                console.warn('THREE.Line3: .getCenter() target is now required');
+                Console.WriteLine("THREE.Line3: .getCenter() target is now required");
                 target = new Vector3();
-
             }
 
-            return target.addVectors(this.start, this.end).multiplyScalar(0.5);
+            return target.AddVectors(this.start, this.end).MultiplyScalar(0.5);
+        }
 
-        },
-
-	delta: function(target )
+        public Vector3 Delta(Vector3 target = null)
         {
-
-            if (target === undefined)
+            if (target == null)
             {
-
-                console.warn('THREE.Line3: .delta() target is now required');
+                Console.WriteLine("THREE.Line3: .delta() target is now required");
                 target = new Vector3();
-
             }
 
-            return target.subVectors(this.end, this.start);
+            return target.SubVectors(this.end, this.start);
+        }
 
-        },
-
-	distanceSq: function()
+        public double DistanceSq()
         {
+            return this.start.DistanceToSquared(this.end);
+        }
 
-            return this.start.distanceToSquared(this.end);
-
-        },
-
-	distance: function()
+        public double Distance()
         {
+            return this.start.DistanceTo(this.end);
+        }
 
-            return this.start.distanceTo(this.end);
-
-        },
-
-	at: function(t, target )
+        public Vector3 At(double t, Vector3 target = null)
         {
-
-            if (target === undefined)
+            if (target == null)
             {
-
-                console.warn('THREE.Line3: .at() target is now required');
+                Console.WriteLine("THREE.Line3: .at() target is now required");
                 target = new Vector3();
-
             }
 
-            return this.delta(target).multiplyScalar(t).add(this.start);
+            return this.Delta(target).MultiplyScalar(t).Add(this.start);
+        }
 
-        },
-
-	closestPointToPointParameter: function()
+        public double ClosestPointToPointParameter(Vector3 point, bool clampToLine = false)
         {
-
             var startP = new Vector3();
             var startEnd = new Vector3();
 
-            return function closestPointToPointParameter(point, clampToLine) {
+            startP.SubVectors(point, this.start);
+            startEnd.SubVectors(this.end, this.start);
 
-                startP.subVectors(point, this.start);
-                startEnd.subVectors(this.end, this.start);
+            var startEnd2 = startEnd.Dot(startEnd);
+            var startEnd_startP = startEnd.Dot(startP);
 
-                var startEnd2 = startEnd.dot(startEnd);
-                var startEnd_startP = startEnd.dot(startP);
+            var t = startEnd_startP / startEnd2;
 
-                var t = startEnd_startP / startEnd2;
-
-                if (clampToLine)
-                {
-
-                    t = _Math.clamp(t, 0, 1);
-
-                }
-
-                return t;
-
-            };
-
-        }
-        (),
-
-	closestPointToPoint: function(point, clampToLine, target )
-        {
-
-            var t = this.closestPointToPointParameter(point, clampToLine);
-
-            if (target === undefined)
+            if (clampToLine)
             {
-
-                console.warn('THREE.Line3: .closestPointToPoint() target is now required');
-                target = new Vector3();
-
+                t = Math.Clamp(t, 0, 1);
             }
 
-            return this.delta(target).multiplyScalar(t).add(this.start);
+            return t;
+        }
 
-        },
-
-	applyMatrix4: function(matrix )
+        public Vector3 ClosestPointToPoint(Vector3 point, bool clampToLine = false, Vector3 target = null)
         {
+            var t = this.ClosestPointToPointParameter(point, clampToLine);
 
-            this.start.applyMatrix4(matrix);
-            this.end.applyMatrix4(matrix);
+            if (target == null)
+            {
+                Console.WriteLine("THREE.Line3: .closestPointToPoint() target is now required");
+                target = new Vector3();
+            }
+
+            return this.Delta(target).MultiplyScalar(t).Add(this.start);
+        }
+
+        public Line3 ApplyMatrix4(Matrix4 matrix)
+        {
+            this.start.ApplyMatrix4(matrix);
+            this.end.ApplyMatrix4(matrix);
 
             return this;
+        }
 
-        },
-
-	equals: function(line )
+        public bool Equals(Line3 line)
         {
-
-            return line.start.equals(this.start) && line.end.equals(this.end);
-
+            return line.start.Equals(this.start) && line.end.Equals(this.end);
         }
     }
 }
