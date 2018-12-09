@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _Math = System.Math;
 
 /**
  * @author bhouston / http://clara.io
@@ -19,6 +20,7 @@ namespace THREE
     /// <summary>
     /// @author bhouston / http://clara.io
     /// @author WestLangley / http://github.com/WestLangley
+    /// @author tengge / https://github.com/tengge1
     /// </summary>
     public class Spherical
     {
@@ -26,86 +28,66 @@ namespace THREE
         public double phi;
         public double theta;
 
-        function Spherical(radius, phi, theta )
+        public Spherical(double radius = 1.0, double phi = 0.0, double theta = 0.0)
         {
-
-            this.radius = (radius !== undefined) ? radius : 1.0;
-            this.phi = (phi !== undefined) ? phi : 0; // polar angle
-            this.theta = (theta !== undefined) ? theta : 0; // azimuthal angle
-
-            return this;
-
+            this.radius = radius;
+            this.phi = phi; // polar angle
+            this.theta = theta; // azimuthal angle
         }
 
-        set: function(radius, phi, theta )
+        public Spherical Set(double radius, double phi, double theta)
         {
-
             this.radius = radius;
             this.phi = phi;
             this.theta = theta;
 
             return this;
+        }
 
-        },
-
-	clone: function()
+        public Spherical Clone()
         {
+            return new Spherical().Copy(this);
+        }
 
-            return new this.constructor().copy(this);
-
-        },
-
-	copy: function(other )
+        public Spherical Copy(Spherical other)
         {
-
             this.radius = other.radius;
             this.phi = other.phi;
             this.theta = other.theta;
 
             return this;
+        }
 
-        },
-
-	// restrict phi to be betwee EPS and PI-EPS
-	makeSafe: function()
+        // restrict phi to be betwee EPS and PI-EPS
+        public Spherical MakeSafe()
         {
-
             var EPS = 0.000001;
-            this.phi = Math.max(EPS, Math.min(Math.PI - EPS, this.phi));
+            this.phi = _Math.Max(EPS, _Math.Min(_Math.PI - EPS, this.phi));
 
             return this;
+        }
 
-        },
-
-	setFromVector3: function(v )
+        public Spherical SetFromVector3(Vector3 v)
         {
+            return this.SetFromCartesianCoords(v.x, v.y, v.z);
+        }
 
-            return this.setFromCartesianCoords(v.x, v.y, v.z);
-
-        },
-
-	setFromCartesianCoords: function(x, y, z )
+        public Spherical SetFromCartesianCoords(double x, double y, double z)
         {
+            this.radius = _Math.Sqrt(x * x + y * y + z * z);
 
-            this.radius = Math.sqrt(x * x + y * y + z * z);
-
-            if (this.radius === 0)
+            if (this.radius == 0)
             {
-
                 this.theta = 0;
                 this.phi = 0;
-
             }
             else
             {
-
-                this.theta = Math.atan2(x, z);
-                this.phi = Math.acos(_Math.clamp(y / this.radius, -1, 1));
-
+                this.theta = _Math.Atan2(x, z);
+                this.phi = _Math.Acos(Math.Clamp(y / this.radius, -1, 1));
             }
 
             return this;
-
         }
     }
 }
