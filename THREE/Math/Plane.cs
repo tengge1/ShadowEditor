@@ -182,17 +182,17 @@ namespace THREE
             return target.Copy(this.normal).MultiplyScalar(-this.constant);
         }
 
-        public Plane ApplyMatrix4(Matrix4 matrix, Matrix4 optionalNormalMatrix)
+        public Plane ApplyMatrix4(Matrix4 matrix, Matrix3 optionalNormalMatrix = null)
         {
 
             var v1 = new Vector3();
             var m1 = new Matrix3();
 
-            var normalMatrix = optionalNormalMatrix || m1.GetNormalMatrix(matrix);
+            var normalMatrix = optionalNormalMatrix ?? m1.GetNormalMatrix(matrix);
 
             var referencePoint = this.CoplanarPoint(v1).ApplyMatrix4(matrix);
 
-            var normal = this.normal.ApplyMatrix3(normalMatrix).normalize();
+            var normal = this.normal.ApplyMatrix3(normalMatrix).Normalize();
 
             this.constant = -referencePoint.Dot(normal);
 
