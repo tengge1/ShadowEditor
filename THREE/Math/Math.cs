@@ -48,7 +48,7 @@ namespace THREE
             return uuid.ToUpper();
         }
 
-        public double Clamp(double value, double min, double max)
+        public static double Clamp(double value, double min, double max)
         {
             return _Math.Max(min, _Math.Min(max, value));
         }
@@ -56,27 +56,27 @@ namespace THREE
         // compute euclidian modulo of m % n
         // https://en.wikipedia.org/wiki/Modulo_operation
 
-        public double EuclideanModulo(double n, double m)
+        public static double EuclideanModulo(double n, double m)
         {
             return ((n % m) + m) % m;
         }
 
         // Linear mapping from range <a1, a2> to range <b1, b2>
 
-        public double MapLinear(double x, double a1, double a2, double b1, double b2)
+        public static double MapLinear(double x, double a1, double a2, double b1, double b2)
         {
             return b1 + (x - a1) * (b2 - b1) / (a2 - a1);
         }
 
         // https://en.wikipedia.org/wiki/Linear_interpolation
-        public double Lerp(double x, double y, double t)
+        public static double Lerp(double x, double y, double t)
         {
             return (1 - t) * x + t * y;
         }
 
         // http://en.wikipedia.org/wiki/Smoothstep
 
-        public double Smoothstep(double x, double min, double max)
+        public static double Smoothstep(double x, double min, double max)
         {
             if (x <= min) return 0;
             if (x >= max) return 1;
@@ -97,47 +97,47 @@ namespace THREE
         }
 
         // Random integer from <low, high> interval
-        public double RandInt(double low, double high)
+        public static double RandInt(double low, double high)
         {
             var ran = new Random();
             return low + _Math.Floor(ran.NextDouble() * (high - low + 1));
         }
 
         // Random float from <low, high> interval
-        public double RandFloat(double low, double high)
+        public static double RandFloat(double low, double high)
         {
             var ran = new Random();
             return low + ran.NextDouble() * (high - low);
         }
 
         // Random float from <-range/2, range/2> interval
-        public double RandFloatSpread(double range)
+        public static double RandFloatSpread(double range)
         {
             var ran = new Random();
             return range * (0.5 - ran.NextDouble());
         }
 
-        public double DegToRad(double degrees)
+        public static double DegToRad(double degrees)
         {
             return degrees * Math.DEG2RAD;
         }
 
-        public double RadToDeg(double radians)
+        public static double RadToDeg(double radians)
         {
             return radians * Math.RAD2DEG;
         }
 
-        public bool IsPowerOfTwo(int value)
+        public static bool IsPowerOfTwo(int value)
         {
             return (value & (value - 1)) == 0 && value != 0;
         }
 
-        public double CeilPowerOfTwo(double value)
+        public static double CeilPowerOfTwo(double value)
         {
             return _Math.Pow(2, _Math.Ceiling(_Math.Log(value) / _Math.Log(2)));
         }
 
-        public double FloorPowerOfTwo(double value)
+        public static double FloorPowerOfTwo(double value)
         {
             return _Math.Pow(2, _Math.Floor(_Math.Log(value) / _Math.Log(2)));
         }
