@@ -14,6 +14,7 @@ namespace THREE
     /// @author mikael emtinger / http://gomo.se/
     /// @author egraether / http://egraether.com/
     /// @author WestLangley / http://github.com/WestLangley
+    /// @author tengge / https://github.com/tengge1
     /// </summary>
     public class Vector3
     {

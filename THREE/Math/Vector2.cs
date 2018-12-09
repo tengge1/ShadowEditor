@@ -12,6 +12,7 @@ namespace THREE
     /// @author philogb / http://blog.thejit.org/
     /// @author egraether / http://egraether.com/
     /// @author zz85 / http://www.lab4games.net/zz85/blog
+    /// @author tengge / https://github.com/tengge1
     /// </summary>
     public class Vector2
     {

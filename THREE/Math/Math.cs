@@ -10,6 +10,7 @@ namespace THREE
     /// <summary>
     /// @author alteredq / http://alteredqualia.com/
     /// @author mrdoob / http://mrdoob.com/
+    /// @author tengge / https://github.com/tengge1
     /// </summary>
     public class Math
     {

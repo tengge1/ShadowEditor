@@ -141,14 +141,14 @@ namespace THREE
                 return null;
             }
 
-            var t = -(line.start.dot(this.normal) + this.constant) / denominator;
+            var t = -(line.start.Dot(this.normal) + this.constant) / denominator;
 
             if (t < 0 || t > 1)
             {
                 return null;
             }
 
-            return target.Copy(direction).multiplyScalar(t).add(line.start);
+            return target.Copy(direction).MultiplyScalar(t).Add(line.start);
         }
 
         public bool IntersectsLine(Line3 line)
@@ -166,7 +166,7 @@ namespace THREE
             return box.IntersectsPlane(this);
         }
 
-        public Vector3 IntersectsSphere(Sphere sphere)
+        public bool IntersectsSphere(Sphere sphere)
         {
             return sphere.IntersectsPlane(this);
         }
@@ -190,7 +190,7 @@ namespace THREE
 
             var normalMatrix = optionalNormalMatrix || m1.GetNormalMatrix(matrix);
 
-            var referencePoint = this.coplanarPoint(v1).ApplyMatrix4(matrix);
+            var referencePoint = this.CoplanarPoint(v1).ApplyMatrix4(matrix);
 
             var normal = this.normal.ApplyMatrix3(normalMatrix).normalize();
 
