@@ -10,6 +10,9 @@ function DataTable(options = {}) {
 
     this.cols = options.cols || [];
     this.rows = options.rows || [];
+
+    this.cls = options.cls || '';
+    this.style = options.style || '';
 }
 
 DataTable.prototype = Object.create(Control.prototype);
