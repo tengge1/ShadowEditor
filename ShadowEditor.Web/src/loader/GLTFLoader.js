@@ -13,34 +13,39 @@ GLTFLoader.prototype.constructor = GLTFLoader;
 
 GLTFLoader.prototype.load = function (url, options) {
     return new Promise(resolve => {
-        var loader = new THREE.GLTFLoader();
+        this.require([
+            'DRACOLoader',
+            'GLTFLoader'
+        ]).then(() => {
+            var loader = new THREE.GLTFLoader();
 
-        THREE.DRACOLoader.setDecoderPath('assets/js/loaders/draco/gltf/');
-        loader.setDRACOLoader(new THREE.DRACOLoader());
+            THREE.DRACOLoader.setDecoderPath('assets/js/loaders/draco/gltf/');
+            loader.setDRACOLoader(new THREE.DRACOLoader());
 
-        loader.load(url, result => {
-            var obj3d = result.scene;
+            loader.load(url, result => {
+                var obj3d = result.scene;
 
-            Object.assign(obj3d.userData, {
-                obj: result,
-                root: result.scene,
-            });
-
-            if (result.animations && result.animations.length > 0) {
                 Object.assign(obj3d.userData, {
-                    animNames: result.animations.map(n => n.name),
-                    scripts: [{
-                        id: null,
-                        name: `${options.Name}动画`,
-                        type: 'javascript',
-                        source: this.createScripts(options.Name),
-                        uuid: THREE.Math.generateUUID()
-                    }]
+                    obj: result,
+                    root: result.scene,
                 });
-            }
-            resolve(obj3d);
-        }, undefined, () => {
-            resolve(null);
+
+                if (result.animations && result.animations.length > 0) {
+                    Object.assign(obj3d.userData, {
+                        animNames: result.animations.map(n => n.name),
+                        scripts: [{
+                            id: null,
+                            name: `${options.Name}动画`,
+                            type: 'javascript',
+                            source: this.createScripts(options.Name),
+                            uuid: THREE.Math.generateUUID()
+                        }]
+                    });
+                }
+                resolve(obj3d);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };

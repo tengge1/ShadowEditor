@@ -15,8 +15,9 @@ function PackageManager() {
 /**
  * 加载包
  * @param {*} names 包名或包名列表
+ * @param {*} sort 资源是否按顺序下载
  */
-PackageManager.prototype.require = function (names) {
+PackageManager.prototype.require = function (names, sort = false) {
     names = Array.isArray(names) ? names : [names];
 
     var assets = [];
@@ -46,27 +47,51 @@ PackageManager.prototype.require = function (names) {
         });
     }
 
-    return this._load(assets);
+    return this._load(assets, sort);
 };
 
-PackageManager.prototype._load = function (assets = []) {
+PackageManager.prototype._load = function (assets = [], sort = false) {
     var cssLoader = new CssLoader();
     var jsLoader = new JsLoader();
 
-    return Promise.all(assets.map(n => {
-        if (n.toLowerCase().endsWith('.css')) {
-            return cssLoader.load(n);
-        }
-
-        if (n.toLowerCase().endsWith('.js')) {
-            return jsLoader.load(n);
-        }
-
+    if (sort) {
         return new Promise(resolve => {
-            console.warn(`PackageManager: 未知资源类型${n}。`);
-            resolve(null);
+            (function loadBySort(list) {
+                if (list.length === 0) {
+                    resolve();
+                    return;
+                }
+                var n = list.shift();
+                if (n.toLowerCase().endsWith('.css')) {
+                    cssLoader.load(n).then(() => {
+                        loadBySort(list);
+                    });
+                } else if (n.toLowerCase().endsWith('.js')) {
+                    jsLoader.load(n).then(() => {
+                        loadBySort(list);
+                    });
+                } else {
+                    console.warn(`PackageManager: 未知资源类型${n}。`);
+                    loadBySort(list);
+                }
+            })(assets);
         });
-    }));
+    } else {
+        return Promise.all(assets.map(n => {
+            if (n.toLowerCase().endsWith('.css')) {
+                return cssLoader.load(n);
+            }
+
+            if (n.toLowerCase().endsWith('.js')) {
+                return jsLoader.load(n);
+            }
+
+            return new Promise(resolve => {
+                console.warn(`PackageManager: 未知资源类型${n}。`);
+                resolve(null);
+            });
+        }));
+    }
 };
 
 export default PackageManager;

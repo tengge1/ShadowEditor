@@ -13,12 +13,14 @@ OBJLoader.prototype.constructor = OBJLoader;
 
 OBJLoader.prototype.load = function (url) {
     return new Promise(resolve => {
-        var loader = new THREE.OBJLoader();
+        this.require('OBJLoader').then(() => {
+            var loader = new THREE.OBJLoader();
 
-        loader.load(url, obj => {
-            resolve(obj);
-        }, undefined, () => {
-            resolve(null);
+            loader.load(url, obj => {
+                resolve(obj);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };

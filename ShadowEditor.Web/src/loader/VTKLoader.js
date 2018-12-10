@@ -13,14 +13,16 @@ VTKLoader.prototype.constructor = VTKLoader;
 
 VTKLoader.prototype.load = function (url) {
     return new Promise(resolve => {
-        var loader = new THREE.VTKLoader();
+        this.require('VTKLoader').then(() => {
+            var loader = new THREE.VTKLoader();
 
-        loader.load(url, geometry => {
-            var material = new THREE.MeshStandardMaterial();
-            var mesh = new THREE.Mesh(geometry, material);
-            resolve(mesh);
-        }, undefined, () => {
-            resolve(null);
+            loader.load(url, geometry => {
+                var material = new THREE.MeshStandardMaterial();
+                var mesh = new THREE.Mesh(geometry, material);
+                resolve(mesh);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };

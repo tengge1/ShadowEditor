@@ -13,13 +13,18 @@ KMZLoader.prototype.constructor = KMZLoader;
 
 KMZLoader.prototype.load = function (url) {
     return new Promise(resolve => {
-        var loader = new THREE.KMZLoader();
+        this.require([
+            'ColladaLoader',
+            'KMZLoader'
+        ]).then(() => {
+            var loader = new THREE.KMZLoader();
 
-        loader.load(url, collada => {
-            var obj3d = collada.scene;
-            resolve(obj3d);
-        }, undefined, () => {
-            resolve(null);
+            loader.load(url, collada => {
+                var obj3d = collada.scene;
+                resolve(obj3d);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };

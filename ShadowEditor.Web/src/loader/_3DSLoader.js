@@ -13,11 +13,13 @@ _3DSLoader.prototype.constructor = _3DSLoader;
 
 _3DSLoader.prototype.load = function (url) {
     return new Promise(resolve => {
-        var loader = new THREE.TDSLoader();
-        loader.load(url, group => {
-            resolve(group);
-        }, undefined, () => {
-            resolve(null);
+        this.require('TDSLoader').then(() => {
+            var loader = new THREE.TDSLoader();
+            loader.load(url, group => {
+                resolve(group);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };

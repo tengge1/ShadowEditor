@@ -13,14 +13,16 @@ PRWMLoader.prototype.constructor = PRWMLoader;
 
 PRWMLoader.prototype.load = function (url) {
     return new Promise(resolve => {
-        var loader = new THREE.PRWMLoader();
+        this.require('PRWMLoader').then(() => {
+            var loader = new THREE.PRWMLoader();
 
-        loader.load(url, geometry => {
-            var material = new THREE.MeshPhongMaterial();
-            var mesh = new THREE.Mesh(geometry, material);
-            resolve(mesh);
-        }, undefined, () => {
-            resolve(null);
+            loader.load(url, geometry => {
+                var material = new THREE.MeshPhongMaterial();
+                var mesh = new THREE.Mesh(geometry, material);
+                resolve(mesh);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };

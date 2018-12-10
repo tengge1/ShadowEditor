@@ -62,6 +62,97 @@ const PackageList = [{
     assets: [
         'assets/js/loaders/DRACOLoader.js'
     ]
+}, {
+    name: 'GLTFLoader',
+    assets: [
+        'assets/js/loaders/GLTFLoader.js'
+    ]
+}, {
+    name: 'KMZLoader',
+    assets: [
+        'assets/js/loaders/KMZLoader.js'
+    ]
+}, {
+    name: 'MD2Loader',
+    assets: [
+        'assets/js/loaders/MD2Loader.js',
+        'assets/js/loaders/md2/MD2Character.js'
+    ]
+}, {
+    name: 'OBJLoader',
+    assets: [
+        'assets/js/loaders/OBJLoader.js'
+    ]
+}, {
+    name: 'PCDLoader',
+    assets: [
+        'assets/js/loaders/PCDLoader.js'
+    ]
+}, {
+    name: 'PDBLoader',
+    assets: [
+        'assets/js/loaders/PDBLoader.js'
+    ]
+}, {
+    name: 'PLYLoader',
+    assets: [
+        'assets/js/loaders/PLYLoader.js'
+    ]
+}, {
+    name: 'PRWMLoader',
+    assets: [
+        'assets/js/loaders/PRWMLoader.js'
+    ]
+}, {
+    name: 'STLLoader',
+    assets: [
+        'assets/js/loaders/STLLoader.js'
+    ]
+}, {
+    name: 'TDSLoader',
+    assets: [
+        'assets/js/loaders/TDSLoader.js'
+    ]
+}, {
+    name: 'VRMLoader',
+    assets: [
+        'assets/js/loaders/VRMLoader.js'
+    ]
+}, {
+    name: 'VRMLLoader',
+    assets: [
+        'assets/js/loaders/VRMLLoader.js'
+    ]
+}, {
+    name: 'VTKLoader',
+    assets: [
+        'assets/js/loaders/VTKLoader.js'
+    ]
+}, {
+    name: 'CTMLoader',
+    assets: [
+        'assets/js/ctm.js',
+        'assets/js/loaders/ctm/CTMLoader.js'
+    ]
+}, {
+    name: 'XLoader',
+    assets: [
+        'assets/js/loaders/XLoader.js'
+    ]
+}, {
+    name: 'SEA3D',
+    assets: [
+        'assets/js/loaders/sea3d/SEA3D.js',
+        'assets/js/loaders/sea3d/SEA3DLZMA.js',
+        'assets/js/loaders/sea3d/SEA3DLoader.js',
+        'assets/js/loaders/draco/draco_decoder.js',
+        'assets/js/loaders/sea3d/SEA3DDraco.js'
+    ]
+}, {
+    name: 'lzma',
+    assets: [
+        'assets/js/lzma.js'
+    ]
 }];
 
 export default PackageList

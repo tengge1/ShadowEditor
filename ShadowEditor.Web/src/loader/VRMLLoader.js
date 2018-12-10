@@ -13,11 +13,13 @@ VRMLLoader.prototype.constructor = VRMLLoader;
 
 VRMLLoader.prototype.load = function (url, options) {
     return new Promise(resolve => {
-        var loader = new THREE.VRMLLoader();
-        loader.load(url, obj => {
-            resolve(obj);
-        }, undefined, () => {
-            resolve(null);
+        this.require('VRMLLoader').then(() => {
+            var loader = new THREE.VRMLLoader();
+            loader.load(url, obj => {
+                resolve(obj);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };

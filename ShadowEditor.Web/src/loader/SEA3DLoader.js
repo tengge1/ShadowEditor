@@ -15,27 +15,29 @@ SEA3DLoader.prototype.load = function (url, options) {
     var obj = new THREE.Object3D();
 
     return new Promise(resolve => {
-        var loader = new THREE.SEA3D({
-            autoPlay: true, // Auto play animations
-            container: obj, // Container to add models
-            progressive: true // Progressive download
-        });
+        this.require('SEA3D', true).then(() => {
+            var loader = new THREE.SEA3D({
+                autoPlay: true, // Auto play animations
+                container: obj, // Container to add models
+                progressive: true // Progressive download
+            });
 
-        loader.onComplete = function () {
-            resolve(obj);
-        };
+            loader.onComplete = function () {
+                resolve(obj);
+            };
 
-        loader.load(url);
+            loader.load(url);
 
-        Object.assign(obj.userData, {
-            animNames: ['Animation1'],
-            scripts: [{
-                id: null,
-                name: `${options.Name}动画`,
-                type: 'javascript',
-                source: this.createScripts(options.Name),
-                uuid: THREE.Math.generateUUID()
-            }]
+            Object.assign(obj.userData, {
+                animNames: ['Animation1'],
+                scripts: [{
+                    id: null,
+                    name: `${options.Name}动画`,
+                    type: 'javascript',
+                    source: this.createScripts(options.Name),
+                    uuid: THREE.Math.generateUUID()
+                }]
+            });
         });
     });
 };

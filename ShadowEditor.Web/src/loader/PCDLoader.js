@@ -13,11 +13,13 @@ PCDLoader.prototype.constructor = PCDLoader;
 
 PCDLoader.prototype.load = function (url, options) {
     return new Promise(resolve => {
-        var loader = new THREE.PCDLoader();
-        loader.load(url, mesh => {
-            resolve(mesh);
-        }, undefined, () => {
-            resolve(null);
+        this.require('PCDLoader').then(() => {
+            var loader = new THREE.PCDLoader();
+            loader.load(url, mesh => {
+                resolve(mesh);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };

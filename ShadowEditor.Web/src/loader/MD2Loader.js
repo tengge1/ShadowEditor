@@ -13,20 +13,22 @@ MD2Loader.prototype.constructor = MD2Loader;
 
 MD2Loader.prototype.load = function (url) {
     return new Promise(resolve => {
-        var loader = new THREE.MD2Loader();
+        this.require('MD2Loader').then(() => {
+            var loader = new THREE.MD2Loader();
 
-        loader.load(url, geometry => {
-            var material = new THREE.MeshStandardMaterial({
-                morphTargets: true,
-                morphNormals: true
+            loader.load(url, geometry => {
+                var material = new THREE.MeshStandardMaterial({
+                    morphTargets: true,
+                    morphNormals: true
+                });
+
+                var mesh = new THREE.Mesh(geometry, material);
+                mesh.mixer = new THREE.AnimationMixer(mesh);
+
+                resolve(mesh);
+            }, undefined, () => {
+                resolve(null);
             });
-
-            var mesh = new THREE.Mesh(geometry, material);
-            mesh.mixer = new THREE.AnimationMixer(mesh);
-
-            resolve(mesh);
-        }, undefined, () => {
-            resolve(null);
         });
     });
 };
