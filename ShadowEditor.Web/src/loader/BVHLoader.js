@@ -13,37 +13,39 @@ BVHLoader.prototype.constructor = BVHLoader;
 
 BVHLoader.prototype.load = function (url, options) {
     return new Promise(resolve => {
-        var loader = new THREE.BVHLoader();
-        loader.load(url, result => {
-            var skeletonHelper = new THREE.SkeletonHelper(result.skeleton.bones[0]);
-            skeletonHelper.skeleton = result.skeleton; // allow animation mixer to bind to SkeletonHelper directly
+        this.require('BVHLoader').then(() => {
+            var loader = new THREE.BVHLoader();
+            loader.load(url, result => {
+                var skeletonHelper = new THREE.SkeletonHelper(result.skeleton.bones[0]);
+                skeletonHelper.skeleton = result.skeleton; // allow animation mixer to bind to SkeletonHelper directly
 
-            var boneContainer = new THREE.Group();
-            boneContainer.add(result.skeleton.bones[0]);
+                var boneContainer = new THREE.Group();
+                boneContainer.add(result.skeleton.bones[0]);
 
-            var obj3d = new THREE.Object3D();
-            obj3d.add(skeletonHelper);
-            obj3d.add(boneContainer);
+                var obj3d = new THREE.Object3D();
+                obj3d.add(skeletonHelper);
+                obj3d.add(boneContainer);
 
-            Object.assign(obj3d.userData, {
-                obj: result,
-                root: skeletonHelper
+                Object.assign(obj3d.userData, {
+                    obj: result,
+                    root: skeletonHelper
+                });
+
+                Object.assign(obj3d.userData, {
+                    animNames: 'Animation1',
+                    scripts: [{
+                        id: null,
+                        name: `${options.Name}动画`,
+                        type: 'javascript',
+                        source: this.createScripts(options.Name),
+                        uuid: THREE.Math.generateUUID()
+                    }]
+                });
+
+                resolve(obj3d);
+            }, undefined, () => {
+                resolve(null);
             });
-
-            Object.assign(obj3d.userData, {
-                animNames: 'Animation1',
-                scripts: [{
-                    id: null,
-                    name: `${options.Name}动画`,
-                    type: 'javascript',
-                    source: this.createScripts(options.Name),
-                    uuid: THREE.Math.generateUUID()
-                }]
-            });
-
-            resolve(obj3d);
-        }, undefined, () => {
-            resolve(null);
         });
     });
 };

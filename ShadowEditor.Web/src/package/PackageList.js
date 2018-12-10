@@ -35,6 +35,11 @@ const PackageList = [{
     assets: [
         'assets/js/loaders/BinaryLoader.js'
     ]
+}, {
+    name: 'BVHLoader',
+    assets: [
+        'assets/js/loaders/BVHLoader.js'
+    ]
 }];
 
 export default PackageList
