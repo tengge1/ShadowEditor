@@ -13,13 +13,15 @@ BinaryLoader.prototype.constructor = BinaryLoader;
 
 BinaryLoader.prototype.load = function (url) {
     return new Promise(resolve => {
-        var loader = new THREE.BinaryLoader();
+        this.require('BinaryLoader').then(() => {
+            var loader = new THREE.BinaryLoader();
 
-        loader.load(url, (geometry, materials) => {
-            var mesh = new THREE.Mesh(geometry, materials);
-            resolve(mesh);
-        }, undefined, () => {
-            resolve(null);
+            loader.load(url, (geometry, materials) => {
+                var mesh = new THREE.Mesh(geometry, materials);
+                resolve(mesh);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };

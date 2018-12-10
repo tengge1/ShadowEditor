@@ -30,6 +30,11 @@ const PackageList = [{
     assets: [
         'assets/js/loaders/BabylonLoader.js'
     ]
+}, {
+    name: 'BinaryLoader',
+    assets: [
+        'assets/js/loaders/BinaryLoader.js'
+    ]
 }];
 
 export default PackageList
