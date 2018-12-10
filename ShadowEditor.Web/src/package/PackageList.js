@@ -45,6 +45,11 @@ const PackageList = [{
     assets: [
         'assets/js/loaders/ColladaLoader.js'
     ]
+}, {
+    name: 'FBXLoader',
+    assets: [
+        'assets/js/loaders/FBXLoader.js'
+    ]
 }];
 
 export default PackageList
