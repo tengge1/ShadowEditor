@@ -13,23 +13,25 @@ DRACOLoader.prototype.constructor = DRACOLoader;
 
 DRACOLoader.prototype.load = function (url) {
     return new Promise(resolve => {
-        THREE.DRACOLoader.setDecoderPath('assets/js/loader/draco/');
-        THREE.DRACOLoader.setDecoderConfig({ type: 'js' });
+        this.require('DRACOLoader').then(() => {
+            THREE.DRACOLoader.setDecoderPath('assets/js/loader/draco/');
+            THREE.DRACOLoader.setDecoderConfig({ type: 'js' });
 
-        var loader = new THREE.DRACOLoader();
+            var loader = new THREE.DRACOLoader();
 
-        loader.load(url, geometry => {
-            geometry.computeVertexNormals();
+            loader.load(url, geometry => {
+                geometry.computeVertexNormals();
 
-            var material = new THREE.MeshStandardMaterial();
-            var mesh = new THREE.Mesh(geometry, material);
+                var material = new THREE.MeshStandardMaterial();
+                var mesh = new THREE.Mesh(geometry, material);
 
-            // Release decoder resources.
-            THREE.DRACOLoader.releaseDecoderModule();
+                // Release decoder resources.
+                THREE.DRACOLoader.releaseDecoderModule();
 
-            resolve(mesh);
-        }, undefined, () => {
-            resolve(null);
+                resolve(mesh);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };

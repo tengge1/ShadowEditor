@@ -57,6 +57,11 @@ const PackageList = [{
     assets: [
         'assets/js/loaders/GCodeLoader.js'
     ]
+}, {
+    name: 'DRACOLoader',
+    assets: [
+        'assets/js/loaders/DRACOLoader.js'
+    ]
 }];
 
 export default PackageList
