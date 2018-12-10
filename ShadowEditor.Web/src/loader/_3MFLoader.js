@@ -13,11 +13,13 @@ _3MFLoader.prototype.constructor = _3MFLoader;
 
 _3MFLoader.prototype.load = function (url) {
     return new Promise(resolve => {
-        var loader = new THREE.ThreeMFLoader();
-        loader.load(url, object => {
-            resolve(object);
-        }, undefined, () => {
-            resolve(null);
+        this.require('3MFLoader').then(() => {
+            var loader = new THREE.ThreeMFLoader();
+            loader.load(url, object => {
+                resolve(object);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };

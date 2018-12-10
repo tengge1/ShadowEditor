@@ -2,12 +2,14 @@ import PackageList from './PackageList';
 import CssLoader from '../utils/CssLoader';
 import JsLoader from '../utils/JsLoader';
 
+const loaded = new Map();
+
 /**
  * 包管理器
  * @author tengge / https://github.com/tengge1
  */
 function PackageManager() {
-    this.loaded = new Map();
+
 };
 
 /**
@@ -20,11 +22,11 @@ PackageManager.prototype.require = function (names) {
     var assets = [];
 
     names.forEach(n => {
-        if (this.loaded.has(n)) { // 该包已经加载
+        if (loaded.has(n)) { // 该包已经加载
             return true;
         }
 
-        this.loaded.set(n, true);
+        loaded.set(n, true);
 
         var packages = PackageList.filter(m => m.name === n);
         if (packages.length === 0) {
