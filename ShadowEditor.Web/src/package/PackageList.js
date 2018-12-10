@@ -48,6 +48,8 @@ const PackageList = [{
 }, {
     name: 'FBXLoader',
     assets: [
+        'assets/js/curves/NURBSCurve.js',
+        'assets/js/curves/NURBSUtils.js',
         'assets/js/loaders/FBXLoader.js'
     ]
 }, {
