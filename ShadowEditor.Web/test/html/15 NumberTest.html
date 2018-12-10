@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>Number Test</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link href="../../assets/css/main.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="../../node_modules/three/build/three.js"></script>
+    <script src="../../dist/ShadowEditor.js"></script>
+    <script>
+        var control = Shadow.UI.create({
+            xtype: 'number',
+            value: 0.5,
+            range: [0, 1],
+            step: 0.01,
+            onChange: function () {
+                console.log(`Value: ${this.getValue()}`);
+            }
+        });
+
+        control.render();
+    </script>
+</body>
+
+</html>

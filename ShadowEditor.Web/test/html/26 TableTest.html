@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>Table Test</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link href="../../assets/css/icon/iconfont.css" rel="stylesheet" />
+    <link href="../../assets/css/main.css" rel="stylesheet" />
+    <style>
+        .TableData {
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../../node_modules/three/build/three.js"></script>
+    <script src="../../dist/ShadowEditor.js"></script>
+    <script>
+        var control = UI.create({
+            xtype: 'table',
+            children: [{
+                xtype: 'thead',
+                children: [{
+                    xtype: 'tr',
+                    children: [{
+                        xtype: 'td',
+                        html: '表头1'
+                    }, {
+                        xtype: 'td',
+                        html: '表头2'
+                    }, {
+                        xtype: 'td',
+                        html: '表头3'
+                    }, {
+                        xtype: 'td',
+                        html: '表头4'
+                    }]
+                }]
+            }, {
+                xtype: 'tbody',
+                children: [{
+                    xtype: 'tr',
+                    children: [{
+                        xtype: 'td',
+                        html: '单元格1'
+                    }, {
+                        xtype: 'td',
+                        html: '单元格2'
+                    }, {
+                        xtype: 'td',
+                        html: '单元格3'
+                    }, {
+                        xtype: 'td',
+                        html: '单元格4'
+                    }]
+                }, {
+                    xtype: 'tr',
+                    children: [{
+                        xtype: 'td',
+                        html: '单元格5'
+                    }, {
+                        xtype: 'td',
+                        html: '单元格6'
+                    }, {
+                        xtype: 'td',
+                        html: '单元格7'
+                    }, {
+                        xtype: 'td',
+                        html: '单元格8'
+                    }]
+                }, {
+                    xtype: 'tr',
+                    children: [{
+                        xtype: 'td',
+                        html: '单元格9'
+                    }, {
+                        xtype: 'td',
+                        html: '单元格10'
+                    }, {
+                        xtype: 'td',
+                        html: '单元格11'
+                    }, {
+                        xtype: 'td',
+                        html: '单元格12'
+                    }]
+                }]
+            }]
+        });
+        control.render();
+    </script>
+</body>
+
+</html>
