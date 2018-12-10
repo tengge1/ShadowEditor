@@ -40,6 +40,11 @@ const PackageList = [{
     assets: [
         'assets/js/loaders/BVHLoader.js'
     ]
+}, {
+    name: 'ColladaLoader',
+    assets: [
+        'assets/js/loaders/ColladaLoader.js'
+    ]
 }];
 
 export default PackageList

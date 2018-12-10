@@ -13,46 +13,48 @@ ColladaLoader.prototype.constructor = ColladaLoader;
 
 ColladaLoader.prototype.load = function (url, options) {
     return new Promise(resolve => {
-        var loader = new THREE.ColladaLoader();
+        this.require('ColladaLoader').then(() => {
+            var loader = new THREE.ColladaLoader();
 
-        loader.load(url, collada => {
-            var dae = collada.scene;
+            loader.load(url, collada => {
+                var dae = collada.scene;
 
-            dae.traverse(child => {
-                if (child instanceof THREE.Mesh) {
-                    child.material.flatShading = true;
-                }
-                if (child.isSkinnedMesh) {
-                    child.frustumCulled = false;
-                }
-            });
-
-            if (isNaN(dae.scale.x) || isNaN(dae.scale.y) || isNaN(dae.scale.z)) {
-                dae.scale.x = dae.scale.y = dae.scale.z = 10.0;
-                dae.updateMatrix();
-            }
-
-            Object.assign(dae.userData, {
-                obj: collada,
-                root: dae
-            });
-
-            if (collada.animations && collada.animations.length > 0) {
-                Object.assign(dae.userData, {
-                    animNames: collada.animations.map(n => n.name),
-                    scripts: [{
-                        id: null,
-                        name: `${options.Name}动画`,
-                        type: 'javascript',
-                        source: this.createScripts(options.Name),
-                        uuid: THREE.Math.generateUUID()
-                    }]
+                dae.traverse(child => {
+                    if (child instanceof THREE.Mesh) {
+                        child.material.flatShading = true;
+                    }
+                    if (child.isSkinnedMesh) {
+                        child.frustumCulled = false;
+                    }
                 });
-            }
 
-            resolve(dae);
-        }, undefined, () => {
-            resolve(null);
+                if (isNaN(dae.scale.x) || isNaN(dae.scale.y) || isNaN(dae.scale.z)) {
+                    dae.scale.x = dae.scale.y = dae.scale.z = 10.0;
+                    dae.updateMatrix();
+                }
+
+                Object.assign(dae.userData, {
+                    obj: collada,
+                    root: dae
+                });
+
+                if (collada.animations && collada.animations.length > 0) {
+                    Object.assign(dae.userData, {
+                        animNames: collada.animations.map(n => n.name),
+                        scripts: [{
+                            id: null,
+                            name: `${options.Name}动画`,
+                            type: 'javascript',
+                            source: this.createScripts(options.Name),
+                            uuid: THREE.Math.generateUUID()
+                        }]
+                    });
+                }
+
+                resolve(dae);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };
