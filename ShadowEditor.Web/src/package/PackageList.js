@@ -10,6 +10,11 @@ const PackageList = [{
     assets: [
         'assets/js/loaders/3MFLoader.js'
     ]
+}, {
+    name: 'AMFLoader',
+    assets: [
+        'assets/js/loaders/AMFLoader.js'
+    ]
 }];
 
 export default PackageList
