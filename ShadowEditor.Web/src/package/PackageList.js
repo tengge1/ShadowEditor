@@ -50,6 +50,11 @@ const PackageList = [{
     assets: [
         'assets/js/loaders/FBXLoader.js'
     ]
+}, {
+    name: 'GCodeLoader',
+    assets: [
+        'assets/js/loaders/GCodeLoader.js'
+    ]
 }];
 
 export default PackageList

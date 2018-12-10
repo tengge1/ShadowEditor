@@ -13,12 +13,14 @@ GCodeLoader.prototype.constructor = GCodeLoader;
 
 GCodeLoader.prototype.load = function (url, options) {
     return new Promise(resolve => {
-        var loader = new THREE.GCodeLoader();
+        this.require('GCodeLoader').then(() => {
+            var loader = new THREE.GCodeLoader();
 
-        loader.load(url, obj3d => {
-            resolve(obj3d);
-        }, undefined, () => {
-            resolve(null);
+            loader.load(url, obj3d => {
+                resolve(obj3d);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };
