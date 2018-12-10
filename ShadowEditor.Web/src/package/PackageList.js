@@ -15,6 +15,11 @@ const PackageList = [{
     assets: [
         'assets/js/loaders/AMFLoader.js'
     ]
+}, {
+    name: 'AssimpLoader',
+    assets: [
+        'assets/js/loaders/AssimpLoader.js'
+    ]
 }];
 
 export default PackageList

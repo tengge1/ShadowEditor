@@ -13,31 +13,33 @@ AssimpLoader.prototype.constructor = AssimpLoader;
 
 AssimpLoader.prototype.load = function (url, options) {
     return new Promise(resolve => {
-        var loader = new THREE.AssimpLoader();
-        loader.load(url, result => {
-            var obj = result.object;
+        this.require('AssimpLoader').then(() => {
+            var loader = new THREE.AssimpLoader();
+            loader.load(url, result => {
+                var obj = result.object;
 
-            Object.assign(obj.userData, {
-                obj: result,
-                root: obj
-            });
-
-            if (result.animation) {
                 Object.assign(obj.userData, {
-                    animNames: 'Animation1',
-                    scripts: [{
-                        id: null,
-                        name: `${options.Name}动画`,
-                        type: 'javascript',
-                        source: this.createScripts(options.Name),
-                        uuid: THREE.Math.generateUUID()
-                    }]
+                    obj: result,
+                    root: obj
                 });
-            }
 
-            resolve(obj);
-        }, undefined, () => {
-            resolve(null);
+                if (result.animation) {
+                    Object.assign(obj.userData, {
+                        animNames: 'Animation1',
+                        scripts: [{
+                            id: null,
+                            name: `${options.Name}动画`,
+                            type: 'javascript',
+                            source: this.createScripts(options.Name),
+                            uuid: THREE.Math.generateUUID()
+                        }]
+                    });
+                }
+
+                resolve(obj);
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };
