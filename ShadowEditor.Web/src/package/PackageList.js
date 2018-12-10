@@ -25,6 +25,11 @@ const PackageList = [{
     assets: [
         'assets/js/loaders/AWDLoader.js'
     ]
+}, {
+    name: 'BabylonLoader',
+    assets: [
+        'assets/js/loaders/BabylonLoader.js'
+    ]
 }];
 
 export default PackageList
