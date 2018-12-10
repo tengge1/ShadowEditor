@@ -34,6 +34,10 @@ function Application(container, options) {
     // 配置
     this.options = new Options(options);
 
+    // 包管理器
+    this.packageManager = new PackageManager();
+    this.require = this.packageManager.require.bind(this.packageManager);
+
     // 事件
     this.event = new EventDispatcher(this);
     this.call = this.event.call.bind(this.event);
@@ -77,19 +81,19 @@ function Application(container, options) {
                             flexDirection: 'column'
                         },
                         children: [{
-                                xtype: 'div',
-                                style: {
-                                    position: 'relative',
-                                    flex: 1
-                                },
-                                children: [
-                                    this.viewport,
-                                    this.script,
-                                    this.player
-                                ]
+                            xtype: 'div',
+                            style: {
+                                position: 'relative',
+                                flex: 1
                             },
-                            this.bottomPanel,
-                            this.statusBar
+                            children: [
+                                this.viewport,
+                                this.script,
+                                this.player
+                            ]
+                        },
+                        this.bottomPanel,
+                        this.statusBar
                         ]
                     },
                     this.sidebar2,
@@ -99,10 +103,7 @@ function Application(container, options) {
         ]
     }).render();
 
-    // 核心
-    this.packageManager = new PackageManager('assets');
-    this.packageManager.addFromFile('assets/packages.json');
-
+    // 编辑器
     this.editor = new Editor(this);
     this.physics = new Physics(params);
 
