@@ -89,7 +89,8 @@ var EventList = [
     'animationTime', // 时间轴发送当前动画时间
 
     // 底部面板事件
-    'showBottomPanel', // 显示某个底部面板
+    'selectBottomPanel', // 点击选择某个面板
+    'showBottomPanel', // 显示某个底部面板以后
     'selectModel', // 选择模型
     'selectMap', // 选择贴图
     'selectMaterial', // 选择材质

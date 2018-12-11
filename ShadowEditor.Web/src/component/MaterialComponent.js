@@ -60,7 +60,7 @@ MaterialComponent.prototype.render = function () {
                 onClick: this.onSave.bind(this)
             }, {
                 xtype: 'button',
-                text: '载入',
+                text: '选择',
                 onClick: this.onLoad.bind(this)
             }]
         }, {
@@ -1481,7 +1481,7 @@ MaterialComponent.prototype.commitSave = function (name) {
 };
 
 MaterialComponent.prototype.onLoad = function () {
-    this.app.call(`showBottomPanel`, this, 'material');
+    this.app.call(`selectBottomPanel`, this, 'material');
     UI.msg('请点击材质面板中的材质！');
     this.app.on(`selectMaterial.${this.id}`, this.onWaitingForMaterial.bind(this));
 };

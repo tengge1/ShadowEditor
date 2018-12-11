@@ -199,9 +199,15 @@ BottomPanel.prototype.render = function () {
     this.app.on(`appStarted.${this.id}`, () => {
         this.selectTab('animation');
     });
+
+    this.app.on(`selectBottomPanel.${this.id}`, this.onSelectPanel.bind(this));
 };
 
 BottomPanel.prototype.selectTab = function (tabName) {
+    this.app.call(`selectBottomPanel`, this, tabName);
+};
+
+BottomPanel.prototype.onSelectPanel = function (tabName) {
     var animationTab = UI.get('animationTab');
     var sceneTab = UI.get('sceneTab');
     var modelTab = UI.get('modelTab');
