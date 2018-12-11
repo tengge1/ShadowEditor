@@ -1489,6 +1489,10 @@ MaterialComponent.prototype.onLoad = function () {
 MaterialComponent.prototype.onWaitingForMaterial = function (material) {
     this.app.on(`selectMaterial.${this.id}`, null);
 
+    if (this.selected.material) {
+        this.selected.material.dispose();
+    }
+
     this.selected.material = material;
 
     this.app.call('objectChanged', this, this.selected);
