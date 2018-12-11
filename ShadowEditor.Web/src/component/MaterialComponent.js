@@ -11,6 +11,10 @@ import RawShaderMaterialFragment from './shader/raw_shader_material_fragment.gls
 import TextureSelectControl from '../editor/control/TextureSelectControl';
 import TextureSettingWindow from '../editor/window/TextureSettingWindow';
 
+import MaterialsSerializer from '../serialization/material/MaterialsSerializer';
+
+import Ajax from '../utils/Ajax';
+
 /**
  * 材质组件
  * @author mrdoob / http://mrdoob.com/
@@ -48,11 +52,16 @@ MaterialComponent.prototype.render = function () {
         }, {
             xtype: 'row',
             children: [{
-                xtype: 'button',
-                text: '保存'
+                xtype: 'label',
+                text: ''
             }, {
                 xtype: 'button',
-                text: '载入'
+                text: '保存',
+                onClick: this.onSave.bind(this)
+            }, {
+                xtype: 'button',
+                text: '载入',
+                onClick: this.onLoad.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -301,7 +310,8 @@ MaterialComponent.prototype.render = function () {
                     marginLeft: '4px'
                 },
                 onClick: this.onSetMap.bind(this)
-            }]
+            }
+            ]
         }, {
             xtype: 'row',
             id: 'alphaMapRow',
@@ -1447,6 +1457,31 @@ MaterialComponent.prototype.onSetMap = function () {
 
     this.mapSettingWindow.setData(this.selected.material.map);
     this.mapSettingWindow.show();
+};
+
+// --------------------------------------- 材质保存载入 --------------------------------------------------
+
+MaterialComponent.prototype.onSave = function () {
+    UI.prompt('请输入材质名称', '名称', '新材质', (event, value) => {
+        this.commitSave(value);
+    });
+};
+
+MaterialComponent.prototype.commitSave = function (name) {
+    var material = this.selected.material;
+    var data = (new MaterialsSerializer()).toJSON(material);
+
+    Ajax.post(`/api/Material/Save`, {
+        Name: name,
+        Data: JSON.stringify(data),
+    }, result => {
+        var json = JSON.parse(result);
+        UI.msg('材质保存成功！');
+    });
+};
+
+MaterialComponent.prototype.onLoad = function () {
+    UI.msg('材质载入成功！');
 };
 
 export default MaterialComponent;
