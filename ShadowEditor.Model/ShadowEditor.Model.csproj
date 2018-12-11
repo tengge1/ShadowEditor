@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Material\MaterialType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SceneCategory\SceneCategorySaveModel.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

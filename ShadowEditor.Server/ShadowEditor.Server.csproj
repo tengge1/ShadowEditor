@@ -109,6 +109,7 @@
     <Compile Include="Controllers\MMDController.cs" />
     <Compile Include="Controllers\PublishController.cs" />
     <Compile Include="Controllers\SceneCategoryController.cs" />
+    <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\TextureController.cs" />
     <Compile Include="Controllers\SceneController.cs" />
@@ -121,7 +122,6 @@
     <Compile Include="Helpers\MongoHelper.cs" />
     <Compile Include="Helpers\PinYinHelper.cs" />
     <Compile Include="Helpers\ZipHelper.cs" />
-    <Compile Include="Material\MaterialType.cs" />
     <Compile Include="Mesh\EditMeshModel.cs" />
     <Compile Include="Mesh\IMeshSaver.cs" />
     <Compile Include="Mesh\MeshInfo.cs" />
