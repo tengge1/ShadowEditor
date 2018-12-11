@@ -7,11 +7,11 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Model.Material;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
-using ShadowEditor.Server.Scene;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -37,7 +37,7 @@ namespace ShadowEditor.Server.Controllers
             {
                 var obj = new JObject
                 {
-                    ["ID"] = i["_id"].AsObjectId.ToString(),
+                    ["ID"] = i["ID"].AsObjectId.ToString(),
                     ["Name"] = i["Name"].AsString,
                     ["TotalPinYin"] = i["TotalPinYin"].ToString(),
                     ["FirstPinYin"] = i["FirstPinYin"].ToString(),
@@ -58,12 +58,12 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 编辑信息
+        /// 编辑
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Edit(EditSceneModel model)
+        public JsonResult Edit(MaterialEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -85,15 +85,6 @@ namespace ShadowEditor.Server.Controllers
                 });
             }
 
-            if (model.Name.StartsWith("_"))
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "名称不允许以下划线开头。"
-                });
-            }
-
             var mongo = new MongoHelper();
 
             var pinyin = PinYinHelper.GetTotalPinYin(model.Name);
@@ -102,7 +93,7 @@ namespace ShadowEditor.Server.Controllers
             var update1 = Builders<BsonDocument>.Update.Set("Name", model.Name);
             var update2 = Builders<BsonDocument>.Update.Set("TotalPinYin", pinyin.TotalPinYin);
             var update3 = Builders<BsonDocument>.Update.Set("FirstPinYin", pinyin.FirstPinYin);
-            var update4 = Builders<BsonDocument>.Update.Set("Thumbnail", model.Image);
+            var update4 = Builders<BsonDocument>.Update.Set("Thumbnail", model.Thumbnail);
 
             UpdateDefinition<BsonDocument> update5;
 
@@ -116,7 +107,7 @@ namespace ShadowEditor.Server.Controllers
             }
 
             var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4, update5);
-            mongo.UpdateOne(Constant.SceneCollectionName, filter, update);
+            mongo.UpdateOne(Constant.MaterialCollectionName, filter, update);
 
             return Json(new
             {
@@ -131,7 +122,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model">保存场景模型</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Save(SaveSceneModel model)
+        public JsonResult Save(MaterialSaveModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -140,7 +131,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "场景ID不合法。"
+                    Msg = "ID不合法。"
                 });
             }
 
@@ -149,73 +140,42 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "场景名称不允许为空。"
+                    Msg = "名称不允许为空。"
                 });
             }
 
-            if (model.Name.StartsWith("_"))
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "场景名称不允许以下划线开头。"
-                });
-            }
-
-            // 查询场景信息
+            // 查询
             var mongo = new MongoHelper();
             var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-            var doc = mongo.FindOne(Constant.SceneCollectionName, filter);
+            var doc = mongo.FindOne(Constant.MaterialCollectionName, filter);
 
             var now = DateTime.Now;
 
-            string collectionName;
-
-            if (doc == null) // 新建场景
-            {
-                collectionName = "Scene" + now.ToString("yyyyMMddHHmmss");
-            }
-            else // 编辑场景
-            {
-                collectionName = doc["CollectionName"].ToString();
-            }
-
-            // 保存或更新场景综合信息
-            if (doc == null)
+            if (doc == null) // 新建
             {
                 var pinyin = PinYinHelper.GetTotalPinYin(model.Name);
 
                 doc = new BsonDocument();
                 doc["ID"] = objectId;
                 doc["Name"] = model.Name;
+                doc["CategoryID"] = 0;
+                doc["CategoryName"] = "";
                 doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
                 doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
-                doc["CollectionName"] = collectionName;
                 doc["Version"] = 0;
                 doc["CreateTime"] = BsonDateTime.Create(now);
                 doc["UpdateTime"] = BsonDateTime.Create(now);
-                mongo.InsertOne(Constant.SceneCollectionName, doc);
+                doc["Data"] = BsonDocument.Parse(model.Data);
+                doc["Thumbnail"] = "";
+                mongo.InsertOne(Constant.MaterialCollectionName, doc);
             }
-            else
+            else // 更新
             {
-                var update1 = Builders<BsonDocument>.Update.Set("Version", int.Parse(doc["Version"].ToString()) + 1);
-                var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", BsonDateTime.Create(now));
+                var update1 = Builders<BsonDocument>.Update.Set("UpdateTime", BsonDateTime.Create(now));
+                var update2 = Builders<BsonDocument>.Update.Set("Data", BsonDocument.Parse(model.Data));
                 var update = Builders<BsonDocument>.Update.Combine(update1, update2);
-                mongo.UpdateOne(Constant.SceneCollectionName, filter, update);
+                mongo.UpdateOne(Constant.MaterialCollectionName, filter, update);
             }
-
-            // 保存场景信息
-            var list = JsonHelper.ToObject<JArray>(model.Data);
-
-            var docs = new List<BsonDocument>();
-
-            foreach (var i in list)
-            {
-                docs.Add(BsonDocument.Parse(i.ToString()));
-            }
-
-            mongo.DeleteAll(collectionName);
-            mongo.InsertMany(collectionName, docs);
 
             return Json(new
             {
@@ -226,7 +186,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 删除场景
+        /// 删除
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
@@ -236,29 +196,23 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
-            var doc = mongo.FindOne(Constant.SceneCollectionName, filter);
+            var doc = mongo.FindOne(Constant.MaterialCollectionName, filter);
 
             if (doc == null)
             {
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该场景不存在！"
+                    Msg = "该材质不存在！"
                 });
             }
 
-            // 删除场景综合信息
-            mongo.DeleteOne(Constant.SceneCollectionName, filter);
-
-            var collectionName = doc["CollectionName"].AsString;
-
-            // 删除场景数据集
-            mongo.DropCollection(collectionName);
+            mongo.DeleteOne(Constant.MaterialCollectionName, filter);
 
             return Json(new
             {
                 Code = 200,
-                Msg = "删除场景成功！"
+                Msg = "删除材质成功！"
             });
         }
     }
