@@ -48,6 +48,15 @@ MaterialComponent.prototype.render = function () {
         }, {
             xtype: 'row',
             children: [{
+                xtype: 'button',
+                text: '保存'
+            }, {
+                xtype: 'button',
+                text: '载入'
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
                 xtype: 'label',
                 text: '类型'
             }, {
