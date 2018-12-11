@@ -1481,7 +1481,17 @@ MaterialComponent.prototype.commitSave = function (name) {
 };
 
 MaterialComponent.prototype.onLoad = function () {
-    UI.msg('材质载入成功！');
+    this.app.call(`showBottomPanel`, this, 'material');
+    UI.msg('请点击材质面板中的材质！');
+    this.app.on(`selectMaterial.${this.id}`, this.onWaitingForMaterial.bind(this));
+};
+
+MaterialComponent.prototype.onWaitingForMaterial = function (material) {
+    this.app.on(`selectMaterial.${this.id}`, null);
+
+    this.selected.material = material;
+
+    this.app.call('objectChanged', this, this.selected);
 };
 
 export default MaterialComponent;

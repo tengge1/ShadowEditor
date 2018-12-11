@@ -90,6 +90,11 @@ var EventList = [
 
     // 底部面板事件
     'showBottomPanel', // 显示某个底部面板
+    'selectModel', // 选择模型
+    'selectMap', // 选择贴图
+    'selectMaterial', // 选择材质
+    'selectAudio', // 选择音频
+    'selectParticle', // 选择粒子
 ];
 
 export default EventList;

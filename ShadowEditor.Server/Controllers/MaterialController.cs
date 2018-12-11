@@ -58,6 +58,48 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
+        /// 获取
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult Get(string ID)
+        {
+            var mongo = new MongoHelper();
+
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
+            var doc = mongo.FindOne(Constant.MaterialCollectionName, filter);
+
+            if (doc == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "该材质不存在！"
+                });
+            }
+
+            var obj = new JObject
+            {
+                ["ID"] = doc["ID"].AsObjectId.ToString(),
+                ["Name"] = doc["Name"].AsString,
+                ["TotalPinYin"] = doc["TotalPinYin"].ToString(),
+                ["FirstPinYin"] = doc["FirstPinYin"].ToString(),
+                ["CreateTime"] = doc["CreateTime"].ToUniversalTime(),
+                ["UpdateTime"] = doc["UpdateTime"].ToUniversalTime(),
+                ["Data"] = JsonConvert.DeserializeObject<JObject>(doc["Data"].ToJson()),
+                ["Thumbnail"] = doc["Thumbnail"].ToString(),
+            };
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "获取成功！",
+                Data = obj
+            });
+        }
+
+        /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="model"></param>
