@@ -8,6 +8,7 @@ using System.Web.Http.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
+using ShadowEditor.Model.Material;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using ShadowEditor.Server.Scene;
@@ -15,12 +16,12 @@ using ShadowEditor.Server.Scene;
 namespace ShadowEditor.Server.Controllers
 {
     /// <summary>
-    /// 场景控制器
+    /// 材质控制器
     /// </summary>
     public class MaterialController : ApiBase
     {
         /// <summary>
-        /// 获取场景列表
+        /// 获取列表
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -28,46 +29,25 @@ namespace ShadowEditor.Server.Controllers
         {
             var mongo = new MongoHelper();
 
-            // 获取所有类别
-            var categories = mongo.FindAll(Constant.SceneCategoryCollectionName);
+            var docs = mongo.FindAll(Constant.MaterialCollectionName);
 
-            var scenes = mongo.FindAll(Constant.SceneCollectionName);
+            var list = new JArray();
 
-            var list = new List<SceneModel>();
-
-            foreach (var i in scenes)
+            foreach (var i in docs)
             {
-                var categoryID = "";
-                var categoryName = "";
-
-                if (i.Contains("Category") && !i["Category"].IsBsonNull && !string.IsNullOrEmpty(i["Category"].ToString()))
+                var obj = new JObject
                 {
-                    var doc = categories.Where(n => n["_id"].ToString() == i["Category"].ToString()).FirstOrDefault();
-                    if (doc != null)
-                    {
-                        categoryID = doc["_id"].ToString();
-                        categoryName = doc["Name"].ToString();
-                    }
-                }
-
-                var info = new SceneModel
-                {
-                    ID = i["ID"].AsObjectId.ToString(),
-                    Name = i["Name"].AsString,
-                    CategoryID = categoryID,
-                    CategoryName = categoryName,
-                    TotalPinYin = i["TotalPinYin"].ToString(),
-                    FirstPinYin = i["FirstPinYin"].ToString(),
-                    CollectionName = i["CollectionName"].AsString,
-                    Version = i["Version"].AsInt32,
-                    CreateTime = i["CreateTime"].ToUniversalTime(),
-                    UpdateTime = i["UpdateTime"].ToUniversalTime(),
-                    Thumbnail = i.Contains("Thumbnail") && !i["Thumbnail"].IsBsonNull ? i["Thumbnail"].ToString() : null
+                    ["ID"] = i["_id"].AsObjectId.ToString(),
+                    ["Name"] = i["Name"].AsString,
+                    ["TotalPinYin"] = i["TotalPinYin"].ToString(),
+                    ["FirstPinYin"] = i["FirstPinYin"].ToString(),
+                    ["CreateTime"] = i["CreateTime"].ToUniversalTime(),
+                    ["UpdateTime"] = i["UpdateTime"].ToUniversalTime(),
+                    ["Thumbnail"] = i.Contains("Thumbnail") && !i["Thumbnail"].IsBsonNull ? i["Thumbnail"].ToString() : null
                 };
-                list.Add(info);
-            }
 
-            list = list.OrderByDescending(o => o.UpdateTime).ToList();
+                list.Add(obj);
+            }
 
             return Json(new
             {
@@ -78,49 +58,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 加载场景
-        /// </summary>
-        /// <param name="ID">场景ID</param>
-        /// <returns></returns>
-        [HttpGet]
-        public JsonResult Load(string ID)
-        {
-            var mongo = new MongoHelper();
-
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
-            var doc = mongo.FindOne(Constant.SceneCollectionName, filter);
-
-            if (doc == null)
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "该场景不存在！"
-                });
-            }
-
-            var collectionName = doc["CollectionName"].AsString;
-
-            var docs = mongo.FindAll(collectionName);
-
-            var data = new JArray();
-
-            foreach (var i in docs)
-            {
-                i["_id"] = i["_id"].ToString(); // ObjectId
-                data.Add(JsonHelper.ToObject<JObject>(i.ToJson()));
-            }
-
-            return Json(new
-            {
-                Code = 200,
-                Msg = "获取成功！",
-                Data = data
-            });
-        }
-
-        /// <summary>
-        /// 编辑场景信息
+        /// 编辑信息
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -188,7 +126,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 保存场景
+        /// 保存
         /// </summary>
         /// <param name="model">保存场景模型</param>
         /// <returns></returns>

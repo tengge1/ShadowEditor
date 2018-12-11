@@ -42,6 +42,16 @@ namespace ShadowEditor.Server
         public const string TextureCollectionName = "_Texture";
 
         /// <summary>
+        /// 材质类别表名
+        /// </summary>
+        public const string MaterialCategoryCollectionName = "_MaterialCategory";
+
+        /// <summary>
+        /// 材质表名
+        /// </summary>
+        public const string MaterialCollectionName = "_Material";
+
+        /// <summary>
         /// 音频分类表名
         /// </summary>
         public const string AudioTypeCollectionName = "_AudioType";

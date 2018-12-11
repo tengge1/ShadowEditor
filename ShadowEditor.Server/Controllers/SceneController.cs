@@ -20,7 +20,7 @@ namespace ShadowEditor.Server.Controllers
     public class SceneController : ApiBase
     {
         /// <summary>
-        /// 获取场景列表
+        /// 获取列表
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -78,7 +78,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 加载场景
+        /// 获取场景数据
         /// </summary>
         /// <param name="ID">场景ID</param>
         /// <returns></returns>
@@ -120,7 +120,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 编辑场景信息
+        /// 编辑信息
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -188,7 +188,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 保存场景
+        /// 保存
         /// </summary>
         /// <param name="model">保存场景模型</param>
         /// <returns></returns>
@@ -288,7 +288,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 删除场景
+        /// 删除
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
