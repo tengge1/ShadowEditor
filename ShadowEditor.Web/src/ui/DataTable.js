@@ -33,10 +33,10 @@ DataTable.prototype.render = function () {
     }
 
     // 计算列的总宽度
-    var width = 0;
+    this.totalWidth = 0;
 
     this.cols.forEach(n => {
-        width += n.width || 100;
+        this.totalWidth += n.width || 100;
     });
 
     // 表格头
@@ -58,37 +58,23 @@ DataTable.prototype.render = function () {
         var th = document.createElement('th');
         th.innerHTML = n.title || '&nbsp;';
         Object.assign(th.style, {
-            width: `${this.dom.clientWidth / width * (n.width || 100)}px`
+            width: `${this.dom.clientWidth / this.totalWidth * (n.width || 100)}px`
         });
         tr.appendChild(th);
     });
 
     this.head.appendChild(tr);
 
+    this.refresh();
+};
+
+DataTable.prototype.refresh = function () {
+    this.clear();
+
     // 表格体
     this.body = document.createElement('table');
     this.body.className = 'body';
     this.dom.appendChild(this.body);
-
-    function clickRow(event) {
-        var tr = event.target.parentNode;
-        var index = tr.getAttribute('data-index'); // tr
-        this.selected = this.rows[index];
-
-        var tds = tr.parentNode.children;
-
-        for (var i = 0; i < tds.length; i++) {
-            Object.assign(tds[i].style, {
-                backgroundColor: '',
-                color: ''
-            });
-        }
-
-        Object.assign(tds[index].style, {
-            backgroundColor: '#08f',
-            color: '#fff'
-        });
-    }
 
     this.rows.forEach((n, i) => {
         var tr = document.createElement('tr');
@@ -109,7 +95,7 @@ DataTable.prototype.render = function () {
             }
 
             Object.assign(td.style, {
-                width: `${this.dom.clientWidth / width * (n.width || 100)}px`
+                width: `${this.dom.clientWidth / this.totalWidth * (n.width || 100)}px`
             });
 
             tr.appendChild(td);
@@ -117,14 +103,53 @@ DataTable.prototype.render = function () {
 
         tr.setAttribute('data-index', i);
 
-        tr.addEventListener('click', clickRow.bind(this));
+        tr.addEventListener('click', this._clickRow.bind(this));
 
         this.body.appendChild(tr);
     });
 };
 
+DataTable.prototype._clickRow = function (event) {
+    var tr = event.target.parentNode;
+    var index = tr.getAttribute('data-index'); // tr
+    this.selected = this.rows[index];
+
+    var tds = tr.parentNode.children;
+
+    for (var i = 0; i < tds.length; i++) {
+        Object.assign(tds[i].style, {
+            backgroundColor: '',
+            color: ''
+        });
+    }
+
+    Object.assign(tds[index].style, {
+        backgroundColor: '#08f',
+        color: '#fff'
+    });
+};
+
 DataTable.prototype.getSelected = function () {
     return this.selected;
+};
+
+DataTable.prototype.clear = function () {
+    if (!this.body) {
+        return;
+    }
+
+    var body = this.body;
+
+    while (body.children.length) {
+        var tr = body.children[0];
+        tr.removeEventListener('click', this._clickRow);
+        body.removeChild(tr);
+    }
+
+    this.dom.removeChild(body);
+
+    this.body = null;
+    this.selected = null;
 };
 
 export default DataTable;
