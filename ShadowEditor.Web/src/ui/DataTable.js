@@ -67,12 +67,27 @@ DataTable.prototype.render = function () {
 
     this.head.appendChild(tr);
 
-    this.refresh();
+    this.reload();
 };
 
-DataTable.prototype.refresh = function () {
+DataTable.prototype.reload = function () {
     this.clear();
 
+    if (this.url) {
+        fetch(url).then(response => {
+            if (response.ok) {
+                response.json().then(json => {
+                    this.rows = json.rows;
+                    this._renderData();
+                });
+            }
+        });
+    } else {
+        this._renderData();
+    }
+};
+
+DataTable.prototype._renderData = function () {
     // 表格体
     this.body = document.createElement('table');
     this.body.className = 'body';
