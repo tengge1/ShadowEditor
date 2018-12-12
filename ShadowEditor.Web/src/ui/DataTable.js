@@ -8,8 +8,10 @@ import Control from './Control';
 function DataTable(options = {}) {
     Control.call(this, options);
 
-    this.cols = options.cols || [];
-    this.rows = options.rows || [];
+    this.cols = options.cols || []; // 结构： { field: 'name', title: '姓名', width: 100 }
+    this.rows = options.rows || []; // 结构： { name: '小明', age: 18 }
+
+    this.url = options.url || null; // 返回数据格式：{ total: 100, rows: [{ name: '小明', age: 18 }, ...] }
 
     this.cls = options.cls || 'Table';
     this.style = options.style || null;
