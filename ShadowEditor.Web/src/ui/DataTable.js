@@ -30,6 +30,13 @@ DataTable.prototype.render = function () {
         Object.assign(this.dom.style, this.style);
     }
 
+    // 计算列的总宽度
+    var width = 0;
+
+    this.cols.forEach(n => {
+        width += n.width || 100;
+    });
+
     // 表格头
     this.head = document.createElement('table');
     this.head.className = 'head';
@@ -37,9 +44,20 @@ DataTable.prototype.render = function () {
 
     var tr = document.createElement('tr');
 
-    this.cols.forEach(n => {
+    var th = document.createElement('th'); // 序号列
+    th.innerHTML = '#';
+    Object.assign(th.style, {
+        width: '60px',
+        textAlign: 'center'
+    });
+    tr.appendChild(th);
+
+    this.cols.forEach(n => { // 数据列
         var th = document.createElement('th');
-        th.innerHTML = n.title || '';
+        th.innerHTML = n.title || '&nbsp;';
+        Object.assign(th.style, {
+            width: `${this.dom.clientWidth / width * (n.width || 100)}px`
+        });
         tr.appendChild(th);
     });
 
@@ -50,15 +68,27 @@ DataTable.prototype.render = function () {
     this.body.className = 'body';
     this.dom.appendChild(this.body);
 
-    this.rows.forEach(n => {
+    this.rows.forEach((n, i) => {
         var tr = document.createElement('tr');
 
-        this.cols.forEach(m => {
+        var td = document.createElement('td'); // 序号列
+        td.innerHTML = `${i + 1}`;
+        Object.assign(td.style, {
+            width: '60px',
+            textAlign: 'center'
+        });
+        tr.appendChild(td);
+
+        this.cols.forEach(m => { // 数据列
             var td = document.createElement('td');
 
             if (n[m.field]) {
                 td.innerHTML = n[m.field];
             }
+
+            Object.assign(td.style, {
+                width: `${this.dom.clientWidth / width * (n.width || 100)}px`
+            });
 
             tr.appendChild(td);
         });

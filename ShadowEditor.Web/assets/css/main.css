@@ -412,6 +412,7 @@ div.Table {
     height: 300px;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
@@ -434,6 +435,11 @@ div.Table table.head th {
 
 div.Table table.body tr:nth-child(2n+1) {
     background-color: #ddd;
+}
+
+div.Table table.body tr:hover {
+    background-color: #08f;
+    color: #fff;
 }
 
 div.Table table.body td {
