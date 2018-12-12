@@ -13,6 +13,8 @@ function DataTable(options = {}) {
 
     this.cls = options.cls || 'Table';
     this.style = options.style || null;
+
+    this.selected = null;
 }
 
 DataTable.prototype = Object.create(Control.prototype);
@@ -68,6 +70,26 @@ DataTable.prototype.render = function () {
     this.body.className = 'body';
     this.dom.appendChild(this.body);
 
+    function clickRow(event) {
+        var tr = event.target.parentNode;
+        var index = tr.getAttribute('data-index'); // tr
+        this.selected = this.rows[index];
+
+        var tds = tr.parentNode.children;
+
+        for (var i = 0; i < tds.length; i++) {
+            Object.assign(tds[i].style, {
+                backgroundColor: '',
+                color: ''
+            });
+        }
+
+        Object.assign(tds[index].style, {
+            backgroundColor: '#08f',
+            color: '#fff'
+        });
+    }
+
     this.rows.forEach((n, i) => {
         var tr = document.createElement('tr');
 
@@ -93,8 +115,16 @@ DataTable.prototype.render = function () {
             tr.appendChild(td);
         });
 
+        tr.setAttribute('data-index', i);
+
+        tr.addEventListener('click', clickRow.bind(this));
+
         this.body.appendChild(tr);
     });
+};
+
+DataTable.prototype.getSelected = function () {
+    return this.selected;
 };
 
 export default DataTable;
