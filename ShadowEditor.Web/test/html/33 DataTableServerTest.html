@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>33 DataTableServerTest</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link href="../../assets/css/icon/iconfont.css" rel="stylesheet" />
+    <link href="../../assets/css/main.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script src="../../assets/js/three.js"></script>
+    <script src="../../dist/ShadowEditor.js"></script>
+    <script>
+        var data = JSON.stringify([{
+            name: '小明',
+            age: 18
+        }, {
+            name: '小丽',
+            age: 20
+        }, {
+            name: '小明',
+            age: 18
+        }, {
+            name: '小丽',
+            age: 20
+        }, {
+            name: '小明',
+            age: 18
+        }, {
+            name: '小丽',
+            age: 20
+        }, {
+            name: '小明',
+            age: 18
+        }, {
+            name: '小丽',
+            age: 20
+        }, {
+            name: '小明',
+            age: 18
+        }, {
+            name: '小丽',
+            age: 20
+        }, {
+            name: '小明',
+            age: 18
+        }, {
+            name: '小丽',
+            age: 20
+        }, {
+            name: '小明',
+            age: 18
+        }, {
+            name: '小丽',
+            age: 20
+        }, {
+            name: '小明',
+            age: 18
+        }, {
+            name: '小丽',
+            age: 20
+        }, {
+            name: '小明',
+            age: 18
+        }, {
+            name: '小丽',
+            age: 20
+        }, {
+            name: '小明',
+            age: 18
+        }, {
+            name: '小丽',
+            age: 20
+        }, {
+            name: '小明',
+            age: 18
+        }, {
+            name: '小丽',
+            age: 20
+        }]);
+
+        var blob = new Blob([data], { type: 'application/json' });
+
+        var reader = new FileReader();
+        reader.readAsDataURL(blob);
+
+        var control = UI.create({
+            xtype: 'datatable',
+            cols: [{
+                field: 'name',
+                title: '姓名',
+            }, {
+                field: 'age',
+                title: '年龄',
+            }],
+            rows: rows,
+        });
+        control.render();
+    </script>
+</body>
+
+</html>
