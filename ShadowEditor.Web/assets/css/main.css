@@ -407,6 +407,39 @@ div.Category .item input {
     margin-right: 4px;
 }
 
+div.Table {
+    width: 500px;
+    height: 300px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+div.Table table {
+    width: 100%;
+    border-collapse: collapse;
+    line-height: 24px;
+}
+
+div.Table table.head {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 90;
+}
+
+div.Table table.head th {
+    border: 1px solid #ccc;
+}
+
+div.Table table.body tr:nth-child(2n+1) {
+    background-color: #ddd;
+}
+
+div.Table table.body td {
+    border: 1px solid #ccc;
+}
+
 table.Table {
     width: 100%;
     border-collapse: collapse;
