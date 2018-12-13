@@ -27,13 +27,19 @@ CategoryListWindow.prototype.render = function () {
         height: '400px',
         shade: true,
         bodyStyle: {
-            padding: 0
+            padding: 0,
+            display: 'flex',
+            flexDirection: 'column'
         },
         children: [{
             xtype: 'row',
             style: {
+                position: 'sticky',
+                top: 0,
                 padding: '2px',
-                boxSizing: 'border-box'
+                boxSizing: 'border-box',
+                backgroundColor: '#eee',
+                zIndex: 500
             },
             children: [{
                 xtype: 'button',
@@ -59,7 +65,7 @@ CategoryListWindow.prototype.render = function () {
             style: {
                 width: '100%',
                 height: 'calc(100% - 35px)',
-                padding: '4px',
+                padding: '0',
                 boxSizing: 'border-box'
             }
         }]
