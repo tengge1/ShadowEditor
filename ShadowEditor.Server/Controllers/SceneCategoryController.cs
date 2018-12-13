@@ -11,7 +11,6 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Model.SceneCategory;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
-using ShadowEditor.Server.Scene;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -56,7 +55,7 @@ namespace ShadowEditor.Server.Controllers
         [HttpPost]
         public JsonResult Save(SceneCategorySaveModel model)
         {
-            if (string.IsNullOrEmpty(model.Name.Trim()))
+            if (string.IsNullOrEmpty(model.Name))
             {
                 return Json(new
                 {
