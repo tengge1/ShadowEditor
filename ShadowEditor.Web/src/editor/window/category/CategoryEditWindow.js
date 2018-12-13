@@ -12,6 +12,7 @@ function CategoryEditWindow(options = {}) {
     this.ID = ''; // ObjectId格式
     this.Name = '';
     this.SaveUrl = '';
+    this.callback = null; // 保存回调函数
 }
 
 CategoryEditWindow.prototype = Object.create(UI.Control.prototype);
@@ -70,6 +71,7 @@ CategoryEditWindow.prototype.setData = function (data) {
     this.ID = data.ID;
     this.Name = data.Name;
     this.SaveUrl = data.SaveUrl;
+    this.callback = data.callback || null;
 
     var name = UI.get('name', this.id);
     name.setValue(this.Name);
@@ -98,6 +100,11 @@ CategoryEditWindow.prototype.onSave = function () {
         if (json.Code === 200) {
             this.hide();
         }
+
+        if (typeof (this.callback) === 'function') {
+            this.callback();
+        }
+
         UI.msg(json.Msg);
     });
 };

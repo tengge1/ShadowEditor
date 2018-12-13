@@ -70,14 +70,14 @@ CategoryListWindow.prototype.render = function () {
 CategoryListWindow.prototype.show = function () {
     UI.get('window', this.id).show();
 
-    this.renderData();
+    this.update();
 };
 
 CategoryListWindow.prototype.hide = function () {
     UI.get('window', this.id).hide();
 };
 
-CategoryListWindow.prototype.renderData = function () {
+CategoryListWindow.prototype.update = function () {
     var list = UI.get('list', this.id);
 
     list.clear();
@@ -105,7 +105,8 @@ CategoryListWindow.prototype.addCategory = function () {
     this.editWin.setData({
         ID: '',
         Name: '',
-        SaveUrl: '/api/SceneCategory/Save'
+        SaveUrl: '/api/SceneCategory/Save',
+        callback: this.update.bind(this)
     });
 
     this.editWin.show();
