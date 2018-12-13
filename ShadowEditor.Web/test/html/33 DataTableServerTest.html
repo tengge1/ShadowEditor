@@ -14,78 +14,80 @@
     <script src="../../assets/js/three.js"></script>
     <script src="../../dist/ShadowEditor.js"></script>
     <script>
-        var data = JSON.stringify([{
-            name: '小明',
-            age: 18
-        }, {
-            name: '小丽',
-            age: 20
-        }, {
-            name: '小明',
-            age: 18
-        }, {
-            name: '小丽',
-            age: 20
-        }, {
-            name: '小明',
-            age: 18
-        }, {
-            name: '小丽',
-            age: 20
-        }, {
-            name: '小明',
-            age: 18
-        }, {
-            name: '小丽',
-            age: 20
-        }, {
-            name: '小明',
-            age: 18
-        }, {
-            name: '小丽',
-            age: 20
-        }, {
-            name: '小明',
-            age: 18
-        }, {
-            name: '小丽',
-            age: 20
-        }, {
-            name: '小明',
-            age: 18
-        }, {
-            name: '小丽',
-            age: 20
-        }, {
-            name: '小明',
-            age: 18
-        }, {
-            name: '小丽',
-            age: 20
-        }, {
-            name: '小明',
-            age: 18
-        }, {
-            name: '小丽',
-            age: 20
-        }, {
-            name: '小明',
-            age: 18
-        }, {
-            name: '小丽',
-            age: 20
-        }, {
-            name: '小明',
-            age: 18
-        }, {
-            name: '小丽',
-            age: 20
-        }]);
+        var data = JSON.stringify({
+            total: 100,
+            rows: [{
+                name: '小明',
+                age: 18
+            }, {
+                name: '小丽',
+                age: 20
+            }, {
+                name: '小明',
+                age: 18
+            }, {
+                name: '小丽',
+                age: 20
+            }, {
+                name: '小明',
+                age: 18
+            }, {
+                name: '小丽',
+                age: 20
+            }, {
+                name: '小明',
+                age: 18
+            }, {
+                name: '小丽',
+                age: 20
+            }, {
+                name: '小明',
+                age: 18
+            }, {
+                name: '小丽',
+                age: 20
+            }, {
+                name: '小明',
+                age: 18
+            }, {
+                name: '小丽',
+                age: 20
+            }, {
+                name: '小明',
+                age: 18
+            }, {
+                name: '小丽',
+                age: 20
+            }, {
+                name: '小明',
+                age: 18
+            }, {
+                name: '小丽',
+                age: 20
+            }, {
+                name: '小明',
+                age: 18
+            }, {
+                name: '小丽',
+                age: 20
+            }, {
+                name: '小明',
+                age: 18
+            }, {
+                name: '小丽',
+                age: 20
+            }, {
+                name: '小明',
+                age: 18
+            }, {
+                name: '小丽',
+                age: 20
+            }]
+        });
 
         var blob = new Blob([data], { type: 'application/json' });
 
-        var reader = new FileReader();
-        reader.readAsDataURL(blob);
+        var url = URL.createObjectURL(blob);
 
         var control = UI.create({
             xtype: 'datatable',
@@ -96,7 +98,7 @@
                 field: 'age',
                 title: '年龄',
             }],
-            rows: rows,
+            url: url,
         });
         control.render();
     </script>

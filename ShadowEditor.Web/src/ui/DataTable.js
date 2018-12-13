@@ -93,6 +93,10 @@ DataTable.prototype._renderData = function () {
     this.body.className = 'body';
     this.dom.appendChild(this.body);
 
+    if (!this.rows) {
+        return;
+    }
+
     this.rows.forEach((n, i) => {
         var tr = document.createElement('tr');
 
