@@ -1,30 +1,30 @@
-import UI from '../../ui/UI';
-import Ajax from '../../utils/Ajax';
+import UI from '../../../ui/UI';
+import CategoryEditWindow from './CategoryEditWindow';
 
 /**
- * 类别编辑窗口
+ * 类别列表窗口
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function CategoryEditWindow(options = {}) {
+function CategoryListWindow(options = {}) {
     UI.Control.call(this, options);
 
     this.app = options.app;
     this.type = options.type || 'scene'; // 类型类型：scene, model, map, texture, audio, particle
 }
 
-CategoryEditWindow.prototype = Object.create(UI.Control.prototype);
-CategoryEditWindow.prototype.constructor = CategoryEditWindow;
+CategoryListWindow.prototype = Object.create(UI.Control.prototype);
+CategoryListWindow.prototype.constructor = CategoryListWindow;
 
-CategoryEditWindow.prototype.render = function () {
+CategoryListWindow.prototype.render = function () {
     var container = UI.create({
         xtype: 'window',
         id: 'window',
         scope: this.id,
         parent: this.parent,
-        title: '编辑类别',
-        width: '400px',
-        height: '320px',
+        title: '类别列表',
+        width: '500px',
+        height: '400px',
         shade: true,
         bodyStyle: {
             padding: 0
@@ -37,13 +37,16 @@ CategoryEditWindow.prototype.render = function () {
             },
             children: [{
                 xtype: 'button',
-                text: '添加'
+                text: '添加',
+                onClick: this.addCategory.bind(this)
             }, {
                 xtype: 'button',
-                text: '编辑'
+                text: '编辑',
+                onClick: this.editCategory.bind(this)
             }, {
                 xtype: 'button',
-                text: '删除'
+                text: '删除',
+                onClick: this.deleteCategory.bind(this)
             }]
         }, {
             xtype: 'datatable',
@@ -64,17 +67,17 @@ CategoryEditWindow.prototype.render = function () {
     container.render();
 };
 
-CategoryEditWindow.prototype.show = function () {
+CategoryListWindow.prototype.show = function () {
     UI.get('window', this.id).show();
 
     this.renderData();
 };
 
-CategoryEditWindow.prototype.hide = function () {
+CategoryListWindow.prototype.hide = function () {
     UI.get('window', this.id).hide();
 };
 
-CategoryEditWindow.prototype.renderData = function () {
+CategoryListWindow.prototype.renderData = function () {
     var list = UI.get('list', this.id);
 
     list.clear();
@@ -91,4 +94,29 @@ CategoryEditWindow.prototype.renderData = function () {
     }
 };
 
-export default CategoryEditWindow;
+CategoryListWindow.prototype.addCategory = function () {
+    if (this.editWin === undefined) {
+        this.editWin = new CategoryEditWindow({
+            app: this.app
+        });
+        this.editWin.render();
+    }
+
+    this.editWin.setData({
+        ID: '',
+        Name: '',
+        SaveUrl: '/api/SceneCategory/Save'
+    });
+
+    this.editWin.show();
+};
+
+CategoryListWindow.prototype.editCategory = function () {
+
+};
+
+CategoryListWindow.prototype.deleteCategory = function () {
+
+};
+
+export default CategoryListWindow;

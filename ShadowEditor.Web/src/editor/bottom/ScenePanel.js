@@ -111,7 +111,7 @@ ScenePanel.prototype.renderUI = function () {
                 scope: this.id,
                 style: {
                     width: '100%',
-                    height: '100%',
+                    maxHeight: '100%',
                 },
                 onClick: this.onClick.bind(this)
             }]

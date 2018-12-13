@@ -1,5 +1,5 @@
 import UI from '../../ui/UI';
-import CategoryEditWindow from './CategoryEditWindow';
+import CategoryListWindow from './category/CategoryListWindow';
 import Ajax from '../../utils/Ajax';
 
 /**
@@ -170,15 +170,15 @@ SceneEditWindow.prototype.save = function () {
 // ----------------------------- 类别编辑 ----------------------------------------
 
 SceneEditWindow.prototype.onEditCategory = function () {
-    if (this.editCategoryWin === undefined) {
-        this.editCategoryWin = new CategoryEditWindow({
+    if (this.categoryListWin === undefined) {
+        this.categoryListWin = new CategoryListWindow({
             app: this.app,
             type: 'scene'
         });
-        this.editCategoryWin.render();
+        this.categoryListWin.render();
     }
 
-    this.editCategoryWin.show();
+    this.categoryListWin.show();
 };
 
 export default SceneEditWindow;
