@@ -227,7 +227,7 @@ div.Window .header .CloseButton {
 
 div.Window .body {
     position: relative;
-    height: calc(100% - 35px);
+    max-height: calc(100% - 35px);
     background-color: #eee;
     flex: 1;
     padding: 8px;

@@ -1,4 +1,5 @@
 import UI from '../../ui/UI';
+import CategoryEditWindow from './CategoryEditWindow';
 import Ajax from '../../utils/Ajax';
 
 /**
@@ -53,7 +54,8 @@ SceneEditWindow.prototype.render = function () {
                     position: 'absolute',
                     right: 0,
                     marginRight: '24px'
-                }
+                },
+                onClick: this.onEditCategory.bind(this)
             }]
         }, {
             xtype: 'row',
@@ -163,6 +165,20 @@ SceneEditWindow.prototype.save = function () {
             }
         }
     });
+};
+
+// ----------------------------- 类别编辑 ----------------------------------------
+
+SceneEditWindow.prototype.onEditCategory = function () {
+    if (this.editCategoryWin === undefined) {
+        this.editCategoryWin = new CategoryEditWindow({
+            app: this.app,
+            type: 'scene'
+        });
+        this.editCategoryWin.render();
+    }
+
+    this.editCategoryWin.show();
 };
 
 export default SceneEditWindow;
