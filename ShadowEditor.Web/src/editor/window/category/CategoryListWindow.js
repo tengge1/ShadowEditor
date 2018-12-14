@@ -103,7 +103,7 @@ CategoryListWindow.prototype.update = function () {
     }
 };
 
-CategoryListWindow.prototype.addCategory = function () {
+CategoryListWindow.prototype.createEditWin = function () {
     if (this.editWin === undefined) {
         this.editWin = new CategoryEditWindow({
             app: this.app,
@@ -112,6 +112,10 @@ CategoryListWindow.prototype.addCategory = function () {
         });
         this.editWin.render();
     }
+};
+
+CategoryListWindow.prototype.addCategory = function () {
+    this.createEditWin();
 
     this.editWin.setData({
         ID: '',
@@ -122,7 +126,22 @@ CategoryListWindow.prototype.addCategory = function () {
 };
 
 CategoryListWindow.prototype.editCategory = function () {
+    this.createEditWin();
 
+    var list = UI.get('list', this.id);
+    var selected = list.getSelected();
+
+    if (selected == null) {
+        UI.msg('请选择类别！');
+        return;
+    }
+
+    this.editWin.setData({
+        ID: selected.ID,
+        Name: selected.Name
+    });
+
+    this.editWin.show();
 };
 
 CategoryListWindow.prototype.deleteCategory = function () {
