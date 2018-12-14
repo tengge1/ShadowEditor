@@ -122,7 +122,7 @@ SceneEditWindow.prototype.updateUI = function () {
 
     category.clear();
 
-    fetch(`/api/SceneCategory/List`).then(response => {
+    fetch(`/api/Category/List?Type=Scene`).then(response => {
         if (response.ok) {
             response.json().then(json => {
                 var options = {

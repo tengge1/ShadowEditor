@@ -90,7 +90,7 @@ CategoryListWindow.prototype.update = function () {
     list.clear();
 
     if (this.type === 'scene') {
-        fetch(`/api/SceneCategory/List`).then(response => {
+        fetch(`/api/Category/List?Type=${this.type}`).then(response => {
             if (response.ok) {
                 response.json().then(json => {
                     list.rows = json.Data;
@@ -104,16 +104,16 @@ CategoryListWindow.prototype.update = function () {
 CategoryListWindow.prototype.addCategory = function () {
     if (this.editWin === undefined) {
         this.editWin = new CategoryEditWindow({
-            app: this.app
+            app: this.app,
+            type: this.type,
+            callback: this.update.bind(this)
         });
         this.editWin.render();
     }
 
     this.editWin.setData({
         ID: '',
-        Name: '',
-        SaveUrl: '/api/SceneCategory/Save',
-        callback: this.update.bind(this)
+        Name: ''
     });
 
     this.editWin.show();

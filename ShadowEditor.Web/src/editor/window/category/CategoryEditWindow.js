@@ -11,8 +11,9 @@ function CategoryEditWindow(options = {}) {
 
     this.ID = ''; // ObjectId格式
     this.Name = '';
-    this.SaveUrl = '';
-    this.callback = null; // 保存回调函数
+
+    this.type = options.type || '';
+    this.callback = options.callback || null; // 保存回调函数
 }
 
 CategoryEditWindow.prototype = Object.create(UI.Control.prototype);
@@ -70,8 +71,6 @@ CategoryEditWindow.prototype.render = function () {
 CategoryEditWindow.prototype.setData = function (data) {
     this.ID = data.ID;
     this.Name = data.Name;
-    this.SaveUrl = data.SaveUrl;
-    this.callback = data.callback || null;
 
     var name = UI.get('name', this.id);
     name.setValue(this.Name);
@@ -92,9 +91,10 @@ CategoryEditWindow.prototype.onSave = function () {
     body.append('ID', this.ID);
     body.append('Name', this.Name);
 
-    Ajax.post(this.SaveUrl, {
+    Ajax.post('/api/Category/Save', {
         ID: this.ID,
-        Name: this.Name
+        Name: this.Name,
+        Type: this.type
     }, result => {
         var json = JSON.parse(result);
         if (json.Code === 200) {
