@@ -15,7 +15,6 @@ function ScenePanel(options) {
 
     this.firstShow = true;
 
-    this.keywords = '';
     this.data = [];
 };
 
@@ -85,16 +84,9 @@ ScenePanel.prototype.renderUI = function () {
                 },
                 children: [{
                     xtype: 'category',
-                    options: {
-                        category1: '分类1',
-                        category2: '分类2',
-                        category3: '分类3',
-                        category4: '分类4',
-                        category5: '分类5',
-                        category6: '分类6',
-                        category7: '分类7',
-                        category8: '分类8',
-                    }
+                    id: 'category',
+                    scope: this.id,
+                    onChange: this.onSearch.bind(this)
                 }]
             }]
         }, {
@@ -124,29 +116,57 @@ ScenePanel.prototype.renderUI = function () {
 };
 
 ScenePanel.prototype.update = function () {
-    var server = this.app.options.server;
+    this.updateCategory();
+    this.updateList();
+};
 
-    this.keywords = '';
+ScenePanel.prototype.updateCategory = function () {
+    var category = UI.get('category', this.id);
+    category.clear();
 
-    Ajax.getJson(`${server}/api/Scene/List`, obj => {
-        this.data = obj.Data;
-        this.onSearch('');
+    Ajax.getJson(`/api/Category/List?type=Scene`, obj => {
+        category.options = {};
+        obj.Data.forEach(n => {
+            category.options[n.ID] = n.Name;
+        });
+        category.render();
     });
 };
 
-ScenePanel.prototype.onSearch = function (name) {
-    if (name.trim() === '') {
-        this.renderList(this.data);
-        return;
+ScenePanel.prototype.updateList = function () {
+    var search = UI.get('search', this.id);
+
+    Ajax.getJson(`/api/Scene/List`, obj => {
+        this.data = obj.Data;
+        search.setValue('');
+        this.onSearch();
+    });
+};
+
+ScenePanel.prototype.onSearch = function () {
+    var search = UI.get('search', this.id);
+    var category = UI.get('category', this.id);
+
+    var name = search.getValue();
+    var categories = category.getValue();
+
+    var list = this.data;
+
+    if (name.trim() !== '') {
+        name = name.toLowerCase();
+
+        list = list.filter(n => {
+            return n.Name.indexOf(name) > -1 ||
+                n.FirstPinYin.indexOf(name) > -1 ||
+                n.TotalPinYin.indexOf(name) > -1;
+        });
     }
 
-    name = name.toLowerCase();
-
-    var list = this.data.filter(n => {
-        return n.Name.indexOf(name) > -1 ||
-            n.FirstPinYin.indexOf(name) > -1 ||
-            n.TotalPinYin.indexOf(name) > -1;
-    });
+    if (categories.length > 0) {
+        list = list.filter(n => {
+            return categories.indexOf(n.CategoryID) > -1;
+        });
+    }
 
     this.renderList(list);
 };
