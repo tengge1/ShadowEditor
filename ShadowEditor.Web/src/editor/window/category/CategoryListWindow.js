@@ -29,7 +29,8 @@ CategoryListWindow.prototype.render = function () {
         bodyStyle: {
             padding: 0,
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            border: 'none'
         },
         children: [{
             xtype: 'row',

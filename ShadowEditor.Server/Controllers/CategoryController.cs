@@ -8,26 +8,39 @@ using System.Web.Http.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
-using ShadowEditor.Model.SceneCategory;
+using ShadowEditor.Model.Category;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 
 namespace ShadowEditor.Server.Controllers
 {
     /// <summary>
-    /// 场景类别控制器
+    /// 类别控制器
     /// </summary>
-    public class SceneCategoryController : ApiBase
+    public class CategoryController : ApiBase
     {
         /// <summary>
         /// 获取列表
         /// </summary>
+        /// <param name="type">类型</param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult List()
+        public JsonResult List(CategoryType? type)
         {
             var mongo = new MongoHelper();
-            var docs = mongo.FindAll(Constant.SceneCategoryCollectionName);
+
+            if (type == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "类型不允许为空！"
+                });
+            }
+
+            var filter = Builders<BsonDocument>.Filter.Eq("Type", type.Value.ToString());
+
+            var docs = mongo.FindMany(Constant.CategoryCollectionName, filter);
 
             var list = new JArray();
 
@@ -53,14 +66,23 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Save(SceneCategorySaveModel model)
+        public JsonResult Save(CategorySaveModel model)
         {
             if (string.IsNullOrEmpty(model.Name))
             {
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "场景类别名称不允许为空！"
+                    Msg = "名称不允许为空！"
+                });
+            }
+
+            if (model.Type == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "类型不允许为空！"
                 });
             }
 
@@ -70,13 +92,16 @@ namespace ShadowEditor.Server.Controllers
             {
                 var doc = new BsonDocument();
                 doc["Name"] = model.Name;
-                mongo.InsertOne(Constant.SceneCategoryCollectionName, doc);
+                doc["Type"] = model.Type.Value.ToString();
+                mongo.InsertOne(Constant.CategoryCollectionName, doc);
             }
             else
             {
                 var filter = Builders<BsonDocument>.Filter.Eq("_id", ObjectId.Parse(model.ID));
-                var update = Builders<BsonDocument>.Update.Set("Name", BsonString.Create(model.Name));
-                mongo.UpdateOne(Constant.SceneCategoryCollectionName, filter, update);
+                var update1 = Builders<BsonDocument>.Update.Set("Name", BsonString.Create(model.Name));
+                var update2 = Builders<BsonDocument>.Update.Set("Type", BsonString.Create(model.Type.Value.ToString()));
+                var update = Builders<BsonDocument>.Update.Combine(update1, update2);
+                mongo.UpdateOne(Constant.CategoryCollectionName, filter, update);
             }
 
             return Json(new
@@ -97,12 +122,12 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("_id", ObjectId.Parse(ID));
-            mongo.DeleteOne(Constant.SceneCategoryCollectionName, filter);
+            mongo.DeleteOne(Constant.CategoryCollectionName, filter);
 
             return Json(new
             {
                 Code = 200,
-                Msg = "删除场景成功！"
+                Msg = "删除成功！"
             });
         }
     }

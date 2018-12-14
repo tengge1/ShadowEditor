@@ -12,9 +12,9 @@ namespace ShadowEditor.Server
     public static class Constant
     {
         /// <summary>
-        /// 场景类别表名
+        /// 类别表名
         /// </summary>
-        public const string SceneCategoryCollectionName = "_SceneCategory";
+        public const string CategoryCollectionName = "_Category";
 
         /// <summary>
         /// 场景表名
@@ -22,19 +22,9 @@ namespace ShadowEditor.Server
         public const string SceneCollectionName = "_Scene";
 
         /// <summary>
-        /// 模型分类表名
-        /// </summary>
-        public const string MeshTypeCollectionName = "_MeshType";
-
-        /// <summary>
         /// 模型表名
         /// </summary>
         public const string MeshCollectionName = "_Mesh";
-
-        /// <summary>
-        /// 纹理类型表名
-        /// </summary>
-        public const string TextureTypeCollectionName = "_TextureType";
 
         /// <summary>
         /// 纹理表名
@@ -42,19 +32,9 @@ namespace ShadowEditor.Server
         public const string TextureCollectionName = "_Texture";
 
         /// <summary>
-        /// 材质类别表名
-        /// </summary>
-        public const string MaterialCategoryCollectionName = "_MaterialCategory";
-
-        /// <summary>
         /// 材质表名
         /// </summary>
         public const string MaterialCollectionName = "_Material";
-
-        /// <summary>
-        /// 音频分类表名
-        /// </summary>
-        public const string AudioTypeCollectionName = "_AudioType";
 
         /// <summary>
         /// 音频表名

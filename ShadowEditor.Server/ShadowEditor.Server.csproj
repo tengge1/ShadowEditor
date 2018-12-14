@@ -108,7 +108,7 @@
     <Compile Include="Controllers\AudioController.cs" />
     <Compile Include="Controllers\MMDController.cs" />
     <Compile Include="Controllers\PublishController.cs" />
-    <Compile Include="Controllers\SceneCategoryController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\TextureController.cs" />
