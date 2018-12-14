@@ -197,7 +197,7 @@ div.Modal.NoShade {
 
 div.Modal .Container {
     position: relative;
-    background-color: #fff;
+    background-color: #eee;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
     visibility: visible;
 }
@@ -410,7 +410,6 @@ div.Category .item input {
 div.Table {
     width: 500px;
     height: 300px;
-    border: 1px solid #ccc;
     box-sizing: border-box;
     overflow-x: hidden;
     overflow-y: auto;

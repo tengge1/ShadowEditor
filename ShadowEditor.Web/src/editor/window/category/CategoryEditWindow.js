@@ -30,7 +30,9 @@ CategoryEditWindow.prototype.render = function () {
         height: '240px',
         shade: true,
         bodyStyle: {
-            padding: 0
+            height: 'calc(100% - 35px)',
+            padding: '24px',
+            boxSizing: 'border-box'
         },
         children: [{
             xtype: 'row',

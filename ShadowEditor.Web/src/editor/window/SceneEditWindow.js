@@ -173,7 +173,8 @@ SceneEditWindow.prototype.onEditCategory = function () {
     if (this.categoryListWin === undefined) {
         this.categoryListWin = new CategoryListWindow({
             app: this.app,
-            type: 'scene'
+            type: 'scene',
+            title: '场景类别',
         });
         this.categoryListWin.render();
     }

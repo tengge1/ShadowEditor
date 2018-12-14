@@ -1,5 +1,6 @@
 import UI from '../../../ui/UI';
 import CategoryEditWindow from './CategoryEditWindow';
+import Ajax from '../../../utils/Ajax';
 
 /**
  * 类别列表窗口
@@ -11,6 +12,7 @@ function CategoryListWindow(options = {}) {
 
     this.app = options.app;
     this.type = options.type || 'scene'; // 类型类型：scene, model, map, texture, audio, particle
+    this.title = options.title || '类别列表';
 }
 
 CategoryListWindow.prototype = Object.create(UI.Control.prototype);
@@ -22,7 +24,7 @@ CategoryListWindow.prototype.render = function () {
         id: 'window',
         scope: this.id,
         parent: this.parent,
-        title: '类别列表',
+        title: this.title,
         width: '500px',
         height: '400px',
         shade: true,
@@ -124,7 +126,25 @@ CategoryListWindow.prototype.editCategory = function () {
 };
 
 CategoryListWindow.prototype.deleteCategory = function () {
+    var list = UI.get('list', this.id);
+    var selected = list.getSelected();
 
+    if (selected == null) {
+        UI.msg('请选择类别！');
+        return;
+    }
+
+    UI.confirm('询问', '是否删除该类别？', (event, btn) => {
+        if (btn === 'ok') {
+            Ajax.post(`/api/Category/Delete?ID=${selected.ID}`, result => {
+                var obj = JSON.parse(result);
+                if (obj.Code === 200) {
+                    this.update();
+                }
+                UI.msg('删除成功！');
+            });
+        }
+    });
 };
 
 export default CategoryListWindow;
