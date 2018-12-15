@@ -546,7 +546,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '放射贴图'
+                text: '发光纹理'
             }, {
                 xtype: 'checkbox',
                 id: 'emissiveMapEnabled',
