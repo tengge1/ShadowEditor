@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.Mesh
+namespace ShadowEditor.Model.Mesh
 {
     /// <summary>
     /// 模型类型

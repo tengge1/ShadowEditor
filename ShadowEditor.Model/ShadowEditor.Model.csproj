@@ -45,6 +45,9 @@
     <Compile Include="Material\MaterialModel.cs" />
     <Compile Include="Material\MaterialSaveModel.cs" />
     <Compile Include="Material\MaterialType.cs" />
+    <Compile Include="Mesh\MeshEditModel.cs" />
+    <Compile Include="Mesh\MeshModel.cs" />
+    <Compile Include="Mesh\MeshType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Category\CategorySaveModel.cs" />
   </ItemGroup>

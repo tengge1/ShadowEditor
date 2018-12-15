@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using MongoDB.Bson;
+using ShadowEditor.Model.Mesh;
 using ShadowEditor.Server.Helpers;
 
 namespace ShadowEditor.Server.Mesh
@@ -13,7 +14,7 @@ namespace ShadowEditor.Server.Mesh
     /// <summary>
     /// 模型保存器
     /// </summary>
-    public class MeshSaver : IMeshSaver
+    public class MeshSaver
     {
         public Result Save(HttpContext context)
         {

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.Mesh
+namespace ShadowEditor.Model.Mesh
 {
     /// <summary>
     /// 模型信息
     /// </summary>
-    public class MeshInfo
+    public class MeshModel
     {
         /// <summary>
         /// 模型名称（改名前等同于上传文件名称）

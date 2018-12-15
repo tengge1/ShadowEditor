@@ -9,7 +9,7 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using Newtonsoft.Json.Linq;
+using ShadowEditor.Model.Mesh;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using ShadowEditor.Server.Mesh;
@@ -17,7 +17,7 @@ using ShadowEditor.Server.Mesh;
 namespace ShadowEditor.Server.Controllers
 {
     /// <summary>
-    /// 模型控制器
+    /// 网格控制器
     /// </summary>
     public class MeshController : ApiBase
     {
@@ -69,7 +69,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Edit(EditMeshModel model)
+        public JsonResult Edit(MeshEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
