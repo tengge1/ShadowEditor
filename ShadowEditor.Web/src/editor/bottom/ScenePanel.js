@@ -1,6 +1,6 @@
 import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
-import SceneEditWindow from '../window/SceneEditWindow';
+import EditWindow from '../window/EditWindow';
 import Converter from '../../serialization/Converter';
 import AnimationGroup from '../../animation/AnimationGroup';
 import Animation from '../../animation/Animation';
@@ -63,13 +63,6 @@ ScenePanel.prototype.renderUI = function () {
                     display: 'flex'
                 },
                 children: [{
-                    xtype: 'iconbutton',
-                    icon: 'icon-save',
-                    style: {
-                        padding: '2px'
-                    },
-                    onClick: this.onSave.bind(this)
-                }, {
                     xtype: 'searchfield',
                     id: 'search',
                     scope: this.id,
@@ -348,19 +341,16 @@ ScenePanel.prototype.onLoadScene = function (obj) {
     this.app.call('sceneLoaded', this);
 };
 
-// ------------------------------- 保存场景 --------------------------------------
-
-ScenePanel.prototype.onSave = function () {
-    UI.msg('场景保存成功！');
-};
-
 // ------------------------------- 编辑场景 ---------------------------------------
 
 ScenePanel.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
-        this.editWindow = new SceneEditWindow({
+        this.editWindow = new EditWindow({
             app: this.app,
             parent: document.body,
+            type: 'Scene',
+            typeName: '场景',
+            saveUrl: '/api/Scene/Edit',
             callback: this.update.bind(this)
         });
         this.editWindow.render();
