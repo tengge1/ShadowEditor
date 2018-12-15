@@ -11,7 +11,7 @@ function CategoryListWindow(options = {}) {
     UI.Control.call(this, options);
 
     this.app = options.app;
-    this.type = options.type || 'scene'; // 类型类型：scene, model, map, texture, audio, particle
+    this.type = options.type || 'Scene'; // 类型类型：Scene, Model, Map, Texture, Audio, Particle
     this.title = options.title || '类别列表';
 }
 
@@ -91,16 +91,10 @@ CategoryListWindow.prototype.update = function () {
 
     list.clear();
 
-    if (this.type === 'scene') {
-        fetch(`/api/Category/List?Type=${this.type}`).then(response => {
-            if (response.ok) {
-                response.json().then(json => {
-                    list.rows = json.Data;
-                    list.reload();
-                });
-            }
-        });
-    }
+    Ajax.getJson(`/api/Category/List?Type=${this.type}`, json => {
+        list.rows = json.Data;
+        list.reload();
+    });
 };
 
 CategoryListWindow.prototype.createEditWin = function () {

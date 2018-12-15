@@ -1,6 +1,9 @@
 import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
-import ModelEditWindow from '../window/ModelEditWindow';
+import EditWindow from '../window/EditWindow';
+import ModelLoader from '../../loader/ModelLoader';
+import AddObjectCommand from '../../command/AddObjectCommand';
+import UploadUtils from '../../utils/UploadUtils';
 
 /**
  * 模型面板
@@ -62,6 +65,7 @@ ModelPanel.prototype.renderUI = function () {
                 children: [{
                     xtype: 'iconbutton',
                     icon: 'icon-upload',
+                    title: '上传',
                     style: {
                         padding: '2px'
                     },
@@ -207,23 +211,82 @@ ModelPanel.prototype.onClick = function (event, index, btn, control) {
 
 // ------------------------------------- 添加 ------------------------------------
 
-ModelPanel.prototype.onAddMesh = function (data) {
-    UI.Msg('模型添加成功！');
+ModelPanel.prototype.onAddMesh = function (model) {
+    var loader = new ModelLoader(this.app);
+
+    var url = model.Url;
+
+    if (model.Url.indexOf(';') > -1) { // 包含多个入口文件
+        url = url.split(';').map(n => this.app.options.server + n);
+    } else {
+        url = this.app.options.server + model.Url;
+    }
+
+    loader.load(url, model).then(obj => {
+        if (!obj) {
+            return;
+        }
+        obj.name = model.Name;
+
+        Object.assign(obj.userData, model, {
+            Server: true
+        });
+
+        var cmd = new AddObjectCommand(obj);
+        cmd.execute();
+
+        if (obj.userData.scripts) {
+            obj.userData.scripts.forEach(n => {
+                this.app.editor.scripts[n.uuid] = n;
+            });
+            this.app.call('scriptChanged', this);
+        }
+    });
 };
 
 // ----------------------------------- 上传 ----------------------------------------
 
 ModelPanel.prototype.onUpload = function () {
-    UI.msg('模型上传成功！');
+    if (this.input === undefined) {
+        this.input = document.createElement('input');
+        this.input.id = `file_${this.id}`;
+        this.input.type = 'file';
+        this.input.style.display = 'none';
+        this.input.addEventListener('change', this.onCommitUpload.bind(this));
+        document.body.appendChild(this.input);
+    }
+
+    this.input.value = null;
+    this.input.click();
+};
+
+ModelPanel.prototype.onCommitUpload = function () {
+    UploadUtils.upload(`file_${this.id}`, `/api/Mesh/Add`, event => {
+        if (event.target.status === 200) {
+            var response = event.target.response;
+            var obj = JSON.parse(response);
+            UI.msg(obj.Msg);
+            if (obj.Code === 200) {
+                this.updateList();
+            }
+        } else {
+            UI.msg('上传失败！');
+        }
+    }, () => {
+        UI.msg('上传失败！');
+    });
 };
 
 // ------------------------------- 编辑 ---------------------------------------
 
 ModelPanel.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
-        this.editWindow = new ModelEditWindow({
+        this.editWindow = new EditWindow({
             app: this.app,
             parent: document.body,
+            type: 'Mesh',
+            typeName: '模型',
+            saveUrl: '/api/Mesh/Edit',
             callback: this.update.bind(this)
         });
         this.editWindow.render();

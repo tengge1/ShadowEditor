@@ -167,7 +167,7 @@ EditWindow.prototype.onEditCategory = function () {
     if (this.categoryListWin === undefined) {
         this.categoryListWin = new CategoryListWindow({
             app: this.app,
-            type: 'scene',
+            type: this.type,
             title: `编辑${this.typeName}类别`,
         });
         this.categoryListWin.render();

@@ -12,7 +12,7 @@ function CategoryEditWindow(options = {}) {
     this.ID = ''; // ObjectId格式
     this.Name = '';
 
-    this.type = options.type || '';
+    this.type = options.type || 'Scene';
     this.callback = options.callback || null; // 保存回调函数
 }
 
