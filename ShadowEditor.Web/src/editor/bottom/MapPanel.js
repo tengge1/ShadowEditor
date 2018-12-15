@@ -179,7 +179,7 @@ MapPanel.prototype.renderList = function (list) {
             title: n.Name,
             data: n,
             icon: 'icon-scenes',
-            cornerText: n.Type,
+            // cornerText: n.Type,
             style: {
                 backgroundColor: '#eee'
             }

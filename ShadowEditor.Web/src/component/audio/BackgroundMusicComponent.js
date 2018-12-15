@@ -1,6 +1,5 @@
 import BaseComponent from '../BaseComponent';
 import SetGeometryCommand from '../../command/SetGeometryCommand';
-import AudioWindow from '../../editor/window/AudioWindow';
 
 /**
  * 背景音乐组件
@@ -160,40 +159,37 @@ BackgroundMusicComponent.prototype.updateUI = function () {
 };
 
 BackgroundMusicComponent.prototype.onSelect = function () {
-    if (this.window === undefined) {
-        this.window = new AudioWindow({
-            app: this.app,
-            onSelect: this.onChange.bind(this)
-        });
-        this.window.render();
-    }
-    this.window.show();
+    this.app.call(`selectBottomPanel`, this, 'audio');
+    UI.msg('请点击音频面板中的音频！');
+    this.app.on(`selectAudio.${this.id}`, this.onSelectAudio.bind(this));
 };
 
-BackgroundMusicComponent.prototype.onChange = function (obj) {
+BackgroundMusicComponent.prototype.onSelectAudio = function (obj) {
+    var btnPlay = UI.get('btnPlay', this.id);
+
+    this.app.on(`selectAudio.${this.id}`, null);
+
+    Object.assign(this.selected.userData, obj);
+
+    var loader = new THREE.AudioLoader();
+    loader.load(obj.Url, buffer => {
+        this.selected.setBuffer(buffer);
+        btnPlay.dom.style.display = '';
+    });
+
+    this.app.call(`objectChanged`, this, this.selected);
+};
+
+BackgroundMusicComponent.prototype.onChange = function () {
     var name = UI.get('name', this.id);
     var autoplay = UI.get('autoplay', this.id);
     var loop = UI.get('loop', this.id);
     var volumn = UI.get('volumn', this.id);
-    var btnPlay = UI.get('btnPlay', this.id);
-
-    if (obj) { // 仅选择窗口会传递obj参数
-        Object.assign(this.selected.userData, obj);
-        var loader = new THREE.AudioLoader();
-        loader.load(obj.Url, buffer => {
-            this.selected.setBuffer(buffer);
-            btnPlay.dom.style.display = '';
-        });
-    }
 
     this.selected.userData.autoplay = autoplay.getValue(); // 这里不能给this.selected赋值，否则音频会自动播放
     this.selected.setLoop(loop.getValue());
     this.selected.setVolume(volumn.getValue());
     this.updateUI();
-
-    if (this.window) {
-        this.window.hide();
-    }
 };
 
 BackgroundMusicComponent.prototype.onPlay = function () {

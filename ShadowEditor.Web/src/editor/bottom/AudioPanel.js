@@ -179,7 +179,7 @@ AudioPanel.prototype.renderList = function (list) {
             title: n.Name,
             data: n,
             icon: 'icon-audio',
-            cornerText: n.Type,
+            // cornerText: n.Type,
             style: {
                 backgroundColor: '#eee'
             }
