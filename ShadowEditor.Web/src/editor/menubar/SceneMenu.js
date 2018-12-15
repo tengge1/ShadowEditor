@@ -1,5 +1,4 @@
 import UI from '../../ui/UI';
-import SceneWindow from '../window/SceneWindow';
 import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';
 
@@ -33,11 +32,6 @@ SceneMenu.prototype.render = function () {
                 html: '新建',
                 cls: 'option',
                 onClick: this.newScene.bind(this)
-            }, {
-                xtype: 'div',
-                html: '载入',
-                cls: 'option',
-                onClick: this.loadScene.bind(this)
             }, {
                 xtype: 'div',
                 html: '保存',
@@ -81,16 +75,6 @@ SceneMenu.prototype.newScene = function () {
             document.title = '未命名';
         }
     });
-};
-
-// --------------------------- 载入场景 --------------------------------------
-
-SceneMenu.prototype.loadScene = function () {
-    if (this.window == null) {
-        this.window = new SceneWindow({ app: this.app });
-        this.window.render();
-    }
-    this.window.show();
 };
 
 // --------------------------- 保存场景 ----------------------------------------
