@@ -23,6 +23,9 @@ namespace ShadowEditor.Model.Map
         // 凹凸贴图
         bumpMap,
 
+        // 漫反射贴图
+        diffuseMap,
+
         // 置换贴图
         displacementMap,
 
