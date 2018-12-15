@@ -31,7 +31,8 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             // 获取所有类别
-            var categories = mongo.FindAll(Constant.CategoryCollectionName);
+            var filter = Builders<BsonDocument>.Filter.Eq("Type", "Mesh");
+            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter);
 
             var meshes = mongo.FindAll(Constant.MeshCollectionName);
 

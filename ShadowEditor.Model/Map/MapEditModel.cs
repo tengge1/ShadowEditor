@@ -20,5 +20,10 @@ namespace ShadowEditor.Model.Map
         /// 名称
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 类别
+        /// </summary>
+        public string Category { get; set; }
     }
 }
