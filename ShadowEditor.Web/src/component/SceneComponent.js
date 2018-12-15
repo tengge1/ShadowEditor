@@ -1,7 +1,6 @@
 import BaseComponent from './BaseComponent';
 import Converter from '../utils/Converter';
 import Ajax from '../utils/Ajax';
-import TextureWindow from '../editor/window/TextureWindow';
 
 /**
  * 场景组件
@@ -165,7 +164,7 @@ SceneComponent.prototype.render = function () {
             },
             children: [{
                 xtype: 'button',
-                text: '获取',
+                text: '选择',
                 onClick: this.onLoadCubeTexture.bind(this)
             }, {
                 xtype: 'button',
@@ -401,21 +400,18 @@ SceneComponent.prototype.onChangeBackgroundType = function () { // 切换背景�
 };
 
 SceneComponent.prototype.onLoadCubeTexture = function () { // 加载立体贴图
-    if (this.textureWindow === undefined) {
-        this.textureWindow = new TextureWindow({
-            app: this.app,
-            onSelect: this.onSelectCubeTexture.bind(this)
-        });
-        this.textureWindow.render();
-    }
-    this.textureWindow.show();
+    this.app.call(`selectBottomPanel`, this, 'map');
+    UI.msg('请点击贴图面板中的立体贴图！');
+    this.app.on(`selectMap.${this.id}`, this.onSelectCubeMap.bind(this));
 };
 
-SceneComponent.prototype.onSelectCubeTexture = function (model) {
+SceneComponent.prototype.onSelectCubeMap = function (model) {
     if (model.Type !== 'cube') {
         UI.msg('只允许选择立体贴图！');
         return;
     }
+
+    this.app.on(`selectMap.${this.id}`, null);
 
     var urls = model.Url.split(';');
 
@@ -439,8 +435,6 @@ SceneComponent.prototype.onSelectCubeTexture = function (model) {
         UI.get('backgroundNegY', this.id).setValue(textures[3]);
         UI.get('backgroundPosZ', this.id).setValue(textures[4]);
         UI.get('backgroundNegZ', this.id).setValue(textures[5]);
-
-        this.textureWindow.hide();
         this.update();
     });
 };
@@ -469,33 +463,6 @@ SceneComponent.prototype.onSaveCubeTexture = function () { // 保存立体贴图
         UI.msg(`立体贴图已经存在于服务端，无需重复上传。`);
         return;
     }
-
-    // TODO: 下面代码转换出的DataURL太大，不行！！！
-
-    // 如果src是服务端地址，则需要转成DataURL
-    // if (posXSrc.startsWith('http')) {
-    //     posXSrc = Converter.canvasToDataURL(Converter.imageToCanvas(texturePosX.image));
-    // }
-
-    // if (negXSrc.startsWith('http')) {
-    //     negXSrc = Converter.canvasToDataURL(Converter.imageToCanvas(textureNegX.image));
-    // }
-
-    // if (posYSrc.startsWith('http')) {
-    //     posYSrc = Converter.canvasToDataURL(Converter.imageToCanvas(texturePosY.image));
-    // }
-
-    // if (negYSrc.startsWith('http')) {
-    //     negYSrc = Converter.canvasToDataURL(Converter.imageToCanvas(textureNegY.image));
-    // }
-
-    // if (posZSrc.startsWith('http')) {
-    //     posZSrc = Converter.canvasToDataURL(Converter.imageToCanvas(texturePosZ.image));
-    // }
-
-    // if (negZSrc.startsWith('http')) {
-    //     negZSrc = Converter.canvasToDataURL(Converter.imageToCanvas(textureNegZ.image));
-    // }
 
     var promises = [
         Converter.dataURLtoFile(posXSrc, 'posX'),

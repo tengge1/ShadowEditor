@@ -1,5 +1,4 @@
 import UI from '../../ui/UI';
-import TextureWindow from '../window/TextureWindow';
 import AudioWindow from '../window/AudioWindow';
 import MMDWindow from '../window/MMDWindow';
 import StringUtils from '../../utils/StringUtils';
@@ -30,16 +29,6 @@ AssetMenu.prototype.render = function () {
             xtype: 'div',
             cls: 'options',
             children: [{
-                xtype: 'div',
-                html: '纹理管理',
-                cls: 'option',
-                onClick: this.onManageTexture.bind(this)
-            }, {
-                xtype: 'div',
-                html: '材质管理',
-                cls: 'option',
-                onClick: this.onManageMaterial.bind(this)
-            }, {
                 xtype: 'div',
                 html: '音频管理',
                 cls: 'option',
@@ -101,22 +90,6 @@ AssetMenu.prototype.render = function () {
 
     container.render();
 }
-
-// --------------------------------- 纹理管理 --------------------------------------
-
-AssetMenu.prototype.onManageTexture = function () {
-    if (this.textureWindow == null) {
-        this.textureWindow = new TextureWindow({ parent: this.app.container, app: this.app });
-        this.textureWindow.render();
-    }
-    this.textureWindow.show();
-};
-
-// --------------------------------- 材质管理 --------------------------------------
-
-AssetMenu.prototype.onManageMaterial = function () {
-    UI.msg('材质管理');
-};
 
 // --------------------------------- 音频管理 --------------------------------------
 
