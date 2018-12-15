@@ -10,8 +10,6 @@ function AudioPanel(options) {
     this.app = options.app;
 
     this.firstShow = true;
-
-    this.keywords = '';
     this.data = [];
 };
 
@@ -109,8 +107,6 @@ AudioPanel.prototype.renderUI = function () {
 
 AudioPanel.prototype.update = function () {
     var server = this.app.options.server;
-
-    this.keywords = '';
 
     Ajax.getJson(`${server}/api/Audio/List`, obj => {
         this.data = obj.Data;
