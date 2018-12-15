@@ -29,26 +29,52 @@ namespace ShadowEditor.Server.Controllers
         public JsonResult List()
         {
             var mongo = new MongoHelper();
-            var docs = mongo.FindAll(Constant.MeshCollectionName);
 
-            docs.Reverse();
+            // 获取所有类别
+            var categories = mongo.FindAll(Constant.CategoryCollectionName);
 
-            var data = docs.Select(o => new
+            var meshes = mongo.FindAll(Constant.MeshCollectionName);
+
+            var list = new List<MeshModel>();
+
+            foreach (var i in meshes)
             {
-                ID = o["_id"].ToString(),
-                Name = o["Name"].ToString(),
-                TotalPinYin = o["TotalPinYin"].ToString(),
-                FirstPinYin = o["FirstPinYin"].ToString(),
-                Type = o["Type"].ToString(),
-                Url = o["Url"].ToString(),
-                Thumbnail = o.Contains("Thumbnail") && !o["Thumbnail"].IsBsonNull ? o["Thumbnail"].ToString() : null
-            });
+                var categoryID = "";
+                var categoryName = "";
+
+                if (i.Contains("Category") && !i["Category"].IsBsonNull && !string.IsNullOrEmpty(i["Category"].ToString()))
+                {
+                    var doc = categories.Where(n => n["_id"].ToString() == i["Category"].ToString()).FirstOrDefault();
+                    if (doc != null)
+                    {
+                        categoryID = doc["_id"].ToString();
+                        categoryName = doc["Name"].ToString();
+                    }
+                }
+
+                var info = new MeshModel
+                {
+                    ID = i["_id"].ToString(),
+                    Name = i["Name"].ToString(),
+                    CategoryID = categoryID,
+                    CategoryName = categoryName,
+                    TotalPinYin = i["TotalPinYin"].ToString(),
+                    FirstPinYin = i["FirstPinYin"].ToString(),
+                    Type = i["Type"].ToString(),
+                    Url = i["Url"].ToString(),
+                    Thumbnail = i.Contains("Thumbnail") && !i["Thumbnail"].IsBsonNull ? i["Thumbnail"].ToString() : null
+                };
+
+                list.Add(info);
+            }
+
+            list.Reverse();
 
             return Json(new
             {
                 Code = 200,
                 Msg = "获取成功！",
-                Data = data
+                Data = list
             });
         }
 
@@ -100,7 +126,19 @@ namespace ShadowEditor.Server.Controllers
             var update2 = Builders<BsonDocument>.Update.Set("TotalPinYin", pinyin.TotalPinYin);
             var update3 = Builders<BsonDocument>.Update.Set("FirstPinYin", pinyin.FirstPinYin);
             var update4 = Builders<BsonDocument>.Update.Set("Thumbnail", model.Image);
-            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4);
+
+            UpdateDefinition<BsonDocument> update5;
+
+            if (string.IsNullOrEmpty(model.Category))
+            {
+                update5 = Builders<BsonDocument>.Update.Unset("Category");
+            }
+            else
+            {
+                update5 = Builders<BsonDocument>.Update.Set("Category", model.Category);
+            }
+
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4, update5);
             mongo.UpdateOne(Constant.MeshCollectionName, filter, update);
 
             return Json(new

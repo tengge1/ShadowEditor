@@ -12,9 +12,24 @@ namespace ShadowEditor.Model.Mesh
     public class MeshModel
     {
         /// <summary>
-        /// 模型名称（改名前等同于上传文件名称）
+        /// ID
+        /// </summary>
+        public string ID { get; set; }
+
+        /// <summary>
+        /// 名称
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 类别ID
+        /// </summary>
+        public string CategoryID { get; set; }
+
+        /// <summary>
+        /// 类别名称
+        /// </summary>
+        public string CategoryName { get; set; }
 
         /// <summary>
         /// 全拼
@@ -29,7 +44,7 @@ namespace ShadowEditor.Model.Mesh
         /// <summary>
         /// 模型类型
         /// </summary>
-        public MeshType Type { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
         /// 客户端下载地址
