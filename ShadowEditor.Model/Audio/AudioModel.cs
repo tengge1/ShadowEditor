@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.Audio
+namespace ShadowEditor.Model.Audio
 {
     /// <summary>
     /// 音频模型
@@ -32,7 +32,7 @@ namespace ShadowEditor.Server.Audio
         public string FirstPinYin { get; set; }
 
         /// <summary>
-        /// 纹理类型
+        /// 类型
         /// </summary>
         public string Type { get; set; }
 

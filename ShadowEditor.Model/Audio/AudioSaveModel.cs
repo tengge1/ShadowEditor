@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.Audio
+namespace ShadowEditor.Model.Audio
 {
     /// <summary>
-    /// 保存音频模型
+    /// 音频保存模型
     /// </summary>
-    public class SaveAudioModel
+    public class AudioSaveModel
     {
         /// <summary>
         /// ID

@@ -8,9 +8,9 @@ using System.Web.Http.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
+using ShadowEditor.Model.Audio;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
-using ShadowEditor.Server.Audio;
 using System.Web;
 using System.IO;
 
@@ -60,7 +60,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 保存音频
+        /// 添加
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -126,12 +126,12 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 编辑音频
+        /// 编辑
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Edit(EditAudioModel model)
+        public JsonResult Edit(AudioEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -172,7 +172,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 删除音频
+        /// 删除
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
@@ -189,7 +189,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该音频不存在！"
+                    Msg = "该资源不存在！"
                 });
             }
 
@@ -216,7 +216,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "删除音频成功！"
+                Msg = "删除成功！"
             });
         }
     }

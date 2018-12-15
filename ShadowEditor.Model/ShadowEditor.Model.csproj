@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio\AudioModel.cs" />
+    <Compile Include="Audio\AudioType.cs" />
+    <Compile Include="Audio\AudioEditModel.cs" />
+    <Compile Include="Audio\AudioSaveModel.cs" />
     <Compile Include="Category\CategoryType.cs" />
     <Compile Include="Map\MapEditModel.cs" />
     <Compile Include="Map\MapSaveModel.cs" />

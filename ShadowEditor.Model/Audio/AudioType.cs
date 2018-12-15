@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.Audio
+namespace ShadowEditor.Model.Audio
 {
     /// <summary>
     /// 音频类型
