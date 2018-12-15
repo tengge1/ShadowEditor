@@ -1,16 +1,16 @@
 import Control from '../../ui/Control';
-import TextureWindow from '../window/TextureWindow';
 
 /**
  * 纹理选择控件
  * @param {*} options 
  */
-function TextureSelectControl(options) {
+function TextureSelectControl(options = {}) {
     Control.call(this, options);
 
     this.app = options.app;
 
     this.texture = null;
+    this.isSelecting = false;
 
     this.onChange = options.onChange || null;
 }
@@ -75,17 +75,21 @@ TextureSelectControl.prototype.setValue = function (texture) {
 };
 
 TextureSelectControl.prototype.onClick = function () {
-    if (this.window === undefined) {
-        this.window = new TextureWindow({
-            app: this.app,
-            onSelect: this.onSelect.bind(this)
-        });
-        this.window.render();
+    this.app.call(`selectBottomPanel`, this, 'map');
+    UI.msg(`请点击贴图面板中的贴图！`);
+
+    if (this.isSelecting) {
+        return;
     }
-    this.window.show();
+
+    this.isSelecting = true;
+    this.app.on(`selectMap.${this.id}`, this.onSelect.bind(this));
 };
 
 TextureSelectControl.prototype.onSelect = function (data) {
+    this.isSelecting = false;
+    this.app.on(`selectMap.${this.id}`, null);
+
     var urls = data.Url.split(';'); // 立体贴图data.Url多于一张，只取第一个。
 
     if (data.Type === 'video') { // 视频贴图
@@ -100,7 +104,6 @@ TextureSelectControl.prototype.onSelect = function (data) {
             texture.format = THREE.RGBFormat;
             this.texture = texture;
             this.texture.name = data.Name;
-            this.window.hide();
             this.updateUI();
             this.onChange();
         }
@@ -109,7 +112,6 @@ TextureSelectControl.prototype.onSelect = function (data) {
         loader.load(`${this.app.options.server}${urls[0]}`, texture => {
             this.texture = texture;
             this.texture.name = data.Name;
-            this.window.hide();
             this.updateUI();
             this.onChange();
         });

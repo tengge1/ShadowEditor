@@ -209,8 +209,8 @@ MapPanel.prototype.onClick = function (event, index, btn, control) {
 
 // ------------------------------------- 添加 ------------------------------------
 
-MapPanel.prototype.onAddMap = function (model) {
-    UI.msg('添加成功！');
+MapPanel.prototype.onAddMap = function (data) {
+    this.app.call(`selectMap`, this, data);
 };
 
 // ----------------------------------- 上传 ----------------------------------------
