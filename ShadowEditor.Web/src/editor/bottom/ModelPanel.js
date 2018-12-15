@@ -1,5 +1,6 @@
 import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
+import ModelEditWindow from '../window/ModelEditWindow';
 
 /**
  * 模型面板
@@ -11,7 +12,6 @@ function ModelPanel(options) {
 
     this.firstShow = true;
 
-    this.keywords = '';
     this.data = [];
 };
 
@@ -56,7 +56,17 @@ ModelPanel.prototype.renderUI = function () {
             },
             children: [{
                 xtype: 'div',
+                style: {
+                    display: 'flex'
+                },
                 children: [{
+                    xtype: 'iconbutton',
+                    icon: 'icon-upload',
+                    style: {
+                        padding: '2px'
+                    },
+                    onClick: this.onUpload.bind(this)
+                }, {
                     xtype: 'searchfield',
                     id: 'search',
                     scope: this.id,
@@ -71,16 +81,9 @@ ModelPanel.prototype.renderUI = function () {
                 },
                 children: [{
                     xtype: 'category',
-                    options: {
-                        category1: '分类1',
-                        category2: '分类2',
-                        category3: '分类3',
-                        category4: '分类4',
-                        category5: '分类5',
-                        category6: '分类6',
-                        category7: '分类7',
-                        category8: '分类8',
-                    }
+                    id: 'category',
+                    scope: this.id,
+                    onChange: this.onSearch.bind(this)
                 }]
             }]
         }, {
@@ -97,7 +100,7 @@ ModelPanel.prototype.renderUI = function () {
                 scope: this.id,
                 style: {
                     width: '100%',
-                    height: '100%',
+                    maxHeight: '100%',
                 },
                 onClick: this.onClick.bind(this)
             }]
@@ -108,29 +111,57 @@ ModelPanel.prototype.renderUI = function () {
 };
 
 ModelPanel.prototype.update = function () {
-    var server = this.app.options.server;
+    this.updateCategory();
+    this.updateList();
+};
 
-    this.keywords = '';
+ModelPanel.prototype.updateCategory = function () {
+    var category = UI.get('category', this.id);
+    category.clear();
 
-    Ajax.getJson(`${server}/api/Mesh/List`, obj => {
-        this.data = obj.Data;
-        this.onSearch('');
+    Ajax.getJson(`/api/Category/List?type=Mesh`, obj => {
+        category.options = {};
+        obj.Data.forEach(n => {
+            category.options[n.ID] = n.Name;
+        });
+        category.render();
     });
 };
 
-ModelPanel.prototype.onSearch = function (name) {
-    if (name.trim() === '') {
-        this.renderList(this.data);
-        return;
+ModelPanel.prototype.updateList = function () {
+    var search = UI.get('search', this.id);
+
+    Ajax.getJson(`/api/Mesh/List`, obj => {
+        this.data = obj.Data;
+        search.setValue('');
+        this.onSearch();
+    });
+};
+
+ModelPanel.prototype.onSearch = function () {
+    var search = UI.get('search', this.id);
+    var category = UI.get('category', this.id);
+
+    var name = search.getValue();
+    var categories = category.getValue();
+
+    var list = this.data;
+
+    if (name.trim() !== '') {
+        name = name.toLowerCase();
+
+        list = list.filter(n => {
+            return n.Name.indexOf(name) > -1 ||
+                n.FirstPinYin.indexOf(name) > -1 ||
+                n.TotalPinYin.indexOf(name) > -1;
+        });
     }
 
-    name = name.toLowerCase();
-
-    var list = this.data.filter(n => {
-        return n.Name.indexOf(name) > -1 ||
-            n.FirstPinYin.indexOf(name) > -1 ||
-            n.TotalPinYin.indexOf(name) > -1;
-    });
+    if (categories.length > 0) {
+        list = list.filter(n => {
+            return categories.indexOf(n.CategoryID) > -1;
+        });
+    }
 
     this.renderList(list);
 };
@@ -156,12 +187,65 @@ ModelPanel.prototype.renderList = function (list) {
     images.render();
 };
 
-ModelPanel.prototype.onClick = function (data) {
-    // if (typeof (this.onSelect) === 'function') {
-    //     this.onSelect(data);
-    // } else {
-    //     UI.msg('请在材质控件中修改纹理。');
-    // }
+ModelPanel.prototype.onClick = function (event, index, btn, control) {
+    var data = control.children[index].data;
+
+    if (btn === 'edit') {
+        if (typeof (this.onEdit) === 'function') {
+            this.onEdit(data);
+        }
+    } else if (btn === 'delete') {
+        if (typeof (this.onDelete) === 'function') {
+            this.onDelete(data);
+        }
+    } else {
+        if (typeof (this.onClick) === 'function') {
+            this.onAddMesh(data);
+        }
+    }
+};
+
+// ------------------------------------- 添加 ------------------------------------
+
+ModelPanel.prototype.onAddMesh = function (data) {
+    UI.Msg('模型添加成功！');
+};
+
+// ----------------------------------- 上传 ----------------------------------------
+
+ModelPanel.prototype.onUpload = function () {
+    UI.msg('模型上传成功！');
+};
+
+// ------------------------------- 编辑 ---------------------------------------
+
+ModelPanel.prototype.onEdit = function (data) {
+    if (this.editWindow === undefined) {
+        this.editWindow = new ModelEditWindow({
+            app: this.app,
+            parent: document.body,
+            callback: this.update.bind(this)
+        });
+        this.editWindow.render();
+    }
+    this.editWindow.setData(data);
+    this.editWindow.show();
+};
+
+// -------------------------------- 删除 ----------------------------------------
+
+ModelPanel.prototype.onDelete = function (data) {
+    UI.confirm('询问', `是否删除${data.Name}？`, (event, btn) => {
+        if (btn === 'ok') {
+            Ajax.post(`/api/Mesh/Delete?ID=${data.ID}`, json => {
+                var obj = JSON.parse(json);
+                if (obj.Code === 200) {
+                    this.update();
+                }
+                UI.msg(obj.Msg);
+            });
+        }
+    });
 };
 
 export default ModelPanel;
