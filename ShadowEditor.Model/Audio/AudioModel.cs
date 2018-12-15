@@ -22,6 +22,16 @@ namespace ShadowEditor.Model.Audio
         public string Name { get; set; }
 
         /// <summary>
+        /// 类别ID
+        /// </summary>
+        public string CategoryID { get; set; }
+
+        /// <summary>
+        /// 类别名称
+        /// </summary>
+        public string CategoryName { get; set; }
+
+        /// <summary>
         /// 全拼
         /// </summary>
         public string TotalPinYin { get; set; }

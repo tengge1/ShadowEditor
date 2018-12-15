@@ -29,16 +29,36 @@ namespace ShadowEditor.Server.Controllers
         public JsonResult List()
         {
             var mongo = new MongoHelper();
-            var scenes = mongo.FindAll(Constant.AudioCollectionName);
+
+            // 获取所有类别
+            var filter = Builders<BsonDocument>.Filter.Eq("Type", "Audio");
+            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter);
+
+            var audios = mongo.FindAll(Constant.AudioCollectionName);
 
             var list = new List<AudioModel>();
 
-            foreach (var i in scenes)
+            foreach (var i in audios)
             {
+                var categoryID = "";
+                var categoryName = "";
+
+                if (i.Contains("Category") && !i["Category"].IsBsonNull && !string.IsNullOrEmpty(i["Category"].ToString()))
+                {
+                    var doc = categories.Where(n => n["_id"].ToString() == i["Category"].ToString()).FirstOrDefault();
+                    if (doc != null)
+                    {
+                        categoryID = doc["_id"].ToString();
+                        categoryName = doc["Name"].ToString();
+                    }
+                }
+
                 var info = new AudioModel
                 {
                     ID = i["ID"].AsObjectId.ToString(),
                     Name = i["Name"].AsString,
+                    CategoryID = categoryID,
+                    CategoryName = categoryName,
                     TotalPinYin = i["TotalPinYin"].ToString(),
                     FirstPinYin = i["FirstPinYin"].ToString(),
                     Type = i["Type"].AsString,
@@ -161,7 +181,20 @@ namespace ShadowEditor.Server.Controllers
             var update1 = Builders<BsonDocument>.Update.Set("Name", model.Name);
             var update2 = Builders<BsonDocument>.Update.Set("TotalPinYin", pinyin.TotalPinYin);
             var update3 = Builders<BsonDocument>.Update.Set("FirstPinYin", pinyin.FirstPinYin);
-            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3);
+
+            UpdateDefinition<BsonDocument> update5;
+
+            if (string.IsNullOrEmpty(model.Category))
+            {
+                update5 = Builders<BsonDocument>.Update.Unset("Category");
+            }
+            else
+            {
+                update5 = Builders<BsonDocument>.Update.Set("Category", model.Category);
+            }
+
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update5);
+
             mongo.UpdateOne(Constant.AudioCollectionName, filter, update);
 
             return Json(new
