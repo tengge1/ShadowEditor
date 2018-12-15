@@ -27,9 +27,9 @@ namespace ShadowEditor.Server
         public const string MeshCollectionName = "_Mesh";
 
         /// <summary>
-        /// 纹理表名
+        /// 贴图表名
         /// </summary>
-        public const string TextureCollectionName = "_Texture";
+        public const string MapCollectionName = "_Map";
 
         /// <summary>
         /// 材质表名

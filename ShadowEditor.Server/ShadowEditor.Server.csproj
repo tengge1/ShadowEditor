@@ -111,7 +111,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
-    <Compile Include="Controllers\TextureController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\SceneController.cs" />
     <Compile Include="Helpers\DownloadHelper.cs" />
     <Compile Include="Helpers\DirectoryHelper.cs" />
@@ -130,10 +130,6 @@
     <Compile Include="MMD\MMDType.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Texture\EditTextureModel.cs" />
-    <Compile Include="Texture\TextureType.cs" />
-    <Compile Include="Texture\SaveTextureModel.cs" />
-    <Compile Include="Texture\TextureModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -145,6 +141,7 @@
       <Name>ShadowEditor.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

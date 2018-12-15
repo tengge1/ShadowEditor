@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.Texture
+namespace ShadowEditor.Model.Map
 {
     /// <summary>
     /// 贴图类型
     /// </summary>
-    public enum TextureType
+    public enum MapType
     {
         // 未知类型
         unknown,

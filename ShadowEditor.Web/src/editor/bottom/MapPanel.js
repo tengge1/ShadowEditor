@@ -1,5 +1,7 @@
 import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
+import EditWindow from '../window/EditWindow';
+import UploadUtils from '../../utils/UploadUtils';
 
 /**
  * 贴图面板
@@ -11,7 +13,6 @@ function MapPanel(options) {
 
     this.firstShow = true;
 
-    this.keywords = '';
     this.data = [];
 };
 
@@ -56,7 +57,18 @@ MapPanel.prototype.renderUI = function () {
             },
             children: [{
                 xtype: 'div',
+                style: {
+                    display: 'flex'
+                },
                 children: [{
+                    xtype: 'iconbutton',
+                    icon: 'icon-upload',
+                    title: '上传',
+                    style: {
+                        padding: '2px'
+                    },
+                    onClick: this.onUpload.bind(this)
+                }, {
                     xtype: 'searchfield',
                     id: 'search',
                     scope: this.id,
@@ -71,16 +83,9 @@ MapPanel.prototype.renderUI = function () {
                 },
                 children: [{
                     xtype: 'category',
-                    options: {
-                        category1: '分类1',
-                        category2: '分类2',
-                        category3: '分类3',
-                        category4: '分类4',
-                        category5: '分类5',
-                        category6: '分类6',
-                        category7: '分类7',
-                        category8: '分类8',
-                    }
+                    id: 'category',
+                    scope: this.id,
+                    onChange: this.onSearch.bind(this)
                 }]
             }]
         }, {
@@ -97,7 +102,7 @@ MapPanel.prototype.renderUI = function () {
                 scope: this.id,
                 style: {
                     width: '100%',
-                    height: '100%',
+                    maxHeight: '100%',
                 },
                 onClick: this.onClick.bind(this)
             }]
@@ -108,29 +113,57 @@ MapPanel.prototype.renderUI = function () {
 };
 
 MapPanel.prototype.update = function () {
-    var server = this.app.options.server;
+    this.updateCategory();
+    this.updateList();
+};
 
-    this.keywords = '';
+MapPanel.prototype.updateCategory = function () {
+    var category = UI.get('category', this.id);
+    category.clear();
 
-    Ajax.getJson(`${server}/api/Texture/List`, obj => {
-        this.data = obj.Data;
-        this.onSearch('');
+    Ajax.getJson(`/api/Category/List?type=Map`, obj => {
+        category.options = {};
+        obj.Data.forEach(n => {
+            category.options[n.ID] = n.Name;
+        });
+        category.render();
     });
 };
 
-MapPanel.prototype.onSearch = function (name) {
-    if (name.trim() === '') {
-        this.renderList(this.data);
-        return;
+MapPanel.prototype.updateList = function () {
+    var search = UI.get('search', this.id);
+
+    Ajax.getJson(`/api/Map/List`, obj => {
+        this.data = obj.Data;
+        search.setValue('');
+        this.onSearch();
+    });
+};
+
+MapPanel.prototype.onSearch = function () {
+    var search = UI.get('search', this.id);
+    var category = UI.get('category', this.id);
+
+    var name = search.getValue();
+    var categories = category.getValue();
+
+    var list = this.data;
+
+    if (name.trim() !== '') {
+        name = name.toLowerCase();
+
+        list = list.filter(n => {
+            return n.Name.indexOf(name) > -1 ||
+                n.FirstPinYin.indexOf(name) > -1 ||
+                n.TotalPinYin.indexOf(name) > -1;
+        });
     }
 
-    name = name.toLowerCase();
-
-    var list = this.data.filter(n => {
-        return n.Name.indexOf(name) > -1 ||
-            n.FirstPinYin.indexOf(name) > -1 ||
-            n.TotalPinYin.indexOf(name) > -1;
-    });
+    if (categories.length > 0) {
+        list = list.filter(n => {
+            return categories.indexOf(n.CategoryID) > -1;
+        });
+    }
 
     this.renderList(list);
 };
@@ -156,12 +189,95 @@ MapPanel.prototype.renderList = function (list) {
     images.render();
 };
 
-MapPanel.prototype.onClick = function (data) {
-    if (typeof (this.onSelect) === 'function') {
-        this.onSelect(data);
+MapPanel.prototype.onClick = function (event, index, btn, control) {
+    var data = control.children[index].data;
+
+    if (btn === 'edit') {
+        if (typeof (this.onEdit) === 'function') {
+            this.onEdit(data);
+        }
+    } else if (btn === 'delete') {
+        if (typeof (this.onDelete) === 'function') {
+            this.onDelete(data);
+        }
     } else {
-        UI.msg('请在材质控件中修改纹理。');
+        if (typeof (this.onClick) === 'function') {
+            this.onAddMap(data);
+        }
     }
+};
+
+// ------------------------------------- 添加 ------------------------------------
+
+MapPanel.prototype.onAddMap = function (model) {
+    UI.msg('添加成功！');
+};
+
+// ----------------------------------- 上传 ----------------------------------------
+
+MapPanel.prototype.onUpload = function () {
+    if (this.input === undefined) {
+        this.input = document.createElement('input');
+        this.input.id = `file_${this.id}`;
+        this.input.type = 'file';
+        this.input.style.display = 'none';
+        this.input.addEventListener('change', this.onCommitUpload.bind(this));
+        document.body.appendChild(this.input);
+    }
+
+    this.input.value = null;
+    this.input.click();
+};
+
+MapPanel.prototype.onCommitUpload = function () {
+    UploadUtils.upload(`file_${this.id}`, `/api/Map/Add`, event => {
+        if (event.target.status === 200) {
+            var response = event.target.response;
+            var obj = JSON.parse(response);
+            UI.msg(obj.Msg);
+            if (obj.Code === 200) {
+                this.updateList();
+            }
+        } else {
+            UI.msg('上传失败！');
+        }
+    }, () => {
+        UI.msg('上传失败！');
+    });
+};
+
+// ------------------------------- 编辑 ---------------------------------------
+
+MapPanel.prototype.onEdit = function (data) {
+    if (this.editWindow === undefined) {
+        this.editWindow = new EditWindow({
+            app: this.app,
+            parent: document.body,
+            type: 'Map',
+            typeName: '贴图',
+            saveUrl: '/api/Map/Edit',
+            callback: this.update.bind(this)
+        });
+        this.editWindow.render();
+    }
+    this.editWindow.setData(data);
+    this.editWindow.show();
+};
+
+// -------------------------------- 删除 ----------------------------------------
+
+MapPanel.prototype.onDelete = function (data) {
+    UI.confirm('询问', `是否删除${data.Name}？`, (event, btn) => {
+        if (btn === 'ok') {
+            Ajax.post(`/api/Map/Delete?ID=${data.ID}`, json => {
+                var obj = JSON.parse(json);
+                if (obj.Code === 200) {
+                    this.update();
+                }
+                UI.msg(obj.Msg);
+            });
+        }
+    });
 };
 
 export default MapPanel;

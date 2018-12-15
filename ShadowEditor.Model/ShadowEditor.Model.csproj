@@ -41,6 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Category\CategoryType.cs" />
+    <Compile Include="Map\MapEditModel.cs" />
+    <Compile Include="Map\MapSaveModel.cs" />
+    <Compile Include="Map\MapModel.cs" />
+    <Compile Include="Map\MapType.cs" />
     <Compile Include="Material\MaterialEditModel.cs" />
     <Compile Include="Material\MaterialModel.cs" />
     <Compile Include="Material\MaterialSaveModel.cs" />

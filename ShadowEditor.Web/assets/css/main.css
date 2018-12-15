@@ -901,6 +901,10 @@ table.Table .TableBody td {
     padding: 6px;
 }
 
+.bottomPanel .Category label {
+    width: auto;
+}
+
 /* 动画面板 */
 
 .animation-panel {

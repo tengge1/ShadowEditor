@@ -11,16 +11,16 @@ using System.Web.Http.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
+using ShadowEditor.Model.Map;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
-using ShadowEditor.Server.Texture;
 
 namespace ShadowEditor.Server.Controllers
 {
     /// <summary>
-    /// 纹理控制器
+    /// 贴图控制器
     /// </summary>
-    public class TextureController : ApiBase
+    public class MapController : ApiBase
     {
         /// <summary>
         /// 获取列表
@@ -30,9 +30,9 @@ namespace ShadowEditor.Server.Controllers
         public JsonResult List()
         {
             var mongo = new MongoHelper();
-            var docs = mongo.FindAll(Constant.TextureCollectionName);
+            var docs = mongo.FindAll(Constant.MapCollectionName);
 
-            var list = new List<TextureModel>();
+            var list = new List<MapModel>();
 
             foreach (var i in docs)
             {
@@ -52,7 +52,7 @@ namespace ShadowEditor.Server.Controllers
                     builder.Append(i["Url"].AsString);
                 }
 
-                var info = new TextureModel
+                var info = new MapModel
                 {
                     ID = i["ID"].AsObjectId.ToString(),
                     Name = i["Name"].AsString,
@@ -78,7 +78,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 保存纹理
+        /// 添加
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -167,7 +167,7 @@ namespace ShadowEditor.Server.Controllers
 
             if (files.Count == 6) // 立体贴图
             {
-                doc["Type"] = TextureType.cube.ToString();
+                doc["Type"] = MapType.cube.ToString();
 
                 var doc1 = new BsonDocument();
                 doc1["PosX"] = $"{savePath}/{files["posX"].FileName}";
@@ -181,19 +181,19 @@ namespace ShadowEditor.Server.Controllers
             }
             else if (Path.GetExtension(files[0].FileName).ToLower() == ".mp4") // 视频贴图
             {
-                doc["Type"] = TextureType.video.ToString();
+                doc["Type"] = MapType.video.ToString();
                 doc["Url"] = $"{savePath}/{fileName}";
             }
             else
             {
-                doc["Type"] = TextureType.unknown.ToString();
+                doc["Type"] = MapType.unknown.ToString();
                 doc["Url"] = $"{savePath}/{fileName}";
             }
 
             doc["CreateTime"] = now;
             doc["UpdateTime"] = now;
 
-            mongo.InsertOne(Constant.TextureCollectionName, doc);
+            mongo.InsertOne(Constant.MapCollectionName, doc);
 
             return Json(new Result
             {
@@ -203,12 +203,12 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 编辑纹理
+        /// 编辑
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Edit(EditTextureModel model)
+        public JsonResult Edit(MapEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -239,7 +239,7 @@ namespace ShadowEditor.Server.Controllers
             var update2 = Builders<BsonDocument>.Update.Set("TotalPinYin", pinyin.TotalPinYin);
             var update3 = Builders<BsonDocument>.Update.Set("FirstPinYin", pinyin.FirstPinYin);
             var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3);
-            mongo.UpdateOne(Constant.TextureCollectionName, filter, update);
+            mongo.UpdateOne(Constant.MapCollectionName, filter, update);
 
             return Json(new
             {
@@ -249,7 +249,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 删除纹理
+        /// 删除
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
@@ -259,14 +259,14 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
-            var doc = mongo.FindOne(Constant.TextureCollectionName, filter);
+            var doc = mongo.FindOne(Constant.MapCollectionName, filter);
 
             if (doc == null)
             {
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该纹理不存在！"
+                    Msg = "该贴图不存在！"
                 });
             }
 
@@ -287,13 +287,12 @@ namespace ShadowEditor.Server.Controllers
                 });
             }
 
-            // 删除纹理信息
-            mongo.DeleteOne(Constant.TextureCollectionName, filter);
+            mongo.DeleteOne(Constant.MapCollectionName, filter);
 
             return Json(new
             {
                 Code = 200,
-                Msg = "删除纹理成功！"
+                Msg = "删除成功！"
             });
         }
     }

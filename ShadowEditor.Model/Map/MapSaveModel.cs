@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.Texture
+namespace ShadowEditor.Model.Map
 {
     /// <summary>
-    /// 保存纹理模型
+    /// 贴图保存模型
     /// </summary>
-    public class SaveTextureModel
+    public class MapSaveModel
     {
         /// <summary>
         /// ID
