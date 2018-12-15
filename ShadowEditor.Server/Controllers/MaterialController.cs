@@ -29,25 +29,46 @@ namespace ShadowEditor.Server.Controllers
         {
             var mongo = new MongoHelper();
 
-            var docs = mongo.FindAll(Constant.MaterialCollectionName);
+            // 获取所有类别
+            var filter = Builders<BsonDocument>.Filter.Eq("Type", "Material");
+            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter);
 
-            var list = new JArray();
+            var materials = mongo.FindAll(Constant.MaterialCollectionName);
 
-            foreach (var i in docs)
+            var list = new List<MaterialModel>();
+
+            foreach (var i in materials)
             {
-                var obj = new JObject
+                var categoryID = "";
+                var categoryName = "";
+
+                if (i.Contains("Category") && !i["Category"].IsBsonNull && !string.IsNullOrEmpty(i["Category"].ToString()))
                 {
-                    ["ID"] = i["ID"].AsObjectId.ToString(),
-                    ["Name"] = i["Name"].AsString,
-                    ["TotalPinYin"] = i["TotalPinYin"].ToString(),
-                    ["FirstPinYin"] = i["FirstPinYin"].ToString(),
-                    ["CreateTime"] = i["CreateTime"].ToUniversalTime(),
-                    ["UpdateTime"] = i["UpdateTime"].ToUniversalTime(),
-                    ["Thumbnail"] = i.Contains("Thumbnail") && !i["Thumbnail"].IsBsonNull ? i["Thumbnail"].ToString() : null
+                    var doc = categories.Where(n => n["_id"].ToString() == i["Category"].ToString()).FirstOrDefault();
+                    if (doc != null)
+                    {
+                        categoryID = doc["_id"].ToString();
+                        categoryName = doc["Name"].ToString();
+                    }
+                }
+
+                var info = new MaterialModel
+                {
+                    ID = i["ID"].AsObjectId.ToString(),
+                    Name = i["Name"].AsString,
+                    CategoryID = categoryID,
+                    CategoryName = categoryName,
+                    TotalPinYin = i["TotalPinYin"].ToString(),
+                    FirstPinYin = i["FirstPinYin"].ToString(),
+                    CreateTime = i["CreateTime"].ToUniversalTime(),
+                    UpdateTime = i["UpdateTime"].ToUniversalTime(),
+                    Thumbnail = i.Contains("Thumbnail") && !i["Thumbnail"].IsBsonNull ? i["Thumbnail"].ToString() : null
                 };
 
-                list.Add(obj);
+                list.Add(info);
             }
+
+            list = list.OrderByDescending(n => n.UpdateTime).ToList();
 
             return Json(new
             {
