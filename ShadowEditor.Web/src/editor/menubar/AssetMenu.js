@@ -1,5 +1,4 @@
 import UI from '../../ui/UI';
-import AudioWindow from '../window/AudioWindow';
 import MMDWindow from '../window/MMDWindow';
 import StringUtils from '../../utils/StringUtils';
 
@@ -29,11 +28,6 @@ AssetMenu.prototype.render = function () {
             xtype: 'div',
             cls: 'options',
             children: [{
-                xtype: 'div',
-                html: '音频管理',
-                cls: 'option',
-                onClick: this.onManageAudio.bind(this)
-            }, {
                 xtype: 'div',
                 html: 'MMD资源管理',
                 cls: 'option',
@@ -90,16 +84,6 @@ AssetMenu.prototype.render = function () {
 
     container.render();
 }
-
-// --------------------------------- 音频管理 --------------------------------------
-
-AssetMenu.prototype.onManageAudio = function () {
-    if (this.audioWindow == null) {
-        this.audioWindow = new AudioWindow({ parent: this.app.container, app: this.app });
-        this.audioWindow.render();
-    }
-    this.audioWindow.show();
-};
 
 // ------------------------------- MMD资源管理 --------------------------------------
 
