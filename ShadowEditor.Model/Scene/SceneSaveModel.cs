@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.Scene
+namespace ShadowEditor.Model.Scene
 {
     /// <summary>
-    /// 场景编辑数据模型
+    /// 保存场景模型
     /// </summary>
-    public class EditSceneModel
+    public class SceneSaveModel
     {
         /// <summary>
         /// ID
@@ -22,13 +22,8 @@ namespace ShadowEditor.Server.Scene
         public string Name { get; set; }
 
         /// <summary>
-        /// 类别
+        /// 数据
         /// </summary>
-        public string Category { get; set; }
-
-        /// <summary>
-        /// 缩略图
-        /// </summary>
-        public string Image { get; set; }
+        public string Data { get; set; }
     }
 }

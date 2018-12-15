@@ -8,9 +8,9 @@ using System.Web.Http.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
+using ShadowEditor.Model.Scene;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
-using ShadowEditor.Server.Scene;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -125,7 +125,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Edit(EditSceneModel model)
+        public JsonResult Edit(SceneEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -193,7 +193,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model">保存场景模型</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Save(SaveSceneModel model)
+        public JsonResult Save(SceneSaveModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 

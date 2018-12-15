@@ -12,7 +12,6 @@ using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
-using ShadowEditor.Server.Scene;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -57,18 +56,20 @@ namespace ShadowEditor.Server.Controllers
 
             var mongo = new MongoHelper();
 
-            var doc = new BsonDocument();
-            doc["AddTime"] = BsonDateTime.Create(now);
-            doc["FileName"] = fileName;
-            doc["FileSize"] = fileSize;
-            doc["FileType"] = fileType;
-            doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
-            doc["Name"] = fileNameWithoutExt;
-            doc["SaveName"] = fileName;
-            doc["SavePath"] = savePath;
-            doc["Thumbnail"] = "";
-            doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
-            doc["Url"] = $"{savePath}/{fileName}";
+            var doc = new BsonDocument
+            {
+                ["AddTime"] = BsonDateTime.Create(now),
+                ["FileName"] = fileName,
+                ["FileSize"] = fileSize,
+                ["FileType"] = fileType,
+                ["FirstPinYin"] = string.Join("", pinyin.FirstPinYin),
+                ["Name"] = fileNameWithoutExt,
+                ["SaveName"] = fileName,
+                ["SavePath"] = savePath,
+                ["Thumbnail"] = "",
+                ["TotalPinYin"] = string.Join("", pinyin.TotalPinYin),
+                ["Url"] = $"{savePath}/{fileName}"
+            };
 
             mongo.InsertOne(Constant.FileCollectionName, doc);
 

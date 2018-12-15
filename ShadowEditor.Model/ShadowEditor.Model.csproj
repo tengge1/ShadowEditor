@@ -50,6 +50,9 @@
     <Compile Include="Mesh\MeshType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Category\CategorySaveModel.cs" />
+    <Compile Include="Scene\SceneEditModel.cs" />
+    <Compile Include="Scene\SceneSaveModel.cs" />
+    <Compile Include="Scene\SceneModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
