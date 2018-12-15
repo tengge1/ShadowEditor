@@ -325,12 +325,12 @@ MaterialComponent.prototype.render = function () {
                 scope: this.id,
                 value: false,
                 onChange: this.updateMaterial.bind(this)
-            }, {
-                xtype: 'texture',
+            }, new TextureSelectControl({
+                app: this.app,
                 id: 'alphaMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
-            }]
+            })]
         }, {
             xtype: 'row',
             id: 'bumpMapRow',
@@ -344,16 +344,12 @@ MaterialComponent.prototype.render = function () {
                 scope: this.id,
                 value: false,
                 onChange: this.updateMaterial.bind(this)
-            }, {
-                xtype: 'texture',
+            }, new TextureSelectControl({
+                app: this.app,
                 id: 'bumpMap',
                 scope: this.id,
-                value: 1,
-                style: {
-                    width: '30px'
-                },
                 onChange: this.updateMaterial.bind(this)
-            }, {
+            }), {
                 xtype: 'number',
                 id: 'bumpScale',
                 scope: this.id,
@@ -376,12 +372,12 @@ MaterialComponent.prototype.render = function () {
                 scope: this.id,
                 value: false,
                 onChange: this.updateMaterial.bind(this)
-            }, {
-                xtype: 'texture',
+            }, new TextureSelectControl({
+                app: this.app,
                 id: 'normalMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
-            }]
+            })]
         }, {
             xtype: 'row',
             id: 'displacementMapRow',
@@ -395,12 +391,12 @@ MaterialComponent.prototype.render = function () {
                 scope: this.id,
                 value: false,
                 onChange: this.updateMaterial.bind(this)
-            }, {
-                xtype: 'texture',
+            }, new TextureSelectControl({
+                app: this.app,
                 id: 'displacementMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
-            }, {
+            }), {
                 xtype: 'number',
                 id: 'displacementScale',
                 scope: this.id,
@@ -423,12 +419,12 @@ MaterialComponent.prototype.render = function () {
                 scope: this.id,
                 value: false,
                 onChange: this.updateMaterial.bind(this)
-            }, {
-                xtype: 'texture',
+            }, new TextureSelectControl({
+                app: this.app,
                 id: 'roughnessMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
-            }]
+            })]
         }, {
             xtype: 'row',
             id: 'metalnessMapRow',
@@ -442,12 +438,12 @@ MaterialComponent.prototype.render = function () {
                 scope: this.id,
                 value: false,
                 onChange: this.updateMaterial.bind(this)
-            }, {
-                xtype: 'texture',
+            }, new TextureSelectControl({
+                app: this.app,
                 id: 'metalnessMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
-            }]
+            })]
         }, {
             xtype: 'row',
             id: 'specularMapRow',
@@ -461,12 +457,12 @@ MaterialComponent.prototype.render = function () {
                 scope: this.id,
                 value: false,
                 onChange: this.updateMaterial.bind(this)
-            }, {
-                xtype: 'texture',
+            }, new TextureSelectControl({
+                app: this.app,
                 id: 'specularMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
-            }]
+            })]
         }, {
             xtype: 'row',
             id: 'envMapRow',
@@ -480,13 +476,13 @@ MaterialComponent.prototype.render = function () {
                 scope: this.id,
                 value: false,
                 onChange: this.updateMaterial.bind(this)
-            }, {
-                xtype: 'texture',
+            }, new TextureSelectControl({
+                app: this.app,
                 id: 'envMap',
                 scope: this.id,
                 mapping: THREE.SphericalReflectionMapping,
                 onChange: this.updateMaterial.bind(this)
-            }, {
+            }), {
                 xtype: 'number',
                 id: 'reflectivity',
                 scope: this.id,
@@ -509,12 +505,12 @@ MaterialComponent.prototype.render = function () {
                 scope: this.id,
                 value: false,
                 onChange: this.updateMaterial.bind(this)
-            }, {
-                xtype: 'texture',
+            }, new TextureSelectControl({
+                app: this.app,
                 id: 'lightMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
-            }]
+            })]
         }, {
             xtype: 'row',
             id: 'aoMapRow',
@@ -528,12 +524,12 @@ MaterialComponent.prototype.render = function () {
                 scope: this.id,
                 value: false,
                 onChange: this.updateMaterial.bind(this)
-            }, {
-                xtype: 'texture',
+            }, new TextureSelectControl({
+                app: this.app,
                 id: 'aoMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
-            }, {
+            }), {
                 xtype: 'number',
                 id: 'aoScale',
                 scope: this.id,
@@ -550,19 +546,19 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '放射纹理'
+                text: '放射贴图'
             }, {
                 xtype: 'checkbox',
                 id: 'emissiveMapEnabled',
                 scope: this.id,
                 value: false,
                 onChange: this.updateMaterial.bind(this)
-            }, {
-                xtype: 'texture',
+            }, new TextureSelectControl({
+                app: this.app,
                 id: 'emissiveMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
-            }]
+            })]
         }, {
             xtype: 'row',
             id: 'sideRow',

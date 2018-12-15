@@ -10,6 +10,8 @@ function TextureSelectControl(options = {}) {
     this.app = options.app;
 
     this.texture = null;
+    this.mapping = options.mapping || THREE.UVMapping;
+
     this.isSelecting = false;
 
     this.onChange = options.onChange || null;
@@ -112,6 +114,7 @@ TextureSelectControl.prototype.onSelect = function (data) {
         loader.load(`${this.app.options.server}${urls[0]}`, texture => {
             this.texture = texture;
             this.texture.name = data.Name;
+            texture.mapping = this.mapping;
             this.updateUI();
             this.onChange();
         });
