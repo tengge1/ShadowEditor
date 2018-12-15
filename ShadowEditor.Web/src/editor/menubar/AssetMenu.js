@@ -1,5 +1,4 @@
 import UI from '../../ui/UI';
-import ModelWindow from '../window/ModelWindow';
 import TextureWindow from '../window/TextureWindow';
 import AudioWindow from '../window/AudioWindow';
 import MMDWindow from '../window/MMDWindow';
@@ -31,11 +30,6 @@ AssetMenu.prototype.render = function () {
             xtype: 'div',
             cls: 'options',
             children: [{
-                xtype: 'div',
-                html: '模型管理',
-                cls: 'option',
-                onClick: this.onManageModel.bind(this)
-            }, {
                 xtype: 'div',
                 html: '纹理管理',
                 cls: 'option',
@@ -107,16 +101,6 @@ AssetMenu.prototype.render = function () {
 
     container.render();
 }
-
-// --------------------------------- 模型管理 --------------------------------------
-
-AssetMenu.prototype.onManageModel = function () {
-    if (this.modelWindow == null) {
-        this.modelWindow = new ModelWindow({ parent: this.app.container, app: this.app });
-        this.modelWindow.render();
-    }
-    this.modelWindow.show();
-};
 
 // --------------------------------- 纹理管理 --------------------------------------
 
