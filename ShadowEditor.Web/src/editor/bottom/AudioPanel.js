@@ -1,5 +1,7 @@
 import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
+import EditWindow from '../window/EditWindow';
+import UploadUtils from '../../utils/UploadUtils';
 
 /**
  * 音频面板
@@ -10,6 +12,7 @@ function AudioPanel(options) {
     this.app = options.app;
 
     this.firstShow = true;
+
     this.data = [];
 };
 
@@ -54,7 +57,18 @@ AudioPanel.prototype.renderUI = function () {
             },
             children: [{
                 xtype: 'div',
+                style: {
+                    display: 'flex'
+                },
                 children: [{
+                    xtype: 'iconbutton',
+                    icon: 'icon-upload',
+                    title: '上传',
+                    style: {
+                        padding: '2px'
+                    },
+                    onClick: this.onUpload.bind(this)
+                }, {
                     xtype: 'searchfield',
                     id: 'search',
                     scope: this.id,
@@ -69,16 +83,9 @@ AudioPanel.prototype.renderUI = function () {
                 },
                 children: [{
                     xtype: 'category',
-                    options: {
-                        category1: '分类1',
-                        category2: '分类2',
-                        category3: '分类3',
-                        category4: '分类4',
-                        category5: '分类5',
-                        category6: '分类6',
-                        category7: '分类7',
-                        category8: '分类8',
-                    }
+                    id: 'category',
+                    scope: this.id,
+                    onChange: this.onSearch.bind(this)
                 }]
             }]
         }, {
@@ -95,7 +102,7 @@ AudioPanel.prototype.renderUI = function () {
                 scope: this.id,
                 style: {
                     width: '100%',
-                    height: '100%',
+                    maxHeight: '100%',
                 },
                 onClick: this.onClick.bind(this)
             }]
@@ -106,27 +113,57 @@ AudioPanel.prototype.renderUI = function () {
 };
 
 AudioPanel.prototype.update = function () {
-    var server = this.app.options.server;
+    this.updateCategory();
+    this.updateList();
+};
 
-    Ajax.getJson(`${server}/api/Audio/List`, obj => {
-        this.data = obj.Data;
-        this.onSearch('');
+AudioPanel.prototype.updateCategory = function () {
+    var category = UI.get('category', this.id);
+    category.clear();
+
+    Ajax.getJson(`/api/Category/List?type=Audio`, obj => {
+        category.options = {};
+        obj.Data.forEach(n => {
+            category.options[n.ID] = n.Name;
+        });
+        category.render();
     });
 };
 
-AudioPanel.prototype.onSearch = function (name) {
-    if (name.trim() === '') {
-        this.renderList(this.data);
-        return;
+AudioPanel.prototype.updateList = function () {
+    var search = UI.get('search', this.id);
+
+    Ajax.getJson(`/api/Audio/List`, obj => {
+        this.data = obj.Data;
+        search.setValue('');
+        this.onSearch();
+    });
+};
+
+AudioPanel.prototype.onSearch = function () {
+    var search = UI.get('search', this.id);
+    var category = UI.get('category', this.id);
+
+    var name = search.getValue();
+    var categories = category.getValue();
+
+    var list = this.data;
+
+    if (name.trim() !== '') {
+        name = name.toLowerCase();
+
+        list = list.filter(n => {
+            return n.Name.indexOf(name) > -1 ||
+                n.FirstPinYin.indexOf(name) > -1 ||
+                n.TotalPinYin.indexOf(name) > -1;
+        });
     }
 
-    name = name.toLowerCase();
-
-    var list = this.data.filter(n => {
-        return n.Name.indexOf(name) > -1 ||
-            n.FirstPinYin.indexOf(name) > -1 ||
-            n.TotalPinYin.indexOf(name) > -1;
-    });
+    if (categories.length > 0) {
+        list = list.filter(n => {
+            return categories.indexOf(n.CategoryID) > -1;
+        });
+    }
 
     this.renderList(list);
 };
@@ -152,12 +189,95 @@ AudioPanel.prototype.renderList = function (list) {
     images.render();
 };
 
-AudioPanel.prototype.onClick = function (data) {
-    // if (typeof (this.onSelect) === 'function') {
-    //     this.onSelect(data);
-    // } else {
-    //     UI.msg('请在材质控件中修改纹理。');
-    // }
+AudioPanel.prototype.onClick = function (event, index, btn, control) {
+    var data = control.children[index].data;
+
+    if (btn === 'edit') {
+        if (typeof (this.onEdit) === 'function') {
+            this.onEdit(data);
+        }
+    } else if (btn === 'delete') {
+        if (typeof (this.onDelete) === 'function') {
+            this.onDelete(data);
+        }
+    } else {
+        if (typeof (this.onClick) === 'function') {
+            this.onAddAudio(data);
+        }
+    }
+};
+
+// ------------------------------------- 添加 ------------------------------------
+
+AudioPanel.prototype.onAddAudio = function (data) {
+    this.app.call(`selectAudio`, this, data);
+};
+
+// ----------------------------------- 上传 ----------------------------------------
+
+AudioPanel.prototype.onUpload = function () {
+    if (this.input === undefined) {
+        this.input = document.createElement('input');
+        this.input.id = `file_${this.id}`;
+        this.input.type = 'file';
+        this.input.style.display = 'none';
+        this.input.addEventListener('change', this.onCommitUpload.bind(this));
+        document.body.appendChild(this.input);
+    }
+
+    this.input.value = null;
+    this.input.click();
+};
+
+AudioPanel.prototype.onCommitUpload = function () {
+    UploadUtils.upload(`file_${this.id}`, `/api/Audio/Add`, event => {
+        if (event.target.status === 200) {
+            var response = event.target.response;
+            var obj = JSON.parse(response);
+            UI.msg(obj.Msg);
+            if (obj.Code === 200) {
+                this.updateList();
+            }
+        } else {
+            UI.msg('上传失败！');
+        }
+    }, () => {
+        UI.msg('上传失败！');
+    });
+};
+
+// ------------------------------- 编辑 ---------------------------------------
+
+AudioPanel.prototype.onEdit = function (data) {
+    if (this.editWindow === undefined) {
+        this.editWindow = new EditWindow({
+            app: this.app,
+            parent: document.body,
+            type: 'Audio',
+            typeName: '音频',
+            saveUrl: '/api/Audio/Edit',
+            callback: this.update.bind(this)
+        });
+        this.editWindow.render();
+    }
+    this.editWindow.setData(data);
+    this.editWindow.show();
+};
+
+// -------------------------------- 删除 ----------------------------------------
+
+AudioPanel.prototype.onDelete = function (data) {
+    UI.confirm('询问', `是否删除${data.Name}？`, (event, btn) => {
+        if (btn === 'ok') {
+            Ajax.post(`/api/Audio/Delete?ID=${data.ID}`, json => {
+                var obj = JSON.parse(json);
+                if (obj.Code === 200) {
+                    this.update();
+                }
+                UI.msg(obj.Msg);
+            });
+        }
+    });
 };
 
 export default AudioPanel;
