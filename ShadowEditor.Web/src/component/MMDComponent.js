@@ -57,6 +57,25 @@ MMDComponent.prototype.render = function () {
                 text: '选择',
                 onClick: this.selectAnimation.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '相机动画'
+            }, {
+                xtype: 'input',
+                id: 'cameraAnimation',
+                scope: this.id,
+                disabled: true,
+                style: {
+                    width: '80px',
+                    fontSize: '12px'
+                }
+            }, {
+                xtype: 'button',
+                text: '选择',
+                onClick: this.selectCameraAnimation.bind(this)
+            }]
         }]
     };
 
@@ -88,11 +107,22 @@ MMDComponent.prototype.updateUI = function () {
     this.selected = editor.selected;
 
     var animation = UI.get('animation', this.id);
+    var cameraAnimation = UI.get('cameraAnimation', this.id);
 
     if (this.selected.userData.Animation) {
         animation.setValue(this.selected.userData.Animation.Name);
+    } else {
+        animation.setValue('');
+    }
+
+    if (this.selected.userData.CameraAnimation) {
+        cameraAnimation.setValue(this.selected.userData.CameraAnimation.Name);
+    } else {
+        cameraAnimation.setValue('');
     }
 };
+
+// ----------------------------- 模型动画 ------------------------------------------
 
 MMDComponent.prototype.selectAnimation = function () {
     this.app.call(`selectBottomPanel`, this, 'animation');
@@ -109,6 +139,26 @@ MMDComponent.prototype.onSelectAnimation = function (data) {
 
     this.selected.userData.Animation = {};
     Object.assign(this.selected.userData.Animation, data);
+    this.updateUI();
+};
+
+// ---------------------------- 相机动画 -------------------------------------------
+
+MMDComponent.prototype.selectCameraAnimation = function () {
+    this.app.call(`selectBottomPanel`, this, 'animation');
+    UI.msg('请点击动画面板中的相机动画！');
+    this.app.on(`selectAnimation.${this.id}`, this.onSelectCameraAnimation.bind(this));
+};
+
+MMDComponent.prototype.onSelectCameraAnimation = function (data) {
+    if (data.Type !== 'mmd') {
+        UI.msg(`只允许选择MMD相机动画！`);
+        return;
+    }
+    this.app.on(`selectAnimation.${this.id}`, null);
+
+    this.selected.userData.CameraAnimation = {};
+    Object.assign(this.selected.userData.CameraAnimation, data);
     this.updateUI();
 };
 
