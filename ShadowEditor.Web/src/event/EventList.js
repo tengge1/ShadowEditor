@@ -95,6 +95,7 @@ var EventList = [
     'selectMap', // 选择贴图
     'selectMaterial', // 选择材质
     'selectAudio', // 选择音频
+    'selectAnimation', // 选择动画
     'selectParticle', // 选择粒子
 ];
 

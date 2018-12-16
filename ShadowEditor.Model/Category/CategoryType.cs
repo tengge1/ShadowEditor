@@ -40,5 +40,10 @@ namespace ShadowEditor.Model.Category
         /// 音频
         /// </summary>
         Audio,
+
+        /// <summary>
+        /// 动画
+        /// </summary>
+        Animation,
     }
 }

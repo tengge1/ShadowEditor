@@ -5,6 +5,7 @@ import ModelPanel from './ModelPanel';
 import MapPanel from './MapPanel';
 import MaterialPanel from './MaterialPanel';
 import AudioPanel from './AudioPanel';
+import AnimationPanel from './AnimationPanel';
 import ParticlePanel from './ParticlePanel';
 import LogPanel from './LogPanel';
 
@@ -75,6 +76,13 @@ BottomPanel.prototype.render = function () {
                 text: '音频',
                 onClick: () => {
                     this.selectTab('audio');
+                }
+            }, {
+                xtype: 'text',
+                id: 'animationTab',
+                text: '动画',
+                onClick: () => {
+                    this.selectTab('animation');
                 }
             }, {
                 xtype: 'text',
@@ -170,6 +178,17 @@ BottomPanel.prototype.render = function () {
             ]
         }, {
             xtype: 'div',
+            id: 'animationPanel',
+            style: {
+                height: 'calc(100% - 40px)'
+            },
+            children: [
+                new AnimationPanel({
+                    app: this.app
+                })
+            ]
+        }, {
+            xtype: 'div',
             id: 'particlePanel',
             style: {
                 height: 'calc(100% - 40px)'
@@ -214,6 +233,7 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     var mapTab = UI.get('mapTab');
     var materialTab = UI.get('materialTab');
     var audioTab = UI.get('audioTab');
+    var animationTab = UI.get('animationTab');
     var particleTab = UI.get('particleTab');
     var logTab = UI.get('logTab');
 
@@ -223,6 +243,7 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     var mapPanel = UI.get('mapPanel');
     var materialPanel = UI.get('materialPanel');
     var audioPanel = UI.get('audioPanel');
+    var animationPanel = UI.get('animationPanel');
     var particlePanel = UI.get('particlePanel');
     var logPanel = UI.get('logPanel');
 
@@ -232,6 +253,7 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     mapTab.dom.className = '';
     materialTab.dom.className = '';
     audioTab.dom.className = '';
+    animationTab.dom.className = '';
     particleTab.dom.className = '';
     logTab.dom.className = '';
 
@@ -241,6 +263,7 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     mapPanel.dom.style.display = 'none';
     materialPanel.dom.style.display = 'none';
     audioPanel.dom.style.display = 'none';
+    animationPanel.dom.style.display = 'none';
     particlePanel.dom.style.display = 'none';
     logPanel.dom.style.display = 'none';
 
@@ -268,6 +291,10 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
         case 'audio':
             audioTab.dom.className = 'selected';
             audioPanel.dom.style.display = '';
+            break;
+        case 'animation':
+            animationTab.dom.className = 'selected';
+            animationPanel.dom.style.display = '';
             break;
         case 'particle':
             particleTab.dom.className = 'selected';

@@ -24,7 +24,7 @@ AnimationPanel.prototype.render = function () {
 };
 
 AnimationPanel.prototype.onShowPanel = function (tabName) {
-    if (tabName !== 'map') {
+    if (tabName !== 'animation') {
         return;
     }
 
@@ -121,7 +121,7 @@ AnimationPanel.prototype.updateCategory = function () {
     var category = UI.get('category', this.id);
     category.clear();
 
-    Ajax.getJson(`/api/Category/List?type=Map`, obj => {
+    Ajax.getJson(`/api/Category/List?type=Animation`, obj => {
         category.options = {};
         obj.Data.forEach(n => {
             category.options[n.ID] = n.Name;
@@ -133,7 +133,7 @@ AnimationPanel.prototype.updateCategory = function () {
 AnimationPanel.prototype.updateList = function () {
     var search = UI.get('search', this.id);
 
-    Ajax.getJson(`/api/Map/List`, obj => {
+    Ajax.getJson(`/api/Animation/List`, obj => {
         this.data = obj.Data;
         search.setValue('');
         this.onSearch();
@@ -210,7 +210,7 @@ AnimationPanel.prototype.onClick = function (event, index, btn, control) {
 // ------------------------------------- 添加 ------------------------------------
 
 AnimationPanel.prototype.onAddMap = function (data) {
-    this.app.call(`selectMap`, this, data);
+    this.app.call(`selectAnimation`, this, data);
 };
 
 // ----------------------------------- 上传 ----------------------------------------
@@ -230,7 +230,7 @@ AnimationPanel.prototype.onUpload = function () {
 };
 
 AnimationPanel.prototype.onCommitUpload = function () {
-    UploadUtils.upload(`file_${this.id}`, `/api/Map/Add`, event => {
+    UploadUtils.upload(`file_${this.id}`, `/api/Animation/Add`, event => {
         if (event.target.status === 200) {
             var response = event.target.response;
             var obj = JSON.parse(response);
@@ -253,9 +253,9 @@ AnimationPanel.prototype.onEdit = function (data) {
         this.editWindow = new EditWindow({
             app: this.app,
             parent: document.body,
-            type: 'Map',
-            typeName: '贴图',
-            saveUrl: '/api/Map/Edit',
+            type: 'Animation',
+            typeName: '动画',
+            saveUrl: '/api/Animation/Edit',
             callback: this.update.bind(this)
         });
         this.editWindow.render();
@@ -269,7 +269,7 @@ AnimationPanel.prototype.onEdit = function (data) {
 AnimationPanel.prototype.onDelete = function (data) {
     UI.confirm('询问', `是否删除${data.Name}？`, (event, btn) => {
         if (btn === 'ok') {
-            Ajax.post(`/api/Map/Delete?ID=${data.ID}`, json => {
+            Ajax.post(`/api/Animation/Delete?ID=${data.ID}`, json => {
                 var obj = JSON.parse(json);
                 if (obj.Code === 200) {
                     this.update();
