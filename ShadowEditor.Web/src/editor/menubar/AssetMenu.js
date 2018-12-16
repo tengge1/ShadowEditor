@@ -1,5 +1,4 @@
 import UI from '../../ui/UI';
-import MMDWindow from '../window/MMDWindow';
 import StringUtils from '../../utils/StringUtils';
 
 /**
@@ -28,13 +27,6 @@ AssetMenu.prototype.render = function () {
             xtype: 'div',
             cls: 'options',
             children: [{
-                xtype: 'div',
-                html: 'MMD资源管理',
-                cls: 'option',
-                onClick: this.onManageMMD.bind(this)
-            }, {
-                xtype: 'hr'
-            }, {
                 xtype: 'div',
                 html: '导出几何体',
                 cls: 'option',
@@ -111,16 +103,6 @@ AssetMenu.prototype.render = function () {
 
     container.render();
 }
-
-// ------------------------------- MMD资源管理 --------------------------------------
-
-AssetMenu.prototype.onManageMMD = function () {
-    if (this.mmdWindow == null) {
-        this.mmdWindow = new MMDWindow({ parent: this.app.container, app: this.app });
-        this.mmdWindow.render();
-    }
-    this.mmdWindow.show();
-};
 
 // ------------------------------- 导出几何体 ----------------------------------------
 

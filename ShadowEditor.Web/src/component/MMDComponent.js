@@ -2,7 +2,7 @@ import BaseComponent from './BaseComponent';
 import SetValueCommand from '../command/SetValueCommand';
 import RemoveObjectCommand from '../command/RemoveObjectCommand';
 import AddObjectCommand from '../command/AddObjectCommand';
-import MMDWindow from '../editor/window/MMDWindow';
+// import MMDWindow from '../editor/window/MMDWindow';
 
 /**
  * MMD模型组件
@@ -95,14 +95,14 @@ MMDComponent.prototype.updateUI = function () {
 };
 
 MMDComponent.prototype.selectAnimation = function () {
-    if (this.mmdWindow === undefined) {
-        this.mmdWindow = new MMDWindow({
-            app: this.app,
-            onSelect: this.onSelectAnimation.bind(this)
-        });
-        this.mmdWindow.render();
-    }
-    this.mmdWindow.show();
+    // if (this.mmdWindow === undefined) {
+    //     this.mmdWindow = new MMDWindow({
+    //         app: this.app,
+    //         onSelect: this.onSelectAnimation.bind(this)
+    //     });
+    //     this.mmdWindow.render();
+    // }
+    // this.mmdWindow.show();
 };
 
 MMDComponent.prototype.onSelectAnimation = function (data) {
