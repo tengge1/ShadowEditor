@@ -1,5 +1,5 @@
 import Control from '../../ui/Control';
-import AnimationPanel from './AnimationPanel';
+import TimePanel from './TimePanel';
 import ScenePanel from './ScenePanel';
 import ModelPanel from './ModelPanel';
 import MapPanel from './MapPanel';
@@ -36,10 +36,10 @@ BottomPanel.prototype.render = function () {
             },
             children: [{
                 xtype: 'text',
-                id: 'animationTab',
-                text: '动画',
+                id: 'timeTab',
+                text: '时间',
                 onClick: () => {
-                    this.selectTab('animation');
+                    this.selectTab('time');
                 }
             }, {
                 xtype: 'text',
@@ -104,12 +104,12 @@ BottomPanel.prototype.render = function () {
             }]
         }, {
             xtype: 'div',
-            id: 'animationPanel',
+            id: 'timePanel',
             style: {
                 height: 'calc(100% - 40px)'
             },
             children: [
-                new AnimationPanel({
+                new TimePanel({
                     app: this.app
                 })
             ]
@@ -197,7 +197,7 @@ BottomPanel.prototype.render = function () {
     control.render();
 
     this.app.on(`appStarted.${this.id}`, () => {
-        this.selectTab('animation');
+        this.selectTab('time');
     });
 
     this.app.on(`selectBottomPanel.${this.id}`, this.onSelectPanel.bind(this));
@@ -208,7 +208,7 @@ BottomPanel.prototype.selectTab = function (tabName) {
 };
 
 BottomPanel.prototype.onSelectPanel = function (tabName) {
-    var animationTab = UI.get('animationTab');
+    var timeTab = UI.get('timeTab');
     var sceneTab = UI.get('sceneTab');
     var modelTab = UI.get('modelTab');
     var mapTab = UI.get('mapTab');
@@ -217,7 +217,7 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     var particleTab = UI.get('particleTab');
     var logTab = UI.get('logTab');
 
-    var animationPanel = UI.get('animationPanel');
+    var timePanel = UI.get('timePanel');
     var scenePanel = UI.get('scenePanel');
     var modelPanel = UI.get('modelPanel');
     var mapPanel = UI.get('mapPanel');
@@ -226,7 +226,7 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     var particlePanel = UI.get('particlePanel');
     var logPanel = UI.get('logPanel');
 
-    animationTab.dom.className = '';
+    timeTab.dom.className = '';
     sceneTab.dom.className = '';
     modelTab.dom.className = '';
     mapTab.dom.className = '';
@@ -235,7 +235,7 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     particleTab.dom.className = '';
     logTab.dom.className = '';
 
-    animationPanel.dom.style.display = 'none';
+    timePanel.dom.style.display = 'none';
     scenePanel.dom.style.display = 'none';
     modelPanel.dom.style.display = 'none';
     mapPanel.dom.style.display = 'none';
@@ -245,9 +245,9 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     logPanel.dom.style.display = 'none';
 
     switch (tabName) {
-        case 'animation':
-            animationTab.dom.className = 'selected';
-            animationPanel.dom.style.display = '';
+        case 'time':
+            timeTab.dom.className = 'selected';
+            timePanel.dom.style.display = '';
             break;
         case 'scene':
             sceneTab.dom.className = 'selected';

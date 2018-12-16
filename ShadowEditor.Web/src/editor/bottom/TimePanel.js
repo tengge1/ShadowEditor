@@ -7,10 +7,10 @@ const PLAY = 1;
 const PAUSE = 2;
 
 /**
- * 动画面板
+ * 时间面板
  * @author tengge / https://github.com/tengge1
  */
-function AnimationPanel(options) {
+function TimePanel(options) {
     UI.Control.call(this, options);
     this.app = options.app;
 
@@ -21,10 +21,10 @@ function AnimationPanel(options) {
     this.isDragging = false;
 };
 
-AnimationPanel.prototype = Object.create(UI.Control.prototype);
-AnimationPanel.prototype.constructor = AnimationPanel;
+TimePanel.prototype = Object.create(UI.Control.prototype);
+TimePanel.prototype.constructor = TimePanel;
 
-AnimationPanel.prototype.render = function () {
+TimePanel.prototype.render = function () {
     var data = {
         xtype: 'div',
         parent: this.parent,
@@ -147,7 +147,7 @@ AnimationPanel.prototype.render = function () {
     this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
 };
 
-AnimationPanel.prototype.onAppStarted = function () {
+TimePanel.prototype.onAppStarted = function () {
     var timeline = UI.get('timeline', this.id);
     var groups = UI.get('groups', this.id);
 
@@ -166,7 +166,7 @@ AnimationPanel.prototype.onAppStarted = function () {
     this.app.on(`startAnimation.${this.id}`, this.onPlay.bind(this));
 };
 
-AnimationPanel.prototype.updateUI = function () {
+TimePanel.prototype.updateUI = function () {
     var animations = this.app.editor.animation.getAnimationGroups();
 
     var groupInfo = UI.get('groupInfo', this.id);
@@ -218,7 +218,7 @@ AnimationPanel.prototype.updateUI = function () {
     });
 };
 
-AnimationPanel.prototype.updateSlider = function () {
+TimePanel.prototype.updateSlider = function () {
     var timeline = UI.get('timeline', this.id);
     var slider = UI.get('slider', this.id);
     var time = UI.get('time', this.id);
@@ -242,7 +242,7 @@ AnimationPanel.prototype.updateSlider = function () {
     this.app.call('animationTime', this, animationTime);
 };
 
-AnimationPanel.prototype.onAnimate = function () {
+TimePanel.prototype.onAnimate = function () {
     var timeline = UI.get('timeline', this.id);
     this.sliderLeft += this.speed / 4;
 
@@ -253,13 +253,13 @@ AnimationPanel.prototype.onAnimate = function () {
     this.updateSlider();
 };
 
-AnimationPanel.prototype.onAddGroup = function () {
+TimePanel.prototype.onAddGroup = function () {
     var group = new AnimationGroup();
     this.app.editor.animation.add(group);
     this.updateUI();
 };
 
-AnimationPanel.prototype.onRemoveGroup = function () {
+TimePanel.prototype.onRemoveGroup = function () {
     var inputs = document.querySelectorAll('.animation-panel .left-area input:checked');
 
     var uuids = [];
@@ -284,7 +284,7 @@ AnimationPanel.prototype.onRemoveGroup = function () {
 
 // ----------------------------------- 播放器事件 -------------------------------------------
 
-AnimationPanel.prototype.onPlay = function () {
+TimePanel.prototype.onPlay = function () {
     if (this.status === PLAY) {
         return;
     }
@@ -296,7 +296,7 @@ AnimationPanel.prototype.onPlay = function () {
     this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
 };
 
-AnimationPanel.prototype.onPause = function () {
+TimePanel.prototype.onPause = function () {
     if (this.status === PAUSE) {
         return;
     }
@@ -309,21 +309,21 @@ AnimationPanel.prototype.onPause = function () {
     this.updateSlider();
 };
 
-AnimationPanel.prototype.onForward = function () {
+TimePanel.prototype.onForward = function () {
     if (this.speed >= 16) {
         return;
     }
     this.speed *= 2;
 };
 
-AnimationPanel.prototype.onBackward = function () {
+TimePanel.prototype.onBackward = function () {
     if (this.speed <= 1) {
         return;
     }
     this.speed /= 2;
 };
 
-AnimationPanel.prototype.onStop = function () {
+TimePanel.prototype.onStop = function () {
     if (this.status === STOP) {
         return;
     }
@@ -337,12 +337,12 @@ AnimationPanel.prototype.onStop = function () {
     this.updateSlider();
 };
 
-AnimationPanel.prototype.onResetAnimation = function () {
+TimePanel.prototype.onResetAnimation = function () {
     this.onStop();
     this.speed = 4;
 };
 
-AnimationPanel.prototype.onClick = function (event) {
+TimePanel.prototype.onClick = function (event) {
     if (event.target.data.type === 'AnimationGroup') {
         return;
     }
@@ -350,7 +350,7 @@ AnimationPanel.prototype.onClick = function (event) {
     this.app.call('animationSelected', this, event.target.data);
 };
 
-AnimationPanel.prototype.onDblClick = function (event) {
+TimePanel.prototype.onDblClick = function (event) {
     var timeline = UI.get('timeline', this.id);
 
     if (event.target.data && event.target.data.type === 'AnimationGroup') {
@@ -367,45 +367,45 @@ AnimationPanel.prototype.onDblClick = function (event) {
     }
 };
 
-AnimationPanel.prototype.onMouseDown = function () {
+TimePanel.prototype.onMouseDown = function () {
     if (this.isDragging) {
         return;
     }
     this.isDragging = true;
 };
 
-AnimationPanel.prototype.onMouseMove = function () {
+TimePanel.prototype.onMouseMove = function () {
 
 };
 
-AnimationPanel.prototype.onMouseUp = function () {
+TimePanel.prototype.onMouseUp = function () {
     this.isDragging = false;
 };
 
 // ----------------------- 拖动动画事件 ---------------------------------------------
 
-AnimationPanel.prototype.onDragStartAnimation = function (event) {
+TimePanel.prototype.onDragStartAnimation = function (event) {
     event.dataTransfer.setData('uuid', event.target.data.uuid);
     event.dataTransfer.setData('offsetX', event.offsetX);
 };
 
-AnimationPanel.prototype.onDragEndAnimation = function (event) {
+TimePanel.prototype.onDragEndAnimation = function (event) {
     event.dataTransfer.clearData();
 };
 
-AnimationPanel.prototype.onDragEnterGroup = function (event) {
+TimePanel.prototype.onDragEnterGroup = function (event) {
     event.preventDefault();
 };
 
-AnimationPanel.prototype.onDragOverGroup = function (event) {
+TimePanel.prototype.onDragOverGroup = function (event) {
     event.preventDefault();
 };
 
-AnimationPanel.prototype.onDragLeaveGroup = function (event) {
+TimePanel.prototype.onDragLeaveGroup = function (event) {
     event.preventDefault();
 };
 
-AnimationPanel.prototype.onDropGroup = function (event) {
+TimePanel.prototype.onDropGroup = function (event) {
     event.preventDefault();
     var uuid = event.dataTransfer.getData('uuid');
     var offsetX = event.dataTransfer.getData('offsetX');
@@ -429,4 +429,4 @@ AnimationPanel.prototype.onDropGroup = function (event) {
     this.updateUI();
 };
 
-export default AnimationPanel;
+export default TimePanel;
