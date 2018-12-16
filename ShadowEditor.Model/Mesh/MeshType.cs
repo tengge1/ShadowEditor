@@ -42,6 +42,8 @@ namespace ShadowEditor.Model.Mesh
         pdb,
         playcanvas,
         ply,
+        pmd,
+        pmx,
         prwm,
         sea3d,
         stl,

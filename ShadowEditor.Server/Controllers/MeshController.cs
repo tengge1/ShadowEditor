@@ -275,6 +275,18 @@ namespace ShadowEditor.Server.Controllers
                 entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
                 meshType = MeshType.ply;
             }
+            else if (files.Where(o => o.ToLower().EndsWith(".pmd")).Count() > 0) // pmd文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".pmd")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.pmd;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".pmx")).Count() > 0) // pmd文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".pmx")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.pmx;
+            }
             else if (files.Where(o => o.ToLower().EndsWith(".prwm")).Count() > 0) // prwm文件
             {
                 entryFileName = files.Where(o => o.ToLower().EndsWith(".prwm")).FirstOrDefault();
