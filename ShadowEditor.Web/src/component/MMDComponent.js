@@ -76,6 +76,25 @@ MMDComponent.prototype.render = function () {
                 text: '选择',
                 onClick: this.selectCameraAnimation.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '音频'
+            }, {
+                xtype: 'input',
+                id: 'audio',
+                scope: this.id,
+                disabled: true,
+                style: {
+                    width: '80px',
+                    fontSize: '12px'
+                }
+            }, {
+                xtype: 'button',
+                text: '选择',
+                onClick: this.selectAudio.bind(this)
+            }]
         }]
     };
 
@@ -108,6 +127,7 @@ MMDComponent.prototype.updateUI = function () {
 
     var animation = UI.get('animation', this.id);
     var cameraAnimation = UI.get('cameraAnimation', this.id);
+    var audio = UI.get('audio', this.id);
 
     if (this.selected.userData.Animation) {
         animation.setValue(this.selected.userData.Animation.Name);
@@ -119,6 +139,12 @@ MMDComponent.prototype.updateUI = function () {
         cameraAnimation.setValue(this.selected.userData.CameraAnimation.Name);
     } else {
         cameraAnimation.setValue('');
+    }
+
+    if (this.selected.userData.Audio) {
+        audio.setValue(this.selected.userData.Audio.Name);
+    } else {
+        audio.setValue('');
     }
 };
 
@@ -159,6 +185,22 @@ MMDComponent.prototype.onSelectCameraAnimation = function (data) {
 
     this.selected.userData.CameraAnimation = {};
     Object.assign(this.selected.userData.CameraAnimation, data);
+    this.updateUI();
+};
+
+// ------------------------------ MMD音乐 --------------------------------------------
+
+MMDComponent.prototype.selectAudio = function () {
+    this.app.call(`selectBottomPanel`, this, 'audio');
+    UI.msg('请点击MMD动画对应的音频！');
+    this.app.on(`selectAudio.${this.id}`, this.onSelectAudio.bind(this));
+};
+
+MMDComponent.prototype.onSelectAudio = function (data) {
+    this.app.on(`selectAudio.${this.id}`, null);
+
+    this.selected.userData.Audio = {};
+    Object.assign(this.selected.userData.Audio, data);
     this.updateUI();
 };
 
