@@ -45,11 +45,6 @@ AssetMenu.prototype.render = function () {
                 cls: 'option',
                 onClick: this.onExportObject.bind(this)
             }, {
-                xtype: 'div',
-                html: '导出场景',
-                cls: 'option',
-                onClick: this.onExportScene.bind(this)
-            }, {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
@@ -78,6 +73,38 @@ AssetMenu.prototype.render = function () {
                 html: '导出stl文件',
                 cls: 'option',
                 onClick: this.onExportSTL.bind(this)
+            }, {
+                xtype: 'hr'
+            }, {
+                xtype: 'div',
+                html: '导出音频',
+                cls: 'option',
+                onClick: this.onExportAudio.bind(this)
+            }, {
+                xtype: 'div',
+                html: '导出类别',
+                cls: 'option',
+                onClick: this.onExportCategory.bind(this)
+            }, {
+                xtype: 'div',
+                html: '导出贴图',
+                cls: 'option',
+                onClick: this.onExportMap.bind(this)
+            }, {
+                xtype: 'div',
+                html: '导出材质',
+                cls: 'option',
+                onClick: this.onExportMaterial.bind(this)
+            }, {
+                xtype: 'div',
+                html: '导出模型',
+                cls: 'option',
+                onClick: this.onExportMesh.bind(this)
+            }, {
+                xtype: 'div',
+                html: '导出场景',
+                cls: 'option',
+                onClick: this.onExportScene.bind(this)
             }]
         }]
     });
@@ -150,23 +177,6 @@ AssetMenu.prototype.onExportObject = function () {
     StringUtils.saveString(output, 'model.json');
 };
 
-// ------------------------------- 导出场景 ------------------------------------------
-
-AssetMenu.prototype.onExportScene = function () {
-    var editor = this.app.editor;
-
-    var output = editor.scene.toJSON();
-
-    try {
-        output = JSON.stringify(output, parseNumber, '\t');
-        output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
-    } catch (e) {
-        output = JSON.stringify(output);
-    }
-
-    StringUtils.saveString(output, 'scene.json');
-};
-
 // ------------------------------ 导出gltf文件 ----------------------------------------
 
 AssetMenu.prototype.onExportGLTF = function () {
@@ -229,6 +239,42 @@ AssetMenu.prototype.onExportSTL = function () {
     var exporter = new THREE.STLExporter();
 
     StringUtils.saveString(exporter.parse(editor.scene), 'model.stl');
+};
+
+// ----------------------------- 导出音频 ---------------------------------------------
+
+AssetMenu.prototype.onExportAudio = function () {
+
+};
+
+// ----------------------------- 导出类别 ----------------------------------------------
+
+AssetMenu.prototype.onExportCategory = function () {
+
+};
+
+// ----------------------------- 导出贴图 -----------------------------------------------
+
+AssetMenu.prototype.onExportMap = function () {
+
+};
+
+// ---------------------------- 导出材质 ------------------------------------------------
+
+AssetMenu.prototype.onExportMaterial = function () {
+
+};
+
+// --------------------------- 导出模型 -------------------------------------------------
+
+AssetMenu.prototype.onExportMesh = function () {
+
+};
+
+// ---------------------------- 导出场景 ------------------------------------------------
+
+AssetMenu.prototype.onExportScene = function () {
+
 };
 
 export default AssetMenu;

@@ -42,9 +42,9 @@ namespace ShadowEditor.Server
         public const string AudioCollectionName = "_Audio";
 
         /// <summary>
-        /// MMD表名
+        /// 动画表名
         /// </summary>
-        public const string MMDCollectionName = "_MMD";
+        public const string AnimationCollectionName = "_Animation";
 
         /// <summary>
         /// 上传文件表名

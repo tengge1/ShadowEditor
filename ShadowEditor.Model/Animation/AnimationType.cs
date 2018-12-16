@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.MMD
+namespace ShadowEditor.Model.Animation
 {
     /// <summary>
-    /// 资源类型
+    /// 动画类型
     /// </summary>
-    public enum MMDType
+    public enum AnimationType
     {
         unknown, // 未知类型
-        pmd, // 模型文件
-        pmx, // 模型文件
-        vmd, // 动画文件
+        mmd, // mmd模型动画
+        mmdCamera, // mmd相机动画
     }
 }

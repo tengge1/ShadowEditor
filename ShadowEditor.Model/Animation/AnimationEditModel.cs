@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.MMD
+namespace ShadowEditor.Model.Animation
 {
     /// <summary>
-    /// MMD编辑数据模型
+    /// 动画编辑模型
     /// </summary>
-    public class EditMMDModel
+    public class AnimationEditModel
     {
         /// <summary>
         /// ID
@@ -20,6 +20,11 @@ namespace ShadowEditor.Server.MMD
         /// 名称
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 类别
+        /// </summary>
+        public string Category { get; set; }
 
         /// <summary>
         /// 缩略图

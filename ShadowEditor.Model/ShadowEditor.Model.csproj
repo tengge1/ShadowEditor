@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation\AnimationEditModel.cs" />
+    <Compile Include="Animation\AnimationModel.cs" />
+    <Compile Include="Animation\AnimationType.cs" />
     <Compile Include="Audio\AudioModel.cs" />
     <Compile Include="Audio\AudioType.cs" />
     <Compile Include="Audio\AudioEditModel.cs" />

@@ -100,9 +100,10 @@
     <Compile Include="Base\WebApiConfig.cs" />
     <Compile Include="Base\XmlResult.cs" />
     <Compile Include="Constant.cs" />
+    <Compile Include="Controllers\ExportController.cs" />
     <Compile Include="Controllers\MeshController.cs" />
     <Compile Include="Controllers\AudioController.cs" />
-    <Compile Include="Controllers\MMDController.cs" />
+    <Compile Include="Controllers\AnimationController.cs" />
     <Compile Include="Controllers\PublishController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
@@ -118,11 +119,6 @@
     <Compile Include="Helpers\MongoHelper.cs" />
     <Compile Include="Helpers\PinYinHelper.cs" />
     <Compile Include="Helpers\ZipHelper.cs" />
-    <Compile Include="MMD\EditMMDModel.cs" />
-    <Compile Include="MMD\IMMDSaver.cs" />
-    <Compile Include="MMD\MMDInfo.cs" />
-    <Compile Include="MMD\MMDSaver.cs" />
-    <Compile Include="MMD\MMDType.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

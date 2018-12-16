@@ -4,17 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Server.MMD
+namespace ShadowEditor.Model.Animation
 {
     /// <summary>
-    /// MMD信息
+    /// 动画模型
     /// </summary>
-    public class MMDInfo
+    public class AnimationModel
     {
         /// <summary>
-        /// 资源名称（改名前等同于上传文件名称）
+        /// ID
+        /// </summary>
+        public string ID { get; set; }
+
+        /// <summary>
+        /// 名称
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 类别ID
+        /// </summary>
+        public string CategoryID { get; set; }
+
+        /// <summary>
+        /// 类别名称
+        /// </summary>
+        public string CategoryName { get; set; }
 
         /// <summary>
         /// 全拼
@@ -27,9 +42,9 @@ namespace ShadowEditor.Server.MMD
         public string FirstPinYin { get; set; }
 
         /// <summary>
-        /// 资源类型
+        /// 类型
         /// </summary>
-        public MMDType Type { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
         /// 下载地址
