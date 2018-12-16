@@ -95,17 +95,18 @@ MMDComponent.prototype.updateUI = function () {
 };
 
 MMDComponent.prototype.selectAnimation = function () {
-    // if (this.mmdWindow === undefined) {
-    //     this.mmdWindow = new MMDWindow({
-    //         app: this.app,
-    //         onSelect: this.onSelectAnimation.bind(this)
-    //     });
-    //     this.mmdWindow.render();
-    // }
-    // this.mmdWindow.show();
+    this.app.call(`selectBottomPanel`, this, 'animation');
+    UI.msg('请点击动画面板中的动画！');
+    this.app.on(`selectAnimation.${this.id}`, this.onSelectAnimation.bind(this));
 };
 
 MMDComponent.prototype.onSelectAnimation = function (data) {
+    if (data.Type !== 'mmd') {
+        UI.msg(`只允许选择MMD模型动画！`);
+        return;
+    }
+    this.app.on(`selectAnimation.${this.id}`, null);
+
     this.selected.userData.Animation = {};
     Object.assign(this.selected.userData.Animation, data);
     this.updateUI();
