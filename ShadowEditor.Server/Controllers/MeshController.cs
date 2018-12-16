@@ -12,7 +12,6 @@ using MongoDB.Driver;
 using ShadowEditor.Model.Mesh;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
-using ShadowEditor.Server.Mesh;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -85,9 +84,313 @@ namespace ShadowEditor.Server.Controllers
         /// <returns></returns>
         public JsonResult Add()
         {
-            var saver = new MeshSaver();
-            var result = saver.Save(HttpContext.Current);
-            return Json(result);
+            var Request = HttpContext.Current.Request;
+            var Server = HttpContext.Current.Server;
+
+            // 文件信息
+            var file = Request.Files[0];
+            var fileName = file.FileName;
+            var fileSize = file.ContentLength;
+            var fileType = file.ContentType;
+            var fileExt = Path.GetExtension(fileName);
+            var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
+
+            if (fileExt == null || fileExt.ToLower() != ".zip")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "只允许上传zip格式文件！"
+                });
+            }
+
+            // 保存文件
+            var now = DateTime.Now;
+
+            var savePath = $"/Upload/Model/{now.ToString("yyyyMMddHHmmss")}";
+            var physicalPath = Server.MapPath(savePath);
+
+            var tempPath = physicalPath + "\\temp"; // zip压缩文件临时保存目录
+
+            if (!Directory.Exists(tempPath))
+            {
+                Directory.CreateDirectory(tempPath);
+            }
+
+            file.SaveAs($"{tempPath}\\{fileName}");
+
+            // 解压文件
+            ZipHelper.Unzip($"{tempPath}\\{fileName}", physicalPath);
+
+            // 删除临时目录
+            Directory.Delete(tempPath, true);
+
+            // 判断文件类型
+            string entryFileName = null;
+            var meshType = MeshType.unknown;
+
+            var files = Directory.GetFiles(physicalPath);
+
+            if (files.Where(o => o.ToLower().EndsWith(".3ds")).Count() > 0) // 3ds文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".3ds")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType._3ds;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".3mf")).Count() > 0) // 3mf文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".3mf")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType._3mf;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".amf")).Count() > 0) // amf文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".amf")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.amf;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".assimp")).Count() > 0) // assimp文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".assimp")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.assimp;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".json")).Count() > 0 && files.Where(o => o.ToLower().EndsWith(".bin")).Count() > 0) // binary文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".json")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.binary;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".json")).Count() > 0) // json文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".json")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.json;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".js")).Count() > 0) // Skinned json文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".js")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.js;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".awd")).Count() > 0) // awd文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".awd")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.awd;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".babylon")).Count() > 0) // babylon文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".babylon")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.babylon;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".bvh")).Count() > 0) // bvh文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".bvh")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.bvh;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".ctm")).Count() > 0) // ctm文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".ctm")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.ctm;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".dae")).Count() > 0) // dae文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".dae")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.dae;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".drc")).Count() > 0) // drc文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".drc")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.drc;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".fbx")).Count() > 0) // fbx文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".fbx")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.fbx;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".gcode")).Count() > 0) // gcode文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".gcode")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.gcode;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".glb")).Count() > 0) // glb文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".glb")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.glb;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".gltf")).Count() > 0) // gltf文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".gltf")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.gltf;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".kmz")).Count() > 0) // kmz文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".kmz")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.kmz;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".md2")).Count() > 0) // md2文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".md2")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.md2;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".nrrd")).Count() > 0) // nrrd文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".nrrd")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.nrrd;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".obj")).Count() > 0) // obj文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".obj")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.obj;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".pcd")).Count() > 0) // pcd文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".pcd")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.pcd;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".pdb")).Count() > 0) // pdb文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".pdb")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.pdb;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".ply")).Count() > 0) // ply文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".ply")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.ply;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".prwm")).Count() > 0) // prwm文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".prwm")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.prwm;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".sea")).Count() > 0) // sea3d文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".sea")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.sea3d;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".stl")).Count() > 0) // stl文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".stl")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.stl;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".vrm")).Count() > 0) // vrm文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".vrm")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.vrm;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".wrl")).Count() > 0) // vrml文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".wrl")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.vrml;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".vtk")).Count() > 0) // vtk文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".vtk")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.vtk;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".lmesh")).Count() > 0) // lol文件
+            {
+                if (files.Where(o => o.ToLower().EndsWith(".lanim")).Count() == -1)
+                {
+                    Directory.Delete(physicalPath, true);
+
+                    return Json(new
+                    {
+                        Code = 300,
+                        Msg = "未上传动画(.lanim)文件！"
+                    });
+                }
+
+                if (files.Where(o => o.ToLower().EndsWith(".png")).Count() == -1)
+                {
+                    Directory.Delete(physicalPath, true);
+
+                    return Json(new
+                    {
+                        Code = 300,
+                        Msg = "未上传贴图(.png)文件！"
+                    });
+                }
+
+                var lmeshName = files.Where(o => o.ToLower().EndsWith(".lmesh")).FirstOrDefault();
+                var lanimName = files.Where(o => o.ToLower().EndsWith(".lanim")).FirstOrDefault();
+                var ltextureName = files.Where(o => o.ToLower().EndsWith(".png")).FirstOrDefault();
+
+                lmeshName = $"{savePath}/{Path.GetFileName(lmeshName)}";
+                lanimName = $"{savePath}/{Path.GetFileName(lanimName)}";
+                ltextureName = $"{savePath}/{Path.GetFileName(ltextureName)}";
+
+                entryFileName = $"{lmeshName};{lanimName};{ltextureName}";
+
+                meshType = MeshType.lol;
+            }
+            else if (files.Where(o => o.ToLower().EndsWith(".x")).Count() > 0) // x文件
+            {
+                entryFileName = files.Where(o => o.ToLower().EndsWith(".x")).FirstOrDefault();
+                entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
+                meshType = MeshType.x;
+            }
+
+            if (entryFileName == null || meshType == MeshType.unknown)
+            {
+                Directory.Delete(physicalPath, true);
+
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "未知文件类型！"
+                });
+            }
+
+            var pinyin = PinYinHelper.GetTotalPinYin(fileNameWithoutExt);
+
+            // 保存到Mongo
+            var mongo = new MongoHelper();
+
+            var doc = new BsonDocument();
+            doc["AddTime"] = BsonDateTime.Create(now);
+            doc["FileName"] = fileName;
+            doc["FileSize"] = fileSize;
+            doc["FileType"] = fileType;
+            doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
+            doc["Name"] = fileNameWithoutExt;
+            doc["SaveName"] = fileName;
+            doc["SavePath"] = savePath;
+            doc["Thumbnail"] = "";
+            doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
+            doc["Type"] = meshType.ToString();
+            doc["Url"] = entryFileName;
+
+            mongo.InsertOne(Constant.MeshCollectionName, doc);
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "上传成功！"
+            });
         }
 
         /// <summary>

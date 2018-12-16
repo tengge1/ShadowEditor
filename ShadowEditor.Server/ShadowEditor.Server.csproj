@@ -118,7 +118,6 @@
     <Compile Include="Helpers\MongoHelper.cs" />
     <Compile Include="Helpers\PinYinHelper.cs" />
     <Compile Include="Helpers\ZipHelper.cs" />
-    <Compile Include="Mesh\MeshSaver.cs" />
     <Compile Include="MMD\EditMMDModel.cs" />
     <Compile Include="MMD\IMMDSaver.cs" />
     <Compile Include="MMD\MMDInfo.cs" />
