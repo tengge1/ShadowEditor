@@ -377,7 +377,11 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
 
     var promises = serverObjects.map(serverObj => {
         return new Promise(resolve => {
-            (new ServerObject()).fromJSON(serverObj.json, options).then(obj => {
+            (new ServerObject()).fromJSON(serverObj.json, options, {
+                camera: options.camera,
+                renderer: options.renderer,
+                audioListener: options.audioListener
+            }).then(obj => {
                 if (obj) {
                     serverObj.parent.add(obj);
                 } else {

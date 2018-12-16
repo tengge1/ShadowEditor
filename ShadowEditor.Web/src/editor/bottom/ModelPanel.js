@@ -222,7 +222,11 @@ ModelPanel.prototype.onAddMesh = function (model) {
         url = this.app.options.server + model.Url;
     }
 
-    loader.load(url, model).then(obj => {
+    loader.load(url, model, {
+        camera: this.app.editor.camera,
+        renderer: this.app.editor.renderer,
+        audioListener: this.app.editor.audioListener
+    }).then(obj => {
         if (!obj) {
             return;
         }

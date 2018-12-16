@@ -80,7 +80,7 @@ function ModelLoader() {
 ModelLoader.prototype = Object.create(BaseLoader.prototype);
 ModelLoader.prototype.constructor = ModelLoader;
 
-ModelLoader.prototype.load = function (url, options) {
+ModelLoader.prototype.load = function (url, options, environment) {
     options = options || {};
     var type = options.Type;
 
@@ -98,7 +98,7 @@ ModelLoader.prototype.load = function (url, options) {
             resolve(null);
             return;
         }
-        (new loader(this.app)).load(url, options).then(obj => {
+        (new loader(this.app)).load(url, options, environment).then(obj => {
             resolve(obj);
         });
     });

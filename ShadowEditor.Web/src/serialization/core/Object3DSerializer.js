@@ -55,6 +55,7 @@ Object3DSerializer.prototype.toJSON = function (obj) {
     // 如果不把json.userData上的obj删除，则会导致播放器中的obj和场景中的obj是同一个。
     delete json.userData.obj;
     delete json.userData.root;
+    delete json.userData.helper;
 
     json.uuid = obj.uuid;
     json.visible = obj.visible;
@@ -84,7 +85,12 @@ Object3DSerializer.prototype.fromJSON = function (json, parent) {
     obj.scale.copy(json.scale);
     obj.up.copy(json.up);
     obj.visible = json.visible;
-    Object.assign(obj.userData, json.userData);
+
+    for (var i in json.userData) {
+        if (json.userData[i]) {
+            obj.userData[i] = json.userData[i];
+        }
+    }
 
     return obj;
 };

@@ -19,10 +19,11 @@ ServerObject.prototype.toJSON = function (obj) {
     delete json.userData.model;
     delete json.userData.obj; // 以后下载对象缓存统一改为obj
     delete json.userData.root; // 模型根节点
+    delete json.userData.helper;
     return json;
 };
 
-ServerObject.prototype.fromJSON = function (json, options) {
+ServerObject.prototype.fromJSON = function (json, options, environment) {
     var url = json.userData.Url;
 
     if (url.indexOf(';') > -1) { // 包含多个入口文件
@@ -33,7 +34,7 @@ ServerObject.prototype.fromJSON = function (json, options) {
 
     return new Promise(resolve => {
         var loader = new ModelLoader();
-        loader.load(url, json.userData).then(obj => {
+        loader.load(url, json.userData, environment).then(obj => {
             if (obj) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, obj);
                 resolve(obj);
