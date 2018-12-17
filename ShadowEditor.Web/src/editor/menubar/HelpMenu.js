@@ -54,11 +54,12 @@ HelpMenu.prototype.render = function () {
                 html: '关于',
                 onClick: () => {
                     UI.alert(
-                        `About`,
-                        `Name: ShadowEditor<br />
-                        Author: tengge<br />
-                        License: MIT<br />
-                        Thanks to three.js and everyone who helped us.`
+                        `关于`,
+                        `名称：ShadowEditor<br />
+                        作者：tengge<br />
+                        授权：MIT<br />
+                        源码1：https://github.com/tengge1/ShadowEditor<br />
+                        源码2：https://gitee.com/tengge1/ShadowEditor`
                     );
                 }
             }]
