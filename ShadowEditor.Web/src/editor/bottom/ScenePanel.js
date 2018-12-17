@@ -342,8 +342,6 @@ ScenePanel.prototype.onLoadScene = function (obj) {
         var obj = this.app.editor.objectByUuid(obj.options.selected);
         if (obj) {
             this.app.editor.select(obj);
-        } else {
-            console.warn(`ScenePanel: 无法选中uuid为${obj.options.selected}的物体！`);
         }
     }
 
