@@ -61,8 +61,11 @@ ImageUploader.prototype.onChange = function () {
         if (event.target.status === 200) {
             var response = event.target.response;
             var obj = JSON.parse(response);
-            var url = obj.Data.url;
-            this.setValue(url);
+            if (obj.Code === 200) {
+                var url = obj.Data.url;
+                this.setValue(url);
+            }
+            UI.msg(obj.Msg);
         } else {
             UI.msg('图片上传失败！');
         }

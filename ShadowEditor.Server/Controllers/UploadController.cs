@@ -35,8 +35,17 @@ namespace ShadowEditor.Server.Controllers
             var fileName = file.FileName;
             var fileSize = file.ContentLength;
             var fileType = file.ContentType;
-            var fileExt = Path.GetExtension(fileName);
+            var fileExt = Path.GetExtension(fileName).ToLower();
             var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
+
+            if (fileExt != ".jpg" && fileExt != ".jpeg" && fileExt != ".png" && fileExt != ".gif")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "只允许上传图片！"
+                });
+            }
 
             // 上传文件
             var now = DateTime.Now;
