@@ -25,22 +25,21 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="type">类型</param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult List(CategoryType? type)
+        public JsonResult List(CategoryType? type = null)
         {
             var mongo = new MongoHelper();
 
+            List<BsonDocument> docs = null;
+
             if (type == null)
             {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "类型不允许为空！"
-                });
+                docs = mongo.FindAll(Constant.CategoryCollectionName);
             }
-
-            var filter = Builders<BsonDocument>.Filter.Eq("Type", type.Value.ToString());
-
-            var docs = mongo.FindMany(Constant.CategoryCollectionName, filter);
+            else
+            {
+                var filter = Builders<BsonDocument>.Filter.Eq("Type", type.Value.ToString());
+                docs = mongo.FindMany(Constant.CategoryCollectionName, filter);
+            }
 
             var list = new JArray();
 

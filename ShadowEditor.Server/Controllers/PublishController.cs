@@ -102,13 +102,49 @@ namespace ShadowEditor.Server.Controllers
                 Directory.CreateDirectory(dirName);
             }
 
+            this.CreateAnimationDataFile();
             this.CreateAudioDataFile();
+            this.CreateCategoryDataFile();
+            this.CreateMapDataFile();
+            this.CreateMaterialDataFile();
             this.CreateMeshDataFile();
-            this.CreateMMDDataFile();
             this.CreatePublishDataFile();
             this.CreateSceneDataFile();
-            this.CreateTextureDataFile();
             this.CreateUploadDataFile();
+        }
+
+        /// <summary>
+        /// 复制动画数据文件
+        /// </summary>
+        private void CreateAnimationDataFile()
+        {
+            var server = HttpContext.Current.Server;
+            var request = HttpContext.Current.Request;
+            var host = request.Url.Host;
+            var port = request.Url.Port;
+
+            var result = HttpHelper.Get($"http://{host}:{port}/api/Animation/List");
+
+            var dirName = server.MapPath("~/examples/api/Animation");
+            if (!Directory.Exists(dirName))
+            {
+                Directory.CreateDirectory(dirName);
+            }
+
+            // 获取列表
+            var fileName = server.MapPath("~/examples/api/Animation/List");
+            File.WriteAllText(fileName, result);
+
+            // 其他接口
+            var apiList = new string[] { "/examples/api/Animation/Add", "/examples/api/Animation/Edit", "/examples/api/Animation/Delete" };
+
+            var data = JsonConvert.SerializeObject(new { Code = 300, Msg = "静态网站，操作失败！" });
+
+            foreach (var i in apiList)
+            {
+                fileName = server.MapPath($"~{i}");
+                File.WriteAllText(fileName, data);
+            }
         }
 
         /// <summary>
@@ -146,6 +182,108 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
+        /// 创建类别数据文件
+        /// </summary>
+        private void CreateCategoryDataFile()
+        {
+            var server = HttpContext.Current.Server;
+            var request = HttpContext.Current.Request;
+            var host = request.Url.Host;
+            var port = request.Url.Port;
+
+            var result = HttpHelper.Get($"http://{host}:{port}/api/Category/List");
+
+            var dirName = server.MapPath("~/examples/api/Category");
+            if (!Directory.Exists(dirName))
+            {
+                Directory.CreateDirectory(dirName);
+            }
+
+            // 获取列表
+            var fileName = server.MapPath("~/examples/api/Category/List");
+            File.WriteAllText(fileName, result);
+
+            // 其他接口
+            var apiList = new string[] { "/examples/api/Category/Save", "/examples/api/Category/Delete" };
+
+            var data = JsonConvert.SerializeObject(new { Code = 300, Msg = "静态网站，操作失败！" });
+
+            foreach (var i in apiList)
+            {
+                fileName = server.MapPath($"~{i}");
+                File.WriteAllText(fileName, data);
+            }
+        }
+
+        /// <summary>
+        /// 创建贴图数据文件
+        /// </summary>
+        private void CreateMapDataFile()
+        {
+            var server = HttpContext.Current.Server;
+            var request = HttpContext.Current.Request;
+            var host = request.Url.Host;
+            var port = request.Url.Port;
+
+            var result = HttpHelper.Get($"http://{host}:{port}/api/Map/List");
+
+            var dirName = server.MapPath("~/examples/api/Map");
+            if (!Directory.Exists(dirName))
+            {
+                Directory.CreateDirectory(dirName);
+            }
+
+            // 获取列表
+            var fileName = server.MapPath("~/examples/api/Map/List");
+            File.WriteAllText(fileName, result);
+
+            // 其他接口
+            var apiList = new string[] { "/examples/api/Map/Add", "/examples/api/Map/Edit", "/examples/api/Map/Delete" };
+
+            var data = JsonConvert.SerializeObject(new { Code = 300, Msg = "静态网站，操作失败！" });
+
+            foreach (var i in apiList)
+            {
+                fileName = server.MapPath($"~{i}");
+                File.WriteAllText(fileName, data);
+            }
+        }
+
+        /// <summary>
+        /// 创建材质数据文件
+        /// </summary>
+        private void CreateMaterialDataFile()
+        {
+            var server = HttpContext.Current.Server;
+            var request = HttpContext.Current.Request;
+            var host = request.Url.Host;
+            var port = request.Url.Port;
+
+            var result = HttpHelper.Get($"http://{host}:{port}/api/Material/List");
+
+            var dirName = server.MapPath("~/examples/api/Material");
+            if (!Directory.Exists(dirName))
+            {
+                Directory.CreateDirectory(dirName);
+            }
+
+            // 获取列表
+            var fileName = server.MapPath("~/examples/api/Material/List");
+            File.WriteAllText(fileName, result);
+
+            // 其他接口
+            var apiList = new string[] { "/examples/api/Material/Add", "/examples/api/Material/Edit", "/examples/api/Material/Delete" };
+
+            var data = JsonConvert.SerializeObject(new { Code = 300, Msg = "静态网站，操作失败！" });
+
+            foreach (var i in apiList)
+            {
+                fileName = server.MapPath($"~{i}");
+                File.WriteAllText(fileName, data);
+            }
+        }
+
+        /// <summary>
         /// 创建模型数据文件
         /// </summary>
         private void CreateMeshDataFile()
@@ -169,40 +307,6 @@ namespace ShadowEditor.Server.Controllers
 
             // 其他接口
             var apiList = new string[] { "/examples/api/Mesh/Add", "/examples/api/Mesh/Edit", "/examples/api/Mesh/Delete" };
-
-            var data = JsonConvert.SerializeObject(new { Code = 300, Msg = "静态网站，操作失败！" });
-
-            foreach (var i in apiList)
-            {
-                fileName = server.MapPath($"~{i}");
-                File.WriteAllText(fileName, data);
-            }
-        }
-
-        /// <summary>
-        /// 创建MMD数据文件
-        /// </summary>
-        private void CreateMMDDataFile()
-        {
-            var server = HttpContext.Current.Server;
-            var request = HttpContext.Current.Request;
-            var host = request.Url.Host;
-            var port = request.Url.Port;
-
-            var result = HttpHelper.Get($"http://{host}:{port}/api/MMD/List");
-
-            var dirName = server.MapPath("~/examples/api/MMD");
-            if (!Directory.Exists(dirName))
-            {
-                Directory.CreateDirectory(dirName);
-            }
-
-            // 获取列表
-            var fileName = server.MapPath("~/examples/api/MMD/List");
-            File.WriteAllText(fileName, result);
-
-            // 其他接口
-            var apiList = new string[] { "/examples/api/MMD/Add", "/examples/api/MMD/Edit", "/examples/api/MMD/Delete" };
 
             var data = JsonConvert.SerializeObject(new { Code = 300, Msg = "静态网站，操作失败！" });
 
@@ -277,40 +381,6 @@ namespace ShadowEditor.Server.Controllers
 
             // 其他接口
             var apiList = new string[] { "/examples/api/Scene/Edit", "/examples/api/Scene/Save", "/examples/api/Scene/Delete" };
-
-            var data = JsonConvert.SerializeObject(new { Code = 300, Msg = "静态网站，操作失败！" });
-
-            foreach (var i in apiList)
-            {
-                fileName = server.MapPath($"~{i}");
-                File.WriteAllText(fileName, data);
-            }
-        }
-
-        /// <summary>
-        /// 创建纹理数据文件
-        /// </summary>
-        private void CreateTextureDataFile()
-        {
-            var server = HttpContext.Current.Server;
-            var request = HttpContext.Current.Request;
-            var host = request.Url.Host;
-            var port = request.Url.Port;
-
-            var result = HttpHelper.Get($"http://{host}:{port}/api/Texture/List");
-
-            var dirName = server.MapPath("~/examples/api/Texture");
-            if (!Directory.Exists(dirName))
-            {
-                Directory.CreateDirectory(dirName);
-            }
-
-            // 获取列表
-            var fileName = server.MapPath("~/examples/api/Texture/List");
-            File.WriteAllText(fileName, result);
-
-            // 其他接口
-            var apiList = new string[] { "/examples/api/Texture/Add", "/examples/api/Texture/Edit", "/examples/api/Texture/Delete" };
 
             var data = JsonConvert.SerializeObject(new { Code = 300, Msg = "静态网站，操作失败！" });
 

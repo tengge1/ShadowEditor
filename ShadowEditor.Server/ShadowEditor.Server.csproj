@@ -100,7 +100,6 @@
     <Compile Include="Base\WebApiConfig.cs" />
     <Compile Include="Base\XmlResult.cs" />
     <Compile Include="Constant.cs" />
-    <Compile Include="Controllers\ExportController.cs" />
     <Compile Include="Controllers\MeshController.cs" />
     <Compile Include="Controllers\AudioController.cs" />
     <Compile Include="Controllers\AnimationController.cs" />
