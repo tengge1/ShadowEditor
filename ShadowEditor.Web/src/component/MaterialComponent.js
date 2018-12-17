@@ -852,7 +852,7 @@ MaterialComponent.prototype.setRowValue = function () {
 
     type.setValue(material.type);
 
-    if (material.color !== undefined) {
+    if (material.color) {
         color.setHexValue(material.color.getHexString());
     }
 
