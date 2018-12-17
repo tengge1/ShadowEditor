@@ -1,12 +1,12 @@
 /**
- * 平板
+ * 平面
  * @param {*} geometry 几何体
  * @param {*} material 材质
  */
 function Plane(geometry = new THREE.PlaneBufferGeometry(50, 50), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);
 
-    this.name = '平板';
+    this.name = '平面';
     this.rotation.x = -Math.PI / 2;
     this.castShadow = true;
     this.receiveShadow = true;

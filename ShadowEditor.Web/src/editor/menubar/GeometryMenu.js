@@ -49,7 +49,7 @@ GeometryMenu.prototype.render = function () {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                html: '平板',
+                html: '平面',
                 cls: 'option',
                 onClick: this.addPlane.bind(this)
             }, {
