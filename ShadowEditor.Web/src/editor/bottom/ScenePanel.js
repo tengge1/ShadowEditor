@@ -338,6 +338,15 @@ ScenePanel.prototype.onLoadScene = function (obj) {
 
     this.app.editor.camera.updateProjectionMatrix();
 
+    if (obj.options.selected) {
+        var obj = this.app.editor.objectByUuid(obj.options.selected);
+        if (obj) {
+            this.app.editor.select(obj);
+        } else {
+            console.warn(`ScenePanel: 无法选中uuid为${obj.options.selected}的物体！`);
+        }
+    }
+
     this.app.call('sceneLoaded', this);
 };
 

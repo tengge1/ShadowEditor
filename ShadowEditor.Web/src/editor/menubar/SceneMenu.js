@@ -95,6 +95,12 @@ SceneMenu.prototype.saveScene = function () { // 保存场景
 SceneMenu.prototype.commitSave = function (sceneName) {
     var editor = this.app.editor;
 
+    // 记录选中物体，以便载入时还原场景选中
+    var selected = this.app.editor.selected;
+    if (selected) {
+        this.app.options.selected = selected.uuid;
+    }
+
     var obj = (new Converter()).toJSON({
         options: this.app.options,
         camera: editor.camera,
