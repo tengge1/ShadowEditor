@@ -61,7 +61,6 @@ MaterialSerializer.prototype.toJSON = function (obj) {
     json.normalMap = obj.normalMap == null ? null : (new TexturesSerializer()).toJSON(obj.normalMap);
     json.normalScale = obj.normalScale;
     json.opacity = obj.opacity;
-    json.overdraw = obj.overdraw;
     json.polygonOffset = obj.polygonOffset;
     json.polygonOffsetFactor = obj.polygonOffsetFactor;
     json.polygonOffsetUnits = obj.polygonOffsetUnits;
