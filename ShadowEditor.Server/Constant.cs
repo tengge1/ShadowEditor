@@ -47,6 +47,11 @@ namespace ShadowEditor.Server
         public const string AnimationCollectionName = "_Animation";
 
         /// <summary>
+        /// 粒子表名
+        /// </summary>
+        public const string ParticleCollectionName = "_Particle";
+
+        /// <summary>
         /// 上传文件表名
         /// </summary>
         public const string FileCollectionName = "_File";

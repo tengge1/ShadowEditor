@@ -9,16 +9,16 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ShadowEditor.Model.Material;
+using ShadowEditor.Model.Particle;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 
 namespace ShadowEditor.Server.Controllers
 {
     /// <summary>
-    /// 材质控制器
+    /// 粒子控制器
     /// </summary>
-    public class MaterialController : ApiBase
+    public class ParticleController : ApiBase
     {
         /// <summary>
         /// 获取列表
@@ -30,14 +30,14 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             // 获取所有类别
-            var filter = Builders<BsonDocument>.Filter.Eq("Type", "Material");
+            var filter = Builders<BsonDocument>.Filter.Eq("Type", "Particle");
             var categories = mongo.FindMany(Constant.CategoryCollectionName, filter);
 
-            var materials = mongo.FindAll(Constant.MaterialCollectionName);
+            var particles = mongo.FindAll(Constant.ParticleCollectionName);
 
-            var list = new List<MaterialModel>();
+            var list = new List<ParticleModel>();
 
-            foreach (var i in materials)
+            foreach (var i in particles)
             {
                 var categoryID = "";
                 var categoryName = "";
@@ -52,7 +52,7 @@ namespace ShadowEditor.Server.Controllers
                     }
                 }
 
-                var info = new MaterialModel
+                var info = new ParticleModel
                 {
                     ID = i["ID"].AsObjectId.ToString(),
                     Name = i["Name"].AsString,
@@ -89,14 +89,14 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
-            var doc = mongo.FindOne(Constant.MaterialCollectionName, filter);
+            var doc = mongo.FindOne(Constant.ParticleCollectionName, filter);
 
             if (doc == null)
             {
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该材质不存在！"
+                    Msg = "该粒子不存在！"
                 });
             }
 
@@ -126,7 +126,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Edit(MaterialEditModel model)
+        public JsonResult Edit(ParticleEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -170,7 +170,7 @@ namespace ShadowEditor.Server.Controllers
             }
 
             var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4, update5);
-            mongo.UpdateOne(Constant.MaterialCollectionName, filter, update);
+            mongo.UpdateOne(Constant.ParticleCollectionName, filter, update);
 
             return Json(new
             {
@@ -185,7 +185,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Save(MaterialSaveModel model)
+        public JsonResult Save(ParticleSaveModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -210,7 +210,7 @@ namespace ShadowEditor.Server.Controllers
             // 查询
             var mongo = new MongoHelper();
             var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-            var doc = mongo.FindOne(Constant.MaterialCollectionName, filter);
+            var doc = mongo.FindOne(Constant.ParticleCollectionName, filter);
 
             var now = DateTime.Now;
 
@@ -230,14 +230,14 @@ namespace ShadowEditor.Server.Controllers
                 doc["UpdateTime"] = BsonDateTime.Create(now);
                 doc["Data"] = BsonDocument.Parse(model.Data);
                 doc["Thumbnail"] = "";
-                mongo.InsertOne(Constant.MaterialCollectionName, doc);
+                mongo.InsertOne(Constant.ParticleCollectionName, doc);
             }
             else // 更新
             {
                 var update1 = Builders<BsonDocument>.Update.Set("UpdateTime", BsonDateTime.Create(now));
                 var update2 = Builders<BsonDocument>.Update.Set("Data", BsonDocument.Parse(model.Data));
                 var update = Builders<BsonDocument>.Update.Combine(update1, update2);
-                mongo.UpdateOne(Constant.MaterialCollectionName, filter, update);
+                mongo.UpdateOne(Constant.ParticleCollectionName, filter, update);
             }
 
             return Json(new
@@ -259,23 +259,23 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
-            var doc = mongo.FindOne(Constant.MaterialCollectionName, filter);
+            var doc = mongo.FindOne(Constant.ParticleCollectionName, filter);
 
             if (doc == null)
             {
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该材质不存在！"
+                    Msg = "该粒子不存在！"
                 });
             }
 
-            mongo.DeleteOne(Constant.MaterialCollectionName, filter);
+            mongo.DeleteOne(Constant.ParticleCollectionName, filter);
 
             return Json(new
             {
                 Code = 200,
-                Msg = "删除材质成功！"
+                Msg = "删除粒子成功！"
             });
         }
     }
