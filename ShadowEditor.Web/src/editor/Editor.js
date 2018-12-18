@@ -146,6 +146,8 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
 
     this.scene.fog = null;
 
+    this.deselect();
+
     var objects = this.scene.children;
 
     while (objects.length > 0) {
@@ -155,8 +157,6 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
     this.textures = {};
     this.scripts = {};
     this.animation.clear();
-
-    this.deselect();
 
     // 添加默认元素
     if (addObject) {
