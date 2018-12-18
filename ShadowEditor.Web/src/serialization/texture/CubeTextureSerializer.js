@@ -19,9 +19,10 @@ CubeTextureSerializer.prototype.toJSON = function (obj) {
     json.image = [];
 
     obj.image.forEach(n => {
+        var url = new URL(n.src); // 修复贴图路径自带服务端路径bug
         json.image.push({
             tagName: 'img',
-            src: n.src,
+            src: url.pathname,
             width: n.width,
             height: n.height
         });
