@@ -255,7 +255,7 @@ MapPanel.prototype.onEdit = function (data) {
             parent: document.body,
             type: 'Map',
             typeName: '贴图',
-            saveUrl: '/api/Map/Edit',
+            saveUrl: `${this.app.options.server}/api/Map/Edit`,
             callback: this.update.bind(this)
         });
         this.editWindow.render();

@@ -221,7 +221,7 @@ MaterialPanel.prototype.onEdit = function (data) {
             parent: document.body,
             type: 'Material',
             typeName: '材质',
-            saveUrl: '/api/Material/Edit',
+            saveUrl: `${this.app.options.server}/api/Material/Edit`,
             callback: this.update.bind(this)
         });
         this.editWindow.render();

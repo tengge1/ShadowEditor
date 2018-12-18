@@ -255,7 +255,7 @@ AnimationPanel.prototype.onEdit = function (data) {
             parent: document.body,
             type: 'Animation',
             typeName: '动画',
-            saveUrl: '/api/Animation/Edit',
+            saveUrl: `${this.app.options.server}/api/Animation/Edit`,
             callback: this.update.bind(this)
         });
         this.editWindow.render();

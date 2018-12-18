@@ -357,7 +357,7 @@ ScenePanel.prototype.onEdit = function (data) {
             parent: document.body,
             type: 'Scene',
             typeName: '场景',
-            saveUrl: '/api/Scene/Edit',
+            saveUrl: `${this.app.options.server}/api/Scene/Edit`,
             callback: this.update.bind(this)
         });
         this.editWindow.render();

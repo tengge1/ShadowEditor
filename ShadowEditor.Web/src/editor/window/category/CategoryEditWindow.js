@@ -93,7 +93,7 @@ CategoryEditWindow.prototype.onSave = function () {
     body.append('ID', this.ID);
     body.append('Name', this.Name);
 
-    Ajax.post('/api/Category/Save', {
+    Ajax.post(`${this.app.options.server}/api/Category/Save`, {
         ID: this.ID,
         Name: this.Name,
         Type: this.type

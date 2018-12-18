@@ -290,7 +290,7 @@ ModelPanel.prototype.onEdit = function (data) {
             parent: document.body,
             type: 'Mesh',
             typeName: '模型',
-            saveUrl: '/api/Mesh/Edit',
+            saveUrl: `${this.app.options.server}/api/Mesh/Edit`,
             callback: this.update.bind(this)
         });
         this.editWindow.render();

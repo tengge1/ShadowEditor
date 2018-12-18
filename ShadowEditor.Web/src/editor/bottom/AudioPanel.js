@@ -255,7 +255,7 @@ AudioPanel.prototype.onEdit = function (data) {
             parent: document.body,
             type: 'Audio',
             typeName: '音频',
-            saveUrl: '/api/Audio/Edit',
+            saveUrl: `${this.app.options.server}/api/Audio/Edit`,
             callback: this.update.bind(this)
         });
         this.editWindow.render();

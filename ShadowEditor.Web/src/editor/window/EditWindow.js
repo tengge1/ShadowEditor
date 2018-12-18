@@ -13,7 +13,7 @@ function EditWindow(options = {}) {
 
     this.type = options.type || 'Scene'; // Scene, Mesh, Map, Texture, Material, Audio, Particle
     this.typeName = options.typeName || '场景';
-    this.saveUrl = options.saveUrl || '/api/Scene/Edit';
+    this.saveUrl = options.saveUrl || `${this.app.options.server}/api/Scene/Edit`;
     this.callback = options.callback || null;
 }
 
