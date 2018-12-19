@@ -66,9 +66,6 @@ ScriptEditor.prototype.render = function () {
 
     var container = UI.create(data);
     container.render();
-
-    // 绑定事件
-    this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
 };
 
 /**
@@ -81,6 +78,91 @@ ScriptEditor.prototype.render = function () {
  * @param {*} callback 回调函数
  */
 ScriptEditor.prototype.open = function (uuid, name, mode, source, title, callback) {
+    if (this.init === undefined) {
+        var promise1 = this.app.require('codemirror');
+        var promise2 = this.app.require('esprima');
+        var promise3 = this.app.require('jsonlint');
+        var promise4 = this.app.require('glslprep');
+        var promise5 = this.app.require('codemirror-mode');
+        var promise6 = this.app.require('codemirror-addon');
+        var promise7 = this.app.require('acorn', true);
+        var promise8 = this.app.require('ternjs');
+
+        Promise.all([promise1, promise2, promise3, promise4]).then(() => {
+            Promise.all([promise5, promise6, promise7]).then(() => {
+                this._initCodeMirror();
+                this._openScript(uuid, name, mode, source, title, callback);
+            });
+        });
+    } else {
+        this._openScript(uuid, name, mode, source, title, callback);
+    }
+};
+
+
+ScriptEditor.prototype._initCodeMirror = function () {
+    var container = UI.get('scriptEditor');
+
+    var codemirror = CodeMirror(container.dom, {
+        value: '',
+        lineNumbers: true,
+        matchBrackets: true,
+        indentWithTabs: true,
+        tabSize: 4,
+        indentUnit: 4,
+        hintOptions: {
+            completeSingle: false
+        }
+    });
+
+    codemirror.setOption('theme', 'monokai');
+    codemirror.on('change', this.onCodeMirrorChange.bind(this));
+
+    // 防止回退键删除物体
+    var wrapper = codemirror.getWrapperElement();
+    wrapper.addEventListener('keydown', event => {
+        event.stopPropagation();
+    });
+
+    // tern js 自动完成
+    var server = new CodeMirror.TernServer({
+        caseInsensitive: true,
+        plugins: { threejs: null }
+    });
+
+    // 快捷键
+    codemirror.setOption('extraKeys', {
+        'Ctrl-Space': cm => { server.complete(cm); },
+        'Ctrl-I': cm => { server.showType(cm); },
+        'Ctrl-O': cm => { server.showDocs(cm); },
+        'Alt-.': cm => { server.jumpToDef(cm); },
+        'Alt-,': cm => { server.jumpBack(cm); },
+        'Ctrl-Q': cm => { server.rename(cm); },
+        'Ctrl-.': cm => { server.selectName(cm); }
+    });
+
+    codemirror.on('cursorActivity', cm => {
+        if (this.mode !== 'javascript') {
+            return;
+        }
+        server.updateArgHints(cm);
+    });
+
+    codemirror.on('keypress', (cm, kb) => {
+        if (this.mode !== 'javascript') {
+            return;
+        }
+        var typed = String.fromCharCode(kb.which || kb.keyCode);
+        if (/[\w\.]/.exec(typed)) {
+            server.complete(cm);
+        }
+    });
+
+    this.codemirror = codemirror;
+    this.server = server;
+};
+
+ScriptEditor.prototype._openScript = function (uuid, name, mode, source, title, callback) {
     var scriptTitle = UI.get('scriptTitle');
 
     // 连续打开脚本时，自动保存上次打开的文件
@@ -191,70 +273,6 @@ ScriptEditor.prototype.refresh = function (title, source, cursorPosition, scroll
     }
 
     this.codemirror.setHistory(history); // 设置历史到先前状态
-};
-
-// 内部方法
-
-ScriptEditor.prototype.onAppStarted = function () {
-    var container = UI.get('scriptEditor');
-
-    var codemirror = CodeMirror(container.dom, {
-        value: '',
-        lineNumbers: true,
-        matchBrackets: true,
-        indentWithTabs: true,
-        tabSize: 4,
-        indentUnit: 4,
-        hintOptions: {
-            completeSingle: false
-        }
-    });
-
-    codemirror.setOption('theme', 'monokai');
-    codemirror.on('change', this.onCodeMirrorChange.bind(this));
-
-    // 防止回退键删除物体
-    var wrapper = codemirror.getWrapperElement();
-    wrapper.addEventListener('keydown', event => {
-        event.stopPropagation();
-    });
-
-    // tern js 自动完成
-    var server = new CodeMirror.TernServer({
-        caseInsensitive: true,
-        plugins: { threejs: null }
-    });
-
-    // 快捷键
-    codemirror.setOption('extraKeys', {
-        'Ctrl-Space': cm => { server.complete(cm); },
-        'Ctrl-I': cm => { server.showType(cm); },
-        'Ctrl-O': cm => { server.showDocs(cm); },
-        'Alt-.': cm => { server.jumpToDef(cm); },
-        'Alt-,': cm => { server.jumpBack(cm); },
-        'Ctrl-Q': cm => { server.rename(cm); },
-        'Ctrl-.': cm => { server.selectName(cm); }
-    });
-
-    codemirror.on('cursorActivity', cm => {
-        if (this.mode !== 'javascript') {
-            return;
-        }
-        server.updateArgHints(cm);
-    });
-
-    codemirror.on('keypress', (cm, kb) => {
-        if (this.mode !== 'javascript') {
-            return;
-        }
-        var typed = String.fromCharCode(kb.which || kb.keyCode);
-        if (/[\w\.]/.exec(typed)) {
-            server.complete(cm);
-        }
-    });
-
-    this.codemirror = codemirror;
-    this.server = server;
 };
 
 /**
