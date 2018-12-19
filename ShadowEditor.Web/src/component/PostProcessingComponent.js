@@ -37,12 +37,35 @@ PostProcessingComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '背景'
+                text: '点阵化'
+            }, {
+                xtype: 'checkbox',
+                id: 'cbDotScreenShader',
+                scope: this.id,
+                value: false,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '颜色偏移'
+            }, {
+                xtype: 'checkbox',
+                id: 'cbRGBShiftShader',
+                scope: this.id,
+                value: false,
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '风格化'
             }, {
                 xtype: 'select',
-                id: 'type',
+                id: 'selStyle',
                 scope: this.id,
-                options: {
+                value: {
+
                 }
             }]
         }]
