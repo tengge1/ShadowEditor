@@ -5,6 +5,7 @@ import PlayerLoader from './component/PlayerLoader';
 import PlayerEvent from './component/PlayerEvent';
 import PlayerControl from './component/PlayerControl';
 import PlayerAudio from './component/PlayerAudio';
+import PlayerRenderer from './component/PlayerRenderer';
 import PlayerAnimation from './component/PlayerAnimation';
 import PlayerPhysics from './component/PlayerPhysics';
 
@@ -25,6 +26,7 @@ function Player(options) {
     this.event = new PlayerEvent(this.app);
     this.control = new PlayerControl(this.app);
     this.audio = new PlayerAudio(this.app);
+    this.playerRenderer = new PlayerRenderer(this.app);
     this.animation = new PlayerAnimation(this.app);
     this.physics = new PlayerPhysics(this.app);
 
@@ -79,12 +81,12 @@ Player.prototype.start = function () {
         this.event.create(this.scene, this.camera, this.renderer, obj.scripts);
         this.control.create(this.scene, this.camera, this.renderer);
         this.audio.create(this.scene, this.camera, this.renderer, this.loader);
+        this.playerRenderer.create(this.scene, this.camera, this.renderer);
         this.animation.create(this.scene, this.camera, this.renderer, obj.animation);
         this.physics.create(this.scene, this.camera, this.renderer);
 
         this.clock.start();
         this.event.init();
-        this.renderScene();
         this.event.start();
 
         requestAnimationFrame(this.animate.bind(this));
@@ -106,6 +108,7 @@ Player.prototype.stop = function () {
     this.event.dispose();
     this.control.dispose();
     this.audio.dispose();
+    this.playerRenderer.dispose();
     this.animation.dispose();
     this.physics.dispose();
 
@@ -148,21 +151,16 @@ Player.prototype.initPlayer = function (obj) {
     this.scene = obj.scene || new THREE.Scene();
 };
 
-Player.prototype.renderScene = function () {
-    this.renderer.render(this.scene, this.camera);
-};
-
 Player.prototype.animate = function () {
     if (!this.isPlaying) {
         return;
     }
 
-    this.renderScene();
-
     var deltaTime = this.clock.getDelta();
 
     this.event.update(this.clock, deltaTime);
     this.control.update(this.clock, deltaTime);
+    this.playerRenderer.update(this.clock, deltaTime);
     this.animation.update(this.clock, deltaTime);
     this.physics.update(this.clock, deltaTime);
 
