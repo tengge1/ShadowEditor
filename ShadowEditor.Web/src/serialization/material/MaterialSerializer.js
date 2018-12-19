@@ -134,7 +134,6 @@ MaterialSerializer.prototype.fromJSON = function (json, parent) {
     obj.normalMap = json.normalMap == null ? null : (new TexturesSerializer()).fromJSON(json.normalMap);
     obj.normalScale = json.normalScale == null ? null : new THREE.Vector2().copy(json.normalScale);
     obj.opacity = json.opacity;
-    obj.overdraw = json.overdraw;
     obj.polygonOffset = json.polygonOffset;
     obj.polygonOffsetFactor = json.polygonOffsetFactor;
     obj.polygonOffsetUnits = json.polygonOffsetUnits;

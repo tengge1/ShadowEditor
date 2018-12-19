@@ -40,35 +40,44 @@ PostProcessingComponent.prototype.render = function () {
                 text: '点阵化'
             }, {
                 xtype: 'checkbox',
-                id: 'cbDotScreenShader',
+                id: 'dotScreen',
                 scope: this.id,
                 value: false,
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: '颜色偏移'
+                onChange: this.onChange.bind(this)
             }, {
-                xtype: 'checkbox',
-                id: 'cbRGBShiftShader',
+                xtype: 'number',
+                id: 'dotScreenScale',
                 scope: this.id,
-                value: false,
+                value: 4,
+                onChange: this.onChange.bind(this)
             }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: '风格化'
-            }, {
-                xtype: 'select',
-                id: 'selStyle',
-                scope: this.id,
-                value: {
+        }
+            // , {
+            //     xtype: 'row',
+            //     children: [{
+            //         xtype: 'label',
+            //         text: '颜色偏移'
+            //     }, {
+            //         xtype: 'checkbox',
+            //         id: 'cbRGBShiftShader',
+            //         scope: this.id,
+            //         value: false,
+            //     }]
+            // }, {
+            //     xtype: 'row',
+            //     children: [{
+            //         xtype: 'label',
+            //         text: '风格化'
+            //     }, {
+            //         xtype: 'select',
+            //         id: 'selStyle',
+            //         scope: this.id,
+            //         value: {
 
-                }
-            }]
-        }]
+            //         }
+            //     }]
+            // }
+        ]
     };
 
     var control = UI.create(data);
@@ -97,7 +106,32 @@ PostProcessingComponent.prototype.updateUI = function () {
     }
 
     this.selected = editor.selected;
+
+    var dotScreen = UI.get('dotScreen', this.id);
+    var dotScreenScale = UI.get('dotScreenScale', this.id);
+
     var scene = this.selected;
+    var postProcessing = scene.userData.postProcessing || {};
+
+    if (postProcessing.dotScreen) {
+        dotScreen.setValue(postProcessing.dotScreen.enabled);
+        dotScreenScale.setValue(postProcessing.dotScreen.scale);
+    }
+};
+
+PostProcessingComponent.prototype.onChange = function () {
+    var dotScreen = UI.get('dotScreen', this.id);
+    var dotScreenScale = UI.get('dotScreenScale', this.id);
+
+    var scene = this.selected;
+    scene.userData.postProcessing = scene.userData.postProcessing || {};
+
+    Object.assign(scene.userData.postProcessing, {
+        dotScreen: {
+            enabled: dotScreen.getValue(),
+            scale: dotScreenScale.getValue(),
+        }
+    });
 };
 
 export default PostProcessingComponent;
