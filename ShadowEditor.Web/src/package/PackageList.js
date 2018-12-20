@@ -217,6 +217,31 @@ const PackageList = [{
         'assets/js/lines/Line2.js',
         'assets/js/lines/Wireframe.js'
     ]
+}, {
+    name: 'GLTFExporter',
+    assets: [
+        'assets/js/exporters/GLTFExporter.js'
+    ]
+}, {
+    name: 'OBJExporter',
+    assets: [
+        'assets/js/exporters/OBJExporter.js'
+    ]
+}, {
+    name: 'PLYExporter',
+    assets: [
+        'assets/js/exporters/PLYExporter.js'
+    ]
+}, {
+    name: 'STLBinaryExporter',
+    assets: [
+        'assets/js/exporters/STLBinaryExporter.js'
+    ]
+}, {
+    name: 'STLExporter',
+    assets: [
+        'assets/js/exporters/STLExporter.js'
+    ]
 }];
 
 export default PackageList

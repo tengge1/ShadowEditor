@@ -65,38 +65,6 @@ AssetMenu.prototype.render = function () {
                 html: '导出stl文件',
                 cls: 'option',
                 onClick: this.onExportSTL.bind(this)
-            }, {
-                xtype: 'hr'
-            }, {
-                xtype: 'div',
-                html: '导出音频',
-                cls: 'option',
-                onClick: this.onExportAudio.bind(this)
-            }, {
-                xtype: 'div',
-                html: '导出类别',
-                cls: 'option',
-                onClick: this.onExportCategory.bind(this)
-            }, {
-                xtype: 'div',
-                html: '导出贴图',
-                cls: 'option',
-                onClick: this.onExportMap.bind(this)
-            }, {
-                xtype: 'div',
-                html: '导出材质',
-                cls: 'option',
-                onClick: this.onExportMaterial.bind(this)
-            }, {
-                xtype: 'div',
-                html: '导出模型',
-                cls: 'option',
-                onClick: this.onExportMesh.bind(this)
-            }, {
-                xtype: 'div',
-                html: '导出场景',
-                cls: 'option',
-                onClick: this.onExportScene.bind(this)
             }]
         }]
     });
@@ -162,10 +130,12 @@ AssetMenu.prototype.onExportObject = function () {
 // ------------------------------ 导出gltf文件 ----------------------------------------
 
 AssetMenu.prototype.onExportGLTF = function () {
-    var exporter = new THREE.GLTFExporter();
+    this.app.require('GLTFExporter').then(() => {
+        var exporter = new THREE.GLTFExporter();
 
-    exporter.parse(app.editor.scene, function (result) {
-        StringUtils.saveString(JSON.stringify(result), 'model.gltf');
+        exporter.parse(app.editor.scene, function (result) {
+            StringUtils.saveString(JSON.stringify(result), 'model.gltf');
+        });
     });
 };
 
@@ -181,8 +151,10 @@ AssetMenu.prototype.onExportOBJ = function () {
         return;
     }
 
-    var exporter = new THREE.OBJExporter();
-    StringUtils.saveString(exporter.parse(object), 'model.obj');
+    this.app.require('OBJExporter').then(() => {
+        var exporter = new THREE.OBJExporter();
+        StringUtils.saveString(exporter.parse(object), 'model.obj');
+    });
 };
 
 // ------------------------------- 导出ply文件 ----------------------------------------
@@ -197,10 +169,12 @@ AssetMenu.prototype.onExportPLY = function () {
         return;
     }
 
-    var exporter = new THREE.PLYExporter();
-    StringUtils.saveString(exporter.parse(object, {
-        excludeAttributes: ['normal', 'uv', 'color', 'index']
-    }), 'model.ply');
+    this.app.require('PLYExporter').then(() => {
+        var exporter = new THREE.PLYExporter();
+        StringUtils.saveString(exporter.parse(object, {
+            excludeAttributes: ['normal', 'uv', 'color', 'index']
+        }), 'model.ply');
+    });
 };
 
 // ------------------------------- 导出stl二进制文件 -----------------------------------
@@ -208,9 +182,10 @@ AssetMenu.prototype.onExportPLY = function () {
 AssetMenu.prototype.onExportSTLB = function () {
     var editor = this.app.editor;
 
-    var exporter = new THREE.STLBinaryExporter();
-
-    StringUtils.saveString(exporter.parse(editor.scene), 'model.stl');
+    this.app.require('STLBinaryExporter').then(() => {
+        var exporter = new THREE.STLBinaryExporter();
+        StringUtils.saveString(exporter.parse(editor.scene), 'model.stl');
+    });
 };
 
 // ------------------------------- 导出stl文件 -----------------------------------------
@@ -218,45 +193,10 @@ AssetMenu.prototype.onExportSTLB = function () {
 AssetMenu.prototype.onExportSTL = function () {
     var editor = this.app.editor;
 
-    var exporter = new THREE.STLExporter();
-
-    StringUtils.saveString(exporter.parse(editor.scene), 'model.stl');
-};
-
-// ----------------------------- 导出音频 ---------------------------------------------
-
-AssetMenu.prototype.onExportAudio = function () {
-
-};
-
-// ----------------------------- 导出类别 ----------------------------------------------
-
-AssetMenu.prototype.onExportCategory = function () {
-
-};
-
-// ----------------------------- 导出贴图 -----------------------------------------------
-
-AssetMenu.prototype.onExportMap = function () {
-
-};
-
-// ---------------------------- 导出材质 ------------------------------------------------
-
-AssetMenu.prototype.onExportMaterial = function () {
-
-};
-
-// --------------------------- 导出模型 -------------------------------------------------
-
-AssetMenu.prototype.onExportMesh = function () {
-
-};
-
-// ---------------------------- 导出场景 ------------------------------------------------
-
-AssetMenu.prototype.onExportScene = function () {
-
+    this.app.require('STLExporter').then(() => {
+        var exporter = new THREE.STLExporter();
+        StringUtils.saveString(exporter.parse(editor.scene), 'model.stl');
+    });
 };
 
 export default AssetMenu;
