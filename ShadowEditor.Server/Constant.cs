@@ -52,6 +52,11 @@ namespace ShadowEditor.Server
         public const string ParticleCollectionName = "_Particle";
 
         /// <summary>
+        /// 预设体表名
+        /// </summary>
+        public const string PrefabCollectionName = "_Prefab";
+
+        /// <summary>
         /// 上传文件表名
         /// </summary>
         public const string FileCollectionName = "_File";
