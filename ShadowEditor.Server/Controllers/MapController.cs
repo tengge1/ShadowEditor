@@ -163,16 +163,18 @@ namespace ShadowEditor.Server.Controllers
 
             var mongo = new MongoHelper();
 
-            var doc = new BsonDocument();
-            doc["ID"] = ObjectId.GenerateNewId();
-            doc["AddTime"] = BsonDateTime.Create(now);
-            doc["FileName"] = fileName;
-            doc["FileSize"] = fileSize;
-            doc["FileType"] = fileType;
-            doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
-            doc["Name"] = fileNameWithoutExt;
-            doc["SaveName"] = fileName;
-            doc["SavePath"] = savePath;
+            var doc = new BsonDocument
+            {
+                ["ID"] = ObjectId.GenerateNewId(),
+                ["AddTime"] = BsonDateTime.Create(now),
+                ["FileName"] = fileName,
+                ["FileSize"] = fileSize,
+                ["FileType"] = fileType,
+                ["FirstPinYin"] = string.Join("", pinyin.FirstPinYin),
+                ["Name"] = fileNameWithoutExt,
+                ["SaveName"] = fileName,
+                ["SavePath"] = savePath
+            };
             if (Path.GetExtension(files[0].FileName).ToLower() == ".mp4")
             {
                 // TODO: 通过插件获取mp4缩略图
@@ -189,13 +191,15 @@ namespace ShadowEditor.Server.Controllers
             {
                 doc["Type"] = MapType.cube.ToString();
 
-                var doc1 = new BsonDocument();
-                doc1["PosX"] = $"{savePath}/{files["posX"].FileName}";
-                doc1["NegX"] = $"{savePath}/{files["negX"].FileName}";
-                doc1["PosY"] = $"{savePath}/{files["posY"].FileName}";
-                doc1["NegY"] = $"{savePath}/{files["negY"].FileName}";
-                doc1["PosZ"] = $"{savePath}/{files["posZ"].FileName}";
-                doc1["NegZ"] = $"{savePath}/{files["negZ"].FileName}";
+                var doc1 = new BsonDocument
+                {
+                    ["PosX"] = $"{savePath}/{files["posX"].FileName}",
+                    ["NegX"] = $"{savePath}/{files["negX"].FileName}",
+                    ["PosY"] = $"{savePath}/{files["posY"].FileName}",
+                    ["NegY"] = $"{savePath}/{files["negY"].FileName}",
+                    ["PosZ"] = $"{savePath}/{files["posZ"].FileName}",
+                    ["NegZ"] = $"{savePath}/{files["negZ"].FileName}"
+                };
 
                 doc["Url"] = doc1;
             }
@@ -298,7 +302,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该贴图不存在！"
+                    Msg = "该资源不存在！"
                 });
             }
 

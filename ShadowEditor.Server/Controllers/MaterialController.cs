@@ -218,18 +218,20 @@ namespace ShadowEditor.Server.Controllers
             {
                 var pinyin = PinYinHelper.GetTotalPinYin(model.Name);
 
-                doc = new BsonDocument();
-                doc["ID"] = objectId;
-                doc["Name"] = model.Name;
-                doc["CategoryID"] = 0;
-                doc["CategoryName"] = "";
-                doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
-                doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
-                doc["Version"] = 0;
-                doc["CreateTime"] = BsonDateTime.Create(now);
-                doc["UpdateTime"] = BsonDateTime.Create(now);
-                doc["Data"] = BsonDocument.Parse(model.Data);
-                doc["Thumbnail"] = "";
+                doc = new BsonDocument
+                {
+                    ["ID"] = objectId,
+                    ["Name"] = model.Name,
+                    ["CategoryID"] = 0,
+                    ["CategoryName"] = "",
+                    ["TotalPinYin"] = string.Join("", pinyin.TotalPinYin),
+                    ["FirstPinYin"] = string.Join("", pinyin.FirstPinYin),
+                    ["Version"] = 0,
+                    ["CreateTime"] = BsonDateTime.Create(now),
+                    ["UpdateTime"] = BsonDateTime.Create(now),
+                    ["Data"] = BsonDocument.Parse(model.Data),
+                    ["Thumbnail"] = ""
+                };
                 mongo.InsertOne(Constant.MaterialCollectionName, doc);
             }
             else // 更新
@@ -266,7 +268,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该材质不存在！"
+                    Msg = "该资源不存在！"
                 });
             }
 
@@ -275,7 +277,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "删除材质成功！"
+                Msg = "删除成功！"
             });
         }
     }

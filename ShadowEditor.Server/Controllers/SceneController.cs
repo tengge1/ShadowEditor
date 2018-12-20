@@ -78,7 +78,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 获取场景数据
+        /// 获取数据
         /// </summary>
         /// <param name="ID">场景ID</param>
         /// <returns></returns>
@@ -120,7 +120,7 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
-        /// 编辑信息
+        /// 编辑
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -247,15 +247,17 @@ namespace ShadowEditor.Server.Controllers
             {
                 var pinyin = PinYinHelper.GetTotalPinYin(model.Name);
 
-                doc = new BsonDocument();
-                doc["ID"] = objectId;
-                doc["Name"] = model.Name;
-                doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
-                doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
-                doc["CollectionName"] = collectionName;
-                doc["Version"] = 0;
-                doc["CreateTime"] = BsonDateTime.Create(now);
-                doc["UpdateTime"] = BsonDateTime.Create(now);
+                doc = new BsonDocument
+                {
+                    ["ID"] = objectId,
+                    ["Name"] = model.Name,
+                    ["TotalPinYin"] = string.Join("", pinyin.TotalPinYin),
+                    ["FirstPinYin"] = string.Join("", pinyin.FirstPinYin),
+                    ["CollectionName"] = collectionName,
+                    ["Version"] = 0,
+                    ["CreateTime"] = BsonDateTime.Create(now),
+                    ["UpdateTime"] = BsonDateTime.Create(now)
+                };
                 mongo.InsertOne(Constant.SceneCollectionName, doc);
             }
             else
@@ -305,7 +307,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该场景不存在！"
+                    Msg = "该资源不存在！"
                 });
             }
 
@@ -320,7 +322,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "删除场景成功！"
+                Msg = "删除成功！"
             });
         }
     }

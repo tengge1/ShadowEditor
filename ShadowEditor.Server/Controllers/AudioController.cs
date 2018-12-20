@@ -120,21 +120,23 @@ namespace ShadowEditor.Server.Controllers
             // 保存到Mongo
             var mongo = new MongoHelper();
 
-            var doc = new BsonDocument();
-            doc["ID"] = ObjectId.GenerateNewId();
-            doc["AddTime"] = BsonDateTime.Create(now);
-            doc["FileName"] = fileName;
-            doc["FileSize"] = fileSize;
-            doc["FileType"] = fileType;
-            doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
-            doc["Name"] = fileNameWithoutExt;
-            doc["SaveName"] = fileName;
-            doc["SavePath"] = savePath;
-            doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
-            doc["Type"] = AudioType.unknown.ToString();
-            doc["Url"] = $"{savePath}/{fileName}";
-            doc["CreateTime"] = now;
-            doc["UpdateTime"] = now;
+            var doc = new BsonDocument
+            {
+                ["ID"] = ObjectId.GenerateNewId(),
+                ["AddTime"] = BsonDateTime.Create(now),
+                ["FileName"] = fileName,
+                ["FileSize"] = fileSize,
+                ["FileType"] = fileType,
+                ["FirstPinYin"] = string.Join("", pinyin.FirstPinYin),
+                ["Name"] = fileNameWithoutExt,
+                ["SaveName"] = fileName,
+                ["SavePath"] = savePath,
+                ["TotalPinYin"] = string.Join("", pinyin.TotalPinYin),
+                ["Type"] = AudioType.unknown.ToString(),
+                ["Url"] = $"{savePath}/{fileName}",
+                ["CreateTime"] = now,
+                ["UpdateTime"] = now
+            };
 
             mongo.InsertOne(Constant.AudioCollectionName, doc);
 

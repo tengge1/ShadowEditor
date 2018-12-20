@@ -283,7 +283,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "删除资源成功！"
+                Msg = "删除成功！"
             });
         }
     }

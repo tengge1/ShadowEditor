@@ -382,19 +382,21 @@ namespace ShadowEditor.Server.Controllers
             // 保存到Mongo
             var mongo = new MongoHelper();
 
-            var doc = new BsonDocument();
-            doc["AddTime"] = BsonDateTime.Create(now);
-            doc["FileName"] = fileName;
-            doc["FileSize"] = fileSize;
-            doc["FileType"] = fileType;
-            doc["FirstPinYin"] = string.Join("", pinyin.FirstPinYin);
-            doc["Name"] = fileNameWithoutExt;
-            doc["SaveName"] = fileName;
-            doc["SavePath"] = savePath;
-            doc["Thumbnail"] = "";
-            doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
-            doc["Type"] = meshType.ToString();
-            doc["Url"] = entryFileName;
+            var doc = new BsonDocument
+            {
+                ["AddTime"] = BsonDateTime.Create(now),
+                ["FileName"] = fileName,
+                ["FileSize"] = fileSize,
+                ["FileType"] = fileType,
+                ["FirstPinYin"] = string.Join("", pinyin.FirstPinYin),
+                ["Name"] = fileNameWithoutExt,
+                ["SaveName"] = fileName,
+                ["SavePath"] = savePath,
+                ["Thumbnail"] = "",
+                ["TotalPinYin"] = string.Join("", pinyin.TotalPinYin),
+                ["Type"] = meshType.ToString(),
+                ["Url"] = entryFileName
+            };
 
             mongo.InsertOne(Constant.MeshCollectionName, doc);
 
@@ -482,7 +484,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该模型不存在！"
+                    Msg = "该资源不存在！"
                 });
             }
 
@@ -509,7 +511,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "删除模型成功！"
+                Msg = "删除成功！"
             });
         }
     }

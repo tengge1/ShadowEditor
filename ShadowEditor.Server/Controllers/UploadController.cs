@@ -88,9 +88,9 @@ namespace ShadowEditor.Server.Controllers
                 Msg = "上传成功！",
                 Data = new
                 {
-                    fileName = fileName,
-                    fileSize = fileSize,
-                    fileType = fileType,
+                    fileName,
+                    fileSize,
+                    fileType,
                     url = $"{savePath}/{fileName}"
                 }
             });

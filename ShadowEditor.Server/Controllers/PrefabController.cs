@@ -268,7 +268,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该预设体不存在！"
+                    Msg = "该资源不存在！"
                 });
             }
 
