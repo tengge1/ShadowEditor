@@ -45,5 +45,15 @@ namespace ShadowEditor.Model.Category
         /// 动画
         /// </summary>
         Animation,
+
+        /// <summary>
+        /// 粒子
+        /// </summary>
+        Particle,
+
+        /// <summary>
+        /// 预设体
+        /// </summary>
+        Prefab,
     }
 }
