@@ -79,15 +79,10 @@ ScriptEditor.prototype.render = function () {
  */
 ScriptEditor.prototype.open = function (uuid, name, mode, source, title, callback) {
     if (this.init === undefined) {
-        this.app.require(['codemirror', 'esprima', 'jsonlint', 'glslprep']).then(() => {
-            this.app.require(['codemirror-mode', 'codemirror-addon', 'acorn']).then(() => {
-                this.app.require(['acorn-other', 'ternjs']).then(() => {
-                    this.app.require('ternjs-other').then(() => {
-                        this._initCodeMirror();
-                        this._openScript(uuid, name, mode, source, title, callback);
-                    });
-                });
-            });
+        this.init = true;
+        this.app.require(['codemirror', 'codemirror-addon', 'esprima', 'jsonlint', 'glslprep', 'acorn', 'ternjs']).then(() => {
+            this._initCodeMirror();
+            this._openScript(uuid, name, mode, source, title, callback);
         });
     } else {
         this._openScript(uuid, name, mode, source, title, callback);
