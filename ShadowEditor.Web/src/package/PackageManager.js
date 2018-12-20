@@ -15,9 +15,8 @@ function PackageManager() {
 /**
  * 加载包
  * @param {*} names 包名或包名列表
- * @param {*} sort 资源是否按顺序下载
  */
-PackageManager.prototype.require = function (names, sort = false) {
+PackageManager.prototype.require = function (names) {
     names = Array.isArray(names) ? names : [names];
 
     var assets = [];
@@ -47,42 +46,32 @@ PackageManager.prototype.require = function (names, sort = false) {
         });
     }
 
-    return this._load(assets, sort);
+    return this._load(assets);
 };
 
-PackageManager.prototype._load = async function (assets = [], sort = false) {
+PackageManager.prototype._load = function (assets = []) {
     var cssLoader = new CssLoader();
     var jsLoader = new JsLoader();
 
-    if (sort) {
-        assets.forEach(async n => {
-            if (n.toLowerCase().endsWith('.css')) {
-                await cssLoader.load(n);
-            } else if (n.toLowerCase().endsWith('.js')) {
-                await jsLoader.load(n);
-            } else {
-                console.warn(`PackageManager: 未知资源类型${n}。`);
-            }
-        });
-    } else {
-        var promises = assets.map(n => {
+    var promises = assets.map(n => {
+        if (n.toLowerCase().endsWith('.css')) {
+            return cssLoader.load(n);
+        } else if (n.toLowerCase().endsWith('.js')) {
+            return jsLoader.load(n);
+        } else {
+            console.warn(`PackageManager: 未知资源类型${n}。`);
             return new Promise(resolve => {
-                if (n.toLowerCase().endsWith('.css')) {
-                    cssLoader.load(n).then(() => {
-                        resolve();
-                    });
-                } else if (n.toLowerCase().endsWith('.js')) {
-                    jsLoader.load(n).then(() => {
-                        resolve();
-                    });
-                } else {
-                    console.warn(`PackageManager: 未知资源类型${n}。`);
-                    resolve();
-                }
+                resolve();
             });
+        }
+    });
+
+    return new Promise(resolve => {
+        Promise.all(promises).then(() => {
+            jsLoader.eval();
+            resolve();
         });
-        await Promise.all(promises);
-    }
+    });
 };
 
 export default PackageManager;

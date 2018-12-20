@@ -81,19 +81,19 @@ function Application(container, options) {
                             flexDirection: 'column'
                         },
                         children: [{
-                            xtype: 'div',
-                            style: {
-                                position: 'relative',
-                                flex: 1
+                                xtype: 'div',
+                                style: {
+                                    position: 'relative',
+                                    flex: 1
+                                },
+                                children: [
+                                    this.viewport,
+                                    this.script,
+                                    this.player
+                                ]
                             },
-                            children: [
-                                this.viewport,
-                                this.script,
-                                this.player
-                            ]
-                        },
-                        this.bottomPanel,
-                        this.statusBar
+                            this.bottomPanel,
+                            this.statusBar
                         ]
                     },
                     this.sidebar2,
@@ -110,6 +110,9 @@ function Application(container, options) {
     // Html5 Worker
     // var script = document.querySelector('script[src$="ShadowEditor.js" i]').src; // http://localhost:2000/dist/ShadowEditor.js
     // this.worker = new Worker(script);
+
+    var eval2 = eval;
+    this.a = eval2('var a = 3');
 }
 
 // ------------------------- 程序控制 -------------------------------

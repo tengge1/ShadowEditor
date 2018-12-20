@@ -3,27 +3,44 @@
  * @author tengge / https://github.com/tengge1
  */
 function JsLoader() {
-
+    this.assets = [];
 };
 
 JsLoader.prototype.load = function (url) {
-    var head = document.getElementsByTagName('head')[0];
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = url;
-    head.appendChild(script);
-
+    var data = {
+        url,
+        script: null
+    };
+    this.assets.push(data);
     return new Promise(resolve => {
-        script.onload = event => {
-            console.log(script.src);
-            script.onload = script.onerror = null;
-            resolve(script);
-        };
-        script.onerror = event => {
-            script.onload = script.onerror = null;
-            console.warn(`JsLoader: ${url}加载失败！`);
+        fetch(url).then(response => {
+            if (response.ok) {
+                response.text().then(text => {
+                    data.script = text;
+                    resolve(data);
+                });
+            } else {
+                console.warn(`JsLoader: ${url}下载失败！。`);
+                resolve(null);
+            }
+        }).catch(() => {
+            console.warn(`JsLoader: ${url}下载出错！。`);
             resolve(null);
-        };
+        });
+    });
+};
+
+JsLoader.prototype.eval = function () {
+    var eval2 = eval;
+
+    this.assets.forEach(n => {
+        if (n.script) {
+            try {
+                eval2(n.script);
+            } catch (e) {
+                console.warn(`JsLoader: ${n.url}解析出错！`);
+            }
+        }
     });
 };
 
