@@ -63,6 +63,10 @@
     <Compile Include="Particle\ParticleModel.cs" />
     <Compile Include="Particle\ParticleSaveModel.cs" />
     <Compile Include="Particle\ParticleType.cs" />
+    <Compile Include="Prefab\PrefabEditModel.cs" />
+    <Compile Include="Prefab\PrefabModel.cs" />
+    <Compile Include="Prefab\PrefabSaveModel.cs" />
+    <Compile Include="Prefab\PrefabType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Category\CategorySaveModel.cs" />
     <Compile Include="Scene\SceneEditModel.cs" />
