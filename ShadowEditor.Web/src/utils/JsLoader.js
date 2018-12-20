@@ -15,6 +15,7 @@ JsLoader.prototype.load = function (url) {
 
     return new Promise(resolve => {
         script.onload = event => {
+            console.log(script.src);
             script.onload = script.onerror = null;
             resolve(script);
         };

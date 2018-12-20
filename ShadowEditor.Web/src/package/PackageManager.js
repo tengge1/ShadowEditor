@@ -50,47 +50,38 @@ PackageManager.prototype.require = function (names, sort = false) {
     return this._load(assets, sort);
 };
 
-PackageManager.prototype._load = function (assets = [], sort = false) {
+PackageManager.prototype._load = async function (assets = [], sort = false) {
     var cssLoader = new CssLoader();
     var jsLoader = new JsLoader();
 
     if (sort) {
-        return new Promise(resolve => {
-            (function loadBySort(list) {
-                if (list.length === 0) {
-                    resolve();
-                    return;
-                }
-                var n = list.shift();
+        assets.forEach(async n => {
+            if (n.toLowerCase().endsWith('.css')) {
+                await cssLoader.load(n);
+            } else if (n.toLowerCase().endsWith('.js')) {
+                await jsLoader.load(n);
+            } else {
+                console.warn(`PackageManager: 未知资源类型${n}。`);
+            }
+        });
+    } else {
+        var promises = assets.map(n => {
+            return new Promise(resolve => {
                 if (n.toLowerCase().endsWith('.css')) {
                     cssLoader.load(n).then(() => {
-                        loadBySort(list);
+                        resolve();
                     });
                 } else if (n.toLowerCase().endsWith('.js')) {
                     jsLoader.load(n).then(() => {
-                        loadBySort(list);
+                        resolve();
                     });
                 } else {
                     console.warn(`PackageManager: 未知资源类型${n}。`);
-                    loadBySort(list);
+                    resolve();
                 }
-            })(assets);
-        });
-    } else {
-        return Promise.all(assets.map(n => {
-            if (n.toLowerCase().endsWith('.css')) {
-                return cssLoader.load(n);
-            }
-
-            if (n.toLowerCase().endsWith('.js')) {
-                return jsLoader.load(n);
-            }
-
-            return new Promise(resolve => {
-                console.warn(`PackageManager: 未知资源类型${n}。`);
-                resolve(null);
             });
-        }));
+        });
+        await Promise.all(promises);
     }
 };
 
