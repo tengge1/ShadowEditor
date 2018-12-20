@@ -153,63 +153,6 @@ const PackageList = [{
     assets: [
         'assets/js/lzma.js'
     ]
-}, {
-    name: 'codemirror',
-    assets: [
-        'assets/css/codemirror.css',
-        'assets/css/theme/monokai.css',
-        'assets/js/codemirror.js'
-    ]
-}, {
-    name: 'esprima',
-    assets: [
-        'assets/js/esprima.js'
-    ]
-}, {
-    name: 'jsonlint',
-    assets: [
-        'assets/js/jsonlint.js'
-    ]
-}, {
-    name: 'glslprep',
-    assets: [
-        'assets/js/glslprep.min.js'
-    ]
-}, {
-    name: 'codemirror-mode',
-    assets: [
-        'assets/js/mode/javascript.js',
-        'assets/js/mode/glsl.js'
-    ]
-}, {
-    name: 'codemirror-addon',
-    assets: [
-        'assets/css/addon/dialog.css',
-        'assets/css/addon/show-hint.css',
-        'assets/css/addon/tern.css',
-        'assets/js/addon/dialog.js',
-        'assets/js/addon/show-hint.js',
-        'assets/js/addon/tern.js'
-    ]
-}, {
-    name: 'acorn',
-    assets: [
-        'assets/js/acorn/acorn.js',
-        'assets/js/acorn/acorn_loose.js',
-        'assets/js/acorn/walk.js'
-    ]
-}, {
-    name: 'ternjs',
-    assets: [
-        'assets/js/ternjs/polyfill.js',
-        'assets/js/ternjs/signal.js',
-        'assets/js/ternjs/tern.js',
-        'assets/js/ternjs/def.js',
-        'assets/js/ternjs/comment.js',
-        'assets/js/ternjs/infer.js',
-        'assets/js/ternjs/doc_comment.js',
-        'assets/js/tern-threejs/threejs.js'
-    ]
 }];
 
 export default PackageList
