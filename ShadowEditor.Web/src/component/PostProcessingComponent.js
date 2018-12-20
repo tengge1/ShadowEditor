@@ -51,19 +51,25 @@ PostProcessingComponent.prototype.render = function () {
                 value: 4,
                 onChange: this.onChange.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '颜色偏移'
+            }, {
+                xtype: 'checkbox',
+                id: 'rgbShift',
+                scope: this.id,
+                value: false,
+            }, {
+                xtype: 'number',
+                id: 'rgbShiftAmount',
+                scope: this.id,
+                value: 0.015,
+                onChange: this.onChange.bind(this)
+            }]
         }
-            // , {
-            //     xtype: 'row',
-            //     children: [{
-            //         xtype: 'label',
-            //         text: '颜色偏移'
-            //     }, {
-            //         xtype: 'checkbox',
-            //         id: 'cbRGBShiftShader',
-            //         scope: this.id,
-            //         value: false,
-            //     }]
-            // }, {
+            //, {
             //     xtype: 'row',
             //     children: [{
             //         xtype: 'label',
@@ -109,6 +115,8 @@ PostProcessingComponent.prototype.updateUI = function () {
 
     var dotScreen = UI.get('dotScreen', this.id);
     var dotScreenScale = UI.get('dotScreenScale', this.id);
+    var rgbShift = UI.get('rgbShift', this.id);
+    var rgbShiftAmount = UI.get('rgbShiftAmount', this.id);
 
     var scene = this.selected;
     var postProcessing = scene.userData.postProcessing || {};
@@ -117,11 +125,18 @@ PostProcessingComponent.prototype.updateUI = function () {
         dotScreen.setValue(postProcessing.dotScreen.enabled);
         dotScreenScale.setValue(postProcessing.dotScreen.scale);
     }
+
+    if (postProcessing.rgbShift) {
+        rgbShift.setValue(postProcessing.rgbShift.enabled);
+        rgbShiftAmount.setValue(postProcessing.rgbShift.amount);
+    }
 };
 
 PostProcessingComponent.prototype.onChange = function () {
     var dotScreen = UI.get('dotScreen', this.id);
     var dotScreenScale = UI.get('dotScreenScale', this.id);
+    var rgbShift = UI.get('rgbShift', this.id);
+    var rgbShiftAmount = UI.get('rgbShiftAmount', this.id);
 
     var scene = this.selected;
     scene.userData.postProcessing = scene.userData.postProcessing || {};
@@ -130,6 +145,10 @@ PostProcessingComponent.prototype.onChange = function () {
         dotScreen: {
             enabled: dotScreen.getValue(),
             scale: dotScreenScale.getValue(),
+        },
+        rgbShift: {
+            enabled: rgbShift.getValue(),
+            amount: rgbShiftAmount.getValue()
         }
     });
 };
