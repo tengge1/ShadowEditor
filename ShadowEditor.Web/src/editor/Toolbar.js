@@ -195,6 +195,17 @@ Toolbar.prototype.onAddPointIntersect = function (obj, event) {
 // ---------------------------------- 画线 -----------------------------------------
 
 Toolbar.prototype.onAddLine = function () {
+    if (this.hasLoadLineScript === undefined) {
+        this.hasLoadLineScript = true;
+        this.app.require('line').then(() => {
+            this._onAddLine();
+        });
+    } else {
+        this._onAddLine();
+    }
+};
+
+Toolbar.prototype._onAddLine = function () {
     this.isAddingLine = !this.isAddingLine;
 
     var addLineBtn = UI.get('addLineBtn', this.id);

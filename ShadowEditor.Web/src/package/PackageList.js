@@ -206,6 +206,17 @@ const PackageList = [{
         'assets/js/ternjs/doc_comment.js',
         'assets/js/tern-threejs/threejs.js'
     ]
+}, {
+    name: 'line',
+    assets: [
+        'assets/js/lines/LineSegmentsGeometry.js',
+        'assets/js/lines/LineGeometry.js',
+        'assets/js/lines/WireframeGeometry2.js',
+        'assets/js/lines/LineMaterial.js',
+        'assets/js/lines/LineSegments2.js',
+        'assets/js/lines/Line2.js',
+        'assets/js/lines/Wireframe.js'
+    ]
 }];
 
 export default PackageList
