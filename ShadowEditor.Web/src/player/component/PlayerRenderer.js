@@ -18,30 +18,24 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
 
     // 后期处理
     var postProcessing = this.scene.userData.postProcessing || {};
-    var hasPostProcessing = false;
-
-    for (var i in postProcessing) {
-        if (postProcessing[i].enabled) {
-            hasPostProcessing = true;
-            break;
-        }
-    }
 
     var composer = new THREE.EffectComposer(renderer);
 
-    var renderPass = new THREE.RenderPass(scene, camera);
-    renderPass.renderToScreen = !hasPostProcessing;
-    composer.addPass(renderPass);
+    var effect = new THREE.RenderPass(scene, camera);
+    effect.renderToScreen = true;
+    composer.addPass(effect);
 
     if (postProcessing.dotScreen && postProcessing.dotScreen.enabled) {
-        var effect = new THREE.ShaderPass(THREE.DotScreenShader);
+        effect.renderToScreen = false;
+        effect = new THREE.ShaderPass(THREE.DotScreenShader);
         effect.uniforms['scale'].value = postProcessing.dotScreen.scale;
         effect.renderToScreen = true;
         composer.addPass(effect);
     }
 
     if (postProcessing.rgbShift && postProcessing.rgbShift.enabled) {
-        var effect = new THREE.ShaderPass(THREE.RGBShiftShader);
+        effect.renderToScreen = false;
+        effect = new THREE.ShaderPass(THREE.RGBShiftShader);
         effect.uniforms['amount'].value = postProcessing.rgbShift.amount;
         effect.renderToScreen = true;
         composer.addPass(effect);
