@@ -14,66 +14,39 @@ PMDLoader.prototype.constructor = PMDLoader;
 PMDLoader.prototype.load = function (url, options, environment) {
     return new Promise(resolve => {
         var loader = new THREE.MMDLoader();
-        var helper = new THREE.MMDHelper();
 
-        Promise.all([
-            this.loadModel(url, options, environment, loader),
-            this.loadAnimation(url, options, environment, loader),
-            this.loadCameraAnimation(url, options, environment, loader),
-            this.loadAudio(url, options, environment, loader),
-        ]).then(obj => {
-            var mesh = obj[0];
-            var animation = obj[1];
-            var cameraAnimation = obj[2];
-            var audio = obj[3];
+        var promise1 = options.Animation && options.Animation.Url ?
+            this.loadWithAnimation(url, options, environment, loader) :
+            this.loadModel(url, options, environment, loader);
+        var promise2 = this.loadCameraAnimation(url, options, environment, loader);
+        var promise3 = this.loadAudio(url, options, environment, loader);
 
-            helper.add(mesh);
+        Promise.all([promise1, promise2, promise3]).then(obj => {
+            var mesh = obj[0].mesh;
+            var animation = obj[0].animation;
+            var cameraAnimation = obj[1];
+            var audio = obj[2];
 
-            if (animation) {
-                loader.pourVmdIntoModel(mesh, animation);
-            }
-
-            if (cameraAnimation) {
-                loader.pourVmdIntoCamera(environment.camera, cameraAnimation);
-            }
-
-            helper.setCamera(environment.camera);
-            helper.setAnimation(mesh);
-            helper.setPhysics(mesh);
-
-            if (cameraAnimation) {
-                helper.setCameraAnimation(environment.camera);
-            }
-
-            if (audio) {
-                var audioParams = { delayTime: 160 * 1 / 30 };
-                helper.setAudio(audio, environment.audioListener, audioParams);
-            }
-
-            var obj3d = new THREE.Object3D();
-            obj3d.add(mesh);
-
-            if (audio) {
-                obj3d.add(audio);
-            }
-
-            obj3d.name = options.Name;
-
-            helper.unifyAnimationDuration();
-
-            Object.assign(obj3d.userData, {
-                helper: helper
+            Object.assign(mesh.userData, {
+                obj: {
+                    animation: animation,
+                    cameraAnimation: cameraAnimation,
+                    audio: audio
+                }
             });
 
-            resolve(obj3d);
+            resolve(mesh);
         });
     });
 };
 
 PMDLoader.prototype.loadModel = function (url, options, environment, loader) {
     return new Promise(resolve => {
-        loader.loadModel(url, mesh => {
-            resolve(mesh);
+        loader.load(url, mesh => {
+            resolve({
+                mesh: mesh,
+                animation: null
+            });
         }, undefined, () => {
             // 某个图片下载失败会导致返回null
             // resolve(null);
@@ -81,7 +54,7 @@ PMDLoader.prototype.loadModel = function (url, options, environment, loader) {
     });
 };
 
-PMDLoader.prototype.loadAnimation = function (url, options, environment, loader) {
+PMDLoader.prototype.loadWithAnimation = function (url, options, environment, loader) {
     if (!options.Animation || !options.Animation.Url) {
         return new Promise(resolve => {
             resolve(null);
@@ -89,8 +62,8 @@ PMDLoader.prototype.loadAnimation = function (url, options, environment, loader)
     }
 
     return new Promise(resolve => {
-        loader.loadVmd(options.Animation.Url, vmd => {
-            resolve(vmd);
+        loader.loadWithAnimation(url, [options.Animation.Url], mmd => {
+            resolve(mmd);
         }, undefined, () => {
             resolve(null);
         });
@@ -105,7 +78,7 @@ PMDLoader.prototype.loadCameraAnimation = function (url, options, environment, l
     }
 
     return new Promise(resolve => {
-        loader.loadVmd(options.CameraAnimation.Url, vmd => {
+        loader.loadAnimation([options.CameraAnimation.Url], environment.camera, vmd => {
             resolve(vmd);
         }, undefined, () => {
             resolve(null);
@@ -123,7 +96,7 @@ PMDLoader.prototype.loadAudio = function (url, options, environment, loader) {
     return new Promise(resolve => {
         var loader = new THREE.AudioLoader();
         loader.load(options.Audio.Url, buffer => {
-            var audio = new THREE.Audio(environment.audioListener).setBuffer(buffer);
+            var audio = new THREE.Audio(new THREE.AudioListener()).setBuffer(buffer);
             audio.name = 'MMD音频';
             Object.assign(audio.userData, options.Audio);
             resolve(audio);

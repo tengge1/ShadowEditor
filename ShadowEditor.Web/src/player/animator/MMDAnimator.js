@@ -6,28 +6,64 @@ import PlayerComponent from '../component/PlayerComponent';
  */
 function MMDAnimator(app) {
     PlayerComponent.call(this, app);
-    this.meshes = [];
+
+    this.helper = new THREE.MMDAnimationHelper();
 }
 
 MMDAnimator.prototype = Object.create(PlayerComponent.prototype);
 MMDAnimator.prototype.constructor = MMDAnimator;
 
 MMDAnimator.prototype.create = function (scene, camera, renderer, animations) {
-    scene.traverse(n => {
-        if (n.userData.Type === 'pmd' || n.userData.Type === 'pmx') {
-            this.meshes.push(n);
+    var helper = this.helper;
+
+    scene.traverse(mesh => {
+        if (mesh.userData.Type === 'pmd' || mesh.userData.Type === 'pmx') {
+            let { animation, cameraAnimation, audio } = mesh.userData.obj;
+
+            if (animation) {
+                helper.add(mesh, {
+                    animation: animation,
+                    physics: true
+                });
+            } else {
+                helper.add(mesh, {
+                    physics: true
+                });
+            }
+
+            if (cameraAnimation) {
+                helper.add(camera, {
+                    animation: cameraAnimation
+                });
+            }
+
+            if (audio) {
+                var audioParams = {
+                    delayTime: 160 * 1 / 30
+                };
+                helper.add(audio, audioParams);
+            }
         }
     });
 };
 
 MMDAnimator.prototype.update = function (clock, deltaTime) {
-    this.meshes.forEach(n => {
-        n.userData.helper.animate(deltaTime);
-    });
+    this.helper.update(deltaTime);
 };
 
 MMDAnimator.prototype.dispose = function () {
-    this.meshes.length = 0;
+    var helper = this.helper;
+
+    helper.meshes.forEach(n => {
+        helper.remove(n);
+    });
+
+    helper.remove(helper.camera);
+
+    if (helper.audio.isPlaying) {
+        helper.audio.stop();
+    }
+    helper.remove(helper.audio);
 };
 
 export default MMDAnimator;
