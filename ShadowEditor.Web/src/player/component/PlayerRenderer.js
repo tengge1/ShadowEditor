@@ -40,17 +40,18 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
         composer.addPass(effect);
     }
 
-    // var effect = new THREE.ShaderPass(THREE.RGBShiftShader);
-    // effect.uniforms['amount'].value = 0.0015;
-    // effect.renderToScreen = true;
-    // composer.addPass(effect);
+    if (postProcessing.rgbShift && postProcessing.rgbShift.enabled) {
+        var effect = new THREE.ShaderPass(THREE.RGBShiftShader);
+        effect.uniforms['amount'].value = postProcessing.rgbShift.amount;
+        effect.renderToScreen = true;
+        composer.addPass(effect);
+    }
 
     this.composer = composer;
 };
 
 PlayerRenderer.prototype.update = function (clock, deltaTime) {
     this.composer.render();
-    // this.renderer.render(this.scene, this.camera);
 };
 
 PlayerRenderer.prototype.dispose = function () {

@@ -65,7 +65,7 @@ PostProcessingComponent.prototype.render = function () {
                 xtype: 'number',
                 id: 'rgbShiftAmount',
                 scope: this.id,
-                value: 0.015,
+                value: 0.1,
                 onChange: this.onChange.bind(this)
             }]
         }
