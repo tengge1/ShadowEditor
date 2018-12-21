@@ -58,12 +58,16 @@ MMDAnimator.prototype.dispose = function () {
         helper.remove(n);
     });
 
-    helper.remove(helper.camera);
-
-    if (helper.audio.isPlaying) {
-        helper.audio.stop();
+    if (helper.camera) {
+        helper.remove(helper.camera);
     }
-    helper.remove(helper.audio);
+
+    if (helper.audio) {
+        if (helper.audio.isPlaying) {
+            helper.audio.stop();
+        }
+        helper.remove(helper.audio);
+    }
 };
 
 export default MMDAnimator;

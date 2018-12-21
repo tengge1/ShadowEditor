@@ -33,15 +33,21 @@ JsLoader.prototype.load = function (url) {
 JsLoader.prototype.eval = function () {
     var eval2 = eval;
 
+    var script = '';
+
     this.assets.forEach(n => {
         if (n.script) {
-            try {
-                eval2(n.script);
-            } catch (e) {
-                console.warn(`JsLoader: ${n.url}解析出错！`);
-            }
+            script += n.script + '\n';
         }
     });
+
+    if (script) {
+        try {
+            eval2(script);
+        } catch (e) {
+            console.warn(`JsLoader: ${n.url}解析出错:${e.message}`);
+        }
+    }
 };
 
 export default JsLoader;
