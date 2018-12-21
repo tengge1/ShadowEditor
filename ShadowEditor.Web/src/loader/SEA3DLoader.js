@@ -15,7 +15,7 @@ SEA3DLoader.prototype.load = function (url, options) {
     var obj = new THREE.Object3D();
 
     return new Promise(resolve => {
-        this.require('SEA3D', true).then(() => {
+        this.require('SEA3D').then(() => {
             var loader = new THREE.SEA3D({
                 autoPlay: true, // Auto play animations
                 container: obj, // Container to add models

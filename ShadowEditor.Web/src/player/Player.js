@@ -38,7 +38,7 @@ Player.prototype = Object.create(UI.Control.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.render = function () {
-    (UI.create({
+    var control = UI.create({
         xtype: 'div',
         parent: this.parent,
         id: 'player',
@@ -47,7 +47,17 @@ Player.prototype.render = function () {
         style: {
             display: 'none'
         }
-    })).render();
+    });
+
+    control.render();
+
+    // 性能控件
+    this.stats = new Stats();
+    this.stats.dom.style.position = 'absolute';
+    this.stats.dom.style.left = '8px';
+    this.stats.dom.style.top = '8px';
+    this.stats.dom.style.zIndex = 'initial';
+    control.dom.appendChild(this.stats.dom);
 };
 
 /**
@@ -156,6 +166,8 @@ Player.prototype.animate = function () {
         return;
     }
 
+    this.stats.begin();
+
     var deltaTime = this.clock.getDelta();
 
     this.event.update(this.clock, deltaTime);
@@ -163,6 +175,8 @@ Player.prototype.animate = function () {
     this.playerRenderer.update(this.clock, deltaTime);
     this.animation.update(this.clock, deltaTime);
     this.physics.update(this.clock, deltaTime);
+
+    this.stats.end();
 
     requestAnimationFrame(this.animate.bind(this));
 };

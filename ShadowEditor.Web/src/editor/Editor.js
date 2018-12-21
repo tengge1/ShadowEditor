@@ -83,14 +83,6 @@ function Editor(app) {
     // 编辑器控件
     this.controls = new THREE.EditorControls(this.camera, this.app.viewport.container.dom);
 
-    // 性能控件
-    this.stats = new Stats();
-    this.stats.dom.style.position = 'absolute';
-    this.stats.dom.style.left = '8px';
-    this.stats.dom.style.top = '8px';
-    this.stats.dom.style.zIndex = 'initial';
-    this.app.viewport.container.dom.appendChild(this.stats.dom);
-
     // 碰撞检测
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
