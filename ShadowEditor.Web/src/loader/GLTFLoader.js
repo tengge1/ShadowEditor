@@ -19,7 +19,7 @@ GLTFLoader.prototype.load = function (url, options) {
         ]).then(() => {
             var loader = new THREE.GLTFLoader();
 
-            THREE.DRACOLoader.setDecoderPath('assets/js/loaders/draco/gltf/');
+            THREE.DRACOLoader.setDecoderPath('assets/js/libs/draco/gltf/');
             loader.setDRACOLoader(new THREE.DRACOLoader());
 
             loader.load(url, result => {

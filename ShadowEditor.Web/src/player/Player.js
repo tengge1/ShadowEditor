@@ -126,6 +126,8 @@ Player.prototype.stop = function () {
     container.dom.removeChild(this.renderer.domElement);
     container.dom.style.display = 'none';
 
+    this.scene.children.length = 0;
+
     this.scene = null;
     this.camera = null;
     this.renderer = null;

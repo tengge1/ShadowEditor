@@ -1,8 +1,8 @@
 const PackageList = [{
     name: 'NRRDLoader',
     assets: [
-        'assets/js/loaders/nrrd/Volume.js',
-        'assets/js/loaders/nrrd/VolumeSlice.js',
+        'assets/js/loaders/Volume.js',
+        'assets/js/loaders/VolumeSlice.js',
         'assets/js/loaders/NRRDLoader.js'
     ]
 }, {
@@ -76,7 +76,7 @@ const PackageList = [{
     name: 'MD2Loader',
     assets: [
         'assets/js/loaders/MD2Loader.js',
-        'assets/js/loaders/md2/MD2Character.js'
+        'assets/js/loaders/MD2Character.js'
     ]
 }, {
     name: 'OBJLoader',
@@ -145,7 +145,7 @@ const PackageList = [{
         'assets/js/loaders/sea3d/SEA3D.js',
         'assets/js/loaders/sea3d/SEA3DLZMA.js',
         'assets/js/loaders/sea3d/SEA3DLoader.js',
-        'assets/js/loaders/draco/draco_decoder.js',
+        'assets/js/libs/draco/draco_decoder.js',
         'assets/js/loaders/sea3d/SEA3DDraco.js'
     ]
 }, {

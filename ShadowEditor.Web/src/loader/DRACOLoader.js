@@ -14,7 +14,7 @@ DRACOLoader.prototype.constructor = DRACOLoader;
 DRACOLoader.prototype.load = function (url) {
     return new Promise(resolve => {
         this.require('DRACOLoader').then(() => {
-            THREE.DRACOLoader.setDecoderPath('assets/js/loader/draco/');
+            THREE.DRACOLoader.setDecoderPath('assets/js/libs/draco/');
             THREE.DRACOLoader.setDecoderConfig({ type: 'js' });
 
             var loader = new THREE.DRACOLoader();
