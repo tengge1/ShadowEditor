@@ -55,5 +55,10 @@ namespace ShadowEditor.Model.Category
         /// 预设体
         /// </summary>
         Prefab,
+
+        /// <summary>
+        /// 角色
+        /// </summary>
+        Character,
     }
 }
