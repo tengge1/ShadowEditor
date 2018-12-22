@@ -1,8 +1,8 @@
 const PackageList = [{
     name: 'NRRDLoader',
     assets: [
-        'assets/js/loaders/Volume.js',
-        'assets/js/loaders/VolumeSlice.js',
+        'assets/js/Volume.js',
+        'assets/js/VolumeSlice.js',
         'assets/js/loaders/NRRDLoader.js'
     ]
 }, {
