@@ -9,16 +9,16 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ShadowEditor.Model.Prefab;
+using ShadowEditor.Model.Character;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 
 namespace ShadowEditor.Server.Controllers
 {
     /// <summary>
-    /// 预设体控制器
+    /// 角色控制器
     /// </summary>
-    public class PrefabController : ApiBase
+    public class CharacterController : ApiBase
     {
         /// <summary>
         /// 获取列表
@@ -30,12 +30,12 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             // 获取所有类别
-            var filter = Builders<BsonDocument>.Filter.Eq("Type", "Prefab");
+            var filter = Builders<BsonDocument>.Filter.Eq("Type", "Character");
             var categories = mongo.FindMany(Constant.CategoryCollectionName, filter);
 
-            var particles = mongo.FindAll(Constant.PrefabCollectionName);
+            var particles = mongo.FindAll(Constant.CharacterCollectionName);
 
-            var list = new List<PrefabModel>();
+            var list = new List<CharacterModel>();
 
             foreach (var i in particles)
             {
@@ -52,7 +52,7 @@ namespace ShadowEditor.Server.Controllers
                     }
                 }
 
-                var info = new PrefabModel
+                var info = new CharacterModel
                 {
                     ID = i["ID"].AsObjectId.ToString(),
                     Name = i["Name"].AsString,
@@ -89,14 +89,14 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
-            var doc = mongo.FindOne(Constant.PrefabCollectionName, filter);
+            var doc = mongo.FindOne(Constant.CharacterCollectionName, filter);
 
             if (doc == null)
             {
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该预设体不存在！"
+                    Msg = "该角色不存在！"
                 });
             }
 
@@ -126,7 +126,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Edit(PrefabEditModel model)
+        public JsonResult Edit(CharacterEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -170,7 +170,7 @@ namespace ShadowEditor.Server.Controllers
             }
 
             var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4, update5);
-            mongo.UpdateOne(Constant.PrefabCollectionName, filter, update);
+            mongo.UpdateOne(Constant.CharacterCollectionName, filter, update);
 
             return Json(new
             {
@@ -185,7 +185,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Save(PrefabSaveModel model)
+        public JsonResult Save(CharacterSaveModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -210,7 +210,7 @@ namespace ShadowEditor.Server.Controllers
             // 查询
             var mongo = new MongoHelper();
             var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-            var doc = mongo.FindOne(Constant.PrefabCollectionName, filter);
+            var doc = mongo.FindOne(Constant.CharacterCollectionName, filter);
 
             var now = DateTime.Now;
 
@@ -232,14 +232,14 @@ namespace ShadowEditor.Server.Controllers
                     ["Data"] = BsonDocument.Parse(model.Data),
                     ["Thumbnail"] = ""
                 };
-                mongo.InsertOne(Constant.PrefabCollectionName, doc);
+                mongo.InsertOne(Constant.CharacterCollectionName, doc);
             }
             else // 更新
             {
                 var update1 = Builders<BsonDocument>.Update.Set("UpdateTime", BsonDateTime.Create(now));
                 var update2 = Builders<BsonDocument>.Update.Set("Data", BsonDocument.Parse(model.Data));
                 var update = Builders<BsonDocument>.Update.Combine(update1, update2);
-                mongo.UpdateOne(Constant.PrefabCollectionName, filter, update);
+                mongo.UpdateOne(Constant.CharacterCollectionName, filter, update);
             }
 
             return Json(new
@@ -261,7 +261,7 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
-            var doc = mongo.FindOne(Constant.PrefabCollectionName, filter);
+            var doc = mongo.FindOne(Constant.CharacterCollectionName, filter);
 
             if (doc == null)
             {
@@ -272,7 +272,7 @@ namespace ShadowEditor.Server.Controllers
                 });
             }
 
-            mongo.DeleteOne(Constant.PrefabCollectionName, filter);
+            mongo.DeleteOne(Constant.CharacterCollectionName, filter);
 
             return Json(new
             {
