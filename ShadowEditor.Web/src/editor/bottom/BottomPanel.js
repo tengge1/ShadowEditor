@@ -8,6 +8,7 @@ import AudioPanel from './AudioPanel';
 import AnimationPanel from './AnimationPanel';
 import ParticlePanel from './ParticlePanel';
 import PrefabPanel from './PrefabPanel';
+import CharacterPanel from './CharacterPanel';
 import LogPanel from './LogPanel';
 
 /**
@@ -98,6 +99,13 @@ BottomPanel.prototype.render = function () {
                 text: '预设体',
                 onClick: () => {
                     this.selectTab('prefab');
+                }
+            }, {
+                xtype: 'text',
+                id: 'characterTab',
+                text: '角色',
+                onClick: () => {
+                    this.selectTab('character');
                 }
             }, {
                 xtype: 'text',
@@ -219,6 +227,17 @@ BottomPanel.prototype.render = function () {
             ]
         }, {
             xtype: 'div',
+            id: 'characterPanel',
+            style: {
+                height: 'calc(100% - 40px)'
+            },
+            children: [
+                new CharacterPanel({
+                    app: this.app
+                })
+            ]
+        }, {
+            xtype: 'div',
             id: 'logPanel',
             style: {
                 height: 'calc(100% - 40px)'
@@ -255,6 +274,7 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     var animationTab = UI.get('animationTab');
     var particleTab = UI.get('particleTab');
     var prefabTab = UI.get('prefabTab');
+    var characterTab = UI.get('characterTab');
     var logTab = UI.get('logTab');
 
     var timePanel = UI.get('timePanel');
@@ -266,6 +286,7 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     var animationPanel = UI.get('animationPanel');
     var particlePanel = UI.get('particlePanel');
     var prefabPanel = UI.get('prefabPanel');
+    var characterPanel = UI.get('characterPanel');
     var logPanel = UI.get('logPanel');
 
     timeTab.dom.className = '';
@@ -277,6 +298,7 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     animationTab.dom.className = '';
     particleTab.dom.className = '';
     prefabTab.dom.className = '';
+    characterTab.dom.className = '';
     logTab.dom.className = '';
 
     timePanel.dom.style.display = 'none';
@@ -288,6 +310,7 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     animationPanel.dom.style.display = 'none';
     particlePanel.dom.style.display = 'none';
     prefabPanel.dom.style.display = 'none';
+    characterPanel.dom.style.display = 'none';
     logPanel.dom.style.display = 'none';
 
     switch (tabName) {
@@ -326,6 +349,10 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
         case 'prefab':
             prefabTab.dom.className = 'selected';
             prefabPanel.dom.style.display = '';
+            break;
+        case 'character':
+            characterTab.dom.className = 'selected';
+            characterPanel.dom.style.display = '';
             break;
         case 'log':
             logTab.dom.className = 'selected';
