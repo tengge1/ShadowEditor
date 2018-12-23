@@ -99,7 +99,6 @@ MMDLoader.prototype.loadAudio = function (url, options, environment, loader) {
         var loader = new THREE.AudioLoader();
         loader.load(options.Audio.Url, buffer => {
             var audio = new THREE.Audio(environment.audioListener).setBuffer(buffer);
-            audio.name = 'MMD音频';
             Object.assign(audio.userData, options.Audio);
             resolve(audio);
         });

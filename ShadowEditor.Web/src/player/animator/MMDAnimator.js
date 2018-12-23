@@ -6,6 +6,9 @@ import PlayerComponent from '../component/PlayerComponent';
  */
 function MMDAnimator(app) {
     PlayerComponent.call(this, app);
+
+    this.time = 0.0; // 当前动画播放时间
+    this.delayTime = 160 * 1 / 30; // 动画比音频提前执行时间
 }
 
 MMDAnimator.prototype = Object.create(PlayerComponent.prototype);
@@ -56,11 +59,13 @@ MMDAnimator.prototype.create = function (scene, camera, renderer, animations) {
 
         if (audio) {
             var audioParams = {
-                delayTime: 5
+                delayTime: this.delayTime
             };
             helper.add(audio, audioParams);
         }
     });
+
+    this.time = 0.0;
 
     return new Promise(resolve => {
         resolve();
@@ -72,7 +77,18 @@ MMDAnimator.prototype.update = function (clock, deltaTime) {
         return;
     }
 
-    this.helper.update(deltaTime * 1.3);
+    if (this.helper.audio) { // 如果有音频，使用音频时间比较准确
+        var currentTime = this.helper.audio.context.currentTime;
+        if (currentTime < this.delayTime) {
+            this.time += deltaTime;
+        } else {
+            var time = this.delayTime + currentTime;
+            deltaTime = time - this.time;
+            this.time = time;
+        }
+    }
+
+    this.helper.update(deltaTime);
 };
 
 MMDAnimator.prototype.dispose = function () {
