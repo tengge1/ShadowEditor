@@ -13,32 +13,36 @@ function PlayerAudio(app) {
 PlayerAudio.prototype = Object.create(PlayerComponent.prototype);
 PlayerAudio.prototype.constructor = PlayerAudio;
 
-PlayerAudio.prototype.create = function (scene, camera, renderer, loader) {
-    this.audios = [];
+PlayerAudio.prototype.create = function (scene, camera, renderer) {
+    this.audios.length = 0;
 
     scene.traverse(n => {
         if (n instanceof THREE.Audio) {
-            var buffer = loader.getAsset(n.userData.Url);
-
-            if (buffer === undefined) {
-                this.app.error(`PlayerAudio: 加载背景音乐失败。`);
-                return;
-            }
-
-            n.setBuffer(buffer);
-
-            if (n.userData.autoplay) {
-                n.autoplay = n.userData.autoplay;
-                n.play();
-            }
-
             this.audios.push(n);
         }
     });
 
-    return new Promise(resolve => {
-        resolve();
+    var loader = new THREE.AudioLoader();
+
+    var promises = this.audios.map(n => {
+        return new Promise(resolve => {
+            loader.load(this.app.options.server + n.userData.Url, buffer => {
+                n.setBuffer(buffer);
+
+                if (n.userData.autoplay) {
+                    n.autoplay = n.userData.autoplay;
+                    n.play();
+                }
+
+                resolve();
+            }, undefined, () => {
+                this.app.error(`PlayerLoader: ${n.userData.Url}下载失败。`);
+                resolve();
+            });
+        });
     });
+
+    return Promise.all(promises);
 };
 
 PlayerAudio.prototype.dispose = function () {

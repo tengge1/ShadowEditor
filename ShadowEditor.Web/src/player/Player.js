@@ -90,7 +90,7 @@ Player.prototype.start = function () {
 
         var promise1 = this.event.create(this.scene, this.camera, this.renderer, obj.scripts);
         var promise2 = this.control.create(this.scene, this.camera, this.renderer);
-        var promise3 = this.audio.create(this.scene, this.camera, this.renderer, this.loader);
+        var promise3 = this.audio.create(this.scene, this.camera, this.renderer);
         var promise4 = this.playerRenderer.create(this.scene, this.camera, this.renderer);
         var promise5 = this.animation.create(this.scene, this.camera, this.renderer, obj.animation);
         var promise6 = this.physics.create(this.scene, this.camera, this.renderer);
