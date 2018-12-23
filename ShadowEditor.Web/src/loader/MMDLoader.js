@@ -1,46 +1,48 @@
 import BaseLoader from './BaseLoader';
 
 /**
- * PMDLoader
+ * MMDLoader
  * @author tengge / https://github.com/tengge1
  */
-function PMDLoader() {
+function MMDLoader() {
     BaseLoader.call(this);
 }
 
-PMDLoader.prototype = Object.create(BaseLoader.prototype);
-PMDLoader.prototype.constructor = PMDLoader;
+MMDLoader.prototype = Object.create(BaseLoader.prototype);
+MMDLoader.prototype.constructor = MMDLoader;
 
-PMDLoader.prototype.load = function (url, options, environment) {
+MMDLoader.prototype.load = function (url, options, environment) {
     return new Promise(resolve => {
-        var loader = new THREE.MMDLoader();
+        this.require('MMD').then(() => {
+            var loader = new THREE.MMDLoader();
 
-        var promise1 = options.Animation && options.Animation.Url ?
-            this.loadWithAnimation(url, options, environment, loader) :
-            this.loadModel(url, options, environment, loader);
-        var promise2 = this.loadCameraAnimation(url, options, environment, loader);
-        var promise3 = this.loadAudio(url, options, environment, loader);
+            var promise1 = options.Animation && options.Animation.Url ?
+                this.loadWithAnimation(url, options, environment, loader) :
+                this.loadModel(url, options, environment, loader);
+            var promise2 = this.loadCameraAnimation(url, options, environment, loader);
+            var promise3 = this.loadAudio(url, options, environment, loader);
 
-        Promise.all([promise1, promise2, promise3]).then(obj => {
-            var mesh = obj[0].mesh;
-            var animation = obj[0].animation;
-            var cameraAnimation = obj[1];
-            var audio = obj[2];
+            Promise.all([promise1, promise2, promise3]).then(obj => {
+                var mesh = obj[0].mesh;
+                var animation = obj[0].animation;
+                var cameraAnimation = obj[1];
+                var audio = obj[2];
 
-            Object.assign(mesh.userData, {
-                obj: {
-                    animation: animation,
-                    cameraAnimation: cameraAnimation,
-                    audio: audio
-                }
+                Object.assign(mesh.userData, {
+                    obj: {
+                        animation: animation,
+                        cameraAnimation: cameraAnimation,
+                        audio: audio
+                    }
+                });
+
+                resolve(mesh);
             });
-
-            resolve(mesh);
         });
     });
 };
 
-PMDLoader.prototype.loadModel = function (url, options, environment, loader) {
+MMDLoader.prototype.loadModel = function (url, options, environment, loader) {
     return new Promise(resolve => {
         loader.load(url, mesh => {
             resolve({
@@ -54,7 +56,7 @@ PMDLoader.prototype.loadModel = function (url, options, environment, loader) {
     });
 };
 
-PMDLoader.prototype.loadWithAnimation = function (url, options, environment, loader) {
+MMDLoader.prototype.loadWithAnimation = function (url, options, environment, loader) {
     if (!options.Animation || !options.Animation.Url) {
         return new Promise(resolve => {
             resolve(null);
@@ -70,7 +72,7 @@ PMDLoader.prototype.loadWithAnimation = function (url, options, environment, loa
     });
 };
 
-PMDLoader.prototype.loadCameraAnimation = function (url, options, environment, loader) {
+MMDLoader.prototype.loadCameraAnimation = function (url, options, environment, loader) {
     if (!options.CameraAnimation || !options.CameraAnimation.Url) {
         return new Promise(resolve => {
             resolve(null);
@@ -86,7 +88,7 @@ PMDLoader.prototype.loadCameraAnimation = function (url, options, environment, l
     });
 };
 
-PMDLoader.prototype.loadAudio = function (url, options, environment, loader) {
+MMDLoader.prototype.loadAudio = function (url, options, environment, loader) {
     if (!options.Audio || !options.Audio.Url) {
         return new Promise(resolve => {
             resolve(null);
@@ -104,4 +106,4 @@ PMDLoader.prototype.loadAudio = function (url, options, environment, loader) {
     });
 };
 
-export default PMDLoader;
+export default MMDLoader;

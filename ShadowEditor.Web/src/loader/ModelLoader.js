@@ -15,7 +15,7 @@ import PLYLoader from './PLYLoader';
 import STLLoader from './STLLoader';
 import VTKLoader from './VTKLoader';
 import LOLLoader from './LOLLoader';
-import PMDLoader from './PMDLoader';
+import MMDLoader from './MMDLoader';
 import JsLoader from './JsLoader';
 import _3DSLoader from './_3DSLoader';
 import _3MFLoader from './_3MFLoader';
@@ -54,8 +54,8 @@ const Loaders = {
     'stl': STLLoader,
     'vtk': VTKLoader,
     'lol': LOLLoader,
-    'pmd': PMDLoader,
-    'pmx': PMDLoader,
+    'pmd': MMDLoader,
+    'pmx': MMDLoader,
     'js': JsLoader,
     'drc': DRACOLoader,
     'gcode': GCodeLoader,

@@ -6,52 +6,72 @@ import PlayerComponent from '../component/PlayerComponent';
  */
 function MMDAnimator(app) {
     PlayerComponent.call(this, app);
-
-    this.helper = new THREE.MMDAnimationHelper();
 }
 
 MMDAnimator.prototype = Object.create(PlayerComponent.prototype);
 MMDAnimator.prototype.constructor = MMDAnimator;
 
 MMDAnimator.prototype.create = function (scene, camera, renderer, animations) {
-    var helper = this.helper;
+    var mmds = [];
 
     scene.traverse(mesh => {
         if (mesh.userData.Type === 'pmd' || mesh.userData.Type === 'pmx') {
-            let { animation, cameraAnimation, audio } = mesh.userData.obj;
+            mmds.push(mesh);
+        }
+    });
 
-            if (animation) {
-                helper.add(mesh, {
-                    animation: animation,
-                    physics: true
-                });
-            } else {
-                helper.add(mesh, {
-                    physics: true
-                });
-            }
+    if (mmds.length === 0) {
+        return;
+    }
 
-            if (cameraAnimation) {
-                helper.add(camera, {
-                    animation: cameraAnimation
-                });
-            }
+    if (this.helper === undefined) {
+        this.helper = new THREE.MMDAnimationHelper();
+    }
 
-            if (audio) {
-                var audioParams = {
-                    delayTime: 160 * 1 / 30
-                };
-                helper.add(audio, audioParams);
-            }
+    var helper = this.helper;
+
+    mmds.forEach(mesh => {
+        let { animation, cameraAnimation, audio } = mesh.userData.obj;
+
+        if (animation) {
+            helper.add(mesh, {
+                animation: animation,
+                physics: true
+            });
+        } else {
+            helper.add(mesh, {
+                physics: true
+            });
+        }
+
+        if (cameraAnimation) {
+            helper.add(camera, {
+                animation: cameraAnimation
+            });
+        }
+
+        if (audio) {
+            var audioParams = {
+                delayTime: 160 * 1 / 30
+            };
+            helper.add(audio, audioParams);
         }
     });
 };
 
 MMDAnimator.prototype.update = function (clock, deltaTime) {
+    if (!this.helper) {
+        return;
+    }
+
     this.helper.update(deltaTime);
 };
 
 MMDAnimator.prototype.dispose = function () {
+    if (!this.helper) {
+        return;
+    }
+
     var helper = this.helper;
 
     helper.meshes.forEach(n => {

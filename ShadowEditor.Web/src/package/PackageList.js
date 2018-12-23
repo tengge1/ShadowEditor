@@ -242,6 +242,15 @@ const PackageList = [{
     assets: [
         'assets/js/exporters/STLExporter.js'
     ]
+}, {
+    name: 'MMD',
+    assets: [
+        'assets/js/libs/mmdparser.min.js',
+        'assets/js/loaders/MMDLoader.js',
+        'assets/js/animation/CCDIKSolver.js',
+        'assets/js/animation/MMDPhysics.js',
+        'assets/js/animation/MMDAnimationHelper.js'
+    ]
 }];
 
 export default PackageList
