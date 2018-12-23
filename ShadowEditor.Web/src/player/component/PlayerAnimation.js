@@ -36,13 +36,15 @@ PlayerAnimation.prototype.create = function (scene, camera, renderer, animations
 
     this.maxTime = this.calculateMaxTime();
 
-    this.animators.forEach(n => {
-        n.create(scene, camera, renderer, animations);
-    });
-
     this.app.call(`resetAnimation`, this);
     this.app.call(`startAnimation`, this);
     this.app.on(`animationTime.${this.id}`, this.updateTime.bind(this));
+
+    var promises = this.animators.map(n => {
+        return n.create(scene, camera, renderer, animations);
+    });
+
+    return Promise.all(promises);
 };
 
 PlayerAnimation.prototype.calculateMaxTime = function () {

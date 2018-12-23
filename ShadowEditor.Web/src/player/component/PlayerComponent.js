@@ -17,7 +17,9 @@ function PlayerComponent(app) {
  * @param {*} others 
  */
 PlayerComponent.prototype.create = function (scene, camera, renderer, others) {
-
+    return new Promise(resolve => {
+        resolve();
+    });
 };
 
 /**

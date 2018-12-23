@@ -135,7 +135,7 @@ PostProcessingComponent.prototype.render = function () {
                 xtype: 'number',
                 id: 'bokehMaxBlur',
                 scope: this.id,
-                value: 1.0,
+                value: 0.05,
                 onChange: this.onChange.bind(this)
             }]
         }]

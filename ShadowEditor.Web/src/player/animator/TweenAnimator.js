@@ -15,6 +15,10 @@ TweenAnimator.prototype.constructor = TweenAnimator;
 TweenAnimator.prototype.create = function (scene, camera, renderer, animations) {
     this.scene = scene;
     this.animations = animations;
+
+    return new Promise(resolve => {
+        resolve();
+    });
 };
 
 TweenAnimator.prototype.update = function (clock, deltaTime, time) {

@@ -55,6 +55,10 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
             }
         }
     });
+
+    return new Promise(resolve => {
+        resolve();
+    });
 };
 
 PlayerPhysics.prototype.update = function (clock, deltaTime) {

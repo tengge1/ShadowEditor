@@ -73,6 +73,10 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
             window.addEventListener('resize', n.onResize.bind(this.scene));
         }
     });
+
+    return new Promise(resolve => {
+        resolve();
+    });
 };
 
 /**

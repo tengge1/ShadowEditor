@@ -35,6 +35,10 @@ PlayerAudio.prototype.create = function (scene, camera, renderer, loader) {
             this.audios.push(n);
         }
     });
+
+    return new Promise(resolve => {
+        resolve();
+    });
 };
 
 PlayerAudio.prototype.dispose = function () {

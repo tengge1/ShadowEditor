@@ -31,7 +31,11 @@ MMDAnimator.prototype.create = function (scene, camera, renderer, animations) {
     var helper = this.helper;
 
     mmds.forEach(mesh => {
-        let { animation, cameraAnimation, audio } = mesh.userData.obj;
+        let {
+            animation,
+            cameraAnimation,
+            audio
+        } = mesh.userData.obj;
 
         if (animation) {
             helper.add(mesh, {
@@ -52,10 +56,14 @@ MMDAnimator.prototype.create = function (scene, camera, renderer, animations) {
 
         if (audio) {
             var audioParams = {
-                delayTime: 160 * 1 / 30
+                delayTime: 5
             };
             helper.add(audio, audioParams);
         }
+    });
+
+    return new Promise(resolve => {
+        resolve();
     });
 };
 
@@ -64,7 +72,7 @@ MMDAnimator.prototype.update = function (clock, deltaTime) {
         return;
     }
 
-    this.helper.update(deltaTime);
+    this.helper.update(deltaTime * 1.3);
 };
 
 MMDAnimator.prototype.dispose = function () {

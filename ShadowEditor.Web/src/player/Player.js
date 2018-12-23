@@ -88,17 +88,18 @@ Player.prototype.start = function () {
     this.loader.create(jsons).then(obj => {
         this.initPlayer(obj);
 
-        this.event.create(this.scene, this.camera, this.renderer, obj.scripts);
-        this.control.create(this.scene, this.camera, this.renderer);
-        this.audio.create(this.scene, this.camera, this.renderer, this.loader);
-        this.playerRenderer.create(this.scene, this.camera, this.renderer);
-        this.animation.create(this.scene, this.camera, this.renderer, obj.animation);
-        this.physics.create(this.scene, this.camera, this.renderer);
+        var promise1 = this.event.create(this.scene, this.camera, this.renderer, obj.scripts);
+        var promise2 = this.control.create(this.scene, this.camera, this.renderer);
+        var promise3 = this.audio.create(this.scene, this.camera, this.renderer, this.loader);
+        var promise4 = this.playerRenderer.create(this.scene, this.camera, this.renderer);
+        var promise5 = this.animation.create(this.scene, this.camera, this.renderer, obj.animation);
+        var promise6 = this.physics.create(this.scene, this.camera, this.renderer);
 
-        this.clock.start();
-        this.event.init();
-        this.event.start();
-
+        Promise.all([promise1, promise2, promise3, promise4, promise5, promise6]).then(() => {
+            this.event.init();
+            this.clock.start();
+            this.event.start();
+        });
         requestAnimationFrame(this.animate.bind(this));
     });
 };

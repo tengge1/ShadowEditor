@@ -50,6 +50,10 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
     } else {
 
     }
+
+    return new Promise(resolve => {
+        resolve();
+    });
 };
 
 PlayerControl.prototype.update = function (clock, deltaTime) {

@@ -51,7 +51,7 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
     if (postProcessing.bokeh && postProcessing.bokeh.enabled) {
         effect = new THREE.BokehPass(scene, camera, {
             focus: postProcessing.bokeh.focus,
-            aperture: postProcessing.bokeh.aperture,
+            aperture: postProcessing.bokeh.aperture / 100,
             maxblur: postProcessing.bokeh.maxBlur,
             width: renderer.domElement.width,
             height: renderer.domElement.height
@@ -69,6 +69,10 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
     }
 
     this.composer = composer;
+
+    return new Promise(resolve => {
+        resolve();
+    });
 };
 
 PlayerRenderer.prototype.update = function (clock, deltaTime) {

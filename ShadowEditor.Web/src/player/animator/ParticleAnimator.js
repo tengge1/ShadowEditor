@@ -14,6 +14,10 @@ ParticleAnimator.prototype.constructor = ParticleAnimator;
 
 ParticleAnimator.prototype.create = function (scene, camera, renderer) {
     this.scene = scene;
+
+    return new Promise(resolve => {
+        resolve();
+    });
 };
 
 ParticleAnimator.prototype.update = function (clock, deltaTime, time) {
