@@ -87,8 +87,58 @@ PostProcessingComponent.prototype.render = function () {
                 value: 0.96,
                 onChange: this.onChange.bind(this)
             }]
-        }
-        ]
+        }, {
+            xtype: 'row',
+            style: {
+                borderTop: '1px solid #ddd'
+            },
+            children: [{
+                xtype: 'label',
+                text: '背景虚化'
+            }, {
+                xtype: 'checkbox',
+                id: 'bokeh',
+                scope: this.id,
+                value: false,
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '焦点'
+            }, {
+                xtype: 'number',
+                id: 'bokehFocus',
+                scope: this.id,
+                value: 1,
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '光圈'
+            }, {
+                xtype: 'number',
+                id: 'bokehAperture',
+                scope: this.id,
+                value: 0.025,
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '最大模糊'
+            }, {
+                xtype: 'number',
+                id: 'bokehMaxBlur',
+                scope: this.id,
+                value: 1.0,
+                onChange: this.onChange.bind(this)
+            }]
+        }]
     };
 
     var control = UI.create(data);
@@ -124,6 +174,10 @@ PostProcessingComponent.prototype.updateUI = function () {
     var rgbShiftAmount = UI.get('rgbShiftAmount', this.id);
     var afterimage = UI.get('afterimage', this.id);
     var afterimageDamp = UI.get('afterimageDamp', this.id);
+    var bokeh = UI.get('bokeh', this.id);
+    var bokehFocus = UI.get('bokehFocus', this.id);
+    var bokehAperture = UI.get('bokehAperture', this.id);
+    var bokehMaxBlur = UI.get('bokehMaxBlur', this.id);
 
     var scene = this.selected;
     var postProcessing = scene.userData.postProcessing || {};
@@ -142,6 +196,13 @@ PostProcessingComponent.prototype.updateUI = function () {
         afterimage.setValue(postProcessing.afterimage.enabled);
         afterimageDamp.setValue(postProcessing.afterimage.damp);
     }
+
+    if (postProcessing.bokeh) {
+        bokeh.setValue(postProcessing.bokeh.enabled);
+        bokehFocus.setValue(postProcessing.bokeh.focus);
+        bokehAperture.setValue(postProcessing.bokeh.aperture);
+        bokehMaxBlur.setValue(postProcessing.bokeh.maxBlur);
+    }
 };
 
 PostProcessingComponent.prototype.onChange = function () {
@@ -151,6 +212,10 @@ PostProcessingComponent.prototype.onChange = function () {
     var rgbShiftAmount = UI.get('rgbShiftAmount', this.id);
     var afterimage = UI.get('afterimage', this.id);
     var afterimageDamp = UI.get('afterimageDamp', this.id);
+    var bokeh = UI.get('bokeh', this.id);
+    var bokehFocus = UI.get('bokehFocus', this.id);
+    var bokehAperture = UI.get('bokehAperture', this.id);
+    var bokehMaxBlur = UI.get('bokehMaxBlur', this.id);
 
     var scene = this.selected;
     scene.userData.postProcessing = scene.userData.postProcessing || {};
@@ -167,7 +232,13 @@ PostProcessingComponent.prototype.onChange = function () {
         afterimage: {
             enabled: afterimage.getValue(),
             damp: afterimageDamp.getValue()
-        }
+        },
+        bokeh: {
+            enabled: bokeh.getValue(),
+            focus: bokehFocus.getValue(),
+            aperture: bokehAperture.getValue(),
+            maxBlur: bokehMaxBlur.getValue(),
+        },
     });
 };
 

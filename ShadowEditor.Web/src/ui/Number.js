@@ -14,7 +14,7 @@ function Number(options) {
     this.min = options.range ? options.range[0] : -Infinity;
     this.max = options.range ? options.range[1] : Infinity;
 
-    this.precision = options.precision === undefined ? 2 : options.precision; // 显示时保留几位小数
+    this.precision = options.precision === undefined ? 3 : options.precision; // 显示时保留几位小数
     this.step = options.step === undefined ? 0.1 : options.step; // 步长
     this.unit = options.unit === undefined ? '' : options.unit; // 单位（显示时跟在数字后面）
     this.cls = options.cls || 'Number';

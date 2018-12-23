@@ -48,6 +48,18 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
         effects.push(effect);
     }
 
+    if (postProcessing.bokeh && postProcessing.bokeh.enabled) {
+        effect = new THREE.BokehPass(scene, camera, {
+            focus: postProcessing.bokeh.focus,
+            aperture: postProcessing.bokeh.aperture,
+            maxblur: postProcessing.bokeh.maxBlur,
+            width: renderer.domElement.width,
+            height: renderer.domElement.height
+        });
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     for (var i = 0; i < effects.length; i++) {
         if (i === effects.length - 1) {
             effects[i].renderToScreen = true;
