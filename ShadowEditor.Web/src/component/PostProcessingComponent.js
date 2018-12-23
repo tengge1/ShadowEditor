@@ -69,21 +69,25 @@ PostProcessingComponent.prototype.render = function () {
                 value: 0.1,
                 onChange: this.onChange.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '残影'
+            }, {
+                xtype: 'checkbox',
+                id: 'afterimage',
+                scope: this.id,
+                value: false,
+                onChange: this.onChange.bind(this)
+            }, {
+                xtype: 'number',
+                id: 'afterimageDamp',
+                scope: this.id,
+                value: 0.96,
+                onChange: this.onChange.bind(this)
+            }]
         }
-            //, {
-            //     xtype: 'row',
-            //     children: [{
-            //         xtype: 'label',
-            //         text: '风格化'
-            //     }, {
-            //         xtype: 'select',
-            //         id: 'selStyle',
-            //         scope: this.id,
-            //         value: {
-
-            //         }
-            //     }]
-            // }
         ]
     };
 
@@ -118,6 +122,8 @@ PostProcessingComponent.prototype.updateUI = function () {
     var dotScreenScale = UI.get('dotScreenScale', this.id);
     var rgbShift = UI.get('rgbShift', this.id);
     var rgbShiftAmount = UI.get('rgbShiftAmount', this.id);
+    var afterimage = UI.get('afterimage', this.id);
+    var afterimageDamp = UI.get('afterimageDamp', this.id);
 
     var scene = this.selected;
     var postProcessing = scene.userData.postProcessing || {};
@@ -131,6 +137,11 @@ PostProcessingComponent.prototype.updateUI = function () {
         rgbShift.setValue(postProcessing.rgbShift.enabled);
         rgbShiftAmount.setValue(postProcessing.rgbShift.amount);
     }
+
+    if (postProcessing.afterimage) {
+        afterimage.setValue(postProcessing.afterimage.enabled);
+        afterimageDamp.setValue(postProcessing.afterimage.damp);
+    }
 };
 
 PostProcessingComponent.prototype.onChange = function () {
@@ -138,6 +149,8 @@ PostProcessingComponent.prototype.onChange = function () {
     var dotScreenScale = UI.get('dotScreenScale', this.id);
     var rgbShift = UI.get('rgbShift', this.id);
     var rgbShiftAmount = UI.get('rgbShiftAmount', this.id);
+    var afterimage = UI.get('afterimage', this.id);
+    var afterimageDamp = UI.get('afterimageDamp', this.id);
 
     var scene = this.selected;
     scene.userData.postProcessing = scene.userData.postProcessing || {};
@@ -150,6 +163,10 @@ PostProcessingComponent.prototype.onChange = function () {
         rgbShift: {
             enabled: rgbShift.getValue(),
             amount: rgbShiftAmount.getValue()
+        },
+        afterimage: {
+            enabled: afterimage.getValue(),
+            damp: afterimageDamp.getValue()
         }
     });
 };

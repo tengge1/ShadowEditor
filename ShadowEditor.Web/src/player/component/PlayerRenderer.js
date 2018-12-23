@@ -41,6 +41,13 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
         effects.push(effect);
     }
 
+    if (postProcessing.afterimage && postProcessing.afterimage.enabled) {
+        effect = new THREE.AfterimagePass();
+        effect.uniforms['damp'].value = postProcessing.afterimage.damp;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     for (var i = 0; i < effects.length; i++) {
         if (i === effects.length - 1) {
             effects[i].renderToScreen = true;
