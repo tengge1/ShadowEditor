@@ -31,7 +31,7 @@ PostProcessingComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '后期处理'
+                text: '特效'
             }]
         }, {
             xtype: 'row',
