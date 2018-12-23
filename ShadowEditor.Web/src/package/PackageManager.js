@@ -19,34 +19,52 @@ function PackageManager() {
 PackageManager.prototype.require = function (names) {
     names = Array.isArray(names) ? names : [names];
 
-    var assets = [];
-
-    names.forEach(n => {
-        if (loaded.has(n)) { // 该包已经加载
-            return true;
+    var promises = names.map(n => {
+        if (loaded.has(n) && loaded.get(n).loaded === true) {
+            return new Promise(resolve => {
+                resolve();
+            });
+        } else if (loaded.has(n) && loaded.get(n).loading === true) {
+            return loaded.get(n).promise;
         }
-
-        loaded.set(n, true);
 
         var packages = PackageList.filter(m => m.name === n);
         if (packages.length === 0) {
             console.warn(`PackageManager: 包${n}不存在！`);
-            return true;
+            return new Promise(resolve => {
+                resolve();
+            });
         } else if (packages.length > 1) {
             console.warn(`PackageManager: 包名${n}重复！`);
         }
+
+        var assets = [];
+
         packages.forEach(m => {
             assets.push.apply(assets, m.assets);
         });
+
+        var promise = this._load(assets);
+
+        loaded.set(n, {
+            loading: true,
+            loaded: false,
+            promise: promise,
+        });
+
+        return promise.then(() => {
+            loaded.set(n, {
+                loading: false,
+                loaded: true,
+                promise: null
+            });
+            return new Promise(resolve => {
+                resolve();
+            });
+        });
     });
 
-    if (assets.length === 0) {
-        return new Promise(resolve => {
-            resolve();
-        });
-    }
-
-    return this._load(assets);
+    return Promise.all(promises);
 };
 
 PackageManager.prototype._load = function (assets = []) {
@@ -66,9 +84,9 @@ PackageManager.prototype._load = function (assets = []) {
         }
     });
 
-    return new Promise(resolve => {
-        Promise.all(promises).then(() => {
-            jsLoader.eval();
+    return Promise.all(promises).then(() => {
+        jsLoader.eval();
+        return new Promise(resolve => {
             resolve();
         });
     });
