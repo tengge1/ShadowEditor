@@ -52,10 +52,6 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
     this.composer = composer;
 };
 
-PlayerRenderer.prototype.setEffects = function () {
-
-};
-
 PlayerRenderer.prototype.update = function (clock, deltaTime) {
     this.composer.render();
 };

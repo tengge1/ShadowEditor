@@ -251,6 +251,16 @@ const PackageList = [{
         'assets/js/animation/MMDPhysics.js',
         'assets/js/animation/MMDAnimationHelper.js'
     ]
+}, {
+    name: 'gl-matrix',
+    assets: [
+        'assets/js/libs/gl-matrix.js'
+    ]
+}, {
+    name: 'pako',
+    assets: [
+        'assets/js/libs/pako.js'
+    ]
 }];
 
 export default PackageList

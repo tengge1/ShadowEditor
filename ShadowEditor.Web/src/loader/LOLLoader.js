@@ -51,32 +51,34 @@ LOLLoader.prototype.load = function (url, options) {
     var skin = fileNameNoExt.split('_')[1];
 
     return new Promise(resolve => {
-        var model = new LolModel({
-            champion: champion,
-            skin: parseInt(skin),
-            meshUrl: lmesh,
-            animUrl: lanim,
-            textureUrl: png
-        });
-        model.load();
-        model.on('load.LOLLoader', () => {
-            var geometry = model.geometry;
-            var material = model.material;
+        this.require(['gl-matrix', 'pako']).then(() => {
+            var model = new LolModel({
+                champion: champion,
+                skin: parseInt(skin),
+                meshUrl: lmesh,
+                animUrl: lanim,
+                textureUrl: png
+            });
+            model.load();
+            model.on('load.LOLLoader', () => {
+                var geometry = model.geometry;
+                var material = model.material;
 
-            var mesh = new THREE.Mesh(geometry, material);
-            mesh.name = options.Name;
+                var mesh = new THREE.Mesh(geometry, material);
+                mesh.name = options.Name;
 
-            mesh.userData.type = 'lol';
-            mesh.userData.model = model;
-            mesh.userData.scripts = [{
-                id: null,
-                name: `${options.Name}动画`,
-                type: 'javascript',
-                source: this.createScripts(options.Name, model),
-                uuid: THREE.Math.generateUUID()
-            }];
+                mesh.userData.type = 'lol';
+                mesh.userData.model = model;
+                mesh.userData.scripts = [{
+                    id: null,
+                    name: `${options.Name}动画`,
+                    type: 'javascript',
+                    source: this.createScripts(options.Name, model),
+                    uuid: THREE.Math.generateUUID()
+                }];
 
-            resolve(mesh);
+                resolve(mesh);
+            });
         });
     });
 };
