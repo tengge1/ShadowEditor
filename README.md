@@ -53,7 +53,9 @@
 
 ## 项目截图
 
-![image](images/scene20181215.png)
+大型舞会现场。
+
+![image](images/scene20181223.png)
 
 ## 相关链接
 
