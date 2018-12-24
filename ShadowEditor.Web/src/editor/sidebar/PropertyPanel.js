@@ -27,7 +27,10 @@ import FlyControlComponent from '../../component/control/FlyControlComponent';
 import OrbitControlComponent from '../../component/control/OrbitControlComponent';
 import PointerLockControlComponent from '../../component/control/PointerLockControlComponent';
 import TrackballControlComponent from '../../component/control/TrackballControlComponent';
-import PostProcessingComponent from '../../component/PostProcessingComponent';
+import DotScreenComponent from '../../component/postProcessing/DotScreenComponent';
+import RgbShiftComponent from '../../component/postProcessing/RgbShiftComponent';
+import AfterimageComponent from '../../component/postProcessing/AfterimageComponent';
+import BokehComponent from '../../component/postProcessing/BokehComponent';
 
 /**
  * 属性面板
@@ -60,7 +63,10 @@ PropertyPanel.prototype.render = function () {
             new PointerLockControlComponent({ app: this.app }),
             new TrackballControlComponent({ app: this.app }),
             new ReflectorComponent({ app: this.app }),
-            new PostProcessingComponent({ app: this.app }),
+            new DotScreenComponent({ app: this.app }),
+            new RgbShiftComponent({ app: this.app }),
+            new AfterimageComponent({ app: this.app }),
+            new BokehComponent({ app: this.app }),
             new SkyComponent({ app: this.app }),
             new PerlinTerrainComponent({ app: this.app }),
             new AudioListenerComponent({ app: this.app }),
