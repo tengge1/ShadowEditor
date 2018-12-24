@@ -31,6 +31,7 @@ import DotScreenComponent from '../../component/postProcessing/DotScreenComponen
 import RgbShiftComponent from '../../component/postProcessing/RgbShiftComponent';
 import AfterimageComponent from '../../component/postProcessing/AfterimageComponent';
 import BokehComponent from '../../component/postProcessing/BokehComponent';
+import FxaaComponent from '../../component/postProcessing/FxaaComponent';
 
 /**
  * 属性面板
@@ -67,6 +68,7 @@ PropertyPanel.prototype.render = function () {
             new RgbShiftComponent({ app: this.app }),
             new AfterimageComponent({ app: this.app }),
             new BokehComponent({ app: this.app }),
+            new FxaaComponent({ app: this.app }),
             new SkyComponent({ app: this.app }),
             new PerlinTerrainComponent({ app: this.app }),
             new AudioListenerComponent({ app: this.app }),

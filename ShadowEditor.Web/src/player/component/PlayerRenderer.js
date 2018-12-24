@@ -27,6 +27,13 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
     composer.addPass(effect);
     effects.push(effect);
 
+    if (postProcessing.fxaa && postProcessing.fxaa.enabled) {
+        effect = new THREE.ShaderPass(THREE.FXAAShader);
+        effect.uniforms['resolution'].value.set(1 / renderer.domElement.width, 1 / renderer.domElement.height);
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     if (postProcessing.dotScreen && postProcessing.dotScreen.enabled) {
         effect = new THREE.ShaderPass(THREE.DotScreenShader);
         effect.uniforms['scale'].value = postProcessing.dotScreen.scale;
