@@ -67,6 +67,13 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
         effects.push(effect);
     }
 
+    if (postProcessing.glitch && postProcessing.glitch.enabled) {
+        effect = new THREE.GlitchPass();
+        effect.goWild = postProcessing.glitch.wild;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     for (var i = 0; i < effects.length; i++) {
         if (i === effects.length - 1) {
             effects[i].renderToScreen = true;
