@@ -29,7 +29,8 @@ RgbShiftComponent.prototype.render = function () {
                 xtype: 'label',
                 style: {
                     color: '#555',
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    width: '100%'
                 },
                 text: '颜色偏移特效'
             }]
