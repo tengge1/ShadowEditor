@@ -106,12 +106,12 @@ PostProcessingComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '焦点'
+                text: '焦距'
             }, {
                 xtype: 'number',
                 id: 'bokehFocus',
                 scope: this.id,
-                value: 1,
+                value: 50, // 距离相机距离，哪里最清晰
                 onChange: this.onChange.bind(this)
             }]
         }, {
@@ -123,7 +123,7 @@ PostProcessingComponent.prototype.render = function () {
                 xtype: 'number',
                 id: 'bokehAperture',
                 scope: this.id,
-                value: 0.025,
+                value: 2.8, // *1e-4，光圈越小越清楚
                 onChange: this.onChange.bind(this)
             }]
         }, {
@@ -135,7 +135,7 @@ PostProcessingComponent.prototype.render = function () {
                 xtype: 'number',
                 id: 'bokehMaxBlur',
                 scope: this.id,
-                value: 0.05,
+                value: 1, // 最大模糊程度，越大越模糊
                 onChange: this.onChange.bind(this)
             }]
         }]
