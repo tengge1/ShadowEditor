@@ -58,6 +58,8 @@
 
 ![image](images/scene20181223.png)
 
+[点击此处](images/README.md)查看更多截图。
+
 ## 相关链接
 
 * Three.js官网：https://threejs.org/
