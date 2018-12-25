@@ -33,6 +33,7 @@ import AfterimageComponent from '../../component/postProcessing/AfterimageCompon
 import BokehComponent from '../../component/postProcessing/BokehComponent';
 import FxaaComponent from '../../component/postProcessing/FxaaComponent';
 import GlitchComponent from '../../component/postProcessing/GlitchComponent';
+import HalftoneComponent from '../../component/postProcessing/HalftoneComponent';
 
 /**
  * 属性面板
@@ -71,6 +72,7 @@ PropertyPanel.prototype.render = function () {
             new BokehComponent({ app: this.app }),
             new FxaaComponent({ app: this.app }),
             new GlitchComponent({ app: this.app }),
+            new HalftoneComponent({ app: this.app }),
             new SkyComponent({ app: this.app }),
             new PerlinTerrainComponent({ app: this.app }),
             new AudioListenerComponent({ app: this.app }),
