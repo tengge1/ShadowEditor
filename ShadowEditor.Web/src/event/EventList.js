@@ -72,6 +72,7 @@ var EventList = [
     'refreshScriptEditor', // 刷新脚本编辑器事件
 
     'sceneLoaded', // 场景载入
+    'postProcessingChanged', // 后期处理设置改变
 
     // 场景编辑区
     'transformControlsChange', // 变形控件改变

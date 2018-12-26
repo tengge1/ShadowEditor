@@ -112,6 +112,8 @@ GlitchComponent.prototype.onChange = function () {
             wild: wild.getValue()
         },
     });
+
+    this.app.call(`postProcessingChanged`, this);
 };
 
 export default GlitchComponent;

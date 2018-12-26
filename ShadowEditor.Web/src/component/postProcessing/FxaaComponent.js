@@ -97,6 +97,8 @@ FxaaComponent.prototype.onChange = function () {
             enabled: enabled.getValue(),
         },
     });
+
+    this.app.call(`postProcessingChanged`, this);
 };
 
 export default FxaaComponent;

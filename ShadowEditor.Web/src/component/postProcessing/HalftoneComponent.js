@@ -256,6 +256,8 @@ HalftoneComponent.prototype.onChange = function () {
             greyscale: greyscale.getValue()
         },
     });
+
+    this.app.call(`postProcessingChanged`, this);
 };
 
 export default HalftoneComponent;

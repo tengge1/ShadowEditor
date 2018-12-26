@@ -145,6 +145,8 @@ BokehComponent.prototype.onChange = function () {
             maxBlur: maxBlur.getValue(),
         },
     });
+
+    this.app.call(`postProcessingChanged`, this);
 };
 
 export default BokehComponent;

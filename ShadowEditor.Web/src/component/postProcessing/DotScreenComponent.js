@@ -113,6 +113,8 @@ DotScreenComponent.prototype.onChange = function () {
             scale: scale.getValue(),
         },
     });
+
+    this.app.call(`postProcessingChanged`, this);
 };
 
 export default DotScreenComponent;
