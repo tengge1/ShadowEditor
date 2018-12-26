@@ -55,6 +55,24 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
         effects.push(effect);
     }
 
+    if (postProcessing.halftone && postProcessing.halftone.enabled) {
+        effect = new THREE.HalftonePass(
+            renderer.domElement.width,
+            renderer.domElement.height, {
+                shape: postProcessing.halftone.shape,
+                radius: postProcessing.halftone.radius,
+                rotateR: postProcessing.halftone.rotateR * (Math.PI / 180),
+                rotateB: postProcessing.halftone.rotateB * (Math.PI / 180),
+                rotateG: postProcessing.halftone.rotateG * (Math.PI / 180),
+                scatter: postProcessing.halftone.scatter,
+                blending: postProcessing.halftone.blending,
+                blendingMode: postProcessing.halftone.blendingMode,
+                greyscale: postProcessing.halftone.greyscale,
+            });
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     if (postProcessing.bokeh && postProcessing.bokeh.enabled) {
         effect = new THREE.BokehPass(scene, camera, {
             focus: postProcessing.bokeh.focus,

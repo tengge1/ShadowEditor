@@ -10,6 +10,7 @@ function OutlineEffect(app) {
 
     this.init();
     this.app.on(`sceneLoaded.${this.id}`, this.onSceneLoaded.bind(this));
+    this.app.on(`postProcessingChanged.${this.id}`, this.onPostProcessingChanged.bind(this));
 };
 
 OutlineEffect.prototype = Object.create(BaseEffect.prototype);
@@ -36,39 +37,107 @@ OutlineEffect.prototype.init = function () {
     }
 
     var composer = new THREE.EffectComposer(renderer);
+    composer.passes.length = 0;
 
-    var renderPass1 = new THREE.RenderPass(scene, camera);
-    renderPass1.clear = true;
-    composer.addPass(renderPass1);
+    var effects = [];
+    var postProcessing = this.app.editor.scene.userData.postProcessing || {};
 
-    var renderPass2 = new THREE.RenderPass(sceneHelpers, camera);
-    renderPass2.clear = false;
-    composer.addPass(renderPass2);
+    var effect = new THREE.RenderPass(scene, camera);
+    effect.clear = true;
+    composer.addPass(effect);
+    effects.push(effect);
 
-    var outlinePass = new THREE.OutlinePass(new THREE.Vector2(renderer.domElement.width, renderer.domElement.height), scene, camera);
-    outlinePass.edgeStrength = params.edgeStrength;
-    outlinePass.edgeGlow = params.edgeGlow;
-    outlinePass.edgeThickness = params.edgeThickness;
-    outlinePass.pulsePeriod = params.pulsePeriod;
-    // outlinePass.usePatternTexture = true;
-    outlinePass.visibleEdgeColor.set(params.visibleEdgeColor);
-    outlinePass.hiddenEdgeColor.set(params.hiddenEdgeColor);
-    composer.addPass(outlinePass);
+    effect = new THREE.RenderPass(sceneHelpers, camera);
+    effect.clear = false;
+    composer.addPass(effect);
+    effects.push(effect);
 
-    var loader = new THREE.TextureLoader();
+    effect = new THREE.OutlinePass(new THREE.Vector2(renderer.domElement.width, renderer.domElement.height), scene, camera);
+    effect.edgeStrength = 10;
+    effect.edgeGlow = 0.4;
+    effect.edgeThickness = 1.8;
+    effect.pulsePeriod = 2;
+    effect.visibleEdgeColor.set('#ffffff');
+    effect.hiddenEdgeColor.set('#190a05');
+    composer.addPass(effect);
+    effects.push(effect);
 
-    // loader.load('assets/textures/tri_pattern.jpg', texture => {
-    //     outlinePass.patternTexture = texture;
-    //     texture.wrapS = THREE.RepeatWrapping;
-    //     texture.wrapT = THREE.RepeatWrapping;
-    // });
+    this.outlinePass = effect;
 
-    var effectFXAA = new THREE.ShaderPass(THREE.FXAAShader);
-    effectFXAA.uniforms['resolution'].value.set(1 / renderer.domElement.width, 1 / renderer.domElement.height);
-    effectFXAA.renderToScreen = true;
-    composer.addPass(effectFXAA);
+    // 后期处理
+    if (postProcessing.fxaa && postProcessing.fxaa.enabled) {
+        effect = new THREE.ShaderPass(THREE.FXAAShader);
+        effect.uniforms['resolution'].value.set(1 / renderer.domElement.width, 1 / renderer.domElement.height);
+        composer.addPass(effect);
+        effects.push(effect);
+    }
 
-    this.outlinePass = outlinePass;
+    if (postProcessing.dotScreen && postProcessing.dotScreen.enabled) {
+        effect = new THREE.ShaderPass(THREE.DotScreenShader);
+        effect.uniforms['scale'].value = postProcessing.dotScreen.scale;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
+    if (postProcessing.rgbShift && postProcessing.rgbShift.enabled) {
+        effect = new THREE.ShaderPass(THREE.RGBShiftShader);
+        effect.uniforms['amount'].value = postProcessing.rgbShift.amount;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
+    if (postProcessing.afterimage && postProcessing.afterimage.enabled) {
+        effect = new THREE.AfterimagePass();
+        effect.uniforms['damp'].value = postProcessing.afterimage.damp;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
+    if (postProcessing.halftone && postProcessing.halftone.enabled) {
+        effect = new THREE.HalftonePass(
+            renderer.domElement.width,
+            renderer.domElement.height, {
+                shape: postProcessing.halftone.shape,
+                radius: postProcessing.halftone.radius,
+                rotateR: postProcessing.halftone.rotateR * (Math.PI / 180),
+                rotateB: postProcessing.halftone.rotateB * (Math.PI / 180),
+                rotateG: postProcessing.halftone.rotateG * (Math.PI / 180),
+                scatter: postProcessing.halftone.scatter,
+                blending: postProcessing.halftone.blending,
+                blendingMode: postProcessing.halftone.blendingMode,
+                greyscale: postProcessing.halftone.greyscale,
+            });
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
+    if (postProcessing.bokeh && postProcessing.bokeh.enabled) {
+        effect = new THREE.BokehPass(scene, camera, {
+            focus: postProcessing.bokeh.focus,
+            aperture: postProcessing.bokeh.aperture / 100000,
+            maxblur: postProcessing.bokeh.maxBlur,
+            width: renderer.domElement.width,
+            height: renderer.domElement.height
+        });
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
+    if (postProcessing.glitch && postProcessing.glitch.enabled) {
+        effect = new THREE.GlitchPass();
+        effect.goWild = postProcessing.glitch.wild;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
+    for (var i = 0; i < effects.length; i++) {
+        if (i === effects.length - 1) {
+            effects[i].renderToScreen = true;
+        } else {
+            effects[i].renderToScreen = false;
+        }
+    }
+
     this.composer = composer;
 };
 
@@ -83,6 +152,10 @@ OutlineEffect.prototype.render = function (obj) {
 };
 
 OutlineEffect.prototype.onSceneLoaded = function () {
+    this.init();
+};
+
+OutlineEffect.prototype.onPostProcessingChanged = function () {
     this.init();
 };
 

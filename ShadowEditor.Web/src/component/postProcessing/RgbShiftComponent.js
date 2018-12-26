@@ -113,6 +113,8 @@ RgbShiftComponent.prototype.onChange = function () {
             amount: amount.getValue()
         },
     });
+
+    this.app.call(`postProcessingChanged`, this);
 };
 
 export default RgbShiftComponent;

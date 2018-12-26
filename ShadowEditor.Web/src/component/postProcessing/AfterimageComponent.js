@@ -113,6 +113,8 @@ AfterimageComponent.prototype.onChange = function () {
             damp: damp.getValue()
         },
     });
+
+    this.app.call(`postProcessingChanged`, this);
 };
 
 export default AfterimageComponent;
