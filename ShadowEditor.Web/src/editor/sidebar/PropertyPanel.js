@@ -34,6 +34,7 @@ import BokehComponent from '../../component/postProcessing/BokehComponent';
 import FxaaComponent from '../../component/postProcessing/FxaaComponent';
 import GlitchComponent from '../../component/postProcessing/GlitchComponent';
 import HalftoneComponent from '../../component/postProcessing/HalftoneComponent';
+import SsaaComponent from '../../component/postProcessing/SsaaComponent';
 
 /**
  * 属性面板
@@ -66,6 +67,8 @@ PropertyPanel.prototype.render = function () {
             new PointerLockControlComponent({ app: this.app }),
             new TrackballControlComponent({ app: this.app }),
             new ReflectorComponent({ app: this.app }),
+
+            // 后期处理
             new DotScreenComponent({ app: this.app }),
             new RgbShiftComponent({ app: this.app }),
             new AfterimageComponent({ app: this.app }),
@@ -73,6 +76,8 @@ PropertyPanel.prototype.render = function () {
             new FxaaComponent({ app: this.app }),
             new GlitchComponent({ app: this.app }),
             new HalftoneComponent({ app: this.app }),
+            new SsaaComponent({ app: this.app }),
+
             new SkyComponent({ app: this.app }),
             new PerlinTerrainComponent({ app: this.app }),
             new AudioListenerComponent({ app: this.app }),

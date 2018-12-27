@@ -1,19 +1,19 @@
 import BaseComponent from '../BaseComponent';
 
 /**
- * 快速近似抗锯齿(FXAA)组件
+ * 全屏抗锯齿(SSAA)组件
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function FxaaComponent(options) {
+function SsaaComponent(options) {
     BaseComponent.call(this, options);
     this.selected = null;
 }
 
-FxaaComponent.prototype = Object.create(BaseComponent.prototype);
-FxaaComponent.prototype.constructor = FxaaComponent;
+SsaaComponent.prototype = Object.create(BaseComponent.prototype);
+SsaaComponent.prototype.constructor = SsaaComponent;
 
-FxaaComponent.prototype.render = function () {
+SsaaComponent.prototype.render = function () {
     var data = {
         xtype: 'div',
         id: 'panel',
@@ -32,7 +32,7 @@ FxaaComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '快速近似抗锯齿(FXAA)'
+                text: '全屏抗锯齿(SSAA)'
             }]
         }, {
             xtype: 'row',
@@ -46,7 +46,39 @@ FxaaComponent.prototype.render = function () {
                 value: false,
                 onChange: this.onChange.bind(this)
             }]
-        }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '等级'
+            }, {
+                xtype: 'select',
+                id: 'sampleLevel',
+                scope: this.id,
+                options: {
+                    0: '1个样本',
+                    1: '2个样本',
+                    2: '4个样本',
+                    3: '8个样本',
+                    4: '16个样本',
+                    5: '32个样本'
+                },
+                value: 3,
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '无偏差'
+            }, {
+                xtype: 'checkbox',
+                id: 'unbiased',
+                scope: this.id,
+                value: true,
+                onChange: this.onChange.bind(this)
+            }]
+        },]
     };
 
     var control = UI.create(data);
@@ -56,15 +88,15 @@ FxaaComponent.prototype.render = function () {
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
-FxaaComponent.prototype.onObjectSelected = function () {
+SsaaComponent.prototype.onObjectSelected = function () {
     this.updateUI();
 };
 
-FxaaComponent.prototype.onObjectChanged = function () {
+SsaaComponent.prototype.onObjectChanged = function () {
     this.updateUI();
 };
 
-FxaaComponent.prototype.updateUI = function () {
+SsaaComponent.prototype.updateUI = function () {
     var container = UI.get('panel', this.id);
     var editor = this.app.editor;
     if (editor.selected && editor.selected instanceof THREE.Scene) {
@@ -77,28 +109,36 @@ FxaaComponent.prototype.updateUI = function () {
     this.selected = editor.selected;
 
     var enabled = UI.get('enabled', this.id);
+    var sampleLevel = UI.get('sampleLevel', this.id);
+    var unbiased = UI.get('unbiased', this.id);
 
     var scene = this.selected;
     var postProcessing = scene.userData.postProcessing || {};
 
-    if (postProcessing.fxaa) {
-        enabled.setValue(postProcessing.fxaa.enabled);
+    if (postProcessing.ssaa) {
+        enabled.setValue(postProcessing.ssaa.enabled);
+        sampleLevel.setValue(postProcessing.ssaa.sampleLevel);
+        unbiased.setValue(postProcessing.ssaa.unbiased);
     }
 };
 
-FxaaComponent.prototype.onChange = function () {
+SsaaComponent.prototype.onChange = function () {
     var enabled = UI.get('enabled', this.id);
+    var sampleLevel = UI.get('sampleLevel', this.id);
+    var unbiased = UI.get('unbiased', this.id);
 
     var scene = this.selected;
     scene.userData.postProcessing = scene.userData.postProcessing || {};
 
     Object.assign(scene.userData.postProcessing, {
-        fxaa: {
+        ssaa: {
             enabled: enabled.getValue(),
+            sampleLevel: sampleLevel.getValue(),
+            unbiased: unbiased.getValue(),
         },
     });
 
     this.app.call(`postProcessingChanged`, this);
 };
 
-export default FxaaComponent;
+export default SsaaComponent;

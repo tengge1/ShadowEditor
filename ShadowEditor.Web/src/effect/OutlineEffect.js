@@ -72,6 +72,14 @@ OutlineEffect.prototype.init = function () {
         effects.push(effect);
     }
 
+    if (postProcessing.ssaa && postProcessing.ssaa.enabled) {
+        effect = new THREE.SSAARenderPass(this.app.editor.scene, this.app.editor.camera);
+        effect.unbiased = postProcessing.ssaa.unbiased;
+        effect.sampleLevel = postProcessing.ssaa.sampleLevel;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     if (postProcessing.dotScreen && postProcessing.dotScreen.enabled) {
         effect = new THREE.ShaderPass(THREE.DotScreenShader);
         effect.uniforms['scale'].value = postProcessing.dotScreen.scale;

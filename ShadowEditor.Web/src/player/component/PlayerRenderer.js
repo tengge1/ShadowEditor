@@ -34,6 +34,14 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
         effects.push(effect);
     }
 
+    if (postProcessing.ssaa && postProcessing.ssaa.enabled) {
+        effect = new THREE.SSAARenderPass(scene, camera);
+        effect.unbiased = postProcessing.ssaa.unbiased;
+        effect.sampleLevel = postProcessing.ssaa.sampleLevel;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     if (postProcessing.dotScreen && postProcessing.dotScreen.enabled) {
         effect = new THREE.ShaderPass(THREE.DotScreenShader);
         effect.uniforms['scale'].value = postProcessing.dotScreen.scale;
