@@ -80,6 +80,15 @@ OutlineEffect.prototype.init = function () {
         effects.push(effect);
     }
 
+    if (postProcessing.pixel && postProcessing.pixel.enabled) {
+        effect = new THREE.ShaderPass(THREE.PixelShader);
+        effect.uniforms.resolution.value = new THREE.Vector2(renderer.domElement.width, renderer.domElement.height);
+        effect.uniforms.resolution.value.multiplyScalar(window.devicePixelRatio);
+        effect.uniforms.pixelSize.value = postProcessing.pixel.pixelSize;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     if (postProcessing.dotScreen && postProcessing.dotScreen.enabled) {
         effect = new THREE.ShaderPass(THREE.DotScreenShader);
         effect.uniforms['scale'].value = postProcessing.dotScreen.scale;

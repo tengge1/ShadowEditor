@@ -35,6 +35,7 @@ import FxaaComponent from '../../component/postProcessing/FxaaComponent';
 import GlitchComponent from '../../component/postProcessing/GlitchComponent';
 import HalftoneComponent from '../../component/postProcessing/HalftoneComponent';
 import SsaaComponent from '../../component/postProcessing/SsaaComponent';
+import PixelComponent from '../../component/postProcessing/PixelComponent';
 
 /**
  * 属性面板
@@ -77,6 +78,7 @@ PropertyPanel.prototype.render = function () {
             new GlitchComponent({ app: this.app }),
             new HalftoneComponent({ app: this.app }),
             new SsaaComponent({ app: this.app }),
+            new PixelComponent({ app: this.app }),
 
             new SkyComponent({ app: this.app }),
             new PerlinTerrainComponent({ app: this.app }),
