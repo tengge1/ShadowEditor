@@ -72,6 +72,39 @@ OutlineEffect.prototype.init = function () {
         effects.push(effect);
     }
 
+    if (postProcessing.ssaa && postProcessing.ssaa.enabled) {
+        effect = new THREE.SSAARenderPass(this.app.editor.scene, this.app.editor.camera);
+        effect.unbiased = postProcessing.ssaa.unbiased;
+        effect.sampleLevel = postProcessing.ssaa.sampleLevel;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
+    if (postProcessing.sao && postProcessing.sao.enabled) {
+        effect = new THREE.SAOPass(this.app.editor.scene, this.app.editor.camera, false, true);
+        effect.params.output = postProcessing.sao.output;
+        effect.params.saoBias = postProcessing.sao.saoBias;
+        effect.params.saoIntensity = postProcessing.sao.saoIntensity;
+        effect.params.saoScale = postProcessing.sao.saoScale;
+        effect.params.saoKernelRadius = postProcessing.sao.saoKernelRadius;
+        effect.params.saoMinResolution = postProcessing.sao.saoMinResolution;
+        effect.params.saoBlur = postProcessing.sao.saoBlur;
+        effect.params.saoBlurRadius = postProcessing.sao.saoBlurRadius;
+        effect.params.saoBlurStdDev = postProcessing.sao.saoBlurStdDev;
+        effect.params.saoBlurDepthCutoff = postProcessing.sao.saoBlurDepthCutoff;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
+    if (postProcessing.pixel && postProcessing.pixel.enabled) {
+        effect = new THREE.ShaderPass(THREE.PixelShader);
+        effect.uniforms.resolution.value = new THREE.Vector2(renderer.domElement.width, renderer.domElement.height);
+        effect.uniforms.resolution.value.multiplyScalar(window.devicePixelRatio);
+        effect.uniforms.pixelSize.value = postProcessing.pixel.pixelSize;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     if (postProcessing.dotScreen && postProcessing.dotScreen.enabled) {
         effect = new THREE.ShaderPass(THREE.DotScreenShader);
         effect.uniforms['scale'].value = postProcessing.dotScreen.scale;

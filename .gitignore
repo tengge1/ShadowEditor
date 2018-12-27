@@ -87,3 +87,4 @@ typings/
 /ShadowEditor.Model/obj
 /THREE/THREE.csproj.user
 /ShadowEditor.Web/Upload/Animation
+/test/dist

@@ -1,19 +1,19 @@
 import BaseComponent from '../BaseComponent';
 
 /**
- * 快速近似抗锯齿(FXAA)组件
+ * 像素特效组件
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function FxaaComponent(options) {
+function PixelComponent(options) {
     BaseComponent.call(this, options);
     this.selected = null;
 }
 
-FxaaComponent.prototype = Object.create(BaseComponent.prototype);
-FxaaComponent.prototype.constructor = FxaaComponent;
+PixelComponent.prototype = Object.create(BaseComponent.prototype);
+PixelComponent.prototype.constructor = PixelComponent;
 
-FxaaComponent.prototype.render = function () {
+PixelComponent.prototype.render = function () {
     var data = {
         xtype: 'div',
         id: 'panel',
@@ -32,7 +32,7 @@ FxaaComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '快速近似抗锯齿(FXAA)'
+                text: '像素特效'
             }]
         }, {
             xtype: 'row',
@@ -46,6 +46,18 @@ FxaaComponent.prototype.render = function () {
                 value: false,
                 onChange: this.onChange.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '像素尺寸'
+            }, {
+                xtype: 'int',
+                id: 'pixelSize',
+                scope: this.id,
+                value: 8,
+                onChange: this.onChange.bind(this)
+            }]
         }]
     };
 
@@ -56,15 +68,15 @@ FxaaComponent.prototype.render = function () {
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
-FxaaComponent.prototype.onObjectSelected = function () {
+PixelComponent.prototype.onObjectSelected = function () {
     this.updateUI();
 };
 
-FxaaComponent.prototype.onObjectChanged = function () {
+PixelComponent.prototype.onObjectChanged = function () {
     this.updateUI();
 };
 
-FxaaComponent.prototype.updateUI = function () {
+PixelComponent.prototype.updateUI = function () {
     var container = UI.get('panel', this.id);
     var editor = this.app.editor;
     if (editor.selected && editor.selected instanceof THREE.Scene) {
@@ -77,28 +89,32 @@ FxaaComponent.prototype.updateUI = function () {
     this.selected = editor.selected;
 
     var enabled = UI.get('enabled', this.id);
+    var pixelSize = UI.get('pixelSize', this.id);
 
     var scene = this.selected;
     var postProcessing = scene.userData.postProcessing || {};
 
-    if (postProcessing.fxaa) {
-        enabled.setValue(postProcessing.fxaa.enabled);
+    if (postProcessing.pixel) {
+        enabled.setValue(postProcessing.pixel.enabled);
+        pixelSize.setValue(postProcessing.pixel.pixelSize);
     }
 };
 
-FxaaComponent.prototype.onChange = function () {
+PixelComponent.prototype.onChange = function () {
     var enabled = UI.get('enabled', this.id);
+    var pixelSize = UI.get('pixelSize', this.id);
 
     var scene = this.selected;
     scene.userData.postProcessing = scene.userData.postProcessing || {};
 
     Object.assign(scene.userData.postProcessing, {
-        fxaa: {
+        pixel: {
             enabled: enabled.getValue(),
+            pixelSize: pixelSize.getValue()
         },
     });
 
     this.app.call(`postProcessingChanged`, this);
 };
 
-export default FxaaComponent;
+export default PixelComponent;
