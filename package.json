@@ -15,6 +15,7 @@
     "scripts": {
         "build": "rollup -c ShadowEditor.Web/rollup.config.js",
         "build-docs": "gitbook build docs-dev",
+        "test": "rollup -c test/rollup.config.js",
         "clear": "npm prune"
     },
     "repository": {
