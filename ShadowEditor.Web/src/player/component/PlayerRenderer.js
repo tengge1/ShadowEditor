@@ -34,6 +34,12 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
         effects.push(effect);
     }
 
+    if (postProcessing.smaa && postProcessing.smaa.enabled) {
+        effect = new THREE.SMAAPass(renderer.domElement.width * renderer.getPixelRatio(), renderer.domElement.height * renderer.getPixelRatio());
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     if (postProcessing.ssaa && postProcessing.ssaa.enabled) {
         effect = new THREE.SSAARenderPass(scene, camera);
         effect.unbiased = postProcessing.ssaa.unbiased;

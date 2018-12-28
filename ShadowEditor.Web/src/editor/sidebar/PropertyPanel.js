@@ -37,6 +37,7 @@ import HalftoneComponent from '../../component/postProcessing/HalftoneComponent'
 import SsaaComponent from '../../component/postProcessing/SsaaComponent';
 import PixelComponent from '../../component/postProcessing/PixelComponent';
 import SaoComponent from '../../component/postProcessing/SaoComponent';
+import SmaaComponent from '../../component/postProcessing/SmaaComponent';
 
 /**
  * 属性面板
@@ -81,6 +82,7 @@ PropertyPanel.prototype.render = function () {
             new SsaaComponent({ app: this.app }),
             new PixelComponent({ app: this.app }),
             new SaoComponent({ app: this.app }),
+            new SmaaComponent({ app: this.app }),
 
             new SkyComponent({ app: this.app }),
             new PerlinTerrainComponent({ app: this.app }),

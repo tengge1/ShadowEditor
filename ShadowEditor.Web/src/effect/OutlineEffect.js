@@ -72,6 +72,12 @@ OutlineEffect.prototype.init = function () {
         effects.push(effect);
     }
 
+    if (postProcessing.smaa && postProcessing.smaa.enabled) {
+        effect = new THREE.SMAAPass(renderer.domElement.width * renderer.getPixelRatio(), renderer.domElement.height * renderer.getPixelRatio());
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     if (postProcessing.ssaa && postProcessing.ssaa.enabled) {
         effect = new THREE.SSAARenderPass(this.app.editor.scene, this.app.editor.camera);
         effect.unbiased = postProcessing.ssaa.unbiased;
