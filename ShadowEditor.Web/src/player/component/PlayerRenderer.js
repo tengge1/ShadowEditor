@@ -34,6 +34,12 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
         effects.push(effect);
     }
 
+    if (postProcessing.smaa && postProcessing.smaa.enabled) {
+        effect = new THREE.SMAAPass(renderer.domElement.width * renderer.getPixelRatio(), renderer.domElement.height * renderer.getPixelRatio());
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     if (postProcessing.ssaa && postProcessing.ssaa.enabled) {
         effect = new THREE.SSAARenderPass(scene, camera);
         effect.unbiased = postProcessing.ssaa.unbiased;
@@ -54,6 +60,16 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
         effect.params.saoBlurRadius = postProcessing.sao.saoBlurRadius;
         effect.params.saoBlurStdDev = postProcessing.sao.saoBlurStdDev;
         effect.params.saoBlurDepthCutoff = postProcessing.sao.saoBlurDepthCutoff;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
+    if (postProcessing.ssao && postProcessing.ssao.enabled) {
+        effect = new THREE.SSAOPass(scene, camera, renderer.domElement.width, renderer.domElement.height);
+        effect.output = postProcessing.ssao.output;
+        effect.kernelRadius = postProcessing.ssao.kernelRadius;
+        effect.minDistance = postProcessing.ssao.minDistance;
+        effect.maxDistance = postProcessing.ssao.maxDistance;
         composer.addPass(effect);
         effects.push(effect);
     }

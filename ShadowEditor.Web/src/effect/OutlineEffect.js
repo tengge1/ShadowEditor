@@ -40,7 +40,7 @@ OutlineEffect.prototype.init = function () {
     composer.passes.length = 0;
 
     var effects = [];
-    var postProcessing = this.app.editor.scene.userData.postProcessing || {};
+    var postProcessing = scene.userData.postProcessing || {};
 
     var effect = new THREE.RenderPass(scene, camera);
     effect.clear = true;
@@ -72,8 +72,14 @@ OutlineEffect.prototype.init = function () {
         effects.push(effect);
     }
 
+    if (postProcessing.smaa && postProcessing.smaa.enabled) {
+        effect = new THREE.SMAAPass(renderer.domElement.width * renderer.getPixelRatio(), renderer.domElement.height * renderer.getPixelRatio());
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     if (postProcessing.ssaa && postProcessing.ssaa.enabled) {
-        effect = new THREE.SSAARenderPass(this.app.editor.scene, this.app.editor.camera);
+        effect = new THREE.SSAARenderPass(scene, camera);
         effect.unbiased = postProcessing.ssaa.unbiased;
         effect.sampleLevel = postProcessing.ssaa.sampleLevel;
         composer.addPass(effect);
@@ -81,7 +87,7 @@ OutlineEffect.prototype.init = function () {
     }
 
     if (postProcessing.sao && postProcessing.sao.enabled) {
-        effect = new THREE.SAOPass(this.app.editor.scene, this.app.editor.camera, false, true);
+        effect = new THREE.SAOPass(scene, camera, false, true);
         effect.params.output = postProcessing.sao.output;
         effect.params.saoBias = postProcessing.sao.saoBias;
         effect.params.saoIntensity = postProcessing.sao.saoIntensity;
@@ -92,6 +98,16 @@ OutlineEffect.prototype.init = function () {
         effect.params.saoBlurRadius = postProcessing.sao.saoBlurRadius;
         effect.params.saoBlurStdDev = postProcessing.sao.saoBlurStdDev;
         effect.params.saoBlurDepthCutoff = postProcessing.sao.saoBlurDepthCutoff;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
+    if (postProcessing.ssao && postProcessing.ssao.enabled) {
+        effect = new THREE.SSAOPass(scene, camera, renderer.domElement.width, renderer.domElement.height);
+        effect.output = postProcessing.ssao.output;
+        effect.kernelRadius = postProcessing.ssao.kernelRadius;
+        effect.minDistance = postProcessing.ssao.minDistance;
+        effect.maxDistance = postProcessing.ssao.maxDistance;
         composer.addPass(effect);
         effects.push(effect);
     }
