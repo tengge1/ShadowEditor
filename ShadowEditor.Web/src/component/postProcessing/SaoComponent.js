@@ -32,7 +32,7 @@ SaoComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '环境光遮挡(SAO)'
+                text: '可扩展环境光遮挡(SAO)'
             }]
         }, {
             xtype: 'row',

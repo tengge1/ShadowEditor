@@ -64,6 +64,16 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
         effects.push(effect);
     }
 
+    if (postProcessing.ssao && postProcessing.ssao.enabled) {
+        effect = new THREE.SSAOPass(scene, camera, renderer.domElement.width, renderer.domElement.height);
+        effect.output = postProcessing.ssao.output;
+        effect.kernelRadius = postProcessing.ssao.kernelRadius;
+        effect.minDistance = postProcessing.ssao.minDistance;
+        effect.maxDistance = postProcessing.ssao.maxDistance;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     if (postProcessing.pixel && postProcessing.pixel.enabled) {
         effect = new THREE.ShaderPass(THREE.PixelShader);
         effect.uniforms.resolution.value = new THREE.Vector2(renderer.domElement.width, renderer.domElement.height);

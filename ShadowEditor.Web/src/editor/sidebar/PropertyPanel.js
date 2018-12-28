@@ -38,6 +38,7 @@ import SsaaComponent from '../../component/postProcessing/SsaaComponent';
 import PixelComponent from '../../component/postProcessing/PixelComponent';
 import SaoComponent from '../../component/postProcessing/SaoComponent';
 import SmaaComponent from '../../component/postProcessing/SmaaComponent';
+import SsaoComponent from '../../component/postProcessing/SsaoComponent';
 
 /**
  * 属性面板
@@ -83,6 +84,7 @@ PropertyPanel.prototype.render = function () {
             new PixelComponent({ app: this.app }),
             new SaoComponent({ app: this.app }),
             new SmaaComponent({ app: this.app }),
+            new SsaoComponent({ app: this.app }),
 
             new SkyComponent({ app: this.app }),
             new PerlinTerrainComponent({ app: this.app }),
