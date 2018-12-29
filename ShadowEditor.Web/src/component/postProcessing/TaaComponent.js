@@ -1,19 +1,19 @@
 import BaseComponent from '../BaseComponent';
 
 /**
- * 全屏抗锯齿(SSAA)组件
+ * 时间抗锯齿(TAA)组件
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SsaaComponent(options) {
+function TaaComponent(options) {
     BaseComponent.call(this, options);
     this.selected = null;
 }
 
-SsaaComponent.prototype = Object.create(BaseComponent.prototype);
-SsaaComponent.prototype.constructor = SsaaComponent;
+TaaComponent.prototype = Object.create(BaseComponent.prototype);
+TaaComponent.prototype.constructor = TaaComponent;
 
-SsaaComponent.prototype.render = function () {
+TaaComponent.prototype.render = function () {
     var data = {
         xtype: 'div',
         id: 'panel',
@@ -32,7 +32,7 @@ SsaaComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '全屏抗锯齿(SSAA)'
+                text: '时间抗锯齿(TAA)'
             }]
         }, {
             xtype: 'row',
@@ -78,7 +78,7 @@ SsaaComponent.prototype.render = function () {
                 value: true,
                 onChange: this.onChange.bind(this)
             }]
-        },]
+        }]
     };
 
     var control = UI.create(data);
@@ -88,15 +88,15 @@ SsaaComponent.prototype.render = function () {
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
-SsaaComponent.prototype.onObjectSelected = function () {
+TaaComponent.prototype.onObjectSelected = function () {
     this.updateUI();
 };
 
-SsaaComponent.prototype.onObjectChanged = function () {
+TaaComponent.prototype.onObjectChanged = function () {
     this.updateUI();
 };
 
-SsaaComponent.prototype.updateUI = function () {
+TaaComponent.prototype.updateUI = function () {
     var container = UI.get('panel', this.id);
     var editor = this.app.editor;
     if (editor.selected && editor.selected instanceof THREE.Scene) {
@@ -115,14 +115,14 @@ SsaaComponent.prototype.updateUI = function () {
     var scene = this.selected;
     var postProcessing = scene.userData.postProcessing || {};
 
-    if (postProcessing.ssaa) {
-        enabled.setValue(postProcessing.ssaa.enabled);
-        sampleLevel.setValue(postProcessing.ssaa.sampleLevel);
-        unbiased.setValue(postProcessing.ssaa.unbiased);
+    if (postProcessing.taa) {
+        enabled.setValue(postProcessing.taa.enabled);
+        sampleLevel.setValue(postProcessing.taa.sampleLevel);
+        unbiased.setValue(postProcessing.taa.unbiased);
     }
 };
 
-SsaaComponent.prototype.onChange = function () {
+TaaComponent.prototype.onChange = function () {
     var enabled = UI.get('enabled', this.id);
     var sampleLevel = UI.get('sampleLevel', this.id);
     var unbiased = UI.get('unbiased', this.id);
@@ -131,7 +131,7 @@ SsaaComponent.prototype.onChange = function () {
     scene.userData.postProcessing = scene.userData.postProcessing || {};
 
     Object.assign(scene.userData.postProcessing, {
-        ssaa: {
+        taa: {
             enabled: enabled.getValue(),
             sampleLevel: parseInt(sampleLevel.getValue()),
             unbiased: unbiased.getValue(),
@@ -141,4 +141,4 @@ SsaaComponent.prototype.onChange = function () {
     this.app.call(`postProcessingChanged`, this);
 };
 
-export default SsaaComponent;
+export default TaaComponent;
