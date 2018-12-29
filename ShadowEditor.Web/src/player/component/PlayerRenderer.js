@@ -48,6 +48,14 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
         effects.push(effect);
     }
 
+    if (postProcessing.taa && postProcessing.taa.enabled) {
+        effect = new THREE.TAARenderPass(scene, camera);
+        effect.unbiased = postProcessing.taa.unbiased;
+        effect.sampleLevel = postProcessing.taa.sampleLevel;
+        composer.addPass(effect);
+        effects.push(effect);
+    }
+
     if (postProcessing.sao && postProcessing.sao.enabled) {
         effect = new THREE.SAOPass(scene, camera, false, true);
         effect.params.output = postProcessing.sao.output;
