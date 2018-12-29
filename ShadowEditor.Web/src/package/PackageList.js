@@ -261,6 +261,126 @@ const PackageList = [{
     assets: [
         'assets/js/libs/pako.js'
     ]
+}, {
+    name: 'NormalMapShader',
+    assets: [
+        'assets/js/shaders/NormalMapShader.js'
+    ]
+}, {
+    name: 'FXAAShader',
+    assets: [
+        'assets/js/shaders/FXAAShader.js'
+    ]
+}, {
+    name: 'DotScreenShader',
+    assets: [
+        'assets/js/shaders/DotScreenShader.js'
+    ]
+}, {
+    name: 'RGBShiftShader',
+    assets: [
+        'assets/js/shaders/RGBShiftShader.js'
+    ]
+}, {
+    name: 'AfterimageShader',
+    assets: [
+        'assets/js/shaders/AfterimageShader.js'
+    ]
+}, {
+    name: 'BokehShader',
+    assets: [
+        'assets/js/shaders/BokehShader.js'
+    ]
+}, {
+    name: 'DigitalGlitch',
+    assets: [
+        'assets/js/shaders/DigitalGlitch.js'
+    ]
+}, {
+    name: 'HalftoneShader',
+    assets: [
+        'assets/js/shaders/HalftoneShader.js'
+    ]
+}, {
+    name: 'DepthLimitedBlurShader',
+    assets: [
+        'assets/js/shaders/DepthLimitedBlurShader.js'
+    ]
+}, {
+    name: 'UnpackDepthRGBAShader',
+    assets: [
+        'assets/js/shaders/UnpackDepthRGBAShader.js'
+    ]
+}, {
+    name: 'PixelShader',
+    assets: [
+        'assets/js/shaders/PixelShader.js'
+    ]
+}, {
+    name: 'SAOShader',
+    assets: [
+        'assets/js/shaders/SAOShader.js'
+    ]
+}, {
+    name: 'SMAAShader',
+    assets: [
+        'assets/js/shaders/SMAAShader.js'
+    ]
+}, {
+    name: 'SSAOShader',
+    assets: [
+        'assets/js/shaders/SSAOShader.js'
+    ]
+}, {
+    name: 'MaskPass',
+    assets: [
+        'assets/js/postprocessing/MaskPass.js'
+    ]
+}, {
+    name: 'AfterimagePass',
+    assets: [
+        'assets/js/postprocessing/AfterimagePass.js'
+    ]
+}, {
+    name: 'BokehPass',
+    assets: [
+        'assets/js/postprocessing/BokehPass.js'
+    ]
+}, {
+    name: 'GlitchPass',
+    assets: [
+        'assets/js/postprocessing/GlitchPass.js'
+    ]
+}, {
+    name: 'HalftonePass',
+    assets: [
+        'assets/js/postprocessing/HalftonePass.js'
+    ]
+}, {
+    name: 'SSAARenderPass',
+    assets: [
+        'assets/js/postprocessing/SSAARenderPass.js'
+    ]
+}, {
+    name: 'SAOPass',
+    assets: [
+        'assets/js/postprocessing/SAOPass.js'
+    ]
+}, {
+    name: 'SMAAPass',
+    assets: [
+        'assets/js/postprocessing/SMAAPass.js'
+    ]
+}, {
+    name: 'SSAOPass',
+    assets: [
+        'assets/js/postprocessing/SSAOPass.js'
+    ]
+}, {
+    name: 'TAARenderPass',
+    assets: [
+        'assets/js/postprocessing/TAARenderPass.js'
+    ]
 }];
 
 export default PackageList
