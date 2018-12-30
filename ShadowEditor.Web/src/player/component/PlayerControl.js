@@ -1,4 +1,5 @@
 import PlayerComponent from './PlayerComponent';
+import PackageManager from '../../package/PackageManager';
 
 /**
  * 播放器场景控制
@@ -7,6 +8,9 @@ import PlayerComponent from './PlayerComponent';
 function PlayerControl(app) {
     PlayerComponent.call(this, app);
 
+    this.packageManager = new PackageManager();
+    this.require = this.packageManager.require.bind(this.packageManager);
+
     this.control = null;
 }
 
@@ -14,6 +18,33 @@ PlayerControl.prototype = Object.create(PlayerComponent.prototype);
 PlayerControl.prototype.constructor = PlayerControl;
 
 PlayerControl.prototype.create = function (scene, camera, renderer) {
+    var type = camera.userData.control;
+
+    var promise = new Promise(resolve => {
+        resolve();
+    });
+
+    if (type === 'FirstPersonControls') { // 第一视角控制器
+        promise = this.require('FirstPersonControls');
+    } else if (type === 'FlyControls') { // 飞行控制器
+        promise = this.require('FlyControls');
+    } else if (type === 'OrbitControls') { // 轨道控制器
+        promise = this.require('OrbitControls');
+    } else if (type === 'PointerLockControls') { // 指针锁定控制器
+        promise = this.require('PointerLockControls');
+    } else if (type === 'TrackballControls') { // 轨迹球控制器
+        promise = this.require('TrackballControls');
+    }
+
+    return promise.then(() => {
+        this._createControl(scene, camera, renderer);
+        return new Promise(resolve => {
+            resolve();
+        });
+    });
+};
+
+PlayerControl.prototype._createControl = function (scene, camera, renderer) {
     var type = camera.userData.control;
 
     if (type === 'FirstPersonControls') { // 第一视角控制器
@@ -47,17 +78,11 @@ PlayerControl.prototype.create = function (scene, camera, renderer) {
         if (camera.userData.trackballOptions) {
             Object.assign(this.control, camera.userData.trackballOptions);
         }
-    } else {
-
     }
-
-    return new Promise(resolve => {
-        resolve();
-    });
 };
 
 PlayerControl.prototype.update = function (clock, deltaTime) {
-    if (this.control && !(this.control instanceof THREE.PointerLockControls)) {
+    if (this.control && this.control.update) {
         this.control.update(deltaTime);
     }
 };
