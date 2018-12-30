@@ -1,5 +1,5 @@
 import BaseEvent from './BaseEvent';
-import OutlineEffect from '../effect/OutlineEffect';
+import EffectRenderer from '../render/EffectRenderer';
 
 /**
  * 渲染事件
@@ -35,11 +35,34 @@ RenderEvent.prototype.onRender = function () {
     scene.updateMatrixWorld();
     sceneHelpers.updateMatrixWorld();
 
-    if (this.outlineEffect === undefined) {
-        this.outlineEffect = new OutlineEffect(this.app);
+    if (this.renderer === undefined) {
+        this.createRenderer().then(() => {
+            this.app.call('render');
+        });
+        this.app.on(`sceneLoaded.${this.id}`, this.createRenderer.bind(this));
+        this.app.on(`postProcessingChanged.${this.id}`, this.createRenderer.bind(this));
+        this.app.on(`objectSelected.${this.id}`, this.createRenderer.bind(this))
+    } else {
+        this.renderer.render();
     }
+};
 
-    this.outlineEffect.render();
+RenderEvent.prototype.createRenderer = function () {
+    var editor = this.app.editor;
+    var scene = editor.scene;
+    var sceneHelpers = editor.sceneHelpers;
+    var camera = editor.camera;
+    var renderer = editor.renderer;
+    var selected = editor.selected || [];
+
+    this.renderer = new EffectRenderer();
+
+    return this.renderer.create(
+        [scene, sceneHelpers],
+        camera,
+        renderer,
+        selected
+    );
 };
 
 export default RenderEvent;

@@ -8,13 +8,13 @@ function BaseRenderer() {
     this.id = `${this.constructor.name}${ID--}`;
 }
 
-BaseRenderer.prototype.create = function () {
+BaseRenderer.prototype.create = function (scenes, camera, renderer, selected) {
     return new Promise(resolve => {
         resolve();
     });
 };
 
-BaseRenderer.prototype.render = function (scene, camera, renderer) {
+BaseRenderer.prototype.render = function () {
 
 };
 
