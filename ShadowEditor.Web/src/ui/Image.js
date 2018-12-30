@@ -41,7 +41,7 @@ Image.prototype.render = function () {
     }
 
     // 背景图片
-    if (this.src) {
+    if (this.src && this.src !== 'null') {
         this.img = document.createElement('img');
 
         this.img.src = this.src;
