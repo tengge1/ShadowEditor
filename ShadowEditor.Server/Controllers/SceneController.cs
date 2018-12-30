@@ -80,10 +80,11 @@ namespace ShadowEditor.Server.Controllers
         /// <summary>
         /// 获取数据
         /// </summary>
-        /// <param name="ID">场景ID</param>
+        /// <param name="ID"></param>
+        /// <param name="version"></param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult Load(string ID)
+        public JsonResult Load(string ID, int version = -1)
         {
             var mongo = new MongoHelper();
 
@@ -101,7 +102,17 @@ namespace ShadowEditor.Server.Controllers
 
             var collectionName = doc["CollectionName"].AsString;
 
-            var docs = mongo.FindAll(collectionName);
+            List<BsonDocument> docs;
+
+            if (version == -1) // 最新版本
+            {
+                docs = mongo.FindAll(collectionName);
+            }
+            else // 特定版本
+            {
+                filter = Builders<BsonDocument>.Filter.Eq(Constant.VersionField, BsonInt32.Create(version));
+                docs = mongo.FindMany($"{collectionName}{Constant.HistorySuffix}", filter);
+            }
 
             var data = new JArray();
 
@@ -232,14 +243,18 @@ namespace ShadowEditor.Server.Controllers
             var now = DateTime.Now;
 
             string collectionName;
+            var version = -1;
 
             if (doc == null) // 新建场景
             {
                 collectionName = "Scene" + now.ToString("yyyyMMddHHmmss");
+                version = 0;
             }
             else // 编辑场景
             {
                 collectionName = doc["CollectionName"].ToString();
+                version = doc.Contains("Version") ? int.Parse(doc["Version"].ToString()) : 0;
+                version++;
             }
 
             // 保存或更新场景综合信息
@@ -254,7 +269,7 @@ namespace ShadowEditor.Server.Controllers
                     ["TotalPinYin"] = string.Join("", pinyin.TotalPinYin),
                     ["FirstPinYin"] = string.Join("", pinyin.FirstPinYin),
                     ["CollectionName"] = collectionName,
-                    ["Version"] = 0,
+                    ["Version"] = version,
                     ["CreateTime"] = BsonDateTime.Create(now),
                     ["UpdateTime"] = BsonDateTime.Create(now)
                 };
@@ -262,13 +277,26 @@ namespace ShadowEditor.Server.Controllers
             }
             else
             {
-                var update1 = Builders<BsonDocument>.Update.Set("Version", int.Parse(doc["Version"].ToString()) + 1);
+                var update1 = Builders<BsonDocument>.Update.Set("Version", version);
                 var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", BsonDateTime.Create(now));
                 var update = Builders<BsonDocument>.Update.Combine(update1, update2);
                 mongo.UpdateOne(Constant.SceneCollectionName, filter, update);
+
+                // 将当前场景移入历史表
+                var old = mongo.FindAll(collectionName);
+
+                foreach (var i in old)
+                {
+                    i[Constant.VersionField] = version - 1;
+                }
+
+                if (old.Count > 0)
+                {
+                    mongo.InsertMany($"{collectionName}{Constant.HistorySuffix}", old);
+                }
             }
 
-            // 保存场景信息
+            // 保存新的场景信息
             var list = JsonHelper.ToObject<JArray>(model.Data);
 
             var docs = new List<BsonDocument>();

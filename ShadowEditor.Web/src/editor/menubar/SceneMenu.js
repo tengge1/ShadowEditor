@@ -61,8 +61,10 @@ SceneMenu.prototype.render = function () {
 SceneMenu.prototype.newScene = function () {
     var editor = this.app.editor;
 
-    if (editor.sceneName == null) {
+    if (editor.sceneID == null) {
         editor.clear();
+        editor.sceneID = null;
+        editor.sceneName = null;
         document.title = '未命名';
         return;
     }
@@ -81,18 +83,19 @@ SceneMenu.prototype.newScene = function () {
 
 SceneMenu.prototype.saveScene = function () { // 保存场景
     var editor = this.app.editor;
+    var id = editor.sceneID;
     var sceneName = editor.sceneName;
 
-    if (sceneName == null) {
+    if (id) { // 编辑场景
+        this.commitSave(id, sceneName);
+    } else { // 新疆场景
         UI.prompt('保存场景', '名称', '新场景', (event, name) => {
-            this.commitSave(name);
+            this.commitSave(id, name);
         });
-    } else {
-        this.commitSave(sceneName);
     }
 };
 
-SceneMenu.prototype.commitSave = function (sceneName) {
+SceneMenu.prototype.commitSave = function (id, sceneName) {
     var editor = this.app.editor;
 
     // 记录选中物体，以便载入时还原场景选中
@@ -110,10 +113,16 @@ SceneMenu.prototype.commitSave = function (sceneName) {
         scene: editor.scene
     });
 
-    Ajax.post(`${this.app.options.server}/api/Scene/Save`, {
+    var params = {
         Name: sceneName,
         Data: JSON.stringify(obj)
-    }, result => {
+    };
+
+    if (id) {
+        params.ID = id;
+    }
+
+    Ajax.post(`${this.app.options.server}/api/Scene/Save`, params, result => {
         var obj = JSON.parse(result);
 
         if (obj.Code === 200) {
