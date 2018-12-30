@@ -1,7 +1,7 @@
 # Shadow Editor
 
 * 名称：Shadow Editor
-* 版本：v0.1.1（开发中）
+* 版本：v0.1.1
 * 简介：基于`three.js`的场景编辑器。
 
 <table>
@@ -18,12 +18,15 @@
         <td><a href="https://tengge1.github.io/ShadowEditor-examples/">GitHub</a></td>
         <td><a href="https://tengge1.gitee.io/shadoweditor/">码云</a></td>
         <td></td>
-        <td><a href="UserGuide.md">安装指南</a></td>
+        <td></td>
         <td><a href="UpdateLog.md">更新日志</a></td>
     </tr>
 </table>
 
-## v0.1.1 即将更新
+## v0.1.1更新
+
+* 发布日期：2018年12月30日
+* 更新日志：
 
 1. 修复mmd动画和音频不同步问题。支持多个mmd模型与模型动画、相机动画同步。
 2. 新增点阵化特效、颜色偏移特效、残影特效、背景虚化、快速近似抗锯齿(FXAA)、毛刺特效、半色调特效、全屏抗锯齿(SSAA)、像素特效、可扩展环境光遮挡(SAO)、多重采样抗锯齿(SMAA)、屏幕空间环境光遮蔽(SSAO)、时间抗锯齿(TAA)。
@@ -45,7 +48,7 @@
 12. 支持补间动画、骨骼动画、粒子动画、mmd动画、lmesh动画（lolking网站lol模型）。
 13. 支持场景、模型、贴图、材质、音频、动画、粒子、预设体、角色资源管理，支持自定义分类，根据汉字和拼音快速搜索。其中，粒子、预设体、角色资源管理暂未实现相应功能。
 14. 支持第一视角控制器、飞行控制器、轨道控制器、指针锁定控制器、轨迹球控制器5种控制器。
-15. 支持点阵化、颜色偏移、残影、背景虚化多种特效。
+15. 支持点阵化特效、颜色偏移特效、残影特效、背景虚化、快速近似抗锯齿(FXAA)、毛刺特效、半色调特效、全屏抗锯齿(SSAA)、像素特效、可扩展环境光遮挡(SAO)、多重采样抗锯齿(SMAA)、屏幕空间环境光遮蔽(SSAO)、时间抗锯齿(TAA)。
 16. 提供历史记录和日志功能，支持撤销、重做。
 17. 支持导出`gltf`、`obj`、`ply`、`stl`模型。
 18. 支持地形：柏林地形、着色器地形。现仅提供示例，待开发完善。
@@ -59,6 +62,71 @@
 ![image](images/scene20181223.png)
 
 [点击此处](images/README.md)查看更多截图。
+
+## 使用指南
+
+**该项目仅支持Windows系统，电脑上需要安装.Net Framework 4.5。**
+
+**推荐使用最新版谷歌浏览器，不保证兼容其他浏览器。**
+
+1. 安装`NodeJs`，在当前目录，执行以下命令。
+
+```bash
+npm install
+npm run build
+```
+
+2. 下载`MongoDB`，安装并启动MongoDB服务。MongoDB服务的默认端口为27017。
+
+```bash
+mongod --dbpath=D:\mongodb\db --logpath=D:\mongodb\log\mongoDB.log --install --serviceName MongoDB
+net start MongoDB
+```
+
+3. 编辑文件`ShadowEditor.Web/Web.config`，将`27017`修改为你电脑上MongoDB服务的端口。
+
+```xml
+<add key="mongo_connection" value="mongodb://127.0.0.1:27017" />
+```
+
+4. 使用`Visual Studio 2017`打开项目，生成`ShadowEditor.Web`项目。
+
+5. 将`ShadowEditor.Web`部署在iis上即可在浏览器中访问。
+
+6. 为了保存各种类型文件能正常下载，需要在iis上添加以下两个MIME类型。
+
+| 文件扩展名 | MIME类型 | 说明 |
+| --------- | -------- | ---- |
+| .* | application/octet-stream | 各种格式后缀文件 |
+| . | application/octet-stream | 无后缀文件 |
+
+7. 编译文档，请安装gitbook。
+
+```bash
+npm install -g gitbook-cli
+```
+
+然后切换到`docs-dev`目录，安装gitbook插件。
+
+```bash
+gitbook install
+```
+
+然后切换到上级目录，执行以下命令生成文档。
+
+```bash
+npm run build-docs
+```
+
+## 常见问题
+
+1. 发布静态网站功能不能用。
+
+Shadow Editor需要服务器，请按照[使用指南](#使用指南)配置好相关环境。
+
+2. 上传模型时为什么都是上传失败？
+
+需要把模型贴图等资源压缩成一个zip包，而且入口文件不能嵌套文件夹。服务端会解压上传的zip包放到`~/Upload/Model`文件下，并在MongoDB `_Mesh`表里添加一条数据。
 
 ## 相关链接
 
