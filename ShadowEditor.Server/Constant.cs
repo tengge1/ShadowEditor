@@ -65,5 +65,15 @@ namespace ShadowEditor.Server
         /// 上传文件表名
         /// </summary>
         public const string FileCollectionName = "_File";
+
+        /// <summary>
+        /// 历史表后缀（版本控制）
+        /// </summary>
+        public const string HistorySuffix = "_history";
+
+        /// <summary>
+        /// 历史表中版本字段
+        /// </summary>
+        public const string VersionField = "_version";
     }
 }
