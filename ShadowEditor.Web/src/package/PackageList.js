@@ -381,6 +381,41 @@ const PackageList = [{
     assets: [
         'assets/js/postprocessing/TAARenderPass.js'
     ]
+}, {
+    name: 'CopyShader',
+    assets: [
+        'assets/js/shaders/CopyShader.js'
+    ]
+}, {
+    name: 'EffectComposer',
+    assets: [
+        'assets/js/postprocessing/EffectComposer.js'
+    ]
+}, {
+    name: 'RenderPass',
+    assets: [
+        'assets/js/postprocessing/RenderPass.js'
+    ]
+}, {
+    name: 'ShaderPass',
+    assets: [
+        'assets/js/postprocessing/ShaderPass.js'
+    ]
+}, {
+    name: 'OutlinePass',
+    assets: [
+        'assets/js/postprocessing/OutlinePass.js'
+    ]
+}, {
+    name: 'SAOPass',
+    assets: [
+        'assets/js/postprocessing/SAOPass.js'
+    ]
+}, {
+    name: 'SSAOPass',
+    assets: [
+        'assets/js/postprocessing/SSAOPass.js'
+    ]
 }];
 
 export default PackageList

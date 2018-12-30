@@ -42,11 +42,7 @@ JsLoader.prototype.eval = function () {
     });
 
     if (script) {
-        try {
-            eval2(script);
-        } catch (e) {
-            console.warn(`JsLoader: ${n.url}解析出错:${e.message}`);
-        }
+        eval2(script);
     }
 };
 
