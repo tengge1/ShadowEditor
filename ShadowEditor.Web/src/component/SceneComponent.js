@@ -474,7 +474,7 @@ SceneComponent.prototype.onSaveCubeTexture = function () { // 保存立体贴图
     ];
 
     Promise.all(promises).then(files => {
-        Ajax.post(`${this.app.options.server}/api/Texture/Add`, {
+        Ajax.post(`${this.app.options.server}/api/Map/Add`, {
             posX: files[0],
             negX: files[1],
             posY: files[2],
