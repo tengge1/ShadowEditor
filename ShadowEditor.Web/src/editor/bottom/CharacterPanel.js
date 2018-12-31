@@ -30,8 +30,9 @@ CharacterPanel.prototype.onShowPanel = function (tabName) {
     if (this.firstShow) {
         this.firstShow = false;
         this.renderUI();
-        this.update();
     }
+
+    this.update();
 };
 
 CharacterPanel.prototype.renderUI = function () {

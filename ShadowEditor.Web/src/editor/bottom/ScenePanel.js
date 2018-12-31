@@ -33,8 +33,9 @@ ScenePanel.prototype.onShowPanel = function (tabName) {
     if (this.firstShow) {
         this.firstShow = false;
         this.renderUI();
-        this.update();
     }
+
+    this.update();
 };
 
 ScenePanel.prototype.renderUI = function () {
@@ -175,11 +176,12 @@ ScenePanel.prototype.renderList = function (list) {
             title: n.Name,
             data: n,
             icon: 'icon-scenes',
+            cornerText: `v${n.Version}`,
             style: {
                 backgroundColor: '#eee'
             }
         };
-    });;
+    });
 
     images.render();
 };

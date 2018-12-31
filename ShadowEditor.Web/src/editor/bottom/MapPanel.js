@@ -31,8 +31,9 @@ MapPanel.prototype.onShowPanel = function (tabName) {
     if (this.firstShow) {
         this.firstShow = false;
         this.renderUI();
-        this.update();
     }
+
+    this.update();
 };
 
 MapPanel.prototype.renderUI = function () {
