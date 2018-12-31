@@ -230,7 +230,7 @@ namespace ShadowEditor.Server.Controllers
                     ["CreateTime"] = BsonDateTime.Create(now),
                     ["UpdateTime"] = BsonDateTime.Create(now),
                     ["Data"] = BsonDocument.Parse(model.Data),
-                    ["Thumbnail"] = ""
+                    ["Thumbnail"] = model.Thumbnail
                 };
                 mongo.InsertOne(Constant.MaterialCollectionName, doc);
             }

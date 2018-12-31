@@ -12,8 +12,10 @@ import TextureSelectControl from '../editor/control/TextureSelectControl';
 import TextureSettingWindow from '../editor/window/TextureSettingWindow';
 
 import MaterialsSerializer from '../serialization/material/MaterialsSerializer';
+import MaterialUtils from '../utils/MaterialUtils';
 
 import Ajax from '../utils/Ajax';
+import Converter from '../utils/Converter';
 
 /**
  * 材质组件
@@ -1467,12 +1469,27 @@ MaterialComponent.prototype.commitSave = function (name) {
     var material = this.selected.material;
     var data = (new MaterialsSerializer()).toJSON(material);
 
-    Ajax.post(`/api/Material/Save`, {
-        Name: name,
-        Data: JSON.stringify(data),
+    // 材质球图片
+    var dataURL = MaterialUtils.createMaterialImage(material).toDataURL('image/png');
+
+    var file = Converter.dataURLtoFile(dataURL, name);
+
+    // 上传图片
+    Ajax.post(`${this.app.options.server}/api/Upload/Upload`, {
+        file: file
     }, result => {
-        var json = JSON.parse(result);
-        UI.msg('材质保存成功！');
+        var obj = JSON.parse(result);
+        Ajax.post(`/api/Material/Save`, {
+            Name: name,
+            Data: JSON.stringify(data),
+            Thumbnail: obj.Data.url
+        }, result => {
+            var obj = JSON.parse(result);
+            if (obj.Code === 200) {
+                this.app.call(`showBottomPanel`, this, 'material');
+            }
+            UI.msg(obj.Msg);
+        });
     });
 };
 
