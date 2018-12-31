@@ -1393,6 +1393,11 @@ MaterialComponent.prototype.updateMaterial = function () {
         editor.execute(new SetMaterialValueCommand(object, 'wireframeLinewidth', wireframeLinewidth.getValue()));
     }
 
+    if (this.selected.userData.Server === true) { // 服务端模型
+        this.selected.userData.materials = this.selected.userData.materials || {};
+        this.selected.userData.materials[material.uuid] = (new MaterialsSerializer()).toJSON(material);
+    }
+
     this.updateUI();
 
     if (textureWarning) {
