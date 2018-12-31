@@ -25,5 +25,10 @@ namespace ShadowEditor.Model.Material
         /// 数据
         /// </summary>
         public string Data { get; set; }
+
+        /// <summary>
+        /// 缩略图
+        /// </summary>
+        public string Thumbnail { get; set; }
     }
 }

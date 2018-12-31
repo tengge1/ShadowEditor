@@ -31,8 +31,9 @@ MaterialPanel.prototype.onShowPanel = function (tabName) {
     if (this.firstShow) {
         this.firstShow = false;
         this.renderUI();
-        this.update();
     }
+
+    this.update();
 };
 
 MaterialPanel.prototype.renderUI = function () {
