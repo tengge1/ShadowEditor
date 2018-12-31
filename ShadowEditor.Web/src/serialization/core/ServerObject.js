@@ -22,13 +22,21 @@ ServerObject.prototype.toJSON = function (obj) {
     delete json.userData.root; // 模型根节点
     delete json.userData.helper;
 
-    // 清理无用材质
-    if (obj.userData.materials) {
-        Object.keys(obj.userData.materials).forEach(n => {
-            if (n !== obj.material.uuid) {
-                delete obj.userData.materials[n];
+    // 记录材质
+    json.userData.materials = [];
+
+    if (obj.material && Array.isArray(obj.material)) { // 多材质
+        obj.material.forEach(n => {
+            if (n) {
+                var json1 = (new MaterialsSerializer()).toJSON(n);
+                json.userData.materials.push(json1);
+            } else {
+                json.userData.materials.push(null);
             }
         });
+    } else if (obj.material) { // 单材质
+        var json1 = (new MaterialsSerializer()).toJSON(obj.material);
+        json.userData.materials.push(json1);
     }
 
     return json;
@@ -58,19 +66,26 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
 };
 
 ServerObject.prototype.parseMaterials = function (json, obj) {
-    if (json.userData.materials) {
-        Object.values(json.userData.materials).forEach(n => {
-            this.parseMaterial(n, obj);
-        });
-    }
-};
+    var materials = json.userData.materials;
 
-ServerObject.prototype.parseMaterial = function (json, obj) {
-    if (obj.material.uuid === json.uuid) {
-        var material = obj.material;
-        obj.material = (new MaterialsSerializer()).fromJSON(json);
-        obj.material.needsUpdate = true;
-        material.dispose();
+    if (materials && Array.isArray(materials)) {
+        if (Array.isArray(obj.material)) { // 多材质
+            for (var i = 0; i < obj.material.length; i++) {
+                if (materials[i]) {
+                    var material = obj.material[i];
+                    obj.material[i] = (new MaterialsSerializer()).fromJSON(materials[i]);
+                    obj.material[i].needsUpdate = true;
+                    material.dispose();
+                }
+            }
+        } else if (obj.material) { // 单材质
+            if (materials[0]) {
+                var material = obj.material;
+                obj.material = (new MaterialsSerializer()).fromJSON(materials[0]);
+                obj.material.needsUpdate = true;
+                material.dispose();
+            }
+        }
     }
 };
 
