@@ -29,7 +29,7 @@ ImageUploader.prototype.render = function () {
         this.parent.removeChild(this.dom);
     }
 
-    if (this.url) {
+    if (this.url && this.url !== 'null') {
         this.dom = document.createElement('img');
         this.dom.className = 'Uploader';
         this.dom.src = this.server + this.url;
