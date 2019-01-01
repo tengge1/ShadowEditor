@@ -68,7 +68,9 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
         loader.load(url, json.userData, environment).then(obj => {
             if (obj) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, obj);
-                this.parseMaterials(obj, '', json.userData.materials);
+                if (json.userData.materials) {
+                    this.parseMaterials(obj, '', json.userData.materials);
+                }
                 resolve(obj);
             } else {
                 resolve(null);
