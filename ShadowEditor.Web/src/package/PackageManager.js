@@ -44,6 +44,7 @@ PackageManager.prototype.require = function (names) {
             assets.push.apply(assets, m.assets);
         });
 
+        // TODO: 有bug，很可能资源未下载完，报错！
         var promise = this._load(assets);
 
         loaded.set(n, {
