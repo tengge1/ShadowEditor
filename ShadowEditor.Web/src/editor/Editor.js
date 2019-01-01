@@ -129,7 +129,7 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
     if (this.camera.children.findIndex(o => o instanceof THREE.AudioListener) === -1) {
         this.camera.add(this.audioListener);
     }
-
+ 
     if (this.scene.background instanceof THREE.Texture) {
         this.scene.background = new THREE.Color(0xaaaaaa);
     } else if (this.scene.background instanceof THREE.Color) {
@@ -140,11 +140,19 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
 
     this.deselect();
 
+    // 移除场景物体
     var objects = this.scene.children;
 
     while (objects.length > 0) {
         this.removeObject(objects[0]);
     }
+
+    // 移除帮助器
+    // objects = this.sceneHelpers.children;
+
+    // while (objects.length > 0) {
+    //     this.removeHelper(objects[0]);
+    // }
 
     this.textures = {};
     this.scripts = {};
