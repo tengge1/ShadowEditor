@@ -31,7 +31,7 @@ JsLoader.prototype.load = function (url) {
 };
 
 JsLoader.prototype.eval = function () {
-    var eval2 = eval;
+    var eval2 = window.eval;
 
     var script = '';
 
