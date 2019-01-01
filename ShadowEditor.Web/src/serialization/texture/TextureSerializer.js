@@ -24,10 +24,15 @@ TextureSerializer.prototype.toJSON = function (obj) {
 
     // 说明：立体贴图obj.image是一个图片数组。
     if (obj.image && !Array.isArray(obj.image) && obj.image.tagName.toLowerCase() === 'img') { // 图片
-        var url = new URL(obj.image.src); // 修复贴图路径自带服务端路径bug
+        var src = obj.image.src;
+        if (!src.startsWith('blob')) { // blob地址不应该被修改
+            var url = new URL(obj.image.src); // 修复贴图路径自带服务端路径bug
+            src = url.pathname;
+        }
+
         json.image = {
             tagName: 'img',
-            src: url.pathname,
+            src: src,
             width: obj.image.width,
             height: obj.image.height
         };
