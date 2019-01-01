@@ -24,22 +24,34 @@ ServerObject.prototype.toJSON = function (obj) {
 
     // 记录材质
     json.userData.materials = [];
+    this.serializeMaterials(obj, '', json.userData.materials);
+    return json;
+};
 
+/**
+ * 记录服务端模型所有材质
+ * @param {*} obj 
+ * @param {*} path 
+ * @param {*} materials 
+ */
+ServerObject.prototype.serializeMaterials = function (obj, path, materials) {
     if (obj.material && Array.isArray(obj.material)) { // 多材质
-        obj.material.forEach(n => {
-            if (n) {
-                var json1 = (new MaterialsSerializer()).toJSON(n);
-                json.userData.materials.push(json1);
-            } else {
-                json.userData.materials.push(null);
-            }
+        obj.material.forEach((n, i) => {
+            var json = (new MaterialsSerializer()).toJSON(n);
+            json._path = `${path}${i}`;
+            materials.push(json);
         });
     } else if (obj.material) { // 单材质
-        var json1 = (new MaterialsSerializer()).toJSON(obj.material);
-        json.userData.materials.push(json1);
+        var json = (new MaterialsSerializer()).toJSON(obj.material);
+        json._path = `${path}$`;
+        materials.push(json);
     }
 
-    return json;
+    if (obj.children) {
+        obj.children.forEach((n, i) => {
+            this.serializeMaterials(n, `${path}${i}`, materials);
+        });
+    }
 };
 
 ServerObject.prototype.fromJSON = function (json, options, environment) {
@@ -56,7 +68,7 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
         loader.load(url, json.userData, environment).then(obj => {
             if (obj) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, obj);
-                this.parseMaterials(json, obj);
+                this.parseMaterials(obj, '', json.userData.materials);
                 resolve(obj);
             } else {
                 resolve(null);
@@ -65,27 +77,37 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
     });
 };
 
-ServerObject.prototype.parseMaterials = function (json, obj) {
-    var materials = json.userData.materials;
-
-    if (materials && Array.isArray(materials)) {
-        if (Array.isArray(obj.material)) { // 多材质
-            for (var i = 0; i < obj.material.length; i++) {
-                if (materials[i]) {
-                    var material = obj.material[i];
-                    obj.material[i] = (new MaterialsSerializer()).fromJSON(materials[i]);
-                    obj.material[i].needsUpdate = true;
-                    material.dispose();
-                }
-            }
-        } else if (obj.material) { // 单材质
-            if (materials[0]) {
-                var material = obj.material;
-                obj.material = (new MaterialsSerializer()).fromJSON(materials[0]);
-                obj.material.needsUpdate = true;
+/**
+ * 还原服务端模型所有材质
+ * @param {*} obj 
+ * @param {*} path 
+ * @param {*} materials 
+ */
+ServerObject.prototype.parseMaterials = function (obj, path, materials) {
+    if (obj.material && Array.isArray(obj.material)) { // 多材质
+        obj.material.forEach((n, i) => {
+            var json = materials.filter(n => n._path === `${path}${i}`)[0];
+            if (json) {
+                var material = obj.material[i];
+                obj.material[i] = (new MaterialsSerializer()).fromJSON(json);
+                obj.material[i].needsUpdate = true;
                 material.dispose();
             }
+        });
+    } else if (obj.material) { // 单材质
+        var json = materials.filter(n => n._path === `${path}$`)[0];
+        if (json) {
+            var material = obj.material;
+            obj.material = (new MaterialsSerializer()).fromJSON(json);
+            obj.material.needsUpdate = true;
+            material.dispose();
         }
+    }
+
+    if (obj.children) {
+        obj.children.forEach((n, i) => {
+            this.parseMaterials(n, `${path}${i}`, materials);
+        });
     }
 };
 
