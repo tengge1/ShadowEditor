@@ -88,6 +88,6 @@ typings/
 /THREE/THREE.csproj.user
 /ShadowEditor.Web/Upload/Animation
 /test/dist
-/UnitTests/bin
-/UnitTests/obj
+/ShadowEditor.UnitTests/bin
+/ShadowEditor.UnitTests/obj
 /TestResults

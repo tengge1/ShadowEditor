@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests
+namespace ShadowEditor.UnitTests
 {
     [TestClass]
     public class UnitTest1
