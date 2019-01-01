@@ -451,6 +451,16 @@ const PackageList = [{
     assets: [
         'assets/js/controls/TransformControls.js'
     ]
+}, {
+    name: 'SPE',
+    assets: [
+        'assets/js/SPE.js'
+    ]
+}, {
+    name: 'VolumetricFire',
+    assets: [
+        'assets/js/VolumetricFire.js'
+    ]
 }];
 
 export default PackageList
