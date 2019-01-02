@@ -19,53 +19,69 @@ function PackageManager() {
 PackageManager.prototype.require = function (names) {
     names = Array.isArray(names) ? names : [names];
 
-    var promises = names.map(n => {
-        if (loaded.has(n) && loaded.get(n).loaded === true) {
-            return new Promise(resolve => {
-                resolve();
+    // 获取前面请求正在下载的promise
+    var promises = [];
+
+    for (var i = 0; i < names.length; i++) {
+        var name = names[i];
+
+        if (loaded.has(name) && loaded.get(name).loading === true) {
+            promises.push(loaded.get(name).promise);
+        }
+    }
+
+    return Promise.all(promises).then(() => {
+        // 下载本次请求所需资源
+        var promises1 = [];
+
+        for (var i = 0; i < names.length; i++) {
+            var name = names[i];
+
+            if (loaded.has(name) && loaded.get(name).loaded === true) {
+                continue;
+            }
+
+            if (loaded.has(name) && loaded.get(name).loading === true) {
+                throw 'PackageManager: 前面请求正在下载的promise未全部执行完成！';
+            }
+
+            // 获取所有包资源
+            var packages = PackageList.filter(n => n.name === name);
+            if (packages.length === 0) {
+                console.warn(`PackageManager: 包${name}不存在！`);
+                continue;
+            } else if (packages.length > 1) {
+                console.warn(`PackageManager: 包名${name}重复！`);
+            }
+
+            var assets = [];
+
+            packages.forEach(n => {
+                assets.push.apply(assets, n.assets);
             });
-        } else if (loaded.has(n) && loaded.get(n).loading === true) {
-            return loaded.get(n).promise;
+
+            var promise = this._load(assets).then(() => {
+                loaded.set(name, {
+                    loading: false,
+                    loaded: true,
+                    promise: null
+                });
+                return new Promise(resolve => {
+                    resolve();
+                });
+            });
+
+            loaded.set(name, {
+                loading: true,
+                loaded: false,
+                promise: promise,
+            });
+
+            promises1.push(promise);
         }
 
-        var packages = PackageList.filter(m => m.name === n);
-        if (packages.length === 0) {
-            console.warn(`PackageManager: 包${n}不存在！`);
-            return new Promise(resolve => {
-                resolve();
-            });
-        } else if (packages.length > 1) {
-            console.warn(`PackageManager: 包名${n}重复！`);
-        }
-
-        var assets = [];
-
-        packages.forEach(m => {
-            assets.push.apply(assets, m.assets);
-        });
-
-        // TODO: 有bug，很可能资源未下载完，报错！
-        var promise = this._load(assets);
-
-        loaded.set(n, {
-            loading: true,
-            loaded: false,
-            promise: promise,
-        });
-
-        return promise.then(() => {
-            loaded.set(n, {
-                loading: false,
-                loaded: true,
-                promise: null
-            });
-            return new Promise(resolve => {
-                resolve();
-            });
-        });
+        return Promise.all(promises1);
     });
-
-    return Promise.all(promises);
 };
 
 PackageManager.prototype._load = function (assets = []) {
