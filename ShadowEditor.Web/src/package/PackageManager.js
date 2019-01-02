@@ -32,8 +32,10 @@ PackageManager.prototype.require = function (names) {
 
     return Promise.all(promises).then(() => {
         // 下载本次请求所需资源
-        var promises1 = [];
+        var packageNames = [];
+        var assets = [];
 
+        // 获取所有资源
         for (var i = 0; i < names.length; i++) {
             var name = names[i];
 
@@ -54,33 +56,34 @@ PackageManager.prototype.require = function (names) {
                 console.warn(`PackageManager: 包名${name}重复！`);
             }
 
-            var assets = [];
-
             packages.forEach(n => {
+                packageNames.push(n.name);
                 assets.push.apply(assets, n.assets);
             });
+        }
 
-            var promise = this._load(assets).then(() => {
-                loaded.set(name, {
+        var promise = this._load(assets).then(() => {
+            packageNames.forEach(n => {
+                loaded.set(n, {
                     loading: false,
                     loaded: true,
                     promise: null
                 });
-                return new Promise(resolve => {
-                    resolve();
-                });
             });
+            return new Promise(resolve => {
+                resolve();
+            });
+        });
 
-            loaded.set(name, {
+        packageNames.forEach(n => {
+            loaded.set(n, {
                 loading: true,
                 loaded: false,
                 promise: promise,
             });
+        });
 
-            promises1.push(promise);
-        }
-
-        return Promise.all(promises1);
+        return promise;
     });
 };
 

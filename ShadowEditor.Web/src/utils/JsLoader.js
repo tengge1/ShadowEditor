@@ -31,7 +31,7 @@ JsLoader.prototype.load = function (url) {
 };
 
 JsLoader.prototype.eval = function () {
-    var eval2 = window.eval;
+    var eval2 = eval;
 
     var script = '';
 
@@ -42,7 +42,7 @@ JsLoader.prototype.eval = function () {
     });
 
     if (script) {
-        eval2(script);
+        eval2.call(window, script);
     }
 };
 
