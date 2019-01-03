@@ -6,7 +6,7 @@ import GeometryMenu from './GeometryMenu';
 import LightMenu from './LightMenu';
 import AssetMenu from './AssetMenu';
 import TerrainMenu from './TerrainMenu';
-import PhysicsMenu from './PhysicsMenu';
+// import PhysicsMenu from './PhysicsMenu';
 import ComponentMenu from './ComponentMenu';
 import PlayMenu from './PlayMenu';
 import OptionsMenu from './OptionsMenu';
@@ -27,7 +27,9 @@ Menubar.prototype = Object.create(UI.Control.prototype);
 Menubar.prototype.constructor = Menubar;
 
 Menubar.prototype.render = function () {
-    var params = { app: this.app };
+    var params = {
+        app: this.app
+    };
 
     var container = UI.create({
         xtype: 'div',
@@ -45,7 +47,7 @@ Menubar.prototype.render = function () {
             new LightMenu(params),
             new AssetMenu(params),
             new TerrainMenu(params),
-            new PhysicsMenu(params),
+            // new PhysicsMenu(params),
             new ComponentMenu(params),
             new PlayMenu(params),
             new OptionsMenu(params),
