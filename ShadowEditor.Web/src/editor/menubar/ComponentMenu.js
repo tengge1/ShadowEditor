@@ -72,26 +72,14 @@ ComponentMenu.prototype.render = function () {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
+                html: '碰撞体',
+                cls: 'option',
+                onClick: this.addCollision.bind(this)
+            }, {
+                xtype: 'div',
                 html: '刚体',
                 cls: 'option',
                 onClick: this.addRigidBody.bind(this)
-            }, {
-                xtype: 'hr'
-            }, {
-                xtype: 'div',
-                html: '曲线编辑器',
-                cls: 'option',
-                onClick: this.curveEditor.bind(this)
-            }, {
-                xtype: 'div',
-                html: '发型编辑器',
-                cls: 'option',
-                onClick: this.hairEditor.bind(this)
-            }, {
-                xtype: 'div',
-                html: '服装编辑器',
-                cls: 'option',
-                onClick: this.clothingEditor.bind(this)
             }]
         }]
     });
@@ -185,6 +173,12 @@ ComponentMenu.prototype.onAddCloth = function () {
     editor.execute(new AddObjectCommand(cloth));
 };
 
+// -------------------------- 添加碰撞体 -----------------------------------
+
+ComponentMenu.prototype.addCollision = function () {
+    UI.msg('添加碰撞体成功！');
+};
+
 // --------------------------- 添加刚体 ------------------------------------
 
 ComponentMenu.prototype.addRigidBody = function () {
@@ -198,24 +192,6 @@ ComponentMenu.prototype.addRigidBody = function () {
         this.app.call('objectChanged', this, selected);
         UI.msg('添加刚体组件成功！');
     }
-};
-
-// --------------------------- 曲线编辑器 -------------------------------------
-
-ComponentMenu.prototype.curveEditor = function () {
-    UI.msg('待开发');
-};
-
-// --------------------------- 发型编辑器 --------------------------------------
-
-ComponentMenu.prototype.hairEditor = function () {
-    UI.msg('待开发');
-};
-
-// --------------------------- 服装编辑器 --------------------------------------
-
-ComponentMenu.prototype.clothingEditor = function () {
-    UI.msg('待开发');
 };
 
 export default ComponentMenu;
