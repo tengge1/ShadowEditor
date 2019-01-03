@@ -42,7 +42,7 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
     this.scene = scene;
 
     this.scene.traverse(n => {
-        if (n.userData && n.userData.physics) {
+        if (n.userData && n.userData.physics && n.userData.physics.enabled) {
             var body = PlysicsUtils.createRigidBody(n, this.margin);
             if (body) {
                 n.userData.physics.body = body;

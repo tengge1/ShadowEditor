@@ -9,6 +9,17 @@ function Box(geometry = new THREE.BoxBufferGeometry(1, 1, 1), material = new THR
     this.name = '正方体';
     this.castShadow = true;
     this.receiveShadow = true;
+
+    this.userData.physics = this.userData.physics || {
+        enabled: false,
+        shape: 'btBoxShape',
+        mass: 1,
+        inertia: {
+            x: 0,
+            y: 0,
+            z: 0,
+        }
+    };
 }
 
 Box.prototype = Object.create(THREE.Mesh.prototype);
