@@ -72,11 +72,6 @@ ComponentMenu.prototype.render = function () {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                html: '碰撞体',
-                cls: 'option',
-                onClick: this.addCollision.bind(this)
-            }, {
-                xtype: 'div',
                 html: '刚体',
                 cls: 'option',
                 onClick: this.addRigidBody.bind(this)
@@ -171,12 +166,6 @@ ComponentMenu.prototype.onAddCloth = function () {
     cloth.name = '布';
 
     editor.execute(new AddObjectCommand(cloth));
-};
-
-// -------------------------- 添加碰撞体 -----------------------------------
-
-ComponentMenu.prototype.addCollision = function () {
-    UI.msg('添加碰撞体成功！');
 };
 
 // --------------------------- 添加刚体 ------------------------------------

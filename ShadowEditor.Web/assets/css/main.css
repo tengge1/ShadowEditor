@@ -713,6 +713,12 @@ table.Table .TableBody td {
     margin-top: 0;
 }
 
+/* .sidebar .Row:nth-child(1)::before {
+    font-family: "iconfont" !important;
+    content: '\e6f1';
+    vertical-align: center;
+} */
+
 .sidebar label {
     width: 60px;
     cursor: default;

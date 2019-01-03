@@ -30,126 +30,123 @@ TransformComponent.prototype.render = function () {
         children: [{
             xtype: 'row',
             children: [{
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    style: {
-                        color: '#555',
-                        fontWeight: 'bold'
-                    },
-                    text: '位移组件'
-                }]
+                xtype: 'label',
+                style: {
+                    color: '#555',
+                    fontWeight: 'bold'
+                },
+                text: '位移组件'
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '平移'
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '平移'
-                }, {
-                    xtype: 'number',
-                    id: 'objectPositionX',
-                    scope: this.id,
-                    style: {
-                        width: '40px'
-                    },
-                    onChange: this.onChangePosition.bind(this)
-                }, {
-                    xtype: 'number',
-                    id: 'objectPositionY',
-                    scope: this.id,
-                    style: {
-                        width: '40px'
-                    },
-                    onChange: this.onChangePosition.bind(this)
-                }, {
-                    xtype: 'number',
-                    id: 'objectPositionZ',
-                    scope: this.id,
-                    style: {
-                        width: '40px'
-                    },
-                    onChange: this.onChangePosition.bind(this)
-                }]
+                xtype: 'number',
+                id: 'objectPositionX',
+                scope: this.id,
+                style: {
+                    width: '40px'
+                },
+                onChange: this.onChangePosition.bind(this)
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '旋转'
-                }, {
-                    xtype: 'number',
-                    id: 'objectRotationX',
-                    scope: this.id,
-                    step: 10,
-                    unit: '°',
-                    style: {
-                        width: '40px'
-                    },
-                    onChange: this.onChangeRotation.bind(this)
-                }, {
-                    xtype: 'number',
-                    id: 'objectRotationY',
-                    scope: this.id,
-                    step: 10,
-                    unit: '°',
-                    style: {
-                        width: '40px'
-                    },
-                    onChange: this.onChangeRotation.bind(this)
-                }, {
-                    xtype: 'number',
-                    id: 'objectRotationZ',
-                    scope: this.id,
-                    step: 10,
-                    unit: '°',
-                    style: {
-                        width: '40px'
-                    },
-                    onChange: this.onChangeRotation.bind(this)
-                }]
+                xtype: 'number',
+                id: 'objectPositionY',
+                scope: this.id,
+                style: {
+                    width: '40px'
+                },
+                onChange: this.onChangePosition.bind(this)
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '缩放'
-                }, {
-                    xtype: 'checkbox',
-                    id: 'objectScaleLock',
-                    scope: this.id,
-                    value: true,
-                    style: {
-                        position: 'absolute',
-                        left: '50px'
-                    }
-                }, {
-                    xtype: 'number',
-                    id: 'objectScaleX',
-                    scope: this.id,
-                    value: 1,
-                    range: [0.01, Infinity],
-                    style: {
-                        width: '40px'
-                    },
-                    onChange: this.onChangeScale.bind(this)
-                }, {
-                    xtype: 'number',
-                    id: 'objectScaleY',
-                    scope: this.id,
-                    value: 1,
-                    range: [0.01, Infinity],
-                    style: {
-                        width: '40px'
-                    },
-                    onChange: this.onChangeScale.bind(this)
-                }, {
-                    xtype: 'number',
-                    id: 'objectScaleZ',
-                    scope: this.id,
-                    value: 1,
-                    range: [0.01, Infinity],
-                    style: {
-                        width: '40px'
-                    },
-                    onChange: this.onChangeScale.bind(this)
-                }]
+                xtype: 'number',
+                id: 'objectPositionZ',
+                scope: this.id,
+                style: {
+                    width: '40px'
+                },
+                onChange: this.onChangePosition.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '旋转'
+            }, {
+                xtype: 'number',
+                id: 'objectRotationX',
+                scope: this.id,
+                step: 10,
+                unit: '°',
+                style: {
+                    width: '40px'
+                },
+                onChange: this.onChangeRotation.bind(this)
+            }, {
+                xtype: 'number',
+                id: 'objectRotationY',
+                scope: this.id,
+                step: 10,
+                unit: '°',
+                style: {
+                    width: '40px'
+                },
+                onChange: this.onChangeRotation.bind(this)
+            }, {
+                xtype: 'number',
+                id: 'objectRotationZ',
+                scope: this.id,
+                step: 10,
+                unit: '°',
+                style: {
+                    width: '40px'
+                },
+                onChange: this.onChangeRotation.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '缩放'
+            }, {
+                xtype: 'checkbox',
+                id: 'objectScaleLock',
+                scope: this.id,
+                value: true,
+                style: {
+                    position: 'absolute',
+                    left: '50px'
+                }
+            }, {
+                xtype: 'number',
+                id: 'objectScaleX',
+                scope: this.id,
+                value: 1,
+                range: [0.01, Infinity],
+                style: {
+                    width: '40px'
+                },
+                onChange: this.onChangeScale.bind(this)
+            }, {
+                xtype: 'number',
+                id: 'objectScaleY',
+                scope: this.id,
+                value: 1,
+                range: [0.01, Infinity],
+                style: {
+                    width: '40px'
+                },
+                onChange: this.onChangeScale.bind(this)
+            }, {
+                xtype: 'number',
+                id: 'objectScaleZ',
+                scope: this.id,
+                value: 1,
+                range: [0.01, Infinity],
+                style: {
+                    width: '40px'
+                },
+                onChange: this.onChangeScale.bind(this)
             }]
         }]
     };
