@@ -23,6 +23,17 @@ function Lathe(geometry = new THREE.LatheBufferGeometry(points, 20, 0, 2 * Math.
     this.name = '酒杯';
     this.castShadow = true;
     this.receiveShadow = true;
+
+    this.userData.physics = this.userData.physics || {
+        enabled: false,
+        shape: 'btBoxShape',
+        mass: 1,
+        inertia: {
+            x: 0,
+            y: 0,
+            z: 0,
+        }
+    };
 }
 
 Lathe.prototype = Object.create(THREE.Mesh.prototype);

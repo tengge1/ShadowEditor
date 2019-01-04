@@ -23,6 +23,17 @@ function Teapot(geometry = new THREE.TeapotBufferGeometry(3, 10, true, true, tru
     this.name = '茶壶';
     this.castShadow = true;
     this.receiveShadow = true;
+
+    this.userData.physics = this.userData.physics || {
+        enabled: false,
+        shape: 'btBoxShape',
+        mass: 1,
+        inertia: {
+            x: 0,
+            y: 0,
+            z: 0,
+        }
+    };
 }
 
 Teapot.prototype = Object.create(THREE.Mesh.prototype);

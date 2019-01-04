@@ -9,6 +9,17 @@ function Sphere(geometry = new THREE.SphereBufferGeometry(1, 32, 16, 0, Math.PI 
     this.name = '球体';
     this.castShadow = true;
     this.receiveShadow = true;
+
+    this.userData.physics = this.userData.physics || {
+        enabled: false,
+        shape: 'btSphereShape',
+        mass: 0,
+        inertia: {
+            x: 0,
+            y: 0,
+            z: 0,
+        }
+    };
 }
 
 Sphere.prototype = Object.create(THREE.Mesh.prototype);
