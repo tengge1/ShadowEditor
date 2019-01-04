@@ -44,6 +44,24 @@ StatusBar.prototype.render = function () {
                 id: 'trianglesText',
                 scope: this.id,
                 text: '0' // 三角形数
+            }, {
+                xtype: 'label',
+                text: '碰撞体',
+                style: {
+                    marginLeft: '16px'
+                },
+            }, {
+                xtype: 'checkbox',
+                id: 'cbShowCollision'
+            }, {
+                xtype: 'label',
+                text: 'z键扔小球',
+                style: {
+                    marginLeft: '16px'
+                },
+            }, {
+                xtype: 'checkbox',
+                id: 'cbThrowBall'
             }]
         }]
     };
