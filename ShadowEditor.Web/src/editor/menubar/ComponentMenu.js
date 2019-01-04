@@ -68,13 +68,6 @@ ComponentMenu.prototype.render = function () {
                 html: '布',
                 cls: 'option',
                 onClick: this.onAddCloth.bind(this)
-            }, {
-                xtype: 'hr'
-            }, {
-                xtype: 'div',
-                html: '刚体',
-                cls: 'option',
-                onClick: this.addRigidBody.bind(this)
             }]
         }]
     });
@@ -166,21 +159,6 @@ ComponentMenu.prototype.onAddCloth = function () {
     cloth.name = '布';
 
     editor.execute(new AddObjectCommand(cloth));
-};
-
-// --------------------------- 添加刚体 ------------------------------------
-
-ComponentMenu.prototype.addRigidBody = function () {
-    var selected = this.app.editor.selected;
-    if (!selected) {
-        UI.msg('请选择几何体！');
-        return;
-    }
-
-    if (PlysicsUtils.addRigidBodyData(selected) !== false) {
-        this.app.call('objectChanged', this, selected);
-        UI.msg('添加刚体组件成功！');
-    }
 };
 
 export default ComponentMenu;
