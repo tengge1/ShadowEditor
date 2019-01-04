@@ -1,6 +1,30 @@
 import PlayerComponent from './PlayerComponent';
 import PlysicsUtils from '../../physics/PlysicsUtils';
 
+const shape = {
+    btBoxShape: Ammo.btBoxShape,
+    btBvhTriangleMeshShape: Ammo.btBvhTriangleMeshShape,
+    btCapsuleShape: Ammo.btCapsuleShape,
+    btCapsuleShapeX: Ammo.btCapsuleShapeX,
+    btCapsuleShapeZ: Ammo.btCapsuleShapeZ,
+    btCollisionShape: Ammo.btCollisionShape,
+    btCompoundShape: Ammo.btCompoundShape,
+    btConcaveShape: Ammo.btConcaveShape,
+    btConeShape: Ammo.btConeShape,
+    btConeShapeX: Ammo.btConeShapeX,
+    btConeShapeZ: Ammo.btConeShapeZ,
+    btConvexHullShape: Ammo.btConvexHullShape,
+    btConvexShape: Ammo.btConvexShape,
+    btConvexTriangleMeshShape: Ammo.btConvexTriangleMeshShape,
+    btCylinderShape: Ammo.btCylinderShape,
+    btCylinderShapeX: Ammo.btCylinderShapeX,
+    btCylinderShapeZ: Ammo.btCylinderShapeZ,
+    btHeightfieldTerrainShape: Ammo.btHeightfieldTerrainShape,
+    btSphereShape: Ammo.btSphereShape,
+    btStaticPlaneShape: Ammo.btStaticPlaneShape,
+    btTriangleMeshShape: Ammo.btTriangleMeshShape,
+};
+
 /**
  * 播放器物理
  * @param {*} app 应用
