@@ -2,27 +2,27 @@ import PlayerComponent from './PlayerComponent';
 import PlysicsUtils from '../../physics/PlysicsUtils';
 
 const shape = {
-    btBoxShape: Ammo.btBoxShape,
-    btBvhTriangleMeshShape: Ammo.btBvhTriangleMeshShape,
-    btCapsuleShape: Ammo.btCapsuleShape,
-    btCapsuleShapeX: Ammo.btCapsuleShapeX,
-    btCapsuleShapeZ: Ammo.btCapsuleShapeZ,
-    btCollisionShape: Ammo.btCollisionShape,
-    btCompoundShape: Ammo.btCompoundShape,
-    btConcaveShape: Ammo.btConcaveShape,
-    btConeShape: Ammo.btConeShape,
-    btConeShapeX: Ammo.btConeShapeX,
-    btConeShapeZ: Ammo.btConeShapeZ,
-    btConvexHullShape: Ammo.btConvexHullShape,
-    btConvexShape: Ammo.btConvexShape,
-    btConvexTriangleMeshShape: Ammo.btConvexTriangleMeshShape,
-    btCylinderShape: Ammo.btCylinderShape,
-    btCylinderShapeX: Ammo.btCylinderShapeX,
-    btCylinderShapeZ: Ammo.btCylinderShapeZ,
-    btHeightfieldTerrainShape: Ammo.btHeightfieldTerrainShape,
-    btSphereShape: Ammo.btSphereShape,
-    btStaticPlaneShape: Ammo.btStaticPlaneShape,
-    btTriangleMeshShape: Ammo.btTriangleMeshShape,
+    btBoxShape: Ammo.btBoxShape, // 正方体
+    btBvhTriangleMeshShape: Ammo.btBvhTriangleMeshShape, // 三角形
+    btCapsuleShape: Ammo.btCapsuleShape, // 胶囊
+    btCapsuleShapeX: Ammo.btCapsuleShapeX, // x轴胶囊
+    btCapsuleShapeZ: Ammo.btCapsuleShapeZ, // z轴胶囊
+    btCollisionShape: Ammo.btCollisionShape, // 碰撞体
+    btCompoundShape: Ammo.btCompoundShape, // 复合形状
+    btConcaveShape: Ammo.btConcaveShape, // 
+    btConeShape: Ammo.btConeShape, // 圆锥体
+    btConeShapeX: Ammo.btConeShapeX, // x轴圆椎体
+    btConeShapeZ: Ammo.btConeShapeZ, // z轴圆椎体
+    btConvexHullShape: Ammo.btConvexHullShape, // 凸包
+    btConvexShape: Ammo.btConvexShape, // 
+    btConvexTriangleMeshShape: Ammo.btConvexTriangleMeshShape, // 凸三角形
+    btCylinderShape: Ammo.btCylinderShape, // 圆柱体
+    btCylinderShapeX: Ammo.btCylinderShapeX, // x轴圆柱体
+    btCylinderShapeZ: Ammo.btCylinderShapeZ, // z轴圆柱体
+    btHeightfieldTerrainShape: Ammo.btHeightfieldTerrainShape, // 灰阶高程地形
+    btSphereShape: Ammo.btSphereShape, // 球体
+    btStaticPlaneShape: Ammo.btStaticPlaneShape, // 静态平板
+    btTriangleMeshShape: Ammo.btTriangleMeshShape, // 三角网格
 };
 
 /**
