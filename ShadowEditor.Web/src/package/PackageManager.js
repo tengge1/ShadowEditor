@@ -19,72 +19,48 @@ function PackageManager() {
 PackageManager.prototype.require = function (names) {
     names = Array.isArray(names) ? names : [names];
 
-    // 获取前面请求正在下载的promise
     var promises = [];
 
-    for (var i = 0; i < names.length; i++) {
-        var name = names[i];
+    names.forEach(n => {
+        if (loaded.has(n) && loaded.get(n).loading === true) {
+            promises.push(loaded.get(n).promise);
+        } else if (!loaded.has(n)) {
+            var promise = Promise.all(promises).then(() => {
+                var packages = PackageList.filter(m => m.name === n);
+                if (packages.length === 0) {
+                    console.warn(`PackageManager: 包${n}不存在！`);
+                    return;
+                } else if (packages.length > 1) {
+                    console.warn(`PackageManager: 包名${n}重复！`);
+                }
 
-        if (loaded.has(name) && loaded.get(name).loading === true) {
-            promises.push(loaded.get(name).promise);
-        }
-    }
+                var assets = [];
 
-    return Promise.all(promises).then(() => {
-        // 下载本次请求所需资源
-        var packageNames = [];
-        var assets = [];
+                packages.forEach(m => {
+                    assets.push.apply(assets, m.assets);
+                });
 
-        // 获取所有资源
-        for (var i = 0; i < names.length; i++) {
-            var name = names[i];
-
-            if (loaded.has(name) && loaded.get(name).loaded === true) {
-                continue;
-            }
-
-            if (loaded.has(name) && loaded.get(name).loading === true) {
-                throw 'PackageManager: 前面请求正在下载的promise未全部执行完成！';
-            }
-
-            // 获取所有包资源
-            var packages = PackageList.filter(n => n.name === name);
-            if (packages.length === 0) {
-                console.warn(`PackageManager: 包${name}不存在！`);
-                continue;
-            } else if (packages.length > 1) {
-                console.warn(`PackageManager: 包名${name}重复！`);
-            }
-
-            packages.forEach(n => {
-                packageNames.push(n.name);
-                assets.push.apply(assets, n.assets);
-            });
-        }
-
-        var promise = this._load(assets).then(() => {
-            packageNames.forEach(n => {
-                loaded.set(n, {
-                    loading: false,
-                    loaded: true,
-                    promise: null
+                return this._load(assets).then(() => {
+                    loaded.set(n, {
+                        loading: false,
+                        loaded: true,
+                        promise: null,
+                    });
+                    return new Promise(resolve => {
+                        resolve();
+                    });
                 });
             });
-            return new Promise(resolve => {
-                resolve();
-            });
-        });
-
-        packageNames.forEach(n => {
             loaded.set(n, {
                 loading: true,
                 loaded: false,
                 promise: promise,
             });
-        });
-
-        return promise;
+            promises.push(promise);
+        }
     });
+
+    return Promise.all(promises);
 };
 
 PackageManager.prototype._load = function (assets = []) {

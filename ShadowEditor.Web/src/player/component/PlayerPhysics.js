@@ -1,5 +1,6 @@
 import PlayerComponent from './PlayerComponent';
 import PlysicsUtils from '../../physics/PlysicsUtils';
+import ThrowBallEvent from './physics/ThrowBallEvent';
 
 const shape = {
     btBoxShape: Ammo.btBoxShape, // 正方体
@@ -57,6 +58,10 @@ function PlayerPhysics(app) {
 
     this.transformAux1 = new Ammo.btTransform();
     this.rigidBodies = [];
+
+    this.events = [
+        new ThrowBallEvent(this.app)
+    ];
 }
 
 PlayerPhysics.prototype = Object.create(PlayerComponent.prototype);
@@ -78,6 +83,10 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
                 }
             }
         }
+    });
+
+    this.events.forEach(n => {
+        n.create(scene, camera, renderer);
     });
 
     return new Promise(resolve => {
@@ -105,9 +114,17 @@ PlayerPhysics.prototype.update = function (clock, deltaTime) {
             objThree.quaternion.set(q.x(), q.y(), q.z(), q.w());
         }
     }
+
+    this.events.forEach(n => {
+        n.update(clock, deltaTime);
+    });
 };
 
 PlayerPhysics.prototype.dispose = function () {
+    this.events.forEach(n => {
+        n.dispose();
+    });
+
     this.rigidBodies.forEach(n => {
         var body = n.userData.physics.body;
         this.world.removeRigidBody(body);

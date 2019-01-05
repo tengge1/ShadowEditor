@@ -1,38 +1,36 @@
-function ThrowBallEvent() {
+import PlayerComponent from '../PlayerComponent';
 
+/**
+ * 按z键扔球事件
+ * @param {*} app 
+ */
+function ThrowBallEvent(app) {
+    PlayerComponent.call(this, app);
 }
 
-ThrowBallEvent.prototype.createRigidBody = function (threeObject, physicsShape, mass, pos, quat) {
-    threeObject.position.copy(pos);
-    threeObject.quaternion.copy(quat);
+ThrowBallEvent.prototype = Object.create(PlayerComponent.prototype);
+ThrowBallEvent.prototype.constructor = ThrowBallEvent;
 
-    var transform = new Ammo.btTransform();
-    transform.setIdentity();
-    transform.setOrigin(new Ammo.btVector3(pos.x, pos.y, pos.z));
-    transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w));
-    var motionState = new Ammo.btDefaultMotionState(transform);
-
-    // 惯性
-    var localInertia = new Ammo.btVector3(0, 0, 0);
-    physicsShape.calculateLocalInertia(mass, localInertia);
-
-    var rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, physicsShape, localInertia);
-    var body = new Ammo.btRigidBody(rbInfo);
-
-    threeObject.userData.physicsBody = body;
-
-    // 重力大于0才响应物理事件
-    if (mass > 0) {
-        this.rigidBodies.push(threeObject);
-        body.setActivationState(4);
-    }
-
-    this.world.addRigidBody(body);
-
-    return body;
+ThrowBallEvent.prototype.create = function (scene, camera, renderer) {
+    this.scene = scene;
+    this.camera = camera;
+    this.renderer = renderer;
+    this.renderer.domElement.addEventListener('keydown', this.throwBall.bind(this));
 };
 
-ThrowBallEvent.prototype.onThrowBall = function (event) {
+ThrowBallEvent.prototype.update = function (clock, deltaTime) {
+
+};
+
+ThrowBallEvent.prototype.dispose = function () {
+    this.renderer.domElement.removeEventListener('keydown', this.throwBall);
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+};
+
+ThrowBallEvent.prototype.throwBall = function (event) {
+    debugger
     var mouse = new THREE.Vector2();
     var raycaster = new THREE.Raycaster();
     var camera = this.app.editor.camera;
@@ -71,6 +69,36 @@ ThrowBallEvent.prototype.onThrowBall = function (event) {
     pos.multiplyScalar(24);
 
     ballBody.setLinearVelocity(new Ammo.btVector3(pos.x, pos.y, pos.z));
+};
+
+ThrowBallEvent.prototype.createRigidBody = function (threeObject, physicsShape, mass, pos, quat) {
+    threeObject.position.copy(pos);
+    threeObject.quaternion.copy(quat);
+
+    var transform = new Ammo.btTransform();
+    transform.setIdentity();
+    transform.setOrigin(new Ammo.btVector3(pos.x, pos.y, pos.z));
+    transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w));
+    var motionState = new Ammo.btDefaultMotionState(transform);
+
+    // 惯性
+    var localInertia = new Ammo.btVector3(0, 0, 0);
+    physicsShape.calculateLocalInertia(mass, localInertia);
+
+    var rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, physicsShape, localInertia);
+    var body = new Ammo.btRigidBody(rbInfo);
+
+    threeObject.userData.physicsBody = body;
+
+    // 重力大于0才响应物理事件
+    if (mass > 0) {
+        this.rigidBodies.push(threeObject);
+        body.setActivationState(4);
+    }
+
+    this.world.addRigidBody(body);
+
+    return body;
 };
 
 export default ThrowBallEvent;
