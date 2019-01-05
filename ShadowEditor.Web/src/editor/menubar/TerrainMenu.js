@@ -42,11 +42,6 @@ TerrainMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '创建物理地形',
-                onClick: this.createPhysicsTerrain.bind(this)
-            }, {
-                xtype: 'div',
-                cls: 'option',
                 html: '升高地形',
                 onClick: this.raiseTerrain.bind(this)
             }, {
@@ -86,21 +81,6 @@ TerrainMenu.prototype.createShaderTerrain = function () {
     // this.app.on(`animate.Terrain2`, (clock, deltaTime) => {
     //     terrain.update(deltaTime);
     // });
-};
-
-// ----------------------------- 创建物理地形 ---------------------------------
-
-TerrainMenu.prototype.createPhysicsTerrain = function () {
-    var terrain = new PhysicsTerrain();
-
-    this.app.editor.execute(new AddObjectCommand(terrain));
-
-    this.app.physics.world.addRigidBody(terrain.userData.physicsBody);
-    this.app.physics.rigidBodies.push(terrain);
-
-    //     this.app.on(`animate.${this.id}`, (clock, deltaTime) => {
-    //         terrain.update(deltaTime, this.app.physics.world);
-    //     });
 };
 
 // ---------------------------- 升高地形 -----------------------------------
