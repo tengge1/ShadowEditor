@@ -72,6 +72,7 @@ PropertyPanel.prototype.render = function () {
             new PointerLockControlComponent({ app: this.app }),
             new TrackballControlComponent({ app: this.app }),
             new ReflectorComponent({ app: this.app }),
+            new PhysicsWorldComponent({ app: this.app }),
 
             // 后期处理
             new DotScreenComponent({ app: this.app }),
@@ -92,7 +93,6 @@ PropertyPanel.prototype.render = function () {
             new PerlinTerrainComponent({ app: this.app }),
             new AudioListenerComponent({ app: this.app }),
             new BackgroundMusicComponent({ app: this.app }),
-            new PhysicsWorldComponent({ app: this.app }),
             new ParticleEmitterComponent({ app: this.app }),
             new FireComponent({ app: this.app }),
             new SmokeComponent({ app: this.app }),
