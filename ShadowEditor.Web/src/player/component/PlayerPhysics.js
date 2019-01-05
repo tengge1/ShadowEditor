@@ -60,7 +60,7 @@ function PlayerPhysics(app) {
     this.rigidBodies = [];
 
     this.events = [
-        new ThrowBallEvent(this.app)
+        new ThrowBallEvent(this.app, this.world, this.rigidBodies)
     ];
 }
 

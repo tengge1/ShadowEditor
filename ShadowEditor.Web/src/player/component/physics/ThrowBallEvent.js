@@ -3,9 +3,14 @@ import PlayerComponent from '../PlayerComponent';
 /**
  * 按z键扔球事件
  * @param {*} app 
+ * @param {*} world 
+ * @param {*} rigidBodies 
  */
-function ThrowBallEvent(app) {
+function ThrowBallEvent(app, world, rigidBodies) {
     PlayerComponent.call(this, app);
+
+    this.world = world;
+    this.rigidBodies = rigidBodies;
 }
 
 ThrowBallEvent.prototype = Object.create(PlayerComponent.prototype);
@@ -15,28 +20,24 @@ ThrowBallEvent.prototype.create = function (scene, camera, renderer) {
     this.scene = scene;
     this.camera = camera;
     this.renderer = renderer;
-    this.renderer.domElement.addEventListener('keydown', this.throwBall.bind(this));
-};
-
-ThrowBallEvent.prototype.update = function (clock, deltaTime) {
-
+    this.app.on(`click.${this.id}`, this.throwBall.bind(this));
 };
 
 ThrowBallEvent.prototype.dispose = function () {
-    this.renderer.domElement.removeEventListener('keydown', this.throwBall);
+    this.app.on(`click.${this.id}`, null);
     this.scene = null;
     this.camera = null;
     this.renderer = null;
 };
 
 ThrowBallEvent.prototype.throwBall = function (event) {
-    debugger
     var mouse = new THREE.Vector2();
     var raycaster = new THREE.Raycaster();
-    var camera = this.app.editor.camera;
 
-    var width = UI.get('viewport').dom.clientWidth;
-    var height = UI.get('viewport').dom.clientHeight;
+    var camera = this.camera;
+
+    var width = this.renderer.domElement.width;
+    var height = this.renderer.domElement.height;
 
     mouse.set((event.offsetX / width) * 2 - 1, -(event.offsetY / height) * 2 + 1);
     raycaster.setFromCamera(mouse, camera);
@@ -51,10 +52,10 @@ ThrowBallEvent.prototype.throwBall = function (event) {
     var ball = new THREE.Mesh(new THREE.SphereBufferGeometry(ballRadius, 14, 10), ballMaterial);
     ball.castShadow = true;
     ball.receiveShadow = true;
-    this.app.editor.scene.add(ball);
+    this.scene.add(ball);
 
     var ballShape = new Ammo.btSphereShape(ballRadius);
-    ballShape.setMargin(this.margin);
+    ballShape.setMargin(0.5);
 
     var pos = new THREE.Vector3();
     pos.copy(raycaster.ray.direction);
@@ -63,12 +64,20 @@ ThrowBallEvent.prototype.throwBall = function (event) {
     var quat = new THREE.Quaternion();
     quat.set(0, 0, 0, 1);
 
-    var ballBody = this.createRigidBody(ball, ballShape, ballMass, pos, quat);
+    var body = this.createRigidBody(ball, ballShape, ballMass, pos, quat);
 
     pos.copy(raycaster.ray.direction);
     pos.multiplyScalar(24);
 
-    ballBody.setLinearVelocity(new Ammo.btVector3(pos.x, pos.y, pos.z));
+    body.setLinearVelocity(new Ammo.btVector3(pos.x, pos.y, pos.z));
+
+    ball.userData.physics = {
+        body: body
+    };
+
+    this.world.addRigidBody(body);
+    this.rigidBodies.push(ball);
+    body.setActivationState(4);
 };
 
 ThrowBallEvent.prototype.createRigidBody = function (threeObject, physicsShape, mass, pos, quat) {
