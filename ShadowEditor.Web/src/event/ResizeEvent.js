@@ -26,13 +26,16 @@ ResizeEvent.prototype.onResize = function () {
     var camera = editor.camera;
     var renderer = editor.renderer;
 
-    editor.DEFAULT_CAMERA.aspect = container.dom.offsetWidth / container.dom.offsetHeight;
+    var width = container.dom.clientWidth;
+    var height = container.dom.clientHeight;
+
+    editor.DEFAULT_CAMERA.aspect = width / height;
     editor.DEFAULT_CAMERA.updateProjectionMatrix();
 
-    camera.aspect = container.dom.offsetWidth / container.dom.offsetHeight;
+    camera.aspect = width / height;
     camera.updateProjectionMatrix();
 
-    renderer.setSize(container.dom.offsetWidth, container.dom.offsetHeight);
+    renderer.setSize(width, height);
 
     this.app.call('render', this);
 };

@@ -25,8 +25,11 @@ function Editor(app) {
     this.sceneID = null; // 当前场景ID
     this.sceneName = null; // 当前场景名称
 
+    var width = this.app.viewport.container.dom.clientWidth;
+    var height = this.app.viewport.container.dom.clientHeight;
+
     // 相机
-    this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 0.1, 10000);
+    this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, width / height, 0.1, 10000);
     this.DEFAULT_CAMERA.name = '默认相机';
     this.DEFAULT_CAMERA.userData.isDefault = true;
     this.DEFAULT_CAMERA.userData.control = 'OrbitControls'; // 场景控制类型
@@ -48,7 +51,7 @@ function Editor(app) {
     this.renderer.setPixelRatio(window.devicePixelRatio);
 
     this.app.viewport.container.dom.appendChild(this.renderer.domElement);
-    this.renderer.setSize(this.app.viewport.container.dom.offsetWidth, this.app.viewport.container.dom.offsetHeight);
+    this.renderer.setSize(width, height);
 
     // 音频监听器
     this.audioListener = new THREE.AudioListener();
@@ -129,7 +132,7 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
     if (this.camera.children.findIndex(o => o instanceof THREE.AudioListener) === -1) {
         this.camera.add(this.audioListener);
     }
- 
+
     if (this.scene.background instanceof THREE.Texture) {
         this.scene.background = new THREE.Color(0xaaaaaa);
     } else if (this.scene.background instanceof THREE.Color) {
@@ -170,10 +173,12 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
         light2.position.set(5, 10, 7.5);
         light2.shadow.mapSize.x = 2048;
         light2.shadow.mapSize.y = 2048;
-        light2.shadow.camera.left = -100;
-        light2.shadow.camera.right = 100;
-        light2.shadow.camera.top = 100;
-        light2.shadow.camera.bottom = -100;
+        light2.shadow.camera.left = -20;
+        light2.shadow.camera.right = 20;
+        light2.shadow.camera.top = 20;
+        light2.shadow.camera.bottom = -20;
+        light2.shadow.camera.near = 0.1;
+        light2.shadow.camera.far = 500;
         this.addObject(light2);
     }
 
