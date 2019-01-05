@@ -14,7 +14,6 @@ import ScriptEditor from './editor/script/ScriptEditor';
 import Player from './player/Player';
 
 import Editor from './editor/Editor';
-import Physics from './editor/Physics';
 
 import PackageManager from './package/PackageManager';
 import API from './api/API';
@@ -105,7 +104,6 @@ function Application(container, options) {
 
     // 编辑器
     this.editor = new Editor(this);
-    this.physics = new Physics(params);
 }
 
 // ------------------------- 程序控制 -------------------------------
@@ -116,9 +114,6 @@ Application.prototype.start = function () {
 
     this.call('appStart', this);
     this.call('appStarted', this);
-
-    // 启动物体引擎
-    this.physics.start();
 
     this.call('resize', this);
 

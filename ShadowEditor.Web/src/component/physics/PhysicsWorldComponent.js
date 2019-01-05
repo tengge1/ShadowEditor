@@ -97,44 +97,44 @@ PhysicsWorldComponent.prototype.updateUI = function () {
         return;
     }
 
-    this.selected = app.physics;
+    // this.selected = app.physics;
 
-    var configType = UI.get('configType', this.id);
-    var gravityConstantX = UI.get('gravityConstantX', this.id);
-    var gravityConstantY = UI.get('gravityConstantY', this.id);
-    var gravityConstantZ = UI.get('gravityConstantZ', this.id);
+    // var configType = UI.get('configType', this.id);
+    // var gravityConstantX = UI.get('gravityConstantX', this.id);
+    // var gravityConstantY = UI.get('gravityConstantY', this.id);
+    // var gravityConstantZ = UI.get('gravityConstantZ', this.id);
 
-    if (this.selected.collisionConfiguration instanceof Ammo.btSoftBodyRigidBodyCollisionConfiguration) {
-        configType.setValue('btSoftBodyRigidBodyCollisionConfiguration');
-    } else {
-        configType.setValue('btDefaultCollisionConfiguration');
-    }
+    // if (this.selected.collisionConfiguration instanceof Ammo.btSoftBodyRigidBodyCollisionConfiguration) {
+    //     configType.setValue('btSoftBodyRigidBodyCollisionConfiguration');
+    // } else {
+    //     configType.setValue('btDefaultCollisionConfiguration');
+    // }
 
-    var gravity = this.selected.world.getGravity();
-    gravityConstantX.setValue(gravity.x());
-    gravityConstantY.setValue(gravity.y());
-    gravityConstantZ.setValue(gravity.z());
+    // var gravity = this.selected.world.getGravity();
+    // gravityConstantX.setValue(gravity.x());
+    // gravityConstantY.setValue(gravity.y());
+    // gravityConstantZ.setValue(gravity.z());
 };
 
 PhysicsWorldComponent.prototype.onChangeConfigType = function () {
-    var configType = UI.get('configType', this.id);
-    if (configType === 'btSoftBodyRigidBodyCollisionConfiguration') {
-        this.selected.collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
-    } else {
-        this.selected.collisionConfiguration = new Ammo.btDefaultCollisionConfiguration();
-    }
-    this.selected.dispatcher = new Ammo.btCollisionDispatcher(this.selected.collisionConfiguration);
-    this.selected.world.dispatcher = this.selected.dispatcher;
+    // var configType = UI.get('configType', this.id);
+    // if (configType === 'btSoftBodyRigidBodyCollisionConfiguration') {
+    //     this.selected.collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
+    // } else {
+    //     this.selected.collisionConfiguration = new Ammo.btDefaultCollisionConfiguration();
+    // }
+    // this.selected.dispatcher = new Ammo.btCollisionDispatcher(this.selected.collisionConfiguration);
+    // this.selected.world.dispatcher = this.selected.dispatcher;
 };
 
 PhysicsWorldComponent.prototype.onChangeGravityConstant = function () {
-    var gravityConstantX = UI.get('gravityConstantX', this.id);
-    var gravityConstantY = UI.get('gravityConstantY', this.id);
-    var gravityConstantZ = UI.get('gravityConstantZ', this.id);
+    // var gravityConstantX = UI.get('gravityConstantX', this.id);
+    // var gravityConstantY = UI.get('gravityConstantY', this.id);
+    // var gravityConstantZ = UI.get('gravityConstantZ', this.id);
 
-    var gravity = new Ammo.btVector3(gravityConstantX.getValue(), gravityConstantY.getValue(), gravityConstantZ.getValue());
-    this.selected.world.setGravity(gravity);
-    this.selected.world.getWorldInfo().set_m_gravity(gravity);
+    // var gravity = new Ammo.btVector3(gravityConstantX.getValue(), gravityConstantY.getValue(), gravityConstantZ.getValue());
+    // this.selected.world.setGravity(gravity);
+    // this.selected.world.getWorldInfo().set_m_gravity(gravity);
 };
 
 export default PhysicsWorldComponent;
