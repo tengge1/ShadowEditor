@@ -227,11 +227,6 @@ ScenePanel.prototype.onLoad = function (data) {
             editor.sceneName = data.Name;
             document.title = data.Name;
 
-            // 添加帮助器
-            editor.scene.traverse(n => {
-                editor.addHelper(n);
-            });
-
             if (obj.options) {
                 this.app.call('optionsChanged', this, this.app.options);
             }
