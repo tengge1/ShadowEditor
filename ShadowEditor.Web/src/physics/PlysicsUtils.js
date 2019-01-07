@@ -35,9 +35,7 @@ var PlysicsUtils = {
     /**
      * 为Object3D对象添加刚体组件
      */
-    createRigidBody: function (obj, margin) {
-        margin = margin || 0.05;
-
+    createRigidBody: function (obj) {
         var position = obj.position;
         var quaternion = obj.quaternion;
         var scale = obj.scale;
@@ -69,7 +67,6 @@ var PlysicsUtils = {
             return null;
         }
 
-        shape.setMargin(margin);
         var localInertia = new Ammo.btVector3(inertia.x, inertia.y, inertia.z);
         shape.calculateLocalInertia(mass, localInertia);
 

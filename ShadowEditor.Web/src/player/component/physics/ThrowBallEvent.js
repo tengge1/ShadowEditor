@@ -58,7 +58,7 @@ ThrowBallEvent.prototype.throwBall = function (event) {
     raycaster.setFromCamera(mouse, camera);
 
     // Creates a ball and throws it
-    var ballMass = 35;
+    var ballMass = 1;
     var ballRadius = 0.4;
     var ballMaterial = new THREE.MeshPhongMaterial({
         color: 0x202020
@@ -70,7 +70,6 @@ ThrowBallEvent.prototype.throwBall = function (event) {
     this.scene.add(ball);
 
     var ballShape = new Ammo.btSphereShape(ballRadius);
-    ballShape.setMargin(0.5);
 
     var pos = new THREE.Vector3();
     pos.copy(raycaster.ray.direction);
