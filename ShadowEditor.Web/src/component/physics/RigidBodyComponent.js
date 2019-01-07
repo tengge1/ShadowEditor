@@ -51,13 +51,34 @@ RigidBodyComponent.prototype.render = function () {
                 xtype: 'label',
                 text: '形状'
             }, {
-                xtype: 'input',
+                xtype: 'select',
                 id: 'shape',
                 scope: this.id,
-                disabled: true,
+                options: {
+                    btBoxShape: '正方体',
+                    btBvhTriangleMeshShape: 'bvh三角形网格',
+                    btCapsuleShape: '胶囊',
+                    btCapsuleShapeX: 'x轴胶囊',
+                    btCapsuleShapeZ: 'z轴胶囊',
+                    btCollisionShape: '碰撞体',
+                    btCompoundShape: '复合形状',
+                    btConcaveShape: '凹面体',
+                    btConeShape: '圆锥体',
+                    btConeShapeX: 'x轴圆椎体',
+                    btConeShapeZ: 'z轴圆椎体',
+                    btConvexHullShape: '凸包',
+                    btConvexShape: '凸面体',
+                    btConvexTriangleMeshShape: '凸三角形网格',
+                    btCylinderShape: '圆柱体',
+                    btCylinderShapeX: 'x轴圆柱体',
+                    btCylinderShapeZ: 'z轴圆柱体',
+                    btHeightfieldTerrainShape: '灰阶高程地形',
+                    btSphereShape: '球体',
+                    btStaticPlaneShape: '静态平板',
+                    btTriangleMeshShape: '三角网格'
+                },
                 style: {
-                    width: '100px',
-                    fontSize: '12px'
+                    width: '130px'
                 },
                 onChange: this.onChange.bind(this)
             }]
