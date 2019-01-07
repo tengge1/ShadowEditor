@@ -22,6 +22,9 @@ ThrowBallEvent.prototype.create = function (scene, camera, renderer) {
     this.scene = scene;
     this.camera = camera;
     this.renderer = renderer;
+
+    this.enabled = UI.get('cbThrowBall').getValue();
+
     this.app.on(`click.${this.id}`, this.throwBall.bind(this));
     this.app.on(`enableThrowBall.${this.id}`, this.onEnableThrowBall.bind(this));
 };

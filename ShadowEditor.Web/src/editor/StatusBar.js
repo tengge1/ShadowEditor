@@ -53,7 +53,6 @@ StatusBar.prototype.render = function () {
             }, {
                 xtype: 'checkbox',
                 id: 'cbThrowBall',
-                scope: this.id,
                 onChange: this.onEnableThrowBall.bind(this)
             }]
         }]
@@ -111,7 +110,7 @@ StatusBar.prototype.onUpdateInfo = function () {
 };
 
 StatusBar.prototype.onEnableThrowBall = function () {
-    var enabled = UI.get('cbThrowBall', this.id);
+    var enabled = UI.get('cbThrowBall');
     this.app.call('enableThrowBall', this, enabled.getValue());
 };
 
