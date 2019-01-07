@@ -97,7 +97,7 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
 PlayerPhysics.prototype.update = function (clock, deltaTime) {
     var rigidBodies = this.rigidBodies;
 
-    this.world.stepSimulation(deltaTime, 100);
+    this.world.stepSimulation(deltaTime, 0);
 
     for (var i = 0, l = rigidBodies.length; i < l; i++) {
         var objThree = rigidBodies[i];
