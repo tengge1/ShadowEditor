@@ -656,14 +656,7 @@ table.Table .TableBody td {
     z-index: 8;
     border-radius: 3px;
     font-size: 12px;
-}
-
-.statusBar .Row {
-    width: 100%;
-    display: flex;
-    align-items: baseline;
-    justify-content: flex-start;
-    align-self: center;
+    align-items: center;
 }
 
 .statusBar label {

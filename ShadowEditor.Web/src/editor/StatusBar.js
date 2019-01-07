@@ -19,42 +19,42 @@ StatusBar.prototype.render = function () {
         parent: this.parent,
         cls: 'statusBar',
         children: [{
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
-                text: '物体'
-            }, {
-                xtype: 'text',
-                id: 'objectsText',
-                scope: this.id,
-                text: '0' // 物体数
-            }, {
-                xtype: 'label',
-                text: '顶点'
-            }, {
-                xtype: 'text',
-                id: 'verticesText',
-                scope: this.id,
-                text: '0' // 顶点数
-            }, {
-                xtype: 'label',
-                text: '三角形'
-            }, {
-                xtype: 'text',
-                id: 'trianglesText',
-                scope: this.id,
-                text: '0' // 三角形数
-            }, {
-                xtype: 'label',
-                text: '扔小球',
-                style: {
-                    marginLeft: '16px'
-                },
-            }, {
-                xtype: 'checkbox',
-                id: 'cbThrowBall',
-                onChange: this.onEnableThrowBall.bind(this)
-            }]
+            xtype: 'label',
+            text: '物体'
+        }, {
+            xtype: 'text',
+            id: 'objectsText',
+            scope: this.id,
+            text: '0' // 物体数
+        }, {
+            xtype: 'label',
+            text: '顶点'
+        }, {
+            xtype: 'text',
+            id: 'verticesText',
+            scope: this.id,
+            text: '0' // 顶点数
+        }, {
+            xtype: 'label',
+            text: '三角形'
+        }, {
+            xtype: 'text',
+            id: 'trianglesText',
+            scope: this.id,
+            text: '0' // 三角形数
+        }, {
+            xtype: 'label',
+            text: '|',
+            style: {
+                margin: '0 4px'
+            }
+        }, {
+            xtype: 'label',
+            text: '扔小球',
+        }, {
+            xtype: 'checkbox',
+            id: 'cbThrowBall',
+            onChange: this.onEnableThrowBall.bind(this)
         }]
     };
 
