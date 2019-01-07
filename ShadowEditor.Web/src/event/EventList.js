@@ -98,6 +98,9 @@ var EventList = [
     'selectAudio', // 选择音频
     'selectAnimation', // 选择动画
     'selectParticle', // 选择粒子
+
+    // 状态栏事件
+    'enableThrowBall', // 是否允许扔小球
 ];
 
 export default EventList;

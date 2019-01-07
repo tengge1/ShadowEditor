@@ -11,6 +11,8 @@ function ThrowBallEvent(app, world, rigidBodies) {
 
     this.world = world;
     this.rigidBodies = rigidBodies;
+
+    this.enabled = false;
 }
 
 ThrowBallEvent.prototype = Object.create(PlayerComponent.prototype);
@@ -21,16 +23,26 @@ ThrowBallEvent.prototype.create = function (scene, camera, renderer) {
     this.camera = camera;
     this.renderer = renderer;
     this.app.on(`click.${this.id}`, this.throwBall.bind(this));
+    this.app.on(`enableThrowBall.${this.id}`, this.onEnableThrowBall.bind(this));
 };
 
 ThrowBallEvent.prototype.dispose = function () {
     this.app.on(`click.${this.id}`, null);
+    this.app.on(`enableThrowBall.${this.id}`, null);
     this.scene = null;
     this.camera = null;
     this.renderer = null;
 };
 
+ThrowBallEvent.prototype.onEnableThrowBall = function (enabled) {
+    this.enabled = enabled;
+};
+
 ThrowBallEvent.prototype.throwBall = function (event) {
+    if (!this.enabled) {
+        return;
+    }
+
     var mouse = new THREE.Vector2();
     var raycaster = new THREE.Raycaster();
 

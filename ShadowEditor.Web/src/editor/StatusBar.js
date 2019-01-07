@@ -46,22 +46,15 @@ StatusBar.prototype.render = function () {
                 text: '0' // 三角形数
             }, {
                 xtype: 'label',
-                text: '碰撞体',
+                text: '扔小球',
                 style: {
                     marginLeft: '16px'
                 },
             }, {
                 xtype: 'checkbox',
-                id: 'cbShowCollision'
-            }, {
-                xtype: 'label',
-                text: 'z键扔小球',
-                style: {
-                    marginLeft: '16px'
-                },
-            }, {
-                xtype: 'checkbox',
-                id: 'cbThrowBall'
+                id: 'cbThrowBall',
+                scope: this.id,
+                onChange: this.onEnableThrowBall.bind(this)
             }]
         }]
     };
@@ -79,7 +72,9 @@ StatusBar.prototype.onUpdateInfo = function () {
 
     var scene = editor.scene;
 
-    var objects = 0, vertices = 0, triangles = 0;
+    var objects = 0,
+        vertices = 0,
+        triangles = 0;
 
     for (var i = 0, l = scene.children.length; i < l; i++) {
         var object = scene.children[i];
@@ -113,6 +108,11 @@ StatusBar.prototype.onUpdateInfo = function () {
     objectsText.setValue(objects.format());
     verticesText.setValue(vertices.format());
     trianglesText.setValue(triangles.format());
+};
+
+StatusBar.prototype.onEnableThrowBall = function () {
+    var enabled = UI.get('cbThrowBall', this.id);
+    this.app.call('enableThrowBall', this, enabled.getValue());
 };
 
 export default StatusBar;
