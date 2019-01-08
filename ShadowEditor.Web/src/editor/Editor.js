@@ -319,6 +319,34 @@ Editor.prototype.onOptionsChanged = function (options) { // 帮助器改变事�
     });
 };
 
+Editor.prototype.addPhysicsHelper = function (object, helper) { // 添加物理帮助器
+    var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
+    var material = new THREE.MeshBasicMaterial({
+        color: 0xff0000,
+        visible: false
+    });
+
+    var picker = new THREE.Mesh(geometry, material);
+    picker.name = 'picker';
+    picker.userData.object = object;
+    helper.add(picker);
+
+    this.sceneHelpers.add(helper);
+    this.helpers[object.id] = helper;
+    this.objects.push(picker);
+};
+
+Editor.prototype.removePhysicsHelper = function (object, helper) { // 移除物理帮助器
+    if (this.helpers[object.id] !== undefined) {
+        var helper = this.helpers[object.id];
+        helper.parent.remove(helper);
+        delete this.helpers[object.id];
+
+        var objects = this.objects;
+        objects.splice(objects.indexOf(helper.getObjectByName('picker')), 1);
+    }
+};
+
 // ------------------------ 脚本 ----------------------------
 
 Editor.prototype.addScript = function (object, script) { // 添加脚本

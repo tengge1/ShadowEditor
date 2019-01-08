@@ -1,4 +1,9 @@
 import BaseComponent from '../BaseComponent';
+import BoxShapeHelper from './helper/BoxShapeHelper';
+
+var helpers = {
+    BoxShapeHelper: BoxShapeHelper,
+};
 
 /**
  * 刚体组件
@@ -139,6 +144,7 @@ RigidBodyComponent.prototype.render = function () {
 
 RigidBodyComponent.prototype.onObjectSelected = function () {
     this.updateUI();
+    this.showPhysicsShapeHelper();
 };
 
 RigidBodyComponent.prototype.onObjectChanged = function () {
@@ -190,6 +196,31 @@ RigidBodyComponent.prototype.onChange = function () {
     physics.inertia.x = inertiaX.getValue();
     physics.inertia.y = inertiaY.getValue();
     physics.inertia.z = inertiaZ.getValue();
+};
+
+// -------------------------- 物理形状帮助器 -------------------------------------
+
+RigidBodyComponent.prototype.showPhysicsShapeHelper = function () {
+    if (this.selected == null) {
+        return;
+    }
+
+    if (this.helper !== undefined) {
+        this.app.editor.removePhysicsHelper(this.selected, this.helper);
+    }
+
+    var geometry = this.selected.geometry;
+    geometry.computeBoundingBox();
+
+    var box = geometry.boundingBox;
+    box.applyMatrix4(this.selected.matrixWorld);
+
+    var x = box.max.x - box.min.x;
+    var y = box.max.y - box.min.y;
+    var z = box.max.z - box.min.z;
+
+    this.helper = new BoxShapeHelper(x, y, z);
+    this.app.editor.addPhysicsHelper(this.selected, this.helper);
 };
 
 export default RigidBodyComponent;
