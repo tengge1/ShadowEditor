@@ -27,12 +27,16 @@ function BoxShapeHelper(object) {
     material.polygonOffsetUnits = -1;
 
     THREE.Mesh.call(this, geometry, material);
+
+    this.update();
 };
 
 BoxShapeHelper.prototype = Object.create(THREE.Mesh.prototype);
 BoxShapeHelper.prototype.constructor = BoxShapeHelper;
 
 BoxShapeHelper.prototype.update = function () {
+    this.object.geometry.computeBoundingBox();
+
     this.position.copy(this.object.position);
     this.rotation.copy(this.object.rotation);
     this.scale.copy(this.object.scale);
