@@ -206,21 +206,11 @@ RigidBodyComponent.prototype.showPhysicsShapeHelper = function () {
     }
 
     if (this.helper !== undefined) {
-        this.app.editor.removePhysicsHelper(this.selected, this.helper);
+        this.app.editor.removePhysicsHelper(this.helper);
     }
 
-    var geometry = this.selected.geometry;
-    geometry.computeBoundingBox();
-
-    var box = geometry.boundingBox;
-    box.applyMatrix4(this.selected.matrixWorld);
-
-    var x = box.max.x - box.min.x;
-    var y = box.max.y - box.min.y;
-    var z = box.max.z - box.min.z;
-
-    this.helper = new BoxShapeHelper(x, y, z);
-    this.app.editor.addPhysicsHelper(this.selected, this.helper);
+    this.helper = new BoxShapeHelper(this.selected);
+    this.app.editor.addPhysicsHelper(this.helper);
 };
 
 export default RigidBodyComponent;

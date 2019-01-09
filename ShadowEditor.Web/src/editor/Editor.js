@@ -319,7 +319,7 @@ Editor.prototype.onOptionsChanged = function (options) { // 帮助器改变事�
     });
 };
 
-Editor.prototype.addPhysicsHelper = function (object, helper) { // 添加物理帮助器
+Editor.prototype.addPhysicsHelper = function (helper) {
     var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
     var material = new THREE.MeshBasicMaterial({
         color: 0xff0000,
@@ -328,19 +328,19 @@ Editor.prototype.addPhysicsHelper = function (object, helper) { // 添加物理�
 
     var picker = new THREE.Mesh(geometry, material);
     picker.name = 'picker';
-    picker.userData.object = object;
+    picker.userData.object = helper.object;
     helper.add(picker);
 
     this.sceneHelpers.add(helper);
-    this.helpers[object.id] = helper;
+    this.helpers[helper.object.id] = helper;
     this.objects.push(picker);
 };
 
-Editor.prototype.removePhysicsHelper = function (object, helper) { // 移除物理帮助器
-    if (this.helpers[object.id] !== undefined) {
-        var helper = this.helpers[object.id];
+Editor.prototype.removePhysicsHelper = function (helper) {
+    if (this.helpers[helper.object.id] !== undefined) {
+        var helper = this.helpers[helper.object.id];
         helper.parent.remove(helper);
-        delete this.helpers[object.id];
+        delete this.helpers[helper.object.id];
 
         var objects = this.objects;
         objects.splice(objects.indexOf(helper.getObjectByName('picker')), 1);
