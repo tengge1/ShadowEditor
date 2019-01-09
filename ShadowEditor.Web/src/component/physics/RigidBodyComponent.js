@@ -1,8 +1,10 @@
 import BaseComponent from '../BaseComponent';
 import BoxShapeHelper from './helper/BoxShapeHelper';
+import SphereShapeHelper from './helper/SphereShapeHelper';
 
-var helpers = {
-    BoxShapeHelper: BoxShapeHelper,
+var physicsShapeHelper = {
+    btBoxShape: BoxShapeHelper,
+    btSphereShape: SphereShapeHelper,
 };
 
 /**
@@ -209,7 +211,19 @@ RigidBodyComponent.prototype.showPhysicsShapeHelper = function () {
         this.app.editor.removePhysicsHelper(this.helper);
     }
 
-    this.helper = new BoxShapeHelper(this.selected);
+    var physics = this.selected.userData.physics;
+    if (!physics) {
+        return;
+    }
+
+    var helper = physicsShapeHelper[physics.shape];
+
+    if (!helper) {
+        console.warn(`RigidBodyComponent: ${physics.shape}暂无对应物理形状帮助器。`);
+        return;
+    }
+
+    this.helper = new helper(this.selected);
     this.app.editor.addPhysicsHelper(this.helper);
 };
 

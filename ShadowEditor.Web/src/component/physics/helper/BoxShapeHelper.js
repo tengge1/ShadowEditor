@@ -21,10 +21,7 @@ function BoxShapeHelper(object) {
     });
 
     material.wireframe = true;
-    material.wireframeLinewidth = 10;
-    material.polygonOffset = true;
-    material.polygonOffsetFactor = -1;
-    material.polygonOffsetUnits = -1;
+    material.depthTest = false;
 
     THREE.Mesh.call(this, geometry, material);
 
