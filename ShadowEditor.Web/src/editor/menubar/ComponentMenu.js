@@ -6,7 +6,6 @@ import Water from '../../object/component/Water';
 import Smoke from '../../object/component/Smoke';
 import Cloth from '../../object/component/Cloth';
 import ParticleEmitter from '../../object/component/ParticleEmitter';
-import PlysicsUtils from '../../physics/PlysicsUtils';
 
 /**
  * 组件菜单

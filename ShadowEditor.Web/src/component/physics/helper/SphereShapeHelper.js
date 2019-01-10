@@ -9,7 +9,6 @@ function SphereShapeHelper(object) {
     geometry.computeBoundingSphere();
 
     var sphere = geometry.boundingSphere;
-    sphere.applyMatrix4(this.object.matrixWorld);
 
     var geometry = new THREE.SphereBufferGeometry(sphere.radius);
     var material = new THREE.MeshBasicMaterial({

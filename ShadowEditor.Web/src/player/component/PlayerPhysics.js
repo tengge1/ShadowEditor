@@ -1,5 +1,4 @@
 import PlayerComponent from './PlayerComponent';
-import PlysicsUtils from '../../physics/PlysicsUtils';
 import ThrowBallEvent from './physics/ThrowBallEvent';
 
 const shape = {
@@ -72,7 +71,7 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
 
     this.scene.traverse(n => {
         if (n.userData && n.userData.physics && n.userData.physics.enabled) {
-            var body = PlysicsUtils.createRigidBody(n, this.margin);
+            var body = this.createRigidBody(n);
             if (body) {
                 n.userData.physics.body = body;
                 this.world.addRigidBody(body);
@@ -139,6 +138,62 @@ PlayerPhysics.prototype.dispose = function () {
     });
 
     this.scene = null;
+};
+
+// ------------------------------------ 创建刚体 ------------------------------------
+
+PlayerPhysics.prototype.createRigidBody = function (obj) {
+    var position = obj.position;
+    var quaternion = obj.quaternion;
+    var scale = obj.scale;
+
+    var physics = obj.userData.physics;
+    var shape = physics.shape;
+    var mass = physics.mass;
+    var inertia = physics.inertia;
+
+    // 形状
+    var physicsShape = null;
+
+    if (shape === 'btBoxShape') {
+        var geometry = obj.geometry;
+        geometry.computeBoundingBox();
+
+        var box = geometry.boundingBox;
+
+        var x = box.max.x - box.min.x;
+        var y = box.max.y - box.min.y;
+        var z = box.max.z - box.min.z;
+
+        // var center = new THREE.Vector3();
+        // box.getCenter(center);
+        // box.translate(center);
+
+        physicsShape = new Ammo.btBoxShape(new Ammo.btVector3(x * 0.5, y * 0.5, z * 0.5));
+    } else if (shape === 'btSphereShape') {
+        var geometry = obj.geometry;
+        geometry.computeBoundingSphere();
+
+        var sphere = geometry.boundingSphere;
+        physicsShape = new Ammo.btSphereShape(sphere.radius);
+    } else {
+        console.warn(`PlayerPhysics: 无法创建形状${shape}。`);
+        return null;
+    }
+
+    // 位移
+    var transform = new Ammo.btTransform();
+    transform.setIdentity();
+    transform.setOrigin(new Ammo.btVector3(position.x, position.y, position.z));
+    transform.setRotation(new Ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
+
+    var defaultState = new Ammo.btDefaultMotionState(transform);
+
+    var localInertia = new Ammo.btVector3(inertia.x, inertia.y, inertia.z);
+    physicsShape.calculateLocalInertia(mass, localInertia);
+
+    var info = new Ammo.btRigidBodyConstructionInfo(mass, defaultState, physicsShape, localInertia);
+    return new Ammo.btRigidBody(info);
 };
 
 export default PlayerPhysics;
