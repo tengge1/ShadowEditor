@@ -9,7 +9,6 @@ function BoxShapeHelper(object) {
     geometry.computeBoundingBox();
 
     var box = geometry.boundingBox;
-    box.applyMatrix4(this.object.matrixWorld);
 
     var x = box.max.x - box.min.x;
     var y = box.max.y - box.min.y;
