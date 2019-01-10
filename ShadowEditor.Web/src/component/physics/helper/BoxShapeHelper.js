@@ -14,7 +14,12 @@ function BoxShapeHelper(object) {
     var y = box.max.y - box.min.y;
     var z = box.max.z - box.min.z;
 
+    var center = new THREE.Vector3();
+    box.getCenter(center);
+
     var geometry = new THREE.BoxBufferGeometry(x, y, z);
+    geometry.translate(center.x, center.y, center.z);
+
     var material = new THREE.MeshBasicMaterial({
         color: 0xffff00
     });
