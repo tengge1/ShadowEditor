@@ -12,7 +12,7 @@ function Icosahedron(geometry = new THREE.IcosahedronBufferGeometry(1, 2), mater
 
     this.userData.physics = this.userData.physics || {
         enabled: false,
-        shape: 'btBoxShape',
+        shape: 'btSphereShape',
         mass: 1,
         inertia: {
             x: 0,

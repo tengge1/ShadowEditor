@@ -13,7 +13,7 @@ function Circle(geometry = new THREE.CircleBufferGeometry(1, 32), material = new
     this.userData.physics = this.userData.physics || {
         enabled: false,
         shape: 'btBoxShape',
-        mass: 1,
+        mass: 0,
         inertia: {
             x: 0,
             y: 0,
