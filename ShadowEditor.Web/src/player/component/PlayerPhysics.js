@@ -61,6 +61,11 @@ function PlayerPhysics(app) {
     this.events = [
         new ThrowBallEvent(this.app, this.world, this.rigidBodies)
     ];
+
+    // api函数
+    Object.assign(app, {
+        addPhysicsObject: this.addPhysicsObject.bind(this)
+    });
 }
 
 PlayerPhysics.prototype = Object.create(PlayerComponent.prototype);
@@ -194,6 +199,28 @@ PlayerPhysics.prototype.createRigidBody = function (obj) {
 
     var info = new Ammo.btRigidBodyConstructionInfo(mass, defaultState, physicsShape, localInertia);
     return new Ammo.btRigidBody(info);
+};
+
+// --------------------------------- API函数 ------------------------------------------------
+
+/**
+ * 添加一个物理物体
+ * @param {*} obj 
+ */
+PlayerPhysics.prototype.addPhysicsObject = function (obj) {
+    this.scene.add(obj);
+    if (obj.userData && obj.userData.physics && obj.userData.physics.enabled) {
+        var body = this.createRigidBody(obj);
+        if (body) {
+            obj.userData.physics.body = body;
+            this.world.addRigidBody(body);
+
+            if (obj.userData.physics.mass > 0) {
+                this.rigidBodies.push(obj);
+                body.setActivationState(4);
+            }
+        }
+    }
 };
 
 export default PlayerPhysics;
