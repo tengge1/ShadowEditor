@@ -99,6 +99,16 @@ ModelLoader.prototype.load = function (url, options, environment) {
             return;
         }
         (new loader(this.app)).load(url, options, environment).then(obj => {
+            obj.userData.physics = obj.userData.physics || {
+                enabled: false,
+                shape: 'btBoxShape',
+                mass: 1,
+                inertia: {
+                    x: 0,
+                    y: 0,
+                    z: 0,
+                }
+            };
             resolve(obj);
         });
     });
