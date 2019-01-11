@@ -142,6 +142,7 @@ RigidBodyComponent.prototype.render = function () {
 
     this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    this.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
 };
 
 RigidBodyComponent.prototype.onObjectSelected = function () {
@@ -152,6 +153,12 @@ RigidBodyComponent.prototype.onObjectSelected = function () {
 RigidBodyComponent.prototype.onObjectChanged = function () {
     this.updateUI();
     this.showPhysicsShapeHelper();
+};
+
+RigidBodyComponent.prototype.onObjectRemoved = function (object) {
+    if (this.helper && this.helper.object === object) {
+        this.app.editor.removePhysicsHelper(this.helper);
+    }
 };
 
 RigidBodyComponent.prototype.updateUI = function () {
