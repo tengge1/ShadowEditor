@@ -151,6 +151,7 @@ RigidBodyComponent.prototype.onObjectSelected = function () {
 
 RigidBodyComponent.prototype.onObjectChanged = function () {
     this.updateUI();
+    this.showPhysicsShapeHelper();
 };
 
 RigidBodyComponent.prototype.updateUI = function () {
@@ -198,6 +199,8 @@ RigidBodyComponent.prototype.onChange = function () {
     physics.inertia.x = inertiaX.getValue();
     physics.inertia.y = inertiaY.getValue();
     physics.inertia.z = inertiaZ.getValue();
+
+    this.app.call(`objectChanged`, this, this.selected);
 };
 
 // -------------------------- 物理形状帮助器 -------------------------------------
@@ -212,7 +215,7 @@ RigidBodyComponent.prototype.showPhysicsShapeHelper = function () {
     }
 
     var physics = this.selected.userData.physics;
-    if (!physics) {
+    if (!physics || !physics.enabled) {
         return;
     }
 
