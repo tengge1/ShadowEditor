@@ -182,7 +182,7 @@ TimePanel.prototype.updateUI = function () {
         // 动画组信息区
         var layerName = document.createElement('div');
         layerName.className = 'layer-info';
-        layerName.innerHTML = `<input type="checkbox" data-uuid="${n.uuid}" />${n.layerName}`;
+        layerName.innerHTML = `<input type="checkbox" data-uuid="${n.uuid}" />${n.layerName || n.name}`; // || n.name兼容旧数据
         layerInfo.dom.appendChild(layerName);
 
         // 动画区
