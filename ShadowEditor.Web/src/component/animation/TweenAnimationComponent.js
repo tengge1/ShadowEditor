@@ -417,7 +417,9 @@ TweenAnimationComponent.prototype.updateUI = function (animation) {
     var endScaleY = UI.get('endScaleY', this.id);
     var endScaleZ = UI.get('endScaleZ', this.id);
 
-    switch (this.animation.beginStatus) {
+    var data = this.animation.data;
+
+    switch (data.beginStatus) {
         case 'Current':
             beginPositionRow.dom.style.display = 'none';
             beginRotationRow.dom.style.display = 'none';
@@ -430,7 +432,7 @@ TweenAnimationComponent.prototype.updateUI = function (animation) {
             break;
     }
 
-    switch (this.animation.endStatus) {
+    switch (data.endStatus) {
         case 'Current':
             endPositionRow.dom.style.display = 'none';
             endRotationRow.dom.style.display = 'none';
@@ -443,29 +445,29 @@ TweenAnimationComponent.prototype.updateUI = function (animation) {
             break;
     }
 
-    beginStatus.setValue(this.animation.beginStatus);
-    beginPositionX.setValue(this.animation.beginPositionX);
-    beginPositionY.setValue(this.animation.beginPositionY);
-    beginPositionZ.setValue(this.animation.beginPositionZ);
-    beginRotationX.setValue(this.animation.beginRotationX * 180 / Math.PI);
-    beginRotationY.setValue(this.animation.beginRotationY * 180 / Math.PI);
-    beginRotationZ.setValue(this.animation.beginRotationZ * 180 / Math.PI);
-    beginScaleLock.setValue(this.animation.beginScaleLock);
-    beginScaleX.setValue(this.animation.beginScaleX);
-    beginScaleY.setValue(this.animation.beginScaleY);
-    beginScaleZ.setValue(this.animation.beginScaleZ);
-    ease.setValue(this.animation.ease);
-    endStatus.setValue(this.animation.endStatus);
-    endPositionX.setValue(this.animation.endPositionX);
-    endPositionY.setValue(this.animation.endPositionY);
-    endPositionZ.setValue(this.animation.endPositionZ);
-    endRotationX.setValue(this.animation.endRotationX * 180 / Math.PI);
-    endRotationY.setValue(this.animation.endRotationY * 180 / Math.PI);
-    endRotationZ.setValue(this.animation.endRotationZ * 180 / Math.PI);
-    endScaleLock.setValue(this.animation.endScaleLock);
-    endScaleX.setValue(this.animation.endScaleX);
-    endScaleY.setValue(this.animation.endScaleY);
-    endScaleZ.setValue(this.animation.endScaleZ);
+    beginStatus.setValue(data.beginStatus);
+    beginPositionX.setValue(data.beginPositionX);
+    beginPositionY.setValue(data.beginPositionY);
+    beginPositionZ.setValue(data.beginPositionZ);
+    beginRotationX.setValue(data.beginRotationX * 180 / Math.PI);
+    beginRotationY.setValue(data.beginRotationY * 180 / Math.PI);
+    beginRotationZ.setValue(data.beginRotationZ * 180 / Math.PI);
+    beginScaleLock.setValue(data.beginScaleLock);
+    beginScaleX.setValue(data.beginScaleX);
+    beginScaleY.setValue(data.beginScaleY);
+    beginScaleZ.setValue(data.beginScaleZ);
+    ease.setValue(data.ease);
+    endStatus.setValue(data.endStatus);
+    endPositionX.setValue(data.endPositionX);
+    endPositionY.setValue(data.endPositionY);
+    endPositionZ.setValue(data.endPositionZ);
+    endRotationX.setValue(data.endRotationX * 180 / Math.PI);
+    endRotationY.setValue(data.endRotationY * 180 / Math.PI);
+    endRotationZ.setValue(data.endRotationZ * 180 / Math.PI);
+    endScaleLock.setValue(data.endScaleLock);
+    endScaleX.setValue(data.endScaleX);
+    endScaleY.setValue(data.endScaleY);
+    endScaleZ.setValue(data.endScaleZ);
 };
 
 TweenAnimationComponent.prototype.onChange = function () {
@@ -526,29 +528,31 @@ TweenAnimationComponent.prototype.onChange = function () {
             break;
     }
 
-    this.animation.beginStatus = beginStatus.getValue();
-    this.animation.beginPositionX = beginPositionX.getValue();
-    this.animation.beginPositionY = beginPositionY.getValue();
-    this.animation.beginPositionZ = beginPositionZ.getValue();
-    this.animation.beginRotationX = beginRotationX.getValue() * Math.PI / 180;
-    this.animation.beginRotationY = beginRotationY.getValue() * Math.PI / 180;
-    this.animation.beginRotationZ = beginRotationZ.getValue() * Math.PI / 180;
-    this.animation.beginScaleLock = beginScaleLock.getValue();
-    this.animation.beginScaleX = beginScaleX.getValue();
-    this.animation.beginScaleY = beginScaleY.getValue();
-    this.animation.beginScaleZ = beginScaleZ.getValue();
-    this.animation.ease = ease.getValue();
-    this.animation.endStatus = endStatus.getValue();
-    this.animation.endPositionX = endPositionX.getValue();
-    this.animation.endPositionY = endPositionY.getValue();
-    this.animation.endPositionZ = endPositionZ.getValue();
-    this.animation.endRotationX = endRotationX.getValue() * Math.PI / 180;
-    this.animation.endRotationY = endRotationY.getValue() * Math.PI / 180;
-    this.animation.endRotationZ = endRotationZ.getValue() * Math.PI / 180;
-    this.animation.endScaleLock = endScaleLock.getValue();
-    this.animation.endScaleX = endScaleX.getValue();
-    this.animation.endScaleY = endScaleY.getValue();
-    this.animation.endScaleZ = endScaleZ.getValue();
+    this.animation.data = this.animation.data || {};
+
+    this.animation.data.beginStatus = beginStatus.getValue();
+    this.animation.data.beginPositionX = beginPositionX.getValue();
+    this.animation.data.beginPositionY = beginPositionY.getValue();
+    this.animation.data.beginPositionZ = beginPositionZ.getValue();
+    this.animation.data.beginRotationX = beginRotationX.getValue() * Math.PI / 180;
+    this.animation.data.beginRotationY = beginRotationY.getValue() * Math.PI / 180;
+    this.animation.data.beginRotationZ = beginRotationZ.getValue() * Math.PI / 180;
+    this.animation.data.beginScaleLock = beginScaleLock.getValue();
+    this.animation.data.beginScaleX = beginScaleX.getValue();
+    this.animation.data.beginScaleY = beginScaleY.getValue();
+    this.animation.data.beginScaleZ = beginScaleZ.getValue();
+    this.animation.data.ease = ease.getValue();
+    this.animation.data.endStatus = endStatus.getValue();
+    this.animation.data.endPositionX = endPositionX.getValue();
+    this.animation.data.endPositionY = endPositionY.getValue();
+    this.animation.data.endPositionZ = endPositionZ.getValue();
+    this.animation.data.endRotationX = endRotationX.getValue() * Math.PI / 180;
+    this.animation.data.endRotationY = endRotationY.getValue() * Math.PI / 180;
+    this.animation.data.endRotationZ = endRotationZ.getValue() * Math.PI / 180;
+    this.animation.data.endScaleLock = endScaleLock.getValue();
+    this.animation.data.endScaleX = endScaleX.getValue();
+    this.animation.data.endScaleY = endScaleY.getValue();
+    this.animation.data.endScaleZ = endScaleZ.getValue();
 
     this.app.call('animationChanged', this, this.animation);
 };

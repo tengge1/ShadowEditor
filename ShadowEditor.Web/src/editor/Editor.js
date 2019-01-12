@@ -67,11 +67,11 @@ function Editor(app) {
     this.scripts = {};
 
     // 动画格式：[{ id: 'MongoDB _id', uuid: 'uuid', layer: '动画层序号', layerName: '动画层名称', animations: '动画' }, ...]
-    // 其中，动画：[{ id: 'MongoDB _id', uuid: 'uuid', name: '动画名称', target: '动画对象uuid', type: '动画类型', beginTime: '开始时间(s)', endTime: '结束时间(s)', ... }, ...]
+    // 其中，动画：[{ id: 'MongoDB _id', uuid: 'uuid', name: '动画名称', target: '动画对象uuid', type: '动画类型', beginTime: '开始时间(s)', endTime: '结束时间(s)', data: '动画参数' }, ...]
     // 其中，uuid是创建脚本时自动生成，不可改变，关联时使用。
     // 动画层序号：在时间面板显示位置，从0开始计算。
     // 动画类型：Tween-补间动画，Skeletal-骨骼动画，Audio-音频播放，Shader-着色器动画，Filter-滤镜动画，Particle-粒子动画
-    // 根据动画类型不同，还可能包含其他参数。
+    // 动画参数：是一个字典，根据动画类型不同，参数也不同
     this.animations = [];
 
     // 帮助器

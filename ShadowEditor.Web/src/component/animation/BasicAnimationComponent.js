@@ -149,7 +149,7 @@ BasicAnimationComponent.prototype.updateUI = function (animation) {
 
     name.setValue(this.animation.name);
 
-    if (this.animation.target === undefined || this.animation.target === null) {
+    if (!this.animation.target) {
         target.setValue('(无)');
     } else {
         var obj = this.app.editor.objectByUuid(this.animation.target);

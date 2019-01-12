@@ -316,7 +316,7 @@ ScenePanel.prototype.onLoadScene = function (obj) {
     }
 
     this.app.call('sceneLoaded', this);
-    this.app.call('animationChanged', this, this.app.editor.animations);
+    this.app.call('animationChanged', this);
 };
 
 // ------------------------------- 编辑场景 ---------------------------------------

@@ -372,7 +372,32 @@ TimePanel.prototype.onDblClick = function (event) {
             target: null,
             type: 'Tween',
             beginTime: event.offsetX / timeline.scale,
-            endTime: (event.offsetX + 80) / timeline.scale
+            endTime: (event.offsetX + 80) / timeline.scale,
+            data: {
+                beginStatus: 'Current', // 开始状态：Current-当前位置、Custom-自定义位置
+                beginPositionX: 0,
+                beginPositionY: 0,
+                beginPositionZ: 0,
+                beginRotationX: 0,
+                beginRotationY: 0,
+                beginRotationZ: 0,
+                beginScaleLock: true,
+                beginScaleX: 1.0,
+                beginScaleY: 1.0,
+                beginScaleZ: 1.0,
+                ease: 'linear', // linear, quadIn, quadOut, quadInOut, cubicIn, cubicOut, cubicInOut, quartIn, quartOut, quartInOut, quintIn, quintOut, quintInOut, sineIn, sineOut, sineInOut, backIn, backOut, backInOut, circIn, circOut, circInOut, bounceIn, bounceOut, bounceInOut, elasticIn, elasticOut, elasticInOut
+                endStatus: 'Current',
+                endPositionX: 0,
+                endPositionY: 0,
+                endPositionZ: 0,
+                endRotationX: 0,
+                endRotationY: 0,
+                endRotationZ: 0,
+                endScaleLock: true,
+                endScaleX: 1.0,
+                endScaleY: 1.0,
+                endScaleZ: 1.0,
+            }
         };
 
         event.target.data.animations.push(animation);
@@ -407,6 +432,8 @@ TimePanel.prototype.onDropLayer = function (event) {
     event.preventDefault();
     var uuid = event.dataTransfer.getData('uuid');
     var offsetX = event.dataTransfer.getData('offsetX');
+
+    debugger
 
     // var groups = this.app.editor.animation.getAnimationGroups();
     // var group = groups.filter(n => n.animations.findIndex(m => m.uuid === uuid) > -1)[0];
