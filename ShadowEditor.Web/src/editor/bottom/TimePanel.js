@@ -253,9 +253,19 @@ TimePanel.prototype.onAnimate = function () {
 };
 
 TimePanel.prototype.onAddLayer = function () {
-    // var group = new AnimationGroup();
-    // this.app.editor.animation.add(group);
-    // this.updateUI();
+    var animations = this.app.editor.animations;
+
+    var maxLayer = Math.max.apply(Math, animations.map(n => n.layer));
+
+    var animation = {
+        id: null,
+        uuid: THREE.Math.generateUUID(),
+        layer: maxLayer + 1,
+        layerName: `动画层${maxLayer + 2}`,
+        animations: []
+    };
+    this.app.editor.animations.push(animation);
+    this.updateUI();
 };
 
 TimePanel.prototype.onRemoveLayer = function () {
