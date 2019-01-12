@@ -280,6 +280,26 @@ ScenePanel.prototype.onLoadScene = function (obj) {
 
     if (obj.animations) {
         Object.assign(this.app.editor.animations, obj.animations);
+    } else {
+        this.app.editor.animations = [{
+            id: null,
+            uuid: THREE.Math.generateUUID(),
+            layer: 0,
+            layerName: '动画层1',
+            animations: []
+        }, {
+            id: null,
+            uuid: THREE.Math.generateUUID(),
+            layer: 1,
+            layerName: '动画层2',
+            animations: []
+        }, {
+            id: null,
+            uuid: THREE.Math.generateUUID(),
+            layer: 2,
+            layerName: '动画层3',
+            animations: []
+        }];
     }
 
     if (obj.scene) {
@@ -296,6 +316,7 @@ ScenePanel.prototype.onLoadScene = function (obj) {
     }
 
     this.app.call('sceneLoaded', this);
+    this.app.call('animationChanged', this, this.app.editor.animations);
 };
 
 // ------------------------------- 编辑场景 ---------------------------------------
