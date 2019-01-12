@@ -2,8 +2,6 @@ import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
 import EditWindow from '../window/EditWindow';
 import Converter from '../../serialization/Converter';
-import AnimationGroup from '../../animation/AnimationGroup';
-import Animation from '../../animation/Animation';
 
 /**
  * 场景面板
@@ -235,55 +233,6 @@ ScenePanel.prototype.onLoad = function (data) {
                 this.app.call('scriptChanged', this);
             }
 
-            if (obj.animation) {
-                this.app.editor.animation.setAnimationGroups(obj.animation.map(n => {
-                    return new AnimationGroup({
-                        id: n.id,
-                        uuid: n.uuid,
-                        name: n.name,
-                        index: n.index,
-                        animations: n.animations.map(m => {
-                            return new Animation({
-                                // 基本信息
-                                id: m.id,
-                                uuid: m.uuid,
-                                name: m.name,
-                                target: m.target,
-                                type: m.type,
-                                beginTime: m.beginTime,
-                                endTime: m.endTime,
-
-                                // 补间动画
-                                beginStatus: m.beginStatus,
-                                beginPositionX: m.beginPositionX,
-                                beginPositionY: m.beginPositionY,
-                                beginPositionZ: m.beginPositionZ,
-                                beginRotationX: m.beginRotationX,
-                                beginRotationY: m.beginRotationY,
-                                beginRotationZ: m.beginRotationZ,
-                                beginScaleLock: m.beginScaleLock,
-                                beginScaleX: m.beginScaleX,
-                                beginScaleY: m.beginScaleY,
-                                beginScaleZ: m.beginScaleZ,
-                                ease: m.ease,
-                                endStatus: m.endStatus,
-                                endPositionX: m.endPositionX,
-                                endPositionY: m.endPositionY,
-                                endPositionZ: m.endPositionZ,
-                                endRotationX: m.endRotationX,
-                                endRotationY: m.endRotationY,
-                                endRotationZ: m.endRotationZ,
-                                endScaleLock: m.endScaleLock,
-                                endScaleX: m.endScaleX,
-                                endScaleY: m.endScaleY,
-                                endScaleZ: m.endScaleZ
-                            })
-                        })
-                    })
-                }));
-                this.app.call('animationChanged', this);
-            }
-
             if (obj.scene) {
                 this.app.call('sceneGraphChanged', this);
             }
@@ -327,6 +276,10 @@ ScenePanel.prototype.onLoadScene = function (obj) {
 
     if (obj.scripts) {
         Object.assign(this.app.editor.scripts, obj.scripts);
+    }
+
+    if (obj.animations) {
+        Object.assign(this.app.editor.animations, obj.animations);
     }
 
     if (obj.scene) {

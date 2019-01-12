@@ -951,7 +951,7 @@ table.Table .TableBody td {
     z-index: 10;
 }
 
-.animation-panel .box .left-area .group-info {
+.animation-panel .box .left-area .layer-info {
     position: relative;
     height: 32px;
     display: flex;
@@ -962,7 +962,7 @@ table.Table .TableBody td {
     box-sizing: border-box;
 }
 
-.animation-panel .box .left-area .group-info:first-child {
+.animation-panel .box .left-area .layer-info:first-child {
     border-top: 1px solid #ddd;
 }
 
@@ -979,14 +979,14 @@ table.Table .TableBody td {
     border-bottom: 1px solid #ddd;
 }
 
-.animation-panel .box .right-area .groups {
+.animation-panel .box .right-area .layers {
     position: absolute;
     top: 34px;
     width: 100%;
     flex: 1;
 }
 
-.animation-panel .box .right-area .groups .group {
+.animation-panel .box .right-area .layers .layer {
     position: relative;
     width: 100%;
     height: 32px;
@@ -994,7 +994,7 @@ table.Table .TableBody td {
     box-sizing: border-box;
 }
 
-.animation-panel .box .right-area .groups .group .item {
+.animation-panel .box .right-area .layers .layer .item {
     position: absolute;
     left: 0;
     width: 80px;
@@ -1007,7 +1007,7 @@ table.Table .TableBody td {
     justify-content: center;
 }
 
-.animation-panel .box .right-area .groups .group .item:hover {
+.animation-panel .box .right-area .layers .layer .item:hover {
     background-color: #ccc;
 }
 

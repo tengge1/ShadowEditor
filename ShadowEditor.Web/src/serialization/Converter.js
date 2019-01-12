@@ -60,7 +60,7 @@ Converter.prototype.toJSON = function (obj) {
     var camera = obj.camera;
     var renderer = obj.renderer;
     var scripts = obj.scripts;
-    var animation = obj.animation;
+    var animations = obj.animations;
     var scene = obj.scene;
 
     var list = [];
@@ -84,8 +84,8 @@ Converter.prototype.toJSON = function (obj) {
     });
 
     // 动画
-    var animationJson = (new AnimationSerializer()).toJSON(animation);
-    animationJson.forEach(n => {
+    var animationsJson = (new AnimationSerializer()).toJSON(animations);
+    animationsJson.forEach(n => {
         list.push(n);
     });
 
@@ -181,7 +181,7 @@ Converter.prototype.fromJson = function (jsons, options) {
         camera: null,
         renderer: null,
         scripts: null,
-        animation: null,
+        animations: [],
         scene: null
     };
 
@@ -226,7 +226,7 @@ Converter.prototype.fromJson = function (jsons, options) {
     // 动画
     var animationJsons = jsons.filter(n => n.metadata && n.metadata.generator === 'AnimationSerializer');
     if (animationJsons) {
-        obj.animation = (new AnimationSerializer()).fromJSON(animationJsons);
+        obj.animations = (new AnimationSerializer()).fromJSON(animationJsons);
     }
 
     // 音频监听器

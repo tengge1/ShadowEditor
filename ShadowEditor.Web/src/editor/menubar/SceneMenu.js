@@ -109,7 +109,7 @@ SceneMenu.prototype.commitSave = function (id, sceneName) {
         camera: editor.camera,
         renderer: editor.renderer,
         scripts: editor.scripts,
-        animation: editor.animation,
+        animations: editor.animations,
         scene: editor.scene
     });
 
@@ -161,7 +161,7 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
         camera: editor.camera,
         renderer: editor.renderer,
         scripts: editor.scripts,
-        animation: editor.animation,
+        animations: editor.animations,
         scene: editor.scene
     });
 

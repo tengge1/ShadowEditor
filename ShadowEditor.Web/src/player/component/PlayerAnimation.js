@@ -1,6 +1,4 @@
 import PlayerComponent from './PlayerComponent';
-import Ease from '../../animation/Ease';
-
 import TweenAnimator from '../animator/TweenAnimator';
 import MMDAnimator from '../animator/MMDAnimator';
 import ParticleAnimator from '../animator/ParticleAnimator';

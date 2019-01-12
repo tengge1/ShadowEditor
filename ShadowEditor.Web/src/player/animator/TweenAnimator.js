@@ -1,5 +1,5 @@
 import PlayerComponent from '../component/PlayerComponent';
-import Ease from '../../animation/Ease';
+import Ease from '../../utils/Ease';
 
 /**
  * 补间动画控制器

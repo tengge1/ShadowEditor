@@ -1,6 +1,4 @@
 import UI from '../../ui/UI';
-import AnimationGroup from '../../animation/AnimationGroup';
-import Animation from '../../animation/Animation';
 
 const STOP = 0;
 const PLAY = 1;
@@ -35,11 +33,11 @@ TimePanel.prototype.render = function () {
             children: [{
                 xtype: 'iconbutton',
                 icon: 'icon-add',
-                onClick: this.onAddGroup.bind(this)
+                onClick: this.onAddLayer.bind(this)
             }, {
                 xtype: 'iconbutton',
                 icon: 'icon-delete',
-                onClick: this.onRemoveGroup.bind(this)
+                onClick: this.onRemoveLayer.bind(this)
             }, {
                 xtype: 'div',
                 style: {
@@ -115,7 +113,7 @@ TimePanel.prototype.render = function () {
             children: [{
                 xtype: 'div',
                 cls: 'left-area',
-                id: 'groupInfo',
+                id: 'layerInfo',
                 scope: this.id
             }, {
                 xtype: 'div',
@@ -127,8 +125,8 @@ TimePanel.prototype.render = function () {
                     scope: this.id
                 }, {
                     xtype: 'div',
-                    cls: 'groups',
-                    id: 'groups',
+                    cls: 'layers',
+                    id: 'layers',
                     scope: this.id,
                     children: []
                 }, {
@@ -149,15 +147,15 @@ TimePanel.prototype.render = function () {
 
 TimePanel.prototype.onAppStarted = function () {
     var timeline = UI.get('timeline', this.id);
-    var groups = UI.get('groups', this.id);
+    var layers = UI.get('layers', this.id);
 
     timeline.updateUI();
-    groups.dom.style.width = timeline.dom.clientWidth + 'px';
+    layers.dom.style.width = timeline.dom.clientWidth + 'px';
 
-    groups.dom.addEventListener(`click`, this.onClick.bind(this));
-    groups.dom.addEventListener(`dblclick`, this.onDblClick.bind(this));
-    groups.dom.addEventListener(`mousedown`, this.onMouseDown.bind(this));
-    groups.dom.addEventListener(`mousemove`, this.onMouseMove.bind(this));
+    layers.dom.addEventListener(`click`, this.onClick.bind(this));
+    layers.dom.addEventListener(`dblclick`, this.onDblClick.bind(this));
+    layers.dom.addEventListener(`mousedown`, this.onMouseDown.bind(this));
+    layers.dom.addEventListener(`mousemove`, this.onMouseMove.bind(this));
     document.body.addEventListener(`mouseup`, this.onMouseUp.bind(this));
 
     this.app.on(`animationChanged.${this.id}`, this.updateUI.bind(this));
@@ -167,40 +165,40 @@ TimePanel.prototype.onAppStarted = function () {
 };
 
 TimePanel.prototype.updateUI = function () {
-    var animations = this.app.editor.animation.getAnimationGroups();
+    var animations = this.app.editor.animations;
 
-    var groupInfo = UI.get('groupInfo', this.id);
     var timeline = UI.get('timeline', this.id);
-    var groups = UI.get('groups', this.id);
+    var layerInfo = UI.get('layerInfo', this.id);
+    var layers = UI.get('layers', this.id);
 
-    while (groupInfo.dom.children.length) {
-        var child = groupInfo.dom.children[0];
-        groupInfo.dom.removeChild(child);
+    while (layerInfo.dom.children.length) {
+        var child = layerInfo.dom.children[0];
+        layerInfo.dom.removeChild(child);
     }
 
-    while (groups.dom.children.length) {
-        var child = groups.dom.children[0];
+    while (layers.dom.children.length) {
+        var child = layers.dom.children[0];
         child.data = null;
-        groups.dom.removeChild(child);
+        layers.dom.removeChild(child);
     }
 
     animations.forEach(n => {
         // 动画组信息区
-        var groupName = document.createElement('div');
-        groupName.className = 'group-info';
-        groupName.innerHTML = `<input type="checkbox" data-uuid="${n.uuid}" />${n.name}`;
-        groupInfo.dom.appendChild(groupName);
+        var layerName = document.createElement('div');
+        layerName.className = 'layer-info';
+        layerName.innerHTML = `<input type="checkbox" data-uuid="${n.uuid}" />${n.layerName}`;
+        layerInfo.dom.appendChild(layerName);
 
         // 动画区
-        var group = document.createElement('div');
-        group.className = 'group';
-        group.setAttribute('droppable', true);
-        group.data = n;
-        group.addEventListener('dragenter', this.onDragEnterGroup.bind(this));
-        group.addEventListener('dragover', this.onDragOverGroup.bind(this));
-        group.addEventListener('dragleave', this.onDragLeaveGroup.bind(this));
-        group.addEventListener('drop', this.onDropGroup.bind(this));
-        groups.dom.appendChild(group);
+        var layer = document.createElement('div');
+        layer.className = 'layer';
+        layer.setAttribute('droppable', true);
+        layer.data = n;
+        layer.addEventListener('dragenter', this.onDragEnterLayer.bind(this));
+        layer.addEventListener('dragover', this.onDragOverLayer.bind(this));
+        layer.addEventListener('dragleave', this.onDragLeaveLayer.bind(this));
+        layer.addEventListener('drop', this.onDropLayer.bind(this));
+        layers.dom.appendChild(layer);
 
         n.animations.forEach(m => {
             var item = document.createElement('div');
@@ -213,7 +211,7 @@ TimePanel.prototype.updateUI = function () {
             item.innerHTML = m.name;
             item.addEventListener('dragstart', this.onDragStartAnimation.bind(this));
             item.addEventListener('dragend', this.onDragEndAnimation.bind(this));
-            group.appendChild(item);
+            layer.appendChild(item);
         });
     });
 };
@@ -253,13 +251,13 @@ TimePanel.prototype.onAnimate = function () {
     this.updateSlider();
 };
 
-TimePanel.prototype.onAddGroup = function () {
-    var group = new AnimationGroup();
-    this.app.editor.animation.add(group);
-    this.updateUI();
+TimePanel.prototype.onAddLayer = function () {
+    // var group = new AnimationGroup();
+    // this.app.editor.animation.add(group);
+    // this.updateUI();
 };
 
-TimePanel.prototype.onRemoveGroup = function () {
+TimePanel.prototype.onRemoveLayer = function () {
     var inputs = document.querySelectorAll('.animation-panel .left-area input:checked');
 
     var uuids = [];
@@ -343,28 +341,28 @@ TimePanel.prototype.onResetAnimation = function () {
 };
 
 TimePanel.prototype.onClick = function (event) {
-    if (event.target.data.type === 'AnimationGroup') {
-        return;
-    }
-    this.app.call('tabSelected', this, 'animation');
-    this.app.call('animationSelected', this, event.target.data);
+    // if (event.target.data.type === 'AnimationGroup') {
+    //     return;
+    // }
+    // this.app.call('tabSelected', this, 'animation');
+    // this.app.call('animationSelected', this, event.target.data);
 };
 
 TimePanel.prototype.onDblClick = function (event) {
     var timeline = UI.get('timeline', this.id);
 
-    if (event.target.data && event.target.data.type === 'AnimationGroup') {
-        event.stopPropagation();
+    // if (event.target.data && event.target.data.type === 'AnimationGroup') {
+    //     event.stopPropagation();
 
-        var animation = new Animation({
-            beginTime: event.offsetX / timeline.scale,
-            endTime: (event.offsetX + 80) / timeline.scale
-        });
+    //     var animation = new Animation({
+    //         beginTime: event.offsetX / timeline.scale,
+    //         endTime: (event.offsetX + 80) / timeline.scale
+    //     });
 
-        event.target.data.add(animation);
+    //     event.target.data.add(animation);
 
-        this.app.call('animationChanged', this);
-    }
+    //     this.app.call('animationChanged', this);
+    // }
 };
 
 TimePanel.prototype.onMouseDown = function () {
@@ -393,40 +391,40 @@ TimePanel.prototype.onDragEndAnimation = function (event) {
     event.dataTransfer.clearData();
 };
 
-TimePanel.prototype.onDragEnterGroup = function (event) {
+TimePanel.prototype.onDragEnterLayer = function (event) {
     event.preventDefault();
 };
 
-TimePanel.prototype.onDragOverGroup = function (event) {
+TimePanel.prototype.onDragOverLayer = function (event) {
     event.preventDefault();
 };
 
-TimePanel.prototype.onDragLeaveGroup = function (event) {
+TimePanel.prototype.onDragLeaveLayer = function (event) {
     event.preventDefault();
 };
 
-TimePanel.prototype.onDropGroup = function (event) {
+TimePanel.prototype.onDropLayer = function (event) {
     event.preventDefault();
     var uuid = event.dataTransfer.getData('uuid');
     var offsetX = event.dataTransfer.getData('offsetX');
 
-    var groups = this.app.editor.animation.getAnimationGroups();
-    var group = groups.filter(n => n.animations.findIndex(m => m.uuid === uuid) > -1)[0];
-    var animation = group.animations.filter(n => n.uuid === uuid)[0];
-    group.remove(animation);
+    // var groups = this.app.editor.animation.getAnimationGroups();
+    // var group = groups.filter(n => n.animations.findIndex(m => m.uuid === uuid) > -1)[0];
+    // var animation = group.animations.filter(n => n.uuid === uuid)[0];
+    // group.remove(animation);
 
-    var timeline = UI.get('timeline', this.id);
-    var length = animation.endTime - animation.beginTime;
-    animation.beginTime = (event.offsetX - offsetX) / timeline.scale;
-    animation.endTime = animation.beginTime + length;
+    // var timeline = UI.get('timeline', this.id);
+    // var length = animation.endTime - animation.beginTime;
+    // animation.beginTime = (event.offsetX - offsetX) / timeline.scale;
+    // animation.endTime = animation.beginTime + length;
 
-    if (event.target.data instanceof Animation) { // 拖动到其他动画上
-        event.target.parentElement.data.add(animation);
-    } else { // 拖动到动画组上
-        event.target.data.add(animation);
-    }
+    // if (event.target.data instanceof Animation) { // 拖动到其他动画上
+    //     event.target.parentElement.data.add(animation);
+    // } else { // 拖动到动画组上
+    //     event.target.data.add(animation);
+    // }
 
-    this.updateUI();
+    // this.updateUI();
 };
 
 export default TimePanel;

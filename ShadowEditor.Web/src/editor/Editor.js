@@ -1,6 +1,5 @@
 ﻿import History from '../core/History';
 import Storage from '../core/Storage';
-import AnimationManager from '../animation/AnimationManager';
 
 /**
  * 编辑器
@@ -63,10 +62,17 @@ function Editor(app) {
     // 物体
     this.objects = [];
 
-    // 脚本 格式：{ uuid: { id: 'mongoDB id', name: 'Script Name', type: 'Script Type', source: 'Source Code', uuid: 'uuid' }}
+    // 脚本 格式：{ uuid: { id: 'MongoDB _id', name: 'Script Name', type: 'Script Type', source: 'Source Code', uuid: 'uuid' }}
     // 其中，uuid是创建脚本时自动生成，不可改变，关联时使用，id是mongo数据库ID字段；name：随便填写；type：javascript，vertexShader, fragmentShader, json；source：源码。
     this.scripts = {};
-    this.animation = new AnimationManager(this.app);
+
+    // 动画格式：[{ id: 'MongoDB _id', uuid: 'uuid', layer: '动画层序号', layerName: '动画层名称', animations: '动画' }, ...]
+    // 其中，动画：[{ id: 'MongoDB _id', uuid: 'uuid', name: '动画名称', target: '动画对象uuid', type: '动画类型', beginTime: '开始时间(s)', endTime: '结束时间(s)', ... }, ...]
+    // 其中，uuid是创建脚本时自动生成，不可改变，关联时使用。
+    // 动画层序号：在时间面板显示位置，从0开始计算。
+    // 动画类型：Tween-补间动画，Skeletal-骨骼动画，Audio-音频播放，Shader-着色器动画，Filter-滤镜动画，Particle-粒子动画
+    // 根据动画类型不同，还可能包含其他参数。
+    this.animations = [];
 
     // 帮助器
     this.helpers = {};
@@ -150,16 +156,27 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
         this.removeObject(objects[0]);
     }
 
-    // 移除帮助器
-    // objects = this.sceneHelpers.children;
-
-    // while (objects.length > 0) {
-    //     this.removeHelper(objects[0]);
-    // }
-
-    this.textures = {};
     this.scripts = {};
-    this.animation.clear();
+
+    this.animations = [{
+        id: null,
+        uuid: THREE.Math.generateUUID(),
+        layer: 0,
+        layerName: '层1',
+        animations: []
+    }, {
+        id: null,
+        uuid: THREE.Math.generateUUID(),
+        layer: 1,
+        layerName: '层2',
+        animations: []
+    }, {
+        id: null,
+        uuid: THREE.Math.generateUUID(),
+        layer: 2,
+        layerName: '层3',
+        animations: []
+    }];
 
     // 添加默认元素
     if (addObject) {

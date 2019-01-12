@@ -1,5 +1,4 @@
 import PlayerComponent from '../component/PlayerComponent';
-import Ease from '../../animation/Ease';
 
 /**
  * 粒子动画控制器

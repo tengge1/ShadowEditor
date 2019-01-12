@@ -78,7 +78,7 @@ Player.prototype.start = function () {
         camera: this.app.editor.camera,
         renderer: this.app.editor.renderer,
         scripts: this.app.editor.scripts,
-        animation: this.app.editor.animation,
+        animations: this.app.editor.animations,
     });
 
     // 转为字符串，再转回来，避免编辑器和播放器互相干扰
@@ -92,7 +92,7 @@ Player.prototype.start = function () {
         var promise2 = this.control.create(this.scene, this.camera, this.renderer);
         var promise3 = this.audio.create(this.scene, this.camera, this.renderer);
         var promise4 = this.playerRenderer.create(this.scene, this.camera, this.renderer);
-        var promise5 = this.animation.create(this.scene, this.camera, this.renderer, obj.animation);
+        var promise5 = this.animation.create(this.scene, this.camera, this.renderer, obj.animations);
         var promise6 = this.physics.create(this.scene, this.camera, this.renderer);
 
         Promise.all([promise1, promise2, promise3, promise4, promise5, promise6]).then(() => {
