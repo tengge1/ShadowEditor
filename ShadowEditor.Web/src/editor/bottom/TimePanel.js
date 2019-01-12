@@ -277,14 +277,19 @@ TimePanel.prototype.onRemoveLayer = function () {
     });
 
     if (uuids.length === 0) {
-        UI.msg('请勾选需要删除的组！');
+        UI.msg('请勾选需要删除的层！');
         return;
     }
 
-    UI.confirm('询问', '删除组会删除组上的所有动画。是否删除？', (event, btn) => {
+    var animations = this.app.editor.animations;
+
+    UI.confirm('询问', '删除层会删除层上的所有动画。是否删除？', (event, btn) => {
         if (btn === 'ok') {
             uuids.forEach(n => {
-                this.app.editor.animation.removeByUUID(n);
+                var index = animations.findIndex(m => m.uuid === n);
+                if (index > -1) {
+                    animations.splice(index, 1);
+                }
             });
             this.updateUI();
         }
