@@ -941,7 +941,7 @@ table.Table .TableBody td {
 .animation-panel .box .left-area {
     position: sticky;
     left: 0;
-    width: 64px;
+    width: 100px;
     display: flex;
     flex-direction: column;
     background-color: #eee;
@@ -957,13 +957,17 @@ table.Table .TableBody td {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     border-bottom: 1px solid #ddd;
     box-sizing: border-box;
 }
 
 .animation-panel .box .left-area .layer-info:first-child {
     border-top: 1px solid #ddd;
+}
+
+.animation-panel .box .left-area .layer-info input {
+    margin-left: 8px;
 }
 
 .animation-panel .box .right-area {

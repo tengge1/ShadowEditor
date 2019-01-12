@@ -159,7 +159,6 @@ TimePanel.prototype.onAppStarted = function () {
     document.body.addEventListener(`mouseup`, this.onMouseUp.bind(this));
 
     this.app.on(`animationChanged.${this.id}`, this.updateUI.bind(this));
-
     this.app.on(`resetAnimation.${this.id}`, this.onResetAnimation.bind(this));
     this.app.on(`startAnimation.${this.id}`, this.onPlay.bind(this));
 };

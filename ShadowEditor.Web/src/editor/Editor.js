@@ -162,19 +162,19 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
         id: null,
         uuid: THREE.Math.generateUUID(),
         layer: 0,
-        layerName: '层1',
+        layerName: '动画层1',
         animations: []
     }, {
         id: null,
         uuid: THREE.Math.generateUUID(),
         layer: 1,
-        layerName: '层2',
+        layerName: '动画层2',
         animations: []
     }, {
         id: null,
         uuid: THREE.Math.generateUUID(),
         layer: 2,
-        layerName: '层3',
+        layerName: '动画层3',
         animations: []
     }];
 
