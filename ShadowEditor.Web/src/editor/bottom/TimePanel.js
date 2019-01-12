@@ -1,5 +1,7 @@
 import UI from '../../ui/UI';
 
+var ID = -1;
+
 const STOP = 0;
 const PLAY = 1;
 const PAUSE = 2;
@@ -105,7 +107,7 @@ TimePanel.prototype.render = function () {
                     color: '#aaa',
                     fontSize: '12px'
                 },
-                text: '说明：双击时间轴下方添加动画。'
+                text: '说明：双击时间轴下方区域添加动画。'
             }]
         }, {
             xtype: 'div',
@@ -350,18 +352,22 @@ TimePanel.prototype.onClick = function (event) {
 TimePanel.prototype.onDblClick = function (event) {
     var timeline = UI.get('timeline', this.id);
 
-    // if (event.target.data && event.target.data.type === 'AnimationGroup') {
-    //     event.stopPropagation();
+    if (event.target.data && event.target.data.layer !== undefined) {
+        event.stopPropagation();
 
-    //     var animation = new Animation({
-    //         beginTime: event.offsetX / timeline.scale,
-    //         endTime: (event.offsetX + 80) / timeline.scale
-    //     });
+        var animation = {
+            id: null,
+            uuid: THREE.Math.generateUUID(),
+            name: `动画${ID--}`,
+            target: null,
+            type: 'Tween',
+            beginTime: event.offsetX / timeline.scale,
+            endTime: (event.offsetX + 80) / timeline.scale
+        };
 
-    //     event.target.data.add(animation);
-
-    //     this.app.call('animationChanged', this);
-    // }
+        event.target.data.animations.push(animation);
+        this.app.call('animationChanged', this);
+    }
 };
 
 TimePanel.prototype.onMouseDown = function () {
