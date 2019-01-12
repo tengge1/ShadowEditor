@@ -43,25 +43,27 @@ TweenAnimator.prototype.tweenObject = function (animation, time) {
     }
 
     // 获取插值函数
-    var ease = Ease[animation.ease];
+    var data = animation.data;
+
+    var ease = Ease[data.ease];
     if (ease == null) {
-        console.warn(`Player: 不存在名称为${animation.ease}的插值函数。`);
+        console.warn(`Player: 不存在名称为${data.ease}的插值函数。`);
         return;
     }
 
     var result = ease((time - animation.beginTime) / (animation.endTime - animation.beginTime));
 
-    var positionX = animation.beginPositionX + (animation.endPositionX - animation.beginPositionX) * result;
-    var positionY = animation.beginPositionY + (animation.endPositionY - animation.beginPositionY) * result;
-    var positionZ = animation.beginPositionZ + (animation.endPositionZ - animation.beginPositionZ) * result;
+    var positionX = data.beginPositionX + (data.endPositionX - data.beginPositionX) * result;
+    var positionY = data.beginPositionY + (data.endPositionY - data.beginPositionY) * result;
+    var positionZ = data.beginPositionZ + (data.endPositionZ - data.beginPositionZ) * result;
 
-    var rotationX = animation.beginRotationX + (animation.endRotationX - animation.beginRotationX) * result;
-    var rotationY = animation.beginRotationY + (animation.endRotationY - animation.beginRotationY) * result;
-    var rotationZ = animation.beginRotationZ + (animation.endRotationZ - animation.beginRotationZ) * result;
+    var rotationX = data.beginRotationX + (data.endRotationX - data.beginRotationX) * result;
+    var rotationY = data.beginRotationY + (data.endRotationY - data.beginRotationY) * result;
+    var rotationZ = data.beginRotationZ + (data.endRotationZ - data.beginRotationZ) * result;
 
-    var scaleX = animation.beginScaleX + (animation.endScaleX - animation.beginScaleX) * result;
-    var scaleY = animation.beginScaleY + (animation.endScaleY - animation.beginScaleY) * result;
-    var scaleZ = animation.beginScaleZ + (animation.endScaleZ - animation.beginScaleZ) * result;
+    var scaleX = data.beginScaleX + (data.endScaleX - data.beginScaleX) * result;
+    var scaleY = data.beginScaleY + (data.endScaleY - data.beginScaleY) * result;
+    var scaleZ = data.beginScaleZ + (data.endScaleZ - data.beginScaleZ) * result;
 
     target.position.x = positionX;
     target.position.y = positionY;
