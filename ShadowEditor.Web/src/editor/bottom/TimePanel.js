@@ -17,8 +17,6 @@ function TimePanel(options) {
     this.status = STOP;
     this.sliderLeft = 0;
     this.speed = 4;
-
-    this.isDragging = false;
 };
 
 TimePanel.prototype = Object.create(UI.Control.prototype);
@@ -156,9 +154,6 @@ TimePanel.prototype.onAppStarted = function () {
 
     layers.dom.addEventListener(`click`, this.onClick.bind(this));
     layers.dom.addEventListener(`dblclick`, this.onDblClick.bind(this));
-    layers.dom.addEventListener(`mousedown`, this.onMouseDown.bind(this));
-    layers.dom.addEventListener(`mousemove`, this.onMouseMove.bind(this));
-    document.body.addEventListener(`mouseup`, this.onMouseUp.bind(this));
 
     this.app.on(`animationChanged.${this.id}`, this.updateUI.bind(this));
     this.app.on(`resetAnimation.${this.id}`, this.onResetAnimation.bind(this));
@@ -357,11 +352,11 @@ TimePanel.prototype.onResetAnimation = function () {
 };
 
 TimePanel.prototype.onClick = function (event) {
-    // if (event.target.data.type === 'AnimationGroup') {
-    //     return;
-    // }
-    // this.app.call('tabSelected', this, 'animation');
-    // this.app.call('animationSelected', this, event.target.data);
+    if (!event.target.data || !event.target.data.type) {
+        return;
+    }
+    this.app.call('tabSelected', this, 'animation');
+    this.app.call('animationSelected', this, event.target.data);
 };
 
 TimePanel.prototype.onDblClick = function (event) {
@@ -383,21 +378,6 @@ TimePanel.prototype.onDblClick = function (event) {
         event.target.data.animations.push(animation);
         this.app.call('animationChanged', this);
     }
-};
-
-TimePanel.prototype.onMouseDown = function () {
-    if (this.isDragging) {
-        return;
-    }
-    this.isDragging = true;
-};
-
-TimePanel.prototype.onMouseMove = function () {
-
-};
-
-TimePanel.prototype.onMouseUp = function () {
-    this.isDragging = false;
 };
 
 // ----------------------- 拖动动画事件 ---------------------------------------------
