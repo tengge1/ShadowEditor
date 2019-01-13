@@ -23,7 +23,7 @@ RigidBodyComponent.prototype.constructor = RigidBodyComponent;
 RigidBodyComponent.prototype.render = function () {
     var data = {
         xtype: 'div',
-        id: 'rigidBodyPanel',
+        id: 'panel',
         scope: this.id,
         parent: this.parent,
         cls: 'Panel',
@@ -162,7 +162,7 @@ RigidBodyComponent.prototype.onObjectRemoved = function (object) {
 };
 
 RigidBodyComponent.prototype.updateUI = function () {
-    var container = UI.get('rigidBodyPanel', this.id);
+    var container = UI.get('panel', this.id);
     var editor = this.app.editor;
     if (editor.selected && editor.selected.userData.physics) {
         container.dom.style.display = '';

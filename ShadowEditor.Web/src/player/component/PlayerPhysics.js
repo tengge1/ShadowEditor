@@ -220,9 +220,11 @@ PlayerPhysics.prototype.createRigidBody = function (obj) {
         var y = box.max.y - box.min.y;
         var z = box.max.z - box.min.z;
 
-        // var center = new THREE.Vector3();
-        // box.getCenter(center);
-        // box.translate(center);
+        var center = new THREE.Vector3();
+        box.getCenter(center);
+
+        position = position.clone();
+        position.add(center);
 
         physicsShape = new Ammo.btBoxShape(new Ammo.btVector3(x * 0.5, y * 0.5, z * 0.5));
     } else if (shape === 'btSphereShape') {
@@ -322,7 +324,7 @@ PlayerPhysics.prototype.createIndexedBufferGeometryFromGeometry = function (geom
     var numFaces = geometry.faces.length;
     var bufferGeom = new THREE.BufferGeometry();
     var vertices = new Float32Array(numVertices * 3);
-    var indices = new(numFaces * 3 > 65535 ? Uint32Array : Uint16Array)(numFaces * 3);
+    var indices = new (numFaces * 3 > 65535 ? Uint32Array : Uint16Array)(numFaces * 3);
 
     for (var i = 0; i < numVertices; i++) {
         var p = geometry.vertices[i];
@@ -365,7 +367,7 @@ PlayerPhysics.prototype.mapIndices = function (bufGeometry, indexedBufferGeom) {
         for (var j = 0; j < numVertices; j++) {
             var j3 = j * 3;
             if (this.isEqual(idxVertices[i3], idxVertices[i3 + 1], idxVertices[i3 + 2],
-                    vertices[j3], vertices[j3 + 1], vertices[j3 + 2])) {
+                vertices[j3], vertices[j3 + 1], vertices[j3 + 2])) {
                 association.push(j3);
             }
         }

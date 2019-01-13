@@ -40,6 +40,7 @@ import SaoComponent from '../../component/postProcessing/SaoComponent';
 import SmaaComponent from '../../component/postProcessing/SmaaComponent';
 import SsaoComponent from '../../component/postProcessing/SsaoComponent';
 import TaaComponent from '../../component/postProcessing/TaaComponent';
+import SoftVolumnComponent from '../../component/physics/SoftVolumnComponent';
 
 /**
  * 属性面板
@@ -100,7 +101,10 @@ PropertyPanel.prototype.render = function () {
             new ClothComponent({ app: this.app }),
             new LMeshComponent({ app: this.app }),
             new MMDComponent({ app: this.app }),
+
             new RigidBodyComponent({ app: this.app }),
+            new SoftVolumnComponent({ app: this.app }),
+
             new GeometryComponent({ app: this.app }),
             new MaterialComponent({ app: this.app })
         ]
