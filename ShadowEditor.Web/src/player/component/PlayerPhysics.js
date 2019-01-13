@@ -57,6 +57,9 @@ function PlayerPhysics(app) {
 
     this.transformAux1 = new Ammo.btTransform();
     this.rigidBodies = [];
+    this.softBodies = [];
+
+    this.softBodyHelpers = new Ammo.btSoftBodyHelpers();
 
     this.events = [
         new ThrowBallEvent(this.app, this.world, this.rigidBodies)
@@ -199,6 +202,134 @@ PlayerPhysics.prototype.createRigidBody = function (obj) {
 
     var info = new Ammo.btRigidBodyConstructionInfo(mass, defaultState, physicsShape, localInertia);
     return new Ammo.btRigidBody(info);
+};
+
+// --------------------------------- 创建柔软体 ---------------------------------------------
+
+PlayerPhysics.prototype.createSoftVolume = function (bufferGeom, mass, pressure) {
+    this.processGeometry(bufferGeom);
+    var volume = new THREE.Mesh(bufferGeom, new THREE.MeshPhongMaterial({
+        color: 0xFFFFFF
+    }));
+
+    volume.castShadow = true;
+    volume.receiveShadow = true;
+    volume.frustumCulled = false;
+
+    // scene.add(volumn);
+
+    // Volume physic object
+    var volumeSoftBody = this.softBodyHelpers.CreateFromTriMesh(
+        this.world.getWorldInfo(),
+        bufferGeom.ammoVertices,
+        bufferGeom.ammoIndices,
+        bufferGeom.ammoIndices.length / 3,
+        true);
+
+    var sbConfig = volumeSoftBody.get_m_cfg();
+    sbConfig.set_viterations(40); // 设置迭代次数
+    sbConfig.set_piterations(40);
+
+    // Soft-soft and soft-rigid collisions
+    sbConfig.set_collisions(0x11);
+
+    // Friction
+    sbConfig.set_kDF(0.1);
+
+    // Damping
+    sbConfig.set_kDP(0.01);
+
+    // Pressure
+    sbConfig.set_kPR(pressure);
+
+    // Stiffness
+    volumeSoftBody.get_m_materials().at(0).set_m_kLST(0.9);
+    volumeSoftBody.get_m_materials().at(0).set_m_kAST(0.9);
+    volumeSoftBody.setTotalMass(mass, false);
+
+    Ammo.castObject(volumeSoftBody, Ammo.btCollisionObject).getCollisionShape().setMargin(0.05);
+
+    this.world.addSoftBody(volumeSoftBody, 1, -1);
+
+    volume.userData.physicsBody = volumeSoftBody;
+
+    // Disable deactivation
+    volumeSoftBody.setActivationState(4);
+
+    this.softBodies.push(volume);
+};
+
+PlayerPhysics.prototype.processGeometry = function (bufGeometry) {
+    // Obtain a Geometry
+    var geometry = new THREE.Geometry().fromBufferGeometry(bufGeometry);
+    // Merge the vertices so the triangle soup is converted to indexed triangles
+    geometry.mergeVertices();
+    // Convert again to BufferGeometry, indexed
+    var indexedBufferGeom = this.createIndexedBufferGeometryFromGeometry(geometry);
+    // Create index arrays mapping the indexed vertices to bufGeometry vertices
+    this.mapIndices(bufGeometry, indexedBufferGeom);
+};
+
+PlayerPhysics.prototype.createIndexedBufferGeometryFromGeometry = function (geometry) {
+    var numVertices = geometry.vertices.length;
+    var numFaces = geometry.faces.length;
+    var bufferGeom = new THREE.BufferGeometry();
+    var vertices = new Float32Array(numVertices * 3);
+    var indices = new(numFaces * 3 > 65535 ? Uint32Array : Uint16Array)(numFaces * 3);
+
+    for (var i = 0; i < numVertices; i++) {
+        var p = geometry.vertices[i];
+        var i3 = i * 3;
+        vertices[i3] = p.x;
+        vertices[i3 + 1] = p.y;
+        vertices[i3 + 2] = p.z;
+    }
+
+    for (var i = 0; i < numFaces; i++) {
+        var f = geometry.faces[i];
+        var i3 = i * 3;
+        indices[i3] = f.a;
+        indices[i3 + 1] = f.b;
+        indices[i3 + 2] = f.c;
+    }
+
+    bufferGeom.setIndex(new THREE.BufferAttribute(indices, 1));
+    bufferGeom.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
+
+    return bufferGeom;
+};
+
+PlayerPhysics.prototype.mapIndices = function (bufGeometry, indexedBufferGeom) {
+    // Creates ammoVertices, ammoIndices and ammoIndexAssociation in bufGeometry
+    var vertices = bufGeometry.attributes.position.array;
+    var idxVertices = indexedBufferGeom.attributes.position.array;
+    var indices = indexedBufferGeom.index.array;
+    var numIdxVertices = idxVertices.length / 3;
+    var numVertices = vertices.length / 3;
+
+    bufGeometry.ammoVertices = idxVertices;
+    bufGeometry.ammoIndices = indices;
+    bufGeometry.ammoIndexAssociation = [];
+
+    for (var i = 0; i < numIdxVertices; i++) {
+        var association = [];
+        bufGeometry.ammoIndexAssociation.push(association);
+        var i3 = i * 3;
+        for (var j = 0; j < numVertices; j++) {
+            var j3 = j * 3;
+            if (this.isEqual(idxVertices[i3], idxVertices[i3 + 1], idxVertices[i3 + 2],
+                    vertices[j3], vertices[j3 + 1], vertices[j3 + 2])) {
+                association.push(j3);
+            }
+        }
+    }
+};
+
+PlayerPhysics.prototype.isEqual = function (x1, y1, z1, x2, y2, z2) {
+    var delta = 0.000001;
+    return Math.abs(x2 - x1) < delta &&
+        Math.abs(y2 - y1) < delta &&
+        Math.abs(z2 - z1) < delta;
 };
 
 // --------------------------------- API函数 ------------------------------------------------
