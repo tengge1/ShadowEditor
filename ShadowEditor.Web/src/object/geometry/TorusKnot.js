@@ -12,6 +12,7 @@ function TorusKnot(geometry = new THREE.TorusKnotBufferGeometry(2, 0.8, 64, 12, 
 
     this.userData.physics = this.userData.physics || {
         enabled: false,
+        type: 'rigidBody',
         shape: 'btBoxShape',
         mass: 1,
         inertia: {

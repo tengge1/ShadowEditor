@@ -12,6 +12,7 @@ function Box(geometry = new THREE.BoxBufferGeometry(1, 1, 1), material = new THR
 
     this.userData.physics = this.userData.physics || {
         enabled: false,
+        type: 'rigidBody',
         shape: 'btBoxShape',
         mass: 1,
         inertia: {

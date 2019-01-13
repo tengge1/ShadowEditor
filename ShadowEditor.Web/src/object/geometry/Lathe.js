@@ -26,6 +26,7 @@ function Lathe(geometry = new THREE.LatheBufferGeometry(points, 20, 0, 2 * Math.
 
     this.userData.physics = this.userData.physics || {
         enabled: false,
+        type: 'rigidBody',
         shape: 'btBoxShape',
         mass: 1,
         inertia: {

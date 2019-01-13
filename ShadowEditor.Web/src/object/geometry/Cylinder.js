@@ -12,6 +12,7 @@ function Cylinder(geometry = new THREE.CylinderBufferGeometry(1, 1, 2, 32, 1, fa
 
     this.userData.physics = this.userData.physics || {
         enabled: false,
+        type: 'rigidBody',
         shape: 'btBoxShape',
         mass: 1,
         inertia: {

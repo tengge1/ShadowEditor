@@ -40,7 +40,8 @@ import SaoComponent from '../../component/postProcessing/SaoComponent';
 import SmaaComponent from '../../component/postProcessing/SmaaComponent';
 import SsaoComponent from '../../component/postProcessing/SsaoComponent';
 import TaaComponent from '../../component/postProcessing/TaaComponent';
-import SoftVolumnComponent from '../../component/physics/SoftVolumnComponent';
+import SoftVolumeComponent from '../../component/physics/SoftVolumeComponent';
+import PhysicsTypeComponent from '../../component/physics/PhysicsTypeComponent';
 
 /**
  * 属性面板
@@ -102,8 +103,10 @@ PropertyPanel.prototype.render = function () {
             new LMeshComponent({ app: this.app }),
             new MMDComponent({ app: this.app }),
 
+            // 物理组件
+            new PhysicsTypeComponent({ app: this.app }),
             new RigidBodyComponent({ app: this.app }),
-            new SoftVolumnComponent({ app: this.app }),
+            new SoftVolumeComponent({ app: this.app }),
 
             new GeometryComponent({ app: this.app }),
             new MaterialComponent({ app: this.app })

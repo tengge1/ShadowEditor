@@ -12,6 +12,7 @@ function Sphere(geometry = new THREE.SphereBufferGeometry(1, 32, 16, 0, Math.PI 
 
     this.userData.physics = this.userData.physics || {
         enabled: false,
+        type: 'rigidBody',
         shape: 'btSphereShape',
         mass: 0,
         inertia: {

@@ -45,17 +45,6 @@ RigidBodyComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用'
-            }, {
-                xtype: 'checkbox',
-                id: 'enabled',
-                scope: this.id,
-                onChange: this.onChange.bind(this)
-            }]
-        }, {
-            xtype: 'row',
-            children: [{
-                xtype: 'label',
                 text: '形状'
             }, {
                 xtype: 'select',
@@ -164,16 +153,21 @@ RigidBodyComponent.prototype.onObjectRemoved = function (object) {
 RigidBodyComponent.prototype.updateUI = function () {
     var container = UI.get('panel', this.id);
     var editor = this.app.editor;
-    if (editor.selected && editor.selected.userData.physics) {
+    if (editor.selected &&
+        editor.selected.userData.physics &&
+        editor.selected.userData.physics.enabled &&
+        editor.selected.userData.physics.type === 'rigidBody') {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
+        if (this.helper !== undefined) {
+            this.app.editor.removePhysicsHelper(this.helper);
+        }
         return;
     }
 
     this.selected = editor.selected;
 
-    var enabled = UI.get('enabled', this.id);
     var shape = UI.get('shape', this.id);
     var mass = UI.get('mass', this.id);
     var inertiaX = UI.get('inertiaX', this.id);
@@ -182,7 +176,14 @@ RigidBodyComponent.prototype.updateUI = function () {
 
     var physics = this.selected.userData.physics;
 
-    enabled.setValue(physics.enabled);
+    physics.shape = physics.shape || 'btBoxShape';
+    physics.mass = physics.mass || 0;
+    physics.inertia = physics.inertia || {
+        x: 0,
+        y: 0,
+        z: 0
+    };
+
     shape.setValue(physics.shape);
     mass.setValue(physics.mass);
     inertiaX.setValue(physics.inertia.x);
@@ -191,7 +192,6 @@ RigidBodyComponent.prototype.updateUI = function () {
 };
 
 RigidBodyComponent.prototype.onChange = function () {
-    var enabled = UI.get('enabled', this.id);
     var shape = UI.get('shape', this.id);
     var mass = UI.get('mass', this.id);
     var inertiaX = UI.get('inertiaX', this.id);
@@ -200,7 +200,6 @@ RigidBodyComponent.prototype.onChange = function () {
 
     var physics = this.selected.userData.physics;
 
-    physics.enabled = enabled.getValue();
     physics.shape = shape.getValue();
     physics.mass = mass.getValue();
     physics.inertia.x = inertiaX.getValue();

@@ -78,16 +78,31 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
     this.scene = scene;
 
     this.scene.traverse(n => {
-        if (n.userData && n.userData.physics && n.userData.physics.enabled) {
-            var body = this.createRigidBody(n);
-            if (body) {
-                n.userData.physics.body = body;
-                this.world.addRigidBody(body);
+        if (n.userData &&
+            n.userData.physics &&
+            n.userData.physics.enabled
+        ) {
+            if (n.userData.physics.type === 'rigidBody') {
+                var body = this.createRigidBody(n);
+                if (body) {
+                    n.userData.physics.body = body;
+                    this.world.addRigidBody(body);
 
-                if (n.userData.physics.mass > 0) {
-                    this.rigidBodies.push(n);
-                    body.setActivationState(4);
+                    if (n.userData.physics.mass > 0) {
+                        this.rigidBodies.push(n);
+                        body.setActivationState(4);
+                    }
                 }
+            } else if (n.userData.physics.type === 'softVolume') {
+                var body = this.createSoftVolume(n);
+                if (body) {
+                    n.userData.physics.body = body;
+                    this.world.addSoftBody(body, 1, -1);
+
+                    this.softBodies.push(n);
+                }
+            } else {
+                console.warn(`PlayerPhysics: 无法识别的物理类型：${n.userData.physics.type}`);
             }
         }
     });
@@ -111,14 +126,14 @@ PlayerPhysics.prototype.update = function (clock, deltaTime) {
         var volume = softBodies[i];
 
         var geometry = volume.geometry;
-        var softBody = volume.userData.physicsBody;
+        var body = volume.userData.physics.body;
 
         var volumePositions = geometry.attributes.position.array;
         var volumeNormals = geometry.attributes.normal.array;
         var association = geometry.ammoIndexAssociation;
 
         var numVerts = association.length;
-        var nodes = softBody.get_m_nodes();
+        var nodes = body.get_m_nodes();
 
         for (var j = 0; j < numVerts; j++) {
             var node = nodes.at(j);
@@ -144,6 +159,7 @@ PlayerPhysics.prototype.update = function (clock, deltaTime) {
                 volumeNormals[indexVertex] = nz;
             }
         }
+
         geometry.attributes.position.needsUpdate = true;
         geometry.attributes.normal.needsUpdate = true;
     };
@@ -186,8 +202,15 @@ PlayerPhysics.prototype.dispose = function () {
 
     this.rigidBodies.length = 0;
 
+    this.softBodies.forEach(n => {
+        var body = n.userData.physics.body;
+        this.world.removeRigidBody(body);
+    });
+
+    this.softBodies.length = 0;
+
     this.scene.traverse(n => {
-        if (n.userData && n.userData.physics && n.userData.physics) {
+        if (n.userData && n.userData.physics) {
             n.userData.physics.body = null;
         }
     });
@@ -255,9 +278,13 @@ PlayerPhysics.prototype.createRigidBody = function (obj) {
 
 // --------------------------------- 创建柔软体 ---------------------------------------------
 
-PlayerPhysics.prototype.createSoftVolume = function (bufferGeom, mass, pressure) {
-    this.processGeometry(bufferGeom);
-    var volume = new THREE.Mesh(bufferGeom, new THREE.MeshPhongMaterial({
+PlayerPhysics.prototype.createSoftVolume = function (obj) {
+    var geometry = obj.geometry;
+    var mass = obj.userData.physics.mass;
+    var pressure = obj.userData.physics.pressure;
+
+    this.processGeometry(geometry);
+    var volume = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
         color: 0xFFFFFF
     }));
 
@@ -265,17 +292,15 @@ PlayerPhysics.prototype.createSoftVolume = function (bufferGeom, mass, pressure)
     volume.receiveShadow = true;
     volume.frustumCulled = false;
 
-    // scene.add(volumn);
-
     // Volume physic object
-    var volumeSoftBody = this.softBodyHelpers.CreateFromTriMesh(
+    var body = this.softBodyHelpers.CreateFromTriMesh(
         this.world.getWorldInfo(),
-        bufferGeom.ammoVertices,
-        bufferGeom.ammoIndices,
-        bufferGeom.ammoIndices.length / 3,
+        geometry.ammoVertices,
+        geometry.ammoIndices,
+        geometry.ammoIndices.length / 3,
         true);
 
-    var sbConfig = volumeSoftBody.get_m_cfg();
+    var sbConfig = body.get_m_cfg();
     sbConfig.set_viterations(40); // 设置迭代次数
     sbConfig.set_piterations(40);
 
@@ -292,20 +317,16 @@ PlayerPhysics.prototype.createSoftVolume = function (bufferGeom, mass, pressure)
     sbConfig.set_kPR(pressure);
 
     // Stiffness
-    volumeSoftBody.get_m_materials().at(0).set_m_kLST(0.9);
-    volumeSoftBody.get_m_materials().at(0).set_m_kAST(0.9);
-    volumeSoftBody.setTotalMass(mass, false);
+    body.get_m_materials().at(0).set_m_kLST(0.9);
+    body.get_m_materials().at(0).set_m_kAST(0.9);
+    body.setTotalMass(mass, false);
 
-    Ammo.castObject(volumeSoftBody, Ammo.btCollisionObject).getCollisionShape().setMargin(0.05);
-
-    this.world.addSoftBody(volumeSoftBody, 1, -1);
-
-    volume.userData.physicsBody = volumeSoftBody;
+    Ammo.castObject(body, Ammo.btCollisionObject).getCollisionShape().setMargin(0.05);
 
     // Disable deactivation
-    volumeSoftBody.setActivationState(4);
+    body.setActivationState(4);
 
-    this.softBodies.push(volume);
+    return body;
 };
 
 PlayerPhysics.prototype.processGeometry = function (bufGeometry) {

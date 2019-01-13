@@ -12,6 +12,7 @@ function Torus(geometry = new THREE.TorusBufferGeometry(2, 1, 32, 32, Math.PI * 
 
     this.userData.physics = this.userData.physics || {
         enabled: false,
+        type: 'rigidBody',
         shape: 'btBoxShape',
         mass: 1,
         inertia: {

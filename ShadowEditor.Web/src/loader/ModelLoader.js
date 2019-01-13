@@ -101,6 +101,7 @@ ModelLoader.prototype.load = function (url, options, environment) {
         (new loader(this.app)).load(url, options, environment).then(obj => {
             obj.userData.physics = obj.userData.physics || {
                 enabled: false,
+                type: 'rigidBody',
                 shape: 'btBoxShape',
                 mass: 1,
                 inertia: {

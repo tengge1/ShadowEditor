@@ -13,6 +13,7 @@ function Plane(geometry = new THREE.PlaneBufferGeometry(50, 50), material = new 
 
     this.userData.physics = this.userData.physics || {
         enabled: false,
+        type: 'rigidBody',
         shape: 'btBoxShape',
         mass: 0,
         inertia: {

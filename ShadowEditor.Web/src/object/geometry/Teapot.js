@@ -26,6 +26,7 @@ function Teapot(geometry = new THREE.TeapotBufferGeometry(3, 10, true, true, tru
 
     this.userData.physics = this.userData.physics || {
         enabled: false,
+        type: 'rigidBody',
         shape: 'btBoxShape',
         mass: 1,
         inertia: {
