@@ -102,9 +102,54 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
 };
 
 PlayerPhysics.prototype.update = function (clock, deltaTime) {
-    var rigidBodies = this.rigidBodies;
+    this.world.stepSimulation(deltaTime, 10);
 
-    this.world.stepSimulation(deltaTime, 0);
+    // 更新柔软体
+    var softBodies = this.softBodies;
+
+    for (var i = 0, il = softBodies.length; i < il; i++) {
+        var volume = softBodies[i];
+
+        var geometry = volume.geometry;
+        var softBody = volume.userData.physicsBody;
+
+        var volumePositions = geometry.attributes.position.array;
+        var volumeNormals = geometry.attributes.normal.array;
+        var association = geometry.ammoIndexAssociation;
+
+        var numVerts = association.length;
+        var nodes = softBody.get_m_nodes();
+
+        for (var j = 0; j < numVerts; j++) {
+            var node = nodes.at(j);
+            var nodePos = node.get_m_x();
+            var x = nodePos.x();
+            var y = nodePos.y();
+            var z = nodePos.z();
+            var nodeNormal = node.get_m_n();
+            var nx = nodeNormal.x();
+            var ny = nodeNormal.y();
+            var nz = nodeNormal.z();
+            var assocVertex = association[j];
+
+            for (var k = 0, kl = assocVertex.length; k < kl; k++) {
+                var indexVertex = assocVertex[k];
+                volumePositions[indexVertex] = x;
+                volumeNormals[indexVertex] = nx;
+                indexVertex++;
+                volumePositions[indexVertex] = y;
+                volumeNormals[indexVertex] = ny;
+                indexVertex++;
+                volumePositions[indexVertex] = z;
+                volumeNormals[indexVertex] = nz;
+            }
+        }
+        geometry.attributes.position.needsUpdate = true;
+        geometry.attributes.normal.needsUpdate = true;
+    };
+
+    // 更新刚体
+    var rigidBodies = this.rigidBodies;
 
     for (var i = 0, l = rigidBodies.length; i < l; i++) {
         var objThree = rigidBodies[i];
@@ -115,8 +160,10 @@ PlayerPhysics.prototype.update = function (clock, deltaTime) {
         var ms = objPhys.getMotionState();
         if (ms) {
             ms.getWorldTransform(this.transformAux1);
+
             var p = this.transformAux1.getOrigin();
             var q = this.transformAux1.getRotation();
+
             objThree.position.set(p.x(), p.y(), p.z());
             objThree.quaternion.set(q.x(), q.y(), q.z(), q.w());
         }
