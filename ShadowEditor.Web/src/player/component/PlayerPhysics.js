@@ -261,6 +261,8 @@ PlayerPhysics.prototype.createRigidBody = function (obj) {
         return null;
     }
 
+    physicsShape.setMargin(0.05);
+
     // 位移
     var transform = new Ammo.btTransform();
     transform.setIdentity();
@@ -321,7 +323,7 @@ PlayerPhysics.prototype.createSoftVolume = function (obj) {
     body.get_m_materials().at(0).set_m_kAST(0.9);
     body.setTotalMass(mass, false);
 
-    Ammo.castObject(body, Ammo.btCollisionObject).getCollisionShape().setMargin(0.05);
+    Ammo.castObject(body, Ammo.btCollisionObject).getCollisionShape();
 
     // Disable deactivation
     body.setActivationState(4);
@@ -411,14 +413,23 @@ PlayerPhysics.prototype.isEqual = function (x1, y1, z1, x2, y2, z2) {
 PlayerPhysics.prototype.addPhysicsObject = function (obj) {
     this.scene.add(obj);
     if (obj.userData && obj.userData.physics && obj.userData.physics.enabled) {
-        var body = this.createRigidBody(obj);
-        if (body) {
-            obj.userData.physics.body = body;
-            this.world.addRigidBody(body);
+        if (obj.userData.physics.type === 'rigidBody') {
+            var body = this.createRigidBody(obj);
+            if (body) {
+                obj.userData.physics.body = body;
+                this.world.addRigidBody(body);
 
-            if (obj.userData.physics.mass > 0) {
-                this.rigidBodies.push(obj);
-                body.setActivationState(4);
+                if (obj.userData.physics.mass > 0) {
+                    this.rigidBodies.push(obj);
+                    body.setActivationState(4);
+                }
+            }
+        } else if (obj.userData.physics.type === 'softVolume') {
+            var body = this.createSoftVolume(obj);
+            if (body) {
+                obj.userData.physics.body = body;
+                this.world.addSoftBody(body);
+                this.softBodies.push(obj);
             }
         }
     }

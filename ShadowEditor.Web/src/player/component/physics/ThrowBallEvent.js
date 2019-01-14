@@ -84,6 +84,7 @@ ThrowBallEvent.prototype.throwBall = function (event) {
     pos.multiplyScalar(24);
 
     body.setLinearVelocity(new Ammo.btVector3(pos.x, pos.y, pos.z));
+    body.setFriction(0.5);
 
     ball.userData.physics = {
         body: body

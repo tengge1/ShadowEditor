@@ -67,6 +67,11 @@ ComponentMenu.prototype.render = function () {
                 html: '布',
                 cls: 'option',
                 onClick: this.onAddCloth.bind(this)
+            }, {
+                xtype: 'div',
+                html: '添加物理布料',
+                cls: 'option',
+                onClick: this.onAddPhysicsCloth.bind(this)
             }]
         }]
     });
@@ -158,6 +163,12 @@ ComponentMenu.prototype.onAddCloth = function () {
     cloth.name = '布';
 
     editor.execute(new AddObjectCommand(cloth));
+};
+
+// --------------------------- 添加物理布料 -----------------------------------
+
+ComponentMenu.prototype.onAddPhysicsCloth = function () {
+    UI.msg('添加物理布料成功！');
 };
 
 export default ComponentMenu;
