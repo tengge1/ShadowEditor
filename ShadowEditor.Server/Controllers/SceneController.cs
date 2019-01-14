@@ -292,6 +292,12 @@ namespace ShadowEditor.Server.Controllers
 
                 if (old.Count > 0)
                 {
+                    // 移除_id，避免移入历史表时重复
+                    for (var i = 0; i < old.Count; i++)
+                    {
+                        old[i].Remove("_id");
+                    }
+
                     mongo.InsertMany($"{collectionName}{Constant.HistorySuffix}", old);
                 }
             }
