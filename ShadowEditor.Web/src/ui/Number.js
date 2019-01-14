@@ -97,7 +97,7 @@ Number.prototype.render = function () {
         _this.setValue(_this.dom.value);
 
         if (_this.onChange) {
-            _this.onChange.call(_this, _this.dom.value);
+            _this.onChange.call(_this, parseFloat(_this.dom.value));
         }
     }
 
