@@ -323,7 +323,15 @@ PlayerPhysics.prototype.createSoftVolume = function (obj) {
     body.get_m_materials().at(0).set_m_kAST(0.9);
     body.setTotalMass(mass, false);
 
-    Ammo.castObject(body, Ammo.btCollisionObject).getCollisionShape();
+    var translation = new Ammo.btVector3(obj.position.x, obj.position.y, obj.position.z);
+    var rotation = new Ammo.btQuaternion(obj.quaternion.x, obj.quaternion.y, obj.quaternion.z, obj.quaternion.w);
+    var scale = new Ammo.btVector3(obj.scale.x, obj.scale.y, obj.scale.z);
+
+    // body.translate(translation);
+    body.rotate(rotation);
+    body.scale(scale);
+
+    Ammo.castObject(body, Ammo.btCollisionObject).getCollisionShape().setMargin(0.05);
 
     // Disable deactivation
     body.setActivationState(4);
