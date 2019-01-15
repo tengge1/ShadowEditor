@@ -27,6 +27,8 @@ namespace THREE
             this._y = y;
             this._z = z;
             this._w = w;
+
+            this.OnChangeCallback = _OnChangeCallback;
         }
 
         public Quaternion Slerp(Quaternion qa, Quaternion qb, Quaternion qm, double t)
@@ -554,6 +556,11 @@ namespace THREE
         }
 
         public delegate void OnChangeCallbackFunc();
+
+        private void _OnChangeCallback()
+        {
+
+        }
 
         public OnChangeCallbackFunc OnChangeCallback;
     }

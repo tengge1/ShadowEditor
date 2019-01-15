@@ -29,6 +29,8 @@ namespace THREE
             this._y = y;
             this._z = z;
             this._order = order;
+
+            this.OnChangeCallback = _OnChangeCallback;
         }
 
         public double X
@@ -296,6 +298,11 @@ namespace THREE
         }
 
         public delegate void OnChangeCallBackFun();
+
+        private void _OnChangeCallback()
+        {
+
+        }
 
         public OnChangeCallBackFun OnChangeCallback;
     }
