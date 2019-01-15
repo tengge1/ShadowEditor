@@ -136,12 +136,12 @@ RigidBodyComponent.prototype.render = function () {
 
 RigidBodyComponent.prototype.onObjectSelected = function () {
     this.updateUI();
-    this.showPhysicsShapeHelper();
+    // this.showPhysicsShapeHelper();
 };
 
 RigidBodyComponent.prototype.onObjectChanged = function () {
     this.updateUI();
-    this.showPhysicsShapeHelper();
+    // this.showPhysicsShapeHelper();
 };
 
 RigidBodyComponent.prototype.onObjectRemoved = function (object) {
