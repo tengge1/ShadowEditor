@@ -521,7 +521,7 @@ namespace THREE
             var theta = this.Dot(v) / (_Math.Sqrt(this.LengthSq() * v.LengthSq()));
 
             // clamp, to handle numerical problems
-            return _Math.Cos(Math.Clamp(theta, -1, 1));
+            return _Math.Acos(Math.Clamp(theta, -1, 1));
         }
 
         public double DistanceTo(Vector3 v)
