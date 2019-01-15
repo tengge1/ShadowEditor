@@ -58,7 +58,7 @@ ThrowBallEvent.prototype.throwBall = function (event) {
     raycaster.setFromCamera(mouse, camera);
 
     // Creates a ball and throws it
-    var ballMass = 1;
+    var ballMass = 3;
     var ballRadius = 0.4;
     var ballMaterial = new THREE.MeshPhongMaterial({
         color: 0x202020
@@ -81,7 +81,7 @@ ThrowBallEvent.prototype.throwBall = function (event) {
     var body = this.createRigidBody(ball, ballShape, ballMass, pos, quat);
 
     pos.copy(raycaster.ray.direction);
-    pos.multiplyScalar(24);
+    pos.multiplyScalar(20);
 
     body.setLinearVelocity(new Ammo.btVector3(pos.x, pos.y, pos.z));
     body.setFriction(0.5);
@@ -92,7 +92,6 @@ ThrowBallEvent.prototype.throwBall = function (event) {
 
     this.world.addRigidBody(body);
     this.rigidBodies.push(ball);
-    body.setActivationState(4);
 };
 
 ThrowBallEvent.prototype.createRigidBody = function (threeObject, physicsShape, mass, pos, quat) {
@@ -105,22 +104,15 @@ ThrowBallEvent.prototype.createRigidBody = function (threeObject, physicsShape, 
     transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w));
     var motionState = new Ammo.btDefaultMotionState(transform);
 
-    // 惯性
     var localInertia = new Ammo.btVector3(0, 0, 0);
     physicsShape.calculateLocalInertia(mass, localInertia);
 
     var rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, physicsShape, localInertia);
     var body = new Ammo.btRigidBody(rbInfo);
 
-    threeObject.userData.physicsBody = body;
-
-    // 重力大于0才响应物理事件
     if (mass > 0) {
-        this.rigidBodies.push(threeObject);
         body.setActivationState(4);
     }
-
-    this.world.addRigidBody(body);
 
     return body;
 };
