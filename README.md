@@ -19,9 +19,9 @@ Language: 中文 / [English](README-en.md)
         <td>演示</td>
         <td><a href="https://tengge1.github.io/ShadowEditor-examples/">GitHub</a></td>
         <td><a href="https://tengge1.gitee.io/shadoweditor/">码云</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>数据库及资源</td>
+        <td>[百度网盘20190116](https://pan.baidu.com/s/1VfgewDdoNP_N9VQQ4iUCeg)</td>
+        <td>提取码：n8je</td>
     </tr>
 </table>
 
