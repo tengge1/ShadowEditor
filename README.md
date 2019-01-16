@@ -1,5 +1,7 @@
 # Shadow Editor
 
+Language: 中文 / [English](README-en.md)
+
 * 名称：Shadow Editor
 * 版本：v0.1.3(开发中)
 * 简介：基于`three.js`的场景编辑器。

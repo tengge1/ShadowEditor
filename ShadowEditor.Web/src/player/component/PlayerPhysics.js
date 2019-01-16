@@ -100,6 +100,10 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
                     this.world.addSoftBody(body, 1, -1);
 
                     this.softBodies.push(n);
+
+                    if (n.userData.physics.mass > 0) {
+                        body.setActivationState(4);
+                    }
                 }
             } else {
                 console.warn(`PlayerPhysics: 无法识别的物理类型：${n.userData.physics.type}`);
@@ -306,35 +310,24 @@ PlayerPhysics.prototype.createSoftVolume = function (obj) {
     sbConfig.set_viterations(40); // 设置迭代次数
     sbConfig.set_piterations(40);
 
-    // Soft-soft and soft-rigid collisions
+    // Soft-soft and soft-rigid碰撞
     sbConfig.set_collisions(0x11);
 
-    // Friction
+    // 摩擦力(Friction)
     sbConfig.set_kDF(0.1);
 
-    // Damping
+    // 减震(Damping)
     sbConfig.set_kDP(0.01);
 
-    // Pressure
+    // 压力(Pressure)
     sbConfig.set_kPR(pressure);
 
-    // Stiffness
+    // 刚性(Stiffness)
     body.get_m_materials().at(0).set_m_kLST(0.9);
     body.get_m_materials().at(0).set_m_kAST(0.9);
     body.setTotalMass(mass, false);
 
-    var translation = new Ammo.btVector3(obj.position.x, obj.position.y, obj.position.z);
-    var rotation = new Ammo.btQuaternion(obj.quaternion.x, obj.quaternion.y, obj.quaternion.z, obj.quaternion.w);
-    var scale = new Ammo.btVector3(obj.scale.x, obj.scale.y, obj.scale.z);
-
-    // body.translate(translation);
-    body.rotate(rotation);
-    body.scale(scale);
-
     Ammo.castObject(body, Ammo.btCollisionObject).getCollisionShape().setMargin(0.05);
-
-    // Disable deactivation
-    body.setActivationState(4);
 
     return body;
 };
