@@ -62,7 +62,7 @@ A chaotic world. (Physical engine rigid body component demo)
 
 ![image](images/scene20190111.png)
 
-[Click Here](images/README.md)See more screenshots.
+[Click Here](images/README.md) to see more screenshots.
 
 ## User's Guide
 
@@ -119,7 +119,7 @@ Then switch to the parent directory and execute the following command to generat
 npm run build-docs
 ```
 
-## Common Problem
+## Question & Answer
 
 1. Publishing static website features is not available.
 
