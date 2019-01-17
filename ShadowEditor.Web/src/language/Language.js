@@ -33,6 +33,16 @@ Object.assign(window, {
     L_WIDTH: 'Width',
     L_HEIGHT: 'Height',
     L_DEPTH: 'Depth',
-    L_SLICE_SPACING: 'sliceSpacing',
+    L_SLICE_SPACING: 'SliceSpacing',
     L_PREVIEW: 'Preview',
+    L_GEOMETRY_COMPONENT: 'Geometry Component',
+    L_LIGHT_COMPONENT: 'Light Component',
+    L_COLOR: 'Color',
+    L_INTENSITY: 'Intensity',
+    L_DISTANCE: 'Distance',
+    L_ANGLE: 'Angle',
+    L_PENUMBRA: 'Penumbra',
+    L_DECAY: 'Decay',
+    L_SKY_COLOR: 'SkyColor',
+    L_GROUND_COLOR: 'GroundColor'
 });

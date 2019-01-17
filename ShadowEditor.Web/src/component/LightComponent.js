@@ -32,7 +32,7 @@ LightComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '光源组件'
+                text: L_LIGHT_COMPONENT
             }]
         }, {
             xtype: 'row',
@@ -40,7 +40,7 @@ LightComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '颜色'
+                text: L_COLOR
             }, {
                 xtype: 'color',
                 id: 'objectColor',
@@ -53,7 +53,7 @@ LightComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '强度'
+                text: L_INTENSITY
             }, {
                 xtype: 'number',
                 id: 'objectIntensity',
@@ -67,7 +67,7 @@ LightComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '距离'
+                text: L_DISTANCE
             }, {
                 xtype: 'number',
                 id: 'objectDistance',
@@ -81,7 +81,7 @@ LightComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '角度'
+                text: L_ANGLE
             }, {
                 xtype: 'number',
                 id: 'objectAngle',
@@ -96,7 +96,7 @@ LightComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '半阴影'
+                text: L_PENUMBRA
             }, {
                 xtype: 'number',
                 id: 'objectPenumbra',
@@ -110,7 +110,7 @@ LightComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '衰减'
+                text: L_DECAY
             }, {
                 xtype: 'number',
                 id: 'objectDecay',
@@ -124,7 +124,7 @@ LightComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '天空颜色'
+                text: L_SKY_COLOR
             }, {
                 xtype: 'color',
                 id: 'objectSkyColor',
@@ -137,7 +137,7 @@ LightComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '地面颜色'
+                text: L_GROUND_COLOR
             }, {
                 xtype: 'color',
                 id: 'objectGroundColor',
@@ -150,7 +150,7 @@ LightComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '宽度'
+                text: L_WIDTH
             }, {
                 xtype: 'number',
                 id: 'objectWidth',
@@ -164,7 +164,7 @@ LightComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '高度'
+                text: L_HEIGHT
             }, {
                 xtype: 'number',
                 id: 'objectHeight',

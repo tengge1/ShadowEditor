@@ -40,13 +40,13 @@ GeometryComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '几何组件'
+                text: L_GEOMETRY_COMPONENT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '类型'
+                text: L_TYPE
             }, {
                 xtype: 'text',
                 id: 'name',
