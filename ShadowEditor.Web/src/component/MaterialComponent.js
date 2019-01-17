@@ -49,7 +49,7 @@ MaterialComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '材质组件'
+                text: L_MATERIAL_COMPONENT
             }]
         }, {
             xtype: 'row',
@@ -58,36 +58,36 @@ MaterialComponent.prototype.render = function () {
                 text: ''
             }, {
                 xtype: 'button',
-                text: '保存',
+                text: L_SAVE,
                 onClick: this.onSave.bind(this)
             }, {
                 xtype: 'button',
-                text: '选择',
+                text: L_SELECT,
                 onClick: this.onLoad.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '类型'
+                text: L_TYPE
             }, {
                 xtype: 'select',
                 id: 'type',
                 scope: this.id,
                 options: {
-                    'LineBasicMaterial': '线条材质',
-                    'LineDashedMaterial': '虚线材质',
-                    'MeshBasicMaterial': '基本材质',
-                    'MeshDepthMaterial': '深度材质',
-                    'MeshNormalMaterial': '法向量材质',
-                    'MeshLambertMaterial': '兰伯特材质',
-                    'MeshPhongMaterial': '冯氏材质',
-                    'PointCloudMaterial': '点云材质',
-                    'MeshStandardMaterial': '标准材质',
-                    'MeshPhysicalMaterial': '物理材质',
-                    'SpriteMaterial': '精灵材质',
-                    'ShaderMaterial': '着色器材质',
-                    'RawShaderMaterial': '原始着色器材质'
+                    'LineBasicMaterial': L_LINE_BASIC_MATERIAL,
+                    'LineDashedMaterial': L_LINE_DASHED_MATERIAL,
+                    'MeshBasicMaterial': L_MESH_BASIC_MATERIAL,
+                    'MeshDepthMaterial': L_MESH_DEPTH_MATERIAL,
+                    'MeshNormalMaterial': L_MESH_NORMAL_MATERIAL,
+                    'MeshLambertMaterial': L_MESH_LAMBERT_MATERIAL,
+                    'MeshPhongMaterial': L_MESH_PHONG_MATERIAL,
+                    'PointCloudMaterial': L_POINT_CLOUD_MATERIAL,
+                    'MeshStandardMaterial': L_MESH_STANDARD_MATERIAL,
+                    'MeshPhysicalMaterial': L_MESH_PHYSICAL_MATERIAL,
+                    'SpriteMaterial': L_SPRITE_MATERIAL,
+                    'ShaderMaterial': L_SHADER_MATERIAL,
+                    'RawShaderMaterial': L_RAW_SHADER_MATERIAL
                 },
                 style: {
                     width: '100px',

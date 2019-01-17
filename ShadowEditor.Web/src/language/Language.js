@@ -46,5 +46,21 @@ Object.assign(window, {
     L_SKY_COLOR: 'SkyColor',
     L_GROUND_COLOR: 'GroundColor',
     L_LMESH_COMPONENT: 'LMesh Component',
-    L_ANIMATION: 'Animation'
+    L_ANIMATION: 'Animation',
+    L_MATERIAL_COMPONENT: 'Material Component',
+    L_SAVE: 'Save',
+    L_SELECT: 'Select',
+    L_LINE_BASIC_MATERIAL: 'LineBasicMaterial',
+    L_LINE_DASHED_MATERIAL: 'LineDashedMaterial',
+    L_MESH_BASIC_MATERIAL: 'MeshBasicMaterial',
+    L_MESH_DEPTH_MATERIAL: 'MeshDepthMaterial',
+    L_MESH_NORMAL_MATERIAL: 'MeshNormalMaterial',
+    L_MESH_LAMBERT_MATERIAL: 'MeshLambertMaterial',
+    L_MESH_PHONG_MATERIAL: 'MeshPhongMaterial',
+    L_POINT_CLOUD_MATERIAL: 'PointCloudMaterial',
+    L_MESH_STANDARD_MATERIAL: 'MeshStandardMaterial',
+    L_MESH_PHYSICAL_MATERIAL: 'MeshPhysicalMaterial',
+    L_SPRITE_MATERIAL: 'SpriteMaterial',
+    L_SHADER_MATERIAL: 'ShaderMaterial',
+    L_RAW_SHADER_MATERIAL: 'RawShaderMaterial'
 });
