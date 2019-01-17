@@ -32,13 +32,13 @@ CameraComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '相机组件'
+                text: L_CAMERA_COMPONENT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '视场'
+                text: L_FOV
             }, {
                 xtype: 'number',
                 id: 'objectFov',
@@ -49,7 +49,7 @@ CameraComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '近点'
+                text: L_NEAR
             }, {
                 xtype: 'number',
                 id: 'objectNear',
@@ -60,7 +60,7 @@ CameraComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '远点'
+                text: L_FAR
             }, {
                 xtype: 'number',
                 id: 'objectFar',

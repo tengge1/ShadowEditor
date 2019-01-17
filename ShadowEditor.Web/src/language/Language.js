@@ -21,5 +21,18 @@ Object.assign(window, {
     L_UPDATE_UUID: 'Update UUID',
 
     // component
-    
+    L_BASIC_INFO: 'Basic Info',
+    L_NAME: 'Name',
+    L_TYPE: 'Type',
+    L_VISIBLE: 'Visible',
+    L_CAMERA_COMPONENT: 'Camera Component',
+    L_FOV: 'Fov',
+    L_NEAR: 'Near',
+    L_FAR: 'Far',
+    L_FIRE_COMPONENT: 'Fire Component',
+    L_WIDTH: 'Width',
+    L_HEIGHT: 'Height',
+    L_DEPTH: 'Depth',
+    L_SLICE_SPACING: 'sliceSpacing',
+    L_PREVIEW: 'Preview',
 });

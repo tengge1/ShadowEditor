@@ -33,12 +33,12 @@ FireComponent.prototype.render = function () {
                 color: '#555',
                 fontWeight: 'bold'
             },
-            text: '火焰组件'
+            text: L_FIRE_COMPONENT
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '宽度'
+                text: L_WIDTH
             }, {
                 xtype: 'int',
                 id: 'width',
@@ -50,7 +50,7 @@ FireComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '高度'
+                text: L_HEIGHT
             }, {
                 xtype: 'int',
                 id: 'height',
@@ -62,7 +62,7 @@ FireComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '深度'
+                text: L_DEPTH
             }, {
                 xtype: 'int',
                 id: 'depth',
@@ -74,7 +74,7 @@ FireComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '切片厚度'
+                text: L_SLICE_SPACING
             }, {
                 xtype: 'number',
                 id: 'sliceSpacing',
@@ -90,7 +90,7 @@ FireComponent.prototype.render = function () {
                 xtype: 'button',
                 id: 'btnPreview',
                 scope: this.id,
-                text: '预览',
+                text: L_PREVIEW,
                 onClick: this.onPreview.bind(this)
             }]
         }]

@@ -35,13 +35,13 @@ BasicComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '基本信息'
+                text: L_BASIC_INFO
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '名称'
+                text: L_NAME
             }, {
                 xtype: 'input',
                 id: 'name',
@@ -56,7 +56,7 @@ BasicComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '类型'
+                text: L_TYPE
             }, {
                 xtype: 'text',
                 id: 'type',
@@ -66,7 +66,7 @@ BasicComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '可见性'
+                text: L_VISIBLE
             }, {
                 xtype: 'checkbox',
                 id: 'visible',
