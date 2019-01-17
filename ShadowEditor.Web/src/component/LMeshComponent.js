@@ -37,13 +37,13 @@ LMeshComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: 'LMesh组件'
+                text: L_LMESH_COMPONENT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '动画'
+                text: L_ANIMATION
             }, {
                 xtype: 'select',
                 id: 'anims',
@@ -58,7 +58,7 @@ LMeshComponent.prototype.render = function () {
                 xtype: 'button',
                 id: 'btnPreview',
                 scope: this.id,
-                text: '预览',
+                text: L_PREVIEW,
                 onClick: this.onPreview.bind(this)
             }]
         }]

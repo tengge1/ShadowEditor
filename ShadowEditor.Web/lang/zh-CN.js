@@ -45,3 +45,5 @@ L_PENUMBRA = '半阴影';
 L_DECAY = '衰减';
 L_SKY_COLOR = '天空颜色';
 L_GROUND_COLOR = '地面颜色';
+L_LMESH_COMPONENT = 'LMesh组件';
+L_ANIMATION = '动画';

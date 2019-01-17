@@ -44,5 +44,7 @@ Object.assign(window, {
     L_PENUMBRA: 'Penumbra',
     L_DECAY: 'Decay',
     L_SKY_COLOR: 'SkyColor',
-    L_GROUND_COLOR: 'GroundColor'
+    L_GROUND_COLOR: 'GroundColor',
+    L_LMESH_COMPONENT: 'LMesh Component',
+    L_ANIMATION: 'Animation'
 });
