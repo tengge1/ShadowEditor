@@ -15,7 +15,7 @@ function AddObjectCommand(object) {
 	this.object = object;
 
 	if (object !== undefined) {
-		this.name = '添加物体：' + object.name;
+		this.name = L_ADD_OBJECT_COLON + object.name;
 	}
 };
 

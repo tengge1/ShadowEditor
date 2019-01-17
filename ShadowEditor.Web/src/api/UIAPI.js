@@ -6,7 +6,7 @@ function UIAPI() {
 }
 
 UIAPI.prototype.addMenu = function () {
-    alert(ADD_MENU);
+    alert(L_ADD_MENU);
 };
 
 export default UIAPI;

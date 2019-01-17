@@ -13,7 +13,7 @@ function SetValueCommand(object, attributeName, newValue) {
 	Command.call(this);
 
 	this.type = 'SetValueCommand';
-	this.name = '设置' + attributeName;
+	this.name = L_SET + ' ' + attributeName;
 	this.updatable = true;
 
 	this.object = object;

@@ -11,7 +11,7 @@ function MultiCmdsCommand(cmdArray) {
 	Command.call(this);
 
 	this.type = 'MultiCmdsCommand';
-	this.name = '多种改变';
+	this.name = L_MULTI_MODIFY;
 
 	this.cmdArray = (cmdArray !== undefined) ? cmdArray : [];
 };

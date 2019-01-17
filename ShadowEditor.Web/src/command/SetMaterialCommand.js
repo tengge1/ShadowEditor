@@ -12,7 +12,7 @@ function SetMaterialCommand(object, newMaterial) {
 	Command.call(this);
 
 	this.type = 'SetMaterialCommand';
-	this.name = '新材质';
+	this.name = L_NEW_MATERIAL;
 
 	this.object = object;
 	this.oldMaterial = (object !== undefined) ? object.material : undefined;

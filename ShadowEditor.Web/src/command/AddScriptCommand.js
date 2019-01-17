@@ -12,7 +12,7 @@ var AddScriptCommand = function (object, script) {
 	Command.call(this);
 
 	this.type = 'AddScriptCommand';
-	this.name = '添加脚本';
+	this.name = L_ADD_SCRIPT;
 
 	this.object = object;
 	this.script = script;

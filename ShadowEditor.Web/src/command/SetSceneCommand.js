@@ -14,7 +14,7 @@ function SetSceneCommand(scene) {
 	Command.call(this);
 
 	this.type = 'SetSceneCommand';
-	this.name = '设置场景';
+	this.name = L_SET_SCENE;
 
 	this.cmdArray = [];
 

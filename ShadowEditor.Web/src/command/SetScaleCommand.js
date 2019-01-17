@@ -13,7 +13,7 @@ function SetScaleCommand(object, newScale, optionalOldScale) {
 	Command.call(this);
 
 	this.type = 'SetScaleCommand';
-	this.name = '设置缩放';
+	this.name = L_SET_SCALE;
 	this.updatable = true;
 
 	this.object = object;

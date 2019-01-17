@@ -12,7 +12,7 @@ function RemoveScriptCommand(object, script) {
 	Command.call(this);
 
 	this.type = 'RemoveScriptCommand';
-	this.name = '移除脚本';
+	this.name = L_REMOVE_SCRIPT;
 
 	this.object = object;
 	this.script = script;
