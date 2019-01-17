@@ -19,4 +19,7 @@ Object.assign(window, {
     L_SET_SCENE: 'Set Scene',
     L_SET_SCRIPT: 'Set Script',
     L_UPDATE_UUID: 'Update UUID',
+
+    // component
+    
 });
