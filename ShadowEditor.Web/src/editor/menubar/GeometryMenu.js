@@ -15,6 +15,8 @@ import Lathe from '../../object/geometry/Lathe';
 import Sprite from '../../object/geometry/Sprite';
 import Text from '../../object/geometry/Text';
 
+import Spline from '../../object/line/Spline';
+
 /**
  * 几何体菜单
  * @author tengge / https://github.com/tengge1
@@ -108,6 +110,13 @@ GeometryMenu.prototype.render = function () {
                 html: '文本',
                 cls: 'option',
                 onClick: this.addText.bind(this)
+            }, {
+                xtype: 'hr'
+            }, {
+                xtype: 'div',
+                html: '曲线',
+                cls: 'option',
+                onClick: this.addSpline.bind(this)
             }]
         }]
     });
@@ -193,6 +202,12 @@ GeometryMenu.prototype.addText = function () {
     UI.prompt('请输入', null, '一些文字', (event, value) => {
         this.app.editor.execute(new AddObjectCommand(new Text(value)));
     });
+};
+
+// ---------------------- 曲线 ----------------------------------
+
+GeometryMenu.prototype.addSpline = function () {
+    this.app.editor.execute(new AddObjectCommand(new Spline()));
 };
 
 export default GeometryMenu;

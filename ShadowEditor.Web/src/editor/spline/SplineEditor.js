@@ -132,6 +132,7 @@ function SplineEditor(container) {
     }
     var geometry = new THREE.BufferGeometry();
     geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(ARC_SEGMENTS * 3), 3));
+    
     var curve = new THREE.CatmullRomCurve3(positions);
     curve.curveType = 'catmullrom';
     curve.mesh = new THREE.Line(geometry.clone(), new THREE.LineBasicMaterial({
@@ -140,6 +141,7 @@ function SplineEditor(container) {
     }));
     curve.mesh.castShadow = true;
     splines.uniform = curve;
+
     curve = new THREE.CatmullRomCurve3(positions);
     curve.curveType = 'centripetal';
     curve.mesh = new THREE.Line(geometry.clone(), new THREE.LineBasicMaterial({
@@ -148,6 +150,7 @@ function SplineEditor(container) {
     }));
     curve.mesh.castShadow = true;
     splines.centripetal = curve;
+    
     curve = new THREE.CatmullRomCurve3(positions);
     curve.curveType = 'chordal';
     curve.mesh = new THREE.Line(geometry.clone(), new THREE.LineBasicMaterial({
@@ -156,10 +159,12 @@ function SplineEditor(container) {
     }));
     curve.mesh.castShadow = true;
     splines.chordal = curve;
+    
     for (var k in splines) {
         var spline = splines[k];
         scene.add(spline.mesh);
     }
+
     load([new THREE.Vector3(289.76843686945404, 452.51481137238443, 56.10018915737797),
     new THREE.Vector3(- 53.56300074753207, 171.49711742836848, - 14.495472686253045),
     new THREE.Vector3(- 91.40118730204415, 176.4306956436485, - 6.958271935582161),
