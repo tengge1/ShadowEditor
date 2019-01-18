@@ -101,11 +101,11 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '着色程序'
+                text: L_SHADER_PROGRAM
             }, {
                 xtype: 'button',
                 scope: this.id,
-                text: '信息',
+                text: L_INFO,
                 style: {
                     marginLeft: '4px'
                 },
@@ -113,7 +113,7 @@ MaterialComponent.prototype.render = function () {
             }, {
                 xtype: 'button',
                 scope: this.id,
-                text: '顶点',
+                text: L_VERTEX,
                 style: {
                     marginLeft: '4px'
                 },
@@ -121,7 +121,7 @@ MaterialComponent.prototype.render = function () {
             }, {
                 xtype: 'button',
                 scope: this.id,
-                text: '片源',
+                text: L_FRAGMENT,
                 style: {
                     marginLeft: '4px'
                 },
@@ -133,7 +133,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '颜色'
+                text: L_COLOR
             }, {
                 xtype: 'color',
                 id: 'color',
@@ -146,7 +146,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '粗糙度'
+                text: L_ROUGHNESS
             }, {
                 xtype: 'number',
                 id: 'roughness',
@@ -164,7 +164,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '金属度'
+                text: L_METALNESS
             }, {
                 xtype: 'number',
                 id: 'metalness',
@@ -182,7 +182,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '发光'
+                text: L_EMISSIVE
             }, {
                 xtype: 'color',
                 id: 'emissive',
@@ -196,7 +196,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '镜面度'
+                text: L_SPECULAR
             }, {
                 xtype: 'color',
                 id: 'specular',
@@ -210,7 +210,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '光亮度'
+                text: L_SHININESS
             }, {
                 xtype: 'number',
                 id: 'shininess',
@@ -224,7 +224,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '透明度'
+                text: L_CLEAR_COAT
             }, {
                 xtype: 'number',
                 id: 'clearCoat',
@@ -242,7 +242,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '透明粗糙度'
+                text: L_CLEAR_COAT_ROUGHNESS
             }, {
                 xtype: 'number',
                 id: 'clearCoatRoughness',
@@ -260,15 +260,15 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '顶点颜色'
+                text: L_VERTEX_COLOR
             }, {
                 xtype: 'select',
                 id: 'vertexColors',
                 scope: this.id,
                 options: {
-                    0: '无',
-                    1: '面',
-                    2: '顶点'
+                    0: L_NO_COLORS,
+                    1: L_FACE_COLORS,
+                    2: L_VERTEX_COLORS
                 },
                 onChange: this.updateMaterial.bind(this)
             }]
@@ -278,7 +278,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '皮肤'
+                text: L_SKIN
             }, {
                 xtype: 'checkbox',
                 id: 'skinning',
@@ -292,7 +292,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '纹理'
+                text: L_TEXTURE
             }, {
                 xtype: 'checkbox',
                 id: 'mapEnabled',
@@ -307,20 +307,19 @@ MaterialComponent.prototype.render = function () {
                 onChange: this.updateMaterial.bind(this)
             }), {
                 xtype: 'linkbutton',
-                text: '设置',
+                text: L_SET_MAP,
                 style: {
                     marginLeft: '4px'
                 },
                 onClick: this.onSetMap.bind(this)
-            }
-            ]
+            }]
         }, {
             xtype: 'row',
             id: 'alphaMapRow',
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '透明纹理'
+                text: L_ALPHA_MAP
             }, {
                 xtype: 'checkbox',
                 id: 'alphaMapEnabled',
@@ -339,7 +338,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '凹凸纹理'
+                text: L_BUMP_MAP
             }, {
                 xtype: 'checkbox',
                 id: 'bumpMapEnabled',
@@ -367,7 +366,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '法线纹理'
+                text: L_NORMAL_MAP
             }, {
                 xtype: 'checkbox',
                 id: 'normalMapEnabled',
@@ -386,7 +385,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '位移纹理'
+                text: L_DISPLACEMENT_MAP
             }, {
                 xtype: 'checkbox',
                 id: 'displacementMapEnabled',
