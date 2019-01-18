@@ -626,7 +626,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '不透明度'
+                text: L_OPACITY
             }, {
                 xtype: 'number',
                 id: 'opacity',
@@ -644,7 +644,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '透明'
+                text: L_TRANSPARENT
             }, {
                 xtype: 'checkbox',
                 id: 'transparent',
@@ -660,7 +660,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: 'α测试'
+                text: L_ALPHA_TEST
             }, {
                 xtype: 'number',
                 id: 'alphaTest',
@@ -677,7 +677,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '线框'
+                text: L_WIREFRAME
             }, {
                 xtype: 'checkbox',
                 id: 'wireframe',
@@ -1121,7 +1121,7 @@ MaterialComponent.prototype.updateMaterial = function () {
             material.fragmentShader = RawShaderMaterialFragment;
         }
 
-        editor.execute(new SetMaterialCommand(object, material), '新材质：' + type.getValue());
+        editor.execute(new SetMaterialCommand(object, material), L_NEW_MATERIAL + ':' + type.getValue());
     }
 
     if (material.color !== undefined && material.color.getHex() !== color.getHexValue()) {
@@ -1395,7 +1395,7 @@ MaterialComponent.prototype.updateMaterial = function () {
     this.updateUI();
 
     if (textureWarning) {
-        console.warn(`无法设置纹理，${this.selected.name}的材质没有纹理坐标！`);
+        console.warn(`${L_CANNOT_SET_TEXTURE} ${this.selected.name} ${L_MATERIAL_HAS_NO_COORDINATES}`);
     }
 };
 
@@ -1408,7 +1408,7 @@ MaterialComponent.prototype.editProgramInfo = function () {
         attributes: material.attributes
     };
 
-    this.app.script.open(material.uuid, this.selected.name + '-ProgramInfo', 'json', JSON.stringify(obj), this.selected.name + '-着色器信息', source => {
+    this.app.script.open(material.uuid, this.selected.name + '-ProgramInfo', 'json', JSON.stringify(obj), this.selected.name + `-${L_SHADER_INFO}`, source => {
         try {
             obj = JSON.parse(source);
             material.defines = obj.defines;
@@ -1416,7 +1416,7 @@ MaterialComponent.prototype.editProgramInfo = function () {
             material.attributes = obj.attributes;
             material.needsUpdate = true;
         } catch (e) {
-            this.app.error(this.selected.name + '-着色器信息 无法反序列化。');
+            this.app.error(this.selected.name + `-${L_SHADER_CANNOT_PARSE}`);
         }
     });
 };
@@ -1424,7 +1424,7 @@ MaterialComponent.prototype.editProgramInfo = function () {
 MaterialComponent.prototype.editVertexShader = function () {
     var material = this.selected.material;
 
-    this.app.script.open(material.uuid, this.selected.name + '-VertexShader', 'vertexShader', material.vertexShader, this.selected.name + '-顶点着色器', source => {
+    this.app.script.open(material.uuid, this.selected.name + '-VertexShader', 'vertexShader', material.vertexShader, this.selected.name + `-${L_VERTEX_SHADER}`, source => {
         material.vertexShader = source;
         material.needsUpdate = true;
     });
@@ -1433,7 +1433,7 @@ MaterialComponent.prototype.editVertexShader = function () {
 MaterialComponent.prototype.editFragmentShader = function () {
     var material = this.selected.material;
 
-    this.app.script.open(material.uuid, this.selected.name + '-FragmentShader', 'fragmentShader', material.fragmentShader, this.selected.name + '-片源着色器', source => {
+    this.app.script.open(material.uuid, this.selected.name + '-FragmentShader', 'fragmentShader', material.fragmentShader, this.selected.name + `-${L_FRAGMENT_SHADER}`, source => {
         material.fragmentShader = source;
         material.needsUpdate = true;
     });
@@ -1448,7 +1448,7 @@ MaterialComponent.prototype.onSetMap = function () {
     }
 
     if (!this.selected.material.map) {
-        UI.msg('请先为该物体选择纹理！');
+        UI.msg(L_SELECT_TEXTURE_FIRST);
         return;
     }
 
@@ -1459,7 +1459,7 @@ MaterialComponent.prototype.onSetMap = function () {
 // --------------------------------------- 材质保存载入 --------------------------------------------------
 
 MaterialComponent.prototype.onSave = function () {
-    UI.prompt('请输入材质名称', '名称', '新材质', (event, value) => {
+    UI.prompt(L_ENTER_MATERIAL_NAME, L_NAME, L_NEW_MATERIAL, (event, value) => {
         this.commitSave(value);
     });
 };
@@ -1494,7 +1494,7 @@ MaterialComponent.prototype.commitSave = function (name) {
 
 MaterialComponent.prototype.onLoad = function () {
     this.app.call(`selectBottomPanel`, this, 'material');
-    UI.msg('请点击材质面板中的材质！');
+    UI.msg(L_CLICK_MATERIAL_ON_PANEL);
     this.app.on(`selectMaterial.${this.id}`, this.onWaitingForMaterial.bind(this));
 };
 
