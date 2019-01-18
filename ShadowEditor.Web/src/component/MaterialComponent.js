@@ -413,7 +413,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '粗糙纹理'
+                text: L_ROUGHNESS_MAP
             }, {
                 xtype: 'checkbox',
                 id: 'roughnessMapEnabled',
@@ -432,7 +432,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '金属纹理'
+                text: L_METALNESS_MAP
             }, {
                 xtype: 'checkbox',
                 id: 'metalnessMapEnabled',
@@ -451,7 +451,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '镜面纹理'
+                text: L_SPECULAR_MAP
             }, {
                 xtype: 'checkbox',
                 id: 'specularMapEnabled',
@@ -470,7 +470,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '环境纹理'
+                text: L_ENV_MAP
             }, {
                 xtype: 'checkbox',
                 id: 'envMapEnabled',
@@ -499,7 +499,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '光照纹理'
+                text: L_LIGHT_MAP
             }, {
                 xtype: 'checkbox',
                 id: 'lightMapEnabled',
@@ -518,7 +518,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '遮挡纹理'
+                text: L_AO_MAP
             }, {
                 xtype: 'checkbox',
                 id: 'aoMapEnabled',
@@ -547,7 +547,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '发光纹理'
+                text: L_EMISSIVE_MAP
             }, {
                 xtype: 'checkbox',
                 id: 'emissiveMapEnabled',
@@ -566,15 +566,15 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '剔除'
+                text: L_SIDE
             }, {
                 xtype: 'select',
                 id: 'side',
                 scope: this.id,
                 options: {
-                    0: '正面',
-                    1: '反面',
-                    2: '双面'
+                    0: L_FRONT_SIDE,
+                    1: L_BACK_SIDE,
+                    2: L_DOUBLE_SIDE
                 },
                 style: {
                     width: '100px',
@@ -588,7 +588,7 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '平滑'
+                text: L_FLAT_SHADING
             }, {
                 xtype: 'checkbox',
                 id: 'flatShading',
@@ -601,18 +601,18 @@ MaterialComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '混合'
+                text: L_BLENDING
             }, {
                 xtype: 'select',
                 id: 'blending',
                 scope: this.id,
                 options: {
-                    0: '不混合',
-                    1: '一般混合',
-                    2: '和混合',
-                    3: '差混合',
-                    4: '积混合',
-                    5: '自定义混合'
+                    0: L_NO_BLENDING,
+                    1: L_NORMAL_BLENDING,
+                    2: L_ADDITIVE_BLENDING,
+                    3: L_SUBSTRACTIVE_BLENDING,
+                    4: L_MULTIPLY_BLENDING,
+                    5: L_CUSTOM_BLENDING
                 },
                 style: {
                     width: '100px',
