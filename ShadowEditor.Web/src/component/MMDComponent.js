@@ -36,13 +36,13 @@ MMDComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: 'MMD模型'
+                text: L_MMD_MODEL
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '模型动画'
+                text: L_MODEL_ANIMATION
             }, {
                 xtype: 'input',
                 id: 'animation',
@@ -54,14 +54,14 @@ MMDComponent.prototype.render = function () {
                 }
             }, {
                 xtype: 'button',
-                text: '选择',
+                text: L_SELECT,
                 onClick: this.selectAnimation.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '相机动画'
+                text: L_CAMERA_ANIMATION
             }, {
                 xtype: 'input',
                 id: 'cameraAnimation',
@@ -73,14 +73,14 @@ MMDComponent.prototype.render = function () {
                 }
             }, {
                 xtype: 'button',
-                text: '选择',
+                text: L_SELECT,
                 onClick: this.selectCameraAnimation.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '音频'
+                text: L_AUDIO
             }, {
                 xtype: 'input',
                 id: 'audio',
@@ -92,7 +92,7 @@ MMDComponent.prototype.render = function () {
                 }
             }, {
                 xtype: 'button',
-                text: '选择',
+                text: L_SELECT,
                 onClick: this.selectAudio.bind(this)
             }]
         }]
@@ -152,13 +152,13 @@ MMDComponent.prototype.updateUI = function () {
 
 MMDComponent.prototype.selectAnimation = function () {
     this.app.call(`selectBottomPanel`, this, 'animation');
-    UI.msg('请点击动画面板中的动画！');
+    UI.msg(L_CLICK_ANIMATION_PANEL);
     this.app.on(`selectAnimation.${this.id}`, this.onSelectAnimation.bind(this));
 };
 
 MMDComponent.prototype.onSelectAnimation = function (data) {
     if (data.Type !== 'mmd') {
-        UI.msg(`只允许选择MMD模型动画！`);
+        UI.msg(L_SELECT_MMD_ANIMATION_ONLY);
         return;
     }
     this.app.on(`selectAnimation.${this.id}`, null);
@@ -172,13 +172,13 @@ MMDComponent.prototype.onSelectAnimation = function (data) {
 
 MMDComponent.prototype.selectCameraAnimation = function () {
     this.app.call(`selectBottomPanel`, this, 'animation');
-    UI.msg('请点击动画面板中的相机动画！');
+    UI.msg(L_CLICK_CAMERA_ANIMATION);
     this.app.on(`selectAnimation.${this.id}`, this.onSelectCameraAnimation.bind(this));
 };
 
 MMDComponent.prototype.onSelectCameraAnimation = function (data) {
     if (data.Type !== 'mmd') {
-        UI.msg(`只允许选择MMD相机动画！`);
+        UI.msg(L_SELECT_CAMERA_ANIMATION_ONLY);
         return;
     }
     this.app.on(`selectAnimation.${this.id}`, null);
@@ -192,7 +192,7 @@ MMDComponent.prototype.onSelectCameraAnimation = function (data) {
 
 MMDComponent.prototype.selectAudio = function () {
     this.app.call(`selectBottomPanel`, this, 'audio');
-    UI.msg('请点击MMD动画对应的音频！');
+    UI.msg(L_SELECT_MMD_AUDIO);
     this.app.on(`selectAudio.${this.id}`, this.onSelectAudio.bind(this));
 };
 

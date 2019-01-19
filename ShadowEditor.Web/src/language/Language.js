@@ -118,4 +118,13 @@ Object.assign(window, {
     L_SELECT_TEXTURE_FIRST: 'Please select texture first.',
     L_ENTER_MATERIAL_NAME: 'Please enter material name',
     L_CLICK_MATERIAL_ON_PANEL: 'Please click material on material panel.',
+    L_MMD_MODEL: 'MMD Model',
+    L_MODEL_ANIMATION: 'Model Animation',
+    L_CAMERA_ANIMATION: 'Camera Animation',
+    L_AUDIO: 'Audio',
+    L_CLICK_ANIMATION_PANEL: 'Please click the animation in the animation panel.',
+    L_SELECT_MMD_ANIMATION_ONLY: 'Please select MMD animation only.',
+    L_CLICK_CAMERA_ANIMATION: 'Please select camera animation.',
+    L_SELECT_CAMERA_ANIMATION_ONLY: 'Please select camera animation only.',
+    L_SELECT_MMD_AUDIO: 'Please select MMD audio.',
 });
