@@ -33,12 +33,12 @@ ParticleEmitterComponent.prototype.render = function () {
                 color: '#555',
                 fontWeight: 'bold'
             },
-            text: '粒子发射器'
+            text: L_PARTICLE_EMITTER
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '位置'
+                text: L_POSITION
             }, {
                 xtype: 'number',
                 id: 'positionX',
@@ -59,7 +59,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '位置发散'
+                text: L_POSITION_SPREAD
             }, {
                 xtype: 'number',
                 id: 'positionSpreadX',
@@ -80,7 +80,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '速度'
+                text: L_VELOCITY
             }, {
                 xtype: 'number',
                 id: 'velocityX',
@@ -101,7 +101,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '速度发散'
+                text: L_VELOCITY_SPREAD
             }, {
                 xtype: 'number',
                 id: 'velocitySpreadX',
@@ -122,7 +122,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '加速度'
+                text: L_ACCELERATION
             }, {
                 xtype: 'number',
                 id: 'accelerationX',
@@ -143,7 +143,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '加速度发散'
+                text: L_ACCELERATION_SPREAD
             }, {
                 xtype: 'number',
                 id: 'accelerationSpreadX',
@@ -164,7 +164,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '颜色1'
+                text: L_COLOR + '1'
             }, {
                 xtype: 'color',
                 id: 'color1',
@@ -175,7 +175,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '颜色2'
+                text: L_COLOR + '2'
             }, {
                 xtype: 'color',
                 id: 'color2',
@@ -186,7 +186,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '颜色3'
+                text: L_COLOR + '3'
             }, {
                 xtype: 'color',
                 id: 'color3',
@@ -197,7 +197,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '颜色4'
+                text: L_COLOR + '4'
             }, {
                 xtype: 'color',
                 id: 'color4',
@@ -208,7 +208,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '尺寸'
+                text: L_SIZE
             }, {
                 xtype: 'number',
                 id: 'size',
@@ -219,7 +219,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '尺寸发散'
+                text: L_SIZE_SPREAD
             }, {
                 xtype: 'number',
                 id: 'sizeSpread',
@@ -230,7 +230,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '纹理'
+                text: L_TEXTURE
             }, {
                 xtype: 'texture',
                 id: 'texture',
@@ -241,7 +241,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '粒子数量'
+                text: L_PARTICLE_COUNT
             }, {
                 xtype: 'int',
                 range: [1, Infinity],
@@ -253,7 +253,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '持续时长'
+                text: L_MAX_AGE
             }, {
                 xtype: 'number',
                 id: 'maxAge',
@@ -264,7 +264,7 @@ ParticleEmitterComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '持续时长发散'
+                text: L_MAX_AGE_SPREAD
             }, {
                 xtype: 'number',
                 id: 'maxAgeSpread',
@@ -279,7 +279,7 @@ ParticleEmitterComponent.prototype.render = function () {
                 xtype: 'button',
                 id: 'btnPreview',
                 scope: this.id,
-                text: '预览',
+                text: L_PREVIEW,
                 onClick: this.onPreview.bind(this)
             }]
         }]
@@ -389,9 +389,9 @@ ParticleEmitterComponent.prototype.updateUI = function () {
     maxAgeSpread.setValue(emitter.maxAge.spread);
 
     if (this.isPlaying) {
-        btnPreview.setText('取消');
+        btnPreview.setText(L_CANCEL);
     } else {
-        btnPreview.setText('预览');
+        btnPreview.setText(L_PREVIEW);
     }
 };
 
@@ -554,7 +554,7 @@ ParticleEmitterComponent.prototype.startPreview = function () {
     var btnPreview = UI.get('btnPreview', this.id);
 
     this.isPlaying = true;
-    btnPreview.setText('取消');
+    btnPreview.setText(L_CANCEL);
 
     this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
 };
@@ -563,7 +563,7 @@ ParticleEmitterComponent.prototype.stopPreview = function () {
     var btnPreview = UI.get('btnPreview', this.id);
 
     this.isPlaying = false;
-    btnPreview.setText('预览');
+    btnPreview.setText(L_PREVIEW);
 
     var group = this.selected.userData.group;
     var emitter = this.selected.userData.emitter;
