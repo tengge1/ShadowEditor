@@ -33,21 +33,21 @@ SceneComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '场景组件'
+                text: L_SCENE_COMPONENT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '背景'
+                text: L_BACKGROUND
             }, {
                 xtype: 'select',
                 id: 'backgroundType',
                 scope: this.id,
                 options: {
-                    'Color': '纯色',
-                    'Image': '背景图片',
-                    'SkyBox': '立体贴图'
+                    'Color': L_SOLID_COLOR,
+                    'Image': L_BACKGROUND_IMAGE,
+                    'SkyBox': L_CUBE_TEXTURE
                 },
                 onChange: this.onChangeBackgroundType.bind(this)
             }]
@@ -57,7 +57,7 @@ SceneComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '背景颜色'
+                text: L_BACKGROUND_COLOR
             }, {
                 xtype: 'color',
                 id: 'backgroundColor',
@@ -70,7 +70,7 @@ SceneComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '背景图片'
+                text: L_BACKGROUND_IMAGE
             }, {
                 xtype: 'texture',
                 id: 'backgroundImage',

@@ -67,7 +67,6 @@ Object.assign(window, {
     L_INFO: 'Information',
     L_VERTEX: 'Vertex',
     L_FRAGMENT: 'Fragment',
-    L_COLOR: 'Color',
     L_ROUGHNESS: 'Roughness',
     L_METALNESS: 'MetalNess',
     L_EMISSIVE: 'Emissive',
@@ -145,4 +144,10 @@ Object.assign(window, {
     L_TEXTURE_SIZE: 'TextureSize',
     L_CLIP_BIAS: 'ClipBias',
     L_RECURSION: 'Recursion',
+    L_SCENE_COMPONENT: 'SceneComponent',
+    L_BACKGROUND: 'Background',
+    L_SOLID_COLOR: 'Solid Color',
+    L_BACKGROUND_IMAGE: 'Background Image',
+    L_CUBE_TEXTURE: 'Cube Texture',
+    L_BACKGROUND_COLOR: 'BackgroundColor',
 });
