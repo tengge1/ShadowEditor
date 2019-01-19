@@ -34,14 +34,14 @@ ReflectorComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '反光组件'
+                text: L_REFLECTOR_COMPONENT
             }]
         }, {
             xtype: 'row',
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '反光'
+                text: L_REFLECT
             }, {
                 xtype: 'checkbox',
                 id: 'reflect',
@@ -54,7 +54,7 @@ ReflectorComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '颜色'
+                text: L_COLOR
             }, {
                 xtype: 'color',
                 id: 'color',
@@ -68,7 +68,7 @@ ReflectorComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '贴图尺寸'
+                text: L_TEXTURE_SIZE
             }, {
                 xtype: 'select',
                 id: 'size',
@@ -87,7 +87,7 @@ ReflectorComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '裁剪偏移'
+                text: L_CLIP_BIAS
             }, {
                 xtype: 'number',
                 id: 'clipBias',
@@ -101,7 +101,7 @@ ReflectorComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '递归'
+                text: L_RECURSION
             }, {
                 xtype: 'checkbox',
                 id: 'recursion',
