@@ -84,7 +84,8 @@ ShadowComponent.prototype.render = function () {
                 options: {
                     512: '512*512',
                     1024: '1024*1024',
-                    2048: '2048*2048'
+                    2048: '2048*2048',
+                    4096: '4096*4096'
                 },
                 value: 512,
                 onChange: this.onChangeMapSize.bind(this)
