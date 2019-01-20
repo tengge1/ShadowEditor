@@ -188,6 +188,7 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
         light2.name = '平行光';
         light2.castShadow = true;
         light2.position.set(5, 10, 7.5);
+        light2.shadow.radius = 0;
         light2.shadow.mapSize.x = 2048;
         light2.shadow.mapSize.y = 2048;
         light2.shadow.camera.left = -20;
