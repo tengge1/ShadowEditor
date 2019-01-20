@@ -83,7 +83,7 @@ SceneComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: 'x轴正向'
+                text: L_POS_X
             }, {
                 xtype: 'texture',
                 id: 'backgroundPosX',
