@@ -96,7 +96,7 @@ SceneComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: 'x轴负向'
+                text: L_NEG_X
             }, {
                 xtype: 'texture',
                 id: 'backgroundNegX',

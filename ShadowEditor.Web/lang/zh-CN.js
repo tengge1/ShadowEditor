@@ -151,3 +151,4 @@ L_BACKGROUND_IMAGE = '背景图片';
 L_CUBE_TEXTURE = '立体贴图';
 L_BACKGROUND_COLOR = '背景颜色';
 L_POS_X = 'x轴正向';
+L_NEG_X = 'x轴负向';

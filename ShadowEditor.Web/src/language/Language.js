@@ -151,4 +151,5 @@ Object.assign(window, {
     L_CUBE_TEXTURE: 'Cube Texture',
     L_BACKGROUND_COLOR: 'BackgroundColor',
     L_POS_X: 'PosX',
+    L_NEG_X: 'NegX',
 });
