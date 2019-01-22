@@ -33,13 +33,13 @@ BasicAnimationComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '基本信息'
+                text: L_BASIC_INFORMATION
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '名称'
+                text: L_NAME
             }, {
                 xtype: 'input',
                 id: 'name',
@@ -53,7 +53,7 @@ BasicAnimationComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '目标'
+                text: L_TARGET
             }, {
                 xtype: 'input',
                 id: 'target',
@@ -67,24 +67,24 @@ BasicAnimationComponent.prototype.render = function () {
                 xtype: 'button',
                 id: 'btnSetTarget',
                 scope: this.id,
-                text: '设置',
+                text: L_SET,
                 onClick: this.onSetTarget.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '类型'
+                text: L_TYPE
             }, {
                 xtype: 'select',
                 id: 'type',
                 scope: this.id,
                 options: {
-                    Tween: '补间动画',
-                    Skeletal: '骨骼动画',
-                    Audio: '播放音乐',
-                    Filter: '滤镜动画',
-                    Particle: '粒子动画'
+                    Tween: L_TWEEN_ANIMATION,
+                    Skeletal: L_SKELETAL_ANIMATION,
+                    Audio: L_PLAY_AUDIO,
+                    Filter: L_FILTER_ANIMATION,
+                    Particle: L_PARTICLE_ANIMATION
                 },
                 onChange: this.onChange.bind(this)
             }]
@@ -92,7 +92,7 @@ BasicAnimationComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '开始时间'
+                text: L_BEGIN_TIME
             }, {
                 xtype: 'number',
                 id: 'beginTime',
@@ -104,7 +104,7 @@ BasicAnimationComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '结束时间'
+                text: L_END_TIME
             }, {
                 xtype: 'number',
                 id: 'endTime',
@@ -150,12 +150,12 @@ BasicAnimationComponent.prototype.updateUI = function (animation) {
     name.setValue(this.animation.name);
 
     if (!this.animation.target) {
-        target.setValue('(无)');
+        target.setValue('(' + L_NONE + ')');
     } else {
         var obj = this.app.editor.objectByUuid(this.animation.target);
         if (obj === null) {
-            target.setValue('(无)');
-            console.warn(`BasicAnimationComponent: 动作物体${this.animation.target}在场景中不存在。`);
+            target.setValue('(' + L_NONE + ')');
+            console.warn(`BasicAnimationComponent: ${L_ANIMATION_OBJECT} ${this.animation.target} ${L_NOT_EXISTED_IN_SCENE}`);
         } else {
             target.setValue(obj.name);
         }
