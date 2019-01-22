@@ -32,20 +32,20 @@ TweenAnimationComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '补间动画'
+                text: L_TWEEN_ANIMATION
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '开始状态'
+                text: L_BEGIN_STATUS
             }, {
                 xtype: 'select',
                 id: 'beginStatus',
                 scope: this.id,
                 options: {
-                    Current: '当前状态',
-                    Custom: '自定义'
+                    Current: L_CURRENT_STATUS,
+                    Custom: L_CUSTOM_STATUS
                 },
                 onChange: this.onChange.bind(this)
             }]
@@ -58,7 +58,7 @@ TweenAnimationComponent.prototype.render = function () {
             },
             children: [{
                 xtype: 'label',
-                text: '平移'
+                text: L_TRANSLATE
             }, {
                 xtype: 'number',
                 id: 'beginPositionX',
@@ -93,7 +93,7 @@ TweenAnimationComponent.prototype.render = function () {
             },
             children: [{
                 xtype: 'label',
-                text: '旋转'
+                text: L_ROTATE
             }, {
                 xtype: 'number',
                 id: 'beginRotationX',
@@ -134,7 +134,7 @@ TweenAnimationComponent.prototype.render = function () {
             },
             children: [{
                 xtype: 'label',
-                text: '缩放'
+                text: L_SCALE
             }, {
                 xtype: 'checkbox',
                 id: 'beginScaleLock',
@@ -179,7 +179,7 @@ TweenAnimationComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '插值函数'
+                text: L_EASE_FUNC
             }, {
                 xtype: 'select',
                 id: 'ease',
@@ -220,14 +220,14 @@ TweenAnimationComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '结束状态'
+                text: L_END_STATUS
             }, {
                 xtype: 'select',
                 id: 'endStatus',
                 scope: this.id,
                 options: {
-                    Current: '当前状态',
-                    Custom: '自定义'
+                    Current: L_CURRENT_STATUS,
+                    Custom: L_CUSTOM_STATUS
                 },
                 onChange: this.onChange.bind(this)
             }]
@@ -240,7 +240,7 @@ TweenAnimationComponent.prototype.render = function () {
             },
             children: [{
                 xtype: 'label',
-                text: '平移'
+                text: L_TRANSLATE
             }, {
                 xtype: 'number',
                 id: 'endPositionX',
@@ -275,7 +275,7 @@ TweenAnimationComponent.prototype.render = function () {
             },
             children: [{
                 xtype: 'label',
-                text: '旋转'
+                text: L_ROTATE
             }, {
                 xtype: 'number',
                 id: 'endRotationX',
@@ -316,7 +316,7 @@ TweenAnimationComponent.prototype.render = function () {
             },
             children: [{
                 xtype: 'label',
-                text: '缩放'
+                text: L_SCALE
             }, {
                 xtype: 'checkbox',
                 id: 'endScaleLock',

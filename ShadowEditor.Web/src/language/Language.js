@@ -199,4 +199,9 @@ Object.assign(window, {
     L_END_TIME: 'EndTime',
     L_ANIMATION_OBJECT: 'Animation Object',
     L_NOT_EXISTED_IN_SCENE: 'is not existed in the scene.',
+    L_BEGIN_STATUS: 'BeginStatus',
+    L_CURRENT_STATUS: 'Current Status',
+    L_CUSTOM_STATUS: 'Custom Status',
+    L_EASE_FUNC: 'Ease Func',
+    L_END_STATUS: 'EndStatus',
 });
