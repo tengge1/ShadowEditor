@@ -32,7 +32,7 @@ ShadowComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '阴影组件'
+                text: L_SHADOW_COMPONENT
             }]
         }, {
             xtype: 'row',
@@ -40,20 +40,20 @@ ShadowComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '阴影'
+                text: L_SHADOW
             }, {
                 xtype: 'boolean',
                 id: 'objectCastShadow',
                 scope: this.id,
                 value: false,
-                text: '产生',
+                text: L_CAST,
                 onChange: this.onChangeCastShadow.bind(this)
             }, {
                 xtype: 'boolean',
                 id: 'objectReceiveShadow',
                 scope: this.id,
                 value: false,
-                text: '接收',
+                text: L_RECEIVE,
                 onChange: this.onChangeReceiveShadow.bind(this)
             }]
         }, {
@@ -62,7 +62,7 @@ ShadowComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '半径'
+                text: L_RADIUS
             }, {
                 xtype: 'number',
                 id: 'objectShadowRadius',
@@ -76,7 +76,7 @@ ShadowComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '贴图尺寸'
+                text: L_MAP_SIZE
             }, {
                 xtype: 'select',
                 id: 'objectMapSize',
@@ -96,7 +96,7 @@ ShadowComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '偏差'
+                text: L_BIAS
             }, {
                 xtype: 'number',
                 id: 'objectBias',
@@ -111,7 +111,7 @@ ShadowComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '相机左'
+                text: L_CAMERA_LEFT
             }, {
                 xtype: 'number',
                 id: 'objectCameraLeft',
@@ -125,7 +125,7 @@ ShadowComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '相机右'
+                text: L_CAMERA_RIGHT
             }, {
                 xtype: 'number',
                 id: 'objectCameraRight',
@@ -139,7 +139,7 @@ ShadowComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '相机上'
+                text: L_CAMERA_TOP
             }, {
                 xtype: 'number',
                 id: 'objectCameraTop',
@@ -153,7 +153,7 @@ ShadowComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '相机下'
+                text: L_CAMERA_BOTTOM
             }, {
                 xtype: 'number',
                 id: 'objectCameraBottom',
@@ -167,7 +167,7 @@ ShadowComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '相机近'
+                text: L_CAMERA_NEAR
             }, {
                 xtype: 'number',
                 id: 'objectCameraNear',
@@ -182,7 +182,7 @@ ShadowComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '相机远'
+                text: L_CAMERA_FAR
             }, {
                 xtype: 'number',
                 id: 'objectCameraFar',
