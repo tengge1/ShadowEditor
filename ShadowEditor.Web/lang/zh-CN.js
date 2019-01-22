@@ -184,3 +184,7 @@ L_CAMERA_BOTTOM = '相机下';
 L_CAMERA_NEAR = '相机近';
 L_CAMERA_FAR = '相机远';
 L_SMOKE_COMPONENT = '烟组件';
+L_TRANSFORM_COMPONENT = '位移组件';
+L_TRANSLATE = '平移';
+L_ROTATE = '旋转';
+L_SCALE = '缩放';

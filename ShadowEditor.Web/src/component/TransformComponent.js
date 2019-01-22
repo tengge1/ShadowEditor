@@ -35,13 +35,13 @@ TransformComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '位移组件'
+                text: L_TRANSFORM_COMPONENT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '平移'
+                text: L_TRANSLATE
             }, {
                 xtype: 'number',
                 id: 'objectPositionX',
@@ -71,7 +71,7 @@ TransformComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '旋转'
+                text: L_ROTATE
             }, {
                 xtype: 'number',
                 id: 'objectRotationX',
@@ -107,7 +107,7 @@ TransformComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '缩放'
+                text: L_SCALE
             }, {
                 xtype: 'checkbox',
                 id: 'objectScaleLock',
