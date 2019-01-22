@@ -183,3 +183,4 @@ L_CAMERA_TOP = '相机上';
 L_CAMERA_BOTTOM = '相机下';
 L_CAMERA_NEAR = '相机近';
 L_CAMERA_FAR = '相机远';
+L_SMOKE_COMPONENT = '烟组件';

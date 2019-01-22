@@ -183,4 +183,5 @@ Object.assign(window, {
     L_CAMERA_BOTTOM: 'CameraBottom',
     L_CAMERA_NEAR: 'CameraNear',
     L_CAMERA_FAR: 'CameraFar',
+    L_SMOKE_COMPONENT: 'SmokeComponent',
 });

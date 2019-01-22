@@ -33,7 +33,7 @@ SmokeComponent.prototype.render = function () {
                 color: '#555',
                 fontWeight: 'bold'
             },
-            text: '烟组件'
+            text: L_SMOKE_COMPONENT
         }, {
             xtype: 'row',
             children: [{
@@ -42,7 +42,7 @@ SmokeComponent.prototype.render = function () {
                 xtype: 'button',
                 id: 'btnPreview',
                 scope: this.id,
-                text: '预览',
+                text: L_PREVIEW,
                 onClick: this.onPreview.bind(this)
             }]
         }]
@@ -78,9 +78,9 @@ SmokeComponent.prototype.updateUI = function () {
     var btnPreview = UI.get('btnPreview', this.id);
 
     if (this.isPlaying) {
-        btnPreview.setText('取消');
+        btnPreview.setText(L_CANCEL);
     } else {
-        btnPreview.setText('预览');
+        btnPreview.setText(L_PREVIEW);
     }
 };
 
@@ -96,7 +96,7 @@ SmokeComponent.prototype.startPreview = function () {
     var btnPreview = UI.get('btnPreview', this.id);
 
     this.isPlaying = true;
-    btnPreview.setText('取消');
+    btnPreview.setText(L_CANCEL);
 
     this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
 };
@@ -105,7 +105,7 @@ SmokeComponent.prototype.stopPreview = function () {
     var btnPreview = UI.get('btnPreview', this.id);
 
     this.isPlaying = false;
-    btnPreview.setText('预览');
+    btnPreview.setText(L_PREVIEW);
 
     this.app.on(`animate.${this.id}`, null);
 };
