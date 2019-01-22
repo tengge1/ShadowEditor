@@ -204,4 +204,6 @@ Object.assign(window, {
     L_CUSTOM_STATUS: 'Custom Status',
     L_EASE_FUNC: 'Ease Func',
     L_END_STATUS: 'EndStatus',
+    L_AUDIO_LISTENER: 'Audio Listener',
+    L_MAX_VOLUME: 'Max Volume',
 });

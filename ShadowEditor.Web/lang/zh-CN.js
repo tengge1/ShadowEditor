@@ -204,3 +204,5 @@ L_CURRENT_STATUS = '当前状态';
 L_CUSTOM_STATUS = '自定义';
 L_EASE_FUNC = '插值函数';
 L_END_STATUS = '结束状态';
+L_AUDIO_LISTENER = '音频监听器';
+L_MAX_VOLUME = '主音量';

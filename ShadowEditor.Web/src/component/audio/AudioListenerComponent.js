@@ -33,13 +33,13 @@ AudioListenerComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '音频监听器'
+                text: L_AUDIO_LISTENER
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '主音量'
+                text: L_MAX_VOLUME
             }, {
                 xtype: 'number',
                 id: 'masterVolume',
