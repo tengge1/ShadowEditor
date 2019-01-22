@@ -109,7 +109,7 @@ SceneComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: 'y轴正向'
+                text: L_POS_Y
             }, {
                 xtype: 'texture',
                 id: 'backgroundPosY',
@@ -122,7 +122,7 @@ SceneComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: 'y轴负向'
+                text: L_NEG_Y
             }, {
                 xtype: 'texture',
                 id: 'backgroundNegY',
@@ -135,7 +135,7 @@ SceneComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: 'z轴正向'
+                text: L_POS_Z
             }, {
                 xtype: 'texture',
                 id: 'backgroundPosZ',
@@ -148,7 +148,7 @@ SceneComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: 'z轴负向'
+                text: L_NEG_Z
             }, {
                 xtype: 'texture',
                 id: 'backgroundNegZ',
@@ -164,11 +164,11 @@ SceneComponent.prototype.render = function () {
             },
             children: [{
                 xtype: 'button',
-                text: '选择',
+                text: L_SELECT,
                 onClick: this.onLoadCubeTexture.bind(this)
             }, {
                 xtype: 'button',
-                text: '上传',
+                text: L_UPLOAD,
                 style: {
                     marginLeft: '8px'
                 },
@@ -178,15 +178,15 @@ SceneComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '雾'
+                text: L_FOG
             }, {
                 xtype: 'select',
                 id: 'fogType',
                 scope: this.id,
                 options: {
-                    'None': '无',
-                    'Fog': '线性',
-                    'FogExp2': '指数型'
+                    'None': L_NONE,
+                    'Fog': L_LINEAR,
+                    'FogExp2': L_EXPONENTIAL
                 },
                 onChange: this.onChangeFogType.bind(this)
             }]
@@ -196,7 +196,7 @@ SceneComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '雾颜色'
+                text: L_FOG_COLOR
             }, {
                 xtype: 'color',
                 id: 'fogColor',
@@ -209,7 +209,7 @@ SceneComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '雾近点'
+                text: L_FOG_NEAR
             }, {
                 xtype: 'number',
                 id: 'fogNear',
@@ -223,7 +223,7 @@ SceneComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '雾远点'
+                text: L_FOG_FAR
             }, {
                 xtype: 'number',
                 id: 'fogFar',
@@ -237,7 +237,7 @@ SceneComponent.prototype.render = function () {
             scope: this.id,
             children: [{
                 xtype: 'label',
-                text: '雾浓度'
+                text: L_FOG_DENSITY
             }, {
                 xtype: 'number',
                 id: 'fogDensity',
