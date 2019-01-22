@@ -162,7 +162,12 @@ Object.assign(window, {
     L_LINEAR: 'Linear',
     L_EXPONENTIAL: 'Exponential',
     L_FOG_COLOR: 'FogColor',
-    L_FOG_NEAR = 'FogNear',
+    L_FOG_NEAR: 'FogNear',
     L_FOG_FAR: 'FogFar',
     L_FOG_DENSITY: 'FogDensity',
+    L_CLICK_MAP_PANEL: 'Please click the map in the Map Panel.',
+    L_ONLY_SELECT_CUBE_TEXTURE: 'You should select Cube Texture.',
+    L_CUBE_TEXTURE_FETCH_FAILED: 'Cube Texture fetch failed.',
+    L_UPLOAD_ALL_BEFORE_SAVE: 'Please upload all the textures before save.',
+    L_CUBE_TEXTURE_EXISTED: 'Cube texture has already been uploaded.',
 });

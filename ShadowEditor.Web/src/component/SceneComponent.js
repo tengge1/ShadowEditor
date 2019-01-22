@@ -401,13 +401,13 @@ SceneComponent.prototype.onChangeBackgroundType = function () { // 切换背景�
 
 SceneComponent.prototype.onLoadCubeTexture = function () { // 加载立体贴图
     this.app.call(`selectBottomPanel`, this, 'map');
-    UI.msg('请点击贴图面板中的立体贴图！');
+    UI.msg(L_CLICK_MAP_PANEL);
     this.app.on(`selectMap.${this.id}`, this.onSelectCubeMap.bind(this));
 };
 
 SceneComponent.prototype.onSelectCubeMap = function (model) {
     if (model.Type !== 'cube') {
-        UI.msg('只允许选择立体贴图！');
+        UI.msg(L_ONLY_SELECT_CUBE_TEXTURE);
         return;
     }
 
@@ -423,7 +423,7 @@ SceneComponent.prototype.onSelectCubeMap = function (model) {
                 resolve(texture);
             }, undefined, error => {
                 console.error(error);
-                UI.msg('立体贴图获取失败！');
+                UI.msg(L_CUBE_TEXTURE_FETCH_FAILED);
             });
         });
     });
@@ -448,7 +448,7 @@ SceneComponent.prototype.onSaveCubeTexture = function () { // 保存立体贴图
     var textureNegZ = UI.get('backgroundNegZ', this.id).getValue();
 
     if (!texturePosX || !textureNegX || !texturePosY || !textureNegY || !texturePosZ || !textureNegZ) {
-        UI.msg(`请上传所有立体贴图后再点击保存！`);
+        UI.msg(L_UPLOAD_ALL_BEFORE_SAVE);
         return;
     }
 
@@ -460,7 +460,7 @@ SceneComponent.prototype.onSaveCubeTexture = function () { // 保存立体贴图
     var negZSrc = textureNegZ.image.src;
 
     if (posXSrc.startsWith('http') || negXSrc.startsWith('http') || posYSrc.startsWith('http') || negYSrc.startsWith('http') || posZSrc.startsWith('http') || negZSrc.startsWith('http')) {
-        UI.msg(`立体贴图已经存在于服务端，无需重复上传。`);
+        UI.msg(L_CUBE_TEXTURE_EXISTED);
         return;
     }
 
