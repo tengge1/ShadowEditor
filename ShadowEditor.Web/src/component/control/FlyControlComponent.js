@@ -33,13 +33,13 @@ FlyControlComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '飞行控制器'
+                text: L_FLY_CONTROLS
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '移动速度'
+                text: L_MOVEMENT_SPEED
             }, {
                 xtype: 'number',
                 id: 'movementSpeed',
@@ -51,7 +51,7 @@ FlyControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '旋转速度'
+                text: L_ROTATE_SPEED
             }, {
                 xtype: 'number',
                 id: 'rollSpeed',
@@ -63,7 +63,7 @@ FlyControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '拖动查看'
+                text: L_DRAG_TO_LOOK
             }, {
                 xtype: 'checkbox',
                 id: 'dragToLook',
@@ -75,7 +75,7 @@ FlyControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '自动前进'
+                text: L_AUTO_FORWARD
             }, {
                 xtype: 'checkbox',
                 id: 'autoForward',

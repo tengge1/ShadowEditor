@@ -231,4 +231,6 @@ Object.assign(window, {
     L_CONSTRAIN_VERTICAL: 'ConstrainVertical',
     L_VERTICAL_MIN: 'VerticalMin',
     L_VERTICAL_MAX: 'VerticalMax',
+    L_ROTATE_SPEED: 'RotateSpeed',
+    L_DRAG_TO_LOOK: 'DragToLook',
 });

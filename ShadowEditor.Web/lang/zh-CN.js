@@ -230,3 +230,5 @@ L_HEIGHT_MAX = '最大高度';
 L_CONSTRAIN_VERTICAL = '限制仰角';
 L_VERTICAL_MIN = '最小仰角';
 L_VERTICAL_MAX = '最大仰角';
+L_ROTATE_SPEED = '旋转速度';
+L_DRAG_TO_LOOK = '拖动查看';
