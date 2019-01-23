@@ -33,13 +33,13 @@ OrbitControlComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '轨道控制器'
+                text: L_ORBIT_CONTROLS
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最小距离'
+                text: L_MIN_DISTANCE
             }, {
                 xtype: 'number',
                 id: 'minDistance',
@@ -51,7 +51,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最大距离'
+                text: L_MAX_DISTANCE
             }, {
                 xtype: 'number',
                 id: 'maxDistance',
@@ -63,7 +63,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最小仰角'
+                text: L_MIN_POLAR_ANGLE
             }, {
                 xtype: 'number',
                 id: 'minPolarAngle',
@@ -75,7 +75,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最大仰角'
+                text: L_MAX_POLAR_ANGLE
             }, {
                 xtype: 'number',
                 id: 'maxPolarAngle',
@@ -87,7 +87,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最小方位'
+                text: L_MIN_AZIMUTH_ANGLE
             }, {
                 xtype: 'number',
                 id: 'minAzimuthAngle',
@@ -99,7 +99,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最大方位'
+                text: L_MAX_AZIMUTH_ANGLE
             }, {
                 xtype: 'number',
                 id: 'maxAzimuthAngle',
@@ -111,7 +111,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用减震'
+                text: L_ENABLE_DAMPING
             }, {
                 xtype: 'checkbox',
                 id: 'enableDamping',
@@ -123,7 +123,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '减震系数'
+                text: L_DAMPING_FACTOR
             }, {
                 xtype: 'number',
                 id: 'dampingFactor',
@@ -135,7 +135,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用缩放'
+                text: L_ENABLE_ZOOM
             }, {
                 xtype: 'checkbox',
                 id: 'enableZoom',
@@ -147,7 +147,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '缩放速度'
+                text: L_ZOOM_SPEED
             }, {
                 xtype: 'number',
                 id: 'zoomSpeed',
@@ -159,7 +159,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用旋转'
+                text: L_ENABLE_ROTATE
             }, {
                 xtype: 'checkbox',
                 id: 'enableRotate',
@@ -171,7 +171,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '旋转速度'
+                text: L_ROTATE_SPEED
             }, {
                 xtype: 'number',
                 id: 'rotateSpeed',
@@ -183,7 +183,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用平移'
+                text: L_ENABLE_PAN
             }, {
                 xtype: 'checkbox',
                 id: 'enablePan',
@@ -195,7 +195,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '平移速度'
+                text: L_PAN_SPEED
             }, {
                 xtype: 'number',
                 id: 'panSpeed',
@@ -207,7 +207,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '屏幕坐标'
+                text: L_SCREEN_SPACE_PANNING
             }, {
                 xtype: 'checkbox',
                 id: 'screenSpacePanning',
@@ -219,7 +219,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '按键速度'
+                text: L_KEY_PAN_SPEED
             }, {
                 xtype: 'number',
                 id: 'keyPanSpeed',
@@ -231,7 +231,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '自动旋转'
+                text: L_AUTO_ROTATE
             }, {
                 xtype: 'checkbox',
                 id: 'autoRotate',
@@ -243,7 +243,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '旋转速度'
+                text: L_AUTO_ROTATE_SPEED
             }, {
                 xtype: 'number',
                 id: 'autoRotateSpeed',
@@ -255,7 +255,7 @@ OrbitControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用按键'
+                text: L_ENABLE_KEYS
             }, {
                 xtype: 'checkbox',
                 id: 'enableKeys',
