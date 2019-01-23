@@ -33,24 +33,24 @@ ControlComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '场景控制器'
+                text: L_SCENE_CONTROLLER
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '类型'
+                text: L_TYPE
             }, {
                 xtype: 'select',
                 id: 'type',
                 scope: this.id,
                 options: {
-                    '': '无',
-                    'FirstPersonControls': '第一视角控制器',
-                    'FlyControls': '飞行控制器',
-                    'OrbitControls': '轨道控制器',
-                    'PointerLockControls': '指针锁定控制器',
-                    'TrackballControls': '轨迹球控制器'
+                    '': L_NONE,
+                    'FirstPersonControls': L_FIRST_PERSON_CONTROLS,
+                    'FlyControls': L_FLY_CONTROLS,
+                    'OrbitControls': L_ORBIT_CONTROLS,
+                    'PointerLockControls': L_POINTER_LOCK_CONTROLS,
+                    'TrackballControls': L_TRACEBALL_CONTROLS
                 },
                 onChange: this.onChangeType.bind(this)
             }]
