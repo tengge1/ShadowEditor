@@ -206,4 +206,11 @@ Object.assign(window, {
     L_END_STATUS: 'EndStatus',
     L_AUDIO_LISTENER: 'Audio Listener',
     L_MAX_VOLUME: 'Max Volume',
+    L_BACKGROUND_MUSIC: 'Background Music',
+    L_AUTO_PLAY: 'Auto Play',
+    L_LOOP: 'Loop',
+    L_VOLUME: 'Volume',
+    L_PLAY: 'Play',
+    L_STOP: 'Stop',
+    L_CLICK_AUDIO_IN_PANEL: 'Please click the audio in the Audio Panel.',
 });

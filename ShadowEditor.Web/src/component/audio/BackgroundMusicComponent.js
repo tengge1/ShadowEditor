@@ -32,18 +32,18 @@ BackgroundMusicComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '背景音乐'
+                text: L_BACKGROUND_MUSIC
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '音频'
+                text: L_AUDIO
             }, {
                 xtype: 'text',
                 id: 'name',
                 scope: this.id,
-                text: '(无)',
+                text: '(' + L_NONE + ')',
                 style: {
                     width: '80px',
                     border: '1px solid #ddd',
@@ -51,14 +51,14 @@ BackgroundMusicComponent.prototype.render = function () {
                 }
             }, {
                 xtype: 'button',
-                text: '选择',
+                text: L_SELECT,
                 onClick: this.onSelect.bind(this)
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '自动播放'
+                text: L_AUTO_PLAY
             }, {
                 xtype: 'checkbox',
                 id: 'autoplay',
@@ -70,7 +70,7 @@ BackgroundMusicComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '循环播放'
+                text: L_LOOP
             }, {
                 xtype: 'checkbox',
                 id: 'loop',
@@ -82,7 +82,7 @@ BackgroundMusicComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '音量'
+                text: L_VOLUME
             }, {
                 xtype: 'number',
                 id: 'volumn',
@@ -98,7 +98,7 @@ BackgroundMusicComponent.prototype.render = function () {
                 xtype: 'button',
                 id: 'btnPlay',
                 scope: this.id,
-                text: '播放',
+                text: L_PLAY,
                 style: {
                     display: 'none'
                 },
@@ -149,9 +149,9 @@ BackgroundMusicComponent.prototype.updateUI = function () {
     if (this.selected.buffer) {
         btnPlay.dom.style.display = '';
         if (this.selected.isPlaying) {
-            btnPlay.setText('停止');
+            btnPlay.setText(L_STOP);
         } else {
-            btnPlay.setText('播放');
+            btnPlay.setText(L_PLAY);
         }
     } else {
         btnPlay.dom.style.display = 'none';
@@ -160,7 +160,7 @@ BackgroundMusicComponent.prototype.updateUI = function () {
 
 BackgroundMusicComponent.prototype.onSelect = function () {
     this.app.call(`selectBottomPanel`, this, 'audio');
-    UI.msg('请点击音频面板中的音频！');
+    UI.msg(L_CLICK_AUDIO_IN_PANEL);
     this.app.on(`selectAudio.${this.id}`, this.onSelectAudio.bind(this));
 };
 
@@ -199,10 +199,10 @@ BackgroundMusicComponent.prototype.onPlay = function () {
         btnPlay.dom.style.display = '';
         if (this.selected.isPlaying) {
             this.selected.stop();
-            btnPlay.setText('播放');
+            btnPlay.setText(L_PLAY);
         } else {
             this.selected.play();
-            btnPlay.setText('停止');
+            btnPlay.setText(L_STOP);
         }
     } else {
         btnPlay.dom.style.display = 'none';
