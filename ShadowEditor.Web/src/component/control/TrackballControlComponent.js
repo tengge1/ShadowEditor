@@ -33,13 +33,13 @@ TrackballControlComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '轨迹球控制器'
+                text: L_TRACEBALL_CONTROLS
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '旋转速度'
+                text: L_ROTATE_SPEED
             }, {
                 xtype: 'number',
                 id: 'rotateSpeed',
@@ -51,7 +51,7 @@ TrackballControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '缩放速度'
+                text: L_ZOOM_SPEED
             }, {
                 xtype: 'number',
                 id: 'zoomSpeed',
@@ -63,7 +63,7 @@ TrackballControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '平移速度'
+                text: L_PAN_SPEED
             }, {
                 xtype: 'number',
                 id: 'panSpeed',
@@ -75,7 +75,7 @@ TrackballControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '不旋转'
+                text: L_NO_ROTATE
             }, {
                 xtype: 'checkbox',
                 id: 'noRotate',
@@ -87,7 +87,7 @@ TrackballControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '不缩放'
+                text: L_NO_ZOOM
             }, {
                 xtype: 'checkbox',
                 id: 'noZoom',
@@ -99,7 +99,7 @@ TrackballControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '不平移'
+                text: L_NO_PAN
             }, {
                 xtype: 'checkbox',
                 id: 'noPan',
@@ -111,7 +111,7 @@ TrackballControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '静态移动'
+                text: L_STATIC_MOVING
             }, {
                 xtype: 'checkbox',
                 id: 'staticMoving',
@@ -123,7 +123,7 @@ TrackballControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '减震系数'
+                text: L_DYNAMIC_DAMPING_FACTOR
             }, {
                 xtype: 'number',
                 id: 'dynamicDampingFactor',
@@ -135,7 +135,7 @@ TrackballControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最小距离'
+                text: L_MIN_DISTANCE
             }, {
                 xtype: 'number',
                 id: 'minDistance',
@@ -147,7 +147,7 @@ TrackballControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最大距离'
+                text: L_MAX_DISTANCE
             }, {
                 xtype: 'number',
                 id: 'maxDistance',

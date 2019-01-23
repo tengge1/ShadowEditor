@@ -252,4 +252,9 @@ Object.assign(window, {
     L_AUTO_ROTATE_SPEED: 'AutoRotateSpeed',
     L_ENABLE_KEYS: 'EnableKeys',
     L_IS_LOCKED: 'IsLocked',
+    L_NO_ROTATE: 'NoRotate',
+    L_NO_ZOOM: 'NoZoom',
+    L_NO_PAN: 'NoPan',
+    L_STATIC_MOVING: 'StaticMoving',
+    L_DYNAMIC_DAMPING_FACTOR: 'DampingFactor',
 });
