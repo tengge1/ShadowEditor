@@ -99,7 +99,7 @@ FirstPersonControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '高度速度'
+                text: L_HEIGHT_SPEED
             }, {
                 xtype: 'checkbox',
                 id: 'heightSpeed',
@@ -111,7 +111,7 @@ FirstPersonControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '高度系数'
+                text: L_HEIGHT_COEF
             }, {
                 xtype: 'number',
                 id: 'heightCoef',
@@ -123,7 +123,7 @@ FirstPersonControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最小高度'
+                text: L_HEIGHT_MIN
             }, {
                 xtype: 'number',
                 id: 'heightMin',
@@ -135,7 +135,7 @@ FirstPersonControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最大高度'
+                text: L_HEIGHT_MAX
             }, {
                 xtype: 'number',
                 id: 'heightMax',
@@ -147,7 +147,7 @@ FirstPersonControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '限制仰角'
+                text: L_CONSTRAIN_VERTICAL
             }, {
                 xtype: 'checkbox',
                 id: 'constrainVertical',
@@ -159,7 +159,7 @@ FirstPersonControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最小仰角'
+                text: L_VERTICAL_MIN
             }, {
                 xtype: 'number',
                 id: 'verticalMin',
@@ -171,7 +171,7 @@ FirstPersonControlComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最大仰角'
+                text: L_VERTICAL_MAX
             }, {
                 xtype: 'number',
                 id: 'verticalMax',

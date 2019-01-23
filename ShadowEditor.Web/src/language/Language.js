@@ -224,4 +224,11 @@ Object.assign(window, {
     L_LOOK_VERTICAL: 'LookVertical',
     L_AUTO_FORWARD: 'AutoForward',
     L_ACTIVE_LOCK: 'ActiveLock',
+    L_HEIGHT_SPEED: 'HeightSpeed',
+    L_HEIGHT_COEF: 'HeightCoef',
+    L_HEIGHT_MIN: 'HeightMin',
+    L_HEIGHT_MAX: 'HeightMax',
+    L_CONSTRAIN_VERTICAL: 'ConstrainVertical',
+    L_VERTICAL_MIN: 'VerticalMin',
+    L_VERTICAL_MAX: 'VerticalMax',
 });
