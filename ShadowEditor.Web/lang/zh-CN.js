@@ -250,3 +250,4 @@ L_KEY_PAN_SPEED = '按键速度';
 L_AUTO_ROTATE = '自动旋转';
 L_AUTO_ROTATE_SPEED = '旋转速度';
 L_ENABLE_KEYS = '启用按键';
+L_IS_LOCKED = '是否锁定';

@@ -251,4 +251,5 @@ Object.assign(window, {
     L_AUTO_ROTATE: 'AutoRotate',
     L_AUTO_ROTATE_SPEED: 'AutoRotateSpeed',
     L_ENABLE_KEYS: 'EnableKeys',
+    L_IS_LOCKED: 'IsLocked',
 });

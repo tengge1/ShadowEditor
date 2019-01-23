@@ -33,13 +33,13 @@ PointerLockControlComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '指针锁定控制器'
+                text: L_POINTER_LOCK_CONTROLS
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '是否锁定'
+                text: L_IS_LOCKED
             }, {
                 xtype: 'checkbox',
                 id: 'isLocked',
