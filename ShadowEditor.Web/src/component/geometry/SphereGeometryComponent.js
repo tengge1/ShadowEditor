@@ -29,7 +29,7 @@ SphereGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '半径'
+                text: L_RADIUS
             }, {
                 xtype: 'number',
                 id: 'radius',
@@ -41,7 +41,7 @@ SphereGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '宽度分段'
+                text: L_WIDTH_SEGMENTS
             }, {
                 xtype: 'int',
                 id: 'widthSegments',
@@ -54,7 +54,7 @@ SphereGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '高度分段'
+                text: L_HEIGHT_SEGMENTS
             }, {
                 xtype: 'int',
                 id: 'heightSegments',
@@ -67,7 +67,7 @@ SphereGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '开始经度'
+                text: L_PHI_START
             }, {
                 xtype: 'number',
                 id: 'phiStart',
@@ -79,7 +79,7 @@ SphereGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '转过经度'
+                text: L_PHI_LENGTH
             }, {
                 xtype: 'number',
                 id: 'phiLength',
@@ -91,7 +91,7 @@ SphereGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '开始纬度'
+                text: L_THETA_START
             }, {
                 xtype: 'number',
                 id: 'thetaStart',
@@ -103,7 +103,7 @@ SphereGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '转过纬度'
+                text: L_THETA_LENGTH
             }, {
                 xtype: 'number',
                 id: 'thetaLength',
