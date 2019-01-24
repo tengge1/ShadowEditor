@@ -267,4 +267,5 @@ Object.assign(window, {
     L_RADIUS_BOTTOM: 'RadiusBottom',
     L_RADIAL_SEGMENTS: 'RadialSegments',
     L_OPEN_ENDED: 'OpenEnded',
+    L_DETAIL: 'Detail',
 });

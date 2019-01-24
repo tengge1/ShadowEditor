@@ -29,7 +29,7 @@ IcosahedronGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '半径'
+                text: L_RADIUS
             }, {
                 xtype: 'number',
                 id: 'radius',
@@ -41,7 +41,7 @@ IcosahedronGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '面片分段'
+                text: L_DETAIL
             }, {
                 xtype: 'int',
                 id: 'detail',

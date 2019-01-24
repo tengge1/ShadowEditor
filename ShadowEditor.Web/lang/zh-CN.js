@@ -266,3 +266,4 @@ L_RADIUS_TOP = '顶部半径';
 L_RADIUS_BOTTOM = '底部半径';
 L_RADIAL_SEGMENTS = '圆形分段';
 L_OPEN_ENDED = '两端开口';
+L_DETAIL = '细节';
