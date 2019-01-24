@@ -268,4 +268,6 @@ Object.assign(window, {
     L_RADIAL_SEGMENTS: 'RadialSegments',
     L_OPEN_ENDED: 'OpenEnded',
     L_DETAIL: 'Detail',
+    L_PHI_START: 'PhiStart',
+    L_PHI_LENGTH: 'PhiLength',
 });

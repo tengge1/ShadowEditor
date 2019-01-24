@@ -29,7 +29,7 @@ LatheGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '径向分段'
+                text: L_RADIAL_SEGMENTS
             }, {
                 xtype: 'int',
                 id: 'segments',
@@ -41,7 +41,7 @@ LatheGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '开始弧度'
+                text: L_PHI_START
             }, {
                 xtype: 'number',
                 id: 'phiStart',
@@ -53,7 +53,7 @@ LatheGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '转过弧度'
+                text: L_PHI_LENGTH
             }, {
                 xtype: 'number',
                 id: 'phiLength',

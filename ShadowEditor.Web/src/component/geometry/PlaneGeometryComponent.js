@@ -31,7 +31,7 @@ PlaneGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '宽度'
+                    text: L_WIDTH
                 }, {
                     xtype: 'number',
                     id: 'width',
@@ -43,7 +43,7 @@ PlaneGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '高度'
+                    text: L_HEIGHT
                 }, {
                     xtype: 'number',
                     id: 'height',
@@ -55,7 +55,7 @@ PlaneGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '宽度分段'
+                    text: L_WIDTH_SEGMENTS
                 }, {
                     xtype: 'int',
                     id: 'widthSegments',
@@ -68,7 +68,7 @@ PlaneGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '高度分段'
+                    text: L_HEIGHT_SEGMENTS
                 }, {
                     xtype: 'int',
                     id: 'heightSegments',
