@@ -260,4 +260,7 @@ Object.assign(window, {
     L_WIDTH_SEGMENTS: 'WidthSegments',
     L_HEIGHT_SEGMENTS: 'HeightSegments',
     L_DEPTH_SEGMENTS: 'DepthSegments',
+    L_SEGMENTS: 'Segments',
+    L_ThetaStart: 'ThetaStart',
+    L_ThetaLength: 'ThetaLength',
 });

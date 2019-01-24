@@ -29,7 +29,7 @@ CircleGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '半径'
+                text: L_RADIUS
             }, {
                 xtype: 'number',
                 id: 'radius',
@@ -41,7 +41,7 @@ CircleGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '分段'
+                text: L_SEGMENTS
             }, {
                 xtype: 'int',
                 id: 'segments',
@@ -54,7 +54,7 @@ CircleGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '开始弧度'
+                text: L_ThetaStart
             }, {
                 xtype: 'number',
                 id: 'thetaStart',
@@ -66,7 +66,7 @@ CircleGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '转过弧度'
+                text: L_ThetaLength
             }, {
                 xtype: 'number',
                 id: 'thetaLength',

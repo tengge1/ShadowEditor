@@ -259,3 +259,6 @@ L_DYNAMIC_DAMPING_FACTOR = '减震系数';
 L_WIDTH_SEGMENTS = '宽度分段';
 L_HEIGHT_SEGMENTS = '高度分段';
 L_DEPTH_SEGMENTS = '深度分段';
+L_SEGMENTS = '分段';
+L_ThetaStart = '开始弧度';
+L_ThetaLength = '转过弧度';
