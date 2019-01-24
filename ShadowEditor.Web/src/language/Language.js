@@ -261,6 +261,10 @@ Object.assign(window, {
     L_HEIGHT_SEGMENTS: 'HeightSegments',
     L_DEPTH_SEGMENTS: 'DepthSegments',
     L_SEGMENTS: 'Segments',
-    L_ThetaStart: 'ThetaStart',
-    L_ThetaLength: 'ThetaLength',
+    L_THETA_START: 'ThetaStart',
+    L_THETA_LENGTH: 'ThetaLength',
+    L_RADIUS_TOP: 'RadiusTop',
+    L_RADIUS_BOTTOM: 'RadiusBottom',
+    L_RADIAL_SEGMENTS: 'RadialSegments',
+    L_OPEN_ENDED: 'OpenEnded',
 });

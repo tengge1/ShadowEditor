@@ -54,7 +54,7 @@ CircleGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: L_ThetaStart
+                text: L_THETA_START
             }, {
                 xtype: 'number',
                 id: 'thetaStart',
@@ -66,7 +66,7 @@ CircleGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: L_ThetaLength
+                text: L_THETA_LENGTH
             }, {
                 xtype: 'number',
                 id: 'thetaLength',

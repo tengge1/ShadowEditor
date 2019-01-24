@@ -29,7 +29,7 @@ CylinderGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '顶部半径'
+                text: L_RADIUS_TOP
             }, {
                 xtype: 'number',
                 id: 'radiusTop',
@@ -41,7 +41,7 @@ CylinderGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '底部半径'
+                text: L_RADIUS_BOTTOM
             }, {
                 xtype: 'number',
                 id: 'radiusBottom',
@@ -53,7 +53,7 @@ CylinderGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '高度'
+                text: L_HEIGHT
             }, {
                 xtype: 'number',
                 id: 'height',
@@ -65,7 +65,7 @@ CylinderGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '圆形分段'
+                text: L_RADIAL_SEGMENTS
             }, {
                 xtype: 'int',
                 id: 'radialSegments',
@@ -78,7 +78,7 @@ CylinderGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '高度分段'
+                text: L_HEIGHT_SEGMENTS
             }, {
                 xtype: 'int',
                 id: 'heightSegments',
@@ -91,7 +91,7 @@ CylinderGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '两端开口'
+                text: L_OPEN_ENDED
             }, {
                 xtype: 'checkbox',
                 id: 'openEnded',
