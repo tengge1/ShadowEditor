@@ -31,7 +31,7 @@ TeapotGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '尺寸'
+                    text: L_SIZE
                 }, {
                     xtype: 'number',
                     id: 'size',
@@ -43,7 +43,7 @@ TeapotGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '分段'
+                    text: L_SEGMENTS
                 }, {
                     xtype: 'int',
                     id: 'segments',
@@ -56,7 +56,7 @@ TeapotGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '壶底'
+                    text: L_BOTTOM
                 }, {
                     xtype: 'checkbox',
                     id: 'bottom',
@@ -68,7 +68,7 @@ TeapotGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '壶盖'
+                    text: L_LID
                 }, {
                     xtype: 'checkbox',
                     id: 'lid',
@@ -80,7 +80,7 @@ TeapotGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '壶身'
+                    text: L_BODY
                 }, {
                     xtype: 'checkbox',
                     id: 'body',
@@ -92,7 +92,7 @@ TeapotGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '壶盖填满'
+                    text: L_FIT_LID
                 }, {
                     xtype: 'checkbox',
                     id: 'fitLid',
@@ -104,7 +104,7 @@ TeapotGeometryComponent.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '布林'
+                    text: L_BLINN
                 }, {
                     xtype: 'checkbox',
                     id: 'blinn',

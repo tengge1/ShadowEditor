@@ -29,7 +29,7 @@ TorusKnotGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '半径'
+                text: L_RADIUS
             }, {
                 xtype: 'number',
                 id: 'radius',
@@ -41,7 +41,7 @@ TorusKnotGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '管粗'
+                text: L_TUBE
             }, {
                 xtype: 'number',
                 id: 'tube',
@@ -53,7 +53,7 @@ TorusKnotGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '管长分段'
+                text: L_TUBULAR_SEGMENTS
             }, {
                 xtype: 'int',
                 id: 'tubularSegments',
@@ -66,7 +66,7 @@ TorusKnotGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '管粗分段'
+                text: L_RADIAL_SEGMENTS
             }, {
                 xtype: 'int',
                 id: 'radialSegments',
@@ -79,7 +79,7 @@ TorusKnotGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '管长弧度'
+                text: L_TUBE_ARC
             }, {
                 xtype: 'number',
                 id: 'p',
@@ -91,7 +91,7 @@ TorusKnotGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '扭曲弧度'
+                text: L_DISTORTED_ARC
             }, {
                 xtype: 'number',
                 id: 'q',

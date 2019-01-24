@@ -29,7 +29,7 @@ TorusGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '半径'
+                text: L_RADIUS
             }, {
                 xtype: 'number',
                 id: 'radius',
@@ -41,7 +41,7 @@ TorusGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '管粗'
+                text: L_TUBE
             }, {
                 xtype: 'number',
                 id: 'tube',
@@ -53,7 +53,7 @@ TorusGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '管粗分段'
+                text: L_RADIAL_SEGMENTS
             }, {
                 xtype: 'int',
                 id: 'radialSegments',
@@ -66,7 +66,7 @@ TorusGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '半径分段'
+                text: L_TUBULAR_SEGMENTS
             }, {
                 xtype: 'int',
                 id: 'tubularSegments',
@@ -79,7 +79,7 @@ TorusGeometryComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '旋转弧度'
+                text: L_ARC
             }, {
                 xtype: 'number',
                 id: 'arc',
