@@ -257,4 +257,7 @@ Object.assign(window, {
     L_NO_PAN: 'NoPan',
     L_STATIC_MOVING: 'StaticMoving',
     L_DYNAMIC_DAMPING_FACTOR: 'DampingFactor',
+    L_WIDTH_SEGMENTS: 'WidthSegments',
+    L_HEIGHT_SEGMENTS: 'HeightSegments',
+    L_DEPTH_SEGMENTS: 'DepthSegments',
 });

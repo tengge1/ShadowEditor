@@ -256,3 +256,6 @@ L_NO_ZOOM = '不缩放';
 L_NO_PAN = '不平移';
 L_STATIC_MOVING = '静态移动';
 L_DYNAMIC_DAMPING_FACTOR = '减震系数';
+L_WIDTH_SEGMENTS = '宽度分段';
+L_HEIGHT_SEGMENTS = '高度分段';
+L_DEPTH_SEGMENTS = '深度分段';
