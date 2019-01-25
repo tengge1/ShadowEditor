@@ -32,13 +32,13 @@ HalftoneComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '半色调特效'
+                text: L_HALFTONE_EFFECT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用状态'
+                text: L_ENABLE_STATE
             }, {
                 xtype: 'checkbox',
                 id: 'enabled',
@@ -50,16 +50,16 @@ HalftoneComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '形状'
+                text: L_SHAPE
             }, {
                 xtype: 'select',
                 id: 'shape',
                 scope: this.id,
                 options: {
-                    1: '点',
-                    2: '椭圆',
-                    3: '线',
-                    4: '正方形'
+                    1: L_POINT,
+                    2: L_ELLIPSE,
+                    3: L_LINE,
+                    4: L_SQUARE
                 },
                 value: 1,
                 onChange: this.onChange.bind(this)
@@ -68,7 +68,7 @@ HalftoneComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '半径'
+                text: L_RADIUS
             }, {
                 xtype: 'number',
                 id: 'radius',
@@ -81,7 +81,7 @@ HalftoneComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '红色偏转'
+                text: L_ROTATE_RED
             }, {
                 xtype: 'number',
                 id: 'rotateR',
@@ -93,7 +93,7 @@ HalftoneComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '绿色偏转'
+                text: L_ROTATE_GREEN
             }, {
                 xtype: 'number',
                 id: 'rotateG',
@@ -105,7 +105,7 @@ HalftoneComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '蓝色偏转'
+                text: L_ROTATE_BLUE
             }, {
                 xtype: 'number',
                 id: 'rotateB',
@@ -117,7 +117,7 @@ HalftoneComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '分散'
+                text: L_SCATTER
             }, {
                 xtype: 'number',
                 id: 'scatter',
@@ -129,7 +129,7 @@ HalftoneComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '混合'
+                text: L_BLENDING
             }, {
                 xtype: 'number',
                 id: 'blending',
@@ -142,17 +142,17 @@ HalftoneComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '混合模式'
+                text: L_BLENDING_MODE
             }, {
                 xtype: 'select',
                 id: 'blendingMode',
                 scope: this.id,
                 options: {
-                    1: '线性',
-                    2: '乘法',
-                    3: '相加',
-                    4: '变亮',
-                    5: '变暗'
+                    1: L_LINEAR,
+                    2: L_MULTIPLY,
+                    3: L_ADD,
+                    4: L_LIGHTER,
+                    5: L_DARKER
                 },
                 value: 1,
                 onChange: this.onChange.bind(this)
@@ -161,7 +161,7 @@ HalftoneComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '灰阶'
+                text: L_GREY_SCALE
             }, {
                 xtype: 'checkbox',
                 id: 'greyscale',

@@ -32,13 +32,13 @@ GlitchComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '毛刺特效'
+                text: L_GLITCH_EFFECT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用状态'
+                text: L_ENABLE_STATE
             }, {
                 xtype: 'checkbox',
                 id: 'enabled',
@@ -50,7 +50,7 @@ GlitchComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '疯狂模式'
+                text: L_WILD_MODE
             }, {
                 xtype: 'checkbox',
                 id: 'wild',

@@ -32,13 +32,13 @@ AfterimageComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '残影特效'
+                text: L_AFTERIMAGE_EFFECT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用状态'
+                text: L_ENABLE_STATE
             }, {
                 xtype: 'checkbox',
                 id: 'enabled',
@@ -50,7 +50,7 @@ AfterimageComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '阻尼'
+                text: L_DAMP
             }, {
                 xtype: 'number',
                 id: 'damp',

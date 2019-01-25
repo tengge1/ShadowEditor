@@ -32,13 +32,13 @@ BokehComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '背景虚化特效'
+                text: L_BOKEH_EFFECT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用状态'
+                text: L_ENABLE_STATE
             }, {
                 xtype: 'checkbox',
                 id: 'enabled',
@@ -50,7 +50,7 @@ BokehComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '焦距'
+                text: L_FOCUS
             }, {
                 xtype: 'number',
                 id: 'focus',
@@ -62,7 +62,7 @@ BokehComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '光圈'
+                text: L_APERTURE
             }, {
                 xtype: 'number',
                 id: 'aperture',
@@ -74,7 +74,7 @@ BokehComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最大模糊'
+                text: L_MAX_BLUR
             }, {
                 xtype: 'number',
                 id: 'maxBlur',
