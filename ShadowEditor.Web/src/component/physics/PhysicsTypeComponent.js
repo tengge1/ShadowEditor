@@ -31,13 +31,13 @@ PhysicsTypeComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '物理类型'
+                text: L_PHYSICS_TYPE
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用'
+                text: L_ENABLED
             }, {
                 xtype: 'checkbox',
                 id: 'enabled',
@@ -48,14 +48,14 @@ PhysicsTypeComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '类型'
+                text: L_TYPE
             }, {
                 xtype: 'select',
                 id: 'type',
                 scope: this.id,
                 options: {
-                    rigidBody: '刚体',
-                    softVolume: '柔软体'
+                    rigidBody: L_RIGID_BODY,
+                    softVolume: L_SOFT_VOLUME
                 },
                 onChange: this.onChange.bind(this)
             }]

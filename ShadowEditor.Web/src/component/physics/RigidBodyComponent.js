@@ -39,19 +39,19 @@ RigidBodyComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '刚体'
+                text: L_RIGID_BODY
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '形状'
+                text: L_SHAPE
             }, {
                 xtype: 'select',
                 id: 'shape',
                 scope: this.id,
                 options: {
-                    btBoxShape: '正方体',
+                    btBoxShape: L_BOX_SHAPE,
                     // btBvhTriangleMeshShape: 'bvh三角形网格',
                     // btCapsuleShape: '胶囊',
                     // btCapsuleShapeX: 'x轴胶囊',
@@ -69,7 +69,7 @@ RigidBodyComponent.prototype.render = function () {
                     // btCylinderShapeX: 'x轴圆柱体',
                     // btCylinderShapeZ: 'z轴圆柱体',
                     // btHeightfieldTerrainShape: '灰阶高程地形',
-                    btSphereShape: '球体',
+                    btSphereShape: L_SPHERE_SHAPE,
                     // btStaticPlaneShape: '静态平板',
                     // btTriangleMeshShape: '三角网格'
                 },
@@ -82,7 +82,7 @@ RigidBodyComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '质量'
+                text: L_MASS
             }, {
                 xtype: 'number',
                 id: 'mass',
@@ -97,7 +97,7 @@ RigidBodyComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '惯性'
+                text: L_INERTIA
             }, {
                 xtype: 'number',
                 id: 'inertiaX',
@@ -228,7 +228,7 @@ RigidBodyComponent.prototype.showPhysicsShapeHelper = function () {
     var helper = physicsShapeHelper[physics.shape];
 
     if (!helper) {
-        console.warn(`RigidBodyComponent: ${physics.shape}暂无对应物理形状帮助器。`);
+        console.warn(`RigidBodyComponent: ${physics.shape} ${L_HAS_NO_PHYSICS_HELPER}`);
         return;
     }
 

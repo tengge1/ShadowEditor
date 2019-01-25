@@ -33,13 +33,13 @@ SkyComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '天空'
+                text: L_SKY
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '浑浊度'
+                text: L_TURBIDITY
             }, {
                 xtype: 'number',
                 id: 'turbidity',
@@ -52,7 +52,7 @@ SkyComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '瑞利'
+                text: L_RAYLEIGH
             }, {
                 xtype: 'number',
                 id: 'rayleigh',
@@ -65,7 +65,7 @@ SkyComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '亮度'
+                text: L_LUMINANCE
             }, {
                 xtype: 'number',
                 id: 'luminance',
@@ -78,7 +78,7 @@ SkyComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'Mie系数'
+                text: L_MIE_COEFFICIENT
             }, {
                 xtype: 'number',
                 id: 'mieCoefficient',
@@ -92,7 +92,7 @@ SkyComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: 'Mie方向'
+                text: L_MIE_DIRECTIONAL_G
             }, {
                 xtype: 'number',
                 id: 'mieDirectionalG',

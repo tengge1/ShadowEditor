@@ -32,13 +32,13 @@ SoftVolumeComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '柔软体'
+                text: L_SOFT_VOLUME
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '质量'
+                text: L_MASS
             }, {
                 xtype: 'number',
                 id: 'mass',
@@ -53,7 +53,7 @@ SoftVolumeComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '压力'
+                text: L_PRESSURE
             }, {
                 xtype: 'number',
                 id: 'pressure',

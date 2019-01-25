@@ -31,20 +31,20 @@ PhysicsWorldComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '物理环境'
+                text: L_PHYSICS_ENVIRONMENT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '碰撞配置'
+                text: L_COLLISION_CONFIG
             }, {
                 xtype: 'select',
                 id: 'type',
                 scope: this.id,
                 options: {
-                    'btDefaultCollisionConfiguration': '默认碰撞配置', // 无法使用布料
-                    'btSoftBodyRigidBodyCollisionConfiguration': '软体刚体碰撞配置'
+                    'btDefaultCollisionConfiguration': L_DEFAULT_COLLISION_CONFIG, // 无法使用布料
+                    'btSoftBodyRigidBodyCollisionConfiguration': L_SOFTBODY_RIGIDBODY_COLLISIONCONFIG
                 },
                 onChange: this.onChange.bind(this)
             }]
@@ -52,7 +52,7 @@ PhysicsWorldComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '重力常数'
+                text: L_GRAVITY
             }, {
                 xtype: 'number',
                 id: 'gravityX',
