@@ -280,3 +280,5 @@ L_ARC = '弧度';
 L_TUBE_ARC = '管长弧度';
 L_DISTORTED_ARC = '扭曲弧度';
 L_CLOTH_COMPONENT = '布料组件';
+L_PERLIN_TERRAIN = '柏林地形';
+L_QUALITY = '质量';

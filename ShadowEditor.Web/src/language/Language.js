@@ -281,4 +281,6 @@ Object.assign(window, {
     L_TUBE_ARC: 'TubeArc',
     L_DISTORTED_ARC: 'DistortedArc',
     L_CLOTH_COMPONENT: 'ClothComponent',
+    L_PERLIN_TERRAIN: 'PerlinTerrain',
+    L_QUALITY: 'Quality',
 });

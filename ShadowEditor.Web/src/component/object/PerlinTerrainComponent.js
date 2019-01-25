@@ -33,13 +33,13 @@ PerlinTerrainComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '柏林地形'
+                text: L_PERLIN_TERRAIN
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '宽度'
+                text: L_WIDTH
             }, {
                 xtype: 'int',
                 id: 'width',
@@ -52,7 +52,7 @@ PerlinTerrainComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '深度'
+                text: L_DEPTH
             }, {
                 xtype: 'int',
                 id: 'depth',
@@ -65,7 +65,7 @@ PerlinTerrainComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '宽度分段'
+                text: L_WIDTH_SEGMENTS
             }, {
                 xtype: 'int',
                 id: 'widthSegments',
@@ -78,7 +78,7 @@ PerlinTerrainComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '深度分段'
+                text: L_DEPTH_SEGMENTS
             }, {
                 xtype: 'int',
                 id: 'depthSegments',
@@ -91,7 +91,7 @@ PerlinTerrainComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '质量'
+                text: L_QUALITY
             }, {
                 xtype: 'int',
                 id: 'quality',
