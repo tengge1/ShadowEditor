@@ -279,3 +279,4 @@ L_TUBULAR_SEGMENTS = '管状分段';
 L_ARC = '弧度';
 L_TUBE_ARC = '管长弧度';
 L_DISTORTED_ARC = '扭曲弧度';
+L_CLOTH_COMPONENT = '布料组件';

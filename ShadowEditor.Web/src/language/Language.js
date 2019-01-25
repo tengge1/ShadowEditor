@@ -280,4 +280,5 @@ Object.assign(window, {
     L_ARC: 'Arc',
     L_TUBE_ARC: 'TubeArc',
     L_DISTORTED_ARC: 'DistortedArc',
+    L_CLOTH_COMPONENT: 'ClothComponent',
 });

@@ -32,7 +32,7 @@ ClothComponent.prototype.render = function () {
                 color: '#555',
                 fontWeight: 'bold'
             },
-            text: '布组件'
+            text: L_CLOTH_COMPONENT
         }, {
             xtype: 'row',
             children: [{
@@ -41,7 +41,7 @@ ClothComponent.prototype.render = function () {
                 xtype: 'button',
                 id: 'btnPreview',
                 scope: this.id,
-                text: '预览',
+                text: L_PREVIEW,
                 onClick: this.onPreview.bind(this)
             }]
         }]
@@ -77,9 +77,9 @@ ClothComponent.prototype.updateUI = function () {
     var btnPreview = UI.get('btnPreview', this.id);
 
     if (this.isPlaying) {
-        btnPreview.setText('取消');
+        btnPreview.setText(L_CANCEL);
     } else {
-        btnPreview.setText('预览');
+        btnPreview.setText(L_PREVIEW);
     }
 };
 
@@ -95,7 +95,7 @@ ClothComponent.prototype.startPreview = function () {
     var btnPreview = UI.get('btnPreview', this.id);
 
     this.isPlaying = true;
-    btnPreview.setText('取消');
+    btnPreview.setText(L_CANCEL);
 
     this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
 };
@@ -104,7 +104,7 @@ ClothComponent.prototype.stopPreview = function () {
     var btnPreview = UI.get('btnPreview', this.id);
 
     this.isPlaying = false;
-    btnPreview.setText('预览');
+    btnPreview.setText(L_PREVIEW);
 
     this.app.on(`animate.${this.id}`, null);
 };
