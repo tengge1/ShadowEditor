@@ -357,4 +357,9 @@ Object.assign(window, {
     L_SIXTEEN_SAMPLES: '16 Samples',
     L_THIRTYTWO_SAMPLES: '32 Samples',
     L_UNBIASED: 'Unbiased',
+    L_SSAO: 'SSAO',
+    L_DEFAULT: 'Default',
+    L_OCCLUSION_AND_BLUR: 'Occlusion&Blur',
+    L_TAA: 'TAA',
+    L_LEVEL: 'Level',
 });

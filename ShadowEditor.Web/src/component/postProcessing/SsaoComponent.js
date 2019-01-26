@@ -32,13 +32,13 @@ SsaoComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '屏幕空间环境光遮蔽(SSAO)'
+                text: L_SSAO
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用状态'
+                text: L_ENABLE_STATE
             }, {
                 xtype: 'checkbox',
                 id: 'enabled',
@@ -50,18 +50,18 @@ SsaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '输出'
+                text: L_OUTPUT
             }, {
                 xtype: 'select',
                 id: 'output',
                 scope: this.id,
                 options: {
-                    [THREE.SSAOPass.OUTPUT.Default]: '默认',
-                    [THREE.SSAOPass.OUTPUT.SSAO]: '仅遮挡',
-                    [THREE.SSAOPass.OUTPUT.Blur]: '遮挡+模糊',
-                    [THREE.SSAOPass.OUTPUT.Beauty]: '美化',
-                    [THREE.SSAOPass.OUTPUT.Depth]: '深度',
-                    [THREE.SSAOPass.OUTPUT.Normal]: '法线'
+                    [THREE.SSAOPass.OUTPUT.Default]: L_DEFAULT,
+                    [THREE.SSAOPass.OUTPUT.SSAO]: L_OCCLUSION,
+                    [THREE.SSAOPass.OUTPUT.Blur]: L_OCCLUSION_AND_BLUR,
+                    [THREE.SSAOPass.OUTPUT.Beauty]: L_BEAUTY,
+                    [THREE.SSAOPass.OUTPUT.Depth]: L_DEPTH,
+                    [THREE.SSAOPass.OUTPUT.Normal]: L_NORMAL
                 },
                 value: THREE.SSAOPass.OUTPUT.Default,
                 onChange: this.onChange.bind(this)
@@ -70,7 +70,7 @@ SsaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '核心半径'
+                text: L_KERNAL_RADIUS
             }, {
                 xtype: 'number',
                 id: 'kernelRadius',
@@ -83,7 +83,7 @@ SsaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最小距离'
+                text: L_MIN_DISTANCE
             }, {
                 xtype: 'number',
                 id: 'minDistance',
@@ -96,7 +96,7 @@ SsaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最大距离'
+                text: L_MAX_DISTANCE
             }, {
                 xtype: 'number',
                 id: 'maxDistance',

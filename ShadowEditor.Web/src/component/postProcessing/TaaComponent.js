@@ -32,13 +32,13 @@ TaaComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '时间抗锯齿(TAA)'
+                text: L_TAA
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用状态'
+                text: L_ENABLE_STATE
             }, {
                 xtype: 'checkbox',
                 id: 'enabled',
@@ -50,18 +50,18 @@ TaaComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '等级'
+                text: L_LEVEL
             }, {
                 xtype: 'select',
                 id: 'sampleLevel',
                 scope: this.id,
                 options: {
-                    0: '1个样本',
-                    1: '2个样本',
-                    2: '4个样本',
-                    3: '8个样本',
-                    4: '16个样本',
-                    5: '32个样本'
+                    0: L_ONE_SAMPLE,
+                    1: L_TWO_SAMPLES,
+                    2: L_FOUR_SAMPLES,
+                    3: L_EIGHT_SAMPLES,
+                    4: L_SIXTEEN_SAMPLES,
+                    5: L_THIRTYTWO_SAMPLES
                 },
                 value: '3',
                 onChange: this.onChange.bind(this)
@@ -70,7 +70,7 @@ TaaComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '无偏差'
+                text: L_UNBIASED
             }, {
                 xtype: 'checkbox',
                 id: 'unbiased',
