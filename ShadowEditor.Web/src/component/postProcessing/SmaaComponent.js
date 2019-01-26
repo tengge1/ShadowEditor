@@ -32,13 +32,13 @@ SmaaComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '多重采样抗锯齿(SMAA)'
+                text: L_SMAA
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用状态'
+                text: L_ENABLE_STATE
             }, {
                 xtype: 'checkbox',
                 id: 'enabled',

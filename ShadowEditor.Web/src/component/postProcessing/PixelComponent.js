@@ -32,13 +32,13 @@ PixelComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '像素特效'
+                text: L_PIXEL_EFFECT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用状态'
+                text: L_ENABLE_STATE
             }, {
                 xtype: 'checkbox',
                 id: 'enabled',
@@ -50,7 +50,7 @@ PixelComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '像素尺寸'
+                text: L_PIXEL_SIZE
             }, {
                 xtype: 'int',
                 id: 'pixelSize',

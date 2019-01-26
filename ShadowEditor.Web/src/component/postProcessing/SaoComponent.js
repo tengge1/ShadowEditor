@@ -32,13 +32,13 @@ SaoComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '可扩展环境光遮挡(SAO)'
+                text: L_SAO
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用状态'
+                text: L_ENABLE_STATE
             }, {
                 xtype: 'checkbox',
                 id: 'enabled',
@@ -50,17 +50,17 @@ SaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '输出'
+                text: L_OUTPUT
             }, {
                 xtype: 'select',
                 id: 'output',
                 scope: this.id,
                 options: {
-                    [THREE.SAOPass.OUTPUT.Beauty]: '美化',
-                    [THREE.SAOPass.OUTPUT.Default]: '美化+遮挡',
-                    [THREE.SAOPass.OUTPUT.SAO]: '遮挡',
-                    [THREE.SAOPass.OUTPUT.Depth]: '深度',
-                    [THREE.SAOPass.OUTPUT.Normal]: '法线'
+                    [THREE.SAOPass.OUTPUT.Beauty]: L_BEAUTY,
+                    [THREE.SAOPass.OUTPUT.Default]: L_BEAUTY_AND_OCCLUSION,
+                    [THREE.SAOPass.OUTPUT.SAO]: L_OCCLUSION,
+                    [THREE.SAOPass.OUTPUT.Depth]: L_DEPTH,
+                    [THREE.SAOPass.OUTPUT.Normal]: L_NORMAL
                 },
                 value: THREE.SAOPass.OUTPUT.Default,
                 onChange: this.onChange.bind(this)
@@ -69,7 +69,7 @@ SaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '遮挡偏差'
+                text: L_BIAS
             }, {
                 xtype: 'number',
                 id: 'saoBias',
@@ -82,7 +82,7 @@ SaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '遮挡程度'
+                text: L_INTENSITY
             }, {
                 xtype: 'number',
                 id: 'saoIntensity',
@@ -95,7 +95,7 @@ SaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '遮挡尺寸'
+                text: L_SCALE
             }, {
                 xtype: 'number',
                 id: 'saoScale',
@@ -108,7 +108,7 @@ SaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '核心半径'
+                text: L_KERNAL_RADIUS
             }, {
                 xtype: 'number',
                 id: 'saoKernelRadius',
@@ -121,7 +121,7 @@ SaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '最低分辨'
+                text: L_MIN_RESOLUTION
             }, {
                 xtype: 'number',
                 id: 'saoMinResolution',
@@ -134,7 +134,7 @@ SaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '模糊'
+                text: L_BLUR
             }, {
                 xtype: 'checkbox',
                 id: 'saoBlur',
@@ -146,7 +146,7 @@ SaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '模糊半径'
+                text: L_BLUR_RADIUS
             }, {
                 xtype: 'number',
                 id: 'saoBlurRadius',
@@ -159,7 +159,7 @@ SaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '标准差'
+                text: L_BLUR_STD_DEV
             }, {
                 xtype: 'number',
                 id: 'saoBlurStdDev',
@@ -172,7 +172,7 @@ SaoComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '深度隔断'
+                text: L_BLUR_DEPTH_CUTOFF
             }, {
                 xtype: 'number',
                 id: 'saoBlurDepthCutoff',

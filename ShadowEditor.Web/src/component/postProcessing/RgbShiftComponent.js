@@ -32,13 +32,13 @@ RgbShiftComponent.prototype.render = function () {
                     fontWeight: 'bold',
                     width: '100%'
                 },
-                text: '颜色偏移特效'
+                text: L_RGB_SHIFT_EFFECT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '启用状态'
+                text: L_ENABLE_STATE
             }, {
                 xtype: 'checkbox',
                 id: 'enabled',
@@ -50,7 +50,7 @@ RgbShiftComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '偏移量'
+                text: L_AMOUNT
             }, {
                 xtype: 'number',
                 id: 'amount',
