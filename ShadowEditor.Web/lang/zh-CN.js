@@ -21,6 +21,8 @@ L_SET_SCALE = '设置缩放';
 L_SET_SCENE = '设置场景';
 L_SET_SCRIPT = '设置脚本';
 L_UPDATE_UUID = '更新UUID';
+
+// component
 L_BASIC_INFO = '基本信息';
 L_NAME = '名称';
 L_TYPE = '类型';
@@ -361,3 +363,9 @@ L_DEFAULT = '默认';
 L_OCCLUSION_AND_BLUR = '遮挡+模糊';
 L_TAA = '时间抗锯齿(TAA)';
 L_LEVEL = '等级';
+
+// core
+L_IS_NOT_AVAILABLE = '不可用。';
+L_SAVE_INTO_INDEXEDDB = '保存到IndexedDB中。';
+L_CLEAR_INDEXED_DB = '清空IndexedDB。';
+

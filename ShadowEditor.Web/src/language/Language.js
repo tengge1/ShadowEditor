@@ -362,4 +362,9 @@ Object.assign(window, {
     L_OCCLUSION_AND_BLUR: 'Occlusion&Blur',
     L_TAA: 'TAA',
     L_LEVEL: 'Level',
+
+    // core
+    L_IS_NOT_AVAILABLE: 'is not available.',
+    L_SAVE_INTO_INDEXEDDB: 'Saved into indexDB.',
+    L_CLEAR_INDEXED_DB: 'Clear indexedDB.',
 });

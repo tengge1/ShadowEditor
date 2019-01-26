@@ -6,7 +6,7 @@ function Storage() {
     var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 
     if (indexedDB === undefined) {
-        console.warn('Storage: IndexedDB不可用。');
+        console.warn(`Storage: IndexedDB ${L_IS_NOT_AVAILABLE}`);
         return { init: function () { }, get: function () { }, set: function () { }, clear: function () { } };
     }
 
@@ -54,7 +54,7 @@ function Storage() {
             var objectStore = transaction.objectStore('states');
             var request = objectStore.put(data, 0);
             request.onsuccess = function (event) {
-                console.log('[' + /\d\d\:\d\d\:\d\d/.exec(new Date())[0] + ']', '保存到IndexedDB中。 ' + (performance.now() - start).toFixed(2) + 'ms');
+                console.log('[' + /\d\d\:\d\d\:\d\d/.exec(new Date())[0] + ']', L_SAVE_INTO_INDEXEDDB + (performance.now() - start).toFixed(2) + 'ms');
             };
 
         },
@@ -66,7 +66,7 @@ function Storage() {
             var objectStore = transaction.objectStore('states');
             var request = objectStore.clear();
             request.onsuccess = function (event) {
-                console.log('[' + /\d\d\:\d\d\:\d\d/.exec(new Date())[0] + ']', '清空IndexedDB。');
+                console.log('[' + /\d\d\:\d\d\:\d\d/.exec(new Date())[0] + ']', L_CLEAR_INDEXED_DB);
             };
         }
     };
