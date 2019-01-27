@@ -25,34 +25,34 @@ TerrainMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '地形'
+            html: L_TERRAIN
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
                 xtype: 'div',
                 cls: 'option',
-                html: '柏林地形',
+                html: L_PERLIN_TERRAIN,
                 onClick: this.createPerlinTerrain.bind(this)
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '创建着色器地形',
+                html: L_SHADER_TERRAIN,
                 onClick: this.createShaderTerrain.bind(this)
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '升高地形',
+                html: L_RAISE_TERRAIN,
                 onClick: this.raiseTerrain.bind(this)
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '降低地形',
+                html: L_REDUCE_TERRAIN,
                 onClick: this.reduceTerrain.bind(this)
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '批量种树',
+                html: L_PLANT_TREES,
                 onClick: this.plantTrees.bind(this)
             }]
         }]

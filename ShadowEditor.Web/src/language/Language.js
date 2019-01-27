@@ -481,4 +481,10 @@ Object.assign(window, {
     L_NEW_SCENE: 'New Scene',
     L_PUBLISH_WEBSITE: 'Publish website',
     L_CONFIRM_PUBLISH_WEBSITE: 'Are you sure to publish all scenes and assets?',
+    L_TERRAIN: 'Terrain',
+    L_PERLIN_TERRAIN: 'Perlin Terrain',
+    L_SHADER_TERRAIN: 'Shader Terrain',
+    L_RAISE_TERRAIN: 'Raise Terrain',
+    L_REDUCE_TERRAIN: 'Reduce Terrain',
+    L_PLANT_TREES: 'Plant Trees',
 });
