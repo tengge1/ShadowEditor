@@ -220,7 +220,7 @@ ParticlePanel.prototype.onEdit = function (data) {
             app: this.app,
             parent: document.body,
             type: 'Particle',
-            typeName: '粒子',
+            typeName: L_PARTICLE,
             saveUrl: `${this.app.options.server}/api/Particle/Edit`,
             callback: this.update.bind(this)
         });
@@ -233,7 +233,7 @@ ParticlePanel.prototype.onEdit = function (data) {
 // -------------------------------- 删除 ----------------------------------------
 
 ParticlePanel.prototype.onDelete = function (data) {
-    UI.confirm('询问', `是否删除${data.Name}？`, (event, btn) => {
+    UI.confirm(L_CONFIRM, `${L_DELETE}${data.Name}?`, (event, btn) => {
         if (btn === 'ok') {
             Ajax.post(`/api/Particle/Delete?ID=${data.ID}`, json => {
                 var obj = JSON.parse(json);

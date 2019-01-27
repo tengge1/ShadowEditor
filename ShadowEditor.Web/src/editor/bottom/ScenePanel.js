@@ -237,7 +237,7 @@ ScenePanel.prototype.onLoad = function (data) {
                 this.app.call('sceneGraphChanged', this);
             }
 
-            UI.msg('载入成功！');
+            UI.msg(L_LOAD_SUCCESS);
         });
     });
 };
@@ -285,19 +285,19 @@ ScenePanel.prototype.onLoadScene = function (obj) {
             id: null,
             uuid: THREE.Math.generateUUID(),
             layer: 0,
-            layerName: '动画层1',
+            layerName: L_ANIMATION_LAYER_1,
             animations: []
         }, {
             id: null,
             uuid: THREE.Math.generateUUID(),
             layer: 1,
-            layerName: '动画层2',
+            layerName: L_ANIMATION_LAYER_2,
             animations: []
         }, {
             id: null,
             uuid: THREE.Math.generateUUID(),
             layer: 2,
-            layerName: '动画层3',
+            layerName: L_ANIMATION_LAYER_3,
             animations: []
         }];
     }
@@ -327,7 +327,7 @@ ScenePanel.prototype.onEdit = function (data) {
             app: this.app,
             parent: document.body,
             type: 'Scene',
-            typeName: '场景',
+            typeName: L_SCENE,
             saveUrl: `${this.app.options.server}/api/Scene/Edit`,
             callback: this.update.bind(this)
         });
@@ -342,7 +342,7 @@ ScenePanel.prototype.onEdit = function (data) {
 ScenePanel.prototype.onDelete = function (data) {
     var server = this.app.options.server;
 
-    UI.confirm('询问', `是否删除场景${data.Name}？`, (event, btn) => {
+    UI.confirm(L_CONFIRM, `${L_DELETE} ${data.Name}?`, (event, btn) => {
         if (btn === 'ok') {
             Ajax.post(`${server}/api/Scene/Delete?ID=${data.ID}`, json => {
                 var obj = JSON.parse(json);

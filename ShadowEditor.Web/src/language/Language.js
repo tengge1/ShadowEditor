@@ -403,4 +403,11 @@ Object.assign(window, {
     L_CHARACTER: 'Character',
     L_LOG: 'Logs',
     L_COLLAPSE: 'Collapse',
+    L_CLEAR: 'Clear',
+    L_CLEAR_LOGS: 'Clear Logs',
+    L_LOAD_SUCCESS: 'Load Successfully!',
+    L_ILLUSTRATE_DOUBLE_CLICK_ADD_ANIM: 'Illustrate: Double click area below to add animation.',
+    L_ANIM_LAYER: 'AnimLayer',
+    L_CHECK_DELETE_LAYER: 'Please check the layer.',
+    L_DELETE_LAYER_WILL_DELETE_ANIM: 'Delete layer will delete all the anims on the layer. Are you sure?',
 });

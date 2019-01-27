@@ -64,7 +64,7 @@ MapPanel.prototype.renderUI = function () {
                 children: [{
                     xtype: 'iconbutton',
                     icon: 'icon-upload',
-                    title: '上传',
+                    title: L_UPLOAD,
                     style: {
                         padding: '2px'
                     },
@@ -240,10 +240,10 @@ MapPanel.prototype.onCommitUpload = function () {
                 this.updateList();
             }
         } else {
-            UI.msg('上传失败！');
+            UI.msg(L_UPLOAD_FAILED);
         }
     }, () => {
-        UI.msg('上传失败！');
+        UI.msg(L_UPLOAD_FAILED);
     });
 };
 
@@ -255,7 +255,7 @@ MapPanel.prototype.onEdit = function (data) {
             app: this.app,
             parent: document.body,
             type: 'Map',
-            typeName: '贴图',
+            typeName: L_MAP,
             saveUrl: `${this.app.options.server}/api/Map/Edit`,
             callback: this.update.bind(this)
         });
@@ -268,7 +268,7 @@ MapPanel.prototype.onEdit = function (data) {
 // -------------------------------- 删除 ----------------------------------------
 
 MapPanel.prototype.onDelete = function (data) {
-    UI.confirm('询问', `是否删除${data.Name}？`, (event, btn) => {
+    UI.confirm(L_CONFIRM, `${L_DELETE}${data.Name}?`, (event, btn) => {
         if (btn === 'ok') {
             Ajax.post(`/api/Map/Delete?ID=${data.ID}`, json => {
                 var obj = JSON.parse(json);

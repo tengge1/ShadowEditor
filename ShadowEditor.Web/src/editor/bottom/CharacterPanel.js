@@ -220,7 +220,7 @@ CharacterPanel.prototype.onEdit = function (data) {
             app: this.app,
             parent: document.body,
             type: 'Character',
-            typeName: '角色',
+            typeName: L_CHARACTER,
             saveUrl: `${this.app.options.server}/api/Character/Edit`,
             callback: this.update.bind(this)
         });
@@ -233,7 +233,7 @@ CharacterPanel.prototype.onEdit = function (data) {
 // -------------------------------- 删除 ----------------------------------------
 
 CharacterPanel.prototype.onDelete = function (data) {
-    UI.confirm('询问', `是否删除${data.Name}？`, (event, btn) => {
+    UI.confirm(L_CONFIRM, `${L_DELETE}${data.Name}?`, (event, btn) => {
         if (btn === 'ok') {
             Ajax.post(`/api/Character/Delete?ID=${data.ID}`, json => {
                 var obj = JSON.parse(json);

@@ -105,7 +105,7 @@ TimePanel.prototype.render = function () {
                     color: '#aaa',
                     fontSize: '12px'
                 },
-                text: '说明：双击时间轴下方区域添加动画。'
+                text: L_ILLUSTRATE_DOUBLE_CLICK_ADD_ANIM
             }]
         }, {
             xtype: 'div',
@@ -256,7 +256,7 @@ TimePanel.prototype.onAddLayer = function () {
         id: null,
         uuid: THREE.Math.generateUUID(),
         layer: maxLayer + 1,
-        layerName: `动画层${maxLayer + 2}`,
+        layerName: `${L_ANIM_LAYER}${maxLayer + 2}`,
         animations: []
     };
     this.app.editor.animations.push(animation);
@@ -272,13 +272,13 @@ TimePanel.prototype.onRemoveLayer = function () {
     });
 
     if (uuids.length === 0) {
-        UI.msg('请勾选需要删除的层！');
+        UI.msg(L_CHECK_DELETE_LAYER);
         return;
     }
 
     var animations = this.app.editor.animations;
 
-    UI.confirm('询问', '删除层会删除层上的所有动画。是否删除？', (event, btn) => {
+    UI.confirm(L_CONFIRM, L_DELETE_LAYER_WILL_DELETE_ANIM, (event, btn) => {
         if (btn === 'ok') {
             uuids.forEach(n => {
                 var index = animations.findIndex(m => m.uuid === n);
@@ -368,7 +368,7 @@ TimePanel.prototype.onDblClick = function (event) {
         var animation = {
             id: null,
             uuid: THREE.Math.generateUUID(),
-            name: `动画${ID--}`,
+            name: `${L_ANIMATION}${ID--}`,
             target: null,
             type: 'Tween',
             beginTime: event.offsetX / timeline.scale,

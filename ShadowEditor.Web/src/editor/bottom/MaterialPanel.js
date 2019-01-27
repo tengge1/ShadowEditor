@@ -212,7 +212,6 @@ MaterialPanel.prototype.onSelectMaterial = function (data) {
     });
 };
 
-
 // ------------------------------- 编辑 ---------------------------------------
 
 MaterialPanel.prototype.onEdit = function (data) {
@@ -221,7 +220,7 @@ MaterialPanel.prototype.onEdit = function (data) {
             app: this.app,
             parent: document.body,
             type: 'Material',
-            typeName: '材质',
+            typeName: L_MATERIAL,
             saveUrl: `${this.app.options.server}/api/Material/Edit`,
             callback: this.update.bind(this)
         });
@@ -234,7 +233,7 @@ MaterialPanel.prototype.onEdit = function (data) {
 // -------------------------------- 删除 ----------------------------------------
 
 MaterialPanel.prototype.onDelete = function (data) {
-    UI.confirm('询问', `是否删除${data.Name}？`, (event, btn) => {
+    UI.confirm(L_CONFIRM, `${L_DELETE}${data.Name}?`, (event, btn) => {
         if (btn === 'ok') {
             Ajax.post(`/api/Material/Delete?ID=${data.ID}`, json => {
                 var obj = JSON.parse(json);

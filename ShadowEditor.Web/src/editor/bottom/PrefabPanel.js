@@ -220,7 +220,7 @@ PrefabPanel.prototype.onEdit = function (data) {
             app: this.app,
             parent: document.body,
             type: 'Prefab',
-            typeName: '预设体',
+            typeName: L_PREFAB,
             saveUrl: `${this.app.options.server}/api/Prefab/Edit`,
             callback: this.update.bind(this)
         });
@@ -233,7 +233,7 @@ PrefabPanel.prototype.onEdit = function (data) {
 // -------------------------------- 删除 ----------------------------------------
 
 PrefabPanel.prototype.onDelete = function (data) {
-    UI.confirm('询问', `是否删除${data.Name}？`, (event, btn) => {
+    UI.confirm(L_CONFIRM, `${L_DELETE}${data.Name}?`, (event, btn) => {
         if (btn === 'ok') {
             Ajax.post(`/api/Prefab/Delete?ID=${data.ID}`, json => {
                 var obj = JSON.parse(json);

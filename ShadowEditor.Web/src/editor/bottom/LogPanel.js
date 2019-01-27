@@ -22,7 +22,7 @@ LogPanel.prototype.render = function () {
         },
         children: [{
             xtype: 'button',
-            text: '清空',
+            text: L_CLEAR,
             onClick: this.onClearLog.bind(this)
         }, {
             xtype: 'br'
@@ -79,7 +79,7 @@ LogPanel.prototype.onLog = function (content, type) {
 LogPanel.prototype.onClearLog = function () {
     var dom = UI.get('logContent').dom;
     dom.innerHTML = '';
-    this.onLog('清空日志');
+    this.onLog(L_CLEAR_LOGS);
 };
 
 export default LogPanel;
