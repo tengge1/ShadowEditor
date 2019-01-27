@@ -28,48 +28,48 @@ ComponentMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '组件'
+            html: L_COMPONENT
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
                 xtype: 'div',
-                html: '背景音乐',
+                html: L_BACKGROUND_MUSIC,
                 cls: 'option',
                 onClick: this.onAddBackgroundMusic.bind(this)
             }, {
                 xtype: 'div',
-                html: '粒子发射器',
+                html: L_PARTICLE_EMITTER,
                 cls: 'option',
                 onClick: this.ParticleEmitter.bind(this)
             }, {
                 xtype: 'div',
-                html: '天空',
+                html: L_SKY,
                 cls: 'option',
                 onClick: this.onAddSky.bind(this)
             }, {
                 xtype: 'div',
-                html: '火焰',
+                html: L_FIRE,
                 cls: 'option',
                 onClick: this.onAddFire.bind(this)
             }, {
                 xtype: 'div',
-                html: '水',
+                html: L_WATER,
                 cls: 'option',
                 onClick: this.onAddWater.bind(this)
             }, {
                 xtype: 'div',
-                html: '烟',
+                html: L_SMOKE,
                 cls: 'option',
                 onClick: this.onAddSmoke.bind(this)
             }, {
                 xtype: 'div',
-                html: '布',
+                html: L_CLOTH,
                 cls: 'option',
                 onClick: this.onAddCloth.bind(this)
             }, {
                 xtype: 'div',
-                html: '添加物理布料',
+                html: L_PHYSICS_CLOTH,
                 cls: 'option',
                 onClick: this.onAddPhysicsCloth.bind(this)
             }]
@@ -86,7 +86,7 @@ ComponentMenu.prototype.onAddBackgroundMusic = function () {
     var listener = editor.audioListener;
 
     var audio = new THREE.Audio(listener);
-    audio.name = `背景音乐`;
+    audio.name = L_BACKGROUND_MUSIC;
     audio.autoplay = false;
     audio.setLoop(true);
     audio.setVolume(1.0);
@@ -108,7 +108,7 @@ ComponentMenu.prototype.ParticleEmitter = function () {
 
 ComponentMenu.prototype.onAddSky = function () {
     var obj = new Sky();
-    obj.name = '天空';
+    obj.name = L_SKY;
     obj.userData.type = 'Sky';
     this.app.editor.execute(new AddObjectCommand(obj));
 };
@@ -160,7 +160,7 @@ ComponentMenu.prototype.onAddCloth = function () {
 
     var cloth = new Cloth();
 
-    cloth.name = '布';
+    cloth.name = L_CLOTH;
 
     editor.execute(new AddObjectCommand(cloth));
 };
@@ -168,7 +168,7 @@ ComponentMenu.prototype.onAddCloth = function () {
 // --------------------------- 添加物理布料 -----------------------------------
 
 ComponentMenu.prototype.onAddPhysicsCloth = function () {
-    UI.msg('添加物理布料成功！');
+    UI.msg(L_ADD_PHYSICS_CLOTH_SUCCESS);
 };
 
 export default ComponentMenu;
