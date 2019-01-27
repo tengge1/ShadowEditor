@@ -25,7 +25,7 @@ EditMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '编辑'
+            html: L_EDIT
         }, {
             xtype: 'div',
             cls: 'options',
@@ -33,21 +33,21 @@ EditMenu.prototype.render = function () {
                 xtype: 'div',
                 id: 'undo',
                 scope: this.id,
-                html: '撤销(Ctrl+Z)',
+                html: `${L_UNDO}(Ctrl+Z)`,
                 cls: 'option inactive',
                 onClick: this.undo.bind(this)
             }, {
                 xtype: 'div',
                 id: 'redo',
                 scope: this.id,
-                html: '重做(Ctrl+Shift+Z)',
+                html: `${L_REDO}(Ctrl+Shift+Z)`,
                 cls: 'option inactive',
                 onClick: this.redo.bind(this)
             }, {
                 xtype: 'div',
                 id: 'clearHistory',
                 scope: this.id,
-                html: '清空历史记录',
+                html: L_CLEAR_HISTORY,
                 cls: 'option inactive',
                 onClick: this.clearHistory.bind(this)
             }, {
@@ -56,14 +56,14 @@ EditMenu.prototype.render = function () {
                 xtype: 'div',
                 id: 'clone',
                 scope: this.id,
-                html: '复制',
+                html: L_CLONE,
                 cls: 'option inactive',
                 onClick: this.clone.bind(this)
             }, {
                 xtype: 'div',
                 id: 'delete',
                 scope: this.id,
-                html: '删除(Del)',
+                html: `${L_DELETE}(Del)`,
                 cls: 'option inactive',
                 onClick: this.delete.bind(this)
             }]
@@ -108,7 +108,7 @@ EditMenu.prototype.clearHistory = function () {
         return;
     }
 
-    UI.confirm('询问', '撤销/重做历史记录将被清空。确定吗？', function (event, btn) {
+    UI.confirm(L_CONFIRM, L_HISTORY_WILL_CLEAR, function (event, btn) {
         if (btn === 'ok') {
             editor.history.clear();
         }
@@ -139,7 +139,7 @@ EditMenu.prototype.delete = function () {
         return;
     }
 
-    UI.confirm('询问', '删除 ' + object.name + '?', function (event, btn) {
+    UI.confirm(L_CONFIRM, L_DELETE + ' ' + object.name + '?', function (event, btn) {
         if (btn === 'ok') {
             editor.execute(new RemoveObjectCommand(object));
         }

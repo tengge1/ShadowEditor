@@ -432,4 +432,10 @@ Object.assign(window, {
     L_CLOTH: 'Cloth',
     L_PHYSICS_CLOTH: 'Physics Cloth',
     L_ADD_PHYSICS_CLOTH_SUCCESS: 'Add physics cloth successfully',
+    L_EDIT: 'Edit',
+    L_UNDO: 'Undo',
+    L_REDO: 'Redo',
+    L_CLEAR_HISTORY: 'Clear History',
+    L_CLONE: 'Clone',
+    L_HISTORY_WILL_CLEAR: 'Undo/Redo history will be cleared. Are you sure?',
 });
