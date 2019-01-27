@@ -23,30 +23,30 @@ SceneMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '场景'
+            html: L_SCENE
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
                 xtype: 'div',
-                html: '新建',
+                html: L_NEW,
                 cls: 'option',
                 onClick: this.newScene.bind(this)
             }, {
                 xtype: 'div',
-                html: '保存',
+                html: L_SAVE,
                 cls: 'option',
                 onClick: this.saveScene.bind(this)
             }, {
                 xtype: 'div',
-                html: '另存为',
+                html: L_SAVE_AS,
                 cls: 'option',
                 onClick: this.saveAsScene.bind(this)
             }, {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                html: '发布静态网站',
+                html: L_EXPORT_STATIC_WEBSITE,
                 cls: 'option',
                 onClick: this.publish.bind(this)
             }]
@@ -65,16 +65,16 @@ SceneMenu.prototype.newScene = function () {
         editor.clear();
         editor.sceneID = null;
         editor.sceneName = null;
-        document.title = '未命名';
+        document.title = L_NO_NAME;
         return;
     }
 
-    UI.confirm('询问', '所有未保存数据将丢失，确定要新建场景吗？', function (event, btn) {
+    UI.confirm(L_CONFIRM, L_UNSAVED_WILL_LOSE_CONFIRM, function (event, btn) {
         if (btn === 'ok') {
             editor.clear();
             editor.sceneID = null;
             editor.sceneName = null;
-            document.title = '未命名';
+            document.title = L_NO_NAME;
         }
     });
 };
@@ -88,8 +88,8 @@ SceneMenu.prototype.saveScene = function () { // 保存场景
 
     if (id) { // 编辑场景
         this.commitSave(id, sceneName);
-    } else { // 新疆场景
-        UI.prompt('保存场景', '名称', '新场景', (event, name) => {
+    } else { // 新建场景
+        UI.prompt(L_SAVE_SCENE, L_NAME, L_NEW_SCENE, (event, name) => {
             this.commitSave(id, name);
         });
     }
@@ -143,10 +143,10 @@ SceneMenu.prototype.saveAsScene = function () {
     var sceneName = this.app.editor.sceneName;
 
     if (sceneName == null) {
-        sceneName = '新场景';
+        sceneName = L_NEW_SCENE;
     }
 
-    UI.prompt('保存场景', '名称', sceneName, (event, name) => {
+    UI.prompt(L_SAVE_SCENE, L_NAME, sceneName, (event, name) => {
         this.app.editor.sceneName = name;
         document.title = name;
         this.commitSaveAs(name);
@@ -186,7 +186,7 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
 // ------------------------- 发布静态网站 ------------------------------
 
 SceneMenu.prototype.publish = function () {
-    UI.confirm('发布网站', '是否把所有场景、资源发布为静态网站？', (event, btn) => {
+    UI.confirm(L_PUBLISH_WEBSITE, L_CONFIRM_PUBLISH_WEBSITE, (event, btn) => {
         if (btn === 'ok') {
             Ajax.post(`${this.app.options.server}/api/Publish/Publish`, function (result) {
                 var obj = JSON.parse(result);

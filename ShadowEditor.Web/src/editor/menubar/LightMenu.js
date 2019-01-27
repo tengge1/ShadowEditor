@@ -26,38 +26,38 @@ LightMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '光源'
+            html: L_LIGHT
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
                 xtype: 'div',
-                html: '环境光',
+                html: L_AMBIENT_LIGHT,
                 cls: 'option',
                 onClick: this.addAmbientLight.bind(this)
             }, {
                 xtype: 'div',
-                html: '平行光',
+                html: L_DIRECTIONAL_LIGHT,
                 cls: 'option',
                 onClick: this.addDirectionalLight.bind(this)
             }, {
                 xtype: 'div',
-                html: '点光源',
+                html: L_POINT_LIGHT,
                 cls: 'option',
                 onClick: this.addPointLight.bind(this)
             }, {
                 xtype: 'div',
-                html: '聚光灯',
+                html: L_SPOT_LIGHT,
                 cls: 'option',
                 onClick: this.addSpotLight.bind(this)
             }, {
                 xtype: 'div',
-                html: '半球光',
+                html: L_HEMISPHERE_LIGHT,
                 cls: 'option',
                 onClick: this.addHemisphereLight.bind(this)
             }, {
                 xtype: 'div',
-                html: '矩形光',
+                html: L_RECT_AREA_LIGHT,
                 cls: 'option',
                 onClick: this.addRectAreaLight.bind(this)
             }]
@@ -75,7 +75,7 @@ LightMenu.prototype.addAmbientLight = function () {
     var color = 0xaaaaaa;
 
     var light = new THREE.AmbientLight(color);
-    light.name = '环境光';
+    light.name = L_AMBIENT_LIGHT;
 
     editor.execute(new AddObjectCommand(light));
 };
@@ -89,7 +89,7 @@ LightMenu.prototype.addDirectionalLight = function () {
     var intensity = 1;
 
     var light = new THREE.DirectionalLight(color, intensity);
-    light.name = '平行光';
+    light.name = L_DIRECTIONAL_LIGHT;
     light.castShadow = true;
     light.shadow.mapSize.x = 2048;
     light.shadow.mapSize.y = 2048;
@@ -112,7 +112,7 @@ LightMenu.prototype.addPointLight = function () {
     var distance = 0;
 
     var light = new PointLight(color, intensity, distance);
-    light.name = '点光源';
+    light.name = L_POINT_LIGHT;
     light.position.y = 5;
     light.castShadow = true;
 
@@ -132,7 +132,7 @@ LightMenu.prototype.addSpotLight = function () {
 
     var light = new THREE.SpotLight(color, intensity, distance, angle, penumbra);
 
-    light.name = '聚光灯';
+    light.name = L_SPOT_LIGHT;
     light.castShadow = true;
 
     light.position.set(5, 10, 7.5);
@@ -149,7 +149,7 @@ LightMenu.prototype.addHemisphereLight = function () {
     var intensity = 1;
 
     var light = new HemisphereLight(skyColor, groundColor, intensity);
-    light.name = '半球光';
+    light.name = L_HEMISPHERE_LIGHT;
 
     light.position.set(0, 10, 0);
 
@@ -167,7 +167,7 @@ LightMenu.prototype.addRectAreaLight = function () {
     var height = 10;
 
     var light = new RectAreaLight(color, intensity, width, height);
-    light.name = '矩形光';
+    light.name = L_RECT_AREA_LIGHT;
 
     light.position.set(0, 6, 0);
 

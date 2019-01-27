@@ -23,7 +23,7 @@ PlayMenu.prototype.render = function () {
             id: 'mPlay',
             xtype: 'div',
             cls: 'title',
-            html: '启动',
+            html: L_PLAY,
             onClick: this.onTogglePlay.bind(this)
         }]
     });
@@ -36,11 +36,11 @@ PlayMenu.prototype.onTogglePlay = function () {
 
     if (this.isPlaying === false) {
         this.isPlaying = true;
-        UI.get('mPlay').dom.innerHTML = '停止';
+        UI.get('mPlay').dom.innerHTML = L_STOP;
         this.startPlayer();
     } else {
         this.isPlaying = false;
-        UI.get('mPlay').dom.innerHTML = '启动';
+        UI.get('mPlay').dom.innerHTML = L_PLAY;
         this.stopPlayer();
     }
 };

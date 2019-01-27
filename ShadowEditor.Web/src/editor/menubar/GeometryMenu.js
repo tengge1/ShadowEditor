@@ -38,83 +38,83 @@ GeometryMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '几何体'
+            html: L_GEOMETRY
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
                 xtype: 'div',
-                html: '组',
+                html: L_GROUP,
                 cls: 'option',
                 onClick: this.addGroup.bind(this)
             }, {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                html: '平面',
+                html: L_PLANE,
                 cls: 'option',
                 onClick: this.addPlane.bind(this)
             }, {
                 xtype: 'div',
-                html: '正方体',
+                html: L_BOX,
                 cls: 'option',
                 onClick: this.addBox.bind(this)
             }, {
                 xtype: 'div',
-                html: '圆',
+                html: L_CIRCLE,
                 cls: 'option',
                 onClick: this.addCircle.bind(this)
             }, {
                 xtype: 'div',
-                html: '圆柱体',
+                html: L_CYLINDER,
                 cls: 'option',
                 onClick: this.addCylinder.bind(this)
             }, {
                 xtype: 'div',
-                html: '球体',
+                html: L_SPHERE,
                 cls: 'option',
                 onClick: this.addSphere.bind(this)
             }, {
                 xtype: 'div',
-                html: '二十面体',
+                html: L_ICOSAHEDRON,
                 cls: 'option',
                 onClick: this.addIcosahedron.bind(this)
             }, {
                 xtype: 'div',
-                html: '轮胎',
+                html: L_TORUS,
                 cls: 'option',
                 onClick: this.addTorus.bind(this)
             }, {
                 xtype: 'div',
-                html: '扭结',
+                html: L_TORUS_KNOT,
                 cls: 'option',
                 onClick: this.addTorusKnot.bind(this)
             }, {
                 xtype: 'div',
-                html: '茶壶',
+                html: L_TEAPOT,
                 cls: 'option',
                 onClick: this.addTeaport.bind(this)
             }, {
                 xtype: 'div',
-                html: '酒杯',
+                html: L_LATHE,
                 cls: 'option',
                 onClick: this.addLathe.bind(this)
             }, {
                 xtype: 'div',
                 id: 'mAddSprite',
-                html: '精灵',
+                html: L_SPRITE,
                 cls: 'option',
                 onClick: this.addSprite.bind(this)
             }, {
                 xtype: 'div',
-                html: '文本',
+                html: L_TEXT,
                 cls: 'option',
                 onClick: this.addText.bind(this)
             }, {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                html: '曲线',
+                html: L_SPLINE,
                 cls: 'option',
                 onClick: this.addSpline.bind(this)
             }]
@@ -199,7 +199,7 @@ GeometryMenu.prototype.addSprite = function () {
 // ---------------------- 文本 ----------------------------------
 
 GeometryMenu.prototype.addText = function () {
-    UI.prompt('请输入', null, '一些文字', (event, value) => {
+    UI.prompt(L_PLEASE_INPUT, null, L_SOME_WORDS, (event, value) => {
         this.app.editor.execute(new AddObjectCommand(new Text(value)));
     });
 };

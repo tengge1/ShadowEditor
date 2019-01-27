@@ -6,7 +6,6 @@ import GeometryMenu from './GeometryMenu';
 import LightMenu from './LightMenu';
 import AssetMenu from './AssetMenu';
 import TerrainMenu from './TerrainMenu';
-// import PhysicsMenu from './PhysicsMenu';
 import ComponentMenu from './ComponentMenu';
 import PlayMenu from './PlayMenu';
 import OptionsMenu from './OptionsMenu';
@@ -47,7 +46,6 @@ Menubar.prototype.render = function () {
             new LightMenu(params),
             new AssetMenu(params),
             new TerrainMenu(params),
-            // new PhysicsMenu(params),
             new ComponentMenu(params),
             new PlayMenu(params),
             new OptionsMenu(params),

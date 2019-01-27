@@ -23,43 +23,43 @@ HelpMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '帮助'
+            html: L_HELP
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
                 xtype: 'div',
                 cls: 'option',
-                html: '源码',
+                html: L_SOURCE,
                 onClick: () => {
                     window.open('https://github.com/tengge1/ShadowEditor', '_blank');
                 }
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '示例',
+                html: L_EXAMPLES,
                 onClick: () => {
                     window.open('https://github.com/tengge1/ShadowEditor-examples', '_blank');
                 }
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '文档',
+                html: L_DOCUMENTS,
                 onClick: () => {
                     window.open('https://tengge1.github.io/ShadowEditor/', '_blank');
                 }
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '关于',
+                html: L_ABOUT,
                 onClick: () => {
                     UI.alert(
-                        `关于`,
-                        `名称：ShadowEditor<br />
-                        作者：tengge<br />
-                        授权：MIT<br />
-                        源码1：https://github.com/tengge1/ShadowEditor<br />
-                        源码2：https://gitee.com/tengge1/ShadowEditor`
+                        L_ABOUT,
+                        `${L_NAME}: ShadowEditor<br />
+                        ${L_AUTHOR}: tengge<br />
+                        ${L_LISENSE}: MIT<br />
+                        ${L_SOURCE}1: https://github.com/tengge1/ShadowEditor<br />
+                        ${L_SOURCE}2: https://gitee.com/tengge1/ShadowEditor`
                     );
                 }
             }]

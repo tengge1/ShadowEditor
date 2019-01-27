@@ -22,24 +22,24 @@ OptionsMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '选项'
+            html: L_OPTIONS
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
                 xtype: 'div',
                 cls: 'option',
-                html: '外观',
+                html: L_SURFACE,
                 onClick: this.onSurfaceOptions.bind(this)
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '场景',
+                html: L_SCENE,
                 onClick: this.onSceneOptions.bind(this)
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '渲染器',
+                html: L_RENDERER,
                 onClick: this.onRendererOptions.bind(this)
             }]
         }]
@@ -56,7 +56,7 @@ OptionsMenu.prototype.onSurfaceOptions = function () {
         this.optionsWindow.render();
     }
     this.optionsWindow.show();
-    this.optionsWindow.changeTab('外观');
+    this.optionsWindow.changeTab(L_OPTIONS);
 };
 
 // ---------------------------------- 场景选项 ---------------------------------------
@@ -67,7 +67,7 @@ OptionsMenu.prototype.onSceneOptions = function () {
         this.optionsWindow.render();
     }
     this.optionsWindow.show();
-    this.optionsWindow.changeTab('场景');
+    this.optionsWindow.changeTab(L_SURFACE);
 };
 
 // ---------------------------------- 渲染器选项 -------------------------------------
@@ -78,7 +78,7 @@ OptionsMenu.prototype.onRendererOptions = function () {
         this.optionsWindow.render();
     }
     this.optionsWindow.show();
-    this.optionsWindow.changeTab('渲染器');
+    this.optionsWindow.changeTab(L_RENDERER);
 };
 
 export default OptionsMenu;
