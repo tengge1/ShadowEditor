@@ -35,7 +35,7 @@ KeyDownEvent.prototype.onKeyDown = function (event) {
             if (object == null) {
                 return;
             }
-            UI.confirm('询问', '删除 ' + object.name + '?', function (event, btn) {
+            UI.confirm(L_CONFIRM, `${L_DELETE} ` + object.name + '?', function (event, btn) {
                 if (btn === 'ok') {
                     var parent = object.parent;
                     if (parent !== null) editor.execute(new RemoveObjectCommand(object));

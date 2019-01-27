@@ -554,4 +554,8 @@ Object.assign(window, {
     L_CATEGORY_LIST: 'Category List',
     L_PLEASE_SELECT_CATEGORY: 'Please select category.',
     L_DELETE_SUCCESS: 'Delete successfully!',
+
+    // event
+
+    // loader
 });
