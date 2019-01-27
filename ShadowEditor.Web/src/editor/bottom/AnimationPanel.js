@@ -64,7 +64,7 @@ AnimationPanel.prototype.renderUI = function () {
                 children: [{
                     xtype: 'iconbutton',
                     icon: 'icon-upload',
-                    title: '上传',
+                    title: L_UPLOAD,
                     style: {
                         padding: '2px'
                     },
@@ -240,10 +240,10 @@ AnimationPanel.prototype.onCommitUpload = function () {
                 this.updateList();
             }
         } else {
-            UI.msg('上传失败！');
+            UI.msg(L_UPLOAD_FAILED);
         }
     }, () => {
-        UI.msg('上传失败！');
+        UI.msg(L_UPLOAD_FAILED);
     });
 };
 
@@ -255,7 +255,7 @@ AnimationPanel.prototype.onEdit = function (data) {
             app: this.app,
             parent: document.body,
             type: 'Animation',
-            typeName: '动画',
+            typeName: L_ANIMATION,
             saveUrl: `${this.app.options.server}/api/Animation/Edit`,
             callback: this.update.bind(this)
         });
@@ -268,7 +268,7 @@ AnimationPanel.prototype.onEdit = function (data) {
 // -------------------------------- 删除 ----------------------------------------
 
 AnimationPanel.prototype.onDelete = function (data) {
-    UI.confirm('询问', `是否删除${data.Name}？`, (event, btn) => {
+    UI.confirm(L_CONFIRM, `${L_DELETE}${data.Name}?`, (event, btn) => {
         if (btn === 'ok') {
             Ajax.post(`/api/Animation/Delete?ID=${data.ID}`, json => {
                 var obj = JSON.parse(json);

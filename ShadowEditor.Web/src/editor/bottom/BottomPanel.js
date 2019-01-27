@@ -40,84 +40,84 @@ BottomPanel.prototype.render = function () {
             children: [{
                 xtype: 'text',
                 id: 'timeTab',
-                text: '时间',
+                text: L_TIME,
                 onClick: () => {
                     this.selectTab('time');
                 }
             }, {
                 xtype: 'text',
                 id: 'sceneTab',
-                text: '场景',
+                text: L_SCENE,
                 onClick: () => {
                     this.selectTab('scene');
                 }
             }, {
                 xtype: 'text',
                 id: 'modelTab',
-                text: '模型',
+                text: L_MODEL,
                 onClick: () => {
                     this.selectTab('model');
                 }
             }, {
                 xtype: 'text',
                 id: 'mapTab',
-                text: '贴图',
+                text: L_MAP,
                 onClick: () => {
                     this.selectTab('map');
                 }
             }, {
                 xtype: 'text',
                 id: 'materialTab',
-                text: '材质',
+                text: L_MATERIAL,
                 onClick: () => {
                     this.selectTab('material');
                 }
             }, {
                 xtype: 'text',
                 id: 'audioTab',
-                text: '音频',
+                text: L_AUDIO,
                 onClick: () => {
                     this.selectTab('audio');
                 }
             }, {
                 xtype: 'text',
                 id: 'animationTab',
-                text: '动画',
+                text: L_ANIMATION,
                 onClick: () => {
                     this.selectTab('animation');
                 }
             }, {
                 xtype: 'text',
                 id: 'particleTab',
-                text: '粒子',
+                text: L_PARTICLE,
                 onClick: () => {
                     this.selectTab('particle');
                 }
             }, {
                 xtype: 'text',
                 id: 'prefabTab',
-                text: '预设体',
+                text: L_PREFAB,
                 onClick: () => {
                     this.selectTab('prefab');
                 }
             }, {
                 xtype: 'text',
                 id: 'characterTab',
-                text: '角色',
+                text: L_CHARACTER,
                 onClick: () => {
                     this.selectTab('character');
                 }
             }, {
                 xtype: 'text',
                 id: 'logTab',
-                text: '日志',
+                text: L_LOG,
                 onClick: () => {
                     this.selectTab('log');
                 }
             }, {
                 xtype: 'iconbutton',
                 icon: 'icon-down-arrow',
-                title: '折叠',
+                title: L_COLLAPSE,
                 style: {
                     margin: '5px',
                     padding: '2px 4px',
