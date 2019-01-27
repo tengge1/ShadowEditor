@@ -20,7 +20,7 @@ StatusBar.prototype.render = function () {
         cls: 'statusBar',
         children: [{
             xtype: 'label',
-            text: '物体'
+            text: L_OBJECT_NUM
         }, {
             xtype: 'text',
             id: 'objectsText',
@@ -28,7 +28,7 @@ StatusBar.prototype.render = function () {
             text: '0' // 物体数
         }, {
             xtype: 'label',
-            text: '顶点'
+            text: L_VERTEX_NUM
         }, {
             xtype: 'text',
             id: 'verticesText',
@@ -36,7 +36,7 @@ StatusBar.prototype.render = function () {
             text: '0' // 顶点数
         }, {
             xtype: 'label',
-            text: '三角形'
+            text: L_TRIANGLE_NUM
         }, {
             xtype: 'text',
             id: 'trianglesText',
@@ -50,7 +50,7 @@ StatusBar.prototype.render = function () {
             }
         }, {
             xtype: 'label',
-            text: '扔小球',
+            text: L_THROW_BALL,
         }, {
             xtype: 'checkbox',
             id: 'cbThrowBall',

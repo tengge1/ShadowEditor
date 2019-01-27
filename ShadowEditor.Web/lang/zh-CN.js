@@ -369,3 +369,16 @@ L_IS_NOT_AVAILABLE = '不可用。';
 L_SAVE_INTO_INDEXEDDB = '保存到IndexedDB中。';
 L_CLEAR_INDEXED_DB = '清空IndexedDB。';
 
+// editor
+L_SCENE = 'L_SCENE';
+L_DEFAULT_CAMERA = '默认相机';
+L_AUDIO_LISTENER = '音频监听器';
+L_ANIMATION_LAYER_1 = '动画层1';
+L_ANIMATION_LAYER_2 = '动画层2';
+L_ANIMATION_LAYER_3 = '动画层3';
+L_AMBIENT = '环境光';
+L_DIRECTIONAL = '平行光';
+L_OBJECT_NUM = '物体数';
+L_VERTEX_NUM = '顶点数';
+L_TRIANGLE_NUM = '三角形数';
+L_THROW_BALL = '扔小球';

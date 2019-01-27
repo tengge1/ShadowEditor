@@ -367,4 +367,18 @@ Object.assign(window, {
     L_IS_NOT_AVAILABLE: 'is not available.',
     L_SAVE_INTO_INDEXEDDB: 'Saved into indexDB.',
     L_CLEAR_INDEXED_DB: 'Clear indexedDB.',
+
+    // editor
+    L_SCENE: 'Scene',
+    L_DEFAULT_CAMERA: 'DefaultCamera',
+    L_AUDIO_LISTENER: 'AudioListener',
+    L_ANIMATION_LAYER_1: 'AnimLayer1',
+    L_ANIMATION_LAYER_2: 'AnimLayer2',
+    L_ANIMATION_LAYER_3: 'AnimLayer3',
+    L_AMBIENT: 'Ambient',
+    L_DIRECTIONAL: 'Directional',
+    L_OBJECT_NUM: 'Object',
+    L_VERTEX_NUM: 'Vertex',
+    L_TRIANGLE_NUM: 'Triangle',
+    L_THROW_BALL: 'ThrowBall',
 });

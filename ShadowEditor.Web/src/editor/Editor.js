@@ -16,7 +16,7 @@ function Editor(app) {
 
     // 场景
     this.scene = new THREE.Scene();
-    this.scene.name = '场景';
+    this.scene.name = L_SCENE;
     this.scene.background = new THREE.Color(0xaaaaaa);
 
     this.sceneHelpers = new THREE.Scene();
@@ -29,7 +29,7 @@ function Editor(app) {
 
     // 相机
     this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, width / height, 0.1, 10000);
-    this.DEFAULT_CAMERA.name = '默认相机';
+    this.DEFAULT_CAMERA.name = L_DEFAULT_CAMERA;
     this.DEFAULT_CAMERA.userData.isDefault = true;
     this.DEFAULT_CAMERA.userData.control = 'OrbitControls'; // 场景控制类型
     this.DEFAULT_CAMERA.position.set(20, 10, 20);
@@ -54,7 +54,7 @@ function Editor(app) {
 
     // 音频监听器
     this.audioListener = new THREE.AudioListener();
-    this.audioListener.name = '音频监听器';
+    this.audioListener.name = L_AUDIO_LISTENER;
 
     // 物体
     this.object = {};
@@ -162,30 +162,30 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
         id: null,
         uuid: THREE.Math.generateUUID(),
         layer: 0,
-        layerName: '动画层1',
+        layerName: L_ANIMATION_LAYER_1,
         animations: []
     }, {
         id: null,
         uuid: THREE.Math.generateUUID(),
         layer: 1,
-        layerName: '动画层2',
+        layerName: L_ANIMATION_LAYER_2,
         animations: []
     }, {
         id: null,
         uuid: THREE.Math.generateUUID(),
         layer: 2,
-        layerName: '动画层3',
+        layerName: L_ANIMATION_LAYER_3,
         animations: []
     }];
 
     // 添加默认元素
     if (addObject) {
         var light1 = new THREE.AmbientLight(0xffffff, 0.24);
-        light1.name = '环境光';
+        light1.name = L_AMBIENT;
         this.addObject(light1);
 
         var light2 = new THREE.DirectionalLight(0xffffff, 0.56);
-        light2.name = '平行光';
+        light2.name = L_DIRECTIONAL;
         light2.castShadow = true;
         light2.position.set(5, 10, 7.5);
         light2.shadow.radius = 0;
