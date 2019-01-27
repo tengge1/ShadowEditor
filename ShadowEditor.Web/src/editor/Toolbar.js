@@ -31,7 +31,7 @@ Toolbar.prototype.render = function () {
             id: 'selectBtn',
             scope: this.id,
             icon: 'icon-select',
-            title: '选择',
+            title: L_SELECT,
             onClick: this.enterSelectMode.bind(this)
         }, {
             xtype: 'iconbutton',
@@ -39,21 +39,21 @@ Toolbar.prototype.render = function () {
             scope: this.id,
             icon: 'icon-translate',
             cls: 'Button IconButton selected',
-            title: '平移(W)',
+            title: L_TRANSLATE_W,
             onClick: this.enterTranslateMode.bind(this)
         }, {
             xtype: 'iconbutton',
             id: 'rotateBtn',
             scope: this.id,
             icon: 'icon-rotate',
-            title: '旋转(E)',
+            title: L_ROTATE_E,
             onClick: this.enterRotateMode.bind(this)
         }, {
             xtype: 'iconbutton',
             id: 'scaleBtn',
             scope: this.id,
             icon: 'icon-scale',
-            title: '缩放(R)',
+            title: L_SCALE_R,
             onClick: this.enterScaleMode.bind(this)
         }, {
             xtype: 'hr'
@@ -62,14 +62,14 @@ Toolbar.prototype.render = function () {
             id: 'addPointBtn',
             scope: this.id,
             icon: 'icon-point',
-            title: '画点',
+            title: L_DRAW_POINT,
             onClick: this.onAddPoint.bind(this)
         }, {
             xtype: 'iconbutton',
             id: 'addLineBtn',
             scope: this.id,
             icon: 'icon-line',
-            title: '画线',
+            title: L_DRAW_LINE,
             onClick: this.onAddLine.bind(this)
         },
         // {
@@ -77,7 +77,7 @@ Toolbar.prototype.render = function () {
         //     id: 'addPolygonBtn',
         //     scope: this.id,
         //     icon: 'icon-polygon',
-        //     title: '画面',
+        //     title: L_DRAW_POLYGON,
         //     onClick: this.onAddPolygon.bind(this)
         // }, 
         {
@@ -85,7 +85,7 @@ Toolbar.prototype.render = function () {
             id: 'sprayBtn',
             scope: this.id,
             icon: 'icon-spray',
-            title: '贴花',
+            title: L_SPRAY,
             onClick: this.onSpray.bind(this)
         }]
     };
@@ -187,7 +187,7 @@ Toolbar.prototype.onAddPointIntersect = function (obj, event) {
 
     mesh.lookAt(new THREE.Vector3().addVectors(obj.point, normal));
 
-    mesh.name = '点';
+    mesh.name = L_POINT;
 
     this.app.editor.execute(new AddObjectCommand(mesh));
 };
@@ -233,7 +233,7 @@ Toolbar.prototype._onAddLine = function () {
         material.resolution.set(renderer.domElement.clientWidth, renderer.domElement.clientHeight);
 
         this.line = new THREE.Line2(geometry, material);
-        this.line.name = '线';
+        this.line.name = L_LINE;
 
         this.app.editor.execute(new AddObjectCommand(this.line));
     } else {
@@ -306,7 +306,7 @@ Toolbar.prototype.onAddPolygon = function () {
 
         this.polygon = new THREE.Mesh(geometry, material);
 
-        this.polygon.name = '面';
+        this.polygon.name = L_POLYGON;
         this.polygon.drawMode = THREE.TriangleStripDrawMode;
 
         this.app.editor.execute(new AddObjectCommand(this.polygon));
@@ -426,7 +426,7 @@ Toolbar.prototype.onSprayIntersect = function (obj, event) {
 
     var decal = new THREE.Mesh(new THREE.DecalGeometry(mesh, position, orientation, size), material);
 
-    decal.name = '贴花';
+    decal.name = L_DECAL;
 
     this.app.editor.execute(new AddObjectCommand(decal));
 };
