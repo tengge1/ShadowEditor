@@ -370,7 +370,7 @@ L_SAVE_INTO_INDEXEDDB = '保存到IndexedDB中。';
 L_CLEAR_INDEXED_DB = '清空IndexedDB。';
 
 // editor
-L_SCENE = 'L_SCENE';
+L_SCENE = '场景';
 L_DEFAULT_CAMERA = '默认相机';
 L_AUDIO_LISTENER = '音频监听器';
 L_ANIMATION_LAYER_1 = '动画层1';
