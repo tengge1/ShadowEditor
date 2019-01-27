@@ -27,7 +27,7 @@ CategoryEditWindow.prototype.render = function () {
         id: 'window',
         scope: this.id,
         parent: this.parent,
-        title: '类别编辑',
+        title: L_CATEGORY_EDIT,
         width: '300px',
         height: '240px',
         shade: true,
@@ -40,7 +40,7 @@ CategoryEditWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '名称'
+                text: L_NAME
             }, {
                 xtype: 'input',
                 id: 'name',
@@ -54,14 +54,14 @@ CategoryEditWindow.prototype.render = function () {
             },
             children: [{
                 xtype: 'button',
-                text: '确定',
+                text: L_OK,
                 style: {
                     margin: '0 8px'
                 },
                 onClick: this.onSave.bind(this)
             }, {
                 xtype: 'button',
-                text: '取消',
+                text: L_CANCEL,
                 style: {
                     margin: '0 8px'
                 },

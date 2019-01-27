@@ -25,7 +25,7 @@ Sidebar.prototype.render = function () {
             cls: 'tabs',
             children: [{
                 xtype: 'text',
-                text: '场景',
+                text: L_HIERACHY,
                 cls: 'selected'
             }]
         }, { // 场景面板
@@ -38,7 +38,7 @@ Sidebar.prototype.render = function () {
             cls: 'tabs',
             children: [{
                 xtype: 'text',
-                text: '脚本',
+                text: L_SCRIPT,
                 cls: 'selected'
             }]
         }, {

@@ -29,13 +29,13 @@ SettingPanel.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: '帮助器'
+                text: L_HELPERS
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '网格'
+                text: L_GRID
             }, {
                 xtype: 'boolean',
                 id: 'showGrid',
@@ -46,7 +46,7 @@ SettingPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '相机'
+                text: L_CAMERA
             }, {
                 xtype: 'boolean',
                 id: 'showCamera',
@@ -57,7 +57,7 @@ SettingPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '点光源'
+                text: L_POINT_LIGHT
             }, {
                 xtype: 'boolean',
                 id: 'showPointLight',
@@ -68,7 +68,7 @@ SettingPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '平行光'
+                text: L_DIRECTIONAL_LIGHT
             }, {
                 xtype: 'boolean',
                 id: 'showDirectionalLight',
@@ -79,7 +79,7 @@ SettingPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '聚光灯'
+                text: L_SPOT_LIGHT
             }, {
                 xtype: 'boolean',
                 id: 'showSpotLight',
@@ -90,7 +90,7 @@ SettingPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '半球光'
+                text: L_HEMISPHERE_LIGHT
             }, {
                 xtype: 'boolean',
                 id: 'showHemisphereLight',
@@ -101,7 +101,7 @@ SettingPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '矩形光'
+                text: L_RECT_AREA_LIGHT
             }, {
                 xtype: 'boolean',
                 id: 'showRectAreaLight',
@@ -112,7 +112,7 @@ SettingPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '骨骼'
+                text: L_SKELETON
             }, {
                 xtype: 'boolean',
                 id: 'showSkeleton',

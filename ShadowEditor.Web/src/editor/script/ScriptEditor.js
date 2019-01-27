@@ -166,10 +166,10 @@ ScriptEditor.prototype._openScript = function (uuid, name, mode, source, title, 
     }
 
     // 打开新文件
-    name = name || '未命名';
+    name = name || L_NO_NAME;
     mode = mode || 'javascript';
     source = source || '';
-    title = title || '未命名';
+    title = title || L_NO_NAME;
     title = `${title}.${(mode === 'vertexShader' || mode === 'fragmentShader') ? '.glsl' : (mode === 'json' ? '.json' : '.js')}`;
 
     this.uuid = uuid;
@@ -238,7 +238,7 @@ ScriptEditor.prototype.save = function () {
         this.callback.call(this, value);
     }
 
-    this.app.log(`${this.uuid}脚本保存成功！`);
+    this.app.log(`${this.uuid} ${L_SCRIPT_SAVED_SUCCESS}`);
 };
 
 /**

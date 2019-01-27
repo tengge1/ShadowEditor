@@ -12,7 +12,7 @@ function CategoryListWindow(options = {}) {
 
     this.app = options.app;
     this.type = options.type || 'Scene'; // 类型类型：Scene, Model, Map, Texture, Audio, Particle
-    this.title = options.title || '类别列表';
+    this.title = options.title || L_CATEGORY_LIST;
 }
 
 CategoryListWindow.prototype = Object.create(UI.Control.prototype);
@@ -46,15 +46,15 @@ CategoryListWindow.prototype.render = function () {
             },
             children: [{
                 xtype: 'button',
-                text: '添加',
+                text: L_ADD,
                 onClick: this.addCategory.bind(this)
             }, {
                 xtype: 'button',
-                text: '编辑',
+                text: L_EDIT,
                 onClick: this.editCategory.bind(this)
             }, {
                 xtype: 'button',
-                text: '删除',
+                text: L_DELETE,
                 onClick: this.deleteCategory.bind(this)
             }]
         }, {
@@ -63,7 +63,7 @@ CategoryListWindow.prototype.render = function () {
             scope: this.id,
             cols: [{
                 field: 'Name',
-                title: '名称'
+                title: L_NAME
             }],
             style: {
                 width: '100%',
@@ -126,7 +126,7 @@ CategoryListWindow.prototype.editCategory = function () {
     var selected = list.getSelected();
 
     if (selected == null) {
-        UI.msg('请选择类别！');
+        UI.msg(L_PLEASE_SELECT_CATEGORY);
         return;
     }
 
@@ -143,18 +143,18 @@ CategoryListWindow.prototype.deleteCategory = function () {
     var selected = list.getSelected();
 
     if (selected == null) {
-        UI.msg('请选择类别！');
+        UI.msg(L_PLEASE_SELECT_CATEGORY);
         return;
     }
 
-    UI.confirm('询问', '是否删除该类别？', (event, btn) => {
+    UI.confirm(L_CONFIRM, `${L_DELETE} ${selected.Name}?`, (event, btn) => {
         if (btn === 'ok') {
             Ajax.post(`/api/Category/Delete?ID=${selected.ID}`, result => {
                 var obj = JSON.parse(result);
                 if (obj.Code === 200) {
                     this.update();
                 }
-                UI.msg('删除成功！');
+                UI.msg(L_DELETE_SUCCESS);
             });
         }
     });

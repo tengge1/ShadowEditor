@@ -25,7 +25,7 @@ ScriptWindow.prototype.render = function () {
         id: 'scriptWindow',
         scope: this.id,
         parent: this.app.container,
-        title: '创建脚本',
+        title: L_CREATE_SCRIPT,
         width: '350px',
         height: '220px',
         bodyStyle: {
@@ -36,27 +36,27 @@ ScriptWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '名称'
+                text: L_NAME
             }, {
                 xtype: 'input',
                 id: 'scriptName',
                 scope: this.id,
-                text: '未命名'
+                text: L_NO_NAME
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '类型'
+                text: L_TYPE
             }, {
                 xtype: 'select',
                 id: 'scriptType',
                 scope: this.id,
                 options: {
                     'javascript': 'JavaScript',
-                    'vertexShader': '顶点着色器',
-                    'fragmentShader': '片源着色器',
-                    'json': '着色器程序信息'
+                    'vertexShader': L_VERTEX_SHADER,
+                    'fragmentShader': L_FRAGMENT_SHADER,
+                    'json': L_SHADER_PROGRAM_INFO
                 },
                 value: 'javascript',
                 disabled: true
@@ -64,11 +64,11 @@ ScriptWindow.prototype.render = function () {
         }],
         buttons: [{
             xtype: 'button',
-            text: '确定',
+            text: L_OK,
             onClick: this.onCreateScript.bind(this)
         }, {
             xtype: 'button',
-            text: '取消',
+            text: L_CANCEL,
             onClick: this.onCancelScript.bind(this)
         }]
     });
@@ -90,7 +90,7 @@ ScriptWindow.prototype.reset = function () {
     var scriptName = UI.get('scriptName', this.id);
     var scriptType = UI.get('scriptType', this.id);
 
-    scriptName.setValue('未命名');
+    scriptName.setValue(L_NO_NAME);
     scriptType.setValue('javascript');
 };
 
@@ -101,7 +101,7 @@ ScriptWindow.prototype.onCreateScript = function () {
     // 判断脚本名称是否重复
     var scripts = Object.values(this.app.editor.scripts);
     if (scripts.filter(n => n.name === scriptName).length > 0) {
-        UI.msg('脚本名称重复！');
+        UI.msg(L_SCRIPT_NAME_EXISTED);
         return;
     }
 

@@ -28,7 +28,7 @@ ScriptPanel.prototype.render = function () {
         }, {
             xtype: 'button',
             id: 'newCustomScript',
-            text: '新建脚本',
+            text: L_NEW_SCRIPT,
             onClick: this.createNewScript.bind(this)
         }]
     };
@@ -94,7 +94,7 @@ ScriptPanel.prototype.update = function () {
                 }
             }, {
                 xtype: 'button',
-                text: '编辑',
+                text: L_EDIT,
                 style: {
                     marginLeft: '4px'
                 },
@@ -103,7 +103,7 @@ ScriptPanel.prototype.update = function () {
                 }
             }, {
                 xtype: 'button',
-                text: '删除',
+                text: L_DELETE,
                 style: {
                     marginLeft: '4px'
                 },
@@ -139,11 +139,10 @@ ScriptPanel.prototype.editScript = function (uuid) {
 ScriptPanel.prototype.deleteScript = function (uuid) {
     var script = this.app.editor.scripts[uuid];
 
-    UI.confirm('询问', `是否删除脚本${script.name}？`, (event, btn) => {
+    UI.confirm(L_CONFIRM, `${L_DELETE} ${script.name}？`, (event, btn) => {
         if (btn === 'ok') {
             delete this.app.editor.scripts[uuid];
             this.app.call('scriptChanged', this);
-            UI.msg(`${script.name}删除成功！`);
         }
     });
 };

@@ -1,65 +1,65 @@
 var JavaScriptStarter = `
-// 场景渲染前执行一次
+// ${L_EXECUTE_BEFORE_SCENE_RENDER}
 function init() {
 
 }
 
-// 场景渲染后执行一次
+// ${L_EXECUTE_AFTER_SCENE_RENDER}
 function start() {
 
 }
 
-// 程序运行过程中，每帧都要执行
+// ${L_EXECUTE_EACH_FRAME_DURING_RUNNING}
 function update(clock, deltaTime) {
 
 }
 
-// 程序结束运行后执行一次
+// ${L_EXECUTE_AFTER_PROGRAM_STOP}
 function stop() {
 
 }
 
-// 监听鼠标点击事件
+// ${L_LISTEN_TO_CLICK_EVENT}
 function onClick(event) {
 
 }
 
-// 监听鼠标双击事件
+// ${L_LISTEN_TO_DBLCLICK_EVENT}
 function onDblClick(event) {
 
 }
 
-// 监听键盘按下事件
+// ${L_LISTEN_TO_KEYDOWN_EVENT}
 function onKeyDown(event) {
 
 }
 
-// 监听键盘抬起事件
+// ${L_LISTEN_TO_KEYUP_EVENT}
 function onKeyUp(event) {
 
 }
 
-// 监听鼠标按下事件
+// ${L_LISTEN_TO_MOUSEDOWN_EVENT}
 function onMouseDown(event) {
 
 }
 
-// 监听鼠标移动事件
+// ${L_LISTEN_TO_MOUSEMOVE_EVENT}
 function onMouseMove(event) {
 
 }
 
-// 监听鼠标抬起事件
+// ${L_LISTEN_TO_MOUSEUP_EVENT}
 function onMouseUp(event) {
 
 }
 
-// 监听鼠标滚轮事件
+// ${L_LISTEN_TO_MOUSEWHEEL_EVENT}
 function onMouseWheel(event) {
 
 }
 
-// 监听屏幕大小改变事件
+// ${L_LISTEN_TO_RESIZE_EVENT}
 function onResize(event) {
 
 }

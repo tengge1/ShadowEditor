@@ -24,7 +24,7 @@ OptionsWindow.prototype.render = function () {
     this.window = UI.create({
         xtype: 'window',
         parent: this.app.container,
-        title: '选项窗口',
+        title: L_OPTIONS_WINDOW,
         width: '500px',
         height: '300px',
         bodyStyle: {
@@ -38,26 +38,18 @@ OptionsWindow.prototype.render = function () {
                 xtype: 'text',
                 id: 'surfaceTab',
                 scope: this.id,
-                text: '外观',
+                text: L_SURFACE,
                 cls: 'selected',
                 onClick: () => {
-                    this.changeTab('外观');
-                }
-            }, {
-                xtype: 'text',
-                id: 'sceneTab',
-                scope: this.id,
-                text: '场景',
-                onClick: () => {
-                    this.changeTab('场景');
+                    this.changeTab(L_SURFACE);
                 }
             }, {
                 xtype: 'text',
                 id: 'rendererTab',
                 scope: this.id,
-                text: '渲染器',
+                text: L_RENDERER,
                 onClick: () => {
-                    this.changeTab('渲染器');
+                    this.changeTab(L_RENDERER);
                 }
             }]
         }, { // 外观选项卡
@@ -69,134 +61,18 @@ OptionsWindow.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '主题'
+                    text: L_THEME
                 }, {
                     xtype: 'select',
                     id: 'theme',
                     options: {
-                        'assets/css/light.css': '浅色',
-                        'assets/css/dark.css': '深色'
+                        'assets/css/light.css': L_LIGHT_COLOR,
+                        'assets/css/dark.css': L_DARK_COLOR
                     },
                     value: app.options.theme,
                     style: {
                         width: '150px'
                     }
-                }]
-            }]
-        }, { // 场景选项卡
-            xtype: 'div',
-            id: 'scenePanel',
-            scope: this.id,
-            cls: 'TabPanel',
-            style: {
-                display: 'none'
-            },
-            children: [{
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '背景'
-                }, {
-                    xtype: 'color',
-                    id: 'backgroundColor',
-                    scope: this.id,
-                    value: `#${scene.background.getHexString()}`
-                }]
-            }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '雾'
-                }, {
-                    xtype: 'select',
-                    id: 'fogType',
-                    scope: this.id,
-                    options: {
-                        'None': '无',
-                        'Fog': '线性',
-                        'FogExp2': '指数型'
-                    },
-                    value: scene.fog == null ? 'None' : ((scene.fog instanceof THREE.FogExp2) ? 'FogExp2' : 'Fog'),
-                    onChange: this.onChangeFogType.bind(this)
-                }]
-            }, {
-                xtype: 'row',
-                id: 'fogColorRow',
-                scope: this.id,
-                children: [{
-                    xtype: 'label',
-                    text: '雾颜色'
-                }, {
-                    xtype: 'color',
-                    id: 'fogColor',
-                    scope: this.id,
-                    value: `#${scene.fog == null ? 'aaaaaa' : scene.fog.color.getHexString()}`
-                }],
-                style: {
-                    display: scene.fog == null ? 'none' : ''
-                }
-            }, {
-                xtype: 'row',
-                id: 'fogNearRow',
-                scope: this.id,
-                children: [{
-                    xtype: 'label',
-                    text: '雾近点'
-                }, {
-                    xtype: 'number',
-                    id: 'fogNear',
-                    scope: this.id,
-                    value: (scene.fog && scene.fog instanceof THREE.Fog) ? scene.fog.near : 0.1,
-                    range: [0, Infinity]
-                }],
-                style: {
-                    display: (scene.fog && scene.fog instanceof THREE.Fog) ? '' : 'none'
-                }
-            }, {
-                xtype: 'row',
-                id: 'fogFarRow',
-                scope: this.id,
-                children: [{
-                    xtype: 'label',
-                    text: '雾远点'
-                }, {
-                    xtype: 'number',
-                    id: 'fogFar',
-                    scope: this.id,
-                    value: (scene.fog && scene.fog instanceof THREE.Fog) ? scene.fog.far : 50,
-                    range: [0, Infinity]
-                }],
-                style: {
-                    display: (scene.fog && scene.fog instanceof THREE.Fog) ? '' : 'none'
-                }
-            }, {
-                xtype: 'row',
-                id: 'fogDensityRow',
-                scope: this.id,
-                children: [{
-                    xtype: 'label',
-                    text: '雾浓度'
-                }, {
-                    xtype: 'number',
-                    id: 'fogDensity',
-                    scope: this.id,
-                    value: (scene.fog && scene.fog instanceof THREE.FogExp2) ? fog.density : 0.05,
-                    range: [0, 0.1],
-                    precision: 3
-                }],
-                style: {
-                    display: (scene.fog && scene.fog instanceof THREE.FogExp2) ? '' : 'none'
-                }
-            }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: '网格'
-                }, {
-                    xtype: 'boolean',
-                    id: 'showGrid',
-                    scope: this.id,
-                    value: this.app.editor.grid.visible
                 }]
             }]
         }, { // 渲染器选项卡
@@ -211,15 +87,15 @@ OptionsWindow.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: '阴影'
+                    text: L_SHADOW
                 }, {
                     xtype: 'select',
                     id: 'shadowMapType',
                     options: {
-                        [-1]: '禁用',
-                        [THREE.BasicShadowMap]: '基本阴影', // 0
-                        [THREE.PCFShadowMap]: 'PCF阴影', // 1
-                        [THREE.PCFSoftShadowMap]: 'PCF软阴影' // 2
+                        [-1]: L_DISABLED,
+                        [THREE.BasicShadowMap]: L_BASIC_SHADOW, // 0
+                        [THREE.PCFShadowMap]: L_PCF_SHADOW, // 1
+                        [THREE.PCFSoftShadowMap]: L_PCF_SOFT_SHADOW // 2
                     },
                     value: shadowMap.enabled === false ? -1 : shadowMap.type
                 }]
@@ -227,7 +103,7 @@ OptionsWindow.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: 'γ输入'
+                    text: L_GAMMA_INPUT
                 }, {
                     xtype: 'boolean',
                     id: 'gammaInput',
@@ -237,7 +113,7 @@ OptionsWindow.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: 'γ输出'
+                    text: L_GAMMA_OUTPUT
                 }, {
                     xtype: 'boolean',
                     id: 'gammaOutput',
@@ -247,7 +123,7 @@ OptionsWindow.prototype.render = function () {
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: 'γ因子'
+                    text: L_GAMMA_FACTOR
                 }, {
                     xtype: 'number',
                     id: 'gammaFactor',
@@ -257,13 +133,13 @@ OptionsWindow.prototype.render = function () {
         }],
         buttons: [{
             xtype: 'button',
-            text: '保存',
+            text: L_SAVE,
             onClick: () => {
                 this.save();
             }
         }, {
             xtype: 'button',
-            text: '取消',
+            text: L_CANCEL,
             onClick: () => {
                 this.hide();
             }
@@ -281,56 +157,16 @@ OptionsWindow.prototype.hide = function () {
 };
 
 OptionsWindow.prototype.changeTab = function (name) {
-    if (name === '外观') {
+    if (name === L_SURFACE) {
         UI.get('surfaceTab', this.id).dom.classList.add('selected');
-        UI.get('sceneTab', this.id).dom.classList.remove('selected');
         UI.get('rendererTab', this.id).dom.classList.remove('selected');
         UI.get('surfacePanel', this.id).dom.style.display = '';
-        UI.get('scenePanel', this.id).dom.style.display = 'none';
         UI.get('rendererPanel', this.id).dom.style.display = 'none';
-    } else if (name === '场景') {
+    } else if (name === L_RENDERER) {
         UI.get('surfaceTab', this.id).dom.classList.remove('selected');
-        UI.get('sceneTab', this.id).dom.classList.add('selected');
-        UI.get('rendererTab', this.id).dom.classList.remove('selected');
-        UI.get('surfacePanel', this.id).dom.style.display = 'none';
-        UI.get('scenePanel', this.id).dom.style.display = '';
-        UI.get('rendererPanel', this.id).dom.style.display = 'none';
-    } else if (name === '渲染器') {
-        UI.get('surfaceTab', this.id).dom.classList.remove('selected');
-        UI.get('sceneTab', this.id).dom.classList.remove('selected');
         UI.get('rendererTab', this.id).dom.classList.add('selected');
         UI.get('surfacePanel', this.id).dom.style.display = 'none';
-        UI.get('scenePanel', this.id).dom.style.display = 'none';
         UI.get('rendererPanel', this.id).dom.style.display = '';
-    }
-};
-
-OptionsWindow.prototype.onChangeFogType = function () {
-    var fogType = UI.get('fogType', this.id).getValue();
-    var fogColorRow = UI.get('fogColorRow', this.id).dom;
-    var fogNearRow = UI.get('fogNearRow', this.id).dom;
-    var fogFarRow = UI.get('fogFarRow', this.id).dom;
-    var fogDensityRow = UI.get('fogDensityRow', this.id).dom;
-
-    switch (fogType) {
-        case 'None':
-            fogColorRow.style.display = 'none';
-            fogNearRow.style.display = 'none';
-            fogFarRow.style.display = 'none';
-            fogDensityRow.style.display = 'none';
-            break;
-        case 'Fog':
-            fogColorRow.style.display = '';
-            fogNearRow.style.display = '';
-            fogFarRow.style.display = '';
-            fogDensityRow.style.display = 'none';
-            break;
-        case 'FogExp2':
-            fogColorRow.style.display = '';
-            fogNearRow.style.display = 'none';
-            fogFarRow.style.display = 'none';
-            fogDensityRow.style.display = '';
-            break;
     }
 };
 
@@ -339,33 +175,6 @@ OptionsWindow.prototype.save = function () {
     var theme = UI.get('theme').getValue();
     this.app.options.theme = theme;
     document.getElementById('theme').href = theme;
-
-    // 场景
-    var scene = this.app.editor.scene;
-
-    var backgroundColor = UI.get('backgroundColor', this.id).getHexValue();
-    scene.background = new THREE.Color(backgroundColor);
-
-    var fogType = UI.get('fogType', this.id).getValue();
-    var fogColor = UI.get('fogColor', this.id).getHexValue();
-    var fogNear = UI.get('fogNear', this.id).getValue();
-    var fogFar = UI.get('fogFar', this.id).getValue();
-    var fogDensity = UI.get('fogDensity', this.id).getValue();
-
-    switch (fogType) {
-        case 'None':
-            scene.fog = null;
-            break;
-        case 'Fog':
-            scene.fog = new THREE.Fog(fogColor, fogNear, fogFar);
-            break;
-        case 'FogExp2':
-            scene.fog = new THREE.FogExp2(fogColor, fogDensity);
-            break;
-    }
-
-    var showGrid = UI.get('showGrid', this.id).getValue();
-    this.app.editor.grid.visible = showGrid;
 
     // 渲染器
     var shadowMapType = parseInt(UI.get('shadowMapType').getValue());
@@ -395,7 +204,7 @@ OptionsWindow.prototype.save = function () {
 
     // 隐藏窗口
     this.hide();
-    UI.msg('保存成功。');
+    UI.msg(L_SAVE_SUCCESS);
 };
 
 export default OptionsWindow;

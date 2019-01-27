@@ -20,7 +20,7 @@ HistoryPanel.prototype.render = function () {
         cls: 'Panel',
         children: [{
             xtype: 'label',
-            text: '历史记录'
+            text: L_HISTORY
         }, {
             xtype: 'br'
         }, {

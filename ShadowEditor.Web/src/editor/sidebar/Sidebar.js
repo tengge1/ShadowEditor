@@ -34,7 +34,7 @@ Sidebar.prototype.render = function () {
                 xtype: 'text',
                 id: 'propertyTab',
                 scope: this.id,
-                text: '属性',
+                text: L_PROPERTY,
                 onClick: () => {
                     this.app.call('tabSelected', this, 'property');
                 }
@@ -42,7 +42,7 @@ Sidebar.prototype.render = function () {
                 xtype: 'text',
                 id: 'animationTab',
                 scope: this.id,
-                text: '动画',
+                text: L_ANIMATION,
                 onClick: () => {
                     this.app.call('tabSelected', this, 'animation');
                 }
@@ -50,7 +50,7 @@ Sidebar.prototype.render = function () {
                 xtype: 'text',
                 id: 'settingTab',
                 scope: this.id,
-                text: '设置',
+                text: L_SETTINGS,
                 onClick: () => {
                     this.app.call('tabSelected', this, 'setting');
                 }
@@ -58,7 +58,7 @@ Sidebar.prototype.render = function () {
                 xtype: 'text',
                 id: 'historyTab',
                 scope: this.id,
-                text: '历史',
+                text: L_HISTORY,
                 onClick: () => {
                     this.app.call('tabSelected', this, 'history');
                 }

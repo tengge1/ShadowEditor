@@ -12,7 +12,7 @@ function EditWindow(options = {}) {
     this.app = options.app;
 
     this.type = options.type || 'Scene'; // Scene, Mesh, Map, Texture, Material, Audio, Particle
-    this.typeName = options.typeName || '场景';
+    this.typeName = options.typeName || L_SCENE;
     this.saveUrl = options.saveUrl || `${this.app.options.server}/api/Scene/Edit`;
     this.callback = options.callback || null;
 }
@@ -34,7 +34,7 @@ EditWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '名称'
+                text: L_NAME
             }, {
                 xtype: 'input',
                 id: 'name',
@@ -44,7 +44,7 @@ EditWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '类别'
+                text: L_TYPE
             }, {
                 xtype: 'select',
                 id: 'category',
@@ -53,7 +53,7 @@ EditWindow.prototype.render = function () {
                 xtype: 'button',
                 id: 'btnEditType',
                 scope: this.id,
-                text: '编辑',
+                text: L_EDIT,
                 style: {
                     position: 'absolute',
                     right: 0,
@@ -65,7 +65,7 @@ EditWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '缩略图'
+                text: L_THUMBNAIL
             }, {
                 xtype: 'imageuploader',
                 id: 'image',
@@ -80,14 +80,14 @@ EditWindow.prototype.render = function () {
             },
             children: [{
                 xtype: 'button',
-                text: '确定',
+                text: L_OK,
                 style: {
                     margin: '0 8px'
                 },
                 onClick: this.save.bind(this)
             }, {
                 xtype: 'button',
-                text: '取消',
+                text: L_CANCEL,
                 style: {
                     margin: '0 8px'
                 },
@@ -126,7 +126,7 @@ EditWindow.prototype.updateUI = function () {
 
     Ajax.getJson(`/api/Category/List?Type=${this.type}`, json => {
         var options = {
-            '': '未设置'
+            '': L_NOT_SET
         };
         json.Data.forEach(n => {
             options[n.ID] = n.Name;
@@ -168,7 +168,7 @@ EditWindow.prototype.onEditCategory = function () {
         this.categoryListWin = new CategoryListWindow({
             app: this.app,
             type: this.type,
-            title: `编辑${this.typeName}类别`,
+            title: `${L_EDIT} ${this.typeName} ${L_CATEGORY}`,
         });
         this.categoryListWin.render();
     }

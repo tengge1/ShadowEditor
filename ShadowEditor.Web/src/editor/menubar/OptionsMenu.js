@@ -34,11 +34,6 @@ OptionsMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: L_SCENE,
-                onClick: this.onSceneOptions.bind(this)
-            }, {
-                xtype: 'div',
-                cls: 'option',
                 html: L_RENDERER,
                 onClick: this.onRendererOptions.bind(this)
             }]
@@ -57,17 +52,6 @@ OptionsMenu.prototype.onSurfaceOptions = function () {
     }
     this.optionsWindow.show();
     this.optionsWindow.changeTab(L_OPTIONS);
-};
-
-// ---------------------------------- 场景选项 ---------------------------------------
-
-OptionsMenu.prototype.onSceneOptions = function () {
-    if (this.optionsWindow === undefined) {
-        this.optionsWindow = new OptionsWindow({ app: this.app });
-        this.optionsWindow.render();
-    }
-    this.optionsWindow.show();
-    this.optionsWindow.changeTab(L_SURFACE);
 };
 
 // ---------------------------------- 渲染器选项 -------------------------------------

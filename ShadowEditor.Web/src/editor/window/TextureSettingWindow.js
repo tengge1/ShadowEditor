@@ -16,7 +16,7 @@ TextureSettingWindow.prototype.constructor = TextureSettingWindow;
 TextureSettingWindow.prototype.render = function () {
     this.window = UI.create({
         xtype: 'window',
-        title: '纹理设置',
+        title: L_TEXTURE_SETTINGS,
         width: '300px',
         height: '450px',
         bodyStyle: {
@@ -27,7 +27,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '偏移'
+                text: L_OFFSET
             }, {
                 xtype: 'number',
                 id: 'offsetX',
@@ -49,7 +49,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '旋转中心'
+                text: L_ROTATE_CENTER
             }, {
                 xtype: 'number',
                 id: 'centerX',
@@ -71,7 +71,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '旋转'
+                text: L_ROTATE
             }, {
                 xtype: 'number',
                 id: 'rotation',
@@ -85,15 +85,15 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '横向填充'
+                text: L_WRAP_S
             }, {
                 xtype: 'select',
                 id: 'wrapS',
                 scope: this.id,
                 options: {
-                    [THREE.ClampToEdgeWrapping]: '拉伸',
-                    [THREE.RepeatWrapping]: '重复',
-                    [THREE.MirroredRepeatWrapping]: '镜像'
+                    [THREE.ClampToEdgeWrapping]: L_CLAMP_TO_EDGE,
+                    [THREE.RepeatWrapping]: L_REPEAT,
+                    [THREE.MirroredRepeatWrapping]: L_MIRRORED_REPEAT
                 },
                 style: {
                     width: '160px'
@@ -104,15 +104,15 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '纵向填充'
+                text: L_WRAP_T
             }, {
                 xtype: 'select',
                 id: 'wrapT',
                 scope: this.id,
                 options: {
-                    [THREE.ClampToEdgeWrapping]: '拉伸',
-                    [THREE.RepeatWrapping]: '重复',
-                    [THREE.MirroredRepeatWrapping]: '镜像'
+                    [THREE.ClampToEdgeWrapping]: L_CLAMP_TO_EDGE,
+                    [THREE.RepeatWrapping]: L_REPEAT,
+                    [THREE.MirroredRepeatWrapping]: L_MIRRORED_REPEAT
                 },
                 style: {
                     width: '160px'
@@ -123,7 +123,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '填充次数'
+                text: L_REPEAT_NUM
             }, {
                 xtype: 'int',
                 id: 'repeatX',
@@ -145,7 +145,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '反转Y'
+                text: L_FLIP_Y
             }, {
                 xtype: 'checkbox',
                 id: 'flipY',
@@ -156,7 +156,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '放大过滤'
+                text: L_MAG_FILTER
             }, {
                 xtype: 'select',
                 id: 'magFilter',
@@ -174,7 +174,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '缩小过滤'
+                text: L_MIN_FILTER
             }, {
                 xtype: 'select',
                 id: 'minFilter',
@@ -196,7 +196,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '类型'
+                text: L_TYPE
             }, {
                 xtype: 'select',
                 id: 'type',
@@ -224,7 +224,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '编码'
+                text: L_ENCODING
             }, {
                 xtype: 'select',
                 id: 'encoding',
@@ -250,7 +250,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '格式'
+                text: L_FORMAT
             }, {
                 xtype: 'select',
                 id: 'format',
@@ -274,7 +274,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '开启层级'
+                text: L_GENERATE_MIPMAPS
             }, {
                 xtype: 'checkbox',
                 id: 'generateMipmaps',
@@ -285,7 +285,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '映射'
+                text: L_MAPPING
             }, {
                 xtype: 'select',
                 id: 'mapping',
@@ -309,7 +309,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '左乘透明'
+                text: L_PREMULTIPLY_ALPHA
             }, {
                 xtype: 'checkbox',
                 id: 'premultiplyAlpha',
@@ -320,7 +320,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '解压对齐'
+                text: L_UNPACK_ALIGNMENT
             }, {
                 xtype: 'select',
                 id: 'unpackAlignment',
@@ -340,7 +340,7 @@ TextureSettingWindow.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '各向异性'
+                text: L_ANISOTROPY
             }, {
                 xtype: 'int',
                 id: 'anisotropy',
