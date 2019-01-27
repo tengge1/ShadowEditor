@@ -54,7 +54,7 @@ TextureSelectControl.prototype.updateUI = function () {
             var scale = canvas.width / image.width;
             context.drawImage(image, 0, 0, image.width * scale, image.height * scale);
         } else {
-            name.value = '无图片';
+            name.value = L_NO_IMAGE;
             context.clearRect(0, 0, canvas.width, canvas.height);
         }
 
@@ -78,7 +78,7 @@ TextureSelectControl.prototype.setValue = function (texture) {
 
 TextureSelectControl.prototype.onClick = function () {
     this.app.call(`selectBottomPanel`, this, 'map');
-    UI.msg(`请点击贴图面板中的贴图！`);
+    UI.msg(L_CLICK_MAP_IN_PANEL);
 
     if (this.isSelecting) {
         return;

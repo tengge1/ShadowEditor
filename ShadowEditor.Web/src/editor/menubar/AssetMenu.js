@@ -22,47 +22,47 @@ AssetMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '资源'
+            html: L_ASSETS
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
                 xtype: 'div',
-                html: '导出几何体',
+                html: L_EXPORT_GEOMETRY,
                 cls: 'option',
                 onClick: this.onExportGeometry.bind(this)
             }, {
                 xtype: 'div',
-                html: '导出物体',
+                html: L_EXPORT_OBJECT,
                 cls: 'option',
                 onClick: this.onExportObject.bind(this)
             }, {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                html: '导出gltf文件',
+                html: L_EXPORT_GLTF,
                 cls: 'option',
                 onClick: this.onExportGLTF.bind(this)
             }, {
                 xtype: 'div',
-                html: '导出obj文件',
+                html: L_EXPORT_OBJ,
                 cls: 'option',
                 onClick: this.onExportOBJ.bind(this)
             }, {
                 xtype: 'div',
-                html: '导出ply文件',
+                html: L_EXPORT_PLY,
                 cls: 'option',
                 onClick: this.onExportPLY.bind(this)
             }, {
                 xtype: 'div',
                 id: 'mExportSTLB',
-                html: '导出stl二进制文件',
+                html: L_EXPORT_STL_BINARY,
                 cls: 'option',
                 onClick: this.onExportSTLB.bind(this)
             }, {
                 xtype: 'div',
                 id: 'mExportSTL',
-                html: '导出stl文件',
+                html: L_EXPORT_STL,
                 cls: 'option',
                 onClick: this.onExportSTL.bind(this)
             }]
@@ -80,14 +80,14 @@ AssetMenu.prototype.onExportGeometry = function () {
     var object = editor.selected;
 
     if (object === null) {
-        UI.msg('请选择物体');
+        UI.msg(L_PLEASE_SELECT_OBJECT);
         return;
     }
 
     var geometry = object.geometry;
 
     if (geometry === undefined) {
-        UI.msg('选中的对象不具有Geometry属性。');
+        UI.msg(L_OBJECT_SELECTED_IS_NOT_GEOMETRY);
         return;
     }
 
@@ -111,7 +111,7 @@ AssetMenu.prototype.onExportObject = function () {
     var object = editor.selected;
 
     if (object === null) {
-        UI.msg('请选择对象');
+        UI.msg(L_PLEASE_SELECT_OBJECT);
         return;
     }
 
@@ -147,7 +147,7 @@ AssetMenu.prototype.onExportOBJ = function () {
     var object = editor.selected;
 
     if (object === null) {
-        UI.msg('请选择对象');
+        UI.msg(L_PLEASE_SELECT_OBJECT);
         return;
     }
 
@@ -165,7 +165,7 @@ AssetMenu.prototype.onExportPLY = function () {
     var object = editor.selected;
 
     if (object === null) {
-        UI.msg('请选择对象');
+        UI.msg(L_PLEASE_SELECT_OBJECT);
         return;
     }
 
