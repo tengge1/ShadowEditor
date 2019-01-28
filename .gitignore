@@ -59,7 +59,6 @@ typings/
 
 # next.js build output
 .next
-/dist
 /docs/_book
 /.vs
 /packages
@@ -91,3 +90,4 @@ typings/
 /ShadowEditor.UnitTests/bin
 /ShadowEditor.UnitTests/obj
 /TestResults
+/ShadowEditor.Web/build
