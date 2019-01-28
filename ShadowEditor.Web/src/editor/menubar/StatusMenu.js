@@ -16,7 +16,7 @@ StatusMenu.prototype = Object.create(UI.Control.prototype);
 StatusMenu.prototype.constructor = StatusMenu;
 
 StatusMenu.prototype.render = function () {
-    var _this = this;
+    var lang = window.localStorage.getItem('lang') || 'zh-CN';
 
     var container = UI.create({
         xtype: 'div',
@@ -25,14 +25,24 @@ StatusMenu.prototype.render = function () {
         cls: 'menu right',
         children: [{
             xtype: 'button',
-            cls: 'IconButton',
-            text: 'English'
+            cls: lang === 'en-US' ? 'IconButton selected' : 'IconButton',
+            id: 'btnEnglish',
+            scope: this.id,
+            text: 'English',
+            onClick: () => {
+                this.selectLanguage('en-US');
+            }
         }, {
             xtype: 'button',
+            id: 'btnChinese',
+            scope: this.id,
             text: '中文',
-            cls: 'IconButton selected',
+            cls: lang === 'zh-CN' ? 'IconButton selected' : 'IconButton',
             style: {
                 padding: '4px 8px'
+            },
+            onClick: () => {
+                this.selectLanguage('zh-CN')
             }
         }, {
             xtype: 'text',
@@ -44,8 +54,37 @@ StatusMenu.prototype.render = function () {
     container.render();
 }
 
-StatusMenu.prototype.changeLang = function () {
+StatusMenu.prototype.selectLanguage = function (lang) {
+    var oldLang = window.localStorage.getItem('lang') || 'zh-CN';
 
+    if (oldLang === lang) {
+        return;
+    }
+
+    window.localStorage.setItem('lang', lang);
+
+    var btnEnglish = UI.get('btnEnglish', this.id);
+    var btnChinese = UI.get('btnChinese', this.id);
+
+    if (lang === 'en-US') { // English
+        btnEnglish.dom.className = 'IconButton selected';
+        btnChinese.dom.className = 'IconButton';
+
+        UI.confirm('Confirm', 'Language will change to English after reload. Reload now?', (event, btn) => {
+            if (btn === 'ok') {
+                window.location.reload();
+            }
+        });
+    } else { // Chinese
+        btnEnglish.dom.className = 'IconButton';
+        btnChinese.dom.className = 'IconButton selected';
+
+        UI.confirm('确认', '语言将在刷新后切换到中文，是否现在刷新？', (event, btn) => {
+            if (btn === 'ok') {
+                window.location.reload();
+            }
+        });
+    }
 };
 
 export default StatusMenu;
