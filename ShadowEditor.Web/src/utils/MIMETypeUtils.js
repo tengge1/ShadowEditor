@@ -13,7 +13,7 @@ function getExtension(mimeType) {
         case 'image/bmp':
             return 'bmp';
         default:
-            console.error(`MIMETypeUtils: 未知MIME-Type类型：${mimeType}`);
+            console.error(`MIMETypeUtils: unknown MIME-Type: ${mimeType}`);
             return 'unknown';
     }
 }
@@ -35,7 +35,7 @@ function getMIMEType(extension) {
         case 'bmp':
             return 'image/bmp';
         default:
-            console.warn(`MIMETypeUtils: 未知后缀类型： ${extension}`);
+            console.warn(`MIMETypeUtils: unknown extension ${extension}.`);
             return 'application/octet-stream';
     }
 }

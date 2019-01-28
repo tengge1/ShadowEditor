@@ -28,10 +28,10 @@ PackageManager.prototype.require = function (names) {
             var promise = Promise.all(promises).then(() => {
                 var packages = PackageList.filter(m => m.name === n);
                 if (packages.length === 0) {
-                    console.warn(`PackageManager: 包${n}不存在！`);
+                    console.warn(`PackageManager: ${n} does not exist.`);
                     return;
                 } else if (packages.length > 1) {
-                    console.warn(`PackageManager: 包名${n}重复！`);
+                    console.warn(`PackageManager: Package name ${n} duplicated.`);
                 }
 
                 var assets = [];
@@ -73,7 +73,7 @@ PackageManager.prototype._load = function (assets = []) {
         } else if (n.toLowerCase().endsWith('.js')) {
             return jsLoader.load(n);
         } else {
-            console.warn(`PackageManager: 未知资源类型${n}。`);
+            console.warn(`PackageManager: unknown assets ${n}.`);
             return new Promise(resolve => {
                 resolve();
             });

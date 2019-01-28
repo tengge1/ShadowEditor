@@ -33,7 +33,7 @@ TexturesSerializer.prototype.toJSON = function (obj) {
     var serializer = Serializers[obj.constructor.name];
 
     if (serializer === undefined) {
-        console.warn(`TexturesSerializer: 无法序列化${obj.type}。`);
+        console.warn(`TexturesSerializer: No serializer with ${obj.type}.`);
         return null;
     }
 
@@ -46,7 +46,7 @@ TexturesSerializer.prototype.fromJSON = function (json, parent) {
     var serializer = Serializers[generator.replace('Serializer', '')];
 
     if (serializer === undefined) {
-        console.warn(`TexturesSerializer: 不存在 ${generator} 的反序列化器`);
+        console.warn(`TexturesSerializer: No deserializer with ${generator}.`);
         return null;
     }
 

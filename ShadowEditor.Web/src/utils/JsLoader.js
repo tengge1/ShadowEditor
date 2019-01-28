@@ -20,11 +20,11 @@ JsLoader.prototype.load = function (url) {
                     resolve(data);
                 });
             } else {
-                console.warn(`JsLoader: ${url}下载失败！。`);
+                console.warn(`JsLoader: ${url} loaded failed.`);
                 resolve(null);
             }
         }).catch(() => {
-            console.warn(`JsLoader: ${url}下载出错！。`);
+            console.warn(`JsLoader: ${url} loaded failed.`);
             resolve(null);
         });
     });

@@ -106,7 +106,7 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
                     }
                 }
             } else {
-                console.warn(`PlayerPhysics: 无法识别的物理类型：${n.userData.physics.type}`);
+                console.warn(`PlayerPhysics: unknown physics type ${n.userData.physics.type}.`);
             }
         }
     });
@@ -261,7 +261,7 @@ PlayerPhysics.prototype.createRigidBody = function (obj) {
         var sphere = geometry.boundingSphere;
         physicsShape = new Ammo.btSphereShape(sphere.radius);
     } else {
-        console.warn(`PlayerPhysics: 无法创建形状${shape}。`);
+        console.warn(`PlayerPhysics: cannot create shape ${shape}.`);
         return null;
     }
 

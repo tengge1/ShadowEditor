@@ -21,7 +21,7 @@ CssLoader.prototype.load = function (url) {
         };
         link.onerror = event => {
             link.onload = link.onerror = null;
-            console.warn(`CssLoader: ${url}加载失败。`);
+            console.warn(`CssLoader: ${url} loaded failed.`);
             resolve(null);
         };
     });

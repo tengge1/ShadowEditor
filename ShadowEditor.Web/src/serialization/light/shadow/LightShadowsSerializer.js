@@ -25,7 +25,7 @@ LightShadowsSerializer.prototype.toJSON = function (obj) {
     var serializer = Serializers[obj.constructor.name];
 
     if (serializer === undefined) {
-        console.warn(`LightShadowsSerializer: 无法序列化${obj.constructor.name}。`);
+        console.warn(`LightShadowsSerializer: No serializer with  ${obj.constructor.name}.`);
         return null;
     }
 
@@ -38,7 +38,7 @@ LightShadowsSerializer.prototype.fromJSON = function (json) {
     var serializer = Serializers[generator.replace('Serializer', '')];
 
     if (serializer === undefined) {
-        console.warn(`LightShadowsSerializer: 不存在 ${generator} 的反序列化器`);
+        console.warn(`LightShadowsSerializer: No deserializer with ${generator}.`);
         return null;
     }
 

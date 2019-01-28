@@ -555,12 +555,17 @@ Object.assign(window, {
     L_PLEASE_SELECT_CATEGORY: 'Please select category.',
     L_DELETE_SUCCESS: 'Delete successfully!',
 
-    // event
-
-    // loader
-
     // object
     L_HALO: 'Halo',
     L_FrontSide: 'FrontSide',
     L_BackSide: 'BackSide',
+
+    // ui
+    L_MESSAGE: 'Message',
+    L_NO_IMAGE: 'No Image',
+    L_IMAGE_UPLOAD_SUCCESS: 'Image upload successfully!',
+    L_IMAGE_UPLOAD_FAILED: 'Image upload failed!',
+    L_PLEASE_INPUT: 'Please input',
+    L_SEARCH_CONTENT: 'Search Content',
+    L_ERROR: 'Error',
 });

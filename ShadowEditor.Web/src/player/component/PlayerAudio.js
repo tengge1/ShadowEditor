@@ -36,7 +36,7 @@ PlayerAudio.prototype.create = function (scene, camera, renderer) {
 
                 resolve();
             }, undefined, () => {
-                this.app.error(`PlayerLoader: ${n.userData.Url}下载失败。`);
+                this.app.error(`PlayerLoader: ${n.userData.Url} loaded failed.`);
                 resolve();
             });
         });

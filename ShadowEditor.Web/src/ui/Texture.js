@@ -82,7 +82,7 @@ Texture.prototype.setValue = function (texture) {
             var scale = canvas.width / image.width;
             context.drawImage(image, 0, 0, image.width * scale, image.height * scale);
         } else {
-            name.value = (texture.sourceFile == null ? '' : texture.sourceFile) + '错误';
+            name.value = (texture.sourceFile == null ? '' : texture.sourceFile) + L_ERROR;
             context.clearRect(0, 0, canvas.width, canvas.height);
         }
 

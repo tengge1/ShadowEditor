@@ -25,7 +25,7 @@ CamerasSerializer.prototype.toJSON = function (obj) {
     var serializer = Serializers[obj.constructor.name];
 
     if (serializer === undefined) {
-        console.warn(`CamerasSerializer: 无法序列化${obj.constructor.name}。`);
+        console.warn(`CamerasSerializer: No serializer with ${obj.constructor.name}.`);
         return null;
     }
 
@@ -38,7 +38,7 @@ CamerasSerializer.prototype.fromJSON = function (json, parent) {
     var serializer = Serializers[generator.replace('Serializer', '')];
 
     if (serializer === undefined) {
-        console.warn(`CamerasSerializer: 不存在 ${generator} 的反序列化器`);
+        console.warn(`CamerasSerializer: No deserializer with ${generator}.`);
         return null;
     }
 

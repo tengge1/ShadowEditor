@@ -36,7 +36,7 @@ ImageUploader.prototype.render = function () {
     } else {
         this.dom = document.createElement('div');
         this.dom.className = 'NoImage';
-        this.dom.innerHTML = '暂无图片';
+        this.dom.innerHTML = L_NO_IMAGE;
     }
     this.parent.appendChild(this.dom);
     this.dom.addEventListener('click', this.onClick.bind(this));
@@ -67,10 +67,10 @@ ImageUploader.prototype.onChange = function () {
             }
             UI.msg(obj.Msg);
         } else {
-            UI.msg('图片上传失败！');
+            UI.msg(L_IMAGE_UPLOAD_SUCCESS);
         }
     }, () => {
-        UI.msg('图片上传失败！');
+        UI.msg(L_IMAGE_UPLOAD_FAILED);
     });
 };
 

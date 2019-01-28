@@ -9,10 +9,10 @@ function Alert(options) {
     Window.call(this, options);
     options = options || {};
 
-    this.title = options.title || '消息';
+    this.title = options.title || L_MESSAGE;
     this.content = options.content || '';
 
-    this.okText = options.okText || '确认';
+    this.okText = options.okText || L_OK;
 
     this.width = options.width || '320px';
     this.height = options.height || '150px';

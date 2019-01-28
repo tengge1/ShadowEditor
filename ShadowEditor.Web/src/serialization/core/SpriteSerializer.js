@@ -31,7 +31,7 @@ SpriteSerializer.prototype.fromJSON = function (json, parent) {
 
     if (parent === undefined) {
         if (json.material == null) {
-            console.warn(`SpriteSerializer: ${json.name} json.material未定义。`);
+            console.warn(`SpriteSerializer: ${json.name} json.material is not defined.`);
             return null;
         }
         material = (new MaterialsSerializer()).fromJSON(json.material);

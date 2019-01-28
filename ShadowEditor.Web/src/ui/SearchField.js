@@ -32,7 +32,7 @@ SearchField.prototype.render = function () {
             xtype: 'input',
             id: `${this.id}-input`,
             scope: this.scope,
-            placeholder: '搜索内容',
+            placeholder: L_SEARCH_CONTENT,
             onInput: this.onFieldInput.bind(this)
         }]
     }];

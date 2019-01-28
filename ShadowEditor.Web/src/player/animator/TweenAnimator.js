@@ -38,7 +38,7 @@ TweenAnimator.prototype.tweenObject = function (animation, time) {
     // 获取对象
     var target = this.scene.getObjectByProperty('uuid', animation.target);
     if (target == null) {
-        console.warn(`Player: 场景中不存在uuid为${animation.target}的物体。`);
+        console.warn(`Player: There is no object that uuid equals to ${animation.target}.`);
         return;
     }
 
@@ -47,7 +47,7 @@ TweenAnimator.prototype.tweenObject = function (animation, time) {
 
     var ease = Ease[data.ease];
     if (ease == null) {
-        console.warn(`Player: 不存在名称为${data.ease}的插值函数。`);
+        console.warn(`Player: There is no ease function named ${data.ease}.`);
         return;
     }
 

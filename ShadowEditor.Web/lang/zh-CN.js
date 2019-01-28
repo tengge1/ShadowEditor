@@ -556,11 +556,16 @@ L_CATEGORY_LIST = '类别列表';
 L_PLEASE_SELECT_CATEGORY = '请选择类别！';
 L_DELETE_SUCCESS = '删除成功！';
 
-// event
-
-// loader
-
 // object
 L_HALO = '光晕';
 L_FrontSide = '正面';
 L_BackSide = '背面';
+
+// ui
+L_MESSAGE = '消息';
+L_NO_IMAGE = '无图片';
+L_IMAGE_UPLOAD_SUCCESS = '图片上传成功！';
+L_IMAGE_UPLOAD_FAILED = '图片上传失败！';
+L_PLEASE_INPUT = '请输入';
+L_SEARCH_CONTENT = '搜索内容';
+L_ERROR = '错误';

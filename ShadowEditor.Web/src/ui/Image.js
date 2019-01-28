@@ -87,7 +87,7 @@ Image.prototype.render = function () {
         xtype: 'iconbutton',
         icon: 'icon-edit',
         cls: 'Button IconButton EditButton',
-        title: '编辑',
+        title: L_EDIT,
         onClick: (event) => onClick(event, 'edit')
     });
     this.editBtn.render();
@@ -98,7 +98,7 @@ Image.prototype.render = function () {
         xtype: 'iconbutton',
         icon: 'icon-delete',
         cls: 'Button IconButton DeleteButton',
-        title: '删除',
+        title: L_DELETE,
         onClick: (event) => onClick(event, 'delete')
     });
     this.deleteBtn.render();

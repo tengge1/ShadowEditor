@@ -158,7 +158,7 @@ Converter.prototype.sceneToJson = function (scene, list) {
         if (json) {
             list.push(json);
         } else {
-            console.warn(`Converter: 没有 ${obj.constructor.name} 的序列化器。`);
+            console.warn(`Converter: No ${obj.constructor.name} Serializer.`);
         }
 
         // 如果obj.userData.type不为空，则为内置类型，其子项不应该序列化
@@ -190,7 +190,7 @@ Converter.prototype.fromJson = function (jsons, options) {
     if (optionsJson) {
         obj.options = (new OptionsSerializer()).fromJSON(optionsJson);
     } else {
-        console.warn(`Converter: 场景中不存在配置信息。`);
+        console.warn(`Converter: No config info in the scene.`);
     }
 
     // 相机
@@ -198,7 +198,7 @@ Converter.prototype.fromJson = function (jsons, options) {
     if (cameraJson) {
         obj.camera = (new CamerasSerializer()).fromJSON(cameraJson);
     } else {
-        console.warn(`Converter: 场景中不存在相机信息。`);
+        console.warn(`Converter: No camera info in the scene.`);
     }
 
     if (options.camera === undefined) {
@@ -210,7 +210,7 @@ Converter.prototype.fromJson = function (jsons, options) {
     if (rendererJson) {
         obj.renderer = (new WebGLRendererSerializer()).fromJSON(rendererJson);
     } else {
-        console.warn(`Converter: 场景中不存在渲染器信息。`);
+        console.warn(`Converter: No renderer info in the scene.`);
     }
 
     if (options.renderer === undefined) {
@@ -235,7 +235,7 @@ Converter.prototype.fromJson = function (jsons, options) {
     if (audioListenerJson) {
         audioListener = (new AudioListenerSerializer()).fromJSON(audioListenerJson);
     } else {
-        console.warn(`Converter: 场景种不存在音频监听器信息。`);
+        console.warn(`Converter: No AudioListener in the scene.`);
         audioListener = new THREE.AudioListener();
     }
     obj.audioListener = audioListener;
@@ -259,7 +259,7 @@ Converter.prototype.fromJson = function (jsons, options) {
 Converter.prototype.sceneFromJson = function (jsons, options) {
     var sceneJson = jsons.filter(n => n.metadata && n.metadata.generator === 'SceneSerializer')[0];
     if (sceneJson === undefined) {
-        console.warn(`Converter: 数据中不存在场景信息。`);
+        console.warn(`Converter: No scene info in the scene.`);
         return new Promise(resolve => {
             resolve(new THREE.Scene());
         });
@@ -273,7 +273,7 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
         json.children.forEach(n => {
             var objJson = list.filter(o => o.uuid === n)[0];
             if (objJson == null) {
-                console.warn(`Converter: 数据中不存在uuid为${n}的对象数据。`);
+                console.warn(`Converter: no object that uuid equals to ${n}.`);
                 return;
             }
 
@@ -353,7 +353,7 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
             if (obj) {
                 parent.add(obj);
             } else {
-                console.warn(`Converter: 不存在${objJson.metadata.type}的反序列化器。`);
+                console.warn(`Converter: No Deserializer with ${objJson.metadata.type}.`);
             }
 
             // objJson.userData.type不为空，说明它是内置类型，其子项不应该被反序列化
@@ -385,7 +385,7 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                 if (obj) {
                     serverObj.parent.add(obj);
                 } else {
-                    console.warn(`Converter: 服务器资源${serverObj.json.uuid}下载失败。`);
+                    console.warn(`Converter: Server assets ${serverObj.json.uuid} loaded failed.`);
                 }
                 resolve();
             });

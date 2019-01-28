@@ -25,7 +25,7 @@ WebGLShadowMapSerializer.prototype.toJSON = function (obj) {
 
 WebGLShadowMapSerializer.prototype.fromJSON = function (json, parent) {
     if (parent === undefined) {
-        console.warn(`WebGLShadowMapSerializer: parent不允许为空！`);
+        console.warn(`WebGLShadowMapSerializer: parent is empty.`);
         return null;
     }
 
