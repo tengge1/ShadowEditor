@@ -24,6 +24,17 @@ StatusMenu.prototype.render = function () {
         parent: this.parent,
         cls: 'menu right',
         children: [{
+            xtype: 'button',
+            cls: 'IconButton',
+            text: 'English'
+        }, {
+            xtype: 'button',
+            text: '中文',
+            cls: 'IconButton selected',
+            style: {
+                padding: '4px 8px'
+            }
+        }, {
             xtype: 'text',
             text: 'r' + THREE.REVISION,
             cls: 'title version'
@@ -32,5 +43,9 @@ StatusMenu.prototype.render = function () {
 
     container.render();
 }
+
+StatusMenu.prototype.changeLang = function () {
+
+};
 
 export default StatusMenu;
