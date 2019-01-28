@@ -6,7 +6,7 @@
 function Sphere(geometry = new THREE.SphereBufferGeometry(1, 32, 16, 0, Math.PI * 2, 0, Math.PI), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);
 
-    this.name = '球体';
+    this.name = L_SPHERE;
     this.castShadow = true;
     this.receiveShadow = true;
 

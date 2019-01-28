@@ -4,7 +4,7 @@ import StringUtils from '../../utils/StringUtils';
  * 文本
  * @param {*} text 文字
  */
-function Text(text = '文字') {
+function Text(text = L_TEXT) {
     var canvas = document.createElement('canvas');
 
     var fontSize = 64;

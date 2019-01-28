@@ -58,7 +58,7 @@ ObjectLoader.prototype.loadSkinnedMesh = function (scene, options) {
 
         mesh.userData.scripts = [{
             id: null,
-            name: `${options.Name}动画`,
+            name: `${options.Name}${L_ANIMATION}`,
             type: 'javascript',
             source: source,
             uuid: THREE.Math.generateUUID()

@@ -26,7 +26,7 @@ function HemisphereLight(skyColor, groundColor, intensity) {
     });
 
     var sky = new THREE.Mesh(skyGeo, skyMat);
-    sky.name = '天空';
+    sky.name = L_SKY;
     sky.userData.type = 'sky';
 
     this.add(sky);

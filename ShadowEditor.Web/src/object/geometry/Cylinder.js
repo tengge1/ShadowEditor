@@ -6,7 +6,7 @@
 function Cylinder(geometry = new THREE.CylinderBufferGeometry(1, 1, 2, 32, 1, false), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);
 
-    this.name = '圆柱体';
+    this.name = L_CYLINDER;
     this.castShadow = true;
     this.receiveShadow = true;
 

@@ -14,7 +14,7 @@ function Spline() {
 
     THREE.Line.call(this, geometry, material);
 
-    this.name = '曲线';
+    this.name = L_SPLINE;
 
     this.castShadow = true;
 

@@ -85,7 +85,7 @@ ModelLoader.prototype.load = function (url, options, environment) {
     var type = options.Type;
 
     if (type === undefined) {
-        console.warn(`ModelLoader: 未传递type参数，无法加载。`);
+        console.warn(`ModelLoader: no type parameters, and cannot load.`);
         return new Promise(resolve => {
             resolve(null);
         });
@@ -94,7 +94,7 @@ ModelLoader.prototype.load = function (url, options, environment) {
     return new Promise(resolve => {
         var loader = Loaders[type];
         if (loader === undefined) {
-            console.warn(`ModelLoader: 不存在加载${type}后缀模型的加载器。`);
+            console.warn(`ModelLoader: no ${type} loader.`);
             resolve(null);
             return;
         }

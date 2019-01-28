@@ -29,7 +29,7 @@ function PerlinTerrain(width = 1000, depth = 1000, widthSegments = 256, depthSeg
     // 创建网格
     THREE.Mesh.call(this, geometry, new THREE.MeshLambertMaterial({ map: texture }));
 
-    this.name = '地形';
+    this.name = L_TERRAIN;
 
     this.position.y = -50;
 

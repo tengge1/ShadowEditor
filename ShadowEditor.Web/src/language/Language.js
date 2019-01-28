@@ -558,4 +558,9 @@ Object.assign(window, {
     // event
 
     // loader
+
+    // object
+    L_HALO: 'Halo',
+    L_FrontSide: 'FrontSide',
+    L_BackSide: 'BackSide',
 });

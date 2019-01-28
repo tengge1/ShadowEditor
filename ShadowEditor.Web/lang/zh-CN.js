@@ -555,3 +555,12 @@ L_CATEGORY_EDIT = '类别编辑';
 L_CATEGORY_LIST = '类别列表';
 L_PLEASE_SELECT_CATEGORY = '请选择类别！';
 L_DELETE_SUCCESS = '删除成功！';
+
+// event
+
+// loader
+
+// object
+L_HALO = '光晕';
+L_FrontSide = '正面';
+L_BackSide = '背面';

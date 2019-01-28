@@ -44,7 +44,7 @@ function Water(renderer) {
     // 创建网格
     THREE.Mesh.call(this, geometry, material);
 
-    this.name = '水';
+    this.name = L_WATER;
 
     this.rotation.x = -Math.PI / 2;
 

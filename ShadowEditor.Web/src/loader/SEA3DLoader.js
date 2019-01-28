@@ -32,7 +32,7 @@ SEA3DLoader.prototype.load = function (url, options) {
                 animNames: ['Animation1'],
                 scripts: [{
                     id: null,
-                    name: `${options.Name}动画`,
+                    name: `${options.Name}${L_ANIMATION}`,
                     type: 'javascript',
                     source: this.createScripts(options.Name),
                     uuid: THREE.Math.generateUUID()

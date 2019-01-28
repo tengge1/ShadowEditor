@@ -20,7 +20,7 @@ var points = [
 function Lathe(geometry = new THREE.LatheBufferGeometry(points, 20, 0, 2 * Math.PI), material = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide })) {
     THREE.Mesh.call(this, geometry, material);
 
-    this.name = '酒杯';
+    this.name = L_LATHE;
     this.castShadow = true;
     this.receiveShadow = true;
 

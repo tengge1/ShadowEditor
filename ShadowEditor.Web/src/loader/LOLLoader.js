@@ -14,7 +14,7 @@ LOLLoader.prototype.constructor = LOLLoader;
 
 LOLLoader.prototype.load = function (url, options) {
     if (!Array.isArray(url) || url.length < 3) {
-        console.warn(`LOLLoader: url必须是数组，而且包含.lmesh、.lanim、.png三个文件地址。`);
+        console.warn(`LOLLoader: url must be an array, and contains .lmesh,.lanim and .png three urls.`);
         return new Promise(resolve => {
             resolve(null);
         });
@@ -25,21 +25,21 @@ LOLLoader.prototype.load = function (url, options) {
     var png = url.filter(n => n.endsWith('.png'))[0];
 
     if (lmesh === undefined) {
-        console.warn(`LOLLoader: url中不包含.lmesh文件地址。`);
+        console.warn(`LOLLoader: url doesn't contain .lmesh url.`);
         return new Promise(resolve => {
             resolve(null);
         });
     }
 
     if (lanim === undefined) {
-        console.warn(`LOLLoader: url中不包含.lanim文件地址。`);
+        console.warn(`LOLLoader: url doesn't contain .lanim url.`);
         return new Promise(resolve => {
             resolve(null);
         });
     }
 
     if (png === undefined) {
-        console.warn(`LOLLoader: url中不包含.png文件地址。`);
+        console.warn(`LOLLoader: url doesn't contain .png url.`);
         return new Promise(resolve => {
             resolve(null);
         });
@@ -71,7 +71,7 @@ LOLLoader.prototype.load = function (url, options) {
                 mesh.userData.model = model;
                 mesh.userData.scripts = [{
                     id: null,
-                    name: `${options.Name}动画`,
+                    name: `${options.Name}${L_ANIMATION}`,
                     type: 'javascript',
                     source: this.createScripts(options.Name, model),
                     uuid: THREE.Math.generateUUID()

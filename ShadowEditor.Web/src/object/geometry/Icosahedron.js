@@ -6,7 +6,7 @@
 function Icosahedron(geometry = new THREE.IcosahedronBufferGeometry(1, 2), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);
 
-    this.name = '二十面体';
+    this.name = L_ICOSAHEDRON;
     this.castShadow = true;
     this.receiveShadow = true;
 

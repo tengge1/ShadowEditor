@@ -121,7 +121,7 @@ function ShaderTerrain(renderer, options) {
 
     THREE.Mesh.call(this, geometry, terrainMaterial);
 
-    this.name = '地形';
+    this.name = L_TERRAIN;
     this.position.set(0, -30, 0);
     this.rotation.x = -Math.PI / 2;
     this.scale.set(0.1, 0.1, 0.1);

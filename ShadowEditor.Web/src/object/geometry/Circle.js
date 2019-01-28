@@ -6,7 +6,7 @@
 function Circle(geometry = new THREE.CircleBufferGeometry(1, 32), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);
 
-    this.name = '圆';
+    this.name = L_CIRCLE;
     this.castShadow = true;
     this.receiveShadow = true;
 
