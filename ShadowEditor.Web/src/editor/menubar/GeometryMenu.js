@@ -207,7 +207,14 @@ GeometryMenu.prototype.addText = function () {
 // ---------------------- 曲线 ----------------------------------
 
 GeometryMenu.prototype.addSpline = function () {
-    this.app.editor.execute(new AddObjectCommand(new Spline()));
+    var line = new Spline();
+    var helper = line.createHelper();
+
+    this.app.editor.execute(new AddObjectCommand(line));
+
+    if (helper) {
+        this.app.editor.addPhysicsHelper(helper);
+    }
 };
 
 export default GeometryMenu;
