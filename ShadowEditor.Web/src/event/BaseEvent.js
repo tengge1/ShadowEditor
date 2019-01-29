@@ -6,19 +6,13 @@ var ID = -1;
  */
 function BaseEvent(app) {
     this.app = app;
-    this.id = `BaseEvent${ID--}`;
+    this.id = `${this.constructor.name}${ID--}`;
 }
 
-/**
- * 开始执行
- */
 BaseEvent.prototype.start = function () {
 
 };
 
-/**
- * 停止执行
- */
 BaseEvent.prototype.stop = function () {
 
 };
