@@ -37,11 +37,14 @@ ServerObject.prototype.toJSON = function (obj) {
 ServerObject.prototype.serializeMaterials = function (obj, path, materials) {
     if (obj.material && Array.isArray(obj.material)) { // 多材质
         obj.material.forEach((n, i) => {
+            if (!n.userData.changed) { // 只有修改过的材质才需要保存
+                return;
+            }
             var json = (new MaterialsSerializer()).toJSON(n);
             json._path = `${path}${i}`;
             materials.push(json);
         });
-    } else if (obj.material) { // 单材质
+    } else if (obj.material && obj.material.userData.changed) { // 单材质
         var json = (new MaterialsSerializer()).toJSON(obj.material);
         json._path = `${path}$`;
         materials.push(json);
