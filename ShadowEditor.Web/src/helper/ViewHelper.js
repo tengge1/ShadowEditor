@@ -23,11 +23,11 @@ function ViewHelper(camera, domElement) {
             },
             width: {
                 type: 'f',
-                value: 256,
+                value: 128,
             },
             height: {
                 type: 'f',
-                value: 256,
+                value: 128,
             }
         },
         vertexShader: ViewVertex,
