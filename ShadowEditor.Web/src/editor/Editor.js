@@ -465,7 +465,7 @@ Editor.prototype.onMouseDown = function (event) {
 
 Editor.prototype.onMouseMove = function (event) {
     this.mouse.x = (event.offsetX / this.renderer.domElement.clientWidth) * 2 - 1;
-    this.mouse.y = - (event.offsetY / this.renderer.domElement.clientHeight) * 2 + 1;
+    this.mouse.y = -(event.offsetY / this.renderer.domElement.clientHeight) * 2 + 1;
 };
 
 export default Editor;

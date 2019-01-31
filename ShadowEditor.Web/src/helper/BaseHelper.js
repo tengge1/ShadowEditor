@@ -14,7 +14,17 @@ function BaseHelper(object) {
 BaseHelper.prototype = Object.create(THREE.Object3D.prototype);
 BaseHelper.prototype.constructor = BaseHelper;
 
+/**
+ * 场景中物体状态改变，更新帮助器
+ */
 BaseHelper.prototype.update = function () {
+
+};
+
+/**
+ * 帮助器改变后，更新物体信息
+ */
+BaseHelper.prototype.updateObject = function () {
 
 };
 
