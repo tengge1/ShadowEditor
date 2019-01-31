@@ -1,5 +1,6 @@
 ﻿import History from '../core/History';
 import Storage from '../core/Storage';
+import ViewHelper from '../helper/ViewHelper';
 
 /**
  * 编辑器
@@ -96,6 +97,11 @@ function Editor(app) {
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
 
+    // 帮助器场景灯光
+    var light = new THREE.DirectionalLight(0xffffff, 1.0);
+    light.position.z = 10;
+    this.sceneHelpers.add(light);
+
     // 事件
     this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
     this.app.on(`optionsChanged.${this.id}`, this.onOptionsChanged.bind(this));
@@ -106,6 +112,14 @@ function Editor(app) {
 
 Editor.prototype.onAppStarted = function () {
     this.clear();
+
+    // 帮助器
+    var helper = new ViewHelper(this.camera);
+    this.addRawHelper(helper);
+
+    this.app.on(`cameraChanged.Editor`, () => {
+        helper.update();
+    });
 };
 
 // -------------------- 场景 --------------------------
@@ -363,6 +377,10 @@ Editor.prototype.removePhysicsHelper = function (helper) {
         var objects = this.objects;
         objects.splice(objects.indexOf(helper.getObjectByName('picker')), 1);
     }
+};
+
+Editor.prototype.addRawHelper = function (helper) {
+    this.sceneHelpers.add(helper);
 };
 
 // ------------------------ 脚本 ----------------------------
