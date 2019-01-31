@@ -4,15 +4,31 @@ import ViewFragment from './shader/view_fragment.glsl';
 
 /**
  * 视角帮助器
- * @param {*} camera 相机
+ * @param {*} camera
+ * @param {*} domElement 
  */
-function ViewHelper(camera) {
+function ViewHelper(camera, domElement) {
     BaseHelper.call(this, camera);
 
     var geometry = new THREE.ConeBufferGeometry(0.2, 1, 16, 16);
     var material = new THREE.ShaderMaterial({
         uniforms: {
-
+            domWidth: {
+                type: 'f',
+                value: domElement.clientWidth, // 1432
+            },
+            domHeight: {
+                type: 'f',
+                value: domElement.clientHeight, // 665
+            },
+            width: {
+                type: 'f',
+                value: 256,
+            },
+            height: {
+                type: 'f',
+                value: 256,
+            }
         },
         vertexShader: ViewVertex,
         fragmentShader: ViewFragment,

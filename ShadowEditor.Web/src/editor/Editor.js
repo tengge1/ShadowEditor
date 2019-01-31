@@ -114,7 +114,7 @@ Editor.prototype.onAppStarted = function () {
     this.clear();
 
     // 帮助器
-    var helper = new ViewHelper(this.camera);
+    var helper = new ViewHelper(this.camera, this.renderer.domElement);
     this.addRawHelper(helper);
 
     this.app.on(`cameraChanged.Editor`, () => {
