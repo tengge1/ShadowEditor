@@ -44,21 +44,61 @@
         dirLight.position.set(1, 2, 3);
         scene.add(dirLight);
 
-        var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
-
-        var material = new THREE.MeshPhongMaterial({
-            color: 0xff0000
-        });
-
-        var mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
-
         var render = function () {
             requestAnimationFrame(render);
             renderer.render(scene, camera);
         };
 
-        render();
+        var fetchShader = function (url) {
+            return new Promise(resolve => {
+                fetch(url).then(response => {
+                    if (response.ok) {
+                        response.text().then(text => {
+                            resolve(text);
+                        });
+                    }
+                });
+            });
+        }
+
+        var promise1 = fetchShader('shader/simple_vertex.glsl');
+        var promise2 = fetchShader('shader/simple_frag.glsl');
+
+        Promise.all([promise1, promise2]).then(result => {
+            var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
+
+            var material = new THREE.RawShaderMaterial({
+                color: 0xff0000,
+                uniforms: {
+                    color: {
+                        type: 'v3',
+                        value: new THREE.Vector3(1.0, 0.0, 0.0),
+                    },
+                    ambientColor: {
+                        type: 'v3',
+                        value: new THREE.Vector3(0.4, 0.4, 0.4)
+                    },
+                    lightPosition: {
+                        type: 'v3',
+                        value: dirLight.position
+                    },
+                    diffuseColor: {
+                        type: 'v3',
+                        value: new THREE.Vector3(0, 1, 0)
+                    },
+                    shininess: {
+                        type: 'f',
+                        value: 0.6
+                    }
+                },
+                vertexShader: result[0],
+                fragmentShader: result[1],
+            });
+
+            var mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+            render();
+        });
     </script>
 </body>
 
