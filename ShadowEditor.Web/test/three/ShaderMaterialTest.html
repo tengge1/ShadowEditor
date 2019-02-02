@@ -36,13 +36,15 @@
         var control = new THREE.OrbitControls(camera, renderer.domElement);
 
         scene.add(new THREE.PolarGridHelper());
+        scene.add(new THREE.AxesHelper(5));
 
         var amLight = new THREE.AmbientLight(0xffffff, 0.4);
         scene.add(amLight);
 
-        var dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        var dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
         dirLight.position.set(1, 2, 3);
         scene.add(dirLight);
+        scene.add(new THREE.DirectionalLightHelper(dirLight));
 
         var render = function () {
             requestAnimationFrame(render);
@@ -68,7 +70,6 @@
             var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
 
             var material = new THREE.RawShaderMaterial({
-                color: 0xffffff,
                 uniforms: {
                     color: {
                         type: 'v3',
@@ -88,11 +89,11 @@
                     },
                     diffuseColor: {
                         type: 'v3',
-                        value: new THREE.Vector3(0.8, 0.8, 0.8)
+                        value: new THREE.Vector3(0.0, 0.8, 0.0)
                     },
                     shininess: {
                         type: 'f',
-                        value: 0.6
+                        value: 0.8
                     }
                 },
                 vertexShader: result[0],
