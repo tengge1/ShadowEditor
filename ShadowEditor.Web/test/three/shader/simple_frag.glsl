@@ -25,7 +25,7 @@ void main() {
     // 漫反射
     vec3 normal = normalize(vNormal);
     vec3 lightDirection = normalize(lightPosition - vPosition);
-    float dotL = max(dot(lightDirection, normal), 0.0);
+    float dotL = max(dot(lightDirection, vNormal), 0.0);
     vec3 diffuse = diffuseColor * dotL * color;
 
     // 镜面反射
@@ -34,6 +34,6 @@ void main() {
     float specularLightWeight = pow(max(dot(reflectionDirection, eyeDirection), 0.0), shininess);
     vec3 specular = color * specularLightWeight;
     
-    gl_FragColor = vec4(ambient, 1.0);
+    gl_FragColor = vec4(diffuse, 1.0);
     // gl_FragColor = vec4(ambient + diffuse + specular, 1.0);
 }

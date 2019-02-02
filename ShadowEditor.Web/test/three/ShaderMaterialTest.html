@@ -68,7 +68,7 @@
             var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
 
             var material = new THREE.RawShaderMaterial({
-                color: 0xff0000,
+                color: 0xffffff,
                 uniforms: {
                     color: {
                         type: 'v3',
@@ -88,7 +88,7 @@
                     },
                     diffuseColor: {
                         type: 'v3',
-                        value: new THREE.Vector3(0, 1, 0)
+                        value: new THREE.Vector3(0.8, 0.8, 0.8)
                     },
                     shininess: {
                         type: 'f',
