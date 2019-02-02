@@ -34,5 +34,6 @@ void main() {
     float specularLightWeight = pow(max(dot(reflectionDirection, eyeDirection), 0.0), shininess);
     vec3 specular = color * specularLightWeight;
     
-    gl_FragColor = vec4(ambient + diffuse + specular, 1.0);
+    gl_FragColor = vec4(ambient, 1.0);
+    // gl_FragColor = vec4(ambient + diffuse + specular, 1.0);
 }

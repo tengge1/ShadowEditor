@@ -76,7 +76,11 @@
                     },
                     ambientColor: {
                         type: 'v3',
-                        value: new THREE.Vector3()
+                        value: new THREE.Vector3().set(
+                            amLight.color.r,
+                            amLight.color.g,
+                            amLight.color.b
+                        ).multiplyScalar(amLight.intensity)
                     },
                     lightPosition: {
                         type: 'v3',
