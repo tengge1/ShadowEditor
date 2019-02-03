@@ -38,11 +38,11 @@
         scene.add(new THREE.PolarGridHelper());
         scene.add(new THREE.AxesHelper(5));
 
-        var amLight = new THREE.AmbientLight(0xffffff, 0.5);
+        var amLight = new THREE.AmbientLight(0xffffff, 0.4);
         scene.add(amLight);
 
-        var dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
-        dirLight.position.set(1, 2, 3);
+        var dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        dirLight.position.set(100, 200, 300);
         scene.add(dirLight);
         scene.add(new THREE.DirectionalLightHelper(dirLight));
 
@@ -74,7 +74,7 @@
                 uniforms: {
                     color: {
                         type: 'v3',
-                        value: new THREE.Vector3(1.0, 0.0, 0.0),
+                        value: new THREE.Vector3(1.0, 1.0, 0.0),
                     },
                     ambientColor: {
                         type: 'v3',
