@@ -1,6 +1,6 @@
 import BaseHelper from './BaseHelper';
-import ViewVertex from './shader/view_vertex.glsl';
-import ViewFragment from './shader/view_fragment.glsl';
+import ArrowVertex from './view/ArrowVertex.glsl';
+import ArrowFragment from './view/ArrowFragment.glsl';
 
 /**
  * 视角帮助器
@@ -10,6 +10,17 @@ import ViewFragment from './shader/view_fragment.glsl';
 function ViewHelper(camera, domElement) {
     BaseHelper.call(this, camera);
 
+    this.add(this.createMesh());
+}
+
+ViewHelper.prototype = Object.create(BaseHelper.prototype);
+ViewHelper.prototype.constructor = ViewHelper;
+
+ViewHelper.prototype.update = function () {
+
+};
+
+ViewHelper.prototype.createMesh = function () {
     var geometry = new THREE.ConeBufferGeometry(0.1, 0.4, 16, 16);
     geometry.computeBoundingBox();
     geometry.translate(0, geometry.boundingBox.min.y, 0);
@@ -41,14 +52,6 @@ function ViewHelper(camera, domElement) {
     ], true);
 
     var uniforms = {
-        domWidth: {
-            type: 'f',
-            value: domElement.clientWidth, // 1432
-        },
-        domHeight: {
-            type: 'f',
-            value: domElement.clientHeight, // 665
-        },
         width: {
             type: 'f',
             value: 80,
@@ -63,11 +66,11 @@ function ViewHelper(camera, domElement) {
         },
         ambientColor: {
             type: 'v3',
-            value: new THREE.Vector3(0.8, 0.8, 0.8)
+            value: new THREE.Vector3(0.4, 0.4, 0.4)
         },
         lightPosition: {
             type: 'v3',
-            value: new THREE.Vector3(0, 0, 10)
+            value: new THREE.Vector3(10, 10, 10)
         },
         diffuseColor: {
             type: 'v3',
@@ -81,8 +84,8 @@ function ViewHelper(camera, domElement) {
 
     var material1 = new THREE.RawShaderMaterial({
         uniforms: THREE.UniformsUtils.clone(uniforms),
-        vertexShader: ViewVertex,
-        fragmentShader: ViewFragment,
+        vertexShader: ArrowVertex,
+        fragmentShader: ArrowFragment,
     });
 
     var material2 = material1.clone();
@@ -102,14 +105,7 @@ function ViewHelper(camera, domElement) {
 
     mesh.scale.multiplyScalar(0.1);
 
-    this.add(mesh);
-}
-
-ViewHelper.prototype = Object.create(BaseHelper.prototype);
-ViewHelper.prototype.constructor = ViewHelper;
-
-ViewHelper.prototype.update = function () {
-
+    return mesh;
 };
 
 export default ViewHelper;
