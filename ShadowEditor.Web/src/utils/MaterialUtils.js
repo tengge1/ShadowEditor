@@ -5,14 +5,14 @@
  * @param {*} height 高度
  */
 function createMaterialImage(material, width = 160, height = 160) {
-    var scene = new THREE.Scene({
-        antialias: true
-    });
+    var scene = new THREE.Scene();
 
     var camera = new THREE.OrthographicCamera(-width / 2, width / 2, height / 2, -height / 2, 0, 1000);
     camera.position.z = 80;
 
-    var renderer = new THREE.WebGLRenderer();
+    var renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
     renderer.setSize(width, height);
 
     var light1 = new THREE.AmbientLight(0xffffff, 0.3);
