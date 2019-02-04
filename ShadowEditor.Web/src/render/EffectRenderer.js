@@ -35,10 +35,11 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer, sele
     var postProcessing = scenes[0].userData.postProcessing || {};
     this.ready = false;
 
-    // 快速近似抗锯齿
-    if (postProcessing.fxaa && postProcessing.fxaa.enabled) {
-        await this.require('FXAAShader');
-    }
+    // 默认加载
+    // // 快速近似抗锯齿
+    // if (postProcessing.fxaa && postProcessing.fxaa.enabled) {
+    //     await this.require('FXAAShader');
+    // }
 
     // 多重采样抗锯齿
     if (postProcessing.smaa && postProcessing.smaa.enabled) {
