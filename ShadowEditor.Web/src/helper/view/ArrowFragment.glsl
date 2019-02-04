@@ -16,7 +16,7 @@ void main() {
     vec3 ambient = ambientColor * color;
     
     vec3 normal = normalize(vNormal);
-    vec3 vLightPosition = vec3(viewMatrix * vec4(lightPosition, 1.0));
+    vec3 vLightPosition = vec3(0.0, 0.0, 1.0);
     vec3 lightDirection = normalize(vLightPosition - vPosition);
     float dotL = max(dot(lightDirection, normal), 0.0);
     vec3 diffuse = diffuseColor * dotL * color;

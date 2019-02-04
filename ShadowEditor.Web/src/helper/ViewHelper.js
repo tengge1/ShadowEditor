@@ -10,6 +10,9 @@ import ArrowFragment from './view/ArrowFragment.glsl';
 function ViewHelper(camera, domElement) {
     BaseHelper.call(this, camera);
 
+    this.domWidth = domElement.clientWidth;
+    this.domHeight = domElement.clientHeight;
+
     this.add(this.createMesh());
 }
 
@@ -52,13 +55,29 @@ ViewHelper.prototype.createMesh = function () {
     ], true);
 
     var uniforms = {
-        width: {
+        domWidth: {
             type: 'f',
-            value: 80,
+            value: this.domWidth
         },
-        height: {
+        domHeight: {
             type: 'f',
-            value: 80,
+            value: this.domHeight
+        },
+        right: {
+            type: 'f',
+            value: 280,
+        },
+        top: {
+            type: 'f',
+            value: 280,
+        },
+        projectionMatrixInverse: {
+            type: 'm4',
+            value: this.object.projectionMatrixInverse
+        },
+        cameraMatrixWorld: {
+            type: 'm4',
+            value: this.object.matrixWorld
         },
         color: {
             type: 'v3',
@@ -94,16 +113,19 @@ ViewHelper.prototype.createMesh = function () {
     var material3 = material1.clone();
     material3.uniforms.color.value = new THREE.Vector3(0.0, 0.0, 1.0);
 
+    var material4 = material1.clone();
+    material4.uniforms.color.value = new THREE.Vector3(0.5, 0.5, 0.5);
+
     var mesh = new THREE.Mesh(geometry, [
         material1,
-        material1,
+        material4,
         material2,
-        material2,
+        material4,
         material3,
-        material3
+        material4
     ]);
 
-    mesh.scale.multiplyScalar(0.1);
+    mesh.scale.multiplyScalar(0.2);
 
     return mesh;
 };
