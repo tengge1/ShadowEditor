@@ -71,14 +71,6 @@ ViewHelper.prototype.createMesh = function () {
             type: 'f',
             value: 280,
         },
-        projectionMatrixInverse: {
-            type: 'm4',
-            value: this.object.projectionMatrixInverse
-        },
-        cameraMatrixWorld: {
-            type: 'm4',
-            value: this.object.matrixWorld
-        },
         color: {
             type: 'v3',
             value: new THREE.Vector3(1.0, 0.0, 0.0)
@@ -124,8 +116,6 @@ ViewHelper.prototype.createMesh = function () {
         material3,
         material4
     ]);
-
-    mesh.scale.multiplyScalar(0.2);
 
     return mesh;
 };

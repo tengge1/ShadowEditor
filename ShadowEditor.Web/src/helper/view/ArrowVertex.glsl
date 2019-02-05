@@ -5,7 +5,7 @@ attribute vec3 position;
 attribute vec3 normal;
 attribute vec2 uv;
 
-uniform mat4 modelViewMatrix;
+uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 uniform mat3 normalMatrix;
 
@@ -13,24 +13,22 @@ uniform float domWidth;
 uniform float domHeight;
 uniform float right;
 uniform float top;
-uniform mat4 projectionMatrixInverse;
-uniform mat4 cameraMatrixWorld;
 
 varying vec3 vPosition;
 varying vec3 vNormal;
 
+#include <decomposeMatrix>
+#include <makePerspective>
+
 void main() {
-    float x = 1.0 - right / domWidth;
-    float y = 1.0 - top / domHeight;
+    mat4 translation, rotation, scale;
+    decomposeMatrix(viewMatrix, translation, rotation, scale);
 
-    mat4 _modelViewMatrix = mat4(modelViewMatrix);
-    _modelViewMatrix[3][0] = 0.35;
-    _modelViewMatrix[3][1] = 0.18;
-    _modelViewMatrix[3][2] = -0.8;
+    mat4 projectionMatrix2 = makePerspective(-0.12, 0.12, 0.04, -0.04, 0.1, 10000.0);
 
-    vec4 mvPosition = _modelViewMatrix * vec4(position, 1.0);
+    vec4 mvPosition = rotation * vec4(position, 1.0);
 
-    gl_Position = mvPosition;
+    gl_Position = projectionMatrix * mvPosition;
     
     vPosition = vec3(mvPosition);
     vNormal = normalize(normalMatrix * normal);
