@@ -38,6 +38,8 @@ PickEvent.prototype.onMouseDown = function (event) {
         return;
     }
 
+    // 这样处理选中的原因是避免把拖动误认为点击
+
     var container = this.app.viewport.container;
 
     event.preventDefault();
@@ -86,7 +88,6 @@ PickEvent.prototype.getMousePosition = function (dom, x, y) {
 };
 
 PickEvent.prototype.handleClick = function () {
-    var container = this.app.viewport.container;
     var editor = this.app.editor;
     var objects = editor.objects;
 
@@ -104,6 +105,14 @@ PickEvent.prototype.handleClick = function () {
             }
         } else {
             editor.select(null);
+        }
+
+        // objects in sceneHelpers
+        var sceneHelpers = this.app.editor.sceneHelpers;
+
+        var intersects = this.getIntersects(this.onUpPosition, sceneHelpers.children);
+        if (intersects.length > 0) {
+            this.app.call(`selectHelper`, this, intersects[0], intersects);
         }
 
         this.app.call('render');

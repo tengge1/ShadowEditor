@@ -13,7 +13,8 @@ function ViewHelper(camera, domElement) {
     this.domWidth = domElement.clientWidth;
     this.domHeight = domElement.clientHeight;
 
-    this.add(this.createMesh());
+    this.mesh = this.createMesh();
+    this.add(this.mesh);
 }
 
 ViewHelper.prototype = Object.create(BaseHelper.prototype);
@@ -92,7 +93,7 @@ ViewHelper.prototype.createMesh = function () {
     var material1 = new THREE.RawShaderMaterial({
         uniforms: THREE.UniformsUtils.clone(uniforms),
         vertexShader: ArrowVertex,
-        fragmentShader: ArrowFragment,
+        fragmentShader: ArrowFragment
     });
 
     var material2 = material1.clone();
@@ -116,6 +117,15 @@ ViewHelper.prototype.createMesh = function () {
     mesh.frustumCulled = false;
 
     return mesh;
+};
+
+ViewHelper.prototype.raycast = function (raycaster, intersects) {
+    // TODO: ViewHelper select test method
+    // var object = raycaster.intersectObject(this.mesh);
+
+    // if (object) {
+    //     intersects.push(object);
+    // }
 };
 
 export default ViewHelper;

@@ -38,6 +38,7 @@ var EventList = [
 
     // editor事件
     'select', // 选中事件
+    'selectHelper', // select object in the helper scene
     'clear', // 清空场景
     'load', // 加载场景
     'log', // 日志事件
