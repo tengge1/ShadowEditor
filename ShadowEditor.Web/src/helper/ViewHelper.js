@@ -24,7 +24,7 @@ ViewHelper.prototype.update = function () {
 };
 
 ViewHelper.prototype.createMesh = function () {
-    var geometry = new THREE.ConeBufferGeometry(0.1, 0.4, 16, 16);
+    var geometry = new THREE.ConeBufferGeometry(0.25, 1.0, 16, 16);
     geometry.computeBoundingBox();
     geometry.translate(0, geometry.boundingBox.min.y, 0);
 
@@ -63,13 +63,9 @@ ViewHelper.prototype.createMesh = function () {
             type: 'f',
             value: this.domHeight
         },
-        right: {
+        size: {
             type: 'f',
-            value: 280,
-        },
-        top: {
-            type: 'f',
-            value: 280,
+            value: 80,
         },
         color: {
             type: 'v3',
@@ -116,6 +112,8 @@ ViewHelper.prototype.createMesh = function () {
         material3,
         material4
     ]);
+
+    mesh.frustumCulled = false;
 
     return mesh;
 };
