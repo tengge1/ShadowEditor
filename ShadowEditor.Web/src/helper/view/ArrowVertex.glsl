@@ -24,6 +24,8 @@ void main() {
     );
 
     mat4 _modelViewMatrix = modelViewMatrix;
+    _modelViewMatrix[3][0] = 0.0;
+    _modelViewMatrix[3][1] = 0.0;
     _modelViewMatrix[3][2] = -12.0;
     
     vec4 mvPosition = _modelViewMatrix * vec4(position, 1.0);

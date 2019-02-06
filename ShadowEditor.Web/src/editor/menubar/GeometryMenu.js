@@ -17,6 +17,8 @@ import Text from '../../object/geometry/Text';
 
 import Spline from '../../object/line/Spline';
 
+import SplineHelper from '../../helper/line/SplineHelper';
+
 /**
  * 几何体菜单
  * @author tengge / https://github.com/tengge1
@@ -208,13 +210,10 @@ GeometryMenu.prototype.addText = function () {
 
 GeometryMenu.prototype.addSpline = function () {
     var line = new Spline();
-    var helper = line.createHelper();
+    var helper = new SplineHelper(line);
 
     this.app.editor.execute(new AddObjectCommand(line));
-
-    if (helper) {
-        this.app.editor.addPhysicsHelper(helper);
-    }
+    this.app.editor.addRawHelper(helper);
 };
 
 export default GeometryMenu;

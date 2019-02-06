@@ -48,39 +48,4 @@ Spline.prototype.update = function () {
     position.needsUpdate = true;
 };
 
-// ------------------------- 帮助器 ------------------------------
-
-Spline.prototype.createHelper = function () {
-    var points = this.userData.points;
-
-    var obj3d = new THREE.Object3D();
-    obj3d.object = this;
-    obj3d.update = this.updateHelper.bind(this);
-
-    var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
-    var material = new THREE.MeshBasicMaterial({
-        color: 0xff0000
-    });
-
-    points.forEach(n => {
-        var mesh = new THREE.Mesh(geometry, material);
-        mesh.position.copy(n);
-        obj3d.add(mesh);
-    });
-
-    this.helper = obj3d;
-
-    return obj3d;
-};
-
-Spline.prototype.updateHelper = function () {
-    this.userData.points.length = 0;
-
-    this.helper.children.forEach(n => {
-        this.userData.points.push(n.position);
-    });
-
-    this.update();
-};
-
 export default Spline;
