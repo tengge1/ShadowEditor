@@ -116,10 +116,6 @@ Editor.prototype.onAppStarted = function () {
     // 帮助器
     var helper = new ViewHelper(this.camera, this.renderer.domElement);
     this.addRawHelper(helper);
-
-    this.app.on(`cameraChanged.Editor`, () => {
-        helper.update();
-    });
 };
 
 // -------------------- 场景 --------------------------
@@ -381,6 +377,17 @@ Editor.prototype.removePhysicsHelper = function (helper) {
 
 Editor.prototype.addRawHelper = function (helper) {
     this.sceneHelpers.add(helper);
+
+    this.app.on(`objectChanged.${helper.id}`, object => {
+        if (object === helper.object) {
+            helper.update();
+        }
+    });
+};
+
+Editor.prototype.removeRawHelper = function (helper) {
+    this.sceneHelpers.remove(helper);
+    this.app.on(`objectChanged.${helper.id}`, null);
 };
 
 // ------------------------ 脚本 ----------------------------
