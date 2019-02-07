@@ -23,7 +23,7 @@ SplineHelper.prototype.update = function () {
             color: 0xff0000
         });
         var mesh = new THREE.Mesh(geometry, material);
-        mesh.position.copy(n);
+        mesh.position.copy(n).add(this.object.position);
         this.add(mesh);
     });
 };
@@ -34,7 +34,7 @@ SplineHelper.prototype.updateObject = function (object) {
         console.warn(`SplineHelper: object is not an child.`);
         return;
     }
-    this.object.userData.points[index].copy(object.position);
+    this.object.userData.points[index].copy(this.object.position).multiplyScalar(-1).add(object.position);
     this.object.update();
 };
 
