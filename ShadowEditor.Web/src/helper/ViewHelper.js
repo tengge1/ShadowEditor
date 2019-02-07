@@ -66,7 +66,7 @@ ViewHelper.prototype.createMesh = function () {
         },
         size: {
             type: 'f',
-            value: 80,
+            value: 80 / 878 * this.domWidth,
         },
         color: {
             type: 'v3',
