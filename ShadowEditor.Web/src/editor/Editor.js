@@ -384,8 +384,11 @@ Editor.prototype.addRawHelper = function (helper) {
     this.sceneHelpers.add(helper);
 
     this.app.on(`objectChanged.${helper.id}`, object => {
-        if (object === helper.object) {
+        if (object === helper.object) { // 根据物体变化更新帮助器
             helper.update();
+        }
+        if (helper.children.indexOf(object) > -1) { // 根据帮助器变化更新物体
+            helper.updateObject(object);
         }
     });
 };

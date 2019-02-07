@@ -6,9 +6,6 @@ import BaseHelper from '../BaseHelper';
  */
 function SplineHelper(spline) {
     BaseHelper.call(this, spline);
-
-    this.points = [];
-
     this.update();
 }
 
@@ -16,10 +13,9 @@ SplineHelper.prototype = Object.create(BaseHelper.prototype);
 SplineHelper.prototype.constructor = SplineHelper;
 
 SplineHelper.prototype.update = function () {
-    for (var i = 0; i < this.points.length; i++) {
-        this.remove(this.points[i]);
+    while (this.children.length) {
+        this.remove(this.children[0]);
     }
-    this.points.length = 0;
 
     this.object.userData.points.forEach(n => {
         var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
@@ -32,8 +28,21 @@ SplineHelper.prototype.update = function () {
     });
 };
 
-SplineHelper.prototype.updateObject = function () {
+SplineHelper.prototype.updateObject = function (object) {
+    var index = this.children.indexOf(object);
+    if (index === -1) {
+        console.warn(`SplineHelper: object is not an child.`);
+        return;
+    }
+    this.object.userData.points[index].copy(object.position);
+    this.object.update();
+};
 
+SplineHelper.prototype.raycast = function (raycaster, intersects) {
+    var list = raycaster.intersectObjects(this.children);
+    list.forEach(n => {
+        intersects.push(n);
+    });
 };
 
 export default SplineHelper;

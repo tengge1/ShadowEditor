@@ -112,7 +112,7 @@ PickEvent.prototype.handleClick = function () {
 
         var intersects = this.getIntersects(this.onUpPosition, sceneHelpers.children);
         if (intersects.length > 0) {
-            this.app.call(`selectHelper`, this, intersects[0], intersects);
+            editor.select(intersects[0].object);
         }
 
         this.app.call('render');
