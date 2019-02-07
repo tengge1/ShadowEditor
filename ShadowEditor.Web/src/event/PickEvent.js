@@ -112,7 +112,9 @@ PickEvent.prototype.handleClick = function () {
 
         var intersects = this.getIntersects(this.onUpPosition, sceneHelpers.children);
         if (intersects.length > 0) {
-            editor.select(intersects[0].object);
+            if (!(intersects[0].object instanceof THREE.GridHelper)) { // 禁止选中网格
+                editor.select(intersects[0].object);
+            }
         }
 
         this.app.call('render');
