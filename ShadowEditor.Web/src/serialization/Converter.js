@@ -39,6 +39,7 @@ import ParticleEmitterSerializer from './objects/ParticleEmitterSerializer';
 import PerlinTerrainSerializer from './objects/PerlinTerrainSerializer';
 import WaterSerializer from './objects/WaterSerializer';
 import ClothSerializer from './objects/ClothSerializer';
+import SplineSerializer from './objects/SplineSerializer';
 
 /**
  * 场景序列化/反序列化类
@@ -127,6 +128,8 @@ Converter.prototype.sceneToJson = function (scene, list) {
             json = (new WaterSerializer()).toJSON(obj);
         } else if (obj.userData.type === 'Cloth') {
             json = (new ClothSerializer()).toJSON(obj);
+        } else if (obj.userData.type === 'Spline') {
+            json = (new SplineSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Scene) {
             json = (new SceneSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Group) {
@@ -347,6 +350,9 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                     break;
                 case 'ClothSerializer':
                     obj = (new ClothSerializer()).fromJSON(objJson);
+                    break;
+                case 'SplineSerializer':
+                    obj = (new SplineSerializer()).fromJSON(objJson);
                     break;
             }
 

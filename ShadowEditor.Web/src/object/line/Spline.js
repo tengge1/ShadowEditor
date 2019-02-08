@@ -19,11 +19,14 @@ function Spline(points) {
 
     this.castShadow = true;
 
-    this.userData.points = points || [
-        new THREE.Vector3(10, 20, 40),
-        new THREE.Vector3(0, 30, -10),
-        new THREE.Vector3(-40, 10, -20),
-    ];
+    Object.assign(this.userData, {
+        type: 'Spline',
+        points: points || [
+            new THREE.Vector3(10, 20, 40),
+            new THREE.Vector3(0, 30, -10),
+            new THREE.Vector3(-40, 10, -20),
+        ]
+    });
 
     this.update();
 }
