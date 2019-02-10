@@ -4,7 +4,7 @@ var ARC_SEGMENTS = 200;
  * 曲线
  * @param {*} options 
  */
-function Spline(options = {}) {
+function CatmullRomCurve(options = {}) {
     var geometry = new THREE.BufferGeometry();
     geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(ARC_SEGMENTS * 3), 3));
 
@@ -20,7 +20,7 @@ function Spline(options = {}) {
     this.castShadow = true;
 
     Object.assign(this.userData, {
-        type: 'Spline', // CatmullRomCurve
+        type: 'CatmullRomCurve', // CatmullRomCurve
         points: options.points || [
             new THREE.Vector3(10, 20, 40),
             new THREE.Vector3(0, 30, -10),
@@ -34,10 +34,10 @@ function Spline(options = {}) {
     this.update();
 }
 
-Spline.prototype = Object.create(THREE.Line.prototype);
-Spline.prototype.constructor = Spline;
+CatmullRomCurve.prototype = Object.create(THREE.Line.prototype);
+CatmullRomCurve.prototype.constructor = CatmullRomCurve;
 
-Spline.prototype.update = function () {
+CatmullRomCurve.prototype.update = function () {
     var curve = new THREE.CatmullRomCurve3(
         this.userData.points,
         this.userData.closed,
@@ -58,4 +58,4 @@ Spline.prototype.update = function () {
     position.needsUpdate = true;
 };
 
-export default Spline;
+export default CatmullRomCurve;

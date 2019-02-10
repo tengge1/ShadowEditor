@@ -42,7 +42,7 @@ import SsaoComponent from '../../component/postProcessing/SsaoComponent';
 import TaaComponent from '../../component/postProcessing/TaaComponent';
 import SoftVolumeComponent from '../../component/physics/SoftVolumeComponent';
 import PhysicsTypeComponent from '../../component/physics/PhysicsTypeComponent';
-import SplineComponent from '../../component/line/SplineComponent';
+import CatmullRomCurveComponent from '../../component/line/CatmullRomCurveComponent';
 
 /**
  * 属性面板
@@ -103,7 +103,7 @@ PropertyPanel.prototype.render = function () {
             new ClothComponent({ app: this.app }),
             new LMeshComponent({ app: this.app }),
             new MMDComponent({ app: this.app }),
-            new SplineComponent({ app: this.app }),
+            new CatmullRomCurveComponent({ app: this.app }),
 
             // 物理组件
             new PhysicsTypeComponent({ app: this.app }),

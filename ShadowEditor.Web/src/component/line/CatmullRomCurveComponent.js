@@ -6,15 +6,15 @@ import SetGeometryCommand from '../../command/SetGeometryCommand';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function SplineComponent(options) {
+function CatmullRomCurveComponent(options) {
     BaseComponent.call(this, options);
     this.selected = null;
 }
 
-SplineComponent.prototype = Object.create(BaseComponent.prototype);
-SplineComponent.prototype.constructor = SplineComponent;
+CatmullRomCurveComponent.prototype = Object.create(BaseComponent.prototype);
+CatmullRomCurveComponent.prototype.constructor = CatmullRomCurveComponent;
 
-SplineComponent.prototype.render = function () {
+CatmullRomCurveComponent.prototype.render = function () {
     var data = {
         xtype: 'div',
         parent: this.parent,
@@ -83,18 +83,18 @@ SplineComponent.prototype.render = function () {
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
-SplineComponent.prototype.onObjectSelected = function () {
+CatmullRomCurveComponent.prototype.onObjectSelected = function () {
     this.updateUI();
 };
 
-SplineComponent.prototype.onObjectChanged = function () {
+CatmullRomCurveComponent.prototype.onObjectChanged = function () {
     this.updateUI();
 };
 
-SplineComponent.prototype.updateUI = function () {
+CatmullRomCurveComponent.prototype.updateUI = function () {
     var container = UI.get('panel', this.id);
     var editor = this.app.editor;
-    if (editor.selected && editor.selected instanceof THREE.Line && editor.selected.userData.type === 'Spline') {
+    if (editor.selected && editor.selected instanceof THREE.Line && editor.selected.userData.type === 'CatmullRomCurve') {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
@@ -112,7 +112,7 @@ SplineComponent.prototype.updateUI = function () {
     tension.setValue(this.selected.userData.tension);
 };
 
-SplineComponent.prototype.onChange = function () {
+CatmullRomCurveComponent.prototype.onChange = function () {
     var closed = UI.get('closed', this.id);
     var curveType = UI.get('curveType', this.id);
     var tension = UI.get('tension', this.id);
@@ -128,4 +128,4 @@ SplineComponent.prototype.onChange = function () {
     this.app.call('objectChanged', this, this.selected);
 };
 
-export default SplineComponent;
+export default CatmullRomCurveComponent;

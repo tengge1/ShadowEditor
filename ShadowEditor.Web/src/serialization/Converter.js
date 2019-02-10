@@ -39,7 +39,7 @@ import ParticleEmitterSerializer from './objects/ParticleEmitterSerializer';
 import PerlinTerrainSerializer from './objects/PerlinTerrainSerializer';
 import WaterSerializer from './objects/WaterSerializer';
 import ClothSerializer from './objects/ClothSerializer';
-import SplineSerializer from './objects/SplineSerializer';
+import CatmullRomCurveSerializer from './objects/line/CatmullRomCurveSerializer';
 
 /**
  * 场景序列化/反序列化类
@@ -128,8 +128,8 @@ Converter.prototype.sceneToJson = function (scene, list) {
             json = (new WaterSerializer()).toJSON(obj);
         } else if (obj.userData.type === 'Cloth') {
             json = (new ClothSerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'Spline') {
-            json = (new SplineSerializer()).toJSON(obj);
+        } else if (obj.userData.type === 'CatmullRomCurve') {
+            json = (new CatmullRomCurveSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Scene) {
             json = (new SceneSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Group) {
@@ -351,8 +351,8 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                 case 'ClothSerializer':
                     obj = (new ClothSerializer()).fromJSON(objJson);
                     break;
-                case 'SplineSerializer':
-                    obj = (new SplineSerializer()).fromJSON(objJson);
+                case 'CatmullRomCurveSerializer':
+                    obj = (new CatmullRomCurveSerializer()).fromJSON(objJson);
                     break;
             }
 

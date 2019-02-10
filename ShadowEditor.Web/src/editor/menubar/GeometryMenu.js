@@ -16,7 +16,7 @@ import Sprite from '../../object/geometry/Sprite';
 import Text from '../../object/geometry/Text';
 
 import LineCurve from '../../object/line/LineCurve';
-import Spline from '../../object/line/Spline';
+import CatmullRomCurve from '../../object/line/CatmullRomCurve';
 
 import SplineHelper from '../../helper/line/SplineHelper';
 
@@ -119,12 +119,12 @@ GeometryMenu.prototype.render = function () {
                 xtype: 'div',
                 html: '线段',
                 cls: 'option',
-                onClick: this.addLineCurve3.bind(this)
+                onClick: this.addLineCurve.bind(this)
             }, {
                 xtype: 'div',
                 html: 'CatmullRom曲线',
                 cls: 'option',
-                onClick: this.addSpline.bind(this)
+                onClick: this.addCatmullRomCurve.bind(this)
             }, {
                 xtype: 'div',
                 html: 'CubicBezier曲线',
@@ -238,15 +238,15 @@ GeometryMenu.prototype.addText = function () {
 
 // ---------------------- 线段 ----------------------------------
 
-GeometryMenu.prototype.addLineCurve3 = function () {
+GeometryMenu.prototype.addLineCurve = function () {
     var line = new LineCurve();
     this.app.editor.execute(new AddObjectCommand(line));
 };
 
 // ---------------------- 曲线 ----------------------------------
 
-GeometryMenu.prototype.addSpline = function () {
-    var line = new Spline();
+GeometryMenu.prototype.addCatmullRomCurve = function () {
+    var line = new CatmullRomCurve();
     var helper = new SplineHelper(line);
 
     this.app.editor.execute(new AddObjectCommand(line));
