@@ -20,9 +20,11 @@ SplineSerializer.prototype.toJSON = function (obj) {
 };
 
 SplineSerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent || new Spline(json.userData.points.map(n => {
+    json.userData.points = json.userData.points.map(n => {
         return new THREE.Vector3().copy(n);
-    }));
+    });
+
+    var obj = parent || new Spline(json.userData);
 
     MeshSerializer.prototype.fromJSON.call(this, json, obj);
 

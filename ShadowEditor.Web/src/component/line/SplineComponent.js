@@ -31,84 +31,47 @@ SplineComponent.prototype.render = function () {
                 color: '#555',
                 fontWeight: 'bold'
             },
-            text: "Spline Component"
+            text: '曲线组件'
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '闭合'
+            }, {
+                xtype: 'checkbox',
+                id: 'closed',
+                scope: this.id,
+                onChange: this.onChange.bind(this)
+            }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'row',
                 children: [{
                     xtype: 'label',
-                    text: L_WIDTH
+                    text: '线型'
                 }, {
-                    xtype: 'number',
-                    id: 'width',
+                    xtype: 'select',
+                    id: 'curveType',
                     scope: this.id,
-                    value: 1,
+                    options: {
+                        centripetal: '向心力',
+                        chordal: '弦线',
+                        catmullrom: 'catmullrom'
+                    },
                     onChange: this.onChange.bind(this)
                 }]
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '张力'
             }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: L_HEIGHT
-                }, {
-                    xtype: 'number',
-                    id: 'height',
-                    scope: this.id,
-                    value: 1,
-                    onChange: this.onChange.bind(this)
-                }]
-            }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: L_DEPTH
-                }, {
-                    xtype: 'number',
-                    id: 'depth',
-                    scope: this.id,
-                    value: 1,
-                    onChange: this.onChange.bind(this)
-                }]
-            }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: L_WIDTH_SEGMENTS
-                }, {
-                    xtype: 'int',
-                    id: 'widthSegments',
-                    scope: this.id,
-                    value: 1,
-                    range: [1, Infinity],
-                    onChange: this.onChange.bind(this)
-                }]
-            }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: L_HEIGHT_SEGMENTS
-                }, {
-                    xtype: 'int',
-                    id: 'heightSegments',
-                    scope: this.id,
-                    value: 1,
-                    range: [1, Infinity],
-                    onChange: this.onChange.bind(this)
-                }]
-            }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: L_DEPTH_SEGMENTS
-                }, {
-                    xtype: 'int',
-                    id: 'depthSegments',
-                    scope: this.id,
-                    value: 1,
-                    range: [1, Infinity],
-                    onChange: this.onChange.bind(this)
-                }]
+                xtype: 'number',
+                id: 'tension',
+                scope: this.id,
+                onChange: this.onChange.bind(this)
             }]
         }]
     };
@@ -139,10 +102,30 @@ SplineComponent.prototype.updateUI = function () {
     }
 
     this.selected = editor.selected;
+
+    var closed = UI.get('closed', this.id);
+    var curveType = UI.get('curveType', this.id);
+    var tension = UI.get('tension', this.id);
+
+    closed.setValue(this.selected.userData.closed);
+    curveType.setValue(this.selected.userData.curveType);
+    tension.setValue(this.selected.userData.tension);
 };
 
 SplineComponent.prototype.onChange = function () {
+    var closed = UI.get('closed', this.id);
+    var curveType = UI.get('curveType', this.id);
+    var tension = UI.get('tension', this.id);
 
+    Object.assign(this.selected.userData, {
+        closed: closed.getValue(),
+        curveType: curveType.getValue(),
+        tension: tension.getValue(),
+    });
+
+    this.selected.update();
+
+    this.app.call('objectChanged', this, this.selected);
 };
 
 export default SplineComponent;
