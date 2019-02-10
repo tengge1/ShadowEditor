@@ -17,6 +17,7 @@ import Text from '../../object/geometry/Text';
 
 import LineCurve from '../../object/line/LineCurve';
 import CatmullRomCurve from '../../object/line/CatmullRomCurve';
+import QuadraticBezierCurve from '../../object/line/QuadraticBezierCurve';
 import CubicBezierCurve from '../../object/line/CubicBezierCurve';
 import EllipseCurve from '../../object/line/EllipseCurve';
 
@@ -129,6 +130,11 @@ GeometryMenu.prototype.render = function () {
                 onClick: this.addCatmullRomCurve.bind(this)
             }, {
                 xtype: 'div',
+                html: '二次贝塞尔曲线',
+                cls: 'option',
+                onClick: this.addQuadraticBezierCurve.bind(this)
+            }, {
+                xtype: 'div',
                 html: '三次贝塞尔曲线',
                 cls: 'option',
                 onClick: this.addCubicBezierCurve.bind(this)
@@ -137,10 +143,6 @@ GeometryMenu.prototype.render = function () {
                 html: '椭圆曲线',
                 cls: 'option',
                 onClick: this.addEllipseCurve.bind(this)
-            }, {
-                xtype: 'div',
-                html: '四次贝塞尔曲线',
-                cls: 'option',
             }, {
                 xtype: 'div',
                 html: 'Spline曲线',
@@ -251,6 +253,13 @@ GeometryMenu.prototype.addCatmullRomCurve = function () {
 
     this.app.editor.execute(new AddObjectCommand(line));
     this.app.editor.addRawHelper(helper);
+};
+
+// ----------------------- 二次贝塞尔曲线 ---------------------------------
+
+GeometryMenu.prototype.addQuadraticBezierCurve = function () {
+    var line = new QuadraticBezierCurve();
+    this.app.editor.execute(new AddObjectCommand(line));
 };
 
 // ----------------------- 三次贝塞尔曲线 ---------------------------------
