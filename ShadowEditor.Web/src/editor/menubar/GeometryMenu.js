@@ -15,6 +15,7 @@ import Lathe from '../../object/geometry/Lathe';
 import Sprite from '../../object/geometry/Sprite';
 import Text from '../../object/geometry/Text';
 
+import LineCurve from '../../object/line/LineCurve';
 import Spline from '../../object/line/Spline';
 
 import SplineHelper from '../../helper/line/SplineHelper';
@@ -238,7 +239,8 @@ GeometryMenu.prototype.addText = function () {
 // ---------------------- 线段 ----------------------------------
 
 GeometryMenu.prototype.addLineCurve3 = function () {
-    UI.msg('添加线段成功！');
+    var line = new LineCurve();
+    this.app.editor.execute(new AddObjectCommand(line));
 };
 
 // ---------------------- 曲线 ----------------------------------
