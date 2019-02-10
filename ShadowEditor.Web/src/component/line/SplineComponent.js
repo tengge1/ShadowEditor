@@ -2,7 +2,7 @@ import BaseComponent from '../BaseComponent';
 import SetGeometryCommand from '../../command/SetGeometryCommand';
 
 /**
- * 正方体组件
+ * 曲线组件
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
@@ -18,7 +18,7 @@ SplineComponent.prototype.render = function () {
     var data = {
         xtype: 'div',
         parent: this.parent,
-        id: 'geometryPanel',
+        id: 'panel',
         scope: this.id,
         style: {
             borderTop: 0,
@@ -26,6 +26,14 @@ SplineComponent.prototype.render = function () {
             display: 'none'
         },
         children: [{
+            xtype: 'label',
+            style: {
+                width: '100%',
+                color: '#555',
+                fontWeight: 'bold'
+            },
+            text: "Spline Component"
+        }, {
             xtype: 'row',
             children: [{
                 xtype: 'row',
@@ -37,7 +45,7 @@ SplineComponent.prototype.render = function () {
                     id: 'width',
                     scope: this.id,
                     value: 1,
-                    onChange: this.onChangeGeometry.bind(this)
+                    onChange: this.onChange.bind(this)
                 }]
             }, {
                 xtype: 'row',
@@ -49,7 +57,7 @@ SplineComponent.prototype.render = function () {
                     id: 'height',
                     scope: this.id,
                     value: 1,
-                    onChange: this.onChangeGeometry.bind(this)
+                    onChange: this.onChange.bind(this)
                 }]
             }, {
                 xtype: 'row',
@@ -61,7 +69,7 @@ SplineComponent.prototype.render = function () {
                     id: 'depth',
                     scope: this.id,
                     value: 1,
-                    onChange: this.onChangeGeometry.bind(this)
+                    onChange: this.onChange.bind(this)
                 }]
             }, {
                 xtype: 'row',
@@ -74,7 +82,7 @@ SplineComponent.prototype.render = function () {
                     scope: this.id,
                     value: 1,
                     range: [1, Infinity],
-                    onChange: this.onChangeGeometry.bind(this)
+                    onChange: this.onChange.bind(this)
                 }]
             }, {
                 xtype: 'row',
@@ -87,7 +95,7 @@ SplineComponent.prototype.render = function () {
                     scope: this.id,
                     value: 1,
                     range: [1, Infinity],
-                    onChange: this.onChangeGeometry.bind(this)
+                    onChange: this.onChange.bind(this)
                 }]
             }, {
                 xtype: 'row',
@@ -100,7 +108,7 @@ SplineComponent.prototype.render = function () {
                     scope: this.id,
                     value: 1,
                     range: [1, Infinity],
-                    onChange: this.onChangeGeometry.bind(this)
+                    onChange: this.onChange.bind(this)
                 }]
             }]
         }]
@@ -122,9 +130,9 @@ SplineComponent.prototype.onObjectChanged = function () {
 };
 
 SplineComponent.prototype.updateUI = function () {
-    var container = UI.get('geometryPanel', this.id);
+    var container = UI.get('panel', this.id);
     var editor = this.app.editor;
-    if (editor.selected && editor.selected instanceof THREE.Mesh && editor.selected.geometry instanceof THREE.BoxBufferGeometry) {
+    if (editor.selected && editor.selected instanceof THREE.Line && editor.selected.userData.type === 'Spline') {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
@@ -132,20 +140,10 @@ SplineComponent.prototype.updateUI = function () {
     }
 
     this.selected = editor.selected;
+};
 
-    var width = UI.get('width', this.id);
-    var height = UI.get('height', this.id);
-    var depth = UI.get('depth', this.id);
-    var widthSegments = UI.get('widthSegments', this.id);
-    var heightSegments = UI.get('heightSegments', this.id);
-    var depthSegments = UI.get('depthSegments', this.id);
+SplineComponent.prototype.onChange = function () {
 
-    width.setValue(this.selected.geometry.parameters.width);
-    height.setValue(this.selected.geometry.parameters.height);
-    depth.setValue(this.selected.geometry.parameters.depth);
-    widthSegments.setValue(this.selected.geometry.parameters.widthSegments);
-    heightSegments.setValue(this.selected.geometry.parameters.heightSegments);
-    depthSegments.setValue(this.selected.geometry.parameters.depthSegments);
 };
 
 export default SplineComponent;
