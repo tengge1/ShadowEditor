@@ -8,11 +8,6 @@ import KeyDownEvent from './KeyDownEvent';
 import RenderEvent from './RenderEvent';
 import ResizeEvent from './ResizeEvent';
 
-// 菜单栏
-import AddPhysicsPlaneEvent from './menu/physics/AddPhysicsPlaneEvent';
-import AddPhysicsWallEvent from './menu/physics/AddPhysicsWallEvent';
-import AddPhysicsClothEvent from './menu/physics/AddPhysicsClothEvent';
-
 import TransformControlsEvent from './TransformControlsEvent';
 import ObjectEvent from './ObjectEvent';
 import PickEvent from './PickEvent';
@@ -33,11 +28,6 @@ function EventDispatcher(app) {
         new KeyDownEvent(this.app),
         new RenderEvent(this.app),
         new ResizeEvent(this.app),
-
-        // menubar中的事件
-        new AddPhysicsPlaneEvent(this.app),
-        new AddPhysicsWallEvent(this.app),
-        new AddPhysicsClothEvent(this.app),
 
         // viewport中的事件
         new TransformControlsEvent(this.app),
