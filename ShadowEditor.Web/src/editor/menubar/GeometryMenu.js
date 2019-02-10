@@ -116,9 +116,38 @@ GeometryMenu.prototype.render = function () {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                html: L_SPLINE,
+                html: '线段',
+                cls: 'option',
+                onClick: this.addLineCurve3.bind(this)
+            }, {
+                xtype: 'div',
+                html: 'CatmullRom曲线',
                 cls: 'option',
                 onClick: this.addSpline.bind(this)
+            }, {
+                xtype: 'div',
+                html: 'CubicBezier曲线',
+                cls: 'option',
+            }, {
+                xtype: 'div',
+                html: 'CubicBezier曲线',
+                cls: 'option',
+            }, {
+                xtype: 'div',
+                html: 'EllipseCurve曲线',
+                cls: 'option',
+            }, {
+                xtype: 'div',
+                html: 'QuadraticBezier曲线',
+                cls: 'option',
+            }, {
+                xtype: 'div',
+                html: 'SplineCurve曲线',
+                cls: 'option',
+            }, {
+                xtype: 'div',
+                html: '管线',
+                cls: 'option',
             }]
         }]
     });
@@ -204,6 +233,12 @@ GeometryMenu.prototype.addText = function () {
     UI.prompt(L_PLEASE_INPUT, null, L_SOME_WORDS, (event, value) => {
         this.app.editor.execute(new AddObjectCommand(new Text(value)));
     });
+};
+
+// ---------------------- 线段 ----------------------------------
+
+GeometryMenu.prototype.addLineCurve3 = function () {
+    UI.msg('添加线段成功！');
 };
 
 // ---------------------- 曲线 ----------------------------------

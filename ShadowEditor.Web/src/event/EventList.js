@@ -26,17 +26,11 @@ var EventList = [
     // 配置
     'optionsChanged', // 配置改变事件
 
-    // 菜单栏事件
-    'mAddPhysicsPlane', // 添加平板
-    'mAddPhysicsWall', // 添加墙
-    'mAddPhysicsCloth', // 添加布料
-    'mThrowBall', // 探测小球
-    'sceneSaved', // 场景保存成功
-
     // 工具栏事件
     'changeMode', // 改变模式（select, translate, rotate, scale, delete）
 
     // editor事件
+    'sceneSaved', // 场景保存成功
     'select', // 选中事件
     'clear', // 清空场景
     'load', // 加载场景
