@@ -1,7 +1,7 @@
 var ARC_SEGMENTS = 200;
 
 /**
- * 曲线
+ * CatmullRom曲线
  * @param {*} options 
  */
 function CatmullRomCurve(options = {}) {

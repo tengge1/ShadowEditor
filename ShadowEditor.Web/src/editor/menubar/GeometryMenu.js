@@ -18,6 +18,7 @@ import Text from '../../object/geometry/Text';
 import LineCurve from '../../object/line/LineCurve';
 import CatmullRomCurve from '../../object/line/CatmullRomCurve';
 import CubicBezierCurve from '../../object/line/CubicBezierCurve';
+import EllipseCurve from '../../object/line/EllipseCurve';
 
 import SplineHelper from '../../helper/line/SplineHelper';
 
@@ -135,6 +136,7 @@ GeometryMenu.prototype.render = function () {
                 xtype: 'div',
                 html: '椭圆曲线',
                 cls: 'option',
+                onClick: this.addEllipseCurve.bind(this)
             }, {
                 xtype: 'div',
                 html: '四次贝塞尔曲线',
@@ -255,6 +257,13 @@ GeometryMenu.prototype.addCatmullRomCurve = function () {
 
 GeometryMenu.prototype.addCubicBezierCurve = function () {
     var line = new CubicBezierCurve();
+    this.app.editor.execute(new AddObjectCommand(line));
+};
+
+// --------------------- 椭圆曲线 ------------------------------------------
+
+GeometryMenu.prototype.addEllipseCurve = function () {
+    var line = new EllipseCurve();
     this.app.editor.execute(new AddObjectCommand(line));
 };
 

@@ -1,7 +1,7 @@
 var ARC_SEGMENTS = 200;
 
 /**
- * 曲线
+ * 三次贝塞尔曲线
  * @param {*} options 
  */
 function CubicBezierCurve(options = {}) {
