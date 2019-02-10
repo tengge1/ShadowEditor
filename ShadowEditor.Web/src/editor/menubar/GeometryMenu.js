@@ -145,10 +145,6 @@ GeometryMenu.prototype.render = function () {
                 onClick: this.addEllipseCurve.bind(this)
             }, {
                 xtype: 'div',
-                html: 'Spline曲线',
-                cls: 'option',
-            }, {
-                xtype: 'div',
                 html: '管线',
                 cls: 'option',
             }]
