@@ -20,9 +20,8 @@ SplineComponent.prototype.render = function () {
         parent: this.parent,
         id: 'panel',
         scope: this.id,
+        cls: 'Panel',
         style: {
-            borderTop: 0,
-            marginTop: '8px',
             display: 'none'
         },
         children: [{
