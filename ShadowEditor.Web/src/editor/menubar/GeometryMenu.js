@@ -17,6 +17,7 @@ import Text from '../../object/geometry/Text';
 
 import LineCurve from '../../object/line/LineCurve';
 import CatmullRomCurve from '../../object/line/CatmullRomCurve';
+import CubicBezierCurve from '../../object/line/CubicBezierCurve';
 
 import SplineHelper from '../../helper/line/SplineHelper';
 
@@ -127,23 +128,20 @@ GeometryMenu.prototype.render = function () {
                 onClick: this.addCatmullRomCurve.bind(this)
             }, {
                 xtype: 'div',
-                html: 'CubicBezier曲线',
+                html: '三次贝塞尔曲线',
+                cls: 'option',
+                onClick: this.addCubicBezierCurve.bind(this)
+            }, {
+                xtype: 'div',
+                html: '椭圆曲线',
                 cls: 'option',
             }, {
                 xtype: 'div',
-                html: 'CubicBezier曲线',
+                html: '四次贝塞尔曲线',
                 cls: 'option',
             }, {
                 xtype: 'div',
-                html: 'EllipseCurve曲线',
-                cls: 'option',
-            }, {
-                xtype: 'div',
-                html: 'QuadraticBezier曲线',
-                cls: 'option',
-            }, {
-                xtype: 'div',
-                html: 'SplineCurve曲线',
+                html: 'Spline曲线',
                 cls: 'option',
             }, {
                 xtype: 'div',
@@ -243,7 +241,7 @@ GeometryMenu.prototype.addLineCurve = function () {
     this.app.editor.execute(new AddObjectCommand(line));
 };
 
-// ---------------------- 曲线 ----------------------------------
+// ---------------------- CatmullRom曲线 ----------------------------------
 
 GeometryMenu.prototype.addCatmullRomCurve = function () {
     var line = new CatmullRomCurve();
@@ -251,6 +249,13 @@ GeometryMenu.prototype.addCatmullRomCurve = function () {
 
     this.app.editor.execute(new AddObjectCommand(line));
     this.app.editor.addRawHelper(helper);
+};
+
+// ----------------------- 三次贝塞尔曲线 ---------------------------------
+
+GeometryMenu.prototype.addCubicBezierCurve = function () {
+    var line = new CubicBezierCurve();
+    this.app.editor.execute(new AddObjectCommand(line));
 };
 
 export default GeometryMenu;

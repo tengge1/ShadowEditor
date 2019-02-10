@@ -15,12 +15,12 @@ function CatmullRomCurve(options = {}) {
 
     THREE.Line.call(this, geometry, material);
 
-    this.name = L_SPLINE;
+    this.name = 'CatmullRom曲线';
 
     this.castShadow = true;
 
     Object.assign(this.userData, {
-        type: 'CatmullRomCurve', // CatmullRomCurve
+        type: 'CatmullRomCurve',
         points: options.points || [
             new THREE.Vector3(10, 20, 40),
             new THREE.Vector3(0, 30, -10),
