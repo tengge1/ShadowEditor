@@ -94,7 +94,7 @@ CatmullRomCurveComponent.prototype.onObjectChanged = function () {
 CatmullRomCurveComponent.prototype.updateUI = function () {
     var container = UI.get('panel', this.id);
     var editor = this.app.editor;
-    if (editor.selected && editor.selected instanceof THREE.Line && editor.selected.userData.type === 'CatmullRomCurve') {
+    if (editor.selected && editor.selected.userData.type === 'CatmullRomCurve') {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
