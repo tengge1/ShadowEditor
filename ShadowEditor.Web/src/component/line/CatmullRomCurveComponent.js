@@ -2,7 +2,7 @@ import BaseComponent from '../BaseComponent';
 import SetGeometryCommand from '../../command/SetGeometryCommand';
 
 /**
- * 曲线组件
+ * CatmullRom曲线组件
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
@@ -31,7 +31,7 @@ CatmullRomCurveComponent.prototype.render = function () {
                 color: '#555',
                 fontWeight: 'bold'
             },
-            text: '曲线组件'
+            text: 'CatmullRom曲线组件'
         }, {
             xtype: 'row',
             children: [{

@@ -22,9 +22,9 @@ function CatmullRomCurve(options = {}) {
     Object.assign(this.userData, {
         type: 'CatmullRomCurve',
         points: options.points || [
-            new THREE.Vector3(10, 20, 40),
-            new THREE.Vector3(0, 30, -10),
-            new THREE.Vector3(-40, 10, -20),
+            new THREE.Vector3(4, 8, 16),
+            new THREE.Vector3(0, 12, -4),
+            new THREE.Vector3(-16, 4, -8),
         ],
         closed: options.closed || false,
         curveType: options.curveType || 'catmullrom', // centripetal, chordal and catmullrom
