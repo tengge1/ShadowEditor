@@ -143,10 +143,6 @@ GeometryMenu.prototype.render = function () {
                 html: '椭圆曲线',
                 cls: 'option',
                 onClick: this.addEllipseCurve.bind(this)
-            }, {
-                xtype: 'div',
-                html: '管线',
-                cls: 'option',
             }]
         }]
     });
