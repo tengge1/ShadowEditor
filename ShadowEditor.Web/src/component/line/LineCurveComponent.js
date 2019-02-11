@@ -31,7 +31,7 @@ LineCurveComponent.prototype.render = function () {
                 color: '#555',
                 fontWeight: 'bold'
             },
-            text: '线段组件'
+            text: '线段'
         }, {
             xtype: 'row',
             children: [{
