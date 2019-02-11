@@ -45,6 +45,7 @@ import PhysicsTypeComponent from '../../component/physics/PhysicsTypeComponent';
 
 import LineCurveComponent from '../../component/line/LineCurveComponent';
 import CatmullRomCurveComponent from '../../component/line/CatmullRomCurveComponent';
+import QuadraticBezierCurveComponent from '../../component/line/QuadraticBezierCurveComponent';
 
 /**
  * 属性面板
@@ -108,6 +109,7 @@ PropertyPanel.prototype.render = function () {
 
             new LineCurveComponent({ app: this.app }),
             new CatmullRomCurveComponent({ app: this.app }),
+            new QuadraticBezierCurveComponent({ app: this.app }),
 
             // 物理组件
             new PhysicsTypeComponent({ app: this.app }),
