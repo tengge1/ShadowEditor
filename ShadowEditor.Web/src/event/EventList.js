@@ -72,6 +72,8 @@ var EventList = [
     'transformControlsChange', // 变形控件改变
     'transformControlsMouseDown', // 变形控件按下鼠标键
     'transformControlsMouseUp', // 变形控件抬起鼠标键
+
+    'raycaster', // 光线投射事件
     'render', // 渲染一次场景
     'animate', // 进行动画
 

@@ -2,6 +2,8 @@ import UI from '../ui/UI';
 import AddObjectCommand from '../command/AddObjectCommand';
 import Earcut from '../utils/Earcut';
 
+import DigTool from '../tool/DigTool';
+
 /**
  * 工具栏
  * @author tengge / https://github.com/tengge1
@@ -27,76 +29,76 @@ Toolbar.prototype.render = function () {
         parent: this.parent,
         cls: 'toolbar',
         children: [{
-                xtype: 'iconbutton',
-                id: 'selectBtn',
-                scope: this.id,
-                icon: 'icon-select',
-                title: L_SELECT,
-                onClick: this.enterSelectMode.bind(this)
-            }, {
-                xtype: 'iconbutton',
-                id: 'translateBtn',
-                scope: this.id,
-                icon: 'icon-translate',
-                cls: 'Button IconButton selected',
-                title: L_TRANSLATE_W,
-                onClick: this.enterTranslateMode.bind(this)
-            }, {
-                xtype: 'iconbutton',
-                id: 'rotateBtn',
-                scope: this.id,
-                icon: 'icon-rotate',
-                title: L_ROTATE_E,
-                onClick: this.enterRotateMode.bind(this)
-            }, {
-                xtype: 'iconbutton',
-                id: 'scaleBtn',
-                scope: this.id,
-                icon: 'icon-scale',
-                title: L_SCALE_R,
-                onClick: this.enterScaleMode.bind(this)
-            }, {
-                xtype: 'hr'
-            }, {
-                xtype: 'iconbutton',
-                id: 'addPointBtn',
-                scope: this.id,
-                icon: 'icon-point',
-                title: L_DRAW_POINT,
-                onClick: this.onAddPoint.bind(this)
-            }, {
-                xtype: 'iconbutton',
-                id: 'addLineBtn',
-                scope: this.id,
-                icon: 'icon-line',
-                title: L_DRAW_LINE,
-                onClick: this.onAddLine.bind(this)
-            },
-            // {
-            //     xtype: 'iconbutton',
-            //     id: 'addPolygonBtn',
-            //     scope: this.id,
-            //     icon: 'icon-polygon',
-            //     title: L_DRAW_POLYGON,
-            //     onClick: this.onAddPolygon.bind(this)
-            // }, 
-            {
-                xtype: 'iconbutton',
-                id: 'sprayBtn',
-                scope: this.id,
-                icon: 'icon-spray',
-                title: L_SPRAY,
-                onClick: this.onSpray.bind(this)
-            }, {
-                xtype: 'hr'
-            }, {
-                xtype: 'iconbutton',
-                id: 'digBtn',
-                scope: this.id,
-                icon: 'icon-texture',
-                title: '挖坑',
-                onClick: this.onDig.bind(this)
-            }
+            xtype: 'iconbutton',
+            id: 'selectBtn',
+            scope: this.id,
+            icon: 'icon-select',
+            title: L_SELECT,
+            onClick: this.enterSelectMode.bind(this)
+        }, {
+            xtype: 'iconbutton',
+            id: 'translateBtn',
+            scope: this.id,
+            icon: 'icon-translate',
+            cls: 'Button IconButton selected',
+            title: L_TRANSLATE_W,
+            onClick: this.enterTranslateMode.bind(this)
+        }, {
+            xtype: 'iconbutton',
+            id: 'rotateBtn',
+            scope: this.id,
+            icon: 'icon-rotate',
+            title: L_ROTATE_E,
+            onClick: this.enterRotateMode.bind(this)
+        }, {
+            xtype: 'iconbutton',
+            id: 'scaleBtn',
+            scope: this.id,
+            icon: 'icon-scale',
+            title: L_SCALE_R,
+            onClick: this.enterScaleMode.bind(this)
+        }, {
+            xtype: 'hr'
+        }, {
+            xtype: 'iconbutton',
+            id: 'addPointBtn',
+            scope: this.id,
+            icon: 'icon-point',
+            title: L_DRAW_POINT,
+            onClick: this.onAddPoint.bind(this)
+        }, {
+            xtype: 'iconbutton',
+            id: 'addLineBtn',
+            scope: this.id,
+            icon: 'icon-line',
+            title: L_DRAW_LINE,
+            onClick: this.onAddLine.bind(this)
+        },
+        // {
+        //     xtype: 'iconbutton',
+        //     id: 'addPolygonBtn',
+        //     scope: this.id,
+        //     icon: 'icon-polygon',
+        //     title: L_DRAW_POLYGON,
+        //     onClick: this.onAddPolygon.bind(this)
+        // }, 
+        {
+            xtype: 'iconbutton',
+            id: 'sprayBtn',
+            scope: this.id,
+            icon: 'icon-spray',
+            title: L_SPRAY,
+            onClick: this.onSpray.bind(this)
+        }, {
+            xtype: 'hr'
+        }, {
+            xtype: 'iconbutton',
+            id: 'digBtn',
+            scope: this.id,
+            icon: 'icon-texture',
+            title: '挖坑',
+            onClick: this.onDig.bind(this)
+        }
         ]
     };
 
@@ -444,7 +446,8 @@ Toolbar.prototype.onSprayIntersect = function (obj, event) {
 // ------------------------------- 挖坑工具 -------------------------------------
 
 Toolbar.prototype.onDig = function () {
-    debugger
+    var tool = new DigTool(this.app);
+    tool.start();
 };
 
 export default Toolbar;

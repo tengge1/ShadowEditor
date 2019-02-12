@@ -10,6 +10,7 @@ import ResizeEvent from './ResizeEvent';
 
 import TransformControlsEvent from './TransformControlsEvent';
 import ObjectEvent from './ObjectEvent';
+import RaycastEvent from './RaycastEvent';
 import PickEvent from './PickEvent';
 import EditorControlsEvent from './EditorControlsEvent';
 
@@ -32,6 +33,7 @@ function EventDispatcher(app) {
         // viewport中的事件
         new TransformControlsEvent(this.app),
         new ObjectEvent(this.app),
+        new RaycastEvent(this.app),
         new PickEvent(this.app),
         new EditorControlsEvent(this.app)
     ];
