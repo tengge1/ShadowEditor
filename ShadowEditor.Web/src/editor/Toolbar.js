@@ -446,8 +446,17 @@ Toolbar.prototype.onSprayIntersect = function (obj, event) {
 // ------------------------------- 挖坑工具 -------------------------------------
 
 Toolbar.prototype.onDig = function () {
-    var tool = new DigTool(this.app);
-    tool.start();
+    var digBtn = UI.get('digBtn', this.id);
+    digBtn.select();
+
+    if (this.digTool === undefined) {
+        this.digTool = new DigTool(this.app);
+        this.digTool.on(`end.${this.id}`, () => {
+            digBtn.unselect();
+        });
+    }
+
+    this.digTool.start();
 };
 
 export default Toolbar;
