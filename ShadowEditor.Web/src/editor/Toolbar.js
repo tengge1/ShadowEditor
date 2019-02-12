@@ -96,7 +96,7 @@ Toolbar.prototype.render = function () {
             id: 'digBtn',
             scope: this.id,
             icon: 'icon-texture',
-            title: '挖坑',
+            title: '挖洞',
             onClick: this.onDig.bind(this)
         }
         ]

@@ -74,7 +74,9 @@ var EventList = [
     'transformControlsMouseUp', // 变形控件抬起鼠标键
 
     'raycast', // 光线投射事件
+    'beforeRender', // 渲染前执行
     'render', // 渲染一次场景
+    'afterRender', // 渲染后执行
     'animate', // 进行动画
 
     // 侧边栏

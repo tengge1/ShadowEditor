@@ -35,6 +35,8 @@ RenderEvent.prototype.onRender = function () {
     scene.updateMatrixWorld();
     sceneHelpers.updateMatrixWorld();
 
+    this.app.call('beforeRender', this);
+
     if (this.renderer === undefined) {
         this.createRenderer().then(() => {
             this.app.call('render');
@@ -45,6 +47,8 @@ RenderEvent.prototype.onRender = function () {
     } else {
         this.renderer.render();
     }
+
+    this.app.call('afterRender', this);
 };
 
 RenderEvent.prototype.createRenderer = function () {
