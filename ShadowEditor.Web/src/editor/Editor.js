@@ -117,10 +117,6 @@ function Editor(app) {
 
 Editor.prototype.onAppStarted = function () {
     this.clear();
-
-    // 帮助器
-    var helper = new ViewHelper(this.camera, this.renderer.domElement);
-    this.addRawHelper(helper);
 };
 
 // -------------------- 场景 --------------------------
@@ -378,24 +374,6 @@ Editor.prototype.removePhysicsHelper = function (helper) {
         var objects = this.objects;
         objects.splice(objects.indexOf(helper.getObjectByName('picker')), 1);
     }
-};
-
-Editor.prototype.addRawHelper = function (helper) {
-    this.sceneHelpers.add(helper);
-
-    this.app.on(`objectChanged.${helper.id}`, object => {
-        if (object === helper.object) { // 根据物体变化更新帮助器
-            helper.update();
-        }
-        if (helper.children.indexOf(object) > -1) { // 根据帮助器变化更新物体
-            helper.updateObject(object);
-        }
-    });
-};
-
-Editor.prototype.removeRawHelper = function (helper) {
-    this.sceneHelpers.remove(helper);
-    this.app.on(`objectChanged.${helper.id}`, null);
 };
 
 // ------------------------ 脚本 ----------------------------

@@ -241,10 +241,7 @@ GeometryMenu.prototype.addLineCurve = function () {
 
 GeometryMenu.prototype.addCatmullRomCurve = function () {
     var line = new CatmullRomCurve();
-    var helper = new SplineHelper(line);
-
     this.app.editor.execute(new AddObjectCommand(line));
-    this.app.editor.addRawHelper(helper);
 };
 
 // ----------------------- 二次贝塞尔曲线 ---------------------------------
