@@ -22,7 +22,7 @@ function LineCurve(options = {}) {
     Object.assign(this.userData, {
         type: 'LineCurve',
         v1: new THREE.Vector3(0, 0, 0),
-        v2: new THREE.Vector3(10, 10, 10),
+        v2: new THREE.Vector3(0, 10, 10),
     });
 
     this.update();
