@@ -1,6 +1,6 @@
 ﻿import History from '../core/History';
 import Storage from '../core/Storage';
-import ViewHelper from '../helper/ViewHelper';
+import Helpers from '../helper/Helpers';
 
 /**
  * 编辑器
@@ -113,10 +113,14 @@ function Editor(app) {
 
     this.app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
     this.app.on(`mousemove.${this.id}`, this.onMouseMove.bind(this));
+
+    // 帮助器
+    this.helpers = new Helpers(this.app);
 };
 
 Editor.prototype.onAppStarted = function () {
     this.clear();
+    this.helpers.start();
 };
 
 // -------------------- 场景 --------------------------

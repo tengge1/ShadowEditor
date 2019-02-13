@@ -4,24 +4,23 @@ import ArrowFragment from './view/ArrowFragment.glsl';
 
 /**
  * 视角帮助器
- * @param {*} camera
- * @param {*} domElement 
+ * @param {*} app 
  */
-function ViewHelper(camera, domElement) {
-    BaseHelper.call(this, camera);
-
-    this.domWidth = domElement.clientWidth;
-    this.domHeight = domElement.clientHeight;
-
-    this.mesh = this.createMesh();
-    this.add(this.mesh);
+function ViewHelper(app) {
+    BaseHelper.call(this, app);
 }
 
 ViewHelper.prototype = Object.create(BaseHelper.prototype);
 ViewHelper.prototype.constructor = ViewHelper;
 
-ViewHelper.prototype.update = function () {
+ViewHelper.prototype.start = function () {
+    this.mesh = this.createMesh();
+    this.app.editor.sceneHelpers.add(this.mesh);
+};
 
+ViewHelper.prototype.stop = function () {
+    this.app.editor.sceneHelpers.remove(this.mesh);
+    delete this.mesh;
 };
 
 ViewHelper.prototype.createMesh = function () {
@@ -55,18 +54,20 @@ ViewHelper.prototype.createMesh = function () {
         geometryNZ
     ], true);
 
+    var domElement = this.app.editor.renderer.domElement;
+
     var uniforms = {
         domWidth: {
             type: 'f',
-            value: this.domWidth
+            value: domElement.clientWidth
         },
         domHeight: {
             type: 'f',
-            value: this.domHeight
+            value: domElement.clientHeight
         },
         size: {
             type: 'f',
-            value: 80 / 878 * this.domWidth,
+            value: 80 / 878 * domElement.clientWidth
         },
         color: {
             type: 'v3',
@@ -105,7 +106,7 @@ ViewHelper.prototype.createMesh = function () {
     var material4 = material1.clone();
     material4.uniforms.color.value = new THREE.Vector3(0.5, 0.5, 0.5);
 
-    var mesh = new THREE.Mesh(geometry, [
+    return new THREE.Mesh(geometry, [
         material1,
         material4,
         material2,
@@ -113,10 +114,6 @@ ViewHelper.prototype.createMesh = function () {
         material3,
         material4
     ]);
-
-    mesh.frustumCulled = false;
-
-    return mesh;
 };
 
 ViewHelper.prototype.raycast = function (raycaster, intersects) {
