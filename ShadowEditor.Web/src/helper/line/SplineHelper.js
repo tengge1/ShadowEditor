@@ -2,15 +2,26 @@ import BaseHelper from '../BaseHelper';
 
 /**
  * 曲线帮助器基类
- * @param {*} spline 
+ * @param {*} app 
  */
-function SplineHelper(spline) {
-    BaseHelper.call(this, spline);
-    this.update();
+function SplineHelper(app) {
+    BaseHelper.call(this, app);
 }
 
 SplineHelper.prototype = Object.create(BaseHelper.prototype);
 SplineHelper.prototype.constructor = SplineHelper;
+
+SplineHelper.prototype.start = function () {
+    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+};
+
+SplineHelper.prototype.stop = function () {
+    this.app.on(`objectSelected.${this.id}`, null);
+};
+
+SplineHelper.prototype.onObjectSelected = function () {
+
+};
 
 SplineHelper.prototype.update = function () {
     while (this.children.length) {

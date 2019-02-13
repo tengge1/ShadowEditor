@@ -1,5 +1,6 @@
 import BaseHelper from './BaseHelper';
 import ViewHelper from './ViewHelper';
+import SplineHelper from './line/SplineHelper';
 
 /**
  * 所有帮助器
@@ -10,6 +11,7 @@ function Helpers(app) {
 
     this.helpers = [
         new ViewHelper(app),
+        new SplineHelper(app),
     ];
 }
 
