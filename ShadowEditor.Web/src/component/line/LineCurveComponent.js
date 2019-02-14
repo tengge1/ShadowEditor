@@ -111,12 +111,14 @@ LineCurveComponent.prototype.updateUI = function () {
     var v2y = UI.get('v2y', this.id);
     var v2z = UI.get('v2z', this.id);
 
-    v1x.setValue(this.selected.userData.v1.x);
-    v1y.setValue(this.selected.userData.v1.y);
-    v1z.setValue(this.selected.userData.v1.z);
-    v2x.setValue(this.selected.userData.v2.x);
-    v2y.setValue(this.selected.userData.v2.y);
-    v2z.setValue(this.selected.userData.v2.z);
+    var points = this.selected.userData.points;
+
+    v1x.setValue(points[0].x);
+    v1y.setValue(points[0].y);
+    v1z.setValue(points[0].z);
+    v2x.setValue(points[1].x);
+    v2y.setValue(points[1].y);
+    v2z.setValue(points[1].z);
 };
 
 LineCurveComponent.prototype.onChange = function () {
@@ -127,10 +129,10 @@ LineCurveComponent.prototype.onChange = function () {
     var v2y = UI.get('v2y', this.id);
     var v2z = UI.get('v2z', this.id);
 
-    Object.assign(this.selected.userData, {
-        v1: new THREE.Vector3(v1x.getValue(), v1y.getValue(), v1z.getValue()),
-        v2: new THREE.Vector3(v2x.getValue(), v2y.getValue(), v2z.getValue()),
-    });
+    this.selected.userData.points = [
+        new THREE.Vector3(v1x.getValue(), v1y.getValue(), v1z.getValue()),
+        new THREE.Vector3(v2x.getValue(), v2y.getValue(), v2z.getValue())
+    ];
 
     this.selected.update();
 

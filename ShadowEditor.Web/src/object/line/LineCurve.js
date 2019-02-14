@@ -21,8 +21,10 @@ function LineCurve(options = {}) {
 
     Object.assign(this.userData, {
         type: 'LineCurve',
-        v1: new THREE.Vector3(0, 0, 0),
-        v2: new THREE.Vector3(0, 10, 10),
+        points: options.points || [
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(0, 10, 10)
+        ]
     });
 
     this.update();
@@ -33,8 +35,8 @@ LineCurve.prototype.constructor = LineCurve;
 
 LineCurve.prototype.update = function () {
     var curve = new THREE.LineCurve3(
-        this.userData.v1,
-        this.userData.v2,
+        this.userData.points[0],
+        this.userData.points[1],
     );
 
     var position = this.geometry.attributes.position;
