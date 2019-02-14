@@ -36,17 +36,25 @@ SplineHelper.prototype.onObjectSelected = function (object) {
 };
 
 SplineHelper.prototype.onObjectChanged = function (obj) {
-    if (!obj.userData || !(obj.userData.type === 'helper')) {
+    if (this.box.length === 0) {
         return;
     }
 
-    var object = obj.userData.object;
+    var line = this.box[0].userData.object;
 
-    var index = this.box.indexOf(obj);
+    if (obj === line) { // 修改了线
+        this.box.forEach((n, i) => {
+            n.position.copy(line.position).add(line.userData.points[i]);
+        });
+    } else if (obj.userData && obj.userData.type === 'helper') { // 修改了帮助器
+        var object = obj.userData.object;
 
-    if (index > -1) {
-        object.userData.points[index].copy(object.position).multiplyScalar(-1).add(obj.position);
-        object.update();
+        var index = this.box.indexOf(obj);
+
+        if (index > -1) {
+            object.userData.points[index].copy(object.position).multiplyScalar(-1).add(obj.position);
+            object.update();
+        }
     }
 };
 
@@ -55,7 +63,7 @@ SplineHelper.prototype.onSelectLine = function (object) {
 
     this.onCancelSelectLine();
 
-    var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
+    var geometry = new THREE.BoxBufferGeometry(0.4, 0.4, 0.4);
     var material = new THREE.MeshBasicMaterial({
         color: 0xff0000
     });
@@ -63,7 +71,7 @@ SplineHelper.prototype.onSelectLine = function (object) {
     object.userData.points.forEach(n => {
         var mesh = new THREE.Mesh(geometry, material);
 
-        mesh.position.copy(n);
+        mesh.position.copy(object.position).add(n);
 
         Object.assign(mesh.userData, {
             type: 'helper',
