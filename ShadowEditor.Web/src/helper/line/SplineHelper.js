@@ -6,6 +6,7 @@ import BaseHelper from '../BaseHelper';
  */
 function SplineHelper(app) {
     BaseHelper.call(this, app);
+    this.box = [];
 }
 
 SplineHelper.prototype = Object.create(BaseHelper.prototype);
@@ -13,47 +14,76 @@ SplineHelper.prototype.constructor = SplineHelper;
 
 SplineHelper.prototype.start = function () {
     this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 SplineHelper.prototype.stop = function () {
     this.app.on(`objectSelected.${this.id}`, null);
+    this.app.on(`objectChanged.${this.id}`, null);
 };
 
-SplineHelper.prototype.onObjectSelected = function () {
-
-};
-
-SplineHelper.prototype.update = function () {
-    while (this.children.length) {
-        this.remove(this.children[0]);
+SplineHelper.prototype.onObjectSelected = function (object) {
+    if (object === null) {
+        this.onCancelSelectLine();
+    } else if (object.userData && (
+        object.userData.type === 'LineCurve' ||
+        object.userData.type === 'CatmullRomCurve' ||
+        object.userData.type === 'QuadraticBezierCurve' ||
+        object.userData.type === 'CubicBezierCurve'
+    )) {
+        this.onSelectLine(object);
     }
-
-    this.object.userData.points.forEach(n => {
-        var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
-        var material = new THREE.MeshBasicMaterial({
-            color: 0xff0000
-        });
-        var mesh = new THREE.Mesh(geometry, material);
-        mesh.position.copy(n).add(this.object.position);
-        this.add(mesh);
-    });
 };
 
-SplineHelper.prototype.updateObject = function (object) {
-    var index = this.children.indexOf(object);
-    if (index === -1) {
-        console.warn(`SplineHelper: object is not an child.`);
+SplineHelper.prototype.onObjectChanged = function (obj) {
+    if (!obj.userData || !(obj.userData.type === 'helper')) {
         return;
     }
-    this.object.userData.points[index].copy(this.object.position).multiplyScalar(-1).add(object.position);
-    this.object.update();
+
+    var object = obj.userData.object;
+
+    var index = this.box.indexOf(obj);
+
+    if (index > -1) {
+        object.userData.points[index].copy(object.position).multiplyScalar(-1).add(obj.position);
+        object.update();
+    }
 };
 
-SplineHelper.prototype.raycast = function (raycaster, intersects) {
-    var list = raycaster.intersectObjects(this.children);
-    list.forEach(n => {
-        intersects.push(n);
+SplineHelper.prototype.onSelectLine = function (object) {
+    var scene = this.app.editor.sceneHelpers;
+
+    this.onCancelSelectLine();
+
+    var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
+    var material = new THREE.MeshBasicMaterial({
+        color: 0xff0000
     });
+
+    object.userData.points.forEach(n => {
+        var mesh = new THREE.Mesh(geometry, material);
+
+        mesh.position.copy(n);
+
+        Object.assign(mesh.userData, {
+            type: 'helper',
+            object: object
+        });
+
+        scene.add(mesh);
+        this.box.push(mesh);
+    });
+};
+
+SplineHelper.prototype.onCancelSelectLine = function () {
+    var scene = this.app.editor.sceneHelpers;
+
+    this.box.forEach(n => {
+        scene.remove(n);
+        delete n.userData.object;
+    });
+
+    this.box.length = 0;
 };
 
 export default SplineHelper;
