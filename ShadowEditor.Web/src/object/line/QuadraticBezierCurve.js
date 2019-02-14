@@ -21,9 +21,11 @@ function QuadraticBezierCurve(options = {}) {
 
     Object.assign(this.userData, {
         type: 'QuadraticBezierCurve',
-        v0: new THREE.Vector3(-10, 0, 0),
-        v1: new THREE.Vector3(20, 15, 0),
-        v2: new THREE.Vector3(10, 0, 0)
+        points: options.points || [
+            new THREE.Vector3(-10, 0, 0),
+            new THREE.Vector3(20, 15, 0),
+            new THREE.Vector3(10, 0, 0)
+        ]
     });
 
     this.update();
@@ -34,9 +36,9 @@ QuadraticBezierCurve.prototype.constructor = QuadraticBezierCurve;
 
 QuadraticBezierCurve.prototype.update = function () {
     var curve = new THREE.QuadraticBezierCurve3(
-        this.userData.v0,
-        this.userData.v1,
-        this.userData.v2
+        this.userData.points[0],
+        this.userData.points[1],
+        this.userData.points[2]
     );
 
     var position = this.geometry.attributes.position;
