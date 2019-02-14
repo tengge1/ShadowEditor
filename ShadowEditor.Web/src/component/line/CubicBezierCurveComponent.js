@@ -159,18 +159,20 @@ CubicBezierCurveComponent.prototype.updateUI = function () {
     var v3y = UI.get('v3y', this.id);
     var v3z = UI.get('v3z', this.id);
 
-    v0x.setValue(this.selected.userData.v0.x);
-    v0y.setValue(this.selected.userData.v0.y);
-    v0z.setValue(this.selected.userData.v0.z);
-    v1x.setValue(this.selected.userData.v1.x);
-    v1y.setValue(this.selected.userData.v1.y);
-    v1z.setValue(this.selected.userData.v1.z);
-    v2x.setValue(this.selected.userData.v2.x);
-    v2y.setValue(this.selected.userData.v2.y);
-    v2z.setValue(this.selected.userData.v2.z);
-    v3x.setValue(this.selected.userData.v3.x);
-    v3y.setValue(this.selected.userData.v3.y);
-    v3z.setValue(this.selected.userData.v3.z);
+    var points = this.selected.userData.points;
+
+    v0x.setValue(points[0].x);
+    v0y.setValue(points[0].y);
+    v0z.setValue(points[0].z);
+    v1x.setValue(points[1].x);
+    v1y.setValue(points[1].y);
+    v1z.setValue(points[1].z);
+    v2x.setValue(points[2].x);
+    v2y.setValue(points[2].y);
+    v2z.setValue(points[2].z);
+    v3x.setValue(points[3].x);
+    v3y.setValue(points[3].y);
+    v3z.setValue(points[3].z);
 };
 
 CubicBezierCurveComponent.prototype.onChange = function () {
@@ -187,12 +189,12 @@ CubicBezierCurveComponent.prototype.onChange = function () {
     var v3y = UI.get('v3y', this.id);
     var v3z = UI.get('v3z', this.id);
 
-    Object.assign(this.selected.userData, {
-        v0: new THREE.Vector3(v0x.getValue(), v0y.getValue(), v0z.getValue()),
-        v1: new THREE.Vector3(v1x.getValue(), v1y.getValue(), v1z.getValue()),
-        v2: new THREE.Vector3(v2x.getValue(), v2y.getValue(), v2z.getValue()),
-        v3: new THREE.Vector3(v3x.getValue(), v3y.getValue(), v3z.getValue()),
-    });
+    this.selected.userData.points = [
+        new THREE.Vector3(v0x.getValue(), v0y.getValue(), v0z.getValue()),
+        new THREE.Vector3(v1x.getValue(), v1y.getValue(), v1z.getValue()),
+        new THREE.Vector3(v2x.getValue(), v2y.getValue(), v2z.getValue()),
+        new THREE.Vector3(v3x.getValue(), v3y.getValue(), v3z.getValue())
+    ];
 
     this.selected.update();
 
