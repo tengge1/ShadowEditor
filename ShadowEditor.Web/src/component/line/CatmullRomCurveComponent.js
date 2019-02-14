@@ -36,6 +36,20 @@ CatmullRomCurveComponent.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
+                text: ''
+            }, {
+                xtype: 'button',
+                text: '添加点',
+                onClick: this.onAddPoint.bind(this)
+            }, {
+                xtype: 'button',
+                text: '移除点',
+                onClick: this.onRemovePoint.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
                 text: '闭合'
             }, {
                 xtype: 'checkbox',
@@ -122,6 +136,38 @@ CatmullRomCurveComponent.prototype.onChange = function () {
         curveType: curveType.getValue(),
         tension: tension.getValue(),
     });
+
+    this.selected.update();
+
+    this.app.call('objectChanged', this, this.selected);
+};
+
+CatmullRomCurveComponent.prototype.onAddPoint = function () {
+    var points = this.selected.userData.points;
+    var closed = this.selected.userData.closed;
+    var curveType = this.selected.userData.curveType;
+    var tension = this.selected.userData.tension;
+
+    var curve = new THREE.CatmullRomCurve3(points, closed, curveType, tension);
+
+    var point = curve.getPoint(1 + 1 / points.length);
+
+    points.splice(points.length - 1, 0, point);
+
+    this.selected.update();
+
+    this.app.call('objectChanged', this, this.selected);
+};
+
+CatmullRomCurveComponent.prototype.onRemovePoint = function () {
+    var points = this.selected.userData.points;
+
+    if (points.length === 3) {
+        UI.msg('CatmullRom曲线至少应该有三个点！');
+        return;
+    }
+
+    points.splice(points.length - 1, 1);
 
     this.selected.update();
 
