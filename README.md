@@ -16,7 +16,7 @@ Language: 中文 / [English](README-en.md)
 
 ## v0.1.5即将更新
 
-1. 线段、CatmullRom曲线、二次贝塞尔曲线、三次贝塞尔曲线、椭圆曲线可视化编辑。
+1. 线段、CatmullRom曲线、二次贝塞尔曲线、三次贝塞尔曲线、椭圆曲线可视化编辑、保存和载入。
 
 <table>
     <tr>
