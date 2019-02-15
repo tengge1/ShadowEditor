@@ -1,6 +1,6 @@
-import BaseSerializer from '../../BaseSerializer';
-import MeshSerializer from '../../core/MeshSerializer';
-import CatmullRomCurve from '../../../object/line/CatmullRomCurve';
+import BaseSerializer from '../BaseSerializer';
+import MeshSerializer from '../core/MeshSerializer';
+import CatmullRomCurve from '../../object/line/CatmullRomCurve';
 
 /**
  * CatmullRomCurveSerializer

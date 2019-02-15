@@ -39,7 +39,13 @@ import ParticleEmitterSerializer from './objects/ParticleEmitterSerializer';
 import PerlinTerrainSerializer from './objects/PerlinTerrainSerializer';
 import WaterSerializer from './objects/WaterSerializer';
 import ClothSerializer from './objects/ClothSerializer';
-import CatmullRomCurveSerializer from './objects/line/CatmullRomCurveSerializer';
+
+// line
+import LineCurveSerializer from './line/LineCurveSerializer';
+import CatmullRomCurveSerializer from './line/CatmullRomCurveSerializer';
+import QuadraticBezierCurveSerializer from './line/QuadraticBezierCurveSerializer';
+import CubicBezierCurveSerializer from './line/CubicBezierCurveSerializer';
+import EllipseCurveSerializer from './line/EllipseCurveSerializer';
 
 /**
  * 场景序列化/反序列化类
@@ -128,8 +134,16 @@ Converter.prototype.sceneToJson = function (scene, list) {
             json = (new WaterSerializer()).toJSON(obj);
         } else if (obj.userData.type === 'Cloth') {
             json = (new ClothSerializer()).toJSON(obj);
+        } else if (obj.userData.type === 'LineCurve') {
+            json = (new LineCurveSerializer()).toJSON(obj);
         } else if (obj.userData.type === 'CatmullRomCurve') {
             json = (new CatmullRomCurveSerializer()).toJSON(obj);
+        } else if (obj.userData.type === 'QuadraticBezierCurve') {
+            json = (new QuadraticBezierCurveSerializer()).toJSON(obj);
+        } else if (obj.userData.type === 'CubicBezierCurve') {
+            json = (new CubicBezierCurveSerializer()).toJSON(obj);
+        } else if (obj.userData.type === 'EllipseCurve') {
+            json = (new EllipseCurveSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Scene) {
             json = (new SceneSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Group) {
@@ -351,8 +365,20 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                 case 'ClothSerializer':
                     obj = (new ClothSerializer()).fromJSON(objJson);
                     break;
+                case 'LineCurveSerializer':
+                    obj = (new LineCurveSerializer()).fromJSON(objJson);
+                    break;
                 case 'CatmullRomCurveSerializer':
                     obj = (new CatmullRomCurveSerializer()).fromJSON(objJson);
+                    break;
+                case 'QuadraticBezierCurveSerializer':
+                    obj = (new QuadraticBezierCurveSerializer()).fromJSON(objJson);
+                    break;
+                case 'CubicBezierCurveSerializer':
+                    obj = (new CubicBezierCurveSerializer()).fromJSON(objJson);
+                    break;
+                case 'EllipseCurveSerializer':
+                    obj = (new EllipseCurveSerializer()).fromJSON(objJson);
                     break;
             }
 

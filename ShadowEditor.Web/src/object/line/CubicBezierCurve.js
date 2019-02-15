@@ -21,7 +21,7 @@ function CubicBezierCurve(options = {}) {
 
     Object.assign(this.userData, {
         type: 'CubicBezierCurve',
-        points: [
+        points: options.points || [
             new THREE.Vector3(-10, 0, 0),
             new THREE.Vector3(-5, 15, 0),
             new THREE.Vector3(20, 15, 0),
