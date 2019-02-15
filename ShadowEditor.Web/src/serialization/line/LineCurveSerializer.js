@@ -1,6 +1,6 @@
 import BaseSerializer from '../BaseSerializer';
 import MeshSerializer from '../core/MeshSerializer';
-import CatmullRomCurve from '../../object/line/CatmullRomCurve';
+import LineCurve from '../../object/line/LineCurve';
 
 /**
  * LineCurveSerializer
@@ -24,7 +24,7 @@ LineCurveSerializer.prototype.fromJSON = function (json, parent) {
         return new THREE.Vector3().copy(n);
     });
 
-    var obj = parent || new CatmullRomCurve(json.userData);
+    var obj = parent || new LineCurve(json.userData);
 
     MeshSerializer.prototype.fromJSON.call(this, json, obj);
 

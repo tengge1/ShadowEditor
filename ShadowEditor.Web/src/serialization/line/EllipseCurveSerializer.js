@@ -1,6 +1,6 @@
 import BaseSerializer from '../BaseSerializer';
 import MeshSerializer from '../core/MeshSerializer';
-import CatmullRomCurve from '../../object/line/CatmullRomCurve';
+import EllipseCurve from '../../object/line/EllipseCurve';
 
 /**
  * EllipseCurveSerializer
@@ -20,7 +20,7 @@ EllipseCurveSerializer.prototype.toJSON = function (obj) {
 };
 
 EllipseCurveSerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent || new CatmullRomCurve(json.userData);
+    var obj = parent || new EllipseCurve(json.userData);
 
     MeshSerializer.prototype.fromJSON.call(this, json, obj);
 
