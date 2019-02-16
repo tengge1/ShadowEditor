@@ -54,7 +54,7 @@ SplineHelper.prototype.onObjectChanged = function (obj) {
 
                 Object.assign(mesh.userData, {
                     type: 'helper',
-                    object: object
+                    object: line
                 });
 
                 scene.add(mesh);
