@@ -133,10 +133,6 @@ SettingPanel.prototype.onTabSelected = function (tabName) {
         return;
     }
 
-    // 帮助器
-    var showGrid = UI.get('showGrid', this.id);
-    showGrid.setValue(this.app.options.showGrid);
-
     var showCamera = UI.get('showCamera', this.id);
     showCamera.setValue(this.app.options.showCameraHelper);
 
@@ -163,7 +159,6 @@ SettingPanel.prototype.update = function () {
     // 帮助器
     var showGrid = UI.get('showGrid', this.id).getValue();
     this.app.options.showGrid = showGrid;
-    this.app.editor.grid.visible = showGrid;
 
     var showCamera = UI.get('showCamera', this.id).getValue();
     this.app.options.showCameraHelper = showCamera;
