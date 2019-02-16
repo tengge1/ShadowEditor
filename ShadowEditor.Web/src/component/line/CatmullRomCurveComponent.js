@@ -150,9 +150,13 @@ CatmullRomCurveComponent.prototype.onAddPoint = function () {
 
     var curve = new THREE.CatmullRomCurve3(points, closed, curveType, tension);
 
-    var point = curve.getPoint(1 + 1 / points.length);
+    var point = new THREE.Vector3(
+        parseInt(Math.random() * 30),
+        parseInt(Math.random() * 30),
+        parseInt(Math.random() * 30)
+    );
 
-    points.splice(points.length - 1, 0, point);
+    points.splice(points.length, 0, point);
 
     this.selected.update();
 
