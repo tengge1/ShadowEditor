@@ -86,11 +86,6 @@ function Editor(app) {
     // 当前选中物体
     this.selected = null;
 
-    // 网格
-    this.grid = new THREE.GridHelper(30, 30, 0x444444, 0x888888);
-    this.grid.visible = this.app.options.showGrid;
-    this.sceneHelpers.add(this.grid);
-
     // 平移旋转缩放控件
     this.transformControls = new THREE.TransformControls(this.camera, this.app.viewport.container.dom);
     this.sceneHelpers.add(this.transformControls);
@@ -331,7 +326,6 @@ Editor.prototype.removeHelper = function (object) { // 移除物体帮助
 };
 
 Editor.prototype.onOptionsChanged = function (options) { // 帮助器改变事件
-    this.grid.visible = options.showGrid === undefined ? true : options.showGrid;
     Object.keys(this.helpers).forEach(n => {
         var helper = this.helpers[n];
         if (helper instanceof THREE.CameraHelper) {

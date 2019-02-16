@@ -1,4 +1,5 @@
 import BaseHelper from './BaseHelper';
+import GridHelper from './GridHelper';
 import ViewHelper from './ViewHelper';
 import SplineHelper from './line/SplineHelper';
 
@@ -10,6 +11,7 @@ function Helpers(app) {
     BaseHelper.call(this, app);
 
     this.helpers = [
+        new GridHelper(app),
         new ViewHelper(app),
         new SplineHelper(app),
     ];
