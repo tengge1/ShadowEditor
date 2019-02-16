@@ -40,12 +40,37 @@ SplineHelper.prototype.onObjectChanged = function (obj) {
         return;
     }
 
+    var scene = this.app.editor.sceneHelpers;
     var line = this.box[0].userData.object;
 
     if (obj === line) { // 修改了线
-        this.box.forEach((n, i) => {
-            n.position.copy(line.position).add(line.userData.points[i]);
+        line.userData.points.forEach((n, i) => {
+            if (this.box[i]) {
+                this.box[i].position.copy(line.position).add(n);
+            } else {
+                var mesh = new THREE.Mesh(this.box[0].geometry, this.box[0].material);
+
+                mesh.position.copy(line.position).add(n);
+
+                Object.assign(mesh.userData, {
+                    type: 'helper',
+                    object: object
+                });
+
+                scene.add(mesh);
+                this.box.push(mesh);
+            }
         });
+
+        if (this.box.length > line.userData.points.length) {
+            this.box.splice(
+                line.userData.points.length,
+                this.box.length - line.userData.points.length
+            ).forEach(n => {
+                delete n.object;
+                scene.remove(n);
+            });
+        }
     } else if (obj.userData && obj.userData.type === 'helper') { // 修改了帮助器
         var object = obj.userData.object;
 
