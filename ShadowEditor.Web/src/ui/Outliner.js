@@ -21,7 +21,7 @@ Outliner.prototype.render = function () {
     this.dom = document.createElement('div');
 
     this.dom.className = 'Outliner';
-    this.dom.tabIndex = 0;	// keyup event is ignored without setting tabIndex
+    this.dom.tabIndex = 0; // keyup event is ignored without setting tabIndex
 
     // Prevent native scroll behavior
     this.dom.addEventListener('keydown', function (event) {
@@ -61,7 +61,7 @@ Outliner.prototype.render = function () {
     }
 
     this.options = [];
-    this.selectedIndex = - 1;
+    this.selectedIndex = -1;
     this.selectedValue = null;
 };
 
@@ -108,6 +108,8 @@ Outliner.prototype.setOptions = function (options) {
     }
 
     function onDragOver(event) {
+        event.preventDefault();
+
         if (this === currentDrag) {
             return;
         }
@@ -124,6 +126,7 @@ Outliner.prototype.setOptions = function (options) {
     }
 
     function onDragLeave() {
+        event.preventDefault();
         if (this === currentDrag) {
             return;
         }
@@ -132,6 +135,7 @@ Outliner.prototype.setOptions = function (options) {
     }
 
     function onDrop(event) {
+        event.preventDefault();
         if (this === currentDrag) {
             return;
         }
