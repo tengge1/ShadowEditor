@@ -433,25 +433,45 @@ TimePanel.prototype.onDropLayer = function (event) {
     var uuid = event.dataTransfer.getData('uuid');
     var offsetX = event.dataTransfer.getData('offsetX');
 
-    debugger
+    var groups = this.app.editor.animations;
 
-    // var groups = this.app.editor.animation.getAnimationGroups();
-    // var group = groups.filter(n => n.animations.findIndex(m => m.uuid === uuid) > -1)[0];
-    // var animation = group.animations.filter(n => n.uuid === uuid)[0];
-    // group.remove(animation);
+    var group_index = -1;
+    var group = null;
+    var animation_index = -1;
+    var animation = null;
 
-    // var timeline = UI.get('timeline', this.id);
-    // var length = animation.endTime - animation.beginTime;
-    // animation.beginTime = (event.offsetX - offsetX) / timeline.scale;
-    // animation.endTime = animation.beginTime + length;
+    for (var i = 0; i < groups.length; i++) {
+        var index = groups[i].animations.findIndex(n => n.uuid === uuid);
 
-    // if (event.target.data instanceof Animation) { // 拖动到其他动画上
-    //     event.target.parentElement.data.add(animation);
-    // } else { // 拖动到动画组上
-    //     event.target.data.add(animation);
-    // }
+        if (index > -1) {
+            group_index = i;
+            group = groups[i];
+            animation_index = index;
+            animation = group.animations[index];
+            break;
+        }
+    }
 
-    // this.updateUI();
+    if (!animation) {
+        return;
+    }
+
+    group.animations.splice(animation_index, 1);
+
+    var timeline = UI.get('timeline', this.id);
+
+    var length = animation.endTime - animation.beginTime;
+
+    animation.beginTime = (event.offsetX - offsetX) / timeline.scale;
+    animation.endTime = animation.beginTime + length;
+
+    if (event.target.data && event.target.data.animations) { // 拖动到动画组上
+        event.target.data.animations.splice(event.target.data.animations.length, 0, animation);
+    } else if (event.target.parentElement.data && event.target.parentElement.data.animations) { // 拖动到其他动画上
+        event.target.parentElement.data.animations.splice(event.target.parentElement.data.animations.length, 0, animation);
+    }
+
+    this.updateUI();
 };
 
 export default TimePanel;
