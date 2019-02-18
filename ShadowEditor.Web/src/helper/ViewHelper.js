@@ -57,7 +57,7 @@ ViewHelper.prototype.createMesh = function () {
     var domElement = this.app.editor.renderer.domElement;
     var domWidth = domElement.clientWidth;
     var domHeight = domElement.clientHeight;
-    var z = 20; // 控件中心到相机距离，越远越小
+    var z = 16; // 控件中心到相机距离，越远越小
 
     var fov = this.app.editor.camera.fov;
     var top = z * Math.tan(fov * Math.PI / 180 * 0.5); // 到相机垂直距离为z的地方屏幕高度一半
