@@ -456,19 +456,21 @@ TimePanel.prototype.onDropLayer = function (event) {
         return;
     }
 
+    if (event.target.parentElement.data && event.target.parentElement.data.animations) { // 拖动到其他动画上
+        UI.msg('不允许将动画拖动到其他动画上。');
+        return;
+    }
+
     group.animations.splice(animation_index, 1);
 
     var timeline = UI.get('timeline', this.id);
 
     var length = animation.endTime - animation.beginTime;
 
-    animation.beginTime = (event.offsetX - offsetX) / timeline.scale;
-    animation.endTime = animation.beginTime + length;
-
-    if (event.target.data && event.target.data.animations) { // 拖动到动画组上
+    if (event.target.data && event.target.data.animations) {
+        animation.beginTime = (event.offsetX - offsetX) / timeline.scale;
+        animation.endTime = animation.beginTime + length;
         event.target.data.animations.splice(event.target.data.animations.length, 0, animation);
-    } else if (event.target.parentElement.data && event.target.parentElement.data.animations) { // 拖动到其他动画上
-        event.target.parentElement.data.animations.splice(event.target.parentElement.data.animations.length, 0, animation);
     }
 
     this.updateUI();
