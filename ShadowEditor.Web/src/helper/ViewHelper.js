@@ -55,19 +55,30 @@ ViewHelper.prototype.createMesh = function () {
     ], true);
 
     var domElement = this.app.editor.renderer.domElement;
+    var domWidth = domElement.clientWidth;
+    var domHeight = domElement.clientHeight;
+    var z = 20; // 控件中心到相机距离，越远越小
+
+    var fov = this.app.editor.camera.fov;
+    var top = z * Math.tan(fov * Math.PI / 180 * 0.5); // 到相机垂直距离为z的地方屏幕高度一半
+    var size = domHeight / (2 * top) + 12; // 每米像素数 + 到屏幕边缘留白
 
     var uniforms = {
         domWidth: {
             type: 'f',
-            value: domElement.clientWidth
+            value: domWidth
         },
         domHeight: {
             type: 'f',
-            value: domElement.clientHeight
+            value: domHeight
         },
         size: {
             type: 'f',
-            value: 80 / 878 * domElement.clientWidth
+            value: size
+        },
+        z: {
+            type: 'f',
+            value: z
         },
         color: {
             type: 'v3',
