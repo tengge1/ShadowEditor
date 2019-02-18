@@ -14,13 +14,19 @@ ViewHelper.prototype = Object.create(BaseHelper.prototype);
 ViewHelper.prototype.constructor = ViewHelper;
 
 ViewHelper.prototype.start = function () {
+    this.scene = new THREE.Scene();
+
     this.mesh = this.createMesh();
-    this.app.editor.sceneHelpers.add(this.mesh);
+    this.scene.add(this.mesh);
+
+    this.app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
 };
 
 ViewHelper.prototype.stop = function () {
-    this.app.editor.sceneHelpers.remove(this.mesh);
+    this.scene.remove(this.mesh);
+    delete this.scene;
     delete this.mesh;
+    this.app.on(`afterRender.${this.id}`, null);
 };
 
 ViewHelper.prototype.createMesh = function () {
@@ -127,13 +133,12 @@ ViewHelper.prototype.createMesh = function () {
     ]);
 };
 
-ViewHelper.prototype.raycast = function (raycaster, intersects) {
-    // TODO: ViewHelper select test method
-    // var object = raycaster.intersectObject(this.mesh);
+ViewHelper.prototype.onAfterRender = function () {
+    var renderer = this.app.editor.renderer;
 
-    // if (object) {
-    //     intersects.push(object);
-    // }
+    // 最后绘制而且清空深度缓冲，保证视角控件不会被其他物体遮挡
+    renderer.clearDepth();
+    renderer.render(this.scene, this.app.editor.camera);
 };
 
 export default ViewHelper;
