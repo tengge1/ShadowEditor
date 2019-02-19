@@ -20,6 +20,7 @@ ViewHelper.prototype.start = function () {
     this.scene.add(this.mesh);
 
     this.app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
+    this.app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
 };
 
 ViewHelper.prototype.stop = function () {
@@ -27,6 +28,7 @@ ViewHelper.prototype.stop = function () {
     delete this.scene;
     delete this.mesh;
     this.app.on(`afterRender.${this.id}`, null);
+    this.app.on(`mousedown.${this.id}`, null);
 };
 
 ViewHelper.prototype.createMesh = function () {
@@ -139,6 +141,28 @@ ViewHelper.prototype.onAfterRender = function () {
     // 最后绘制而且清空深度缓冲，保证视角控件不会被其他物体遮挡
     renderer.clearDepth();
     renderer.render(this.scene, this.app.editor.camera);
+};
+
+ViewHelper.prototype.onMouseDown = function (event) {
+    if (this.mouse === undefined) {
+        this.mouse = new THREE.Vector3();
+    }
+    if (this.raycaster === undefined) {
+        this.raycaster = new THREE.Raycaster();
+    }
+
+    var domElement = this.app.editor.renderer.domElement;
+
+    this.mouse.set(
+        event.offsetX / domElement.clientWidth * 2 - 1,
+        -event.offsetY / domElement.clientHeight * 2 + 1
+    );
+    this.raycaster.setFromCamera(this.mouse, this.app.editor.camera);
+
+    var obj = this.raycaster.intersectObject(this.mesh)[0];
+    if (obj) {
+        
+    }
 };
 
 export default ViewHelper;
