@@ -21,7 +21,7 @@ void main() {
         1.0, 0.0, 0.0, 0.0,
         0.0, 1.0, 0.0, 0.0,
         0.0, 0.0, 1.0, 0.0,
-        1.0 - size / domWidth * 2.0, 1.0 - size / domHeight * 2.0, 0.0, 1.0
+        1.0 - size / domWidth, 1.0 - size / domHeight, 0.0, 1.0
     );
 
     mat4 _modelViewMatrix = modelViewMatrix;

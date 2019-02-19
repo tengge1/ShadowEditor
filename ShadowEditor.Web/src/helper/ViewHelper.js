@@ -65,11 +65,11 @@ ViewHelper.prototype.createMesh = function () {
     var domElement = this.app.editor.renderer.domElement;
     var domWidth = domElement.clientWidth;
     var domHeight = domElement.clientHeight;
-    var z = 16; // 控件中心到相机距离，越远越小
+    this.z = 16; // 控件中心到相机距离，越远越小
 
     var fov = this.app.editor.camera.fov;
-    var top = z * Math.tan(fov * Math.PI / 180 * 0.5); // 到相机垂直距离为z的地方屏幕高度一半
-    var size = domHeight / (2 * top) + 12; // 每米像素数 + 到屏幕边缘留白
+    var top = this.z * Math.tan(fov * Math.PI / 180 * 0.5); // 到相机垂直距离为z的地方屏幕高度一半
+    this.size = (domHeight / (2 * top) + 12) * 2; // 12为留白
 
     var uniforms = {
         domWidth: {
@@ -82,11 +82,11 @@ ViewHelper.prototype.createMesh = function () {
         },
         size: {
             type: 'f',
-            value: size
+            value: this.size
         },
         z: {
             type: 'f',
-            value: z
+            value: this.z
         },
         color: {
             type: 'v3',
@@ -117,21 +117,27 @@ ViewHelper.prototype.createMesh = function () {
     });
 
     var material2 = material1.clone();
-    material2.uniforms.color.value = new THREE.Vector3(0.0, 1.0, 0.0);
+    material2.uniforms.color.value = new THREE.Vector3(0.5, 0.5, 0.5);
 
     var material3 = material1.clone();
-    material3.uniforms.color.value = new THREE.Vector3(0.0, 0.0, 1.0);
+    material3.uniforms.color.value = new THREE.Vector3(0.0, 1.0, 0.0);
 
     var material4 = material1.clone();
     material4.uniforms.color.value = new THREE.Vector3(0.5, 0.5, 0.5);
 
+    var material5 = material1.clone();
+    material5.uniforms.color.value = new THREE.Vector3(0.0, 0.0, 1.0);
+
+    var material6 = material1.clone();
+    material6.uniforms.color.value = new THREE.Vector3(0.5, 0.5, 0.5);
+
     return new THREE.Mesh(geometry, [
         material1,
-        material4,
         material2,
-        material4,
         material3,
-        material4
+        material4,
+        material5,
+        material6
     ]);
 };
 
@@ -153,15 +159,18 @@ ViewHelper.prototype.onMouseDown = function (event) {
 
     var domElement = this.app.editor.renderer.domElement;
 
+    var offsetX = event.offsetX - (domElement.clientWidth / 2 - this.size / 2);
+    var offsetY = event.offsetY + (domElement.clientHeight / 2 - this.size / 2);
+
     this.mouse.set(
-        event.offsetX / domElement.clientWidth * 2 - 1,
-        -event.offsetY / domElement.clientHeight * 2 + 1
+        offsetX / domElement.clientWidth * 2 - 1,
+        -offsetY / domElement.clientHeight * 2 + 1
     );
     this.raycaster.setFromCamera(this.mouse, this.app.editor.camera);
 
     var obj = this.raycaster.intersectObject(this.mesh)[0];
     if (obj) {
-        
+        var materialIndex = obj.face.materialIndex;
     }
 };
 
