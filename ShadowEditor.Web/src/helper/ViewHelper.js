@@ -163,10 +163,11 @@ ViewHelper.prototype.onMouseDown = function (event) {
     var offsetY = event.offsetY + (domElement.clientHeight / 2 - this.size / 2);
 
     this.mouse.set(
-        offsetX / domElement.clientWidth * 2 - 1,
-        -offsetY / domElement.clientHeight * 2 + 1
+        offsetX / domElement.clientWidth * 2 - 1, -offsetY / domElement.clientHeight * 2 + 1
     );
     this.raycaster.setFromCamera(this.mouse, this.app.editor.camera);
+
+    // 设置几何体矩阵，将其转换到左上角
 
     var obj = this.raycaster.intersectObject(this.mesh)[0];
     if (obj) {
