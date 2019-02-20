@@ -159,17 +159,34 @@ ViewHelper.prototype.onMouseDown = function (event) {
 
     var domElement = this.app.editor.renderer.domElement;
 
-    var offsetX = event.offsetX - (domElement.clientWidth / 2 - this.size / 2);
-    var offsetY = event.offsetY + (domElement.clientHeight / 2 - this.size / 2);
-
     this.mouse.set(
-        offsetX / domElement.clientWidth * 2 - 1, -offsetY / domElement.clientHeight * 2 + 1
+        event.offsetX / domElement.clientWidth * 2 - 1,
+        -event.offsetY / domElement.clientHeight * 2 + 1
     );
     this.raycaster.setFromCamera(this.mouse, this.app.editor.camera);
 
     // 设置几何体矩阵，将其转换到左上角
+    if (this.matrix === undefined) {
+        this.matrix = new THREE.Matrix4();
+    }
+
+    this.matrix.copy(this.mesh.matrixWorld);
+
+    if (this.screenXY === undefined) {
+        this.screenXY = new THREE.Vector3();
+    }
+    this.screenXY.set(
+        (domElement.clientWidth - this.size / 2) / domElement.clientWidth * 2 - 1,
+        -this.size / 2 / domElement.clientHeight * 2 + 1,
+        -this.z
+    );
+
+    this.screenXY.unproject(this.app.editor.camera);
 
     var obj = this.raycaster.intersectObject(this.mesh)[0];
+
+    this.mesh.matrixWorld.copy(this.matrix);
+
     if (obj) {
         var materialIndex = obj.face.materialIndex;
     }
