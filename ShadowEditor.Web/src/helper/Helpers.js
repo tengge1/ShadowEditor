@@ -14,7 +14,7 @@ function Helpers(app) {
     this.helpers = [
         new GridHelper(app),
         new ViewHelper(app),
-        new SelectHelper(app),
+        // new SelectHelper(app), // 使用后期处理选中，不使用BoxHelper
         new SplineHelper(app),
     ];
 }
