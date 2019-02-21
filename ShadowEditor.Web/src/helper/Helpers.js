@@ -1,6 +1,7 @@
 import BaseHelper from './BaseHelper';
 import GridHelper from './GridHelper';
 import ViewHelper from './ViewHelper';
+import SelectHelper from './SelectHelper';
 import SplineHelper from './line/SplineHelper';
 
 /**
@@ -13,6 +14,7 @@ function Helpers(app) {
     this.helpers = [
         new GridHelper(app),
         new ViewHelper(app),
+        new SelectHelper(app),
         new SplineHelper(app),
     ];
 }
