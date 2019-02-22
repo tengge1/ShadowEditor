@@ -25,17 +25,6 @@ GLTFLoader.prototype.load = function (url, options) {
             loader.load(url, result => {
                 var obj3d = result.scene;
 
-                // 尝试去除不正确数据
-                // var mesh = result.scene.children[0].children[0].children[0];
-                // var count = mesh.geometry.attributes.position.count;
-                // var index = mesh.geometry.index.array
-
-                // for (var i = 0; i < index.length; i++) {
-                //     if (index[i] > count - 1) {
-                //         index[i] = 0;
-                //     }
-                // }
-
                 Object.assign(obj3d.userData, {
                     obj: result,
                     root: result.scene,
