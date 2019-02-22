@@ -171,6 +171,10 @@ ViewHelper.prototype.onMouseDown = function (event) {
 
     this.matrix.copy(this.mesh.matrixWorld);
 
+    // 旧：projectionMatrix * modelViewMatrix
+    // 新：translateMatrix * projectionMatrix * _modelViewMatrix
+    // matrixWorld = 
+
     if (this.screenXY === undefined) {
         this.screenXY = new THREE.Vector3();
     }
