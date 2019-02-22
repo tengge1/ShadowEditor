@@ -160,8 +160,7 @@ ViewHelper.prototype.onMouseDown = function (event) {
     var domElement = this.app.editor.renderer.domElement;
 
     this.mouse.set(
-        event.offsetX / domElement.clientWidth * 2 - 1,
-        -event.offsetY / domElement.clientHeight * 2 + 1
+        event.offsetX / domElement.clientWidth * 2 - 1, -event.offsetY / domElement.clientHeight * 2 + 1
     );
     this.raycaster.setFromCamera(this.mouse, this.app.editor.camera);
 
@@ -176,9 +175,7 @@ ViewHelper.prototype.onMouseDown = function (event) {
         this.screenXY = new THREE.Vector3();
     }
     this.screenXY.set(
-        (domElement.clientWidth - this.size / 2) / domElement.clientWidth * 2 - 1,
-        -this.size / 2 / domElement.clientHeight * 2 + 1,
-        -this.z
+        (domElement.clientWidth - this.size / 2) / domElement.clientWidth * 2 - 1, -this.size / 2 / domElement.clientHeight * 2 + 1, -this.z
     );
 
     this.screenXY.unproject(this.app.editor.camera);
