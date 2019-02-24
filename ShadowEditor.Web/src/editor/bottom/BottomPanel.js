@@ -125,6 +125,16 @@ BottomPanel.prototype.render = function () {
                     float: 'right'
                 },
                 onClick: this.toggleShowPanel.bind(this)
+            }, {
+                xtype: 'iconbutton',
+                icon: 'icon-sort',
+                title: '排序',
+                style: {
+                    margin: '5px 0 5px 0',
+                    padding: '2px 4px',
+                    boxSizing: 'border-box',
+                    float: 'right'
+                },
             }]
         }, {
             xtype: 'div',
