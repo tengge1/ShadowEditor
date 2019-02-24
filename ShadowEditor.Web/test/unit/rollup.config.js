@@ -1,10 +1,10 @@
 export default {
-    input: 'test/src/index.js',
+    input: 'ShadowEditor.Web/test/unit/src/index.js',
     output: {
         indent: '\t',
         format: 'umd',
         name: 'Shadow',
-        file: 'test/dist/tests.js'
+        file: 'ShadowEditor.Web/test/unit/build/tests.js'
     },
     treeshake: true,
     external: [],

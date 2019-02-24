@@ -91,3 +91,4 @@ typings/
 /ShadowEditor.UnitTests/obj
 /TestResults
 /ShadowEditor.Web/build
+/ShadowEditor.Web/test/unit/build
