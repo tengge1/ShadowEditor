@@ -29,9 +29,9 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             // 获取所有类别
-            var categories = mongo.FindAll(Constant.CategoryCollectionName);
+            var categories = mongo.FindAll(Constant.CategoryCollectionName).ToList();
 
-            var scenes = mongo.FindAll(Constant.SceneCollectionName);
+            var scenes = mongo.FindAll(Constant.SceneCollectionName).ToList();
 
             var list = new List<SceneModel>();
 
@@ -106,12 +106,12 @@ namespace ShadowEditor.Server.Controllers
 
             if (version == -1) // 最新版本
             {
-                docs = mongo.FindAll(collectionName);
+                docs = mongo.FindAll(collectionName).ToList();
             }
             else // 特定版本
             {
                 filter = Builders<BsonDocument>.Filter.Eq(Constant.VersionField, BsonInt32.Create(version));
-                docs = mongo.FindMany($"{collectionName}{Constant.HistorySuffix}", filter);
+                docs = mongo.FindMany($"{collectionName}{Constant.HistorySuffix}", filter).ToList();
             }
 
             var data = new JArray();
@@ -283,7 +283,7 @@ namespace ShadowEditor.Server.Controllers
                 mongo.UpdateOne(Constant.SceneCollectionName, filter, update);
 
                 // 将当前场景移入历史表
-                var old = mongo.FindAll(collectionName);
+                var old = mongo.FindAll(collectionName).ToList();
 
                 foreach (var i in old)
                 {

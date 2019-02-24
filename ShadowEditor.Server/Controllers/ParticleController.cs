@@ -31,9 +31,9 @@ namespace ShadowEditor.Server.Controllers
 
             // 获取所有类别
             var filter = Builders<BsonDocument>.Filter.Eq("Type", "Particle");
-            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter);
+            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter).ToList();
 
-            var particles = mongo.FindAll(Constant.ParticleCollectionName);
+            var particles = mongo.FindAll(Constant.ParticleCollectionName).ToList();
 
             var list = new List<ParticleModel>();
 

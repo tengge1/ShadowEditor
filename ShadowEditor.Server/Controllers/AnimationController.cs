@@ -31,9 +31,9 @@ namespace ShadowEditor.Server.Controllers
 
             // 获取所有类别
             var filter = Builders<BsonDocument>.Filter.Eq("Type", "Animation");
-            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter);
+            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter).ToList();
 
-            var meshes = mongo.FindAll(Constant.AnimationCollectionName);
+            var meshes = mongo.FindAll(Constant.AnimationCollectionName).ToList();
 
             var list = new List<AnimationModel>();
 

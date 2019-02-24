@@ -31,9 +31,9 @@ namespace ShadowEditor.Server.Controllers
 
             // 获取所有类别
             var filter = Builders<BsonDocument>.Filter.Eq("Type", "Material");
-            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter);
+            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter).ToList();
 
-            var materials = mongo.FindAll(Constant.MaterialCollectionName);
+            var materials = mongo.FindAll(Constant.MaterialCollectionName).ToList();
 
             var list = new List<MaterialModel>();
 

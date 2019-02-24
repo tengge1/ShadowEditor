@@ -33,9 +33,9 @@ namespace ShadowEditor.Server.Controllers
 
             // 获取所有类别
             var filter = Builders<BsonDocument>.Filter.Eq("Type", "Map");
-            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter);
+            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter).ToList();
 
-            var maps = mongo.FindAll(Constant.MapCollectionName);
+            var maps = mongo.FindAll(Constant.MapCollectionName).ToList();
 
             var list = new List<MapModel>();
 

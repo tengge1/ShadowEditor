@@ -32,9 +32,9 @@ namespace ShadowEditor.Server.Controllers
 
             // 获取所有类别
             var filter = Builders<BsonDocument>.Filter.Eq("Type", "Audio");
-            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter);
+            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter).ToList();
 
-            var audios = mongo.FindAll(Constant.AudioCollectionName);
+            var audios = mongo.FindAll(Constant.AudioCollectionName).ToList();
 
             var list = new List<AudioModel>();
 

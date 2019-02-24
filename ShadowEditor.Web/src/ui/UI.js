@@ -26,11 +26,6 @@ import Window from './Window';
 import Image from './Image';
 import ImageList from './ImageList';
 import MessageBox from './MessageBox';
-import Table from './Table';
-import TableHead from './TableHead';
-import TableBody from './TableBody';
-import TableRow from './TableRow';
-import TableData from './TableData';
 import Alert from './Alert';
 import Confirm from './Confirm';
 import Prompt from './Prompt';
@@ -191,11 +186,6 @@ Object.assign(UI, {
     Image: Image,
     ImageList: ImageList,
     MessageBox: MessageBox,
-    Table: Table,
-    TableHead: TableHead,
-    TableBody: TableBody,
-    TableRow: TableRow,
-    TableData: TableData,
     Alert: Alert,
     Confirm: Confirm,
     Prompt: Prompt,
@@ -238,11 +228,6 @@ UI.addXType('window', Window);
 UI.addXType('image', Image);
 UI.addXType('imagelist', ImageList);
 UI.addXType('msg', MessageBox);
-UI.addXType('table', Table);
-UI.addXType('thead', TableHead);
-UI.addXType('tbody', TableBody);
-UI.addXType('tr', TableRow);
-UI.addXType('td', TableData);
 UI.addXType('alert', Alert);
 UI.addXType('confirm', Confirm);
 UI.addXType('prompt', Prompt);

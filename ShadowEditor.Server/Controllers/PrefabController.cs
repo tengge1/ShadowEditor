@@ -31,9 +31,9 @@ namespace ShadowEditor.Server.Controllers
 
             // 获取所有类别
             var filter = Builders<BsonDocument>.Filter.Eq("Type", "Prefab");
-            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter);
+            var categories = mongo.FindMany(Constant.CategoryCollectionName, filter).ToList();
 
-            var particles = mongo.FindAll(Constant.PrefabCollectionName);
+            var particles = mongo.FindAll(Constant.PrefabCollectionName).ToList();
 
             var list = new List<PrefabModel>();
 

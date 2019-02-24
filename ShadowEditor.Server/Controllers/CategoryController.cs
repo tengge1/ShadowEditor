@@ -33,12 +33,12 @@ namespace ShadowEditor.Server.Controllers
 
             if (type == null)
             {
-                docs = mongo.FindAll(Constant.CategoryCollectionName);
+                docs = mongo.FindAll(Constant.CategoryCollectionName).ToList();
             }
             else
             {
                 var filter = Builders<BsonDocument>.Filter.Eq("Type", type.Value.ToString());
-                docs = mongo.FindMany(Constant.CategoryCollectionName, filter);
+                docs = mongo.FindMany(Constant.CategoryCollectionName, filter).ToList();
             }
 
             var list = new JArray();

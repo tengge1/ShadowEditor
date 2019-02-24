@@ -145,9 +145,9 @@ namespace ShadowEditor.Server.Helpers
         /// <param name="collectionName">数据集名称</param>
         /// <param name="filter">过滤条件</param>
         /// <returns>数据列表</returns>
-        public List<BsonDocument> FindMany(string collectionName, FilterDefinition<BsonDocument> filter)
+        public IFindFluent<BsonDocument, BsonDocument> FindMany(string collectionName, FilterDefinition<BsonDocument> filter)
         {
-            return GetCollection(collectionName).Find(filter).ToList();
+            return GetCollection(collectionName).Find(filter);
         }
 
         /// <summary>
@@ -155,9 +155,9 @@ namespace ShadowEditor.Server.Helpers
         /// </summary>
         /// <param name="collectionName">数据集名称</param>
         /// <returns>数据列表</returns>
-        public List<BsonDocument> FindAll(string collectionName)
+        public IFindFluent<BsonDocument, BsonDocument> FindAll(string collectionName)
         {
-            return GetCollection(collectionName).Find(new BsonDocument()).ToList();
+            return GetCollection(collectionName).Find(new BsonDocument());
         }
 
         /// <summary>
