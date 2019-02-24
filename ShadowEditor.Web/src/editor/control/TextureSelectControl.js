@@ -1,11 +1,9 @@
-import Control from '../../ui/Control';
-
 /**
  * 纹理选择控件
  * @param {*} options 
  */
 function TextureSelectControl(options = {}) {
-    Control.call(this, options);
+    UI.Control.call(this, options);
 
     this.app = options.app;
 
@@ -17,7 +15,7 @@ function TextureSelectControl(options = {}) {
     this.onChange = options.onChange || null;
 }
 
-TextureSelectControl.prototype = Object.create(Control.prototype);
+TextureSelectControl.prototype = Object.create(UI.Control.prototype);
 TextureSelectControl.prototype.constructor = TextureSelectControl;
 
 TextureSelectControl.prototype.render = function () {

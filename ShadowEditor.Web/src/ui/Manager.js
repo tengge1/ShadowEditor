@@ -17,7 +17,6 @@ function Manager() {
 Manager.prototype.addXType = function (name, cls) {
     if (this.xtypes[name] === undefined) {
         this.xtypes[name] = cls;
-        this[name] = cls;
     } else {
         console.warn(`Manager: xtype named ${name} has already been added.`);
     }
@@ -53,6 +52,10 @@ Manager.prototype.getXType = function (name) {
  * @param {*} scope 对象作用域（默认为global）
  */
 Manager.prototype.add = function (id, obj, scope = "global") {
+    if (obj === this) {
+        debugger
+    }
+
     var key = `${scope}:${id}`;
     if (this.objects[key] !== undefined) {
         console.warn(`Manager: object named ${id} has already been added.`);
@@ -93,8 +96,7 @@ Manager.prototype.get = function (id, scope = 'global') {
  */
 Manager.prototype.create = function (config) {
     if (config instanceof Control) { // config是Control实例
-
-        this.add(config.id, this, config.scope);
+        this.add(config.id, config, config.scope);
         return config;
     }
 
