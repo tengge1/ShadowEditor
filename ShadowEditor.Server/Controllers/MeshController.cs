@@ -488,22 +488,23 @@ namespace ShadowEditor.Server.Controllers
                 });
             }
 
+            // TODO：为避免误删等严重后果，暂时不删除文件
             // 删除模型所在目录
-            var path = doc["SavePath"].ToString();
-            var physicalPath = HttpContext.Current.Server.MapPath(path);
+            //var path = doc["SavePath"].ToString();
+            //var physicalPath = HttpContext.Current.Server.MapPath(path);
 
-            try
-            {
-                Directory.Delete(physicalPath, true);
-            }
-            catch (Exception ex)
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = ex.Message
-                });
-            }
+            //try
+            //{
+            //    Directory.Delete(physicalPath, true);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return Json(new
+            //    {
+            //        Code = 300,
+            //        Msg = ex.Message
+            //    });
+            //}
 
             // 删除模型信息
             mongo.DeleteOne(Constant.MeshCollectionName, filter);
