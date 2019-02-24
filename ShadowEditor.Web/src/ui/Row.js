@@ -1,4 +1,5 @@
 import Container from './Container';
+import UI from './Manager';
 
 /**
  * 行控件
@@ -35,5 +36,7 @@ Row.prototype.render = function () {
         obj.render();
     });
 };
+
+UI.addXType('row', Row);
 
 export default Row;

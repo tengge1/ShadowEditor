@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 文本框
@@ -47,5 +48,7 @@ Text.prototype.setValue = function (value) {
     }
     return this;
 };
+
+UI.addXType('text', Text);
 
 export default Text;

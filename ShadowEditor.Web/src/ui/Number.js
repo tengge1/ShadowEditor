@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 数字
@@ -146,5 +147,7 @@ Number.prototype.setValue = function (value) {
         this.dom.value = value.toFixed(this.precision) + this.unit;
     }
 };
+
+UI.addXType('number', Number);
 
 export default Number;

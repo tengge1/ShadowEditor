@@ -1,5 +1,6 @@
 import Control from './Control';
 import MoveObjectCommand from '../command/MoveObjectCommand';
+import UI from './Manager';
 
 /**
  * 大纲控件
@@ -234,5 +235,7 @@ Outliner.prototype.setValue = function (value) {
 
     return this;
 };
+
+UI.addXType('outliner', Outliner);
 
 export default Outliner;

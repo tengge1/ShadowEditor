@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 类别组件
@@ -75,5 +76,7 @@ Category.prototype.clear = function () {
         this.dom.removeChild(child);
     }
 };
+
+UI.addXType('category', Category);
 
 export default Category;

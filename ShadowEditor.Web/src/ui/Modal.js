@@ -1,5 +1,6 @@
 import Control from './Control';
 import Container from './Container';
+import UI from './Manager';
 
 /**
  * 模态框
@@ -77,5 +78,7 @@ Modal.prototype.hide = function () {
     }
     return this;
 };
+
+UI.addXType('modal', Modal);
 
 export default Modal;

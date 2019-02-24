@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 水平线
@@ -22,5 +23,7 @@ HorizontalRule.prototype.render = function () {
 
     this.parent.appendChild(this.dom);
 };
+
+UI.addXType('hr', HorizontalRule);
 
 export default HorizontalRule;

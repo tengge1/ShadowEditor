@@ -1,4 +1,5 @@
 import Button from './Button';
+import UI from './Manager';
 
 /**
  * 图标按钮
@@ -22,5 +23,7 @@ IconButton.prototype.render = function () {
         this.dom.innerHTML = `<i class="iconfont ${this.icon}"></i>`;
     }
 };
+
+UI.addXType('iconbutton', IconButton);
 
 export default IconButton;

@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 链接按钮
@@ -50,5 +51,7 @@ LinkButton.prototype.setText = function (text) {
     this.text = text;
     this.dom.innerHTML = this.text;
 };
+
+UI.addXType('linkbutton', LinkButton);
 
 export default LinkButton;

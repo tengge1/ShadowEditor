@@ -1,4 +1,5 @@
 import Container from './Container';
+import UI from './Manager';
 
 /**
  * 文本块
@@ -23,5 +24,7 @@ Span.prototype.render = function () {
         obj.render();
     });
 };
+
+UI.addXType('span', Span);
 
 export default Span;

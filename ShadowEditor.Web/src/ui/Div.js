@@ -1,4 +1,5 @@
 import Container from './Container';
+import UI from './Manager';
 
 /**
  * Div元素
@@ -48,5 +49,7 @@ Div.prototype.render = function () {
         });
     }
 };
+
+UI.addXType('div', Div);
 
 export default Div;

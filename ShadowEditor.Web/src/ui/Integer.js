@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 整数
@@ -138,5 +139,7 @@ Integer.prototype.setRange = function (min, max) {
 
     return this;
 };
+
+UI.addXType('int', Integer);
 
 export default Integer;

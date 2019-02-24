@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 关闭按钮
@@ -39,5 +40,7 @@ CloseButton.prototype.render = function () {
 
     this.dom.appendChild(this.icon);
 };
+
+UI.addXType('closebutton', CloseButton);
 
 export default CloseButton;

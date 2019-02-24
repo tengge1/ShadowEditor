@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 数据表格
@@ -172,5 +173,7 @@ DataTable.prototype.clear = function () {
     this.body = null;
     this.selected = null;
 };
+
+UI.addXType('datatable', DataTable);
 
 export default DataTable;

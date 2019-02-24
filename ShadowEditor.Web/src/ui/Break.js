@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 换行符
@@ -24,5 +25,7 @@ Break.prototype.render = function () {
 
     this.parent.appendChild(this.dom);
 };
+
+UI.addXType('br', Break);
 
 export default Break;

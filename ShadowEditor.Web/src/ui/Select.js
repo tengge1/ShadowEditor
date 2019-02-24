@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 选择列表
@@ -99,5 +100,7 @@ Select.prototype.setValue = function (value) {
 
     return this;
 };
+
+UI.addXType('select', Select);
 
 export default Select;

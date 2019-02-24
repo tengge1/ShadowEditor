@@ -1,3 +1,4 @@
+import UI from './Manager';
 import Window from './Window';
 
 /**
@@ -47,5 +48,7 @@ Alert.prototype.render = function () {
 
     Window.prototype.render.call(this);
 };
+
+UI.addXType('alert', Alert);
 
 export default Alert;

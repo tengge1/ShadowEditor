@@ -1,5 +1,6 @@
 import Container from './Container';
 import Image from './Image';
+import UI from './Manager';
 
 /**
  * 图片列表
@@ -80,5 +81,7 @@ ImageList.prototype.render = function () {
         container.appendChild(description);
     });
 };
+
+UI.addXType('imagelist', ImageList);
 
 export default ImageList;

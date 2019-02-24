@@ -1,6 +1,7 @@
 import Modal from './Modal';
 import Button from './Button';
 import CloseButton from './CloseButton';
+import UI from './Manager';
 
 /**
  * 窗口
@@ -109,5 +110,7 @@ Window.prototype.render = function () {
     document.body.addEventListener('mousemove', mouseMove);
     document.body.addEventListener('mouseup', mouseUp);
 };
+
+UI.addXType('window', Window);
 
 export default Window;

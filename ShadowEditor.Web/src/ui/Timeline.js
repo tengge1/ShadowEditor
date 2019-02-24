@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 时间轴
@@ -104,5 +105,7 @@ Timeline.prototype.updateUI = function () {
 
     this.drawTimeline();
 };
+
+UI.addXType('timeline', Timeline);
 
 export default Timeline;

@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 复选框
@@ -50,5 +51,7 @@ Checkbox.prototype.setValue = function (value) {
 
     return this;
 };
+
+UI.addXType('checkbox', Checkbox);
 
 export default Checkbox;

@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 原生html
@@ -23,5 +24,7 @@ Html.prototype.render = function () {
         this.parent.innerHTML += this.html;
     }
 };
+
+UI.addXType('html', Html);
 
 export default Html;

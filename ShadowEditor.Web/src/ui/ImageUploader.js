@@ -1,5 +1,6 @@
 import Control from './Control';
 import UploadUtils from '../utils/UploadUtils';
+import UI from './Manager';
 
 /**
  * 图片上传控件
@@ -73,5 +74,7 @@ ImageUploader.prototype.onChange = function () {
         UI.msg(L_IMAGE_UPLOAD_FAILED);
     });
 };
+
+UI.addXType('imageuploader', ImageUploader);
 
 export default ImageUploader;

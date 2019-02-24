@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 标签控件
@@ -45,5 +46,7 @@ Label.prototype.setValue = function (value) {
     }
     return this;
 };
+
+UI.addXType('label', Label);
 
 export default Label;

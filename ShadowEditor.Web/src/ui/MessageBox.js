@@ -1,5 +1,6 @@
 import Control from './Control';
 import Container from './Container';
+import UI from './Manager';
 
 /**
  * 消息框
@@ -40,5 +41,7 @@ MessageBox.prototype.show = function (html) {
 MessageBox.prototype.hide = function () {
     this.dom.display = 'none';
 };
+
+UI.addXType('msg', MessageBox);
 
 export default MessageBox;

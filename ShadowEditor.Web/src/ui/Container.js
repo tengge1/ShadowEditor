@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 容器（外层无div等元素包裹）
@@ -37,5 +38,7 @@ Container.prototype.render = function () {
         obj.render();
     });
 };
+
+UI.addXType('container', Container);
 
 export default Container;

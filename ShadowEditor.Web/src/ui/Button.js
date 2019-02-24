@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 按钮
@@ -54,5 +55,7 @@ Button.prototype.select = function () {
 Button.prototype.unselect = function () {
     this.dom.classList.remove('selected');
 };
+
+UI.addXType('button', Button);
 
 export default Button;

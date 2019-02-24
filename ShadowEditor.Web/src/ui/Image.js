@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 图片
@@ -105,5 +106,7 @@ Image.prototype.render = function () {
 
     this.dom.appendChild(this.deleteBtn.dom);
 };
+
+UI.addXType('image', Image);
 
 export default Image;

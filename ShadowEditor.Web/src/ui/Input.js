@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 输入框
@@ -64,5 +65,7 @@ Input.prototype.setValue = function (value) {
     this.dom.value = value;
     return this;
 };
+
+UI.addXType('input', Input);
 
 export default Input;

@@ -1,4 +1,5 @@
 import Window from './Window';
+import UI from './Manager';
 
 /**
  * 提示输入框
@@ -68,5 +69,7 @@ Prompt.prototype.render = function () {
 
     Window.prototype.render.call(this);
 };
+
+UI.addXType('prompt', Prompt);
 
 export default Prompt;

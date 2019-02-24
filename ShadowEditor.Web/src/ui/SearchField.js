@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 搜索框
@@ -90,5 +91,7 @@ SearchField.prototype.onFieldSearch = function () {
         this.onSearch(value);
     }
 };
+
+UI.addXType('searchfield', SearchField);
 
 export default SearchField;

@@ -1,4 +1,5 @@
 import Window from './Window';
+import UI from './Manager';
 
 /**
  * 询问对话框
@@ -56,5 +57,7 @@ Confirm.prototype.render = function () {
 
     Window.prototype.render.call(this);
 };
+
+UI.addXType('confirm', Confirm);
 
 export default Confirm;

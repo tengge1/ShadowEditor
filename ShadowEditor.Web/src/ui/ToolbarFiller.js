@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * 工具栏填充器
@@ -25,5 +26,7 @@ ToolbarFiller.prototype.render = function () {
     control.render();
     this.dom = control.dom;
 };
+
+UI.addXType('toolbarfiller', ToolbarFiller);
 
 export default ToolbarFiller;

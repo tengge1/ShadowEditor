@@ -1,4 +1,5 @@
 import Control from './Control';
+import UI from './Manager';
 
 /**
  * Canvas元素
@@ -29,5 +30,7 @@ Canvas.prototype.render = function () {
 
     this.parent.appendChild(this.dom);
 };
+
+UI.addXType('canvas', Canvas);
 
 export default Canvas;
