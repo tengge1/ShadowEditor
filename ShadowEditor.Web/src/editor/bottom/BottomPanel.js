@@ -115,26 +115,40 @@ BottomPanel.prototype.render = function () {
                     this.selectTab('log');
                 }
             }, {
-                xtype: 'iconbutton',
-                icon: 'icon-down-arrow',
-                title: L_COLLAPSE,
+                xtype: 'div',
                 style: {
-                    margin: '5px',
-                    padding: '2px 4px',
-                    boxSizing: 'border-box',
+                    display: 'inline-block',
                     float: 'right'
                 },
-                onClick: this.toggleShowPanel.bind(this)
-            }, {
-                xtype: 'iconbutton',
-                icon: 'icon-sort',
-                title: '排序',
-                style: {
-                    margin: '5px 0 5px 0',
-                    padding: '2px 4px',
-                    boxSizing: 'border-box',
-                    float: 'right'
-                },
+                children: [{
+                    xtype: 'iconbutton',
+                    icon: 'icon-sort',
+                    title: '排序',
+                    style: {
+                        margin: '5px',
+                        padding: '2px 4px',
+                        boxSizing: 'border-box'
+                    },
+                }, {
+                    xtype: 'iconbutton',
+                    icon: 'icon-maximize',
+                    title: '最大化',
+                    style: {
+                        margin: '5px 5px 5px 0',
+                        padding: '2px 4px',
+                        boxSizing: 'border-box'
+                    },
+                }, {
+                    xtype: 'iconbutton',
+                    icon: 'icon-down-arrow',
+                    title: L_COLLAPSE,
+                    style: {
+                        margin: '5px 5px 5px 0',
+                        padding: '2px 4px',
+                        boxSizing: 'border-box'
+                    },
+                    onClick: this.toggleShowPanel.bind(this)
+                }]
             }]
         }, {
             xtype: 'div',
