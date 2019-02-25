@@ -52,10 +52,6 @@ Manager.prototype.getXType = function (name) {
  * @param {*} scope 对象作用域（默认为global）
  */
 Manager.prototype.add = function (id, obj, scope = "global") {
-    if (obj === this) {
-        debugger
-    }
-
     var key = `${scope}:${id}`;
     if (this.objects[key] !== undefined) {
         console.warn(`Manager: object named ${id} has already been added.`);

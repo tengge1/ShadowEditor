@@ -161,6 +161,8 @@ Control.prototype.renderDom = function (dom) {
  * 清空控件（可调用render函数重新渲染）
  */
 Control.prototype.clear = function () {
+    var _this = this;
+
     (function remove(items) {
         if (items == null || items.length === 0) {
             return;
@@ -168,7 +170,7 @@ Control.prototype.clear = function () {
 
         items.forEach(n => {
             if (n.id) {
-                this.manager.remove(n.id, n.scope);
+                _this.manager.remove(n.id, n.scope);
             }
             if (n.listeners) {
                 Object.keys(n.listeners).forEach(m => {
