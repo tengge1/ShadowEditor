@@ -18,7 +18,7 @@ Sidebar.prototype.constructor = Sidebar;
 Sidebar.prototype.render = function () {
     var data = {
         xtype: 'div',
-        cls: 'sidebar',
+        cls: 'sidebar lsidebar',
         parent: this.parent,
         children: [{
             xtype: 'div',

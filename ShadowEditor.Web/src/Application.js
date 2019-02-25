@@ -55,50 +55,22 @@ function Application(container, options) {
     this.sidebar2 = new Sidebar2(params); // 侧边栏2
     this.bottomPanel = new BottomPanel(params); // 底部面板
     this.statusBar = new StatusBar(params); // 状态栏
-    this.script = new ScriptEditor(params); // 脚本编辑器
+    this.script = new ScriptEditor(params); // 脚本编辑器面板
     this.player = new Player(params); // 播放器面板
 
     UI.create({
         xtype: 'container',
         parent: this.container,
         children: [
-            new Menubar(params), {
-                xtype: 'div',
-                style: {
-                    width: '100%',
-                    flex: 1,
-                    display: 'flex',
-                    flexDirection: 'row',
-                },
-                children: [
-                    this.toolbar, {
-                        xtype: 'div',
-                        style: {
-                            position: 'relative',
-                            flex: 1,
-                            display: 'flex',
-                            flexDirection: 'column'
-                        },
-                        children: [{
-                            xtype: 'div',
-                            style: {
-                                position: 'relative',
-                                flex: 1
-                            },
-                            children: [
-                                this.viewport,
-                                this.script,
-                                this.player
-                            ]
-                        },
-                        this.bottomPanel,
-                        this.statusBar
-                        ]
-                    },
-                    this.sidebar2,
-                    this.sidebar
-                ]
-            }
+            this.menubar, // 菜单栏
+            this.toolbar, // 工具栏
+            this.viewport, // 场景编辑区
+            this.sidebar, // 侧边栏
+            this.sidebar2, // 侧边栏2
+            this.bottomPanel, // 底部面板
+            this.statusBar, // 状态栏
+            this.script, // 脚本编辑器面板
+            this.player, // 播放器面板
         ]
     }).render();
 

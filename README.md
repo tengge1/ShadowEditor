@@ -9,6 +9,7 @@ Language: 中文 / [English](README-en.md)
 ## v0.1.6即将更新
 
 1. 使用`xtype.js`，采用非侵入式开发方式重构UI框架。
+2. 主框架使用绝对定位重新布局。
 
 ## v0.1.5更新
 
