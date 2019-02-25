@@ -24,6 +24,11 @@ IconButton.prototype.render = function () {
     }
 };
 
+IconButton.prototype.setIcon = function (iconCls) {
+    this.icon = iconCls;
+    this.dom.innerHTML = `<i class="iconfont ${this.icon}"></i>`;
+}
+
 UI.addXType('iconbutton', IconButton);
 
 export default IconButton;

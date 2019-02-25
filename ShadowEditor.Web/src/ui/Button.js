@@ -48,6 +48,11 @@ Button.prototype.setText = function (text) {
     this.dom.innerHTML = this.text;
 };
 
+Button.prototype.setTitle = function (title) {
+    this.title = title;
+    this.dom.title = this.title;
+};
+
 Button.prototype.select = function () {
     this.dom.classList.add('selected');
 };

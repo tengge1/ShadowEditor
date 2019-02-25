@@ -28,6 +28,8 @@ BottomPanel.prototype.constructor = BottomPanel;
 BottomPanel.prototype.render = function () {
     var data = {
         xtype: 'div',
+        id: 'bottomPanel',
+        scope: this.id,
         cls: 'sidebar bottomPanel',
         parent: this.parent,
         children: [{
@@ -129,8 +131,11 @@ BottomPanel.prototype.render = function () {
                         padding: '2px 4px',
                         boxSizing: 'border-box'
                     },
+                    onClick: this.onSort.bind(this)
                 }, {
                     xtype: 'iconbutton',
+                    id: 'maximizeBtn',
+                    scope: this.id,
                     icon: 'icon-maximize',
                     title: '最大化',
                     style: {
@@ -138,6 +143,7 @@ BottomPanel.prototype.render = function () {
                         padding: '2px 4px',
                         boxSizing: 'border-box'
                     },
+                    onClick: this.onMaximize.bind(this)
                 }, {
                     xtype: 'iconbutton',
                     icon: 'icon-down-arrow',
@@ -387,8 +393,58 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     this.app.call(`showBottomPanel`, this, tabName);
 };
 
-BottomPanel.prototype.toggleShowPanel = function () {
+BottomPanel.prototype.onSort = function () {
+    UI.msg('排序');
+};
 
+BottomPanel.prototype.onMaximize = function () {
+    var bottomPanel = UI.get('bottomPanel', this.id);
+    var maximizeBtn = UI.get('maximizeBtn', this.id);
+
+    if (this.isMaximized === undefined) { // 当前状态：正常
+        this.isMaximized = true;
+        maximizeBtn.setTitle('正常化');
+        maximizeBtn.setIcon('icon-minimize');
+
+        this.oldLeft = bottomPanel.dom.style.left;
+        this.oldTop = bottomPanel.dom.style.top;
+        this.oldRight = bottomPanel.dom.style.right;
+        this.oldBottom = bottomPanel.dom.style.bottom;
+        this.oldHeight = bottomPanel.dom.style.height;
+        this.oldZIndex = bottomPanel.dom.style.zIndex;
+
+        Object.assign(bottomPanel.dom.style, {
+            left: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            height: '100%',
+            zIndex: 9999,
+        });
+    } else { // 当前状态：最大化
+        Object.assign(bottomPanel.dom.style, {
+            left: this.oldLeft,
+            top: this.oldTop,
+            right: this.oldRight,
+            bottom: this.oldBottom,
+            height: this.oldHeight,
+            zIndex: this.oldZIndex,
+        });
+
+        delete this.isMaximized;
+        delete this.oldLeft;
+        delete this.oldTop;
+        delete this.oldRight;
+        delete this.oldBottom;
+        delete this.oldHeight;
+        delete this.oldZIndex;
+        maximizeBtn.setTitle('最大化');
+        maximizeBtn.setIcon('icon-maximize');
+    }
+};
+
+BottomPanel.prototype.toggleShowPanel = function () {
+    UI.msg('折叠面板');
 };
 
 export default BottomPanel;
