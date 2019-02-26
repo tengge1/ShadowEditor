@@ -419,7 +419,7 @@ BottomPanel.prototype.onMaximize = function () {
             right: 0,
             bottom: 0,
             height: '100%',
-            zIndex: 9999,
+            zIndex: 1000,
         });
     } else { // 当前状态：最大化
         Object.assign(bottomPanel.dom.style, {
