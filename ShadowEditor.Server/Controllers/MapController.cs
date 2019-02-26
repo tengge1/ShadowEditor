@@ -35,7 +35,7 @@ namespace ShadowEditor.Server.Controllers
             var filter = Builders<BsonDocument>.Filter.Eq("Type", "Map");
             var categories = mongo.FindMany(Constant.CategoryCollectionName, filter).ToList();
 
-            var maps = mongo.FindAll(Constant.MapCollectionName).SortByDescending(n => n["UpdateTime"]).ToList();
+            var maps = mongo.FindAll(Constant.MapCollectionName).SortBy(n => n["Name"]).ToList();
 
             var list = new List<MapModel>();
 
