@@ -285,6 +285,7 @@ BottomPanel.prototype.render = function () {
 
     this.app.on(`appStarted.${this.id}`, () => {
         this.selectTab('time');
+        this.updateAssetsInfo();
     });
 
     this.app.on(`selectBottomPanel.${this.id}`, this.onSelectPanel.bind(this));
@@ -391,6 +392,34 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
     }
 
     this.app.call(`showBottomPanel`, this, tabName);
+};
+
+BottomPanel.prototype.updateAssetsInfo = function () {
+    var sceneTab = UI.get('sceneTab');
+    var modelTab = UI.get('modelTab');
+    var mapTab = UI.get('mapTab');
+    var materialTab = UI.get('materialTab');
+    var audioTab = UI.get('audioTab');
+    var animationTab = UI.get('animationTab');
+    var particleTab = UI.get('particleTab');
+    var prefabTab = UI.get('prefabTab');
+    var characterTab = UI.get('characterTab');
+
+    fetch(`${this.app.options.server}/api/Assets/List`).then(response => {
+        if (response.ok) {
+            response.json().then(json => {
+                sceneTab.setValue(`${L_SCENE}(${json.sceneCount})`);
+                modelTab.setValue(`${L_MODEL}(${json.meshCount})`);
+                mapTab.setValue(`${L_MAP}(${json.mapCount})`);
+                materialTab.setValue(`${L_MATERIAL}(${json.materialCount})`);
+                audioTab.setValue(`${L_AUDIO}(${json.audioCount})`);
+                animationTab.setValue(`${L_ANIMATION}(${json.animationCount})`);
+                particleTab.setValue(`${L_PARTICLE}(${json.particleCount})`);
+                prefabTab.setValue(`${L_PREFAB}(${json.prefabCount})`);
+                characterTab.setValue(`${L_CHARACTER}(${json.characterCount})`);
+            });
+        }
+    });
 };
 
 BottomPanel.prototype.onSort = function () {
