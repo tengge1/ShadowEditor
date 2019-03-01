@@ -8,6 +8,7 @@ import AssetMenu from './AssetMenu';
 import TerrainMenu from './TerrainMenu';
 import ComponentMenu from './ComponentMenu';
 import PlayMenu from './PlayMenu';
+import ToolMenu from './ToolMenu';
 import OptionsMenu from './OptionsMenu';
 import HelpMenu from './HelpMenu';
 import StatusMenu from './StatusMenu';
@@ -48,6 +49,7 @@ Menubar.prototype.render = function () {
             new TerrainMenu(params),
             new ComponentMenu(params),
             new PlayMenu(params),
+            new ToolMenu(params),
             new OptionsMenu(params),
             new HelpMenu(params),
 
