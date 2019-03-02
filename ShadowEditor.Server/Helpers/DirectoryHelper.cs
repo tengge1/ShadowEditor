@@ -48,5 +48,31 @@ namespace ShadowEditor.Server.Helpers
                 }
             }
         }
+
+        /// <summary>
+        /// 移除某个路径下的空文件夹
+        /// </summary>
+        /// <param name="path"></param>
+        public static void RemoveEmptyDir(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                return;
+            }
+
+            var directories = Directory.GetDirectories(path);
+            var files = Directory.GetFiles(path);
+
+            if (directories.Length + files.Length == 0)
+            {
+                Directory.Delete(path);
+                return;
+            }
+
+            foreach (var i in directories)
+            {
+                RemoveEmptyDir(i);
+            }
+        }
     }
 }
