@@ -42,7 +42,10 @@ namespace ShadowEditor.Server.Controllers.Tools
             // 备份贴图数据表，并清空原数据表
             var mongo = new MongoHelper();
             var docs = mongo.FindAll(Constant.MeshCollectionName).ToList();
-            mongo.InsertMany($"{Constant.MeshCollectionName}{now.ToString("yyyyMMddHHmmss")}", docs);
+            if (docs.Count > 0)
+            {
+                mongo.InsertMany($"{Constant.MeshCollectionName}{now.ToString("yyyyMMddHHmmss")}", docs);
+            }
             mongo.DeleteAll(Constant.MeshCollectionName);
 
             // 读取模型数据表，将文件完美复制到临时目录
@@ -143,7 +146,7 @@ namespace ShadowEditor.Server.Controllers.Tools
                         Directory.CreateDirectory(destFileDir);
                     }
 
-                    File.Copy(sourceFileName, $"{destFileDir}\\{name}");
+                    File.Copy(sourceFileName, $"{destFileDir}\\{name}", true);
                 }
             }
 

@@ -37,6 +37,11 @@ ToolMenu.prototype.render = function () {
                 html: '整理模型',
                 cls: 'option',
                 onClick: this.onArrangeMesh.bind(this)
+            }, {
+                xtype: 'div',
+                html: '整理缩略图',
+                cls: 'option',
+                onClick: this.onArrangeThumbnail.bind(this)
             }]
         }]
     });
@@ -64,6 +69,22 @@ ToolMenu.prototype.onArrangeMesh = function () {
     UI.confirm('询问', '整理模型会去除名称后的数字和下划线，重新生成数据表、模型目录，移除空文件夹和未引用模型文件，系统会自动备份数据表、模型目录，是否整理？', (event, btn) => {
         if (btn === 'ok') {
             fetch(`${this.app.options.server}/api/ArrangeMesh/Run`, {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    response.json().then(json => {
+                        UI.msg(json.Msg);
+                    });
+                }
+            });
+        }
+    });
+};
+
+ToolMenu.prototype.onArrangeThumbnail = function () {
+    UI.confirm('询问', '整理缩略图会重新生成缩略图目录，修改场景、模型、贴图、材质、音频、动画、粒子、预设体、人物的缩略图路径，请先手动备份数据库，是否整理？', (event, btn) => {
+        if (btn === 'ok') {
+            fetch(`${this.app.options.server}/api/ArrangeThumbnail/Run`, {
                 method: 'POST'
             }).then(response => {
                 if (response.ok) {
