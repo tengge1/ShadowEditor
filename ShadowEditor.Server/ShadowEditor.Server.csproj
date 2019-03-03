@@ -110,6 +110,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Controllers\AssetsController.cs" />
+    <Compile Include="Controllers\Tools\ArrangeMeshController.cs" />
     <Compile Include="Controllers\Tools\ArrangeMapController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\MapController.cs" />

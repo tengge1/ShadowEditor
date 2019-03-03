@@ -32,6 +32,11 @@ ToolMenu.prototype.render = function () {
                 html: '整理贴图',
                 cls: 'option',
                 onClick: this.onArrangeMap.bind(this)
+            }, {
+                xtype: 'div',
+                html: '整理模型',
+                cls: 'option',
+                onClick: this.onArrangeMesh.bind(this)
             }]
         }]
     });
@@ -40,9 +45,25 @@ ToolMenu.prototype.render = function () {
 }
 
 ToolMenu.prototype.onArrangeMap = function () {
-    UI.confirm('询问', '整理贴图会去除名称后的数字，重新生成数据表和贴图目录，移除空文件夹和未引用贴图文件，系统会自动备份数据表和贴图目录，是否整理？', (event, btn) => {
+    UI.confirm('询问', '整理贴图会去除名称后的数字和下划线，重新生成数据表和贴图目录，移除空文件夹和未引用贴图文件，系统会自动备份数据表和贴图目录，是否整理？', (event, btn) => {
         if (btn === 'ok') {
             fetch(`${this.app.options.server}/api/ArrangeMap/Run`, {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    response.json().then(json => {
+                        UI.msg(json.Msg);
+                    });
+                }
+            });
+        }
+    });
+};
+
+ToolMenu.prototype.onArrangeMesh = function () {
+    UI.confirm('询问', '整理模型会去除名称后的数字和下划线，重新生成数据表、模型目录，移除空文件夹和未引用模型文件，系统会自动备份数据表、模型目录，是否整理？', (event, btn) => {
+        if (btn === 'ok') {
+            fetch(`${this.app.options.server}/api/ArrangeMesh/Run`, {
                 method: 'POST'
             }).then(response => {
                 if (response.ok) {
