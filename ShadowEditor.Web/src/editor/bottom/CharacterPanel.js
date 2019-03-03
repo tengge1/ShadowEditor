@@ -222,7 +222,7 @@ CharacterPanel.prototype.onEdit = function (data) {
             type: 'Character',
             typeName: L_CHARACTER,
             saveUrl: `${this.app.options.server}/api/Character/Edit`,
-            callback: this.update.bind(this)
+            callback: this.updateList.bind(this)
         });
         this.editWindow.render();
     }

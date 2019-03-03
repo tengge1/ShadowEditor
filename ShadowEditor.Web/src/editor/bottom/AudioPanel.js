@@ -257,7 +257,7 @@ AudioPanel.prototype.onEdit = function (data) {
             type: 'Audio',
             typeName: L_AUDIO,
             saveUrl: `${this.app.options.server}/api/Audio/Edit`,
-            callback: this.update.bind(this)
+            callback: this.updateList.bind(this)
         });
         this.editWindow.render();
     }

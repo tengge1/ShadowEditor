@@ -257,7 +257,7 @@ MapPanel.prototype.onEdit = function (data) {
             type: 'Map',
             typeName: L_MAP,
             saveUrl: `${this.app.options.server}/api/Map/Edit`,
-            callback: this.update.bind(this)
+            callback: this.updateList.bind(this)
         });
         this.editWindow.render();
     }

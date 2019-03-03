@@ -222,7 +222,7 @@ PrefabPanel.prototype.onEdit = function (data) {
             type: 'Prefab',
             typeName: L_PREFAB,
             saveUrl: `${this.app.options.server}/api/Prefab/Edit`,
-            callback: this.update.bind(this)
+            callback: this.updateList.bind(this)
         });
         this.editWindow.render();
     }

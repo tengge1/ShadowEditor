@@ -222,7 +222,7 @@ MaterialPanel.prototype.onEdit = function (data) {
             type: 'Material',
             typeName: L_MATERIAL,
             saveUrl: `${this.app.options.server}/api/Material/Edit`,
-            callback: this.update.bind(this)
+            callback: this.updateList.bind(this)
         });
         this.editWindow.render();
     }

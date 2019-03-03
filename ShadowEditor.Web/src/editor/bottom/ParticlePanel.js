@@ -222,7 +222,7 @@ ParticlePanel.prototype.onEdit = function (data) {
             type: 'Particle',
             typeName: L_PARTICLE,
             saveUrl: `${this.app.options.server}/api/Particle/Edit`,
-            callback: this.update.bind(this)
+            callback: this.updateList.bind(this)
         });
         this.editWindow.render();
     }

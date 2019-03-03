@@ -329,7 +329,7 @@ ScenePanel.prototype.onEdit = function (data) {
             type: 'Scene',
             typeName: L_SCENE,
             saveUrl: `${this.app.options.server}/api/Scene/Edit`,
-            callback: this.update.bind(this)
+            callback: this.updateList.bind(this)
         });
         this.editWindow.render();
     }
