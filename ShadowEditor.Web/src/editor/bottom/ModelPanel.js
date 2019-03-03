@@ -292,7 +292,7 @@ ModelPanel.prototype.onEdit = function (data) {
             type: 'Mesh',
             typeName: L_MODEL,
             saveUrl: `${this.app.options.server}/api/Mesh/Edit`,
-            callback: this.update.bind(this)
+            callback: this.updateList.bind(this)
         });
         this.editWindow.render();
     }
