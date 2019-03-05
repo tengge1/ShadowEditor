@@ -11,5 +11,5 @@ mat4 makePerspective2(float fov, float aspect, float near, float far) {
 	float width = aspect * height;
 	float left = - 0.5 * width;
     
-    makePerspective(left, left + width, top, top - height, near, far );
+    return makePerspective(left, left + width, top, top - height, near, far );
 }
