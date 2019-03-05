@@ -31,27 +31,27 @@ RenderEvent.prototype.onRender = function () {
     var editor = this.app.editor;
     var scene = editor.scene;
     var sceneHelpers = editor.sceneHelpers;
-    // var camera = editor.camera;
-    // var renderer = editor.renderer;
+    var camera = editor.camera;
+    var renderer = editor.renderer;
 
     scene.updateMatrixWorld();
     sceneHelpers.updateMatrixWorld();
 
     this.app.call('beforeRender', this);
 
-    // renderer.render(scene, camera);
-    // renderer.render(sceneHelpers, camera);
+    renderer.render(scene, camera);
+    renderer.render(sceneHelpers, camera);
 
-    if (this.renderer === undefined) {
-        this.createRenderer().then(() => {
-            this.app.call('render');
-        });
-        this.app.on(`sceneLoaded.${this.id}`, this.createRenderer.bind(this));
-        this.app.on(`postProcessingChanged.${this.id}`, this.createRenderer.bind(this));
-        this.app.on(`objectSelected.${this.id}`, this.createRenderer.bind(this))
-    } else {
-        this.renderer.render();
-    }
+    // if (this.renderer === undefined) {
+    //     this.createRenderer().then(() => {
+    //         this.app.call('render');
+    //     });
+    //     this.app.on(`sceneLoaded.${this.id}`, this.createRenderer.bind(this));
+    //     this.app.on(`postProcessingChanged.${this.id}`, this.createRenderer.bind(this));
+    //     this.app.on(`objectSelected.${this.id}`, this.createRenderer.bind(this))
+    // } else {
+    //     this.renderer.render();
+    // }
 
     this.app.call('afterRender', this);
 };
