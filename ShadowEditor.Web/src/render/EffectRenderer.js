@@ -29,6 +29,10 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
         scenes = [scenes];
     }
 
+    this.scenes = scenes;
+    this.camera = camera;
+    this.renderer = renderer;
+
     var postProcessing = scenes[0].userData.postProcessing || {};
     this.ready = false;
 
@@ -108,10 +112,6 @@ EffectRenderer.prototype._createPostProcessing = function (scenes, camera, rende
     if (this.composer) {
         this.dispose();
     }
-
-    this.scenes = scenes;
-    this.camera = camera;
-    this.renderer = renderer;
 
     // 判断是否需要启用特效渲染器
     var keys = Object.keys(postProcessing);
@@ -313,10 +313,6 @@ EffectRenderer.prototype.render = function () {
 };
 
 EffectRenderer.prototype.dispose = function () {
-    this.scenes = null;
-    this.camera = null;
-    this.renderer = null;
-
     if (this.composer) {
         this.composer.reset();
         this.composer.passes.length = 0;
