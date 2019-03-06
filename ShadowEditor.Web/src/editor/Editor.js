@@ -19,11 +19,6 @@ function Editor(app) {
     this.scene = new THREE.Scene();
     this.scene.name = L_SCENE;
     this.scene.background = new THREE.Color(0xaaaaaa);
-    this.scene.userData.postProcessing = {
-        fxaa: { // 快速近似抗锯齿
-            enabled: true,
-        }
-    };
 
     this.sceneHelpers = new THREE.Scene();
 
