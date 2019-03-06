@@ -56,13 +56,13 @@ SaoComponent.prototype.render = function () {
                 id: 'output',
                 scope: this.id,
                 options: {
-                    [THREE.SAOPass.OUTPUT.Beauty]: L_BEAUTY,
-                    [THREE.SAOPass.OUTPUT.Default]: L_BEAUTY_AND_OCCLUSION,
-                    [THREE.SAOPass.OUTPUT.SAO]: L_OCCLUSION,
-                    [THREE.SAOPass.OUTPUT.Depth]: L_DEPTH,
-                    [THREE.SAOPass.OUTPUT.Normal]: L_NORMAL
+                    1: L_BEAUTY, // THREE.SAOPass.OUTPUT.Beauty
+                    0: L_BEAUTY_AND_OCCLUSION, // THREE.SAOPass.OUTPUT.Default
+                    2: L_OCCLUSION, // THREE.SAOPass.OUTPUT.SAO
+                    3: L_DEPTH, // THREE.SAOPass.OUTPUT.Depth
+                    4: L_NORMAL // THREE.SAOPass.OUTPUT.Normal
                 },
-                value: THREE.SAOPass.OUTPUT.Default,
+                value: 0, // THREE.SAOPass.OUTPUT.Default
                 onChange: this.onChange.bind(this)
             }]
         }, {

@@ -56,14 +56,14 @@ SsaoComponent.prototype.render = function () {
                 id: 'output',
                 scope: this.id,
                 options: {
-                    [THREE.SSAOPass.OUTPUT.Default]: L_DEFAULT,
-                    [THREE.SSAOPass.OUTPUT.SSAO]: L_OCCLUSION,
-                    [THREE.SSAOPass.OUTPUT.Blur]: L_OCCLUSION_AND_BLUR,
-                    [THREE.SSAOPass.OUTPUT.Beauty]: L_BEAUTY,
-                    [THREE.SSAOPass.OUTPUT.Depth]: L_DEPTH,
-                    [THREE.SSAOPass.OUTPUT.Normal]: L_NORMAL
+                    0: L_DEFAULT, // THREE.SSAOPass.OUTPUT.Default
+                    1: L_OCCLUSION, // THREE.SSAOPass.OUTPUT.SSAO
+                    2: L_OCCLUSION_AND_BLUR, // THREE.SSAOPass.OUTPUT.Blur
+                    3: L_BEAUTY, // THREE.SSAOPass.OUTPUT.Beauty
+                    4: L_DEPTH, // THREE.SSAOPass.OUTPUT.Depth
+                    5: L_NORMAL // THREE.SSAOPass.OUTPUT.Normal
                 },
-                value: THREE.SSAOPass.OUTPUT.Default,
+                value: 0, // THREE.SSAOPass.OUTPUT.Default
                 onChange: this.onChange.bind(this)
             }]
         }, {
