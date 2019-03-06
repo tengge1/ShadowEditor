@@ -37,6 +37,8 @@ RenderEvent.prototype.onRender = function () {
     scene.updateMatrixWorld();
     sceneHelpers.updateMatrixWorld();
 
+    this.app.editor.renderer.clear();
+
     this.app.call('beforeRender', this);
 
     renderer.render(scene, camera);

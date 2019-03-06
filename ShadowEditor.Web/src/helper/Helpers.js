@@ -13,8 +13,8 @@ function Helpers(app) {
 
     this.helpers = [
         new GridHelper(app),
-        new ViewHelper(app),
         new SelectHelper(app),
+        new ViewHelper(app),
         new SplineHelper(app),
     ];
 }

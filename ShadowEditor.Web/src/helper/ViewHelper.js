@@ -113,7 +113,8 @@ ViewHelper.prototype.createMesh = function () {
     var material1 = new THREE.RawShaderMaterial({
         uniforms: THREE.UniformsUtils.clone(uniforms),
         vertexShader: ArrowVertex,
-        fragmentShader: ArrowFragment
+        fragmentShader: ArrowFragment,
+        depthTest: false
     });
 
     var material2 = material1.clone();
@@ -142,11 +143,7 @@ ViewHelper.prototype.createMesh = function () {
 };
 
 ViewHelper.prototype.onAfterRender = function () {
-    var renderer = this.app.editor.renderer;
-
-    // 最后绘制而且清空深度缓冲，保证视角控件不会被其他物体遮挡
-    renderer.clearDepth();
-    renderer.render(this.scene, this.app.editor.camera);
+    this.app.editor.renderer.render(this.scene, this.app.editor.camera);
 };
 
 ViewHelper.prototype.onMouseDown = function (event) {
