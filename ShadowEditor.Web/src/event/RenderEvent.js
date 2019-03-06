@@ -44,16 +44,15 @@ RenderEvent.prototype.onRender = function () {
     renderer.render(scene, camera);
     renderer.render(sceneHelpers, camera);
 
-    // if (this.renderer === undefined) {
-    //     this.createRenderer().then(() => {
-    //         this.app.call('render');
-    //     });
-    //     this.app.on(`sceneLoaded.${this.id}`, this.createRenderer.bind(this));
-    //     this.app.on(`postProcessingChanged.${this.id}`, this.createRenderer.bind(this));
-    //     this.app.on(`objectSelected.${this.id}`, this.createRenderer.bind(this))
-    // } else {
-    //     this.renderer.render();
-    // }
+    if (this.renderer === undefined) {
+        this.createRenderer().then(() => {
+            this.app.call('render');
+        });
+        this.app.on(`sceneLoaded.${this.id}`, this.createRenderer.bind(this));
+        this.app.on(`postProcessingChanged.${this.id}`, this.createRenderer.bind(this));
+    } else {
+        this.renderer.render();
+    }
 
     this.app.call('afterRender', this);
 };
@@ -64,15 +63,13 @@ RenderEvent.prototype.createRenderer = function () {
     var sceneHelpers = editor.sceneHelpers;
     var camera = editor.camera;
     var renderer = editor.renderer;
-    var selected = editor.selected || [];
 
     this.renderer = new EffectRenderer();
 
     return this.renderer.create(
         [scene, sceneHelpers],
         camera,
-        renderer,
-        selected
+        renderer
     );
 };
 

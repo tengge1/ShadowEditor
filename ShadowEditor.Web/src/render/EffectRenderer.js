@@ -11,6 +11,8 @@ function EffectRenderer() {
     this.require = this.packageManager.require.bind(this.packageManager);
 
     this.ready = false;
+
+    this.effectNames = ['fxaa', 'smaa', 'ssaa', 'taa', 'sao', 'ssao', 'pixel', 'dotScreen', 'rgbShift', 'afterimage', 'halftone', 'bokeh', 'glitch'];
 };
 
 EffectRenderer.prototype = Object.create(BaseRenderer.prototype);
@@ -21,25 +23,19 @@ EffectRenderer.prototype.constructor = EffectRenderer;
  * @param {*} scenes 场景数组，使用第一个场景的特效配置
  * @param {*} camera 相机
  * @param {*} renderer 渲染器
- * @param {*} selected 选中物体
  */
-EffectRenderer.prototype.create = async function (scenes, camera, renderer, selected = []) {
+EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
     if (!Array.isArray(scenes)) {
         scenes = [scenes];
-    }
-
-    if (!Array.isArray(selected)) {
-        selected = [selected];
     }
 
     var postProcessing = scenes[0].userData.postProcessing || {};
     this.ready = false;
 
-    // 默认加载
-    // // 快速近似抗锯齿
-    // if (postProcessing.fxaa && postProcessing.fxaa.enabled) {
-    //     await this.require('FXAAShader');
-    // }
+    // 快速近似抗锯齿
+    if (postProcessing.fxaa && postProcessing.fxaa.enabled) {
+        await this.require('FXAAShader');
+    }
 
     // 多重采样抗锯齿
     if (postProcessing.smaa && postProcessing.smaa.enabled) {
@@ -101,18 +97,43 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer, sele
         await this.require(['DigitalGlitch', 'GlitchPass']);
     }
 
-    this._createPostProcessing(scenes, camera, renderer, selected);
+    this._createPostProcessing(scenes, camera, renderer);
 
     this.ready = true;
 };
 
-EffectRenderer.prototype._createPostProcessing = function (scenes, camera, renderer, selected) {
-    var composer = new THREE.EffectComposer(renderer);
+EffectRenderer.prototype._createPostProcessing = function (scenes, camera, renderer) {
+    var postProcessing = scenes[0].userData.postProcessing || {};
 
-    var scene = scenes[0];
-    var postProcessing = scene.userData.postProcessing || {},
-        effects = [],
+    if (this.composer) {
+        this.dispose();
+    }
+
+    this.scenes = scenes;
+    this.camera = camera;
+    this.renderer = renderer;
+
+    // 判断是否需要启用特效渲染器
+    var keys = Object.keys(postProcessing);
+    var useEffect = false;
+
+    for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+
+        if (this.effectNames[key] && this.effectNames[key].enabled) { // 需要特效
+            useEffect = true;
+            break;
+        }
+    }
+
+    if (!useEffect) {
+        return;
+    }
+
+    var effects = [],
         effect;
+
+    var composer = new THREE.EffectComposer(renderer);
 
     scenes.forEach((n, i) => {
         effect = new THREE.RenderPass(n, camera);
@@ -122,16 +143,15 @@ EffectRenderer.prototype._createPostProcessing = function (scenes, camera, rende
     });
 
     // 边框
-    effect = new THREE.OutlinePass(new THREE.Vector2(renderer.domElement.width, renderer.domElement.height), scene, camera);
-    effect.edgeStrength = 10;
-    effect.edgeGlow = 0.4;
-    effect.edgeThickness = 1.8;
-    effect.pulsePeriod = 2;
-    effect.visibleEdgeColor.set('#ffffff');
-    effect.hiddenEdgeColor.set('#190a05');
-    effect.selectedObjects = selected;
-    composer.addPass(effect);
-    effects.push(effect);
+    // effect = new THREE.OutlinePass(new THREE.Vector2(renderer.domElement.width, renderer.domElement.height), scene, camera);
+    // effect.edgeStrength = 10;
+    // effect.edgeGlow = 0.4;
+    // effect.edgeThickness = 1.8;
+    // effect.pulsePeriod = 2;
+    // effect.visibleEdgeColor.set('#ffffff');
+    // effect.hiddenEdgeColor.set('#190a05');
+    // composer.addPass(effect);
+    // effects.push(effect);
 
     // 快速近似抗锯齿
     if (postProcessing.fxaa && postProcessing.fxaa.enabled) {
@@ -283,12 +303,20 @@ EffectRenderer.prototype._createPostProcessing = function (scenes, camera, rende
  * 渲染特效
  */
 EffectRenderer.prototype.render = function () {
-    if (this.composer && this.ready) {
+    if (this.composer && this.ready) { // 使用特效渲染器
         this.composer.render();
+    } else { // 未设置特效
+        this.scenes.forEach(n => {
+            this.renderer.render(n, this.camera);
+        });
     }
 };
 
 EffectRenderer.prototype.dispose = function () {
+    this.scenes = null;
+    this.camera = null;
+    this.renderer = null;
+
     if (this.composer) {
         this.composer.reset();
         this.composer.passes.length = 0;
