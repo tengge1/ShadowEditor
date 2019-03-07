@@ -111,19 +111,19 @@ ScriptWindow.prototype.onCreateScript = function () {
 
     switch (scriptType) {
         case 'javascript':
-            initCode = JavaScriptStarter;
+            initCode = JavaScriptStarter();
             break;
         case 'vertexShader':
-            initCode = VertexShaderStarter;
+            initCode = VertexShaderStarter();
             break;
         case 'fragmentShader':
-            initCode = FragmentShaderStarter;
+            initCode = FragmentShaderStarter();
             break;
         case 'json':
-            initCode = JsonStarter;
+            initCode = JsonStarter();
             break;
         default:
-            initCode = JavaScriptStarter;
+            initCode = JavaScriptStarter();
             break;
     }
 

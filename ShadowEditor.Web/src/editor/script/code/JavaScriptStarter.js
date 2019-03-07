@@ -1,4 +1,8 @@
-var JavaScriptStarter = `
+/**
+ * JavaScript起始代码
+ */
+function JavaScriptStarter() {
+    return `
 // ${L_EXECUTE_BEFORE_SCENE_RENDER}
 function init() {
 
@@ -64,5 +68,6 @@ function onResize(event) {
 
 }
 `;
+}
 
 export default JavaScriptStarter;

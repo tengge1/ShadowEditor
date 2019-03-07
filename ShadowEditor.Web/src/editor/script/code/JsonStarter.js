@@ -1,4 +1,8 @@
-var JsonStarter = `
+/**
+ * Json起始代码
+ */
+function JsonStarter() {
+    return `
 {
     "defines": {
 
@@ -11,5 +15,6 @@ var JsonStarter = `
     }
 }
 `;
+}
 
 export default JsonStarter;
