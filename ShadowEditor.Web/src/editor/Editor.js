@@ -1,5 +1,4 @@
 ﻿import History from '../core/History';
-import Storage from '../core/Storage';
 import Helpers from '../helper/Helpers';
 
 /**
@@ -13,7 +12,6 @@ function Editor(app) {
 
     // 基础
     this.history = new History(this);
-    this.storage = new Storage();
 
     // 场景
     this.scene = new THREE.Scene();
@@ -136,7 +134,6 @@ Editor.prototype.setScene = function (scene) { // 设置场景
 
 Editor.prototype.clear = function (addObject = true) { // 清空场景
     this.history.clear();
-    this.storage.clear();
 
     this.camera.copy(this.DEFAULT_CAMERA);
 
