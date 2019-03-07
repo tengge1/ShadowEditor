@@ -326,3 +326,4 @@ Shadow Editor需要服务端支持，请按照[使用指南](#使用指南)配�
 
 * Three.js官网：https://threejs.org/
 * LOL模型查看器：https://github.com/tengge1/lol-model-viewer
+* 60个优秀的免费3D模型下载网站：http://www.360doc.com/content/11/0527/16/930254_119801102.shtml
