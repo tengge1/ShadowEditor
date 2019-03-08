@@ -661,7 +661,7 @@ table.Table .TableBody td {
     display: flex;
     background-color: #fff;
     color: rgba(0, 0, 0, 0.88);
-    z-index: 8;
+    z-index: 20;
     border-radius: 3px;
     font-size: 12px;
     align-items: center;

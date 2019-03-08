@@ -61,6 +61,14 @@ Button.prototype.unselect = function () {
     this.dom.classList.remove('selected');
 };
 
+Button.prototype.show = function () {
+    this.dom.style.display = '';
+};
+
+Button.prototype.hide = function () {
+    this.dom.style.display = 'none';
+};
+
 UI.addXType('button', Button);
 
 export default Button;

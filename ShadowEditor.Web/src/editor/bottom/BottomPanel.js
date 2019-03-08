@@ -146,6 +146,8 @@ BottomPanel.prototype.render = function () {
                     onClick: this.onMaximize.bind(this)
                 }, {
                     xtype: 'iconbutton',
+                    id: 'collapseBtn',
+                    scope: this.id,
                     icon: 'icon-down-arrow',
                     title: L_COLLAPSE,
                     style: {
@@ -429,11 +431,13 @@ BottomPanel.prototype.onSort = function () {
 BottomPanel.prototype.onMaximize = function () {
     var bottomPanel = UI.get('bottomPanel', this.id);
     var maximizeBtn = UI.get('maximizeBtn', this.id);
+    var collapseBtn = UI.get('collapseBtn', this.id);
 
     if (this.isMaximized === undefined) { // 当前状态：正常
         this.isMaximized = true;
         maximizeBtn.setTitle('正常化');
         maximizeBtn.setIcon('icon-minimize');
+        collapseBtn.hide();
 
         this.oldLeft = bottomPanel.dom.style.left;
         this.oldTop = bottomPanel.dom.style.top;
@@ -469,11 +473,50 @@ BottomPanel.prototype.onMaximize = function () {
         delete this.oldZIndex;
         maximizeBtn.setTitle('最大化');
         maximizeBtn.setIcon('icon-maximize');
+        collapseBtn.show();
     }
 };
 
 BottomPanel.prototype.toggleShowPanel = function () {
-    UI.msg('折叠面板');
+    var bottomPanel = UI.get('bottomPanel', this.id);
+    var collapseBtn = UI.get('collapseBtn', this.id);
+    var maximizeBtn = UI.get('maximizeBtn', this.id);
+    var viewport = UI.get('viewport');
+
+    if (this.isCollapsed === undefined) {
+        this.isCollapsed = true;
+        collapseBtn.setTitle('展开');
+        collapseBtn.setIcon('icon-up-arrow');
+        maximizeBtn.hide();
+
+        this.oldBottom = bottomPanel.dom.style.bottom;
+        this.oldViewportBottom = viewport.dom.style.bottom;
+
+        Object.assign(bottomPanel.dom.style, {
+            bottom: '-168px',
+        });
+
+        Object.assign(viewport.dom.style, {
+            bottom: '72px',
+        });
+    } else {
+        Object.assign(bottomPanel.dom.style, {
+            bottom: this.oldBottom,
+        });
+
+        Object.assign(viewport.dom.style, {
+            bottom: this.oldViewportBottom,
+        });
+
+        delete this.oldBottom;
+        delete this.oldViewportBottom;
+        delete this.isCollapsed;
+        collapseBtn.setTitle('折叠');
+        collapseBtn.setIcon('icon-down-arrow');
+        maximizeBtn.show();
+    }
+
+    this.app.call('resize', this);
 };
 
 export default BottomPanel;
