@@ -21,6 +21,7 @@ ViewHelper.prototype.start = function () {
 
     this.app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
     this.app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
+    this.app.on(`resize.${this.id}`, this.onResize.bind(this));
 };
 
 ViewHelper.prototype.stop = function () {
@@ -29,6 +30,7 @@ ViewHelper.prototype.stop = function () {
     delete this.mesh;
     this.app.on(`afterRender.${this.id}`, null);
     this.app.on(`mousedown.${this.id}`, null);
+    this.app.on(`resize.${this.id}`, null);
 };
 
 ViewHelper.prototype.createMesh = function () {
@@ -191,6 +193,21 @@ ViewHelper.prototype.onMouseDown = function (event) {
     if (obj) {
         var materialIndex = obj.face.materialIndex;
     }
+};
+
+ViewHelper.prototype.onResize = function () {
+    var materials = this.mesh.material;
+    var width = this.app.editor.renderer.domElement.width;
+    var height = this.app.editor.renderer.domElement.height;
+    var fov = this.app.editor.camera.fov;
+    var top = this.z * Math.tan(fov * Math.PI / 180 * 0.5); // 到相机垂直距离为z的地方屏幕高度一半
+    this.size = (height / (2 * top) + 12) * 2; // 12为留白
+
+    materials.forEach(n => {
+        n.uniforms.domWidth.value = width;
+        n.uniforms.domHeight.value = height;
+        n.uniforms.size.value = this.size;
+    });
 };
 
 export default ViewHelper;
