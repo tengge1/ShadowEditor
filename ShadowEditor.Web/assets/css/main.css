@@ -486,6 +486,10 @@ table.Table .TableBody td {
     border: 1px solid #ddd;
 }
 
+ul.Tree {
+    list-style: none;
+}
+
 ::-webkit-scrollbar {
     width: 0.2em;
 }

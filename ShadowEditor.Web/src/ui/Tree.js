@@ -19,6 +19,10 @@ Tree.prototype.render = function () {
     this.dom = document.createElement('ul');
     this.parent.appendChild(this.dom);
 
+    Object.assign(this.dom, {
+        className: 'Tree'
+    });
+
     this.data.forEach(n => {
         this._createNode(n, this.dom);
     });
@@ -29,6 +33,7 @@ Tree.prototype._createNode = function (data, dom) {
     dom.appendChild(li);
 
     Object.assign(li, {
+        className: 'Item',
         value: data.value,
     });
 
