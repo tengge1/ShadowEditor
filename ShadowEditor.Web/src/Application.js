@@ -1,4 +1,5 @@
 import Options from './Options';
+import Storage from './utils/Storage';
 
 import UI from './ui/UI';
 import EventDispatcher from './event/EventDispatcher';
@@ -32,6 +33,9 @@ function Application(container, options) {
 
     // 配置
     this.options = new Options(options);
+
+    // 存储
+    this.storage = new Storage();
 
     // 包管理器
     this.packageManager = new PackageManager();
