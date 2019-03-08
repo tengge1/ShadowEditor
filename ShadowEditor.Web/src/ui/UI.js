@@ -42,6 +42,7 @@ import './ImageUploader';
 import './LinkButton';
 import './Category';
 import './DataTable';
+import './Tree';
 
 // 添加一些实用功能
 Object.assign(UI, {
