@@ -37,14 +37,24 @@ Tree.prototype._createNode = function (data, dom) {
         value: data.value,
     });
 
+    // 图标
+    var icon = document.createElement('i');
+    icon.className = 'iconfont icon-right-triangle';
+    li.appendChild(icon);
+
+    // 链接
     var a = document.createElement('a');
     a.setAttribute('href', 'javascript:;');
     a.innerHTML = data.text || '';
     li.appendChild(a);
 
-    if (Array.isArray(data.children)) {
+    if (Array.isArray(data.children) && data.children.length > 0) {
+        var ul = document.createElement('ul');
+        ul.className = 'SubTree';
+        li.appendChild(ul);
+
         data.children.forEach(n => {
-            this._createNode(n, li);
+            this._createNode(n, ul);
         });
     }
 };

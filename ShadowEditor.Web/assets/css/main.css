@@ -490,6 +490,24 @@ ul.Tree {
     list-style: none;
 }
 
+ul.Tree .Item {
+    line-height: 20px;
+}
+
+ul.Tree .Item a {
+    color: rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+}
+
+ul.Tree .Item a:hover {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+ul.Tree .Item .SubTree {
+    list-style: none;
+    padding-inline-start: 16px;
+}
+
 ::-webkit-scrollbar {
     width: 0.2em;
 }
