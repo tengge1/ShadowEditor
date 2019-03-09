@@ -33,7 +33,7 @@ Tree.prototype._createNode = function (data, dom) {
     dom.appendChild(li);
 
     Object.assign(li, {
-        className: 'Item',
+        className: 'Node',
         value: data.value,
     });
 

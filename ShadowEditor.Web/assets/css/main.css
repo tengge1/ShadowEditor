@@ -488,22 +488,23 @@ table.Table .TableBody td {
 
 ul.Tree {
     list-style: none;
+    padding-inline-start: 16px;
 }
 
-ul.Tree .Item {
+ul.Tree .Node {
     line-height: 20px;
 }
 
-ul.Tree .Item a {
+ul.Tree .Node a {
     color: rgba(0, 0, 0, 0.5);
     text-decoration: none;
 }
 
-ul.Tree .Item a:hover {
+ul.Tree .Node a:hover {
     color: rgba(0, 0, 0, 0.8);
 }
 
-ul.Tree .Item .SubTree {
+ul.Tree .Node .SubTree {
     list-style: none;
     padding-inline-start: 16px;
 }
