@@ -52,6 +52,9 @@ Tree.prototype._createNode = function (data, dom) {
         data: data
     });
 
+    li.addEventListener('click', this._onClick.bind(this));
+    li.addEventListener('dblclick', this._onDblClick.bind(this));
+
     this._nodes[id] = li;
 
     var icon = document.createElement('i');
@@ -145,9 +148,33 @@ Tree.prototype.collapse = function (id) {
     }
 };
 
+Tree.prototype._onClick = function (event) {
+    var li = event.target;
+    var data = li.data;
+
+    event.stopPropagation();
+
+    if (typeof (this.onClick) === 'function') {
+        this.onClick(data, event);
+    }
+};
+
+Tree.prototype._onDblClick = function (event) {
+    var li = event.target;
+    var data = li.data;
+
+    event.stopPropagation();
+
+    if (typeof (this.onClick) === 'function') {
+        this.onDblClick(data, event);
+    }
+};
+
 Tree.prototype._toggleNode = function (event) {
     var li = event.target.parentNode;
     var data = li.data;
+
+    event.stopPropagation();
 
     if (data.leaf) {
         return;

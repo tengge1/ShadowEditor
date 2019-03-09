@@ -64,7 +64,10 @@
                     value: 4,
                     text: '子项目四'
                 }]
-            }]
+            }],
+            onClick: (data, event) => {
+                alert('单击' + JSON.stringify(data));
+            }
         });
 
         control.render();
