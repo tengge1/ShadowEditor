@@ -28,12 +28,9 @@ Sidebar.prototype.render = function () {
                 text: L_HIERACHY,
                 cls: 'selected'
             }]
-        }, { // 场景面板
-            xtype: 'div',
-            children: [
-                new HierachyPanel({ app: this.app })
-            ]
-        }, {
+        },
+        new HierachyPanel({ app: this.app }), // 场景面板
+        {
             xtype: 'div',
             cls: 'tabs',
             children: [{
@@ -41,12 +38,9 @@ Sidebar.prototype.render = function () {
                 text: L_SCRIPT,
                 cls: 'selected'
             }]
-        }, {
-            xtype: 'div',
-            children: [
-                new ScriptPanel({ app: this.app })
-            ]
-        }]
+        },
+        new ScriptPanel({ app: this.app }), // 脚本面板
+        ]
     };
 
     var control = UI.create(data);

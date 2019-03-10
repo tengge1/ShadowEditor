@@ -414,10 +414,14 @@ Editor.prototype.selectById = function (id) { // 根据id选中物体
 };
 
 Editor.prototype.selectByUuid = function (uuid) { // 根据uuid选中物体
-    var _this = this;
-    this.scene.traverse(function (child) {
+    if (uuid === this.camera.uuid) {
+        this.select(this.camera);
+        return;
+    }
+
+    this.scene.traverse(child => {
         if (child.uuid === uuid) {
-            _this.select(child);
+            this.select(child);
         }
     });
 };
@@ -437,6 +441,19 @@ Editor.prototype.focusById = function (id) { // 根据id设置交点
     if (obj) {
         this.focus(obj);
     }
+};
+
+Editor.prototype.focusByUUID = function (uuid) { // 根据uuid设置焦点
+    if (uuid === this.camera.uuid) {
+        this.focus(this.camera);
+        return;
+    }
+
+    this.scene.traverse(child => {
+        if (child.uuid === uuid) {
+            this.focus(child);
+        }
+    });
 };
 
 // ----------------------- 命令事件 --------------------------

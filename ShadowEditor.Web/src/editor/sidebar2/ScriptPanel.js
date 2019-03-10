@@ -22,6 +22,11 @@ ScriptPanel.prototype.render = function () {
         xtype: 'div',
         parent: this.parent,
         cls: 'Panel scriptPanel',
+        style: {
+            height: 'calc(50% - 40px)',
+            borderTop: 0,
+            overflowY: 'auto',
+        },
         children: [{
             xtype: 'row',
             id: 'scriptsContainer'

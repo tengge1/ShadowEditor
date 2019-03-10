@@ -488,11 +488,17 @@ table.Table .TableBody td {
 
 ul.Tree {
     list-style: none;
-    padding-inline-start: 16px;
+    margin-block-start: 4px;
+    padding-inline-start: 4px;
 }
 
 ul.Tree .Node {
-    line-height: 20px;
+    height: 26px;
+    line-height: 24px;
+}
+
+ul.Tree .Node.selected {
+    background-color: #ddd;
 }
 
 ul.Tree .Node a {
@@ -507,7 +513,7 @@ ul.Tree .Node a:hover {
 
 ul.Tree .Node .SubTree {
     list-style: none;
-    padding-inline-start: 16px;
+    padding-inline-start: 12px;
 }
 
 ::-webkit-scrollbar {
@@ -722,6 +728,7 @@ ul.Tree .Node .SubTree {
     color: #888;
     padding: 8px;
     border-top: 1px solid #ddd;
+    box-sizing: border-box;
 }
 
 .sidebar .Panel.collapsed {
