@@ -24,7 +24,26 @@ PlayMenu.prototype.render = function () {
             xtype: 'div',
             cls: 'title',
             html: L_PLAY,
-            onClick: this.onTogglePlay.bind(this)
+            onClick: this.onTogglePlay.bind(this),
+        }, , {
+            xtype: 'div',
+            cls: 'options',
+            children: [{
+                xtype: 'div',
+                cls: 'option',
+                html: '播放',
+                onClick: this.onTogglePlay.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: '全屏播放',
+                onClick: this.playFullscreen.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: '新窗口播放',
+                onClick: this.playNewWindow.bind(this),
+            }]
         }]
     });
 
@@ -51,6 +70,14 @@ PlayMenu.prototype.startPlayer = function () { // 启动播放器
 
 PlayMenu.prototype.stopPlayer = function () { // 停止播放器
     this.app.player.stop();
+};
+
+PlayMenu.prototype.playFullscreen = function () { // 全屏播放
+    UI.msg('全屏播放！');
+};
+
+PlayMenu.prototype.playNewWindow = function () { // 新窗口播放
+    UI.msg('新窗口播放！');
 };
 
 export default PlayMenu;
