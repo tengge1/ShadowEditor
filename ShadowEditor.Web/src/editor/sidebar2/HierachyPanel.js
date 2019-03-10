@@ -40,6 +40,10 @@ HierachyPanel.prototype.render = function () {
     control.render();
 
     this.app.on(`sceneGraphChanged.${this.id}`, this.updateUI.bind(this));
+
+    // bug: https://gitee.com/tengge1/ShadowEditor/issues/ITCCT
+    this.app.on(`objectChanged.${this.id}`, this.updateUI.bind(this));
+
     this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
 };
 
