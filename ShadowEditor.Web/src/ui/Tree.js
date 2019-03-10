@@ -240,15 +240,18 @@ Tree.prototype.select = function (value) {
 /**
  * 展开选中的节点的所有父节点
  * @param {*} dom 
+ * @param {*} isParent 
  */
-Tree.prototype._expandSelected = function (dom) {
+Tree.prototype._expandSelected = function (dom, isParent = false) {
     if (dom.classList.contains('Tree')) { // 根节点，默认展开
         return;
     } else if (dom.classList.contains('SubTree')) { // 子树，展开父节点
-        this._expandSelected(dom.parentNode);
+        this._expandSelected(dom.parentNode, true);
     } else if (dom.classList.contains('Node')) { // 节点，展开
-        this.expand(dom.data.value);
-        this._expandSelected(dom.parentNode);
+        if (isParent) {
+            this.expand(dom.data.value);
+        }
+        this._expandSelected(dom.parentNode, true);
     } else {
         console.warn(`Tree: Unknown node.`);
     }

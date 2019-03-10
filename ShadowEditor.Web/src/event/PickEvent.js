@@ -101,7 +101,7 @@ PickEvent.prototype.handleClick = function () {
                 // helper
                 editor.select(object.userData.object);
             } else {
-                editor.select(object);
+                editor.select(this.partToMesh(object));
             }
         } else {
             editor.select(null);
@@ -119,6 +119,40 @@ PickEvent.prototype.handleClick = function () {
 
         this.app.call('render');
     }
+};
+
+/**
+ * 如果选中的是模型的一部分，改为选择整个模型
+ * @param {*} obj 
+ */
+PickEvent.prototype.partToMesh = function (obj) {
+    var scene = this.app.editor.scene;
+
+    if (obj === scene || obj.userData && obj.userData.Server === true) { // 场景或服务端模型
+        return obj;
+    }
+
+    // 判断obj是否是模型的一部分
+    var model = obj;
+    var isPart = false;
+
+    while (model) {
+        if (model === scene) {
+            break;
+        }
+        if (model.userData && model.userData.Server === true) {
+            isPart = true;
+            break;
+        }
+
+        model = model.parent;
+    }
+
+    if (isPart) {
+        return model;
+    }
+
+    return obj;
 };
 
 export default PickEvent;
