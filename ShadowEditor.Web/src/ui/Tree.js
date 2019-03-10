@@ -17,6 +17,7 @@ function Tree(options = {}) {
 
     this._selected = null;
     this._nodes = {}; // value: li
+    this._expands = {}; // value: true/false, 记录每个节点展开关闭状态
 };
 
 Tree.prototype = Object.create(Control.prototype);
@@ -49,7 +50,7 @@ Tree.prototype._createNode = function (data, dom) {
 
     var value = data.value || '';
     var leaf = !Array.isArray(data.children) || data.children.length === 0;
-    var expand = data.expand || false;
+    var expand = data.expand || this._expands[value] === true;
     var draggable = data.draggable || false;
 
     data.leaf = leaf;
@@ -177,6 +178,7 @@ Tree.prototype.expand = function (value) {
     }
 
     data.expand = true;
+    this._expands[data.value] = true;
 
     for (var i = 0; i < li.children.length; i++) {
         var node = li.children[i];
@@ -206,6 +208,7 @@ Tree.prototype.collapse = function (value) {
     }
 
     data.expand = false;
+    this._expands[data.value] = false;
 
     for (var i = 0; i < li.children.length; i++) {
         var node = li.children[i];
