@@ -249,7 +249,7 @@ Tree.prototype.unselect = function (value) {
 };
 
 Tree.prototype._onClick = function (event) {
-    var data = event.target.data;
+    var data = event.currentTarget.data;
     event.stopPropagation();
 
     this.select(data.value);
@@ -260,7 +260,7 @@ Tree.prototype._onClick = function (event) {
 };
 
 Tree.prototype._onDblClick = function (event) {
-    var data = event.target.data;
+    var data = event.currentTarget.data;
     event.stopPropagation();
 
     if (typeof (this.onDblClick) === 'function') {
@@ -269,7 +269,7 @@ Tree.prototype._onDblClick = function (event) {
 };
 
 Tree.prototype._toggleNode = function (event) {
-    var li = event.target.parentNode;
+    var li = event.currentTarget.parentNode;
     var data = li.data;
 
     event.stopPropagation();
