@@ -36,19 +36,6 @@
     <script src="assets/js/VolumetricFire.js"></script>
     <script src="assets/js/utils/BufferGeometryUtils.js"></script>
 
-    <!-- shader -->
-    <script src="assets/js/shaders/CopyShader.js"></script>
-    <script src="assets/js/shaders/NormalMapShader.js"></script>
-
-    <!-- postprocessing -->
-    <script src="assets/js/postprocessing/EffectComposer.js"></script>
-    <script src="assets/js/postprocessing/RenderPass.js"></script>
-    <script src="assets/js/postprocessing/ShaderPass.js"></script>
-    <script src="assets/js/postprocessing/OutlinePass.js"></script>
-    <script src="assets/js/shaders/FXAAShader.js"></script>
-    <script src="assets/js/postprocessing/SAOPass.js"></script>
-    <script src="assets/js/postprocessing/SSAOPass.js"></script>
-
     <!-- controls -->
     <script src="assets/js/controls/EditorControls.js"></script>
     <script src="assets/js/controls/TransformControls.js"></script>
@@ -87,27 +74,10 @@
             });
         };
 
-        var getQueryString = name => {
-            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) return unescape(r[2]);
-            return null;
-        };
-
         var start = () => {
             container = document.getElementById('container');
-
-            var id = getQueryString('id'); // 场景id，例如：view.html?id=5bb9ed3ec8b49b43940044ab
-
-            if (!id) {
-                alert('id参数丢失！');
-                return;
-            }
-
             app = new Shadow.Application(container, {
-                server: location.origin,
-                view: true,
-                viewId: id
+                server: location.origin
             });
             app.start();
         };

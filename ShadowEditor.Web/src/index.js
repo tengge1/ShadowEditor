@@ -41,6 +41,9 @@ export { default as Texture } from './ui/Texture';
 export { default as Timeline } from './ui/Timeline';
 export { default as ToolbarFiller } from './ui/ToolbarFiller';
 export { default as Window } from './ui/Window';
+import { default as Tree } from './ui/Tree';
 export { default as UI } from './ui/UI';
+
+export { default as Player } from './player/Player';
 
 export { default as Application } from './Application';

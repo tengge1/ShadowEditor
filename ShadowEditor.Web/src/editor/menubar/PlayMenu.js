@@ -20,8 +20,9 @@ PlayMenu.prototype.render = function () {
         parent: this.parent,
         cls: 'menu',
         children: [{
-            id: 'mPlay',
             xtype: 'div',
+            id: 'mPlay',
+            scope: this.id,
             cls: 'title',
             html: L_PLAY,
             onClick: this.onTogglePlay.bind(this),
@@ -30,15 +31,19 @@ PlayMenu.prototype.render = function () {
             cls: 'options',
             children: [{
                 xtype: 'div',
+                id: 'mPlaySub',
+                scope: this.id,
                 cls: 'option',
                 html: '播放',
                 onClick: this.onTogglePlay.bind(this),
-            }, {
-                xtype: 'div',
-                cls: 'option',
-                html: '全屏播放',
-                onClick: this.playFullscreen.bind(this),
-            }, {
+            },
+            // {
+            //     xtype: 'div',
+            //     cls: 'option',
+            //     html: '全屏播放',
+            //     onClick: this.playFullscreen.bind(this),
+            // }, 
+            {
                 xtype: 'div',
                 cls: 'option',
                 html: '新窗口播放',
@@ -51,30 +56,50 @@ PlayMenu.prototype.render = function () {
 }
 
 PlayMenu.prototype.onTogglePlay = function () {
-    var editor = this.app.editor;
-
-    if (this.isPlaying === false) {
-        this.isPlaying = true;
-        UI.get('mPlay').dom.innerHTML = L_STOP;
-        this.startPlayer();
+    if (this.isPlaying) {
+        this.stopPlay();
     } else {
-        this.isPlaying = false;
-        UI.get('mPlay').dom.innerHTML = L_PLAY;
-        this.stopPlayer();
+        this.startPlay();
     }
 };
 
-PlayMenu.prototype.startPlayer = function () { // 启动播放器
+PlayMenu.prototype.startPlay = function () { // 启动播放
+    if (this.isPlaying) {
+        return;
+    }
+
+    this.isPlaying = true;
+
+    var play = UI.get('mPlay', this.id);
+    var playSub = UI.get('mPlaySub', this.id);
+
+    play.dom.innerHTML = L_STOP;
+    playSub.dom.innerHTML = L_STOP;
+
     this.app.player.start();
 };
 
-PlayMenu.prototype.stopPlayer = function () { // 停止播放器
+PlayMenu.prototype.stopPlay = function () { // 停止播放
+    if (!this.isPlaying) {
+        return;
+    }
+
+    this.isPlaying = false;
+
+    var play = UI.get('mPlay', this.id);
+    var playSub = UI.get('mPlaySub', this.id);
+
+    play.dom.innerHTML = L_PLAY;
+    playSub.dom.innerHTML = L_PLAY;
+
     this.app.player.stop();
 };
 
-PlayMenu.prototype.playFullscreen = function () { // 全屏播放
-    UI.msg('全屏播放！');
-};
+// PlayMenu.prototype.playFullscreen = function () { // 全屏播放
+//     var dom = this.app.editor.renderer.domElement;
+//     dom.requestFullscreen();
+//     this.startPlayer();
+// };
 
 PlayMenu.prototype.playNewWindow = function () { // 新窗口播放
     UI.msg('新窗口播放！');
