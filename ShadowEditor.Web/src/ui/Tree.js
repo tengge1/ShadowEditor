@@ -53,7 +53,6 @@ Tree.prototype._createNode = function (data, dom) {
     });
 
     li.addEventListener('click', this._onClick.bind(this));
-    li.addEventListener('dblclick', this._onDblClick.bind(this));
 
     this._nodes[id] = li;
 
@@ -149,24 +148,23 @@ Tree.prototype.collapse = function (id) {
 };
 
 Tree.prototype._onClick = function (event) {
-    var li = event.target;
-    var data = li.data;
+    var data = event.target.data;
 
     event.stopPropagation();
 
-    if (typeof (this.onClick) === 'function') {
-        this.onClick(data, event);
-    }
-};
-
-Tree.prototype._onDblClick = function (event) {
-    var li = event.target;
-    var data = li.data;
-
-    event.stopPropagation();
-
-    if (typeof (this.onClick) === 'function') {
-        this.onDblClick(data, event);
+    if (!this.clickTimeout) {
+        this.clickTimeout = setTimeout(() => { // 单击
+            this.clickTimeout = null;
+            if (typeof (this.onClick) === 'function') {
+                this.onClick(data, event);
+            }
+        }, 200);
+    } else {
+        clearTimeout(this.clickTimeout);
+        this.clickTimeout = null;
+        if (typeof (this.onDblClick) === 'function') { // 双击
+            this.onDblClick(data, event);
+        }
     }
 };
 
