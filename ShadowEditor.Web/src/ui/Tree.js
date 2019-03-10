@@ -49,6 +49,7 @@ Tree.prototype._createNode = function (data, dom) {
     }
 
     var value = data.value || '';
+    var text = data.text || '';
     var leaf = !Array.isArray(data.children) || data.children.length === 0;
     var expand = data.expand || this._expands[value] === true;
     var draggable = data.draggable || false;
@@ -60,6 +61,8 @@ Tree.prototype._createNode = function (data, dom) {
         className: 'Node',
         data: data
     });
+
+    li.setAttribute('title', text);
 
     if (draggable) {
         li.setAttribute('draggable', draggable);
@@ -98,7 +101,13 @@ Tree.prototype._createNode = function (data, dom) {
     // 链接
     var a = document.createElement('a');
     a.setAttribute('href', 'javascript:;');
-    a.innerHTML = data.text || '';
+
+    if (text.length > 8) {
+        a.innerHTML = text.substr(0, 7) + '...';
+    } else {
+        a.innerHTML = text;
+    }
+
     li.appendChild(a);
 
     if (!leaf) {
