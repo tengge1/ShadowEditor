@@ -9,10 +9,11 @@ import UI from './Manager';
 function Tree(options = {}) {
     Control.call(this, options);
 
-    this.data = options.data || []; // [{ value: '值', text: '文本', expand: 'true/false, 默认关闭', 其他属性 }, ...]
+    this.data = options.data || []; // [{ value: '值', text: '文本', expand: 'true/false, 默认关闭', draggable: 'true/false, 默认不可拖动', 其他属性 }, ...]
 
     this.onClick = options.onClick || null;
     this.onDblClick = options.onDblClick || null;
+    this.onDrag = options.onDrag || null;
 
     this._selected = null;
     this._nodes = {}; // value: li
@@ -49,6 +50,7 @@ Tree.prototype._createNode = function (data, dom) {
     var value = data.value || '';
     var leaf = !Array.isArray(data.children) || data.children.length === 0;
     var expand = data.expand || false;
+    var draggable = data.draggable || false;
 
     data.leaf = leaf;
     data.expand = expand;
@@ -58,6 +60,10 @@ Tree.prototype._createNode = function (data, dom) {
         data: data
     });
 
+    if (draggable) {
+        li.setAttribute('draggable', draggable);
+    }
+
     // 刷新前已经选中的节点仍然选中
     if (this._selected && value === this._selected.value) {
         li.classList.add('selected');
@@ -65,6 +71,11 @@ Tree.prototype._createNode = function (data, dom) {
 
     li.addEventListener('click', this._onClick.bind(this));
     li.addEventListener('dblclick', this._onDblClick.bind(this));
+    li.addEventListener('drag', this._onDrag.bind(this), false);
+    li.addEventListener('dragstart', this._onDragStart.bind(this), false);
+    li.addEventListener('dragover', this._onDragOver.bind(this), false);
+    li.addEventListener('dragleave', this._onDragLeave.bind(this), false);
+    li.addEventListener('drop', this._onDrop.bind(this), false);
 
     this._nodes[value] = li;
 
@@ -116,6 +127,11 @@ Tree.prototype._clearNode = function (dom) {
         delete this._nodes[dom.data.value];
         dom.removeEventListener('click', this._onClick);
         dom.removeEventListener('dblclick', this._onDblClick);
+        dom.removeEventListener('drag', this._onDrag);
+        dom.removeEventListener('dragstart', this._onDragStart);
+        dom.removeEventListener('dragover', this._onDragOver);
+        dom.removeEventListener('dragleave', this._onDragLeave);
+        dom.removeEventListener('drop', this._onDrop);
         var icon = dom.children[0];
         icon.removeEventListener('click', this._toggleNode);
     } else {
@@ -320,6 +336,94 @@ Tree.prototype._toggleNode = function (event) {
         this.collapse(data.value);
     } else {
         this.expand(data.value);
+    }
+};
+
+// --------------------- 拖拽事件 ---------------------------
+
+Tree.prototype._onDrag = function (event) {
+    event.stopPropagation();
+    this.currentDrag = event.currentTarget;
+};
+
+Tree.prototype._onDragStart = function (event) {
+    event.stopPropagation();
+    event.dataTransfer.setData('text', 'foo');
+};
+
+Tree.prototype._onDragOver = function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    var target = event.currentTarget;
+
+    if (target === this.currentDrag) {
+        return;
+    }
+
+    var area = event.offsetY / target.clientHeight;
+
+    if (area < 0.25) {
+        target.classList.add('dragTop');
+    } else if (area > 0.75) {
+        target.classList.add('dragBottom');
+    } else {
+        target.classList.add('drag');
+    }
+};
+
+Tree.prototype._onDragLeave = function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    var target = event.currentTarget;
+
+    if (target === this.currentDrag) {
+        return;
+    }
+
+    target.classList.remove('dragTop');
+    target.classList.remove('dragBottom');
+    target.classList.remove('drag');
+};
+
+Tree.prototype._onDrop = function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    var target = event.currentTarget;
+
+    if (target === this.currentDrag) {
+        return;
+    }
+
+    target.classList.remove('dragTop');
+    target.classList.remove('dragBottom');
+    target.classList.remove('drag');
+
+    if (typeof (this.onDrag) === 'function') {
+        var area = event.offsetY / target.clientHeight;
+
+        if (area < 0.25) { // 放在当前元素前面
+            var nextObject = scene.getObjectById(this.value);
+            this.onDrag(
+                this.currentDrag.data, // 拖动要素
+                target.parentNode.parentNode.data, // 新位置父级
+                target.data, // 新位置索引
+            ); // 拖动, 父级, 索引
+        } else if (area > 0.75) { // 放在当前元素后面
+            this.onDrag(
+                this.currentDrag.data,
+                target.nextSibling.parentNode.parentNode.data,
+                target.nextSibling.data,
+            );
+        } else { // 成为该元素子级
+            this.onDrag(
+                this.currentDrag.data,
+                target.data,
+                null,
+            );
+        }
     }
 };
 

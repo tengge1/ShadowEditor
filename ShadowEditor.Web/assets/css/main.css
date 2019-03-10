@@ -500,6 +500,18 @@ ul.Tree .Node.selected {
     background-color: #ddd;
 }
 
+ul.Tree .Node.drag {
+    border: 1px dashed #999;
+}
+
+ul.Tree .Node.dragTop {
+    border-top: 1px dashed #999;
+}
+
+ul.Tree .Node.dragBottom {
+    border-bottom: 1px dashed #999;
+}
+
 ul.Tree .Node a {
     color: rgba(0, 0, 0, 0.5);
     text-decoration: none;

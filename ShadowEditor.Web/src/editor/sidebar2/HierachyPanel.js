@@ -1,4 +1,5 @@
 ﻿import UI from '../../ui/UI';
+import MoveObjectCommand from '../../command/MoveObjectCommand';
 
 /**
  * 场景层次图面板
@@ -30,7 +31,8 @@ HierachyPanel.prototype.render = function () {
             id: 'tree',
             scope: this.id,
             onClick: this.onClick.bind(this),
-            onDblClick: this.onDblClick.bind(this)
+            onDblClick: this.onDblClick.bind(this),
+            onDrag: this.onDrag.bind(this),
         }]
     };
 
@@ -91,10 +93,13 @@ HierachyPanel.prototype.updateUI = function () {
 };
 
 HierachyPanel.prototype._parseData = function (obj, list) {
+    var scene = this.app.editor.scene;
+
     var data = {
         value: obj.uuid,
         text: obj.name,
-        expand: obj === this.app.editor.scene ? true : false,
+        expand: obj === scene,
+        draggable: obj !== scene,
         children: []
     };
     list.push(data);
@@ -104,6 +109,24 @@ HierachyPanel.prototype._parseData = function (obj, list) {
             this._parseData(n, data.children);
         });
     }
+};
+
+/**
+ * 拖动节点
+ */
+HierachyPanel.prototype.onDrag = function (objData, newParentData, newBeforeData) {
+    var object, newParent, newBefore;
+
+    var editor = this.app.editor;
+
+    object = editor.objectByUuid(objData.value);
+    newParent = editor.objectByUuid(newParentData.value);
+
+    if (newBeforeData) {
+        newBefore = editor.objectByUuid(newBeforeData.value);
+    }
+
+    this.app.editor.execute(new MoveObjectCommand(object, newParent, newBefore));
 };
 
 export default HierachyPanel;
