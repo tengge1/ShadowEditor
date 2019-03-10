@@ -208,6 +208,14 @@ Tree.prototype.getSelected = function () {
 };
 
 /**
+ * 根据过滤器查找节点
+ * @param {*} filter 
+ */
+Tree.prototype.find = function (filter) {
+    return Object.values(this._nodes).map(n => n.data).filter(filter);
+};
+
+/**
  * 根据value选中节点
  * @param {*} value 
  */
@@ -224,14 +232,43 @@ Tree.prototype.select = function (value) {
 
     this._selected = li.data;
     li.classList.add('selected');
+
+    this._expandSelected(li);
+    this._scrollSelected(li);
 };
 
 /**
- * 根据过滤器查找节点
- * @param {*} filter 
+ * 展开选中的节点的所有父节点
+ * @param {*} dom 
  */
-Tree.prototype.find = function (filter) {
-    return Object.values(this._nodes).map(n => n.data).filter(filter);
+Tree.prototype._expandSelected = function (dom) {
+    if (dom.classList.contains('Tree')) { // 根节点，默认展开
+        return;
+    } else if (dom.classList.contains('SubTree')) { // 子树，展开父节点
+        this._expandSelected(dom.parentNode);
+    } else if (dom.classList.contains('Node')) { // 节点，展开
+        this.expand(dom.data.value);
+        this._expandSelected(dom.parentNode);
+    } else {
+        console.warn(`Tree: Unknown node.`);
+    }
+};
+
+/**
+ * 滚动到选中的节点
+ * @param {*} dom 
+ */
+Tree.prototype._scrollSelected = function (dom) {
+    var container = this.dom.parentNode;
+    var y = dom.offsetTop - container.offsetTop;
+    var bottomY = y + 24; // dom.offsetHeight
+    var minScroll = bottomY - container.offsetHeight;
+
+    if (container.scrollTop > y) { // 选中节点在当前位置上面
+        container.scrollTop = y - 8;
+    } else if (container.scrollTop < minScroll) { // 选中节点在当前位置下面
+        container.scrollTop = minScroll + 8;
+    }
 };
 
 /**
