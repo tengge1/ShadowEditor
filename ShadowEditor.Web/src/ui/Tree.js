@@ -417,7 +417,6 @@ Tree.prototype._onDrop = function (event) {
         var area = event.offsetY / target.clientHeight;
 
         if (area < 0.25) { // 放在当前元素前面
-            var nextObject = scene.getObjectById(this.value);
             this.onDrag(
                 this.currentDrag.data, // 拖动要素
                 target.parentNode.parentNode.data, // 新位置父级

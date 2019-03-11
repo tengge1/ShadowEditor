@@ -131,6 +131,9 @@ HierachyPanel.prototype.onDrag = function (objData, newParentData, newBeforeData
     }
 
     this.app.editor.execute(new MoveObjectCommand(object, newParent, newBefore));
+
+    var tree = UI.get('tree', this.id);
+    tree.expand(newParentData.value);
 };
 
 export default HierachyPanel;
