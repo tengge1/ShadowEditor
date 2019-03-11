@@ -1,3 +1,4 @@
+import { dispatch } from '../third_party';
 import UI from '../ui/UI';
 import Converter from '../serialization/Converter';
 
@@ -17,6 +18,12 @@ import PlayerPhysics from './component/PlayerPhysics';
 function Player(options) {
     UI.Control.call(this, options);
     this.app = options.app;
+
+    this.dispatch = new dispatch([
+        'init'
+    ]);
+    this.call = this.dispatch.call.bind(this.dispatch);
+    this.on = this.dispatch.on.bind(this.dispatch);
 
     this.scene = null;
     this.camera = null;
@@ -87,6 +94,8 @@ Player.prototype.start = function () {
 
     this.loader.create(jsons).then(obj => {
         this.initPlayer(obj);
+
+        this.dispatch.call('init', this);
 
         var promise1 = this.event.create(this.scene, this.camera, this.renderer, obj.scripts);
         var promise2 = this.control.create(this.scene, this.camera, this.renderer);
@@ -182,6 +191,23 @@ Player.prototype.animate = function () {
     this.stats.end();
 
     requestAnimationFrame(this.animate.bind(this));
+};
+
+Player.prototype.resize = function () {
+    if (!this.camera || !this.renderer) {
+        return;
+    }
+
+    var camera = this.camera;
+    var renderer = this.renderer;
+
+    var width = renderer.domElement.clientWidth;
+    var height = renderer.domElement.clientHeight;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(width, height);
 };
 
 export default Player;

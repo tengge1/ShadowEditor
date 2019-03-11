@@ -26,7 +26,7 @@ PlayMenu.prototype.render = function () {
             cls: 'title',
             html: L_PLAY,
             onClick: this.onTogglePlay.bind(this),
-        }, , {
+        }, {
             xtype: 'div',
             cls: 'options',
             children: [{
@@ -36,14 +36,12 @@ PlayMenu.prototype.render = function () {
                 cls: 'option',
                 html: '播放',
                 onClick: this.onTogglePlay.bind(this),
-            },
-            // {
-            //     xtype: 'div',
-            //     cls: 'option',
-            //     html: '全屏播放',
-            //     onClick: this.playFullscreen.bind(this),
-            // }, 
-            {
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: '全屏播放',
+                onClick: this.playFullscreen.bind(this),
+            }, {
                 xtype: 'div',
                 cls: 'option',
                 html: '新窗口播放',
@@ -95,11 +93,24 @@ PlayMenu.prototype.stopPlay = function () { // 停止播放
     this.app.player.stop();
 };
 
-// PlayMenu.prototype.playFullscreen = function () { // 全屏播放
-//     var dom = this.app.editor.renderer.domElement;
-//     dom.requestFullscreen();
-//     this.startPlayer();
-// };
+PlayMenu.prototype.playFullscreen = function () { // 全屏播放
+    if (!this.isPlaying) {
+        this.startPlay();
+    }
+
+    this.app.player.on(`init.${this.id}`, this._requestFullscreen.bind(this));
+};
+
+PlayMenu.prototype._requestFullscreen = function () {
+    var dom = this.app.player.renderer.domElement;
+    dom.addEventListener('fullscreenchange', this._onFullscreenChange.bind(this));
+    dom.requestFullscreen();
+};
+
+PlayMenu.prototype._onFullscreenChange = function () {
+    debugger
+    this.app.player.resize();
+};
 
 PlayMenu.prototype.playNewWindow = function () { // 新窗口播放
     UI.msg('新窗口播放！');
