@@ -17,12 +17,14 @@ import PlayerPhysics from './component/PlayerPhysics';
  * @param {*} options 配置信息
  * @param {*} options.server 服务器信息，例如：http://localhost:2000
  * @param {*} options.enableThrowBall 是否允许扔小球进行物理测试
+ * @param {*} options.showStats 是否显示性能控件
  */
 function Player(options = {}) {
     UI.Control.call(this, options);
 
     options.server = options.server || window.origin;
     options.enableThrowBall = options.enableThrowBall || false;
+    options.showStats = options.showStats || false;
 
     this.options = options;
 
@@ -66,12 +68,14 @@ Player.prototype.render = function () {
     control.render();
 
     // 性能控件
-    this.stats = new Stats();
-    this.stats.dom.style.position = 'absolute';
-    this.stats.dom.style.left = '8px';
-    this.stats.dom.style.top = '8px';
-    this.stats.dom.style.zIndex = 'initial';
-    control.dom.appendChild(this.stats.dom);
+    if (this.options.showStats) {
+        this.stats = new Stats();
+        this.stats.dom.style.position = 'absolute';
+        this.stats.dom.style.left = '8px';
+        this.stats.dom.style.top = '8px';
+        this.stats.dom.style.zIndex = 'initial';
+        control.dom.appendChild(this.stats.dom);
+    }
 
     window.addEventListener('resize', this.onResize.bind(this));
 
@@ -203,7 +207,9 @@ Player.prototype.animate = function () {
         return;
     }
 
-    this.stats.begin();
+    if (this.stats) {
+        this.stats.begin();
+    }
 
     var deltaTime = this.clock.getDelta();
 
@@ -213,7 +219,9 @@ Player.prototype.animate = function () {
     this.animation.update(this.clock, deltaTime);
     this.physics.update(this.clock, deltaTime);
 
-    this.stats.end();
+    if (this.stats) {
+        this.stats.end();
+    }
 
     requestAnimationFrame(this.animate.bind(this));
 };

@@ -62,6 +62,8 @@ function Application(container, options) {
     this.script = new ScriptEditor(params); // 脚本编辑器面板
     this.player = new Player({
         server: this.options.server,
+        enableThrowBall: false,
+        showStats: true,
     }); // 播放器面板
 
     UI.create({
