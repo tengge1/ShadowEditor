@@ -98,18 +98,7 @@ PlayMenu.prototype.playFullscreen = function () { // 全屏播放
         this.startPlay();
     }
 
-    this.app.player.on(`init.${this.id}`, this._requestFullscreen.bind(this));
-};
-
-PlayMenu.prototype._requestFullscreen = function () {
-    var dom = this.app.player.renderer.domElement;
-    dom.addEventListener('fullscreenchange', this._onFullscreenChange.bind(this));
-    dom.requestFullscreen();
-};
-
-PlayMenu.prototype._onFullscreenChange = function () {
-    debugger
-    this.app.player.resize();
+    UI.get('player', this.app.player.id).dom.requestFullscreen();
 };
 
 PlayMenu.prototype.playNewWindow = function () { // 新窗口播放

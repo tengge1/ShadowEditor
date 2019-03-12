@@ -65,6 +65,15 @@ Player.prototype.render = function () {
     this.stats.dom.style.top = '8px';
     this.stats.dom.style.zIndex = 'initial';
     control.dom.appendChild(this.stats.dom);
+
+    window.addEventListener('resize', this.onResize.bind(this));
+
+    var observer = new MutationObserver(this.onResize.bind(this));
+    observer.observe(control.dom, {
+        attributes: true,
+        characterData: false,
+        childList: false,
+    });
 };
 
 /**
@@ -133,6 +142,7 @@ Player.prototype.stop = function () {
     this.physics.dispose();
 
     var container = UI.get('player', this.id);
+
     container.dom.removeChild(this.renderer.domElement);
     container.dom.style.display = 'none';
 
@@ -163,7 +173,8 @@ Player.prototype.initPlayer = function (obj) {
 
     this.renderer = obj.renderer || new THREE.WebGLRenderer({
         antialias: true
-    });;
+    });
+
     this.renderer.setSize(container.dom.clientWidth, container.dom.clientHeight);
     container.dom.appendChild(this.renderer.domElement);
 
@@ -198,16 +209,23 @@ Player.prototype.resize = function () {
         return;
     }
 
+    var container = UI.get('player', this.id);
+
+    var width = container.dom.clientWidth;
+    var height = container.dom.clientHeight;
+
     var camera = this.camera;
     var renderer = this.renderer;
-
-    var width = renderer.domElement.clientWidth;
-    var height = renderer.domElement.clientHeight;
 
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
 
+    renderer.domElement
     renderer.setSize(width, height);
+};
+
+Player.prototype.onResize = function (records) {
+    this.resize();
 };
 
 export default Player;
