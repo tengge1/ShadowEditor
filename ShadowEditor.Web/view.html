@@ -12,6 +12,18 @@
     <!-- Shadow Editor -->
     <link href="assets/css/main.css" rel="stylesheet" />
     <link id="theme" href="assets/css/light.css" rel="stylesheet" />
+    <style>
+        .player {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: auto;
+            bottom: auto;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -58,13 +70,37 @@
         var container = null;
         var app = null;
 
+        var getQueryString = name => {
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        };
+
         var start = () => {
             container = document.getElementById('container');
-            app = new Shadow.Editor(container, {
+            app = new Shadow.Player(container, {
                 server: location.origin,
                 enableThrowBall: false,
             });
-            app.start();
+            app.render();
+
+            var sceneID = getQueryString('sceneID');
+
+            if (!sceneID) {
+                alert('sceneID参数未定义！');
+                return;
+            }
+
+            fetch(`/api/Scene/Load?ID=${sceneID}`).then(response => {
+                if (response.ok) {
+                    response.json().then(json => {
+                        if (json.Code === 200) {
+                            app.start(JSON.stringify(json.Data));
+                        }
+                    });
+                }
+            });
         };
 
         window.onload = start;

@@ -113,7 +113,14 @@ PlayMenu.prototype.playFullscreen = function () { // 全屏播放
 };
 
 PlayMenu.prototype.playNewWindow = function () { // 新窗口播放
-    UI.msg('新窗口播放！');
+    var sceneID = this.app.editor.sceneID;
+
+    if (!sceneID) {
+        UI.msg('请先保存场景！');
+        return;
+    }
+
+    window.open(`view.html?sceneID=${sceneID}`, 'ShadowPlayer');
 };
 
 export default PlayMenu;
