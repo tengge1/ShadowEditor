@@ -3,7 +3,7 @@ import Converter from '../../serialization/Converter';
 
 /**
  * 播放器下载事件
- * @param {*} app 应用
+ * @param {*} app 播放器
  */
 function PlayerLoader(app) {
     PlayerComponent.call(this, app);

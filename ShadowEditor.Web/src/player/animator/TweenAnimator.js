@@ -3,7 +3,7 @@ import Ease from '../../utils/Ease';
 
 /**
  * 补间动画控制器
- * @param {*} app 应用
+ * @param {*} app 播放器
  */
 function TweenAnimator(app) {
     PlayerComponent.call(this, app);

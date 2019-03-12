@@ -3,7 +3,7 @@ import PackageManager from '../../package/PackageManager';
 
 /**
  * 播放器场景控制
- * @param {*} app 应用
+ * @param {*} app 播放器
  */
 function PlayerControl(app) {
     PlayerComponent.call(this, app);

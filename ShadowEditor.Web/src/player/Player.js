@@ -14,10 +14,17 @@ import PlayerPhysics from './component/PlayerPhysics';
  * 播放器
  * @author mrdoob / http://mrdoob.com/
  * @author tengge / https://github.com/tengge1
+ * @param {*} options 配置信息
+ * @param {*} options.server 服务器信息，例如：http://localhost:2000
+ * @param {*} options.enableThrowBall 是否允许扔小球进行物理测试
  */
-function Player(options) {
+function Player(options = {}) {
     UI.Control.call(this, options);
-    this.app = options.app;
+
+    options.server = options.server || window.origin;
+    options.enableThrowBall = options.enableThrowBall || false;
+
+    this.options = options;
 
     this.dispatch = new dispatch([
         'init'
@@ -29,13 +36,13 @@ function Player(options) {
     this.camera = null;
     this.renderer = null;
 
-    this.loader = new PlayerLoader(this.app);
-    this.event = new PlayerEvent(this.app);
-    this.control = new PlayerControl(this.app);
-    this.audio = new PlayerAudio(this.app);
-    this.playerRenderer = new PlayerRenderer(this.app);
-    this.animation = new PlayerAnimation(this.app);
-    this.physics = new PlayerPhysics(this.app);
+    this.loader = new PlayerLoader(this);
+    this.event = new PlayerEvent(this);
+    this.control = new PlayerControl(this);
+    this.audio = new PlayerAudio(this);
+    this.playerRenderer = new PlayerRenderer(this);
+    this.animation = new PlayerAnimation(this);
+    this.physics = new PlayerPhysics(this);
 
     this.isPlaying = false;
     this.clock = new THREE.Clock(false);
@@ -163,14 +170,19 @@ Player.prototype.stop = function () {
  */
 Player.prototype.initPlayer = function (obj) {
     var container = UI.get('player', this.id);
-    var editor = this.app.editor;
 
-    this.camera = obj.camera || new THREE.PerspectiveCamera(
-        editor.DEFAULT_CAMERA.fov,
-        container.dom.clientWidth / container.dom.clientHeight,
-        editor.DEFAULT_CAMERA.near,
-        editor.DEFAULT_CAMERA.far
-    );
+    this.camera = obj.camera;
+
+    if (!this.camera) {
+        console.warn(`Player: 场景中不存在相机信息`);
+        this.camera = new THREE.PerspectiveCamera(
+            50,
+            container.dom.clientWidth / container.dom.clientHeight,
+            0.1,
+            1000
+        );
+    }
+
     this.camera.updateProjectionMatrix();
 
     this.renderer = obj.renderer || new THREE.WebGLRenderer({

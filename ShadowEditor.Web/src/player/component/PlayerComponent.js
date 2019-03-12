@@ -2,10 +2,10 @@ var ID = -1;
 
 /**
  * 播放器组件
- * @param {*} app 应用
+ * @param {*} app 播放器
  */
 function PlayerComponent(app) {
-    this.id = `PlayerComponent${ID--}`
+    this.id = `${this.constructor.name}${ID--}`
     this.app = app;
 }
 

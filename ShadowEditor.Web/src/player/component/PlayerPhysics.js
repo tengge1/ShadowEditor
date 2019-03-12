@@ -27,7 +27,7 @@ const shape = {
 
 /**
  * 播放器物理
- * @param {*} app 应用
+ * @param {*} app 播放器
  */
 function PlayerPhysics(app) {
     PlayerComponent.call(this, app);
@@ -66,7 +66,8 @@ function PlayerPhysics(app) {
     ];
 
     // api函数
-    Object.assign(app, {
+    // TODO: 很难受的实现
+    Object.assign(window, {
         addPhysicsObject: this.addPhysicsObject.bind(this)
     });
 }

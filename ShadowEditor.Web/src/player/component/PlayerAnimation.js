@@ -5,7 +5,7 @@ import ParticleAnimator from '../animator/ParticleAnimator';
 
 /**
  * 播放器动画
- * @param {*} app 应用
+ * @param {*} app 播放器
  */
 function PlayerAnimation(app) {
     PlayerComponent.call(this, app);
@@ -34,9 +34,9 @@ PlayerAnimation.prototype.create = function (scene, camera, renderer, animations
 
     this.maxTime = this.calculateMaxTime();
 
-    this.app.call(`resetAnimation`, this);
-    this.app.call(`startAnimation`, this);
-    this.app.on(`animationTime.${this.id}`, this.updateTime.bind(this));
+    // this.app.call(`resetAnimation`, this);
+    // this.app.call(`startAnimation`, this);
+    // this.app.on(`animationTime.${this.id}`, this.updateTime.bind(this));
 
     var promises = this.animators.map(n => {
         return n.create(scene, camera, renderer, animations);
@@ -68,11 +68,11 @@ PlayerAnimation.prototype.update = function (clock, deltaTime) {
         n.update(clock, deltaTime, this.currentTime);
     });
 
-    // 超过最大动画时间，重置动画
-    if (this.currentTime > this.maxTime) {
-        this.app.call(`resetAnimation`, this.id);
-        this.app.call(`startAnimation`, this.id);
-    }
+    // // 超过最大动画时间，重置动画
+    // if (this.currentTime > this.maxTime) {
+    //     this.app.call(`resetAnimation`, this.id);
+    //     this.app.call(`startAnimation`, this.id);
+    // }
 };
 
 PlayerAnimation.prototype.dispose = function () {
@@ -87,8 +87,8 @@ PlayerAnimation.prototype.dispose = function () {
         n.dispose();
     });
 
-    this.app.on(`animationTime.${this.id}`, null);
-    this.app.call(`resetAnimation`, this);
+    // this.app.on(`animationTime.${this.id}`, null);
+    // this.app.call(`resetAnimation`, this);
 };
 
 export default PlayerAnimation;

@@ -58,39 +58,16 @@
         var container = null;
         var app = null;
 
-        var lang = window.localStorage.getItem('lang') || 'zh-CN';
-
-        var loadJs = url => {
-            var script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = url;
-
-            document.body.appendChild(script);
-
-            return new Promise(resolve => {
-                script.onload = () => {
-                    resolve();
-                }
-            });
-        };
-
         var start = () => {
             container = document.getElementById('container');
-            app = new Shadow.Application(container, {
-                server: location.origin
+            app = new Shadow.Editor(container, {
+                server: location.origin,
+                enableThrowBall: false,
             });
             app.start();
         };
 
-        window.onload = () => {
-            if (lang === 'zh-CN') {
-                loadJs('lang/zh-CN.js').then(() => {
-                    start();
-                });
-            } else {
-                start();
-            }
-        };
+        window.onload = start;
     </script>
 </body>
 

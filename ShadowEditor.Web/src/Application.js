@@ -60,7 +60,9 @@ function Application(container, options) {
     this.bottomPanel = new BottomPanel(params); // 底部面板
     this.statusBar = new StatusBar(params); // 状态栏
     this.script = new ScriptEditor(params); // 脚本编辑器面板
-    this.player = new Player(params); // 播放器面板
+    this.player = new Player({
+        server: this.options.server,
+    }); // 播放器面板
 
     UI.create({
         xtype: 'container',

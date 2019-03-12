@@ -2,7 +2,7 @@ import PlayerComponent from '../component/PlayerComponent';
 
 /**
  * MMD动画控制器
- * @param {*} app 应用
+ * @param {*} app 播放器
  */
 function MMDAnimator(app) {
     PlayerComponent.call(this, app);

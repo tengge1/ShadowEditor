@@ -2,7 +2,7 @@ import PlayerComponent from './PlayerComponent';
 
 /**
  * 播放器事件
- * @param {*} app 应用
+ * @param {*} app 播放器
  */
 function PlayerEvent(app) {
     PlayerComponent.call(this, app);

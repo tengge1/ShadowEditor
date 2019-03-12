@@ -2,7 +2,7 @@ import PlayerComponent from './PlayerComponent';
 
 /**
  * 播放器音频
- * @param {*} app 应用
+ * @param {*} app 播放器
  */
 function PlayerAudio(app) {
     PlayerComponent.call(this, app);
@@ -36,7 +36,7 @@ PlayerAudio.prototype.create = function (scene, camera, renderer) {
 
                 resolve();
             }, undefined, () => {
-                this.app.error(`PlayerLoader: ${n.userData.Url} loaded failed.`);
+                console.warn(`PlayerLoader: ${n.userData.Url} loaded failed.`);
                 resolve();
             });
         });

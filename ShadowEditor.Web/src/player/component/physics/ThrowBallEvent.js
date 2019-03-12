@@ -2,7 +2,7 @@ import PlayerComponent from '../PlayerComponent';
 
 /**
  * 按z键扔球事件
- * @param {*} app 
+ * @param {*} app 播放器
  * @param {*} world 
  * @param {*} rigidBodies 
  */
@@ -11,8 +11,6 @@ function ThrowBallEvent(app, world, rigidBodies) {
 
     this.world = world;
     this.rigidBodies = rigidBodies;
-
-    this.enabled = false;
 }
 
 ThrowBallEvent.prototype = Object.create(PlayerComponent.prototype);
@@ -23,26 +21,19 @@ ThrowBallEvent.prototype.create = function (scene, camera, renderer) {
     this.camera = camera;
     this.renderer = renderer;
 
-    this.enabled = UI.get('cbThrowBall').getValue();
-
-    this.app.on(`click.${this.id}`, this.throwBall.bind(this));
-    this.app.on(`enableThrowBall.${this.id}`, this.onEnableThrowBall.bind(this));
+    this.renderer.domElement.addEventListener('click', this.throwBall.bind(this));
 };
 
 ThrowBallEvent.prototype.dispose = function () {
-    this.app.on(`click.${this.id}`, null);
-    this.app.on(`enableThrowBall.${this.id}`, null);
+    this.renderer.domElement.removeEventListener('click', this.throwBall);
+
     this.scene = null;
     this.camera = null;
     this.renderer = null;
 };
 
-ThrowBallEvent.prototype.onEnableThrowBall = function (enabled) {
-    this.enabled = enabled;
-};
-
 ThrowBallEvent.prototype.throwBall = function (event) {
-    if (!this.enabled) {
+    if (!this.app.options.enableThrowBall) {
         return;
     }
 

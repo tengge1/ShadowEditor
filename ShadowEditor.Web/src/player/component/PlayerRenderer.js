@@ -3,7 +3,7 @@ import EffectRenderer from '../../render/EffectRenderer';
 
 /**
  * 播放器渲染器
- * @param {*} app 应用
+ * @param {*} app 播放器
  */
 function PlayerRenderer(app) {
     PlayerComponent.call(this, app);

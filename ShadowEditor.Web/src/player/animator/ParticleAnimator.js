@@ -2,7 +2,7 @@ import PlayerComponent from '../component/PlayerComponent';
 
 /**
  * 粒子动画控制器
- * @param {*} app 应用
+ * @param {*} app 播放器
  */
 function ParticleAnimator(app) {
     PlayerComponent.call(this, app);
