@@ -1,4 +1,5 @@
 import UI from '../../ui/UI';
+import Converter from '../../serialization/Converter';
 
 /**
  * 启动菜单
@@ -74,7 +75,17 @@ PlayMenu.prototype.startPlay = function () { // 启动播放
     play.dom.innerHTML = L_STOP;
     playSub.dom.innerHTML = L_STOP;
 
-    this.app.player.start();
+    // 将场景数据转换为字符串
+    var jsons = (new Converter()).toJSON({
+        options: this.app.options,
+        scene: this.app.editor.scene,
+        camera: this.app.editor.camera,
+        renderer: this.app.editor.renderer,
+        scripts: this.app.editor.scripts,
+        animations: this.app.editor.animations,
+    });
+
+    this.app.player.start(JSON.stringify(jsons));
 };
 
 PlayMenu.prototype.stopPlay = function () { // 停止播放

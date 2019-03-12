@@ -78,8 +78,23 @@ Player.prototype.render = function () {
 
 /**
  * 启动播放器
+ * @param {String} sceneData 场景数据
  */
-Player.prototype.start = function () {
+Player.prototype.start = function (sceneData) {
+    if (typeof (sceneData) !== 'string') {
+        UI.msg('需要字符串类型的场景数据参数！');
+        return;
+    }
+
+    var jsons;
+
+    try {
+        jsons = JSON.parse(sceneData)
+    } catch (e) {
+        UI.msg('无法解析json类型的场景数据！');
+        return;
+    }
+
     if (this.isPlaying) {
         return;
     }
@@ -87,19 +102,6 @@ Player.prototype.start = function () {
 
     var container = UI.get('player', this.id);
     container.dom.style.display = '';
-
-    var jsons = (new Converter()).toJSON({
-        options: this.app.options,
-        scene: this.app.editor.scene,
-        camera: this.app.editor.camera,
-        renderer: this.app.editor.renderer,
-        scripts: this.app.editor.scripts,
-        animations: this.app.editor.animations,
-    });
-
-    // 转为字符串，再转回来，避免编辑器和播放器互相干扰
-    jsons = JSON.stringify(jsons);
-    jsons = JSON.parse(jsons);
 
     this.loader.create(jsons).then(obj => {
         this.initPlayer(obj);
