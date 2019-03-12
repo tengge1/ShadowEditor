@@ -22,17 +22,14 @@ PlayMenu.prototype.render = function () {
         cls: 'menu',
         children: [{
             xtype: 'div',
-            id: 'mPlay',
-            scope: this.id,
             cls: 'title',
-            html: L_PLAY,
-            onClick: this.onTogglePlay.bind(this),
+            html: L_PLAY
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
                 xtype: 'div',
-                id: 'mPlaySub',
+                id: 'mPlay',
                 scope: this.id,
                 cls: 'option',
                 html: '播放',
@@ -70,10 +67,7 @@ PlayMenu.prototype.startPlay = function () { // 启动播放
     this.isPlaying = true;
 
     var play = UI.get('mPlay', this.id);
-    var playSub = UI.get('mPlaySub', this.id);
-
     play.dom.innerHTML = L_STOP;
-    playSub.dom.innerHTML = L_STOP;
 
     // 将场景数据转换为字符串
     var jsons = (new Converter()).toJSON({
@@ -96,10 +90,7 @@ PlayMenu.prototype.stopPlay = function () { // 停止播放
     this.isPlaying = false;
 
     var play = UI.get('mPlay', this.id);
-    var playSub = UI.get('mPlaySub', this.id);
-
     play.dom.innerHTML = L_PLAY;
-    playSub.dom.innerHTML = L_PLAY;
 
     this.app.player.stop();
 };

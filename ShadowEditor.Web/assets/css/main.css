@@ -587,7 +587,6 @@ ul.Tree .Node .SubTree {
 
 .menubar .menu {
     float: left;
-    cursor: pointer;
     padding-right: 8px;
 }
 
@@ -627,6 +626,7 @@ ul.Tree .Node .SubTree {
     background-color: transparent;
     padding: 5px 10px;
     margin: 0 !important;
+    cursor: pointer;
 }
 
 .menubar .menu .options .option:hover {
