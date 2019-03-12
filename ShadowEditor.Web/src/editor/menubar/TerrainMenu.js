@@ -36,22 +36,22 @@ TerrainMenu.prototype.render = function () {
                 onClick: this.createPerlinTerrain.bind(this)
             }, {
                 xtype: 'div',
-                cls: 'option',
+                cls: 'option inactive',
                 html: L_SHADER_TERRAIN,
                 onClick: this.createShaderTerrain.bind(this)
             }, {
                 xtype: 'div',
-                cls: 'option',
+                cls: 'option inactive',
                 html: L_RAISE_TERRAIN,
                 onClick: this.raiseTerrain.bind(this)
             }, {
                 xtype: 'div',
-                cls: 'option',
+                cls: 'option inactive',
                 html: L_REDUCE_TERRAIN,
                 onClick: this.reduceTerrain.bind(this)
             }, {
                 xtype: 'div',
-                cls: 'option',
+                cls: 'option inactive',
                 html: L_PLANT_TREES,
                 onClick: this.plantTrees.bind(this)
             }]
