@@ -644,6 +644,7 @@ ul.Tree .Node .SubTree {
     background-color: transparent;
     padding: 5px 10px;
     margin: 0 !important;
+    cursor: not-allowed;
 }
 
 .menubar .menu .version {
