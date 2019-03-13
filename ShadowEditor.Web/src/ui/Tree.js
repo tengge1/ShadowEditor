@@ -425,8 +425,8 @@ Tree.prototype._onDrop = function (event) {
         } else if (area > 0.75) { // 放在当前元素后面
             this.onDrag(
                 this.currentDrag.data,
-                target.nextSibling.parentNode.parentNode.data,
-                target.nextSibling.data,
+                target.parentNode.parentNode.data,
+                target.nextSibling == null ? null : target.nextSibling.data, // target.nextSibling为null，说明是最后一个位置
             );
         } else { // 成为该元素子级
             this.onDrag(
