@@ -15,6 +15,7 @@ Language: 中文 / [English](README-en.md)
 5. 播放器和编辑器彻底解除耦合，播放器可独立运行。
 6. 新增新窗口播放功能，可直接将编辑好的场景嵌入iframe运行。地址：`/view.html?sceneID=sceneID`。sceneID可以在保存场景后，使用在新窗口播放功能获取。
 7. 修复在场景树状图拖动物体时，顺序错乱bug。
+8. 修复每帧连续绘制场景两次bug。
 
 ## v0.1.6更新
 
