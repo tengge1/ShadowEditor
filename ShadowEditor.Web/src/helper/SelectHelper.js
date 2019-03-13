@@ -29,6 +29,11 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
         return;
     }
 
+    // 进制选中场景和相机
+    if (obj === this.app.editor.scene || obj === this.app.editor.camera) {
+        return;
+    }
+
     if (this.scene === undefined) {
         this.scene = new THREE.Scene();
     }
@@ -82,6 +87,7 @@ SelectHelper.prototype.onAfterRender = function () {
 
     // 将物体添加到当前场景
     var parent = this.object.parent;
+    var index = parent.children.indexOf(this.object);
     this.scene.add(this.object);
 
     // 绘制模板
@@ -124,9 +130,9 @@ SelectHelper.prototype.onAfterRender = function () {
     state.buffers.stencil.setTest(false);
 
     // 将物体放回原场景
-    if (parent) {
-        parent.add(this.object);
-    }
+    this.scene.remove(this.object);
+    this.object.parent = parent;
+    parent.children.splice(index, 0, this.object);
 };
 
 export default SelectHelper;
