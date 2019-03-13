@@ -41,9 +41,6 @@ RenderEvent.prototype.onRender = function () {
 
     this.app.call('beforeRender', this);
 
-    renderer.render(scene, camera);
-    renderer.render(sceneHelpers, camera);
-
     if (this.renderer === undefined) {
         this.createRenderer().then(() => {
             this.app.call('render');
