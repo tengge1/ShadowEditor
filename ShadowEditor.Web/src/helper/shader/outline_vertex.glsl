@@ -6,6 +6,10 @@ void main() {
     #ifdef FLIP_SIDED
         objectNormal = -objectNormal;
     #endif
+
+    vec3 pNormal = normalMatrix * objectNormal;
     
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position + objectNormal * thickness, 1.0);
+    normalize(pNormal);
+    
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0) + vec4(pNormal * thickness, 0.0);
 }

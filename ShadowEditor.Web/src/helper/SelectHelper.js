@@ -54,14 +54,15 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
             uniforms: {
                 thickness: { // 边界宽度
                     type: 'f',
-                    value: 0.05
+                    value: 0.01
                 },
                 color: { // 边界颜色
                     type: 'v3',
                     value: new THREE.Vector3(1.0, 1.0, 1.0),
                 },
             },
-            depthTest: false
+            depthTest: false,
+            side: THREE.DoubleSide,
         });
     }
 
