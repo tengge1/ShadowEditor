@@ -133,11 +133,13 @@ namespace ShadowEditor.Server.Controllers.Tools
                 }
                 sb.Append($"/Upload/Model/{addTime.ToString("yyyyMMddHHmmss")}/{name}");
 
+                // 复制模型，要复制文件夹中的所有文件
                 var sourceFileName = HttpContext.Current.Server.MapPath($"~{url}");
-                if (File.Exists(sourceFileName))
+                var sourceFileDir = Path.GetDirectoryName(sourceFileName);
+
+                if (Directory.Exists(sourceFileDir))
                 {
-                    var file = new FileInfo(sourceFileName);
-                    fileSize += file.Length;
+                    var files = Directory.GetFiles(sourceFileDir);
 
                     var destFileDir = $"{path}\\{addTime.ToString("yyyyMMddHHmmss")}";
 
@@ -146,7 +148,13 @@ namespace ShadowEditor.Server.Controllers.Tools
                         Directory.CreateDirectory(destFileDir);
                     }
 
-                    File.Copy(sourceFileName, $"{destFileDir}\\{name}", true);
+                    foreach (var i in files)
+                    {
+                        var file = new FileInfo(i);
+                        fileSize += file.Length;
+
+                        File.Copy(sourceFileName, $"{destFileDir}\\{Path.GetFileName(i)}", true);
+                    }
                 }
             }
 
