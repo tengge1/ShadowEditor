@@ -52,9 +52,17 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
             vertexShader: OutlineVertex,
             fragmentShader: OutlineFragment,
             uniforms: {
+                fov: {
+                    type: 'f',
+                    value: this.app.editor.camera.fov
+                },
+                domHeight: {
+                    type: 'f',
+                    value: this.app.editor.renderer.domElement.height
+                },
                 thickness: { // 边界宽度
                     type: 'f',
-                    value: 0.01
+                    value: 2
                 },
                 color: { // 边界颜色
                     type: 'v3',
