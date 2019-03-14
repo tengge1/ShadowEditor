@@ -1,4 +1,7 @@
 import applyMatrix4 from './vec3/applyMatrix4.glsl';
+import lengthSq from './vec3/lengthSq.glsl';
+import angleTo from './vec3/angleTo.glsl';
+
 import makeOrthographic from './mat4/makeOrthographic.glsl';
 import makePerspective from './mat4/makePerspective.glsl';
 import makePerspective2 from './mat4/makePerspective2.glsl';
@@ -9,6 +12,8 @@ import decomposeMatrix from './mat4/decomposeMatrix.glsl';
 Object.assign(THREE.ShaderChunk, {
     // vec3
     applyMatrix4: applyMatrix4,
+    lengthSq: lengthSq,
+    angleTo: angleTo,
 
     // mat4
     makeOrthographic: makeOrthographic,
