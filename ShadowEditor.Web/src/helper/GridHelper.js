@@ -19,26 +19,26 @@ GridHelper.prototype.start = function () {
 GridHelper.prototype.stop = function () {
     this.app.on(`appStarted.${this.id}`, null);
 
-    if (this.grid) {
+    if (this.helper) {
         var scene = this.app.editor.sceneHelpers;
-        scene.remove(this.grid);
-        delete this.grid;
+        scene.remove(this.helper);
+        delete this.helper;
     }
 };
 
 GridHelper.prototype.update = function () {
     var showGrid = this.app.storage.get('showGrid');
 
-    if (!this.grid) {
-        this.grid = new THREE.GridHelper(30, 30, 0x444444, 0x888888);
+    if (!this.helper) {
+        this.helper = new THREE.GridHelper(30, 30, 0x444444, 0x888888);
     }
 
     var scene = this.app.editor.sceneHelpers;
 
-    if (showGrid && this.grid.parent !== scene) {
-        scene.add(this.grid);
-    } else if (!showGrid && this.grid.parent === scene) {
-        scene.remove(this.grid);
+    if (showGrid && this.helper.parent !== scene) {
+        scene.add(this.helper);
+    } else if (!showGrid && this.helper.parent === scene) {
+        scene.remove(this.helper);
     }
 };
 

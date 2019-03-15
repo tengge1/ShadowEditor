@@ -1,5 +1,8 @@
 import BaseHelper from './BaseHelper';
+
 import GridHelper from './GridHelper';
+import CameraHelper from './CameraHelper';
+
 import ViewHelper from './ViewHelper';
 import SelectHelper from './SelectHelper';
 import SplineHelper from './line/SplineHelper';
@@ -13,6 +16,8 @@ function Helpers(app) {
 
     this.helpers = [
         new GridHelper(app),
+        new CameraHelper(app),
+
         new SelectHelper(app),
         new ViewHelper(app),
         new SplineHelper(app),

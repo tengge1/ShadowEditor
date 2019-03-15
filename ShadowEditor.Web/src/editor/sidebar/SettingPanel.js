@@ -126,35 +126,35 @@ SettingPanel.prototype.render = function () {
     control.render();
 
     // 为各种设置设定默认值
-    if (this.app.storage.get('showGrid') === null) {
+    if (this.app.storage.get('showGrid') === undefined) {
         this.app.storage.set('showGrid', true);
     }
 
-    if (this.app.storage.get('showCamera') === null) {
+    if (this.app.storage.get('showCamera') === undefined) {
         this.app.storage.set('showCamera', false);
     }
 
-    if (this.app.storage.get('showPointLight') === null) {
+    if (this.app.storage.get('showPointLight') === undefined) {
         this.app.storage.set('showPointLight', true);
     }
 
-    if (this.app.storage.get('showDirectionalLight') === null) {
+    if (this.app.storage.get('showDirectionalLight') === undefined) {
         this.app.storage.set('showDirectionalLight', true);
     }
 
-    if (this.app.storage.get('showSpotLight') === null) {
+    if (this.app.storage.get('showSpotLight') === undefined) {
         this.app.storage.set('showSpotLight', true);
     }
 
-    if (this.app.storage.get('showHemisphereLight') === null) {
+    if (this.app.storage.get('showHemisphereLight') === undefined) {
         this.app.storage.set('showHemisphereLight', true);
     }
 
-    if (this.app.storage.get('showRectAreaLight') === null) {
+    if (this.app.storage.get('showRectAreaLight') === undefined) {
         this.app.storage.set('showRectAreaLight', true);
     }
 
-    if (this.app.storage.get('showSkeleton') === null) {
+    if (this.app.storage.get('showSkeleton') === undefined) {
         this.app.storage.set('showSkeleton', false);
     }
 
