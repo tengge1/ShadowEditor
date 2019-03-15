@@ -263,10 +263,7 @@ Editor.prototype.addHelper = function (object) { // 添加物体帮助器
 
     var helper = null;
 
-    if (object instanceof THREE.Camera) { // 相机
-        helper = new THREE.CameraHelper(object, 1);
-        helper.visible = options.showCameraHelper;
-    } else if (object instanceof THREE.PointLight) { // 点光源
+    if (object instanceof THREE.PointLight) { // 点光源
         helper = new THREE.PointLightHelper(object, 1);
         helper.visible = options.showPointLightHelper;
     } else if (object instanceof THREE.DirectionalLight) { // 平行光
@@ -320,9 +317,7 @@ Editor.prototype.removeHelper = function (object) { // 移除物体帮助
 Editor.prototype.onOptionsChanged = function (options) { // 帮助器改变事件
     Object.keys(this.helpers).forEach(n => {
         var helper = this.helpers[n];
-        if (helper instanceof THREE.CameraHelper) {
-            helper.visible = options.showCameraHelper;
-        } else if (helper instanceof THREE.PointLightHelper) {
+        if (helper instanceof THREE.PointLightHelper) {
             helper.visible = options.showPointLightHelper;
         } else if (helper instanceof THREE.DirectionalLightHelper) {
             helper.visible = options.showDirectionalLightHelper;
