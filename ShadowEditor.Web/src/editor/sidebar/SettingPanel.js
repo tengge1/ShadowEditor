@@ -125,6 +125,39 @@ SettingPanel.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
+    // 为各种设置设定默认值
+    if (this.app.storage.get('showGrid') === null) {
+        this.app.storage.set('showGrid', true);
+    }
+
+    if (this.app.storage.get('showCamera') === null) {
+        this.app.storage.set('showCamera', false);
+    }
+
+    if (this.app.storage.get('showPointLight') === null) {
+        this.app.storage.set('showPointLight', true);
+    }
+
+    if (this.app.storage.get('showDirectionalLight') === null) {
+        this.app.storage.set('showDirectionalLight', true);
+    }
+
+    if (this.app.storage.get('showSpotLight') === null) {
+        this.app.storage.set('showSpotLight', true);
+    }
+
+    if (this.app.storage.get('showHemisphereLight') === null) {
+        this.app.storage.set('showHemisphereLight', true);
+    }
+
+    if (this.app.storage.get('showRectAreaLight') === null) {
+        this.app.storage.set('showRectAreaLight', true);
+    }
+
+    if (this.app.storage.get('showSkeleton') === null) {
+        this.app.storage.set('showSkeleton', false);
+    }
+
     this.app.on(`tabSelected.${this.id}`, this.onTabSelected.bind(this));
 };
 
@@ -133,71 +166,80 @@ SettingPanel.prototype.onTabSelected = function (tabName) {
         return;
     }
 
+    var showGrid = UI.get('showGrid', this.id);
+    showGrid.setValue(this.app.storage.get('showGrid') === true);
+
     var showCamera = UI.get('showCamera', this.id);
-    showCamera.setValue(this.app.options.showCameraHelper);
+    showCamera.setValue(this.app.storage.get('showCamera') === true);
 
     var showPointLight = UI.get('showPointLight', this.id);
-    showPointLight.setValue(this.app.options.showPointLightHelper);
+    showPointLight.setValue(this.app.storage.get('showPointLight') === true);
 
     var showDirectionalLight = UI.get('showDirectionalLight', this.id);
-    showDirectionalLight.setValue(this.app.options.showDirectionalLightHelper);
+    showDirectionalLight.setValue(this.app.storage.get('showDirectionalLight') === true);
 
     var showSpotLight = UI.get('showSpotLight', this.id);
-    showSpotLight.setValue(this.app.options.showSpotLightHelper);
+    showSpotLight.setValue(this.app.storage.get('showSpotLight') === true);
 
     var showHemisphereLight = UI.get('showHemisphereLight', this.id);
-    showHemisphereLight.setValue(this.app.options.showHemisphereLightHelper);
+    showHemisphereLight.setValue(this.app.storage.get('showHemisphereLight') === true);
 
     var showRectAreaLight = UI.get('showRectAreaLight', this.id);
-    showRectAreaLight.setValue(this.app.options.showRectAreaLightHelper);
+    showRectAreaLight.setValue(this.app.storage.get('showRectAreaLight') === true);
 
     var showSkeleton = UI.get('showSkeleton', this.id);
-    showSkeleton.setValue(this.app.options.showSkeletonHelper);
+    showSkeleton.setValue(this.app.storage.get('showSkeleton') === true);
 };
 
 SettingPanel.prototype.update = function () {
     // 帮助器
     var showGrid = UI.get('showGrid', this.id).getValue();
-    this.app.options.showGrid = showGrid;
+    if (showGrid !== this.app.storage.get('showGrid')) {
+        this.app.storage.set('showGrid', showGrid);
+        this.app.call(`storageChanged`, this, 'showGrid', showGrid);
+    }
 
     var showCamera = UI.get('showCamera', this.id).getValue();
-    this.app.options.showCameraHelper = showCamera;
+    if (showCamera !== this.app.storage.get('showCamera')) {
+        this.app.storage.set('showCamera', showCamera);
+        this.app.call(`storageChanged`, this, 'showCamera', showCamera);
+    }
 
     var showPointLight = UI.get('showPointLight', this.id).getValue();
-    this.app.options.showPointLightHelper = showPointLight;
+    if (showPointLight !== this.app.storage.get('showPointLight')) {
+        this.app.storage.set('showPointLight', showPointLight);
+        this.app.call(`storageChanged`, this, 'showPointLight', showPointLight);
+    }
 
     var showDirectionalLight = UI.get('showDirectionalLight', this.id).getValue();
-    this.app.options.showDirectionalLightHelper = showDirectionalLight;
+    if (showDirectionalLight !== this.app.storage.get('showDirectionalLight')) {
+        this.app.storage.set('showDirectionalLight', showDirectionalLight);
+        this.app.call(`storageChanged`, this, 'showDirectionalLight', showDirectionalLight);
+    }
 
     var showSpotLight = UI.get('showSpotLight', this.id).getValue();
-    this.app.options.showSpotLightHelper = showSpotLight;
+    if (showSpotLight !== this.app.storage.get('showSpotLight')) {
+        this.app.storage.set('showSpotLight', showSpotLight);
+        this.app.call(`storageChanged`, this, 'showSpotLight', showSpotLight);
+    }
 
     var showHemisphereLight = UI.get('showHemisphereLight', this.id).getValue();
-    this.app.options.showHemisphereLightHelper = showHemisphereLight;
+    if (showHemisphereLight !== this.app.storage.get('showHemisphereLight')) {
+        this.app.storage.set('showHemisphereLight', showHemisphereLight);
+        this.app.call(`storageChanged`, this, 'showHemisphereLight', showHemisphereLight);
+    }
 
     var showRectAreaLight = UI.get('showRectAreaLight', this.id).getValue();
-    this.app.options.showRectAreaLightHelper = showRectAreaLight;
+    if (showRectAreaLight !== this.app.storage.get('showRectAreaLight')) {
+        this.app.storage.set('showRectAreaLight', showRectAreaLight);
+        this.app.call(`storageChanged`, this, 'showRectAreaLight', showRectAreaLight);
+    }
 
     var showSkeleton = UI.get('showSkeleton', this.id).getValue();
-    this.app.options.showSkeletonHelper = showSkeleton;
-
-    Object.values(this.app.editor.helpers).forEach(n => {
-        if (n instanceof THREE.CameraHelper) {
-            n.visible = showCamera;
-        } else if (n instanceof THREE.PointLightHelper) {
-            n.visible = showPointLight;
-        } else if (n instanceof THREE.DirectionalLightHelper) {
-            n.visible = showDirectionalLight;
-        } else if (n instanceof THREE.SpotLightHelper) {
-            n.visible = showSpotLight;
-        } else if (n instanceof THREE.HemisphereLightHelper) {
-            n.visible = showHemisphereLight;
-        } else if (n instanceof THREE.RectAreaLightHelper) {
-            n.visible = showRectAreaLight;
-        } else if (n instanceof THREE.SkeletonHelper) {
-            n.visible = showSkeleton;
-        }
-    });
+    if (showSkeleton !== this.app.storage.get('showSkeleton')) {
+        this.app.storage.set('showSkeleton', showSkeleton);
+        this.app.call(`storageChanged`, this, 'showSkeleton', showSkeleton);
+    }
 };
 
 export default SettingPanel;

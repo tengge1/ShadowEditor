@@ -25,6 +25,7 @@ var EventList = [
 
     // 配置
     'optionsChanged', // 配置改变事件
+    'storageChanged', // 存储改变事件（参数：key, value）
 
     // 工具栏事件
     'changeMode', // 改变模式（select, translate, rotate, scale, delete）
