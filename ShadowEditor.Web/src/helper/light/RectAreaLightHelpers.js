@@ -18,12 +18,14 @@ RectAreaLightHelpers.prototype.start = function () {
     this.app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
     this.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    this.app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
 };
 
 RectAreaLightHelpers.prototype.stop = function () {
     this.app.on(`objectAdded.${this.id}`, null);
     this.app.on(`objectRemoved.${this.id}`, null);
     this.app.on(`objectChanged.${this.id}`, null);
+    this.app.on(`storageChanged.${this.id}`, null);
 };
 
 RectAreaLightHelpers.prototype.onObjectAdded = function (object) {
@@ -32,6 +34,8 @@ RectAreaLightHelpers.prototype.onObjectAdded = function (object) {
     }
 
     var helper = new VolumeRectAreaLightHelper(object, 0xffffff);
+
+    helper.visible = this.app.storage.get('showRectAreaLight');
 
     this.helpers.push(helper);
 
@@ -72,6 +76,16 @@ RectAreaLightHelpers.prototype.onObjectChanged = function (object) {
     }
 
     this.helpers[index].update();
+};
+
+RectAreaLightHelpers.prototype.onStorageChanged = function (key, value) {
+    if (key !== 'showRectAreaLight') {
+        return;
+    }
+
+    this.helpers.forEach(n => {
+        n.visible = value;
+    });
 };
 
 export default RectAreaLightHelpers;
