@@ -1,4 +1,4 @@
-﻿import History from '../core/History';
+﻿import History from '../command/History';
 import Helpers from '../helper/Helpers';
 
 /**
