@@ -46,7 +46,7 @@ Menubar.prototype.render = function () {
             new GeometryMenu(params),
             new LightMenu(params),
             new AssetMenu(params),
-            new TerrainMenu(params),
+            //new TerrainMenu(params),
             new ComponentMenu(params),
             new PlayMenu(params),
             new ToolMenu(params),
