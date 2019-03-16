@@ -1,6 +1,6 @@
 import {
     dispatch
-} from '../third_party';
+} from '../../third_party';
 import DataView from './DataView2';
 import Vertex from './Vertex';
 import Texture from './Texture';

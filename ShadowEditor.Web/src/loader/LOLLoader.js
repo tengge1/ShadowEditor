@@ -1,5 +1,5 @@
 import BaseLoader from './BaseLoader';
-import LolModel from '../lol/Model';
+import LolModel from './lol/Model';
 
 /**
  * LOLLoader
