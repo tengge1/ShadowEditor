@@ -18,12 +18,14 @@ PointLightHelpers.prototype.start = function () {
     this.app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
     this.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    this.app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
 };
 
 PointLightHelpers.prototype.stop = function () {
     this.app.on(`objectAdded.${this.id}`, null);
     this.app.on(`objectRemoved.${this.id}`, null);
     this.app.on(`objectChanged.${this.id}`, null);
+    this.app.on(`storageChanged.${this.id}`, null);
 };
 
 PointLightHelpers.prototype.onObjectAdded = function (object) {
@@ -32,6 +34,8 @@ PointLightHelpers.prototype.onObjectAdded = function (object) {
     }
 
     var helper = new VolumePointLightHelper(object, 1);
+
+    helper.visible = this.app.storage.get('showPointLight');
 
     this.helpers.push(helper);
 
@@ -72,6 +76,16 @@ PointLightHelpers.prototype.onObjectChanged = function (object) {
     }
 
     this.helpers[index].update();
+};
+
+PointLightHelpers.prototype.onStorageChanged = function (key, value) {
+    if (key !== 'showPointLight') {
+        return;
+    }
+
+    this.helpers.forEach(n => {
+        n.visible = value;
+    });
 };
 
 export default PointLightHelpers;
