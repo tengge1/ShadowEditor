@@ -49,12 +49,14 @@ SceneMenu.prototype.render = function () {
                 html: L_EXPORT_SCENE,
                 cls: 'option',
                 onClick: this.exportScene.bind(this)
-            }, {
-                xtype: 'div',
-                html: L_EXPORT_STATIC_WEBSITE,
-                cls: 'option',
-                onClick: this.publish.bind(this)
-            }]
+            }
+                // , {
+                //     xtype: 'div',
+                //     html: L_EXPORT_STATIC_WEBSITE,
+                //     cls: 'option',
+                //     onClick: this.publish.bind(this)
+                // }
+            ]
         }]
     });
 
@@ -215,16 +217,16 @@ SceneMenu.prototype.exportScene = function () {
 
 // ------------------------- 发布静态网站 ------------------------------
 
-SceneMenu.prototype.publish = function () {
-    UI.confirm(L_PUBLISH_WEBSITE, L_CONFIRM_PUBLISH_WEBSITE, (event, btn) => {
-        if (btn === 'ok') {
-            Ajax.post(`${this.app.options.server}/api/Publish/Publish`, function (result) {
-                var obj = JSON.parse(result);
-                UI.msg(obj.Msg);
-            });
-        }
-    });
-};
+// SceneMenu.prototype.publish = function () {
+//     UI.confirm(L_PUBLISH_WEBSITE, L_CONFIRM_PUBLISH_WEBSITE, (event, btn) => {
+//         if (btn === 'ok') {
+//             Ajax.post(`${this.app.options.server}/api/Publish/Publish`, function (result) {
+//                 var obj = JSON.parse(result);
+//                 UI.msg(obj.Msg);
+//             });
+//         }
+//     });
+// };
 
 // ------------------------ 本地打包发布 ---------------------------------------
 
