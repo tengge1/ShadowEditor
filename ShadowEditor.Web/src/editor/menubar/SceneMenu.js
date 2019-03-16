@@ -208,6 +208,7 @@ SceneMenu.prototype.exportScene = function () {
                 if (response.ok) {
                     response.json().then(json => {
                         UI.msg(json.Msg);
+                        window.open(`${this.app.options.server}${json.Url}`, 'export');
                     });
                 }
             });
