@@ -15,6 +15,7 @@ SelectHelper.prototype.constructor = SelectHelper;
 
 SelectHelper.prototype.start = function () {
     this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    this.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
     this.app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
 };
 
@@ -77,6 +78,12 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
     this.object = obj;
 };
 
+SelectHelper.prototype.onObjectRemoved = function (object) {
+    if (object === this.object) {
+        this.unselect();
+    }
+};
+
 SelectHelper.prototype.unselect = function () {
     if (this.object) {
         delete this.object;
@@ -84,7 +91,8 @@ SelectHelper.prototype.unselect = function () {
 };
 
 SelectHelper.prototype.onAfterRender = function () {
-    if (!this.object) {
+    if (!this.object || !this.object.parent) {
+        // TODO: this.object.parent为null时表示该物体被移除
         return;
     }
 

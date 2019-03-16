@@ -53,12 +53,10 @@ TransformControlsEvent.prototype.onChange = function () {
     var editor = this.app.editor;
     var object = editor.transformControls.object;
 
-    if (object == null) {
-        this.app.call('render', this);
-        return;
+    if (object) {
+        this.app.call('objectChanged', this, object);
     }
 
-    this.app.call('objectChanged', this, object);
     this.app.call('render');
 };
 
