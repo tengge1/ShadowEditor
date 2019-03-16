@@ -55,13 +55,13 @@ StatusMenu.prototype.render = function () {
 }
 
 StatusMenu.prototype.selectLanguage = function (lang) {
-    var oldLang = this.app.storage.get('lang') || 'zh-CN';
+    var oldLang = window.localStorage.getItem('lang') || 'zh-CN';
 
     if (oldLang === lang) {
         return;
     }
 
-    this.app.storage.set('lang', lang);
+    window.localStorage.setItem('lang', lang);
 
     var btnEnglish = UI.get('btnEnglish', this.id);
     var btnChinese = UI.get('btnChinese', this.id);
