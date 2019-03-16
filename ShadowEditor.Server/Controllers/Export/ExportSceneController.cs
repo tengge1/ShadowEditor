@@ -82,6 +82,15 @@ namespace ShadowEditor.Server.Controllers.Export
             DirectoryHelper.Copy(buildPath, $"{path}/build");
 
             // 分析场景，拷贝使用的模型和贴图资源
+            var animations = new List<string>();
+            var audios = new List<string>();
+            var models = new List<string>();
+            var textures = new List<string>();
+
+            foreach (var i in docs)
+            {
+
+            }
 
             return Json(new
             {

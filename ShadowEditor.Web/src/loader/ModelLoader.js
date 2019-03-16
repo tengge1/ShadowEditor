@@ -16,7 +16,7 @@ import STLLoader from './STLLoader';
 import VTKLoader from './VTKLoader';
 import LOLLoader from './LOLLoader';
 import MMDLoader from './MMDLoader';
-import JsLoader from './JsLoader';
+import JsonLoader from './JsonLoader';
 import _3DSLoader from './_3DSLoader';
 import _3MFLoader from './_3MFLoader';
 import AssimpLoader from './AssimpLoader';
@@ -56,7 +56,7 @@ const Loaders = {
     'lol': LOLLoader,
     'pmd': MMDLoader,
     'pmx': MMDLoader,
-    'js': JsLoader,
+    'js': JsonLoader,
     'drc': DRACOLoader,
     'gcode': GCodeLoader,
     'nrrd': NRRDLoader,

@@ -13,16 +13,20 @@ ObjectLoader.prototype.constructor = ObjectLoader;
 
 ObjectLoader.prototype.load = function (url, options) {
     return new Promise(resolve => {
-        var loader = new THREE.ObjectLoader();
+        this.require([
+            'LegacyJSONLoader'
+        ]).then(() => {
+            var loader = new THREE.ObjectLoader();
 
-        loader.load(url, obj => {
-            if (obj instanceof THREE.Scene && obj.children.length > 0 && obj.children[0] instanceof THREE.SkinnedMesh) {
-                resolve(this.loadSkinnedMesh(obj, options));
-            } else {
-                resolve(obj);
-            }
-        }, undefined, () => {
-            resolve(null);
+            loader.load(url, obj => {
+                if (obj instanceof THREE.Scene && obj.children.length > 0 && obj.children[0] instanceof THREE.SkinnedMesh) {
+                    resolve(this.loadSkinnedMesh(obj, options));
+                } else {
+                    resolve(obj);
+                }
+            }, undefined, () => {
+                resolve(null);
+            });
         });
     });
 };

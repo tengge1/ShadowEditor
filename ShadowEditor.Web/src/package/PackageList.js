@@ -68,6 +68,11 @@ const PackageList = [{
         'assets/js/loaders/GLTFLoader.js'
     ]
 }, {
+    name: 'LegacyJSONLoader',
+    assets: [
+        'assets/js/loaders/deprecated/LegacyJSONLoader.js'
+    ]
+}, {
     name: 'KMZLoader',
     assets: [
         'assets/js/loaders/KMZLoader.js'
@@ -76,7 +81,7 @@ const PackageList = [{
     name: 'MD2Loader',
     assets: [
         'assets/js/loaders/MD2Loader.js',
-        'assets/js/loaders/MD2Character.js'
+        'assets/js/MD2Character.js'
     ]
 }, {
     name: 'OBJLoader',
