@@ -5,6 +5,7 @@ import CameraHelper from './CameraHelper';
 import PointLightHelpers from './light/PointLightHelpers';
 import DirectionalLightHelpers from './light/DirectionalLightHelpers';
 import HemisphereLightHelpers from './light/HemisphereLightHelpers';
+import RectAreaLightHelpers from './light/RectAreaLightHelpers';
 
 import ViewHelper from './ViewHelper';
 import SelectHelper from './SelectHelper';
@@ -23,6 +24,7 @@ function Helpers(app) {
         new PointLightHelpers(app),
         new DirectionalLightHelpers(app),
         new HemisphereLightHelpers(app),
+        new RectAreaLightHelpers(app),
 
         new SelectHelper(app),
         new ViewHelper(app),
