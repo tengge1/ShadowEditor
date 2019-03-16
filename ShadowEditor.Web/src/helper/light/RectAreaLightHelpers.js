@@ -31,7 +31,7 @@ RectAreaLightHelpers.prototype.onObjectAdded = function (object) {
         return;
     }
 
-    var helper = new VolumeRectAreaLightHelper(object, 1);
+    var helper = new VolumeRectAreaLightHelper(object, 0xffffff);
 
     this.helpers.push(helper);
 
