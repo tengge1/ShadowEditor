@@ -53,17 +53,9 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
             vertexShader: OutlineVertex,
             fragmentShader: OutlineFragment,
             uniforms: {
-                fov: {
-                    type: 'f',
-                    value: this.app.editor.camera.fov
-                },
-                domHeight: {
-                    type: 'f',
-                    value: this.app.editor.renderer.domElement.height
-                },
                 thickness: { // 边界宽度
                     type: 'f',
-                    value: 2
+                    value: 0.1
                 },
                 color: { // 边界颜色
                     type: 'v3',
@@ -71,7 +63,7 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
                 },
             },
             depthTest: false,
-            side: THREE.DoubleSide,
+            side: THREE.FrontSide
         });
     }
 
