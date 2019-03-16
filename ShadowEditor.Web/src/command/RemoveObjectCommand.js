@@ -29,11 +29,6 @@ Object.assign(RemoveObjectCommand.prototype, {
 
 	execute: function () {
 		var scope = this.editor;
-		this.object.traverse(function (child) {
-
-			scope.removeHelper(child);
-
-		});
 
 		this.parent.remove(this.object);
 		this.editor.select(this.parent);
@@ -44,10 +39,6 @@ Object.assign(RemoveObjectCommand.prototype, {
 
 	undo: function () {
 		var scope = this.editor;
-
-		this.object.traverse(function (child) {
-			scope.addHelper(child);
-		});
 
 		this.parent.children.splice(this.index, 0, this.object);
 		this.object.parent = this.parent;

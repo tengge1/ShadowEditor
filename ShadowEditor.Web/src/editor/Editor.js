@@ -56,9 +56,6 @@ function Editor(app) {
     this.audioListener.name = L_AUDIO_LISTENER;
 
     // 物体
-    this.object = {};
-
-    // 物体
     this.objects = [];
 
     // 脚本 格式：{ uuid: { id: 'MongoDB _id', name: 'Script Name', type: 'Script Type', source: 'Source Code', uuid: 'uuid' }}
@@ -72,9 +69,6 @@ function Editor(app) {
     // 动画类型：Tween-补间动画，Skeletal-骨骼动画，Audio-音频播放，Shader-着色器动画，Filter-滤镜动画，Particle-粒子动画
     // 动画参数：是一个字典，根据动画类型不同，参数也不同
     this.animations = [];
-
-    // 帮助器
-    this.helpers = {};
 
     // 当前选中物体
     this.selected = null;
@@ -97,7 +91,6 @@ function Editor(app) {
 
     // 事件
     this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
-    this.app.on(`optionsChanged.${this.id}`, this.onOptionsChanged.bind(this));
 
     this.app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
     this.app.on(`mousemove.${this.id}`, this.onMouseMove.bind(this));
@@ -107,8 +100,8 @@ function Editor(app) {
 };
 
 Editor.prototype.onAppStarted = function () {
-    this.clear();
     this.helpers.start();
+    this.clear();
 };
 
 // -------------------- 场景 --------------------------
@@ -199,6 +192,7 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
         light2.shadow.camera.bottom = -20;
         light2.shadow.camera.near = 0.1;
         light2.shadow.camera.far = 500;
+
         this.addObject(light2);
     }
 
@@ -215,11 +209,6 @@ Editor.prototype.objectByUuid = function (uuid) { // 根据uuid获取物体
 
 Editor.prototype.addObject = function (object) { // 添加物体
     this.scene.add(object);
-
-    object.traverse(child => {
-        this.addHelper(child);
-    });
-
     this.app.call('objectAdded', this, object);
     this.app.call('sceneGraphChanged', this);
 };
@@ -246,10 +235,6 @@ Editor.prototype.removeObject = function (object) { // 移除物体
         return;
     }
 
-    object.traverse(child => {
-        this.removeHelper(child);
-    });
-
     object.parent.remove(object);
 
     this.app.call('objectRemoved', this, object);
@@ -257,81 +242,6 @@ Editor.prototype.removeObject = function (object) { // 移除物体
 };
 
 // ------------------------- 帮助 ------------------------------
-
-Editor.prototype.addHelper = function (object) { // 添加物体帮助器
-    var options = this.app.options;
-
-    var helper = null;
-
-    if (object instanceof THREE.PointLight) { // 点光源
-        helper = new THREE.PointLightHelper(object, 1);
-        helper.visible = options.showPointLightHelper;
-    } else if (object instanceof THREE.DirectionalLight) { // 平行光
-        helper = new THREE.DirectionalLightHelper(object, 1);
-        helper.visible = options.showDirectionalLightHelper;
-    } else if (object instanceof THREE.SpotLight) { // 聚光灯
-        helper = new THREE.SpotLightHelper(object, 1);
-        helper.visible = options.showSpotLightHelper;
-    } else if (object instanceof THREE.HemisphereLight) { // 半球光
-        helper = new THREE.HemisphereLightHelper(object, 1);
-        helper.visible = options.showHemisphereLightHelper;
-    } else if (object instanceof THREE.RectAreaLight) { // 矩形光
-        helper = new THREE.RectAreaLightHelper(object, 0xffffff);
-        helper.visible = options.showRectAreaLightHelper;
-    } else if (object instanceof THREE.SkinnedMesh) { // 骨骼
-        helper = new THREE.SkeletonHelper(object);
-        helper.visible = options.showSkeletonHelper;
-    } else {
-        // 该类型物体没有帮助器
-        return;
-    }
-
-    var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
-    var material = new THREE.MeshBasicMaterial({
-        color: 0xff0000,
-        visible: false
-    });
-
-    var picker = new THREE.Mesh(geometry, material);
-    picker.name = 'picker';
-    picker.userData.object = object;
-    helper.add(picker);
-
-    this.sceneHelpers.add(helper);
-    this.helpers[object.id] = helper;
-    this.objects.push(picker);
-};
-
-Editor.prototype.removeHelper = function (object) { // 移除物体帮助
-    if (this.helpers[object.id] !== undefined) {
-
-        var helper = this.helpers[object.id];
-        helper.parent.remove(helper);
-        delete this.helpers[object.id];
-
-        var objects = this.objects;
-        objects.splice(objects.indexOf(helper.getObjectByName('picker')), 1);
-    }
-};
-
-Editor.prototype.onOptionsChanged = function (options) { // 帮助器改变事件
-    Object.keys(this.helpers).forEach(n => {
-        var helper = this.helpers[n];
-        if (helper instanceof THREE.PointLightHelper) {
-            helper.visible = options.showPointLightHelper;
-        } else if (helper instanceof THREE.DirectionalLightHelper) {
-            helper.visible = options.showDirectionalLightHelper;
-        } else if (helper instanceof THREE.SpotLightHelper) {
-            helper.visible = options.showSpotLightHelper;
-        } else if (helper instanceof THREE.HemisphereLightHelper) {
-            helper.visible = options.showHemisphereLightHelper;
-        } else if (helper instanceof THREE.RectAreaLightHelper) {
-            helper.visible = options.showRectAreaLightHelper;
-        } else if (helper instanceof THREE.SkeletonHelper) {
-            helper.visible = options.showSkeletonHelper;
-        }
-    });
-};
 
 Editor.prototype.addPhysicsHelper = function (helper) {
     var geometry = new THREE.SphereBufferGeometry(2, 4, 2);

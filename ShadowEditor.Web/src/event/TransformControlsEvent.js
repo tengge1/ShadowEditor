@@ -58,10 +58,6 @@ TransformControlsEvent.prototype.onChange = function () {
         return;
     }
 
-    if (editor.helpers[object.id] !== undefined && !(editor.helpers[object.id] instanceof THREE.SkeletonHelper)) {
-        editor.helpers[object.id].update();
-    }
-
     this.app.call('objectChanged', this, object);
     this.app.call('render');
 };

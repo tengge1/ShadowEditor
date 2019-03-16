@@ -2,6 +2,8 @@ import BaseHelper from './BaseHelper';
 
 import GridHelper from './GridHelper';
 import CameraHelper from './CameraHelper';
+import PointLightHelpers from './light/PointLightHelpers';
+import DirectionalLightHelpers from './light/DirectionalLightHelpers';
 
 import ViewHelper from './ViewHelper';
 import SelectHelper from './SelectHelper';
@@ -17,6 +19,8 @@ function Helpers(app) {
     this.helpers = [
         new GridHelper(app),
         new CameraHelper(app),
+        new PointLightHelpers(app),
+        new DirectionalLightHelpers(app),
 
         new SelectHelper(app),
         new ViewHelper(app),
