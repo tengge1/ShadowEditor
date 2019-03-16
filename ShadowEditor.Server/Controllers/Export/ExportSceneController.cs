@@ -43,27 +43,45 @@ namespace ShadowEditor.Server.Controllers.Export
                 });
             }
 
-            //var collectionName = doc["CollectionName"].AsString;
+            // 获取场景数据
+            var collectionName = doc["CollectionName"].AsString;
 
-            //List<BsonDocument> docs;
+            List<BsonDocument> docs;
 
-            //if (version == -1) // 最新版本
-            //{
-            //    docs = mongo.FindAll(collectionName).ToList();
-            //}
-            //else // 特定版本
-            //{
-            //    filter = Builders<BsonDocument>.Filter.Eq(Constant.VersionField, BsonInt32.Create(version));
-            //    docs = mongo.FindMany($"{collectionName}{Constant.HistorySuffix}", filter).ToList();
-            //}
+            if (version == -1) // 最新版本
+            {
+                docs = mongo.FindAll(collectionName).ToList();
+            }
+            else // 特定版本
+            {
+                filter = Builders<BsonDocument>.Filter.Eq(Constant.VersionField, BsonInt32.Create(version));
+                docs = mongo.FindMany($"{collectionName}{Constant.HistorySuffix}", filter).ToList();
+            }
 
-            //var data = new JArray();
+            // 创建临时目录
+            var now = DateTime.Now;
 
-            //foreach (var i in docs)
-            //{
-            //    i["_id"] = i["_id"].ToString(); // ObjectId
-            //    data.Add(JsonHelper.ToObject<JObject>(i.ToJson()));
-            //}
+            var path = HttpContext.Current.Server.MapPath($"~/temp/{now.ToString("yyyyMMddHHmmss")}");
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            // 拷贝静态资源
+            var viewPath = HttpContext.Current.Server.MapPath("~/view.html");
+            File.Copy(viewPath, $"{path}/scene{now.ToString("yyyyMMddHHmmss")}.html", true);
+
+            var faviconPath = HttpContext.Current.Server.MapPath("~/favicon.ico");
+            File.Copy(faviconPath, $"{path}/favicon.ico", true);
+
+            var assetsPath = HttpContext.Current.Server.MapPath($"~/assets");
+            DirectoryHelper.Copy(assetsPath, $"{path}/assets");
+
+            var buildPath = HttpContext.Current.Server.MapPath($"~/build");
+            DirectoryHelper.Copy(buildPath, $"{path}/build");
+
+            // 分析场景，拷贝使用的模型和贴图资源
 
             return Json(new
             {
