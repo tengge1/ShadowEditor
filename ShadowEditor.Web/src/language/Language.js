@@ -579,4 +579,6 @@ Object.assign(window, {
     L_ARRANGE_MAP: 'Arrange Map',
     L_ARRANGE_MESH: 'Arrange Mesh',
     L_ARRANGE_THUMBNAIL: 'Arrange Thumbnail',
+
+    L_EXPORT_SCENE: 'Export Scene',
 });

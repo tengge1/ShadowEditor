@@ -46,6 +46,11 @@ SceneMenu.prototype.render = function () {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
+                html: L_EXPORT_SCENE,
+                cls: 'option',
+                onClick: this.exportScene.bind(this)
+            }, {
+                xtype: 'div',
                 html: L_EXPORT_STATIC_WEBSITE,
                 cls: 'option',
                 onClick: this.publish.bind(this)
@@ -180,6 +185,31 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
         this.app.call(`sceneSaved`, this);
 
         UI.msg(obj.Msg);
+    });
+};
+
+// -------------------------- 导出场景 --------------------------------
+
+SceneMenu.prototype.exportScene = function () {
+    var sceneID = this.app.editor.sceneID;
+
+    if (!sceneID) {
+        UI.msg('请先打开场景！');
+        return;
+    }
+
+    UI.confirm('询问', '是否导出当前场景？', (event, btn) => {
+        if (btn === 'ok') {
+            fetch(`${this.app.options.server}/api/ExportScene/Run?ID=${sceneID}`, {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    response.json().then(json => {
+                        UI.msg(json.Msg);
+                    });
+                }
+            });
+        }
     });
 };
 

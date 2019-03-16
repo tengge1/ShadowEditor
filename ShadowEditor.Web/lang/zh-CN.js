@@ -580,3 +580,5 @@ L_TOOL = '工具';
 L_ARRANGE_MAP = '整理贴图';
 L_ARRANGE_MESH = '整理模型';
 L_ARRANGE_THUMBNAIL = '整理缩略图';
+
+L_EXPORT_SCENE = '导出场景';

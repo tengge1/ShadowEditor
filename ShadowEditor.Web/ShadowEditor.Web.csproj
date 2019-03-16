@@ -540,7 +540,6 @@
     <Content Include="assets\textures\VolumetricFire\nzw.png" />
     <Content Include="assets\textures\VolumetricFire\smoke.png" />
     <Content Include="assets\textures\wood.jpg" />
-    <Content Include="dist\ShadowEditor.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
