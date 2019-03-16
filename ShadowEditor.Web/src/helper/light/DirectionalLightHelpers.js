@@ -18,12 +18,14 @@ DirectionalLightHelpers.prototype.start = function () {
     this.app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
     this.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
     this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    this.app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
 };
 
 DirectionalLightHelpers.prototype.stop = function () {
     this.app.on(`objectAdded.${this.id}`, null);
     this.app.on(`objectRemoved.${this.id}`, null);
     this.app.on(`objectChanged.${this.id}`, null);
+    this.app.on(`storageChanged.${this.id}`, null);
 };
 
 DirectionalLightHelpers.prototype.onObjectAdded = function (object) {
@@ -32,6 +34,9 @@ DirectionalLightHelpers.prototype.onObjectAdded = function (object) {
     }
 
     var helper = new VolumeDirectionalLightHelper(object, 1);
+
+    var showDirectionalLight = this.app.storage.get('showDirectionalLight');
+    helper.visible = showDirectionalLight;
 
     this.helpers.push(helper);
 
@@ -71,6 +76,16 @@ DirectionalLightHelpers.prototype.onObjectChanged = function (object) {
     }
 
     this.helpers[index].update();
+};
+
+DirectionalLightHelpers.prototype.onStorageChanged = function (key, value) {
+    if (key !== 'showDirectionalLight') {
+        return;
+    }
+
+    this.helpers.forEach(n => {
+        n.visible = value;
+    });
 };
 
 export default DirectionalLightHelpers;
