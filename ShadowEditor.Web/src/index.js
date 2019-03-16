@@ -29,7 +29,6 @@ export { default as LinkButton } from './ui/LinkButton';
 export { default as MessageBox } from './ui/MessageBox';
 export { default as Modal } from './ui/Modal';
 export { default as Number } from './ui/Number';
-export { default as Outliner } from './ui/Outliner';
 export { default as Prompt } from './ui/Prompt';
 export { default as Row } from './ui/Row';
 export { default as SearchField } from './ui/SearchField';

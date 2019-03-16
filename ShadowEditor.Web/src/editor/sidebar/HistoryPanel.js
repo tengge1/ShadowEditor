@@ -26,66 +26,63 @@ HistoryPanel.prototype.render = function () {
         }, {
             xtype: 'br'
         }, {
-            xtype: 'outliner',
-            id: 'historyOutlinear',
-            onChange: this.onChange.bind(this)
+            xtype: 'div',
+            id: 'panel',
+            scope: this.id,
+            style: {
+                width: '100%',
+                height: '320px',
+                border: '1px solid #ddd',
+                overflowY: 'auto'
+            }
         }]
     };
 
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+    var panel = UI.get('panel', this.id);
+    panel.dom.addEventListener('click', this.onChange.bind(this));
+
     this.app.on(`editorCleared.${this.id}`, this.refreshUI.bind(this));
     this.app.on(`historyChanged.${this.id}`, this.refreshUI.bind(this));
 };
 
-HistoryPanel.prototype.onAppStarted = function () {
-    var outliner = UI.get('historyOutlinear');
-    outliner.editor = this.app.editor;
-    this.refreshUI();
-};
-
 HistoryPanel.prototype.refreshUI = function () {
+    var panel = UI.get('panel', this.id);
+
+    panel.dom.innerHTML = '';
+
     var history = this.app.editor.history;
-    var outliner = UI.get('historyOutlinear');
 
-    var options = [];
-
-    function buildOption(object) {
+    // 撤销
+    for (var i = 0, l = history.undos.length; i < l; i++) {
+        var undo = history.undos[i];
         var option = document.createElement('div');
-        option.value = object.id;
-        return option;
+        option.value = undo.id;
+        option.innerHTML = `&nbsp;${undo.name}`;
+        option.style.padding = '4px';
+        panel.dom.appendChild(option);
     }
 
-    (function addObjects(objects) {
-        for (var i = 0, l = objects.length; i < l; i++) {
-            var object = objects[i];
-            var option = buildOption(object);
-            option.innerHTML = '&nbsp;' + object.name;
-            options.push(option);
-        }
-    })(history.undos);
-
-
-    (function addObjects(objects, pad) {
-        for (var i = objects.length - 1; i >= 0; i--) {
-            var object = objects[i];
-            var option = buildOption(object);
-            option.innerHTML = '&nbsp;' + object.name;
-            option.style.opacity = 0.3;
-            options.push(option);
-        }
-    })(history.redos, '&nbsp;');
-
-    outliner.setOptions(options);
+    // 重做
+    for (var i = history.redos.length - 1; i >= 0; i--) {
+        var redo = history.redos[i];
+        var option = document.createElement('div');
+        option.value = redo.id;
+        option.innerHTML = `&nbsp;${redo.name}`;
+        option.style.opacity = 0.3;
+        option.style.padding = '4px';
+        panel.dom.appendChild(option);
+    }
 };
 
-HistoryPanel.prototype.onChange = function () {
-    var history = this.app.editor.history;
-    var outliner = UI.get('historyOutlinear');
+HistoryPanel.prototype.onChange = function (event) {
+    if (!event.target.value) {
+        return;
+    }
 
-    history.goToState(parseInt(outliner.getValue()));
+    this.app.editor.history.goToState(event.target.value);
 };
 
 export default HistoryPanel;

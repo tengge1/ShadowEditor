@@ -20,7 +20,6 @@ import './Integer';
 import './Label';
 import './Modal';
 import './Number';
-import './Outliner';
 import './Row';
 import './Select';
 import './Span';
