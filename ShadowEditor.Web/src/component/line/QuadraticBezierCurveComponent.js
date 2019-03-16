@@ -31,7 +31,7 @@ QuadraticBezierCurveComponent.prototype.render = function () {
                 color: '#555',
                 fontWeight: 'bold'
             },
-            text: '二次贝塞尔曲线'
+            text: L_QUADRATIC_BEZIER_CURVE
         }, {
             xtype: 'row',
             children: [{

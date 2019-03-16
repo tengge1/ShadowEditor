@@ -1,8 +1,5 @@
 // 中文-简体
 
-// api
-L_ADD_MENU = '添加菜单';
-
 // command
 L_ADD_OBJECT_COLON = '添加物体：';
 L_ADD_SCRIPT = '添加脚本';
@@ -569,3 +566,17 @@ L_IMAGE_UPLOAD_FAILED = '图片上传失败！';
 L_PLEASE_INPUT = '请输入';
 L_SEARCH_CONTENT = '搜索内容';
 L_ERROR = '错误';
+
+L_LINE_CURVE = '线段';
+L_CATMULL_ROM_CURVE = 'CatmullRom曲线';
+L_QUADRATIC_BEZIER_CURVE = '二次贝塞尔曲线';
+L_CUBIC_BEZIER_CURVE = '三次贝塞尔曲线';
+L_ELLIPSE_CURVE = '椭圆曲线';
+
+L_PLAY_FULLSCREEN = '全屏播放';
+L_PLAY_NEW_WINDOW = '新窗口播放';
+
+L_TOOL = '工具';
+L_ARRANGE_MAP = '整理贴图';
+L_ARRANGE_MESH = '整理模型';
+L_ARRANGE_THUMBNAIL = '整理缩略图';

@@ -32,17 +32,17 @@ PlayMenu.prototype.render = function () {
                 id: 'mPlay',
                 scope: this.id,
                 cls: 'option',
-                html: '播放',
+                html: L_PLAY,
                 onClick: this.onTogglePlay.bind(this),
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '全屏播放',
+                html: L_PLAY_FULLSCREEN,
                 onClick: this.playFullscreen.bind(this),
             }, {
                 xtype: 'div',
                 cls: 'option',
-                html: '新窗口播放',
+                html: L_PLAY_NEW_WINDOW,
                 onClick: this.playNewWindow.bind(this),
             }]
         }]

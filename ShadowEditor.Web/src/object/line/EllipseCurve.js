@@ -15,7 +15,7 @@ function EllipseCurve(options = {}) {
 
     THREE.Line.call(this, geometry, material);
 
-    this.name = '椭圆曲线';
+    this.name = L_ELLIPSE_CURVE;
 
     this.castShadow = true;
 

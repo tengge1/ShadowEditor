@@ -31,7 +31,7 @@ EllipseCurveComponent.prototype.render = function () {
                 color: '#555',
                 fontWeight: 'bold'
             },
-            text: '椭圆曲线'
+            text: L_ELLIPSE_CURVE
         }, {
             xtype: 'row',
             children: [{

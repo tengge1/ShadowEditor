@@ -15,7 +15,7 @@ function CubicBezierCurve(options = {}) {
 
     THREE.Line.call(this, geometry, material);
 
-    this.name = '三次贝塞尔曲线';
+    this.name = L_CUBIC_BEZIER_CURVE;
 
     this.castShadow = true;
 

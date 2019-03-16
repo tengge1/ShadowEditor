@@ -31,7 +31,7 @@ CatmullRomCurveComponent.prototype.render = function () {
                 color: '#555',
                 fontWeight: 'bold'
             },
-            text: 'CatmullRom曲线'
+            text: L_CATMULL_ROM_CURVE
         }, {
             xtype: 'row',
             children: [{

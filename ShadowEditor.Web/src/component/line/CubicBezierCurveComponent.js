@@ -31,7 +31,7 @@ CubicBezierCurveComponent.prototype.render = function () {
                 color: '#555',
                 fontWeight: 'bold'
             },
-            text: '三次贝塞尔曲线'
+            text: L_CUBIC_BEZIER_CURVE
         }, {
             xtype: 'row',
             children: [{

@@ -1,7 +1,4 @@
 Object.assign(window, {
-    // api
-    L_ADD_MENU: 'Add Menu',
-
     // command
     L_ADD_OBJECT_COLON: 'Add Object:',
     L_ADD_SCRIPT: 'Add Script',
@@ -568,4 +565,18 @@ Object.assign(window, {
     L_PLEASE_INPUT: 'Please input',
     L_SEARCH_CONTENT: 'Search Content',
     L_ERROR: 'Error',
+
+    L_LINE_CURVE: 'Line Curve',
+    L_CATMULL_ROM_CURVE: 'CatmullRom Curve',
+    L_QUADRATIC_BEZIER_CURVE: 'QuadraticBezier Curve',
+    L_CUBIC_BEZIER_CURVE: 'CubicBezier Curve',
+    L_ELLIPSE_CURVE: 'Ellipse Curve',
+
+    L_PLAY_FULLSCREEN: 'Play Fullscreen',
+    L_PLAY_NEW_WINDOW: 'Play New Window',
+
+    L_TOOL: 'Tool',
+    L_ARRANGE_MAP: 'Arrange Map',
+    L_ARRANGE_MESH: 'Arrange Mesh',
+    L_ARRANGE_THUMBNAIL: 'Arrange Thumbnail',
 });

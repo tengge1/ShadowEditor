@@ -31,7 +31,7 @@ LineCurveComponent.prototype.render = function () {
                 color: '#555',
                 fontWeight: 'bold'
             },
-            text: '线段'
+            text: L_LINE_CURVE
         }, {
             xtype: 'row',
             children: [{

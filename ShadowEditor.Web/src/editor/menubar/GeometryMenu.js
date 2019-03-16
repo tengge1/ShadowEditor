@@ -120,27 +120,27 @@ GeometryMenu.prototype.render = function () {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                html: '线段',
+                html: L_LINE_CURVE,
                 cls: 'option',
                 onClick: this.addLineCurve.bind(this)
             }, {
                 xtype: 'div',
-                html: 'CatmullRom曲线',
+                html: L_CATMULL_ROM_CURVE,
                 cls: 'option',
                 onClick: this.addCatmullRomCurve.bind(this)
             }, {
                 xtype: 'div',
-                html: '二次贝塞尔曲线',
+                html: L_QUADRATIC_BEZIER_CURVE,
                 cls: 'option',
                 onClick: this.addQuadraticBezierCurve.bind(this)
             }, {
                 xtype: 'div',
-                html: '三次贝塞尔曲线',
+                html: L_CUBIC_BEZIER_CURVE,
                 cls: 'option',
                 onClick: this.addCubicBezierCurve.bind(this)
             }, {
                 xtype: 'div',
-                html: '椭圆曲线',
+                html: L_ELLIPSE_CURVE,
                 cls: 'option',
                 onClick: this.addEllipseCurve.bind(this)
             }]

@@ -15,7 +15,7 @@ function CatmullRomCurve(options = {}) {
 
     THREE.Line.call(this, geometry, material);
 
-    this.name = 'CatmullRom曲线';
+    this.name = L_CATMULL_ROM_CURVE;
 
     this.castShadow = true;
 

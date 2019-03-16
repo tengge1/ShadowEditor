@@ -23,23 +23,23 @@ ToolMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: '工具'
+            html: L_TOOL
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
                 xtype: 'div',
-                html: '整理贴图',
+                html: L_ARRANGE_MAP,
                 cls: 'option',
                 onClick: this.onArrangeMap.bind(this)
             }, {
                 xtype: 'div',
-                html: '整理模型',
+                html: L_ARRANGE_MESH,
                 cls: 'option',
                 onClick: this.onArrangeMesh.bind(this)
             }, {
                 xtype: 'div',
-                html: '整理缩略图',
+                html: L_ARRANGE_THUMBNAIL,
                 cls: 'option',
                 onClick: this.onArrangeThumbnail.bind(this)
             }]
