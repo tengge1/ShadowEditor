@@ -17,7 +17,6 @@ import Player from './player/Player';
 import Editor from './editor/Editor';
 
 import PackageManager from './package/PackageManager';
-import API from './api/API';
 
 /**
  * 应用程序
@@ -122,8 +121,5 @@ Application.prototype.warn = function (content) { // 警告日志
 Application.prototype.error = function (content) { // 错误日志
     this.call('log', this, content, 'error');
 };
-
-// API
-Object.assign(Application.prototype, API.prototype);
 
 export default Application;
