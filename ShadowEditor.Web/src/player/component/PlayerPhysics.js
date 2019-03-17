@@ -67,7 +67,7 @@ function PlayerPhysics(app) {
 
     // api函数
     // TODO: 很难受的实现
-    Object.assign(window, {
+    Object.assign(app, {
         addPhysicsObject: this.addPhysicsObject.bind(this)
     });
 }

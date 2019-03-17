@@ -22,6 +22,7 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
     this.events = Object.keys(scripts).map(uuid => {
         var script = scripts[uuid];
         return (new Function(
+            'app',
             'scene',
             'camera',
             'renderer',
@@ -41,7 +42,7 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
             var onResize = onResize || null;
             return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onResize };
             `
-        )).call(scene, scene, camera, renderer);
+        )).call(scene, this.app, scene, scene, camera, renderer);
     });
 
     this.events.forEach(n => {
