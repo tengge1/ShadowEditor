@@ -34,6 +34,44 @@ SmokeComponent.prototype.render = function () {
                 fontWeight: 'bold'
             },
             text: L_SMOKE_COMPONENT
+        },
+        // {
+        //     xtype: 'row',
+        //     children: [{
+        //         xtype: 'label',
+        //         text: '数量'
+        //     }, {
+        //         xtype: 'int',
+        //         id: 'particleCount',
+        //         scope: this.id,
+        //         range: [0, Infinity],
+        //         onChange: this.onChange.bind(this)
+        //     }]
+        // }, 
+        {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '尺寸'
+            }, {
+                xtype: 'int',
+                id: 'size',
+                scope: this.id,
+                range: [0, Infinity],
+                onChange: this.onChange.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: '时长'
+            }, {
+                xtype: 'int',
+                id: 'lifetime',
+                scope: this.id,
+                range: [0, Infinity],
+                onChange: this.onChange.bind(this)
+            }]
         }, {
             xtype: 'row',
             children: [{
@@ -75,13 +113,33 @@ SmokeComponent.prototype.updateUI = function () {
 
     this.selected = editor.selected;
 
+    // var particleCount = UI.get('particleCount', this.id);
+    var size = UI.get('size', this.id);
+    var lifetime = UI.get('lifetime', this.id);
     var btnPreview = UI.get('btnPreview', this.id);
+
+    // particleCount.setValue(this.selected.userData.particleCount);
+    size.setValue(this.selected.userData.size);
+    lifetime.setValue(this.selected.userData.lifetime);
 
     if (this.isPlaying) {
         btnPreview.setText(L_CANCEL);
     } else {
         btnPreview.setText(L_PREVIEW);
     }
+};
+
+SmokeComponent.prototype.onChange = function () {
+    // var particleCount = UI.get('particleCount', this.id);
+    var size = UI.get('size', this.id);
+    var lifetime = UI.get('lifetime', this.id);
+
+    // this.selected.userData.particleCount = particleCount.getValue();
+    this.selected.userData.size = size.getValue();
+    this.selected.userData.lifetime = lifetime.getValue();
+
+    this.selected.material.uniforms.size.value = size.getValue();
+    this.selected.material.uniforms.lifetime.value = lifetime.getValue();
 };
 
 SmokeComponent.prototype.onPreview = function () {

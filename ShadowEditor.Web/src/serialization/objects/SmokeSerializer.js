@@ -20,7 +20,7 @@ SmokeSerializer.prototype.toJSON = function (obj) {
 };
 
 SmokeSerializer.prototype.fromJSON = function (json, parent, camera, renderer) {
-    var obj = parent || new Smoke(camera, renderer);
+    var obj = parent || new Smoke(camera, renderer, json.userData);
 
     MeshSerializer.prototype.fromJSON.call(this, json, obj);
 
