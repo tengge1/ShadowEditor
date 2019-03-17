@@ -19,6 +19,8 @@ Language: 中文 / [English](README-en.md)
 9. 整理文件夹结构。重写历史面板模块，彻底删除耦合度高的Outliner控件。
 10. 英文翻译优化。
 11. 新增场景一键导出功能，自动分析场景所需模型和资源，所有所需资源放在`/temp/yyyyMMddHHmmss`文件夹。
+12. 导出不带资源的编辑器功能。
+13. 重新发布了演示项目：[Gitee](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
 
 ## v0.1.6更新
 
