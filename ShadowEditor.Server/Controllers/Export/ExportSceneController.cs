@@ -131,7 +131,7 @@ namespace ShadowEditor.Server.Controllers.Export
                         }
                     }
                 }
-                else if (generator == "MeshSerializer") // 模型
+                else if (generator == "MeshSerializer" || generator == "SpriteSerializer") // 模型
                 {
                     if (i["material"]["alphaMap"].IsBsonDocument)
                     {

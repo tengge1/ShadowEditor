@@ -26,7 +26,7 @@ SpriteSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-SpriteSerializer.prototype.fromJSON = function (json, parent) {
+SpriteSerializer.prototype.fromJSON = function (json, parent, server) {
     var material;
 
     if (parent === undefined) {
@@ -34,7 +34,7 @@ SpriteSerializer.prototype.fromJSON = function (json, parent) {
             console.warn(`SpriteSerializer: ${json.name} json.material is not defined.`);
             return null;
         }
-        material = (new MaterialsSerializer()).fromJSON(json.material);
+        material = (new MaterialsSerializer()).fromJSON(json.material, undefined, server);
     }
 
     var obj = parent === undefined ? new THREE.Sprite(material) : parent;

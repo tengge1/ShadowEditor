@@ -25,7 +25,7 @@ MeshSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-MeshSerializer.prototype.fromJSON = function (json, parent) {
+MeshSerializer.prototype.fromJSON = function (json, parent, server) {
     // 子类创建模型
     if (parent !== undefined) {
         var obj = parent;
@@ -44,7 +44,7 @@ MeshSerializer.prototype.fromJSON = function (json, parent) {
     }
 
     var geometry = (new GeometriesSerializer()).fromJSON(json.geometry);
-    var material = (new MaterialsSerializer()).fromJSON(json.material);
+    var material = (new MaterialsSerializer()).fromJSON(json.material, undefined, server);
 
     var obj = new THREE.Mesh(geometry, material);
 

@@ -125,7 +125,7 @@ MaterialSerializer.prototype.fromJSON = function (json, parent, server) {
     obj.lightMapIntensity = json.lightMapIntensity;
     obj.lights = json.lights;
     obj.linewidth = json.linewidth;
-    obj.map = json.map == null ? null : (new TexturesSerializer()).fromJSON(json.map);
+    obj.map = json.map == null ? null : (new TexturesSerializer()).fromJSON(json.map, undefined, server);
     obj.metalness = json.metalness;
     obj.metalnessMap = json.metalnessMap == null ? null : (new TexturesSerializer()).fromJSON(json.metalnessMap, undefined, server);
     obj.morphNormals = json.morphNormals;

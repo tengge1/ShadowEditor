@@ -317,10 +317,10 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                     obj = (new ReflectorSerializer()).fromJSON(objJson);
                     break;
                 case 'MeshSerializer':
-                    obj = (new MeshSerializer()).fromJSON(objJson);
+                    obj = (new MeshSerializer()).fromJSON(objJson, undefined, options.server);
                     break;
                 case 'SpriteSerializer':
-                    obj = (new SpriteSerializer()).fromJSON(objJson);
+                    obj = (new SpriteSerializer()).fromJSON(objJson, undefined, options.server);
                     break;
                 case 'AmbientLightSerializer':
                     obj = (new AmbientLightSerializer()).fromJSON(objJson);
