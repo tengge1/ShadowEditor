@@ -67,7 +67,6 @@
     <!-- Shadow Editor -->
     <script src="build/ShadowEditor.js"></script>
     <script>
-        var container = null;
         var app = null;
 
         var getQueryString = name => {
@@ -78,8 +77,7 @@
         };
 
         var start = () => {
-            container = document.getElementById('container');
-            app = new Shadow.Player(container, {
+            app = new Shadow.Player({
                 server: location.origin,
                 enableThrowBall: false,
             });
