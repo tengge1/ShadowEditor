@@ -284,7 +284,7 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
         });
     }
 
-    var scene = (new SceneSerializer()).fromJSON(sceneJson);
+    var scene = (new SceneSerializer()).fromJSON(sceneJson, undefined, options.server);
 
     var serverObjects = [];
 
