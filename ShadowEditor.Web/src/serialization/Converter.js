@@ -356,7 +356,7 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                     obj = (new SkySerializer()).fromJSON(objJson);
                     break;
                 case 'ParticleEmitterSerializer':
-                    obj = (new ParticleEmitterSerializer()).fromJSON(objJson);
+                    obj = (new ParticleEmitterSerializer()).fromJSON(objJson, undefined, options.server);
                     break;
                 case 'PerlinTerrainSerializer':
                     obj = (new PerlinTerrainSerializer()).fromJSON(objJson);

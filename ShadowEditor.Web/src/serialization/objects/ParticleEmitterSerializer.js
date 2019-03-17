@@ -86,13 +86,13 @@ ParticleEmitterSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-ParticleEmitterSerializer.prototype.fromJSON = function (json) {
+ParticleEmitterSerializer.prototype.fromJSON = function (json, parent, server) {
     var groupJson = json.userData.group;
     var emitterJson = json.userData.emitter;
 
     var group = new SPE.Group({
         texture: {
-            value: (new TexturesSerializer()).fromJSON(groupJson.texture)
+            value: (new TexturesSerializer()).fromJSON(groupJson.texture, undefined, server)
         },
         maxParticleCount: groupJson.maxParticleCount
     });
