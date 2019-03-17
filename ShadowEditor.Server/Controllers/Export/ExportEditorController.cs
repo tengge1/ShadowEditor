@@ -108,6 +108,7 @@ namespace ShadowEditor.Server.Controllers.Export
                 Directory.CreateDirectory(dirName);
             }
 
+            this.CreateAssetsDataFile(path);
             this.CreateAnimationDataFile(path);
             this.CreateAudioDataFile(path);
             this.CreateCategoryDataFile(path);
@@ -118,6 +119,38 @@ namespace ShadowEditor.Server.Controllers.Export
             this.CreateSceneDataFile(path);
             this.CreateUploadDataFile(path);
             this.CreateToolsDataFile(path);
+        }
+
+        /// <summary>
+        /// 复制资源数据文件
+        /// </summary>
+        /// <param name="path"></param>
+        private void CreateAssetsDataFile(string path)
+        {
+            var dirName = $"{path}/api/Assets";
+
+            if (!Directory.Exists(dirName))
+            {
+                Directory.CreateDirectory(dirName);
+            }
+
+            // 获取列表
+            var fileName = $"{path}/api/Assets/List";
+            var data = JsonConvert.SerializeObject(new
+            {
+                Code = 200,
+                Msg = "获取成功！",
+                sceneCount = 32,
+                meshCount = 2469,
+                mapCount = 674,
+                materialCount = 12,
+                audioCount = 19,
+                animationCount = 8,
+                particleCount = 0,
+                prefabCount = 0,
+                characterCount = 0
+            });
+            File.WriteAllText(fileName, data);
         }
 
         /// <summary>
