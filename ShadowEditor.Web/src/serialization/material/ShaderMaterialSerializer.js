@@ -39,10 +39,10 @@ ShaderMaterialSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-ShaderMaterialSerializer.prototype.fromJSON = function (json, parent) {
+ShaderMaterialSerializer.prototype.fromJSON = function (json, parent, server) {
     var obj = parent === undefined ? new THREE.ShaderMaterial() : parent;
 
-    MaterialSerializer.prototype.fromJSON.call(this, json, obj);
+    MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
 
     obj.defines = json.defines;
 

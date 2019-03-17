@@ -40,7 +40,7 @@ TexturesSerializer.prototype.toJSON = function (obj) {
     return (new serializer()).toJSON(obj);
 };
 
-TexturesSerializer.prototype.fromJSON = function (json, parent) {
+TexturesSerializer.prototype.fromJSON = function (json, parent, server) {
     var generator = json.metadata.generator;
 
     var serializer = Serializers[generator.replace('Serializer', '')];
@@ -50,7 +50,7 @@ TexturesSerializer.prototype.fromJSON = function (json, parent) {
         return null;
     }
 
-    return (new serializer()).fromJSON(json, parent);
+    return (new serializer()).fromJSON(json, parent, server);
 };
 
 export default TexturesSerializer;

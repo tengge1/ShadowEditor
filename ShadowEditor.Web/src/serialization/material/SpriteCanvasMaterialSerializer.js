@@ -16,10 +16,10 @@ SpriteCanvasMaterialSerializer.prototype.toJSON = function (obj) {
     return MaterialSerializer.prototype.toJSON.call(this, obj);
 };
 
-SpriteCanvasMaterialSerializer.prototype.fromJSON = function (json, parent) {
+SpriteCanvasMaterialSerializer.prototype.fromJSON = function (json, parent, server) {
     var obj = parent === undefined ? new THREE.SpriteCanvasMaterial() : parent;
 
-    MaterialSerializer.prototype.fromJSON.call(this, json, obj);
+    MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
 
     return obj;
 };

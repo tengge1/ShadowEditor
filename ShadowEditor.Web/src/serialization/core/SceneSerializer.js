@@ -29,7 +29,7 @@ SceneSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-SceneSerializer.prototype.fromJSON = function (json, parent) {
+SceneSerializer.prototype.fromJSON = function (json, parent, server) {
     var obj = parent === undefined ? new THREE.Scene() : parent;
 
     Object3DSerializer.prototype.fromJSON(json, obj);
@@ -38,7 +38,7 @@ SceneSerializer.prototype.fromJSON = function (json, parent) {
         (json.background.metadata.generator === 'CubeTextureSerializer' ||
             json.background.metadata.generator === 'TextureSerializer')
     ) { // 天空盒和背景图片
-        obj.background = new TexturesSerializer().fromJSON(json.background);
+        obj.background = new TexturesSerializer().fromJSON(json.background, undefined, server);
     } else { // 纯色
         obj.background = new THREE.Color(json.background);
     }
@@ -51,7 +51,7 @@ SceneSerializer.prototype.fromJSON = function (json, parent) {
         console.warn(`SceneSerializer: unknown fog type ${json.fog.type}.`);
     }
 
-    obj.overrideMaterial = json.overrideMaterial == null ? null : (new MaterialsSerializer()).fromJSON(json.overrideMaterial);
+    obj.overrideMaterial = json.overrideMaterial == null ? null : (new MaterialsSerializer()).fromJSON(json.overrideMaterial, undefined, server);
 
     return obj;
 };

@@ -86,12 +86,12 @@ MaterialSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-MaterialSerializer.prototype.fromJSON = function (json, parent) {
+MaterialSerializer.prototype.fromJSON = function (json, parent, server) {
     var obj = parent === undefined ? new THREE.Material() : parent;
 
-    obj.alphaMap = json.alphaMap == null ? null : (new TexturesSerializer()).fromJSON(json.alphaMap);
+    obj.alphaMap = json.alphaMap == null ? null : (new TexturesSerializer()).fromJSON(json.alphaMap, undefined, server);
     obj.alphaTest = json.alphaTest;
-    obj.aoMap = json.aoMap == null ? null : (new TexturesSerializer()).fromJSON(json.aoMap);
+    obj.aoMap = json.aoMap == null ? null : (new TexturesSerializer()).fromJSON(json.aoMap, undefined, server);
     obj.aoMapIntensity = json.aoMapIntensity;
     obj.blendDst = json.blendDst;
     obj.blendDstAlpha = json.blendDstAlpha;
@@ -100,7 +100,7 @@ MaterialSerializer.prototype.fromJSON = function (json, parent) {
     obj.blendSrc = json.blendSrc;
     obj.blendSrcAlpha = json.blendSrcAlpha;
     obj.blending = json.blending;
-    obj.bumpMap = json.bumpMap == null ? null : (new TexturesSerializer()).fromJSON(json.bumpMap);
+    obj.bumpMap = json.bumpMap == null ? null : (new TexturesSerializer()).fromJSON(json.bumpMap, undefined, server);
     obj.bumpScale = json.bumpScale;
     obj.clipIntersection = json.clipIntersection;
     obj.clipShadow = json.clipShadow;
@@ -111,27 +111,27 @@ MaterialSerializer.prototype.fromJSON = function (json, parent) {
     obj.depthTest = json.depthTest;
     obj.depthWrite = json.depthWrite;
     obj.displacementBias = json.displacementBias;
-    obj.displacementMap = json.displacementMap == null ? null : (new TexturesSerializer()).fromJSON(json.displacementMap);
+    obj.displacementMap = json.displacementMap == null ? null : (new TexturesSerializer()).fromJSON(json.displacementMap, undefined, server);
     obj.displacementScale = json.displacementScale;
     obj.dithering = json.dithering;
     obj.emissive = json.emissive == null ? undefined : new THREE.Color(json.emissive);
     obj.emissiveIntensity = json.emissiveIntensity;
-    obj.emissiveMap = json.emissiveMap == null ? null : (new TexturesSerializer()).fromJSON(json.emissiveMap);
-    obj.envMap = json.envMap == null ? null : (new TexturesSerializer()).fromJSON(json.envMap);
+    obj.emissiveMap = json.emissiveMap == null ? null : (new TexturesSerializer()).fromJSON(json.emissiveMap, undefined, server);
+    obj.envMap = json.envMap == null ? null : (new TexturesSerializer()).fromJSON(json.envMap, undefined, server);
     obj.envMapIntensity = json.envMapIntensity;
     obj.flatShading = json.flatShading;
     obj.fog = json.fog;
-    obj.lightMap = json.lightMap == null ? null : (new TexturesSerializer()).fromJSON(json.lightMap);
+    obj.lightMap = json.lightMap == null ? null : (new TexturesSerializer()).fromJSON(json.lightMap, undefined, server);
     obj.lightMapIntensity = json.lightMapIntensity;
     obj.lights = json.lights;
     obj.linewidth = json.linewidth;
     obj.map = json.map == null ? null : (new TexturesSerializer()).fromJSON(json.map);
     obj.metalness = json.metalness;
-    obj.metalnessMap = json.metalnessMap == null ? null : (new TexturesSerializer()).fromJSON(json.metalnessMap);
+    obj.metalnessMap = json.metalnessMap == null ? null : (new TexturesSerializer()).fromJSON(json.metalnessMap, undefined, server);
     obj.morphNormals = json.morphNormals;
     obj.morphTargets = json.morphTargets;
     obj.name = json.name;
-    obj.normalMap = json.normalMap == null ? null : (new TexturesSerializer()).fromJSON(json.normalMap);
+    obj.normalMap = json.normalMap == null ? null : (new TexturesSerializer()).fromJSON(json.normalMap, undefined, server);
     obj.normalScale = json.normalScale == null ? null : new THREE.Vector2().copy(json.normalScale);
     obj.opacity = json.opacity;
     obj.polygonOffset = json.polygonOffset;
@@ -141,7 +141,7 @@ MaterialSerializer.prototype.fromJSON = function (json, parent) {
     obj.premultipliedAlpha = json.premultipliedAlpha;
     obj.refractionRatio = json.refractionRatio;
     obj.roughness = json.roughness;
-    obj.roughnessMap = json.roughnessMap == null ? null : (new TexturesSerializer()).fromJSON(json.roughnessMap);
+    obj.roughnessMap = json.roughnessMap == null ? null : (new TexturesSerializer()).fromJSON(json.roughnessMap, undefined, server);
     obj.shadowSide = json.shadowSide;
     obj.side = json.side;
     obj.skinning = json.skinning;

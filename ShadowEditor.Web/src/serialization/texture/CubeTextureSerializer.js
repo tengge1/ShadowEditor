@@ -31,12 +31,12 @@ CubeTextureSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-CubeTextureSerializer.prototype.fromJSON = function (json, parent) {
+CubeTextureSerializer.prototype.fromJSON = function (json, parent, server) {
     // 用一个像素的图片初始化CubeTexture，避免图片载入前的警告信息。
     var img = ImageUtils.onePixelCanvas();
     var obj = parent === undefined ? new THREE.CubeTexture([img, img, img, img, img, img]) : parent;
 
-    TextureSerializer.prototype.fromJSON.call(this, json, obj);
+    TextureSerializer.prototype.fromJSON.call(this, json, obj, server);
 
     if (Array.isArray(json.image)) {
         var promises = json.image.map(n => {

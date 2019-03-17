@@ -70,7 +70,7 @@ TextureSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-TextureSerializer.prototype.fromJSON = function (json, parent) {
+TextureSerializer.prototype.fromJSON = function (json, parent, server) {
     // 用一个像素的图片初始化Texture，避免图片载入前的警告信息。
     var img = ImageUtils.onePixelCanvas();
     var obj = parent === undefined ? new THREE.Texture(img) : parent;
@@ -84,7 +84,13 @@ TextureSerializer.prototype.fromJSON = function (json, parent) {
 
     if (json.image && !Array.isArray(json.image) && json.image.tagName === 'img') { // 图片
         var img = document.createElement('img');
-        img.src = json.image.src;
+
+        if(json.image.src && json.image.src.startsWith('/')) {
+            img.src = server + json.image.src;
+        } else {
+            img.src = json.image.src;
+        }
+        
         img.width = json.image.width;
         img.height = json.image.height;
         img.onload = function () {
@@ -98,7 +104,13 @@ TextureSerializer.prototype.fromJSON = function (json, parent) {
         var ctx = canvas.getContext('2d');
 
         var img = document.createElement('img');
-        img.src = json.image.src;
+        
+        if(json.image.src && json.image.src.startsWith('/')) {
+            img.src = server + json.image.src;
+        } else {
+            img.src = json.image.src;
+        }
+
         img.onload = function () {
             canvas.width = img.width;
             canvas.height = img.height;

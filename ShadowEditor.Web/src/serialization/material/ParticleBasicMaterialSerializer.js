@@ -16,10 +16,10 @@ ParticleBasicMaterialSerializer.prototype.toJSON = function (obj) {
     return MaterialSerializer.prototype.toJSON.call(this, obj);
 };
 
-ParticleBasicMaterialSerializer.prototype.fromJSON = function (json, parent) {
+ParticleBasicMaterialSerializer.prototype.fromJSON = function (json, parent, server) {
     var obj = parent === undefined ? new THREE.ParticleBasicMaterial() : parent;
 
-    MaterialSerializer.prototype.fromJSON.call(this, json, obj);
+    MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
 
     return obj;
 };

@@ -16,10 +16,10 @@ DataTextureSerializer.prototype.toJSON = function (obj) {
     return TextureSerializer.prototype.toJSON.call(this, obj);
 };
 
-DataTextureSerializer.prototype.fromJSON = function (json, parent) {
+DataTextureSerializer.prototype.fromJSON = function (json, parent, server) {
     var obj = parent === undefined ? new THREE.DataTexture() : parent;
 
-    TextureSerializer.prototype.fromJSON.call(this, json, obj);
+    TextureSerializer.prototype.fromJSON.call(this, json, obj, server);
 
     return obj;
 };

@@ -61,6 +61,7 @@ Converter.prototype.constructor = Converter;
 /**
  * 将应用转为json
  * @param {*} obj 格式：{ options: options, camera: camera, renderer: renderer, scripts: scripts, scene: scene }
+ * @param {*} obj.server 服务端地址
  */
 Converter.prototype.toJSON = function (obj) {
     var options = obj.options;
@@ -191,6 +192,7 @@ Converter.prototype.sceneToJson = function (scene, list) {
  * 场景反序列化
  * @param {*} jsons json对象（列表）
  * @param {*} options 配置选项 格式：{ server: serverUrl } 其中，serverUrl为服务端地址，用于下载模型、纹理等资源
+ * @param {*} options.server 服务端地址
  */
 Converter.prototype.fromJson = function (jsons, options) {
     var obj = {
@@ -306,7 +308,7 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
 
             switch (objJson.metadata.generator) {
                 case 'SceneSerializer':
-                    obj = (new SceneSerializer()).fromJSON(objJson);
+                    obj = (new SceneSerializer()).fromJSON(objJson, undefined, options.server);
                     break;
                 case 'GroupSerializer':
                     obj = (new GroupSerializer()).fromJSON(objJson);

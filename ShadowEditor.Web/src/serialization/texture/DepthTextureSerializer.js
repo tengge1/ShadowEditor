@@ -16,10 +16,10 @@ DepthTextureSerializer.prototype.toJSON = function (obj) {
     return TextureSerializer.prototype.toJSON.call(this, obj);
 };
 
-DepthTextureSerializer.prototype.fromJSON = function (json, parent) {
+DepthTextureSerializer.prototype.fromJSON = function (json, parent, server) {
     var obj = parent === undefined ? new THREE.DataTexture() : parent;
 
-    TextureSerializer.prototype.fromJSON.call(this, json, obj);
+    TextureSerializer.prototype.fromJSON.call(this, json, obj, server);
 
     return obj;
 };

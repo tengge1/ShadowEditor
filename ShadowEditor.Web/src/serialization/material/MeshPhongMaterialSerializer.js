@@ -16,10 +16,10 @@ MeshPhongMaterialSerializer.prototype.toJSON = function (obj) {
     return MaterialSerializer.prototype.toJSON.call(this, obj);
 };
 
-MeshPhongMaterialSerializer.prototype.fromJSON = function (json, parent) {
+MeshPhongMaterialSerializer.prototype.fromJSON = function (json, parent, server) {
     var obj = parent === undefined ? new THREE.MeshPhongMaterial() : parent;
 
-    MaterialSerializer.prototype.fromJSON.call(this, json, obj);
+    MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
 
     return obj;
 };

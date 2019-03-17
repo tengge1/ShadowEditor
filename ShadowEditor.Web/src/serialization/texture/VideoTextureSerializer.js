@@ -16,10 +16,10 @@ VideoTextureSerializer.prototype.toJSON = function (obj) {
     return TextureSerializer.prototype.toJSON.call(this, obj);
 };
 
-VideoTextureSerializer.prototype.fromJSON = function (json, parent) {
+VideoTextureSerializer.prototype.fromJSON = function (json, parent, server) {
     var obj = parent === undefined ? new THREE.VideoTexture() : parent;
 
-    TextureSerializer.prototype.fromJSON.call(this, json, obj);
+    TextureSerializer.prototype.fromJSON.call(this, json, obj, server);
 
     return obj;
 };

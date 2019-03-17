@@ -12,6 +12,7 @@ using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
+using System.Text;
 
 namespace ShadowEditor.Server.Controllers.Export
 {
@@ -70,7 +71,10 @@ namespace ShadowEditor.Server.Controllers.Export
 
             // 拷贝静态资源
             var viewPath = HttpContext.Current.Server.MapPath("~/view.html");
-            File.Copy(viewPath, $"{path}/view.html", true);
+
+            var viewFileData = File.ReadAllText(viewPath, Encoding.UTF8);
+            viewFileData = viewFileData.Replace("location.origin", "'.'"); // 替换server地址，以便部署到Git Pages上
+            File.WriteAllText($"{path}/view.html", viewFileData, Encoding.UTF8);
 
             var faviconPath = HttpContext.Current.Server.MapPath("~/favicon.ico");
             File.Copy(faviconPath, $"{path}/favicon.ico", true);
@@ -81,31 +85,15 @@ namespace ShadowEditor.Server.Controllers.Export
             var buildPath = HttpContext.Current.Server.MapPath($"~/build");
             DirectoryHelper.Copy(buildPath, $"{path}/build");
 
-            // 拷贝场景数据
+            // 分析场景，拷贝使用的资源
             var data = new JArray();
 
-            foreach (var i in docs)
-            {
-                i["_id"] = i["_id"].ToString(); // ObjectId
-                data.Add(JsonHelper.ToObject<JObject>(i.ToJson()));
-            }
-
-            if (!Directory.Exists($"{path}/Scene"))
-            {
-                Directory.CreateDirectory($"{path}/Scene");
-            }
-
-            var file = new FileStream($"{path}/Scene/{ID}.txt", FileMode.Create, FileAccess.Write);
-            var writer = new StreamWriter(file);
-            writer.Write(JsonHelper.ToJson(data));
-            writer.Close();
-            file.Close();
-
-            // 分析场景，拷贝使用的资源
             var urls = new List<string>();
 
             foreach (var i in docs)
             {
+                i["_id"] = i["_id"].ToString(); // ObjectId
+
                 var generator = i["metadata"]["generator"].ToString();
 
                 if (generator == "ServerObject") // 服务端模型
@@ -190,7 +178,22 @@ namespace ShadowEditor.Server.Controllers.Export
                         urls.Add(i["material"]["roughnessMap"]["image"]["src"].ToString());
                     }
                 }
+
+                data.Add(JsonHelper.ToObject<JObject>(i.ToJson()));
             }
+
+            // 将场景写入文件
+            if (!Directory.Exists($"{path}/Scene"))
+            {
+                Directory.CreateDirectory($"{path}/Scene");
+            }
+
+            // 复制资源
+            var file = new FileStream($"{path}/Scene/{ID}.txt", FileMode.Create, FileAccess.Write);
+            var writer = new StreamWriter(file);
+            writer.Write(JsonHelper.ToJson(data));
+            writer.Close();
+            file.Close();
 
             foreach (var url in urls)
             {

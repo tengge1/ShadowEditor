@@ -89,7 +89,7 @@
             var sceneFile = getQueryString('sceneFile');
 
             if (sceneID) { // 通过/api/Scene/Load?ID=sceneID获取场景数据
-                fetch(`/api/Scene/Load?ID=${sceneID}`).then(response => {
+                fetch(`${app.options.server}/api/Scene/Load?ID=${sceneID}`).then(response => {
                     if (response.ok) {
                         response.json().then(json => {
                             if (json.Code === 200) {
@@ -99,7 +99,7 @@
                     }
                 });
             } else if (sceneFile) { // 通过/Scene/sceneID.txt获取场景数据（导出用）
-                fetch(`Scene/${sceneFile}.txt`).then(response => {
+                fetch(`${app.options.server}/Scene/${sceneFile}.txt`).then(response => {
                     if (response.ok) {
                         response.json().then(json => {
                             app.start(JSON.stringify(json));

@@ -70,7 +70,7 @@ MaterialsSerializer.prototype.toJSON = function (obj) {
     return (new serializer()).toJSON(obj);
 };
 
-MaterialsSerializer.prototype.fromJSON = function (json, parent) {
+MaterialsSerializer.prototype.fromJSON = function (json, parent, server) {
     var generator = json.metadata.generator;
 
     var serializer = Serializers[generator.replace('Serializer', '')];
@@ -80,7 +80,7 @@ MaterialsSerializer.prototype.fromJSON = function (json, parent) {
         return null;
     }
 
-    return (new serializer()).fromJSON(json, parent);
+    return (new serializer()).fromJSON(json, parent, server);
 };
 
 export default MaterialsSerializer;

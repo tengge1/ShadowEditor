@@ -16,10 +16,10 @@ CompressedTextureSerializer.prototype.toJSON = function (obj) {
     return TextureSerializer.prototype.toJSON.call(this, obj);
 };
 
-CompressedTextureSerializer.prototype.fromJSON = function (json, parent) {
+CompressedTextureSerializer.prototype.fromJSON = function (json, parent, server) {
     var obj = parent === undefined ? new THREE.CompressedTexture() : parent;
 
-    TextureSerializer.prototype.fromJSON.call(this, json, obj);
+    TextureSerializer.prototype.fromJSON.call(this, json, obj, server);
 
     return obj;
 };

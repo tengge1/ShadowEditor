@@ -64,7 +64,7 @@ MMDLoader.prototype.loadWithAnimation = function (url, options, environment, loa
     }
 
     return new Promise(resolve => {
-        loader.loadWithAnimation(url, [options.Animation.Url], mmd => {
+        loader.loadWithAnimation(url, [environment.server + options.Animation.Url], mmd => {
             resolve(mmd);
         }, undefined, () => {
             resolve(null);
@@ -80,7 +80,7 @@ MMDLoader.prototype.loadCameraAnimation = function (url, options, environment, l
     }
 
     return new Promise(resolve => {
-        loader.loadAnimation([options.CameraAnimation.Url], environment.camera, vmd => {
+        loader.loadAnimation([environment.server + options.CameraAnimation.Url], environment.camera, vmd => {
             resolve(vmd);
         }, undefined, () => {
             resolve(null);
@@ -97,7 +97,7 @@ MMDLoader.prototype.loadAudio = function (url, options, environment, loader) {
 
     return new Promise(resolve => {
         var loader = new THREE.AudioLoader();
-        loader.load(options.Audio.Url, buffer => {
+        loader.load(environment.server + options.Audio.Url, buffer => {
             var audio = new THREE.Audio(environment.audioListener).setBuffer(buffer);
             Object.assign(audio.userData, options.Audio);
             resolve(audio);

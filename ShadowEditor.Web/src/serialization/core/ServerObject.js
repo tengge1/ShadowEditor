@@ -66,6 +66,9 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
         url = options.server + url;
     }
 
+    // 将server传递给MMDLoader，以便下载资源
+    environment.server = options.server;
+
     return new Promise(resolve => {
         var loader = new ModelLoader();
         loader.load(url, json.userData, environment).then(obj => {
