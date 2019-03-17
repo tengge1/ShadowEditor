@@ -202,10 +202,21 @@ namespace ShadowEditor.Server.Controllers.Export
                     continue;
                 }
 
-                var sourceDirName = Path.GetDirectoryName(HttpContext.Current.Server.MapPath($"~{url}"));
-                var targetDirName = Path.GetDirectoryName($"{path}{url}");
+                // LOL模型存在多个url，两个url之间用分号分隔
+                var _urls = url.Split(';');
 
-                DirectoryHelper.Copy(sourceDirName, targetDirName);
+                foreach (var _url in _urls)
+                {
+                    if (string.IsNullOrEmpty(_url))
+                    {
+                        continue;
+                    }
+
+                    var sourceDirName = Path.GetDirectoryName(HttpContext.Current.Server.MapPath($"~{_url}"));
+                    var targetDirName = Path.GetDirectoryName($"{path}{_url}");
+
+                    DirectoryHelper.Copy(sourceDirName, targetDirName);
+                }
             }
 
             return Json(new
