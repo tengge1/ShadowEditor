@@ -54,7 +54,7 @@ SceneMenu.prototype.render = function () {
                 //     xtype: 'div',
                 //     html: L_EXPORT_STATIC_WEBSITE,
                 //     cls: 'option',
-                //     onClick: this.publish.bind(this)
+                //     onClick: this.exportAll.bind(this)
                 // }
             ]
         }]
@@ -216,12 +216,12 @@ SceneMenu.prototype.exportScene = function () {
     });
 };
 
-// ------------------------- 发布静态网站 ------------------------------
+// ------------------------- 导出所有资源 ------------------------------
 
-// SceneMenu.prototype.publish = function () {
+// SceneMenu.prototype.exportAll = function () {
 //     UI.confirm(L_PUBLISH_WEBSITE, L_CONFIRM_PUBLISH_WEBSITE, (event, btn) => {
 //         if (btn === 'ok') {
-//             Ajax.post(`${this.app.options.server}/api/Publish/Publish`, function (result) {
+//             Ajax.post(`${this.app.options.server}/api/ExportAll/Run`, function (result) {
 //                 var obj = JSON.parse(result);
 //                 UI.msg(obj.Msg);
 //             });

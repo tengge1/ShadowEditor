@@ -14,19 +14,19 @@ using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using Newtonsoft.Json;
 
-namespace ShadowEditor.Server.Controllers
+namespace ShadowEditor.Server.Controllers.Export
 {
     /// <summary>
-    /// 发布控制器
+    /// 导出所有资源控制器
     /// </summary>
-    public class PublishController : ApiBase
+    public class ExportAllController : ApiBase
     {
         /// <summary>
         /// 发布静态网站
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Publish()
+        public JsonResult Run()
         {
             this.CopyAssets();
             this.CreateDataFile();
