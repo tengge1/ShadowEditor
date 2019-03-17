@@ -42,6 +42,13 @@ ToolMenu.prototype.render = function () {
                 html: L_ARRANGE_THUMBNAIL,
                 cls: 'option',
                 onClick: this.onArrangeThumbnail.bind(this)
+            }, {
+                xtype: 'hr'
+            }, {
+                xtype: 'div',
+                html: '导出编辑器',
+                cls: 'option',
+                onClick: this.onExportEditor.bind(this)
             }]
         }]
     });
@@ -90,6 +97,23 @@ ToolMenu.prototype.onArrangeThumbnail = function () {
                 if (response.ok) {
                     response.json().then(json => {
                         UI.msg(json.Msg);
+                    });
+                }
+            });
+        }
+    });
+};
+
+ToolMenu.prototype.onExportEditor = function () {
+    UI.confirm('询问', '是否导出编辑器？', (event, btn) => {
+        if (btn === 'ok') {
+            fetch(`${this.app.options.server}/api/ExportEditor/Run`, {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    response.json().then(json => {
+                        UI.msg(json.Msg);
+                        window.open(`${this.app.options.server}${json.Url}`, 'export');
                     });
                 }
             });
