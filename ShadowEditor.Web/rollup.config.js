@@ -1,5 +1,4 @@
 import resolve from 'rollup-plugin-node-resolve';
-import copy from 'rollup-plugin-copy';
 
 function glsl() {
     return {
@@ -38,9 +37,6 @@ export default {
             customResolveOptions: {
                 moduleDirectory: 'node_modules'
             }
-        }),
-        // copy({
-        //     "./assets/": "./dist/assets/"
-        // })
+        })
     ]
 };
