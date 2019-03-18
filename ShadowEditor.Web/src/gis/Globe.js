@@ -1,9 +1,12 @@
+import GlobeGeometry from './GlobeGeometry';
+import GlobeMaterial from './GlobeMaterial';
+
 /**
  * 地球
  */
 function Globe() {
-    var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
-    var material = new THREE.MeshBasicMaterial();
+    var geometry = new GlobeGeometry();
+    var material = new GlobeMaterial();
 
     THREE.Mesh.call(this, geometry, material);
 
