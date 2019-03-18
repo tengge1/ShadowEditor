@@ -15,7 +15,9 @@ function GlobeGeometry() {
     var offsets = [];
 
     for (var i = 0; i < 4; i++) {
-        offsets.push(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5);
+        offsets.push((Math.random() - 0.5) * 5);
+        offsets.push((Math.random() - 0.5) * 5);
+        offsets.push((Math.random() - 0.5) * 5);
     }
 
     this.addAttribute('offset', new THREE.InstancedBufferAttribute(new Float32Array(offsets), 3));
