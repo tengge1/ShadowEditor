@@ -3,8 +3,13 @@ import GlobeMaterial from './GlobeMaterial';
 
 /**
  * 地球
+ * @param {*} app 
  */
-function Globe() {
+function Globe(app) {
+    var lon = 0;
+    var lat = 0;
+    var zoom = 1;
+
     var geometry = new GlobeGeometry();
     var material = new GlobeMaterial();
 

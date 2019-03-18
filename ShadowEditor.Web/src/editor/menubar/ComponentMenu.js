@@ -169,7 +169,7 @@ ComponentMenu.prototype.onAddCloth = function () {
 // ----------------------------- 地球 --------------------------------------
 
 ComponentMenu.prototype.onAddEarth = function () {
-    var globe = new Globe();
+    var globe = new Globe(this.app);
     this.app.editor.execute(new AddObjectCommand(globe));
 };
 
