@@ -6,6 +6,7 @@ import Water from '../../object/component/Water';
 import Smoke from '../../object/component/Smoke';
 import Cloth from '../../object/component/Cloth';
 import ParticleEmitter from '../../object/component/ParticleEmitter';
+import Globe from '../../gis/Globe';
 
 /**
  * 组件菜单
@@ -67,6 +68,11 @@ ComponentMenu.prototype.render = function () {
                 html: L_CLOTH,
                 cls: 'option',
                 onClick: this.onAddCloth.bind(this)
+            }, {
+                xtype: 'div',
+                html: '地球',
+                cls: 'option',
+                onClick: this.onAddEarth.bind(this)
             }]
         }]
     });
@@ -158,6 +164,13 @@ ComponentMenu.prototype.onAddCloth = function () {
     cloth.name = L_CLOTH;
 
     editor.execute(new AddObjectCommand(cloth));
+};
+
+// ----------------------------- 地球 --------------------------------------
+
+ComponentMenu.prototype.onAddEarth = function () {
+    var globe = new Globe();
+    this.app.editor.execute(new AddObjectCommand(globe));
 };
 
 export default ComponentMenu;
