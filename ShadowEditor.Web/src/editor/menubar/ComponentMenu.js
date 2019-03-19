@@ -70,7 +70,7 @@ ComponentMenu.prototype.render = function () {
                 onClick: this.onAddCloth.bind(this)
             }, {
                 xtype: 'div',
-                html: '地球',
+                html: '地球(测试)',
                 cls: 'option',
                 onClick: this.onAddEarth.bind(this)
             }]
