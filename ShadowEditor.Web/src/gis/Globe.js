@@ -6,6 +6,10 @@ import GlobeMaterial from './GlobeMaterial';
  * @param {*} app 
  */
 function Globe(app) {
+    this.app = app;
+}
+
+Globe.prototype.start = function () {
     var lon = 0;
     var lat = 0;
     var zoom = 1;
@@ -13,12 +17,14 @@ function Globe(app) {
     var geometry = new GlobeGeometry();
     var material = new GlobeMaterial();
 
-    THREE.Mesh.call(this, geometry, material);
+    this.mesh = new THREE.Mesh(geometry, material);
+    this.app.editor.sceneHelpers.add(this.mesh);
 
-    this.name = '地球';
-}
+    this.app.on(`beforeRender`, this.onBeforeRender.bind(this));
+};
 
-Globe.prototype = Object.create(THREE.Mesh.prototype);
-Globe.prototype.constructor = Globe;
+Globe.prototype.onBeforeRender = function () {
+
+};
 
 export default Globe;

@@ -170,7 +170,7 @@ ComponentMenu.prototype.onAddCloth = function () {
 
 ComponentMenu.prototype.onAddEarth = function () {
     var globe = new Globe(this.app);
-    this.app.editor.execute(new AddObjectCommand(globe));
+    globe.start();
 };
 
 export default ComponentMenu;
