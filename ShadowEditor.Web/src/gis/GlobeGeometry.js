@@ -12,6 +12,8 @@ function GlobeGeometry() {
     this.addAttribute('normal', geometry.attributes.normal);
     this.addAttribute('uv', geometry.attributes.uv);
 
+    this.setIndex(geometry.index);
+
     var offsets = [];
 
     for (var i = 0; i < 4; i++) {
