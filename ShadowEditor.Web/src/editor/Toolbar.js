@@ -182,6 +182,8 @@ Toolbar.prototype.onAddPointIntersect = function (obj, event) {
         return;
     }
 
+    this.onAddPoint();
+
     var geometry = new THREE.CircleBufferGeometry(0.4, 32, 0, Math.PI * 2);
 
     var material = new THREE.PointsMaterial({
@@ -259,7 +261,7 @@ Toolbar.prototype._onAddLine = function () {
     }
 };
 
-Toolbar.prototype.onAddLineIntersect = function (obj, event) { // 向线添加顶点
+Toolbar.prototype.onAddLineIntersect = function (obj, event) {
     if (event.button !== 0) {
         return;
     }
@@ -282,8 +284,7 @@ Toolbar.prototype.onAddLineIntersect = function (obj, event) { // 向线添加�
     this.line.computeLineDistances();
 };
 
-Toolbar.prototype.onAddLineDblClick = function (obj) { // 停止画线，并开始绘制新的一条线
-    this.isAddingLine = !this.isAddingLine;
+Toolbar.prototype.onAddLineDblClick = function (obj) {
     this.onAddLine();
 };
 
@@ -369,7 +370,6 @@ Toolbar.prototype.onAddPolygonIntersect = function (obj) {
 };
 
 Toolbar.prototype.onAddPolygonDblClick = function (obj) {
-    this.isAddingPolygon = !this.isAddingPolygon;
     this.onAddPolygon();
 };
 
@@ -393,6 +393,8 @@ Toolbar.prototype.onSprayIntersect = function (obj, event) {
     if (event.button !== 0) {
         return;
     }
+
+    this.onSpray();
 
     var mesh = obj.object;
     var position = obj.point;
