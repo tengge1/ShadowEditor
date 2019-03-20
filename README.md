@@ -22,6 +22,7 @@ Language: 中文 / [English](README-en.md)
 12. 导出不带资源的编辑器功能。
 13. 重新发布了演示项目：[Gitee](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
 14. 修复渲染器设置中，阴影、γ输入、γ输出、γ因子设置无效bug。
+15. 平面上点、线、喷涂工具一次只能绘制一个。
 
 ## v0.1.6更新
 
