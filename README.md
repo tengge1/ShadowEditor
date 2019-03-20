@@ -21,6 +21,7 @@ Language: 中文 / [English](README-en.md)
 11. 新增场景一键导出功能，自动分析场景所需模型和资源，所有所需资源放在`/temp/yyyyMMddHHmmss`文件夹。
 12. 导出不带资源的编辑器功能。
 13. 重新发布了演示项目：[Gitee](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
+14. 修复渲染器设置中，阴影、γ输入、γ输出、γ因子设置无效bug。
 
 ## v0.1.6更新
 
