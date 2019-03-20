@@ -65,11 +65,11 @@ OptionsWindow.prototype.render = function () {
                 }, {
                     xtype: 'select',
                     id: 'theme',
+                    scope: this.id,
                     options: {
                         'assets/css/light.css': L_LIGHT_COLOR,
                         'assets/css/dark.css': L_DARK_COLOR
                     },
-                    value: app.options.theme,
                     style: {
                         width: '150px'
                     }
@@ -91,13 +91,13 @@ OptionsWindow.prototype.render = function () {
                 }, {
                     xtype: 'select',
                     id: 'shadowMapType',
+                    scope: this.id,
                     options: {
                         [-1]: L_DISABLED,
                         [THREE.BasicShadowMap]: L_BASIC_SHADOW, // 0
                         [THREE.PCFShadowMap]: L_PCF_SHADOW, // 1
                         [THREE.PCFSoftShadowMap]: L_PCF_SOFT_SHADOW // 2
-                    },
-                    value: shadowMap.enabled === false ? -1 : shadowMap.type
+                    }
                 }]
             }, {
                 xtype: 'row',
@@ -107,7 +107,7 @@ OptionsWindow.prototype.render = function () {
                 }, {
                     xtype: 'boolean',
                     id: 'gammaInput',
-                    value: renderer.gammaInput
+                    scope: this.id,
                 }]
             }, {
                 xtype: 'row',
@@ -117,7 +117,7 @@ OptionsWindow.prototype.render = function () {
                 }, {
                     xtype: 'boolean',
                     id: 'gammaOutput',
-                    value: renderer.gammaOutput
+                    scope: this.id,
                 }]
             }, {
                 xtype: 'row',
@@ -127,7 +127,7 @@ OptionsWindow.prototype.render = function () {
                 }, {
                     xtype: 'number',
                     id: 'gammaFactor',
-                    value: renderer.gammaFactor
+                    scope: this.id,
                 }]
             }]
         }],
@@ -150,6 +150,30 @@ OptionsWindow.prototype.render = function () {
 
 OptionsWindow.prototype.show = function () {
     this.window.show();
+
+    var theme = UI.get('theme', this.id);
+    var shadowMapType = UI.get('shadowMapType', this.id);
+    var gammaInput = UI.get('gammaInput', this.id);
+    var gammaOutput = UI.get('gammaOutput', this.id);
+    var gammaFactor = UI.get('gammaFactor', this.id);
+
+    if (!this.app.storage.get('theme')) {
+        this.app.storage.set('theme', 'assets/css/light.css');
+    }
+
+    theme.setValue(this.app.storage.get('theme'));
+
+    var renderer = this.app.editor.renderer;
+
+    if (renderer.shadowMap.enabled) {
+        shadowMapType.setValue(renderer.shadowMap.type);
+    } else {
+        shadowMapType.setValue(-1);
+    }
+
+    gammaInput.setValue(renderer.gammaInput);
+    gammaOutput.setValue(renderer.gammaOutput);
+    gammaFactor.setValue(renderer.gammaFactor);
 };
 
 OptionsWindow.prototype.hide = function () {
@@ -172,35 +196,29 @@ OptionsWindow.prototype.changeTab = function (name) {
 
 OptionsWindow.prototype.save = function () {
     // 主题
-    var theme = UI.get('theme').getValue();
-    this.app.options.theme = theme;
+    var theme = UI.get('theme', this.id).getValue();
+    this.app.storage.set('theme', theme)
     document.getElementById('theme').href = theme;
 
     // 渲染器
-    var shadowMapType = parseInt(UI.get('shadowMapType').getValue());
-    var gammaInput = UI.get('gammaInput').getValue();
-    var gammaOutput = UI.get('gammaOutput').getValue();
-    var gammaFactor = UI.get('gammaFactor').getValue();
+    var shadowMapType = parseInt(UI.get('shadowMapType', this.id).getValue());
+    var gammaInput = UI.get('gammaInput', this.id).getValue();
+    var gammaOutput = UI.get('gammaOutput', this.id).getValue();
+    var gammaFactor = UI.get('gammaFactor', this.id).getValue();
 
     var renderer = this.app.editor.renderer;
-    var json = (new WebGLRendererSerializer(this.app)).toJSON(renderer);
-    var newRenderer = (new WebGLRendererSerializer(this.app)).fromJSON(json);
 
     if (shadowMapType === -1) {
-        newRenderer.shadowMap.enabled = false;
+        renderer.shadowMap.enabled = false;
     } else {
-        newRenderer.shadowMap.enabled = true;
-        newRenderer.shadowMap.type = shadowMapType;
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = shadowMapType;
     }
-    newRenderer.gammaInput = gammaInput;
-    newRenderer.gammaOutput = gammaOutput;
-    newRenderer.gammaFactor = gammaFactor;
+    renderer.gammaInput = gammaInput;
+    renderer.gammaOutput = gammaOutput;
+    renderer.gammaFactor = gammaFactor;
 
-    this.app.viewport.container.dom.removeChild(renderer.domElement);
-    this.app.viewport.container.dom.appendChild(newRenderer.domElement);
-    this.app.editor.renderer = newRenderer;
-    this.app.editor.renderer.setSize(this.app.viewport.container.dom.offsetWidth, this.app.viewport.container.dom.offsetHeight);
-    this.app.call('render', this);
+    renderer.dispose();
 
     // 隐藏窗口
     this.hide();

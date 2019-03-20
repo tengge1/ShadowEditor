@@ -35,9 +35,9 @@ Globe.prototype.start = function () {
     var normalAttr = gl.getAttribLocation(program, 'normal');
     var uvAttr = gl.getAttribLocation(program, 'uv');
 
-    gl.enableVertexAttribArray(positionAttr);
-    gl.enableVertexAttribArray(normalAttr);
-    gl.enableVertexAttribArray(uvAttr);
+    // gl.enableVertexAttribArray(positionAttr);
+    // gl.enableVertexAttribArray(normalAttr);
+    // gl.enableVertexAttribArray(uvAttr);
 
     var modelViewMatrixUniform = gl.getUniformLocation(program, 'modelViewMatrix');
     var projectionMatrixUniform = gl.getUniformLocation(program, 'projectionMatrix');
@@ -85,18 +85,21 @@ Globe.prototype.onAfterRender = function () {
 
     var gl = renderer.context;
 
-    gl.useProgram(this.program);
+    renderer.state.useProgram(this.program);
 
     gl.uniformMatrix4fv(this.modelViewMatrixUniform, false, camera.matrixWorldInverse.elements);
     gl.uniformMatrix4fv(this.projectionMatrixUniform, false, camera.projectionMatrix.elements);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
+    gl.enableVertexAttribArray(this.positionAttr);
     gl.vertexAttribPointer(this.positionAttr, 3, gl.FLOAT, false, 0, 0);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this.normalBuffer);
+    gl.enableVertexAttribArray(this.normalAttr);
     gl.vertexAttribPointer(this.normalAttr, 3, gl.FLOAT, false, 0, 0);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this.uvBuffer);
+    gl.enableVertexAttribArray(this.uvAttr);
     gl.vertexAttribPointer(this.uvAttr, 2, gl.FLOAT, false, 0, 0);
 
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
