@@ -169,8 +169,11 @@ ComponentMenu.prototype.onAddCloth = function () {
 // ----------------------------- 地球 --------------------------------------
 
 ComponentMenu.prototype.onAddEarth = function () {
-    var globe = new Globe(this.app);
-    globe.start();
+    if (this.globe === undefined) {
+        this.globe = new Globe(this.app.editor.camera, this.app.editor.renderer);
+        this.globe.create();
+        this.app.on(`afterRender.Globe`, this.globe.update.bind(this.globe));
+    }
 };
 
 export default ComponentMenu;

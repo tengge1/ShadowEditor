@@ -1,6 +1,6 @@
 import GlobeVertex from './shader/globe_vertex.glsl';
 import GlobeFragment from './shader/globe_fragment.glsl';
-import BingTileSystem from './layer/BingTileSystem';
+import BingTileSystem from '../utils/BingTileSystem';
 
 /**
  * 地球材质

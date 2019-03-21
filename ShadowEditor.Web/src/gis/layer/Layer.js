@@ -1,11 +1,15 @@
 var ID = -1;
 
 /**
- * 层
+ * 图层
  */
 function Layer() {
     this.id = `${this.constructor.name}${ID--}`;
-    this.name = `Layer`;
+    this.name = this.constructor.name;
 }
+
+Layer.prototype.dispose = function () {
+
+};
 
 export default Layer;
