@@ -1,4 +1,6 @@
-import { dispatch } from '../third_party';
+import {
+    dispatch
+} from '../third_party';
 import UI from '../ui/UI';
 import Converter from '../serialization/Converter';
 
@@ -186,6 +188,8 @@ Player.prototype.initPlayer = function (obj) {
             1000
         );
     }
+
+    this.camera.aspect = this.renderer.domElement.width / this.renderer.domElement.height;
 
     this.camera.updateProjectionMatrix();
 
