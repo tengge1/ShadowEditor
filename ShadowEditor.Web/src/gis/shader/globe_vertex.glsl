@@ -9,7 +9,11 @@ varying vec3 vNormal;
 varying vec2 vUV;
 
 void main() {
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    vec3 transformed = vec3(position);
+
+    transformed.z = sqrt(1.0 * 1.0 - transformed.x * transformed.x - transformed.y * transformed.y);
+
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(transformed, 1.0);
 
     vNormal = normal;
     vUV = uv;

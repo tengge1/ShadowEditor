@@ -21,23 +21,35 @@ Globe.prototype.start = function () {
     gl.shaderSource(vertexShader, material.vertexShader);
     gl.compileShader(vertexShader);
 
+    if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+        console.warn(gl.getShaderInfoLog(vertexShader));
+        return;
+    }
+
     var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
     gl.shaderSource(fragmentShader, material.fragmentShader);
     gl.compileShader(fragmentShader);
+
+    if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+        console.warn(gl.getShaderInfoLog(fragmentShader));
+        return;
+    }
 
     var program = gl.createProgram();
     gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
     gl.linkProgram(program);
+
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        console.warn("Could not initialise shaders");
+        return;
+    }
+
     gl.useProgram(program);
 
     var positionAttr = gl.getAttribLocation(program, 'position');
     var normalAttr = gl.getAttribLocation(program, 'normal');
     var uvAttr = gl.getAttribLocation(program, 'uv');
-
-    // gl.enableVertexAttribArray(positionAttr);
-    // gl.enableVertexAttribArray(normalAttr);
-    // gl.enableVertexAttribArray(uvAttr);
 
     var modelViewMatrixUniform = gl.getUniformLocation(program, 'modelViewMatrix');
     var projectionMatrixUniform = gl.getUniformLocation(program, 'projectionMatrix');
@@ -59,9 +71,6 @@ Globe.prototype.start = function () {
     var indexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, geometry.index.array, gl.STATIC_DRAW);
-
-    // gl.bindBuffer(gl.ARRAY_BUFFER, null);
-    // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
 
     var texture = gl.createTexture();
 
@@ -100,10 +109,17 @@ Globe.prototype.start = function () {
 
     this.texture = texture;
 
+    this.geometry = geometry;
+    this.material = material;
+
     this.app.on(`afterRender`, this.onAfterRender.bind(this));
 };
 
 Globe.prototype.onAfterRender = function () {
+    if (!this.program) {
+        return;
+    }
+
     var scene = this.scene;
     var camera = this.app.editor.camera;
     var renderer = this.app.editor.renderer;
@@ -134,7 +150,8 @@ Globe.prototype.onAfterRender = function () {
     gl.vertexAttribPointer(this.uvAttr, 2, gl.FLOAT, false, 0, 0);
 
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
-    gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+
+    gl.drawElements(gl.TRIANGLES, this.geometry.index.count, gl.UNSIGNED_SHORT, 0);
 };
 
 export default Globe;
