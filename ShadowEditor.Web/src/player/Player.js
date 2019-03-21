@@ -189,16 +189,15 @@ Player.prototype.initPlayer = function (obj) {
         );
     }
 
-    this.camera.aspect = this.renderer.domElement.width / this.renderer.domElement.height;
-
-    this.camera.updateProjectionMatrix();
-
     this.renderer = obj.renderer || new THREE.WebGLRenderer({
         antialias: true
     });
 
     this.renderer.setSize(container.dom.clientWidth, container.dom.clientHeight);
     container.dom.appendChild(this.renderer.domElement);
+
+    this.camera.aspect = this.renderer.domElement.width / this.renderer.domElement.height;
+    this.camera.updateProjectionMatrix();
 
     var listener = obj.audioListener || new THREE.AudioListener();
     this.camera.add(listener);
