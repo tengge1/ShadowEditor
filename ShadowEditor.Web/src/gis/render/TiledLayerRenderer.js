@@ -4,11 +4,10 @@ import GlobeMaterial from './GlobeMaterial';
 
 /**
  * 瓦片图层渲染器
- * @param {*} camera 
- * @param {*} renderer 
+ * @param {*} globe 
  */
-function TiledLayerRenderer(camera, renderer) {
-    Renderer.call(this, camera, renderer);
+function TiledLayerRenderer(globe) {
+    Renderer.call(this, globe);
 
     var geometry = new GlobeGeometry();
     var material = new GlobeMaterial();

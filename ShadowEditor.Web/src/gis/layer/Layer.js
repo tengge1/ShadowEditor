@@ -8,6 +8,10 @@ function Layer() {
     this.name = this.constructor.name;
 }
 
+Layer.prototype.get = function () {
+
+};
+
 Layer.prototype.dispose = function () {
 
 };

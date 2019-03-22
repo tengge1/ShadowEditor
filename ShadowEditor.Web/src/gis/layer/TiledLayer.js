@@ -12,6 +12,10 @@ function TiledLayer() {
 TiledLayer.prototype = Object.create(Layer.prototype);
 TiledLayer.prototype.constructor = TiledLayer;
 
+TiledLayer.prototype.get = function (x, y, z) {
+
+};
+
 TiledLayer.prototype.add = function (tile) {
     var item = Object.assign({}, tile.aabb, {
         data: tile
