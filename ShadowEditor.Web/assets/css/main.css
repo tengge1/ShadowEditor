@@ -513,9 +513,14 @@ ul.Tree .Node.dragBottom {
 }
 
 ul.Tree .Node a {
+    width: 160px;
     color: rgba(0, 0, 0, 0.5);
     text-decoration: none;
     pointer-events: none;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 ul.Tree .Node a:hover {

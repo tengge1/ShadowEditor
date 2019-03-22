@@ -23,6 +23,8 @@ Language: 中文 / [English](README-en.md)
 13. 重新发布了演示项目：[Gitee](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
 14. 修复渲染器设置中，阴影、γ输入、γ输出、γ因子设置无效bug。
 15. 平面上点、线、喷涂工具一次只能绘制一个。
+16. 修复补间动画无法播放问题。
+17. 场景层次树节点文本太长自动显示省略号。
 
 ## v0.1.6更新
 
@@ -96,7 +98,6 @@ Language: 中文 / [English](README-en.md)
 17. 支持导出`gltf`、`obj`、`ply`、`stl`模型。
 18. 支持`bullet`物理引擎。正方体、圆形、圆柱体、二十面体、酒杯、平面、球体、茶壶、轮胎、纽结和加载的模型都支持刚体组件。支持可视化设置碰撞体形状（正方体、球体）、质量和惯性。
 19. 具有平移、旋转、缩放、在物体表面绘制点、线、贴花的工具，实时统计场景种物体、顶点、三角形数量。
-20. 修复补间动画无法播放问题。
 
 ## 使用指南
 
