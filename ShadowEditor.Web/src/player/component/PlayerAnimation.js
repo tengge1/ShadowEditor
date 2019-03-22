@@ -34,10 +34,6 @@ PlayerAnimation.prototype.create = function (scene, camera, renderer, animations
 
     this.maxTime = this.calculateMaxTime();
 
-    // this.app.call(`resetAnimation`, this);
-    // this.app.call(`startAnimation`, this);
-    // this.app.on(`animationTime.${this.id}`, this.updateTime.bind(this));
-
     var promises = this.animators.map(n => {
         return n.create(scene, camera, renderer, animations);
     });
@@ -59,20 +55,14 @@ PlayerAnimation.prototype.calculateMaxTime = function () {
     return maxTime;
 };
 
-PlayerAnimation.prototype.updateTime = function (time) {
-    this.currentTime = time;
-};
-
 PlayerAnimation.prototype.update = function (clock, deltaTime) {
+    if (this.maxTime > 0) {
+        this.currentTime = clock.getElapsedTime() % this.maxTime;
+    }
+
     this.animators.forEach(n => {
         n.update(clock, deltaTime, this.currentTime);
     });
-
-    // // 超过最大动画时间，重置动画
-    // if (this.currentTime > this.maxTime) {
-    //     this.app.call(`resetAnimation`, this.id);
-    //     this.app.call(`startAnimation`, this.id);
-    // }
 };
 
 PlayerAnimation.prototype.dispose = function () {
@@ -86,9 +76,6 @@ PlayerAnimation.prototype.dispose = function () {
     this.animators.forEach(n => {
         n.dispose();
     });
-
-    // this.app.on(`animationTime.${this.id}`, null);
-    // this.app.call(`resetAnimation`, this);
 };
 
 export default PlayerAnimation;
