@@ -494,6 +494,7 @@ ul.Tree {
 
 ul.Tree .Node {
     line-height: 24px;
+    box-sizing: border-box;
 }
 
 ul.Tree .Node.selected {
@@ -513,7 +514,7 @@ ul.Tree .Node.dragBottom {
 }
 
 ul.Tree .Node a {
-    width: 160px;
+    width: calc(100% - 16px);
     color: rgba(0, 0, 0, 0.5);
     text-decoration: none;
     pointer-events: none;
