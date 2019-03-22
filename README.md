@@ -103,7 +103,7 @@ Language: 中文 / [English](README-en.md)
 
 **推荐使用最新版谷歌浏览器，不保证兼容其他浏览器。**
 
-1. 安装`NodeJs`，在当前目录，执行以下命令。
+1. 安装`NodeJs`，在最外层目录，执行以下命令。
 
 ```bash
 npm install
