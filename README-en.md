@@ -3,10 +3,10 @@
 Language: Chinese / [English](README-en.md)
 
 * Name: Shadow Editor
-* Version: v0.1.7 (under development)
+* Version: v0.1.7
 * Introduction: Scene editor based on `three.js`.
 
-## v0.1.7 will be updated soon
+## v0.1.7 updated
 
 1. After the object is repaired, the scene tree cannot respond in time, and the bug that the tree node is expanded and the tree nodes are out of order cannot be remembered.
 2. After the object name exceeds 8 characters, the scene tree will display an ellipsis. Move the mouse over the node to display the full name.
@@ -23,30 +23,6 @@ Language: Chinese / [English](README-en.md)
 13. Re-released the demo project: [Gitee] (http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
 14. Fix the renderer settings, shadow, γ input, γ output, gamma factor setting invalid bug.
 15. Only one point can be drawn at a time for points, lines and spray tools on the plane.
-
-## v0.1.6Update
-
-* Release date: March 10, 2019
-* Update log:
-
-1. Use `xtype.js` to refactor the UI framework in a non-intrusive way.
-2. The main frame is repositioned using absolute positioning.
-3. The bottom panel supports maximization and restoration.
-4. The bottom panel displays resource statistics.
-5. Collect and sort out a large number of textures and models.
-6. Organize the mapping tool.
-7. Organize the model tools.
-8. Organize the thumbnail tool.
-9. Add a point source and no longer add spheres and halos by default.
-10. Add the hemisphere light and no longer add the sky ball by default.
-11. Add a rectangular light and no longer add a rectangular white screen by default.
-12. Since the original selection effect was achieved using `post-processing', severe performance loss and aliasing occurred. So use the `normal extrusion> and `template test` methods to re-implement the selected effect.
-13. The selected effect after rewriting is no longer jagged, and the fast anti-aliasing (FXAA) function is not enabled by default, which improves performance. For old scenes, uncheck `Quick Approximate Anti-Aliasing (FXAA)` in the scene properties and save again.
-14. By default, no `postprocessing> related shaders and special effects libraries are loaded to improve loading speed.
-15. Fix the creation script comment not finished bug.
-16. Fold the bottom panel feature.
-17. Rewrite the scene tree control to support folding, dragging, and selection.
-18. When you click on the scene to select the model, the scene tree prioritizes the entire model, not part of the model, and automatically expands and scrolls to the selected model.
 
 ## Project screenshot
 
@@ -167,6 +143,24 @@ Resources such as model maps need to be compressed into a zip package, and the i
 Basic geometry supports multiple levels of nesting. You can add a `group` (in the geometry menu) and drag multiple models onto the 'group' on the scene tree.
 
 ## Update log
+
+**v0.1.7**
+
+1. After the object is repaired, the scene tree cannot respond in time, and the bug that the tree node is expanded and the tree nodes are out of order cannot be remembered.
+2. After the object name exceeds 8 characters, the scene tree will display an ellipsis. Move the mouse over the node to display the full name.
+3. Added full-screen playback and new window playback. The player and editor are completely decoupled and the player can run independently.
+4. The edited scene can be embedded in the iframe to run. Address: `/view.html?sceneID=sceneID`. This address can be obtained using the new window playback function.
+5. Object selection effect optimization: equal width stroke.
+6. Fix the build model tool and copy the model without copying all the files in the folder.
+7. All settings are stored in `localStorage` instead and are no longer saved in the scene configuration.
+8. Reconstructed parallel light helper, hemispherical light helper, point light helper, rectangular light helper, spotlight helper, event-driven, no longer heavily dependent on the editor.
+9. Organize the folder structure. Rewrite the history panel module to completely remove the highly coupled Outliner control.
+10. English translation optimization.
+11. Add a scene one-click export function to automatically analyze the models and resources needed for the scene. All required resources are placed in the `/temp/yyyyMMddHHmmss` folder.
+12. Export the editor function without resources.
+13. Re-released the demo project: [Gitee] (http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
+14. Fix the renderer settings, shadow, γ input, γ output, gamma factor setting invalid bug.
+15. Only one point can be drawn at a time for points, lines and spray tools on the plane.
 
 **v0.1.6**
 
