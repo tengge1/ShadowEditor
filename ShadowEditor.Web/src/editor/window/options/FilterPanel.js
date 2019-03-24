@@ -82,6 +82,18 @@ FilterPanel.prototype.render = function () {
                 range: [0, 4],
                 onChange: this.save.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: L_GRAYSCALE
+            }, {
+                xtype: 'number',
+                id: 'grayscale',
+                scope: this.id,
+                range: [0, 1],
+                onChange: this.save.bind(this)
+            }]
         }]
     }).render();
 
@@ -94,6 +106,7 @@ FilterPanel.prototype.update = function () {
     var brightness = UI.get('brightness', this.id);
     var blur = UI.get('blur', this.id);
     var contrast = UI.get('contrast', this.id);
+    var grayscale = UI.get('grayscale', this.id);
 
     var renderer = this.app.editor.renderer;
     var filters = this.parseFilter(renderer.domElement.style.filter);
@@ -102,6 +115,7 @@ FilterPanel.prototype.update = function () {
     brightness.setValue(filters['brightness']);
     blur.setValue(filters['blur']);
     contrast.setValue(filters['contrast']);
+    grayscale.setValue(filters['grayscale']);
 };
 
 FilterPanel.prototype.save = function () {
@@ -110,6 +124,7 @@ FilterPanel.prototype.save = function () {
     var brightness = UI.get('brightness', this.id);
     var blur = UI.get('blur', this.id);
     var contrast = UI.get('contrast', this.id);
+    var grayscale = UI.get('grayscale', this.id);
 
     var filters = {
         'hue-rotate': hue.getValue(),
@@ -117,6 +132,7 @@ FilterPanel.prototype.save = function () {
         brightness: brightness.getValue(),
         blur: blur.getValue(),
         contrast: contrast.getValue(),
+        grayscale: grayscale.getValue(),
     };
 
     var renderer = this.app.editor.renderer;
@@ -126,7 +142,7 @@ FilterPanel.prototype.save = function () {
 
 FilterPanel.prototype.serializeFilter = function (filters) {
     return `hue-rotate(${filters['hue-rotate']}deg) saturate(${filters['saturate']}) brightness(${filters['brightness']}) ` +
-        `blur(${filters['blur']}px) contrast(${filters['contrast']})`;
+        `blur(${filters['blur']}px) contrast(${filters['contrast']}) grayscale(${filters['grayscale']})`;
 };
 
 FilterPanel.prototype.parseFilter = function (str) {
@@ -137,7 +153,8 @@ FilterPanel.prototype.parseFilter = function (str) {
         saturate: 1,
         brightness: 1,
         blur: 0,
-        contrast: 1
+        contrast: 1,
+        grayscale: 0,
     };
 
     list.forEach(n => {
@@ -151,6 +168,8 @@ FilterPanel.prototype.parseFilter = function (str) {
             filters['blur'] = n.substr(5, n.length - 3);
         } else if (n.startsWith('contrast')) { // 对比度
             filters['contrast'] = n.substr(9, n.length - 1);
+        } else if (n.startsWith('grayscale')) {
+            filters['grayscale'] = n.substr(10, n.length - 1);
         }
     });
 
