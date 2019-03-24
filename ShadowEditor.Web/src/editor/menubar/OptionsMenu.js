@@ -43,6 +43,11 @@ OptionsMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_RENDERER,
                 onClick: this.onRendererOptions.bind(this)
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_FILTER,
+                onClick: this.onFilterOptions.bind(this)
             }]
         }]
     });
@@ -87,6 +92,19 @@ OptionsMenu.prototype.onHelperOptions = function () {
     }
     this.optionsWindow.show();
     this.optionsWindow.changeTab(L_HELPERS);
+};
+
+// ------------------------------ 滤镜选项 ---------------------------------------------
+
+OptionsMenu.prototype.onFilterOptions = function () {
+    if (this.optionsWindow === undefined) {
+        this.optionsWindow = new OptionsWindow({
+            app: this.app
+        });
+        this.optionsWindow.render();
+    }
+    this.optionsWindow.show();
+    this.optionsWindow.changeTab(L_FILTER);
 };
 
 export default OptionsMenu;

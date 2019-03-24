@@ -582,3 +582,8 @@ L_ARRANGE_MESH = '整理模型';
 L_ARRANGE_THUMBNAIL = '整理缩略图';
 
 L_EXPORT_SCENE = '导出场景';
+
+L_FILTER = '滤镜';
+L_HUE = '色调';
+L_SATURATION = '饱和度';
+L_LIGHTNESS = '亮度';

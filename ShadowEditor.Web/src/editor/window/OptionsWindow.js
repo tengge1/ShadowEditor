@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 import SurfacePanel from './options/SurfacePanel';
 import RendererPanel from './options/RendererPanel';
 import HelperPanel from './options/HelperPanel';
+import FilterPanel from './options/FilterPanel';
 
 /**
  * 选项窗口
@@ -27,13 +28,16 @@ OptionsWindow.prototype.render = function () {
     this.helperPanel = new HelperPanel({
         app: this.app
     });
+    this.filterPanel = new FilterPanel({
+        app: this.app
+    });
 
     this.window = UI.create({
         xtype: 'window',
         parent: this.app.container,
         title: L_OPTIONS_WINDOW,
-        width: '500px',
-        height: '300px',
+        width: '800px',
+        height: '450px',
         bodyStyle: {
             padding: 0
         },
@@ -66,25 +70,21 @@ OptionsWindow.prototype.render = function () {
                 onClick: () => {
                     this.changeTab(L_RENDERER);
                 }
+            }, {
+                xtype: 'text',
+                id: 'filterTab',
+                scope: this.id,
+                text: L_FILTER,
+                onClick: () => {
+                    this.changeTab(L_FILTER);
+                }
             }]
         },
         this.surfacePanel,
         this.helperPanel,
         this.rendererPanel,
-        ],
-        buttons: [{
-            xtype: 'button',
-            text: L_SAVE,
-            onClick: () => {
-                this.save();
-            }
-        }, {
-            xtype: 'button',
-            text: L_CANCEL,
-            onClick: () => {
-                this.hide();
-            }
-        }]
+        this.filterPanel,
+        ]
     });
     this.window.render();
 };
@@ -104,14 +104,17 @@ OptionsWindow.prototype.changeTab = function (name) {
     var surfaceTab = UI.get('surfaceTab', this.id);
     var helperTab = UI.get('helperTab', this.id);
     var rendererTab = UI.get('rendererTab', this.id);
+    var filterTab = UI.get('filterTab', this.id);
 
     surfaceTab.dom.classList.remove('selected');
     helperTab.dom.classList.remove('selected');
     rendererTab.dom.classList.remove('selected');
+    filterTab.dom.classList.remove('selected');
 
     this.surfacePanel.dom.style.display = 'none';
     this.helperPanel.dom.style.display = 'none';
     this.rendererPanel.dom.style.display = 'none';
+    this.filterPanel.dom.style.display = 'none';
 
     switch (this.tab) {
         case L_SURFACE:
@@ -125,6 +128,10 @@ OptionsWindow.prototype.changeTab = function (name) {
         case L_RENDERER:
             rendererTab.dom.classList.add('selected');
             this.rendererPanel.dom.style.display = '';
+            break;
+        case L_FILTER:
+            filterTab.dom.classList.add('selected');
+            this.filterPanel.dom.style.display = '';
             break;
     }
 
@@ -142,19 +149,8 @@ OptionsWindow.prototype.update = function () {
         case L_RENDERER:
             this.rendererPanel.update();
             break;
-    }
-};
-
-OptionsWindow.prototype.save = function () {
-    switch (this.tab) {
-        case L_SURFACE:
-            this.surfacePanel.save();
-            break;
-        case L_HELPERS:
-            this.helperPanel.save();
-            break;
-        case L_RENDERER:
-            this.rendererPanel.save();
+        case L_FILTER:
+            this.filterPanel.update();
             break;
     }
 };

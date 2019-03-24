@@ -19,6 +19,7 @@ HelperPanel.prototype.render = function () {
         id: 'panel',
         scope: this.id,
         parent: this.parent,
+        style: this.style,
         children: [{
             xtype: 'row',
             children: [{

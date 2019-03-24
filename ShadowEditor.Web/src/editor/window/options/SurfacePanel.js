@@ -19,6 +19,7 @@ SurfacePanel.prototype.render = function () {
         id: 'panel',
         scope: this.id,
         parent: this.parent,
+        style: this.style,
         children: [{
             xtype: 'row',
             children: [{
@@ -34,7 +35,8 @@ SurfacePanel.prototype.render = function () {
                 },
                 style: {
                     width: '150px'
-                }
+                },
+                onChange: this.save.bind(this)
             }]
         }]
     }).render();

@@ -19,6 +19,7 @@ RendererPanel.prototype.render = function () {
         id: 'panel',
         scope: this.id,
         parent: this.parent,
+        style: this.style,
         children: [{
             xtype: 'row',
             children: [{
@@ -33,7 +34,8 @@ RendererPanel.prototype.render = function () {
                     [THREE.BasicShadowMap]: L_BASIC_SHADOW, // 0
                     [THREE.PCFShadowMap]: L_PCF_SHADOW, // 1
                     [THREE.PCFSoftShadowMap]: L_PCF_SOFT_SHADOW // 2
-                }
+                },
+                onChange: this.save.bind(this),
             }]
         }, {
             xtype: 'row',
@@ -44,6 +46,7 @@ RendererPanel.prototype.render = function () {
                 xtype: 'boolean',
                 id: 'gammaInput',
                 scope: this.id,
+                onChange: this.save.bind(this),
             }]
         }, {
             xtype: 'row',
@@ -54,6 +57,7 @@ RendererPanel.prototype.render = function () {
                 xtype: 'boolean',
                 id: 'gammaOutput',
                 scope: this.id,
+                onChange: this.save.bind(this),
             }]
         }, {
             xtype: 'row',
@@ -64,6 +68,7 @@ RendererPanel.prototype.render = function () {
                 xtype: 'number',
                 id: 'gammaFactor',
                 scope: this.id,
+                onChange: this.save.bind(this),
             }]
         }]
     }).render();

@@ -581,4 +581,9 @@ Object.assign(window, {
     L_ARRANGE_THUMBNAIL: 'Arrange Thumbnail',
 
     L_EXPORT_SCENE: 'Export Scene',
+
+    L_FILTER: 'Filter',
+    L_HUE: 'Hue',
+    L_SATURATION: 'Saturation',
+    L_LIGHTNESS: 'Lightness',
 });
