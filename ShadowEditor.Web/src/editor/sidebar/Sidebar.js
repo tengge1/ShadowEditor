@@ -1,7 +1,6 @@
 ﻿import UI from '../../ui/UI';
 import PropertyPanel from './PropertyPanel';
 import AnimationPanel from './AnimationPanel';
-import SettingPanel from './SettingPanel';
 import HistoryPanel from './HistoryPanel';
 
 /**
@@ -48,14 +47,6 @@ Sidebar.prototype.render = function () {
                 }
             }, {
                 xtype: 'text',
-                id: 'settingTab',
-                scope: this.id,
-                text: L_SETTINGS,
-                onClick: () => {
-                    this.app.call('tabSelected', this, 'setting');
-                }
-            }, {
-                xtype: 'text',
                 id: 'historyTab',
                 scope: this.id,
                 text: L_HISTORY,
@@ -76,13 +67,6 @@ Sidebar.prototype.render = function () {
             scope: this.id,
             children: [
                 new AnimationPanel({ app: this.app })
-            ]
-        }, {
-            xtype: 'div',
-            id: 'settingPanel',
-            scope: this.id,
-            children: [
-                new SettingPanel({ app: this.app })
             ]
         }, {
             xtype: 'div',
@@ -109,7 +93,6 @@ Sidebar.prototype.onTabSelected = function (tabName) {
     var tabNames = [
         'property',
         'animation',
-        'setting',
         'history'
     ];
     if (tabNames.indexOf(tabName) === -1) {
@@ -118,22 +101,18 @@ Sidebar.prototype.onTabSelected = function (tabName) {
 
     var propertyTab = UI.get('propertyTab', this.id);
     var animationTab = UI.get('animationTab', this.id);
-    var settingTab = UI.get('settingTab', this.id);
     var historyTab = UI.get('historyTab', this.id);
 
     var propertyPanel = UI.get('propertyPanel', this.id);
     var animationPanel = UI.get('animationPanel', this.id);
-    var settingPanel = UI.get('settingPanel', this.id);
     var historyPanel = UI.get('historyPanel', this.id);
 
     propertyTab.dom.className = '';
     animationTab.dom.className = '';
-    settingTab.dom.className = '';
     historyTab.dom.className = '';
 
     propertyPanel.dom.style.display = 'none';
     animationPanel.dom.style.display = 'none';
-    settingPanel.dom.style.display = 'none';
     historyPanel.dom.style.display = 'none';
 
     switch (tabName) {
@@ -144,10 +123,6 @@ Sidebar.prototype.onTabSelected = function (tabName) {
         case 'animation':
             animationTab.dom.className = 'selected';
             animationPanel.dom.style.display = '';
-            break;
-        case 'setting':
-            settingTab.dom.className = 'selected';
-            settingPanel.dom.style.display = '';
             break;
         case 'history':
             historyTab.dom.className = 'selected';
