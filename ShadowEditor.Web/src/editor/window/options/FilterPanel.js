@@ -37,10 +37,10 @@ FilterPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: L_SATURATION
+                text: L_SATURATE
             }, {
                 xtype: 'number',
-                id: 'saturation', // 饱和度
+                id: 'saturate',
                 scope: this.id,
                 range: [0, 2],
                 value: 1,
@@ -50,12 +50,25 @@ FilterPanel.prototype.render = function () {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: L_LIGHTNESS
+                text: L_BRIGHTNESS
             }, {
                 xtype: 'number',
-                id: 'lightness', // 饱和度
+                id: 'brightness',
                 scope: this.id,
                 range: [0, 2],
+                value: 1,
+                onChange: this.save.bind(this)
+            }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: L_BLUR
+            }, {
+                xtype: 'number',
+                id: 'blur',
+                scope: this.id,
+                range: [0, 20],
                 value: 1,
                 onChange: this.save.bind(this)
             }]
@@ -67,25 +80,29 @@ FilterPanel.prototype.render = function () {
 
 FilterPanel.prototype.update = function () {
     var hue = UI.get('hue', this.id);
-    var saturation = UI.get('saturation', this.id);
-    var lightness = UI.get('lightness', this.id);
+    var saturate = UI.get('saturate', this.id);
+    var brightness = UI.get('brightness', this.id);
+    var blur = UI.get('blur', this.id);
 
     var renderer = this.app.editor.renderer;
     var filters = this.parseFilter(renderer.domElement.style.filter);
     hue.setValue(filters['hue-rotate']);
-    saturation.setValue(filters['saturate']);
-    lightness.setValue(filters['brightness']);
+    saturate.setValue(filters['saturate']);
+    brightness.setValue(filters['brightness']);
+    blur.setValue(filters['blur']);
 };
 
 FilterPanel.prototype.save = function () {
     var hue = UI.get('hue', this.id);
-    var saturation = UI.get('saturation', this.id);
-    var lightness = UI.get('lightness', this.id);
+    var saturate = UI.get('saturate', this.id);
+    var brightness = UI.get('brightness', this.id);
+    var blur = UI.get('blur', this.id);
 
     var filters = {
         'hue-rotate': hue.getValue(),
-        'saturate': saturation.getValue(),
-        'brightness': lightness.getValue(),
+        'saturate': saturate.getValue(),
+        'brightness': brightness.getValue(),
+        'blur': blur.getValue(),
     };
 
     var renderer = this.app.editor.renderer;
@@ -94,7 +111,8 @@ FilterPanel.prototype.save = function () {
 };
 
 FilterPanel.prototype.serializeFilter = function (filters) {
-    return `hue-rotate(${filters['hue-rotate']}deg) saturate(${filters['saturate']}) brightness(${filters['brightness']})`;
+    return `hue-rotate(${filters['hue-rotate']}deg) saturate(${filters['saturate']}) brightness(${filters['brightness']}) ` +
+        `blur(${filters['blur']}px) `;
 };
 
 FilterPanel.prototype.parseFilter = function (str) {
@@ -104,6 +122,7 @@ FilterPanel.prototype.parseFilter = function (str) {
         'hue-rotate': 0,
         'saturate': 1,
         'brightness': 1,
+        'blur': 0,
     };
 
     list.forEach(n => {
@@ -113,6 +132,8 @@ FilterPanel.prototype.parseFilter = function (str) {
             filters['saturate'] = n.substr(9, n.length - 1);
         } else if (n.startsWith('brightness')) { // 亮度
             filters['brightness'] = n.substr(11, n.length - 1);
+        } else if (n.startsWith('blur')) { // 模糊
+            filters['blur'] = n.substr(5, n.length - 3);
         }
     });
 

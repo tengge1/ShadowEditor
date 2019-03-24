@@ -585,5 +585,6 @@ L_EXPORT_SCENE = '导出场景';
 
 L_FILTER = '滤镜';
 L_HUE = '色调';
-L_SATURATION = '饱和度';
-L_LIGHTNESS = '亮度';
+L_SATURATE = '饱和度';
+L_BRIGHTNESS = '亮度';
+L_BLUR = '模糊';
