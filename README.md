@@ -10,6 +10,7 @@ Language: 中文 / [English](README-en.md) / [日本語](README-jp.md)
 
 1. 设置面板放到选项菜单中。
 2. 新增色调旋转(hue-rotate)、饱和度、亮度、高斯模糊(blur)、对比度、灰度、颜色反转(invert)、复古(sepia)滤镜。
+3. 滤镜设置保存在场景配置中，并在编辑器和播放器解析。
 
 ## v0.1.7更新
 

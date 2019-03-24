@@ -114,6 +114,13 @@ RendererPanel.prototype.save = function () {
     renderer.gammaFactor = gammaFactor;
 
     renderer.dispose();
+
+    Object.assign(this.app.options, {
+        shadowMapType,
+        gammaInput,
+        gammaOutput,
+        gammaFactor
+    });
 };
 
 export default RendererPanel;

@@ -1,4 +1,5 @@
 import UI from '../../../ui/UI';
+import CssUtils from '../../../utils/CssUtils';
 
 /**
  * 滤镜选项窗口
@@ -135,15 +136,15 @@ FilterPanel.prototype.update = function () {
     var sepia = UI.get('sepia', this.id);
 
     var renderer = this.app.editor.renderer;
-    var filters = this.parseFilter(renderer.domElement.style.filter);
-    hue.setValue(filters['hue-rotate']);
-    saturate.setValue(filters['saturate']);
-    brightness.setValue(filters['brightness']);
-    blur.setValue(filters['blur']);
-    contrast.setValue(filters['contrast']);
-    grayscale.setValue(filters['grayscale']);
-    invert.setValue(filters['invert']);
-    sepia.setValue(filters['sepia']);
+    var filters = CssUtils.parseFilter(renderer.domElement.style.filter);
+    hue.setValue(filters.hueRotate);
+    saturate.setValue(filters.saturate);
+    brightness.setValue(filters.brightness);
+    blur.setValue(filters.blur);
+    contrast.setValue(filters.contrast);
+    grayscale.setValue(filters.grayscale);
+    invert.setValue(filters.invert);
+    sepia.setValue(filters.sepia);
 };
 
 FilterPanel.prototype.save = function () {
@@ -157,7 +158,7 @@ FilterPanel.prototype.save = function () {
     var sepia = UI.get('sepia', this.id);
 
     var filters = {
-        'hue-rotate': hue.getValue(),
+        hueRotate: hue.getValue(),
         saturate: saturate.getValue(),
         brightness: brightness.getValue(),
         blur: blur.getValue(),
@@ -167,51 +168,20 @@ FilterPanel.prototype.save = function () {
         sepia: sepia.getValue(),
     };
 
-    var renderer = this.app.editor.renderer;
-
-    renderer.domElement.style.filter = this.serializeFilter(filters);
-};
-
-FilterPanel.prototype.serializeFilter = function (filters) {
-    return `hue-rotate(${filters['hue-rotate']}deg) saturate(${filters['saturate']}) brightness(${filters['brightness']}) ` +
-        `blur(${filters['blur']}px) contrast(${filters['contrast']}) grayscale(${filters['grayscale']}) invert(${filters['invert']}) sepia(${filters['sepia']})`;
-};
-
-FilterPanel.prototype.parseFilter = function (str) {
-    var list = str.split(' ');
-
-    var filters = {
-        'hue-rotate': 0,
-        saturate: 1,
-        brightness: 1,
-        blur: 0,
-        contrast: 1,
-        grayscale: 0,
-        invert: 0,
-        sepia: 0,
-    };
-
-    list.forEach(n => {
-        if (n.startsWith('hue-rotate')) { // 色调
-            filters['hue-rotate'] = n.substr(11, n.length - 4);
-        } else if (n.startsWith('saturate')) { // 饱和度
-            filters['saturate'] = n.substr(9, n.length - 1);
-        } else if (n.startsWith('brightness')) { // 亮度
-            filters['brightness'] = n.substr(11, n.length - 1);
-        } else if (n.startsWith('blur')) { // 模糊
-            filters['blur'] = n.substr(5, n.length - 3);
-        } else if (n.startsWith('contrast')) { // 对比度
-            filters['contrast'] = n.substr(9, n.length - 1);
-        } else if (n.startsWith('grayscale')) {
-            filters['grayscale'] = n.substr(10, n.length - 1);
-        } else if (n.startsWith('invert')) { // 颜色反转
-            filters['invert'] = n.substr(7, n.length - 1);
-        } else if (n.startsWith('sepia')) { // 复古
-            filters['sepia'] = n.substr(6, n.length - 1);
-        }
+    Object.assign(this.app.options, {
+        hueRotate: filters.hueRotate,
+        saturate: filters.saturate,
+        brightness: filters.brightness,
+        blur: filters.blur,
+        contrast: filters.contrast,
+        grayscale: filters.grayscale,
+        invert: filters.invert,
+        sepia: filters.sepia,
     });
 
-    return filters;
+    var renderer = this.app.editor.renderer;
+
+    renderer.domElement.style.filter = CssUtils.serializeFilter(filters);
 };
 
 export default FilterPanel;

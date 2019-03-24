@@ -11,6 +11,7 @@ import PlayerAudio from './component/PlayerAudio';
 import PlayerRenderer from './component/PlayerRenderer';
 import PlayerAnimation from './component/PlayerAnimation';
 import PlayerPhysics from './component/PlayerPhysics';
+import CssUtils from '../utils/CssUtils';
 
 /**
  * 播放器
@@ -201,6 +202,8 @@ Player.prototype.initPlayer = function (obj) {
 
     var listener = obj.audioListener || new THREE.AudioListener();
     this.camera.add(listener);
+
+    this.renderer.domElement.style.filter = CssUtils.serializeFilter(obj.options);
 
     this.scene = obj.scene || new THREE.Scene();
 };

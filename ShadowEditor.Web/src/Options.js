@@ -14,6 +14,16 @@ function Options(options = {}) {
     this.gammaInput = false;
     this.gammaOutput = false;
     this.gammaFactor = 2.0;
+
+    // 滤镜
+    this.hueRotate = 0;
+    this.saturate = 1;
+    this.brightness = 1;
+    this.blur = 0;
+    this.contrast = 1;
+    this.grayscale = 0;
+    this.invert = 0;
+    this.sepia = 0;
 }
 
 export default Options;

@@ -7,6 +7,7 @@ import AnimateEvent from './AnimateEvent';
 import KeyDownEvent from './KeyDownEvent';
 import RenderEvent from './RenderEvent';
 import ResizeEvent from './ResizeEvent';
+import FilterEvent from './FilterEvent';
 
 import TransformControlsEvent from './TransformControlsEvent';
 import ObjectEvent from './ObjectEvent';
@@ -29,6 +30,7 @@ function EventDispatcher(app) {
         new KeyDownEvent(this.app),
         new RenderEvent(this.app),
         new ResizeEvent(this.app),
+        new FilterEvent(this.app),
 
         // viewport中的事件
         new TransformControlsEvent(this.app),
