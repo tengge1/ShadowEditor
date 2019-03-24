@@ -653,6 +653,27 @@ ul.Tree .Node .SubTree {
     cursor: not-allowed;
 }
 
+.menubar .menu .options .option .sub-menu {
+    position: absolute;
+    left: calc(100% + 4px);
+    top: 0;
+    width: 152px;
+    background-color: #fff;
+    display: none;
+}
+
+.menubar .menu .options .option .sub-menu::before {
+    position: absolute;
+    left: -6px;
+    height: 100%;
+    width: 8px;
+    content: '';
+}
+
+.menubar .menu .options .option:hover .sub-menu {
+    display: block;
+}
+
 .menubar .menu .version {
     opacity: 0.5;
     cursor: default;

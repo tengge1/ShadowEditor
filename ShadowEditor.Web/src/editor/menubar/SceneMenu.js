@@ -29,9 +29,37 @@ SceneMenu.prototype.render = function () {
             cls: 'options',
             children: [{
                 xtype: 'div',
-                html: L_NEW,
                 cls: 'option',
-                onClick: this.newScene.bind(this)
+                style: {
+                    cursor: 'default'
+                },
+                children: [{
+                    xtype: 'div',
+                    children: [{
+                        xtype: 'html',
+                        html: L_NEW
+                    }, {
+                        xtype: 'icon',
+                        icon: 'icon-right-triangle',
+                        style: {
+                            float: 'right'
+                        }
+                    }]
+                }, {
+                    xtype: 'div',
+                    cls: 'sub-menu',
+                    children: [{
+                        xtype: 'div',
+                        cls: 'option',
+                        html: L_EMPTY_SCENE,
+                        onClick: this.createEmptyScene.bind(this),
+                    }, {
+                        xtype: 'div',
+                        cls: 'option',
+                        html: L_GIS_SCENE,
+                        onClick: this.createGISScene.bind(this),
+                    }]
+                }],
             }, {
                 xtype: 'div',
                 html: L_SAVE,
@@ -56,9 +84,9 @@ SceneMenu.prototype.render = function () {
     container.render();
 }
 
-// ---------------------------- 新建场景 ---------------------------------
+// ---------------------------- 新建空场景 ---------------------------------
 
-SceneMenu.prototype.newScene = function () {
+SceneMenu.prototype.createEmptyScene = function () {
     var editor = this.app.editor;
 
     if (editor.sceneID == null) {
@@ -77,6 +105,12 @@ SceneMenu.prototype.newScene = function () {
             document.title = L_NO_NAME;
         }
     });
+};
+
+// --------------------------- 新建GIS场景 -------------------------------------
+
+SceneMenu.prototype.createGISScene = function () {
+    UI.msg('test');
 };
 
 // --------------------------- 保存场景 ----------------------------------------

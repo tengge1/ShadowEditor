@@ -592,3 +592,6 @@ L_CONTRAST = '对比度';
 L_GRAYSCALE = '灰度';
 L_INVERT = '颜色反转';
 L_SEPIA = '复古';
+
+L_EMPTY_SCENE = '空场景';
+L_GIS_SCENE = 'GIS场景';
