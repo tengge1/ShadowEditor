@@ -1,5 +1,7 @@
 import UI from '../../ui/UI';
-import WebGLRendererSerializer from '../../serialization/core/WebGLRendererSerializer';
+import SurfacePanel from './options/SurfacePanel';
+import RendererPanel from './options/RendererPanel';
+import HelperPanel from './options/HelperPanel';
 
 /**
  * 选项窗口
@@ -9,17 +11,22 @@ import WebGLRendererSerializer from '../../serialization/core/WebGLRendererSeria
 function OptionsWindow(options) {
     UI.Control.call(this, options);
     this.app = options.app;
+    this.tab = L_SURFACE;
 }
 
 OptionsWindow.prototype = Object.create(UI.Control.prototype);
 OptionsWindow.prototype.constructor = OptionsWindow;
 
 OptionsWindow.prototype.render = function () {
-    var app = this.app;
-    var editor = app.editor;
-    var scene = editor.scene;
-    var renderer = editor.renderer;
-    var shadowMap = renderer.shadowMap;
+    this.surfacePanel = new SurfacePanel({
+        app: this.app
+    });
+    this.rendererPanel = new RendererPanel({
+        app: this.app
+    });
+    this.helperPanel = new HelperPanel({
+        app: this.app
+    });
 
     this.window = UI.create({
         xtype: 'window',
@@ -45,6 +52,14 @@ OptionsWindow.prototype.render = function () {
                 }
             }, {
                 xtype: 'text',
+                id: 'helperTab',
+                scope: this.id,
+                text: L_HELPERS,
+                onClick: () => {
+                    this.changeTab(L_HELPERS);
+                }
+            }, {
+                xtype: 'text',
                 id: 'rendererTab',
                 scope: this.id,
                 text: L_RENDERER,
@@ -52,85 +67,11 @@ OptionsWindow.prototype.render = function () {
                     this.changeTab(L_RENDERER);
                 }
             }]
-        }, { // 外观选项卡
-            xtype: 'div',
-            id: 'surfacePanel',
-            scope: this.id,
-            cls: 'TabPanel',
-            children: [{
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: L_THEME
-                }, {
-                    xtype: 'select',
-                    id: 'theme',
-                    scope: this.id,
-                    options: {
-                        'assets/css/light.css': L_LIGHT_COLOR,
-                        'assets/css/dark.css': L_DARK_COLOR
-                    },
-                    style: {
-                        width: '150px'
-                    }
-                }]
-            }]
-        }, { // 渲染器选项卡
-            xtype: 'div',
-            id: 'rendererPanel',
-            scope: this.id,
-            cls: 'TabPanel',
-            style: {
-                display: 'none'
-            },
-            children: [{
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: L_SHADOW
-                }, {
-                    xtype: 'select',
-                    id: 'shadowMapType',
-                    scope: this.id,
-                    options: {
-                        [-1]: L_DISABLED,
-                        [THREE.BasicShadowMap]: L_BASIC_SHADOW, // 0
-                        [THREE.PCFShadowMap]: L_PCF_SHADOW, // 1
-                        [THREE.PCFSoftShadowMap]: L_PCF_SOFT_SHADOW // 2
-                    }
-                }]
-            }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: L_GAMMA_INPUT
-                }, {
-                    xtype: 'boolean',
-                    id: 'gammaInput',
-                    scope: this.id,
-                }]
-            }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: L_GAMMA_OUTPUT
-                }, {
-                    xtype: 'boolean',
-                    id: 'gammaOutput',
-                    scope: this.id,
-                }]
-            }, {
-                xtype: 'row',
-                children: [{
-                    xtype: 'label',
-                    text: L_GAMMA_FACTOR
-                }, {
-                    xtype: 'number',
-                    id: 'gammaFactor',
-                    scope: this.id,
-                }]
-            }]
-        }],
+        },
+        this.surfacePanel,
+        this.helperPanel,
+        this.rendererPanel,
+        ],
         buttons: [{
             xtype: 'button',
             text: L_SAVE,
@@ -150,30 +91,7 @@ OptionsWindow.prototype.render = function () {
 
 OptionsWindow.prototype.show = function () {
     this.window.show();
-
-    var theme = UI.get('theme', this.id);
-    var shadowMapType = UI.get('shadowMapType', this.id);
-    var gammaInput = UI.get('gammaInput', this.id);
-    var gammaOutput = UI.get('gammaOutput', this.id);
-    var gammaFactor = UI.get('gammaFactor', this.id);
-
-    if (!this.app.storage.get('theme')) {
-        this.app.storage.set('theme', 'assets/css/light.css');
-    }
-
-    theme.setValue(this.app.storage.get('theme'));
-
-    var renderer = this.app.editor.renderer;
-
-    if (renderer.shadowMap.enabled) {
-        shadowMapType.setValue(renderer.shadowMap.type);
-    } else {
-        shadowMapType.setValue(-1);
-    }
-
-    gammaInput.setValue(renderer.gammaInput);
-    gammaOutput.setValue(renderer.gammaOutput);
-    gammaFactor.setValue(renderer.gammaFactor);
+    this.update();
 };
 
 OptionsWindow.prototype.hide = function () {
@@ -181,48 +99,64 @@ OptionsWindow.prototype.hide = function () {
 };
 
 OptionsWindow.prototype.changeTab = function (name) {
-    if (name === L_SURFACE) {
-        UI.get('surfaceTab', this.id).dom.classList.add('selected');
-        UI.get('rendererTab', this.id).dom.classList.remove('selected');
-        UI.get('surfacePanel', this.id).dom.style.display = '';
-        UI.get('rendererPanel', this.id).dom.style.display = 'none';
-    } else if (name === L_RENDERER) {
-        UI.get('surfaceTab', this.id).dom.classList.remove('selected');
-        UI.get('rendererTab', this.id).dom.classList.add('selected');
-        UI.get('surfacePanel', this.id).dom.style.display = 'none';
-        UI.get('rendererPanel', this.id).dom.style.display = '';
+    this.tab = name;
+
+    var surfaceTab = UI.get('surfaceTab', this.id);
+    var helperTab = UI.get('helperTab', this.id);
+    var rendererTab = UI.get('rendererTab', this.id);
+
+    surfaceTab.dom.classList.remove('selected');
+    helperTab.dom.classList.remove('selected');
+    rendererTab.dom.classList.remove('selected');
+
+    this.surfacePanel.dom.style.display = 'none';
+    this.helperPanel.dom.style.display = 'none';
+    this.rendererPanel.dom.style.display = 'none';
+
+    switch (this.tab) {
+        case L_SURFACE:
+            surfaceTab.dom.classList.add('selected');
+            this.surfacePanel.dom.style.display = '';
+            break;
+        case L_HELPERS:
+            helperTab.dom.classList.add('selected');
+            this.helperPanel.dom.style.display = '';
+            break;
+        case L_RENDERER:
+            rendererTab.dom.classList.add('selected');
+            this.rendererPanel.dom.style.display = '';
+            break;
+    }
+
+    this.update();
+};
+
+OptionsWindow.prototype.update = function () {
+    switch (this.tab) {
+        case L_SURFACE:
+            this.surfacePanel.update();
+            break;
+        case L_HELPERS:
+            this.helperPanel.update();
+            break;
+        case L_RENDERER:
+            this.rendererPanel.update();
+            break;
     }
 };
 
 OptionsWindow.prototype.save = function () {
-    // 主题
-    var theme = UI.get('theme', this.id).getValue();
-    this.app.storage.set('theme', theme)
-    document.getElementById('theme').href = theme;
-
-    // 渲染器
-    var shadowMapType = parseInt(UI.get('shadowMapType', this.id).getValue());
-    var gammaInput = UI.get('gammaInput', this.id).getValue();
-    var gammaOutput = UI.get('gammaOutput', this.id).getValue();
-    var gammaFactor = UI.get('gammaFactor', this.id).getValue();
-
-    var renderer = this.app.editor.renderer;
-
-    if (shadowMapType === -1) {
-        renderer.shadowMap.enabled = false;
-    } else {
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = shadowMapType;
+    switch (this.tab) {
+        case L_SURFACE:
+            this.surfacePanel.save();
+            break;
+        case L_HELPERS:
+            this.helperPanel.save();
+            break;
+        case L_RENDERER:
+            this.rendererPanel.save();
+            break;
     }
-    renderer.gammaInput = gammaInput;
-    renderer.gammaOutput = gammaOutput;
-    renderer.gammaFactor = gammaFactor;
-
-    renderer.dispose();
-
-    // 隐藏窗口
-    this.hide();
-    UI.msg(L_SAVE_SUCCESS);
 };
 
 export default OptionsWindow;

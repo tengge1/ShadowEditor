@@ -34,6 +34,13 @@ OptionsMenu.prototype.render = function () {
             }, {
                 xtype: 'div',
                 cls: 'option',
+                html: L_HELPERS,
+                onClick: this.onHelperOptions.bind(this)
+            }, {
+                xtype: 'hr'
+            }, {
+                xtype: 'div',
+                cls: 'option',
                 html: L_RENDERER,
                 onClick: this.onRendererOptions.bind(this)
             }]
@@ -47,22 +54,39 @@ OptionsMenu.prototype.render = function () {
 
 OptionsMenu.prototype.onSurfaceOptions = function () {
     if (this.optionsWindow === undefined) {
-        this.optionsWindow = new OptionsWindow({ app: this.app });
+        this.optionsWindow = new OptionsWindow({
+            app: this.app
+        });
         this.optionsWindow.render();
     }
     this.optionsWindow.show();
-    this.optionsWindow.changeTab(L_OPTIONS);
+    this.optionsWindow.changeTab(L_SURFACE);
 };
 
 // ---------------------------------- 渲染器选项 -------------------------------------
 
 OptionsMenu.prototype.onRendererOptions = function () {
     if (this.optionsWindow === undefined) {
-        this.optionsWindow = new OptionsWindow({ app: this.app });
+        this.optionsWindow = new OptionsWindow({
+            app: this.app
+        });
         this.optionsWindow.render();
     }
     this.optionsWindow.show();
     this.optionsWindow.changeTab(L_RENDERER);
+};
+
+// ------------------------------- 帮助器选项 -----------------------------------------
+
+OptionsMenu.prototype.onHelperOptions = function () {
+    if (this.optionsWindow === undefined) {
+        this.optionsWindow = new OptionsWindow({
+            app: this.app
+        });
+        this.optionsWindow.render();
+    }
+    this.optionsWindow.show();
+    this.optionsWindow.changeTab(L_HELPERS);
 };
 
 export default OptionsMenu;
