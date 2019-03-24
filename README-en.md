@@ -1,6 +1,6 @@
 # Shadow Editor
 
-Language: Chinese / [English](README-en.md)
+Language: [Chinese](README.md) / English / [Japanese](README-jp.md)
 
 * Name: Shadow Editor
 * Version: v0.1.7
