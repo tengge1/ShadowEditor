@@ -150,7 +150,7 @@ FilterPanel.prototype.parseFilter = function (str) {
         } else if (n.startsWith('blur')) { // 模糊
             filters['blur'] = n.substr(5, n.length - 3);
         } else if (n.startsWith('contrast')) { // 对比度
-            filters['contrast'] = n.substr(5, n.length - 3);
+            filters['contrast'] = n.substr(9, n.length - 1);
         }
     });
 
