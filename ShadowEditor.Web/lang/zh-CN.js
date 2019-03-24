@@ -588,3 +588,4 @@ L_HUE = '色调';
 L_SATURATE = '饱和度';
 L_BRIGHTNESS = '亮度';
 L_BLUR = '模糊';
+L_CONTRAST = '对比度';
