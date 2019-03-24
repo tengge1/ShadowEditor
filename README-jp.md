@@ -170,7 +170,7 @@ Npm run build-docs
 10. 英語翻訳の最適化
 11. シーンのワンクリックエクスポート機能を追加して、シーンに必要なモデルとリソースを自動的に分析し、必要なリソースはすべて `/ temp / yyyyMMddHHmmss`フォルダーに配置されます。
 12. リソースなしでエディタ機能をエクスポートします。
-13. デモプロジェクトを再リリースしました。[Gitee]（http://tengge1.gitee.io/shadoweditor-examples/）[GitHub]（https://tengge1.github.io/ShadowEditor-examples/）
+13. デモプロジェクトを再リリースしました。[Gitee](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
 14. レンダラー設定、影、γ入力、γ出力、ガンマ係数設定の無効なバグを修正しました。
 15. 平面上の点、線、およびスプレーツールには一度に1つの点のみを描画できます。
 16. トゥイーンアニメーションが再生できない問題を修正しました。
