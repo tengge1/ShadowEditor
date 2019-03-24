@@ -106,6 +106,18 @@ FilterPanel.prototype.render = function () {
                 range: [0, 1],
                 onChange: this.save.bind(this)
             }]
+        }, {
+            xtype: 'row',
+            children: [{
+                xtype: 'label',
+                text: L_SEPIA
+            }, {
+                xtype: 'number',
+                id: 'sepia',
+                scope: this.id,
+                range: [0, 1],
+                onChange: this.save.bind(this)
+            }]
         }]
     }).render();
 
@@ -120,6 +132,7 @@ FilterPanel.prototype.update = function () {
     var contrast = UI.get('contrast', this.id);
     var grayscale = UI.get('grayscale', this.id);
     var invert = UI.get('invert', this.id);
+    var sepia = UI.get('sepia', this.id);
 
     var renderer = this.app.editor.renderer;
     var filters = this.parseFilter(renderer.domElement.style.filter);
@@ -130,6 +143,7 @@ FilterPanel.prototype.update = function () {
     contrast.setValue(filters['contrast']);
     grayscale.setValue(filters['grayscale']);
     invert.setValue(filters['invert']);
+    sepia.setValue(filters['sepia']);
 };
 
 FilterPanel.prototype.save = function () {
@@ -140,6 +154,7 @@ FilterPanel.prototype.save = function () {
     var contrast = UI.get('contrast', this.id);
     var grayscale = UI.get('grayscale', this.id);
     var invert = UI.get('invert', this.id);
+    var sepia = UI.get('sepia', this.id);
 
     var filters = {
         'hue-rotate': hue.getValue(),
@@ -149,6 +164,7 @@ FilterPanel.prototype.save = function () {
         contrast: contrast.getValue(),
         grayscale: grayscale.getValue(),
         invert: invert.getValue(),
+        sepia: sepia.getValue(),
     };
 
     var renderer = this.app.editor.renderer;
@@ -158,7 +174,7 @@ FilterPanel.prototype.save = function () {
 
 FilterPanel.prototype.serializeFilter = function (filters) {
     return `hue-rotate(${filters['hue-rotate']}deg) saturate(${filters['saturate']}) brightness(${filters['brightness']}) ` +
-        `blur(${filters['blur']}px) contrast(${filters['contrast']}) grayscale(${filters['grayscale']}) invert(${filters['invert']})`;
+        `blur(${filters['blur']}px) contrast(${filters['contrast']}) grayscale(${filters['grayscale']}) invert(${filters['invert']}) sepia(${filters['sepia']})`;
 };
 
 FilterPanel.prototype.parseFilter = function (str) {
@@ -172,6 +188,7 @@ FilterPanel.prototype.parseFilter = function (str) {
         contrast: 1,
         grayscale: 0,
         invert: 0,
+        sepia: 0,
     };
 
     list.forEach(n => {
@@ -189,6 +206,8 @@ FilterPanel.prototype.parseFilter = function (str) {
             filters['grayscale'] = n.substr(10, n.length - 1);
         } else if (n.startsWith('invert')) { // 颜色反转
             filters['invert'] = n.substr(7, n.length - 1);
+        } else if (n.startsWith('sepia')) { // 复古
+            filters['sepia'] = n.substr(6, n.length - 1);
         }
     });
 

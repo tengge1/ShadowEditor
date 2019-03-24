@@ -590,4 +590,5 @@ Object.assign(window, {
     L_CONTRAST: 'Contrast',
     L_GRAYSCALE: 'Grayscale',
     L_INVERT: 'Invert',
+    L_SEPIA: 'Sepia'
 });

@@ -9,7 +9,7 @@ Language: 中文 / [English](README-en.md)
 ## v0.1.8即将更新
 
 1. 设置面板放到选项菜单中。
-2. 新增色调旋转(hue-rotate)、饱和度、亮度、高斯模糊(blur)、对比度、灰度、颜色反转(invert)滤镜。
+2. 新增色调旋转(hue-rotate)、饱和度、亮度、高斯模糊(blur)、对比度、灰度、颜色反转(invert)、复古(sepia)滤镜。
 
 ## v0.1.7更新
 
