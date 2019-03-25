@@ -16,3 +16,5 @@ var ZeroGIS = {
     TERRAIN_PITCH: 80, //开始显示三维地形的pich
     proxy: ""
 };
+
+export default ZeroGIS;

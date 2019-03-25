@@ -1,58 +1,36 @@
 <!DOCTYPE html>
 
 <html lang="zh-cn">
+
 <head>
     <meta charset="utf-8" />
     <title>ZeroGIS</title>
-    <link href="css/ZeroGIS.css" rel="stylesheet" />
-
-    <script src="ZeroGIS.js"></script>
-    <script src="Enum.js"></script>
-    <script src="Utils.js"></script>
-    <script src="Vertice.js"></script>
-    <script src="Vector.js"></script>
-    <script src="Matrix.js"></script>
-    <script src="Image.js"></script>
-    <script src="Elevation.js"></script>
-
-    <script src="Object3D/Object3D.js"></script>
-    <script src="Object3D/ShaderContent.js"></script>
-    <script src="Object3D/WebGLRenderer.js"></script>
-    <script src="Object3D/Line.js"></script>
-    <script src="Object3D/PerspectiveCamera.js"></script>
-    <script src="Object3D/Object3DComponents.js"></script>
-    <script src="Object3D/Scene.js"></script>
-    <script src="Object3D/TextureMaterial.js"></script>
-    <script src="Object3D/TileMaterial.js"></script>
-    <script src="Object3D/Tile.js"></script>
-    <script src="Object3D/TileGrid.js"></script>
-
-    <script src="MathUtils.js"></script>
-    <script src="Event.js"></script>
-    <script src="Globe.js"></script>
-
-    <script src="TiledLayer/TiledLayer.js"></script>
-    <script src="TiledLayer/SubTiledLayer.js"></script>
-    <script src="TiledLayer/GoogleTiledLayer.js"></script>
-    <script src="TiledLayer/BingTiledLayer.js"></script>
-    <script src="TiledLayer/OsmTiledLayer.js"></script>
-    <script src="TiledLayer/SosoTiledLayer.js"></script>
-    <script src="TiledLayer/TiandituTiledLayer.js"></script>
-    <script src="TiledLayer/NokiaTiledLayer.js"></script>
-    <script src="TiledLayer/ArcGISTiledLayer.js"></script>
-    <script src="TiledLayer/AutonaviTiledLayer.js"></script>
-    <script src="TiledLayer/BlendTiledLayer.js"></script>
-
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+    <script src="build/gis2.js"></script>
     <script src="index.js"></script>
+    <script>
+        var globe;
+
+        function start() {
+            var canvas = document.getElementById('container');
+            globe = new ZeroGIS.Globe(canvas);
+            globe.setTiledLayer(new ZeroGIS.GoogleTiledLayer());
+        }
+    </script>
 </head>
-<body onselectstart="return false;" ondragstart="return false;" oncontextmenu="return false;">
-    <select id="mapSelector">
-        <option value="google">谷歌地图</option>
-        <option value="bing">必应地图</option>
-        <option value="osm">OpenStreetMap</option>
-        <option value="soso">SOSO地图</option>
-        <option value="tianditu">天地图</option>
-    </select>
+
+<body onload="start()" onselectstart="return false;" ondragstart="return false;" oncontextmenu="return false;">
     <canvas id="container" width="1000" height="1000" style="cursor:default;"></canvas>
 </body>
+
 </html>
