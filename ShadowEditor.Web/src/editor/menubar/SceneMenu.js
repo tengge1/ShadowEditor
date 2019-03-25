@@ -94,6 +94,7 @@ SceneMenu.prototype.createEmptyScene = function () {
         editor.sceneID = null;
         editor.sceneName = null;
         document.title = L_NO_NAME;
+        UI.msg(L_CREATE_EMPTY_SCENE_SUCCESS);
         return;
     }
 
