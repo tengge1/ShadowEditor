@@ -1,7 +1,7 @@
 ﻿/**
 * 瓦片图层
 */
-ZeroGIS.TiledLayer = function (args) {
+function TiledLayer(args) {
     ZeroGIS.Object3DComponents.apply(this, arguments);
 };
 
@@ -62,3 +62,5 @@ ZeroGIS.TiledLayer.prototype.updateSubLayerCount = function (level) {
         }
     }
 };
+
+export default TiledLayer;

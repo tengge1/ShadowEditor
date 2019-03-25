@@ -3,7 +3,7 @@ export default {
     output: {
         indent: '\t',
         format: 'umd',
-        name: 'ZeroGIS',
+        name: 'Shadow',
         file: 'ShadowEditor.Web/src/gis2/build/gis2.js'
     },
     treeshake: true,
