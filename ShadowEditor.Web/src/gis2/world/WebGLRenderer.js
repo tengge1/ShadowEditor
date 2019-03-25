@@ -1,66 +1,69 @@
-define(["world/Kernel", "world/Utils", "world/Event", "world/Scene", "world/PerspectiveCamera"],
-  function(Kernel, Utils, Event, Scene, PerspectiveCamera) {
+import Kernel from './Kernel';
+import Utils from './Utils';
+import Event from './Event';
+import Scene from './Scene';
+import PerspectiveCamera from './PerspectiveCamera';
 
-    var WebGLRenderer = function(canvas, vertexShaderText, fragmentShaderText) {
-      if (!(canvas instanceof HTMLCanvasElement)) {
+var WebGLRenderer = function (canvas, vertexShaderText, fragmentShaderText) {
+    if (!(canvas instanceof HTMLCanvasElement)) {
         throw "invalid canvas: not HTMLCanvasElement";
-      }
-      if (!(Utils.isString(vertexShaderText) && vertexShaderText !== "")) {
+    }
+    if (!(Utils.isString(vertexShaderText) && vertexShaderText !== "")) {
         throw "invalid vertexShaderText";
-      }
-      if (!(Utils.isString(fragmentShaderText) && fragmentShaderText !== "")) {
+    }
+    if (!(Utils.isString(fragmentShaderText) && fragmentShaderText !== "")) {
         throw "invalid fragmentShaderText";
-      }
-      window.renderer = this; //之所以在此处设置window.renderer是因为要在tick函数中使用
-      this.scene = null;
-      this.camera = null;
-      this.bAutoRefresh = false;
-      Event.bindEvents(canvas);
+    }
+    window.renderer = this; //之所以在此处设置window.renderer是因为要在tick函数中使用
+    this.scene = null;
+    this.camera = null;
+    this.bAutoRefresh = false;
+    Event.bindEvents(canvas);
 
-      function initWebGL(canvas) {
+    function initWebGL(canvas) {
         try {
-          var contextList = ["webgl", "experimental-webgl", "webkit-3d", "moz-webgl"];
-          for (var i = 0; i < contextList.length; i++) {
-            var g = canvas.getContext(contextList[i], {
-              antialias: true
-            });
-            if (g) {
-              window.gl = Kernel.gl = g;
-              Kernel.canvas = canvas;
-              break;
+            var contextList = ["webgl", "experimental-webgl", "webkit-3d", "moz-webgl"];
+            for (var i = 0; i < contextList.length; i++) {
+                var g = canvas.getContext(contextList[i], {
+                    antialias: true
+                });
+                if (g) {
+                    window.gl = Kernel.gl = g;
+                    Kernel.canvas = canvas;
+                    break;
+                }
             }
-          }
-        } catch (e) {}
-      }
+        } catch (e) { }
+    }
 
-      function getShader(gl, shaderType, shaderText) {
+    function getShader(gl, shaderType, shaderText) {
         if (!shaderText) {
-          return null;
+            return null;
         }
 
         var shader = null;
         if (shaderType == "VERTEX_SHADER") {
-          shader = gl.createShader(gl.VERTEX_SHADER);
+            shader = gl.createShader(gl.VERTEX_SHADER);
         } else if (shaderType == "FRAGMENT_SHADER") {
-          shader = gl.createShader(gl.FRAGMENT_SHADER);
+            shader = gl.createShader(gl.FRAGMENT_SHADER);
         } else {
-          return null;
+            return null;
         }
 
         gl.shaderSource(shader, shaderText);
         gl.compileShader(shader);
 
         if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-          alert(gl.getShaderInfoLog(shader));
-          console.error(gl.getShaderInfoLog(shader));
-          gl.deleteShader(shader);
-          return null;
+            alert(gl.getShaderInfoLog(shader));
+            console.error(gl.getShaderInfoLog(shader));
+            gl.deleteShader(shader);
+            return null;
         }
 
         return shader;
-      }
+    }
 
-      function initShaders(vertexShaderText, fragmentShaderText) {
+    function initShaders(vertexShaderText, fragmentShaderText) {
         var vertexShader = getShader(Kernel.gl, "VERTEX_SHADER", vertexShaderText);
         var fragmentShader = getShader(Kernel.gl, "FRAGMENT_SHADER", fragmentShaderText);
 
@@ -70,11 +73,11 @@ define(["world/Kernel", "world/Utils", "world/Event", "world/Scene", "world/Pers
         gl.linkProgram(shaderProgram);
 
         if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-          console.error("Could not link program!");
-          gl.deleteProgram(shaderProgram);
-          gl.deleteShader(vertexShader);
-          gl.deleteShader(fragmentShader);
-          return;
+            console.error("Could not link program!");
+            gl.deleteProgram(shaderProgram);
+            gl.deleteShader(vertexShader);
+            gl.deleteShader(fragmentShader);
+            return;
         }
 
         gl.useProgram(shaderProgram);
@@ -91,88 +94,88 @@ define(["world/Kernel", "world/Utils", "world/Event", "world/Scene", "world/Pers
 
         //设置默认值
         var squareArray = [1, 0, 0, 0,
-          0, 1, 0, 0,
-          0, 0, 1, 0,
-          0, 0, 0, 1
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1
         ];
         var squareMatrix = new Float32Array(squareArray); //ArrayBuffer
         gl.uniformMatrix4fv(gl.shaderProgram.uMVMatrix, false, squareMatrix);
-      }
+    }
 
-      initWebGL(canvas);
+    initWebGL(canvas);
 
-      if (!window.gl) {
+    if (!window.gl) {
         alert("浏览器不支持WebGL或将WebGL禁用!");
         console.debug("浏览器不支持WebGL或将WebGL禁用!");
         return;
-      }
+    }
 
-      initShaders(vertexShaderText, fragmentShaderText);
+    initShaders(vertexShaderText, fragmentShaderText);
 
-      gl.clearColor(255, 255, 255, 1.0);
-      //gl.enable(gl.DEPTH_TEST);
-      gl.disable(gl.DEPTH_TEST); //此处禁用深度测试是为了解决两个不同层级的切片在拖动时一起渲染会导致屏闪的问题
-      gl.depthFunc(gl.LEQUAL);
+    gl.clearColor(255, 255, 255, 1.0);
+    //gl.enable(gl.DEPTH_TEST);
+    gl.disable(gl.DEPTH_TEST); //此处禁用深度测试是为了解决两个不同层级的切片在拖动时一起渲染会导致屏闪的问题
+    gl.depthFunc(gl.LEQUAL);
 
-      gl.enable(gl.CULL_FACE); //一定要启用裁剪，否则显示不出立体感
-      gl.frontFace(gl.CCW);
-      gl.cullFace(gl.BACK); //裁剪掉背面
+    gl.enable(gl.CULL_FACE); //一定要启用裁剪，否则显示不出立体感
+    gl.frontFace(gl.CCW);
+    gl.cullFace(gl.BACK); //裁剪掉背面
 
-      //gl.enable(gl.TEXTURE_2D);//WebGL: INVALID_ENUM: enable: invalid capability
-    };
+    //gl.enable(gl.TEXTURE_2D);//WebGL: INVALID_ENUM: enable: invalid capability
+};
 
-    WebGLRenderer.prototype = {
-      constructor: WebGLRenderer,
+WebGLRenderer.prototype = {
+    constructor: WebGLRenderer,
 
-      render: function(scene, camera) {
+    render: function (scene, camera) {
         if (!(scene instanceof Scene)) {
-          throw "invalid scene: not World.Scene";
+            throw "invalid scene: not World.Scene";
         }
         if (!(camera instanceof PerspectiveCamera)) {
-          throw "invalid camera: not World.PerspectiveCamera";
+            throw "invalid camera: not World.PerspectiveCamera";
         }
         gl.viewport(0, 0, Kernel.canvas.width, Kernel.canvas.height);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         camera.viewMatrix = null;
         camera.viewMatrix = camera.getViewMatrix();
         scene.draw(camera);
-      },
+    },
 
-      bindScene: function(scene) {
+    bindScene: function (scene) {
         if (!(scene instanceof Scene)) {
-          throw "invalid scene: not World.Scene";
+            throw "invalid scene: not World.Scene";
         }
         this.scene = scene;
-      },
+    },
 
-      bindCamera: function(camera) {
+    bindCamera: function (camera) {
         if (!(camera instanceof PerspectiveCamera)) {
-          throw "invalid camera: not World.PerspectiveCamera";
+            throw "invalid camera: not World.PerspectiveCamera";
         }
         this.camera = camera;
-      },
+    },
 
-      tick: function() {
+    tick: function () {
         if (Kernel.renderer instanceof WebGLRenderer) {
-          if (Kernel.renderer.scene && Kernel.renderer.camera) {
-            Kernel.renderer.render(Kernel.renderer.scene, Kernel.renderer.camera);
-          }
+            if (Kernel.renderer.scene && Kernel.renderer.camera) {
+                Kernel.renderer.render(Kernel.renderer.scene, Kernel.renderer.camera);
+            }
 
-          if (Kernel.renderer.bAutoRefresh) {
-            window.requestAnimationFrame(Kernel.renderer.tick);
-          }
+            if (Kernel.renderer.bAutoRefresh) {
+                window.requestAnimationFrame(Kernel.renderer.tick);
+            }
         }
-      },
+    },
 
-      setIfAutoRefresh: function(bAuto) {
+    setIfAutoRefresh: function (bAuto) {
         if (!Utils.isBool(bAuto)) {
-          throw "invalid bAuto: not bool";
+            throw "invalid bAuto: not bool";
         }
         this.bAutoRefresh = bAuto;
         if (this.bAutoRefresh) {
-          this.tick();
+            this.tick();
         }
-      }
-    };
-    return WebGLRenderer;
-  });
+    }
+};
+
+export default WebGLRenderer;

@@ -1,10 +1,13 @@
-define(["world/TiledLayer"], function(TiledLayer) {
-  var SosoTiledLayer = function(args) {
+import TiledLayer from './TiledLayer';
+
+var SosoTiledLayer = function (args) {
     TiledLayer.apply(this, arguments);
-  };
-  SosoTiledLayer.prototype = new TiledLayer();
-  SosoTiledLayer.prototype.constructor = SosoTiledLayer;
-  SosoTiledLayer.prototype.getImageUrl = function(level, row, column) {
+};
+
+SosoTiledLayer.prototype = new TiledLayer();
+SosoTiledLayer.prototype.constructor = SosoTiledLayer;
+
+SosoTiledLayer.prototype.getImageUrl = function (level, row, column) {
     TiledLayer.prototype.getImageUrl.apply(this, arguments);
     var url = "";
     var tileCount = Math.pow(2, level);
@@ -18,6 +21,6 @@ define(["world/TiledLayer"], function(TiledLayer) {
     //var maptileUrl = "http://p"+serverIdx+".map.soso.com/maptilesv2/"+level+"/"+A+"/"+B+"/"+a+"_"+b+".png";
     url = sateUrl;
     return url;
-  };
-  return SosoTiledLayer;
-});
+};
+
+return SosoTiledLayer;

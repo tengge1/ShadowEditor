@@ -1,105 +1,101 @@
-define(["require", "world/Utils", "world/Vertice"], function(require, Utils) {
+import Utils from './Utils';
+import Vertice from './Vertice';
 
-  var Vector = function(x, y, z) {
+var Vector = function (x, y, z) {
     x = x !== undefined ? x : 0;
     y = y !== undefined ? y : 0;
     z = z !== undefined ? z : 0;
     if (!Utils.isNumber(x)) {
-      throw "invalid x";
+        throw "invalid x";
     }
     if (!Utils.isNumber(y)) {
-      throw "invalid y";
+        throw "invalid y";
     }
     if (!Utils.isNumber(z)) {
-      throw "invalid z";
+        throw "invalid z";
     }
     this.x = x;
     this.y = y;
     this.z = z;
-  };
+};
 
-  Vector.prototype = {
+Vector.prototype = {
     constructor: Vector,
-
-    _requireVertice: function(){
-      return require("world/Vertice");
+    
+    getVertice: function () {
+        return new Vertice(this.x, this.y, this.z);
     },
 
-    getVertice: function() {
-      var Vertice = this._requireVertice();
-      return new Vertice(this.x, this.y, this.z);
+    getArray: function () {
+        return [this.x, this.y, this.z];
     },
 
-    getArray: function() {
-      return [this.x, this.y, this.z];
+    getCopy: function () {
+        return new Vector(this.x, this.y, this.z);
     },
 
-    getCopy: function() {
-      return new Vector(this.x, this.y, this.z);
+    getOpposite: function () {
+        return new Vector(-this.x, -this.y, -this.z);
     },
 
-    getOpposite: function() {
-      return new Vector(-this.x, -this.y, -this.z);
+    getLength: function () {
+        return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
     },
 
-    getLength: function() {
-      return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+    normalize: function () {
+        var length = this.getLength();
+        if (Math.abs(length) >= 0.000001) {
+            this.x /= length;
+            this.y /= length;
+            this.z /= length;
+        } else {
+            this.x = 0;
+            this.y = 0;
+            this.z = 0;
+        }
+
+        return this;
     },
 
-    normalize: function() {
-      var length = this.getLength();
-      if(Math.abs(length) >= 0.000001) {
-        this.x /= length;
-        this.y /= length;
-        this.z /= length;
-      } else {
-        this.x = 0;
-        this.y = 0;
-        this.z = 0;
-      }
-
-      return this;
-    },
-
-    setLength: function(length) {
-      if (!Utils.isNumber(length)) {
-        throw "invalid length";
-      }
-      this.normalize();
-      this.x *= length;
-      this.y *= length;
-      this.z *= length;
-      return this;
+    setLength: function (length) {
+        if (!Utils.isNumber(length)) {
+            throw "invalid length";
+        }
+        this.normalize();
+        this.x *= length;
+        this.y *= length;
+        this.z *= length;
+        return this;
     },
 
     /**
      * 得到该向量的一个随机垂直向量
      * @return {*}
      */
-    getRandomVerticalVector: function() {
-      var result;
-      var length = this.getLength();
-      if (length === 0) {
-        result = new Vector(0, 0, 0);
-      } else {
-        var x2, y2, z2;
-        if (this.x !== 0) {
-          y2 = 1;
-          z2 = 0;
-          x2 = -this.y / this.x;
-        } else if (this.y !== 0) {
-          z2 = 1;
-          x2 = 0;
-          y2 = -this.z / this.y;
-        } else if (this.z !== 0) {
-          x2 = 1;
-          y2 = 0;
-          z2 = -this.x / this.z;
+    getRandomVerticalVector: function () {
+        var result;
+        var length = this.getLength();
+        if (length === 0) {
+            result = new Vector(0, 0, 0);
+        } else {
+            var x2, y2, z2;
+            if (this.x !== 0) {
+                y2 = 1;
+                z2 = 0;
+                x2 = -this.y / this.x;
+            } else if (this.y !== 0) {
+                z2 = 1;
+                x2 = 0;
+                y2 = -this.z / this.y;
+            } else if (this.z !== 0) {
+                x2 = 1;
+                y2 = 0;
+                z2 = -this.x / this.z;
+            }
+            result = new Vector(x2, y2, z2);
+            result.normalize();
         }
-        result = new Vector(x2, y2, z2);
-        result.normalize();
-      }
-      return result;
+        return result;
     },
 
     /**
@@ -107,14 +103,14 @@ define(["require", "world/Utils", "world/Vertice"], function(require, Utils) {
      * @param other
      * @return {World.Vector}
      */
-    cross: function(other) {
-      if (!(other instanceof Vector)) {
-        throw "invalid other";
-      }
-      var x = this.y * other.z - this.z * other.y;
-      var y = this.z * other.x - this.x * other.z;
-      var z = this.x * other.y - this.y * other.x;
-      return new Vector(x, y, z);
+    cross: function (other) {
+        if (!(other instanceof Vector)) {
+            throw "invalid other";
+        }
+        var x = this.y * other.z - this.z * other.y;
+        var y = this.z * other.x - this.x * other.z;
+        var z = this.x * other.y - this.y * other.x;
+        return new Vector(x, y, z);
     },
 
     /**
@@ -122,11 +118,11 @@ define(["require", "world/Utils", "world/Vertice"], function(require, Utils) {
      * @param other 另一个向量
      * @return {*} 数字
      */
-    dot: function(other) {
-      if (!(other instanceof Vector)) {
-        throw "invalid other";
-      }
-      return this.x * other.x + this.y * other.y + this.z * other.z;
+    dot: function (other) {
+        if (!(other instanceof Vector)) {
+            throw "invalid other";
+        }
+        return this.x * other.x + this.y * other.y + this.z * other.z;
     }
 
     /**
@@ -170,7 +166,6 @@ define(["require", "world/Utils", "world/Vertice"], function(require, Utils) {
       var newVector = newVertice.getVector();
       return newVector;
     }*/
-  };
+};
 
-  return Vector;
-});
+export default Vector;
