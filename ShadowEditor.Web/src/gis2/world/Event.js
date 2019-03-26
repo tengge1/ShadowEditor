@@ -141,7 +141,7 @@ var EventModule = {
         if (event.wheelDelta) {
             //非Firefox
             delta = event.wheelDelta;
-            deltaLevel = parseInt(delta / 120);
+            deltaLevel = parseInt(delta / 240);
         } else if (event.detail) {
             //Firefox
             delta = event.detail;

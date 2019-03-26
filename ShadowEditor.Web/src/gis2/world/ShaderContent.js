@@ -1,6 +1,31 @@
 var SIMPLE_SHADER = {
-    VS_CONTENT: "attribute vec3 aVertexPosition;\nattribute vec2 aTextureCoord;\nvarying vec2 vTextureCoord;\nuniform mat4 uMVMatrix;\nuniform mat4 uPMatrix;\nvoid main()\n{\ngl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition,1.0);\nvTextureCoord = aTextureCoord;\n}",
-    FS_CONTENT: "#ifdef GL_ES\nprecision highp float;\n#endif\nuniform bool uUseTexture;\nuniform float uShininess;\nuniform vec3 uLightDirection;\nuniform vec4 uLightAmbient;\nuniform vec4 uLightDiffuse;\nuniform vec4 uLightSpecular;\nvarying vec2 vTextureCoord;\nuniform sampler2D uSampler;\nvoid main()\n{\ngl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));\n}"
+    VS_CONTENT: `
+    attribute vec3 aVertexPosition;
+    attribute vec2 aTextureCoord;
+    varying vec2 vTextureCoord;
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+    void main() {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition,1.0);
+        vTextureCoord = aTextureCoord;
+    }`,
+    FS_CONTENT: `
+    #ifdef GL_ES
+    precision highp float;
+    #endif
+    
+    uniform bool uUseTexture;
+    uniform float uShininess;
+    uniform vec3 uLightDirection;
+    uniform vec4 uLightAmbient;
+    uniform vec4 uLightDiffuse;
+    uniform vec4 uLightSpecular;
+    varying vec2 vTextureCoord;
+    uniform sampler2D uSampler;
+    
+    void main() {
+        gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+    }`
 };
 
 export default SIMPLE_SHADER;

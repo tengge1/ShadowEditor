@@ -1,6 +1,7 @@
 import UI from '../../ui/UI';
 import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';
+import GISScene from '../../gis/Scene';
 
 /**
  * 场景菜单
@@ -112,6 +113,12 @@ SceneMenu.prototype.createEmptyScene = function () {
 
 SceneMenu.prototype.createGISScene = function () {
     UI.msg('test');
+
+    if (this.gis === undefined) {
+        this.gis = new GISScene(this.app);
+    }
+
+    this.gis.start();
 };
 
 // --------------------------- 保存场景 ----------------------------------------

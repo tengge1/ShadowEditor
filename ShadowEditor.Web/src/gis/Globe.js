@@ -7,6 +7,8 @@ import TiledLayerRenderer from './render/TiledLayerRenderer';
  * @param {*} renderer 
  */
 function Globe(camera, renderer) {
+    THREE.Object3D.call(this);
+
     this.camera = camera;
     this.renderer = renderer;
 
@@ -14,6 +16,9 @@ function Globe(camera, renderer) {
     this.lat = 0; // 纬度
     this.alt = 10000; // 海拔（米）
 }
+
+Globe.prototype = Object.create(THREE.Object3D.prototype);
+Globe.prototype.constructor = Globe;
 
 Globe.prototype.create = function () {
     // 设置相机位置

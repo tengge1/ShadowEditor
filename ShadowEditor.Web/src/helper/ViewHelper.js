@@ -144,6 +144,10 @@ ViewHelper.prototype.createMesh = function () {
 };
 
 ViewHelper.prototype.onAfterRender = function () {
+    if (!this.app.editor.showViewHelper) {
+        return;
+    }
+
     var renderer = this.app.editor.renderer;
 
     // 最后绘制而且清空深度缓冲，保证视角控件不会被其他物体遮挡

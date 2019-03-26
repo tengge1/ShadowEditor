@@ -89,6 +89,8 @@ function Editor(app) {
     light.position.z = 10;
     this.sceneHelpers.add(light);
 
+    this.showViewHelper = true;
+
     // 事件
     this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
 
