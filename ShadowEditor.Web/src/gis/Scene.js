@@ -1,4 +1,3 @@
-import Controls from './control/Controls';
 import Globe from './Globe';
 
 /**

@@ -10,6 +10,10 @@ function lonlatToXYZ(lonlat, xyz) {
     var lat = lonlat.y * Math.PI / 180;
     var r = WGS84.a + lonlat.z;
 
+    if (xyz === undefined) {
+        xyz = new THREE.Vector3();
+    }
+
     xyz.set(
         r * Math.cos(lat) * Math.cos(lon),
         r * Math.cos(lat) * Math.sin(lon),
@@ -28,6 +32,10 @@ function xyzToLonlat(xyz, lonlat) {
     var lon = Math.atan(xyz.y / Math.sqrt(xyz.x ** 2 + xyz.y ** 2));
     var lat = Math.atan(xyz.z / Math.sqrt(xyz.x ** 2 + xyz.y ** 2));
     var alt = Math.sqrt(xyz.x ** 2 + xyz.y ** 2 + xyz.z ** 2) - WGS84.a;
+
+    if (lonlat === undefined) {
+        lonlat = new THREE.Vector3();
+    }
 
     lonlat.set(
         lon * 180 / Math.PI,
