@@ -25,36 +25,48 @@ function lonlatToXYZ(lonlat, xyz) {
  * @param {THREE.Vector3} lonlat 
  */
 function xyzToLonlat(xyz, lonlat) {
+    var lon = Math.atan(xyz.y / Math.sqrt(xyz.x ** 2 + xyz.y ** 2));
+    var lat = Math.atan(xyz.z / Math.sqrt(xyz.x ** 2 + xyz.y ** 2));
+    var alt = Math.sqrt(xyz.x ** 2 + xyz.y ** 2 + xyz.z ** 2) - WGS84.a;
 
+    lonlat.set(
+        lon * 180 / Math.PI,
+        lat * 180 / Math.PI,
+        alt,
+    );
 }
 
 /**
  * 层级转海拔
- * @param {*} zoom 
+ * @param {*} zoom 层级
  */
-function zoomToAltitude(zoom) {
-
+function zoomToAlt(zoom) {
+    return 7820683 / 2 ** zoom;
 }
 
 /**
  * 海拔转层级
- * @param {*} alt 
+ * @param {*} alt 海拔
  */
-function altitudeToZoom(alt) {
-
+function altToZoom(alt) {
+    return Math.log2(7820683 / alt);
 }
 
 /**
  * 数学工具
  */
 var MathUtils = {
+    // 经纬度海拔转笛卡尔坐标
     lonlatToXYZ,
 
+    // 笛卡尔坐标转经纬度海拔
     xyzToLonlat,
 
-    zoomToAltitude,
+    // 层级转海拔
+    zoomToAlt,
 
-    altitudeToZoom,
+    // 海拔转层级
+    altToZoom,
 };
 
 export default MathUtils;
