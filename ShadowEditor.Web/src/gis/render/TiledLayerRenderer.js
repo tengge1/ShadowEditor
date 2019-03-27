@@ -10,21 +10,20 @@ function TiledLayerRenderer(globe) {
     Renderer.call(this, globe);
 
     var geometry = new TiledGeometry();
-    var material = new THREE.MeshBasicMaterial({
-        color: 0xff0000,
-        side: 2,
-    });
+    var material = new TiledMaterial();
 
     this.mesh = new THREE.Mesh(geometry, material);
     this.mesh.frustumCulled = false;
+
+    this.globe.add(this.mesh);
 }
 
 TiledLayerRenderer.prototype = Object.create(Renderer.prototype);
 TiledLayerRenderer.prototype.constructor = TiledLayerRenderer;
 
 TiledLayerRenderer.prototype.render = function (layer) {
-    this.globe.children.length = 0;
-    this.globe.add(this.mesh);
+    // this.globe.children.length = 0;
+    // this.globe.add(this.mesh);
 };
 
 TiledLayerRenderer.prototype.dispose = function () {
