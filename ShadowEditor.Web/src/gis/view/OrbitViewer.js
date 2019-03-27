@@ -20,6 +20,7 @@ OrbitViewer.prototype.constructor = OrbitViewer;
 OrbitViewer.prototype.setPosition = function (lon, lat, alt) {
     var xyz = MathUtils.lonlatToXYZ(new THREE.Vector3(lon, lat, alt));
     this.camera.position.copy(xyz);
+    this.camera.lookAt(new THREE.Vector3());
 };
 
 OrbitViewer.prototype.getPosition = function () {
