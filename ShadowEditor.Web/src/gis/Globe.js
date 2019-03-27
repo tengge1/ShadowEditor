@@ -1,5 +1,6 @@
 import BingTiledLayer from './layer/BingTiledLayer';
 import TiledLayerRenderer from './render/TiledLayerRenderer';
+import MathUtils from './utils/MathUtils';
 
 /**
  * 地球
@@ -15,15 +16,14 @@ function Globe(camera, renderer) {
     this.lon = 0; // 经度
     this.lat = 0; // 纬度
     this.alt = 10000; // 海拔（米）
+
+    this.tiledLayerRenderer = new TiledLayerRenderer(this);
 }
 
 Globe.prototype = Object.create(THREE.Object3D.prototype);
 Globe.prototype.constructor = Globe;
 
 Globe.prototype.create = function () {
-    // 设置相机位置
-
-
     this.layer = new BingTiledLayer();
     this.tiledLayerRenderer = new TiledLayerRenderer(this);
 };

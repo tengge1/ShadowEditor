@@ -20,10 +20,24 @@ Scene.prototype.start = function () {
 
     this.globe = new Globe(editor.camera, editor.renderer);
     editor.scene.add(this.globe);
+
+    this.app.on(`afterRender.${this.id}`, this.update.bind(this));
+};
+
+Scene.prototype.update = function () {
+    this.globe.update();
 };
 
 Scene.prototype.stop = function () {
+    this.app.on(`afterRender.${this.id}`, null);
+    this.globe.dispose();
+    delete this.globe;
 
+    var editor = this.app.editor;
+    editor.controls = new THREE.EditorControls(editor.camera, editor.renderer.domElement);
+    editor.transformControls.enabled = true;
+    editor.sceneHelpers.visible = true;
+    this.app.editor.showViewHelper = true;
 };
 
 export default Scene;
