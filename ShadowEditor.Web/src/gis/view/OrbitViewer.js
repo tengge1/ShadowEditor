@@ -37,22 +37,24 @@ OrbitViewer.prototype.onMouseDown = function (event) {
     console.log(this.intersectPoint);
 };
 
-OrbitViewer.prototype.onMouseMove = function (event) {
-    if (!this.isDown) {
-        return;
-    }
-    this.intersectSphere(event.offsetX, event.offsetY);
-
+OrbitViewer.prototype.onMouseMove = function () {
     var quat = new THREE.Quaternion();
 
-    quat.setFromUnitVectors(this.intersectPoint, this.oldIntersectPoint);
+    return function (event) {
+        if (!this.isDown) {
+            return;
+        }
+        this.intersectSphere(event.offsetX, event.offsetY);
 
-    this.camera.position.applyQuaternion(quat);
+        quat.setFromUnitVectors(this.intersectPoint, this.oldIntersectPoint);
 
-    this.camera.lookAt(this.sphere.center);
+        this.camera.position.applyQuaternion(quat);
 
-    this.oldIntersectPoint.copy(this.intersectPoint);
-};
+        this.camera.lookAt(this.sphere.center);
+
+        this.oldIntersectPoint.copy(this.intersectPoint);
+    };
+}();
 
 OrbitViewer.prototype.onMouseUp = function (event) {
     this.isDown = false;
