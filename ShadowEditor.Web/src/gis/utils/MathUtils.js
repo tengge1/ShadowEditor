@@ -14,13 +14,11 @@ function lonlatToXYZ(lonlat, xyz) {
         xyz = new THREE.Vector3();
     }
 
-    xyz.set(
+    return xyz.set(
         r * Math.cos(lat) * Math.cos(lon),
         r * Math.cos(lat) * Math.sin(lon),
         r * Math.sin(lat),
     );
-
-    return xyz;
 }
 
 /**
@@ -37,7 +35,7 @@ function xyzToLonlat(xyz, lonlat) {
         lonlat = new THREE.Vector3();
     }
 
-    lonlat.set(
+    return lonlat.set(
         lon * 180 / Math.PI,
         lat * 180 / Math.PI,
         alt,

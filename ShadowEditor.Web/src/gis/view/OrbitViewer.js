@@ -19,6 +19,7 @@ function OrbitViewer(camera, domElement) {
 
     this.isDown = false;
     this.intersectPoint = new THREE.Vector3();
+    this.oldIntersectPoint = new THREE.Vector3();
 
     this.domElement.addEventListener('mousedown', this.onMouseDown.bind(this));
     this.domElement.addEventListener('mousemove', this.onMouseMove.bind(this));
@@ -31,6 +32,8 @@ OrbitViewer.prototype.constructor = OrbitViewer;
 OrbitViewer.prototype.onMouseDown = function (event) {
     this.isDown = true;
     this.intersectSphere(event.offsetX, event.offsetY);
+    this.oldIntersectPoint.copy(this.intersectPoint);
+
     console.log(this.intersectPoint);
 };
 
@@ -38,6 +41,27 @@ OrbitViewer.prototype.onMouseMove = function (event) {
     if (!this.isDown) {
         return;
     }
+    this.intersectSphere(event.offsetX, event.offsetY);
+
+    var dlon = Math.asin(this.intersectPoint.x / WGS84.a) - Math.asin(this.oldIntersectPoint.x / WGS84.a);
+    var dlat = Math.atan(this.intersectPoint.z / WGS84.a) - Math.atan(this.oldIntersectPoint.z / WGS84.a);
+
+    var position = this.camera.position;
+
+    var xyr = Math.sqrt(position.x ** 2 + position.y ** 2);
+    var lon = Math.asin(position.x / xyr) + dlon;
+    var lat = Math.atan(position.z / xyr) + dlat;
+
+    var r = position.length();
+    position.set(
+        r * Math.cos(lat) * Math.cos(lon),
+        r * Math.cos(lat) * Math.sin(lon),
+        r * Math.sin(lat),
+    );
+
+    this.camera.lookAt(this.sphere.center);
+
+    this.oldIntersectPoint.copy(this.intersectPoint);
 };
 
 OrbitViewer.prototype.onMouseUp = function (event) {
@@ -53,13 +77,13 @@ OrbitViewer.prototype.intersectSphere = function (x, y) {
     this.ray.origin.set(
         x / this.domElement.clientWidth * 2 - 1,
         -y / this.domElement.clientHeight * 2 + 1,
-        -0.00000001
+        0.1,
     );
-    this.ray.origin.unproject(this.camera);
+    this.ray.direction.copy(this.ray.origin);
+    this.ray.direction.z = 1;
 
-    this.ray.direction.set(0, 0, -1);
-    this.ray.direction.unproject(this.camera).sub(this.camera.position);
-    this.ray.direction.normalize();
+    this.ray.origin.unproject(this.camera);
+    this.ray.direction.unproject(this.camera).sub(this.ray.origin).normalize();
 
     this.ray.intersectSphere(this.sphere, this.intersectPoint);
 };
