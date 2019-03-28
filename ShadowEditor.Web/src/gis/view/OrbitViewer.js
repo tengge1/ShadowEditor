@@ -43,21 +43,11 @@ OrbitViewer.prototype.onMouseMove = function (event) {
     }
     this.intersectSphere(event.offsetX, event.offsetY);
 
-    var dlon = Math.asin(this.intersectPoint.x / WGS84.a) - Math.asin(this.oldIntersectPoint.x / WGS84.a);
-    var dlat = Math.atan(this.intersectPoint.z / WGS84.a) - Math.atan(this.oldIntersectPoint.z / WGS84.a);
+    var quat = new THREE.Quaternion();
 
-    var position = this.camera.position;
+    quat.setFromUnitVectors(this.intersectPoint, this.oldIntersectPoint);
 
-    var xyr = Math.sqrt(position.x ** 2 + position.y ** 2);
-    var lon = Math.asin(position.x / xyr) + dlon;
-    var lat = Math.atan(position.z / xyr) + dlat;
-
-    var r = position.length();
-    position.set(
-        r * Math.cos(lat) * Math.cos(lon),
-        r * Math.cos(lat) * Math.sin(lon),
-        r * Math.sin(lat),
-    );
+    this.camera.position.applyQuaternion(quat);
 
     this.camera.lookAt(this.sphere.center);
 
