@@ -28,10 +28,13 @@ TiledLayerRenderer.prototype.render = function (layer) {
     var alt = this.globe.alt;
 
     this.mesh.material.length = 0;
+    this.mesh.geometry.groups.length = 0;
 
-    this.creator.get(lon, lat, alt).forEach(n => {
+    this.creator.get(lon, lat, alt).forEach((n, i) => {
         if (n.material) {
+            n.material.group.materialIndex = i;
             this.mesh.material.push(n.material);
+            this.mesh.geometry.groups.push(n.material.group);
         }
     });
 };
