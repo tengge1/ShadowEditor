@@ -4,32 +4,33 @@ import BingTileSystem from '../../utils/BingTileSystem';
 
 /**
  * 瓦片材质
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} z 
  */
-function TiledMaterial() {
+function TiledMaterial(x, y, z) {
     THREE.ShaderMaterial.call(this);
 
     this.vertexShader = TiledVertex;
     this.fragmentShader = TiledFragment;
     this.side = THREE.DoubleSide;
 
-    var url = (new BingTileSystem()).tileXYToUrl(0, 0, 1);
-
     this.uniforms = {
-        lon: {
-            type: 'f',
-            value: 0
+        x: {
+            type: 'i',
+            value: x,
         },
-        alt: {
-            type: 'f',
-            value: 0
+        y: {
+            type: 'i',
+            value: y,
         },
-        alt: {
-            type: 'f',
-            value: 0
+        z: {
+            type: 'i',
+            value: z,
         },
         map: {
             type: 't',
-            value: new THREE.TextureLoader().load(url)
+            value: new THREE.TextureLoader().load((new BingTileSystem()).tileXYToUrl(x, y, z))
         }
     };
 }

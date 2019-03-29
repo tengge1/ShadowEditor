@@ -39,6 +39,7 @@ OrbitViewer.prototype.onMouseDown = function (event) {
 
 OrbitViewer.prototype.onMouseMove = function () {
     var quat = new THREE.Quaternion();
+    var dir = new THREE.Vector3();
 
     return function (event) {
         if (!this.isDown) {

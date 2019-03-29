@@ -10,21 +10,28 @@ function SphereTileCreator() {
     TileCreator.call(this);
     this.tree = rbush();
 
-    this.tile0 = new Tile(0, 0, 0);
-    this.tile0.material = new TiledMaterial();
+    this.tiles = [];
+
+    for (var i = 0; i < 2; i++) {
+        for (var j = 0; j < 2; j++) {
+            var tile = new Tile(i, j, 1);
+            tile.material = new TiledMaterial(i, j, 1);
+            this.tiles.push(tile);
+        }
+    }
 }
 
 SphereTileCreator.prototype = Object.create(TileCreator.prototype);
 SphereTileCreator.prototype.constructor = SphereTileCreator;
 
 SphereTileCreator.prototype.get = function (lon, lat, alt) {
-    var zoom = MathUtils.altToZoom(alt);
+    //var zoom = MathUtils.altToZoom(alt);
 
     // var tiles = [];
 
     // this.fork(0, 0, 0, tiles);
 
-    return [this.tile0];
+    return this.tiles;
 };
 
 SphereTileCreator.prototype.fork = function (x, y, z, tiles) {
