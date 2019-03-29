@@ -34,7 +34,7 @@ function TiledMaterial(x, y, z) {
         }
     };
 
-    this.group = { start: 0, count: 6, materialIndex: 0 };
+    this.group = { start: 0, count: 1536, materialIndex: 0 };
 }
 
 TiledMaterial.prototype = Object.create(THREE.ShaderMaterial.prototype);

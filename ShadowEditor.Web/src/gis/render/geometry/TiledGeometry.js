@@ -1,10 +1,8 @@
-import WGS84 from '../../core/WGS84';
-
 /**
  * 瓦片几何体
  */
 function TiledGeometry() {
-    THREE.PlaneBufferGeometry.call(this, WGS84.a, WGS84.a);
+    THREE.PlaneBufferGeometry.call(this, 1, 1, 16, 16);
 }
 
 TiledGeometry.prototype = Object.create(THREE.PlaneBufferGeometry.prototype);
