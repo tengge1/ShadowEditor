@@ -13,7 +13,7 @@ function TiledMaterial(x, y, z) {
 
     this.vertexShader = TiledVertex;
     this.fragmentShader = TiledFragment;
-    this.side = THREE.DoubleSide;
+    this.side = 2;
 
     this.uniforms = {
         x: {
@@ -31,6 +31,10 @@ function TiledMaterial(x, y, z) {
         map: {
             type: 't',
             value: new THREE.TextureLoader().load((new BingTileSystem()).tileXYToUrl(x, y, z))
+        },
+        opacity: {
+            type: 'f',
+            value: 1
         }
     };
 
