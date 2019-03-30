@@ -1,6 +1,6 @@
 # Shadow Editor
 
-Language: 中文 / [English](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md)
+Language: 中文 / [English](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md) / [русский](README-ru.md)
 
 * 名称：Shadow Editor
 * 版本：v0.1.8(开发中)
@@ -369,4 +369,3 @@ npm run build-docs
 
 * Three.js官网：https://threejs.org/
 * LOL模型查看器：https://github.com/tengge1/lol-model-viewer
-* 60个优秀的免费3D模型下载网站：http://www.360doc.com/content/11/0527/16/930254_119801102.shtml

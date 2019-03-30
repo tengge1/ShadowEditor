@@ -1,6 +1,6 @@
 # Shadow Editor
 
-言語：[中国語](README.md) / [英語](README-en.md) / [日本語](README-jp.md)
+Language: [中国語](README.md) / [英語](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md) / [русский](README-ru.md)
 
 * 名前：シャドウエディタ
 * バージョン：v0.1.8（開発中）
