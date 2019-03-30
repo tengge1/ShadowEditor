@@ -16,7 +16,7 @@ function Globe(camera, renderer) {
 
     this.lon = 0;
     this.lat = 0;
-    this.alt = MathUtils.zoomToAlt(1);
+    this.alt = MathUtils.zoomToAlt(0);
 
     this.layer = new BingTiledLayer();
     this.tiledLayerRenderer = new TiledLayerRenderer(this);

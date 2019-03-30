@@ -12,7 +12,7 @@ function OrbitViewer(camera, domElement) {
 
     this.lon = 0;
     this.lat = 0;
-    this.alt = MathUtils.zoomToAlt(1);
+    this.alt = MathUtils.zoomToAlt(0);
 
     this.sphere = new THREE.Sphere(undefined, WGS84.a);
     this.ray = new THREE.Ray();
