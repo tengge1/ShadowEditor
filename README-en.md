@@ -1,6 +1,6 @@
 # Shadow Editor
 
-Language: [中文](README.md) / English / [日本語](README-jp.md) / [Le français](README-fr.md)  / [русский](README-ru.md)
+Language: [中文](README.md) / [繁體中文](README-tw.md) / English / [日本語](README-jp.md) / [Le français](README-fr.md) / [русский](README-ru.md)
 
 * Name: Shadow Editor
 * Version: v0.1.7
@@ -355,4 +355,3 @@ Multiple components such as displacement, audio monitor, background music, etc.
 
 * Three.js official website: https://threejs.org/
 * LOL Model Viewer: https://github.com/tengge1/lol-model-viewer
-* 60 excellent free 3D model download sites: http://www.360doc.com/content/11/0527/16/930254_119801102.shtml

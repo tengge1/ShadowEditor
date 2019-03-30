@@ -1,6 +1,6 @@
 # Shadow Editor
 
-Language: [中文](README.md) / [English](README-en.md) / [日本語](README-jp.md) / Le français / [русский](README-ru.md)
+Language: [中文](README.md) / [繁體中文](README-tw.md) / [English](README-en.md) / [日本語](README-jp.md) / Le français / [русский](README-ru.md)
 
 * Nom: Editeur d'Ombre
 * Version: v0.1.8 (en développement)

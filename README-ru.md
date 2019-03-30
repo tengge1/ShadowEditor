@@ -1,6 +1,6 @@
 # Shadow Editor
 
-Language: [中文](README.md) / [English](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md) / русский
+Language: [中文](README.md) / [繁體中文](README-tw.md) / [English](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md) / русский
 
 * Имя: Shadow Editor
 * Версия: v0.1.8 (в разработке)
@@ -12,7 +12,7 @@ Language: [中文](README.md) / [English](README-en.md) / [日本語](README-jp.
 2. Добавлены фильтры оттенка-поворота, насыщенности, яркости, размытия, контраста, оттенков серого, инвертирования и сепии.
 3. Настройки фильтра сохраняются в конфигурации сцены и анализируются в редакторе и проигрывателе.
 
-## v0.1.7Update
+## v0.1.7 Update
 
 * Дата выхода: 23 марта 2019 г.
 * Обновление журнала:

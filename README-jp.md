@@ -1,6 +1,6 @@
 # Shadow Editor
 
-Language: [中国語](README.md) / [英語](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md) / [русский](README-ru.md)
+Language: [中文](README.md) / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / [Le français](README-fr.md) / [русский](README-ru.md)
 
 * 名前：シャドウエディタ
 * バージョン：v0.1.8（開発中）
@@ -364,4 +364,3 @@ onMouseUp、onMouseWheel、onResizeの13個のイベント。
 
 * Three.jsの公式ウェブサイト：https://threejs.org/
 * LOLモデルビューア：https://github.com/tengge1/lol-model-viewer
-* 60優れた無料の3Dモデルのダウンロードサイト：http://www.360doc.com/content/11/0527/16/930254_119801102.shtml
