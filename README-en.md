@@ -20,7 +20,7 @@ Language: [中文](README.md) / [繁體中文](README-tw.md) / English / [日本
 10. English translation optimization.
 11. Add a scene one-click export function to automatically analyze the models and resources needed for the scene. All required resources are placed in the `/temp/yyyyMMddHHmmss` folder.
 12. Export the editor function without resources.
-13. Re-released the demo project: [Gitee] (http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
+13. Re-released the demo project: [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
 14. Fix the renderer settings, shadow, γ input, γ output, gamma factor setting invalid bug.
 15. Only one point can be drawn at a time for points, lines and spray tools on the plane.
 
