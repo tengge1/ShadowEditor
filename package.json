@@ -14,8 +14,7 @@
         "build": "rollup -c ShadowEditor.Web/rollup.config.js",
         "build-docs": "gitbook build docs-dev",
         "test": "rollup -c ShadowEditor.Web/test/unit/rollup.config.js",
-        "clear": "npm prune",
-        "earth": "rollup -c ShadowEditor.Web/src/gis2/rollup.config.js"
+        "clear": "npm prune"
     },
     "repository": {
         "type": "git",
