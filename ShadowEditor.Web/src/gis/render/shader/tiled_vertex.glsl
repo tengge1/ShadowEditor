@@ -6,10 +6,10 @@ uniform int z;
 
 varying vec2 vUV;
 
-// 必应地图参数
+// 必应地图参数，纬度180是85.05112878的墨卡托投影
 #define EARTH_RADIUS 6378137.0
-#define MIN_LATITUDE -85.05112878
-#define MAX_LATITUDE 85.05112878
+#define MIN_LATITUDE -180.0
+#define MAX_LATITUDE 180.0
 #define MIN_LONGITUDE -180.0
 #define MAX_LONGITUDE 180.0
 #define PI 3.141592653589793
@@ -32,6 +32,9 @@ void main() {
 
     lon = lon * PI / 180.0;
     lat = lat * PI / 180.0;
+
+    // 墨卡托投影反算
+    lat = 2.0 * atan(exp(lat)) - PI / 2.0;
 
     vec3 transformed = vec3(
         EARTH_RADIUS * cos(lat) * cos(lon),
