@@ -13,7 +13,11 @@ function TiledMaterial(x, y, z) {
 
     this.vertexShader = TiledVertex;
     this.fragmentShader = TiledFragment;
-    this.side = 2;
+    this.side = THREE.BackSide;
+    this.depthTest = true;
+
+    var map = new THREE.TextureLoader().load((new BingTileSystem()).tileXYToUrl(x, y, z));
+    map.flipY = false;
 
     this.uniforms = {
         x: {
@@ -30,15 +34,19 @@ function TiledMaterial(x, y, z) {
         },
         map: {
             type: 't',
-            value: new THREE.TextureLoader().load((new BingTileSystem()).tileXYToUrl(x, y, z))
+            value: map,
         },
         opacity: {
             type: 'f',
-            value: 1
+            value: 1,
         }
     };
 
-    this.group = { start: 0, count: 1536, materialIndex: 0 };
+    this.group = {
+        start: 0,
+        count: 1536,
+        materialIndex: 0
+    };
 }
 
 TiledMaterial.prototype = Object.create(THREE.ShaderMaterial.prototype);
