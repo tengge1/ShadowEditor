@@ -112,8 +112,6 @@ SceneMenu.prototype.createEmptyScene = function () {
 // --------------------------- 新建GIS场景 -------------------------------------
 
 SceneMenu.prototype.createGISScene = function () {
-    UI.msg('test');
-
     if (this.gis === undefined) {
         this.gis = new GISScene(this.app);
     }
