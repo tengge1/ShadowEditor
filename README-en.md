@@ -30,7 +30,7 @@ Warm little nest.
 
 ![image](images/scene20190310.png)
 
-[Click here] (images/README.md) for more screenshots.
+[Click here](images/README.md) for more screenshots.
 
 <table>
     <tr>
