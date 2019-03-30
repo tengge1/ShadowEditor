@@ -14,13 +14,6 @@ varying vec2 vUV;
 #define MAX_LONGITUDE 180.0
 #define PI 3.141592653589793
 
-vec2 mercator(vec2 lonlat) {
-    return vec2(
-        lonlat.x,
-        log(tan((PI / 2.0 + lonlat.y) / 2.0))
-    );
-}
-
 void main() {
     // 每个瓦片位置
     float size = pow(2.0, float(z));

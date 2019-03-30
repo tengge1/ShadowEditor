@@ -9,6 +9,9 @@ import determinant from './mat4/determinant.glsl';
 import compose from './mat4/compose.glsl';
 import decomposeMatrix from './mat4/decomposeMatrix.glsl';
 
+import mercator from './geo/mercator.glsl';
+import mercatorInvert from './geo/mercatorInvert.glsl';
+
 Object.assign(THREE.ShaderChunk, {
     // vec3
     applyMatrix4: applyMatrix4,
@@ -22,4 +25,8 @@ Object.assign(THREE.ShaderChunk, {
     determinant: determinant,
     compose: compose,
     decomposeMatrix: decomposeMatrix,
+
+    // geo
+    mercator: mercator,
+    mercatorInvert: mercatorInvert,
 });

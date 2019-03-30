@@ -14,7 +14,6 @@ function TiledMaterial(x, y, z) {
     this.vertexShader = TiledVertex;
     this.fragmentShader = TiledFragment;
     this.side = THREE.BackSide;
-    this.depthTest = true;
 
     var map = new THREE.TextureLoader().load((new BingTileSystem()).tileXYToUrl(x, y, z));
     map.flipY = false;
