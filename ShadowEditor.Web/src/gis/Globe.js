@@ -11,6 +11,8 @@ import MathUtils from './utils/MathUtils';
 function Globe(camera, renderer) {
     THREE.Object3D.call(this);
 
+    this.name = '地球';
+
     this.camera = camera;
     this.renderer = renderer;
 

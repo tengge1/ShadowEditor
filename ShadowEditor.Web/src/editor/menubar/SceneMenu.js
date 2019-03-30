@@ -119,6 +119,7 @@ SceneMenu.prototype.createGISScene = function () {
     }
 
     this.gis.start();
+    this.app.call(`sceneGraphChanged`, this);
 };
 
 // --------------------------- 保存场景 ----------------------------------------
