@@ -27,6 +27,7 @@ function OrbitViewer(camera, domElement) {
     this.domElement.addEventListener('mousedown', this.onMouseDown.bind(this));
     this.domElement.addEventListener('mousemove', this.onMouseMove.bind(this));
     this.domElement.addEventListener('mouseup', this.onMouseUp.bind(this));
+    this.domElement.addEventListener('mousewheel', this.onMouseWheel.bind(this))
 };
 
 OrbitViewer.prototype = Object.create(Viewer.prototype);
@@ -79,6 +80,10 @@ OrbitViewer.prototype.onMouseMove = function () {
 
 OrbitViewer.prototype.onMouseUp = function (event) {
     this.isDown = false;
+};
+
+OrbitViewer.prototype.onMouseWheel = function () {
+
 };
 
 /**

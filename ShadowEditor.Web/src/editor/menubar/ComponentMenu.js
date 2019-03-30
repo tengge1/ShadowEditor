@@ -68,11 +68,6 @@ ComponentMenu.prototype.render = function () {
                 html: L_CLOTH,
                 cls: 'option',
                 onClick: this.onAddCloth.bind(this)
-            }, {
-                xtype: 'div',
-                html: '地球(测试)',
-                cls: 'option',
-                onClick: this.onAddEarth.bind(this)
             }]
         }]
     });
@@ -164,16 +159,6 @@ ComponentMenu.prototype.onAddCloth = function () {
     cloth.name = L_CLOTH;
 
     editor.execute(new AddObjectCommand(cloth));
-};
-
-// ----------------------------- 地球 --------------------------------------
-
-ComponentMenu.prototype.onAddEarth = function () {
-    if (this.globe === undefined) {
-        this.globe = new Globe(this.app.editor.camera, this.app.editor.renderer);
-        this.globe.create();
-        this.app.on(`afterRender.Globe`, this.globe.update.bind(this.globe));
-    }
 };
 
 export default ComponentMenu;
