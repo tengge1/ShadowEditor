@@ -75,9 +75,9 @@ Warm little nest.
 
 ## user's guidance
 
-**This project only supports Windows system, you need to install .Net Framework 4.5 on your computer. **
+**This project only supports Windows system, you need to install .Net Framework 4.5 on your computer.**
 
-**Recommended to use the latest version of Google Chrome, is not guaranteed to be compatible with other browsers. **
+**Recommended to use the latest version of Google Chrome, is not guaranteed to be compatible with other browsers.**
 
 1. Install `NodeJs`. In the current directory, execute the following command.
 
@@ -158,7 +158,7 @@ Basic geometry supports multiple levels of nesting. You can add a `group` (in th
 10. English translation optimization.
 11. Add a scene one-click export function to automatically analyze the models and resources needed for the scene. All required resources are placed in the `/temp/yyyyMMddHHmmss` folder.
 12. Export the editor function without resources.
-13. Re-released the demo project: [Gitee] (http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
+13. Re-released the demo project: [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
 14. Fix the renderer settings, shadow, γ input, γ output, gamma factor setting invalid bug.
 15. Only one point can be drawn at a time for points, lines and spray tools on the plane.
 
@@ -219,7 +219,7 @@ Basic geometry supports multiple levels of nesting. You can add a `group` (in th
 * Release date: January 11, 2019
 * Update log:
 
-1. Added version control to the scene. The scene table only saves the latest scene, and the historical data is saved in the 'scene name_history` table.
+1. Added version control to the scene. The scene table only saves the latest scene, and the historical data is saved in the `scene name_history` table.
 2. Save the material to automatically generate a shader thumbnail.
 3. Save the modified material loaded into the server model.
 4. Rectangle, circular, cylindrical, icosahedron, wine glass, plane, sphere, teapot, tire, knot, and loading model all support rigid body components. Support visualization to set the shape of the collision body (square, sphere), mass and inertia.
