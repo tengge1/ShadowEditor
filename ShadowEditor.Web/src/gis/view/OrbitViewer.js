@@ -99,14 +99,21 @@ OrbitViewer.prototype.onMouseWheel = function () {
     var dir = new THREE.Vector3();
 
     return function (event) {
-        var delta = -event.wheelDelta * 1000;
+        var delta = -event.wheelDelta;
 
+        var distance = dir.copy(this.camera.position).length() - WGS84.a;
         dir.copy(this.camera.position).normalize();
 
+        if (distance < 0) {
+            distance = 0;
+        }
+
+        var d = delta * distance / 1000;
+
         this.camera.position.set(
-            this.camera.position.x + delta * dir.x,
-            this.camera.position.y + delta * dir.y,
-            this.camera.position.z + delta * dir.z,
+            this.camera.position.x + d * dir.x,
+            this.camera.position.y + d * dir.y,
+            this.camera.position.z + d * dir.z,
         );
     };
 }();
