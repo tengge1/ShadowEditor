@@ -90,7 +90,7 @@ PhysicsWorldComponent.prototype.onObjectChanged = function () {
 PhysicsWorldComponent.prototype.updateUI = function () {
     var container = UI.get('objectPanel', this.id);
     var editor = this.app.editor;
-    if (editor.selected && editor.selected instanceof THREE.Scene) {
+    if (editor.selected && editor.selected === editor.scene) {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
