@@ -101,14 +101,20 @@ OrbitViewer.prototype.onMouseWheel = function () {
     return function (event) {
         var delta = -event.wheelDelta;
 
-        var distance = dir.copy(this.camera.position).length() - WGS84.a;
+        var distance = dir.copy(this.camera.position).length();
         dir.copy(this.camera.position).normalize();
 
-        if (distance < 0) {
-            distance = 0;
+        if (distance < WGS84.a) {
+            distance = WGS84.a;
         }
 
-        var d = delta * distance / 1000;
+        var d = delta * (distance - WGS84.a) / 1000;
+
+        var d0 = MathUtils.zoomToAlt(0) + WGS84.a;
+
+        if (distance + d >= d0) { // 最远0层级距离
+            d = 0;
+        }
 
         this.camera.position.set(
             this.camera.position.x + d * dir.x,
