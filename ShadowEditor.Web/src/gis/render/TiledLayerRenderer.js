@@ -11,7 +11,7 @@ import BingTileSystem from '../utils/BingTileSystem';
 function TiledLayerRenderer(globe) {
     Renderer.call(this, globe);
 
-    this.creator = new SphereTileCreator();
+    this.creator = new SphereTileCreator(this.camera);
 
     var geometry = new TiledGeometry();
 
@@ -28,7 +28,7 @@ TiledLayerRenderer.prototype.render = function (layer) {
     this.mesh.material.length = 0;
     this.mesh.geometry.groups.length = 0;
 
-    this.creator.get(this.camera).forEach((n, i) => {
+    this.creator.get().forEach((n, i) => {
         if (n.material) {
             n.material.group.materialIndex = i;
             this.mesh.material.push(n.material);

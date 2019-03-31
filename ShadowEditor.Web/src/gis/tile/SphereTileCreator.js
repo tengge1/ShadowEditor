@@ -1,14 +1,16 @@
 import TileCreator from './TileCreator';
 import Tile from './Tile';
 import TiledMaterial from '../render/material/TiledMaterial';
-import MathUtils from '../utils/MathUtils';
 
 /**
  * 球形瓦片创建者
+ * @param {*} camera 
  */
-function SphereTileCreator() {
-    TileCreator.call(this);
+function SphereTileCreator(camera) {
+    TileCreator.call(this, camera);
     this.cache = new Map();
+
+    this.center = new THREE.Vector3();
 
     this.tiles = [];
 }
@@ -16,9 +18,11 @@ function SphereTileCreator() {
 SphereTileCreator.prototype = Object.create(TileCreator.prototype);
 SphereTileCreator.prototype.constructor = SphereTileCreator;
 
-SphereTileCreator.prototype.get = function (camera) {
+SphereTileCreator.prototype.get = function () {
     this.tiles.length = 0;
+
     this.fork(0, 0, 0);
+
     return this.tiles;
 };
 
@@ -48,7 +52,7 @@ SphereTileCreator.prototype.fork = function (x, y, z) {
 };
 
 SphereTileCreator.prototype.canFork = function (tile) {
-    return tile.z === 0;
+    return tile.z <= 1;
 };
 
 SphereTileCreator.prototype.dispose = function () {

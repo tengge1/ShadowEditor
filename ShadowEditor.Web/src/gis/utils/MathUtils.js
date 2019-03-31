@@ -87,44 +87,17 @@ function mercatorInvert(mercatorXY, lonlat) {
 }
 
 /**
- * 获取切片的墨卡托投影坐标范围
- * @param {*} x 切片坐标x
- * @param {*} y 切片坐标y
- * @param {*} z 层级level
- * @returns 切片的墨卡托投影坐标范围
+ * 计算两个经纬度之间距离
+ * @param {*} lon1 经度1
+ * @param {*} lat1 纬度1
+ * @param {*} lon2 经度2
+ * @param {*} lat2 纬度2
+ * @see https://www.xuebuyuan.com/2173606.html
  */
-function getMercatorAabbByGrid(x, y, z) {
-    const size = 2 * this.MAX_PROJECTED_COORD / Math.pow(2, z);
-    const minX = -this.MAX_PROJECTED_COORD + x * size;
-    const maxX = minX + size;
-    const maxY = this.MAX_PROJECTED_COORD - y * size;
-    const minY = maxY - size;
-    return {
-        minX: minX,
-        minY: minY,
-        maxX: maxX,
-        maxY: maxY
-    };
-};
-
-/**
- * 获取切片的经纬度坐标范围（弧度）
- * @param {*} x 切片坐标x
- * @param {*} y 切片坐标y
- * @param {*} z 层级level
- * @returns 经纬度坐标范围（弧度）
- */
-function getAabbByGrid(x, y, z) {
-    const aabb = this.getMercatorAabbByGrid(x, y, z);
-    const min = this._mercatorInvert(aabb.minX / Wgs84.a, aabb.minY / Wgs84.a);
-    const max = this._mercatorInvert(aabb.maxX / Wgs84.a, aabb.maxY / Wgs84.a);
-    return {
-        minLon: min.lon,
-        minLat: min.lat,
-        maxLon: max.lon,
-        maxLat: max.lat
-    };
-};
+function getDistance(lon1, lat1, lon2, lat2) {
+    return 2 * 6378137 * Math.asin(Math.sqrt(Math.pow(Math.sin((lat1 - lat2) * Math.PI / 180 / 2), 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.pow(Math.sin((lon1 * Math.PI / 180 - lon2 * Math.PI / 180) / 2), 2)));
+}
 
 /**
  * 数学工具
@@ -147,6 +120,9 @@ var MathUtils = {
 
     // 墨卡托投影反算
     mercatorInvert,
+
+    // 计算两个经纬度之间距离
+    getDistance,
 };
 
 export default MathUtils;
