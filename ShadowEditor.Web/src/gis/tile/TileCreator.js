@@ -9,4 +9,8 @@ TileCreator.prototype.get = function (lon, lat, alt) {
     return [];
 };
 
+TileCreator.prototype.dispose = function () {
+
+};
+
 export default TileCreator;

@@ -25,14 +25,10 @@ TiledLayerRenderer.prototype = Object.create(Renderer.prototype);
 TiledLayerRenderer.prototype.constructor = TiledLayerRenderer;
 
 TiledLayerRenderer.prototype.render = function (layer) {
-    var lon = this.globe.lon;
-    var lat = this.globe.lat;
-    var alt = this.globe.alt;
-
     this.mesh.material.length = 0;
     this.mesh.geometry.groups.length = 0;
 
-    this.creator.get(lon, lat, alt).forEach((n, i) => {
+    this.creator.get(this.camera).forEach((n, i) => {
         if (n.material) {
             n.material.group.materialIndex = i;
             this.mesh.material.push(n.material);
@@ -51,6 +47,8 @@ TiledLayerRenderer.prototype.dispose = function () {
     });
 
     delete this.mesh;
+
+    this.creator.dispose();
 };
 
 export default TiledLayerRenderer;
