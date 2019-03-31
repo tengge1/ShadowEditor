@@ -27,7 +27,7 @@ function OrbitViewer(camera, domElement) {
     this.domElement.addEventListener('mousedown', this.onMouseDown.bind(this));
     this.domElement.addEventListener('mousemove', this.onMouseMove.bind(this));
     this.domElement.addEventListener('mouseup', this.onMouseUp.bind(this));
-    this.domElement.addEventListener('mousewheel', this.onMouseWheel.bind(this))
+    this.domElement.addEventListener('mousewheel', this.onMouseWheel.bind(this));
 };
 
 OrbitViewer.prototype = Object.create(Viewer.prototype);
@@ -82,7 +82,7 @@ OrbitViewer.prototype.onMouseUp = function (event) {
     this.isDown = false;
 };
 
-OrbitViewer.prototype.onMouseWheel = function () {
+OrbitViewer.prototype.onMouseWheel = function (event) {
 
 };
 
@@ -93,8 +93,7 @@ OrbitViewer.prototype.onMouseWheel = function () {
  */
 OrbitViewer.prototype.intersectSphere = function (x, y) {
     this.ray.origin.set(
-        x / this.domElement.clientWidth * 2 - 1,
-        -y / this.domElement.clientHeight * 2 + 1,
+        x / this.domElement.clientWidth * 2 - 1, -y / this.domElement.clientHeight * 2 + 1,
         0.1,
     );
     this.ray.direction.copy(this.ray.origin);
@@ -124,6 +123,7 @@ OrbitViewer.prototype.dispose = function () {
     this.domElement.removeEventListener('mousedown', this.onMouseDown);
     this.domElement.removeEventListener('mousemove', this.onMouseMove);
     this.domElement.removeEventListener('mouseup', this.onMouseUp);
+    this.domElement.addEventListener('mousewheel', null);
 
     Viewer.prototype.dispose.call(this);
 };
