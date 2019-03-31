@@ -1,5 +1,6 @@
 /**
  * 具有一定体积的点光源帮助器
+ * @author tengge / https://github.com/tengge1
  * @param {*} light 
  * @param {*} sphereSize 
  * @param {*} color 

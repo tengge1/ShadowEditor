@@ -2,6 +2,7 @@ import BaseHelper from './BaseHelper';
 
 /**
  * 网格帮助器
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function GridHelper(app) {

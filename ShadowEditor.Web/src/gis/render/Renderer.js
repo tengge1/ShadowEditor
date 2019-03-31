@@ -2,6 +2,7 @@ var ID = -1;
 
 /**
  * 渲染器
+ * @author tengge / https://github.com/tengge1
  * @param {*} globe 
  */
 function Renderer(globe) {

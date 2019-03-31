@@ -1,5 +1,6 @@
 /**
  * 具有一定体积的半球光帮助器
+ * @author tengge / https://github.com/tengge1
  * @param {*} light 
  * @param {*} size 
  * @param {*} color 

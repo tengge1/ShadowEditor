@@ -2,6 +2,7 @@ import Layer from './Layer';
 
 /**
  * 瓦片图层
+ * @author tengge / https://github.com/tengge1
  */
 function TiledLayer() {
     Layer.call(this);

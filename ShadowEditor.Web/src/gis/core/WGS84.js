@@ -1,5 +1,6 @@
 /**
  * WGS84
+ * @author tengge / https://github.com/tengge1
  * @see https://zhidao.baidu.com/question/535863620.html
  */
 var WGS84 = {

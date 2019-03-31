@@ -4,6 +4,7 @@ import OutlineFragment from './shader/outline_fragment.glsl';
 
 /**
  * 选择帮助器
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function SelectHelper(app) {

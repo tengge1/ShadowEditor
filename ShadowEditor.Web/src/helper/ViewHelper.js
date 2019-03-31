@@ -4,6 +4,7 @@ import ArrowFragment from './view/ArrowFragment.glsl';
 
 /**
  * 视角帮助器
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function ViewHelper(app) {

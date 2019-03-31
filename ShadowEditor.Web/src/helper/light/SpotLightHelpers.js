@@ -3,6 +3,7 @@ import VolumeSpotLightHelper from './VolumeSpotLightHelper';
 
 /**
  * 聚光灯帮助器
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function SpotLightHelpers(app) {

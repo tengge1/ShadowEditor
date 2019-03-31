@@ -14,6 +14,7 @@ import SplineHelper from './line/SplineHelper';
 
 /**
  * 所有帮助器
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function Helpers(app) {

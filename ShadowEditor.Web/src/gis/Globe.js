@@ -5,6 +5,7 @@ import MathUtils from './utils/MathUtils';
 
 /**
  * 地球
+ * @author tengge / https://github.com/tengge1
  * @param {*} camera 
  * @param {*} renderer 
  */

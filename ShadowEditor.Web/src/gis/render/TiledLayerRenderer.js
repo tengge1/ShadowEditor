@@ -6,6 +6,7 @@ import BingTileSystem from '../utils/BingTileSystem';
 
 /**
  * 瓦片图层渲染器
+ * @author tengge / https://github.com/tengge1
  * @param {*} globe 
  */
 function TiledLayerRenderer(globe) {

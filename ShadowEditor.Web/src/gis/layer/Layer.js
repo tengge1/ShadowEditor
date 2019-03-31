@@ -2,6 +2,7 @@ var ID = -1;
 
 /**
  * 图层
+ * @author tengge / https://github.com/tengge1
  */
 function Layer() {
     this.id = `${this.constructor.name}${ID--}`;

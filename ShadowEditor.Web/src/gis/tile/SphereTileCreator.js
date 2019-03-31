@@ -1,9 +1,11 @@
 import TileCreator from './TileCreator';
 import Tile from './Tile';
 import TiledMaterial from '../render/material/TiledMaterial';
+import MathUtils from '../utils/MathUtils';
 
 /**
  * 球形瓦片创建者
+ * @author tengge / https://github.com/tengge1
  * @param {*} camera 
  */
 function SphereTileCreator(camera) {
@@ -20,6 +22,9 @@ SphereTileCreator.prototype.constructor = SphereTileCreator;
 
 SphereTileCreator.prototype.get = function () {
     this.tiles.length = 0;
+
+    MathUtils._xyzToLonlat(this.camera.position, this.center);
+    this.center.z = 0;
 
     this.fork(0, 0, 0);
 
@@ -52,6 +57,8 @@ SphereTileCreator.prototype.fork = function (x, y, z) {
 };
 
 SphereTileCreator.prototype.canFork = function (tile) {
+    var distance = MathUtils._getDistance(this.center.x, this.center.y, tile._center.x, tile._center.y);
+
     return tile.z <= 1;
 };
 

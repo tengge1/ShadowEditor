@@ -2,6 +2,7 @@ import BaseHelper from '../BaseHelper';
 
 /**
  * 曲线帮助器基类
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function SplineHelper(app) {

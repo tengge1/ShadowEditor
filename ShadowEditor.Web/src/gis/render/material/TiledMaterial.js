@@ -4,6 +4,7 @@ import BingTileSystem from '../../utils/BingTileSystem';
 
 /**
  * 瓦片材质
+ * @author tengge / https://github.com/tengge1
  * @param {*} x 
  * @param {*} y 
  * @param {*} z 

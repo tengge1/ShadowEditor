@@ -1,5 +1,6 @@
 /**
  * 瓦片创建者
+ * @author tengge / https://github.com/tengge1
  * @param {*} camera 
  */
 function TileCreator(camera) {

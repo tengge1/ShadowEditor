@@ -2,6 +2,7 @@ import BaseHelper from './BaseHelper';
 
 /**
  * 相机帮助器
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function CameraHelper(app) {

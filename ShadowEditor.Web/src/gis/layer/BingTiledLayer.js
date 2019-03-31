@@ -2,6 +2,7 @@ import TiledLayer from './TiledLayer';
 
 /**
  * 必应地图图层
+ * @author tengge / https://github.com/tengge1
  */
 function BingTiledLayer() {
     TiledLayer.call(this);

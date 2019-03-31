@@ -3,6 +3,7 @@ import VolumeHemisphereLightHelper from './VolumeHemisphereLightHelper';
 
 /**
  * 半球光帮助器
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function HemisphereLightHelpers(app) {

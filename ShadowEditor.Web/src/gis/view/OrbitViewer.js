@@ -4,6 +4,7 @@ import MathUtils from '../utils/MathUtils';
 
 /**
  * 轨道查看器
+ * @author tengge / https://github.com/tengge1
  * @param {*} camera 相机
  * @param {*} domElement 文档
  */

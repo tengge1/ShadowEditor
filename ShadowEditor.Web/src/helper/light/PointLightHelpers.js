@@ -3,6 +3,7 @@ import VolumePointLightHelper from './VolumePointLightHelper';
 
 /**
  * 点光源帮助器
+ * @author tengge / https://github.com/tengge1
  * @param {*} app 
  */
 function PointLightHelpers(app) {
