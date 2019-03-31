@@ -10,10 +10,6 @@ import MathUtils from '../utils/MathUtils';
 function OrbitViewer(camera, domElement) {
     Viewer.call(this, camera, domElement);
 
-    this.lon = 0;
-    this.lat = 0;
-    this.alt = MathUtils.zoomToAlt(0);
-
     this.sphere = new THREE.Sphere(undefined, WGS84.a);
     this.ray = new THREE.Ray();
 
@@ -152,7 +148,7 @@ OrbitViewer.prototype.setPosition = function (lon, lat, alt) {
 };
 
 OrbitViewer.prototype.getPosition = function () {
-    return new THREE.Vector3(this.lon, this.lat, this.alt);
+
 };
 
 OrbitViewer.prototype.update = function () {
