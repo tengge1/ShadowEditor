@@ -95,9 +95,21 @@ OrbitViewer.prototype.onMouseUp = function (event) {
     this.isPan = false;
 };
 
-OrbitViewer.prototype.onMouseWheel = function (event) {
+OrbitViewer.prototype.onMouseWheel = function () {
+    var dir = new THREE.Vector3();
 
-};
+    return function (event) {
+        var delta = -event.wheelDelta * 1000;
+
+        dir.copy(this.camera.position).normalize();
+
+        this.camera.position.set(
+            this.camera.position.x + delta * dir.x,
+            this.camera.position.y + delta * dir.y,
+            this.camera.position.z + delta * dir.z,
+        );
+    };
+}();
 
 /**
  * 计算屏幕坐标与地球表面交点
@@ -127,7 +139,7 @@ OrbitViewer.prototype.setPosition = function (lon, lat, alt) {
 };
 
 OrbitViewer.prototype.getPosition = function () {
-
+    return new THREE.Vector3(this.lon, this.lat, this.alt);
 };
 
 OrbitViewer.prototype.update = function () {
