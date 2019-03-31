@@ -11,6 +11,7 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 1. 设置面板放到选项菜单中。
 2. 新增色调旋转(hue-rotate)、饱和度、亮度、高斯模糊(blur)、对比度、灰度、颜色反转(invert)、复古(sepia)滤镜。
 3. 滤镜设置保存在场景配置中，并在编辑器和播放器解析。
+4. 创建GIS场景。(开发中)
 
 ## v0.1.7更新
 
@@ -36,9 +37,13 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 
 ## 项目截图
 
-温馨小窝。
+1. 温馨小窝
 
 ![image](images/scene20190310.png)
+
+2. 人类家园(开发中)
+
+![image](images/scene20190331.png)
 
 [点击此处](images/README.md)查看更多截图。
 

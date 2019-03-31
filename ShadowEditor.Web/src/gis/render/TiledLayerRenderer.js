@@ -1,8 +1,6 @@
 import Renderer from './Renderer';
 import TiledGeometry from './geometry/TiledGeometry';
 import SphereTileCreator from '../tile/SphereTileCreator';
-import WGS84 from '../core/WGS84';
-import BingTileSystem from '../utils/BingTileSystem';
 
 /**
  * 瓦片图层渲染器
