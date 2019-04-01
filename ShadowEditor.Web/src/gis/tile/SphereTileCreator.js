@@ -13,9 +13,8 @@ function SphereTileCreator(camera) {
 
     this.cache = new Map();
 
-    // 视锥过滤
-    this._projScreenMatrix = new THREE.Matrix4();
-    this._frustum = new THREE.Frustum();
+    // this._projScreenMatrix = new THREE.Matrix4();
+    // this._frustum = new THREE.Frustum();
 
     this.tiles = [];
 }
@@ -26,8 +25,8 @@ SphereTileCreator.prototype.constructor = SphereTileCreator;
 SphereTileCreator.prototype.get = function () {
     this.tiles.length = 0;
 
-    this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
-    this._frustum.setFromMatrix(this._projScreenMatrix);
+    // this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
+    // this._frustum.setFromMatrix(this._projScreenMatrix);
 
     this.fork(0, 0, 0);
 

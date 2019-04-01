@@ -35,10 +35,6 @@ function TiledMaterial(x, y, z) {
         map: {
             type: 't',
             value: map,
-        },
-        opacity: {
-            type: 'f',
-            value: 1,
         }
     };
 

@@ -1,9 +1,18 @@
 precision highp float;
 
+attribute vec3 position;
+attribute vec3 normal;
+attribute vec2 uv;
+
+uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 projectionMatrix;
+
 uniform int x;
 uniform int y;
 uniform int z;
 
+varying vec3 vNormal;
 varying vec2 vUV;
 
 // 必应地图参数，纬度180是85.05112878的墨卡托投影
@@ -42,7 +51,8 @@ void main() {
         EARTH_RADIUS * sin(lat)
     );
 
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(transformed, 1.0);
+    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(transformed, 1.0);
 
+    vNormal = normal;
     vUV = uv;
 }
