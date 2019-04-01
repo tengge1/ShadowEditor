@@ -10,7 +10,7 @@ const MAX_PROJECTED_COORD = 20037508.3427892; // 墨卡托最大投影坐标（�
 function _lonlatToXYZ(lonlat, xyz) {
     var lon = lonlat.x;
     var lat = lonlat.y;
-    var r = WGS84.a + lonlat.z;
+    var r = WGS84.a + (lonlat.z || 0);
 
     if (xyz === undefined) {
         xyz = new THREE.Vector3();

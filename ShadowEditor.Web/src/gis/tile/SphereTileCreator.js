@@ -12,8 +12,6 @@ function SphereTileCreator(camera) {
     TileCreator.call(this, camera);
     this.cache = new Map();
 
-    this.center = new THREE.Vector3();
-
     this.tiles = [];
 }
 
@@ -22,9 +20,6 @@ SphereTileCreator.prototype.constructor = SphereTileCreator;
 
 SphereTileCreator.prototype.get = function () {
     this.tiles.length = 0;
-
-    MathUtils._xyzToLonlat(this.camera.position, this.center);
-    this.center.z = 0;
 
     this.fork(0, 0, 0);
 
@@ -56,11 +51,23 @@ SphereTileCreator.prototype.fork = function (x, y, z) {
     }
 };
 
-SphereTileCreator.prototype.canFork = function (tile) {
-    var distance = MathUtils._getDistance(this.center.x, this.center.y, tile._center.x, tile._center.y);
+SphereTileCreator.prototype.canFork = function () {
+    var xyz = new THREE.Vector3();
 
-    return tile.z <= 1;
-};
+    return function (tile) {
+        if (tile.z <= 1) {
+            return true;
+        }
+
+        MathUtils._lonlatToXYZ(tile._center, xyz);
+
+        var distance = this.camera.position.distanceTo(xyz);
+
+        var zoom = MathUtils.altToZoom(distance) + 2;
+
+        return tile.z <= zoom;
+    };
+}();
 
 SphereTileCreator.prototype.dispose = function () {
     this.tiles.length = 0;
