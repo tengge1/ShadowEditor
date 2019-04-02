@@ -13,6 +13,7 @@ function SphereTileCreator(camera) {
 
     this.cache = new Map();
 
+    this._center = new THREE.Vector3();
     this._projScreenMatrix = new THREE.Matrix4();
     this._frustum = new THREE.Frustum();
 
@@ -25,6 +26,7 @@ SphereTileCreator.prototype.constructor = SphereTileCreator;
 SphereTileCreator.prototype.get = function () {
     this.tiles.length = 0;
 
+    MathUtils.xyzToLonlat(this.camera.position, this._center);
     this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
     this._frustum.setFromMatrix(this._projScreenMatrix);
 
@@ -68,13 +70,23 @@ SphereTileCreator.prototype.canFork = function () {
 
         var frustum = this._frustum;
 
-        MathUtils._lonlatToXYZ(tile._center, xyz);
+        if (tile.z >= 5) {
+            return false;
+        }
 
-        var distance = this.camera.position.distanceTo(xyz);
+        if (tile._aabb.containsPoint(this._center)) {
+            return true;
+        } else {
+            return false;
+        }
 
-        var zoom = MathUtils.altToZoom(distance) + 2;
+        // MathUtils._lonlatToXYZ(tile._center, xyz);
 
-        return tile.z <= zoom;
+        // var distance = this.camera.position.distanceTo(xyz);
+
+        // var zoom = MathUtils.altToZoom(distance) + 2;
+
+        // return tile.z <= zoom;
     };
 }();
 

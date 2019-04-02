@@ -3,6 +3,7 @@ import TiledGeometry from './geometry/TiledGeometry';
 import SphereTileCreator from '../tile/SphereTileCreator';
 import TiledVertex from './shader/tiled_vertex.glsl';
 import TiledFragment from './shader/tiled_fragment.glsl';
+import WGS84 from '../core/WGS84';
 
 /**
  * 瓦片图层渲染器
@@ -128,9 +129,17 @@ TiledLayerRenderer.prototype.render = function (layer) {
     this.mesh.material.length = 0;
     this.mesh.geometry.groups.length = 0;
 
+    this.globe.children.length = 0;
+
     var z = this.renderer.z;
 
     this.creator.get().forEach((n, i) => {
+        if (!n.mesh) {
+            n.mesh = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(), WGS84.a * 1.5);
+        }
+
+        this.globe.add(n.mesh);
+
         if (n.z >= z && n.material) {
             n.material.group.materialIndex = i;
             this.mesh.material.push(n.material);
@@ -153,6 +162,9 @@ TiledLayerRenderer.prototype.renderMesh = function () {
     gl.enable(gl.CULL_FACE);
     gl.cullFace(gl.BACK);
     gl.frontFace(gl.CW);
+
+    gl.enable(gl.DEPTH_TEST);
+    // gl.depthFunc(gl.LEQUAL);
 
     gl.uniformMatrix4fv(this.uniforms.modelMatrix, false, this.mesh.matrix.elements);
     gl.uniformMatrix4fv(this.uniforms.viewMatrix, false, camera.matrixWorldInverse.elements);
