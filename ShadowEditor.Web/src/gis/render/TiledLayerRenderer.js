@@ -150,6 +150,10 @@ TiledLayerRenderer.prototype.renderMesh = function () {
 
     gl.useProgram(this.program);
 
+    gl.enable(gl.CULL_FACE);
+    gl.cullFace(gl.BACK);
+    gl.frontFace(gl.CW);
+
     gl.uniformMatrix4fv(this.uniforms.modelMatrix, false, this.mesh.matrix.elements);
     gl.uniformMatrix4fv(this.uniforms.viewMatrix, false, camera.matrixWorldInverse.elements);
     gl.uniformMatrix4fv(this.uniforms.projectionMatrix, false, camera.projectionMatrix.elements);
