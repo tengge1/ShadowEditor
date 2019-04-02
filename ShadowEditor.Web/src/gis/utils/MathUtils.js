@@ -229,6 +229,26 @@ function getTileMercatorBox(x, y, z) {
 }
 
 /**
+ * 获取瓦片真实经纬度范围（弧度）
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} z 
+ */
+function _getTileBox(x, y, z) {
+    let { minX, minY, maxX, maxY } = _getTileMercatorBox(x, y, z);
+
+    minY = 2 * Math.atan(Math.exp(minY)) - Math.PI / 2;
+    maxY = 2 * Math.atan(Math.exp(maxY)) - Math.PI / 2;
+
+    return {
+        minX,
+        minY,
+        maxX,
+        maxY,
+    };
+}
+
+/**
  * 数学工具
  * @author tengge / https://github.com/tengge1
  */
@@ -262,6 +282,9 @@ var MathUtils = {
     // 获取瓦片墨卡托投影范围
     _getTileMercatorBox,
     getTileMercatorBox,
+
+    // 获取瓦片真实范围
+    _getTileBox,
 };
 
 export default MathUtils;

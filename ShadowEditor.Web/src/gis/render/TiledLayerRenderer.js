@@ -27,6 +27,8 @@ function TiledLayerRenderer(globe) {
     this.uniforms = {};
     this.buffers = {};
 
+    this.renderer.z = 0;
+
     this.initProgram();
     this.initBuffers();
 }
@@ -126,8 +128,10 @@ TiledLayerRenderer.prototype.render = function (layer) {
     this.mesh.material.length = 0;
     this.mesh.geometry.groups.length = 0;
 
+    var z = this.renderer.z;
+
     this.creator.get().forEach((n, i) => {
-        if (n.material) {
+        if (n.z >= z && n.material) {
             n.material.group.materialIndex = i;
             this.mesh.material.push(n.material);
             this.mesh.geometry.groups.push(n.material.group);
@@ -194,6 +198,9 @@ TiledLayerRenderer.prototype.renderMesh = function () {
 
         gl.drawElements(gl.TRIANGLES, geometry.index.count, gl.UNSIGNED_SHORT, 0);
     });
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, null);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
 };
 
 TiledLayerRenderer.prototype.dispose = function () {
