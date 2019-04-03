@@ -10,6 +10,7 @@ function Tree(options = {}) {
     Control.call(this, options);
 
     this.data = options.data || []; // [{ value: '值', text: '文本', expand: 'true/false, 默认关闭', draggable: 'true/false, 默认不可拖动', 其他属性 }, ...]
+    this.cls = options.cls || 'Tree';
 
     this.onClick = options.onClick || null;
     this.onDblClick = options.onDblClick || null;
@@ -29,7 +30,7 @@ Tree.prototype.render = function () {
         this.parent.appendChild(this.dom);
 
         Object.assign(this.dom, {
-            className: 'Tree'
+            className: this.cls
         });
     }
 
@@ -53,12 +54,13 @@ Tree.prototype._createNode = function (data, dom) {
     var leaf = !Array.isArray(data.children) || data.children.length === 0;
     var expand = data.expand || this._expands[value] === true;
     var draggable = data.draggable || false;
+    var cls = data.cls || '';
 
     data.leaf = leaf;
     data.expand = expand;
 
     Object.assign(li, {
-        className: 'Node',
+        className: 'Node ' + cls,
         data: data
     });
 

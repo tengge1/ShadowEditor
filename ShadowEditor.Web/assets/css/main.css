@@ -514,7 +514,7 @@ ul.Tree .Node.dragBottom {
 }
 
 ul.Tree .Node a {
-    width: calc(100% - 16px);
+    width: calc(100% - 26px);
     color: rgba(0, 0, 0, 0.5);
     text-decoration: none;
     pointer-events: none;
@@ -797,6 +797,39 @@ ul.Tree .Node .SubTree {
     width: 220px;
 }
 
+.Hierachy .Node a::before {
+    font-family: "iconfont" !important;
+    font-size: 12px;
+    content: '\e619';
+    color: #ccc;
+    margin-right: 2px;
+    vertical-align: top;
+}
+
+.Hierachy .Node.Camera a::before {
+    color: #ee8888;
+}
+
+.Hierachy .Node.Scene a::before {
+    color: #8888ee;
+}
+
+.Hierachy .Node.Line a::before {
+    color: #88ee88;
+}
+
+.Hierachy .Node.Points a::before {
+    color: #ee8888;
+}
+
+.Hierachy .Node.Light a::before {
+    color: #88ee88;
+}
+
+.Hierachy .Node.Default a::before {
+    color: #ccc;
+}
+
 .rsidebar {
     position: absolute;
     right: 0;
@@ -867,110 +900,6 @@ ul.Tree .Node .SubTree {
     color: #f00;
     text-align: right;
     padding: 0 20px;
-}
-
-/* 大纲控件 */
-
-.Outliner {
-    color: #444;
-    background-color: #fff;
-    padding: 0;
-    width: 100%;
-    height: 320px;
-    font-size: 12px;
-    cursor: default;
-    overflow: auto;
-    outline: none !important;
-}
-
-.Outliner .option {
-    padding: 4px;
-    color: #666;
-    white-space: nowrap;
-    border: 1px solid transparent;
-}
-
-.Outliner .option:hover {
-    background-color: rgba(0, 0, 0, 0.02);
-}
-
-.Outliner .option.active {
-    background-color: rgba(0, 0, 0, 0.04);
-}
-
-.Outliner .option.drag {
-    border: 1px dashed #999;
-}
-
-.Outliner .option.dragTop {
-    border-top: 1px dashed #999;
-}
-
-.Outliner .option.dragBottom {
-    border-bottom: 1px dashed #999;
-}
-
-.Outliner .type {
-    position: relative;
-    top: -2px;
-    padding: 0 2px;
-    color: #ddd;
-}
-
-.Outliner .type:after {
-    content: '■';
-}
-
-.Outliner .Scene {
-    color: #ccccff;
-}
-
-.Outliner .Object3D {
-    color: #aaaaee;
-}
-
-.Outliner .Mesh {
-    color: #8888ee;
-}
-
-.Outliner .Line {
-    color: #88ee88;
-}
-
-.Outliner .LineSegments {
-    color: #88ee88;
-}
-
-.Outliner .Points {
-    color: #ee8888;
-}
-
-.Outliner .PointLight {
-    color: #dddd00;
-}
-
-.Outliner.Geometry {
-    color: #88ff88;
-}
-
-.Outliner .BoxGeometry {
-    color: #bbeebb;
-}
-
-.Outliner .TorusGeometry {
-    color: #aaeeaa;
-}
-
-.Outliner .Material {
-    color: #ff8888;
-}
-
-.Outliner .MeshPhongMaterial {
-    color: #ffaa88;
-}
-
-.Outliner .Script:after {
-    content: '{...}'/* ❮/❯ */
 }
 
 /* 底部面板 */

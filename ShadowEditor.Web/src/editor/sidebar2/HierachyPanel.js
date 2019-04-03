@@ -30,6 +30,7 @@ HierachyPanel.prototype.render = function () {
             xtype: 'tree',
             id: 'tree',
             scope: this.id,
+            cls: 'Tree Hierachy',
             onClick: this.onClick.bind(this),
             onDblClick: this.onDblClick.bind(this),
             onDrag: this.onDrag.bind(this),
@@ -87,6 +88,7 @@ HierachyPanel.prototype.updateUI = function () {
     var list = [{
         value: camera.uuid,
         text: camera.name,
+        cls: 'Camera',
         children: []
     }];
 
@@ -99,11 +101,26 @@ HierachyPanel.prototype.updateUI = function () {
 HierachyPanel.prototype._parseData = function (obj, list) {
     var scene = this.app.editor.scene;
 
+    var cls = null;
+
+    if (obj === scene) {
+        cls = 'Scene';
+    } else if (obj instanceof THREE.Line) {
+        cls = 'Line';
+    } else if (obj instanceof THREE.Light) {
+        cls = 'Light';
+    } else if (obj instanceof THREE.Points) {
+        cls = 'Points';
+    } else {
+        cls = 'Default';
+    }
+
     var data = {
         value: obj.uuid,
         text: obj.name,
         expand: obj === scene,
         draggable: obj !== scene,
+        cls: cls,
         children: []
     };
     list.push(data);
