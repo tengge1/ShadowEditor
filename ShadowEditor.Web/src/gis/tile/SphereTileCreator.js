@@ -60,6 +60,10 @@ SphereTileCreator.prototype.fork = function (x, y, z) {
     }
 };
 
+/**
+ * 是否可以使用下一级底图，每三个层级一组
+ * 1~4~7~10~13~16~19~22~25
+ */
 SphereTileCreator.prototype.canFork = function () {
     var xyz = new THREE.Vector3();
 

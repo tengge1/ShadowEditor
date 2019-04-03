@@ -31,7 +31,6 @@ Scene.prototype.start = function () {
 
     this.globe = new Globe(editor.camera, editor.renderer);
     editor.scene.add(this.globe);
-
     this.app.on(`afterRender.${this.id}`, this.update.bind(this));
 };
 
