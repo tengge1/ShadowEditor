@@ -1,6 +1,4 @@
-import {
-    dispatch
-} from '../third_party';
+
 import UI from '../ui/UI';
 import Converter from '../serialization/Converter';
 
@@ -31,7 +29,7 @@ function Player(options = {}) {
 
     this.options = options;
 
-    this.dispatch = new dispatch([
+    this.dispatch = new d3.dispatch([
         'init'
     ]);
     this.call = this.dispatch.call.bind(this.dispatch);

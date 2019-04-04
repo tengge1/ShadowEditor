@@ -1,4 +1,3 @@
-import { dispatch } from '../third_party';
 import EventList from './EventList';
 import BaseEvent from './BaseEvent';
 
@@ -21,7 +20,7 @@ import EditorControlsEvent from './EditorControlsEvent';
  */
 function EventDispatcher(app) {
     this.app = app;
-    this.dispatch = dispatch.apply(dispatch, EventList);
+    this.dispatch = d3.dispatch.apply(d3.dispatch, EventList);
     this.addDomEventListener();
 
     this.events = [

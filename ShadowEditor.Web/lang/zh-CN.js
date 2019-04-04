@@ -208,6 +208,7 @@ L_MAX_VOLUME = '主音量';
 L_BACKGROUND_MUSIC = '背景音乐';
 L_AUTO_PLAY = '自动播放';
 L_VOLUME = '循环播放';
+L_LOOP = '循环播放';
 L_PLAY = '播放';
 L_STOP = '停止';
 L_CLICK_AUDIO_IN_PANEL = '请点击音频面板中的音频！';
