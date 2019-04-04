@@ -72,17 +72,19 @@ SphereTileCreator.prototype.canFork = function () {
             return true;
         }
 
-        var frustum = this._frustum;
+        return false;
 
-        if (tile.z >= 5) {
-            return false;
-        }
+        // var frustum = this._frustum;
 
-        if (tile._aabb.containsPoint(this._center)) {
-            return true;
-        } else {
-            return false;
-        }
+        // if (tile.z >= 5) {
+        //     return false;
+        // }
+
+        // if (tile._aabb.containsPoint(this._center)) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
 
         // MathUtils._lonlatToXYZ(tile._center, xyz);
 
