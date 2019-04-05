@@ -163,7 +163,7 @@ TiledLayerRenderer.prototype.renderMesh = function () {
     gl.cullFace(gl.BACK);
     gl.frontFace(gl.CW);
 
-    gl.enable(gl.DEPTH_TEST);
+    gl.disable(gl.DEPTH_TEST);
     // gl.depthFunc(gl.LEQUAL);
 
     gl.uniformMatrix4fv(this.uniforms.modelMatrix, false, this.mesh.matrix.elements);
