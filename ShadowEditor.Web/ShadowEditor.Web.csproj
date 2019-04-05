@@ -596,6 +596,7 @@
     <Folder Include="Upload\File\" />
     <Folder Include="Upload\Model\" />
     <Folder Include="Upload\Texture\" />
+    <Folder Include="Upload\Tiles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

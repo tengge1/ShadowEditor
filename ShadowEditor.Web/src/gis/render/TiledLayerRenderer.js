@@ -18,9 +18,8 @@ function TiledLayerRenderer(globe) {
     var geometry = new TiledGeometry();
 
     this.mesh = new THREE.Mesh(geometry, []);
-    this.mesh.rotation.x = -Math.PI / 2;
-    this.mesh.frustumCulled = false;
-    this.mesh.updateMatrix();
+    this.mesh.matrix.copy(this.globe.matrix);
+    this.mesh.matrixAutoUpdate = false;
 
     this.gl = this.renderer.context;
     this.program = null;

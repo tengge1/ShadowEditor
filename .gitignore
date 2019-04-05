@@ -94,3 +94,4 @@ typings/
 /ShadowEditor.Web/test/unit/build
 /ShadowEditor.Web/temp
 /ShadowEditor.Web/src/gis2/build
+/ShadowEditor.Web/Upload/Tiles

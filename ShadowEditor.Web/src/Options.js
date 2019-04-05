@@ -24,6 +24,9 @@ function Options(options = {}) {
     this.grayscale = 0;
     this.invert = 0;
     this.sepia = 0;
+
+    // GIS配置
+    this.proxy = options.proxy || false;
 }
 
 export default Options;
