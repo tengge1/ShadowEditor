@@ -35,12 +35,56 @@ SphereTileCreator.prototype.get = function () {
     this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
     this._frustum.setFromMatrix(this._projScreenMatrix);
 
-    this.fork(0, 0, 0);
+    this.fork(0, 0, 1);
+    this.fork(1, 0, 1);
+    this.fork(0, 1, 1);
+    this.fork(1, 1, 1);
+
+    this.tiles = this.tiles.sort((a, b) => {
+        if (a.z > b.z) {
+            return 1;
+        } else if (a.z < b.z) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
 
     return this.tiles;
 };
 
+/**
+ * 从1层级进行四分，返回满足要求的瓦片
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} z 
+ */
 SphereTileCreator.prototype.fork = function (x, y, z) {
+    var tile = this.getTile(x, y, z);
+
+    if (!this.isVisible(tile)) {
+        return;
+    }
+
+    this.tiles.push(tile);
+
+    if (tile.z > this._centerZoom) {
+        return;
+    }
+
+    this.fork(x * 2, y * 2, z + 1);
+    this.fork(x * 2 + 1, y * 2, z + 1);
+    this.fork(x * 2, y * 2 + 1, z + 1);
+    this.fork(x * 2 + 1, y * 2 + 1, z + 1);
+};
+
+/**
+ * 获取一个瓦片
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} z 
+ */
+SphereTileCreator.prototype.getTile = function (x, y, z) {
     var id = `${x}_${y}_${z}`;
 
     var tile = this.cache.get(id);
@@ -51,41 +95,21 @@ SphereTileCreator.prototype.fork = function (x, y, z) {
         this.cache.set(id, tile);
     }
 
-    if (this.canFork(tile)) {
-        this.fork(x * 2, y * 2, z + 1);
-        this.fork(x * 2 + 1, y * 2, z + 1);
-        this.fork(x * 2, y * 2 + 1, z + 1);
-        this.fork(x * 2 + 1, y * 2 + 1, z + 1);
-    } else {
-        this.tiles.push(tile);
-    }
+    return tile;
 };
 
 /**
- * 判断是否可以使用下个层级底图
+ * 判断瓦片是否可见：
+ * 1、材质上的底图已经下载完；
+ * 2、瓦片至少有一个点的法线与相机方向的夹角是锐角；
+ * 3、瓦片至少有一个点在视锥内。
  * @param {*} tile 
  */
-SphereTileCreator.prototype.canFork = function (tile) {
-    if (tile.z === 0) {
-        return true;
-    }
-
-    if (tile.z > this._centerZoom) {
-        return false;
-    }
-
+SphereTileCreator.prototype.isVisible = function (tile) {
     if (!tile.material.loaded) {
         return false;
     }
 
-    return this.isVisible(tile);
-};
-
-/**
- * 判断瓦片是否可见：1、瓦片至少有一个点的法线与相机方向的夹角是锐角；2、瓦片至少有一个点在视锥内.
- * @param {*} tile 
- */
-SphereTileCreator.prototype.isVisible = function (tile) {
     var intersect = false;
     var face = false;
 
