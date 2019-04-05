@@ -73,16 +73,23 @@ SphereTileCreator.prototype.canFork = function () {
     var xyz = new THREE.Vector3();
 
     return function (tile) {
-        if (tile.z > this._centerZoom) { // this._centerZoom: { min: 0 }
+        if (tile.z > this._centerZoom) {
             return false;
         }
 
         // 判断tile是否在视野范围内
-        // var intersect = false;
+        var intersect = false;
 
-        // debugger
+        for (var i = 1, l = tile._vertices.length; i < l; i++) {
+            if (this._frustum.containsPoint(tile._vertices[i])) {
+                intersect = true;
+                break;
+            }
+        }
 
-        // return false;
+        if (!intersect) {
+            return false;
+        }
 
         return true;
     };

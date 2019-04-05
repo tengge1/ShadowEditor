@@ -128,7 +128,7 @@ TiledLayerRenderer.prototype.render = function (layer) {
     this.mesh.geometry.groups.length = 0;
 
     this.creator.get().forEach((n, i) => {
-        if (n.z >= z && n.material) {
+        if (n.material) {
             n.material.group.materialIndex = i;
             this.mesh.material.push(n.material);
             this.mesh.geometry.groups.push(n.material.group);
