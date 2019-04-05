@@ -30,7 +30,10 @@ Scene.prototype.start = function () {
 
     this.app.editor.showViewHelper = false;
 
-    this.globe = new Globe(editor.camera, editor.renderer);
+    this.globe = new Globe(editor.camera, editor.renderer, {
+        server: this.app.options.server,
+        enableTileCache: this.app.options.enableTileCache,
+    });
     editor.scene.add(this.globe);
     this.oldSceneBeforeRender = editor.scene.onBeforeRender;
     editor.scene.onBeforeRender = this.update.bind(this);

@@ -26,7 +26,7 @@ function Options(options = {}) {
     this.sepia = 0;
 
     // GIS配置
-    this.proxy = options.proxy || false;
+    this.enableTileCache = options.enableTileCache || false; // 是否使用服务端缓存底图
 }
 
 export default Options;

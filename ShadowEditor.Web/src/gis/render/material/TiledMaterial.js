@@ -8,8 +8,9 @@ var bing = new BingTileSystem();
  * @param {*} x 
  * @param {*} y 
  * @param {*} z 
+ * @param {*} options 
  */
-function TiledMaterial(x, y, z) {
+function TiledMaterial(x, y, z, options) {
     this.x = x;
     this.y = y;
     this.z = z;
@@ -34,7 +35,11 @@ function TiledMaterial(x, y, z) {
         this.image.onerror = null;
     };
 
-    this.image.src = bing.tileXYToUrl(x, y, z);
+    if (options.enableTileCache) {
+        this.image.src = `${options.server}/api/BingTile/Get?x=${x}&y=${y}&z=${z}`;
+    } else {
+        this.image.src = bing.tileXYToUrl(x, y, z);
+    }
 }
 
 export default TiledMaterial;

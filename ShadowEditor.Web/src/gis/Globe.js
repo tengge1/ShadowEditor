@@ -8,14 +8,16 @@ import MathUtils from './utils/MathUtils';
  * @author tengge / https://github.com/tengge1
  * @param {*} camera 
  * @param {*} renderer 
+ * @param {*} options 
  */
-function Globe(camera, renderer) {
+function Globe(camera, renderer, options) {
     THREE.Object3D.call(this);
 
     this.name = L_GLOBE;
 
     this.camera = camera;
     this.renderer = renderer;
+    this.options = options;
 
     this.lon = 0;
     this.lat = 0;

@@ -79,7 +79,8 @@
         var start = () => {
             container = document.getElementById('container');
             app = new Shadow.Application(container, {
-                server: location.origin
+                server: location.origin,
+                enableTileCache: true,
             });
             app.start();
         };

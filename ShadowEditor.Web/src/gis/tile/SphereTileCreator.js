@@ -8,9 +8,10 @@ import MathUtils from '../utils/MathUtils';
  * 球形瓦片创建者
  * @author tengge / https://github.com/tengge1
  * @param {*} camera 
+ * @param {*} options 
  */
-function SphereTileCreator(camera) {
-    TileCreator.call(this, camera);
+function SphereTileCreator(camera, options) {
+    TileCreator.call(this, camera, options);
 
     this.cache = new Map();
 
@@ -91,7 +92,7 @@ SphereTileCreator.prototype.getTile = function (x, y, z) {
 
     if (!tile) {
         tile = new Tile(x, y, z);
-        tile.material = new TiledMaterial(x, y, z);
+        tile.material = new TiledMaterial(x, y, z, this.options);
         this.cache.set(id, tile);
     }
 
