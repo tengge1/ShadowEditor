@@ -30,7 +30,7 @@ SphereTileCreator.prototype.get = function () {
 
     MathUtils.xyzToLonlat(this.camera.position, this._center);
 
-    this._centerZoom = ~~MathUtils.altToZoom(this.camera.position.length() - WGS84.a);
+    this._centerZoom = ~~MathUtils.altToZoom(this.camera.position.length() - WGS84.a) + 3;
 
     this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
     this._frustum.setFromMatrix(this._projScreenMatrix);
