@@ -23,10 +23,11 @@ function Tile(x = 0, y = 0, z = 0) {
     this._aabb.getCenter(this._center);
 
     // 顶点
-    this._p1 = MathUtils._lonlatToXYZ(lonlat.set(this._aabb.min.x, this._aabb.min.y, 0));
-    this._p2 = MathUtils._lonlatToXYZ(lonlat.set(this._aabb.max.x, this._aabb.min.y, 0));
-    this._p3 = MathUtils._lonlatToXYZ(lonlat.set(this._aabb.max.x, this._aabb.max.y, 0));
-    this._p4 = MathUtils._lonlatToXYZ(lonlat.set(this._aabb.min.x, this._aabb.max.y, 0));
+    this._p0 = MathUtils._lonlatToXYZ(lonlat.set(this._center.x, this._center.y, 0)); // 中心点
+    this._p1 = MathUtils._lonlatToXYZ(lonlat.set(this._aabb.min.x, this._aabb.min.y, 0)); // 左下
+    this._p2 = MathUtils._lonlatToXYZ(lonlat.set(this._aabb.max.x, this._aabb.min.y, 0)); // 右下
+    this._p3 = MathUtils._lonlatToXYZ(lonlat.set(this._aabb.max.x, this._aabb.max.y, 0)); // 右上
+    this._p4 = MathUtils._lonlatToXYZ(lonlat.set(this._aabb.min.x, this._aabb.max.y, 0)); // 左上
 }
 
 /**

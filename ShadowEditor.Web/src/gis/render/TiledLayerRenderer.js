@@ -135,7 +135,7 @@ TiledLayerRenderer.prototype.render = function (layer) {
 
     this.creator.get().forEach((n, i) => {
         if (!n.mesh) {
-            n.mesh = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(), WGS84.a * 1.5);
+            n.mesh = new THREE.ArrowHelper(new THREE.Vector3().copy(n._p0).normalize(), new THREE.Vector3().copy(n._p0), WGS84.a * 0.2);
         }
 
         this.globe.add(n.mesh);
@@ -165,6 +165,7 @@ TiledLayerRenderer.prototype.renderMesh = function () {
 
     gl.disable(gl.DEPTH_TEST);
     // gl.depthFunc(gl.LEQUAL);
+    gl.depthMask(true);
 
     gl.uniformMatrix4fv(this.uniforms.modelMatrix, false, this.mesh.matrix.elements);
     gl.uniformMatrix4fv(this.uniforms.viewMatrix, false, camera.matrixWorldInverse.elements);

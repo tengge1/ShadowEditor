@@ -21,6 +21,10 @@ function Globe(camera, renderer) {
     this.lat = 0;
     this.alt = MathUtils.zoomToAlt(0);
 
+    this.rotation.x = - Math.PI / 2;
+    this.updateMatrix();
+    this.matrixAutoUpdate = false;
+
     this.layer = new BingTiledLayer();
     this.tiledLayerRenderer = new TiledLayerRenderer(this);
     this.viewer = new OrbitViewer(this.camera, this.renderer.domElement);

@@ -56,7 +56,9 @@ SphereTileCreator.prototype.fork = function (x, y, z) {
         this.fork(x * 2, y * 2 + 1, z + 1);
         this.fork(x * 2 + 1, y * 2 + 1, z + 1);
     } else {
+        // if (tile.x === 1 && tile.y === 0 && tile.z === 1) {
         this.tiles.push(tile);
+        // }
     }
 };
 
@@ -68,7 +70,7 @@ SphereTileCreator.prototype.canFork = function () {
     var xyz = new THREE.Vector3();
 
     return function (tile) {
-        if (tile.z <= 1) {
+        if (tile.z < 1) {
             return true;
         }
 
