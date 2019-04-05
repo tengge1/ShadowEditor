@@ -125,13 +125,10 @@ TiledLayerRenderer.prototype.initBuffers = function () {
 
 TiledLayerRenderer.prototype.render = function (layer) {
     this.mesh.material.length = 0;
-    this.mesh.geometry.groups.length = 0;
 
     this.creator.get().forEach((n, i) => {
         if (n.material) {
-            n.material.group.materialIndex = i;
             this.mesh.material.push(n.material);
-            this.mesh.geometry.groups.push(n.material.group);
         }
     });
 
@@ -173,31 +170,29 @@ TiledLayerRenderer.prototype.renderMesh = function () {
 
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.buffers.index);
 
-    // x, y, z, map
+    // x, y, z
     materials.forEach(n => {
-        gl.uniform1i(this.uniforms.x, n.uniforms.x.value);
-        gl.uniform1i(this.uniforms.y, n.uniforms.y.value);
-        gl.uniform1i(this.uniforms.z, n.uniforms.z.value);
+        gl.uniform1i(this.uniforms.x, n.x);
+        gl.uniform1i(this.uniforms.y, n.y);
+        gl.uniform1i(this.uniforms.z, n.z);
 
-        var map = n.uniforms.map.value;
-
-        if (!map.texture && map.image) {
+        if (!n.texture && n.loaded) {
             var texture = gl.createTexture();
             gl.bindTexture(gl.TEXTURE_2D, texture);
             gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, map.image);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, n.image);
 
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 
             gl.bindTexture(gl.TEXTURE_2D, null);
 
-            map.texture = texture;
+            n.texture = texture;
         }
 
-        if (map.texture) {
+        if (n.texture) {
             gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, map.texture);
+            gl.bindTexture(gl.TEXTURE_2D, n.texture);
             gl.uniform1i(this.uniforms.map, 0);
         }
 

@@ -1,6 +1,6 @@
-import TiledVertex from '../shader/tiled_vertex.glsl';
-import TiledFragment from '../shader/tiled_fragment.glsl';
 import BingTileSystem from '../../utils/BingTileSystem';
+
+var bing = new BingTileSystem();
 
 /**
  * 瓦片材质
@@ -10,42 +10,31 @@ import BingTileSystem from '../../utils/BingTileSystem';
  * @param {*} z 
  */
 function TiledMaterial(x, y, z) {
-    THREE.ShaderMaterial.call(this);
+    this.x = x;
+    this.y = y;
+    this.z = z;
 
-    this.vertexShader = TiledVertex;
-    this.fragmentShader = TiledFragment;
-    this.side = THREE.BackSide;
+    this.loaded = false;
 
-    var map = new THREE.TextureLoader().load((new BingTileSystem()).tileXYToUrl(x, y, z));
-    map.flipY = false;
+    if (z < 1) { // 0层级没底图
+        return;
+    }
 
-    this.uniforms = {
-        x: {
-            type: 'i',
-            value: x,
-        },
-        y: {
-            type: 'i',
-            value: y,
-        },
-        z: {
-            type: 'i',
-            value: z,
-        },
-        map: {
-            type: 't',
-            value: map,
-        }
+    this.image = document.createElement('img');
+    this.image.crossOrigin = 'anonymous';
+
+    this.image.onload = () => {
+        this.image.onload = null;
+        this.image.onerror = null;
+        this.loaded = true;
     };
 
-    this.group = {
-        start: 0,
-        count: 1536,
-        materialIndex: 0
+    this.image.onerror = () => {
+        this.image.onload = null;
+        this.image.onerror = null;
     };
+
+    this.image.src = bing.tileXYToUrl(x, y, z);
 }
-
-TiledMaterial.prototype = Object.create(THREE.ShaderMaterial.prototype);
-TiledMaterial.prototype.constructor = TiledMaterial;
 
 export default TiledMaterial;

@@ -47,11 +47,7 @@ SphereTileCreator.prototype.fork = function (x, y, z) {
 
     if (!tile) {
         tile = new Tile(x, y, z);
-
-        if (z > 0) {
-            tile.material = new TiledMaterial(x, y, z);
-        }
-
+        tile.material = new TiledMaterial(x, y, z);
         this.cache.set(id, tile);
     }
 
@@ -66,34 +62,49 @@ SphereTileCreator.prototype.fork = function (x, y, z) {
 };
 
 /**
- * 是否可以使用下一级底图，每三个层级一组
- * 1~4~7~10~13~16~19~22~25
+ * 判断是否可以使用下个层级底图
+ * @param {*} tile 
  */
-SphereTileCreator.prototype.canFork = function () {
-    var xyz = new THREE.Vector3();
+SphereTileCreator.prototype.canFork = function (tile) {
+    if (tile.z === 0) {
+        return true;
+    }
 
-    return function (tile) {
-        if (tile.z > this._centerZoom) {
-            return false;
-        }
+    if (tile.z > this._centerZoom) {
+        return false;
+    }
 
-        // 判断tile是否在视野范围内
-        var intersect = false;
+    if (!tile.material.loaded) {
+        return false;
+    }
 
-        for (var i = 1, l = tile._vertices.length; i < l; i++) {
-            if (this._frustum.containsPoint(tile._vertices[i])) {
-                intersect = true;
-                break;
-            }
-        }
+    return this.isVisible(tile);
+};
+
+/**
+ * 判断瓦片是否可见：1、瓦片至少有一个点的法线与相机方向的夹角是锐角；2、瓦片至少有一个点在视锥内.
+ * @param {*} tile 
+ */
+SphereTileCreator.prototype.isVisible = function (tile) {
+    var intersect = false;
+    var face = false;
+
+    for (var i = 0, l = tile._vertices.length; i < l; i++) {
+        var vertice = tile._vertices[i];
 
         if (!intersect) {
-            return false;
+            intersect = this._frustum.containsPoint(vertice);
         }
+        if (!face) {
+            face = this.camera.position.dot(vertice) > 0;
+        }
+        if (intersect && face) {
+            break;
+        }
+    }
 
-        return true;
-    };
-}();
+    return intersect && face;
+};
 
 SphereTileCreator.prototype.dispose = function () {
     this.tiles.length = 0;
