@@ -1,5 +1,8 @@
 import WGS84 from '../core/WGS84';
 
+const RADIAN_PER_DEGREE = Math.PI / 180;
+const DEGREE_PER_RADIAN = 180 / Math.PI;
+
 const MAX_PROJECTED_COORD = 20037508.3427892; // 墨卡托最大投影坐标（地球周长一半）
 
 /**
@@ -34,8 +37,8 @@ function lonlatToXYZ(lonlat, xyz) {
     }
 
     xyz.set(
-        lonlat.x * Math.PI / 180,
-        lonlat.y * Math.PI / 180,
+        lonlat.x * RADIAN_PER_DEGREE,
+        lonlat.y * RADIAN_PER_DEGREE,
         lonlat.z,
     );
 
@@ -74,8 +77,8 @@ function xyzToLonlat(xyz, lonlat) {
     }
 
     _xyzToLonlat(xyz, lonlat);
-    lonlat.x *= 180 / Math.PI;
-    lonlat.y *= 180 / Math.PI;
+    lonlat.x *= DEGREE_PER_RADIAN;
+    lonlat.y *= DEGREE_PER_RADIAN;
 
     return lonlat;
 }
@@ -111,7 +114,7 @@ function _mercatorLat(lat) {
  * @see https://github.com/d3/d3-geo/blob/master/src/projection/mercator.js
  */
 function mercatorLat(lat) {
-    return _mercatorLat(lat * Math.PI / 180);
+    return _mercatorLat(lat * RADIAN_PER_DEGREE);
 }
 
 /**
@@ -129,7 +132,7 @@ function _mercatorLatInvert(y) {
  * @see https://github.com/d3/d3-geo/blob/master/src/projection/mercator.js
  */
 function mercatorLatInvert(y) {
-    return _mercatorLatInvert(y) * 180 / Math.PI;
+    return _mercatorLatInvert(y) * DEGREE_PER_RADIAN;
 }
 
 /**
@@ -154,10 +157,10 @@ function _getDistance(lon1, lat1, lon2, lat2) {
  * @see https://www.xuebuyuan.com/2173606.html
  */
 function getDistance(lon1, lat1, lon2, lat2) {
-    lon1 *= Math.PI / 180;
-    lat1 *= Math.PI / 180;
-    lon2 *= Math.PI / 180;
-    lat2 *= Math.PI / 180;
+    lon1 *= RADIAN_PER_DEGREE;
+    lat1 *= RADIAN_PER_DEGREE;
+    lon2 *= RADIAN_PER_DEGREE;
+    lat2 *= RADIAN_PER_DEGREE;
 
     return _getDistance(lon1, lat1, lon2, lat2);
 }
