@@ -30,7 +30,7 @@ SphereTileCreator.prototype.get = function () {
 
     MathUtils.xyzToLonlat(this.camera.position, this._center);
 
-    this._centerZoom = MathUtils.altToZoom(this.camera.position.length() - WGS84.a);
+    this._centerZoom = ~~MathUtils.altToZoom(this.camera.position.length() - WGS84.a);
 
     this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
     this._frustum.setFromMatrix(this._projScreenMatrix);
@@ -61,9 +61,7 @@ SphereTileCreator.prototype.fork = function (x, y, z) {
         this.fork(x * 2, y * 2 + 1, z + 1);
         this.fork(x * 2 + 1, y * 2 + 1, z + 1);
     } else {
-        // if (tile.x === 1 && tile.y === 0 && tile.z === 1) {
         this.tiles.push(tile);
-        // }
     }
 };
 
@@ -75,15 +73,9 @@ SphereTileCreator.prototype.canFork = function () {
     var xyz = new THREE.Vector3();
 
     return function (tile) {
-        // if (tile.z > this._centerZoom) { // this._centerZoom: { min: 0 }
-        //     return false;
-        // }
-
-        if (tile.z === 0) {
-            return true;
+        if (tile.z > this._centerZoom) { // this._centerZoom: { min: 0 }
+            return false;
         }
-
-        return false;
 
         // 判断tile是否在视野范围内
         // var intersect = false;
@@ -92,27 +84,7 @@ SphereTileCreator.prototype.canFork = function () {
 
         // return false;
 
-        // return true;
-
-        // var frustum = this._frustum;
-
-        // if (tile.z >= 5) {
-        //     return false;
-        // }
-
-        // if (tile._aabb.containsPoint(this._center)) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
-
-        // MathUtils._lonlatToXYZ(tile._center, xyz);
-
-        // var distance = this.camera.position.distanceTo(xyz);
-
-        // var zoom = MathUtils.altToZoom(distance) + 2;
-
-        // return tile.z <= zoom;
+        return true;
     };
 }();
 
