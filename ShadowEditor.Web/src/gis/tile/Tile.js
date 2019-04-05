@@ -1,8 +1,6 @@
 import WGS84 from '../core/WGS84';
 import MathUtils from '../utils/MathUtils';
 
-var lonlat = new THREE.Vector3();
-
 /**
  * 瓦片
  * @author tengge / https://github.com/tengge1
@@ -15,23 +13,13 @@ function Tile(x = 0, y = 0, z = 0) {
     this.y = y;
     this.z = z;
 
-    // 范围（弧度）
     this._aabb = this._getBox(x, y, z);
-
-    // 中心点
-    this._center = new THREE.Vector2();
-    this._aabb.getCenter(this._center);
-
-    // 顶点
-    this._p0 = MathUtils._lonlatToXYZ(lonlat.set(this._center.x, this._center.y, 0)); // 中心点
-    this._p1 = MathUtils._lonlatToXYZ(lonlat.set(this._aabb.min.x, this._aabb.min.y, 0)); // 左下
-    this._p2 = MathUtils._lonlatToXYZ(lonlat.set(this._aabb.max.x, this._aabb.min.y, 0)); // 右下
-    this._p3 = MathUtils._lonlatToXYZ(lonlat.set(this._aabb.max.x, this._aabb.max.y, 0)); // 右上
-    this._p4 = MathUtils._lonlatToXYZ(lonlat.set(this._aabb.min.x, this._aabb.max.y, 0)); // 左上
+    this._center = this._getCenter(this._aabb);
+    this._vertices = this._getVertices(this._aabb, this._center);
 }
 
 /**
- * 计算包围盒（弧度）
+ * 获取包围盒
  * @param {*} x 
  * @param {*} y 
  * @param {*} z 
@@ -43,14 +31,39 @@ Tile.prototype._getBox = function (x, y, z) {
     var maxY = Math.PI - size * y;
     var minY = maxY - size;
 
-    // 墨卡托投影反算
-    minY = 2 * Math.atan(Math.exp(minY)) - Math.PI / 2;
-    maxY = 2 * Math.atan(Math.exp(maxY)) - Math.PI / 2;
+    minY = MathUtils._mercatorLatInvert(minY);
+    maxY = MathUtils._mercatorLatInvert(maxY);
 
     return new THREE.Box2(
         new THREE.Vector2(minX, minY),
         new THREE.Vector2(maxX, maxY),
     );
 };
+
+/**
+ * 获取中心点
+ * @param {*} aabb 
+ */
+Tile.prototype._getCenter = function (aabb) {
+    var center = new THREE.Vector2();
+    return aabb.getCenter(center);
+};
+
+/**
+ * 获取顶点
+ */
+Tile.prototype._getVertices = function () {
+    var lonlat = new THREE.Vector3();
+
+    return function (aabb, center) {
+        var p0 = MathUtils._lonlatToXYZ(lonlat.set(center.x, center.y, 0)); // 中心点
+        var p1 = MathUtils._lonlatToXYZ(lonlat.set(aabb.min.x, aabb.min.y, 0)); // 左下
+        var p2 = MathUtils._lonlatToXYZ(lonlat.set(aabb.max.x, aabb.min.y, 0)); // 右下
+        var p3 = MathUtils._lonlatToXYZ(lonlat.set(aabb.max.x, aabb.max.y, 0)); // 右上
+        var p4 = MathUtils._lonlatToXYZ(lonlat.set(aabb.min.x, aabb.max.y, 0)); // 左上
+
+        return [p0, p1, p2, p3, p4];
+    };
+}();
 
 export default Tile;

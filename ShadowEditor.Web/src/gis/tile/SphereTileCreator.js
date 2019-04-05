@@ -1,3 +1,4 @@
+import WGS84 from '../core/WGS84';
 import TileCreator from './TileCreator';
 import Tile from './Tile';
 import TiledMaterial from '../render/material/TiledMaterial';
@@ -14,6 +15,7 @@ function SphereTileCreator(camera) {
     this.cache = new Map();
 
     this._center = new THREE.Vector3();
+    this._centerZoom = 0;
     this._projScreenMatrix = new THREE.Matrix4();
     this._frustum = new THREE.Frustum();
 
@@ -27,6 +29,9 @@ SphereTileCreator.prototype.get = function () {
     this.tiles.length = 0;
 
     MathUtils.xyzToLonlat(this.camera.position, this._center);
+
+    this._centerZoom = MathUtils.altToZoom(this.camera.position.length() - WGS84.a);
+
     this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
     this._frustum.setFromMatrix(this._projScreenMatrix);
 
@@ -70,11 +75,24 @@ SphereTileCreator.prototype.canFork = function () {
     var xyz = new THREE.Vector3();
 
     return function (tile) {
-        if (tile.z < 1) {
+        // if (tile.z > this._centerZoom) { // this._centerZoom: { min: 0 }
+        //     return false;
+        // }
+
+        if (tile.z === 0) {
             return true;
         }
 
         return false;
+
+        // 判断tile是否在视野范围内
+        // var intersect = false;
+
+        // debugger
+
+        // return false;
+
+        // return true;
 
         // var frustum = this._frustum;
 

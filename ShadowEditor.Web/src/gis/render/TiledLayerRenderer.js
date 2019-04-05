@@ -135,7 +135,7 @@ TiledLayerRenderer.prototype.render = function (layer) {
 
     this.creator.get().forEach((n, i) => {
         if (!n.mesh) {
-            n.mesh = new THREE.ArrowHelper(new THREE.Vector3().copy(n._p0).normalize(), new THREE.Vector3().copy(n._p0), WGS84.a * 0.2);
+            n.mesh = new THREE.ArrowHelper(new THREE.Vector3().copy(n._vertices[0]).normalize(), new THREE.Vector3().copy(n._vertices[0]), WGS84.a * 0.2);
         }
 
         this.globe.add(n.mesh);
