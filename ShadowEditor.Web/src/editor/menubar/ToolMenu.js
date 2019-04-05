@@ -46,7 +46,7 @@ ToolMenu.prototype.render = function () {
                 xtype: 'hr'
             }, {
                 xtype: 'div',
-                html: '导出编辑器',
+                html: L_EXPORT_EDITOR,
                 cls: 'option',
                 onClick: this.onExportEditor.bind(this)
             }]

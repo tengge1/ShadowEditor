@@ -597,4 +597,5 @@ Object.assign(window, {
     L_CREATE_EMPTY_SCENE_SUCCESS: 'Create empty scene successfully.',
 
     L_GLOBE: 'Globe',
+    L_EXPORT_EDITOR: 'Export Editor',
 });

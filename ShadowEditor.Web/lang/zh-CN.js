@@ -599,3 +599,4 @@ L_GIS_SCENE = 'GIS场景';
 
 L_CREATE_EMPTY_SCENE_SUCCESS = '空场景创建成功！';
 L_GLOBE = '地球';
+L_EXPORT_EDITOR = '导出编辑器';
