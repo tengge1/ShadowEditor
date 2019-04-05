@@ -28,8 +28,6 @@ function TiledLayerRenderer(globe) {
     this.uniforms = {};
     this.buffers = {};
 
-    this.renderer.z = 0;
-
     this.initProgram();
     this.initBuffers();
 }
@@ -129,17 +127,7 @@ TiledLayerRenderer.prototype.render = function (layer) {
     this.mesh.material.length = 0;
     this.mesh.geometry.groups.length = 0;
 
-    this.globe.children.length = 0;
-
-    var z = this.renderer.z;
-
     this.creator.get().forEach((n, i) => {
-        if (!n.mesh) {
-            n.mesh = new THREE.ArrowHelper(new THREE.Vector3().copy(n._vertices[0]).normalize(), new THREE.Vector3().copy(n._vertices[0]), WGS84.a * 0.2);
-        }
-
-        this.globe.add(n.mesh);
-
         if (n.z >= z && n.material) {
             n.material.group.materialIndex = i;
             this.mesh.material.push(n.material);
