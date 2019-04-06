@@ -17,8 +17,8 @@ function SphereTileCreator(globe) {
     this._center = new THREE.Vector3();
     this._centerZoom = 0;
     // this._box = new THREE.Box2();
-    // this._projScreenMatrix = new THREE.Matrix4();
-    // this._frustum = new THREE.Frustum();
+    this._projScreenMatrix = new THREE.Matrix4();
+    this._frustum = new THREE.Frustum();
 
     this.tiles = [];
 }
@@ -32,8 +32,8 @@ SphereTileCreator.prototype.get = function () {
     GeoUtils._xyzToLonlat(this.camera.position, this._center);
     this._centerZoom = ~~GeoUtils.altToZoom(this.camera.position.length() - WGS84.a) + 2;
 
-    // this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
-    // this._frustum.setFromMatrix(this._projScreenMatrix);
+    this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
+    this._frustum.setFromMatrix(this._projScreenMatrix);
 
     this.fork(0, 0, 1);
     this.fork(1, 0, 1);
@@ -115,21 +115,29 @@ SphereTileCreator.prototype.isVisible = function (tile) {
         this._center.y >= tile._aabb.min.y &&
         this._center.y <= tile._aabb.max.y;
 
-    return intersect;
+    if (intersect) {
+        return true;
+    }
 
 
+    intersect = false;
+    var face = false;
 
-    // var face = false;
+    for (var i = 0, l = tile._vertices.length; i < l; i++) {
+        var vertice = tile._vertices[i];
 
-    // for (var i = 0, l = tile._vertices.length; i < l; i++) {
-    //     var vertice = tile._vertices[i];
-    //     face = this.camera.position.dot(vertice) > 0;
-    //     if (face) {
-    //         break;
-    //     }
-    // }
+        if (!intersect) {
+            intersect = this._frustum.containsPoint(vertice);
+        }
+        if (!face) {
+            face = this.camera.position.dot(vertice) > 0;
+        }
+        if (intersect && face) {
+            break;
+        }
+    }
 
-    // return intersect && face;
+    return intersect && face;
 };
 
 SphereTileCreator.prototype.dispose = function () {
