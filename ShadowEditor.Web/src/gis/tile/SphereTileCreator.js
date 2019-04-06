@@ -15,7 +15,6 @@ function SphereTileCreator(camera, options) {
 
     this.cache = new Map();
 
-    this._center = new THREE.Vector3();
     this._centerZoom = 0;
     this._projScreenMatrix = new THREE.Matrix4();
     this._frustum = new THREE.Frustum();
@@ -29,9 +28,7 @@ SphereTileCreator.prototype.constructor = SphereTileCreator;
 SphereTileCreator.prototype.get = function () {
     this.tiles.length = 0;
 
-    MathUtils.xyzToLonlat(this.camera.position, this._center);
-
-    this._centerZoom = ~~MathUtils.altToZoom(this.camera.position.length() - WGS84.a) + 3;
+    this._centerZoom = ~~MathUtils.altToZoom(this.camera.position.length() - WGS84.a) + 2;
 
     this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
     this._frustum.setFromMatrix(this._projScreenMatrix);
@@ -117,10 +114,10 @@ SphereTileCreator.prototype.isVisible = function (tile) {
     for (var i = 0, l = tile._vertices.length; i < l; i++) {
         var vertice = tile._vertices[i];
 
-        if (!intersect) {
+        if (!intersect) { // TODO: 不在同一个坐标系
             intersect = this._frustum.containsPoint(vertice);
         }
-        if (!face) {
+        if (!face) { // TODO: 不在同一个坐标系
             face = this.camera.position.dot(vertice) > 0;
         }
         if (intersect && face) {
