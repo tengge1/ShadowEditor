@@ -13,7 +13,7 @@ import WGS84 from '../core/WGS84';
 function TiledLayerRenderer(globe) {
     Renderer.call(this, globe);
 
-    this.creator = new SphereTileCreator(this.camera, this.globe.options);
+    this.creator = new SphereTileCreator(this.globe);
 
     var geometry = new TiledGeometry();
 

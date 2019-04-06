@@ -56,7 +56,7 @@ function lonlatToXYZ(lonlat, xyz) {
  * @param {THREE.Vector3} lonlat 经纬度（弧度）、海拔
  */
 function _xyzToLonlat(xyz, lonlat) {
-    var lon = Math.acos(xyz.x / Math.sqrt(xyz.x ** 2 + xyz.z ** 2));
+    var lon = -Math.sign(xyz.z) * Math.acos(xyz.x / Math.sqrt(xyz.x ** 2 + xyz.z ** 2));
     var lat = Math.atan(xyz.y / Math.sqrt(xyz.x ** 2 + xyz.z ** 2));
     var alt = Math.sqrt(xyz.x ** 2 + xyz.y ** 2 + xyz.z ** 2) - WGS84.a;
 
@@ -119,7 +119,7 @@ function _mercatorLat(lat) {
  * @see https://github.com/d3/d3-geo/blob/master/src/projection/mercator.js
  */
 function mercatorLat(lat) {
-    return _mercatorLat(lat * RADIAN_PER_DEGREE);
+    return _mercatorLat(lat * RADIAN_PER_DEGREE) * DEGREE_PER_RADIAN;
 }
 
 /**

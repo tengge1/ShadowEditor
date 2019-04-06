@@ -7,17 +7,18 @@ import GeoUtils from '../utils/GeoUtils';
 /**
  * 球形瓦片创建者
  * @author tengge / https://github.com/tengge1
- * @param {*} camera 
- * @param {*} options 
+ * @param {*} globe 
  */
-function SphereTileCreator(camera, options) {
-    TileCreator.call(this, camera, options);
+function SphereTileCreator(globe) {
+    TileCreator.call(this, globe);
 
     this.cache = new Map();
 
+    this._center = new THREE.Vector3();
     this._centerZoom = 0;
-    this._projScreenMatrix = new THREE.Matrix4();
-    this._frustum = new THREE.Frustum();
+    // this._box = new THREE.Box2();
+    // this._projScreenMatrix = new THREE.Matrix4();
+    // this._frustum = new THREE.Frustum();
 
     this.tiles = [];
 }
@@ -28,10 +29,11 @@ SphereTileCreator.prototype.constructor = SphereTileCreator;
 SphereTileCreator.prototype.get = function () {
     this.tiles.length = 0;
 
+    GeoUtils._xyzToLonlat(this.camera.position, this._center);
     this._centerZoom = ~~GeoUtils.altToZoom(this.camera.position.length() - WGS84.a) + 2;
 
-    this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
-    this._frustum.setFromMatrix(this._projScreenMatrix);
+    // this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
+    // this._frustum.setFromMatrix(this._projScreenMatrix);
 
     this.fork(0, 0, 1);
     this.fork(1, 0, 1);
@@ -108,24 +110,26 @@ SphereTileCreator.prototype.isVisible = function (tile) {
         return false;
     }
 
-    var intersect = false;
-    var face = false;
+    var intersect = this._center.x >= tile._aabb.min.x &&
+        this._center.x <= tile._aabb.max.x &&
+        this._center.y >= tile._aabb.min.y &&
+        this._center.y <= tile._aabb.max.y;
 
-    for (var i = 0, l = tile._vertices.length; i < l; i++) {
-        var vertice = tile._vertices[i];
+    return intersect;
 
-        if (!intersect) { // TODO: 不在同一个坐标系
-            intersect = this._frustum.containsPoint(vertice);
-        }
-        if (!face) { // TODO: 不在同一个坐标系
-            face = this.camera.position.dot(vertice) > 0;
-        }
-        if (intersect && face) {
-            break;
-        }
-    }
 
-    return intersect && face;
+
+    // var face = false;
+
+    // for (var i = 0, l = tile._vertices.length; i < l; i++) {
+    //     var vertice = tile._vertices[i];
+    //     face = this.camera.position.dot(vertice) > 0;
+    //     if (face) {
+    //         break;
+    //     }
+    // }
+
+    // return intersect && face;
 };
 
 SphereTileCreator.prototype.dispose = function () {
