@@ -47,8 +47,8 @@ void main() {
 
     vec3 transformed = vec3(
         EARTH_RADIUS * cos(lat) * cos(lon),
-        EARTH_RADIUS * cos(lat) * sin(lon),
-        EARTH_RADIUS * sin(lat)
+        EARTH_RADIUS * sin(lat),
+        -EARTH_RADIUS * cos(lat) * sin(lon)
     );
 
     gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(transformed, 1.0);

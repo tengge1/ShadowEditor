@@ -7,6 +7,11 @@ const MAX_PROJECTED_COORD = 20037508.3427892; // 墨卡托最大投影坐标（�
 
 /**
  * 经纬度、海拔转笛卡尔坐标
+ * 坐标系：
+ * 原点：地心
+ * x轴：经度0，纬度0
+ * y轴：指向北极
+ * z轴：西经90，纬度0
  * @param {THREE.Vector3} lonlat 经纬度（弧度）、海拔
  * @param {THREE.Vector3} xyz 笛卡尔坐标
  */
@@ -21,8 +26,8 @@ function _lonlatToXYZ(lonlat, xyz) {
 
     return xyz.set(
         r * Math.cos(lat) * Math.cos(lon),
-        r * Math.cos(lat) * Math.sin(lon),
         r * Math.sin(lat),
+        -r * Math.cos(lat) * Math.sin(lon),
     );
 }
 
@@ -51,8 +56,8 @@ function lonlatToXYZ(lonlat, xyz) {
  * @param {THREE.Vector3} lonlat 经纬度（弧度）、海拔
  */
 function _xyzToLonlat(xyz, lonlat) {
-    var lon = Math.atan(xyz.y / Math.sqrt(xyz.x ** 2 + xyz.y ** 2));
-    var lat = Math.atan(xyz.z / Math.sqrt(xyz.x ** 2 + xyz.y ** 2));
+    var lon = Math.acos(xyz.x / Math.sqrt(xyz.x ** 2 + xyz.z ** 2));
+    var lat = Math.atan(xyz.y / Math.sqrt(xyz.x ** 2 + xyz.z ** 2));
     var alt = Math.sqrt(xyz.x ** 2 + xyz.y ** 2 + xyz.z ** 2) - WGS84.a;
 
     if (lonlat === undefined) {
