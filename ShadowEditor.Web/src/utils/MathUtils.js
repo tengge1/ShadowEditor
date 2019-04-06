@@ -16,9 +16,9 @@ function parseNumber(key, value) {
 /**
  * 数学工具
  */
-const MathUtils = {
+const GeoUtils = {
     NUMBER_PRECISION: NUMBER_PRECISION,
     parseNumber: parseNumber
 };
 
-export default MathUtils;
+export default GeoUtils;

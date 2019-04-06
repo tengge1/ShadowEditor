@@ -1,7 +1,7 @@
 import BingTiledLayer from './layer/BingTiledLayer';
 import TiledLayerRenderer from './render/TiledLayerRenderer';
 import OrbitViewer from './view/OrbitViewer';
-import MathUtils from './utils/MathUtils';
+import GeoUtils from './utils/GeoUtils';
 
 /**
  * 地球
@@ -21,7 +21,7 @@ function Globe(camera, renderer, options) {
 
     this.lon = 0;
     this.lat = 0;
-    this.alt = MathUtils.zoomToAlt(0);
+    this.alt = GeoUtils.zoomToAlt(0);
 
     this.matrixAutoUpdate = false;
 

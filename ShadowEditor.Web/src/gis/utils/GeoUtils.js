@@ -174,7 +174,7 @@ function getDistance(lon1, lat1, lon2, lat2) {
  * 数学工具
  * @author tengge / https://github.com/tengge1
  */
-var MathUtils = {
+var GeoUtils = {
     // 经纬度海拔转笛卡尔坐标
     _lonlatToXYZ,
     lonlatToXYZ,
@@ -202,4 +202,4 @@ var MathUtils = {
     getDistance,
 };
 
-export default MathUtils;
+export default GeoUtils;

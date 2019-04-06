@@ -1,5 +1,5 @@
 import WGS84 from '../core/WGS84';
-import MathUtils from '../utils/MathUtils';
+import GeoUtils from '../utils/GeoUtils';
 
 var mat4 = new THREE.Matrix4();
 mat4.makeRotationX(-Math.PI / 2);
@@ -34,8 +34,8 @@ Tile.prototype._getBox = function (x, y, z) {
     var maxY = Math.PI - size * y;
     var minY = maxY - size;
 
-    minY = MathUtils._mercatorLatInvert(minY);
-    maxY = MathUtils._mercatorLatInvert(maxY);
+    minY = GeoUtils._mercatorLatInvert(minY);
+    maxY = GeoUtils._mercatorLatInvert(maxY);
 
     return new THREE.Box2(
         new THREE.Vector2(minX, minY),
@@ -59,11 +59,11 @@ Tile.prototype._getVertices = function () {
     var lonlat = new THREE.Vector3();
 
     return function (aabb, center) {
-        var p0 = MathUtils._lonlatToXYZ(lonlat.set(center.x, center.y, 0)); // 中心点
-        var p1 = MathUtils._lonlatToXYZ(lonlat.set(aabb.min.x, aabb.min.y, 0)); // 左下
-        var p2 = MathUtils._lonlatToXYZ(lonlat.set(aabb.max.x, aabb.min.y, 0)); // 右下
-        var p3 = MathUtils._lonlatToXYZ(lonlat.set(aabb.max.x, aabb.max.y, 0)); // 右上
-        var p4 = MathUtils._lonlatToXYZ(lonlat.set(aabb.min.x, aabb.max.y, 0)); // 左上
+        var p0 = GeoUtils._lonlatToXYZ(lonlat.set(center.x, center.y, 0)); // 中心点
+        var p1 = GeoUtils._lonlatToXYZ(lonlat.set(aabb.min.x, aabb.min.y, 0)); // 左下
+        var p2 = GeoUtils._lonlatToXYZ(lonlat.set(aabb.max.x, aabb.min.y, 0)); // 右下
+        var p3 = GeoUtils._lonlatToXYZ(lonlat.set(aabb.max.x, aabb.max.y, 0)); // 右上
+        var p4 = GeoUtils._lonlatToXYZ(lonlat.set(aabb.min.x, aabb.max.y, 0)); // 左上
 
         // p0.applyMatrix4(mat4);
         // p1.applyMatrix4(mat4);

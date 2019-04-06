@@ -2,7 +2,7 @@ import WGS84 from '../core/WGS84';
 import TileCreator from './TileCreator';
 import Tile from './Tile';
 import TiledMaterial from '../render/material/TiledMaterial';
-import MathUtils from '../utils/MathUtils';
+import GeoUtils from '../utils/GeoUtils';
 
 /**
  * 球形瓦片创建者
@@ -28,7 +28,7 @@ SphereTileCreator.prototype.constructor = SphereTileCreator;
 SphereTileCreator.prototype.get = function () {
     this.tiles.length = 0;
 
-    this._centerZoom = ~~MathUtils.altToZoom(this.camera.position.length() - WGS84.a) + 2;
+    this._centerZoom = ~~GeoUtils.altToZoom(this.camera.position.length() - WGS84.a) + 2;
 
     this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
     this._frustum.setFromMatrix(this._projScreenMatrix);

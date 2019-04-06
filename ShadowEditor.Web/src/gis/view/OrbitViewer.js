@@ -1,6 +1,6 @@
 import Viewer from './Viewer';
 import WGS84 from '../core/WGS84';
-import MathUtils from '../utils/MathUtils';
+import GeoUtils from '../utils/GeoUtils';
 
 /**
  * 轨道查看器
@@ -107,7 +107,7 @@ OrbitViewer.prototype.onMouseWheel = function () {
 
         var d = delta * (distance - WGS84.a) / 1000;
 
-        var d0 = MathUtils.zoomToAlt(0) + WGS84.a;
+        var d0 = GeoUtils.zoomToAlt(0) + WGS84.a;
 
         if (distance + d >= d0) { // 最远0层级距离
             d = 0;
@@ -143,7 +143,7 @@ OrbitViewer.prototype.intersectSphere = function (x, y, projectionMatrixInverse,
 };
 
 OrbitViewer.prototype.setPosition = function (lon, lat, alt) {
-    var xyz = MathUtils.lonlatToXYZ(new THREE.Vector3(lon, lat, alt));
+    var xyz = GeoUtils.lonlatToXYZ(new THREE.Vector3(lon, lat, alt));
     this.camera.position.copy(xyz);
     this.camera.lookAt(new THREE.Vector3());
 };

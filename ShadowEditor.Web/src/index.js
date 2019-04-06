@@ -49,4 +49,7 @@ export { default as UI } from './ui/UI';
 
 export { default as Player } from './player/Player';
 
+// gis
+export { default as GeoUtils } from './gis/utils/GeoUtils';
+
 export { default as Application } from './Application';
