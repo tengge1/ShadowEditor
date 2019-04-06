@@ -50,6 +50,7 @@ namespace ShadowEditor.Server.Controllers.Tile
                 Content = new ByteArrayContent(bytes)
             };
 
+            msg.Headers.CacheControl = new CacheControlHeaderValue { Public = true };
             msg.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
 
             return msg;
