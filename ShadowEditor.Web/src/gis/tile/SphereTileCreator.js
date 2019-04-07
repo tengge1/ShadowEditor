@@ -25,7 +25,7 @@ SphereTileCreator.prototype.constructor = SphereTileCreator;
 SphereTileCreator.prototype.get = function () {
     this.tiles.length = 0;
 
-    this._centerZoom = ~~GeoUtils.altToZoom(this.camera.position.length() - WGS84.a) + 2;
+    this._centerZoom = ~~GeoUtils.altToZoom(this.camera.position.length() - WGS84.a) + 3;
 
     this.fork(0, 0, 1);
     this.fork(1, 0, 1);
