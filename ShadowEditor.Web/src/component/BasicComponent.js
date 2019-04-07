@@ -2,6 +2,7 @@ import BaseComponent from './BaseComponent';
 import SetValueCommand from '../command/SetValueCommand';
 import RemoveObjectCommand from '../command/RemoveObjectCommand';
 import AddObjectCommand from '../command/AddObjectCommand';
+import Text from '../object/geometry/Text';
 
 /**
  * 基本信息组件
@@ -117,6 +118,11 @@ BasicComponent.prototype.onChangeName = function () {
     var editor = this.app.editor;
 
     editor.execute(new SetValueCommand(this.selected, 'name', name.getValue()));
+
+    // bug: https://gitee.com/tengge1/ShadowEditor/issues/IV1V3
+    if (this.selected instanceof Text) {
+        this.selected.updateText(name.getValue());
+    }
 };
 
 BasicComponent.prototype.onChangeVisible = function () {

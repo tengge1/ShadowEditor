@@ -8,6 +8,7 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 
 ## v0.1.9即将更新
 
+1. 修复属性面板修改名称时，文字几何体文字不改变bug。
 
 ## v0.1.8更新
 
