@@ -58,7 +58,6 @@ OrbitViewer.prototype.onMouseMove = function () {
 
             this.isPan = true;
             lastIntersectPoint.copy(this.intersectPoint);
-            this._updateAABB();
             return;
         }
 
@@ -90,6 +89,7 @@ OrbitViewer.prototype.onMouseMove = function () {
 OrbitViewer.prototype.onMouseUp = function (event) {
     this.isDown = false;
     this.isPan = false;
+    this._updateAABB();
 };
 
 OrbitViewer.prototype.onMouseWheel = function () {
