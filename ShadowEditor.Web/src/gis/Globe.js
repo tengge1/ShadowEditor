@@ -1,5 +1,5 @@
 import BingTiledLayer from './layer/BingTiledLayer';
-import TiledLayerRenderer from './render/TiledLayerRenderer';
+import Renderers from './render/Renderers';
 import OrbitViewer from './view/OrbitViewer';
 import GeoUtils from './utils/GeoUtils';
 
@@ -28,7 +28,7 @@ function Globe(camera, renderer, options) {
     this.matrixAutoUpdate = false;
 
     this.layer = new BingTiledLayer();
-    this.tiledLayerRenderer = new TiledLayerRenderer(this);
+    this.gisRenderer = new Renderers(this);
     this.viewer = new OrbitViewer(this.camera, this.renderer.domElement);
 
     this.viewer.setPosition(this.lon, this.lat, this.alt);
@@ -38,13 +38,13 @@ Globe.prototype = Object.create(THREE.Object3D.prototype);
 Globe.prototype.constructor = Globe;
 
 Globe.prototype.update = function () {
-    this.tiledLayerRenderer.render(this.layer);
+    this.gisRenderer.render(this.layer);
     this.viewer.update();
 };
 
 Globe.prototype.dispose = function () {
     this.layer.dispose();
-    this.tiledLayerRenderer.dispose();
+    this.gisRenderer.dispose();
     this.viewer.dispose();
 
     delete this.layer;
