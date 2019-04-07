@@ -1,5 +1,5 @@
 import Renderer from './Renderer';
-import TiledGeometry from './geometry/TiledGeometry';
+import TiledGeometry from './tiled/TiledGeometry';
 import SphereTileCreator from '../tile/SphereTileCreator';
 import TiledVertex from './shader/tiled_vertex.glsl';
 import TiledFragment from './shader/tiled_fragment.glsl';

@@ -1,7 +1,7 @@
 import WGS84 from '../core/WGS84';
 import TileCreator from './TileCreator';
 import Tile from './Tile';
-import TiledMaterial from '../render/material/TiledMaterial';
+import TiledMaterial from '../render/tiled/TiledMaterial';
 import GeoUtils from '../utils/GeoUtils';
 
 /**
