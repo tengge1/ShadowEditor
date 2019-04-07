@@ -14,11 +14,7 @@ function SphereTileCreator(globe) {
 
     this.cache = new Map();
 
-    this._center = new THREE.Vector3();
     this._centerZoom = 0;
-    // this._box = new THREE.Box2();
-    this._projScreenMatrix = new THREE.Matrix4();
-    this._frustum = new THREE.Frustum();
 
     this.tiles = [];
 }
@@ -29,11 +25,7 @@ SphereTileCreator.prototype.constructor = SphereTileCreator;
 SphereTileCreator.prototype.get = function () {
     this.tiles.length = 0;
 
-    GeoUtils._xyzToLonlat(this.camera.position, this._center);
     this._centerZoom = ~~GeoUtils.altToZoom(this.camera.position.length() - WGS84.a) + 2;
-
-    this._projScreenMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
-    this._frustum.setFromMatrix(this._projScreenMatrix);
 
     this.fork(0, 0, 1);
     this.fork(1, 0, 1);
@@ -101,8 +93,7 @@ SphereTileCreator.prototype.getTile = function (x, y, z) {
 /**
  * 判断瓦片是否可见：
  * 1、材质上的底图已经下载完；
- * 2、瓦片至少有一个点的法线与相机方向的夹角是锐角；
- * 3、瓦片至少有一个点在视锥内。
+ * 2、当前视锥与该瓦片的包围盒相交。
  * @param {*} tile 
  */
 SphereTileCreator.prototype.isVisible = function (tile) {
@@ -110,34 +101,7 @@ SphereTileCreator.prototype.isVisible = function (tile) {
         return false;
     }
 
-    var intersect = this._center.x >= tile._aabb.min.x &&
-        this._center.x <= tile._aabb.max.x &&
-        this._center.y >= tile._aabb.min.y &&
-        this._center.y <= tile._aabb.max.y;
-
-    if (intersect) {
-        return true;
-    }
-
-
-    intersect = false;
-    var face = false;
-
-    for (var i = 0, l = tile._vertices.length; i < l; i++) {
-        var vertice = tile._vertices[i];
-
-        if (!intersect) {
-            intersect = this._frustum.containsPoint(vertice);
-        }
-        if (!face) {
-            face = this.camera.position.dot(vertice) > 0;
-        }
-        if (intersect && face) {
-            break;
-        }
-    }
-
-    return intersect && face;
+    return this.globe.viewer.aabb.intersectsBox(tile._aabb);
 };
 
 SphereTileCreator.prototype.dispose = function () {

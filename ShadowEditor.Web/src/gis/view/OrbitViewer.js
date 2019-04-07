@@ -18,6 +18,10 @@ function OrbitViewer(camera, domElement) {
     this.isPan = false;
 
     this.intersectPoint = new THREE.Vector3();
+    this.aabb = new THREE.Box2(
+        new THREE.Vector2(-Math.PI, -Math.PI / 2),
+        new THREE.Vector2(Math.PI, Math.PI / 2),
+    );
 
     this.domElement.addEventListener('mousedown', this.onMouseDown.bind(this));
     this.domElement.addEventListener('mousemove', this.onMouseMove.bind(this));
@@ -34,8 +38,6 @@ OrbitViewer.prototype.onMouseDown = function (event) {
 };
 
 OrbitViewer.prototype.onMouseMove = function () {
-    var projectionMatrixInverse = new THREE.Matrix4();
-    var matrixWorld = new THREE.Matrix4();
     var lastIntersectPoint = new THREE.Vector3();
 
     var unit1 = new THREE.Vector3();
@@ -50,19 +52,17 @@ OrbitViewer.prototype.onMouseMove = function () {
         }
 
         if (!this.isPan) {
-            projectionMatrixInverse.getInverse(this.camera.projectionMatrix);
-            matrixWorld.copy(this.camera.matrixWorld);
-
-            if (!this.intersectSphere(event.offsetX, event.offsetY, projectionMatrixInverse, matrixWorld)) { // 鼠标在地球外
+            if (!this.intersectSphere(event.offsetX, event.offsetY, this.intersectPoint)) { // 鼠标在地球外
                 return;
             }
 
             this.isPan = true;
             lastIntersectPoint.copy(this.intersectPoint);
+            this._updateAABB();
             return;
         }
 
-        if (!this.intersectSphere(event.offsetX, event.offsetY, projectionMatrixInverse, matrixWorld)) { // 鼠标在地球外
+        if (!this.intersectSphere(event.offsetX, event.offsetY, this.intersectPoint)) { // 鼠标在地球外
             return;
         }
 
@@ -118,6 +118,8 @@ OrbitViewer.prototype.onMouseWheel = function () {
             this.camera.position.y + d * dir.y,
             this.camera.position.z + d * dir.z,
         );
+
+        this._updateAABB();
     };
 }();
 
@@ -125,22 +127,55 @@ OrbitViewer.prototype.onMouseWheel = function () {
  * 计算屏幕坐标与地球表面交点
  * @param {float} x 屏幕坐标X
  * @param {float} y 屏幕坐标Y
- * @param {THREE.Matrix4} projectionMatrixInverse 投影矩阵逆矩阵
- * @param {THREE.Matrix4} matrixWorld 相机矩阵
+ * @param {THREE.Vector3} intersectPoint 计算出的碰撞点
  */
-OrbitViewer.prototype.intersectSphere = function (x, y, projectionMatrixInverse, matrixWorld) {
-    this.ray.origin.set(
-        x / this.domElement.clientWidth * 2 - 1, -y / this.domElement.clientHeight * 2 + 1,
-        0.1,
-    );
-    this.ray.direction.copy(this.ray.origin);
-    this.ray.direction.z = 1;
+OrbitViewer.prototype.intersectSphere = function () {
+    var projectionMatrixInverse = new THREE.Matrix4();
+    var matrixWorld = new THREE.Matrix4();
 
-    this.ray.origin.applyMatrix4(projectionMatrixInverse).applyMatrix4(matrixWorld);
-    this.ray.direction.applyMatrix4(projectionMatrixInverse).applyMatrix4(matrixWorld).sub(this.ray.origin).normalize();
+    return function (x, y, intersectPoint) {
+        if (!this.isPan) {
+            projectionMatrixInverse.getInverse(this.camera.projectionMatrix);
+            matrixWorld.copy(this.camera.matrixWorld);
+        }
 
-    return this.ray.intersectSphere(this.sphere, this.intersectPoint);
-};
+        this.ray.origin.set(
+            x / this.domElement.clientWidth * 2 - 1, -y / this.domElement.clientHeight * 2 + 1,
+            0.1,
+        );
+        this.ray.direction.copy(this.ray.origin);
+        this.ray.direction.z = 1;
+
+        this.ray.origin.applyMatrix4(projectionMatrixInverse).applyMatrix4(matrixWorld);
+        this.ray.direction.applyMatrix4(projectionMatrixInverse).applyMatrix4(matrixWorld).sub(this.ray.origin).normalize();
+
+        return this.ray.intersectSphere(this.sphere, intersectPoint);
+    };
+}();
+
+/**
+ * 计算当前视锥内的经纬度范围
+ */
+OrbitViewer.prototype._updateAABB = function () {
+    var min = new THREE.Vector3();
+    var max = new THREE.Vector3();
+
+    return function () {
+        if (!this.intersectSphere(0, this.domElement.clientHeight, min)) { // 未发生碰撞
+            this.aabb.min.set(-Math.PI, -Math.PI / 2);
+            this.aabb.max.set(Math.PI, Math.PI / 2);
+            return;
+        }
+
+        this.intersectSphere(this.domElement.clientWidth, 0, max);
+
+        GeoUtils._xyzToLonlat(min, min);
+        GeoUtils._xyzToLonlat(max, max);
+
+        this.aabb.min.copy(min);
+        this.aabb.max.copy(max);
+    };
+}();
 
 OrbitViewer.prototype.setPosition = function (lon, lat, alt) {
     var xyz = GeoUtils.lonlatToXYZ(new THREE.Vector3(lon, lat, alt));

@@ -1,9 +1,6 @@
 import WGS84 from '../core/WGS84';
 import GeoUtils from '../utils/GeoUtils';
 
-var mat4 = new THREE.Matrix4();
-mat4.makeRotationX(-Math.PI / 2);
-
 /**
  * 瓦片
  * @author tengge / https://github.com/tengge1
@@ -64,12 +61,6 @@ Tile.prototype._getVertices = function () {
         var p2 = GeoUtils._lonlatToXYZ(lonlat.set(aabb.max.x, aabb.min.y, 0)); // 右下
         var p3 = GeoUtils._lonlatToXYZ(lonlat.set(aabb.max.x, aabb.max.y, 0)); // 右上
         var p4 = GeoUtils._lonlatToXYZ(lonlat.set(aabb.min.x, aabb.max.y, 0)); // 左上
-
-        // p0.applyMatrix4(mat4);
-        // p1.applyMatrix4(mat4);
-        // p2.applyMatrix4(mat4);
-        // p3.applyMatrix4(mat4);
-        // p4.applyMatrix4(mat4);
 
         return [p0, p1, p2, p3, p4];
     };

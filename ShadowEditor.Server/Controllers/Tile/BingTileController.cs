@@ -31,9 +31,8 @@ namespace ShadowEditor.Server.Controllers.Tile
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        /// <returns></returns>
         [HttpGet]
-        public HttpResponseMessage Get(int x, int y, int z)
+        public void Get(int x, int y, int z)
         {
             var path = $"{rootPath}\\{z}\\{y}\\{x}.jpg";
 
@@ -42,18 +41,11 @@ namespace ShadowEditor.Server.Controllers.Tile
                 DownloadTile(x, y, z, path);
             }
 
-            var bytes = File.ReadAllBytes(path);
-
-            var msg = new HttpResponseMessage
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = new ByteArrayContent(bytes)
-            };
-
-            msg.Headers.CacheControl = new CacheControlHeaderValue { Public = true };
-            msg.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-
-            return msg;
+            HttpContext.Current.Response.ContentType = "image/jpeg";
+            HttpContext.Current.Response.CacheControl = "public";
+            HttpContext.Current.Response.WriteFile(path);
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.End();
         }
 
         /// <summary>
