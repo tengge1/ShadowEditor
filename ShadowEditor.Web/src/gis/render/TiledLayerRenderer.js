@@ -21,7 +21,6 @@ function TiledLayerRenderer(globe) {
     this.mesh.matrix.copy(this.globe.matrix);
     this.mesh.matrixAutoUpdate = false;
 
-    this.gl = this.renderer.context;
     this.program = null;
     this.attributes = {};
     this.uniforms = {};
@@ -216,8 +215,6 @@ TiledLayerRenderer.prototype.dispose = function () {
     });
 
     this.buffers = {};
-
-    this.gl = null;
 
     delete this.mesh;
 

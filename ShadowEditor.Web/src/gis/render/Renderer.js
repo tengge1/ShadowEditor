@@ -7,9 +7,12 @@ var ID = -1;
  */
 function Renderer(globe) {
     this.globe = globe;
+
+    this.id = `${this.constructor.name}${ID--}`;
+
     this.camera = this.globe.camera;
     this.renderer = this.globe.renderer;
-    this.id = `${this.constructor.name}${ID--}`;
+    this.gl = this.renderer.context;
 }
 
 Renderer.prototype.render = function (layer) {
@@ -19,6 +22,7 @@ Renderer.prototype.render = function (layer) {
 Renderer.prototype.dispose = function () {
     delete this.camera;
     delete this.render;
+    delete this.gl;
     delete this.globe;
 };
 

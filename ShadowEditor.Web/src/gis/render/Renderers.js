@@ -1,4 +1,5 @@
 import Renderer from './Renderer';
+import AtmosphereRenderer from './AtmosphereRenderer';
 import TiledLayerRenderer from './TiledLayerRenderer';
 
 /**
@@ -10,6 +11,7 @@ function Renderers(globe) {
     Renderer.call(this, globe);
 
     this.renderers = [
+        new AtmosphereRenderer(this.globe),
         new TiledLayerRenderer(this.globe),
     ];
 }
