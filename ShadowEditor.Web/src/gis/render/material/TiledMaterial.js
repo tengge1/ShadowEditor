@@ -38,7 +38,8 @@ function TiledMaterial(x, y, z, options) {
     if (options.enableTileCache) {
         this.image.src = `${options.server}/api/BingTile/Get?x=${x}&y=${y}&z=${z}`;
     } else {
-        this.image.src = `http://t6.tianditu.gov.cn/DataServer?T=img_w&x=${x}&y=${y}&l=${z}&tk=85a57b38db5ed01efb7e999f6b097746`;
+        this.image.src = `http://www.google.cn/maps/vt?lyrs=s@821&gl=cn&x=${x}&y=${y}&z=${z}`;
+        //this.image.src = `http://t6.tianditu.gov.cn/DataServer?T=img_w&x=${x}&y=${y}&l=${z}&tk=85a57b38db5ed01efb7e999f6b097746`;
         // this.image.src = bing.tileXYToUrl(x, y, z);
     }
 }
