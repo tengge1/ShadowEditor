@@ -169,7 +169,7 @@ TransformComponent.prototype.onObjectChanged = function () {
 TransformComponent.prototype.updateUI = function () {
     var container = UI.get('transformPanel', this.id);
     var editor = this.app.editor;
-    if (editor.selected) {
+    if (editor.selected && !editor.selected.isGlobe) {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';

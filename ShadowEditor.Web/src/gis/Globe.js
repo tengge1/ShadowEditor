@@ -15,6 +15,8 @@ function Globe(camera, renderer, options) {
 
     this.name = L_GLOBE;
 
+    this.isGlobe = true;
+
     this.camera = camera;
     this.renderer = renderer;
     this.options = options;
