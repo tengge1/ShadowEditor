@@ -9,19 +9,26 @@ import TiledLayerRenderer from './TiledLayerRenderer';
 function Renderers(globe) {
     Renderer.call(this, globe);
 
-    this.tiledLayerRenderer = new TiledLayerRenderer(this.globe);
+    this.renderers = [
+        new TiledLayerRenderer(this.globe),
+    ];
 }
 
 Renderers.prototype = Object.create(Renderer.prototype);
 Renderers.prototype.constructor = Renderers;
 
 Renderers.prototype.render = function () {
-    this.tiledLayerRenderer.render();
+    this.renderers.forEach(n => {
+        n.render();
+    });
 };
 
 Renderers.prototype.dispose = function () {
-    this.tiledLayerRenderer.dispose();
-    delete this.tiledLayerRenderer;
+    this.renderers.forEach(n => {
+        n.dispose();
+    });
+
+    this.renderers.length = 0;
 
     Renderer.prototype.dispose.call(this);
 };
