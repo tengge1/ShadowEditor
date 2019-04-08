@@ -202,8 +202,6 @@ TiledLayerRenderer.prototype.renderMesh = function () {
 };
 
 TiledLayerRenderer.prototype.dispose = function () {
-    Renderer.prototype.dispose.call(this);
-
     this.gl.deleteProgram(this.program);
 
     this.program = null;
@@ -219,6 +217,8 @@ TiledLayerRenderer.prototype.dispose = function () {
     delete this.mesh;
 
     this.creator.dispose();
+
+    Renderer.prototype.dispose.call(this);
 };
 
 export default TiledLayerRenderer;
