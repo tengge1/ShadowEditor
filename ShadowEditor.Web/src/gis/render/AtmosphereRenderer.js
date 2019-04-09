@@ -153,7 +153,7 @@ AtmosphereRenderer.prototype.dispose = function () {
     });
 
     this.buffers = {};
-    
+
     Renderer.prototype.dispose.call(this);
 };
 
