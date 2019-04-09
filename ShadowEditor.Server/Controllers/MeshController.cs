@@ -80,6 +80,7 @@ namespace ShadowEditor.Server.Controllers
         /// 保存模型
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public JsonResult Add()
         {
             var Request = HttpContext.Current.Request;
