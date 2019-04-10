@@ -121,7 +121,7 @@ TiledLayerRenderer.prototype.initBuffers = function () {
     });
 };
 
-TiledLayerRenderer.prototype.render = function (layer) {
+TiledLayerRenderer.prototype.render = function () {
     this.mesh.material.length = 0;
 
     this.creator.get().forEach((n, i) => {

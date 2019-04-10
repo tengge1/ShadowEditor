@@ -9,10 +9,17 @@ function Layer() {
     this.name = this.constructor.name;
 }
 
-Layer.prototype.get = function () {
+/**
+ * 获取某个经纬度范围内的资源
+ * @param {THREE.Box2} aabb 
+ */
+Layer.prototype.get = function (aabb) {
 
 };
 
+/**
+ * 释放该图层所有资源
+ */
 Layer.prototype.dispose = function () {
 
 };

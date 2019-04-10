@@ -1,7 +1,8 @@
-import BingTiledLayer from './layer/BingTiledLayer';
 import Renderers from './render/Renderers';
 import OrbitViewer from './view/OrbitViewer';
 import GeoUtils from './utils/GeoUtils';
+
+import GoogleTiledLayer from './layer/tiled/image/GoogleTiledLayer';
 
 /**
  * 地球
@@ -27,7 +28,11 @@ function Globe(camera, renderer, options) {
 
     this.matrixAutoUpdate = false;
 
-    this.layer = new BingTiledLayer();
+    // 不能命名为layers，否则跟three.js的layers冲突
+    this.mapLayers = [
+        new GoogleTiledLayer(),
+    ];
+
     this.gisRenderer = new Renderers(this);
     this.viewer = new OrbitViewer(this.camera, this.renderer.domElement);
 
@@ -38,16 +43,19 @@ Globe.prototype = Object.create(THREE.Object3D.prototype);
 Globe.prototype.constructor = Globe;
 
 Globe.prototype.update = function () {
-    this.gisRenderer.render(this.layer);
+    this.gisRenderer.render();
     this.viewer.update();
 };
 
 Globe.prototype.dispose = function () {
-    this.layer.dispose();
     this.gisRenderer.dispose();
     this.viewer.dispose();
 
-    delete this.layer;
+    this.mapLayers.forEach(n => {
+        n.dispose();
+    });
+
+    delete this.mapLayers;
     delete this.tiledLayerRenderer;
     delete this.viewer;
 

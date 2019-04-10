@@ -11,8 +11,4 @@ function ImageLayer() {
 ImageLayer.prototype = Object.create(Layer.prototype);
 ImageLayer.prototype.constructor = ImageLayer;
 
-ImageLayer.prototype.get = function (x, y, z) {
-
-};
-
 export default ImageLayer;
