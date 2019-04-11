@@ -1,5 +1,4 @@
 import Renderer from './Renderer';
-import TiledGeometry from './tiled/TiledGeometry';
 import SphereTileCreator from '../tile/SphereTileCreator';
 import TiledVertex from './shader/tiled_vertex.glsl';
 import TiledFragment from './shader/tiled_fragment.glsl';
@@ -15,7 +14,7 @@ function TiledLayerRenderer(globe) {
 
     this.creator = new SphereTileCreator(this.globe);
 
-    var geometry = new TiledGeometry();
+    var geometry = new THREE.PlaneBufferGeometry(1, 1, 16, 16);
 
     this.mesh = new THREE.Mesh(geometry, []);
     this.mesh.matrix.copy(this.globe.matrix);
