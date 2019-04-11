@@ -12,9 +12,14 @@ import GoogleTiledLayer from './layer/tiled/image/GoogleTiledLayer';
  * @param {Object} options 配置
  * @param {String} options.server 服务端配置
  * @param {Boolean} options.enableTileCache 是否启用底图缓存
+ * @param {Number} options.maxThread 最大工作线程数，避免任务创建过多，导致地图卡顿
  */
-function Globe(camera, renderer, options) {
+function Globe(camera, renderer, options = {}) {
     THREE.Object3D.call(this);
+
+    options.server = options.server || location.origin;
+    options.enableTileCache = options.enableTileCache || false;
+    options.maxThread = options.maxThread || 10;
 
     this.name = L_GLOBE;
 
@@ -30,15 +35,12 @@ function Globe(camera, renderer, options) {
 
     this.matrixAutoUpdate = false;
 
-
-    this.maxThread = 10;
-
     // 不能命名为layers，否则跟three.js的layers冲突
-    this.mapLayers = [
+    this.layerList = [
         new GoogleTiledLayer(),
     ];
 
-    this.gisRenderer = new Renderers(this);
+    this.renderers = new Renderers(this);
     this.viewer = new OrbitViewer(this.camera, this.renderer.domElement);
 
     this.viewer.setPosition(this.lon, this.lat, this.alt);
@@ -48,19 +50,19 @@ Globe.prototype = Object.create(THREE.Object3D.prototype);
 Globe.prototype.constructor = Globe;
 
 Globe.prototype.update = function () {
-    this.gisRenderer.render();
+    this.renderers.render();
     this.viewer.update();
 };
 
 Globe.prototype.dispose = function () {
-    this.gisRenderer.dispose();
+    this.renderers.dispose();
     this.viewer.dispose();
 
-    this.mapLayers.forEach(n => {
+    this.layerList.forEach(n => {
         n.dispose();
     });
 
-    delete this.mapLayers;
+    delete this.layerList;
     delete this.tiledLayerRenderer;
     delete this.viewer;
 
