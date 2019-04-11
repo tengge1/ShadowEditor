@@ -7,9 +7,11 @@ import GoogleTiledLayer from './layer/tiled/image/GoogleTiledLayer';
 /**
  * 地球
  * @author tengge / https://github.com/tengge1
- * @param {*} camera 
- * @param {*} renderer 
- * @param {*} options 
+ * @param {THREE.PerspectiveCamera} camera 相机
+ * @param {THREE.WebGLRenderer} renderer 渲染器
+ * @param {Object} options 配置
+ * @param {String} options.server 服务端配置
+ * @param {Boolean} options.enableTileCache 是否启用底图缓存
  */
 function Globe(camera, renderer, options) {
     THREE.Object3D.call(this);
@@ -27,6 +29,9 @@ function Globe(camera, renderer, options) {
     this.alt = GeoUtils.zoomToAlt(0);
 
     this.matrixAutoUpdate = false;
+
+
+    this.maxThread = 10;
 
     // 不能命名为layers，否则跟three.js的layers冲突
     this.mapLayers = [
