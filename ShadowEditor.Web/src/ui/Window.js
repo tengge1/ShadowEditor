@@ -14,6 +14,7 @@ function Window(options) {
 
     this.cls = options.cls || 'Modal Window';
     this.style = options.style || null;
+    this.containerStyle = options.containerStyle || null;
     this.bodyStyle = options.bodyStyle || null;
     this.title = options.title || '';
     this.buttons = options.buttons || [];

@@ -28,8 +28,8 @@ TestMenu.prototype.render = function () {
             children: [{
                 xtype: 'div',
                 cls: 'option',
-                html: 'd3.js',
-                onClick: this.helloWorld.bind(this),
+                html: 'Hello World',
+                onClick: this.hello.bind(this),
             }]
         }]
     });
@@ -37,15 +37,63 @@ TestMenu.prototype.render = function () {
     container.render();
 };
 
-TestMenu.prototype.helloWorld = function () {
-    if(this.win === undefined) {
+TestMenu.prototype.showWin = function () {
+    if (this.win === undefined) {
         this.win = UI.create({
-            xtype: 'window'
+            xtype: 'window',
+            title: 'Data Visualization',
+            id: 'dataVisualWin',
+            scope: this.id,
+            width: '800px',
+            height: '500px',
+            shade: false,
+            containerStyle: {
+                display: 'flex',
+                flexDirection: 'column',
+            },
+            bodyStyle: {
+                padding: 0,
+            },
+            children: [{
+                xtype: 'div',
+                id: 'container',
+                scope: this.id,
+                style: {
+                    width: '100%',
+                    height: '100%',
+                },
+            }]
         });
         this.win.render();
     }
 
     this.win.show();
+};
+
+TestMenu.prototype.clearContent = function () {
+    var container = UI.get('container', this.id);
+
+    while (container.dom.children.length) {
+        container.dom.removeChild(container.dom.children[0]);
+    }
+};
+
+TestMenu.prototype.hello = function () {
+    this.showWin();
+    this.clearContent();
+
+    var container = UI.get('container', this.id);
+
+    var svg = d3.select(container.dom)
+        .append('svg')
+        .attr('width', 500)
+        .attr('height', 500);
+
+    var circle = svg.append('circle')
+        .attr('cx', 100)
+        .attr('cy', 100)
+        .attr('r', 50)
+        .attr('fill', '#f00');
 };
 
 export default TestMenu;

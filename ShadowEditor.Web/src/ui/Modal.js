@@ -13,6 +13,7 @@ function Modal(options) {
 
     this.cls = options.cls || 'Modal';
     this.style = options.style || null;
+    this.containerStyle = options.containerStyle || null;
     this.width = options.width || '500px';
     this.height = options.height || '300px';
     this.shade = options.shade === false ? false : true;
@@ -42,6 +43,10 @@ Modal.prototype.render = function () {
     this.container = document.createElement('div');
 
     this.container.className = 'Container';
+
+    if (this.containerStyle) {
+        Object.assign(this.container.style, this.containerStyle);
+    }
 
     this.container.style.width = this.width;
     this.container.style.height = this.height;
