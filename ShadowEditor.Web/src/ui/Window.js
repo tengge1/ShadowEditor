@@ -32,6 +32,7 @@ Window.prototype.render = function () {
         xtype: 'container',
         children: [{
             xtype: 'div',
+            scope: this.scope,
             cls: 'caption',
             html: this.title
         }]
@@ -40,6 +41,7 @@ Window.prototype.render = function () {
     // 关闭按钮
     this.closeBtn = UI.create({
         xtype: 'closebutton',
+        scope: this.scope,
         onClick: () => {
             this.hide();
         }
@@ -48,6 +50,7 @@ Window.prototype.render = function () {
     // 标题栏
     this.header = UI.create({
         xtype: 'div',
+        scope: this.scope,
         cls: 'header',
         children: [
             this.caption,
@@ -59,6 +62,7 @@ Window.prototype.render = function () {
     // 内容区域
     this.body = UI.create({
         xtype: 'div',
+        scope: this.scope,
         cls: 'body',
         style: this.bodyStyle,
         children: this.content
@@ -68,6 +72,7 @@ Window.prototype.render = function () {
     // 按钮区域
     this.footer = UI.create({
         xtype: 'div',
+        scope: this.scope,
         cls: 'footer',
         children: this.buttons
     });

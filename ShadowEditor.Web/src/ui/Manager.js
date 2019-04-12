@@ -92,7 +92,11 @@ Manager.prototype.get = function (id, scope = 'global') {
  */
 Manager.prototype.create = function (config) {
     if (config instanceof Control) { // config是Control实例
-        this.add(config.id, config, config.scope);
+        var key = `${config.scope}:${config.id}`;
+        if (this.objects[key] === undefined) {
+            // 如果config是控件，则可能已使用Manager管理，增加判断，避免出现太多警告信息。
+            this.add(config.id, config, config.scope);
+        }
         return config;
     }
 
