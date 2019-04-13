@@ -87,7 +87,7 @@ BackgroundRenderer.prototype.initProgram = function () {
 BackgroundRenderer.prototype.initBuffers = function () {
     var gl = this.gl;
 
-    var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
+    var geometry = new THREE.BoxBufferGeometry(WGS84.a * 5, WGS84.a * 5, WGS84.a * 5);
     var attributes = geometry.attributes;
     this.indexCount = geometry.index.count;
 
@@ -172,7 +172,9 @@ BackgroundRenderer.prototype.render = function () {
 
     gl.useProgram(this.program);
 
-    gl.disable(gl.CULL_FACE);
+    gl.enable(gl.CULL_FACE);
+    gl.cullFace(gl.FRONT);
+    gl.frontFace(gl.CCW);
     gl.disable(gl.DEPTH_TEST);
 
     gl.uniformMatrix4fv(this.uniforms.modelMatrix, false, this.modelMatrix.elements);
