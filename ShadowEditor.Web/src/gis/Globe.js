@@ -53,7 +53,7 @@ Globe.prototype = Object.create(THREE.Object3D.prototype);
 Globe.prototype.constructor = Globe;
 
 /**
- * 切换背景
+ * 设置背景
  * @param {*} type 背景类型，支持google、tianditu、bing
  */
 Globe.prototype.setBackground = function (type) {
@@ -93,6 +93,11 @@ Globe.prototype.setBackground = function (type) {
 
     this._layers[0] = newLayer;
     layer.dispose();
+};
+
+Globe.prototype.getBackground = function () {
+    var layer = this._layers[0];
+    return layer.name;
 };
 
 /**

@@ -49,6 +49,8 @@ import QuadraticBezierCurveComponent from '../../component/line/QuadraticBezierC
 import CubicBezierCurveComponent from '../../component/line/CubicBezierCurveComponent';
 import EllipseCurveComponent from '../../component/line/EllipseCurveComponent';
 
+import GisBasicComponent from '../../component/gis/GisBasicComponent';
+
 /**
  * 属性面板
  * @author mrdoob / http://mrdoob.com/
@@ -81,6 +83,8 @@ PropertyPanel.prototype.render = function () {
             new TrackballControlComponent({ app: this.app }),
             new ReflectorComponent({ app: this.app }),
             new PhysicsWorldComponent({ app: this.app }),
+
+            new GisBasicComponent({ app: this.app }),
 
             // 后期处理
             new DotScreenComponent({ app: this.app }),
@@ -121,7 +125,7 @@ PropertyPanel.prototype.render = function () {
             new SoftVolumeComponent({ app: this.app }),
 
             new GeometryComponent({ app: this.app }),
-            new MaterialComponent({ app: this.app })
+            new MaterialComponent({ app: this.app }),
         ]
     };
 
