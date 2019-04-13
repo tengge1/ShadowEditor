@@ -34,15 +34,19 @@ function Globe(camera, renderer, options = {}) {
 
     // 不能命名为layers，否则跟three.js的layers冲突
     this.layerList = [
-        //new GoogleTiledLayer(this),
+        new GoogleTiledLayer(this),
         //new TiandituTiledLayer(this),
-        new BingTiledLayer(this),
+        // new BingTiledLayer(this),
     ];
 
     this.renderers = new Renderers(this);
     this.viewer = new OrbitViewer(this.camera, this.renderer.domElement);
 
-    this.viewer.setPosition(0, 0, GeoUtils.zoomToAlt(0));
+    // 默认位置
+    var lon = 0;
+    var lat = 0;
+    var alt = GeoUtils.zoomToAlt(0);
+    this.viewer.setPosition(lon, lat, alt);
 }
 
 Globe.prototype = Object.create(THREE.Object3D.prototype);
