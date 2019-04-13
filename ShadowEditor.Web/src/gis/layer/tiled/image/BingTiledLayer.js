@@ -7,6 +7,8 @@ import TiledImageLayer from '../TiledImageLayer';
  */
 function BingTiledLayer(globe) {
     TiledImageLayer.call(this, globe);
+
+    this.name = 'bing';
 }
 
 BingTiledLayer.prototype = Object.create(TiledImageLayer.prototype);
@@ -15,15 +17,6 @@ BingTiledLayer.prototype.constructor = BingTiledLayer;
 BingTiledLayer.prototype.getUrl = function (x, y, z) {
     return `http://t0.ssl.ak.tiles.virtualearth.net/tiles/a${this.tileXYToQuadKey(x, y, z)}.jpeg?g=5793`;
 };
-
-/// <summary>
-/// Converts tile XY coordinates into a QuadKey at a specified level of detail.
-/// </summary>
-/// <param name="tileX">Tile X coordinate.</param>
-/// <param name="tileY">Tile Y coordinate.</param>
-/// <param name="levelOfDetail">Level of detail, from 1 (lowest detail)
-/// to 23 (highest detail).</param>
-/// <returns>A string containing the QuadKey.</returns>
 
 /**
  * Converts tile XY coordinates into a QuadKey at a specified level of detail.

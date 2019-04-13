@@ -7,6 +7,8 @@ import TiledImageLayer from '../TiledImageLayer';
  */
 function TiandituTiledLayer(globe) {
     TiledImageLayer.call(this, globe);
+
+    this.name = 'tianditu';
 }
 
 TiandituTiledLayer.prototype = Object.create(TiledImageLayer.prototype);

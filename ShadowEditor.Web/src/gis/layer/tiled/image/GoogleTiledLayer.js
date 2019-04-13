@@ -8,6 +8,8 @@ import GeoUtils from '../../../utils/GeoUtils';
  */
 function GoogleTiledLayer(globe) {
     TiledImageLayer.call(this, globe);
+
+    this.name = 'google';
 }
 
 GoogleTiledLayer.prototype = Object.create(TiledImageLayer.prototype);

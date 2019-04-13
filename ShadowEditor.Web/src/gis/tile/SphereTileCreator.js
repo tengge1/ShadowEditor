@@ -43,7 +43,7 @@ SphereTileCreator.prototype.get = function (tiles) {
     // 获取图层数据
     tiles.forEach(tile => {
         tile.images.length = 0;
-        this.globe.layerList.forEach(n => {
+        this.globe._layers.forEach(n => {
             var image = n.get(tile.x, tile.y, tile.z);
             if (image) {
                 tile.images.push(image);

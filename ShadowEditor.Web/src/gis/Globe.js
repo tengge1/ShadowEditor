@@ -33,7 +33,7 @@ function Globe(camera, renderer, options = {}) {
     this.matrixAutoUpdate = false;
 
     // 不能命名为layers，否则跟three.js的layers冲突
-    this.layerList = [
+    this._layers = [
         new GoogleTiledLayer(this),
         //new TiandituTiledLayer(this),
         // new BingTiledLayer(this),
@@ -53,6 +53,49 @@ Globe.prototype = Object.create(THREE.Object3D.prototype);
 Globe.prototype.constructor = Globe;
 
 /**
+ * 切换背景
+ * @param {*} type 背景类型，支持google、tianditu、bing
+ */
+Globe.prototype.setBackground = function (type) {
+    var newLayerName = 'google';
+
+    switch (type) {
+        case 'bing':
+            newLayerName = 'bing';
+            break;
+        case 'tianditu':
+            newLayerName = 'tianditu';
+            break;
+        default:
+            newLayerName = 'google';
+            break;
+    }
+
+    var layer = this._layers[0];
+
+    if (newLayerName === layer.name) {
+        return;
+    }
+
+    var newLayer = null;
+
+    switch (newLayerName) {
+        case 'google':
+            newLayer = new GoogleTiledLayer(this);
+            break;
+        case 'tianditu':
+            newLayer = new TiandituTiledLayer(this);
+            break;
+        case 'bing':
+            newLayer = new BingTiledLayer(this);
+            break;
+    }
+
+    this._layers[0] = newLayer;
+    layer.dispose();
+};
+
+/**
  * 需要由应用程序连续调用
  */
 Globe.prototype.update = function () {
@@ -67,11 +110,11 @@ Globe.prototype.dispose = function () {
     this.renderers.dispose();
     this.viewer.dispose();
 
-    this.layerList.forEach(n => {
+    this._layers.forEach(n => {
         n.dispose();
     });
 
-    delete this.layerList;
+    delete this._layers;
     delete this.renderers;
     delete this.viewer;
 
