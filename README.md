@@ -31,7 +31,7 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 
 ![image](images/scene20190310.png)
 
-2. 高清地图(开发中)
+2. 高清地图
 
 ![image](images/scene20190407.png)
 
