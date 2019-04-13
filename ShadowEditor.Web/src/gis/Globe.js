@@ -13,14 +13,12 @@ import BingTiledLayer from './layer/tiled/image/BingTiledLayer';
  * @param {THREE.WebGLRenderer} renderer 渲染器
  * @param {Object} options 配置
  * @param {String} options.server 服务端配置
- * @param {Boolean} options.enableTileCache 是否启用底图缓存
  * @param {Number} options.maxThread 最大工作线程数，避免任务创建过多，导致地图卡顿
  */
 function Globe(camera, renderer, options = {}) {
     THREE.Object3D.call(this);
 
     options.server = options.server || location.origin;
-    options.enableTileCache = options.enableTileCache || false;
     options.maxThread = options.maxThread || 10;
 
     this.name = L_GLOBE;
