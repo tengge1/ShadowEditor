@@ -598,4 +598,9 @@ Object.assign(window, {
 
     L_GLOBE: 'Globe',
     L_EXPORT_EDITOR: 'Export Editor',
+    L_GIS_COMPONENT: 'GIS Component',
+    L_TILE_MAP: 'Map',
+    L_GOOGLE_MAP: 'Google Map',
+    L_BING_MAP: 'Bing Map',
+    L_TIANDITU_MAP: 'Tianditu Map',
 });

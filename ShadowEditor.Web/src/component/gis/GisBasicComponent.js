@@ -32,21 +32,21 @@ GisBasicComponent.prototype.render = function () {
                     color: '#555',
                     fontWeight: 'bold'
                 },
-                text: 'GIS组件'
+                text: L_GIS_COMPONENT
             }]
         }, {
             xtype: 'row',
             children: [{
                 xtype: 'label',
-                text: '底图'
+                text: L_TILE_MAP
             }, {
                 xtype: 'select',
                 id: 'bakcground',
                 scope: this.id,
                 options: {
-                    google: '谷歌地图',
-                    bing: '必应地图',
-                    tianditu: '天地图',
+                    google: L_GOOGLE_MAP,
+                    bing: L_BING_MAP,
+                    tianditu: L_TIANDITU_MAP,
                 },
                 onChange: this.onChangeBackground.bind(this),
             }]

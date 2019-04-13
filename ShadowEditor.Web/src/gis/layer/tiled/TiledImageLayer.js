@@ -75,7 +75,10 @@ TiledImageLayer.prototype._createImage = function (x, y, z) {
         img.loaded = true;
         delete img.loading;
 
-        this.globe.thread--;
+        // 避免下载过程中，切换地图，导致报错。
+        if (this.globe) {
+            this.globe.thread--;
+        }
     };
 
     img.onerror = () => {
@@ -85,7 +88,9 @@ TiledImageLayer.prototype._createImage = function (x, y, z) {
         img.error = true;
         delete img.loading;
 
-        this.globe.thread--;
+        if (this.globe) {
+            this.globe.thread--;
+        }
     };
 
     img.src = url;
