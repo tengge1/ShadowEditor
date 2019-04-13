@@ -17,7 +17,6 @@ function Tile(x = 0, y = 0, z = 0) {
 
     this._aabb = this._getBox(x, y, z);
     this._center = this._getCenter(this._aabb);
-    this._vertices = this._getVertices(this._aabb, this._center);
 }
 
 /**
@@ -50,22 +49,5 @@ Tile.prototype._getCenter = function (aabb) {
     var center = new THREE.Vector2();
     return aabb.getCenter(center);
 };
-
-/**
- * 获取顶点
- */
-Tile.prototype._getVertices = function () {
-    var lonlat = new THREE.Vector3();
-
-    return function (aabb, center) {
-        var p0 = GeoUtils._lonlatToXYZ(lonlat.set(center.x, center.y, 0)); // 中心点
-        var p1 = GeoUtils._lonlatToXYZ(lonlat.set(aabb.min.x, aabb.min.y, 0)); // 左下
-        var p2 = GeoUtils._lonlatToXYZ(lonlat.set(aabb.max.x, aabb.min.y, 0)); // 右下
-        var p3 = GeoUtils._lonlatToXYZ(lonlat.set(aabb.max.x, aabb.max.y, 0)); // 右上
-        var p4 = GeoUtils._lonlatToXYZ(lonlat.set(aabb.min.x, aabb.max.y, 0)); // 左上
-
-        return [p0, p1, p2, p3, p4];
-    };
-}();
 
 export default Tile;
