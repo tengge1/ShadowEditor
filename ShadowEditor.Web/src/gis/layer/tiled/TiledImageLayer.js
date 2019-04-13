@@ -1,4 +1,5 @@
 import ImageLayer from '../ImageLayer';
+import TileCache from '../../utils/TileCache';
 
 /**
  * 图片瓦片图层
@@ -8,13 +9,19 @@ import ImageLayer from '../ImageLayer';
 function TiledImageLayer(globe) {
     ImageLayer.call(this, globe);
 
-    this.tree = rbush();
+    this.cache = new TileCache();
 }
 
 TiledImageLayer.prototype = Object.create(ImageLayer.prototype);
 TiledImageLayer.prototype.constructor = TiledImageLayer;
 
-TiledImageLayer.prototype.get = function (aabb) {
+/**
+ * 获取图片数据
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} z 
+ */
+TiledImageLayer.prototype.get = function (x, y, z) {
 
 };
 

@@ -13,6 +13,8 @@ function Tile(x = 0, y = 0, z = 0) {
     this.y = y;
     this.z = z;
 
+    this.images = [];
+
     this._aabb = this._getBox(x, y, z);
     this._center = this._getCenter(this._aabb);
     this._vertices = this._getVertices(this._aabb, this._center);

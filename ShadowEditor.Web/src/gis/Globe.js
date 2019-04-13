@@ -33,11 +33,12 @@ function Globe(camera, renderer, options = {}) {
     this.lat = 0;
     this.alt = GeoUtils.zoomToAlt(0);
 
+    this.thread = 0;
     this.matrixAutoUpdate = false;
 
     // 不能命名为layers，否则跟three.js的layers冲突
     this.layerList = [
-        new GoogleTiledLayer(),
+        new GoogleTiledLayer(this),
     ];
 
     this.renderers = new Renderers(this);

@@ -1,7 +1,6 @@
 import WGS84 from '../core/WGS84';
 import TileCreator from './TileCreator';
 import Tile from './Tile';
-import TiledMaterial from '../render/tiled/TiledMaterial';
 import GeoUtils from '../utils/GeoUtils';
 
 /**
@@ -15,24 +14,23 @@ function SphereTileCreator(globe) {
     this.cache = new Map();
 
     this._centerZoom = 0;
-
-    this.tiles = [];
 }
 
 SphereTileCreator.prototype = Object.create(TileCreator.prototype);
 SphereTileCreator.prototype.constructor = SphereTileCreator;
 
-SphereTileCreator.prototype.get = function () {
-    this.tiles.length = 0;
+SphereTileCreator.prototype.get = function (tiles) {
+    tiles.length = 0;
 
     this._centerZoom = ~~GeoUtils.altToZoom(this.camera.position.length() - WGS84.a) + 3;
 
-    this.fork(0, 0, 1);
-    this.fork(1, 0, 1);
-    this.fork(0, 1, 1);
-    this.fork(1, 1, 1);
+    this.fork(0, 0, 1, tiles);
+    this.fork(1, 0, 1, tiles);
+    this.fork(0, 1, 1, tiles);
+    this.fork(1, 1, 1, tiles);
 
-    this.tiles = this.tiles.sort((a, b) => {
+    // 排序
+    tiles = tiles.sort((a, b) => {
         if (a.z > b.z) {
             return 1;
         } else if (a.z < b.z) {
@@ -42,7 +40,18 @@ SphereTileCreator.prototype.get = function () {
         }
     });
 
-    return this.tiles;
+    // 获取图层数据
+    tiles.forEach(tile => {
+        tile.images.length = 0;
+        this.globe.layerList.forEach(n => {
+            var image = n.get(tile.x, tile.y, tile.z);
+            if (image) {
+                tile.images.push(image);
+            }
+        });
+    });
+
+    return tiles;
 };
 
 /**
@@ -50,24 +59,25 @@ SphereTileCreator.prototype.get = function () {
  * @param {*} x 
  * @param {*} y 
  * @param {*} z 
+ * @param {*} tiles 
  */
-SphereTileCreator.prototype.fork = function (x, y, z) {
+SphereTileCreator.prototype.fork = function (x, y, z, tiles) {
     var tile = this.getTile(x, y, z);
 
     if (!this.isVisible(tile)) {
         return;
     }
 
-    this.tiles.push(tile);
+    tiles.push(tile);
 
     if (tile.z > this._centerZoom) {
         return;
     }
 
-    this.fork(x * 2, y * 2, z + 1);
-    this.fork(x * 2 + 1, y * 2, z + 1);
-    this.fork(x * 2, y * 2 + 1, z + 1);
-    this.fork(x * 2 + 1, y * 2 + 1, z + 1);
+    this.fork(x * 2, y * 2, z + 1, tiles);
+    this.fork(x * 2 + 1, y * 2, z + 1, tiles);
+    this.fork(x * 2, y * 2 + 1, z + 1, tiles);
+    this.fork(x * 2 + 1, y * 2 + 1, z + 1, tiles);
 };
 
 /**
@@ -83,8 +93,6 @@ SphereTileCreator.prototype.getTile = function (x, y, z) {
 
     if (!tile) {
         tile = new Tile(x, y, z);
-        tile.material = new TiledMaterial(x, y, z, this.options);
-        tile.material.load();
         this.cache.set(id, tile);
     }
 
@@ -98,15 +106,10 @@ SphereTileCreator.prototype.getTile = function (x, y, z) {
  * @param {*} tile 
  */
 SphereTileCreator.prototype.isVisible = function (tile) {
-    if (!tile.material.loaded) {
-        return false;
-    }
-
     return this.globe.viewer.aabb.intersectsBox(tile._aabb);
 };
 
 SphereTileCreator.prototype.dispose = function () {
-    this.tiles.length = 0;
     this.cache.clear();
     TileCreator.prototype.dispose.call(this);
 };

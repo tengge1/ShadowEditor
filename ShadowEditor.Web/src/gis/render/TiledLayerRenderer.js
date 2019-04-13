@@ -14,16 +14,15 @@ function TiledLayerRenderer(globe) {
 
     this.creator = new SphereTileCreator(this.globe);
 
-    var geometry = new THREE.PlaneBufferGeometry(1, 1, 16, 16);
-
-    this.mesh = new THREE.Mesh(geometry, []);
-    this.mesh.matrix.copy(this.globe.matrix);
-    this.mesh.matrixAutoUpdate = false;
+    this.geometry = new THREE.PlaneBufferGeometry(1, 1, 16, 16);
+    this.modelMatrix = new THREE.Matrix4();
 
     this.program = null;
     this.attributes = {};
     this.uniforms = {};
     this.buffers = {};
+
+    this.tiles = [];
 
     this.initProgram();
     this.initBuffers();
@@ -93,7 +92,7 @@ TiledLayerRenderer.prototype.initProgram = function () {
 
 TiledLayerRenderer.prototype.initBuffers = function () {
     var gl = this.gl;
-    var geometry = this.mesh.geometry;
+    var geometry = this.geometry;
     var attributes = geometry.attributes;
 
     var positionBuffer = gl.createBuffer();
@@ -121,14 +120,7 @@ TiledLayerRenderer.prototype.initBuffers = function () {
 };
 
 TiledLayerRenderer.prototype.render = function () {
-    this.mesh.material.length = 0;
-
-    this.creator.get().forEach((n, i) => {
-        if (n.material) {
-            this.mesh.material.push(n.material);
-        }
-    });
-
+    this.creator.get(this.tiles);
     this.renderMesh();
     this.renderer.state.reset();
 };
@@ -136,8 +128,6 @@ TiledLayerRenderer.prototype.render = function () {
 TiledLayerRenderer.prototype.renderMesh = function () {
     var gl = this.gl;
     var camera = this.camera;
-    var geometry = this.mesh.geometry;
-    var materials = this.mesh.material;
 
     gl.useProgram(this.program);
 
@@ -149,7 +139,7 @@ TiledLayerRenderer.prototype.renderMesh = function () {
     // gl.depthFunc(gl.LEQUAL);
     gl.depthMask(true);
 
-    gl.uniformMatrix4fv(this.uniforms.modelMatrix, false, this.mesh.matrix.elements);
+    gl.uniformMatrix4fv(this.uniforms.modelMatrix, false, this.modelMatrix.elements);
     gl.uniformMatrix4fv(this.uniforms.viewMatrix, false, camera.matrixWorldInverse.elements);
     gl.uniformMatrix4fv(this.uniforms.projectionMatrix, false, camera.projectionMatrix.elements);
 
@@ -168,32 +158,32 @@ TiledLayerRenderer.prototype.renderMesh = function () {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.buffers.index);
 
     // x, y, z
-    materials.forEach(n => {
-        gl.uniform1i(this.uniforms.x, n.x);
-        gl.uniform1i(this.uniforms.y, n.y);
-        gl.uniform1i(this.uniforms.z, n.z);
+    this.tiles.forEach(tile => {
+        tile.images.forEach(n => {
+            gl.uniform1i(this.uniforms.x, n._x);
+            gl.uniform1i(this.uniforms.y, n._y);
+            gl.uniform1i(this.uniforms.z, n._z);
 
-        if (!n.texture && n.loaded) {
-            var texture = gl.createTexture();
-            gl.bindTexture(gl.TEXTURE_2D, texture);
-            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, n.image);
+            if (!n.texture) {
+                var texture = gl.createTexture();
+                gl.bindTexture(gl.TEXTURE_2D, texture);
+                gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, n);
 
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 
-            gl.bindTexture(gl.TEXTURE_2D, null);
+                gl.bindTexture(gl.TEXTURE_2D, null);
 
-            n.texture = texture;
-        }
+                n.texture = texture;
+            } else {
+                gl.activeTexture(gl.TEXTURE0);
+                gl.bindTexture(gl.TEXTURE_2D, n.texture);
+                gl.uniform1i(this.uniforms.map, 0);
+            }
 
-        if (n.texture) {
-            gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, n.texture);
-            gl.uniform1i(this.uniforms.map, 0);
-        }
-
-        gl.drawElements(gl.TRIANGLES, geometry.index.count, gl.UNSIGNED_SHORT, 0);
+            gl.drawElements(gl.TRIANGLES, this.geometry.index.count, gl.UNSIGNED_SHORT, 0);
+        });
     });
 
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
@@ -212,8 +202,6 @@ TiledLayerRenderer.prototype.dispose = function () {
     });
 
     this.buffers = {};
-
-    delete this.mesh;
 
     this.creator.dispose();
 

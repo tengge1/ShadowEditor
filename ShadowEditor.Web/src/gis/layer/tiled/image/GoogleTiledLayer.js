@@ -14,21 +14,63 @@ GoogleTiledLayer.prototype = Object.create(TiledImageLayer.prototype);
 GoogleTiledLayer.prototype.constructor = GoogleTiledLayer;
 
 /**
- * 获取某个经纬度范围内的资源
- * @param {THREE.Box2} aabb 
- * @param {Number} z 层级
+ * 获取图片数据
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} z 
  */
-GoogleTiledLayer.prototype.get = function (aabb, z) {
-    var minLon = aabb.min.x,
-        minLat = GeoUtils._mercatorLat(aabb.min.y),
-        maxLon = aabb.max.x,
-        maxLat = GeoUtils._mercatorLat(aabb.max.y);
+GoogleTiledLayer.prototype.get = function (x, y, z) {
+    var img = this.cache.get(x, y, z);
 
-    var size = Math.PI * 2 / 2 ** z,
-        minX = Math.floor(minLon / size),
-        minY = Math.floor(minLat / size),
-        maxX = Math.ceil(maxLon / size),
-        maxY = Math.ceil(maxLat / size);
+    if (img && img.loaded) {
+        return img;
+    }
+
+    if (img && (img.loading || img.error)) {
+        return null;
+    }
+
+    if (this.globe.thread < this.globe.options.maxThread) {
+        this._create(x, y, z);
+    }
+
+    return null;
+};
+
+GoogleTiledLayer.prototype._create = function (x, y, z) {
+    var img = document.createElement('img');
+
+    img._x = x;
+    img._y = y;
+    img._z = z;
+    img.crossOrigin = 'anonymous';
+    img.loading = true;
+
+    this.cache.set(x, y, z, img);
+
+    img.onload = () => {
+        img.onload = null;
+        img.onerror = null;
+
+        img.loaded = true;
+        delete img.loading;
+
+        this.globe.thread--;
+    };
+
+    img.onerror = () => {
+        img.onload = null;
+        img.onerror = null;
+
+        img.error = true;
+        delete img.loading;
+
+        this.globe.thread--;
+    };
+
+    img.src = `http://www.google.cn/maps/vt?lyrs=s@821&gl=cn&x=${x}&y=${y}&z=${z}`;
+
+    this.globe.thread++;
 };
 
 export default GoogleTiledLayer;
