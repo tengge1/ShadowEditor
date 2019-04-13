@@ -6,8 +6,7 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/API/EXT_blend_minmax
  */
 function EXT_blend_minmax(gl) {
-    var extension = gl.getExtension('EXT_blend_minmax');
-
-    this.MAX_EXT = extension.MAX_EXT;
-    this.MIN_EXT = extension.MIN_EXT;
+    return gl.getExtension('EXT_blend_minmax');
 }
+
+export default EXT_blend_minmax;
