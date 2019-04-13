@@ -1,7 +1,6 @@
 import Renderer from './Renderer';
 import BackgroundVertex from './shader/background_vertex.glsl';
 import BackgroundFragment from './shader/background_fragment.glsl';
-import WGS84 from '../core/WGS84';
 
 /**
  * 背景渲染器
@@ -87,7 +86,7 @@ BackgroundRenderer.prototype.initProgram = function () {
 BackgroundRenderer.prototype.initBuffers = function () {
     var gl = this.gl;
 
-    var geometry = new THREE.BoxBufferGeometry(WGS84.a * 5, WGS84.a * 5, WGS84.a * 5);
+    var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
     var attributes = geometry.attributes;
     this.indexCount = geometry.index.count;
 
@@ -161,43 +160,49 @@ BackgroundRenderer.prototype.createImage = function (url) {
 };
 
 BackgroundRenderer.prototype.render = function () {
-    if (!this.texture) {
-        return;
-    }
+    var modelViewMatrix = new THREE.Matrix4();
 
-    var gl = this.gl;
-    var camera = this.camera;
+    return function () {
+        if (!this.texture) {
+            return;
+        }
 
-    this.modelMatrix.copyPosition(this.camera.matrixWorld);
+        var gl = this.gl;
+        var camera = this.camera;
 
-    gl.useProgram(this.program);
+        this.modelMatrix.copyPosition(this.camera.matrixWorld);
 
-    gl.enable(gl.CULL_FACE);
-    gl.cullFace(gl.FRONT);
-    gl.frontFace(gl.CCW);
-    gl.disable(gl.DEPTH_TEST);
+        gl.useProgram(this.program);
 
-    gl.uniformMatrix4fv(this.uniforms.modelMatrix, false, this.modelMatrix.elements);
-    gl.uniformMatrix4fv(this.uniforms.modelViewMatrix, false, camera.matrixWorldInverse.elements);
-    gl.uniformMatrix4fv(this.uniforms.projectionMatrix, false, camera.projectionMatrix.elements);
+        gl.enable(gl.CULL_FACE);
+        gl.cullFace(gl.FRONT);
+        gl.frontFace(gl.CCW);
+        gl.disable(gl.DEPTH_TEST);
 
-    gl.uniform1f(this.uniforms.tFlip, -1);
+        modelViewMatrix.multiplyMatrices(camera.matrixWorldInverse, this.modelMatrix);
 
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_CUBE_MAP, this.texture);
-    gl.uniform1i(this.uniforms.tCube, 0);
+        gl.uniformMatrix4fv(this.uniforms.modelMatrix, false, this.modelMatrix.elements);
+        gl.uniformMatrix4fv(this.uniforms.modelViewMatrix, false, modelViewMatrix.elements);
+        gl.uniformMatrix4fv(this.uniforms.projectionMatrix, false, camera.projectionMatrix.elements);
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.position);
-    gl.enableVertexAttribArray(this.attributes.position);
-    gl.vertexAttribPointer(this.attributes.position, 3, gl.FLOAT, false, 0, 0);
+        gl.uniform1f(this.uniforms.tFlip, -1);
 
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.buffers.index);
-    gl.drawElements(gl.TRIANGLES, this.indexCount, gl.UNSIGNED_SHORT, 0);
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_CUBE_MAP, this.texture);
+        gl.uniform1i(this.uniforms.tCube, 0);
 
-    gl.bindTexture(gl.TEXTURE_CUBE_MAP, null);
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
-};
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.position);
+        gl.enableVertexAttribArray(this.attributes.position);
+        gl.vertexAttribPointer(this.attributes.position, 3, gl.FLOAT, false, 0, 0);
+
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.buffers.index);
+        gl.drawElements(gl.TRIANGLES, this.indexCount, gl.UNSIGNED_SHORT, 0);
+
+        gl.bindTexture(gl.TEXTURE_CUBE_MAP, null);
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+    };
+}();
 
 BackgroundRenderer.prototype.dispose = function () {
     this.gl.deleteProgram(this.program);
