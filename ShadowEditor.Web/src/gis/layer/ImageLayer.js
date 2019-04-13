@@ -3,9 +3,10 @@ import Layer from './Layer';
 /**
  * 图片图层
  * @author tengge / https://github.com/tengge1
+ * @param {*} globe 
  */
-function ImageLayer() {
-    Layer.call(this);
+function ImageLayer(globe) {
+    Layer.call(this, globe);
 }
 
 ImageLayer.prototype = Object.create(Layer.prototype);

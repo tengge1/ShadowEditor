@@ -3,8 +3,11 @@ var ID = -1;
 /**
  * 图层
  * @author tengge / https://github.com/tengge1
+ * @param {*} globe 
  */
-function Layer() {
+function Layer(globe) {
+    this.globe = globe;
+
     this.id = `${this.constructor.name}${ID--}`;
     this.name = this.constructor.name;
 }
@@ -21,7 +24,7 @@ Layer.prototype.get = function (aabb) {
  * 释放该图层所有资源
  */
 Layer.prototype.dispose = function () {
-
+    delete this.globe;
 };
 
 export default Layer;

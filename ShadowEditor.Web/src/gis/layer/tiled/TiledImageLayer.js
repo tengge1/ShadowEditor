@@ -3,9 +3,10 @@ import ImageLayer from '../ImageLayer';
 /**
  * 图片瓦片图层
  * @author tengge / https://github.com/tengge1
+ * @param {*} globe 
  */
-function TiledImageLayer() {
-    ImageLayer.call(this);
+function TiledImageLayer(globe) {
+    ImageLayer.call(this, globe);
 
     this.tree = rbush();
 }

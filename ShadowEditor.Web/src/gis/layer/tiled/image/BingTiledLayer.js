@@ -3,9 +3,10 @@ import TiledImageLayer from '../TiledImageLayer';
 /**
  * 必应瓦片图层
  * @author tengge / https://github.com/tengge1
+ * @param {*} globe 
  */
-function BingTiledLayer() {
-    TiledImageLayer.call(this);
+function BingTiledLayer(globe) {
+    TiledImageLayer.call(this, globe);
 }
 
 BingTiledLayer.prototype = Object.create(TiledImageLayer.prototype);

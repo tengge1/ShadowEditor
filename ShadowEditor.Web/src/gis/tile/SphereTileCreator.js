@@ -84,6 +84,7 @@ SphereTileCreator.prototype.getTile = function (x, y, z) {
     if (!tile) {
         tile = new Tile(x, y, z);
         tile.material = new TiledMaterial(x, y, z, this.options);
+        tile.material.load();
         this.cache.set(id, tile);
     }
 

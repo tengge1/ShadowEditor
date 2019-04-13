@@ -3,9 +3,10 @@ import TiledImageLayer from '../TiledImageLayer';
 /**
  * ArcGIS瓦片图层
  * @author tengge / https://github.com/tengge1
+ * @param {*} globe 
  */
-function ArcGISTiledLayer() {
-    TiledImageLayer.call(this);
+function ArcGISTiledLayer(globe) {
+    TiledImageLayer.call(this, globe);
 }
 
 ArcGISTiledLayer.prototype = Object.create(TiledImageLayer.prototype);

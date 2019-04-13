@@ -3,9 +3,10 @@ import FeatureLayer from '../FeatureLayer';
 /**
  * 一条数据图层
  * @author tengge / https://github.com/tengge1
+ * @param {*} globe 
  */
-function OneFeatureLayer() {
-    FeatureLayer.call(this);
+function OneFeatureLayer(globe) {
+    FeatureLayer.call(this, globe);
 }
 
 OneFeatureLayer.prototype = Object.create(FeatureLayer.prototype);

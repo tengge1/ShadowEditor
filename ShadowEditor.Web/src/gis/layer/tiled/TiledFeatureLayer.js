@@ -3,9 +3,10 @@ import FeatureLayer from '../FeatureLayer';
 /**
  * 数据瓦片图层
  * @author tengge / https://github.com/tengge1
+ * @param {*} globe 
  */
-function TiledFeatureLayer() {
-    FeatureLayer.call(this);
+function TiledFeatureLayer(globe) {
+    FeatureLayer.call(this, globe);
 
     this.tree = rbush();
 }
