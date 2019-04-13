@@ -172,15 +172,15 @@ TiledLayerRenderer.prototype.renderMesh = function () {
 
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-
-                gl.bindTexture(gl.TEXTURE_2D, null);
+                gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
                 n.texture = texture;
-            } else {
-                gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, n.texture);
-                gl.uniform1i(this.uniforms.map, 0);
             }
+
+            gl.activeTexture(gl.TEXTURE0);
+            gl.bindTexture(gl.TEXTURE_2D, n.texture);
+            gl.uniform1i(this.uniforms.map, 0);
 
             gl.drawElements(gl.TRIANGLES, this.geometry.index.count, gl.UNSIGNED_SHORT, 0);
         });
@@ -188,6 +188,7 @@ TiledLayerRenderer.prototype.renderMesh = function () {
 
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+    gl.bindTexture(gl.TEXTURE_2D, null);
 };
 
 TiledLayerRenderer.prototype.dispose = function () {
