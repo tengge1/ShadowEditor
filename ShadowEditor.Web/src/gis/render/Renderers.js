@@ -1,7 +1,7 @@
 import Renderer from './Renderer';
 import BackgroundRenderer from './BackgroundRenderer';
-import AtmosphereRenderer from './AtmosphereRenderer';
 import TiledLayerRenderer from './TiledLayerRenderer';
+import AtmosphereRenderer from './AtmosphereRenderer';
 
 /**
  * 所有渲染器
@@ -13,8 +13,8 @@ function Renderers(globe) {
 
     this.renderers = [
         new BackgroundRenderer(this.globe),
-        // new AtmosphereRenderer(this.globe),
         new TiledLayerRenderer(this.globe),
+        // new AtmosphereRenderer(this.globe),
     ];
 }
 
