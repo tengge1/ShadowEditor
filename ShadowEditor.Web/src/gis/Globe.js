@@ -5,6 +5,7 @@ import GeoUtils from './utils/GeoUtils';
 import GoogleTiledLayer from './layer/tiled/image/GoogleTiledLayer';
 import TiandituTiledLayer from './layer/tiled/image/TiandituTiledLayer';
 import BingTiledLayer from './layer/tiled/image/BingTiledLayer';
+import WGS84 from './core/WGS84';
 
 /**
  * 地球
@@ -107,6 +108,21 @@ Globe.prototype.update = function () {
     this.renderers.render();
     this.viewer.update();
 };
+
+/**
+ * 光线投射
+ * @param {*} raycaster 
+ * @param {*} intersects 
+ */
+Globe.prototype.raycast = function () {
+    var geometry = new THREE.SphereBufferGeometry(WGS84.a, 32, 32);
+    var material = new THREE.MeshBasicMaterial();
+    var mesh = new THREE.Mesh(geometry, material);
+
+    return function (raycaster, intersects) {
+        return mesh.raycast(raycaster, intersects);
+    };
+}();
 
 /**
  * 释放占用的所有资源

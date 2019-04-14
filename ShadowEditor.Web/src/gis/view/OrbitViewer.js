@@ -43,6 +43,11 @@ OrbitViewer.prototype.onMouseMove = function () {
     var unit1 = new THREE.Vector3();
     var unit2 = new THREE.Vector3();
 
+    var yAxis = new THREE.Vector3(0, 1, 0);
+    var minAngle = 45 * Math.PI / 180;
+    var maxAngle = 135 * Math.PI / 180;
+    var axis = new THREE.Vector3();
+
     var quat = new THREE.Quaternion();
     var dir = new THREE.Vector3();
 
@@ -68,6 +73,24 @@ OrbitViewer.prototype.onMouseMove = function () {
         unit1.copy(lastIntersectPoint).normalize();
         unit2.copy(this.intersectPoint).normalize();
 
+        // unit2与y轴夹角不能太小和太大
+        var angle = unit2.angleTo(yAxis);
+
+        if (angle && Math.abs(angle) < minAngle) {
+            axis.crossVectors(unit2, yAxis);
+            axis.normalize();
+            unit2.copy(yAxis);
+            unit2.applyAxisAngle(axis, -angle);
+        }
+
+        if (angle && Math.abs(angle) > maxAngle) {
+            axis.crossVectors(unit2, yAxis);
+            axis.normalize();
+            unit2.copy(yAxis);
+            unit2.applyAxisAngle(axis, -angle);
+        }
+
+        // 计算相机新位置
         quat.setFromUnitVectors(unit2, unit1);
 
         var distance = this.camera.position.length();
