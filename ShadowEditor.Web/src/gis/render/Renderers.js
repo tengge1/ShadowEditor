@@ -1,5 +1,6 @@
 import Renderer from './Renderer';
 import BackgroundRenderer from './BackgroundRenderer';
+import SunRenderer from './SunRenderer';
 import TiledLayerRenderer from './TiledLayerRenderer';
 import AtmosphereRenderer from './AtmosphereRenderer';
 
@@ -13,6 +14,7 @@ function Renderers(globe) {
 
     this.renderers = [
         new BackgroundRenderer(this.globe),
+        new SunRenderer(this.globe),
         new TiledLayerRenderer(this.globe),
         // new AtmosphereRenderer(this.globe),
     ];
