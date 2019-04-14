@@ -47,6 +47,9 @@ import QuadraticBezierCurveSerializer from './line/QuadraticBezierCurveSerialize
 import CubicBezierCurveSerializer from './line/CubicBezierCurveSerializer';
 import EllipseCurveSerializer from './line/EllipseCurveSerializer';
 
+// gis
+import GlobeSerializer from './gis/GlobeSerializer';
+
 /**
  * 场景序列化/反序列化类
  * @author tengge / https://github.com/tengge1
@@ -145,6 +148,8 @@ Converter.prototype.sceneToJson = function (scene, list) {
             json = (new CubicBezierCurveSerializer()).toJSON(obj);
         } else if (obj.userData.type === 'EllipseCurve') {
             json = (new EllipseCurveSerializer()).toJSON(obj);
+        } else if (obj.userData.type === 'Globe') {
+            json = (new GlobeSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Scene) {
             json = (new SceneSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Group) {

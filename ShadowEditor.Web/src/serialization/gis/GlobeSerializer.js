@@ -1,5 +1,5 @@
 import BaseSerializer from '../BaseSerializer';
-import Object3DSerializer from './Object3DSerializer';
+import Object3DSerializer from '../core/Object3DSerializer';
 
 /**
  * GlobeSerializer
@@ -14,6 +14,8 @@ GlobeSerializer.prototype.constructor = GlobeSerializer;
 
 GlobeSerializer.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON.call(this, obj);
+
+    debugger
 
     return json;
 };
