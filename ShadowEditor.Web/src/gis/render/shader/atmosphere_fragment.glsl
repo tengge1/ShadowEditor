@@ -7,12 +7,14 @@ varying vec4 vTransformed;
 
 void main() 
 {
-    //float r = sqrt(vTransformed.x * vTransformed.x + vTransformed.y * vTransformed.y);
-    
-    //float rate = (r - HALF_EARTH_RADIUS) / (HALF_EARTH_RADIUS * 1.02);
-    
-    //float red = smoothstep(0.0, 1.0, rate);
-    //float opacity = smoothstep(1.0, 0.0, rate);
+    float r = sqrt(vTransformed.x * vTransformed.x + vTransformed.y * vTransformed.y);
 
-    gl_FragColor = vec4(1.0, 1.0, 1.0, 0.4);
+    if(r < HALF_EARTH_RADIUS) {
+        gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
+    } else {
+        float rate = (r - HALF_EARTH_RADIUS) / (HALF_EARTH_RADIUS * 1.02);
+        //float red = smoothstep(0.0, 1.0, rate);
+        //float opacity = smoothstep(1.0, 0.0, rate);
+        gl_FragColor = vec4(1.0, 1.0, 1.0, 0.4);
+    }
 }

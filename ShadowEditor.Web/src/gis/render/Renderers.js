@@ -16,7 +16,7 @@ function Renderers(globe) {
         new BackgroundRenderer(this.globe),
         new SunRenderer(this.globe),
         new TiledLayerRenderer(this.globe),
-        // new AtmosphereRenderer(this.globe),
+        //new AtmosphereRenderer(this.globe),
     ];
 }
 
