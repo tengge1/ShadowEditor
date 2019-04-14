@@ -116,7 +116,10 @@ AtmosphereRenderer.prototype.render = function () {
 
     gl.useProgram(this.program);
 
-    gl.disable(gl.CULL_FACE);
+    gl.enable(gl.CULL_FACE);
+    gl.cullFace(gl.BACK);
+    gl.frontFace(gl.CCW);
+
     gl.enable(gl.DEPTH_TEST);
 
     gl.uniformMatrix4fv(this.uniforms.modelViewMatrix, false, camera.matrixWorldInverse.elements);
