@@ -46,7 +46,7 @@ function Globe(camera, renderer, options = {}) {
     // 默认位置
     var lon = 0;
     var lat = 0;
-    var alt = GeoUtils.zoomToAlt(0);
+    var alt = GeoUtils.zoomToAlt(-1);
     this.viewer.setPosition(lon, lat, alt);
 }
 

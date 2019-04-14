@@ -130,9 +130,9 @@ OrbitViewer.prototype.onMouseWheel = function () {
 
         var d = delta * (distance - WGS84.a) / 1000;
 
-        var d0 = GeoUtils.zoomToAlt(0) + WGS84.a;
+        var d_1 = GeoUtils.zoomToAlt(-1) + WGS84.a;
 
-        if (distance + d >= d0) { // 最远0层级距离
+        if (distance + d >= d_1) { // 最远0层级距离
             d = 0;
         }
 
