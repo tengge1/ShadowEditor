@@ -71,7 +71,7 @@ GisBasicComponent.prototype.onObjectChanged = function () {
 GisBasicComponent.prototype.updateUI = function () {
     var container = UI.get('panel', this.id);
     var editor = this.app.editor;
-    if (editor.selected && editor.selected.isGlobe) {
+    if (editor.selected && editor.selected.userData.type === 'Globe') {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
