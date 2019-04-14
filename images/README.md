@@ -1,8 +1,6 @@
 # 更多截图
 
-![image](scene20190407.png)
-
-![image](scene20190331.png)
+![image](scene20190414.png)
 
 ![image](scene20190310.png)
 

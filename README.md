@@ -28,13 +28,7 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 
 ## 项目截图
 
-1. 温馨小窝
-
-![image](images/scene20190310.png)
-
-2. 高清地图
-
-![image](images/scene20190407.png)
+![image](images/scene20190414.png)
 
 [点击此处](images/README.md)查看更多截图。
 
