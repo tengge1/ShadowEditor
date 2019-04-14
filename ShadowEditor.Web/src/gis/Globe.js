@@ -33,6 +33,10 @@ function Globe(camera, renderer, options = {}) {
     this.thread = 0; // 当前线程总数
     this.matrixAutoUpdate = false;
 
+    this.time = new Date();
+    this.timeZone = this.time.getTimezoneOffset() / 60; // minutes
+    this.sunPosition = new THREE.Vector3();
+
     // 不能命名为layers，否则跟three.js的layers冲突
     this._layers = [
         new GoogleTiledLayer(this),
@@ -105,6 +109,16 @@ Globe.prototype.getBackground = function () {
  * 需要由应用程序连续调用
  */
 Globe.prototype.update = function () {
+    this.time = new Date();
+
+    var hour = this.time.getHours() + this.timeZone;
+
+    var angle = Math.PI * 2 / 24 * hour;
+    var x = -WGS84.a * 10 * Math.cos(angle);
+    var z = WGS84.a * 10 * Math.sin(angle);
+
+    this.sunPosition.set(x, 0, z);
+
     this.renderers.render();
     this.viewer.update();
 };

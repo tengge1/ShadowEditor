@@ -1,6 +1,7 @@
 import Renderer from './Renderer';
 import SunVertex from './shader/sun_vertex.glsl';
 import SunFragment from './shader/sun_fragment.glsl';
+import WGS84 from '../core/WGS84';
 
 /**
  * 太阳渲染器
@@ -76,6 +77,7 @@ SunRenderer.prototype.initProgram = function () {
     Object.assign(this.uniforms, {
         modelViewMatrix: gl.getUniformLocation(program, 'modelViewMatrix'),
         projectionMatrix: gl.getUniformLocation(program, 'projectionMatrix'),
+        sunPosition: gl.getUniformLocation(program, 'sunPosition'),
         map: gl.getUniformLocation(program, 'map'),
     });
 };
@@ -83,7 +85,7 @@ SunRenderer.prototype.initProgram = function () {
 SunRenderer.prototype.initBuffers = function () {
     var gl = this.gl;
 
-    var geometry = new THREE.PlaneBufferGeometry(10, 10);
+    var geometry = new THREE.PlaneBufferGeometry(0.4, 0.4);
     var attributes = geometry.attributes;
     this.indexCount = geometry.index.count;
 
@@ -122,11 +124,11 @@ SunRenderer.prototype.initTextures = function () {
     img.onload = () => {
         img.onload = null;
         gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, img);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
         this.texture = texture;
     };
 
-    img.src = 'assets/textures/lensflare/lensflare0.png';
+    img.src = 'assets/textures/lensflare/lensflare0_alpha.png';
 };
 
 SunRenderer.prototype.render = function () {
@@ -139,13 +141,17 @@ SunRenderer.prototype.render = function () {
 
     gl.useProgram(this.program);
 
-    gl.enable(gl.CULL_FACE);
+    gl.disable(gl.CULL_FACE);
     gl.cullFace(gl.FRONT);
     gl.frontFace(gl.CCW);
-    gl.disable(gl.DEPTH_TEST);
+
+    gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
     gl.uniformMatrix4fv(this.uniforms.modelViewMatrix, false, camera.matrixWorldInverse.elements);
     gl.uniformMatrix4fv(this.uniforms.projectionMatrix, false, camera.projectionMatrix.elements);
+    gl.uniform3f(this.uniforms.sunPosition, this.globe.sunPosition.x, this.globe.sunPosition.y, this.globe.sunPosition.z);
 
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, this.texture);
