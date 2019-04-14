@@ -38,7 +38,7 @@ Language: [中文](README.md) / 繁體中文 / [English](README-en.md) / [日本
 
 溫馨小窩。
 
-![image](images/scene20190310.png)
+![image](images/scene20190414.png)
 
 [點擊此處](images/README.md)查看更多截圖。
 

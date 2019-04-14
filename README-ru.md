@@ -38,7 +38,7 @@ Language: [中文](README.md) / [繁體中文](README-tw.md) / [English](README-
 
 Теплое гнездышко.
 
-![Image](images/scene20190310.png)
+![Image](images/scene20190414.png)
 
 [Нажмите здесь](images/README.md), чтобы увидеть больше скриншотов.
 
