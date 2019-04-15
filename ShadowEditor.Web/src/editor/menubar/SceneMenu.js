@@ -106,6 +106,7 @@ SceneMenu.prototype.createEmptyScene = function () {
             editor.sceneName = null;
             this.app.options.sceneType = 'Empty';
             document.title = L_NO_NAME;
+            this.app.editor.camera.userData.control = 'OrbitControls';
         }
     });
 };
@@ -121,6 +122,9 @@ SceneMenu.prototype.createGISScene = function () {
     this.app.editor.gis.start();
 
     this.app.options.sceneType = 'GIS';
+
+    this.app.editor.camera.userData.control = '';
+
     this.app.call(`sceneGraphChanged`, this);
 };
 
