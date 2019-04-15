@@ -15,6 +15,7 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 5. 地图添加太阳特效。
 6. 地图保存载入。
 7. 在播放器中播放GIS场景。
+8. 新增三维GIS演示。[Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381)
 
 ## v0.1.8更新
 
