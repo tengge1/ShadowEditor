@@ -22,6 +22,7 @@ function Editor(app) {
 
     this.sceneID = null; // 当前场景ID
     this.sceneName = null; // 当前场景名称
+    this.sceneType = 'Empty'; // 场景类型：Empty, GIS
 
     var width = this.app.viewport.container.dom.clientWidth;
     var height = this.app.viewport.container.dom.clientHeight;
