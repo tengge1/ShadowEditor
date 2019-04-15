@@ -14,14 +14,6 @@ Scene.prototype.start = function () {
 
     this.oldBackground = editor.scene.background;
     editor.scene.background = null;
-    // editor.scene.background = new THREE.CubeTextureLoader().load([
-    //     'assets/textures/MilkyWay/dark-s_px.jpg',
-    //     'assets/textures/MilkyWay/dark-s_nx.jpg',
-    //     'assets/textures/MilkyWay/dark-s_py.jpg',
-    //     'assets/textures/MilkyWay/dark-s_ny.jpg',
-    //     'assets/textures/MilkyWay/dark-s_pz.jpg',
-    //     'assets/textures/MilkyWay/dark-s_nz.jpg',
-    // ]);
     editor.sceneHelpers.visible = false
 
     editor.controls.enabled = false;
@@ -32,7 +24,6 @@ Scene.prototype.start = function () {
 
     this.globe = new Globe(editor.camera, editor.renderer, {
         server: this.app.options.server,
-        enableTileCache: this.app.options.enableTileCache,
     });
     editor.scene.add(this.globe);
     this.oldSceneBeforeRender = editor.scene.onBeforeRender;
@@ -54,7 +45,6 @@ Scene.prototype.stop = function () {
     delete this.oldSceneBeforeRender;
 
     editor.background = this.oldBackground;
-    // delete this.oldBackground;
 
     editor.sceneHelpers.visible = true;
 

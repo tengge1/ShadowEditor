@@ -6,6 +6,7 @@
 function Options(options = {}) {
     // 服务端配置
     this.server = options.server === undefined ? location.origin : options.server; // 服务端地址
+    this.sceneType = options.sceneType === undefined ? 'Empty' : options.sceneType; // 场景类型：Empty, GIS
 
     // 阴影配置
     this.shadowMapType = THREE.PCFSoftShadowMap;
@@ -24,9 +25,6 @@ function Options(options = {}) {
     this.grayscale = 0;
     this.invert = 0;
     this.sepia = 0;
-
-    // GIS配置
-    this.enableTileCache = options.enableTileCache || false; // 是否使用服务端缓存底图
 }
 
 export default Options;
