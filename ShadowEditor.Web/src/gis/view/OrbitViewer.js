@@ -23,10 +23,15 @@ function OrbitViewer(camera, domElement) {
         new THREE.Vector2(Math.PI, Math.PI / 2),
     );
 
-    this.domElement.addEventListener('mousedown', this.onMouseDown.bind(this));
-    this.domElement.addEventListener('mousemove', this.onMouseMove.bind(this));
-    document.body.addEventListener('mouseup', this.onMouseUp.bind(this));
-    this.domElement.addEventListener('mousewheel', this.onMouseWheel.bind(this));
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this)
+    this.onMouseWheel = this.onMouseWheel.bind(this);
+
+    this.domElement.addEventListener('mousedown', this.onMouseDown);
+    this.domElement.addEventListener('mousemove', this.onMouseMove);
+    document.body.addEventListener('mouseup', this.onMouseUp);
+    this.domElement.addEventListener('mousewheel', this.onMouseWheel);
 };
 
 OrbitViewer.prototype = Object.create(Viewer.prototype);
@@ -218,7 +223,7 @@ OrbitViewer.prototype.dispose = function () {
     this.domElement.removeEventListener('mousedown', this.onMouseDown);
     this.domElement.removeEventListener('mousemove', this.onMouseMove);
     document.body.removeEventListener('mouseup', this.onMouseUp);
-    this.domElement.addEventListener('mousewheel', null);
+    this.domElement.removeEventListener('mousewheel', this.onMouseWheel);
 
     Viewer.prototype.dispose.call(this);
 };
