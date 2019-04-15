@@ -10,6 +10,7 @@ import PlayerRenderer from './component/PlayerRenderer';
 import PlayerAnimation from './component/PlayerAnimation';
 import PlayerPhysics from './component/PlayerPhysics';
 import CssUtils from '../utils/CssUtils';
+import Globe from '../gis/Globe';
 
 /**
  * 播放器
@@ -38,6 +39,8 @@ function Player(options = {}) {
     this.scene = null;
     this.camera = null;
     this.renderer = null;
+
+    this.gis = null;
 
     this.loader = new PlayerLoader(this);
     this.event = new PlayerEvent(this);
@@ -157,6 +160,11 @@ Player.prototype.stop = function () {
 
     var container = UI.get('player', this.id);
 
+    if (this.gis) {
+        this.gis.dispose();
+        this.gis = null;
+    }
+
     container.dom.removeChild(this.renderer.domElement);
     container.dom.style.display = 'none';
 
@@ -204,6 +212,10 @@ Player.prototype.initPlayer = function (obj) {
     this.renderer.domElement.style.filter = CssUtils.serializeFilter(obj.options);
 
     this.scene = obj.scene || new THREE.Scene();
+
+    if (obj.options.sceneType === 'GIS') {
+        this.gis = new Globe(this.camera, this.renderer, obj.options);
+    }
 };
 
 Player.prototype.animate = function () {
@@ -222,6 +234,10 @@ Player.prototype.animate = function () {
     this.playerRenderer.update(this.clock, deltaTime);
     this.animation.update(this.clock, deltaTime);
     this.physics.update(this.clock, deltaTime);
+
+    if (this.gis) {
+        this.gis.update();
+    }
 
     if (this.stats) {
         this.stats.end();
