@@ -99,11 +99,12 @@ SceneMenu.prototype.createEmptyScene = function () {
         return;
     }
 
-    UI.confirm(L_CONFIRM, L_UNSAVED_WILL_LOSE_CONFIRM, function (event, btn) {
+    UI.confirm(L_CONFIRM, L_UNSAVED_WILL_LOSE_CONFIRM, (event, btn) => {
         if (btn === 'ok') {
             editor.clear();
             editor.sceneID = null;
             editor.sceneName = null;
+            this.app.options.sceneType = 'Empty';
             document.title = L_NO_NAME;
         }
     });
@@ -116,6 +117,7 @@ SceneMenu.prototype.createGISScene = function () {
         this.gis = new GISScene(this.app);
     }
 
+    this.app.options.sceneType = 'GIS';
     this.gis.start();
     this.app.call(`sceneGraphChanged`, this);
 };
