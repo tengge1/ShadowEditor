@@ -31,6 +31,12 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 
 ## 项目截图
 
+1. 温馨小窝。
+
+![image](images/scene20190310.png)
+
+2. 三维地球。[Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381)
+
 ![image](images/scene20190414.png)
 
 [点击此处](images/README.md)查看更多截图。
