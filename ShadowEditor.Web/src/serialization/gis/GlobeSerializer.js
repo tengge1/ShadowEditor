@@ -15,8 +15,6 @@ GlobeSerializer.prototype.constructor = GlobeSerializer;
 GlobeSerializer.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON.call(this, obj);
 
-    debugger
-
     return json;
 };
 

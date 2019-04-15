@@ -113,12 +113,14 @@ SceneMenu.prototype.createEmptyScene = function () {
 // --------------------------- 新建GIS场景 -------------------------------------
 
 SceneMenu.prototype.createGISScene = function () {
-    if (this.gis === undefined) {
-        this.gis = new GISScene(this.app);
+    if (this.app.editor.gis) {
+        this.app.editor.gis.stop();
     }
 
+    this.app.editor.gis = new GISScene(this.app);
+    this.app.editor.gis.start();
+
     this.app.options.sceneType = 'GIS';
-    this.gis.start();
     this.app.call(`sceneGraphChanged`, this);
 };
 

@@ -34,12 +34,12 @@ SceneSerializer.prototype.fromJSON = function (json, parent, server) {
 
     Object3DSerializer.prototype.fromJSON(json, obj);
 
-    if (json.background.metadata &&
+    if (json.background && json.background.metadata &&
         (json.background.metadata.generator === 'CubeTextureSerializer' ||
             json.background.metadata.generator === 'TextureSerializer')
     ) { // 天空盒和背景图片
         obj.background = new TexturesSerializer().fromJSON(json.background, undefined, server);
-    } else { // 纯色
+    } else if (json.background) { // 纯色
         obj.background = new THREE.Color(json.background);
     }
 

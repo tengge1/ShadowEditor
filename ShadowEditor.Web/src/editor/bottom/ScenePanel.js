@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 import Ajax from '../../utils/Ajax';
 import EditWindow from '../window/EditWindow';
 import Converter from '../../serialization/Converter';
+import GISScene from '../../gis/Scene';
 
 /**
  * 场景面板
@@ -227,6 +228,14 @@ ScenePanel.prototype.onLoad = function (data) {
 
             if (obj.options) {
                 this.app.call('optionsChanged', this, this.app.options);
+
+                if (obj.options.sceneType === 'GIS') {
+                    if (this.app.editor.gis) {
+                        this.app.editor.gis.stop();
+                    }
+                    this.app.editor.gis = new GISScene(this.app);
+                    this.app.editor.gis.start();
+                }
             }
 
             if (obj.scripts) {
