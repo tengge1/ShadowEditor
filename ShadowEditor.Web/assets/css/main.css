@@ -407,6 +407,19 @@ div.Category .item input {
     margin-right: 4px;
 }
 
+div.ProgressBar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+}
+
+div.ProgressBar .Bar {
+    width: 30%;
+    height: 4px;
+    background-color: #88ee88;
+}
+
 div.Table {
     width: 500px;
     height: 300px;
