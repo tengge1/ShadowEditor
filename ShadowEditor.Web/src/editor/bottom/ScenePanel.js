@@ -233,7 +233,9 @@ ScenePanel.prototype.onLoad = function (data) {
                     if (this.app.editor.gis) {
                         this.app.editor.gis.stop();
                     }
-                    this.app.editor.gis = new GISScene(this.app);
+                    this.app.editor.gis = new GISScene(this.app, {
+                        useCameraPosition: true,
+                    });
                     this.app.editor.gis.start();
                 }
             }

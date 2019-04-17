@@ -14,16 +14,15 @@ import WGS84 from './core/WGS84';
  * @param {THREE.WebGLRenderer} renderer 渲染器
  * @param {Object} options 配置
  * @param {String} options.server 服务端配置
+ * @param {Boolean} options.useCameraPosition 是否使用相机位置
  * @param {Number} options.maxThread 最大工作线程数，避免任务创建过多，导致地图卡顿
  */
 function Globe(camera, renderer, options = {}) {
     THREE.Object3D.call(this);
 
     options.server = options.server || location.origin;
+    options.useCameraPosition = options.useCameraPosition || false;
     options.maxThread = options.maxThread || 10;
-    options.lon = options.lon || 0;
-    options.lat = options.lat || 0;
-    options.zoom = options.zoom || 2;
 
     this.name = L_GLOBE;
 
@@ -50,8 +49,10 @@ function Globe(camera, renderer, options = {}) {
     this.renderers = new Renderers(this);
     this.viewer = new OrbitViewer(this.camera, this.renderer.domElement);
 
-    // 相机位置
-    this.viewer.setPosition(options.lon, options.lat, GeoUtils.zoomToAlt(options.zoom));
+    // 如果不使用相机位置，则设置默认中心点
+    if (!this.options.useCameraPosition) {
+        this.viewer.setPosition(0, 0, GeoUtils.zoomToAlt(2));
+    }
 }
 
 Globe.prototype = Object.create(THREE.Object3D.prototype);

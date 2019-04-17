@@ -3,10 +3,14 @@ import Globe from './Globe';
 /**
  * GIS场景
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
+ * @param {*} app 应用程序
+ * @param {Object} options 配置
+ * @param {Boolean} options.useCameraPosition 是否使用相机位置
  */
-function Scene(app) {
+function Scene(app, options = {}) {
     this.app = app;
+    this.options = options;
+    this.options.useCameraPosition = this.options.useCameraPosition || false;
 }
 
 Scene.prototype.start = function () {
@@ -24,6 +28,7 @@ Scene.prototype.start = function () {
 
     this.globe = new Globe(editor.camera, editor.renderer, {
         server: this.app.options.server,
+        useCameraPosition: this.options.useCameraPosition,
     });
     editor.scene.add(this.globe);
     this.oldSceneBeforeRender = editor.scene.onBeforeRender;

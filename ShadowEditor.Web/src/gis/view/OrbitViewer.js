@@ -135,15 +135,15 @@ OrbitViewer.prototype.onMouseWheel = function () {
 
         var d = delta * (distance - WGS84.a) / 1000;
 
-        var d_1 = GeoUtils.zoomToAlt(-1) + WGS84.a;
+        var d_1 = GeoUtils.zoomToAlt(2) + WGS84.a;
 
-        if (distance + d >= d_1) { // 最远0层级距离
+        if (distance + d >= d_1) { // 最远2层级距离
             d = 0;
         }
 
         var d_2 = GeoUtils.zoomToAlt(18) + WGS84.a;
 
-        if (distance + d <= d_2) { // 最近16层级
+        if (distance + d <= d_2) { // 最近18层级
             d = 0;
         }
 
