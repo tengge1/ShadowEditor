@@ -21,6 +21,9 @@ function Globe(camera, renderer, options = {}) {
 
     options.server = options.server || location.origin;
     options.maxThread = options.maxThread || 10;
+    options.lon = options.lon || 0;
+    options.lat = options.lat || 0;
+    options.zoom = options.zoom || -1;
 
     this.name = L_GLOBE;
 
@@ -47,11 +50,8 @@ function Globe(camera, renderer, options = {}) {
     this.renderers = new Renderers(this);
     this.viewer = new OrbitViewer(this.camera, this.renderer.domElement);
 
-    // 默认位置
-    var lon = 0;
-    var lat = 0;
-    var alt = GeoUtils.zoomToAlt(-1);
-    this.viewer.setPosition(lon, lat, alt);
+    // 相机位置
+    this.viewer.setPosition(options.lon, options.lat, GeoUtils.zoomToAlt(options.zoom));
 }
 
 Globe.prototype = Object.create(THREE.Object3D.prototype);
