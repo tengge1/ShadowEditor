@@ -28,6 +28,7 @@ function Globe(camera, renderer, options = {}) {
 
     Object.assign(this.userData, {
         type: 'Globe',
+        background: 'google',
     });
 
     this.camera = camera;
@@ -84,6 +85,8 @@ Globe.prototype.setBackground = function (type) {
     if (newLayerName === layer.name) {
         return;
     }
+
+    this.userData.background = newLayerName;
 
     var newLayer = null;
 

@@ -214,7 +214,9 @@ Player.prototype.initPlayer = function (obj) {
     this.scene = obj.scene || new THREE.Scene();
 
     if (obj.options.sceneType === 'GIS') {
-        this.gis = new Globe(this.camera, this.renderer, obj.options);
+        this.gis = new Globe(this.camera, this.renderer, Object.assign({}, obj.options, {
+            useCameraPosition: true,
+        }));
     }
 };
 
