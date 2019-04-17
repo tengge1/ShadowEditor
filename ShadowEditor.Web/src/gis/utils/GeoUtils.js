@@ -93,7 +93,7 @@ function xyzToLonlat(xyz, lonlat) {
  * @param {Number} zoom 层级
  */
 function zoomToAlt(zoom) {
-    return 7820683 / 2 ** zoom;
+    return 7820683 / 2 ** (zoom - 3);
 }
 
 /**
@@ -101,7 +101,7 @@ function zoomToAlt(zoom) {
  * @param {Number} alt 海拔
  */
 function altToZoom(alt) {
-    return Math.log2(7820683 / alt);
+    return Math.log2(7820683 / alt) + 3;
 }
 
 /**

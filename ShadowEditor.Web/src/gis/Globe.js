@@ -23,7 +23,7 @@ function Globe(camera, renderer, options = {}) {
     options.maxThread = options.maxThread || 10;
     options.lon = options.lon || 0;
     options.lat = options.lat || 0;
-    options.zoom = options.zoom || -1;
+    options.zoom = options.zoom || 2;
 
     this.name = L_GLOBE;
 

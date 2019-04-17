@@ -141,6 +141,12 @@ OrbitViewer.prototype.onMouseWheel = function () {
             d = 0;
         }
 
+        var d_2 = GeoUtils.zoomToAlt(18) + WGS84.a;
+
+        if (distance + d <= d_2) { // 最近16层级
+            d = 0;
+        }
+
         this.camera.position.set(
             this.camera.position.x + d * dir.x,
             this.camera.position.y + d * dir.y,

@@ -22,7 +22,7 @@ SphereTileCreator.prototype.constructor = SphereTileCreator;
 SphereTileCreator.prototype.get = function (tiles) {
     tiles.length = 0;
 
-    this._centerZoom = ~~GeoUtils.altToZoom(this.camera.position.length() - WGS84.a) + 3;
+    this._centerZoom = ~~GeoUtils.altToZoom(this.camera.position.length() - WGS84.a);
 
     this.fork(0, 0, 1, tiles);
     this.fork(1, 0, 1, tiles);
@@ -63,6 +63,10 @@ SphereTileCreator.prototype.get = function (tiles) {
  */
 SphereTileCreator.prototype.fork = function (x, y, z, tiles) {
     var tile = this.getTile(x, y, z);
+
+    // if (z > 20) { // 最大20层级
+    //     return;
+    // }
 
     if (!this.isVisible(tile)) {
         return;
