@@ -95,3 +95,6 @@ typings/
 /ShadowEditor.Web/temp
 /ShadowEditor.Web/src/gis2/build
 /ShadowEditor.Web/Upload/Tiles
+/ShadowEditor.UI/bin
+/ShadowEditor.UI/obj
+/ShadowEditor.UI/ShadowEditor.UI.csproj.user
