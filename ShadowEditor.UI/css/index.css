@@ -1,0 +1,42 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #2d2d30;
+}
+
+/* 标题栏 */
+
+.header {
+    display: flex;
+}
+
+.header .logo {}
+
+.header .title {
+    color: #999;
+}
+
+/* 菜单栏 */
+
+.menubar {
+    display: flex;
+}
+
+.menubar .menu {
+    margin-left: 24px;
+}
+
+.menubar .menu:first-child {
+    margin-left: 4px;
+}
+
+.menubar .menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: default;
+}
