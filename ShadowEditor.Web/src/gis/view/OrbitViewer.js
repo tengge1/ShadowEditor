@@ -93,6 +93,7 @@ OrbitViewer.prototype.onMouseMove = function () {
         unit2.copy(this.intersectPoint).normalize();
 
         // unit2与y轴夹角不能太小和太大
+        // TODO：bug 反弹回的角度不正确
         var angle = unit2.angleTo(yAxis);
 
         if (angle && Math.abs(angle) < minAngle) {
