@@ -23,6 +23,8 @@ function OrbitViewer(camera, domElement) {
         new THREE.Vector2(Math.PI, Math.PI / 2),
     );
 
+    this.rotationSpeed = new THREE.Vector3();
+
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this)
@@ -55,6 +57,9 @@ OrbitViewer.prototype.onMouseMove = function () {
     var maxAngle = 135 * Math.PI / 180;
     var axis = new THREE.Vector3();
 
+    var startTime = 0;
+    var startQuaternion = new THREE.Quaternion();
+
     var quat = new THREE.Quaternion();
     var dir = new THREE.Vector3();
 
@@ -70,10 +75,15 @@ OrbitViewer.prototype.onMouseMove = function () {
 
             this.isPan = true;
             lastIntersectPoint.copy(this.intersectPoint);
+
+            startTime = new Date().getTime();
+            startQuaternion.copy(this.camera.quaternion);
             return;
         }
 
         if (!this.intersectSphere(event.offsetX, event.offsetY, this.intersectPoint)) { // 鼠标在地球外
+            // 惯性旋转
+
             return;
         }
 
