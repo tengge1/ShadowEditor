@@ -94,21 +94,23 @@ OrbitViewer.prototype.onMouseMove = function () {
 
         // unit2与y轴夹角不能太小和太大
         // TODO：bug 反弹回的角度不正确
+        // 原因：没有修改this.intersectPoint的值
         var angle = unit2.angleTo(yAxis);
 
         if (angle && Math.abs(angle) < minAngle) {
             axis.crossVectors(unit2, yAxis);
             axis.normalize();
             unit2.copy(yAxis);
-            unit2.applyAxisAngle(axis, -angle);
+            unit2.applyAxisAngle(axis, -minAngle * Math.sign(angle));
+            this.intersectPoint.copy(unit2).multiplyScalar(WGS84.a);
         }
 
-        if (angle && Math.abs(angle) > maxAngle) {
-            axis.crossVectors(unit2, yAxis);
-            axis.normalize();
-            unit2.copy(yAxis);
-            unit2.applyAxisAngle(axis, -angle);
-        }
+        // if (angle && Math.abs(angle) > maxAngle) {
+        //     axis.crossVectors(unit2, yAxis);
+        //     axis.normalize();
+        //     unit2.copy(yAxis);
+        //     unit2.applyAxisAngle(axis, -angle);
+        // }
 
         // 计算相机新位置
         quat.setFromUnitVectors(unit2, unit1);
