@@ -94,14 +94,14 @@ OrbitViewer.prototype.onMouseMove = function () {
 
         // unit2与y轴夹角不能太小和太大
         // TODO：bug 反弹回的角度不正确
-        // 原因：没有修改this.intersectPoint的值
+        // 原因：应该使用中心点的，而不是碰撞点的。
         var angle = unit2.angleTo(yAxis);
 
         if (angle && Math.abs(angle) < minAngle) {
             axis.crossVectors(unit2, yAxis);
             axis.normalize();
             unit2.copy(yAxis);
-            unit2.applyAxisAngle(axis, -minAngle * Math.sign(angle));
+            unit2.applyAxisAngle(axis, minAngle);
             this.intersectPoint.copy(unit2).multiplyScalar(WGS84.a);
         }
 
