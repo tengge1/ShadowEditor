@@ -58,7 +58,9 @@ OrbitViewer.prototype.onMouseMove = function () {
     var axis = new THREE.Vector3();
 
     var startTime = 0;
-    var startQuaternion = new THREE.Quaternion();
+    var endTime = 0;
+    var startLonLat = new THREE.Vector3();
+    var endLonLat = new THREE.Vector3();
 
     var quat = new THREE.Quaternion();
     var dir = new THREE.Vector3();
@@ -77,7 +79,7 @@ OrbitViewer.prototype.onMouseMove = function () {
             lastIntersectPoint.copy(this.intersectPoint);
 
             startTime = new Date().getTime();
-            startQuaternion.copy(this.camera.quaternion);
+            GeoUtils.xyzToLonlat(this.camera.position, startLonLat);
             return;
         }
 
@@ -121,6 +123,15 @@ OrbitViewer.prototype.onMouseMove = function () {
         );
 
         this.camera.lookAt(this.sphere.center);
+
+        // 计算旋转速度
+        endTime = new Date().getTime();
+        GeoUtils._xyzToLonlat(this.camera.position, endLonLat);
+
+        // if (endTime > startTime) {
+        //     this.rotationSpeed.subVectors(endLonLat, startLonLat)
+        //         .multiplyScalar(endTime - startTime);
+        // }
 
         lastIntersectPoint.copy(this.intersectPoint);
     };
@@ -234,8 +245,50 @@ OrbitViewer.prototype.getPosition = function () {
 };
 
 OrbitViewer.prototype.update = function () {
+    var lonlat = new THREE.Vector3();
 
-};
+    return function () {
+        // if (this.isPan) {
+        //     return;
+        // }
+
+        // if (this.rotationSpeed.x === 0 && this.rotationSpeed.y === 0) {
+        //     return;
+        // }
+
+        // GeoUtils.xyzToLonlat(this.camera.position, lonlat);
+
+        // lonlat.add(this.rotationSpeed);
+
+        // if (this.rotationSpeed.x > 0) {
+        //     this.rotationSpeed.x -= 1;
+        //     if (this.rotationSpeed.x < 1) {
+        //         this.rotationSpeed.x = 0;
+        //     }
+        // } else if (this.rotationSpeed.x < 0) {
+        //     this.rotationSpeed.x += 0.01;
+        //     if (this.rotationSpeed.x > -0.01) {
+        //         this.rotationSpeed.x = 0;
+        //     }
+        // }
+
+        // if (this.rotationSpeed.y > 0) {
+        //     this.rotationSpeed.y -= 0.01;
+        //     if (this.rotationSpeed.y < 0.01) {
+        //         this.rotationSpeed.y = 0;
+        //     }
+        // } else if (this.rotationSpeed.y < 0) {
+        //     this.rotationSpeed.y += 0.01;
+        //     if (this.rotationSpeed.y > -0.01) {
+        //         this.rotationSpeed.y = 0;
+        //     }
+        // }
+
+        // GeoUtils.lonlatToXYZ(lonlat, this.camera.position);
+
+        // this.camera.lookAt(this.sphere.center);
+    };
+}();
 
 OrbitViewer.prototype.dispose = function () {
     this.domElement.removeEventListener('mousedown', this.onMouseDown);
