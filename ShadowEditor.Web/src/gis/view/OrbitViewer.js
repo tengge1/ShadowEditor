@@ -64,8 +64,6 @@ OrbitViewer.prototype.onMouseMove = function () {
 
     var startTime = 0;
     var endTime = 0;
-    var startLonLat = new THREE.Vector3();
-    var endLonLat = new THREE.Vector3();
 
     var quat = new THREE.Quaternion();
     var dir = new THREE.Vector3();
@@ -85,7 +83,6 @@ OrbitViewer.prototype.onMouseMove = function () {
             lastIntersectPoint.copy(this.intersectPoint);
 
             startTime = new Date().getTime();
-            GeoUtils.xyzToLonlat(this.camera.position, startLonLat);
             return;
         }
 
@@ -136,7 +133,6 @@ OrbitViewer.prototype.onMouseMove = function () {
 
         // 计算旋转速度
         endTime = new Date().getTime();
-        GeoUtils._xyzToLonlat(this.camera.position, endLonLat);
 
         // if (endTime > startTime) {
         //     this.rotationSpeed.subVectors(endLonLat, startLonLat)
@@ -203,6 +199,7 @@ OrbitViewer.prototype.intersectSphere = function () {
 
     return function (x, y, intersectPoint) {
         if (!this.isPan) {
+            // 只在鼠标按下时，计算一次矩阵的原因是：1、提高性能 2、避免由于浮点数问题抖动。
             projectionMatrixInverse.getInverse(this.camera.projectionMatrix);
             matrixWorld.copy(this.camera.matrixWorld);
         }
