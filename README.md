@@ -17,6 +17,7 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 7. 在播放器中播放GIS场景。
 8. 新增三维GIS演示。[Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381)
 9. 新增补间动画演示。[Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5c94c6b3c8b49a24585640b3) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5c94c6b3c8b49a24585640b3)
+10. 限制地轴与y轴的夹角在一定范围内。
 
 ## v0.1.8更新
 

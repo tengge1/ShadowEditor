@@ -61,8 +61,8 @@ OrbitViewer.prototype.onMouseMove = function () {
 
     // 旋转校正
     var yAxis = new THREE.Vector3(0, 1, 0);
-    var minAngle = 45 * Math.PI / 180;
-    var maxAngle = 135 * Math.PI / 180;
+    var minAngle = 30 * Math.PI / 180;
+    var maxAngle = 150 * Math.PI / 180;
     var axis = new THREE.Vector3();
 
     var startTime = 0;
