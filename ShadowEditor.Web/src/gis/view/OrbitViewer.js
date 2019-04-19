@@ -12,20 +12,23 @@ import GeoUtils from '../utils/GeoUtils';
 function OrbitViewer(camera, domElement) {
     Viewer.call(this, camera, domElement);
 
-    this.sphere = new THREE.Sphere(undefined, WGS84.a);
-    this.ray = new THREE.Ray();
-
+    // 碰撞判断
     this.isDown = false;
     this.isPan = false;
 
-    this.intersectPoint = new THREE.Vector3();
+    this.sphere = new THREE.Sphere(undefined, WGS84.a);
+    this.intersectPoint = new THREE.Vector3(); // 碰撞点
+
+    // 视场
     this.aabb = new THREE.Box2(
         new THREE.Vector2(-Math.PI, -Math.PI / 2),
         new THREE.Vector2(Math.PI, Math.PI / 2),
     );
 
+    // 动画参数
     this.rotationSpeed = new THREE.Vector3();
 
+    // 事件绑定
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this)
@@ -36,6 +39,7 @@ function OrbitViewer(camera, domElement) {
     document.body.addEventListener('mouseup', this.onMouseUp);
     this.domElement.addEventListener('mousewheel', this.onMouseWheel);
 
+    // 初始化
     this._updateAABB();
 };
 
@@ -71,6 +75,7 @@ OrbitViewer.prototype.onMouseMove = function () {
             return;
         }
 
+        // 1. 按下鼠标，第一次拖动
         if (!this.isPan) {
             if (!this.intersectSphere(event.offsetX, event.offsetY, this.intersectPoint)) { // 鼠标在地球外
                 return;
@@ -84,6 +89,7 @@ OrbitViewer.prototype.onMouseMove = function () {
             return;
         }
 
+        // 2. 后续的拖动
         if (!this.intersectSphere(event.offsetX, event.offsetY, this.intersectPoint)) { // 鼠标在地球外
             // 惯性旋转
 
@@ -193,6 +199,7 @@ OrbitViewer.prototype.onMouseWheel = function () {
 OrbitViewer.prototype.intersectSphere = function () {
     var projectionMatrixInverse = new THREE.Matrix4();
     var matrixWorld = new THREE.Matrix4();
+    var ray = new THREE.Ray();
 
     return function (x, y, intersectPoint) {
         if (!this.isPan) {
@@ -200,17 +207,18 @@ OrbitViewer.prototype.intersectSphere = function () {
             matrixWorld.copy(this.camera.matrixWorld);
         }
 
-        this.ray.origin.set(
+        ray.origin.set(
             x / this.domElement.clientWidth * 2 - 1, -y / this.domElement.clientHeight * 2 + 1,
             0.1,
         );
-        this.ray.direction.copy(this.ray.origin);
-        this.ray.direction.z = 1;
 
-        this.ray.origin.applyMatrix4(projectionMatrixInverse).applyMatrix4(matrixWorld);
-        this.ray.direction.applyMatrix4(projectionMatrixInverse).applyMatrix4(matrixWorld).sub(this.ray.origin).normalize();
+        ray.direction.copy(ray.origin);
+        ray.direction.z = 1;
 
-        return this.ray.intersectSphere(this.sphere, intersectPoint);
+        ray.origin.applyMatrix4(projectionMatrixInverse).applyMatrix4(matrixWorld);
+        ray.direction.applyMatrix4(projectionMatrixInverse).applyMatrix4(matrixWorld).sub(ray.origin).normalize();
+
+        return ray.intersectSphere(this.sphere, intersectPoint);
     };
 }();
 
