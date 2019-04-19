@@ -88,26 +88,27 @@ OrbitViewer.prototype.onMouseMove = function () {
 
         // 2. 后续的拖动
         if (!this.intersectSphere(event.offsetX, event.offsetY, this.intersectPoint)) { // 鼠标在地球外
-            // 惯性旋转
-
             return;
         }
 
+        // 计算碰撞点相对于地心旋转
         unit1.copy(lastIntersectPoint).normalize();
         unit2.copy(this.intersectPoint).normalize();
+
+        quat.setFromUnitVectors(unit2, unit1);
 
         // unit2与y轴夹角不能太小和太大
         // TODO：bug 反弹回的角度不正确
         // 原因：应该使用中心点的，而不是碰撞点的。
-        var angle = unit2.angleTo(yAxis);
+        // var angle = unit2.angleTo(yAxis);
 
-        if (angle && Math.abs(angle) < minAngle) {
-            axis.crossVectors(unit2, yAxis);
-            axis.normalize();
-            unit2.copy(yAxis);
-            unit2.applyAxisAngle(axis, minAngle);
-            this.intersectPoint.copy(unit2).multiplyScalar(WGS84.a);
-        }
+        // if (angle && Math.abs(angle) < minAngle) {
+        //     axis.crossVectors(unit2, yAxis);
+        //     axis.normalize();
+        //     unit2.copy(yAxis);
+        //     unit2.applyAxisAngle(axis, minAngle);
+        //     this.intersectPoint.copy(unit2).multiplyScalar(WGS84.a);
+        // }
 
         // if (angle && Math.abs(angle) > maxAngle) {
         //     axis.crossVectors(unit2, yAxis);
@@ -116,19 +117,12 @@ OrbitViewer.prototype.onMouseMove = function () {
         //     unit2.applyAxisAngle(axis, -angle);
         // }
 
-        // 计算相机新位置
-        quat.setFromUnitVectors(unit2, unit1);
-
+        // 相机相对于地心旋转 = 碰撞点相对于地心旋转
         var distance = this.camera.position.length();
         dir.copy(this.camera.position).normalize();
         dir.applyQuaternion(quat).normalize();
 
-        this.camera.position.set(
-            distance * dir.x,
-            distance * dir.y,
-            distance * dir.z,
-        );
-
+        this.camera.position.copy(dir).multiplyScalar(distance);
         this.camera.lookAt(this.sphere.center);
 
         // 计算旋转速度
@@ -139,6 +133,7 @@ OrbitViewer.prototype.onMouseMove = function () {
         //         .multiplyScalar(endTime - startTime);
         // }
 
+        // 更新旧碰撞点
         lastIntersectPoint.copy(this.intersectPoint);
     };
 }();
