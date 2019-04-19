@@ -24,6 +24,7 @@ function _lonlatToXYZ(lonlat, xyz) {
         xyz = new THREE.Vector3();
     }
 
+    // 可用THREE.Vector3.prototype.setFromSphericalCoords实现？
     return xyz.set(
         r * Math.cos(lat) * Math.cos(lon),
         r * Math.sin(lat),

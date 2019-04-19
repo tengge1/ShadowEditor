@@ -52,11 +52,14 @@ OrbitViewer.prototype.onMouseDown = function (event) {
 };
 
 OrbitViewer.prototype.onMouseMove = function () {
+    // 计算碰撞
     var lastIntersectPoint = new THREE.Vector3();
 
+    // 计算旋转
     var unit1 = new THREE.Vector3();
     var unit2 = new THREE.Vector3();
 
+    // 旋转校正
     var yAxis = new THREE.Vector3(0, 1, 0);
     var minAngle = 45 * Math.PI / 180;
     var maxAngle = 135 * Math.PI / 180;
@@ -66,7 +69,8 @@ OrbitViewer.prototype.onMouseMove = function () {
     var endTime = 0;
 
     var quat = new THREE.Quaternion();
-    var dir = new THREE.Vector3();
+    var dir1 = new THREE.Vector3();
+    var dir2 = new THREE.Vector3();
 
     return function (event) {
         if (!this.isDown) {
@@ -91,41 +95,45 @@ OrbitViewer.prototype.onMouseMove = function () {
             return;
         }
 
-        // 计算碰撞点相对于地心旋转
+        // 3. 计算碰撞点相对于地心旋转
         unit1.copy(lastIntersectPoint).normalize();
         unit2.copy(this.intersectPoint).normalize();
-
         quat.setFromUnitVectors(unit2, unit1);
 
-        // unit2与y轴夹角不能太小和太大
-        // TODO：bug 反弹回的角度不正确
-        // 原因：应该使用中心点的，而不是碰撞点的。
-        // var angle = unit2.angleTo(yAxis);
-
-        // if (angle && Math.abs(angle) < minAngle) {
-        //     axis.crossVectors(unit2, yAxis);
-        //     axis.normalize();
-        //     unit2.copy(yAxis);
-        //     unit2.applyAxisAngle(axis, minAngle);
-        //     this.intersectPoint.copy(unit2).multiplyScalar(WGS84.a);
-        // }
-
-        // if (angle && Math.abs(angle) > maxAngle) {
-        //     axis.crossVectors(unit2, yAxis);
-        //     axis.normalize();
-        //     unit2.copy(yAxis);
-        //     unit2.applyAxisAngle(axis, -angle);
-        // }
-
-        // 相机相对于地心旋转 = 碰撞点相对于地心旋转
+        // 4. 计算相机相对于地心旋转
         var distance = this.camera.position.length();
-        dir.copy(this.camera.position).normalize();
-        dir.applyQuaternion(quat).normalize();
+        dir1.copy(this.camera.position).normalize();
+        dir2.copy(dir1);
+        dir2.applyQuaternion(quat).normalize();
 
-        this.camera.position.copy(dir).multiplyScalar(distance);
+        // 5. 限制dir与y轴的夹角
+        var angle = dir2.angleTo(yAxis);
+
+        if (angle && Math.abs(angle) < minAngle) {
+            axis.crossVectors(dir2, yAxis);
+            axis.normalize();
+            dir2.copy(yAxis);
+            dir2.applyAxisAngle(axis, -minAngle);
+        }
+
+        if (angle && Math.abs(angle) > maxAngle) {
+            axis.crossVectors(dir2, yAxis);
+            axis.normalize();
+            dir2.copy(yAxis);
+            dir2.applyAxisAngle(axis, -maxAngle);
+        }
+
+        // 6. 校正碰撞点
+        quat.setFromUnitVectors(dir2, dir1);
+        unit2.copy(unit1);
+        unit2.applyQuaternion(quat);
+        this.intersectPoint.copy(unit2).multiplyScalar(WGS84.a);
+
+        // 7. 计算相机位置和旋转
+        this.camera.position.copy(dir2).multiplyScalar(distance);
         this.camera.lookAt(this.sphere.center);
 
-        // 计算旋转速度
+        // 8. 计算旋转速度
         endTime = new Date().getTime();
 
         // if (endTime > startTime) {
@@ -133,7 +141,7 @@ OrbitViewer.prototype.onMouseMove = function () {
         //         .multiplyScalar(endTime - startTime);
         // }
 
-        // 更新旧碰撞点
+        // 9. 更新旧碰撞点
         lastIntersectPoint.copy(this.intersectPoint);
     };
 }();
