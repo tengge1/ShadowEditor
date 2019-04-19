@@ -7,6 +7,7 @@ import GeoUtils from '../utils/GeoUtils';
  * @author tengge / https://github.com/tengge1
  * @param {*} camera 相机
  * @param {*} domElement 文档
+ * @description 鼠标的旋转和缩放操作，都应该转换为对相机的操作
  */
 function OrbitViewer(camera, domElement) {
     Viewer.call(this, camera, domElement);
