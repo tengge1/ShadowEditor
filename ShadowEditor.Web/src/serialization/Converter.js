@@ -387,6 +387,10 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                 case 'EllipseCurveSerializer':
                     obj = (new EllipseCurveSerializer()).fromJSON(objJson);
                     break;
+                case 'GlobeSerializer':
+                    //obj = (new GlobeSerializer()).fromJSON(objJson);
+                    return true;
+                    break;
             }
 
             if (obj) {
