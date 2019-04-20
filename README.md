@@ -3,10 +3,13 @@
 Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md) / [русский](README-ru.md)
 
 * 名称：Shadow Editor
-* 版本：v0.1.9(开发中)
+* 版本：v0.1.9
 * 简介：基于`three.js`的场景编辑器。
 
-## v0.1.9即将更新
+## v0.1.9更新
+
+* 发布日期：2019年4月20日
+* 更新日志：
 
 1. 修复属性面板修改名称时，文字几何体文字不改变bug。
 2. 修复地图卡顿问题。
@@ -18,18 +21,6 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 8. 新增三维GIS演示。[Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381)
 9. 新增补间动画演示。[Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5c94c6b3c8b49a24585640b3) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5c94c6b3c8b49a24585640b3)
 10. 限制地轴与y轴的夹角在一定范围内。
-
-## v0.1.8更新
-
-* 发布日期：2019年4月7日
-* 更新日志：
-
-1. 设置面板放到选项菜单中。
-2. 新增色调旋转(hue-rotate)、饱和度、亮度、高斯模糊(blur)、对比度、灰度、颜色反转(invert)、复古(sepia)滤镜。
-3. 滤镜设置保存在场景配置中，并在编辑器和播放器解析。
-4. 创建GIS场景。(演示)
-5. 修复当模型最外层是`Scene`时，属性面板显示物体环境组件和各种后期处理组件的bug。
-6. 场景层次树，节点前面添加一个矩形，表示该节点类型。
 
 ## 项目截图
 
@@ -154,6 +145,22 @@ npm run build-docs
 基本几何体都支持多层嵌套。可以添加一个`组`（在几何体菜单中），然后在场景树状图上，将多个模型拖动到`组`上。
 
 ## 更新日志
+
+**v0.1.9**
+
+* 发布日期：2019年4月20日
+* 更新日志：
+
+1. 修复属性面板修改名称时，文字几何体文字不改变bug。
+2. 修复地图卡顿问题。
+3. 新增地图组件，动态切换谷歌地图、必应地图、天地图。
+4. 使用立体纹理为地球实现星空背景。
+5. 地图添加太阳特效。
+6. 地图保存载入。
+7. 在播放器中播放GIS场景。
+8. 新增三维GIS演示。[Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381)
+9. 新增补间动画演示。[Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5c94c6b3c8b49a24585640b3) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5c94c6b3c8b49a24585640b3)
+10. 限制地轴与y轴的夹角在一定范围内。
 
 **v0.1.8**
 
