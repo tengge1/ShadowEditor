@@ -1,5 +1,6 @@
 import UI from '../../ui/UI';
 import DataSourceManageWindow from '../window/DataSourceManageWindow';
+import Panel from '../../visual/Panel';
 
 /**
  * 数据可视化菜单
@@ -26,91 +27,46 @@ VisualMenu.prototype.render = function () {
         }, {
             xtype: 'div',
             cls: 'options',
-            children: [{
-                xtype: 'div',
-                cls: 'option',
-                html: L_DATA_SOURCE_MANAGE,
-                onClick: this.manageDataSource.bind(this),
-            }, {
-                xtype: 'div',
-                cls: 'option',
-                html: 'Hello World',
-                onClick: this.hello.bind(this),
-            }]
+            children: [
+                //     {
+                //     xtype: 'div',
+                //     cls: 'option',
+                //     html: L_DATA_SOURCE_MANAGE,
+                //     onClick: this.manageDataSource.bind(this),
+                // }, 
+                {
+                    xtype: 'div',
+                    cls: 'option',
+                    html: L_PANEL,
+                    onClick: this.addPanel.bind(this),
+                }]
         }]
     });
 
     container.render();
 };
 
+// ------------------------- 数据源管理 ------------------------------------------
+
 VisualMenu.prototype.manageDataSource = function () {
-    if (this.dataSourceManageWin === undefined) {
-        this.dataSourceManageWin = new DataSourceManageWindow({
-            app: this.app,
-        });
-        this.dataSourceManageWin.render();
-    }
+    UI.msg('Test');
+    // if (this.dataSourceManageWin === undefined) {
+    //     this.dataSourceManageWin = new DataSourceManageWindow({
+    //         app: this.app,
+    //     });
+    //     this.dataSourceManageWin.render();
+    // }
 
-    this.dataSourceManageWin.show();
+    // this.dataSourceManageWin.show();
 };
 
-VisualMenu.prototype.showWin = function () {
-    if (this.win === undefined) {
-        this.win = UI.create({
-            xtype: 'window',
-            title: 'Data Visualization',
-            id: 'dataVisualWin',
-            scope: this.id,
-            width: '800px',
-            height: '500px',
-            shade: false,
-            containerStyle: {
-                display: 'flex',
-                flexDirection: 'column',
-            },
-            bodyStyle: {
-                padding: 0,
-            },
-            children: [{
-                xtype: 'div',
-                id: 'container',
-                scope: this.id,
-                style: {
-                    width: '100%',
-                    height: '100%',
-                },
-            }]
-        });
-        this.win.render();
-    }
+// ------------------------------ 面板 ----------------------------------------
 
-    this.win.show();
-};
-
-VisualMenu.prototype.clearContent = function () {
-    var container = UI.get('container', this.id);
-
-    while (container.dom.children.length) {
-        container.dom.removeChild(container.dom.children[0]);
-    }
-};
-
-VisualMenu.prototype.hello = function () {
-    this.showWin();
-    this.clearContent();
-
-    var container = UI.get('container', this.id);
-
-    var svg = d3.select(container.dom)
-        .append('svg')
-        .attr('width', 500)
-        .attr('height', 500);
-
-    var circle = svg.append('circle')
-        .attr('cx', 100)
-        .attr('cy', 100)
-        .attr('r', 50)
-        .attr('fill', '#f00');
+VisualMenu.prototype.addPanel = function () {
+    var panel = new Panel({
+        parent: this.app.editor.svg,
+    });
+    panel.render();
 };
 
 export default VisualMenu;

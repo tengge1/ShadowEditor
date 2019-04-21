@@ -1,5 +1,6 @@
 ﻿import History from '../command/History';
 import Helpers from '../helper/Helpers';
+import UI from '../ui/UI';
 
 /**
  * 编辑器
@@ -90,6 +91,9 @@ function Editor(app) {
     this.sceneHelpers.add(light);
 
     this.showViewHelper = true;
+
+    // 可视化
+    this.svg = UI.get('SvgContainer').dom;
 
     // 事件
     this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));

@@ -21,6 +21,7 @@ Viewport.prototype.render = function () {
         cls: 'viewport',
         children: [{
             xtype: 'svg',
+            id: 'SvgContainer',
             style: {
                 position: 'absolute',
                 left: 0,
