@@ -466,6 +466,11 @@ const PackageList = [{
     assets: [
         'assets/js/VolumetricFire.js'
     ]
+}, {
+    name: 'ammo',
+    assets: [
+        'assets/js/libs/ammo.js'
+    ]
 }];
 
 export default PackageList

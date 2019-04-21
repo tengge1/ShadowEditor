@@ -22,6 +22,10 @@ Viewport.prototype.render = function () {
         children: [{
             xtype: 'svg',
             id: 'SvgContainer',
+            attr: {
+                viewBox: '0 0 1920 969', // see: https://segmentfault.com/a/1190000009226427?utm_source=tag-newest
+                preserveAspectRatio: 'xMinYMin', // xMinYMin, xMinYMid, xMinYMax, xMidYMin, xMidYMid, xMidYMax, xMaxYMin, xMaxYMid, xMaxYMax
+            },
             style: {
                 position: 'absolute',
                 left: 0,

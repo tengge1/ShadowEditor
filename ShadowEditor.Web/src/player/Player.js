@@ -1,5 +1,5 @@
-
 import UI from '../ui/UI';
+import PackageManager from '../package/PackageManager';
 import Converter from '../serialization/Converter';
 
 import PlayerLoader from './component/PlayerLoader';
@@ -41,6 +41,9 @@ function Player(options = {}) {
     this.renderer = null;
 
     this.gis = null;
+
+    this.package = new PackageManager();
+    this.require = this.package.require.bind(this.package);
 
     this.loader = new PlayerLoader(this);
     this.event = new PlayerEvent(this);

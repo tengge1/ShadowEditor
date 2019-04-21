@@ -5,7 +5,7 @@ import EditMenu from './EditMenu';
 import GeometryMenu from './GeometryMenu';
 import LightMenu from './LightMenu';
 import AssetMenu from './AssetMenu';
-import TerrainMenu from './TerrainMenu';
+// import TerrainMenu from './TerrainMenu';
 import ComponentMenu from './ComponentMenu';
 import VisualMenu from './VisualMenu';
 import PlayMenu from './PlayMenu';

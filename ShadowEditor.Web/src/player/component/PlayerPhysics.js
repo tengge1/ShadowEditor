@@ -1,29 +1,29 @@
 import PlayerComponent from './PlayerComponent';
 import ThrowBallEvent from './physics/ThrowBallEvent';
 
-const shape = {
-    btBoxShape: Ammo.btBoxShape, // 正方体
-    btBvhTriangleMeshShape: Ammo.btBvhTriangleMeshShape, // 三角形
-    btCapsuleShape: Ammo.btCapsuleShape, // 胶囊
-    btCapsuleShapeX: Ammo.btCapsuleShapeX, // x轴胶囊
-    btCapsuleShapeZ: Ammo.btCapsuleShapeZ, // z轴胶囊
-    btCollisionShape: Ammo.btCollisionShape, // 碰撞体
-    btCompoundShape: Ammo.btCompoundShape, // 复合形状
-    btConcaveShape: Ammo.btConcaveShape, // 
-    btConeShape: Ammo.btConeShape, // 圆锥体
-    btConeShapeX: Ammo.btConeShapeX, // x轴圆椎体
-    btConeShapeZ: Ammo.btConeShapeZ, // z轴圆椎体
-    btConvexHullShape: Ammo.btConvexHullShape, // 凸包
-    btConvexShape: Ammo.btConvexShape, // 
-    btConvexTriangleMeshShape: Ammo.btConvexTriangleMeshShape, // 凸三角形
-    btCylinderShape: Ammo.btCylinderShape, // 圆柱体
-    btCylinderShapeX: Ammo.btCylinderShapeX, // x轴圆柱体
-    btCylinderShapeZ: Ammo.btCylinderShapeZ, // z轴圆柱体
-    btHeightfieldTerrainShape: Ammo.btHeightfieldTerrainShape, // 灰阶高程地形
-    btSphereShape: Ammo.btSphereShape, // 球体
-    btStaticPlaneShape: Ammo.btStaticPlaneShape, // 静态平板
-    btTriangleMeshShape: Ammo.btTriangleMeshShape, // 三角网格
-};
+// const shape = {
+//     btBoxShape: Ammo.btBoxShape, // 正方体
+//     btBvhTriangleMeshShape: Ammo.btBvhTriangleMeshShape, // 三角形
+//     btCapsuleShape: Ammo.btCapsuleShape, // 胶囊
+//     btCapsuleShapeX: Ammo.btCapsuleShapeX, // x轴胶囊
+//     btCapsuleShapeZ: Ammo.btCapsuleShapeZ, // z轴胶囊
+//     btCollisionShape: Ammo.btCollisionShape, // 碰撞体
+//     btCompoundShape: Ammo.btCompoundShape, // 复合形状
+//     btConcaveShape: Ammo.btConcaveShape, // 
+//     btConeShape: Ammo.btConeShape, // 圆锥体
+//     btConeShapeX: Ammo.btConeShapeX, // x轴圆椎体
+//     btConeShapeZ: Ammo.btConeShapeZ, // z轴圆椎体
+//     btConvexHullShape: Ammo.btConvexHullShape, // 凸包
+//     btConvexShape: Ammo.btConvexShape, // 
+//     btConvexTriangleMeshShape: Ammo.btConvexTriangleMeshShape, // 凸三角形
+//     btCylinderShape: Ammo.btCylinderShape, // 圆柱体
+//     btCylinderShapeX: Ammo.btCylinderShapeX, // x轴圆柱体
+//     btCylinderShapeZ: Ammo.btCylinderShapeZ, // z轴圆柱体
+//     btHeightfieldTerrainShape: Ammo.btHeightfieldTerrainShape, // 灰阶高程地形
+//     btSphereShape: Ammo.btSphereShape, // 球体
+//     btStaticPlaneShape: Ammo.btStaticPlaneShape, // 静态平板
+//     btTriangleMeshShape: Ammo.btTriangleMeshShape, // 三角网格
+// };
 
 /**
  * 播放器物理
@@ -31,7 +31,43 @@ const shape = {
  */
 function PlayerPhysics(app) {
     PlayerComponent.call(this, app);
+}
 
+PlayerPhysics.prototype = Object.create(PlayerComponent.prototype);
+PlayerPhysics.prototype.constructor = PlayerPhysics;
+
+PlayerPhysics.prototype.create = function (scene, camera, renderer) {
+    var usePhysics = false;
+
+    this.scene = scene;
+
+    this.scene.traverse(n => {
+        if (n.userData &&
+            n.userData.physics &&
+            n.userData.physics.enabled
+        ) {
+            usePhysics = true;
+        }
+    });
+
+    // 未使用物理
+    if (!usePhysics) {
+        return new Promise(resolve => {
+            resolve();
+        });
+    }
+
+    // 使用物理
+    return new Promise(resolve => {
+        this.app.require('ammo').then(() => {
+            this.initPhysicsWorld();
+            this.initScene(scene, camera, renderer);
+            resolve();
+        });
+    });
+};
+
+PlayerPhysics.prototype.initPhysicsWorld = function () {
     // 各种参数
     var gravityConstant = -9.8; // 重力常数
     this.margin = 0.05; // 两个物体之间最小间距
@@ -67,17 +103,12 @@ function PlayerPhysics(app) {
 
     // api函数
     // TODO: 很难受的实现
-    Object.assign(app, {
+    Object.assign(this.app, {
         addPhysicsObject: this.addPhysicsObject.bind(this)
     });
-}
+};
 
-PlayerPhysics.prototype = Object.create(PlayerComponent.prototype);
-PlayerPhysics.prototype.constructor = PlayerPhysics;
-
-PlayerPhysics.prototype.create = function (scene, camera, renderer) {
-    this.scene = scene;
-
+PlayerPhysics.prototype.initScene = function (scene, camera, renderer) {
     this.scene.traverse(n => {
         if (n.userData &&
             n.userData.physics &&
@@ -115,13 +146,13 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
     this.events.forEach(n => {
         n.create(scene, camera, renderer);
     });
-
-    return new Promise(resolve => {
-        resolve();
-    });
 };
 
 PlayerPhysics.prototype.update = function (clock, deltaTime) {
+    if (!this.world) {
+        return;
+    }
+
     this.world.stepSimulation(deltaTime, 10);
 
     // 更新柔软体
@@ -196,23 +227,27 @@ PlayerPhysics.prototype.update = function (clock, deltaTime) {
 };
 
 PlayerPhysics.prototype.dispose = function () {
-    this.events.forEach(n => {
+    this.events && this.events.forEach(n => {
         n.dispose();
     });
 
-    this.rigidBodies.forEach(n => {
-        var body = n.userData.physics.body;
-        this.world.removeRigidBody(body);
-    });
+    if (this.rigidBodies) {
+        this.rigidBodies.forEach(n => {
+            var body = n.userData.physics.body;
+            this.world.removeRigidBody(body);
+        });
 
-    this.rigidBodies.length = 0;
+        this.rigidBodies.length = 0;
+    }
 
-    this.softBodies.forEach(n => {
-        var body = n.userData.physics.body;
-        this.world.removeRigidBody(body);
-    });
+    if (this.softBodies) {
+        this.softBodies.forEach(n => {
+            var body = n.userData.physics.body;
+            this.world.removeRigidBody(body);
+        });
 
-    this.softBodies.length = 0;
+        this.softBodies.length = 0;
+    }
 
     this.scene.traverse(n => {
         if (n.userData && n.userData.physics) {
