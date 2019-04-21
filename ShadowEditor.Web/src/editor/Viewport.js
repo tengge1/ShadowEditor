@@ -18,10 +18,7 @@ Viewport.prototype.render = function () {
         xtype: 'div',
         id: 'viewport',
         parent: this.parent,
-        cls: 'viewport',
-        children: [{
-            xtype: 'progressbar',
-        }],
+        cls: 'viewport'
     });
     this.container.render();
 };
