@@ -605,3 +605,6 @@ L_TILE_MAP = '地图';
 L_GOOGLE_MAP = '谷歌地图';
 L_BING_MAP = '必应地图';
 L_TIANDITU_MAP = '天地图';
+
+L_VISUAL = '可视化';
+L_DATA_SOURCE_MANAGE = '数据源管理';

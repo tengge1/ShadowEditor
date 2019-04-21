@@ -1,19 +1,20 @@
 import UI from '../../ui/UI';
+import DataSourceManageWindow from '../window/DataSourceManageWindow';
 
 /**
- * 测试菜单
+ * 数据可视化菜单
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function TestMenu(options) {
+function VisualMenu(options) {
     UI.Control.call(this, options);
     this.app = options.app;
 }
 
-TestMenu.prototype = Object.create(UI.Control.prototype);
-TestMenu.prototype.constructor = TestMenu;
+VisualMenu.prototype = Object.create(UI.Control.prototype);
+VisualMenu.prototype.constructor = VisualMenu;
 
-TestMenu.prototype.render = function () {
+VisualMenu.prototype.render = function () {
     var container = UI.create({
         xtype: 'div',
         parent: this.parent,
@@ -21,11 +22,16 @@ TestMenu.prototype.render = function () {
         children: [{
             xtype: 'div',
             cls: 'title',
-            html: 'Test'
+            html: L_VISUAL
         }, {
             xtype: 'div',
             cls: 'options',
             children: [{
+                xtype: 'div',
+                cls: 'option',
+                html: L_DATA_SOURCE_MANAGE,
+                onClick: this.manageDataSource.bind(this),
+            }, {
                 xtype: 'div',
                 cls: 'option',
                 html: 'Hello World',
@@ -37,7 +43,18 @@ TestMenu.prototype.render = function () {
     container.render();
 };
 
-TestMenu.prototype.showWin = function () {
+VisualMenu.prototype.manageDataSource = function () {
+    if (this.dataSourceManageWin === undefined) {
+        this.dataSourceManageWin = new DataSourceManageWindow({
+            app: this.app,
+        });
+        this.dataSourceManageWin.render();
+    }
+
+    this.dataSourceManageWin.show();
+};
+
+VisualMenu.prototype.showWin = function () {
     if (this.win === undefined) {
         this.win = UI.create({
             xtype: 'window',
@@ -70,7 +87,7 @@ TestMenu.prototype.showWin = function () {
     this.win.show();
 };
 
-TestMenu.prototype.clearContent = function () {
+VisualMenu.prototype.clearContent = function () {
     var container = UI.get('container', this.id);
 
     while (container.dom.children.length) {
@@ -78,7 +95,7 @@ TestMenu.prototype.clearContent = function () {
     }
 };
 
-TestMenu.prototype.hello = function () {
+VisualMenu.prototype.hello = function () {
     this.showWin();
     this.clearContent();
 
@@ -96,4 +113,4 @@ TestMenu.prototype.hello = function () {
         .attr('fill', '#f00');
 };
 
-export default TestMenu;
+export default VisualMenu;

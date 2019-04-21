@@ -603,4 +603,7 @@ Object.assign(window, {
     L_GOOGLE_MAP: 'Google Map',
     L_BING_MAP: 'Bing Map',
     L_TIANDITU_MAP: 'Tianditu Map',
+
+    L_VISUAL: 'Visual',
+    L_DATA_SOURCE_MANAGE: 'Data Source Manage',
 });

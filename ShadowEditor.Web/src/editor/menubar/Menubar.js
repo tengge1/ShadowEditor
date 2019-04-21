@@ -7,11 +7,11 @@ import LightMenu from './LightMenu';
 import AssetMenu from './AssetMenu';
 import TerrainMenu from './TerrainMenu';
 import ComponentMenu from './ComponentMenu';
+import VisualMenu from './VisualMenu';
 import PlayMenu from './PlayMenu';
 import ToolMenu from './ToolMenu';
 import OptionsMenu from './OptionsMenu';
 import HelpMenu from './HelpMenu';
-import TestMenu from './TestMenu';
 import StatusMenu from './StatusMenu';
 
 /**
@@ -49,11 +49,11 @@ Menubar.prototype.render = function () {
             new AssetMenu(params),
             //new TerrainMenu(params),
             new ComponentMenu(params),
+            new VisualMenu(params),
             new PlayMenu(params),
             new ToolMenu(params),
             new OptionsMenu(params),
             new HelpMenu(params),
-            new TestMenu(params),
 
             // 右侧
             new StatusMenu(params)
