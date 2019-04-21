@@ -44,6 +44,7 @@ import './DataTable';
 import './Tree';
 import './Icon';
 import './ProgressBar';
+import './SVG';
 
 // 添加一些实用功能
 Object.assign(UI, {

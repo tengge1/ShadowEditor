@@ -18,7 +18,18 @@ Viewport.prototype.render = function () {
         xtype: 'div',
         id: 'viewport',
         parent: this.parent,
-        cls: 'viewport'
+        cls: 'viewport',
+        children: [{
+            xtype: 'svg',
+            style: {
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '100%',
+                pointerEvents: 'none',
+            },
+        }]
     });
     this.container.render();
 };
