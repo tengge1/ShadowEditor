@@ -606,5 +606,6 @@ Object.assign(window, {
 
     L_VISUAL: 'Visual',
     L_DATA_SOURCE_MANAGE: 'Data Source Manage',
+    L_SIDEBAR: 'Sidebar',
     L_PANEL: 'Panel',
 });

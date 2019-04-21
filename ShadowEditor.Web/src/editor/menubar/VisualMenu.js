@@ -1,5 +1,5 @@
 import UI from '../../ui/UI';
-import DataSourceManageWindow from '../window/DataSourceManageWindow';
+import Sidebar from '../../visual/Sidebar';
 import Panel from '../../visual/Panel';
 
 /**
@@ -27,46 +27,39 @@ VisualMenu.prototype.render = function () {
         }, {
             xtype: 'div',
             cls: 'options',
-            children: [
-                //     {
-                //     xtype: 'div',
-                //     cls: 'option',
-                //     html: L_DATA_SOURCE_MANAGE,
-                //     onClick: this.manageDataSource.bind(this),
-                // }, 
-                {
-                    xtype: 'div',
-                    cls: 'option',
-                    html: L_PANEL,
-                    onClick: this.addPanel.bind(this),
-                }]
+            children: [{
+                xtype: 'div',
+                cls: 'option',
+                html: L_SIDEBAR,
+                onClick: this.addSidebar.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_PANEL,
+                onClick: this.addPanel.bind(this),
+            }]
         }]
     });
 
     container.render();
 };
 
-// ------------------------- 数据源管理 ------------------------------------------
+// ------------------------- 侧边栏 ------------------------------------------
 
-VisualMenu.prototype.manageDataSource = function () {
-    UI.msg('Test');
-    // if (this.dataSourceManageWin === undefined) {
-    //     this.dataSourceManageWin = new DataSourceManageWindow({
-    //         app: this.app,
-    //     });
-    //     this.dataSourceManageWin.render();
-    // }
-
-    // this.dataSourceManageWin.show();
+VisualMenu.prototype.addSidebar = function () {
+    var control = new Sidebar({
+        parent: this.app.editor.svg,
+    });
+    control.render();
 };
 
 // ------------------------------ 面板 ----------------------------------------
 
 VisualMenu.prototype.addPanel = function () {
-    var panel = new Panel({
+    var control = new Panel({
         parent: this.app.editor.svg,
     });
-    panel.render();
+    control.render();
 };
 
 export default VisualMenu;
