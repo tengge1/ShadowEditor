@@ -66,7 +66,7 @@ Sidebar.prototype.render = function () {
 
     // 边框
     group.append('path')
-        .attr('d', 'm180,11 l0,35 l-10,10 L9,56')
+        .attr('d', 'm180,11 l0,35 l-10,10 L9,56 l0,183 l40,30 l0,193 M32,472 l0,18 l-23,20 l0,310')
         .attr('stroke', '#3a6a84')
         .attr('stroke-width', 2)
         .attr('fill', 'none');

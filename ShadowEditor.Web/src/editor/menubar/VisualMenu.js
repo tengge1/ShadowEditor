@@ -44,7 +44,7 @@ VisualMenu.prototype.render = function () {
     container.render();
 
     // TODO: 为了方便开发，需要删除
-    // this.app.on(`appStarted.${this.id}`, this.addSidebar.bind(this));
+    //this.app.on(`appStarted.${this.id}`, this.addSidebar.bind(this));
 };
 
 // ------------------------- 侧边栏 ------------------------------------------
