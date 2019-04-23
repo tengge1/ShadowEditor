@@ -132,6 +132,23 @@ Sidebar.prototype.render = function () {
         .attr('width', 24)
         .attr('height', 24)
         .attr('href', 'assets/svg/home.svg');
+
+    var header = group.append('g')
+        .attr('transform', 'translate(15,276)');
+
+    header.append('path')
+        .attr('d', 'M0,0 L12,0 L25,10 L25,185 L12,195 L0,195 Z')
+        .attr('fill', '#185185');
+
+    header.append('text')
+        .text('首都机场')
+        .attr('x', 12)
+        .attr('y', 85)
+        .attr('text-anchor', 'middle')
+        .attr('writing-mode', 'tb')
+        .attr('textlength', '90px')
+        .attr('lengthAdjust', 'spacing') // spacing, spacingAndGlyphs; see: https://blog.csdn.net/huanhuanq1209/article/details/71438629
+        .attr('fill', '#fff');
 };
 
 export default Sidebar;
