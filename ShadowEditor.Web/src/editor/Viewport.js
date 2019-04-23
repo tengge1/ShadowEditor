@@ -34,6 +34,10 @@ Viewport.prototype.render = function () {
                 height: '100%',
                 pointerEvents: 'none',
             },
+            children: [{
+                xtype: 'defs',
+                id: 'svgDefs',
+            }]
         }]
     });
     this.container.render();

@@ -41,6 +41,12 @@ SVG.prototype.render = function () {
     if (this.style) {
         Object.assign(this.dom.style, this.style);
     }
+
+    this.children.forEach(n => {
+        var obj = UI.create(n);
+        obj.parent = this.dom;
+        obj.render();
+    });
 };
 
 UI.addXType('svg', SVG);

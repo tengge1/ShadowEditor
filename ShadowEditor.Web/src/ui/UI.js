@@ -45,6 +45,7 @@ import './Tree';
 import './Icon';
 import './ProgressBar';
 import './SVG';
+import './Defs';
 
 // 添加一些实用功能
 Object.assign(UI, {
