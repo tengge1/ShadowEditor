@@ -15,11 +15,10 @@ Sidebar.prototype = Object.create(Component.prototype);
 Sidebar.prototype.constructor = Sidebar;
 
 Sidebar.prototype.render = function () {
-    var width = this.parent.clientWidth;
-    var height = this.parent.clientHeight;
+    var svg = d3.select(this.parent);
+    var defs = svg.select('defs');
 
-    var group = d3.select(this.parent)
-        .append('g');
+    var group = svg.append('g');
 
     // 背景参考图
     group.append('image')
@@ -70,6 +69,69 @@ Sidebar.prototype.render = function () {
         .attr('stroke', '#3a6a84')
         .attr('stroke-width', 2)
         .attr('fill', 'none');
+
+    // 选项卡
+    var tabDef = defs.append('path')
+        .attr('id', 'tabDef')
+        .attr('d', 'M0,0 L32,22 L32,60 L0,38 Z')
+        .attr('fill', '#6c6f6e');
+
+    var tabSelectDef = defs.append('path')
+        .attr('id', 'tabSelectDef')
+        .attr('d', 'M0,0 L32,22 L32,60 L0,38 Z')
+        .attr('fill', '#356899');
+
+    var tab1 = group.append('g')
+        .attr('transform', 'translate(14,58)');
+
+    tab1.append('use')
+        .attr('href', '#tabSelectDef');
+
+    tab1.append('image')
+        .attr('x', 5)
+        .attr('y', 20)
+        .attr('width', 24)
+        .attr('height', 24)
+        .attr('href', 'assets/svg/home.svg');
+
+    var tab2 = group.append('g')
+        .attr('transform', 'translate(14,104)');
+
+    tab2.append('use')
+        .attr('href', '#tabDef');
+
+    tab2.append('image')
+        .attr('x', 5)
+        .attr('y', 20)
+        .attr('width', 24)
+        .attr('height', 24)
+        .attr('href', 'assets/svg/home.svg');
+
+    var tab3 = group.append('g')
+        .attr('transform', 'translate(14,150)');
+
+    tab3.append('use')
+        .attr('href', '#tabDef');
+
+    tab3.append('image')
+        .attr('x', 5)
+        .attr('y', 20)
+        .attr('width', 24)
+        .attr('height', 24)
+        .attr('href', 'assets/svg/home.svg');
+
+    var tab4 = group.append('g')
+        .attr('transform', 'translate(14,196)');
+
+    tab4.append('use')
+        .attr('href', '#tabDef');
+
+    tab4.append('image')
+        .attr('x', 5)
+        .attr('y', 20)
+        .attr('width', 24)
+        .attr('height', 24)
+        .attr('href', 'assets/svg/home.svg');
 };
 
 export default Sidebar;
