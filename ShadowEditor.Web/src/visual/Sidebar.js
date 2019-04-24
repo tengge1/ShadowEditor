@@ -149,6 +149,19 @@ Sidebar.prototype.render = function () {
         .attr('textlength', '90px')
         .attr('lengthAdjust', 'spacing') // spacing, spacingAndGlyphs; see: https://blog.csdn.net/huanhuanq1209/article/details/71438629
         .attr('fill', '#fff');
+
+    // 圆圈
+    group.append('circle')
+        .attr('cx', 125)
+        .attr('cy', 140)
+        .attr('r', 68)
+        .attr('fill', 'rgba(0,0,0,0.5)');
+
+    // 横线
+    group.append('path')
+        .attr('d', 'M90,222 L160,222')
+        .attr('stroke', '#3e7390')
+        .attr('stroke-width', 2);
 };
 
 export default Sidebar;
