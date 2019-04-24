@@ -186,6 +186,60 @@ Sidebar.prototype.render = function () {
         .attr('y', 17)
         .attr('fill', '#fff')
         .attr('font-size', 14);
+
+    var smallPanel2 = group.append('g')
+        .attr('transform', 'translate(60,268)');
+
+    smallPanel2.append('use')
+        .attr('href', '#smallPanel');
+    smallPanel2.append('text')
+        .text('晚点起飞')
+        .attr('x', 18)
+        .attr('y', 17)
+        .attr('fill', '#fff')
+        .attr('font-size', 14);
+    smallPanel2.append('text')
+        .text('02')
+        .attr('x', 90)
+        .attr('y', 17)
+        .attr('fill', '#e4a74a')
+        .attr('font-size', 14);
+
+    var smallPanel3 = group.append('g')
+        .attr('transform', 'translate(60,301)');
+
+    smallPanel3.append('use')
+        .attr('href', '#smallPanel');
+    smallPanel3.append('text')
+        .text('计划停泊')
+        .attr('x', 18)
+        .attr('y', 17)
+        .attr('fill', '#fff')
+        .attr('font-size', 14);
+    smallPanel3.append('text')
+        .text('46')
+        .attr('x', 90)
+        .attr('y', 17)
+        .attr('fill', '#fff')
+        .attr('font-size', 14);
+
+    var smallPanel4 = group.append('g')
+        .attr('transform', 'translate(60,333)');
+
+    smallPanel4.append('use')
+        .attr('href', '#smallPanel');
+    smallPanel4.append('text')
+        .text('晚点到达')
+        .attr('x', 18)
+        .attr('y', 17)
+        .attr('fill', '#fff')
+        .attr('font-size', 14);
+    smallPanel4.append('text')
+        .text('02')
+        .attr('x', 90)
+        .attr('y', 17)
+        .attr('fill', '#d60c0c')
+        .attr('font-size', 14);
 };
 
 export default Sidebar;
