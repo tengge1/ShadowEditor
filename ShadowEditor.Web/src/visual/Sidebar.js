@@ -162,6 +162,30 @@ Sidebar.prototype.render = function () {
         .attr('d', 'M90,222 L160,222')
         .attr('stroke', '#3e7390')
         .attr('stroke-width', 2);
+
+    // 小面板
+    defs.append('path')
+        .attr('id', 'smallPanel')
+        .attr('d', 'M0,0 L135,0 L142,8 L142,24 L12,24 L0,17 Z')
+        .attr('fill', 'rgba(0,0,0,0.5)');
+
+    var smallPanel1 = group.append('g')
+        .attr('transform', 'translate(60,240)');
+
+    smallPanel1.append('use')
+        .attr('href', '#smallPanel');
+    smallPanel1.append('text')
+        .text('正常停泊')
+        .attr('x', 18)
+        .attr('y', 17)
+        .attr('fill', '#fff')
+        .attr('font-size', 14);
+    smallPanel1.append('text')
+        .text('22')
+        .attr('x', 90)
+        .attr('y', 17)
+        .attr('fill', '#fff')
+        .attr('font-size', 14);
 };
 
 export default Sidebar;
