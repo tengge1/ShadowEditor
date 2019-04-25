@@ -151,11 +151,31 @@ Sidebar.prototype.render = function () {
         .attr('fill', '#fff');
 
     // 圆圈
-    group.append('circle')
-        .attr('cx', 125)
-        .attr('cy', 140)
+    var circle = group.append('g')
+        .attr('transform', 'translate(125,140)');
+
+    circle.append('circle')
+        .attr('cx', 0)
+        .attr('cy', 0)
         .attr('r', 68)
         .attr('fill', 'rgba(0,0,0,0.5)');
+
+    circle.append('circle')
+        .attr('cx', 0)
+        .attr('cy', 0)
+        .attr('r', 48)
+        .attr('stroke', '#517496')
+        .attr('stroke-width', 2)
+        .attr('fill', 'none');
+
+    circle.append('text')
+        .text('Time')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('dy', 10)
+        .attr('font-size', 20)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#fff');
 
     // 横线
     group.append('path')
