@@ -356,6 +356,105 @@ Sidebar.prototype.render = function () {
         .attr('fill', '#fff')
         .attr('font-size', 14)
         .attr('text-anchor', 'end');
+
+    // 仪表盘
+    var gaugeDef = defs.append('g')
+        .attr('id', 'gaugeDef');
+
+    gaugeDef.append('circle')
+        .attr('cx', 0)
+        .attr('cy', 0)
+        .attr('r', 37)
+        .attr('fill', 'rgba(0,0,0,0.5)');
+
+    gaugeDef.append('circle')
+        .attr('cx', 0)
+        .attr('cy', 0)
+        .attr('r', 32)
+        .attr('stroke', '#6da2ee')
+        .attr('stroke-width', 2)
+        .attr('fill', 'none');
+
+    var gauge1 = group.append('g')
+        .attr('transform', 'translate(50,550)');
+
+    gauge1.append('use')
+        .attr('href', '#gaugeDef');
+
+    gauge1.append('text')
+        .text('66%')
+        .attr('y', -10)
+        .attr('font-size', 22)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#4bc8f5');
+
+    gauge1.append('text')
+        .text('设备')
+        .attr('y', 10)
+        .attr('font-size', 14)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#fff');
+
+    gauge1.append('text')
+        .text('在线率')
+        .attr('y', 26)
+        .attr('font-size', 14)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#fff');
+
+    var gauge2 = group.append('g')
+        .attr('transform', 'translate(131,550)');
+
+    gauge2.append('use')
+        .attr('href', '#gaugeDef');
+
+    gauge2.append('text')
+        .text('67')
+        .attr('y', -10)
+        .attr('font-size', 22)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#4bc8f5');
+
+    gauge2.append('text')
+        .text('修复')
+        .attr('y', 10)
+        .attr('font-size', 14)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#fff');
+
+    gauge2.append('text')
+        .text('故障数')
+        .attr('y', 26)
+        .attr('font-size', 14)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#fff');
+
+    var gauge3 = group.append('g')
+        .attr('transform', 'translate(220,550)');
+
+    gauge3.append('use')
+        .attr('href', '#gaugeDef');
+
+    gauge3.append('text')
+        .text('23')
+        .attr('y', -10)
+        .attr('font-size', 22)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#4bc8f5');
+
+    gauge3.append('text')
+        .text('剩余')
+        .attr('y', 10)
+        .attr('font-size', 14)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#fff');
+
+    gauge3.append('text')
+        .text('故障数')
+        .attr('y', 26)
+        .attr('font-size', 14)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#fff');
 };
 
 export default Sidebar;
