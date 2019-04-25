@@ -29,6 +29,14 @@ Sidebar.prototype.render = function () {
         .attr('href', 'assets/panel1.png')
         .attr('opacity', '0.5');
 
+    // 背景
+    // group.append('rect')
+    //     .attr('x', 0)
+    //     .attr('y', 0)
+    //     .attr('width', 270)
+    //     .attr('height', 969)
+    //     .attr('fill', 'rgba(0,0,0,0.5)');
+
     // 时间
     group.append('text')
         .text('14:21')
@@ -105,7 +113,7 @@ Sidebar.prototype.render = function () {
         .attr('y', 20)
         .attr('width', 24)
         .attr('height', 24)
-        .attr('href', 'assets/svg/home.svg');
+        .attr('href', 'assets/svg/plane.svg');
 
     var tab3 = group.append('g')
         .attr('transform', 'translate(14,150)');
@@ -118,7 +126,7 @@ Sidebar.prototype.render = function () {
         .attr('y', 20)
         .attr('width', 24)
         .attr('height', 24)
-        .attr('href', 'assets/svg/home.svg');
+        .attr('href', 'assets/svg/water.svg');
 
     var tab4 = group.append('g')
         .attr('transform', 'translate(14,196)');
@@ -131,7 +139,7 @@ Sidebar.prototype.render = function () {
         .attr('y', 20)
         .attr('width', 24)
         .attr('height', 24)
-        .attr('href', 'assets/svg/home.svg');
+        .attr('href', 'assets/svg/guard.svg');
 
     var header = group.append('g')
         .attr('transform', 'translate(15,276)');
