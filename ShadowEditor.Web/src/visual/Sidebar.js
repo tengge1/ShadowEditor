@@ -261,23 +261,101 @@ Sidebar.prototype.render = function () {
         .attr('fill', '#d60c0c')
         .attr('font-size', 14);
 
-    var smallPanel5 = group.append('g')
-        .attr('transform', 'translate(60,333)');
+    // 中等面板
+    var mediumPanelDef = defs.append('path')
+        .attr('id', 'mediumPanelDef')
+        .attr('d', 'M5,0 L160,0 L166,6 L166,33 L158,38 L158,91 L166,96 L166,125 L158,130 L5,130 L0,125 L0,96 L5,91 L5,36 L0,33 L0,6 Z')
+        .attr('fill', 'rgba(0,0,0,0.5)');
 
-    smallPanel5.append('use')
-        .attr('href', '#smallPanel');
-    smallPanel5.append('text')
-        .text('晚点到达')
-        .attr('x', 18)
-        .attr('y', 17)
+    var mediumPanel = group.append('g')
+        .attr('transform', 'translate(54,363)');
+
+    mediumPanel.append('use')
+        .attr('href', '#mediumPanelDef');
+
+    mediumPanel.append('text')
+        .text('长途停车场')
+        .attr('x', 17)
+        .attr('y', 26)
         .attr('fill', '#fff')
         .attr('font-size', 14);
-    smallPanel5.append('text')
-        .text('02')
-        .attr('x', 90)
-        .attr('y', 17)
-        .attr('fill', '#d60c0c')
+
+    mediumPanel.append('text')
+        .text('56/90')
+        .attr('x', 140)
+        .attr('y', 26)
+        .attr('fill', '#fff')
+        .attr('font-size', 14)
+        .attr('text-anchor', 'end');
+
+    mediumPanel.append('line')
+        .attr('x1', 15)
+        .attr('y1', 36)
+        .attr('x2', 150)
+        .attr('y2', 36)
+        .attr('stroke', 'rgba(0,0,0,0.7)')
+        .attr('stroke-width', 2);
+
+    mediumPanel.append('text')
+        .text('公交停车场')
+        .attr('x', 17)
+        .attr('y', 58)
+        .attr('fill', '#fff')
         .attr('font-size', 14);
+
+    mediumPanel.append('text')
+        .text('34/126')
+        .attr('x', 140)
+        .attr('y', 58)
+        .attr('fill', '#fff')
+        .attr('font-size', 14)
+        .attr('text-anchor', 'end');
+
+    mediumPanel.append('line')
+        .attr('x1', 15)
+        .attr('y1', 67)
+        .attr('x2', 150)
+        .attr('y2', 67)
+        .attr('stroke', 'rgba(0,0,0,0.7)')
+        .attr('stroke-width', 2);
+
+    mediumPanel.append('text')
+        .text('地上停车场')
+        .attr('x', 17)
+        .attr('y', 90)
+        .attr('fill', '#fff')
+        .attr('font-size', 14);
+
+    mediumPanel.append('text')
+        .text('256/560')
+        .attr('x', 140)
+        .attr('y', 90)
+        .attr('fill', '#fff')
+        .attr('font-size', 14)
+        .attr('text-anchor', 'end');
+
+    mediumPanel.append('line')
+        .attr('x1', 15)
+        .attr('y1', 100)
+        .attr('x2', 150)
+        .attr('y2', 100)
+        .attr('stroke', 'rgba(0,0,0,0.7)')
+        .attr('stroke-width', 2);
+
+    mediumPanel.append('text')
+        .text('地下停车场')
+        .attr('x', 17)
+        .attr('y', 122)
+        .attr('fill', '#fff')
+        .attr('font-size', 14);
+
+    mediumPanel.append('text')
+        .text('389/560')
+        .attr('x', 140)
+        .attr('y', 122)
+        .attr('fill', '#fff')
+        .attr('font-size', 14)
+        .attr('text-anchor', 'end');
 };
 
 export default Sidebar;
