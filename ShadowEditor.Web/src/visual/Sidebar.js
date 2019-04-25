@@ -176,6 +176,44 @@ Sidebar.prototype.render = function () {
         .attr('stroke-width', 2)
         .attr('fill', 'none');
 
+    circle.append('circle')
+        .attr('cx', 48)
+        .attr('cy', 0)
+        .attr('r', 14)
+        .attr('fill', '#376899');
+
+    circle.append('circle')
+        .attr('cx', 48)
+        .attr('cy', 0)
+        .attr('r', 14)
+        .attr('stroke', '#3399ff')
+        .attr('stroke-width', 2)
+        .attr('fill', 'none');
+
+    circle.append('image')
+        .attr('x', 0)
+        .attr('y', -48)
+        .attr('transform', 'translate(-12,-12)')
+        .attr('href', 'assets/svg/sunrise.svg');
+
+    circle.append('image')
+        .attr('x', 48)
+        .attr('y', 0)
+        .attr('transform', 'translate(-12,-12)')
+        .attr('href', 'assets/svg/sun.svg');
+
+    circle.append('image')
+        .attr('x', 0)
+        .attr('y', 48)
+        .attr('transform', 'translate(-12,-12)')
+        .attr('href', 'assets/svg/sunset.svg');
+
+    circle.append('image')
+        .attr('x', -48)
+        .attr('y', 0)
+        .attr('transform', 'translate(-12,-12)')
+        .attr('href', 'assets/svg/moon.svg');
+
     circle.append('text')
         .text('Time')
         .attr('x', 0)
