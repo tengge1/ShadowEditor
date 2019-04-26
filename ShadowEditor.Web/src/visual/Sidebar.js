@@ -21,21 +21,21 @@ Sidebar.prototype.render = function () {
     var group = svg.append('g');
 
     // 背景参考图
-    group.append('image')
-        .attr('x', 0)
-        .attr('y', 0)
-        .attr('width', 1920)
-        .attr('height', 969)
-        .attr('href', 'assets/panel1.png')
-        .attr('opacity', '0.5');
-
-    // 背景
-    // group.append('rect')
+    // group.append('image')
     //     .attr('x', 0)
     //     .attr('y', 0)
-    //     .attr('width', 270)
+    //     .attr('width', 1920)
     //     .attr('height', 969)
-    //     .attr('fill', 'rgba(0,0,0,0.5)');
+    //     .attr('href', 'assets/panel1.png')
+    //     .attr('opacity', '0.5');
+
+    // 背景
+    group.append('rect')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', 270)
+        .attr('height', 969)
+        .attr('fill', 'rgba(0,0,0,0.5)');
 
     // 时间
     group.append('text')
@@ -568,6 +568,55 @@ Sidebar.prototype.render = function () {
         .attr('text-anchor', 'middle')
         .attr('fill', '#fff');
 
+    // 折线图
+    var linechart = group.append('g')
+        .attr('transform', 'translate(14,769)');
+
+    linechart.append('use')
+        .attr('href', '#diagramBg');
+
+    var data1 = [];
+    var data2 = [];
+
+    var ran1 = d3.randomNormal(72, 20);
+    var ran2 = d3.randomNormal(29, 8);
+
+    for (var i = 0; i < 218; i += 10) {
+        data1.push([8 + i, ran1()]);
+        data2.push([8 + i, ran2()]);
+    }
+
+    var line = d3.line();
+    var lineData1 = line(data1);
+    var lineData2 = line(data2);
+
+    linechart.append('path')
+        .attr('d', lineData1)
+        .attr('stroke', '#458dab')
+        .attr('stroke-width', 2)
+        .attr('fill', 'none');
+
+    linechart.append('path')
+        .attr('d', lineData2)
+        .attr('stroke', '#b59784')
+        .attr('stroke-width', 2)
+        .attr('fill', 'none');
+
+    var label = linechart.append('g')
+        .attr('transform', 'translate(117,140)');
+
+    label.append('use')
+        .attr('href', '#labelDef')
+        .attr('transform', 'translate(-42,-12)');
+
+    label.append('text')
+        .text('客流量')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('dy', 4)
+        .attr('font-size', 14)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#fff');
 };
 
 export default Sidebar;
