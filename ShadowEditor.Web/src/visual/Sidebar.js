@@ -501,6 +501,28 @@ Sidebar.prototype.render = function () {
         .attr('font-size', 14)
         .attr('text-anchor', 'middle')
         .attr('fill', '#fff');
+
+    // 柱状图
+    var histogramBgDefs = defs.append('g')
+        .attr('id', 'histogramBg');
+
+    histogramBgDefs.append('path')
+        .attr('d', 'M16.5,0 L16.5,123.38 L0,132.9 L0,8.5 Z')
+        .attr('fill', 'rgba(0,0,0,0.5)');
+
+    histogramBgDefs.append('path')
+        .attr('d', 'M23.5,0 L238,0 L238,124 L23.5,124 Z')
+        .attr('fill', 'rgba(0,0,0,0.5)');
+
+    histogramBgDefs.append('path')
+        .attr('d', 'M22,127 L238,127 L225,139 L0,139 Z')
+        .attr('fill', 'rgba(0,0,0,0.5)');
+
+    var histogram = group.append('g')
+        .attr('transform', 'translate(14,610)');
+
+    histogram.append('use')
+        .attr('href', '#histogramBg');
 };
 
 export default Sidebar;
