@@ -502,27 +502,72 @@ Sidebar.prototype.render = function () {
         .attr('text-anchor', 'middle')
         .attr('fill', '#fff');
 
-    // 柱状图
-    var histogramBgDefs = defs.append('g')
-        .attr('id', 'histogramBg');
+    // 图表背景
+    var diagramBgDefs = defs.append('g')
+        .attr('id', 'diagramBg');
 
-    histogramBgDefs.append('path')
+    diagramBgDefs.append('path')
         .attr('d', 'M16.5,0 L16.5,123.38 L0,132.9 L0,8.5 Z')
         .attr('fill', 'rgba(0,0,0,0.5)');
 
-    histogramBgDefs.append('path')
+    diagramBgDefs.append('path')
         .attr('d', 'M23.5,0 L238,0 L238,124 L23.5,124 Z')
         .attr('fill', 'rgba(0,0,0,0.5)');
 
-    histogramBgDefs.append('path')
+    diagramBgDefs.append('path')
         .attr('d', 'M22,127 L238,127 L225,139 L0,139 Z')
         .attr('fill', 'rgba(0,0,0,0.5)');
 
+    // 标签
+    var labelDef = defs.append('path')
+        .attr('id', 'labelDef')
+        .attr('d', 'M11,0 L72,0 L85,12 L72,24 L11,24 L0,12 Z')
+        .attr('fill', 'rgba(23,29,48,0.5)');
+
+    // 柱状图
     var histogram = group.append('g')
         .attr('transform', 'translate(14,610)');
 
     histogram.append('use')
-        .attr('href', '#histogramBg');
+        .attr('href', '#diagramBg');
+
+    var data = [27, 68, 44, 117, 60, 83, 101];
+
+    histogram.selectAll('.column')
+        .data(data)
+        .enter()
+        .append('rect')
+        .classed('column', true)
+        .attr('x', function (d, i) {
+            return 30 * (i + 1) - 5;
+        })
+        .attr('y', function (d) {
+            return 133.6 - d;
+        })
+        .attr('width', function (d) {
+            return 10;
+        })
+        .attr('height', function (d) {
+            return d;
+        })
+        .attr('fill', '#4ccdfc');
+
+    var label = histogram.append('g')
+        .attr('transform', 'translate(117,140)');
+
+    label.append('use')
+        .attr('href', '#labelDef')
+        .attr('transform', 'translate(-42,-12)');
+
+    label.append('text')
+        .text('时段航班')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('dy', 4)
+        .attr('font-size', 14)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#fff');
+
 };
 
 export default Sidebar;
