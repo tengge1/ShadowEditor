@@ -1,6 +1,6 @@
 import './polyfills';
 import './language/Language';
-import './shader/ShaderChunk';
+import './render/shader/ShaderChunk';
 
 export { default as Options } from './Options';
 
