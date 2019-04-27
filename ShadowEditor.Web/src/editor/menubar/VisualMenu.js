@@ -1,7 +1,7 @@
 import UI from '../../ui/UI';
-import Sidebar from '../../visual/Sidebar';
-import Panel from '../../visual/Panel';
-import BarChart from '../../visual/BarChart';
+import Sidebar from '../../visual/demo/Sidebar';
+import Panel from '../../visual/demo/Panel';
+import BarChart from '../../visual/demo/BarChart';
 
 /**
  * 数据可视化菜单
