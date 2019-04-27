@@ -1,6 +1,7 @@
 import UI from '../../ui/UI';
 import Sidebar from '../../visual/Sidebar';
 import Panel from '../../visual/Panel';
+import BarChart from '../../visual/BarChart';
 
 /**
  * 数据可视化菜单
@@ -37,6 +38,11 @@ VisualMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_PANEL,
                 onClick: this.addPanel.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_BAR_CHART,
+                onClick: this.addBarChart.bind(this),
             }]
         }]
     });
@@ -57,6 +63,15 @@ VisualMenu.prototype.addSidebar = function () {
 
 VisualMenu.prototype.addPanel = function () {
     var control = new Panel({
+        parent: this.app.editor.svg,
+    });
+    control.render();
+};
+
+// ---------------------------- 条形图 ------------------------------------------
+
+VisualMenu.prototype.addBarChart = function () {
+    var control = new BarChart({
         parent: this.app.editor.svg,
     });
     control.render();
