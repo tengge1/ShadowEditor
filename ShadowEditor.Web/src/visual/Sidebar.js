@@ -578,10 +578,10 @@ Sidebar.prototype.render = function () {
     var data1 = [];
     var data2 = [];
 
-    var ran1 = d3.randomNormal(72, 20);
-    var ran2 = d3.randomNormal(29, 8);
+    var ran1 = d3.randomNormal(29, 8);
+    var ran2 = d3.randomNormal(72, 20);
 
-    for (var i = 0; i < 218; i += 10) {
+    for (var i = 0; i <= 210; i += 10) {
         data1.push([8 + i, ran1()]);
         data2.push([8 + i, ran2()]);
     }
@@ -591,11 +591,19 @@ Sidebar.prototype.render = function () {
     var lineData2 = line(data2);
 
     linechart.append('path')
+        .attr('d', lineData1 + 'L218,133.6L8,133.6Z')
+        .attr('stroke', '#458dab')
+        .attr('fill', 'rgba(76,205,252,0.2)');
+    linechart.append('path')
         .attr('d', lineData1)
         .attr('stroke', '#458dab')
         .attr('stroke-width', 2)
         .attr('fill', 'none');
 
+    linechart.append('path')
+        .attr('d', lineData2 + 'L218,133.6L8,133.6Z')
+        .attr('fill', 'rgba(182,152,132,0.2)')
+        .attr('stroke-width', 2);
     linechart.append('path')
         .attr('d', lineData2)
         .attr('stroke', '#b59784')
