@@ -45,8 +45,8 @@ Menubar.prototype.render = function () {
             // 左侧
             new SceneMenu(params),
             new EditMenu(params),
-            new GeometryMenu(params),
             new TwoDMenu(params),
+            new GeometryMenu(params),
             new LightMenu(params),
             new AssetMenu(params),
             //new TerrainMenu(params),
