@@ -1,0 +1,46 @@
+import UI from '../../ui/UI';
+
+/**
+ * 二维菜单
+ * @author tengge / https://github.com/tengge1
+ * @param {*} options 
+ */
+function TwoDMenu(options) {
+    UI.Control.call(this, options);
+    this.app = options.app;
+}
+
+TwoDMenu.prototype = Object.create(UI.Control.prototype);
+TwoDMenu.prototype.constructor = TwoDMenu;
+
+TwoDMenu.prototype.render = function () {
+    var container = UI.create({
+        xtype: 'div',
+        parent: this.parent,
+        cls: 'menu',
+        children: [{
+            xtype: 'div',
+            cls: 'title',
+            html: L_TWO_D
+        }, {
+            xtype: 'div',
+            cls: 'options',
+            children: [{
+                xtype: 'div',
+                cls: 'option',
+                html: 'Button',
+                onClick: this.addButton.bind(this),
+            }]
+        }]
+    });
+
+    container.render();
+};
+
+// ------------------------------ 按钮 --------------------------------
+
+TwoDMenu.prototype.addButton = function () {
+    UI.msg('添加按钮');
+};
+
+export default TwoDMenu;

@@ -2,6 +2,7 @@
 import Logo from './Logo';
 import SceneMenu from './SceneMenu';
 import EditMenu from './EditMenu';
+import TwoDMenu from './TwoDMenu';
 import GeometryMenu from './GeometryMenu';
 import LightMenu from './LightMenu';
 import AssetMenu from './AssetMenu';
@@ -45,6 +46,7 @@ Menubar.prototype.render = function () {
             new SceneMenu(params),
             new EditMenu(params),
             new GeometryMenu(params),
+            new TwoDMenu(params),
             new LightMenu(params),
             new AssetMenu(params),
             //new TerrainMenu(params),

@@ -606,7 +606,8 @@ Object.assign(window, {
 
     L_VISUAL: 'Visual',
     L_DATA_SOURCE_MANAGE: 'Data Source Manage',
-    L_SIDEBAR: 'Sidebar',
-    L_PANEL: 'Panel',
-    L_BAR_CHART: 'Bar Chart',
+    L_SIDEBAR: 'Sidebar Demo',
+    L_PANEL: 'Panel Demo',
+    L_BAR_CHART: 'Bar Chart Demo',
+    L_TWO_D: '2D',
 });
