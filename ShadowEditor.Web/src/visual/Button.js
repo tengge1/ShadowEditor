@@ -10,7 +10,10 @@ function Button(parent, options = {}) {
     var paddingTop = 4;
 
     var g = d3.select(parent)
-        .append('g');
+        .append('g')
+        .classed('Button', true)
+        .classed('Draggable', true)
+        .style('pointer-events', 'all');
 
     var rect = g.append('rect')
         .attr('x', 0)
