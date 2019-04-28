@@ -28,7 +28,7 @@ TwoDMenu.prototype.render = function () {
             children: [{
                 xtype: 'div',
                 cls: 'option',
-                html: 'Button',
+                html: L_BUTTON,
                 onClick: this.addButton.bind(this),
             }]
         }]
