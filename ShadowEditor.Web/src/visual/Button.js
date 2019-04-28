@@ -28,11 +28,19 @@ function Button(parent, options = {}) {
 
     var box = text.node().getBBox();
 
-    rect.attr('width', box.width + paddingLeft * 2)
-        .attr('height', box.height + paddingTop * 2);
+    var boxWidth = box.width + paddingLeft * 2;
+    var boxHeight = box.height + paddingTop * 2;
+
+    rect.attr('width', boxWidth)
+        .attr('height', boxHeight);
 
     text.attr('x', paddingLeft)
         .attr('y', paddingTop - box.y);
+
+    var width = (parent.clientWidth - boxWidth) / 2;
+    var height = (parent.clientHeight - boxHeight) / 2;
+
+    g.attr('transform', `translate(${width},${height})`)
 
     this.dom = g.node();
 }
