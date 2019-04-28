@@ -1,4 +1,5 @@
 import UI from '../../ui/UI';
+import Button from '../../visual/Button';
 
 /**
  * 二维菜单
@@ -40,7 +41,7 @@ TwoDMenu.prototype.render = function () {
 // ------------------------------ 按钮 --------------------------------
 
 TwoDMenu.prototype.addButton = function () {
-    UI.msg('添加按钮');
+    new Button(this.app.editor.svg);
 };
 
 export default TwoDMenu;
