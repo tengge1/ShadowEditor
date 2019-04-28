@@ -36,7 +36,7 @@ function EventDispatcher(app) {
         new ObjectEvent(this.app),
         new RaycastEvent(this.app),
         new PickEvent(this.app),
-        new EditorControlsEvent(this.app)
+        new EditorControlsEvent(this.app),
     ];
 }
 

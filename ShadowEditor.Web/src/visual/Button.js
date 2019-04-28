@@ -1,9 +1,12 @@
+import Drag from './event/Drag';
+
 /**
  * 按钮
  * @param {SVGElement} parent 父要素
  * @param {Object} options 参数
  */
 function Button(parent, options = {}) {
+    var _edit = options.edit || false;
     var _text = options.text || 'Button';
 
     var paddingLeft = 8;
@@ -40,7 +43,11 @@ function Button(parent, options = {}) {
     var width = (parent.clientWidth - boxWidth) / 2;
     var height = (parent.clientHeight - boxHeight) / 2;
 
-    g.attr('transform', `translate(${width},${height})`)
+    g.attr('transform', `translate(${width},${height})`);
+
+    if (_edit) {
+        g.call(Drag());
+    }
 
     this.dom = g.node();
 }

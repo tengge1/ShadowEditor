@@ -41,7 +41,9 @@ TwoDMenu.prototype.render = function () {
 // ------------------------------ 按钮 --------------------------------
 
 TwoDMenu.prototype.addButton = function () {
-    new Button(this.app.editor.svg);
+    new Button(this.app.editor.svg, {
+        edit: true,
+    });
 };
 
 export default TwoDMenu;
