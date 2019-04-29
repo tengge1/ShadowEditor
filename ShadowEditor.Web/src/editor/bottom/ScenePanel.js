@@ -326,6 +326,12 @@ ScenePanel.prototype.onLoadScene = function (obj) {
         }
     }
 
+    if (obj.svg && obj.svg.html) {
+        this.app.editor.svg.innerHTML = obj.svg.html;
+    } else {
+        this.app.editor.svg.innerHTML = '';
+    }
+
     this.app.call('sceneLoaded', this);
     this.app.call('animationChanged', this);
 };

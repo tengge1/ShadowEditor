@@ -50,6 +50,9 @@ import EllipseCurveSerializer from './line/EllipseCurveSerializer';
 // gis
 import GlobeSerializer from './gis/GlobeSerializer';
 
+// svg
+import SVGSerializer from './visual/SVGSerializer';
+
 /**
  * 场景序列化/反序列化类
  * @author tengge / https://github.com/tengge1
@@ -63,8 +66,16 @@ Converter.prototype.constructor = Converter;
 
 /**
  * 将应用转为json
- * @param {*} obj 格式：{ options: options, camera: camera, renderer: renderer, scripts: scripts, scene: scene }
- * @param {*} obj.server 服务端地址
+ * @param {Object} obj 需要序列化的对象
+ * @param {Object} obj.options 配置信息
+ * @param {THREE.Camera} obj.camera 相机
+ * @param {THREE.WebGLRenderer} obj.renderer 渲染器 
+ * @param {Array} obj.scripts 脚本列表
+ * @param {Array} obj.animations 动画列表
+ * @param {Object} obj.svg SVG数据
+ * @param {String} obj.svg.html SVG innerHTML
+ * @param {THREE.Scene} obj.scene 场景
+ * @param {String} obj.server 服务端地址
  */
 Converter.prototype.toJSON = function (obj) {
     var options = obj.options;
@@ -72,6 +83,7 @@ Converter.prototype.toJSON = function (obj) {
     var renderer = obj.renderer;
     var scripts = obj.scripts;
     var animations = obj.animations;
+    var svg = obj.svg;
     var scene = obj.scene;
 
     var list = [];
@@ -106,6 +118,10 @@ Converter.prototype.toJSON = function (obj) {
         var audioListenerJson = (new AudioListenerSerializer()).toJSON(audioListener);
         list.push(audioListenerJson);
     }
+
+    // SVG
+    var svgJson = (new SVGSerializer()).toJSON(svg);
+    list.push(svgJson);
 
     // 场景
     this.sceneToJson(scene, list);
@@ -206,7 +222,8 @@ Converter.prototype.fromJson = function (jsons, options) {
         renderer: null,
         scripts: null,
         animations: [],
-        scene: null
+        svg: { html: '' },
+        scene: null,
     };
 
     // 选项
@@ -251,6 +268,12 @@ Converter.prototype.fromJson = function (jsons, options) {
     var animationJsons = jsons.filter(n => n.metadata && n.metadata.generator === 'AnimationSerializer');
     if (animationJsons) {
         obj.animations = (new AnimationSerializer()).fromJSON(animationJsons);
+    }
+
+    // SVG
+    var svgJson = jsons.filter(n => n.metadata && n.metadata.generator === 'SVGSerializer')[0];
+    if (svgJson) {
+        obj.svg = (new SVGSerializer()).fromJSON(svgJson);
     }
 
     // 音频监听器
