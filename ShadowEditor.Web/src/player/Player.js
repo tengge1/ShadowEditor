@@ -69,10 +69,26 @@ Player.prototype.render = function () {
         cls: 'Panel player',
         style: {
             display: 'none'
-        }
+        },
+        children: [{
+            xtype: 'svg',
+            id: 'svg',
+            scope: this.id,
+            style: {
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '100%',
+                pointerEvents: 'none',
+                zIndex: 10,
+            },
+        }]
     });
 
     control.render();
+
+    this.svg = UI.get('svg', this.id).dom;
 
     // 性能控件
     if (this.options.showStats) {
@@ -220,6 +236,13 @@ Player.prototype.initPlayer = function (obj) {
         this.gis = new Globe(this.camera, this.renderer, Object.assign({}, obj.options, {
             useCameraPosition: true,
         }));
+    }
+
+    // svg
+    if (obj.svg && obj.svg.html) {
+        this.svg.innerHTML = obj.svg.html;
+    } else {
+        this.svg.innerHTML = '';
     }
 };
 
