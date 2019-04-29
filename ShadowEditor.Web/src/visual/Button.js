@@ -1,5 +1,7 @@
 import Drag from './event/Drag';
 
+var ID = -1;
+
 /**
  * 按钮
  * @param {SVGElement} parent 父要素
@@ -9,16 +11,21 @@ function Button(parent, options = {}) {
     var _edit = options.edit || false;
     var _text = options.text || 'Button';
 
+    var id = `Button${ID--}`;
+
     var paddingLeft = 8;
     var paddingTop = 4;
 
     var g = d3.select(parent)
         .append('g')
+        .attr('id', id)
+        .classed('Control', true)
         .classed('Button', true)
         .classed('Draggable', true)
         .style('pointer-events', 'all');
 
     var rect = g.append('rect')
+        .attr('data-id', id)
         .attr('x', 0)
         .attr('y', 0)
         .attr('stroke', '#3399ff')
@@ -26,6 +33,7 @@ function Button(parent, options = {}) {
         .attr('fill', 'rgba(51,153,255,0.5)');
 
     var text = g.append('text')
+        .attr('data-id', id)
         .text(_text)
         .attr('fill', '#fff');
 
@@ -44,10 +52,6 @@ function Button(parent, options = {}) {
     var height = (parent.clientHeight - boxHeight) / 2;
 
     g.attr('transform', `translate(${width},${height})`);
-
-    if (_edit) {
-        g.call(Drag());
-    }
 
     this.dom = g.node();
 }

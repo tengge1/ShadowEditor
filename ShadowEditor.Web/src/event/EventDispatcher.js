@@ -14,6 +14,9 @@ import RaycastEvent from './RaycastEvent';
 import PickEvent from './PickEvent';
 import EditorControlsEvent from './EditorControlsEvent';
 
+// 可视化
+import DraggableEvent from './visual/DraggableEvent';
+
 /**
  * 事件执行器
  * @author tengge / https://github.com/tengge1
@@ -37,6 +40,9 @@ function EventDispatcher(app) {
         new RaycastEvent(this.app),
         new PickEvent(this.app),
         new EditorControlsEvent(this.app),
+
+        // 可视化
+        new DraggableEvent(this.app),
     ];
 }
 
