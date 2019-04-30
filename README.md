@@ -5,6 +5,8 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 * 名称：Shadow Editor
 * 版本：v0.2.0(开发中)
 * 简介：基于`three.js`的场景编辑器。
+* 模型下载1：https://sketchfab.com/3d-models?features=downloadable
+* 模型下载2：https://www.3dpunk.com/work/index.html?category=downloadable
 
 ## v0.2.0即将更新
 
