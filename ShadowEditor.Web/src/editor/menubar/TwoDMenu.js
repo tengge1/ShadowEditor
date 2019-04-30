@@ -1,5 +1,5 @@
 import UI from '../../ui/UI';
-import Button from '../../visual/Button';
+import Button from '../../visual/component/Button';
 
 /**
  * 二维菜单

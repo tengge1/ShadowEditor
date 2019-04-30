@@ -1,4 +1,4 @@
-import Drag from './event/Drag';
+import Drag from '../event/Drag';
 
 var ID = -1;
 
