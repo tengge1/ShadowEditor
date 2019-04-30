@@ -4,6 +4,7 @@ var ID = -1;
 
 /**
  * 按钮
+ * @author tengge / https://github.com/tengge1
  * @param {SVGElement} parent 父要素
  * @param {Object} options 参数
  */
