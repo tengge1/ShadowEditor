@@ -10,6 +10,12 @@ function BaseComponent() {
 }
 
 /**
+ * 实现该函数，可以在编辑器中拖动该控件。
+ * 原型:setTranslate(dx, dy)
+ */
+BaseComponent.prototype.setTranslate = null;
+
+/**
  * 渲染组件
  * @param {SVGElement} parent 父组件
  */
