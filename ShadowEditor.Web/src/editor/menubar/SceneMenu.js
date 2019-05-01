@@ -160,9 +160,7 @@ SceneMenu.prototype.commitSave = function (id, sceneName) {
         scripts: editor.scripts,
         animations: editor.animations,
         scene: editor.scene,
-        svg: {
-            html: this.app.editor.svg.innerHTML,
-        },
+        visual: editor.visual,
     });
 
     var params = {
@@ -215,9 +213,7 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
         scripts: editor.scripts,
         animations: editor.animations,
         scene: editor.scene,
-        svg: {
-            html: this.app.editor.svg.innerHTML,
-        },
+        visual: editor.visual,
     });
 
     Ajax.post(`${this.app.options.server}/api/Scene/Save`, {

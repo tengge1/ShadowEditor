@@ -326,11 +326,13 @@ ScenePanel.prototype.onLoadScene = function (obj) {
         }
     }
 
-    if (obj.svg && obj.svg.html) {
-        this.app.editor.svg.innerHTML = obj.svg.html;
+    // 可视化
+    if (obj.visual) {
+        this.app.editor.visual.fromJSON(obj.visual);
     } else {
-        this.app.editor.svg.innerHTML = '';
+        this.app.editor.visual.clear();
     }
+    this.app.editor.visual.render(this.app.editor.svg);
 
     this.app.call('sceneLoaded', this);
     this.app.call('animationChanged', this);

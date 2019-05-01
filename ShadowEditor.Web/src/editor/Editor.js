@@ -1,6 +1,7 @@
 ﻿import History from '../command/History';
 import Helpers from '../helper/Helpers';
 import UI from '../ui/UI';
+import Visualization from '../visual/Visualization';
 
 /**
  * 编辑器
@@ -94,6 +95,7 @@ function Editor(app) {
 
     // 可视化
     this.svg = UI.get('SvgContainer').dom;
+    this.visual = new Visualization();
 
     // 事件
     this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));

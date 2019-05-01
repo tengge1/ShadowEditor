@@ -77,6 +77,7 @@ PlayMenu.prototype.startPlay = function () { // 启动播放
         renderer: this.app.editor.renderer,
         scripts: this.app.editor.scripts,
         animations: this.app.editor.animations,
+        visual: this.app.editor.visual,
     });
 
     this.app.player.start(JSON.stringify(jsons));

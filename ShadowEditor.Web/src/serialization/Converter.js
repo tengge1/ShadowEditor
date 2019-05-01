@@ -50,8 +50,8 @@ import EllipseCurveSerializer from './line/EllipseCurveSerializer';
 // gis
 import GlobeSerializer from './gis/GlobeSerializer';
 
-// svg
-import SVGSerializer from './visual/SVGSerializer';
+// visual
+import VisualSerializer from './visual/VisualSerializer';
 
 /**
  * 场景序列化/反序列化类
@@ -72,8 +72,7 @@ Converter.prototype.constructor = Converter;
  * @param {THREE.WebGLRenderer} obj.renderer 渲染器 
  * @param {Array} obj.scripts 脚本列表
  * @param {Array} obj.animations 动画列表
- * @param {Object} obj.svg SVG数据
- * @param {String} obj.svg.html SVG innerHTML
+ * @param {Object} obj.visual 可视化数据
  * @param {THREE.Scene} obj.scene 场景
  * @param {String} obj.server 服务端地址
  */
@@ -83,7 +82,7 @@ Converter.prototype.toJSON = function (obj) {
     var renderer = obj.renderer;
     var scripts = obj.scripts;
     var animations = obj.animations;
-    var svg = obj.svg;
+    var visual = obj.visual;
     var scene = obj.scene;
 
     var list = [];
@@ -119,9 +118,11 @@ Converter.prototype.toJSON = function (obj) {
         list.push(audioListenerJson);
     }
 
-    // SVG
-    var svgJson = (new SVGSerializer()).toJSON(svg);
-    list.push(svgJson);
+    // 可视化
+    if (visual) {
+        var visualJson = (new VisualSerializer()).toJSON(visual);
+        list.push(visualJson);
+    }
 
     // 场景
     this.sceneToJson(scene, list);
@@ -270,10 +271,10 @@ Converter.prototype.fromJson = function (jsons, options) {
         obj.animations = (new AnimationSerializer()).fromJSON(animationJsons);
     }
 
-    // SVG
-    var svgJson = jsons.filter(n => n.metadata && n.metadata.generator === 'SVGSerializer')[0];
-    if (svgJson) {
-        obj.svg = (new SVGSerializer()).fromJSON(svgJson);
+    // Visual
+    var visualJson = jsons.filter(n => n.metadata && n.metadata.generator === 'VisualSerializer')[0];
+    if (visualJson) {
+        obj.visual = (new VisualSerializer()).fromJSON(visualJson);
     }
 
     // 音频监听器

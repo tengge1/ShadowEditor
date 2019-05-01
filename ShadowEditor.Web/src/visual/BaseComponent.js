@@ -5,8 +5,8 @@ var ID = -1;
  * @author tengge / https://github.com/tengge1
  */
 function BaseComponent() {
-    this.id = `${this.constructor.name}${ID--}`;
-    this.type = this.constructor.name; // 根据此字段判断类型，进行反序列化
+    this.id = `VisualComponent${ID--}`;
+    this.type = 'VisualComponent'; // 根据此字段判断类型，进行反序列化
 }
 
 /**
@@ -33,9 +33,9 @@ BaseComponent.prototype.fromJSON = function (json) {
 };
 
 /**
- * 销毁组件
+ * 清空组件
  */
-BaseComponent.prototype.dispose = function () {
+BaseComponent.prototype.clear = function () {
 
 };
 

@@ -100,7 +100,7 @@ Visualization.prototype.fromJSON = function (jsons) {
         return;
     }
 
-    this.dispose();
+    this.clear();
 
     jsons.forEach(n => {
         var ctype = ComponentTypes[n.type];
@@ -117,9 +117,9 @@ Visualization.prototype.fromJSON = function (jsons) {
 /**
  * 清空组件
  */
-Visualization.prototype.dispose = function () {
+Visualization.prototype.clear = function () {
     this.components.forEach(n => {
-        n.dispose();
+        n.clear();
     });
     this.components.length = 0;
 };

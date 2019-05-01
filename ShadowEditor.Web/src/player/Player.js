@@ -11,6 +11,7 @@ import PlayerAnimation from './component/PlayerAnimation';
 import PlayerPhysics from './component/PlayerPhysics';
 import CssUtils from '../utils/CssUtils';
 import Globe from '../gis/Globe';
+import Visualization from '../visual/Visualization';
 
 /**
  * 播放器
@@ -89,6 +90,7 @@ Player.prototype.render = function () {
     control.render();
 
     this.svg = UI.get('svg', this.id).dom;
+    this.visual = new Visualization();
 
     // 性能控件
     if (this.options.showStats) {
@@ -238,12 +240,13 @@ Player.prototype.initPlayer = function (obj) {
         }));
     }
 
-    // svg
-    if (obj.svg && obj.svg.html) {
-        this.svg.innerHTML = obj.svg.html;
+    // 可视化
+    if (obj.visual) {
+        this.visual.fromJSON(obj.visual);
     } else {
-        this.svg.innerHTML = '';
+        this.visual.clear();
     }
+    this.visual.render(this.svg);
 };
 
 Player.prototype.animate = function () {
