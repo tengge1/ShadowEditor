@@ -14,6 +14,14 @@ function Button() {
 Button.prototype = Object.create(BaseComponent.prototype);
 Button.prototype.constructor = Button;
 
+Button.prototype.setTranslate = function (dx, dy) {
+    var xy = this.transform.split(',');
+
+    this.transform = `${parseFloat(xy[0]) + dx},${parseFloat(xy[1]) + dy}`;
+
+    this.dom.attr('transform', `translate(${this.transform})`);
+};
+
 Button.prototype.render = function (parent) {
     if (d3.select(`#${this.id}`).size() > 0) {
         return;
@@ -27,7 +35,6 @@ Button.prototype.render = function (parent) {
         .attr('id', this.id)
         .classed('Control', true)
         .classed('Button', true)
-        .classed('Draggable', true)
         .style('pointer-events', 'all');
 
     var rect = g.append('rect')
@@ -61,17 +68,23 @@ Button.prototype.render = function (parent) {
     }
 
     g.attr('transform', `translate(${this.transform})`);
+
+    this.dom = g;
 };
 
 Button.prototype.toJSON = function () {
-    var transform = _this.attr('transform')
-        .replace('translate(', '')
-        .replace(')', '');
+    var transform;
+    if (this.transform) {
+        transform = this.transform
+            .replace('translate(', '')
+            .replace(')', '');
+    }
+
     return {
         id: this.id,
         type: this.type,
         text: this.text,
-        transform: transform,
+        transform,
     };
 };
 

@@ -13,7 +13,8 @@ DraggableEvent.prototype = Object.create(BaseEvent.prototype);
 DraggableEvent.prototype.constructor = DraggableEvent;
 
 DraggableEvent.prototype.start = function () {
-    var _this = null;
+    var visual = this.app.editor.visual;
+    var component = null;
 
     var drag = d3.drag()
         .on('start', function () {
@@ -25,42 +26,19 @@ DraggableEvent.prototype.start = function () {
                 return;
             }
 
-            _this = d3.select(`#${id}`);
-
-            if (_this.size() === 0) {
-                _this = null;
-                console.warn(`DraggableEvent: ${id} is not defined.`);
-                return;
-            }
+            component = visual.get(id);
         })
         .on('drag', function () {
-            if (!_this) {
+            if (!component) {
                 return;
             }
 
-            var draggable = _this.classed('Draggable');
-
-            if (!draggable) {
-                return;
+            if (component.setTranslate) {
+                component.setTranslate(d3.event.dx, d3.event.dy);
             }
-
-            var transform = _this.attr('transform')
-                .replace('translate(', '')
-                .replace(')', '');
-
-            var dx = d3.event.dx;
-            var dy = d3.event.dy;
-
-            if (transform.indexOf(',') > -1) {
-                var xy = transform.split(',');
-                dx += parseFloat(xy[0].trim());
-                dy += parseFloat(xy[1].trim());
-            }
-
-            _this.attr('transform', `translate(${dx},${dy})`);
         })
         .on('end', function () {
-            _this = null;
+            component = null;
         });
 
     d3.select(this.app.editor.svg)

@@ -54,6 +54,19 @@ Visualization.prototype.remove = function (component) {
     this.components.splice(index, 1);
 };
 
+Visualization.prototype.get = function (id) {
+    var component = this.components.filter(n => {
+        return n.id === id;
+    })[0];
+
+    if (!component) {
+        console.warn(`Visualization: component#${id} is not defined.`);
+        return null;
+    }
+
+    return component;
+};
+
 /**
  * 将所有控件渲染到svgDom里面
  * @param {SVGSVGElement} svgDom SVG元素
