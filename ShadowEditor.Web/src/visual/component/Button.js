@@ -8,12 +8,17 @@ function Button() {
     BaseComponent.call(this);
     this.type = 'Button';
     this.text = 'Button';
+    this.transform = null;
 }
 
 Button.prototype = Object.create(BaseComponent.prototype);
 Button.prototype.constructor = Button;
 
 Button.prototype.render = function (parent) {
+    if (d3.select(`#${this.id}`).size() > 0) {
+        return;
+    }
+
     var paddingLeft = 8;
     var paddingTop = 4;
 
@@ -49,17 +54,24 @@ Button.prototype.render = function (parent) {
     text.attr('x', paddingLeft)
         .attr('y', paddingTop - box.y);
 
-    var width = (parent.clientWidth - boxWidth) / 2;
-    var height = (parent.clientHeight - boxHeight) / 2;
+    if (!this.transform) {
+        var left = (parent.clientWidth - boxWidth) / 2;
+        var top = (parent.clientHeight - boxHeight) / 2;
+        this.transform = `${left},${top}`;
+    }
 
-    g.attr('transform', `translate(${width},${height})`);
+    g.attr('transform', `translate(${this.transform})`);
 };
 
 Button.prototype.toJSON = function () {
+    var transform = _this.attr('transform')
+        .replace('translate(', '')
+        .replace(')', '');
     return {
         id: this.id,
         type: this.type,
         text: this.text,
+        transform: transform,
     };
 };
 
@@ -67,10 +79,13 @@ Button.prototype.fromJSON = function (json) {
     this.id = json.id;
     this.type = json.type;
     this.text = json.text;
+    this.transform = json.transform || null;
 };
 
 Button.prototype.clear = function () {
     this.text = 'Button';
+    this.transform = null;
+    delete this.dom;
 };
 
 export default Button;
