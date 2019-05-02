@@ -1,7 +1,7 @@
 import BaseComponent from '../BaseComponent';
 
 /**
- * 按钮
+ * 标签
  * @author tengge / https://github.com/tengge1
  */
 function Label() {

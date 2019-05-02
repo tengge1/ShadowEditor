@@ -1,10 +1,12 @@
 import BaseComponent from './BaseComponent';
 import Button from './component/Button';
 import Label from './component/Label';
+import Panel from './component/Panel';
 
 const ComponentTypes = {
     Button,
     Label,
+    Panel,
 };
 
 /**
