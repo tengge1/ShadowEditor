@@ -1,8 +1,10 @@
 import BaseComponent from './BaseComponent';
 import Button from './component/Button';
+import Label from './component/Label';
 
 const ComponentTypes = {
     Button,
+    Label,
 };
 
 /**

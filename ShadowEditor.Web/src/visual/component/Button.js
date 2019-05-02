@@ -118,6 +118,7 @@ Button.prototype.clear = function () {
     this.transform = null;
 
     this.dom.on(`mouseover.${this.id}`, null);
+    this.dom.on(`mouseleave.${this.id}`, null);
     delete this.dom;
 };
 

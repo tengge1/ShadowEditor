@@ -1,5 +1,6 @@
 import UI from '../../ui/UI';
 import Button from '../../visual/component/Button';
+import Label from '../../visual/component/Label';
 
 /**
  * 二维菜单
@@ -31,6 +32,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_BUTTON,
                 onClick: this.addButton.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_LABEL,
+                onClick: this.addLabel.bind(this),
             }]
         }]
     });
@@ -45,6 +51,16 @@ TwoDMenu.prototype.addButton = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new Button());
+    visual.render(svg);
+};
+
+// ---------------------------- 标签 -----------------------------------
+
+TwoDMenu.prototype.addLabel = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new Label());
     visual.render(svg);
 };
 

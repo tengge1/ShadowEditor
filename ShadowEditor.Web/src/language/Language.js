@@ -611,4 +611,5 @@ Object.assign(window, {
     L_BAR_CHART: 'Bar Chart Demo',
     L_TWO_D: '2D',
     L_BUTTON: 'Button',
+    L_LABEL: 'Label',
 });

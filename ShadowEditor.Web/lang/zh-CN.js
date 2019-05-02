@@ -613,3 +613,4 @@ L_PANEL = '面板Demo';
 L_BAR_CHART = '条形图Demo';
 L_TWO_D = '二维';
 L_BUTTON = '按钮';
+L_LABEL = '标签';
