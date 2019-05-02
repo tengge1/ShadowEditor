@@ -615,4 +615,5 @@ Object.assign(window, {
     L_HORIZONTAL_LINE: 'Horizontal Line',
     L_VERTICAL_LINE: 'Vertical Line',
     L_DATE_WEEK: 'Date',
+    L_TIME_DISK: 'Time Disk',
 });

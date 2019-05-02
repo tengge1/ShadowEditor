@@ -7,6 +7,7 @@ import BarChart from '../../visual/component/BarChart';
 import TimeLabel from '../../visual/component/TimeLabel';
 import VerticalLine from '../../visual/component/VerticalLine';
 import DateWeekLabel from '../../visual/component/DateWeekLabel';
+import TimeDisk from '../../visual/component/TimeDisk';
 
 /**
  * 二维菜单
@@ -73,6 +74,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_DATE_WEEK,
                 onClick: this.addDateWeek.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_TIME_DISK,
+                onClick: this.addTimeDisk.bind(this),
             }]
         }]
     });
@@ -157,6 +163,16 @@ TwoDMenu.prototype.addDateWeek = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new DateWeekLabel());
+    visual.render(svg);
+};
+
+// ------------------------- 时间圆盘 -----------------------------------------------
+
+TwoDMenu.prototype.addTimeDisk = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new TimeDisk());
     visual.render(svg);
 };
 
