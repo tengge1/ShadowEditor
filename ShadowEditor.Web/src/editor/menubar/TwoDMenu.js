@@ -8,6 +8,7 @@ import TimeLabel from '../../visual/component/TimeLabel';
 import VerticalLine from '../../visual/component/VerticalLine';
 import DateWeekLabel from '../../visual/component/DateWeekLabel';
 import TimeDisk from '../../visual/component/TimeDisk';
+import KeyValueLabel from '../../visual/component/KeyValueLabel';
 
 /**
  * 二维菜单
@@ -79,6 +80,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_TIME_DISK,
                 onClick: this.addTimeDisk.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_KEY_VALUE_LABEL,
+                onClick: this.addKeyValueLabel.bind(this),
             }]
         }]
     });
@@ -173,6 +179,16 @@ TwoDMenu.prototype.addTimeDisk = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new TimeDisk());
+    visual.render(svg);
+};
+
+// -------------------------- 键值标签 -------------------------------------------------
+
+TwoDMenu.prototype.addKeyValueLabel = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new KeyValueLabel());
     visual.render(svg);
 };
 
