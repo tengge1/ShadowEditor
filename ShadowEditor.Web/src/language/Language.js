@@ -617,4 +617,5 @@ Object.assign(window, {
     L_DATE_WEEK: 'Date',
     L_TIME_DISK: 'Time Disk',
     L_KEY_VALUE_LABEL: 'Key Value Label',
+    L_FORM_PANEL: 'Form Panel',
 });

@@ -9,6 +9,7 @@ import VerticalLine from './component/VerticalLine';
 import DateWeekLabel from './component/DateWeekLabel';
 import TimeDisk from './component/TimeDisk';
 import KeyValueLabel from './component/KeyValueLabel';
+import FormPanel from './component/FormPanel';
 
 const ComponentTypes = {
     Button,
@@ -20,6 +21,7 @@ const ComponentTypes = {
     DateWeekLabel,
     TimeDisk,
     KeyValueLabel,
+    FormPanel,
 };
 
 /**
