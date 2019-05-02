@@ -10,6 +10,7 @@ import DateWeekLabel from '../../visual/component/DateWeekLabel';
 import TimeDisk from '../../visual/component/TimeDisk';
 import KeyValueLabel from '../../visual/component/KeyValueLabel';
 import FormPanel from '../../visual/component/FormPanel';
+import Gauge from '../../visual/component/Gauge';
 
 /**
  * 二维菜单
@@ -91,6 +92,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_FORM_PANEL,
                 onClick: this.addFormPanel.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_GAUGE,
+                onClick: this.addGauge.bind(this),
             }]
         }]
     });
@@ -205,6 +211,16 @@ TwoDMenu.prototype.addFormPanel = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new FormPanel());
+    visual.render(svg);
+};
+
+// ---------------------------- 仪表 --------------------------------------------
+
+TwoDMenu.prototype.addGauge = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new Gauge());
     visual.render(svg);
 };
 

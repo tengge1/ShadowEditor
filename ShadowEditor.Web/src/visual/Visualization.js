@@ -10,6 +10,7 @@ import DateWeekLabel from './component/DateWeekLabel';
 import TimeDisk from './component/TimeDisk';
 import KeyValueLabel from './component/KeyValueLabel';
 import FormPanel from './component/FormPanel';
+import Gauge from './component/Gauge';
 
 const ComponentTypes = {
     Button,
@@ -22,6 +23,7 @@ const ComponentTypes = {
     TimeDisk,
     KeyValueLabel,
     FormPanel,
+    Gauge,
 };
 
 /**

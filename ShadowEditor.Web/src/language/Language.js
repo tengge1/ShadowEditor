@@ -618,4 +618,5 @@ Object.assign(window, {
     L_TIME_DISK: 'Time Disk',
     L_KEY_VALUE_LABEL: 'Key Value Label',
     L_FORM_PANEL: 'Form Panel',
+    L_GAUGE: 'Gauge',
 });
