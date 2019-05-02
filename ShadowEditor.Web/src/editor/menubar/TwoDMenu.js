@@ -3,6 +3,7 @@ import Button from '../../visual/component/Button';
 import Label from '../../visual/component/Label';
 import Panel from '../../visual/component/Panel';
 import HorizontalLine from '../../visual/component/HorizontalLine';
+import BarChart from '../../visual/component/BarChart';
 
 /**
  * 二维菜单
@@ -49,6 +50,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_HORIZONTAL_LINE,
                 onClick: this.addHorizontalLine.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_BAR_CHART,
+                onClick: this.addBarChart.bind(this),
             }]
         }]
     });
@@ -93,6 +99,16 @@ TwoDMenu.prototype.addHorizontalLine = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new HorizontalLine());
+    visual.render(svg);
+};
+
+// ---------------------------- 条形图 -------------------------------------
+
+TwoDMenu.prototype.addBarChart = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new BarChart());
     visual.render(svg);
 };
 

@@ -1,7 +1,7 @@
 import BaseComponent from '../BaseComponent';
 
 /**
- * 标签
+ * 水平线
  * @author tengge / https://github.com/tengge1
  */
 function HorizontalLine() {
