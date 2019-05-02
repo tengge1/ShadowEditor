@@ -6,6 +6,7 @@ import HorizontalLine from './component/HorizontalLine';
 import BarChart from './component/BarChart';
 import TimeLabel from './component/TimeLabel';
 import VerticalLine from './component/VerticalLine';
+import DateWeekLabel from './component/DateWeekLabel';
 
 const ComponentTypes = {
     Button,
@@ -14,6 +15,7 @@ const ComponentTypes = {
     HorizontalLine,
     BarChart,
     TimeLabel,
+    DateWeekLabel,
 };
 
 /**

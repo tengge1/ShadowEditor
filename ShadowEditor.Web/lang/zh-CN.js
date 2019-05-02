@@ -616,3 +616,4 @@ L_BUTTON = '按钮';
 L_LABEL = '标签';
 L_HORIZONTAL_LINE = '水平线';
 L_VERTICAL_LINE = '竖直线';
+L_DATE_WEEK = '日期';

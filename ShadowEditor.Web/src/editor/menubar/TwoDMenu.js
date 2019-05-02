@@ -6,6 +6,7 @@ import HorizontalLine from '../../visual/component/HorizontalLine';
 import BarChart from '../../visual/component/BarChart';
 import TimeLabel from '../../visual/component/TimeLabel';
 import VerticalLine from '../../visual/component/VerticalLine';
+import DateWeekLabel from '../../visual/component/DateWeekLabel';
 
 /**
  * 二维菜单
@@ -67,6 +68,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_VERTICAL_LINE,
                 onClick: this.addVerticalLine.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_DATE_WEEK,
+                onClick: this.addDateWeek.bind(this),
             }]
         }]
     });
@@ -141,6 +147,16 @@ TwoDMenu.prototype.addVerticalLine = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new VerticalLine());
+    visual.render(svg);
+};
+
+// -------------------------- 日期时间 -------------------------------------------
+
+TwoDMenu.prototype.addDateWeek = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new DateWeekLabel());
     visual.render(svg);
 };
 

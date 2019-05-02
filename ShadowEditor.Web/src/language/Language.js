@@ -614,4 +614,5 @@ Object.assign(window, {
     L_LABEL: 'Label',
     L_HORIZONTAL_LINE: 'Horizontal Line',
     L_VERTICAL_LINE: 'Vertical Line',
+    L_DATE_WEEK: 'Date',
 });
