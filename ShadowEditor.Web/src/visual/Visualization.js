@@ -4,6 +4,8 @@ import Label from './component/Label';
 import Panel from './component/Panel';
 import HorizontalLine from './component/HorizontalLine';
 import BarChart from './component/BarChart';
+import TimeLabel from './component/TimeLabel';
+import VerticalLine from './component/VerticalLine';
 
 const ComponentTypes = {
     Button,
@@ -11,6 +13,7 @@ const ComponentTypes = {
     Panel,
     HorizontalLine,
     BarChart,
+    TimeLabel,
 };
 
 /**

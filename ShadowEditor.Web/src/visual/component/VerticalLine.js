@@ -1,23 +1,23 @@
 import BaseComponent from '../BaseComponent';
 
 /**
- * 水平线
+ * 垂直线
  * @author tengge / https://github.com/tengge1
  */
-function HorizontalLine() {
+function VerticalLine() {
     BaseComponent.call(this);
 
-    this.type = 'HorizontalLine';
+    this.type = 'VerticalLine';
 
-    this.width = 240;
-    this.height = 0;
+    this.width = 0;
+    this.height = 20;
     this.transform = null;
 }
 
-HorizontalLine.prototype = Object.create(BaseComponent.prototype);
-HorizontalLine.prototype.constructor = HorizontalLine;
+VerticalLine.prototype = Object.create(BaseComponent.prototype);
+VerticalLine.prototype.constructor = VerticalLine;
 
-HorizontalLine.prototype.setTranslate = function (dx, dy) {
+VerticalLine.prototype.setTranslate = function (dx, dy) {
     var xy = this.transform.split(',');
 
     this.transform = `${parseFloat(xy[0]) + dx},${parseFloat(xy[1]) + dy}`;
@@ -25,7 +25,7 @@ HorizontalLine.prototype.setTranslate = function (dx, dy) {
     this.dom.attr('transform', `translate(${this.transform})`);
 };
 
-HorizontalLine.prototype.render = function (parent) {
+VerticalLine.prototype.render = function (parent) {
     if (d3.select(`#${this.id}`).size() > 0) {
         return;
     }
@@ -34,13 +34,13 @@ HorizontalLine.prototype.render = function (parent) {
         .append('g')
         .attr('id', this.id)
         .classed('Visual', true)
-        .classed('HorizontalLine', true)
+        .classed('VerticalLine', true)
         .style('pointer-events', 'all');
 
     // 可拖拽区域
     g.append('path')
         .attr('data-id', this.id)
-        .attr('d', 'M-4,-4L244,-4L244,4L-4,4Z')
+        .attr('d', 'M-4,-4L4,-4L4,24L-4,24Z')
         .attr('stroke', '0')
         .attr('fill', 'none');
 
@@ -48,9 +48,9 @@ HorizontalLine.prototype.render = function (parent) {
         .attr('data-id', this.id)
         .attr('x1', 0)
         .attr('y1', 0)
-        .attr('x2', 240)
-        .attr('y2', 0)
-        .attr('stroke', 'rgba(0,0,0,0.4)')
+        .attr('x2', 0)
+        .attr('y2', 20)
+        .attr('stroke', '#4d88a7')
         .attr('stroke-width', 2);
 
     if (!this.transform) {
@@ -64,7 +64,7 @@ HorizontalLine.prototype.render = function (parent) {
     this.dom = g;
 };
 
-HorizontalLine.prototype.toJSON = function () {
+VerticalLine.prototype.toJSON = function () {
     var transform;
     if (this.transform) {
         transform = this.transform
@@ -76,11 +76,12 @@ HorizontalLine.prototype.toJSON = function () {
         id: this.id,
         type: this.type,
         width: this.width,
+        height: this.height,
         transform,
     };
 };
 
-HorizontalLine.prototype.fromJSON = function (json) {
+VerticalLine.prototype.fromJSON = function (json) {
     this.id = json.id;
     this.type = json.type;
     this.width = json.width;
@@ -88,12 +89,12 @@ HorizontalLine.prototype.fromJSON = function (json) {
     this.transform = json.transform || null;
 };
 
-HorizontalLine.prototype.clear = function () {
-    this.width = 240;
-    this.height = 0;
+VerticalLine.prototype.clear = function () {
+    this.width = 0;
+    this.height = 20;
     this.transform = null;
 
     delete this.dom;
 };
 
-export default HorizontalLine;
+export default VerticalLine;

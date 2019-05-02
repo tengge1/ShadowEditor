@@ -4,6 +4,8 @@ import Label from '../../visual/component/Label';
 import Panel from '../../visual/component/Panel';
 import HorizontalLine from '../../visual/component/HorizontalLine';
 import BarChart from '../../visual/component/BarChart';
+import TimeLabel from '../../visual/component/TimeLabel';
+import VerticalLine from '../../visual/component/VerticalLine';
 
 /**
  * 二维菜单
@@ -55,6 +57,16 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_BAR_CHART,
                 onClick: this.addBarChart.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_TIME,
+                onClick: this.addTimeLabel.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_VERTICAL_LINE,
+                onClick: this.addVerticalLine.bind(this),
             }]
         }]
     });
@@ -109,6 +121,26 @@ TwoDMenu.prototype.addBarChart = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new BarChart());
+    visual.render(svg);
+};
+
+// --------------------------- 时间标签 --------------------------------------
+
+TwoDMenu.prototype.addTimeLabel = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new TimeLabel());
+    visual.render(svg);
+};
+
+// --------------------------- 垂直线 ------------------------------------------
+
+TwoDMenu.prototype.addVerticalLine = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new VerticalLine());
     visual.render(svg);
 };
 
