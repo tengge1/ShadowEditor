@@ -33,9 +33,10 @@ Button.prototype.render = function (parent) {
     var g = d3.select(parent)
         .append('g')
         .attr('id', this.id)
-        .classed('Control', true)
+        .classed('Visual', true)
         .classed('Button', true)
-        .style('pointer-events', 'all');
+        .style('pointer-events', 'all')
+        .style('cursor', 'pointer');
 
     var rect = g.append('rect')
         .attr('data-id', this.id)
@@ -69,7 +70,24 @@ Button.prototype.render = function (parent) {
 
     g.attr('transform', `translate(${this.transform})`);
 
+    g.on(`mouseenter.${this.id}`, this.onMouseEnter.bind(this));
+    g.on(`mouseleave.${this.id}`, this.onMouseLeave.bind(this));
+
     this.dom = g;
+};
+
+Button.prototype.onMouseEnter = function () {
+    if (this.dom) {
+        this.dom.select('rect')
+            .attr('fill', 'rgba(51,153,255,0.8)');
+    }
+};
+
+Button.prototype.onMouseLeave = function () {
+    if (this.dom) {
+        this.dom.select('rect')
+            .attr('fill', 'rgba(51,153,255,0.5)');
+    }
 };
 
 Button.prototype.toJSON = function () {
@@ -98,6 +116,8 @@ Button.prototype.fromJSON = function (json) {
 Button.prototype.clear = function () {
     this.text = 'Button';
     this.transform = null;
+
+    this.dom.on(`mouseover.${this.id}`, null);
     delete this.dom;
 };
 
