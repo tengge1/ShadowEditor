@@ -2,6 +2,7 @@ import UI from '../../ui/UI';
 import Button from '../../visual/component/Button';
 import Label from '../../visual/component/Label';
 import Panel from '../../visual/component/Panel';
+import HorizontalLine from '../../visual/component/HorizontalLine';
 
 /**
  * 二维菜单
@@ -43,6 +44,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_PANEL,
                 onClick: this.addPanel.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_HORIZONTAL_LINE,
+                onClick: this.addHorizontalLine.bind(this),
             }]
         }]
     });
@@ -77,6 +83,16 @@ TwoDMenu.prototype.addPanel = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new Panel());
+    visual.render(svg);
+};
+
+// --------------------------- 水平线 -------------------------------------
+
+TwoDMenu.prototype.addHorizontalLine = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new HorizontalLine());
     visual.render(svg);
 };
 

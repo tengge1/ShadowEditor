@@ -612,4 +612,5 @@ Object.assign(window, {
     L_TWO_D: '2D',
     L_BUTTON: 'Button',
     L_LABEL: 'Label',
+    L_HORIZONTAL_LINE: 'Horizontal Line',
 });

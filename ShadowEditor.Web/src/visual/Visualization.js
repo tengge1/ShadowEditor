@@ -2,11 +2,13 @@ import BaseComponent from './BaseComponent';
 import Button from './component/Button';
 import Label from './component/Label';
 import Panel from './component/Panel';
+import HorizontalLine from './component/HorizontalLine';
 
 const ComponentTypes = {
     Button,
     Label,
     Panel,
+    HorizontalLine,
 };
 
 /**
