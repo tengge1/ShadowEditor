@@ -5,14 +5,11 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 * 名称：Shadow Editor
 * 版本：v0.2.0(开发中)
 * 简介：基于`three.js`的场景编辑器。
-* 模型下载1：https://sketchfab.com/3d-models?features=downloadable
-* 模型下载2：https://www.3dpunk.com/work/index.html?category=downloadable
 
 ## v0.2.0即将更新
 
 1. 默认不再加载`ammo.js`。只有场景中存在刚体或柔软体时，才在播放时自动加载`ammo.js`，提升编辑器启动速度和非物理场景运行速度。
-2. 数据可视化侧边栏演示。
-3. 添加二维按钮，可拖动。
+2. 新增二维菜单：按钮、标签、面板、水平线、条形图、时间、竖直线、日期、时间圆盘、键值标签、表单、仪表、柱状图、折线图、侧边栏。（开发中，仅供演示）
 
 ## v0.1.9更新
 
@@ -397,3 +394,5 @@ npm run build-docs
 
 * Three.js官网：https://threejs.org/
 * LOL模型查看器：https://github.com/tengge1/lol-model-viewer
+* 模型下载1：https://sketchfab.com/3d-models?features=downloadable
+* 模型下载2：https://www.3dpunk.com/work/index.html?category=downloadable
