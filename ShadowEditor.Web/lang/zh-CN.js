@@ -621,3 +621,4 @@ L_TIME_DISK = '时间圆盘';
 L_KEY_VALUE_LABEL = '键值标签';
 L_FORM_PANEL = '表单';
 L_GAUGE = '仪表';
+L_HISTOGRAM = '柱状图';

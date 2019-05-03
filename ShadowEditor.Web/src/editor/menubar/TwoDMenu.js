@@ -11,6 +11,7 @@ import TimeDisk from '../../visual/component/TimeDisk';
 import KeyValueLabel from '../../visual/component/KeyValueLabel';
 import FormPanel from '../../visual/component/FormPanel';
 import Gauge from '../../visual/component/Gauge';
+import Histogram from '../../visual/component/Histogram';
 
 /**
  * 二维菜单
@@ -97,6 +98,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_GAUGE,
                 onClick: this.addGauge.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_HISTOGRAM,
+                onClick: this.addHistogram.bind(this),
             }]
         }]
     });
@@ -221,6 +227,16 @@ TwoDMenu.prototype.addGauge = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new Gauge());
+    visual.render(svg);
+};
+
+// --------------------------- 柱状图 ----------------------------------------------
+
+TwoDMenu.prototype.addHistogram = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new Histogram());
     visual.render(svg);
 };
 

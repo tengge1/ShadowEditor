@@ -11,6 +11,7 @@ import TimeDisk from './component/TimeDisk';
 import KeyValueLabel from './component/KeyValueLabel';
 import FormPanel from './component/FormPanel';
 import Gauge from './component/Gauge';
+import Histogram from './component/Histogram';
 
 const ComponentTypes = {
     Button,
@@ -24,6 +25,7 @@ const ComponentTypes = {
     KeyValueLabel,
     FormPanel,
     Gauge,
+    Histogram,
 };
 
 /**

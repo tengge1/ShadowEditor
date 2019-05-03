@@ -619,4 +619,5 @@ Object.assign(window, {
     L_KEY_VALUE_LABEL: 'Key Value Label',
     L_FORM_PANEL: 'Form Panel',
     L_GAUGE: 'Gauge',
+    L_HISTOGRAM: 'Histogram',
 });
