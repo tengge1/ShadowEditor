@@ -623,3 +623,4 @@ L_FORM_PANEL = '表单';
 L_GAUGE = '仪表';
 L_HISTOGRAM = '柱状图';
 L_LINECHART = '折线图';
+L_SCATTER_PLOT = '散点图';

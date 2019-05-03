@@ -15,6 +15,7 @@ import Histogram from '../../visual/component/Histogram';
 import LineChart from '../../visual/component/LineChart';
 import SideBar from '../../visual/component/SideBar';
 import Histogram2 from '../../visual/component/Histogram2';
+import ScatterPlot from '../../visual/component/ScatterPlot';
 
 /**
  * 二维菜单
@@ -121,6 +122,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_HISTOGRAM + '2',
                 onClick: this.addHistogram2.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_SCATTER_PLOT,
+                onClick: this.addScatterPlot.bind(this),
             }]
         }]
     });
@@ -285,6 +291,16 @@ TwoDMenu.prototype.addHistogram2 = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new Histogram2());
+    visual.render(svg);
+};
+
+// -------------------------------- 散点图 ---------------------------------------------------
+
+TwoDMenu.prototype.addScatterPlot = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new ScatterPlot());
     visual.render(svg);
 };
 

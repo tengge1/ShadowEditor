@@ -621,4 +621,5 @@ Object.assign(window, {
     L_GAUGE: 'Gauge',
     L_HISTOGRAM: 'Histogram',
     L_LINECHART: 'Line Chart',
+    L_SCATTER_PLOT: 'Scatter Plot',
 });
