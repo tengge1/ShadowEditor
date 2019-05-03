@@ -608,7 +608,7 @@ L_TIANDITU_MAP = '天地图';
 
 L_VISUAL = '可视化';
 L_DATA_SOURCE_MANAGE = '数据源管理';
-L_SIDEBAR = '侧边栏Demo';
+L_SIDEBAR = '侧边栏';
 L_PANEL = '面板';
 L_BAR_CHART = '条形图';
 L_TWO_D = '二维';

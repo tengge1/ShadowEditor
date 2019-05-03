@@ -13,6 +13,7 @@ import FormPanel from './component/FormPanel';
 import Gauge from './component/Gauge';
 import Histogram from './component/Histogram';
 import LineChart from './component/LineChart';
+import SideBar from './component/SideBar';
 
 const ComponentTypes = {
     Button,
@@ -28,6 +29,7 @@ const ComponentTypes = {
     Gauge,
     Histogram,
     LineChart,
+    SideBar,
 };
 
 /**

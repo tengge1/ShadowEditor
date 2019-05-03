@@ -13,6 +13,7 @@ import FormPanel from '../../visual/component/FormPanel';
 import Gauge from '../../visual/component/Gauge';
 import Histogram from '../../visual/component/Histogram';
 import LineChart from '../../visual/component/LineChart';
+import SideBar from '../../visual/component/SideBar';
 
 /**
  * 二维菜单
@@ -109,6 +110,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_LINECHART,
                 onClick: this.addLineChart.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_SIDEBAR,
+                onClick: this.addSideBar.bind(this),
             }]
         }]
     });
@@ -253,6 +259,16 @@ TwoDMenu.prototype.addLineChart = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new LineChart());
+    visual.render(svg);
+};
+
+// -------------------------------- 侧边栏 ---------------------------------------------
+
+TwoDMenu.prototype.addSideBar = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new SideBar());
     visual.render(svg);
 };
 
