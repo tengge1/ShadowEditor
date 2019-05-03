@@ -18,6 +18,7 @@ import Histogram2 from '../../visual/component/Histogram2';
 import ScatterPlot from '../../visual/component/ScatterPlot';
 import PieChart from '../../visual/component/PieChart';
 import ChordGraph from '../../visual/component/ChordGraph';
+import ForceDirectedGraph from '../../visual/component/ForceDirectedGraph';
 
 /**
  * 二维菜单
@@ -139,6 +140,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_CHORD_GRAPH,
                 onClick: this.addChordGraph.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_FORCE_DIRECTED_GRAPH,
+                onClick: this.addForceDirectedGraph.bind(this),
             }]
         }]
     });
@@ -333,6 +339,16 @@ TwoDMenu.prototype.addChordGraph = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new ChordGraph());
+    visual.render(svg);
+};
+
+// ----------------------------------- 力导向图 ---------------------------------------------
+
+TwoDMenu.prototype.addForceDirectedGraph = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new ForceDirectedGraph());
     visual.render(svg);
 };
 
