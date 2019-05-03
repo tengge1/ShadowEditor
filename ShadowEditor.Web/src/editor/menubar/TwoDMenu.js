@@ -17,6 +17,7 @@ import SideBar from '../../visual/component/SideBar';
 import Histogram2 from '../../visual/component/Histogram2';
 import ScatterPlot from '../../visual/component/ScatterPlot';
 import PieChart from '../../visual/component/PieChart';
+import ChordGraph from '../../visual/component/ChordGraph';
 
 /**
  * 二维菜单
@@ -133,6 +134,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_PIE_CHART,
                 onClick: this.addPieChart.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_CHORD_GRAPH,
+                onClick: this.addChordGraph.bind(this),
             }]
         }]
     });
@@ -317,6 +323,16 @@ TwoDMenu.prototype.addPieChart = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new PieChart());
+    visual.render(svg);
+};
+
+// --------------------------------- 弦图 --------------------------------------------------
+
+TwoDMenu.prototype.addChordGraph = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new ChordGraph());
     visual.render(svg);
 };
 

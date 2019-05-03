@@ -623,4 +623,5 @@ Object.assign(window, {
     L_LINECHART: 'Line Chart',
     L_SCATTER_PLOT: 'Scatter Plot',
     L_PIE_CHART: 'Pie Chart',
+    L_CHORD_GRAPH: 'Chord Graph',
 });
