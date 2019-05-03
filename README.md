@@ -8,7 +8,7 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 
 ## v0.2.1即将更新
 
-1. 更新示例程序，主要是二维控件演示。[码云](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://github.com/tengge1/ShadowEditor/)
+1. 更新示例程序，主要是编辑器二维菜单演示。[码云](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://github.com/tengge1/ShadowEditor/)
 
 ## v0.2.0更新
 
