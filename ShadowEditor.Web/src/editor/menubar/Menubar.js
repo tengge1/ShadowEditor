@@ -51,7 +51,7 @@ Menubar.prototype.render = function () {
             new AssetMenu(params),
             //new TerrainMenu(params),
             new ComponentMenu(params),
-            new VisualMenu(params),
+            // new VisualMenu(params),
             new PlayMenu(params),
             new ToolMenu(params),
             new OptionsMenu(params),
