@@ -20,6 +20,7 @@ import PieChart from '../../visual/component/PieChart';
 import ChordGraph from '../../visual/component/ChordGraph';
 import ForceDirectedGraph from '../../visual/component/ForceDirectedGraph';
 import TreeDiagram from '../../visual/component/TreeDiagram';
+import ClusterDiagram from '../../visual/component/ClusterDiagram';
 
 /**
  * 二维菜单
@@ -151,6 +152,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_TREE_DIAGRAM,
                 onClick: this.addTreeDiagram.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_CLUSTER_DIAGRAM,
+                onClick: this.addClusterDiagram.bind(this),
             }]
         }]
     });
@@ -365,6 +371,16 @@ TwoDMenu.prototype.addTreeDiagram = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new TreeDiagram());
+    visual.render(svg);
+};
+
+// ---------------------------------- 集群图 -----------------------------------------------------
+
+TwoDMenu.prototype.addClusterDiagram = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new ClusterDiagram());
     visual.render(svg);
 };
 

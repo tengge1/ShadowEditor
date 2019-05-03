@@ -628,3 +628,4 @@ L_PIE_CHART = '饼状图';
 L_CHORD_GRAPH = '弦图';
 L_FORCE_DIRECTED_GRAPH = '力导向图';
 L_TREE_DIAGRAM = '树状图';
+L_CLUSTER_DIAGRAM = '集群图';

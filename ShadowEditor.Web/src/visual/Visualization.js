@@ -20,6 +20,7 @@ import PieChart from './component/PieChart';
 import ChordGraph from './component/ChordGraph';
 import ForceDirectedGraph from './component/ForceDirectedGraph';
 import TreeDiagram from './component/TreeDiagram';
+import ClusterDiagram from './component/ClusterDiagram';
 
 const ComponentTypes = {
     Button,
@@ -42,6 +43,7 @@ const ComponentTypes = {
     ChordGraph,
     ForceDirectedGraph,
     TreeDiagram,
+    ClusterDiagram,
 };
 
 /**

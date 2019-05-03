@@ -626,4 +626,5 @@ Object.assign(window, {
     L_CHORD_GRAPH: 'Chord Graph',
     L_FORCE_DIRECTED_GRAPH: 'Force Directed Graph',
     L_TREE_DIAGRAM: 'Tree Diagram',
+    L_CLUSTER_DIAGRAM: 'Cluster Diagram',
 });
