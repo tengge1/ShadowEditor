@@ -21,6 +21,7 @@ import ChordGraph from '../../visual/component/ChordGraph';
 import ForceDirectedGraph from '../../visual/component/ForceDirectedGraph';
 import TreeDiagram from '../../visual/component/TreeDiagram';
 import ClusterDiagram from '../../visual/component/ClusterDiagram';
+import PackDiagram from '../../visual/component/PackDiagram';
 
 /**
  * 二维菜单
@@ -157,6 +158,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_CLUSTER_DIAGRAM,
                 onClick: this.addClusterDiagram.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_PACK_DIAGRAM,
+                onClick: this.addPackDiagram.bind(this),
             }]
         }]
     });
@@ -381,6 +387,16 @@ TwoDMenu.prototype.addClusterDiagram = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new ClusterDiagram());
+    visual.render(svg);
+};
+
+// ------------------------------- 包图 -----------------------------------------
+
+TwoDMenu.prototype.addPackDiagram = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new PackDiagram());
     visual.render(svg);
 };
 
