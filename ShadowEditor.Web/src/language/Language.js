@@ -628,4 +628,5 @@ Object.assign(window, {
     L_TREE_DIAGRAM: 'Tree Diagram',
     L_CLUSTER_DIAGRAM: 'Cluster Diagram',
     L_PACK_DIAGRAM: 'Pack Diagram',
+    L_PARTITION_DIAGRAM: 'Partition Diagram',
 });

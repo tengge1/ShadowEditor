@@ -22,6 +22,7 @@ import ForceDirectedGraph from './component/ForceDirectedGraph';
 import TreeDiagram from './component/TreeDiagram';
 import ClusterDiagram from './component/ClusterDiagram';
 import PackDiagram from './component/PackDiagram';
+import PartitionDiagram from './component/PartitionDiagram';
 
 const ComponentTypes = {
     Button,
@@ -46,6 +47,7 @@ const ComponentTypes = {
     TreeDiagram,
     ClusterDiagram,
     PackDiagram,
+    PartitionDiagram,
 };
 
 /**

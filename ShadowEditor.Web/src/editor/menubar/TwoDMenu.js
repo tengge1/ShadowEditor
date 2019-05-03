@@ -22,6 +22,7 @@ import ForceDirectedGraph from '../../visual/component/ForceDirectedGraph';
 import TreeDiagram from '../../visual/component/TreeDiagram';
 import ClusterDiagram from '../../visual/component/ClusterDiagram';
 import PackDiagram from '../../visual/component/PackDiagram';
+import PartitionDiagram from '../../visual/component/PartitionDiagram';
 
 /**
  * 二维菜单
@@ -163,6 +164,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_PACK_DIAGRAM,
                 onClick: this.addPackDiagram.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_PARTITION_DIAGRAM,
+                onClick: this.addPartitionDiagram.bind(this),
             }]
         }]
     });
@@ -397,6 +403,16 @@ TwoDMenu.prototype.addPackDiagram = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new PackDiagram());
+    visual.render(svg);
+};
+
+// --------------------------------- 分区图 --------------------------------------------
+
+TwoDMenu.prototype.addPartitionDiagram = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new PartitionDiagram());
     visual.render(svg);
 };
 
