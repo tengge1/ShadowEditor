@@ -16,6 +16,7 @@ import LineChart from './component/LineChart';
 import SideBar from './component/SideBar';
 import Histogram2 from './component/Histogram2';
 import ScatterPlot from './component/ScatterPlot';
+import PieChart from './component/PieChart';
 
 const ComponentTypes = {
     Button,
@@ -34,6 +35,7 @@ const ComponentTypes = {
     SideBar,
     Histogram2,
     ScatterPlot,
+    PieChart,
 };
 
 /**

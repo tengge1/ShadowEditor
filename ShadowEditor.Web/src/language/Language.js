@@ -622,4 +622,5 @@ Object.assign(window, {
     L_HISTOGRAM: 'Histogram',
     L_LINECHART: 'Line Chart',
     L_SCATTER_PLOT: 'Scatter Plot',
+    L_PIE_CHART: 'Pie Chart',
 });

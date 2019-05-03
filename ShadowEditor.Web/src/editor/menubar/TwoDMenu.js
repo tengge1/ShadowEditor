@@ -16,6 +16,7 @@ import LineChart from '../../visual/component/LineChart';
 import SideBar from '../../visual/component/SideBar';
 import Histogram2 from '../../visual/component/Histogram2';
 import ScatterPlot from '../../visual/component/ScatterPlot';
+import PieChart from '../../visual/component/PieChart';
 
 /**
  * 二维菜单
@@ -127,6 +128,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_SCATTER_PLOT,
                 onClick: this.addScatterPlot.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_PIE_CHART,
+                onClick: this.addPieChart.bind(this),
             }]
         }]
     });
@@ -301,6 +307,16 @@ TwoDMenu.prototype.addScatterPlot = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new ScatterPlot());
+    visual.render(svg);
+};
+
+// --------------------------------- 饼状图 --------------------------------------------------
+
+TwoDMenu.prototype.addPieChart = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new PieChart());
     visual.render(svg);
 };
 

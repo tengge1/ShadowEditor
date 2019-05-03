@@ -624,3 +624,4 @@ L_GAUGE = '仪表';
 L_HISTOGRAM = '柱状图';
 L_LINECHART = '折线图';
 L_SCATTER_PLOT = '散点图';
+L_PIE_CHART = '饼状图';
