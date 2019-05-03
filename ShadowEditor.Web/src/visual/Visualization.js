@@ -12,6 +12,7 @@ import KeyValueLabel from './component/KeyValueLabel';
 import FormPanel from './component/FormPanel';
 import Gauge from './component/Gauge';
 import Histogram from './component/Histogram';
+import LineChart from './component/LineChart';
 
 const ComponentTypes = {
     Button,
@@ -26,6 +27,7 @@ const ComponentTypes = {
     FormPanel,
     Gauge,
     Histogram,
+    LineChart,
 };
 
 /**

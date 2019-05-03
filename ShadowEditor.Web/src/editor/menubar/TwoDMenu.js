@@ -12,6 +12,7 @@ import KeyValueLabel from '../../visual/component/KeyValueLabel';
 import FormPanel from '../../visual/component/FormPanel';
 import Gauge from '../../visual/component/Gauge';
 import Histogram from '../../visual/component/Histogram';
+import LineChart from '../../visual/component/LineChart';
 
 /**
  * 二维菜单
@@ -103,6 +104,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_HISTOGRAM,
                 onClick: this.addHistogram.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_LINECHART,
+                onClick: this.addLineChart.bind(this),
             }]
         }]
     });
@@ -237,6 +243,16 @@ TwoDMenu.prototype.addHistogram = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new Histogram());
+    visual.render(svg);
+};
+
+// ------------------------------- 折线图 ----------------------------------------------
+
+TwoDMenu.prototype.addLineChart = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new LineChart());
     visual.render(svg);
 };
 

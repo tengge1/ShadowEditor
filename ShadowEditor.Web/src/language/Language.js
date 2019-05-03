@@ -620,4 +620,5 @@ Object.assign(window, {
     L_FORM_PANEL: 'Form Panel',
     L_GAUGE: 'Gauge',
     L_HISTOGRAM: 'Histogram',
+    L_LINECHART: 'Line Chart',
 });
