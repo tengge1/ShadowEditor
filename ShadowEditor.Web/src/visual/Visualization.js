@@ -19,6 +19,7 @@ import ScatterPlot from './component/ScatterPlot';
 import PieChart from './component/PieChart';
 import ChordGraph from './component/ChordGraph';
 import ForceDirectedGraph from './component/ForceDirectedGraph';
+import TreeDiagram from './component/TreeDiagram';
 
 const ComponentTypes = {
     Button,
@@ -40,6 +41,7 @@ const ComponentTypes = {
     PieChart,
     ChordGraph,
     ForceDirectedGraph,
+    TreeDiagram,
 };
 
 /**

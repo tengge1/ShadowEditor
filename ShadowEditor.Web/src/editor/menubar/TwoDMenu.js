@@ -19,6 +19,7 @@ import ScatterPlot from '../../visual/component/ScatterPlot';
 import PieChart from '../../visual/component/PieChart';
 import ChordGraph from '../../visual/component/ChordGraph';
 import ForceDirectedGraph from '../../visual/component/ForceDirectedGraph';
+import TreeDiagram from '../../visual/component/TreeDiagram';
 
 /**
  * 二维菜单
@@ -145,6 +146,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_FORCE_DIRECTED_GRAPH,
                 onClick: this.addForceDirectedGraph.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_TREE_DIAGRAM,
+                onClick: this.addTreeDiagram.bind(this),
             }]
         }]
     });
@@ -349,6 +355,16 @@ TwoDMenu.prototype.addForceDirectedGraph = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new ForceDirectedGraph());
+    visual.render(svg);
+};
+
+// ----------------------------------- 树状图 -----------------------------------------------
+
+TwoDMenu.prototype.addTreeDiagram = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new TreeDiagram());
     visual.render(svg);
 };
 

@@ -625,4 +625,5 @@ Object.assign(window, {
     L_PIE_CHART: 'Pie Chart',
     L_CHORD_GRAPH: 'Chord Graph',
     L_FORCE_DIRECTED_GRAPH: 'Force Directed Graph',
+    L_TREE_DIAGRAM: 'Tree Diagram',
 });
