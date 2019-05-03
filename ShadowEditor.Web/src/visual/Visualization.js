@@ -14,6 +14,7 @@ import Gauge from './component/Gauge';
 import Histogram from './component/Histogram';
 import LineChart from './component/LineChart';
 import SideBar from './component/SideBar';
+import Histogram2 from './component/Histogram2';
 
 const ComponentTypes = {
     Button,
@@ -30,6 +31,7 @@ const ComponentTypes = {
     Histogram,
     LineChart,
     SideBar,
+    Histogram2,
 };
 
 /**

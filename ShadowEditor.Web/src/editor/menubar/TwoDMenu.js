@@ -14,6 +14,7 @@ import Gauge from '../../visual/component/Gauge';
 import Histogram from '../../visual/component/Histogram';
 import LineChart from '../../visual/component/LineChart';
 import SideBar from '../../visual/component/SideBar';
+import Histogram2 from '../../visual/component/Histogram2';
 
 /**
  * 二维菜单
@@ -115,6 +116,11 @@ TwoDMenu.prototype.render = function () {
                 cls: 'option',
                 html: L_SIDEBAR,
                 onClick: this.addSideBar.bind(this),
+            }, {
+                xtype: 'div',
+                cls: 'option',
+                html: L_HISTOGRAM + '2',
+                onClick: this.addHistogram2.bind(this),
             }]
         }]
     });
@@ -269,6 +275,16 @@ TwoDMenu.prototype.addSideBar = function () {
     var svg = this.app.editor.svg;
 
     visual.add(new SideBar());
+    visual.render(svg);
+};
+
+// ------------------------------- 柱状图2 ------------------------------------------------
+
+TwoDMenu.prototype.addHistogram2 = function () {
+    var visual = this.app.editor.visual;
+    var svg = this.app.editor.svg;
+
+    visual.add(new Histogram2());
     visual.render(svg);
 };
 
