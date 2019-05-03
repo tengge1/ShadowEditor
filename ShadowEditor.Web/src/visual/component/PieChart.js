@@ -8,22 +8,9 @@ function PieChart() {
     BaseComponent.call(this);
     this.type = 'PieChart';
 
-    this.width = 400;
-    this.height = 400;
+    this.width = 500;
+    this.height = 500;
     this.title = 'PieChart';
-
-    var data1 = [];
-    var data2 = [];
-
-    var ran1 = d3.randomNormal(29, 8);
-    var ran2 = d3.randomNormal(72, 20);
-
-    for (var i = 0; i <= 210; i += 10) {
-        data1.push([8 + i, ran1()]);
-        data2.push([8 + i, ran2()]);
-    }
-
-    this.data = [data1, data2];
 
     this.transform = null;
 }
@@ -51,56 +38,93 @@ PieChart.prototype.render = function (parent) {
         .classed('ScatterPlot', true)
         .style('pointer-events', 'all');
 
-    var dataset = [{
-        startAngle: 0,
-        endAngle: Math.PI * 0.6,
-    }, {
-        startAngle: Math.PI * 0.6,
-        endAngle: Math.PI,
-    }, {
-        startAngle: Math.PI,
-        endAngle: Math.PI * 1.7,
-    }, {
-        startAngle: Math.PI * 1.7,
-        endAngle: Math.PI * 2,
-    }];
+    var dataset = [
+        ['小米', 60.8],
+        ['三星', 58.4],
+        ['联想', 47.3],
+        ['苹果', 46.6],
+        ['华为', 41.3],
+        ['酷派', 40.1],
+        ['其他', 111.5]
+    ];
 
-    var width = 400;
-    var height = 400
-
-    var arcPath = d3.arc()
-        .innerRadius(50)
-        .outerRadius(100);
-
-    g.selectAll('path')
-        .data(dataset)
-        .enter()
-        .append('path')
-        .attr('data-id', this.id)
-        .attr('d', function (d) {
-            return arcPath(d);
-        })
-        .attr('transform', 'translate(250, 250)')
-        .attr('stroke', 'black')
-        .attr('stroke-width', '2px')
-        .attr('fill', function (d, i) {
-            return d3.schemeCategory10[i];
+    var pie = d3.pie()
+        .value(function (d) {
+            return d[1];
         });
 
-    g.selectAll('text')
-        .data(dataset)
+    var width = 500;
+    var height = 500;
+
+    var piedata = pie(dataset);
+
+    var outerRadius = width / 3;
+    var innerRadius = 0;
+
+    var arc = d3.arc()
+        .innerRadius(innerRadius)
+        .outerRadius(outerRadius);
+
+    var color = d3.schemeCategory10;
+
+    var arcs = g.selectAll('g')
+        .data(piedata)
         .enter()
-        .append('text')
+        .append('g')
+        .attr('transform',
+            'translate(' + (width / 2) + ',' + (height / 2) + ')');
+
+    arcs.append('path')
+        .attr('data-id', this.id)
+        .attr('fill', function (d, i) {
+            return color[i];
+        })
+        .attr('d', function (d) {
+            return arc(d);
+        });
+
+    arcs.append('text')
         .attr('data-id', this.id)
         .attr('transform', function (d) {
-            return 'translate(250, 250) ' +
-                'translate(' + arcPath.centroid(d) + ')';
+            var x = arc.centroid(d)[0] * 1.4;
+            var y = arc.centroid(d)[1] * 1.4;
+            return 'translate(' + x + ',' + y + ')';
         })
         .attr('text-anchor', 'middle')
-        .attr('fill', '#fff')
-        .attr('font-size', '18px')
         .text(function (d) {
-            return Math.floor((d.endAngle - d.startAngle) * 180 / Math.PI) + '°';
+            var percent = Number(d.value) /
+                d3.sum(dataset, function (d) {
+                    return d[1];
+                }) * 100;
+            return percent.toFixed(1) + '%';
+        });
+
+    arcs.append('line')
+        .attr('data-id', this.id)
+        .attr('stroke', 'black')
+        .attr('x1', function (d) {
+            return arc.centroid(d)[0] * 2;
+        })
+        .attr('y1', function (d) {
+            return arc.centroid(d)[1] * 2;
+        })
+        .attr('x2', function (d) {
+            return arc.centroid(d)[0] * 2.2;
+        })
+        .attr('y2', function (d) {
+            return arc.centroid(d)[1] * 2.2;
+        });
+
+    arcs.append('text')
+        .attr('data-id', this.id)
+        .attr('transform', function (d) {
+            var x = arc.centroid(d)[0] * 2.5;
+            var y = arc.centroid(d)[1] * 2.5;
+            return 'translate(' + x + ',' + y + ')';
+        })
+        .attr('text-anchor', 'middle')
+        .text(function (d) {
+            return d.data[0];
         });
 
     if (!this.transform) {
@@ -126,7 +150,6 @@ PieChart.prototype.toJSON = function () {
         id: this.id,
         type: this.type,
         title: this.title,
-        data: this.data,
         transform,
     };
 };
@@ -135,7 +158,6 @@ PieChart.prototype.fromJSON = function (json) {
     this.id = json.id;
     this.type = json.type;
     this.title = json.title;
-    this.data = data;
     this.transform = json.transform || null;
 };
 
