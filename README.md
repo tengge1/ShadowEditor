@@ -3,29 +3,16 @@
 Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md) / [русский](README-ru.md)
 
 * 名称：Shadow Editor
-* 版本：v0.2.0(开发中)
+* 版本：v0.2.0
 * 简介：基于`three.js`的场景编辑器。
 
-## v0.2.0即将更新
+## v0.2.0更新
+
+* 发布日期：2019年5月3日
+* 更新日志：
 
 1. 默认不再加载`ammo.js`。只有场景中存在刚体或柔软体时，才在播放时自动加载`ammo.js`，提升编辑器启动速度和非物理场景运行速度。
 2. 新增二维菜单：按钮、标签、面板、水平线、条形图、时间、竖直线、日期、时间圆盘、键值标签、表单、仪表、柱状图、折线图、侧边栏、柱状图2、散点图、饼状图、弦图、力导向图、树状图、集群图、包图、分区图。可拖动、保存、载入，可在播放器中查看。（开发中，仅供测试）
-
-## v0.1.9更新
-
-* 发布日期：2019年4月20日
-* 更新日志：
-
-1. 修复属性面板修改名称时，文字几何体文字不改变bug。
-2. 修复地图卡顿问题。
-3. 新增地图组件，动态切换谷歌地图、必应地图、天地图。
-4. 使用立体纹理为地球实现星空背景。
-5. 地图添加太阳特效。
-6. 地图保存载入。
-7. 在播放器中播放GIS场景。
-8. 新增三维GIS演示。[Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381)
-9. 新增补间动画演示。[Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5c94c6b3c8b49a24585640b3) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5c94c6b3c8b49a24585640b3)
-10. 限制地轴与y轴的夹角在一定范围内。
 
 ## 项目截图
 
@@ -150,6 +137,14 @@ npm run build-docs
 基本几何体都支持多层嵌套。可以添加一个`组`（在几何体菜单中），然后在场景树状图上，将多个模型拖动到`组`上。
 
 ## 更新日志
+
+**v0.2.0**
+
+* 发布日期：2019年5月3日
+* 更新日志：
+
+1. 默认不再加载`ammo.js`。只有场景中存在刚体或柔软体时，才在播放时自动加载`ammo.js`，提升编辑器启动速度和非物理场景运行速度。
+2. 新增二维菜单：按钮、标签、面板、水平线、条形图、时间、竖直线、日期、时间圆盘、键值标签、表单、仪表、柱状图、折线图、侧边栏、柱状图2、散点图、饼状图、弦图、力导向图、树状图、集群图、包图、分区图。可拖动、保存、载入，可在播放器中查看。（开发中，仅供测试）
 
 **v0.1.9**
 
