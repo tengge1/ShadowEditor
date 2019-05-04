@@ -526,6 +526,10 @@ ul.Tree .Node.dragBottom {
     border-bottom: 1px dashed #999;
 }
 
+ul.Tree .Node i {
+    vertical-align: middle;
+}
+
 ul.Tree .Node a {
     width: calc(100% - 26px);
     color: rgba(0, 0, 0, 0.5);
@@ -535,6 +539,7 @@ ul.Tree .Node a {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    vertical-align: middle;
 }
 
 ul.Tree .Node a:hover {

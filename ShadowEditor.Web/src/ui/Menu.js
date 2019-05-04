@@ -1,4 +1,4 @@
-import Container from './Container';
+import Control from './Control';
 import Image from './Image';
 import UI from './Manager';
 
@@ -8,7 +8,7 @@ import UI from './Manager';
  * @param {*} options 选项
  */
 function Menu(options = {}) {
-    Container.call(this, options);
+    Control.call(this, options);
 
     this.cls = options.cls || 'Menu';
     this.style = options.style || {
@@ -19,7 +19,7 @@ function Menu(options = {}) {
     this.onClick = options.onClick || null;
 }
 
-Menu.prototype = Object.create(Container.prototype);
+Menu.prototype = Object.create(Control.prototype);
 Menu.prototype.constructor = Menu;
 
 Menu.prototype.render = function () {

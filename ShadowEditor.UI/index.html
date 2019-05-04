@@ -3,62 +3,20 @@
 
 <head>
     <meta charset='utf-8' />
-    <title>Visual Studio UI</title>
+    <title>ShadowEditor.UI</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
-    <!-- 标题栏 -->
-    <div class="header">
-        <img class="logo" src="img/Logo.png" />
-        <div class="title">WindowsFormsApp1 - Microsoft Visual Studio (管理员)</div>
-    </div>
+    <div id="container"></div>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="build/ShadowEditor.js"></script>
+    <script>
+        var button = new Shadow.Button();
 
-    <!-- 菜单栏 -->
-    <div class="menubar">
-        <div class="menu">
-            <a href="javascript:;">文件(F)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">编辑(E)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">视图(V)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">项目(P)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">生成(B)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">调试(D)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">团队(M)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">格式(O)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">工具(T)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">体系结构(C)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">调试(S)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">分析(N)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">窗口(W)</a>
-        </div>
-        <div class="menu">
-            <a href="javascript:;">帮助(H)</a>
-        </div>
-    </div>
+        ReactDOM.render(button, document.querySelector('#container'));
+    </script>
 </body>
 
 </html>

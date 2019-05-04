@@ -5,11 +5,15 @@
     "description": "3D Editor with three.js.",
     "dependencies": {},
     "devDependencies": {
+        "@babel/core": "^7.4.4",
+        "@babel/preset-react": "^7.0.0",
         "rollup": "^0.59.2",
+        "rollup-plugin-babel": "^4.3.2",
         "rollup-plugin-node-resolve": "^3.4.0"
     },
     "scripts": {
         "build": "rollup -c ShadowEditor.Web/rollup.config.js",
+        "build-ui": "rollup -c ShadowEditor.UI/rollup.config.js",
         "build-docs": "gitbook build docs-dev",
         "test": "rollup -c ShadowEditor.Web/test/unit/rollup.config.js",
         "clear": "npm prune"

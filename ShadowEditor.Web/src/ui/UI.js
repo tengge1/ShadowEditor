@@ -45,6 +45,7 @@ import './Icon';
 import './ProgressBar';
 import './SVG';
 import './Defs';
+import './Menu';
 
 UI.addXType('control', Control);
 
