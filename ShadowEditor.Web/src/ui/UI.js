@@ -10,7 +10,6 @@ import './Button';
 import './Checkbox';
 import './CloseButton';
 import './Color';
-import './Container';
 import './Div';
 import './HorizontalRule';
 import './Html';
@@ -46,6 +45,8 @@ import './Icon';
 import './ProgressBar';
 import './SVG';
 import './Defs';
+
+UI.addXType('control', Control);
 
 // 添加一些实用功能
 Object.assign(UI, {

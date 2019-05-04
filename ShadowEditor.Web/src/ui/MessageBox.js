@@ -1,5 +1,4 @@
 import Control from './Control';
-import Container from './Container';
 import UI from './Manager';
 
 /**
@@ -8,13 +7,13 @@ import UI from './Manager';
  * @param {*} options 
  */
 function MessageBox(options) {
-    Container.call(this, options);
+    Control.call(this, options);
     options = options || {};
 
     this.time = options.time || 3000;
 };
 
-MessageBox.prototype = Object.create(Container.prototype);
+MessageBox.prototype = Object.create(Control.prototype);
 MessageBox.prototype.constructor = MessageBox;
 
 MessageBox.prototype.render = function () {

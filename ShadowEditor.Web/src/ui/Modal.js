@@ -1,5 +1,4 @@
 import Control from './Control';
-import Container from './Container';
 import UI from './Manager';
 
 /**
@@ -8,7 +7,7 @@ import UI from './Manager';
  * @param {*} options 
  */
 function Modal(options) {
-    Container.call(this, options);
+    Control.call(this, options);
     options = options || {};
 
     this.cls = options.cls || 'Modal';
@@ -20,7 +19,7 @@ function Modal(options) {
     this.shadeClose = options.shadeClose || false;
 };
 
-Modal.prototype = Object.create(Container.prototype);
+Modal.prototype = Object.create(Control.prototype);
 Modal.prototype.constructor = Modal;
 
 Modal.prototype.render = function () {

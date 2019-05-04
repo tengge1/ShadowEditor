@@ -1,4 +1,4 @@
-import Container from './Container';
+import Control from './Control';
 import UI from './Manager';
 
 /**
@@ -7,10 +7,10 @@ import UI from './Manager';
  * @param {*} options 
  */
 function Span(options) {
-    Container.call(this, options);
+    Control.call(this, options);
 };
 
-Span.prototype = Object.create(Container.prototype);
+Span.prototype = Object.create(Control.prototype);
 Span.prototype.constructor = Span;
 
 Span.prototype.render = function () {

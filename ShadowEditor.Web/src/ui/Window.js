@@ -29,7 +29,7 @@ Window.prototype.render = function () {
 
     // 标题
     this.caption = UI.create({
-        xtype: 'container',
+        xtype: 'control',
         children: [{
             xtype: 'div',
             scope: this.scope,

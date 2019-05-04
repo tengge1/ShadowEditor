@@ -67,7 +67,7 @@ function Application(container, options) {
     }); // 播放器面板
 
     UI.create({
-        xtype: 'container',
+        xtype: 'control',
         parent: this.container,
         children: [
             this.menubar, // 菜单栏

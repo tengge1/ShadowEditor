@@ -1,16 +1,16 @@
-import Control from './Control';
+import Container from './Container';
 import Image from './Image';
 import UI from './Manager';
 
 /**
- * 图片列表
+ * 菜单
  * @author tengge / https://github.com/tengge1
  * @param {*} options 选项
  */
-function ImageList(options = {}) {
-    Control.call(this, options);
+function Menu(options = {}) {
+    Container.call(this, options);
 
-    this.cls = options.cls || 'ImageList';
+    this.cls = options.cls || 'Menu';
     this.style = options.style || {
         width: '800px',
         height: '500px'
@@ -19,10 +19,10 @@ function ImageList(options = {}) {
     this.onClick = options.onClick || null;
 }
 
-ImageList.prototype = Object.create(Control.prototype);
-ImageList.prototype.constructor = ImageList;
+Menu.prototype = Object.create(Container.prototype);
+Menu.prototype.constructor = Menu;
 
-ImageList.prototype.render = function () {
+Menu.prototype.render = function () {
     this.dom = document.createElement('div');
 
     if (this.cls) {
@@ -82,6 +82,6 @@ ImageList.prototype.render = function () {
     });
 };
 
-UI.addXType('imagelist', ImageList);
+UI.addXType('menu', Menu);
 
-export default ImageList;
+export default Menu;

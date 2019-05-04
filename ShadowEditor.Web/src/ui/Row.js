@@ -1,4 +1,4 @@
-import Container from './Container';
+import Control from './Control';
 import UI from './Manager';
 
 /**
@@ -7,14 +7,14 @@ import UI from './Manager';
  * @param {*} options 
  */
 function Row(options) {
-    Container.call(this, options);
+    Control.call(this, options);
     options = options || {};
 
     this.cls = options.cls || 'Row';
     this.style = options.style || null;
 };
 
-Row.prototype = Object.create(Container.prototype);
+Row.prototype = Object.create(Control.prototype);
 Row.prototype.constructor = Row;
 
 Row.prototype.render = function () {

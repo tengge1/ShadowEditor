@@ -1,4 +1,4 @@
-import Container from './Container';
+import Control from './Control';
 import UI from './Manager';
 
 /**
@@ -7,7 +7,7 @@ import UI from './Manager';
  * @param {*} options 
  */
 function Div(options) {
-    Container.call(this, options);
+    Control.call(this, options);
     options = options || {};
 
     this.html = options.html || null;
@@ -17,7 +17,7 @@ function Div(options) {
     this.onClick = options.onClick || null;
 };
 
-Div.prototype = Object.create(Container.prototype);
+Div.prototype = Object.create(Control.prototype);
 Div.prototype.constructor = Div;
 
 Div.prototype.render = function () {

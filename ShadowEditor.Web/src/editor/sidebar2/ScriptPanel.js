@@ -88,7 +88,7 @@ ScriptPanel.prototype.update = function () {
         }
 
         var data = {
-            xtype: 'container',
+            xtype: 'control',
             parent: container.dom,
             children: [{
                 xtype: 'text',

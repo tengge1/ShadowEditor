@@ -17,7 +17,6 @@ export { default as Checkbox } from './ui/Checkbox';
 export { default as CloseButton } from './ui/CloseButton';
 export { default as Color } from './ui/Color';
 export { default as Confirm } from './ui/Confirm';
-export { default as Container } from './ui/Container';
 export { default as DataTable } from './ui/DataTable';
 export { default as Div } from './ui/Div';
 export { default as HorizontalRule } from './ui/HorizontalRule';
@@ -44,7 +43,7 @@ export { default as Texture } from './ui/Texture';
 export { default as Timeline } from './ui/Timeline';
 export { default as ToolbarFiller } from './ui/ToolbarFiller';
 export { default as Window } from './ui/Window';
-import { default as Tree } from './ui/Tree';
+export { default as Tree } from './ui/Tree';
 export { default as UI } from './ui/UI';
 
 export { default as Player } from './player/Player';
