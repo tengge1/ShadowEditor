@@ -9,7 +9,7 @@ class Alert extends React.Component {
                         <i className="iconfont icon-close icon"></i>
                     </div>
                 </div>
-                <div className="content">{children}</div>
+                <div className="content"><p>{children}</p></div>
                 <div className="buttons">
                     <div className="button-wrap">
                         <button className="button">OK</button>

@@ -22,7 +22,7 @@
 	      className: "iconfont icon-close icon"
 	    }))), React.createElement("div", {
 	      className: "content"
-	    }, children), React.createElement("div", {
+	    }, React.createElement("p", null, children)), React.createElement("div", {
 	      className: "buttons"
 	    }, React.createElement("div", {
 	      className: "button-wrap"
