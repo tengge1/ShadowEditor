@@ -1,3 +1,5 @@
+// import classNames from 'classnames';
+
 // const styles = {
 //     button: {
 //         fontSize: 12,
@@ -27,7 +29,7 @@
  */
 class Panel extends React.Component {
     render() {
-        const { width, height, title, children } = this.props;
+        const { title, className, children } = this.props;
 
         return <div className="Panel">
             <div className="wrap">

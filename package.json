@@ -9,10 +9,10 @@
         "@babel/preset-react": "^7.0.0",
         "jss": "^9.8.7",
         "jss-preset-default": "^4.5.0",
-        "rollup": "^0.59.4",
+        "rollup": "^1.11.3",
         "rollup-plugin-babel": "^4.3.2",
         "rollup-plugin-commonjs": "^9.3.4",
-        "rollup-plugin-node-resolve": "^3.4.0"
+        "rollup-plugin-node-resolve": "^4.2.3"
     },
     "scripts": {
         "build": "rollup -c ShadowEditor.Web/rollup.config.js",
