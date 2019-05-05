@@ -10,6 +10,75 @@ body,
     font-size: 14px;
 }
 
+/* Panel */
+
+div.Panel {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 320px;
+    background: rgb(44, 62, 80);
+    border: 1px solid rgb(44, 62, 80);
+    box-sizing: border-box;
+}
+
+div.Panel .wrap {
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+
+div.Panel .wrap .title {
+    font-size: 14px;
+    line-height: 24px;
+    color: rgb(255, 255, 255);
+    background: rgb(44, 62, 80);
+    cursor: default;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+div.Panel .wrap .title .icon {
+    width: 16px;
+    height: 24px;
+    margin-right: 4px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+div.Panel .wrap .title .controls {
+    position: absolute;
+    right: 5px;
+    top: 0px;
+}
+
+div.Panel .wrap .title .controls .control {
+    width: 16px;
+    height: 24px;
+    margin-right: 4px;
+    vertical-align: top;
+    display: inline-block;
+    cursor: pointer;
+}
+
+div.Panel .wrap .content {
+    position: absolute;
+    top: 24px;
+    bottom: 32px;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+div.Panel .resize {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 10px;
+    height: 10px;
+}
+
 /* Alert */
 
 div.Alert {

@@ -1,3 +1,5 @@
+import commonjs from 'rollup-plugin-commonjs';
+import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 
 export default {
@@ -11,6 +13,8 @@ export default {
     treeshake: true,
     external: [],
     plugins: [
+        resolve(),
+        commonjs(),
         babel({
             exclude: 'node_modules/**'
         })

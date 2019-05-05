@@ -10,42 +10,16 @@
 
 <body>
     <div id="container">
-        <div tabindex="-1" class="dialog-container" style="outline: none; position: fixed; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px 0px; padding: 0px 5px 5px; box-sizing: border-box; background: rgb(44, 62, 80); width: 250px; height: 250px; left: 800px; top: 258px; transform: scale(1, 1); opacity: 1;">
-            <div tabindex="-1" style="outline: none; background: white; width: 100%; height: 100%; position: relative;">
-                <div tabindex="-1" class="dialog-container-title" style="outline: none; cursor: default; white-space: nowrap; overflow: hidden; font: 14px/24px arial, sans-serif; background: rgb(44, 62, 80); color: rgb(255, 255, 255); display: block;">
-                    <canvas class="dialog-title-control dialog-title-control-icon" width="16" height="24" style="cursor: pointer; display: inline-block; margin-right: 4px; vertical-align: top; width: 16px; height: 24px;"></canvas>
-                    <span>title</span>
-                    <div tabindex="-1" class="dialog-title-controls" style="outline: none; position: absolute; left: 0px; right: 5px; top: 0px; bottom: 0px; text-align: right; white-space: nowrap;">
-                        <canvas class="dialog-title-control dialog-title-control-maximize" width="16" height="24" style="cursor: pointer; display: inline-block; margin-right: 4px; vertical-align: top; width: 16px; height: 24px;"></canvas>
-                        <canvas class="dialog-title-control dialog-title-control-close" width="16" height="24" style="cursor: pointer; display: inline-block; margin-right: 4px; vertical-align: top; width: 16px; height: 24px;"></canvas>
-                    </div>
-                </div>
-                <div tabindex="-1" class="dialog-content" style="outline: none; position: absolute; font: 12px arial, sans-serif; top: 24px; bottom: 32px; left: 0px; right: 0px; overflow: hidden;">
-                    <div tabindex="-1" style="border: 0px; outline: 0px; padding: 0px; position: absolute; margin: 0px; box-sizing: border-box; overflow: hidden; width: 100%; height: 100%;">
-                        <canvas width="240" height="189" style="pointer-events: none; border: 0px; outline: 0px; padding: 0px; position: absolute; margin: 0px; box-sizing: border-box; width: 240px; height: 189px;"></canvas>
-                        <div tabindex="-1" style="border: 0px; outline: 0px; padding: 0px; position: absolute; margin: 0px; box-sizing: border-box;">
-                            <div tabindex="-1" style="border: 0px; outline: 0px; padding: 0px; position: absolute; margin: 0px; box-sizing: border-box; left: 231px; top: 8.83694px; width: 7px; height: 180.163px; visibility: hidden; background: rgba(0, 0, 0, 0.35); border-radius: 3.5px;"></div>
-                            <div tabindex="-1" style="border: 0px; outline: 0px; padding: 0px; position: absolute; margin: 0px; box-sizing: border-box; left: 8.92562px; top: 180px; width: 231.074px; height: 7px; visibility: hidden; background: rgba(0, 0, 0, 0.35); border-radius: 3.5px;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div tabindex="-1" class="dialog-container-buttons" style="outline: none; line-height: 32px; position: absolute; bottom: 0px; left: 0px; white-space: nowrap; overflow: hidden; right: 0px; background: rgb(236, 240, 241); text-align: center;">
-                    <div tabindex="-1" class="dialog-button undefined" style="border: 0px; outline: 0px; padding: 0px; position: relative; margin: 0px; box-sizing: border-box; height: 24px; width: 44.6797px; display: inline-block; text-align: left; vertical-align: middle;">
-                        <canvas width="44" height="24" style="pointer-events: none; border: 0px; outline: 0px; padding: 0px; position: absolute; margin: 0px; box-sizing: border-box; width: 44px; height: 24px;"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div tabindex="-1" class="resize-area" style="outline: none; width: 10px; height: 10px; position: absolute; bottom: 0px; right: 0px;"></div>
-        </div>
+
     </div>
     <script src="js/react.js"></script>
     <script src="js/react-dom.js"></script>
     <script src="build/ShadowEditor.js"></script>
     <script>
-        // var button = React.createElement(Shadow.Button, undefined, 'OK');
-        // var alert = React.createElement(Shadow.Alert, {}, 'Something is wrong.');
-
-        // ReactDOM.render(alert, document.querySelector('#container'));
+        var panel = React.createElement(Shadow.Panel, {
+            title: 'Panel'
+        }, 'OK');
+        ReactDOM.render(panel, document.querySelector('#container'));
     </script>
 </body>
 
