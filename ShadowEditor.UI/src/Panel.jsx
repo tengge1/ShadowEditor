@@ -1,7 +1,11 @@
 import classNames from 'classnames/bind';
 
 /**
- * Panel
+ * 面板
+ * @author tengge / https://github.com/tengge1
+ * @property {String} title 标题
+ * @property {String} className 样式类
+ * @property {String} children 内容
  */
 class Panel extends React.Component {
     render() {
