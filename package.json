@@ -3,12 +3,15 @@
     "version": "0.2.1",
     "private": true,
     "description": "3D Editor with three.js.",
-    "dependencies": {},
+    "dependencies": {
+        "classnames": "^2.2.6"
+    },
     "devDependencies": {
         "@babel/core": "^7.4.4",
         "@babel/preset-react": "^7.0.0",
         "rollup": "^1.11.3",
         "rollup-plugin-babel": "^4.3.2",
+        "rollup-plugin-commonjs": "^9.3.4",
         "rollup-plugin-node-resolve": "^4.2.3"
     },
     "scripts": {

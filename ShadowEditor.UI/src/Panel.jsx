@@ -1,28 +1,4 @@
-// import classNames from 'classnames';
-
-// const styles = {
-//     button: {
-//         fontSize: 12,
-//         '&:hover': {
-//             background: 'blue'
-//         }
-//     },
-//     ctaButton: {
-//         extend: 'button',
-//         '&:hover': {
-//             background: color('blue')
-//                 .darken(0.3)
-//                 .hex()
-//         }
-//     },
-//     '@media (min-width: 1024px)': {
-//         button: {
-//             width: 200
-//         }
-//     }
-// };
-
-// const { classes } = jss.createStyleSheet(styles).attach();
+import classNames from 'classnames/bind';
 
 /**
  * Panel
@@ -31,7 +7,7 @@ class Panel extends React.Component {
     render() {
         const { title, className, children } = this.props;
 
-        return <div className="Panel">
+        return <div className={classNames('Panel', className)}>
             <div className="wrap">
                 <div className="title">
                     <div className="icon">

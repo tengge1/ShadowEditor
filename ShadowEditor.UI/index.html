@@ -6,6 +6,11 @@
     <title>ShadowEditor.UI</title>
     <link rel="stylesheet" href="../ShadowEditor.Web/assets/css/icon/iconfont.css">
     <link rel="stylesheet" href="css/index.css">
+    <style>
+        div.MyPanel {
+            width: 1000px;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,7 +22,8 @@
     <script src="build/ShadowEditor.js"></script>
     <script>
         var panel = React.createElement(Shadow.Panel, {
-            title: 'Panel'
+            title: 'Panel',
+            className: 'MyPanel',
         }, 'OK');
         ReactDOM.render(panel, document.querySelector('#container'));
     </script>
