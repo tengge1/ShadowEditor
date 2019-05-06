@@ -5,13 +5,14 @@ import classNames from 'classnames/bind';
  * @author tengge / https://github.com/tengge1
  * @property {String} title 标题
  * @property {String} className 样式类
+ * @property {String} region 在BorderLayout中的位置，west, east, north, south
  * @property {String} children 内容
  */
 class Panel extends React.Component {
     render() {
-        const { title, className, children } = this.props;
+        const { title, className, region, children } = this.props;
 
-        return <div className={classNames('Panel', className)}>
+        return <div className={classNames('Panel', region, className)}>
             <div className="wrap">
                 <div className="title">
                     <div className="icon">
