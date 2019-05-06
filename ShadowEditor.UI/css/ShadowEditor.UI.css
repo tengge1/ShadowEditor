@@ -24,6 +24,16 @@ body,
     flex-direction: column;
 }
 
+/* Toolbar */
+
+.Toolbar {
+    width: 100%;
+    height: 24px;
+    background: rgb(236, 240, 241);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
 /* Panel */
 
 .Panel {

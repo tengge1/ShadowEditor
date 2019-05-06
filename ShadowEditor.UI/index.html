@@ -16,28 +16,28 @@
     <script src="js/react-dom.js"></script>
     <script src="build/ShadowEditor.UI.js"></script>
     <script>
-        var panel1 = React.createElement(Shadow.Panel, {
-            title: 'West Panel',
-            region: 'west',
-            key: 1
+        var icon1 = React.createElement(Shadow.Icon, {
+            icon: 'translate',
+            key: 1,
         });
-        var panel2 = React.createElement(Shadow.Panel, {
-            title: 'East Panel',
-            region: 'east',
-            key: 2
+
+        var icon2 = React.createElement(Shadow.Icon, {
+            icon: 'rotate',
+            key: 2,
         });
-        var panel3 = React.createElement(Shadow.Panel, {
-            title: 'Center Panel',
-            region: 'center',
-            key: 3
+
+        var icon3 = React.createElement(Shadow.Icon, {
+            icon: 'scale',
+            key: 3,
         });
-        var layout = React.createElement(Shadow.VBoxLayout, undefined, [
-            panel1,
-            panel2,
-            panel3,
+
+        var toolbar = React.createElement(Shadow.Toolbar, undefined, [
+            icon1,
+            icon2,
+            icon3,
         ]);
 
-        ReactDOM.render(layout, document.querySelector('#container'));
+        ReactDOM.render(toolbar, document.querySelector('#container'));
     </script>
 </body>
 
