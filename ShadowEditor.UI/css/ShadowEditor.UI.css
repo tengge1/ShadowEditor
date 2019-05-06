@@ -12,7 +12,7 @@ body,
 
 /* Panel */
 
-div.Panel {
+.Panel {
     position: relative;
     left: 0;
     top: 0;
@@ -23,13 +23,13 @@ div.Panel {
     box-sizing: border-box;
 }
 
-div.Panel .wrap {
+.Panel .wrap {
     width: 100%;
     height: 100%;
     background: white;
 }
 
-div.Panel .wrap .title {
+.Panel .wrap .title {
     font-size: 14px;
     line-height: 24px;
     color: rgb(255, 255, 255);
@@ -39,7 +39,7 @@ div.Panel .wrap .title {
     overflow: hidden;
 }
 
-div.Panel .wrap .title .icon {
+.Panel .wrap .title .icon {
     width: 16px;
     height: 24px;
     margin-right: 4px;
@@ -47,13 +47,13 @@ div.Panel .wrap .title .icon {
     display: inline-block;
 }
 
-div.Panel .wrap .title .controls {
+.Panel .wrap .title .controls {
     position: absolute;
     right: 5px;
     top: 0px;
 }
 
-div.Panel .wrap .title .controls .control {
+.Panel .wrap .title .controls .control {
     width: 16px;
     height: 24px;
     margin-right: 4px;
@@ -62,7 +62,7 @@ div.Panel .wrap .title .controls .control {
     cursor: pointer;
 }
 
-div.Panel .wrap .content {
+.Panel .wrap .content {
     position: absolute;
     top: 24px;
     bottom: 32px;
@@ -71,7 +71,7 @@ div.Panel .wrap .content {
     overflow: hidden;
 }
 
-div.Panel .resize {
+.Panel .resize {
     position: absolute;
     bottom: 0px;
     right: 0px;
