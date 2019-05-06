@@ -16,25 +16,25 @@
     <script src="js/react-dom.js"></script>
     <script src="build/ShadowEditor.UI.js"></script>
     <script>
-        var westPanel = React.createElement(Shadow.Panel, {
+        var panel1 = React.createElement(Shadow.Panel, {
             title: 'West Panel',
             region: 'west',
             key: 1
         });
-        var eastPanel = React.createElement(Shadow.Panel, {
+        var panel2 = React.createElement(Shadow.Panel, {
             title: 'East Panel',
             region: 'east',
             key: 2
         });
-        var centerPanel = React.createElement(Shadow.Panel, {
+        var panel3 = React.createElement(Shadow.Panel, {
             title: 'Center Panel',
             region: 'center',
             key: 3
         });
-        var layout = React.createElement(Shadow.BorderLayout, undefined, [
-            westPanel,
-            eastPanel,
-            centerPanel,
+        var layout = React.createElement(Shadow.HBoxLayout, undefined, [
+            panel1,
+            panel2,
+            panel3,
         ]);
 
         ReactDOM.render(layout, document.querySelector('#container'));

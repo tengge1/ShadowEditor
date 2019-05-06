@@ -2,7 +2,7 @@
 export { default as Button } from './form/Button.jsx';
 
 // layout
-export { default as BorderLayout } from './layout/BorderLayout.jsx';
+export { default as HBoxLayout } from './layout/HBoxLayout.jsx';
 
 // panel
 export { default as Panel } from './panel/Panel.jsx';

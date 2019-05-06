@@ -10,6 +10,13 @@ body,
     font-size: 14px;
 }
 
+/* HBoxLayout */
+
+.HBox {
+    display: flex;
+    flex-direction: row;
+}
+
 /* Panel */
 
 .Panel {
