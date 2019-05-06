@@ -8,9 +8,9 @@ import classNames from 'classnames/bind';
  */
 class Icon extends React.Component {
     render() {
-        const { className, children } = this.props;
+        const { icon, className, children } = this.props;
 
-        return <div className={classNames('Icon', className)}>{children}</div>;
+        return <div className={classNames('Icon', 'iconfont', icon ? 'icon-' + icon : '', className)}>{children}</div>;
     }
 }
 
