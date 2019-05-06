@@ -14,7 +14,7 @@ class Panel extends React.Component {
                         <i className="iconfont icon-shadow"></i>
                     </div>
                     <span>{title}</span>
-                    <div className="controls">
+                    {/*<div className="controls">
                         <div className="control">
                             <i className="iconfont icon-maximize"></i>
                         </div>
@@ -24,7 +24,7 @@ class Panel extends React.Component {
                         <div className="control">
                             <i className="iconfont icon-close"></i>
                         </div>
-                    </div>
+    </div>*/}
                 </div>
                 <div className="content">
                     {children}
