@@ -1,6 +1,11 @@
 // import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
+// import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
+
+// import jss from 'jss'
+// import preset from 'jss-preset-default'
+
+// jss.setup(preset());
 
 export default {
     input: 'ShadowEditor.UI/src/index.js',
@@ -13,7 +18,7 @@ export default {
     treeshake: true,
     external: [],
     plugins: [
-        resolve(),
+        // resolve(),
         // commonjs(),
         babel({
             exclude: 'node_modules/**'

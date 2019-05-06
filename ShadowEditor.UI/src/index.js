@@ -1,8 +1,3 @@
-// import jss from 'jss'
-// import preset from 'jss-preset-default'
-
-// jss.setup(preset());
-
 export { default as Panel } from './Panel.jsx';
 export { default as BorderLayout } from './BorderLayout.jsx';
 
