@@ -17,6 +17,13 @@ body,
     flex-direction: row;
 }
 
+/* VBoxLayout */
+
+.VBox {
+    display: flex;
+    flex-direction: column;
+}
+
 /* Panel */
 
 .Panel {
