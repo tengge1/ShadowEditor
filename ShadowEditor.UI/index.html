@@ -9,35 +9,13 @@
 </head>
 
 <body>
-    <div id="container">
-
-    </div>
+    <div id="container"></div>
     <script src="js/react.js"></script>
     <script src="js/react-dom.js"></script>
     <script src="build/ShadowEditor.UI.js"></script>
     <script>
-        var icon1 = React.createElement(Shadow.Icon, {
-            icon: 'translate',
-            key: 1,
-        });
-
-        var icon2 = React.createElement(Shadow.Icon, {
-            icon: 'rotate',
-            key: 2,
-        });
-
-        var icon3 = React.createElement(Shadow.Icon, {
-            icon: 'scale',
-            key: 3,
-        });
-
-        var toolbar = React.createElement(Shadow.Toolbar, undefined, [
-            icon1,
-            icon2,
-            icon3,
-        ]);
-
-        ReactDOM.render(toolbar, document.querySelector('#container'));
+        var app = new Shadow.Application();
+        app.render();
     </script>
 </body>
 

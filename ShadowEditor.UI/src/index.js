@@ -9,10 +9,16 @@ export { default as HBoxLayout } from './layout/HBoxLayout.jsx';
 export { default as VBoxLayout } from './layout/VBoxLayout.jsx';
 
 // menu
-export { default as Toolbar } from './menu/Toolbar.jsx';
+export { default as MenuBar } from './menu/MenuBar.jsx';
 
 // panel
 export { default as Panel } from './panel/Panel.jsx';
 
+// toolbar
+export { default as Toolbar } from './toolbar/Toolbar.jsx';
+
 // window
 export { default as Alert } from './window/Alert.jsx';
+
+// application
+export { default as Application } from './Application.jsx';
