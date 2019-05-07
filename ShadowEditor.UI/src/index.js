@@ -1,3 +1,6 @@
+// container
+export { default as Container } from './container/Container.jsx';
+
 // form
 export { default as Button } from './form/Button.jsx';
 
@@ -20,5 +23,5 @@ export { default as Toolbar } from './toolbar/Toolbar.jsx';
 // window
 export { default as Alert } from './window/Alert.jsx';
 
-// application
-export { default as Application } from './Application.jsx';
+// example
+export { default as Example } from './Example.jsx';
