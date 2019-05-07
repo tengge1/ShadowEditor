@@ -30,31 +30,29 @@ body,
     flex-direction: column;
 }
 
-/* Toolbar */
+/* MenuBar */
 
-.Toolbar {
-    width: 100%;
-    height: 24px;
-    background: rgb(236, 240, 241);
-    display: flex;
-    align-items: center;
+.MenuBar {
+    font: 13px 'Microsoft YaHei';
+    color: rgb(0, 0, 0);
+    background: linear-gradient(to bottom, rgb(250, 252, 253), rgb(232, 241, 251) 40%, rgb(220, 230, 243) 40%, rgb(220, 231, 245));
+    border-bottom: 1px solid rgb(153, 153, 153);
     box-sizing: border-box;
-    overflow: hidden;
+    user-select: none;
 }
 
-.Toolbar.horizontal {
-    flex-direction: row;
+.MenuBar .header {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
 }
 
-.Toolbar.vertical {
-    flex-direction: column;
-}
-
-.Toolbar .Icon {
-    width: 24px;
-    height: 24px;
+.MenuBar .header .header-item {
+    padding: 0 16px;
     line-height: 24px;
-    text-align: center;
+    display: inline-block;
+    vertical-align: top;
 }
 
 /* Panel */
@@ -124,6 +122,33 @@ body,
     right: 0px;
     width: 10px;
     height: 10px;
+}
+
+/* Toolbar */
+
+.Toolbar {
+    width: 100%;
+    height: 24px;
+    background: rgb(236, 240, 241);
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.Toolbar.horizontal {
+    flex-direction: row;
+}
+
+.Toolbar.vertical {
+    flex-direction: column;
+}
+
+.Toolbar .Icon {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
 }
 
 /* Alert */

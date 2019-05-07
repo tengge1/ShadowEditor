@@ -13,6 +13,7 @@ export { default as VBoxLayout } from './layout/VBoxLayout.jsx';
 
 // menu
 export { default as MenuBar } from './menu/MenuBar.jsx';
+export { default as MenuItem } from './menu/MenuItem.jsx';
 
 // panel
 export { default as Panel } from './panel/Panel.jsx';
