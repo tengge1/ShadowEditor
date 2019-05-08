@@ -1,3 +1,10 @@
+// form
+import Form from './form/Form.jsx';
+import FormControl from './form/FormControl.jsx';
+import Input from './form/Input.jsx';
+import Label from './form/Label.jsx';
+import TextArea from './form/TextArea.jsx';
+
 // icon
 import Icon from './icon/Icon.jsx';
 
@@ -69,6 +76,26 @@ class Example {
                         <Icon icon={'spray'}></Icon>
                         <Icon icon={'texture'}></Icon>
                     </Toolbar>
+                    <Form>
+                        <FormControl>
+                            <Label>First Name:</Label>
+                            <Input />
+                        </FormControl>
+                        <FormControl>
+                            <Label>Last Name:</Label>
+                            <Input />
+                        </FormControl>
+                        <FormControl>
+                            <Label>Password:</Label>
+                            <Input />
+                            <Label>Confirm Password:</Label>
+                            <Input />
+                        </FormControl>
+                        <FormControl>
+                            <Label>Description:</Label>
+                            <TextArea></TextArea>
+                        </FormControl>
+                    </Form>
                 </HBoxLayout>
             </VBoxLayout>;
 

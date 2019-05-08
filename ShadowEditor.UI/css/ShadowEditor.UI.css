@@ -10,6 +10,42 @@ body,
     font-size: 14px;
 }
 
+/* Form */
+
+.Form {
+    box-sizing: border-box;
+}
+
+/* FormControl */
+
+.FormControl {
+    height: 20px;
+    box-sizing: border-box;
+}
+
+/* Input */
+
+.Input {
+    font: 12px 'Microsoft YaHei';
+    margin: 0;
+    padding: 0 2px;
+    border: 1px solid rgb(217, 217, 217);
+    outline: 0;
+    box-sizing: border-box;
+}
+
+/* TextArea */
+
+.TextArea {
+    height: 800px;
+    font: 12px 'Microsoft YaHei';
+    margin: 0px;
+    padding: 0px 2px;
+    border: 1px solid rgb(217, 217, 217);
+    outline: 0px;
+    box-sizing: border-box;
+}
+
 /* Icon */
 
 .Icon {

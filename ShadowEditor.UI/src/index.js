@@ -3,6 +3,11 @@ export { default as Container } from './container/Container.jsx';
 
 // form
 export { default as Button } from './form/Button.jsx';
+export { default as Form } from './form/Form.jsx';
+export { default as FormControl } from './form/FormControl.jsx';
+export { default as Input } from './form/Input.jsx';
+export { default as Label } from './form/Label.jsx';
+export { default as TextArea } from './form/TextArea.jsx';
 
 // icon
 export { default as Icon } from './icon/Icon.jsx';
@@ -20,6 +25,7 @@ export { default as MenuItem } from './menu/MenuItem.jsx';
 
 // panel
 export { default as Panel } from './panel/Panel.jsx';
+export { default as TabPanel } from './panel/TabPanel.jsx';
 
 // toolbar
 export { default as Toolbar } from './toolbar/Toolbar.jsx';
