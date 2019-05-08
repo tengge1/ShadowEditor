@@ -16,6 +16,9 @@ const Style = {
         width: '100%',
         height: '100%',
     },
+    dropDown: {
+        display: 'none',
+    },
 };
 
 /**
@@ -28,10 +31,17 @@ class Example {
                 <MenuBar>
                     <MenuItem>Scene</MenuItem>
                     <MenuItem>Edit</MenuItem>
+                    <MenuItem>2D</MenuItem>
                     <MenuItem>Geometry</MenuItem>
                     <MenuItem>Light</MenuItem>
+                    <MenuItem>Assets</MenuItem>
+                    <MenuItem>Component</MenuItem>
+                    <MenuItem>Play</MenuItem>
+                    <MenuItem>Tool</MenuItem>
+                    <MenuItem>Options</MenuItem>
+                    <MenuItem>Help</MenuItem>
                 </MenuBar>
-                <DropDown>
+                <DropDown style={Style.dropDown}>
                     <DropDownItem>New</DropDownItem>
                     <DropDownItem>Save</DropDownItem>
                     <DropDownItem>Save As</DropDownItem>
