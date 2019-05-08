@@ -33,8 +33,8 @@ class Example {
                 </MenuBar>
                 <DropDown>
                     <DropDownItem>New</DropDownItem>
-                    <DropDownItem>Save...</DropDownItem>
-                    <DropDownItem>Save As...</DropDownItem>
+                    <DropDownItem>Save</DropDownItem>
+                    <DropDownItem>Save As</DropDownItem>
                     <DropDownSeparator></DropDownSeparator>
                     <DropDownItem>Export Scene</DropDownItem>
                 </DropDown>
