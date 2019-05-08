@@ -1,3 +1,6 @@
+// icon
+import Icon from './icon/Icon.jsx';
+
 // layout
 import HBoxLayout from './layout/HBoxLayout.jsx';
 import VBoxLayout from './layout/VBoxLayout.jsx';
@@ -9,7 +12,11 @@ import DropDownSeparator from './menu/DropDownSeparator.jsx';
 import MenuBar from './menu/MenuBar.jsx';
 import MenuItem from './menu/MenuItem.jsx';
 
+// panel
 import Panel from './panel/Panel.jsx';
+
+// toolbar
+import Toolbar from './toolbar/Toolbar.jsx';
 
 const Style = {
     container: {
@@ -19,6 +26,9 @@ const Style = {
     dropDown: {
         display: 'none',
     },
+    workspace: {
+        flex: 1,
+    }
 };
 
 /**
@@ -41,13 +51,25 @@ class Example {
                     <MenuItem>Options</MenuItem>
                     <MenuItem>Help</MenuItem>
                 </MenuBar>
-                <DropDown style={Style.dropDown}>
+                {/*<DropDown style={Style.dropDown}>
                     <DropDownItem>New</DropDownItem>
                     <DropDownItem>Save</DropDownItem>
                     <DropDownItem>Save As</DropDownItem>
                     <DropDownSeparator></DropDownSeparator>
                     <DropDownItem>Export Scene</DropDownItem>
-                </DropDown>
+    </DropDown>*/}
+                <HBoxLayout style={Style.workspace}>
+                    <Toolbar direction='vertical'>
+                        <Icon icon={'select'}></Icon>
+                        <Icon icon={'translate'}></Icon>
+                        <Icon icon={'rotate'}></Icon>
+                        <Icon icon={'scale'}></Icon>
+                        <Icon icon={'point'}></Icon>
+                        <Icon icon={'line'}></Icon>
+                        <Icon icon={'spray'}></Icon>
+                        <Icon icon={'texture'}></Icon>
+                    </Toolbar>
+                </HBoxLayout>
             </VBoxLayout>;
 
         ReactDOM.render(component, container);
