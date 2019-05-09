@@ -1,5 +1,6 @@
 // form
 export { default as Button } from './form/Button.jsx';
+export { default as CheckBox } from './form/CheckBox.jsx';
 export { default as Form } from './form/Form.jsx';
 export { default as FormControl } from './form/FormControl.jsx';
 export { default as Input } from './form/Input.jsx';

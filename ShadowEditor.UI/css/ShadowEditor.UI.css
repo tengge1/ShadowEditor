@@ -16,9 +16,9 @@ body,
     height: 20px;
     margin: 0 2px;
     padding: 0 8px;
-    color: #555;
+    color: #8a8a8a;
     background-color: #fff;
-    border: 1px solid #555;
+    border: 1px solid #8a8a8a;
     box-sizing: border-box;
     cursor: pointer;
 }
@@ -48,8 +48,8 @@ body,
 }
 
 .Button.disabled {
-    color: #ccc;
-    border: 1px solid #ccc;
+    color: #bebebe;
+    border: 1px solid #bebebe;
 }
 
 /* CheckBox */

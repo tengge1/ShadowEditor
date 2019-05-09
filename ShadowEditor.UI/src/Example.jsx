@@ -1,5 +1,6 @@
 // form
 import Button from './form/Button.jsx';
+import CheckBox from './form/CheckBox.jsx';
 import Form from './form/Form.jsx';
 import FormControl from './form/FormControl.jsx';
 import Input from './form/Input.jsx';
@@ -104,6 +105,14 @@ class Example {
                             <Button className={'warn'}>Warn</Button>
                             <Button className={'danger'}>Danger</Button>
                             <Button className={'disabled'}>Disabled</Button>
+                        </FormControl>
+                        <FormControl>
+                            <CheckBox>Default</CheckBox>
+                            <CheckBox className={'primary'}>Primary</CheckBox>
+                            <CheckBox className={'success'}>Success</CheckBox>
+                            <CheckBox className={'warn'}>Warn</CheckBox>
+                            <CheckBox className={'danger'}>Danger</CheckBox>
+                            <CheckBox className={'disabled'}>Disabled</CheckBox>
                         </FormControl>
                     </Form>
                 </HBoxLayout>
