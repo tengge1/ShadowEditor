@@ -10,6 +10,10 @@ body,
     font-size: 14px;
 }
 
+/* Button */
+
+/* CheckBox */
+
 /* Form */
 
 .Form {
@@ -19,31 +23,50 @@ body,
 /* FormControl */
 
 .FormControl {
-    height: 20px;
+    min-height: 20px;
+    margin: 1px 0;
     box-sizing: border-box;
 }
 
 /* Input */
 
 .Input {
+    width: 160px;
     font: 12px 'Microsoft YaHei';
-    margin: 0;
+    margin: 1px 0;
     padding: 0 2px;
     border: 1px solid rgb(217, 217, 217);
     outline: 0;
     box-sizing: border-box;
+    vertical-align: top;
 }
+
+/* Label */
+
+.Label {
+    min-width: 120px;
+    height: 20px;
+    font: 12px 'Microsoft YaHei';
+    line-height: 20px;
+    padding: 0 8px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+/* Radio */
 
 /* TextArea */
 
 .TextArea {
-    height: 800px;
+    width: 160px;
+    height: 200px;
     font: 12px 'Microsoft YaHei';
     margin: 0px;
     padding: 0px 2px;
     border: 1px solid rgb(217, 217, 217);
     outline: 0px;
     box-sizing: border-box;
+    vertical-align: top;
 }
 
 /* Icon */
