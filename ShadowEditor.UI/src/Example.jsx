@@ -1,4 +1,5 @@
 // form
+import Button from './form/Button.jsx';
 import Form from './form/Form.jsx';
 import FormControl from './form/FormControl.jsx';
 import Input from './form/Input.jsx';
@@ -94,6 +95,14 @@ class Example {
                         <FormControl>
                             <Label>Description:</Label>
                             <TextArea></TextArea>
+                        </FormControl>
+                        <FormControl>
+                            <Button>Default</Button>
+                            <Button className={'primary'}>Primary</Button>
+                            <Button className={'success'}>Success</Button>
+                            <Button className={'warn'}>Warn</Button>
+                            <Button className={'danger'}>Danger</Button>
+                            <Button className={'disabled'}>Disabled</Button>
                         </FormControl>
                     </Form>
                 </HBoxLayout>
