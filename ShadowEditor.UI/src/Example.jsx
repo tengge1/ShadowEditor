@@ -10,6 +10,7 @@ import TextArea from './form/TextArea.jsx';
 import Icon from './icon/Icon.jsx';
 
 // layout
+import Container from './layout/Container.jsx';
 import HBoxLayout from './layout/HBoxLayout.jsx';
 import VBoxLayout from './layout/VBoxLayout.jsx';
 

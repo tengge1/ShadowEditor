@@ -1,6 +1,3 @@
-// container
-export { default as Container } from './container/Container.jsx';
-
 // form
 export { default as Button } from './form/Button.jsx';
 export { default as Form } from './form/Form.jsx';
@@ -13,6 +10,7 @@ export { default as TextArea } from './form/TextArea.jsx';
 export { default as Icon } from './icon/Icon.jsx';
 
 // layout
+export { default as Container } from './layout/Container.jsx';
 export { default as HBoxLayout } from './layout/HBoxLayout.jsx';
 export { default as VBoxLayout } from './layout/VBoxLayout.jsx';
 

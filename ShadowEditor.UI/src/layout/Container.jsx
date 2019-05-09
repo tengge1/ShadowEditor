@@ -1,3 +1,5 @@
+import classNames from 'classnames/bind';
+
 /**
  * 容器
  * @author tengge / https://github.com/tengge1
@@ -9,7 +11,7 @@ class Container extends React.Component {
     render() {
         const { className, style, children } = this.props;
 
-        return <div className={className} style={style}>{children}</div>;
+        return <div className={classNames('Container', className)} style={style}>{children}</div>;
     }
 }
 
