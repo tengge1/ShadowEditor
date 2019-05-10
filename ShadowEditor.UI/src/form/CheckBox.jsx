@@ -5,11 +5,12 @@ import classNames from 'classnames/bind';
  * @author tengge / https://github.com/tengge1
  * @property {String} className 样式类
  * @property {Object} style 样式
+ * @property {Boolean} checked 是否选中
  */
 class CheckBox extends React.Component {
     render() {
-        const { className, style, children } = this.props;
-        return <input type={'checkbox'} className={classNames('CheckBox', className)} style={style} />;
+        const { className, style, checked } = this.props;
+        return <input type={'checkbox'} className={classNames('CheckBox', checked ? 'checked' : null, className)} style={style} />;
     }
 }
 

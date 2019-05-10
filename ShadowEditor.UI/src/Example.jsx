@@ -108,11 +108,7 @@ class Example {
                         </FormControl>
                         <FormControl>
                             <CheckBox>Default</CheckBox>
-                            <CheckBox className={'primary'}>Primary</CheckBox>
-                            <CheckBox className={'success'}>Success</CheckBox>
-                            <CheckBox className={'warn'}>Warn</CheckBox>
-                            <CheckBox className={'danger'}>Danger</CheckBox>
-                            <CheckBox className={'disabled'}>Disabled</CheckBox>
+                            <CheckBox checked={true}>Primary</CheckBox>
                         </FormControl>
                     </Form>
                 </HBoxLayout>
