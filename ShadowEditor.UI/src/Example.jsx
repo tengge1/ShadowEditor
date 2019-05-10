@@ -5,6 +5,7 @@ import Form from './form/Form.jsx';
 import FormControl from './form/FormControl.jsx';
 import Input from './form/Input.jsx';
 import Label from './form/Label.jsx';
+import Radio from './form/Radio.jsx';
 import TextArea from './form/TextArea.jsx';
 
 // icon
@@ -107,8 +108,12 @@ class Example {
                             <Button className={'disabled'}>Disabled</Button>
                         </FormControl>
                         <FormControl>
-                            <CheckBox>Default</CheckBox>
-                            <CheckBox checked={true}>Primary</CheckBox>
+                            <CheckBox></CheckBox>
+                            <CheckBox checked={true}></CheckBox>
+                        </FormControl>
+                        <FormControl>
+                            <Radio></Radio>
+                            <Radio checked={true}></Radio>
                         </FormControl>
                     </Form>
                 </HBoxLayout>

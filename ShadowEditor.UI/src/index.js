@@ -5,6 +5,7 @@ export { default as Form } from './form/Form.jsx';
 export { default as FormControl } from './form/FormControl.jsx';
 export { default as Input } from './form/Input.jsx';
 export { default as Label } from './form/Label.jsx';
+export { default as Radio } from './form/Radio.jsx';
 export { default as TextArea } from './form/TextArea.jsx';
 
 // icon
