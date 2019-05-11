@@ -315,65 +315,52 @@ body,
     top: 0;
     width: 240px;
     height: 320px;
-    background: rgb(44, 62, 80);
-    border: 1px solid rgb(44, 62, 80);
+    border: 1px solid #e6e6e6;
     box-sizing: border-box;
 }
 
-.Panel .wrap {
-    width: 100%;
+.Panel .header {
+    position: relative;
+    height: 32px;
+    background-color: #f7f7f7;
+}
+
+.Panel .header .title {
     height: 100%;
-    background: white;
-}
-
-.Panel .wrap .title {
-    font-size: 14px;
-    line-height: 24px;
-    color: rgb(255, 255, 255);
-    background: rgb(44, 62, 80);
-    cursor: default;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.Panel .wrap .title .icon {
-    width: 16px;
-    height: 24px;
-    margin-right: 4px;
-    vertical-align: top;
+    line-height: 32px;
+    padding-left: 16px;
+    color: #3399ff;
     display: inline-block;
+    box-sizing: border-box;
 }
 
-.Panel .wrap .title .controls {
+.Panel .header .controls {
     position: absolute;
-    right: 5px;
-    top: 0px;
-}
-
-.Panel .wrap .title .controls .control {
-    width: 16px;
-    height: 24px;
-    margin-right: 4px;
-    vertical-align: top;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.Panel .wrap .content {
-    position: absolute;
-    top: 24px;
-    bottom: 32px;
     left: 0;
-    right: 0;
-    overflow: hidden;
+    right: 4px;
+    top: 0;
+    bottom: 0;
+    text-align: right;
+    white-space: nowrap;
 }
 
-.Panel .resize {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    width: 10px;
-    height: 10px;
+.Panel .header .control {
+    width: 32px;
+    height: 32px;
+    margin: 0 4px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.Panel .header .control .iconfont {
+    font-size: 24px;
+    line-height: 32px;
+    color: #909090;
+}
+
+.Panel .body {
+    height: calc(100% - 32px);
+    color: #fff;
 }
 
 /* Toolbar */

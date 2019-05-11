@@ -127,6 +127,7 @@ class Example {
                             <Toggle selected={true} disabled={true}></Toggle>
                         </FormControl>
                     </Form>
+                    <Panel title={'Panel'}></Panel>
                 </HBoxLayout>
             </VBoxLayout>;
 
