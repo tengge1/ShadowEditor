@@ -1,6 +1,7 @@
 import commonjs from 'rollup-plugin-commonjs';
 import resolve from 'rollup-plugin-node-resolve';
 import replace from 'rollup-plugin-replace';
+import postcss from 'rollup-plugin-postcss';
 import babel from 'rollup-plugin-babel';
 
 export default {
@@ -18,6 +19,9 @@ export default {
         commonjs(),
         replace({
             'process.env.NODE_ENV': '"production"'
+        }),
+        postcss({
+            extract: true,
         }),
         babel({
             exclude: 'node_modules/**'

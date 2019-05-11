@@ -1,0 +1,9 @@
+.DropDownSeparator {
+    white-space: nowrap;
+    display: block;
+}
+
+.DropDownSeparator .separator {
+    height: 1px;
+    background: rgb(229, 229, 229);
+}

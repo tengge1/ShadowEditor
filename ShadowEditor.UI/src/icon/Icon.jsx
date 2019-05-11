@@ -1,3 +1,4 @@
+import './css/Icon.css';
 import classNames from 'classnames/bind';
 
 /**

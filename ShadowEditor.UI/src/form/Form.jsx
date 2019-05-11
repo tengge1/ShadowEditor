@@ -1,3 +1,4 @@
+import './css/Form.css';
 import classNames from 'classnames/bind';
 
 /**

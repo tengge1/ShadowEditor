@@ -1,3 +1,4 @@
+import './css/Input.css';
 import classNames from 'classnames/bind';
 
 /**

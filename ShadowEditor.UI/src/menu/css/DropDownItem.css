@@ -1,0 +1,44 @@
+.DropDownItem {
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    padding: 4px 0px;
+    display: block;
+}
+
+.DropDownItem .prefix {
+    width: 1em;
+    height: 1em;
+    margin: 0px 0.2em;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.DropDownItem .item {
+    height: 1.2em;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.DropDownItem .item .icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 0.2em;
+    display: inline-block;
+}
+
+.DropDownItem .item .text {
+    height: 1.2em;
+    line-height: 1.2em;
+    display: inline-block;
+}
+
+.DropDownItem .suffix {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    margin-left: 1em;
+    margin-right: 0.4em;
+    font-size: 75%;
+    text-align: right;
+    float: right;
+}

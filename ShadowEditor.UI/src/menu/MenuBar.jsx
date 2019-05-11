@@ -1,3 +1,4 @@
+import './css/MenuBar.css';
 import classNames from 'classnames/bind';
 
 /**

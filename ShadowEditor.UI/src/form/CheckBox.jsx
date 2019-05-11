@@ -1,3 +1,4 @@
+import './css/CheckBox.css';
 import classNames from 'classnames/bind';
 
 /**

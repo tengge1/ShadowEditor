@@ -1,3 +1,4 @@
+import './css/Label.css';
 import classNames from 'classnames/bind';
 
 /**

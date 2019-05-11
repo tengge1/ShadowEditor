@@ -1,0 +1,9 @@
+.Label {
+    min-width: 120px;
+    height: 20px;
+    font: 12px 'Microsoft YaHei';
+    line-height: 20px;
+    padding: 0 8px;
+    display: inline-block;
+    box-sizing: border-box;
+}

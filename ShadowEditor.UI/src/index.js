@@ -1,3 +1,5 @@
+import './Config.css';
+
 // form
 export { default as Button } from './form/Button.jsx';
 export { default as CheckBox } from './form/CheckBox.jsx';

@@ -1,0 +1,5 @@
+.FormControl {
+    min-height: 20px;
+    margin: 1px 0;
+    box-sizing: border-box;
+}

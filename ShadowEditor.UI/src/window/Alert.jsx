@@ -1,3 +1,5 @@
+import './css/Alert.css';
+
 class Alert extends React.Component {
     render() {
         const { title, children } = this.props;

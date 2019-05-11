@@ -1,0 +1,65 @@
+.Panel {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 320px;
+    border: 1px solid #e6e6e6;
+    box-sizing: border-box;
+}
+
+.Panel.hide {
+    display: none;
+}
+
+.Panel .header {
+    position: relative;
+    height: 32px;
+    background-color: #f7f7f7;
+}
+
+.Panel .header.hide {
+    display: none;
+}
+
+.Panel .header .title {
+    height: 100%;
+    line-height: 32px;
+    padding-left: 16px;
+    color: #3399ff;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.Panel .header .controls {
+    position: absolute;
+    left: 0;
+    right: 4px;
+    top: 0;
+    bottom: 0;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.Panel .header .control {
+    width: 32px;
+    height: 32px;
+    margin: 0 4px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.Panel .header .control .iconfont {
+    font-size: 24px;
+    line-height: 32px;
+    color: #909090;
+}
+
+.Panel .body {
+    height: calc(100% - 32px);
+    color: #fff;
+}
+
+.Panel .header.hide+div.body {
+    height: 100%;
+}
