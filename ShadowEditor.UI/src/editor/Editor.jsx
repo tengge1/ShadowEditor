@@ -9,27 +9,17 @@ import Radio from '../form/Radio.jsx';
 import TextArea from '../form/TextArea.jsx';
 import Toggle from '../form/Toggle.jsx';
 
-// icon
-import Icon from '../icon/Icon.jsx';
-
 // layout
 import Content from '../layout/Content.jsx';
 import HBoxLayout from '../layout/HBoxLayout.jsx';
 import TabLayout from '../layout/TabLayout.jsx';
 import VBoxLayout from '../layout/VBoxLayout.jsx';
 
-// menu
-import DropDown from '../menu/DropDown.jsx';
-import DropDownItem from '../menu/DropDownItem.jsx';
-import DropDownSeparator from '../menu/DropDownSeparator.jsx';
-import MenuBar from '../menu/MenuBar.jsx';
-import MenuItem from '../menu/MenuItem.jsx';
-
 // panel
 import Panel from '../panel/Panel.jsx';
 
-// toolbar
-import Toolbar from '../toolbar/Toolbar.jsx';
+import MenuBar from './MenuBar.jsx';
+import Toolbar from './Toolbar.jsx';
 
 const Style = {
     container: {
@@ -60,33 +50,9 @@ class Editor {
     render(container) {
         const component = (
             <VBoxLayout style={Style.container}>
-                {/** 菜单栏 */}
-                <MenuBar>
-                    <MenuItem title={'Scene'}></MenuItem>
-                    <MenuItem title={'Edit'}></MenuItem>
-                    <MenuItem title={'2D'}></MenuItem>
-                    <MenuItem title={'Geometry'}></MenuItem>
-                    <MenuItem title={'Light'}></MenuItem>
-                    <MenuItem title={'Assets'}></MenuItem>
-                    <MenuItem title={'Component'}></MenuItem>
-                    <MenuItem title={'Play'}></MenuItem>
-                    <MenuItem title={'Tool'}></MenuItem>
-                    <MenuItem title={'Options'}></MenuItem>
-                    <MenuItem title={'Help'}></MenuItem>
-                </MenuBar>
-                {/* 主体 */}
+                <MenuBar></MenuBar>
                 <HBoxLayout style={Style.main}>
-                    {/* 工具类 */}
-                    <Toolbar direction='vertical'>
-                        <Icon icon={'select'}></Icon>
-                        <Icon icon={'translate'}></Icon>
-                        <Icon icon={'rotate'}></Icon>
-                        <Icon icon={'scale'}></Icon>
-                        <Icon icon={'point'}></Icon>
-                        <Icon icon={'line'}></Icon>
-                        <Icon icon={'spray'}></Icon>
-                        <Icon icon={'texture'}></Icon>
-                    </Toolbar>
+                    <Toolbar></Toolbar>
                     <VBoxLayout style={Style.workspace}>
                         <Form>
                             <FormControl>
