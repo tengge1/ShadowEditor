@@ -11,7 +11,7 @@ class VBoxLayout extends React.Component {
     render() {
         const { className, style, children } = this.props;
 
-        return <div className={classNames('VBox', className)} style={style}>{children}</div>;
+        return <div className={classNames('VBoxLayout', className)} style={style}>{children}</div>;
     }
 }
 

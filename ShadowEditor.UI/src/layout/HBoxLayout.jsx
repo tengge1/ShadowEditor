@@ -11,7 +11,7 @@ class HBoxLayout extends React.Component {
     render() {
         const { className, style, children } = this.props;
 
-        return <div className={classNames('HBox', className)} style={style}>{children}</div>;
+        return <div className={classNames('HBoxLayout', className)} style={style}>{children}</div>;
     }
 }
 
