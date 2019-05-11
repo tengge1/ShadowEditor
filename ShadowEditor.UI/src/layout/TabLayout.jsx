@@ -14,10 +14,10 @@ class TabLayout extends React.Component {
     render() {
         const { className, style, children, activeTab, tabPosition } = this.props;
 
-        return <div className={classNames('TabLayout', className)} style={style}>
+        return <div className={classNames('TabLayout', tabPosition, className)} style={style}>
             <div className={'tabs'}>
                 {children.map((n, i) => {
-                    return <div className='tab' key={i}>{n.props.title}</div>;
+                    return <div className={classNames('tab', i === activeTab ? 'selected' : null)} key={i}>{n.props.title}</div>;
                 })}
             </div>
             <div className={'contents'}>

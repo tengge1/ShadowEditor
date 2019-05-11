@@ -146,12 +146,12 @@ class Example {
                     {/* 右侧边栏 */}
                     <VBoxLayout style={Style.sideBar}>
                         <TabLayout style={Style.halfSideBar}>
-                            <Panel title={'Hierarchy'}></Panel>
-                            <Panel title={'History'}></Panel>
+                            <Panel title={'Hierarchy'} header={false}></Panel>
+                            <Panel title={'History'} header={false}></Panel>
                         </TabLayout>
                         <TabLayout style={Style.halfSideBar}>
-                            <Panel title={'Property'}></Panel>
-                            <Panel title={'Animation'}></Panel>
+                            <Panel title={'Property'} header={false}></Panel>
+                            <Panel title={'Animation'} header={false}></Panel>
                         </TabLayout>
                     </VBoxLayout>
                 </HBoxLayout>

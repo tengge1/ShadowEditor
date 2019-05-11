@@ -9,13 +9,14 @@ import PropTypes from 'prop-types';
  * @property {Object} style 样式
  * @property {String} children 内容
  * @property {Boolean} show 是否显示
+ * @property {Boolean} header 是否显示标题
  */
 class Panel extends React.Component {
     render() {
-        const { title, className, style, children, show } = this.props;
+        const { title, className, style, children, show, header } = this.props;
 
         return <div className={classNames('Panel', show ? null : 'hide', className)} style={style}>
-            <div className="header">
+            <div className={classNames('header', header ? null : 'hide')}>
                 <span className="title">{title}</span>
                 <div className="controls">
                     <div className="control">
@@ -36,10 +37,12 @@ Panel.propTypes = {
     style: PropTypes.object,
     children: PropTypes.element,
     show: PropTypes.bool,
+    header: PropTypes.bool,
 };
 
 Panel.defaultProps = {
     show: true,
+    header: true,
 };
 
 export default Panel;

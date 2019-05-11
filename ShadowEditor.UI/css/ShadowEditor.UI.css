@@ -191,6 +191,29 @@
     position: relative;
 }
 
+.TabLayout.top .tabs {
+    height: 32px;
+    box-sizing: border-box;
+}
+
+.TabLayout.top .tabs .tab {
+    height: 32px;
+    font: 12px 'Microsoft YaHei';
+    line-height: 32px;
+    margin: 0 4px;
+    padding: 0 4px;
+    color: #737373;
+    display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.TabLayout.top .tabs .tab.selected {
+    color: #3399ff;
+    border-bottom: 1px solid #3399ff;
+    cursor: default;
+}
+
 .TabLayout .content {
     position: relative;
     width: 100%;
@@ -347,6 +370,10 @@
     background-color: #f7f7f7;
 }
 
+.Panel .header.hide {
+    display: none;
+}
+
 .Panel .header .title {
     height: 100%;
     line-height: 32px;
@@ -383,6 +410,10 @@
 .Panel .body {
     height: calc(100% - 32px);
     color: #fff;
+}
+
+.Panel .header.hide+div.body {
+    height: 100%;
 }
 
 /* Toolbar */
