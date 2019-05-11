@@ -13,7 +13,7 @@ import Toggle from './form/Toggle.jsx';
 import Icon from './icon/Icon.jsx';
 
 // layout
-import Container from './layout/Container.jsx';
+import Content from './layout/Content.jsx';
 import HBoxLayout from './layout/HBoxLayout.jsx';
 import TabLayout from './layout/TabLayout.jsx';
 import VBoxLayout from './layout/VBoxLayout.jsx';
@@ -46,7 +46,7 @@ const Style = {
         flex: 1,
     },
     sideBar: {
-        width: '280px',
+        width: '240px',
     },
     halfSideBar: {
         height: '50%',

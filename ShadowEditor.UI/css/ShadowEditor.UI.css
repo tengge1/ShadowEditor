@@ -200,8 +200,7 @@
     height: 32px;
     font: 12px 'Microsoft YaHei';
     line-height: 32px;
-    margin: 0 4px;
-    padding: 0 4px;
+    padding: 0 8px;
     color: #737373;
     display: inline-block;
     box-sizing: border-box;
@@ -214,15 +213,25 @@
     cursor: default;
 }
 
-.TabLayout .content {
+.TabLayout .contents {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 32px);
+}
+
+.TabLayout .contents .content {
     position: relative;
     width: 100%;
     height: 100%;
     display: none;
 }
 
-.TabLayout .content.show {
+.TabLayout .contents .content.show {
     display: block;
+}
+
+.TabLayout .contents .content>* {
+    height: 100%;
 }
 
 /* VBoxLayout */
