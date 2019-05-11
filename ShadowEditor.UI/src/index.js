@@ -7,6 +7,7 @@ export { default as Input } from './form/Input.jsx';
 export { default as Label } from './form/Label.jsx';
 export { default as Radio } from './form/Radio.jsx';
 export { default as TextArea } from './form/TextArea.jsx';
+export { default as Toggle } from './form/Toggle.jsx';
 
 // icon
 export { default as Icon } from './icon/Icon.jsx';

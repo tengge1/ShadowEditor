@@ -7,6 +7,7 @@ import Input from './form/Input.jsx';
 import Label from './form/Label.jsx';
 import Radio from './form/Radio.jsx';
 import TextArea from './form/TextArea.jsx';
+import Toggle from './form/Toggle.jsx';
 
 // icon
 import Icon from './icon/Icon.jsx';
@@ -109,11 +110,21 @@ class Example {
                         </FormControl>
                         <FormControl>
                             <CheckBox></CheckBox>
-                            <CheckBox checked={true}></CheckBox>
+                            <CheckBox selected={true}></CheckBox>
+                            <CheckBox disabled={true}></CheckBox>
+                            <CheckBox selected={true} disabled={true}></CheckBox>
                         </FormControl>
                         <FormControl>
                             <Radio></Radio>
-                            <Radio checked={true}></Radio>
+                            <Radio selected={true}></Radio>
+                            <Radio disabled={true}></Radio>
+                            <Radio selected={true} disabled={true}></Radio>
+                        </FormControl>
+                        <FormControl>
+                            <Toggle></Toggle>
+                            <Toggle selected={true}></Toggle>
+                            <Toggle disabled={true}></Toggle>
+                            <Toggle selected={true} disabled={true}></Toggle>
                         </FormControl>
                     </Form>
                 </HBoxLayout>
