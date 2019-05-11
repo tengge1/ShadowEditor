@@ -62,25 +62,18 @@ class Example {
             <VBoxLayout style={Style.container}>
                 {/** 菜单栏 */}
                 <MenuBar>
-                    <MenuItem>Scene</MenuItem>
-                    <MenuItem>Edit</MenuItem>
-                    <MenuItem>2D</MenuItem>
-                    <MenuItem>Geometry</MenuItem>
-                    <MenuItem>Light</MenuItem>
-                    <MenuItem>Assets</MenuItem>
-                    <MenuItem>Component</MenuItem>
-                    <MenuItem>Play</MenuItem>
-                    <MenuItem>Tool</MenuItem>
-                    <MenuItem>Options</MenuItem>
-                    <MenuItem>Help</MenuItem>
+                    <MenuItem title={'Scene'}></MenuItem>
+                    <MenuItem title={'Edit'}></MenuItem>
+                    <MenuItem title={'2D'}></MenuItem>
+                    <MenuItem title={'Geometry'}></MenuItem>
+                    <MenuItem title={'Light'}></MenuItem>
+                    <MenuItem title={'Assets'}></MenuItem>
+                    <MenuItem title={'Component'}></MenuItem>
+                    <MenuItem title={'Play'}></MenuItem>
+                    <MenuItem title={'Tool'}></MenuItem>
+                    <MenuItem title={'Options'}></MenuItem>
+                    <MenuItem title={'Help'}></MenuItem>
                 </MenuBar>
-                {/*<DropDown style={Style.dropDown}>
-                    <DropDownItem>New</DropDownItem>
-                    <DropDownItem>Save</DropDownItem>
-                    <DropDownItem>Save As</DropDownItem>
-                    <DropDownSeparator></DropDownSeparator>
-                    <DropDownItem>Export Scene</DropDownItem>
-    </DropDown>*/}
                 {/* 主体 */}
                 <HBoxLayout style={Style.main}>
                     {/* 工具类 */}
