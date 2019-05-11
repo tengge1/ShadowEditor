@@ -36,5 +36,5 @@ export { default as Toolbar } from './toolbar/Toolbar.jsx';
 // window
 export { default as Alert } from './window/Alert.jsx';
 
-// example
-export { default as Example } from './Example.jsx';
+// editor
+export { default as Editor } from './editor/Editor.jsx';

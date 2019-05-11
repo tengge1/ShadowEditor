@@ -1,35 +1,35 @@
 // form
-import Button from './form/Button.jsx';
-import CheckBox from './form/CheckBox.jsx';
-import Form from './form/Form.jsx';
-import FormControl from './form/FormControl.jsx';
-import Input from './form/Input.jsx';
-import Label from './form/Label.jsx';
-import Radio from './form/Radio.jsx';
-import TextArea from './form/TextArea.jsx';
-import Toggle from './form/Toggle.jsx';
+import Button from '../form/Button.jsx';
+import CheckBox from '../form/CheckBox.jsx';
+import Form from '../form/Form.jsx';
+import FormControl from '../form/FormControl.jsx';
+import Input from '../form/Input.jsx';
+import Label from '../form/Label.jsx';
+import Radio from '../form/Radio.jsx';
+import TextArea from '../form/TextArea.jsx';
+import Toggle from '../form/Toggle.jsx';
 
 // icon
-import Icon from './icon/Icon.jsx';
+import Icon from '../icon/Icon.jsx';
 
 // layout
-import Content from './layout/Content.jsx';
-import HBoxLayout from './layout/HBoxLayout.jsx';
-import TabLayout from './layout/TabLayout.jsx';
-import VBoxLayout from './layout/VBoxLayout.jsx';
+import Content from '../layout/Content.jsx';
+import HBoxLayout from '../layout/HBoxLayout.jsx';
+import TabLayout from '../layout/TabLayout.jsx';
+import VBoxLayout from '../layout/VBoxLayout.jsx';
 
 // menu
-import DropDown from './menu/DropDown.jsx';
-import DropDownItem from './menu/DropDownItem.jsx';
-import DropDownSeparator from './menu/DropDownSeparator.jsx';
-import MenuBar from './menu/MenuBar.jsx';
-import MenuItem from './menu/MenuItem.jsx';
+import DropDown from '../menu/DropDown.jsx';
+import DropDownItem from '../menu/DropDownItem.jsx';
+import DropDownSeparator from '../menu/DropDownSeparator.jsx';
+import MenuBar from '../menu/MenuBar.jsx';
+import MenuItem from '../menu/MenuItem.jsx';
 
 // panel
-import Panel from './panel/Panel.jsx';
+import Panel from '../panel/Panel.jsx';
 
 // toolbar
-import Toolbar from './toolbar/Toolbar.jsx';
+import Toolbar from '../toolbar/Toolbar.jsx';
 
 const Style = {
     container: {
@@ -54,9 +54,9 @@ const Style = {
 };
 
 /**
- * 示例
+ * 编辑器
  */
-class Example {
+class Editor {
     render(container) {
         const component = (
             <VBoxLayout style={Style.container}>
@@ -155,4 +155,4 @@ class Example {
     }
 }
 
-export default Example;
+export default Editor;
