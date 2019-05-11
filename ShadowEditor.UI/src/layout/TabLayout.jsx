@@ -9,7 +9,7 @@ import classNames from 'classnames/bind';
  */
 class TabLayout extends React.Component {
     render() {
-        const { className, style, children } = this.props;
+        const { className, style, children, activeTab } = this.props;
 
         return <div className={classNames('TabLayout', className)} style={style}>{children}</div>;
     }

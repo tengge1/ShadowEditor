@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 /**
  * 面板
@@ -7,16 +8,17 @@ import classNames from 'classnames/bind';
  * @property {String} className 样式类
  * @property {Object} style 样式
  * @property {String} children 内容
+ * @property {Boolean} show 是否显示
  */
 class Panel extends React.Component {
     render() {
-        const { title, className, style, children } = this.props;
+        const { title, className, style, children, show } = this.props;
 
-        return <div className={classNames('Panel', className)} style={style}>
+        return <div className={classNames('Panel', show ? 'show' : null, className)} style={style}>
             <div className="header">
-                <span class="title">{title}</span>
+                <span className="title">{title}</span>
                 <div className="controls">
-                    <div class="control">
+                    <div className="control">
                         <i className="iconfont icon-up-arrow"></i>
                     </div>
                 </div>
@@ -27,5 +29,17 @@ class Panel extends React.Component {
         </div>;
     }
 }
+
+Panel.propTypes = {
+    title: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.object,
+    children: PropTypes.element,
+    show: PropTypes.bool,
+};
+
+Panel.defaultProps = {
+    show: true,
+};
 
 export default Panel;

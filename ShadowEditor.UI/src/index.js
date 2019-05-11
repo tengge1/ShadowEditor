@@ -27,7 +27,6 @@ export { default as MenuItem } from './menu/MenuItem.jsx';
 
 // panel
 export { default as Panel } from './panel/Panel.jsx';
-export { default as TabPanel } from './panel/TabPanel.jsx';
 
 // toolbar
 export { default as Toolbar } from './toolbar/Toolbar.jsx';
