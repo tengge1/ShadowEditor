@@ -14,7 +14,7 @@ class Panel extends React.Component {
     render() {
         const { title, className, style, children, show } = this.props;
 
-        return <div className={classNames('Panel', show ? 'show' : null, className)} style={style}>
+        return <div className={classNames('Panel', show ? null : 'hide', className)} style={style}>
             <div className="header">
                 <span className="title">{title}</span>
                 <div className="controls">
