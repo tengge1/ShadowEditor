@@ -8,16 +8,37 @@ import PropTypes from 'prop-types';
  * @property {Object} style 样式
  * @property {String} children 内容
  * @property {Integer} activeTab 激活选项卡
- * @property {String} tabPosition 选项卡位置
  */
 class TabLayout extends React.Component {
-    render() {
-        const { className, style, children, activeTab, tabPosition } = this.props;
+    constructor(props) {
+        super(props);
 
-        return <div className={classNames('TabLayout', tabPosition, className)} style={style}>
+        this.state = {
+            activeTab: 0,
+        };
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(event) {
+        var tabIndex = event.target.tabIndex;
+        this.setState({
+            activeTab: tabIndex,
+        });
+    }
+
+    render() {
+        const { className, style, children, activeTab } = this.props;
+
+        return <div className={classNames('TabLayout', className)} style={style}>
             <div className={'tabs'}>
                 {children.map((n, i) => {
-                    return <div className={classNames('tab', i === activeTab ? 'selected' : null)} key={i}>{n.props.title}</div>;
+                    return <div
+                        className={classNames('tab', i === activeTab ? 'selected' : null)}
+                        key={i}
+                        tabIndex={i}
+                        onClick={this.handleClick}
+                    >{n.props.title}</div>;
                 })}
             </div>
             <div className={'contents'}>
@@ -34,17 +55,10 @@ TabLayout.propTypes = {
     style: PropTypes.object,
     children: PropTypes.element,
     activeTab: PropTypes.number,
-    tabPosition: PropTypes.oneOf([
-        'top',
-        'bottom',
-        'left',
-        'right',
-    ]),
 };
 
 TabLayout.defaultProps = {
     activeTab: 0,
-    tabPosition: 'top',
 };
 
 export default TabLayout;

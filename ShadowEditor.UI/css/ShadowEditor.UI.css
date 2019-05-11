@@ -7,6 +7,10 @@
     --theme-black: #FFFFFF;
 }
 
+:focus {
+    outline: none;
+}
+
 /* Button */
 
 .Button {
@@ -56,7 +60,6 @@
     height: 20px;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAvSURBVDhPYxg6oKur6z8lGGoMAoAEyQWjBkLAqIEkgVEDIWCEGkgJhhoz6AEDAwCX46nq5LTHtAAAAABJRU5ErkJggg==);
     display: inline-block;
-    outline: none;
     -webkit-appearance: none;
 }
 
@@ -94,7 +97,6 @@
     margin: 1px 0;
     padding: 0 2px;
     border: 1px solid rgb(217, 217, 217);
-    outline: 0;
     box-sizing: border-box;
     vertical-align: top;
 }
@@ -118,7 +120,6 @@
     height: 20px;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEiSURBVDhP1ZPLaoNAGIVdttC+TUveqHmAEkp3br0gKCq60bfwti40BNF9kodIusrOzIFTxNYxE3d+8MOg/znM/Bdt2RiG8WxZ1krEmrHSdf2Jv+/Ddd3POI4PSZKci6K4IHCOomjved4H09TwfX9XVdWpkyDMz0EQfDN9Gpi1bUupnKZpOpG7pWwcPHPqZn/BTcXzN5QPQQNQM+YqI2p6dBznkTY96CCKzjxloLFt+5U2PRgLdJJ5yuR5fjFN8402PXMNoZEZzn6yqP8LbXqwAaIpe+Ypg6akafpAmyHYgLIslW+ZZdmP0LxTPg42AEN7i7quuzAMvyibBhuAoaX2H7iZstkv2ADUB0VHJxE449vNZ8rABmBoMRYIdFPagIWgaVdKsJshjm46QwAAAABJRU5ErkJggg==);
     display: inline-block;
-    outline: none;
     -webkit-appearance: none;
 }
 
@@ -143,7 +144,6 @@
     margin: 0px;
     padding: 0px 2px;
     border: 1px solid rgb(217, 217, 217);
-    outline: 0px;
     box-sizing: border-box;
     vertical-align: top;
 }
@@ -191,12 +191,12 @@
     position: relative;
 }
 
-.TabLayout.top .tabs {
+.TabLayout .tabs {
     height: 32px;
     box-sizing: border-box;
 }
 
-.TabLayout.top .tabs .tab {
+.TabLayout .tabs .tab {
     height: 32px;
     font: 12px 'Microsoft YaHei';
     line-height: 32px;
@@ -207,7 +207,7 @@
     cursor: pointer;
 }
 
-.TabLayout.top .tabs .tab.selected {
+.TabLayout .tabs .tab.selected {
     color: #3399ff;
     border-bottom: 1px solid #3399ff;
     cursor: default;
@@ -272,7 +272,6 @@
 
 .DropDown {
     border: 0px;
-    outline: 0px;
     padding: 0px;
     position: absolute;
     margin: 0px;
@@ -457,7 +456,6 @@
 /* Alert */
 
 div.Alert {
-    outline: none;
     position: fixed;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px 0px;
     padding: 0px 5px 5px;
@@ -475,12 +473,10 @@ div.Alert .wrap {
     position: relative;
     width: 100%;
     height: 100%;
-    outline: none;
     background: white;
 }
 
 div.Alert .wrap .title {
-    outline: none;
     cursor: default;
     white-space: nowrap;
     overflow: hidden;
@@ -492,7 +488,6 @@ div.Alert .wrap .title {
 }
 
 div.Alert .wrap .title .controls {
-    outline: none;
     position: absolute;
     left: 0px;
     right: 5px;
@@ -512,7 +507,6 @@ div.Alert .wrap .title .controls .icon {
 }
 
 div.Alert .wrap .content {
-    outline: none;
     position: absolute;
     font: 12px arial, sans-serif;
     top: 44px;
@@ -523,7 +517,6 @@ div.Alert .wrap .content {
 }
 
 div.Alert .wrap .buttons {
-    outline: none;
     line-height: 32px;
     position: absolute;
     bottom: 0px;
@@ -537,7 +530,6 @@ div.Alert .wrap .buttons {
 
 div.Alert .wrap .buttons .button-wrap {
     border: 0px;
-    outline: 0px;
     padding: 0px;
     position: relative;
     margin: 0px 5px 0px 0px;
@@ -552,7 +544,6 @@ div.Alert .wrap .buttons .button-wrap {
 div.Alert .wrap .buttons .button-wrap .button {
     pointer-events: none;
     border: 0px;
-    outline: 0px;
     padding: 0px;
     position: absolute;
     margin: 0px;
@@ -564,7 +555,6 @@ div.Alert .wrap .buttons .button-wrap .button {
 }
 
 div.Alert .resize {
-    outline: none;
     width: 10px;
     height: 10px;
     position: absolute;
