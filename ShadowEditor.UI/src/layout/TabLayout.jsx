@@ -14,7 +14,7 @@ class TabLayout extends React.Component {
         super(props);
 
         this.state = {
-            activeTab: 0,
+            activeTab: props.activeTab,
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -28,7 +28,8 @@ class TabLayout extends React.Component {
     }
 
     render() {
-        const { className, style, children, activeTab } = this.props;
+        const { className, style, children } = this.props;
+        const { activeTab } = this.state;
 
         return <div className={classNames('TabLayout', className)} style={style}>
             <div className={'tabs'}>
