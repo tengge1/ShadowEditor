@@ -1,0 +1,8 @@
+.Editor {
+    width: 100%;
+    height: 100%;
+}
+
+.Editor .box {
+    flex: 1;
+}
