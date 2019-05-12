@@ -10,6 +10,7 @@ import LightMenu from './menu/LightMenu.jsx';
 import AssetsMenu from './menu/AssetsMenu.jsx';
 import ComponentMenu from './menu/ComponentMenu.jsx';
 import PlayMenu from './menu/PlayMenu.jsx';
+import ToolMenu from './menu/ToolMenu.jsx';
 
 /**
  * 菜单栏
@@ -30,8 +31,7 @@ class MenuBar extends React.Component {
             <AssetsMenu />
             <ComponentMenu />
             <PlayMenu />
-            <MenuItem title={'Play'}></MenuItem>
-            <MenuItem title={'Tool'}></MenuItem>
+            <ToolMenu />
             <MenuItem title={'Options'}></MenuItem>
             <MenuItem title={'Help'}></MenuItem>
         </_MenuBar>;
