@@ -15,5 +15,6 @@
 }
 
 .MenuBar>.header>.MenuItem {
+    padding: 0 16px;
     display: inline-block;
 }
