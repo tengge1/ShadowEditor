@@ -3,12 +3,12 @@ import MenuItem from '../../menu/MenuItem.jsx';
 import MenuItemSeparator from '../../menu/MenuItemSeparator.jsx';
 
 /**
- * 场景菜单
+ * 编辑菜单
  * @author tengge / https://github.com/tengge1
  * @property {String} className 样式类
  * @property {Object} style 样式
  */
-class SceneMenu extends React.Component {
+class EditMenu extends React.Component {
     constructor(props) {
         super(props);
 
@@ -23,22 +23,20 @@ class SceneMenu extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <MenuItem title={'Scene'}>
-            <MenuItem title={'New'}>
-                <MenuItem title={'Empty Scene'} onClick={this.handleClick}></MenuItem>
-                <MenuItem title={'GIS Scene'}></MenuItem>
-            </MenuItem>
-            <MenuItem title={'Save'}></MenuItem>
-            <MenuItem title={'Save As'}></MenuItem>
+        return <MenuItem title={'Edit'}>
+            <MenuItem title={'Undo(Ctrl+Z)'}></MenuItem>
+            <MenuItem title={'Redo(Ctrl+Y)'}></MenuItem>
+            <MenuItem title={'Clear History'}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={'Export Scene'}></MenuItem>
+            <MenuItem title={'Clone'}></MenuItem>
+            <MenuItem title={'Delete(Del)'}></MenuItem>
         </MenuItem>;
     }
 }
 
-SceneMenu.propTypes = {
+EditMenu.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 };
 
-export default SceneMenu;
+export default EditMenu;

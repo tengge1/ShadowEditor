@@ -1,9 +1,19 @@
 .MenuItem {
-    position: relative;
     line-height: 24px;
-    padding: 4px 16px 4px 32px;
+    margin: 3px;
+    padding: 2px 14px 2px 30px;
     vertical-align: top;
     white-space: nowrap;
+    box-sizing: border-box;
+    cursor: pointer;
+    user-select: none;
+}
+
+.MenuItem:hover {
+    background: linear-gradient(to bottom, rgba(193, 222, 255, 0.2), rgba(193, 222, 255, 0.4));
+    color: black;
+    padding: 1px 13px 1px 29px;
+    border: 1px solid rgb(183, 212, 246);
 }
 
 .MenuItem .suffix {
@@ -20,6 +30,20 @@
     top: 0;
     box-sizing: border-box;
     cursor: default;
+    display: none;
+    z-index: 300;
+}
+
+.MenuItem .sub::before {
+    position: absolute;
+    left: -6px;
+    height: 100%;
+    width: 8px;
+    content: '';
+}
+
+.MenuItem:hover>.sub {
+    display: block;
 }
 
 .MenuItem .sub .wrap {

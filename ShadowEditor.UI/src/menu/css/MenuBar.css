@@ -11,8 +11,19 @@
 }
 
 .MenuBar>.MenuItem {
+    position: relative;
+    margin: 0;
     padding: 0 16px;
     display: inline-block;
+    cursor: default;
+}
+
+.MenuBar>.MenuItem:hover {
+    background: initial;
+    color: initial;
+    margin: 0;
+    padding: 0 16px;
+    border: initial;
 }
 
 .MenuBar>.MenuItem>.suffix {

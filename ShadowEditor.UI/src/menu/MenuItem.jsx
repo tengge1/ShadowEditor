@@ -10,13 +10,14 @@ import PropTypes from 'prop-types';
  * @property {Object} style 样式
  * @property {String} children 内容
  * @property {Boolean} show 是否显示
+ * @property {Function} onClick 点击事件
  */
 class MenuItem extends React.Component {
     render() {
-        const { title, className, style, children, show } = this.props;
+        const { title, className, style, children, show, onClick } = this.props;
 
         if (children && children.length) {
-            return <li className={classNames('MenuItem', show ? null : 'hidden', className)} style={style}>
+            return <li className={classNames('MenuItem', show ? null : 'hidden', className)} style={style} onClick={onClick}>
                 <span>{title}</span>
                 <div className={'suffix'}>
                     <i className={'iconfont icon-right-triangle'}></i>
@@ -39,6 +40,7 @@ MenuItem.propTypes = {
     style: PropTypes.object,
     children: PropTypes.element,
     show: PropTypes.bool,
+    onClick: PropTypes.func,
 };
 
 MenuItem.defaultProps = {

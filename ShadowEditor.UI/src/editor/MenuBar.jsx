@@ -3,6 +3,8 @@ import _MenuBar from '../menu/MenuBar.jsx';
 import MenuItem from '../menu/MenuItem.jsx';
 
 import SceneMenu from './menu/SceneMenu.jsx';
+import EditMenu from './menu/EditMenu.jsx';
+import TwoDMenu from './menu/TwoDMenu.jsx';
 
 /**
  * 菜单栏
@@ -16,8 +18,8 @@ class MenuBar extends React.Component {
 
         return <_MenuBar className={className} style={style}>
             <SceneMenu />
-            <MenuItem title={'Edit'}></MenuItem>
-            <MenuItem title={'2D'}></MenuItem>
+            <EditMenu />
+            <TwoDMenu />
             <MenuItem title={'Geometry'}></MenuItem>
             <MenuItem title={'Light'}></MenuItem>
             <MenuItem title={'Assets'}></MenuItem>
