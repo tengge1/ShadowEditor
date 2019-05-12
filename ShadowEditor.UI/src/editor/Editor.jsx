@@ -9,6 +9,7 @@ import MenuBar from './MenuBar.jsx';
 import Toolbar from './Toolbar.jsx';
 import Workspace from './Workspace.jsx';
 import SideBar from './SideBar.jsx';
+import StatusBar from './StatusBar.jsx';
 
 /**
  * 编辑器
@@ -20,8 +21,11 @@ class Editor {
             <VBoxLayout className={'Editor'}>
                 <MenuBar></MenuBar>
                 <HBoxLayout className={'box'}>
-                    <Toolbar></Toolbar>
-                    <Workspace></Workspace>
+                    <Toolbar />
+                    <VBoxLayout className={'center'}>
+                        <Workspace className={'workspace'}></Workspace>
+                        <StatusBar />
+                    </VBoxLayout>
                     <SideBar></SideBar>
                 </HBoxLayout>
             </VBoxLayout>

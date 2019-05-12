@@ -6,3 +6,7 @@
 .Editor .box {
     flex: 1;
 }
+
+.Editor .box .center {
+    flex: 1;
+}
