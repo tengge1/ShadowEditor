@@ -16,6 +16,7 @@ export { default as Toggle } from './form/Toggle.jsx';
 export { default as Icon } from './icon/Icon.jsx';
 
 // layout
+export { default as AbsoluteLayout } from './layout/AbsoluteLayout.jsx';
 export { default as Content } from './layout/Content.jsx';
 export { default as HBoxLayout } from './layout/HBoxLayout.jsx';
 export { default as TabLayout } from './layout/TabLayout.jsx';
