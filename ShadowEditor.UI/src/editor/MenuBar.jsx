@@ -9,6 +9,7 @@ import GeometryMenu from './menu/GeometryMenu.jsx';
 import LightMenu from './menu/LightMenu.jsx';
 import AssetsMenu from './menu/AssetsMenu.jsx';
 import ComponentMenu from './menu/ComponentMenu.jsx';
+import PlayMenu from './menu/PlayMenu.jsx';
 
 /**
  * 菜单栏
@@ -28,6 +29,7 @@ class MenuBar extends React.Component {
             <LightMenu />
             <AssetsMenu />
             <ComponentMenu />
+            <PlayMenu />
             <MenuItem title={'Play'}></MenuItem>
             <MenuItem title={'Tool'}></MenuItem>
             <MenuItem title={'Options'}></MenuItem>
