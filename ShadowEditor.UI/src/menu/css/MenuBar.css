@@ -15,6 +15,10 @@
     display: inline-block;
 }
 
+.MenuBar>.MenuItem>.suffix {
+    display: none;
+}
+
 .MenuBar>.MenuItem>.sub {
     position: absolute;
     left: 0;

@@ -1,9 +1,17 @@
 .MenuItem {
     position: relative;
     line-height: 24px;
-    padding: 4px 32px;
+    padding: 4px 16px 4px 32px;
     vertical-align: top;
     white-space: nowrap;
+}
+
+.MenuItem .suffix {
+    width: 40px;
+    margin-left: 48px;
+    margin-right: -4px;
+    text-align: right;
+    display: inline-block;
 }
 
 .MenuItem .sub {
