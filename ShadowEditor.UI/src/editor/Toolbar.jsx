@@ -1,3 +1,5 @@
+import './css/Toolbar.css';
+import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import _Toolbar from '../toolbar/Toolbar.jsx';
 import Icon from '../icon/Icon.jsx';
@@ -12,7 +14,7 @@ class Toolbar extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <_Toolbar direction={'vertical'} className={className} style={style}>
+        return <_Toolbar direction={'vertical'} className={classNames('EditorToolbar', className)} style={style}>
             <Icon icon={'select'}></Icon>
             <Icon icon={'translate'}></Icon>
             <Icon icon={'rotate'}></Icon>

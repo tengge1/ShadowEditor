@@ -1,3 +1,5 @@
+import './css/StatusBar.css';
+import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import Toolbar from '../toolbar/Toolbar.jsx';
 
@@ -11,7 +13,7 @@ class StatusBar extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <Toolbar className={className} style={style}>
+        return <Toolbar className={classNames('EditorStatusBar', className)} style={style}>
         </Toolbar>;
     }
 }
