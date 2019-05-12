@@ -1,7 +1,7 @@
 .MenuItem {
     position: relative;
     line-height: 24px;
-    padding: 4px 16px;
+    padding: 4px 32px;
     vertical-align: top;
     white-space: nowrap;
 }
@@ -18,6 +18,7 @@
     position: relative;
     list-style: none;
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABAQMAAADO7O3JAAAAA3NCSVQICAjb4U/gAAAABlBMVEXi4+P///9V63aNAAAACXBIWXMAAAsSAAALEgHS3X78AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M1cbXjNgAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNy8wNi8xMZANh+UAAAAKSURBVAiZY3AAAABCAEGV6TQ4AAAAAElFTkSuQmCC') repeat-y rgb(240, 240, 240);
+    background-position: 24px 0;
     margin: 0;
     padding: 0;
     border: 1px solid rgb(195, 195, 195);
