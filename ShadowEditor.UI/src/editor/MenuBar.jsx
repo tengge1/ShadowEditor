@@ -12,6 +12,7 @@ import ComponentMenu from './menu/ComponentMenu.jsx';
 import PlayMenu from './menu/PlayMenu.jsx';
 import ToolMenu from './menu/ToolMenu.jsx';
 import OptionsMenu from './menu/OptionsMenu.jsx';
+import HelpMenu from './menu/HelpMenu.jsx';
 
 /**
  * 菜单栏
@@ -34,7 +35,7 @@ class MenuBar extends React.Component {
             <PlayMenu />
             <ToolMenu />
             <OptionsMenu />
-            <MenuItem title={'Help'}></MenuItem>
+            <HelpMenu />
         </_MenuBar>;
     }
 }
