@@ -1,20 +1,20 @@
 .MenuItem {
     position: relative;
     line-height: 24px;
+    padding: 4px 16px;
     vertical-align: top;
     white-space: nowrap;
 }
 
-.MenuItem .dropDown {
+.MenuItem .sub {
     position: absolute;
-    left: 0;
-    top: 23px;
-    font: 13px arial, sans-serif;
+    left: 100%;
+    top: 0;
     box-sizing: border-box;
     cursor: default;
 }
 
-.MenuItem .dropDown .wrap {
+.MenuItem .sub .wrap {
     position: relative;
     list-style: none;
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABAQMAAADO7O3JAAAAA3NCSVQICAjb4U/gAAAABlBMVEXi4+P///9V63aNAAAACXBIWXMAAAsSAAALEgHS3X78AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M1cbXjNgAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNy8wNi8xMZANh+UAAAAKSURBVAiZY3AAAABCAEGV6TQ4AAAAAElFTkSuQmCC') repeat-y rgb(240, 240, 240);
@@ -25,8 +25,4 @@
     box-shadow: rgba(128, 128, 128, 0.5) 0px 0px 16px 1px;
     box-sizing: border-box;
     vertical-align: text-bottom;
-}
-
-.MenuItem .dropDown .wrap .MenuItem {
-    padding: 4px 16px;
 }

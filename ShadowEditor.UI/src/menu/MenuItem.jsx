@@ -18,7 +18,7 @@ class MenuItem extends React.Component {
         if (children && children.length) {
             return <li className={classNames('MenuItem', show ? null : 'hidden', className)} style={style}>
                 <span>{title}</span>
-                <div className={'dropDown'}>
+                <div className={'sub'}>
                     <ul className={'wrap'}>{children}</ul>
                 </div>
             </li>;

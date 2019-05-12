@@ -13,7 +13,10 @@ class SceneMenu extends React.Component {
         const { className, style } = this.props;
 
         return <MenuItem title={'Scene'}>
-            <MenuItem title={'New'}></MenuItem>
+            <MenuItem title={'New'}>
+                <MenuItem title={'Empty Scene'}></MenuItem>
+                <MenuItem title={'GIS Scene'}></MenuItem>
+            </MenuItem>
             <MenuItem title={'Save'}></MenuItem>
             <MenuItem title={'Save As'}></MenuItem>
             <MenuItemSeparator />

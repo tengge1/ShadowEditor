@@ -13,11 +13,7 @@ class MenuBar extends React.Component {
     render() {
         const { className, style, children } = this.props;
 
-        return <div className={classNames('MenuBar', className)} style={style}>
-            <ul className="header">
-                {children}
-            </ul>
-        </div>;
+        return <ul className={classNames('MenuBar', className)} style={style}>{children}</ul>;
     }
 }
 

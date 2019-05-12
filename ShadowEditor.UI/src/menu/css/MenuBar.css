@@ -1,20 +1,22 @@
 .MenuBar {
     font: 13px 'Microsoft YaHei';
     color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
     background: linear-gradient(to bottom, rgb(250, 252, 253), rgb(232, 241, 251) 40%, rgb(220, 230, 243) 40%, rgb(220, 231, 245));
     border-bottom: 1px solid rgb(153, 153, 153);
-    box-sizing: border-box;
-    user-select: none;
-}
-
-.MenuBar>.header {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
     display: inline-block;
+    box-sizing: border-box;
+    list-style: none;
 }
 
-.MenuBar>.header>.MenuItem {
+.MenuBar>.MenuItem {
     padding: 0 16px;
     display: inline-block;
+}
+
+.MenuBar>.MenuItem>.sub {
+    position: absolute;
+    left: 0;
+    top: auto;
 }
