@@ -30,53 +30,6 @@ class Workspace extends React.Component {
         const { className, style } = this.props;
 
         return <VBoxLayout className={classNames('Workspace', className)} style={style}>
-            <Form>
-                <FormControl>
-                    <Label>First Name:</Label>
-                    <Input />
-                </FormControl>
-                <FormControl>
-                    <Label>Last Name:</Label>
-                    <Input />
-                </FormControl>
-                <FormControl>
-                    <Label>Password:</Label>
-                    <Input />
-                    <Label>Confirm Password:</Label>
-                    <Input />
-                </FormControl>
-                <FormControl>
-                    <Label>Description:</Label>
-                    <TextArea></TextArea>
-                </FormControl>
-                <FormControl>
-                    <Button>Default</Button>
-                    <Button className={'primary'}>Primary</Button>
-                    <Button className={'success'}>Success</Button>
-                    <Button className={'warn'}>Warn</Button>
-                    <Button className={'danger'}>Danger</Button>
-                    <Button className={'disabled'}>Disabled</Button>
-                </FormControl>
-                <FormControl>
-                    <CheckBox></CheckBox>
-                    <CheckBox selected={true}></CheckBox>
-                    <CheckBox disabled={true}></CheckBox>
-                    <CheckBox selected={true} disabled={true}></CheckBox>
-                </FormControl>
-                <FormControl>
-                    <Radio></Radio>
-                    <Radio selected={true}></Radio>
-                    <Radio disabled={true}></Radio>
-                    <Radio selected={true} disabled={true}></Radio>
-                </FormControl>
-                <FormControl>
-                    <Toggle></Toggle>
-                    <Toggle selected={true}></Toggle>
-                    <Toggle disabled={true}></Toggle>
-                    <Toggle selected={true} disabled={true}></Toggle>
-                </FormControl>
-            </Form>
-            <Panel title={'Panel'}></Panel>
         </VBoxLayout>;
     }
 }
