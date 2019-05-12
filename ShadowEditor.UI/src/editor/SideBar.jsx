@@ -20,11 +20,11 @@ class SideBar extends React.Component {
         const { className, style } = this.props;
 
         return <VBoxLayout className={classNames('SideBar', className)} style={style}>
-            <TabLayout className={'half'}>
+            <TabLayout className={'top'}>
                 <Panel title={'Hierarchy'} header={false}></Panel>
                 <Panel title={'History'} header={false}></Panel>
             </TabLayout>
-            <TabLayout className={'half'}>
+            <TabLayout className={'bottom'}>
                 <Panel title={'Property'} header={false}></Panel>
                 <Panel title={'Animation'} header={false}></Panel>
             </TabLayout>

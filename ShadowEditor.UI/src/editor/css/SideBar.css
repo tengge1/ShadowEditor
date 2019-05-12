@@ -2,6 +2,10 @@
     width: 240px;
 }
 
-.SideBar .half {
-    height: 50%;
+.SideBar .top {
+    height: 320px;
+}
+
+.SideBar .bottom {
+    height: calc(100% - 320px);
 }
