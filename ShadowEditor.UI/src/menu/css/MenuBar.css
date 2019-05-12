@@ -7,16 +7,13 @@
     user-select: none;
 }
 
-.MenuBar .header {
+.MenuBar>.header {
     list-style: none;
     margin: 0px;
     padding: 0px;
     display: inline-block;
 }
 
-.MenuBar .header .header-item {
-    padding: 0 16px;
-    line-height: 24px;
+.MenuBar>.header>.MenuItem {
     display: inline-block;
-    vertical-align: top;
 }

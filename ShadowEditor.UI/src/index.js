@@ -26,6 +26,7 @@ export { default as DropDownItem } from './menu/DropDownItem.jsx';
 export { default as DropDownSeparator } from './menu/DropDownSeparator.jsx';
 export { default as MenuBar } from './menu/MenuBar.jsx';
 export { default as MenuItem } from './menu/MenuItem.jsx';
+export { default as MenuItemSeparator } from './menu/MenuItemSeparator.jsx';
 
 // panel
 export { default as Panel } from './panel/Panel.jsx';

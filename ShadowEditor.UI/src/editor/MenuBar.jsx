@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import _MenuBar from '../menu/MenuBar.jsx';
 import MenuItem from '../menu/MenuItem.jsx';
 
+import SceneMenu from './menu/SceneMenu.jsx';
+
 /**
  * 菜单栏
  * @author tengge / https://github.com/tengge1
@@ -13,7 +15,7 @@ class MenuBar extends React.Component {
         const { className, style } = this.props;
 
         return <_MenuBar className={className} style={style}>
-            <MenuItem title={'Scene'}></MenuItem>
+            <SceneMenu />
             <MenuItem title={'Edit'}></MenuItem>
             <MenuItem title={'2D'}></MenuItem>
             <MenuItem title={'Geometry'}></MenuItem>
