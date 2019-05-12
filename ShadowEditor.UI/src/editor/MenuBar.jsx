@@ -5,6 +5,7 @@ import MenuItem from '../menu/MenuItem.jsx';
 import SceneMenu from './menu/SceneMenu.jsx';
 import EditMenu from './menu/EditMenu.jsx';
 import TwoDMenu from './menu/TwoDMenu.jsx';
+import GeometryMenu from './menu/GeometryMenu.jsx';
 
 /**
  * 菜单栏
@@ -20,7 +21,7 @@ class MenuBar extends React.Component {
             <SceneMenu />
             <EditMenu />
             <TwoDMenu />
-            <MenuItem title={'Geometry'}></MenuItem>
+            <GeometryMenu />
             <MenuItem title={'Light'}></MenuItem>
             <MenuItem title={'Assets'}></MenuItem>
             <MenuItem title={'Component'}></MenuItem>
