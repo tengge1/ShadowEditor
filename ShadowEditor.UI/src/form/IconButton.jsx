@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 /**
  * 图标按钮
  * @author tengge / https://github.com/tengge1
+ * @property {String} icon 图标
  * @property {String} className 样式类
  * @property {Object} style 样式
  * @property {String} children 内容
@@ -12,9 +13,9 @@ import PropTypes from 'prop-types';
  */
 class IconButton extends React.Component {
     render() {
-        const { className, style, children, onClick } = this.props;
+        const { icon, className, style, children, onClick } = this.props;
         return <button className={classNames('IconButton', className)} style={style} onClick={onClick}>
-            {children}
+            <i className={classNames('iconfont', icon ? 'icon-' + icon : '')}></i>
         </button>;
     }
 }

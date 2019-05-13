@@ -2,7 +2,7 @@ import './css/Toolbar.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import _Toolbar from '../toolbar/Toolbar.jsx';
-import Icon from '../icon/Icon.jsx';
+import IconButton from '../form/IconButton.jsx';
 
 /**
  * 工具栏
@@ -15,14 +15,14 @@ class Toolbar extends React.Component {
         const { className, style } = this.props;
 
         return <_Toolbar direction={'vertical'} className={classNames('EditorToolbar', className)} style={style}>
-            <Icon icon={'select'}></Icon>
-            <Icon icon={'translate'}></Icon>
-            <Icon icon={'rotate'}></Icon>
-            <Icon icon={'scale'}></Icon>
-            <Icon icon={'point'}></Icon>
-            <Icon icon={'line'}></Icon>
-            <Icon icon={'spray'}></Icon>
-            <Icon icon={'texture'}></Icon>
+            <IconButton icon={'select'}></IconButton>
+            <IconButton icon={'translate'}></IconButton>
+            <IconButton icon={'rotate'}></IconButton>
+            <IconButton icon={'scale'}></IconButton>
+            <IconButton icon={'point'}></IconButton>
+            <IconButton icon={'line'}></IconButton>
+            <IconButton icon={'spray'}></IconButton>
+            <IconButton icon={'texture'}></IconButton>
         </_Toolbar>;
     }
 }

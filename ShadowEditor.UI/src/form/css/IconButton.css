@@ -1,10 +1,11 @@
 .IconButton {
-    height: 20px;
-    margin: 0 2px;
-    padding: 0 8px;
+    width: 32px;
+    height: 32px;
     color: #8a8a8a;
     background-color: #fff;
-    border: 1px solid #8a8a8a;
+    margin: 2px;
+    padding: 0;
+    border: none;
     box-sizing: border-box;
     cursor: pointer;
 }
@@ -13,27 +14,6 @@
     background-color: #eee;
 }
 
-.IconButton.primary {
-    color: #3399ff;
-    border: 1px solid #3399ff;
-}
-
-.IconButton.success {
-    color: #64CF40;
-    border: 1px solid #64CF40;
-}
-
-.IconButton.warn {
-    color: #F6A623;
-    border: 1px solid #F6A623;
-}
-
-.IconButton.danger {
-    color: #E74C3C;
-    border: 1px solid #E74C3C;
-}
-
-.IconButton.disabled {
-    color: #ebebeb;
-    border: 1px solid #ebebeb;
+.IconButton .iconfont {
+    font-size: 20px;
 }
