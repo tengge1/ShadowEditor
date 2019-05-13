@@ -2,6 +2,7 @@ import './css/EToolbar.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import Toolbar from '../toolbar/Toolbar.jsx';
+import ToolbarSeparator from '../toolbar/ToolbarSeparator.jsx';
 import IconButton from '../form/IconButton.jsx';
 
 /**
@@ -19,6 +20,7 @@ class EToolbar extends React.Component {
             <IconButton icon={'translate'}></IconButton>
             <IconButton icon={'rotate'}></IconButton>
             <IconButton icon={'scale'}></IconButton>
+            <ToolbarSeparator />
             <IconButton icon={'point'}></IconButton>
             <IconButton icon={'line'}></IconButton>
             <IconButton icon={'spray'}></IconButton>

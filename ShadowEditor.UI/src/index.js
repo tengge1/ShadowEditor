@@ -32,6 +32,7 @@ export { default as Panel } from './panel/Panel.jsx';
 
 // toolbar
 export { default as Toolbar } from './toolbar/Toolbar.jsx';
+export { default as ToolbarSeparator } from './toolbar/ToolbarSeparator.jsx';
 
 // tree
 export { default as Tree } from './tree/Tree.jsx';
