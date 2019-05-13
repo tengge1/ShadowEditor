@@ -30,6 +30,7 @@ class Workspace extends React.Component {
         const { className, style } = this.props;
 
         return <VBoxLayout className={classNames('Workspace', className)} style={style}>
+            <Button className={'primary'}>Test Button</Button>
         </VBoxLayout>;
     }
 }

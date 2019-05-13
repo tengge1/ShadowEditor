@@ -2,16 +2,18 @@
     width: 32px;
     height: 32px;
     color: #8a8a8a;
-    background-color: #fff;
-    margin: 2px;
+    background: none;
+    margin: 4px;
     padding: 0;
-    border: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     box-sizing: border-box;
     cursor: pointer;
 }
 
 .IconButton:hover {
-    background-color: #eee;
+    background: linear-gradient(to bottom, rgba(193, 222, 255, 0.2), rgba(193, 222, 255, 0.4));
+    border: 1px solid rgb(183, 212, 246);
 }
 
 .IconButton .iconfont {
