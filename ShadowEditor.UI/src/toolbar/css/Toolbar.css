@@ -8,7 +8,7 @@
 
 .Toolbar.horizontal {
     width: 100%;
-    height: 32px;
+    height: 28px;
     flex-direction: row;
     background: linear-gradient(to bottom, rgb(250, 252, 253), rgb(232, 241, 251) 40%, rgb(220, 230, 243) 40%, rgb(220, 231, 245));
 }
