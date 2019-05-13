@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import _MenuBar from '../menu/MenuBar.jsx';
+import MenuBar from '../menu/MenuBar.jsx';
 import MenuItem from '../menu/MenuItem.jsx';
 
 import SceneMenu from './menu/SceneMenu.jsx';
@@ -20,11 +20,11 @@ import HelpMenu from './menu/HelpMenu.jsx';
  * @property {String} className 样式类
  * @property {Object} style 样式
  */
-class MenuBar extends React.Component {
+class EMenuBar extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <_MenuBar className={className} style={style}>
+        return <MenuBar className={className} style={style}>
             <SceneMenu />
             <EditMenu />
             <TwoDMenu />
@@ -36,13 +36,13 @@ class MenuBar extends React.Component {
             <ToolMenu />
             <OptionsMenu />
             <HelpMenu />
-        </_MenuBar>;
+        </MenuBar>;
     }
 }
 
-MenuBar.propTypes = {
+EMenuBar.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 };
 
-export default MenuBar;
+export default EMenuBar;

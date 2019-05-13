@@ -5,8 +5,8 @@ import HBoxLayout from '../layout/HBoxLayout.jsx';
 import VBoxLayout from '../layout/VBoxLayout.jsx';
 
 // panel
-import MenuBar from './MenuBar.jsx';
-import Toolbar from './Toolbar.jsx';
+import EMenuBar from './EMenuBar.jsx';
+import EToolbar from './EToolbar.jsx';
 import Workspace from './Workspace.jsx';
 import SideBar from './SideBar.jsx';
 import StatusBar from './StatusBar.jsx';
@@ -19,9 +19,9 @@ class Editor {
     render(container) {
         const component = (
             <VBoxLayout className={'Editor'}>
-                <MenuBar></MenuBar>
+                <EMenuBar></EMenuBar>
                 <HBoxLayout className={'box'}>
-                    <Toolbar />
+                    <EToolbar></EToolbar>
                     <VBoxLayout className={'center'}>
                         <Workspace className={'workspace'}></Workspace>
                         <StatusBar />

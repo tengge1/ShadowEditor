@@ -1,7 +1,7 @@
-import './css/Toolbar.css';
+import './css/EToolbar.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import _Toolbar from '../toolbar/Toolbar.jsx';
+import Toolbar from '../toolbar/Toolbar.jsx';
 import IconButton from '../form/IconButton.jsx';
 
 /**
@@ -10,11 +10,11 @@ import IconButton from '../form/IconButton.jsx';
  * @property {String} className 样式类
  * @property {Object} style 样式
  */
-class Toolbar extends React.Component {
+class EToolbar extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <_Toolbar direction={'vertical'} className={classNames('EditorToolbar', className)} style={style}>
+        return <Toolbar direction={'vertical'} className={classNames('EToolbar', className)} style={style}>
             <IconButton icon={'select'}></IconButton>
             <IconButton icon={'translate'}></IconButton>
             <IconButton icon={'rotate'}></IconButton>
@@ -23,13 +23,13 @@ class Toolbar extends React.Component {
             <IconButton icon={'line'}></IconButton>
             <IconButton icon={'spray'}></IconButton>
             <IconButton icon={'texture'}></IconButton>
-        </_Toolbar>;
+        </Toolbar>;
     }
 }
 
-Toolbar.propTypes = {
+EToolbar.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 };
 
-export default Toolbar;
+export default EToolbar;
