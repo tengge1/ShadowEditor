@@ -1,4 +1,4 @@
-import './css/Workspace.css';
+import './css/EWorkspace.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
@@ -25,18 +25,18 @@ import Panel from '../panel/Panel.jsx';
  * @property {String} className 样式类
  * @property {Object} style 样式
  */
-class Workspace extends React.Component {
+class EWorkspace extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <VBoxLayout className={classNames('Workspace', className)} style={style}>
+        return <VBoxLayout className={classNames('EWorkspace', className)} style={style}>
         </VBoxLayout>;
     }
 }
 
-Workspace.propTypes = {
+EWorkspace.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 };
 
-export default Workspace;
+export default EWorkspace;

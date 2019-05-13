@@ -1,4 +1,4 @@
-import './css/Sidebar.css';
+import './css/ESideBar.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
@@ -15,11 +15,11 @@ import Panel from '../panel/Panel.jsx';
  * @property {String} className 样式类
  * @property {Object} style 样式
  */
-class SideBar extends React.Component {
+class ESideBar extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <VBoxLayout className={classNames('SideBar', className)} style={style}>
+        return <VBoxLayout className={classNames('ESideBar', className)} style={style}>
             <TabLayout className={'top'}>
                 <Panel title={'Hierarchy'} header={false}></Panel>
                 <Panel title={'History'} header={false}></Panel>
@@ -32,9 +32,9 @@ class SideBar extends React.Component {
     }
 }
 
-SideBar.propTypes = {
+ESideBar.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 };
 
-export default SideBar;
+export default ESideBar;

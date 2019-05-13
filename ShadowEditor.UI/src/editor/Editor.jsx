@@ -7,9 +7,9 @@ import VBoxLayout from '../layout/VBoxLayout.jsx';
 // panel
 import EMenuBar from './EMenuBar.jsx';
 import EToolbar from './EToolbar.jsx';
-import Workspace from './Workspace.jsx';
-import SideBar from './SideBar.jsx';
-import StatusBar from './StatusBar.jsx';
+import EWorkspace from './EWorkspace.jsx';
+import ESideBar from './ESideBar.jsx';
+import EStatusBar from './EStatusBar.jsx';
 
 /**
  * 编辑器
@@ -23,10 +23,10 @@ class Editor {
                 <HBoxLayout className={'box'}>
                     <EToolbar></EToolbar>
                     <VBoxLayout className={'center'}>
-                        <Workspace className={'workspace'}></Workspace>
-                        <StatusBar />
+                        <EWorkspace className={'workspace'}></EWorkspace>
+                        <EStatusBar></EStatusBar>
                     </VBoxLayout>
-                    <SideBar></SideBar>
+                    <ESideBar></ESideBar>
                 </HBoxLayout>
             </VBoxLayout>
         );

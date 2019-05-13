@@ -33,6 +33,9 @@ export { default as Panel } from './panel/Panel.jsx';
 // toolbar
 export { default as Toolbar } from './toolbar/Toolbar.jsx';
 
+// tree
+export { default as Tree } from './tree/Tree.jsx';
+
 // window
 export { default as Alert } from './window/Alert.jsx';
 

@@ -1,11 +1,11 @@
-.SideBar {
+.ESideBar {
     width: 240px;
 }
 
-.SideBar .top {
+.ESideBar .top {
     height: 320px;
 }
 
-.SideBar .bottom {
+.ESideBar .bottom {
     height: calc(100% - 320px);
 }
