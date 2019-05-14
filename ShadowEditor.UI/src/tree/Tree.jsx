@@ -28,11 +28,14 @@ class Tree extends React.Component {
 
     createNode(data) {
         const leaf = !data.children || data.children.length === 0;
-        const children = leaf ? null : (<ul className={'sub'}>{data.children.map(n => {
+        const expand = data.expand ? true : false;
+        const children = leaf ? null : (<ul className={classNames('sub', expand ? null : 'hide')}>{data.children.map(n => {
             return this.createNode(n);
         })}</ul>);
 
         return <li className={'node'} value={data.value} key={data.value}>
+            <i className={classNames('expand', leaf ? null : (expand ? 'minus' : 'plus'))}></i>
+            <i className={classNames('type', leaf ? 'node' : (expand ? 'open' : 'close'))}></i>
             <a href={'javascript:;'}>{data.text}</a>
             {leaf ? null : children}
         </li>;
