@@ -5,16 +5,37 @@ import PropTypes from 'prop-types';
 /**
  * 树
  * @author tengge / https://github.com/tengge1
+ * @property {Array} data 数据
  * @property {String} className 样式类
  * @property {Object} style 样式
  */
 class Tree extends React.Component {
-    render() {
-        const { className, style } = this.props;
+    constructor(props) {
+        super(props);
+    }
 
-        return <div className={classNames('Tree', className)} style={style}>
-            树
-        </div>;
+    render() {
+        const { data, className, style } = this.props;
+
+        var list = [];
+
+        Array.isArray(data) && data.forEach(n => {
+            list.push(this.createNode(n));
+        });
+
+        return <ul>{list}</ul>;
+    }
+
+    createNode(data) {
+        const leaf = !data.children || data.children.length === 0;
+        const children = leaf ? null : (<ul>{data.children.map(n => {
+            return this.createNode(n);
+        })}</ul>);
+
+        return <li value={data.value} key={data.value}>
+            <a href={'javascript:;'}>{data.text}</a>
+            {leaf ? null : <ul>{children}</ul>}
+        </li>;
     }
 }
 

@@ -12,7 +12,7 @@
 }
 
 .IconButton:hover {
-    background: linear-gradient(to bottom, rgba(193, 222, 255, 0.2), rgba(193, 222, 255, 0.4));
+    background: linear-gradient(to bottom, rgba(193, 222, 255, 0.8), rgba(193, 222, 255, 0.98));
     border: 1px solid rgb(183, 212, 246);
 }
 

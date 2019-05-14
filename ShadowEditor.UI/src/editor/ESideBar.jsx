@@ -2,12 +2,12 @@ import './css/ESideBar.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
-// layout
 import TabLayout from '../layout/TabLayout.jsx';
 import VBoxLayout from '../layout/VBoxLayout.jsx';
 
-// panel
 import Panel from '../panel/Panel.jsx';
+
+import HierarchyPanel from './sidebar/HierarchyPanel.jsx';
 
 /**
  * 侧边栏
@@ -21,7 +21,7 @@ class ESideBar extends React.Component {
 
         return <VBoxLayout className={classNames('ESideBar', className)} style={style}>
             <TabLayout className={'top'}>
-                <Panel title={'Hierarchy'} header={false}></Panel>
+                <HierarchyPanel title={'Hierarchy'} />
                 <Panel title={'History'} header={false}></Panel>
             </TabLayout>
             <TabLayout className={'bottom'}>
