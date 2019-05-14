@@ -17,7 +17,7 @@
     width: 32px;
     height: 100%;
     flex-direction: column;
-    background: linear-gradient(to right, rgb(250, 252, 253), rgb(232, 241, 251) 40%, rgb(220, 230, 243) 40%, rgb(220, 231, 245));
+    background: #fafafa;
 }
 
 .Toolbar .Icon {
