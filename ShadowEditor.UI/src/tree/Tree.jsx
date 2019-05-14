@@ -23,18 +23,18 @@ class Tree extends React.Component {
             list.push(this.createNode(n));
         });
 
-        return <ul>{list}</ul>;
+        return <ul className={classNames('Tree', className)} style={style}>{list}</ul>;
     }
 
     createNode(data) {
         const leaf = !data.children || data.children.length === 0;
-        const children = leaf ? null : (<ul>{data.children.map(n => {
+        const children = leaf ? null : (<ul className={'sub'}>{data.children.map(n => {
             return this.createNode(n);
         })}</ul>);
 
-        return <li value={data.value} key={data.value}>
+        return <li className={'node'} value={data.value} key={data.value}>
             <a href={'javascript:;'}>{data.text}</a>
-            {leaf ? null : <ul>{children}</ul>}
+            {leaf ? null : children}
         </li>;
     }
 }
