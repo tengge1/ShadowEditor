@@ -1,0 +1,6 @@
+.PropertyGrid {
+    position: relative;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
