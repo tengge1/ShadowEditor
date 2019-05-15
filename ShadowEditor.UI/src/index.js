@@ -30,6 +30,9 @@ export { default as MenuItemSeparator } from './menu/MenuItemSeparator.jsx';
 // panel
 export { default as Panel } from './panel/Panel.jsx';
 
+// property
+export { default as PropertyGrid } from './property/PropertyGrid.jsx';
+
 // toolbar
 export { default as Toolbar } from './toolbar/Toolbar.jsx';
 export { default as ToolbarSeparator } from './toolbar/ToolbarSeparator.jsx';
