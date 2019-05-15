@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import TabLayout from '../layout/TabLayout.jsx';
 import VBoxLayout from '../layout/VBoxLayout.jsx';
 
-import Panel from '../panel/Panel.jsx';
-
 import HierarchyPanel from './sidebar/HierarchyPanel.jsx';
+import HistoryPanel from './sidebar/HistoryPanel.jsx';
+import PropertyPanel from './sidebar/PropertyPanel.jsx';
+import AnimationPanel from './sidebar/AnimationPanel.jsx';
 
 /**
  * 侧边栏
@@ -22,11 +23,11 @@ class ESideBar extends React.Component {
         return <VBoxLayout className={classNames('ESideBar', className)} style={style}>
             <TabLayout className={'top'}>
                 <HierarchyPanel title={'Hierarchy'} />
-                <Panel title={'History'} header={false}></Panel>
+                <HistoryPanel title={'History'}></HistoryPanel>
             </TabLayout>
             <TabLayout className={'bottom'}>
-                <Panel title={'Property'} header={false}></Panel>
-                <Panel title={'Animation'} header={false}></Panel>
+                <PropertyPanel title={'Property'}></PropertyPanel>
+                <AnimationPanel title={'Animation'}></AnimationPanel>
             </TabLayout>
         </VBoxLayout>;
     }
