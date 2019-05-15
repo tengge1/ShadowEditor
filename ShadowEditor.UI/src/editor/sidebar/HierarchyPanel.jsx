@@ -17,11 +17,11 @@ class HierarchyPanel extends React.Component {
 
         this.data = [{
             value: '1',
-            text: '程序员',
+            text: 'Programmer',
             expand: true,
             children: [{
                 value: '11',
-                text: '前端',
+                text: 'Front-end',
                 expand: true,
                 children: [{
                     value: '111',
@@ -35,7 +35,7 @@ class HierarchyPanel extends React.Component {
                 }]
             }, {
                 value: '12',
-                text: '后端',
+                text: 'Back-end',
                 children: [{
                     value: '121',
                     text: 'Java',
@@ -46,14 +46,14 @@ class HierarchyPanel extends React.Component {
             }]
         }, {
             value: '2',
-            text: '测试',
+            text: 'Testing',
             expand: true,
             children: [{
                 value: '21',
-                text: '黑盒测试'
+                text: 'Black Box Test'
             }, {
                 value: '22',
-                text: '白盒测试'
+                text: 'White Box Test'
             }]
         }];
     }
