@@ -18,8 +18,8 @@ class PropertyGrid extends React.Component {
                 return <div className={'group'} key={i}>
                     <div className={'name'}>{group.name}</div>
                     <div className={'property'}>
-                        {group.children.map(item => {
-                            return <div className={'item'}>
+                        {group.children.map((item, j) => {
+                            return <div className={'item'} key={item.name || j}>
                                 <div className={'label'}>{item.label}</div>
                                 <div className={'value'}>{item.value}</div>
                             </div>;
