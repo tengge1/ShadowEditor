@@ -15,7 +15,7 @@ class PropertyPanel extends React.Component {
         super(props);
 
         this.data = [{
-            groupName: 'General',
+            name: 'General',
             expand: true,
             children: [{
                 type: 'text',
@@ -34,7 +34,7 @@ class PropertyPanel extends React.Component {
                 value: true,
             }]
         }, {
-            groupName: 'Transform',
+            name: 'Transform',
             expand: false,
             children: [{
                 type: 'number',
