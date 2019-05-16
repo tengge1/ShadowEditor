@@ -5,6 +5,8 @@
     box-sizing: border-box;
     overflow-x: hidden;
     overflow-y: auto;
+    cursor: default;
+    user-select: none;
 }
 
 .PropertyGrid .group {

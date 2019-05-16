@@ -10,6 +10,10 @@ import PropTypes from 'prop-types';
  * @property {Object} data 数据
  */
 class PropertyGrid extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         const { className, style, data } = this.props;
 

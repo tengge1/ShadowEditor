@@ -2,6 +2,8 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    font: 12px 'Microsoft YaHei';
+    line-height: 18px;
 }
 
 .Tree .node i {
