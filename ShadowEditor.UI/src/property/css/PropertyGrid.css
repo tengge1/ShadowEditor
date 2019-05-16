@@ -11,9 +11,42 @@
     background: #ecf0f1;
 }
 
-.PropertyGrid .group>.title {
+.PropertyGrid .group .head {
+    height: 20px;
+    box-sizing: border-box;
+}
+
+.PropertyGrid .group .head .icon {
+    width: 20px;
+    height: 20px;
+    float: left;
+}
+
+.PropertyGrid .group .head .icon .icon-expand {
+    width: 20px;
+    height: 20px;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAMAAAD3JJ6EAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzBCN0FCRUU3NzExMTFFOTlFQjFFMDA4RkM3NzE5OTIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzBCN0FCRUY3NzExMTFFOTlFQjFFMDA4RkM3NzE5OTIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDMEI3QUJFQzc3MTExMUU5OUVCMUUwMDhGQzc3MTk5MiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDMEI3QUJFRDc3MTExMUU5OUVCMUUwMDhGQzc3MTk5MiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrAM5dcAAABFUExURb/BwfT3977BwamqqsnMzZOUlNPX19/j5ImKioeHh/f5+d7h4snLzNTY2Pr7/IiIiJOTk6mrq56foJ6fn7S1toaGhv///4ulXXIAAAAXdFJOU/////////////////////////////8A5kDmXgAAAD1JREFUeNokxkkSgCAAA8GguADukvz/qVRgDlONmUx0L8rdwX1DxuAkSL/1BfM0V5mqZL0GtTx+Zzz8JsAA9ZAFxigsqFUAAAAASUVORK5CYII=);
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+}
+
+.PropertyGrid .group .head .icon .icon-collapse {
+    width: 20px;
+    height: 20px;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAMAAAC+Ge+yAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTlEMEIzNDQ3NzEyMTFFOUE2RDFDMzI1OUNGODkzQjEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTlEMEIzNDU3NzEyMTFFOUE2RDFDMzI1OUNGODkzQjEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxOUQwQjM0Mjc3MTIxMUU5QTZEMUMzMjU5Q0Y4OTNCMSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxOUQwQjM0Mzc3MTIxMUU5QTZEMUMzMjU5Q0Y4OTNCMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Ps1N6eUAAAA/UExURYiJiZ6en6mrq8nMzamqqtTY2NPX14eHh77AwPr7+4iIiN/j5N/i45+foL/CwsnLzPj6+rS1tpOTk4aGhv///0pgFIkAAAAVdFJOU///////////////////////////ACvZfeoAAAA3SURBVHjaYmDiFgEDBmEGPgFOMENYmJENyhAWFoQxhIX4YQxmFCleVpBidi4OiDksPBADAQIMAOvOBU7M/UDuAAAAAElFTkSuQmCC);
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+}
+
+.PropertyGrid .group .head .title {
+    width: calc(100% - 20px);
     height: 20px;
     line-height: 20px;
+    padding-left: 4px;
+    display: inline-block;
+    border-bottom: 1px solid #d9d9d9;
     box-sizing: border-box;
 }
 
@@ -21,6 +54,10 @@
     position: relative;
     background: #fff;
     margin-left: 20px;
+}
+
+.PropertyGrid .group .property.hide {
+    display: none;
 }
 
 .PropertyGrid .group .property .item {
@@ -31,18 +68,17 @@
     vertical-align: middle;
 }
 
-.PropertyGrid .group .property .item:first-child {
-    border-top: 1px solid #d9d9d9;
-}
-
 .PropertyGrid .group .property .item .label {
     width: 120px;
+    padding: 0 4px;
     display: inline-block;
     box-sizing: border-box;
 }
 
 .PropertyGrid .group .property .item .value {
     width: calc(100% - 120px);
+    padding: 0 4px;
     display: inline-block;
+    border-left: 1px solid #d9d9d9;
     box-sizing: border-box;
 }

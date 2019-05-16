@@ -16,8 +16,13 @@ class PropertyGrid extends React.Component {
         return <div className={classNames('PropertyGrid', className)} style={style}>
             {data.map((group, i) => {
                 return <div className={'group'} key={i}>
-                    <div className={'title'}>{group.name}</div>
-                    <div className={'property'}>
+                    <div className={'head'}>
+                        <div className={'icon'}>
+                            <i className={group.expand !== false ? 'icon-expand' : 'icon-collapse'} />
+                        </div>
+                        <div className={'title'}>{group.name}</div>
+                    </div>
+                    <div className={classNames('property', group.expand === false ? 'hide' : null)}>
                         {group.children.map((item, j) => {
                             return <div className={'item'} key={item.name || j}>
                                 <div className={'label'}>{item.label}</div>
