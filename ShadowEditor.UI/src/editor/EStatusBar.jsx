@@ -9,13 +9,12 @@ import Label from '../form/Label.jsx';
  * 菜单栏
  * @author tengge / https://github.com/tengge1
  * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class EStatusBar extends React.Component {
     render() {
-        const { className, style } = this.props;
+        const { className, ...others } = this.props;
 
-        return <Toolbar className={classNames('EStatusBar', className)} style={style}>
+        return <Toolbar className={classNames('EStatusBar', className)} {...others}>
             <Label>Object</Label>
             <Label>198</Label>
             <Label>Vertex</Label>
@@ -28,7 +27,6 @@ class EStatusBar extends React.Component {
 
 EStatusBar.propTypes = {
     className: PropTypes.string,
-    style: PropTypes.object,
 };
 
 export default EStatusBar;

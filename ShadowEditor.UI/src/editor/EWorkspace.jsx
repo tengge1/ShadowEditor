@@ -23,20 +23,18 @@ import Panel from '../panel/Panel.jsx';
  * 工作区
  * @author tengge / https://github.com/tengge1
  * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class EWorkspace extends React.Component {
     render() {
-        const { className, style } = this.props;
+        const { className, ...others } = this.props;
 
-        return <VBoxLayout className={classNames('EWorkspace', className)} style={style}>
+        return <VBoxLayout className={classNames('EWorkspace', className)} {...others}>
         </VBoxLayout>;
     }
 }
 
 EWorkspace.propTypes = {
     className: PropTypes.string,
-    style: PropTypes.object,
 };
 
 export default EWorkspace;

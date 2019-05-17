@@ -1,3 +1,4 @@
+import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import MenuBar from '../menu/MenuBar.jsx';
 import MenuItem from '../menu/MenuItem.jsx';
@@ -18,14 +19,12 @@ import HelpMenu from './menu/HelpMenu.jsx';
  * 菜单栏
  * @author tengge / https://github.com/tengge1
  * @property {String} className 样式类
- * @property {Object} style 样式
- * @property {String} region 区域
  */
 class EMenuBar extends React.Component {
     render() {
-        const { className, style, region } = this.props;
+        const { className, ...others } = this.props;
 
-        return <MenuBar className={className} region={region} style={style}>
+        return <MenuBar className={classNames('EMenuBar', className)} {...others}>
             <SceneMenu />
             <EditMenu />
             <TwoDMenu />
@@ -43,8 +42,6 @@ class EMenuBar extends React.Component {
 
 EMenuBar.propTypes = {
     className: PropTypes.string,
-    style: PropTypes.object,
-    region: PropTypes.string,
 };
 
 export default EMenuBar;

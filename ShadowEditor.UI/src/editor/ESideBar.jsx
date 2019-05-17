@@ -14,14 +14,12 @@ import AnimationPanel from './sidebar/AnimationPanel.jsx';
  * 侧边栏
  * @author tengge / https://github.com/tengge1
  * @property {String} className 样式类
- * @property {Object} style 样式
- * @property {String} region 区域
  */
 class ESideBar extends React.Component {
     render() {
-        const { className, style, region } = this.props;
+        const { className, ...others } = this.props;
 
-        return <VBoxLayout region={region} className={classNames('ESideBar', className)} style={style}>
+        return <VBoxLayout className={classNames('ESideBar', className)} {...others}>
             <TabLayout className={'top'}>
                 <HierarchyPanel title={'Hierarchy'} />
                 <HistoryPanel title={'History'}></HistoryPanel>
@@ -36,8 +34,6 @@ class ESideBar extends React.Component {
 
 ESideBar.propTypes = {
     className: PropTypes.string,
-    style: PropTypes.object,
-    region: PropTypes.string,
 };
 
 export default ESideBar;

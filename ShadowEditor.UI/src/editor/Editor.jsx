@@ -22,8 +22,8 @@ class Editor {
             <BorderLayout className={'Editor'}>
                 <EMenuBar region={'north'}></EMenuBar>
                 <EToolbar region={'west'}></EToolbar>
-                <VBoxLayout className={'center'} region={'center'}>
-                    <EWorkspace className={'workspace'}></EWorkspace>
+                <VBoxLayout region={'center'}>
+                    <EWorkspace></EWorkspace>
                     <EStatusBar></EStatusBar>
                 </VBoxLayout>
                 <ESideBar region={'east'} split={true}></ESideBar>
