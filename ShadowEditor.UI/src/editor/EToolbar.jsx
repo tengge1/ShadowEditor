@@ -10,12 +10,13 @@ import IconButton from '../form/IconButton.jsx';
  * @author tengge / https://github.com/tengge1
  * @property {String} className 样式类
  * @property {Object} style 样式
+ * @property {String} region 区域
  */
 class EToolbar extends React.Component {
     render() {
-        const { className, style } = this.props;
+        const { className, style, region } = this.props;
 
-        return <Toolbar direction={'vertical'} className={classNames('EToolbar', className)} style={style}>
+        return <Toolbar direction={'vertical'} region={region} className={classNames('EToolbar', className)} style={style}>
             <IconButton icon={'select'}></IconButton>
             <IconButton icon={'translate'}></IconButton>
             <IconButton icon={'rotate'}></IconButton>
@@ -32,6 +33,7 @@ class EToolbar extends React.Component {
 EToolbar.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    region: PropTypes.string,
 };
 
 export default EToolbar;

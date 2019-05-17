@@ -8,12 +8,13 @@ import PropTypes from 'prop-types';
  * @property {String} className 样式类
  * @property {Object} style 样式
  * @property {String} children 内容
+ * @property {String} region 与BorderLayout配合表示其区域
  */
 class MenuBar extends React.Component {
     render() {
-        const { className, style, children } = this.props;
+        const { className, style, children, region } = this.props;
 
-        return <ul className={classNames('MenuBar', className)} style={style}>{children}</ul>;
+        return <ul className={classNames('MenuBar', region, className)} style={style}>{children}</ul>;
     }
 }
 
@@ -21,6 +22,11 @@ MenuBar.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     children: PropTypes.element,
+    region: PropTypes.string,
+};
+
+MenuBar.defaultProps = {
+    region: null,
 };
 
 export default MenuBar;

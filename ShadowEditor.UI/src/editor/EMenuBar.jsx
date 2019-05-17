@@ -19,12 +19,13 @@ import HelpMenu from './menu/HelpMenu.jsx';
  * @author tengge / https://github.com/tengge1
  * @property {String} className 样式类
  * @property {Object} style 样式
+ * @property {String} region 区域
  */
 class EMenuBar extends React.Component {
     render() {
-        const { className, style } = this.props;
+        const { className, style, region } = this.props;
 
-        return <MenuBar className={className} style={style}>
+        return <MenuBar className={className} region={region} style={style}>
             <SceneMenu />
             <EditMenu />
             <TwoDMenu />
@@ -43,6 +44,7 @@ class EMenuBar extends React.Component {
 EMenuBar.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    region: PropTypes.string,
 };
 
 export default EMenuBar;

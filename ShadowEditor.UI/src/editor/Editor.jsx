@@ -1,6 +1,7 @@
 import './css/Editor.css';
 
 // layout
+import BorderLayout from '../layout/BorderLayout.jsx';
 import HBoxLayout from '../layout/HBoxLayout.jsx';
 import VBoxLayout from '../layout/VBoxLayout.jsx';
 
@@ -18,17 +19,15 @@ import EStatusBar from './EStatusBar.jsx';
 class Editor {
     render(container) {
         const component = (
-            <VBoxLayout className={'Editor'}>
-                <EMenuBar></EMenuBar>
-                <HBoxLayout className={'box'}>
-                    <EToolbar></EToolbar>
-                    <VBoxLayout className={'center'}>
-                        <EWorkspace className={'workspace'}></EWorkspace>
-                        <EStatusBar></EStatusBar>
-                    </VBoxLayout>
-                    <ESideBar></ESideBar>
-                </HBoxLayout>
-            </VBoxLayout>
+            <BorderLayout className={'Editor'}>
+                <EMenuBar region={'north'}></EMenuBar>
+                <EToolbar region={'west'}></EToolbar>
+                <VBoxLayout className={'center'} region={'center'}>
+                    <EWorkspace className={'workspace'}></EWorkspace>
+                    <EStatusBar></EStatusBar>
+                </VBoxLayout>
+                <ESideBar region={'east'} split={true}></ESideBar>
+            </BorderLayout>
         );
 
         ReactDOM.render(component, container);

@@ -11,12 +11,14 @@ import PropTypes from 'prop-types';
  * @property {String} children 内容
  * @property {Boolean} show 是否显示
  * @property {Boolean} header 是否显示标题
+ * @property {String} region 配合BorderLayout设置在哪个区域显示
+ * @property {Boolean} split 配置BorderLayout是否可以有一个可以拖动的边框
  */
 class Panel extends React.Component {
     render() {
-        const { title, className, style, children, show, header } = this.props;
+        const { title, className, style, children, show, header, region, split } = this.props;
 
-        return <div className={classNames('Panel', show ? null : 'hide', className)} style={style}>
+        return <div className={classNames('Panel', region, split ? 'split' : null, show ? null : 'hide', className)} style={style}>
             <div className={classNames('header', header ? null : 'hide')}>
                 <span className="title">{title}</span>
                 <div className="controls">
@@ -39,11 +41,15 @@ Panel.propTypes = {
     children: PropTypes.element,
     show: PropTypes.bool,
     header: PropTypes.bool,
+    region: PropTypes.string,
+    split: PropTypes.bool,
 };
 
 Panel.defaultProps = {
     show: true,
     header: true,
+    region: null,
+    split: false,
 };
 
 export default Panel;
