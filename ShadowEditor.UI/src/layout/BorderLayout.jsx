@@ -12,7 +12,21 @@ class BorderLayout extends React.Component {
     render() {
         const { className, style, children } = this.props;
 
-        return <div className={classNames('BorderLayout', className)} style={style}>{children}</div>;
+        const north = children.filter(n => n.props.region === 'north')[0];
+        const south = children.filter(n => n.props.region === 'south')[0];
+        const west = children.filter(n => n.props.region === 'west')[0];
+        const east = children.filter(n => n.props.region === 'east')[0];
+        const center = children.filter(n => n.props.region === 'center')[0];
+
+        return <div className={classNames('BorderLayout', className)} style={style}>
+            {north}
+            <div className={'fit'}>
+                {west}
+                {center}
+                {east}
+            </div>
+            {south}
+        </div>;
     }
 }
 
