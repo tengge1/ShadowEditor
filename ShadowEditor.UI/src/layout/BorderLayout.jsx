@@ -21,7 +21,9 @@ class BorderLayout extends React.Component {
         const eastSplit = east.props.split;
 
         return <div className={classNames('BorderLayout', className)} style={style}>
-            {north}
+            <div className={'north'}>
+                {north}
+            </div>
             <div className={'fit'}>
                 <div className={'west'}>
                     {west}
@@ -30,7 +32,9 @@ class BorderLayout extends React.Component {
                     {center}
                 </div>
                 <div className={'east'}>
-                    <div className={'split'}></div>
+                    <div className={classNames('split', 'expand')}>
+                        <div className={'button'}></div>
+                    </div>
                     {east}
                 </div>
             </div>
