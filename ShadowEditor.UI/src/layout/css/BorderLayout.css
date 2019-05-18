@@ -14,3 +14,13 @@
 .BorderLayout .fit .center {
     flex: 1;
 }
+
+.BorderLayout .fit .east {
+    display: flex;
+    flex-direction: row;
+}
+
+.BorderLayout .fit .east .split {
+    width: 16px;
+    background: #f00;
+}
