@@ -26,7 +26,7 @@ class BorderLayout extends React.Component {
                 <div className={'west'}>
                     {west}
                 </div>
-                <div class={'center'}>
+                <div className={'center'}>
                     {center}
                 </div>
                 <div className={'east'}>
