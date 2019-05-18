@@ -1,24 +1,24 @@
-import './css/Canvas.css';
+import './css/Image.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 /**
- * 画布
+ * 图片
  * @author tengge / https://github.com/tengge1
  * @property {String} className 样式类
  * @property {Object} style 样式
  */
-class Canvas extends React.Component {
+class Image extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <canvas className={classNames('Canvas', className)} style={style}></canvas>;
+        return <img className={classNames('Image', className)} style={style}></img>;
     }
 }
 
-Canvas.propTypes = {
+Image.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 };
 
-export default Canvas;
+export default Image;

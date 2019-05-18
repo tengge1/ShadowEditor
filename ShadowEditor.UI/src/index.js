@@ -23,6 +23,11 @@ export { default as HBoxLayout } from './layout/HBoxLayout.jsx';
 export { default as TabLayout } from './layout/TabLayout.jsx';
 export { default as VBoxLayout } from './layout/VBoxLayout.jsx';
 
+// media
+export { default as Canvas } from './media/Canvas.jsx';
+export { default as Image } from './media/Image.jsx';
+export { default as SVG } from './media/SVG.jsx';
+
 // menu
 export { default as MenuBar } from './menu/MenuBar.jsx';
 export { default as MenuItem } from './menu/MenuItem.jsx';
