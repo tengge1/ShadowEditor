@@ -320,9 +320,9 @@ ScenePanel.prototype.onLoadScene = function (obj) {
     this.app.editor.camera.updateProjectionMatrix();
 
     if (obj.options.selected) {
-        var obj = this.app.editor.objectByUuid(obj.options.selected);
-        if (obj) {
-            this.app.editor.select(obj);
+        var selected = this.app.editor.objectByUuid(obj.options.selected);
+        if (selected) {
+            this.app.editor.select(selected);
         }
     }
 

@@ -126,7 +126,7 @@ Histogram.prototype.fromJSON = function (json) {
     this.id = json.id;
     this.type = json.type;
     this.title = json.title;
-    this.data = data;
+    this.data = json.data || null;
     this.transform = json.transform || null;
 };
 

@@ -8,6 +8,8 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 
 ## v0.2.2即将更新
 
+1. 修复加载可视化场景的一些问题。（开发中）
+
 ## v0.2.1发布
 
 * 发布日期：2019年5月19日
@@ -29,6 +31,10 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 3. 三维地球。(开发中) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381)
 
 ![image](images/scene20190414.png)
+
+4. 数据可视化。(开发中)
+
+![image](images/scene20190520.png)
 
 [点击此处](images/README.md)查看更多截图。
 

@@ -149,7 +149,7 @@ LineChart.prototype.fromJSON = function (json) {
     this.id = json.id;
     this.type = json.type;
     this.title = json.title;
-    this.data = data;
+    this.data = json.data;
     this.transform = json.transform || null;
 };
 
