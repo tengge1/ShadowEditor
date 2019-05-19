@@ -3,28 +3,28 @@
 Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md) / [русский](README-ru.md)
 
 * 名称：Shadow Editor
-* 版本：v0.2.1(开发中)
+* 版本：v0.2.1
 * 简介：基于`three.js`的场景编辑器。
 
-## v0.2.1即将更新
+## v0.2.1发布
 
-1. 更新示例程序，主要是编辑器二维菜单演示。[码云](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
-
-## v0.2.0更新
-
-* 发布日期：2019年5月3日
+* 发布日期：2019年5月19日
 * 更新日志：
 
-1. 默认不再加载`ammo.js`。只有场景中存在刚体或柔软体时，才在播放时自动加载`ammo.js`，提升编辑器启动速度和非物理场景运行速度。
-2. 新增二维菜单：按钮、标签、面板、水平线、条形图、时间、竖直线、日期、时间圆盘、键值标签、表单、仪表、柱状图、折线图、侧边栏、柱状图2、散点图、饼状图、弦图、力导向图、树状图、集群图、包图、分区图。可拖动、保存、载入，可在播放器中查看。（开发中，仅供测试）
+1. 更新示例程序，主要是编辑器二维菜单演示。[码云](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
+2. 基于react.js的UI。（开发中）
 
 ## 项目截图
 
-1. 温馨小窝。(仅供参考)
+1. 基于react.js的UI。(开发中)
+
+![image](images/scene20190519.png)
+
+2. 室内场景编辑。(仅供参考)
 
 ![image](images/scene20190427.png)
 
-2. 三维地球。[Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381)
+3. 三维地球。(开发中) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381) [GitHub](https://tengge1.github.io/ShadowEditor-examples/index.html?sceneID=5cb46fa6c8b49a1fdc1ea381)
 
 ![image](images/scene20190414.png)
 
@@ -141,6 +141,14 @@ npm run build-docs
 基本几何体都支持多层嵌套。可以添加一个`组`（在几何体菜单中），然后在场景树状图上，将多个模型拖动到`组`上。
 
 ## 更新日志
+
+**v0.2.1**
+
+* 发布日期：2019年5月19日
+* 更新日志：
+
+1. 更新示例程序，主要是编辑器二维菜单演示。[码云](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
+2. 基于react.js的UI。（开发中）
 
 **v0.2.0**
 

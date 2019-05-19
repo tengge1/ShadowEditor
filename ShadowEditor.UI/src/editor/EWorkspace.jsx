@@ -26,7 +26,7 @@ class EWorkspace extends React.Component {
         const { className, ...others } = this.props;
 
         return <VBoxLayout className={classNames('EWorkspace', className)} {...others}>
-            <Panel title={'Panel'} style={{ width: '480px' }}>
+            <Panel title={'Panel'} style={{ width: '480px', marginTop: '320px' }}>
                 <Form>
                     <FormControl>
                         <Label>Button</Label>
