@@ -3,7 +3,7 @@
     left: 0;
     top: 0;
     width: 240px;
-    height: 320px;
+    min-height: 320px;
     border: 1px solid #e6e6e6;
     box-sizing: border-box;
 }
@@ -57,7 +57,8 @@
 
 .Panel .body {
     height: calc(100% - 32px);
-    color: #fff;
+    padding: 4px;
+    box-sizing: border-box;
 }
 
 .Panel .header.hide+div.body {

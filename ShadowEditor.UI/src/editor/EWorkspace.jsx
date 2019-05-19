@@ -2,7 +2,6 @@ import './css/EWorkspace.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
-// form
 import Button from '../form/Button.jsx';
 import CheckBox from '../form/CheckBox.jsx';
 import Form from '../form/Form.jsx';
@@ -13,11 +12,9 @@ import Radio from '../form/Radio.jsx';
 import TextArea from '../form/TextArea.jsx';
 import Toggle from '../form/Toggle.jsx';
 
-// layout
 import VBoxLayout from '../layout/VBoxLayout.jsx';
-
-// panel
 import Panel from '../panel/Panel.jsx';
+import Alert from '../window/Alert.jsx';
 
 /**
  * 工作区
@@ -29,6 +26,48 @@ class EWorkspace extends React.Component {
         const { className, ...others } = this.props;
 
         return <VBoxLayout className={classNames('EWorkspace', className)} {...others}>
+            <Panel title={'Panel'} style={{ width: '480px' }}>
+                <Form>
+                    <FormControl>
+                        <Label>Button</Label>
+                        <Button className={'primary'}>Primary</Button>
+                        <Button className={'success'}>Success</Button>
+                        <Button className={'warn'}>Warn</Button>
+                        <Button className={'danger'}>Danger</Button>
+                        <Button className={'disabled'}>Disabled</Button>
+                    </FormControl>
+                    <FormControl>
+                        <Label>Input</Label>
+                        <Input />
+                    </FormControl>
+                    <FormControl>
+                        <Label>CheckBox</Label>
+                        <CheckBox />
+                        <CheckBox selected={true} />
+                        <CheckBox disabled={true} />
+                        <CheckBox selected={true} disabled={true} />
+                    </FormControl>
+                    <FormControl>
+                        <Label>Radio</Label>
+                        <Radio />
+                        <Radio selected={true} />
+                        <Radio disabled={true} />
+                        <Radio selected={true} disabled={true} />
+                    </FormControl>
+                    <FormControl>
+                        <Label>Toggle</Label>
+                        <Toggle />
+                        <Toggle selected={true} />
+                        <Toggle disabled={true} />
+                        <Toggle selected={true} disabled={true} />
+                    </FormControl>
+                    <FormControl>
+                        <Label>TextArea</Label>
+                        <TextArea></TextArea>
+                    </FormControl>
+                </Form>
+            </Panel>
+            <Alert>Hello, world!</Alert>
         </VBoxLayout>;
     }
 }

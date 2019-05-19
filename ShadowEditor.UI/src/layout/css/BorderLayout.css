@@ -31,7 +31,8 @@
 
 .BorderLayout .fit .east .split {
     width: 12px;
-    background: #eee;
+    border: 1px solid #eee;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
