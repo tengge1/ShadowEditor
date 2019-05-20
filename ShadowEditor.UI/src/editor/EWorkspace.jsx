@@ -30,7 +30,7 @@ class EWorkspace extends React.Component {
                 <Form>
                     <FormControl>
                         <Label>Button</Label>
-                        <Button className={'primary'}>Primary</Button>
+                        <Button className={'primary'} onClick={() => { alert('Primary!'); }}>Primary</Button>
                         <Button className={'success'}>Success</Button>
                         <Button className={'warn'}>Warn</Button>
                         <Button className={'danger'}>Danger</Button>
