@@ -37,3 +37,10 @@
     color: #ebebeb;
     border: 1px solid #ebebeb;
 }
+
+.Button.disabled:hover {
+    background-color: #fff;
+    color: #ebebeb;
+    border: 1px solid #ebebeb;
+    cursor: default;
+}

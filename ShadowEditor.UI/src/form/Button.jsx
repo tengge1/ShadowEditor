@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
  */
 class Button extends React.Component {
     render() {
-        const { className, style, children, ...others } = this.props;
-        return <button className={classNames('Button', className)} style={style} {...others}>
+        const { className, style, children, color, disabled, ...others } = this.props;
+        return <button className={classNames('Button', color, disabled && 'disabled', className)} style={style} disabled={disabled && 'disabled'} {...others}>
             {children}
         </button>;
     }
@@ -19,12 +19,15 @@ Button.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     children: PropTypes.element,
+    color: PropTypes.oneOf(['primary', 'success', 'warn', 'danger']),
+    disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
     className: null,
     style: null,
     children: null,
+    disabled: false,
 };
 
 export default Button;
