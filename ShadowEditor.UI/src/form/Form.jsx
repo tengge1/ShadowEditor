@@ -1,21 +1,43 @@
 import './css/Form.css';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 /**
  * 表单
  * @author tengge / https://github.com/tengge1
- * @property {String} direction 方向：horizontal, vertical
- * @property {String} className 样式类
- * @property {Object} style 样式
- * @property {String} children 内容
  */
 class Form extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleSubmit = this.handleSubmit.bind(this, props.onSubmit);
+    }
+
+    handleSubmit(onSubmit) {
+        event.preventDefault();
+        onSubmit && onSubmit();
+    }
+
     render() {
-        const { direction, className, style, children } = this.props;
-        return <form className={classNames('Form', direction || 'vertical', className)} style={style}>
+        const { className, style, children, direction, ...others } = this.props;
+        return <form className={classNames('Form', direction, className)} style={style} onSubmit={this.handleSubmit} {...others}>
             {children}
         </form>;
     }
 }
+
+Form.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    children: PropTypes.element,
+    direction: PropTypes.oneOf(['horizontal', 'vertical']),
+};
+
+Form.defaultProps = {
+    className: null,
+    style: null,
+    children: null,
+    direction: 'horizontal',
+};
 
 export default Form;
