@@ -1,22 +1,31 @@
 import './css/FormControl.css';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 /**
  * 表单项
  * @author tengge / https://github.com/tengge1
- * @property {String} title 标题
- * @property {String} className 样式类
- * @property {Object} style 样式
- * @property {String} children 内容
  */
 class FormControl extends React.Component {
     render() {
-        const { title, className, style, children } = this.props;
+        const { className, style, children, ...others } = this.props;
 
-        return <div className={classNames('FormControl', className)} style={style}>
+        return <div className={classNames('FormControl', className)} style={style} {...others}>
             {children}
         </div>;
     }
 }
+
+FormControl.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    children: PropTypes.node,
+};
+
+FormControl.defaultProps = {
+    className: null,
+    style: null,
+    children: null,
+};
 
 export default FormControl;
