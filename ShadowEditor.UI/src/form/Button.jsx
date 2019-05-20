@@ -18,7 +18,7 @@ class Button extends React.Component {
 Button.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.element,
+    children: PropTypes.node,
     color: PropTypes.oneOf(['primary', 'success', 'warn', 'danger']),
     disabled: PropTypes.bool,
 };
@@ -27,6 +27,7 @@ Button.defaultProps = {
     className: null,
     style: null,
     children: null,
+    color: null,
     disabled: false,
 };
 
