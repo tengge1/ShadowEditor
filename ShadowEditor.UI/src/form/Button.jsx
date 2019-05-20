@@ -9,7 +9,11 @@ import PropTypes from 'prop-types';
 class Button extends React.Component {
     render() {
         const { className, style, children, color, disabled, ...others } = this.props;
-        return <button className={classNames('Button', color, disabled && 'disabled', className)} style={style} disabled={disabled && 'disabled'} {...others}>
+        return <button
+            className={classNames('Button', color, disabled && 'disabled', className)}
+            style={style}
+            disabled={disabled}
+            {...others}>
             {children}
         </button>;
     }

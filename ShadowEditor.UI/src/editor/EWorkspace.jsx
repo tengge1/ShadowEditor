@@ -43,7 +43,7 @@ class EWorkspace extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>CheckBox</Label>
-                        <CheckBox />
+                        <CheckBox onChange={value => { alert(value); }} />
                         <CheckBox selected={true} />
                         <CheckBox disabled={true} />
                         <CheckBox selected={true} disabled={true} />
