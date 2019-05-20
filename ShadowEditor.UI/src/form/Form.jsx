@@ -19,21 +19,29 @@ class Form extends React.Component {
     }
 
     render() {
-        const { className, style, children, direction, ...others } = this.props;
-        return <form className={classNames('Form', direction, className)} style={style} onSubmit={this.handleSubmit} {...others}>
+        const { className, style, children, direction, onSubmit, ...others } = this.props;
+        return <form
+            className={classNames('Form', direction, className)}
+            style={style}
+            onSubmit={this.handleSubmit}
+            {...others}>
             {children}
         </form>;
     }
 }
 
 Form.propTypes = {
+    onSubmit: PropTypes.func,
+
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.element,
+    children: PropTypes.node,
     direction: PropTypes.oneOf(['horizontal', 'vertical']),
 };
 
 Form.defaultProps = {
+    onSubmit: null,
+
     className: null,
     style: null,
     children: null,
