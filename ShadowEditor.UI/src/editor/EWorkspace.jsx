@@ -67,10 +67,10 @@ class EWorkspace extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>Radio</Label>
-                        <Radio />
-                        <Radio selected={true} />
-                        <Radio disabled={true} />
-                        <Radio selected={true} disabled={true} />
+                        <Radio name={'radio'} onChange={value => { alert(value); }} />
+                        <Radio name={'radio'} selected={true} />
+                        <Radio name={'radio'} disabled={true} />
+                        <Radio name={'radio'} selected={true} disabled={true} />
                     </FormControl>
                     <FormControl>
                         <Label>Toggle</Label>
