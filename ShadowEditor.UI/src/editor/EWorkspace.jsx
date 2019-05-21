@@ -81,7 +81,7 @@ class EWorkspace extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>TextArea</Label>
-                        <TextArea></TextArea>
+                        <TextArea onChange={value => { alert(value); }}></TextArea>
                     </FormControl>
                 </Form>
             </Panel>
