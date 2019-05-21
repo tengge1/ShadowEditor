@@ -4,6 +4,7 @@
     margin: 0 4px;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAUCAYAAADoZO9yAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABYSURBVEhL7da9CQAgDIRR918gC2SBzJGhImlEzsofMMUJrz2+dDYRiQrqhZhZuPsxVV3Gd4yQHLt5ecg8vIshiCGIIYghiCGIIaheSA5lzKln34DfioRIdJ5veQfy/zjLAAAAAElFTkSuQmCC);
     display: inline-block;
+    cursor: pointer;
 }
 
 .Toggle.selected {
@@ -12,6 +13,7 @@
 
 .Toggle.disabled {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAUCAYAAADoZO9yAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABVSURBVEhL7dY7CgAgDERB73/VEEiTOpJGZK38gClWmHZ56WwiEhXUCzGzcPdjqrqM7xghOXbz8pB5eBdDEEMQQxBDEEMQQ1C9kBzKmFPPvgG/FQmR6IJTLfO1daX2AAAAAElFTkSuQmCC);
+    cursor: default;
 }
 
 .Toggle.selected.disabled {

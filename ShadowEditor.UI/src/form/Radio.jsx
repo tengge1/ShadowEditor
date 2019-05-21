@@ -25,7 +25,7 @@ class Radio extends React.Component {
     }
 
     render() {
-        const { className, style, disabled, selected, onChange, ...others } = this.props;
+        const { className, style, selected, disabled, onChange, ...others } = this.props;
         return <input
             type={'radio'}
             className={classNames('Radio',
