@@ -55,7 +55,7 @@ class EWorkspace extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>Input</Label>
-                        <Input value={this.state.inputValue} placeholder={'Input something here.'} onInput={this.handleInput} />
+                        <Input value={this.state.inputValue} placeholder={'Input something here.'} onChange={this.handleInput} />
                         <Label>{this.state.inputValue}</Label>
                     </FormControl>
                     <FormControl>
