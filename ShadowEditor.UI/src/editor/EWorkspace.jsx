@@ -22,6 +22,22 @@ import Alert from '../window/Alert.jsx';
  * @property {String} className 样式类
  */
 class EWorkspace extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            inputValue: '',
+        };
+
+        this.handleInput = this.handleInput.bind(this);
+    }
+
+    handleInput(value) {
+        this.setState({
+            inputValue: value,
+        });
+    }
+
     render() {
         const { className, ...others } = this.props;
 
@@ -39,7 +55,8 @@ class EWorkspace extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>Input</Label>
-                        <Input />
+                        <Input value={this.state.inputValue} placeholder={'Input something here.'} onInput={this.handleInput} />
+                        <Label>{this.state.inputValue}</Label>
                     </FormControl>
                     <FormControl>
                         <Label>CheckBox</Label>
