@@ -15,7 +15,7 @@ class EToolbar extends React.Component {
         const { className, ...others } = this.props;
 
         return <Toolbar className={classNames('EToolbar', className)} direction={'vertical'} {...others}>
-            <IconButton icon={'select'}></IconButton>
+            <IconButton icon={'select'} selected={true} onClick={() => { alert('select!'); }}></IconButton>
             <IconButton icon={'translate'}></IconButton>
             <IconButton icon={'rotate'}></IconButton>
             <IconButton icon={'scale'}></IconButton>
