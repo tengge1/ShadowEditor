@@ -1,19 +1,34 @@
 import './css/Icon.css';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 /**
  * 图标
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
- * @property {String} children 内容
  */
 class Icon extends React.Component {
     render() {
-        const { icon, className, style, children } = this.props;
+        const { className, style, icon, ...others } = this.props;
 
-        return <div className={classNames('Icon', 'iconfont', icon ? 'icon-' + icon : '', className)} style={style}>{children}</div>;
+        return <div
+            className={classNames('Icon', 'iconfont',
+                icon && 'icon-' + icon,
+                className)}
+            style={style}
+            {...others}></div>;
     }
 }
+
+Icon.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    icon: PropTypes.string,
+};
+
+Icon.defaultProps = {
+    className: null,
+    style: null,
+    icon: null,
+};
 
 export default Icon;
