@@ -1,12 +1,10 @@
 import './css/BorderLayout.css';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 /**
  * 边框布局
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
- * @property {String} children 内容
  */
 class BorderLayout extends React.Component {
     render() {
@@ -42,5 +40,17 @@ class BorderLayout extends React.Component {
         </div>;
     }
 }
+
+BorderLayout.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    children: PropTypes.node,
+};
+
+BorderLayout.defaultProps = {
+    className: null,
+    style: null,
+    children: null,
+};
 
 export default BorderLayout;
