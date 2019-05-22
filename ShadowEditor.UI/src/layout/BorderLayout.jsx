@@ -7,8 +7,31 @@ import PropTypes from 'prop-types';
  * @author tengge / https://github.com/tengge1
  */
 class BorderLayout extends React.Component {
+    constructor(props) {
+        super(props);
+
+        const children = this.props.children;
+        const north = children.filter(n => n.props.region === 'north')[0];
+        const south = children.filter(n => n.props.region === 'south')[0];
+        const west = children.filter(n => n.props.region === 'west')[0];
+        const east = children.filter(n => n.props.region === 'east')[0];
+        const center = children.filter(n => n.props.region === 'center')[0];
+
+        // const northSplit = north.props.split? true : false;
+        // const southSplit = south.props.split? true : false;
+        // const westSplit = west.props.split? false;
+        // const eastSplit = east.props.split || false;
+
+        // this.state = {
+        //     northSplit: north.props.split || false,
+        //     southSplit: south.props.split || false,
+        //     westSplit: west.props.split || false,
+        //     eastSplit: east.props.split || false,
+        // };
+    }
+
     render() {
-        const { className, style, children } = this.props;
+        const { className, style, children, ...others } = this.props;
 
         const north = children.filter(n => n.props.region === 'north')[0];
         const south = children.filter(n => n.props.region === 'south')[0];
