@@ -12,6 +12,8 @@ import Radio from '../form/Radio.jsx';
 import TextArea from '../form/TextArea.jsx';
 import Toggle from '../form/Toggle.jsx';
 
+import Icon from '../icon/Icon.jsx';
+
 import VBoxLayout from '../layout/VBoxLayout.jsx';
 import Panel from '../panel/Panel.jsx';
 import Alert from '../window/Alert.jsx';
@@ -82,6 +84,11 @@ class EWorkspace extends React.Component {
                     <FormControl>
                         <Label>TextArea</Label>
                         <TextArea onChange={value => { alert(value); }}></TextArea>
+                    </FormControl>
+                    <FormControl>
+                        <Icon icon={'translate'} />
+                        <Icon icon={'rotate'} />
+                        <Icon icon={'scale'} />
                     </FormControl>
                 </Form>
             </Panel>
