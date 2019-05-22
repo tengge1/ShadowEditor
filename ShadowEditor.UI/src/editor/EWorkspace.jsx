@@ -14,7 +14,9 @@ import Toggle from '../form/Toggle.jsx';
 
 import Icon from '../icon/Icon.jsx';
 
+import AbsoluteLayout from '../layout/AbsoluteLayout.jsx';
 import VBoxLayout from '../layout/VBoxLayout.jsx';
+
 import Panel from '../panel/Panel.jsx';
 import Alert from '../window/Alert.jsx';
 
@@ -92,6 +94,7 @@ class EWorkspace extends React.Component {
                     </FormControl>
                 </Form>
             </Panel>
+            <AbsoluteLayout left={'500px'} top={'200px'}>AbsoluteLayout</AbsoluteLayout>
             <Alert>Hello, world!</Alert>
         </VBoxLayout>;
     }
