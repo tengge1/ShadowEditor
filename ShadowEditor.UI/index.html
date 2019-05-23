@@ -27,8 +27,10 @@
     <script src="js/react-dom.js"></script>
     <script src="build/ShadowEditor.UI.js"></script>
     <script>
-        var app = new Shadow.Editor();
-        app.render(document.querySelector('#container'));
+        var container = document.querySelector('#container');
+        var element = React.createElement(Shadow.Editor);
+
+        ReactDOM.render(element, container);
     </script>
 </body>
 

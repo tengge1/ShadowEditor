@@ -11,35 +11,36 @@ class BorderLayout extends React.Component {
         super(props);
 
         const children = this.props.children;
-        const north = children.filter(n => n.props.region === 'north')[0];
-        const south = children.filter(n => n.props.region === 'south')[0];
-        const west = children.filter(n => n.props.region === 'west')[0];
-        const east = children.filter(n => n.props.region === 'east')[0];
-        const center = children.filter(n => n.props.region === 'center')[0];
+        const north = children && children.filter(n => n.props.region === 'north')[0];
+        const south = children && children.filter(n => n.props.region === 'south')[0];
+        const west = children && children.filter(n => n.props.region === 'west')[0];
+        const east = children && children.filter(n => n.props.region === 'east')[0];
+        const center = children && children.filter(n => n.props.region === 'center')[0];
 
-        // const northSplit = north.props.split? true : false;
-        // const southSplit = south.props.split? true : false;
-        // const westSplit = west.props.split? false;
-        // const eastSplit = east.props.split || false;
+        const northSplit = north && north.props.split || false;
+        const southSplit = south && south.props.split || false;
+        const westSplit = west && west.props.split || false;
+        const eastSplit = east && east.props.split || false;
 
-        // this.state = {
-        //     northSplit: north.props.split || false,
-        //     southSplit: south.props.split || false,
-        //     westSplit: west.props.split || false,
-        //     eastSplit: east.props.split || false,
-        // };
+        const northCollapsed = north && north.props.collapsed || false;
+        const southCollapsed = south && south.props.collapsed || false;
+        const westCollapsed = west && west.props.collapsed || false;
+        const eastCollapsed = east && east.props.collapsed || false;
+
+        this.state = {
+            northSplit, southSplit, westSplit, eastSplit,
+            northCollapsed, southCollapsed, westCollapsed, eastCollapsed,
+        };
     }
 
     render() {
         const { className, style, children, ...others } = this.props;
 
-        const north = children.filter(n => n.props.region === 'north')[0];
-        const south = children.filter(n => n.props.region === 'south')[0];
-        const west = children.filter(n => n.props.region === 'west')[0];
-        const east = children.filter(n => n.props.region === 'east')[0];
-        const center = children.filter(n => n.props.region === 'center')[0];
-
-        const eastSplit = east.props.split;
+        const north = children && children.filter(n => n.props.region === 'north')[0];
+        const south = children && children.filter(n => n.props.region === 'south')[0];
+        const west = children && children.filter(n => n.props.region === 'west')[0];
+        const east = children && children.filter(n => n.props.region === 'east')[0];
+        const center = children && children.filter(n => n.props.region === 'center')[0];
 
         return <div className={classNames('BorderLayout', className)} style={style}>
             <div className={'north'}>
@@ -59,7 +60,9 @@ class BorderLayout extends React.Component {
                     {east}
                 </div>
             </div>
-            {south}
+            <div className={'south'}>
+                {south}
+            </div>
         </div>;
     }
 }
