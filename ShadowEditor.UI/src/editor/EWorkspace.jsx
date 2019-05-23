@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 import BorderLayout from '../layout/BorderLayout.jsx';
+import Panel from '../panel/Panel.jsx';
 
 /**
  * 工作区
@@ -23,6 +24,10 @@ class EWorkspace extends React.Component {
         const { className, ...others } = this.props;
 
         return <BorderLayout className={classNames('EWorkspace', className)} {...others}>
+            <Panel title={'North'} header={false} region={'north'} split={true}></Panel>
+            <Panel title={'South'} region={'south'} split={true}></Panel>
+            <Panel title={'West'} region={'west'} split={true}></Panel>
+            <Panel title={'East'} region={'east'} split={true}></Panel>
         </BorderLayout>;
     }
 }
