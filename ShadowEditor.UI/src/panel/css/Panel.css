@@ -3,7 +3,7 @@
     left: 0;
     top: 0;
     width: 240px;
-    min-height: 320px;
+    height: 320px;
     border: 1px solid #e6e6e6;
     box-sizing: border-box;
 }

@@ -24,10 +24,10 @@ class EWorkspace extends React.Component {
         const { className, ...others } = this.props;
 
         return <BorderLayout className={classNames('EWorkspace', className)} {...others}>
-            <Panel title={'North'} header={false} region={'north'} split={true}></Panel>
-            <Panel title={'South'} region={'south'} split={true}></Panel>
-            <Panel title={'West'} region={'west'} split={true}></Panel>
-            <Panel title={'East'} region={'east'} split={true}></Panel>
+            <Panel title={'North'} region={'north'} split={true} style={{ height: '120px' }}></Panel>
+            <Panel title={'South'} region={'south'} split={true} style={{ height: '120px' }}></Panel>
+            <Panel title={'West'} region={'west'} split={true} style={{ width: '200px' }}></Panel>
+            <Panel title={'East'} region={'east'} split={true} style={{ width: '200px' }}></Panel>
         </BorderLayout>;
     }
 }
