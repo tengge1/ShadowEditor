@@ -5,14 +5,20 @@
     flex-direction: column;
 }
 
-.BorderLayout .fit {
+.BorderLayout>.north>* {
+    width: 100%;
+    display: block;
+}
+
+.BorderLayout>.south>* {
+    width: 100%;
+    display: block;
+}
+
+.BorderLayout>.fit {
     flex: 1;
     display: flex;
     flex-direction: row;
-}
-
-.BorderLayout .north>* {
-    display: block;
 }
 
 .BorderLayout .fit .center {
