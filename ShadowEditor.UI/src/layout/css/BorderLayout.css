@@ -7,6 +7,10 @@
 
 /* north */
 
+.BorderLayout>.north {
+    border: 1px solid #eee;
+}
+
 .BorderLayout>.north>* {
     width: 100%;
     display: block;
