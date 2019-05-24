@@ -45,6 +45,9 @@ class BorderLayout extends React.Component {
         // north region
         const northRegion = <div className={'north'}>
             {north}
+            {this.state.northSplit && <div className={classNames('split', 'expand')}>
+                <div className={'button'}></div>
+            </div>}
         </div>;
 
         // south region
