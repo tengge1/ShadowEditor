@@ -42,30 +42,45 @@ class BorderLayout extends React.Component {
         const east = children && children.filter(n => n.props.region === 'east')[0];
         const center = children && children.filter(n => n.props.region === 'center')[0];
 
+        // north region
+        const northRegion = <div className={'north'}>
+            {north}
+        </div>;
+
+        // south region
+        const southRegion = <div className={'south'}>
+            {south}
+        </div>;
+
+        // west region
+        const westRegion = <div className={'west'}>
+            {west}
+            {this.state.westSplit && <div className={classNames('split', 'expand')}>
+                <div className={'button'}></div>
+            </div>}
+        </div>;
+
+        // east region
+        const eastRegion = <div className={'east'}>
+            <div className={classNames('split', 'expand')}>
+                <div className={'button'}></div>
+            </div>
+            {east}
+        </div>;
+
+        // center region
+        const centerRegion = <div className={'center'}>
+            {center}
+        </div>;
+
         return <div className={classNames('BorderLayout', className)} style={style}>
-            <div className={'north'}>
-                {north}
-            </div>
+            {northRegion}
             <div className={'middle'}>
-                <div className={'west'}>
-                    {west}
-                    <div className={classNames('split', 'expand')}>
-                        <div className={'button'}></div>
-                    </div>
-                </div>
-                <div className={'center'}>
-                    {center}
-                </div>
-                <div className={'east'}>
-                    <div className={classNames('split', 'expand')}>
-                        <div className={'button'}></div>
-                    </div>
-                    {east}
-                </div>
+                {westRegion}
+                {centerRegion}
+                {eastRegion}
             </div>
-            <div className={'south'}>
-                {south}
-            </div>
+            {southRegion}
         </div>;
     }
 }
