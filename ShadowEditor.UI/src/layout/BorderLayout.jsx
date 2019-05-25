@@ -120,11 +120,15 @@ class BorderLayout extends React.Component {
         </div>;
 
         // east region
-        const eastRegion = <div className={'east'}>
-            <div className={classNames('split', 'expand')}>
+        const eastRegion = <div className={classNames('east',
+            this.state.eastSplit && 'split',
+            this.state.eastCollapsed && 'collapsed')}>
+            <div className={'control'}>
                 <div className={'button'} onClick={this.handleEastClick}></div>
             </div>
-            {east}
+            <div className={'content'}>
+                {east}
+            </div>
         </div>;
 
         // center region
