@@ -108,9 +108,13 @@ class BorderLayout extends React.Component {
         </div>;
 
         // west region
-        const westRegion = <div className={'west'}>
-            {west}
-            {this.state.westSplit && <div className={classNames('split', 'expand')}>
+        const westRegion = <div className={classNames('west',
+            this.state.westSplit && 'split',
+            this.state.westCollapsed && 'collapsed')}>
+            <div className={'content'}>
+                {west}
+            </div>
+            {this.state.westSplit && <div className={'control'}>
                 <div className={'button'} onClick={this.handleWestClick}></div>
             </div>}
         </div>;
