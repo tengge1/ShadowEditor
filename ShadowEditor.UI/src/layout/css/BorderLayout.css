@@ -90,6 +90,7 @@
 /* west */
 
 .BorderLayout>.middle>.west {
+    border: 1px solid #eee;
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -101,7 +102,7 @@
 
 .BorderLayout>.middle>.west>.split {
     width: 12px;
-    border-right: 1px solid #eee;
+    border-left: 1px solid #eee;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -136,6 +137,7 @@
 /* east */
 
 .BorderLayout>.middle>.east {
+    border: 1px solid #eee;
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -147,7 +149,7 @@
 
 .BorderLayout>.middle>.east>.split {
     width: 12px;
-    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
     box-sizing: border-box;
     display: flex;
     align-items: center;
