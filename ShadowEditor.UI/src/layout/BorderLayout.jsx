@@ -31,6 +31,27 @@ class BorderLayout extends React.Component {
             northSplit, southSplit, westSplit, eastSplit,
             northCollapsed, southCollapsed, westCollapsed, eastCollapsed,
         };
+
+        this.handleNorthClick = this.handleNorthClick.bind(this);
+        this.handleSouthClick = this.handleSouthClick.bind(this);
+        this.handleWestClick = this.handleWestClick.bind(this);
+        this.handleEastClick = this.handleEastClick.bind(this);
+    }
+
+    handleNorthClick() {
+
+    }
+
+    handleSouthClick() {
+
+    }
+
+    handleWestClick() {
+
+    }
+
+    handleEastClick() {
+
     }
 
     render() {
@@ -46,12 +67,15 @@ class BorderLayout extends React.Component {
         const northRegion = <div className={'north'}>
             {north}
             {this.state.northSplit && <div className={classNames('split', 'expand')}>
-                <div className={'button'}></div>
+                <div className={'button'} onClick={this.handleNorthClick}></div>
             </div>}
         </div>;
 
         // south region
         const southRegion = <div className={'south'}>
+            {this.state.southSplit && <div className={classNames('split', 'expand')}>
+                <div className={'button'} onClick={this.handleSouthClick}></div>
+            </div>}
             {south}
         </div>;
 
