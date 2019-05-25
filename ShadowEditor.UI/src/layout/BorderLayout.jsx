@@ -39,19 +39,39 @@ class BorderLayout extends React.Component {
     }
 
     handleNorthClick() {
-
+        if (!this.state.northSplit) {
+            return;
+        }
+        this.setState((state, props) => ({
+            northCollapsed: !state.northCollapsed,
+        }));
     }
 
     handleSouthClick() {
-
+        if (!this.state.southSplit) {
+            return;
+        }
+        this.setState((state, props) => ({
+            southCollapsed: !state.southCollapsed,
+        }));
     }
 
     handleWestClick() {
-
+        if (!this.state.westSplit) {
+            return;
+        }
+        this.setState((state, props) => ({
+            westCollapsed: !state.westCollapsed,
+        }));
     }
 
     handleEastClick() {
-
+        if (!this.state.eastSplit) {
+            return;
+        }
+        this.setState((state, props) => ({
+            eastCollapsed: !state.eastCollapsed,
+        }));
     }
 
     render() {
@@ -64,9 +84,13 @@ class BorderLayout extends React.Component {
         const center = children && children.filter(n => n.props.region === 'center')[0];
 
         // north region
-        const northRegion = <div className={'north'}>
-            {north}
-            {this.state.northSplit && <div className={classNames('split', 'expand')}>
+        const northRegion = <div className={classNames('north',
+            this.state.northSplit && 'split',
+            this.state.northCollapsed && 'collapsed')}>
+            <div className={'content'}>
+                {north}
+            </div>
+            {this.state.northSplit && <div className={'control'}>
                 <div className={'button'} onClick={this.handleNorthClick}></div>
             </div>}
         </div>;
@@ -83,14 +107,14 @@ class BorderLayout extends React.Component {
         const westRegion = <div className={'west'}>
             {west}
             {this.state.westSplit && <div className={classNames('split', 'expand')}>
-                <div className={'button'}></div>
+                <div className={'button'} onClick={this.handleWestClick}></div>
             </div>}
         </div>;
 
         // east region
         const eastRegion = <div className={'east'}>
             <div className={classNames('split', 'expand')}>
-                <div className={'button'}></div>
+                <div className={'button'} onClick={this.handleEastClick}></div>
             </div>
             {east}
         </div>;
