@@ -96,11 +96,15 @@ class BorderLayout extends React.Component {
         </div>;
 
         // south region
-        const southRegion = <div className={'south'}>
-            {this.state.southSplit && <div className={classNames('split', 'expand')}>
+        const southRegion = <div className={classNames('south',
+            this.state.northSplit && 'split',
+            this.state.southCollapsed && 'collapsed')}>
+            {this.state.southSplit && <div className={'control'}>
                 <div className={'button'} onClick={this.handleSouthClick}></div>
             </div>}
-            {south}
+            <div className={'content'}>
+                {south}
+            </div>
         </div>;
 
         // west region
