@@ -16,7 +16,6 @@ class SceneMenu extends React.Component {
     }
 
     handleClick(event) {
-        event.stopPropagation();
         alert('Hello, world!');
     }
 

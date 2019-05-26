@@ -14,31 +14,27 @@ class MenuItem extends React.Component {
 
     handleClick(onClick, event) {
         event.stopPropagation();
-        onClick && onClick();
+        onClick && onClick(event);
     }
 
     render() {
         const { title, className, style, children, show, onClick, ...others } = this.props;
 
-        if (children && children.length) {
-            return <li
-                className={classNames('MenuItem', !show && 'hidden', className)}
-                style={style}
-                onClick={this.handleClick}
-                {...others}>
-                <span>{title}</span>
-                <div className={'suffix'}>
-                    <i className={'iconfont icon-right-triangle'}></i>
-                </div>
-                <div className={'sub'}>
-                    <ul className={'wrap'}>{children}</ul>
-                </div>
-            </li>;
-        } else {
-            return <li className={classNames('MenuItem', show ? null : 'hidden', className)} style={style}>
-                <span>{title}</span>
-            </li>;
-        }
+        const subMenu = children && children.length && <><div className={'suffix'}>
+            <i className={'iconfont icon-right-triangle'}></i>
+        </div>
+            <div className={'sub'}>
+                <ul className={'wrap'}>{children}</ul>
+            </div></>;
+
+        return <li
+            className={classNames('MenuItem', !show && 'hidden', className)}
+            style={style}
+            onClick={this.handleClick}
+            {...others}>
+            <span>{title}</span>
+            {subMenu}
+        </li>;
     }
 }
 

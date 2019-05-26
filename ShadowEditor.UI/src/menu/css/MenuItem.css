@@ -7,6 +7,7 @@
     box-sizing: border-box;
     cursor: pointer;
     user-select: none;
+    --right-arrow: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABAQMAAADO7O3JAAAAA3NCSVQICAjb4U/gAAAABlBMVEXi4+P///9V63aNAAAACXBIWXMAAAsSAAALEgHS3X78AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M1cbXjNgAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNy8wNi8xMZANh+UAAAAKSURBVAiZY3AAAABCAEGV6TQ4AAAAAElFTkSuQmCC') repeat-y rgb(240, 240, 240);
 }
 
 .MenuItem:hover {
@@ -16,15 +17,20 @@
     border: 1px solid rgb(183, 212, 246);
 }
 
-.MenuItem .suffix {
+.MenuItem>span {
+    pointer-events: none;
+}
+
+.MenuItem>.suffix {
     width: 40px;
     margin-left: 48px;
     margin-right: -4px;
     text-align: right;
     display: inline-block;
+    pointer-events: none;
 }
 
-.MenuItem .sub {
+.MenuItem>.sub {
     position: absolute;
     left: 100%;
     top: 0;
@@ -34,7 +40,7 @@
     z-index: 300;
 }
 
-.MenuItem .sub::before {
+.MenuItem>.sub::before {
     position: absolute;
     left: -6px;
     height: 100%;
@@ -46,10 +52,10 @@
     display: block;
 }
 
-.MenuItem .sub .wrap {
+.MenuItem>.sub>.wrap {
     position: relative;
     list-style: none;
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABAQMAAADO7O3JAAAAA3NCSVQICAjb4U/gAAAABlBMVEXi4+P///9V63aNAAAACXBIWXMAAAsSAAALEgHS3X78AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M1cbXjNgAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNy8wNi8xMZANh+UAAAAKSURBVAiZY3AAAABCAEGV6TQ4AAAAAElFTkSuQmCC') repeat-y rgb(240, 240, 240);
+    background: var(--right-arrow);
     background-position: 24px 0;
     margin: 0;
     padding: 0;
