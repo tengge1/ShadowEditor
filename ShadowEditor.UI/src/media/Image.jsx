@@ -5,20 +5,26 @@ import PropTypes from 'prop-types';
 /**
  * 图片
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class Image extends React.Component {
     render() {
-        const { className, style } = this.props;
+        const { className, style, ...others } = this.props;
 
-        return <img className={classNames('Image', className)} style={style}></img>;
+        return <img
+            className={classNames('Image', className)}
+            style={style}
+            {...others}></img>;
     }
 }
 
 Image.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+};
+
+Image.defaultProps = {
+    className: null,
+    style: null,
 };
 
 export default Image;
