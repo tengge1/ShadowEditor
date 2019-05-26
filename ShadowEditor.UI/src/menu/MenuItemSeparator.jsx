@@ -5,14 +5,15 @@ import PropTypes from 'prop-types';
 /**
  * 菜单项分隔符
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class MenuItemSeparator extends React.Component {
     render() {
-        const { className, style } = this.props;
+        const { className, style, ...others } = this.props;
 
-        return <li className={classNames('MenuItemSeparator', className)} style={style}>
+        return <li
+            className={classNames('MenuItemSeparator', className)}
+            style={style}
+            {...others}>
             <div className='separator'></div>
         </li>;
     }
@@ -21,6 +22,11 @@ class MenuItemSeparator extends React.Component {
 MenuItemSeparator.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+};
+
+MenuItemSeparator.defaultProps = {
+    className: null,
+    style: null,
 };
 
 export default MenuItemSeparator;

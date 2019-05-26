@@ -9,11 +9,11 @@ import PropTypes from 'prop-types';
 class MenuItem extends React.Component {
     constructor(props) {
         super(props);
-
         this.handleClick = this.handleClick.bind(this, props.onClick);
     }
 
-    handleClick(onClick) {
+    handleClick(onClick, event) {
+        event.stopPropagation();
         onClick && onClick();
     }
 
