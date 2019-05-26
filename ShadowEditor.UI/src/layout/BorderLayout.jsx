@@ -136,7 +136,10 @@ class BorderLayout extends React.Component {
             {center}
         </div>;
 
-        return <div className={classNames('BorderLayout', className)} style={style}>
+        return <div
+            className={classNames('BorderLayout', className)}
+            style={style}
+            {...others}>
             {northRegion}
             <div className={'middle'}>
                 {westRegion}
