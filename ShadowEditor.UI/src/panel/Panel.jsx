@@ -12,21 +12,21 @@ class Panel extends React.Component {
     }
 
     render() {
-        const { title, className, style, children, show, header, collapsible, collapsed } = this.props;
+        const { title, className, style, children, show, header, collapsible, collapsed, maximizable, minimizable, closable } = this.props;
 
         const collapseControl = collapsible && <div className="control">
             <i className="iconfont icon-up-arrow"></i>
         </div>;
 
-        const maximizeControl = collapsible && <div className="control">
+        const maximizeControl = maximizable && <div className="control">
             <i className="iconfont icon-maximize"></i>
         </div>;
 
-        const minimizeControl = collapsible && <div className="control">
+        const minimizeControl = minimizable && <div className="control">
             <i className="iconfont icon-minimize"></i>
         </div>;
 
-        const closeControl = collapsible && <div className="control">
+        const closeControl = closable && <div className="control">
             <i className="iconfont icon-close-thin"></i>
         </div>;
 
@@ -56,6 +56,9 @@ Panel.propTypes = {
     header: PropTypes.bool,
     collapsible: PropTypes.bool,
     collapsed: PropTypes.bool,
+    maximizable: PropTypes.bool,
+    minimizable: PropTypes.bool,
+    closable: PropTypes.bool,
 };
 
 Panel.defaultProps = {
@@ -67,6 +70,9 @@ Panel.defaultProps = {
     header: true,
     collapsible: false,
     collapsed: false,
+    maximizable: false,
+    minimizable: false,
+    closable: false,
 };
 
 export default Panel;

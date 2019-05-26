@@ -18,7 +18,13 @@ class EWorkspace extends React.Component {
             <Panel title={'South'} region={'south'} split={true} style={{ height: '120px', border: 'none' }}></Panel>
             <Panel title={'West'} region={'west'} split={true} style={{ width: '200px', border: 'none' }}></Panel>
             <Panel title={'East'} region={'east'} split={true} style={{ width: '200px', border: 'none' }}></Panel>
-            <Panel title={'Center'} region={'center'} collapsible={true} style={{ border: 'none' }}></Panel>
+            <Panel title={'Center'}
+                region={'center'}
+                collapsible={true}
+                maximizable={true}
+                minimizable={true}
+                closable={true}
+                style={{ border: 'none' }}></Panel>
         </BorderLayout>;
     }
 }
