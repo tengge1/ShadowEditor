@@ -12,17 +12,17 @@
     display: none;
 }
 
-.Panel .header {
+.Panel>.header {
     position: relative;
     height: 32px;
     background-color: #f7f7f7;
 }
 
-.Panel .header.hide {
+.Panel>.header.hide {
     display: none;
 }
 
-.Panel .header .title {
+.Panel>.header>.title {
     height: 100%;
     line-height: 32px;
     padding-left: 16px;
@@ -31,7 +31,7 @@
     box-sizing: border-box;
 }
 
-.Panel .header .controls {
+.Panel>.header>.controls {
     position: absolute;
     left: 0;
     right: 4px;
@@ -41,7 +41,7 @@
     white-space: nowrap;
 }
 
-.Panel .header .control {
+.Panel>.header>.controls>.control {
     width: 32px;
     height: 32px;
     margin: 0 4px;
@@ -49,18 +49,18 @@
     box-sizing: border-box;
 }
 
-.Panel .header .control .iconfont {
+.Panel>.header>.controls>.control>.iconfont {
     font-size: 24px;
     line-height: 32px;
     color: #909090;
 }
 
-.Panel .body {
+.Panel>.body {
     height: calc(100% - 32px);
     padding: 4px;
     box-sizing: border-box;
 }
 
-.Panel .header.hide+div.body {
+.Panel>.header.hide+div.body {
     height: 100%;
 }

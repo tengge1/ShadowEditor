@@ -7,15 +7,17 @@ import PropTypes from 'prop-types';
  * @author tengge / https://github.com/tengge1
  */
 class Panel extends React.Component {
-    render() {
-        const { title, className, style, children, show, header } = this.props;
+    constructor(props) {
+        super(props);
+    }
 
-        const split = false;
+    render() {
+        const { title, className, style, children, show, header, collapsible, collapsed } = this.props;
 
         return <div className={classNames('Panel', show ? null : 'hide', className)} style={style}>
             <div className={classNames('header', header ? null : 'hide')}>
                 <span className="title">{title}</span>
-                {split && <div className="controls">
+                {collapsible && <div className="controls">
                     <div className="control">
                         <i className="iconfont icon-up-arrow"></i>
                     </div>
@@ -32,14 +34,22 @@ Panel.propTypes = {
     title: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.element,
+    children: PropTypes.node,
     show: PropTypes.bool,
     header: PropTypes.bool,
+    collapsible: PropTypes.bool,
+    collapsed: PropTypes.bool,
 };
 
 Panel.defaultProps = {
+    title: null,
+    className: null,
+    style: null,
+    children: null,
     show: true,
     header: true,
+    collapsible: false,
+    collapsed: false,
 };
 
 export default Panel;
