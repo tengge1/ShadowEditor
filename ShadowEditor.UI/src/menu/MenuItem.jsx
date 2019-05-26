@@ -5,19 +5,27 @@ import PropTypes from 'prop-types';
 /**
  * 菜单项
  * @author tengge / https://github.com/tengge1
- * @property {String} title 标题
- * @property {String} className 样式类
- * @property {Object} style 样式
- * @property {String} children 内容
- * @property {Boolean} show 是否显示
- * @property {Function} onClick 点击事件
  */
 class MenuItem extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleClick = this.handleClick.bind(this, props.onClick);
+    }
+
+    handleClick(onClick) {
+        onClick && onClick();
+    }
+
     render() {
-        const { title, className, style, children, show, onClick } = this.props;
+        const { title, className, style, children, show, onClick, ...others } = this.props;
 
         if (children && children.length) {
-            return <li className={classNames('MenuItem', show ? null : 'hidden', className)} style={style} onClick={onClick}>
+            return <li
+                className={classNames('MenuItem', !show && 'hidden', className)}
+                style={style}
+                onClick={this.handleClick}
+                {...others}>
                 <span>{title}</span>
                 <div className={'suffix'}>
                     <i className={'iconfont icon-right-triangle'}></i>
@@ -38,13 +46,18 @@ MenuItem.propTypes = {
     title: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.element,
+    children: PropTypes.node,
     show: PropTypes.bool,
     onClick: PropTypes.func,
 };
 
 MenuItem.defaultProps = {
+    title: null,
+    className: null,
+    style: null,
+    children: null,
     show: true,
+    onClick: null,
 };
 
 export default MenuItem;
