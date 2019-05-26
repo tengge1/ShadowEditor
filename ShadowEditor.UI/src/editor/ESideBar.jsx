@@ -17,7 +17,7 @@ import AnimationPanel from './sidebar/AnimationPanel.jsx';
  */
 class ESideBar extends React.Component {
     render() {
-        const { className, ...others } = this.props;
+        const { className, split, ...others } = this.props;
 
         return <VBoxLayout className={classNames('ESideBar', className)} {...others}>
             <TabLayout className={'top'}>
