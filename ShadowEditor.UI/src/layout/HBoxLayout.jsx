@@ -4,16 +4,28 @@ import classNames from 'classnames/bind';
 /**
  * 水平布局
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
- * @property {String} children 内容
  */
 class HBoxLayout extends React.Component {
     render() {
-        const { className, style, children } = this.props;
+        const { className, style, children, ...others } = this.props;
 
-        return <div className={classNames('HBoxLayout', className)} style={style}>{children}</div>;
+        return <div
+            className={classNames('HBoxLayout', className)}
+            style={style}
+            {...others}>{children}</div>;
     }
 }
+
+HBoxLayout.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    children: PropTypes.node,
+};
+
+HBoxLayout.defaultProps = {
+    className: null,
+    style: null,
+    children: null,
+};
 
 export default HBoxLayout;
