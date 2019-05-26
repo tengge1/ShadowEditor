@@ -14,14 +14,31 @@ class Panel extends React.Component {
     render() {
         const { title, className, style, children, show, header, collapsible, collapsed } = this.props;
 
+        const collapseControl = collapsible && <div className="control">
+            <i className="iconfont icon-up-arrow"></i>
+        </div>;
+
+        const maximizeControl = collapsible && <div className="control">
+            <i className="iconfont icon-maximize"></i>
+        </div>;
+
+        const minimizeControl = collapsible && <div className="control">
+            <i className="iconfont icon-minimize"></i>
+        </div>;
+
+        const closeControl = collapsible && <div className="control">
+            <i className="iconfont icon-close-thin"></i>
+        </div>;
+
         return <div className={classNames('Panel', show ? null : 'hide', className)} style={style}>
             <div className={classNames('header', header ? null : 'hide')}>
                 <span className="title">{title}</span>
-                {collapsible && <div className="controls">
-                    <div className="control">
-                        <i className="iconfont icon-up-arrow"></i>
-                    </div>
-                </div>}
+                <div className="controls">
+                    {collapseControl}
+                    {maximizeControl}
+                    {minimizeControl}
+                    {closeControl}
+                </div>
             </div>
             <div className="body">
                 {children}
