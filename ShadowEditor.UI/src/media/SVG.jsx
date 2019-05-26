@@ -5,20 +5,26 @@ import PropTypes from 'prop-types';
 /**
  * SVG
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class SVG extends React.Component {
     render() {
-        const { className, style } = this.props;
+        const { className, style, ...others } = this.props;
 
-        return <svg className={classNames('SVG', className)} style={style}></svg>;
+        return <svg
+            className={classNames('SVG', className)}
+            style={style}
+            {...others}></svg>;
     }
 }
 
 SVG.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+};
+
+SVG.defaultProps = {
+    className: null,
+    style: null,
 };
 
 export default SVG;
