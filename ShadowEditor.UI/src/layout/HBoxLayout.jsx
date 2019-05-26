@@ -1,5 +1,6 @@
 import './css/HBoxLayout.css';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 /**
  * 水平布局
