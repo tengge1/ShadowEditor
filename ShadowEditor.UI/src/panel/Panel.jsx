@@ -66,6 +66,7 @@ class Panel extends React.Component {
         return <div className={classNames('Panel',
             this.state.maximized && 'maximized',
             this.state.collapsed && 'collapsed',
+            this.state.closed && 'hidden',
             !show && 'hidden',
             className)} style={style}>
             <div className={classNames('header', header ? null : 'hidden')}>
