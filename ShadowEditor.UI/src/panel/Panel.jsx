@@ -51,20 +51,23 @@ class Panel extends React.Component {
             maximizable, maximized, onMaximize,
             closable, closed, onClose } = this.props;
 
-        const collapseControl = collapsible && <div className="control" onClick={this.handleCollapse}>
-            {this.state.collapsed ? <i className="iconfont icon-down-arrow"></i> : <i className="iconfont icon-up-arrow"></i>}
+        const collapseControl = collapsible && <div className={'control'} onClick={this.handleCollapse}>
+            {this.state.collapsed ? <i className={'iconfont icon-down-arrow'}></i> : <i className={'iconfont icon-up-arrow'}></i>}
         </div>;
 
-        const maximizeControl = maximizable && <div className="control" onClick={this.handleMaximize}>
-            <i className="iconfont icon-maximize"></i>
+        const maximizeControl = maximizable && <div className={'control'} onClick={this.handleMaximize}>
+            <i className={'iconfont icon-maximize'}></i>
         </div>;
 
-        const closeControl = closable && <div className="control" onClick={this.handleClose}>
-            <i className="iconfont icon-close-thin"></i>
+        const closeControl = closable && <div className={'control'} onClick={this.handleClose}>
+            <i className={'iconfont icon-close-thin'}></i>
         </div>;
 
-        return <div className={classNames('Panel', show ? null : 'hide', className)} style={style}>
-            <div className={classNames('header', header ? null : 'hide')}>
+        return <div className={classNames('Panel',
+            this.state.collapsed && 'collapsed',
+            !show && 'hidden',
+            className)} style={style}>
+            <div className={classNames('header', header ? null : 'hidden')}>
                 <span className="title">{title}</span>
                 <div className="controls">
                     {collapseControl}
@@ -72,7 +75,7 @@ class Panel extends React.Component {
                     {closeControl}
                 </div>
             </div>
-            <div className="body">
+            <div className={'body'}>
                 {children}
             </div>
         </div>;

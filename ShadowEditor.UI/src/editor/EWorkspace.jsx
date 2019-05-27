@@ -23,7 +23,9 @@ class EWorkspace extends React.Component {
                 collapsible={true}
                 maximizable={true}
                 closable={true}
-                style={{ border: 'none' }}></Panel>
+                style={{ border: 'none' }}>
+                Some Data.
+                </Panel>
         </BorderLayout>;
     }
 }

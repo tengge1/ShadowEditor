@@ -8,7 +8,11 @@
     box-sizing: border-box;
 }
 
-.Panel.hide {
+.Panel.collapsed {
+    height: 32px;
+}
+
+.Panel.hidden {
     display: none;
 }
 
@@ -18,7 +22,7 @@
     background-color: #f7f7f7;
 }
 
-.Panel>.header.hide {
+.Panel>.header.hidden {
     display: none;
 }
 
@@ -62,6 +66,12 @@
     box-sizing: border-box;
 }
 
-.Panel>.header.hide+div.body {
+.Panel.collapsed>.body {
+    height: 0;
+    padding: 0;
+    overflow-y: hidden;
+}
+
+.Panel>.header.hidden+div.body {
     height: 100%;
 }
