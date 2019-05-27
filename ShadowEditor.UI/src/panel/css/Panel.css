@@ -4,12 +4,22 @@
     top: 0;
     width: 240px;
     height: 320px;
+    background: #fff;
     border: 1px solid #e6e6e6;
     box-sizing: border-box;
 }
 
+.Panel.maximized {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 100%;
+    bottom: 100%;
+    z-index: 9000;
+}
+
 .Panel.collapsed {
-    height: 32px;
+    height: auto;
 }
 
 .Panel.hidden {

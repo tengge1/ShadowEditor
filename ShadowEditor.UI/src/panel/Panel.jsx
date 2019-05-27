@@ -56,7 +56,7 @@ class Panel extends React.Component {
         </div>;
 
         const maximizeControl = maximizable && <div className={'control'} onClick={this.handleMaximize}>
-            <i className={'iconfont icon-maximize'}></i>
+            {this.state.maximized ? <i className={'iconfont icon-minimize'}></i> : <i className={'iconfont icon-maximize'}></i>}
         </div>;
 
         const closeControl = closable && <div className={'control'} onClick={this.handleClose}>
@@ -64,6 +64,7 @@ class Panel extends React.Component {
         </div>;
 
         return <div className={classNames('Panel',
+            this.state.maximized && 'maximized',
             this.state.collapsed && 'collapsed',
             !show && 'hidden',
             className)} style={style}>
