@@ -22,7 +22,6 @@ class EWorkspace extends React.Component {
                 region={'center'}
                 collapsible={true}
                 maximizable={true}
-                minimizable={true}
                 closable={true}
                 style={{ border: 'none' }}></Panel>
         </BorderLayout>;

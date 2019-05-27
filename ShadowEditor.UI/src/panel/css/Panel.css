@@ -47,6 +47,7 @@
     margin: 0 4px;
     display: inline-block;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .Panel>.header>.controls>.control>.iconfont {
