@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 /**
  * 数据表格
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class DataGrid extends React.Component {
     render() {
@@ -20,6 +18,11 @@ class DataGrid extends React.Component {
 DataGrid.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+};
+
+DataGrid.defaultProps = {
+    className: null,
+    style: null,
 };
 
 export default DataGrid;

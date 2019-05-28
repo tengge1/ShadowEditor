@@ -15,6 +15,10 @@ class PropertyGrid extends React.Component {
         };
     }
 
+    handleCollapse() {
+
+    }
+
     render() {
         const { className, style, data } = this.props;
 
