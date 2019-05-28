@@ -41,6 +41,11 @@ export { default as PropertyGrid } from './property/PropertyGrid.jsx';
 
 // table
 export { default as DataGrid } from './table/DataGrid.jsx';
+export { default as Table } from './table/Table.jsx';
+export { default as TableBody } from './table/TableBody.jsx';
+export { default as TableCell } from './table/TableCell.jsx';
+export { default as TableHead } from './table/TableHead.jsx';
+export { default as TableRow } from './table/TableRow.jsx';
 
 // timeline
 export { default as Timeline } from './timeline/Timeline.jsx';
