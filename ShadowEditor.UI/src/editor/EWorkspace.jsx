@@ -66,7 +66,7 @@ class EWorkspace extends React.Component {
                         {rows.map((n, i) => {
                             return <TableRow key={i}>
                                 {n.map((m, j) => {
-                                    return <TableCell key={j}>${m}</TableCell>;
+                                    return <TableCell key={j}>{m}</TableCell>;
                                 })}
                             </TableRow>
                         })}
