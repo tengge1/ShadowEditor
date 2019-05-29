@@ -1,5 +1,11 @@
 import './Config.css';
 
+// common
+export { default as Column } from './common/Column.jsx';
+export { default as Columns } from './common/Columns.jsx';
+export { default as Row } from './common/Row.jsx';
+export { default as Rows } from './common/Rows.jsx';
+
 // form
 export { default as Button } from './form/Button.jsx';
 export { default as CheckBox } from './form/CheckBox.jsx';
