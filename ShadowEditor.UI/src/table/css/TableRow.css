@@ -2,3 +2,11 @@
     height: 24px;
     line-height: 24px;
 }
+
+.TableRow:nth-child(even) {
+    background-color: #f7f7f7;
+}
+
+.TableRow:hover {
+    background-color: #eee;
+}
