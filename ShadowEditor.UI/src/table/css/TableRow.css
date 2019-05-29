@@ -7,6 +7,7 @@
     background-color: #f7f7f7;
 }
 
-.TableRow:hover {
-    background-color: #eee;
+.TableBody .TableRow:hover {
+    color: #fff;
+    background-color: #3399ff;
 }
