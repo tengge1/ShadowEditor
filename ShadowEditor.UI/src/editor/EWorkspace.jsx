@@ -5,13 +5,9 @@ import PropTypes from 'prop-types';
 import BorderLayout from '../layout/BorderLayout.jsx';
 import Panel from '../panel/Panel.jsx';
 
-import Table from '../table/Table.jsx';
-import TableBody from '../table/TableBody.jsx';
-import TableCell from '../table/TableCell.jsx';
-import TableHead from '../table/TableHead.jsx';
-import TableRow from '../table/TableRow.jsx';
-
 import DataGrid from '../table/DataGrid.jsx';
+import Column from '../common/Column.jsx';
+import Columns from '../common/Columns.jsx';
 
 /**
  * 工作区
@@ -21,15 +17,7 @@ class EWorkspace extends React.Component {
     render() {
         const { className, ...others } = this.props;
 
-        const headRows = [
-            { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-            { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-            { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-            { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-            { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
-        ];
-
-        const rows = [
+        const data = [
             ['Cupcake', 305, 3.7, 67, 4.3],
             ['Donut', 452, 25.0, 51, 4.9],
             ['Eclair', 262, 16.0, 24, 6.0],
@@ -56,7 +44,14 @@ class EWorkspace extends React.Component {
                 maximizable={true}
                 closable={true}
                 style={{ border: 'none' }}>
-                <DataGrid>
+                <DataGrid data={data}>
+                    <Columns>
+                        <Column field={'name'}>Dessert (100g serving)</Column>
+                        <Column field={'calories'}>Calories</Column>
+                        <Column field={'fat'}>Fat (g)</Column>
+                        <Column field={'carbs'}>Carbs (g)</Column>
+                        <Column field={'protein'}>Protein (g)</Column>
+                    </Columns>
                 </DataGrid>
             </Panel>
         </BorderLayout>;

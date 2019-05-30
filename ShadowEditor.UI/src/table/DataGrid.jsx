@@ -8,21 +8,25 @@ import PropTypes from 'prop-types';
  */
 class DataGrid extends React.Component {
     render() {
-        const { className, style } = this.props;
+        const { className, style, children, data } = this.props;
 
-        return <div className={classNames('DataGrid', className)} style={style}>
-        </div>;
+        return <table className={classNames('DataGrid', className)} style={style}>
+        </table>;
     }
 }
 
 DataGrid.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    children: PropTypes.node,
+    data: PropTypes.array,
 };
 
 DataGrid.defaultProps = {
     className: null,
     style: null,
+    children: null,
+    data: [],
 };
 
 export default DataGrid;
