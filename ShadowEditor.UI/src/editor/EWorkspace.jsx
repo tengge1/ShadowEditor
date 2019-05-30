@@ -11,6 +11,8 @@ import TableCell from '../table/TableCell.jsx';
 import TableHead from '../table/TableHead.jsx';
 import TableRow from '../table/TableRow.jsx';
 
+import DataGrid from '../table/DataGrid.jsx';
+
 /**
  * 工作区
  * @author tengge / https://github.com/tengge1
@@ -54,24 +56,8 @@ class EWorkspace extends React.Component {
                 maximizable={true}
                 closable={true}
                 style={{ border: 'none' }}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            {headRows.map(n => {
-                                return <TableCell key={n.id}>{n.label}</TableCell>;
-                            })}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.map((n, i) => {
-                            return <TableRow key={i}>
-                                {n.map((m, j) => {
-                                    return <TableCell key={j}>{m}</TableCell>;
-                                })}
-                            </TableRow>
-                        })}
-                    </TableBody>
-                </Table>
+                <DataGrid>
+                </DataGrid>
             </Panel>
         </BorderLayout>;
     }
