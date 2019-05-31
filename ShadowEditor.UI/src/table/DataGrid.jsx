@@ -36,7 +36,12 @@ class DataGrid extends React.Component {
 DataGrid.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.instanceOf(Columns),
+    children: (props, propName, componentName) => {
+        const children = props[propName];
+        if (children.type !== Columns) {
+            return new TypeError(`Invalid prop \`${propName}\` of type \`${children.type.name}\` supplied to \`${componentName}\`, expected \`Columns\`.`);
+        }
+    },
     data: PropTypes.array,
 };
 
