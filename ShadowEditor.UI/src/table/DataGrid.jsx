@@ -1,6 +1,8 @@
 import './css/DataGrid.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import Column from '../common/Column.jsx';
+import Columns from '../common/Columns.jsx';
 
 /**
  * 数据表格
@@ -10,7 +12,23 @@ class DataGrid extends React.Component {
     render() {
         const { className, style, children, data } = this.props;
 
+        const columns = children.props.children.map(n => {
+            return {
+                field: n.props.field,
+                children: n.props.children,
+            };
+        });
+
+        const header = <thead>
+            <tr>
+                {columns.map(n => {
+                    return <td name={n.field} key={n.field}>{n.children}</td>;
+                })}
+            </tr>
+        </thead>;
+
         return <table className={classNames('DataGrid', className)} style={style}>
+            {header}
         </table>;
     }
 }
@@ -18,7 +36,7 @@ class DataGrid extends React.Component {
 DataGrid.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.instanceOf(Columns),
     data: PropTypes.array,
 };
 

@@ -1,5 +1,8 @@
 import './Config.css';
 
+export { default as classNames } from 'classnames/bind';
+export { default as PropTypes } from 'prop-types';
+
 // common
 export { default as Column } from './common/Column.jsx';
 export { default as Columns } from './common/Columns.jsx';
