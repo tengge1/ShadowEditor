@@ -22,8 +22,8 @@ class Toolbar extends React.Component {
 Toolbar.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    direction: PropTypes.oneOf('horizontal', 'vertical'),
-    children: PropTypes.element,
+    direction: PropTypes.oneOf(['horizontal', 'vertical']),
+    children: PropTypes.node,
     region: PropTypes.string,
 };
 

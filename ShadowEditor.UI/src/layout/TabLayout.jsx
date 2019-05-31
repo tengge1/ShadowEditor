@@ -50,7 +50,7 @@ class TabLayout extends React.Component {
 TabLayout.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.element,
+    children: PropTypes.node,
     activeTab: PropTypes.number,
 };
 
