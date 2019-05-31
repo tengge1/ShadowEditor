@@ -18,7 +18,7 @@ export default {
         resolve(),
         commonjs(),
         replace({
-            'process.env.NODE_ENV': '"production"'
+            'process.env.NODE_ENV': '"development"' // production
         }),
         postcss({
             extract: true,
