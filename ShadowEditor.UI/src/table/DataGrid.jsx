@@ -27,8 +27,19 @@ class DataGrid extends React.Component {
             </tr>
         </thead>;
 
+        const body = <tbody>
+            {data.map(n => {
+                return <tr key={n.id}>
+                    {columns.map(m => {
+                        return <td key={m.field}>{n[m.field]}</td>;
+                    })}
+                </tr>;
+            })}
+        </tbody>;
+
         return <table className={classNames('DataGrid', className)} style={style}>
             {header}
+            {body}
         </table>;
     }
 }

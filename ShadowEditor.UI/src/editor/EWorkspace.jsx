@@ -17,6 +17,23 @@ class EWorkspace extends React.Component {
     render() {
         const { className, ...others } = this.props;
 
+        const columns = [{
+            field: 'name',
+            title: 'Dessert (100g serving)',
+        }, {
+            field: 'calories',
+            title: 'Calories',
+        }, {
+            field: 'fat',
+            title: 'Fat (g)',
+        }, {
+            field: 'carbs',
+            title: 'Carbs (g)',
+        }, {
+            field: 'protein',
+            title: 'Protein (g)',
+        }];
+
         const data = [
             ['Cupcake', 305, 3.7, 67, 4.3],
             ['Donut', 452, 25.0, 51, 4.9],
@@ -31,7 +48,17 @@ class EWorkspace extends React.Component {
             ['Marshmallow', 318, 0, 81, 2.0],
             ['Nougat', 360, 19.0, 9, 37.0],
             ['Oreo', 437, 18.0, 63, 4.0],
-        ];
+        ].map(n => {
+            var obj = {};
+
+            obj['id'] = n[0];
+
+            columns.forEach((m, i) => {
+                obj[m.field] = n[i];
+            });
+
+            return obj;
+        });
 
         return <BorderLayout className={classNames('EWorkspace', className)} {...others}>
             <Panel title={'North'} region={'north'} split={true} style={{ height: '120px', border: 'none' }}></Panel>
@@ -46,11 +73,9 @@ class EWorkspace extends React.Component {
                 style={{ border: 'none' }}>
                 <DataGrid data={data}>
                     <Columns>
-                        <Column field={'name'}>Dessert (100g serving)</Column>
-                        <Column field={'calories'}>Calories</Column>
-                        <Column field={'fat'}>Fat (g)</Column>
-                        <Column field={'carbs'}>Carbs (g)</Column>
-                        <Column field={'protein'}>Protein (g)</Column>
+                        {columns.map(n => {
+                            return <Column field={n.field}>{n.title}</Column>;
+                        })}
                     </Columns>
                 </DataGrid>
             </Panel>
