@@ -1,0 +1,30 @@
+.DataGrid {
+    display: inline-block;
+    border-collapse: collapse;
+    cursor: default;
+}
+
+.DataGrid>thead {
+    background-color: #f7f7f7;
+}
+
+.DataGrid>thead>tr,
+.DataGrid>tbody>tr {
+    height: 24px;
+    line-height: 24px;
+}
+
+.DataGrid>tbody>tr:nth-child(even) {
+    background-color: #f7f7f7;
+}
+
+.DataGrid>tbody>tr:hover {
+    color: #fff;
+    background-color: #3399ff;
+}
+
+.DataGrid>tbody>tr>td {
+    padding: 0 16px;
+    border: 1px solid #ebebeb;
+    box-sizing: border-box;
+}

@@ -74,7 +74,7 @@ class EWorkspace extends React.Component {
                 <DataGrid data={data}>
                     <Columns>
                         {columns.map(n => {
-                            return <Column field={n.field}>{n.title}</Column>;
+                            return <Column field={n.field} title={n.title} key={n.field}></Column>;
                         })}
                     </Columns>
                 </DataGrid>

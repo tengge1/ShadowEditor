@@ -15,14 +15,14 @@ class DataGrid extends React.Component {
         const columns = children.props.children.map(n => {
             return {
                 field: n.props.field,
-                children: n.props.children,
+                title: n.props.title,
             };
         });
 
         const header = <thead>
             <tr>
                 {columns.map(n => {
-                    return <td name={n.field} key={n.field}>{n.children}</td>;
+                    return <td name={n.field} key={n.field}>{n.title}</td>;
                 })}
             </tr>
         </thead>;
