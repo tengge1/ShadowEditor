@@ -3,20 +3,25 @@
 Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md) / [русский](README-ru.md)
 
 * 名称：Shadow Editor
-* 版本：v0.2.2(开发中)
+* 版本：v0.2.2
 * 简介：基于`three.js`的场景编辑器。
 
-## v0.2.2即将更新
+## v0.2.2更新
 
-1. 修复加载可视化场景的一些问题。（开发中）
-
-## v0.2.1发布
-
-* 发布日期：2019年5月19日
+* 发布日期：2019年6月2日
 * 更新日志：
 
-1. 更新示例程序，主要是编辑器二维菜单演示。[码云](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
-2. 基于react.js的UI。（开发中）
+1. 修复加载可视化场景的一些问题。（开发中）
+2. 使用reactjs为以下组件添加属性和事件。（参照项目截图1）
+
+表单：Button, CheckBox, Form, FormControl, IconButton, Input, Label, Radio, TextArea, Toggle。  
+图标：Icon。  
+布局：AbsoluteLayout, BorderLayout, Content, HBoxLayout, TabLayout, VBoxLayout。  
+媒体：Canvas, Image, SVG。  
+菜单：MenuBar, MenuItem, MenuItemSeparator。  
+面板：Panel。  
+表格：DataGrid, Table, TableBody, TableCell, TableHead, TableRow。  
+工具栏：Toolbar, ToolbarSeparator。
 
 ## 项目截图
 
@@ -149,6 +154,23 @@ npm run build-docs
 基本几何体都支持多层嵌套。可以添加一个`组`（在几何体菜单中），然后在场景树状图上，将多个模型拖动到`组`上。
 
 ## 更新日志
+
+**v0.2.2**
+
+* 发布日期：2019年6月2日
+* 更新日志：
+
+1. 修复加载可视化场景的一些问题。（开发中）
+2. 使用reactjs为以下组件添加属性和事件。（参照项目截图1）
+
+表单：Button, CheckBox, Form, FormControl, IconButton, Input, Label, Radio, TextArea, Toggle。  
+图标：Icon。  
+布局：AbsoluteLayout, BorderLayout, Content, HBoxLayout, TabLayout, VBoxLayout。  
+媒体：Canvas, Image, SVG。  
+菜单：MenuBar, MenuItem, MenuItemSeparator。  
+面板：Panel。  
+表格：DataGrid, Table, TableBody, TableCell, TableHead, TableRow。  
+工具栏：Toolbar, ToolbarSeparator。
 
 **v0.2.1**
 
