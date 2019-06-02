@@ -29,6 +29,17 @@ class ComponentMenu extends React.Component {
             <MenuItem title={'Sky'}></MenuItem>
             <MenuItem title={'Fire'}></MenuItem>
             <MenuItem title={'Water'}></MenuItem>
+            <MenuItem title={'MenuItem'}>
+                <MenuItem title={'Child 1'}></MenuItem>
+                <MenuItem title={'Child 2'}>
+                    <MenuItem title={'Child 1'}></MenuItem>
+                    <MenuItem title={'Child 2'}></MenuItem>
+                    <MenuItem title={'Child 3'}></MenuItem>
+                </MenuItem>
+                <MenuItem title={'Child 3'}></MenuItem>
+                <MenuItem title={'Child 4'}></MenuItem>
+                <MenuItem title={'Child 5'}></MenuItem>
+            </MenuItem>
             <MenuItem title={'Smoke'}></MenuItem>
             <MenuItem title={'Cloth'}></MenuItem>
         </MenuItem>;

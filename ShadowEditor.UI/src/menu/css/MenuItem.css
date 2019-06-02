@@ -1,4 +1,5 @@
 .MenuItem {
+    position: relative;
     line-height: 24px;
     margin: 3px;
     padding: 2px 14px 2px 30px;

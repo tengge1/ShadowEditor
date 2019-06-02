@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import BorderLayout from '../layout/BorderLayout.jsx';
 import Panel from '../panel/Panel.jsx';
+import EFormPanel from './EFormPanel.jsx';
 
 import DataGrid from '../table/DataGrid.jsx';
 import Column from '../common/Column.jsx';
@@ -69,11 +70,11 @@ class EWorkspace extends React.Component {
             <Panel title={'North'} region={'north'} split={true} style={{ height: '120px', border: 'none' }}>
                 <Toolbar>
                     <Button>Button 1</Button>
-                    <Button>Button 2</Button>
-                    <Button>Button 3</Button>
+                    <Button color={'primary'}>Button 2</Button>
+                    <Button color={'success'}>Button 3</Button>
                     <ToolbarSeparator />
-                    <Button>Button 4</Button>
-                    <Button>Button 5</Button>
+                    <Button color={'warn'}>Button 4</Button>
+                    <Button color={'danger'}>Button 5</Button>
                 </Toolbar>
             </Panel>
             <Panel title={'South'} region={'south'} split={true} style={{ height: '120px', border: 'none' }}></Panel>
@@ -86,7 +87,9 @@ class EWorkspace extends React.Component {
                     <Icon icon={'scale'}></Icon>
                 </Toolbar>
             </Panel>
-            <Panel title={'East'} region={'east'} split={true} style={{ width: '200px', border: 'none' }}></Panel>
+            <Panel title={'East'} region={'east'} split={true} style={{ width: '500px', border: 'none' }}>
+                <EFormPanel></EFormPanel>
+            </Panel>
             <Panel title={'Center'}
                 region={'center'}
                 collapsible={true}

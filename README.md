@@ -22,7 +22,7 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 
 1. 基于react.js的UI。(开发中)
 
-![image](images/scene20190519.png)
+![image](images/scene20190602.png)
 
 2. 室内场景编辑。(仅供参考)
 
