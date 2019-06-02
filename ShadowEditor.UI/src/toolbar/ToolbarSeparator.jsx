@@ -1,4 +1,3 @@
-import './css/ToolbarSeparator.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
@@ -8,9 +7,9 @@ import PropTypes from 'prop-types';
  */
 class ToolbarSeparator extends React.Component {
     render() {
-        const { className, style, direction } = this.props;
+        const { className, style } = this.props;
 
-        return <div className={classNames('ToolbarSeparator', direction, className)} style={style}>
+        return <div className={classNames('ToolbarSeparator', className)} style={style}>
             <div className='separator'></div>
         </div>;
     }
@@ -19,13 +18,11 @@ class ToolbarSeparator extends React.Component {
 ToolbarSeparator.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    direction: PropTypes.string,
 };
 
 ToolbarSeparator.defaultProps = {
     className: null,
     style: null,
-    direction: 'horizontal',
 };
 
 export default ToolbarSeparator;

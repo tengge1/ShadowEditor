@@ -9,6 +9,11 @@ import DataGrid from '../table/DataGrid.jsx';
 import Column from '../common/Column.jsx';
 import Columns from '../common/Columns.jsx';
 
+import Toolbar from '../toolbar/Toolbar.jsx';
+import Button from '../form/Button.jsx';
+import Icon from '../form/IconButton.jsx';
+import ToolbarSeparator from '../toolbar/ToolbarSeparator.jsx';
+
 /**
  * 工作区
  * @author tengge / https://github.com/tengge1
@@ -61,9 +66,26 @@ class EWorkspace extends React.Component {
         });
 
         return <BorderLayout className={classNames('EWorkspace', className)} {...others}>
-            <Panel title={'North'} region={'north'} split={true} style={{ height: '120px', border: 'none' }}></Panel>
+            <Panel title={'North'} region={'north'} split={true} style={{ height: '120px', border: 'none' }}>
+                <Toolbar>
+                    <Button>Button 1</Button>
+                    <Button>Button 2</Button>
+                    <Button>Button 3</Button>
+                    <ToolbarSeparator />
+                    <Button>Button 4</Button>
+                    <Button>Button 5</Button>
+                </Toolbar>
+            </Panel>
             <Panel title={'South'} region={'south'} split={true} style={{ height: '120px', border: 'none' }}></Panel>
-            <Panel title={'West'} region={'west'} split={true} style={{ width: '200px', border: 'none' }}></Panel>
+            <Panel title={'West'} region={'west'} split={true} style={{ width: '200px', border: 'none' }}>
+                <Toolbar direction={'vertical'}>
+                    <Icon icon={'select'}></Icon>
+                    <ToolbarSeparator />
+                    <Icon icon={'translate'}></Icon>
+                    <Icon icon={'rotate'}></Icon>
+                    <Icon icon={'scale'}></Icon>
+                </Toolbar>
+            </Panel>
             <Panel title={'East'} region={'east'} split={true} style={{ width: '200px', border: 'none' }}></Panel>
             <Panel title={'Center'}
                 region={'center'}

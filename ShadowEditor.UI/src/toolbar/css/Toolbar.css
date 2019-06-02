@@ -26,3 +26,26 @@
     line-height: 32px;
     text-align: center;
 }
+
+/* ToolbarSeparator */
+
+.ToolbarSeparator {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ToolbarSeparator>.separator {
+    width: 2px;
+    height: 24px;
+    background: rgb(229, 229, 229);
+    background-image: linear-gradient(to right, rgb(226, 226, 226), rgb(226, 226, 226) 50%, rgb(252, 252, 252) 50%, rgb(252, 252, 252));
+}
+
+.Toolbar.vertical>.ToolbarSeparator>.separator {
+    width: 24px;
+    height: 2px;
+    background: rgb(229, 229, 229);
+    background-image: linear-gradient(to bottom, rgb(226, 226, 226), rgb(226, 226, 226) 50%, rgb(252, 252, 252) 50%, rgb(252, 252, 252));
+}
