@@ -3,16 +3,14 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 /**
- * 工具栏分隔符
+ * 工具栏分割线
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class ToolbarSeparator extends React.Component {
     render() {
-        const { className, style } = this.props;
+        const { className, style, direction } = this.props;
 
-        return <div className={classNames('ToolbarSeparator', className)} style={style}>
+        return <div className={classNames('ToolbarSeparator', direction, className)} style={style}>
             <div className='separator'></div>
         </div>;
     }
@@ -21,6 +19,13 @@ class ToolbarSeparator extends React.Component {
 ToolbarSeparator.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    direction: PropTypes.string,
+};
+
+ToolbarSeparator.defaultProps = {
+    className: null,
+    style: null,
+    direction: 'horizontal',
 };
 
 export default ToolbarSeparator;
