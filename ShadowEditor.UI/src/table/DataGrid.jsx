@@ -9,8 +9,31 @@ import Columns from '../common/Columns.jsx';
  * @author tengge / https://github.com/tengge1
  */
 class DataGrid extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            data: props.data,
+            selected: null,
+        };
+
+        this.handleClick = this.handleClick.bind(this, props.onSelect);
+    }
+
+    handleClick(onSelect, event) {
+        const id = event.currentTarget.getAttribute('data-id');
+        const record = this.state.data.filter(n => n.id === id)[0];
+
+        this.setState({
+            selected: id,
+        });
+
+        onSelect && onSelect(record);
+    }
+
     render() {
-        const { className, style, children, data } = this.props;
+        const { className, style, children } = this.props;
+        const { data, selected } = this.state;
 
         const columns = children.props.children.map(n => {
             return {
@@ -29,7 +52,7 @@ class DataGrid extends React.Component {
 
         const body = <tbody>
             {data.map(n => {
-                return <tr key={n.id}>
+                return <tr className={selected === n.id ? 'selected' : null} data-id={n.id} key={n.id} onClick={this.handleClick}>
                     {columns.map(m => {
                         return <td key={m.field}>{n[m.field]}</td>;
                     })}
@@ -54,6 +77,7 @@ DataGrid.propTypes = {
         }
     },
     data: PropTypes.array,
+    onSelect: PropTypes.func,
 };
 
 DataGrid.defaultProps = {
@@ -61,6 +85,7 @@ DataGrid.defaultProps = {
     style: null,
     children: null,
     data: [],
+    onSelect: null,
 };
 
 export default DataGrid;

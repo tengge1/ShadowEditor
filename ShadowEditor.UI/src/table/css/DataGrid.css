@@ -18,6 +18,11 @@
     background-color: #f7f7f7;
 }
 
+.DataGrid>tbody>tr.selected {
+    color: #fff;
+    background-color: #3399ff;
+}
+
 .DataGrid>tbody>tr:hover {
     color: #fff;
     background-color: #3399ff;
