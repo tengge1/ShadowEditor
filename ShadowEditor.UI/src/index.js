@@ -50,7 +50,6 @@ export { default as PropertyGrid } from './property/PropertyGrid.jsx';
 
 // table
 export { default as DataGrid } from './table/DataGrid.jsx';
-export { default as Pager } from './table/Pager.jsx';
 export { default as Table } from './table/Table.jsx';
 export { default as TableBody } from './table/TableBody.jsx';
 export { default as TableCell } from './table/TableCell.jsx';
