@@ -14,6 +14,7 @@ import Toolbar from '../toolbar/Toolbar.jsx';
 import Button from '../form/Button.jsx';
 import Icon from '../form/IconButton.jsx';
 import ToolbarSeparator from '../toolbar/ToolbarSeparator.jsx';
+import Timeline from '../timeline/Timeline.jsx';
 
 /**
  * 工作区
@@ -77,7 +78,9 @@ class EWorkspace extends React.Component {
                     <Button color={'danger'}>Button 5</Button>
                 </Toolbar>
             </Panel>
-            <Panel title={'South'} region={'south'} split={true} style={{ height: '120px', border: 'none' }}></Panel>
+            <Panel title={'South'} region={'south'} split={true} style={{ height: '120px', border: 'none' }}>
+                <Timeline></Timeline>
+            </Panel>
             <Panel title={'West'} region={'west'} split={true} style={{ width: '200px', border: 'none' }}>
                 <Toolbar direction={'vertical'}>
                     <Icon icon={'select'}></Icon>
