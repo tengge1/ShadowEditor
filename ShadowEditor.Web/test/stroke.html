@@ -26,9 +26,15 @@
             return new THREE.ShaderMaterial({
 
                 uniforms: {
-                    "depthTexture": { value: null },
-                    "cameraNearFar": { value: new THREE.Vector2(0.5, 0.5) },
-                    "textureMatrix": { value: new THREE.Matrix4() }
+                    "depthTexture": {
+                        value: null
+                    },
+                    "cameraNearFar": {
+                        value: new THREE.Vector2(0.5, 0.5)
+                    },
+                    "textureMatrix": {
+                        value: new THREE.Matrix4()
+                    }
                 },
 
                 vertexShader: [
@@ -69,21 +75,27 @@
             return new THREE.ShaderMaterial({
 
                 uniforms: {
-                    "maskTexture": { value: null },
-                    "texSize": { value: new THREE.Vector2(0.5, 0.5) },
-                    "visibleEdgeColor": { value: new THREE.Vector3(1.0, 1.0, 1.0) },
-                    "hiddenEdgeColor": { value: new THREE.Vector3(1.0, 1.0, 1.0) },
+                    "maskTexture": {
+                        value: null
+                    },
+                    "texSize": {
+                        value: new THREE.Vector2(0.5, 0.5)
+                    },
+                    "visibleEdgeColor": {
+                        value: new THREE.Vector3(1.0, 1.0, 1.0)
+                    },
+                    "hiddenEdgeColor": {
+                        value: new THREE.Vector3(1.0, 1.0, 1.0)
+                    },
                 },
 
-                vertexShader:
-                    "varying vec2 vUv;\n\
+                vertexShader: "varying vec2 vUv;\n\
         void main() {\n\
             vUv = uv;\n\
             gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n\
         }",
 
-                fragmentShader:
-                    "varying vec2 vUv;\
+                fragmentShader: "varying vec2 vUv;\
         uniform sampler2D maskTexture;\
         uniform vec2 texSize;\
         uniform vec3 visibleEdgeColor;\
@@ -117,21 +129,27 @@
                 },
 
                 uniforms: {
-                    "colorTexture": { value: null },
-                    "texSize": { value: new THREE.Vector2(0.5, 0.5) },
-                    "direction": { value: new THREE.Vector2(0.5, 0.5) },
-                    "kernelRadius": { value: 1.0 }
+                    "colorTexture": {
+                        value: null
+                    },
+                    "texSize": {
+                        value: new THREE.Vector2(0.5, 0.5)
+                    },
+                    "direction": {
+                        value: new THREE.Vector2(0.5, 0.5)
+                    },
+                    "kernelRadius": {
+                        value: 1.0
+                    }
                 },
 
-                vertexShader:
-                    "varying vec2 vUv;\n\
+                vertexShader: "varying vec2 vUv;\n\
         void main() {\n\
             vUv = uv;\n\
             gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n\
         }",
 
-                fragmentShader:
-                    "#include <common>\
+                fragmentShader: "#include <common>\
         varying vec2 vUv;\
         uniform sampler2D colorTexture;\
         uniform vec2 texSize;\
@@ -165,24 +183,36 @@
             return new THREE.ShaderMaterial({
 
                 uniforms: {
-                    "maskTexture": { value: null },
-                    "edgeTexture1": { value: null },
-                    "edgeTexture2": { value: null },
-                    "patternTexture": { value: null },
-                    "edgeStrength": { value: 1.0 },
-                    "edgeGlow": { value: 1.0 },
-                    "usePatternTexture": { value: 0.0 }
+                    "maskTexture": {
+                        value: null
+                    },
+                    "edgeTexture1": {
+                        value: null
+                    },
+                    "edgeTexture2": {
+                        value: null
+                    },
+                    "patternTexture": {
+                        value: null
+                    },
+                    "edgeStrength": {
+                        value: 1.0
+                    },
+                    "edgeGlow": {
+                        value: 1.0
+                    },
+                    "usePatternTexture": {
+                        value: 0.0
+                    }
                 },
 
-                vertexShader:
-                    "varying vec2 vUv;\n\
+                vertexShader: "varying vec2 vUv;\n\
         void main() {\n\
             vUv = uv;\n\
             gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n\
         }",
 
-                fragmentShader:
-                    "varying vec2 vUv;\
+                fragmentShader: "varying vec2 vUv;\
         uniform sampler2D maskTexture;\
         uniform sampler2D edgeTexture1;\
         uniform sampler2D edgeTexture2;\
@@ -233,9 +263,14 @@
         scene.add(new THREE.PolarGridHelper());
 
         var geometry = new THREE.BoxGeometry(1, 1, 1);
-        var material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+        var material = new THREE.MeshPhongMaterial({
+            color: 0x00ff00
+        });
         var cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
+
+        // 边框相关
+        var helperCamera = new THREE.OrthographicCamera();
 
         var depthMaterial = new THREE.MeshDepthMaterial();
         depthMaterial.side = THREE.DoubleSide;
