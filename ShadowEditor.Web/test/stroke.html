@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>Stroke</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../assets/js/three.js"></script>
+    <script src="../assets/js/controls/OrbitControls.js"></script>
+    <script>
+        function getPrepareMaskMaterial() {
+            return new THREE.ShaderMaterial({
+
+                uniforms: {
+                    "depthTexture": { value: null },
+                    "cameraNearFar": { value: new THREE.Vector2(0.5, 0.5) },
+                    "textureMatrix": { value: new THREE.Matrix4() }
+                },
+
+                vertexShader: [
+                    'varying vec4 projTexCoord;',
+                    'varying vec4 vPosition;',
+                    'uniform mat4 textureMatrix;',
+
+                    'void main() {',
+
+                    '	vPosition = modelViewMatrix * vec4( position, 1.0 );',
+                    '	vec4 worldPosition = modelMatrix * vec4( position, 1.0 );',
+                    '	projTexCoord = textureMatrix * worldPosition;',
+                    '	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
+
+                    '}'
+                ].join('\n'),
+
+                fragmentShader: [
+                    '#include <packing>',
+                    'varying vec4 vPosition;',
+                    'varying vec4 projTexCoord;',
+                    'uniform sampler2D depthTexture;',
+                    'uniform vec2 cameraNearFar;',
+
+                    'void main() {',
+
+                    '	float depth = unpackRGBAToDepth(texture2DProj( depthTexture, projTexCoord ));',
+                    '	float viewZ = - DEPTH_TO_VIEW_Z( depth, cameraNearFar.x, cameraNearFar.y );',
+                    '	float depthTest = (-vPosition.z > viewZ) ? 1.0 : 0.0;',
+                    '	gl_FragColor = vec4(0.0, depthTest, 1.0, 1.0);',
+
+                    '}'
+                ].join('\n')
+            });
+        }
+
+        function getEdgeDetectionMaterial() {
+            return new THREE.ShaderMaterial({
+
+                uniforms: {
+                    "maskTexture": { value: null },
+                    "texSize": { value: new THREE.Vector2(0.5, 0.5) },
+                    "visibleEdgeColor": { value: new THREE.Vector3(1.0, 1.0, 1.0) },
+                    "hiddenEdgeColor": { value: new THREE.Vector3(1.0, 1.0, 1.0) },
+                },
+
+                vertexShader:
+                    "varying vec2 vUv;\n\
+        void main() {\n\
+            vUv = uv;\n\
+            gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n\
+        }",
+
+                fragmentShader:
+                    "varying vec2 vUv;\
+        uniform sampler2D maskTexture;\
+        uniform vec2 texSize;\
+        uniform vec3 visibleEdgeColor;\
+        uniform vec3 hiddenEdgeColor;\
+        \
+        void main() {\n\
+            vec2 invSize = 1.0 / texSize;\
+            vec4 uvOffset = vec4(1.0, 0.0, 0.0, 1.0) * vec4(invSize, invSize);\
+            vec4 c1 = texture2D( maskTexture, vUv + uvOffset.xy);\
+            vec4 c2 = texture2D( maskTexture, vUv - uvOffset.xy);\
+            vec4 c3 = texture2D( maskTexture, vUv + uvOffset.yw);\
+            vec4 c4 = texture2D( maskTexture, vUv - uvOffset.yw);\
+            float diff1 = (c1.r - c2.r)*0.5;\
+            float diff2 = (c3.r - c4.r)*0.5;\
+            float d = length( vec2(diff1, diff2) );\
+            float a1 = min(c1.g, c2.g);\
+            float a2 = min(c3.g, c4.g);\
+            float visibilityFactor = min(a1, a2);\
+            vec3 edgeColor = 1.0 - visibilityFactor > 0.001 ? visibleEdgeColor : hiddenEdgeColor;\
+            gl_FragColor = vec4(edgeColor, 1.0) * vec4(d);\
+        }"
+            });
+        }
+
+        function getSeperableBlurMaterial(maxRadius) {
+
+            return new THREE.ShaderMaterial({
+
+                defines: {
+                    "MAX_RADIUS": maxRadius,
+                },
+
+                uniforms: {
+                    "colorTexture": { value: null },
+                    "texSize": { value: new THREE.Vector2(0.5, 0.5) },
+                    "direction": { value: new THREE.Vector2(0.5, 0.5) },
+                    "kernelRadius": { value: 1.0 }
+                },
+
+                vertexShader:
+                    "varying vec2 vUv;\n\
+        void main() {\n\
+            vUv = uv;\n\
+            gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n\
+        }",
+
+                fragmentShader:
+                    "#include <common>\
+        varying vec2 vUv;\
+        uniform sampler2D colorTexture;\
+        uniform vec2 texSize;\
+        uniform vec2 direction;\
+        uniform float kernelRadius;\
+        \
+        float gaussianPdf(in float x, in float sigma) {\
+            return 0.39894 * exp( -0.5 * x * x/( sigma * sigma))/sigma;\
+        }\
+        void main() {\
+            vec2 invSize = 1.0 / texSize;\
+            float weightSum = gaussianPdf(0.0, kernelRadius);\
+            vec3 diffuseSum = texture2D( colorTexture, vUv).rgb * weightSum;\
+            vec2 delta = direction * invSize * kernelRadius/float(MAX_RADIUS);\
+            vec2 uvOffset = delta;\
+            for( int i = 1; i <= MAX_RADIUS; i ++ ) {\
+                float w = gaussianPdf(uvOffset.x, kernelRadius);\
+                vec3 sample1 = texture2D( colorTexture, vUv + uvOffset).rgb;\
+                vec3 sample2 = texture2D( colorTexture, vUv - uvOffset).rgb;\
+                diffuseSum += ((sample1 + sample2) * w);\
+                weightSum += (2.0 * w);\
+                uvOffset += delta;\
+            }\
+            gl_FragColor = vec4(diffuseSum/weightSum, 1.0);\
+        }"
+            });
+        }
+
+        function getOverlayMaterial() {
+
+            return new THREE.ShaderMaterial({
+
+                uniforms: {
+                    "maskTexture": { value: null },
+                    "edgeTexture1": { value: null },
+                    "edgeTexture2": { value: null },
+                    "patternTexture": { value: null },
+                    "edgeStrength": { value: 1.0 },
+                    "edgeGlow": { value: 1.0 },
+                    "usePatternTexture": { value: 0.0 }
+                },
+
+                vertexShader:
+                    "varying vec2 vUv;\n\
+        void main() {\n\
+            vUv = uv;\n\
+            gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n\
+        }",
+
+                fragmentShader:
+                    "varying vec2 vUv;\
+        uniform sampler2D maskTexture;\
+        uniform sampler2D edgeTexture1;\
+        uniform sampler2D edgeTexture2;\
+        uniform sampler2D patternTexture;\
+        uniform float edgeStrength;\
+        uniform float edgeGlow;\
+        uniform bool usePatternTexture;\
+        \
+        void main() {\
+            vec4 edgeValue1 = texture2D(edgeTexture1, vUv);\
+            vec4 edgeValue2 = texture2D(edgeTexture2, vUv);\
+            vec4 maskColor = texture2D(maskTexture, vUv);\
+            vec4 patternColor = texture2D(patternTexture, 6.0 * vUv);\
+            float visibilityFactor = 1.0 - maskColor.g > 0.0 ? 1.0 : 0.5;\
+            vec4 edgeValue = edgeValue1 + edgeValue2 * edgeGlow;\
+            vec4 finalColor = edgeStrength * maskColor.r * edgeValue;\
+            if(usePatternTexture)\
+                finalColor += + visibilityFactor * (1.0 - maskColor.r) * (1.0 - patternColor.r);\
+            gl_FragColor = finalColor;\
+        }",
+                blending: THREE.AdditiveBlending,
+                depthTest: false,
+                depthWrite: false,
+                transparent: true
+            });
+        }
+
+        var scene = new THREE.Scene();
+
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(4.534318418390707, 2.767285132678359, 2.4065417148044856);
+        camera.lookAt(new THREE.Vector3());
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        new THREE.OrbitControls(camera, renderer.domElement);
+
+        var amlight = new THREE.AmbientLight(0xffffff, 0.3);
+        scene.add(amlight);
+
+        var dirlight = new THREE.DirectionalLight(0xffffff, 0.7);
+        dirlight.position.set(1, 1, 1);
+        scene.add(dirlight);
+
+        scene.add(new THREE.DirectionalLightHelper(dirlight));
+        scene.add(new THREE.PolarGridHelper());
+
+        var geometry = new THREE.BoxGeometry(1, 1, 1);
+        var material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+        var cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        var depthMaterial = new THREE.MeshDepthMaterial();
+        depthMaterial.side = THREE.DoubleSide;
+        depthMaterial.depthPacking = THREE.RGBADepthPacking;
+        depthMaterial.blending = THREE.NoBlending;
+
+        var textureMatrix = new THREE.Matrix4();
+
+        var renderTarget = new THREE.WebGLRenderTarget(renderer.domElement.width, renderer.domElement.width.height);
+
+        var animate = function () {
+            requestAnimationFrame(animate);
+
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+
+            textureMatrix.set(
+                0.5, 0.0, 0.0, 0.5,
+                0.0, 0.5, 0.0, 0.5,
+                0.0, 0.0, 0.5, 0.5,
+                0.0, 0.0, 0.0, 1.0);
+            textureMatrix.multiply(camera.projectionMatrix);
+            textureMatrix.multiply(camera.matrixWorldInverse);
+
+            // depth material
+            scene.overrideMaterial = depthMaterial;
+            renderer.setRenderTarget(renderTarget);
+
+            // 
+            scene.overrideMaterial = null;
+            renderer.setRenderTarget(null);
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script>
+</body>
+
+</html>
