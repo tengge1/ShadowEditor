@@ -334,10 +334,10 @@
             textureMatrix.multiply(camera.matrixWorldInverse);
 
             // 深度材质
-            renderer.setRenderTarget(readBuffer);
-            scene.overrideMaterial = depthMaterial;
-            renderer.render(scene, camera);
-            scene.overrideMaterial = null;
+            // renderer.setRenderTarget(readBuffer);
+            // scene.overrideMaterial = depthMaterial;
+            // renderer.render(scene, camera);
+            // scene.overrideMaterial = null;
 
             // 准备材质
             renderer.setRenderTarget(writeBuffer);
