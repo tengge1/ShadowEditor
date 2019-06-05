@@ -254,6 +254,7 @@
 
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);
+        renderer.autoClear = false;
         document.body.appendChild(renderer.domElement);
 
         new THREE.OrbitControls(camera, renderer.domElement);
@@ -284,9 +285,7 @@
 
         // 帮助物体
         var helpGeometry = new THREE.PlaneBufferGeometry(width, height);
-        var helpMaterial = new THREE.MeshBasicMaterial({
-            map: writeBuffer.texture,
-        });
+        var helpMaterial = new THREE.MeshBasicMaterial();
         var helpPlane = new THREE.Mesh(helpGeometry, helpMaterial);
         helpPlane.rotation.x = -Math.PI / 2;
         helpScene.add(helpPlane);
@@ -333,20 +332,25 @@
             textureMatrix.multiply(camera.projectionMatrix);
             textureMatrix.multiply(camera.matrixWorldInverse);
 
-            // 深度材质
-            // renderer.setRenderTarget(readBuffer);
-            // scene.overrideMaterial = depthMaterial;
-            // renderer.render(scene, camera);
-            // scene.overrideMaterial = null;
+            // 深度材质 scene-->readBuffer
+            renderer.setRenderTarget(readBuffer);
+            scene.overrideMaterial = depthMaterial;
+            renderer.render(scene, camera);
+            scene.overrideMaterial = null;
 
-            // 准备材质
+            // 准备材质 readBuffer-->writeBuffer
             renderer.setRenderTarget(writeBuffer);
+            helpMaterial.map = readBuffer.texture;
+
             scene.overrideMaterial = prepareMaterial;
             prepareMaterial.uniforms.textureMatrix.value.copy(textureMatrix);
             renderer.render(scene, camera);
             scene.overrideMaterial = null;
 
             // 渲染帮助场景
+            renderer.clear();
+            helpMaterial.map = writeBuffer.texture;
+
             renderer.setRenderTarget(null);
             renderer.render(helpScene, helpCamera);
         };
