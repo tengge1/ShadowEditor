@@ -22,26 +22,13 @@
     <script src="../assets/js/three.js"></script>
     <script src="../assets/js/controls/OrbitControls.js"></script>
     <script>
-        // function getUIMaterial() {
-        //     return new THREE.ShaderMaterial({
-        //         uniforms: {
-        //             texture: null,
-        //         },
-
-        //         vertexShader: [
-        //             'void main {',
-        //             '   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);',
-        //             '}',
-        //         ].join('\n'),
-        //         fragmentShader: [
-        //             'uniform sampler2D map',
-        //         ].join('\n'),
-        //     });
-        // }
+        function replaceDepthToViewZ(string, camera) {
+            var type = camera.isPerspectiveCamera ? 'perspective' : 'orthographic';
+            return string.replace(/DEPTH_TO_VIEW_Z/g, type + 'DepthToViewZ');
+        }
 
         function getPrepareMaskMaterial() {
             return new THREE.ShaderMaterial({
-
                 uniforms: {
                     "depthTexture": {
                         value: null
@@ -138,7 +125,6 @@
         }
 
         function getSeperableBlurMaterial(maxRadius) {
-
             return new THREE.ShaderMaterial({
 
                 defines: {
@@ -293,12 +279,13 @@
         var helpScene = new THREE.Scene();
 
         // 绘制目标
-        var renderTarget = new THREE.WebGLRenderTarget(width, height);
+        var readBuffer = new THREE.WebGLRenderTarget(width, height);
+        var writeBuffer = readBuffer.clone();
 
         // 帮助物体
         var helpGeometry = new THREE.PlaneBufferGeometry(width, height);
         var helpMaterial = new THREE.MeshBasicMaterial({
-            map: renderTarget.texture,
+            map: writeBuffer.texture,
         });
         var helpPlane = new THREE.Mesh(helpGeometry, helpMaterial);
         helpPlane.rotation.x = -Math.PI / 2;
@@ -315,12 +302,26 @@
         depthMaterial.depthPacking = THREE.RGBADepthPacking;
         depthMaterial.blending = THREE.NoBlending;
 
+        // 准备材质
+        var prepareMaterial = getPrepareMaskMaterial();
+        prepareMaterial.fragmentShader = replaceDepthToViewZ(prepareMaterial.fragmentShader, camera);
+
+        prepareMaterial.uniforms.cameraNearFar.value.set(camera.near, camera.far);
+        prepareMaterial.uniforms.depthTexture.value = readBuffer.texture;
+
+        // 边缘检测材质
+        var edgeDetectionMaterial = getEdgeDetectionMaterial();
+
+        // 可分离模糊材质
+        var seperableBlurMaterial = getSeperableBlurMaterial();
+
         // 纹理矩阵
         var textureMatrix = new THREE.Matrix4();
 
         var animate = function () {
             requestAnimationFrame(animate);
 
+            // 旋转
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.01;
 
@@ -332,12 +333,17 @@
             textureMatrix.multiply(camera.projectionMatrix);
             textureMatrix.multiply(camera.matrixWorldInverse);
 
-            // depth material
+            // 深度材质
+            renderer.setRenderTarget(readBuffer);
             scene.overrideMaterial = depthMaterial;
-            renderer.setRenderTarget(renderTarget);
             renderer.render(scene, camera);
+            scene.overrideMaterial = null;
 
-            // 
+            // 准备材质
+            renderer.setRenderTarget(writeBuffer);
+            scene.overrideMaterial = prepareMaterial;
+            prepareMaterial.uniforms.textureMatrix.value.copy(textureMatrix);
+            renderer.render(scene, camera);
             scene.overrideMaterial = null;
 
             // 渲染帮助场景
