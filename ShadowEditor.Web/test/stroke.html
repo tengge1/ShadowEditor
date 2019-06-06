@@ -51,12 +51,7 @@
 
         var composer = new THREE.EffectComposer(renderer);
 
-        var renderPass = new THREE.RenderPass(scene, camera);
-        renderPass.clear = true;
-        renderPass.renderToScreen = false;
-        composer.addPass(renderPass);
-
-        var outlinePass = new THREE.OutlinePass(new THREE.Vector2(renderer.domElement.width, renderer.domElement.height), scene, camera, [cube]);
+        var outlinePass = new THREE.OutlinePass({ x: renderer.domElement.width, y: renderer.domElement.height }, scene, camera, [cube]);
         outlinePass.clear = false;
         outlinePass.renderToScreen = true;
         composer.addPass(outlinePass);
