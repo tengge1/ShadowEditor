@@ -16,7 +16,8 @@ THREE.OutlinePass = function (resolution, scene, camera, selectedObjects) {
 	var pars = {
 		minFilter: THREE.LinearFilter,
 		magFilter: THREE.LinearFilter,
-		format: THREE.RGBAFormat
+		format: THREE.RGBAFormat,
+		antialias: true,
 	};
 
 	this.resx = Math.round(this.resolution.x / this.downSampleRatio);
@@ -101,10 +102,10 @@ THREE.OutlinePass.prototype = Object.assign(Object.create(THREE.Pass.prototype),
 					value: new THREE.Vector2(0.5, 0.5)
 				},
 				"visibleEdgeColor": {
-					value: new THREE.Vector3(1.0, 1.0, 1.0)
+					value: new THREE.Vector3(1.0, 0.0, 0.0)
 				},
 				"hiddenEdgeColor": {
-					value: new THREE.Vector3(1.0, 1.0, 1.0)
+					value: new THREE.Vector3(0.0, 1.0, 0.0)
 				},
 			},
 
