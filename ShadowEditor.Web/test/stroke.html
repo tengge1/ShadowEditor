@@ -57,12 +57,6 @@
         composer.addPass(renderPass);
 
         var outlinePass = new THREE.OutlinePass(new THREE.Vector2(renderer.domElement.width, renderer.domElement.height), scene, camera, [cube]);
-        outlinePass.edgeStrength = 10;
-        outlinePass.edgeGlow = 0.4;
-        outlinePass.edgeThickness = 1.8;
-        outlinePass.pulsePeriod = 2;
-        outlinePass.visibleEdgeColor.set('#ffffff');
-        outlinePass.hiddenEdgeColor.set('#190a05');
         outlinePass.clear = false;
         outlinePass.renderToScreen = true;
         composer.addPass(outlinePass);
