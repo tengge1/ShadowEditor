@@ -549,6 +549,7 @@ ul.Tree .Node a:hover {
 ul.Tree .Node .SubTree {
     list-style: none;
     padding-inline-start: 12px;
+    background-color: #eee;
 }
 
 ::-webkit-scrollbar {

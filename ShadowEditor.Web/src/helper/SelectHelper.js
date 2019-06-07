@@ -1,6 +1,8 @@
 import BaseHelper from './BaseHelper';
-import OutlineVertex from './shader/outline_vertex.glsl';
-import OutlineFragment from './shader/outline_fragment.glsl';
+import MaskVertex from './shader/mask_vertex.glsl';
+import MaskFragment from './shader/mask_fragment.glsl';
+import EdgeVertex from './shader/edge_vertex.glsl';
+import EdgeFragment from './shader/edge_fragment.glsl';
 
 /**
  * 选择帮助器
@@ -36,34 +38,93 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
         return;
     }
 
+    if (!this.size) {
+        this.size = new THREE.Vector2();
+    }
+
+    this.app.editor.renderer.getDrawingBufferSize(this.size);
+
+    var width = this.size.x;
+    var height = this.size.y;
+
     if (this.scene === undefined) {
         this.scene = new THREE.Scene();
     }
 
-    // 用于绘制模板的材质，尽量简单，不能使用原材质的原因如下：
-    // 由于两个场景光源不一样，使用原材质会不断更新材质，造成严重性能损耗。
-    if (this.basicMaterial === undefined) {
-        this.basicMaterial = new THREE.MeshBasicMaterial({
-            depthTest: false
+    if (this.camera === undefined) {
+        this.camera = new THREE.OrthographicCamera(-width / 2, width / 2, height / 2, -height / 2, 0, 1);
+        this.camera.position.z = 1;
+        this.camera.lookAt(new THREE.Vector3());
+    }
+
+    if (this.quad === undefined) {
+        this.quad = new THREE.Mesh(new THREE.PlaneBufferGeometry(width, height), null);
+        this.quad.frustumCulled = false;
+        this.scene.add(this.quad);
+    }
+
+    var params = {
+        minFilter: THREE.LinearFilter,
+        magFilter: THREE.LinearFilter,
+        format: THREE.RGBAFormat,
+        antialias: true,
+    };
+
+    if (this.maskBuffer === undefined) {
+        this.maskBuffer = new THREE.WebGLRenderTarget(width, height, params);
+        this.maskBuffer.texture.generateMipmaps = false;
+    }
+
+    if (this.edgeBuffer === undefined) {
+        this.edgeBuffer = new THREE.WebGLRenderTarget(width, height, params);
+        this.edgeBuffer.texture.generateMipmaps = false;
+    }
+
+    if (this.maskMaterial === undefined) {
+        this.maskMaterial = new THREE.ShaderMaterial({
+            vertexShader: MaskVertex,
+            fragmentShader: MaskFragment,
+            depthTest: false,
         });
     }
 
-    // 用于绘制边框的材质
-    if (this.outlineMaterial === undefined) {
-        this.outlineMaterial = new THREE.ShaderMaterial({
-            vertexShader: OutlineVertex,
-            fragmentShader: OutlineFragment,
+    if (this.edgeMaterial === undefined) {
+        this.edgeMaterial = new THREE.ShaderMaterial({
+            vertexShader: EdgeVertex,
+            fragmentShader: EdgeFragment,
             uniforms: {
-                thickness: { // 边界宽度
-                    type: 'f',
-                    value: 0.005
+                maskTexture: {
+                    value: this.maskBuffer.texture,
                 },
-                color: { // 边界颜色
-                    type: 'v3',
+                texSize: {
+                    value: new THREE.Vector2(width, height),
+                },
+                color: {
                     value: new THREE.Vector3(1.0, 1.0, 1.0),
                 },
+                thickness: {
+                    type: 'f',
+                    value: 2,
+                },
             },
-            depthTest: false
+            depthTest: false,
+        });
+    }
+
+    if (this.copyMaterial === undefined) {
+        this.copyMaterial = new THREE.ShaderMaterial({
+            vertexShader: THREE.FXAAShader.vertexShader,
+            fragmentShader: THREE.FXAAShader.fragmentShader,
+            uniforms: {
+                tDiffuse: {
+                    value: this.edgeBuffer.texture,
+                },
+                resolution: {
+                    value: new THREE.Vector2(1 / width, 1 / height),
+                },
+            },
+            blending: THREE.AdditiveBlending,
+            depthTest: false,
         });
     }
 
@@ -88,60 +149,80 @@ SelectHelper.prototype.onAfterRender = function () {
         return;
     }
 
-    var scene = this.scene;
-    var camera = this.app.editor.camera;
+    var renderScene = this.app.editor.scene;
+    var renderCamera = this.app.editor.camera;
     var renderer = this.app.editor.renderer;
-    var state = renderer.state;
-    var context = renderer.context;
 
-    // 将物体添加到当前场景
-    var parent = this.object.parent;
-    var index = parent.children.indexOf(this.object);
-    this.scene.add(this.object);
+    var scene = this.scene;
+    var camera = this.camera;
+    var selected = this.object;
 
-    // 绘制模板
-    state.disable(context.DEPTH_TEST);
+    // 记录原始状态
+    var oldOverrideMaterial = renderScene.overrideMaterial;
+    var oldBackground = renderScene.background;
 
-    state.buffers.color.setMask(false);
-    state.buffers.depth.setMask(false);
-    state.buffers.stencil.setMask(true);
+    var oldAutoClear = renderer.autoClear;
+    var oldClearColor = renderer.getClearColor();
+    var oldClearAlpha = renderer.getClearAlpha();
+    var oldRenderTarget = renderer.getRenderTarget();
 
-    state.buffers.color.setLocked(true);
-    state.buffers.depth.setLocked(true);
-    state.buffers.stencil.setLocked(true);
+    // 绘制蒙版
+    this.hideNonSelectedObjects(renderScene, selected);
 
-    state.buffers.stencil.setTest(true);
-    state.buffers.stencil.setClear(0x00);
-    renderer.clearStencil();
-    state.buffers.stencil.setFunc(context.ALWAYS, 1, 0xff);
+    renderScene.overrideMaterial = this.maskMaterial;
+    renderScene.background = null;
 
-    this.scene.overrideMaterial = this.basicMaterial;
+    renderer.autoClear = false;
+    renderer.setRenderTarget(this.maskBuffer);
+    renderer.setClearColor(0xffffff);
+    renderer.setClearAlpha(1);
+    renderer.clear();
+
+    renderer.render(renderScene, renderCamera);
+
+    this.showNonSelectedObjects(renderScene, selected);
+
+    // 绘制边框
+    this.quad.material = this.edgeMaterial;
+
+    renderScene.overrideMaterial = null;
+
+    renderer.setRenderTarget(this.edgeBuffer);
+    renderer.clear();
     renderer.render(scene, camera);
 
-    // 绘制描边
-    state.buffers.color.setLocked(false);
-    state.buffers.stencil.setLocked(false);
+    // 与原场景叠加
+    this.quad.material = this.copyMaterial;
 
-    state.buffers.color.setMask(true);
-    state.buffers.stencil.setMask(false);
-
-    state.buffers.stencil.setOp(context.KEEP, context.KEEP, context.REPLACE);
-    state.buffers.stencil.setFunc(context.NOTEQUAL, 1, 0xff);
-
-    this.scene.overrideMaterial = this.outlineMaterial;
+    renderer.setRenderTarget(null);
     renderer.render(scene, camera);
 
     // 还原原始状态
-    state.buffers.depth.setLocked(false);
-    state.buffers.depth.setMask(true);
+    renderScene.overrideMaterial = oldOverrideMaterial;
+    renderScene.background = oldBackground;
 
-    state.enable(context.DEPTH_TEST);
-    state.buffers.stencil.setTest(false);
+    renderer.autoClear = oldAutoClear;
+    renderer.setClearColor(oldClearColor);
+    renderer.setClearAlpha(oldClearAlpha);
+    renderer.setRenderTarget(oldRenderTarget);
+};
 
-    // 将物体放回原场景
-    this.scene.remove(this.object);
-    this.object.parent = parent;
-    parent.children.splice(index, 0, this.object);
+SelectHelper.prototype.hideNonSelectedObjects = function (scene, selected) {
+    scene.traverse(obj => {
+        if (obj.isMesh && obj !== selected) {
+            obj.userData.oldVisible = obj.visible;
+            obj.visible = false;
+        }
+    });
+};
+
+SelectHelper.prototype.showNonSelectedObjects = function (scene, selected) {
+    scene.traverse(obj => {
+        if (obj.isMesh && obj !== selected && obj.userData.oldVisible) {
+            obj.visible = obj.userData.oldVisible;
+            delete obj.userData.oldVisible;
+        }
+    });
 };
 
 export default SelectHelper;
