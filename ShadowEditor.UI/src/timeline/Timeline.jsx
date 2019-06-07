@@ -9,32 +9,36 @@ import PropTypes from 'prop-types';
 class Timeline extends React.Component {
     constructor(props) {
         super(props);
+
+        this.canvas = React.createRef();
     }
 
     render() {
         const { className, style } = this.props;
 
         return <div className={classNames('Timeline', className)} style={style}>
-            <canvas></canvas>
+            <canvas className={'time'} ref={this.canvas}></canvas>
         </div>;
     }
 
     componentDidMount() {
-        return;
-        var duration = this.duration; // 持续秒数
-        var scale = this.scale; // 1秒像素数
+        var duration = 120; // 持续时长(秒)
+        var scale = 30; // 尺寸，1秒=30像素
+
         var width = duration * scale; // 画布宽度
         var scale5 = scale / 5; // 0.2秒像素数
         var margin = 0; // 时间轴前后间距
 
-        this.dom.style.width = (width + margin * 2) + 'px';
-        this.dom.width = this.dom.clientWidth;
+        var canvas = this.canvas.current;
+        canvas.style.width = (width + margin * 2) + 'px';
+        canvas.width = canvas.clientWidth;
+        canvas.height = 32;
 
-        var context = this.dom.getContext('2d');
+        var context = canvas.getContext('2d');
 
         // 时间轴背景
         context.fillStyle = '#eee';
-        context.fillRect(0, 0, this.dom.width, this.dom.height);
+        context.fillRect(0, 0, canvas.width, canvas.height);
 
         // 时间轴刻度
         context.strokeStyle = '#555';
@@ -84,6 +88,11 @@ class Timeline extends React.Component {
 Timeline.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+};
+
+Timeline.defaultProps = {
+    className: null,
+    style: null,
 };
 
 export default Timeline;

@@ -1,0 +1,8 @@
+.Timeline {
+    width: 100%;
+}
+
+.Timeline .time {
+    width: 100%;
+    height: 32px;
+}

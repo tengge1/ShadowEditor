@@ -79,7 +79,7 @@ class EWorkspace extends React.Component {
                 </Toolbar>
             </Panel>
             <Panel title={'South'} region={'south'} split={true} style={{ height: '120px', border: 'none' }}>
-                <Timeline></Timeline>
+                <Timeline style={{ width: 0, flex: 1, }}></Timeline>
             </Panel>
             <Panel title={'West'} region={'west'} split={true} style={{ width: '200px', border: 'none' }}>
                 <Toolbar direction={'vertical'}>
