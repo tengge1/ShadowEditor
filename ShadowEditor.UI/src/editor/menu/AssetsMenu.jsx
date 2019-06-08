@@ -5,8 +5,6 @@ import MenuItemSeparator from '../../menu/MenuItemSeparator.jsx';
 /**
  * 资源菜单
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class AssetsMenu extends React.Component {
     constructor(props) {
@@ -21,8 +19,6 @@ class AssetsMenu extends React.Component {
     }
 
     render() {
-        const { className, style } = this.props;
-
         return <MenuItem title={'Assets'}>
             <MenuItem title={'Export Geometry'}></MenuItem>
             <MenuItem title={'Export Object'}></MenuItem>
@@ -35,10 +31,5 @@ class AssetsMenu extends React.Component {
         </MenuItem>;
     }
 }
-
-AssetsMenu.propTypes = {
-    className: PropTypes.string,
-    style: PropTypes.object,
-};
 
 export default AssetsMenu;

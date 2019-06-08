@@ -5,8 +5,6 @@ import MenuItemSeparator from '../../menu/MenuItemSeparator.jsx';
 /**
  * 选项菜单
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class OptionsMenu extends React.Component {
     constructor(props) {
@@ -24,7 +22,7 @@ class OptionsMenu extends React.Component {
         const { className, style } = this.props;
 
         return <MenuItem title={'Options'}>
-            <MenuItem title={'Furface'}></MenuItem>
+            <MenuItem title={'Surface'}></MenuItem>
             <MenuItem title={'Helpers'}></MenuItem>
             <MenuItemSeparator />
             <MenuItem title={'Renderer'}></MenuItem>
@@ -32,10 +30,5 @@ class OptionsMenu extends React.Component {
         </MenuItem>;
     }
 }
-
-OptionsMenu.propTypes = {
-    className: PropTypes.string,
-    style: PropTypes.object,
-};
 
 export default OptionsMenu;

@@ -5,8 +5,6 @@ import MenuItemSeparator from '../../menu/MenuItemSeparator.jsx';
 /**
  * 工具菜单
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class ToolMenu extends React.Component {
     constructor(props) {
@@ -21,8 +19,6 @@ class ToolMenu extends React.Component {
     }
 
     render() {
-        const { className, style } = this.props;
-
         return <MenuItem title={'Tool'}>
             <MenuItem title={'Arrange Map'}></MenuItem>
             <MenuItem title={'Arrange Mesh'}></MenuItem>
@@ -32,10 +28,5 @@ class ToolMenu extends React.Component {
         </MenuItem>;
     }
 }
-
-ToolMenu.propTypes = {
-    className: PropTypes.string,
-    style: PropTypes.object,
-};
 
 export default ToolMenu;

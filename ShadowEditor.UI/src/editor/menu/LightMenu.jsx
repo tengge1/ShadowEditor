@@ -5,8 +5,6 @@ import MenuItemSeparator from '../../menu/MenuItemSeparator.jsx';
 /**
  * 光源菜单
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class LightMenu extends React.Component {
     constructor(props) {
@@ -33,10 +31,5 @@ class LightMenu extends React.Component {
         </MenuItem>;
     }
 }
-
-LightMenu.propTypes = {
-    className: PropTypes.string,
-    style: PropTypes.object,
-};
 
 export default LightMenu;
