@@ -1,6 +1,6 @@
 import BorderLayout from '../layout/BorderLayout.jsx';
 
-import EMenuBar from './EMenuBar.jsx';
+import EMenuBar from './menu/EMenuBar.jsx';
 import EStatusBar from './EStatusBar.jsx';
 import EToolbar from './EToolbar.jsx';
 import EWorkspace from './EWorkspace.jsx';
