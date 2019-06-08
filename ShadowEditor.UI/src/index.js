@@ -70,4 +70,4 @@ export { default as Tree } from './tree/Tree.jsx';
 export { default as Alert } from './window/Alert.jsx';
 
 // editor
-export { default as Editor } from './editor/Editor.jsx';
+export { default as EditorUI } from './editor/EditorUI.jsx';

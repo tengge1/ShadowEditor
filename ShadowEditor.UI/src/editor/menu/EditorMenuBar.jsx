@@ -16,14 +16,14 @@ import OptionsMenu from './OptionsMenu.jsx';
 import HelpMenu from './HelpMenu.jsx';
 
 /**
- * 菜单栏
+ * 编辑器菜单栏
  * @author tengge / https://github.com/tengge1
  */
-class EMenuBar extends React.Component {
+class EditorMenuBar extends React.Component {
     render() {
         const { className, ...others } = this.props;
 
-        return <MenuBar className={classNames('EMenuBar', className)} {...others}>
+        return <MenuBar className={classNames('EditorMenuBar', className)} {...others}>
             <SceneMenu />
             <EditMenu />
             <TwoDMenu />
@@ -39,8 +39,4 @@ class EMenuBar extends React.Component {
     }
 }
 
-EMenuBar.propTypes = {
-    className: PropTypes.string,
-};
-
-export default EMenuBar;
+export default EditorMenuBar;
