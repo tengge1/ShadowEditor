@@ -1,11 +1,11 @@
-.ESideBar {
+.EditorSideBar {
     width: 240px !important;
 }
 
-.ESideBar .top {
+.EditorSideBar .top {
     height: 320px;
 }
 
-.ESideBar .bottom {
+.EditorSideBar .bottom {
     height: calc(100% - 320px);
 }

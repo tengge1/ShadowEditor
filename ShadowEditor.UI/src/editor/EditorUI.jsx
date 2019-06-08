@@ -3,8 +3,8 @@ import BorderLayout from '../layout/BorderLayout.jsx';
 import EditorMenuBar from './menu/EditorMenuBar.jsx';
 import EditorStatusBar from './status/EditorStatusBar.jsx';
 import EditorToolbar from './toolbar/EditorToolbar.jsx';
+import EditorSideBar from './sidebar/EditorSideBar.jsx';
 import EWorkspace from './EWorkspace.jsx';
-import ESideBar from './ESideBar.jsx';
 
 /**
  * 编辑器UI
@@ -16,7 +16,7 @@ class EditorUI extends React.Component {
             <EditorMenuBar region={'north'}></EditorMenuBar>
             <EditorStatusBar region={'south'}></EditorStatusBar>
             <EditorToolbar region={'west'}></EditorToolbar>
-            <ESideBar region={'east'} split={true}></ESideBar>
+            <EditorSideBar region={'east'} split={true}></EditorSideBar>
             <EWorkspace region={'center'}></EWorkspace>
         </BorderLayout>;
     }
