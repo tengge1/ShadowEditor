@@ -4,7 +4,8 @@ import EditorMenuBar from './menu/EditorMenuBar.jsx';
 import EditorStatusBar from './status/EditorStatusBar.jsx';
 import EditorToolbar from './toolbar/EditorToolbar.jsx';
 import EditorSideBar from './sidebar/EditorSideBar.jsx';
-import EWorkspace from './EWorkspace.jsx';
+import Viewport from './viewport/Viewport.jsx';
+import TimelinePanel from './timeline/TimelinePanel.jsx';
 
 /**
  * 编辑器UI
@@ -17,7 +18,10 @@ class EditorUI extends React.Component {
             <EditorStatusBar region={'south'}></EditorStatusBar>
             <EditorToolbar region={'west'}></EditorToolbar>
             <EditorSideBar region={'east'} split={true}></EditorSideBar>
-            <EWorkspace region={'center'}></EWorkspace>
+            <BorderLayout region={'center'}>
+                <Viewport region={'center'}></Viewport>
+                <TimelinePanel region={'south'}></TimelinePanel>
+            </BorderLayout>
         </BorderLayout>;
     }
 }

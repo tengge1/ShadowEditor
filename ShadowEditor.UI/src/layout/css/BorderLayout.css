@@ -176,12 +176,13 @@
 /* center */
 
 .BorderLayout>.middle>.center {
+    position: relative;
     flex: 1;
+    display: flex;
 }
 
 .BorderLayout>.middle>.center>* {
-    width: 100%;
-    height: 100%;
+    flex: 1;
 }
 
 /* east */
