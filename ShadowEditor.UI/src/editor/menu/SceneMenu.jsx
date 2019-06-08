@@ -5,8 +5,6 @@ import MenuItemSeparator from '../../menu/MenuItemSeparator.jsx';
 /**
  * 场景菜单
  * @author tengge / https://github.com/tengge1
- * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class SceneMenu extends React.Component {
     constructor(props) {
@@ -20,8 +18,6 @@ class SceneMenu extends React.Component {
     }
 
     render() {
-        const { className, style } = this.props;
-
         return <MenuItem title={'Scene'}>
             <MenuItem title={'New'}>
                 <MenuItem title={'Empty Scene'} onClick={this.handleClick}></MenuItem>
@@ -34,10 +30,5 @@ class SceneMenu extends React.Component {
         </MenuItem>;
     }
 }
-
-SceneMenu.propTypes = {
-    className: PropTypes.string,
-    style: PropTypes.object,
-};
 
 export default SceneMenu;

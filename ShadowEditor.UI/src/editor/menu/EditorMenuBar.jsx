@@ -21,9 +21,9 @@ import HelpMenu from './HelpMenu.jsx';
  */
 class EditorMenuBar extends React.Component {
     render() {
-        const { className, ...others } = this.props;
+        const { className } = this.props;
 
-        return <MenuBar className={classNames('EditorMenuBar', className)} {...others}>
+        return <MenuBar className={classNames('EditorMenuBar', className)}>
             <SceneMenu />
             <EditMenu />
             <TwoDMenu />
