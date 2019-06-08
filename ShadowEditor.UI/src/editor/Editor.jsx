@@ -1,11 +1,10 @@
 import BorderLayout from '../layout/BorderLayout.jsx';
-import VBoxLayout from '../layout/VBoxLayout.jsx';
 
 import EMenuBar from './EMenuBar.jsx';
+import EStatusBar from './EStatusBar.jsx';
 import EToolbar from './EToolbar.jsx';
 import EWorkspace from './EWorkspace.jsx';
 import ESideBar from './ESideBar.jsx';
-import EStatusBar from './EStatusBar.jsx';
 
 /**
  * 编辑器
@@ -15,12 +14,10 @@ class Editor extends React.Component {
     render() {
         return <BorderLayout>
             <EMenuBar region={'north'}></EMenuBar>
+            <EStatusBar region={'south'}></EStatusBar>
             <EToolbar region={'west'}></EToolbar>
-            <VBoxLayout region={'center'}>
-                <EWorkspace></EWorkspace>
-                <EStatusBar></EStatusBar>
-            </VBoxLayout>
             <ESideBar region={'east'} split={true}></ESideBar>
+            <EWorkspace region={'center'}></EWorkspace>
         </BorderLayout>;
     }
 }
