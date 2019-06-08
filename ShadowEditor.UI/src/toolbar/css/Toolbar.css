@@ -1,6 +1,6 @@
 .Toolbar {
     background: #fafafa;
-    display: flex;
+    display: flex !important;
     align-items: center;
     box-sizing: border-box;
     overflow: hidden;
@@ -31,7 +31,7 @@
 
 .ToolbarSeparator {
     white-space: nowrap;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 }
