@@ -13,7 +13,7 @@ import CheckBox from '../../form/CheckBox.jsx';
  */
 class EditorStatusBar extends React.Component {
     render() {
-        return <Toolbar className={'EditorStatusBar'}>
+        return <Toolbar>
             <Label>Object</Label>
             <Label>198</Label>
             <Label>Vertex</Label>
