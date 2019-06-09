@@ -26,29 +26,38 @@ class Timeline extends React.Component {
             return <div className={'layerName'} key={group.uuid}>{group.layerName}</div>;
         });
 
-        const Animation = this.state.animations.map(group => {
-            <div className={'group'} key={group.uuid}>
+        const groups = this.state.animations.map(group => {
+            return <div className={'group'} key={group.uuid}>
                 <div className={'label'}>{group.layerName}</div>
             </div>
         });
 
         return <div className={classNames('Timeline', className)} style={style}>
             <TimelineControl></TimelineControl>
-            <div className={'box'}>
-                <div className={'layerNames'}>
-                    {layerNames}
-                </div>
-                <div className={'animations'}>
-                    <div className={'time'}>
-                        <canvas ref={this.canvas}></canvas>
+            <div className="box">
+                <div className="left">
+                    <div className="info">
+                        <input type="checkbox" data-uuid="5DAA6188-9568-4C9A-A32E-62038AA61DDC" />AnimLayer1
                     </div>
-                    <div className={'groups'}>
-                        <div className={'group'}></div>
-                        <div className={'group'}></div>
-                        <div className={'group'}></div>
+                    <div className="info">
+                        <input type="checkbox" data-uuid="8212E59E-A27A-4213-B990-0A903C38919D" />AnimLayer2
+                    </div>
+                    <div className="info">
+                        <input type="checkbox" data-uuid="155F7A87-435C-4E38-ABF7-546A4DE951F4" />AnimLayer3
                     </div>
                 </div>
+                <div className="right">
+                    <canvas className={'timeline'} ref={this.canvas}></canvas>
+                    <div className="layers" style={{ width: '3600px' }}>
+                        <div className="layer" droppable="true">
+                            <div className="item" draggable="true" droppable="false" style={{ left: '235px', width: '80px', }}>Animation-1</div>
+                        </div>
+                    </div>
+                </div>
+                <div className="layer" droppable="true"></div>
+                <div className="layer" droppable="true"></div>
             </div>
+            <div className="slider"></div>
         </div>;
     }
 

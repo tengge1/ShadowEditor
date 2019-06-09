@@ -8,24 +8,78 @@
 .Timeline>.box {
     position: relative;
     display: flex;
+    flex: 1;
     flex-direction: row;
+    overflow: auto;
 }
 
-.Timeline>.box>.layerNames {
-    width: 120px;
+/* left */
+
+.Timeline>.box>.left {
+    position: sticky;
+    left: 0;
+    width: 100px;
+    background-color: #eee;
+    border-right: 1px solid #ccc;
+    box-sizing: border-box;
+    padding-top: 34px;
+    z-index: 10;
 }
 
-.Timeline>.box>.animations {
+.Timeline>.box>.left>.info {
     position: relative;
+    height: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.Timeline>.box>.left>.info:first-child {
+    border-top: 1px solid #ddd;
+}
+
+/* right */
+
+.Timeline>.box>.right {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.Timeline>.box>.right>.timeline {
+    position: absolute;
+    height: 32px;
+    border-bottom: 1px solid #ddd;
+}
+
+.Timeline>.box>.right>.layers {
+    position: absolute;
+    top: 34px;
+    width: 100%;
     flex: 1;
 }
 
-.Timeline>.box>.animations>.time {
+.Timeline>.box>.right>.layers>.layer {
     position: relative;
-    height: 40px;
-    overflow-x: auto;
+    width: 100%;
+    height: 32px;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
 }
 
-.Timeline>.box>.animations>.time>canvas {
+.Timeline>.box>.right>.layers>.layer>.item {
     position: absolute;
+    left: 0;
+    width: 80px;
+    height: 100%;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
