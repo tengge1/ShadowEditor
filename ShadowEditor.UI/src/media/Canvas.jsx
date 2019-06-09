@@ -7,12 +7,18 @@ import PropTypes from 'prop-types';
  * @author tengge / https://github.com/tengge1
  */
 class Canvas extends React.Component {
+    constructor(props) {
+        super(props);
+        this.dom = React.createRef();
+    }
+
     render() {
         const { className, style, ...others } = this.props;
 
         return <canvas
             className={classNames('Canvas', className)}
             style={style}
+            ref={this.dom}
             {...others}></canvas>;
     }
 }
