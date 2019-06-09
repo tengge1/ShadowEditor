@@ -26,7 +26,6 @@
     width: 100%;
     height: 100%;
     display: block;
-    overflow: auto;
 }
 
 .BorderLayout>.north.split>.content {
@@ -35,8 +34,9 @@
 }
 
 .BorderLayout>.north>.content>* {
-    display: flex;
-    flex: 1;
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .BorderLayout>.north>.control {
@@ -76,7 +76,6 @@
     width: 100%;
     height: 100%;
     display: block;
-    overflow: auto;
 }
 
 .BorderLayout>.south.split>.content {
@@ -85,8 +84,9 @@
 }
 
 .BorderLayout>.south>.content>* {
-    display: flex;
-    flex: 1;
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .BorderLayout>.south>.control {
@@ -137,7 +137,6 @@
     width: 100%;
     height: 100%;
     display: block;
-    overflow: auto;
 }
 
 .BorderLayout>.middle>.west.split>.content {
@@ -146,8 +145,9 @@
 }
 
 .BorderLayout>.middle>.west>.content>* {
-    display: flex;
-    flex: 1;
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .BorderLayout>.middle>.west>.control {
@@ -202,7 +202,6 @@
     width: 100%;
     height: 100%;
     display: block;
-    overflow: auto;
 }
 
 .BorderLayout>.middle>.east.split>.content {
@@ -211,8 +210,9 @@
 }
 
 .BorderLayout>.middle>.east>.content>* {
-    display: flex;
-    flex: 1;
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .BorderLayout>.middle>.east>.control {
