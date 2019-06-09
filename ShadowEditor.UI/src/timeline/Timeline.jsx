@@ -2,6 +2,8 @@ import './css/Timeline.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
+import TimelineControl from './private/TimelineControl.jsx';
+
 /**
  * 时间轴
  * @author tengge / https://github.com/tengge1
@@ -17,13 +19,16 @@ class Timeline extends React.Component {
         const { className, style } = this.props;
 
         return <div className={classNames('Timeline', className)} style={style}>
-            <div className={'time'}>
-                <canvas ref={this.canvas}></canvas>
-            </div>
-            <div className={'groups'}>
-                <div className={'group'}></div>
-                <div className={'group'}></div>
-                <div className={'group'}></div>
+            <TimelineControl></TimelineControl>
+            <div className={'box'}>
+                <div className={'time'}>
+                    <canvas ref={this.canvas}></canvas>
+                </div>
+                <div className={'groups'}>
+                    <div className={'group'}></div>
+                    <div className={'group'}></div>
+                    <div className={'group'}></div>
+                </div>
             </div>
         </div>;
     }

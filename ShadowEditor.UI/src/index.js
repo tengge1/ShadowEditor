@@ -61,6 +61,7 @@ export { default as Timeline } from './timeline/Timeline.jsx';
 
 // toolbar
 export { default as Toolbar } from './toolbar/Toolbar.jsx';
+export { default as ToolbarFiller } from './toolbar/ToolbarFiller.jsx';
 export { default as ToolbarSeparator } from './toolbar/ToolbarSeparator.jsx';
 
 // tree

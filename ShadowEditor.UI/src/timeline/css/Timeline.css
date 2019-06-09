@@ -4,12 +4,16 @@
     flex-direction: column;
 }
 
-.Timeline>.time {
+.Timeline>.box {
+    position: relative;
+}
+
+.Timeline>.box>.time {
     position: relative;
     height: 40px;
     overflow-x: auto;
 }
 
-.Timeline>.time>canvas {
+.Timeline>.box>.time>canvas {
     position: absolute;
 }
