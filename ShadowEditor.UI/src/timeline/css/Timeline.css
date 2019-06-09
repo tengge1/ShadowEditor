@@ -1,7 +1,7 @@
 .Timeline {
     width: 100%;
     height: 160px !important;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
 }
 
@@ -19,15 +19,16 @@
     position: sticky;
     left: 0;
     width: 100px;
+    background-color: #fff;
     border-right: 1px solid #ddd;
     box-sizing: border-box;
-    padding-top: 34px;
+    padding-top: 33px;
     z-index: 10;
 }
 
 .Timeline>.box>.left>.info {
     position: relative;
-    height: 32px;
+    height: 28px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -56,7 +57,7 @@
 
 .Timeline>.box>.right>.layers {
     position: absolute;
-    top: 34px;
+    top: 32px;
     width: 100%;
     flex: 1;
     border-top: 1px solid #ddd;
@@ -66,7 +67,7 @@
 .Timeline>.box>.right>.layers>.layer {
     position: relative;
     width: 100%;
-    height: 32px;
+    height: 28px;
     border-bottom: 1px solid #ddd;
     box-sizing: border-box;
 }
