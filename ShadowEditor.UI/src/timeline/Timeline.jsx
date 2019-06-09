@@ -46,7 +46,9 @@ class Timeline extends React.Component {
                         draggable={'true'}
                         droppable={'false'}
                         style={style}
-                        key={animation.uuid}>{animation.name}</div>;
+                        key={animation.uuid}>
+                        {animation.name}
+                    </div>;
                 })}
             </div>;
         });
@@ -62,9 +64,9 @@ class Timeline extends React.Component {
                     <div className="layers" style={{ width: '3600px' }}>
                         {layers}
                     </div>
+                    <div className="slider"></div>
                 </div>
             </div>
-            <div className="slider"></div>
         </div>;
     }
 
