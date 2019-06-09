@@ -16,6 +16,8 @@ class Timeline extends React.Component {
 
         this.canvas = React.createRef();
 
+        this.scale = 30; // 尺寸，1秒=30像素
+
         this.state = {
             animations: props.animations,
         };
@@ -25,16 +27,28 @@ class Timeline extends React.Component {
         const { className, style } = this.props;
 
         const infos = this.state.animations.map(layer => {
-            return <div className="info">
+            return <div className={'info'} key={layer.uuid}>
                 <CheckBox value={layer.uuid}></CheckBox>
                 <Label>{layer.layerName}</Label>
             </div>;
         });
 
-        const groups = this.state.animations.map(group => {
-            return <div className={'group'} key={group.uuid}>
-                <div className={'label'}>{group.layerName}</div>
-            </div>
+        const layers = this.state.animations.map(layer => {
+            return <div className={'layer'} droppable={'true'} key={layer.uuid}>
+                {layer.animations.map(animation => {
+                    const style = {
+                        left: animation.beginTime * this.scale + 'px',
+                        width: (animation.endTime - animation.beginTime) * this.scale + 'px',
+                    };
+
+                    return <div
+                        className={'item'}
+                        draggable={'true'}
+                        droppable={'false'}
+                        style={style}
+                        key={animation.uuid}>{animation.name}</div>;
+                })}
+            </div>;
         });
 
         return <div className={classNames('Timeline', className)} style={style}>
@@ -46,11 +60,7 @@ class Timeline extends React.Component {
                 <div className="right">
                     <canvas className={'timeline'} ref={this.canvas}></canvas>
                     <div className="layers" style={{ width: '3600px' }}>
-                        <div className="layer" droppable="true">
-                            <div className="item" draggable="true" droppable="false" style={{ left: '235px', width: '80px', }}>Animation-1</div>
-                        </div>
-                        <div className="layer" droppable="true"></div>
-                        <div className="layer" droppable="true"></div>
+                        {layers}
                     </div>
                 </div>
             </div>
@@ -60,7 +70,7 @@ class Timeline extends React.Component {
 
     componentDidMount() {
         var duration = 120; // 持续时长(秒)
-        var scale = 30; // 尺寸，1秒=30像素
+        var scale = this.scale;
 
         var width = duration * scale; // 画布宽度
         var scale5 = scale / 5; // 0.2秒像素数
