@@ -1,19 +1,31 @@
 .Timeline {
     width: 100%;
+    height: 120px !important;
     display: flex;
     flex-direction: column;
 }
 
 .Timeline>.box {
     position: relative;
+    display: flex;
+    flex-direction: row;
 }
 
-.Timeline>.box>.time {
+.Timeline>.box>.layerNames {
+    width: 120px;
+}
+
+.Timeline>.box>.animations {
+    position: relative;
+    flex: 1;
+}
+
+.Timeline>.box>.animations>.time {
     position: relative;
     height: 40px;
     overflow-x: auto;
 }
 
-.Timeline>.box>.time>canvas {
+.Timeline>.box>.animations>.time>canvas {
     position: absolute;
 }

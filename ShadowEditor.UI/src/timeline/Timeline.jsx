@@ -13,21 +13,40 @@ class Timeline extends React.Component {
         super(props);
 
         this.canvas = React.createRef();
+
+        this.state = {
+            animations: props.animations,
+        };
     }
 
     render() {
         const { className, style } = this.props;
 
+        const layerNames = this.state.animations.map(group => {
+            return <div className={'layerName'} key={group.uuid}>{group.layerName}</div>;
+        });
+
+        const Animation = this.state.animations.map(group => {
+            <div className={'group'} key={group.uuid}>
+                <div className={'label'}>{group.layerName}</div>
+            </div>
+        });
+
         return <div className={classNames('Timeline', className)} style={style}>
             <TimelineControl></TimelineControl>
             <div className={'box'}>
-                <div className={'time'}>
-                    <canvas ref={this.canvas}></canvas>
+                <div className={'layerNames'}>
+                    {layerNames}
                 </div>
-                <div className={'groups'}>
-                    <div className={'group'}></div>
-                    <div className={'group'}></div>
-                    <div className={'group'}></div>
+                <div className={'animations'}>
+                    <div className={'time'}>
+                        <canvas ref={this.canvas}></canvas>
+                    </div>
+                    <div className={'groups'}>
+                        <div className={'group'}></div>
+                        <div className={'group'}></div>
+                        <div className={'group'}></div>
+                    </div>
                 </div>
             </div>
         </div>;
@@ -100,11 +119,13 @@ class Timeline extends React.Component {
 Timeline.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    animations: PropTypes.array,
 };
 
 Timeline.defaultProps = {
     className: null,
     style: null,
+    animations: [],
 };
 
 export default Timeline;
