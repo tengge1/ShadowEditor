@@ -6,7 +6,7 @@
 
 .Timeline>.time {
     position: relative;
-    height: 32px;
+    height: 40px;
     overflow-x: auto;
 }
 

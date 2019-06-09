@@ -20,7 +20,7 @@ class EditorUI extends React.Component {
             <EditorSideBar region={'east'} split={true}></EditorSideBar>
             <BorderLayout region={'center'}>
                 <Viewport region={'center'}></Viewport>
-                <TimelinePanel region={'south'}></TimelinePanel>
+                <TimelinePanel region={'south'} split={true}></TimelinePanel>
             </BorderLayout>
         </BorderLayout>;
     }
