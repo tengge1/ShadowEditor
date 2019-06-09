@@ -52,7 +52,6 @@
 .Timeline>.box>.right>.timeline {
     position: absolute;
     height: 32px;
-    border-bottom: 1px solid #ddd;
 }
 
 .Timeline>.box>.right>.layers {
@@ -60,6 +59,8 @@
     top: 34px;
     width: 100%;
     flex: 1;
+    border-top: 1px solid #ddd;
+    box-sizing: border-box;
 }
 
 .Timeline>.box>.right>.layers>.layer {

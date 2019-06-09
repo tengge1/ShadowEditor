@@ -49,10 +49,10 @@ class Timeline extends React.Component {
                         <div className="layer" droppable="true">
                             <div className="item" draggable="true" droppable="false" style={{ left: '235px', width: '80px', }}>Animation-1</div>
                         </div>
+                        <div className="layer" droppable="true"></div>
+                        <div className="layer" droppable="true"></div>
                     </div>
                 </div>
-                <div className="layer" droppable="true"></div>
-                <div className="layer" droppable="true"></div>
             </div>
             <div className="slider"></div>
         </div>;
