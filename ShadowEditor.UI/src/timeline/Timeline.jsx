@@ -17,7 +17,14 @@ class Timeline extends React.Component {
         const { className, style } = this.props;
 
         return <div className={classNames('Timeline', className)} style={style}>
-            <canvas className={'time'} ref={this.canvas}></canvas>
+            <div className={'time'}>
+                <canvas ref={this.canvas}></canvas>
+            </div>
+            <div className={'groups'}>
+                <div className={'group'}></div>
+                <div className={'group'}></div>
+                <div className={'group'}></div>
+            </div>
         </div>;
     }
 
@@ -37,7 +44,7 @@ class Timeline extends React.Component {
         var context = canvas.getContext('2d');
 
         // 时间轴背景
-        context.fillStyle = '#eee';
+        context.fillStyle = '#fafafa';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         // 时间轴刻度

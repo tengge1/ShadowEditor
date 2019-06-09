@@ -1,8 +1,14 @@
 .Timeline {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.Timeline .time {
-    width: 100%;
+.Timeline>.time {
+    position: relative;
     height: 32px;
+}
+
+.Timeline>.time>canvas {
+    position: absolute;
 }
