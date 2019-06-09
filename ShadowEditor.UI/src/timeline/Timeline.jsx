@@ -3,6 +3,8 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 import TimelineControl from './private/TimelineControl.jsx';
+import CheckBox from '../form/CheckBox.jsx';
+import Label from '../form/Label.jsx';
 
 /**
  * 时间轴
@@ -22,8 +24,11 @@ class Timeline extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        const layerNames = this.state.animations.map(group => {
-            return <div className={'layerName'} key={group.uuid}>{group.layerName}</div>;
+        const infos = this.state.animations.map(layer => {
+            return <div className="info">
+                <CheckBox value={layer.uuid}></CheckBox>
+                <Label>{layer.layerName}</Label>
+            </div>;
         });
 
         const groups = this.state.animations.map(group => {
@@ -36,15 +41,7 @@ class Timeline extends React.Component {
             <TimelineControl></TimelineControl>
             <div className="box">
                 <div className="left">
-                    <div className="info">
-                        <input type="checkbox" data-uuid="5DAA6188-9568-4C9A-A32E-62038AA61DDC" />AnimLayer1
-                    </div>
-                    <div className="info">
-                        <input type="checkbox" data-uuid="8212E59E-A27A-4213-B990-0A903C38919D" />AnimLayer2
-                    </div>
-                    <div className="info">
-                        <input type="checkbox" data-uuid="155F7A87-435C-4E38-ABF7-546A4DE951F4" />AnimLayer3
-                    </div>
+                    {infos}
                 </div>
                 <div className="right">
                     <canvas className={'timeline'} ref={this.canvas}></canvas>
