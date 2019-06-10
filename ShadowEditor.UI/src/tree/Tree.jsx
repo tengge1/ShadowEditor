@@ -23,12 +23,29 @@ class Tree extends React.Component {
         this.state = {
             expanded: expanded,
         };
+
+        this.handleExpandNode = this.handleExpandNode.bind(this);
     }
 
     _traverseNode(list, callback) {
         list.forEach(n => {
             callback && callback(n);
             Array.isArray(n.children) && this._traverseNode(n.children, callback);
+        });
+    }
+
+    handleExpandNode(event) {
+        var value = event.target.getAttribute('value');
+
+        var expanded = Object.assign({}, this.state.expanded);
+        if (!expanded[value]) {
+            expanded[value] = true;
+        } else {
+            delete expanded[value];
+        }
+
+        this.setState({
+            expanded: expanded,
         });
     }
 
@@ -46,14 +63,16 @@ class Tree extends React.Component {
 
     createNode(data) {
         const leaf = !data.children || data.children.length === 0;
-        const expand = data.expand ? true : false;
-        const children = leaf ? null : (<ul className={classNames('sub', expand ? null : 'hide')}>{data.children.map(n => {
+
+        const expanded = this.state.expanded;
+
+        const children = leaf ? null : (<ul className={classNames('sub', expanded[data.value] ? null : 'hide')}>{data.children.map(n => {
             return this.createNode(n);
         })}</ul>);
 
         return <li className={'node'} value={data.value} key={data.value}>
-            <i className={classNames('expand', leaf ? null : (expand ? 'minus' : 'plus'))}></i>
-            <i className={classNames('type', leaf ? 'node' : (expand ? 'open' : 'close'))}></i>
+            <i className={classNames('expand', leaf ? null : (expanded[data.value] ? 'minus' : 'plus'))} value={data.value} onClick={this.handleExpandNode}></i>
+            <i className={classNames('type', leaf ? 'node' : (expanded[data.value] ? 'open' : 'close'))}></i>
             <a href={'javascript:;'}>{data.text}</a>
             {leaf ? null : children}
         </li>;
