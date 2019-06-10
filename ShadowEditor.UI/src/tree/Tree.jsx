@@ -5,13 +5,31 @@ import PropTypes from 'prop-types';
 /**
  * 树
  * @author tengge / https://github.com/tengge1
- * @property {Array} data 数据
- * @property {String} className 样式类
- * @property {Object} style 样式
  */
 class Tree extends React.Component {
     constructor(props) {
         super(props);
+
+        const { data } = this.props;
+
+        var expanded = {};
+
+        this._traverseNode(data, node => {
+            if (node.expand) {
+                expanded[node.value] = true;
+            }
+        });
+
+        this.state = {
+            expanded: expanded,
+        };
+    }
+
+    _traverseNode(list, callback) {
+        list.forEach(n => {
+            callback && callback(n);
+            Array.isArray(n.children) && this._traverseNode(n.children, callback);
+        });
     }
 
     render() {
@@ -45,6 +63,11 @@ class Tree extends React.Component {
 Tree.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+};
+
+Tree.defaultProps = {
+    className: null,
+    style: null,
 };
 
 export default Tree;
