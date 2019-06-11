@@ -11,9 +11,18 @@
     --folder-close: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAANCAMAAABBwMRzAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpCNzY5QkUzNTgzNzVFOTExOEU2NkEzOTNDMkUxQ0UzNiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpEQTA0NkVFNDc2NDUxMUU5ODVCQ0E0NDExMUZBOTUzQiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpEQTA0NkVFMzc2NDUxMUU5ODVCQ0E0NDExMUZBOTUzQiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkI4NjlCRTM1ODM3NUU5MTE4RTY2QTM5M0MyRTFDRTM2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkI3NjlCRTM1ODM3NUU5MTE4RTY2QTM5M0MyRTFDRTM2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+eRolvgAAAIFQTFRF09PTmWcBy5gzwo8q27dxnmwGs4EbuocitYIdvYol//+6zMzMnGoEsH4YyZYxoG4Io3ELp3UPqHYQrHoUt4QfwI0opXMNq3kTx5QvyJUw1tbWrnwWwMDAmmgCxZItzJk027dS/9Rv//iT//+c/9t1/+R//++Jy8vL//////+Z////MJO0LgAAACt0Uk5T////////////////////////////////////////////////////////ACPJp9AAAABxSURBVHjaTM5XEoJAEEXRR44CYk4MmHpe73+BYpV2cf7u34Wqc2Fz0h+o896XZfRvF49fcZFt83SlCP3C5oyGD8N1hSMXOsHAu2EriPg2TAQ7vgxrQcGn4U2QcTIMKuh8cTn0+65N6uAKzItioB8BBgD8YxgHc9UPOwAAAABJRU5ErkJggg==);
 }
 
+.Tree .node {
+    background: #fff;
+}
+
+.Tree .node.selected {
+    background: #3399ff;
+}
+
 .Tree .node i {
     display: inline-block;
     vertical-align: middle;
+    pointer-events: none;
 }
 
 .Tree .node i.expand.plus {
@@ -55,6 +64,11 @@
     margin-left: 4px;
     text-decoration: none;
     vertical-align: middle;
+    pointer-events: none;
+}
+
+.Tree .node.selected a {
+    color: #fff;
 }
 
 .Tree .node .sub {

@@ -21,10 +21,12 @@ class Tree extends React.Component {
         });
 
         this.state = {
+            selected: null,
             expanded: expanded,
         };
 
         this.handleExpandNode = this.handleExpandNode.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     _traverseNode(list, callback) {
@@ -49,6 +51,15 @@ class Tree extends React.Component {
         });
     }
 
+    handleClick(event) {
+        var value = event.target.getAttribute('value');
+        if (value) {
+            this.setState({
+                selected: value,
+            });
+        }
+    }
+
     render() {
         const { data, className, style } = this.props;
 
@@ -70,7 +81,7 @@ class Tree extends React.Component {
             return this.createNode(n);
         })}</ul>);
 
-        return <li className={'node'} value={data.value} key={data.value}>
+        return <li className={classNames('node', this.state.selected === data.value && 'selected')} value={data.value} key={data.value} onClick={this.handleClick}>
             <i className={classNames('expand', leaf ? null : (expanded[data.value] ? 'minus' : 'plus'))} value={data.value} onClick={this.handleExpandNode}></i>
             <i className={classNames('type', leaf ? 'node' : (expanded[data.value] ? 'open' : 'close'))}></i>
             <a href={'javascript:;'}>{data.text}</a>
