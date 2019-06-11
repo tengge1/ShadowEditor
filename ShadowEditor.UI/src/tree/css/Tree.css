@@ -67,14 +67,15 @@
     pointer-events: none;
 }
 
-.Tree .node.selected a {
+.Tree .node.selected>a {
     color: #fff;
 }
 
 .Tree .node .sub {
-    list-style: none;
     margin: 0;
     padding: 0 0 0 16px;
+    background: #fff;
+    list-style: none;
 }
 
 .Tree .node .sub.hide {
