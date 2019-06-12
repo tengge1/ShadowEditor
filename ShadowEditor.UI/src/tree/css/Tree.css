@@ -77,6 +77,6 @@
     list-style: none;
 }
 
-.Tree .node .sub.hide {
+.Tree .node .sub.collpase {
     display: none;
 }

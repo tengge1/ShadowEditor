@@ -10,7 +10,7 @@ class Tree extends React.Component {
     constructor(props) {
         super(props);
 
-        const { data } = this.props;
+        const { data, onExpand, onSelect } = this.props;
 
         var expanded = {};
 
@@ -25,8 +25,8 @@ class Tree extends React.Component {
             expanded: expanded,
         };
 
-        this.handleExpandNode = this.handleExpandNode.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleExpandNode = this.handleExpandNode.bind(this, onExpand);
+        this.handleClick = this.handleClick.bind(this, onSelect);
     }
 
     _traverseNode(list, callback) {
@@ -36,15 +36,17 @@ class Tree extends React.Component {
         });
     }
 
-    handleExpandNode(event) {
+    handleExpandNode(onExpand, event) {
         event.stopPropagation();
         var value = event.target.getAttribute('value');
 
         var expanded = Object.assign({}, this.state.expanded);
         if (!expanded[value]) {
             expanded[value] = true;
+            onExpand && onExpand(value, true, event);
         } else {
             delete expanded[value];
+            onExpand && onExpand(value, false, event);
         }
 
         this.setState({
@@ -52,9 +54,11 @@ class Tree extends React.Component {
         });
     }
 
-    handleClick(event) {
+    handleClick(onSelect, event) {
         var value = event.target.getAttribute('value');
         if (value) {
+            onSelect && onSelect(value, event);
+
             this.setState({
                 selected: value,
             });
@@ -78,7 +82,7 @@ class Tree extends React.Component {
 
         const expanded = this.state.expanded;
 
-        const children = leaf ? null : (<ul className={classNames('sub', expanded[data.value] ? null : 'hide')}>{data.children.map(n => {
+        const children = leaf ? null : (<ul className={classNames('sub', expanded[data.value] ? null : 'collpase')}>{data.children.map(n => {
             return this.createNode(n);
         })}</ul>);
 
@@ -94,11 +98,17 @@ class Tree extends React.Component {
 Tree.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    data: PropTypes.array,
+    onExpand: PropTypes.func,
+    onSelect: PropTypes.func,
 };
 
 Tree.defaultProps = {
     className: null,
     style: null,
+    data: [],
+    onExpand: null,
+    onSelect: null,
 };
 
 export default Tree;
