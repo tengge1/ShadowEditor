@@ -37,6 +37,7 @@ class Tree extends React.Component {
     }
 
     handleExpandNode(event) {
+        event.stopPropagation();
         var value = event.target.getAttribute('value');
 
         var expanded = Object.assign({}, this.state.expanded);

@@ -22,7 +22,6 @@
 .Tree .node i {
     display: inline-block;
     vertical-align: middle;
-    pointer-events: none;
 }
 
 .Tree .node i.expand.plus {
