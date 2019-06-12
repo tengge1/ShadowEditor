@@ -1,8 +1,18 @@
 import './css/Alert.css';
+import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
+/**
+ * 提示框
+ */
 class Alert extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
-        const { title, children } = this.props;
+        const { className, style, title, children } = this.props;
+
         return <div className="Alert">
             <div className="wrap">
                 <div className="title">
@@ -22,5 +32,19 @@ class Alert extends React.Component {
         </div>;
     }
 }
+
+Alert.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    title: PropTypes.string,
+    children: PropTypes.node,
+};
+
+Alert.defaultProps = {
+    className: null,
+    style: null,
+    title: 'Message',
+    children: null,
+};
 
 export default Alert;
