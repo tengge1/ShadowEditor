@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 import Canvas from '../../media/Canvas.jsx';
+import Alert from '../../window/Alert.jsx';
 
 /**
  * 视口
@@ -59,7 +60,10 @@ class Viewport extends React.Component {
     }
 
     render() {
-        return <Canvas className={'Viewport'} ref={this.canvas}></Canvas>;
+        return <>
+            <Canvas className={'Viewport'} ref={this.canvas}></Canvas>
+            <Alert title={'Message'}>Welcome to use ShadowEditor!</Alert>
+        </>;
     }
 }
 
