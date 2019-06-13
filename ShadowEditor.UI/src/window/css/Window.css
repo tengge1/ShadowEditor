@@ -1,106 +1,105 @@
 div.Window {
     position: fixed;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px 0px;
+    left: 0;
+    top: 0;
+    width: 600px;
+    height: 400px;
     padding: 0px 5px 5px;
-    box-sizing: border-box;
     background: rgb(7, 97, 134);
-    width: 190px;
-    height: 139px;
-    left: 816px;
-    top: 339px;
-    transform: scale(1, 1);
-    opacity: 1;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px 0px;
+    box-sizing: border-box;
+    z-index: 200;
 }
 
 div.Window .wrap {
     position: relative;
     width: 100%;
     height: 100%;
-    background: white;
+    background: #fff;
 }
 
 div.Window .wrap .title {
+    font-size: 14px;
+    line-height: 24px;
+    color: #fff;
+    background: rgb(7, 97, 134);
+    text-align: left;
+    display: block;
     cursor: default;
     white-space: nowrap;
     overflow: hidden;
-    font: 14px/24px arial, sans-serif;
-    background: rgb(7, 97, 134);
-    color: rgb(255, 255, 255);
-    text-align: left;
-    display: block;
 }
 
 div.Window .wrap .title .controls {
     position: absolute;
-    left: 0px;
+    left: 0;
     right: 5px;
-    top: 0px;
-    bottom: 0px;
+    top: 0;
+    bottom: 0;
     text-align: right;
     white-space: nowrap;
 }
 
 div.Window .wrap .title .controls .icon {
-    cursor: pointer;
-    display: inline-block;
-    margin-right: 4px;
-    vertical-align: top;
     width: 16px;
     height: 24px;
+    margin-right: 4px;
+    vertical-align: top;
+    display: inline-block;
+    cursor: pointer;
 }
 
 div.Window .wrap .content {
     position: absolute;
-    font: 12px arial, sans-serif;
-    top: 44px;
-    bottom: 52px;
     left: 20px;
     right: 20px;
+    top: 44px;
+    bottom: 52px;
+    font-size: 12px;
     overflow: hidden;
 }
 
 div.Window .wrap .buttons {
-    line-height: 32px;
     position: absolute;
-    bottom: 0px;
-    left: 0px;
-    white-space: nowrap;
-    overflow: hidden;
-    right: 0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    line-height: 32px;
     background: rgb(218, 236, 244);
     text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 div.Window .wrap .buttons .button-wrap {
-    border: 0px;
-    padding: 0px;
     position: relative;
-    margin: 0px 5px 0px 0px;
-    box-sizing: border-box;
+    width: 34px;
     height: 24px;
-    width: 33.5762px;
+    margin: 0 5px 0 0;
+    padding: 0;
+    border: none;
     display: inline-block;
     text-align: left;
     vertical-align: middle;
+    box-sizing: border-box;
 }
 
 div.Window .wrap .buttons .button-wrap .button {
-    pointer-events: none;
-    border: 0px;
-    padding: 0px;
     position: absolute;
-    margin: 0px;
-    box-sizing: border-box;
     width: 34px;
     height: 24px;
-    background-color: #E74C3C;
+    margin: 0;
+    padding: 0;
     color: #fff;
+    background-color: #E74C3C;
+    border: none;
+    box-sizing: border-box;
 }
 
 div.Window .resize {
+    position: absolute;
+    right: 0;
+    bottom: 0;
     width: 10px;
     height: 10px;
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
 }

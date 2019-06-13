@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 /**
- * 提示框
+ * 窗口
  */
 class Window extends React.Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class Window extends React.Component {
                         <i className="iconfont icon-close icon"></i>
                     </div>
                 </div>
-                <div className="content"><p>{children}</p></div>
+                <div className="content">{children}</div>
                 <div className="buttons">
                     <div className="button-wrap">
                         <button className="button">OK</button>
