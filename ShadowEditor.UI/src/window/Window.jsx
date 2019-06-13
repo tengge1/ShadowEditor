@@ -8,6 +8,18 @@ import PropTypes from 'prop-types';
 class Window extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            hidden: props.hidden,
+        };
+
+        this.handleClose = this.handleClose.bind(this);
+    }
+
+    handleClose(event) {
+        this.setState({
+            hidden: true,
+        });
     }
 
     render() {
@@ -20,12 +32,12 @@ class Window extends React.Component {
             height: height,
         });
 
-        return <div className={classNames('Window', className)} style={_style}>
+        return <div className={classNames('Window', this.state.hidden && 'hidden', className)} style={_style}>
             <div className={'wrap'}>
                 <div className={'title'}>
                     <span>{title}</span>
                     <div className={'controls'}>
-                        <i className={'iconfont icon-close icon'}></i>
+                        <i className={'iconfont icon-close icon'} onClick={this.handleClose}></i>
                     </div>
                 </div>
                 <div className={'content'}>{children}</div>
@@ -46,6 +58,7 @@ Window.propTypes = {
     children: PropTypes.node,
     width: PropTypes.string,
     height: PropTypes.string,
+    hidden: PropTypes.bool,
 };
 
 Window.defaultProps = {
@@ -55,6 +68,7 @@ Window.defaultProps = {
     children: null,
     width: '600px',
     height: '400px',
+    hidden: false,
 };
 
 export default Window;
