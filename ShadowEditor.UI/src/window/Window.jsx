@@ -11,24 +11,30 @@ class Window extends React.Component {
     }
 
     render() {
-        const { className, style, title, children } = this.props;
+        const { className, style, title, children, width, height } = this.props;
 
-        return <div className="Window">
-            <div className="wrap">
-                <div className="title">
-                    <span>{title || 'Message'}</span>
-                    <div className="controls">
-                        <i className="iconfont icon-close icon"></i>
+        const _style = Object.assign({}, style, {
+            left: `calc(50% - ${width} / 2)`,
+            top: `calc(50% - ${height} / 2)`,
+            width: width,
+            height: height,
+        });
+
+        return <div className={classNames('Window', className)} style={_style}>
+            <div className={'wrap'}>
+                <div className={'title'}>
+                    <span>{title}</span>
+                    <div className={'controls'}>
+                        <i className={'iconfont icon-close icon'}></i>
                     </div>
                 </div>
-                <div className="content">{children}</div>
-                <div className="buttons">
-                    <div className="button-wrap">
-                        <button className="button">OK</button>
+                <div className={'content'}>{children}</div>
+                <div className={'buttons'}>
+                    <div className={'button-wrap'}>
+                        <button className={'button'}>OK</button>
                     </div>
                 </div>
             </div>
-            <div className="resize"></div>
         </div>;
     }
 }
@@ -38,13 +44,17 @@ Window.propTypes = {
     style: PropTypes.object,
     title: PropTypes.string,
     children: PropTypes.node,
+    width: PropTypes.string,
+    height: PropTypes.string,
 };
 
 Window.defaultProps = {
     className: null,
     style: null,
-    title: 'Message',
+    title: 'Window',
     children: null,
+    width: '600px',
+    height: '400px',
 };
 
 export default Window;

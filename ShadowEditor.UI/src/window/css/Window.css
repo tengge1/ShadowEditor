@@ -38,6 +38,7 @@ div.Window .wrap .title .controls {
     bottom: 0;
     text-align: right;
     white-space: nowrap;
+    user-select: none;
 }
 
 div.Window .wrap .title .controls .icon {
@@ -94,12 +95,4 @@ div.Window .wrap .buttons .button-wrap .button {
     background-color: #E74C3C;
     border: none;
     box-sizing: border-box;
-}
-
-div.Window .resize {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 10px;
-    height: 10px;
 }
