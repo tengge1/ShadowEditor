@@ -68,7 +68,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    line-height: 32px;
     background: rgb(218, 236, 244);
     text-align: right;
     white-space: nowrap;
@@ -77,25 +76,12 @@
 
 .Window .wrap .buttons .button-wrap {
     position: relative;
-    width: 34px;
     height: 24px;
-    margin: 0 5px 0 0;
+    margin: 4px;
     padding: 0;
     border: none;
     display: inline-block;
     text-align: left;
     vertical-align: middle;
-    box-sizing: border-box;
-}
-
-.Window .wrap .buttons .button-wrap .button {
-    position: absolute;
-    width: 34px;
-    height: 24px;
-    margin: 0;
-    padding: 0;
-    color: #fff;
-    background-color: #E74C3C;
-    border: none;
     box-sizing: border-box;
 }

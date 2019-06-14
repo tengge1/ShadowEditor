@@ -1,46 +1,35 @@
 .Button {
-    height: 20px;
-    margin: 0 2px;
+    height: 24px;
+    margin: 0 4px;
     padding: 0 8px;
-    color: #8a8a8a;
-    background-color: #fff;
-    border: 1px solid #8a8a8a;
+    color: #fff;
+    background-color: #E74C3C;
+    border: none;
+    display: inline-block;
     box-sizing: border-box;
-    cursor: pointer;
-}
-
-.Button:hover {
-    background-color: #eee;
 }
 
 .Button.primary {
-    color: #3399ff;
-    border: 1px solid #3399ff;
+    color: #fff;
+    background-color: #3399ff;
 }
 
 .Button.success {
-    color: #64CF40;
-    border: 1px solid #64CF40;
+    color: #fff;
+    background-color: #64CF40;
 }
 
 .Button.warn {
-    color: #F6A623;
-    border: 1px solid #F6A623;
+    color: #fff;
+    background-color: #F6A623;
 }
 
 .Button.danger {
-    color: #E74C3C;
-    border: 1px solid #E74C3C;
+    color: #fff;
+    background-color: #E74C3C;
 }
 
 .Button.disabled {
-    color: #ebebeb;
-    border: 1px solid #ebebeb;
-}
-
-.Button.disabled:hover {
-    background-color: #fff;
-    color: #ebebeb;
-    border: 1px solid #ebebeb;
-    cursor: default;
+    color: #fff;
+    background-color: #ebebeb;
 }

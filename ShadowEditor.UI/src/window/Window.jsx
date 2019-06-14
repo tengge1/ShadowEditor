@@ -2,6 +2,9 @@ import './css/Window.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
+import Content from '../common/Content.jsx';
+import Buttons from '../common/Buttons.jsx';
+
 /**
  * 窗口
  */
@@ -25,6 +28,14 @@ class Window extends React.Component {
     render() {
         const { className, style, title, children, width, height } = this.props;
 
+        const content = children.filter(n => {
+            return n.type === Content;
+        })[0];
+
+        const buttons = children.filter(n => {
+            return n.type === Buttons;
+        })[0];
+
         const _style = Object.assign({}, style, {
             left: `calc(50% - ${width} / 2)`,
             top: `calc(50% - ${height} / 2)`,
@@ -40,10 +51,10 @@ class Window extends React.Component {
                         <i className={'iconfont icon-close icon'} onClick={this.handleClose}></i>
                     </div>
                 </div>
-                <div className={'content'}>{children}</div>
+                <div className={'content'}>{content && content.props.children}</div>
                 <div className={'buttons'}>
                     <div className={'button-wrap'}>
-                        <button className={'button'}>OK</button>
+                        {buttons && buttons.props.children}
                     </div>
                 </div>
             </div>
