@@ -4,6 +4,7 @@ export { default as classNames } from 'classnames/bind';
 export { default as PropTypes } from 'prop-types';
 
 // common
+export { default as Buttons } from './common/Buttons.jsx';
 export { default as Column } from './common/Column.jsx';
 export { default as Columns } from './common/Columns.jsx';
 export { default as Row } from './common/Row.jsx';
