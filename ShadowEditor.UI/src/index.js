@@ -7,6 +7,7 @@ export { default as PropTypes } from 'prop-types';
 export { default as Buttons } from './common/Buttons.jsx';
 export { default as Column } from './common/Column.jsx';
 export { default as Columns } from './common/Columns.jsx';
+export { default as Content } from './common/Content.jsx';
 export { default as Row } from './common/Row.jsx';
 export { default as Rows } from './common/Rows.jsx';
 
@@ -28,7 +29,6 @@ export { default as Icon } from './icon/Icon.jsx';
 // layout
 export { default as AbsoluteLayout } from './layout/AbsoluteLayout.jsx';
 export { default as BorderLayout } from './layout/BorderLayout.jsx';
-export { default as Content } from './layout/Content.jsx';
 export { default as HBoxLayout } from './layout/HBoxLayout.jsx';
 export { default as TabLayout } from './layout/TabLayout.jsx';
 export { default as VBoxLayout } from './layout/VBoxLayout.jsx';
