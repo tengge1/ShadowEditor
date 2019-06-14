@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 
 import Canvas from '../../media/Canvas.jsx';
 import Window from '../../window/Window.jsx';
+import Content from '../../common/Content.jsx';
+import Buttons from '../../common/Buttons.jsx';
+import Button from '../../form/Button.jsx';
 
 /**
  * 视口
@@ -62,7 +65,15 @@ class Viewport extends React.Component {
     render() {
         return <>
             <Canvas className={'Viewport'} ref={this.canvas}></Canvas>
-            <Window title={'Message'}>Welcome to use ShadowEditor!</Window>
+            <Window title={'Message'}>
+                <Content>
+                    Welcome to use ShadowEditor!
+                </Content>
+                <Buttons>
+                    <Button>OK</Button>
+                    <Button>Cancel</Button>
+                </Buttons>
+            </Window>
         </>;
     }
 }
