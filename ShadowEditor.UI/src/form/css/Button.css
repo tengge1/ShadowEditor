@@ -3,7 +3,7 @@
     margin: 0 4px;
     padding: 0 8px;
     color: #fff;
-    background-color: #E74C3C;
+    background-color: #e74c3c;
     border: none;
     display: inline-block;
     box-sizing: border-box;
@@ -16,17 +16,12 @@
 
 .Button.success {
     color: #fff;
-    background-color: #64CF40;
+    background-color: #64cf40;
 }
 
 .Button.warn {
     color: #fff;
-    background-color: #F6A623;
-}
-
-.Button.danger {
-    color: #fff;
-    background-color: #E74C3C;
+    background-color: #f6a623;
 }
 
 .Button.disabled {
