@@ -1,5 +1,15 @@
-.Window {
+.WindowMask {
     position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 900;
+}
+
+.Window {
+    position: absolute;
     left: 0;
     top: 0;
     width: 600px;

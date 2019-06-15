@@ -65,7 +65,7 @@ class Viewport extends React.Component {
     render() {
         return <>
             <Canvas className={'Viewport'} ref={this.canvas}></Canvas>
-            <Window title={'Message'}>
+            <Window title={'Message'} mask={false}>
                 <Content>
                     Welcome to use ShadowEditor!
                 </Content>

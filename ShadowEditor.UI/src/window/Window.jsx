@@ -26,7 +26,7 @@ class Window extends React.Component {
     }
 
     render() {
-        const { className, style, title, children, width, height } = this.props;
+        const { className, style, title, children, width, height, mask } = this.props;
 
         const content = children.filter(n => {
             return n.type === Content;
@@ -43,7 +43,7 @@ class Window extends React.Component {
             height: height,
         });
 
-        return <div className={classNames('Window', this.state.hidden && 'hidden', className)} style={_style}>
+        const box = <div className={classNames('Window', this.state.hidden && 'hidden', className)} style={_style}>
             <div className={'wrap'}>
                 <div className={'title'}>
                     <span>{title}</span>
@@ -59,6 +59,8 @@ class Window extends React.Component {
                 </div>
             </div>
         </div>;
+
+        return mask ? <div className={'WindowMask'}>{box}</div> : box;
     }
 }
 
@@ -70,6 +72,7 @@ Window.propTypes = {
     width: PropTypes.string,
     height: PropTypes.string,
     hidden: PropTypes.bool,
+    mask: PropTypes.bool,
 };
 
 Window.defaultProps = {
@@ -80,6 +83,7 @@ Window.defaultProps = {
     width: '600px',
     height: '400px',
     hidden: false,
+    mask: true,
 };
 
 export default Window;
