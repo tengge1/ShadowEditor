@@ -39,7 +39,7 @@
     background: rgb(7, 97, 134);
     text-align: left;
     display: block;
-    cursor: default;
+    cursor: move;
     white-space: nowrap;
     overflow: hidden;
 }

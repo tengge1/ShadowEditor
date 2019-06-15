@@ -16,7 +16,22 @@ class Window extends React.Component {
             hidden: props.hidden,
         };
 
+        this.handleMouseDown = this.handleMouseDown.bind(this);
+        this.handleMouseMove = this.handleMouseMove.bind(this);
+        this.handleMouseUp = this.handleMouseUp.bind(this);
         this.handleClose = this.handleClose.bind(this);
+    }
+
+    handleMouseDown(event) {
+
+    }
+
+    handleMouseMove(event) {
+
+    }
+
+    handleMouseUp(event) {
+
     }
 
     handleClose(event) {
@@ -43,9 +58,14 @@ class Window extends React.Component {
             height: height,
         });
 
-        const box = <div className={classNames('Window', this.state.hidden && 'hidden', className)} style={_style}>
+        const box = <div
+            className={classNames('Window', this.state.hidden && 'hidden', className)}
+            style={_style}>
             <div className={'wrap'}>
-                <div className={'title'}>
+                <div className={'title'}
+                    onMouseDown={this.handleMouseDown}
+                    onMouseMove={this.handleMouseMove}
+                    onMouseUp={this.handleMouseUp}>
                     <span>{title}</span>
                     <div className={'controls'}>
                         <i className={'iconfont icon-close icon'} onClick={this.handleClose}></i>
