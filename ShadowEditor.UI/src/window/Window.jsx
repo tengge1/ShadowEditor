@@ -16,6 +16,12 @@ class Window extends React.Component {
             hidden: props.hidden,
         };
 
+        this.dom = React.createRef();
+
+        this.isDown = false;
+        this.offsetX = 0;
+        this.offsetY = 0;
+
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.handleMouseMove = this.handleMouseMove.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
@@ -23,15 +29,21 @@ class Window extends React.Component {
     }
 
     handleMouseDown(event) {
-
+        this.isDown = true;
+        this.offsetX = event.offsetX;
+        this.offsetY = event.offsetY;
     }
 
     handleMouseMove(event) {
-
+        if (!this.isDown) {
+            return;
+        }
     }
 
     handleMouseUp(event) {
-
+        this.isDown = false;
+        this.offsetX = 0;
+        this.offsetY = 0;
     }
 
     handleClose(event) {
@@ -60,7 +72,8 @@ class Window extends React.Component {
 
         const box = <div
             className={classNames('Window', this.state.hidden && 'hidden', className)}
-            style={_style}>
+            style={_style}
+            ref={this.dom}>
             <div className={'wrap'}>
                 <div className={'title'}
                     onMouseDown={this.handleMouseDown}
