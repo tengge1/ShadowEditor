@@ -21,7 +21,7 @@
 }
 
 .Window {
-    position: static;
+    position: relative;
     width: 600px;
     height: 400px;
     padding: 0px 5px 5px;

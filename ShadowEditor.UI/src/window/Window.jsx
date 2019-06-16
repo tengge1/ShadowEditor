@@ -64,6 +64,16 @@ class Window extends React.Component {
         });
     }
 
+    componentDidMount() {
+        document.body.addEventListener('mousemove', this.handleMouseMove);
+        document.body.addEventListener('mouseup', this.handleMouseUp);
+    }
+
+    componentWillUnmount() {
+        document.body.removeEventListener('mousemove', this.handleMouseMove);
+        document.body.removeEventListener('mouseup', this.handleMouseUp);
+    }
+
     render() {
         const { className, style, title, children, mask } = this.props;
 
@@ -81,9 +91,7 @@ class Window extends React.Component {
                 ref={this.dom}>
                 <div className={'wrap'}>
                     <div className={'title'}
-                        onMouseDown={this.handleMouseDown}
-                        onMouseMove={this.handleMouseMove}
-                        onMouseUp={this.handleMouseUp}>
+                        onMouseDown={this.handleMouseDown}>
                         <span>{title}</span>
                         <div className={'controls'}>
                             <i className={'iconfont icon-close icon'} onClick={this.handleClose}></i>
