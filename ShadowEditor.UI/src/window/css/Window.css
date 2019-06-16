@@ -4,25 +4,32 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
     z-index: 900;
 }
 
+.WindowMask.hidden {
+    display: none;
+}
+
+.WindowMask.mask {
+    background-color: rgba(0, 0, 0, 0.6);
+    pointer-events: all;
+}
+
 .Window {
-    position: absolute;
-    left: 0;
-    top: 0;
+    position: static;
     width: 600px;
     height: 400px;
     padding: 0px 5px 5px;
     background: rgb(7, 97, 134);
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px 0px;
     box-sizing: border-box;
+    pointer-events: all;
     z-index: 200;
-}
-
-.Window.hidden {
-    display: none;
 }
 
 .Window .wrap {

@@ -30,14 +30,26 @@ class Window extends React.Component {
 
     handleMouseDown(event) {
         this.isDown = true;
-        this.offsetX = event.offsetX;
-        this.offsetY = event.offsetY;
+
+        var dom = this.dom.current;
+        var left = dom.style.left === '' ? 0 : parseInt(dom.style.left.replace('px', ''));
+        var top = dom.style.top === '' ? 0 : parseInt(dom.style.top.replace('px', ''));
+
+        this.offsetX = event.clientX - left;
+        this.offsetY = event.clientY - top;
     }
 
     handleMouseMove(event) {
         if (!this.isDown) {
             return;
         }
+
+        var dx = event.clientX - this.offsetX;
+        var dy = event.clientY - this.offsetY;
+
+        var dom = this.dom.current;
+        dom.style.left = `${dx}px`;
+        dom.style.top = `${dy}px`;
     }
 
     handleMouseUp(event) {
@@ -53,7 +65,7 @@ class Window extends React.Component {
     }
 
     render() {
-        const { className, style, title, children, width, height, mask } = this.props;
+        const { className, style, title, children, mask } = this.props;
 
         const content = children.filter(n => {
             return n.type === Content;
@@ -63,37 +75,29 @@ class Window extends React.Component {
             return n.type === Buttons;
         })[0];
 
-        const _style = Object.assign({}, style, {
-            left: `calc(50% - ${width} / 2)`,
-            top: `calc(50% - ${height} / 2)`,
-            width: width,
-            height: height,
-        });
-
-        const box = <div
-            className={classNames('Window', this.state.hidden && 'hidden', className)}
-            style={_style}
-            ref={this.dom}>
-            <div className={'wrap'}>
-                <div className={'title'}
-                    onMouseDown={this.handleMouseDown}
-                    onMouseMove={this.handleMouseMove}
-                    onMouseUp={this.handleMouseUp}>
-                    <span>{title}</span>
-                    <div className={'controls'}>
-                        <i className={'iconfont icon-close icon'} onClick={this.handleClose}></i>
+        return <div className={classNames('WindowMask', mask && 'mask', this.state.hidden && 'hidden')}>
+            <div className={classNames('Window', className)}
+                style={style}
+                ref={this.dom}>
+                <div className={'wrap'}>
+                    <div className={'title'}
+                        onMouseDown={this.handleMouseDown}
+                        onMouseMove={this.handleMouseMove}
+                        onMouseUp={this.handleMouseUp}>
+                        <span>{title}</span>
+                        <div className={'controls'}>
+                            <i className={'iconfont icon-close icon'} onClick={this.handleClose}></i>
+                        </div>
                     </div>
-                </div>
-                <div className={'content'}>{content && content.props.children}</div>
-                <div className={'buttons'}>
-                    <div className={'button-wrap'}>
-                        {buttons && buttons.props.children}
+                    <div className={'content'}>{content && content.props.children}</div>
+                    <div className={'buttons'}>
+                        <div className={'button-wrap'}>
+                            {buttons && buttons.props.children}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>;
-
-        return mask ? <div className={'WindowMask'}>{box}</div> : box;
     }
 }
 
@@ -102,8 +106,6 @@ Window.propTypes = {
     style: PropTypes.object,
     title: PropTypes.string,
     children: PropTypes.node,
-    width: PropTypes.string,
-    height: PropTypes.string,
     hidden: PropTypes.bool,
     mask: PropTypes.bool,
 };
@@ -113,8 +115,6 @@ Window.defaultProps = {
     style: null,
     title: 'Window',
     children: null,
-    width: '600px',
-    height: '400px',
     hidden: false,
     mask: true,
 };
