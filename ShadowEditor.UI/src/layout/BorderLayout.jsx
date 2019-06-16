@@ -75,20 +75,39 @@ class BorderLayout extends React.Component {
     }
 
     render() {
-        const { className, style, children, ...others } = this.props;
+        const { className, style, children } = this.props;
 
-        const north = children && children.filter(n => n.props.region === 'north')[0];
-        const south = children && children.filter(n => n.props.region === 'south')[0];
-        const west = children && children.filter(n => n.props.region === 'west')[0];
-        const east = children && children.filter(n => n.props.region === 'east')[0];
-        const center = children && children.filter(n => n.props.region === 'center')[0];
+        let north = [], south = [], west = [], east = [], center = [], others = [];
 
-        if (!center) {
+        children && children.forEach(n => {
+            switch (n.props.region) {
+                case 'north':
+                    north.push(n);
+                    break;
+                case 'south':
+                    south.push(n);
+                    break;
+                case 'west':
+                    west.push(n);
+                    break;
+                case 'east':
+                    east.push(n);
+                    break;
+                case 'center':
+                    center.push(n);
+                    break;
+                default:
+                    others.push(n);
+                    break;
+            }
+        });
+
+        if (center.length === 0) {
             console.warn(`BorderLayout: center region is not defined.`);
         }
 
         // north region
-        const northRegion = north && (<div className={classNames('north',
+        const northRegion = north.length > 0 && (<div className={classNames('north',
             this.state.northSplit && 'split',
             this.state.northCollapsed && 'collapsed')}>
             <div className={'content'}>
@@ -100,7 +119,7 @@ class BorderLayout extends React.Component {
         </div>);
 
         // south region
-        const southRegion = south && (<div className={classNames('south',
+        const southRegion = south.length > 0 && (<div className={classNames('south',
             this.state.northSplit && 'split',
             this.state.southCollapsed && 'collapsed')}>
             {this.state.southSplit && <div className={'control'}>
@@ -112,7 +131,7 @@ class BorderLayout extends React.Component {
         </div>);
 
         // west region
-        const westRegion = west && (<div className={classNames('west',
+        const westRegion = west.length > 0 && (<div className={classNames('west',
             this.state.westSplit && 'split',
             this.state.westCollapsed && 'collapsed')}>
             <div className={'content'}>
@@ -124,7 +143,7 @@ class BorderLayout extends React.Component {
         </div>);
 
         // east region
-        const eastRegion = east && (<div className={classNames('east',
+        const eastRegion = east.length > 0 && (<div className={classNames('east',
             this.state.eastSplit && 'split',
             this.state.eastCollapsed && 'collapsed')}>
             <div className={'control'}>
@@ -136,14 +155,15 @@ class BorderLayout extends React.Component {
         </div>);
 
         // center region
-        const centerRegion = center && (<div className={'center'}>
+        const centerRegion = center.length > 0 && (<div className={'center'}>
             {center}
         </div>);
 
+        const otherRegion = others.length > 0 && others;
+
         return <div
             className={classNames('BorderLayout', className)}
-            style={style}
-            {...others}>
+            style={style}>
             {northRegion}
             <div className={'middle'}>
                 {westRegion}
@@ -151,6 +171,7 @@ class BorderLayout extends React.Component {
                 {eastRegion}
             </div>
             {southRegion}
+            {otherRegion}
         </div>;
     }
 }
