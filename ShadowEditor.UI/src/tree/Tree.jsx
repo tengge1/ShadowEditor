@@ -2,6 +2,8 @@ import './css/Tree.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
+import CheckBox from '../form/CheckBox.jsx';
+
 /**
  * 树
  * @author tengge / https://github.com/tengge1
@@ -86,8 +88,15 @@ class Tree extends React.Component {
             return this.createNode(n);
         })}</ul>);
 
+        let checkbox = null;
+
+        if (data.checked === true || data.checked === false) {
+            checkbox = <CheckBox selected={data.checked} />;
+        }
+
         return <li className={classNames('node', this.state.selected === data.value && 'selected')} value={data.value} key={data.value} onClick={this.handleClick}>
             <i className={classNames('expand', leaf ? null : (expanded[data.value] ? 'minus' : 'plus'))} value={data.value} onClick={this.handleExpandNode}></i>
+            {checkbox}
             <i className={classNames('type', leaf ? 'node' : (expanded[data.value] ? 'open' : 'close'))}></i>
             <a href={'javascript:;'}>{data.text}</a>
             {leaf ? null : children}

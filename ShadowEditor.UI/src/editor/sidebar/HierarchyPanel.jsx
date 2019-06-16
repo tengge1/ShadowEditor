@@ -16,19 +16,24 @@ class HierarchyPanel extends React.Component {
             value: '1',
             text: 'Programmer',
             expand: true,
+            checked: false,
             children: [{
                 value: '11',
                 text: 'Front-end',
                 expand: true,
+                checked: true,
                 children: [{
                     value: '111',
                     text: 'HTML',
+                    checked: true,
                 }, {
                     value: '112',
                     text: 'CSS',
+                    checked: true,
                 }, {
                     value: '113',
-                    text: 'JS'
+                    text: 'JS',
+                    checked: false,
                 }]
             }, {
                 value: '12',

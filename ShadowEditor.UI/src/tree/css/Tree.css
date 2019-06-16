@@ -58,6 +58,11 @@
     background: var(--folder-close);
 }
 
+.Tree .node .CheckBox {
+    margin: 2px -2px 2px 4px;
+    vertical-align: middle;
+}
+
 .Tree .node a {
     color: #555;
     margin-left: 4px;
