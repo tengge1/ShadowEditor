@@ -34,10 +34,6 @@
     overflow-y: hidden;
 }
 
-.BorderLayout>.north>.content>* {
-    display: block;
-}
-
 .BorderLayout>.north>.control {
     height: 8px;
     border-top: 1px solid #eee;
@@ -81,10 +77,6 @@
 .BorderLayout>.south.split>.content {
     height: calc(100% - 8px);
     overflow-y: hidden;
-}
-
-.BorderLayout>.south>.content>* {
-    display: block;
 }
 
 .BorderLayout>.south>.control {
@@ -140,10 +132,6 @@
 .BorderLayout>.middle>.west.split>.content {
     width: calc(100% - 8px);
     overflow-x: hidden;
-}
-
-.BorderLayout>.middle>.west>.content>* {
-    display: block;
 }
 
 .BorderLayout>.middle>.west>.control {
@@ -203,10 +191,6 @@
 .BorderLayout>.middle>.east.split>.content {
     width: calc(100% - 8px);
     overflow-x: hidden;
-}
-
-.BorderLayout>.middle>.east>.content>* {
-    display: block;
 }
 
 .BorderLayout>.middle>.east>.control {

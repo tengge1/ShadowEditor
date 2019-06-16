@@ -4,6 +4,7 @@ import EditorMenuBar from './menu/EditorMenuBar.jsx';
 import EditorStatusBar from './status/EditorStatusBar.jsx';
 import EditorToolbar from './toolbar/EditorToolbar.jsx';
 import EditorSideBar from './sidebar/EditorSideBar.jsx';
+import AssetsPanel from './assets/AssetsPanel.jsx';
 import Viewport from './viewport/Viewport.jsx';
 import TimelinePanel from './timeline/TimelinePanel.jsx';
 
@@ -24,6 +25,7 @@ class EditorUI extends React.Component {
             <EditorToolbar region={'west'}></EditorToolbar>
             <EditorSideBar region={'east'} split={true}></EditorSideBar>
             <BorderLayout region={'center'}>
+                <AssetsPanel region={'west'} split={true}></AssetsPanel>
                 <Viewport region={'center'}></Viewport>
                 <TimelinePanel region={'south'} split={true}></TimelinePanel>
             </BorderLayout>
