@@ -10,7 +10,7 @@ import Panel from '../../panel/Panel.jsx';
  */
 class AssetsPanel extends React.Component {
     render() {
-        return <Panel title={'Assets Panel'} maximizable={true}>Assets Panel</Panel>;
+        return <Panel className={'AssetsPanel'} title={'Assets Panel'} maximizable={true}>Assets Panel</Panel>;
     }
 }
 
