@@ -47,7 +47,7 @@ class Timeline extends React.Component {
                         droppable={'false'}
                         style={style}
                         key={animation.uuid}>
-                        {animation.name}
+                        <span className={'smaller'}>{animation.name}</span>
                     </div>;
                 })}
             </div>;

@@ -87,6 +87,10 @@
     border-radius: 2px;
 }
 
+.Timeline>.box>.right>.layers>.layer>.item>.smaller {
+    transform: scale(0.9);
+}
+
 .Timeline>.box>.right>.slider {
     position: absolute;
     left: 0;
