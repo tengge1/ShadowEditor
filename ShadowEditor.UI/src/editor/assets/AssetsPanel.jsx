@@ -2,6 +2,8 @@ import './css/AssetsPanel.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
+import AccordionLayout from '../../layout/AccordionLayout.jsx';
+
 import Panel from '../../panel/Panel.jsx';
 
 /**
@@ -10,7 +12,9 @@ import Panel from '../../panel/Panel.jsx';
  */
 class AssetsPanel extends React.Component {
     render() {
-        return <Panel className={'AssetsPanel'} title={'Assets Panel'} maximizable={true}>Assets Panel</Panel>;
+        return <AccordionLayout>
+            <Panel className={'AssetsPanel'} title={'Assets Panel'} maximizable={true}>Assets Panel</Panel>
+        </AccordionLayout>;
     }
 }
 

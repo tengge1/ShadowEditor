@@ -25,11 +25,13 @@ class AccordionLayout extends React.Component {
     }
 
     render() {
-        const { className, style, children, activeTab, ...others } = this.props;
+        const { className, style, children, activeTab } = this.props;
+
+        const _children = Array.isArray(children) ? children : [children];
 
         return <div className={classNames('AccordionLayout', className)} style={style}>
-            <div className={'tabs'} {...others}>
-                {children.map((n, i) => {
+            <div className={'tabs'}>
+                {_children.map((n, i) => {
                     return <div
                         className={classNames('tab', i === this.state.activeTab ? 'selected' : null)}
                         key={i}
@@ -39,7 +41,7 @@ class AccordionLayout extends React.Component {
                 })}
             </div>
             <div className={'contents'}>
-                {children.map((n, i) => {
+                {_children.map((n, i) => {
                     return <div className={classNames('content', i === this.state.activeTab ? 'show' : null)} key={i}>{n}</div>;
                 })}
             </div>
