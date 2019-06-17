@@ -28,6 +28,7 @@ export { default as Icon } from './icon/Icon.jsx';
 
 // layout
 export { default as AbsoluteLayout } from './layout/AbsoluteLayout.jsx';
+export { default as AccordionLayout } from './layout/AccordionLayout.jsx';
 export { default as BorderLayout } from './layout/BorderLayout.jsx';
 export { default as HBoxLayout } from './layout/HBoxLayout.jsx';
 export { default as TabLayout } from './layout/TabLayout.jsx';
