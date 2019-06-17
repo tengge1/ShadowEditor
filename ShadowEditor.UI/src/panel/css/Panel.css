@@ -4,8 +4,8 @@
     top: 0;
     width: 240px;
     height: 320px;
-    background: #fff;
-    border: 1px solid #e6e6e6;
+    background: #fafafa;
+    border: 1px solid #2c3e50;
     box-sizing: border-box;
 }
 
@@ -28,8 +28,8 @@
 
 .Panel>.header {
     position: relative;
-    height: 32px;
-    background-color: #f7f7f7;
+    height: 24px;
+    background-color: #2c3e50;
 }
 
 .Panel>.header.hidden {
@@ -38,9 +38,10 @@
 
 .Panel>.header>.title {
     height: 100%;
-    line-height: 32px;
-    padding-left: 16px;
-    color: #3399ff;
+    line-height: 24px;
+    font-size: 12px;
+    padding-left: 8px;
+    color: #fff;
     display: inline-block;
     box-sizing: border-box;
 }
@@ -65,13 +66,13 @@
 }
 
 .Panel>.header>.controls>.control>.iconfont {
-    font-size: 24px;
-    line-height: 32px;
-    color: #909090;
+    font-size: 16px;
+    line-height: 24px;
+    color: #fff;
 }
 
 .Panel>.body {
-    height: calc(100% - 32px);
+    height: calc(100% - 24px);
     padding: 4px;
     box-sizing: border-box;
 }
