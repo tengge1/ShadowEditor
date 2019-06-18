@@ -1,3 +1,5 @@
+import './css/EditorUI.css';
+
 import BorderLayout from '../layout/BorderLayout.jsx';
 
 import EditorMenuBar from './menu/EditorMenuBar.jsx';
@@ -19,7 +21,7 @@ import Button from '../form/Button.jsx';
  */
 class EditorUI extends React.Component {
     render() {
-        return <BorderLayout>
+        return <BorderLayout className={'EditorUI'}>
             <EditorMenuBar region={'north'}></EditorMenuBar>
             <EditorStatusBar region={'south'}></EditorStatusBar>
             <EditorToolbar region={'west'}></EditorToolbar>

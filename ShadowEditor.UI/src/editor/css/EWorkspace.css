@@ -1,8 +1,0 @@
-.EWorkspace {
-    flex: 1;
-}
-
-.EWorkspace .TimePanel .body {
-    display: flex;
-    overflow: auto;
-}
