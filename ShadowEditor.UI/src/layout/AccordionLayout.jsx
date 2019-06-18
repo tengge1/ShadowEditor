@@ -11,30 +11,28 @@ class AccordionLayout extends React.Component {
         super(props);
 
         this.state = {
-            activeTab: props.activeTab,
+            activeIndex: props.activeIndex,
         };
 
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick(event) {
-        var tabIndex = event.target.tabIndex;
+        var activeIndex = event.target.activeIndex;
         this.setState({
-            activeTab: tabIndex,
+            activeIndex: activeIndex,
         });
     }
 
     render() {
-        const { className, style, children, activeTab } = this.props;
+        const { className, style, children } = this.props;
 
         const _children = Array.isArray(children) ? children : [children];
 
         return <div className={classNames('AccordionLayout', className)} style={style}>
-            <div className={'contents'}>
-                {_children.map((n, i) => {
-                    return <div className={classNames('content', i === this.state.activeTab ? 'show' : null)} key={i}>{n}</div>;
-                })}
-            </div>
+            {_children.map((n, i) => {
+                return <div className={classNames('accordion', i === this.state.activeIndex ? 'show' : null)} key={i}>{n}</div>;
+            })}
         </div>;
     }
 }
@@ -43,14 +41,14 @@ AccordionLayout.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     children: PropTypes.node,
-    activeTab: PropTypes.number,
+    activeIndex: PropTypes.number,
 };
 
 AccordionLayout.defaultProps = {
     className: null,
     style: null,
     children: null,
-    activeTab: 0,
+    activeIndex: 0,
 };
 
 export default AccordionLayout;

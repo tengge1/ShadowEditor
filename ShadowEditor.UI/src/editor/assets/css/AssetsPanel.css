@@ -1,4 +1,12 @@
-.AssetsPanel {
+.ScenePanel,
+.ModelPanel,
+.MapPanel,
+.MaterialPanel,
+.AudioPanel,
+.AnimationPanel,
+.ParticlePanel,
+.PrefabPanel,
+.CharacterPanel,
+.LogPanel {
     width: 200px;
-    height: 100%;
 }
