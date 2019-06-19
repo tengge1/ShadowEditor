@@ -28,7 +28,7 @@ class Accordion extends React.Component {
     render() {
         const { title, className, style, children, show,
             maximizable, maximized, onMaximize,
-            closable } = this.props;
+            closable, onClickHeader } = this.props;
 
         const maximizeControl = maximizable && <div className={'control'} onClick={this.handleMaximize}>
             {this.state.maximized ? <i className={'iconfont icon-minimize'}></i> : <i className={'iconfont icon-maximize'}></i>}
@@ -38,7 +38,7 @@ class Accordion extends React.Component {
             this.state.maximized && 'maximized',
             !show && 'hidden',
             className)} style={style}>
-            <div className={'header'}>
+            <div className={'header'} onClick={onClickHeader}>
                 <span className="title">{title}</span>
                 <div className="controls">
                     {maximizeControl}
@@ -60,6 +60,7 @@ Accordion.propTypes = {
     maximizable: PropTypes.bool,
     maximized: PropTypes.bool,
     onMaximize: PropTypes.bool,
+    onClickHeader: PropTypes.func,
 };
 
 Accordion.defaultProps = {
@@ -71,6 +72,7 @@ Accordion.defaultProps = {
     maximizable: false,
     maximized: false,
     onMaximize: null,
+    onClickHeader: null,
 };
 
 export default Accordion;
