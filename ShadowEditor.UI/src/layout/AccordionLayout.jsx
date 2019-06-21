@@ -2,6 +2,8 @@ import './css/AccordionLayout.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
+import AccordionPanel from './private/AccordionPanel.jsx';
+
 /**
  * 折叠布局
  * @author tengge / https://github.com/tengge1
@@ -17,10 +19,9 @@ class AccordionLayout extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(event) {
-        var activeIndex = event.target.activeIndex;
+    handleClick(event, index) {
         this.setState({
-            activeIndex: activeIndex,
+            activeIndex: index,
         });
     }
 
@@ -31,7 +32,14 @@ class AccordionLayout extends React.Component {
 
         return <div className={classNames('AccordionLayout', className)} style={style}>
             {content.map((n, i) => {
-                return <div className={classNames('accordion', i === this.state.activeIndex ? 'show' : null)} key={i}>{n}</div>;
+                return <AccordionPanel
+                    title={n.props.title}
+                    show={n.props.show}
+                    index={i}
+                    collpased={i !== this.state.activeIndex}
+                    maximizable={n.props.maximizable}
+                    onClick={this.handleClick}
+                    key={i}>{n.props.children}</AccordionPanel>;
             })}
         </div>;
     }

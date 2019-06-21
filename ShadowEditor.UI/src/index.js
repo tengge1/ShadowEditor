@@ -4,6 +4,7 @@ export { default as classNames } from 'classnames/bind';
 export { default as PropTypes } from 'prop-types';
 
 // common
+export { default as Accordion } from './common/Accordion.jsx';
 export { default as Buttons } from './common/Buttons.jsx';
 export { default as Column } from './common/Column.jsx';
 export { default as Columns } from './common/Columns.jsx';
@@ -28,7 +29,6 @@ export { default as Icon } from './icon/Icon.jsx';
 
 // layout
 export { default as AbsoluteLayout } from './layout/AbsoluteLayout.jsx';
-export { default as Accordion } from './layout/Accordion.jsx';
 export { default as AccordionLayout } from './layout/AccordionLayout.jsx';
 export { default as BorderLayout } from './layout/BorderLayout.jsx';
 export { default as HBoxLayout } from './layout/HBoxLayout.jsx';
