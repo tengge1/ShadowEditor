@@ -27,6 +27,9 @@ export { default as Toggle } from './form/Toggle.jsx';
 // icon
 export { default as Icon } from './icon/Icon.jsx';
 
+// image
+export { default as Image } from './image/Image.jsx';
+
 // layout
 export { default as AbsoluteLayout } from './layout/AbsoluteLayout.jsx';
 export { default as AccordionLayout } from './layout/AccordionLayout.jsx';
@@ -37,7 +40,6 @@ export { default as VBoxLayout } from './layout/VBoxLayout.jsx';
 
 // media
 export { default as Canvas } from './media/Canvas.jsx';
-export { default as Image } from './media/Image.jsx';
 export { default as SVG } from './media/SVG.jsx';
 
 // menu
