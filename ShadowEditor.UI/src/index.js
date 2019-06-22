@@ -32,6 +32,7 @@ export { default as Icon } from './icon/Icon.jsx';
 
 // image
 export { default as Image } from './image/Image.jsx';
+export { default as ImageList } from './image/ImageList.jsx';
 
 // layout
 export { default as AbsoluteLayout } from './layout/AbsoluteLayout.jsx';
