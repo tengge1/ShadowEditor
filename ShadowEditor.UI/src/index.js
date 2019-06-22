@@ -3,6 +3,9 @@ import './Config.css';
 export { default as classNames } from 'classnames/bind';
 export { default as PropTypes } from 'prop-types';
 
+// canvas
+export { default as Canvas } from './canvas/Canvas.jsx';
+
 // common
 export { default as Accordion } from './common/Accordion.jsx';
 export { default as Buttons } from './common/Buttons.jsx';
@@ -39,7 +42,6 @@ export { default as TabLayout } from './layout/TabLayout.jsx';
 export { default as VBoxLayout } from './layout/VBoxLayout.jsx';
 
 // media
-export { default as Canvas } from './media/Canvas.jsx';
 export { default as SVG } from './media/SVG.jsx';
 
 // menu

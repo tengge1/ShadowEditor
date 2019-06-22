@@ -2,7 +2,7 @@ import './css/Viewport.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
-import Canvas from '../../media/Canvas.jsx';
+import Canvas from '../../canvas/Canvas.jsx';
 
 /**
  * 视口
