@@ -41,9 +41,6 @@ export { default as HBoxLayout } from './layout/HBoxLayout.jsx';
 export { default as TabLayout } from './layout/TabLayout.jsx';
 export { default as VBoxLayout } from './layout/VBoxLayout.jsx';
 
-// media
-export { default as SVG } from './media/SVG.jsx';
-
 // menu
 export { default as MenuBar } from './menu/MenuBar.jsx';
 export { default as MenuItem } from './menu/MenuItem.jsx';
@@ -54,6 +51,9 @@ export { default as Panel } from './panel/Panel.jsx';
 
 // property
 export { default as PropertyGrid } from './property/PropertyGrid.jsx';
+
+// svg
+export { default as SVG } from './svg/SVG.jsx';
 
 // table
 export { default as DataGrid } from './table/DataGrid.jsx';
