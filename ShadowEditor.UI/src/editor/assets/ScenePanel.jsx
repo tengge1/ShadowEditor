@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
+import SearchField from '../../form/SearchField.jsx';
 import ImageList from '../../image/ImageList.jsx';
 
 /**
@@ -9,7 +10,10 @@ import ImageList from '../../image/ImageList.jsx';
  */
 class ScenePanel extends React.Component {
     render() {
-        return <ImageList></ImageList>;
+        return <div className={'ScenePanel'}>
+            <SearchField></SearchField>
+            <ImageList></ImageList>
+        </div>;
     }
 }
 
