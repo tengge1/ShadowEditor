@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import AccordionLayout from '../../layout/AccordionLayout.jsx';
 import Accordion from '../../common/Accordion.jsx';
 
-import ImageList from '../../image/ImageList.jsx';
+import ScenePanel from './ScenePanel.jsx';
 
 /**
  * 资源面板
@@ -12,13 +12,9 @@ import ImageList from '../../image/ImageList.jsx';
  */
 class AssetsPanel extends React.Component {
     render() {
-        const data = [{
-
-        }];
-
         return <AccordionLayout>
             <Accordion title={'Scene'} maximizable={true}>
-                <ImageList data={data}></ImageList>
+                <ScenePanel></ScenePanel>
             </Accordion>
             <Accordion title={'Model'} maximizable={true}></Accordion>
             <Accordion title={'Map'} maximizable={true}>Map Panel</Accordion>
