@@ -1,6 +1,8 @@
-import './css/Input.css';
+import './css/SearchField.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+
+import IconButton from './IconButton.jsx';
 
 /**
  * 搜索框
@@ -35,13 +37,16 @@ class SearchField extends React.Component {
     render() {
         const { className, style, value, onChange, onInput, ...others } = this.props;
 
-        return <input
-            className={classNames('Input', className)}
-            style={style}
-            value={this.state.value}
-            onChange={this.handleChange}
-            onInput={this.handleInput}
-            {...others} />;
+        return <div className={'SearchField'}>
+            <input
+                className={classNames('input', className)}
+                style={style}
+                value={this.state.value}
+                onChange={this.handleChange}
+                onInput={this.handleInput}
+                {...others} />
+            <IconButton icon={'close'}></IconButton>
+        </div>;
     }
 }
 
