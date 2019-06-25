@@ -1,0 +1,12 @@
+.HistoryPanel {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.HistoryPanel .item {
+    padding-left: 4px;
+}
+
+.HistoryPanel .item.undo {
+    opacity: .3;
+}

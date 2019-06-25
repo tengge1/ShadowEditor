@@ -1,0 +1,12 @@
+.EditorSideBar {
+    width: 200px !important;
+}
+
+.EditorSideBar .top {
+    height: 320px;
+    border-bottom: 1px solid #eee;
+}
+
+.EditorSideBar .bottom {
+    height: calc(100% - 320px);
+}
