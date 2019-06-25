@@ -42,6 +42,7 @@ class SearchField extends React.Component {
                 className={classNames('input', className)}
                 style={style}
                 value={this.state.value}
+                placeholder={'Enter a keyword'}
                 onChange={this.handleChange}
                 onInput={this.handleInput}
                 {...others} />

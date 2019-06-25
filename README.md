@@ -8,6 +8,8 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 
 ## v0.2.4即将更新
 
+1. 新增UI控件：AccordionLayout, SearchField。（开发中）
+
 ## v0.2.3更新
 
 * 发布日期：2019年6月16日
