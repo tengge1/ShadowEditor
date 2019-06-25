@@ -78,6 +78,3 @@ export { default as Tree } from './tree/Tree.jsx';
 // window
 export { default as Alert } from './window/Alert.jsx';
 export { default as Window } from './window/Window.jsx';
-
-// editor
-export { default as EditorUI } from './editor/EditorUI.jsx';
