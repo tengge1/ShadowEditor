@@ -19,12 +19,13 @@ function Application(container, options) {
     this.width = this.container.clientWidth;
     this.height = this.container.clientHeight;
 
+    window.app = this;
+
     // 配置
     this.options = new Options(options);
 
     // 存储
     this.storage = new Storage();
-    this.initStorage();
 
     // 包管理器
     this.packageManager = new PackageManager();
@@ -61,40 +62,6 @@ function Application(container, options) {
     // 编辑器
     // this.editor = new Editor(this);
 }
-
-Application.prototype.initStorage = function () {
-    if (this.storage.get('showGrid') === undefined) {
-        this.storage.set('showGrid', true);
-    }
-
-    if (this.storage.get('showCamera') === undefined) {
-        this.storage.set('showCamera', false);
-    }
-
-    if (this.storage.get('showPointLight') === undefined) {
-        this.storage.set('showPointLight', true);
-    }
-
-    if (this.storage.get('showDirectionalLight') === undefined) {
-        this.storage.set('showDirectionalLight', true);
-    }
-
-    if (this.storage.get('showSpotLight') === undefined) {
-        this.storage.set('showSpotLight', true);
-    }
-
-    if (this.storage.get('showHemisphereLight') === undefined) {
-        this.storage.set('showHemisphereLight', true);
-    }
-
-    if (this.storage.get('showRectAreaLight') === undefined) {
-        this.storage.set('showRectAreaLight', true);
-    }
-
-    if (this.storage.get('showSkeleton') === undefined) {
-        this.storage.set('showSkeleton', false);
-    }
-};
 
 // ------------------------- 程序控制 -------------------------------
 

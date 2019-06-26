@@ -60,11 +60,6 @@
     <!-- Shadow Editor -->
     <script src="build/ShadowEditor.js"></script>
     <script>
-        var container = null;
-        var app = null;
-
-        var lang = window.localStorage.getItem('lang') || 'zh-CN';
-
         var loadJs = url => {
             var script = document.createElement('script');
             script.type = 'text/javascript';
@@ -80,8 +75,8 @@
         };
 
         var start = () => {
-            container = document.getElementById('container');
-            app = new Shadow.Application(container, {
+            var container = document.getElementById('container');
+            var app = new Shadow.Application(container, {
                 server: location.origin,
                 enableTileCache: false,
             });
@@ -89,6 +84,8 @@
         };
 
         window.onload = () => {
+            var lang = window.localStorage.getItem('lang') || 'zh-CN';
+
             if (lang === 'zh-CN') {
                 loadJs('lang/zh-CN.js').then(() => {
                     start();
