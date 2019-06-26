@@ -1,10 +1,5 @@
 import './css/EditorToolbar.css';
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
-
-import Toolbar from '../../toolbar/Toolbar.jsx';
-import ToolbarSeparator from '../../toolbar/ToolbarSeparator.jsx';
-import IconButton from '../../form/IconButton.jsx';
+import { classNames, PropTypes, Toolbar, ToolbarSeparator, IconButton } from '../../third_party';
 
 /**
  * 编辑器工具栏

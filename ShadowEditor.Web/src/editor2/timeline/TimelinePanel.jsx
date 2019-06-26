@@ -1,8 +1,6 @@
 import './css/TimelinePanel.css';
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
 
-import Timeline from '../../timeline/Timeline.jsx';
+import { classNames, PropTypes, Timeline } from '../../third_party';
 
 /**
  * 时间轴面板

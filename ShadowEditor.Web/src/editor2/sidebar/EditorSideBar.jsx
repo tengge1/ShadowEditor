@@ -1,9 +1,5 @@
 import './css/EditorSideBar.css';
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
-
-import TabLayout from '../../layout/TabLayout.jsx';
-import VBoxLayout from '../../layout/VBoxLayout.jsx';
+import { classNames, PropTypes, TabLayout, VBoxLayout } from '../../third_party';
 
 import HierarchyPanel from './HierarchyPanel.jsx';
 import HistoryPanel from './HistoryPanel.jsx';

@@ -1,8 +1,4 @@
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
-
-import AccordionLayout from '../../layout/AccordionLayout.jsx';
-import Accordion from '../../common/Accordion.jsx';
+import { classNames, PropTypes, AccordionLayout, Accordion } from '../../third_party';
 
 import ScenePanel from './ScenePanel.jsx';
 import ModelPanel from './ModelPanel.jsx';

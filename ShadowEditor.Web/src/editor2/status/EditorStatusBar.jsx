@@ -1,11 +1,5 @@
 import './css/EditorStatusBar.css';
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
-
-import Toolbar from '../../toolbar/Toolbar.jsx';
-import ToolbarSeparator from '../../toolbar/ToolbarSeparator.jsx';
-import Label from '../../form/Label.jsx';
-import CheckBox from '../../form/CheckBox.jsx';
+import { classNames, PropTypes, Toolbar, ToolbarSeparator, Label, CheckBox } from '../../third_party';
 
 /**
  * 菜单栏

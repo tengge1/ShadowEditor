@@ -1,5 +1,4 @@
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
+import { classNames, PropTypes } from '../../third_party';
 
 /**
  * 预设体面板

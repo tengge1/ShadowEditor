@@ -1,8 +1,4 @@
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
-
-import SearchField from '../../form/SearchField.jsx';
-import ImageList from '../../image/ImageList.jsx';
+import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
 
 /**
  * 场景面板

@@ -1,8 +1,5 @@
 import './css/PropertyPanel.css';
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
-
-import PropertyGrid from '../../property/PropertyGrid.jsx';
+import { classNames, PropTypes, PropertyGrid } from '../../third_party';
 
 /**
  * 属性面板

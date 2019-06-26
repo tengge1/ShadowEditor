@@ -1,8 +1,5 @@
 import './css/HierarchyPanel.css';
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
-
-import Tree from '../../tree/Tree.jsx';
+import { classNames, PropTypes, Tree } from '../../third_party';
 
 /**
  * 场景树状图

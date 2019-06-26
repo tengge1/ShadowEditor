@@ -1,6 +1,4 @@
-import PropTypes from 'prop-types';
-import MenuItem from '../../menu/MenuItem.jsx';
-import MenuItemSeparator from '../../menu/MenuItemSeparator.jsx';
+import { PropTypes, MenuItem, MenuItemSeparator } from '../../third_party';
 
 /**
  * 编辑菜单

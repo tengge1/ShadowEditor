@@ -1,19 +1,14 @@
 import './css/EditorUI.css';
 
-import BorderLayout from '../layout/BorderLayout.jsx';
+import { BorderLayout, Window, Content, Buttons, Button } from '../third_party';
 
 import EditorMenuBar from './menu/EditorMenuBar.jsx';
 import EditorStatusBar from './status/EditorStatusBar.jsx';
 import EditorToolbar from './toolbar/EditorToolbar.jsx';
-import EditorSideBar from './sidebar/EditorSideBar.jsx';
-import AssetsPanel from './assets/AssetsPanel.jsx';
 import Viewport from './viewport/Viewport.jsx';
 import TimelinePanel from './timeline/TimelinePanel.jsx';
-
-import Window from '../window/Window.jsx';
-import Content from '../common/Content.jsx';
-import Buttons from '../common/Buttons.jsx';
-import Button from '../form/Button.jsx';
+import EditorSideBar from './sidebar/EditorSideBar.jsx';
+import AssetsPanel from './assets/AssetsPanel.jsx';
 
 /**
  * 编辑器UI

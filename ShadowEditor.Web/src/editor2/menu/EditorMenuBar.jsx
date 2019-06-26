@@ -1,7 +1,4 @@
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
-import MenuBar from '../../menu/MenuBar.jsx';
-import MenuItem from '../../menu/MenuItem.jsx';
+import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
 
 import SceneMenu from './SceneMenu.jsx';
 import EditMenu from './EditMenu.jsx';
