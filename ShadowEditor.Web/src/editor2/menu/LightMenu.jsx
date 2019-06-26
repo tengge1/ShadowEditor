@@ -19,13 +19,13 @@ class LightMenu extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <MenuItem title={'Light'}>
-            <MenuItem title={'Ambient Light'}></MenuItem>
-            <MenuItem title={'Directional Light'}></MenuItem>
-            <MenuItem title={'Point Light'}></MenuItem>
-            <MenuItem title={'Spot Light'}></MenuItem>
-            <MenuItem title={'Hemisphere Light'}></MenuItem>
-            <MenuItem title={'Rect Area Light'}></MenuItem>
+        return <MenuItem title={L_LIGHT}>
+            <MenuItem title={L_AMBIENT_LIGHT}></MenuItem>
+            <MenuItem title={L_DIRECTIONAL_LIGHT}></MenuItem>
+            <MenuItem title={L_POINT_LIGHT}></MenuItem>
+            <MenuItem title={L_SPOT_LIGHT}></MenuItem>
+            <MenuItem title={L_HEMISPHERE_LIGHT}></MenuItem>
+            <MenuItem title={L_RECT_AREA_LIGHT}></MenuItem>
         </MenuItem>;
     }
 }

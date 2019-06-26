@@ -19,31 +19,31 @@ class TwoDMenu extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <MenuItem title={'2D'}>
-            <MenuItem title={'Button'}></MenuItem>
-            <MenuItem title={'Label'}></MenuItem>
-            <MenuItem title={'Panel'}></MenuItem>
-            <MenuItem title={'Horizontal Line'}></MenuItem>
-            <MenuItem title={'Bar Chart'}></MenuItem>
-            <MenuItem title={'Time'}></MenuItem>
-            <MenuItem title={'Vertical Line'}></MenuItem>
-            <MenuItem title={'Date'}></MenuItem>
-            <MenuItem title={'Time Disk'}></MenuItem>
-            <MenuItem title={'Key Value Label'}></MenuItem>
-            <MenuItem title={'Form Panel'}></MenuItem>
-            <MenuItem title={'Gauge'}></MenuItem>
-            <MenuItem title={'Histogram'}></MenuItem>
-            <MenuItem title={'Line Chart'}></MenuItem>
-            <MenuItem title={'Sidebar'}></MenuItem>
-            <MenuItem title={'Histogram2'}></MenuItem>
-            <MenuItem title={'Scatter Plot'}></MenuItem>
-            <MenuItem title={'Pie Chart'}></MenuItem>
-            <MenuItem title={'Chord Graph'}></MenuItem>
-            <MenuItem title={'Force Directed Graph'}></MenuItem>
-            <MenuItem title={'Tree Diagram'}></MenuItem>
-            <MenuItem title={'Cluster Diagram'}></MenuItem>
-            <MenuItem title={'Pack Diagram'}></MenuItem>
-            <MenuItem title={'Partition Diagram'}></MenuItem>
+        return <MenuItem title={L_TWO_D}>
+            <MenuItem title={L_BUTTON}></MenuItem>
+            <MenuItem title={L_LABEL}></MenuItem>
+            <MenuItem title={L_PANEL}></MenuItem>
+            <MenuItem title={L_HORIZONTAL_LINE}></MenuItem>
+            <MenuItem title={L_BAR_CHART}></MenuItem>
+            <MenuItem title={L_TIME}></MenuItem>
+            <MenuItem title={L_VERTICAL_LINE}></MenuItem>
+            <MenuItem title={L_DATE_WEEK}></MenuItem>
+            <MenuItem title={L_TIME_DISK}></MenuItem>
+            <MenuItem title={L_KEY_VALUE_LABEL}></MenuItem>
+            <MenuItem title={L_FORM_PANEL}></MenuItem>
+            <MenuItem title={L_GAUGE}></MenuItem>
+            <MenuItem title={L_HISTOGRAM}></MenuItem>
+            <MenuItem title={L_LINECHART}></MenuItem>
+            <MenuItem title={L_SIDEBAR}></MenuItem>
+            <MenuItem title={`${L_HISTOGRAM}2`}></MenuItem>
+            <MenuItem title={L_SCATTER_PLOT}></MenuItem>
+            <MenuItem title={L_PIE_CHART}></MenuItem>
+            <MenuItem title={L_CHORD_GRAPH}></MenuItem>
+            <MenuItem title={L_FORCE_DIRECTED_GRAPH}></MenuItem>
+            <MenuItem title={L_TREE_DIAGRAM}></MenuItem>
+            <MenuItem title={L_CLUSTER_DIAGRAM}></MenuItem>
+            <MenuItem title={L_PACK_DIAGRAM}></MenuItem>
+            <MenuItem title={L_PARTITION_DIAGRAM}></MenuItem>
         </MenuItem>;
     }
 }

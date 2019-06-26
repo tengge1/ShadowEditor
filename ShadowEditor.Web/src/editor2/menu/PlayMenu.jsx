@@ -17,10 +17,10 @@ class PlayMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={'Play'}>
-            <MenuItem title={'Play'}></MenuItem>
-            <MenuItem title={'Play Fullscreen'}></MenuItem>
-            <MenuItem title={'Play New Window'}></MenuItem>
+        return <MenuItem title={L_PLAY}>
+            <MenuItem title={L_PLAY}></MenuItem>
+            <MenuItem title={L_PLAY_FULLSCREEN}></MenuItem>
+            <MenuItem title={L_PLAY_NEW_WINDOW}></MenuItem>
         </MenuItem>;
     }
 }

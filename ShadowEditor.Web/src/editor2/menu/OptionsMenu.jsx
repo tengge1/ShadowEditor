@@ -19,12 +19,12 @@ class OptionsMenu extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <MenuItem title={'Options'}>
-            <MenuItem title={'Surface'}></MenuItem>
-            <MenuItem title={'Helpers'}></MenuItem>
+        return <MenuItem title={L_OPTIONS}>
+            <MenuItem title={L_SURFACE}></MenuItem>
+            <MenuItem title={L_HELPERS}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={'Renderer'}></MenuItem>
-            <MenuItem title={'Filter'}></MenuItem>
+            <MenuItem title={L_RENDERER}></MenuItem>
+            <MenuItem title={L_FILTER}></MenuItem>
         </MenuItem>;
     }
 }

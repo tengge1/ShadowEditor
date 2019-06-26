@@ -17,11 +17,11 @@ class HelpMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={'Help'}>
-            <MenuItem title={'Source'}></MenuItem>
-            <MenuItem title={'Examples'}></MenuItem>
-            <MenuItem title={'Documents'}></MenuItem>
-            <MenuItem title={'About'}></MenuItem>
+        return <MenuItem title={L_HELP}>
+            <MenuItem title={L_SOURCE}></MenuItem>
+            <MenuItem title={L_EXAMPLES}></MenuItem>
+            <MenuItem title={L_DOCUMENTS}></MenuItem>
+            <MenuItem title={L_ABOUT}></MenuItem>
         </MenuItem>;
     }
 }
