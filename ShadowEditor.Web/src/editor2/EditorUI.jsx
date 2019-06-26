@@ -1,6 +1,6 @@
 import './css/EditorUI.css';
 
-import { BorderLayout, Window, Content, Buttons, Button } from '../third_party';
+import { BorderLayout } from '../third_party';
 
 import EditorMenuBar from './menu/EditorMenuBar.jsx';
 import EditorStatusBar from './status/EditorStatusBar.jsx';
@@ -26,15 +26,6 @@ class EditorUI extends React.Component {
                 <Viewport region={'center'}></Viewport>
                 <TimelinePanel region={'south'} split={true}></TimelinePanel>
             </BorderLayout>
-            <Window title={'Message'} mask={false}>
-                <Content>
-                    Welcome to use ShadowEditor!
-                </Content>
-                <Buttons>
-                    <Button>OK</Button>
-                    <Button>Cancel</Button>
-                </Buttons>
-            </Window>
         </BorderLayout>;
     }
 }

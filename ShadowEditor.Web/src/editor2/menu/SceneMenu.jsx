@@ -16,15 +16,15 @@ class SceneMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={'Scene'}>
-            <MenuItem title={'New'}>
-                <MenuItem title={'Empty Scene'} onClick={this.handleClick}></MenuItem>
-                <MenuItem title={'GIS Scene'}></MenuItem>
+        return <MenuItem title={L_SCENE}>
+            <MenuItem title={L_NEW}>
+                <MenuItem title={L_EMPTY_SCENE} onClick={this.handleClick}></MenuItem>
+                <MenuItem title={L_GIS_SCENE}></MenuItem>
             </MenuItem>
-            <MenuItem title={'Save'}></MenuItem>
-            <MenuItem title={'Save As'}></MenuItem>
+            <MenuItem title={L_SAVE}></MenuItem>
+            <MenuItem title={L_SAVE_AS}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={'Export Scene'}></MenuItem>
+            <MenuItem title={L_EXPORT_SCENE}></MenuItem>
         </MenuItem>;
     }
 }
