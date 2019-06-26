@@ -17,27 +17,27 @@ class GeometryMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={'Geometry'}>
-            <MenuItem title={'Group'}></MenuItem>
+        return <MenuItem title={L_GEOMETRY}>
+            <MenuItem title={L_GROUP}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={'Plane'}></MenuItem>
-            <MenuItem title={'Box'}></MenuItem>
-            <MenuItem title={'Circle'}></MenuItem>
-            <MenuItem title={'Cylinder'}></MenuItem>
-            <MenuItem title={'Sphere'}></MenuItem>
-            <MenuItem title={'Icosahedron'}></MenuItem>
-            <MenuItem title={'Torus'}></MenuItem>
-            <MenuItem title={'Torus Knot'}></MenuItem>
-            <MenuItem title={'Teapot'}></MenuItem>
-            <MenuItem title={'Lathe'}></MenuItem>
-            <MenuItem title={'Sprite'}></MenuItem>
-            <MenuItem title={'Text'}></MenuItem>
+            <MenuItem title={L_PLANE}></MenuItem>
+            <MenuItem title={L_BOX}></MenuItem>
+            <MenuItem title={L_CIRCLE}></MenuItem>
+            <MenuItem title={L_CYLINDER}></MenuItem>
+            <MenuItem title={L_SPHERE}></MenuItem>
+            <MenuItem title={L_ICOSAHEDRON}></MenuItem>
+            <MenuItem title={L_TORUS}></MenuItem>
+            <MenuItem title={L_TORUS_KNOT}></MenuItem>
+            <MenuItem title={L_TEAPOT}></MenuItem>
+            <MenuItem title={L_LATHE}></MenuItem>
+            <MenuItem title={L_SPRITE}></MenuItem>
+            <MenuItem title={L_TEXT}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={'Line Curve'}></MenuItem>
-            <MenuItem title={'CatmullRom Curve'}></MenuItem>
-            <MenuItem title={'QuadraticBezier Curve'}></MenuItem>
-            <MenuItem title={'CubicBezier Curve'}></MenuItem>
-            <MenuItem title={'Ellipse Curve'}></MenuItem>
+            <MenuItem title={L_LINE_CURVE}></MenuItem>
+            <MenuItem title={L_CATMULL_ROM_CURVE}></MenuItem>
+            <MenuItem title={L_QUADRATIC_BEZIER_CURVE}></MenuItem>
+            <MenuItem title={L_CUBIC_BEZIER_CURVE}></MenuItem>
+            <MenuItem title={L_ELLIPSE_CURVE}></MenuItem>
         </MenuItem>;
     }
 }

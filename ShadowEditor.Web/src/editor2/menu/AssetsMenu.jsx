@@ -17,15 +17,15 @@ class AssetsMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={'Assets'}>
-            <MenuItem title={'Export Geometry'}></MenuItem>
-            <MenuItem title={'Export Object'}></MenuItem>
+        return <MenuItem title={L_ASSETS}>
+            <MenuItem title={L_EXPORT_GEOMETRY}></MenuItem>
+            <MenuItem title={L_EXPORT_OBJECT}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={'Export GLTF'}></MenuItem>
-            <MenuItem title={'Export OBJ'}></MenuItem>
-            <MenuItem title={'Export PLY'}></MenuItem>
-            <MenuItem title={'Export STL Binary'}></MenuItem>
-            <MenuItem title={'Export STL'}></MenuItem>
+            <MenuItem title={L_EXPORT_GLTF}></MenuItem>
+            <MenuItem title={L_EXPORT_OBJ}></MenuItem>
+            <MenuItem title={L_EXPORT_PLY}></MenuItem>
+            <MenuItem title={L_EXPORT_STL_BINARY}></MenuItem>
+            <MenuItem title={L_EXPORT_STL}></MenuItem>
         </MenuItem>;
     }
 }

@@ -12,13 +12,13 @@ class EditMenu extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <MenuItem title={'Edit'}>
-            <MenuItem title={'Undo(Ctrl+Z)'}></MenuItem>
-            <MenuItem title={'Redo(Ctrl+Y)'}></MenuItem>
-            <MenuItem title={'Clear History'}></MenuItem>
+        return <MenuItem title={L_EDIT}>
+            <MenuItem title={`${L_UNDO}(Ctrl+Z)`}></MenuItem>
+            <MenuItem title={`${L_REDO}(Ctrl+Y)`}></MenuItem>
+            <MenuItem title={L_CLEAR_HISTORY}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={'Clone'}></MenuItem>
-            <MenuItem title={'Delete(Del)'}></MenuItem>
+            <MenuItem title={L_CLONE}></MenuItem>
+            <MenuItem title={`${L_DELETE}(Del)`}></MenuItem>
         </MenuItem>;
     }
 }

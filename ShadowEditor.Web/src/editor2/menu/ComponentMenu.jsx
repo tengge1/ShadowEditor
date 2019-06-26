@@ -17,25 +17,14 @@ class ComponentMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={'Component'}>
-            <MenuItem title={'Background Music'}></MenuItem>
-            <MenuItem title={'ParticleEmitter'}></MenuItem>
-            <MenuItem title={'Sky'}></MenuItem>
-            <MenuItem title={'Fire'}></MenuItem>
-            <MenuItem title={'Water'}></MenuItem>
-            <MenuItem title={'MenuItem'}>
-                <MenuItem title={'Child 1'}></MenuItem>
-                <MenuItem title={'Child 2'}>
-                    <MenuItem title={'Child 1'}></MenuItem>
-                    <MenuItem title={'Child 2'}></MenuItem>
-                    <MenuItem title={'Child 3'}></MenuItem>
-                </MenuItem>
-                <MenuItem title={'Child 3'}></MenuItem>
-                <MenuItem title={'Child 4'}></MenuItem>
-                <MenuItem title={'Child 5'}></MenuItem>
-            </MenuItem>
-            <MenuItem title={'Smoke'}></MenuItem>
-            <MenuItem title={'Cloth'}></MenuItem>
+        return <MenuItem title={L_COMPONENT}>
+            <MenuItem title={L_BACKGROUND_MUSIC}></MenuItem>
+            <MenuItem title={L_PARTICLE_EMITTER}></MenuItem>
+            <MenuItem title={L_SKY}></MenuItem>
+            <MenuItem title={L_FIRE}></MenuItem>
+            <MenuItem title={L_WATER}></MenuItem>
+            <MenuItem title={L_SMOKE}></MenuItem>
+            <MenuItem title={L_CLOTH}></MenuItem>
         </MenuItem>;
     }
 }
