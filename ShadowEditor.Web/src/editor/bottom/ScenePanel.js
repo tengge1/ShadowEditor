@@ -275,7 +275,7 @@ ScenePanel.prototype.onLoadScene = function (obj) {
     }
 
     if (obj.renderer) {
-        var viewport = this.app.viewport.container.dom;
+        var viewport = this.app.viewport;
         var oldRenderer = this.app.editor.renderer;
 
         viewport.removeChild(oldRenderer.domElement);

@@ -70,7 +70,7 @@ TerrainMenu.prototype.createPerlinTerrain = function () {
 // ---------------------------- 创建着色器地形 ----------------------------------------
 
 TerrainMenu.prototype.createShaderTerrain = function () {
-    var dom = this.app.viewport.container.dom;
+    var dom = this.app.viewport;
 
     var terrain = new ShaderTerrain(this.app.editor.renderer, dom.clientWidth, dom.clientHeight);
 

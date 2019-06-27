@@ -1,4 +1,4 @@
-import './css/EditorUI.css';
+import './css/Editor.css';
 
 import { BorderLayout } from '../third_party';
 
@@ -15,12 +15,12 @@ import Helpers from '../helper/Helpers';
 import Visualization from '../visual/Visualization';
 
 /**
- * 编辑器UI
+ * 编辑器
  * @author tengge / https://github.com/tengge1
  */
-class EditorUI extends React.Component {
+class Editor extends React.Component {
     render() {
-        return <BorderLayout className={'EditorUI'}>
+        return <BorderLayout className={'Editor'}>
             <EditorMenuBar region={'north'}></EditorMenuBar>
             <EditorStatusBar region={'south'}></EditorStatusBar>
             <EditorToolbar region={'west'}></EditorToolbar>
@@ -130,6 +130,25 @@ class EditorUI extends React.Component {
 
         // 帮助器
         this.helpers = new Helpers(this.app);
+
+        // 启动事件 - 事件要在ui创建完成后启动
+        this.app.event.start();
+
+        this.app.call('appStart', this);
+        this.app.call('appStarted', this);
+
+        this.app.call('resize', this);
+
+        this.app.log('程序启动成功。');
+    }
+
+    componentWillUnmount() {
+        this.app.call('appStop', this);
+        this.app.call('appStoped', this);
+
+        this.app.log('程序已经停止');
+
+        this.app.event.stop();
     }
 
     onAppStarted() {
@@ -425,4 +444,4 @@ class EditorUI extends React.Component {
     }
 }
 
-export default EditorUI;
+export default Editor;

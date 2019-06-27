@@ -20,17 +20,17 @@ PickEvent.prototype = Object.create(BaseEvent.prototype);
 PickEvent.prototype.constructor = PickEvent;
 
 PickEvent.prototype.start = function () {
-    var container = this.app.viewport.container;
+    var viewport = this.app.viewport;
 
-    container.dom.addEventListener('mousedown', this.onMouseDown.bind(this), false);
-    container.dom.addEventListener('dblclick', this.onDoubleClick.bind(this), false);
+    viewport.addEventListener('mousedown', this.onMouseDown.bind(this), false);
+    viewport.addEventListener('dblclick', this.onDoubleClick.bind(this), false);
 };
 
 PickEvent.prototype.stop = function () {
-    var container = this.app.viewport.container;
+    var viewport = this.app.viewport;
 
-    container.dom.removeEventListener('mousedown', this.onMouseDown, false);
-    container.dom.removeEventListener('dblclick', this.onDoubleClick, false);
+    viewport.removeEventListener('mousedown', this.onMouseDown, false);
+    viewport.removeEventListener('dblclick', this.onDoubleClick, false);
 };
 
 PickEvent.prototype.onMouseDown = function (event) {
@@ -39,21 +39,16 @@ PickEvent.prototype.onMouseDown = function (event) {
     }
 
     // 这样处理选中的原因是避免把拖动误认为点击
-
-    var container = this.app.viewport.container;
-
     event.preventDefault();
 
-    var array = this.getMousePosition(container.dom, event.clientX, event.clientY);
+    var array = this.getMousePosition(this.app.viewport, event.clientX, event.clientY);
     this.onDownPosition.fromArray(array);
 
     document.addEventListener('mouseup', this.onMouseUp.bind(this), false);
 };
 
 PickEvent.prototype.onMouseUp = function (event) {
-    var container = this.app.viewport.container;
-
-    var array = this.getMousePosition(container.dom, event.clientX, event.clientY);
+    var array = this.getMousePosition(this.app.viewport, event.clientX, event.clientY);
     this.onUpPosition.fromArray(array);
 
     this.handleClick();
@@ -62,10 +57,9 @@ PickEvent.prototype.onMouseUp = function (event) {
 };
 
 PickEvent.prototype.onDoubleClick = function (event) {
-    var container = this.app.viewport.container;
     var objects = this.app.editor.objects;
 
-    var array = this.getMousePosition(container.dom, event.clientX, event.clientY);
+    var array = this.getMousePosition(this.app.viewport, event.clientX, event.clientY);
     this.onDoubleClickPosition.fromArray(array);
 
     var intersects = this.getIntersects(this.onDoubleClickPosition, objects);

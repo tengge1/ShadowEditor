@@ -22,12 +22,12 @@ ResizeEvent.prototype.stop = function () {
 
 ResizeEvent.prototype.onResize = function () {
     var editor = this.app.editor;
-    var container = this.app.viewport.container;
+    var viewport = this.app.viewport;
     var camera = editor.camera;
     var renderer = editor.renderer;
 
-    var width = container.dom.clientWidth;
-    var height = container.dom.clientHeight;
+    var width = viewport.clientWidth;
+    var height = viewport.clientHeight;
 
     editor.DEFAULT_CAMERA.aspect = width / height;
     editor.DEFAULT_CAMERA.updateProjectionMatrix();

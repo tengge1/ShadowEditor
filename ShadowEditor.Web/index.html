@@ -75,12 +75,10 @@
         };
 
         var start = () => {
-            var container = document.getElementById('container');
-            var app = new Shadow.Application(container, {
+            new Shadow.Application(document.getElementById('container'), {
                 server: location.origin,
                 enableTileCache: false,
             });
-            app.start();
         };
 
         window.onload = () => {

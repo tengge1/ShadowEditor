@@ -8,6 +8,6 @@ body,
     overflow: hidden;
 }
 
-.EditorUI>.north {
+.Editor>.north {
     z-index: 1000;
 }
