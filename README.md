@@ -9,6 +9,7 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 ## v0.2.4即将更新
 
 1. 新增UI控件：AccordionLayout, SearchField。（开发中）
+2. 修复播放器脚本camera被赋值为scene的bug。
 
 ## v0.2.3更新
 
