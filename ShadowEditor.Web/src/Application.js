@@ -4,7 +4,6 @@ import Storage from './utils/Storage';
 import EventDispatcher from './event/EventDispatcher';
 
 import EditorUI from './editor2/EditorUI.jsx';
-import Editor from './editor/Editor';
 
 import PackageManager from './package/PackageManager';
 
@@ -58,9 +57,6 @@ function Application(container, options) {
     // UI
     this.ui = React.createElement(EditorUI);
     ReactDOM.render(this.ui, this.container);
-
-    // 编辑器
-    this.editor = new Editor(this);
 }
 
 // ------------------------- 程序控制 -------------------------------

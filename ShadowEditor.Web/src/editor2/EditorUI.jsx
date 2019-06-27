@@ -10,6 +10,8 @@ import TimelinePanel from './timeline/TimelinePanel.jsx';
 import EditorSideBar from './sidebar/EditorSideBar.jsx';
 import AssetsPanel from './assets/AssetsPanel.jsx';
 
+import Editor from '../editor/Editor';
+
 /**
  * 编辑器UI
  * @author tengge / https://github.com/tengge1
@@ -30,7 +32,7 @@ class EditorUI extends React.Component {
     }
 
     componentDidMount() {
-
+        app.editor = new Editor(this);
     }
 }
 

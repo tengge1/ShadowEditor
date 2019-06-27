@@ -8,15 +8,15 @@ import { classNames, PropTypes, Canvas } from '../../third_party';
 class Viewport extends React.Component {
     constructor(props) {
         super(props);
-        this.canvas = React.createRef();
+        this.dom = React.createRef();
     }
 
     componentDidMount() {
-
+        app.viewport = this.dom.current;
     }
 
     render() {
-        return <Canvas className={'Viewport'} ref={this.canvas}></Canvas>;
+        return <div className={'Viewport'} ref={this.dom}></div>;
     }
 }
 

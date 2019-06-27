@@ -8,7 +8,7 @@ import Visualization from '../visual/Visualization';
  * @author mrdoob / http://mrdoob.com/
  * @author tengge / https://github.com/tengge1
  */
-function Editor(app) {
+function Editor() {
     this.app = app;
     this.app.editor = this;
 
@@ -25,8 +25,8 @@ function Editor(app) {
     this.sceneID = null; // 当前场景ID
     this.sceneName = null; // 当前场景名称
 
-    var width = this.app.viewport.container.dom.clientWidth;
-    var height = this.app.viewport.container.dom.clientHeight;
+    var width = this.app.viewport.clientWidth;
+    var height = this.app.viewport.clientHeight;
 
     // 相机
     this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, width / height, 0.1, 10000);
@@ -50,7 +50,7 @@ function Editor(app) {
     this.renderer.autoUpdateScene = false;
     this.renderer.setPixelRatio(window.devicePixelRatio);
 
-    this.app.viewport.container.dom.appendChild(this.renderer.domElement);
+    this.app.viewport.appendChild(this.renderer.domElement);
     this.renderer.setSize(width, height);
 
     // 音频监听器
@@ -76,11 +76,11 @@ function Editor(app) {
     this.selected = null;
 
     // 平移旋转缩放控件
-    this.transformControls = new THREE.TransformControls(this.camera, this.app.viewport.container.dom);
+    this.transformControls = new THREE.TransformControls(this.camera, this.app.viewport);
     this.sceneHelpers.add(this.transformControls);
 
     // 编辑器控件
-    this.controls = new THREE.EditorControls(this.camera, this.app.viewport.container.dom);
+    this.controls = new THREE.EditorControls(this.camera, this.app.viewport);
 
     // 碰撞检测
     this.raycaster = new THREE.Raycaster();
@@ -94,8 +94,8 @@ function Editor(app) {
     this.showViewHelper = true;
 
     // 可视化
-    this.svg = UI.get('SvgContainer').dom;
-    this.visual = new Visualization();
+    // this.svg = UI.get('SvgContainer').dom;
+    // this.visual = new Visualization();
 
     // 事件
     this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
