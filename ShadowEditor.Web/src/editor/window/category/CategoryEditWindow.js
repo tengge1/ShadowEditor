@@ -9,8 +9,6 @@ import Ajax from '../../../utils/Ajax';
 function CategoryEditWindow(options = {}) {
     UI.Control.call(this, options);
 
-    app = options.app;
-
     this.ID = ''; // ObjectId格式
     this.Name = '';
 

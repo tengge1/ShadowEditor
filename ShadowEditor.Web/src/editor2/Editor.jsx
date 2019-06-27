@@ -34,7 +34,6 @@ class Editor extends React.Component {
     }
 
     componentDidMount() {
-        app = app;
         app.editor = this;
 
         // 基础

@@ -8,7 +8,6 @@ import CssUtils from '../../../utils/CssUtils';
  */
 function FilterPanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 FilterPanel.prototype = Object.create(UI.Control.prototype);

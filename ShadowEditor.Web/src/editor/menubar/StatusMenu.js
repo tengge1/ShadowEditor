@@ -8,8 +8,6 @@ import UI from '../../ui/UI';
 function StatusMenu(options) {
     UI.Control.call(this, options);
     options = options || {};
-
-    app = options.app;
 }
 
 StatusMenu.prototype = Object.create(UI.Control.prototype);

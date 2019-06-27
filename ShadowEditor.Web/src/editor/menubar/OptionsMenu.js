@@ -8,7 +8,6 @@ import OptionsWindow from '../window/OptionsWindow';
  */
 function OptionsMenu(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 OptionsMenu.prototype = Object.create(UI.Control.prototype);

@@ -22,7 +22,7 @@ class EditMenu extends React.Component {
             <MenuItem title={L_CLEAR_HISTORY} onClick={this.handleClearHistory}></MenuItem>
             <MenuItemSeparator />
             <MenuItem title={L_CLONE} onClick={this.handleClone}></MenuItem>
-            <MenuItem title={`${L_DELETE}(Del)`} handle={this.handleDelete}></MenuItem>
+            <MenuItem title={`${L_DELETE}(Del)`} onClick={this.handleDelete}></MenuItem>
         </MenuItem>;
     }
 

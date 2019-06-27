@@ -15,7 +15,6 @@ import Globe from '../../gis/Globe';
  */
 function ComponentMenu(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 ComponentMenu.prototype = Object.create(UI.Control.prototype);

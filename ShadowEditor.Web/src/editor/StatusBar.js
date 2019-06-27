@@ -7,7 +7,6 @@
  */
 function StatusBar(options) {
     UI.Control.call(this, options);
-    app = options.app;
 };
 
 StatusBar.prototype = Object.create(UI.Control.prototype);

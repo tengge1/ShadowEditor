@@ -6,7 +6,6 @@ import UI from '../../ui/UI';
  */
 function LogPanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 };
 
 LogPanel.prototype = Object.create(UI.Control.prototype);

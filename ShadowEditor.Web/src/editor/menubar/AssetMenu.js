@@ -8,7 +8,6 @@ import StringUtils from '../../utils/StringUtils';
  */
 function AssetMenu(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 AssetMenu.prototype = Object.create(UI.Control.prototype);

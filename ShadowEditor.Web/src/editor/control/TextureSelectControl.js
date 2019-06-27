@@ -5,8 +5,6 @@
 function TextureSelectControl(options = {}) {
     UI.Control.call(this, options);
 
-    app = options.app;
-
     this.texture = null;
     this.mapping = options.mapping || THREE.UVMapping;
 

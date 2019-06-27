@@ -31,7 +31,6 @@ import PartitionDiagram from '../../visual/component/PartitionDiagram';
  */
 function TwoDMenu(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 TwoDMenu.prototype = Object.create(UI.Control.prototype);

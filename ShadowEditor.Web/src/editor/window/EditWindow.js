@@ -9,7 +9,6 @@ import Ajax from '../../utils/Ajax';
  */
 function EditWindow(options = {}) {
     UI.Control.call(this, options);
-    app = options.app;
 
     this.type = options.type || 'Scene'; // Scene, Mesh, Map, Texture, Material, Audio, Particle
     this.typeName = options.typeName || L_SCENE;

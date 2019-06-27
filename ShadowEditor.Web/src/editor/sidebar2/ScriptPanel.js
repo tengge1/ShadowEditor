@@ -9,7 +9,6 @@ import ScriptWindow from '../script/window/ScriptWindow';
  */
 function ScriptPanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 };
 
 ScriptPanel.prototype = Object.create(UI.Control.prototype);

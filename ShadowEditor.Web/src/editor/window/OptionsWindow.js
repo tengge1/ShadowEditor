@@ -11,7 +11,6 @@ import FilterPanel from './options/FilterPanel';
  */
 function OptionsWindow(options) {
     UI.Control.call(this, options);
-    app = options.app;
     this.tab = L_SURFACE;
 }
 

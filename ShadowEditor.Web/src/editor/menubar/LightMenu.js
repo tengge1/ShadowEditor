@@ -12,7 +12,6 @@ import RectAreaLight from '../../object/light/RectAreaLight';
  */
 function LightMenu(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 LightMenu.prototype = Object.create(UI.Control.prototype);

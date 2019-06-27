@@ -9,7 +9,6 @@ import ScriptPanel from './ScriptPanel';
  */
 function Sidebar(options) {
     UI.Control.call(this, options);
-    app = options.app;
 };
 
 Sidebar.prototype = Object.create(UI.Control.prototype);

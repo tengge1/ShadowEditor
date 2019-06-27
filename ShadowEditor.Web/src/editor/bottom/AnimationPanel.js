@@ -9,7 +9,6 @@ import UploadUtils from '../../utils/UploadUtils';
  */
 function AnimationPanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 
     this.firstShow = true;
 

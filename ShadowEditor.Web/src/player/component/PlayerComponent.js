@@ -6,7 +6,6 @@ var ID = -1;
  */
 function PlayerComponent(app) {
     this.id = `${this.constructor.name}${ID--}`
-    app = app;
 }
 
 /**

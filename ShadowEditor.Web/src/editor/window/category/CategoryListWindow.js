@@ -10,7 +10,6 @@ import Ajax from '../../../utils/Ajax';
 function CategoryListWindow(options = {}) {
     UI.Control.call(this, options);
 
-    app = options.app;
     this.type = options.type || 'Scene'; // 类型类型：Scene, Model, Map, Texture, Audio, Particle
     this.title = options.title || L_CATEGORY_LIST;
 }

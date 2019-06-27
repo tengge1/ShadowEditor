@@ -7,8 +7,6 @@ import UI from '../ui/UI';
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  */
 function History(editor) {
-    app = editor.app;
-
     this.editor = editor;
     this.undos = [];
     this.redos = [];

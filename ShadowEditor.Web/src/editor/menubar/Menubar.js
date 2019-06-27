@@ -22,7 +22,6 @@ import StatusMenu from './StatusMenu';
  */
 function Menubar(options) {
     UI.Control.call(this, options);
-    app = options.app;
 };
 
 Menubar.prototype = Object.create(UI.Control.prototype);

@@ -22,7 +22,6 @@ import DraggableEvent from './visual/DraggableEvent';
  * @author tengge / https://github.com/tengge1
  */
 function EventDispatcher(app) {
-    app = app;
     this.dispatch = d3.dispatch.apply(d3.dispatch, EventList);
     this.addDomEventListener();
 

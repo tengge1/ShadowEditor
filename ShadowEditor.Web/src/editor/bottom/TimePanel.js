@@ -12,7 +12,6 @@ const PAUSE = 2;
  */
 function TimePanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 
     this.status = STOP;
     this.sliderLeft = 0;

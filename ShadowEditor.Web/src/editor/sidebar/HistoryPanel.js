@@ -7,7 +7,6 @@
  */
 function HistoryPanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 };
 
 HistoryPanel.prototype = Object.create(UI.Control.prototype);

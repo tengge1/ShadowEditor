@@ -18,7 +18,6 @@ import LogPanel from './LogPanel';
  */
 function BottomPanel(options) {
     Control.call(this, options);
-    app = options.app;
     this.show = true;
 };
 

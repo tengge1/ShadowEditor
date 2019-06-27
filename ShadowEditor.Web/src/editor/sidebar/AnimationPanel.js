@@ -7,7 +7,6 @@ import TweenAnimationComponent from '../../component/animation/TweenAnimationCom
  */
 function AnimationPanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 };
 
 AnimationPanel.prototype = Object.create(UI.Control.prototype);

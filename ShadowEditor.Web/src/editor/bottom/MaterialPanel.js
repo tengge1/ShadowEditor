@@ -9,7 +9,6 @@ import MaterialsSerializer from '../../serialization/material/MaterialsSerialize
  */
 function MaterialPanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 
     this.firstShow = true;
 

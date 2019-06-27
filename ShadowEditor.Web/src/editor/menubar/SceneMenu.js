@@ -10,7 +10,6 @@ import GISScene from '../../gis/Scene';
  */
 function SceneMenu(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 SceneMenu.prototype = Object.create(UI.Control.prototype);

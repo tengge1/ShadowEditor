@@ -7,7 +7,6 @@ import UI from '../../../ui/UI';
  */
 function HelperPanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 HelperPanel.prototype = Object.create(UI.Control.prototype);

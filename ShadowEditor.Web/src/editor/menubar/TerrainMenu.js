@@ -11,7 +11,6 @@ import PhysicsTerrain from '../../object/terrain/PhysicsTerrain';
  */
 function TerrainMenu(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 TerrainMenu.prototype = Object.create(UI.Control.prototype);

@@ -9,7 +9,6 @@ import Ajax from '../../utils/Ajax';
  */
 function ToolMenu(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 ToolMenu.prototype = Object.create(UI.Control.prototype);

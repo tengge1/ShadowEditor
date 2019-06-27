@@ -10,7 +10,6 @@ import BarChart from '../../visual/demo/BarChart';
  */
 function VisualMenu(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 VisualMenu.prototype = Object.create(UI.Control.prototype);

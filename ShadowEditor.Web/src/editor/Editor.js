@@ -9,7 +9,6 @@ import Visualization from '../visual/Visualization';
  * @author tengge / https://github.com/tengge1
  */
 function Editor() {
-    app = app;
     app.editor = this;
 
     // 基础

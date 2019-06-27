@@ -58,7 +58,6 @@ import GisBasicComponent from '../../component/gis/GisBasicComponent';
  */
 function PropertyPanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 };
 
 PropertyPanel.prototype = Object.create(UI.Control.prototype);

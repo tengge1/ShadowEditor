@@ -8,7 +8,6 @@ import MoveObjectCommand from '../../command/MoveObjectCommand';
  */
 function HierachyPanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 };
 
 HierachyPanel.prototype = Object.create(UI.Control.prototype);

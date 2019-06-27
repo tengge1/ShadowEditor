@@ -8,7 +8,6 @@ import EditWindow from '../window/EditWindow';
  */
 function ParticlePanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 
     this.firstShow = true;
 

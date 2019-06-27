@@ -8,7 +8,6 @@ import Converter from '../../serialization/Converter';
  */
 function PlayMenu(options) {
     UI.Control.call(this, options);
-    app = options.app;
     this.isPlaying = false;
 }
 

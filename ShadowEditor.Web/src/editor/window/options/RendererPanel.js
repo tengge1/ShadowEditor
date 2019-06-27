@@ -7,7 +7,6 @@ import UI from '../../../ui/UI';
  */
 function RendererPanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 RendererPanel.prototype = Object.create(UI.Control.prototype);

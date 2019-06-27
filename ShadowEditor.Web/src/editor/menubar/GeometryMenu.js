@@ -30,7 +30,6 @@ import SplineHelper from '../../helper/line/SplineHelper';
  */
 function GeometryMenu(options) {
     UI.Control.call(this, options);
-    app = options.app;
 }
 
 GeometryMenu.prototype = Object.create(UI.Control.prototype);

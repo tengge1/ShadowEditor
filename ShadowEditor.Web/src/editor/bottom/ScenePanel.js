@@ -10,7 +10,6 @@ import GISScene from '../../gis/Scene';
  */
 function ScenePanel(options) {
     UI.Control.call(this, options);
-    app = options.app;
 
     this.firstShow = true;
 
@@ -206,7 +205,6 @@ ScenePanel.prototype.onClick = function (event, index, btn, control) {
 // ------------------------------------- 加载场景 ------------------------------------
 
 ScenePanel.prototype.onLoad = function (data) {
-    var app = app;
     var editor = app.editor;
     var server = app.options.server;
     document.title = data.Name;

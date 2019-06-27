@@ -8,7 +8,6 @@ import Globe from './Globe';
  * @param {Boolean} options.useCameraPosition 是否使用相机位置
  */
 function Scene(app, options = {}) {
-    app = app;
     this.options = options;
     this.options.useCameraPosition = this.options.useCameraPosition || false;
 }

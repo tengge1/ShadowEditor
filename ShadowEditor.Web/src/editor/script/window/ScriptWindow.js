@@ -12,8 +12,6 @@ import JsonStarter from '../code/JsonStarter';
 function ScriptWindow(options) {
     UI.Control.call(this, options);
     options = options || {};
-
-    app = options.app;
 }
 
 ScriptWindow.prototype = Object.create(UI.Control.prototype);

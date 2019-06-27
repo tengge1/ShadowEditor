@@ -10,7 +10,6 @@ import DigTool from '../tool/DigTool';
  */
 function Toolbar(options) {
     UI.Control.call(this, options);
-    app = options.app;
 
     this.isAddingPoint = false;
     this.isAddingLine = false;
