@@ -13,7 +13,7 @@ function ScriptWindow(options) {
     UI.Control.call(this, options);
     options = options || {};
 
-    this.app = options.app;
+    app = options.app;
 }
 
 ScriptWindow.prototype = Object.create(UI.Control.prototype);
@@ -24,7 +24,7 @@ ScriptWindow.prototype.render = function () {
         xtype: 'window',
         id: 'scriptWindow',
         scope: this.id,
-        parent: this.app.container,
+        parent: app.container,
         title: L_CREATE_SCRIPT,
         width: '350px',
         height: '220px',
@@ -99,7 +99,7 @@ ScriptWindow.prototype.onCreateScript = function () {
     var scriptType = UI.get('scriptType', this.id).getValue();
 
     // 判断脚本名称是否重复
-    var scripts = Object.values(this.app.editor.scripts);
+    var scripts = Object.values(app.editor.scripts);
     if (scripts.filter(n => n.name === scriptName).length > 0) {
         UI.msg(L_SCRIPT_NAME_EXISTED);
         return;
@@ -129,12 +129,12 @@ ScriptWindow.prototype.onCreateScript = function () {
 
     var uuid = THREE.Math.generateUUID();
 
-    this.app.script.open(uuid, scriptName, scriptType, initCode, scriptName, source => {
-        var script = this.app.editor.scripts[uuid];
+    app.script.open(uuid, scriptName, scriptType, initCode, scriptName, source => {
+        var script = app.editor.scripts[uuid];
         script.source = source;
     });
 
-    this.app.editor.scripts[uuid] = {
+    app.editor.scripts[uuid] = {
         id: 0,
         name: scriptName,
         type: scriptType,
@@ -142,7 +142,7 @@ ScriptWindow.prototype.onCreateScript = function () {
         uuid: uuid
     };
 
-    this.app.call('scriptChanged', this);
+    app.call('scriptChanged', this);
 };
 
 ScriptWindow.prototype.onCancelScript = function () {

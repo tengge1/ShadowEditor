@@ -88,8 +88,8 @@ BokehComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 BokehComponent.prototype.onObjectSelected = function () {
@@ -102,7 +102,7 @@ BokehComponent.prototype.onObjectChanged = function () {
 
 BokehComponent.prototype.updateUI = function () {
     var container = UI.get('panel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected === editor.scene) {
         container.dom.style.display = '';
     } else {
@@ -146,7 +146,7 @@ BokehComponent.prototype.onChange = function () {
         },
     });
 
-    this.app.call(`postProcessingChanged`, this);
+    app.call(`postProcessingChanged`, this);
 };
 
 export default BokehComponent;

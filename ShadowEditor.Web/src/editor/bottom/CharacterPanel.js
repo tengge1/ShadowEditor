@@ -8,7 +8,7 @@ import EditWindow from '../window/EditWindow';
  */
 function CharacterPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 
     this.firstShow = true;
 
@@ -19,7 +19,7 @@ CharacterPanel.prototype = Object.create(UI.Control.prototype);
 CharacterPanel.prototype.constructor = CharacterPanel;
 
 CharacterPanel.prototype.render = function () {
-    this.app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
+    app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
 };
 
 CharacterPanel.prototype.onShowPanel = function (tabName) {
@@ -206,7 +206,7 @@ CharacterPanel.prototype.onSelectMaterial = function (data) {
         var obj = JSON.parse(result);
         if (obj.Code === 200) {
             //var material = (new MaterialsSerializer()).fromJSON(obj.Data.Data);
-            //this.app.call(`selectMaterial`, this, material);
+            //app.call(`selectMaterial`, this, material);
         }
     });
 };
@@ -217,11 +217,11 @@ CharacterPanel.prototype.onSelectMaterial = function (data) {
 CharacterPanel.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new EditWindow({
-            app: this.app,
+            app: app,
             parent: document.body,
             type: 'Character',
             typeName: L_CHARACTER,
-            saveUrl: `${this.app.options.server}/api/Character/Edit`,
+            saveUrl: `${app.options.server}/api/Character/Edit`,
             callback: this.updateList.bind(this)
         });
         this.editWindow.render();

@@ -17,14 +17,14 @@ SelectHelper.prototype = Object.create(BaseHelper.prototype);
 SelectHelper.prototype.constructor = SelectHelper;
 
 SelectHelper.prototype.start = function () {
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
-    this.app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
+    app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
 };
 
 SelectHelper.prototype.stop = function () {
-    this.app.on(`objectSelected.${this.id}`, null);
-    this.app.on(`afterRender.${this.id}`, null);
+    app.on(`objectSelected.${this.id}`, null);
+    app.on(`afterRender.${this.id}`, null);
 };
 
 SelectHelper.prototype.onObjectSelected = function (obj) {
@@ -34,7 +34,7 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
     }
 
     // 进制选中场景和相机
-    if (obj === this.app.editor.scene || obj === this.app.editor.camera) {
+    if (obj === app.editor.scene || obj === app.editor.camera) {
         return;
     }
 
@@ -42,7 +42,7 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
         this.size = new THREE.Vector2();
     }
 
-    this.app.editor.renderer.getDrawingBufferSize(this.size);
+    app.editor.renderer.getDrawingBufferSize(this.size);
 
     var width = this.size.x;
     var height = this.size.y;
@@ -149,9 +149,9 @@ SelectHelper.prototype.onAfterRender = function () {
         return;
     }
 
-    var renderScene = this.app.editor.scene;
-    var renderCamera = this.app.editor.camera;
-    var renderer = this.app.editor.renderer;
+    var renderScene = app.editor.scene;
+    var renderCamera = app.editor.camera;
+    var renderer = app.editor.renderer;
 
     var scene = this.scene;
     var camera = this.camera;

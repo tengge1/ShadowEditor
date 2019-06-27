@@ -42,7 +42,7 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
             var onResize = onResize || null;
             return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onResize };
             `
-        )).call(scene, this.app, scene, scene, camera, renderer);
+        )).call(scene, app, scene, scene, camera, renderer);
     });
 
     this.events.forEach(n => {

@@ -14,21 +14,21 @@ FilterEvent.prototype = Object.create(BaseEvent.prototype);
 FilterEvent.prototype.constructor = FilterEvent;
 
 FilterEvent.prototype.start = function () {
-    this.app.on(`editorCleared.${this.id}`, this.onEditorCleared.bind(this));
-    this.app.on(`optionsChanged.${this.id}`, this.onOptionsChanged.bind(this));
+    app.on(`editorCleared.${this.id}`, this.onEditorCleared.bind(this));
+    app.on(`optionsChanged.${this.id}`, this.onOptionsChanged.bind(this));
 };
 
 FilterEvent.prototype.stop = function () {
-    this.app.on(`editorCleared.${this.id}`, null);
-    this.app.on(`optionsChanged.${this.id}`, null);
+    app.on(`editorCleared.${this.id}`, null);
+    app.on(`optionsChanged.${this.id}`, null);
 };
 
 FilterEvent.prototype.onEditorCleared = function () {
-    this.app.editor.renderer.domElement.style.filter = '';
+    app.editor.renderer.domElement.style.filter = '';
 };
 
 FilterEvent.prototype.onOptionsChanged = function (options) {
-    this.app.editor.renderer.domElement.style.filter = CssUtils.serializeFilter(options);
+    app.editor.renderer.domElement.style.filter = CssUtils.serializeFilter(options);
 };
 
 export default FilterEvent;

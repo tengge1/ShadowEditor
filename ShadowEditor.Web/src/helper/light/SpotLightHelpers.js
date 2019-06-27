@@ -16,17 +16,17 @@ SpotLightHelpers.prototype = Object.create(BaseHelper.prototype);
 SpotLightHelpers.prototype.constructor = SpotLightHelpers;
 
 SpotLightHelpers.prototype.start = function () {
-    this.app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
-    this.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
-    this.app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
+    app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
+    app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
 };
 
 SpotLightHelpers.prototype.stop = function () {
-    this.app.on(`objectAdded.${this.id}`, null);
-    this.app.on(`objectRemoved.${this.id}`, null);
-    this.app.on(`objectChanged.${this.id}`, null);
-    this.app.on(`storageChanged.${this.id}`, null);
+    app.on(`objectAdded.${this.id}`, null);
+    app.on(`objectRemoved.${this.id}`, null);
+    app.on(`objectChanged.${this.id}`, null);
+    app.on(`storageChanged.${this.id}`, null);
 };
 
 SpotLightHelpers.prototype.onObjectAdded = function (object) {
@@ -36,11 +36,11 @@ SpotLightHelpers.prototype.onObjectAdded = function (object) {
 
     var helper = new VolumeSpotLightHelper(object, 0xffffff);
 
-    helper.visible = this.app.storage.get('showSpotLight');
+    helper.visible = app.storage.get('showSpotLight');
 
     this.helpers.push(helper);
 
-    this.app.editor.sceneHelpers.add(helper);
+    app.editor.sceneHelpers.add(helper);
 };
 
 SpotLightHelpers.prototype.onObjectRemoved = function (object) {
@@ -56,7 +56,7 @@ SpotLightHelpers.prototype.onObjectRemoved = function (object) {
         return;
     }
 
-    this.app.editor.sceneHelpers.remove(this.helpers[index]);
+    app.editor.sceneHelpers.remove(this.helpers[index]);
 
     this.helpers[index].dispose();
 

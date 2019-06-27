@@ -15,7 +15,7 @@ import Globe from '../../gis/Globe';
  */
 function ComponentMenu(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 }
 
 ComponentMenu.prototype = Object.create(UI.Control.prototype);
@@ -78,7 +78,7 @@ ComponentMenu.prototype.render = function () {
 // ---------------------------- 添加背景音乐 ----------------------------------
 
 ComponentMenu.prototype.onAddBackgroundMusic = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
     var listener = editor.audioListener;
 
     var audio = new THREE.Audio(listener);
@@ -89,14 +89,14 @@ ComponentMenu.prototype.onAddBackgroundMusic = function () {
 
     audio.userData.autoplay = true;
 
-    this.app.editor.execute(new AddObjectCommand(audio));
+    app.editor.execute(new AddObjectCommand(audio));
 };
 
 // ---------------------------- 添加粒子发射器 --------------------------------------------
 
 ComponentMenu.prototype.ParticleEmitter = function () {
     var emitter = new ParticleEmitter();
-    this.app.editor.execute(new AddObjectCommand(emitter));
+    app.editor.execute(new AddObjectCommand(emitter));
     emitter.userData.group.tick(0);
 };
 
@@ -106,13 +106,13 @@ ComponentMenu.prototype.onAddSky = function () {
     var obj = new Sky();
     obj.name = L_SKY;
     obj.userData.type = 'Sky';
-    this.app.editor.execute(new AddObjectCommand(obj));
+    app.editor.execute(new AddObjectCommand(obj));
 };
 
 // ---------------------------- 添加火焰 -------------------------------------
 
 ComponentMenu.prototype.onAddFire = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var fire = new Fire(editor.camera);
 
@@ -124,7 +124,7 @@ ComponentMenu.prototype.onAddFire = function () {
 // -------------------------- 添加水 ---------------------------------------
 
 ComponentMenu.prototype.onAddWater = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var water = new Water(editor.renderer);
 
@@ -136,7 +136,7 @@ ComponentMenu.prototype.onAddWater = function () {
 // ------------------------------ 添加烟 ------------------------------------
 
 ComponentMenu.prototype.onAddSmoke = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
     var camera = editor.camera;
     var renderer = editor.renderer;
 
@@ -152,7 +152,7 @@ ComponentMenu.prototype.onAddSmoke = function () {
 // ----------------------------- 添加布 ------------------------------------
 
 ComponentMenu.prototype.onAddCloth = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var cloth = new Cloth();
 

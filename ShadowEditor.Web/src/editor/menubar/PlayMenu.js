@@ -8,7 +8,7 @@ import Converter from '../../serialization/Converter';
  */
 function PlayMenu(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
     this.isPlaying = false;
 }
 
@@ -71,16 +71,16 @@ PlayMenu.prototype.startPlay = function () { // 启动播放
 
     // 将场景数据转换为字符串
     var jsons = (new Converter()).toJSON({
-        options: this.app.options,
-        scene: this.app.editor.scene,
-        camera: this.app.editor.camera,
-        renderer: this.app.editor.renderer,
-        scripts: this.app.editor.scripts,
-        animations: this.app.editor.animations,
-        visual: this.app.editor.visual,
+        options: app.options,
+        scene: app.editor.scene,
+        camera: app.editor.camera,
+        renderer: app.editor.renderer,
+        scripts: app.editor.scripts,
+        animations: app.editor.animations,
+        visual: app.editor.visual,
     });
 
-    this.app.player.start(JSON.stringify(jsons));
+    app.player.start(JSON.stringify(jsons));
 };
 
 PlayMenu.prototype.stopPlay = function () { // 停止播放
@@ -93,7 +93,7 @@ PlayMenu.prototype.stopPlay = function () { // 停止播放
     var play = UI.get('mPlay', this.id);
     play.dom.innerHTML = L_PLAY;
 
-    this.app.player.stop();
+    app.player.stop();
 };
 
 PlayMenu.prototype.playFullscreen = function () { // 全屏播放
@@ -101,11 +101,11 @@ PlayMenu.prototype.playFullscreen = function () { // 全屏播放
         this.startPlay();
     }
 
-    UI.get('player', this.app.player.id).dom.requestFullscreen();
+    UI.get('player', app.player.id).dom.requestFullscreen();
 };
 
 PlayMenu.prototype.playNewWindow = function () { // 新窗口播放
-    var sceneID = this.app.editor.sceneID;
+    var sceneID = app.editor.sceneID;
 
     if (!sceneID) {
         UI.msg('请先保存场景！');

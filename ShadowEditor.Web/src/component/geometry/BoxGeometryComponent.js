@@ -109,8 +109,8 @@ BoxGeometryComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 BoxGeometryComponent.prototype.onObjectSelected = function () {
@@ -123,7 +123,7 @@ BoxGeometryComponent.prototype.onObjectChanged = function () {
 
 BoxGeometryComponent.prototype.updateUI = function () {
     var container = UI.get('geometryPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected instanceof THREE.Mesh && editor.selected.geometry instanceof THREE.BoxBufferGeometry) {
         container.dom.style.display = '';
     } else {
@@ -156,7 +156,7 @@ BoxGeometryComponent.prototype.onChangeGeometry = function () {
     var heightSegments = UI.get('heightSegments', this.id);
     var depthSegments = UI.get('depthSegments', this.id);
 
-    this.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.BoxBufferGeometry(
+    app.editor.execute(new SetGeometryCommand(this.selected, new THREE.BoxBufferGeometry(
         width.getValue(),
         height.getValue(),
         depth.getValue(),

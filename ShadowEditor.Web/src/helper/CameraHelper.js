@@ -13,28 +13,28 @@ CameraHelper.prototype = Object.create(BaseHelper.prototype);
 CameraHelper.prototype.constructor = CameraHelper;
 
 CameraHelper.prototype.start = function () {
-    this.app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
+    app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
     this.update();
 };
 
 CameraHelper.prototype.stop = function () {
-    this.app.on(`appStarted.${this.id}`, null);
+    app.on(`appStarted.${this.id}`, null);
 
     if (this.helper) {
-        var scene = this.app.editor.sceneHelpers;
+        var scene = app.editor.sceneHelpers;
         scene.remove(this.helper);
         delete this.helper;
     }
 };
 
 CameraHelper.prototype.update = function () {
-    var showCamera = this.app.storage.get('showCamera');
+    var showCamera = app.storage.get('showCamera');
 
     if (!this.helper) {
-        this.helper = new THREE.CameraHelper(this.app.editor.camera);
+        this.helper = new THREE.CameraHelper(app.editor.camera);
     }
 
-    var scene = this.app.editor.sceneHelpers;
+    var scene = app.editor.sceneHelpers;
 
     if (showCamera && this.helper.parent !== scene) {
         scene.add(this.helper);

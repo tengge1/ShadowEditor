@@ -93,8 +93,8 @@ CatmullRomCurveComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 CatmullRomCurveComponent.prototype.onObjectSelected = function () {
@@ -107,7 +107,7 @@ CatmullRomCurveComponent.prototype.onObjectChanged = function () {
 
 CatmullRomCurveComponent.prototype.updateUI = function () {
     var container = UI.get('panel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected.userData.type === 'CatmullRomCurve') {
         container.dom.style.display = '';
     } else {
@@ -139,7 +139,7 @@ CatmullRomCurveComponent.prototype.onChange = function () {
 
     this.selected.update();
 
-    this.app.call('objectChanged', this, this.selected);
+    app.call('objectChanged', this, this.selected);
 };
 
 CatmullRomCurveComponent.prototype.onAddPoint = function () {
@@ -160,7 +160,7 @@ CatmullRomCurveComponent.prototype.onAddPoint = function () {
 
     this.selected.update();
 
-    this.app.call('objectChanged', this, this.selected);
+    app.call('objectChanged', this, this.selected);
 };
 
 CatmullRomCurveComponent.prototype.onRemovePoint = function () {
@@ -175,7 +175,7 @@ CatmullRomCurveComponent.prototype.onRemovePoint = function () {
 
     this.selected.update();
 
-    this.app.call('objectChanged', this, this.selected);
+    app.call('objectChanged', this, this.selected);
 };
 
 export default CatmullRomCurveComponent;

@@ -252,8 +252,8 @@ SceneComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 SceneComponent.prototype.onObjectSelected = function () {
@@ -266,7 +266,7 @@ SceneComponent.prototype.onObjectChanged = function () {
 
 SceneComponent.prototype.updateUI = function () {
     var container = UI.get('scenePanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected === editor.scene) {
         container.dom.style.display = '';
     } else {
@@ -400,9 +400,9 @@ SceneComponent.prototype.onChangeBackgroundType = function () { // 切换背景�
 };
 
 SceneComponent.prototype.onLoadCubeTexture = function () { // 加载立体贴图
-    this.app.call(`selectBottomPanel`, this, 'map');
+    app.call(`selectBottomPanel`, this, 'map');
     UI.msg(L_CLICK_MAP_PANEL);
-    this.app.on(`selectMap.${this.id}`, this.onSelectCubeMap.bind(this));
+    app.on(`selectMap.${this.id}`, this.onSelectCubeMap.bind(this));
 };
 
 SceneComponent.prototype.onSelectCubeMap = function (model) {
@@ -411,7 +411,7 @@ SceneComponent.prototype.onSelectCubeMap = function (model) {
         return;
     }
 
-    this.app.on(`selectMap.${this.id}`, null);
+    app.on(`selectMap.${this.id}`, null);
 
     var urls = model.Url.split(';');
 
@@ -419,7 +419,7 @@ SceneComponent.prototype.onSelectCubeMap = function (model) {
 
     var promises = urls.map(url => {
         return new Promise(resolve => {
-            loader.load(`${this.app.options.server}${url}`, texture => {
+            loader.load(`${app.options.server}${url}`, texture => {
                 resolve(texture);
             }, undefined, error => {
                 console.error(error);
@@ -474,7 +474,7 @@ SceneComponent.prototype.onSaveCubeTexture = function () { // 保存立体贴图
     ];
 
     Promise.all(promises).then(files => {
-        Ajax.post(`${this.app.options.server}/api/Map/Add`, {
+        Ajax.post(`${app.options.server}/api/Map/Add`, {
             posX: files[0],
             negX: files[1],
             posY: files[2],

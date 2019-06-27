@@ -67,8 +67,8 @@ LMeshComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 LMeshComponent.prototype.onObjectSelected = function () {
@@ -81,7 +81,7 @@ LMeshComponent.prototype.onObjectChanged = function () {
 
 LMeshComponent.prototype.updateUI = function () {
     var container = UI.get('lmeshPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected.userData.type === 'lol') {
         container.dom.style.display = '';
     } else {
@@ -138,7 +138,7 @@ LMeshComponent.prototype.startPreview = function () {
 
     this.onSelectAnim();
 
-    this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
+    app.on(`animate.${this.id}`, this.onAnimate.bind(this));
 };
 
 LMeshComponent.prototype.stopPreview = function () {
@@ -147,7 +147,7 @@ LMeshComponent.prototype.stopPreview = function () {
     this.isPlaying = false;
     btnPreview.setText('预览');
 
-    this.app.on(`animate.${this.id}`, null);
+    app.on(`animate.${this.id}`, null);
 };
 
 LMeshComponent.prototype.onAnimate = function (clock, deltaTime) {

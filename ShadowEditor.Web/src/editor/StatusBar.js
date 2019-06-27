@@ -7,7 +7,7 @@
  */
 function StatusBar(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 };
 
 StatusBar.prototype = Object.create(UI.Control.prototype);
@@ -61,13 +61,13 @@ StatusBar.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on('objectAdded.' + this.id, this.onUpdateInfo.bind(this));
-    this.app.on('objectRemoved.' + this.id, this.onUpdateInfo.bind(this));
-    this.app.on('geometryChanged.' + this.id, this.onUpdateInfo.bind(this));
+    app.on('objectAdded.' + this.id, this.onUpdateInfo.bind(this));
+    app.on('objectRemoved.' + this.id, this.onUpdateInfo.bind(this));
+    app.on('geometryChanged.' + this.id, this.onUpdateInfo.bind(this));
 };
 
 StatusBar.prototype.onUpdateInfo = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var scene = editor.scene;
 
@@ -111,7 +111,7 @@ StatusBar.prototype.onUpdateInfo = function () {
 
 StatusBar.prototype.onEnableThrowBall = function () {
     var enabled = UI.get('cbThrowBall');
-    this.app.call('enableThrowBall', this, enabled.getValue());
+    app.call('enableThrowBall', this, enabled.getValue());
 };
 
 export default StatusBar;

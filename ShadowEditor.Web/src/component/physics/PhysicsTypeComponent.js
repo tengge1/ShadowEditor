@@ -65,8 +65,8 @@ PhysicsTypeComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 PhysicsTypeComponent.prototype.onObjectSelected = function () {
@@ -79,7 +79,7 @@ PhysicsTypeComponent.prototype.onObjectChanged = function () {
 
 PhysicsTypeComponent.prototype.updateUI = function () {
     var container = UI.get('objectPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected.userData && editor.selected.userData.physics) {
         container.dom.style.display = '';
     } else {
@@ -110,7 +110,7 @@ PhysicsTypeComponent.prototype.onChange = function () {
     physics.enabled = enabled.getValue();
     physics.type = type.getValue();
 
-    this.app.call(`objectChanged`, this, this.selected);
+    app.call(`objectChanged`, this, this.selected);
 };
 
 export default PhysicsTypeComponent;

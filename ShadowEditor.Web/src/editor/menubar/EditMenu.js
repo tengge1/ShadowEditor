@@ -9,7 +9,7 @@ import RemoveObjectCommand from '../../command/RemoveObjectCommand';
  */
 function EditMenu(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 }
 
 EditMenu.prototype = Object.create(UI.Control.prototype);
@@ -72,36 +72,36 @@ EditMenu.prototype.render = function () {
 
     container.render();
 
-    this.app.on(`historyChanged.${this.id}`, this.onHistoryChanged.bind(this));
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`historyChanged.${this.id}`, this.onHistoryChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
 }
 
 // --------------------- 撤销 --------------------------
 
 EditMenu.prototype.undo = function () {
-    var history = this.app.editor.history;
+    var history = app.editor.history;
     if (history.undos.length === 0) {
         return;
     }
 
-    this.app.editor.undo();
+    app.editor.undo();
 };
 
 // --------------------- 重做 -----------------------------
 
 EditMenu.prototype.redo = function () {
-    var history = this.app.editor.history;
+    var history = app.editor.history;
     if (history.redos.length === 0) {
         return;
     }
 
-    this.app.editor.redo();
+    app.editor.redo();
 };
 
 // -------------------- 清空历史记录 --------------------------------
 
 EditMenu.prototype.clearHistory = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
     var history = editor.history;
 
     if (history.undos.length === 0 && history.redos.length === 0) {
@@ -118,7 +118,7 @@ EditMenu.prototype.clearHistory = function () {
 // -------------------------- 复制 -----------------------------------
 
 EditMenu.prototype.clone = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
     var object = editor.selected;
 
     if (object == null || object.parent == null) { // 避免复制场景或相机
@@ -132,7 +132,7 @@ EditMenu.prototype.clone = function () {
 // ----------------------- 删除 -----------------------------------
 
 EditMenu.prototype.delete = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
     var object = editor.selected;
 
     if (object == null || object.parent == null) { // 避免删除场景或相机
@@ -149,7 +149,7 @@ EditMenu.prototype.delete = function () {
 // ---------------------- 事件 -----------------------
 
 EditMenu.prototype.onHistoryChanged = function () {
-    var history = this.app.editor.history;
+    var history = app.editor.history;
 
     var undo = UI.get('undo', this.id);
     var redo = UI.get('redo', this.id);
@@ -175,7 +175,7 @@ EditMenu.prototype.onHistoryChanged = function () {
 };
 
 EditMenu.prototype.onObjectSelected = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var clone = UI.get('clone', this.id);
     var deleteBtn = UI.get('delete', this.id);

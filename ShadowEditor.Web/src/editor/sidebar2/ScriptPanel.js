@@ -9,14 +9,14 @@ import ScriptWindow from '../script/window/ScriptWindow';
  */
 function ScriptPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 };
 
 ScriptPanel.prototype = Object.create(UI.Control.prototype);
 ScriptPanel.prototype.constructor = ScriptPanel;
 
 ScriptPanel.prototype.render = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var data = {
         xtype: 'div',
@@ -41,13 +41,13 @@ ScriptPanel.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`scriptChanged.${this.id}`, this.update.bind(this));
+    app.on(`scriptChanged.${this.id}`, this.update.bind(this));
 };
 
 ScriptPanel.prototype.createNewScript = function () {
     if (this.window == null) {
         this.window = new ScriptWindow({
-            app: this.app
+            app: app
         });
         this.window.render();
     }
@@ -60,7 +60,7 @@ ScriptPanel.prototype.update = function () {
     container.dom.innerHTML = '';
     container.dom.style.display = 'none';
 
-    var scripts = this.app.editor.scripts;
+    var scripts = app.editor.scripts;
 
     if (Object.keys(scripts).length === 0) {
         return;
@@ -129,9 +129,9 @@ ScriptPanel.prototype.update = function () {
  * @param {*} uuid 
  */
 ScriptPanel.prototype.editScript = function (uuid) {
-    var script = this.app.editor.scripts[uuid];
+    var script = app.editor.scripts[uuid];
     if (script) {
-        this.app.script.open(uuid, script.name, script.type, script.source, script.name, source => {
+        app.script.open(uuid, script.name, script.type, script.source, script.name, source => {
             script.source = source;
         });
     }
@@ -142,12 +142,12 @@ ScriptPanel.prototype.editScript = function (uuid) {
  * @param {*} uuid 
  */
 ScriptPanel.prototype.deleteScript = function (uuid) {
-    var script = this.app.editor.scripts[uuid];
+    var script = app.editor.scripts[uuid];
 
     UI.confirm(L_CONFIRM, `${L_DELETE} ${script.name}？`, (event, btn) => {
         if (btn === 'ok') {
-            delete this.app.editor.scripts[uuid];
-            this.app.call('scriptChanged', this);
+            delete app.editor.scripts[uuid];
+            app.call('scriptChanged', this);
         }
     });
 };

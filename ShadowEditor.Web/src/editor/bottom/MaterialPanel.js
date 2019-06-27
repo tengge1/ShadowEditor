@@ -9,7 +9,7 @@ import MaterialsSerializer from '../../serialization/material/MaterialsSerialize
  */
 function MaterialPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 
     this.firstShow = true;
 
@@ -20,7 +20,7 @@ MaterialPanel.prototype = Object.create(UI.Control.prototype);
 MaterialPanel.prototype.constructor = MaterialPanel;
 
 MaterialPanel.prototype.render = function () {
-    this.app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
+    app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
 };
 
 MaterialPanel.prototype.onShowPanel = function (tabName) {
@@ -207,7 +207,7 @@ MaterialPanel.prototype.onSelectMaterial = function (data) {
         var obj = JSON.parse(result);
         if (obj.Code === 200) {
             var material = (new MaterialsSerializer()).fromJSON(obj.Data.Data);
-            this.app.call(`selectMaterial`, this, material);
+            app.call(`selectMaterial`, this, material);
         }
     });
 };
@@ -217,11 +217,11 @@ MaterialPanel.prototype.onSelectMaterial = function (data) {
 MaterialPanel.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new EditWindow({
-            app: this.app,
+            app: app,
             parent: document.body,
             type: 'Material',
             typeName: L_MATERIAL,
-            saveUrl: `${this.app.options.server}/api/Material/Edit`,
+            saveUrl: `${app.options.server}/api/Material/Edit`,
             callback: this.updateList.bind(this)
         });
         this.editWindow.render();

@@ -8,7 +8,7 @@ import StringUtils from '../../utils/StringUtils';
  */
 function AssetMenu(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 }
 
 AssetMenu.prototype = Object.create(UI.Control.prototype);
@@ -75,7 +75,7 @@ AssetMenu.prototype.render = function () {
 // ------------------------------- 导出几何体 ----------------------------------------
 
 AssetMenu.prototype.onExportGeometry = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var object = editor.selected;
 
@@ -106,7 +106,7 @@ AssetMenu.prototype.onExportGeometry = function () {
 // ------------------------------- 导出物体 ------------------------------------------
 
 AssetMenu.prototype.onExportObject = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var object = editor.selected;
 
@@ -130,7 +130,7 @@ AssetMenu.prototype.onExportObject = function () {
 // ------------------------------ 导出gltf文件 ----------------------------------------
 
 AssetMenu.prototype.onExportGLTF = function () {
-    this.app.require('GLTFExporter').then(() => {
+    app.require('GLTFExporter').then(() => {
         var exporter = new THREE.GLTFExporter();
 
         exporter.parse(app.editor.scene, function (result) {
@@ -142,7 +142,7 @@ AssetMenu.prototype.onExportGLTF = function () {
 // ------------------------------ 导出obj文件 -----------------------------------------
 
 AssetMenu.prototype.onExportOBJ = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var object = editor.selected;
 
@@ -151,7 +151,7 @@ AssetMenu.prototype.onExportOBJ = function () {
         return;
     }
 
-    this.app.require('OBJExporter').then(() => {
+    app.require('OBJExporter').then(() => {
         var exporter = new THREE.OBJExporter();
         StringUtils.saveString(exporter.parse(object), 'model.obj');
     });
@@ -160,7 +160,7 @@ AssetMenu.prototype.onExportOBJ = function () {
 // ------------------------------- 导出ply文件 ----------------------------------------
 
 AssetMenu.prototype.onExportPLY = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var object = editor.selected;
 
@@ -169,7 +169,7 @@ AssetMenu.prototype.onExportPLY = function () {
         return;
     }
 
-    this.app.require('PLYExporter').then(() => {
+    app.require('PLYExporter').then(() => {
         var exporter = new THREE.PLYExporter();
         StringUtils.saveString(exporter.parse(object, {
             excludeAttributes: ['normal', 'uv', 'color', 'index']
@@ -180,9 +180,9 @@ AssetMenu.prototype.onExportPLY = function () {
 // ------------------------------- 导出stl二进制文件 -----------------------------------
 
 AssetMenu.prototype.onExportSTLB = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
-    this.app.require('STLBinaryExporter').then(() => {
+    app.require('STLBinaryExporter').then(() => {
         var exporter = new THREE.STLBinaryExporter();
         StringUtils.saveString(exporter.parse(editor.scene), 'model.stl');
     });
@@ -191,9 +191,9 @@ AssetMenu.prototype.onExportSTLB = function () {
 // ------------------------------- 导出stl文件 -----------------------------------------
 
 AssetMenu.prototype.onExportSTL = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
-    this.app.require('STLExporter').then(() => {
+    app.require('STLExporter').then(() => {
         var exporter = new THREE.STLExporter();
         StringUtils.saveString(exporter.parse(editor.scene), 'model.stl');
     });

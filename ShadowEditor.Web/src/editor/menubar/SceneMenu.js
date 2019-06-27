@@ -10,7 +10,7 @@ import GISScene from '../../gis/Scene';
  */
 function SceneMenu(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 }
 
 SceneMenu.prototype = Object.create(UI.Control.prototype);
@@ -88,7 +88,7 @@ SceneMenu.prototype.render = function () {
 // ---------------------------- 新建空场景 ---------------------------------
 
 SceneMenu.prototype.createEmptyScene = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     if (editor.sceneID == null) {
         editor.clear();
@@ -104,9 +104,9 @@ SceneMenu.prototype.createEmptyScene = function () {
             editor.clear();
             editor.sceneID = null;
             editor.sceneName = null;
-            this.app.options.sceneType = 'Empty';
+            app.options.sceneType = 'Empty';
             document.title = L_NO_NAME;
-            this.app.editor.camera.userData.control = 'OrbitControls';
+            app.editor.camera.userData.control = 'OrbitControls';
         }
     });
 };
@@ -114,24 +114,24 @@ SceneMenu.prototype.createEmptyScene = function () {
 // --------------------------- 新建GIS场景 -------------------------------------
 
 SceneMenu.prototype.createGISScene = function () {
-    if (this.app.editor.gis) {
-        this.app.editor.gis.stop();
+    if (app.editor.gis) {
+        app.editor.gis.stop();
     }
 
-    this.app.editor.gis = new GISScene(this.app);
-    this.app.editor.gis.start();
+    app.editor.gis = new GISScene(app);
+    app.editor.gis.start();
 
-    this.app.options.sceneType = 'GIS';
+    app.options.sceneType = 'GIS';
 
-    this.app.editor.camera.userData.control = '';
+    app.editor.camera.userData.control = '';
 
-    this.app.call(`sceneGraphChanged`, this);
+    app.call(`sceneGraphChanged`, this);
 };
 
 // --------------------------- 保存场景 ----------------------------------------
 
 SceneMenu.prototype.saveScene = function () { // 保存场景
-    var editor = this.app.editor;
+    var editor = app.editor;
     var id = editor.sceneID;
     var sceneName = editor.sceneName;
 
@@ -145,16 +145,16 @@ SceneMenu.prototype.saveScene = function () { // 保存场景
 };
 
 SceneMenu.prototype.commitSave = function (id, sceneName) {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     // 记录选中物体，以便载入时还原场景选中
-    var selected = this.app.editor.selected;
+    var selected = app.editor.selected;
     if (selected) {
-        this.app.options.selected = selected.uuid;
+        app.options.selected = selected.uuid;
     }
 
     var obj = (new Converter()).toJSON({
-        options: this.app.options,
+        options: app.options,
         camera: editor.camera,
         renderer: editor.renderer,
         scripts: editor.scripts,
@@ -172,7 +172,7 @@ SceneMenu.prototype.commitSave = function (id, sceneName) {
         params.ID = id;
     }
 
-    Ajax.post(`${this.app.options.server}/api/Scene/Save`, params, result => {
+    Ajax.post(`${app.options.server}/api/Scene/Save`, params, result => {
         var obj = JSON.parse(result);
 
         if (obj.Code === 200) {
@@ -181,7 +181,7 @@ SceneMenu.prototype.commitSave = function (id, sceneName) {
             document.title = sceneName;
         }
 
-        this.app.call(`sceneSaved`, this);
+        app.call(`sceneSaved`, this);
 
         UI.msg(obj.Msg);
     });
@@ -190,24 +190,24 @@ SceneMenu.prototype.commitSave = function (id, sceneName) {
 // --------------------------- 另存为场景 -------------------------------------
 
 SceneMenu.prototype.saveAsScene = function () {
-    var sceneName = this.app.editor.sceneName;
+    var sceneName = app.editor.sceneName;
 
     if (sceneName == null) {
         sceneName = L_NEW_SCENE;
     }
 
     UI.prompt(L_SAVE_SCENE, L_NAME, sceneName, (event, name) => {
-        this.app.editor.sceneName = name;
+        app.editor.sceneName = name;
         document.title = name;
         this.commitSaveAs(name);
     });
 };
 
 SceneMenu.prototype.commitSaveAs = function (sceneName) {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var obj = (new Converter()).toJSON({
-        options: this.app.options,
+        options: app.options,
         camera: editor.camera,
         renderer: editor.renderer,
         scripts: editor.scripts,
@@ -216,7 +216,7 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
         visual: editor.visual,
     });
 
-    Ajax.post(`${this.app.options.server}/api/Scene/Save`, {
+    Ajax.post(`${app.options.server}/api/Scene/Save`, {
         Name: sceneName,
         Data: JSON.stringify(obj)
     }, result => {
@@ -228,7 +228,7 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
             document.title = sceneName;
         }
 
-        this.app.call(`sceneSaved`, this);
+        app.call(`sceneSaved`, this);
 
         UI.msg(obj.Msg);
     });
@@ -237,7 +237,7 @@ SceneMenu.prototype.commitSaveAs = function (sceneName) {
 // -------------------------- 导出场景 --------------------------------
 
 SceneMenu.prototype.exportScene = function () {
-    var sceneID = this.app.editor.sceneID;
+    var sceneID = app.editor.sceneID;
 
     if (!sceneID) {
         UI.msg('请先打开场景！');
@@ -246,13 +246,13 @@ SceneMenu.prototype.exportScene = function () {
 
     UI.confirm('询问', '是否导出当前场景？', (event, btn) => {
         if (btn === 'ok') {
-            fetch(`${this.app.options.server}/api/ExportScene/Run?ID=${sceneID}`, {
+            fetch(`${app.options.server}/api/ExportScene/Run?ID=${sceneID}`, {
                 method: 'POST'
             }).then(response => {
                 if (response.ok) {
                     response.json().then(json => {
                         UI.msg(json.Msg);
-                        window.open(`${this.app.options.server}${json.Url}`, 'export');
+                        window.open(`${app.options.server}${json.Url}`, 'export');
                     });
                 }
             });

@@ -34,8 +34,8 @@ class Editor extends React.Component {
     }
 
     componentDidMount() {
-        this.app = app;
-        this.app.editor = this;
+        app = app;
+        app.editor = this;
 
         // 基础
         this.history = new History(this);
@@ -50,8 +50,8 @@ class Editor extends React.Component {
         this.sceneID = null; // 当前场景ID
         this.sceneName = null; // 当前场景名称
 
-        var width = this.app.viewport.clientWidth;
-        var height = this.app.viewport.clientHeight;
+        var width = app.viewport.clientWidth;
+        var height = app.viewport.clientHeight;
 
         // 相机
         this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, width / height, 0.1, 10000);
@@ -75,7 +75,7 @@ class Editor extends React.Component {
         this.renderer.autoUpdateScene = false;
         this.renderer.setPixelRatio(window.devicePixelRatio);
 
-        this.app.viewport.appendChild(this.renderer.domElement);
+        app.viewport.appendChild(this.renderer.domElement);
         this.renderer.setSize(width, height);
 
         // 音频监听器
@@ -101,11 +101,11 @@ class Editor extends React.Component {
         this.selected = null;
 
         // 平移旋转缩放控件
-        this.transformControls = new THREE.TransformControls(this.camera, this.app.viewport);
+        this.transformControls = new THREE.TransformControls(this.camera, app.viewport);
         this.sceneHelpers.add(this.transformControls);
 
         // 编辑器控件
-        this.controls = new THREE.EditorControls(this.camera, this.app.viewport);
+        this.controls = new THREE.EditorControls(this.camera, app.viewport);
 
         // 碰撞检测
         this.raycaster = new THREE.Raycaster();
@@ -123,32 +123,32 @@ class Editor extends React.Component {
         // this.visual = new Visualization();
 
         // 事件
-        this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+        app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
 
-        this.app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
-        this.app.on(`mousemove.${this.id}`, this.onMouseMove.bind(this));
+        app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
+        app.on(`mousemove.${this.id}`, this.onMouseMove.bind(this));
 
         // 帮助器
-        this.helpers = new Helpers(this.app);
+        this.helpers = new Helpers(app);
 
         // 启动事件 - 事件要在ui创建完成后启动
-        this.app.event.start();
+        app.event.start();
 
-        this.app.call('appStart', this);
-        this.app.call('appStarted', this);
+        app.call('appStart', this);
+        app.call('appStarted', this);
 
-        this.app.call('resize', this);
+        app.call('resize', this);
 
-        this.app.log('程序启动成功。');
+        app.log('程序启动成功。');
     }
 
     componentWillUnmount() {
-        this.app.call('appStop', this);
-        this.app.call('appStoped', this);
+        app.call('appStop', this);
+        app.call('appStoped', this);
 
-        this.app.log('程序已经停止');
+        app.log('程序已经停止');
 
-        this.app.event.stop();
+        app.event.stop();
     }
 
     onAppStarted() {
@@ -174,7 +174,7 @@ class Editor extends React.Component {
             this.addObject(n);
         });
 
-        this.app.call('sceneGraphChanged', this);
+        app.call('sceneGraphChanged', this);
     }
 
     clear(addObject = true) { // 清空场景
@@ -248,9 +248,9 @@ class Editor extends React.Component {
             this.addObject(light2);
         }
 
-        this.app.call('editorCleared', this);
-        this.app.call('scriptChanged', this);
-        this.app.call('animationChanged', this);
+        app.call('editorCleared', this);
+        app.call('scriptChanged', this);
+        app.call('animationChanged', this);
     }
 
     // ---------------------- 物体 ---------------------------
@@ -261,8 +261,8 @@ class Editor extends React.Component {
 
     addObject(object) { // 添加物体
         this.scene.add(object);
-        this.app.call('objectAdded', this, object);
-        this.app.call('sceneGraphChanged', this);
+        app.call('objectAdded', this, object);
+        app.call('sceneGraphChanged', this);
     }
 
     moveObject(object, parent, before) { // 移动物体
@@ -279,7 +279,7 @@ class Editor extends React.Component {
             parent.children.pop();
         }
 
-        this.app.call('sceneGraphChanged', this);
+        app.call('sceneGraphChanged', this);
     }
 
     removeObject(object) { // 移除物体
@@ -289,8 +289,8 @@ class Editor extends React.Component {
 
         object.parent.remove(object);
 
-        this.app.call('objectRemoved', this, object);
-        this.app.call('sceneGraphChanged', this);
+        app.call('objectRemoved', this, object);
+        app.call('sceneGraphChanged', this);
     }
 
     // ------------------------- 帮助 ------------------------------
@@ -332,7 +332,7 @@ class Editor extends React.Component {
 
         this.scripts[object.uuid].push(script);
 
-        this.app.call('scriptAdded', this, script);
+        app.call('scriptAdded', this, script);
     }
 
     removeScript(object, script) { // 移除脚本
@@ -346,7 +346,7 @@ class Editor extends React.Component {
             this.scripts[object.uuid].splice(index, 1);
         }
 
-        this.app.call('scriptRemoved', this);
+        app.call('scriptRemoved', this);
     }
 
     // ------------------------ 选中事件 --------------------------------
@@ -358,7 +358,7 @@ class Editor extends React.Component {
 
         this.selected = object;
 
-        this.app.call('objectSelected', this, object);
+        app.call('objectSelected', this, object);
     }
 
     selectById(id) { // 根据id选中物体
@@ -390,7 +390,7 @@ class Editor extends React.Component {
     // ---------------------- 焦点事件 --------------------------
 
     focus(object) { // 设置焦点
-        this.app.call('objectFocused', this, object);
+        app.call('objectFocused', this, object);
     }
 
     focusById(id) { // 根据id设置交点
@@ -434,7 +434,7 @@ class Editor extends React.Component {
         var intersect = this.raycaster.intersectObjects(this.scene.children, true)[0];
 
         if (intersect) {
-            this.app.call(`intersect`, this, intersect, event);
+            app.call(`intersect`, this, intersect, event);
         }
     }
 

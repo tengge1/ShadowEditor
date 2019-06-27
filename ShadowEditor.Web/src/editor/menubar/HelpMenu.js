@@ -7,7 +7,7 @@ import UI from '../../ui/UI';
  */
 function HelpMenu(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 }
 
 HelpMenu.prototype = Object.create(UI.Control.prototype);

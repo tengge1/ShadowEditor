@@ -101,8 +101,8 @@ QuadraticBezierCurveComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 QuadraticBezierCurveComponent.prototype.onObjectSelected = function () {
@@ -115,7 +115,7 @@ QuadraticBezierCurveComponent.prototype.onObjectChanged = function () {
 
 QuadraticBezierCurveComponent.prototype.updateUI = function () {
     var container = UI.get('panel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected.userData.type === 'QuadraticBezierCurve') {
         container.dom.style.display = '';
     } else {
@@ -167,7 +167,7 @@ QuadraticBezierCurveComponent.prototype.onChange = function () {
 
     this.selected.update();
 
-    this.app.call('objectChanged', this, this.selected);
+    app.call('objectChanged', this, this.selected);
 };
 
 export default QuadraticBezierCurveComponent;

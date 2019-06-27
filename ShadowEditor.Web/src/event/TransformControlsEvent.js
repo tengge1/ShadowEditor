@@ -22,42 +22,42 @@ TransformControlsEvent.prototype = Object.create(BaseEvent.prototype);
 TransformControlsEvent.prototype.constructor = TransformControlsEvent;
 
 TransformControlsEvent.prototype.start = function () {
-    var transformControls = this.app.editor.transformControls;
+    var transformControls = app.editor.transformControls;
 
     transformControls.addEventListener('change', this.onChange.bind(this));
     transformControls.addEventListener('mouseDown', this.onMouseDown.bind(this));
     transformControls.addEventListener('mouseUp', this.onMouseUp.bind(this));
 
-    this.app.on('objectSelected.' + this.id, this.onObjectSelected.bind(this));
-    this.app.on('changeMode.' + this.id, this.onChangeMode.bind(this));
-    this.app.on('snapChanged.' + this.id, this.onSnapChanged.bind(this));
-    this.app.on('spaceChanged.' + this.id, this.onSpaceChanged.bind(this));
+    app.on('objectSelected.' + this.id, this.onObjectSelected.bind(this));
+    app.on('changeMode.' + this.id, this.onChangeMode.bind(this));
+    app.on('snapChanged.' + this.id, this.onSnapChanged.bind(this));
+    app.on('spaceChanged.' + this.id, this.onSpaceChanged.bind(this));
 };
 
 TransformControlsEvent.prototype.stop = function () {
-    var transformControls = this.app.editor.transformControls;
+    var transformControls = app.editor.transformControls;
 
     transformControls.removeEventListener('change', this.onChange);
     transformControls.removeEventListener('mouseDown', this.onMouseDown);
     transformControls.removeEventListener('mouseUp', this.onMouseUp);
 
-    this.app.on('changeMode.' + this.id, null);
-    this.app.on('snapChanged.' + this.id, null);
-    this.app.on('spaceChanged.' + this.id, null);
+    app.on('changeMode.' + this.id, null);
+    app.on('snapChanged.' + this.id, null);
+    app.on('spaceChanged.' + this.id, null);
 };
 
 /**
  * 控件发生改变，需要更新包围盒位置，重绘场景
  */
 TransformControlsEvent.prototype.onChange = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
     var object = editor.transformControls.object;
 
     if (object) {
-        this.app.call('objectChanged', this, object);
+        app.call('objectChanged', this, object);
     }
 
-    this.app.call('render');
+    app.call('render');
 };
 
 /**
@@ -68,13 +68,13 @@ TransformControlsEvent.prototype.onMouseDown = function () {
         return;
     }
 
-    var object = this.app.editor.transformControls.object;
+    var object = app.editor.transformControls.object;
 
     this.objectPosition = object.position.clone();
     this.objectRotation = object.rotation.clone();
     this.objectScale = object.scale.clone();
 
-    this.app.editor.controls.enabled = false; // EditorControls
+    app.editor.controls.enabled = false; // EditorControls
 };
 
 /**
@@ -85,7 +85,7 @@ TransformControlsEvent.prototype.onMouseUp = function () {
         return;
     }
 
-    var editor = this.app.editor;
+    var editor = app.editor;
     var transformControls = editor.transformControls;
     var object = transformControls.object;
 
@@ -111,7 +111,7 @@ TransformControlsEvent.prototype.onMouseUp = function () {
             break;
     }
 
-    this.app.editor.controls.enabled = true; // EditorControls
+    app.editor.controls.enabled = true; // EditorControls
 };
 
 /**
@@ -119,17 +119,17 @@ TransformControlsEvent.prototype.onMouseUp = function () {
  * @param {*} object 选中的物体
  */
 TransformControlsEvent.prototype.onObjectSelected = function (object) {
-    this.app.editor.transformControls.detach();
+    app.editor.transformControls.detach();
 
     if (['translate', 'rotate', 'scale'].indexOf(this.mode) === -1) {
         return;
     }
 
-    if (!object || object === this.app.editor.scene || object === this.app.editor.camera) {
+    if (!object || object === app.editor.scene || object === app.editor.camera) {
         return;
     }
 
-    this.app.editor.transformControls.attach(object);
+    app.editor.transformControls.attach(object);
 };
 
 /**
@@ -138,11 +138,11 @@ TransformControlsEvent.prototype.onObjectSelected = function (object) {
  */
 TransformControlsEvent.prototype.onChangeMode = function (mode) {
     this.mode = mode;
-    var transformControls = this.app.editor.transformControls;
+    var transformControls = app.editor.transformControls;
 
     if (mode === 'translate' || mode === 'rotate' || mode === 'scale') { // 设置模式在选中物体上
         transformControls.setMode(mode);
-        var object = this.app.editor.selected;
+        var object = app.editor.selected;
         if (object != null) {
             transformControls.attach(object);
         }
@@ -156,7 +156,7 @@ TransformControlsEvent.prototype.onChangeMode = function (mode) {
  * @param {*} dist 
  */
 TransformControlsEvent.prototype.onSnapChanged = function (dist) {
-    this.app.editor.transformControls.setTranslationSnap(dist);
+    app.editor.transformControls.setTranslationSnap(dist);
 };
 
 /**
@@ -164,7 +164,7 @@ TransformControlsEvent.prototype.onSnapChanged = function (dist) {
  * @param {*} space 
  */
 TransformControlsEvent.prototype.onSpaceChanged = function (space) {
-    this.app.editor.transformControls.setSpace(space);
+    app.editor.transformControls.setSpace(space);
 };
 
 export default TransformControlsEvent;

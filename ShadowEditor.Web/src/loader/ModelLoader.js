@@ -98,7 +98,7 @@ ModelLoader.prototype.load = function (url, options, environment) {
             resolve(null);
             return;
         }
-        (new loader(this.app)).load(url, options, environment).then(obj => {
+        (new loader(app)).load(url, options, environment).then(obj => {
             obj.userData.physics = obj.userData.physics || {
                 enabled: false,
                 type: 'rigidBody',

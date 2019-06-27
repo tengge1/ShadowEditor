@@ -8,7 +8,7 @@ import CssUtils from '../../../utils/CssUtils';
  */
 function FilterPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 }
 
 FilterPanel.prototype = Object.create(UI.Control.prototype);
@@ -135,7 +135,7 @@ FilterPanel.prototype.update = function () {
     var invert = UI.get('invert', this.id);
     var sepia = UI.get('sepia', this.id);
 
-    var renderer = this.app.editor.renderer;
+    var renderer = app.editor.renderer;
     var filters = CssUtils.parseFilter(renderer.domElement.style.filter);
     hue.setValue(filters.hueRotate);
     saturate.setValue(filters.saturate);
@@ -168,7 +168,7 @@ FilterPanel.prototype.save = function () {
         sepia: sepia.getValue(),
     };
 
-    Object.assign(this.app.options, {
+    Object.assign(app.options, {
         hueRotate: filters.hueRotate,
         saturate: filters.saturate,
         brightness: filters.brightness,
@@ -179,7 +179,7 @@ FilterPanel.prototype.save = function () {
         sepia: filters.sepia,
     });
 
-    var renderer = this.app.editor.renderer;
+    var renderer = app.editor.renderer;
 
     renderer.domElement.style.filter = CssUtils.serializeFilter(filters);
 };

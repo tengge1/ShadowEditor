@@ -9,7 +9,7 @@ function StatusMenu(options) {
     UI.Control.call(this, options);
     options = options || {};
 
-    this.app = options.app;
+    app = options.app;
 }
 
 StatusMenu.prototype = Object.create(UI.Control.prototype);

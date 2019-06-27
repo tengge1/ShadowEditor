@@ -20,18 +20,18 @@ ViewHelper.prototype.start = function () {
     this.mesh = this.createMesh();
     this.scene.add(this.mesh);
 
-    this.app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
-    this.app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
-    this.app.on(`resize.${this.id}`, this.onResize.bind(this));
+    app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
+    app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
+    app.on(`resize.${this.id}`, this.onResize.bind(this));
 };
 
 ViewHelper.prototype.stop = function () {
     this.scene.remove(this.mesh);
     delete this.scene;
     delete this.mesh;
-    this.app.on(`afterRender.${this.id}`, null);
-    this.app.on(`mousedown.${this.id}`, null);
-    this.app.on(`resize.${this.id}`, null);
+    app.on(`afterRender.${this.id}`, null);
+    app.on(`mousedown.${this.id}`, null);
+    app.on(`resize.${this.id}`, null);
 };
 
 ViewHelper.prototype.createMesh = function () {
@@ -65,12 +65,12 @@ ViewHelper.prototype.createMesh = function () {
         geometryNZ
     ], true);
 
-    var domElement = this.app.editor.renderer.domElement;
+    var domElement = app.editor.renderer.domElement;
     var domWidth = domElement.clientWidth;
     var domHeight = domElement.clientHeight;
     this.z = 16; // 控件中心到相机距离，越远越小
 
-    var fov = this.app.editor.camera.fov;
+    var fov = app.editor.camera.fov;
     var top = this.z * Math.tan(fov * Math.PI / 180 * 0.5); // 到相机垂直距离为z的地方屏幕高度一半
     this.size = (domHeight / (2 * top) + 12) * 2; // 12为留白
 
@@ -145,15 +145,15 @@ ViewHelper.prototype.createMesh = function () {
 };
 
 ViewHelper.prototype.onAfterRender = function () {
-    if (!this.app.editor.showViewHelper) {
+    if (!app.editor.showViewHelper) {
         return;
     }
 
-    var renderer = this.app.editor.renderer;
+    var renderer = app.editor.renderer;
 
     // 最后绘制而且清空深度缓冲，保证视角控件不会被其他物体遮挡
     renderer.clearDepth();
-    renderer.render(this.scene, this.app.editor.camera);
+    renderer.render(this.scene, app.editor.camera);
 };
 
 ViewHelper.prototype.onMouseDown = function (event) {
@@ -164,12 +164,12 @@ ViewHelper.prototype.onMouseDown = function (event) {
         this.raycaster = new THREE.Raycaster();
     }
 
-    var domElement = this.app.editor.renderer.domElement;
+    var domElement = app.editor.renderer.domElement;
 
     this.mouse.set(
         event.offsetX / domElement.clientWidth * 2 - 1, -event.offsetY / domElement.clientHeight * 2 + 1
     );
-    this.raycaster.setFromCamera(this.mouse, this.app.editor.camera);
+    this.raycaster.setFromCamera(this.mouse, app.editor.camera);
 
     // 设置几何体矩阵，将其转换到左上角
     if (this.matrix === undefined) {
@@ -189,7 +189,7 @@ ViewHelper.prototype.onMouseDown = function (event) {
         (domElement.clientWidth - this.size / 2) / domElement.clientWidth * 2 - 1, -this.size / 2 / domElement.clientHeight * 2 + 1, -this.z
     );
 
-    this.screenXY.unproject(this.app.editor.camera);
+    this.screenXY.unproject(app.editor.camera);
 
     var obj = this.raycaster.intersectObject(this.mesh)[0];
 
@@ -202,9 +202,9 @@ ViewHelper.prototype.onMouseDown = function (event) {
 
 ViewHelper.prototype.onResize = function () {
     var materials = this.mesh.material;
-    var width = this.app.editor.renderer.domElement.width;
-    var height = this.app.editor.renderer.domElement.height;
-    var fov = this.app.editor.camera.fov;
+    var width = app.editor.renderer.domElement.width;
+    var height = app.editor.renderer.domElement.height;
+    var fov = app.editor.camera.fov;
     var top = this.z * Math.tan(fov * Math.PI / 180 * 0.5); // 到相机垂直距离为z的地方屏幕高度一半
     this.size = (height / (2 * top) + 12) * 2; // 12为留白
 

@@ -7,7 +7,7 @@ import UI from '../ui/UI';
  */
 function BaseComponent(options) {
     UI.Control.call(this, options);
-    this.app = options.app
+    app = options.app
 }
 
 BaseComponent.prototype = Object.create(UI.Control.prototype);

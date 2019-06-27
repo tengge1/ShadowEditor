@@ -93,8 +93,8 @@ TorusGeometryComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 TorusGeometryComponent.prototype.onObjectSelected = function () {
@@ -107,7 +107,7 @@ TorusGeometryComponent.prototype.onObjectChanged = function () {
 
 TorusGeometryComponent.prototype.updateUI = function () {
     var container = UI.get('geometryPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected instanceof THREE.Mesh && editor.selected.geometry instanceof THREE.TorusBufferGeometry) {
         container.dom.style.display = '';
     } else {
@@ -137,7 +137,7 @@ TorusGeometryComponent.prototype.onChangeGeometry = function () {
     var tubularSegments = UI.get('tubularSegments', this.id);
     var arc = UI.get('arc', this.id);
 
-    this.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.TorusBufferGeometry(
+    app.editor.execute(new SetGeometryCommand(this.selected, new THREE.TorusBufferGeometry(
         radius.getValue(),
         tube.getValue(),
         radialSegments.getValue(),

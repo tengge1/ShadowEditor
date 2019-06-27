@@ -154,8 +154,8 @@ TransformComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 TransformComponent.prototype.onObjectSelected = function () {
@@ -168,7 +168,7 @@ TransformComponent.prototype.onObjectChanged = function () {
 
 TransformComponent.prototype.updateUI = function () {
     var container = UI.get('transformPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && !editor.selected.isGlobe) {
         container.dom.style.display = '';
     } else {
@@ -208,7 +208,7 @@ TransformComponent.prototype.onChangePosition = function () {
     var y = UI.get('objectPositionY', this.id).getValue();
     var z = UI.get('objectPositionZ', this.id).getValue();
 
-    this.app.editor.execute(new SetPositionCommand(this.selected, new THREE.Vector3(x, y, z)));
+    app.editor.execute(new SetPositionCommand(this.selected, new THREE.Vector3(x, y, z)));
 };
 
 TransformComponent.prototype.onChangeRotation = function () {
@@ -216,7 +216,7 @@ TransformComponent.prototype.onChangeRotation = function () {
     var y = UI.get('objectRotationY', this.id).getValue();
     var z = UI.get('objectRotationZ', this.id).getValue();
 
-    this.app.editor.execute(new SetRotationCommand(this.selected, new THREE.Euler(x * Math.PI / 180, y * Math.PI / 180, z * Math.PI / 180)));
+    app.editor.execute(new SetRotationCommand(this.selected, new THREE.Euler(x * Math.PI / 180, y * Math.PI / 180, z * Math.PI / 180)));
 };
 
 TransformComponent.prototype.onChangeScale = function (value) {
@@ -226,9 +226,9 @@ TransformComponent.prototype.onChangeScale = function (value) {
     var locked = UI.get('objectScaleLock', this.id).getValue();
 
     if (locked) {
-        this.app.editor.execute(new SetScaleCommand(this.selected, new THREE.Vector3(value, value, value)));
+        app.editor.execute(new SetScaleCommand(this.selected, new THREE.Vector3(value, value, value)));
     } else {
-        this.app.editor.execute(new SetScaleCommand(this.selected, new THREE.Vector3(x, y, z)));
+        app.editor.execute(new SetScaleCommand(this.selected, new THREE.Vector3(x, y, z)));
     }
 };
 

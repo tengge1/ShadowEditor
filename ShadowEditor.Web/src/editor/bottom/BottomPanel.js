@@ -18,7 +18,7 @@ import LogPanel from './LogPanel';
  */
 function BottomPanel(options) {
     Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
     this.show = true;
 };
 
@@ -166,7 +166,7 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new TimePanel({
-                    app: this.app
+                    app: app
                 })
             ]
         }, {
@@ -177,7 +177,7 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new ScenePanel({
-                    app: this.app
+                    app: app
                 })
             ]
         }, {
@@ -188,7 +188,7 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new ModelPanel({
-                    app: this.app
+                    app: app
                 })
             ]
         }, {
@@ -199,7 +199,7 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new MapPanel({
-                    app: this.app
+                    app: app
                 })
             ]
         }, {
@@ -210,7 +210,7 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new MaterialPanel({
-                    app: this.app
+                    app: app
                 })
             ]
         }, {
@@ -221,7 +221,7 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new AudioPanel({
-                    app: this.app
+                    app: app
                 })
             ]
         }, {
@@ -232,7 +232,7 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new AnimationPanel({
-                    app: this.app
+                    app: app
                 })
             ]
         }, {
@@ -243,7 +243,7 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new ParticlePanel({
-                    app: this.app
+                    app: app
                 })
             ]
         }, {
@@ -254,7 +254,7 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new PrefabPanel({
-                    app: this.app
+                    app: app
                 })
             ]
         }, {
@@ -265,7 +265,7 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new CharacterPanel({
-                    app: this.app
+                    app: app
                 })
             ]
         }, {
@@ -276,7 +276,7 @@ BottomPanel.prototype.render = function () {
             },
             children: [
                 new LogPanel({
-                    app: this.app
+                    app: app
                 })
             ]
         }]
@@ -285,16 +285,16 @@ BottomPanel.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`appStarted.${this.id}`, () => {
+    app.on(`appStarted.${this.id}`, () => {
         this.selectTab('time');
         this.updateAssetsInfo();
     });
 
-    this.app.on(`selectBottomPanel.${this.id}`, this.onSelectPanel.bind(this));
+    app.on(`selectBottomPanel.${this.id}`, this.onSelectPanel.bind(this));
 };
 
 BottomPanel.prototype.selectTab = function (tabName) {
-    this.app.call(`selectBottomPanel`, this, tabName);
+    app.call(`selectBottomPanel`, this, tabName);
 };
 
 BottomPanel.prototype.onSelectPanel = function (tabName) {
@@ -393,7 +393,7 @@ BottomPanel.prototype.onSelectPanel = function (tabName) {
             break;
     }
 
-    this.app.call(`showBottomPanel`, this, tabName);
+    app.call(`showBottomPanel`, this, tabName);
 };
 
 BottomPanel.prototype.updateAssetsInfo = function () {
@@ -407,7 +407,7 @@ BottomPanel.prototype.updateAssetsInfo = function () {
     var prefabTab = UI.get('prefabTab');
     var characterTab = UI.get('characterTab');
 
-    fetch(`${this.app.options.server}/api/Assets/List`).then(response => {
+    fetch(`${app.options.server}/api/Assets/List`).then(response => {
         if (response.ok) {
             response.json().then(json => {
                 sceneTab.setValue(`${L_SCENE}(${json.sceneCount})`);
@@ -516,7 +516,7 @@ BottomPanel.prototype.toggleShowPanel = function () {
         maximizeBtn.show();
     }
 
-    this.app.call('resize', this);
+    app.call('resize', this);
 };
 
 export default BottomPanel;

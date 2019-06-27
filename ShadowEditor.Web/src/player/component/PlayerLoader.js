@@ -14,7 +14,7 @@ PlayerLoader.prototype.constructor = PlayerLoader;
 
 PlayerLoader.prototype.create = function (jsons) {
     return (new Converter()).fromJson(jsons, {
-        server: this.app.options.server
+        server: app.options.server
     }).then(obj => {
         this.scene = obj.scene;
         return new Promise(resolve => {

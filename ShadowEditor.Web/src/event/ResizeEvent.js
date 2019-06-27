@@ -13,16 +13,16 @@ ResizeEvent.prototype = Object.create(BaseEvent.prototype);
 ResizeEvent.prototype.constructor = ResizeEvent;
 
 ResizeEvent.prototype.start = function () {
-    this.app.on(`resize.${this.id}`, this.onResize.bind(this));
+    app.on(`resize.${this.id}`, this.onResize.bind(this));
 };
 
 ResizeEvent.prototype.stop = function () {
-    this.app.on(`resize.${this.id}`, null);
+    app.on(`resize.${this.id}`, null);
 };
 
 ResizeEvent.prototype.onResize = function () {
-    var editor = this.app.editor;
-    var viewport = this.app.viewport;
+    var editor = app.editor;
+    var viewport = app.viewport;
     var camera = editor.camera;
     var renderer = editor.renderer;
 
@@ -37,7 +37,7 @@ ResizeEvent.prototype.onResize = function () {
 
     renderer.setSize(width, height);
 
-    this.app.call('render', this);
+    app.call('render', this);
 };
 
 export default ResizeEvent;

@@ -9,8 +9,8 @@ import Visualization from '../visual/Visualization';
  * @author tengge / https://github.com/tengge1
  */
 function Editor() {
-    this.app = app;
-    this.app.editor = this;
+    app = app;
+    app.editor = this;
 
     // 基础
     this.history = new History(this);
@@ -25,8 +25,8 @@ function Editor() {
     this.sceneID = null; // 当前场景ID
     this.sceneName = null; // 当前场景名称
 
-    var width = this.app.viewport.clientWidth;
-    var height = this.app.viewport.clientHeight;
+    var width = app.viewport.clientWidth;
+    var height = app.viewport.clientHeight;
 
     // 相机
     this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, width / height, 0.1, 10000);
@@ -50,7 +50,7 @@ function Editor() {
     this.renderer.autoUpdateScene = false;
     this.renderer.setPixelRatio(window.devicePixelRatio);
 
-    this.app.viewport.appendChild(this.renderer.domElement);
+    app.viewport.appendChild(this.renderer.domElement);
     this.renderer.setSize(width, height);
 
     // 音频监听器
@@ -76,11 +76,11 @@ function Editor() {
     this.selected = null;
 
     // 平移旋转缩放控件
-    this.transformControls = new THREE.TransformControls(this.camera, this.app.viewport);
+    this.transformControls = new THREE.TransformControls(this.camera, app.viewport);
     this.sceneHelpers.add(this.transformControls);
 
     // 编辑器控件
-    this.controls = new THREE.EditorControls(this.camera, this.app.viewport);
+    this.controls = new THREE.EditorControls(this.camera, app.viewport);
 
     // 碰撞检测
     this.raycaster = new THREE.Raycaster();
@@ -98,13 +98,13 @@ function Editor() {
     // this.visual = new Visualization();
 
     // 事件
-    this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+    app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
 
-    this.app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
-    this.app.on(`mousemove.${this.id}`, this.onMouseMove.bind(this));
+    app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
+    app.on(`mousemove.${this.id}`, this.onMouseMove.bind(this));
 
     // 帮助器
-    this.helpers = new Helpers(this.app);
+    this.helpers = new Helpers(app);
 };
 
 Editor.prototype.onAppStarted = function () {
@@ -130,7 +130,7 @@ Editor.prototype.setScene = function (scene) { // 设置场景
         this.addObject(n);
     });
 
-    this.app.call('sceneGraphChanged', this);
+    app.call('sceneGraphChanged', this);
 };
 
 Editor.prototype.clear = function (addObject = true) { // 清空场景
@@ -204,9 +204,9 @@ Editor.prototype.clear = function (addObject = true) { // 清空场景
         this.addObject(light2);
     }
 
-    this.app.call('editorCleared', this);
-    this.app.call('scriptChanged', this);
-    this.app.call('animationChanged', this);
+    app.call('editorCleared', this);
+    app.call('scriptChanged', this);
+    app.call('animationChanged', this);
 };
 
 // ---------------------- 物体 ---------------------------
@@ -217,8 +217,8 @@ Editor.prototype.objectByUuid = function (uuid) { // 根据uuid获取物体
 
 Editor.prototype.addObject = function (object) { // 添加物体
     this.scene.add(object);
-    this.app.call('objectAdded', this, object);
-    this.app.call('sceneGraphChanged', this);
+    app.call('objectAdded', this, object);
+    app.call('sceneGraphChanged', this);
 };
 
 Editor.prototype.moveObject = function (object, parent, before) { // 移动物体
@@ -235,7 +235,7 @@ Editor.prototype.moveObject = function (object, parent, before) { // 移动物�
         parent.children.pop();
     }
 
-    this.app.call('sceneGraphChanged', this);
+    app.call('sceneGraphChanged', this);
 };
 
 Editor.prototype.removeObject = function (object) { // 移除物体
@@ -245,8 +245,8 @@ Editor.prototype.removeObject = function (object) { // 移除物体
 
     object.parent.remove(object);
 
-    this.app.call('objectRemoved', this, object);
-    this.app.call('sceneGraphChanged', this);
+    app.call('objectRemoved', this, object);
+    app.call('sceneGraphChanged', this);
 };
 
 // ------------------------- 帮助 ------------------------------
@@ -288,7 +288,7 @@ Editor.prototype.addScript = function (object, script) { // 添加脚本
 
     this.scripts[object.uuid].push(script);
 
-    this.app.call('scriptAdded', this, script);
+    app.call('scriptAdded', this, script);
 };
 
 Editor.prototype.removeScript = function (object, script) { // 移除脚本
@@ -302,7 +302,7 @@ Editor.prototype.removeScript = function (object, script) { // 移除脚本
         this.scripts[object.uuid].splice(index, 1);
     }
 
-    this.app.call('scriptRemoved', this);
+    app.call('scriptRemoved', this);
 };
 
 // ------------------------ 选中事件 --------------------------------
@@ -314,7 +314,7 @@ Editor.prototype.select = function (object) { // 选中物体
 
     this.selected = object;
 
-    this.app.call('objectSelected', this, object);
+    app.call('objectSelected', this, object);
 };
 
 Editor.prototype.selectById = function (id) { // 根据id选中物体
@@ -346,7 +346,7 @@ Editor.prototype.deselect = function () { // 取消选中物体
 // ---------------------- 焦点事件 --------------------------
 
 Editor.prototype.focus = function (object) { // 设置焦点
-    this.app.call('objectFocused', this, object);
+    app.call('objectFocused', this, object);
 };
 
 Editor.prototype.focusById = function (id) { // 根据id设置交点
@@ -390,7 +390,7 @@ Editor.prototype.onMouseDown = function (event) {
     var intersect = this.raycaster.intersectObjects(this.scene.children, true)[0];
 
     if (intersect) {
-        this.app.call(`intersect`, this, intersect, event);
+        app.call(`intersect`, this, intersect, event);
     }
 };
 

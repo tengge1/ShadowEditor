@@ -17,17 +17,17 @@ RaycastEvent.prototype = Object.create(BaseEvent.prototype);
 RaycastEvent.prototype.constructor = RaycastEvent;
 
 RaycastEvent.prototype.start = function () {
-    this.app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
-    this.app.on(`mouseup.${this.id}`, this.onMouseUp.bind(this));
+    app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
+    app.on(`mouseup.${this.id}`, this.onMouseUp.bind(this));
 };
 
 RaycastEvent.prototype.stop = function () {
-    this.app.on(`mousedown.${this.id}`, null);
-    this.app.on(`mouseup.${this.id}`, null);
+    app.on(`mousedown.${this.id}`, null);
+    app.on(`mouseup.${this.id}`, null);
 };
 
 RaycastEvent.prototype.onMouseDown = function (event) {
-    if (event.target !== this.app.editor.renderer.domElement) {
+    if (event.target !== app.editor.renderer.domElement) {
         return;
     }
 
@@ -37,7 +37,7 @@ RaycastEvent.prototype.onMouseDown = function (event) {
 };
 
 RaycastEvent.prototype.onMouseUp = function (event) {
-    if (event.target !== this.app.editor.renderer.domElement) {
+    if (event.target !== app.editor.renderer.domElement) {
         return;
     }
 
@@ -45,17 +45,17 @@ RaycastEvent.prototype.onMouseUp = function (event) {
         return;
     }
 
-    var domElement = this.app.editor.renderer.domElement;
+    var domElement = app.editor.renderer.domElement;
 
     this.mouse.x = event.offsetX / domElement.clientWidth * 2 - 1;
     this.mouse.y = -event.offsetY / domElement.clientHeight * 2 + 1;
 
-    this.raycaster.setFromCamera(this.mouse, this.app.editor.camera);
+    this.raycaster.setFromCamera(this.mouse, app.editor.camera);
 
-    var intersects = this.raycaster.intersectObjects(this.app.editor.scene.children, false);
+    var intersects = this.raycaster.intersectObjects(app.editor.scene.children, false);
 
     if (intersects.length > 0) {
-        this.app.call('raycast', this, intersects[0], intersects);
+        app.call('raycast', this, intersects[0], intersects);
     }
 };
 

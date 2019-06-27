@@ -110,8 +110,8 @@ BackgroundMusicComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 BackgroundMusicComponent.prototype.onObjectSelected = function () {
@@ -125,7 +125,7 @@ BackgroundMusicComponent.prototype.onObjectChanged = function () {
 BackgroundMusicComponent.prototype.updateUI = function () {
     var container = UI.get('backgroundMusicPanel', this.id);
 
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected instanceof THREE.Audio) {
         container.dom.style.display = '';
     } else {
@@ -159,15 +159,15 @@ BackgroundMusicComponent.prototype.updateUI = function () {
 };
 
 BackgroundMusicComponent.prototype.onSelect = function () {
-    this.app.call(`selectBottomPanel`, this, 'audio');
+    app.call(`selectBottomPanel`, this, 'audio');
     UI.msg(L_CLICK_AUDIO_IN_PANEL);
-    this.app.on(`selectAudio.${this.id}`, this.onSelectAudio.bind(this));
+    app.on(`selectAudio.${this.id}`, this.onSelectAudio.bind(this));
 };
 
 BackgroundMusicComponent.prototype.onSelectAudio = function (obj) {
     var btnPlay = UI.get('btnPlay', this.id);
 
-    this.app.on(`selectAudio.${this.id}`, null);
+    app.on(`selectAudio.${this.id}`, null);
 
     Object.assign(this.selected.userData, obj);
 
@@ -177,7 +177,7 @@ BackgroundMusicComponent.prototype.onSelectAudio = function (obj) {
         btnPlay.dom.style.display = '';
     });
 
-    this.app.call(`objectChanged`, this, this.selected);
+    app.call(`objectChanged`, this, this.selected);
 };
 
 BackgroundMusicComponent.prototype.onChange = function () {

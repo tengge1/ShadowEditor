@@ -31,7 +31,7 @@ class OptionsMenu extends React.Component {
     handleSurfaceOptions() {
         if (this.optionsWindow === undefined) {
             this.optionsWindow = new OptionsWindow({
-                app: this.app
+                app: app
             });
             this.optionsWindow.render();
         }
@@ -44,7 +44,7 @@ class OptionsMenu extends React.Component {
     handleRendererOptions() {
         if (this.optionsWindow === undefined) {
             this.optionsWindow = new OptionsWindow({
-                app: this.app
+                app: app
             });
             this.optionsWindow.render();
         }
@@ -57,7 +57,7 @@ class OptionsMenu extends React.Component {
     handleHelperOptions() {
         if (this.optionsWindow === undefined) {
             this.optionsWindow = new OptionsWindow({
-                app: this.app
+                app: app
             });
             this.optionsWindow.render();
         }
@@ -70,7 +70,7 @@ class OptionsMenu extends React.Component {
     handleFilterOptions() {
         if (this.optionsWindow === undefined) {
             this.optionsWindow = new OptionsWindow({
-                app: this.app
+                app: app
             });
             this.optionsWindow.render();
         }

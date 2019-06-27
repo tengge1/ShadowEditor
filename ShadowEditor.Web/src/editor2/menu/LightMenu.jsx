@@ -32,7 +32,7 @@ class LightMenu extends React.Component {
     // ------------------------- 环境光 ------------------------------
 
     handleAddAmbientLight() {
-        var editor = this.app.editor;
+        var editor = app.editor;
 
         var color = 0xaaaaaa;
 
@@ -45,7 +45,7 @@ class LightMenu extends React.Component {
     // ------------------------- 平行光 ------------------------------
 
     handleAddDirectionalLight() {
-        var editor = this.app.editor;
+        var editor = app.editor;
 
         var color = 0xffffff;
         var intensity = 1;
@@ -67,7 +67,7 @@ class LightMenu extends React.Component {
     // ------------------------- 点光源 ------------------------------
 
     handleAddPointLight() {
-        var editor = this.app.editor;
+        var editor = app.editor;
 
         var color = 0xffffff;
         var intensity = 1;
@@ -84,7 +84,7 @@ class LightMenu extends React.Component {
     // ------------------------- 聚光灯 ------------------------------
 
     handleAddSpotLight() {
-        var editor = this.app.editor;
+        var editor = app.editor;
 
         var color = 0xffffff;
         var intensity = 1;
@@ -105,7 +105,7 @@ class LightMenu extends React.Component {
     // ------------------------- 半球光 ------------------------------
 
     handleAddHemisphereLight() {
-        var editor = this.app.editor;
+        var editor = app.editor;
         var skyColor = 0x00aaff;
         var groundColor = 0xffaa00;
         var intensity = 1;
@@ -121,7 +121,7 @@ class LightMenu extends React.Component {
     // ------------------------- 矩形光 ------------------------------
 
     handleAddRectAreaLight() {
-        var editor = this.app.editor;
+        var editor = app.editor;
 
         var color = 0xffffff;
         var intensity = 1;

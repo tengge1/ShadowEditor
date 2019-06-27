@@ -7,7 +7,7 @@
  */
 function Viewport(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 };
 
 Viewport.prototype = Object.create(UI.Control.prototype);

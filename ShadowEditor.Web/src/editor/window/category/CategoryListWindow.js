@@ -10,7 +10,7 @@ import Ajax from '../../../utils/Ajax';
 function CategoryListWindow(options = {}) {
     UI.Control.call(this, options);
 
-    this.app = options.app;
+    app = options.app;
     this.type = options.type || 'Scene'; // 类型类型：Scene, Model, Map, Texture, Audio, Particle
     this.title = options.title || L_CATEGORY_LIST;
 }
@@ -100,7 +100,7 @@ CategoryListWindow.prototype.update = function () {
 CategoryListWindow.prototype.createEditWin = function () {
     if (this.editWin === undefined) {
         this.editWin = new CategoryEditWindow({
-            app: this.app,
+            app: app,
             type: this.type,
             callback: this.update.bind(this)
         });

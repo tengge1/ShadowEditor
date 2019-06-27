@@ -10,7 +10,7 @@ import BarChart from '../../visual/demo/BarChart';
  */
 function VisualMenu(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 }
 
 VisualMenu.prototype = Object.create(UI.Control.prototype);
@@ -54,7 +54,7 @@ VisualMenu.prototype.render = function () {
 
 VisualMenu.prototype.addSidebar = function () {
     var control = new Sidebar({
-        parent: this.app.editor.svg,
+        parent: app.editor.svg,
     });
     control.render();
 };
@@ -63,7 +63,7 @@ VisualMenu.prototype.addSidebar = function () {
 
 VisualMenu.prototype.addPanel = function () {
     var control = new Panel({
-        parent: this.app.editor.svg,
+        parent: app.editor.svg,
     });
     control.render();
 };
@@ -72,7 +72,7 @@ VisualMenu.prototype.addPanel = function () {
 
 VisualMenu.prototype.addBarChart = function () {
     var control = new BarChart({
-        parent: this.app.editor.svg,
+        parent: app.editor.svg,
     });
     control.render();
 };

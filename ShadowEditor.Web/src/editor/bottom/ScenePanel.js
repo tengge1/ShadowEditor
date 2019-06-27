@@ -10,7 +10,7 @@ import GISScene from '../../gis/Scene';
  */
 function ScenePanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 
     this.firstShow = true;
 
@@ -21,7 +21,7 @@ ScenePanel.prototype = Object.create(UI.Control.prototype);
 ScenePanel.prototype.constructor = ScenePanel;
 
 ScenePanel.prototype.render = function () {
-    this.app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
+    app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
 };
 
 ScenePanel.prototype.onShowPanel = function (tabName) {
@@ -105,7 +105,7 @@ ScenePanel.prototype.renderUI = function () {
 
     control.render();
 
-    this.app.on(`sceneSaved.${this.id}`, this.update.bind(this));
+    app.on(`sceneSaved.${this.id}`, this.update.bind(this));
 };
 
 ScenePanel.prototype.update = function () {
@@ -206,7 +206,7 @@ ScenePanel.prototype.onClick = function (event, index, btn, control) {
 // ------------------------------------- 加载场景 ------------------------------------
 
 ScenePanel.prototype.onLoad = function (data) {
-    var app = this.app;
+    var app = app;
     var editor = app.editor;
     var server = app.options.server;
     document.title = data.Name;
@@ -217,8 +217,8 @@ ScenePanel.prototype.onLoad = function (data) {
         editor.clear(false);
 
         (new Converter()).fromJson(obj.Data, {
-            server: this.app.options.server,
-            camera: this.app.editor.camera
+            server: app.options.server,
+            camera: app.editor.camera
         }).then(obj => {
             this.onLoadScene(obj);
 
@@ -227,25 +227,25 @@ ScenePanel.prototype.onLoad = function (data) {
             document.title = data.Name;
 
             if (obj.options) {
-                this.app.call('optionsChanged', this, this.app.options);
+                app.call('optionsChanged', this, app.options);
 
                 if (obj.options.sceneType === 'GIS') {
-                    if (this.app.editor.gis) {
-                        this.app.editor.gis.stop();
+                    if (app.editor.gis) {
+                        app.editor.gis.stop();
                     }
-                    this.app.editor.gis = new GISScene(this.app, {
+                    app.editor.gis = new GISScene(app, {
                         useCameraPosition: true,
                     });
-                    this.app.editor.gis.start();
+                    app.editor.gis.start();
                 }
             }
 
             if (obj.scripts) {
-                this.app.call('scriptChanged', this);
+                app.call('scriptChanged', this);
             }
 
             if (obj.scene) {
-                this.app.call('sceneGraphChanged', this);
+                app.call('sceneGraphChanged', this);
             }
 
             UI.msg(L_LOAD_SUCCESS);
@@ -255,44 +255,44 @@ ScenePanel.prototype.onLoad = function (data) {
 
 ScenePanel.prototype.onLoadScene = function (obj) {
     if (obj.options) {
-        Object.assign(this.app.options, obj.options);
+        Object.assign(app.options, obj.options);
     }
 
     if (obj.camera) {
-        this.app.editor.camera.copy(obj.camera);
+        app.editor.camera.copy(obj.camera);
 
-        this.app.editor.camera.children.forEach(n => {
+        app.editor.camera.children.forEach(n => {
             if (n instanceof THREE.AudioListener) {
-                this.app.editor.camera.remove(n);
+                app.editor.camera.remove(n);
             }
         });
 
         var audioListener = obj.camera.children.filter(n => n instanceof THREE.AudioListener)[0];
         if (audioListener) {
-            this.app.editor.audioListener = audioListener;
-            this.app.editor.camera.add(audioListener);
+            app.editor.audioListener = audioListener;
+            app.editor.camera.add(audioListener);
         }
     }
 
     if (obj.renderer) {
-        var viewport = this.app.viewport;
-        var oldRenderer = this.app.editor.renderer;
+        var viewport = app.viewport;
+        var oldRenderer = app.editor.renderer;
 
         viewport.removeChild(oldRenderer.domElement);
         viewport.appendChild(obj.renderer.domElement);
-        this.app.editor.renderer = obj.renderer;
-        this.app.editor.renderer.setSize(viewport.offsetWidth, viewport.offsetHeight);
-        this.app.call('resize', this);
+        app.editor.renderer = obj.renderer;
+        app.editor.renderer.setSize(viewport.offsetWidth, viewport.offsetHeight);
+        app.call('resize', this);
     }
 
     if (obj.scripts) {
-        Object.assign(this.app.editor.scripts, obj.scripts);
+        Object.assign(app.editor.scripts, obj.scripts);
     }
 
     if (obj.animations) {
-        Object.assign(this.app.editor.animations, obj.animations);
+        Object.assign(app.editor.animations, obj.animations);
     } else {
-        this.app.editor.animations = [{
+        app.editor.animations = [{
             id: null,
             uuid: THREE.Math.generateUUID(),
             layer: 0,
@@ -314,28 +314,28 @@ ScenePanel.prototype.onLoadScene = function (obj) {
     }
 
     if (obj.scene) {
-        this.app.editor.setScene(obj.scene);
+        app.editor.setScene(obj.scene);
     }
 
-    this.app.editor.camera.updateProjectionMatrix();
+    app.editor.camera.updateProjectionMatrix();
 
     if (obj.options.selected) {
-        var selected = this.app.editor.objectByUuid(obj.options.selected);
+        var selected = app.editor.objectByUuid(obj.options.selected);
         if (selected) {
-            this.app.editor.select(selected);
+            app.editor.select(selected);
         }
     }
 
     // 可视化
     if (obj.visual) {
-        this.app.editor.visual.fromJSON(obj.visual);
+        app.editor.visual.fromJSON(obj.visual);
     } else {
-        this.app.editor.visual.clear();
+        app.editor.visual.clear();
     }
-    this.app.editor.visual.render(this.app.editor.svg);
+    app.editor.visual.render(app.editor.svg);
 
-    this.app.call('sceneLoaded', this);
-    this.app.call('animationChanged', this);
+    app.call('sceneLoaded', this);
+    app.call('animationChanged', this);
 };
 
 // ------------------------------- 编辑场景 ---------------------------------------
@@ -343,11 +343,11 @@ ScenePanel.prototype.onLoadScene = function (obj) {
 ScenePanel.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new EditWindow({
-            app: this.app,
+            app: app,
             parent: document.body,
             type: 'Scene',
             typeName: L_SCENE,
-            saveUrl: `${this.app.options.server}/api/Scene/Edit`,
+            saveUrl: `${app.options.server}/api/Scene/Edit`,
             callback: this.updateList.bind(this)
         });
         this.editWindow.render();
@@ -359,7 +359,7 @@ ScenePanel.prototype.onEdit = function (data) {
 // ------------------------------ 删除场景 ----------------------------------------
 
 ScenePanel.prototype.onDelete = function (data) {
-    var server = this.app.options.server;
+    var server = app.options.server;
 
     UI.confirm(L_CONFIRM, `${L_DELETE} ${data.Name}?`, (event, btn) => {
         if (btn === 'ok') {

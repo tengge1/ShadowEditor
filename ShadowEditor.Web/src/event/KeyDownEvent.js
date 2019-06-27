@@ -15,15 +15,15 @@ KeyDownEvent.prototype = Object.create(BaseEvent.prototype);
 KeyDownEvent.prototype.constructor = KeyDownEvent;
 
 KeyDownEvent.prototype.start = function () {
-    this.app.on(`keydown.${this.id}`, this.onKeyDown.bind(this));
+    app.on(`keydown.${this.id}`, this.onKeyDown.bind(this));
 };
 
 KeyDownEvent.prototype.stop = function () {
-    this.app.on(`keydown.${this.id}`, null);
+    app.on(`keydown.${this.id}`, null);
 };
 
 KeyDownEvent.prototype.onKeyDown = function (event) {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     switch (event.keyCode) {
         case 8: // 回退键
@@ -53,15 +53,15 @@ KeyDownEvent.prototype.onKeyDown = function (event) {
 
         // TODO： 和第一人称控制器ASDW冲突
         // case 87: // 注册 W 移动模式
-        //     this.app.call('changeMode', this, 'translate');
+        //     app.call('changeMode', this, 'translate');
         //     break;
 
         // case 69: // 注册 E 旋转模式
-        //     this.app.call('changeMode', this, 'rotate');
+        //     app.call('changeMode', this, 'rotate');
         //     break;
 
         // case 82: // 注册 R 缩放模式
-        //     this.app.call('changeMode', this, 'scale');
+        //     app.call('changeMode', this, 'scale');
         //     break;
     }
 };

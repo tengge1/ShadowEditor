@@ -13,28 +13,28 @@ GridHelper.prototype = Object.create(BaseHelper.prototype);
 GridHelper.prototype.constructor = GridHelper;
 
 GridHelper.prototype.start = function () {
-    this.app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
+    app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
     this.update();
 };
 
 GridHelper.prototype.stop = function () {
-    this.app.on(`appStarted.${this.id}`, null);
+    app.on(`appStarted.${this.id}`, null);
 
     if (this.helper) {
-        var scene = this.app.editor.sceneHelpers;
+        var scene = app.editor.sceneHelpers;
         scene.remove(this.helper);
         delete this.helper;
     }
 };
 
 GridHelper.prototype.update = function () {
-    var showGrid = this.app.storage.get('showGrid');
+    var showGrid = app.storage.get('showGrid');
 
     if (!this.helper) {
         this.helper = new THREE.GridHelper(30, 30, 0x444444, 0x888888);
     }
 
-    var scene = this.app.editor.sceneHelpers;
+    var scene = app.editor.sceneHelpers;
 
     if (showGrid && this.helper.parent !== scene) {
         scene.add(this.helper);

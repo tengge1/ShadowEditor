@@ -5,7 +5,7 @@
 function TextureSelectControl(options = {}) {
     UI.Control.call(this, options);
 
-    this.app = options.app;
+    app = options.app;
 
     this.texture = null;
     this.mapping = options.mapping || THREE.UVMapping;
@@ -75,7 +75,7 @@ TextureSelectControl.prototype.setValue = function (texture) {
 };
 
 TextureSelectControl.prototype.onClick = function () {
-    this.app.call(`selectBottomPanel`, this, 'map');
+    app.call(`selectBottomPanel`, this, 'map');
     UI.msg(L_CLICK_MAP_IN_PANEL);
 
     if (this.isSelecting) {
@@ -83,18 +83,18 @@ TextureSelectControl.prototype.onClick = function () {
     }
 
     this.isSelecting = true;
-    this.app.on(`selectMap.${this.id}`, this.onSelect.bind(this));
+    app.on(`selectMap.${this.id}`, this.onSelect.bind(this));
 };
 
 TextureSelectControl.prototype.onSelect = function (data) {
     this.isSelecting = false;
-    this.app.on(`selectMap.${this.id}`, null);
+    app.on(`selectMap.${this.id}`, null);
 
     var urls = data.Url.split(';'); // 立体贴图data.Url多于一张，只取第一个。
 
     if (data.Type === 'video') { // 视频贴图
         var video = document.createElement('video');
-        video.src = `${this.app.options.server}${urls[0]}`;
+        video.src = `${app.options.server}${urls[0]}`;
         video.loop = 'loop';
         video.autoplay = 'autoplay';
         video.onplay = () => {
@@ -109,7 +109,7 @@ TextureSelectControl.prototype.onSelect = function (data) {
         }
     } else { // 其他
         var loader = new THREE.TextureLoader();
-        loader.load(`${this.app.options.server}${urls[0]}`, texture => {
+        loader.load(`${app.options.server}${urls[0]}`, texture => {
             this.texture = texture;
             this.texture.name = data.Name;
             texture.mapping = this.mapping;

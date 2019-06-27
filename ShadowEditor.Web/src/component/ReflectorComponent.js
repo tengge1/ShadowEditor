@@ -115,8 +115,8 @@ ReflectorComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 ReflectorComponent.prototype.onObjectSelected = function () {
@@ -129,7 +129,7 @@ ReflectorComponent.prototype.onObjectChanged = function () {
 
 ReflectorComponent.prototype.updateUI = function () {
     var container = UI.get('reflectorPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected instanceof THREE.Mesh) {
         container.dom.style.display = '';
     } else {
@@ -176,7 +176,7 @@ ReflectorComponent.prototype.onChangeReflect = function () {
     var clipBias = UI.get('clipBias', this.id);
     var recursion = UI.get('recursion', this.id);
 
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     if (reflect.getValue()) {
         color = color.getHexValue();
@@ -218,10 +218,10 @@ ReflectorComponent.prototype.onChangeReflect = function () {
             editor.scene.children[index] = reflector;
             reflector.parent = this.selected.parent;
             this.selected.parent = null;
-            this.app.call(`objectRemoved`, this, this.selected);
-            this.app.call(`objectAdded`, this, reflector);
+            app.call(`objectRemoved`, this, this.selected);
+            app.call(`objectAdded`, this, reflector);
             editor.select(reflector);
-            this.app.call('sceneGraphChanged', this.id);
+            app.call('sceneGraphChanged', this.id);
         }
     } else {
         if (this.selected instanceof THREE.Reflector) {
@@ -246,10 +246,10 @@ ReflectorComponent.prototype.onChangeReflect = function () {
                 editor.scene.children[index] = mesh;
                 mesh.parent = this.selected.parent;
                 this.selected.parent = null;
-                this.app.call(`objectRemoved`, this, this.selected);
-                this.app.call(`objectAdded`, this, mesh);
+                app.call(`objectRemoved`, this, this.selected);
+                app.call(`objectAdded`, this, mesh);
                 editor.select(mesh);
-                this.app.call('sceneGraphChanged', this.id);
+                app.call('sceneGraphChanged', this.id);
             }
         }
     }

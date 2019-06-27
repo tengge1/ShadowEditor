@@ -7,7 +7,7 @@ import UI from '../../../ui/UI';
  */
 function RendererPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 }
 
 RendererPanel.prototype = Object.create(UI.Control.prototype);
@@ -82,7 +82,7 @@ RendererPanel.prototype.update = function () {
     var gammaOutput = UI.get('gammaOutput', this.id);
     var gammaFactor = UI.get('gammaFactor', this.id);
 
-    var renderer = this.app.editor.renderer;
+    var renderer = app.editor.renderer;
 
     if (renderer.shadowMap.enabled) {
         shadowMapType.setValue(renderer.shadowMap.type);
@@ -101,7 +101,7 @@ RendererPanel.prototype.save = function () {
     var gammaOutput = UI.get('gammaOutput', this.id).getValue();
     var gammaFactor = UI.get('gammaFactor', this.id).getValue();
 
-    var renderer = this.app.editor.renderer;
+    var renderer = app.editor.renderer;
 
     if (shadowMapType === -1) {
         renderer.shadowMap.enabled = false;
@@ -115,7 +115,7 @@ RendererPanel.prototype.save = function () {
 
     renderer.dispose();
 
-    Object.assign(this.app.options, {
+    Object.assign(app.options, {
         shadowMapType,
         gammaInput,
         gammaOutput,

@@ -26,8 +26,8 @@ AnimateEvent.prototype.stop = function () {
 AnimateEvent.prototype.onAnimate = function () {
     var deltaTime = this.clock.getDelta();
 
-    this.app.call('animate', this, this.clock, deltaTime);
-    this.app.call('render', this);
+    app.call('animate', this, this.clock, deltaTime);
+    app.call('render', this);
 
     if (this.running) {
         requestAnimationFrame(this.onAnimate.bind(this));

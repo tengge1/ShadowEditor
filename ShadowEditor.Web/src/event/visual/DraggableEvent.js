@@ -13,7 +13,7 @@ DraggableEvent.prototype = Object.create(BaseEvent.prototype);
 DraggableEvent.prototype.constructor = DraggableEvent;
 
 DraggableEvent.prototype.start = function () {
-    var visual = this.app.editor.visual;
+    var visual = app.editor.visual;
     var component = null;
 
     var drag = d3.drag()
@@ -41,7 +41,7 @@ DraggableEvent.prototype.start = function () {
             component = null;
         });
 
-    d3.select(this.app.editor.svg)
+    d3.select(app.editor.svg)
         .call(drag);
 };
 

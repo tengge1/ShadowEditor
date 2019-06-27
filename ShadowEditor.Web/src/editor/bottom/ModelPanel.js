@@ -11,7 +11,7 @@ import UploadUtils from '../../utils/UploadUtils';
  */
 function ModelPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 
     this.firstShow = true;
 
@@ -22,7 +22,7 @@ ModelPanel.prototype = Object.create(UI.Control.prototype);
 ModelPanel.prototype.constructor = ModelPanel;
 
 ModelPanel.prototype.render = function () {
-    this.app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
+    app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
 };
 
 ModelPanel.prototype.onShowPanel = function (tabName) {
@@ -213,20 +213,20 @@ ModelPanel.prototype.onClick = function (event, index, btn, control) {
 // ------------------------------------- 添加 ------------------------------------
 
 ModelPanel.prototype.onAddMesh = function (model) {
-    var loader = new ModelLoader(this.app);
+    var loader = new ModelLoader(app);
 
     var url = model.Url;
 
     if (model.Url.indexOf(';') > -1) { // 包含多个入口文件
-        url = url.split(';').map(n => this.app.options.server + n);
+        url = url.split(';').map(n => app.options.server + n);
     } else {
-        url = this.app.options.server + model.Url;
+        url = app.options.server + model.Url;
     }
 
     loader.load(url, model, {
-        camera: this.app.editor.camera,
-        renderer: this.app.editor.renderer,
-        audioListener: this.app.editor.audioListener
+        camera: app.editor.camera,
+        renderer: app.editor.renderer,
+        audioListener: app.editor.audioListener
     }).then(obj => {
         if (!obj) {
             return;
@@ -242,9 +242,9 @@ ModelPanel.prototype.onAddMesh = function (model) {
 
         if (obj.userData.scripts) {
             obj.userData.scripts.forEach(n => {
-                this.app.editor.scripts[n.uuid] = n;
+                app.editor.scripts[n.uuid] = n;
             });
-            this.app.call('scriptChanged', this);
+            app.call('scriptChanged', this);
         }
     });
 };
@@ -287,11 +287,11 @@ ModelPanel.prototype.onCommitUpload = function () {
 ModelPanel.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new EditWindow({
-            app: this.app,
+            app: app,
             parent: document.body,
             type: 'Mesh',
             typeName: L_MODEL,
-            saveUrl: `${this.app.options.server}/api/Mesh/Edit`,
+            saveUrl: `${app.options.server}/api/Mesh/Edit`,
             callback: this.updateList.bind(this)
         });
         this.editWindow.render();

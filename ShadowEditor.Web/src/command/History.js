@@ -7,7 +7,7 @@ import UI from '../ui/UI';
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  */
 function History(editor) {
-    this.app = editor.app;
+    app = editor.app;
 
     this.editor = editor;
     this.undos = [];
@@ -66,7 +66,7 @@ Object.assign(History.prototype, {
         // clearing all the redo-commands
 
         this.redos = [];
-        this.app.call('historyChanged', this, cmd);
+        app.call('historyChanged', this, cmd);
 
     },
 
@@ -84,7 +84,7 @@ Object.assign(History.prototype, {
         if (cmd !== undefined) {
             cmd.undo();
             this.redos.push(cmd);
-            this.app.call('historyChanged', this, cmd);
+            app.call('historyChanged', this, cmd);
         }
 
         return cmd;
@@ -104,7 +104,7 @@ Object.assign(History.prototype, {
         if (cmd !== undefined) {
             cmd.execute();
             this.undos.push(cmd);
-            this.app.call('historyChanged', this, cmd);
+            app.call('historyChanged', this, cmd);
         }
 
         return cmd;
@@ -156,7 +156,7 @@ Object.assign(History.prototype, {
         }
 
         // Select the last executed undo-command
-        this.app.call('historyChanged', this, this.undos[this.undos.length - 1]);
+        app.call('historyChanged', this, this.undos[this.undos.length - 1]);
     },
 
     clear: function () {
@@ -164,7 +164,7 @@ Object.assign(History.prototype, {
         this.redos = [];
         this.idCounter = 0;
 
-        this.app.call('historyChanged', this);
+        app.call('historyChanged', this);
     },
 
     goToState: function (id) {

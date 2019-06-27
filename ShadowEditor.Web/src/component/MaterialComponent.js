@@ -301,7 +301,7 @@ MaterialComponent.prototype.render = function () {
                 onChange: this.updateMaterial.bind(this)
             },
             new TextureSelectControl({
-                app: this.app,
+                app: app,
                 id: 'map',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
@@ -327,7 +327,7 @@ MaterialComponent.prototype.render = function () {
                 value: false,
                 onChange: this.updateMaterial.bind(this)
             }, new TextureSelectControl({
-                app: this.app,
+                app: app,
                 id: 'alphaMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
@@ -346,7 +346,7 @@ MaterialComponent.prototype.render = function () {
                 value: false,
                 onChange: this.updateMaterial.bind(this)
             }, new TextureSelectControl({
-                app: this.app,
+                app: app,
                 id: 'bumpMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
@@ -374,7 +374,7 @@ MaterialComponent.prototype.render = function () {
                 value: false,
                 onChange: this.updateMaterial.bind(this)
             }, new TextureSelectControl({
-                app: this.app,
+                app: app,
                 id: 'normalMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
@@ -393,7 +393,7 @@ MaterialComponent.prototype.render = function () {
                 value: false,
                 onChange: this.updateMaterial.bind(this)
             }, new TextureSelectControl({
-                app: this.app,
+                app: app,
                 id: 'displacementMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
@@ -421,7 +421,7 @@ MaterialComponent.prototype.render = function () {
                 value: false,
                 onChange: this.updateMaterial.bind(this)
             }, new TextureSelectControl({
-                app: this.app,
+                app: app,
                 id: 'roughnessMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
@@ -440,7 +440,7 @@ MaterialComponent.prototype.render = function () {
                 value: false,
                 onChange: this.updateMaterial.bind(this)
             }, new TextureSelectControl({
-                app: this.app,
+                app: app,
                 id: 'metalnessMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
@@ -459,7 +459,7 @@ MaterialComponent.prototype.render = function () {
                 value: false,
                 onChange: this.updateMaterial.bind(this)
             }, new TextureSelectControl({
-                app: this.app,
+                app: app,
                 id: 'specularMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
@@ -478,7 +478,7 @@ MaterialComponent.prototype.render = function () {
                 value: false,
                 onChange: this.updateMaterial.bind(this)
             }, new TextureSelectControl({
-                app: this.app,
+                app: app,
                 id: 'envMap',
                 scope: this.id,
                 mapping: THREE.SphericalReflectionMapping,
@@ -507,7 +507,7 @@ MaterialComponent.prototype.render = function () {
                 value: false,
                 onChange: this.updateMaterial.bind(this)
             }, new TextureSelectControl({
-                app: this.app,
+                app: app,
                 id: 'lightMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
@@ -526,7 +526,7 @@ MaterialComponent.prototype.render = function () {
                 value: false,
                 onChange: this.updateMaterial.bind(this)
             }, new TextureSelectControl({
-                app: this.app,
+                app: app,
                 id: 'aoMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
@@ -555,7 +555,7 @@ MaterialComponent.prototype.render = function () {
                 value: false,
                 onChange: this.updateMaterial.bind(this)
             }, new TextureSelectControl({
-                app: this.app,
+                app: app,
                 id: 'emissiveMap',
                 scope: this.id,
                 onChange: this.updateMaterial.bind(this)
@@ -701,8 +701,8 @@ MaterialComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 MaterialComponent.prototype.onObjectSelected = function () {
@@ -715,7 +715,7 @@ MaterialComponent.prototype.onObjectChanged = function () {
 
 MaterialComponent.prototype.updateUI = function () {
     var container = UI.get('materialPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected &&
         (editor.selected instanceof THREE.Mesh ||
             editor.selected instanceof THREE.Line ||
@@ -1082,7 +1082,7 @@ MaterialComponent.prototype.updateMaterial = function () {
     var wireframe = UI.get('wireframe', this.id);
     var wireframeLinewidth = UI.get('wireframeLinewidth', this.id);
 
-    var editor = this.app.editor;
+    var editor = app.editor;
     var object = this.selected;
     var geometry = object.geometry;
     var material = object.material;
@@ -1412,7 +1412,7 @@ MaterialComponent.prototype.editProgramInfo = function () {
         attributes: material.attributes
     };
 
-    this.app.script.open(material.uuid, this.selected.name + '-ProgramInfo', 'json', JSON.stringify(obj), this.selected.name + `-${L_SHADER_INFO}`, source => {
+    app.script.open(material.uuid, this.selected.name + '-ProgramInfo', 'json', JSON.stringify(obj), this.selected.name + `-${L_SHADER_INFO}`, source => {
         try {
             obj = JSON.parse(source);
             material.defines = obj.defines;
@@ -1420,7 +1420,7 @@ MaterialComponent.prototype.editProgramInfo = function () {
             material.attributes = obj.attributes;
             material.needsUpdate = true;
         } catch (e) {
-            this.app.error(this.selected.name + `-${L_SHADER_CANNOT_PARSE}`);
+            app.error(this.selected.name + `-${L_SHADER_CANNOT_PARSE}`);
         }
     });
 };
@@ -1428,7 +1428,7 @@ MaterialComponent.prototype.editProgramInfo = function () {
 MaterialComponent.prototype.editVertexShader = function () {
     var material = this.selected.material;
 
-    this.app.script.open(material.uuid, this.selected.name + '-VertexShader', 'vertexShader', material.vertexShader, this.selected.name + `-${L_VERTEX_SHADER}`, source => {
+    app.script.open(material.uuid, this.selected.name + '-VertexShader', 'vertexShader', material.vertexShader, this.selected.name + `-${L_VERTEX_SHADER}`, source => {
         material.vertexShader = source;
         material.needsUpdate = true;
     });
@@ -1437,7 +1437,7 @@ MaterialComponent.prototype.editVertexShader = function () {
 MaterialComponent.prototype.editFragmentShader = function () {
     var material = this.selected.material;
 
-    this.app.script.open(material.uuid, this.selected.name + '-FragmentShader', 'fragmentShader', material.fragmentShader, this.selected.name + `-${L_FRAGMENT_SHADER}`, source => {
+    app.script.open(material.uuid, this.selected.name + '-FragmentShader', 'fragmentShader', material.fragmentShader, this.selected.name + `-${L_FRAGMENT_SHADER}`, source => {
         material.fragmentShader = source;
         material.needsUpdate = true;
     });
@@ -1446,7 +1446,7 @@ MaterialComponent.prototype.editFragmentShader = function () {
 MaterialComponent.prototype.onSetMap = function () {
     if (this.mapSettingWindow === undefined) {
         this.mapSettingWindow = new TextureSettingWindow({
-            app: this.app
+            app: app
         });
         this.mapSettingWindow.render();
     }
@@ -1478,7 +1478,7 @@ MaterialComponent.prototype.commitSave = function (name) {
     var file = Converter.dataURLtoFile(dataURL, name);
 
     // 上传图片
-    Ajax.post(`${this.app.options.server}/api/Upload/Upload`, {
+    Ajax.post(`${app.options.server}/api/Upload/Upload`, {
         file: file
     }, result => {
         var obj = JSON.parse(result);
@@ -1489,7 +1489,7 @@ MaterialComponent.prototype.commitSave = function (name) {
         }, result => {
             var obj = JSON.parse(result);
             if (obj.Code === 200) {
-                this.app.call(`showBottomPanel`, this, 'material');
+                app.call(`showBottomPanel`, this, 'material');
             }
             UI.msg(obj.Msg);
         });
@@ -1497,13 +1497,13 @@ MaterialComponent.prototype.commitSave = function (name) {
 };
 
 MaterialComponent.prototype.onLoad = function () {
-    this.app.call(`selectBottomPanel`, this, 'material');
+    app.call(`selectBottomPanel`, this, 'material');
     UI.msg(L_CLICK_MATERIAL_ON_PANEL);
-    this.app.on(`selectMaterial.${this.id}`, this.onWaitingForMaterial.bind(this));
+    app.on(`selectMaterial.${this.id}`, this.onWaitingForMaterial.bind(this));
 };
 
 MaterialComponent.prototype.onWaitingForMaterial = function (material) {
-    this.app.on(`selectMaterial.${this.id}`, null);
+    app.on(`selectMaterial.${this.id}`, null);
 
     if (this.selected.material) {
         this.selected.material.dispose();
@@ -1511,7 +1511,7 @@ MaterialComponent.prototype.onWaitingForMaterial = function (material) {
 
     this.selected.material = material;
 
-    this.app.call('objectChanged', this, this.selected);
+    app.call('objectChanged', this, this.selected);
 };
 
 export default MaterialComponent;

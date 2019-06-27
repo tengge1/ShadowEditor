@@ -105,8 +105,8 @@ TorusKnotGeometryComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 TorusKnotGeometryComponent.prototype.onObjectSelected = function () {
@@ -119,7 +119,7 @@ TorusKnotGeometryComponent.prototype.onObjectChanged = function () {
 
 TorusKnotGeometryComponent.prototype.updateUI = function () {
     var container = UI.get('geometryPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected instanceof THREE.Mesh && editor.selected.geometry instanceof THREE.TorusKnotBufferGeometry) {
         container.dom.style.display = '';
     } else {
@@ -152,7 +152,7 @@ TorusKnotGeometryComponent.prototype.onChangeGeometry = function () {
     var p = UI.get('p', this.id);
     var q = UI.get('q', this.id);
 
-    this.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.TorusKnotBufferGeometry(
+    app.editor.execute(new SetGeometryCommand(this.selected, new THREE.TorusKnotBufferGeometry(
         radius.getValue(),
         tube.getValue(),
         tubularSegments.getValue(),

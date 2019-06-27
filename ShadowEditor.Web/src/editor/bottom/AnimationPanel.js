@@ -9,7 +9,7 @@ import UploadUtils from '../../utils/UploadUtils';
  */
 function AnimationPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 
     this.firstShow = true;
 
@@ -20,7 +20,7 @@ AnimationPanel.prototype = Object.create(UI.Control.prototype);
 AnimationPanel.prototype.constructor = AnimationPanel;
 
 AnimationPanel.prototype.render = function () {
-    this.app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
+    app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
 };
 
 AnimationPanel.prototype.onShowPanel = function (tabName) {
@@ -211,7 +211,7 @@ AnimationPanel.prototype.onClick = function (event, index, btn, control) {
 // ------------------------------------- 添加 ------------------------------------
 
 AnimationPanel.prototype.onAddMap = function (data) {
-    this.app.call(`selectAnimation`, this, data);
+    app.call(`selectAnimation`, this, data);
 };
 
 // ----------------------------------- 上传 ----------------------------------------
@@ -252,11 +252,11 @@ AnimationPanel.prototype.onCommitUpload = function () {
 AnimationPanel.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new EditWindow({
-            app: this.app,
+            app: app,
             parent: document.body,
             type: 'Animation',
             typeName: L_ANIMATION,
-            saveUrl: `${this.app.options.server}/api/Animation/Edit`,
+            saveUrl: `${app.options.server}/api/Animation/Edit`,
             callback: this.updateList.bind(this)
         });
         this.editWindow.render();

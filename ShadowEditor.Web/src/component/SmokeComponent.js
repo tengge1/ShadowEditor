@@ -89,8 +89,8 @@ SmokeComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 SmokeComponent.prototype.onObjectSelected = function () {
@@ -103,7 +103,7 @@ SmokeComponent.prototype.onObjectChanged = function () {
 
 SmokeComponent.prototype.updateUI = function () {
     var container = UI.get('smokePanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected.userData.type === 'Smoke') {
         container.dom.style.display = '';
     } else {
@@ -156,7 +156,7 @@ SmokeComponent.prototype.startPreview = function () {
     this.isPlaying = true;
     btnPreview.setText(L_CANCEL);
 
-    this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
+    app.on(`animate.${this.id}`, this.onAnimate.bind(this));
 };
 
 SmokeComponent.prototype.stopPreview = function () {
@@ -165,7 +165,7 @@ SmokeComponent.prototype.stopPreview = function () {
     this.isPlaying = false;
     btnPreview.setText(L_PREVIEW);
 
-    this.app.on(`animate.${this.id}`, null);
+    app.on(`animate.${this.id}`, null);
 };
 
 SmokeComponent.prototype.onAnimate = function (clock, deltaTime) {

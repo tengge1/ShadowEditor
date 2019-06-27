@@ -26,7 +26,7 @@ PlayerAudio.prototype.create = function (scene, camera, renderer) {
 
     var promises = this.audios.map(n => {
         return new Promise(resolve => {
-            loader.load(this.app.options.server + n.userData.Url, buffer => {
+            loader.load(app.options.server + n.userData.Url, buffer => {
                 n.setBuffer(buffer);
 
                 if (n.userData.autoplay) {

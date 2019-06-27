@@ -106,8 +106,8 @@ PerlinTerrainComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 PerlinTerrainComponent.prototype.onObjectSelected = function () {
@@ -120,7 +120,7 @@ PerlinTerrainComponent.prototype.onObjectChanged = function () {
 
 PerlinTerrainComponent.prototype.updateUI = function () {
     var container = UI.get('perlinPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected instanceof PerlinTerrain) {
         container.dom.style.display = '';
     } else {
@@ -158,17 +158,17 @@ PerlinTerrainComponent.prototype.onChange = function () {
         quality.getValue()
     );
 
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var index = editor.scene.children.indexOf(this.selected);
     if (index > -1) {
         editor.scene.children[index] = terrain;
         terrain.parent = this.selected.parent;
         this.selected.parent = null;
-        this.app.call(`objectRemoved`, this, this.selected);
-        this.app.call(`objectAdded`, this, terrain);
+        app.call(`objectRemoved`, this, this.selected);
+        app.call(`objectAdded`, this, terrain);
         editor.select(terrain);
-        this.app.call('sceneGraphChanged', this.id);
+        app.call('sceneGraphChanged', this.id);
     }
 };
 

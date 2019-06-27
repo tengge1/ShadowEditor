@@ -8,13 +8,13 @@ import Globe from './Globe';
  * @param {Boolean} options.useCameraPosition 是否使用相机位置
  */
 function Scene(app, options = {}) {
-    this.app = app;
+    app = app;
     this.options = options;
     this.options.useCameraPosition = this.options.useCameraPosition || false;
 }
 
 Scene.prototype.start = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     this.oldBackground = editor.scene.background;
     editor.scene.background = null;
@@ -24,10 +24,10 @@ Scene.prototype.start = function () {
     editor.controls.dispose();
     editor.transformControls.enabled = false;
 
-    this.app.editor.showViewHelper = false;
+    app.editor.showViewHelper = false;
 
     this.globe = new Globe(editor.camera, editor.renderer, {
-        server: this.app.options.server,
+        server: app.options.server,
         useCameraPosition: this.options.useCameraPosition,
     });
     editor.scene.add(this.globe);
@@ -40,11 +40,11 @@ Scene.prototype.update = function () {
 };
 
 Scene.prototype.stop = function () {
-    this.app.on(`afterRender.${this.id}`, null);
+    app.on(`afterRender.${this.id}`, null);
     this.globe.dispose();
     delete this.globe;
 
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     editor.scene.onBeforeRender = this.oldSceneBeforeRender;
     delete this.oldSceneBeforeRender;
@@ -56,7 +56,7 @@ Scene.prototype.stop = function () {
     editor.controls = new THREE.EditorControls(editor.camera, editor.renderer.domElement);
     editor.transformControls.enabled = true;
 
-    this.app.editor.showViewHelper = true;
+    app.editor.showViewHelper = true;
 };
 
 export default Scene;

@@ -56,8 +56,8 @@ IcosahedronGeometryComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 IcosahedronGeometryComponent.prototype.onObjectSelected = function () {
@@ -70,7 +70,7 @@ IcosahedronGeometryComponent.prototype.onObjectChanged = function () {
 
 IcosahedronGeometryComponent.prototype.updateUI = function () {
     var container = UI.get('geometryPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected instanceof THREE.Mesh && editor.selected.geometry instanceof THREE.IcosahedronBufferGeometry) {
         container.dom.style.display = '';
     } else {
@@ -91,7 +91,7 @@ IcosahedronGeometryComponent.prototype.onChangeGeometry = function () {
     var radius = UI.get('radius', this.id);
     var detail = UI.get('detail', this.id);
 
-    this.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.IcosahedronBufferGeometry(
+    app.editor.execute(new SetGeometryCommand(this.selected, new THREE.IcosahedronBufferGeometry(
         radius.getValue(),
         detail.getValue()
     )));

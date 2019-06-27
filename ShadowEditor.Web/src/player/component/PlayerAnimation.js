@@ -15,9 +15,9 @@ function PlayerAnimation(app) {
     this.animations = null;
 
     this.animators = [
-        new TweenAnimator(this.app),
-        new MMDAnimator(this.app),
-        new ParticleAnimator(this.app)
+        new TweenAnimator(app),
+        new MMDAnimator(app),
+        new ParticleAnimator(app)
     ];
 }
 

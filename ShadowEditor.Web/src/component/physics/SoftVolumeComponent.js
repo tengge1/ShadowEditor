@@ -70,8 +70,8 @@ SoftVolumeComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 SoftVolumeComponent.prototype.onObjectSelected = function () {
@@ -84,7 +84,7 @@ SoftVolumeComponent.prototype.onObjectChanged = function () {
 
 SoftVolumeComponent.prototype.updateUI = function () {
     var container = UI.get('panel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     if (editor.selected &&
         editor.selected.userData.physics &&
@@ -120,7 +120,7 @@ SoftVolumeComponent.prototype.onChange = function () {
     physics.mass = mass.getValue();
     physics.pressure = pressure.getValue();
 
-    this.app.call(`objectChanged`, this, this.selected);
+    app.call(`objectChanged`, this, this.selected);
 };
 
 export default SoftVolumeComponent;

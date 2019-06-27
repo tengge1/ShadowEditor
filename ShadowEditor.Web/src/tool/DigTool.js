@@ -13,17 +13,17 @@ DigTool.prototype = Object.create(BaseTool.prototype);
 DigTool.prototype.constructor = DigTool;
 
 DigTool.prototype.start = function () {
-    this.app.on(`raycast.${this.id}`, this.onRaycast.bind(this));
-    this.app.on(`dblclick.${this.id}`, this.onDblClick.bind(this));
-    this.app.on(`beforeRender.${this.id}`, this.onBeforeRender.bind(this));
-    this.app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
+    app.on(`raycast.${this.id}`, this.onRaycast.bind(this));
+    app.on(`dblclick.${this.id}`, this.onDblClick.bind(this));
+    app.on(`beforeRender.${this.id}`, this.onBeforeRender.bind(this));
+    app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
 };
 
 DigTool.prototype.stop = function () {
-    this.app.on(`raycast.${this.id}`, null);
-    this.app.on(`dblclick.${this.id}`, null);
-    this.app.on(`beforeRender.${this.id}`, null);
-    this.app.on(`afterRender.${this.id}`, null);
+    app.on(`raycast.${this.id}`, null);
+    app.on(`dblclick.${this.id}`, null);
+    app.on(`beforeRender.${this.id}`, null);
+    app.on(`afterRender.${this.id}`, null);
 };
 
 DigTool.prototype.onRaycast = function (obj) {
@@ -74,7 +74,7 @@ DigTool.prototype.onBeforeRender = function () {
         return;
     }
 
-    var renderer = this.app.editor.renderer;
+    var renderer = app.editor.renderer;
     var context = renderer.context;
     var state = renderer.state;
 
@@ -86,7 +86,7 @@ DigTool.prototype.onBeforeRender = function () {
     state.buffers.stencil.setFunc(context.ALWAYS, 1, 0xff);
     state.buffers.stencil.setOp(context.KEEP, context.KEEP, context.REPLACE);
 
-    renderer.render(this.scene, this.app.editor.camera);
+    renderer.render(this.scene, app.editor.camera);
 
     state.buffers.color.setMask(0xff);
     state.buffers.depth.setMask(0xff);
@@ -99,7 +99,7 @@ DigTool.prototype.onAfterRender = function () {
         return;
     }
 
-    var renderer = this.app.editor.renderer;
+    var renderer = app.editor.renderer;
     var context = renderer.context;
     var state = renderer.state;
 

@@ -9,11 +9,11 @@ import Ajax from '../../utils/Ajax';
  */
 function EditWindow(options = {}) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 
     this.type = options.type || 'Scene'; // Scene, Mesh, Map, Texture, Material, Audio, Particle
     this.typeName = options.typeName || L_SCENE;
-    this.saveUrl = options.saveUrl || `${this.app.options.server}/api/Scene/Edit`;
+    this.saveUrl = options.saveUrl || `${app.options.server}/api/Scene/Edit`;
     this.callback = options.callback || null;
 }
 
@@ -70,7 +70,7 @@ EditWindow.prototype.render = function () {
                 xtype: 'imageuploader',
                 id: 'image',
                 scope: this.id,
-                server: this.app.options.server
+                server: app.options.server
             }]
         }, {
             xtype: 'row',
@@ -166,7 +166,7 @@ EditWindow.prototype.save = function () {
 EditWindow.prototype.onEditCategory = function () {
     if (this.categoryListWin === undefined) {
         this.categoryListWin = new CategoryListWindow({
-            app: this.app,
+            app: app,
             type: this.type,
             title: `${L_EDIT} ${this.typeName} ${L_CATEGORY}`,
         });

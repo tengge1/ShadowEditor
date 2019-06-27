@@ -12,7 +12,7 @@ const PAUSE = 2;
  */
 function TimePanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
+    app = options.app;
 
     this.status = STOP;
     this.sliderLeft = 0;
@@ -142,7 +142,7 @@ TimePanel.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+    app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
 };
 
 TimePanel.prototype.onAppStarted = function () {
@@ -155,13 +155,13 @@ TimePanel.prototype.onAppStarted = function () {
     layers.dom.addEventListener(`click`, this.onClick.bind(this));
     layers.dom.addEventListener(`dblclick`, this.onDblClick.bind(this));
 
-    this.app.on(`animationChanged.${this.id}`, this.updateUI.bind(this));
-    this.app.on(`resetAnimation.${this.id}`, this.onResetAnimation.bind(this));
-    this.app.on(`startAnimation.${this.id}`, this.onPlay.bind(this));
+    app.on(`animationChanged.${this.id}`, this.updateUI.bind(this));
+    app.on(`resetAnimation.${this.id}`, this.onResetAnimation.bind(this));
+    app.on(`startAnimation.${this.id}`, this.onPlay.bind(this));
 };
 
 TimePanel.prototype.updateUI = function () {
-    var animations = this.app.editor.animations;
+    var animations = app.editor.animations;
 
     var timeline = UI.get('timeline', this.id);
     var layerInfo = UI.get('layerInfo', this.id);
@@ -233,7 +233,7 @@ TimePanel.prototype.updateSlider = function () {
         speed.dom.innerHTML = `X 1/${4 / this.speed}`;
     }
 
-    this.app.call('animationTime', this, animationTime);
+    app.call('animationTime', this, animationTime);
 };
 
 TimePanel.prototype.onAnimate = function () {
@@ -248,7 +248,7 @@ TimePanel.prototype.onAnimate = function () {
 };
 
 TimePanel.prototype.onAddLayer = function () {
-    var animations = this.app.editor.animations;
+    var animations = app.editor.animations;
 
     var maxLayer = Math.max.apply(Math, animations.map(n => n.layer));
 
@@ -259,7 +259,7 @@ TimePanel.prototype.onAddLayer = function () {
         layerName: `${L_ANIM_LAYER}${maxLayer + 2}`,
         animations: []
     };
-    this.app.editor.animations.push(animation);
+    app.editor.animations.push(animation);
     this.updateUI();
 };
 
@@ -276,7 +276,7 @@ TimePanel.prototype.onRemoveLayer = function () {
         return;
     }
 
-    var animations = this.app.editor.animations;
+    var animations = app.editor.animations;
 
     UI.confirm(L_CONFIRM, L_DELETE_LAYER_WILL_DELETE_ANIM, (event, btn) => {
         if (btn === 'ok') {
@@ -302,7 +302,7 @@ TimePanel.prototype.onPlay = function () {
     UI.get('btnPlay', this.id).dom.style.display = 'none';
     UI.get('btnPause', this.id).dom.style.display = '';
 
-    this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
+    app.on(`animate.${this.id}`, this.onAnimate.bind(this));
 };
 
 TimePanel.prototype.onPause = function () {
@@ -314,7 +314,7 @@ TimePanel.prototype.onPause = function () {
     UI.get('btnPlay', this.id).dom.style.display = '';
     UI.get('btnPause', this.id).dom.style.display = 'none';
 
-    this.app.on(`animate.${this.id}`, null);
+    app.on(`animate.${this.id}`, null);
     this.updateSlider();
 };
 
@@ -341,7 +341,7 @@ TimePanel.prototype.onStop = function () {
     UI.get('btnPlay', this.id).dom.style.display = '';
     UI.get('btnPause', this.id).dom.style.display = 'none';
 
-    this.app.on(`animate.${this.id}`, null);
+    app.on(`animate.${this.id}`, null);
     this.sliderLeft = 0;
     this.updateSlider();
 };
@@ -355,8 +355,8 @@ TimePanel.prototype.onClick = function (event) {
     if (!event.target.data || !event.target.data.type) {
         return;
     }
-    this.app.call('tabSelected', this, 'animation');
-    this.app.call('animationSelected', this, event.target.data);
+    app.call('tabSelected', this, 'animation');
+    app.call('animationSelected', this, event.target.data);
 };
 
 TimePanel.prototype.onDblClick = function (event) {
@@ -401,7 +401,7 @@ TimePanel.prototype.onDblClick = function (event) {
         };
 
         event.target.data.animations.push(animation);
-        this.app.call('animationChanged', this);
+        app.call('animationChanged', this);
     }
 };
 
@@ -433,7 +433,7 @@ TimePanel.prototype.onDropLayer = function (event) {
     var uuid = event.dataTransfer.getData('uuid');
     var offsetX = event.dataTransfer.getData('offsetX');
 
-    var groups = this.app.editor.animations;
+    var groups = app.editor.animations;
 
     var group_index = -1;
     var group = null;

@@ -129,9 +129,9 @@ RigidBodyComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
-    this.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
 };
 
 RigidBodyComponent.prototype.onObjectSelected = function () {
@@ -146,13 +146,13 @@ RigidBodyComponent.prototype.onObjectChanged = function () {
 
 RigidBodyComponent.prototype.onObjectRemoved = function (object) {
     if (this.helper && this.helper.object === object) {
-        this.app.editor.removePhysicsHelper(this.helper);
+        app.editor.removePhysicsHelper(this.helper);
     }
 };
 
 RigidBodyComponent.prototype.updateUI = function () {
     var container = UI.get('panel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected &&
         editor.selected.userData.physics &&
         editor.selected.userData.physics.enabled &&
@@ -161,7 +161,7 @@ RigidBodyComponent.prototype.updateUI = function () {
     } else {
         container.dom.style.display = 'none';
         if (this.helper !== undefined) {
-            this.app.editor.removePhysicsHelper(this.helper);
+            app.editor.removePhysicsHelper(this.helper);
         }
         return;
     }
@@ -206,7 +206,7 @@ RigidBodyComponent.prototype.onChange = function () {
     physics.inertia.y = inertiaY.getValue();
     physics.inertia.z = inertiaZ.getValue();
 
-    this.app.call(`objectChanged`, this, this.selected);
+    app.call(`objectChanged`, this, this.selected);
 };
 
 // -------------------------- 物理形状帮助器 -------------------------------------
@@ -217,7 +217,7 @@ RigidBodyComponent.prototype.showPhysicsShapeHelper = function () {
     }
 
     if (this.helper !== undefined) {
-        this.app.editor.removePhysicsHelper(this.helper);
+        app.editor.removePhysicsHelper(this.helper);
     }
 
     var physics = this.selected.userData.physics;
@@ -233,7 +233,7 @@ RigidBodyComponent.prototype.showPhysicsShapeHelper = function () {
     }
 
     this.helper = new helper(this.selected);
-    this.app.editor.addPhysicsHelper(this.helper);
+    app.editor.addPhysicsHelper(this.helper);
 };
 
 export default RigidBodyComponent;

@@ -101,8 +101,8 @@ MMDComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 MMDComponent.prototype.onObjectSelected = function () {
@@ -115,7 +115,7 @@ MMDComponent.prototype.onObjectChanged = function () {
 
 MMDComponent.prototype.updateUI = function () {
     var container = UI.get('mmdPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && (editor.selected.userData.Type === 'pmd' || editor.selected.userData.Type === 'pmx')) {
         container.dom.style.display = '';
     } else {
@@ -151,9 +151,9 @@ MMDComponent.prototype.updateUI = function () {
 // ----------------------------- 模型动画 ------------------------------------------
 
 MMDComponent.prototype.selectAnimation = function () {
-    this.app.call(`selectBottomPanel`, this, 'animation');
+    app.call(`selectBottomPanel`, this, 'animation');
     UI.msg(L_CLICK_ANIMATION_PANEL);
-    this.app.on(`selectAnimation.${this.id}`, this.onSelectAnimation.bind(this));
+    app.on(`selectAnimation.${this.id}`, this.onSelectAnimation.bind(this));
 };
 
 MMDComponent.prototype.onSelectAnimation = function (data) {
@@ -161,7 +161,7 @@ MMDComponent.prototype.onSelectAnimation = function (data) {
         UI.msg(L_SELECT_MMD_ANIMATION_ONLY);
         return;
     }
-    this.app.on(`selectAnimation.${this.id}`, null);
+    app.on(`selectAnimation.${this.id}`, null);
 
     this.selected.userData.Animation = {};
     Object.assign(this.selected.userData.Animation, data);
@@ -171,9 +171,9 @@ MMDComponent.prototype.onSelectAnimation = function (data) {
 // ---------------------------- 相机动画 -------------------------------------------
 
 MMDComponent.prototype.selectCameraAnimation = function () {
-    this.app.call(`selectBottomPanel`, this, 'animation');
+    app.call(`selectBottomPanel`, this, 'animation');
     UI.msg(L_CLICK_CAMERA_ANIMATION);
-    this.app.on(`selectAnimation.${this.id}`, this.onSelectCameraAnimation.bind(this));
+    app.on(`selectAnimation.${this.id}`, this.onSelectCameraAnimation.bind(this));
 };
 
 MMDComponent.prototype.onSelectCameraAnimation = function (data) {
@@ -181,7 +181,7 @@ MMDComponent.prototype.onSelectCameraAnimation = function (data) {
         UI.msg(L_SELECT_CAMERA_ANIMATION_ONLY);
         return;
     }
-    this.app.on(`selectAnimation.${this.id}`, null);
+    app.on(`selectAnimation.${this.id}`, null);
 
     this.selected.userData.CameraAnimation = {};
     Object.assign(this.selected.userData.CameraAnimation, data);
@@ -191,13 +191,13 @@ MMDComponent.prototype.onSelectCameraAnimation = function (data) {
 // ------------------------------ MMD音乐 --------------------------------------------
 
 MMDComponent.prototype.selectAudio = function () {
-    this.app.call(`selectBottomPanel`, this, 'audio');
+    app.call(`selectBottomPanel`, this, 'audio');
     UI.msg(L_SELECT_MMD_AUDIO);
-    this.app.on(`selectAudio.${this.id}`, this.onSelectAudio.bind(this));
+    app.on(`selectAudio.${this.id}`, this.onSelectAudio.bind(this));
 };
 
 MMDComponent.prototype.onSelectAudio = function (data) {
-    this.app.on(`selectAudio.${this.id}`, null);
+    app.on(`selectAudio.${this.id}`, null);
 
     this.selected.userData.Audio = {};
     Object.assign(this.selected.userData.Audio, data);
