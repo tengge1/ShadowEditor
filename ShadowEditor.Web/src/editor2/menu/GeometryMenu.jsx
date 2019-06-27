@@ -40,6 +40,121 @@ class GeometryMenu extends React.Component {
             <MenuItem title={L_ELLIPSE_CURVE}></MenuItem>
         </MenuItem>;
     }
+
+    // ------------------------- 组 ---------------------------------
+
+    handleAddGroup() {
+        app.editor.execute(new AddObjectCommand(new Group()));
+    }
+
+    // ------------------------- 平板 -------------------------------
+
+    handleAddPlane() {
+        app.editor.execute(new AddObjectCommand(new Plane()));
+    }
+
+    // ------------------------ 正方体 -----------------------------
+
+    handleAddBox() {
+        app.editor.execute(new AddObjectCommand(new Box()));
+    }
+
+    // ------------------------ 圆 ----------------------------------
+
+    handleAddCircle() {
+        app.editor.execute(new AddObjectCommand(new Circle()));
+    }
+
+    // ------------------------圆柱体 -------------------------------
+
+    handleAddCylinder() {
+        app.editor.execute(new AddObjectCommand(new Cylinder()));
+    }
+
+    // ------------------------ 球体 -------------------------------
+
+    handleAddSphere() {
+        app.editor.execute(new AddObjectCommand(new Sphere()));
+    }
+
+    // ----------------------- 二十面体 -----------------------------
+
+    handleAddIcosahedron() {
+        app.editor.execute(new AddObjectCommand(new Icosahedron()));
+    }
+
+    // ----------------------- 轮胎 ---------------------------------
+
+    handleAddTorus() {
+        app.editor.execute(new AddObjectCommand(new Torus()));
+    }
+
+    // ----------------------- 纽结 ---------------------------------
+
+    handleAddTorusKnot() {
+        app.editor.execute(new AddObjectCommand(new TorusKnot()));
+    }
+
+    // ---------------------- 茶壶 ----------------------------------
+
+    handleAddTeaport() {
+        app.editor.execute(new AddObjectCommand(new Teapot()));
+    }
+
+    // ---------------------- 酒杯 ----------------------------------
+
+    handleAddLathe() {
+        app.editor.execute(new AddObjectCommand(new Lathe()));
+    }
+
+    // ---------------------- 精灵 -----------------------------------
+
+    handleAddSprite() {
+        app.editor.execute(new AddObjectCommand(new Sprite()));
+    }
+
+    // ---------------------- 文本 ----------------------------------
+
+    handleAddText() {
+        UI.prompt(L_PLEASE_INPUT, null, L_SOME_WORDS, (event, value) => {
+            app.editor.execute(new AddObjectCommand(new Text(value)));
+        });
+    }
+
+    // ---------------------- 线段 ----------------------------------
+
+    handleAddLineCurve() {
+        var line = new LineCurve();
+        app.editor.execute(new AddObjectCommand(line));
+    }
+
+    // ---------------------- CatmullRom曲线 ----------------------------------
+
+    handleAddCatmullRomCurve() {
+        var line = new CatmullRomCurve();
+        app.editor.execute(new AddObjectCommand(line));
+    }
+
+    // ----------------------- 二次贝塞尔曲线 ---------------------------------
+
+    handleAddQuadraticBezierCurve() {
+        var line = new QuadraticBezierCurve();
+        app.editor.execute(new AddObjectCommand(line));
+    }
+
+    // ----------------------- 三次贝塞尔曲线 ---------------------------------
+
+    handleAddCubicBezierCurve() {
+        var line = new CubicBezierCurve();
+        app.editor.execute(new AddObjectCommand(line));
+    }
+
+    // --------------------- 椭圆曲线 ------------------------------------------
+
+    handleAddEllipseCurve() {
+        var line = new EllipseCurve();
+        app.editor.execute(new AddObjectCommand(line));
+    }
 }
 
 export default GeometryMenu;
