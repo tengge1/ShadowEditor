@@ -60,7 +60,7 @@ function Application(container, options) {
     ReactDOM.render(this.ui, this.container);
 
     // 编辑器
-    // this.editor = new Editor(this);
+    this.editor = new Editor(this);
 }
 
 // ------------------------- 程序控制 -------------------------------

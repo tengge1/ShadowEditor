@@ -28,6 +28,10 @@ class EditorUI extends React.Component {
             </BorderLayout>
         </BorderLayout>;
     }
+
+    componentDidMount() {
+
+    }
 }
 
 export default EditorUI;
