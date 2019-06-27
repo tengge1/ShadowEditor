@@ -8,36 +8,48 @@ class GeometryMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick(event) {
-        event.stopPropagation();
-        alert('Hello, world!');
+        this.handleAddGroup = this.handleAddGroup.bind(this);
+        this.handleAddPlane = this.handleAddPlane.bind(this);
+        this.handleAddBox = this.handleAddBox.bind(this);
+        this.handleAddCircle = this.handleAddCircle.bind(this);
+        this.handleAddCylinder = this.handleAddCylinder.bind(this);
+        this.handleAddSphere = this.handleAddSphere.bind(this);
+        this.handleAddIcosahedron = this.handleAddIcosahedron.bind(this);
+        this.handleAddTorus = this.handleAddTorus.bind(this);
+        this.handleAddTorusKnot = this.handleAddTorusKnot.bind(this);
+        this.handleAddTeaport = this.handleAddTeaport.bind(this);
+        this.handleAddLathe = this.handleAddLathe.bind(this);
+        this.handleAddSprite = this.handleAddSprite.bind(this);
+        this.handleAddText = this.handleAddText.bind(this);
+        this.handleAddLineCurve = this.handleAddLineCurve.bind(this);
+        this.handleAddCatmullRomCurve = this.handleAddCatmullRomCurve.bind(this);
+        this.handleAddQuadraticBezierCurve = this.handleAddQuadraticBezierCurve.bind(this);
+        this.handleAddCubicBezierCurve = this.handleAddCubicBezierCurve.bind(this);
+        this.handleAddEllipseCurve = this.handleAddEllipseCurve.bind(this);
     }
 
     render() {
         return <MenuItem title={L_GEOMETRY}>
-            <MenuItem title={L_GROUP}></MenuItem>
+            <MenuItem title={L_GROUP} onClick={this.handleAddGroup}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={L_PLANE}></MenuItem>
-            <MenuItem title={L_BOX}></MenuItem>
-            <MenuItem title={L_CIRCLE}></MenuItem>
-            <MenuItem title={L_CYLINDER}></MenuItem>
-            <MenuItem title={L_SPHERE}></MenuItem>
-            <MenuItem title={L_ICOSAHEDRON}></MenuItem>
-            <MenuItem title={L_TORUS}></MenuItem>
-            <MenuItem title={L_TORUS_KNOT}></MenuItem>
-            <MenuItem title={L_TEAPOT}></MenuItem>
-            <MenuItem title={L_LATHE}></MenuItem>
-            <MenuItem title={L_SPRITE}></MenuItem>
-            <MenuItem title={L_TEXT}></MenuItem>
+            <MenuItem title={L_PLANE} onClick={this.handleAddPlane}></MenuItem>
+            <MenuItem title={L_BOX} onClick={this.handleAddBox}></MenuItem>
+            <MenuItem title={L_CIRCLE} onClick={this.handleAddCircle}></MenuItem>
+            <MenuItem title={L_CYLINDER} onClick={this.handleAddCylinder}></MenuItem>
+            <MenuItem title={L_SPHERE} onClick={this.handleAddSphere}></MenuItem>
+            <MenuItem title={L_ICOSAHEDRON} onClick={this.handleAddIcosahedron}></MenuItem>
+            <MenuItem title={L_TORUS} onClick={this.handleAddTorus}></MenuItem>
+            <MenuItem title={L_TORUS_KNOT} onClick={this.handleAddTorusKnot}></MenuItem>
+            <MenuItem title={L_TEAPOT} onClick={this.handleAddTeaport}></MenuItem>
+            <MenuItem title={L_LATHE} onClick={this.handleAddLathe}></MenuItem>
+            <MenuItem title={L_SPRITE} onClick={this.handleAddSprite}></MenuItem>
+            <MenuItem title={L_TEXT} onClick={this.handleAddText}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={L_LINE_CURVE}></MenuItem>
-            <MenuItem title={L_CATMULL_ROM_CURVE}></MenuItem>
-            <MenuItem title={L_QUADRATIC_BEZIER_CURVE}></MenuItem>
-            <MenuItem title={L_CUBIC_BEZIER_CURVE}></MenuItem>
-            <MenuItem title={L_ELLIPSE_CURVE}></MenuItem>
+            <MenuItem title={L_LINE_CURVE} onClick={this.handleAddLineCurve}></MenuItem>
+            <MenuItem title={L_CATMULL_ROM_CURVE} onClick={this.handleAddCatmullRomCurve}></MenuItem>
+            <MenuItem title={L_QUADRATIC_BEZIER_CURVE} onClick={this.handleAddQuadraticBezierCurve}></MenuItem>
+            <MenuItem title={L_CUBIC_BEZIER_CURVE} onClick={this.handleAddCubicBezierCurve}></MenuItem>
+            <MenuItem title={L_ELLIPSE_CURVE} onClick={this.handleAddEllipseCurve}></MenuItem>
         </MenuItem>;
     }
 
