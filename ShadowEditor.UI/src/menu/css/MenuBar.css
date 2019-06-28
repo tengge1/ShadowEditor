@@ -12,6 +12,7 @@
 
 .MenuBar>.MenuItem {
     position: relative;
+    min-width: auto;
     margin: 0;
     padding: 0 16px;
     display: inline-block;
