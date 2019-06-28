@@ -162,11 +162,7 @@
 .BorderLayout>.middle>.center {
     position: relative;
     flex: 1;
-    display: flex;
-}
-
-.BorderLayout>.middle>.center>* {
-    flex: 1;
+    display: block;
 }
 
 /* east */

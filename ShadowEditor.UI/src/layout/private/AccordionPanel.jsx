@@ -32,18 +32,22 @@ class AccordionPanel extends React.Component {
     }
 
     render() {
-        const { title, className, style, children, show, index, collpased,
+        const { title, className, style, children, show, total, index, collpased,
             maximizable, maximized, onMaximize } = this.props;
 
         const maximizeControl = maximizable && <div className={'control'} onClick={this.handleMaximize}>
             {this.state.maximized ? <i className={'iconfont icon-minimize'}></i> : <i className={'iconfont icon-maximize'}></i>}
         </div>;
 
+        const _style = collpased ? style : Object.assign({}, style, {
+            height: `calc(100% - ${26 * (total - 1)}px`,
+        });
+
         return <div className={classNames('AccordionPanel',
             this.state.maximized && 'maximized',
             collpased && 'collpased',
             !show && 'hidden',
-            className)} style={style}>
+            className)} style={_style}>
             <div className={'header'} onClick={this.handleClick}>
                 <span className="title">{title}</span>
                 <div className="controls">
@@ -63,6 +67,7 @@ AccordionPanel.propTypes = {
     style: PropTypes.object,
     children: PropTypes.node,
     show: PropTypes.bool,
+    total: PropTypes.number,
     index: PropTypes.number,
     collpased: PropTypes.bool,
     maximizable: PropTypes.bool,
@@ -77,6 +82,7 @@ AccordionPanel.defaultProps = {
     style: null,
     children: null,
     show: true,
+    total: 1,
     index: 0,
     collpased: true,
     maximizable: false,

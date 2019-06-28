@@ -6,12 +6,11 @@
     height: 320px;
     background: #fafafa;
     box-sizing: border-box;
-    flex: 1;
 }
 
 .AccordionPanel.collpased {
     height: 26px;
-    flex: 0;
+    overflow: hidden;
 }
 
 .AccordionPanel.maximized {
@@ -55,9 +54,9 @@
 }
 
 .AccordionPanel>.header>.controls>.control {
-    width: 32px;
-    height: 32px;
-    margin: 0 4px;
+    width: 24px;
+    height: 24px;
+    margin: 0 2px;
     display: inline-block;
     box-sizing: border-box;
     cursor: pointer;

@@ -1,5 +1,5 @@
 import './css/Viewport.css';
-import { classNames, PropTypes, Canvas } from '../../third_party';
+import { classNames, PropTypes, Canvas, SVG } from '../../third_party';
 
 /**
  * 视口

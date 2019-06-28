@@ -35,6 +35,7 @@ class AccordionLayout extends React.Component {
                 return <AccordionPanel
                     title={n.props.title}
                     show={n.props.show}
+                    total={content.length}
                     index={i}
                     collpased={i !== this.state.activeIndex}
                     maximizable={n.props.maximizable}
