@@ -9,9 +9,8 @@ import JsonStarter from '../code/JsonStarter';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function ScriptWindow(options) {
+function ScriptWindow(options = {}) {
     UI.Control.call(this, options);
-    options = options || {};
 }
 
 ScriptWindow.prototype = Object.create(UI.Control.prototype);

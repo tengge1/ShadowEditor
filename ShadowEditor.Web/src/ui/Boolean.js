@@ -6,9 +6,8 @@ import UI from './Manager';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function Boolean(options) {
+function Boolean(options = {}) {
     Control.call(this, options);
-    options = options || {};
 
     this.text = options.text || '';
     this.value = options.value || false;

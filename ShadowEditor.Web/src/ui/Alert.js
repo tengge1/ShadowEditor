@@ -6,9 +6,8 @@ import Window from './Window';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 选项
  */
-function Alert(options) {
+function Alert(options = {}) {
     Window.call(this, options);
-    options = options || {};
 
     this.title = options.title || L_MESSAGE;
     this.content = options.content || '';

@@ -2,10 +2,8 @@
  * 天空
  * @param {*} options 选项
  */
-function Sky(options) {
+function Sky(options = {}) {
     THREE.Object3D.call(this);
-
-    options = options || {};
 
     var turbidity = options.turbidity || 10; // 浑浊度
     var rayleigh = options.rayleigh || 2; // 瑞利

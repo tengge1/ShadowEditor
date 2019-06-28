@@ -6,9 +6,8 @@ import UI from './Manager';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function Break(options) {
+function Break(options = {}) {
     Control.call(this, options);
-    options = options || {};
 
     this.cls = options.cls || null;
 };

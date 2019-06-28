@@ -6,9 +6,8 @@ import UI from './Manager';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function Button(options) {
+function Button(options = {}) {
     Control.call(this, options);
-    options = options || {};
 
     this.text = options.text || 'Button';
     this.cls = options.cls || 'Button';
