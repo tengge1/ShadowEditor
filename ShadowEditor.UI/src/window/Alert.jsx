@@ -2,6 +2,11 @@ import './css/Alert.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
+import Window from './Window.jsx';
+import Content from '../common/Content.jsx';
+import Buttons from '../common/Buttons.jsx';
+import Button from '../form/Button.jsx';
+
 /**
  * 提示框
  */
@@ -11,25 +16,20 @@ class Alert extends React.Component {
     }
 
     render() {
-        const { className, style, title, children } = this.props;
+        const { className, style, title, children, hidden, mask, okText } = this.props;
 
-        return <div className="Alert">
-            <div className="wrap">
-                <div className="title">
-                    <span>{title || 'Message'}</span>
-                    <div className="controls">
-                        <i className="iconfont icon-close icon"></i>
-                    </div>
-                </div>
-                <div className="content"><p>{children}</p></div>
-                <div className="buttons">
-                    <div className="button-wrap">
-                        <button className="button">OK</button>
-                    </div>
-                </div>
-            </div>
-            <div className="resize"></div>
-        </div>;
+        return <Window
+            className={className}
+            style={style}
+            title={title}
+            hidden={hidden}
+            mask={mask}
+        >
+            <Content>{children}</Content>
+            <Buttons>
+                <Button>{okText}</Button>
+            </Buttons>
+        </Window>;
     }
 }
 
@@ -38,6 +38,9 @@ Alert.propTypes = {
     style: PropTypes.object,
     title: PropTypes.string,
     children: PropTypes.node,
+    hidden: PropTypes.bool,
+    mask: PropTypes.bool,
+    okText: PropTypes.string,
 };
 
 Alert.defaultProps = {
@@ -45,6 +48,9 @@ Alert.defaultProps = {
     style: null,
     title: 'Message',
     children: null,
+    hidden: false,
+    mask: true,
+    okText: 'OK',
 };
 
 export default Alert;

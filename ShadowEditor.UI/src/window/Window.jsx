@@ -28,6 +28,48 @@ class Window extends React.Component {
         this.handleClose = this.handleClose.bind(this);
     }
 
+    render() {
+        const { className, style, title, children, mask } = this.props;
+
+        let _children = null;
+
+        if (children && Array.isArray(children)) {
+            _children = children;
+        } else if (children) {
+            _children = [children];
+        }
+
+        const content = _children.filter(n => {
+            return n.type === Content;
+        })[0];
+
+        const buttons = _children.filter(n => {
+            return n.type === Buttons;
+        })[0];
+
+        return <div className={classNames('WindowMask', mask && 'mask', this.state.hidden && 'hidden')}>
+            <div className={classNames('Window', className)}
+                style={style}
+                ref={this.dom}>
+                <div className={'wrap'}>
+                    <div className={'title'}
+                        onMouseDown={this.handleMouseDown}>
+                        <span>{title}</span>
+                        <div className={'controls'}>
+                            <i className={'iconfont icon-close icon'} onClick={this.handleClose}></i>
+                        </div>
+                    </div>
+                    <div className={'content'}>{content && content.props.children}</div>
+                    <div className={'buttons'}>
+                        <div className={'button-wrap'}>
+                            {buttons && buttons.props.children}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>;
+    }
+
     handleMouseDown(event) {
         this.isDown = true;
 
@@ -72,40 +114,6 @@ class Window extends React.Component {
     componentWillUnmount() {
         document.body.removeEventListener('mousemove', this.handleMouseMove);
         document.body.removeEventListener('mouseup', this.handleMouseUp);
-    }
-
-    render() {
-        const { className, style, title, children, mask } = this.props;
-
-        const content = children.filter(n => {
-            return n.type === Content;
-        })[0];
-
-        const buttons = children.filter(n => {
-            return n.type === Buttons;
-        })[0];
-
-        return <div className={classNames('WindowMask', mask && 'mask', this.state.hidden && 'hidden')}>
-            <div className={classNames('Window', className)}
-                style={style}
-                ref={this.dom}>
-                <div className={'wrap'}>
-                    <div className={'title'}
-                        onMouseDown={this.handleMouseDown}>
-                        <span>{title}</span>
-                        <div className={'controls'}>
-                            <i className={'iconfont icon-close icon'} onClick={this.handleClose}></i>
-                        </div>
-                    </div>
-                    <div className={'content'}>{content && content.props.children}</div>
-                    <div className={'buttons'}>
-                        <div className={'button-wrap'}>
-                            {buttons && buttons.props.children}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>;
     }
 }
 
