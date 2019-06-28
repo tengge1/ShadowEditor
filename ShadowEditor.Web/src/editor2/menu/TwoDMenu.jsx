@@ -35,8 +35,6 @@ class TwoDMenu extends React.Component {
     }
 
     render() {
-        const { className, style } = this.props;
-
         return <MenuItem title={L_TWO_D}>
             <MenuItem title={L_BUTTON} onClick={this.handleAddButton}></MenuItem>
             <MenuItem title={L_LABEL} onClick={this.handleAddLabel}></MenuItem>
