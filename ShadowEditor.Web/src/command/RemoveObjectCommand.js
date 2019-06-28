@@ -33,8 +33,8 @@ Object.assign(RemoveObjectCommand.prototype, {
 		this.parent.remove(this.object);
 		this.editor.select(this.parent);
 
-		this.editor.app.call('objectRemoved', this, this.object);
-		this.editor.app.call('sceneGraphChanged', this);
+		app.call('objectRemoved', this, this.object);
+		app.call('sceneGraphChanged', this);
 	},
 
 	undo: function () {
@@ -44,8 +44,8 @@ Object.assign(RemoveObjectCommand.prototype, {
 		this.object.parent = this.parent;
 		this.editor.select(this.object);
 
-		this.editor.app.call('objectAdded', this, this.object);
-		this.editor.app.call('sceneGraphChanged', this);
+		app.call('objectAdded', this, this.object);
+		app.call('sceneGraphChanged', this);
 	},
 
 	toJSON: function () {

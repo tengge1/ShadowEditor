@@ -37,15 +37,15 @@ Object.assign(SetScriptValueCommand.prototype, {
 	execute: function () {
 		this.script[this.attributeName] = this.newValue;
 
-		this.editor.app.call('scriptChanged', this);
-		this.editor.app.call('refreshScriptEditor', this, this.object, this.script, this.cursorPosition, this.scrollInfo);
+		app.call('scriptChanged', this);
+		app.call('refreshScriptEditor', this, this.object, this.script, this.cursorPosition, this.scrollInfo);
 	},
 
 	undo: function () {
 		this.script[this.attributeName] = this.oldValue;
 
-		this.editor.app.call('scriptChanged', this);
-		this.editor.app.call('refreshScriptEditor', this, this.object, this.script, this.cursorPosition, this.scrollInfo);
+		app.call('scriptChanged', this);
+		app.call('refreshScriptEditor', this, this.object, this.script, this.cursorPosition, this.scrollInfo);
 	},
 
 	update: function (cmd) {

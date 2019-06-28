@@ -29,7 +29,7 @@ Object.assign(AddScriptCommand.prototype, {
 		}
 
 		this.editor.scripts[this.object.uuid].push(this.script);
-		this.editor.app.call('scriptAdded', this, this.script);
+		app.call('scriptAdded', this, this.script);
 	},
 
 	undo: function () {
@@ -41,7 +41,7 @@ Object.assign(AddScriptCommand.prototype, {
 			this.editor.scripts[this.object.uuid].splice(index, 1);
 		}
 
-		this.editor.app.call('scriptRemoved', this, this.script);
+		app.call('scriptRemoved', this, this.script);
 	},
 
 	toJSON: function () {

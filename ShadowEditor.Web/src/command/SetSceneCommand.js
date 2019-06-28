@@ -39,14 +39,14 @@ Object.assign(SetSceneCommand.prototype, {
 		for (var i = 0; i < this.cmdArray.length; i++) {
 			this.cmdArray[i].execute();
 		}
-		this.editor.app.call('sceneGraphChanged', this);
+		app.call('sceneGraphChanged', this);
 	},
 
 	undo: function () {
 		for (var i = this.cmdArray.length - 1; i >= 0; i--) {
 			this.cmdArray[i].undo();
 		}
-		this.editor.app.call('sceneGraphChanged', this);
+		app.call('sceneGraphChanged', this);
 	},
 
 	toJSON: function () {

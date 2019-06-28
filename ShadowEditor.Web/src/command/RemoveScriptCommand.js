@@ -33,7 +33,7 @@ Object.assign(RemoveScriptCommand.prototype, {
 			this.editor.scripts[this.object.uuid].splice(this.index, 1);
 		}
 
-		this.editor.app.call('scriptRemoved', this, this.script);
+		app.call('scriptRemoved', this, this.script);
 	},
 
 	undo: function () {
@@ -43,7 +43,7 @@ Object.assign(RemoveScriptCommand.prototype, {
 
 		this.editor.scripts[this.object.uuid].splice(this.index, 0, this.script);
 
-		this.editor.app.call('scriptAdded', this, this.script);
+		app.call('scriptAdded', this, this.script);
 	},
 
 	toJSON: function () {

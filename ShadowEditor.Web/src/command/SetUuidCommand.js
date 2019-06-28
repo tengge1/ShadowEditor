@@ -27,14 +27,14 @@ Object.assign(SetUuidCommand.prototype, {
 
 	execute: function () {
 		this.object.uuid = this.newUuid;
-		this.editor.app.call('objectChanged', this, this.object);
-		this.editor.app.call('sceneGraphChanged', this);
+		app.call('objectChanged', this, this.object);
+		app.call('sceneGraphChanged', this);
 	},
 
 	undo: function () {
 		this.object.uuid = this.oldUuid;
-		this.editor.app.call('objectChanged', this, this.object);
-		this.editor.app.call('sceneGraphChanged', this);
+		app.call('objectChanged', this, this.object);
+		app.call('sceneGraphChanged', this);
 	},
 
 	toJSON: function () {

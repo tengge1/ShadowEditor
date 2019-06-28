@@ -181,8 +181,8 @@ Object.assign(History.prototype, {
             }
         }
 
-        this.editor.app.call('sceneGraphChanged', this);
-        this.editor.app.call('historyChanged', this, cmd);
+        app.call('sceneGraphChanged', this);
+        app.call('historyChanged', this, cmd);
     },
 
     enableSerialization: function (id) {
