@@ -1,4 +1,5 @@
 import { PropTypes, MenuItem, MenuItemSeparator } from '../../third_party';
+import StringUtils from '../../utils/StringUtils';
 
 /**
  * 资源菜单

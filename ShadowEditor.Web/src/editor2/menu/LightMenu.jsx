@@ -1,4 +1,9 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import AddObjectCommand from '../../command/AddObjectCommand';
+
+import PointLight from '../../object/light/PointLight';
+import HemisphereLight from '../../object/light/HemisphereLight';
+import RectAreaLight from '../../object/light/RectAreaLight';
 
 /**
  * 光源菜单

@@ -1,4 +1,6 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import Converter from '../../serialization/Converter';
+import Ajax from '../../utils/Ajax';
 
 /**
  * 工具菜单

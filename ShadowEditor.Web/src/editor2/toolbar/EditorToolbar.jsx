@@ -1,5 +1,9 @@
 import './css/EditorToolbar.css';
 import { classNames, PropTypes, Toolbar, ToolbarSeparator, IconButton } from '../../third_party';
+import AddObjectCommand from '../../command/AddObjectCommand';
+import Earcut from '../../utils/Earcut';
+
+import DigTool from '../../tool/DigTool';
 
 /**
  * 编辑器工具栏

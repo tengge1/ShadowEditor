@@ -1,4 +1,6 @@
 import { PropTypes, MenuItem, MenuItemSeparator } from '../../third_party';
+import AddObjectCommand from '../../command/AddObjectCommand';
+import RemoveObjectCommand from '../../command/RemoveObjectCommand';
 
 /**
  * 编辑菜单

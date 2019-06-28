@@ -1,4 +1,27 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import AddObjectCommand from '../../command/AddObjectCommand';
+
+import Group from '../../object/geometry/Group';
+import Plane from '../../object/geometry/Plane';
+import Box from '../../object/geometry/Box';
+import Circle from '../../object/geometry/Circle';
+import Cylinder from '../../object/geometry/Cylinder';
+import Sphere from '../../object/geometry/Sphere';
+import Icosahedron from '../../object/geometry/Icosahedron';
+import Torus from '../../object/geometry/Torus';
+import TorusKnot from '../../object/geometry/TorusKnot';
+import Teapot from '../../object/geometry/Teapot';
+import Lathe from '../../object/geometry/Lathe';
+import Sprite from '../../object/geometry/Sprite';
+import Text from '../../object/geometry/Text';
+
+import LineCurve from '../../object/line/LineCurve';
+import CatmullRomCurve from '../../object/line/CatmullRomCurve';
+import QuadraticBezierCurve from '../../object/line/QuadraticBezierCurve';
+import CubicBezierCurve from '../../object/line/CubicBezierCurve';
+import EllipseCurve from '../../object/line/EllipseCurve';
+
+import SplineHelper from '../../helper/line/SplineHelper';
 
 /**
  * 几何体菜单

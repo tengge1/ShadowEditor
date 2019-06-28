@@ -1,4 +1,28 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import Button from '../../visual/component/Button';
+import Label from '../../visual/component/Label';
+import Panel from '../../visual/component/Panel';
+import HorizontalLine from '../../visual/component/HorizontalLine';
+import BarChart from '../../visual/component/BarChart';
+import TimeLabel from '../../visual/component/TimeLabel';
+import VerticalLine from '../../visual/component/VerticalLine';
+import DateWeekLabel from '../../visual/component/DateWeekLabel';
+import TimeDisk from '../../visual/component/TimeDisk';
+import KeyValueLabel from '../../visual/component/KeyValueLabel';
+import FormPanel from '../../visual/component/FormPanel';
+import Gauge from '../../visual/component/Gauge';
+import Histogram from '../../visual/component/Histogram';
+import LineChart from '../../visual/component/LineChart';
+import SideBar from '../../visual/component/SideBar';
+import Histogram2 from '../../visual/component/Histogram2';
+import ScatterPlot from '../../visual/component/ScatterPlot';
+import PieChart from '../../visual/component/PieChart';
+import ChordGraph from '../../visual/component/ChordGraph';
+import ForceDirectedGraph from '../../visual/component/ForceDirectedGraph';
+import TreeDiagram from '../../visual/component/TreeDiagram';
+import ClusterDiagram from '../../visual/component/ClusterDiagram';
+import PackDiagram from '../../visual/component/PackDiagram';
+import PartitionDiagram from '../../visual/component/PartitionDiagram';
 
 /**
  * 2D菜单
