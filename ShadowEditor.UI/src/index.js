@@ -1,4 +1,5 @@
 import './Config.css';
+import '../css/icon/iconfont.css';
 
 export { default as classNames } from 'classnames/bind';
 export { default as PropTypes } from 'prop-types';
