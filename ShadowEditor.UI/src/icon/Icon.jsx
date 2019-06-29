@@ -10,12 +10,12 @@ class Icon extends React.Component {
     render() {
         const { className, style, icon, ...others } = this.props;
 
-        return <div
+        return <i
             className={classNames('Icon', 'iconfont',
                 icon && 'icon-' + icon,
                 className)}
             style={style}
-            {...others}></div>;
+            {...others}></i>;
     }
 }
 
