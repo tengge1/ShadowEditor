@@ -13,6 +13,15 @@ class EditorToolbar extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            mode: 'translate',
+            isAddingPoint: false,
+            isAddingLine: false,
+            isAddingPolygon: false,
+            isSpraying: false,
+            isDigging: false,
+        };
+
         this.handleEnterSelectMode = this.handleEnterSelectMode.bind(this);
         this.handleEnterTranslateMode = this.handleEnterTranslateMode.bind(this);
         this.handleEnterRotateMode = this.handleEnterRotateMode.bind(this);
@@ -21,91 +30,64 @@ class EditorToolbar extends React.Component {
         this.handleAddLine = this.handleAddLine.bind(this);
         this.handleAddPolygon = this.handleAddPolygon.bind(this);
         this.handleSpray = this.handleSpray.bind(this);
+        this.handleDig = this.handleDig.bind(this);
     }
 
     render() {
-        return <Toolbar className={'EditorToolbar'} direction={'vertical'}>
-            <IconButton icon={'select'} selected={true} onClick={this.handleEnterSelectMode}></IconButton>
-            <IconButton icon={'translate'} onClick={this.handleEnterTranslateMode}></IconButton>
-            <IconButton icon={'rotate'} onClick={this.handleEnterRotateMode}></IconButton>
-            <IconButton icon={'scale'} onClick={this.handleEnterScaleMode}></IconButton>
-            <ToolbarSeparator />
-            <IconButton icon={'point'} onClick={this.handleAddPoint}></IconButton>
-            <IconButton icon={'line'} onClick={this.handleAddLine}></IconButton>
-            <IconButton icon={'spray'} onClick={this.handleAddPolygon}></IconButton>
-            <IconButton icon={'texture'} onClick={this.handleSpray}></IconButton>
-        </Toolbar>;
-    }
+        const { mode, isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging } = this.state;
 
-    componentDidMount() {
-        // app.on(`changeMode.${this.id}`, this.onChangeMode.bind(this));
+        return <Toolbar className={'EditorToolbar'} direction={'vertical'}>
+            <IconButton icon={'select'} selected={mode === 'select'} onClick={this.handleEnterSelectMode}></IconButton>
+            <IconButton icon={'translate'} selected={mode === 'translate'} onClick={this.handleEnterTranslateMode}></IconButton>
+            <IconButton icon={'rotate'} selected={mode === 'rotate'} onClick={this.handleEnterRotateMode}></IconButton>
+            <IconButton icon={'scale'} selected={mode === 'scale'} onClick={this.handleEnterScaleMode}></IconButton>
+            <ToolbarSeparator />
+            <IconButton icon={'point'} selected={isAddingPoint} onClick={this.handleAddPoint}></IconButton>
+            <IconButton icon={'line'} selected={isAddingLine} onClick={this.handleAddLine}></IconButton>
+            <IconButton icon={'polygon'} selected={isAddingPolygon} onClick={this.handleAddPolygon}></IconButton>
+            <IconButton icon={'spray'} selected={isSpraying} onClick={this.handleSpray}></IconButton>
+            <IconButton icon={'texture'} selected={isDigging} onClick={this.handleDig}></IconButton>
+        </Toolbar>;
     }
 
     // --------------------------------- 选择模式 -------------------------------------
 
     handleEnterSelectMode() {
+        this.setState({ mode: 'select' });
         app.call('changeMode', this, 'select');
     }
 
     // -------------------------------- 平移模式 --------------------------------------
 
     handleEnterTranslateMode() {
+        this.setState({ mode: 'translate' });
         app.call('changeMode', this, 'translate');
     }
 
     // -------------------------------- 旋转模式 ---------------------------------------
 
     handleEnterRotateMode() {
+        this.setState({ mode: 'rotate' });
         app.call('changeMode', this, 'rotate');
     }
 
     // -------------------------------- 缩放模式 ---------------------------------------
 
     handleEnterScaleMode() {
+        this.setState({ mode: 'scale' });
         app.call('changeMode', this, 'scale');
-    }
-
-    // ------------------------------ 模式改变事件 -------------------------------------
-
-    onChangeMode(mode) {
-        var selectBtn = UI.get('selectBtn', this.id);
-        var translateBtn = UI.get('translateBtn', this.id);
-        var rotateBtn = UI.get('rotateBtn', this.id);
-        var scaleBtn = UI.get('scaleBtn', this.id);
-
-        selectBtn.unselect();
-        translateBtn.unselect();
-        rotateBtn.unselect();
-        scaleBtn.unselect();
-
-        switch (mode) {
-            case 'select':
-                selectBtn.select();
-                break;
-            case 'translate':
-                translateBtn.select();
-                break;
-            case 'rotate':
-                rotateBtn.select();
-                break;
-            case 'scale':
-                scaleBtn.select();
-                break;
-        }
     }
 
     // --------------------------------- 画点 ------------------------------------------
 
     handleAddPoint() {
-        this.isAddingPoint = !this.isAddingPoint;
+        const isAddingPoint = !this.state.isAddingPoint;
 
-        var addPointBtn = UI.get('addPointBtn', this.id);
+        this.setState({ isAddingPoint });
 
-        if (this.isAddingPoint) {
-            addPointBtn.select();
+        if (isAddingPoint) {
             app.on(`intersect.${this.id}AddPoint`, this.onAddPointIntersect.bind(this));
         } else {
-            addPointBtn.unselect();
             app.on(`intersect.${this.id}AddPoint`, null);
         }
     }
@@ -115,7 +97,7 @@ class EditorToolbar extends React.Component {
             return;
         }
 
-        this.onAddPoint();
+        this.handleAddPoint();
 
         var geometry = new THREE.CircleBufferGeometry(0.4, 32, 0, Math.PI * 2);
 
@@ -153,12 +135,11 @@ class EditorToolbar extends React.Component {
     }
 
     onAddLine() {
-        this.isAddingLine = !this.isAddingLine;
+        const isAddingLine = !this.state.isAddingLine;
 
-        var addLineBtn = UI.get('addLineBtn', this.id);
+        this.setState({ isAddingLine });
 
-        if (this.isAddingLine) {
-            addLineBtn.select();
+        if (isAddingLine) {
             app.on(`intersect.${this.id}AddLine`, this.onAddLineIntersect.bind(this));
             app.on(`dblclick.${this.id}AddLine`, this.onAddLineDblClick.bind(this));
 
@@ -184,7 +165,6 @@ class EditorToolbar extends React.Component {
 
             app.editor.execute(new AddObjectCommand(this.line));
         } else {
-            addLineBtn.unselect();
             app.on(`intersect.${this.id}AddLine`, null);
             app.on(`dblclick.${this.id}AddLine`, null);
 
@@ -224,12 +204,11 @@ class EditorToolbar extends React.Component {
     // ---------------------------------- 画面 ------------------------------------------
 
     handleAddPolygon() {
-        this.isAddingPolygon = !this.isAddingPolygon;
+        const isAddingPolygon = !this.state.isAddingPolygon;
 
-        var addPolygonBtn = UI.get('addPolygonBtn', this.id);
+        this.setState({ isAddingPolygon });
 
-        if (this.isAddingPolygon) {
-            addPolygonBtn.select();
+        if (isAddingPolygon) {
             app.on(`intersect.${this.id}AddPolygon`, this.onAddPolygonIntersect.bind(this));
             app.on(`dblclick.${this.id}AddPolygon`, this.onAddPolygonDblClick.bind(this));
 
@@ -259,7 +238,6 @@ class EditorToolbar extends React.Component {
 
             this.polygonPoints = [];
         } else {
-            addPolygonBtn.unselect();
             app.on(`intersect.${this.id}AddPolygon`, null);
             app.on(`dblclick.${this.id}AddPolygon`, null);
 
@@ -303,21 +281,19 @@ class EditorToolbar extends React.Component {
     }
 
     onAddPolygonDblClick(obj) {
-        this.onAddPolygon();
+        this.handleAddPolygon();
     }
 
     // -------------------------------- 贴花工具 ---------------------------------------
 
     handleSpray() {
-        this.isSpraying = !this.isSpraying;
+        const isSpraying = !this.state.isSpraying;
 
-        var sprayBtn = UI.get('sprayBtn', this.id);
+        this.setState({ isSpraying });
 
-        if (this.isSpraying) {
-            sprayBtn.select();
+        if (isSpraying) {
             app.on(`intersect.${this.id}Spray`, this.onSprayIntersect.bind(this));
         } else {
-            sprayBtn.unselect();
             app.on(`intersect.${this.id}Spray`, null);
         }
     }
@@ -327,7 +303,7 @@ class EditorToolbar extends React.Component {
             return;
         }
 
-        this.onSpray();
+        this.handleSpray();
 
         var mesh = obj.object;
         var position = obj.point;
@@ -380,14 +356,13 @@ class EditorToolbar extends React.Component {
 
     // ------------------------------- 挖坑工具 -------------------------------------
 
-    onDig() {
-        var digBtn = UI.get('digBtn', this.id);
-        digBtn.select();
+    handleDig() {
+        this.setState({ isDigging: true, });
 
         if (this.digTool === undefined) {
             this.digTool = new DigTool(app);
             this.digTool.on(`end.${this.id}`, () => {
-                digBtn.unselect();
+                this.setState({ isDigging: false, });
             });
         }
 
