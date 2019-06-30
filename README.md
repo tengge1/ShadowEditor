@@ -11,8 +11,9 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
 * 发布日期：2019年6月30日
 * 更新日志：
 
-1. 新增UI控件：AccordionLayout, SearchField。（开发中）
-2. 修复播放器脚本camera被赋值为scene的bug。
+1. 新增完善UI控件：AccordionLayout, SearchField, ImageList, SearchField。（开发中）
+2. 部分UI替换。(请勿使用dev分支，开发中)
+3. 修复播放器脚本camera被赋值为scene的bug。
 
 ## 项目截图
 
@@ -185,8 +186,9 @@ npm run build-docs
 * 发布日期：2019年5月19日
 * 更新日志：
 
-1. 更新示例程序，主要是编辑器二维菜单演示。[码云](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
-2. 基于react.js的UI。（开发中）
+1. 新增完善UI控件：AccordionLayout, SearchField, ImageList, SearchField。（开发中）
+2. 部分UI替换。(请勿使用dev分支，开发中)
+3. 修复播放器脚本camera被赋值为scene的bug。
 
 **v0.2.0**
 
