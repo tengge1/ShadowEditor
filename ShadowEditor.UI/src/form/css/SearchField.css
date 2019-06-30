@@ -5,7 +5,7 @@
 }
 
 .SearchField>.input {
-    width: 160px;
+    width: 0;
     font: 12px 'Microsoft YaHei';
     margin: 1px 0;
     padding: 2px;
@@ -17,6 +17,10 @@
 .SearchField>.IconButton {
     width: 22px;
     height: 22px;
+}
+
+.SearchField>.IconButton.hidden {
+    display: none;
 }
 
 .SearchField>.IconButton>.iconfont {

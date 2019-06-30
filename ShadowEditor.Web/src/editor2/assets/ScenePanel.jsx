@@ -22,7 +22,7 @@ class ScenePanel extends React.Component {
         const { data } = this.state;
 
         return <div className={'ScenePanel'}>
-            <SearchField></SearchField>
+            <SearchField placeholder={L_SEARCH_CONTENT}></SearchField>
             <ImageList data={data}></ImageList>
         </div>;
     }
