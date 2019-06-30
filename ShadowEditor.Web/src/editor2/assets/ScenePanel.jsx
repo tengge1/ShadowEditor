@@ -22,7 +22,7 @@ class ScenePanel extends React.Component {
         const { data } = this.state;
 
         return <div className={'ScenePanel'}>
-            <SearchField placeholder={L_SEARCH_CONTENT}></SearchField>
+            <SearchField placeholder={L_SEARCH_CONTENT} addHidden={true} onInput={this.handleSearch.bind(this)}></SearchField>
             <ImageList data={data}></ImageList>
         </div>;
     }
@@ -36,6 +36,10 @@ class ScenePanel extends React.Component {
             // search.setValue('');
             // this.onSearch();
         });
+    }
+
+    handleSearch() {
+
     }
 }
 

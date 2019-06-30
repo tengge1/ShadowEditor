@@ -9,56 +9,129 @@ class HierarchyPanel extends React.Component {
     constructor(props) {
         super(props);
 
-        this.data = [{
-            value: '1',
-            text: 'Programmer',
-            expand: true,
-            checked: false,
-            children: [{
-                value: '11',
-                text: 'Front-end',
-                expand: true,
-                checked: true,
-                children: [{
-                    value: '111',
-                    text: 'HTML',
-                    checked: true,
-                }, {
-                    value: '112',
-                    text: 'CSS',
-                    checked: true,
-                }, {
-                    value: '113',
-                    text: 'JS',
-                    checked: false,
-                }]
-            }, {
-                value: '12',
-                text: 'Back-end',
-                children: [{
-                    value: '121',
-                    text: 'Java',
-                }, {
-                    value: '122',
-                    text: 'C#',
-                }]
-            }]
-        }, {
-            value: '2',
-            text: 'Testing',
-            expand: true,
-            children: [{
-                value: '21',
-                text: 'Black Box Test'
-            }, {
-                value: '22',
-                text: 'White Box Test'
-            }]
-        }];
+        this.state = {
+            data: []
+        };
     }
 
     render() {
-        return <Tree data={this.data}></Tree>;
+        const { data } = this.state;
+
+        return <Tree data={data} onSelect={this.handleSelect}></Tree>;
+    }
+
+    componentDidMount() {
+        app.on(`sceneGraphChanged.${this.id}`, this.updateUI.bind(this));
+
+        // bug: https://gitee.com/tengge1/ShadowEditor/issues/ITCA9
+        app.on(`objectChanged.${this.id}`, this.updateUI.bind(this));
+
+        app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    }
+
+    /**
+     * 单击树节点
+     * @param {*} data 
+     */
+    handleSelect(data) {
+        debugger
+        app.editor.selectByUuid(data.value);
+    }
+
+    onDblClick(data) {
+        app.editor.focusByUUID(data.value);
+    }
+
+    /**
+     * 选中物体改变
+     * @param {*} object 
+     */
+    onObjectSelected(object) {
+        // var tree = UI.get('tree', this.id);
+
+        // if (!object) {
+        //     var selected = tree.getSelected();
+        //     if (selected) {
+        //         tree.unselect(selected.value);
+        //     }
+        //     return;
+        // }
+
+        // tree.select(object.uuid);
+    }
+
+    /**
+     * 根据场景变化，更新场景树状图
+     */
+    updateUI() {
+        var scene = app.editor.scene;
+        var camera = app.editor.camera;
+
+        var list = [{
+            value: camera.uuid,
+            text: camera.name,
+            cls: 'Camera',
+            children: []
+        }];
+
+        this._parseData(scene, list);
+
+        this.setState({ data: list });
+    }
+
+    _parseData(obj, list) {
+        var scene = app.editor.scene;
+
+        var cls = null;
+
+        if (obj === scene) {
+            cls = 'Scene';
+        } else if (obj instanceof THREE.Line) {
+            cls = 'Line';
+        } else if (obj instanceof THREE.Light) {
+            cls = 'Light';
+        } else if (obj instanceof THREE.Points) {
+            cls = 'Points';
+        } else {
+            cls = 'Default';
+        }
+
+        var data = {
+            value: obj.uuid,
+            text: obj.name,
+            expand: obj === scene,
+            draggable: obj !== scene,
+            cls: cls,
+            children: []
+        };
+        list.push(data);
+
+        if (Array.isArray(obj.children)) {
+            obj.children.forEach(n => {
+                this._parseData(n, data.children);
+            });
+        }
+    }
+
+    /**
+     * 拖动节点
+     */
+    onDrag(objData, newParentData, newBeforeData) {
+        var object, newParent, newBefore;
+
+        var editor = app.editor;
+
+        object = editor.objectByUuid(objData.value);
+        newParent = editor.objectByUuid(newParentData.value);
+
+        if (newBeforeData) {
+            newBefore = editor.objectByUuid(newBeforeData.value);
+        }
+
+        app.editor.execute(new MoveObjectCommand(object, newParent, newBefore));
+
+        var tree = UI.get('tree', this.id);
+        tree.expand(newParentData.value);
     }
 }
 

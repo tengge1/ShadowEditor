@@ -60,6 +60,9 @@ class SearchField extends React.Component {
     }
 
     handleReset(onReset, event) {
+        this.setState({
+            value: '',
+        });
         onReset && onReset(event);
     }
 
