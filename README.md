@@ -3,27 +3,25 @@
 Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md) / [русский](README-ru.md)
 
 * 名称：Shadow Editor
-* 版本：v0.2.4(开发中)
+* 版本：v0.2.5(开发中)
 * 简介：基于`three.js`的场景编辑器。
 
-## v0.2.4即将更新
+## v0.2.5即将更新
 
-1. 新增UI控件：AccordionLayout, SearchField。（开发中）
+## v0.2.4更新
 
-## v0.2.3更新
-
-* 发布日期：2019年6月16日
+* 发布日期：2019年6月30日
 * 更新日志：
 
-1. 使用采样法和全屏抗锯齿(FXAA)重新实现了描边算法。
-2. 场景树状图选中节点时，子节点不再显示选中效果。
-3. 更新优化以下控件：Timeline, Tree, Window。（开发中）
+1. 新增完善UI控件：AccordionLayout, SearchField, ImageList, SearchField。（开发中）
+2. 部分UI替换。(请勿使用dev分支，开发中)
+3. 修复播放器脚本camera被赋值为scene的bug。
 
 ## 项目截图
 
 1. 基于react.js的UI。(开发中)
 
-![image](images/scene20190602.png)
+![image](images/scene20190630.png)
 
 2. 室内场景编辑。(仅供参考)
 
@@ -151,6 +149,14 @@ npm run build-docs
 
 ## 更新日志
 
+**v0.2.4**
+
+* 发布日期：2019年6月30日
+* 更新日志：
+
+1. 新增UI控件：AccordionLayout, SearchField。（开发中）
+2. 修复播放器脚本camera被赋值为scene的bug。
+
 **v0.2.3**
 
 * 发布日期：2019年6月16日
@@ -182,8 +188,9 @@ npm run build-docs
 * 发布日期：2019年5月19日
 * 更新日志：
 
-1. 更新示例程序，主要是编辑器二维菜单演示。[码云](http://tengge1.gitee.io/shadoweditor-examples/) [GitHub](https://tengge1.github.io/ShadowEditor-examples/)
-2. 基于react.js的UI。（开发中）
+1. 新增完善UI控件：AccordionLayout, SearchField, ImageList, SearchField。（开发中）
+2. 部分UI替换。(请勿使用dev分支，开发中)
+3. 修复播放器脚本camera被赋值为scene的bug。
 
 **v0.2.0**
 
