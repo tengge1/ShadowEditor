@@ -1,4 +1,4 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import { classNames, PropTypes, MenuBar, MenuItem, MenuBarFiller, MenuItemSeparator } from '../../third_party';
 
 import SceneMenu from './SceneMenu.jsx';
 import EditMenu from './EditMenu.jsx';
@@ -11,6 +11,7 @@ import PlayMenu from './PlayMenu.jsx';
 import ToolMenu from './ToolMenu.jsx';
 import OptionsMenu from './OptionsMenu.jsx';
 import HelpMenu from './HelpMenu.jsx';
+import StatusMenu from './StatusMenu.jsx';
 
 /**
  * 编辑器菜单栏
@@ -32,6 +33,8 @@ class EditorMenuBar extends React.Component {
             <ToolMenu />
             <OptionsMenu />
             <HelpMenu />
+            <MenuBarFiller />
+            <StatusMenu />
         </MenuBar>;
     }
 }

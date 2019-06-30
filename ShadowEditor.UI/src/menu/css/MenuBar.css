@@ -5,7 +5,7 @@
     padding: 0;
     background: linear-gradient(to bottom, rgb(250, 252, 253), rgb(232, 241, 251) 40%, rgb(220, 230, 243) 40%, rgb(220, 231, 245));
     border-bottom: 1px solid #bbb;
-    display: block;
+    display: flex;
     box-sizing: border-box;
     list-style: none;
 }
