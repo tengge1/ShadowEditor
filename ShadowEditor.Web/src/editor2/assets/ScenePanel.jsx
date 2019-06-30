@@ -13,6 +13,10 @@ class ScenePanel extends React.Component {
     constructor(props) {
         super(props);
 
+        this.handleClick = this.handleClick.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+
         this.state = {
             data: [],
         };
@@ -21,9 +25,26 @@ class ScenePanel extends React.Component {
     render() {
         const { data } = this.state;
 
+        const imageListData = data.map(n => {
+            return {
+                id: n.ID,
+                src: n.Thumbnail ? n.Thumbnail : null,
+                title: n.Name,
+                icon: 'scenes',
+                cornerText: `v${n.Version}`,
+            };
+        });
+
         return <div className={'ScenePanel'}>
-            <SearchField placeholder={L_SEARCH_CONTENT} addHidden={true} onInput={this.handleSearch.bind(this)}></SearchField>
-            <ImageList data={data}></ImageList>
+            <SearchField
+                placeholder={L_SEARCH_CONTENT}
+                addHidden={true}
+                onInput={this.handleSearch.bind(this)}></SearchField>
+            <ImageList
+                data={imageListData}
+                onClick={this.handleClick}
+                onEdit={this.handleEdit}
+                onDelete={this.handleDelete}></ImageList>
         </div>;
     }
 
@@ -32,13 +53,22 @@ class ScenePanel extends React.Component {
             this.setState({
                 data: obj.Data,
             });
-            // this.data = obj.Data;
-            // search.setValue('');
-            // this.onSearch();
         });
     }
 
     handleSearch() {
+
+    }
+
+    handleClick(data) {
+        debugger
+    }
+
+    handleEdit(data) {
+
+    }
+
+    handleDelete(data) {
 
     }
 }

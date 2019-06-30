@@ -18,6 +18,7 @@
     display: inline-block;
     border: 1px solid #ddd;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .ImageList>.item>.img {
@@ -48,4 +49,43 @@
     padding: 1px 4px;
     pointer-events: none;
     word-break: break-word;
+}
+
+.ImageList>.item>.cornerText {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0 2px;
+    color: #555;
+    background: rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+}
+
+.ImageList>.item>.IconButton {
+    width: 16px;
+    height: 16px;
+    margin: 2px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.ImageList>.item>.edit {
+    position: absolute;
+    right: 24px;
+    top: 0;
+}
+
+.ImageList>.item>.delete {
+    position: absolute;
+    right: 2px;
+    top: 0;
+}
+
+.ImageList>.item>.IconButton i {
+    font-size: 14px;
 }

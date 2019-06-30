@@ -15,12 +15,12 @@ AnimateEvent.prototype = Object.create(BaseEvent.prototype);
 AnimateEvent.prototype.constructor = AnimateEvent;
 
 AnimateEvent.prototype.start = function () {
-    this.running = true;
-    requestAnimationFrame(this.onAnimate.bind(this));
+    app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
 };
 
-AnimateEvent.prototype.stop = function () {
-    this.running = false;
+AnimateEvent.prototype.onAppStarted = function () {
+    this.running = true;
+    requestAnimationFrame(this.onAnimate.bind(this));
 };
 
 AnimateEvent.prototype.onAnimate = function () {

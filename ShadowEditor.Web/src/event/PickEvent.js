@@ -20,17 +20,14 @@ PickEvent.prototype = Object.create(BaseEvent.prototype);
 PickEvent.prototype.constructor = PickEvent;
 
 PickEvent.prototype.start = function () {
+    app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+};
+
+PickEvent.prototype.onAppStarted = function () {
     var viewport = app.viewport;
 
     viewport.addEventListener('mousedown', this.onMouseDown.bind(this), false);
     viewport.addEventListener('dblclick', this.onDoubleClick.bind(this), false);
-};
-
-PickEvent.prototype.stop = function () {
-    var viewport = app.viewport;
-
-    viewport.removeEventListener('mousedown', this.onMouseDown, false);
-    viewport.removeEventListener('dblclick', this.onDoubleClick, false);
 };
 
 PickEvent.prototype.onMouseDown = function (event) {

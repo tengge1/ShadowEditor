@@ -15,25 +15,20 @@ class Timeline extends React.Component {
         super(props);
 
         this.canvas = React.createRef();
-
         this.scale = 30; // 尺寸，1秒=30像素
-
-        this.state = {
-            animations: props.animations,
-        };
     }
 
     render() {
-        const { className, style } = this.props;
+        const { className, style, animations, tip } = this.props;
 
-        const infos = this.state.animations.map(layer => {
+        const infos = animations.map(layer => {
             return <div className={'info'} key={layer.uuid}>
                 <CheckBox value={layer.uuid}></CheckBox>
                 <Label>{layer.layerName}</Label>
             </div>;
         });
 
-        const layers = this.state.animations.map(layer => {
+        const layers = animations.map(layer => {
             return <div className={'layer'} droppable={'true'} key={layer.uuid}>
                 {layer.animations.map(animation => {
                     const style = {
@@ -54,7 +49,7 @@ class Timeline extends React.Component {
         });
 
         return <div className={classNames('Timeline', className)} style={style}>
-            <TimelineControl></TimelineControl>
+            <TimelineControl tip={tip}></TimelineControl>
             <div className="box">
                 <div className="left">
                     {infos}
@@ -138,12 +133,14 @@ Timeline.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     animations: PropTypes.array,
+    tip: PropTypes.string,
 };
 
 Timeline.defaultProps = {
     className: null,
     style: null,
     animations: [],
+    tip: undefined,
 };
 
 export default Timeline;

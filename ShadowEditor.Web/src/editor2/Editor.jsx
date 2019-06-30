@@ -122,16 +122,13 @@ class Editor extends React.Component {
         // this.visual = new Visualization();
 
         // 事件
-        app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+        app.on(`appStarted.Editor`, this.onAppStarted.bind(this));
 
-        app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
-        app.on(`mousemove.${this.id}`, this.onMouseMove.bind(this));
+        app.on(`mousedown.Editor`, this.onMouseDown.bind(this));
+        app.on(`mousemove.Editor`, this.onMouseMove.bind(this));
 
         // 帮助器
         this.helpers = new Helpers(app);
-
-        // 启动事件 - 事件要在ui创建完成后启动
-        app.event.start();
 
         app.call('appStart', this);
         app.call('appStarted', this);

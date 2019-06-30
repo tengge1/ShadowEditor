@@ -13,19 +13,12 @@ EditorControlsEvent.prototype = Object.create(BaseEvent.prototype);
 EditorControlsEvent.prototype.constructor = EditorControlsEvent;
 
 EditorControlsEvent.prototype.start = function () {
-    var controls = app.editor.controls;
-
-    controls.addEventListener('change', this.onChange.bind(this));
-
-    app.on('editorCleared.' + this.id, this.onEditorCleared.bind(this));
+    app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+    app.on(`editorCleared.${this.id}`, this.onEditorCleared.bind(this));
 };
 
-EditorControlsEvent.prototype.stop = function () {
-    var controls = app.editor.controls;
-
-    controls.removeEventListener('change', this.onChange);
-
-    app.on('editorCleared.' + this.id, null);
+EditorControlsEvent.prototype.onAppStarted = function () {
+    app.editor.controls.addEventListener('change', this.onChange.bind(this));
 };
 
 EditorControlsEvent.prototype.onChange = function () {

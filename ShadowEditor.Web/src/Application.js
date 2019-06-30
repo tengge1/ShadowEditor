@@ -35,6 +35,8 @@ function Application(container, options) {
     this.call = this.event.call.bind(this.event);
     this.on = this.event.on.bind(this.event);
 
+    this.event.start();
+
     // UI
     this.ui = React.createElement(Editor);
     ReactDOM.render(this.ui, this.container);

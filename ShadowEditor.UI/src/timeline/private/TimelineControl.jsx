@@ -18,7 +18,7 @@ class TimelineControl extends React.Component {
     }
 
     render() {
-        const { className, style } = this.props;
+        const { className, style, tip } = this.props;
 
         return <Toolbar className={classNames('TimelineControl', className)} style={style}>
             <IconButton icon={'add'} title={'Add Layer'}></IconButton>
@@ -33,7 +33,7 @@ class TimelineControl extends React.Component {
             <Label>00:00</Label>
             <Label>X1</Label>
             <ToolbarFiller></ToolbarFiller>
-            <Label>Double click the area below to add animation.</Label>
+            <Label>{tip}</Label>
         </Toolbar>;
     }
 }
@@ -41,11 +41,13 @@ class TimelineControl extends React.Component {
 TimelineControl.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    tip: PropTypes.string,
 };
 
 TimelineControl.defaultProps = {
     className: null,
     style: null,
+    tip: 'Double click the area below to add animation.',
 };
 
 export default TimelineControl;

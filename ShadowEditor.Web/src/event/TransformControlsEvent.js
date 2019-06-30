@@ -22,6 +22,10 @@ TransformControlsEvent.prototype = Object.create(BaseEvent.prototype);
 TransformControlsEvent.prototype.constructor = TransformControlsEvent;
 
 TransformControlsEvent.prototype.start = function () {
+    app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+};
+
+TransformControlsEvent.prototype.onAppStarted = function () {
     var transformControls = app.editor.transformControls;
 
     transformControls.addEventListener('change', this.onChange.bind(this));
@@ -32,18 +36,6 @@ TransformControlsEvent.prototype.start = function () {
     app.on('changeMode.' + this.id, this.onChangeMode.bind(this));
     app.on('snapChanged.' + this.id, this.onSnapChanged.bind(this));
     app.on('spaceChanged.' + this.id, this.onSpaceChanged.bind(this));
-};
-
-TransformControlsEvent.prototype.stop = function () {
-    var transformControls = app.editor.transformControls;
-
-    transformControls.removeEventListener('change', this.onChange);
-    transformControls.removeEventListener('mouseDown', this.onMouseDown);
-    transformControls.removeEventListener('mouseUp', this.onMouseUp);
-
-    app.on('changeMode.' + this.id, null);
-    app.on('snapChanged.' + this.id, null);
-    app.on('spaceChanged.' + this.id, null);
 };
 
 /**
