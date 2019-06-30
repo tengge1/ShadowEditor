@@ -4,6 +4,7 @@ import { classNames, PropTypes, TabLayout, VBoxLayout } from '../../third_party'
 import HierarchyPanel from './HierarchyPanel.jsx';
 import HistoryPanel from './HistoryPanel.jsx';
 import PropertyPanel from './PropertyPanel.jsx';
+import ScriptPanel from './ScriptPanel.jsx';
 import AnimationPanel from './AnimationPanel.jsx';
 
 /**
@@ -14,12 +15,13 @@ class EditorSideBar extends React.Component {
     render() {
         return <VBoxLayout className={'EditorSideBar'}>
             <TabLayout className={'top'}>
-                <HierarchyPanel title={'Hierarchy'} />
-                <HistoryPanel title={'History'}></HistoryPanel>
+                <HierarchyPanel title={L_HIERACHY} />
+                <HistoryPanel title={L_HISTORY}></HistoryPanel>
             </TabLayout>
             <TabLayout className={'bottom'}>
-                <PropertyPanel title={'Property'}></PropertyPanel>
-                <AnimationPanel title={'Animation'}></AnimationPanel>
+                <PropertyPanel title={L_PROPERTY}></PropertyPanel>
+                <ScriptPanel title={L_SCRIPT}></ScriptPanel>
+                <AnimationPanel title={L_ANIMATION}></AnimationPanel>
             </TabLayout>
         </VBoxLayout>;
     }
