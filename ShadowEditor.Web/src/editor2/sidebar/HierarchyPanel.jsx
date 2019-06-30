@@ -34,8 +34,7 @@ class HierarchyPanel extends React.Component {
      * @param {*} data 
      */
     handleSelect(data) {
-        debugger
-        app.editor.selectByUuid(data.value);
+        // app.editor.selectByUuid(data.value);
     }
 
     onDblClick(data) {
@@ -71,7 +70,8 @@ class HierarchyPanel extends React.Component {
             value: camera.uuid,
             text: camera.name,
             cls: 'Camera',
-            children: []
+            children: [],
+            checked: false,
         }];
 
         this._parseData(scene, list);
@@ -102,7 +102,8 @@ class HierarchyPanel extends React.Component {
             expand: obj === scene,
             draggable: obj !== scene,
             cls: cls,
-            children: []
+            children: [],
+            checked: false,
         };
         list.push(data);
 
