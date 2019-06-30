@@ -24,15 +24,16 @@
     vertical-align: middle;
 }
 
-.Tree .node i.expand.plus {
+.Tree .node i.expand {
     width: 9px;
     height: 9px;
+}
+
+.Tree .node i.expand.plus {
     background: var(--icon-plus);
 }
 
 .Tree .node i.expand.minus {
-    width: 9px;
-    height: 9px;
     background: var(--icon-minus);
 }
 
@@ -43,6 +44,7 @@
 .Tree .node i.type.node {
     width: 14px;
     height: 15px;
+    margin-right: 2px;
     background: var(--icon-node);
 }
 
@@ -55,6 +57,7 @@
 .Tree .node i.type.close {
     width: 15px;
     height: 13px;
+    margin-right: 1px;
     background: var(--folder-close);
 }
 
