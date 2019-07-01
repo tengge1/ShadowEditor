@@ -17,6 +17,8 @@ class ScenePanel extends React.Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
 
+        this.data = [];
+
         this.state = {
             data: [],
             categoryData: [],
@@ -60,20 +62,15 @@ class ScenePanel extends React.Component {
         });
         fetch(`/api/Scene/List`).then(response => {
             response.json().then(obj => {
+                this.data = obj.Data;
                 this.setState({
-                    data: obj.Data,
+                    data: this.data,
                 });
             });
         });
     }
 
-    handleSearch(value) {
-        var search = UI.get('search', this.id);
-        var category = UI.get('category', this.id);
-
-        var name = search.getValue();
-        var categories = category.getValue();
-
+    handleSearch(name, categories, event) {
         var list = this.data;
 
         if (name.trim() !== '') {
@@ -92,7 +89,9 @@ class ScenePanel extends React.Component {
             });
         }
 
-        this.renderList(list);
+        this.setState({
+            data: list,
+        });
     }
 
     handleClick(data) {

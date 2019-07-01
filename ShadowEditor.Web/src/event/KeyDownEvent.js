@@ -26,9 +26,10 @@ KeyDownEvent.prototype.onKeyDown = function (event) {
     var editor = app.editor;
 
     switch (event.keyCode) {
-        case 8: // 回退键
-            event.preventDefault(); // 阻止浏览器返回
-            break;
+        // bug: 会导致搜索框无法删除
+        // case 8: // 回退键
+        //     event.preventDefault(); // 阻止浏览器返回
+        //     break;
 
         case 46: // 删除键
             var object = editor.selected;

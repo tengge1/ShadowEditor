@@ -18,10 +18,13 @@ class CheckBox extends React.Component {
     }
 
     handleChange(onChange, event) {
-        this.setState({
-            checked: event.target.checked,
-        });
-        onChange && onChange(event.target.checked, event);
+        const target = event.target;
+        const name = target.getAttribute('name');
+        const checked = target.checked;
+
+        this.setState({ checked });
+
+        onChange && onChange(name, checked, event);
     }
 
     render() {
@@ -40,7 +43,7 @@ class CheckBox extends React.Component {
 CheckBox.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    name: PropTypes.name,
+    name: PropTypes.string,
     checked: PropTypes.bool,
     disabled: PropTypes.bool,
     onChange: PropTypes.func,

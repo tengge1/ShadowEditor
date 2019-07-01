@@ -15,19 +15,21 @@ class SearchField extends React.Component {
 
         this.state = {
             value: props.value,
+            categories: [],
             filterShow: false,
         };
 
         this.handleAdd = this.handleAdd.bind(this, props.onAdd);
         this.handleChange = this.handleChange.bind(this, props.onChange);
         this.handleInput = this.handleInput.bind(this, props.onInput);
-        this.handleReset = this.handleReset.bind(this, props.onReset);
+        this.handleReset = this.handleReset.bind(this, props.onInput, props.onChange);
         this.handleShowFilter = this.handleShowFilter.bind(this);
+        this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this, props.onInput, props.onChange);
     }
 
     render() {
         const { className, style, data, placeholder, addHidden } = this.props;
-        const { value, filterShow } = this.state;
+        const { value, categories, filterShow } = this.state;
 
         return <div className={classNames('SearchField', className)}>
             <IconButton
@@ -37,10 +39,11 @@ class SearchField extends React.Component {
             <input
                 className={'input'}
                 style={style}
-                value={value}
                 placeholder={placeholder}
+                value={this.value}
                 onChange={this.handleChange}
                 onInput={this.handleInput}
+                onKeyDown={this.handleKeyDown}
             />
             <IconButton
                 icon={'close'}
@@ -51,8 +54,11 @@ class SearchField extends React.Component {
                 onClick={this.handleShowFilter}></IconButton>
             <div className={classNames('category', !filterShow && 'hidden')}>
                 {data.map(n => {
-                    return <div className={'item'}>
-                        <CheckBox name={n.ID}></CheckBox>
+                    return <div className={'item'} key={n.ID}>
+                        <CheckBox
+                            name={n.ID}
+                            checked={categories.indexOf(n.ID) > -1}
+                            onChange={this.handleCheckBoxChange}></CheckBox>
                         <label className={'title'}>{n.Name}</label>
                     </div>;
                 })}
@@ -65,29 +71,58 @@ class SearchField extends React.Component {
     }
 
     handleChange(onChange, event) {
-        this.setState({
-            value: event.target.value,
-        });
-        onChange && onChange(event.target.value, event);
+        event.stopPropagation();
+
+        const value = event.target.value;
+
+        this.setState({ value });
+
+        onChange && onChange(value, this.state.categories, event);
     }
 
     handleInput(onInput, event) {
-        this.setState({
-            value: event.target.value,
-        });
-        onInput && onInput(event.target.value, event);
+        event.stopPropagation();
+
+        const value = event.target.value;
+
+        this.setState({ value });
+
+        onInput && onInput(value, this.state.categories, event);
     }
 
-    handleReset(onReset, event) {
-        this.setState({
-            value: '',
-        });
-        onReset && onReset(event);
+    handleReset(onInput, onChange, event) {
+        const value = '';
+
+        this.setState({ value });
+
+        onInput && onInput(value, this.state.categories, event);
+        onChange && onChange(value, this.state.categories, event);
     }
 
     handleShowFilter() {
         this.setState({
             filterShow: !this.state.filterShow,
+        });
+    }
+
+    handleCheckBoxChange(onInput, onChange, name, checked, event) {
+        let categories = this.state.categories;
+        let index = categories.indexOf(name);
+
+        if (checked && index === -1) {
+            categories.push(name);
+        } else if (!checked && index > -1) {
+            categories.splice(index, 1);
+        } else {
+            console.warn(`SearchField: handleCheckBoxChange error.`);
+            return;
+        }
+
+        const value = this.state.value;
+
+        this.setState({ categories }, () => {
+            onInput && onInput(value, categories, event);
+            onChange && onChange(value, categories, event);
         });
     }
 }
@@ -101,7 +136,6 @@ SearchField.propTypes = {
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onInput: PropTypes.func,
-    onReset: PropTypes.func,
     handleShowFilter: PropTypes.func,
     addHidden: PropTypes.bool,
 };
@@ -115,7 +149,6 @@ SearchField.defaultProps = {
     onAdd: null,
     onChange: null,
     onInput: null,
-    onReset: null,
     handleShowFilter: null,
     addHidden: false,
 };
