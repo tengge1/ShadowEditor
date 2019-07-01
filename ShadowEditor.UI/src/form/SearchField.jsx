@@ -40,7 +40,7 @@ class SearchField extends React.Component {
                 className={'input'}
                 style={style}
                 placeholder={placeholder}
-                value={this.value}
+                value={value}
                 onChange={this.handleChange}
                 onInput={this.handleInput}
                 onKeyDown={this.handleKeyDown}
