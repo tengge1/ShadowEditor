@@ -26,3 +26,31 @@
 .SearchField>.IconButton>.iconfont {
     font-size: 14px;
 }
+
+.SearchField>.category {
+    position: absolute;
+    right: 8px;
+    top: 28px;
+    background: #fff;
+    border: 1px solid #ccc;
+    display: inline-block;
+    z-index: 10;
+}
+
+.SearchField>.category.hidden {
+    display: none;
+}
+
+.SearchField>.category>.item {
+    padding: 0 8px 0 2px;
+}
+
+.SearchField>.category>.item>.CheckBox {
+    vertical-align: middle;
+}
+
+.SearchField>.category>.item>.title {
+    font-size: 14px;
+    line-height: 26px;
+    vertical-align: middle;
+}

@@ -15,35 +15,45 @@ class SearchField extends React.Component {
 
         this.state = {
             value: props.value,
+            filterShow: false,
         };
 
         this.handleAdd = this.handleAdd.bind(this, props.onAdd);
         this.handleChange = this.handleChange.bind(this, props.onChange);
         this.handleInput = this.handleInput.bind(this, props.onInput);
         this.handleReset = this.handleReset.bind(this, props.onReset);
-        this.handleFilter = this.handleFilter.bind(this, props.onFilter);
+        this.handleShowFilter = this.handleShowFilter.bind(this);
     }
 
     render() {
         const { className, style, data, placeholder, addHidden } = this.props;
+        const { value, filterShow } = this.state;
 
         return <div className={classNames('SearchField', className)}>
-            <IconButton className={classNames(addHidden && 'hidden')} icon={'add'} onClick={this.handleAdd}></IconButton>
+            <IconButton
+                className={classNames(addHidden && 'hidden')}
+                icon={'add'}
+                onClick={this.handleAdd}></IconButton>
             <input
                 className={'input'}
                 style={style}
-                value={this.state.value}
+                value={value}
                 placeholder={placeholder}
                 onChange={this.handleChange}
                 onInput={this.handleInput}
             />
-            <IconButton icon={'close'} onClick={this.handleReset}></IconButton>
-            <IconButton icon={'filter'} onClick={this.handleFilter}></IconButton>
-            <div className={'category'}>
+            <IconButton
+                icon={'close'}
+                onClick={this.handleReset}></IconButton>
+            <IconButton
+                icon={'filter'}
+                className={classNames(filterShow && 'selected')}
+                onClick={this.handleShowFilter}></IconButton>
+            <div className={classNames('category', !filterShow && 'hidden')}>
                 {data.map(n => {
                     return <div className={'item'}>
                         <CheckBox name={n.ID}></CheckBox>
-                        <div className={'title'}>{n.Name}</div>
+                        <label className={'title'}>{n.Name}</label>
                     </div>;
                 })}
             </div>
@@ -75,8 +85,10 @@ class SearchField extends React.Component {
         onReset && onReset(event);
     }
 
-    handleFilter(onFilter, event) {
-        onFilter && onFilter(event);
+    handleShowFilter() {
+        this.setState({
+            filterShow: !this.state.filterShow,
+        });
     }
 }
 
@@ -90,7 +102,7 @@ SearchField.propTypes = {
     onChange: PropTypes.func,
     onInput: PropTypes.func,
     onReset: PropTypes.func,
-    handleFilter: PropTypes.func,
+    handleShowFilter: PropTypes.func,
     addHidden: PropTypes.bool,
 };
 
@@ -104,7 +116,7 @@ SearchField.defaultProps = {
     onChange: null,
     onInput: null,
     onReset: null,
-    handleFilter: null,
+    handleShowFilter: null,
     addHidden: false,
 };
 
