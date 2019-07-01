@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 import IconButton from './IconButton.jsx';
+import CheckBox from './CheckBox.jsx';
 
 /**
  * 搜索框
@@ -24,7 +25,7 @@ class SearchField extends React.Component {
     }
 
     render() {
-        const { className, style, placeholder, addHidden } = this.props;
+        const { className, style, data, placeholder, addHidden } = this.props;
 
         return <div className={classNames('SearchField', className)}>
             <IconButton className={classNames(addHidden && 'hidden')} icon={'add'} onClick={this.handleAdd}></IconButton>
@@ -38,6 +39,14 @@ class SearchField extends React.Component {
             />
             <IconButton icon={'close'} onClick={this.handleReset}></IconButton>
             <IconButton icon={'filter'} onClick={this.handleFilter}></IconButton>
+            <div className={'category'}>
+                {data.map(n => {
+                    return <div className={'item'}>
+                        <CheckBox name={n.ID}></CheckBox>
+                        <div className={'title'}>{n.Name}</div>
+                    </div>;
+                })}
+            </div>
         </div>;
     }
 
@@ -75,6 +84,7 @@ SearchField.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     value: PropTypes.string,
+    data: PropTypes.array,
     placeholder: PropTypes.string,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
@@ -88,6 +98,7 @@ SearchField.defaultProps = {
     className: null,
     style: null,
     value: '',
+    data: [],
     placeholder: 'Enter a keyword',
     onAdd: null,
     onChange: null,

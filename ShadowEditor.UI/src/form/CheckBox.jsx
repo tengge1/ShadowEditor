@@ -25,21 +25,22 @@ class CheckBox extends React.Component {
     }
 
     render() {
-        const { className, style, checked, disabled, onChange, ...others } = this.props;
+        const { className, style, name, checked, disabled, onChange } = this.props;
         return <input
             type={'checkbox'}
             className={classNames('CheckBox', this.state.checked && 'checked', disabled && 'disabled', className)}
             style={style}
+            name={name}
             defaultChecked={this.state.checked}
             disabled={disabled}
-            onClick={this.handleChange}
-            {...others} />;
+            onClick={this.handleChange} />;
     }
 }
 
 CheckBox.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    name: PropTypes.name,
     checked: PropTypes.bool,
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
@@ -48,6 +49,7 @@ CheckBox.propTypes = {
 CheckBox.defaultProps = {
     className: null,
     style: null,
+    name: undefined,
     checked: false,
     disabled: false,
     onChange: null,

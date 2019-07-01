@@ -19,11 +19,12 @@ class ScenePanel extends React.Component {
 
         this.state = {
             data: [],
+            categoryData: [],
         };
     }
 
     render() {
-        const { data } = this.state;
+        const { data, categoryData } = this.state;
 
         const imageListData = data.map(n => {
             return {
@@ -37,6 +38,7 @@ class ScenePanel extends React.Component {
 
         return <div className={'ScenePanel'}>
             <SearchField
+                data={categoryData}
                 placeholder={L_SEARCH_CONTENT}
                 addHidden={true}
                 onInput={this.handleSearch.bind(this)}></SearchField>
@@ -49,15 +51,48 @@ class ScenePanel extends React.Component {
     }
 
     componentDidMount() {
-        Ajax.getJson(`/api/Scene/List`, obj => {
-            this.setState({
-                data: obj.Data,
+        fetch(`/api/Category/List?type=Scene`).then(response => {
+            response.json().then(obj => {
+                this.setState({
+                    categoryData: obj.Data,
+                });
+            });
+        });
+        fetch(`/api/Scene/List`).then(response => {
+            response.json().then(obj => {
+                this.setState({
+                    data: obj.Data,
+                });
             });
         });
     }
 
-    handleSearch() {
+    handleSearch(value) {
+        var search = UI.get('search', this.id);
+        var category = UI.get('category', this.id);
 
+        var name = search.getValue();
+        var categories = category.getValue();
+
+        var list = this.data;
+
+        if (name.trim() !== '') {
+            name = name.toLowerCase();
+
+            list = list.filter(n => {
+                return n.Name.indexOf(name) > -1 ||
+                    n.FirstPinYin.indexOf(name) > -1 ||
+                    n.TotalPinYin.indexOf(name) > -1;
+            });
+        }
+
+        if (categories.length > 0) {
+            list = list.filter(n => {
+                return categories.indexOf(n.CategoryID) > -1;
+            });
+        }
+
+        this.renderList(list);
     }
 
     handleClick(data) {
