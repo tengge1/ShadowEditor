@@ -12,10 +12,6 @@ class Window extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            hidden: props.hidden,
-        };
-
         this.dom = React.createRef();
 
         this.isDown = false;
@@ -25,11 +21,13 @@ class Window extends React.Component {
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.handleMouseMove = this.handleMouseMove.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
-        this.handleClose = this.handleClose.bind(this);
+        this.handleClose = this.handleClose.bind(this, props.onClose);
+
+        this.el = document.createElement('div');
     }
 
     render() {
-        const { className, style, title, children, mask } = this.props;
+        const { className, style, title, children, hidden, mask } = this.props;
 
         let _children = null;
 
@@ -47,7 +45,7 @@ class Window extends React.Component {
             return n.type === Buttons;
         })[0];
 
-        return <div className={classNames('WindowMask', mask && 'mask', this.state.hidden && 'hidden')}>
+        return React.createPortal(<div className={classNames('WindowMask', mask && 'mask', hidden && 'hidden')}>
             <div className={classNames('Window', className)}
                 style={style}
                 ref={this.dom}>
@@ -67,7 +65,15 @@ class Window extends React.Component {
                     </div>
                 </div>
             </div>
-        </div>;
+        </div>, this.el);
+    }
+
+    componentDidMount() {
+        document.body.appendChild(this.el);
+    }
+
+    componentWillUnmount() {
+        document.body.removeChild(this.el);
     }
 
     handleMouseDown(event) {
@@ -100,10 +106,8 @@ class Window extends React.Component {
         this.offsetY = 0;
     }
 
-    handleClose(event) {
-        this.setState({
-            hidden: true,
-        });
+    handleClose(onClose, event) {
+        onClose && onClose(event);
     }
 
     componentDidMount() {
@@ -117,6 +121,10 @@ class Window extends React.Component {
     }
 }
 
+Window.show = function() {
+    
+}
+
 Window.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
@@ -124,6 +132,7 @@ Window.propTypes = {
     children: PropTypes.node,
     hidden: PropTypes.bool,
     mask: PropTypes.bool,
+    onClose: PropTypes.func,
 };
 
 Window.defaultProps = {
@@ -133,6 +142,7 @@ Window.defaultProps = {
     children: null,
     hidden: false,
     mask: true,
+    onClose: null,
 };
 
 export default Window;

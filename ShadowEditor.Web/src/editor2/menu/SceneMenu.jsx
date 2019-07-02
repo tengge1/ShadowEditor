@@ -1,4 +1,4 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator, Alert, Confirm } from '../../third_party';
 import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';
 import GISScene from '../../gis/Scene';
@@ -11,7 +11,13 @@ class SceneMenu extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            emptyConfirmShow: false,
+        };
+
         this.handleCreateEmptyScene = this.handleCreateEmptyScene.bind(this);
+        this.handleEmptyOK = this.handleEmptyOK.bind(this);
+
         this.handleCreateGISScene = this.handleCreateGISScene.bind(this);
         this.handleSaveScene = this.handleSaveScene.bind(this);
         this.handleSaveAsScene = this.handleSaveAsScene.bind(this);
@@ -19,16 +25,21 @@ class SceneMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={L_SCENE}>
-            <MenuItem title={L_NEW}>
-                <MenuItem title={L_EMPTY_SCENE} onClick={this.handleCreateEmptyScene}></MenuItem>
-                <MenuItem title={L_GIS_SCENE} onClick={this.handleCreateGISScene}></MenuItem>
+        return <>
+            <MenuItem title={L_SCENE}>
+                <MenuItem title={L_NEW}>
+                    <MenuItem title={L_EMPTY_SCENE} onClick={this.handleCreateEmptyScene}></MenuItem>
+                    <MenuItem title={L_GIS_SCENE} onClick={this.handleCreateGISScene}></MenuItem>
+                </MenuItem>
+                <MenuItem title={L_SAVE} onClick={this.handleSaveScene}></MenuItem>
+                <MenuItem title={L_SAVE_AS} onClick={this.handleSaveAsScene}></MenuItem>
+                <MenuItemSeparator />
+                <MenuItem title={L_EXPORT_SCENE} onClick={this.handleExportScene}></MenuItem>
             </MenuItem>
-            <MenuItem title={L_SAVE} onClick={this.handleSaveScene}></MenuItem>
-            <MenuItem title={L_SAVE_AS} onClick={this.handleSaveAsScene}></MenuItem>
-            <MenuItemSeparator />
-            <MenuItem title={L_EXPORT_SCENE} onClick={this.handleExportScene}></MenuItem>
-        </MenuItem>;
+            {this.state.emptyConfirmShow && <Confirm
+                title={L_CONFIRM}
+                onOK={this.handleEmptyOK}>{L_UNSAVED_WILL_LOSE_CONFIRM}</Confirm>}
+        </>;
     }
 
     // ---------------------------- 新建空场景 ---------------------------------
@@ -45,16 +56,16 @@ class SceneMenu extends React.Component {
             return;
         }
 
-        UI.confirm(L_CONFIRM, L_UNSAVED_WILL_LOSE_CONFIRM, (event, btn) => {
-            if (btn === 'ok') {
-                editor.clear();
-                editor.sceneID = null;
-                editor.sceneName = null;
-                app.options.sceneType = 'Empty';
-                document.title = L_NO_NAME;
-                app.editor.camera.userData.control = 'OrbitControls';
-            }
-        });
+        this.setState({ emptyConfirmShow: true, });
+    }
+
+    handleEmptyOK() {
+        editor.clear();
+        editor.sceneID = null;
+        editor.sceneName = null;
+        app.options.sceneType = 'Empty';
+        document.title = L_NO_NAME;
+        app.editor.camera.userData.control = 'OrbitControls';
     }
 
     // --------------------------- 新建GIS场景 -------------------------------------

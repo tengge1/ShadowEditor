@@ -80,4 +80,5 @@ export { default as Tree } from './tree/Tree.jsx';
 
 // window
 export { default as Alert } from './window/Alert.jsx';
+export { default as Confirm } from './window/Confirm.jsx';
 export { default as Window } from './window/Window.jsx';
