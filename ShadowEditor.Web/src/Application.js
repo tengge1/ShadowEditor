@@ -1,11 +1,9 @@
+import { Toast } from './third_party';
 import Options from './Options';
 import Storage from './utils/Storage';
-
-import EventDispatcher from './event/EventDispatcher';
-
-import Editor from './editor2/Editor.jsx';
-
 import PackageManager from './package/PackageManager';
+import EventDispatcher from './event/EventDispatcher';
+import Editor from './editor2/Editor.jsx';
 
 /**
  * 应用程序
@@ -41,6 +39,16 @@ function Application(container, options) {
     this.ui = React.createElement(Editor);
     ReactDOM.render(this.ui, this.container);
 }
+
+// ----------------------- 弹出窗口 ---------------------------------
+
+Application.prototype.toast = function (text) {
+    var toast = React.createElement(Toast, undefined, text);
+    this.editor.addComponent(toast);
+    setTimeout(() => {
+        this.editor.removeComponent(toast);
+    }, 5000);
+};
 
 // ----------------------- 记录日志  --------------------------------
 

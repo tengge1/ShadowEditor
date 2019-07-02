@@ -19,18 +19,33 @@ import Visualization from '../visual/Visualization';
  * @author tengge / https://github.com/tengge1
  */
 class Editor extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            components: [],
+        };
+    }
+
     render() {
-        return <BorderLayout className={'Editor'}>
-            <EditorMenuBar region={'north'}></EditorMenuBar>
-            <EditorStatusBar region={'south'}></EditorStatusBar>
-            <EditorToolbar region={'west'}></EditorToolbar>
-            <EditorSideBar region={'east'} split={true}></EditorSideBar>
-            <BorderLayout region={'center'}>
-                <AssetsPanel region={'west'} split={true}></AssetsPanel>
-                <Viewport region={'center'}></Viewport>
-                <TimelinePanel region={'south'} split={true}></TimelinePanel>
+        const { components } = this.state;
+
+        return <>
+            <BorderLayout className={'Editor'}>
+                <EditorMenuBar region={'north'}></EditorMenuBar>
+                <EditorStatusBar region={'south'}></EditorStatusBar>
+                <EditorToolbar region={'west'}></EditorToolbar>
+                <EditorSideBar region={'east'} split={true}></EditorSideBar>
+                <BorderLayout region={'center'}>
+                    <AssetsPanel region={'west'} split={true}></AssetsPanel>
+                    <Viewport region={'center'}></Viewport>
+                    <TimelinePanel region={'south'} split={true}></TimelinePanel>
+                </BorderLayout>
             </BorderLayout>
-        </BorderLayout>;
+            {components.map((n, i) => {
+                return <div key={i}>{n}</div>;
+            })}
+        </>;
     }
 
     componentDidMount() {
@@ -437,6 +452,28 @@ class Editor extends React.Component {
     onMouseMove(event) {
         this.mouse.x = (event.offsetX / this.renderer.domElement.clientWidth) * 2 - 1;
         this.mouse.y = -(event.offsetY / this.renderer.domElement.clientHeight) * 2 + 1;
+    }
+
+    // ---------------------- 用户界面 --------------------------------
+
+    addComponent(component) {
+        let components = this.state.components;
+
+        components.push(component);
+
+        this.setState({ components });
+    }
+
+    removeComponent(component) {
+        let components = this.state.components;
+
+        let index = components.indexOf(component);
+
+        if (index > -1) {
+            components.splice(index, 1);
+        }
+
+        this.setState({ components });
     }
 }
 

@@ -8,26 +8,16 @@ import PropTypes from 'prop-types';
 class Toast extends React.Component {
     constructor(props) {
         super(props);
-
-        this.el = document.createElement('div');
     }
 
     render() {
         const { className, style, children } = this.props;
 
-        return React.createPortal(<div
-            className={classNames('Toast', className)}
-            style={style}>
-            {children}
-        </div>, this.el);
-    }
-
-    componentDidMount() {
-        document.body.appendChild(this.el);
-    }
-
-    componentWillUnmount() {
-        document.body.removeChild(this.el);
+        return <div className={'ToastMark'}>
+            <div className={classNames('Toast', className)} style={style}>
+                {children}
+            </div>
+        </div>;
     }
 }
 
