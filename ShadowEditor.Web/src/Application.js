@@ -50,6 +50,10 @@ Application.prototype.toast = function (text) {
     }, 5000);
 };
 
+Application.prototype.alert = function (text, callback) {
+
+};
+
 // ----------------------- 记录日志  --------------------------------
 
 Application.prototype.log = function (content) { // 普通日志
