@@ -1,4 +1,8 @@
-import { Toast } from './third_party';
+import {
+    Toast,
+    Alert,
+    Confirm
+} from './third_party';
 import Options from './Options';
 import Storage from './utils/Storage';
 import PackageManager from './package/PackageManager';
@@ -43,15 +47,25 @@ function Application(container, options) {
 // ----------------------- 弹出窗口 ---------------------------------
 
 Application.prototype.toast = function (text) {
-    var toast = React.createElement(Toast, undefined, text);
-    this.editor.addComponent(toast);
+    var component = React.createElement(Toast, undefined, text);
+    this.editor.addComponent(component);
     setTimeout(() => {
         this.editor.removeComponent(toast);
     }, 5000);
 };
 
-Application.prototype.alert = function (text, callback) {
+Application.prototype.alert = function (text, onOK) {
+    var component = React.createElement(Alert, {
+        onOK,
+    }, text);
+    this.editor.addComponent(component);
+};
 
+Application.prototype.confirm = function (title, content, onOK, onCancel) {
+    var component = React.createElement(Confirm, {
+        onOK,
+    }, text);
+    this.editor.addComponent(component);
 };
 
 // ----------------------- 记录日志  --------------------------------
