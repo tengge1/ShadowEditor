@@ -23,7 +23,7 @@ class Confirm extends React.Component {
         const { className, style, title, children, hidden, mask, okText, cancelText } = this.props;
 
         return <Window
-            className={className}
+            className={classNames('Confirm', className)}
             style={style}
             title={title}
             hidden={hidden}
@@ -67,10 +67,10 @@ Confirm.propTypes = {
 Confirm.defaultProps = {
     className: null,
     style: null,
-    title: 'Message',
+    title: 'Confirm',
     children: null,
     hidden: false,
-    mask: true,
+    mask: false,
     okText: 'OK',
     cancelText: 'Cancel',
     onOK: null,

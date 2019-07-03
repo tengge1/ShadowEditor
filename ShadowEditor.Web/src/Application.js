@@ -46,8 +46,8 @@ function Application(container, options) {
 
 // ----------------------- 弹出窗口 ---------------------------------
 
-Application.prototype.toast = function (text) {
-    let component = React.createElement(Toast, undefined, text);
+Application.prototype.toast = function (content) {
+    let component = React.createElement(Toast, undefined, content);
 
     this.editor.addComponent(component);
 
@@ -56,7 +56,7 @@ Application.prototype.toast = function (text) {
     }, 5000);
 };
 
-Application.prototype.alert = function (title, text, onOK, onClose) {
+Application.prototype.alert = function (title, content, onOK, onClose) {
     let component;
 
     let close = () => {
@@ -74,7 +74,7 @@ Application.prototype.alert = function (title, text, onOK, onClose) {
         okText: L_OK,
         onOK,
         onClose,
-    }, text);
+    }, content);
 
     this.editor.addComponent(component);
 
@@ -86,9 +86,22 @@ Application.prototype.alert = function (title, text, onOK, onClose) {
 
 Application.prototype.confirm = function (title, content, onOK, onCancel) {
     let component = React.createElement(Confirm, {
+        title,
+        okText: L_OK,
+        cancelText: L_CANCEL,
         onOK,
-    }, text);
+        onCancel,
+        onClose: onCancel,
+    }, content);
+
     this.editor.addComponent(component);
+
+    return {
+        component,
+        close: () => {
+            this.editor.removeComponent(component);
+        },
+    };
 };
 
 // ----------------------- 记录日志  --------------------------------
