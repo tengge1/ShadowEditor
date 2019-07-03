@@ -29,14 +29,15 @@ class EditMenu extends React.Component {
     }
 
     componentDidMount() {
-        // app.on(`historyChanged.${this.id}`, this.onHistoryChanged.bind(this));
-        // app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+        app.on(`historyChanged.${this.id}`, this.onHistoryChanged.bind(this));
+        app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
     }
 
     // --------------------- 撤销 --------------------------
 
     handleUndo() {
         var history = app.editor.history;
+
         if (history.undos.length === 0) {
             return;
         }
@@ -48,6 +49,7 @@ class EditMenu extends React.Component {
 
     handleRedo() {
         var history = app.editor.history;
+
         if (history.redos.length === 0) {
             return;
         }
@@ -65,10 +67,8 @@ class EditMenu extends React.Component {
             return;
         }
 
-        UI.confirm(L_CONFIRM, L_HISTORY_WILL_CLEAR, function (event, btn) {
-            if (btn === 'ok') {
-                editor.history.clear();
-            }
+        app.confirm(L_CONFIRM, L_HISTORY_WILL_CLEAR, () => {
+            editor.history.clear();
         });
     }
 
@@ -96,10 +96,8 @@ class EditMenu extends React.Component {
             return;
         }
 
-        UI.confirm(L_CONFIRM, L_DELETE + ' ' + object.name + '?', function (event, btn) {
-            if (btn === 'ok') {
-                editor.execute(new RemoveObjectCommand(object));
-            }
+        app.confirm(L_CONFIRM, L_DELETE + ' ' + object.name + '?', () => {
+            editor.execute(new RemoveObjectCommand(object));
         });
     }
 
@@ -108,42 +106,42 @@ class EditMenu extends React.Component {
     onHistoryChanged() {
         var history = app.editor.history;
 
-        var undo = UI.get('undo', this.id);
-        var redo = UI.get('redo', this.id);
-        var clearHistory = UI.get('clearHistory', this.id);
+        // var undo = UI.get('undo', this.id);
+        // var redo = UI.get('redo', this.id);
+        // var clearHistory = UI.get('clearHistory', this.id);
 
-        if (history.undos.length === 0) {
-            undo.dom.classList.add('inactive');
-        } else {
-            undo.dom.classList.remove('inactive');
-        }
+        // if (history.undos.length === 0) {
+        //     undo.dom.classList.add('inactive');
+        // } else {
+        //     undo.dom.classList.remove('inactive');
+        // }
 
-        if (history.redos.length === 0) {
-            redo.dom.classList.add('inactive');
-        } else {
-            redo.dom.classList.remove('inactive');
-        }
+        // if (history.redos.length === 0) {
+        //     redo.dom.classList.add('inactive');
+        // } else {
+        //     redo.dom.classList.remove('inactive');
+        // }
 
-        if (history.undos.length === 0 && history.redos.length === 0) {
-            clearHistory.dom.classList.add('inactive');
-        } else {
-            clearHistory.dom.classList.remove('inactive');
-        }
+        // if (history.undos.length === 0 && history.redos.length === 0) {
+        //     clearHistory.dom.classList.add('inactive');
+        // } else {
+        //     clearHistory.dom.classList.remove('inactive');
+        // }
     }
 
     onObjectSelected() {
         var editor = app.editor;
 
-        var clone = UI.get('clone', this.id);
-        var deleteBtn = UI.get('delete', this.id);
+        // var clone = UI.get('clone', this.id);
+        // var deleteBtn = UI.get('delete', this.id);
 
-        if (editor.selected && editor.selected.parent != null) {
-            clone.dom.classList.remove('inactive');
-            deleteBtn.dom.classList.remove('inactive');
-        } else {
-            clone.dom.classList.add('inactive');
-            deleteBtn.dom.classList.add('inactive');
-        }
+        // if (editor.selected && editor.selected.parent != null) {
+        //     clone.dom.classList.remove('inactive');
+        //     deleteBtn.dom.classList.remove('inactive');
+        // } else {
+        //     clone.dom.classList.add('inactive');
+        //     deleteBtn.dom.classList.add('inactive');
+        // }
     }
 }
 

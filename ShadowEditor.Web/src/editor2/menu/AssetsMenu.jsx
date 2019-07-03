@@ -39,14 +39,14 @@ class AssetsMenu extends React.Component {
         var object = editor.selected;
 
         if (object === null) {
-            UI.msg(L_PLEASE_SELECT_OBJECT);
+            app.toast(L_PLEASE_SELECT_OBJECT);
             return;
         }
 
         var geometry = object.geometry;
 
         if (geometry === undefined) {
-            UI.msg(L_OBJECT_SELECTED_IS_NOT_GEOMETRY);
+            app.toast(L_OBJECT_SELECTED_IS_NOT_GEOMETRY);
             return;
         }
 
@@ -70,7 +70,7 @@ class AssetsMenu extends React.Component {
         var object = editor.selected;
 
         if (object === null) {
-            UI.msg(L_PLEASE_SELECT_OBJECT);
+            app.toast(L_PLEASE_SELECT_OBJECT);
             return;
         }
 

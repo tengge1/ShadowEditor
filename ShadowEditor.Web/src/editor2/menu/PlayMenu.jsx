@@ -79,7 +79,7 @@ class PlayMenu extends React.Component {
         var sceneID = app.editor.sceneID;
 
         if (!sceneID) {
-            UI.msg('请先保存场景！');
+            app.toast('请先保存场景！');
             return;
         }
 

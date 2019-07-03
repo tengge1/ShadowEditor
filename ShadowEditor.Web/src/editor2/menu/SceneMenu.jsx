@@ -140,7 +140,7 @@ class SceneMenu extends React.Component {
             sceneName = L_NEW_SCENE;
         }
 
-        UI.prompt(L_SAVE_SCENE, L_NAME, sceneName, (event, name) => {
+        app.prompt(L_SAVE_SCENE, L_NAME, sceneName, name => {
             app.editor.sceneName = name;
             document.title = name;
             this.commitSaveAs(name);
@@ -184,23 +184,21 @@ class SceneMenu extends React.Component {
         var sceneID = app.editor.sceneID;
 
         if (!sceneID) {
-            UI.msg('请先打开场景！');
+            app.toast('请先打开场景！');
             return;
         }
 
-        UI.confirm('询问', '是否导出当前场景？', (event, btn) => {
-            if (btn === 'ok') {
-                fetch(`${app.options.server}/api/ExportScene/Run?ID=${sceneID}`, {
-                    method: 'POST'
-                }).then(response => {
-                    if (response.ok) {
-                        response.json().then(json => {
-                            UI.msg(json.Msg);
-                            window.open(`${app.options.server}${json.Url}`, 'export');
-                        });
-                    }
-                });
-            }
+        app.confirm('询问', '是否导出当前场景？', () => {
+            fetch(`${app.options.server}/api/ExportScene/Run?ID=${sceneID}`, {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    response.json().then(json => {
+                        app.toast(json.Msg);
+                        window.open(`${app.options.server}${json.Url}`, 'export');
+                    });
+                }
+            });
         });
     }
 }

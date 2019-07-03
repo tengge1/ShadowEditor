@@ -1,4 +1,4 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator, Alert } from '../../third_party';
+import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
 
 /**
  * 帮助菜单
@@ -8,10 +8,6 @@ class HelpMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            showAbout: false,
-        };
-
         this.handleSource = this.handleSource.bind(this);
         this.handleExamples = this.handleExamples.bind(this);
         this.handleDocuments = this.handleDocuments.bind(this);
@@ -19,21 +15,12 @@ class HelpMenu extends React.Component {
     }
 
     render() {
-        return <>
-            <MenuItem title={L_HELP}>
-                <MenuItem title={L_SOURCE} onClick={this.handleSource}></MenuItem>
-                <MenuItem title={L_EXAMPLES} onClick={this.handleExamples}></MenuItem>
-                <MenuItem title={L_DOCUMENTS} onClick={this.handleDocuments}></MenuItem>
-                <MenuItem title={L_ABOUT} onClick={this.handleAbout}></MenuItem>
-            </MenuItem>
-            {this.state.showAbout && <Alert title={L_ABOUT} okText={L_OK}>
-                {L_NAME}: ShadowEditor
-                {L_AUTHOR}: tengge
-                {L_LISENSE}: MIT
-                {L_SOURCE}1: https://github.com/tengge1/ShadowEditor
-                {L_SOURCE}2: https://gitee.com/tengge1/ShadowEditor
-            </Alert>}
-        </>;
+        return <MenuItem title={L_HELP}>
+            <MenuItem title={L_SOURCE} onClick={this.handleSource}></MenuItem>
+            <MenuItem title={L_EXAMPLES} onClick={this.handleExamples}></MenuItem>
+            <MenuItem title={L_DOCUMENTS} onClick={this.handleDocuments}></MenuItem>
+            <MenuItem title={L_ABOUT} onClick={this.handleAbout}></MenuItem>
+        </MenuItem>;
     }
 
     handleSource() {
@@ -49,9 +36,13 @@ class HelpMenu extends React.Component {
     }
 
     handleAbout() {
-        this.setState({
-            showAbout: true,
-        });
+        app.alert('L_ABOUT', `
+        {L_NAME}: ShadowEditor
+        {L_AUTHOR}: tengge
+        {L_LISENSE}: MIT
+        {L_SOURCE}1: https://github.com/tengge1/ShadowEditor
+        {L_SOURCE}2: https://gitee.com/tengge1/ShadowEditor
+        `);
     }
 }
 
