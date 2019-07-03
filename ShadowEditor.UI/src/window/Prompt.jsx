@@ -1,18 +1,23 @@
-import './css/Alert.css';
+import './css/Prompt.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 import Window from './Window.jsx';
 import Content from '../common/Content.jsx';
+import Input from '../form/Input.jsx';
 import Buttons from '../common/Buttons.jsx';
 import Button from '../form/Button.jsx';
 
 /**
- * 提示框
+ * 弹窗输入框
  */
-class Alert extends React.Component {
+class Prompt extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            value: props.value,
+        };
 
         this.handleOK = this.handleOK.bind(this, props.onOK);
         this.handleClose = this.handleClose.bind(this, props.onClose);
@@ -22,13 +27,15 @@ class Alert extends React.Component {
         const { className, style, title, children, hidden, mask, okText } = this.props;
 
         return <Window
-            className={classNames('Alert', className)}
+            className={className}
             style={style}
             title={title}
             hidden={hidden}
             mask={mask}
             onClose={this.handleClose}>
-            <Content>{children}</Content>
+            <Content>
+                <Input value={children} onChange={this.handleChange} />
+            </Content>
             <Buttons>
                 <Button onClick={this.handleOK}>{okText}</Button>
             </Buttons>
@@ -44,7 +51,7 @@ class Alert extends React.Component {
     }
 }
 
-Alert.propTypes = {
+Prompt.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     title: PropTypes.string,
@@ -56,16 +63,16 @@ Alert.propTypes = {
     onClose: PropTypes.func,
 };
 
-Alert.defaultProps = {
+Prompt.defaultProps = {
     className: null,
     style: null,
-    title: 'Message',
+    title: 'Prompt',
     children: null,
     hidden: false,
-    mask: false,
+    mask: true,
     okText: 'OK',
     onOK: null,
     onClose: null,
 };
 
-export default Alert;
+export default Prompt;

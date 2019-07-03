@@ -47,22 +47,34 @@ function Application(container, options) {
 // ----------------------- 弹出窗口 ---------------------------------
 
 Application.prototype.toast = function (text) {
-    var component = React.createElement(Toast, undefined, text);
+    let component = React.createElement(Toast, undefined, text);
+
     this.editor.addComponent(component);
+
     setTimeout(() => {
-        this.editor.removeComponent(toast);
+        this.editor.removeComponent(component);
     }, 5000);
 };
 
-Application.prototype.alert = function (text, onOK) {
-    var component = React.createElement(Alert, {
+Application.prototype.alert = function (title, text, onOK, onClose) {
+    let component = React.createElement(Alert, {
+        title,
         onOK,
+        onClose: onClose || onOK,
     }, text);
+
     this.editor.addComponent(component);
+
+    return {
+        component,
+        close: () => {
+            this.editor.removeComponent(component);
+        },
+    };
 };
 
 Application.prototype.confirm = function (title, content, onOK, onCancel) {
-    var component = React.createElement(Confirm, {
+    let component = React.createElement(Confirm, {
         onOK,
     }, text);
     this.editor.addComponent(component);

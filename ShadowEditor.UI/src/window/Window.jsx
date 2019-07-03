@@ -22,8 +22,6 @@ class Window extends React.Component {
         this.handleMouseMove = this.handleMouseMove.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
         this.handleClose = this.handleClose.bind(this, props.onClose);
-
-        this.el = document.createElement('div');
     }
 
     render() {
@@ -45,7 +43,7 @@ class Window extends React.Component {
             return n.type === Buttons;
         })[0];
 
-        return React.createPortal(<div className={classNames('WindowMask', mask && 'mask', hidden && 'hidden')}>
+        return <div className={classNames('WindowMask', mask && 'mask', hidden && 'hidden')}>
             <div className={classNames('Window', className)}
                 style={style}
                 ref={this.dom}>
@@ -65,15 +63,7 @@ class Window extends React.Component {
                     </div>
                 </div>
             </div>
-        </div>, this.el);
-    }
-
-    componentDidMount() {
-        document.body.appendChild(this.el);
-    }
-
-    componentWillUnmount() {
-        document.body.removeChild(this.el);
+        </div>;
     }
 
     handleMouseDown(event) {
@@ -121,8 +111,8 @@ class Window extends React.Component {
     }
 }
 
-Window.show = function() {
-    
+Window.show = function () {
+
 }
 
 Window.propTypes = {
