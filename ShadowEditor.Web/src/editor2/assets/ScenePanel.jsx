@@ -110,9 +110,9 @@ class ScenePanel extends React.Component {
             }).then(obj => {
                 this.onLoadScene(obj);
 
-                editor.sceneID = data.ID;
-                editor.sceneName = data.Name;
-                document.title = data.Name;
+                editor.sceneID = data.id;
+                editor.sceneName = data.title;
+                document.title = data.title;
 
                 if (obj.options) {
                     app.call('optionsChanged', this, app.options);

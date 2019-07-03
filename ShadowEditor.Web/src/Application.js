@@ -86,7 +86,17 @@ Application.prototype.alert = function (title, content, onOK, onClose) {
 };
 
 Application.prototype.confirm = function (title, content, onOK, onCancel) {
-    let component = React.createElement(Confirm, {
+    let component;
+
+    let close = () => {
+        component && this.editor.removeComponent(component);
+    };
+
+    if (onCancel === undefined) {
+        onCancel = close;
+    }
+
+    component = React.createElement(Confirm, {
         title,
         okText: L_OK,
         cancelText: L_CANCEL,
@@ -99,9 +109,7 @@ Application.prototype.confirm = function (title, content, onOK, onCancel) {
 
     return {
         component,
-        close: () => {
-            this.editor.removeComponent(component);
-        },
+        close,
     };
 };
 
