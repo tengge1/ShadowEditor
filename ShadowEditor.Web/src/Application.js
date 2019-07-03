@@ -92,6 +92,12 @@ Application.prototype.confirm = function (title, content, onOK, onCancel) {
         component && this.editor.removeComponent(component);
     };
 
+    let handleOK = () => {
+        if (onOK && onOK() !== false) {
+            close();
+        }
+    };
+
     if (onCancel === undefined) {
         onCancel = close;
     }
@@ -100,7 +106,7 @@ Application.prototype.confirm = function (title, content, onOK, onCancel) {
         title,
         okText: L_OK,
         cancelText: L_CANCEL,
-        onOK,
+        onOK: handleOK,
         onCancel,
         onClose: onCancel,
     }, content);
@@ -120,6 +126,12 @@ Application.prototype.prompt = function (title, content, value, onOK, onClose) {
         component && this.editor.removeComponent(component);
     };
 
+    let handleOK = () => {
+        if (onOK && onOK() !== false) {
+            close();
+        }
+    };
+
     if (onClose === undefined) {
         onClose = close;
     }
@@ -129,7 +141,7 @@ Application.prototype.prompt = function (title, content, value, onOK, onClose) {
         content,
         value,
         okText: L_OK,
-        onOK,
+        onOK: handleOK,
         onClose,
     });
 
