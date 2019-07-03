@@ -57,19 +57,30 @@ Application.prototype.toast = function (text) {
 };
 
 Application.prototype.alert = function (title, text, onOK, onClose) {
-    let component = React.createElement(Alert, {
+    let component;
+
+    let close = () => {
+        component && this.editor.removeComponent(component);
+    };
+
+    if (onOK === undefined && onClose === undefined) {
+        onOK = onClose = close;
+    } else if (onClose === undefined) {
+        onClose = onOK;
+    }
+
+    component = React.createElement(Alert, {
         title,
+        okText: L_OK,
         onOK,
-        onClose: onClose || onOK,
+        onClose,
     }, text);
 
     this.editor.addComponent(component);
 
     return {
         component,
-        close: () => {
-            this.editor.removeComponent(component);
-        },
+        close,
     };
 };
 
