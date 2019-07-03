@@ -21,20 +21,22 @@ class Prompt extends React.Component {
 
         this.handleOK = this.handleOK.bind(this, props.onOK);
         this.handleClose = this.handleClose.bind(this, props.onClose);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     render() {
-        const { className, style, title, children, hidden, mask, okText } = this.props;
+        const { className, style, title, content, hidden, mask, okText } = this.props;
 
         return <Window
-            className={className}
+            className={classNames('Prompt', className)}
             style={style}
             title={title}
             hidden={hidden}
             mask={mask}
             onClose={this.handleClose}>
             <Content>
-                <Input value={children} onChange={this.handleChange} />
+                {content}
+                <Input value={this.state.value} onChange={this.handleChange} />
             </Content>
             <Buttons>
                 <Button onClick={this.handleOK}>{okText}</Button>
@@ -43,11 +45,15 @@ class Prompt extends React.Component {
     }
 
     handleOK(onOK, event) {
-        onOK && onOK(event);
+        onOK && onOK(this.state.value, event);
     }
 
     handleClose(onClose, event) {
         onClose && onClose(event);
+    }
+
+    handleChange(value) {
+        this.setState({ value });
     }
 }
 
@@ -55,7 +61,8 @@ Prompt.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     title: PropTypes.string,
-    children: PropTypes.node,
+    content: PropTypes.node,
+    value: PropTypes.string,
     hidden: PropTypes.bool,
     mask: PropTypes.bool,
     okText: PropTypes.string,
@@ -67,9 +74,10 @@ Prompt.defaultProps = {
     className: null,
     style: null,
     title: 'Prompt',
-    children: null,
+    content: null,
+    value: '',
     hidden: false,
-    mask: true,
+    mask: false,
     okText: 'OK',
     onOK: null,
     onClose: null,

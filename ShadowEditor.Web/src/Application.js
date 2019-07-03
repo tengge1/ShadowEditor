@@ -1,7 +1,8 @@
 import {
     Toast,
     Alert,
-    Confirm
+    Confirm,
+    Prompt
 } from './third_party';
 import Options from './Options';
 import Storage from './utils/Storage';
@@ -101,6 +102,34 @@ Application.prototype.confirm = function (title, content, onOK, onCancel) {
         close: () => {
             this.editor.removeComponent(component);
         },
+    };
+};
+
+Application.prototype.prompt = function (title, content, value, onOK, onClose) {
+    let component;
+
+    let close = () => {
+        component && this.editor.removeComponent(component);
+    };
+
+    if (onClose === undefined) {
+        onClose = close;
+    }
+
+    component = React.createElement(Prompt, {
+        title,
+        content,
+        value,
+        okText: L_OK,
+        onOK,
+        onClose,
+    });
+
+    this.editor.addComponent(component);
+
+    return {
+        component,
+        close,
     };
 };
 
