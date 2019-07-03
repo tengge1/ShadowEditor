@@ -82,7 +82,7 @@ class SceneMenu extends React.Component {
         if (id) { // 编辑场景
             this.commitSave(id, sceneName);
         } else { // 新建场景
-            UI.prompt(L_SAVE_SCENE, L_NAME, L_NEW_SCENE, (event, name) => {
+            app.prompt(L_SAVE_SCENE, L_NAME, L_NEW_SCENE, name => {
                 this.commitSave(id, name);
             });
         }
@@ -127,7 +127,7 @@ class SceneMenu extends React.Component {
 
             app.call(`sceneSaved`, this);
 
-            UI.msg(obj.Msg);
+            app.toast(obj.Msg);
         });
     }
 
