@@ -126,8 +126,8 @@ Application.prototype.prompt = function (title, content, value, onOK, onClose) {
         component && this.editor.removeComponent(component);
     };
 
-    let handleOK = () => {
-        if (onOK && onOK() !== false) {
+    let handleOK = value => {
+        if (onOK && onOK(value) !== false) {
             close();
         }
     };

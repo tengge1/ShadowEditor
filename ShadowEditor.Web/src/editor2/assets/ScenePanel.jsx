@@ -1,7 +1,6 @@
 import './css/ScenePanel.css';
 
 import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
-import Ajax from '../../utils/Ajax';
 import Converter from '../../serialization/Converter';
 import GISScene from '../../gis/Scene';
 
@@ -16,6 +15,8 @@ class ScenePanel extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+
+        this.update = this.update.bind(this);
 
         this.data = [];
 
@@ -53,6 +54,11 @@ class ScenePanel extends React.Component {
     }
 
     componentDidMount() {
+        this.update();
+        app.on(`sceneSaved.${this.id}`, this.update);
+    }
+
+    update() {
         fetch(`/api/Category/List?type=Scene`).then(response => {
             response.json().then(obj => {
                 this.setState({
@@ -99,44 +105,44 @@ class ScenePanel extends React.Component {
         var server = app.options.server;
         document.title = data.Name;
 
-        Ajax.get(`${server}/api/Scene/Load?ID=${data.id}`, (json) => {
-            var obj = JSON.parse(json);
+        fetch(`${server}/api/Scene/Load?ID=${data.id}`).then(response => {
+            response.json().then(obj => {
+                editor.clear(false);
 
-            editor.clear(false);
+                (new Converter()).fromJson(obj.Data, {
+                    server: app.options.server,
+                    camera: app.editor.camera
+                }).then(obj => {
+                    this.onLoadScene(obj);
 
-            (new Converter()).fromJson(obj.Data, {
-                server: app.options.server,
-                camera: app.editor.camera
-            }).then(obj => {
-                this.onLoadScene(obj);
+                    editor.sceneID = data.id;
+                    editor.sceneName = data.title;
+                    document.title = data.title;
 
-                editor.sceneID = data.id;
-                editor.sceneName = data.title;
-                document.title = data.title;
+                    if (obj.options) {
+                        app.call('optionsChanged', this, app.options);
 
-                if (obj.options) {
-                    app.call('optionsChanged', this, app.options);
-
-                    if (obj.options.sceneType === 'GIS') {
-                        if (app.editor.gis) {
-                            app.editor.gis.stop();
+                        if (obj.options.sceneType === 'GIS') {
+                            if (app.editor.gis) {
+                                app.editor.gis.stop();
+                            }
+                            app.editor.gis = new GISScene(app, {
+                                useCameraPosition: true,
+                            });
+                            app.editor.gis.start();
                         }
-                        app.editor.gis = new GISScene(app, {
-                            useCameraPosition: true,
-                        });
-                        app.editor.gis.start();
                     }
-                }
 
-                if (obj.scripts) {
-                    app.call('scriptChanged', this);
-                }
+                    if (obj.scripts) {
+                        app.call('scriptChanged', this);
+                    }
 
-                if (obj.scene) {
-                    app.call('sceneGraphChanged', this);
-                }
+                    if (obj.scene) {
+                        app.call('sceneGraphChanged', this);
+                    }
 
-                // UI.msg(L_LOAD_SUCCESS);
+                    app.toast(L_LOAD_SUCCESS);
+                });
             });
         });
     }
@@ -249,16 +255,17 @@ class ScenePanel extends React.Component {
     handleDelete(data) {
         var server = app.options.server;
 
-        UI.confirm(L_CONFIRM, `${L_DELETE} ${data.Name}?`, (event, btn) => {
-            if (btn === 'ok') {
-                Ajax.post(`${server}/api/Scene/Delete?ID=${data.ID}`, json => {
-                    var obj = JSON.parse(json);
+        app.confirm(L_CONFIRM, `${L_DELETE} ${data.title}?`, () => {
+            fetch(`${server}/api/Scene/Delete?ID=${data.id}`, {
+                method: 'POST',
+            }).then(response => {
+                response.json().then(obj => {
                     if (obj.Code === 200) {
                         this.update();
                     }
-                    UI.msg(obj.Msg);
+                    app.toast(obj.Msg);
                 });
-            }
+            });
         });
     }
 }
