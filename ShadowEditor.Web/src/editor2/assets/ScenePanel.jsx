@@ -1,6 +1,7 @@
 import './css/ScenePanel.css';
 
 import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
+import { EditWindow } from './window/EditWindow.jsx';
 import Converter from '../../serialization/Converter';
 import GISScene from '../../gis/Scene';
 
@@ -235,19 +236,15 @@ class ScenePanel extends React.Component {
     // ------------------------------- 编辑场景 ---------------------------------------
 
     handleEdit(data) {
-        if (this.editWindow === undefined) {
-            this.editWindow = new EditWindow({
-                app: app,
-                parent: document.body,
-                type: 'Scene',
-                typeName: L_SCENE,
-                saveUrl: `${app.options.server}/api/Scene/Edit`,
-                callback: this.updateList.bind(this)
-            });
-            this.editWindow.render();
-        }
-        this.editWindow.setData(data);
-        this.editWindow.show();
+        var editWindow = React.createElement(EditWindow, {
+            type: 'Scene',
+            typeName: L_SCENE,
+            data,
+            saveUrl: `${app.options.server}/api/Scene/Edit`,
+            callback: this.update,
+        });
+
+        app.editor.addComponent(editWindow)
     }
 
     // ------------------------------ 删除场景 ----------------------------------------

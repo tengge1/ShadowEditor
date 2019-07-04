@@ -111,6 +111,7 @@ class EditWindow extends React.Component {
 EditWindow.propTypes = {
     type: PropTypes.oneOf('Scene', 'Mesh', 'Map', 'Texture', 'Material', 'Audio', 'Particle'),
     typeName: PropTypes.string,
+    data: PropTypes.object,
     saveUrl: PropTypes.string,
     callback: PropTypes.func,
 };
@@ -118,6 +119,7 @@ EditWindow.propTypes = {
 EditWindow.defaultProps = {
     type: 'Scene',
     typeName: L_SCENE,
+    data: null,
     saveUrl: `${app.options.server}/api/Scene/Edit`,
     callback: null,
 };
