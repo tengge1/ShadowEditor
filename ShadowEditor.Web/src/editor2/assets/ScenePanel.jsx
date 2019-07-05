@@ -244,7 +244,7 @@ class ScenePanel extends React.Component {
             callback: this.update,
         });
 
-        window.show();
+        app.editor.addComponent(window);
     }
 
     // ------------------------------ 删除场景 ----------------------------------------

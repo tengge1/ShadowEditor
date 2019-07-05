@@ -1,4 +1,4 @@
-import './css/Input.css';
+import './css/Select.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
@@ -10,55 +10,48 @@ class Select extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            value: props.value,
-        };
+        this.options = null;
 
         this.handleChange = this.handleChange.bind(this, props.onChange);
-        this.handleInput = this.handleInput.bind(this, props.onInput);
     }
 
     handleChange(onChange, event) {
-        this.setState({
-            value: event.target.value,
-        });
-        onChange && onChange(event.target.value, event);
-    }
+        debugger
+        const value = this.options[event.selectedIndex].value;
 
-    handleInput(onInput, event) {
-        this.setState({
-            value: event.target.value,
-        });
-        onInput && onInput(event.target.value, event);
+        onChange && onChange(value, event);
     }
 
     render() {
-        const { className, style, value, onChange, onInput, ...others } = this.props;
+        const { className, style, options, value, onChange } = this.props;
 
-        return <input
-            className={classNames('Input', className)}
+        this.options = options;
+
+        return <select
+            className={classNames('Select', className)}
             style={style}
-            value={this.state.value}
-            onChange={this.handleChange}
-            onInput={this.handleInput}
-            {...others} />;
+            onChange={this.handleChange}>
+            {options && Object.keys(options).map(n => {
+                return <option value={options[n].value} key={options[n].value}>{options[n].text}</option>;
+            })}
+        </select>;
     }
 }
 
 Select.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    options: PropTypes.object,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    onInput: PropTypes.func,
 };
 
 Select.defaultProps = {
     className: null,
     style: null,
-    value: '',
+    options: null,
+    value: null,
     onChange: null,
-    onInput: null,
 };
 
 export default Select;

@@ -1,4 +1,5 @@
-import { classNames, PropTypes, Window, Form, FormControl, Label, Input } from '../../../third_party';
+import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, Button } from '../../../third_party';
+import Ajax from '../../../utils/Ajax';
 
 /**
  * 编辑窗口
@@ -8,28 +9,53 @@ class EditWindow extends React.Component {
     constructor(props) {
         super(props);
 
-        this.show = this.show.bind(this);
-        this.hide = this.hide.bind(this);
+        this.type = null;
+        this.typeName = null;
+        this.data = null;
+        this.saveUrl = null;
+        this.callback = null;
+
+        this.state = {
+            categories: null,
+            categoryID: null,
+        };
+
         this.updateUI = this.updateUI.bind(this);
+        this.handleSave = this.handleSave.bind(this, props.callback);
+        this.handleClose = this.handleClose.bind(this);
     }
 
     render() {
         const { type, typeName, data, saveUrl, callback } = this.props;
+        const { categories, categoryID } = this.state;
+
+        this.type = type;
+        this.typeName = typeName;
+        this.data = data;
+        this.saveUrl = saveUrl;
+        this.callback = callback;
 
         return <Window
             title={`编辑${typeName}`}
             style={{ width: '320px', height: '280px', }}
-            mask={true}>
-            <Form>
-                <FormControl>
-                    <Label>L_NAME</Label>
-                    <Input name={'name'}></Input>
-                </FormControl>
-                <FormControl>
-                    <Label>L_TYPE</Label>
-                    <Input name={'select'}></Input>
-                </FormControl>
-            </Form>
+            mask={true}
+            onClose={this.handleClose}>
+            <Content>
+                <Form>
+                    <FormControl>
+                        <Label>{L_NAME}</Label>
+                        <Input name={'name'} value={data.title}></Input>
+                    </FormControl>
+                    <FormControl>
+                        <Label>{L_TYPE}</Label>
+                        <Select name={'select'} options={categories} value={categoryID}></Select>
+                    </FormControl>
+                </Form>
+            </Content>
+            <Buttons>
+                <Button onClick={this.handleSave}>{L_OK}</Button>
+                <Button onClick={this.handleClose}>{L_CANCEL}</Button>
+            </Buttons>
         </Window>;
     }
 
@@ -37,26 +63,14 @@ class EditWindow extends React.Component {
         this.updateUI();
     }
 
-    show() {
-        app.editor.addComponent(this);
-    }
-
-    hide() {
-        app.editor.removeComponent(this);
-    }
-
     updateUI() {
-        if (this.data === undefined) {
-            return;
-        }
+        // var name = UI.get('name', this.id);
+        // var image = UI.get('image', this.id);
+        // name.setValue(this.data.Name);
+        // image.setValue(this.data.Thumbnail);
 
-        var name = UI.get('name', this.id);
-        var image = UI.get('image', this.id);
-        name.setValue(this.data.Name);
-        image.setValue(this.data.Thumbnail);
-
-        var category = UI.get('category', this.id);
-        category.clear();
+        // var category = UI.get('category', this.id);
+        // category.clear();
 
         Ajax.getJson(`/api/Category/List?Type=${this.type}`, json => {
             var options = {
@@ -65,17 +79,14 @@ class EditWindow extends React.Component {
             json.Data.forEach(n => {
                 options[n.ID] = n.Name;
             });
-            category.options = options;
-            category.value = this.data.CategoryID;
-            category.render();
+            this.setState({
+                categories: options,
+                categoryID: this.data.CategoryID,
+            });
         });
     }
 
-    save() {
-        if (!this.data) {
-            return;
-        }
-
+    handleSave() {
         var name = UI.get('name', this.id);
         var category = UI.get('category', this.id);
         var image = UI.get('image', this.id);
@@ -93,6 +104,10 @@ class EditWindow extends React.Component {
                 this.callback && this.callback(obj);
             }
         });
+    }
+
+    handleClose() {
+        app.editor.removeComponent(this);
     }
 
     // ----------------------------- 类别编辑 ----------------------------------------
