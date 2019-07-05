@@ -7,13 +7,17 @@ import { classNames, PropTypes, Window, Form, FormControl, Label, Input } from '
 class EditWindow extends React.Component {
     constructor(props) {
         super(props);
+
+        this.show = this.show.bind(this);
+        this.hide = this.hide.bind(this);
+        this.updateUI = this.updateUI.bind(this);
     }
 
     render() {
-        const { } = this.props;
+        const { type, typeName, data, saveUrl, callback } = this.props;
 
         return <Window
-            title={`编辑${this.typeName}`}
+            title={`编辑${typeName}`}
             style={{ width: '320px', height: '280px', }}
             mask={true}>
             <Form>
@@ -29,17 +33,16 @@ class EditWindow extends React.Component {
         </Window>;
     }
 
+    componentDidMount() {
+        this.updateUI();
+    }
+
     show() {
-        UI.get('window', this.id).show();
+        app.editor.addComponent(this);
     }
 
     hide() {
-        UI.get('window', this.id).hide();
-    }
-
-    setData(data) {
-        this.data = data;
-        this.updateUI();
+        app.editor.removeComponent(this);
     }
 
     updateUI() {

@@ -236,7 +236,7 @@ class ScenePanel extends React.Component {
     // ------------------------------- 编辑场景 ---------------------------------------
 
     handleEdit(data) {
-        var editWindow = React.createElement(EditWindow, {
+        var window = React.createElement(EditWindow, {
             type: 'Scene',
             typeName: L_SCENE,
             data,
@@ -244,7 +244,7 @@ class ScenePanel extends React.Component {
             callback: this.update,
         });
 
-        app.editor.addComponent(editWindow)
+        window.show();
     }
 
     // ------------------------------ 删除场景 ----------------------------------------
