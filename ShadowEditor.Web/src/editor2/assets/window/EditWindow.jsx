@@ -1,4 +1,4 @@
-import { classNames, PropTypes, Window, Form, FormControl, Label, Input } from '../../third_party';
+import { classNames, PropTypes, Window, Form, FormControl, Label, Input } from '../../../third_party';
 
 /**
  * 编辑窗口
@@ -109,7 +109,7 @@ class EditWindow extends React.Component {
 }
 
 EditWindow.propTypes = {
-    type: PropTypes.oneOf('Scene', 'Mesh', 'Map', 'Texture', 'Material', 'Audio', 'Particle'),
+    type: PropTypes.oneOf(['Scene', 'Mesh', 'Map', 'Texture', 'Material', 'Audio', 'Particle']),
     typeName: PropTypes.string,
     data: PropTypes.object,
     saveUrl: PropTypes.string,
@@ -120,7 +120,7 @@ EditWindow.defaultProps = {
     type: 'Scene',
     typeName: L_SCENE,
     data: null,
-    saveUrl: `${app.options.server}/api/Scene/Edit`,
+    saveUrl: null,
     callback: null,
 };
 

@@ -1,7 +1,7 @@
 import './css/ScenePanel.css';
 
 import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
-import { EditWindow } from './window/EditWindow.jsx';
+import EditWindow from './window/EditWindow.jsx';
 import Converter from '../../serialization/Converter';
 import GISScene from '../../gis/Scene';
 
