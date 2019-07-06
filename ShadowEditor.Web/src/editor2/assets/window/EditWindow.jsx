@@ -1,4 +1,4 @@
-import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, Button } from '../../../third_party';
+import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button } from '../../../third_party';
 import Ajax from '../../../utils/Ajax';
 
 /**
@@ -13,12 +13,14 @@ class EditWindow extends React.Component {
             name: props.data.Name,
             categories: null,
             categoryID: props.data.CategoryID,
+            thumbnail: props.data.Thumbnail,
         };
 
         this.updateUI = this.updateUI.bind(this);
 
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
+        this.handleThumbnailChange = this.handleThumbnailChange.bind(this);
 
         this.handleSave = this.handleSave.bind(this, props.callback);
         this.handleClose = this.handleClose.bind(this);
@@ -26,11 +28,11 @@ class EditWindow extends React.Component {
 
     render() {
         const { typeName } = this.props;
-        const { name, categories, categoryID } = this.state;
+        const { name, categories, categoryID, thumbnail } = this.state;
 
         return <Window
             title={`编辑${typeName}`}
-            style={{ width: '320px', height: '280px', }}
+            style={{ width: '320px', height: '300px', }}
             mask={true}
             onClose={this.handleClose}>
             <Content>
@@ -42,6 +44,10 @@ class EditWindow extends React.Component {
                     <FormControl>
                         <Label>{L_TYPE}</Label>
                         <Select name={'select'} options={categories} value={categoryID} onChange={this.handleCategoryChange}></Select>
+                    </FormControl>
+                    <FormControl>
+                        <Label>{L_THUMBNAIL}</Label>
+                        <ImageUploader server={app.options.server} url={thumbnail} onChange={this.handleThumbnailChange}></ImageUploader>
                     </FormControl>
                 </Form>
             </Content>
@@ -80,6 +86,10 @@ class EditWindow extends React.Component {
         this.setState({
             categoryID: value,
         });
+    }
+
+    handleThumbnailChange(event) {
+
     }
 
     handleSave() {

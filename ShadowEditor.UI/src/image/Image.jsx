@@ -8,23 +8,28 @@ import PropTypes from 'prop-types';
  */
 class Image extends React.Component {
     render() {
-        const { className, style, ...others } = this.props;
+        const { className, style, src, title } = this.props;
 
         return <img
             className={classNames('Image', className)}
             style={style}
-            {...others}></img>;
+            src={src}
+            title={title}></img>;
     }
 }
 
 Image.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    src: PropTypes.string,
+    title: PropTypes.string,
 };
 
 Image.defaultProps = {
     className: null,
     style: null,
+    src: null,
+    title: null,
 };
 
 export default Image;
