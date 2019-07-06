@@ -9,12 +9,6 @@ class EditWindow extends React.Component {
     constructor(props) {
         super(props);
 
-        this.type = null;
-        this.typeName = null;
-        this.data = null;
-        this.saveUrl = null;
-        this.callback = null;
-
         this.state = {
             categories: null,
             categoryID: null,
@@ -28,12 +22,6 @@ class EditWindow extends React.Component {
     render() {
         const { type, typeName, data, saveUrl, callback } = this.props;
         const { categories, categoryID } = this.state;
-
-        this.type = type;
-        this.typeName = typeName;
-        this.data = data;
-        this.saveUrl = saveUrl;
-        this.callback = callback;
 
         return <Window
             title={`编辑${typeName}`}
@@ -63,18 +51,8 @@ class EditWindow extends React.Component {
         this.updateUI();
     }
 
-    componentWillUnmount() {
-
-    }
-
     updateUI() {
-        // var name = UI.get('name', this.id);
-        // var image = UI.get('image', this.id);
-        // name.setValue(this.data.Name);
-        // image.setValue(this.data.Thumbnail);
-
-        // var category = UI.get('category', this.id);
-        // category.clear();
+        const { data } = this.props;
 
         Ajax.getJson(`/api/Category/List?Type=${this.type}`, json => {
             var options = {
@@ -85,7 +63,7 @@ class EditWindow extends React.Component {
             });
             this.setState({
                 categories: options,
-                categoryID: this.data.CategoryID,
+                categoryID: data.CategoryID,
             });
         });
     }
