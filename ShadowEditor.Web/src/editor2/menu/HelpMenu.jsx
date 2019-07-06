@@ -1,3 +1,4 @@
+import './css/HelpMenu.css';
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
 
 /**
@@ -36,13 +37,17 @@ class HelpMenu extends React.Component {
     }
 
     handleAbout() {
-        app.alert('L_ABOUT', `
-        {L_NAME}: ShadowEditor
-        {L_AUTHOR}: tengge
-        {L_LISENSE}: MIT
-        {L_SOURCE}1: https://github.com/tengge1/ShadowEditor
-        {L_SOURCE}2: https://gitee.com/tengge1/ShadowEditor
-        `);
+        app.alert({
+            title: L_ABOUT,
+            className: 'About',
+            content: <>
+                {L_NAME}: ShadowEditor<br />
+                {L_AUTHOR}: tengge<br />
+                {L_LISENSE}: MIT<br />
+                {L_SOURCE}1: https://github.com/tengge1/ShadowEditor<br />
+                {L_SOURCE}2: https://gitee.com/tengge1/ShadowEditor<br />
+            </>
+        });
     }
 }
 

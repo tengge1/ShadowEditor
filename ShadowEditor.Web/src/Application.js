@@ -57,7 +57,18 @@ Application.prototype.toast = function (content) {
     }, 5000);
 };
 
-Application.prototype.alert = function (title, content, onOK, onClose) {
+/**
+ * 提示信息
+ * @param {Object} options 配置
+ * @param {String} options.title 标题
+ * @param {String} options.content 内容
+ * @param {String} options.className 样式类
+ * @param {Object} options.style 样式
+ * @param {Function} options.onOK 点击确定回调函数
+ * @param {Function} options.onClose 点击关闭回调函数
+ */
+Application.prototype.alert = function (options = {}) {
+    let { title, content, className, style, onOK, onClose } = options;
     let component;
 
     let close = () => {
@@ -73,6 +84,8 @@ Application.prototype.alert = function (title, content, onOK, onClose) {
     component = React.createElement(Alert, {
         title,
         okText: L_OK,
+        className,
+        style,
         onOK,
         onClose,
     }, content);

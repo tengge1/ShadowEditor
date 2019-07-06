@@ -1,4 +1,4 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator, Alert, Confirm } from '../../third_party';
+import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator, Confirm } from '../../third_party';
 import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';
 import GISScene from '../../gis/Scene';
