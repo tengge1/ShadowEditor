@@ -7,3 +7,7 @@
 .FormControl>* {
     vertical-align: middle;
 }
+
+.FormControl>.Label {
+    width: 60px;
+}
