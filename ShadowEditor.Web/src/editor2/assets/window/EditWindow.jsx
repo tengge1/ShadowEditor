@@ -47,7 +47,11 @@ class EditWindow extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>{L_THUMBNAIL}</Label>
-                        <ImageUploader server={app.options.server} url={thumbnail} onChange={this.handleThumbnailChange}></ImageUploader>
+                        <ImageUploader
+                            server={app.options.server}
+                            url={thumbnail}
+                            noImageText={L_NO_IMAGE}
+                            onChange={this.handleThumbnailChange}></ImageUploader>
                     </FormControl>
                 </Form>
             </Content>
@@ -88,27 +92,37 @@ class EditWindow extends React.Component {
         });
     }
 
-    handleThumbnailChange(event) {
-
+    handleThumbnailChange(file) {
+        Ajax.post(`${app.options.server}/api/Upload/Upload`, {
+            file,
+        }, json => {
+            var obj = JSON.parse(json);
+            if (obj.Code === 200) {
+                this.setState({
+                    thumbnail: obj.Data.url,
+                });
+            } else {
+                app.toast(obj.Msg);
+            }
+        });
     }
 
     handleSave() {
         const { data, saveUrl, callback } = this.props;
-        const { name, categoryID } = this.state;
-
-        var image = UI.get('image', this.id);
+        const { name, categoryID, thumbnail } = this.state;
 
         Ajax.post(saveUrl, {
             ID: data.ID,
             Name: name,
             Category: categoryID,
-            Image: image.getValue()
+            Image: thumbnail
         }, json => {
             var obj = JSON.parse(json);
-            app.toast(obj.Msg);
             if (obj.Code === 200) {
                 callback && callback(obj);
                 this.handleClose();
+            } else {
+                app.toast(obj.Msg);
             }
         });
     }
