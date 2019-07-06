@@ -86,8 +86,13 @@ class SceneMenu extends React.Component {
         if (id) { // 编辑场景
             this.commitSave(id, sceneName);
         } else { // 新建场景
-            app.prompt(L_SAVE_SCENE, L_NAME, L_NEW_SCENE, name => {
-                this.commitSave(id, name);
+            app.prompt({
+                title: L_SAVE_SCENE,
+                content: L_NAME,
+                value: L_NEW_SCENE,
+                onOK: name => {
+                    this.commitSave(id, name);
+                }
             });
         }
     }
@@ -144,10 +149,15 @@ class SceneMenu extends React.Component {
             sceneName = L_NEW_SCENE;
         }
 
-        app.prompt(L_SAVE_SCENE, L_NAME, sceneName, name => {
-            app.editor.sceneName = name;
-            document.title = name;
-            this.commitSaveAs(name);
+        app.prompt({
+            title: L_SAVE_SCENE,
+            content: L_NAME,
+            value: sceneName,
+            onOK: name => {
+                app.editor.sceneName = name;
+                document.title = name;
+                this.commitSaveAs(name);
+            }
         });
     }
 

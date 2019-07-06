@@ -58,7 +58,7 @@ Application.prototype.toast = function (content) {
 };
 
 /**
- * 提示信息
+ * 提示窗口
  * @param {Object} options 选项
  * @param {String} options.title 标题
  * @param {String} options.content 内容
@@ -99,14 +99,14 @@ Application.prototype.alert = function (options = {}) {
 };
 
 /**
- * 询问框
+ * 询问窗口
  * @param {Object} options 选项
  * @param {String} options.title 标题
  * @param {String} options.content 内容
  * @param {String} options.className 样式类
  * @param {Object} options.style 样式
- * @param {Function} options.onOK 点击确定执行函数
- * @param {Function} options.onCancel 点击取消执行函数
+ * @param {Function} options.onOK 点击确定回调函数
+ * @param {Function} options.onCancel 点击取消回调函数
  */
 Application.prototype.confirm = function (options = {}) {
     let { title, content, className, style, onOK, onCancel } = options;
@@ -146,7 +146,19 @@ Application.prototype.confirm = function (options = {}) {
     };
 };
 
-Application.prototype.prompt = function (title, content, value, onOK, onClose) {
+/**
+ * 输入窗口
+ * @param {Object} options 选项
+ * @param {String} options.title 标题
+ * @param {String} options.content 内容
+ * @param {String} options.className 样式类
+ * @param {Object} options.style 样式
+ * @param {String} options.value 默认值
+ * @param {Function} options.onOK 点击确定执行函数
+ * @param {Function} options.onClose 点击关闭执行函数
+ */
+Application.prototype.prompt = function (options = {}) {
+    let { title, content, className, style, value, onOK, onClose } = options;
     let component;
 
     let close = () => {
@@ -166,6 +178,8 @@ Application.prototype.prompt = function (title, content, value, onOK, onClose) {
     component = React.createElement(Prompt, {
         title,
         content,
+        className,
+        style,
         value,
         okText: L_OK,
         onOK: handleOK,
