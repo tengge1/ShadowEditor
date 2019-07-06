@@ -17,10 +17,11 @@
     flex-direction: column;
     align-items: stretch;
     z-index: 100;
+    transition: all 0.4s;
 }
 
 .BorderLayout>.north.collapsed {
-    height: 8px;
+    height: 8px !important;
 }
 
 .BorderLayout>.north>.content {
@@ -30,7 +31,6 @@
 }
 
 .BorderLayout>.north.split>.content {
-    height: calc(100% - 8px);
     overflow-y: hidden;
 }
 
@@ -62,10 +62,11 @@
     flex-direction: column;
     align-items: stretch;
     z-index: 100;
+    transition: all 0.4s;
 }
 
 .BorderLayout>.south.collapsed {
-    height: 8px;
+    height: 8px !important;
 }
 
 .BorderLayout>.south>.content {
@@ -75,7 +76,6 @@
 }
 
 .BorderLayout>.south.split>.content {
-    height: calc(100% - 8px);
     overflow-y: hidden;
 }
 
@@ -117,10 +117,11 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    transition: all 0.4s;
 }
 
 .BorderLayout>.middle>.west.collapsed {
-    width: 8px;
+    width: 8px !important;
 }
 
 .BorderLayout>.middle>.west>.content {
@@ -130,7 +131,6 @@
 }
 
 .BorderLayout>.middle>.west.split>.content {
-    width: calc(100% - 8px);
     overflow-x: hidden;
 }
 
@@ -172,10 +172,11 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    transition: all 0.4s;
 }
 
 .BorderLayout>.middle>.east.collapsed {
-    width: 8px;
+    width: 8px !important;
 }
 
 .BorderLayout>.middle>.east>.content {
@@ -185,7 +186,6 @@
 }
 
 .BorderLayout>.middle>.east.split>.content {
-    width: calc(100% - 8px);
     overflow-x: hidden;
 }
 

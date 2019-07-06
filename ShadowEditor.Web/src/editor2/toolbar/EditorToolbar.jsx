@@ -37,16 +37,52 @@ class EditorToolbar extends React.Component {
         const { mode, isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging } = this.state;
 
         return <Toolbar className={'EditorToolbar'} direction={'vertical'}>
-            <IconButton icon={'select'} selected={mode === 'select'} onClick={this.handleEnterSelectMode}></IconButton>
-            <IconButton icon={'translate'} selected={mode === 'translate'} onClick={this.handleEnterTranslateMode}></IconButton>
-            <IconButton icon={'rotate'} selected={mode === 'rotate'} onClick={this.handleEnterRotateMode}></IconButton>
-            <IconButton icon={'scale'} selected={mode === 'scale'} onClick={this.handleEnterScaleMode}></IconButton>
+            <IconButton
+                icon={'select'}
+                title={L_SELECT}
+                selected={mode === 'select'}
+                onClick={this.handleEnterSelectMode}></IconButton>
+            <IconButton
+                icon={'translate'}
+                title={L_TRANSLATE}
+                selected={mode === 'translate'}
+                onClick={this.handleEnterTranslateMode}></IconButton>
+            <IconButton
+                icon={'rotate'}
+                title={L_ROTATE}
+                selected={mode === 'rotate'}
+                onClick={this.handleEnterRotateMode}></IconButton>
+            <IconButton
+                icon={'scale'}
+                title={L_SCALE}
+                selected={mode === 'scale'}
+                onClick={this.handleEnterScaleMode}></IconButton>
             <ToolbarSeparator />
-            <IconButton icon={'point'} selected={isAddingPoint} onClick={this.handleAddPoint}></IconButton>
-            <IconButton icon={'line'} selected={isAddingLine} onClick={this.handleAddLine}></IconButton>
-            <IconButton icon={'polygon'} selected={isAddingPolygon} onClick={this.handleAddPolygon}></IconButton>
-            <IconButton icon={'spray'} selected={isSpraying} onClick={this.handleSpray}></IconButton>
-            <IconButton icon={'texture'} selected={isDigging} onClick={this.handleDig}></IconButton>
+            <IconButton
+                icon={'point'}
+                title={L_DRAW_POINT}
+                selected={isAddingPoint}
+                onClick={this.handleAddPoint}></IconButton>
+            <IconButton
+                icon={'line'}
+                title={L_DRAW_LINE}
+                selected={isAddingLine}
+                onClick={this.handleAddLine}></IconButton>
+            <IconButton
+                icon={'polygon'}
+                title={L_DRAW_POLYGON}
+                selected={isAddingPolygon}
+                onClick={this.handleAddPolygon}></IconButton>
+            <IconButton
+                icon={'spray'}
+                title={L_SPRAY}
+                selected={isSpraying}
+                onClick={this.handleSpray}></IconButton>
+            <IconButton
+                icon={'texture'}
+                title={L_DIG}
+                selected={isDigging}
+                onClick={this.handleDig}></IconButton>
         </Toolbar>;
     }
 

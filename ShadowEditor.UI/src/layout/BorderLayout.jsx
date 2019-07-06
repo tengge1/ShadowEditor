@@ -27,6 +27,11 @@ class BorderLayout extends React.Component {
         const westCollapsed = west && west.props.collapsed || false;
         const eastCollapsed = east && east.props.collapsed || false;
 
+        this.northRef = React.createRef();
+        this.southRef = React.createRef();
+        this.westRef = React.createRef();
+        this.eastRef = React.createRef();
+
         this.state = {
             northSplit, southSplit, westSplit, eastSplit,
             northCollapsed, southCollapsed, westCollapsed, eastCollapsed,
