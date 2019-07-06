@@ -8,12 +8,13 @@ import PropTypes from 'prop-types';
  */
 class IconButton extends React.Component {
     render() {
-        const { className, style, icon, title, selected, onClick } = this.props;
+        const { className, style, icon, title, selected, onClick, ...others } = this.props;
         return <button
             className={classNames('IconButton', selected && 'selected', className)}
             style={style}
             title={title}
-            onClick={onClick}>
+            onClick={onClick}
+            {...others}>
             <i className={classNames('iconfont', icon && 'icon-' + icon)}></i>
         </button>;
     }
