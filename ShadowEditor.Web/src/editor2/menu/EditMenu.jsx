@@ -67,8 +67,12 @@ class EditMenu extends React.Component {
             return;
         }
 
-        app.confirm(L_CONFIRM, L_HISTORY_WILL_CLEAR, () => {
-            editor.history.clear();
+        app.confirm({
+            title: L_CONFIRM,
+            content: L_HISTORY_WILL_CLEAR,
+            onOK: () => {
+                editor.history.clear();
+            }
         });
     }
 
@@ -96,8 +100,12 @@ class EditMenu extends React.Component {
             return;
         }
 
-        app.confirm(L_CONFIRM, L_DELETE + ' ' + object.name + '?', () => {
-            editor.execute(new RemoveObjectCommand(object));
+        app.confirm({
+            title: L_CONFIRM,
+            content: L_DELETE + ' ' + object.name + '?',
+            onOK: () => {
+                editor.execute(new RemoveObjectCommand(object));
+            }
         });
     }
 

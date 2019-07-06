@@ -45,13 +45,17 @@ class SceneMenu extends React.Component {
             return;
         }
 
-        app.confirm(L_CONFIRM, L_UNSAVED_WILL_LOSE_CONFIRM, () => {
-            editor.clear();
-            editor.sceneID = null;
-            editor.sceneName = null;
-            app.options.sceneType = 'Empty';
-            document.title = L_NO_NAME;
-            app.editor.camera.userData.control = 'OrbitControls';
+        app.confirm({
+            title: L_CONFIRM,
+            content: L_UNSAVED_WILL_LOSE_CONFIRM,
+            onOK: () => {
+                editor.clear();
+                editor.sceneID = null;
+                editor.sceneName = null;
+                app.options.sceneType = 'Empty';
+                document.title = L_NO_NAME;
+                app.editor.camera.userData.control = 'OrbitControls';
+            }
         });
     }
 
@@ -188,17 +192,21 @@ class SceneMenu extends React.Component {
             return;
         }
 
-        app.confirm('询问', '是否导出当前场景？', () => {
-            fetch(`${app.options.server}/api/ExportScene/Run?ID=${sceneID}`, {
-                method: 'POST'
-            }).then(response => {
-                if (response.ok) {
-                    response.json().then(json => {
-                        app.toast(json.Msg);
-                        window.open(`${app.options.server}${json.Url}`, 'export');
-                    });
-                }
-            });
+        app.confirm({
+            title: '询问',
+            content: '是否导出当前场景？',
+            onOK: () => {
+                fetch(`${app.options.server}/api/ExportScene/Run?ID=${sceneID}`, {
+                    method: 'POST'
+                }).then(response => {
+                    if (response.ok) {
+                        response.json().then(json => {
+                            app.toast(json.Msg);
+                            window.open(`${app.options.server}${json.Url}`, 'export');
+                        });
+                    }
+                });
+            }
         });
     }
 }

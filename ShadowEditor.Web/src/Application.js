@@ -59,7 +59,7 @@ Application.prototype.toast = function (content) {
 
 /**
  * 提示信息
- * @param {Object} options 配置
+ * @param {Object} options 选项
  * @param {String} options.title 标题
  * @param {String} options.content 内容
  * @param {String} options.className 样式类
@@ -98,7 +98,19 @@ Application.prototype.alert = function (options = {}) {
     };
 };
 
-Application.prototype.confirm = function (title, content, onOK, onCancel) {
+/**
+ * 询问框
+ * @param {Object} options 选项
+ * @param {String} options.title 标题
+ * @param {String} options.content 内容
+ * @param {String} options.className 样式类
+ * @param {Object} options.style 样式
+ * @param {Function} options.onOK 点击确定执行函数
+ * @param {Function} options.onCancel 点击取消执行函数
+ */
+Application.prototype.confirm = function (options = {}) {
+    let { title, content, className, style, onOK, onCancel } = options;
+
     let component;
 
     let close = () => {
@@ -119,6 +131,8 @@ Application.prototype.confirm = function (title, content, onOK, onCancel) {
         title,
         okText: L_OK,
         cancelText: L_CANCEL,
+        className,
+        style,
         onOK: handleOK,
         onCancel,
         onClose: onCancel,

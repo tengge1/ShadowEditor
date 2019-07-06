@@ -252,17 +252,21 @@ class ScenePanel extends React.Component {
     handleDelete(data) {
         var server = app.options.server;
 
-        app.confirm(L_CONFIRM, `${L_DELETE} ${data.title}?`, () => {
-            fetch(`${server}/api/Scene/Delete?ID=${data.id}`, {
-                method: 'POST',
-            }).then(response => {
-                response.json().then(obj => {
-                    if (obj.Code === 200) {
-                        this.update();
-                    }
-                    app.toast(obj.Msg);
+        app.confirm({
+            title: L_CONFIRM,
+            content: `${L_DELETE} ${data.title}?`,
+            onOK: () => {
+                fetch(`${server}/api/Scene/Delete?ID=${data.id}`, {
+                    method: 'POST',
+                }).then(response => {
+                    response.json().then(obj => {
+                        if (obj.Code === 200) {
+                            this.update();
+                        }
+                        app.toast(obj.Msg);
+                    });
                 });
-            });
+            }
         });
     }
 }
