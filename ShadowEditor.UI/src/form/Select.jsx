@@ -10,14 +10,18 @@ class Select extends React.Component {
     constructor(props) {
         super(props);
 
-        this.options = null;
-
         this.handleChange = this.handleChange.bind(this, props.onChange);
     }
 
     handleChange(onChange, event) {
-        debugger
-        const value = this.options[event.selectedIndex].value;
+        const selectedIndex = event.target.selectedIndex;
+
+        if (selectedIndex === -1) {
+            onChange && onChange(null, event);
+            return;
+        }
+
+        const value = event.target.options[selectedIndex].value;
 
         onChange && onChange(value, event);
     }
@@ -25,11 +29,10 @@ class Select extends React.Component {
     render() {
         const { className, style, options, value, onChange } = this.props;
 
-        this.options = options;
-
         return <select
             className={classNames('Select', className)}
             style={style}
+            value={value}
             onChange={this.handleChange}>
             {options && Object.keys(options).map(n => {
                 return <option value={n} key={n}>{options[n]}</option>;

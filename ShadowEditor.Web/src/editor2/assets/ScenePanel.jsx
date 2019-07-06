@@ -18,7 +18,6 @@ class ScenePanel extends React.Component {
         this.state = {
             data: [],
             categoryData: [],
-            editShow: false,
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -32,13 +31,13 @@ class ScenePanel extends React.Component {
         const { data, categoryData } = this.state;
 
         const imageListData = data.map(n => {
-            return {
+            return Object.assign({}, n, {
                 id: n.ID,
                 src: n.Thumbnail ? n.Thumbnail : null,
                 title: n.Name,
                 icon: 'scenes',
                 cornerText: `v${n.Version}`,
-            };
+            });
         });
 
         return <div className={'ScenePanel'}>

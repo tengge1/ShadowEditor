@@ -10,18 +10,23 @@ class EditWindow extends React.Component {
         super(props);
 
         this.state = {
+            name: props.data.Name,
             categories: null,
-            categoryID: null,
+            categoryID: props.data.CategoryID,
         };
 
         this.updateUI = this.updateUI.bind(this);
+
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleCategoryChange = this.handleCategoryChange.bind(this);
+
         this.handleSave = this.handleSave.bind(this, props.callback);
         this.handleClose = this.handleClose.bind(this);
     }
 
     render() {
-        const { type, typeName, data, saveUrl, callback } = this.props;
-        const { categories, categoryID } = this.state;
+        const { typeName } = this.props;
+        const { name, categories, categoryID } = this.state;
 
         return <Window
             title={`编辑${typeName}`}
@@ -32,11 +37,11 @@ class EditWindow extends React.Component {
                 <Form>
                     <FormControl>
                         <Label>{L_NAME}</Label>
-                        <Input name={'name'} value={data.title}></Input>
+                        <Input name={'name'} value={name} onChange={this.handleNameChange}></Input>
                     </FormControl>
                     <FormControl>
                         <Label>{L_TYPE}</Label>
-                        <Select name={'select'} options={categories} value={categoryID}></Select>
+                        <Select name={'select'} options={categories} value={categoryID} onChange={this.handleCategoryChange}></Select>
                     </FormControl>
                 </Form>
             </Content>
@@ -52,9 +57,7 @@ class EditWindow extends React.Component {
     }
 
     updateUI() {
-        const { data } = this.props;
-
-        Ajax.getJson(`/api/Category/List?Type=${this.type}`, json => {
+        Ajax.getJson(`/api/Category/List?Type=${this.props.type}`, json => {
             var options = {
                 '': L_NOT_SET
             };
@@ -63,27 +66,39 @@ class EditWindow extends React.Component {
             });
             this.setState({
                 categories: options,
-                categoryID: data.CategoryID,
             });
         });
     }
 
+    handleNameChange(value) {
+        this.setState({
+            name: value,
+        });
+    }
+
+    handleCategoryChange(value) {
+        this.setState({
+            categoryID: value,
+        });
+    }
+
     handleSave() {
-        var name = UI.get('name', this.id);
-        var category = UI.get('category', this.id);
+        const { data, saveUrl, callback } = this.props;
+        const { name, categoryID } = this.state;
+
         var image = UI.get('image', this.id);
 
-        Ajax.post(this.saveUrl, {
-            ID: this.data.ID,
-            Name: name.getValue(),
-            Category: category.getValue(),
+        Ajax.post(saveUrl, {
+            ID: data.ID,
+            Name: name,
+            Category: categoryID,
             Image: image.getValue()
         }, json => {
             var obj = JSON.parse(json);
-            UI.msg(obj.Msg);
+            app.toast(obj.Msg);
             if (obj.Code === 200) {
-                this.hide();
-                this.callback && this.callback(obj);
+                callback && callback(obj);
+                this.handleClose();
             }
         });
     }

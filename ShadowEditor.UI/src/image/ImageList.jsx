@@ -13,9 +13,7 @@ class ImageList extends React.Component {
     constructor(props) {
         super(props);
 
-        const { data, onClick, onEdit, onDelete } = props;
-
-        this.data = data;
+        const { onClick, onEdit, onDelete } = props;
 
         this.handleClick = this.handleClick.bind(this, onClick);
         this.handleEdit = this.handleEdit.bind(this, onEdit);
@@ -25,9 +23,7 @@ class ImageList extends React.Component {
     render() {
         const { className, style, data } = this.props;
 
-        this.data = data;
-
-        return <div className={'ImageList'}>
+        return <div className={classNames('ImageList', className)} style={style}>
             {data.map(n => {
                 return <div className={'item'} data-id={n.id} key={n.id} onClick={this.handleClick}>
                     {n.src ?
@@ -48,7 +44,7 @@ class ImageList extends React.Component {
         event.stopPropagation();
 
         const id = event.target.getAttribute('data-id');
-        const data = this.data.filter(n => n.id === id)[0];
+        const data = this.props.data.filter(n => n.id === id)[0];
 
         onClick && onClick(data, event);
     }
@@ -57,7 +53,7 @@ class ImageList extends React.Component {
         event.stopPropagation();
 
         const id = event.target.getAttribute('data-id');
-        const data = this.data.filter(n => n.id === id)[0];
+        const data = this.props.data.filter(n => n.id === id)[0];
 
         onEdit && onEdit(data, event);
     }
@@ -66,7 +62,7 @@ class ImageList extends React.Component {
         event.stopPropagation();
 
         const id = event.target.getAttribute('data-id');
-        const data = this.data.filter(n => n.id === id)[0];
+        const data = this.props.data.filter(n => n.id === id)[0];
 
         onDelete && onDelete(data, event);
     }
