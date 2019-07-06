@@ -24,9 +24,9 @@ class PlayMenu extends React.Component {
 
     handleTogglePlay() {
         if (this.isPlaying) {
-            this.stopPlay();
+            this.handleStopPlay();
         } else {
-            this.startPlay();
+            this.handleStartPlay();
         }
     }
 
