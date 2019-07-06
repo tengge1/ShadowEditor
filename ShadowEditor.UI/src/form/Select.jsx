@@ -32,7 +32,7 @@ class Select extends React.Component {
             style={style}
             onChange={this.handleChange}>
             {options && Object.keys(options).map(n => {
-                return <option value={options[n].value} key={options[n].value}>{options[n].text}</option>;
+                return <option value={n} key={n}>{options[n]}</option>;
             })}
         </select>;
     }
