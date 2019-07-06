@@ -13,18 +13,19 @@ class ScenePanel extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleClick = this.handleClick.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-
-        this.update = this.update.bind(this);
-
         this.data = [];
 
         this.state = {
             data: [],
             categoryData: [],
+            editShow: false,
         };
+
+        this.handleClick = this.handleClick.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+
+        this.update = this.update.bind(this);
     }
 
     render() {
@@ -236,7 +237,7 @@ class ScenePanel extends React.Component {
     // ------------------------------- 编辑场景 ---------------------------------------
 
     handleEdit(data) {
-        var window = React.createElement(EditWindow, {
+        var win = app.createElement(EditWindow, {
             type: 'Scene',
             typeName: L_SCENE,
             data,
@@ -244,7 +245,7 @@ class ScenePanel extends React.Component {
             callback: this.update,
         });
 
-        app.editor.addComponent(window);
+        app.addElement(win);
     }
 
     // ------------------------------ 删除场景 ----------------------------------------

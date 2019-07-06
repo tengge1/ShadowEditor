@@ -63,6 +63,10 @@ class EditWindow extends React.Component {
         this.updateUI();
     }
 
+    componentWillUnmount() {
+
+    }
+
     updateUI() {
         // var name = UI.get('name', this.id);
         // var image = UI.get('image', this.id);
@@ -107,7 +111,7 @@ class EditWindow extends React.Component {
     }
 
     handleClose() {
-        app.editor.removeComponent(this);
+        app.removeElement(this);
     }
 
     // ----------------------------- 类别编辑 ----------------------------------------

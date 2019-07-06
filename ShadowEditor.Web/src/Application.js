@@ -45,15 +45,47 @@ function Application(container, options) {
     ReactDOM.render(this.ui, this.container);
 }
 
-// ----------------------- 弹出窗口 ---------------------------------
+// ----------------------- UI操作 ---------------------------------
 
+/**
+ * 创建元素
+ * @param {React.Component} type ReactComponent类型
+ * @param {Object} props ReactComponent属性
+ * @param {Object} children 子节点
+ */
+Application.prototype.createElement = function (type, props, children) {
+    return this.editor.createElement(type, props, children);
+};
+
+/**
+ * 添加元素
+ * @param {Object} element ReactElement元素
+ * @param {Function} callback 回调函数
+ */
+Application.prototype.addElement = function (element, callback) {
+    return this.editor.addElement(element, callback);
+};
+
+/**
+ * 移除元素
+ * @param {Object} element ReactElement元素
+ * @param {Function} callback 回调函数
+ */
+Application.prototype.removeElement = function (element, callback) {
+    return this.editor.removeElement(element, callback);
+};
+
+/**
+ * 弹窗一段时间消失的消息窗口
+ * @param {String} content 内容
+ */
 Application.prototype.toast = function (content) {
-    let component = React.createElement(Toast, undefined, content);
+    let component = this.createElement(Toast, undefined, content);
 
-    this.editor.addComponent(component);
+    this.addElement(component);
 
     setTimeout(() => {
-        this.editor.removeComponent(component);
+        this.removeElement(component);
     }, 5000);
 };
 
@@ -72,7 +104,7 @@ Application.prototype.alert = function (options = {}) {
     let component;
 
     let close = () => {
-        component && this.editor.removeComponent(component);
+        component && this.removeElement(component);
     };
 
     if (onOK === undefined && onClose === undefined) {
@@ -81,7 +113,7 @@ Application.prototype.alert = function (options = {}) {
         onClose = onOK;
     }
 
-    component = React.createElement(Alert, {
+    component = this.createElement(Alert, {
         title,
         okText: L_OK,
         className,
@@ -90,7 +122,7 @@ Application.prototype.alert = function (options = {}) {
         onClose,
     }, content);
 
-    this.editor.addComponent(component);
+    this.addElement(component);
 
     return {
         component,
@@ -114,7 +146,7 @@ Application.prototype.confirm = function (options = {}) {
     let component;
 
     let close = () => {
-        component && this.editor.removeComponent(component);
+        component && this.removeElement(component);
     };
 
     let handleOK = () => {
@@ -127,7 +159,7 @@ Application.prototype.confirm = function (options = {}) {
         onCancel = close;
     }
 
-    component = React.createElement(Confirm, {
+    component = this.createElement(Confirm, {
         title,
         okText: L_OK,
         cancelText: L_CANCEL,
@@ -138,7 +170,7 @@ Application.prototype.confirm = function (options = {}) {
         onClose: onCancel,
     }, content);
 
-    this.editor.addComponent(component);
+    this.addElement(component);
 
     return {
         component,
@@ -162,7 +194,7 @@ Application.prototype.prompt = function (options = {}) {
     let component;
 
     let close = () => {
-        component && this.editor.removeComponent(component);
+        component && this.removeElement(component);
     };
 
     let handleOK = value => {
@@ -175,7 +207,7 @@ Application.prototype.prompt = function (options = {}) {
         onClose = close;
     }
 
-    component = React.createElement(Prompt, {
+    component = this.createElement(Prompt, {
         title,
         content,
         className,
@@ -186,7 +218,7 @@ Application.prototype.prompt = function (options = {}) {
         onClose,
     });
 
-    this.editor.addComponent(component);
+    this.addElement(component);
 
     return {
         component,

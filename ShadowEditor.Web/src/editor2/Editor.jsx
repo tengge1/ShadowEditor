@@ -23,12 +23,12 @@ class Editor extends React.Component {
         super(props);
 
         this.state = {
-            components: [],
+            elements: [],
         };
     }
 
     render() {
-        const { components } = this.state;
+        const { elements } = this.state;
 
         return <>
             <BorderLayout className={'Editor'}>
@@ -42,7 +42,7 @@ class Editor extends React.Component {
                     <TimelinePanel region={'south'} split={true}></TimelinePanel>
                 </BorderLayout>
             </BorderLayout>
-            {components.map((n, i) => {
+            {elements.map((n, i) => {
                 return <div key={i}>{n}</div>;
             })}
         </>;
@@ -456,24 +456,30 @@ class Editor extends React.Component {
 
     // ---------------------- 用户界面 --------------------------------
 
-    addComponent(component) {
-        let components = this.state.components;
-
-        components.push(component);
-
-        this.setState({ components });
+    createElement(type, props = {}, children = undefined) {
+        let ref = React.createRef();
+        props.ref = ref;
+        return React.createElement(type, props, children);
     }
 
-    removeComponent(component) {
-        let components = this.state.components;
+    addElement(element, callback) {
+        let elements = this.state.elements;
 
-        let index = components.indexOf(component);
+        elements.push(element);
+
+        this.setState({ elements }, callback);
+    }
+
+    removeElement(element, callback) {
+        let elements = this.state.elements;
+
+        let index = elements.findIndex(n => n === element || n.ref && n.ref.current === element)
 
         if (index > -1) {
-            components.splice(index, 1);
+            elements.splice(index, 1);
         }
 
-        this.setState({ components });
+        this.setState({ elements }, callback);
     }
 }
 
