@@ -27,6 +27,11 @@ class BorderLayout extends React.Component {
         const westCollapsed = west && west.props.collapsed || false;
         const eastCollapsed = east && east.props.collapsed || false;
 
+        const onNorthToggle = north && north.props.onToggle || null;
+        const onSouthToggle = south && south.props.onToggle || null;
+        const onWestToggle = west && west.props.onToggle || null;
+        const onEastToggle = east && east.props.onToggle || null;
+
         this.northRef = React.createRef();
         this.southRef = React.createRef();
         this.westRef = React.createRef();
@@ -37,10 +42,12 @@ class BorderLayout extends React.Component {
             northCollapsed, southCollapsed, westCollapsed, eastCollapsed,
         };
 
-        this.handleNorthClick = this.handleNorthClick.bind(this);
-        this.handleSouthClick = this.handleSouthClick.bind(this);
-        this.handleWestClick = this.handleWestClick.bind(this);
-        this.handleEastClick = this.handleEastClick.bind(this);
+        this.handleNorthClick = this.handleNorthClick.bind(this, onNorthToggle);
+        this.handleSouthClick = this.handleSouthClick.bind(this, onSouthToggle);
+        this.handleWestClick = this.handleWestClick.bind(this, onWestToggle);
+        this.handleEastClick = this.handleEastClick.bind(this, onEastToggle);
+
+        this.handleTransitionEnd = this.handleTransitionEnd.bind(this, onNorthToggle, onSouthToggle, onWestToggle, onEastToggle);
     }
 
     handleNorthClick() {
@@ -94,10 +101,11 @@ class BorderLayout extends React.Component {
             return;
         }
 
+        const dom = this.westRef.current;
+
         this.setState((state, props) => {
             const collapsed = !state.westCollapsed;
 
-            const dom = this.westRef.current;
             const width = dom.clientWidth;
 
             if (collapsed) {
@@ -133,6 +141,25 @@ class BorderLayout extends React.Component {
                 eastCollapsed: collapsed,
             };
         });
+    }
+
+    handleTransitionEnd(onNorthToggle, onSouthToggle, onWestToggle, onEastToggle, event) {
+        const region = event.target.getAttribute('region');
+
+        switch (region) {
+            case 'north':
+                onNorthToggle && onNorthToggle(!this.state.northCollapsed);
+                break;
+            case 'south':
+                onSouthToggle && onSouthToggle(!this.state.southCollapsed);
+                break;
+            case 'west':
+                onWestToggle && onWestToggle(!this.state.westCollapsed);
+                break;
+            case 'east':
+                onEastToggle && onEastToggle(!this.state.eastCollapsed);
+                break;
+        }
     }
 
     render() {
@@ -171,6 +198,8 @@ class BorderLayout extends React.Component {
         const northRegion = north.length > 0 && (<div className={classNames('north',
             this.state.northSplit && 'split',
             this.state.northCollapsed && 'collapsed')}
+            region={'north'}
+            onTransitionEnd={this.handleTransitionEnd}
             ref={this.northRef}>
             <div className={'content'}>
                 {north}
@@ -184,6 +213,8 @@ class BorderLayout extends React.Component {
         const southRegion = south.length > 0 && (<div className={classNames('south',
             this.state.northSplit && 'split',
             this.state.southCollapsed && 'collapsed')}
+            region={'south'}
+            onTransitionEnd={this.handleTransitionEnd}
             ref={this.southRef}>
             {this.state.southSplit && <div className={'control'}>
                 <div className={'button'} onClick={this.handleSouthClick}></div>
@@ -197,6 +228,8 @@ class BorderLayout extends React.Component {
         const westRegion = west.length > 0 && (<div className={classNames('west',
             this.state.westSplit && 'split',
             this.state.westCollapsed && 'collapsed')}
+            region={'west'}
+            onTransitionEnd={this.handleTransitionEnd}
             ref={this.westRef}>
             <div className={'content'}>
                 {west}
@@ -210,6 +243,8 @@ class BorderLayout extends React.Component {
         const eastRegion = east.length > 0 && (<div className={classNames('east',
             this.state.eastSplit && 'split',
             this.state.eastCollapsed && 'collapsed')}
+            region={'east'}
+            onTransitionEnd={this.handleTransitionEnd}
             ref={this.eastRef}>
             <div className={'control'}>
                 <div className={'button'} onClick={this.handleEastClick}></div>

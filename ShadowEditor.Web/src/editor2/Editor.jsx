@@ -25,6 +25,8 @@ class Editor extends React.Component {
         this.state = {
             elements: [],
         };
+
+        this.onToggle = this.onToggle.bind(this);
     }
 
     render() {
@@ -35,11 +37,11 @@ class Editor extends React.Component {
                 <EditorMenuBar region={'north'}></EditorMenuBar>
                 <EditorStatusBar region={'south'}></EditorStatusBar>
                 <EditorToolbar region={'west'}></EditorToolbar>
-                <EditorSideBar region={'east'} split={true}></EditorSideBar>
+                <EditorSideBar region={'east'} split={true} onToggle={this.onToggle}></EditorSideBar>
                 <BorderLayout region={'center'}>
-                    <AssetsPanel region={'west'} split={true}></AssetsPanel>
+                    <AssetsPanel region={'west'} split={true} onToggle={this.onToggle}></AssetsPanel>
                     <Viewport region={'center'}></Viewport>
-                    <TimelinePanel region={'south'} split={true}></TimelinePanel>
+                    <TimelinePanel region={'south'} split={true} onToggle={this.onToggle}></TimelinePanel>
                 </BorderLayout>
             </BorderLayout>
             {elements.map((n, i) => {
@@ -165,6 +167,10 @@ class Editor extends React.Component {
     onAppStarted() {
         this.helpers.start();
         this.clear();
+    }
+
+    onToggle(expanded) {
+        app.call('resize', this);
     }
 
     // -------------------- 场景 --------------------------
