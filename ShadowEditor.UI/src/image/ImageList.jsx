@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Icon from '../icon/Icon.jsx';
 import IconButton from '../form/IconButton.jsx';
+import Input from '../form/Input.jsx';
 
 /**
  * 图片列表
@@ -14,6 +15,9 @@ class ImageList extends React.Component {
         super(props);
 
         const { onClick, onEdit, onDelete } = props;
+
+        this.pageSize = 6;
+        this.pageNum = 0;
 
         this.handleClick = this.handleClick.bind(this, onClick);
         this.handleEdit = this.handleEdit.bind(this, onEdit);
@@ -42,12 +46,12 @@ class ImageList extends React.Component {
             <div className={'page'}>
                 <IconButton icon={'backward'}></IconButton>
                 <IconButton icon={'left-triangle2'}></IconButton>
-                <div class={'info'}>
-                    <div>第<span>1</span>页</div>
-                    <div>共<span>20</span>页</div>
-                </div>
+                <Input className={'current'} value={'1'} />
                 <IconButton icon={'right-triangle2'}></IconButton>
                 <IconButton icon={'forward'}></IconButton>
+                <div class={'info'}>
+                    共<span>20</span>页
+                </div>
             </div>
         </div>;
     }

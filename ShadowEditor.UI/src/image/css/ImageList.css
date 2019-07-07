@@ -104,6 +104,8 @@
     bottom: 0;
     width: 100%;
     font-size: 12px;
+    padding-top: 3px;
+    border-top: 1px solid #ddd;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -112,16 +114,16 @@
 .ImageList>.page>.IconButton {
     width: 20px;
     height: 20px;
-    margin: 0;
+    margin: 0 2px;
 }
 
 .ImageList>.page>.IconButton>.iconfont {
     font-size: 14px;
 }
 
-.ImageList>.page>.info {
+.ImageList>.page>.current {
+    width: 0;
     flex: 1;
-    display: flex;
-    flex-direction: row;
-    text-align: center;
+    margin: 0 2px;
+    padding: 1px 2px;
 }
