@@ -47,18 +47,46 @@ class BorderLayout extends React.Component {
         if (!this.state.northSplit) {
             return;
         }
-        this.setState((state, props) => ({
-            northCollapsed: !state.northCollapsed,
-        }));
+
+        this.setState((state, props) => {
+            const collapsed = !state.northCollapsed;
+
+            const dom = this.northRef.current;
+            const height = dom.clientHeight;
+
+            if (collapsed) {
+                dom.style.marginTop = `-${height - 8}px`;
+            } else {
+                dom.style.marginTop = null;
+            }
+
+            return {
+                northCollapsed: collapsed,
+            };
+        });
     }
 
     handleSouthClick() {
         if (!this.state.southSplit) {
             return;
         }
-        this.setState((state, props) => ({
-            southCollapsed: !state.southCollapsed,
-        }));
+
+        this.setState((state, props) => {
+            const collapsed = !state.southCollapsed;
+
+            const dom = this.southRef.current;
+            const height = dom.clientHeight;
+
+            if (collapsed) {
+                dom.style.marginBottom = `-${height - 8}px`;
+            } else {
+                dom.style.marginBottom = null;
+            }
+
+            return {
+                southCollapsed: collapsed,
+            };
+        });
     }
 
     handleWestClick() {
@@ -66,22 +94,45 @@ class BorderLayout extends React.Component {
             return;
         }
 
-        // const dom = this.westRef.current;
-        // const width = dom.clientWidth;
-        // dom.style.width = `${width}px`;
+        this.setState((state, props) => {
+            const collapsed = !state.westCollapsed;
 
-        this.setState((state, props) => ({
-            westCollapsed: !state.westCollapsed,
-        }));
+            const dom = this.westRef.current;
+            const width = dom.clientWidth;
+
+            if (collapsed) {
+                dom.style.marginLeft = `-${width - 8}px`;
+            } else {
+                dom.style.marginLeft = null;
+            }
+
+            return {
+                westCollapsed: collapsed,
+            };
+        });
     }
 
     handleEastClick() {
         if (!this.state.eastSplit) {
             return;
         }
-        this.setState((state, props) => ({
-            eastCollapsed: !state.eastCollapsed,
-        }));
+
+        this.setState((state, props) => {
+            const collapsed = !state.eastCollapsed;
+
+            const dom = this.eastRef.current;
+            const width = dom.clientWidth;
+
+            if (collapsed) {
+                dom.style.marginRight = `-${width - 8}px`;
+            } else {
+                dom.style.marginRight = null;
+            }
+
+            return {
+                eastCollapsed: collapsed,
+            };
+        });
     }
 
     render() {

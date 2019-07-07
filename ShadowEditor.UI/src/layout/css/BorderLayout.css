@@ -20,10 +20,6 @@
     transition: all 0.4s;
 }
 
-.BorderLayout>.north.collapsed {
-    height: 8px !important;
-}
-
 .BorderLayout>.north>.content {
     width: 100%;
     height: 100%;
@@ -65,10 +61,6 @@
     transition: all 0.4s;
 }
 
-.BorderLayout>.south.collapsed {
-    height: 8px !important;
-}
-
 .BorderLayout>.south>.content {
     width: 100%;
     height: 100%;
@@ -108,6 +100,7 @@
     flex: 1;
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 }
 
 /* west */
@@ -118,10 +111,6 @@
     flex-direction: row;
     align-items: stretch;
     transition: all 0.4s;
-}
-
-.BorderLayout>.middle>.west.collapsed {
-    width: 8px !important;
 }
 
 .BorderLayout>.middle>.west>.content {
@@ -173,10 +162,6 @@
     flex-direction: row;
     align-items: stretch;
     transition: all 0.4s;
-}
-
-.BorderLayout>.middle>.east.collapsed {
-    width: 8px !important;
 }
 
 .BorderLayout>.middle>.east>.content {
