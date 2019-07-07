@@ -101,7 +101,14 @@ Application.prototype.toast = function (content) {
  * @param {Function} options.onClose 点击关闭回调函数
  */
 Application.prototype.alert = function (options = {}) {
-    let { title, content, className, style, onOK, onClose } = options;
+    let {
+        title,
+        content,
+        className,
+        style,
+        onOK,
+        onClose
+    } = options;
     let component;
 
     let close = () => {
@@ -142,7 +149,14 @@ Application.prototype.alert = function (options = {}) {
  * @param {Function} options.onCancel 点击取消回调函数
  */
 Application.prototype.confirm = function (options = {}) {
-    let { title, content, className, style, onOK, onCancel } = options;
+    let {
+        title,
+        content,
+        className,
+        style,
+        onOK,
+        onCancel
+    } = options;
 
     let component;
 
@@ -191,7 +205,15 @@ Application.prototype.confirm = function (options = {}) {
  * @param {Function} options.onClose 点击关闭执行函数
  */
 Application.prototype.prompt = function (options = {}) {
-    let { title, content, className, style, value, onOK, onClose } = options;
+    let {
+        title,
+        content,
+        className,
+        style,
+        value,
+        onOK,
+        onClose
+    } = options;
     let component;
 
     let close = () => {
@@ -243,6 +265,23 @@ Application.prototype.upload = function () {
         input.click();
     };
 }();
+
+Application.prototype.commitUpload = function (event) {
+    const file = event.target.files[0];
+
+    return new Promise(resolve => {
+        Ajax.post(`${this.options.server}/api/Upload/Upload`, {
+            file,
+        }, json => {
+            var obj = JSON.parse(json);
+            if (obj.Code === 200) {
+
+            } else {
+                app.toast(obj.Msg);
+            }
+        });
+    });
+};
 
 // ----------------------- 记录日志  --------------------------------
 
