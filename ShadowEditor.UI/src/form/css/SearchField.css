@@ -31,10 +31,12 @@
     position: absolute;
     right: 8px;
     top: 28px;
+    height: 160px;
     background: #fff;
     border: 1px solid #ccc;
     display: inline-block;
     z-index: 10;
+    overflow-y: auto;
 }
 
 .SearchField>.category.hidden {
