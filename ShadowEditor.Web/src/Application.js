@@ -9,6 +9,7 @@ import Storage from './utils/Storage';
 import PackageManager from './package/PackageManager';
 import EventDispatcher from './event/EventDispatcher';
 import Editor from './editor2/Editor.jsx';
+import Ajax from './utils/Ajax';
 
 /**
  * 应用程序
@@ -225,6 +226,23 @@ Application.prototype.prompt = function (options = {}) {
         close,
     };
 };
+
+Application.prototype.upload = function () {
+    var input;
+
+    return function (url, callback) {
+        if (!input) {
+            input = document.createElement('input');
+            input.type = 'file';
+            input.style.display = 'none';
+            input.addEventListener('change', event => {
+
+            });
+            document.body.appendChild(input);
+        }
+        input.click();
+    };
+}();
 
 // ----------------------- 记录日志  --------------------------------
 

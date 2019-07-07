@@ -20,6 +20,8 @@ class ModelPanel extends React.Component {
         };
 
         this.handleClick = this.handleClick.bind(this);
+
+        this.handleAdd = this.handleAdd.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
 
@@ -44,6 +46,7 @@ class ModelPanel extends React.Component {
             <SearchField
                 data={categoryData}
                 placeholder={L_SEARCH_CONTENT}
+                onAdd={this.handleAdd}
                 onInput={this.handleSearch.bind(this)}></SearchField>
             <ImageList
                 data={imageListData}
@@ -137,6 +140,12 @@ class ModelPanel extends React.Component {
                 app.call('scriptChanged', this);
             }
         });
+    }
+
+    // ------------------------------- 上传 ---------------------------------------
+
+    handleAdd() {
+
     }
 
     // ------------------------------- 编辑 ---------------------------------------
