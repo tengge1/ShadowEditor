@@ -6,6 +6,7 @@
     height: 320px;
     background: #fafafa;
     box-sizing: border-box;
+    transition: all 0.4s;
 }
 
 .AccordionPanel.collpased {
