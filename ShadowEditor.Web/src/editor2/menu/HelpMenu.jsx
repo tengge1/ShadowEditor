@@ -42,10 +42,10 @@ class HelpMenu extends React.Component {
             className: 'About',
             content: <>
                 {L_NAME}: ShadowEditor<br />
-                {L_AUTHOR}: tengge<br />
+                {L_AUTHOR}: tengge1<br />
                 {L_LISENSE}: MIT<br />
-                {L_SOURCE}1: https://github.com/tengge1/ShadowEditor<br />
-                {L_SOURCE}2: https://gitee.com/tengge1/ShadowEditor<br />
+                {L_SOURCE}1: <a href="https://github.com/tengge1/ShadowEditor" target="_blank">https://github.com/tengge1/ShadowEditor</a><br />
+                {L_SOURCE}2: <a href="https://gitee.com/tengge1/ShadowEditor" target="_blank">https://gitee.com/tengge1/ShadowEditor</a><br />
             </>
         });
     }
