@@ -1,5 +1,3 @@
-import './css/ScenePanel.css';
-
 import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
 import EditWindow from './window/EditWindow.jsx';
 import Converter from '../../serialization/Converter';
@@ -28,6 +26,7 @@ class ScenePanel extends React.Component {
     }
 
     render() {
+        const { className, style } = this.props;
         const { data, categoryData } = this.state;
 
         const imageListData = data.map(n => {
@@ -40,7 +39,7 @@ class ScenePanel extends React.Component {
             });
         });
 
-        return <div className={'ScenePanel'}>
+        return <div className={classNames('ScenePanel', className)} style={style}>
             <SearchField
                 data={categoryData}
                 placeholder={L_SEARCH_CONTENT}
@@ -54,9 +53,12 @@ class ScenePanel extends React.Component {
         </div>;
     }
 
-    componentDidMount() {
-        this.update();
-        app.on(`sceneSaved.${this.id}`, this.update);
+    componentDidUpdate(prevProps, prevState) {
+        if (this.init === undefined && this.props.show === true) {
+            this.init = true;
+            this.update();
+            app.on(`sceneSaved.${this.id}`, this.update);
+        }
     }
 
     update() {
@@ -270,5 +272,17 @@ class ScenePanel extends React.Component {
         });
     }
 }
+
+ScenePanel.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    show: PropTypes.bool,
+};
+
+ScenePanel.defaultProps = {
+    className: null,
+    style: null,
+    show: false,
+};
 
 export default ScenePanel;

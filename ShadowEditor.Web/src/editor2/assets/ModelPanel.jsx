@@ -1,5 +1,3 @@
-import './css/ModelPanel.css';
-
 import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
 import EditWindow from './window/EditWindow.jsx';
 import ModelLoader from '../../loader/ModelLoader';
@@ -29,6 +27,7 @@ class ModelPanel extends React.Component {
     }
 
     render() {
+        const { className, style } = this.props;
         const { data, categoryData } = this.state;
 
         const imageListData = data.map(n => {
@@ -41,7 +40,7 @@ class ModelPanel extends React.Component {
             });
         });
 
-        return <div className={'ModelPanel'}>
+        return <div className={classNames('ModelPanel', className)} style={style}>
             <SearchField
                 data={categoryData}
                 placeholder={L_SEARCH_CONTENT}
@@ -54,8 +53,11 @@ class ModelPanel extends React.Component {
         </div>;
     }
 
-    componentDidMount() {
-        this.update();
+    componentDidUpdate(prevProps, prevState) {
+        if (this.init === undefined && this.props.show === true) {
+            this.init = true;
+            this.update();
+        }
     }
 
     update() {
@@ -174,5 +176,17 @@ class ModelPanel extends React.Component {
         });
     }
 }
+
+ModelPanel.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    show: PropTypes.bool,
+};
+
+ModelPanel.defaultProps = {
+    className: null,
+    style: null,
+    show: false,
+};
 
 export default ModelPanel;
