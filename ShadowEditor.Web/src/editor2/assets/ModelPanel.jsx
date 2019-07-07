@@ -139,7 +139,7 @@ class ModelPanel extends React.Component {
         });
     }
 
-    // ------------------------------- 编辑场景 ---------------------------------------
+    // ------------------------------- 编辑 ---------------------------------------
 
     handleEdit(data) {
         var win = app.createElement(EditWindow, {
@@ -153,7 +153,7 @@ class ModelPanel extends React.Component {
         app.addElement(win);
     }
 
-    // ------------------------------ 删除场景 ----------------------------------------
+    // ------------------------------ 删除 ----------------------------------------
 
     handleDelete(data) {
         var server = app.options.server;
