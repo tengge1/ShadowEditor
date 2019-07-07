@@ -1,16 +1,24 @@
 .ImageList {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: calc(100% - 30px);
+}
+
+.ImageList>.content {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 24px);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: flex-start;
     justify-content: flex-start;
+    box-sizing: border-box;
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
-.ImageList>.item {
+.ImageList>.content>.item {
     position: relative;
     width: 104px;
     height: 104px;
@@ -21,14 +29,14 @@
     cursor: pointer;
 }
 
-.ImageList>.item>.img {
+.ImageList>.content>.item>.img {
     width: 100%;
     height: 100%;
     border-radius: 3px;
     pointer-events: none;
 }
 
-.ImageList>.item>.no-img {
+.ImageList>.content>.item>.no-img {
     width: 100%;
     height: 100px;
     border-radius: 3px;
@@ -38,7 +46,7 @@
     pointer-events: none;
 }
 
-.ImageList>.item>.title {
+.ImageList>.content>.item>.title {
     position: absolute;
     left: 2px;
     bottom: 2px;
@@ -51,7 +59,7 @@
     word-break: break-word;
 }
 
-.ImageList>.item>.cornerText {
+.ImageList>.content>.item>.cornerText {
     position: absolute;
     left: 0;
     top: 0;
@@ -63,7 +71,7 @@
     box-sizing: border-box;
 }
 
-.ImageList>.item>.IconButton {
+.ImageList>.content>.item>.IconButton {
     width: 16px;
     height: 16px;
     margin: 2px;
@@ -74,18 +82,46 @@
     pointer-events: all;
 }
 
-.ImageList>.item>.edit {
+.ImageList>.content>.item>.edit {
     position: absolute;
     right: 24px;
     top: 0;
 }
 
-.ImageList>.item>.delete {
+.ImageList>.content>.item>.delete {
     position: absolute;
     right: 2px;
     top: 0;
 }
 
-.ImageList>.item>.IconButton i {
+.ImageList>.content>.item>.IconButton i {
     font-size: 14px;
+}
+
+.ImageList>.page {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ImageList>.page>.IconButton {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+}
+
+.ImageList>.page>.IconButton>.iconfont {
+    font-size: 14px;
+}
+
+.ImageList>.page>.info {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
 }

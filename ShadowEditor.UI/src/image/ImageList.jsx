@@ -24,19 +24,31 @@ class ImageList extends React.Component {
         const { className, style, data } = this.props;
 
         return <div className={classNames('ImageList', className)} style={style}>
-            {data.map(n => {
-                return <div className={'item'} data-id={n.id} key={n.id} onClick={this.handleClick}>
-                    {n.src ?
-                        <img className={'img'} src={n.src}></img> :
-                        <div className={'no-img'}>
-                            <Icon icon={n.icon}></Icon>
-                        </div>}
-                    <div className={'title'}>{n.title}</div>
-                    {n.cornerText && <div className={'cornerText'}>{n.cornerText}</div>}
-                    <IconButton className={'edit'} icon={'edit'} data-id={n.id} onClick={this.handleEdit}></IconButton>
-                    <IconButton className={'delete'} icon={'delete'} data-id={n.id} onClick={this.handleDelete}></IconButton>
-                </div>;
-            })}
+            <div className={'content'}>
+                {data.map(n => {
+                    return <div className={'item'} data-id={n.id} key={n.id} onClick={this.handleClick}>
+                        {n.src ?
+                            <img className={'img'} src={n.src}></img> :
+                            <div className={'no-img'}>
+                                <Icon icon={n.icon}></Icon>
+                            </div>}
+                        <div className={'title'}>{n.title}</div>
+                        {n.cornerText && <div className={'cornerText'}>{n.cornerText}</div>}
+                        <IconButton className={'edit'} icon={'edit'} data-id={n.id} onClick={this.handleEdit}></IconButton>
+                        <IconButton className={'delete'} icon={'delete'} data-id={n.id} onClick={this.handleDelete}></IconButton>
+                    </div>;
+                })}
+            </div>
+            <div className={'page'}>
+                <IconButton icon={'backward'}></IconButton>
+                <IconButton icon={'left-triangle2'}></IconButton>
+                <div class={'info'}>
+                    <div>第<span>1</span>页</div>
+                    <div>共<span>20</span>页</div>
+                </div>
+                <IconButton icon={'right-triangle2'}></IconButton>
+                <IconButton icon={'forward'}></IconButton>
+            </div>
         </div>;
     }
 
