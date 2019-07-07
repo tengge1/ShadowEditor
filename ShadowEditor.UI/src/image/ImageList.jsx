@@ -60,7 +60,7 @@ class ImageList extends React.Component {
             <div className={'page'}>
                 <IconButton icon={'backward'} title={firstPageText} onClick={this.handleFirstPage}></IconButton>
                 <IconButton icon={'left-triangle2'} title={previousPageText} onClick={this.handlePreviousPage}></IconButton>
-                <Input className={'current'} value={pageNum.toString()} title={currentPageText} disabled={true} />
+                <Input className={'current'} value={(pageNum + 1).toString()} title={currentPageText} disabled={true} />
                 <IconButton icon={'right-triangle2'} title={nextPageText} onClick={this.handleNextPage}></IconButton>
                 <IconButton icon={'forward'} title={lastPageText} onClick={this.handleLastPage}></IconButton>
                 <div className={'info'}>
