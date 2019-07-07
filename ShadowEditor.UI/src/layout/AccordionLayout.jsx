@@ -16,10 +16,11 @@ class AccordionLayout extends React.Component {
             activeIndex: props.activeIndex,
         };
 
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClick = this.handleClick.bind(this, props.onActive);
     }
 
-    handleClick(event, index) {
+    handleClick(onActive, index, name, event) {
+        onActive && onActive(index, name, event);
         this.setState({
             activeIndex: index,
         });
@@ -33,6 +34,7 @@ class AccordionLayout extends React.Component {
         return <div className={classNames('AccordionLayout', className)} style={style}>
             {content.map((n, i) => {
                 return <AccordionPanel
+                    name={n.props.name}
                     title={n.props.title}
                     show={n.props.show}
                     total={content.length}
@@ -51,6 +53,7 @@ AccordionLayout.propTypes = {
     style: PropTypes.object,
     children: PropTypes.node,
     activeIndex: PropTypes.number,
+    onActive: PropTypes.func,
 };
 
 AccordionLayout.defaultProps = {
@@ -58,6 +61,7 @@ AccordionLayout.defaultProps = {
     style: null,
     children: null,
     activeIndex: 0,
+    onActive: null,
 };
 
 export default AccordionLayout;

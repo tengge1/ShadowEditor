@@ -15,12 +15,12 @@ class AccordionPanel extends React.Component {
             maximized: props.maximized,
         };
 
-        this.handleClick = this.handleClick.bind(this, props.onClick, props.index);
+        this.handleClick = this.handleClick.bind(this, props.onClick, props.index, props.name);
         this.handleMaximize = this.handleMaximize.bind(this, props.onMaximize);
     }
 
-    handleClick(onClick, index, event) {
-        onClick && onClick(event, index);
+    handleClick(onClick, index, name, event) {
+        onClick && onClick(index, name, event);
     }
 
     handleMaximize(onMaximize, event) {
@@ -62,6 +62,7 @@ class AccordionPanel extends React.Component {
 }
 
 AccordionPanel.propTypes = {
+    name: PropTypes.string,
     title: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
@@ -77,6 +78,7 @@ AccordionPanel.propTypes = {
 };
 
 AccordionPanel.defaultProps = {
+    name: null,
     title: null,
     className: null,
     style: null,
