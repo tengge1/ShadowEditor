@@ -16,8 +16,15 @@ class ImageList extends React.Component {
 
         const { onClick, onEdit, onDelete } = props;
 
-        this.pageSize = 6;
-        this.pageNum = 0;
+        this.state = {
+            pageSize: 6,
+            pageNum: 0,
+        };
+
+        this.handleFirstPage = this.handleFirstPage.bind(this);
+        this.handleLastPage = this.handleLastPage.bind(this);
+        this.handlePreviousPage = this.handlePreviousPage.bind(this);
+        this.handleNextPage = this.handleNextPage.bind(this);
 
         this.handleClick = this.handleClick.bind(this, onClick);
         this.handleEdit = this.handleEdit.bind(this, onEdit);
@@ -25,11 +32,18 @@ class ImageList extends React.Component {
     }
 
     render() {
-        const { className, style, data } = this.props;
+        const { className, style, data, firstPageText, lastPageText, currentPageText, previousPageText, nextPageText } = this.props;
+        const { pageSize, pageNum } = this.state;
+
+        const totalPage = this.getTotalPage();
+
+        const current = data.filter((n, i) => {
+            return i >= pageSize * pageNum && i < pageSize * (pageNum + 1);
+        });
 
         return <div className={classNames('ImageList', className)} style={style}>
             <div className={'content'}>
-                {data.map(n => {
+                {current.map(n => {
                     return <div className={'item'} data-id={n.id} key={n.id} onClick={this.handleClick}>
                         {n.src ?
                             <img className={'img'} src={n.src}></img> :
@@ -44,16 +58,48 @@ class ImageList extends React.Component {
                 })}
             </div>
             <div className={'page'}>
-                <IconButton icon={'backward'}></IconButton>
-                <IconButton icon={'left-triangle2'}></IconButton>
-                <Input className={'current'} value={'1'} />
-                <IconButton icon={'right-triangle2'}></IconButton>
-                <IconButton icon={'forward'}></IconButton>
-                <div class={'info'}>
-                    共<span>20</span>页
+                <IconButton icon={'backward'} title={firstPageText} onClick={this.handleFirstPage}></IconButton>
+                <IconButton icon={'left-triangle2'} title={previousPageText} onClick={this.handlePreviousPage}></IconButton>
+                <Input className={'current'} value={pageNum.toString()} title={currentPageText} disabled={true} />
+                <IconButton icon={'right-triangle2'} title={nextPageText} onClick={this.handleNextPage}></IconButton>
+                <IconButton icon={'forward'} title={lastPageText} onClick={this.handleLastPage}></IconButton>
+                <div className={'info'}>
+                    共<span>{totalPage}</span>页
                 </div>
             </div>
         </div>;
+    }
+
+    handleFirstPage() {
+        this.setState({
+            pageNum: 0,
+        });
+    }
+
+    handleLastPage() {
+        const totalPage = this.getTotalPage();
+
+        this.setState({
+            pageNum: totalPage < 1 ? 0 : totalPage - 1,
+        });
+    }
+
+    handleNextPage() {
+        this.setState(state => {
+            const totalPage = this.getTotalPage();
+
+            return {
+                pageNum: state.pageNum < totalPage - 1 ? state.pageNum + 1 : totalPage - 1,
+            };
+        });
+    }
+
+    handlePreviousPage() {
+        this.setState(state => {
+            return {
+                pageNum: state.pageNum > 0 ? state.pageNum - 1 : 0,
+            };
+        });
     }
 
     handleClick(onClick, event) {
@@ -82,6 +128,12 @@ class ImageList extends React.Component {
 
         onDelete && onDelete(data, event);
     }
+
+    getTotalPage() {
+        const total = this.props.data.length;
+        const pageSize = this.state.pageSize;
+        return total % pageSize === 0 ? total / pageSize : parseInt(total / pageSize) + 1;
+    }
 }
 
 ImageList.propTypes = {
@@ -91,6 +143,11 @@ ImageList.propTypes = {
     onClick: PropTypes.func,
     onEdit: PropTypes.func,
     onDelete: PropTypes.func,
+    firstPageText: PropTypes.string,
+    lastPageText: PropTypes.string,
+    currentPageText: PropTypes.string,
+    previousPageText: PropTypes.string,
+    nextPageText: PropTypes.string,
 };
 
 ImageList.defaultProps = {
@@ -100,6 +157,11 @@ ImageList.defaultProps = {
     onClick: null,
     onEdit: null,
     onDelete: null,
+    firstPageText: 'First Page',
+    lastPageText: 'Last Page',
+    currentPageText: 'Current Page',
+    previousPageText: 'Previous Page',
+    nextPageText: 'Next Page',
 };
 
 export default ImageList;

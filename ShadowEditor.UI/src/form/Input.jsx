@@ -23,14 +23,15 @@ class Input extends React.Component {
     }
 
     render() {
-        const { className, style, value, onChange, onInput } = this.props;
+        const { className, style, value, disabled, onChange, onInput } = this.props;
 
         return <input
             className={classNames('Input', className)}
             style={style}
             value={value}
             onChange={this.handleChange}
-            onInput={this.handleInput} />;
+            onInput={this.handleInput}
+            disabled={disabled} />;
     }
 }
 
@@ -38,6 +39,7 @@ Input.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     value: PropTypes.string,
+    disabled: PropTypes.bool,
     onChange: PropTypes.func,
     onInput: PropTypes.func,
 };
@@ -46,6 +48,7 @@ Input.defaultProps = {
     className: null,
     style: null,
     value: '',
+    disabled: false,
     onChange: null,
     onInput: null,
 };
