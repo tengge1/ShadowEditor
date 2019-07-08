@@ -3,10 +3,16 @@
     box-sizing: border-box;
 }
 
-.HistoryPanel .item {
-    padding-left: 4px;
+.HistoryPanel>.content {
+    height: 240px;
 }
 
-.HistoryPanel .item.undo {
+.HistoryPanel>.content>.undo {
+    padding: 4px;
+    opacity: .3;
+}
+
+.HistoryPanel>.content>.redo {
+    padding: 4px;
     opacity: .3;
 }
