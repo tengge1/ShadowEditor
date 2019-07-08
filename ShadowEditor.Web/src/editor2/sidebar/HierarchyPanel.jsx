@@ -10,14 +10,22 @@ class HierarchyPanel extends React.Component {
         super(props);
 
         this.state = {
-            data: []
+            data: [],
+            selected: null,
         };
+
+        this.handleSelect = this.handleSelect.bind(this);
+        this.handleDoubleClick = this.handleDoubleClick.bind(this);
     }
 
     render() {
-        const { data } = this.state;
+        const { data, selected } = this.state;
 
-        return <Tree data={data} onSelect={this.handleSelect}></Tree>;
+        return <Tree
+            data={data}
+            selected={selected}
+            onSelect={this.handleSelect}
+            onDoubleClick={this.handleDoubleClick}></Tree>;
     }
 
     componentDidMount() {
@@ -31,14 +39,20 @@ class HierarchyPanel extends React.Component {
 
     /**
      * 单击树节点
-     * @param {*} data 
+     * @param {*} value 
      */
-    handleSelect(data) {
-        // app.editor.selectByUuid(data.value);
+    handleSelect(value) {
+        this.setState({
+            selected: value,
+        });
+        app.editor.selectByUuid(value);
     }
 
-    onDblClick(data) {
-        app.editor.focusByUUID(data.value);
+    handleDoubleClick(value) {
+        this.setState({
+            selected: value,
+        });
+        app.editor.focusByUUID(value);
     }
 
     /**
@@ -46,17 +60,9 @@ class HierarchyPanel extends React.Component {
      * @param {*} object 
      */
     onObjectSelected(object) {
-        // var tree = UI.get('tree', this.id);
-
-        // if (!object) {
-        //     var selected = tree.getSelected();
-        //     if (selected) {
-        //         tree.unselect(selected.value);
-        //     }
-        //     return;
-        // }
-
-        // tree.select(object.uuid);
+        this.setState({
+            selected: object ? object.uuid : null,
+        });
     }
 
     /**
@@ -99,7 +105,7 @@ class HierarchyPanel extends React.Component {
         var data = {
             value: obj.uuid,
             text: obj.name,
-            expand: obj === scene,
+            expanded: obj === scene,
             draggable: obj !== scene,
             cls: cls,
             children: [],

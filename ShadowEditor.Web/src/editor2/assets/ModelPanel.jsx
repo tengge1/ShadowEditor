@@ -145,7 +145,12 @@ class ModelPanel extends React.Component {
     // ------------------------------- 上传 ---------------------------------------
 
     handleAdd() {
-
+        app.upload(`${app.options.server}/api/Mesh/Add`, obj => {
+            if (obj.Code === 200) {
+                this.update();
+            }
+            app.toast(obj.Msg);
+        });
     }
 
     // ------------------------------- 编辑 ---------------------------------------

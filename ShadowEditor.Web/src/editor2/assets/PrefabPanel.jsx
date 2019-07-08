@@ -45,6 +45,7 @@ class PrefabPanel extends React.Component {
             <SearchField
                 data={categoryData}
                 placeholder={L_SEARCH_CONTENT}
+                addHidden={true}
                 onInput={this.handleSearch.bind(this)}></SearchField>
             <ImageList
                 data={imageListData}
