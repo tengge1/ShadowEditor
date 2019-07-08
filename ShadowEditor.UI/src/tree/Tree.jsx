@@ -14,8 +14,6 @@ class Tree extends React.Component {
 
         const { data, onExpand, onSelect } = this.props;
 
-        this.data = data;
-
         var expanded = {};
 
         this._traverseNode(data, node => {
@@ -61,8 +59,7 @@ class Tree extends React.Component {
     handleClick(onSelect, event) {
         var value = event.target.getAttribute('value');
         if (value) {
-            var data = this.data.filter(n => n['value'] === value)[0];
-            onSelect && onSelect(data, event);
+            onSelect && onSelect(value, event);
 
             this.setState({
                 selected: value,

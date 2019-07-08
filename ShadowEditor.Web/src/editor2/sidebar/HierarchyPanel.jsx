@@ -31,10 +31,10 @@ class HierarchyPanel extends React.Component {
 
     /**
      * 单击树节点
-     * @param {*} data 
+     * @param {*} value 
      */
-    handleSelect(data) {
-        // app.editor.selectByUuid(data.value);
+    handleSelect(value) {
+        app.editor.selectByUuid(value);
     }
 
     onDblClick(data) {
