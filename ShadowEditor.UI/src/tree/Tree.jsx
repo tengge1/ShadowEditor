@@ -12,7 +12,7 @@ class Tree extends React.Component {
     constructor(props) {
         super(props);
 
-        const { data, onExpand, onSelect } = this.props;
+        const { data, onExpand, onSelect, onDoubleClick } = this.props;
 
         var expanded = {};
 
@@ -29,6 +29,7 @@ class Tree extends React.Component {
 
         this.handleExpandNode = this.handleExpandNode.bind(this, onExpand);
         this.handleClick = this.handleClick.bind(this, onSelect);
+        this.handleDoubleClick = this.handleDoubleClick.bind(this, onDoubleClick);
     }
 
     _traverseNode(list, callback) {
@@ -67,6 +68,17 @@ class Tree extends React.Component {
         }
     }
 
+    handleDoubleClick(onDoubleClick, event) {
+        var value = event.target.getAttribute('value');
+        if (value) {
+            onDoubleClick && onDoubleClick(value, event);
+
+            this.setState({
+                selected: value,
+            });
+        }
+    }
+
     render() {
         const { data, className, style } = this.props;
 
@@ -94,7 +106,12 @@ class Tree extends React.Component {
             checkbox = <CheckBox selected={data.checked} />;
         }
 
-        return <li className={classNames('node', this.state.selected === data.value && 'selected')} value={data.value} key={data.value} onClick={this.handleClick}>
+        return <li
+            className={classNames('node', this.state.selected === data.value && 'selected')}
+            value={data.value}
+            key={data.value}
+            onClick={this.handleClick}
+            onDoubleClick={this.handleDoubleClick}>
             <i className={classNames('expand', leaf ? null : (expanded[data.value] ? 'minus' : 'plus'))} value={data.value} onClick={this.handleExpandNode}></i>
             {checkbox}
             <i className={classNames('type', leaf ? 'node' : (expanded[data.value] ? 'open' : 'close'))}></i>
@@ -110,6 +127,7 @@ Tree.propTypes = {
     data: PropTypes.array,
     onExpand: PropTypes.func,
     onSelect: PropTypes.func,
+    onDoubleClick: PropTypes.func,
 };
 
 Tree.defaultProps = {
@@ -118,6 +136,7 @@ Tree.defaultProps = {
     data: [],
     onExpand: null,
     onSelect: null,
+    onDoubleClick: null,
 };
 
 export default Tree;

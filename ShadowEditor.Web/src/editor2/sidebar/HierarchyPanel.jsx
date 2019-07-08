@@ -12,12 +12,18 @@ class HierarchyPanel extends React.Component {
         this.state = {
             data: []
         };
+
+        this.handleSelect = this.handleSelect.bind(this);
+        this.handleDoubleClick = this.handleDoubleClick.bind(this);
     }
 
     render() {
         const { data } = this.state;
 
-        return <Tree data={data} onSelect={this.handleSelect}></Tree>;
+        return <Tree
+            data={data}
+            onSelect={this.handleSelect}
+            onDoubleClick={this.handleDoubleClick}></Tree>;
     }
 
     componentDidMount() {
@@ -37,8 +43,8 @@ class HierarchyPanel extends React.Component {
         app.editor.selectByUuid(value);
     }
 
-    onDblClick(data) {
-        app.editor.focusByUUID(data.value);
+    handleDoubleClick(value) {
+        app.editor.focusByUUID(value);
     }
 
     /**
