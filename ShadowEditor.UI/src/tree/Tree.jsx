@@ -12,37 +12,28 @@ class Tree extends React.Component {
     constructor(props) {
         super(props);
 
-        const { data, onExpand, onSelect, onDoubleClick } = this.props;
+        const { onExpand, onSelect, onDoubleClick } = this.props;
 
         this.expanded = {};
-
-        var expanded = {};
-
-        this._traverseNode(data, node => {
-            if (node.expand) {
-                expanded[node.value] = true;
-            }
-        });
-
-        this.state = {
-            expanded: expanded,
-        };
 
         this.handleExpandNode = this.handleExpandNode.bind(this, onExpand);
         this.handleClick = this.handleClick.bind(this, onSelect);
         this.handleDoubleClick = this.handleDoubleClick.bind(this, onDoubleClick);
     }
 
-    _traverseNode(list, callback) {
-        list.forEach(n => {
-            callback && callback(n);
-            Array.isArray(n.children) && this._traverseNode(n.children, callback);
-        });
-    }
-
     render() {
         const { data, className, style } = this.props;
 
+        // 获取展开节点信息
+        var expanded = this.expanded;
+
+        this.traverseNode(data, node => {
+            if (node.expanded) {
+                expanded[node.value] = true;
+            }
+        });
+
+        // 创建节点
         var list = [];
 
         Array.isArray(data) && data.forEach(n => {
@@ -52,10 +43,17 @@ class Tree extends React.Component {
         return <ul className={classNames('Tree', className)} style={style}>{list}</ul>;
     }
 
+    traverseNode(list, callback) {
+        list.forEach(n => {
+            callback && callback(n);
+            Array.isArray(n.children) && this.traverseNode(n.children, callback);
+        });
+    }
+
     createNode(data) {
         const leaf = !data.children || data.children.length === 0;
 
-        const expanded = this.state.expanded;
+        const expanded = this.expanded;
 
         const children = leaf ? null : (<ul className={classNames('sub', expanded[data.value] ? null : 'collpase')}>{data.children.map(n => {
             return this.createNode(n);
@@ -85,7 +83,8 @@ class Tree extends React.Component {
         event.stopPropagation();
         var value = event.target.getAttribute('value');
 
-        var expanded = Object.assign({}, this.state.expanded);
+        let expanded = this.expanded;
+
         if (!expanded[value]) {
             expanded[value] = true;
             onExpand && onExpand(value, true, event);
@@ -94,9 +93,7 @@ class Tree extends React.Component {
             onExpand && onExpand(value, false, event);
         }
 
-        this.setState({
-            expanded: expanded,
-        });
+        this.forceUpdate();
     }
 
     handleClick(onSelect, event) {
