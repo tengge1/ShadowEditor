@@ -236,7 +236,16 @@ Application.prototype.upload = function () {
             input.type = 'file';
             input.style.display = 'none';
             input.addEventListener('change', event => {
-
+                Ajax.post(url, {
+                    file: event.target.files[0],
+                }, json => {
+                    var obj = JSON.parse(json);
+                    if (obj.Code === 200) {
+                        callback(obj);
+                    } else {
+                        app.toast(obj.Msg);
+                    }
+                });
             });
             document.body.appendChild(input);
         }

@@ -20,6 +20,8 @@ class MapPanel extends React.Component {
         };
 
         this.handleClick = this.handleClick.bind(this);
+
+        this.handleAdd = this.handleAdd.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
 
@@ -43,6 +45,7 @@ class MapPanel extends React.Component {
             <SearchField
                 data={categoryData}
                 placeholder={L_SEARCH_CONTENT}
+                onAdd={this.handleAdd}
                 onInput={this.handleSearch.bind(this)}></SearchField>
             <ImageList
                 data={imageListData}
@@ -103,6 +106,17 @@ class MapPanel extends React.Component {
 
     handleClick(data) {
         app.call(`selectMap`, this, data);
+    }
+
+    // ------------------------------- 上传 ---------------------------------------
+
+    handleAdd() {
+        app.upload(`${app.options.server}/api/Map/Add`, obj => {
+            if (obj.Code === 200) {
+                this.update();
+            }
+            app.toast(obj.Msg);
+        });
     }
 
     // ------------------------------- 编辑 ---------------------------------------
