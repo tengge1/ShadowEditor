@@ -46,7 +46,7 @@ function Application(container, options) {
     ReactDOM.render(this.ui, this.container);
 }
 
-// ----------------------- UI操作 ---------------------------------
+// ----------------------- UI函数 ---------------------------------
 
 /**
  * 创建元素
@@ -249,6 +249,13 @@ Application.prototype.prompt = function (options = {}) {
     };
 };
 
+// -------------------- 工具函数  -----------------------
+
+/**
+ * 上传文件
+ * @param {Object} url 上传Url
+ * @param {String} callback 回调函数
+ */
 Application.prototype.upload = function () {
     var input;
 
@@ -274,23 +281,6 @@ Application.prototype.upload = function () {
         input.click();
     };
 }();
-
-Application.prototype.commitUpload = function (event) {
-    const file = event.target.files[0];
-
-    return new Promise(resolve => {
-        Ajax.post(`${this.options.server}/api/Upload/Upload`, {
-            file,
-        }, json => {
-            var obj = JSON.parse(json);
-            if (obj.Code === 200) {
-
-            } else {
-                app.toast(obj.Msg);
-            }
-        });
-    });
-};
 
 // ----------------------- 记录日志  --------------------------------
 
