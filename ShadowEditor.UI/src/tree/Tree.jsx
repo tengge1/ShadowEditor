@@ -14,6 +14,8 @@ class Tree extends React.Component {
 
         const { data, onExpand, onSelect, onDoubleClick } = this.props;
 
+        this.expanded = {};
+
         var expanded = {};
 
         this._traverseNode(data, node => {
@@ -23,7 +25,6 @@ class Tree extends React.Component {
         });
 
         this.state = {
-            selected: null,
             expanded: expanded,
         };
 
@@ -37,46 +38,6 @@ class Tree extends React.Component {
             callback && callback(n);
             Array.isArray(n.children) && this._traverseNode(n.children, callback);
         });
-    }
-
-    handleExpandNode(onExpand, event) {
-        event.stopPropagation();
-        var value = event.target.getAttribute('value');
-
-        var expanded = Object.assign({}, this.state.expanded);
-        if (!expanded[value]) {
-            expanded[value] = true;
-            onExpand && onExpand(value, true, event);
-        } else {
-            delete expanded[value];
-            onExpand && onExpand(value, false, event);
-        }
-
-        this.setState({
-            expanded: expanded,
-        });
-    }
-
-    handleClick(onSelect, event) {
-        var value = event.target.getAttribute('value');
-        if (value) {
-            onSelect && onSelect(value, event);
-
-            this.setState({
-                selected: value,
-            });
-        }
-    }
-
-    handleDoubleClick(onDoubleClick, event) {
-        var value = event.target.getAttribute('value');
-        if (value) {
-            onDoubleClick && onDoubleClick(value, event);
-
-            this.setState({
-                selected: value,
-            });
-        }
     }
 
     render() {
@@ -107,7 +68,7 @@ class Tree extends React.Component {
         }
 
         return <li
-            className={classNames('node', this.state.selected === data.value && 'selected')}
+            className={classNames('node', this.props.selected === data.value && 'selected')}
             value={data.value}
             key={data.value}
             onClick={this.handleClick}
@@ -119,12 +80,45 @@ class Tree extends React.Component {
             {leaf ? null : children}
         </li>;
     }
+
+    handleExpandNode(onExpand, event) {
+        event.stopPropagation();
+        var value = event.target.getAttribute('value');
+
+        var expanded = Object.assign({}, this.state.expanded);
+        if (!expanded[value]) {
+            expanded[value] = true;
+            onExpand && onExpand(value, true, event);
+        } else {
+            delete expanded[value];
+            onExpand && onExpand(value, false, event);
+        }
+
+        this.setState({
+            expanded: expanded,
+        });
+    }
+
+    handleClick(onSelect, event) {
+        var value = event.target.getAttribute('value');
+        if (value) {
+            onSelect && onSelect(value, event);
+        }
+    }
+
+    handleDoubleClick(onDoubleClick, event) {
+        var value = event.target.getAttribute('value');
+        if (value) {
+            onDoubleClick && onDoubleClick(value, event);
+        }
+    }
 }
 
 Tree.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     data: PropTypes.array,
+    selected: PropTypes.string,
     onExpand: PropTypes.func,
     onSelect: PropTypes.func,
     onDoubleClick: PropTypes.func,
@@ -134,6 +128,7 @@ Tree.defaultProps = {
     className: null,
     style: null,
     data: [],
+    selected: null,
     onExpand: null,
     onSelect: null,
     onDoubleClick: null,
