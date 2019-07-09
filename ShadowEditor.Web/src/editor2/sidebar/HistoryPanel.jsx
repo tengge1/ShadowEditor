@@ -14,6 +14,8 @@ class HistoryPanel extends React.Component {
             redos: [],
         };
 
+        this.ref = React.createRef();
+
         this.update = this.update.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleClear = this.handleClear.bind(this);
@@ -26,7 +28,7 @@ class HistoryPanel extends React.Component {
             <div className={'toolbar'}>
                 <Button onClick={this.handleClear}>{'清空'}</Button>
             </div>
-            <div className={'content'} onClick={this.handleClick}>
+            <div className={'content'} ref={this.ref} onClick={this.handleClick}>
                 {undos.map(n => {
                     return <div className={'undo'} value={n.id} key={n.id} onClick={this.handleClick}>{n.name}</div>;
                 })}
@@ -40,6 +42,11 @@ class HistoryPanel extends React.Component {
     componentDidMount() {
         app.on(`editorCleared.${this.id}`, this.update);
         app.on(`historyChanged.${this.id}`, this.update);
+    }
+
+    componentDidUpdate() {
+        let dom = this.ref.current;
+        dom.scrollTop = dom.scrollHeight;
     }
 
     update() {
