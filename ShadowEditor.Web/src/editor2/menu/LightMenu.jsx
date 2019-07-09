@@ -26,11 +26,11 @@ class LightMenu extends React.Component {
 
         return <MenuItem title={L_LIGHT}>
             <MenuItem title={L_AMBIENT_LIGHT} onClick={this.handleAddAmbientLight}></MenuItem>
-            <MenuItem title={L_DIRECTIONAL_LIGHT} onClick={this.handleAddAmbientLight}></MenuItem>
-            <MenuItem title={L_POINT_LIGHT} onClick={this.handleAddAmbientLight}></MenuItem>
-            <MenuItem title={L_SPOT_LIGHT} onClick={this.handleAddAmbientLight}></MenuItem>
-            <MenuItem title={L_HEMISPHERE_LIGHT} onClick={this.handleAddAmbientLight}></MenuItem>
-            <MenuItem title={L_RECT_AREA_LIGHT} onClick={this.handleAddAmbientLight}></MenuItem>
+            <MenuItem title={L_DIRECTIONAL_LIGHT} onClick={this.handleAddDirectionalLight}></MenuItem>
+            <MenuItem title={L_POINT_LIGHT} onClick={this.handleAddPointLight}></MenuItem>
+            <MenuItem title={L_SPOT_LIGHT} onClick={this.handleAddSpotLight}></MenuItem>
+            <MenuItem title={L_HEMISPHERE_LIGHT} onClick={this.handleAddHemisphereLight}></MenuItem>
+            <MenuItem title={L_RECT_AREA_LIGHT} onClick={this.handleAddRectAreaLight}></MenuItem>
         </MenuItem>;
     }
 
