@@ -2,12 +2,12 @@
     position: relative;
 }
 
-.TabLayout .tabs {
+.TabLayout>.tabs {
     height: 32px;
     box-sizing: border-box;
 }
 
-.TabLayout .tabs .tab {
+.TabLayout>.tabs>.tab {
     height: 32px;
     font: 12px 'Microsoft YaHei';
     line-height: 32px;
@@ -18,29 +18,29 @@
     cursor: pointer;
 }
 
-.TabLayout .tabs .tab.selected {
+.TabLayout>.tabs>.tab.selected {
     color: #3399ff;
     border-bottom: 1px solid #3399ff;
     cursor: default;
 }
 
-.TabLayout .contents {
+.TabLayout>.contents {
     position: relative;
     width: 100%;
     height: calc(100% - 32px);
 }
 
-.TabLayout .contents .content {
+.TabLayout>.contents>.content {
     position: relative;
     width: 100%;
     height: 100%;
     display: none;
 }
 
-.TabLayout .contents .content.show {
+.TabLayout>.contents>.content.show {
     display: block;
 }
 
-.TabLayout .contents .content>* {
+.TabLayout>.contents>.content>* {
     height: 100%;
 }
