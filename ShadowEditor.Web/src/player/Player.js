@@ -104,7 +104,7 @@ Player.prototype.start = function (sceneData) {
     }
     this.isPlaying = true;
 
-    this.container.style.display = '';
+    this.container.style.display = 'block';
 
     this.loader.create(jsons).then(obj => {
         this.initPlayer(obj);

@@ -37,9 +37,6 @@ class PlayMenu extends React.Component {
 
         this.isPlaying = true;
 
-        var play = UI.get('mPlay', this.id);
-        play.dom.innerHTML = L_STOP;
-
         // 将场景数据转换为字符串
         var jsons = (new Converter()).toJSON({
             options: app.options,
@@ -61,9 +58,6 @@ class PlayMenu extends React.Component {
 
         this.isPlaying = false;
 
-        var play = UI.get('mPlay', this.id);
-        play.dom.innerHTML = L_PLAY;
-
         app.player.stop();
     }
 
@@ -72,7 +66,7 @@ class PlayMenu extends React.Component {
             this.startPlay();
         }
 
-        UI.get('player', app.player.id).dom.requestFullscreen();
+        app.playerRef.requestFullscreen();
     }
 
     handlePlayNewWindow() { // 新窗口播放
