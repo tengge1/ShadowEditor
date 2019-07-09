@@ -375,6 +375,10 @@ class Editor extends React.Component {
 
         this.selected = object;
 
+        if (!object) {
+            this.transformControls.detach()
+        }
+
         app.call('objectSelected', this, object);
     }
 

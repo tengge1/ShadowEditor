@@ -154,7 +154,7 @@ class GeometryMenu extends React.Component {
         app.prompt({
             title: L_PLEASE_INPUT,
             value: L_SOME_WORDS,
-            onOK: () => {
+            onOK: (value) => {
                 app.editor.execute(new AddObjectCommand(new Text(value)));
             }
         });

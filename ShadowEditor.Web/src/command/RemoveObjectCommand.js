@@ -31,7 +31,10 @@ Object.assign(RemoveObjectCommand.prototype, {
 		var scope = this.editor;
 
 		this.parent.remove(this.object);
-		this.editor.select(this.parent);
+
+		if (this.object === this.editor.selected) {
+			this.editor.select(null);
+		}
 
 		app.call('objectRemoved', this, this.object);
 		app.call('sceneGraphChanged', this);
