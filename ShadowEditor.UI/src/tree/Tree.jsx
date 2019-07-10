@@ -14,8 +14,6 @@ class Tree extends React.Component {
 
         const { onExpand, onSelect, onDoubleClick } = this.props;
 
-        this.expanded = {};
-
         this.handleExpandNode = this.handleExpandNode.bind(this, onExpand);
         this.handleClick = this.handleClick.bind(this, onSelect);
         this.handleDoubleClick = this.handleDoubleClick.bind(this, onDoubleClick);
@@ -23,15 +21,6 @@ class Tree extends React.Component {
 
     render() {
         const { data, className, style } = this.props;
-
-        // 获取展开节点信息
-        var expanded = this.expanded;
-
-        this.traverseNode(data, node => {
-            if (node.expanded) {
-                expanded[node.value] = true;
-            }
-        });
 
         // 创建节点
         var list = [];
@@ -43,19 +32,10 @@ class Tree extends React.Component {
         return <ul className={classNames('Tree', className)} style={style}>{list}</ul>;
     }
 
-    traverseNode(list, callback) {
-        list.forEach(n => {
-            callback && callback(n);
-            Array.isArray(n.children) && this.traverseNode(n.children, callback);
-        });
-    }
-
     createNode(data) {
         const leaf = !data.children || data.children.length === 0;
 
-        const expanded = this.expanded;
-
-        const children = leaf ? null : (<ul className={classNames('sub', expanded[data.value] ? null : 'collpase')}>{data.children.map(n => {
+        const children = leaf ? null : (<ul className={classNames('sub', data.expanded ? null : 'collpase')}>{data.children.map(n => {
             return this.createNode(n);
         })}</ul>);
 
@@ -71,9 +51,9 @@ class Tree extends React.Component {
             key={data.value}
             onClick={this.handleClick}
             onDoubleClick={this.handleDoubleClick}>
-            <i className={classNames('expand', leaf ? null : (expanded[data.value] ? 'minus' : 'plus'))} value={data.value} onClick={this.handleExpandNode}></i>
+            <i className={classNames('expand', leaf ? null : (data.expanded ? 'minus' : 'plus'))} value={data.value} onClick={this.handleExpandNode}></i>
             {checkbox}
-            <i className={classNames('type', leaf ? 'node' : (expanded[data.value] ? 'open' : 'close'))}></i>
+            <i className={classNames('type', leaf ? 'node' : (data.expanded ? 'open' : 'close'))}></i>
             <a href={'javascript:;'}>{data.text}</a>
             {leaf ? null : children}
         </li>;
@@ -81,19 +61,9 @@ class Tree extends React.Component {
 
     handleExpandNode(onExpand, event) {
         event.stopPropagation();
-        var value = event.target.getAttribute('value');
+        const value = event.target.getAttribute('value');
 
-        let expanded = this.expanded;
-
-        if (!expanded[value]) {
-            expanded[value] = true;
-            onExpand && onExpand(value, true, event);
-        } else {
-            delete expanded[value];
-            onExpand && onExpand(value, false, event);
-        }
-
-        this.forceUpdate();
+        onExpand && onExpand(value, event);
     }
 
     handleClick(onSelect, event) {

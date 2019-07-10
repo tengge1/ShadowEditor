@@ -9,6 +9,8 @@ class HierarchyPanel extends React.Component {
     constructor(props) {
         super(props);
 
+        this.expanded = {};
+
         this.state = {
             data: [],
             selected: null,
@@ -16,6 +18,7 @@ class HierarchyPanel extends React.Component {
 
         this.handleSelect = this.handleSelect.bind(this);
         this.handleDoubleClick = this.handleDoubleClick.bind(this);
+        this.handleExpand = this.handleExpand.bind(this);
     }
 
     render() {
@@ -25,7 +28,8 @@ class HierarchyPanel extends React.Component {
             data={data}
             selected={selected}
             onSelect={this.handleSelect}
-            onDoubleClick={this.handleDoubleClick}></Tree>;
+            onDoubleClick={this.handleDoubleClick}
+            onExpand={this.handleExpand}></Tree>;
     }
 
     componentDidMount() {
@@ -86,9 +90,10 @@ class HierarchyPanel extends React.Component {
     }
 
     _parseData(obj, list) {
-        var scene = app.editor.scene;
+        const scene = app.editor.scene;
+        const camera = app.editor.camera;
 
-        var cls = null;
+        let cls = null;
 
         if (obj === scene) {
             cls = 'Scene';
@@ -102,15 +107,22 @@ class HierarchyPanel extends React.Component {
             cls = 'Default';
         }
 
+        let expanded = this.expanded;
+
+        if (obj === scene && expanded[obj.uuid] === undefined) {
+            expanded[obj.uuid] = true;
+        }
+
         var data = {
             value: obj.uuid,
             text: obj.name,
-            expanded: obj === scene,
-            draggable: obj !== scene,
+            expanded: expanded[obj.uuid],
+            draggable: obj !== scene && obj !== camera,
             cls: cls,
             children: [],
             checked: false,
         };
+
         list.push(data);
 
         if (Array.isArray(obj.children)) {
@@ -118,6 +130,22 @@ class HierarchyPanel extends React.Component {
                 this._parseData(n, data.children);
             });
         }
+    }
+
+    /**
+     * 展开关闭节点
+     * @param {*} value 
+     */
+    handleExpand(value) {
+        let expanded = this.expanded;
+
+        if (expanded[value]) {
+            expanded[value] = false;
+        } else {
+            expanded[value] = true;
+        }
+
+        this.updateUI();
     }
 
     /**
