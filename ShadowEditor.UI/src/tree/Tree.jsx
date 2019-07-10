@@ -57,6 +57,8 @@ class Tree extends React.Component {
             key={data.value}
             onClick={this.handleClick}
             onDoubleClick={this.handleDoubleClick}
+            draggable={true}
+            droppable={true}
             onDrag={this.handleDrag}
             onDragStart={this.handleDragStart}
             onDragOver={this.handleDragOver}
