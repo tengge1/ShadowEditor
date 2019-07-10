@@ -12,7 +12,7 @@ class Tree extends React.Component {
     constructor(props) {
         super(props);
 
-        const { onExpand, onSelect, onDoubleClick } = this.props;
+        const { onExpand, onSelect, onDoubleClick, onDrop } = this.props;
 
         this.handleExpandNode = this.handleExpandNode.bind(this, onExpand);
         this.handleClick = this.handleClick.bind(this, onSelect);
@@ -22,7 +22,7 @@ class Tree extends React.Component {
         this.handleDragStart = this.handleDragStart.bind(this);
         this.handleDragOver = this.handleDragOver.bind(this);
         this.handleDragLeave = this.handleDragLeave.bind(this);
-        this.handleDrop = this.handleDrop.bind(this);
+        this.handleDrop = this.handleDrop.bind(this, onDrop);
     }
 
     render() {
@@ -141,7 +141,7 @@ class Tree extends React.Component {
         target.classList.remove('drag');
     }
 
-    handleDrop(event) {
+    handleDrop(onDrop, event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -155,23 +155,23 @@ class Tree extends React.Component {
         target.classList.remove('dragBottom');
         target.classList.remove('drag');
 
-        if (typeof (this.onDrag) === 'function') {
+        if (typeof (onDrop) === 'function') {
             var area = event.offsetY / target.clientHeight;
 
             if (area < 0.25) { // 放在当前元素前面
-                this.onDrag(
+                onDrop(
                     this.currentDrag.data, // 拖动要素
                     target.parentNode.parentNode.data, // 新位置父级
                     target.data, // 新位置索引
                 ); // 拖动, 父级, 索引
             } else if (area > 0.75) { // 放在当前元素后面
-                this.onDrag(
+                onDrop(
                     this.currentDrag.data,
                     target.parentNode.parentNode.data,
                     target.nextSibling == null ? null : target.nextSibling.data, // target.nextSibling为null，说明是最后一个位置
                 );
             } else { // 成为该元素子级
-                this.onDrag(
+                onDrop(
                     this.currentDrag.data,
                     target.data,
                     null,
@@ -189,6 +189,7 @@ Tree.propTypes = {
     onExpand: PropTypes.func,
     onSelect: PropTypes.func,
     onDoubleClick: PropTypes.func,
+    onDrop: PropTypes.func,
 };
 
 Tree.defaultProps = {
@@ -199,6 +200,7 @@ Tree.defaultProps = {
     onExpand: null,
     onSelect: null,
     onDoubleClick: null,
+    onDrop: null,
 };
 
 export default Tree;
