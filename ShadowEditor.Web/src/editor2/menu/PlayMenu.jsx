@@ -63,7 +63,7 @@ class PlayMenu extends React.Component {
 
     handlePlayFullscreen() { // 全屏播放
         if (!this.isPlaying) {
-            this.startPlay();
+            this.handleStartPlay();
         }
 
         app.playerRef.requestFullscreen();
