@@ -20,54 +20,66 @@
     background: #34495e;
 }
 
-.Tree .node i {
+.Tree .node.drag {
+    border: 1px dashed #999;
+}
+
+.Tree .node.dragTop {
+    border-top: 1px dashed #999;
+}
+
+.Tree .node.dragBottom {
+    border-bottom: 1px dashed #999;
+}
+
+.Tree .node>i {
     display: inline-block;
     vertical-align: middle;
 }
 
-.Tree .node i.expand {
+.Tree .node>i.expand {
     width: 9px;
     height: 9px;
 }
 
-.Tree .node i.expand.plus {
+.Tree .node>i.expand.plus {
     background: var(--icon-plus);
 }
 
-.Tree .node i.expand.minus {
+.Tree .node>i.expand.minus {
     background: var(--icon-minus);
 }
 
-.Tree .node i.type {
+.Tree .node>i.type {
     margin-left: 4px;
 }
 
-.Tree .node i.type.node {
+.Tree .node>i.type.node {
     width: 14px;
     height: 15px;
     margin-right: 2px;
     background: var(--icon-node);
 }
 
-.Tree .node i.type.open {
+.Tree .node>i.type.open {
     width: 16px;
     height: 13px;
     background: var(--folder-open);
 }
 
-.Tree .node i.type.close {
+.Tree .node>i.type.close {
     width: 15px;
     height: 13px;
     margin-right: 1px;
     background: var(--folder-close);
 }
 
-.Tree .node .CheckBox {
+.Tree .node>.CheckBox {
     margin: 2px -2px 2px 4px;
     vertical-align: middle;
 }
 
-.Tree .node a {
+.Tree .node>a {
     color: #555;
     margin-left: 4px;
     text-decoration: none;
@@ -79,13 +91,13 @@
     color: #fff;
 }
 
-.Tree .node .sub {
+.Tree .node>.sub {
     margin: 0;
     padding: 0 0 0 16px;
     background: #fff;
     list-style: none;
 }
 
-.Tree .node .sub.collpase {
+.Tree .node>.sub.collpase {
     display: none;
 }
