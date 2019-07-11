@@ -1,5 +1,6 @@
 import './css/HierarchyPanel.css';
 import { classNames, PropTypes, Tree } from '../../third_party';
+import MoveObjectCommand from '../../command/MoveObjectCommand';
 
 /**
  * 场景树状图
@@ -19,6 +20,7 @@ class HierarchyPanel extends React.Component {
         this.handleSelect = this.handleSelect.bind(this);
         this.handleDoubleClick = this.handleDoubleClick.bind(this);
         this.handleExpand = this.handleExpand.bind(this);
+        this.handleDrop = this.handleDrop.bind(this);
     }
 
     render() {
@@ -29,7 +31,8 @@ class HierarchyPanel extends React.Component {
             selected={selected}
             onSelect={this.handleSelect}
             onDoubleClick={this.handleDoubleClick}
-            onExpand={this.handleExpand}></Tree>;
+            onExpand={this.handleExpand}
+            onDrop={this.handleDrop}></Tree>;
     }
 
     componentDidMount() {
@@ -151,22 +154,22 @@ class HierarchyPanel extends React.Component {
     /**
      * 拖动节点
      */
-    onDrag(objData, newParentData, newBeforeData) {
-        var object, newParent, newBefore;
-
+    handleDrop(value, newParentValue, newBeforeValue) {
         var editor = app.editor;
 
-        object = editor.objectByUuid(objData.value);
-        newParent = editor.objectByUuid(newParentData.value);
+        let object = editor.objectByUuid(value);
+        let newParent = editor.objectByUuid(newParentValue);
+        let newBefore = null;
 
-        if (newBeforeData) {
-            newBefore = editor.objectByUuid(newBeforeData.value);
+        if (newBeforeValue) {
+            newBefore = editor.objectByUuid(newBeforeValue);
         }
 
         app.editor.execute(new MoveObjectCommand(object, newParent, newBefore));
 
-        var tree = UI.get('tree', this.id);
-        tree.expand(newParentData.value);
+        this.expanded[newParentValue] = true;
+
+        this.updateUI();
     }
 }
 

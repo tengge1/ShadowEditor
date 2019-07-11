@@ -57,8 +57,8 @@ class Tree extends React.Component {
             key={data.value}
             onClick={this.handleClick}
             onDoubleClick={this.handleDoubleClick}
-            draggable={true}
-            droppable={true}
+            draggable={'true'}
+            droppable={'true'}
             onDrag={this.handleDrag}
             onDragStart={this.handleDragStart}
             onDragOver={this.handleDragOver}
@@ -115,7 +115,7 @@ class Tree extends React.Component {
             return;
         }
 
-        var area = event.offsetY / target.clientHeight;
+        var area = event.nativeEvent.offsetY / target.clientHeight;
 
         if (area < 0.25) {
             target.classList.add('dragTop');
@@ -156,24 +156,26 @@ class Tree extends React.Component {
         target.classList.remove('drag');
 
         if (typeof (onDrop) === 'function') {
-            var area = event.offsetY / target.clientHeight;
+            const area = event.nativeEvent.offsetY / target.clientHeight;
+
+            const currentValue = this.currentDrag.getAttribute('value');
 
             if (area < 0.25) { // 放在当前元素前面
                 onDrop(
-                    this.currentDrag.data, // 拖动要素
-                    target.parentNode.parentNode.data, // 新位置父级
-                    target.data, // 新位置索引
+                    currentValue, // 拖动要素
+                    target.parentNode.parentNode.getAttribute('value'), // 新位置父级
+                    target.getAttribute('value'), // 新位置索引
                 ); // 拖动, 父级, 索引
             } else if (area > 0.75) { // 放在当前元素后面
                 onDrop(
-                    this.currentDrag.data,
-                    target.parentNode.parentNode.data,
-                    target.nextSibling == null ? null : target.nextSibling.data, // target.nextSibling为null，说明是最后一个位置
+                    currentValue,
+                    target.parentNode.parentNode.getAttribute('value'),
+                    target.nextSibling == null ? null : target.nextSibling.getAttribute('value'), // target.nextSibling为null，说明是最后一个位置
                 );
             } else { // 成为该元素子级
                 onDrop(
-                    this.currentDrag.data,
-                    target.data,
+                    currentValue,
+                    target.getAttribute('value'),
                     null,
                 );
             }
