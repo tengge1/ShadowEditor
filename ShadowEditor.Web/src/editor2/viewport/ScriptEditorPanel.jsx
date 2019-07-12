@@ -51,6 +51,8 @@ class ScriptEditorPanel extends React.Component {
             name,
             source,
             title
+        }, () => {
+            app.scriptEditor.setValue(source);
         });
     }
 
