@@ -1,0 +1,25 @@
+.ScriptPanel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.ScriptPanel>.CodeMirror {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.ScriptPanel>.CodeMirror .errorLine {
+    background: rgba(255, 0, 0, 0.25);
+}
+
+.ScriptPanel>.CodeMirror .esprima-error {
+    color: #f00;
+    text-align: right;
+    padding: 0 20px;
+}
