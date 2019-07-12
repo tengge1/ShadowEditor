@@ -66,7 +66,14 @@ class ScriptWindow extends React.Component {
     }
 
     handleOK() {
-        debugger
+        const uuid = THREE.Math.generateUUID();
+        const name = this.state.name;
+        const source = '';
+        const title = name;
+
+        this.handleCancel();
+
+        app.call(`editScript`, this, uuid, name, source, title);
     }
 
     handleCancel() {

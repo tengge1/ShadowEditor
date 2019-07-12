@@ -1,12 +1,13 @@
 .EditorSideBar {
-    width: 240px !important;
+    width: 240px;
+    height: 100%;
 }
 
-.EditorSideBar .top {
+.EditorSideBar>.top {
     height: 320px;
     border-bottom: 1px solid #eee;
 }
 
-.EditorSideBar .bottom {
+.EditorSideBar>.bottom {
     height: calc(100% - 320px);
 }

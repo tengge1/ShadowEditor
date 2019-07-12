@@ -1,6 +1,6 @@
 import './css/Viewport.css';
 import { classNames, PropTypes, Canvas, SVG } from '../../third_party';
-import ScriptPanel from './ScriptPanel.jsx';
+import ScriptEditorPanel from './ScriptEditorPanel.jsx';
 import Player from '../../player/Player';
 
 /**
@@ -20,7 +20,7 @@ class Viewport extends React.Component {
         return <div className={'Viewport'}>
             <div className={'editor'} ref={this.editorRef}></div>
             <div className={'svg'} ref={this.svgRef}></div>
-            <ScriptPanel></ScriptPanel>
+            <ScriptEditorPanel></ScriptEditorPanel>
             <div className={'player'} ref={this.playerRef}></div>
         </div>;
     }
