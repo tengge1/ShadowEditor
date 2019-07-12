@@ -102,10 +102,7 @@ class ScriptPanel extends React.Component {
     handleAddScript() {
         const window = app.createElement(ScriptWindow);
 
-        app.addElement(window, () => {
-            let win1 = window;
-            debugger
-        });
+        app.addElement(window);
     }
 
     handleEditScript(uuid) {
