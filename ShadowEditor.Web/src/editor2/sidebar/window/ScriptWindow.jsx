@@ -42,7 +42,11 @@ class ScriptWindow extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>{L_TYPE}</Label>
-                        <Select options={this.scriptTypes} value={type} onChange={this.handleTypeChange}></Select>
+                        <Select
+                            options={this.scriptTypes}
+                            value={type}
+                            disabled={true}
+                            onChange={this.handleTypeChange}></Select>
                     </FormControl>
                 </Form>
             </Content>
