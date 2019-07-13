@@ -1,5 +1,9 @@
 import './css/ScriptWindow.css';
 import { classNames, PropTypes, Window, Content, Form, FormControl, Label, Input, Select, Buttons, Button } from '../../../third_party';
+import FragmentShaderStarter from '../../script/code/FragmentShaderStarter';
+import JavaScriptStarter from '../../script/code/JavaScriptStarter';
+import JsonStarter from '../../script/code/JsonStarter';
+import VertexShaderStarter from '../../script/code/VertexShaderStarter';
 
 /**
  * 脚本窗口
@@ -72,8 +76,8 @@ class ScriptWindow extends React.Component {
     handleOK() {
         const uuid = THREE.Math.generateUUID();
         const name = this.state.name;
-        const source = '';
-        const title = name;
+        const source = JavaScriptStarter();
+        const title = `${name}.js`;
 
         this.handleCancel();
 
