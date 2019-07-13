@@ -14,8 +14,8 @@ class ScriptEditorPanel extends React.Component {
             show: false,
             uuid: null,
             name: '',
+            type: 'javascript',
             source: '',
-            title: '',
         };
 
         this.ref = React.createRef();
@@ -25,7 +25,22 @@ class ScriptEditorPanel extends React.Component {
     }
 
     render() {
-        const { show, uuid, name, source, title } = this.state;
+        const { show, name, type } = this.state;
+
+        let title = name;
+
+        switch (type) {
+            case 'javascript':
+                title = name + '.js';
+                break;
+            case 'vertexShader':
+            case 'fragmentShader':
+                title = name + '.glsl';
+                break;
+            case 'json':
+                title = name + '.json';
+                break;
+        }
 
         return <div className={classNames('ScriptEditorPanel', !show && 'hidden')}>
             <div className={'header'}>
@@ -44,24 +59,40 @@ class ScriptEditorPanel extends React.Component {
         app.on(`editScript.ScriptPanel`, this.handleEditScript);
     }
 
-    handleEditScript(uuid, name, source, title) {
+    handleEditScript(uuid, name, type, source) {
         this.setState({
             show: true,
             uuid,
             name,
+            type,
             source,
-            title
         }, () => {
-            app.scriptEditor.setValue(source);
+            app.scriptEditor.setValue(source, type);
         });
     }
 
     handleSave() {
-        var value = app.scriptEditor.getValue();
+        const { uuid, name, type } = this.state;
+
+        const source = app.scriptEditor.getValue();
+
+        app.editor.scripts[uuid] = {
+            id: null,
+            name,
+            type,
+            source,
+            uuid,
+        };
 
         this.setState({
             show: false,
+            uuid: null,
+            name: '',
+            type: 'javascript',
+            source: '',
         });
+
+        app.call(`scriptChanged`, this);
     }
 }
 

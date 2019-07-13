@@ -74,14 +74,32 @@ class ScriptWindow extends React.Component {
     }
 
     handleOK() {
+        const { name, type } = this.state;
+
         const uuid = THREE.Math.generateUUID();
-        const name = this.state.name;
-        const source = JavaScriptStarter();
-        const title = `${name}.js`;
+
+        let source = '';
+
+        switch (type) {
+            case 'javascript':
+                source = JavaScriptStarter();
+                break;
+            case 'vertexShader':
+                source = VertexShaderStarter();
+                break;
+            case 'fragmentShader':
+                source = FragmentShaderStarter();
+                break;
+            case 'json':
+                source = JsonStarter();
+                break;
+            default:
+                source = JavaScriptStarter();
+        }
 
         this.handleCancel();
 
-        app.call(`editScript`, this, uuid, name, source, title);
+        app.call(`editScript`, this, uuid, name, type, source);
     }
 
     handleCancel() {
