@@ -1,6 +1,5 @@
 import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty } from '../../third_party';
 import SetValueCommand from '../../command/SetValueCommand';
-import Text from '../../object/geometry/Text';
 
 /**
  * 相机组件
