@@ -14,14 +14,14 @@ class PropertyGroup extends React.Component {
     }
 
     render() {
-        const { className, style, children, name, expanded } = this.props;
+        const { className, style, children, title, show, expanded } = this.props;
 
-        return <div className={'PropertyGroup'}>
+        return <div className={classNames('PropertyGroup', !show && 'hidden')} style={style}>
             <div className={'head'} expanded={expanded ? 'true' : 'false'} onClick={this.handleExpand}>
                 <div className={'icon'}>
                     <i className={expanded ? 'icon-expand' : 'icon-collapse'} />
                 </div>
-                <div className={'title'}>{name}</div>
+                <div className={'title'}>{title}</div>
             </div>
             <div className={classNames('content', !expanded && 'collapsed')}>
                 {React.Children.map(children, (n, i) => {
@@ -44,7 +44,8 @@ PropertyGroup.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     children: PropTypes.node,
-    name: PropTypes.string,
+    title: PropTypes.string,
+    show: PropTypes.bool,
     expanded: PropTypes.bool,
     onExpand: PropTypes.func,
 };
@@ -53,7 +54,8 @@ PropertyGroup.defaultProps = {
     className: null,
     style: null,
     children: null,
-    name: 'Group',
+    title: 'Group',
+    show: true,
     expanded: true,
     onExpand: null,
 };

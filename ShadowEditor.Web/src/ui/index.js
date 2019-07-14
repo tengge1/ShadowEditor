@@ -57,6 +57,7 @@ export { default as PropertyGrid } from './property/PropertyGrid.jsx';
 export { default as PropertyGroup } from './property/PropertyGroup.jsx';
 export { default as DisplayProperty } from './property/DisplayProperty.jsx';
 export { default as TextProperty } from './property/TextProperty.jsx';
+export { default as CheckBoxProperty } from './property/CheckBoxProperty.jsx';
 
 // svg
 export { default as SVG } from './svg/SVG.jsx';
