@@ -78,9 +78,7 @@ class ScriptPanel extends React.Component {
     handleEditScript(uuid) {
         var script = app.editor.scripts[uuid];
         if (script) {
-            app.script.open(uuid, script.name, script.type, script.source, script.name, source => {
-                script.source = source;
-            });
+            app.call(`editScript`, this, uuid, script.name, script.type, script.source);
         }
     }
 
