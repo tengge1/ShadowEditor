@@ -9,13 +9,15 @@ import PropTypes from 'prop-types';
 class PropertyGroup extends React.Component {
     constructor(props) {
         super(props);
+
+        this.handleExpand = this.handleExpand.bind(this, props.onExpand);
     }
 
     render() {
         const { className, style, children, name, expanded } = this.props;
 
         return <div className={'PropertyGroup'}>
-            <div className={'head'}>
+            <div className={'head'} expanded={expanded ? 'true' : 'false'} onClick={this.handleExpand}>
                 <div className={'icon'}>
                     <i className={expanded ? 'icon-expand' : 'icon-collapse'} />
                 </div>
@@ -26,6 +28,11 @@ class PropertyGroup extends React.Component {
             </div>
         </div>;
     }
+
+    handleExpand(onExpand, event) {
+        const expanded = event.target.getAttribute('expanded') === 'true';
+        onExpand && onExpand(!expanded, event);
+    }
 }
 
 PropertyGroup.propTypes = {
@@ -33,7 +40,8 @@ PropertyGroup.propTypes = {
     style: PropTypes.object,
     children: PropTypes.node,
     name: PropTypes.string,
-    expanded: PropTypes.bool
+    expanded: PropTypes.bool,
+    onExpand: PropTypes.func,
 };
 
 PropertyGroup.defaultProps = {
@@ -42,6 +50,7 @@ PropertyGroup.defaultProps = {
     children: null,
     name: 'Group',
     expanded: true,
+    onExpand: null,
 };
 
 export default PropertyGroup;

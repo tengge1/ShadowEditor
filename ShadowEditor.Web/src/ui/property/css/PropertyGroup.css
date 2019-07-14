@@ -14,6 +14,7 @@
     width: 20px;
     height: 20px;
     float: left;
+    pointer-events: none;
 }
 
 .PropertyGroup .head .icon .icon-expand {
@@ -38,6 +39,7 @@
     display: inline-block;
     border-bottom: 1px solid #d9d9d9;
     box-sizing: border-box;
+    pointer-events: none;
 }
 
 .PropertyGroup .property {
