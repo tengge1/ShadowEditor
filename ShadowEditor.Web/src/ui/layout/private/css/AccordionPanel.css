@@ -1,0 +1,82 @@
+.AccordionPanel {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 320px;
+    background: #fafafa;
+    box-sizing: border-box;
+    transition: all 0.4s;
+}
+
+.AccordionPanel.collpased {
+    height: 26px;
+    overflow: hidden;
+}
+
+.AccordionPanel.maximized {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 9000;
+}
+
+.AccordionPanel.hidden {
+    display: none;
+}
+
+.AccordionPanel>.header {
+    position: relative;
+    height: 24px;
+    background-color: #2c3e50;
+    cursor: pointer;
+}
+
+.AccordionPanel>.header>.title {
+    height: 100%;
+    line-height: 24px;
+    font-size: 12px;
+    padding-left: 8px;
+    color: #fff;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.AccordionPanel>.header>.controls {
+    position: absolute;
+    left: 0;
+    right: 4px;
+    top: 0;
+    bottom: 0;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.AccordionPanel>.header>.controls>.control {
+    width: 24px;
+    height: 24px;
+    margin: 0 2px;
+    display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.AccordionPanel>.header>.controls>.control>.iconfont {
+    font-size: 16px;
+    line-height: 24px;
+    color: #fff;
+}
+
+.AccordionPanel>.body {
+    height: calc(100% - 24px);
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+.AccordionPanel.collapsed>.body {
+    height: 0;
+    padding: 0;
+    overflow-y: hidden;
+}

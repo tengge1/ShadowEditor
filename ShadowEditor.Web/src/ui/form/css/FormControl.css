@@ -1,0 +1,13 @@
+.FormControl {
+    min-height: 20px;
+    margin: 4px;
+    box-sizing: border-box;
+}
+
+.FormControl>* {
+    vertical-align: middle;
+}
+
+.FormControl>.Label {
+    width: 60px;
+}

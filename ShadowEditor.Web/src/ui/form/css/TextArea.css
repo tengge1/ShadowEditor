@@ -1,0 +1,10 @@
+.TextArea {
+    width: 160px;
+    height: 200px;
+    font: 12px 'Microsoft YaHei';
+    margin: 0px;
+    padding: 0px 2px;
+    border: 1px solid rgb(217, 217, 217);
+    box-sizing: border-box;
+    vertical-align: top;
+}

@@ -1,0 +1,34 @@
+:root {
+    --theme-blue: #3399FF;
+    --theme-green: #64CF40;
+    --theme-orange: #F6A623;
+    --theme-black: #FFFFFF;
+    user-select: none;
+}
+
+:focus {
+    outline: none;
+}
+
+::-webkit-scrollbar {
+    width: 0.2em;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 0.5em;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(169, 169, 169, 0.4);
+}

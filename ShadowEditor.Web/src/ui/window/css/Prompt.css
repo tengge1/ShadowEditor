@@ -1,0 +1,9 @@
+.Window.Prompt {
+    width: 320px;
+    height: 180px;
+}
+
+.Window.Prompt>.wrap>.content>.Input {
+    margin-left: 6px;
+    vertical-align: middle;
+}

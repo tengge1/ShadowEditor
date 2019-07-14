@@ -1,0 +1,13 @@
+.TableRow {
+    height: 24px;
+    line-height: 24px;
+}
+
+.TableRow:nth-child(even) {
+    background-color: #f7f7f7;
+}
+
+.TableBody .TableRow:hover {
+    color: #fff;
+    background-color: #3399ff;
+}

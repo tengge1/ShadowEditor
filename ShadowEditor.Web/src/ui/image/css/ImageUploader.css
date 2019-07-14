@@ -1,0 +1,15 @@
+.ImageUploader {
+    max-width: 160px;
+    max-height: 120px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.ImageUploader.empty {
+    width: 160px;
+    height: 120px;
+    border: 1px solid #ccc;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,6 @@
+.Table {
+    display: inline-block;
+    border-collapse: collapse;
+    user-select: none;
+    cursor: default;
+}
