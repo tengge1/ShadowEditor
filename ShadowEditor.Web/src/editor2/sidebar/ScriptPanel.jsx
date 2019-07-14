@@ -31,8 +31,8 @@ class ScriptPanel extends React.Component {
                 {Object.values(scripts).map(n => {
                     return <li key={n.uuid}>
                         <span>{`${n.name}.${this.getExtension(n.type)}`}</span>
-                        <Icon name={n.uuid} icon={'edit'} onClick={this.handleEditScript}></Icon>
-                        <Icon name={n.uuid} icon={'delete'} onClick={this.handleRemoveScript}></Icon>
+                        <Icon name={n.uuid} icon={'edit'} title={L_EDIT_SCRIPT} onClick={this.handleEditScript}></Icon>
+                        <Icon name={n.uuid} icon={'delete'} title={L_DELETE_SCRIPT} onClick={this.handleRemoveScript}></Icon>
                     </li>;
                 })}
             </ul>

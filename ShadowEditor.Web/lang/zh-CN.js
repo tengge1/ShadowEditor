@@ -632,3 +632,5 @@ L_CLUSTER_DIAGRAM = '集群图';
 L_PACK_DIAGRAM = '包图';
 L_PARTITION_DIAGRAM = '分区图';
 L_DIG = '挖坑';
+L_EDIT_SCRIPT = '编辑脚本';
+L_DELETE_SCRIPT = '删除脚本';
