@@ -12,12 +12,9 @@ class TextProperty extends React.Component {
     }
 
     render() {
-        const { className, style, name, label, value } = this.props;
+        const { className, style, name, value } = this.props;
 
-        return <div className={classNames('TextProperty', className)}>
-            <div className={'label'}>{label}</div>
-            <div className={'value'}>{value}</div>
-        </div>;
+        return <div className={'TextProperty'}>{value}</div>;
     }
 }
 
@@ -25,7 +22,6 @@ TextProperty.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     name: PropTypes.string,
-    label: PropTypes.string,
     value: PropTypes.string,
 };
 
@@ -33,7 +29,6 @@ TextProperty.defaultProps = {
     className: null,
     style: null,
     name: 'name',
-    label: 'text',
     value: '',
 };
 

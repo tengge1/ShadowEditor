@@ -23,8 +23,13 @@ class PropertyGroup extends React.Component {
                 </div>
                 <div className={'title'}>{name}</div>
             </div>
-            <div className={classNames('property', !expanded && 'hide')}>
-                {children}
+            <div className={classNames('content', !expanded && 'collapsed')}>
+                {React.Children.map(children, (n, i) => {
+                    return <div className={'property'} key={i}>
+                        <div className={'label'}>{n.props.label}</div>
+                        <div className={'field'}>{n}</div>
+                    </div>;
+                })}
             </div>
         </div>;
     }

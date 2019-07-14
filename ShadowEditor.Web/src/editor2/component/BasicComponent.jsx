@@ -19,7 +19,8 @@ class BasicComponent extends React.Component {
         const { expanded } = this.state;
 
         return <PropertyGroup name={L_BASIC_INFO} expanded={expanded} onExpand={this.handleExpand}>
-            <TextProperty name={'name'} label={L_NAME} value={'正方体'} onExpand={this.handleExpand}></TextProperty>
+            <TextProperty name={'name'} label={L_NAME} value={'正方体'}></TextProperty>
+            <TextProperty name={'type'} label={L_TYPE} value={'类型'}></TextProperty>
         </PropertyGroup>;
     }
 
