@@ -2,6 +2,8 @@ import './css/TextProperty.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
+import Input from '../form/Input.jsx';
+
 /**
  * 文本属性
  * @author tengge / https://github.com/tengge1
@@ -9,12 +11,23 @@ import PropTypes from 'prop-types';
 class TextProperty extends React.Component {
     constructor(props) {
         super(props);
+
+        this.handleChange = this.handleChange.bind(this, props.onChange);
     }
 
     render() {
         const { className, style, name, value } = this.props;
 
-        return <div className={classNames('TextProperty', className)} style={style}>{value}</div>;
+        return <Input
+            className={classNames('TextProperty', className)}
+            style={style}
+            name={name}
+            value={value}
+            onInput={this.handleChange}></Input>;
+    }
+
+    handleChange(onChange, value) {
+        onChange && onChange(value);
     }
 }
 
@@ -23,13 +36,15 @@ TextProperty.propTypes = {
     style: PropTypes.object,
     name: PropTypes.string,
     value: PropTypes.string,
+    onChange: PropTypes.func,
 };
 
 TextProperty.defaultProps = {
     className: null,
     style: null,
-    name: 'name',
+    name: null,
     value: '',
+    onChange: null,
 };
 
 export default TextProperty;

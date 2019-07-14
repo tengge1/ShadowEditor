@@ -1,4 +1,6 @@
 import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty } from '../../third_party';
+import SetValueCommand from '../../command/SetValueCommand';
+import Text from '../../object/geometry/Text';
 
 /**
  * 基本信息组件
@@ -33,8 +35,8 @@ class BasicComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.${this.id}`, this.handleUpdate);
-        app.on(`objectChanged.${this.id}`, this.handleUpdate);
+        app.on(`objectSelected.BasicComponent`, this.handleUpdate);
+        app.on(`objectChanged.BasicComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -63,20 +65,20 @@ class BasicComponent extends React.Component {
         });
     }
 
-    handleChangeName() {
-        var name = UI.get('name', this.id);
-        var editor = app.editor;
-
-        editor.execute(new SetValueCommand(this.selected, 'name', name.getValue()));
+    handleChangeName(value) {
+        app.editor.execute(new SetValueCommand(this.selected, 'name', value));
 
         // bug: https://gitee.com/tengge1/ShadowEditor/issues/IV1V3
         if (this.selected instanceof Text) {
-            this.selected.updateText(name.getValue());
+            this.selected.updateText(value);
         }
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeVisible(name, value, event) {
         this.selected.visible = value;
+        app.call(`objectChanged`, this, this.selected);
     }
 }
 
