@@ -1,5 +1,5 @@
 import './css/ScriptPanel.css';
-import { classNames, PropTypes, Button } from '../../third_party';
+import { classNames, PropTypes, Button, IconButton, Icon } from '../../third_party';
 import ScriptWindow from './window/ScriptWindow.jsx';
 
 /**
@@ -10,6 +10,10 @@ class ScriptPanel extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            scripts: {},
+        };
+
         this.handleAddScript = this.handleAddScript.bind(this);
         this.handleEditScript = this.handleEditScript.bind(this);
         this.handleRemoveScript = this.handleRemoveScript.bind(this);
@@ -17,91 +21,57 @@ class ScriptPanel extends React.Component {
     }
 
     render() {
+        const scripts = this.state.scripts;
+
         return <div className={'ScriptPanel'}>
             <div className={'toolbar'}>
                 <Button onClick={this.handleAddScript}>{L_NEW_SCRIPT}</Button>
             </div>
-            <div className={'content'}>
-            </div>
+            <ul className={'content'}>
+                {Object.values(scripts).map(n => {
+                    return <li className={'script'} key={n.uuid}>
+                        <div className={`name.${this.getExtension(n.type)}`}>{n.name}</div>
+                        <IconButton icon={'edit'} onClick={this.handleEditScript}></IconButton>
+                        <IconButton icon={'delete'} onClick={this.handleRemoveScript}></IconButton>
+                    </li>;
+                })}
+            </ul>
         </div>;
     }
 
+    getExtension(type) {
+        let extension = '';
+
+        switch (type) {
+            case 'javascript':
+                extension = 'js';
+                break;
+            case 'vertexShader':
+                extension = 'glsl';
+                break;
+            case 'fragmentShader':
+                extension = 'glsl';
+                break;
+            case 'json':
+                extension = 'json';
+                break;
+        }
+
+        return extension;
+    }
+
     componentDidMount() {
-        // app.on(`scriptChanged.${this.id}`, this.update);
+        app.on(`scriptChanged.ScriptPanel`, this.update);
     }
 
     update() {
-        var container = UI.get('scriptsContainer');
-        container.dom.innerHTML = '';
-        container.dom.style.display = 'none';
-
-        var scripts = app.editor.scripts;
-
-        if (Object.keys(scripts).length === 0) {
-            return;
-        }
-
-        container.dom.style.display = 'block';
-
-        Object.keys(scripts).forEach(n => {
-            var script = scripts[n];
-            var uuid = script.uuid;
-            var name = script.name;
-            var extension;
-
-            switch (script.type) {
-                case 'javascript':
-                    extension = '.js';
-                    break;
-                case 'vertexShader':
-                case 'fragmentShader':
-                    extension = '.glsl';
-                    break;
-                case 'json':
-                    extension = '.json';
-                    break;
-            }
-
-            var data = {
-                xtype: 'control',
-                parent: container.dom,
-                children: [{
-                    xtype: 'text',
-                    text: name + extension,
-                    style: {
-                        width: '100px',
-                        fontSize: '12px'
-                    }
-                }, {
-                    xtype: 'button',
-                    text: L_EDIT,
-                    style: {
-                        marginLeft: '4px'
-                    },
-                    onClick: () => {
-                        this.editScript(uuid);
-                    }
-                }, {
-                    xtype: 'button',
-                    text: L_DELETE,
-                    style: {
-                        marginLeft: '4px'
-                    },
-                    onClick: () => {
-                        this.deleteScript(uuid);
-                    }
-                }, {
-                    xtype: 'br'
-                }]
-            };
-
-            UI.create(data).render();
+        this.setState({
+            scripts: app.editor.scripts,
         });
     }
 
     handleAddScript() {
         const window = app.createElement(ScriptWindow);
-
         app.addElement(window);
     }
 
@@ -117,7 +87,7 @@ class ScriptPanel extends React.Component {
     handleRemoveScript(uuid) {
         var script = app.editor.scripts[uuid];
 
-        UI.confirm(L_CONFIRM, `${L_DELETE} ${script.name}？`, (event, btn) => {
+        app.confirm(L_CONFIRM, `${L_DELETE} ${script.name}？`, (event, btn) => {
             if (btn === 'ok') {
                 delete app.editor.scripts[uuid];
                 app.call('scriptChanged', this);

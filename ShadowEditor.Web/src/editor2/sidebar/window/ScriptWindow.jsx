@@ -28,7 +28,7 @@ class ScriptWindow extends React.Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleTypeChange = this.handleTypeChange.bind(this);
         this.handleOK = this.handleOK.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
 
     render() {
@@ -37,7 +37,7 @@ class ScriptWindow extends React.Component {
         return <Window
             className={'ScriptWindow'}
             title={L_CREATE_SCRIPT}
-            onClose={this.handleCancel}>
+            onClose={this.handleClose}>
             <Content>
                 <Form>
                     <FormControl>
@@ -56,7 +56,7 @@ class ScriptWindow extends React.Component {
             </Content>
             <Buttons>
                 <Button onClick={this.handleOK}>{L_OK}</Button>
-                <Button onClick={this.handleCancel}>{L_CANCEL}</Button>
+                <Button onClick={this.handleClose}>{L_CANCEL}</Button>
             </Buttons>
         </Window>;
     }
@@ -97,12 +97,30 @@ class ScriptWindow extends React.Component {
                 source = JavaScriptStarter();
         }
 
-        this.handleCancel();
+        app.editor.scripts[uuid] = {
+            id: null,
+            name,
+            type,
+            source,
+            uuid,
+        };
+
+        app.call(`scriptChanged`, this);
+
+        this.handleClose();
+
+        this.setState({
+            show: false,
+            uuid: null,
+            name: '',
+            type: 'javascript',
+            source: '',
+        });
 
         app.call(`editScript`, this, uuid, name, type, source);
     }
 
-    handleCancel() {
+    handleClose() {
         app.removeElement(this);
     }
 }
