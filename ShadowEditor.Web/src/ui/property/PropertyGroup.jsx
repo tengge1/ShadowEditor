@@ -9,38 +9,21 @@ import PropTypes from 'prop-types';
 class PropertyGroup extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-
-        };
-    }
-
-    handleCollapse() {
-
     }
 
     render() {
-        const { className, style, data } = this.props;
+        const { className, style, children, name, expanded } = this.props;
 
-        return <div className={classNames('PropertyGroup', className)} style={style}>
-            {data.map((group, i) => {
-                return <div className={'group'} key={i}>
-                    <div className={'head'}>
-                        <div className={'icon'}>
-                            <i className={group.expand !== false ? 'icon-expand' : 'icon-collapse'} />
-                        </div>
-                        <div className={'title'}>{group.name}</div>
-                    </div>
-                    <div className={classNames('property', group.expand === false ? 'hide' : null)}>
-                        {group.children.map((item, j) => {
-                            return <div className={'item'} key={item.name || j}>
-                                <div className={'label'}>{item.label}</div>
-                                <div className={'value'}>{item.value}</div>
-                            </div>;
-                        })}
-                    </div>
-                </div>;
-            })}
+        return <div className={'PropertyGroup'}>
+            <div className={'head'}>
+                <div className={'icon'}>
+                    <i className={expanded ? 'icon-expand' : 'icon-collapse'} />
+                </div>
+                <div className={'title'}>{name}</div>
+            </div>
+            <div className={classNames('property', !expanded && 'hide')}>
+                {children}
+            </div>
         </div>;
     }
 }
@@ -48,13 +31,17 @@ class PropertyGroup extends React.Component {
 PropertyGroup.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    data: PropTypes.array,
+    children: PropTypes.node,
+    name: PropTypes.string,
+    expanded: PropTypes.bool
 };
 
 PropertyGroup.defaultProps = {
     className: null,
     style: null,
-    data: [],
+    children: null,
+    name: 'Group',
+    expanded: true,
 };
 
 export default PropertyGroup;

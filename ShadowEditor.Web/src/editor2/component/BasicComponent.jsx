@@ -11,7 +11,7 @@ class BasicComponent extends React.Component {
 
     render() {
         return <PropertyGroup name={L_BASIC_INFO}>
-            <TextProperty name={'name'} label={L_NAME}></TextProperty>
+            <TextProperty name={'name'} label={L_NAME} value={'正方体'}></TextProperty>
         </PropertyGroup>;
     }
 }
