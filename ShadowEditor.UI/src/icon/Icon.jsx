@@ -7,28 +7,43 @@ import PropTypes from 'prop-types';
  * @author tengge / https://github.com/tengge1
  */
 class Icon extends React.Component {
-    render() {
-        const { className, style, icon, ...others } = this.props;
+    constructor(props) {
+        super(props);
 
-        return <i
-            className={classNames('Icon', 'iconfont',
-                icon && 'icon-' + icon,
-                className)}
+        this.handleClick = this.handleClick.bind(this, props.onClick);
+    }
+
+    render() {
+        const { className, style, name, icon } = this.props;
+
+        return <i className={classNames('Icon', 'iconfont',
+            icon && 'icon-' + icon,
+            className)}
             style={style}
-            {...others}></i>;
+            name={name}
+            onClick={this.handleClick}></i>;
+    }
+
+    handleClick(onClick, event) {
+        const name = event.target.getAttribute('name');
+        onClick && onClick(name, event);
     }
 }
 
 Icon.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    name: PropTypes.string,
     icon: PropTypes.string,
+    onClick: PropTypes.func,
 };
 
 Icon.defaultProps = {
     className: null,
     style: null,
+    name: null,
     icon: null,
+    onClick: null,
 };
 
 export default Icon;

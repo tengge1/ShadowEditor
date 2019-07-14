@@ -29,10 +29,10 @@ class ScriptPanel extends React.Component {
             </div>
             <ul className={'content'}>
                 {Object.values(scripts).map(n => {
-                    return <li className={'script'} key={n.uuid}>
-                        <div className={`name.${this.getExtension(n.type)}`}>{n.name}</div>
-                        <IconButton icon={'edit'} onClick={this.handleEditScript}></IconButton>
-                        <IconButton icon={'delete'} onClick={this.handleRemoveScript}></IconButton>
+                    return <li key={n.uuid}>
+                        <span>{`${n.name}.${this.getExtension(n.type)}`}</span>
+                        <Icon name={n.uuid} icon={'edit'} onClick={this.handleEditScript}></Icon>
+                        <Icon name={n.uuid} icon={'delete'} onClick={this.handleRemoveScript}></Icon>
                     </li>;
                 })}
             </ul>
@@ -85,10 +85,12 @@ class ScriptPanel extends React.Component {
     }
 
     handleRemoveScript(uuid) {
-        var script = app.editor.scripts[uuid];
+        const script = app.editor.scripts[uuid];
 
-        app.confirm(L_CONFIRM, `${L_DELETE} ${script.name}？`, (event, btn) => {
-            if (btn === 'ok') {
+        app.confirm({
+            title: L_CONFIRM,
+            content: `${L_DELETE} ${script.name}.${this.getExtension(script.type)}？`,
+            onOK: () => {
                 delete app.editor.scripts[uuid];
                 app.call('scriptChanged', this);
             }
