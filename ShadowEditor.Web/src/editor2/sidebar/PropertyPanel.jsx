@@ -1,5 +1,6 @@
 import './css/PropertyPanel.css';
 import { classNames, PropTypes, PropertyGrid } from '../../third_party';
+import BasicComponent from '../component/BasicComponent.jsx';
 
 /**
  * 属性面板
@@ -8,65 +9,12 @@ import { classNames, PropTypes, PropertyGrid } from '../../third_party';
 class PropertyPanel extends React.Component {
     constructor(props) {
         super(props);
-
-        this.data = [{
-            name: 'General',
-            expand: true,
-            children: [{
-                type: 'text',
-                name: 'name',
-                label: 'Name',
-                value: 'Box',
-            }, {
-                type: 'label',
-                name: 'type',
-                label: 'Type',
-                value: 'Box',
-            }, {
-                type: 'checkbox',
-                name: 'visible',
-                label: 'Visible',
-                value: true,
-            }]
-        }, {
-            name: 'Transform',
-            expand: false,
-            children: [{
-                type: 'number',
-                name: 'translateX',
-                label: 'TranslateX',
-                value: 0,
-            }, {
-                type: 'number',
-                name: 'translateY',
-                label: 'TranslateY',
-                value: 0,
-            }, {
-                type: 'number',
-                name: 'translateZ',
-                label: 'TranslateZ',
-                value: 0,
-            }, {
-                type: 'number',
-                name: 'rotateX',
-                label: 'RotateX',
-                value: 0,
-            }, {
-                type: 'number',
-                name: 'rotateY',
-                label: 'RotateY',
-                value: 0,
-            }, {
-                type: 'number',
-                name: 'rotateZ',
-                label: 'RotateZ',
-                value: 0,
-            }]
-        }];
     }
 
     render() {
-        return <PropertyGrid data={this.data} />;
+        return <PropertyGrid>
+            <BasicComponent></BasicComponent>
+        </PropertyGrid>;
     }
 }
 

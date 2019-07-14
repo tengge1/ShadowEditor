@@ -54,6 +54,9 @@ export { default as Panel } from './panel/Panel.jsx';
 
 // property
 export { default as PropertyGrid } from './property/PropertyGrid.jsx';
+export { default as PropertyGroup } from './property/PropertyGroup.jsx';
+export { default as DisplayProperty } from './property/DisplayProperty.jsx';
+export { default as TextProperty } from './property/TextProperty.jsx';
 
 // svg
 export { default as SVG } from './svg/SVG.jsx';

@@ -1,3 +1,5 @@
+import { PropertyGrid, PropertyGroup, TextProperty } from '../../third_party';
+
 /**
  * 基本信息组件
  * @author tengge / https://github.com/tengge1
@@ -8,7 +10,9 @@ class BasicComponent extends React.Component {
     }
 
     render() {
-        return <div></div>;
+        return <PropertyGroup name={L_BASIC_INFO}>
+            <TextProperty name={'name'} label={L_NAME}></TextProperty>
+        </PropertyGroup>;
     }
 }
 
