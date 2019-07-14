@@ -56,7 +56,7 @@ class FireComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
-        if (!editor.selected || !(editor.selected instanceof THREE.PerspectiveCamera)) {
+        if (!editor.selected || !(editor.selected.userData.type === 'Fire')) {
             this.setState({
                 show: false,
             });
