@@ -14,7 +14,7 @@ class TextProperty extends React.Component {
     render() {
         const { className, style, name, label, value } = this.props;
 
-        return <div className={'item'}>
+        return <div className={classNames('TextProperty', className)}>
             <div className={'label'}>{label}</div>
             <div className={'value'}>{value}</div>
         </div>;

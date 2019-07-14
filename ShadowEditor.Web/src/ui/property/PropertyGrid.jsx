@@ -7,10 +7,6 @@ import PropTypes from 'prop-types';
  * @author tengge / https://github.com/tengge1
  */
 class PropertyGrid extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { className, style, children } = this.props;
 
