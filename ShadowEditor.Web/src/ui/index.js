@@ -1,8 +1,5 @@
 import './Config.css';
-import '../css/icon/iconfont.css';
-
-export { default as classNames } from 'classnames/bind';
-export { default as PropTypes } from 'prop-types';
+import '../../assets/css/icon/iconfont.css';
 
 // canvas
 export { default as Canvas } from './canvas/Canvas.jsx';
