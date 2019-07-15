@@ -10,40 +10,32 @@ class Radio extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            selected: props.selected,
-        };
-
         this.handleChange = this.handleChange.bind(this, props.onChange);
     }
 
-    handleChange(onChange, event) {
-        this.setState({
-            selected: event.target.checked,
-        });
-        onChange && onChange(event.target.checked, event);
-    }
-
     render() {
-        const { className, style, selected, disabled, onChange, ...others } = this.props;
-        return <input
-            type={'radio'}
+        const { className, style, checked, disabled } = this.props;
+        return <input type={'radio'}
             className={classNames('Radio',
-                this.state.selected && 'selected',
+                this.state.checked && 'checked',
                 disabled && 'disabled',
                 className)}
             style={style}
-            defaultChecked={this.state.selected}
+            checked={this.state.checked}
             disabled={disabled}
-            onClick={this.handleChange}
-            {...others} />;
+            onClick={this.handleChange} />;
+    }
+
+    handleChange(onChange, event) {
+        onChange && onChange(event.target.checked, this.props.name, event);
     }
 }
 
 Radio.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    selected: PropTypes.bool,
+    name: PropTypes.string,
+    checked: PropTypes.bool,
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
 };
@@ -51,7 +43,8 @@ Radio.propTypes = {
 Radio.defaultProps = {
     className: null,
     style: null,
-    selected: false,
+    name: null,
+    checked: false,
     disabled: false,
     onChange: null,
 };

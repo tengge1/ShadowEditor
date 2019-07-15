@@ -105,7 +105,7 @@ class SearchField extends React.Component {
         });
     }
 
-    handleCheckBoxChange(onInput, onChange, name, checked, event) {
+    handleCheckBoxChange(onInput, onChange, checked, name, event) {
         let categories = this.state.categories;
         let index = categories.indexOf(name);
 

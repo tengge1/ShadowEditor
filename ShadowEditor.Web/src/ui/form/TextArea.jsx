@@ -10,44 +10,34 @@ class TextArea extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            value: props.value,
-        };
-
         this.handleChange = this.handleChange.bind(this, props.onChange);
         this.handleInput = this.handleInput.bind(this, props.onInput);
     }
 
-    handleChange(onChange, event) {
-        this.setState({
-            value: event.target.value,
-        });
-        onChange && onChange(event.target.value, event);
-    }
-
-    handleInput(onInput, event) {
-        this.setState({
-            value: event.target.value,
-        });
-        onInput && onInput(event.target.value, event);
-    }
-
     render() {
-        const { className, style, value, onChange, onInput, ...others } = this.props;
+        const { className, style, value } = this.props;
 
         return <textarea
             className={classNames('TextArea', className)}
             style={style}
             value={this.state.value}
             onChange={this.handleChange}
-            onInput={this.handleInput}
-            {...others}></textarea>;
+            onInput={this.handleInput}></textarea>;
+    }
+
+    handleChange(onChange, event) {
+        onChange && onChange(event.target.value, this.props.name, event);
+    }
+
+    handleInput(onInput, event) {
+        onInput && onInput(event.target.value, this.props.name, event);
     }
 }
 
 TextArea.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    name: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
     onInput: PropTypes.func,
@@ -56,6 +46,7 @@ TextArea.propTypes = {
 TextArea.defaultProps = {
     className: null,
     style: null,
+    name: null,
     value: '',
     onChange: null,
     onInput: null,

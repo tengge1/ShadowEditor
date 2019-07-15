@@ -14,30 +14,31 @@ class Input extends React.Component {
         this.handleInput = this.handleInput.bind(this, props.onInput);
     }
 
-    handleChange(onChange, event) {
-        onChange && onChange(event.target.value, event);
-    }
-
-    handleInput(onInput, event) {
-        onInput && onInput(event.target.value, event);
-    }
-
     render() {
-        const { className, style, value, disabled, onChange, onInput } = this.props;
+        const { className, style, name, value, disabled } = this.props;
 
         return <input
             className={classNames('Input', className)}
             style={style}
             value={value}
+            disabled={disabled}
             onChange={this.handleChange}
-            onInput={this.handleInput}
-            disabled={disabled} />;
+            onInput={this.handleInput} />;
+    }
+
+    handleChange(onChange, event) {
+        onChange && onChange(event.target.value, this.props.name, event);
+    }
+
+    handleInput(onInput, event) {
+        onInput && onInput(event.target.value, this.props.name, event);
     }
 }
 
 Input.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    name: PropTypes.string,
     value: PropTypes.string,
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
@@ -47,6 +48,7 @@ Input.propTypes = {
 Input.defaultProps = {
     className: null,
     style: null,
+    name: null,
     value: '',
     disabled: false,
     onChange: null,

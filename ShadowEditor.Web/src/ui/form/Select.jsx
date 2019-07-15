@@ -13,21 +13,8 @@ class Select extends React.Component {
         this.handleChange = this.handleChange.bind(this, props.onChange);
     }
 
-    handleChange(onChange, event) {
-        const selectedIndex = event.target.selectedIndex;
-
-        if (selectedIndex === -1) {
-            onChange && onChange(null, event);
-            return;
-        }
-
-        const value = event.target.options[selectedIndex].value;
-
-        onChange && onChange(value, event);
-    }
-
     render() {
-        const { className, style, options, value, disabled, onChange } = this.props;
+        const { className, style, options, value, disabled } = this.props;
 
         return <select
             className={classNames('Select', className)}
@@ -40,12 +27,26 @@ class Select extends React.Component {
             })}
         </select>;
     }
+
+    handleChange(onChange, event) {
+        const selectedIndex = event.target.selectedIndex;
+
+        if (selectedIndex === -1) {
+            onChange && onChange(null, event);
+            return;
+        }
+
+        const value = event.target.options[selectedIndex].value;
+
+        onChange && onChange(value, this.props.name, event);
+    }
 }
 
 Select.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     options: PropTypes.object,
+    name: PropTypes.string,
     value: PropTypes.string,
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
@@ -55,6 +56,7 @@ Select.defaultProps = {
     className: null,
     style: null,
     options: null,
+    name: null,
     value: null,
     disabled: false,
     onChange: null,

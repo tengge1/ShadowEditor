@@ -7,10 +7,14 @@ import PropTypes from 'prop-types';
  * @author tengge / https://github.com/tengge1
  */
 class Label extends React.Component {
-    render() {
-        const { className, style, children, ...others } = this.props;
+    constructor(props) {
+        super(props);
+    }
 
-        return <label className={classNames('Label', className)} style={style} {...others}>
+    render() {
+        const { className, style, children } = this.props;
+
+        return <label className={classNames('Label', className)} style={style}>
             {children}
         </label>;
     }

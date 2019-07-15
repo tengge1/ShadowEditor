@@ -10,39 +10,32 @@ class Toggle extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            selected: props.selected,
-        };
-
         this.handleChange = this.handleChange.bind(this, props.onChange);
     }
 
-    handleChange(onChange, event) {
-        var selected = event.target.classList.contains('selected');
-
-        this.setState({
-            selected: !selected,
-        });
-        onChange && onChange(!selected, event);
-    }
-
     render() {
-        const { className, style, selected, disabled, onChange, ...others } = this.props;
+        const { className, style, checked, disabled, onChange } = this.props;
 
         return <div
-            className={classNames('Toggle', this.state.selected && 'selected',
+            className={classNames('Toggle', this.state.checked && 'checked',
                 disabled && 'disabled',
                 className)}
             style={style}
-            onClick={disabled ? null : this.handleChange}
-            {...others}></div>;
+            onClick={disabled ? null : this.handleChange}></div>;
+    }
+
+    handleChange(onChange, event) {
+        var checked = event.target.classList.contains('checked');
+
+        onChange && onChange(!checked, this.props.name, event);
     }
 }
 
 Toggle.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    selected: PropTypes.bool,
+    name: PropTypes.string,
+    checked: PropTypes.bool,
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
 };
@@ -50,7 +43,8 @@ Toggle.propTypes = {
 Toggle.defaultProps = {
     className: null,
     style: null,
-    selected: false,
+    name: null,
+    checked: false,
     disabled: false,
     onChange: null,
 };

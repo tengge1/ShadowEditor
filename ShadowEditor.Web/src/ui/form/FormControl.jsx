@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
  */
 class FormControl extends React.Component {
     render() {
-        const { className, style, children, ...others } = this.props;
+        const { className, style, children } = this.props;
 
-        return <div className={classNames('FormControl', className)} style={style} {...others}>
+        return <div className={classNames('FormControl', className)} style={style}>
             {children}
         </div>;
     }

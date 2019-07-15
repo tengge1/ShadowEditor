@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty } from '../../third_party';
+import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty } from '../../third_party';
 import SetValueCommand from '../../command/SetValueCommand';
 
 /**
@@ -28,9 +28,9 @@ class CameraComponent extends React.Component {
         const { show, expanded, fov, near, far } = this.state;
 
         return <PropertyGroup title={L_CAMERA_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <TextProperty name={'fov'} label={L_FOV} value={fov} onChange={this.handleChangeFov}></TextProperty>
-            <TextProperty name={'near'} label={L_NEAR} value={near} onChange={this.handleChangeNear}></TextProperty>
-            <TextProperty name={'far'} label={L_FAR} value={far} onChange={this.handleChangeFar}></TextProperty>
+            <NumberProperty name={'fov'} label={L_FOV} value={fov} onChange={this.handleChangeFov}></NumberProperty>
+            <NumberProperty name={'near'} label={L_NEAR} value={near} onChange={this.handleChangeNear}></NumberProperty>
+            <NumberProperty name={'far'} label={L_FAR} value={far} onChange={this.handleChangeFar}></NumberProperty>
         </PropertyGroup>;
     }
 
