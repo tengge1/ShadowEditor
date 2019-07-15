@@ -28,9 +28,9 @@ class CameraComponent extends React.Component {
         const { show, expanded, fov, near, far } = this.state;
 
         return <PropertyGroup title={L_CAMERA_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'fov'} label={L_FOV} value={fov} onChange={this.handleChangeFov}></NumberProperty>
-            <NumberProperty name={'near'} label={L_NEAR} value={near} onChange={this.handleChangeNear}></NumberProperty>
-            <NumberProperty name={'far'} label={L_FAR} value={far} onChange={this.handleChangeFar}></NumberProperty>
+            <NumberProperty label={L_FOV} value={fov} onChange={this.handleChangeFov}></NumberProperty>
+            <NumberProperty label={L_NEAR} value={near} onChange={this.handleChangeNear}></NumberProperty>
+            <NumberProperty label={L_FAR} value={far} onChange={this.handleChangeFar}></NumberProperty>
         </PropertyGroup>;
     }
 

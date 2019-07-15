@@ -1,3 +1,6 @@
 .ButtonProperty {
-    margin: 0 0 0 2px;
+    height: auto;
+    margin-left: 2px;
+    padding: 2px 8px;
+    font-size: 12px;
 }

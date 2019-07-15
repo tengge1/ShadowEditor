@@ -28,9 +28,9 @@ class BasicComponent extends React.Component {
         const { show, expanded, name, type, visible } = this.state;
 
         return <PropertyGroup title={L_BASIC_INFO} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <TextProperty name={'name'} label={L_NAME} value={name} onChange={this.handleChangeName}></TextProperty>
-            <DisplayProperty name={'type'} label={L_TYPE} value={type}></DisplayProperty>
-            <CheckBoxProperty name={'visible'} label={L_VISIBLE} value={visible} onChange={this.handleChangeVisible}></CheckBoxProperty>
+            <TextProperty label={L_NAME} value={name} onChange={this.handleChangeName}></TextProperty>
+            <DisplayProperty label={L_TYPE} value={type}></DisplayProperty>
+            <CheckBoxProperty label={L_VISIBLE} value={visible} onChange={this.handleChangeVisible}></CheckBoxProperty>
         </PropertyGroup>;
     }
 

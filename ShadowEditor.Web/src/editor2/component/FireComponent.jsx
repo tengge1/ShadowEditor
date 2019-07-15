@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty } from '../../third_party';
+import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty } from '../../third_party';
 import SetValueCommand from '../../command/SetValueCommand';
 
 /**
@@ -19,26 +19,24 @@ class FireComponent extends React.Component {
             height: 4,
             depth: 2,
             sliceSpacing: 2,
+            previewText: L_PREVIEW,
         };
 
         this.handleExpand = this.handleExpand.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
-        this.handleChangeWidth = this.handleChangeWidth.bind(this);
-        this.handleChangeHeight = this.handleChangeHeight.bind(this);
-        this.handleChangeDepth = this.handleChangeDepth.bind(this);
-        this.handleChangeSliceSpacing = this.handleChangeSliceSpacing.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handlePreview = this.handlePreview.bind(this);
     }
 
     render() {
-        const { show, expanded, fov, near, far } = this.state;
+        const { show, expanded, width, height, depth, sliceSpacing, previewText } = this.state;
 
         return <PropertyGroup title={L_FIRE_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <TextProperty name={'width'} label={L_WIDTH} value={width} onChange={this.handleChangeWidth}></TextProperty>
-            <TextProperty name={'height'} label={L_HEIGHT} value={height} onChange={this.handleChangeHeight}></TextProperty>
-            <TextProperty name={'depth'} label={L_DEPTH} value={depth} onChange={this.handleChangeDepth}></TextProperty>
-            <TextProperty name={'sliceSpacing'} label={L_SLICE_SPACING} value={sliceSpacing} onChange={this.handleChangeSliceSpacing}></TextProperty>
-            <ButtonProperty text={L_PREVIEW} onChange={this.handlePreview}></ButtonProperty>
+            <NumberProperty label={L_WIDTH} value={width} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_HEIGHT} value={height} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_DEPTH} value={depth} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_SLICE_SPACING} value={sliceSpacing} onChange={this.handleChange}></NumberProperty>
+            <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
         </PropertyGroup>;
     }
 
@@ -65,28 +63,24 @@ class FireComponent extends React.Component {
 
         this.selected = editor.selected;
 
+        var fire = this.selected.userData.fire;
+
         this.setState({
             show: true,
-            fov: this.selected.fov,
-            near: this.selected.near,
-            far: this.selected.far,
+            width: fire.mesh.userData.width,
+            height: fire.mesh.userData.height,
+            depth: fire.mesh.userData.depth,
+            sliceSpacing: fire.mesh.userData.sliceSpacing,
+            previewText: this.isPlaying ? L_CANCEL : L_PREVIEW,
         });
     }
 
-    handleChangeWidth(value) {
-        app.editor.execute(new SetValueCommand(this.selected, 'fov', value));
-    }
+    handleChange(value, name) {
 
-    handleChangeHeight(value) {
-        app.editor.execute(new SetValueCommand(this.selected, 'near', value));
-    }
-
-    handleChangeDepth(value) {
-        app.editor.execute(new SetValueCommand(this.selected, 'far', value));
     }
 
     handlePreview() {
-        app.editor.execute(new SetValueCommand(this.selected, 'far', value));
+
     }
 }
 

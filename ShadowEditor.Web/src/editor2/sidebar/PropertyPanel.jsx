@@ -2,6 +2,7 @@ import './css/PropertyPanel.css';
 import { classNames, PropTypes, PropertyGrid } from '../../third_party';
 import BasicComponent from '../component/BasicComponent.jsx';
 import CameraComponent from '../component/CameraComponent.jsx';
+import FireComponent from '../component/FireComponent.jsx';
 
 /**
  * 属性面板
@@ -16,6 +17,7 @@ class PropertyPanel extends React.Component {
         return <PropertyGrid>
             <BasicComponent></BasicComponent>
             <CameraComponent></CameraComponent>
+            <FireComponent></FireComponent>
         </PropertyGrid>;
     }
 }
