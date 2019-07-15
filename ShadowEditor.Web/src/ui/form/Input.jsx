@@ -15,11 +15,13 @@ class Input extends React.Component {
     }
 
     render() {
-        const { className, style, name, value, disabled } = this.props;
+        const { className, style, name, type, value, disabled } = this.props;
 
         return <input
             className={classNames('Input', className)}
             style={style}
+            name={name}
+            type={type}
             value={value}
             disabled={disabled}
             onChange={this.handleChange}
@@ -27,11 +29,13 @@ class Input extends React.Component {
     }
 
     handleChange(onChange, event) {
-        onChange && onChange(event.target.value, this.props.name, event);
+        const value = event.target.value;
+        onChange && onChange(this.props.type === 'number' ? parseFloat(value) : value, this.props.name, event);
     }
 
     handleInput(onInput, event) {
-        onInput && onInput(event.target.value, this.props.name, event);
+        const value = event.target.value;
+        onInput && onInput(this.props.type === 'number' ? parseFloat(value) : value, this.props.name, event);
     }
 }
 
@@ -39,6 +43,7 @@ Input.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     name: PropTypes.string,
+    type: PropTypes.oneOf(['text', 'number']),
     value: PropTypes.string,
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
@@ -49,6 +54,7 @@ Input.defaultProps = {
     className: null,
     style: null,
     name: null,
+    type: 'text',
     value: '',
     disabled: false,
     onChange: null,

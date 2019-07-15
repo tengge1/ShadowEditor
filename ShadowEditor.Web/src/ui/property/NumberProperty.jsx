@@ -22,6 +22,7 @@ class NumberProperty extends React.Component {
             className={classNames('NumberProperty', className)}
             style={style}
             name={name}
+            type={'number'}
             value={value.toString()}
             onInput={this.handleChange}></Input>;
     }
