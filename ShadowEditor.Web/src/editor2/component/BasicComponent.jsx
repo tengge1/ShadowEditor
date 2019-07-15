@@ -76,7 +76,7 @@ class BasicComponent extends React.Component {
         app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeVisible(name, value, event) {
+    handleChangeVisible(value) {
         this.selected.visible = value;
         app.call(`objectChanged`, this, this.selected);
     }
