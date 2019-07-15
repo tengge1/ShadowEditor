@@ -1,0 +1,30 @@
+import Control from './Control';
+import UI from './Manager';
+
+/**
+ * 原生html
+ * @author tengge / https://github.com/tengge1
+ * @param {*} options 选项
+ */
+function Html(options) {
+    Control.call(this, options);
+    options = options || {};
+
+    this.html = options.html || null;
+}
+
+Html.prototype = Object.create(Control.prototype);
+Html.prototype.constructor = Html;
+
+/**
+ * 渲染控件
+ */
+Html.prototype.render = function () {
+    if (this.html) {
+        this.parent.innerHTML += this.html;
+    }
+};
+
+UI.addXType('html', Html);
+
+export default Html;
