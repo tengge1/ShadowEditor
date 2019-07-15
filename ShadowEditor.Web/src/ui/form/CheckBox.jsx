@@ -17,11 +17,11 @@ class CheckBox extends React.Component {
         const { className, style, checked, disabled, onChange } = this.props;
         return <input
             type={'checkbox'}
-            className={classNames('CheckBox', this.state.checked && 'checked', disabled && 'disabled', className)}
+            className={classNames('CheckBox', checked && 'checked', disabled && 'disabled', className)}
             style={style}
-            checked={this.state.checked}
+            checked={checked}
             disabled={disabled}
-            onClick={this.handleChange} />;
+            onChange={this.handleChange} />;
     }
 
     handleChange(onChange, event) {

@@ -17,7 +17,7 @@ class Toggle extends React.Component {
         const { className, style, checked, disabled, onChange } = this.props;
 
         return <div
-            className={classNames('Toggle', this.state.checked && 'checked',
+            className={classNames('Toggle', checked && 'checked',
                 disabled && 'disabled',
                 className)}
             style={style}

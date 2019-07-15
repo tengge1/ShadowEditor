@@ -22,7 +22,7 @@ class NumberProperty extends React.Component {
             className={classNames('NumberProperty', className)}
             style={style}
             name={name}
-            value={value}
+            value={value.toString()}
             onInput={this.handleChange}></Input>;
     }
 
@@ -35,7 +35,7 @@ NumberProperty.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     name: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.number,
     onChange: PropTypes.func,
 };
 
@@ -43,7 +43,7 @@ NumberProperty.defaultProps = {
     className: null,
     style: null,
     name: null,
-    value: '',
+    value: 0,
     onChange: null,
 };
 

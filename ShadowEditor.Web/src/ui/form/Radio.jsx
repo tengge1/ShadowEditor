@@ -16,14 +16,11 @@ class Radio extends React.Component {
     render() {
         const { className, style, checked, disabled } = this.props;
         return <input type={'radio'}
-            className={classNames('Radio',
-                this.state.checked && 'checked',
-                disabled && 'disabled',
-                className)}
+            className={classNames('Radio', checked && 'checked', disabled && 'disabled', className)}
             style={style}
-            checked={this.state.checked}
+            checked={checked}
             disabled={disabled}
-            onClick={this.handleChange} />;
+            onChange={this.handleChange} />;
     }
 
     handleChange(onChange, event) {
