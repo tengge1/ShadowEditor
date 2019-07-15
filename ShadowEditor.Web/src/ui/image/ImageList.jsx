@@ -44,7 +44,7 @@ class ImageList extends React.Component {
         return <div className={classNames('ImageList', className)} style={style}>
             <div className={'content'}>
                 {current.map(n => {
-                    return <div className={'item'} data-id={n.id} key={n.id} onClick={this.handleClick}>
+                    return <div className={'item'} name={n.id} key={n.id} onClick={this.handleClick}>
                         {n.src ?
                             <img className={'img'} src={n.src}></img> :
                             <div className={'no-img'}>
@@ -52,8 +52,8 @@ class ImageList extends React.Component {
                             </div>}
                         <div className={'title'}>{n.title}</div>
                         {n.cornerText && <div className={'cornerText'}>{n.cornerText}</div>}
-                        <IconButton className={'edit'} icon={'edit'} data-id={n.id} onClick={this.handleEdit}></IconButton>
-                        <IconButton className={'delete'} icon={'delete'} data-id={n.id} onClick={this.handleDelete}></IconButton>
+                        <IconButton className={'edit'} icon={'edit'} name={n.id} onClick={this.handleEdit}></IconButton>
+                        <IconButton className={'delete'} icon={'delete'} name={n.id} onClick={this.handleDelete}></IconButton>
                     </div>;
                 })}
             </div>
@@ -105,26 +105,24 @@ class ImageList extends React.Component {
     handleClick(onClick, event) {
         event.stopPropagation();
 
-        const id = event.target.getAttribute('data-id');
+        const id = event.target.getAttribute('name');
         const data = this.props.data.filter(n => n.id === id)[0];
 
         onClick && onClick(data, event);
     }
 
-    handleEdit(onEdit, event) {
+    handleEdit(onEdit, name, event) {
         event.stopPropagation();
 
-        const id = event.target.getAttribute('data-id');
-        const data = this.props.data.filter(n => n.id === id)[0];
+        const data = this.props.data.filter(n => n.id === name)[0];
 
         onEdit && onEdit(data, event);
     }
 
-    handleDelete(onDelete, event) {
+    handleDelete(onDelete, name, event) {
         event.stopPropagation();
 
-        const id = event.target.getAttribute('data-id');
-        const data = this.props.data.filter(n => n.id === id)[0];
+        const data = this.props.data.filter(n => n.id === name)[0];
 
         onDelete && onDelete(data, event);
     }
