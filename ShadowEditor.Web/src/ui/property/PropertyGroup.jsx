@@ -25,6 +25,9 @@ class PropertyGroup extends React.Component {
             </div>
             <div className={classNames('content', !expanded && 'collapsed')}>
                 {React.Children.map(children, (n, i) => {
+                    if (n.props.show === false) {
+                        return null;
+                    }
                     return <div className={'property'} key={i}>
                         <div className={'label'}>{n.props.label}</div>
                         <div className={'field'}>{n}</div>
