@@ -3,6 +3,7 @@ import { classNames, PropTypes, PropertyGrid } from '../../third_party';
 import BasicComponent from '../component/BasicComponent.jsx';
 import CameraComponent from '../component/CameraComponent.jsx';
 import FireComponent from '../component/FireComponent.jsx';
+import LightComponent from '../component/LightComponent.jsx';
 
 /**
  * 属性面板
@@ -18,6 +19,7 @@ class PropertyPanel extends React.Component {
             <BasicComponent></BasicComponent>
             <CameraComponent></CameraComponent>
             <FireComponent></FireComponent>
+            <LightComponent></LightComponent>
         </PropertyGrid>;
     }
 }

@@ -60,6 +60,7 @@ export { default as TextProperty } from './property/TextProperty.jsx';
 export { default as CheckBoxProperty } from './property/CheckBoxProperty.jsx';
 export { default as NumberProperty } from './property/NumberProperty.jsx';
 export { default as ButtonProperty } from './property/ButtonProperty.jsx';
+export { default as ColorProperty } from './property/ColorProperty.jsx';
 
 // svg
 export { default as SVG } from './svg/SVG.jsx';

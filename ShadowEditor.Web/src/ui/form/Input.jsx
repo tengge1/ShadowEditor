@@ -59,7 +59,7 @@ Input.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     name: PropTypes.string,
-    type: PropTypes.oneOf(['text', 'number']),
+    type: PropTypes.oneOf(['text', 'number', 'color']),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
