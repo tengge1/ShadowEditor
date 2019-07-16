@@ -63,14 +63,12 @@ class FireComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        var fire = this.selected.userData.fire;
-
         this.setState({
             show: true,
-            width: fire.mesh.userData.width,
-            height: fire.mesh.userData.height,
-            depth: fire.mesh.userData.depth,
-            sliceSpacing: fire.mesh.userData.sliceSpacing,
+            width: this.selected.userData.width,
+            height: this.selected.userData.height,
+            depth: this.selected.userData.depth,
+            sliceSpacing: this.selected.userData.sliceSpacing,
             previewText: this.isPlaying ? L_CANCEL : L_PREVIEW,
         });
     }
