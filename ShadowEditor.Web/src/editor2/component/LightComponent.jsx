@@ -75,6 +75,10 @@ class LightComponent extends React.Component {
             showHeight, height,
         } = this.state;
 
+        if (!show) {
+            return null;
+        }
+
         return <PropertyGroup title={L_LIGHT_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <ColorProperty label={L_COLOR} value={color} show={showColor} onChange={this.handleChangeColor}></ColorProperty>
             <NumberProperty label={L_INTENSITY} value={intensity} show={showIntensity} onChange={this.handleChangeIntensity}></NumberProperty>

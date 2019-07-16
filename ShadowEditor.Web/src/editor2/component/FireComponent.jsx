@@ -32,6 +32,10 @@ class FireComponent extends React.Component {
     render() {
         const { show, expanded, width, height, depth, sliceSpacing, previewText } = this.state;
 
+        if (!show) {
+            return null;
+        }
+
         return <PropertyGroup title={L_FIRE_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <NumberProperty label={L_WIDTH} name={'width'} value={width} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={L_HEIGHT} name={'height'} value={height} onChange={this.handleChange}></NumberProperty>

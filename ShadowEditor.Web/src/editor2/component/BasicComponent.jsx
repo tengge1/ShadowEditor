@@ -27,6 +27,10 @@ class BasicComponent extends React.Component {
     render() {
         const { show, expanded, name, type, visible } = this.state;
 
+        if (!show) {
+            return null;
+        }
+
         return <PropertyGroup title={L_BASIC_INFO} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <TextProperty label={L_NAME} value={name} onChange={this.handleChangeName}></TextProperty>
             <DisplayProperty label={L_TYPE} value={type}></DisplayProperty>
