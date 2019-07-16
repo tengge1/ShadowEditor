@@ -16,34 +16,34 @@ class LightComponent extends React.Component {
             expanded: true,
 
             showColor: false,
-            color: '',
+            color: '#ffffff',
 
             showIntensity: false,
-            intensity: 1.0,
+            intensity: 1,
 
             showDistance: false,
-            distance: 1.0,
+            distance: 0,
 
             showAngle: false,
-            angle: 0.0,
+            angle: Math.PI * 0.1,
 
             showPenumbra: false,
-            penumbra: 1.0,
+            penumbra: 0,
 
             showDecay: false,
-            decay: 1.0,
+            decay: 1,
 
             showSkyColor: false,
-            skyColor: '',
+            skyColor: '#00aaff',
 
             showGroundColor: false,
-            groundColor: '',
+            groundColor: '#ffaa00',
 
             showWidth: false,
-            width: 1.0,
+            width: 20,
 
             showHeight: false,
-            height: 1.0,
+            height: 10,
         };
 
         this.handleExpand = this.handleExpand.bind(this);
