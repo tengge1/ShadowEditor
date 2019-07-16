@@ -173,68 +173,89 @@ class LightComponent extends React.Component {
         this.setState({ state });
     }
 
-    handleChangeColor() {
-        var objectColor = UI.get('objectColor', this.id);
-        this.selected.color = new THREE.Color(objectColor.getHexValue());
+    handleChangeColor(value) {
+        this.selected.color = new THREE.Color(value);
+
         var helper = this.selected.children.filter(n => n.userData.type === 'helper')[0];
+
         if (helper) {
             helper.material.color = this.selected.color;
         }
+
+        this.setState({ color: value });
     }
 
-    handleChangeIntensity() {
-        var objectIntensity = UI.get('objectIntensity', this.id);
-        this.selected.intensity = objectIntensity.getValue();
+    handleChangeIntensity(value) {
+        if (value !== null) {
+            this.selected.intensity = value;
+        }
+        this.setState({ intensity: value });
     }
 
-    handleChangeDistance() {
-        var objectDistance = UI.get('objectDistance', this.id);
-        this.selected.distance = objectDistance.getValue();
+    handleChangeDistance(value) {
+        if (value !== null) {
+            this.selected.distance = value;
+        }
+        this.setState({ distance: value });
     }
 
-    handleChangeAngle() {
-        var objectAngle = UI.get('objectAngle', this.id);
-        this.selected.angle = objectAngle.getValue();
+    handleChangeAngle(value) {
+        if (value !== null) {
+            this.selected.angle = value;
+        }
+        this.setState({ angle: value });
     }
 
-    handleChangePenumbra() {
-        var objectPenumbra = UI.get('objectPenumbra', this.id);
-        this.selected.penumbra = objectPenumbra.getValue();
+    handleChangePenumbra(value) {
+        if (value !== null) {
+            this.selected.penumbra = value;
+        }
+        this.setState({ penumbra: value });
     }
 
-    handleChangeDecay() {
-        var objectDecay = UI.get('objectDecay', this.id);
-        this.selected.decay = objectDecay.getValue();
+    handleChangeDecay(value) {
+        if (value !== null) {
+            this.selected.decay = value;
+        }
+        this.setState({ decay: value });
     }
 
-    handleChangeSkyColor() {
-        var objectSkyColor = UI.get('objectSkyColor', this.id);
-        this.selected.color = new THREE.Color(objectSkyColor.getHexValue());
+    handleChangeSkyColor(value) {
+        this.selected.color = new THREE.Color(value);
 
         var sky = this.selected.children.filter(n => n.userData.type === 'sky')[0];
         if (sky) {
             sky.material.uniforms.topColor.value = this.selected.color;
         }
+
+        this.setState({ skyColor: value });
     }
 
-    handleChangeGroundColor() {
-        var objectGroundColor = UI.get('objectGroundColor', this.id);
-        this.selected.groundColor = new THREE.Color(objectGroundColor.getHexValue());
+    handleChangeGroundColor(value) {
+        this.selected.groundColor = new THREE.Color(value);
 
-        var sky = this.selected.children.filter(n => n.userData.type === 'sky')[0];
-        if (sky) {
-            sky.material.uniforms.bottomColor.value = this.selected.groundColor;
+        var ground = this.selected.children.filter(n => n.userData.type === 'sky')[0];
+        if (ground) {
+            ground.material.uniforms.bottomColor.value = this.selected.groundColor;
         }
+
+        this.setState({ groundColor: value });
     }
 
-    handleChangeWidth() {
-        var objectWidth = UI.get('objectWidth', this.id);
-        this.selected.width = objectWidth.getValue();
+    handleChangeWidth(value) {
+        if (value !== null) {
+            this.selected.width = value;
+        }
+
+        this.setState({ width: value });
     }
 
-    handleChangeHeight() {
-        var objectHeight = UI.get('objectHeight', this.id);
-        this.selected.height = objectHeight.getValue();
+    handleChangeHeight(value) {
+        if (value !== null) {
+            this.selected.height = value;
+        }
+
+        this.setState({ height: value });
     }
 }
 
