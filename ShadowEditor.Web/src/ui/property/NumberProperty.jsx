@@ -23,12 +23,12 @@ class NumberProperty extends React.Component {
             style={style}
             name={name}
             type={'number'}
-            value={value.toString()}
+            value={value}
             onInput={this.handleChange}></Input>;
     }
 
-    handleChange(onChange, value) {
-        onChange && onChange(value);
+    handleChange(onChange, value, name, event) {
+        onChange && onChange(value, name, event);
     }
 }
 

@@ -25,8 +25,8 @@ class CheckBoxProperty extends React.Component {
             onChange={this.handleChange}></CheckBox>;
     }
 
-    handleChange(onChange, name, value, event) {
-        onChange && onChange(name, value, event);
+    handleChange(onChange, value, name, event) {
+        onChange && onChange(value, name, event);
     }
 }
 

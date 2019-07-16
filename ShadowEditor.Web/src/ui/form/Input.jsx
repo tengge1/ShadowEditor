@@ -20,9 +20,8 @@ class Input extends React.Component {
         return <input
             className={classNames('Input', className)}
             style={style}
-            name={name}
             type={type}
-            value={value}
+            value={value === null ? '' : value}
             disabled={disabled}
             onChange={this.handleChange}
             onInput={this.handleInput} />;
@@ -30,12 +29,29 @@ class Input extends React.Component {
 
     handleChange(onChange, event) {
         const value = event.target.value;
-        onChange && onChange(this.props.type === 'number' ? parseFloat(value) : value, this.props.name, event);
+
+        if (this.props.type === 'number') {
+            if (value.trim() !== '') {
+                onChange && onChange(parseFloat(value), this.props.name, event);
+            } else {
+                onChange && onChange(null, this.props.name, event);
+            }
+        } else {
+            onChange && onChange(value, this.props.name, event);
+        }
     }
 
     handleInput(onInput, event) {
         const value = event.target.value;
-        onInput && onInput(this.props.type === 'number' ? parseFloat(value) : value, this.props.name, event);
+        if (this.props.type === 'number') {
+            if (value.trim() !== '') {
+                onInput && onInput(parseFloat(value), this.props.name, event);
+            } else {
+                onInput && onInput(null, this.props.name, event);
+            }
+        } else {
+            onInput && onInput(value, this.props.name, event);
+        }
     }
 }
 
@@ -44,7 +60,7 @@ Input.propTypes = {
     style: PropTypes.object,
     name: PropTypes.string,
     type: PropTypes.oneOf(['text', 'number']),
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
     onInput: PropTypes.func,

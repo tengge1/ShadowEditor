@@ -26,8 +26,8 @@ class TextProperty extends React.Component {
             onInput={this.handleChange}></Input>;
     }
 
-    handleChange(onChange, value) {
-        onChange && onChange(value);
+    handleChange(onChange, value, name, event) {
+        onChange && onChange(value, name, event);
     }
 }
 

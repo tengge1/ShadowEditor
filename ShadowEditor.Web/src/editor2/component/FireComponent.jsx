@@ -114,6 +114,7 @@ class FireComponent extends React.Component {
 
         var index = editor.scene.children.indexOf(this.selected);
         if (index > -1) {
+            editor.select(null);
             editor.scene.children[index] = fire.mesh;
             fire.mesh.parent = this.selected.parent;
             this.selected.parent = null;
