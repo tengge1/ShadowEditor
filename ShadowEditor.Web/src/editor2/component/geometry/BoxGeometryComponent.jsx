@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty } from '../../../third_party';
+import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -38,9 +38,9 @@ class BoxGeometryComponent extends React.Component {
             <NumberProperty name={'width'} label={L_WIDTH} value={width} onChange={this.handleChange}></NumberProperty>
             <NumberProperty name={'height'} label={L_HEIGHT} value={height} onChange={this.handleChange}></NumberProperty>
             <NumberProperty name={'depth'} label={L_DEPTH} value={depth} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'widthSegments'} label={L_WIDTH_SEGMENTS} value={widthSegments} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'heightSegments'} label={L_HEIGHT_SEGMENTS} value={heightSegments} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'depthSegments'} label={L_DEPTH_SEGMENTS} value={depthSegments} onChange={this.handleChange}></NumberProperty>
+            <IntegerProperty name={'widthSegments'} label={L_WIDTH_SEGMENTS} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
+            <IntegerProperty name={'heightSegments'} label={L_HEIGHT_SEGMENTS} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
+            <IntegerProperty name={'depthSegments'} label={L_DEPTH_SEGMENTS} value={depthSegments} onChange={this.handleChange}></IntegerProperty>
         </PropertyGroup>;
     }
 
