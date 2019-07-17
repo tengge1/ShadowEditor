@@ -2,7 +2,7 @@ import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxPro
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
- * 正方体组件
+ * 圆形组件
  * @author tengge / https://github.com/tengge1
  */
 class CircleGeometryComponent extends React.Component {
@@ -14,12 +14,10 @@ class CircleGeometryComponent extends React.Component {
         this.state = {
             show: false,
             expanded: true,
-            width: 1,
-            height: 1,
-            depth: 1,
-            widthSegments: 1,
-            heightSegments: 1,
-            depthSegments: 1,
+            radius: 1.0,
+            segments: 16,
+            thetaStart: 0.0,
+            thetaLength: Math.PI * 2,
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -28,19 +26,17 @@ class CircleGeometryComponent extends React.Component {
     }
 
     render() {
-        const { show, expanded, width, height, depth, widthSegments, heightSegments, depthSegments } = this.state;
+        const { show, expanded, radius, segments, thetaStart, thetaLength } = this.state;
 
         if (!show) {
             return null;
         }
 
         return <PropertyGroup title={L_GEOMETRY_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'width'} label={L_WIDTH} value={width} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'height'} label={L_HEIGHT} value={height} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'depth'} label={L_DEPTH} value={depth} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'widthSegments'} label={L_WIDTH_SEGMENTS} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty name={'heightSegments'} label={L_HEIGHT_SEGMENTS} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty name={'depthSegments'} label={L_DEPTH_SEGMENTS} value={depthSegments} onChange={this.handleChange}></IntegerProperty>
+            <NumberProperty name={'radius'} label={L_RADIUS} value={radius} onChange={this.handleChange}></NumberProperty>
+            <IntegerProperty name={'segments'} label={L_SEGMENTS} value={segments} onChange={this.handleChange}></IntegerProperty>
+            <NumberProperty name={'thetaStart'} label={L_THETA_START} value={thetaStart} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'thetaLength'} label={L_THETA_LENGTH} value={thetaLength} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 
@@ -58,7 +54,7 @@ class CircleGeometryComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
-        if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.BoxBufferGeometry)) {
+        if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.CircleBufferGeometry)) {
             this.setState({
                 show: false,
             });
@@ -81,13 +77,11 @@ class CircleGeometryComponent extends React.Component {
 
         this.setState(state);
 
-        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.BoxBufferGeometry(
-            state.width,
-            state.height,
-            state.depth,
-            state.widthSegments,
-            state.heightSegments,
-            state.depthSegments,
+        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.CircleBufferGeometry(
+            state.radius,
+            state.segments,
+            state.thetaStart,
+            state.thetaLength,
         )));
     }
 }
