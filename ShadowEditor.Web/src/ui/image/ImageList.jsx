@@ -29,6 +29,7 @@ class ImageList extends React.Component {
         this.handleClick = this.handleClick.bind(this, onClick);
         this.handleEdit = this.handleEdit.bind(this, onEdit);
         this.handleDelete = this.handleDelete.bind(this, onDelete);
+        this.handleError = this.handleError.bind(this);
     }
 
     render() {
@@ -46,7 +47,7 @@ class ImageList extends React.Component {
                 {current.map(n => {
                     return <div className={'item'} name={n.id} key={n.id} onClick={this.handleClick}>
                         {n.src ?
-                            <img className={'img'} src={n.src}></img> :
+                            <img className={'img'} src={n.src} onError={this.handleError}></img> :
                             <div className={'no-img'}>
                                 <Icon icon={n.icon}></Icon>
                             </div>}
@@ -125,6 +126,22 @@ class ImageList extends React.Component {
         const data = this.props.data.filter(n => n.id === name)[0];
 
         onDelete && onDelete(data, event);
+    }
+
+    handleError(event) {
+        let target = event.target;
+        let parent = target.parentNode;
+        parent.removeChild(target);
+
+        let img = document.createElement('div');
+        img.className = 'no-img';
+
+        let icon = document.createElement('i');
+        icon.className = 'Icon iconfont icon-scenes';
+        img.appendChild(icon);
+
+        let title = parent.children[0];
+        parent.insertBefore(img, title);
     }
 
     getTotalPage() {
