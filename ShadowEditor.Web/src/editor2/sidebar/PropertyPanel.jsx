@@ -5,6 +5,7 @@ import CameraComponent from '../component/CameraComponent.jsx';
 import FireComponent from '../component/FireComponent.jsx';
 import LightComponent from '../component/LightComponent.jsx';
 import LMeshComponent from '../component/LMeshComponent.jsx';
+import GeometryComponent from '../component/GeometryComponent.jsx';
 
 /**
  * 属性面板
@@ -22,6 +23,7 @@ class PropertyPanel extends React.Component {
             <FireComponent></FireComponent>
             <LightComponent></LightComponent>
             <LMeshComponent></LMeshComponent>
+            <GeometryComponent></GeometryComponent>
         </PropertyGrid>;
     }
 }

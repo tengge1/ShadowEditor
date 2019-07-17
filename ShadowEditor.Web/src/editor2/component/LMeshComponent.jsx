@@ -41,8 +41,8 @@ class LMeshComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.CameraComponent`, this.handleUpdate);
-        app.on(`objectChanged.CameraComponent`, this.handleUpdate);
+        app.on(`objectSelected.LMeshComponent`, this.handleUpdate);
+        app.on(`objectChanged.LMeshComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
