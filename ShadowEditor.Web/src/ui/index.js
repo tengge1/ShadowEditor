@@ -62,6 +62,7 @@ export { default as NumberProperty } from './property/NumberProperty.jsx';
 export { default as ButtonProperty } from './property/ButtonProperty.jsx';
 export { default as ColorProperty } from './property/ColorProperty.jsx';
 export { default as SelectProperty } from './property/SelectProperty.jsx';
+export { default as IntegerProperty } from './property/IntegerProperty.jsx';
 
 // svg
 export { default as SVG } from './svg/SVG.jsx';
