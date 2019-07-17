@@ -73,8 +73,8 @@ CameraComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.CameraComponent`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.CameraComponent`, this.onObjectChanged.bind(this));
 };
 
 CameraComponent.prototype.onObjectSelected = function () {

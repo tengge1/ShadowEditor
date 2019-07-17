@@ -2,7 +2,7 @@ import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxPro
 import SetValueCommand from '../../command/SetValueCommand';
 
 /**
- * 相机组件
+ * 几何体组件
  * @author tengge / https://github.com/tengge1
  */
 class GeometryComponent extends React.Component {
@@ -12,29 +12,22 @@ class GeometryComponent extends React.Component {
         this.state = {
             show: false,
             expanded: true,
-            fov: 70,
-            near: 0.1,
-            far: 1000,
+            name: '',
         };
 
         this.handleExpand = this.handleExpand.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
-        this.handleChangeFov = this.handleChangeFov.bind(this);
-        this.handleChangeNear = this.handleChangeNear.bind(this);
-        this.handleChangeFar = this.handleChangeFar.bind(this);
     }
 
     render() {
-        const { show, expanded, fov, near, far } = this.state;
+        const { show, expanded, name } = this.state;
 
         if (!show) {
             return null;
         }
 
         return <PropertyGroup title={L_GEOMETRY_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={L_FOV} value={fov} onChange={this.handleChangeFov}></NumberProperty>
-            <NumberProperty label={L_NEAR} value={near} onChange={this.handleChangeNear}></NumberProperty>
-            <NumberProperty label={L_FAR} value={far} onChange={this.handleChangeFar}></NumberProperty>
+            <DisplayProperty label={L_TYPE} value={name}></DisplayProperty>
         </PropertyGroup>;
     }
 
@@ -52,7 +45,7 @@ class GeometryComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
-        if (!editor.selected || !(editor.selected instanceof THREE.PerspectiveCamera)) {
+        if (!editor.selected || !(editor.selected instanceof THREE.Mesh)) {
             this.setState({
                 show: false,
             });
@@ -61,24 +54,16 @@ class GeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
+        let name = this.selected.geometry.constructor.name;
+
+        if (this.selected.geometry instanceof THREE.TeapotBufferGeometry) {
+            name = 'TeapotBufferGeometry';
+        }
+
         this.setState({
             show: true,
-            fov: this.selected.fov,
-            near: this.selected.near,
-            far: this.selected.far,
+            name,
         });
-    }
-
-    handleChangeFov(value) {
-        app.editor.execute(new SetValueCommand(this.selected, 'fov', value));
-    }
-
-    handleChangeNear(value) {
-        app.editor.execute(new SetValueCommand(this.selected, 'near', value));
-    }
-
-    handleChangeFar(value) {
-        app.editor.execute(new SetValueCommand(this.selected, 'far', value));
     }
 }
 
