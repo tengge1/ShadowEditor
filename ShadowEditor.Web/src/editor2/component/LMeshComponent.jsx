@@ -16,7 +16,7 @@ class LMeshComponent extends React.Component {
             show: false,
             expanded: true,
             options: [],
-            animation: null,
+            animation: '',
             previewText: L_PREVIEW,
         };
 
@@ -35,7 +35,7 @@ class LMeshComponent extends React.Component {
         }
 
         return <PropertyGroup title={L_LMESH_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={L_ANIMATION} value={width} onChange={this.handleChange}></SelectProperty>
+            <SelectProperty label={L_ANIMATION} options={options} value={animation} onChange={this.handleChange}></SelectProperty>
             <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
         </PropertyGroup>;
     }
@@ -77,7 +77,7 @@ class LMeshComponent extends React.Component {
         this.setState({
             show: true,
             options,
-            animation: null,
+            animation: animNames[0],
             previewText: this.isPlaying ? L_CANCEL : L_PREVIEW,
         });
     }
@@ -113,7 +113,6 @@ class LMeshComponent extends React.Component {
         });
 
         const model = this.selected.userData.model;
-
         model.setAnimation(animation);
 
         app.on(`animate.${this.id}`, this.onAnimate);
@@ -125,8 +124,6 @@ class LMeshComponent extends React.Component {
         this.setState({
             previewText: L_PREVIEW,
         });
-
-        this.onSelectAnim();
 
         app.on(`animate.${this.id}`, null);
     }

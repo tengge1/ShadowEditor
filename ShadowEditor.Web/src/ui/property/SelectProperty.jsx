@@ -25,7 +25,7 @@ class SelectProperty extends React.Component {
             name={name}
             value={value}
             disabled={disabled}
-            onInput={this.handleChange}></Select>;
+            onChange={this.handleChange}></Select>;
     }
 
     handleChange(onChange, value, name, event) {
@@ -36,7 +36,7 @@ class SelectProperty extends React.Component {
 SelectProperty.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    options: PropTypes.array,
+    options: PropTypes.object,
     name: PropTypes.string,
     value: PropTypes.string,
     disabled: PropTypes.bool,
@@ -46,7 +46,7 @@ SelectProperty.propTypes = {
 SelectProperty.defaultProps = {
     className: null,
     style: null,
-    options: [],
+    options: {},
     name: null,
     value: '',
     disabled: false,
