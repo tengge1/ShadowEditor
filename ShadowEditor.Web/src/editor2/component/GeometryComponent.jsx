@@ -1,5 +1,4 @@
 import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty } from '../../third_party';
-import SetValueCommand from '../../command/SetValueCommand';
 
 /**
  * 几何体组件
@@ -32,8 +31,8 @@ class GeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.CameraComponent`, this.handleUpdate);
-        app.on(`objectChanged.CameraComponent`, this.handleUpdate);
+        app.on(`objectSelected.GeometryComponent`, this.handleUpdate);
+        app.on(`objectChanged.GeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
