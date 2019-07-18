@@ -77,8 +77,6 @@ class LatheGeometryComponent extends React.Component {
 
         const points = this.selected.geometry.parameters.points;
 
-        debugger
-
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.LatheBufferGeometry(
             points,
             state.segments,
