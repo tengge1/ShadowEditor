@@ -37,8 +37,8 @@ class IcosahedronGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.BoxGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.BoxGeometryComponent`, this.handleUpdate);
+        app.on(`objectSelected.IcosahedronGeometryComponent`, this.handleUpdate);
+        app.on(`objectChanged.IcosahedronGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {

@@ -45,8 +45,8 @@ class CylinderGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.BoxGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.BoxGeometryComponent`, this.handleUpdate);
+        app.on(`objectSelected.CylinderGeometryComponent`, this.handleUpdate);
+        app.on(`objectChanged.CylinderGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {

@@ -39,8 +39,8 @@ class PlaneGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.BoxGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.BoxGeometryComponent`, this.handleUpdate);
+        app.on(`objectSelected.PlaneGeometryComponent`, this.handleUpdate);
+        app.on(`objectChanged.PlaneGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {

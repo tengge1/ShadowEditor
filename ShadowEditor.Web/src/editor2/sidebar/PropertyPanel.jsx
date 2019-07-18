@@ -9,6 +9,7 @@ import LMeshComponent from '../component/LMeshComponent.jsx';
 
 import GeometryComponent from '../component/GeometryComponent.jsx';
 import BoxGeometryComponent from '../component/geometry/BoxGeometryComponent.jsx';
+import CircleGeometryComponent from '../component/geometry/CircleGeometryComponent.jsx';
 import CylinderGeometryComponent from '../component/geometry/CylinderGeometryComponent.jsx';
 import IcosahedronGeometryComponent from '../component/geometry/IcosahedronGeometryComponent.jsx';
 import LatheGeometryComponent from '../component/geometry/LatheGeometryComponent.jsx';
@@ -33,6 +34,7 @@ class PropertyPanel extends React.Component {
 
             <GeometryComponent></GeometryComponent>
             <BoxGeometryComponent></BoxGeometryComponent>
+            <CircleGeometryComponent></CircleGeometryComponent>
             <CylinderGeometryComponent></CylinderGeometryComponent>
             <IcosahedronGeometryComponent></IcosahedronGeometryComponent>
             <LatheGeometryComponent></LatheGeometryComponent>

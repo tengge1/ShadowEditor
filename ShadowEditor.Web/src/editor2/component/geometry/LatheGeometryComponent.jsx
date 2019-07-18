@@ -39,8 +39,8 @@ class LatheGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.BoxGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.BoxGeometryComponent`, this.handleUpdate);
+        app.on(`objectSelected.LatheGeometryComponent`, this.handleUpdate);
+        app.on(`objectChanged.LatheGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {

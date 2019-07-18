@@ -41,8 +41,8 @@ class CircleGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.BoxGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.BoxGeometryComponent`, this.handleUpdate);
+        app.on(`objectSelected.CircleGeometryComponent`, this.handleUpdate);
+        app.on(`objectChanged.CircleGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
