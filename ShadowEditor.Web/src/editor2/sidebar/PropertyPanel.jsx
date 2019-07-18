@@ -10,6 +10,7 @@ import LMeshComponent from '../component/LMeshComponent.jsx';
 import GeometryComponent from '../component/GeometryComponent.jsx';
 import BoxGeometryComponent from '../component/geometry/BoxGeometryComponent.jsx';
 import CylinderGeometryComponent from '../component/geometry/CylinderGeometryComponent.jsx';
+import IcosahedronGeometryComponent from '../component/geometry/IcosahedronGeometryComponent.jsx';
 
 /**
  * 属性面板
@@ -31,6 +32,7 @@ class PropertyPanel extends React.Component {
             <GeometryComponent></GeometryComponent>
             <BoxGeometryComponent></BoxGeometryComponent>
             <CylinderGeometryComponent></CylinderGeometryComponent>
+            <IcosahedronGeometryComponent></IcosahedronGeometryComponent>
         </PropertyGrid>;
     }
 }
