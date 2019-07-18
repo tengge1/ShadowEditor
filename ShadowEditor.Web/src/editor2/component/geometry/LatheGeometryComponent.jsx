@@ -77,7 +77,7 @@ class LatheGeometryComponent extends React.Component {
 
         const points = this.selected.geometry.parameters.points;
 
-        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.CylinderBufferGeometry(
+        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.LatheBufferGeometry(
             points,
             state.segments,
             state.phiStart,
