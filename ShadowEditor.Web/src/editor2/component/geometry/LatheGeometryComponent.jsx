@@ -2,7 +2,7 @@ import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxPro
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
- * 二十面体组件
+ * 车床组件
  * @author tengge / https://github.com/tengge1
  */
 class LatheGeometryComponent extends React.Component {
@@ -76,6 +76,8 @@ class LatheGeometryComponent extends React.Component {
         this.setState(state);
 
         const points = this.selected.geometry.parameters.points;
+
+        debugger
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.LatheBufferGeometry(
             points,

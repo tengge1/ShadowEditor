@@ -14,9 +14,10 @@ class PlaneGeometryComponent extends React.Component {
         this.state = {
             show: false,
             expanded: true,
-            segments: 16,
-            phiStart: 0.0,
-            phiLength: Math.PI * 2,
+            width: 1,
+            height: 1,
+            widthSegments: 1,
+            heightSegments: 1,
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -25,16 +26,17 @@ class PlaneGeometryComponent extends React.Component {
     }
 
     render() {
-        const { show, expanded, segments, phiStart, phiLength } = this.state;
+        const { show, expanded, width, height, widthSegments, heightSegments } = this.state;
 
         if (!show) {
             return null;
         }
 
         return <PropertyGroup title={L_GEOMETRY_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <IntegerProperty name={'segments'} label={L_RADIAL_SEGMENTS} value={segments} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty name={'phiStart'} label={L_PHI_START} value={phiStart} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'phiLength'} label={L_PHI_LENGTH} value={phiLength} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'width'} label={L_WIDTH} value={width} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'height'} label={L_HEIGHT} value={height} onChange={this.handleChange}></NumberProperty>
+            <IntegerProperty name={'widthSegments'} label={L_WIDTH_SEGMENTS} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
+            <IntegerProperty name={'heightSegments'} label={L_HEIGHT_SEGMENTS} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
         </PropertyGroup>;
     }
 
@@ -52,7 +54,7 @@ class PlaneGeometryComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
-        if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.LatheBufferGeometry)) {
+        if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.PlaneBufferGeometry)) {
             this.setState({
                 show: false,
             });
@@ -75,13 +77,11 @@ class PlaneGeometryComponent extends React.Component {
 
         this.setState(state);
 
-        const points = this.selected.geometry.parameters.points;
-
-        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.CylinderBufferGeometry(
-            points,
-            state.segments,
-            state.phiStart,
-            state.phiLength,
+        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.PlaneBufferGeometry(
+            state.width,
+            state.height,
+            state.widthSegments,
+            state.heightSegments,
         )));
     }
 }
