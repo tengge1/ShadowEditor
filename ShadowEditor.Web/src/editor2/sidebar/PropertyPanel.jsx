@@ -15,6 +15,7 @@ import IcosahedronGeometryComponent from '../component/geometry/IcosahedronGeome
 import LatheGeometryComponent from '../component/geometry/LatheGeometryComponent.jsx';
 import PlaneGeometryComponent from '../component/geometry/PlaneGeometryComponent.jsx';
 import SphereGeometryComponent from '../component/geometry/SphereGeometryComponent.jsx';
+import TeapotGeometryComponent from '../component/geometry/TeapotGeometryComponent.jsx';
 
 /**
  * 属性面板
@@ -41,6 +42,7 @@ class PropertyPanel extends React.Component {
             <LatheGeometryComponent></LatheGeometryComponent>
             <PlaneGeometryComponent></PlaneGeometryComponent>
             <SphereGeometryComponent></SphereGeometryComponent>
+            <TeapotGeometryComponent></TeapotGeometryComponent>
         </PropertyGrid>;
     }
 }
