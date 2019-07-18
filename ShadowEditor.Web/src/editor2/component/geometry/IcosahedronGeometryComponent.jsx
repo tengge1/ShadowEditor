@@ -73,7 +73,7 @@ class IcosahedronGeometryComponent extends React.Component {
 
         this.setState(state);
 
-        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.CylinderBufferGeometry(
+        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.IcosahedronBufferGeometry(
             state.radius,
             state.detail,
         )));
