@@ -17,6 +17,7 @@ import PlaneGeometryComponent from '../component/geometry/PlaneGeometryComponent
 import SphereGeometryComponent from '../component/geometry/SphereGeometryComponent.jsx';
 import TeapotGeometryComponent from '../component/geometry/TeapotGeometryComponent.jsx';
 import TorusGeometryComponent from '../component/geometry/TorusGeometryComponent.jsx';
+import TorusKnotGeometryComponent from '../component/geometry/TorusKnotGeometryComponent.jsx';
 
 /**
  * 属性面板
@@ -45,6 +46,7 @@ class PropertyPanel extends React.Component {
             <SphereGeometryComponent></SphereGeometryComponent>
             <TeapotGeometryComponent></TeapotGeometryComponent>
             <TorusGeometryComponent></TorusGeometryComponent>
+            <TorusKnotGeometryComponent></TorusKnotGeometryComponent>
         </PropertyGrid>;
     }
 }
