@@ -20,6 +20,7 @@ import TorusGeometryComponent from '../component/geometry/TorusGeometryComponent
 import TorusKnotGeometryComponent from '../component/geometry/TorusKnotGeometryComponent.jsx';
 
 import MaterialComponent from '../component/MaterialComponent.jsx';
+import TransformComponent from '../component/TransformComponent.jsx';
 
 /**
  * 属性面板
@@ -50,7 +51,7 @@ class PropertyPanel extends React.Component {
             <TorusGeometryComponent></TorusGeometryComponent>
             <TorusKnotGeometryComponent></TorusKnotGeometryComponent>
 
-            <MaterialComponent></MaterialComponent>
+            <TransformComponent></TransformComponent>
         </PropertyGrid>;
     }
 }
