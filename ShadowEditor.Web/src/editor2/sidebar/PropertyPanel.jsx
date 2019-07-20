@@ -22,6 +22,7 @@ import MaterialComponent from '../component/MaterialComponent.jsx';
 import TransformComponent from '../component/TransformComponent.jsx';
 import SmokeComponent from '../component/SmokeComponent.jsx';
 import ShadowComponent from '../component/ShadowComponent.jsx';
+import SceneComponent from '../component/SceneComponent.jsx';
 
 /**
  * 属性面板
@@ -41,6 +42,7 @@ class PropertyPanel extends React.Component {
             <CameraComponent></CameraComponent>
             <FireComponent></FireComponent>
             <LightComponent></LightComponent>
+            <SceneComponent></SceneComponent>
             <LMeshComponent></LMeshComponent>
 
             <BoxGeometryComponent></BoxGeometryComponent>
