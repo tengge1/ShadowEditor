@@ -45,16 +45,16 @@ class TransformComponent extends React.Component {
         }
 
         return <PropertyGroup title={L_TRANSFORM_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'positionX'} label={L_TRANSLATE} value={positionX} onChange={this.handleChangePosition}></NumberProperty>
-            <NumberProperty name={'positionY'} label={L_TRANSLATE} value={positionY} onChange={this.handleChangePosition}></NumberProperty>
-            <NumberProperty name={'positionZ'} label={L_TRANSLATE} value={positionZ} onChange={this.handleChangePosition}></NumberProperty>
-            <NumberProperty name={'rotationX'} label={L_ROTATE} value={rotationX} onChange={this.handleChangeRotation}></NumberProperty>
-            <NumberProperty name={'rotationY'} label={L_ROTATE} value={rotationY} onChange={this.handleChangeRotation}></NumberProperty>
-            <NumberProperty name={'rotationZ'} label={L_ROTATE} value={rotationZ} onChange={this.handleChangeRotation}></NumberProperty>
-            <NumberProperty name={'scaleX'} label={L_SCALE} value={scaleX} onChange={this.handleChangeScale}></NumberProperty>
-            <NumberProperty name={'scaleY'} label={L_SCALE} value={scaleY} onChange={this.handleChangeScale}></NumberProperty>
-            <NumberProperty name={'scaleZ'} label={L_SCALE} value={scaleZ} onChange={this.handleChangeScale}></NumberProperty>
-            <CheckBoxProperty name={'scaleLocked'} label={'Scale Locked'} value={scaleLocked} onChange={this.handleChangeScaleLock}></CheckBoxProperty>
+            <NumberProperty name={'positionX'} label={`${L_TRANSLATE}X`} value={positionX} onChange={this.handleChangePosition}></NumberProperty>
+            <NumberProperty name={'positionY'} label={`${L_TRANSLATE}Y`} value={positionY} onChange={this.handleChangePosition}></NumberProperty>
+            <NumberProperty name={'positionZ'} label={`${L_TRANSLATE}Z`} value={positionZ} onChange={this.handleChangePosition}></NumberProperty>
+            <NumberProperty name={'rotationX'} label={`${L_ROTATE}X`} value={rotationX} onChange={this.handleChangeRotation}></NumberProperty>
+            <NumberProperty name={'rotationY'} label={`${L_ROTATE}Y`} value={rotationY} onChange={this.handleChangeRotation}></NumberProperty>
+            <NumberProperty name={'rotationZ'} label={`${L_ROTATE}Z`} value={rotationZ} onChange={this.handleChangeRotation}></NumberProperty>
+            <NumberProperty name={'scaleX'} label={`${L_SCALE}X`} value={scaleX} onChange={this.handleChangeScale}></NumberProperty>
+            <NumberProperty name={'scaleY'} label={`${L_SCALE}Y`} value={scaleY} onChange={this.handleChangeScale}></NumberProperty>
+            <NumberProperty name={'scaleZ'} label={`${L_SCALE}Z`} value={scaleZ} onChange={this.handleChangeScale}></NumberProperty>
+            <CheckBoxProperty name={'scaleLocked'} label={L_SCALE_LOCKED} value={scaleLocked} onChange={this.handleChangeScaleLock}></CheckBoxProperty>
         </PropertyGroup>;
     }
 

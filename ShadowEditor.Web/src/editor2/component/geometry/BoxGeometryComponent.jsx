@@ -14,6 +14,7 @@ class BoxGeometryComponent extends React.Component {
         this.state = {
             show: false,
             expanded: true,
+            type: '',
             width: 1,
             height: 1,
             depth: 1,
@@ -28,13 +29,14 @@ class BoxGeometryComponent extends React.Component {
     }
 
     render() {
-        const { show, expanded, width, height, depth, widthSegments, heightSegments, depthSegments } = this.state;
+        const { show, expanded, type, width, height, depth, widthSegments, heightSegments, depthSegments } = this.state;
 
         if (!show) {
             return null;
         }
 
         return <PropertyGroup title={L_GEOMETRY_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <DisplayProperty label={L_TYPE} value={type}></DisplayProperty>
             <NumberProperty name={'width'} label={L_WIDTH} value={width} onChange={this.handleChange}></NumberProperty>
             <NumberProperty name={'height'} label={L_HEIGHT} value={height} onChange={this.handleChange}></NumberProperty>
             <NumberProperty name={'depth'} label={L_DEPTH} value={depth} onChange={this.handleChange}></NumberProperty>
@@ -68,6 +70,7 @@ class BoxGeometryComponent extends React.Component {
         this.selected = editor.selected;
 
         const state = Object.assign({}, this.selected.geometry.parameters, {
+            type: this.selected.geometry.constructor.name,
             show: true,
         });
 

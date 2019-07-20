@@ -7,7 +7,6 @@ import FireComponent from '../component/FireComponent.jsx';
 import LightComponent from '../component/LightComponent.jsx';
 import LMeshComponent from '../component/LMeshComponent.jsx';
 
-import GeometryComponent from '../component/GeometryComponent.jsx';
 import BoxGeometryComponent from '../component/geometry/BoxGeometryComponent.jsx';
 import CircleGeometryComponent from '../component/geometry/CircleGeometryComponent.jsx';
 import CylinderGeometryComponent from '../component/geometry/CylinderGeometryComponent.jsx';
@@ -22,6 +21,7 @@ import TorusKnotGeometryComponent from '../component/geometry/TorusKnotGeometryC
 import MaterialComponent from '../component/MaterialComponent.jsx';
 import TransformComponent from '../component/TransformComponent.jsx';
 import SmokeComponent from '../component/SmokeComponent.jsx';
+import ShadowComponent from '../component/ShadowComponent.jsx';
 
 /**
  * 属性面板
@@ -35,12 +35,13 @@ class PropertyPanel extends React.Component {
     render() {
         return <PropertyGrid>
             <BasicComponent></BasicComponent>
+            <TransformComponent></TransformComponent>
+
             <CameraComponent></CameraComponent>
             <FireComponent></FireComponent>
             <LightComponent></LightComponent>
             <LMeshComponent></LMeshComponent>
 
-            <GeometryComponent></GeometryComponent>
             <BoxGeometryComponent></BoxGeometryComponent>
             <CircleGeometryComponent></CircleGeometryComponent>
             <CylinderGeometryComponent></CylinderGeometryComponent>
@@ -52,8 +53,8 @@ class PropertyPanel extends React.Component {
             <TorusGeometryComponent></TorusGeometryComponent>
             <TorusKnotGeometryComponent></TorusKnotGeometryComponent>
 
-            <TransformComponent></TransformComponent>
             <SmokeComponent></SmokeComponent>
+            <ShadowComponent></ShadowComponent>
         </PropertyGrid>;
     }
 }
