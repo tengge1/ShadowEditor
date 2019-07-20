@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty } from '../../third_party';
+import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty, SelectProperty } from '../../third_party';
 import SetValueCommand from '../../command/SetValueCommand';
 
 /**
@@ -21,17 +21,29 @@ class ShadowComponent extends React.Component {
         this.state = {
             show: false,
             expanded: true,
+
             castShadow: false,
+            castShadowShow: false,
+
             receiveShadow: false,
+            receiveShadowShow: false,
+
             shadowRadius: 1,
+            shadowRadiusShow: false,
+
             mapSize: 512,
+            mapSizeShow: false,
+
             bias: 0,
+            biasShow: false,
+
             cameraLeft: -5,
             cameraRight: 5,
             cameraTop: 5,
             cameraBottom: -5,
             cameraNear: 0.5,
             cameraFar: 1000,
+            cameraShow: false,
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -40,25 +52,25 @@ class ShadowComponent extends React.Component {
     }
 
     render() {
-        const { show, expanded, castShadow, receiveShadow, shadowRadius, mapSize, bias,
-            cameraLeft, cameraRight, cameraTop, cameraBottom, cameraNear, cameraFar } = this.state;
+        const { show, expanded, castShadow, castShadowShow, receiveShadow, receiveShadowShow, shadowRadius, shadowRadiusShow, mapSize, mapSizeShow, bias, biasShow,
+            cameraLeft, cameraRight, cameraTop, cameraBottom, cameraNear, cameraFar, cameraShow } = this.state;
 
         if (!show) {
             return null;
         }
 
         return <PropertyGroup title={L_SHADOW_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_CAST} name={'castShadow'} value={castShadow} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={L_RECEIVE} name={'receiveShadow'} value={receiveShadow} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_RADIUS} name={'shadowRadius'} value={shadowRadius} onChange={this.handleChange}></NumberProperty>
-            <SelectProperty label={L_MAP_SIZE} options={this.mapSize} name={'mapSize'} value={mapSize} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={L_BIAS} name={'bias'} value={bias} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_CAMERA_LEFT} name={'cameraLeft'} value={cameraLeft} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_CAMERA_RIGHT} name={'cameraRight'} value={cameraRight} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_CAMERA_TOP} name={'cameraTop'} value={cameraTop} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_CAMERA_BOTTOM} name={'cameraBottom'} value={cameraBottom} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_CAMERA_NEAR} name={'cameraNear'} value={cameraNear} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_CAMERA_FAR} name={'cameraFar'} value={cameraFar} onChange={this.handleChange}></NumberProperty>
+            <CheckBoxProperty label={L_CAST} name={'castShadow'} value={castShadow} show={castShadowShow} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty label={L_RECEIVE} name={'receiveShadow'} value={receiveShadow} show={receiveShadow} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={L_RADIUS} name={'shadowRadius'} value={shadowRadius} show={shadowRadiusShow} onChange={this.handleChange}></NumberProperty>
+            <SelectProperty label={L_MAP_SIZE} options={this.mapSize} name={'mapSize'} value={mapSize} show={mapSizeShow} onChange={this.handleChange}></SelectProperty>
+            <NumberProperty label={L_BIAS} name={'bias'} value={bias} show={biasShow} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_CAMERA_LEFT} name={'cameraLeft'} value={cameraLeft} show={cameraShow} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_CAMERA_RIGHT} name={'cameraRight'} value={cameraRight} show={cameraShow} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_CAMERA_TOP} name={'cameraTop'} value={cameraTop} show={cameraShow} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_CAMERA_BOTTOM} name={'cameraBottom'} value={cameraBottom} show={cameraShow} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_CAMERA_NEAR} name={'cameraNear'} value={cameraNear} show={cameraShow} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_CAMERA_FAR} name={'cameraFar'} value={cameraFar} show={cameraShow} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 
@@ -85,11 +97,41 @@ class ShadowComponent extends React.Component {
 
         this.selected = editor.selected;
 
+        let state = {
+            show: true,
+            castShadow: this.selected.castShadow,
+            castShadowShow: true,
+        };
+
         if (this.selected instanceof THREE.Light) {
-
+            Object.assign(state, {
+                receiveShadowShow: false,
+                shadowRadius: this.selected.shadow.radius,
+                shadowRadiusShow: true,
+                mapSize: this.selected.shadow.mapSize,
+                mapSizeShow: true,
+                bias: this.selected.shadow.bias,
+                biasShow: true,
+                cameraLeft: this.selected.shadow.camera.left,
+                cameraRight: this.selected.shadow.camera.right,
+                cameraTop: this.selected.shadow.camera.top,
+                cameraBottom: this.selected.shadow.camera.bottom,
+                cameraNear: this.selected.shadow.camera.near,
+                cameraFar: this.selected.shadow.camera.far,
+                cameraShow: true,
+            });
         } else {
-
+            Object.assign(state, {
+                receiveShadow: this.selected.receiveShadow,
+                receiveShadowShow: true,
+                shadowRadiusShow: false,
+                mapSizeShow: false,
+                biasShow: false,
+                cameraShow: false,
+            });
         }
+
+        this.setState(state);
     }
 
     handleChange(value, name) {
