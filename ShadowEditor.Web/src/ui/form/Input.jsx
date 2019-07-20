@@ -15,13 +15,19 @@ class Input extends React.Component {
     }
 
     render() {
-        const { className, style, name, type, value, disabled } = this.props;
+        const { className, style, name, type, value, precision, disabled } = this.props;
+
+        let val = value === undefined || value === null ? '' : value;
+
+        if (type === 'number') {
+            val = parseFloat(value).toFixed(precision).toString();
+        }
 
         return <input
             className={classNames('Input', className)}
             style={style}
             type={type}
-            value={value === null ? '' : value}
+            value={val}
             disabled={disabled}
             onChange={this.handleChange}
             onInput={this.handleInput} />;
@@ -61,6 +67,7 @@ Input.propTypes = {
     name: PropTypes.string,
     type: PropTypes.oneOf(['text', 'number', 'color']),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    precision: PropTypes.number,
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
     onInput: PropTypes.func,
@@ -72,6 +79,7 @@ Input.defaultProps = {
     name: null,
     type: 'text',
     value: '',
+    precision: 3,
     disabled: false,
     onChange: null,
     onInput: null,

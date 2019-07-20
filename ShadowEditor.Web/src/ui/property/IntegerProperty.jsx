@@ -24,6 +24,7 @@ class IntegerProperty extends React.Component {
             name={name}
             type={'number'}
             value={value}
+            precision={0}
             onInput={this.handleChange}></Input>;
     }
 
