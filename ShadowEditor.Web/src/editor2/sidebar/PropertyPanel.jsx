@@ -36,6 +36,7 @@ class PropertyPanel extends React.Component {
         return <PropertyGrid>
             <BasicComponent></BasicComponent>
             <TransformComponent></TransformComponent>
+            <ShadowComponent></ShadowComponent>
 
             <CameraComponent></CameraComponent>
             <FireComponent></FireComponent>
@@ -54,7 +55,6 @@ class PropertyPanel extends React.Component {
             <TorusKnotGeometryComponent></TorusKnotGeometryComponent>
 
             <SmokeComponent></SmokeComponent>
-            <ShadowComponent></ShadowComponent>
         </PropertyGrid>;
     }
 }
