@@ -18,7 +18,7 @@ class CheckBoxProperty extends React.Component {
         const { className, style, name, value } = this.props;
 
         return <CheckBox
-            className={classNames('CheckBoxProperty', className)}
+            className={classNames('checkbox', className)}
             style={style}
             name={name}
             checked={value}

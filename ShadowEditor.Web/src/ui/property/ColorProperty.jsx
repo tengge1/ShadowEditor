@@ -19,7 +19,7 @@ class ColorProperty extends React.Component {
         const { className, style, name, value } = this.props;
 
         return <Input
-            className={classNames('ColorProperty', className)}
+            className={classNames('input', className)}
             style={style}
             name={name}
             type={'color'}

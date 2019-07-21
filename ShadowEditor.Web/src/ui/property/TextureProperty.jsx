@@ -22,7 +22,7 @@ class TextureProperty extends React.Component {
         const { className, style, fileName } = this.props;
 
         return <canvas
-            className={classNames('TextureProperty', className)}
+            className={classNames('canvas', className)}
             style={style}
             ref={this.canvasRef}
             onClick={this.handleSelect}></canvas>;

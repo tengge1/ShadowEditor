@@ -19,7 +19,7 @@ class IntegerProperty extends React.Component {
         const { className, style, name, value } = this.props;
 
         return <Input
-            className={classNames('IntegerProperty', className)}
+            className={classNames('input', className)}
             style={style}
             name={name}
             type={'number'}

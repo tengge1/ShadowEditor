@@ -1,4 +1,4 @@
-.ButtonProperty {
+.ButtonProperty>.field>.button {
     height: auto;
     margin-left: 2px;
     padding: 2px 8px;

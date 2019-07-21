@@ -19,7 +19,7 @@ class NumberProperty extends React.Component {
         const { className, style, name, value } = this.props;
 
         return <Input
-            className={classNames('NumberProperty', className)}
+            className={classNames('input', className)}
             style={style}
             name={name}
             type={'number'}

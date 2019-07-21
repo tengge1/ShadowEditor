@@ -14,7 +14,7 @@ class ButtonsProperty extends React.Component {
     render() {
         const { className, style, children } = this.props;
 
-        return <div className={classNames('ButtonsProperty', className)} style={style}>{children}</div>;
+        return <div className={classNames('buttons', className)} style={style}>{children}</div>;
     }
 }
 

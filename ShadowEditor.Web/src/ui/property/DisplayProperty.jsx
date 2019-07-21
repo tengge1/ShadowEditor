@@ -14,7 +14,7 @@ class DisplayProperty extends React.Component {
     render() {
         const { className, style, name, value } = this.props;
 
-        return <div className={classNames('DisplayProperty', className)} style={style}>{value}</div>;
+        return <div className={classNames('div', className)} style={style}>{value}</div>;
     }
 }
 

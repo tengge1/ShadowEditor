@@ -18,7 +18,7 @@ class ButtonProperty extends React.Component {
         const { className, style, text } = this.props;
 
         return <Button
-            className={classNames('ButtonProperty', className)}
+            className={classNames('button', className)}
             style={style}
             onClick={this.handleChange}>{text}</Button>;
     }

@@ -19,7 +19,7 @@ class SelectProperty extends React.Component {
         const { className, style, options, name, value, disabled } = this.props;
 
         return <Select
-            className={classNames('SelectProperty', className)}
+            className={classNames('select', className)}
             style={style}
             options={options}
             name={name}

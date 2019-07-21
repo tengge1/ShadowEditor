@@ -1,9 +1,9 @@
-.ButtonsProperty {
+.ButtonsProperty>.field>.buttons {
     height: auto;
     margin-left: 4px;
 }
 
-.ButtonsProperty>.Button {
+.ButtonsProperty>.field>.buttons>.Button {
     height: 20px;
     font-size: 12px;
     line-height: 20px;

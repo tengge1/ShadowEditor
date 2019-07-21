@@ -1,4 +1,4 @@
-.SelectProperty {
+.SelectProperty>.field>.select {
     width: 100%;
     border: none;
 }

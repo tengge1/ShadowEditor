@@ -19,7 +19,7 @@ class TextProperty extends React.Component {
         const { className, style, name, value } = this.props;
 
         return <Input
-            className={classNames('TextProperty', className)}
+            className={classNames('input', className)}
             style={style}
             name={name}
             value={value}
