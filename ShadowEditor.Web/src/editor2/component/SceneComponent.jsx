@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty, SelectProperty, ColorProperty } from '../../third_party';
+import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty, SelectProperty, ColorProperty, TextureProperty, ButtonsProperty, Button } from '../../third_party';
 import SetValueCommand from '../../command/SetValueCommand';
 
 /**
@@ -58,7 +58,11 @@ class SceneComponent extends React.Component {
 
         this.handleExpand = this.handleExpand.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
-        this.handleChangeCastShadow = this.handleChangeCastShadow.bind(this);
+        this.handleChangeBackgroundType = this.handleChangeBackgroundType.bind(this);
+        this.handleSelectCubeMap = this.handleSelectCubeMap.bind(this);
+        this.handleSaveCubeTexture = this.handleSaveCubeTexture.bind(this);
+        this.handleChangeFogType = this.handleChangeFogType.bind(this);
+        this.updateFog = this.updateFog.bind(this);
     }
 
     render() {
@@ -71,20 +75,24 @@ class SceneComponent extends React.Component {
         }
 
         return <PropertyGroup title={L_SCENE_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_BACKGROUND} name={'backgroundType'} value={backgroundType} onChange={this.handleChangeCastShadow}></CheckBoxProperty>
-            <ColorProperty label={L_BACKGROUND_COLOR} name={'backgroundColor'} value={backgroundColor} show={backgroundColorShow} onChange={this.handleChangeCastShadow}></ColorProperty>
-
-
-            <CheckBoxProperty label={L_RECEIVE} name={'receiveShadow'} value={receiveShadow} show={receiveShadowShow} onChange={this.handleChangeReceiveShadow}></CheckBoxProperty>
-            <NumberProperty label={L_RADIUS} name={'shadowRadius'} value={shadowRadius} show={shadowRadiusShow} onChange={this.handleChangeShadowRadius}></NumberProperty>
-            <SelectProperty label={L_MAP_SIZE} options={this.mapSize} name={'mapSize'} value={mapSize.toString()} show={mapSizeShow} onChange={this.handleChangeMapSize}></SelectProperty>
-            <NumberProperty label={L_BIAS} name={'bias'} value={bias} show={biasShow} onChange={this.handleChangeBias}></NumberProperty>
-            <NumberProperty label={L_CAMERA_LEFT} name={'cameraLeft'} value={cameraLeft} show={cameraShow} onChange={this.handleChangeCameraLeft}></NumberProperty>
-            <NumberProperty label={L_CAMERA_RIGHT} name={'cameraRight'} value={cameraRight} show={cameraShow} onChange={this.handleChangeCameraRight}></NumberProperty>
-            <NumberProperty label={L_CAMERA_TOP} name={'cameraTop'} value={cameraTop} show={cameraShow} onChange={this.handleChangeCameraTop}></NumberProperty>
-            <NumberProperty label={L_CAMERA_BOTTOM} name={'cameraBottom'} value={cameraBottom} show={cameraShow} onChange={this.handleChangeCameraBottom}></NumberProperty>
-            <NumberProperty label={L_CAMERA_NEAR} name={'cameraNear'} value={cameraNear} show={cameraShow} onChange={this.handleChangeCameraNear}></NumberProperty>
-            <NumberProperty label={L_CAMERA_FAR} name={'cameraFar'} value={cameraFar} show={cameraShow} onChange={this.handleChangeCameraFar}></NumberProperty>
+            <SelectProperty label={L_BACKGROUND} name={'backgroundType'} options={this.backgroundType} value={backgroundType} onChange={this.handleChangeBackgroundType}></SelectProperty>
+            <ColorProperty label={L_BACKGROUND_COLOR} name={'backgroundColor'} value={backgroundColor} show={backgroundColorShow} onChange={this.handleChangeBackgroundType}></ColorProperty>
+            <TextureProperty label={L_BACKGROUND_IMAGE} name={'backgroundImage'} value={backgroundImage} show={backgroundImageShow}></TextureProperty>
+            <TextureProperty label={L_POS_X} name={'backgroundPosX'} value={backgroundPosX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
+            <TextureProperty label={L_NEG_X} name={'backgroundNegX'} value={backgroundNegX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
+            <TextureProperty label={L_POS_Y} name={'backgroundPosY'} value={backgroundPosY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
+            <TextureProperty label={L_NEG_Y} name={'backgroundNegY'} value={backgroundNegY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
+            <TextureProperty label={L_POS_Z} name={'backgroundPosZ'} value={backgroundPosZ} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
+            <TextureProperty label={L_NEG_Z} name={'backgroundNegZ'} value={backgroundNegZ} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
+            <ButtonsProperty>
+                <Button onClick={this.handleLoadCubeTexture}>{L_SELECT}</Button>
+                <Button onClick={this.handleSaveCubeTexture}>{L_UPLOAD}</Button>
+            </ButtonsProperty>
+            <SelectProperty label={L_FOG} name={'fogType'} options={this.fogType} value={fogType} onChange={this.handleChangeFogType}></SelectProperty>
+            <ColorProperty label={L_FOG_COLOR} name={'fogColor'} value={fogColor} onChange={this.updateFog}></ColorProperty>
+            <NumberProperty label={L_FOG_NEAR} name={'fogNear'} value={fogNear} onChange={this.updateFog}></NumberProperty>
+            <NumberProperty label={L_FOG_FAR} name={'fogFar'} value={fogFar} onChange={this.updateFog}></NumberProperty>
+            <NumberProperty label={L_FOG_DENSITY} name={'fogDensity'} value={fogDensity} onChange={this.updateFog}></NumberProperty>
         </PropertyGroup>;
     }
 
@@ -148,85 +156,235 @@ class SceneComponent extends React.Component {
         this.setState(state);
     }
 
-    handleChangeCastShadow(value) {
-        this.selected.castShadow = value;
+    handleChangeBackgroundType() { // 切换背景类型
+        var backgroundType = UI.get('backgroundType', this.id);
 
-        if (this.selected instanceof THREE.Mesh) {
-            this.updateMaterial(this.selected.material);
+        var backgroundColorRow = UI.get('backgroundColorRow', this.id);
+        var backgroundImageRow = UI.get('backgroundImageRow', this.id);
+        var backgroundPosXRow = UI.get('backgroundPosXRow', this.id);
+        var backgroundNegXRow = UI.get('backgroundNegXRow', this.id);
+        var backgroundPosYRow = UI.get('backgroundPosYRow', this.id);
+        var backgroundNegYRow = UI.get('backgroundNegYRow', this.id);
+        var backgroundPosZRow = UI.get('backgroundPosZRow', this.id);
+        var backgroundNegZRow = UI.get('backgroundNegZRow', this.id);
+
+        var cubeTextureCommandRow = UI.get('cubeTextureCommandRow', this.id);
+
+        switch (backgroundType.getValue()) {
+            case 'Color':
+                backgroundColorRow.dom.style.display = '';
+                backgroundImageRow.dom.style.display = 'none';
+                backgroundPosXRow.dom.style.display = 'none';
+                backgroundNegXRow.dom.style.display = 'none';
+                backgroundPosYRow.dom.style.display = 'none';
+                backgroundNegYRow.dom.style.display = 'none';
+                backgroundPosZRow.dom.style.display = 'none';
+                backgroundNegZRow.dom.style.display = 'none';
+                cubeTextureCommandRow.dom.style.display = 'none';
+                break;
+            case 'Image':
+                backgroundColorRow.dom.style.display = 'none';
+                backgroundImageRow.dom.style.display = '';
+                backgroundPosXRow.dom.style.display = 'none';
+                backgroundNegXRow.dom.style.display = 'none';
+                backgroundPosYRow.dom.style.display = 'none';
+                backgroundNegYRow.dom.style.display = 'none';
+                backgroundPosZRow.dom.style.display = 'none';
+                backgroundNegZRow.dom.style.display = 'none';
+                cubeTextureCommandRow.dom.style.display = 'none';
+                break;
+            case 'SkyBox':
+                backgroundColorRow.dom.style.display = 'none';
+                backgroundImageRow.dom.style.display = 'none';
+                backgroundPosXRow.dom.style.display = '';
+                backgroundNegXRow.dom.style.display = '';
+                backgroundPosYRow.dom.style.display = '';
+                backgroundNegYRow.dom.style.display = '';
+                backgroundPosZRow.dom.style.display = '';
+                backgroundNegZRow.dom.style.display = '';
+                cubeTextureCommandRow.dom.style.display = '';
+                break;
         }
 
-        app.call(`objectChanged`, this, this.selected);
+        this.updateFog();
     }
 
-    handleChangeReceiveShadow(value) {
-        this.selected.receiveShadow = value;
+    handleLoadCubeTexture() { // 加载立体贴图
+        app.call(`selectBottomPanel`, this, 'map');
+        UI.msg(L_CLICK_MAP_PANEL);
+        app.on(`selectMap.${this.id}`, this.onSelectCubeMap.bind(this));
+    }
 
-        if (this.selected instanceof THREE.Mesh) {
-            this.updateMaterial(this.selected.material);
+    handleSelectCubeMap(model) {
+        if (model.Type !== 'cube') {
+            UI.msg(L_ONLY_SELECT_CUBE_TEXTURE);
+            return;
         }
 
-        app.call(`objectChanged`, this, this.selected);
-    }
+        app.on(`selectMap.${this.id}`, null);
 
-    handleChangeShadowRadius(value) {
-        this.selected.shadow.radius = value;
-        app.call(`objectChanged`, this, this.selected);
-    }
+        var urls = model.Url.split(';');
 
-    updateMaterial(material) {
-        if (Array.isArray(material)) {
-            material.forEach(n => {
-                n.needsUpdate = true;
+        var loader = new THREE.TextureLoader();
+
+        var promises = urls.map(url => {
+            return new Promise(resolve => {
+                loader.load(`${app.options.server}${url}`, texture => {
+                    resolve(texture);
+                }, undefined, error => {
+                    console.error(error);
+                    UI.msg(L_CUBE_TEXTURE_FETCH_FAILED);
+                });
             });
-        } else {
-            material.needsUpdate = true;
+        });
+
+        Promise.all(promises).then(textures => {
+            UI.get('backgroundPosX', this.id).setValue(textures[0]);
+            UI.get('backgroundNegX', this.id).setValue(textures[1]);
+            UI.get('backgroundPosY', this.id).setValue(textures[2]);
+            UI.get('backgroundNegY', this.id).setValue(textures[3]);
+            UI.get('backgroundPosZ', this.id).setValue(textures[4]);
+            UI.get('backgroundNegZ', this.id).setValue(textures[5]);
+            this.updateFog();
+        });
+    }
+
+    handleSaveCubeTexture() { // 保存立体贴图
+        var texturePosX = UI.get('backgroundPosX', this.id).getValue();
+        var textureNegX = UI.get('backgroundNegX', this.id).getValue();
+        var texturePosY = UI.get('backgroundPosY', this.id).getValue();
+        var textureNegY = UI.get('backgroundNegY', this.id).getValue();
+        var texturePosZ = UI.get('backgroundPosZ', this.id).getValue();
+        var textureNegZ = UI.get('backgroundNegZ', this.id).getValue();
+
+        if (!texturePosX || !textureNegX || !texturePosY || !textureNegY || !texturePosZ || !textureNegZ) {
+            UI.msg(L_UPLOAD_ALL_BEFORE_SAVE);
+            return;
         }
+
+        var posXSrc = texturePosX.image.src;
+        var negXSrc = textureNegX.image.src;
+        var posYSrc = texturePosY.image.src;
+        var negYSrc = textureNegY.image.src;
+        var posZSrc = texturePosZ.image.src;
+        var negZSrc = textureNegZ.image.src;
+
+        if (posXSrc.startsWith('http') || negXSrc.startsWith('http') || posYSrc.startsWith('http') || negYSrc.startsWith('http') || posZSrc.startsWith('http') || negZSrc.startsWith('http')) {
+            UI.msg(L_CUBE_TEXTURE_EXISTED);
+            return;
+        }
+
+        var promises = [
+            Converter.dataURLtoFile(posXSrc, 'posX'),
+            Converter.dataURLtoFile(negXSrc, 'negX'),
+            Converter.dataURLtoFile(posYSrc, 'posY'),
+            Converter.dataURLtoFile(negYSrc, 'negY'),
+            Converter.dataURLtoFile(posZSrc, 'posZ'),
+            Converter.dataURLtoFile(negZSrc, 'negZ'),
+        ];
+
+        Promise.all(promises).then(files => {
+            Ajax.post(`${app.options.server}/api/Map/Add`, {
+                posX: files[0],
+                negX: files[1],
+                posY: files[2],
+                negY: files[3],
+                posZ: files[4],
+                negZ: files[5],
+            }, result => {
+                var obj = JSON.parse(result);
+                UI.msg(obj.Msg);
+            });
+        });
     }
 
-    handleChangeMapSize(value) {
-        this.selected.shadow.mapSize.x = this.selected.shadow.mapSize.y = parseInt(value);
-        app.call(`objectChanged`, this, this.selected);
-    }
+    handleChangeFogType() { // 切换雾类型
+        var fogType = UI.get('fogType', this.id);
+        var fogColorRow = UI.get('fogColorRow', this.id);
+        var fogNearRow = UI.get('fogNearRow', this.id);
+        var fogFarRow = UI.get('fogFarRow', this.id);
+        var fogDensityRow = UI.get('fogDensityRow', this.id);
 
-    handleChangeBias(value) {
-        this.selected.shadow.bias = value;
-        app.call(`objectChanged`, this, this.selected);
-    }
+        switch (fogType.getValue()) {
+            case 'None':
+                fogColorRow.dom.style.display = 'none';
+                fogNearRow.dom.style.display = 'none';
+                fogFarRow.dom.style.display = 'none';
+                fogDensityRow.dom.style.display = 'none';
+                break;
+            case 'Fog':
+                fogColorRow.dom.style.display = '';
+                fogNearRow.dom.style.display = '';
+                fogFarRow.dom.style.display = '';
+                fogDensityRow.dom.style.display = 'none';
+                break;
+            case 'FogExp2':
+                fogColorRow.dom.style.display = '';
+                fogNearRow.dom.style.display = 'none';
+                fogFarRow.dom.style.display = 'none';
+                fogDensityRow.dom.style.display = '';
+                break;
+        }
 
-    handleChangeCameraLeft(value) {
-        this.selected.shadow.camera.left = value;
-        this.selected.shadow.camera.updateProjectionMatrix();
-        app.call(`objectChanged`, this, this.selected);
-    }
+        this.updateFog();
+    };
 
-    handleChangeCameraRight(value) {
-        this.selected.shadow.camera.right = value;
-        this.selected.shadow.camera.updateProjectionMatrix();
-        app.call(`objectChanged`, this, this.selected);
-    }
+    updateFog() {
+        var scene = this.selected;
 
-    handleChangeCameraTop(value) {
-        this.selected.shadow.camera.top = value;
-        this.selected.shadow.camera.updateProjectionMatrix();
-        app.call(`objectChanged`, this, this.selected);
-    }
+        // 背景
+        var backgroundType = UI.get('backgroundType', this.id).getValue();
+        var backgroundColor = UI.get('backgroundColor', this.id).getHexValue();
+        var backgroundImage = UI.get('backgroundImage', this.id).getValue();
+        var backgroundPosX = UI.get('backgroundPosX', this.id).getValue();
+        var backgroundNegX = UI.get('backgroundNegX', this.id).getValue();
+        var backgroundPosY = UI.get('backgroundPosY', this.id).getValue();
+        var backgroundNegY = UI.get('backgroundNegY', this.id).getValue();
+        var backgroundPosZ = UI.get('backgroundPosZ', this.id).getValue();
+        var backgroundNegZ = UI.get('backgroundNegZ', this.id).getValue();
 
-    handleChangeCameraBottom(value) {
-        this.selected.shadow.camera.bottom = value;
-        this.selected.shadow.camera.updateProjectionMatrix();
-        app.call(`objectChanged`, this, this.selected);
-    }
+        switch (backgroundType) {
+            case 'Color':
+                scene.background = new THREE.Color(backgroundColor);
+                break;
+            case 'Image':
+                if (backgroundImage) {
+                    scene.background = backgroundImage;
+                }
+                break;
+            case 'SkyBox':
+                if (backgroundPosX && backgroundNegX && backgroundPosY && backgroundNegY && backgroundPosZ && backgroundNegZ) {
+                    scene.background = new THREE.CubeTexture([
+                        backgroundPosX.image,
+                        backgroundNegX.image,
+                        backgroundPosY.image,
+                        backgroundNegY.image,
+                        backgroundPosZ.image,
+                        backgroundNegZ.image
+                    ]);
+                    scene.background.needsUpdate = true;
+                }
+                break;
+        }
 
-    handleChangeCameraNear(value) {
-        this.selected.shadow.camera.near = value;
-        this.selected.shadow.camera.updateProjectionMatrix();
-        app.call(`objectChanged`, this, this.selected);
-    }
+        // 雾
+        var fogType = UI.get('fogType', this.id).getValue();
+        var fogColor = UI.get('fogColor', this.id).getHexValue();
+        var fogNear = UI.get('fogNear', this.id).getValue();
+        var fogFar = UI.get('fogFar', this.id).getValue();
+        var fogDensity = UI.get('fogDensity', this.id).getValue();
 
-    handleChangeCameraFar(value) {
-        this.selected.shadow.camera.far = value;
-        this.selected.shadow.camera.updateProjectionMatrix();
-        app.call(`objectChanged`, this, this.selected);
+        switch (fogType) {
+            case 'None':
+                scene.fog = null;
+                break;
+            case 'Fog':
+                scene.fog = new THREE.Fog(fogColor, fogNear, fogFar);
+                break;
+            case 'FogExp2':
+                scene.fog = new THREE.FogExp2(fogColor, fogDensity);
+                break;
+        }
     }
 }
 
