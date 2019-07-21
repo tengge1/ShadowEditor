@@ -65,10 +65,14 @@ class SceneComponent extends React.Component {
         this.handleChangeBackgroundColor = this.handleChangeBackgroundColor.bind(this);
         this.handleChangeBackgroundImage = this.handleChangeBackgroundImage.bind(this);
         this.handleChangeBackgroundCubeTexture = this.handleChangeBackgroundCubeTexture.bind(this);
-
         this.handleSelectCubeMap = this.handleSelectCubeMap.bind(this);
         this.handleSaveCubeTexture = this.handleSaveCubeTexture.bind(this);
+
         this.handleChangeFogType = this.handleChangeFogType.bind(this);
+        this.handleChangeFogColor = this.handleChangeFogColor.bind(this);
+        this.handleChangeFogNear = this.handleChangeFogNear.bind(this);
+        this.handleChangeFogFar = this.handleChangeFogFar.bind(this);
+        this.handleChangeFogDensity = this.handleChangeFogDensity.bind(this);
         this.updateFog = this.updateFog.bind(this);
     }
 
@@ -96,10 +100,10 @@ class SceneComponent extends React.Component {
                 <Button onClick={this.handleSaveCubeTexture}>{L_UPLOAD}</Button>
             </ButtonsProperty>
             <SelectProperty label={L_FOG} name={'fogType'} options={this.fogType} value={fogType} onChange={this.handleChangeFogType}></SelectProperty>
-            <ColorProperty label={L_FOG_COLOR} name={'fogColor'} value={fogColor} show={fogColorShow} onChange={this.updateFog}></ColorProperty>
-            <NumberProperty label={L_FOG_NEAR} name={'fogNear'} value={fogNear} show={fogNearShow} onChange={this.updateFog}></NumberProperty>
-            <NumberProperty label={L_FOG_FAR} name={'fogFar'} value={fogFar} show={fogFarShow} onChange={this.updateFog}></NumberProperty>
-            <NumberProperty label={L_FOG_DENSITY} name={'fogDensity'} value={fogDensity} show={fogDensityShow} onChange={this.updateFog}></NumberProperty>
+            <ColorProperty label={L_FOG_COLOR} name={'fogColor'} value={fogColor} show={fogColorShow} onChange={this.handleChangeFogColor}></ColorProperty>
+            <NumberProperty label={L_FOG_NEAR} name={'fogNear'} value={fogNear} show={fogNearShow} onChange={this.handleChangeFogNear}></NumberProperty>
+            <NumberProperty label={L_FOG_FAR} name={'fogFar'} value={fogFar} show={fogFarShow} onChange={this.handleChangeFogFar}></NumberProperty>
+            <NumberProperty label={L_FOG_DENSITY} name={'fogDensity'} value={fogDensity} show={fogDensityShow} onChange={this.handleChangeFogDensity}></NumberProperty>
         </PropertyGroup>;
     }
 
@@ -337,6 +341,22 @@ class SceneComponent extends React.Component {
         }
 
         this.updateFog();
+    }
+
+    handleChangeFogColor(value, name) {
+
+    }
+
+    handleChangeFogNear(value, name) {
+
+    }
+
+    handleChangeFogFar(value, name) {
+
+    }
+
+    handleChangeFogDensity(value, name) {
+
     }
 
     updateFog() {
