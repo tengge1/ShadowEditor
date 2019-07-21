@@ -20,4 +20,6 @@
     top: 28px;
     width: 100%;
     height: 20px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 }

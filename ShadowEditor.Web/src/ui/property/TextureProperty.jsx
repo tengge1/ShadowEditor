@@ -19,17 +19,26 @@ class TextureProperty extends React.Component {
     }
 
     render() {
-        const { className, style, fileName } = this.props;
+        const { className, style, value } = this.props;
 
-        return <div className={classNames('texture', className)} style={style}>
-            <canvas ref={this.canvasRef} onClick={this.handleSelect}></canvas>
-            <div className={'title'}></div>
+        const title = value && value.sourceFile ? value.sourceFile : 'Click To Select';
+
+        return <div className={classNames('texture', className)} style={style} onClick={this.handleSelect}>
+            <canvas ref={this.canvasRef}></canvas>
+            <div className={'title'} title={title}>{title}</div>
         </div>;
 
     }
 
     componentDidMount() {
-        let fileName = this.props.fileName;
+        let input = document.createElement(`input`);
+        input.type = 'file';
+        input.addEventListener(`change`, this.handleChange);
+        this.input = input;
+        this.componentDidUpdate();
+    }
+
+    componentDidUpdate() {
         let texture = this.props.value;
 
         const canvas = this.canvasRef.current;
@@ -39,32 +48,14 @@ class TextureProperty extends React.Component {
             let image = texture.image;
 
             if (image !== undefined && image.width > 0) {
-                if (texture.sourceFile) {
-                    fileName = texture.sourceFile;
-                } else {
-                    fileName = '';
-                }
-
-                let scale = canvas.width / image.width;
-                context.drawImage(image, 0, 0, image.width * scale, image.height * scale);
+                context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, canvas.height);
             } else {
-                fileName = (texture.sourceFile == null ? '' : texture.sourceFile) + L_ERROR;
                 context.clearRect(0, 0, canvas.width, canvas.height);
             }
 
-        } else {
-            fileName = '';
-
-            if (context !== null) {
-                // Seems like context can be null if the canvas is not visible
-                context.clearRect(0, 0, canvas.width, canvas.height);
-            }
+        } else if (context !== null) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
         }
-
-        let input = document.createElement(`input`);
-        input.type = 'file';
-        input.addEventListener(`change`, this.handleChange);
-        this.input = input;
     }
 
     handleSelect(event) {
@@ -118,7 +109,6 @@ TextureProperty.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     name: PropTypes.string,
-    fileName: PropTypes.string,
     value: (props, propName, componentName) => {
         const value = props.value;
         if (value === null) {
@@ -135,7 +125,6 @@ TextureProperty.defaultProps = {
     className: null,
     style: null,
     name: null,
-    fileName: null,
     value: null,
     onChange: null,
 };
