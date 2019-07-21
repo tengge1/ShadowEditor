@@ -44,7 +44,9 @@ class SceneComponent extends React.Component {
             backgroundCubeTextureShow: false,
 
             fogType: 'None',
+
             fogColor: '#555',
+            fogColorShow: false,
 
             fogNear: 0,
             fogNearShow: false,
@@ -68,7 +70,7 @@ class SceneComponent extends React.Component {
     render() {
         const { show, expanded, backgroundType, backgroundColor, backgroundColorShow, backgroundImage, backgroundImageShow,
             backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ, backgroundCubeTextureShow,
-            fogType, fogColor, fogNear, fogNearShow, fogFar, fogFarShow, fogDensity, fogDensityShow } = this.state;
+            fogType, fogColor, fogColorShow, fogNear, fogNearShow, fogFar, fogFarShow, fogDensity, fogDensityShow } = this.state;
 
         if (!show) {
             return null;
@@ -77,7 +79,7 @@ class SceneComponent extends React.Component {
         return <PropertyGroup title={L_SCENE_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <SelectProperty label={L_BACKGROUND} name={'backgroundType'} options={this.backgroundType} value={backgroundType} onChange={this.handleChangeBackgroundType}></SelectProperty>
             <ColorProperty label={L_BACKGROUND_COLOR} name={'backgroundColor'} value={backgroundColor} show={backgroundColorShow} onChange={this.handleChangeBackgroundType}></ColorProperty>
-            <TextureProperty label={L_BACKGROUND_IMAGE} name={'backgroundImage'} value={backgroundImage} show={backgroundImageShow}></TextureProperty>
+            <TextureProperty label={L_BACKGROUND_IMAGE} name={'backgroundImage'} value={backgroundImage} show={backgroundImageShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
             <TextureProperty label={L_POS_X} name={'backgroundPosX'} value={backgroundPosX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
             <TextureProperty label={L_NEG_X} name={'backgroundNegX'} value={backgroundNegX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
             <TextureProperty label={L_POS_Y} name={'backgroundPosY'} value={backgroundPosY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
@@ -89,16 +91,16 @@ class SceneComponent extends React.Component {
                 <Button onClick={this.handleSaveCubeTexture}>{L_UPLOAD}</Button>
             </ButtonsProperty>
             <SelectProperty label={L_FOG} name={'fogType'} options={this.fogType} value={fogType} onChange={this.handleChangeFogType}></SelectProperty>
-            <ColorProperty label={L_FOG_COLOR} name={'fogColor'} value={fogColor} onChange={this.updateFog}></ColorProperty>
-            <NumberProperty label={L_FOG_NEAR} name={'fogNear'} value={fogNear} onChange={this.updateFog}></NumberProperty>
-            <NumberProperty label={L_FOG_FAR} name={'fogFar'} value={fogFar} onChange={this.updateFog}></NumberProperty>
-            <NumberProperty label={L_FOG_DENSITY} name={'fogDensity'} value={fogDensity} onChange={this.updateFog}></NumberProperty>
+            <ColorProperty label={L_FOG_COLOR} name={'fogColor'} value={fogColor} show={fogColorShow} onChange={this.updateFog}></ColorProperty>
+            <NumberProperty label={L_FOG_NEAR} name={'fogNear'} value={fogNear} show={fogNearShow} onChange={this.updateFog}></NumberProperty>
+            <NumberProperty label={L_FOG_FAR} name={'fogFar'} value={fogFar} show={fogFarShow} onChange={this.updateFog}></NumberProperty>
+            <NumberProperty label={L_FOG_DENSITY} name={'fogDensity'} value={fogDensity} show={fogDensityShow} onChange={this.updateFog}></NumberProperty>
         </PropertyGroup>;
     }
 
     componentDidMount() {
-        app.on(`objectSelected.ShadowComponent`, this.handleUpdate);
-        app.on(`objectChanged.ShadowComponent`, this.handleUpdate);
+        app.on(`objectSelected.SceneComponent`, this.handleUpdate);
+        app.on(`objectChanged.SceneComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -110,7 +112,7 @@ class SceneComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
-        if (!editor.selected || !(editor.selected instanceof THREE.Mesh || editor.selected instanceof THREE.DirectionalLight || editor.selected instanceof THREE.PointLight || editor.selected instanceof THREE.SpotLight)) {
+        if (!editor.selected || !editor.selected === app.editor.scene) {
             this.setState({
                 show: false,
             });
@@ -118,40 +120,36 @@ class SceneComponent extends React.Component {
         }
 
         this.selected = editor.selected;
+        let scene = this.selected;
 
         let state = {
             show: true,
-            castShadow: this.selected.castShadow,
-            castShadowShow: true,
-        };
 
-        if (this.selected instanceof THREE.Light) {
-            Object.assign(state, {
-                receiveShadowShow: false,
-                shadowRadius: this.selected.shadow.radius,
-                shadowRadiusShow: true,
-                mapSize: this.selected.shadow.mapSize.x,
-                mapSizeShow: true,
-                bias: this.selected.shadow.bias,
-                biasShow: true,
-                cameraLeft: this.selected.shadow.camera.left,
-                cameraRight: this.selected.shadow.camera.right,
-                cameraTop: this.selected.shadow.camera.top,
-                cameraBottom: this.selected.shadow.camera.bottom,
-                cameraNear: this.selected.shadow.camera.near,
-                cameraFar: this.selected.shadow.camera.far,
-                cameraShow: true,
-            });
-        } else {
-            Object.assign(state, {
-                receiveShadow: this.selected.receiveShadow,
-                receiveShadowShow: true,
-                shadowRadiusShow: false,
-                mapSizeShow: false,
-                biasShow: false,
-                cameraShow: false,
-            });
-        }
+            // 背景
+            backgroundType: `${scene.background instanceof THREE.CubeTexture ? 'SkyBox' : (scene.background instanceof THREE.Texture ? 'Image' : 'Color')}`,
+            backgroundColor: `#${scene.background instanceof THREE.Color ? scene.background.getHexString() : 'aaaaaa'}`,
+            backgroundColorShow: scene.background instanceof THREE.Color,
+            backgroundImage: scene.background instanceof THREE.Texture && !(scene.background instanceof THREE.CubeTexture) ? scene.background : null,
+            backgroundImageShow: scene.background instanceof THREE.Texture && !(scene.background instanceof THREE.CubeTexture),
+            backgroundPosX: scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[0]) : null,
+            backgroundNegX: scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[1]) : null,
+            backgroundPosY: scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[2]) : null,
+            backgroundNegY: scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[3]) : null,
+            backgroundPosZ: scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[4]) : null,
+            backgroundNegZ: scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[5]) : null,
+            backgroundCubeTextureShow: scene.background instanceof THREE.CubeTexture,
+
+            // 雾效
+            fogType: scene.fog == null ? 'None' : ((scene.fog instanceof THREE.FogExp2) ? 'FogExp2' : 'Fog'),
+            fogColor: `#${scene.fog == null ? 'aaaaaa' : scene.fog.color.getHexString()}`,
+            fogColorShow: scene.fog !== null,
+            fogNear: scene.fog && scene.fog instanceof THREE.Fog ? scene.fog.near : 0.1,
+            fogNearShow: scene.fog && scene.fog instanceof THREE.Fog,
+            fogFar: scene.fog && scene.fog instanceof THREE.Fog ? scene.fog.far : 50,
+            fogFarShow: scene.fog && scene.fog instanceof THREE.Fog,
+            fogDensity: scene.fog && scene.fog instanceof THREE.FogExp2 ? fog.density : 0.05,
+            fogDensityShow: scene.fog && scene.fog instanceof THREE.FogExp2,
+        };
 
         this.setState(state);
     }
