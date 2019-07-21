@@ -1,6 +1,8 @@
 .ColorProperty {
     width: 100%;
+    height: 20px;
     margin: 0;
     padding: 0;
+    background: #fff;
     border: none;
 }
