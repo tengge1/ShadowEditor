@@ -60,7 +60,12 @@ class SceneComponent extends React.Component {
 
         this.handleExpand = this.handleExpand.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+
         this.handleChangeBackgroundType = this.handleChangeBackgroundType.bind(this);
+        this.handleChangeBackgroundColor = this.handleChangeBackgroundColor.bind(this);
+        this.handleChangeBackgroundImage = this.handleChangeBackgroundImage.bind(this);
+        this.handleChangeBackgroundCubeTexture = this.handleChangeBackgroundCubeTexture.bind(this);
+
         this.handleSelectCubeMap = this.handleSelectCubeMap.bind(this);
         this.handleSaveCubeTexture = this.handleSaveCubeTexture.bind(this);
         this.handleChangeFogType = this.handleChangeFogType.bind(this);
@@ -69,7 +74,7 @@ class SceneComponent extends React.Component {
 
     render() {
         const { show, expanded, backgroundType, backgroundColor, backgroundColorShow, backgroundImage, backgroundImageShow,
-            backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ, backgroundCubeTextureShow,
+            backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ, backgroundCubeTextureShow, backgroundCubeTextureCommandShow,
             fogType, fogColor, fogColorShow, fogNear, fogNearShow, fogFar, fogFarShow, fogDensity, fogDensityShow } = this.state;
 
         if (!show) {
@@ -78,15 +83,15 @@ class SceneComponent extends React.Component {
 
         return <PropertyGroup title={L_SCENE_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <SelectProperty label={L_BACKGROUND} name={'backgroundType'} options={this.backgroundType} value={backgroundType} onChange={this.handleChangeBackgroundType}></SelectProperty>
-            <ColorProperty label={L_BACKGROUND_COLOR} name={'backgroundColor'} value={backgroundColor} show={backgroundColorShow} onChange={this.handleChangeBackgroundType}></ColorProperty>
-            <TextureProperty label={L_BACKGROUND_IMAGE} name={'backgroundImage'} value={backgroundImage} show={backgroundImageShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
-            <TextureProperty label={L_POS_X} name={'backgroundPosX'} value={backgroundPosX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
-            <TextureProperty label={L_NEG_X} name={'backgroundNegX'} value={backgroundNegX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
-            <TextureProperty label={L_POS_Y} name={'backgroundPosY'} value={backgroundPosY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
-            <TextureProperty label={L_NEG_Y} name={'backgroundNegY'} value={backgroundNegY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
-            <TextureProperty label={L_POS_Z} name={'backgroundPosZ'} value={backgroundPosZ} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
-            <TextureProperty label={L_NEG_Z} name={'backgroundNegZ'} value={backgroundNegZ} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundType}></TextureProperty>
-            <ButtonsProperty>
+            <ColorProperty label={L_BACKGROUND_COLOR} name={'backgroundColor'} value={backgroundColor} show={backgroundColorShow} onChange={this.handleChangeBackgroundColor}></ColorProperty>
+            <TextureProperty label={L_BACKGROUND_IMAGE} name={'backgroundImage'} value={backgroundImage} show={backgroundImageShow} onChange={this.handleChangeBackgroundImage}></TextureProperty>
+            <TextureProperty label={L_POS_X} name={'backgroundPosX'} value={backgroundPosX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+            <TextureProperty label={L_NEG_X} name={'backgroundNegX'} value={backgroundNegX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+            <TextureProperty label={L_POS_Y} name={'backgroundPosY'} value={backgroundPosY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+            <TextureProperty label={L_NEG_Y} name={'backgroundNegY'} value={backgroundNegY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+            <TextureProperty label={L_POS_Z} name={'backgroundPosZ'} value={backgroundPosZ} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+            <TextureProperty label={L_NEG_Z} name={'backgroundNegZ'} value={backgroundNegZ} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+            <ButtonsProperty show={backgroundCubeTextureShow}>
                 <Button onClick={this.handleLoadCubeTexture}>{L_SELECT}</Button>
                 <Button onClick={this.handleSaveCubeTexture}>{L_UPLOAD}</Button>
             </ButtonsProperty>
@@ -154,63 +159,70 @@ class SceneComponent extends React.Component {
         this.setState(state);
     }
 
-    handleChangeBackgroundType() { // 切换背景类型
-        var backgroundType = UI.get('backgroundType', this.id);
+    handleChangeBackgroundType(value, name) {
+        let scene = this.selected;
 
-        var backgroundColorRow = UI.get('backgroundColorRow', this.id);
-        var backgroundImageRow = UI.get('backgroundImageRow', this.id);
-        var backgroundPosXRow = UI.get('backgroundPosXRow', this.id);
-        var backgroundNegXRow = UI.get('backgroundNegXRow', this.id);
-        var backgroundPosYRow = UI.get('backgroundPosYRow', this.id);
-        var backgroundNegYRow = UI.get('backgroundNegYRow', this.id);
-        var backgroundPosZRow = UI.get('backgroundPosZRow', this.id);
-        var backgroundNegZRow = UI.get('backgroundNegZRow', this.id);
+        let { backgroundColor, backgroundImage, backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ } = this.state;
 
-        var cubeTextureCommandRow = UI.get('cubeTextureCommandRow', this.id);
-
-        switch (backgroundType.getValue()) {
+        switch (value) {
             case 'Color':
-                backgroundColorRow.dom.style.display = '';
-                backgroundImageRow.dom.style.display = 'none';
-                backgroundPosXRow.dom.style.display = 'none';
-                backgroundNegXRow.dom.style.display = 'none';
-                backgroundPosYRow.dom.style.display = 'none';
-                backgroundNegYRow.dom.style.display = 'none';
-                backgroundPosZRow.dom.style.display = 'none';
-                backgroundNegZRow.dom.style.display = 'none';
-                cubeTextureCommandRow.dom.style.display = 'none';
+                scene.background = new THREE.Color(backgroundColor);
                 break;
             case 'Image':
-                backgroundColorRow.dom.style.display = 'none';
-                backgroundImageRow.dom.style.display = '';
-                backgroundPosXRow.dom.style.display = 'none';
-                backgroundNegXRow.dom.style.display = 'none';
-                backgroundPosYRow.dom.style.display = 'none';
-                backgroundNegYRow.dom.style.display = 'none';
-                backgroundPosZRow.dom.style.display = 'none';
-                backgroundNegZRow.dom.style.display = 'none';
-                cubeTextureCommandRow.dom.style.display = 'none';
+                if (backgroundImage) {
+                    scene.background = backgroundImage;
+                }
                 break;
             case 'SkyBox':
-                backgroundColorRow.dom.style.display = 'none';
-                backgroundImageRow.dom.style.display = 'none';
-                backgroundPosXRow.dom.style.display = '';
-                backgroundNegXRow.dom.style.display = '';
-                backgroundPosYRow.dom.style.display = '';
-                backgroundNegYRow.dom.style.display = '';
-                backgroundPosZRow.dom.style.display = '';
-                backgroundNegZRow.dom.style.display = '';
-                cubeTextureCommandRow.dom.style.display = '';
+                if (backgroundPosX && backgroundNegX && backgroundPosY && backgroundNegY && backgroundPosZ && backgroundNegZ) {
+                    scene.background = new THREE.CubeTexture([
+                        backgroundPosX.image,
+                        backgroundNegX.image,
+                        backgroundPosY.image,
+                        backgroundNegY.image,
+                        backgroundPosZ.image,
+                        backgroundNegZ.image
+                    ]);
+                    scene.background.needsUpdate = true;
+                }
                 break;
         }
-
-        this.updateFog();
     }
 
-    handleLoadCubeTexture() { // 加载立体贴图
+    handleChangeBackgroundColor(value, name) {
+        this.selected.background = new THREE.Color(value);
+        app.call(`objectChanged`, this, this.selected);
+    }
+
+    handleChangeBackgroundImage(value, name) {
+        this.selected.background = value;
+        app.call(`objectChanged`, this, this.selected);
+    }
+
+    handleChangeBackgroundCubeTexture(value, name) {
+        let { backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ } = Object.assign({}, this.state, {
+            [name]: value,
+        });
+
+        if (backgroundPosX && backgroundNegX && backgroundPosY && backgroundNegY && backgroundPosZ && backgroundNegZ) {
+            scene.background = new THREE.CubeTexture([
+                backgroundPosX.image,
+                backgroundNegX.image,
+                backgroundPosY.image,
+                backgroundNegY.image,
+                backgroundPosZ.image,
+                backgroundNegZ.image
+            ]);
+            scene.background.needsUpdate = true;
+        }
+
+        app.call(`objectChanged`, this, this.selected);
+    }
+
+    handleLoadCubeTexture() {
         app.call(`selectBottomPanel`, this, 'map');
-        UI.msg(L_CLICK_MAP_PANEL);
-        app.on(`selectMap.${this.id}`, this.onSelectCubeMap.bind(this));
+        app.msg(L_CLICK_MAP_PANEL);
+        app.on(`selectMap.${this.id}`, this.handleSelectCubeMap.bind(this));
     }
 
     handleSelectCubeMap(model) {
@@ -325,7 +337,7 @@ class SceneComponent extends React.Component {
         }
 
         this.updateFog();
-    };
+    }
 
     updateFog() {
         var scene = this.selected;
