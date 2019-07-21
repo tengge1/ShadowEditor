@@ -24,7 +24,7 @@ class ColorProperty extends React.Component {
             name={name}
             type={'color'}
             value={value}
-            onInput={this.handleChange}></Input>;
+            onChange={this.handleChange}></Input>;
     }
 
     handleChange(onChange, value, name, event) {

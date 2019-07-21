@@ -19,9 +19,10 @@ class Input extends React.Component {
 
         let val = value === undefined || value === null ? '' : value;
 
-        if (type === 'number') {
-            val = parseFloat(value).toFixed(precision).toString();
-        }
+        // 会导致无法修改input中的值
+        // if (type === 'number') {
+        //     val = parseFloat(value).toFixed(precision).toString();
+        // }
 
         return <input
             className={classNames('Input', className)}

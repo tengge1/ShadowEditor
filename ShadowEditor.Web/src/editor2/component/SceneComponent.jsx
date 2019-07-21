@@ -29,7 +29,7 @@ class SceneComponent extends React.Component {
 
             backgroundType: 'Color',
 
-            backgroundColor: '#aaa',
+            backgroundColor: '#aaaaaa',
             backgroundColorShow: false,
 
             backgroundImage: null,
@@ -45,16 +45,16 @@ class SceneComponent extends React.Component {
 
             fogType: 'None',
 
-            fogColor: '#555',
+            fogColor: '#aaaaaa',
             fogColorShow: false,
 
-            fogNear: 0,
+            fogNear: 0.1,
             fogNearShow: false,
 
-            fogFar: 1000,
+            fogFar: 50,
             fogFarShow: false,
 
-            fogDensity: 0.1,
+            fogDensity: 0.05,
             fogDensityShow: false,
         };
 
@@ -73,7 +73,6 @@ class SceneComponent extends React.Component {
         this.handleChangeFogNear = this.handleChangeFogNear.bind(this);
         this.handleChangeFogFar = this.handleChangeFogFar.bind(this);
         this.handleChangeFogDensity = this.handleChangeFogDensity.bind(this);
-        this.updateFog = this.updateFog.bind(this);
     }
 
     render() {
@@ -121,7 +120,7 @@ class SceneComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
-        if (!editor.selected || !editor.selected === app.editor.scene) {
+        if (!editor.selected || editor.selected !== app.editor.scene) {
             this.setState({
                 show: false,
             });
@@ -129,35 +128,39 @@ class SceneComponent extends React.Component {
         }
 
         this.selected = editor.selected;
-        let scene = this.selected;
+
+        const background = this.selected.background;
+        const fog = this.selected.fog;
+
+        const { backgroundColor, fogColor, fogNear, fogFar, fogDensity } = this.state;
 
         let state = {
             show: true,
 
             // 背景
-            backgroundType: `${scene.background instanceof THREE.CubeTexture ? 'SkyBox' : (scene.background instanceof THREE.Texture ? 'Image' : 'Color')}`,
-            backgroundColor: `#${scene.background instanceof THREE.Color ? scene.background.getHexString() : 'aaaaaa'}`,
-            backgroundColorShow: scene.background instanceof THREE.Color,
-            backgroundImage: scene.background instanceof THREE.Texture && !(scene.background instanceof THREE.CubeTexture) ? scene.background : null,
-            backgroundImageShow: scene.background instanceof THREE.Texture && !(scene.background instanceof THREE.CubeTexture),
-            backgroundPosX: scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[0]) : null,
-            backgroundNegX: scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[1]) : null,
-            backgroundPosY: scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[2]) : null,
-            backgroundNegY: scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[3]) : null,
-            backgroundPosZ: scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[4]) : null,
-            backgroundNegZ: scene.background instanceof THREE.CubeTexture ? new THREE.Texture(scene.background.image[5]) : null,
-            backgroundCubeTextureShow: scene.background instanceof THREE.CubeTexture,
+            backgroundType: background instanceof THREE.CubeTexture ? 'SkyBox' : (background instanceof THREE.Texture ? 'Image' : 'Color'),
+            backgroundColor: background instanceof THREE.Color ? `#${background.getHexString()}` : backgroundColor,
+            backgroundColorShow: background instanceof THREE.Color,
+            backgroundImage: background instanceof THREE.Texture && !(background instanceof THREE.CubeTexture) ? background : null,
+            backgroundImageShow: background instanceof THREE.Texture && !(background instanceof THREE.CubeTexture),
+            backgroundPosX: background instanceof THREE.CubeTexture ? new THREE.Texture(background.image[0]) : null,
+            backgroundNegX: background instanceof THREE.CubeTexture ? new THREE.Texture(background.image[1]) : null,
+            backgroundPosY: background instanceof THREE.CubeTexture ? new THREE.Texture(background.image[2]) : null,
+            backgroundNegY: background instanceof THREE.CubeTexture ? new THREE.Texture(background.image[3]) : null,
+            backgroundPosZ: background instanceof THREE.CubeTexture ? new THREE.Texture(background.image[4]) : null,
+            backgroundNegZ: background instanceof THREE.CubeTexture ? new THREE.Texture(background.image[5]) : null,
+            backgroundCubeTextureShow: background instanceof THREE.CubeTexture,
 
             // 雾效
-            fogType: scene.fog == null ? 'None' : ((scene.fog instanceof THREE.FogExp2) ? 'FogExp2' : 'Fog'),
-            fogColor: `#${scene.fog == null ? 'aaaaaa' : scene.fog.color.getHexString()}`,
-            fogColorShow: scene.fog !== null,
-            fogNear: scene.fog && scene.fog instanceof THREE.Fog ? scene.fog.near : 0.1,
-            fogNearShow: scene.fog && scene.fog instanceof THREE.Fog,
-            fogFar: scene.fog && scene.fog instanceof THREE.Fog ? scene.fog.far : 50,
-            fogFarShow: scene.fog && scene.fog instanceof THREE.Fog,
-            fogDensity: scene.fog && scene.fog instanceof THREE.FogExp2 ? fog.density : 0.05,
-            fogDensityShow: scene.fog && scene.fog instanceof THREE.FogExp2,
+            fogType: fog == null ? 'None' : (fog instanceof THREE.FogExp2 ? 'FogExp2' : 'Fog'),
+            fogColor: fog == null ? fogColor : `#${fog.color.getHexString()}`,
+            fogColorShow: fog !== null,
+            fogNear: fog instanceof THREE.Fog ? fog.near : fogNear,
+            fogNearShow: fog !== null && fog instanceof THREE.Fog,
+            fogFar: fog instanceof THREE.Fog ? fog.far : fogFar,
+            fogFarShow: fog instanceof THREE.Fog,
+            fogDensity: fog instanceof THREE.FogExp2 ? fog.density : fogDensity,
+            fogDensityShow: fog instanceof THREE.FogExp2,
         };
 
         this.setState(state);
@@ -259,7 +262,6 @@ class SceneComponent extends React.Component {
             UI.get('backgroundNegY', this.id).setValue(textures[3]);
             UI.get('backgroundPosZ', this.id).setValue(textures[4]);
             UI.get('backgroundNegZ', this.id).setValue(textures[5]);
-            this.updateFog();
         });
     }
 
@@ -312,97 +314,12 @@ class SceneComponent extends React.Component {
         });
     }
 
-    handleChangeFogType() { // 切换雾类型
-        var fogType = UI.get('fogType', this.id);
-        var fogColorRow = UI.get('fogColorRow', this.id);
-        var fogNearRow = UI.get('fogNearRow', this.id);
-        var fogFarRow = UI.get('fogFarRow', this.id);
-        var fogDensityRow = UI.get('fogDensityRow', this.id);
+    handleChangeFogType(value, name) {
+        const { fogType, fogColor, fogNear, fogFar, fogDensity } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
-        switch (fogType.getValue()) {
-            case 'None':
-                fogColorRow.dom.style.display = 'none';
-                fogNearRow.dom.style.display = 'none';
-                fogFarRow.dom.style.display = 'none';
-                fogDensityRow.dom.style.display = 'none';
-                break;
-            case 'Fog':
-                fogColorRow.dom.style.display = '';
-                fogNearRow.dom.style.display = '';
-                fogFarRow.dom.style.display = '';
-                fogDensityRow.dom.style.display = 'none';
-                break;
-            case 'FogExp2':
-                fogColorRow.dom.style.display = '';
-                fogNearRow.dom.style.display = 'none';
-                fogFarRow.dom.style.display = 'none';
-                fogDensityRow.dom.style.display = '';
-                break;
-        }
-
-        this.updateFog();
-    }
-
-    handleChangeFogColor(value, name) {
-
-    }
-
-    handleChangeFogNear(value, name) {
-
-    }
-
-    handleChangeFogFar(value, name) {
-
-    }
-
-    handleChangeFogDensity(value, name) {
-
-    }
-
-    updateFog() {
-        var scene = this.selected;
-
-        // 背景
-        var backgroundType = UI.get('backgroundType', this.id).getValue();
-        var backgroundColor = UI.get('backgroundColor', this.id).getHexValue();
-        var backgroundImage = UI.get('backgroundImage', this.id).getValue();
-        var backgroundPosX = UI.get('backgroundPosX', this.id).getValue();
-        var backgroundNegX = UI.get('backgroundNegX', this.id).getValue();
-        var backgroundPosY = UI.get('backgroundPosY', this.id).getValue();
-        var backgroundNegY = UI.get('backgroundNegY', this.id).getValue();
-        var backgroundPosZ = UI.get('backgroundPosZ', this.id).getValue();
-        var backgroundNegZ = UI.get('backgroundNegZ', this.id).getValue();
-
-        switch (backgroundType) {
-            case 'Color':
-                scene.background = new THREE.Color(backgroundColor);
-                break;
-            case 'Image':
-                if (backgroundImage) {
-                    scene.background = backgroundImage;
-                }
-                break;
-            case 'SkyBox':
-                if (backgroundPosX && backgroundNegX && backgroundPosY && backgroundNegY && backgroundPosZ && backgroundNegZ) {
-                    scene.background = new THREE.CubeTexture([
-                        backgroundPosX.image,
-                        backgroundNegX.image,
-                        backgroundPosY.image,
-                        backgroundNegY.image,
-                        backgroundPosZ.image,
-                        backgroundNegZ.image
-                    ]);
-                    scene.background.needsUpdate = true;
-                }
-                break;
-        }
-
-        // 雾
-        var fogType = UI.get('fogType', this.id).getValue();
-        var fogColor = UI.get('fogColor', this.id).getHexValue();
-        var fogNear = UI.get('fogNear', this.id).getValue();
-        var fogFar = UI.get('fogFar', this.id).getValue();
-        var fogDensity = UI.get('fogDensity', this.id).getValue();
+        let scene = this.selected;
 
         switch (fogType) {
             case 'None':
@@ -415,6 +332,32 @@ class SceneComponent extends React.Component {
                 scene.fog = new THREE.FogExp2(fogColor, fogDensity);
                 break;
         }
+
+        app.call(`objectChanged`, this, this.selected);
+    }
+
+    handleChangeFogColor(value, name) {
+        this.selected.fog.color.set(value);
+
+        app.call(`objectChanged`, this, this.selected);
+    }
+
+    handleChangeFogNear(value, name) {
+        this.selected.fog.near = value;
+
+        app.call(`objectChanged`, this, this.selected);
+    }
+
+    handleChangeFogFar(value, name) {
+        this.selected.fog.far = value;
+
+        app.call(`objectChanged`, this, this.selected);
+    }
+
+    handleChangeFogDensity(value, name) {
+        this.selected.fog.density = value;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 }
 

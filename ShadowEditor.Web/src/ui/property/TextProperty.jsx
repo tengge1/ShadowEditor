@@ -23,7 +23,7 @@ class TextProperty extends React.Component {
             style={style}
             name={name}
             value={value}
-            onInput={this.handleChange}></Input>;
+            onChange={this.handleChange}></Input>;
     }
 
     handleChange(onChange, value, name, event) {
