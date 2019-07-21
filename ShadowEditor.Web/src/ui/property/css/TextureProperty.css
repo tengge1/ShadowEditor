@@ -1,4 +1,23 @@
-.TextureProperty>.field>.canvas {
+.PropertyGroup>.content>.property.TextureProperty {
+    height: 49px;
+}
+
+.TextureProperty>.field>.texture {
+    position: relative;
+    width: 100%;
+    height: 48px;
+    box-sizing: border-box;
+}
+
+.TextureProperty>.field>.texture>canvas {
+    position: absolute;
+    width: 100%;
+    height: 28px;
+}
+
+.TextureProperty>.field>.texture>.title {
+    position: absolute;
+    top: 28px;
     width: 100%;
     height: 20px;
 }
