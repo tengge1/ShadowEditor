@@ -65,6 +65,7 @@ class SceneComponent extends React.Component {
         this.handleChangeBackgroundColor = this.handleChangeBackgroundColor.bind(this);
         this.handleChangeBackgroundImage = this.handleChangeBackgroundImage.bind(this);
         this.handleChangeBackgroundCubeTexture = this.handleChangeBackgroundCubeTexture.bind(this);
+
         this.handleSelectCubeMap = this.handleSelectCubeMap.bind(this);
         this.handleSaveCubeTexture = this.handleSaveCubeTexture.bind(this);
 
@@ -167,17 +168,27 @@ class SceneComponent extends React.Component {
     }
 
     handleChangeBackgroundType(value, name) {
+        const { backgroundType, backgroundColor, backgroundImage, backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ } = Object.assign({}, this.state, {
+            [name]: value,
+        });
+
         let scene = this.selected;
 
-        let { backgroundColor, backgroundImage, backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ } = this.state;
-
-        switch (value) {
+        switch (backgroundType) {
             case 'Color':
                 scene.background = new THREE.Color(backgroundColor);
                 break;
             case 'Image':
                 if (backgroundImage) {
                     scene.background = backgroundImage;
+                } else {
+                    this.setState({
+                        [name]: value,
+                        backgroundColorShow: false,
+                        backgroundImageShow: true,
+                        backgroundCubeTextureShow: false,
+                    });
+                    return;
                 }
                 break;
             case 'SkyBox':
@@ -191,9 +202,19 @@ class SceneComponent extends React.Component {
                         backgroundNegZ.image
                     ]);
                     scene.background.needsUpdate = true;
+                } else {
+                    this.setState({
+                        [name]: value,
+                        backgroundColorShow: false,
+                        backgroundImageShow: false,
+                        backgroundCubeTextureShow: true,
+                    });
+                    return;
                 }
                 break;
         }
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeBackgroundColor(value, name) {
