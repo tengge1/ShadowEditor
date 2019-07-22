@@ -70,6 +70,10 @@ class BasicComponent extends React.Component {
     }
 
     handleChangeName(value) {
+        this.setState({
+            name: value,
+        });
+
         app.editor.execute(new SetValueCommand(this.selected, 'name', value));
 
         // bug: https://gitee.com/tengge1/ShadowEditor/issues/IV1V3
@@ -81,6 +85,10 @@ class BasicComponent extends React.Component {
     }
 
     handleChangeVisible(value) {
+        this.setState({
+            visible: value,
+        });
+
         this.selected.visible = value;
         app.call(`objectChanged`, this, this.selected);
     }

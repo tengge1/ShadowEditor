@@ -46,8 +46,8 @@ class FireComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.CameraComponent`, this.handleUpdate);
-        app.on(`objectChanged.CameraComponent`, this.handleUpdate);
+        app.on(`objectSelected.FireComponent`, this.handleUpdate);
+        app.on(`objectChanged.FireComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -79,22 +79,17 @@ class FireComponent extends React.Component {
     }
 
     handleChange(value, name) {
-        let { width, height, depth, sliceSpacing } = this.state;
+        this.setState({
+            [name]: value,
+        });
 
-        switch (name) {
-            case 'width':
-                width = value;
-                break;
-            case 'height':
-                height = value;
-                break;
-            case 'depth':
-                depth = value;
-                break;
-            case 'sliceSpacing':
-                sliceSpacing = value;
-                break;
+        if (value === null) {
+            return;
         }
+
+        let { width, height, depth, sliceSpacing } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         VolumetricFire.texturePath = 'assets/textures/VolumetricFire/';
 
@@ -117,11 +112,13 @@ class FireComponent extends React.Component {
         });
 
         var index = editor.scene.children.indexOf(this.selected);
+
         if (index > -1) {
             editor.select(null);
             editor.scene.children[index] = fire.mesh;
             fire.mesh.parent = this.selected.parent;
             this.selected.parent = null;
+
             app.call(`objectRemoved`, this, this.selected);
             app.call(`objectAdded`, this, fire.mesh);
             editor.select(fire.mesh);
@@ -160,9 +157,9 @@ class FireComponent extends React.Component {
     }
 
     onAnimate(clock, deltaTime) {
-        var elapsed = clock.getElapsedTime();
+        const elapsed = clock.getElapsedTime();
 
-        var fire = this.selected.userData.fire;
+        const fire = this.selected.userData.fire;
         fire.update(elapsed);
     }
 }

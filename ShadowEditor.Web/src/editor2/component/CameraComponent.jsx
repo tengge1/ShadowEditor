@@ -52,6 +52,7 @@ class CameraComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
+        // TODO: 应判断是否等于默认相机
         if (!editor.selected || !(editor.selected instanceof THREE.PerspectiveCamera)) {
             this.setState({
                 show: false,
@@ -70,14 +71,38 @@ class CameraComponent extends React.Component {
     }
 
     handleChangeFov(value) {
+        this.setState({
+            fov: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         app.editor.execute(new SetValueCommand(this.selected, 'fov', value));
     }
 
     handleChangeNear(value) {
+        this.setState({
+            near: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         app.editor.execute(new SetValueCommand(this.selected, 'near', value));
     }
 
     handleChangeFar(value) {
+        this.setState({
+            far: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         app.editor.execute(new SetValueCommand(this.selected, 'far', value));
     }
 }
