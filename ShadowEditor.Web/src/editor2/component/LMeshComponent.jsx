@@ -35,7 +35,7 @@ class LMeshComponent extends React.Component {
         }
 
         return <PropertyGroup title={L_LMESH_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={L_ANIMATION} options={options} value={animation} onChange={this.handleChange}></SelectProperty>
+            <SelectProperty label={L_ANIMATION} name={'animation'} options={options} value={animation} onChange={this.handleChange}></SelectProperty>
             <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
         </PropertyGroup>;
     }
@@ -82,7 +82,7 @@ class LMeshComponent extends React.Component {
         });
     }
 
-    handleChange(value) {
+    handleChange(value, name) {
         const model = this.selected.userData.model;
 
         model.setAnimation(value);

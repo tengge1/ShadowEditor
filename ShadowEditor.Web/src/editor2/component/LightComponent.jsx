@@ -170,7 +170,7 @@ class LightComponent extends React.Component {
             state.showHeight = false;
         }
 
-        this.setState({ state });
+        this.setState(state);
     }
 
     handleChangeColor(value, name) {
