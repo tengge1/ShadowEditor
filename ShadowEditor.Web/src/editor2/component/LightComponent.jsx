@@ -116,9 +116,9 @@ class LightComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        let state = this.state;
-
-        state.show = true;
+        let state = {
+            show: true,
+        };
 
         if (this.selected instanceof THREE.HemisphereLight) {
             state.showColor = false;
@@ -176,7 +176,7 @@ class LightComponent extends React.Component {
     handleChangeColor(value) {
         this.selected.color = new THREE.Color(value);
 
-        var helper = this.selected.children.filter(n => n.userData.type === 'helper')[0];
+        let helper = this.selected.children.filter(n => n.userData.type === 'helper')[0];
 
         if (helper) {
             helper.material.color = this.selected.color;
