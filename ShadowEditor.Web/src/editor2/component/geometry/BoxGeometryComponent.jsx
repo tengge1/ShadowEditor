@@ -69,39 +69,44 @@ class BoxGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const { width, height, depth, widthSegments, heightSegments, depthSegments } = this.selected.geometry.parameters;
-
-        const state = Object.assign({}, this.selected.geometry.parameters, {
-            type: this.selected.geometry.constructor.name,
-            show: true,
-        });
+        const { width, height, depth, widthSegments, heightSegments, depthSegments } = Object.assign({},
+            this.selected.geometry.parameters, {
+                type: this.selected.geometry.constructor.name,
+                show: true,
+            });
 
         this.setState({
             show: true,
             type: this.selected.geometry.constructor.name,
-            width,
-            height,
-            depth,
-            widthSegments: widthSegments === undefined ? 1 : widthSegments,
-            heightSegments: heightSegments === undefined ? 1 : heightSegments,
-            depthSegments: depthSegments === undefined ? 1 : depthSegments,
+            width: width || 1,
+            height: height || 1,
+            depth: depth || 1,
+            widthSegments: widthSegments || 1,
+            heightSegments: heightSegments || 1,
+            depthSegments: depthSegments || 1,
         });
     }
 
-    handleChange(value, name, event) {
-        const state = Object.assign({}, this.state, {
+    handleChange(value, name) {
+        this.setState({
             [name]: value,
         });
 
-        this.setState(state);
+        if (value === null) {
+            return;
+        }
+
+        const { width, height, depth, widthSegments, heightSegments, depthSegments } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.BoxBufferGeometry(
-            state.width,
-            state.height,
-            state.depth,
-            state.widthSegments,
-            state.heightSegments,
-            state.depthSegments,
+            width,
+            height,
+            depth,
+            widthSegments,
+            heightSegments,
+            depthSegments,
         )));
     }
 }
