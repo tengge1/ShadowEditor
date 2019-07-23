@@ -80,16 +80,16 @@ class LightComponent extends React.Component {
         }
 
         return <PropertyGroup title={L_LIGHT_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <ColorProperty label={L_COLOR} value={color} show={showColor} onChange={this.handleChangeColor}></ColorProperty>
-            <NumberProperty label={L_INTENSITY} value={intensity} show={showIntensity} onChange={this.handleChangeIntensity}></NumberProperty>
-            <NumberProperty label={L_DISTANCE} value={distance} show={showDistance} onChange={this.handleChangeDistance}></NumberProperty>
-            <NumberProperty label={L_ANGLE} value={angle} show={showAngle} onChange={this.handleChangeAngle}></NumberProperty>
-            <NumberProperty label={L_PENUMBRA} value={penumbra} show={showPenumbra} onChange={this.handleChangePenumbra}></NumberProperty>
-            <NumberProperty label={L_DECAY} value={decay} show={showDecay} onChange={this.handleChangeDecay}></NumberProperty>
-            <ColorProperty label={L_SKY_COLOR} value={skyColor} show={showSkyColor} onChange={this.handleChangeSkyColor}></ColorProperty>
-            <ColorProperty label={L_GROUND_COLOR} value={groundColor} show={showGroundColor} onChange={this.handleChangeGroundColor}></ColorProperty>
-            <NumberProperty label={L_WIDTH} value={width} show={showWidth} onChange={this.handleChangeWidth}></NumberProperty>
-            <NumberProperty label={L_HEIGHT} value={height} show={showHeight} onChange={this.handleChangeHeight}></NumberProperty>
+            <ColorProperty label={L_COLOR} name={'color'} value={color} show={showColor} onChange={this.handleChangeColor}></ColorProperty>
+            <NumberProperty label={L_INTENSITY} name={'intensity'} value={intensity} show={showIntensity} onChange={this.handleChangeIntensity}></NumberProperty>
+            <NumberProperty label={L_DISTANCE} name={'distance'} value={distance} show={showDistance} onChange={this.handleChangeDistance}></NumberProperty>
+            <NumberProperty label={L_ANGLE} name={'angle'} value={angle} show={showAngle} onChange={this.handleChangeAngle}></NumberProperty>
+            <NumberProperty label={L_PENUMBRA} name={'penumbra'} value={penumbra} show={showPenumbra} onChange={this.handleChangePenumbra}></NumberProperty>
+            <NumberProperty label={L_DECAY} name={'decay'} value={decay} show={showDecay} onChange={this.handleChangeDecay}></NumberProperty>
+            <ColorProperty label={L_SKY_COLOR} name={'skyColor'} value={skyColor} show={showSkyColor} onChange={this.handleChangeSkyColor}></ColorProperty>
+            <ColorProperty label={L_GROUND_COLOR} name={'groundColor'} value={groundColor} show={showGroundColor} onChange={this.handleChangeGroundColor}></ColorProperty>
+            <NumberProperty label={L_WIDTH} name={'width'} value={width} show={showWidth} onChange={this.handleChangeWidth}></NumberProperty>
+            <NumberProperty label={L_HEIGHT} name={'height'} value={height} show={showHeight} onChange={this.handleChangeHeight}></NumberProperty>
         </PropertyGroup>;
     }
 
@@ -173,7 +173,15 @@ class LightComponent extends React.Component {
         this.setState({ state });
     }
 
-    handleChangeColor(value) {
+    handleChangeColor(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.color = new THREE.Color(value);
 
         let helper = this.selected.children.filter(n => n.userData.type === 'helper')[0];
@@ -182,80 +190,145 @@ class LightComponent extends React.Component {
             helper.material.color = this.selected.color;
         }
 
-        this.setState({ color: value });
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeIntensity(value) {
-        if (value !== null) {
-            this.selected.intensity = value;
+    handleChangeIntensity(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
         }
-        this.setState({ intensity: value });
+
+        this.selected.intensity = value;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeDistance(value) {
-        if (value !== null) {
-            this.selected.distance = value;
+    handleChangeDistance(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
         }
-        this.setState({ distance: value });
+
+        this.selected.distance = value;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeAngle(value) {
-        if (value !== null) {
-            this.selected.angle = value;
+    handleChangeAngle(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
         }
-        this.setState({ angle: value });
+
+        this.selected.angle = value;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangePenumbra(value) {
-        if (value !== null) {
-            this.selected.penumbra = value;
+    handleChangePenumbra(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
         }
-        this.setState({ penumbra: value });
+
+        this.selected.penumbra = value;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeDecay(value) {
-        if (value !== null) {
-            this.selected.decay = value;
+    handleChangeDecay(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
         }
-        this.setState({ decay: value });
+
+        this.selected.decay = value;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeSkyColor(value) {
+    handleChangeSkyColor(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.color = new THREE.Color(value);
 
-        var sky = this.selected.children.filter(n => n.userData.type === 'sky')[0];
+        let sky = this.selected.children.filter(n => n.userData.type === 'sky')[0];
+
         if (sky) {
             sky.material.uniforms.topColor.value = this.selected.color;
         }
 
-        this.setState({ skyColor: value });
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeGroundColor(value) {
+    handleChangeGroundColor(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.groundColor = new THREE.Color(value);
 
-        var ground = this.selected.children.filter(n => n.userData.type === 'sky')[0];
+        let ground = this.selected.children.filter(n => n.userData.type === 'sky')[0];
+
         if (ground) {
             ground.material.uniforms.bottomColor.value = this.selected.groundColor;
         }
 
-        this.setState({ groundColor: value });
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeWidth(value) {
-        if (value !== null) {
-            this.selected.width = value;
+    handleChangeWidth(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
         }
 
-        this.setState({ width: value });
+        this.selected.width = value;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeHeight(value) {
-        if (value !== null) {
-            this.selected.height = value;
+    handleChangeHeight(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
         }
 
-        this.setState({ height: value });
+        this.selected.height = value;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 }
 

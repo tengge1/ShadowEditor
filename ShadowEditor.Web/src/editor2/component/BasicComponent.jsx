@@ -32,9 +32,9 @@ class BasicComponent extends React.Component {
         }
 
         return <PropertyGroup title={L_BASIC_INFO} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <TextProperty label={L_NAME} value={name} onChange={this.handleChangeName}></TextProperty>
-            <DisplayProperty label={L_TYPE} value={type}></DisplayProperty>
-            <CheckBoxProperty label={L_VISIBLE} value={visible} onChange={this.handleChangeVisible}></CheckBoxProperty>
+            <TextProperty label={L_NAME} name={'name'} value={name} onChange={this.handleChangeName}></TextProperty>
+            <DisplayProperty label={L_TYPE} name={'type'} value={type}></DisplayProperty>
+            <CheckBoxProperty label={L_VISIBLE} name={'visible'} value={visible} onChange={this.handleChangeVisible}></CheckBoxProperty>
         </PropertyGroup>;
     }
 

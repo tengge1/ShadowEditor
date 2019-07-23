@@ -111,7 +111,7 @@ class FireComponent extends React.Component {
             sliceSpacing,
         });
 
-        var index = editor.scene.children.indexOf(this.selected);
+        const index = editor.scene.children.indexOf(this.selected);
 
         if (index > -1) {
             editor.select(null);
