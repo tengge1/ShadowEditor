@@ -73,11 +73,17 @@ class SmokeComponent extends React.Component {
     }
 
     handleChange(value, name) {
-        const state = Object.assign({}, this.state, {
+        this.setState({
             [name]: value,
         });
 
-        const { size, lifetime } = state;
+        if (value === null) {
+            return;
+        }
+
+        const { size, lifetime } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         this.selected.userData.size = size
         this.selected.userData.lifetime = lifetime;
@@ -117,7 +123,7 @@ class SmokeComponent extends React.Component {
     }
 
     onAnimate(clock, deltaTime) {
-        let elapsed = clock.getElapsedTime();
+        const elapsed = clock.getElapsedTime();
         this.selected.update(elapsed);
     }
 }

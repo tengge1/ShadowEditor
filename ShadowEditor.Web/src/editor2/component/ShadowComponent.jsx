@@ -144,7 +144,15 @@ class ShadowComponent extends React.Component {
         this.setState(state);
     }
 
-    handleChangeCastShadow(value) {
+    handleChangeCastShadow(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.castShadow = value;
 
         if (this.selected instanceof THREE.Mesh) {
@@ -154,7 +162,15 @@ class ShadowComponent extends React.Component {
         app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeReceiveShadow(value) {
+    handleChangeReceiveShadow(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.receiveShadow = value;
 
         if (this.selected instanceof THREE.Mesh) {
@@ -164,8 +180,17 @@ class ShadowComponent extends React.Component {
         app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeShadowRadius(value) {
+    handleChangeShadowRadius(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.shadow.radius = value;
+
         app.call(`objectChanged`, this, this.selected);
     }
 
@@ -179,49 +204,113 @@ class ShadowComponent extends React.Component {
         }
     }
 
-    handleChangeMapSize(value) {
+    handleChangeMapSize(value, name) {
         this.selected.shadow.mapSize.x = this.selected.shadow.mapSize.y = parseInt(value);
+
         app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeBias(value) {
+    handleChangeBias(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.shadow.bias = value;
+
         app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeCameraLeft(value) {
+    handleChangeCameraLeft(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.shadow.camera.left = value;
         this.selected.shadow.camera.updateProjectionMatrix();
+
         app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeCameraRight(value) {
+    handleChangeCameraRight(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.shadow.camera.right = value;
         this.selected.shadow.camera.updateProjectionMatrix();
+
         app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeCameraTop(value) {
+    handleChangeCameraTop(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.shadow.camera.top = value;
         this.selected.shadow.camera.updateProjectionMatrix();
+
         app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeCameraBottom(value) {
+    handleChangeCameraBottom(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.shadow.camera.bottom = value;
         this.selected.shadow.camera.updateProjectionMatrix();
+
         app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeCameraNear(value) {
+    handleChangeCameraNear(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.shadow.camera.near = value;
         this.selected.shadow.camera.updateProjectionMatrix();
+
         app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeCameraFar(value) {
+    handleChangeCameraFar(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.shadow.camera.far = value;
         this.selected.shadow.camera.updateProjectionMatrix();
+
         app.call(`objectChanged`, this, this.selected);
     }
 }
