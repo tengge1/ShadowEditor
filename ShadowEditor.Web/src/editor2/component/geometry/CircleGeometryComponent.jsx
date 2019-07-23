@@ -63,25 +63,37 @@ class CircleGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const state = Object.assign({}, this.selected.geometry.parameters, {
-            show: true,
-        });
+        const { radius, segments, thetaStart, thetaLength } = Object.assign({},
+            this.selected.geometry.parameters, {
+                show: true,
+            });
 
-        this.setState(state);
+        this.setState({
+            radius: radius || 1,
+            segments: segments || 16,
+            thetaStart: thetaStart || 0,
+            thetaLength: thetaLength || Math.PI * 2,
+        });
     }
 
-    handleChange(value, name, event) {
-        const state = Object.assign({}, this.state, {
+    handleChange(value, name) {
+        this.setState({
             [name]: value,
         });
 
-        this.setState(state);
+        if (value === null) {
+            return;
+        }
+
+        const { radius, segments, thetaStart, thetaLength } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.CircleBufferGeometry(
-            state.radius,
-            state.segments,
-            state.thetaStart,
-            state.thetaLength,
+            radius,
+            segments,
+            thetaStart,
+            thetaLength,
         )));
     }
 }
