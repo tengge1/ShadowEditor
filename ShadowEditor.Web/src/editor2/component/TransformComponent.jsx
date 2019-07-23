@@ -95,47 +95,70 @@ class TransformComponent extends React.Component {
         });
     }
 
-
     handleChangePosition(value, name) {
-        let state = Object.assign({}, this.state, {
+        this.setState({
             [name]: value,
         });
 
-        const { positionX, positionY, positionZ } = state;
+        if (value === null) {
+            return;
+        }
+
+        const { positionX, positionY, positionZ } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         app.editor.execute(new SetPositionCommand(this.selected, new THREE.Vector3(
             positionX,
             positionY,
             positionZ
         )));
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeRotation(value, name) {
-        let state = Object.assign({}, this.state, {
+        this.setState({
             [name]: value,
         });
 
-        const { rotationX, rotationY, rotationZ } = state;
+        if (value === null) {
+            return;
+        }
+
+        const { rotationX, rotationY, rotationZ } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         app.editor.execute(new SetRotationCommand(this.selected, new THREE.Euler(
             rotationX * Math.PI / 180,
             rotationY * Math.PI / 180,
             rotationZ * Math.PI / 180
         )));
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeScale(value, name) {
-        let state = Object.assign({}, this.state, {
+        this.setState({
             [name]: value,
         });
 
-        const { scaleX, scaleY, scaleZ, scaleLocked } = state;
+        if (value === null) {
+            return;
+        }
+
+        const { scaleX, scaleY, scaleZ, scaleLocked } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         if (scaleLocked) {
             app.editor.execute(new SetScaleCommand(this.selected, new THREE.Vector3(value, value, value)));
         } else {
             app.editor.execute(new SetScaleCommand(this.selected, new THREE.Vector3(scaleX, scaleY, scaleZ)));
         }
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeScaleLock(value, name) {
