@@ -125,7 +125,14 @@ EditMenu.prototype.clone = function () {
         return;
     }
 
-    object = object.clone();
+    let userData = object.userData;
+    object.userData = {};
+
+    let newObject = object.clone();
+
+    object.userData = userData;
+    newObject.userData = userData;
+
     editor.execute(new AddObjectCommand(object));
 };
 
