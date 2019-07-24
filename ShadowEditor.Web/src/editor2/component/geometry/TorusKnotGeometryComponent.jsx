@@ -72,12 +72,12 @@ class TorusKnotGeometryComponent extends React.Component {
         });
 
         this.setState({
-            radius: radius || 10,
-            tube: tube || 10,
-            tubularSegments: tubularSegments || 16,
-            radialSegments: radialSegments || 16,
-            p: p || 10,
-            q: q || 10,
+            radius: radius === undefined ? 1 : radius,
+            tube: tube === undefined ? 0.4 : tube,
+            tubularSegments: tubularSegments === undefined ? 64 : tubularSegments,
+            radialSegments: radialSegments === undefined ? 8 : radialSegments,
+            p: p === undefined ? 2 : p,
+            q: q === undefined ? 3 : q,
         });
     }
 

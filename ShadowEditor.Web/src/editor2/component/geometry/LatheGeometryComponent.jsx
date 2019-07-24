@@ -66,9 +66,9 @@ class LatheGeometryComponent extends React.Component {
         });
 
         this.setState({
-            segments: segments || 20,
-            phiStart: phiStart || 0,
-            phiLength: phiLength || Math.PI * 2,
+            segments: segments === undefined ? 12 : segments,
+            phiStart: phiStart === undefined ? 0 : phiStart,
+            phiLength: phiLength === undefined ? Math.PI * 2 : phiLength,
         });
     }
 

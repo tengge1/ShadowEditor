@@ -75,13 +75,13 @@ class SphereGeometryComponent extends React.Component {
             });
 
         this.setState({
-            radius: radius || 1,
-            widthSegments: widthSegments || 16,
-            heightSegments: heightSegments || 16,
-            phiStart: phiStart || 0,
-            phiLength: phiLength || Math.PI * 2,
-            thetaStart: thetaStart || 0,
-            thetaLength: thetaLength || Math.PI * 2,
+            radius: radius === undefined ? 1 : radius,
+            widthSegments: widthSegments === undefined ? 8 : widthSegments,
+            heightSegments: heightSegments === undefined ? 6 : heightSegments,
+            phiStart: phiStart === undefined ? 0 : phiStart,
+            phiLength: phiLength === undefined ? Math.PI * 2 : phiLength,
+            thetaStart: thetaStart === undefined ? 0 : thetaStart,
+            thetaLength: thetaLength === undefined ? Math.PI : thetaLength,
         });
     }
 

@@ -70,10 +70,10 @@ class CircleGeometryComponent extends React.Component {
 
         this.setState({
             show: true,
-            radius: radius || 1,
-            segments: segments || 16,
-            thetaStart: thetaStart || 0,
-            thetaLength: thetaLength || Math.PI * 2,
+            radius: radius === undefined ? 1 : radius,
+            segments: segments === undefined ? 8 : segments,
+            thetaStart: thetaStart === undefined ? 0 : thetaStart,
+            thetaLength: thetaLength === undefined ? Math.PI * 2 : thetaLength,
         });
     }
 

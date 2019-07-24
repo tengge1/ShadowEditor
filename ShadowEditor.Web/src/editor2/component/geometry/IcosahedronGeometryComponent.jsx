@@ -64,8 +64,8 @@ class IcosahedronGeometryComponent extends React.Component {
         });
 
         this.setState({
-            radius: radius || 1.0,
-            detail: detail || 20,
+            radius: radius === undefined ? 1 : radius,
+            detail: detail === undefined ? 0 : detail,
         });
     }
 

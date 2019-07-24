@@ -68,10 +68,10 @@ class PlaneGeometryComponent extends React.Component {
         });
 
         this.setState({
-            width: width || 1,
-            height: height || 1,
-            widthSegments: widthSegments || 1,
-            heightSegments: heightSegments || 1,
+            width: width === undefined ? 1 : width,
+            height: height === undefined ? 1 : height,
+            widthSegments: widthSegments === undefined ? 1 : widthSegments,
+            heightSegments: heightSegments === undefined ? 1 : heightSegments,
         });
     }
 

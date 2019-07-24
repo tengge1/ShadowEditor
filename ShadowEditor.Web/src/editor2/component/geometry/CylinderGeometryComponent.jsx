@@ -74,12 +74,12 @@ class CylinderGeometryComponent extends React.Component {
 
         this.setState({
             show: true,
-            radiusTop: radiusTop || 1,
-            radiusBottom: radiusBottom || 1,
-            height: height || 1,
-            radialSegments: radialSegments || 16,
-            heightSegments: heightSegments || 16,
-            openEnded: openEnded || true,
+            radiusTop: radiusTop === undefined ? 1 : radiusTop,
+            radiusBottom: radiusBottom === undefined ? 1 : radiusBottom,
+            height: height === undefined ? 1 : height,
+            radialSegments: radialSegments === undefined ? 8 : radialSegments,
+            heightSegments: heightSegments === undefined ? 1 : heightSegments,
+            openEnded: openEnded === undefined ? false : openEnded,
         });
     }
 

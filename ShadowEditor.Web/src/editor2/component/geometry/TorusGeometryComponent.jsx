@@ -70,11 +70,11 @@ class TorusGeometryComponent extends React.Component {
         });
 
         this.setState({
-            radius: radius || 1,
-            tube: tube || 1,
-            radialSegments: radialSegments || 16,
-            tubularSegments: tubularSegments || 16,
-            arc: arc || Math.PI * 2,
+            radius: radius === undefined ? 1 : radius,
+            tube: tube === undefined ? 0.4 : tube,
+            radialSegments: radialSegments === undefined ? 8 : radialSegments,
+            tubularSegments: tubularSegments === undefined ? 16 : tubularSegments,
+            arc: arc === undefined ? Math.PI * 2 : arc,
         });
     }
 

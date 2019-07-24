@@ -78,12 +78,12 @@ class BoxGeometryComponent extends React.Component {
         this.setState({
             show: true,
             type: this.selected.geometry.constructor.name,
-            width: width || 1,
-            height: height || 1,
-            depth: depth || 1,
-            widthSegments: widthSegments || 1,
-            heightSegments: heightSegments || 1,
-            depthSegments: depthSegments || 1,
+            width: width === undefined ? 1 : width,
+            height: height === undefined ? 1 : height,
+            depth: depth === undefined ? 1 : depth,
+            widthSegments: widthSegments === undefined ? 1 : widthSegments,
+            heightSegments: heightSegments === undefined ? 1 : heightSegments,
+            depthSegments: depthSegments === undefined ? 1 : depthSegments,
         });
     }
 

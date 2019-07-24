@@ -74,13 +74,13 @@ class TeapotGeometryComponent extends React.Component {
         });
 
         this.setState({
-            size: size || 10,
-            segments: segments || 16,
-            bottom: bottom || true,
-            lid: lid || true,
-            body: body || true,
-            fitLid: fitLid || true,
-            blinn: blinn || true,
+            size: size === undefined ? 50 : size,
+            segments: segments === undefined ? 10 : segments,
+            bottom: bottom === undefined ? true : bottom,
+            lid: lid === undefined ? true : lid,
+            body: body === undefined ? true : body,
+            fitLid: fitLid === undefined ? true : fitLid,
+            blinn: blinn === undefined ? true : blinn,
         });
     }
 
