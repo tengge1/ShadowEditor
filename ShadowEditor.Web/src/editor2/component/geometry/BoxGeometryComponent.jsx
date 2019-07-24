@@ -108,6 +108,8 @@ class BoxGeometryComponent extends React.Component {
             heightSegments,
             depthSegments,
         )));
+
+        app.call(`objectChanged`, this, this.selected);
     }
 }
 

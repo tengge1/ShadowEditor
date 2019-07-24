@@ -69,21 +69,33 @@ class TeapotGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const state = Object.assign({}, this.selected.geometry.parameters, {
+        const { size, segments, bottom, lid, body, fitLid, blinn } = Object.assign({}, this.selected.geometry.parameters, {
             show: true,
         });
 
-        this.setState(state);
+        this.setState({
+            size: size || 10,
+            segments: segments || 16,
+            bottom: bottom || true,
+            lid: lid || true,
+            body: body || true,
+            fitLid: fitLid || true,
+            blinn: blinn || true,
+        });
     }
 
-    handleChange(value, name, event) {
-        const state = Object.assign({}, this.state, {
+    handleChange(value, name) {
+        this.setState({
             [name]: value,
         });
 
-        this.setState(state);
+        if (value === null) {
+            return;
+        }
 
-        const { size, segments, bottom, lid, body, fitLid, blinn } = state;
+        const { size, segments, bottom, lid, body, fitLid, blinn } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         let geometry = new THREE.TeapotBufferGeometry(size, segments, bottom, lid, body, fitLid, blinn);
 
@@ -92,6 +104,8 @@ class TeapotGeometryComponent extends React.Component {
         geometry.parameters = { size, segments, bottom, lid, body, fitLid, blinn };
 
         app.editor.execute(new SetGeometryCommand(this.selected, geometry));
+
+        app.call(`objectChanged`, this, this.selected);
     }
 }
 

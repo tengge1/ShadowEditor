@@ -69,6 +69,7 @@ class CircleGeometryComponent extends React.Component {
             });
 
         this.setState({
+            show: true,
             radius: radius || 1,
             segments: segments || 16,
             thetaStart: thetaStart || 0,
@@ -95,6 +96,8 @@ class CircleGeometryComponent extends React.Component {
             thetaStart,
             thetaLength,
         )));
+
+        app.call(`objectChanged`, this, this.selected);
     }
 }
 

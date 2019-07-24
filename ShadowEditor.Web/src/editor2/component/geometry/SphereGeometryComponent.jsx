@@ -69,29 +69,46 @@ class SphereGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const state = Object.assign({}, this.selected.geometry.parameters, {
-            show: true,
-        });
+        const { radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength } = Object.assign({},
+            this.selected.geometry.parameters, {
+                show: true,
+            });
 
-        this.setState(state);
+        this.setState({
+            radius: radius || 1,
+            widthSegments: widthSegments || 16,
+            heightSegments: heightSegments || 16,
+            phiStart: phiStart || 0,
+            phiLength: phiLength || Math.PI * 2,
+            thetaStart: thetaStart || 0,
+            thetaLength: thetaLength || Math.PI * 2,
+        });
     }
 
-    handleChange(value, name, event) {
-        const state = Object.assign({}, this.state, {
+    handleChange(value, name) {
+        this.setState({
             [name]: value,
         });
 
-        this.setState(state);
+        if (value === null) {
+            return;
+        }
+
+        const { radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.SphereBufferGeometry(
-            state.radius,
-            state.widthSegments,
-            state.heightSegments,
-            state.phiStart,
-            state.phiLength,
-            state.thetaStart,
-            state.thetaLength,
+            radius,
+            widthSegments,
+            heightSegments,
+            phiStart,
+            phiLength,
+            thetaStart,
+            thetaLength,
         )));
+
+        app.call(`objectChanged`, this, this.selected);
     }
 }
 

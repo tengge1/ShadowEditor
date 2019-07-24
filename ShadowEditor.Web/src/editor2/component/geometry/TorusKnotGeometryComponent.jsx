@@ -67,28 +67,45 @@ class TorusKnotGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const state = Object.assign({}, this.selected.geometry.parameters, {
+        const { radius, tube, tubularSegments, radialSegments, p, q } = Object.assign({}, this.selected.geometry.parameters, {
             show: true,
         });
 
-        this.setState(state);
+        this.setState({
+            radius: radius || 10,
+            tube: tube || 10,
+            tubularSegments: tubularSegments || 16,
+            radialSegments: radialSegments || 16,
+            p: p || 10,
+            q: q || 10,
+        });
     }
 
-    handleChange(value, name, event) {
-        const state = Object.assign({}, this.state, {
+    handleChange(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
+        const { radius, tube, tubularSegments, radialSegments, p, q } = Object.assign({}, this.state, {
             [name]: value,
         });
 
         this.setState(state);
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.TorusKnotBufferGeometry(
-            state.radius,
-            state.tube,
-            state.tubularSegments,
-            state.radialSegments,
-            state.p,
-            state.q,
+            radius,
+            tube,
+            tubularSegments,
+            radialSegments,
+            p,
+            q,
         )));
+
+        app.call(`objectChanged`, this, this.selected);
     }
 }
 

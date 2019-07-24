@@ -65,27 +65,43 @@ class TorusGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const state = Object.assign({}, this.selected.geometry.parameters, {
+        const { radius, tube, radialSegments, tubularSegments, arc } = Object.assign({}, this.selected.geometry.parameters, {
             show: true,
         });
 
-        this.setState(state);
+        this.setState({
+            radius: radius || 1,
+            tube: tube || 1,
+            radialSegments: radialSegments || 16,
+            tubularSegments: tubularSegments || 16,
+            arc: arc || Math.PI * 2,
+        });
     }
 
-    handleChange(value, name, event) {
-        const state = Object.assign({}, this.state, {
+    handleChange(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
+        const { radius, tube, radialSegments, tubularSegments, arc } = Object.assign({}, this.state, {
             [name]: value,
         });
 
         this.setState(state);
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.TorusBufferGeometry(
-            state.radius,
-            state.tube,
-            state.radialSegments,
-            state.tubularSegments,
-            state.arc,
+            radius,
+            tube,
+            radialSegments,
+            tubularSegments,
+            arc,
         )));
+
+        app.call(`objectChanged`, this, this.selected);
     }
 }
 

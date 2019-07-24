@@ -63,26 +63,39 @@ class PlaneGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const state = Object.assign({}, this.selected.geometry.parameters, {
+        const { width, height, widthSegments, heightSegments } = Object.assign({}, this.selected.geometry.parameters, {
             show: true,
         });
 
-        this.setState(state);
+        this.setState({
+            width: width || 1,
+            height: height || 1,
+            widthSegments: widthSegments || 1,
+            heightSegments: heightSegments || 1,
+        });
     }
 
-    handleChange(value, name, event) {
-        const state = Object.assign({}, this.state, {
+    handleChange(value, name) {
+        this.setState({
             [name]: value,
         });
 
-        this.setState(state);
+        if (value === null) {
+            return;
+        }
+
+        const { width, height, widthSegments, heightSegments, } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.PlaneBufferGeometry(
-            state.width,
-            state.height,
-            state.widthSegments,
-            state.heightSegments,
+            width,
+            height,
+            widthSegments,
+            heightSegments,
         )));
+
+        app.call(`objectChanged`, this, this.selected);
     }
 }
 

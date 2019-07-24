@@ -67,28 +67,45 @@ class CylinderGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const state = Object.assign({}, this.selected.geometry.parameters, {
-            show: true,
-        });
+        const { radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded } = Object.assign({},
+            this.selected.geometry.parameters, {
+                show: true,
+            });
 
-        this.setState(state);
+        this.setState({
+            show: true,
+            radiusTop: radiusTop || 1,
+            radiusBottom: radiusBottom || 1,
+            height: height || 1,
+            radialSegments: radialSegments || 16,
+            heightSegments: heightSegments || 16,
+            openEnded: openEnded || true,
+        });
     }
 
-    handleChange(value, name, event) {
-        const state = Object.assign({}, this.state, {
+    handleChange(value, name) {
+        this.setState({
             [name]: value,
         });
 
-        this.setState(state);
+        if (value === null) {
+            return;
+        }
+
+        const { radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.CylinderBufferGeometry(
-            state.radiusTop,
-            state.radiusBottom,
-            state.height,
-            state.radialSegments,
-            state.heightSegments,
-            state.openEnded,
+            radiusTop,
+            radiusBottom,
+            height,
+            radialSegments,
+            heightSegments,
+            openEnded,
         )));
+
+        app.call(`objectChanged`, this, this.selected);
     }
 }
 

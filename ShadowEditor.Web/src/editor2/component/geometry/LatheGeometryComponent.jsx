@@ -61,28 +61,40 @@ class LatheGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const state = Object.assign({}, this.selected.geometry.parameters, {
+        const { segments, phiStart, phiLength } = Object.assign({}, this.selected.geometry.parameters, {
             show: true,
         });
 
-        this.setState(state);
+        this.setState({
+            segments: segments || 20,
+            phiStart: phiStart || 0,
+            phiLength: phiLength || Math.PI * 2,
+        });
     }
 
-    handleChange(value, name, event) {
-        const state = Object.assign({}, this.state, {
+    handleChange(value, name) {
+        this.setState({
             [name]: value,
         });
 
-        this.setState(state);
+        if (value === null) {
+            return;
+        }
+
+        const { segments, phiStart, phiLength } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         const points = this.selected.geometry.parameters.points;
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.LatheBufferGeometry(
             points,
-            state.segments,
-            state.phiStart,
-            state.phiLength,
+            segments,
+            phiStart,
+            phiLength,
         )));
+
+        app.call(`objectChanged`, this, this.selected);
     }
 }
 
