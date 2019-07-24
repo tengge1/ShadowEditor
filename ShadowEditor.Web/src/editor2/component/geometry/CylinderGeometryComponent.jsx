@@ -20,6 +20,8 @@ class CylinderGeometryComponent extends React.Component {
             radialSegments: 16,
             heightSegments: 1,
             openEnded: false,
+            thetaStart: 0,
+            thetaLength: Math.PI * 2,
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -28,7 +30,7 @@ class CylinderGeometryComponent extends React.Component {
     }
 
     render() {
-        const { show, expanded, radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded } = this.state;
+        const { show, expanded, radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength } = this.state;
 
         if (!show) {
             return null;
@@ -41,6 +43,8 @@ class CylinderGeometryComponent extends React.Component {
             <IntegerProperty name={'radialSegments'} label={L_RADIAL_SEGMENTS} value={radialSegments} onChange={this.handleChange}></IntegerProperty>
             <IntegerProperty name={'heightSegments'} label={L_HEIGHT_SEGMENTS} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
             <CheckBoxProperty name={'openEnded'} label={L_OPEN_ENDED} value={openEnded} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty name={'thetaStart'} label={L_THETA_START} value={thetaStart} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'thetaLength'} label={L_THETA_LENGTH} value={thetaLength} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 
@@ -67,7 +71,7 @@ class CylinderGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const { radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded } = Object.assign({},
+        const { radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength } = Object.assign({},
             this.selected.geometry.parameters, {
                 show: true,
             });
@@ -80,6 +84,8 @@ class CylinderGeometryComponent extends React.Component {
             radialSegments: radialSegments === undefined ? 8 : radialSegments,
             heightSegments: heightSegments === undefined ? 1 : heightSegments,
             openEnded: openEnded === undefined ? false : openEnded,
+            thetaStart: thetaStart === undefined ? 0 : thetaStart,
+            thetaLength: thetaLength === undefined ? Math.PI * 2 : thetaLength,
         });
     }
 
@@ -92,7 +98,7 @@ class CylinderGeometryComponent extends React.Component {
             return;
         }
 
-        const { radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded } = Object.assign({}, this.state, {
+        const { radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength } = Object.assign({}, this.state, {
             [name]: value,
         });
 
@@ -103,6 +109,8 @@ class CylinderGeometryComponent extends React.Component {
             radialSegments,
             heightSegments,
             openEnded,
+            thetaStart,
+            thetaLength,
         )));
 
         app.call(`objectChanged`, this, this.selected);
