@@ -185,6 +185,7 @@ class SceneComponent extends React.Component {
                 if (backgroundImage) {
                     scene.background = backgroundImage;
                 } else {
+                    scene.background = new THREE.Color(backgroundColor);
                     this.setState({
                         [name]: value,
                         backgroundColorShow: false,
@@ -206,6 +207,7 @@ class SceneComponent extends React.Component {
                     ]);
                     scene.background.needsUpdate = true;
                 } else {
+                    scene.background = new THREE.Color(backgroundColor);
                     this.setState({
                         [name]: value,
                         backgroundColorShow: false,
@@ -262,6 +264,7 @@ class SceneComponent extends React.Component {
         });
 
         if (backgroundPosX && backgroundNegX && backgroundPosY && backgroundNegY && backgroundPosZ && backgroundNegZ) {
+            let scene = this.selected;
 
             scene.background = new THREE.CubeTexture([
                 backgroundPosX.image,
@@ -273,9 +276,9 @@ class SceneComponent extends React.Component {
             ]);
 
             scene.background.needsUpdate = true;
-        }
 
-        app.call(`objectChanged`, this, this.selected);
+            app.call(`objectChanged`, this, this.selected);
+        }
     }
 
     handleLoadCubeTexture() {
