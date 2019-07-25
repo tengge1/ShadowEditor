@@ -109,30 +109,35 @@ class ReflectorComponent extends React.Component {
     }
 
     handleChange(value, name) {
-        var reflect = UI.get('reflect', this.id);
-        var color = UI.get('color', this.id);
-        var size = UI.get('size', this.id);
-        var clipBias = UI.get('clipBias', this.id);
-        var recursion = UI.get('recursion', this.id);
+        this.setState({
+            [name]: value,
+        });
 
-        var editor = app.editor;
+        if (value === null) {
+            return;
+        }
 
-        if (reflect.getValue()) {
-            color = color.getHexValue();
+        const { reflect, color, size, clipBias, recursion } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
-            if (!(this.selected instanceof THREE.Reflector) && !Array.isArray(this.selected.material) && this.selected.material.color) {
-                color = this.selected.material.color.getHex();
-            }
+        let editor = app.editor;
 
-            var reflector = new THREE.Reflector(this.selected.geometry, {
+        if (reflect) {
+            // if (!(this.selected instanceof THREE.Reflector) && !Array.isArray(this.selected.material) && this.selected.material.color) {
+            //     color = this.selected.material.color.getHex();
+            // }
+
+            let reflector = new THREE.Reflector(this.selected.geometry, {
                 color: color,
-                textureWidth: parseInt(size.getValue()),
-                textureHeight: parseInt(size.getValue()),
-                clipBias: clipBias.getValue(),
-                recursion: recursion.getValue() ? 1 : 0
+                textureWidth: parseInt(size),
+                textureHeight: parseInt(size),
+                clipBias: clipBias,
+                recursion: recursion ? 1 : 0
             });
 
             reflector.name = this.selected.name;
+
             reflector.position.copy(this.selected.position);
             reflector.rotation.copy(this.selected.rotation);
             reflector.scale.copy(this.selected.scale);
@@ -148,14 +153,15 @@ class ReflectorComponent extends React.Component {
             }
 
             reflector.userData.color = color;
-            reflector.userData.size = size.getValue();
-            reflector.userData.clipBias = clipBias.getValue();
-            reflector.userData.recursion = recursion.getValue();
+            reflector.userData.size = size;
+            reflector.userData.clipBias = clipBias;
+            reflector.userData.recursion = recursion;
 
             var index = editor.scene.children.indexOf(this.selected);
             if (index > -1) {
                 editor.scene.children[index] = reflector;
                 reflector.parent = this.selected.parent;
+                editor.select(null);
                 this.selected.parent = null;
                 app.call(`objectRemoved`, this, this.selected);
                 app.call(`objectAdded`, this, reflector);
@@ -164,7 +170,7 @@ class ReflectorComponent extends React.Component {
             }
         } else {
             if (this.selected instanceof THREE.Reflector) {
-                var mesh = this.selected.userData.mesh;
+                let mesh = this.selected.userData.mesh;
                 this.selected.userData.mesh = null;
 
                 mesh.name = this.selected.name;
@@ -175,12 +181,13 @@ class ReflectorComponent extends React.Component {
                 mesh.receiveShadow = this.selected.receiveShadow;
 
                 if (!Array.isArray(mesh.material) && mesh.material.color) {
-                    mesh.material.color = new THREE.Color(color.getHexValue());
+                    mesh.material.color = new THREE.Color(color);
                 }
 
                 Object.assign(mesh.userData, this.selected.userData);
 
-                var index = editor.scene.children.indexOf(this.selected);
+                let index = editor.scene.children.indexOf(this.selected);
+
                 if (index > -1) {
                     editor.scene.children[index] = mesh;
                     mesh.parent = this.selected.parent;
