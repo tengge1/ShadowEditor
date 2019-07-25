@@ -168,7 +168,10 @@ class SceneComponent extends React.Component {
     }
 
     handleChangeBackgroundType(value, name) {
-        const { backgroundType, backgroundColor, backgroundImage, backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ } = Object.assign({}, this.state, {
+        const {
+            backgroundType, backgroundColor, backgroundImage,
+            backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ
+        } = Object.assign({}, this.state, {
             [name]: value,
         });
 
@@ -218,21 +221,48 @@ class SceneComponent extends React.Component {
     }
 
     handleChangeBackgroundColor(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.background = new THREE.Color(value);
+
         app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeBackgroundImage(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.background = value;
+
         app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeBackgroundCubeTexture(value, name) {
-        let { backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ } = Object.assign({}, this.state, {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
+        const { backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ } = Object.assign({}, this.state, {
             [name]: value,
         });
 
         if (backgroundPosX && backgroundNegX && backgroundPosY && backgroundNegY && backgroundPosZ && backgroundNegZ) {
+
             scene.background = new THREE.CubeTexture([
                 backgroundPosX.image,
                 backgroundNegX.image,
@@ -241,6 +271,7 @@ class SceneComponent extends React.Component {
                 backgroundPosZ.image,
                 backgroundNegZ.image
             ]);
+
             scene.background.needsUpdate = true;
         }
 
@@ -249,13 +280,16 @@ class SceneComponent extends React.Component {
 
     handleLoadCubeTexture() {
         app.call(`selectBottomPanel`, this, 'map');
+
         app.msg(L_CLICK_MAP_PANEL);
+
         app.on(`selectMap.${this.id}`, this.handleSelectCubeMap.bind(this));
     }
 
     handleSelectCubeMap(model) {
         if (model.Type !== 'cube') {
-            UI.msg(L_ONLY_SELECT_CUBE_TEXTURE);
+            app.msg(L_ONLY_SELECT_CUBE_TEXTURE);
+
             return;
         }
 
@@ -286,7 +320,7 @@ class SceneComponent extends React.Component {
         });
     }
 
-    handleSaveCubeTexture() { // 保存立体贴图
+    handleSaveCubeTexture() {
         var texturePosX = UI.get('backgroundPosX', this.id).getValue();
         var textureNegX = UI.get('backgroundNegX', this.id).getValue();
         var texturePosY = UI.get('backgroundPosY', this.id).getValue();
@@ -295,23 +329,23 @@ class SceneComponent extends React.Component {
         var textureNegZ = UI.get('backgroundNegZ', this.id).getValue();
 
         if (!texturePosX || !textureNegX || !texturePosY || !textureNegY || !texturePosZ || !textureNegZ) {
-            UI.msg(L_UPLOAD_ALL_BEFORE_SAVE);
+            app.msg(L_UPLOAD_ALL_BEFORE_SAVE);
             return;
         }
 
-        var posXSrc = texturePosX.image.src;
-        var negXSrc = textureNegX.image.src;
-        var posYSrc = texturePosY.image.src;
-        var negYSrc = textureNegY.image.src;
-        var posZSrc = texturePosZ.image.src;
-        var negZSrc = textureNegZ.image.src;
+        const posXSrc = texturePosX.image.src;
+        const negXSrc = textureNegX.image.src;
+        const posYSrc = texturePosY.image.src;
+        const negYSrc = textureNegY.image.src;
+        const posZSrc = texturePosZ.image.src;
+        const negZSrc = textureNegZ.image.src;
 
         if (posXSrc.startsWith('http') || negXSrc.startsWith('http') || posYSrc.startsWith('http') || negYSrc.startsWith('http') || posZSrc.startsWith('http') || negZSrc.startsWith('http')) {
             UI.msg(L_CUBE_TEXTURE_EXISTED);
             return;
         }
 
-        var promises = [
+        const promises = [
             Converter.dataURLtoFile(posXSrc, 'posX'),
             Converter.dataURLtoFile(negXSrc, 'negX'),
             Converter.dataURLtoFile(posYSrc, 'posY'),
@@ -358,24 +392,56 @@ class SceneComponent extends React.Component {
     }
 
     handleChangeFogColor(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.fog.color.set(value);
 
         app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeFogNear(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.fog.near = value;
 
         app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeFogFar(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.fog.far = value;
 
         app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeFogDensity(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
+        if (value === null) {
+            return;
+        }
+
         this.selected.fog.density = value;
 
         app.call(`objectChanged`, this, this.selected);
