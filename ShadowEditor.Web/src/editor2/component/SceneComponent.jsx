@@ -1,5 +1,7 @@
 import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty, SelectProperty, ColorProperty, TextureProperty, ButtonsProperty, Button } from '../../third_party';
 import SetValueCommand from '../../command/SetValueCommand';
+import Converter from '../../utils/Converter';
+import Ajax from '../../utils/Ajax';
 
 /**
  * 场景组件
@@ -66,6 +68,7 @@ class SceneComponent extends React.Component {
         this.handleChangeBackgroundImage = this.handleChangeBackgroundImage.bind(this);
         this.handleChangeBackgroundCubeTexture = this.handleChangeBackgroundCubeTexture.bind(this);
 
+        this.handleLoadCubeTexture = this.handleLoadCubeTexture.bind(this);
         this.handleSelectCubeMap = this.handleSelectCubeMap.bind(this);
         this.handleSaveCubeTexture = this.handleSaveCubeTexture.bind(this);
 
@@ -284,14 +287,14 @@ class SceneComponent extends React.Component {
     handleLoadCubeTexture() {
         app.call(`selectBottomPanel`, this, 'map');
 
-        app.msg(L_CLICK_MAP_PANEL);
+        app.toast(L_CLICK_MAP_PANEL);
 
-        app.on(`selectMap.${this.id}`, this.handleSelectCubeMap.bind(this));
+        app.on(`selectMap.${this.id}`, this.handleSelectCubeMap);
     }
 
     handleSelectCubeMap(model) {
         if (model.Type !== 'cube') {
-            app.msg(L_ONLY_SELECT_CUBE_TEXTURE);
+            app.toast(L_ONLY_SELECT_CUBE_TEXTURE);
 
             return;
         }
@@ -324,27 +327,22 @@ class SceneComponent extends React.Component {
     }
 
     handleSaveCubeTexture() {
-        var texturePosX = UI.get('backgroundPosX', this.id).getValue();
-        var textureNegX = UI.get('backgroundNegX', this.id).getValue();
-        var texturePosY = UI.get('backgroundPosY', this.id).getValue();
-        var textureNegY = UI.get('backgroundNegY', this.id).getValue();
-        var texturePosZ = UI.get('backgroundPosZ', this.id).getValue();
-        var textureNegZ = UI.get('backgroundNegZ', this.id).getValue();
+        const { backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ } = this.state;
 
-        if (!texturePosX || !textureNegX || !texturePosY || !textureNegY || !texturePosZ || !textureNegZ) {
-            app.msg(L_UPLOAD_ALL_BEFORE_SAVE);
+        if (!backgroundPosX || !backgroundNegX || !backgroundPosY || !backgroundNegY || !backgroundPosZ || !backgroundNegZ) {
+            app.toast(L_UPLOAD_ALL_BEFORE_SAVE);
             return;
         }
 
-        const posXSrc = texturePosX.image.src;
-        const negXSrc = textureNegX.image.src;
-        const posYSrc = texturePosY.image.src;
-        const negYSrc = textureNegY.image.src;
-        const posZSrc = texturePosZ.image.src;
-        const negZSrc = textureNegZ.image.src;
+        const posXSrc = backgroundPosX.image.src;
+        const negXSrc = backgroundNegX.image.src;
+        const posYSrc = backgroundPosY.image.src;
+        const negYSrc = backgroundNegY.image.src;
+        const posZSrc = backgroundPosZ.image.src;
+        const negZSrc = backgroundNegZ.image.src;
 
         if (posXSrc.startsWith('http') || negXSrc.startsWith('http') || posYSrc.startsWith('http') || negYSrc.startsWith('http') || posZSrc.startsWith('http') || negZSrc.startsWith('http')) {
-            UI.msg(L_CUBE_TEXTURE_EXISTED);
+            app.toast(L_CUBE_TEXTURE_EXISTED);
             return;
         }
 
@@ -366,8 +364,8 @@ class SceneComponent extends React.Component {
                 posZ: files[4],
                 negZ: files[5],
             }, result => {
-                var obj = JSON.parse(result);
-                UI.msg(obj.Msg);
+                let obj = JSON.parse(result);
+                app.toast(obj.Msg);
             });
         });
     }
