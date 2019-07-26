@@ -124,10 +124,6 @@ class ReflectorComponent extends React.Component {
         let editor = app.editor;
 
         if (reflect) {
-            // if (!(this.selected instanceof THREE.Reflector) && !Array.isArray(this.selected.material) && this.selected.material.color) {
-            //     color = this.selected.material.color.getHex();
-            // }
-
             let reflector = new THREE.Reflector(this.selected.geometry, {
                 color: color,
                 textureWidth: parseInt(size),
