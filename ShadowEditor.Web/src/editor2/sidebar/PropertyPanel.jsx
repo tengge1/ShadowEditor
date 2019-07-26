@@ -24,6 +24,8 @@ import SmokeComponent from '../component/SmokeComponent.jsx';
 import ShadowComponent from '../component/ShadowComponent.jsx';
 import SceneComponent from '../component/SceneComponent.jsx';
 import ReflectorComponent from '../component/ReflectorComponent.jsx';
+import ParticleEmitterComponent from '../component/ParticleEmitterComponent.jsx';
+import MMDComponent from '../component/MMDComponent.jsx';
 
 /**
  * 属性面板
@@ -47,6 +49,8 @@ class PropertyPanel extends React.Component {
             <FireComponent></FireComponent>
             <SmokeComponent></SmokeComponent>
             <LMeshComponent></LMeshComponent>
+            <ParticleEmitterComponent></ParticleEmitterComponent>
+            <MMDComponent></MMDComponent>
 
             <BoxGeometryComponent></BoxGeometryComponent>
             <CircleGeometryComponent></CircleGeometryComponent>
