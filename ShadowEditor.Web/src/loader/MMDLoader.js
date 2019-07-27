@@ -13,7 +13,7 @@ MMDLoader.prototype.constructor = MMDLoader;
 
 MMDLoader.prototype.load = function (url, options, environment) {
     return new Promise(resolve => {
-        this.require('MMD').then(() => {
+        this.require(['ammo', 'MMD']).then(() => {
             var loader = new THREE.MMDLoader();
 
             var promise1 = options.Animation && options.Animation.Url ?
