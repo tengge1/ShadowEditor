@@ -53,7 +53,7 @@ class ParticleEmitterComponent extends React.Component {
             particleCount: 1000,
             maxAge: 5,
             maxAgeSpread: 2,
-            previewText: L_PLAY,
+            previewText: L_PREVIEW,
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -140,7 +140,7 @@ class ParticleEmitterComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
-        if (!editor.selected || !(editor.selected instanceof THREE.Mesh)) {
+        if (!editor.selected || !(editor.selected.userData.type === 'ParticleEmitter')) {
             this.setState({
                 show: false,
             });
@@ -149,180 +149,282 @@ class ParticleEmitterComponent extends React.Component {
 
         this.selected = editor.selected;
 
+        let group = this.selected.userData.group;
+        let emitter = group.emitters[0];
+
         let state = {
             show: true,
-        };
 
-        if (this.selected instanceof THREE.Reflector) {
-            Object.assign(state, {
-                reflect: true,
-                showColor: true,
-                color: this.selected.userData.color,
-                showSize: true,
-                size: this.selected.userData.size,
-                showClipBias: true,
-                clipBias: this.selected.userData.clipBias,
-                showRecursion: true,
-                recursion: this.selected.userData.recursion,
-            });
-        } else {
-            Object.assign(state, {
-                reflect: false,
-                showColor: false,
-                showSize: false,
-                showClipBias: false,
-                showRecursion: false,
-            });
-        }
+            positionX: emitter.position.value.x,
+            positionY: emitter.position.value.y,
+            positionZ: emitter.position.value.z,
+
+            positionSpreadX: emitter.position.spread.x,
+            positionSpreadY: emitter.position.spread.y,
+            positionSpreadZ: emitter.position.spread.z,
+
+            velocityX: emitter.velocity.value.x,
+            velocityY: emitter.velocity.value.y,
+            velocityZ: emitter.velocity.value.z,
+
+            velocitySpreadX: emitter.velocity.spread.x,
+            velocitySpreadY: emitter.velocity.spread.y,
+            velocitySpreadZ: emitter.velocity.spread.z,
+
+            accelerationX: emitter.acceleration.value.x,
+            accelerationY: emitter.acceleration.value.y,
+            accelerationZ: emitter.acceleration.value.z,
+
+            accelerationSpreadX: emitter.acceleration.spread.x,
+            accelerationSpreadY: emitter.acceleration.spread.y,
+            accelerationSpreadZ: emitter.acceleration.spread.z,
+
+            color1: `#${emitter.color.value[0].getHexString()}`,
+            color2: `#${emitter.color.value[1].getHexString()}`,
+            color3: `#${emitter.color.value[2].getHexString()}`,
+            color4: `#${emitter.color.value[3].getHexString()}`,
+
+            size: emitter.size.value[0],
+            sizeSpread: emitter.size.spread[0],
+            texture: group.texture,
+            particleCount: emitter.particleCount,
+            maxAge: emitter.maxAge.value,
+            maxAgeSpread: emitter.maxAge.spread,
+
+            previewText: this.isPlaying ? L_CANCEL : L_PREVIEW
+        };
 
         this.setState(state);
     }
 
-    handleChangePosition() {
-        var positionX = UI.get('positionX', this.id);
-        var positionY = UI.get('positionY', this.id);
-        var positionZ = UI.get('positionZ', this.id);
+    handleChangePosition(value, name) {
+        this.setState({
+            [name]: value,
+        });
 
-        var positionSpreadX = UI.get('positionSpreadX', this.id);
-        var positionSpreadY = UI.get('positionSpreadY', this.id);
-        var positionSpreadZ = UI.get('positionSpreadZ', this.id);
+        if (value === null) {
+            return;
+        }
 
-        var group = this.selected.userData.group;
-        var emitter = group.emitters[0];
+        const { positionX, positionY, positionZ, positionSpreadX, positionSpreadY, positionSpreadZ } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
-        emitter.position.value.x = positionX.getValue();
-        emitter.position.value.y = positionY.getValue();
-        emitter.position.value.z = positionZ.getValue();
+        let group = this.selected.userData.group;
+        let emitter = group.emitters[0];
 
-        emitter.position.spread.x = positionSpreadX.getValue();
-        emitter.position.spread.y = positionSpreadY.getValue();
-        emitter.position.spread.z = positionSpreadZ.getValue();
+        emitter.position.value.x = positionX;
+        emitter.position.value.y = positionY;
+        emitter.position.value.z = positionZ;
+
+        emitter.position.spread.x = positionSpreadX;
+        emitter.position.spread.y = positionSpreadY;
+        emitter.position.spread.z = positionSpreadZ;
 
         emitter.updateFlags.position = true;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeVelocity() {
-        var velocityX = UI.get('velocityX', this.id);
-        var velocityY = UI.get('velocityY', this.id);
-        var velocityZ = UI.get('velocityZ', this.id);
+    handleChangeVelocity(value, name) {
+        this.setState({
+            [name]: value,
+        });
 
-        var velocitySpreadX = UI.get('velocitySpreadX', this.id);
-        var velocitySpreadY = UI.get('velocitySpreadY', this.id);
-        var velocitySpreadZ = UI.get('velocitySpreadZ', this.id);
+        if (value === null) {
+            return;
+        }
 
-        var group = this.selected.userData.group;
-        var emitter = group.emitters[0];
+        const { velocityX, velocityY, velocityZ, velocitySpreadX, velocitySpreadY, velocitySpreadZ } = Object.assign({}, this.selected, {
+            [name]: value,
+        });
 
-        emitter.velocity.value.x = velocityX.getValue();
-        emitter.velocity.value.y = velocityY.getValue();
-        emitter.velocity.value.z = velocityZ.getValue();
+        let group = this.selected.userData.group;
+        let emitter = group.emitters[0];
 
-        emitter.velocity.spread.x = velocitySpreadX.getValue();
-        emitter.velocity.spread.y = velocitySpreadY.getValue();
-        emitter.velocity.spread.z = velocitySpreadZ.getValue();
+        emitter.velocity.value.x = velocityX;
+        emitter.velocity.value.y = velocityY;
+        emitter.velocity.value.z = velocityZ;
+
+        emitter.velocity.spread.x = velocitySpreadX;
+        emitter.velocity.spread.y = velocitySpreadY;
+        emitter.velocity.spread.z = velocitySpreadZ;
 
         emitter.updateFlags.velocity = true;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeAcceleration() {
-        var accelerationX = UI.get('accelerationX', this.id);
-        var accelerationY = UI.get('accelerationY', this.id);
-        var accelerationZ = UI.get('accelerationZ', this.id);
+    handleChangeAcceleration(value, name) {
+        this.setState({
+            [name]: value,
+        });
 
-        var accelerationSpreadX = UI.get('accelerationSpreadX', this.id);
-        var accelerationSpreadY = UI.get('accelerationSpreadY', this.id);
-        var accelerationSpreadZ = UI.get('accelerationSpreadZ', this.id);
+        if (value === null) {
+            return;
+        }
 
-        var group = this.selected.userData.group;
-        var emitter = group.emitters[0];
+        const { accelerationX, accelerationY, accelerationZ, accelerationSpreadX, accelerationSpreadY, accelerationSpreadZ } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
-        emitter.acceleration.value.x = accelerationX.getValue();
-        emitter.acceleration.value.y = accelerationY.getValue();
-        emitter.acceleration.value.z = accelerationZ.getValue();
+        let group = this.selected.userData.group;
+        let emitter = group.emitters[0];
 
-        emitter.acceleration.spread.x = accelerationSpreadX.getValue();
-        emitter.acceleration.spread.y = accelerationSpreadY.getValue();
-        emitter.acceleration.spread.z = accelerationSpreadZ.getValue();
+        emitter.acceleration.value.x = accelerationX;
+        emitter.acceleration.value.y = accelerationY;
+        emitter.acceleration.value.z = accelerationZ;
+
+        emitter.acceleration.spread.x = accelerationSpreadX;
+        emitter.acceleration.spread.y = accelerationSpreadY;
+        emitter.acceleration.spread.z = accelerationSpreadZ;
 
         emitter.updateFlags.acceleration = true;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeColor() {
-        var color1 = UI.get('color1', this.id);
-        var color2 = UI.get('color2', this.id);
-        var color3 = UI.get('color3', this.id);
-        var color4 = UI.get('color4', this.id);
+    handleChangeColor(value, name) {
+        this.setState({
+            [name]: value,
+        });
 
-        var group = this.selected.userData.group;
-        var emitter = group.emitters[0];
+        if (value === null) {
+            return;
+        }
 
-        emitter.color.value[0] = new THREE.Color(color1.getHexValue());
-        emitter.color.value[1] = new THREE.Color(color2.getHexValue());
-        emitter.color.value[2] = new THREE.Color(color3.getHexValue());
-        emitter.color.value[3] = new THREE.Color(color4.getHexValue());
+        const { color1, color2, color3, color4 } = Object.assign({}, this.state, {
+            [name]: value,
+        });
+
+        let group = this.selected.userData.group;
+        let emitter = group.emitters[0];
+
+        emitter.color.value[0] = new THREE.Color(color1);
+        emitter.color.value[1] = new THREE.Color(color2);
+        emitter.color.value[2] = new THREE.Color(color3);
+        emitter.color.value[3] = new THREE.Color(color4);
 
         emitter.updateFlags.color = true;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeSize() {
-        var size = UI.get('size', this.id);
-        var sizeSpread = UI.get('sizeSpread', this.id);
+    handleChangeSize(value, name) {
+        this.setState({
+            [name]: value,
+        });
 
-        var group = this.selected.userData.group;
-        var emitter = group.emitters[0];
+        if (value === null) {
+            return;
+        }
+
+        const { size, sizeSpread } = this.state;
+
+        let group = this.selected.userData.group;
+        let emitter = group.emitters[0];
 
         for (var i = 0; i < emitter.size.value.length; i++) {
-            emitter.size.value[i] = size.getValue();
-            emitter.size.spread[i] = sizeSpread.getValue();
+            emitter.size.value[i] = size;
+            emitter.size.spread[i] = sizeSpread;
         }
 
         emitter.updateFlags.size = true;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeTexture() {
-        var texture = UI.get('texture', this.id);
+    handleChangeTexture(value, name) {
+        this.setState({
+            [name]: value,
+        });
 
-        var group = this.selected.userData.group;
-        var emitter = group.emitters[0];
+        if (value === null) {
+            return;
+        }
 
-        texture = texture.getValue();
+        const { texture } = Object.assign({}, this.state, {
+            [name]: value,
+        });
+
+        let group = this.selected.userData.group;
+        let emitter = group.emitters[0];
+
         texture.needsUpdate = true;
 
         group.texture = texture;
         group.material.uniforms.texture.value = texture;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeParticleCount() {
-        var particleCount = UI.get('particleCount', this.id);
+    handleChangeParticleCount(value, name) {
+        this.setState({
+            [name]: value,
+        });
 
-        var group = this.selected.userData.group;
-        var emitter = group.emitters[0];
+        if (value === null) {
+            return;
+        }
 
-        emitter.particleCount = particleCount.getValue();
+        const { particleCount } = Object.assign({}, this.state, {
+            [name]: value,
+        });
+
+        let group = this.selected.userData.group;
+        let emitter = group.emitters[0];
+
+        emitter.particleCount = particleCount;
 
         emitter.updateFlags.params = true;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeMaxAge() {
-        var maxAge = UI.get('maxAge', this.id);
+    handleChangeMaxAge(value, name) {
+        this.setState({
+            [name]: value,
+        });
 
-        var group = this.selected.userData.group;
-        var emitter = group.emitters[0];
+        if (value === null) {
+            return;
+        }
 
-        emitter.maxAge.value = maxAge.getValue();
+        const { maxAge } = Object.assign({}, this.state, {
+            [name]: value,
+        });
+
+        let group = this.selected.userData.group;
+        let emitter = group.emitters[0];
+
+        emitter.maxAge.value = maxAge;
 
         emitter.updateFlags.params = true;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeMaxAgeSpread() {
-        var maxAgeSpread = UI.get('maxAgeSpread', this.id);
+    handleChangeMaxAgeSpread(value, name) {
+        this.setState({
+            [name]: value,
+        });
 
-        var group = this.selected.userData.group;
-        var emitter = group.emitters[0];
+        if (value === null) {
+            return;
+        }
 
-        emitter.maxAge.spread = maxAgeSpread.getValue();
+        const { maxAgeSpread } = Object.assign({}, this.state, {
+            [name]: value,
+        });
+
+        let group = this.selected.userData.group;
+        let emitter = group.emitters[0];
+
+        emitter.maxAge.spread = maxAgeSpread;
 
         emitter.updateFlags.params = true;
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
     handlePreview() {
@@ -334,22 +436,24 @@ class ParticleEmitterComponent extends React.Component {
     }
 
     startPreview() {
-        var btnPreview = UI.get('btnPreview', this.id);
-
         this.isPlaying = true;
-        btnPreview.setText(L_CANCEL);
+
+        this.setState({
+            previewText: L_CANCEL,
+        });
 
         app.on(`animate.${this.id}`, this.onAnimate);
     }
 
     stopPreview() {
-        var btnPreview = UI.get('btnPreview', this.id);
-
         this.isPlaying = false;
-        btnPreview.setText(L_PREVIEW);
 
-        var group = this.selected.userData.group;
-        var emitter = this.selected.userData.emitter;
+        this.setState({
+            previewText: L_PREVIEW,
+        });
+
+        let group = this.selected.userData.group;
+        let emitter = this.selected.userData.emitter;
 
         group.removeEmitter(emitter);
         group.addEmitter(emitter);
@@ -359,7 +463,8 @@ class ParticleEmitterComponent extends React.Component {
     }
 
     onAnimate(clock, deltaTime) {
-        var group = this.selected.userData.group;
+        let group = this.selected.userData.group;
+
         group.tick(deltaTime);
     }
 }
