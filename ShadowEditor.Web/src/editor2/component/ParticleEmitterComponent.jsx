@@ -1,4 +1,4 @@
-import IntegerProperty, { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty, SelectProperty, ColorProperty, TextureProperty, ButtonsProperty, Button } from '../../third_party';
+import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty, SelectProperty, ColorProperty, TextureProperty, ButtonsProperty, Button, IntegerProperty } from '../../third_party';
 import SetValueCommand from '../../command/SetValueCommand';
 import Converter from '../../utils/Converter';
 import Ajax from '../../utils/Ajax';
@@ -247,7 +247,7 @@ class ParticleEmitterComponent extends React.Component {
         emitter.updateFlags.acceleration = true;
     }
 
-    handleChangeColor = function () {
+    handleChangeColor() {
         var color1 = UI.get('color1', this.id);
         var color2 = UI.get('color2', this.id);
         var color3 = UI.get('color3', this.id);
