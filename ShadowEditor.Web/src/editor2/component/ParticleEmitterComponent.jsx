@@ -319,7 +319,9 @@ class ParticleEmitterComponent extends React.Component {
             return;
         }
 
-        const { size, sizeSpread } = this.state;
+        const { size, sizeSpread } = Object.assign({}, this.state, {
+            [name]: value,
+        });
 
         let group = this.selected.userData.group;
         let emitter = group.emitters[0];
