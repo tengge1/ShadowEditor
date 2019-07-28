@@ -31,7 +31,12 @@ class MMDComponent extends React.Component {
         this.handleExpand = this.handleExpand.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
 
-        this.handleChange = this.handleChange.bind(this);
+        this.handleSelectAnimation = this.handleSelectAnimation.bind(this);
+        this.onSelectAnimation = this.onSelectAnimation.bind(this);
+        this.handleSelectCameraAnimation = this.handleSelectCameraAnimation.bind(this);
+        this.onSelectCameraAnimation = this.onSelectCameraAnimation.bind(this);
+        this.handleSelectAudio = this.handleSelectAudio.bind(this);
+        this.onSelectAudio = this.onSelectAudio.bind(this);
     }
 
     render() {

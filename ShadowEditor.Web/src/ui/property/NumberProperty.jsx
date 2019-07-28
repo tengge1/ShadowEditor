@@ -16,7 +16,7 @@ class NumberProperty extends React.Component {
     }
 
     render() {
-        const { className, style, name, value } = this.props;
+        const { className, style, name, value, min, max, step } = this.props;
 
         return <Input
             className={classNames('input', className)}
@@ -24,6 +24,9 @@ class NumberProperty extends React.Component {
             name={name}
             type={'number'}
             value={value}
+            min={min}
+            max={max}
+            step={step}
             onChange={this.handleChange}></Input>;
     }
 
@@ -37,6 +40,9 @@ NumberProperty.propTypes = {
     style: PropTypes.object,
     name: PropTypes.string,
     value: PropTypes.number,
+    min: PropTypes.number,
+    max: PropTypes.number,
+    step: PropTypes.number,
     onChange: PropTypes.func,
 };
 
@@ -45,6 +51,9 @@ NumberProperty.defaultProps = {
     style: null,
     name: null,
     value: 0,
+    min: null,
+    max: null,
+    step: null,
     onChange: null,
 };
 
