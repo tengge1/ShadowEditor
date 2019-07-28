@@ -25,12 +25,12 @@ class TimelinePanel extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`appStarted.TimelinePanel`, this.onAppStarted.bind(this));
-        app.on(`animationChanged.TimelinePanel`, this.updateUI.bind(this));
+        // app.on(`appStarted.TimelinePanel`, this.onAppStarted.bind(this));
+        // app.on(`animationChanged.TimelinePanel`, this.updateUI.bind(this));
     }
 
     onAppStarted() {
-        // this.updateUI();
+        this.updateUI();
         // var timeline = UI.get('timeline', this.id);
         // var layers = UI.get('layers', this.id);
 
