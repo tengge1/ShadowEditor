@@ -15,7 +15,7 @@ class Input extends React.Component {
     }
 
     render() {
-        const { className, style, name, type, value, min, max, step, precision, disabled } = this.props;
+        const { className, style, name, type, value, min, max, step, disabled } = this.props;
 
         let val = value === undefined || value === null ? '' : value;
 
@@ -37,7 +37,13 @@ class Input extends React.Component {
 
         if (this.props.type === 'number') {
             if (value.trim() !== '') {
-                onChange && onChange(parseFloat(value), this.props.name, event);
+                const precision = this.props.precision;
+
+                if (precision === 0) {
+                    onChange && onChange(parseInt(value), this.props.name, event);
+                } else {
+                    onChange && onChange(parseInt(parseFloat(value) * 10 ** precision) / 10 ** precision, this.props.name, event);
+                }
             } else {
                 onChange && onChange(null, this.props.name, event);
             }
