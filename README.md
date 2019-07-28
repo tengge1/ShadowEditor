@@ -3,18 +3,16 @@
 Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md) / [русский](README-ru.md)
 
 * 名称：Shadow Editor
-* 版本：v0.2.6(开发中)
+* 版本：v0.2.6
 * 简介：基于`three.js`的场景编辑器。
 
-## v0.2.6即将更新
+## v0.2.6更新
 
-## v0.2.5更新
-
-* 发布日期：2019年7月14日
+* 发布日期：2019年7月28日
 * 更新日志：
 
-1. 新增`npm run dev`命令，保存文件自动生成，速度有了很大提升。(8秒->1秒)
-2. 新版编辑器菜单栏、工具栏、资源管理器、场景编辑区、场景树状图，历史面板、脚本面板、脚本编辑器改写完成。(dev分支)
+1. 修复播放MMD动画，缺少ammo.js的bug。
+2. 完成BasicComponent、CameraComponent、FireComponent、LightComponent、LMeshComponent、MMDComponent、ParticleEmitterComponent、ReflectorComponent、SceneComponent、ShadowComponent、SmokeComponent、TransformComponent、BoxGeometryComponent、CircleGeometryComponent、CylinderGeometryComponent、IcosahedronGeometryComponent、LatheGeometryComponent、PlaneGeometryComponent、SphereGeometryComponent、TeapotGeometryComponent、TorusGeometryComponent、TorusKnotGeometryComponent、组件的重构。(dev分支)
 
 ## 项目截图
 
@@ -49,9 +47,9 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日
         <td>演示</td>
         <td><a href="https://tengge1.github.io/ShadowEditor-examples/">GitHub</a></td>
         <td><a href="http://tengge1.gitee.io/shadoweditor-examples/">码云</a></td>
-        <td>数据库及资源</td>
-        <td><a href="https://pan.baidu.com/s/1VfgewDdoNP_N9VQQ4iUCeg" target="_blank">百度网盘20190116</a></td>
-        <td>提取码：n8je</td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
 </table>
 
@@ -147,6 +145,14 @@ npm run build-docs
 基本几何体都支持多层嵌套。可以添加一个`组`（在几何体菜单中），然后在场景树状图上，将多个模型拖动到`组`上。
 
 ## 更新日志
+
+**v0.2.6**
+
+* 发布日期：2019年7月28日
+* 更新日志：
+
+1. 修复播放MMD动画，缺少ammo.js的bug。
+2. 完成BasicComponent、CameraComponent、FireComponent、LightComponent、LMeshComponent、MMDComponent、ParticleEmitterComponent、ReflectorComponent、SceneComponent、ShadowComponent、SmokeComponent、TransformComponent、BoxGeometryComponent、CircleGeometryComponent、CylinderGeometryComponent、IcosahedronGeometryComponent、LatheGeometryComponent、PlaneGeometryComponent、SphereGeometryComponent、TeapotGeometryComponent、TorusGeometryComponent、TorusKnotGeometryComponent、组件的重构。(dev分支)
 
 **v0.2.5**
 
