@@ -41,9 +41,9 @@ class MMDComponent extends React.Component {
         }
 
         return <PropertyGroup title={L_MMD_MODEL} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <DisplayField label={L_MODEL_ANIMATION} name={'animation'} value={animation} btnShow={true} btnText={L_SELECT} onChange={this.handleSelectAnimation}></DisplayField>
-            <DisplayField label={L_CAMERA_ANIMATION} name={'cameraAnimation'} value={cameraAnimation} btnShow={true} btnText={L_SELECT} onChange={this.handleSelectCameraAnimation}></DisplayField>
-            <DisplayField label={L_AUDIO} name={'audio'} value={audio} btnShow={true} btnText={L_SELECT} onChange={this.handleSelectAudio}></DisplayField>
+            <DisplayProperty label={L_MODEL_ANIMATION} name={'animation'} value={animation} btnShow={true} btnText={L_SELECT} onClick={this.handleSelectAnimation}></DisplayProperty>
+            <DisplayProperty label={L_CAMERA_ANIMATION} name={'cameraAnimation'} value={cameraAnimation} btnShow={true} btnText={L_SELECT} onClick={this.handleSelectCameraAnimation}></DisplayProperty>
+            <DisplayProperty label={L_AUDIO} name={'audio'} value={audio} btnShow={true} btnText={L_SELECT} onClick={this.handleSelectAudio}></DisplayProperty>
         </PropertyGroup>;
     }
 
