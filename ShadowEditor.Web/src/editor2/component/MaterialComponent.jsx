@@ -1,5 +1,22 @@
 import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, SelectProperty, ButtonsProperty, Button, ColorProperty } from '../../third_party';
 import SetValueCommand from '../../command/SetValueCommand';
+import SetMaterialCommand from '../../command/SetMaterialCommand';
+import SetMaterialColorCommand from '../../command/SetMaterialColorCommand';
+import SetMaterialValueCommand from '../../command/SetMaterialValueCommand';
+import SetMaterialMapCommand from '../../command/SetMaterialMapCommand';
+import ShaderMaterialVertex from './shader/shader_material_vertex.glsl';
+import ShaderMaterialFragment from './shader/shader_material_fragment.glsl';
+import RawShaderMaterialVertex from './shader/raw_shader_material_vertex.glsl';
+import RawShaderMaterialFragment from './shader/raw_shader_material_fragment.glsl';
+
+// import TextureSelectControl from '../editor/control/TextureSelectControl';
+// import TextureSettingWindow from '../editor/window/TextureSettingWindow';
+
+import MaterialsSerializer from '../../serialization/material/MaterialsSerializer';
+import MaterialUtils from '../../utils/MaterialUtils';
+
+import Ajax from '../../utils/Ajax';
+import Converter from '../../utils/Converter';
 
 /**
  * 材质组件
@@ -10,7 +27,6 @@ class MaterialComponent extends React.Component {
         super(props);
 
         this.selected = null;
-        this.isPlaying = false;
 
         this.materials = {
             'LineBasicMaterial': L_LINE_BASIC_MATERIAL,
@@ -32,6 +48,53 @@ class MaterialComponent extends React.Component {
             show: false,
             expanded: true,
 
+            type: null,
+            color: null,
+            roughness: null,
+            metalness: null,
+            emissive: null,
+            specular: null,
+            shininess: null,
+            clearCoat: null,
+            clearCoatRoughness: null,
+            vertexColors: null,
+            skinning: null,
+            mapEnabled: null,
+            map: null,
+            alphaMapEnabled: null,
+            alphaMap: null,
+            bumpMapEnabled: null,
+            bumpMap: null,
+            bumpScale: null,
+            normalMapEnabled: null,
+            normalMap: null,
+            displacementMapEnabled: null,
+            displacementMap: null,
+            displacementScale: null,
+            roughnessMapEnabled: null,
+            roughnessMap: null,
+            metalnessMapEnabled: null,
+            metalnessMap: null,
+            specularMapEnabled: null,
+            specularMap: null,
+            envMapEnabled: null,
+            envMap: null,
+            reflectivity: null,
+            lightMapEnabled: null,
+            lightMap: null,
+            aoMapEnabled: null,
+            aoMap: null,
+            aoScale: null,
+            emissiveMapEnabled: null,
+            emissiveMap: null,
+            side: null,
+            flatShading: null,
+            blending: null,
+            opacity: 1,
+            transparent: false,
+            alphaTest: 1,
+            wireframe: false,
+            wireframeLinewidth: 1,
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -824,7 +887,7 @@ class MaterialComponent extends React.Component {
         }
 
         if (!this.selected.material.map) {
-            UI.msg(L_SELECT_TEXTURE_FIRST);
+            app.toast(L_SELECT_TEXTURE_FIRST);
             return;
         }
 
@@ -863,14 +926,14 @@ class MaterialComponent extends React.Component {
                 if (obj.Code === 200) {
                     app.call(`showBottomPanel`, this, 'material');
                 }
-                UI.msg(obj.Msg);
+                app.toast(obj.Msg);
             });
         });
     }
 
     onLoad() {
         app.call(`selectBottomPanel`, this, 'material');
-        UI.msg(L_CLICK_MATERIAL_ON_PANEL);
+        app.toast(L_CLICK_MATERIAL_ON_PANEL);
         app.on(`selectMaterial.${this.id}`, this.onWaitingForMaterial.bind(this));
     }
 
