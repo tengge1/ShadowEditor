@@ -4,7 +4,7 @@ import Converter from '../../utils/Converter';
 import Ajax from '../../utils/Ajax';
 
 /**
- * 粒子发射器组件
+ * MMD模型组件
  * @author tengge / https://github.com/tengge1
  */
 class MMDComponent extends React.Component {
@@ -12,12 +12,6 @@ class MMDComponent extends React.Component {
         super(props);
 
         this.selected = null;
-
-        this.sizes = {
-            '512': '512*512',
-            '1024': '1024*1024',
-            '2048': '2048*2048',
-        };
 
         this.state = {
             show: false,
@@ -47,7 +41,7 @@ class MMDComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_REFLECTOR_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
+        return <PropertyGroup title={L_MMD_MODEL} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <CheckBoxProperty label={L_REFLECT} name={'reflect'} value={reflect} onChange={this.handleChange}></CheckBoxProperty>
             <ColorProperty label={L_COLOR} name={'color'} value={color} show={showColor} onChange={this.handleChange}></ColorProperty>
             <SelectProperty label={L_TEXTURE_SIZE} name={'size'} options={this.sizes} value={size} show={showSize} onChange={this.handleChange}></SelectProperty>
@@ -108,18 +102,60 @@ class MMDComponent extends React.Component {
         this.setState(state);
     }
 
-    handleChange(value, name) {
-        this.setState({
-            [name]: value,
-        });
+    // ----------------------------- 模型动画 ------------------------------------------
 
-        if (value === null) {
+    handleSelectAnimation() {
+        app.call(`selectBottomPanel`, this, 'animation');
+        app.msg(L_CLICK_ANIMATION_PANEL);
+        app.on(`selectAnimation.${this.id}`, this.onSelectAnimation);
+    }
+
+    onSelectAnimation(data) {
+        if (data.Type !== 'mmd') {
+            UI.msg(L_SELECT_MMD_ANIMATION_ONLY);
             return;
         }
+        app.on(`selectAnimation.${this.id}`, null);
 
-        const { reflect, color, size, clipBias, recursion } = Object.assign({}, this.state, {
-            [name]: value,
-        });
+        this.selected.userData.Animation = {};
+        Object.assign(this.selected.userData.Animation, data);
+        this.updateUI();
+    }
+
+    // ---------------------------- 相机动画 -------------------------------------------
+
+    handleSelectCameraAnimation() {
+        app.call(`selectBottomPanel`, this, 'animation');
+        UI.msg(L_CLICK_CAMERA_ANIMATION);
+        app.on(`selectAnimation.${this.id}`, this.onSelectCameraAnimation);
+    }
+
+    onSelectCameraAnimation(data) {
+        if (data.Type !== 'mmd') {
+            UI.msg(L_SELECT_CAMERA_ANIMATION_ONLY);
+            return;
+        }
+        app.on(`selectAnimation.${this.id}`, null);
+
+        this.selected.userData.CameraAnimation = {};
+        Object.assign(this.selected.userData.CameraAnimation, data);
+        this.updateUI();
+    }
+
+    // ------------------------------ MMD音乐 --------------------------------------------
+
+    handleSelectAudio() {
+        app.call(`selectBottomPanel`, this, 'audio');
+        UI.msg(L_SELECT_MMD_AUDIO);
+        app.on(`selectAudio.${this.id}`, this.onSelectAudio.bind(this));
+    }
+
+    onSelectAudio(data) {
+        app.on(`selectAudio.${this.id}`, null);
+
+        this.selected.userData.Audio = {};
+        Object.assign(this.selected.userData.Audio, data);
+        this.updateUI();
     }
 }
 
