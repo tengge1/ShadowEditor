@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, SelectProperty, ButtonsProperty, Button, ColorProperty } from '../../third_party';
+import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, SelectProperty, ButtonsProperty, Button, ColorProperty, NumberProperty, TextureProperty } from '../../third_party';
 import SetValueCommand from '../../command/SetValueCommand';
 import SetMaterialCommand from '../../command/SetMaterialCommand';
 import SetMaterialColorCommand from '../../command/SetMaterialColorCommand';
