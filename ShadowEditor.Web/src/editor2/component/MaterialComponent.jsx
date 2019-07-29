@@ -175,6 +175,8 @@ class MaterialComponent extends React.Component {
 
         this.selected = editor.selected;
 
+        return;
+
         const model = this.selected.userData.model;
         const animNames = model.getAnimations();
 

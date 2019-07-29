@@ -28,7 +28,14 @@ class PropertyGroup extends React.Component {
                     if (n.props.show === false) {
                         return null;
                     }
-                    return <div className={classNames('property', n.type.name)} key={i}>
+
+                    let typeName = n.type.name;
+
+                    if (typeName.indexOf('$') > -1) {
+                        typeName = typeName.split('$')[0];
+                    }
+
+                    return <div className={classNames('property', typeName)} key={i}>
                         <div className={'label'}>{n.props.label}</div>
                         <div className={'field'}>{n}</div>
                     </div>;
