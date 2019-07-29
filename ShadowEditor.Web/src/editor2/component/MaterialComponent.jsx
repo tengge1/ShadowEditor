@@ -50,6 +50,21 @@ class MaterialComponent extends React.Component {
             2: L_VERTEX_COLORS,
         };
 
+        this.side = {
+            0: L_FRONT_SIDE,
+            1: L_BACK_SIDE,
+            2: L_DOUBLE_SIDE,
+        };
+
+        this.blending = {
+            0: L_NO_BLENDING,
+            1: L_NORMAL_BLENDING,
+            2: L_ADDITIVE_BLENDING,
+            3: L_SUBSTRACTIVE_BLENDING,
+            4: L_MULTIPLY_BLENDING,
+            5: L_CUSTOM_BLENDING,
+        };
+
         this.state = {
             show: false,
             expanded: true,
@@ -209,7 +224,26 @@ class MaterialComponent extends React.Component {
             <NumberProperty label={L_CLEAR_COAT_ROUGHNESS} name={'clearCoatRoughness'} value={clearCoatRoughness} show={showClearCoatRoughness} onChange={this.updateMaterial}></NumberProperty>
             <SelectProperty label={L_VERTEX_COLOR} options={this.vertexColors} name={'vertexColors'} value={vertexColors} show={showVertexColors} onChange={this.updateMaterial}></SelectProperty>
             <CheckBoxProperty label={L_SKIN} name={'skinning'} value={skinning} show={showSkinning} onChange={this.updateMaterial}></CheckBoxProperty>
-            <TextureProperty label={L_TEXTURE} name={'map'} value={map} onChange={this.updateMaterial}></TextureProperty>
+            <TextureProperty label={L_TEXTURE} name={'map'} value={map} enabled={mapEnabled} show={showMap} onChange={this.updateMaterial}></TextureProperty>
+            <TextureProperty label={L_ALPHA_MAP} name={'alphaMap'} value={alphaMap} enabled={alphaMapEnabled} show={showAlphaMap} onChange={this.updateMaterial}></TextureProperty>
+            <TextureProperty label={L_BUMP_MAP} name={'bumpMap'} value={bumpMap} enabled={bumpMapEnabled} scale={bumpScale} show={showBumpMap} onChange={this.updateMaterial}></TextureProperty>
+            <TextureProperty label={L_NORMAL_MAP} name={'normalMap'} value={normalMap} enabled={normalMapEnabled} show={showNormalMap} onChange={this.updateMaterial}></TextureProperty>
+            <TextureProperty label={L_DISPLACEMENT_MAP} name={'displacementMap'} value={displacementMap} enabled={displacementMapEnabled} scale={displacementScale} show={showDisplacementMap} onChange={this.updateMaterial}></TextureProperty>
+            <TextureProperty label={L_ROUGHNESS_MAP} name={'roughnessMap'} value={roughnessMap} enabled={roughnessMapEnabled} show={showRoughnessMap} onChange={this.updateMaterial}></TextureProperty>
+            <TextureProperty label={L_METALNESS_MAP} name={'metalnessMap'} value={metalnessMap} enabled={metalnessMapEnabled} show={showMetalnessMap} onChange={this.updateMaterial}></TextureProperty>
+            <TextureProperty label={L_SPECULAR_MAP} name={'specularMap'} value={specularMap} enabled={specularMapEnabled} show={showSpecularMap} onChange={this.updateMaterial}></TextureProperty>
+            <TextureProperty label={L_ENV_MAP} name={'envMap'} value={envMap} enabled={envMapEnabled} show={showEnvMap} scale={reflectivity} onChange={this.updateMaterial}></TextureProperty>
+            <TextureProperty label={L_LIGHT_MAP} name={'lightMap'} value={lightMap} enabled={lightMapEnabled} show={showLightMap} onChange={this.updateMaterial}></TextureProperty>
+            <TextureProperty label={L_AO_MAP} name={'aoMap'} value={aoMap} enabled={aoMapEnabled} show={showAoMap} scale={aoScale} onChange={this.updateMaterial}></TextureProperty>
+            <TextureProperty label={L_EMISSIVE_MAP} name={'emissiveMap'} value={emissiveMap} enabled={emissiveMapEnabled} show={showEmissiveMap} onChange={this.updateMaterial}></TextureProperty>
+            <SelectProperty label={L_SIDE} options={this.side} name={'side'} value={side} onChange={this.updateMaterial}></SelectProperty>
+            <CheckBoxProperty label={L_FLAT_SHADING} name={'flatShading'} value={flatShading} onChange={this.updateMaterial}></CheckBoxProperty>
+            <SelectProperty label={L_BLENDING} options={this.blending} name={'blending'} value={blending} onChange={this.updateMaterial}></SelectProperty>
+            <NumberProperty label={L_OPACITY} name={'opacity'} value={opacity} onChange={this.updateMaterial}></NumberProperty>
+            <CheckBoxProperty label={L_TRANSPARENT} name={'transparent'} value={transparent} onChange={this.updateMaterial}></CheckBoxProperty>
+            <NumberProperty label={L_ALPHA_TEST} name={'alphaTest'} value={alphaTest} onChange={this.updateMaterial}></NumberProperty>
+            <CheckBoxProperty label={L_WIREFRAME} name={'wireframe'} value={wireframe} onChange={this.updateMaterial}></CheckBoxProperty>
+            <NumberProperty label={L_WIREFRAME} name={'wireframeLinewidth'} value={wireframeLinewidth} onChange={this.updateMaterial}></NumberProperty>
         </PropertyGroup>;
     }
 
