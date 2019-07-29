@@ -38,7 +38,7 @@ SelectProperty.propTypes = {
     style: PropTypes.object,
     options: PropTypes.object,
     name: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
 };
@@ -48,7 +48,7 @@ SelectProperty.defaultProps = {
     style: null,
     options: {},
     name: null,
-    value: '',
+    value: null,
     disabled: false,
     onChange: null,
 };

@@ -47,7 +47,7 @@ Select.propTypes = {
     style: PropTypes.object,
     options: PropTypes.object,
     name: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
 };
