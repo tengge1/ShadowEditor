@@ -478,62 +478,30 @@ class MaterialComponent extends React.Component {
         this.setState(state);
     }
 
-    handleChange() {
-        var type = UI.get('type', this.id);
-        var color = UI.get('color', this.id);
-        var roughness = UI.get('roughness', this.id);
-        var metalness = UI.get('metalness', this.id);
-        var emissive = UI.get('emissive', this.id);
-        var specular = UI.get('specular', this.id);
-        var shininess = UI.get('shininess', this.id);
-        var clearCoat = UI.get('clearCoat', this.id);
-        var clearCoatRoughness = UI.get('clearCoatRoughness', this.id);
-        var vertexColors = UI.get('vertexColors', this.id);
-        var skinning = UI.get('skinning', this.id);
-        var mapEnabled = UI.get('mapEnabled', this.id);
-        var map = UI.get('map', this.id);
-        var alphaMapEnabled = UI.get('alphaMapEnabled', this.id);
-        var alphaMap = UI.get('alphaMap', this.id);
-        var bumpMapEnabled = UI.get('bumpMapEnabled', this.id);
-        var bumpMap = UI.get('bumpMap', this.id);
-        var bumpScale = UI.get('bumpScale', this.id);
-        var normalMapEnabled = UI.get('normalMapEnabled', this.id);
-        var normalMap = UI.get('normalMap', this.id);
-        var displacementMapEnabled = UI.get('displacementMapEnabled', this.id);
-        var displacementMap = UI.get('displacementMap', this.id);
-        var displacementScale = UI.get('displacementScale', this.id);
-        var roughnessMapEnabled = UI.get('roughnessMapEnabled', this.id);
-        var roughnessMap = UI.get('roughnessMap', this.id);
-        var metalnessMapEnabled = UI.get('metalnessMapEnabled', this.id);
-        var metalnessMap = UI.get('metalnessMap', this.id);
-        var specularMapEnabled = UI.get('specularMapEnabled', this.id);
-        var specularMap = UI.get('specularMap', this.id);
-        var envMapEnabled = UI.get('envMapEnabled', this.id);
-        var envMap = UI.get('envMap', this.id);
-        var reflectivity = UI.get('reflectivity', this.id);
-        var lightMapEnabled = UI.get('lightMapEnabled', this.id);
-        var lightMap = UI.get('lightMap', this.id);
-        var aoMapEnabled = UI.get('aoMapEnabled', this.id);
-        var aoMap = UI.get('aoMap', this.id);
-        var aoScale = UI.get('aoScale', this.id);
-        var emissiveMapEnabled = UI.get('emissiveMapEnabled', this.id);
-        var emissiveMap = UI.get('emissiveMap', this.id);
-        var side = UI.get('side', this.id);
-        var flatShading = UI.get('flatShading', this.id);
-        var blending = UI.get('blending', this.id);
-        var opacity = UI.get('opacity', this.id);
-        var transparent = UI.get('transparent', this.id);
-        var alphaTest = UI.get('alphaTest', this.id);
-        var wireframe = UI.get('wireframe', this.id);
-        var wireframeLinewidth = UI.get('wireframeLinewidth', this.id);
+    handleChange(value, name) {
+        this.setState({
+            [name]: value,
+        });
 
-        var editor = app.editor;
-        var object = this.selected;
-        var geometry = object.geometry;
-        var material = object.material;
+        if (value === null) {
+            return;
+        }
 
-        var textureWarning = false;
-        var objectHasUvs = false;
+        let editor = app.editor;
+        let object = this.selected;
+        let geometry = object.geometry;
+        let material = object.material;
+
+        const { type, showProgram, showColor, color, showRoughness, roughness, showMetalness, metalness, showEmissive, emissive, showSpecular, specular, showShininess, shininess, showClearCoat, clearCoat, showClearCoatRoughness, clearCoatRoughness, showVertexColors, vertexColors, showSkinning, skinning,
+            showMap, mapEnabled, map, showAlphaMap, alphaMapEnabled, alphaMap, showBumpMap, bumpMapEnabled, bumpMap, bumpScale, showNormalMap, normalMapEnabled, normalMap, showDisplacementMap, displacementMapEnabled, displacementMap,
+            displacementScale, showRoughnessMap, roughnessMapEnabled, roughnessMap, showMetalnessMap, metalnessMapEnabled, metalnessMap, showSpecularMap, specularMapEnabled, specularMap, showEnvMap, envMapEnabled, envMap,
+            reflectivity, showLightMap, lightMapEnabled, lightMap, showAoMap, aoMapEnabled, aoMap, aoScale, showEmissiveMap, emissiveMapEnabled, emissiveMap, showSide, side, showFlatShading, flatShading, showBlending, blending, showOpacity, opacity,
+            showTransparent, transparent, showAlphaTest, alphaTest, showWireframe, wireframe, wireframeLinewidth } = Object.assign({}, this.selected, {
+                [name]: value,
+            });
+
+        let textureWarning = false;
+        let objectHasUvs = false;
 
         if (object instanceof THREE.Sprite) {
             objectHasUvs = true;
@@ -547,8 +515,8 @@ class MaterialComponent extends React.Component {
             objectHasUvs = true;
         }
 
-        if (material instanceof THREE[type.getValue()] === false) {
-            material = new THREE[type.getValue()]();
+        if (material instanceof THREE[type] === false) {
+            material = new THREE[type]();
 
             if (material instanceof THREE.ShaderMaterial) {
                 material.uniforms = {
@@ -570,213 +538,209 @@ class MaterialComponent extends React.Component {
                 material.fragmentShader = RawShaderMaterialFragment;
             }
 
-            editor.execute(new SetMaterialCommand(object, material), L_NEW_MATERIAL + ':' + type.getValue());
+            editor.execute(new SetMaterialCommand(object, material), L_NEW_MATERIAL + ':' + type);
         }
 
-        if (material.color !== undefined && material.color.getHex() !== color.getHexValue()) {
-            editor.execute(new SetMaterialColorCommand(object, 'color', color.getHexValue()));
+        if (material.color !== undefined && material.color.getHex() !== color) {
+            editor.execute(new SetMaterialColorCommand(object, 'color', color));
         }
 
-        if (material.roughness !== undefined && Math.abs(material.roughness - roughness.getValue()) >= 0.01) {
-            editor.execute(new SetMaterialValueCommand(object, 'roughness', roughness.getValue()));
+        if (material.roughness !== undefined && Math.abs(material.roughness - roughness) >= 0.01) {
+            editor.execute(new SetMaterialValueCommand(object, 'roughness', roughness));
         }
 
-        if (material.metalness !== undefined && Math.abs(material.metalness - metalness.getValue()) >= 0.01) {
-            editor.execute(new SetMaterialValueCommand(object, 'metalness', metalness.getValue()));
+        if (material.metalness !== undefined && Math.abs(material.metalness - metalness) >= 0.01) {
+            editor.execute(new SetMaterialValueCommand(object, 'metalness', metalness));
         }
 
-        if (material.emissive !== undefined && material.emissive.getHex() !== emissive.getHexValue()) {
-            editor.execute(new SetMaterialColorCommand(object, 'emissive', emissive.getHexValue()));
+        if (material.emissive !== undefined && material.emissive.getHex() !== emissive) {
+            editor.execute(new SetMaterialColorCommand(object, 'emissive', emissive));
         }
 
-        if (material.specular !== undefined && material.specular.getHex() !== specular.getHexValue()) {
-            editor.execute(new SetMaterialColorCommand(object, 'specular', specular.getHexValue()));
+        if (material.specular !== undefined && material.specular.getHex() !== specular) {
+            editor.execute(new SetMaterialColorCommand(object, 'specular', specular));
         }
 
-        if (material.shininess !== undefined && Math.abs(material.shininess - shininess.getValue()) >= 0.01) {
-            editor.execute(new SetMaterialValueCommand(object, 'shininess', shininess.getValue()));
+        if (material.shininess !== undefined && Math.abs(material.shininess - shininess) >= 0.01) {
+            editor.execute(new SetMaterialValueCommand(object, 'shininess', shininess));
         }
 
-        if (material.clearCoat !== undefined && Math.abs(material.clearCoat - clearCoat.getValue()) >= 0.01) {
-            editor.execute(new SetMaterialValueCommand(object, 'clearCoat', clearCoat.getValue()));
+        if (material.clearCoat !== undefined && Math.abs(material.clearCoat - clearCoat) >= 0.01) {
+            editor.execute(new SetMaterialValueCommand(object, 'clearCoat', clearCoat));
         }
 
-        if (material.clearCoatRoughness !== undefined && Math.abs(material.clearCoatRoughness - clearCoatRoughness.getValue()) >= 0.01) {
-            editor.execute(new SetMaterialValueCommand(object, 'clearCoatRoughness', clearCoatRoughness.getValue()));
+        if (material.clearCoatRoughness !== undefined && Math.abs(material.clearCoatRoughness - clearCoatRoughness) >= 0.01) {
+            editor.execute(new SetMaterialValueCommand(object, 'clearCoatRoughness', clearCoatRoughness));
         }
 
         if (material.vertexColors !== undefined) {
-            if (material.vertexColors !== parseInt(vertexColors.getValue())) {
-                editor.execute(new SetMaterialValueCommand(object, 'vertexColors', parseInt(vertexColors.getValue())));
+            if (material.vertexColors !== parseInt(vertexColors)) {
+                editor.execute(new SetMaterialValueCommand(object, 'vertexColors', parseInt(vertexColors)));
             }
         }
 
-        if (material.skinning !== undefined && material.skinning !== skinning.getValue()) {
-            editor.execute(new SetMaterialValueCommand(object, 'skinning', skinning.getValue()));
+        if (material.skinning !== undefined && material.skinning !== skinning) {
+            editor.execute(new SetMaterialValueCommand(object, 'skinning', skinning));
         }
 
         if (material.map !== undefined) {
-            var mapEnabled = mapEnabled.getValue() === true;
             if (objectHasUvs) {
-                var map = mapEnabled ? map.getValue() : null;
-                if (material.map !== map) {
-                    editor.execute(new SetMaterialMapCommand(object, 'map', map));
+                let map1 = mapEnabled ? map : null;
+                if (material.map !== map1) {
+                    editor.execute(new SetMaterialMapCommand(object, 'map', map1));
                 }
             } else {
-                if (mapEnabled) textureWarning = true;
+                if (mapEnabled) {
+                    textureWarning = true;
+                }
             }
         }
 
         if (material.alphaMap !== undefined) {
-            var mapEnabled = alphaMapEnabled.getValue() === true;
-
             if (objectHasUvs) {
-                var alphaMap = mapEnabled ? alphaMap.getValue() : null;
+                let alphaMap1 = mapEnabled ? alphaMap : null;
 
-                if (material.alphaMap !== alphaMap) {
-                    editor.execute(new SetMaterialMapCommand(object, 'alphaMap', alphaMap));
+                if (material.alphaMap !== alphaMap1) {
+                    editor.execute(new SetMaterialMapCommand(object, 'alphaMap', alphaMap1));
                 }
             } else {
-                if (mapEnabled) textureWarning = true;
+                if (mapEnabled) {
+                    textureWarning = true;
+                }
             }
         }
 
         if (material.bumpMap !== undefined) {
-            var bumpMapEnabled = bumpMapEnabled.getValue() === true;
-
             if (objectHasUvs) {
-                var bumpMap = bumpMapEnabled ? bumpMap.getValue() : null;
+                let bumpMap1 = bumpMapEnabled ? bumpMap : null;
 
-                if (material.bumpMap !== bumpMap) {
-                    editor.execute(new SetMaterialMapCommand(object, 'bumpMap', bumpMap));
+                if (material.bumpMap !== bumpMap1) {
+                    editor.execute(new SetMaterialMapCommand(object, 'bumpMap', bumpMap1));
                 }
 
-                if (material.bumpScale !== bumpScale.getValue()) {
-                    editor.execute(new SetMaterialValueCommand(object, 'bumpScale', bumpScale.getValue()));
+                if (material.bumpScale !== bumpScale) {
+                    editor.execute(new SetMaterialValueCommand(object, 'bumpScale', bumpScale));
                 }
             } else {
-                if (bumpMapEnabled) textureWarning = true;
+                if (bumpMapEnabled) {
+                    textureWarning = true;
+                }
             }
         }
 
         if (material.normalMap !== undefined) {
-            var normalMapEnabled = normalMapEnabled.getValue() === true;
-
             if (objectHasUvs) {
-                var normalMap = normalMapEnabled ? normalMap.getValue() : null;
+                let normalMap1 = normalMapEnabled ? normalMap : null;
 
-                if (material.normalMap !== normalMap) {
-                    editor.execute(new SetMaterialMapCommand(object, 'normalMap', normalMap));
+                if (material.normalMap !== normalMap1) {
+                    editor.execute(new SetMaterialMapCommand(object, 'normalMap', normalMap1));
                 }
             } else {
-                if (normalMapEnabled) textureWarning = true;
+                if (normalMapEnabled) {
+                    textureWarning = true;
+                }
             }
         }
 
         if (material.displacementMap !== undefined) {
-            var displacementMapEnabled = displacementMapEnabled.getValue() === true;
-
             if (objectHasUvs) {
-                var displacementMap = displacementMapEnabled ? displacementMap.getValue() : null;
+                let displacementMap1 = displacementMapEnabled ? displacementMap : null;
 
-                if (material.displacementMap !== displacementMap) {
-                    editor.execute(new SetMaterialMapCommand(object, 'displacementMap', displacementMap));
+                if (material.displacementMap !== displacementMap1) {
+                    editor.execute(new SetMaterialMapCommand(object, 'displacementMap', displacementMap1));
                 }
 
-                if (material.displacementScale !== displacementScale.getValue()) {
-                    editor.execute(new SetMaterialValueCommand(object, 'displacementScale', displacementScale.getValue()));
+                if (material.displacementScale !== displacementScale) {
+                    editor.execute(new SetMaterialValueCommand(object, 'displacementScale', displacementScale));
                 }
             } else {
-                if (displacementMapEnabled) textureWarning = true;
+                if (displacementMapEnabled) {
+                    textureWarning = true;
+                }
             }
 
         }
 
         if (material.roughnessMap !== undefined) {
-            var roughnessMapEnabled = roughnessMapEnabled.getValue() === true;
-
             if (objectHasUvs) {
-                var roughnessMap = roughnessMapEnabled ? roughnessMap.getValue() : null;
+                let roughnessMap1 = roughnessMapEnabled ? roughnessMap : null;
 
-                if (material.roughnessMap !== roughnessMap) {
-                    editor.execute(new SetMaterialMapCommand(object, 'roughnessMap', roughnessMap));
+                if (material.roughnessMap !== roughnessMap1) {
+                    editor.execute(new SetMaterialMapCommand(object, 'roughnessMap', roughnessMap1));
                 }
             } else {
-                if (roughnessMapEnabled) textureWarning = true;
+                if (roughnessMapEnabled) {
+                    textureWarning = true;
+                }
             }
         }
 
         if (material.metalnessMap !== undefined) {
-            var metalnessMapEnabled = metalnessMapEnabled.getValue() === true;
-
             if (objectHasUvs) {
-                var metalnessMap = metalnessMapEnabled ? metalnessMap.getValue() : null;
+                let metalnessMap1 = metalnessMapEnabled ? metalnessMap : null;
 
-                if (material.metalnessMap !== metalnessMap) {
-                    editor.execute(new SetMaterialMapCommand(object, 'metalnessMap', metalnessMap));
+                if (material.metalnessMap !== metalnessMap1) {
+                    editor.execute(new SetMaterialMapCommand(object, 'metalnessMap', metalnessMap1));
                 }
             } else {
-                if (metalnessMapEnabled) textureWarning = true;
+                if (metalnessMapEnabled) {
+                    textureWarning = true;
+                }
             }
         }
 
         if (material.specularMap !== undefined) {
-            var specularMapEnabled = specularMapEnabled.getValue() === true;
-
             if (objectHasUvs) {
-                var specularMap = specularMapEnabled ? specularMap.getValue() : null;
+                let specularMap1 = specularMapEnabled ? specularMap : null;
 
-                if (material.specularMap !== specularMap) {
-                    editor.execute(new SetMaterialMapCommand(object, 'specularMap', specularMap));
+                if (material.specularMap !== specularMap1) {
+                    editor.execute(new SetMaterialMapCommand(object, 'specularMap', specularMap1));
                 }
             } else {
-                if (specularMapEnabled) textureWarning = true;
+                if (specularMapEnabled) {
+                    textureWarning = true;
+                }
             }
         }
 
         if (material.envMap !== undefined) {
-            var envMapEnabled = envMapEnabled.getValue() === true;
-            var envMap = envMapEnabled ? envMap.getValue() : null;
+            let envMap1 = envMapEnabled ? envMap : null;
 
-            if (material.envMap !== envMap) {
-                editor.execute(new SetMaterialMapCommand(object, 'envMap', envMap));
+            if (material.envMap !== envMap1) {
+                editor.execute(new SetMaterialMapCommand(object, 'envMap', envMap1));
             }
         }
 
         if (material.reflectivity !== undefined) {
-            var reflectivity = reflectivity.getValue();
-
             if (material.reflectivity !== reflectivity) {
                 editor.execute(new SetMaterialValueCommand(object, 'reflectivity', reflectivity));
             }
         }
 
         if (material.lightMap !== undefined) {
-            var lightMapEnabled = lightMapEnabled.getValue() === true;
-
             if (objectHasUvs) {
-                var lightMap = lightMapEnabled ? lightMap.getValue() : null;
+                let lightMap1 = lightMapEnabled ? lightMap : null;
 
-                if (material.lightMap !== lightMap) {
-                    editor.execute(new SetMaterialMapCommand(object, 'lightMap', lightMap));
+                if (material.lightMap !== lightMap1) {
+                    editor.execute(new SetMaterialMapCommand(object, 'lightMap', lightMap1));
                 }
             } else {
-                if (lightMapEnabled) textureWarning = true;
+                if (lightMapEnabled) {
+                    textureWarning = true;
+                }
             }
         }
 
         if (material.aoMap !== undefined) {
-            var aoMapEnabled = aoMapEnabled.getValue() === true;
-
             if (objectHasUvs) {
-                var aoMap = aoMapEnabled ? aoMap.getValue() : null;
+                let aoMap1 = aoMapEnabled ? aoMap : null;
 
-                if (material.aoMap !== aoMap) {
-                    editor.execute(new SetMaterialMapCommand(object, 'aoMap', aoMap));
+                if (material.aoMap !== aoMap1) {
+                    editor.execute(new SetMaterialMapCommand(object, 'aoMap', aoMap1));
                 }
 
-                if (material.aoMapIntensity !== aoScale.getValue()) {
-                    editor.execute(new SetMaterialValueCommand(object, 'aoMapIntensity', aoScale.getValue()));
+                if (material.aoMapIntensity !== aoScale) {
+                    editor.execute(new SetMaterialValueCommand(object, 'aoMapIntensity', aoScale));
                 }
             } else {
                 if (aoMapEnabled) textureWarning = true;
@@ -784,74 +748,68 @@ class MaterialComponent extends React.Component {
         }
 
         if (material.emissiveMap !== undefined) {
-            var emissiveMapEnabled = emissiveMapEnabled.getValue() === true;
-
             if (objectHasUvs) {
-                var emissiveMap = emissiveMapEnabled ? emissiveMap.getValue() : null;
+                var emissiveMap1 = emissiveMapEnabled ? emissiveMap : null;
 
-                if (material.emissiveMap !== emissiveMap) {
-                    editor.execute(new SetMaterialMapCommand(object, 'emissiveMap', emissiveMap));
+                if (material.emissiveMap !== emissiveMap1) {
+                    editor.execute(new SetMaterialMapCommand(object, 'emissiveMap', emissiveMap1));
                 }
             } else {
-                if (emissiveMapEnabled) textureWarning = true;
+                if (emissiveMapEnabled) {
+                    textureWarning = true;
+                }
             }
         }
 
         if (material.side !== undefined) {
-            var side = parseInt(side.getValue());
-
             if (material.side !== side) {
                 editor.execute(new SetMaterialValueCommand(object, 'side', side));
             }
         }
 
         if (material.flatShading !== undefined) {
-            var flatShading = flatShading.getValue();
-
             if (material.flatShading != flatShading) {
                 editor.execute(new SetMaterialValueCommand(object, 'flatShading', flatShading));
             }
         }
 
         if (material.blending !== undefined) {
-            var blending = parseInt(blending.getValue());
-
             if (material.blending !== blending) {
                 editor.execute(new SetMaterialValueCommand(object, 'blending', blending));
             }
         }
 
-        if (material.opacity !== undefined && Math.abs(material.opacity - opacity.getValue()) >= 0.01) {
-            editor.execute(new SetMaterialValueCommand(object, 'opacity', opacity.getValue()));
+        if (material.opacity !== undefined && Math.abs(material.opacity - opacity) >= 0.01) {
+            editor.execute(new SetMaterialValueCommand(object, 'opacity', opacity));
         }
 
-        if (material.transparent !== undefined && material.transparent !== transparent.getValue()) {
-            editor.execute(new SetMaterialValueCommand(object, 'transparent', transparent.getValue()));
+        if (material.transparent !== undefined && material.transparent !== transparent) {
+            editor.execute(new SetMaterialValueCommand(object, 'transparent', transparent));
         }
 
-        if (material.alphaTest !== undefined && Math.abs(material.alphaTest - alphaTest.getValue()) >= 0.01) {
-            editor.execute(new SetMaterialValueCommand(object, 'alphaTest', alphaTest.getValue()));
+        if (material.alphaTest !== undefined && Math.abs(material.alphaTest - alphaTest) >= 0.01) {
+            editor.execute(new SetMaterialValueCommand(object, 'alphaTest', alphaTest));
         }
 
-        if (material.wireframe !== undefined && material.wireframe !== wireframe.getValue()) {
-            editor.execute(new SetMaterialValueCommand(object, 'wireframe', wireframe.getValue()));
+        if (material.wireframe !== undefined && material.wireframe !== wireframe) {
+            editor.execute(new SetMaterialValueCommand(object, 'wireframe', wireframe));
         }
 
-        if (material.wireframeLinewidth !== undefined && Math.abs(material.wireframeLinewidth - wireframeLinewidth.getValue()) >= 0.01) {
-            editor.execute(new SetMaterialValueCommand(object, 'wireframeLinewidth', wireframeLinewidth.getValue()));
+        if (material.wireframeLinewidth !== undefined && Math.abs(material.wireframeLinewidth - wireframeLinewidth) >= 0.01) {
+            editor.execute(new SetMaterialValueCommand(object, 'wireframeLinewidth', wireframeLinewidth));
         }
-
-        this.updateUI();
 
         if (textureWarning) {
             console.warn(`${L_CANNOT_SET_TEXTURE} ${this.selected.name} ${L_MATERIAL_HAS_NO_COORDINATES}`);
         }
+
+        app.call(`objectChanged`, this, this.selected);
     }
 
     editProgramInfo() {
-        var material = this.selected.material;
+        let material = this.selected.material;
 
-        var obj = {
+        let obj = {
             defines: material.defines,
             uniforms: material.uniforms,
             attributes: material.attributes
@@ -871,7 +829,7 @@ class MaterialComponent extends React.Component {
     }
 
     editVertexShader() {
-        var material = this.selected.material;
+        let material = this.selected.material;
 
         app.script.open(material.uuid, this.selected.name + '-VertexShader', 'vertexShader', material.vertexShader, this.selected.name + `-${L_VERTEX_SHADER}`, source => {
             material.vertexShader = source;
@@ -880,7 +838,7 @@ class MaterialComponent extends React.Component {
     }
 
     editFragmentShader() {
-        var material = this.selected.material;
+        let material = this.selected.material;
 
         app.script.open(material.uuid, this.selected.name + '-FragmentShader', 'fragmentShader', material.fragmentShader, this.selected.name + `-${L_FRAGMENT_SHADER}`, source => {
             material.fragmentShader = source;
