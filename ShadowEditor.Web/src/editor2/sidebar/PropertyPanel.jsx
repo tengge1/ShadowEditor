@@ -62,6 +62,8 @@ class PropertyPanel extends React.Component {
             <TeapotGeometryComponent></TeapotGeometryComponent>
             <TorusGeometryComponent></TorusGeometryComponent>
             <TorusKnotGeometryComponent></TorusKnotGeometryComponent>
+
+            <MaterialComponent></MaterialComponent>
         </PropertyGrid>;
     }
 }

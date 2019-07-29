@@ -44,6 +44,12 @@ class MaterialComponent extends React.Component {
             'RawShaderMaterial': L_RAW_SHADER_MATERIAL
         };
 
+        this.vertexColors = {
+            0: L_NO_COLORS,
+            1: L_FACE_COLORS,
+            2: L_VERTEX_COLORS,
+        };
+
         this.state = {
             show: false,
             expanded: true,
@@ -99,13 +105,23 @@ class MaterialComponent extends React.Component {
 
         this.handleExpand = this.handleExpand.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handlePreview = this.handlePreview.bind(this);
-        this.onAnimate = this.onAnimate.bind(this);
+
+        this.updateMaterial = this.updateMaterial.bind(this);
+        this.editProgramInfo = this.editProgramInfo.bind(this);
+        this.editVertexShader = this.editVertexShader.bind(this);
+        this.editFragmentShader = this.editFragmentShader.bind(this);
+
+        this.onSetMap = this.onSetMap.bind(this);
+        this.onSave = this.onSave.bind(this);
+        this.onLoad = this.onLoad.bind(this);
     }
 
     render() {
-        const { show, expanded, options, animation, previewText } = this.state;
+        const { show, expanded, type, color, roughness, metalness, emissive, specular, shininess, clearCoat, clearCoatRoughness, vertexColors, skinning,
+            mapEnabled, map, alphaMapEnabled, alphaMap, bumpMapEnabled, bumpMap, bumpScale, normalMapEnabled, normalMap, displacementMapEnabled, displacementMap,
+            displacementScale, roughnessMapEnabled, roughnessMap, metalnessMapEnabled, metalnessMap, specularMapEnabled, specularMap, envMapEnabled, envMap,
+            reflectivity, lightMapEnabled, lightMap, aoMapEnabled, aoMap, aoScale, emissiveMapEnabled, emissiveMap, side, flatShading, blending, opacity,
+            transparent, alphaTest, wireframe, wireframeLinewidth } = this.state;
 
         if (!show) {
             return null;
@@ -116,14 +132,23 @@ class MaterialComponent extends React.Component {
                 <Button onClick={this.onSave}>{L_SAVE}</Button>
                 <Button onClick={this.onLoad}>{L_SELECT}</Button>
             </ButtonsProperty>
-            <SelectProperty label={L_ANIMATION} options={this.materials} value={animation} onChange={this.handleChange}></SelectProperty>
-            <ButtonsProperty label={''}>
-                <Button onClick={this.onSave}>{L_SHADER_PROGRAM}</Button>
-                <Button onClick={this.onLoad}>{L_VERTEX}</Button>
-                <Button onClick={this.onLoad}>{L_FRAGMENT}</Button>
+            <SelectProperty label={L_TYPE} options={this.materials} name={'type'} value={type} onChange={this.updateMaterial}></SelectProperty>
+            <ButtonsProperty label={L_SHADER_PROGRAM}>
+                <Button onClick={this.editProgramInfo}>{L_SHADER_PROGRAM}</Button>
+                <Button onClick={this.editVertexShader}>{L_VERTEX}</Button>
+                <Button onClick={this.editFragmentShader}>{L_FRAGMENT}</Button>
             </ButtonsProperty>
-            <ColorProperty name={'color'}></ColorProperty>
-            <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
+            <ColorProperty label={L_COLOR} name={'color'} value={color} onChange={this.updateMaterial}></ColorProperty>
+            <NumberProperty label={L_ROUGHNESS} name={'roughness'} value={roughness} onChange={this.updateMaterial}></NumberProperty>
+            <NumberProperty label={L_METALNESS} name={'metalness'} value={metalness} onChange={this.updateMaterial}></NumberProperty>
+            <ColorProperty label={L_EMISSIVE} name={'emissive'} value={emissive} onChange={this.updateMaterial}></ColorProperty>
+            <ColorProperty label={L_SPECULAR} name={'specular'} value={specular} onChange={this.updateMaterial}></ColorProperty>
+            <NumberProperty label={L_SHININESS} name={'shininess'} value={shininess} onChange={this.updateMaterial}></NumberProperty>
+            <NumberProperty label={L_CLEAR_COAT} name={'clearCoat'} value={clearCoat} onChange={this.updateMaterial}></NumberProperty>
+            <NumberProperty label={L_CLEAR_COAT_ROUGHNESS} name={'clearCoatRoughness'} value={clearCoatRoughness} onChange={this.updateMaterial}></NumberProperty>
+            <SelectProperty label={L_VERTEX_COLOR} options={this.vertexColors} name={'vertexColors'} value={vertexColors} onChange={this.updateMaterial}></SelectProperty>
+            <CheckBoxProperty label={L_SKIN} name={'skinning'} value={skinning} onChange={this.updateMaterial}></CheckBoxProperty>
+            <TextureProperty label={L_TEXTURE} name={'map'} value={map} onChange={this.updateMaterial}></TextureProperty>
         </PropertyGroup>;
     }
 
@@ -141,7 +166,7 @@ class MaterialComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
-        if (!editor.selected || !(editor.selected.userData.type === 'lol')) {
+        if (!editor.selected || !(editor.selected.material instanceof THREE.Material)) {
             this.setState({
                 show: false,
             });
