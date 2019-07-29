@@ -55,50 +55,111 @@ class MaterialComponent extends React.Component {
             expanded: true,
 
             type: null,
+
+            showProgram: false,
+
+            showColor: false,
             color: null,
+
+            showRoughness: false,
             roughness: null,
+
+            showMetalness: false,
             metalness: null,
+
+            showEmissive: false,
             emissive: null,
+
+            showSpecular: false,
             specular: null,
+
+            showShininess: false,
             shininess: null,
+
+            showClearCoat: false,
             clearCoat: null,
+
+            showClearCoatRoughness: false,
             clearCoatRoughness: null,
+
+            showVertexColors: false,
             vertexColors: null,
+
+            showSkinning: false,
             skinning: null,
+
+            showMap: false,
             mapEnabled: null,
             map: null,
+
+            showAlphaMap: false,
             alphaMapEnabled: null,
             alphaMap: null,
+
+            showBumpMap: false,
             bumpMapEnabled: null,
             bumpMap: null,
             bumpScale: null,
+
+            showNormalMap: false,
             normalMapEnabled: null,
             normalMap: null,
+
+            showDisplacementMap: false,
             displacementMapEnabled: null,
             displacementMap: null,
             displacementScale: null,
+
+            showRoughnessMap: false,
             roughnessMapEnabled: null,
             roughnessMap: null,
+
+            showMetalnessMap: false,
             metalnessMapEnabled: null,
             metalnessMap: null,
+
+            showSpecularMap: false,
             specularMapEnabled: null,
             specularMap: null,
+
+            showEnvMap: false,
             envMapEnabled: null,
             envMap: null,
+
             reflectivity: null,
+
+            showLightMap: false,
             lightMapEnabled: null,
             lightMap: null,
+
+            showAoMap: false,
             aoMapEnabled: null,
             aoMap: null,
             aoScale: null,
+
+            showEmissiveMap: false,
             emissiveMapEnabled: null,
             emissiveMap: null,
+
+            showSide: false,
             side: null,
+
+            showFlatShading: false,
             flatShading: null,
+
+            showBlending: false,
             blending: null,
+
+            showOpacity: false,
             opacity: 1,
+
+            showTransparent: false,
             transparent: false,
+
+            showAlphaTest: false,
             alphaTest: 1,
+
+            showWireframe: false,
             wireframe: false,
             wireframeLinewidth: 1,
         };
@@ -117,11 +178,11 @@ class MaterialComponent extends React.Component {
     }
 
     render() {
-        const { show, expanded, type, color, roughness, metalness, emissive, specular, shininess, clearCoat, clearCoatRoughness, vertexColors, skinning,
-            mapEnabled, map, alphaMapEnabled, alphaMap, bumpMapEnabled, bumpMap, bumpScale, normalMapEnabled, normalMap, displacementMapEnabled, displacementMap,
-            displacementScale, roughnessMapEnabled, roughnessMap, metalnessMapEnabled, metalnessMap, specularMapEnabled, specularMap, envMapEnabled, envMap,
-            reflectivity, lightMapEnabled, lightMap, aoMapEnabled, aoMap, aoScale, emissiveMapEnabled, emissiveMap, side, flatShading, blending, opacity,
-            transparent, alphaTest, wireframe, wireframeLinewidth } = this.state;
+        const { show, expanded, type, showProgram, showColor, color, showRoughness, roughness, showMetalness, metalness, showEmissive, emissive, showSpecular, specular, showShininess, shininess, showClearCoat, clearCoat, showClearCoatRoughness, clearCoatRoughness, showVertexColors, vertexColors, showSkinning, skinning,
+            showMap, mapEnabled, map, showAlphaMap, alphaMapEnabled, alphaMap, showBumpMap, bumpMapEnabled, bumpMap, bumpScale, showNormalMap, normalMapEnabled, normalMap, showDisplacementMap, displacementMapEnabled, displacementMap,
+            displacementScale, showRoughnessMap, roughnessMapEnabled, roughnessMap, showMetalnessMap, metalnessMapEnabled, metalnessMap, showSpecularMap, specularMapEnabled, specularMap, showEnvMap, envMapEnabled, envMap,
+            reflectivity, showLightMap, lightMapEnabled, lightMap, showAoMap, aoMapEnabled, aoMap, aoScale, showEmissiveMap, emissiveMapEnabled, emissiveMap, showSide, side, showFlatShading, flatShading, showBlending, blending, showOpacity, opacity,
+            showTransparent, transparent, showAlphaTest, alphaTest, showWireframe, wireframe, wireframeLinewidth } = this.state;
 
         if (!show) {
             return null;
@@ -133,21 +194,21 @@ class MaterialComponent extends React.Component {
                 <Button onClick={this.onLoad}>{L_SELECT}</Button>
             </ButtonsProperty>
             <SelectProperty label={L_TYPE} options={this.materials} name={'type'} value={type} onChange={this.updateMaterial}></SelectProperty>
-            <ButtonsProperty label={L_SHADER_PROGRAM}>
+            <ButtonsProperty label={L_SHADER_PROGRAM} show={showProgram}>
                 <Button onClick={this.editProgramInfo}>{L_SHADER_PROGRAM}</Button>
                 <Button onClick={this.editVertexShader}>{L_VERTEX}</Button>
                 <Button onClick={this.editFragmentShader}>{L_FRAGMENT}</Button>
             </ButtonsProperty>
-            <ColorProperty label={L_COLOR} name={'color'} value={color} onChange={this.updateMaterial}></ColorProperty>
-            <NumberProperty label={L_ROUGHNESS} name={'roughness'} value={roughness} onChange={this.updateMaterial}></NumberProperty>
-            <NumberProperty label={L_METALNESS} name={'metalness'} value={metalness} onChange={this.updateMaterial}></NumberProperty>
-            <ColorProperty label={L_EMISSIVE} name={'emissive'} value={emissive} onChange={this.updateMaterial}></ColorProperty>
-            <ColorProperty label={L_SPECULAR} name={'specular'} value={specular} onChange={this.updateMaterial}></ColorProperty>
-            <NumberProperty label={L_SHININESS} name={'shininess'} value={shininess} onChange={this.updateMaterial}></NumberProperty>
-            <NumberProperty label={L_CLEAR_COAT} name={'clearCoat'} value={clearCoat} onChange={this.updateMaterial}></NumberProperty>
-            <NumberProperty label={L_CLEAR_COAT_ROUGHNESS} name={'clearCoatRoughness'} value={clearCoatRoughness} onChange={this.updateMaterial}></NumberProperty>
-            <SelectProperty label={L_VERTEX_COLOR} options={this.vertexColors} name={'vertexColors'} value={vertexColors} onChange={this.updateMaterial}></SelectProperty>
-            <CheckBoxProperty label={L_SKIN} name={'skinning'} value={skinning} onChange={this.updateMaterial}></CheckBoxProperty>
+            <ColorProperty label={L_COLOR} name={'color'} value={color} show={showColor} onChange={this.updateMaterial}></ColorProperty>
+            <NumberProperty label={L_ROUGHNESS} name={'roughness'} value={roughness} show={showRoughness} onChange={this.updateMaterial}></NumberProperty>
+            <NumberProperty label={L_METALNESS} name={'metalness'} value={metalness} show={showMetalness} onChange={this.updateMaterial}></NumberProperty>
+            <ColorProperty label={L_EMISSIVE} name={'emissive'} value={emissive} show={showEmissive} onChange={this.updateMaterial}></ColorProperty>
+            <ColorProperty label={L_SPECULAR} name={'specular'} value={specular} show={showSpecular} onChange={this.updateMaterial}></ColorProperty>
+            <NumberProperty label={L_SHININESS} name={'shininess'} value={shininess} show={showShininess} onChange={this.updateMaterial}></NumberProperty>
+            <NumberProperty label={L_CLEAR_COAT} name={'clearCoat'} value={clearCoat} show={showClearCoat} onChange={this.updateMaterial}></NumberProperty>
+            <NumberProperty label={L_CLEAR_COAT_ROUGHNESS} name={'clearCoatRoughness'} value={clearCoatRoughness} show={showClearCoatRoughness} onChange={this.updateMaterial}></NumberProperty>
+            <SelectProperty label={L_VERTEX_COLOR} options={this.vertexColors} name={'vertexColors'} value={vertexColors} show={showVertexColors} onChange={this.updateMaterial}></SelectProperty>
+            <CheckBoxProperty label={L_SKIN} name={'skinning'} value={skinning} show={showSkinning} onChange={this.updateMaterial}></CheckBoxProperty>
             <TextureProperty label={L_TEXTURE} name={'map'} value={map} onChange={this.updateMaterial}></TextureProperty>
         </PropertyGroup>;
     }
@@ -175,324 +236,211 @@ class MaterialComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        return;
+        let material = this.selected.material;
 
-        const model = this.selected.userData.model;
-        const animNames = model.getAnimations();
-
-        let options = {
-
-        };
-
-        this.setRowVisibility();
-        this.setRowValue();
-
-        this.setState({
+        let state = {
             show: true,
-            options,
-            animation: animNames[0],
-            previewText: this.isPlaying ? L_CANCEL : L_PREVIEW,
-        });
-    }
-
-    setRowVisibility() {
-        var programRow = UI.get('programRow', this.id);
-        var colorRow = UI.get('colorRow', this.id);
-        var roughnessRow = UI.get('roughnessRow', this.id);
-        var metalnessRow = UI.get('metalnessRow', this.id);
-        var emissiveRow = UI.get('emissiveRow', this.id);
-        var specularRow = UI.get('specularRow', this.id);
-        var shininessRow = UI.get('shininessRow', this.id);
-        var clearCoatRow = UI.get('clearCoatRow', this.id);
-        var clearCoatRoughnessRow = UI.get('clearCoatRoughnessRow', this.id);
-        var vertexColorsRow = UI.get('vertexColorsRow', this.id);
-        var skinningRow = UI.get('skinningRow', this.id);
-        var mapRow = UI.get('mapRow', this.id);
-        var alphaMapRow = UI.get('alphaMapRow', this.id);
-        var bumpMapRow = UI.get('bumpMapRow', this.id);
-        var normalMapRow = UI.get('normalMapRow', this.id);
-        var displacementMapRow = UI.get('displacementMapRow', this.id);
-        var roughnessMapRow = UI.get('roughnessMapRow', this.id);
-        var metalnessMapRow = UI.get('metalnessMapRow', this.id);
-        var specularMapRow = UI.get('specularMapRow', this.id);
-        var envMapRow = UI.get('envMapRow', this.id);
-        var lightMapRow = UI.get('lightMapRow', this.id);
-        var aoMapRow = UI.get('aoMapRow', this.id);
-        var emissiveMapRow = UI.get('emissiveMapRow', this.id);
-        var sideRow = UI.get('sideRow', this.id);
-        var flatShadingRow = UI.get('flatShadingRow', this.id);
-        var blendingRow = UI.get('blendingRow', this.id);
-        var opacityRow = UI.get('opacityRow', this.id);
-        var transparentRow = UI.get('transparentRow', this.id);
-        var alphaTestRow = UI.get('alphaTestRow', this.id);
-        var wireframeRow = UI.get('wireframeRow', this.id);
-
-        var properties = {
-            'vertexShader': programRow,
-            'color': colorRow,
-            'roughness': roughnessRow,
-            'metalness': metalnessRow,
-            'emissive': emissiveRow,
-            'specular': specularRow,
-            'shininess': shininessRow,
-            'clearCoat': clearCoatRow,
-            'clearCoatRoughness': clearCoatRoughnessRow,
-            'vertexColors': vertexColorsRow,
-            'skinning': skinningRow,
-            'map': mapRow,
-            'alphaMap': alphaMapRow,
-            'bumpMap': bumpMapRow,
-            'normalMap': normalMapRow,
-            'displacementMap': displacementMapRow,
-            'roughnessMap': roughnessMapRow,
-            'metalnessMap': metalnessMapRow,
-            'specularMap': specularMapRow,
-            'envMap': envMapRow,
-            'lightMap': lightMapRow,
-            'aoMap': aoMapRow,
-            'emissiveMap': emissiveMapRow,
-            'side': sideRow,
-            'flatShading': flatShadingRow,
-            'blending': blendingRow,
-            'opacity': opacityRow,
-            'transparent': transparentRow,
-            'alphaTest': alphaTestRow,
-            'wireframe': wireframeRow
+            type: material.type,
         };
-
-        var material = this.selected.material;
-        for (var property in properties) {
-            properties[property].dom.style.display = material[property] === undefined ? 'none' : ''
-        }
-    }
-
-    setRowValue() {
-        var type = UI.get('type', this.id);
-        var color = UI.get('color', this.id);
-        var roughness = UI.get('roughness', this.id);
-        var metalness = UI.get('metalness', this.id);
-        var emissive = UI.get('emissive', this.id);
-        var specular = UI.get('specular', this.id);
-        var shininess = UI.get('shininess', this.id);
-        var clearCoat = UI.get('clearCoat', this.id);
-        var clearCoatRoughness = UI.get('clearCoatRoughness', this.id);
-        var vertexColors = UI.get('vertexColors', this.id);
-        var skinning = UI.get('skinning', this.id);
-        var mapEnabled = UI.get('mapEnabled', this.id);
-        var map = UI.get('map', this.id);
-        var alphaMapEnabled = UI.get('alphaMapEnabled', this.id);
-        var alphaMap = UI.get('alphaMap', this.id);
-        var bumpMapEnabled = UI.get('bumpMapEnabled', this.id);
-        var bumpMap = UI.get('bumpMap', this.id);
-        var bumpScale = UI.get('bumpScale', this.id);
-        var normalMapEnabled = UI.get('normalMapEnabled', this.id);
-        var normalMap = UI.get('normalMap', this.id);
-        var displacementMapEnabled = UI.get('displacementMapEnabled', this.id);
-        var displacementMap = UI.get('displacementMap', this.id);
-        var displacementScale = UI.get('displacementScale', this.id);
-        var roughnessMapEnabled = UI.get('roughnessMapEnabled', this.id);
-        var roughnessMap = UI.get('roughnessMap', this.id);
-        var metalnessMapEnabled = UI.get('metalnessMapEnabled', this.id);
-        var metalnessMap = UI.get('metalnessMap', this.id);
-        var specularMapEnabled = UI.get('specularMapEnabled', this.id);
-        var specularMap = UI.get('specularMap', this.id);
-        var envMapEnabled = UI.get('envMapEnabled', this.id);
-        var envMap = UI.get('envMap', this.id);
-        var reflectivity = UI.get('reflectivity', this.id);
-        var lightMapEnabled = UI.get('lightMapEnabled', this.id);
-        var lightMap = UI.get('lightMap', this.id);
-        var aoMapEnabled = UI.get('aoMapEnabled', this.id);
-        var aoMap = UI.get('aoMap', this.id);
-        var aoScale = UI.get('aoScale', this.id);
-        var emissiveMapEnabled = UI.get('emissiveMapEnabled', this.id);
-        var emissiveMap = UI.get('emissiveMap', this.id);
-        var side = UI.get('side', this.id);
-        var flatShading = UI.get('flatShading', this.id);
-        var blending = UI.get('blending', this.id);
-        var opacity = UI.get('opacity', this.id);
-        var transparent = UI.get('transparent', this.id);
-        var alphaTest = UI.get('alphaTest', this.id);
-        var wireframe = UI.get('wireframe', this.id);
-        var wireframeLinewidth = UI.get('wireframeLinewidth', this.id);
-
-        var material = this.selected.material;
-
-        type.setValue(material.type);
 
         if (material.color) {
-            color.setHexValue(material.color.getHexString());
+            state.showColor = true;
+            state.color = `#${material.color.getHexString()}`;
         }
 
         if (material.roughness !== undefined) {
-            roughness.setValue(material.roughness);
+            state.showRoughness = true;
+            state.roughness = material.roughness;
         }
 
         if (material.metalness !== undefined) {
-            metalness.setValue(material.metalness);
+            state.showMetalness = true;
+            state.metalness = material.metalness;
         }
 
         if (material.emissive !== undefined) {
-            emissive.setHexValue(material.emissive.getHexString());
+            state.showEmissive = true;
+            state.emissive = `#${material.emissive.getHexString()}`;
         }
 
         if (material.specular !== undefined) {
-            specular.setHexValue(material.specular.getHexString());
+            state.showSpecular = true;
+            state.specular = `#${material.specular.getHexString()}`;
         }
 
         if (material.shininess !== undefined) {
-            shininess.setValue(material.shininess);
+            state.showShininess = true;
+            state.shininess = material.shininess;
         }
 
         if (material.clearCoat !== undefined) {
-            clearCoat.setValue(material.clearCoat);
+            state.showClearCoat = true;
+            state.clearCoat = material.clearCoat;
         }
 
         if (material.clearCoatRoughness !== undefined) {
-            clearCoatRoughness.setValue(material.clearCoatRoughness);
+            state.showClearCoatRoughness = true;
+            state.clearCoatRoughness = material.clearCoatRoughness;
         }
 
         if (material.vertexColors !== undefined) {
-            vertexColors.setValue(material.vertexColors);
+            state.showVertexColors = true;
+            state.vertexColors = material.vertexColors;
         }
 
         if (material.skinning !== undefined) {
-            skinning.setValue(material.skinning);
+            state.showSkinning = true;
+            state.skinning = material.skinning;
         }
 
-        if (material.map) {
-            mapEnabled.setValue(material.map !== null);
+        if (material.map !== undefined) {
+            state.showMap = true;
+            state.mapEnabled = material.map !== null;
 
-            if (material.map !== null) {
-                map.setValue(material.map);
+            if (state.mapEnabled) {
+                state.map = material.map;
             }
         }
 
         if (material.alphaMap !== undefined) {
-            alphaMapEnabled.setValue(material.alphaMap !== null);
+            state.showAlphaMap = true;
+            state.alphaMapEnabled = material.alphaMap !== null;
 
-            if (material.alphaMap !== null) {
-                alphaMap.setValue(material.alphaMap);
+            if (state.alphaMapEnabled) {
+                state.alphaMap = material.alphaMap;
             }
         }
 
         if (material.bumpMap !== undefined) {
-            bumpMapEnabled.setValue(material.bumpMap !== null);
+            state.showBumpMap = true;
+            state.bumpMapEnabled = material.bumpMap !== null;
 
-            if (material.bumpMap !== null) {
-                bumpMap.setValue(material.bumpMap);
-                bumpScale.setValue(material.bumpScale);
+            if (state.bumpMapEnabled) {
+                state.bumpMap = material.bumpMap;
+                state.bumpScale = material.bumpScale;
             }
         }
 
         if (material.normalMap !== undefined) {
-            normalMapEnabled.setValue(material.normalMap !== null);
+            state.showNormalMap = true;
+            state.normalMapEnabled = material.normalMap !== null;
 
-            if (material.normalMap !== null) {
-                normalMap.setValue(material.normalMap);
+            if (state.normalMapEnabled) {
+                state.normalMap = material.normalMap;
             }
         }
 
         if (material.displacementMap !== undefined) {
-            displacementMapEnabled.setValue(material.displacementMap !== null);
+            state.showDisplacementMap = true;
+            state.displacementMapEnabled = material.displacementMap !== null;
 
-            if (material.displacementMap !== null) {
-                displacementMap.setValue(material.displacementMap);
-                displacementScale.setValue(material.displacementScale);
+            if (state.displacementMapEnabled) {
+                state.displacementMap = material.displacementMap;
+                state.displacementScale = material.displacementScale;
             }
         }
 
         if (material.roughnessMap !== undefined) {
-            roughnessMapEnabled.setValue(material.roughnessMap !== null);
+            state.showRoughnessMap = true;
+            state.roughnessMapEnabled = material.roughnessMap !== null;
 
-            if (material.roughnessMap !== null) {
-                roughnessMap.setValue(material.roughnessMap);
+            if (state.roughnessMapEnabled) {
+                state.roughnessMap = material.roughnessMap;
             }
         }
 
         if (material.metalnessMap !== undefined) {
-            metalnessMapEnabled.setValue(material.metalnessMap !== null);
+            state.showMetalnessMap = true;
+            state.metalnessMapEnabled = material.metalnessMap !== null;
 
-            if (material.metalnessMap !== null) {
-                metalnessMap.setValue(material.metalnessMap);
+            if (state.metalnessMapEnabled) {
+                state.metalnessMap = material.metalnessMap;
             }
         }
 
         if (material.specularMap !== undefined) {
-            specularMapEnabled.setValue(material.specularMap !== null);
+            state.showSpecularMap = true;
+            state.specularMapEnabled = material.specularMap !== null;
 
-            if (material.specularMap !== null) {
-                specularMap.setValue(material.specularMap);
+            if (state.specularMapEnabled) {
+                state.specularMap = material.specularMap;
             }
         }
 
         if (material.envMap !== undefined) {
-            envMapEnabled.setValue(material.envMap !== null);
+            state.showEnvMap = true;
+            state.envMapEnabled = material.envMap !== null;
 
-            if (material.envMap !== null) {
-                envMap.setValue(material.envMap);
+            if (state.envMapEnabled) {
+                state.envMap = material.envMap;
             }
         }
 
         if (material.reflectivity !== undefined) {
-            reflectivity.setValue(material.reflectivity);
+            state.reflectivity = material.reflectivity;
         }
 
         if (material.lightMap !== undefined) {
-            lightMapEnabled.setValue(material.lightMap !== null);
+            state.showLightMap = true;
+            state.lightMapEnabled = material.lightMap !== null;
 
-            if (material.lightMap !== null) {
-                lightMap.setValue(material.lightMap);
+            if (state.lightMapEnabled) {
+                state.lightMap = material.lightMap;
             }
         }
 
         if (material.aoMap !== undefined) {
-            aoMapEnabled.setValue(material.aoMap !== null);
+            state.showAoMap = true;
+            state.aoMapEnabled = material.aoMap !== null;
 
-            if (material.aoMap !== null) {
-                aoMap.setValue(material.aoMap);
-                aoScale.setValue(material.aoMapIntensity);
+            if (state.aoMapEnabled) {
+                state.aoMap = material.aoMap;
+                state.aoScale = material.aoMapIntensity;
             }
         }
 
         if (material.emissiveMap !== undefined) {
-            emissiveMapEnabled.setValue(material.emissiveMap !== null);
+            state.showEmissiveMap = true;
+            state.emissiveMapEnabled = material.emissiveMap !== null;
 
-            if (material.emissiveMap !== null) {
-                emissiveMap.setValue(material.emissiveMap);
+            if (state.emissiveMapEnabled) {
+                state.emissiveMap = material.emissiveMap;
             }
         }
 
         if (material.side !== undefined) {
-            side.setValue(material.side);
+            state.side = material.side;
         }
 
         if (material.flatShading !== undefined) {
-            flatShading.setValue(material.flatShading);
+            state.flatShading = material.flatShading;
         }
 
         if (material.blending !== undefined) {
-            blending.setValue(material.blending);
+            state.blending = material.blending;
         }
 
         if (material.opacity !== undefined) {
-            opacity.setValue(material.opacity);
+            state.opacity = material.opacity;
         }
 
         if (material.transparent !== undefined) {
-            transparent.setValue(material.transparent);
+            state.transparent = material.transparent;
         }
 
         if (material.alphaTest !== undefined) {
-            alphaTest.setValue(material.alphaTest);
+            state.alphaTest = material.alphaTest;
         }
 
         if (material.wireframe !== undefined) {
-            wireframe.setValue(material.wireframe);
+            state.wireframe = material.wireframe;
         }
 
         if (material.wireframeLinewidth !== undefined) {
-            wireframeLinewidth.setValue(material.wireframeLinewidth);
+            state.wireframeLinewidth = material.wireframeLinewidth;
         }
+
+        this.setState(state);
     }
 
     updateMaterial() {
