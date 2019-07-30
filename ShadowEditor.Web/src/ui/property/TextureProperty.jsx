@@ -19,7 +19,7 @@ class TextureProperty extends React.Component {
     }
 
     render() {
-        const { className, style, value } = this.props;
+        const { className, style, value, enabled, showScale, scale } = this.props;
 
         return <canvas
             className={classNames('texture', className)}
@@ -117,6 +117,9 @@ TextureProperty.propTypes = {
             return new TypeError(`Invalid prop \`${propName}\` of type \`${typeof (value)}\` supplied to \`${componentName}\`, expected \`THREE.Texture\`.`);
         }
     },
+    enabled: PropTypes.bool,
+    showScale: PropTypes.bool,
+    scale: PropTypes.number,
     onChange: PropTypes.func,
 };
 
@@ -125,6 +128,9 @@ TextureProperty.defaultProps = {
     style: null,
     name: null,
     value: null,
+    enabled: false,
+    showScale: false,
+    scale: 1.0,
     onChange: null,
 };
 
