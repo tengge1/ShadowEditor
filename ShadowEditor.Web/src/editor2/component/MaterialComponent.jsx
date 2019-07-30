@@ -281,51 +281,71 @@ class MaterialComponent extends React.Component {
         if (material.color) {
             state.showColor = true;
             state.color = `#${material.color.getHexString()}`;
+        } else {
+            state.showColor = false;
         }
 
         if (material.roughness !== undefined) {
             state.showRoughness = true;
             state.roughness = material.roughness;
+        } else {
+            state.showRoughness = false;
         }
 
         if (material.metalness !== undefined) {
             state.showMetalness = true;
             state.metalness = material.metalness;
+        } else {
+            state.showMetalness = false;
         }
 
         if (material.emissive !== undefined) {
             state.showEmissive = true;
             state.emissive = `#${material.emissive.getHexString()}`;
+        } else {
+            state.showEmissive = false;
         }
 
         if (material.specular !== undefined) {
             state.showSpecular = true;
             state.specular = `#${material.specular.getHexString()}`;
+        } else {
+            state.showSpecular = false;
         }
 
         if (material.shininess !== undefined) {
             state.showShininess = true;
             state.shininess = material.shininess;
+        } else {
+            state.showShininess = false;
         }
 
         if (material.clearCoat !== undefined) {
             state.showClearCoat = true;
             state.clearCoat = material.clearCoat;
+        } else {
+            state.showClearCoat = false;
         }
 
         if (material.clearCoatRoughness !== undefined) {
             state.showClearCoatRoughness = true;
             state.clearCoatRoughness = material.clearCoatRoughness;
+        } else {
+            state.showClearCoatRoughness = false;
         }
 
         if (material.vertexColors !== undefined) {
             state.showVertexColors = true;
             state.vertexColors = material.vertexColors;
+        } else {
+            state.showVertexColors = false;
         }
 
         if (material.skinning !== undefined) {
             state.showSkinning = true;
             state.skinning = material.skinning;
+        } else {
+            state.showSkinning = false;
         }
 
         if (material.map !== undefined) {
@@ -335,6 +355,8 @@ class MaterialComponent extends React.Component {
             if (state.mapEnabled) {
                 state.map = material.map;
             }
+        } else {
+            state.showMap = false;
         }
 
         if (material.alphaMap !== undefined) {
@@ -344,6 +366,8 @@ class MaterialComponent extends React.Component {
             if (state.alphaMapEnabled) {
                 state.alphaMap = material.alphaMap;
             }
+        } else {
+            state.showAlphaMap = false;
         }
 
         if (material.bumpMap !== undefined) {
@@ -354,6 +378,8 @@ class MaterialComponent extends React.Component {
                 state.bumpMap = material.bumpMap;
                 state.bumpScale = material.bumpScale;
             }
+        } else {
+            state.showBumpMap = false;
         }
 
         if (material.normalMap !== undefined) {
@@ -363,6 +389,8 @@ class MaterialComponent extends React.Component {
             if (state.normalMapEnabled) {
                 state.normalMap = material.normalMap;
             }
+        } else {
+            state.showNormalMap = false;
         }
 
         if (material.displacementMap !== undefined) {
@@ -373,6 +401,8 @@ class MaterialComponent extends React.Component {
                 state.displacementMap = material.displacementMap;
                 state.displacementScale = material.displacementScale;
             }
+        } else {
+            state.showDisplacementMap = false;
         }
 
         if (material.roughnessMap !== undefined) {
@@ -382,6 +412,8 @@ class MaterialComponent extends React.Component {
             if (state.roughnessMapEnabled) {
                 state.roughnessMap = material.roughnessMap;
             }
+        } else {
+            state.showRoughnessMap = false;
         }
 
         if (material.metalnessMap !== undefined) {
@@ -391,6 +423,8 @@ class MaterialComponent extends React.Component {
             if (state.metalnessMapEnabled) {
                 state.metalnessMap = material.metalnessMap;
             }
+        } else {
+            state.showMetalnessMap = false;
         }
 
         if (material.specularMap !== undefined) {
@@ -400,6 +434,8 @@ class MaterialComponent extends React.Component {
             if (state.specularMapEnabled) {
                 state.specularMap = material.specularMap;
             }
+        } else {
+            state.showSpecularMap = false;
         }
 
         if (material.envMap !== undefined) {
@@ -409,10 +445,12 @@ class MaterialComponent extends React.Component {
             if (state.envMapEnabled) {
                 state.envMap = material.envMap;
             }
-        }
 
-        if (material.reflectivity !== undefined) {
-            state.reflectivity = material.reflectivity;
+            if (material.reflectivity !== undefined) {
+                state.reflectivity = material.reflectivity;
+            }
+        } else {
+            state.showEnvMap = false;
         }
 
         if (material.lightMap !== undefined) {
@@ -422,6 +460,8 @@ class MaterialComponent extends React.Component {
             if (state.lightMapEnabled) {
                 state.lightMap = material.lightMap;
             }
+        } else {
+            state.showLightMap = false;
         }
 
         if (material.aoMap !== undefined) {
@@ -432,6 +472,8 @@ class MaterialComponent extends React.Component {
                 state.aoMap = material.aoMap;
                 state.aoScale = material.aoMapIntensity;
             }
+        } else {
+            state.showAoMap = false;
         }
 
         if (material.emissiveMap !== undefined) {
@@ -441,6 +483,8 @@ class MaterialComponent extends React.Component {
             if (state.emissiveMapEnabled) {
                 state.emissiveMap = material.emissiveMap;
             }
+        } else {
+            state.showEmissiveMap = false;
         }
 
         if (material.side !== undefined) {
