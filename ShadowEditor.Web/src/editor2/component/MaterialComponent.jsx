@@ -496,7 +496,7 @@ class MaterialComponent extends React.Component {
             showMap, mapEnabled, map, showAlphaMap, alphaMapEnabled, alphaMap, showBumpMap, bumpMapEnabled, bumpMap, bumpScale, showNormalMap, normalMapEnabled, normalMap, showDisplacementMap, displacementMapEnabled, displacementMap,
             displacementScale, showRoughnessMap, roughnessMapEnabled, roughnessMap, showMetalnessMap, metalnessMapEnabled, metalnessMap, showSpecularMap, specularMapEnabled, specularMap, showEnvMap, envMapEnabled, envMap,
             reflectivity, showLightMap, lightMapEnabled, lightMap, showAoMap, aoMapEnabled, aoMap, aoScale, showEmissiveMap, emissiveMapEnabled, emissiveMap, showSide, side, showFlatShading, flatShading, showBlending, blending, showOpacity, opacity,
-            showTransparent, transparent, showAlphaTest, alphaTest, showWireframe, wireframe, wireframeLinewidth } = Object.assign({}, this.selected, {
+            showTransparent, transparent, showAlphaTest, alphaTest, showWireframe, wireframe, wireframeLinewidth } = Object.assign({}, this.state, {
                 [name]: value,
             });
 
@@ -541,7 +541,7 @@ class MaterialComponent extends React.Component {
             editor.execute(new SetMaterialCommand(object, material), L_NEW_MATERIAL + ':' + type);
         }
 
-        if (material.color !== undefined && material.color.getHex() !== color) {
+        if (material.color !== undefined && `#${material.color.getHexString()}` !== color) {
             editor.execute(new SetMaterialColorCommand(object, 'color', color));
         }
 
@@ -553,11 +553,11 @@ class MaterialComponent extends React.Component {
             editor.execute(new SetMaterialValueCommand(object, 'metalness', metalness));
         }
 
-        if (material.emissive !== undefined && material.emissive.getHex() !== emissive) {
+        if (material.emissive !== undefined && `#${material.emissive.getHexString()}` !== emissive) {
             editor.execute(new SetMaterialColorCommand(object, 'emissive', emissive));
         }
 
-        if (material.specular !== undefined && material.specular.getHex() !== specular) {
+        if (material.specular !== undefined && `#${material.specular.getHexString()}` !== specular) {
             editor.execute(new SetMaterialColorCommand(object, 'specular', specular));
         }
 
@@ -573,10 +573,8 @@ class MaterialComponent extends React.Component {
             editor.execute(new SetMaterialValueCommand(object, 'clearCoatRoughness', clearCoatRoughness));
         }
 
-        if (material.vertexColors !== undefined) {
-            if (material.vertexColors !== parseInt(vertexColors)) {
-                editor.execute(new SetMaterialValueCommand(object, 'vertexColors', parseInt(vertexColors)));
-            }
+        if (material.vertexColors !== undefined && material.vertexColors !== vertexColors) {
+            editor.execute(new SetMaterialValueCommand(object, 'vertexColors', vertexColors));
         }
 
         if (material.skinning !== undefined && material.skinning !== skinning) {
@@ -586,7 +584,7 @@ class MaterialComponent extends React.Component {
         if (material.map !== undefined) {
             if (objectHasUvs) {
                 let map1 = mapEnabled ? map : null;
-                if (material.map !== map1) {
+                if (mapEnabled && material.map !== map1) {
                     editor.execute(new SetMaterialMapCommand(object, 'map', map1));
                 }
             } else {
@@ -598,13 +596,13 @@ class MaterialComponent extends React.Component {
 
         if (material.alphaMap !== undefined) {
             if (objectHasUvs) {
-                let alphaMap1 = mapEnabled ? alphaMap : null;
+                let alphaMap1 = alphaMapEnabled ? alphaMap : null;
 
-                if (material.alphaMap !== alphaMap1) {
+                if (alphaMapEnabled && material.alphaMap !== alphaMap1) {
                     editor.execute(new SetMaterialMapCommand(object, 'alphaMap', alphaMap1));
                 }
             } else {
-                if (mapEnabled) {
+                if (alphaMapEnabled) {
                     textureWarning = true;
                 }
             }
@@ -614,11 +612,11 @@ class MaterialComponent extends React.Component {
             if (objectHasUvs) {
                 let bumpMap1 = bumpMapEnabled ? bumpMap : null;
 
-                if (material.bumpMap !== bumpMap1) {
+                if (bumpMapEnabled && material.bumpMap !== bumpMap1) {
                     editor.execute(new SetMaterialMapCommand(object, 'bumpMap', bumpMap1));
                 }
 
-                if (material.bumpScale !== bumpScale) {
+                if (bumpMapEnabled && material.bumpScale !== bumpScale) {
                     editor.execute(new SetMaterialValueCommand(object, 'bumpScale', bumpScale));
                 }
             } else {
@@ -632,7 +630,7 @@ class MaterialComponent extends React.Component {
             if (objectHasUvs) {
                 let normalMap1 = normalMapEnabled ? normalMap : null;
 
-                if (material.normalMap !== normalMap1) {
+                if (normalMapEnabled && material.normalMap !== normalMap1) {
                     editor.execute(new SetMaterialMapCommand(object, 'normalMap', normalMap1));
                 }
             } else {
@@ -646,11 +644,11 @@ class MaterialComponent extends React.Component {
             if (objectHasUvs) {
                 let displacementMap1 = displacementMapEnabled ? displacementMap : null;
 
-                if (material.displacementMap !== displacementMap1) {
+                if (displacementMapEnabled && material.displacementMap !== displacementMap1) {
                     editor.execute(new SetMaterialMapCommand(object, 'displacementMap', displacementMap1));
                 }
 
-                if (material.displacementScale !== displacementScale) {
+                if (displacementMapEnabled && material.displacementScale !== displacementScale) {
                     editor.execute(new SetMaterialValueCommand(object, 'displacementScale', displacementScale));
                 }
             } else {
@@ -665,7 +663,7 @@ class MaterialComponent extends React.Component {
             if (objectHasUvs) {
                 let roughnessMap1 = roughnessMapEnabled ? roughnessMap : null;
 
-                if (material.roughnessMap !== roughnessMap1) {
+                if (roughnessMapEnabled && material.roughnessMap !== roughnessMap1) {
                     editor.execute(new SetMaterialMapCommand(object, 'roughnessMap', roughnessMap1));
                 }
             } else {
@@ -679,7 +677,7 @@ class MaterialComponent extends React.Component {
             if (objectHasUvs) {
                 let metalnessMap1 = metalnessMapEnabled ? metalnessMap : null;
 
-                if (material.metalnessMap !== metalnessMap1) {
+                if (metalnessMapEnabled && material.metalnessMap !== metalnessMap1) {
                     editor.execute(new SetMaterialMapCommand(object, 'metalnessMap', metalnessMap1));
                 }
             } else {
@@ -693,7 +691,7 @@ class MaterialComponent extends React.Component {
             if (objectHasUvs) {
                 let specularMap1 = specularMapEnabled ? specularMap : null;
 
-                if (material.specularMap !== specularMap1) {
+                if (specularMapEnabled && material.specularMap !== specularMap1) {
                     editor.execute(new SetMaterialMapCommand(object, 'specularMap', specularMap1));
                 }
             } else {
@@ -706,7 +704,7 @@ class MaterialComponent extends React.Component {
         if (material.envMap !== undefined) {
             let envMap1 = envMapEnabled ? envMap : null;
 
-            if (material.envMap !== envMap1) {
+            if (envMapEnabled && material.envMap !== envMap1) {
                 editor.execute(new SetMaterialMapCommand(object, 'envMap', envMap1));
             }
         }
@@ -721,7 +719,7 @@ class MaterialComponent extends React.Component {
             if (objectHasUvs) {
                 let lightMap1 = lightMapEnabled ? lightMap : null;
 
-                if (material.lightMap !== lightMap1) {
+                if (lightMapEnabled && material.lightMap !== lightMap1) {
                     editor.execute(new SetMaterialMapCommand(object, 'lightMap', lightMap1));
                 }
             } else {
@@ -735,11 +733,11 @@ class MaterialComponent extends React.Component {
             if (objectHasUvs) {
                 let aoMap1 = aoMapEnabled ? aoMap : null;
 
-                if (material.aoMap !== aoMap1) {
+                if (aoMapEnabled && material.aoMap !== aoMap1) {
                     editor.execute(new SetMaterialMapCommand(object, 'aoMap', aoMap1));
                 }
 
-                if (material.aoMapIntensity !== aoScale) {
+                if (aoMapEnabled && material.aoMapIntensity !== aoScale) {
                     editor.execute(new SetMaterialValueCommand(object, 'aoMapIntensity', aoScale));
                 }
             } else {
@@ -751,7 +749,7 @@ class MaterialComponent extends React.Component {
             if (objectHasUvs) {
                 var emissiveMap1 = emissiveMapEnabled ? emissiveMap : null;
 
-                if (material.emissiveMap !== emissiveMap1) {
+                if (emissiveMapEnabled && material.emissiveMap !== emissiveMap1) {
                     editor.execute(new SetMaterialMapCommand(object, 'emissiveMap', emissiveMap1));
                 }
             } else {
@@ -761,22 +759,16 @@ class MaterialComponent extends React.Component {
             }
         }
 
-        if (material.side !== undefined) {
-            if (material.side !== side) {
-                editor.execute(new SetMaterialValueCommand(object, 'side', side));
-            }
+        if (material.side !== undefined && material.side !== side) {
+            editor.execute(new SetMaterialValueCommand(object, 'side', side));
         }
 
-        if (material.flatShading !== undefined) {
-            if (material.flatShading != flatShading) {
-                editor.execute(new SetMaterialValueCommand(object, 'flatShading', flatShading));
-            }
+        if (material.flatShading !== undefined && material.flatShading != flatShading) {
+            editor.execute(new SetMaterialValueCommand(object, 'flatShading', flatShading));
         }
 
-        if (material.blending !== undefined) {
-            if (material.blending !== blending) {
-                editor.execute(new SetMaterialValueCommand(object, 'blending', blending));
-            }
+        if (material.blending !== undefined && material.blending !== blending) {
+            editor.execute(new SetMaterialValueCommand(object, 'blending', blending));
         }
 
         if (material.opacity !== undefined && Math.abs(material.opacity - opacity) >= 0.01) {
