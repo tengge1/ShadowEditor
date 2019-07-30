@@ -15,12 +15,12 @@ class Input extends React.Component {
     }
 
     render() {
-        const { className, style, name, type, value, min, max, step, disabled } = this.props;
+        const { className, style, name, type, value, min, max, step, show, disabled } = this.props;
 
         let val = value === undefined || value === null ? '' : value;
 
         return <input
-            className={classNames('Input', className)}
+            className={classNames('Input', !show && 'hidden', className)}
             style={style}
             type={type}
             value={val}
@@ -77,6 +77,7 @@ Input.propTypes = {
     step: PropTypes.number,
     precision: PropTypes.number,
     disabled: PropTypes.bool,
+    show: PropTypes.bool,
     onChange: PropTypes.func,
     onInput: PropTypes.func,
 };
@@ -92,6 +93,7 @@ Input.defaultProps = {
     step: null,
     precision: 3,
     disabled: false,
+    show: true,
     onChange: null,
     onInput: null,
 };

@@ -6,6 +6,9 @@
     position: absolute;
     width: 100%;
     height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     box-sizing: border-box;
     cursor: pointer;
 }

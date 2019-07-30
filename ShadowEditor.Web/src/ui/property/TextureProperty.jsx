@@ -2,6 +2,7 @@ import './css/TextureProperty.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
+import CheckBox from '../form/CheckBox.jsx';
 import Input from '../form/Input.jsx';
 
 /**
@@ -21,12 +22,13 @@ class TextureProperty extends React.Component {
     render() {
         const { className, style, value, enabled, showScale, scale } = this.props;
 
-        return <canvas
-            className={classNames('texture', className)}
-            style={style}
-            title={value ? value.sourceFile : ''}
-            ref={this.canvasRef}
-            onClick={this.handleSelect}></canvas>;
+        return <div className={classNames('texture', className)} style={style}>
+            <CheckBox checked={enabled}></CheckBox>
+            <canvas title={value ? value.sourceFile : ''}
+                ref={this.canvasRef}
+                onClick={this.handleSelect}></canvas>;
+            <Input type={'number'} value={scale} show={showScale}></Input>
+        </div>;
     }
 
     componentDidMount() {
