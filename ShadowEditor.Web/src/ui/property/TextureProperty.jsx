@@ -26,7 +26,7 @@ class TextureProperty extends React.Component {
             <CheckBox checked={enabled}></CheckBox>
             <canvas title={value ? value.sourceFile : ''}
                 ref={this.canvasRef}
-                onClick={this.handleSelect}></canvas>;
+                onClick={this.handleSelect}></canvas>
             <Input type={'number'} value={scale} show={showScale}></Input>
         </div>;
     }
