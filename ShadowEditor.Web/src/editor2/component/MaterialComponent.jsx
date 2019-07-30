@@ -276,6 +276,7 @@ class MaterialComponent extends React.Component {
         let state = {
             show: true,
             type: material.type,
+            showProgram: material instanceof THREE.ShaderMaterial || material instanceof THREE.RawShaderMaterial,
         };
 
         if (material.color) {
