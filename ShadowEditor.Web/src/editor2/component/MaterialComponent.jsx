@@ -36,7 +36,7 @@ class MaterialComponent extends React.Component {
             'MeshNormalMaterial': L_MESH_NORMAL_MATERIAL,
             'MeshLambertMaterial': L_MESH_LAMBERT_MATERIAL,
             'MeshPhongMaterial': L_MESH_PHONG_MATERIAL,
-            'PointCloudMaterial': L_POINT_CLOUD_MATERIAL,
+            'PointsMaterial': L_POINT_CLOUD_MATERIAL,
             'MeshStandardMaterial': L_MESH_STANDARD_MATERIAL,
             'MeshPhysicalMaterial': L_MESH_PHYSICAL_MATERIAL,
             'SpriteMaterial': L_SPRITE_MATERIAL,
@@ -210,11 +210,9 @@ class MaterialComponent extends React.Component {
                 <Button onClick={this.onLoad}>{L_SELECT}</Button>
             </ButtonsProperty>
             <SelectProperty label={L_TYPE} options={this.materials} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
-            <ButtonsProperty label={L_SHADER_PROGRAM} show={showProgram}>
-                <Button onClick={this.editProgramInfo}>{L_SHADER_PROGRAM}</Button>
-                <Button onClick={this.editVertexShader}>{L_VERTEX}</Button>
-                <Button onClick={this.editFragmentShader}>{L_FRAGMENT}</Button>
-            </ButtonsProperty>
+            <ButtonProperty label={'Shader Info'} text={L_EDIT} show={showProgram} onChange={this.editProgramInfo}></ButtonProperty>
+            <ButtonProperty label={'Vertex Shader'} text={L_EDIT} show={showProgram} onChange={this.editVertexShader}></ButtonProperty>
+            <ButtonProperty label={'Frag Shader'} text={L_EDIT} show={showProgram} onChange={this.editFragmentShader}></ButtonProperty>
             <ColorProperty label={L_COLOR} name={'color'} value={color} show={showColor} onChange={this.handleChange}></ColorProperty>
             <NumberProperty label={L_ROUGHNESS} name={'roughness'} value={roughness} show={showRoughness} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={L_METALNESS} name={'metalness'} value={metalness} show={showMetalness} onChange={this.handleChange}></NumberProperty>
