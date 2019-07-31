@@ -93,7 +93,7 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
 
     // 背景虚化特效
     if (postProcessing.bokeh && postProcessing.bokeh.enabled) {
-        await this.require(['BokehShader', 'BokehPass']);
+        await this.require(['CopyShader', 'BokehShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'BokehPass']);
     }
 
     // 毛刺特效
@@ -107,7 +107,8 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
 };
 
 EffectRenderer.prototype._createPostProcessing = function (scenes, camera, renderer) {
-    var postProcessing = scenes[0].userData.postProcessing || {};
+    let scene = scenes[0];
+    let postProcessing = scene.userData.postProcessing || {};
 
     if (this.composer) {
         this.dispose();
@@ -141,17 +142,6 @@ EffectRenderer.prototype._createPostProcessing = function (scenes, camera, rende
         composer.addPass(effect);
         effects.push(effect);
     });
-
-    // 边框
-    // effect = new THREE.OutlinePass(new THREE.Vector2(renderer.domElement.width, renderer.domElement.height), scene, camera);
-    // effect.edgeStrength = 10;
-    // effect.edgeGlow = 0.4;
-    // effect.edgeThickness = 1.8;
-    // effect.pulsePeriod = 2;
-    // effect.visibleEdgeColor.set('#ffffff');
-    // effect.hiddenEdgeColor.set('#190a05');
-    // composer.addPass(effect);
-    // effects.push(effect);
 
     // 快速近似抗锯齿
     if (postProcessing.fxaa && postProcessing.fxaa.enabled) {
