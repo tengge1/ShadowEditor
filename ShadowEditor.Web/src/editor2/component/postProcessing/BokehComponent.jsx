@@ -42,8 +42,8 @@ class BokehComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.BokehComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.BokehComponent`, this.handleUpdate.bind(this));
+        app.on(`objectSelected.BokehComponent`, this.handleUpdate);
+        app.on(`objectChanged.BokehComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {

@@ -36,8 +36,8 @@ class FxaaComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.FxaaComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.FxaaComponent`, this.handleUpdate.bind(this));
+        app.on(`objectSelected.FxaaComponent`, this.handleUpdate);
+        app.on(`objectChanged.FxaaComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {

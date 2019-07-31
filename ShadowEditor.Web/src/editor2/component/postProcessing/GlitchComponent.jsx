@@ -38,8 +38,8 @@ class GlitchComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.GlitchComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.GlitchComponent`, this.handleUpdate.bind(this));
+        app.on(`objectSelected.GlitchComponent`, this.handleUpdate);
+        app.on(`objectChanged.GlitchComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {

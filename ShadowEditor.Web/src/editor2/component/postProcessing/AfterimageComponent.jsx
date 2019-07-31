@@ -38,8 +38,8 @@ class AfterimageComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.AfterimageComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.AfterimageComponent`, this.handleUpdate.bind(this));
+        app.on(`objectSelected.AfterimageComponent`, this.handleUpdate);
+        app.on(`objectChanged.AfterimageComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {

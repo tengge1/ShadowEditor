@@ -38,8 +38,8 @@ class DotScreenComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.DotScreenComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.DotScreenComponent`, this.handleUpdate.bind(this));
+        app.on(`objectSelected.DotScreenComponent`, this.handleUpdate);
+        app.on(`objectChanged.DotScreenComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {

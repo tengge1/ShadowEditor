@@ -69,8 +69,8 @@ class HalftoneComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.HalftoneComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.HalftoneComponent`, this.handleUpdate.bind(this));
+        app.on(`objectSelected.HalftoneComponent`, this.handleUpdate);
+        app.on(`objectChanged.HalftoneComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
