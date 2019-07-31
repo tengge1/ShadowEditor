@@ -73,7 +73,7 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
 
     // 点阵化
     if (postProcessing.dotScreen && postProcessing.dotScreen.enabled) {
-        await this.require('DotScreenShader');
+        await this.require(['CopyShader', 'DotScreenShader', 'EffectComposer', 'RenderPass', 'ShaderPass']);
     }
 
     // 颜色偏移
