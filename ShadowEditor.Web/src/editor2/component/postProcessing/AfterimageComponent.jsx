@@ -63,30 +63,36 @@ class AfterimageComponent extends React.Component {
         let scene = this.selected;
         let postProcessing = scene.userData.postProcessing || {};
 
-        let state = {};
+        let state = {
+            show: true,
+            enabled: postProcessing.afterimage ? postProcessing.afterimage.enabled : false,
+            damp: postProcessing.afterimage ? postProcessing.afterimage.damp : this.state.damp,
+        };
 
-        if (postProcessing.afterimage) {
-            this.setState({
-
-            });
-            enabled.setValue(postProcessing.afterimage.enabled);
-            damp.setValue(postProcessing.afterimage.damp);
-        } else {
-
-        }
+        this.setState(state)
     }
 
-    handleChange() {
-        var enabled = UI.get('enabled', this.id);
-        var damp = UI.get('damp', this.id);
+    handleChange(value, name) {
+        this.setState({
+            [name]: value,
+        });
 
-        var scene = this.selected;
+        if (value === null) {
+            return;
+        }
+
+        const { enabled, damp } = Object.assign({}, this.state, {
+            [name]: value,
+        });
+
+        let scene = this.selected;
+
         scene.userData.postProcessing = scene.userData.postProcessing || {};
 
         Object.assign(scene.userData.postProcessing, {
             afterimage: {
-                enabled: enabled.getValue(),
-                damp: damp.getValue()
+                enabled,
+                damp,
             },
         });
 
