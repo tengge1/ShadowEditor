@@ -2,7 +2,7 @@ import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxPro
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
- * 快速近似抗锯齿(FXAA)组件
+ * 毛刺组件
  * @author tengge / https://github.com/tengge1
  */
 class GlitchComponent extends React.Component {
