@@ -83,7 +83,7 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
 
     // 残影特效
     if (postProcessing.afterimage && postProcessing.afterimage.enabled) {
-        await this.require(['AfterimageShader', 'EffectComposer', 'AfterimagePass']);
+        await this.require(['CopyShader', 'AfterimageShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'AfterimagePass']);
     }
 
     // 半色调特效
@@ -120,7 +120,7 @@ EffectRenderer.prototype._createPostProcessing = function (scenes, camera, rende
     for (var i = 0; i < keys.length; i++) {
         var key = keys[i];
 
-        if (this.effectNames[key] && this.effectNames[key].enabled) { // 需要特效
+        if (this.effectNames.indexOf(key) > -1 && postProcessing[key].enabled) { // 需要特效
             useEffect = true;
             break;
         }
