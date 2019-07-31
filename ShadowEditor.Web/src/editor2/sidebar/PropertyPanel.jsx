@@ -33,6 +33,8 @@ import DotScreenComponent from '../component/postProcessing/DotScreenComponent.j
 import FxaaComponent from '../component/postProcessing/FxaaComponent.jsx';
 import GlitchComponent from '../component/postProcessing/GlitchComponent.jsx';
 import HalftoneComponent from '../component/postProcessing/HalftoneComponent.jsx';
+import PixelComponent from '../component/postProcessing/PixelComponent.jsx';
+import RgbShiftComponent from '../component/postProcessing/RgbShiftComponent.jsx';
 
 /**
  * 属性面板
@@ -78,6 +80,8 @@ class PropertyPanel extends React.Component {
             <FxaaComponent></FxaaComponent>
             <GlitchComponent></GlitchComponent>
             <HalftoneComponent></HalftoneComponent>
+            <PixelComponent></PixelComponent>
+            <RgbShiftComponent></RgbShiftComponent>
         </PropertyGrid>;
     }
 }
