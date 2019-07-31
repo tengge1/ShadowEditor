@@ -69,7 +69,7 @@ class AfterimageComponent extends React.Component {
             damp: postProcessing.afterimage ? postProcessing.afterimage.damp : this.state.damp,
         };
 
-        this.setState(state)
+        this.setState(state);
     }
 
     handleChange(value, name) {
