@@ -32,6 +32,7 @@ import BokehComponent from '../component/postProcessing/BokehComponent.jsx';
 import DotScreenComponent from '../component/postProcessing/DotScreenComponent.jsx';
 import FxaaComponent from '../component/postProcessing/FxaaComponent.jsx';
 import GlitchComponent from '../component/postProcessing/GlitchComponent.jsx';
+import HalftoneComponent from '../component/postProcessing/HalftoneComponent.jsx';
 
 /**
  * 属性面板
@@ -76,6 +77,7 @@ class PropertyPanel extends React.Component {
             <DotScreenComponent></DotScreenComponent>
             <FxaaComponent></FxaaComponent>
             <GlitchComponent></GlitchComponent>
+            <HalftoneComponent></HalftoneComponent>
         </PropertyGrid>;
     }
 }
