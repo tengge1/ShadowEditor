@@ -38,7 +38,7 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
 
     // 快速近似抗锯齿
     if (postProcessing.fxaa && postProcessing.fxaa.enabled) {
-        await this.require('FXAAShader');
+        await this.require(['CopyShader', 'FXAAShader', 'EffectComposer', 'RenderPass', 'ShaderPass']);
     }
 
     // 多重采样抗锯齿

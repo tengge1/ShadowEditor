@@ -73,6 +73,7 @@ class PropertyPanel extends React.Component {
             <AfterimageComponent></AfterimageComponent>
             <BokehComponent></BokehComponent>
             <DotScreenComponent></DotScreenComponent>
+            <FxaaComponent></FxaaComponent>
         </PropertyGrid>;
     }
 }
