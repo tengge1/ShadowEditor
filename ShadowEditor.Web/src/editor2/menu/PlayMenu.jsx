@@ -9,21 +9,27 @@ class PlayMenu extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            isPlaying: false,
+        };
+
         this.handleTogglePlay = this.handleTogglePlay.bind(this);
         this.handlePlayFullscreen = this.handlePlayFullscreen.bind(this);
         this.handlePlayNewWindow = this.handlePlayNewWindow.bind(this);
     }
 
     render() {
+        const { isPlaying } = this.state;
+
         return <MenuItem title={L_PLAY}>
-            <MenuItem title={L_PLAY} onClick={this.handleTogglePlay}></MenuItem>
+            <MenuItem title={isPlaying ? L_STOP : L_PLAY} onClick={this.handleTogglePlay}></MenuItem>
             <MenuItem title={L_PLAY_FULLSCREEN} onClick={this.handlePlayFullscreen}></MenuItem>
             <MenuItem title={L_PLAY_NEW_WINDOW} onClick={this.handlePlayNewWindow}></MenuItem>
         </MenuItem>;
     }
 
     handleTogglePlay() {
-        if (this.isPlaying) {
+        if (this.state.isPlaying) {
             this.handleStopPlay();
         } else {
             this.handleStartPlay();
@@ -31,11 +37,13 @@ class PlayMenu extends React.Component {
     }
 
     handleStartPlay() { // 启动播放
-        if (this.isPlaying) {
+        if (this.state.isPlaying) {
             return;
         }
 
-        this.isPlaying = true;
+        this.setState({
+            isPlaying: true,
+        });
 
         // 将场景数据转换为字符串
         var jsons = (new Converter()).toJSON({
@@ -52,17 +60,21 @@ class PlayMenu extends React.Component {
     }
 
     handleStopPlay() { // 停止播放
-        if (!this.isPlaying) {
+        if (!this.state.isPlaying) {
             return;
         }
 
-        this.isPlaying = false;
+        this.setState({
+            isPlaying: false,
+        });
 
         app.player.stop();
+
+        this.setState
     }
 
     handlePlayFullscreen() { // 全屏播放
-        if (!this.isPlaying) {
+        if (!this.state.isPlaying) {
             this.handleStartPlay();
         }
 
@@ -70,7 +82,7 @@ class PlayMenu extends React.Component {
     }
 
     handlePlayNewWindow() { // 新窗口播放
-        var sceneID = app.editor.sceneID;
+        let sceneID = app.editor.sceneID;
 
         if (!sceneID) {
             app.toast('请先保存场景！');

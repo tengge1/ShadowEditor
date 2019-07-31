@@ -27,6 +27,11 @@ import ReflectorComponent from '../component/ReflectorComponent.jsx';
 import ParticleEmitterComponent from '../component/ParticleEmitterComponent.jsx';
 import MMDComponent from '../component/MMDComponent.jsx';
 
+import AfterimageComponent from '../component/postProcessing/AfterimageComponent.jsx';
+import BokehComponent from '../component/postProcessing/BokehComponent.jsx';
+import DotScreenComponent from '../component/postProcessing/DotScreenComponent.jsx';
+import FxaaComponent from '../component/postProcessing/FxaaComponent.jsx';
+
 /**
  * 属性面板
  * @author tengge / https://github.com/tengge1
@@ -64,6 +69,10 @@ class PropertyPanel extends React.Component {
             <TorusKnotGeometryComponent></TorusKnotGeometryComponent>
 
             <MaterialComponent></MaterialComponent>
+
+            <AfterimageComponent></AfterimageComponent>
+            <BokehComponent></BokehComponent>
+            <DotScreenComponent></DotScreenComponent>
         </PropertyGrid>;
     }
 }

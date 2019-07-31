@@ -83,7 +83,7 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
 
     // 残影特效
     if (postProcessing.afterimage && postProcessing.afterimage.enabled) {
-        await this.require(['AfterimageShader', 'AfterimagePass']);
+        await this.require(['AfterimageShader', 'EffectComposer', 'AfterimagePass']);
     }
 
     // 半色调特效
