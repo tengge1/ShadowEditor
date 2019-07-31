@@ -24,7 +24,7 @@ class FxaaComponent extends React.Component {
     }
 
     render() {
-        const { show, expanded, enabled, scale } = this.state;
+        const { show, expanded, enabled } = this.state;
 
         if (!show) {
             return null;

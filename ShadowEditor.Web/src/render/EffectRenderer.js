@@ -98,7 +98,7 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
 
     // 毛刺特效
     if (postProcessing.glitch && postProcessing.glitch.enabled) {
-        await this.require(['DigitalGlitch', 'GlitchPass']);
+        await this.require(['CopyShader', 'DigitalGlitch', 'EffectComposer', 'RenderPass', 'ShaderPass', 'GlitchPass']);
     }
 
     this._createPostProcessing(scenes, camera, renderer);
