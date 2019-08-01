@@ -142,11 +142,12 @@ class ComponentMenu extends React.Component {
     // ----------------------------- 添加着色器地形 --------------------------------
 
     handleAddShaderTerrain() {
-        let terrain = new ShaderTerrain(app.editor.renderer);
-
-        terrain.name = '着色器地形';
-
-        app.editor.execute(new AddObjectCommand(terrain));
+        app.require('NormalMapShader').then(() => {
+            let terrain = new ShaderTerrain(app.editor.renderer);
+            terrain.name = '着色器地形';
+            app.editor.execute(new AddObjectCommand(terrain));
+            terrain.update(0);
+        });
     }
 }
 
