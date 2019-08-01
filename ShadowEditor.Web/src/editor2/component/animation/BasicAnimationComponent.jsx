@@ -31,7 +31,7 @@ class BasicAnimationComponent extends React.Component {
 
         this.handleExpand = this.handleExpand.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
-
+        this.handleSetTarget = this.handleSetTarget.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -63,43 +63,41 @@ class BasicAnimationComponent extends React.Component {
     }
 
     handleUpdate(animation) {
-        var container = UI.get('basicAnimationPanel', this.id);
-        if (animation) {
-            container.dom.style.display = '';
-        } else {
-            container.dom.style.display = 'none';
+        if (!animation) {
+            this.setState({
+                show: false,
+            });
             return;
         }
 
         this.animation = animation;
 
-        var name = UI.get('name', this.id);
-        var target = UI.get('target', this.id);
-        var type = UI.get('type', this.id);
-        var beginTime = UI.get('beginTime', this.id);
-        var endTime = UI.get('endTime', this.id);
-
-        name.setValue(this.animation.name);
+        let state = {
+            show: true,
+            name: this.animation.name,
+            type: this.animation.type,
+            beginTime: this.animation.beginTime,
+            endTime: this.animation.endTime,
+        };
 
         if (!this.animation.target) {
-            target.setValue('(' + L_NONE + ')');
+            state.target = '(' + L_NONE + ')';
         } else {
-            var obj = app.editor.objectByUuid(this.animation.target);
+            let obj = app.editor.objectByUuid(this.animation.target);
             if (obj === null) {
-                target.setValue('(' + L_NONE + ')');
+                state.target = '(' + L_NONE + ')';
                 console.warn(`BasicAnimationComponent: ${L_ANIMATION_OBJECT} ${this.animation.target} ${L_NOT_EXISTED_IN_SCENE}`);
             } else {
-                target.setValue(obj.name);
+                state.target = obj.name;
             }
         }
 
-        type.setValue(this.animation.type);
-        beginTime.setValue(this.animation.beginTime);
-        endTime.setValue(this.animation.endTime);
+        this.setState(state);
     }
 
     handleSetTarget() {
-        var selected = app.editor.selected;
+        let selected = app.editor.selected;
+
         if (selected == null) {
             this.animation.target = null;
         } else {
@@ -109,16 +107,23 @@ class BasicAnimationComponent extends React.Component {
         app.call('animationChanged', this, this.animation);
     }
 
-    handleChange() {
-        var name = UI.get('name', this.id);
-        var type = UI.get('type', this.id);
-        var beginTime = UI.get('beginTime', this.id);
-        var endTime = UI.get('endTime', this.id);
+    handleChange(value, name) {
+        this.setState({
+            [name]: value,
+        });
 
-        this.animation.name = name.getValue();
-        this.animation.type = type.getValue();
-        this.animation.beginTime = beginTime.getValue();
-        this.animation.endTime = endTime.getValue();
+        if (value === null) {
+            return;
+        }
+
+        const { name, type, beginTime, endTime } = Object.assign({}, this.state, {
+            [name]: value,
+        });
+
+        this.animation.name = name;
+        this.animation.type = type;
+        this.animation.beginTime = beginTime;
+        this.animation.endTime = endTime;
 
         app.call('animationChanged', this, this.animation);
     }
