@@ -107,9 +107,9 @@ class BasicAnimationComponent extends React.Component {
         app.call('animationChanged', this, this.animation);
     }
 
-    handleChange(value, name) {
+    handleChange(value, animName) {
         this.setState({
-            [name]: value,
+            [animName]: value,
         });
 
         if (value === null) {
@@ -117,7 +117,7 @@ class BasicAnimationComponent extends React.Component {
         }
 
         const { name, type, beginTime, endTime } = Object.assign({}, this.state, {
-            [name]: value,
+            [animName]: value,
         });
 
         this.animation.name = name;
