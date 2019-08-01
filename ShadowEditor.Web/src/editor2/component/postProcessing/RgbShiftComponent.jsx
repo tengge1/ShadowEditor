@@ -90,7 +90,7 @@ class RgbShiftComponent extends React.Component {
         scene.userData.postProcessing = scene.userData.postProcessing || {};
 
         Object.assign(scene.userData.postProcessing, {
-            halftone: {
+            rgbShift: {
                 enabled,
                 amount,
             },

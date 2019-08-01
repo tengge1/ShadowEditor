@@ -127,7 +127,7 @@ class SaoComponent extends React.Component {
         scene.userData.postProcessing = scene.userData.postProcessing || {};
 
         Object.assign(scene.userData.postProcessing, {
-            halftone: {
+            sao: {
                 enabled,
                 output,
                 saoBias,

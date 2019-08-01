@@ -37,6 +37,7 @@ import PixelComponent from '../component/postProcessing/PixelComponent.jsx';
 import RgbShiftComponent from '../component/postProcessing/RgbShiftComponent.jsx';
 import SaoComponent from '../component/postProcessing/SaoComponent.jsx';
 import SmaaComponent from '../component/postProcessing/SmaaComponent.jsx';
+import SsaaComponent from '../component/postProcessing/SsaaComponent.jsx';
 
 /**
  * 属性面板
@@ -86,6 +87,7 @@ class PropertyPanel extends React.Component {
             <RgbShiftComponent></RgbShiftComponent>
             <SaoComponent></SaoComponent>
             <SmaaComponent></SmaaComponent>
+            <SsaaComponent></SsaaComponent>
         </PropertyGrid>;
     }
 }
