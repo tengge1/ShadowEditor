@@ -103,7 +103,7 @@ PlayerPhysics.prototype.initPhysicsWorld = function () {
 
     // api函数
     // TODO: 很难受的实现
-    Object.assign(app, {
+    Object.assign(this.app, {
         addPhysicsObject: this.addPhysicsObject.bind(this)
     });
 };

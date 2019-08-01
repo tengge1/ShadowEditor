@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
+import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -57,7 +57,7 @@ class SaoComponent extends React.Component {
             <NumberProperty label={L_SCALE} name={'saoScale'} value={saoScale} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={L_KERNAL_RADIUS} name={'saoKernelRadius'} value={saoKernelRadius} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={L_MIN_RESOLUTION} name={'saoMinResolution'} value={saoMinResolution} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_BLUR} name={'saoBlur'} value={saoBlur} onChange={this.handleChange}></NumberProperty>
+            <CheckBoxProperty label={L_BLUR} name={'saoBlur'} value={saoBlur} onChange={this.handleChange}></CheckBoxProperty>
             <NumberProperty label={L_BLUR_RADIUS} name={'saoBlurRadius'} value={saoBlurRadius} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={L_BLUR_STD_DEV} name={'saoBlurStdDev'} value={saoBlurStdDev} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={L_BLUR_DEPTH_CUTOFF} name={'saoBlurDepthCutoff'} value={saoBlurDepthCutoff} onChange={this.handleChange}></NumberProperty>

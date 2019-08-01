@@ -43,32 +43,32 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
 
     // 多重采样抗锯齿
     if (postProcessing.smaa && postProcessing.smaa.enabled) {
-        await this.require(['SMAAShader', 'SMAAPass']);
+        await this.require(['CopyShader', 'SMAAShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'SMAAPass']);
     }
 
     // 全屏抗锯齿
     if (postProcessing.ssaa && postProcessing.ssaa.enabled) {
-        await this.require('SSAARenderPass');
+        await this.require(['CopyShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'SSAARenderPass']);
     }
 
     // 时间抗锯齿
     if (postProcessing.taa && postProcessing.taa.enabled) {
-        await this.require(['SSAARenderPass', 'TAARenderPass']);
+        await this.require(['CopyShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'SSAARenderPass', 'TAARenderPass']);
     }
 
     // 可扩展环境光遮挡
     if (postProcessing.sao && postProcessing.sao.enabled) {
-        await this.require(['SAOShader', 'DepthLimitedBlurShader', 'UnpackDepthRGBAShader', 'SAOPass']);
+        await this.require(['CopyShader', 'SAOShader', 'DepthLimitedBlurShader', 'UnpackDepthRGBAShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'SAOPass']);
     }
 
     // 屏幕空间环境光遮蔽
     if (postProcessing.ssao && postProcessing.ssao.enabled) {
-        await this.require(['SSAOShader', 'SSAOPass']);
+        await this.require(['CopyShader', 'SSAOShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'SSAOPass']);
     }
 
     // 像素特效
     if (postProcessing.pixel && postProcessing.pixel.enabled) {
-        await this.require('PixelShader');
+        await this.require(['CopyShader', 'PixelShader', 'EffectComposer', 'RenderPass', 'ShaderPass']);
     }
 
     // 点阵化
@@ -78,7 +78,7 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
 
     // 颜色偏移
     if (postProcessing.rgbShift && postProcessing.rgbShift.enabled) {
-        await this.require('RGBShiftShader');
+        await this.require(['CopyShader', 'RGBShiftShader', 'EffectComposer', 'RenderPass', 'ShaderPass']);
     }
 
     // 残影特效
