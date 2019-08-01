@@ -39,6 +39,7 @@ import SaoComponent from '../component/postProcessing/SaoComponent.jsx';
 import SmaaComponent from '../component/postProcessing/SmaaComponent.jsx';
 import SsaaComponent from '../component/postProcessing/SsaaComponent.jsx';
 import SsaoComponent from '../component/postProcessing/SsaoComponent.jsx';
+import TaaComponent from '../component/postProcessing/TaaComponent.jsx';
 
 /**
  * 属性面板
@@ -90,6 +91,7 @@ class PropertyPanel extends React.Component {
             <SmaaComponent></SmaaComponent>
             <SsaaComponent></SsaaComponent>
             <SsaoComponent></SsaoComponent>
+            <TaaComponent></TaaComponent>
         </PropertyGrid>;
     }
 }
