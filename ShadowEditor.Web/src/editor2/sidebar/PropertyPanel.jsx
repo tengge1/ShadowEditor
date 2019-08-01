@@ -36,6 +36,7 @@ import HalftoneComponent from '../component/postProcessing/HalftoneComponent.jsx
 import PixelComponent from '../component/postProcessing/PixelComponent.jsx';
 import RgbShiftComponent from '../component/postProcessing/RgbShiftComponent.jsx';
 import SaoComponent from '../component/postProcessing/SaoComponent.jsx';
+import SmaaComponent from '../component/postProcessing/SmaaComponent.jsx';
 
 /**
  * 属性面板
@@ -84,6 +85,7 @@ class PropertyPanel extends React.Component {
             <PixelComponent></PixelComponent>
             <RgbShiftComponent></RgbShiftComponent>
             <SaoComponent></SaoComponent>
+            <SmaaComponent></SmaaComponent>
         </PropertyGrid>;
     }
 }
