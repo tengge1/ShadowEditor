@@ -4,6 +4,7 @@ import { classNames, PropTypes, PropertyGrid } from '../../third_party';
 import BasicComponent from '../component/BasicComponent.jsx';
 import CameraComponent from '../component/CameraComponent.jsx';
 import FireComponent from '../component/FireComponent.jsx';
+import WaterComponent from '../component/water/WaterComponent.jsx';
 import LightComponent from '../component/LightComponent.jsx';
 import LMeshComponent from '../component/LMeshComponent.jsx';
 
@@ -61,6 +62,7 @@ class PropertyPanel extends React.Component {
 
             <ReflectorComponent></ReflectorComponent>
             <FireComponent></FireComponent>
+            <WaterComponent></WaterComponent>
             <SmokeComponent></SmokeComponent>
             <LMeshComponent></LMeshComponent>
             <ParticleEmitterComponent></ParticleEmitterComponent>
