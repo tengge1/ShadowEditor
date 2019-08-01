@@ -38,6 +38,7 @@ import RgbShiftComponent from '../component/postProcessing/RgbShiftComponent.jsx
 import SaoComponent from '../component/postProcessing/SaoComponent.jsx';
 import SmaaComponent from '../component/postProcessing/SmaaComponent.jsx';
 import SsaaComponent from '../component/postProcessing/SsaaComponent.jsx';
+import SsaoComponent from '../component/postProcessing/SsaoComponent.jsx';
 
 /**
  * 属性面板
@@ -88,6 +89,7 @@ class PropertyPanel extends React.Component {
             <SaoComponent></SaoComponent>
             <SmaaComponent></SmaaComponent>
             <SsaaComponent></SsaaComponent>
+            <SsaoComponent></SsaoComponent>
         </PropertyGrid>;
     }
 }
