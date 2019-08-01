@@ -7,6 +7,7 @@ import FireComponent from '../component/FireComponent.jsx';
 import WaterComponent from '../component/water/WaterComponent.jsx';
 import LightComponent from '../component/LightComponent.jsx';
 import LMeshComponent from '../component/LMeshComponent.jsx';
+import ClothComponent from '../component/object/ClothComponent.jsx';
 
 import BoxGeometryComponent from '../component/geometry/BoxGeometryComponent.jsx';
 import CircleGeometryComponent from '../component/geometry/CircleGeometryComponent.jsx';
@@ -65,6 +66,7 @@ class PropertyPanel extends React.Component {
             <WaterComponent></WaterComponent>
             <SmokeComponent></SmokeComponent>
             <LMeshComponent></LMeshComponent>
+            <ClothComponent></ClothComponent>
             <ParticleEmitterComponent></ParticleEmitterComponent>
             <MMDComponent></MMDComponent>
 
