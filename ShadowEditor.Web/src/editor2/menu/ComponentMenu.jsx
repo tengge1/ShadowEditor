@@ -6,6 +6,8 @@ import Water from '../../object/component/Water';
 import Smoke from '../../object/component/Smoke';
 import Cloth from '../../object/component/Cloth';
 import ParticleEmitter from '../../object/component/ParticleEmitter';
+import PerlinTerrain from '../../object/terrain/PerlinTerrain';
+import ShaderTerrain from '../../object/terrain/ShaderTerrain';
 import Globe from '../../gis/Globe';
 
 /**
@@ -23,6 +25,8 @@ class ComponentMenu extends React.Component {
         this.handleAddWater = this.handleAddWater.bind(this);
         this.handleAddSmoke = this.handleAddSmoke.bind(this);
         this.handleAddCloth = this.handleAddCloth.bind(this);
+        this.handleAddPerlinTerrain = this.handleAddPerlinTerrain.bind(this);
+        this.handleAddShaderTerrain = this.handleAddShaderTerrain.bind(this);
     }
 
     render() {
@@ -34,6 +38,8 @@ class ComponentMenu extends React.Component {
             <MenuItem title={L_WATER} onClick={this.handleAddWater}></MenuItem>
             <MenuItem title={L_SMOKE} onClick={this.handleAddSmoke}></MenuItem>
             <MenuItem title={L_CLOTH} onClick={this.handleAddCloth}></MenuItem>
+            <MenuItem title={'柏林地形'} onClick={this.handleAddPerlinTerrain}></MenuItem>
+            <MenuItem title={'着色器地形'} onClick={this.handleAddShaderTerrain}></MenuItem>
         </MenuItem>;
     }
 
@@ -121,6 +127,26 @@ class ComponentMenu extends React.Component {
         cloth.name = L_CLOTH;
 
         editor.execute(new AddObjectCommand(cloth));
+    }
+
+    // ----------------------------- 添加柏林地形 -------------------------------
+
+    handleAddPerlinTerrain() {
+        let terrain = new PerlinTerrain();
+
+        terrain.name = '柏林地形';
+
+        app.editor.execute(new AddObjectCommand(terrain));
+    }
+
+    // ----------------------------- 添加着色器地形 --------------------------------
+
+    handleAddShaderTerrain() {
+        let terrain = new ShaderTerrain(app.editor.renderer);
+
+        terrain.name = '着色器地形';
+
+        app.editor.execute(new AddObjectCommand(terrain));
     }
 }
 

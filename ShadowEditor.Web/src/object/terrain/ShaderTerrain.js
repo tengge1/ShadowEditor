@@ -7,6 +7,7 @@ import HeightFragmentShader from './shader/height_fragment.glsl';
  * @param {*} options 参数
  */
 function ShaderTerrain(renderer, options) {
+    debugger
     var width = options.width || window.innerWidth; // 画布宽度
     var height = options.height || window.innerHeight; // 画布高度
 
