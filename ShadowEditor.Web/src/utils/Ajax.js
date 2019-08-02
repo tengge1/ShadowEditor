@@ -41,7 +41,9 @@ function ajax(params) {
         var formData = new FormData();
 
         for (var name in data) {
-            if (data[name] instanceof Blob) {
+            if (data[name] instanceof File) {
+                formData.append(name, data[name]);
+            } else if (data[name] instanceof Blob) {
                 formData.append(name, data[name], `${data[name].name}.${MIMETypeUtils.getExtension(data[name].type)}`);
             }
         }

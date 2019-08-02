@@ -6,7 +6,6 @@ import UI from '../../ui/UI';
  */
 function LogPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 };
 
 LogPanel.prototype = Object.create(UI.Control.prototype);
@@ -41,7 +40,7 @@ LogPanel.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`log.${this.id}`, this.onLog.bind(this));
+    app.on(`log.${this.id}`, this.onLog.bind(this));
 };
 
 LogPanel.prototype.onLog = function (content, type) {

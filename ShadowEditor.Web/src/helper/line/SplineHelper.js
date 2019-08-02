@@ -14,13 +14,13 @@ SplineHelper.prototype = Object.create(BaseHelper.prototype);
 SplineHelper.prototype.constructor = SplineHelper;
 
 SplineHelper.prototype.start = function () {
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 SplineHelper.prototype.stop = function () {
-    this.app.on(`objectSelected.${this.id}`, null);
-    this.app.on(`objectChanged.${this.id}`, null);
+    app.on(`objectSelected.${this.id}`, null);
+    app.on(`objectChanged.${this.id}`, null);
 };
 
 SplineHelper.prototype.onObjectSelected = function (object) {
@@ -41,7 +41,7 @@ SplineHelper.prototype.onObjectChanged = function (obj) {
         return;
     }
 
-    var scene = this.app.editor.sceneHelpers;
+    var scene = app.editor.sceneHelpers;
     var line = this.box[0].userData.object;
 
     if (obj === line) { // 修改了线
@@ -85,7 +85,7 @@ SplineHelper.prototype.onObjectChanged = function (obj) {
 };
 
 SplineHelper.prototype.onSelectLine = function (object) {
-    var scene = this.app.editor.sceneHelpers;
+    var scene = app.editor.sceneHelpers;
 
     this.onCancelSelectLine();
 
@@ -110,7 +110,7 @@ SplineHelper.prototype.onSelectLine = function (object) {
 };
 
 SplineHelper.prototype.onCancelSelectLine = function () {
-    var scene = this.app.editor.sceneHelpers;
+    var scene = app.editor.sceneHelpers;
 
     this.box.forEach(n => {
         scene.remove(n);

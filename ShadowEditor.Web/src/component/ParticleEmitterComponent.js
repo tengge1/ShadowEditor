@@ -288,8 +288,8 @@ ParticleEmitterComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 ParticleEmitterComponent.prototype.onObjectSelected = function () {
@@ -302,7 +302,7 @@ ParticleEmitterComponent.prototype.onObjectChanged = function () {
 
 ParticleEmitterComponent.prototype.updateUI = function () {
     var container = UI.get('particleEmitterPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected.userData.type === 'ParticleEmitter') {
         container.dom.style.display = '';
     } else {
@@ -556,7 +556,7 @@ ParticleEmitterComponent.prototype.startPreview = function () {
     this.isPlaying = true;
     btnPreview.setText(L_CANCEL);
 
-    this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
+    app.on(`animate.${this.id}`, this.onAnimate.bind(this));
 };
 
 ParticleEmitterComponent.prototype.stopPreview = function () {
@@ -572,7 +572,7 @@ ParticleEmitterComponent.prototype.stopPreview = function () {
     group.addEmitter(emitter);
     group.tick(0);
 
-    this.app.on(`animate.${this.id}`, null);
+    app.on(`animate.${this.id}`, null);
 };
 
 ParticleEmitterComponent.prototype.onAnimate = function (clock, deltaTime) {

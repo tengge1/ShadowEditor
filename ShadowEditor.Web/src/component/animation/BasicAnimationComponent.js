@@ -118,8 +118,8 @@ BasicAnimationComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`animationSelected.${this.id}`, this.onAnimationSelected.bind(this));
-    this.app.on(`animationChanged.${this.id}`, this.onAnimationChanged.bind(this));
+    app.on(`animationSelected.${this.id}`, this.onAnimationSelected.bind(this));
+    app.on(`animationChanged.${this.id}`, this.onAnimationChanged.bind(this));
 };
 
 BasicAnimationComponent.prototype.onAnimationSelected = function (animation) {
@@ -152,7 +152,7 @@ BasicAnimationComponent.prototype.updateUI = function (animation) {
     if (!this.animation.target) {
         target.setValue('(' + L_NONE + ')');
     } else {
-        var obj = this.app.editor.objectByUuid(this.animation.target);
+        var obj = app.editor.objectByUuid(this.animation.target);
         if (obj === null) {
             target.setValue('(' + L_NONE + ')');
             console.warn(`BasicAnimationComponent: ${L_ANIMATION_OBJECT} ${this.animation.target} ${L_NOT_EXISTED_IN_SCENE}`);
@@ -167,14 +167,14 @@ BasicAnimationComponent.prototype.updateUI = function (animation) {
 };
 
 BasicAnimationComponent.prototype.onSetTarget = function () {
-    var selected = this.app.editor.selected;
+    var selected = app.editor.selected;
     if (selected == null) {
         this.animation.target = null;
     } else {
         this.animation.target = selected.uuid;
     }
 
-    this.app.call('animationChanged', this, this.animation);
+    app.call('animationChanged', this, this.animation);
 };
 
 BasicAnimationComponent.prototype.onChange = function () {
@@ -188,7 +188,7 @@ BasicAnimationComponent.prototype.onChange = function () {
     this.animation.beginTime = beginTime.getValue();
     this.animation.endTime = endTime.getValue();
 
-    this.app.call('animationChanged', this, this.animation);
+    app.call('animationChanged', this, this.animation);
 };
 
 export default BasicAnimationComponent;

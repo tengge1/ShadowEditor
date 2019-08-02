@@ -10,7 +10,6 @@ import DigTool from '../tool/DigTool';
  */
 function Toolbar(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 
     this.isAddingPoint = false;
     this.isAddingLine = false;
@@ -105,31 +104,31 @@ Toolbar.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`changeMode.${this.id}`, this.onChangeMode.bind(this));
+    app.on(`changeMode.${this.id}`, this.onChangeMode.bind(this));
 };
 
 // --------------------------------- 选择模式 -------------------------------------
 
 Toolbar.prototype.enterSelectMode = function () {
-    this.app.call('changeMode', this, 'select');
+    app.call('changeMode', this, 'select');
 };
 
 // -------------------------------- 平移模式 --------------------------------------
 
 Toolbar.prototype.enterTranslateMode = function () {
-    this.app.call('changeMode', this, 'translate');
+    app.call('changeMode', this, 'translate');
 };
 
 // -------------------------------- 旋转模式 ---------------------------------------
 
 Toolbar.prototype.enterRotateMode = function () {
-    this.app.call('changeMode', this, 'rotate');
+    app.call('changeMode', this, 'rotate');
 };
 
 // -------------------------------- 缩放模式 ---------------------------------------
 
 Toolbar.prototype.enterScaleMode = function () {
-    this.app.call('changeMode', this, 'scale');
+    app.call('changeMode', this, 'scale');
 };
 
 // ------------------------------ 模式改变事件 -------------------------------------
@@ -170,10 +169,10 @@ Toolbar.prototype.onAddPoint = function () {
 
     if (this.isAddingPoint) {
         addPointBtn.select();
-        this.app.on(`intersect.${this.id}AddPoint`, this.onAddPointIntersect.bind(this));
+        app.on(`intersect.${this.id}AddPoint`, this.onAddPointIntersect.bind(this));
     } else {
         addPointBtn.unselect();
-        this.app.on(`intersect.${this.id}AddPoint`, null);
+        app.on(`intersect.${this.id}AddPoint`, null);
     }
 };
 
@@ -203,7 +202,7 @@ Toolbar.prototype.onAddPointIntersect = function (obj, event) {
 
     mesh.name = L_POINT;
 
-    this.app.editor.execute(new AddObjectCommand(mesh));
+    app.editor.execute(new AddObjectCommand(mesh));
 };
 
 // ---------------------------------- 画线 -----------------------------------------
@@ -211,7 +210,7 @@ Toolbar.prototype.onAddPointIntersect = function (obj, event) {
 Toolbar.prototype.onAddLine = function () {
     if (this.hasLoadLineScript === undefined) {
         this.hasLoadLineScript = true;
-        this.app.require('line').then(() => {
+        app.require('line').then(() => {
             this._onAddLine();
         });
     } else {
@@ -226,8 +225,8 @@ Toolbar.prototype._onAddLine = function () {
 
     if (this.isAddingLine) {
         addLineBtn.select();
-        this.app.on(`intersect.${this.id}AddLine`, this.onAddLineIntersect.bind(this));
-        this.app.on(`dblclick.${this.id}AddLine`, this.onAddLineDblClick.bind(this));
+        app.on(`intersect.${this.id}AddLine`, this.onAddLineIntersect.bind(this));
+        app.on(`dblclick.${this.id}AddLine`, this.onAddLineDblClick.bind(this));
 
         this.linePositions = [];
         this.lineColors = [];
@@ -243,17 +242,17 @@ Toolbar.prototype._onAddLine = function () {
             polygonOffsetFactor: -40,
         });
 
-        var renderer = this.app.editor.renderer;
+        var renderer = app.editor.renderer;
         material.resolution.set(renderer.domElement.clientWidth, renderer.domElement.clientHeight);
 
         this.line = new THREE.Line2(geometry, material);
         this.line.name = L_LINE;
 
-        this.app.editor.execute(new AddObjectCommand(this.line));
+        app.editor.execute(new AddObjectCommand(this.line));
     } else {
         addLineBtn.unselect();
-        this.app.on(`intersect.${this.id}AddLine`, null);
-        this.app.on(`dblclick.${this.id}AddLine`, null);
+        app.on(`intersect.${this.id}AddLine`, null);
+        app.on(`dblclick.${this.id}AddLine`, null);
 
         this.linePositions = null;
         this.lineColors = null;
@@ -297,8 +296,8 @@ Toolbar.prototype.onAddPolygon = function () {
 
     if (this.isAddingPolygon) {
         addPolygonBtn.select();
-        this.app.on(`intersect.${this.id}AddPolygon`, this.onAddPolygonIntersect.bind(this));
-        this.app.on(`dblclick.${this.id}AddPolygon`, this.onAddPolygonDblClick.bind(this));
+        app.on(`intersect.${this.id}AddPolygon`, this.onAddPolygonIntersect.bind(this));
+        app.on(`dblclick.${this.id}AddPolygon`, this.onAddPolygonDblClick.bind(this));
 
         var geometry = new THREE.BufferGeometry();
 
@@ -322,13 +321,13 @@ Toolbar.prototype.onAddPolygon = function () {
         this.polygon.name = L_POLYGON;
         this.polygon.drawMode = THREE.TriangleStripDrawMode;
 
-        this.app.editor.execute(new AddObjectCommand(this.polygon));
+        app.editor.execute(new AddObjectCommand(this.polygon));
 
         this.polygonPoints = [];
     } else {
         addPolygonBtn.unselect();
-        this.app.on(`intersect.${this.id}AddPolygon`, null);
-        this.app.on(`dblclick.${this.id}AddPolygon`, null);
+        app.on(`intersect.${this.id}AddPolygon`, null);
+        app.on(`dblclick.${this.id}AddPolygon`, null);
 
         this.polygon = null;
 
@@ -382,10 +381,10 @@ Toolbar.prototype.onSpray = function () {
 
     if (this.isSpraying) {
         sprayBtn.select();
-        this.app.on(`intersect.${this.id}Spray`, this.onSprayIntersect.bind(this));
+        app.on(`intersect.${this.id}Spray`, this.onSprayIntersect.bind(this));
     } else {
         sprayBtn.unselect();
-        this.app.on(`intersect.${this.id}Spray`, null);
+        app.on(`intersect.${this.id}Spray`, null);
     }
 };
 
@@ -442,7 +441,7 @@ Toolbar.prototype.onSprayIntersect = function (obj, event) {
 
     decal.name = L_DECAL;
 
-    this.app.editor.execute(new AddObjectCommand(decal));
+    app.editor.execute(new AddObjectCommand(decal));
 };
 
 // ------------------------------- 挖坑工具 -------------------------------------
@@ -452,7 +451,7 @@ Toolbar.prototype.onDig = function () {
     digBtn.select();
 
     if (this.digTool === undefined) {
-        this.digTool = new DigTool(this.app);
+        this.digTool = new DigTool(app);
         this.digTool.on(`end.${this.id}`, () => {
             digBtn.unselect();
         });

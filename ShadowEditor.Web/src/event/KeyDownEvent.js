@@ -1,6 +1,5 @@
 import BaseEvent from './BaseEvent';
 import RemoveObjectCommand from '../command/RemoveObjectCommand';
-import UI from '../ui/UI';
 
 /**
  * 键盘按键事件
@@ -15,28 +14,31 @@ KeyDownEvent.prototype = Object.create(BaseEvent.prototype);
 KeyDownEvent.prototype.constructor = KeyDownEvent;
 
 KeyDownEvent.prototype.start = function () {
-    this.app.on(`keydown.${this.id}`, this.onKeyDown.bind(this));
+    app.on(`keydown.${this.id}`, this.onKeyDown.bind(this));
 };
 
 KeyDownEvent.prototype.stop = function () {
-    this.app.on(`keydown.${this.id}`, null);
+    app.on(`keydown.${this.id}`, null);
 };
 
 KeyDownEvent.prototype.onKeyDown = function (event) {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     switch (event.keyCode) {
-        case 8: // 回退键
-            event.preventDefault(); // 阻止浏览器返回
-            break;
+        // bug: 会导致搜索框无法删除
+        // case 8: // 回退键
+        //     event.preventDefault(); // 阻止浏览器返回
+        //     break;
 
         case 46: // 删除键
             var object = editor.selected;
             if (object == null) {
                 return;
             }
-            UI.confirm(L_CONFIRM, `${L_DELETE} ` + object.name + '?', function (event, btn) {
-                if (btn === 'ok') {
+            app.confirm({
+                title: L_CONFIRM,
+                content: `${L_DELETE} ${object.name} ?`,
+                onOK: () => {
                     var parent = object.parent;
                     if (parent !== null) editor.execute(new RemoveObjectCommand(object));
                 }
@@ -53,15 +55,15 @@ KeyDownEvent.prototype.onKeyDown = function (event) {
 
         // TODO： 和第一人称控制器ASDW冲突
         // case 87: // 注册 W 移动模式
-        //     this.app.call('changeMode', this, 'translate');
+        //     app.call('changeMode', this, 'translate');
         //     break;
 
         // case 69: // 注册 E 旋转模式
-        //     this.app.call('changeMode', this, 'rotate');
+        //     app.call('changeMode', this, 'rotate');
         //     break;
 
         // case 82: // 注册 R 缩放模式
-        //     this.app.call('changeMode', this, 'scale');
+        //     app.call('changeMode', this, 'scale');
         //     break;
     }
 };

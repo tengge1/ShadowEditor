@@ -54,23 +54,23 @@ GeometryComponent.prototype.render = function () {
                 text: ''
             }]
         },
-        new PlaneGeometryComponent({ app: this.app }),
-        new BoxGeometryComponent({ app: this.app }),
-        new CircleGeometryComponent({ app: this.app }),
-        new CylinderGeometryComponent({ app: this.app }),
-        new SphereGeometryComponent({ app: this.app }),
-        new IcosahedronGeometryComponent({ app: this.app }),
-        new TorusGeometryComponent({ app: this.app }),
-        new TorusKnotGeometryComponent({ app: this.app }),
-        new LatheGeometryComponent({ app: this.app }),
-        new TeapotGeometryComponent({ app: this.app })
+        new PlaneGeometryComponent({ app: app }),
+        new BoxGeometryComponent({ app: app }),
+        new CircleGeometryComponent({ app: app }),
+        new CylinderGeometryComponent({ app: app }),
+        new SphereGeometryComponent({ app: app }),
+        new IcosahedronGeometryComponent({ app: app }),
+        new TorusGeometryComponent({ app: app }),
+        new TorusKnotGeometryComponent({ app: app }),
+        new LatheGeometryComponent({ app: app }),
+        new TeapotGeometryComponent({ app: app })
         ]
     };
 
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
 };
 
 GeometryComponent.prototype.onObjectSelected = function () {
@@ -79,7 +79,7 @@ GeometryComponent.prototype.onObjectSelected = function () {
 
 GeometryComponent.prototype.updateUI = function () {
     var container = UI.get('geometryPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var name = UI.get('name', this.id);
 

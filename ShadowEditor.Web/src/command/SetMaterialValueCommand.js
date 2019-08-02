@@ -30,15 +30,15 @@ Object.assign(SetMaterialValueCommand.prototype, {
 	execute: function () {
 		this.object.material[this.attributeName] = this.newValue;
 		this.object.material.needsUpdate = true;
-		this.editor.app.call('objectChanged', this, this.object);
-		this.editor.app.call('materialChanged', this, this.object.material);
+		app.call('objectChanged', this, this.object);
+		app.call('materialChanged', this, this.object.material);
 	},
 
 	undo: function () {
 		this.object.material[this.attributeName] = this.oldValue;
 		this.object.material.needsUpdate = true;
-		this.editor.app.call('objectChanged', this, this.object);
-		this.editor.app.call('materialChanged', this, this.object.material);
+		app.call('objectChanged', this, this.object);
+		app.call('materialChanged', this, this.object.material);
 	},
 
 	update: function (cmd) {

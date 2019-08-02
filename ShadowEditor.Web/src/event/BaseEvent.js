@@ -5,7 +5,6 @@ var ID = -1;
  * @author tengge / https://github.com/tengge1
  */
 function BaseEvent(app) {
-    this.app = app;
     this.id = `${this.constructor.name}${ID--}`;
 }
 

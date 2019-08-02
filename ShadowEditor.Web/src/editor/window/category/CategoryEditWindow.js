@@ -9,8 +9,6 @@ import Ajax from '../../../utils/Ajax';
 function CategoryEditWindow(options = {}) {
     UI.Control.call(this, options);
 
-    this.app = options.app;
-
     this.ID = ''; // ObjectId格式
     this.Name = '';
 
@@ -95,7 +93,7 @@ CategoryEditWindow.prototype.onSave = function () {
     body.append('ID', this.ID);
     body.append('Name', this.Name);
 
-    Ajax.post(`${this.app.options.server}/api/Category/Save`, {
+    Ajax.post(`${app.options.server}/api/Category/Save`, {
         ID: this.ID,
         Name: this.Name,
         Type: this.type

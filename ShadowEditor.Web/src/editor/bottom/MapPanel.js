@@ -9,7 +9,6 @@ import UploadUtils from '../../utils/UploadUtils';
  */
 function MapPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 
     this.firstShow = true;
 
@@ -20,7 +19,7 @@ MapPanel.prototype = Object.create(UI.Control.prototype);
 MapPanel.prototype.constructor = MapPanel;
 
 MapPanel.prototype.render = function () {
-    this.app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
+    app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
 };
 
 MapPanel.prototype.onShowPanel = function (tabName) {
@@ -211,7 +210,7 @@ MapPanel.prototype.onClick = function (event, index, btn, control) {
 // ------------------------------------- 添加 ------------------------------------
 
 MapPanel.prototype.onAddMap = function (data) {
-    this.app.call(`selectMap`, this, data);
+    app.call(`selectMap`, this, data);
 };
 
 // ----------------------------------- 上传 ----------------------------------------
@@ -252,11 +251,11 @@ MapPanel.prototype.onCommitUpload = function () {
 MapPanel.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new EditWindow({
-            app: this.app,
+            app: app,
             parent: document.body,
             type: 'Map',
             typeName: L_MAP,
-            saveUrl: `${this.app.options.server}/api/Map/Edit`,
+            saveUrl: `${app.options.server}/api/Map/Edit`,
             callback: this.updateList.bind(this)
         });
         this.editWindow.render();

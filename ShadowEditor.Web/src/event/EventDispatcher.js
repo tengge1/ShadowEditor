@@ -22,27 +22,26 @@ import DraggableEvent from './visual/DraggableEvent';
  * @author tengge / https://github.com/tengge1
  */
 function EventDispatcher(app) {
-    this.app = app;
     this.dispatch = d3.dispatch.apply(d3.dispatch, EventList);
     this.addDomEventListener();
 
     this.events = [
         // 核心事件
-        new AnimateEvent(this.app),
-        new KeyDownEvent(this.app),
-        new RenderEvent(this.app),
-        new ResizeEvent(this.app),
-        new FilterEvent(this.app),
+        new AnimateEvent(app),
+        new KeyDownEvent(app),
+        new RenderEvent(app),
+        new ResizeEvent(app),
+        new FilterEvent(app),
 
         // viewport中的事件
-        new TransformControlsEvent(this.app),
-        new ObjectEvent(this.app),
-        new RaycastEvent(this.app),
-        new PickEvent(this.app),
-        new EditorControlsEvent(this.app),
+        new TransformControlsEvent(app),
+        new ObjectEvent(app),
+        new RaycastEvent(app),
+        new PickEvent(app),
+        new EditorControlsEvent(app),
 
         // 可视化
-        new DraggableEvent(this.app),
+        new DraggableEvent(app),
     ];
 }
 
@@ -90,7 +89,7 @@ EventDispatcher.prototype.on = function (eventName, callback) {
  * 监听dom事件
  */
 EventDispatcher.prototype.addDomEventListener = function () {
-    var container = this.app.container;
+    var container = app.container;
     container.addEventListener('click', event => {
         this.dispatch.call('click', this, event);
     });

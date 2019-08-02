@@ -7,7 +7,6 @@ import UI from '../../../ui/UI';
  */
 function SurfacePanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 }
 
 SurfacePanel.prototype = Object.create(UI.Control.prototype);
@@ -47,16 +46,16 @@ SurfacePanel.prototype.render = function () {
 SurfacePanel.prototype.update = function () {
     var theme = UI.get('theme', this.id);
 
-    if (!this.app.storage.get('theme')) {
-        this.app.storage.set('theme', 'assets/css/light.css');
+    if (!app.storage.get('theme')) {
+        app.storage.set('theme', 'assets/css/light.css');
     }
 
-    theme.setValue(this.app.storage.get('theme'));
+    theme.setValue(app.storage.get('theme'));
 };
 
 SurfacePanel.prototype.save = function () {
     var theme = UI.get('theme', this.id).getValue();
-    this.app.storage.set('theme', theme)
+    app.storage.set('theme', theme)
     document.getElementById('theme').href = theme;
 };
 

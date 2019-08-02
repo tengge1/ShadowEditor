@@ -1,12 +1,14 @@
 import Command from './Command';
 
+let color = new THREE.Color();
+
 /**
  * 设置材质颜色命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  * @param object THREE.Object3D
  * @param attributeName string
- * @param newValue integer representing a hex color value
+ * @param newValue integer representing a hex color value or a hex string startsWith `#`
  * @constructor
  */
 function SetMaterialColorCommand(object, attributeName, newValue) {
@@ -19,7 +21,13 @@ function SetMaterialColorCommand(object, attributeName, newValue) {
 	this.object = object;
 	this.attributeName = attributeName;
 	this.oldValue = (object !== undefined) ? this.object.material[this.attributeName].getHex() : undefined;
-	this.newValue = newValue;
+
+	if (Number.isInteger(newValue)) {
+		this.newValue = newValue;
+	} else { // #ffffff
+		color.set(newValue);
+		this.newValue = color.getHex();
+	}
 };
 
 SetMaterialColorCommand.prototype = Object.create(Command.prototype);
@@ -29,12 +37,12 @@ Object.assign(SetMaterialColorCommand.prototype, {
 
 	execute: function () {
 		this.object.material[this.attributeName].setHex(this.newValue);
-		this.editor.app.call('materialChanged', this, this.object.material);
+		app.call('materialChanged', this, this.object.material);
 	},
 
 	undo: function () {
 		this.object.material[this.attributeName].setHex(this.oldValue);
-		this.editor.app.call('materialChanged', this, this.object.material);
+		app.call('materialChanged', this, this.object.material);
 	},
 
 	update: function (cmd) {

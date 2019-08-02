@@ -22,7 +22,6 @@ import StatusMenu from './StatusMenu';
  */
 function Menubar(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 };
 
 Menubar.prototype = Object.create(UI.Control.prototype);
@@ -30,7 +29,7 @@ Menubar.prototype.constructor = Menubar;
 
 Menubar.prototype.render = function () {
     var params = {
-        app: this.app
+        app: app
     };
 
     var container = UI.create({

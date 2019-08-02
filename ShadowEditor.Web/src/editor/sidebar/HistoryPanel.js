@@ -7,7 +7,6 @@
  */
 function HistoryPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 };
 
 HistoryPanel.prototype = Object.create(UI.Control.prototype);
@@ -44,8 +43,8 @@ HistoryPanel.prototype.render = function () {
     var panel = UI.get('panel', this.id);
     panel.dom.addEventListener('click', this.onChange.bind(this));
 
-    this.app.on(`editorCleared.${this.id}`, this.refreshUI.bind(this));
-    this.app.on(`historyChanged.${this.id}`, this.refreshUI.bind(this));
+    app.on(`editorCleared.${this.id}`, this.refreshUI.bind(this));
+    app.on(`historyChanged.${this.id}`, this.refreshUI.bind(this));
 };
 
 HistoryPanel.prototype.refreshUI = function () {
@@ -53,7 +52,7 @@ HistoryPanel.prototype.refreshUI = function () {
 
     panel.dom.innerHTML = '';
 
-    var history = this.app.editor.history;
+    var history = app.editor.history;
 
     // 撤销
     for (var i = 0, l = history.undos.length; i < l; i++) {
@@ -82,7 +81,7 @@ HistoryPanel.prototype.onChange = function (event) {
         return;
     }
 
-    this.app.editor.history.goToState(event.target.value);
+    app.editor.history.goToState(event.target.value);
 };
 
 export default HistoryPanel;

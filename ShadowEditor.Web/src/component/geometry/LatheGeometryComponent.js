@@ -67,8 +67,8 @@ LatheGeometryComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 LatheGeometryComponent.prototype.onObjectSelected = function () {
@@ -81,7 +81,7 @@ LatheGeometryComponent.prototype.onObjectChanged = function () {
 
 LatheGeometryComponent.prototype.updateUI = function () {
     var container = UI.get('geometryPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected instanceof THREE.Mesh && editor.selected.geometry instanceof THREE.LatheBufferGeometry) {
         container.dom.style.display = '';
     } else {
@@ -107,7 +107,7 @@ LatheGeometryComponent.prototype.onChangeGeometry = function () {
 
     var points = this.selected.geometry.parameters.points;
 
-    this.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.LatheBufferGeometry(
+    app.editor.execute(new SetGeometryCommand(this.selected, new THREE.LatheBufferGeometry(
         points,
         segments.getValue(),
         phiStart.getValue(),

@@ -1,4 +1,3 @@
-import UI from '../ui/UI';
 import PackageManager from '../package/PackageManager';
 import Converter from '../serialization/Converter';
 
@@ -11,31 +10,54 @@ import PlayerAnimation from './component/PlayerAnimation';
 import PlayerPhysics from './component/PlayerPhysics';
 import CssUtils from '../utils/CssUtils';
 import Globe from '../gis/Globe';
-import Visualization from '../visual/Visualization';
+// import Visualization from '../visual/Visualization';
 
 /**
  * 播放器
  * @author mrdoob / http://mrdoob.com/
  * @author tengge / https://github.com/tengge1
- * @param {*} options 配置信息
- * @param {*} options.server 服务器信息，例如：http://localhost:2000
- * @param {*} options.enableThrowBall 是否允许扔小球进行物理测试
- * @param {*} options.showStats 是否显示性能控件
+ * @param {HTMLElement} 容器
+ * @param {Object} options 配置信息
+ * @param {String} options.server 服务器信息，例如：http://localhost:2000
+ * @param {Boolean} options.enableThrowBall 是否允许扔小球进行物理测试
+ * @param {Boolean} options.showStats 是否显示性能控件
  */
-function Player(options = {}) {
-    UI.Control.call(this, options);
-
-    options.server = options.server || window.origin;
-    options.enableThrowBall = options.enableThrowBall || false;
-    options.showStats = options.showStats || false;
-
+function Player(container = document.body, options = {}) {
+    this.container = container;
     this.options = options;
+
+    this.options.server = this.options.server || window.origin;
+    this.options.enableThrowBall = this.options.enableThrowBall || false;
+    this.options.showStats = this.options.showStats || false;
 
     this.dispatch = new d3.dispatch([
         'init'
     ]);
     this.call = this.dispatch.call.bind(this.dispatch);
     this.on = this.dispatch.on.bind(this.dispatch);
+
+    // 性能控件
+    if (this.options.showStats) {
+        this.stats = new Stats();
+        Object.assign(this.stats.dom.style, {
+            position: 'absolute',
+            left: '8px',
+            top: '8px',
+            zIndex: 'initial',
+        });
+
+        container.appendChild(this.stats.dom);
+    }
+
+    window.addEventListener('resize', this.onResize.bind(this));
+
+    var observer = new MutationObserver(this.onResize.bind(this));
+
+    observer.observe(this.container, {
+        attributes: true,
+        characterData: false,
+        childList: false,
+    });
 
     this.scene = null;
     this.camera = null;
@@ -58,67 +80,13 @@ function Player(options = {}) {
     this.clock = new THREE.Clock(false);
 };
 
-Player.prototype = Object.create(UI.Control.prototype);
-Player.prototype.constructor = Player;
-
-Player.prototype.render = function () {
-    var control = UI.create({
-        xtype: 'div',
-        parent: this.parent,
-        id: 'player',
-        scope: this.id,
-        cls: 'Panel player',
-        style: {
-            display: 'none'
-        },
-        children: [{
-            xtype: 'svg',
-            id: 'svg',
-            scope: this.id,
-            style: {
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                width: '100%',
-                height: '100%',
-                pointerEvents: 'none',
-                zIndex: 10,
-            },
-        }]
-    });
-
-    control.render();
-
-    this.svg = UI.get('svg', this.id).dom;
-    this.visual = new Visualization();
-
-    // 性能控件
-    if (this.options.showStats) {
-        this.stats = new Stats();
-        this.stats.dom.style.position = 'absolute';
-        this.stats.dom.style.left = '8px';
-        this.stats.dom.style.top = '8px';
-        this.stats.dom.style.zIndex = 'initial';
-        control.dom.appendChild(this.stats.dom);
-    }
-
-    window.addEventListener('resize', this.onResize.bind(this));
-
-    var observer = new MutationObserver(this.onResize.bind(this));
-    observer.observe(control.dom, {
-        attributes: true,
-        characterData: false,
-        childList: false,
-    });
-};
-
 /**
  * 启动播放器
  * @param {String} sceneData 场景数据
  */
 Player.prototype.start = function (sceneData) {
     if (typeof (sceneData) !== 'string') {
-        UI.msg('需要字符串类型的场景数据参数！');
+        app.toast('需要字符串类型的场景数据参数！');
         return;
     }
 
@@ -127,7 +95,7 @@ Player.prototype.start = function (sceneData) {
     try {
         jsons = JSON.parse(sceneData)
     } catch (e) {
-        UI.msg('无法解析json类型的场景数据！');
+        app.toast('无法解析json类型的场景数据！');
         return;
     }
 
@@ -136,8 +104,7 @@ Player.prototype.start = function (sceneData) {
     }
     this.isPlaying = true;
 
-    var container = UI.get('player', this.id);
-    container.dom.style.display = '';
+    this.container.style.display = 'block';
 
     this.loader.create(jsons).then(obj => {
         this.initPlayer(obj);
@@ -179,15 +146,13 @@ Player.prototype.stop = function () {
     this.animation.dispose();
     this.physics.dispose();
 
-    var container = UI.get('player', this.id);
-
     if (this.gis) {
         this.gis.dispose();
         this.gis = null;
     }
 
-    container.dom.removeChild(this.renderer.domElement);
-    container.dom.style.display = 'none';
+    this.container.removeChild(this.renderer.domElement);
+    this.container.style.display = 'none';
 
     this.scene.children.length = 0;
 
@@ -203,7 +168,7 @@ Player.prototype.stop = function () {
  * @param {*} obj 
  */
 Player.prototype.initPlayer = function (obj) {
-    var container = UI.get('player', this.id);
+    var container = this.container;
 
     this.camera = obj.camera;
 
@@ -211,7 +176,7 @@ Player.prototype.initPlayer = function (obj) {
         console.warn(`Player: 场景中不存在相机信息`);
         this.camera = new THREE.PerspectiveCamera(
             50,
-            container.dom.clientWidth / container.dom.clientHeight,
+            container.clientWidth / container.clientHeight,
             0.1,
             1000
         );
@@ -221,8 +186,8 @@ Player.prototype.initPlayer = function (obj) {
         antialias: true
     });
 
-    this.renderer.setSize(container.dom.clientWidth, container.dom.clientHeight);
-    container.dom.appendChild(this.renderer.domElement);
+    this.renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(this.renderer.domElement);
 
     this.camera.aspect = this.renderer.domElement.width / this.renderer.domElement.height;
     this.camera.updateProjectionMatrix();
@@ -241,12 +206,12 @@ Player.prototype.initPlayer = function (obj) {
     }
 
     // 可视化
-    if (obj.visual) {
-        this.visual.fromJSON(obj.visual);
-    } else {
-        this.visual.clear();
-    }
-    this.visual.render(this.svg);
+    // if (obj.visual) {
+    //     this.visual.fromJSON(obj.visual);
+    // } else {
+    //     this.visual.clear();
+    // }
+    // this.visual.render(this.svg);
 };
 
 Player.prototype.animate = function () {
@@ -282,10 +247,8 @@ Player.prototype.resize = function () {
         return;
     }
 
-    var container = UI.get('player', this.id);
-
-    var width = container.dom.clientWidth;
-    var height = container.dom.clientHeight;
+    var width = this.container.clientWidth;
+    var height = this.container.clientHeight;
 
     var camera = this.camera;
     var renderer = this.renderer;

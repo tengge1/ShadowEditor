@@ -7,7 +7,6 @@ import UI from '../../../ui/UI';
  */
 function HelperPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 }
 
 HelperPanel.prototype = Object.create(UI.Control.prototype);
@@ -116,77 +115,77 @@ HelperPanel.prototype.render = function () {
 
 HelperPanel.prototype.update = function () {
     var showGrid = UI.get('showGrid', this.id);
-    showGrid.setValue(this.app.storage.get('showGrid') === true);
+    showGrid.setValue(app.storage.get('showGrid') === true);
 
     var showCamera = UI.get('showCamera', this.id);
-    showCamera.setValue(this.app.storage.get('showCamera') === true);
+    showCamera.setValue(app.storage.get('showCamera') === true);
 
     var showPointLight = UI.get('showPointLight', this.id);
-    showPointLight.setValue(this.app.storage.get('showPointLight') === true);
+    showPointLight.setValue(app.storage.get('showPointLight') === true);
 
     var showDirectionalLight = UI.get('showDirectionalLight', this.id);
-    showDirectionalLight.setValue(this.app.storage.get('showDirectionalLight') === true);
+    showDirectionalLight.setValue(app.storage.get('showDirectionalLight') === true);
 
     var showSpotLight = UI.get('showSpotLight', this.id);
-    showSpotLight.setValue(this.app.storage.get('showSpotLight') === true);
+    showSpotLight.setValue(app.storage.get('showSpotLight') === true);
 
     var showHemisphereLight = UI.get('showHemisphereLight', this.id);
-    showHemisphereLight.setValue(this.app.storage.get('showHemisphereLight') === true);
+    showHemisphereLight.setValue(app.storage.get('showHemisphereLight') === true);
 
     var showRectAreaLight = UI.get('showRectAreaLight', this.id);
-    showRectAreaLight.setValue(this.app.storage.get('showRectAreaLight') === true);
+    showRectAreaLight.setValue(app.storage.get('showRectAreaLight') === true);
 
     var showSkeleton = UI.get('showSkeleton', this.id);
-    showSkeleton.setValue(this.app.storage.get('showSkeleton') === true);
+    showSkeleton.setValue(app.storage.get('showSkeleton') === true);
 };
 
 HelperPanel.prototype.save = function () {
     var showGrid = UI.get('showGrid', this.id).getValue();
-    if (showGrid !== this.app.storage.get('showGrid')) {
-        this.app.storage.set('showGrid', showGrid);
-        this.app.call(`storageChanged`, this, 'showGrid', showGrid);
+    if (showGrid !== app.storage.get('showGrid')) {
+        app.storage.set('showGrid', showGrid);
+        app.call(`storageChanged`, this, 'showGrid', showGrid);
     }
 
     var showCamera = UI.get('showCamera', this.id).getValue();
-    if (showCamera !== this.app.storage.get('showCamera')) {
-        this.app.storage.set('showCamera', showCamera);
-        this.app.call(`storageChanged`, this, 'showCamera', showCamera);
+    if (showCamera !== app.storage.get('showCamera')) {
+        app.storage.set('showCamera', showCamera);
+        app.call(`storageChanged`, this, 'showCamera', showCamera);
     }
 
     var showPointLight = UI.get('showPointLight', this.id).getValue();
-    if (showPointLight !== this.app.storage.get('showPointLight')) {
-        this.app.storage.set('showPointLight', showPointLight);
-        this.app.call(`storageChanged`, this, 'showPointLight', showPointLight);
+    if (showPointLight !== app.storage.get('showPointLight')) {
+        app.storage.set('showPointLight', showPointLight);
+        app.call(`storageChanged`, this, 'showPointLight', showPointLight);
     }
 
     var showDirectionalLight = UI.get('showDirectionalLight', this.id).getValue();
-    if (showDirectionalLight !== this.app.storage.get('showDirectionalLight')) {
-        this.app.storage.set('showDirectionalLight', showDirectionalLight);
-        this.app.call(`storageChanged`, this, 'showDirectionalLight', showDirectionalLight);
+    if (showDirectionalLight !== app.storage.get('showDirectionalLight')) {
+        app.storage.set('showDirectionalLight', showDirectionalLight);
+        app.call(`storageChanged`, this, 'showDirectionalLight', showDirectionalLight);
     }
 
     var showSpotLight = UI.get('showSpotLight', this.id).getValue();
-    if (showSpotLight !== this.app.storage.get('showSpotLight')) {
-        this.app.storage.set('showSpotLight', showSpotLight);
-        this.app.call(`storageChanged`, this, 'showSpotLight', showSpotLight);
+    if (showSpotLight !== app.storage.get('showSpotLight')) {
+        app.storage.set('showSpotLight', showSpotLight);
+        app.call(`storageChanged`, this, 'showSpotLight', showSpotLight);
     }
 
     var showHemisphereLight = UI.get('showHemisphereLight', this.id).getValue();
-    if (showHemisphereLight !== this.app.storage.get('showHemisphereLight')) {
-        this.app.storage.set('showHemisphereLight', showHemisphereLight);
-        this.app.call(`storageChanged`, this, 'showHemisphereLight', showHemisphereLight);
+    if (showHemisphereLight !== app.storage.get('showHemisphereLight')) {
+        app.storage.set('showHemisphereLight', showHemisphereLight);
+        app.call(`storageChanged`, this, 'showHemisphereLight', showHemisphereLight);
     }
 
     var showRectAreaLight = UI.get('showRectAreaLight', this.id).getValue();
-    if (showRectAreaLight !== this.app.storage.get('showRectAreaLight')) {
-        this.app.storage.set('showRectAreaLight', showRectAreaLight);
-        this.app.call(`storageChanged`, this, 'showRectAreaLight', showRectAreaLight);
+    if (showRectAreaLight !== app.storage.get('showRectAreaLight')) {
+        app.storage.set('showRectAreaLight', showRectAreaLight);
+        app.call(`storageChanged`, this, 'showRectAreaLight', showRectAreaLight);
     }
 
     var showSkeleton = UI.get('showSkeleton', this.id).getValue();
-    if (showSkeleton !== this.app.storage.get('showSkeleton')) {
-        this.app.storage.set('showSkeleton', showSkeleton);
-        this.app.call(`storageChanged`, this, 'showSkeleton', showSkeleton);
+    if (showSkeleton !== app.storage.get('showSkeleton')) {
+        app.storage.set('showSkeleton', showSkeleton);
+        app.call(`storageChanged`, this, 'showSkeleton', showSkeleton);
     }
 };
 

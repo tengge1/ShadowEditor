@@ -50,8 +50,8 @@ WaterComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 WaterComponent.prototype.onObjectSelected = function () {
@@ -64,7 +64,7 @@ WaterComponent.prototype.onObjectChanged = function () {
 
 WaterComponent.prototype.updateUI = function () {
     var container = UI.get('waterPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected.userData.type === 'Water') {
         container.dom.style.display = '';
     } else {
@@ -97,7 +97,7 @@ WaterComponent.prototype.startPreview = function () {
     this.isPlaying = true;
     btnPreview.setText('取消');
 
-    this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
+    app.on(`animate.${this.id}`, this.onAnimate.bind(this));
 };
 
 WaterComponent.prototype.stopPreview = function () {
@@ -106,7 +106,7 @@ WaterComponent.prototype.stopPreview = function () {
     this.isPlaying = false;
     btnPreview.setText('预览');
 
-    this.app.on(`animate.${this.id}`, null);
+    app.on(`animate.${this.id}`, null);
 };
 
 WaterComponent.prototype.onAnimate = function (clock, deltaTime) {

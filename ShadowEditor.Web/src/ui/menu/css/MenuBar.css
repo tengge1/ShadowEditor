@@ -1,0 +1,38 @@
+.MenuBar {
+    font: 13px 'Microsoft YaHei';
+    color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, rgb(250, 252, 253), rgb(232, 241, 251) 40%, rgb(220, 230, 243) 40%, rgb(220, 231, 245));
+    border-bottom: 1px solid #bbb;
+    display: flex;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+.MenuBar>.MenuItem {
+    position: relative;
+    min-width: auto;
+    margin: 0;
+    padding: 0 16px;
+    display: inline-block;
+    cursor: default;
+}
+
+.MenuBar>.MenuItem:hover {
+    background: initial;
+    color: initial;
+    margin: 0;
+    padding: 0 16px;
+    border: initial;
+}
+
+.MenuBar>.MenuItem>.suffix {
+    display: none;
+}
+
+.MenuBar>.MenuItem>.sub {
+    position: absolute;
+    left: 0;
+    top: auto;
+}

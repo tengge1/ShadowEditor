@@ -8,7 +8,6 @@ import EditWindow from '../window/EditWindow';
  */
 function ParticlePanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 
     this.firstShow = true;
 
@@ -19,7 +18,7 @@ ParticlePanel.prototype = Object.create(UI.Control.prototype);
 ParticlePanel.prototype.constructor = ParticlePanel;
 
 ParticlePanel.prototype.render = function () {
-    this.app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
+    app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
 };
 
 ParticlePanel.prototype.onShowPanel = function (tabName) {
@@ -206,7 +205,7 @@ ParticlePanel.prototype.onSelectMaterial = function (data) {
         var obj = JSON.parse(result);
         if (obj.Code === 200) {
             //var material = (new MaterialsSerializer()).fromJSON(obj.Data.Data);
-            //this.app.call(`selectMaterial`, this, material);
+            //app.call(`selectMaterial`, this, material);
         }
     });
 };
@@ -217,11 +216,11 @@ ParticlePanel.prototype.onSelectMaterial = function (data) {
 ParticlePanel.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new EditWindow({
-            app: this.app,
+            app: app,
             parent: document.body,
             type: 'Particle',
             typeName: L_PARTICLE,
-            saveUrl: `${this.app.options.server}/api/Particle/Edit`,
+            saveUrl: `${app.options.server}/api/Particle/Edit`,
             callback: this.updateList.bind(this)
         });
         this.editWindow.render();

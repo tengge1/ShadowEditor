@@ -14,21 +14,21 @@ RenderEvent.prototype = Object.create(BaseEvent.prototype);
 RenderEvent.prototype.constructor = RenderEvent;
 
 RenderEvent.prototype.start = function () {
-    this.app.on(`render.${this.id}`, this.onRender.bind(this));
-    this.app.on(`materialChanged.${this.id}`, this.onRender.bind(this));
-    this.app.on(`sceneGraphChanged.${this.id}`, this.onRender.bind(this));
-    this.app.on(`cameraChanged.${this.id}`, this.onRender.bind(this));
+    app.on(`render.${this.id}`, this.onRender.bind(this));
+    app.on(`materialChanged.${this.id}`, this.onRender.bind(this));
+    app.on(`sceneGraphChanged.${this.id}`, this.onRender.bind(this));
+    app.on(`cameraChanged.${this.id}`, this.onRender.bind(this));
 };
 
 RenderEvent.prototype.stop = function () {
-    this.app.on(`render.${this.id}`, null);
-    this.app.on(`materialChanged.${this.id}`, null);
-    this.app.on(`sceneGraphChanged.${this.id}`, null);
-    this.app.on(`cameraChanged.${this.id}`, null);
+    app.on(`render.${this.id}`, null);
+    app.on(`materialChanged.${this.id}`, null);
+    app.on(`sceneGraphChanged.${this.id}`, null);
+    app.on(`cameraChanged.${this.id}`, null);
 };
 
 RenderEvent.prototype.onRender = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
     var scene = editor.scene;
     var sceneHelpers = editor.sceneHelpers;
     var camera = editor.camera;
@@ -37,25 +37,25 @@ RenderEvent.prototype.onRender = function () {
     scene.updateMatrixWorld();
     sceneHelpers.updateMatrixWorld();
 
-    this.app.editor.renderer.clear();
+    app.editor.renderer.clear();
 
-    this.app.call('beforeRender', this);
+    app.call('beforeRender', this);
 
     if (this.renderer === undefined) {
         this.createRenderer().then(() => {
-            this.app.call('render');
+            app.call('render');
         });
-        this.app.on(`sceneLoaded.${this.id}`, this.createRenderer.bind(this));
-        this.app.on(`postProcessingChanged.${this.id}`, this.createRenderer.bind(this));
+        app.on(`sceneLoaded.${this.id}`, this.createRenderer.bind(this));
+        app.on(`postProcessingChanged.${this.id}`, this.createRenderer.bind(this));
     } else {
         this.renderer.render();
     }
 
-    this.app.call('afterRender', this);
+    app.call('afterRender', this);
 };
 
 RenderEvent.prototype.createRenderer = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
     var scene = editor.scene;
     var sceneHelpers = editor.sceneHelpers;
     var camera = editor.camera;

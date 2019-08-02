@@ -50,8 +50,8 @@ ClothComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 ClothComponent.prototype.onObjectSelected = function () {
@@ -64,7 +64,7 @@ ClothComponent.prototype.onObjectChanged = function () {
 
 ClothComponent.prototype.updateUI = function () {
     var container = UI.get('clothPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected.userData.type === 'Cloth') {
         container.dom.style.display = '';
     } else {
@@ -97,7 +97,7 @@ ClothComponent.prototype.startPreview = function () {
     this.isPlaying = true;
     btnPreview.setText(L_CANCEL);
 
-    this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
+    app.on(`animate.${this.id}`, this.onAnimate.bind(this));
 };
 
 ClothComponent.prototype.stopPreview = function () {
@@ -106,7 +106,7 @@ ClothComponent.prototype.stopPreview = function () {
     this.isPlaying = false;
     btnPreview.setText(L_PREVIEW);
 
-    this.app.on(`animate.${this.id}`, null);
+    app.on(`animate.${this.id}`, null);
 };
 
 ClothComponent.prototype.onAnimate = function (clock, deltaTime) {

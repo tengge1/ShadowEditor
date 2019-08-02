@@ -54,8 +54,8 @@ AudioListenerComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 AudioListenerComponent.prototype.onObjectSelected = function () {
@@ -68,7 +68,7 @@ AudioListenerComponent.prototype.onObjectChanged = function () {
 
 AudioListenerComponent.prototype.updateUI = function () {
     var container = UI.get('audioListenerPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected instanceof THREE.PerspectiveCamera && editor.selected.children.indexOf(editor.audioListener) > -1) {
         container.dom.style.display = '';
     } else {

@@ -80,8 +80,7 @@ function ModelLoader() {
 ModelLoader.prototype = Object.create(BaseLoader.prototype);
 ModelLoader.prototype.constructor = ModelLoader;
 
-ModelLoader.prototype.load = function (url, options, environment) {
-    options = options || {};
+ModelLoader.prototype.load = function (url, options = {}, environment = {}) {
     var type = options.Type;
 
     if (type === undefined) {
@@ -98,7 +97,7 @@ ModelLoader.prototype.load = function (url, options, environment) {
             resolve(null);
             return;
         }
-        (new loader(this.app)).load(url, options, environment).then(obj => {
+        (new loader(app)).load(url, options, environment).then(obj => {
             obj.userData.physics = obj.userData.physics || {
                 enabled: false,
                 type: 'rigidBody',

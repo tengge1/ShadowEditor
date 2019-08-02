@@ -6,7 +6,6 @@ var ID = -1;
  * @param {*} app 
  */
 function BaseHelper(app) {
-    this.app = app;
     this.id = `${this.constructor.name}${ID--}`;
 }
 

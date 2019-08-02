@@ -1,0 +1,32 @@
+.Viewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.Viewport>.editor {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.Viewport>.svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.Viewport>.player {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}

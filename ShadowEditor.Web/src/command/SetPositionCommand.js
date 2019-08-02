@@ -36,13 +36,13 @@ Object.assign(SetPositionCommand.prototype, {
 	execute: function () {
 		this.object.position.copy(this.newPosition);
 		this.object.updateMatrixWorld(true);
-		this.editor.app.call('objectChanged', this, this.object);
+		app.call('objectChanged', this, this.object);
 	},
 
 	undo: function () {
 		this.object.position.copy(this.oldPosition);
 		this.object.updateMatrixWorld(true);
-		this.editor.app.call('objectChanged', this, this.object);
+		app.call('objectChanged', this, this.object);
 	},
 
 	update: function (command) {

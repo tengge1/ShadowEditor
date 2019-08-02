@@ -11,7 +11,6 @@ import PhysicsTerrain from '../../object/terrain/PhysicsTerrain';
  */
 function TerrainMenu(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 }
 
 TerrainMenu.prototype = Object.create(UI.Control.prototype);
@@ -64,21 +63,21 @@ TerrainMenu.prototype.render = function () {
 // ---------------------------- 创建地形 -----------------------------------
 
 TerrainMenu.prototype.createPerlinTerrain = function () {
-    this.app.editor.execute(new AddObjectCommand(new PerlinTerrain()));
+    app.editor.execute(new AddObjectCommand(new PerlinTerrain()));
 };
 
 // ---------------------------- 创建着色器地形 ----------------------------------------
 
 TerrainMenu.prototype.createShaderTerrain = function () {
-    var dom = this.app.viewport.container.dom;
+    var dom = app.viewport;
 
-    var terrain = new ShaderTerrain(this.app.editor.renderer, dom.clientWidth, dom.clientHeight);
+    var terrain = new ShaderTerrain(app.editor.renderer, dom.clientWidth, dom.clientHeight);
 
-    this.app.editor.execute(new AddObjectCommand(terrain));
+    app.editor.execute(new AddObjectCommand(terrain));
 
     terrain.update(0);
 
-    // this.app.on(`animate.Terrain2`, (clock, deltaTime) => {
+    // app.on(`animate.Terrain2`, (clock, deltaTime) => {
     //     terrain.update(deltaTime);
     // });
 };

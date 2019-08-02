@@ -11,7 +11,6 @@ import FilterPanel from './options/FilterPanel';
  */
 function OptionsWindow(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
     this.tab = L_SURFACE;
 }
 
@@ -20,21 +19,21 @@ OptionsWindow.prototype.constructor = OptionsWindow;
 
 OptionsWindow.prototype.render = function () {
     this.surfacePanel = new SurfacePanel({
-        app: this.app
+        app: app
     });
     this.rendererPanel = new RendererPanel({
-        app: this.app
+        app: app
     });
     this.helperPanel = new HelperPanel({
-        app: this.app
+        app: app
     });
     this.filterPanel = new FilterPanel({
-        app: this.app
+        app: app
     });
 
     this.window = UI.create({
         xtype: 'window',
-        parent: this.app.container,
+        parent: app.container,
         title: L_OPTIONS_WINDOW,
         width: '800px',
         height: '450px',

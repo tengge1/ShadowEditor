@@ -14,23 +14,23 @@ ObjectEvent.prototype = Object.create(BaseEvent.prototype);
 ObjectEvent.prototype.constructor = ObjectEvent;
 
 ObjectEvent.prototype.start = function () {
-    this.app.on('objectAdded.' + this.id, this.onObjectAdded.bind(this));
-    this.app.on('objectChanged.' + this.id, this.onObjectChanged.bind(this));
-    this.app.on('objectRemoved.' + this.id, this.onObjectRemoved.bind(this));
-    this.app.on('objectSelected.' + this.id, this.onObjectSelected.bind(this));
-    this.app.on('objectFocused.' + this.id, this.onObjectFocused.bind(this));
+    app.on('objectAdded.' + this.id, this.onObjectAdded.bind(this));
+    app.on('objectChanged.' + this.id, this.onObjectChanged.bind(this));
+    app.on('objectRemoved.' + this.id, this.onObjectRemoved.bind(this));
+    app.on('objectSelected.' + this.id, this.onObjectSelected.bind(this));
+    app.on('objectFocused.' + this.id, this.onObjectFocused.bind(this));
 };
 
 ObjectEvent.prototype.stop = function () {
-    this.app.on('objectAdded.' + this.id, null);
-    this.app.on('objectChanged.' + this.id, null);
-    this.app.on('objectRemoved.' + this.id, null);
-    this.app.on('objectSelected.' + this.id, null);
-    this.app.on('objectFocused.' + this.id, null);
+    app.on('objectAdded.' + this.id, null);
+    app.on('objectChanged.' + this.id, null);
+    app.on('objectRemoved.' + this.id, null);
+    app.on('objectSelected.' + this.id, null);
+    app.on('objectFocused.' + this.id, null);
 };
 
 ObjectEvent.prototype.onObjectAdded = function (object) {
-    var objects = this.app.editor.objects;
+    var objects = app.editor.objects;
 
     object.traverse(function (child) {
         objects.push(child);
@@ -38,17 +38,17 @@ ObjectEvent.prototype.onObjectAdded = function (object) {
 };
 
 ObjectEvent.prototype.onObjectChanged = function (object) {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     if (object instanceof THREE.PerspectiveCamera) {
         object.updateProjectionMatrix();
     }
 
-    this.app.call('render');
+    app.call('render');
 };
 
 ObjectEvent.prototype.onObjectRemoved = function (object) {
-    var objects = this.app.editor.objects;
+    var objects = app.editor.objects;
 
     object.traverse(function (child) {
         objects.splice(objects.indexOf(child), 1);
@@ -56,15 +56,15 @@ ObjectEvent.prototype.onObjectRemoved = function (object) {
 };
 
 ObjectEvent.prototype.onObjectSelected = function (object) {
-    var editor = this.app.editor;
+    var editor = app.editor;
     var scene = editor.scene;
     var box = this.box;
 
-    this.app.call('render');
+    app.call('render');
 };
 
 ObjectEvent.prototype.onObjectFocused = function (object) {
-    var controls = this.app.editor.controls;
+    var controls = app.editor.controls;
 
     controls.focus(object);
 };

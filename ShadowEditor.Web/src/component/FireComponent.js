@@ -99,8 +99,8 @@ FireComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 FireComponent.prototype.onObjectSelected = function () {
@@ -113,7 +113,7 @@ FireComponent.prototype.onObjectChanged = function () {
 
 FireComponent.prototype.updateUI = function () {
     var container = UI.get('firePanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected.userData.type === 'Fire') {
         container.dom.style.display = '';
     } else {
@@ -150,7 +150,7 @@ FireComponent.prototype.onChange = function () {
 
     VolumetricFire.texturePath = 'assets/textures/VolumetricFire/';
 
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var fire = new VolumetricFire(
         width.getValue(),
@@ -177,10 +177,10 @@ FireComponent.prototype.onChange = function () {
         editor.scene.children[index] = fire.mesh;
         fire.mesh.parent = this.selected.parent;
         this.selected.parent = null;
-        this.app.call(`objectRemoved`, this, this.selected);
-        this.app.call(`objectAdded`, this, fire.mesh);
+        app.call(`objectRemoved`, this, this.selected);
+        app.call(`objectAdded`, this, fire.mesh);
         editor.select(fire.mesh);
-        this.app.call('sceneGraphChanged', this.id);
+        app.call('sceneGraphChanged', this.id);
 
         fire.update(0);
     }
@@ -200,7 +200,7 @@ FireComponent.prototype.startPreview = function () {
     this.isPlaying = true;
     btnPreview.setText('取消');
 
-    this.app.on(`animate.${this.id}`, this.onAnimate.bind(this));
+    app.on(`animate.${this.id}`, this.onAnimate.bind(this));
 };
 
 FireComponent.prototype.stopPreview = function () {
@@ -209,7 +209,7 @@ FireComponent.prototype.stopPreview = function () {
     this.isPlaying = false;
     btnPreview.setText('预览');
 
-    this.app.on(`animate.${this.id}`, null);
+    app.on(`animate.${this.id}`, null);
 };
 
 FireComponent.prototype.onAnimate = function (clock, deltaTime) {

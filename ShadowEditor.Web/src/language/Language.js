@@ -629,4 +629,8 @@ Object.assign(window, {
     L_CLUSTER_DIAGRAM: 'Cluster Diagram',
     L_PACK_DIAGRAM: 'Pack Diagram',
     L_PARTITION_DIAGRAM: 'Partition Diagram',
+    L_DIG: 'Dig',
+    L_EDIT_SCRIPT: 'Edit Script',
+    L_DELETE_SCRIPT: 'Delete Script',
+    L_SCALE_LOCKED: 'Scale Locked',
 });

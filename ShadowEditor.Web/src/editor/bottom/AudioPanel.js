@@ -9,7 +9,6 @@ import UploadUtils from '../../utils/UploadUtils';
  */
 function AudioPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 
     this.firstShow = true;
 
@@ -20,7 +19,7 @@ AudioPanel.prototype = Object.create(UI.Control.prototype);
 AudioPanel.prototype.constructor = AudioPanel;
 
 AudioPanel.prototype.render = function () {
-    this.app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
+    app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
 };
 
 AudioPanel.prototype.onShowPanel = function (tabName) {
@@ -211,7 +210,7 @@ AudioPanel.prototype.onClick = function (event, index, btn, control) {
 // ------------------------------------- 添加 ------------------------------------
 
 AudioPanel.prototype.onAddAudio = function (data) {
-    this.app.call(`selectAudio`, this, data);
+    app.call(`selectAudio`, this, data);
 };
 
 // ----------------------------------- 上传 ----------------------------------------
@@ -252,11 +251,11 @@ AudioPanel.prototype.onCommitUpload = function () {
 AudioPanel.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new EditWindow({
-            app: this.app,
+            app: app,
             parent: document.body,
             type: 'Audio',
             typeName: L_AUDIO,
-            saveUrl: `${this.app.options.server}/api/Audio/Edit`,
+            saveUrl: `${app.options.server}/api/Audio/Edit`,
             callback: this.updateList.bind(this)
         });
         this.editWindow.render();

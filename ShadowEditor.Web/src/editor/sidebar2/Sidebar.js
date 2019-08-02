@@ -9,7 +9,6 @@ import ScriptPanel from './ScriptPanel';
  */
 function Sidebar(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 };
 
 Sidebar.prototype = Object.create(UI.Control.prototype);
@@ -29,7 +28,7 @@ Sidebar.prototype.render = function () {
                 cls: 'selected'
             }]
         },
-        new HierachyPanel({ app: this.app }), // 场景面板
+        new HierachyPanel({ app: app }), // 场景面板
         {
             xtype: 'div',
             cls: 'tabs',
@@ -39,7 +38,7 @@ Sidebar.prototype.render = function () {
                 cls: 'selected'
             }]
         },
-        new ScriptPanel({ app: this.app }), // 脚本面板
+        new ScriptPanel({ app: app }), // 脚本面板
         ]
     };
 

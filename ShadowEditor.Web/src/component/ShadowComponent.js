@@ -197,8 +197,8 @@ ShadowComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 ShadowComponent.prototype.onObjectSelected = function () {
@@ -211,7 +211,7 @@ ShadowComponent.prototype.onObjectChanged = function () {
 
 ShadowComponent.prototype.updateUI = function () {
     var container = UI.get('shadowPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && (editor.selected instanceof THREE.Mesh || editor.selected instanceof THREE.DirectionalLight || editor.selected instanceof THREE.PointLight || editor.selected instanceof THREE.SpotLight)) {
         container.dom.style.display = '';
     } else {

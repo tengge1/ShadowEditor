@@ -8,7 +8,6 @@ import SetScriptValueCommand from '../../command/SetScriptValueCommand';
  */
 function ScriptEditor(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 
     this.codemirror = null;
     this.server = null;
@@ -80,7 +79,7 @@ ScriptEditor.prototype.render = function () {
 ScriptEditor.prototype.open = function (uuid, name, mode, source, title, callback) {
     if (this.init === undefined) {
         this.init = true;
-        this.app.require(['codemirror', 'codemirror-addon', 'esprima', 'jsonlint', 'glslprep', 'acorn', 'ternjs']).then(() => {
+        app.require(['codemirror', 'codemirror-addon', 'esprima', 'jsonlint', 'glslprep', 'acorn', 'ternjs']).then(() => {
             this._initCodeMirror();
             this._openScript(uuid, name, mode, source, title, callback);
         });
@@ -238,7 +237,7 @@ ScriptEditor.prototype.save = function () {
         this.callback.call(this, value);
     }
 
-    this.app.log(`${this.uuid} ${L_SCRIPT_SAVED_SUCCESS}`);
+    app.log(`${this.uuid} ${L_SCRIPT_SAVED_SUCCESS}`);
 };
 
 /**

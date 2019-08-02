@@ -2,7 +2,37 @@
  * 存储类
  */
 function Storage() {
+    if (this.get('showGrid') === undefined) {
+        this.set('showGrid', true);
+    }
 
+    if (this.get('showCamera') === undefined) {
+        this.set('showCamera', false);
+    }
+
+    if (this.get('showPointLight') === undefined) {
+        this.set('showPointLight', true);
+    }
+
+    if (this.get('showDirectionalLight') === undefined) {
+        this.set('showDirectionalLight', true);
+    }
+
+    if (this.get('showSpotLight') === undefined) {
+        this.set('showSpotLight', true);
+    }
+
+    if (this.get('showHemisphereLight') === undefined) {
+        this.set('showHemisphereLight', true);
+    }
+
+    if (this.get('showRectAreaLight') === undefined) {
+        this.set('showRectAreaLight', true);
+    }
+
+    if (this.get('showSkeleton') === undefined) {
+        this.set('showSkeleton', false);
+    }
 }
 
 Storage.prototype.get = function (key) {

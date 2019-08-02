@@ -31,7 +31,6 @@ import PartitionDiagram from '../../visual/component/PartitionDiagram';
  */
 function TwoDMenu(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 }
 
 TwoDMenu.prototype = Object.create(UI.Control.prototype);
@@ -179,8 +178,8 @@ TwoDMenu.prototype.render = function () {
 // ------------------------------ 按钮 --------------------------------
 
 TwoDMenu.prototype.addButton = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new Button());
     visual.render(svg);
@@ -189,8 +188,8 @@ TwoDMenu.prototype.addButton = function () {
 // ---------------------------- 标签 -----------------------------------
 
 TwoDMenu.prototype.addLabel = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new Label());
     visual.render(svg);
@@ -199,8 +198,8 @@ TwoDMenu.prototype.addLabel = function () {
 // ---------------------------- 面板 ------------------------------------
 
 TwoDMenu.prototype.addPanel = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new Panel());
     visual.render(svg);
@@ -209,8 +208,8 @@ TwoDMenu.prototype.addPanel = function () {
 // --------------------------- 水平线 -------------------------------------
 
 TwoDMenu.prototype.addHorizontalLine = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new HorizontalLine());
     visual.render(svg);
@@ -219,8 +218,8 @@ TwoDMenu.prototype.addHorizontalLine = function () {
 // ---------------------------- 条形图 -------------------------------------
 
 TwoDMenu.prototype.addBarChart = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new BarChart());
     visual.render(svg);
@@ -229,8 +228,8 @@ TwoDMenu.prototype.addBarChart = function () {
 // --------------------------- 时间标签 --------------------------------------
 
 TwoDMenu.prototype.addTimeLabel = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new TimeLabel());
     visual.render(svg);
@@ -239,8 +238,8 @@ TwoDMenu.prototype.addTimeLabel = function () {
 // --------------------------- 垂直线 ------------------------------------------
 
 TwoDMenu.prototype.addVerticalLine = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new VerticalLine());
     visual.render(svg);
@@ -249,8 +248,8 @@ TwoDMenu.prototype.addVerticalLine = function () {
 // -------------------------- 日期时间 -------------------------------------------
 
 TwoDMenu.prototype.addDateWeek = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new DateWeekLabel());
     visual.render(svg);
@@ -259,8 +258,8 @@ TwoDMenu.prototype.addDateWeek = function () {
 // ------------------------- 时间圆盘 -----------------------------------------------
 
 TwoDMenu.prototype.addTimeDisk = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new TimeDisk());
     visual.render(svg);
@@ -269,8 +268,8 @@ TwoDMenu.prototype.addTimeDisk = function () {
 // -------------------------- 键值标签 -------------------------------------------------
 
 TwoDMenu.prototype.addKeyValueLabel = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new KeyValueLabel());
     visual.render(svg);
@@ -279,8 +278,8 @@ TwoDMenu.prototype.addKeyValueLabel = function () {
 // --------------------------- 表单 ------------------------------------------------------
 
 TwoDMenu.prototype.addFormPanel = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new FormPanel());
     visual.render(svg);
@@ -289,8 +288,8 @@ TwoDMenu.prototype.addFormPanel = function () {
 // ---------------------------- 仪表 --------------------------------------------
 
 TwoDMenu.prototype.addGauge = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new Gauge());
     visual.render(svg);
@@ -299,8 +298,8 @@ TwoDMenu.prototype.addGauge = function () {
 // --------------------------- 柱状图 ----------------------------------------------
 
 TwoDMenu.prototype.addHistogram = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new Histogram());
     visual.render(svg);
@@ -309,8 +308,8 @@ TwoDMenu.prototype.addHistogram = function () {
 // ------------------------------- 折线图 ----------------------------------------------
 
 TwoDMenu.prototype.addLineChart = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new LineChart());
     visual.render(svg);
@@ -319,8 +318,8 @@ TwoDMenu.prototype.addLineChart = function () {
 // -------------------------------- 侧边栏 ---------------------------------------------
 
 TwoDMenu.prototype.addSideBar = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new SideBar());
     visual.render(svg);
@@ -329,8 +328,8 @@ TwoDMenu.prototype.addSideBar = function () {
 // ------------------------------- 柱状图2 ------------------------------------------------
 
 TwoDMenu.prototype.addHistogram2 = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new Histogram2());
     visual.render(svg);
@@ -339,8 +338,8 @@ TwoDMenu.prototype.addHistogram2 = function () {
 // -------------------------------- 散点图 ---------------------------------------------------
 
 TwoDMenu.prototype.addScatterPlot = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new ScatterPlot());
     visual.render(svg);
@@ -349,8 +348,8 @@ TwoDMenu.prototype.addScatterPlot = function () {
 // --------------------------------- 饼状图 --------------------------------------------------
 
 TwoDMenu.prototype.addPieChart = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new PieChart());
     visual.render(svg);
@@ -359,8 +358,8 @@ TwoDMenu.prototype.addPieChart = function () {
 // --------------------------------- 弦图 --------------------------------------------------
 
 TwoDMenu.prototype.addChordGraph = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new ChordGraph());
     visual.render(svg);
@@ -369,8 +368,8 @@ TwoDMenu.prototype.addChordGraph = function () {
 // ----------------------------------- 力导向图 ---------------------------------------------
 
 TwoDMenu.prototype.addForceDirectedGraph = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new ForceDirectedGraph());
     visual.render(svg);
@@ -379,8 +378,8 @@ TwoDMenu.prototype.addForceDirectedGraph = function () {
 // ----------------------------------- 树状图 -----------------------------------------------
 
 TwoDMenu.prototype.addTreeDiagram = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new TreeDiagram());
     visual.render(svg);
@@ -389,8 +388,8 @@ TwoDMenu.prototype.addTreeDiagram = function () {
 // ---------------------------------- 集群图 -----------------------------------------------------
 
 TwoDMenu.prototype.addClusterDiagram = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new ClusterDiagram());
     visual.render(svg);
@@ -399,8 +398,8 @@ TwoDMenu.prototype.addClusterDiagram = function () {
 // ------------------------------- 包图 -----------------------------------------
 
 TwoDMenu.prototype.addPackDiagram = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new PackDiagram());
     visual.render(svg);
@@ -409,8 +408,8 @@ TwoDMenu.prototype.addPackDiagram = function () {
 // --------------------------------- 分区图 --------------------------------------------
 
 TwoDMenu.prototype.addPartitionDiagram = function () {
-    var visual = this.app.editor.visual;
-    var svg = this.app.editor.svg;
+    var visual = app.editor.visual;
+    var svg = app.editor.svg;
 
     visual.add(new PartitionDiagram());
     visual.render(svg);

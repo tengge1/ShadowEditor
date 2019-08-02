@@ -36,13 +36,13 @@ Object.assign(SetScaleCommand.prototype, {
 	execute: function () {
 		this.object.scale.copy(this.newScale);
 		this.object.updateMatrixWorld(true);
-		this.editor.app.call('objectChanged', this, this.object);
+		app.call('objectChanged', this, this.object);
 	},
 
 	undo: function () {
 		this.object.scale.copy(this.oldScale);
 		this.object.updateMatrixWorld(true);
-		this.editor.app.call('objectChanged', this, this.object);
+		app.call('objectChanged', this, this.object);
 	},
 
 	update: function (command) {

@@ -1,0 +1,12 @@
+.ButtonsProperty>.field>.buttons {
+    height: auto;
+    margin-left: 4px;
+}
+
+.ButtonsProperty>.field>.buttons>.Button {
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    margin: 0 4px;
+    padding: 0 4px;
+}

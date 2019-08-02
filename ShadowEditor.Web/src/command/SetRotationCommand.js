@@ -36,13 +36,13 @@ Object.assign(SetRotationCommand.prototype, {
 	execute: function () {
 		this.object.rotation.copy(this.newRotation);
 		this.object.updateMatrixWorld(true);
-		this.editor.app.call('objectChanged', this, this.object);
+		app.call('objectChanged', this, this.object);
 	},
 
 	undo: function () {
 		this.object.rotation.copy(this.oldRotation);
 		this.object.updateMatrixWorld(true);
-		this.editor.app.call('objectChanged', this, this.object);
+		app.call('objectChanged', this, this.object);
 	},
 
 	update: function (command) {

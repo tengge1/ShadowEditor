@@ -60,8 +60,8 @@ ControlComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 ControlComponent.prototype.onObjectSelected = function () {
@@ -74,8 +74,8 @@ ControlComponent.prototype.onObjectChanged = function () {
 
 ControlComponent.prototype.updateUI = function () {
     var container = UI.get('controlPanel', this.id);
-    var editor = this.app.editor;
-    if (editor.selected && editor.selected === this.app.editor.camera) {
+    var editor = app.editor;
+    if (editor.selected && editor.selected === app.editor.camera) {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
@@ -94,7 +94,7 @@ ControlComponent.prototype.onChangeType = function () {
 
     this.selected.userData.control = type.getValue();
 
-    this.app.call('objectChanged', this, this.selected);
+    app.call('objectChanged', this, this.selected);
 };
 
 export default ControlComponent;

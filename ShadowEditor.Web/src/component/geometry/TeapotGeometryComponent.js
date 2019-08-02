@@ -119,8 +119,8 @@ TeapotGeometryComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 TeapotGeometryComponent.prototype.onObjectSelected = function () {
@@ -133,7 +133,7 @@ TeapotGeometryComponent.prototype.onObjectChanged = function () {
 
 TeapotGeometryComponent.prototype.updateUI = function () {
     var container = UI.get('geometryPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected instanceof THREE.Mesh && editor.selected.geometry instanceof THREE.TeapotBufferGeometry) {
         container.dom.style.display = '';
     } else {
@@ -191,7 +191,7 @@ TeapotGeometryComponent.prototype.onChangeGeometry = function () {
         blinn: blinn.getValue()
     };
 
-    this.app.editor.execute(new SetGeometryCommand(this.selected, geometry));
+    app.editor.execute(new SetGeometryCommand(this.selected, geometry));
 };
 
 export default TeapotGeometryComponent;

@@ -1,0 +1,25 @@
+.DisplayProperty>.field>.wrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+}
+
+.DisplayProperty>.field>.wrap>.label {
+    height: 20px;
+    padding: 0 4px;
+    flex: 1;
+    word-break: break-all;
+    overflow: hidden;
+}
+
+.DisplayProperty>.field>.wrap>.button {
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    margin: 0;
+    padding: 0 4px;
+}

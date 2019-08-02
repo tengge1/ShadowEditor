@@ -5,7 +5,6 @@ var ID = -1;
  * @author tengge / https://github.com/tengge1
  */
 function BaseTool(app) {
-    this.app = app;
     this.id = `${this.constructor.name}${ID--}`;
 
     this.dispatch = d3.dispatch('end');

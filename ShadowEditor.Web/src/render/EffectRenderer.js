@@ -38,52 +38,52 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
 
     // 快速近似抗锯齿
     if (postProcessing.fxaa && postProcessing.fxaa.enabled) {
-        await this.require('FXAAShader');
+        await this.require(['CopyShader', 'FXAAShader', 'EffectComposer', 'RenderPass', 'ShaderPass']);
     }
 
     // 多重采样抗锯齿
     if (postProcessing.smaa && postProcessing.smaa.enabled) {
-        await this.require(['SMAAShader', 'SMAAPass']);
+        await this.require(['CopyShader', 'SMAAShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'SMAAPass']);
     }
 
     // 全屏抗锯齿
     if (postProcessing.ssaa && postProcessing.ssaa.enabled) {
-        await this.require('SSAARenderPass');
+        await this.require(['CopyShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'SSAARenderPass']);
     }
 
     // 时间抗锯齿
     if (postProcessing.taa && postProcessing.taa.enabled) {
-        await this.require(['SSAARenderPass', 'TAARenderPass']);
+        await this.require(['CopyShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'SSAARenderPass', 'TAARenderPass']);
     }
 
     // 可扩展环境光遮挡
     if (postProcessing.sao && postProcessing.sao.enabled) {
-        await this.require(['SAOShader', 'DepthLimitedBlurShader', 'UnpackDepthRGBAShader', 'SAOPass']);
+        await this.require(['CopyShader', 'SAOShader', 'DepthLimitedBlurShader', 'UnpackDepthRGBAShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'SAOPass']);
     }
 
     // 屏幕空间环境光遮蔽
     if (postProcessing.ssao && postProcessing.ssao.enabled) {
-        await this.require(['SSAOShader', 'SSAOPass']);
+        await this.require(['CopyShader', 'SSAOShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'SSAOPass']);
     }
 
     // 像素特效
     if (postProcessing.pixel && postProcessing.pixel.enabled) {
-        await this.require('PixelShader');
+        await this.require(['CopyShader', 'PixelShader', 'EffectComposer', 'RenderPass', 'ShaderPass']);
     }
 
     // 点阵化
     if (postProcessing.dotScreen && postProcessing.dotScreen.enabled) {
-        await this.require('DotScreenShader');
+        await this.require(['CopyShader', 'DotScreenShader', 'EffectComposer', 'RenderPass', 'ShaderPass']);
     }
 
     // 颜色偏移
     if (postProcessing.rgbShift && postProcessing.rgbShift.enabled) {
-        await this.require('RGBShiftShader');
+        await this.require(['CopyShader', 'RGBShiftShader', 'EffectComposer', 'RenderPass', 'ShaderPass']);
     }
 
     // 残影特效
     if (postProcessing.afterimage && postProcessing.afterimage.enabled) {
-        await this.require(['AfterimageShader', 'AfterimagePass']);
+        await this.require(['CopyShader', 'AfterimageShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'AfterimagePass']);
     }
 
     // 半色调特效
@@ -93,12 +93,12 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
 
     // 背景虚化特效
     if (postProcessing.bokeh && postProcessing.bokeh.enabled) {
-        await this.require(['BokehShader', 'BokehPass']);
+        await this.require(['CopyShader', 'BokehShader', 'EffectComposer', 'RenderPass', 'ShaderPass', 'BokehPass']);
     }
 
     // 毛刺特效
     if (postProcessing.glitch && postProcessing.glitch.enabled) {
-        await this.require(['DigitalGlitch', 'GlitchPass']);
+        await this.require(['CopyShader', 'DigitalGlitch', 'EffectComposer', 'RenderPass', 'ShaderPass', 'GlitchPass']);
     }
 
     this._createPostProcessing(scenes, camera, renderer);
@@ -107,7 +107,8 @@ EffectRenderer.prototype.create = async function (scenes, camera, renderer) {
 };
 
 EffectRenderer.prototype._createPostProcessing = function (scenes, camera, renderer) {
-    var postProcessing = scenes[0].userData.postProcessing || {};
+    let scene = scenes[0];
+    let postProcessing = scene.userData.postProcessing || {};
 
     if (this.composer) {
         this.dispose();
@@ -120,7 +121,7 @@ EffectRenderer.prototype._createPostProcessing = function (scenes, camera, rende
     for (var i = 0; i < keys.length; i++) {
         var key = keys[i];
 
-        if (this.effectNames[key] && this.effectNames[key].enabled) { // 需要特效
+        if (this.effectNames.indexOf(key) > -1 && postProcessing[key].enabled) { // 需要特效
             useEffect = true;
             break;
         }
@@ -141,17 +142,6 @@ EffectRenderer.prototype._createPostProcessing = function (scenes, camera, rende
         composer.addPass(effect);
         effects.push(effect);
     });
-
-    // 边框
-    // effect = new THREE.OutlinePass(new THREE.Vector2(renderer.domElement.width, renderer.domElement.height), scene, camera);
-    // effect.edgeStrength = 10;
-    // effect.edgeGlow = 0.4;
-    // effect.edgeThickness = 1.8;
-    // effect.pulsePeriod = 2;
-    // effect.visibleEdgeColor.set('#ffffff');
-    // effect.hiddenEdgeColor.set('#190a05');
-    // composer.addPass(effect);
-    // effects.push(effect);
 
     // 快速近似抗锯齿
     if (postProcessing.fxaa && postProcessing.fxaa.enabled) {

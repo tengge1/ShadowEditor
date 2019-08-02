@@ -20,17 +20,14 @@ PickEvent.prototype = Object.create(BaseEvent.prototype);
 PickEvent.prototype.constructor = PickEvent;
 
 PickEvent.prototype.start = function () {
-    var container = this.app.viewport.container;
-
-    container.dom.addEventListener('mousedown', this.onMouseDown.bind(this), false);
-    container.dom.addEventListener('dblclick', this.onDoubleClick.bind(this), false);
+    app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
 };
 
-PickEvent.prototype.stop = function () {
-    var container = this.app.viewport.container;
+PickEvent.prototype.onAppStarted = function () {
+    var viewport = app.viewport;
 
-    container.dom.removeEventListener('mousedown', this.onMouseDown, false);
-    container.dom.removeEventListener('dblclick', this.onDoubleClick, false);
+    viewport.addEventListener('mousedown', this.onMouseDown.bind(this), false);
+    viewport.addEventListener('dblclick', this.onDoubleClick.bind(this), false);
 };
 
 PickEvent.prototype.onMouseDown = function (event) {
@@ -39,21 +36,16 @@ PickEvent.prototype.onMouseDown = function (event) {
     }
 
     // 这样处理选中的原因是避免把拖动误认为点击
-
-    var container = this.app.viewport.container;
-
     event.preventDefault();
 
-    var array = this.getMousePosition(container.dom, event.clientX, event.clientY);
+    var array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
     this.onDownPosition.fromArray(array);
 
     document.addEventListener('mouseup', this.onMouseUp.bind(this), false);
 };
 
 PickEvent.prototype.onMouseUp = function (event) {
-    var container = this.app.viewport.container;
-
-    var array = this.getMousePosition(container.dom, event.clientX, event.clientY);
+    var array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
     this.onUpPosition.fromArray(array);
 
     this.handleClick();
@@ -62,23 +54,22 @@ PickEvent.prototype.onMouseUp = function (event) {
 };
 
 PickEvent.prototype.onDoubleClick = function (event) {
-    var container = this.app.viewport.container;
-    var objects = this.app.editor.objects;
+    var objects = app.editor.objects;
 
-    var array = this.getMousePosition(container.dom, event.clientX, event.clientY);
+    var array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
     this.onDoubleClickPosition.fromArray(array);
 
     var intersects = this.getIntersects(this.onDoubleClickPosition, objects);
 
     if (intersects.length > 0) {
         var intersect = intersects[0];
-        this.app.call('objectFocused', this, intersect.object);
+        app.call('objectFocused', this, intersect.object);
     }
 };
 
 PickEvent.prototype.getIntersects = function (point, objects) {
     this.mouse.set((point.x * 2) - 1, -(point.y * 2) + 1);
-    this.raycaster.setFromCamera(this.mouse, this.app.editor.camera);
+    this.raycaster.setFromCamera(this.mouse, app.editor.camera);
     return this.raycaster.intersectObjects(objects);
 };
 
@@ -88,7 +79,7 @@ PickEvent.prototype.getMousePosition = function (dom, x, y) {
 };
 
 PickEvent.prototype.handleClick = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
     var objects = editor.objects;
 
     if (this.onDownPosition.distanceTo(this.onUpPosition) === 0) {
@@ -108,7 +99,7 @@ PickEvent.prototype.handleClick = function () {
         }
 
         // objects in sceneHelpers
-        var sceneHelpers = this.app.editor.sceneHelpers;
+        var sceneHelpers = app.editor.sceneHelpers;
 
         var intersects = this.getIntersects(this.onUpPosition, sceneHelpers.children);
         if (intersects.length > 0) {
@@ -117,7 +108,7 @@ PickEvent.prototype.handleClick = function () {
             }
         }
 
-        this.app.call('render');
+        app.call('render');
     }
 };
 
@@ -126,7 +117,7 @@ PickEvent.prototype.handleClick = function () {
  * @param {*} obj 
  */
 PickEvent.prototype.partToMesh = function (obj) {
-    var scene = this.app.editor.scene;
+    var scene = app.editor.scene;
 
     if (obj === scene || obj.userData && obj.userData.Server === true) { // 场景或服务端模型
         return obj;

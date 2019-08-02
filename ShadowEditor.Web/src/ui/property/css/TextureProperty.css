@@ -1,0 +1,27 @@
+.PropertyGroup>.content>.property.TextureProperty {
+    height: 49px;
+}
+
+.TextureProperty>.field>.texture {
+    position: relative;
+    width: 100%;
+    height: 48px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.TextureProperty>.field>.texture>.CheckBox {
+    width: 20px;
+    height: 20px;
+    margin: 2px;
+}
+
+.TextureProperty>.field>.texture>canvas {
+    position: absolute;
+    top: 0;
+    left: 24px;
+    width: calc(100% - 24px);
+    height: 24px;
+}
+
+.TextureProperty>.field>.texture>.Input {}

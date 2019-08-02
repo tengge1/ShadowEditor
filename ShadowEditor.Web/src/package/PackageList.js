@@ -367,19 +367,9 @@ const PackageList = [{
         'assets/js/postprocessing/SSAARenderPass.js'
     ]
 }, {
-    name: 'SAOPass',
-    assets: [
-        'assets/js/postprocessing/SAOPass.js'
-    ]
-}, {
     name: 'SMAAPass',
     assets: [
         'assets/js/postprocessing/SMAAPass.js'
-    ]
-}, {
-    name: 'SSAOPass',
-    assets: [
-        'assets/js/postprocessing/SSAOPass.js'
     ]
 }, {
     name: 'TAARenderPass',

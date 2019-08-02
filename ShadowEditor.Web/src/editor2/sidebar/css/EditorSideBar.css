@@ -1,0 +1,16 @@
+.EditorSideBar {
+    width: 240px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.EditorSideBar>.top {
+    height: 320px;
+    border-bottom: 1px solid #eee;
+    box-sizing: border-box;
+}
+
+.EditorSideBar>.bottom {
+    height: calc(100% - 320px);
+    box-sizing: border-box;
+}

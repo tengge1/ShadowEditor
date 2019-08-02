@@ -8,7 +8,6 @@ import OptionsWindow from '../window/OptionsWindow';
  */
 function OptionsMenu(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 }
 
 OptionsMenu.prototype = Object.create(UI.Control.prototype);
@@ -60,7 +59,7 @@ OptionsMenu.prototype.render = function () {
 OptionsMenu.prototype.onSurfaceOptions = function () {
     if (this.optionsWindow === undefined) {
         this.optionsWindow = new OptionsWindow({
-            app: this.app
+            app: app
         });
         this.optionsWindow.render();
     }
@@ -73,7 +72,7 @@ OptionsMenu.prototype.onSurfaceOptions = function () {
 OptionsMenu.prototype.onRendererOptions = function () {
     if (this.optionsWindow === undefined) {
         this.optionsWindow = new OptionsWindow({
-            app: this.app
+            app: app
         });
         this.optionsWindow.render();
     }
@@ -86,7 +85,7 @@ OptionsMenu.prototype.onRendererOptions = function () {
 OptionsMenu.prototype.onHelperOptions = function () {
     if (this.optionsWindow === undefined) {
         this.optionsWindow = new OptionsWindow({
-            app: this.app
+            app: app
         });
         this.optionsWindow.render();
     }
@@ -99,7 +98,7 @@ OptionsMenu.prototype.onHelperOptions = function () {
 OptionsMenu.prototype.onFilterOptions = function () {
     if (this.optionsWindow === undefined) {
         this.optionsWindow = new OptionsWindow({
-            app: this.app
+            app: app
         });
         this.optionsWindow.render();
     }

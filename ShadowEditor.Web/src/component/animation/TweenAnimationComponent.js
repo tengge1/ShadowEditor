@@ -363,8 +363,8 @@ TweenAnimationComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`animationSelected.${this.id}`, this.onAnimationSelected.bind(this));
-    this.app.on(`animationChanged.${this.id}`, this.onAnimationChanged.bind(this));
+    app.on(`animationSelected.${this.id}`, this.onAnimationSelected.bind(this));
+    app.on(`animationChanged.${this.id}`, this.onAnimationChanged.bind(this));
 };
 
 TweenAnimationComponent.prototype.onAnimationSelected = function (animation) {
@@ -554,7 +554,7 @@ TweenAnimationComponent.prototype.onChange = function () {
     this.animation.data.endScaleY = endScaleY.getValue();
     this.animation.data.endScaleZ = endScaleZ.getValue();
 
-    this.app.call('animationChanged', this, this.animation);
+    app.call('animationChanged', this, this.animation);
 };
 
 export default TweenAnimationComponent;

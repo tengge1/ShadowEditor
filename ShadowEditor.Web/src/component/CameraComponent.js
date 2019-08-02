@@ -73,8 +73,8 @@ CameraComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.CameraComponent`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.CameraComponent`, this.onObjectChanged.bind(this));
 };
 
 CameraComponent.prototype.onObjectSelected = function () {
@@ -87,7 +87,7 @@ CameraComponent.prototype.onObjectChanged = function () {
 
 CameraComponent.prototype.updateUI = function () {
     var container = UI.get('cameraPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected instanceof THREE.PerspectiveCamera) {
         container.dom.style.display = '';
     } else {
@@ -108,17 +108,17 @@ CameraComponent.prototype.updateUI = function () {
 
 CameraComponent.prototype.onSetObjectFov = function () {
     var fov = UI.get('objectFov', this.id).getValue();
-    this.app.editor.execute(new SetValueCommand(this.selected, 'fov', fov));
+    app.editor.execute(new SetValueCommand(this.selected, 'fov', fov));
 };
 
 CameraComponent.prototype.onSetObjectNear = function () {
     var near = UI.get('objectNear', this.id).getValue();
-    this.app.editor.execute(new SetValueCommand(this.selected, 'near', near));
+    app.editor.execute(new SetValueCommand(this.selected, 'near', near));
 };
 
 CameraComponent.prototype.onSetObjectFar = function () {
     var far = UI.get('objectFar', this.id).getValue();
-    this.app.editor.execute(new SetValueCommand(this.selected, 'far', far));
+    app.editor.execute(new SetValueCommand(this.selected, 'far', far));
 };
 
 export default CameraComponent;

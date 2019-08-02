@@ -15,19 +15,19 @@ AnimateEvent.prototype = Object.create(BaseEvent.prototype);
 AnimateEvent.prototype.constructor = AnimateEvent;
 
 AnimateEvent.prototype.start = function () {
-    this.running = true;
-    requestAnimationFrame(this.onAnimate.bind(this));
+    app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
 };
 
-AnimateEvent.prototype.stop = function () {
-    this.running = false;
+AnimateEvent.prototype.onAppStarted = function () {
+    this.running = true;
+    requestAnimationFrame(this.onAnimate.bind(this));
 };
 
 AnimateEvent.prototype.onAnimate = function () {
     var deltaTime = this.clock.getDelta();
 
-    this.app.call('animate', this, this.clock, deltaTime);
-    this.app.call('render', this);
+    app.call('animate', this, this.clock, deltaTime);
+    app.call('render', this);
 
     if (this.running) {
         requestAnimationFrame(this.onAnimate.bind(this));

@@ -4,11 +4,10 @@ import HeightFragmentShader from './shader/height_fragment.glsl';
 /**
  * 着色器地形
  * @param {*} renderer 渲染器
- * @param {*} options 参数
  */
-function ShaderTerrain(renderer, options) {
-    var width = options.width || window.innerWidth; // 画布宽度
-    var height = options.height || window.innerHeight; // 画布高度
+function ShaderTerrain(renderer) {
+    var width = renderer.domElement.width; // 画布宽度
+    var height = renderer.domElement.height; // 画布高度
 
     // 地形参数
     var rx = 256, ry = 256, // 分辨率

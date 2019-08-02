@@ -38,7 +38,7 @@ var EventList = [
     'log', // 日志事件
     'intersect', // 碰撞事件
 
-    'editScript', // 编辑脚本事件
+    'editScript', // 编辑脚本事件 uuid, name, type, source
     'editorCleared', // 编辑器已经清空事件
 
     'snapChanged', // 对齐单元格事件

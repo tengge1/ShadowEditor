@@ -80,8 +80,8 @@ BasicComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 BasicComponent.prototype.onObjectSelected = function () {
@@ -94,7 +94,7 @@ BasicComponent.prototype.onObjectChanged = function () {
 
 BasicComponent.prototype.updateUI = function () {
     var container = UI.get('basicPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected) {
         container.dom.style.display = '';
     } else {
@@ -115,7 +115,7 @@ BasicComponent.prototype.updateUI = function () {
 
 BasicComponent.prototype.onChangeName = function () {
     var name = UI.get('name', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     editor.execute(new SetValueCommand(this.selected, 'name', name.getValue()));
 

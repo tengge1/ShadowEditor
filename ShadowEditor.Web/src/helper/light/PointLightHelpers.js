@@ -16,17 +16,17 @@ PointLightHelpers.prototype = Object.create(BaseHelper.prototype);
 PointLightHelpers.prototype.constructor = PointLightHelpers;
 
 PointLightHelpers.prototype.start = function () {
-    this.app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
-    this.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
-    this.app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
+    app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
+    app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
 };
 
 PointLightHelpers.prototype.stop = function () {
-    this.app.on(`objectAdded.${this.id}`, null);
-    this.app.on(`objectRemoved.${this.id}`, null);
-    this.app.on(`objectChanged.${this.id}`, null);
-    this.app.on(`storageChanged.${this.id}`, null);
+    app.on(`objectAdded.${this.id}`, null);
+    app.on(`objectRemoved.${this.id}`, null);
+    app.on(`objectChanged.${this.id}`, null);
+    app.on(`storageChanged.${this.id}`, null);
 };
 
 PointLightHelpers.prototype.onObjectAdded = function (object) {
@@ -36,11 +36,11 @@ PointLightHelpers.prototype.onObjectAdded = function (object) {
 
     var helper = new VolumePointLightHelper(object, 1);
 
-    helper.visible = this.app.storage.get('showPointLight');
+    helper.visible = app.storage.get('showPointLight');
 
     this.helpers.push(helper);
 
-    this.app.editor.sceneHelpers.add(helper);
+    app.editor.sceneHelpers.add(helper);
 };
 
 PointLightHelpers.prototype.onObjectRemoved = function (object) {
@@ -56,7 +56,7 @@ PointLightHelpers.prototype.onObjectRemoved = function (object) {
         return;
     }
 
-    this.app.editor.sceneHelpers.remove(this.helpers[index]);
+    app.editor.sceneHelpers.remove(this.helpers[index]);
 
     this.helpers[index].dispose();
 

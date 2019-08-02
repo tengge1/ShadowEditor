@@ -1,0 +1,10 @@
+.PropertyGrid {
+    position: relative;
+    color: black;
+    font: 12px 'Microsoft YaHei';
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+    cursor: default;
+    user-select: none;
+}

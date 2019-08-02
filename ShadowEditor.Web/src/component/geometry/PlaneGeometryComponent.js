@@ -84,8 +84,8 @@ PlaneGeometryComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 PlaneGeometryComponent.prototype.onObjectSelected = function () {
@@ -98,7 +98,7 @@ PlaneGeometryComponent.prototype.onObjectChanged = function () {
 
 PlaneGeometryComponent.prototype.updateUI = function () {
     var container = UI.get('geometryPanel', this.id);
-    var editor = this.app.editor;
+    var editor = app.editor;
     if (editor.selected && editor.selected instanceof THREE.Mesh && editor.selected.geometry instanceof THREE.PlaneBufferGeometry) {
         container.dom.style.display = '';
     } else {
@@ -125,7 +125,7 @@ PlaneGeometryComponent.prototype.onChangeGeometry = function () {
     var widthSegments = UI.get('widthSegments', this.id);
     var heightSegments = UI.get('heightSegments', this.id);
 
-    this.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.PlaneBufferGeometry(
+    app.editor.execute(new SetGeometryCommand(this.selected, new THREE.PlaneBufferGeometry(
         width.getValue(),
         height.getValue(),
         widthSegments.getValue(),

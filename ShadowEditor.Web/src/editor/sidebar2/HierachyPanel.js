@@ -8,14 +8,13 @@ import MoveObjectCommand from '../../command/MoveObjectCommand';
  */
 function HierachyPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 };
 
 HierachyPanel.prototype = Object.create(UI.Control.prototype);
 HierachyPanel.prototype.constructor = HierachyPanel;
 
 HierachyPanel.prototype.render = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var data = {
         xtype: 'div',
@@ -40,12 +39,12 @@ HierachyPanel.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`sceneGraphChanged.${this.id}`, this.updateUI.bind(this));
+    app.on(`sceneGraphChanged.${this.id}`, this.updateUI.bind(this));
 
     // bug: https://gitee.com/tengge1/ShadowEditor/issues/ITCA9
-    this.app.on(`objectChanged.${this.id}`, this.updateUI.bind(this));
+    app.on(`objectChanged.${this.id}`, this.updateUI.bind(this));
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
 };
 
 /**
@@ -53,11 +52,11 @@ HierachyPanel.prototype.render = function () {
  * @param {*} data 
  */
 HierachyPanel.prototype.onClick = function (data) {
-    this.app.editor.selectByUuid(data.value);
+    app.editor.selectByUuid(data.value);
 };
 
 HierachyPanel.prototype.onDblClick = function (data) {
-    this.app.editor.focusByUUID(data.value);
+    app.editor.focusByUUID(data.value);
 };
 
 /**
@@ -82,8 +81,8 @@ HierachyPanel.prototype.onObjectSelected = function (object) {
  * 根据场景变化，更新场景树状图
  */
 HierachyPanel.prototype.updateUI = function () {
-    var camera = this.app.editor.camera;
-    var scene = this.app.editor.scene;
+    var camera = app.editor.camera;
+    var scene = app.editor.scene;
 
     var list = [{
         value: camera.uuid,
@@ -99,7 +98,7 @@ HierachyPanel.prototype.updateUI = function () {
 };
 
 HierachyPanel.prototype._parseData = function (obj, list) {
-    var scene = this.app.editor.scene;
+    var scene = app.editor.scene;
 
     var cls = null;
 
@@ -138,7 +137,7 @@ HierachyPanel.prototype._parseData = function (obj, list) {
 HierachyPanel.prototype.onDrag = function (objData, newParentData, newBeforeData) {
     var object, newParent, newBefore;
 
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     object = editor.objectByUuid(objData.value);
     newParent = editor.objectByUuid(newParentData.value);
@@ -147,7 +146,7 @@ HierachyPanel.prototype.onDrag = function (objData, newParentData, newBeforeData
         newBefore = editor.objectByUuid(newBeforeData.value);
     }
 
-    this.app.editor.execute(new MoveObjectCommand(object, newParent, newBefore));
+    app.editor.execute(new MoveObjectCommand(object, newParent, newBefore));
 
     var tree = UI.get('tree', this.id);
     tree.expand(newParentData.value);

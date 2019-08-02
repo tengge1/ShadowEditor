@@ -30,7 +30,6 @@ import SplineHelper from '../../helper/line/SplineHelper';
  */
 function GeometryMenu(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 }
 
 GeometryMenu.prototype = Object.create(UI.Control.prototype);
@@ -153,80 +152,80 @@ GeometryMenu.prototype.render = function () {
 // ------------------------- 组 ---------------------------------
 
 GeometryMenu.prototype.addGroup = function () {
-    this.app.editor.execute(new AddObjectCommand(new Group()));
+    app.editor.execute(new AddObjectCommand(new Group()));
 };
 
 // ------------------------- 平板 -------------------------------
 
 GeometryMenu.prototype.addPlane = function () {
-    this.app.editor.execute(new AddObjectCommand(new Plane()));
+    app.editor.execute(new AddObjectCommand(new Plane()));
 };
 
 // ------------------------ 正方体 -----------------------------
 
 GeometryMenu.prototype.addBox = function () {
-    this.app.editor.execute(new AddObjectCommand(new Box()));
+    app.editor.execute(new AddObjectCommand(new Box()));
 };
 
 // ------------------------ 圆 ----------------------------------
 
 GeometryMenu.prototype.addCircle = function () {
-    this.app.editor.execute(new AddObjectCommand(new Circle()));
+    app.editor.execute(new AddObjectCommand(new Circle()));
 };
 
 // ------------------------圆柱体 -------------------------------
 
 GeometryMenu.prototype.addCylinder = function () {
-    this.app.editor.execute(new AddObjectCommand(new Cylinder()));
+    app.editor.execute(new AddObjectCommand(new Cylinder()));
 };
 
 // ------------------------ 球体 -------------------------------
 
 GeometryMenu.prototype.addSphere = function () {
-    this.app.editor.execute(new AddObjectCommand(new Sphere()));
+    app.editor.execute(new AddObjectCommand(new Sphere()));
 };
 
 // ----------------------- 二十面体 -----------------------------
 
 GeometryMenu.prototype.addIcosahedron = function () {
-    this.app.editor.execute(new AddObjectCommand(new Icosahedron()));
+    app.editor.execute(new AddObjectCommand(new Icosahedron()));
 };
 
 // ----------------------- 轮胎 ---------------------------------
 
 GeometryMenu.prototype.addTorus = function () {
-    this.app.editor.execute(new AddObjectCommand(new Torus()));
+    app.editor.execute(new AddObjectCommand(new Torus()));
 };
 
 // ----------------------- 纽结 ---------------------------------
 
 GeometryMenu.prototype.addTorusKnot = function () {
-    this.app.editor.execute(new AddObjectCommand(new TorusKnot()));
+    app.editor.execute(new AddObjectCommand(new TorusKnot()));
 };
 
 // ---------------------- 茶壶 ----------------------------------
 
 GeometryMenu.prototype.addTeaport = function () {
-    this.app.editor.execute(new AddObjectCommand(new Teapot()));
+    app.editor.execute(new AddObjectCommand(new Teapot()));
 };
 
 // ---------------------- 酒杯 ----------------------------------
 
 GeometryMenu.prototype.addLathe = function () {
-    this.app.editor.execute(new AddObjectCommand(new Lathe()));
+    app.editor.execute(new AddObjectCommand(new Lathe()));
 };
 
 // ---------------------- 精灵 -----------------------------------
 
 GeometryMenu.prototype.addSprite = function () {
-    this.app.editor.execute(new AddObjectCommand(new Sprite()));
+    app.editor.execute(new AddObjectCommand(new Sprite()));
 };
 
 // ---------------------- 文本 ----------------------------------
 
 GeometryMenu.prototype.addText = function () {
     UI.prompt(L_PLEASE_INPUT, null, L_SOME_WORDS, (event, value) => {
-        this.app.editor.execute(new AddObjectCommand(new Text(value)));
+        app.editor.execute(new AddObjectCommand(new Text(value)));
     });
 };
 
@@ -234,35 +233,35 @@ GeometryMenu.prototype.addText = function () {
 
 GeometryMenu.prototype.addLineCurve = function () {
     var line = new LineCurve();
-    this.app.editor.execute(new AddObjectCommand(line));
+    app.editor.execute(new AddObjectCommand(line));
 };
 
 // ---------------------- CatmullRom曲线 ----------------------------------
 
 GeometryMenu.prototype.addCatmullRomCurve = function () {
     var line = new CatmullRomCurve();
-    this.app.editor.execute(new AddObjectCommand(line));
+    app.editor.execute(new AddObjectCommand(line));
 };
 
 // ----------------------- 二次贝塞尔曲线 ---------------------------------
 
 GeometryMenu.prototype.addQuadraticBezierCurve = function () {
     var line = new QuadraticBezierCurve();
-    this.app.editor.execute(new AddObjectCommand(line));
+    app.editor.execute(new AddObjectCommand(line));
 };
 
 // ----------------------- 三次贝塞尔曲线 ---------------------------------
 
 GeometryMenu.prototype.addCubicBezierCurve = function () {
     var line = new CubicBezierCurve();
-    this.app.editor.execute(new AddObjectCommand(line));
+    app.editor.execute(new AddObjectCommand(line));
 };
 
 // --------------------- 椭圆曲线 ------------------------------------------
 
 GeometryMenu.prototype.addEllipseCurve = function () {
     var line = new EllipseCurve();
-    this.app.editor.execute(new AddObjectCommand(line));
+    app.editor.execute(new AddObjectCommand(line));
 };
 
 export default GeometryMenu;

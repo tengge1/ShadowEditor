@@ -7,7 +7,6 @@ import UI from '../../ui/UI';
  */
 function TextureSettingWindow(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 }
 
 TextureSettingWindow.prototype = Object.create(UI.Control.prototype);

@@ -1,0 +1,58 @@
+.SearchField {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.SearchField>.input {
+    width: 0;
+    font: 12px 'Microsoft YaHei';
+    margin: 1px 0;
+    padding: 2px;
+    border: 1px solid rgb(217, 217, 217);
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.SearchField>.IconButton {
+    width: 22px;
+    height: 22px;
+}
+
+.SearchField>.IconButton.hidden {
+    display: none;
+}
+
+.SearchField>.IconButton>.iconfont {
+    font-size: 14px;
+}
+
+.SearchField>.category {
+    position: absolute;
+    right: 8px;
+    top: 28px;
+    height: 160px;
+    background: #fff;
+    border: 1px solid #ccc;
+    display: inline-block;
+    z-index: 10;
+    overflow-y: auto;
+}
+
+.SearchField>.category.hidden {
+    display: none;
+}
+
+.SearchField>.category>.item {
+    padding: 0 8px 0 2px;
+}
+
+.SearchField>.category>.item>.CheckBox {
+    vertical-align: middle;
+}
+
+.SearchField>.category>.item>.title {
+    font-size: 14px;
+    line-height: 26px;
+    vertical-align: middle;
+}

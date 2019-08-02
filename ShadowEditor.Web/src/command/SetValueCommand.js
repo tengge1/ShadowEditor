@@ -29,12 +29,12 @@ Object.assign(SetValueCommand.prototype, {
 
 	execute: function () {
 		this.object[this.attributeName] = this.newValue;
-		this.editor.app.call('objectChanged', this, this.object);
+		app.call('objectChanged', this, this.object);
 	},
 
 	undo: function () {
 		this.object[this.attributeName] = this.oldValue;
-		this.editor.app.call('objectChanged', this, this.object);
+		app.call('objectChanged', this, this.object);
 	},
 
 	update: function (cmd) {

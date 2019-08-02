@@ -8,7 +8,6 @@ import EditWindow from '../window/EditWindow';
  */
 function PrefabPanel(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 
     this.firstShow = true;
 
@@ -19,7 +18,7 @@ PrefabPanel.prototype = Object.create(UI.Control.prototype);
 PrefabPanel.prototype.constructor = PrefabPanel;
 
 PrefabPanel.prototype.render = function () {
-    this.app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
+    app.on(`showBottomPanel.${this.id}`, this.onShowPanel.bind(this));
 };
 
 PrefabPanel.prototype.onShowPanel = function (tabName) {
@@ -206,7 +205,7 @@ PrefabPanel.prototype.onSelectMaterial = function (data) {
         var obj = JSON.parse(result);
         if (obj.Code === 200) {
             //var material = (new MaterialsSerializer()).fromJSON(obj.Data.Data);
-            //this.app.call(`selectMaterial`, this, material);
+            //app.call(`selectMaterial`, this, material);
         }
     });
 };
@@ -217,11 +216,11 @@ PrefabPanel.prototype.onSelectMaterial = function (data) {
 PrefabPanel.prototype.onEdit = function (data) {
     if (this.editWindow === undefined) {
         this.editWindow = new EditWindow({
-            app: this.app,
+            app: app,
             parent: document.body,
             type: 'Prefab',
             typeName: L_PREFAB,
-            saveUrl: `${this.app.options.server}/api/Prefab/Edit`,
+            saveUrl: `${app.options.server}/api/Prefab/Edit`,
             callback: this.updateList.bind(this)
         });
         this.editWindow.render();

@@ -1,0 +1,21 @@
+.LogPanel {
+    overflow: hidden;
+}
+
+.LogPanel>.logs {
+    height: calc(100% - 28px);
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.LogPanel>.logs>.warn {
+    color: #5c3c00;
+    background: #fffbe5;
+}
+
+.LogPanel>.logs>.error {
+    color: #ff0000;
+    background: #fff0f0;
+}

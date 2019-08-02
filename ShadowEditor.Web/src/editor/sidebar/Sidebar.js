@@ -10,7 +10,6 @@ import HistoryPanel from './HistoryPanel';
  */
 function Sidebar(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 };
 
 Sidebar.prototype = Object.create(UI.Control.prototype);
@@ -35,7 +34,7 @@ Sidebar.prototype.render = function () {
                 scope: this.id,
                 text: L_PROPERTY,
                 onClick: () => {
-                    this.app.call('tabSelected', this, 'property');
+                    app.call('tabSelected', this, 'property');
                 }
             }, {
                 xtype: 'text',
@@ -43,7 +42,7 @@ Sidebar.prototype.render = function () {
                 scope: this.id,
                 text: L_ANIMATION,
                 onClick: () => {
-                    this.app.call('tabSelected', this, 'animation');
+                    app.call('tabSelected', this, 'animation');
                 }
             }, {
                 xtype: 'text',
@@ -51,7 +50,7 @@ Sidebar.prototype.render = function () {
                 scope: this.id,
                 text: L_HISTORY,
                 onClick: () => {
-                    this.app.call('tabSelected', this, 'history');
+                    app.call('tabSelected', this, 'history');
                 }
             }]
         }, {
@@ -59,21 +58,21 @@ Sidebar.prototype.render = function () {
             id: 'propertyPanel',
             scope: this.id,
             children: [
-                new PropertyPanel({ app: this.app })
+                new PropertyPanel({ app: app })
             ]
         }, {
             xtype: 'div',
             id: 'animationPanel',
             scope: this.id,
             children: [
-                new AnimationPanel({ app: this.app })
+                new AnimationPanel({ app: app })
             ]
         }, {
             xtype: 'div',
             id: 'historyPanel',
             scope: this.id,
             children: [
-                new HistoryPanel({ app: this.app })
+                new HistoryPanel({ app: app })
             ]
         }]
     };
@@ -81,12 +80,12 @@ Sidebar.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
-    this.app.on(`tabSelected.${this.id}`, this.onTabSelected.bind(this));
+    app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+    app.on(`tabSelected.${this.id}`, this.onTabSelected.bind(this));
 };
 
 Sidebar.prototype.onAppStarted = function () {
-    this.app.call('tabSelected', this, 'property');
+    app.call('tabSelected', this, 'property');
 };
 
 Sidebar.prototype.onTabSelected = function (tabName) {

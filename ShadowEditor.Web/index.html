@@ -7,11 +7,7 @@
     <title>Shadow Editor</title>
     <link rel="shortcut icon" href="favicon.ico">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <!-- iconfont -->
-    <link href="assets/css/icon/iconfont.css" rel="stylesheet" />
-    <!-- Shadow Editor -->
-    <link href="assets/css/main.css" rel="stylesheet" />
-    <link id="theme" href="assets/css/light.css" rel="stylesheet" />
+    <link href="build/ShadowEditor.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -21,6 +17,8 @@
     <script src="assets/js/three.js"></script>
 
     <!-- libs -->
+    <script src="assets/js/libs/react.js"></script>
+    <script src="assets/js/libs/react-dom.js"></script>
     <script src="assets/js/libs/stats.min.js"></script>
     <script src="assets/js/libs/jszip.min.js"></script>
     <script src="assets/js/libs/inflate.min.js"></script>
@@ -59,11 +57,6 @@
     <!-- Shadow Editor -->
     <script src="build/ShadowEditor.js"></script>
     <script>
-        var container = null;
-        var app = null;
-
-        var lang = window.localStorage.getItem('lang') || 'zh-CN';
-
         var loadJs = url => {
             var script = document.createElement('script');
             script.type = 'text/javascript';
@@ -79,15 +72,15 @@
         };
 
         var start = () => {
-            container = document.getElementById('container');
-            app = new Shadow.Application(container, {
+            new Shadow.Application(document.getElementById('container'), {
                 server: location.origin,
                 enableTileCache: false,
             });
-            app.start();
         };
 
         window.onload = () => {
+            var lang = window.localStorage.getItem('lang') || 'zh-CN';
+
             if (lang === 'zh-CN') {
                 loadJs('lang/zh-CN.js').then(() => {
                     start();

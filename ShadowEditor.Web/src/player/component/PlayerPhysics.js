@@ -59,7 +59,7 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
 
     // 使用物理
     return new Promise(resolve => {
-        this.app.require('ammo').then(() => {
+        app.require('ammo').then(() => {
             this.initPhysicsWorld();
             this.initScene(scene, camera, renderer);
             resolve();
@@ -98,7 +98,7 @@ PlayerPhysics.prototype.initPhysicsWorld = function () {
     this.softBodyHelpers = new Ammo.btSoftBodyHelpers();
 
     this.events = [
-        new ThrowBallEvent(this.app, this.world, this.rigidBodies)
+        new ThrowBallEvent(app, this.world, this.rigidBodies)
     ];
 
     // api函数

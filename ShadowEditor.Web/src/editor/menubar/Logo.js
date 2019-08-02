@@ -7,7 +7,6 @@ import UI from '../../ui/UI';
  */
 function Logo(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 }
 
 Logo.prototype = Object.create(UI.Control.prototype);

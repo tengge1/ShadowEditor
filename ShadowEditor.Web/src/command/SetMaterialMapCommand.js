@@ -29,13 +29,13 @@ Object.assign(SetMaterialMapCommand.prototype, {
 	execute: function () {
 		this.object.material[this.mapName] = this.newMap;
 		this.object.material.needsUpdate = true;
-		this.editor.app.call('materialChanged', this, this.object.material);
+		app.call('materialChanged', this, this.object.material);
 	},
 
 	undo: function () {
 		this.object.material[this.mapName] = this.oldMap;
 		this.object.material.needsUpdate = true;
-		this.editor.app.call('materialChanged', this, this.object.material);
+		app.call('materialChanged', this, this.object.material);
 	},
 
 	toJSON: function () {

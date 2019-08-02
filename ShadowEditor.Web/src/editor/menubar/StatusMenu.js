@@ -5,11 +5,8 @@ import UI from '../../ui/UI';
  * @author tengge / https://github.com/tengge1
  * @param {*} options 
  */
-function StatusMenu(options) {
+function StatusMenu(options = {}) {
     UI.Control.call(this, options);
-    options = options || {};
-
-    this.app = options.app;
 }
 
 StatusMenu.prototype = Object.create(UI.Control.prototype);

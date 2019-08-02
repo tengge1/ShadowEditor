@@ -1,0 +1,59 @@
+.ScriptEditorPanel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ScriptEditorPanel.hidden {
+    display: none;
+}
+
+.ScriptEditorPanel>.header {
+    position: relative;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.ScriptEditorPanel>.header>.title {
+    height: 32px;
+    font-size: 14px;
+    line-height: 32px;
+    padding: 0 8px;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.ScriptEditorPanel>.header>.Icon {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.ScriptEditorPanel>.content {
+    position: relative;
+    flex: 1;
+}
+
+.ScriptEditorPanel>.content>.CodeMirror {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.ScriptEditorPanel>.content>.CodeMirror .errorLine {
+    background: rgba(255, 0, 0, 0.25);
+}
+
+.ScriptEditorPanel>.content>.CodeMirror .esprima-error {
+    color: #f00;
+    text-align: right;
+    padding: 0 20px;
+}

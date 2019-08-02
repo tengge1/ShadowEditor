@@ -12,7 +12,6 @@ import RectAreaLight from '../../object/light/RectAreaLight';
  */
 function LightMenu(options) {
     UI.Control.call(this, options);
-    this.app = options.app;
 }
 
 LightMenu.prototype = Object.create(UI.Control.prototype);
@@ -70,7 +69,7 @@ LightMenu.prototype.render = function () {
 // ------------------------- 环境光 ------------------------------
 
 LightMenu.prototype.addAmbientLight = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var color = 0xaaaaaa;
 
@@ -83,7 +82,7 @@ LightMenu.prototype.addAmbientLight = function () {
 // ------------------------- 平行光 ------------------------------
 
 LightMenu.prototype.addDirectionalLight = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var color = 0xffffff;
     var intensity = 1;
@@ -105,7 +104,7 @@ LightMenu.prototype.addDirectionalLight = function () {
 // ------------------------- 点光源 ------------------------------
 
 LightMenu.prototype.addPointLight = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var color = 0xffffff;
     var intensity = 1;
@@ -122,7 +121,7 @@ LightMenu.prototype.addPointLight = function () {
 // ------------------------- 聚光灯 ------------------------------
 
 LightMenu.prototype.addSpotLight = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var color = 0xffffff;
     var intensity = 1;
@@ -143,7 +142,7 @@ LightMenu.prototype.addSpotLight = function () {
 // ------------------------- 半球光 ------------------------------
 
 LightMenu.prototype.addHemisphereLight = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
     var skyColor = 0x00aaff;
     var groundColor = 0xffaa00;
     var intensity = 1;
@@ -159,7 +158,7 @@ LightMenu.prototype.addHemisphereLight = function () {
 // ------------------------- 矩形光 ------------------------------
 
 LightMenu.prototype.addRectAreaLight = function () {
-    var editor = this.app.editor;
+    var editor = app.editor;
 
     var color = 0xffffff;
     var intensity = 1;

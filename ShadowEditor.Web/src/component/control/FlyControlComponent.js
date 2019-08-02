@@ -89,8 +89,8 @@ FlyControlComponent.prototype.render = function () {
     var control = UI.create(data);
     control.render();
 
-    this.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    this.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 FlyControlComponent.prototype.onObjectSelected = function () {
@@ -103,8 +103,8 @@ FlyControlComponent.prototype.onObjectChanged = function () {
 
 FlyControlComponent.prototype.updateUI = function () {
     var container = UI.get('controlPanel', this.id);
-    var editor = this.app.editor;
-    if (editor.selected && editor.selected === this.app.editor.camera && editor.selected.userData.control === 'FlyControls') {
+    var editor = app.editor;
+    if (editor.selected && editor.selected === app.editor.camera && editor.selected.userData.control === 'FlyControls') {
         container.dom.style.display = '';
     } else {
         container.dom.style.display = 'none';
