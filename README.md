@@ -1,6 +1,6 @@
 # Shadow Editor
 
-Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / [日本語](README-jp.md) / [Le français](README-fr.md) / [русский](README-ru.md)
+Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md)
 
 * 名称：Shadow Editor
 * 版本：v0.2.7(开发中)
