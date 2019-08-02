@@ -6,6 +6,8 @@ Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md)
 * 版本：v0.2.7(开发中)
 * 简介：基于`three.js`的场景编辑器。
 
+> 说明：把`dev`分支合并到`master`了，以后使用`master`分支开发`react.js`版本的`ShadowEditor`，使用`v0.2.6_old`分支维护旧版本。
+
 ## v0.2.7即将更新
 
 ## v0.2.6更新
