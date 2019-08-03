@@ -224,11 +224,11 @@ class ScenePanel extends React.Component {
         }
 
         // 可视化
-        if (obj.visual) {
-            app.editor.visual.fromJSON(obj.visual);
-        } else {
-            // app.editor.visual.clear();
-        }
+        // if (obj.visual) {
+        //     app.editor.visual.fromJSON(obj.visual);
+        // } else {
+        // app.editor.visual.clear();
+        // }
         // app.editor.visual.render(app.editor.svg);
 
         app.call('sceneLoaded', this);
