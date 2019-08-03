@@ -79,7 +79,7 @@
         };
 
         window.onload = () => {
-            var lang = window.localStorage.getItem('lang') || 'zh-CN';
+            var lang = window.localStorage.getItem('lang') || 'en-US';
 
             if (lang === 'zh-CN') {
                 loadJs('lang/zh-CN.js').then(() => {
