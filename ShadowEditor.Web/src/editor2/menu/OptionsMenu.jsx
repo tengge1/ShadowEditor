@@ -12,6 +12,8 @@ class OptionsMenu extends React.Component {
         this.handleRendererOptions = this.handleRendererOptions.bind(this);
         this.handleHelperOptions = this.handleHelperOptions.bind(this);
         this.handleFilterOptions = this.handleFilterOptions.bind(this);
+        this.handleChangeEnglish = this.handleChangeEnglish.bind(this);
+        this.handleChangeChinese = this.handleChangeChinese.bind(this);
     }
 
     render() {
@@ -23,6 +25,10 @@ class OptionsMenu extends React.Component {
             <MenuItemSeparator />
             <MenuItem title={L_RENDERER} onClick={this.handleHelperOptions}></MenuItem>
             <MenuItem title={L_FILTER} onClick={this.handleFilterOptions}></MenuItem>
+            <MenuItem title={L_LANGUAGE}>
+                <MenuItem title={'English'} onClick={this.handleChangeEnglish}></MenuItem>
+                <MenuItem title={'汉语'} onClick={this.handleChangeChinese}></MenuItem>
+            </MenuItem>
         </MenuItem>;
     }
 
@@ -76,6 +82,18 @@ class OptionsMenu extends React.Component {
         }
         this.optionsWindow.show();
         this.optionsWindow.changeTab(L_FILTER);
+    }
+
+    // ---------------------------- 语言选项 -------------------------------------------------
+
+    handleChangeEnglish() {
+        window.localStorage.setItem('lang', 'en-US');
+        window.location.reload();
+    }
+
+    handleChangeChinese() {
+        window.localStorage.setItem('lang', 'zh-CN');
+        window.location.reload();
     }
 }
 
