@@ -39,11 +39,15 @@ function Application(container, options) {
     this.call = this.event.call.bind(this.event);
     this.on = this.event.on.bind(this.event);
 
-    this.event.start();
-
     // UI
     this.ui = React.createElement(Editor);
-    ReactDOM.render(this.ui, this.container);
+
+    // TODO: 由于ammo.js升级，导致很多类库不兼容，所以只能这么写。
+    Ammo().then(AmmoLib => {
+        window.Ammo = AmmoLib;
+        this.event.start();
+        ReactDOM.render(this.ui, this.container);
+    });
 }
 
 // ----------------------- UI函数 ---------------------------------

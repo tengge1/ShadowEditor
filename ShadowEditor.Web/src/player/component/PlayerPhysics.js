@@ -57,20 +57,8 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
         });
     }
 
-    // 使用物理
-    return new Promise(resolve => {
-        app.require('ammo').then(() => {
-            Ammo().then(ammo => {
-                // TODO: 自从Ammo升级换了调用方法，导致很多类库不兼容，只能先这么写。
-                window.Ammo = ammo;
-
-                this.app.ammo = ammo;
-                this.initPhysicsWorld();
-                this.initScene(scene, camera, renderer);
-                resolve();
-            });
-        });
-    });
+    this.initPhysicsWorld();
+    this.initScene(scene, camera, renderer);
 };
 
 PlayerPhysics.prototype.initPhysicsWorld = function () {
@@ -79,13 +67,13 @@ PlayerPhysics.prototype.initPhysicsWorld = function () {
     this.margin = 0.05; // 两个物体之间最小间距
 
     // 物理环境配置
-    var collisionConfiguration = new this.app.ammo.btSoftBodyRigidBodyCollisionConfiguration(); // 软体刚体碰撞配置
-    var dispatcher = new this.app.ammo.btCollisionDispatcher(collisionConfiguration); // 碰撞调度器
-    var broadphase = new this.app.ammo.btDbvtBroadphase(); // dbvt粗测
-    var solver = new this.app.ammo.btSequentialImpulseConstraintSolver(); // 顺序脉冲约束求解器
-    var softBodySolver = new this.app.ammo.btDefaultSoftBodySolver(); // 默认软体求解器
+    var collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration(); // 软体刚体碰撞配置
+    var dispatcher = new Ammo.btCollisionDispatcher(collisionConfiguration); // 碰撞调度器
+    var broadphase = new Ammo.btDbvtBroadphase(); // dbvt粗测
+    var solver = new Ammo.btSequentialImpulseConstraintSolver(); // 顺序脉冲约束求解器
+    var softBodySolver = new Ammo.btDefaultSoftBodySolver(); // 默认软体求解器
 
-    this.world = new this.app.ammo.btSoftRigidDynamicsWorld(
+    this.world = new Ammo.btSoftRigidDynamicsWorld(
         dispatcher,
         broadphase,
         solver,
@@ -93,15 +81,15 @@ PlayerPhysics.prototype.initPhysicsWorld = function () {
         softBodySolver
     );
 
-    var gravity = new this.app.ammo.btVector3(0, gravityConstant, 0);
+    var gravity = new Ammo.btVector3(0, gravityConstant, 0);
     this.world.setGravity(gravity);
     this.world.getWorldInfo().set_m_gravity(gravity);
 
-    this.transformAux1 = new this.app.ammo.btTransform();
+    this.transformAux1 = new Ammo.btTransform();
     this.rigidBodies = [];
     this.softBodies = [];
 
-    this.softBodyHelpers = new this.app.ammo.btSoftBodyHelpers();
+    this.softBodyHelpers = new Ammo.btSoftBodyHelpers();
 
     this.events = [
         new ThrowBallEvent(app, this.world, this.rigidBodies)
@@ -295,13 +283,13 @@ PlayerPhysics.prototype.createRigidBody = function (obj) {
         position = position.clone();
         position.add(center);
 
-        physicsShape = new this.app.ammo.btBoxShape(new this.app.ammo.btVector3(x * 0.5, y * 0.5, z * 0.5));
+        physicsShape = new Ammo.btBoxShape(new Ammo.btVector3(x * 0.5, y * 0.5, z * 0.5));
     } else if (shape === 'btSphereShape') {
         var geometry = obj.geometry;
         geometry.computeBoundingSphere();
 
         var sphere = geometry.boundingSphere;
-        physicsShape = new this.app.ammo.btSphereShape(sphere.radius);
+        physicsShape = new Ammo.btSphereShape(sphere.radius);
     } else {
         console.warn(`PlayerPhysics: cannot create shape ${shape}.`);
         return null;
@@ -310,18 +298,18 @@ PlayerPhysics.prototype.createRigidBody = function (obj) {
     physicsShape.setMargin(0.05);
 
     // 位移
-    var transform = new this.app.ammo.btTransform();
+    var transform = new Ammo.btTransform();
     transform.setIdentity();
-    transform.setOrigin(new this.app.ammo.btVector3(position.x, position.y, position.z));
-    transform.setRotation(new this.app.ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
+    transform.setOrigin(new Ammo.btVector3(position.x, position.y, position.z));
+    transform.setRotation(new Ammo.btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
 
-    var defaultState = new this.app.ammo.btDefaultMotionState(transform);
+    var defaultState = new Ammo.btDefaultMotionState(transform);
 
-    var localInertia = new this.app.ammo.btVector3(inertia.x, inertia.y, inertia.z);
+    var localInertia = new Ammo.btVector3(inertia.x, inertia.y, inertia.z);
     physicsShape.calculateLocalInertia(mass, localInertia);
 
-    var info = new this.app.ammo.btRigidBodyConstructionInfo(mass, defaultState, physicsShape, localInertia);
-    return new this.app.ammo.btRigidBody(info);
+    var info = new Ammo.btRigidBodyConstructionInfo(mass, defaultState, physicsShape, localInertia);
+    return new Ammo.btRigidBody(info);
 };
 
 // --------------------------------- 创建柔软体 ---------------------------------------------
@@ -369,7 +357,7 @@ PlayerPhysics.prototype.createSoftVolume = function (obj) {
     body.get_m_materials().at(0).set_m_kAST(0.9);
     body.setTotalMass(mass, false);
 
-    this.app.ammo.castObject(body, this.app.ammo.btCollisionObject).getCollisionShape().setMargin(0.05);
+    Ammo.castObject(body, Ammo.btCollisionObject).getCollisionShape().setMargin(0.05);
 
     return body;
 };
