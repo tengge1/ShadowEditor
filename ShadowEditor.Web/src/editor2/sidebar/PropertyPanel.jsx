@@ -50,6 +50,7 @@ import AudioListenerComponent from '../component/audio/AudioListenerComponent.js
 import BackgroundMusicComponent from '../component/audio/BackgroundMusicComponent.jsx';
 
 import ControlComponent from '../component/control/ControlComponent.jsx';
+import FirstPersonControlComponent from '../component/control/FirstPersonControlComponent.jsx';
 
 /**
  * 属性面板
@@ -81,6 +82,7 @@ class PropertyPanel extends React.Component {
             <MMDComponent></MMDComponent>
 
             <ControlComponent></ControlComponent>
+            <FirstPersonControlComponent></FirstPersonControlComponent>
 
             <BoxGeometryComponent></BoxGeometryComponent>
             <CircleGeometryComponent></CircleGeometryComponent>

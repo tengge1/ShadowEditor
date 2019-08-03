@@ -1,5 +1,4 @@
 import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
  * 音频监听器组件
