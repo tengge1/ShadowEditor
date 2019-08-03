@@ -22,37 +22,28 @@ ServerObject.prototype.toJSON = function (obj) {
     delete json.userData.root; // 模型根节点
     delete json.userData.helper;
 
-    // 记录材质
-    json.userData.materials = [];
-    this.serializeMaterials(obj, '', json.userData.materials);
+    // 记录修改过的属性
+    json.userData.changed = []; // 对应模型的children
+    this.serializeChanged(obj, 0, json.userData.changed);
     return json;
 };
 
 /**
- * 记录服务端模型所有材质
- * @param {*} obj 
- * @param {*} path 
- * @param {*} materials 
+ * 序列化模型修改过的属性
+ * @param {THREE.Object3D} obj 模型或部件
+ * @param {Integer} index 索引
+ * @param {Object} changed 修改过的属性
  */
-ServerObject.prototype.serializeMaterials = function (obj, path, materials) {
-    if (obj.material && Array.isArray(obj.material)) { // 多材质
-        obj.material.forEach((n, i) => {
-            if (!n.userData.changed) { // 只有修改过的材质才需要保存
-                return;
-            }
-            var json = (new MaterialsSerializer()).toJSON(n);
-            json._path = `${path}${i}`;
-            materials.push(json);
-        });
-    } else if (obj.material && obj.material.userData.changed) { // 单材质
-        var json = (new MaterialsSerializer()).toJSON(obj.material);
-        json._path = `${path}$`;
-        materials.push(json);
-    }
+ServerObject.prototype.serializeChanged = function (obj, index, changed) {
+    changed[index] = {
+        name: obj.name,
+    };
 
     if (obj.children) {
+        changed[index].children = [];
+
         obj.children.forEach((n, i) => {
-            this.serializeMaterials(n, `${path}${i}`, materials);
+            this.serializeChanged(n, i, changed[index].children);
         });
     }
 };
@@ -74,8 +65,8 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
         loader.load(url, json.userData, environment).then(obj => {
             if (obj) {
                 Object3DSerializer.prototype.fromJSON.call(this, json, obj);
-                if (json.userData.materials) {
-                    this.parseMaterials(obj, '', json.userData.materials);
+                if (json.userData.changed) {
+                    this.parseChanged(obj, 0, json.userData.changed);
                 }
                 resolve(obj);
             } else {
@@ -86,35 +77,19 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
 };
 
 /**
- * 还原服务端模型所有材质
- * @param {*} obj 
- * @param {*} path 
- * @param {*} materials 
+ * 还原修改过的属性
+ * @param {THREE.Object3D} obj 模型或部件
+ * @param {Integer} index 索引
+ * @param {Object} changed 修改过的属性
  */
-ServerObject.prototype.parseMaterials = function (obj, path, materials) {
-    if (obj.material && Array.isArray(obj.material)) { // 多材质
-        obj.material.forEach((n, i) => {
-            var json = materials.filter(n => n._path === `${path}${i}`)[0];
-            if (json) {
-                var material = obj.material[i];
-                obj.material[i] = (new MaterialsSerializer()).fromJSON(json);
-                obj.material[i].needsUpdate = true;
-                material.dispose();
-            }
-        });
-    } else if (obj.material) { // 单材质
-        var json = materials.filter(n => n._path === `${path}$`)[0];
-        if (json) {
-            var material = obj.material;
-            obj.material = (new MaterialsSerializer()).fromJSON(json);
-            obj.material.needsUpdate = true;
-            material.dispose();
-        }
-    }
+ServerObject.prototype.parseChanged = function (obj, index, changed) {
+    obj.name = changed[index].name;
 
     if (obj.children) {
+        var changed1 = changed[index].children;
+
         obj.children.forEach((n, i) => {
-            this.parseMaterials(n, `${path}${i}`, materials);
+            this.parseChanged(n, i, changed1);
         });
     }
 };
