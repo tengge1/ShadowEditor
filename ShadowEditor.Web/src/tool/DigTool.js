@@ -75,7 +75,7 @@ DigTool.prototype.onBeforeRender = function () {
     }
 
     var renderer = app.editor.renderer;
-    var context = renderer.context;
+    var context = renderer.getContext();
     var state = renderer.state;
 
     state.buffers.color.setMask(false);
@@ -100,7 +100,7 @@ DigTool.prototype.onAfterRender = function () {
     }
 
     var renderer = app.editor.renderer;
-    var context = renderer.context;
+    var context = renderer.getContext();
     var state = renderer.state;
 
     state.buffers.stencil.setMask(0xff);

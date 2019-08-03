@@ -12,7 +12,7 @@ function Renderer(globe) {
 
     this.camera = this.globe.camera;
     this.renderer = this.globe.renderer;
-    this.gl = this.renderer.context;
+    this.gl = this.renderer.getContext();
 }
 
 Renderer.prototype.render = function (layer) {
