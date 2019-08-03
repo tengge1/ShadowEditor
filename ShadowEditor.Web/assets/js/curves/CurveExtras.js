@@ -11,7 +11,7 @@
  * http://prideout.net/blog/?p=44
  */
 
-( function ( Curves ) {
+THREE.Curves = ( function () {
 
 	// GrannyKnot
 
@@ -405,21 +405,21 @@
 
 	};
 
-	// export
+	return {
+		GrannyKnot: GrannyKnot,
+		HeartCurve: HeartCurve,
+		VivianiCurve: VivianiCurve,
+		KnotCurve: KnotCurve,
+		HelixCurve: HelixCurve,
+		TrefoilKnot: TrefoilKnot,
+		TorusKnot: TorusKnot,
+		CinquefoilKnot: CinquefoilKnot,
+		TrefoilPolynomialKnot: TrefoilPolynomialKnot,
+		FigureEightPolynomialKnot: FigureEightPolynomialKnot,
+		DecoratedTorusKnot4a: DecoratedTorusKnot4a,
+		DecoratedTorusKnot4b: DecoratedTorusKnot4b,
+		DecoratedTorusKnot5a: DecoratedTorusKnot5a,
+		DecoratedTorusKnot5c: DecoratedTorusKnot5c
+	};
 
-	Curves.GrannyKnot = GrannyKnot;
-	Curves.HeartCurve = HeartCurve;
-	Curves.VivianiCurve = VivianiCurve;
-	Curves.KnotCurve = KnotCurve;
-	Curves.HelixCurve = HelixCurve;
-	Curves.TrefoilKnot = TrefoilKnot;
-	Curves.TorusKnot = TorusKnot;
-	Curves.CinquefoilKnot = CinquefoilKnot;
-	Curves.TrefoilPolynomialKnot = TrefoilPolynomialKnot;
-	Curves.FigureEightPolynomialKnot = FigureEightPolynomialKnot;
-	Curves.DecoratedTorusKnot4a = DecoratedTorusKnot4a;
-	Curves.DecoratedTorusKnot4b = DecoratedTorusKnot4b;
-	Curves.DecoratedTorusKnot5a = DecoratedTorusKnot5a;
-	Curves.DecoratedTorusKnot5c = DecoratedTorusKnot5c;
-
-} )( THREE.Curves = THREE.Curves || {} );
+} )();

@@ -154,10 +154,12 @@ THREE.MD2CharacterComplex = function () {
 
 		var loader = new THREE.MD2Loader();
 
-		loader.load( config.baseUrl + config.body, function( geo ) {
+		loader.load( config.baseUrl + config.body, function ( geo ) {
 
-			geo.computeBoundingBox();
-			scope.root.position.y = - scope.scale * geo.boundingBox.min.y;
+			var boundingBox = new THREE.Box3();
+			boundingBox.setFromBufferAttribute( geo.attributes.position );
+
+			scope.root.position.y = - scope.scale * boundingBox.min.y;
 
 			var mesh = createPart( geo, scope.skinsBody[ 0 ] );
 			mesh.scale.set( scope.scale, scope.scale, scope.scale );
@@ -175,7 +177,7 @@ THREE.MD2CharacterComplex = function () {
 
 		var generateCallback = function ( index, name ) {
 
-			return function( geo ) {
+			return function ( geo ) {
 
 				var mesh = createPart( geo, scope.skinsWeapon[ index ] );
 				mesh.scale.set( scope.scale, scope.scale, scope.scale );
@@ -191,7 +193,7 @@ THREE.MD2CharacterComplex = function () {
 
 				checkLoadingComplete();
 
-			}
+			};
 
 		};
 
@@ -226,7 +228,7 @@ THREE.MD2CharacterComplex = function () {
 
 	};
 
-	this.setSkin = function( index ) {
+	this.setSkin = function ( index ) {
 
 		if ( this.meshBody && this.meshBody.material.wireframe === false ) {
 
@@ -291,7 +293,7 @@ THREE.MD2CharacterComplex = function () {
 
 		if ( this.animations ) {
 
-			this.updateBehaviors( delta );
+			this.updateBehaviors();
 			this.updateAnimations( delta );
 
 		}
@@ -314,7 +316,7 @@ THREE.MD2CharacterComplex = function () {
 			this.meshBody.update( delta );
 
 			this.meshBody.setAnimationWeight( this.activeAnimation, mix );
-			this.meshBody.setAnimationWeight( this.oldAnimation,  1 - mix );
+			this.meshBody.setAnimationWeight( this.oldAnimation, 1 - mix );
 
 		}
 
@@ -323,13 +325,13 @@ THREE.MD2CharacterComplex = function () {
 			this.meshWeapon.update( delta );
 
 			this.meshWeapon.setAnimationWeight( this.activeAnimation, mix );
-			this.meshWeapon.setAnimationWeight( this.oldAnimation,  1 - mix );
+			this.meshWeapon.setAnimationWeight( this.oldAnimation, 1 - mix );
 
 		}
 
 	};
 
-	this.updateBehaviors = function ( delta ) {
+	this.updateBehaviors = function () {
 
 		var controls = this.controls;
 		var animations = this.animations;
@@ -449,7 +451,7 @@ THREE.MD2CharacterComplex = function () {
 
 		this.maxReverseSpeed = - this.maxSpeed;
 
-		if ( controls.moveForward )  this.speed = THREE.Math.clamp( this.speed + delta * this.frontAcceleration, this.maxReverseSpeed, this.maxSpeed );
+		if ( controls.moveForward ) this.speed = THREE.Math.clamp( this.speed + delta * this.frontAcceleration, this.maxReverseSpeed, this.maxSpeed );
 		if ( controls.moveBackward ) this.speed = THREE.Math.clamp( this.speed - delta * this.backAcceleration, this.maxReverseSpeed, this.maxSpeed );
 
 		// orientation based on controls

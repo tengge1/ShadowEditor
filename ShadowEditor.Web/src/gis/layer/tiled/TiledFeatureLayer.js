@@ -7,8 +7,6 @@ import FeatureLayer from '../FeatureLayer';
  */
 function TiledFeatureLayer(globe) {
     FeatureLayer.call(this, globe);
-
-    this.tree = rbush();
 }
 
 TiledFeatureLayer.prototype = Object.create(FeatureLayer.prototype);

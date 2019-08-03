@@ -23,7 +23,7 @@ TextureSerializer.prototype.toJSON = function (obj) {
     json.generateMipmaps = obj.generateMipmaps;
 
     // 说明：立体贴图obj.image是一个图片数组。
-    if (obj.image && !Array.isArray(obj.image) && obj.image.tagName.toLowerCase() === 'img') { // 图片
+    if (obj.image && !Array.isArray(obj.image) && obj.image.tagName && obj.image.tagName.toLowerCase() === 'img') { // 图片
         var src = obj.image.src;
         if (!src.startsWith('blob')) { // blob地址不应该被修改
             var url = new URL(obj.image.src); // 修复贴图路径自带服务端路径bug
@@ -36,7 +36,7 @@ TextureSerializer.prototype.toJSON = function (obj) {
             width: obj.image.width,
             height: obj.image.height
         };
-    } else if (obj.image && !Array.isArray(obj.image) && obj.image.tagName.toLowerCase() === 'canvas') { // 画布
+    } else if (obj.image && !Array.isArray(obj.image) && obj.image.tagName && obj.image.tagName.toLowerCase() === 'canvas') { // 画布
         json.image = {
             tagName: 'canvas',
             src: obj.image.toDataURL(),
@@ -85,12 +85,12 @@ TextureSerializer.prototype.fromJSON = function (json, parent, server) {
     if (json.image && !Array.isArray(json.image) && json.image.tagName === 'img') { // 图片
         var img = document.createElement('img');
 
-        if(json.image.src && json.image.src.startsWith('/')) {
+        if (json.image.src && json.image.src.startsWith('/')) {
             img.src = server + json.image.src;
         } else {
             img.src = json.image.src;
         }
-        
+
         img.width = json.image.width;
         img.height = json.image.height;
         img.onload = function () {
@@ -104,8 +104,8 @@ TextureSerializer.prototype.fromJSON = function (json, parent, server) {
         var ctx = canvas.getContext('2d');
 
         var img = document.createElement('img');
-        
-        if(json.image.src && json.image.src.startsWith('/')) {
+
+        if (json.image.src && json.image.src.startsWith('/')) {
             img.src = server + json.image.src;
         } else {
             img.src = json.image.src;

@@ -136,7 +136,7 @@ const PackageList = [{
 }, {
     name: 'CTMLoader',
     assets: [
-        'assets/js/ctm.js',
+        'assets/js/libs/ctm.js',
         'assets/js/loaders/ctm/CTMLoader.js'
     ]
 }, {
@@ -156,7 +156,7 @@ const PackageList = [{
 }, {
     name: 'lzma',
     assets: [
-        'assets/js/lzma.js'
+        'assets/js/libs/lzma.js'
     ]
 }, {
     name: 'codemirror',
