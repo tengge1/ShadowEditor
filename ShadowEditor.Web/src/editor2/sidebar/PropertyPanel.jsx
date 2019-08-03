@@ -49,6 +49,8 @@ import TweenAnimationComponent from '../component/animation/TweenAnimationCompon
 import AudioListenerComponent from '../component/audio/AudioListenerComponent.jsx';
 import BackgroundMusicComponent from '../component/audio/BackgroundMusicComponent.jsx';
 
+import ControlComponent from '../component/control/ControlComponent.jsx';
+
 /**
  * 属性面板
  * @author tengge / https://github.com/tengge1
@@ -77,6 +79,8 @@ class PropertyPanel extends React.Component {
             <ClothComponent></ClothComponent>
             <ParticleEmitterComponent></ParticleEmitterComponent>
             <MMDComponent></MMDComponent>
+
+            <ControlComponent></ControlComponent>
 
             <BoxGeometryComponent></BoxGeometryComponent>
             <CircleGeometryComponent></CircleGeometryComponent>
