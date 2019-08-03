@@ -83,9 +83,11 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
  * @param {Object} changed 修改过的属性
  */
 ServerObject.prototype.parseChanged = function (obj, index, changed) {
-    obj.name = changed[index].name;
+    if (obj && changed[index]) {
+        obj.name = changed[index].name;
+    }
 
-    if (obj.children) {
+    if (obj.children && changed[index]) {
         var changed1 = changed[index].children;
 
         obj.children.forEach((n, i) => {
