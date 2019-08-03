@@ -60,7 +60,7 @@ ThrowBallEvent.prototype.throwBall = function (event) {
     ball.receiveShadow = true;
     this.scene.add(ball);
 
-    var ballShape = new Ammo.btSphereShape(ballRadius);
+    var ballShape = new this.app.ammo.btSphereShape(ballRadius);
 
     var pos = new THREE.Vector3();
     pos.copy(raycaster.ray.direction);
@@ -74,7 +74,7 @@ ThrowBallEvent.prototype.throwBall = function (event) {
     pos.copy(raycaster.ray.direction);
     pos.multiplyScalar(20);
 
-    body.setLinearVelocity(new Ammo.btVector3(pos.x, pos.y, pos.z));
+    body.setLinearVelocity(new this.app.ammo.btVector3(pos.x, pos.y, pos.z));
     body.setFriction(0.5);
 
     ball.userData.physics = {
@@ -89,17 +89,17 @@ ThrowBallEvent.prototype.createRigidBody = function (threeObject, physicsShape, 
     threeObject.position.copy(pos);
     threeObject.quaternion.copy(quat);
 
-    var transform = new Ammo.btTransform();
+    var transform = new this.app.ammo.btTransform();
     transform.setIdentity();
-    transform.setOrigin(new Ammo.btVector3(pos.x, pos.y, pos.z));
-    transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w));
-    var motionState = new Ammo.btDefaultMotionState(transform);
+    transform.setOrigin(new this.app.ammo.btVector3(pos.x, pos.y, pos.z));
+    transform.setRotation(new this.app.ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w));
+    var motionState = new this.app.ammo.btDefaultMotionState(transform);
 
-    var localInertia = new Ammo.btVector3(0, 0, 0);
+    var localInertia = new this.app.ammo.btVector3(0, 0, 0);
     physicsShape.calculateLocalInertia(mass, localInertia);
 
-    var rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, physicsShape, localInertia);
-    var body = new Ammo.btRigidBody(rbInfo);
+    var rbInfo = new this.app.ammo.btRigidBodyConstructionInfo(mass, motionState, physicsShape, localInertia);
+    var body = new this.app.ammo.btRigidBody(rbInfo);
 
     if (mass > 0) {
         body.setActivationState(4);
