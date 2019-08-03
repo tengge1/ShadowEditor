@@ -61,6 +61,9 @@ PlayerPhysics.prototype.create = function (scene, camera, renderer) {
     return new Promise(resolve => {
         app.require('ammo').then(() => {
             Ammo().then(ammo => {
+                // TODO: 自从Ammo升级换了调用方法，导致很多类库不兼容，只能先这么写。
+                window.Ammo = ammo;
+
                 this.app.ammo = ammo;
                 this.initPhysicsWorld();
                 this.initScene(scene, camera, renderer);

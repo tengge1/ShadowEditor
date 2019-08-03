@@ -13,7 +13,8 @@ MMDLoader.prototype.constructor = MMDLoader;
 
 MMDLoader.prototype.load = function (url, options, environment) {
     return new Promise(resolve => {
-        this.require(['ammo', 'MMD']).then(() => {
+        // TODO: ammo.js升级换了调用方法，很多mmd类库不支持，只能先这么写。 
+        this.require('MMD').then(() => {
             var loader = new THREE.MMDLoader();
 
             var promise1 = options.Animation && options.Animation.Url ?
