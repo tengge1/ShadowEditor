@@ -51,7 +51,7 @@ function Water(renderer) {
     this.matrixAutoUpdate = false;
     this.updateMatrix();
 
-    var gpuCompute = new GPUComputationRenderer(WIDTH, WIDTH, renderer);
+    var gpuCompute = new THREE.GPUComputationRenderer(WIDTH, WIDTH, renderer);
 
     var heightmap0 = gpuCompute.createTexture();
     this.fillTexture(heightmap0, WIDTH);
@@ -94,7 +94,7 @@ Water.prototype = Object.create(THREE.Mesh.prototype);
 Water.prototype.constructor = Water;
 
 Water.prototype.fillTexture = function (texture, WIDTH) {
-    var simplex = new SimplexNoise();
+    var simplex = new THREE.SimplexNoise();
 
     var waterMaxHeight = 30;
 
