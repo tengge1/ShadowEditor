@@ -46,6 +46,8 @@ import TaaComponent from '../component/postProcessing/TaaComponent.jsx';
 import BasicAnimationComponent from '../component/animation/BasicAnimationComponent.jsx';
 import TweenAnimationComponent from '../component/animation/TweenAnimationComponent.jsx';
 
+import AudioListenerComponent from '../component/audio/AudioListenerComponent.jsx';
+
 /**
  * 属性面板
  * @author tengge / https://github.com/tengge1
@@ -63,6 +65,7 @@ class PropertyPanel extends React.Component {
             <LightComponent></LightComponent>
             <ShadowComponent></ShadowComponent>
             <CameraComponent></CameraComponent>
+            <AudioListenerComponent></AudioListenerComponent>
 
             <ReflectorComponent></ReflectorComponent>
             <FireComponent></FireComponent>
