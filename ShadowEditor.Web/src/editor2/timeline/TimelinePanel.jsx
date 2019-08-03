@@ -25,8 +25,8 @@ class TimelinePanel extends React.Component {
     }
 
     componentDidMount() {
-        // app.on(`appStarted.TimelinePanel`, this.onAppStarted.bind(this));
-        // app.on(`animationChanged.TimelinePanel`, this.updateUI.bind(this));
+        app.on(`appStarted.TimelinePanel`, this.onAppStarted.bind(this));
+        app.on(`animationChanged.TimelinePanel`, this.updateUI.bind(this));
     }
 
     onAppStarted() {
@@ -46,55 +46,59 @@ class TimelinePanel extends React.Component {
     }
 
     updateUI() {
-        var animations = app.editor.animations;
+        let animations = app.editor.animations;
 
-        var timeline = UI.get('timeline', this.id);
-        var layerInfo = UI.get('layerInfo', this.id);
-        var layers = UI.get('layers', this.id);
-
-        while (layerInfo.dom.children.length) {
-            var child = layerInfo.dom.children[0];
-            layerInfo.dom.removeChild(child);
-        }
-
-        while (layers.dom.children.length) {
-            var child = layers.dom.children[0];
-            child.data = null;
-            layers.dom.removeChild(child);
-        }
-
-        animations.forEach(n => {
-            // 动画组信息区
-            var layerName = document.createElement('div');
-            layerName.className = 'layer-info';
-            layerName.innerHTML = `<input type="checkbox" data-uuid="${n.uuid}" />${n.layerName || n.name}`; // || n.name兼容旧数据
-            layerInfo.dom.appendChild(layerName);
-
-            // 动画区
-            var layer = document.createElement('div');
-            layer.className = 'layer';
-            layer.setAttribute('droppable', true);
-            layer.data = n;
-            layer.addEventListener('dragenter', this.onDragEnterLayer.bind(this));
-            layer.addEventListener('dragover', this.onDragOverLayer.bind(this));
-            layer.addEventListener('dragleave', this.onDragLeaveLayer.bind(this));
-            layer.addEventListener('drop', this.onDropLayer.bind(this));
-            layers.dom.appendChild(layer);
-
-            n.animations.forEach(m => {
-                var item = document.createElement('div');
-                item.data = m;
-                item.className = 'item';
-                item.setAttribute('draggable', true);
-                item.setAttribute('droppable', false);
-                item.style.left = m.beginTime * timeline.scale + 'px';
-                item.style.width = (m.endTime - m.beginTime) * timeline.scale + 'px';
-                item.innerHTML = m.name;
-                item.addEventListener('dragstart', this.onDragStartAnimation.bind(this));
-                item.addEventListener('dragend', this.onDragEndAnimation.bind(this));
-                layer.appendChild(item);
-            });
+        this.setState({
+            animations,
         });
+
+        // var timeline = UI.get('timeline', this.id);
+        // var layerInfo = UI.get('layerInfo', this.id);
+        // var layers = UI.get('layers', this.id);
+
+        // while (layerInfo.dom.children.length) {
+        //     var child = layerInfo.dom.children[0];
+        //     layerInfo.dom.removeChild(child);
+        // }
+
+        // while (layers.dom.children.length) {
+        //     var child = layers.dom.children[0];
+        //     child.data = null;
+        //     layers.dom.removeChild(child);
+        // }
+
+        // animations.forEach(n => {
+        //     // 动画组信息区
+        //     var layerName = document.createElement('div');
+        //     layerName.className = 'layer-info';
+        //     layerName.innerHTML = `<input type="checkbox" data-uuid="${n.uuid}" />${n.layerName || n.name}`; // || n.name兼容旧数据
+        //     layerInfo.dom.appendChild(layerName);
+
+        //     // 动画区
+        //     var layer = document.createElement('div');
+        //     layer.className = 'layer';
+        //     layer.setAttribute('droppable', true);
+        //     layer.data = n;
+        //     layer.addEventListener('dragenter', this.onDragEnterLayer.bind(this));
+        //     layer.addEventListener('dragover', this.onDragOverLayer.bind(this));
+        //     layer.addEventListener('dragleave', this.onDragLeaveLayer.bind(this));
+        //     layer.addEventListener('drop', this.onDropLayer.bind(this));
+        //     layers.dom.appendChild(layer);
+
+        //     n.animations.forEach(m => {
+        //         var item = document.createElement('div');
+        //         item.data = m;
+        //         item.className = 'item';
+        //         item.setAttribute('draggable', true);
+        //         item.setAttribute('droppable', false);
+        //         item.style.left = m.beginTime * timeline.scale + 'px';
+        //         item.style.width = (m.endTime - m.beginTime) * timeline.scale + 'px';
+        //         item.innerHTML = m.name;
+        //         item.addEventListener('dragstart', this.onDragStartAnimation.bind(this));
+        //         item.addEventListener('dragend', this.onDragEndAnimation.bind(this));
+        //         layer.appendChild(item);
+        //     });
+        // });
     }
 
     updateSlider() {
