@@ -51,6 +51,7 @@ import BackgroundMusicComponent from '../component/audio/BackgroundMusicComponen
 
 import ControlComponent from '../component/control/ControlComponent.jsx';
 import FirstPersonControlComponent from '../component/control/FirstPersonControlComponent.jsx';
+import FlyControlComponent from '../component/control/FlyControlComponent.jsx';
 
 /**
  * 属性面板
@@ -83,6 +84,7 @@ class PropertyPanel extends React.Component {
 
             <ControlComponent></ControlComponent>
             <FirstPersonControlComponent></FirstPersonControlComponent>
+            <FlyControlComponent></FlyControlComponent>
 
             <BoxGeometryComponent></BoxGeometryComponent>
             <CircleGeometryComponent></CircleGeometryComponent>
