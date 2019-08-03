@@ -36,10 +36,10 @@ class Editor extends React.Component {
             <BorderLayout className={'Editor'}>
                 <EditorMenuBar region={'north'}></EditorMenuBar>
                 <EditorStatusBar region={'south'}></EditorStatusBar>
-                <EditorToolbar region={'west'}></EditorToolbar>
+                <AssetsPanel region={'west'} split={true} onToggle={this.onToggle}></AssetsPanel>
                 <EditorSideBar region={'east'} split={true} onToggle={this.onToggle}></EditorSideBar>
                 <BorderLayout region={'center'}>
-                    <AssetsPanel region={'west'} split={true} onToggle={this.onToggle}></AssetsPanel>
+                    <EditorToolbar region={'west'}></EditorToolbar>
                     <Viewport region={'center'}></Viewport>
                     <TimelinePanel region={'south'} split={true} onToggle={this.onToggle}></TimelinePanel>
                 </BorderLayout>
