@@ -86,6 +86,10 @@ npm run build
 
 2. 下载`MongoDB`，安装并启动MongoDB服务。MongoDB服务的默认端口为27017。
 
+MongoDB下载地址:https://www.mongodb.com/download-center/community
+
+可以下载zip版本，然后在MongoDB的bin文件夹执行以下命令安装服务，注意修改路径。
+
 ```bash
 mongod --dbpath=D:\mongodb\db --logpath=D:\mongodb\log\mongoDB.log --install --serviceName MongoDB
 net start MongoDB
