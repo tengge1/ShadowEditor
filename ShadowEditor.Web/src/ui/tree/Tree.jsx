@@ -80,6 +80,7 @@ class Tree extends React.Component {
     }
 
     handleClick(onSelect, event) {
+        event.stopPropagation();
         var value = event.target.getAttribute('value');
         if (value) {
             onSelect && onSelect(value, event);

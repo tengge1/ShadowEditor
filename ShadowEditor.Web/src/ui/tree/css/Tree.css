@@ -40,6 +40,7 @@
 .Tree .node>i.expand {
     width: 9px;
     height: 9px;
+    cursor: pointer;
 }
 
 .Tree .node>i.expand.plus {
@@ -52,6 +53,8 @@
 
 .Tree .node>i.type {
     margin-left: 4px;
+    cursor: pointer;
+    pointer-events: none;
 }
 
 .Tree .node>i.type.node {
