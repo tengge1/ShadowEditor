@@ -47,6 +47,7 @@ import BasicAnimationComponent from '../component/animation/BasicAnimationCompon
 import TweenAnimationComponent from '../component/animation/TweenAnimationComponent.jsx';
 
 import AudioListenerComponent from '../component/audio/AudioListenerComponent.jsx';
+import BackgroundMusicComponent from '../component/audio/BackgroundMusicComponent.jsx';
 
 /**
  * 属性面板
@@ -66,6 +67,7 @@ class PropertyPanel extends React.Component {
             <ShadowComponent></ShadowComponent>
             <CameraComponent></CameraComponent>
             <AudioListenerComponent></AudioListenerComponent>
+            <BackgroundMusicComponent></BackgroundMusicComponent>
 
             <ReflectorComponent></ReflectorComponent>
             <FireComponent></FireComponent>
