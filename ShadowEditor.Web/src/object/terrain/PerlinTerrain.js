@@ -54,7 +54,7 @@ PerlinTerrain.prototype.constructor = PerlinTerrain;
  */
 PerlinTerrain.prototype.generateHeight = function (width, height, quality) {
     var data = new Uint8Array(width * height);
-    var perlin = new ImprovedNoise();
+    var perlin = new THREE.ImprovedNoise();
 
     for (var i = 0; i < width; i++) {
         for (var j = 0; j < height; j++) {
