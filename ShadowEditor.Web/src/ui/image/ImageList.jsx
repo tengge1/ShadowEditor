@@ -17,7 +17,7 @@ class ImageList extends React.Component {
         const { onClick, onEdit, onDelete } = props;
 
         this.state = {
-            pageSize: 6,
+            pageSize: 10,
             pageNum: 0,
         };
 
