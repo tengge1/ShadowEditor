@@ -57,6 +57,7 @@ import QuadraticBezierCurveComponent from '../component/line/QuadraticBezierCurv
 // component/object
 import ClothComponent from '../component/object/ClothComponent.jsx';
 import PerlinTerrainComponent from '../component/object/PerlinTerrainComponent.jsx';
+import SkyComponent from '../component/object/SkyComponent.jsx';
 import WaterComponent from '../component/object/WaterComponent.jsx';
 
 // component/physics
@@ -106,6 +107,7 @@ class PropertyPanel extends React.Component {
             <LMeshComponent></LMeshComponent>
             <ClothComponent></ClothComponent>
             <PerlinTerrainComponent></PerlinTerrainComponent>
+            <SkyComponent></SkyComponent>
             <ParticleEmitterComponent></ParticleEmitterComponent>
             <MMDComponent></MMDComponent>
 

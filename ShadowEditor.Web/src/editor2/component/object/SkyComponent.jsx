@@ -1,0 +1,116 @@
+import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
+import Sky from '../../../object/component/Sky';
+
+/**
+ * 天空组件
+ * @author tengge / https://github.com/tengge1
+ */
+class SkyComponent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.selected = null;
+
+        this.state = {
+            show: false,
+            expanded: true,
+            turbidity: 10,
+            rayleigh: 2,
+            luminance: 1,
+            mieCoefficient: 0.005,
+            mieDirectionalG: 0.005,
+        };
+
+        this.handleExpand = this.handleExpand.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    render() {
+        const { show, expanded, turbidity, rayleigh, luminance, mieCoefficient, mieDirectionalG } = this.state;
+
+        if (!show) {
+            return null;
+        }
+
+        return <PropertyGroup title={L_SKY} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty label={L_TURBIDITY} name={'turbidity'} value={turbidity} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_RAYLEIGH} name={'rayleigh'} value={rayleigh} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_LUMINANCE} name={'luminance'} value={luminance} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_MIE_COEFFICIENT} name={'mieCoefficient'} value={mieCoefficient} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_MIE_DIRECTIONAL_G} name={'mieDirectionalG'} value={mieDirectionalG} onChange={this.handleChange}></NumberProperty>
+        </PropertyGroup>;
+    }
+
+    componentDidMount() {
+        app.on(`objectSelected.SkyComponent`, this.handleUpdate.bind(this));
+        app.on(`objectChanged.SkyComponent`, this.handleUpdate.bind(this));
+    }
+
+    handleExpand(expanded) {
+        this.setState({
+            expanded,
+        });
+    }
+
+    handleUpdate() {
+        const editor = app.editor;
+
+        if (!editor.selected || !(editor.selected instanceof Sky)) {
+            this.setState({
+                show: false,
+            });
+            return;
+        }
+
+        this.selected = editor.selected;
+
+        this.setState({
+            show: true,
+            turbidity: this.selected.userData.turbidity,
+            rayleigh: this.selected.userData.rayleigh,
+            luminance: this.selected.userData.luminance,
+            mieCoefficient: this.selected.userData.mieCoefficient * 100,
+            mieDirectionalG: this.selected.userData.mieDirectionalG,
+        });
+    }
+
+    handleChange(value, name) {
+        if (value === null) {
+            this.setState({
+                [name]: value,
+            });
+            return;
+        }
+
+        const { turbidity, rayleigh, luminance, mieCoefficient, mieDirectionalG } = Object.assign({}, this.state, {
+            [name]: value,
+        });
+
+        Object.assign(this.selected.userData, {
+            turbidity,
+            rayleigh,
+            luminance,
+            mieCoefficient: mieCoefficient / 100,
+            mieDirectionalG,
+        });
+
+        const sky = this.selected.children.filter(n => n instanceof THREE.Sky)[0];
+
+        if (sky) {
+            let uniforms = sky.material.uniforms;
+
+            uniforms.turbidity.value = turbidity;
+            uniforms.rayleigh.value = rayleigh;
+            uniforms.luminance.value = luminance;
+            uniforms.mieCoefficient.value = mieCoefficient / 100;
+            uniforms.mieDirectionalG.value = mieDirectionalG;
+
+            sky.material.needsUpdate = true;
+        }
+
+        app.call(`objectChanged`, this, this.selected);
+    }
+}
+
+export default SkyComponent;
