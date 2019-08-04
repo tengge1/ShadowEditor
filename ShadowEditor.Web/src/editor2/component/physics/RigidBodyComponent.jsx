@@ -107,11 +107,11 @@ class RigidBodyComponent extends React.Component {
 
         this.setState({
             show: true,
-            shape: physics.shape || 'btBoxShape',
-            mass: physics.mass || 0,
-            inertiaX: physics.inertia.x || 0,
-            inertiaY: physics.inertia.y || 0,
-            inertiaZ: physics.inertia.z || 0,
+            shape: shape || 'btBoxShape',
+            mass: mass || 0,
+            inertiaX: inertia.x || 0,
+            inertiaY: inertia.y || 0,
+            inertiaZ: inertia.z || 0,
         });
     }
 
