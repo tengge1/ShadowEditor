@@ -87,6 +87,7 @@ class PropertyPanel extends React.Component {
 
     render() {
         return <PropertyGrid>
+            {/* component */}
             <BasicComponent></BasicComponent>
             <TransformComponent></TransformComponent>
             <SceneComponent></SceneComponent>
@@ -94,8 +95,9 @@ class PropertyPanel extends React.Component {
             <ShadowComponent></ShadowComponent>
             <CameraComponent></CameraComponent>
             <AudioListenerComponent></AudioListenerComponent>
-            <BackgroundMusicComponent></BackgroundMusicComponent>
 
+            {/* component/objects */}
+            <BackgroundMusicComponent></BackgroundMusicComponent>
             <ReflectorComponent></ReflectorComponent>
             <FireComponent></FireComponent>
             <WaterComponent></WaterComponent>
@@ -105,14 +107,17 @@ class PropertyPanel extends React.Component {
             <ParticleEmitterComponent></ParticleEmitterComponent>
             <MMDComponent></MMDComponent>
 
+            {/* component/gis */}
+            <GisBasicComponent></GisBasicComponent>
+
+            {/* component/line */}
             <CatmullRomCurveComponent></CatmullRomCurveComponent>
             <CubicBezierCurveComponent></CubicBezierCurveComponent>
             <EllipseCurveComponent></EllipseCurveComponent>
             <LineCurveComponent></LineCurveComponent>
             <QuadraticBezierCurveComponent></QuadraticBezierCurveComponent>
 
-            <GisBasicComponent></GisBasicComponent>
-
+            {/* component/control */}
             <ControlComponent></ControlComponent>
             <FirstPersonControlComponent></FirstPersonControlComponent>
             <FlyControlComponent></FlyControlComponent>
@@ -120,8 +125,10 @@ class PropertyPanel extends React.Component {
             <PointerLockControlComponent></PointerLockControlComponent>
             <TrackballControlComponent></TrackballControlComponent>
 
+            {/* component/physics */}
             <PhysicsTypeComponent></PhysicsTypeComponent>
 
+            {/* component/geometry */}
             <BoxGeometryComponent></BoxGeometryComponent>
             <CircleGeometryComponent></CircleGeometryComponent>
             <CylinderGeometryComponent></CylinderGeometryComponent>
@@ -133,8 +140,10 @@ class PropertyPanel extends React.Component {
             <TorusGeometryComponent></TorusGeometryComponent>
             <TorusKnotGeometryComponent></TorusKnotGeometryComponent>
 
+            {/* component/material */}
             <MaterialComponent></MaterialComponent>
 
+            {/* component/postProcessing */}
             <AfterimageComponent></AfterimageComponent>
             <BokehComponent></BokehComponent>
             <DotScreenComponent></DotScreenComponent>
@@ -149,6 +158,7 @@ class PropertyPanel extends React.Component {
             <SsaoComponent></SsaoComponent>
             <TaaComponent></TaaComponent>
 
+            {/* component/animation */}
             <BasicAnimationComponent></BasicAnimationComponent>
             <TweenAnimationComponent></TweenAnimationComponent>
         </PropertyGrid>;
