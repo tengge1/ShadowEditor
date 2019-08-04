@@ -59,6 +59,7 @@ import TrackballControlComponent from '../component/control/TrackballControlComp
 import GisBasicComponent from '../component/gis/GisBasicComponent.jsx';
 
 import CatmullRomCurveComponent from '../component/line/CatmullRomCurveComponent.jsx';
+import CubicBezierCurveComponent from '../component/line/CubicBezierCurveComponent.jsx';
 
 /**
  * 属性面板
@@ -90,6 +91,7 @@ class PropertyPanel extends React.Component {
             <MMDComponent></MMDComponent>
 
             <CatmullRomCurveComponent></CatmullRomCurveComponent>
+            <CubicBezierCurveComponent></CubicBezierCurveComponent>
 
             <GisBasicComponent></GisBasicComponent>
 
