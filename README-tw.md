@@ -73,9 +73,9 @@ Language: [中文](README.md) / 繁體中文 / [English](README-en.md)
 
 ## 使用指南
 
-**該項目僅支持Windows系統，電腦上需要安裝.Net Framework 4.5。 **
+**該項目僅支持Windows系統，電腦上需要安裝.Net Framework 4.5。**
 
-**推薦使用最新版谷歌瀏覽器，不保證兼容其他瀏覽器。 **
+**推薦使用最新版谷歌瀏覽器，不保證兼容其他瀏覽器。**
 
 1. 安裝`NodeJs`，在最外層目錄，執行以下命令。
 

@@ -73,9 +73,9 @@ Language: [中文](README.md) / [繁體中文](README-tw.md) / English
 
 ## user's guidance
 
-**This project only supports Windows system, you need to install .Net Framework 4.5 on your computer. **
+**This project only supports Windows system, you need to install .Net Framework 4.5 on your computer.**
 
-**Recommended to use the latest version of Google Chrome, is not guaranteed to be compatible with other browsers. **
+**Recommended to use the latest version of Google Chrome, is not guaranteed to be compatible with other browsers.**
 
 1. Install `NodeJs`. In the outermost directory, execute the following command.
 
