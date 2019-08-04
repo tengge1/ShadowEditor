@@ -53,6 +53,7 @@ import ControlComponent from '../component/control/ControlComponent.jsx';
 import FirstPersonControlComponent from '../component/control/FirstPersonControlComponent.jsx';
 import FlyControlComponent from '../component/control/FlyControlComponent.jsx';
 import OrbitControlComponent from '../component/control/OrbitControlComponent.jsx';
+import PointerLockControlComponent from '../component/control/PointerLockControlComponent.jsx';
 
 /**
  * 属性面板
@@ -86,6 +87,8 @@ class PropertyPanel extends React.Component {
             <ControlComponent></ControlComponent>
             <FirstPersonControlComponent></FirstPersonControlComponent>
             <FlyControlComponent></FlyControlComponent>
+            <OrbitControlComponent></OrbitControlComponent>
+            <PointerLockControlComponent></PointerLockControlComponent>
 
             <BoxGeometryComponent></BoxGeometryComponent>
             <CircleGeometryComponent></CircleGeometryComponent>
@@ -116,7 +119,6 @@ class PropertyPanel extends React.Component {
 
             <BasicAnimationComponent></BasicAnimationComponent>
             <TweenAnimationComponent></TweenAnimationComponent>
-            <OrbitControlComponent></OrbitControlComponent>
         </PropertyGrid>;
     }
 }
