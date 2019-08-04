@@ -63,6 +63,7 @@ import WaterComponent from '../component/object/WaterComponent.jsx';
 // component/physics
 import PhysicsTypeComponent from '../component/physics/PhysicsTypeComponent.jsx';
 import PhysicsWorldComponent from '../component/physics/PhysicsWorldComponent.jsx';
+import RigidBodyComponent from '../component/physics/RigidBodyComponent.jsx';
 
 // component/postProcessing
 import AfterimageComponent from '../component/postProcessing/AfterimageComponent.jsx';
@@ -133,6 +134,7 @@ class PropertyPanel extends React.Component {
             {/* component/physics */}
             <PhysicsTypeComponent></PhysicsTypeComponent>
             <PhysicsWorldComponent></PhysicsWorldComponent>
+            <RigidBodyComponent></RigidBodyComponent>
 
             {/* component/geometry */}
             <BoxGeometryComponent></BoxGeometryComponent>
