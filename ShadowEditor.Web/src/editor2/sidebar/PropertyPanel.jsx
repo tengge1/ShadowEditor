@@ -52,6 +52,7 @@ import BackgroundMusicComponent from '../component/audio/BackgroundMusicComponen
 import ControlComponent from '../component/control/ControlComponent.jsx';
 import FirstPersonControlComponent from '../component/control/FirstPersonControlComponent.jsx';
 import FlyControlComponent from '../component/control/FlyControlComponent.jsx';
+import OrbitControlComponent from '../component/control/OrbitControlComponent.jsx';
 
 /**
  * 属性面板
@@ -115,6 +116,7 @@ class PropertyPanel extends React.Component {
 
             <BasicAnimationComponent></BasicAnimationComponent>
             <TweenAnimationComponent></TweenAnimationComponent>
+            <OrbitControlComponent></OrbitControlComponent>
         </PropertyGrid>;
     }
 }
