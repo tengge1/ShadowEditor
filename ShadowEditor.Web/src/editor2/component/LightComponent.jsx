@@ -174,11 +174,10 @@ class LightComponent extends React.Component {
     }
 
     handleChangeColor(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -194,11 +193,10 @@ class LightComponent extends React.Component {
     }
 
     handleChangeIntensity(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -208,11 +206,10 @@ class LightComponent extends React.Component {
     }
 
     handleChangeDistance(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -222,11 +219,10 @@ class LightComponent extends React.Component {
     }
 
     handleChangeAngle(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -236,11 +232,10 @@ class LightComponent extends React.Component {
     }
 
     handleChangePenumbra(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -250,11 +245,10 @@ class LightComponent extends React.Component {
     }
 
     handleChangeDecay(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -264,11 +258,10 @@ class LightComponent extends React.Component {
     }
 
     handleChangeSkyColor(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -284,11 +277,10 @@ class LightComponent extends React.Component {
     }
 
     handleChangeGroundColor(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -304,11 +296,10 @@ class LightComponent extends React.Component {
     }
 
     handleChangeWidth(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -318,11 +309,10 @@ class LightComponent extends React.Component {
     }
 
     handleChangeHeight(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 

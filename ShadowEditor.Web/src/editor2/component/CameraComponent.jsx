@@ -71,11 +71,10 @@ class CameraComponent extends React.Component {
     }
 
     handleChangeFov(value) {
-        this.setState({
-            fov: value,
-        });
-
         if (value === null) {
+            this.setState({
+                fov: value,
+            });
             return;
         }
 
@@ -83,11 +82,10 @@ class CameraComponent extends React.Component {
     }
 
     handleChangeNear(value) {
-        this.setState({
-            near: value,
-        });
-
         if (value === null) {
+            this.setState({
+                near: value,
+            });
             return;
         }
 
@@ -95,11 +93,10 @@ class CameraComponent extends React.Component {
     }
 
     handleChangeFar(value) {
-        this.setState({
-            far: value,
-        });
-
         if (value === null) {
+            this.setState({
+                far: value,
+            });
             return;
         }
 

@@ -108,11 +108,10 @@ class BasicAnimationComponent extends React.Component {
     }
 
     handleChange(value, animName) {
-        this.setState({
-            [animName]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [animName]: value,
+            });
             return;
         }
 

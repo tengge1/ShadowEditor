@@ -79,11 +79,10 @@ class TorusGeometryComponent extends React.Component {
     }
 
     handleChange(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 

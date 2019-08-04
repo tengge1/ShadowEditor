@@ -256,11 +256,10 @@ class ParticleEmitterComponent extends React.Component {
     }
 
     handleChangeAcceleration(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -285,11 +284,10 @@ class ParticleEmitterComponent extends React.Component {
     }
 
     handleChangeColor(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -311,11 +309,10 @@ class ParticleEmitterComponent extends React.Component {
     }
 
     handleChangeSize(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -337,11 +334,10 @@ class ParticleEmitterComponent extends React.Component {
     }
 
     handleChangeTexture(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -361,11 +357,10 @@ class ParticleEmitterComponent extends React.Component {
     }
 
     handleChangeParticleCount(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -384,11 +379,10 @@ class ParticleEmitterComponent extends React.Component {
     }
 
     handleChangeMaxAge(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -407,11 +401,10 @@ class ParticleEmitterComponent extends React.Component {
     }
 
     handleChangeMaxAgeSpread(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 

@@ -96,11 +96,10 @@ class TransformComponent extends React.Component {
     }
 
     handleChangePosition(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -118,11 +117,10 @@ class TransformComponent extends React.Component {
     }
 
     handleChangeRotation(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -140,11 +138,10 @@ class TransformComponent extends React.Component {
     }
 
     handleChangeScale(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 

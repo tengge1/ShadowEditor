@@ -145,11 +145,10 @@ class ShadowComponent extends React.Component {
     }
 
     handleChangeCastShadow(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -163,11 +162,10 @@ class ShadowComponent extends React.Component {
     }
 
     handleChangeReceiveShadow(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -181,11 +179,10 @@ class ShadowComponent extends React.Component {
     }
 
     handleChangeShadowRadius(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -211,11 +208,10 @@ class ShadowComponent extends React.Component {
     }
 
     handleChangeBias(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -225,11 +221,10 @@ class ShadowComponent extends React.Component {
     }
 
     handleChangeCameraLeft(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -240,11 +235,10 @@ class ShadowComponent extends React.Component {
     }
 
     handleChangeCameraRight(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -255,11 +249,10 @@ class ShadowComponent extends React.Component {
     }
 
     handleChangeCameraTop(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -270,11 +263,10 @@ class ShadowComponent extends React.Component {
     }
 
     handleChangeCameraBottom(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -285,11 +277,10 @@ class ShadowComponent extends React.Component {
     }
 
     handleChangeCameraNear(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -300,11 +291,10 @@ class ShadowComponent extends React.Component {
     }
 
     handleChangeCameraFar(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 

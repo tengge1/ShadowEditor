@@ -226,11 +226,10 @@ class SceneComponent extends React.Component {
     }
 
     handleChangeBackgroundColor(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -240,11 +239,10 @@ class SceneComponent extends React.Component {
     }
 
     handleChangeBackgroundImage(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -254,11 +252,10 @@ class SceneComponent extends React.Component {
     }
 
     handleChangeBackgroundCubeTexture(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -393,11 +390,10 @@ class SceneComponent extends React.Component {
     }
 
     handleChangeFogColor(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -407,11 +403,10 @@ class SceneComponent extends React.Component {
     }
 
     handleChangeFogNear(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -421,11 +416,10 @@ class SceneComponent extends React.Component {
     }
 
     handleChangeFogFar(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
@@ -435,11 +429,10 @@ class SceneComponent extends React.Component {
     }
 
     handleChangeFogDensity(value, name) {
-        this.setState({
-            [name]: value,
-        });
-
         if (value === null) {
+            this.setState({
+                [name]: value,
+            });
             return;
         }
 
