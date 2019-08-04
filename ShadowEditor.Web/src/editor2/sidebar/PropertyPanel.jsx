@@ -56,6 +56,8 @@ import OrbitControlComponent from '../component/control/OrbitControlComponent.js
 import PointerLockControlComponent from '../component/control/PointerLockControlComponent.jsx';
 import TrackballControlComponent from '../component/control/TrackballControlComponent.jsx';
 
+import GisBasicComponent from '../component/gis/GisBasicComponent.jsx';
+
 /**
  * 属性面板
  * @author tengge / https://github.com/tengge1
@@ -84,6 +86,7 @@ class PropertyPanel extends React.Component {
             <ClothComponent></ClothComponent>
             <ParticleEmitterComponent></ParticleEmitterComponent>
             <MMDComponent></MMDComponent>
+            <GisBasicComponent></GisBasicComponent>
 
             <ControlComponent></ControlComponent>
             <FirstPersonControlComponent></FirstPersonControlComponent>
