@@ -461,6 +461,11 @@ const PackageList = [{
     assets: [
         'assets/js/libs/ammo.js'
     ]
+}, {
+    name: 'chevrotain',
+    assets: [
+        'assets/js/libs/chevrotain.min.js'
+    ]
 }];
 
 export default PackageList

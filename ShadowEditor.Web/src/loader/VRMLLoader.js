@@ -13,7 +13,7 @@ VRMLLoader.prototype.constructor = VRMLLoader;
 
 VRMLLoader.prototype.load = function (url, options) {
     return new Promise(resolve => {
-        this.require('VRMLLoader').then(() => {
+        this.require(['chevrotain', 'VRMLLoader']).then(() => {
             var loader = new THREE.VRMLLoader();
             loader.load(url, obj => {
                 resolve(obj);
