@@ -1,7 +1,7 @@
 import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
 
 /**
- * 二次贝塞尔曲线组件
+ * 物理类型组件
  * @author tengge / https://github.com/tengge1
  */
 class PhysicsTypeComponent extends React.Component {
@@ -10,18 +10,16 @@ class PhysicsTypeComponent extends React.Component {
 
         this.selected = null;
 
+        this.type = {
+            rigidBody: L_RIGID_BODY,
+            softVolume: L_SOFT_VOLUME,
+        };
+
         this.state = {
             show: false,
             expanded: true,
-            v0x: 0,
-            v0y: 0,
-            v0z: 0,
-            v1x: 0,
-            v1y: 0,
-            v1z: 0,
-            v2x: 0,
-            v2y: 0,
-            v2z: 0,
+            physicsEnabled: false,
+            type: 'rigidBody',
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -30,22 +28,15 @@ class PhysicsTypeComponent extends React.Component {
     }
 
     render() {
-        const { show, expanded, v0x, v0y, v0z, v1x, v1y, v1z, v2x, v2y, v2z } = this.state;
+        const { show, expanded, physicsEnabled, type } = this.state;
 
         if (!show) {
             return null;
         }
 
-        return <PropertyGroup title={L_QUADRATIC_BEZIER_CURVE} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={'Point1 X'} name={'v0x'} value={v0x} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point1 Y'} name={'v0y'} value={v0y} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point1 Z'} name={'v0z'} value={v0z} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point2 X'} name={'v1x'} value={v1x} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point2 Y'} name={'v1y'} value={v1y} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point2 Z'} name={'v1z'} value={v1z} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point3 X'} name={'v2x'} value={v2x} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point3 Y'} name={'v2y'} value={v2y} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point3 Z'} name={'v2z'} value={v2z} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={L_PHYSICS_TYPE} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={L_ENABLED} name={'physicsEnabled'} value={physicsEnabled} onChange={this.handleChange}></CheckBoxProperty>
+            <SelectProperty label={L_TYPE} options={this.type} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
         </PropertyGroup>;
     }
 
@@ -63,7 +54,7 @@ class PhysicsTypeComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
-        if (!editor.selected || editor.selected.userData.type !== 'QuadraticBezierCurve') {
+        if (!editor.selected || !editor.selected.userData.physics) {
             this.setState({
                 show: false,
             });
@@ -72,19 +63,12 @@ class PhysicsTypeComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        let points = this.selected.userData.points;
+        let physics = this.selected.userData.physics || {};
 
         this.setState({
             show: true,
-            v0x: points[0].x,
-            v0y: points[0].y,
-            v0z: points[0].z,
-            v1x: points[1].x,
-            v1y: points[1].y,
-            v1z: points[1].z,
-            v2x: points[2].x,
-            v2y: points[2].y,
-            v2z: points[2].z,
+            physicsEnabled: physics.enabled || false,
+            type: physics.type || 'rigidBody',
         });
     }
 
@@ -96,17 +80,18 @@ class PhysicsTypeComponent extends React.Component {
             return;
         }
 
-        const { v0x, v0y, v0z, v1x, v1y, v1z, v2x, v2y, v2z } = Object.assign({}, this.state, {
+        const { physicsEnabled, type } = Object.assign({}, this.state, {
             [name]: value,
         });
 
-        this.selected.userData.points = [
-            new THREE.Vector3(v0x, v0y, v0z),
-            new THREE.Vector3(v1x, v1y, v1z),
-            new THREE.Vector3(v2x, v2y, v2z),
-        ];
+        if (!this.selected.userData.physics) {
+            this.selected.userData.physics = {};
+        }
 
-        this.selected.update();
+        let physics = this.selected.userData.physics;
+
+        physics.enabled = physicsEnabled;
+        physics.type = type;
 
         app.call('objectChanged', this, this.selected);
     }
