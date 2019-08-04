@@ -58,6 +58,8 @@ import TrackballControlComponent from '../component/control/TrackballControlComp
 
 import GisBasicComponent from '../component/gis/GisBasicComponent.jsx';
 
+import CatmullRomCurveComponent from '../component/line/CatmullRomCurveComponent.jsx';
+
 /**
  * 属性面板
  * @author tengge / https://github.com/tengge1
@@ -86,6 +88,9 @@ class PropertyPanel extends React.Component {
             <ClothComponent></ClothComponent>
             <ParticleEmitterComponent></ParticleEmitterComponent>
             <MMDComponent></MMDComponent>
+
+            <CatmullRomCurveComponent></CatmullRomCurveComponent>
+
             <GisBasicComponent></GisBasicComponent>
 
             <ControlComponent></ControlComponent>

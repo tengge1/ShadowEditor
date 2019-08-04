@@ -81,7 +81,7 @@ function ShaderTerrain(renderer) {
     var normalMaterial = this.createShaderMaterial(THREE.NormalMapShader.vertexShader, THREE.NormalMapShader.fragmentShader, normalUniforms, false);
 
     // 创建地形材质
-    var terrainShader = THREE.ShaderTerrain["terrain"];
+    var terrainShader = THREE.TerrainShader;
 
     var terrainUniforms = THREE.UniformsUtils.clone(terrainShader.uniforms);
 
