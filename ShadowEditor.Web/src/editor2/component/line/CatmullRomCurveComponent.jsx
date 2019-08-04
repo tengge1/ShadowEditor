@@ -1,7 +1,7 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
+import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
 
 /**
- * GIS基本组件
+ * CatmullRom曲线组件
  * @author tengge / https://github.com/tengge1
  */
 class CatmullRomCurveComponent extends React.Component {
@@ -10,32 +10,42 @@ class CatmullRomCurveComponent extends React.Component {
 
         this.selected = null;
 
-        this.bakcground = {
-            google: L_GOOGLE_MAP,
-            bing: L_BING_MAP,
-            tianditu: L_TIANDITU_MAP,
+        this.curveType = {
+            centripetal: '向心力',
+            chordal: '弦线',
+            catmullrom: 'catmullrom',
         };
 
         this.state = {
             show: false,
             expanded: true,
-            bakcground: 'google',
+            closed: true,
+            curveType: 'catmullrom',
+            tension: 1,
         };
 
         this.handleExpand = this.handleExpand.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleAddPoint = this.handleAddPoint.bind(this);
+        this.handleRemovePoint = this.handleRemovePoint.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
     render() {
-        const { show, expanded, bakcground } = this.state;
+        const { show, expanded, closed, curveType, tension } = this.state;
 
         if (!show) {
             return null;
         }
 
         return <PropertyGroup title={L_CATMULL_ROM_CURVE} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={L_TILE_MAP} options={this.bakcground} name={'bakcground'} value={bakcground} onChange={this.handleChange}></SelectProperty>
+            <ButtonsProperty>
+                <Button onClick={this.handleAddPoint}>{'添加点'}</Button>
+                <Button onClick={this.handleRemovePoint}>{'移除点'}</Button>
+            </ButtonsProperty>
+            <CheckBoxProperty label={'闭合'} name={'closed'} value={closed} onChange={this.handleChange}></CheckBoxProperty>
+            <SelectProperty label={'线型'} options={this.curveType} name={'curveType'} value={curveType} onChange={this.handleChange}></SelectProperty>
+            <NumberProperty label={'张力'} name={'tension'} value={tension} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 
@@ -53,7 +63,7 @@ class CatmullRomCurveComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
-        if (!editor.selected || editor.selected.userData.type !== 'Globe') {
+        if (!editor.selected || editor.selected.userData.type !== 'CatmullRomCurve') {
             this.setState({
                 show: false,
             });
@@ -64,8 +74,46 @@ class CatmullRomCurveComponent extends React.Component {
 
         this.setState({
             show: true,
-            bakcground: this.selected.getBackground(),
+            closed: this.selected.userData.closed,
+            curveType: this.selected.userData.curveType,
+            tension: this.selected.userData.tension,
         });
+    }
+
+    handleAddPoint() {
+        let points = this.selected.userData.points;
+        let closed = this.selected.userData.closed;
+        let curveType = this.selected.userData.curveType;
+        let tension = this.selected.userData.tension;
+
+        let curve = new THREE.CatmullRomCurve3(points, closed, curveType, tension);
+
+        let point = new THREE.Vector3(
+            parseInt((Math.random() - 0.5) * 40),
+            parseInt(Math.random() * 20),
+            parseInt((Math.random() - 0.5) * 40)
+        );
+
+        points.splice(points.length, 0, point);
+
+        this.selected.update();
+
+        app.call('objectChanged', this, this.selected);
+    }
+
+    handleRemovePoint() {
+        let points = this.selected.userData.points;
+
+        if (points.length === 3) {
+            app.toast('CatmullRom曲线至少应该有三个点！');
+            return;
+        }
+
+        points.splice(points.length - 1, 1);
+
+        this.selected.update();
+
+        app.call('objectChanged', this, this.selected);
     }
 
     handleChange(value, name) {
@@ -76,11 +124,15 @@ class CatmullRomCurveComponent extends React.Component {
             return;
         }
 
-        const { bakcground } = Object.assign({}, this.state, {
+        const { closed, curveType, tension } = Object.assign({}, this.state, {
             [name]: value,
         });
 
-        this.selected.setBackground(bakcground);
+        Object.assign(this.selected.userData, {
+            closed, curveType, tension
+        });
+
+        this.selected.update();
 
         app.call('objectChanged', this, this.selected);
     }
