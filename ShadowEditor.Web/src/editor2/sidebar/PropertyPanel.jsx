@@ -61,6 +61,7 @@ import GisBasicComponent from '../component/gis/GisBasicComponent.jsx';
 import CatmullRomCurveComponent from '../component/line/CatmullRomCurveComponent.jsx';
 import CubicBezierCurveComponent from '../component/line/CubicBezierCurveComponent.jsx';
 import EllipseCurveComponent from '../component/line/EllipseCurveComponent.jsx';
+import LineCurveComponent from '../component/line/LineCurveComponent.jsx';
 
 /**
  * 属性面板
@@ -94,6 +95,7 @@ class PropertyPanel extends React.Component {
             <CatmullRomCurveComponent></CatmullRomCurveComponent>
             <CubicBezierCurveComponent></CubicBezierCurveComponent>
             <EllipseCurveComponent></EllipseCurveComponent>
+            <LineCurveComponent></LineCurveComponent>
 
             <GisBasicComponent></GisBasicComponent>
 
