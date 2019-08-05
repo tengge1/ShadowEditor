@@ -8,10 +8,10 @@ class OptionsMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleSurfaceOptions = this.handleSurfaceOptions.bind(this);
         this.handleRendererOptions = this.handleRendererOptions.bind(this);
         this.handleHelperOptions = this.handleHelperOptions.bind(this);
         this.handleFilterOptions = this.handleFilterOptions.bind(this);
+
         this.handleChangeEnglish = this.handleChangeEnglish.bind(this);
         this.handleChangeChinese = this.handleChangeChinese.bind(this);
     }
@@ -20,29 +20,15 @@ class OptionsMenu extends React.Component {
         const { className, style } = this.props;
 
         return <MenuItem title={L_OPTIONS}>
-            <MenuItem title={L_SURFACE} onClick={this.handleSurfaceOptions}></MenuItem>
-            <MenuItem title={L_HELPERS} onClick={this.handleRendererOptions}></MenuItem>
-            <MenuItemSeparator />
-            <MenuItem title={L_RENDERER} onClick={this.handleHelperOptions}></MenuItem>
+            <MenuItem title={L_RENDERER} onClick={this.handleRendererOptions}></MenuItem>
+            <MenuItem title={L_HELPERS} onClick={this.handleHelperOptions}></MenuItem>
             <MenuItem title={L_FILTER} onClick={this.handleFilterOptions}></MenuItem>
+            <MenuItemSeparator></MenuItemSeparator>
             <MenuItem title={L_LANGUAGE}>
                 <MenuItem title={'English'} onClick={this.handleChangeEnglish}></MenuItem>
                 <MenuItem title={'汉语'} onClick={this.handleChangeChinese}></MenuItem>
             </MenuItem>
         </MenuItem>;
-    }
-
-    // ---------------------------------- 外观选项 ---------------------------------------
-
-    handleSurfaceOptions() {
-        if (this.optionsWindow === undefined) {
-            this.optionsWindow = new OptionsWindow({
-                app: app
-            });
-            this.optionsWindow.render();
-        }
-        this.optionsWindow.show();
-        this.optionsWindow.changeTab(L_SURFACE);
     }
 
     // ---------------------------------- 渲染器选项 -------------------------------------
