@@ -25,11 +25,11 @@ class TabLayout extends React.Component {
     }
 
     render() {
-        const { className, style, children, activeTab, ...others } = this.props;
+        const { className, style, children, activeTab } = this.props;
 
         return <div className={classNames('TabLayout', className)} style={style}>
-            <div className={'tabs'} {...others}>
-                {children.map((n, i) => {
+            <div className={'tabs'}>
+                {React.Children.map(children, (n, i) => {
                     return <div
                         className={classNames('tab', i === this.state.activeTab ? 'selected' : null)}
                         key={i}
@@ -39,7 +39,7 @@ class TabLayout extends React.Component {
                 })}
             </div>
             <div className={'contents'}>
-                {children.map((n, i) => {
+                {React.Children.map(children, (n, i) => {
                     return <div className={classNames('content', i === this.state.activeTab ? 'show' : null)} key={i}>{n}</div>;
                 })}
             </div>

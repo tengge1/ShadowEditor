@@ -1,4 +1,5 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import OptionsWindow from '../window/OptionsWindow.jsx';
 
 /**
  * 选项菜单
@@ -34,40 +35,28 @@ class OptionsMenu extends React.Component {
     // ---------------------------------- 渲染器选项 -------------------------------------
 
     handleRendererOptions() {
-        if (this.optionsWindow === undefined) {
-            this.optionsWindow = new OptionsWindow({
-                app: app
-            });
-            this.optionsWindow.render();
-        }
-        this.optionsWindow.show();
-        this.optionsWindow.changeTab(L_RENDERER);
+        let win = app.createElement(OptionsWindow, {
+            activeTab: 0,
+        });
+        app.addElement(win);
     }
 
     // ------------------------------- 帮助器选项 -----------------------------------------
 
     handleHelperOptions() {
-        if (this.optionsWindow === undefined) {
-            this.optionsWindow = new OptionsWindow({
-                app: app
-            });
-            this.optionsWindow.render();
-        }
-        this.optionsWindow.show();
-        this.optionsWindow.changeTab(L_HELPERS);
+        let win = app.createElement(OptionsWindow, {
+            activeTab: 1,
+        });
+        app.addElement(win);
     }
 
     // ------------------------------ 滤镜选项 ---------------------------------------------
 
     handleFilterOptions() {
-        if (this.optionsWindow === undefined) {
-            this.optionsWindow = new OptionsWindow({
-                app: app
-            });
-            this.optionsWindow.render();
-        }
-        this.optionsWindow.show();
-        this.optionsWindow.changeTab(L_FILTER);
+        let win = app.createElement(OptionsWindow, {
+            activeTab: 2,
+        });
+        app.addElement(win);
     }
 
     // ---------------------------- 语言选项 -------------------------------------------------
