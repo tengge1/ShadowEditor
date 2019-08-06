@@ -11,6 +11,7 @@ class HierarchyPanel extends React.Component {
         super(props);
 
         this.expanded = {};
+        this.checked = {};
 
         this.state = {
             data: [],
@@ -18,18 +19,21 @@ class HierarchyPanel extends React.Component {
         };
 
         this.handleSelect = this.handleSelect.bind(this);
+        this.handleCheck = this.handleCheck.bind(this);
         this.handleDoubleClick = this.handleDoubleClick.bind(this);
         this.handleExpand = this.handleExpand.bind(this);
         this.handleDrop = this.handleDrop.bind(this);
     }
 
     render() {
-        const { data, selected } = this.state;
+        const { data, selected, checked } = this.state;
 
         return <Tree
             data={data}
             selected={selected}
+            checked={checked}
             onSelect={this.handleSelect}
+            onCheck={this.handleCheck}
             onDoubleClick={this.handleDoubleClick}
             onExpand={this.handleExpand}
             onDrop={this.handleDrop}></Tree>;
@@ -55,6 +59,20 @@ class HierarchyPanel extends React.Component {
         app.editor.selectByUuid(value);
     }
 
+    handleCheck(value, name, event) {
+        let checked = this.checked;
+
+        if (value && !checked[name]) {
+            checked[name] = true;
+        } else if (!value && checked[name]) {
+            delete checked[name];
+        } else {
+            console.warn(`HierarchyPanel: handleCheck error.`);
+        }
+
+        this.updateUI();
+    }
+
     handleDoubleClick(value) {
         this.setState({
             selected: value,
@@ -76,15 +94,17 @@ class HierarchyPanel extends React.Component {
      * 根据场景变化，更新场景树状图
      */
     updateUI() {
-        var scene = app.editor.scene;
-        var camera = app.editor.camera;
+        const scene = app.editor.scene;
+        const camera = app.editor.camera;
 
-        var list = [{
+        let list = [{
             value: camera.uuid,
             text: camera.name,
             cls: 'Camera',
+            expanded: false,
+            checked: this.checked[camera.uuid] || false,
+            draggable: false,
             children: [],
-            checked: false,
         }];
 
         this._parseData(scene, list);
@@ -120,10 +140,10 @@ class HierarchyPanel extends React.Component {
             value: obj.uuid,
             text: obj.name,
             expanded: expanded[obj.uuid],
+            checked: this.checked[obj.uuid] || false,
             draggable: obj !== scene && obj !== camera,
             cls: cls,
             children: [],
-            checked: false,
         };
 
         list.push(data);

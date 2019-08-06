@@ -12,10 +12,11 @@ class Tree extends React.Component {
     constructor(props) {
         super(props);
 
-        const { onExpand, onSelect, onDoubleClick, onDrop } = this.props;
+        const { onExpand, onSelect, onCheck, onDoubleClick, onDrop } = this.props;
 
         this.handleExpandNode = this.handleExpandNode.bind(this, onExpand);
         this.handleClick = this.handleClick.bind(this, onSelect);
+        this.handleCheck = this.handleCheck.bind(this, onCheck);
         this.handleDoubleClick = this.handleDoubleClick.bind(this, onDoubleClick);
 
         this.handleDrag = this.handleDrag.bind(this);
@@ -26,7 +27,7 @@ class Tree extends React.Component {
     }
 
     render() {
-        const { data, className, style } = this.props;
+        const { className, style, data } = this.props;
 
         // 创建节点
         var list = [];
@@ -48,7 +49,7 @@ class Tree extends React.Component {
         let checkbox = null;
 
         if (data.checked === true || data.checked === false) {
-            checkbox = <CheckBox selected={data.checked} />;
+            checkbox = <CheckBox name={data.value} checked={data.checked} onChange={this.handleCheck} />;
         }
 
         return <li
@@ -85,6 +86,11 @@ class Tree extends React.Component {
         if (value) {
             onSelect && onSelect(value, event);
         }
+    }
+
+    handleCheck(onCheck, value, name, event) {
+        event.stopPropagation();
+        onCheck && onCheck(value, name, event);
     }
 
     handleDoubleClick(onDoubleClick, event) {
@@ -191,6 +197,7 @@ Tree.propTypes = {
     selected: PropTypes.string,
     onExpand: PropTypes.func,
     onSelect: PropTypes.func,
+    onCheck: PropTypes.func,
     onDoubleClick: PropTypes.func,
     onDrop: PropTypes.func,
 };
@@ -202,6 +209,7 @@ Tree.defaultProps = {
     selected: null,
     onExpand: null,
     onSelect: null,
+    onCheck: null,
     onDoubleClick: null,
     onDrop: null,
 };
