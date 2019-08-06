@@ -30,7 +30,7 @@ class OptionsWindow extends React.Component {
         return <Window
             className={'OptionsWindow'}
             title={L_SETTINGS}
-            style={{ width: '800px', height: '500px', }}
+            style={{ width: '300px', height: '400px', }}
             mask={false}
             onClose={this.handleClose}>
             <Content>
