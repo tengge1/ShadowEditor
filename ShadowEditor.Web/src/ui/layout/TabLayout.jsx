@@ -10,40 +10,35 @@ class TabLayout extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            activeTab: props.activeTab,
-        };
-
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick(event) {
-        var tabIndex = event.target.tabIndex;
-        this.setState({
-            activeTab: tabIndex,
-        });
+        this.handleClick = this.handleClick.bind(this, props.onActiveTabChange);
     }
 
     render() {
-        const { className, style, children, activeTab } = this.props;
+        const { className, style, children, activeTabIndex } = this.props;
 
         return <div className={classNames('TabLayout', className)} style={style}>
             <div className={'tabs'}>
                 {React.Children.map(children, (n, i) => {
                     return <div
-                        className={classNames('tab', i === this.state.activeTab ? 'selected' : null)}
+                        className={classNames('tab', i === activeTabIndex ? 'selected' : null)}
                         key={i}
-                        tabIndex={i}
+                        tbindex={i}
                         onClick={this.handleClick}
                     >{n.props.title}</div>;
                 })}
             </div>
             <div className={'contents'}>
                 {React.Children.map(children, (n, i) => {
-                    return <div className={classNames('content', i === this.state.activeTab ? 'show' : null)} key={i}>{n}</div>;
+                    return <div className={classNames('content', i === activeTabIndex ? 'show' : null)} key={i}>{n}</div>;
                 })}
             </div>
         </div>;
+    }
+
+    handleClick(onActiveTabChange, event) {
+        const index = event.target.getAttribute('tbindex');
+
+        onActiveTabChange && onActiveTabChange(parseInt(index), event.target, event);
     }
 }
 
@@ -51,14 +46,16 @@ TabLayout.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     children: PropTypes.node,
-    activeTab: PropTypes.number,
+    activeTabIndex: PropTypes.number,
+    onActiveTabChange: PropTypes.func,
 };
 
 TabLayout.defaultProps = {
     className: null,
     style: null,
     children: null,
-    activeTab: 0,
+    activeTabIndex: 0,
+    onActiveTabChange: null,
 };
 
 export default TabLayout;
