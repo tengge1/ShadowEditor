@@ -30,7 +30,7 @@ class RendererPanel extends React.Component {
     render() {
         const { shadowMapType, gammaInput, gammaOutput, gammaFactor } = this.state;
 
-        return <Form>
+        return <Form className={'RendererPanel'}>
             <FormControl>
                 <Label>{L_SHADOW}</Label>
                 <Select options={this.shadowMapType} name={'shadowMapType'} value={shadowMapType} onChange={this.handleChange}></Select>

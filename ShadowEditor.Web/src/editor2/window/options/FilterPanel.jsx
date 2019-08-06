@@ -28,7 +28,7 @@ class FilterPanel extends React.Component {
     render() {
         const { hue, saturate, brightness, blur, contrast, grayscale, invert, sepia } = this.state;
 
-        return <Form>
+        return <Form className={'FilterPanel'}>
             <FormControl>
                 <Label>{L_HUE}</Label>
                 <Input type={'number'} name={'hue'} value={hue} onChange={this.handleChange}></Input>

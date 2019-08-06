@@ -1,6 +1,7 @@
 .CheckBox {
     width: 20px;
     height: 20px;
+    margin: 0;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAvSURBVDhPYxg6oKur6z8lGGoMAoAEyQWjBkLAqIEkgVEDIWCEGkgJhhoz6AEDAwCX46nq5LTHtAAAAABJRU5ErkJggg==);
     display: inline-block;
     -webkit-appearance: none;

@@ -27,7 +27,7 @@ class HelperPanel extends React.Component {
     render() {
         const { showGrid, showCamera, showPointLight, showDirectionalLight, showSpotLight, showHemisphereLight, showRectAreaLight, showSkeleton } = this.state;
 
-        return <Form>
+        return <Form className={'HelperPanel'}>
             <FormControl>
                 <Label>{L_GRID}</Label>
                 <CheckBox name={'showGrid'} value={showGrid} onChange={this.handleChange}></CheckBox>

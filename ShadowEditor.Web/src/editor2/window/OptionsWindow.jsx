@@ -14,7 +14,7 @@ class OptionsWindow extends React.Component {
         super(props);
 
         this.state = {
-            activeTab: 0,
+            activeTabIndex: 0,
         };
 
         this.updateUI = this.updateUI.bind(this);
@@ -25,19 +25,19 @@ class OptionsWindow extends React.Component {
     }
 
     render() {
-        const { activeTab } = this.state;
+        const { activeTabIndex } = this.state;
 
         return <Window
             className={'OptionsWindow'}
-            title={`Settings`}
+            title={L_SETTINGS}
             style={{ width: '800px', height: '500px', }}
             mask={false}
             onClose={this.handleClose}>
             <Content>
-                <TabLayout className={'tab'}>
-                    <RendererPanel title={'Renderer'}></RendererPanel>
-                    <HelperPanel title={'Helper'}></HelperPanel>
-                    <FilterPanel title={'Filter'}></FilterPanel>
+                <TabLayout className={'tab'} activeTabIndex={activeTabIndex} onActiveTabChange={this.handleActiveTabChange}>
+                    <RendererPanel title={L_RENDERER}></RendererPanel>
+                    <HelperPanel title={L_HELPERS}></HelperPanel>
+                    <FilterPanel title={L_FILTER}></FilterPanel>
                 </TabLayout>
             </Content>
             <Buttons>
@@ -63,18 +63,20 @@ class OptionsWindow extends React.Component {
         app.removeElement(this);
     }
 
-    handleActiveTabChange() {
-
+    handleActiveTabChange(index) {
+        this.setState({
+            activeTabIndex: index,
+        });
     }
 }
 
 OptionsWindow.propTypes = {
-    activeTab: PropTypes.number,
+    activeTabIndex: PropTypes.number,
     onActiveTabChange: PropTypes.func,
 };
 
 OptionsWindow.defaultProps = {
-    activeTab: 0,
+    activeTabIndex: 0,
     onActiveTabChange: null,
 };
 

@@ -1,0 +1,6 @@
+.Form.FilterPanel {
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
