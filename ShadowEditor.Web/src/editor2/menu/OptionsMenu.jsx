@@ -9,6 +9,10 @@ class OptionsMenu extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            
+        };
+
         this.handleRendererOptions = this.handleRendererOptions.bind(this);
         this.handleHelperOptions = this.handleHelperOptions.bind(this);
         this.handleFilterOptions = this.handleFilterOptions.bind(this);
