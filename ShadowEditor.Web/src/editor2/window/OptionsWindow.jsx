@@ -18,8 +18,6 @@ class OptionsWindow extends React.Component {
         };
 
         this.updateUI = this.updateUI.bind(this);
-
-        this.handleSave = this.handleSave.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleActiveTabChange = this.handleActiveTabChange.bind(this);
     }
@@ -41,8 +39,7 @@ class OptionsWindow extends React.Component {
                 </TabLayout>
             </Content>
             <Buttons>
-                <Button onClick={this.handleSave}>{L_OK}</Button>
-                <Button onClick={this.handleClose}>{L_CANCEL}</Button>
+                <Button onClick={this.handleClose}>{L_CLOSE}</Button>
             </Buttons>
         </Window>;
     }
@@ -52,10 +49,6 @@ class OptionsWindow extends React.Component {
     }
 
     updateUI() {
-
-    }
-
-    handleSave() {
 
     }
 

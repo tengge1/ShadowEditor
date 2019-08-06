@@ -634,4 +634,5 @@ Object.assign(window, {
     L_DELETE_SCRIPT: 'Delete Script',
     L_SCALE_LOCKED: 'Scale Locked',
     L_LANGUAGE: 'Language',
+    L_CLOSE: 'Close',
 });

@@ -636,3 +636,4 @@ L_EDIT_SCRIPT = '编辑脚本';
 L_DELETE_SCRIPT = '删除脚本';
 L_SCALE_LOCKED = '锁定缩放';
 L_LANGUAGE = '语言';
+L_CLOSE = '关闭';
