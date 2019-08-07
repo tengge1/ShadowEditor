@@ -65,7 +65,7 @@ class ImageList extends React.Component {
                 <IconButton icon={'right-triangle2'} title={nextPageText} onClick={this.handleNextPage}></IconButton>
                 <IconButton icon={'forward'} title={lastPageText} onClick={this.handleLastPage}></IconButton>
                 <div className={'info'}>
-                    共<span>{totalPage}</span>页
+                    共{totalPage}页
                 </div>
             </div>
         </div>;
