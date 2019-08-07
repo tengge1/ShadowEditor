@@ -1,6 +1,6 @@
 import './css/Editor.css';
 
-import { BorderLayout } from '../third_party';
+import { BorderLayout, LoadMask } from '../third_party';
 
 import EditorMenuBar from './menu/EditorMenuBar.jsx';
 import EditorStatusBar from './status/EditorStatusBar.jsx';
@@ -47,6 +47,7 @@ class Editor extends React.Component {
             {elements.map((n, i) => {
                 return <div key={i}>{n}</div>;
             })}
+            <LoadMask></LoadMask>
         </>;
     }
 

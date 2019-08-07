@@ -25,7 +25,7 @@ class LoadMask extends React.Component {
 LoadMask.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    show: PropTypes.show,
+    show: PropTypes.bool,
     text: PropTypes.string,
 };
 
