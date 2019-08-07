@@ -52,6 +52,9 @@ export { default as MenuItemSeparator } from './menu/MenuItemSeparator.jsx';
 // panel
 export { default as Panel } from './panel/Panel.jsx';
 
+// progress
+export { default as LoadMask } from './progress/LoadMask.jsx';
+
 // property
 export { default as PropertyGrid } from './property/PropertyGrid.jsx';
 export { default as PropertyGroup } from './property/PropertyGroup.jsx';
