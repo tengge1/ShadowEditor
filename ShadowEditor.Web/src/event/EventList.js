@@ -22,6 +22,7 @@ var EventList = [
     'appStarted', // 应用程序开始后调用
     'appStop', // 程序开始结束前调用
     'appStoped', // 程序结束后调用
+    'showMask', // 是否显示加载器
 
     // 配置
     'optionsChanged', // 配置改变事件

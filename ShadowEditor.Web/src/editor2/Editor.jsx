@@ -23,6 +23,8 @@ class Editor extends React.Component {
         super(props);
 
         this.state = {
+            showMask: false,
+            maskText: L_WAITING,
             elements: [],
         };
 
@@ -30,7 +32,7 @@ class Editor extends React.Component {
     }
 
     render() {
-        const { elements } = this.state;
+        const { showMask, maskText, elements } = this.state;
 
         return <>
             <BorderLayout className={'Editor'}>
@@ -47,7 +49,7 @@ class Editor extends React.Component {
             {elements.map((n, i) => {
                 return <div key={i}>{n}</div>;
             })}
-            <LoadMask></LoadMask>
+            <LoadMask text={maskText} show={showMask}></LoadMask>
         </>;
     }
 
@@ -144,6 +146,8 @@ class Editor extends React.Component {
 
         app.on(`mousedown.Editor`, this.onMouseDown.bind(this));
         app.on(`mousemove.Editor`, this.onMouseMove.bind(this));
+
+        app.on(`showMask.Editor`, this.onShowMask.bind(this));
 
         // 帮助器
         this.helpers = new Helpers(app);
@@ -491,6 +495,13 @@ class Editor extends React.Component {
         }
 
         this.setState({ elements }, callback);
+    }
+
+    onShowMask(enabled, text) {
+        this.setState({
+            showMask: enabled,
+            maskText: text || L_WAITING,
+        });
     }
 }
 

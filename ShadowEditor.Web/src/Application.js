@@ -253,6 +253,21 @@ Application.prototype.prompt = function (options = {}) {
     };
 };
 
+/**
+ * 显示加载器
+ * @param {*} text 加载器文本
+ */
+Application.prototype.mask = function (text) {
+    this.call('showMask', this, true, text);
+};
+
+/**
+ * 隐藏加载器
+ */
+Application.prototype.unmask = function () {
+    this.call('showMask', this, false);
+};
+
 // -------------------- 工具函数  -----------------------
 
 /**

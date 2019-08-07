@@ -11,6 +11,10 @@
     z-index: 2000;
 }
 
+.LoadMask.hidden {
+    display: none;
+}
+
 .LoadMask>.box {
     position: relative;
     background: #c3daf9;

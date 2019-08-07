@@ -635,4 +635,5 @@ Object.assign(window, {
     L_SCALE_LOCKED: 'Scale Locked',
     L_LANGUAGE: 'Language',
     L_CLOSE: 'Close',
+    L_WAITING: 'Waiting...',
 });
