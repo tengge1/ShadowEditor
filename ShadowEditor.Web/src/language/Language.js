@@ -636,4 +636,5 @@ Object.assign(window, {
     L_LANGUAGE: 'Language',
     L_CLOSE: 'Close',
     L_WAITING: 'Waiting...',
+    L_LOADING: 'Loading...',
 });

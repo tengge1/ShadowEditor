@@ -108,6 +108,8 @@ class ScenePanel extends React.Component {
         var server = app.options.server;
         document.title = data.Name;
 
+        app.mask(L_LOADING);
+
         fetch(`${server}/api/Scene/Load?ID=${data.id}`).then(response => {
             response.json().then(obj => {
                 editor.clear(false);
@@ -143,6 +145,8 @@ class ScenePanel extends React.Component {
                     if (obj.scene) {
                         app.call('sceneGraphChanged', this);
                     }
+
+                    app.unmask();
 
                     app.toast(L_LOAD_SUCCESS);
                 });
