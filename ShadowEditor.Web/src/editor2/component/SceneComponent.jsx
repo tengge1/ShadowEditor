@@ -313,13 +313,21 @@ class SceneComponent extends React.Component {
             });
         });
 
+        let scene = this.selected;
+
         Promise.all(promises).then(textures => {
-            UI.get('backgroundPosX', this.id).setValue(textures[0]);
-            UI.get('backgroundNegX', this.id).setValue(textures[1]);
-            UI.get('backgroundPosY', this.id).setValue(textures[2]);
-            UI.get('backgroundNegY', this.id).setValue(textures[3]);
-            UI.get('backgroundPosZ', this.id).setValue(textures[4]);
-            UI.get('backgroundNegZ', this.id).setValue(textures[5]);
+            scene.background = new THREE.CubeTexture([
+                textures[0].image,
+                textures[1].image,
+                textures[2].image,
+                textures[3].image,
+                textures[4].image,
+                textures[5].image
+            ]);
+
+            scene.background.needsUpdate = true;
+
+            app.call(`objectChanged`, this, this.selected);
         });
     }
 
