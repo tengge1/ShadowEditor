@@ -19,7 +19,7 @@ class Viewport extends React.Component {
     render() {
         return <div className={'Viewport'}>
             <div className={'editor'} ref={this.editorRef}></div>
-            <div className={'svg'} ref={this.svgRef}></div>
+            <svg className={'svg'} ref={this.svgRef}></svg>
             <ScriptEditorPanel></ScriptEditorPanel>
             <div className={'player'} ref={this.playerRef}></div>
         </div>;

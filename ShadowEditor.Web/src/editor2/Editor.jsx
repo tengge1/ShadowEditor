@@ -138,8 +138,8 @@ class Editor extends React.Component {
         this.showViewHelper = true;
 
         // 可视化
-        // this.svg = UI.get('SvgContainer').dom;
-        // this.visual = new Visualization();
+        this.svg = app.svgRef;
+        this.visual = new Visualization();
 
         // 事件
         app.on(`appStarted.Editor`, this.onAppStarted.bind(this));
