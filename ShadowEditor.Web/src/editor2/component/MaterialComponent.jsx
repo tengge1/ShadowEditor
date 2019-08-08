@@ -748,31 +748,42 @@ class MaterialComponent extends React.Component {
     // --------------------------------------- 材质保存载入 --------------------------------------------------
 
     onSave() {
-        UI.prompt(L_ENTER_MATERIAL_NAME, L_NAME, L_NEW_MATERIAL, (event, value) => {
-            this.commitSave(value);
+        app.prompt({
+            title: L_ENTER_MATERIAL_NAME,
+            content: L_NAME,
+            value: L_NEW_MATERIAL,
+            onOK: value => {
+                this.commitSave(value);
+            }
         });
     }
 
     commitSave(name) {
-        var material = this.selected.material;
-        var data = (new MaterialsSerializer()).toJSON(material);
+        const material = this.selected.material;
+        const data = (new MaterialsSerializer()).toJSON(material);
 
         // 材质球图片
-        var dataURL = MaterialUtils.createMaterialImage(material).toDataURL('image/png');
+        const dataURL = MaterialUtils.createMaterialImage(material).toDataURL('image/png');
 
-        var file = Converter.dataURLtoFile(dataURL, name);
+        const file = Converter.dataURLtoFile(dataURL, name);
 
         // 上传图片
         Ajax.post(`${app.options.server}/api/Upload/Upload`, {
             file: file
         }, result => {
-            var obj = JSON.parse(result);
+            let obj = JSON.parse(result);
+
+            if (obj.Code === 300) {
+                app.toast(obj.Msg);
+                return;
+            }
+
             Ajax.post(`/api/Material/Save`, {
                 Name: name,
                 Data: JSON.stringify(data),
                 Thumbnail: obj.Data.url
             }, result => {
-                var obj = JSON.parse(result);
+                obj = JSON.parse(result);
                 if (obj.Code === 200) {
                     app.call(`showBottomPanel`, this, 'material');
                 }

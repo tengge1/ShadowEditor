@@ -70,6 +70,15 @@ function dataURLtoFile(dataURL, filename) {
     while (length--) {
         uint8Array[length] = binaryString.charCodeAt(length);
     }
+
+    if (mimeType === 'image/jpeg') {
+        filename = filename + '.jpg';
+    } else if (mimeType === 'image/png') {
+        filename = filename + '.png';
+    } else {
+        console.warn(`Converter: not supported mime-type: ${mimeType}.`);
+    }
+
     return new File([uint8Array], filename, { type: mimeType });
 }
 

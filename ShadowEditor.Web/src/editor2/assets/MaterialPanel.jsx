@@ -4,6 +4,7 @@ import ModelLoader from '../../loader/ModelLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import Ajax from '../../utils/Ajax';
 import UploadUtils from '../../utils/UploadUtils';
+import MaterialsSerializer from '../../serialization/material/MaterialsSerializer';
 
 /**
  * 材质面板
