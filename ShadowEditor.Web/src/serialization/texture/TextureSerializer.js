@@ -25,7 +25,7 @@ TextureSerializer.prototype.toJSON = function (obj) {
     // 说明：立体贴图obj.image是一个图片数组。
     if (obj.image && !Array.isArray(obj.image) && obj.image.tagName && obj.image.tagName.toLowerCase() === 'img') { // 图片
         var src = obj.image.src;
-        if (!src.startsWith('blob')) { // blob地址不应该被修改
+        if (!src.startsWith('data:') && !src.startsWith('blob')) { // data和blob地址不应该被修改
             var url = new URL(obj.image.src); // 修复贴图路径自带服务端路径bug
             src = url.pathname;
         }
