@@ -63,14 +63,14 @@ class PrefabPanel extends React.Component {
     }
 
     update() {
-        fetch(`/api/Category/List?type=Prefab`).then(response => {
+        fetch(`${app.options.server}/api/Category/List?type=Prefab`).then(response => {
             response.json().then(obj => {
                 this.setState({
                     categoryData: obj.Data,
                 });
             });
         });
-        fetch(`/api/Prefab/List`).then(response => {
+        fetch(`${app.options.server}/api/Prefab/List`).then(response => {
             response.json().then(obj => {
                 this.data = obj.Data;
                 this.setState({
@@ -105,7 +105,7 @@ class PrefabPanel extends React.Component {
     }
 
     handleClick(data) {
-        Ajax.get(`/api/Prefab/Get?ID=${data.ID}`, result => {
+        Ajax.get(`${app.options.server}/api/Prefab/Get?ID=${data.ID}`, result => {
             var obj = JSON.parse(result);
             if (obj.Code === 200) {
                 //var material = (new MaterialsSerializer()).fromJSON(obj.Data.Data);
@@ -131,13 +131,11 @@ class PrefabPanel extends React.Component {
     // ------------------------------ 删除 ----------------------------------------
 
     handleDelete(data) {
-        var server = app.options.server;
-
         app.confirm({
             title: L_CONFIRM,
             content: `${L_DELETE} ${data.title}?`,
             onOK: () => {
-                fetch(`${server}/api/Prefab/Delete?ID=${data.id}`, {
+                fetch(`${app.options.server}/api/Prefab/Delete?ID=${data.id}`, {
                     method: 'POST',
                 }).then(response => {
                     response.json().then(obj => {

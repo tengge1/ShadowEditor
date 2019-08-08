@@ -67,7 +67,7 @@ class EditWindow extends React.Component {
     }
 
     updateUI() {
-        Ajax.getJson(`/api/Category/List?Type=${this.props.type}`, json => {
+        Ajax.getJson(`${app.options.server}/api/Category/List?Type=${this.props.type}`, json => {
             var options = {
                 '': L_NOT_SET
             };

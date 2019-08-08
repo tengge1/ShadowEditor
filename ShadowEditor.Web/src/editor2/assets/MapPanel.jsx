@@ -63,14 +63,14 @@ class MapPanel extends React.Component {
     }
 
     update() {
-        fetch(`/api/Category/List?type=Map`).then(response => {
+        fetch(`${app.options.server}/api/Category/List?type=Map`).then(response => {
             response.json().then(obj => {
                 this.setState({
                     categoryData: obj.Data,
                 });
             });
         });
-        fetch(`/api/Map/List`).then(response => {
+        fetch(`${app.options.server}/api/Map/List`).then(response => {
             response.json().then(obj => {
                 this.data = obj.Data;
                 this.setState({
@@ -136,13 +136,11 @@ class MapPanel extends React.Component {
     // ------------------------------ 删除 ----------------------------------------
 
     handleDelete(data) {
-        var server = app.options.server;
-
         app.confirm({
             title: L_CONFIRM,
             content: `${L_DELETE} ${data.title}?`,
             onOK: () => {
-                fetch(`${server}/api/Map/Delete?ID=${data.id}`, {
+                fetch(`${app.options.server}/api/Map/Delete?ID=${data.id}`, {
                     method: 'POST',
                 }).then(response => {
                     response.json().then(obj => {

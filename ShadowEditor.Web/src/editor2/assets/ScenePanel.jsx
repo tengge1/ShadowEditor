@@ -62,14 +62,14 @@ class ScenePanel extends React.Component {
     }
 
     update() {
-        fetch(`/api/Category/List?type=Scene`).then(response => {
+        fetch(`${app.options.server}/api/Category/List?type=Scene`).then(response => {
             response.json().then(obj => {
                 this.setState({
                     categoryData: obj.Data,
                 });
             });
         });
-        fetch(`/api/Scene/List`).then(response => {
+        fetch(`${app.options.server}/api/Scene/List`).then(response => {
             response.json().then(obj => {
                 this.data = obj.Data;
                 this.setState({
@@ -105,12 +105,11 @@ class ScenePanel extends React.Component {
 
     handleClick(data) {
         var editor = app.editor;
-        var server = app.options.server;
         document.title = data.Name;
 
         app.mask(L_LOADING);
 
-        fetch(`${server}/api/Scene/Load?ID=${data.id}`).then(response => {
+        fetch(`${app.options.server}/api/Scene/Load?ID=${data.id}`).then(response => {
             response.json().then(obj => {
                 editor.clear(false);
 
@@ -256,13 +255,11 @@ class ScenePanel extends React.Component {
     // ------------------------------ 删除 ----------------------------------------
 
     handleDelete(data) {
-        var server = app.options.server;
-
         app.confirm({
             title: L_CONFIRM,
             content: `${L_DELETE} ${data.title}?`,
             onOK: () => {
-                fetch(`${server}/api/Scene/Delete?ID=${data.id}`, {
+                fetch(`${app.options.server}/api/Scene/Delete?ID=${data.id}`, {
                     method: 'POST',
                 }).then(response => {
                     response.json().then(obj => {

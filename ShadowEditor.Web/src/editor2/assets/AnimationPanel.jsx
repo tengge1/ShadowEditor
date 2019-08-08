@@ -65,14 +65,14 @@ class AnimationPanel extends React.Component {
     }
 
     update() {
-        fetch(`/api/Category/List?type=Animation`).then(response => {
+        fetch(`${app.options.server}/api/Category/List?type=Animation`).then(response => {
             response.json().then(obj => {
                 this.setState({
                     categoryData: obj.Data,
                 });
             });
         });
-        fetch(`/api/Animation/List`).then(response => {
+        fetch(`${app.options.server}/api/Animation/List`).then(response => {
             response.json().then(obj => {
                 this.data = obj.Data;
                 this.setState({
@@ -138,13 +138,11 @@ class AnimationPanel extends React.Component {
     // ------------------------------ 删除 ----------------------------------------
 
     handleDelete(data) {
-        var server = app.options.server;
-
         app.confirm({
             title: L_CONFIRM,
             content: `${L_DELETE} ${data.title}?`,
             onOK: () => {
-                fetch(`${server}/api/Animation/Delete?ID=${data.id}`, {
+                fetch(`${app.options.server}/api/Animation/Delete?ID=${data.id}`, {
                     method: 'POST',
                 }).then(response => {
                     response.json().then(obj => {

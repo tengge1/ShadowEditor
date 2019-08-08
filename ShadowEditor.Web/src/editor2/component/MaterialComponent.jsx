@@ -778,7 +778,7 @@ class MaterialComponent extends React.Component {
                 return;
             }
 
-            Ajax.post(`/api/Material/Save`, {
+            Ajax.post(`${app.options.server}/api/Material/Save`, {
                 Name: name,
                 Data: JSON.stringify(data),
                 Thumbnail: obj.Data.url
