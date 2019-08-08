@@ -1,11 +1,11 @@
 .PropertyGroup>.content>.property.TextureProperty {
-    height: 49px;
+    height: 31px;
 }
 
 .TextureProperty>.field>.texture {
     position: relative;
     width: 100%;
-    height: 48px;
+    height: 30px;
     box-sizing: border-box;
     cursor: pointer;
 }
@@ -14,14 +14,13 @@
     width: 20px;
     height: 20px;
     margin: 2px;
+    vertical-align: middle;
 }
 
 .TextureProperty>.field>.texture>canvas {
-    position: absolute;
-    top: 0;
-    left: 24px;
-    width: calc(100% - 24px);
+    width: 60px;
     height: 24px;
+    margin: 2px;
+    border: 1px solid #555;
+    vertical-align: middle;
 }
-
-.TextureProperty>.field>.texture>.Input {}

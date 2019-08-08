@@ -73,7 +73,9 @@
 .PropertyGroup>.content>.property>.label {
     width: 100px;
     padding: 0 4px;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
     box-sizing: border-box;
 }
 
