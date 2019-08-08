@@ -16,14 +16,16 @@ class TextureProperty extends React.Component {
         this.canvasRef = React.createRef();
 
         this.handleSelect = this.handleSelect.bind(this);
+
+        this.handleEnable = this.handleEnable.bind(this, props.onChange);
         this.handleChange = this.handleChange.bind(this, props.onChange);
     }
 
     render() {
-        const { className, style, value, enabled, showScale, scale } = this.props;
+        const { className, style, value, showScale, scale } = this.props;
 
         return <div className={classNames('texture', className)} style={style}>
-            <CheckBox checked={enabled}></CheckBox>
+            <CheckBox checked={value !== null} onChange={this.handleEnable}></CheckBox>
             <canvas title={value ? value.sourceFile : ''}
                 ref={this.canvasRef}
                 onClick={this.handleSelect}></canvas>
@@ -61,6 +63,21 @@ class TextureProperty extends React.Component {
 
     handleSelect(event) {
         this.input.click();
+    }
+
+    handleEnable(onChange, enabled, name, event) {
+        const value = this.props.value;
+
+        if (enabled && value === null) {
+            this.input.click();
+            return;
+        }
+
+        if (enabled) {
+            onChange && onChange(value, this.props.name, event);
+        } else {
+            onChange && onChange(null, this.props.name, event);
+        }
     }
 
     handleChange(onChange, event) {
@@ -119,7 +136,6 @@ TextureProperty.propTypes = {
             return new TypeError(`Invalid prop \`${propName}\` of type \`${typeof (value)}\` supplied to \`${componentName}\`, expected \`THREE.Texture\`.`);
         }
     },
-    enabled: PropTypes.bool,
     showScale: PropTypes.bool,
     scale: PropTypes.number,
     onChange: PropTypes.func,
@@ -130,7 +146,6 @@ TextureProperty.defaultProps = {
     style: null,
     name: null,
     value: null,
-    enabled: false,
     showScale: false,
     scale: 1.0,
     onChange: null,

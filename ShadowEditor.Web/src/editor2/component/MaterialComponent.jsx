@@ -65,6 +65,21 @@ class MaterialComponent extends React.Component {
             5: L_CUSTOM_BLENDING,
         };
 
+        this.mapNames = [ // 用于判断属性是否是纹理
+            'map',
+            'alphaMap',
+            'bumpMap',
+            'normalMap',
+            'displacementMap',
+            'roughnessMap',
+            'metalnessMap',
+            'specularMap',
+            'envMap',
+            'lightMap',
+            'aoMap',
+            'emissiveMap',
+        ];
+
         this.state = {
             show: false,
             expanded: true,
@@ -104,56 +119,44 @@ class MaterialComponent extends React.Component {
             skinning: null,
 
             showMap: false,
-            mapEnabled: null,
             map: null,
 
             showAlphaMap: false,
-            alphaMapEnabled: null,
             alphaMap: null,
 
             showBumpMap: false,
-            bumpMapEnabled: null,
             bumpMap: null,
             bumpScale: null,
 
             showNormalMap: false,
-            normalMapEnabled: null,
             normalMap: null,
 
             showDisplacementMap: false,
-            displacementMapEnabled: null,
             displacementMap: null,
             displacementScale: null,
 
             showRoughnessMap: false,
-            roughnessMapEnabled: null,
             roughnessMap: null,
 
             showMetalnessMap: false,
-            metalnessMapEnabled: null,
             metalnessMap: null,
 
             showSpecularMap: false,
-            specularMapEnabled: null,
             specularMap: null,
 
             showEnvMap: false,
-            envMapEnabled: null,
             envMap: null,
 
             reflectivity: null,
 
             showLightMap: false,
-            lightMapEnabled: null,
             lightMap: null,
 
             showAoMap: false,
-            aoMapEnabled: null,
             aoMap: null,
             aoScale: null,
 
             showEmissiveMap: false,
-            emissiveMapEnabled: null,
             emissiveMap: null,
 
             showSide: false,
@@ -195,10 +198,9 @@ class MaterialComponent extends React.Component {
 
     render() {
         const { show, expanded, type, showProgram, showColor, color, showRoughness, roughness, showMetalness, metalness, showEmissive, emissive, showSpecular, specular, showShininess, shininess, showClearCoat, clearCoat, showClearCoatRoughness, clearCoatRoughness, showVertexColors, vertexColors, showSkinning, skinning,
-            showMap, mapEnabled, map, showAlphaMap, alphaMapEnabled, alphaMap, showBumpMap, bumpMapEnabled, bumpMap, bumpScale, showNormalMap, normalMapEnabled, normalMap, showDisplacementMap, displacementMapEnabled, displacementMap,
-            displacementScale, showRoughnessMap, roughnessMapEnabled, roughnessMap, showMetalnessMap, metalnessMapEnabled, metalnessMap, showSpecularMap, specularMapEnabled, specularMap, showEnvMap, envMapEnabled, envMap,
-            reflectivity, showLightMap, lightMapEnabled, lightMap, showAoMap, aoMapEnabled, aoMap, aoScale, showEmissiveMap, emissiveMapEnabled, emissiveMap, showSide, side, showFlatShading, flatShading, showBlending, blending, showOpacity, opacity,
-            showTransparent, transparent, showAlphaTest, alphaTest, showWireframe, wireframe, wireframeLinewidth } = this.state;
+            showMap, map, showAlphaMap, alphaMap, showBumpMap, bumpMap, bumpScale, showNormalMap, normalMap, showDisplacementMap, displacementMap,
+            displacementScale, showRoughnessMap, roughnessMap, showMetalnessMap, metalnessMap, showSpecularMap, specularMap, showEnvMap, envMap,
+            reflectivity, showLightMap, lightMap, showAoMap, aoMap, aoScale, showEmissiveMap, emissiveMap, showSide, side, showFlatShading, flatShading, showBlending, blending, showOpacity, opacity, showTransparent, transparent, showAlphaTest, alphaTest, showWireframe, wireframe, wireframeLinewidth } = this.state;
 
         if (!show) {
             return null;
@@ -223,18 +225,18 @@ class MaterialComponent extends React.Component {
             <NumberProperty label={L_CLEAR_COAT_ROUGHNESS} name={'clearCoatRoughness'} value={clearCoatRoughness} show={showClearCoatRoughness} onChange={this.handleChange}></NumberProperty>
             <SelectProperty label={L_VERTEX_COLOR} options={this.vertexColors} name={'vertexColors'} value={vertexColors} show={showVertexColors} onChange={this.handleChange}></SelectProperty>
             <CheckBoxProperty label={L_SKIN} name={'skinning'} value={skinning} show={showSkinning} onChange={this.handleChange}></CheckBoxProperty>
-            <TextureProperty label={L_TEXTURE} name={'map'} value={map} enabled={mapEnabled} show={showMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_ALPHA_MAP} name={'alphaMap'} value={alphaMap} enabled={alphaMapEnabled} show={showAlphaMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_BUMP_MAP} name={'bumpMap'} value={bumpMap} enabled={bumpMapEnabled} scale={bumpScale} show={showBumpMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_NORMAL_MAP} name={'normalMap'} value={normalMap} enabled={normalMapEnabled} show={showNormalMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_DISPLACEMENT_MAP} name={'displacementMap'} value={displacementMap} enabled={displacementMapEnabled} scale={displacementScale} show={showDisplacementMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_ROUGHNESS_MAP} name={'roughnessMap'} value={roughnessMap} enabled={roughnessMapEnabled} show={showRoughnessMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_METALNESS_MAP} name={'metalnessMap'} value={metalnessMap} enabled={metalnessMapEnabled} show={showMetalnessMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_SPECULAR_MAP} name={'specularMap'} value={specularMap} enabled={specularMapEnabled} show={showSpecularMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_ENV_MAP} name={'envMap'} value={envMap} enabled={envMapEnabled} show={showEnvMap} scale={reflectivity} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_LIGHT_MAP} name={'lightMap'} value={lightMap} enabled={lightMapEnabled} show={showLightMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_AO_MAP} name={'aoMap'} value={aoMap} enabled={aoMapEnabled} show={showAoMap} scale={aoScale} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_EMISSIVE_MAP} name={'emissiveMap'} value={emissiveMap} enabled={emissiveMapEnabled} show={showEmissiveMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_TEXTURE} name={'map'} value={map} show={showMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_ALPHA_MAP} name={'alphaMap'} value={alphaMap} show={showAlphaMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_BUMP_MAP} name={'bumpMap'} value={bumpMap} scale={bumpScale} show={showBumpMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_NORMAL_MAP} name={'normalMap'} value={normalMap} show={showNormalMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_DISPLACEMENT_MAP} name={'displacementMap'} value={displacementMap} scale={displacementScale} show={showDisplacementMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_ROUGHNESS_MAP} name={'roughnessMap'} value={roughnessMap} show={showRoughnessMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_METALNESS_MAP} name={'metalnessMap'} value={metalnessMap} show={showMetalnessMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_SPECULAR_MAP} name={'specularMap'} value={specularMap} show={showSpecularMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_ENV_MAP} name={'envMap'} value={envMap} show={showEnvMap} scale={reflectivity} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_LIGHT_MAP} name={'lightMap'} value={lightMap} show={showLightMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_AO_MAP} name={'aoMap'} value={aoMap} show={showAoMap} scale={aoScale} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_EMISSIVE_MAP} name={'emissiveMap'} value={emissiveMap} show={showEmissiveMap} onChange={this.handleChange}></TextureProperty>
             <SelectProperty label={L_SIDE} options={this.side} name={'side'} value={side} onChange={this.handleChange}></SelectProperty>
             <CheckBoxProperty label={L_FLAT_SHADING} name={'flatShading'} value={flatShading} onChange={this.handleChange}></CheckBoxProperty>
             <SelectProperty label={L_BLENDING} options={this.blending} name={'blending'} value={blending} onChange={this.handleChange}></SelectProperty>
@@ -242,7 +244,7 @@ class MaterialComponent extends React.Component {
             <CheckBoxProperty label={L_TRANSPARENT} name={'transparent'} value={transparent} onChange={this.handleChange}></CheckBoxProperty>
             <NumberProperty label={L_ALPHA_TEST} name={'alphaTest'} value={alphaTest} onChange={this.handleChange}></NumberProperty>
             <CheckBoxProperty label={L_WIREFRAME} name={'wireframe'} value={wireframe} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_WIREFRAME} name={'wireframeLinewidth'} value={wireframeLinewidth} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={'Wireframe Width'} name={'wireframeLinewidth'} value={wireframeLinewidth} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 
@@ -349,101 +351,65 @@ class MaterialComponent extends React.Component {
 
         if (material.map !== undefined) {
             state.showMap = true;
-            state.mapEnabled = material.map !== null;
-
-            if (state.mapEnabled) {
-                state.map = material.map;
-            }
+            state.map = material.map;
         } else {
             state.showMap = false;
         }
 
         if (material.alphaMap !== undefined) {
             state.showAlphaMap = true;
-            state.alphaMapEnabled = material.alphaMap !== null;
-
-            if (state.alphaMapEnabled) {
-                state.alphaMap = material.alphaMap;
-            }
+            state.alphaMap = material.alphaMap;
         } else {
             state.showAlphaMap = false;
         }
 
         if (material.bumpMap !== undefined) {
             state.showBumpMap = true;
-            state.bumpMapEnabled = material.bumpMap !== null;
-
-            if (state.bumpMapEnabled) {
-                state.bumpMap = material.bumpMap;
-                state.bumpScale = material.bumpScale;
-            }
+            state.bumpMap = material.bumpMap;
+            state.bumpScale = material.bumpScale;
         } else {
             state.showBumpMap = false;
         }
 
         if (material.normalMap !== undefined) {
             state.showNormalMap = true;
-            state.normalMapEnabled = material.normalMap !== null;
-
-            if (state.normalMapEnabled) {
-                state.normalMap = material.normalMap;
-            }
+            state.normalMap = material.normalMap;
         } else {
             state.showNormalMap = false;
         }
 
         if (material.displacementMap !== undefined) {
             state.showDisplacementMap = true;
-            state.displacementMapEnabled = material.displacementMap !== null;
-
-            if (state.displacementMapEnabled) {
-                state.displacementMap = material.displacementMap;
-                state.displacementScale = material.displacementScale;
-            }
+            state.displacementMap = material.displacementMap;
+            state.displacementScale = material.displacementScale;
         } else {
             state.showDisplacementMap = false;
         }
 
         if (material.roughnessMap !== undefined) {
             state.showRoughnessMap = true;
-            state.roughnessMapEnabled = material.roughnessMap !== null;
-
-            if (state.roughnessMapEnabled) {
-                state.roughnessMap = material.roughnessMap;
-            }
+            state.roughnessMap = material.roughnessMap;
         } else {
             state.showRoughnessMap = false;
         }
 
         if (material.metalnessMap !== undefined) {
             state.showMetalnessMap = true;
-            state.metalnessMapEnabled = material.metalnessMap !== null;
-
-            if (state.metalnessMapEnabled) {
-                state.metalnessMap = material.metalnessMap;
-            }
+            state.metalnessMap = material.metalnessMap;
         } else {
             state.showMetalnessMap = false;
         }
 
         if (material.specularMap !== undefined) {
             state.showSpecularMap = true;
-            state.specularMapEnabled = material.specularMap !== null;
-
-            if (state.specularMapEnabled) {
-                state.specularMap = material.specularMap;
-            }
+            state.specularMap = material.specularMap;
         } else {
             state.showSpecularMap = false;
         }
 
         if (material.envMap !== undefined) {
             state.showEnvMap = true;
-            state.envMapEnabled = material.envMap !== null;
-
-            if (state.envMapEnabled) {
-                state.envMap = material.envMap;
-            }
+            state.envMap = material.envMap;
 
             if (material.reflectivity !== undefined) {
                 state.reflectivity = material.reflectivity;
@@ -454,34 +420,22 @@ class MaterialComponent extends React.Component {
 
         if (material.lightMap !== undefined) {
             state.showLightMap = true;
-            state.lightMapEnabled = material.lightMap !== null;
-
-            if (state.lightMapEnabled) {
-                state.lightMap = material.lightMap;
-            }
+            state.lightMap = material.lightMap;
         } else {
             state.showLightMap = false;
         }
 
         if (material.aoMap !== undefined) {
             state.showAoMap = true;
-            state.aoMapEnabled = material.aoMap !== null;
-
-            if (state.aoMapEnabled) {
-                state.aoMap = material.aoMap;
-                state.aoScale = material.aoMapIntensity;
-            }
+            state.aoMap = material.aoMap;
+            state.aoScale = material.aoMapIntensity;
         } else {
             state.showAoMap = false;
         }
 
         if (material.emissiveMap !== undefined) {
             state.showEmissiveMap = true;
-            state.emissiveMapEnabled = material.emissiveMap !== null;
-
-            if (state.emissiveMapEnabled) {
-                state.emissiveMap = material.emissiveMap;
-            }
+            state.emissiveMap = material.emissiveMap;
         } else {
             state.showEmissiveMap = false;
         }
@@ -522,40 +476,24 @@ class MaterialComponent extends React.Component {
     }
 
     handleChange(value, name) {
-        if (value === null) {
+        // 当name是纹理时，value为null表示不显示纹理，不应该跳过。
+        if (value === null && this.mapNames.indexOf(name) === -1) {
             this.setState({
                 [name]: value,
             });
             return;
         }
 
-        let editor = app.editor;
-        let object = this.selected;
-        let geometry = object.geometry;
+        const editor = app.editor;
+        const object = this.selected;
         let material = object.material;
 
         const { type, showProgram, showColor, color, showRoughness, roughness, showMetalness, metalness, showEmissive, emissive, showSpecular, specular, showShininess, shininess, showClearCoat, clearCoat, showClearCoatRoughness, clearCoatRoughness, showVertexColors, vertexColors, showSkinning, skinning,
-            showMap, mapEnabled, map, showAlphaMap, alphaMapEnabled, alphaMap, showBumpMap, bumpMapEnabled, bumpMap, bumpScale, showNormalMap, normalMapEnabled, normalMap, showDisplacementMap, displacementMapEnabled, displacementMap,
-            displacementScale, showRoughnessMap, roughnessMapEnabled, roughnessMap, showMetalnessMap, metalnessMapEnabled, metalnessMap, showSpecularMap, specularMapEnabled, specularMap, showEnvMap, envMapEnabled, envMap,
-            reflectivity, showLightMap, lightMapEnabled, lightMap, showAoMap, aoMapEnabled, aoMap, aoScale, showEmissiveMap, emissiveMapEnabled, emissiveMap, showSide, side, showFlatShading, flatShading, showBlending, blending, showOpacity, opacity,
-            showTransparent, transparent, showAlphaTest, alphaTest, showWireframe, wireframe, wireframeLinewidth } = Object.assign({}, this.state, {
+            showMap, map, showAlphaMap, alphaMap, showBumpMap, bumpMap, bumpScale, showNormalMap, normalMap, showDisplacementMap, displacementMap,
+            displacementScale, showRoughnessMap, roughnessMap, showMetalnessMap, metalnessMap, showSpecularMap, specularMap, showEnvMap, envMap,
+            reflectivity, showLightMap, lightMap, showAoMap, aoMap, aoScale, showEmissiveMap, emissiveMap, showSide, side, showFlatShading, flatShading, showBlending, blending, showOpacity, opacity, showTransparent, transparent, showAlphaTest, alphaTest, showWireframe, wireframe, wireframeLinewidth } = Object.assign({}, this.state, {
                 [name]: value,
             });
-
-        let textureWarning = false;
-        let objectHasUvs = false;
-
-        if (object instanceof THREE.Sprite) {
-            objectHasUvs = true;
-        }
-
-        if (geometry instanceof THREE.Geometry && geometry.faceVertexUvs[0].length > 0) {
-            objectHasUvs = true;
-        }
-
-        if (geometry instanceof THREE.BufferGeometry && geometry.attributes.uv !== undefined) {
-            objectHasUvs = true;
-        }
 
         if (material instanceof THREE[type] === false) {
             material = new THREE[type]();
@@ -623,181 +561,95 @@ class MaterialComponent extends React.Component {
             editor.execute(new SetMaterialValueCommand(object, 'skinning', skinning));
         }
 
-        if (material.map !== undefined) {
-            if (objectHasUvs) {
-                let map1 = mapEnabled ? map : null;
-                if (mapEnabled && material.map !== map1) {
-                    editor.execute(new SetMaterialMapCommand(object, 'map', map1));
-                }
+        if (name === 'map' && material.map !== undefined) {
+            if (material.map !== map) {
+                editor.execute(new SetMaterialMapCommand(object, 'map', map));
             } else {
-                if (mapEnabled) {
-                    textureWarning = true;
+
+            }
+        }
+
+        if (name === 'alphaMap' && material.alphaMap !== undefined) {
+            if (material.alphaMap !== alphaMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'alphaMap', alphaMap));
+            }
+        }
+
+        if (name === 'bumpMap' && material.bumpMap !== undefined) {
+            if (material.bumpMap !== bumpMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'bumpMap', bumpMap));
+            }
+
+            if (material.bumpScale !== bumpScale) {
+                editor.execute(new SetMaterialValueCommand(object, 'bumpScale', bumpScale));
+            }
+        }
+
+        if (name === 'normalMap' && material.normalMap !== undefined) {
+            if (material.normalMap !== normalMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'normalMap', normalMap));
+            }
+        }
+
+        if (name === 'displacementMap' && material.displacementMap !== undefined) {
+            if (material.displacementMap !== displacementMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'displacementMap', displacementMap));
+            }
+
+            if (material.displacementScale !== displacementScale) {
+                editor.execute(new SetMaterialValueCommand(object, 'displacementScale', displacementScale));
+            }
+        }
+
+        if (name === 'roughnessMap' && material.roughnessMap !== undefined) {
+            if (material.roughnessMap !== roughnessMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'roughnessMap', roughnessMap));
+            }
+        }
+
+        if (name === 'metalnessMap' && material.metalnessMap !== undefined) {
+            if (material.metalnessMap !== metalnessMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'metalnessMap', metalnessMap));
+            }
+        }
+
+        if (name === 'specularMap' && material.specularMap !== undefined) {
+            if (material.specularMap !== specularMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'specularMap', specularMap));
+            }
+        }
+
+        if (name === 'envMap' && material.envMap !== undefined) {
+            if (material.envMap !== envMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'envMap', envMap));
+            }
+
+            if (material.reflectivity !== undefined) {
+                if (material.reflectivity !== reflectivity) {
+                    editor.execute(new SetMaterialValueCommand(object, 'reflectivity', reflectivity));
                 }
             }
         }
 
-        if (material.alphaMap !== undefined) {
-            if (objectHasUvs) {
-                let alphaMap1 = alphaMapEnabled ? alphaMap : null;
-
-                if (alphaMapEnabled && material.alphaMap !== alphaMap1) {
-                    editor.execute(new SetMaterialMapCommand(object, 'alphaMap', alphaMap1));
-                }
-            } else {
-                if (alphaMapEnabled) {
-                    textureWarning = true;
-                }
+        if (name === 'lightMap' && material.lightMap !== undefined) {
+            if (material.lightMap !== lightMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'lightMap', lightMap));
             }
         }
 
-        if (material.bumpMap !== undefined) {
-            if (objectHasUvs) {
-                let bumpMap1 = bumpMapEnabled ? bumpMap : null;
+        if (name === 'aoMap' && material.aoMap !== undefined) {
+            if (material.aoMap !== aoMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'aoMap', aoMap));
+            }
 
-                if (bumpMapEnabled && material.bumpMap !== bumpMap1) {
-                    editor.execute(new SetMaterialMapCommand(object, 'bumpMap', bumpMap1));
-                }
-
-                if (bumpMapEnabled && material.bumpScale !== bumpScale) {
-                    editor.execute(new SetMaterialValueCommand(object, 'bumpScale', bumpScale));
-                }
-            } else {
-                if (bumpMapEnabled) {
-                    textureWarning = true;
-                }
+            if (material.aoMapIntensity !== aoScale) {
+                editor.execute(new SetMaterialValueCommand(object, 'aoMapIntensity', aoScale));
             }
         }
 
-        if (material.normalMap !== undefined) {
-            if (objectHasUvs) {
-                let normalMap1 = normalMapEnabled ? normalMap : null;
-
-                if (normalMapEnabled && material.normalMap !== normalMap1) {
-                    editor.execute(new SetMaterialMapCommand(object, 'normalMap', normalMap1));
-                }
-            } else {
-                if (normalMapEnabled) {
-                    textureWarning = true;
-                }
-            }
-        }
-
-        if (material.displacementMap !== undefined) {
-            if (objectHasUvs) {
-                let displacementMap1 = displacementMapEnabled ? displacementMap : null;
-
-                if (displacementMapEnabled && material.displacementMap !== displacementMap1) {
-                    editor.execute(new SetMaterialMapCommand(object, 'displacementMap', displacementMap1));
-                }
-
-                if (displacementMapEnabled && material.displacementScale !== displacementScale) {
-                    editor.execute(new SetMaterialValueCommand(object, 'displacementScale', displacementScale));
-                }
-            } else {
-                if (displacementMapEnabled) {
-                    textureWarning = true;
-                }
-            }
-
-        }
-
-        if (material.roughnessMap !== undefined) {
-            if (objectHasUvs) {
-                let roughnessMap1 = roughnessMapEnabled ? roughnessMap : null;
-
-                if (roughnessMapEnabled && material.roughnessMap !== roughnessMap1) {
-                    editor.execute(new SetMaterialMapCommand(object, 'roughnessMap', roughnessMap1));
-                }
-            } else {
-                if (roughnessMapEnabled) {
-                    textureWarning = true;
-                }
-            }
-        }
-
-        if (material.metalnessMap !== undefined) {
-            if (objectHasUvs) {
-                let metalnessMap1 = metalnessMapEnabled ? metalnessMap : null;
-
-                if (metalnessMapEnabled && material.metalnessMap !== metalnessMap1) {
-                    editor.execute(new SetMaterialMapCommand(object, 'metalnessMap', metalnessMap1));
-                }
-            } else {
-                if (metalnessMapEnabled) {
-                    textureWarning = true;
-                }
-            }
-        }
-
-        if (material.specularMap !== undefined) {
-            if (objectHasUvs) {
-                let specularMap1 = specularMapEnabled ? specularMap : null;
-
-                if (specularMapEnabled && material.specularMap !== specularMap1) {
-                    editor.execute(new SetMaterialMapCommand(object, 'specularMap', specularMap1));
-                }
-            } else {
-                if (specularMapEnabled) {
-                    textureWarning = true;
-                }
-            }
-        }
-
-        if (material.envMap !== undefined) {
-            let envMap1 = envMapEnabled ? envMap : null;
-
-            if (envMapEnabled && material.envMap !== envMap1) {
-                editor.execute(new SetMaterialMapCommand(object, 'envMap', envMap1));
-            }
-        }
-
-        if (material.reflectivity !== undefined) {
-            if (material.reflectivity !== reflectivity) {
-                editor.execute(new SetMaterialValueCommand(object, 'reflectivity', reflectivity));
-            }
-        }
-
-        if (material.lightMap !== undefined) {
-            if (objectHasUvs) {
-                let lightMap1 = lightMapEnabled ? lightMap : null;
-
-                if (lightMapEnabled && material.lightMap !== lightMap1) {
-                    editor.execute(new SetMaterialMapCommand(object, 'lightMap', lightMap1));
-                }
-            } else {
-                if (lightMapEnabled) {
-                    textureWarning = true;
-                }
-            }
-        }
-
-        if (material.aoMap !== undefined) {
-            if (objectHasUvs) {
-                let aoMap1 = aoMapEnabled ? aoMap : null;
-
-                if (aoMapEnabled && material.aoMap !== aoMap1) {
-                    editor.execute(new SetMaterialMapCommand(object, 'aoMap', aoMap1));
-                }
-
-                if (aoMapEnabled && material.aoMapIntensity !== aoScale) {
-                    editor.execute(new SetMaterialValueCommand(object, 'aoMapIntensity', aoScale));
-                }
-            } else {
-                if (aoMapEnabled) textureWarning = true;
-            }
-        }
-
-        if (material.emissiveMap !== undefined) {
-            if (objectHasUvs) {
-                var emissiveMap1 = emissiveMapEnabled ? emissiveMap : null;
-
-                if (emissiveMapEnabled && material.emissiveMap !== emissiveMap1) {
-                    editor.execute(new SetMaterialMapCommand(object, 'emissiveMap', emissiveMap1));
-                }
-            } else {
-                if (emissiveMapEnabled) {
-                    textureWarning = true;
-                }
+        if (name === 'emissiveMap' && material.emissiveMap !== undefined) {
+            if (material.emissiveMap !== emissiveMap) {
+                editor.execute(new SetMaterialMapCommand(object, 'emissiveMap', emissiveMap));
             }
         }
 
@@ -831,10 +683,6 @@ class MaterialComponent extends React.Component {
 
         if (material.wireframeLinewidth !== undefined && Math.abs(material.wireframeLinewidth - wireframeLinewidth) >= 0.01) {
             editor.execute(new SetMaterialValueCommand(object, 'wireframeLinewidth', wireframeLinewidth));
-        }
-
-        if (textureWarning) {
-            console.warn(`${L_CANNOT_SET_TEXTURE} ${this.selected.name} ${L_MATERIAL_HAS_NO_COORDINATES}`);
         }
 
         app.call(`objectChanged`, this, this.selected);
