@@ -34,7 +34,7 @@ class CharacterPanel extends React.Component {
         const imageListData = data.map(n => {
             return Object.assign({}, n, {
                 id: n.ID,
-                src: n.Thumbnail ? n.Thumbnail : null,
+                src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
                 title: n.Name,
                 icon: 'model',
                 cornerText: n.Type,

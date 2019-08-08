@@ -73,7 +73,7 @@
 
         var start = () => {
             new Shadow.Application(document.getElementById('container'), {
-                server: location.origin,
+                server: 'http://localhost:2000', // location.origin
                 enableTileCache: false,
             });
         };
