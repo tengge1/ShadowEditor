@@ -255,6 +255,8 @@ class SceneComponent extends React.Component {
 
     handleChangeBackgroundCubeTexture(value, name) {
         if (value === null) {
+            this.selected.background = new THREE.Color(this.state.backgroundColor);
+
             this.setState({
                 [name]: value,
             });
@@ -280,6 +282,10 @@ class SceneComponent extends React.Component {
             scene.background.needsUpdate = true;
 
             app.call(`objectChanged`, this, this.selected);
+        } else {
+            this.setState({
+                [name]: value,
+            });
         }
     }
 
