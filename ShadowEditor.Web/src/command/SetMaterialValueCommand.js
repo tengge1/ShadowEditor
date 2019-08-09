@@ -31,14 +31,12 @@ Object.assign(SetMaterialValueCommand.prototype, {
 		this.object.material[this.attributeName] = this.newValue;
 		this.object.material.needsUpdate = true;
 		app.call('objectChanged', this, this.object);
-		app.call('materialChanged', this, this.object.material);
 	},
 
 	undo: function () {
 		this.object.material[this.attributeName] = this.oldValue;
 		this.object.material.needsUpdate = true;
 		app.call('objectChanged', this, this.object);
-		app.call('materialChanged', this, this.object.material);
 	},
 
 	update: function (cmd) {

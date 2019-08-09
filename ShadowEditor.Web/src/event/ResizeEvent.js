@@ -36,8 +36,6 @@ ResizeEvent.prototype.onResize = function () {
     camera.updateProjectionMatrix();
 
     renderer.setSize(width, height);
-
-    app.call('render', this);
 };
 
 export default ResizeEvent;

@@ -103,7 +103,6 @@ class PerlinTerrainComponent extends React.Component {
             app.call(`objectRemoved`, this, this.selected);
             app.call(`objectAdded`, this, terrain);
             editor.select(terrain);
-            app.call('sceneGraphChanged', this.id);
         }
     }
 }

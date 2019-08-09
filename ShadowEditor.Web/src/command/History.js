@@ -179,8 +179,7 @@ Object.assign(History.prototype, {
                 cmd = this.undo();
             }
         }
-
-        app.call('sceneGraphChanged', this);
+        
         app.call('historyChanged', this, cmd);
     },
 

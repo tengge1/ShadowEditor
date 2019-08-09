@@ -27,10 +27,7 @@ EditorControlsEvent.prototype.onChange = function () {
 
 EditorControlsEvent.prototype.onEditorCleared = function () {
     var controls = app.editor.controls;
-
     controls.center.set(0, 0, 0);
-
-    app.call('render');
 };
 
 export default EditorControlsEvent;

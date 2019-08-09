@@ -161,7 +161,6 @@ class ReflectorComponent extends React.Component {
                 app.call(`objectRemoved`, this, this.selected);
                 app.call(`objectAdded`, this, reflector);
                 editor.select(reflector);
-                app.call('sceneGraphChanged', this.id);
             }
         } else {
             if (this.selected instanceof THREE.Reflector) {
@@ -190,7 +189,6 @@ class ReflectorComponent extends React.Component {
                     app.call(`objectRemoved`, this, this.selected);
                     app.call(`objectAdded`, this, mesh);
                     editor.select(mesh);
-                    app.call('sceneGraphChanged', this.id);
                 }
             }
         }

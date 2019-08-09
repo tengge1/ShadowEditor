@@ -26,12 +26,10 @@ Object.assign(SetMaterialCommand.prototype, {
 
 	execute: function () {
 		this.object.material = this.newMaterial;
-		app.call('materialChanged', this, this.newMaterial);
 	},
 
 	undo: function () {
 		this.object.material = this.oldMaterial;
-		app.call('materialChanged', this, this.oldMaterial);
 	},
 
 	toJSON: function () {

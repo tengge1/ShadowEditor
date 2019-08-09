@@ -107,8 +107,6 @@ PickEvent.prototype.handleClick = function () {
                 editor.select(intersects[0].object);
             }
         }
-
-        app.call('render');
     }
 };
 

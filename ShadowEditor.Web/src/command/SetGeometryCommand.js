@@ -31,7 +31,6 @@ Object.assign(SetGeometryCommand.prototype, {
 		this.object.geometry.computeBoundingSphere();
 
 		app.call('geometryChanged', this, this.object);
-		app.call('sceneGraphChanged', this);
 	},
 
 	undo: function () {
@@ -40,7 +39,6 @@ Object.assign(SetGeometryCommand.prototype, {
 		this.object.geometry.computeBoundingSphere();
 
 		app.call('geometryChanged', this, this.object);
-		app.call('sceneGraphChanged', this);
 	},
 
 	update: function (cmd) {

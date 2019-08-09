@@ -123,8 +123,6 @@ SceneMenu.prototype.createGISScene = function () {
     app.options.sceneType = 'GIS';
 
     app.editor.camera.userData.control = '';
-
-    app.call(`sceneGraphChanged`, this);
 };
 
 // --------------------------- 保存场景 ----------------------------------------

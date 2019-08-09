@@ -8,31 +8,34 @@ import EffectRenderer from '../render/EffectRenderer';
  */
 function RenderEvent(app) {
     BaseEvent.call(this, app);
+
+    this.clock = new THREE.Clock();
+
+    this.running = true;
+
+    this.render = this.render.bind(this);
+    this.createRenderer = this.createRenderer.bind(this);
 }
 
 RenderEvent.prototype = Object.create(BaseEvent.prototype);
 RenderEvent.prototype.constructor = RenderEvent;
 
 RenderEvent.prototype.start = function () {
-    app.on(`render.${this.id}`, this.onRender.bind(this));
-    app.on(`materialChanged.${this.id}`, this.onRender.bind(this));
-    app.on(`sceneGraphChanged.${this.id}`, this.onRender.bind(this));
-    app.on(`cameraChanged.${this.id}`, this.onRender.bind(this));
+    this.running = true;
+    app.on(`appStarted.${this.id}`, this.render);
 };
 
 RenderEvent.prototype.stop = function () {
-    app.on(`render.${this.id}`, null);
-    app.on(`materialChanged.${this.id}`, null);
-    app.on(`sceneGraphChanged.${this.id}`, null);
-    app.on(`cameraChanged.${this.id}`, null);
+    this.running = false;
+    app.on(`appStarted.${this.id}`, null);
 };
 
-RenderEvent.prototype.onRender = function () {
-    var editor = app.editor;
-    var scene = editor.scene;
-    var sceneHelpers = editor.sceneHelpers;
-    var camera = editor.camera;
-    var renderer = editor.renderer;
+RenderEvent.prototype.render = function () {
+    const { scene, sceneHelpers, camera, renderer } = app.editor;
+
+    const deltaTime = this.clock.getDelta();
+
+    app.call('animate', this, this.clock, deltaTime);
 
     app.stats.begin();
 
@@ -45,10 +48,11 @@ RenderEvent.prototype.onRender = function () {
 
     if (this.renderer === undefined) {
         this.createRenderer().then(() => {
-            app.call('render');
+            this.render();
         });
-        app.on(`sceneLoaded.${this.id}`, this.createRenderer.bind(this));
-        app.on(`postProcessingChanged.${this.id}`, this.createRenderer.bind(this));
+        app.on(`sceneLoaded.${this.id}`, this.createRenderer);
+        app.on(`postProcessingChanged.${this.id}`, this.createRenderer);
+        return;
     } else {
         this.renderer.render();
     }
@@ -56,14 +60,14 @@ RenderEvent.prototype.onRender = function () {
     app.call('afterRender', this);
 
     app.stats.end();
+
+    if (this.running) {
+        requestAnimationFrame(this.render);
+    }
 };
 
 RenderEvent.prototype.createRenderer = function () {
-    var editor = app.editor;
-    var scene = editor.scene;
-    var sceneHelpers = editor.sceneHelpers;
-    var camera = editor.camera;
-    var renderer = editor.renderer;
+    const { scene, sceneHelpers, camera, renderer } = app.editor;
 
     this.renderer = new EffectRenderer();
 

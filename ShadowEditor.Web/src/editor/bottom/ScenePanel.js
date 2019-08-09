@@ -242,10 +242,6 @@ ScenePanel.prototype.onLoad = function (data) {
                 app.call('scriptChanged', this);
             }
 
-            if (obj.scene) {
-                app.call('sceneGraphChanged', this);
-            }
-
             UI.msg(L_LOAD_SUCCESS);
         });
     });

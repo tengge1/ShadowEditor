@@ -37,7 +37,6 @@ Object.assign(RemoveObjectCommand.prototype, {
 		}
 
 		app.call('objectRemoved', this, this.object);
-		app.call('sceneGraphChanged', this);
 	},
 
 	undo: function () {
@@ -48,7 +47,6 @@ Object.assign(RemoveObjectCommand.prototype, {
 		this.editor.select(this.object);
 
 		app.call('objectAdded', this, this.object);
-		app.call('sceneGraphChanged', this);
 	},
 
 	toJSON: function () {

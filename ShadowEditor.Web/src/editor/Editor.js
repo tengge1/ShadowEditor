@@ -128,8 +128,6 @@ Editor.prototype.setScene = function (scene) { // 设置场景
     children.forEach(n => {
         this.addObject(n);
     });
-
-    app.call('sceneGraphChanged', this);
 };
 
 Editor.prototype.clear = function (addObject = true) { // 清空场景
@@ -217,7 +215,6 @@ Editor.prototype.objectByUuid = function (uuid) { // 根据uuid获取物体
 Editor.prototype.addObject = function (object) { // 添加物体
     this.scene.add(object);
     app.call('objectAdded', this, object);
-    app.call('sceneGraphChanged', this);
 };
 
 Editor.prototype.moveObject = function (object, parent, before) { // 移动物体
@@ -233,8 +230,6 @@ Editor.prototype.moveObject = function (object, parent, before) { // 移动物�
         parent.children.splice(index, 0, object);
         parent.children.pop();
     }
-
-    app.call('sceneGraphChanged', this);
 };
 
 Editor.prototype.removeObject = function (object) { // 移除物体
@@ -245,7 +240,6 @@ Editor.prototype.removeObject = function (object) { // 移除物体
     object.parent.remove(object);
 
     app.call('objectRemoved', this, object);
-    app.call('sceneGraphChanged', this);
 };
 
 // ------------------------- 帮助 ------------------------------

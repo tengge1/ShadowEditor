@@ -44,8 +44,6 @@ Object.assign(MoveObjectCommand.prototype, {
 		var children = this.newParent.children;
 		children.splice(this.newIndex, 0, this.object);
 		this.object.parent = this.newParent;
-
-		app.call('sceneGraphChanged', this);
 	},
 
 	undo: function () {
@@ -54,8 +52,6 @@ Object.assign(MoveObjectCommand.prototype, {
 		var children = this.oldParent.children;
 		children.splice(this.oldIndex, 0, this.object);
 		this.object.parent = this.oldParent;
-
-		app.call('sceneGraphChanged', this);
 	},
 
 	toJSON: function () {

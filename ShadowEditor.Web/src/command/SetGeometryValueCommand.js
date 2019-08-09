@@ -30,14 +30,12 @@ Object.assign(SetGeometryValueCommand.prototype, {
 		this.object.geometry[this.attributeName] = this.newValue;
 		app.call('objectChanged', this, this.object);
 		app.call('geometryChanged', this);
-		app.call('sceneGraphChanged', this);
 	},
 
 	undo: function () {
 		this.object.geometry[this.attributeName] = this.oldValue;
 		app.call('objectChanged', this, this.object);
 		app.call('geometryChanged', this);
-		app.call('sceneGraphChanged', this);
 	},
 
 	toJSON: function () {

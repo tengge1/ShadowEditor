@@ -121,7 +121,6 @@ class FireComponent extends React.Component {
             app.call(`objectRemoved`, this, this.selected);
             app.call(`objectAdded`, this, fire.mesh);
             editor.select(fire.mesh);
-            app.call('sceneGraphChanged', this.id);
 
             fire.update(0);
         }

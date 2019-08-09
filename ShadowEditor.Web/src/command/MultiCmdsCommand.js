@@ -25,14 +25,12 @@ Object.assign(MultiCmdsCommand.prototype, {
 		for (var i = 0; i < this.cmdArray.length; i++) {
 			this.cmdArray[i].execute();
 		}
-		app.call('sceneGraphChanged', this);
 	},
 
 	undo: function () {
 		for (var i = this.cmdArray.length - 1; i >= 0; i--) {
 			this.cmdArray[i].undo();
 		}
-		app.call('sceneGraphChanged', this);
 	},
 
 	toJSON: function () {

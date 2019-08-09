@@ -58,8 +58,6 @@ var EventList = [
     'objectChanged', // 物体改变事件
     'objectRemoved', // 物体移除事件
 
-    'materialChanged', // 材质改变事件
-
     'scriptAdded', // 添加脚本事件
     'scriptChanged', // 脚本改变事件
     'scriptRemoved', // 脚本移除事件
@@ -77,7 +75,6 @@ var EventList = [
 
     'raycast', // 光线投射事件
     'beforeRender', // 渲染前执行
-    'render', // 渲染一次场景
     'afterRender', // 渲染后执行
     'animate', // 进行动画
 

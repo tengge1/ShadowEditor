@@ -48,8 +48,6 @@ TransformControlsEvent.prototype.onChange = function () {
     if (object) {
         app.call('objectChanged', this, object);
     }
-
-    app.call('render');
 };
 
 /**

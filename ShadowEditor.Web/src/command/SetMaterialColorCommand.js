@@ -37,12 +37,10 @@ Object.assign(SetMaterialColorCommand.prototype, {
 
 	execute: function () {
 		this.object.material[this.attributeName].setHex(this.newValue);
-		app.call('materialChanged', this, this.object.material);
 	},
 
 	undo: function () {
 		this.object.material[this.attributeName].setHex(this.oldValue);
-		app.call('materialChanged', this, this.object.material);
 	},
 
 	update: function (cmd) {
