@@ -62,6 +62,7 @@ class TextureProperty extends React.Component {
     }
 
     handleSelect(event) {
+        this.input.value = null;
         this.input.click();
     }
 
@@ -69,6 +70,7 @@ class TextureProperty extends React.Component {
         const value = this.props.value;
 
         if (enabled && value === null) {
+            this.input.value = null;
             this.input.click();
             return;
         }
