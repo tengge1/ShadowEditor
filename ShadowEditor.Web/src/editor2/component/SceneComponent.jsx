@@ -240,6 +240,8 @@ class SceneComponent extends React.Component {
 
     handleChangeBackgroundImage(value, name) {
         if (value === null) {
+            this.selected.background = new THREE.Color(this.state.backgroundColor);
+
             this.setState({
                 [name]: value,
             });
