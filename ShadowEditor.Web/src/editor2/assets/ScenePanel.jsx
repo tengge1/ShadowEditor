@@ -159,18 +159,13 @@ class ScenePanel extends React.Component {
         }
 
         if (obj.camera) {
+            app.editor.camera.remove(app.editor.audioListener);
             app.editor.camera.copy(obj.camera);
 
-            app.editor.camera.children.forEach(n => {
-                if (n instanceof THREE.AudioListener) {
-                    app.editor.camera.remove(n);
-                }
-            });
+            let audioListener = app.editor.camera.children.filter(n => n instanceof THREE.AudioListener)[0];
 
-            var audioListener = obj.camera.children.filter(n => n instanceof THREE.AudioListener)[0];
             if (audioListener) {
                 app.editor.audioListener = audioListener;
-                app.editor.camera.add(audioListener);
             }
         }
 
