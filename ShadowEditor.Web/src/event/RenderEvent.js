@@ -34,6 +34,8 @@ RenderEvent.prototype.onRender = function () {
     var camera = editor.camera;
     var renderer = editor.renderer;
 
+    app.stats.begin();
+
     scene.updateMatrixWorld();
     sceneHelpers.updateMatrixWorld();
 
@@ -52,6 +54,8 @@ RenderEvent.prototype.onRender = function () {
     }
 
     app.call('afterRender', this);
+
+    app.stats.end();
 };
 
 RenderEvent.prototype.createRenderer = function () {
