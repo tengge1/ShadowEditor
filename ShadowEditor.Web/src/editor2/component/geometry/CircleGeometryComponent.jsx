@@ -13,7 +13,7 @@ class CircleGeometryComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             radius: 1.0,
             segments: 16,
             thetaStart: 0.0,
@@ -64,12 +64,11 @@ class CircleGeometryComponent extends React.Component {
         this.selected = editor.selected;
 
         const { radius, segments, thetaStart, thetaLength } = Object.assign({},
-            this.selected.geometry.parameters, {
-                show: true,
-            });
+            this.selected.geometry.parameters);
 
         this.setState({
             show: true,
+            type: this.selected.geometry.constructor.name,
             radius: radius === undefined ? 1 : radius,
             segments: segments === undefined ? 8 : segments,
             thetaStart: thetaStart === undefined ? 0 : thetaStart,

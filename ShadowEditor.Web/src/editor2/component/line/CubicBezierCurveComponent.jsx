@@ -12,7 +12,7 @@ class CubicBezierCurveComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             v0x: 0,
             v0y: 0,
             v0z: 0,

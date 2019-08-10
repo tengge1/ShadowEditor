@@ -12,7 +12,7 @@ class LineCurveComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             v1x: 0,
             v1y: 0,
             v1z: 0,

@@ -12,7 +12,7 @@ class EllipseCurveComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             aX: 0,
             aY: 0,
             xRadius: 0,

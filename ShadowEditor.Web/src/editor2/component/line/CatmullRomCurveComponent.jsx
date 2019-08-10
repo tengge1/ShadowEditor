@@ -18,7 +18,7 @@ class CatmullRomCurveComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             closed: true,
             curveType: 'catmullrom',
             tension: 1,

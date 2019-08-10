@@ -13,7 +13,7 @@ class IcosahedronGeometryComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             radius: 1.0,
             detail: 1.0,
         };
@@ -59,11 +59,11 @@ class IcosahedronGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const { radius, detail } = Object.assign({}, this.selected.geometry.parameters, {
-            show: true,
-        });
+        const { radius, detail } = Object.assign({}, this.selected.geometry.parameters);
 
         this.setState({
+            show: true,
+            type: this.selected.geometry.constructor.name,
             radius: radius === undefined ? 1 : radius,
             detail: detail === undefined ? 0 : detail,
         });

@@ -16,7 +16,7 @@ class TransformComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             positionX: 0.0,
             positionY: 0.0,
             positionZ: 0.0,

@@ -13,7 +13,7 @@ class TorusGeometryComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             radius: 1,
             tube: 1,
             radialSegments: 16,
@@ -65,11 +65,11 @@ class TorusGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const { radius, tube, radialSegments, tubularSegments, arc } = Object.assign({}, this.selected.geometry.parameters, {
-            show: true,
-        });
+        const { radius, tube, radialSegments, tubularSegments, arc } = Object.assign({}, this.selected.geometry.parameters);
 
         this.setState({
+            show: true,
+            type: this.selected.geometry.constructor.name,
             radius: radius === undefined ? 1 : radius,
             tube: tube === undefined ? 0.4 : tube,
             radialSegments: radialSegments === undefined ? 8 : radialSegments,

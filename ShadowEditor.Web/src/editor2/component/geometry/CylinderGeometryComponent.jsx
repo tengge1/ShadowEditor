@@ -13,7 +13,7 @@ class CylinderGeometryComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             radiusTop: 1.0,
             radiusBottom: 1.0,
             height: 1.0,
@@ -72,12 +72,11 @@ class CylinderGeometryComponent extends React.Component {
         this.selected = editor.selected;
 
         const { radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength } = Object.assign({},
-            this.selected.geometry.parameters, {
-                show: true,
-            });
+            this.selected.geometry.parameters);
 
         this.setState({
             show: true,
+            type: this.selected.geometry.constructor.name,
             radiusTop: radiusTop === undefined ? 1 : radiusTop,
             radiusBottom: radiusBottom === undefined ? 1 : radiusBottom,
             height: height === undefined ? 1 : height,

@@ -13,7 +13,7 @@ class TorusKnotGeometryComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             radius: 1,
             tube: 1,
             tubularSegments: 16,
@@ -67,11 +67,11 @@ class TorusKnotGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const { radius, tube, tubularSegments, radialSegments, p, q } = Object.assign({}, this.selected.geometry.parameters, {
-            show: true,
-        });
+        const { radius, tube, tubularSegments, radialSegments, p, q } = Object.assign({}, this.selected.geometry.parameters);
 
         this.setState({
+            show: true,
+            type: this.selected.geometry.constructor.name,
             radius: radius === undefined ? 1 : radius,
             tube: tube === undefined ? 0.4 : tube,
             tubularSegments: tubularSegments === undefined ? 64 : tubularSegments,

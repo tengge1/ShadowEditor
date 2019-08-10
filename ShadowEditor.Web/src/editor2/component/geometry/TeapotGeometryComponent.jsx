@@ -13,7 +13,7 @@ class TeapotGeometryComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             size: 3,
             segments: 10,
             bottom: true,
@@ -69,11 +69,11 @@ class TeapotGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const { size, segments, bottom, lid, body, fitLid, blinn } = Object.assign({}, this.selected.geometry.parameters, {
-            show: true,
-        });
+        const { size, segments, bottom, lid, body, fitLid, blinn } = Object.assign({}, this.selected.geometry.parameters);
 
         this.setState({
+            show: true,
+            type: this.selected.geometry.constructor.name,
             size: size === undefined ? 50 : size,
             segments: segments === undefined ? 10 : segments,
             bottom: bottom === undefined ? true : bottom,

@@ -13,7 +13,7 @@ class PlaneGeometryComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             width: 1,
             height: 1,
             widthSegments: 1,
@@ -63,11 +63,11 @@ class PlaneGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const { width, height, widthSegments, heightSegments } = Object.assign({}, this.selected.geometry.parameters, {
-            show: true,
-        });
+        const { width, height, widthSegments, heightSegments } = Object.assign({}, this.selected.geometry.parameters);
 
         this.setState({
+            show: true,
+            type: this.selected.geometry.constructor.name,
             width: width === undefined ? 1 : width,
             height: height === undefined ? 1 : height,
             widthSegments: widthSegments === undefined ? 1 : widthSegments,

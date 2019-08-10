@@ -13,7 +13,7 @@ class BoxGeometryComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             type: '',
             width: 1,
             height: 1,
@@ -70,10 +70,7 @@ class BoxGeometryComponent extends React.Component {
         this.selected = editor.selected;
 
         const { width, height, depth, widthSegments, heightSegments, depthSegments } = Object.assign({},
-            this.selected.geometry.parameters, {
-                type: this.selected.geometry.constructor.name,
-                show: true,
-            });
+            this.selected.geometry.parameters);
 
         this.setState({
             show: true,

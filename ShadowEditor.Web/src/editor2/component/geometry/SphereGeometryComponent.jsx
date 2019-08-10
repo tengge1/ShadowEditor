@@ -13,7 +13,7 @@ class SphereGeometryComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             radius: 1,
             widthSegments: 16,
             heightSegments: 16,
@@ -70,11 +70,11 @@ class SphereGeometryComponent extends React.Component {
         this.selected = editor.selected;
 
         const { radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength } = Object.assign({},
-            this.selected.geometry.parameters, {
-                show: true,
-            });
+            this.selected.geometry.parameters);
 
         this.setState({
+            show: true,
+            type: this.selected.geometry.constructor.name,
             radius: radius === undefined ? 1 : radius,
             widthSegments: widthSegments === undefined ? 8 : widthSegments,
             heightSegments: heightSegments === undefined ? 6 : heightSegments,

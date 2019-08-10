@@ -13,7 +13,7 @@ class LatheGeometryComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             segments: 16,
             phiStart: 0.0,
             phiLength: Math.PI * 2,
@@ -61,11 +61,11 @@ class LatheGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const { segments, phiStart, phiLength } = Object.assign({}, this.selected.geometry.parameters, {
-            show: true,
-        });
+        const { segments, phiStart, phiLength } = Object.assign({}, this.selected.geometry.parameters);
 
         this.setState({
+            show: true,
+            type: this.selected.geometry.constructor.name,
             segments: segments === undefined ? 12 : segments,
             phiStart: phiStart === undefined ? 0 : phiStart,
             phiLength: phiLength === undefined ? Math.PI * 2 : phiLength,
