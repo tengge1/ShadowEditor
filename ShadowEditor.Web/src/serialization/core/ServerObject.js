@@ -28,6 +28,10 @@ ServerObject.prototype.toJSON = function (obj) {
     return json;
 };
 
+ServerObject.prototype.serializeChildren = function () {
+
+};
+
 /**
  * 序列化模型修改过的属性
  * @param {THREE.Object3D} obj 模型或部件
