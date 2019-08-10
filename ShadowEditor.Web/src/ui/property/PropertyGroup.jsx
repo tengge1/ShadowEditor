@@ -46,7 +46,7 @@ class PropertyGroup extends React.Component {
         </div>;
     }
 
-    componentDidMount() {
+    componentDidUpdate() {
         let content = this.contentRef.current;
         let height = 0;
 
