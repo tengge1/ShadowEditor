@@ -79,7 +79,17 @@
         };
 
         window.onload = () => {
-            var lang = window.localStorage.getItem('lang') || 'en-US';
+            var lang = window.localStorage.getItem('lang');
+
+            if (!lang) {
+                var language = window.navigator.language.toLocaleLowerCase();
+
+                if (language === 'zh-cn') {
+                    lang = 'zh-CN';
+                } else {
+                    lang = 'en-US';
+                }
+            }
 
             if (lang === 'zh-CN') {
                 loadJs('lang/zh-CN.js').then(() => {
