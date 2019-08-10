@@ -25,7 +25,7 @@ var EventList = [
     'showMask', // 是否显示加载器
 
     // 配置
-    'optionsChanged', // 配置改变事件
+    'optionsChanged', // 配置改变事件（参数：无）
     'storageChanged', // 存储改变事件（参数：key, value）
 
     // 工具栏事件

@@ -27,8 +27,8 @@ FilterEvent.prototype.onEditorCleared = function () {
     app.editor.renderer.domElement.style.filter = '';
 };
 
-FilterEvent.prototype.onOptionsChanged = function (options) {
-    app.editor.renderer.domElement.style.filter = CssUtils.serializeFilter(options);
+FilterEvent.prototype.onOptionsChanged = function () {
+    app.editor.renderer.domElement.style.filter = CssUtils.serializeFilter(app.options);
 };
 
 export default FilterEvent;

@@ -50,6 +50,10 @@ class RendererPanel extends React.Component {
         </Form>;
     }
 
+    // componentDidMount() {
+    //     app.on(`optionsChanged.${this.id}`, this.handleUpdate);
+    // }
+
     handleUpdate() {
         const renderer = app.editor.renderer;
 

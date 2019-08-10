@@ -124,7 +124,7 @@ class ScenePanel extends React.Component {
                     document.title = data.title;
 
                     if (obj.options) {
-                        app.call('optionsChanged', this, app.options);
+                        app.call('optionsChanged', this);
 
                         if (obj.options.sceneType === 'GIS') {
                             if (app.editor.gis) {
