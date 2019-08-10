@@ -21,7 +21,7 @@ class SaoComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             enabled: false,
             output: 0,
             saoBias: 0.5,
@@ -141,6 +141,7 @@ class SaoComponent extends React.Component {
             },
         });
 
+        app.call(`objectChanged`, this, this.selected);
         app.call(`postProcessingChanged`, this);
     }
 }

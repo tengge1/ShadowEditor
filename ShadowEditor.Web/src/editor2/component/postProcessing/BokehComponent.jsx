@@ -13,7 +13,7 @@ class BokehComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             enabled: false,
             focus: 50, // 距离相机距离，哪里最清晰
             aperture: 2.8, // *1e-4，光圈越小越清楚
@@ -103,6 +103,7 @@ class BokehComponent extends React.Component {
             },
         });
 
+        app.call(`objectChanged`, this, this.selected);
         app.call(`postProcessingChanged`, this);
     }
 }

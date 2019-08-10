@@ -12,7 +12,7 @@ class TrackballControlComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             rotateSpeed: 1.0,
             zoomSpeed: 1.2,
             panSpeed: 0.3,

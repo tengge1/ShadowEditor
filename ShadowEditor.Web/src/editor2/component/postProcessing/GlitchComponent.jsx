@@ -13,7 +13,7 @@ class GlitchComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             enabled: false,
             wild: false,
         };
@@ -95,6 +95,7 @@ class GlitchComponent extends React.Component {
             },
         });
 
+        app.call(`objectChanged`, this, this.selected);
         app.call(`postProcessingChanged`, this);
     }
 }

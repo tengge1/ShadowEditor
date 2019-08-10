@@ -22,7 +22,7 @@ class SsaaComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             enabled: false,
             sampleLevel: 3,
             unbiased: true,
@@ -108,6 +108,7 @@ class SsaaComponent extends React.Component {
             },
         });
 
+        app.call(`objectChanged`, this, this.selected);
         app.call(`postProcessingChanged`, this);
     }
 }

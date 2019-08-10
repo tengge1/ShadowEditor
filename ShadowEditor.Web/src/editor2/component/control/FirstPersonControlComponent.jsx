@@ -12,7 +12,7 @@ class FirstPersonControlComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             movementSpeed: 10.0,
             lookSpeed: 0.05,
             lookVertical: true,

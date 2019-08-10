@@ -12,7 +12,7 @@ class PointerLockControlComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             isLocked: true,
         };
 

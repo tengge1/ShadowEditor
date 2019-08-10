@@ -12,7 +12,7 @@ class OrbitControlComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             minDistance: 0.0,
             maxDistance: 100000,
             minPolarAngle: 0,

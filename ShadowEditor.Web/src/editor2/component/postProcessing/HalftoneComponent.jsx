@@ -28,7 +28,7 @@ class HalftoneComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             enabled: false,
             shape: 1,
             radius: 4,
@@ -142,6 +142,7 @@ class HalftoneComponent extends React.Component {
             },
         });
 
+        app.call(`objectChanged`, this, this.selected);
         app.call(`postProcessingChanged`, this);
     }
 }

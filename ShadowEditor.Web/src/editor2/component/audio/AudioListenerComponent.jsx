@@ -13,7 +13,7 @@ class AudioListenerComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             masterVolume: 1,
         };
 

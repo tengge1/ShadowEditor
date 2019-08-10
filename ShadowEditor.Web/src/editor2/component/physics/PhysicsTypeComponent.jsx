@@ -54,7 +54,7 @@ class PhysicsTypeComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
-        if (!editor.selected || !editor.selected.userData.physics) {
+        if (!editor.selected || !editor.selected.userData.physics || editor.selected === editor.scene) {
             this.setState({
                 show: false,
             });

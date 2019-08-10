@@ -12,7 +12,7 @@ class FlyControlComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             movementSpeed: 10.0,
             rollSpeed: 0.05,
             dragToLook: false,

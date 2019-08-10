@@ -17,7 +17,7 @@ class PhysicsWorldComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             type: 'btSoftBodyRigidBodyCollisionConfiguration',
             gravityX: 0,
             gravityY: -9.8,

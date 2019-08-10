@@ -1,7 +1,7 @@
 import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
 
 /**
- * 音频监听器组件
+ * 场景控制器组件
  * @author tengge / https://github.com/tengge1
  */
 class ControlComponent extends React.Component {
