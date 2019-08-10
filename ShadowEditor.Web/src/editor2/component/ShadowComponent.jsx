@@ -20,7 +20,7 @@ class ShadowComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
 
             castShadow: false,
             castShadowShow: false,

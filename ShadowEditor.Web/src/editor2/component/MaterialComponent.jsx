@@ -244,7 +244,7 @@ class MaterialComponent extends React.Component {
             <CheckBoxProperty label={L_TRANSPARENT} name={'transparent'} value={transparent} onChange={this.handleChange}></CheckBoxProperty>
             <NumberProperty label={L_ALPHA_TEST} name={'alphaTest'} value={alphaTest} onChange={this.handleChange}></NumberProperty>
             <CheckBoxProperty label={L_WIREFRAME} name={'wireframe'} value={wireframe} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={'Wireframe Width'} name={'wireframeLinewidth'} value={wireframeLinewidth} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_WIREFRAME_WIDTH} name={'wireframeLinewidth'} value={wireframeLinewidth} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

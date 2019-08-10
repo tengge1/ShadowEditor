@@ -637,4 +637,5 @@ Object.assign(window, {
     L_CLOSE: 'Close',
     L_WAITING: 'Waiting...',
     L_LOADING: 'Loading...',
+    L_WIREFRAME_WIDTH: 'WireWidth',
 });
