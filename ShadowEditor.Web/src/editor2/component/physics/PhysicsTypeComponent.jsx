@@ -17,7 +17,7 @@ class PhysicsTypeComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             physicsEnabled: false,
             type: 'rigidBody',
         };

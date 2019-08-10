@@ -10,6 +10,8 @@ class PropertyGroup extends React.Component {
     constructor(props) {
         super(props);
 
+        this.contentRef = React.createRef();
+
         this.handleExpand = this.handleExpand.bind(this, props.onExpand);
     }
 
@@ -23,7 +25,7 @@ class PropertyGroup extends React.Component {
                 </div>
                 <div className={'title'}>{title}</div>
             </div>
-            <div className={classNames('content', !expanded && 'collapsed')}>
+            <div className={classNames('content', !expanded && 'collapsed')} ref={this.contentRef}>
                 {React.Children.map(children, (n, i) => {
                     if (n.props.show === false) {
                         return null;
@@ -42,6 +44,18 @@ class PropertyGroup extends React.Component {
                 })}
             </div>
         </div>;
+    }
+
+    componentDidMount() {
+        let content = this.contentRef.current;
+        let height = 0;
+
+        for (let i = 0; i < content.children.length; i++) {
+            let child = content.children[i];
+            height += child.offsetHeight; // offsetHeight包含下边框
+        }
+
+        content.style.height = `${height}px`;
     }
 
     handleExpand(onExpand, event) {

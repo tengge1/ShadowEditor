@@ -21,7 +21,7 @@ class ReflectorComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
 
             reflect: false,
             showColor: false,
