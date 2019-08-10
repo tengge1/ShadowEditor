@@ -12,6 +12,8 @@ class Tree extends React.Component {
     constructor(props) {
         super(props);
 
+        this.treeRef = React.createRef();
+
         const { onExpand, onSelect, onCheck, onDoubleClick, onDrop } = this.props;
 
         this.handleExpandNode = this.handleExpandNode.bind(this, onExpand);
@@ -36,7 +38,7 @@ class Tree extends React.Component {
             list.push(this.createNode(n));
         });
 
-        return <ul className={classNames('Tree', className)} style={style}>{list}</ul>;
+        return <ul className={classNames('Tree', className)} style={style} ref={this.treeRef}>{list}</ul>;
     }
 
     createNode(data) {
@@ -71,6 +73,34 @@ class Tree extends React.Component {
             <a href={'javascript:;'}>{data.text}</a>
             {leaf ? null : children}
         </li>;
+    }
+
+    // 暂时屏蔽树节点动画，有bug。
+    // componentDidUpdate() {
+    //     let tree = this.treeRef.current;
+
+    //     // 将每棵子树设置高度，以便显示动画
+    //     this.handleSetTreeHeight(tree);
+    // }
+
+    handleSetTreeHeight(node) {
+        if (node.children.length === 0) {
+            return;
+        }
+
+        let height = 0;
+
+        for (let i = 0; i < node.children.length; i++) {
+            let child = node.children[i];
+
+            height += child.offsetHeight;
+
+            this.handleSetTreeHeight(child);
+        }
+
+        if (node.classList.contains('sub')) { // 子树
+            node.style.height = `${height}px`;
+        }
     }
 
     handleExpandNode(onExpand, event) {
