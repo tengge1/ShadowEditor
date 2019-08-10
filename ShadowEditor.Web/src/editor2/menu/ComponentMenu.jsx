@@ -38,8 +38,10 @@ class ComponentMenu extends React.Component {
             <MenuItem title={L_WATER} onClick={this.handleAddWater}></MenuItem>
             <MenuItem title={L_SMOKE} onClick={this.handleAddSmoke}></MenuItem>
             <MenuItem title={L_CLOTH} onClick={this.handleAddCloth}></MenuItem>
-            <MenuItem title={'柏林地形'} onClick={this.handleAddPerlinTerrain}></MenuItem>
-            <MenuItem title={'着色器地形'} onClick={this.handleAddShaderTerrain}></MenuItem>
+            <MenuItem title={L_PERLIN_TERRAIN} onClick={this.handleAddPerlinTerrain}></MenuItem>
+            {
+                //<MenuItem title={'着色器地形'} onClick={this.handleAddShaderTerrain}></MenuItem> 
+            }
         </MenuItem>;
     }
 
