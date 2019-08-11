@@ -218,7 +218,7 @@ ServerObject.prototype.revertLayer = function (obj, list, children, parts) {
                 // TODO: 服务端原始模型组件，需要复制反序列化后的组件的属性。
                 child1.name = child2.name;
                 if (child1.position && child2.position) {
-                    child1.position.copy(child2.position);;
+                    child1.position.copy(child2.position);
                 }
                 if (child1.rotation && child2.rotation) {
                     child1.rotation.copy(child2.rotation);
