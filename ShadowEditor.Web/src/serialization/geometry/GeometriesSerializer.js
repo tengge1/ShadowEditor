@@ -1,6 +1,7 @@
 import BaseSerializer from '../BaseSerializer';
 
 import BoxBufferGeometrySerializer from './BoxBufferGeometrySerializer';
+import BufferGeometrySerializer from './BufferGeometrySerializer';
 import CircleBufferGeometrySerializer from './CircleBufferGeometrySerializer';
 import ConeBufferGeometrySerializer from './ConeBufferGeometrySerializer';
 import CylinderBufferGeometrySerializer from './CylinderBufferGeometrySerializer';
@@ -25,6 +26,7 @@ import TubeBufferGeometrySerializer from './TubeBufferGeometrySerializer';
 
 var Serializers = {
     'BoxBufferGeometry': BoxBufferGeometrySerializer,
+    'BufferGeometry': BufferGeometrySerializer,
     'CircleBufferGeometry': CircleBufferGeometrySerializer,
     'ConeBufferGeometry': ConeBufferGeometrySerializer,
     'CylinderBufferGeometry': CylinderBufferGeometrySerializer,

@@ -201,8 +201,9 @@ Converter.prototype.sceneToJson = function (scene, list) {
             console.warn(`Converter: No ${obj.constructor.name} Serializer.`);
         }
 
-        // 如果obj.userData.type不为空，则为内置类型，其子项不应该序列化
-        if (obj.children && obj.userData.type === undefined && obj.userData.Server !== true) {
+        // 1、如果obj.userData.type不为空，则为内置类型，其子项不应该序列化。
+        // 2、服务器(模型)对象需要记录用户对模型的修改，需要序列化。
+        if (obj.children && obj.userData.type === undefined) {
             obj.children.forEach(n => {
                 serializer.call(this, n);
             });
