@@ -30,35 +30,35 @@ class HelperPanel extends React.Component {
         return <Form className={'HelperPanel'}>
             <FormControl>
                 <Label>{L_GRID}</Label>
-                <CheckBox name={'showGrid'} value={showGrid} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showGrid'} checked={showGrid} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
                 <Label>{L_CAMERA}</Label>
-                <CheckBox name={'showCamera'} value={showCamera} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showCamera'} checked={showCamera} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
                 <Label>{L_POINT_LIGHT}</Label>
-                <CheckBox name={'showPointLight'} value={showPointLight} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showPointLight'} checked={showPointLight} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
                 <Label>{L_DIRECTIONAL_LIGHT}</Label>
-                <CheckBox name={'showDirectionalLight'} value={showDirectionalLight} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showDirectionalLight'} checked={showDirectionalLight} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
                 <Label>{L_SPOT_LIGHT}</Label>
-                <CheckBox name={'showSpotLight'} value={showSpotLight} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showSpotLight'} checked={showSpotLight} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
                 <Label>{L_HEMISPHERE_LIGHT}</Label>
-                <CheckBox name={'showHemisphereLight'} value={showHemisphereLight} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showHemisphereLight'} checked={showHemisphereLight} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
                 <Label>{L_RECT_AREA_LIGHT}</Label>
-                <CheckBox name={'showRectAreaLight'} value={showRectAreaLight} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showRectAreaLight'} checked={showRectAreaLight} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
                 <Label>{L_SKELETON}</Label>
-                <CheckBox name={'showSkeleton'} value={showSkeleton} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showSkeleton'} checked={showSkeleton} onChange={this.handleChange}></CheckBox>
             </FormControl>
         </Form>;
     }
@@ -128,6 +128,8 @@ class HelperPanel extends React.Component {
             app.storage.set('showSkeleton', showSkeleton);
             app.call(`storageChanged`, this, 'showSkeleton', showSkeleton);
         }
+
+        this.handleUpdate();
     }
 }
 
