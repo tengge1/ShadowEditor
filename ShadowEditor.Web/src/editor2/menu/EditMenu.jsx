@@ -23,6 +23,9 @@ class EditMenu extends React.Component {
         this.handleClearHistory = this.handleClearHistory.bind(this);
         this.handleClone = this.handleClone.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+
+        this.onHistoryChanged = this.onHistoryChanged.bind(this);
+        this.onObjectSelected = this.onObjectSelected.bind(this);
     }
 
     render() {
@@ -39,8 +42,8 @@ class EditMenu extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`historyChanged.${this.id}`, this.onHistoryChanged.bind(this));
-        app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+        app.on(`historyChanged.EditMenu`, this.onHistoryChanged);
+        app.on(`objectSelected.EditMenu`, this.onObjectSelected);
     }
 
     // --------------------- 撤销 --------------------------
