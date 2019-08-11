@@ -3,26 +3,31 @@
 Language: [中文](README.md) / 繁體中文 / [English](README-en.md)
 
 * 名稱：Shadow Editor
-* 版本：v0.3.0(新版，開發中)
+* 版本：v0.3.0
 * 簡介：基於`three.js`的場景編輯器。
 
-> 說明：把`dev`分支合併到`master`了，以後使用`master`分支開發`react.js`版本的`ShadowEditor`，使用`v0.2.6_old`分支維護舊版本。
+## v0.3.0更新
 
-## v0.3.0即將更新
-
-1. 保存場景，記錄模型內部修改的各部件的名稱，載入場景可還原。 （不再記錄模型內部各部分的材質信息）
-
-## v0.2.6更新
-
-* 發布日期：2019年7月28日
+* 發布日期：2019年8月11日
 * 更新日誌：
 
-1. 修復播放MMD動畫，缺少ammo.js的bug。
-2. 完成BasicComponent、CameraComponent、FireComponent、LightComponent、LMeshComponent、MMDComponent、ParticleEmitterComponent、ReflectorComponent、SceneComponent、ShadowComponent、SmokeComponent、TransformComponent、BoxGeometryComponent、CircleGeometryComponent、CylinderGeometryComponent、IcosahedronGeometryComponent、LatheGeometryComponent、PlaneGeometryComponent、SphereGeometryComponent、TeapotGeometryComponent、TorusGeometryComponent、TorusKnotGeometryComponent、組件的重構。 (dev分支)
+1. 從`v0.3.0`開始，將發布基於`react.js`的新版編輯器，`v0.2.6_old`分支將於`2019年8月17日`刪除。
+2. 除了補間動畫和少量bug外，新版編輯器已經達到舊版水平。
+3. 跟舊版編輯器相比，新版有以下特點：
+    1. 使用`react.js`重寫前端UI，界面美觀度提升，相應速度提升。
+    2. 升級`three.js`到`r107`版本，`three.js`各組件也升級到最新版。
+    3. 修復大量影響性能的bug和邏輯，渲染不再由事件驅動，渲染速度大幅提升。
+    4. 支持模型內部組件名稱和位置的修改，支持將幾何體、組、光源等放到模型內部。
+    5. 屬性面板分組可折疊，默認折疊一部分屬性組，方便使用。
+    6. 資源面板放置到左側，支持分頁。資源數量多時，加載速度更快。
+    7. 對火狐瀏覽器兼容性調整。
+    8. 點擊場景樹狀圖右側的眼鏡圖標，可以快速對某個分支進行顯示隱藏控制。
+    9. 根據瀏覽器語言，確定編輯器的初始語言。
+4. 服務端和數據結構未作任何改動，如果您沒有改過前端的話，可以直接升級到新版。
 
 ## 項目截圖
 
-![image](images/scene20190803.png)
+![image](images/scene20190811.png)
 
 <table>
     <tr>

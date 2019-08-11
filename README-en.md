@@ -3,26 +3,31 @@
 Language: [中文](README.md) / [繁體中文](README-tw.md) / English
 
 * Name: Shadow Editor
-* Version: v0.3.0 (new version, under development)
+* Version: v0.3.0
 * Introduction: Scene editor based on `three.js`.
 
-> Description: Merge the `dev` branch into `master`. Later, use the `master` branch to develop the `react.js` version of `ShadowEditor` and use the `v0.2.6_old` branch to maintain the old version.
+## v0.3.0 Update
 
-## v0.3.0 will be updated soon
-
-1. Save the scene, record the names of the parts modified inside the model, and load the scene to restore. (The material information of each part inside the model is no longer recorded)
-
-## v0.2.6Update
-
-* Release date: July 28, 2019
+* Release date: August 11, 2019
 * Update log:
 
-1. Fix playing MMD animation, missing ammo.js bug.
-2. Complete the weights of BasicComponent, CameraComponent, FireComponent, LightComponent, LMeshComponent, MMDComponent, ParticleEmitterComponent, ReflectorComponent, SceneComponent, ShadowComponent, SmokeComponent, TransformComponent, BoxGeometryComponent, CircleGeometryComponent, CylinderGeometryComponent, IcosahedronGeometryComponent, LatheGeometryComponent, PlaneGeometryComponent, SphereGeometryComponent, TeapotGeometryComponent, TorusGeometryComponent, TorusKnotGeometryComponent, Structure. (dev branch)
+1. Starting with `v0.3.0`, a new editor based on `react.js` will be released, and the `v0.2.6_old` branch will be deleted on August 17, 2019.
+2. In addition to tweened animations and a few bugs, the new editor has reached the old level.
+3. Compared to the old editor, the new version has the following features:
+    1. Rewrite the front-end UI with `react.js`, the interface is improved in appearance and the speed is increased accordingly.
+    2. Upgrade the `three.js` to `r107` version, and the `three.js` components are also upgraded to the latest version.
+    3. Fix a lot of bugs and logic that affect performance. Rendering is no longer driven by events, and rendering speed is greatly improved.
+    4. Support the modification of the internal component name and position of the model, and support the placement of geometry, groups, lights, etc. inside the model.
+    5. The property panel group can be folded, and some attribute groups are folded by default, which is convenient to use.
+    6. The resource panel is placed to the left to support paging. When the number of resources is large, the loading speed is faster.
+    7. Firefox browser compatibility adjustments.
+    8. Click on the glasses icon on the right side of the scene tree to quickly show hidden controls on a branch.
+    9. Determine the initial language of the editor based on the browser language.
+4. The server and data structure have not been changed. If you have not changed the front end, you can upgrade to the new version directly.
 
 ## Project screenshot
 
-![image](images/scene20190803.png)
+![image](images/scene20190811.png)
 
 <table>
     <tr>
