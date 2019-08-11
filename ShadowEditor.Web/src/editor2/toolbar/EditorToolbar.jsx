@@ -122,9 +122,9 @@ class EditorToolbar extends React.Component {
         this.setState({ isAddingPoint });
 
         if (isAddingPoint) {
-            app.on(`intersect.${this.id}AddPoint`, this.onAddPointIntersect.bind(this));
+            app.on(`intersect.EditorToolbarAddPoint`, this.onAddPointIntersect.bind(this));
         } else {
-            app.on(`intersect.${this.id}AddPoint`, null);
+            app.on(`intersect.EditorToolbarAddPoint`, null);
         }
     }
 
@@ -176,8 +176,8 @@ class EditorToolbar extends React.Component {
         this.setState({ isAddingLine });
 
         if (isAddingLine) {
-            app.on(`intersect.${this.id}AddLine`, this.onAddLineIntersect.bind(this));
-            app.on(`dblclick.${this.id}AddLine`, this.onAddLineDblClick.bind(this));
+            app.on(`intersect.EditorToolbarAddLine`, this.onAddLineIntersect.bind(this));
+            app.on(`dblclick.EditorToolbarAddLine`, this.onAddLineDblClick.bind(this));
 
             this.linePositions = [];
             this.lineColors = [];
@@ -201,8 +201,8 @@ class EditorToolbar extends React.Component {
 
             app.editor.execute(new AddObjectCommand(this.line));
         } else {
-            app.on(`intersect.${this.id}AddLine`, null);
-            app.on(`dblclick.${this.id}AddLine`, null);
+            app.on(`intersect.EditorToolbarAddLine`, null);
+            app.on(`dblclick.EditorToolbarAddLine`, null);
 
             this.linePositions = null;
             this.lineColors = null;
@@ -245,8 +245,8 @@ class EditorToolbar extends React.Component {
         this.setState({ isAddingPolygon });
 
         if (isAddingPolygon) {
-            app.on(`intersect.${this.id}AddPolygon`, this.onAddPolygonIntersect.bind(this));
-            app.on(`dblclick.${this.id}AddPolygon`, this.onAddPolygonDblClick.bind(this));
+            app.on(`intersect.EditorToolbarAddPolygon`, this.onAddPolygonIntersect.bind(this));
+            app.on(`dblclick.EditorToolbarAddPolygon`, this.onAddPolygonDblClick.bind(this));
 
             var geometry = new THREE.BufferGeometry();
 
@@ -274,8 +274,8 @@ class EditorToolbar extends React.Component {
 
             this.polygonPoints = [];
         } else {
-            app.on(`intersect.${this.id}AddPolygon`, null);
-            app.on(`dblclick.${this.id}AddPolygon`, null);
+            app.on(`intersect.EditorToolbarAddPolygon`, null);
+            app.on(`dblclick.EditorToolbarAddPolygon`, null);
 
             this.polygon = null;
 
@@ -328,9 +328,9 @@ class EditorToolbar extends React.Component {
         this.setState({ isSpraying });
 
         if (isSpraying) {
-            app.on(`intersect.${this.id}Spray`, this.onSprayIntersect.bind(this));
+            app.on(`intersect.EditorToolbarSpray`, this.onSprayIntersect.bind(this));
         } else {
-            app.on(`intersect.${this.id}Spray`, null);
+            app.on(`intersect.EditorToolbarSpray`, null);
         }
     }
 
@@ -397,7 +397,7 @@ class EditorToolbar extends React.Component {
 
         if (this.digTool === undefined) {
             this.digTool = new DigTool(app);
-            this.digTool.on(`end.${this.id}`, () => {
+            this.digTool.on(`end.EditorToolbar`, () => {
                 this.setState({ isDigging: false, });
             });
         }

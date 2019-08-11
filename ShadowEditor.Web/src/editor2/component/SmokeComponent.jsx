@@ -108,7 +108,7 @@ class SmokeComponent extends React.Component {
             previewText: L_CANCEL,
         });
 
-        app.on(`animate.${this.id}`, this.onAnimate);
+        app.on(`animate.SmokeComponent`, this.onAnimate);
     }
 
     stopPreview() {
@@ -118,7 +118,7 @@ class SmokeComponent extends React.Component {
             previewText: L_PREVIEW,
         });
 
-        app.on(`animate.${this.id}`, null);
+        app.on(`animate.SmokeComponent`, null);
     }
 
     onAnimate(clock, deltaTime) {

@@ -437,7 +437,7 @@ class ParticleEmitterComponent extends React.Component {
             previewText: L_CANCEL,
         });
 
-        app.on(`animate.${this.id}`, this.onAnimate);
+        app.on(`animate.ParticleEmitterComponent`, this.onAnimate);
     }
 
     stopPreview() {
@@ -454,7 +454,7 @@ class ParticleEmitterComponent extends React.Component {
         group.addEmitter(emitter);
         group.tick(0);
 
-        app.on(`animate.${this.id}`, null);
+        app.on(`animate.ParticleEmitterComponent`, null);
     }
 
     onAnimate(clock, deltaTime) {

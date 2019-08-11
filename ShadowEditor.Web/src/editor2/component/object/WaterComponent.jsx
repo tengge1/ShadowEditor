@@ -80,7 +80,7 @@ class WaterComponent extends React.Component {
             previewText: L_CANCEL,
         });
 
-        app.on(`animate.${this.id}`, this.onAnimate);
+        app.on(`animate.WaterComponent`, this.onAnimate);
     }
 
     stopPreview() {
@@ -90,7 +90,7 @@ class WaterComponent extends React.Component {
             previewText: L_PREVIEW,
         });
 
-        app.on(`animate.${this.id}`, null);
+        app.on(`animate.WaterComponent`, null);
     }
 
     onAnimate(clock, deltaTime) {

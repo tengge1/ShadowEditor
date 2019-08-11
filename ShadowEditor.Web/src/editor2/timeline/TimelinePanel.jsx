@@ -40,9 +40,9 @@ class TimelinePanel extends React.Component {
         // layers.dom.addEventListener(`click`, this.onClick.bind(this));
         // layers.dom.addEventListener(`dblclick`, this.onDblClick.bind(this));
 
-        // app.on(`animationChanged.${this.id}`, this.updateUI.bind(this));
-        // app.on(`resetAnimation.${this.id}`, this.onResetAnimation.bind(this));
-        // app.on(`startAnimation.${this.id}`, this.onPlay.bind(this));
+        // app.on(`animationChanged.TimelinePanel`, this.updateUI.bind(this));
+        // app.on(`resetAnimation.TimelinePanel`, this.onResetAnimation.bind(this));
+        // app.on(`startAnimation.TimelinePanel`, this.onPlay.bind(this));
     }
 
     updateUI() {
@@ -191,7 +191,7 @@ class TimelinePanel extends React.Component {
         UI.get('btnPlay', this.id).dom.style.display = 'none';
         UI.get('btnPause', this.id).dom.style.display = '';
 
-        app.on(`animate.${this.id}`, this.onAnimate.bind(this));
+        app.on(`animate.`, this.onAnimate.bind(this));
     };
 
     onPause() {
@@ -203,7 +203,7 @@ class TimelinePanel extends React.Component {
         UI.get('btnPlay', this.id).dom.style.display = '';
         UI.get('btnPause', this.id).dom.style.display = 'none';
 
-        app.on(`animate.${this.id}`, null);
+        app.on(`animate.TimelinePanel`, null);
         this.updateSlider();
     }
 
@@ -230,7 +230,7 @@ class TimelinePanel extends React.Component {
         UI.get('btnPlay', this.id).dom.style.display = '';
         UI.get('btnPause', this.id).dom.style.display = 'none';
 
-        app.on(`animate.${this.id}`, null);
+        app.on(`animate.TimelinePanel`, null);
         this.sliderLeft = 0;
         this.updateSlider();
     }

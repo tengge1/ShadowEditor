@@ -85,7 +85,7 @@ class MMDComponent extends React.Component {
     handleSelectAnimation() {
         app.call(`selectBottomPanel`, this, 'animation');
         app.toast(L_CLICK_ANIMATION_PANEL);
-        app.on(`selectAnimation.${this.id}`, this.onSelectAnimation);
+        app.on(`selectAnimation.MMDComponent`, this.onSelectAnimation);
     }
 
     onSelectAnimation(data) {
@@ -93,7 +93,7 @@ class MMDComponent extends React.Component {
             app.toast(L_SELECT_MMD_ANIMATION_ONLY);
             return;
         }
-        app.on(`selectAnimation.${this.id}`, null);
+        app.on(`selectAnimation.MMDComponent`, null);
 
         this.selected.userData.Animation = {};
         Object.assign(this.selected.userData.Animation, data);
@@ -106,7 +106,7 @@ class MMDComponent extends React.Component {
     handleSelectCameraAnimation() {
         app.call(`selectBottomPanel`, this, 'animation');
         app.toast(L_CLICK_CAMERA_ANIMATION);
-        app.on(`selectAnimation.${this.id}`, this.onSelectCameraAnimation);
+        app.on(`selectAnimation.MMDComponent`, this.onSelectCameraAnimation);
     }
 
     onSelectCameraAnimation(data) {
@@ -114,7 +114,7 @@ class MMDComponent extends React.Component {
             app.toast(L_SELECT_CAMERA_ANIMATION_ONLY);
             return;
         }
-        app.on(`selectAnimation.${this.id}`, null);
+        app.on(`selectAnimation.MMDComponent`, null);
 
         this.selected.userData.CameraAnimation = {};
         Object.assign(this.selected.userData.CameraAnimation, data);
@@ -127,11 +127,11 @@ class MMDComponent extends React.Component {
     handleSelectAudio() {
         app.call(`selectBottomPanel`, this, 'audio');
         app.toast(L_SELECT_MMD_AUDIO);
-        app.on(`selectAudio.${this.id}`, this.onSelectAudio.bind(this));
+        app.on(`selectAudio.MMDComponent`, this.onSelectAudio.bind(this));
     }
 
     onSelectAudio(data) {
-        app.on(`selectAudio.${this.id}`, null);
+        app.on(`selectAudio.MMDComponent`, null);
 
         this.selected.userData.Audio = {};
         Object.assign(this.selected.userData.Audio, data);

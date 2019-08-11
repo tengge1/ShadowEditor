@@ -37,7 +37,7 @@ class LogPanel extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`log.${this.id}`, this.handleLog);
+        app.on(`log.LogPanel`, this.handleLog);
     }
 
     handleLog(content, type) {

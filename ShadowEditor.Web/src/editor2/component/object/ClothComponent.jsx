@@ -80,7 +80,7 @@ class ClothComponent extends React.Component {
             previewText: L_CANCEL,
         });
 
-        app.on(`animate.${this.id}`, this.onAnimate);
+        app.on(`animate.ClothComponent`, this.onAnimate);
     }
 
     stopPreview() {
@@ -90,7 +90,7 @@ class ClothComponent extends React.Component {
             previewText: L_PREVIEW,
         });
 
-        app.on(`animate.${this.id}`, null);
+        app.on(`animate.ClothComponent`, null);
     }
 
     onAnimate(clock, deltaTime) {

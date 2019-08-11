@@ -795,11 +795,11 @@ class MaterialComponent extends React.Component {
     onLoad() {
         app.call(`selectBottomPanel`, this, 'material');
         app.toast(L_CLICK_MATERIAL_ON_PANEL);
-        app.on(`selectMaterial.${this.id}`, this.onWaitingForMaterial.bind(this));
+        app.on(`selectMaterial.MaterialComponent`, this.onWaitingForMaterial.bind(this));
     }
 
     onWaitingForMaterial(material) {
-        app.on(`selectMaterial.${this.id}`, null);
+        app.on(`selectMaterial.MaterialComponent`, null);
 
         if (this.selected.material) {
             this.selected.material.dispose();

@@ -141,7 +141,7 @@ class FireComponent extends React.Component {
             previewText: L_CANCEL,
         });
 
-        app.on(`animate.${this.id}`, this.onAnimate);
+        app.on(`animate.FireComponent`, this.onAnimate);
     }
 
     stopPreview() {
@@ -151,7 +151,7 @@ class FireComponent extends React.Component {
             previewText: L_PREVIEW,
         });
 
-        app.on(`animate.${this.id}`, null);
+        app.on(`animate.FireComponent`, null);
     }
 
     onAnimate(clock, deltaTime) {

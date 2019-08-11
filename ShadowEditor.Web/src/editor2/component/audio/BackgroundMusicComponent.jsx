@@ -85,11 +85,11 @@ class BackgroundMusicComponent extends React.Component {
     handleSelect() {
         app.call(`selectBottomPanel`, this, 'audio');
         app.toast(L_CLICK_AUDIO_IN_PANEL);
-        app.on(`selectAudio.${this.id}`, this.onSelectAudio);
+        app.on(`selectAudio.BackgroundMusicComponent`, this.onSelectAudio);
     }
 
     onSelectAudio(obj) {
-        app.on(`selectAudio.${this.id}`, null);
+        app.on(`selectAudio.BackgroundMusicComponent`, null);
 
         Object.assign(this.selected.userData, obj);
 

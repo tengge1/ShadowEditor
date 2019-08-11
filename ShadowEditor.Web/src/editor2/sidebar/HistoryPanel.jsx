@@ -40,8 +40,8 @@ class HistoryPanel extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`editorCleared.${this.id}`, this.update);
-        app.on(`historyChanged.${this.id}`, this.update);
+        app.on(`editorCleared.HistoryPanel`, this.update);
+        app.on(`historyChanged.HistoryPanel`, this.update);
     }
 
     componentDidUpdate() {

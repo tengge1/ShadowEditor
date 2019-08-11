@@ -40,12 +40,12 @@ class HierarchyPanel extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`sceneGraphChanged.${this.id}`, this.updateUI.bind(this));
+        app.on(`sceneGraphChanged.HierarchyPanel`, this.updateUI.bind(this));
 
         // bug: https://gitee.com/tengge1/ShadowEditor/issues/ITCA9
-        app.on(`objectChanged.${this.id}`, this.updateUI.bind(this));
+        app.on(`objectChanged.HierarchyPanel`, this.updateUI.bind(this));
 
-        app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+        app.on(`objectSelected.HierarchyPanel`, this.onObjectSelected.bind(this));
     }
 
     /**

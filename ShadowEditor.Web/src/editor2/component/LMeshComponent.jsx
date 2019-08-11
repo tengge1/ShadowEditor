@@ -115,7 +115,7 @@ class LMeshComponent extends React.Component {
         const model = this.selected.userData.model;
         model.setAnimation(animation);
 
-        app.on(`animate.${this.id}`, this.onAnimate);
+        app.on(`animate.LMeshComponent`, this.onAnimate);
     }
 
     stopPreview() {
@@ -125,7 +125,7 @@ class LMeshComponent extends React.Component {
             previewText: L_PREVIEW,
         });
 
-        app.on(`animate.${this.id}`, null);
+        app.on(`animate.LMeshComponent`, null);
     }
 
     onAnimate(clock, deltaTime) {

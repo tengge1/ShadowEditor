@@ -294,7 +294,7 @@ class SceneComponent extends React.Component {
 
         app.toast(L_CLICK_MAP_PANEL);
 
-        app.on(`selectMap.${this.id}`, this.handleSelectCubeMap);
+        app.on(`selectMap.SceneComponent`, this.handleSelectCubeMap);
     }
 
     handleSelectCubeMap(model) {
@@ -304,7 +304,7 @@ class SceneComponent extends React.Component {
             return;
         }
 
-        app.on(`selectMap.${this.id}`, null);
+        app.on(`selectMap.SceneComponent`, null);
 
         var urls = model.Url.split(';');
 

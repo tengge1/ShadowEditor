@@ -57,7 +57,7 @@ class ScenePanel extends React.Component {
         if (this.init === undefined && this.props.show === true) {
             this.init = true;
             this.update();
-            app.on(`sceneSaved.${this.id}`, this.update);
+            app.on(`sceneSaved.ScenePanel`, this.update);
         }
     }
 
