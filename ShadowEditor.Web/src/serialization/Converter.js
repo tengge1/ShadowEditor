@@ -459,7 +459,11 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                 parts: serverParts,
             }).then(obj => {
                 if (obj) {
-                    serverObj.parent.add(obj);
+                    if (serverObj.parent) {
+                        serverObj.parent.add(obj);
+                    } else {
+                        console.warn(`Converter: the parent of serverObj with uuid ${serverObj.uuid} is null.`);
+                    }
                 } else {
                     console.warn(`Converter: Server assets ${serverObj.json.uuid} loaded failed.`);
                 }
