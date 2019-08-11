@@ -18,7 +18,7 @@ class OptionsWindow extends React.Component {
         this.filterRef = React.createRef();
 
         this.state = {
-            activeTabIndex: 0,
+            activeTabIndex: props.activeTabIndex,
         };
 
         this.handleClose = this.handleClose.bind(this);

@@ -10,7 +10,7 @@ class OptionsMenu extends React.Component {
         super(props);
 
         this.state = {
-            
+
         };
 
         this.handleRendererOptions = this.handleRendererOptions.bind(this);
@@ -40,7 +40,7 @@ class OptionsMenu extends React.Component {
 
     handleRendererOptions() {
         let win = app.createElement(OptionsWindow, {
-            activeTab: 0,
+            activeTabIndex: 0,
         });
         app.addElement(win);
     }
@@ -49,7 +49,7 @@ class OptionsMenu extends React.Component {
 
     handleHelperOptions() {
         let win = app.createElement(OptionsWindow, {
-            activeTab: 1,
+            activeTabIndex: 1,
         });
         app.addElement(win);
     }
@@ -58,7 +58,7 @@ class OptionsMenu extends React.Component {
 
     handleFilterOptions() {
         let win = app.createElement(OptionsWindow, {
-            activeTab: 2,
+            activeTabIndex: 2,
         });
         app.addElement(win);
     }
