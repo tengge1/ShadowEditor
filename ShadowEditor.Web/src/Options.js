@@ -6,6 +6,11 @@
 function Options(options = {}) {
     // 服务端配置
     this.server = options.server === undefined ? location.origin : options.server; // 服务端地址
+
+    if (!this.server.startsWith('http')) {
+        this.server = `http://${this.server}`;
+    }
+
     this.sceneType = options.sceneType === undefined ? 'Empty' : options.sceneType; // 场景类型：Empty, GIS
 
     // 阴影配置
