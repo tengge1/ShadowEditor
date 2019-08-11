@@ -161,7 +161,7 @@ class TimelinePanel extends React.Component {
         });
 
         if (uuids.length === 0) {
-            UI.msg(L_CHECK_DELETE_LAYER);
+            app.toast(L_CHECK_DELETE_LAYER);
             return;
         }
 
@@ -346,7 +346,7 @@ class TimelinePanel extends React.Component {
         }
 
         if (event.target.parentElement.data && event.target.parentElement.data.animations) { // 拖动到其他动画上
-            UI.msg('不允许将动画拖动到其他动画上。');
+            app.toast('不允许将动画拖动到其他动画上。');
             return;
         }
 

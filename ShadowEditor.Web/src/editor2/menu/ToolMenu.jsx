@@ -36,7 +36,7 @@ class ToolMenu extends React.Component {
                 }).then(response => {
                     if (response.ok) {
                         response.json().then(json => {
-                            UI.msg(json.Msg);
+                            app.toast(json.Msg);
                         });
                     }
                 });
@@ -54,7 +54,7 @@ class ToolMenu extends React.Component {
                 }).then(response => {
                     if (response.ok) {
                         response.json().then(json => {
-                            UI.msg(json.Msg);
+                            app.toast(json.Msg);
                         });
                     }
                 });
@@ -72,7 +72,7 @@ class ToolMenu extends React.Component {
                 }).then(response => {
                     if (response.ok) {
                         response.json().then(json => {
-                            UI.msg(json.Msg);
+                            app.toast(json.Msg);
                         });
                     }
                 });
@@ -90,7 +90,7 @@ class ToolMenu extends React.Component {
                 }).then(response => {
                     if (response.ok) {
                         response.json().then(json => {
-                            UI.msg(json.Msg);
+                            app.toast(json.Msg);
                             window.open(`${app.options.server}${json.Url}`, 'export');
                         });
                     }

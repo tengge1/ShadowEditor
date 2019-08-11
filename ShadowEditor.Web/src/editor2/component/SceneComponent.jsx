@@ -316,7 +316,7 @@ class SceneComponent extends React.Component {
                     resolve(texture);
                 }, undefined, error => {
                     console.error(error);
-                    UI.msg(L_CUBE_TEXTURE_FETCH_FAILED);
+                    app.toast(L_CUBE_TEXTURE_FETCH_FAILED);
                 });
             });
         });

@@ -106,7 +106,7 @@ class AssetsMenu extends React.Component {
         var object = editor.selected;
 
         if (object === null) {
-            UI.msg(L_PLEASE_SELECT_OBJECT);
+            app.toast(L_PLEASE_SELECT_OBJECT);
             return;
         }
 
@@ -124,7 +124,7 @@ class AssetsMenu extends React.Component {
         var object = editor.selected;
 
         if (object === null) {
-            UI.msg(L_PLEASE_SELECT_OBJECT);
+            app.toast(L_PLEASE_SELECT_OBJECT);
             return;
         }
 

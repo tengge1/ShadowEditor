@@ -188,7 +188,7 @@ class SceneMenu extends React.Component {
 
             app.call(`sceneSaved`, this);
 
-            UI.msg(obj.Msg);
+            app.toast(obj.Msg);
         });
     }
 
