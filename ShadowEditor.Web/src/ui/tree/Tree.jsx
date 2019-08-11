@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 import CheckBox from '../form/CheckBox.jsx';
+import Icon from '../icon/Icon.jsx';
 
 /**
  * 树
@@ -20,6 +21,7 @@ class Tree extends React.Component {
         this.handleClick = this.handleClick.bind(this, onSelect);
         this.handleCheck = this.handleCheck.bind(this, onCheck);
         this.handleDoubleClick = this.handleDoubleClick.bind(this, onDoubleClick);
+        this.handleClickIcon = this.handleClickIcon.bind(this, props.onClickIcon);
 
         this.handleDrag = this.handleDrag.bind(this);
         this.handleDragStart = this.handleDragStart.bind(this);
@@ -71,6 +73,9 @@ class Tree extends React.Component {
             {checkbox}
             <i className={classNames('type', leaf ? 'node' : (data.expanded ? 'open' : 'close'))}></i>
             <a href={'javascript:;'}>{data.text}</a>
+            {data.icons && data.icons.map(n => {
+                return <Icon className={'control'} name={n.name} value={data.value} icon={n.icon} key={n.name} onClick={this.handleClickIcon}></Icon>;
+            })}
             {leaf ? null : children}
         </li>;
     }
@@ -124,10 +129,19 @@ class Tree extends React.Component {
     }
 
     handleDoubleClick(onDoubleClick, event) {
-        var value = event.target.getAttribute('value');
+        const value = event.target.getAttribute('value');
+
         if (value) {
             onDoubleClick && onDoubleClick(value, event);
         }
+    }
+
+    handleClickIcon(onClickIcon, name, event) {
+        const value = event.target.getAttribute('value');
+
+        event.stopPropagation();
+
+        onClickIcon && onClickIcon(value, name, event);
     }
 
     // --------------------- 拖拽事件 ---------------------------
@@ -229,6 +243,7 @@ Tree.propTypes = {
     onSelect: PropTypes.func,
     onCheck: PropTypes.func,
     onDoubleClick: PropTypes.func,
+    onClickIcon: PropTypes.func,
     onDrop: PropTypes.func,
 };
 
@@ -241,6 +256,7 @@ Tree.defaultProps = {
     onSelect: null,
     onCheck: null,
     onDoubleClick: null,
+    onClickIcon: null,
     onDrop: null,
 };
 

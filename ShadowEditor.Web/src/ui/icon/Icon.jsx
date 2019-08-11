@@ -14,13 +14,14 @@ class Icon extends React.Component {
     }
 
     render() {
-        const { className, style, name, icon, title } = this.props;
+        const { className, style, name, value, icon, title } = this.props;
 
         return <i className={classNames('Icon', 'iconfont',
             icon && 'icon-' + icon,
             className)}
             style={style}
             name={name}
+            value={value}
             title={title}
             onClick={this.handleClick}></i>;
     }
@@ -35,6 +36,7 @@ Icon.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     name: PropTypes.string,
+    value: PropTypes.string,
     icon: PropTypes.string,
     title: PropTypes.string,
     onClick: PropTypes.func,
@@ -44,6 +46,7 @@ Icon.defaultProps = {
     className: null,
     style: null,
     name: null,
+    value: null,
     icon: null,
     title: null,
     onClick: null,

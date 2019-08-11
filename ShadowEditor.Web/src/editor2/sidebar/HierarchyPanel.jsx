@@ -21,6 +21,8 @@ class HierarchyPanel extends React.Component {
         this.handleSelect = this.handleSelect.bind(this);
         this.handleCheck = this.handleCheck.bind(this);
         this.handleDoubleClick = this.handleDoubleClick.bind(this);
+        this.handleClickVisible = this.handleClickVisible.bind(this);
+
         this.handleExpand = this.handleExpand.bind(this);
         this.handleDrop = this.handleDrop.bind(this);
     }
@@ -35,6 +37,7 @@ class HierarchyPanel extends React.Component {
             onSelect={this.handleSelect}
             onCheck={this.handleCheck}
             onDoubleClick={this.handleDoubleClick}
+            onClickIcon={this.handleClickVisible}
             onExpand={this.handleExpand}
             onDrop={this.handleDrop}></Tree>;
     }
@@ -78,6 +81,16 @@ class HierarchyPanel extends React.Component {
             selected: value,
         });
         app.editor.focusByUUID(value);
+    }
+
+    handleClickVisible(value, name, event) {
+        let obj = app.editor.objectByUuid(value);
+
+        if (obj) {
+            obj.visible = !obj.visible;
+            app.call(`objectChanged`, this, obj.visible);
+            // this.updateUI();
+        }
     }
 
     /**
@@ -144,6 +157,10 @@ class HierarchyPanel extends React.Component {
             draggable: obj !== scene && obj !== camera,
             cls: cls,
             children: [],
+            icons: [{
+                name: 'visible',
+                icon: obj.visible ? 'visible' : 'invisible',
+            }],
         };
 
         list.push(data);

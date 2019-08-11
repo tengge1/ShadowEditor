@@ -94,6 +94,16 @@
     color: #fff;
 }
 
+.Tree .node>i.control {
+    font-size: 16px;
+    color: #555;
+    margin-left: 4px;
+}
+
+.Tree .node.selected>i.control {
+    color: #fff;
+}
+
 .Tree .node>.sub {
     margin: 0;
     padding: 0 0 0 16px;
