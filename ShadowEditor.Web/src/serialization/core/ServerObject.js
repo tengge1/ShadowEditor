@@ -204,16 +204,26 @@ ServerObject.prototype.revertLayer = function (obj, list, children, parts) {
     for (let i = 0; i < list.length; i++) {
         let item = list[i];
 
-        let child = children.filter(n => n.uuid === item.uuid)[0];
+        const child1 = children.filter(n => n.uuid === item.uuid)[0];
+        const child2 = parts.filter(n => n.uuid === item.uuid)[0];
 
-        if (child) {
-            obj.add(child);
-        } else {
-            child = parts.filter(n => n.uuid === item.uuid)[0];
+        let child = null;
 
-            if (child) {
-                obj.add(child);
+        if (child1) {
+            obj.add(child1);
+
+            child = child1;
+
+            if (child2) {
+                // TODO: 服务端原始模型组件，需要复制反序列化后的组件的属性。
+                child1.name = child2.name;
             }
+        } else if (child2) {
+            obj.add(child2);
+
+            child = child2;
+        } else {
+            console.warn(`ServerObject: no object with uuid ${item.uuid}.`);
         }
 
         if (child && Array.isArray(item.children) && item.children.length > 0) {
