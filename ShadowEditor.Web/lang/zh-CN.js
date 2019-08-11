@@ -640,3 +640,4 @@ L_CLOSE = '关闭';
 L_WAITING = '请稍后...';
 L_LOADING = '加载中...';
 L_WIREFRAME_WIDTH = '线框粗细';
+L_IS_EXPORTING = '正在导出...';

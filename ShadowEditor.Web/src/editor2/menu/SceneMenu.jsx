@@ -206,11 +206,14 @@ class SceneMenu extends React.Component {
             title: '询问',
             content: '是否导出当前场景？',
             onOK: () => {
+                app.mask(L_IS_EXPORTING);
+
                 fetch(`${app.options.server}/api/ExportScene/Run?ID=${sceneID}`, {
                     method: 'POST'
                 }).then(response => {
                     if (response.ok) {
                         response.json().then(json => {
+                            app.unmask();
                             app.toast(json.Msg);
                             window.open(`${app.options.server}${json.Url}`, 'export');
                         });

@@ -33,17 +33,19 @@
     <script src="assets/js/three.js"></script>
 
     <!-- libs -->
+    <script src="assets/js/libs/react.js"></script>
+    <script src="assets/js/libs/react-dom.js"></script>
     <script src="assets/js/libs/stats.min.js"></script>
     <script src="assets/js/libs/jszip.min.js"></script>
     <script src="assets/js/libs/inflate.min.js"></script>
     <script src="assets/js/libs/gunzip.min.js"></script>
     <script src="assets/js/d3/d3.js"></script>
-    <script src="assets/js/libs/rbush.js"></script>
 
-    <script src="assets/js/SimplexNoise.js"></script>
-    <script src="assets/js/ImprovedNoise.js"></script>
-    <script src="assets/js/GPUComputationRenderer.js"></script>
-    <script src="assets/js/ShaderTerrain.js"></script>
+    <script src="assets/js/math/SimplexNoise.js"></script>
+    <script src="assets/js/math/ImprovedNoise.js"></script>
+    <script src="assets/js/misc/GPUComputationRenderer.js"></script>
+    <script src="assets/js/shaders/TerrainShader.js"></script>
+    <script src="assets/js/libs/ammo.js"></script>
 
     <script src="assets/js/SPE.js"></script>
     <script src="assets/js/VolumetricFire.js"></script>
@@ -60,6 +62,9 @@
     <!-- loaders -->
     <script src="assets/js/loaders/TGALoader.js"></script>
 
+    <!-- shaders -->
+    <script src="assets/js/shaders/FXAAShader.js"></script>
+
     <!-- objects -->
     <script src="assets/js/objects/Sky.js"></script>
     <script src="assets/js/objects/Reflector.js"></script>
@@ -68,24 +73,23 @@
     <!-- Shadow Editor -->
     <script src="build/ShadowEditor.js"></script>
     <script>
-        var app = null;
+        let app = null;
 
-        var getQueryString = name => {
+        const getQueryString = name => {
             var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
             var r = window.location.search.substr(1).match(reg);
             if (r != null) return unescape(r[2]);
             return null;
         };
 
-        var start = () => {
-            app = new Shadow.Player({
+        const start = () => {
+            app = new Shadow.Player(document.querySelector('#container'), {
                 server: location.origin,
                 enableThrowBall: false,
             });
-            app.render();
 
-            var sceneID = getQueryString('sceneID');
-            var sceneFile = getQueryString('sceneFile');
+            const sceneID = getQueryString('sceneID');
+            const sceneFile = getQueryString('sceneFile');
 
             if (sceneID) { // 通过/api/Scene/Load?ID=sceneID获取场景数据
                 fetch(`${app.options.server}/api/Scene/Load?ID=${sceneID}`).then(response => {
