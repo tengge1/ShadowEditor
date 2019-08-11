@@ -10,6 +10,14 @@ class EditMenu extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            enableUndo: false,
+            enableRedo: false,
+            enableClearHistory: false,
+            enableClone: false,
+            enableDelete: false,
+        };
+
         this.handleUndo = this.handleUndo.bind(this);
         this.handleRedo = this.handleRedo.bind(this);
         this.handleClearHistory = this.handleClearHistory.bind(this);
@@ -18,13 +26,15 @@ class EditMenu extends React.Component {
     }
 
     render() {
+        const { enableUndo, enableRedo, enableClearHistory, enableClone, enableDelete } = this.state;
+
         return <MenuItem title={L_EDIT}>
-            <MenuItem title={`${L_UNDO}(Ctrl+Z)`} onClick={this.handleUndo}></MenuItem>
-            <MenuItem title={`${L_REDO}(Ctrl+Y)`} onClick={this.handleRedo}></MenuItem>
-            <MenuItem title={L_CLEAR_HISTORY} onClick={this.handleClearHistory}></MenuItem>
+            <MenuItem title={`${L_UNDO}(Ctrl+Z)`} disabled={!enableUndo} onClick={this.handleUndo}></MenuItem>
+            <MenuItem title={`${L_REDO}(Ctrl+Y)`} disabled={!enableRedo} onClick={this.handleRedo}></MenuItem>
+            <MenuItem title={L_CLEAR_HISTORY} disabled={!enableClearHistory} onClick={this.handleClearHistory}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={L_CLONE} onClick={this.handleClone}></MenuItem>
-            <MenuItem title={`${L_DELETE}(Del)`} onClick={this.handleDelete}></MenuItem>
+            <MenuItem title={L_CLONE} disabled={!enableClone} onClick={this.handleClone}></MenuItem>
+            <MenuItem title={`${L_DELETE}(Del)`} disabled={!enableDelete} onClick={this.handleDelete}></MenuItem>
         </MenuItem>;
     }
 
@@ -112,44 +122,22 @@ class EditMenu extends React.Component {
     // ---------------------- 事件 -----------------------
 
     onHistoryChanged() {
-        var history = app.editor.history;
+        const history = app.editor.history;
 
-        // var undo = UI.get('undo', this.id);
-        // var redo = UI.get('redo', this.id);
-        // var clearHistory = UI.get('clearHistory', this.id);
-
-        // if (history.undos.length === 0) {
-        //     undo.dom.classList.add('inactive');
-        // } else {
-        //     undo.dom.classList.remove('inactive');
-        // }
-
-        // if (history.redos.length === 0) {
-        //     redo.dom.classList.add('inactive');
-        // } else {
-        //     redo.dom.classList.remove('inactive');
-        // }
-
-        // if (history.undos.length === 0 && history.redos.length === 0) {
-        //     clearHistory.dom.classList.add('inactive');
-        // } else {
-        //     clearHistory.dom.classList.remove('inactive');
-        // }
+        this.setState({
+            enableUndo: history.undos.length > 0,
+            enableRedo: history.redos.length > 0,
+            enableClearHistory: history.undos.length > 0 || history.redos.length > 0,
+        });
     }
 
     onObjectSelected() {
-        var editor = app.editor;
+        const editor = app.editor;
 
-        // var clone = UI.get('clone', this.id);
-        // var deleteBtn = UI.get('delete', this.id);
-
-        // if (editor.selected && editor.selected.parent != null) {
-        //     clone.dom.classList.remove('inactive');
-        //     deleteBtn.dom.classList.remove('inactive');
-        // } else {
-        //     clone.dom.classList.add('inactive');
-        //     deleteBtn.dom.classList.add('inactive');
-        // }
+        this.setState({
+            enableClone: editor.selected && editor.selected.parent != null,
+            enableDelete: editor.selected && editor.selected.parent != null,
+        });
     }
 }
 

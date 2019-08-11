@@ -19,6 +19,22 @@
     border: 1px solid rgb(183, 212, 246);
 }
 
+.MenuItem.disabled {
+    cursor: not-allowed;
+}
+
+.MenuItem.disabled:hover {
+    background: initial;
+    color: initial;
+    padding: 2px 14px 2px 30px;
+    border: initial;
+}
+
+.MenuItem.disabled>span {
+    color: #aaa !important;
+    pointer-events: none;
+}
+
 .MenuItem>span {
     pointer-events: none;
 }

@@ -12,13 +12,8 @@ class MenuItem extends React.Component {
         this.handleClick = this.handleClick.bind(this, props.onClick);
     }
 
-    handleClick(onClick, event) {
-        event.stopPropagation();
-        onClick && onClick(event);
-    }
-
     render() {
-        const { title, className, style, children, show, onClick, ...others } = this.props;
+        const { title, className, style, children, show, disabled, onClick } = this.props;
 
         const subMenu = children && children.length && <><div className={'suffix'}>
             <i className={'iconfont icon-right-triangle'}></i>
@@ -28,13 +23,20 @@ class MenuItem extends React.Component {
             </div></>;
 
         return <li
-            className={classNames('MenuItem', !show && 'hidden', className)}
+            className={classNames('MenuItem', disabled && 'disabled', !show && 'hidden', className)}
             style={style}
-            onClick={this.handleClick}
-            {...others}>
+            onClick={this.handleClick}>
             <span>{title}</span>
             {subMenu}
         </li>;
+    }
+
+    handleClick(onClick, event) {
+        event.stopPropagation();
+
+        if (!event.target.classList.contains('disabled')) {
+            onClick && onClick(event);
+        }
     }
 }
 
@@ -44,6 +46,7 @@ MenuItem.propTypes = {
     style: PropTypes.object,
     children: PropTypes.node,
     show: PropTypes.bool,
+    disabled: PropTypes.bool,
     onClick: PropTypes.func,
 };
 
@@ -53,6 +56,7 @@ MenuItem.defaultProps = {
     style: null,
     children: null,
     show: true,
+    disabled: false,
     onClick: null,
 };
 
