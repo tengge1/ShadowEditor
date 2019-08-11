@@ -18,6 +18,8 @@ class HierarchyPanel extends React.Component {
             selected: null,
         };
 
+        this.updateUI = this.updateUI.bind(this);
+
         this.handleSelect = this.handleSelect.bind(this);
         this.handleCheck = this.handleCheck.bind(this);
         this.handleDoubleClick = this.handleDoubleClick.bind(this);
@@ -43,12 +45,14 @@ class HierarchyPanel extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`sceneGraphChanged.HierarchyPanel`, this.updateUI.bind(this));
+        app.on(`sceneGraphChanged.HierarchyPanel`, this.updateUI);
 
         // bug: https://gitee.com/tengge1/ShadowEditor/issues/ITCA9
-        app.on(`objectChanged.HierarchyPanel`, this.updateUI.bind(this));
+        app.on(`objectChanged.HierarchyPanel`, this.updateUI);
 
-        app.on(`objectSelected.HierarchyPanel`, this.onObjectSelected.bind(this));
+        app.on(`objectRemoved.HierarchyPanel`, this.updateUI);
+
+        app.on(`objectSelected.HierarchyPanel`, this.onObjectSelected);
     }
 
     /**

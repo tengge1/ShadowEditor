@@ -136,7 +136,7 @@ Converter.prototype.toJSON = function (obj) {
  * @param {*} list 用于保存json的空数组
  */
 Converter.prototype.sceneToJson = function (scene, list) {
-    (function serializer(obj) {
+    (function serialize(obj) {
         var json = null;
 
         if (obj.userData.Server === true) { // 服务器对象
@@ -205,7 +205,7 @@ Converter.prototype.sceneToJson = function (scene, list) {
         // 2、服务器(模型)对象需要记录用户对模型的修改，需要序列化。
         if (obj.children && obj.userData.type === undefined) {
             obj.children.forEach(n => {
-                serializer.call(this, n);
+                serialize(n);
             });
         }
     })(scene);
@@ -317,24 +317,25 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
     var scene = (new SceneSerializer()).fromJSON(sceneJson, undefined, options.server);
 
     var serverObjects = [];
+    let serverParts = []; // 保存服务器模型内部组件，以便还原内部结构。
 
     (function parseJson(json, parent, list) {
         json.children.forEach(n => {
-            var objJson = list.filter(o => o.uuid === n)[0];
+            const objJson = list.filter(o => o.uuid === n)[0];
+
             if (objJson == null) {
                 console.warn(`Converter: no object that uuid equals to ${n}.`);
                 return;
             }
 
-            if (objJson.userData && objJson.userData.Server === true) { // 服务端对象
+            if (objJson.userData && objJson.userData.Server === true) { // 服务器模型
                 serverObjects.push({
                     parent: parent,
                     json: objJson
                 });
-                return;
             }
 
-            var obj = null;
+            let obj = null;
 
             switch (objJson.metadata.generator) {
                 case 'SceneSerializer':
@@ -412,27 +413,33 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                 case 'EllipseCurveSerializer':
                     obj = (new EllipseCurveSerializer()).fromJSON(objJson);
                     break;
-                case 'GlobeSerializer':
-                    //obj = (new GlobeSerializer()).fromJSON(objJson);
-                    return true;
+                case 'ServerObject':
+                    obj = (new Object3DSerializer()).fromJSON(objJson, undefined);
                     break;
+                case 'GlobeSerializer':
+                    return;
             }
 
-            if (obj) {
-                parent.add(obj);
-            } else {
+            if (!obj) {
                 console.warn(`Converter: No Deserializer with ${objJson.metadata.type}.`);
+                return;
             }
 
-            // objJson.userData.type不为空，说明它是内置类型，其子项不应该被反序列化
-            // objJson.userData.Server为true是模型，子项不应被反序列化
-            if (objJson.userData.type === undefined &&
-                objJson.userData.Server !== true &&
-                objJson.children &&
-                Array.isArray(objJson.children) &&
-                objJson.children.length > 0 &&
-                obj) {
-                parseJson(objJson, obj, list);
+            if (objJson.userData && objJson.userData.Server === true || parent === null) { // 服务端模型子组件
+                serverParts.push(obj);
+            } else { // 其他要素
+                parent.add(obj);
+            }
+
+            // 说明：
+            // 1、objJson.userData.type不为空，说明它是内置类型，其子项不应该被反序列化
+            // 2、objJson.userData.Server为true是模型，子项会被反序列化，但是不会添加到父模型中。
+            if (objJson.userData.type === undefined && Array.isArray(objJson.children) && objJson.children.length > 0) {
+                if (objJson.userData && objJson.userData.Server === true || parent === null) { // 服务器模型或部件
+                    parseJson(objJson, null, list);
+                } else {
+                    parseJson(objJson, obj, list);
+                }
             }
         });
     })(sceneJson, scene, jsons);
@@ -448,7 +455,8 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
             (new ServerObject()).fromJSON(serverObj.json, options, {
                 camera: options.camera,
                 renderer: options.renderer,
-                audioListener: options.audioListener
+                audioListener: options.audioListener,
+                parts: serverParts,
             }).then(obj => {
                 if (obj) {
                     serverObj.parent.add(obj);

@@ -65,7 +65,7 @@ Object3DSerializer.prototype.toJSON = function (obj) {
 };
 
 Object3DSerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? THREE.Object3D : parent;
+    var obj = parent === undefined ? new THREE.Object3D() : parent;
 
     BaseSerializer.prototype.fromJSON.call(this, json, obj);
 

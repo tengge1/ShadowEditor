@@ -40,7 +40,10 @@ KeyDownEvent.prototype.onKeyDown = function (event) {
                 content: `${L_DELETE} ${object.name} ?`,
                 onOK: () => {
                     var parent = object.parent;
-                    if (parent !== null) editor.execute(new RemoveObjectCommand(object));
+                    if (parent !== null) {
+                        editor.execute(new RemoveObjectCommand(object));
+                        app.call(`objectRemoved`, this, object);
+                    }
                 }
             });
             break;
