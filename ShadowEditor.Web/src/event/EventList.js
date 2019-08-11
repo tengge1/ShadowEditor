@@ -46,8 +46,8 @@ var EventList = [
     'spaceChanged', // 空间坐标系改变事件
 
     'sceneGraphChanged', // 场景内容改变事件
-
     'cameraChanged', // 相机改变事件
+    'rendererChanged', // 渲染器改变
 
     'geometryChanged', // 几何体改变事件
 

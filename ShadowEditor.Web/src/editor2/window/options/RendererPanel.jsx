@@ -18,8 +18,8 @@ class RendererPanel extends React.Component {
 
         this.state = {
             shadowMapType: -1,
-            gammaInput: 0,
-            gammaOutput: 0,
+            gammaInput: false,
+            gammaOutput: false,
             gammaFactor: 0,
         };
 
@@ -37,11 +37,11 @@ class RendererPanel extends React.Component {
             </FormControl>
             <FormControl>
                 <Label>{L_GAMMA_INPUT}</Label>
-                <CheckBox name={'gammaInput'} value={gammaInput} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'gammaInput'} checked={gammaInput} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
                 <Label>{L_GAMMA_OUTPUT}</Label>
-                <CheckBox name={'gammaOutput'} value={gammaOutput} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'gammaOutput'} checked={gammaOutput} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
                 <Label>{L_GAMMA_FACTOR}</Label>
@@ -50,9 +50,9 @@ class RendererPanel extends React.Component {
         </Form>;
     }
 
-    // componentDidMount() {
-    //     app.on(`optionsChanged.${this.id}`, this.handleUpdate);
-    // }
+    componentDidMount() {
+        app.on(`rendererChanged.RendererPanel`, this.handleUpdate);
+    }
 
     handleUpdate() {
         const renderer = app.editor.renderer;
@@ -79,11 +79,11 @@ class RendererPanel extends React.Component {
             [name]: value,
         });
 
-        if (shadowMapType === -1) {
+        if (shadowMapType === '-1') {
             renderer.shadowMap.enabled = false;
         } else {
             renderer.shadowMap.enabled = true;
-            renderer.shadowMap.type = shadowMapType;
+            renderer.shadowMap.type = parseInt(shadowMapType);
         }
 
         renderer.gammaInput = gammaInput;
@@ -98,6 +98,8 @@ class RendererPanel extends React.Component {
             gammaOutput,
             gammaFactor
         });
+
+        app.call(`rendererChanged`, this);
     }
 }
 

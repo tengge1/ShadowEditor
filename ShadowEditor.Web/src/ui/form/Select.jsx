@@ -38,6 +38,7 @@ class Select extends React.Component {
 
         const value = event.target.options[selectedIndex].value;
 
+        // 注意：options的key一定是字符串，所以value也一定是字符串
         onChange && onChange(value, this.props.name, event);
     }
 }

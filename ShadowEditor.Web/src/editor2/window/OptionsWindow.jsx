@@ -13,11 +13,14 @@ class OptionsWindow extends React.Component {
     constructor(props) {
         super(props);
 
+        this.rendererRef = React.createRef();
+        this.helperRef = React.createRef();
+        this.filterRef = React.createRef();
+
         this.state = {
             activeTabIndex: 0,
         };
 
-        this.updateUI = this.updateUI.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleActiveTabChange = this.handleActiveTabChange.bind(this);
     }
@@ -33,9 +36,9 @@ class OptionsWindow extends React.Component {
             onClose={this.handleClose}>
             <Content>
                 <TabLayout className={'tab'} activeTabIndex={activeTabIndex} onActiveTabChange={this.handleActiveTabChange}>
-                    <RendererPanel title={L_RENDERER}></RendererPanel>
-                    <HelperPanel title={L_HELPERS}></HelperPanel>
-                    <FilterPanel title={L_FILTER}></FilterPanel>
+                    <RendererPanel title={L_RENDERER} ref={this.rendererRef}></RendererPanel>
+                    <HelperPanel title={L_HELPERS} ref={this.helperRef}></HelperPanel>
+                    <FilterPanel title={L_FILTER} ref={this.filterRef}></FilterPanel>
                 </TabLayout>
             </Content>
             <Buttons>
@@ -45,11 +48,8 @@ class OptionsWindow extends React.Component {
     }
 
     componentDidMount() {
-        this.updateUI();
-    }
-
-    updateUI() {
-
+        const { activeTabIndex } = this.state;
+        this.handleActiveTabChange(activeTabIndex);
     }
 
     handleClose() {
@@ -57,6 +57,22 @@ class OptionsWindow extends React.Component {
     }
 
     handleActiveTabChange(index) {
+        const rendererTab = this.rendererRef.current;
+        const helperTab = this.helperRef.current;
+        const filterTab = this.filterRef.current;
+
+        switch (index) {
+            case 0:
+                rendererTab.handleUpdate();
+                break;
+            case 1:
+                helperTab.handleUpdate();
+                break;
+            case 2:
+                filterTab.handleUpdate();
+                break;
+        }
+
         this.setState({
             activeTabIndex: index,
         });
