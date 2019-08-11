@@ -11,7 +11,7 @@ class FilterPanel extends React.Component {
         super(props);
 
         this.state = {
-            hue: 0,
+            hueRotate: 0,
             saturate: 0,
             brightness: 0,
             blur: 0,
@@ -26,12 +26,12 @@ class FilterPanel extends React.Component {
     }
 
     render() {
-        const { hue, saturate, brightness, blur, contrast, grayscale, invert, sepia } = this.state;
+        const { hueRotate, saturate, brightness, blur, contrast, grayscale, invert, sepia } = this.state;
 
         return <Form className={'FilterPanel'}>
             <FormControl>
                 <Label>{L_HUE}</Label>
-                <Input type={'number'} name={'hue'} value={hue} onChange={this.handleChange}></Input>
+                <Input type={'number'} name={'hueRotate'} value={hueRotate} onChange={this.handleChange}></Input>
             </FormControl>
             <FormControl>
                 <Label>{L_SATURATE}</Label>
@@ -67,17 +67,17 @@ class FilterPanel extends React.Component {
     handleUpdate() {
         const renderer = app.editor.renderer;
 
-        const filters = CssUtils.parseFilter(renderer.domElement.style.filter);
+        const { hueRotate, saturate, brightness, blur, contrast, grayscale, invert, sepia } = CssUtils.parseFilter(renderer.domElement.style.filter);
 
         this.setState({
-            hue: filters.hueRotate,
-            saturate: filters.saturate,
-            brightness: filters.brightness,
-            blur: filters.blur,
-            contrast: filters.contrast,
-            grayscale: filters.grayscale,
-            invert: filters.invert,
-            sepia: filters.sepia,
+            hueRotate,
+            saturate,
+            brightness,
+            blur,
+            contrast,
+            grayscale,
+            invert,
+            sepia,
         });
     }
 
@@ -89,20 +89,28 @@ class FilterPanel extends React.Component {
             return;
         }
 
-        Object.assign(app.options, {
-            hueRotate: filters.hueRotate,
-            saturate: filters.saturate,
-            brightness: filters.brightness,
-            blur: filters.blur,
-            contrast: filters.contrast,
-            grayscale: filters.grayscale,
-            invert: filters.invert,
-            sepia: filters.sepia,
+        const { hueRotate, saturate, brightness, blur, contrast, grayscale, invert, sepia } = Object.assign({}, this.state, {
+            [name]: value,
         });
+
+        const filters = {
+            hueRotate,
+            saturate,
+            brightness,
+            blur,
+            contrast,
+            grayscale,
+            invert,
+            sepia,
+        };
+
+        Object.assign(app.options, filters);
 
         const renderer = app.editor.renderer;
 
         renderer.domElement.style.filter = CssUtils.serializeFilter(filters);
+
+        this.handleUpdate();
     }
 }
 
