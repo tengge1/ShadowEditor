@@ -110,7 +110,7 @@ Object.assign(window, {
     L_SHADER_INFO: 'ShaderInfo',
     L_SHADER_CANNOT_PARSE: 'Shader cannot be parsed.',
     L_VERTEX_SHADER: 'Vertex Shader',
-    L_FRAGMENT_SHADER: 'Fragment Shader',
+    L_FRAGMENT_SHADER: 'Frag Shader',
     L_SELECT_TEXTURE_FIRST: 'Please select texture first.',
     L_ENTER_MATERIAL_NAME: 'Please enter material name',
     L_CLICK_MATERIAL_ON_PANEL: 'Please click material on material panel.',

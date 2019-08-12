@@ -217,9 +217,9 @@ class MaterialComponent extends React.Component {
                 <Button onClick={this.onLoad}>{L_SELECT}</Button>
             </ButtonsProperty>
             <SelectProperty label={L_TYPE} options={this.materials} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
-            <ButtonProperty label={'Shader Info'} text={L_EDIT} show={showProgram} onChange={this.editProgramInfo}></ButtonProperty>
-            <ButtonProperty label={'Vertex Shader'} text={L_EDIT} show={showProgram} onChange={this.editVertexShader}></ButtonProperty>
-            <ButtonProperty label={'Frag Shader'} text={L_EDIT} show={showProgram} onChange={this.editFragmentShader}></ButtonProperty>
+            <ButtonProperty label={L_SHADER_INFO} text={L_EDIT} show={showProgram} onChange={this.editProgramInfo}></ButtonProperty>
+            <ButtonProperty label={L_VERTEX_SHADER} text={L_EDIT} show={showProgram} onChange={this.editVertexShader}></ButtonProperty>
+            <ButtonProperty label={L_FRAGMENT_SHADER} text={L_EDIT} show={showProgram} onChange={this.editFragmentShader}></ButtonProperty>
             <ColorProperty label={L_COLOR} name={'color'} value={color} show={showColor} onChange={this.handleChange}></ColorProperty>
             <NumberProperty label={L_ROUGHNESS} name={'roughness'} value={roughness} show={showRoughness} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={L_METALNESS} name={'metalness'} value={metalness} show={showMetalness} onChange={this.handleChange}></NumberProperty>
@@ -709,7 +709,7 @@ class MaterialComponent extends React.Component {
 
     saveProgramInfo(uuid, name, type, source) {
         let material = this.selected.material;
-        
+
         try {
             let obj = JSON.parse(source);
             material.defines = obj.defines;
