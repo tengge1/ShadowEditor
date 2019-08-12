@@ -66,7 +66,7 @@ class EditorStatusBar extends React.Component {
                         if (geometry.index !== null) {
                             vertices += geometry.index.count * 3;
                             triangles += geometry.index.count;
-                        } else {
+                        } else if (geometry.attributes.position) {
                             vertices += geometry.attributes.position.count;
                             triangles += geometry.attributes.position.count / 3;
                         }
