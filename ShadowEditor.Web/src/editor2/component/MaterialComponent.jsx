@@ -227,15 +227,19 @@ class MaterialComponent extends React.Component {
             <CheckBoxProperty label={L_SKIN} name={'skinning'} value={skinning} show={showSkinning} onChange={this.handleChange}></CheckBoxProperty>
             <TextureProperty label={L_TEXTURE} name={'map'} value={map} show={showMap} onChange={this.handleChange}></TextureProperty>
             <TextureProperty label={L_ALPHA_MAP} name={'alphaMap'} value={alphaMap} show={showAlphaMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_BUMP_MAP} name={'bumpMap'} value={bumpMap} scale={bumpScale} show={showBumpMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_BUMP_MAP} name={'bumpMap'} value={bumpMap} show={showBumpMap} onChange={this.handleChange}></TextureProperty>
+            <NumberProperty label={'Bump Scale'} name={'bumpScale'} value={bumpScale} onChange={this.handleChange}></NumberProperty>
             <TextureProperty label={L_NORMAL_MAP} name={'normalMap'} value={normalMap} show={showNormalMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_DISPLACEMENT_MAP} name={'displacementMap'} value={displacementMap} scale={displacementScale} show={showDisplacementMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_DISPLACEMENT_MAP} name={'displacementMap'} value={displacementMap} show={showDisplacementMap} onChange={this.handleChange}></TextureProperty>
+            <NumberProperty label={'Displace Scale'} name={'displacementScale'} value={displacementScale} onChange={this.handleChange}></NumberProperty>
             <TextureProperty label={L_ROUGHNESS_MAP} name={'roughnessMap'} value={roughnessMap} show={showRoughnessMap} onChange={this.handleChange}></TextureProperty>
             <TextureProperty label={L_METALNESS_MAP} name={'metalnessMap'} value={metalnessMap} show={showMetalnessMap} onChange={this.handleChange}></TextureProperty>
             <TextureProperty label={L_SPECULAR_MAP} name={'specularMap'} value={specularMap} show={showSpecularMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_ENV_MAP} name={'envMap'} value={envMap} show={showEnvMap} scale={reflectivity} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_ENV_MAP} name={'envMap'} value={envMap} show={showEnvMap} onChange={this.handleChange}></TextureProperty>
+            <NumberProperty label={'Reflectivity'} name={'reflectivity'} value={reflectivity} onChange={this.handleChange}></NumberProperty>
             <TextureProperty label={L_LIGHT_MAP} name={'lightMap'} value={lightMap} show={showLightMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_AO_MAP} name={'aoMap'} value={aoMap} show={showAoMap} scale={aoScale} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={L_AO_MAP} name={'aoMap'} value={aoMap} show={showAoMap} onChange={this.handleChange}></TextureProperty>
+            <NumberProperty label={'Ao Scale'} name={'aoScale'} value={aoScale} onChange={this.handleChange}></NumberProperty>
             <TextureProperty label={L_EMISSIVE_MAP} name={'emissiveMap'} value={emissiveMap} show={showEmissiveMap} onChange={this.handleChange}></TextureProperty>
             <SelectProperty label={L_SIDE} options={this.side} name={'side'} value={side} onChange={this.handleChange}></SelectProperty>
             <CheckBoxProperty label={L_FLAT_SHADING} name={'flatShading'} value={flatShading} onChange={this.handleChange}></CheckBoxProperty>
@@ -579,10 +583,10 @@ class MaterialComponent extends React.Component {
             if (material.bumpMap !== bumpMap) {
                 editor.execute(new SetMaterialMapCommand(object, 'bumpMap', bumpMap));
             }
+        }
 
-            if (material.bumpScale !== bumpScale) {
-                editor.execute(new SetMaterialValueCommand(object, 'bumpScale', bumpScale));
-            }
+        if (name === 'bumpScale' && material.bumpScale !== undefined) {
+            editor.execute(new SetMaterialValueCommand(object, 'bumpScale', bumpScale));
         }
 
         if (name === 'normalMap' && material.normalMap !== undefined) {
@@ -595,10 +599,10 @@ class MaterialComponent extends React.Component {
             if (material.displacementMap !== displacementMap) {
                 editor.execute(new SetMaterialMapCommand(object, 'displacementMap', displacementMap));
             }
+        }
 
-            if (material.displacementScale !== displacementScale) {
-                editor.execute(new SetMaterialValueCommand(object, 'displacementScale', displacementScale));
-            }
+        if (name === 'displacementScale' && material.displacementScale !== undefined) {
+            editor.execute(new SetMaterialValueCommand(object, 'displacementScale', displacementScale));
         }
 
         if (name === 'roughnessMap' && material.roughnessMap !== undefined) {
@@ -623,12 +627,10 @@ class MaterialComponent extends React.Component {
             if (material.envMap !== envMap) {
                 editor.execute(new SetMaterialMapCommand(object, 'envMap', envMap));
             }
+        }
 
-            if (material.reflectivity !== undefined) {
-                if (material.reflectivity !== reflectivity) {
-                    editor.execute(new SetMaterialValueCommand(object, 'reflectivity', reflectivity));
-                }
-            }
+        if (name === 'reflectivity' && material.reflectivity !== undefined) {
+            editor.execute(new SetMaterialValueCommand(object, 'reflectivity', reflectivity));
         }
 
         if (name === 'lightMap' && material.lightMap !== undefined) {
@@ -641,10 +643,10 @@ class MaterialComponent extends React.Component {
             if (material.aoMap !== aoMap) {
                 editor.execute(new SetMaterialMapCommand(object, 'aoMap', aoMap));
             }
+        }
 
-            if (material.aoMapIntensity !== aoScale) {
-                editor.execute(new SetMaterialValueCommand(object, 'aoMapIntensity', aoScale));
-            }
+        if (name === 'aoScale' && material.aoMapIntensity !== undefined) {
+            editor.execute(new SetMaterialValueCommand(object, 'aoMapIntensity', aoScale));
         }
 
         if (name === 'emissiveMap' && material.emissiveMap !== undefined) {

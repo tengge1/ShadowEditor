@@ -128,7 +128,7 @@ ServerObject.prototype.parseChildren = function (children, list) {
             child.uuid = list[i].uuid;
         }
 
-        if (child.children && list[i].children) {
+        if (child.children && list[i] && list[i].children) {
             this.parseChildren(child.children, list[i].children)
         }
     }
