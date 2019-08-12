@@ -226,6 +226,9 @@ ServerObject.prototype.revertLayer = function (obj, list, children, parts) {
                 if (child1.scale && child2.scale) {
                     child1.scale.copy(child2.scale);
                 }
+                if (child1.material && child2.material) {
+                    child1.material = child2.material;
+                }
             }
         } else if (child2) {
             obj.add(child2);
