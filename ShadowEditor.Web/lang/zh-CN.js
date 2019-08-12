@@ -641,3 +641,7 @@ L_WAITING = '请稍后...';
 L_LOADING = '加载中...';
 L_WIREFRAME_WIDTH = '线框粗细';
 L_IS_EXPORTING = '正在导出...';
+L_REFLECTIVITY = '反射率';
+L_BUMP_SCALE = '凹凸纹理比例';
+L_DISPLACEMENT_SCALE = '位移纹理比例';
+L_AO_SCALE = '遮挡纹理比例';

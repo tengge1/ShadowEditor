@@ -639,4 +639,8 @@ Object.assign(window, {
     L_LOADING: 'Loading...',
     L_WIREFRAME_WIDTH: 'WireWidth',
     L_IS_EXPORTING: 'Exporting...',
+    L_REFLECTIVITY: 'Reflectivity',
+    L_BUMP_SCALE: 'Bump Scale',
+    L_DISPLACEMENT_SCALE: 'Displace Scale',
+    L_AO_SCALE: 'Ao Scale',
 });

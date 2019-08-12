@@ -233,18 +233,18 @@ class MaterialComponent extends React.Component {
             <TextureProperty label={L_TEXTURE} name={'map'} value={map} show={showMap} onChange={this.handleChange}></TextureProperty>
             <TextureProperty label={L_ALPHA_MAP} name={'alphaMap'} value={alphaMap} show={showAlphaMap} onChange={this.handleChange}></TextureProperty>
             <TextureProperty label={L_BUMP_MAP} name={'bumpMap'} value={bumpMap} show={showBumpMap} onChange={this.handleChange}></TextureProperty>
-            <NumberProperty label={'Bump Scale'} name={'bumpScale'} value={bumpScale} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_BUMP_SCALE} name={'bumpScale'} value={bumpScale} show={showBumpMap} onChange={this.handleChange}></NumberProperty>
             <TextureProperty label={L_NORMAL_MAP} name={'normalMap'} value={normalMap} show={showNormalMap} onChange={this.handleChange}></TextureProperty>
             <TextureProperty label={L_DISPLACEMENT_MAP} name={'displacementMap'} value={displacementMap} show={showDisplacementMap} onChange={this.handleChange}></TextureProperty>
-            <NumberProperty label={'Displace Scale'} name={'displacementScale'} value={displacementScale} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_DISPLACEMENT_SCALE} name={'displacementScale'} value={displacementScale} show={showDisplacementMap} onChange={this.handleChange}></NumberProperty>
             <TextureProperty label={L_ROUGHNESS_MAP} name={'roughnessMap'} value={roughnessMap} show={showRoughnessMap} onChange={this.handleChange}></TextureProperty>
             <TextureProperty label={L_METALNESS_MAP} name={'metalnessMap'} value={metalnessMap} show={showMetalnessMap} onChange={this.handleChange}></TextureProperty>
             <TextureProperty label={L_SPECULAR_MAP} name={'specularMap'} value={specularMap} show={showSpecularMap} onChange={this.handleChange}></TextureProperty>
             <TextureProperty label={L_ENV_MAP} name={'envMap'} value={envMap} show={showEnvMap} onChange={this.handleChange}></TextureProperty>
-            <NumberProperty label={'Reflectivity'} name={'reflectivity'} value={reflectivity} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_REFLECTIVITY} name={'reflectivity'} value={reflectivity} show={showEnvMap} onChange={this.handleChange}></NumberProperty>
             <TextureProperty label={L_LIGHT_MAP} name={'lightMap'} value={lightMap} show={showLightMap} onChange={this.handleChange}></TextureProperty>
             <TextureProperty label={L_AO_MAP} name={'aoMap'} value={aoMap} show={showAoMap} onChange={this.handleChange}></TextureProperty>
-            <NumberProperty label={'Ao Scale'} name={'aoScale'} value={aoScale} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={L_AO_SCALE} name={'aoScale'} value={aoScale} show={showAoMap} onChange={this.handleChange}></NumberProperty>
             <TextureProperty label={L_EMISSIVE_MAP} name={'emissiveMap'} value={emissiveMap} show={showEmissiveMap} onChange={this.handleChange}></TextureProperty>
             <SelectProperty label={L_SIDE} options={this.side} name={'side'} value={side} onChange={this.handleChange}></SelectProperty>
             <CheckBoxProperty label={L_FLAT_SHADING} name={'flatShading'} value={flatShading} onChange={this.handleChange}></CheckBoxProperty>
