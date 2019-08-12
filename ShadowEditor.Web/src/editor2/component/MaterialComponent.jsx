@@ -699,6 +699,8 @@ class MaterialComponent extends React.Component {
             attributes: material.attributes
         };
 
+        app.call(`editScript`, this, uuid, script.name, script.type, script.source);
+
         app.script.open(material.uuid, this.selected.name + '-ProgramInfo', 'json', JSON.stringify(obj), this.selected.name + `-${L_SHADER_INFO}`, source => {
             try {
                 obj = JSON.parse(source);

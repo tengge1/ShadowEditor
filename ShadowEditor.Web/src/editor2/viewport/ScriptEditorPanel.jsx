@@ -18,6 +18,8 @@ class ScriptEditorPanel extends React.Component {
             source: '',
         };
 
+        this.callback = null;
+
         this.ref = React.createRef();
 
         this.handleEditScript = this.handleEditScript.bind(this);
@@ -59,7 +61,9 @@ class ScriptEditorPanel extends React.Component {
         app.on(`editScript.ScriptPanel`, this.handleEditScript);
     }
 
-    handleEditScript(uuid, name, type, source) {
+    handleEditScript(uuid, name, type, source, callback) {
+        this.callback = callback;
+
         this.setState({
             show: true,
             uuid,
@@ -76,13 +80,9 @@ class ScriptEditorPanel extends React.Component {
 
         const source = app.scriptEditor.getValue();
 
-        app.editor.scripts[uuid] = {
-            id: null,
-            name,
-            type,
-            source,
-            uuid,
-        };
+        this.callback && this.callback(uuid, name, type, source);
+
+        this.callback = null;
 
         this.setState({
             show: false,
@@ -91,8 +91,6 @@ class ScriptEditorPanel extends React.Component {
             type: 'javascript',
             source: '',
         });
-
-        app.call(`scriptChanged`, this);
     }
 }
 

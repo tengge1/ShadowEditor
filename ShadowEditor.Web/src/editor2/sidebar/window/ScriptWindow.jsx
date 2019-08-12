@@ -29,6 +29,7 @@ class ScriptWindow extends React.Component {
         this.handleTypeChange = this.handleTypeChange.bind(this);
         this.handleOK = this.handleOK.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleSaveScript = this.handleSaveScript.bind(this);
     }
 
     render() {
@@ -117,7 +118,19 @@ class ScriptWindow extends React.Component {
             source: '',
         });
 
-        app.call(`editScript`, this, uuid, name, type, source);
+        app.call(`editScript`, this, uuid, name, type, source, this.handleSaveScript);
+    }
+
+    handleSaveScript(uuid, name, type, source) {
+        app.editor.scripts[uuid] = {
+            id: null,
+            uuid,
+            name,
+            type,
+            source,
+        };
+
+        app.call(`scriptChanged`, this);
     }
 
     handleClose() {

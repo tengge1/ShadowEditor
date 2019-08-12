@@ -16,6 +16,7 @@ class ScriptPanel extends React.Component {
 
         this.handleAddScript = this.handleAddScript.bind(this);
         this.handleEditScript = this.handleEditScript.bind(this);
+        this.handleSaveScript = this.handleSaveScript.bind(this);
         this.handleRemoveScript = this.handleRemoveScript.bind(this);
         this.update = this.update.bind(this);
     }
@@ -78,8 +79,20 @@ class ScriptPanel extends React.Component {
     handleEditScript(uuid) {
         var script = app.editor.scripts[uuid];
         if (script) {
-            app.call(`editScript`, this, uuid, script.name, script.type, script.source);
+            app.call(`editScript`, this, uuid, script.name, script.type, script.source, this.handleSaveScript);
         }
+    }
+
+    handleSaveScript(uuid, name, type, source) {
+        app.editor.scripts[uuid] = {
+            id: null,
+            uuid,
+            name,
+            type,
+            source,
+        };
+
+        app.call(`scriptChanged`, this);
     }
 
     handleRemoveScript(uuid) {
