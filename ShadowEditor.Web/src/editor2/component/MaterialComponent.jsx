@@ -188,8 +188,13 @@ class MaterialComponent extends React.Component {
         this.handleChange = this.handleChange.bind(this);
 
         this.editProgramInfo = this.editProgramInfo.bind(this);
+        this.saveProgramInfo = this.saveProgramInfo.bind(this);
+
         this.editVertexShader = this.editVertexShader.bind(this);
+        this.saveVertexShader = this.saveVertexShader.bind(this);
+
         this.editFragmentShader = this.editFragmentShader.bind(this);
+        this.saveFragmentShader = this.saveFragmentShader.bind(this);
 
         this.onSetMap = this.onSetMap.bind(this);
         this.onSave = this.onSave.bind(this);
@@ -699,37 +704,45 @@ class MaterialComponent extends React.Component {
             attributes: material.attributes
         };
 
-        app.call(`editScript`, this, uuid, script.name, script.type, script.source);
+        app.call(`editScript`, this, material.uuid, this.selected.name + '-ProgramInfo', 'json', JSON.stringify(obj), this.saveProgramInfo);
+    }
 
-        app.script.open(material.uuid, this.selected.name + '-ProgramInfo', 'json', JSON.stringify(obj), this.selected.name + `-${L_SHADER_INFO}`, source => {
-            try {
-                obj = JSON.parse(source);
-                material.defines = obj.defines;
-                material.uniforms = obj.uniforms;
-                material.attributes = obj.attributes;
-                material.needsUpdate = true;
-            } catch (e) {
-                app.error(this.selected.name + `-${L_SHADER_CANNOT_PARSE}`);
-            }
-        });
+    saveProgramInfo(uuid, name, type, source) {
+        let material = this.selected.material;
+        
+        try {
+            let obj = JSON.parse(source);
+            material.defines = obj.defines;
+            material.uniforms = obj.uniforms;
+            material.attributes = obj.attributes;
+            material.needsUpdate = true;
+        } catch (e) {
+            app.error(this.selected.name + `-${L_SHADER_CANNOT_PARSE}`);
+        }
     }
 
     editVertexShader() {
         let material = this.selected.material;
 
-        app.script.open(material.uuid, this.selected.name + '-VertexShader', 'vertexShader', material.vertexShader, this.selected.name + `-${L_VERTEX_SHADER}`, source => {
-            material.vertexShader = source;
-            material.needsUpdate = true;
-        });
+        app.call(`editScript`, this, material.uuid, this.selected.name + '-VertexShader', 'vertexShader', material.vertexShader, this.saveVertexShader);
+    }
+
+    saveVertexShader(uuid, name, type, source) {
+        let material = this.selected.material;
+        material.vertexShader = source;
+        material.needsUpdate = true;
     }
 
     editFragmentShader() {
         let material = this.selected.material;
 
-        app.script.open(material.uuid, this.selected.name + '-FragmentShader', 'fragmentShader', material.fragmentShader, this.selected.name + `-${L_FRAGMENT_SHADER}`, source => {
-            material.fragmentShader = source;
-            material.needsUpdate = true;
-        });
+        app.call(`editScript`, this, material.uuid, this.selected.name + '-FragmentShader', 'fragmentShader', material.fragmentShader, this.saveFragmentShader);
+    }
+
+    saveFragmentShader(uuid, name, type, source) {
+        let material = this.selected.material;
+        material.fragmentShader = source;
+        material.needsUpdate = true;
     }
 
     onSetMap() {
