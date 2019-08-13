@@ -1,5 +1,6 @@
 import './css/EditorStatusBar.css';
-import { classNames, PropTypes, Toolbar, ToolbarSeparator, Label, CheckBox } from '../../third_party';
+import { classNames, PropTypes, Toolbar, ToolbarSeparator, Label, CheckBox, Button } from '../../third_party';
+import VideoRecorder from '../../utils/VideoRecorder';
 
 /**
  * 状态栏
@@ -14,13 +15,15 @@ class EditorStatusBar extends React.Component {
             vertices: 0,
             triangles: 0,
             isThrowBall: false,
+            isRecording: false,
         };
 
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
+        this.handleRecord = this.handleRecord.bind(this);
     }
 
     render() {
-        const { objects, vertices, triangles, isThrowBall } = this.state;
+        const { objects, vertices, triangles, isThrowBall, isRecording } = this.state;
 
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{L_OBJECT_NUM}</Label>
@@ -32,6 +35,8 @@ class EditorStatusBar extends React.Component {
             <ToolbarSeparator></ToolbarSeparator>
             <Label>{L_THROW_BALL}</Label>
             <CheckBox checked={isThrowBall} onChange={this.handleEnableThrowBall}></CheckBox>
+            <ToolbarSeparator></ToolbarSeparator>
+            <Button onClick={this.handleRecord}>{isRecording ? L_CANCEL : L_RECORD}</Button>
         </Toolbar>;
     }
 
@@ -84,6 +89,40 @@ class EditorStatusBar extends React.Component {
 
     handleEnableThrowBall(checked) {
         app.call('enableThrowBall', this, checked);
+    }
+
+    handleRecord() {
+        if (this.state.isRecording) {
+            this.stopRecord();
+        } else {
+            this.startRecord();
+        }
+    }
+
+    startRecord() {
+        if (this.recorder === undefined) {
+            this.recorder = new VideoRecorder();
+        }
+
+        this.recorder.start().then(success => {
+            if (success) {
+                this.setState({
+                    isRecording: true,
+                });
+            }
+        });
+    }
+
+    stopRecord() {
+        if (!this.recorder) {
+            return;
+        }
+
+        this.recorder.stop().then(() => {
+            this.setState({
+                isRecording: false,
+            });
+        });
     }
 }
 

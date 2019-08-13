@@ -643,4 +643,5 @@ Object.assign(window, {
     L_BUMP_SCALE: 'Bump Scale',
     L_DISPLACEMENT_SCALE: 'Displace Scale',
     L_AO_SCALE: 'Ao Scale',
+    L_RECORD: 'Record',
 });
