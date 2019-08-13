@@ -43,7 +43,7 @@ class VideoRecorder {
                 this.recorder.ondataavailable = null;
                 this.recorder.onstop = null;
 
-                let fileName = TimeUtils.getDateTime() + '.mkv';
+                let fileName = TimeUtils.getDateTime() + '.mp4';
 
                 DownloadUtils.download(this.chunks, { 'type': 'video/x-matroska;codecs=avc1' }, fileName);
 
