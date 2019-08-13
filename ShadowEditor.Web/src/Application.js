@@ -8,7 +8,7 @@ import Options from './Options';
 import Storage from './utils/Storage';
 import PackageManager from './package/PackageManager';
 import EventDispatcher from './event/EventDispatcher';
-import Editor from './editor2/Editor.jsx';
+import Editor from './editor/Editor.jsx';
 import Ajax from './utils/Ajax';
 
 /**
