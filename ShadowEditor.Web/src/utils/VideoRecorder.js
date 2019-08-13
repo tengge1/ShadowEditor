@@ -45,7 +45,7 @@ class VideoRecorder {
 
                 let fileName = TimeUtils.getDateTime() + '.mp4';
 
-                DownloadUtils.download(this.chunks, { 'type': 'video/mp4' }, fileName);
+                DownloadUtils.download(this.chunks, { 'type': 'video/x-matroska;codecs=avc1' }, fileName);
 
                 this.chunks.length = 0;
 
