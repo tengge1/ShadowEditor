@@ -87,7 +87,7 @@ class Editor extends React.Component {
         this.camera = this.DEFAULT_CAMERA.clone();
 
         // 正交相机
-        this.orthCamera = new THREE.OrthographicCamera(-width / 8, width / 8, height / 8, -height / 8, 0.1, 10000);
+        this.orthCamera = new THREE.OrthographicCamera(-width / 4, width / 4, height / 4, -height / 4, 0.1, 10000);
 
         // 渲染器
         this.renderer = new THREE.WebGLRenderer({
