@@ -6,6 +6,7 @@ import KeyDownEvent from './KeyDownEvent';
 import RenderEvent from './RenderEvent';
 import ResizeEvent from './ResizeEvent';
 import FilterEvent from './FilterEvent';
+import ViewEvent from './ViewEvent';
 
 import TransformControlsEvent from './TransformControlsEvent';
 import ObjectEvent from './ObjectEvent';
@@ -30,6 +31,7 @@ function EventDispatcher(app) {
         new RenderEvent(app),
         new ResizeEvent(app),
         new FilterEvent(app),
+        new ViewEvent(app),
 
         // viewport中的事件
         new TransformControlsEvent(app),

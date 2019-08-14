@@ -15,6 +15,7 @@ function RenderEvent(app) {
 
     this.render = this.render.bind(this);
     this.createRenderer = this.createRenderer.bind(this);
+    this.onViewChanged = this.onViewChanged.bind(this);
 }
 
 RenderEvent.prototype = Object.create(BaseEvent.prototype);
@@ -23,15 +24,17 @@ RenderEvent.prototype.constructor = RenderEvent;
 RenderEvent.prototype.start = function () {
     this.running = true;
     app.on(`appStarted.${this.id}`, this.render);
+    app.on(`viewChanged.${this.id}`, this.onViewChanged);
 };
 
 RenderEvent.prototype.stop = function () {
     this.running = false;
     app.on(`appStarted.${this.id}`, null);
+    app.on(`viewChanged.${this.id}`, null);
 };
 
 RenderEvent.prototype.render = function () {
-    const { scene, sceneHelpers, camera, renderer } = app.editor;
+    const { scene, sceneHelpers, renderer } = app.editor;
 
     const deltaTime = this.clock.getDelta();
 
@@ -73,9 +76,13 @@ RenderEvent.prototype.createRenderer = function () {
 
     return this.renderer.create(
         [scene, sceneHelpers],
-        camera,
+        app.editor.view === 'perspective' ? camera : app.editor.orthCamera,
         renderer
     );
+};
+
+RenderEvent.prototype.onViewChanged = function (view) {
+    this.createRenderer();
 };
 
 export default RenderEvent;

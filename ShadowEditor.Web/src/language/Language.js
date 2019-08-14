@@ -644,4 +644,8 @@ Object.assign(window, {
     L_DISPLACEMENT_SCALE: 'Displace Scale',
     L_AO_SCALE: 'Ao Scale',
     L_RECORD: 'Record',
+    L_PERSPECTIVE_VIEW: 'Perspective View',
+    L_FRONT_VIEW: 'Front View',
+    L_SIDE_VIEW: 'Side View',
+    L_TOP_VIEW: 'Top View',
 });

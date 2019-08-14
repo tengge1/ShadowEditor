@@ -20,21 +20,28 @@ class EditorToolbar extends React.Component {
             isAddingPolygon: false,
             isSpraying: false,
             isDigging: false,
+            view: 'perspective',
         };
 
         this.handleEnterSelectMode = this.handleEnterSelectMode.bind(this);
         this.handleEnterTranslateMode = this.handleEnterTranslateMode.bind(this);
         this.handleEnterRotateMode = this.handleEnterRotateMode.bind(this);
         this.handleEnterScaleMode = this.handleEnterScaleMode.bind(this);
+
         this.handleAddPoint = this.handleAddPoint.bind(this);
         this.handleAddLine = this.handleAddLine.bind(this);
         this.handleAddPolygon = this.handleAddPolygon.bind(this);
         this.handleSpray = this.handleSpray.bind(this);
         this.handleDig = this.handleDig.bind(this);
+
+        this.handlePerspective = this.handlePerspective.bind(this);
+        this.handleFrontView = this.handleFrontView.bind(this);
+        this.handleSideView = this.handleSideView.bind(this);
+        this.handleTopView = this.handleTopView.bind(this);
     }
 
     render() {
-        const { mode, isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging } = this.state;
+        const { mode, isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging, view } = this.state;
 
         return <Toolbar className={'EditorToolbar'} direction={'vertical'}>
             <IconButton
@@ -83,6 +90,27 @@ class EditorToolbar extends React.Component {
                 title={L_DIG}
                 selected={isDigging}
                 onClick={this.handleDig}></IconButton>
+            <ToolbarSeparator />
+            <IconButton
+                icon={'model'}
+                title={L_PERSPECTIVE_VIEW}
+                selected={view === 'perspective'}
+                onClick={this.handlePerspective}></IconButton>
+            <IconButton
+                icon={'model'}
+                title={L_FRONT_VIEW}
+                selected={view === 'front'}
+                onClick={this.handleFrontView}></IconButton>
+            <IconButton
+                icon={'model'}
+                title={L_SIDE_VIEW}
+                selected={view === 'side'}
+                onClick={this.handleSideView}></IconButton>
+            <IconButton
+                icon={'model'}
+                title={L_TOP_VIEW}
+                selected={view === 'top'}
+                onClick={this.handleTopView}></IconButton>
         </Toolbar>;
     }
 
@@ -403,6 +431,34 @@ class EditorToolbar extends React.Component {
         }
 
         this.digTool.start();
+    }
+
+    handlePerspective() {
+        app.call(`changeView`, this, 'perspective');
+        this.setState({
+            view: 'perspective',
+        });
+    }
+
+    handleFrontView() {
+        app.call(`changeView`, this, 'front');
+        this.setState({
+            view: 'front',
+        });
+    }
+
+    handleSideView() {
+        app.call(`changeView`, this, 'side');
+        this.setState({
+            view: 'side',
+        });
+    }
+
+    handleTopView() {
+        app.call(`changeView`, this, 'top');
+        this.setState({
+            view: 'top',
+        });
     }
 }
 

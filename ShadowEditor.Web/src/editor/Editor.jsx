@@ -69,8 +69,8 @@ class Editor extends React.Component {
         this.sceneID = null; // 当前场景ID
         this.sceneName = null; // 当前场景名称
 
-        var width = app.viewport.clientWidth;
-        var height = app.viewport.clientHeight;
+        const width = app.viewport.clientWidth;
+        const height = app.viewport.clientHeight;
 
         // 相机
         this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, width / height, 0.1, 10000);
@@ -80,7 +80,14 @@ class Editor extends React.Component {
         this.DEFAULT_CAMERA.position.set(20, 10, 20);
         this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
 
+        // 视图
+        this.view = 'perspective'; // perspective, front, side, top
+
+        // 透视相机
         this.camera = this.DEFAULT_CAMERA.clone();
+
+        // 正交相机
+        this.orthCamera = new THREE.OrthographicCamera(-width / 8, width / 8, height / 8, -height / 8, 0.1, 10000);
 
         // 渲染器
         this.renderer = new THREE.WebGLRenderer({

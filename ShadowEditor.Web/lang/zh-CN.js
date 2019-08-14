@@ -646,3 +646,7 @@ L_BUMP_SCALE = '凹凸纹理比例';
 L_DISPLACEMENT_SCALE = '位移纹理比例';
 L_AO_SCALE = '遮挡纹理比例';
 L_RECORD = '录制';
+L_PERSPECTIVE_VIEW = '透视图';
+L_FRONT_VIEW = '正视图';
+L_SIDE_VIEW = '侧视图';
+L_TOP_VIEW = '顶视图';

@@ -21,7 +21,7 @@ ViewHelper.prototype.start = function () {
     this.scene.add(this.mesh);
 
     app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
-    app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
+    // app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
     app.on(`resize.${this.id}`, this.onResize.bind(this));
 };
 
@@ -30,7 +30,7 @@ ViewHelper.prototype.stop = function () {
     delete this.scene;
     delete this.mesh;
     app.on(`afterRender.${this.id}`, null);
-    app.on(`mousedown.${this.id}`, null);
+    // app.on(`mousedown.${this.id}`, null);
     app.on(`resize.${this.id}`, null);
 };
 
@@ -149,7 +149,11 @@ ViewHelper.prototype.onAfterRender = function () {
         return;
     }
 
-    var renderer = app.editor.renderer;
+    if (app.editor.view !== 'perspective') {
+        return;
+    }
+
+    let renderer = app.editor.renderer;
 
     // 最后绘制而且清空深度缓冲，保证视角控件不会被其他物体遮挡
     renderer.clearDepth();

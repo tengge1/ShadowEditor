@@ -54,6 +54,10 @@ TransformControlsEvent.prototype.onChange = function () {
  * 点击鼠标，记录选中物体当前平移、旋转和缩放值
  */
 TransformControlsEvent.prototype.onMouseDown = function () {
+    if (app.editor.view !== 'perspective') {
+        return;
+    }
+
     if (['translate', 'rotate', 'scale'].indexOf(this.mode) === -1) {
         return;
     }
@@ -71,6 +75,10 @@ TransformControlsEvent.prototype.onMouseDown = function () {
  * 抬起鼠标，更新选中物体的平移、旋转和缩放值
  */
 TransformControlsEvent.prototype.onMouseUp = function () {
+    if (app.editor.view !== 'perspective') {
+        return;
+    }
+
     if (['translate', 'rotate', 'scale'].indexOf(this.mode) === -1) {
         return;
     }

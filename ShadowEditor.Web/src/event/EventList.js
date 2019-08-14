@@ -30,6 +30,8 @@ var EventList = [
 
     // 工具栏事件
     'changeMode', // 改变模式（select, translate, rotate, scale, delete）
+    'changeView', // 改变视图（perspective, front, side, top）
+    'viewChanged', // 视图已经改变
 
     // editor事件
     'sceneSaved', // 场景保存成功
