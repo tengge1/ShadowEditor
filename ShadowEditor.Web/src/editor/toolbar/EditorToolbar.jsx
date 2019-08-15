@@ -1,5 +1,5 @@
 import './css/EditorToolbar.css';
-import { classNames, PropTypes, Toolbar, ToolbarSeparator, IconButton } from '../../third_party';
+import { classNames, PropTypes, Toolbar, ToolbarSeparator, IconButton, ImageButton } from '../../third_party';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import Earcut from '../../utils/Earcut';
 
@@ -91,26 +91,26 @@ class EditorToolbar extends React.Component {
                 selected={isDigging}
                 onClick={this.handleDig}></IconButton>
             <ToolbarSeparator />
-            <IconButton
-                icon={'model'}
+            <ImageButton
+                src={'assets/image/perspective-view.png'}
                 title={L_PERSPECTIVE_VIEW}
                 selected={view === 'perspective'}
-                onClick={this.handlePerspective}></IconButton>
-            <IconButton
-                icon={'model'}
+                onClick={this.handlePerspective}></ImageButton>
+            <ImageButton
+                src={'assets/image/front-view.png'}
                 title={L_FRONT_VIEW}
                 selected={view === 'front'}
-                onClick={this.handleFrontView}></IconButton>
-            <IconButton
-                icon={'model'}
+                onClick={this.handleFrontView}></ImageButton>
+            <ImageButton
+                src={'assets/image/side-view.png'}
                 title={L_SIDE_VIEW}
                 selected={view === 'side'}
-                onClick={this.handleSideView}></IconButton>
-            <IconButton
-                icon={'model'}
+                onClick={this.handleSideView}></ImageButton>
+            <ImageButton
+                src={'assets/image/top-view.png'}
                 title={L_TOP_VIEW}
                 selected={view === 'top'}
-                onClick={this.handleTopView}></IconButton>
+                onClick={this.handleTopView}></ImageButton>
         </Toolbar>;
     }
 
