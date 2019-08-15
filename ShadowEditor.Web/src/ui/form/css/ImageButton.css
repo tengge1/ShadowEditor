@@ -1,0 +1,38 @@
+.ImageButton {
+    width: 32px;
+    height: 32px;
+    color: #555;
+    background: none;
+    margin: 4px;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.ImageButton.selected {
+    color: #fff;
+    background: #3399ff;
+    border: 1px solid #3399ff;
+}
+
+.ImageButton:hover {
+    color: #3399ff;
+    background: none;
+    border: 1px solid #3399ff;
+}
+
+.ImageButton.selected:hover {
+    color: #fff;
+    background: #3399ff;
+    border: 2px solid #3399ff;
+}
+
+.ImageButton>img {
+    width: 24px;
+    pointer-events: none;
+}
