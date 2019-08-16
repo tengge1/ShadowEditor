@@ -78,21 +78,22 @@ OrthographicCameraControls.prototype.onMouseUp = function (event) {
 };
 
 OrthographicCameraControls.prototype.onMouseWheel = function (event) {
-    const delta = event.wheelDelta / 10;
+    const delta = event.wheelDelta / 1000;
 
     let camera = this.camera;
 
-    // switch (app.editor.view) {
-    //     case 'front':
-    //         camera.position.x += delta;
-    //         break;
-    //     case 'side':
-    //         camera.position.z += delta;
-    //         break;
-    //     case 'top':
-    //         camera.position.y += delta;
-    //         break;
-    // }
+    let width = this.domElement.clientWidth;
+    let height = this.domElement.clientHeight;
+
+    let pointerX = this.camera.left + (this.camera.right - this.camera.left) * event.offsetX / width;
+    let pointerY = this.camera.top - (this.camera.top - this.camera.bottom) * event.offsetY / height;
+
+    this.camera.left = this.camera.left - Math.abs(pointerX - this.camera.left) * delta;
+    this.camera.right = this.camera.right + Math.abs(this.camera.right - pointerX) * delta;
+    this.camera.top = this.camera.top + Math.abs(this.camera.top - pointerY) * delta;
+    this.camera.bottom = this.camera.bottom - Math.abs(pointerY - this.camera.bottom) * delta;
+
+    this.camera.updateProjectionMatrix();
 };
 
 export default OrthographicCameraControls;
