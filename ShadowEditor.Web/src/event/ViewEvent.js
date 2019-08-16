@@ -1,5 +1,5 @@
 import BaseEvent from './BaseEvent';
-import EffectRenderer from '../render/EffectRenderer';
+import OrthographicCameraControls from '../controls/OrthographicCameraControls';
 
 /**
  * 视图事件
@@ -10,7 +10,6 @@ function ViewEvent(app) {
     BaseEvent.call(this, app);
 
     this.changeView = this.changeView.bind(this);
-    this.onMouseWheel = this.onMouseWheel.bind(this);
 }
 
 ViewEvent.prototype = Object.create(BaseEvent.prototype);
@@ -31,8 +30,13 @@ ViewEvent.prototype.changeView = function (view) {
 
     app.editor.view = view;
 
+    if (this.controls === undefined) {
+        this.controls = new OrthographicCameraControls(app.editor.orthCamera, app.editor.renderer.domElement);
+    }
+
     if (view === 'perspective') {
-        app.on(`mousewheel.${this.id}`, null);
+        app.editor.controls.enabled = true;
+        this.controls.disable();
         app.call(`viewChanged`, this, view);
         return;
     }
@@ -56,26 +60,9 @@ ViewEvent.prototype.changeView = function (view) {
 
     app.editor.select(null);
 
-    app.on(`mousewheel.${this.id}`, this.onMouseWheel);
+    app.editor.controls.enabled = false;
+    this.controls.enable();
     app.call(`viewChanged`, this, view);
-};
-
-ViewEvent.prototype.onMouseWheel = function (event) {
-    const delta = event.wheelDelta / 10;
-
-    let camera = app.editor.orthCamera;
-
-    // switch (app.editor.view) {
-    //     case 'front':
-    //         camera.position.x += delta;
-    //         break;
-    //     case 'side':
-    //         camera.position.z += delta;
-    //         break;
-    //     case 'top':
-    //         camera.position.y += delta;
-    //         break;
-    // }
 };
 
 export default ViewEvent;
