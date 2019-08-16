@@ -57,8 +57,11 @@ OrthographicCameraControls.prototype.onMouseMove = function (event) {
 
     let camera = this.camera;
 
-    let dx = event.offsetX - this.offsetXY.x;
-    let dy = event.offsetY - this.offsetXY.y;
+    let width = this.domElement.clientWidth;
+    let height = this.domElement.clientHeight;
+
+    let dx = (event.offsetX - this.offsetXY.x) * (this.camera.right - this.camera.left) / width;
+    let dy = (event.offsetY - this.offsetXY.y) * (this.camera.top - this.camera.bottom) / height;
 
     this.camera.left -= dx;
     this.camera.right -= dx;
