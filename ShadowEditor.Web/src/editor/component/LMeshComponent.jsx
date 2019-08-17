@@ -17,7 +17,7 @@ class LMeshComponent extends React.Component {
             expanded: true,
             options: [],
             animation: '',
-            previewText: L_PREVIEW,
+            previewText: _t('Preview'),
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -34,8 +34,8 @@ class LMeshComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_LMESH_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={L_ANIMATION} name={'animation'} options={options} value={animation} onChange={this.handleChange}></SelectProperty>
+        return <PropertyGroup title={_t('LMesh Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <SelectProperty label={_t('Animation')} name={'animation'} options={options} value={animation} onChange={this.handleChange}></SelectProperty>
             <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
         </PropertyGroup>;
     }
@@ -78,7 +78,7 @@ class LMeshComponent extends React.Component {
             show: true,
             options,
             animation: animNames[0],
-            previewText: this.isPlaying ? L_CANCEL : L_PREVIEW,
+            previewText: this.isPlaying ? _t('Cancel') : _t('Preview'),
         });
     }
 
@@ -109,7 +109,7 @@ class LMeshComponent extends React.Component {
         this.isPlaying = true;
 
         this.setState({
-            previewText: L_CANCEL,
+            previewText: _t('Cancel'),
         });
 
         const model = this.selected.userData.model;
@@ -122,7 +122,7 @@ class LMeshComponent extends React.Component {
         this.isPlaying = false;
 
         this.setState({
-            previewText: L_PREVIEW,
+            previewText: _t('Preview'),
         });
 
         app.on(`animate.LMeshComponent`, null);

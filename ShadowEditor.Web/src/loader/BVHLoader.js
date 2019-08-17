@@ -35,7 +35,7 @@ BVHLoader.prototype.load = function (url, options) {
                     animNames: 'Animation1',
                     scripts: [{
                         id: null,
-                        name: `${options.Name}${L_ANIMATION}`,
+                        name: `${options.Name}${_t('Animation')}`,
                         type: 'javascript',
                         source: this.createScripts(options.Name),
                         uuid: THREE.Math.generateUUID()

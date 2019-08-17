@@ -30,8 +30,8 @@ class SmaaComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_SMAA} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_ENABLE_STATE} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('SMAA')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
         </PropertyGroup>;
     }
 

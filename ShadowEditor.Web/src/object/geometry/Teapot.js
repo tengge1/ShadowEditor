@@ -20,7 +20,7 @@ function Teapot(geometry = new THREE.TeapotBufferGeometry(3, 10, true, true, tru
         blinn: true
     };
 
-    this.name = L_TEAPOT;
+    this.name = _t('Teapot');
     this.castShadow = true;
     this.receiveShadow = true;
 

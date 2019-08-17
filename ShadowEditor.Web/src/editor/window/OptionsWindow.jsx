@@ -30,19 +30,19 @@ class OptionsWindow extends React.Component {
 
         return <Window
             className={'OptionsWindow'}
-            title={L_SETTINGS}
+            title={_t('Settings')}
             style={{ width: '300px', height: '400px', }}
             mask={false}
             onClose={this.handleClose}>
             <Content>
                 <TabLayout className={'tab'} activeTabIndex={activeTabIndex} onActiveTabChange={this.handleActiveTabChange}>
-                    <RendererPanel title={L_RENDERER} ref={this.rendererRef}></RendererPanel>
-                    <HelperPanel title={L_HELPERS} ref={this.helperRef}></HelperPanel>
-                    <FilterPanel title={L_FILTER} ref={this.filterRef}></FilterPanel>
+                    <RendererPanel title={_t('Renderer')} ref={this.rendererRef}></RendererPanel>
+                    <HelperPanel title={_t('Helpers')} ref={this.helperRef}></HelperPanel>
+                    <FilterPanel title={_t('Filter')} ref={this.filterRef}></FilterPanel>
                 </TabLayout>
             </Content>
             <Buttons>
-                <Button onClick={this.handleClose}>{L_CLOSE}</Button>
+                <Button onClick={this.handleClose}>{_t('Close')}</Button>
             </Buttons>
         </Window>;
     }

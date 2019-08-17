@@ -31,9 +31,9 @@ class DotScreenComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_DOT_SCREEN_EFFECT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_ENABLE_STATE} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_SCALE} name={'scale'} value={scale} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('DotScreenEffect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={_t('Scale')} name={'scale'} value={scale} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

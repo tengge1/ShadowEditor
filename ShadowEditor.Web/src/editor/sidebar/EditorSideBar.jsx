@@ -28,12 +28,12 @@ class EditorSideBar extends React.Component {
 
         return <VBoxLayout className={'EditorSideBar'}>
             <TabLayout className={'top'} activeTabIndex={topIndex} onActiveTabChange={this.handleTopTabChange}>
-                <HierarchyPanel title={L_HIERACHY} />
-                <HistoryPanel title={L_HISTORY}></HistoryPanel>
+                <HierarchyPanel title={_t('Hierachy')} />
+                <HistoryPanel title={_t('History')}></HistoryPanel>
             </TabLayout>
             <TabLayout className={'bottom'} activeTabIndex={bottomIndex} onActiveTabChange={this.handleBottomTabChange}>
-                <PropertyPanel title={L_PROPERTY}></PropertyPanel>
-                <ScriptPanel title={L_SCRIPT}></ScriptPanel>
+                <PropertyPanel title={_t('Property')}></PropertyPanel>
+                <ScriptPanel title={_t('Script')}></ScriptPanel>
             </TabLayout>
         </VBoxLayout>;
     }

@@ -15,7 +15,7 @@ function SetMaterialColorCommand(object, attributeName, newValue) {
 	Command.call(this);
 
 	this.type = 'SetMaterialColorCommand';
-	this.name = L_SET_MATERIAL + '.' + attributeName;
+	this.name = _t('Set Material') + '.' + attributeName;
 	this.updatable = true;
 
 	this.object = object;

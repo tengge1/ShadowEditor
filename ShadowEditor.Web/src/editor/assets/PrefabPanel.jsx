@@ -44,7 +44,7 @@ class PrefabPanel extends React.Component {
         return <div className={classNames('PrefabPanel', className)} style={style}>
             <SearchField
                 data={categoryData}
-                placeholder={L_SEARCH_CONTENT}
+                placeholder={_t('Search Content')}
                 addHidden={true}
                 onInput={this.handleSearch.bind(this)}></SearchField>
             <ImageList
@@ -119,7 +119,7 @@ class PrefabPanel extends React.Component {
     handleEdit(data) {
         var win = app.createElement(EditWindow, {
             type: 'Prefab',
-            typeName: L_PREFAB,
+            typeName: _t('Prefab'),
             data,
             saveUrl: `${app.options.server}/api/Prefab/Edit`,
             callback: this.update,
@@ -132,8 +132,8 @@ class PrefabPanel extends React.Component {
 
     handleDelete(data) {
         app.confirm({
-            title: L_CONFIRM,
-            content: `${L_DELETE} ${data.title}?`,
+            title: _t('Confirm'),
+            content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
                 fetch(`${app.options.server}/api/Prefab/Delete?ID=${data.id}`, {
                     method: 'POST',

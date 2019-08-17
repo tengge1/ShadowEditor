@@ -12,7 +12,7 @@ function SetGeometryCommand(object, newGeometry) {
 	Command.call(this);
 
 	this.type = 'SetGeometryCommand';
-	this.name = L_SET_GEOMETRY;
+	this.name = _t('Set Geometry');
 	this.updatable = true;
 
 	this.object = object;

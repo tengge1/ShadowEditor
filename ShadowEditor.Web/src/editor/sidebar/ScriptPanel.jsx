@@ -26,14 +26,14 @@ class ScriptPanel extends React.Component {
 
         return <div className={'ScriptPanel'}>
             <div className={'toolbar'}>
-                <Button onClick={this.handleAddScript}>{L_NEW_SCRIPT}</Button>
+                <Button onClick={this.handleAddScript}>{_t('New Script')}</Button>
             </div>
             <ul className={'content'}>
                 {Object.values(scripts).map(n => {
                     return <li key={n.uuid}>
                         <span>{`${n.name}.${this.getExtension(n.type)}`}</span>
-                        <Icon name={n.uuid} icon={'edit'} title={L_EDIT_SCRIPT} onClick={this.handleEditScript}></Icon>
-                        <Icon name={n.uuid} icon={'delete'} title={L_DELETE_SCRIPT} onClick={this.handleRemoveScript}></Icon>
+                        <Icon name={n.uuid} icon={'edit'} title={_t('Edit Script')} onClick={this.handleEditScript}></Icon>
+                        <Icon name={n.uuid} icon={'delete'} title={_t('Delete Script')} onClick={this.handleRemoveScript}></Icon>
                     </li>;
                 })}
             </ul>
@@ -99,8 +99,8 @@ class ScriptPanel extends React.Component {
         const script = app.editor.scripts[uuid];
 
         app.confirm({
-            title: L_CONFIRM,
-            content: `${L_DELETE} ${script.name}.${this.getExtension(script.type)}？`,
+            title: _t('Confirm'),
+            content: `${_t('Delete')} ${script.name}.${this.getExtension(script.type)}？`,
             onOK: () => {
                 delete app.editor.scripts[uuid];
                 app.call('scriptChanged', this);

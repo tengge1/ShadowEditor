@@ -15,13 +15,13 @@ class ScriptWindow extends React.Component {
 
         this.scriptTypes = {
             'javascript': 'JavaScript',
-            'vertexShader': L_VERTEX_SHADER,
-            'fragmentShader': L_FRAGMENT_SHADER,
-            'json': L_SHADER_PROGRAM_INFO
+            'vertexShader': _t('Vertex Shader'),
+            'fragmentShader': _t('Frag Shader'),
+            'json': _t('Shader Program Info')
         };
 
         this.state = {
-            name: L_NO_NAME,
+            name: _t('No Name'),
             type: 'javascript',
         };
 
@@ -37,16 +37,16 @@ class ScriptWindow extends React.Component {
 
         return <Window
             className={'ScriptWindow'}
-            title={L_CREATE_SCRIPT}
+            title={_t('Create Script')}
             onClose={this.handleClose}>
             <Content>
                 <Form>
                     <FormControl>
-                        <Label>{L_NAME}</Label>
+                        <Label>{_t('Name')}</Label>
                         <Input value={name} onChange={this.handleNameChange}></Input>
                     </FormControl>
                     <FormControl>
-                        <Label>{L_TYPE}</Label>
+                        <Label>{_t('Type')}</Label>
                         <Select
                             options={this.scriptTypes}
                             value={type}
@@ -56,8 +56,8 @@ class ScriptWindow extends React.Component {
                 </Form>
             </Content>
             <Buttons>
-                <Button onClick={this.handleOK}>{L_OK}</Button>
-                <Button onClick={this.handleClose}>{L_CANCEL}</Button>
+                <Button onClick={this.handleOK}>{_t('OK')}</Button>
+                <Button onClick={this.handleClose}>{_t('Cancel')}</Button>
             </Buttons>
         </Window>;
     }

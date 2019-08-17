@@ -37,12 +37,12 @@ class BackgroundMusicComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_BACKGROUND_MUSIC} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <DisplayProperty label={L_AUDIO} name={'name'} value={name === '' ? `(${L_NONE})` : name} btnShow={true} btnText={L_SELECT} onClick={this.handleSelect}></DisplayProperty>
-            <CheckBoxProperty label={L_AUTO_PLAY} name={'autoplay'} value={autoplay} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={L_LOOP} name={'loop'} value={loop} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_VOLUME} name={'volume'} value={volume} onChange={this.handleChange}></NumberProperty>
-            <ButtonProperty text={isPlaying ? L_STOP : L_PLAY} show={showPlayButton} onChange={this.handlePlay}></ButtonProperty>
+        return <PropertyGroup title={_t('Background Music')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <DisplayProperty label={_t('Audio')} name={'name'} value={name === '' ? `(${_t('None')})` : name} btnShow={true} btnText={_t('Select')} onClick={this.handleSelect}></DisplayProperty>
+            <CheckBoxProperty label={_t('Auto Play')} name={'autoplay'} value={autoplay} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty label={_t('Loop')} name={'loop'} value={loop} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={_t('Volume')} name={'volume'} value={volume} onChange={this.handleChange}></NumberProperty>
+            <ButtonProperty text={isPlaying ? _t('Stop') : _t('Play')} show={showPlayButton} onChange={this.handlePlay}></ButtonProperty>
         </PropertyGroup>;
     }
 
@@ -84,7 +84,7 @@ class BackgroundMusicComponent extends React.Component {
 
     handleSelect() {
         app.call(`selectBottomPanel`, this, 'audio');
-        app.toast(L_CLICK_AUDIO_IN_PANEL);
+        app.toast(_t('Please click the audio in the Audio Panel.'));
         app.on(`selectAudio.BackgroundMusicComponent`, this.onSelectAudio);
     }
 

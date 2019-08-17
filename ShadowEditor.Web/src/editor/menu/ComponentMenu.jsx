@@ -30,15 +30,15 @@ class ComponentMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={L_COMPONENT}>
-            <MenuItem title={L_BACKGROUND_MUSIC} onClick={this.handleAddBackgroundMusic}></MenuItem>
-            <MenuItem title={L_PARTICLE_EMITTER} onClick={this.handleParticleEmitter}></MenuItem>
-            <MenuItem title={L_SKY} onClick={this.handleAddSky}></MenuItem>
-            <MenuItem title={L_FIRE} onClick={this.handleAddFire}></MenuItem>
-            <MenuItem title={L_WATER} onClick={this.handleAddWater}></MenuItem>
-            <MenuItem title={L_SMOKE} onClick={this.handleAddSmoke}></MenuItem>
-            <MenuItem title={L_CLOTH} onClick={this.handleAddCloth}></MenuItem>
-            <MenuItem title={L_PERLIN_TERRAIN} onClick={this.handleAddPerlinTerrain}></MenuItem>
+        return <MenuItem title={_t('Component')}>
+            <MenuItem title={_t('Background Music')} onClick={this.handleAddBackgroundMusic}></MenuItem>
+            <MenuItem title={_t('ParticleEmitter')} onClick={this.handleParticleEmitter}></MenuItem>
+            <MenuItem title={_t('Sky')} onClick={this.handleAddSky}></MenuItem>
+            <MenuItem title={_t('Fire')} onClick={this.handleAddFire}></MenuItem>
+            <MenuItem title={_t('Water')} onClick={this.handleAddWater}></MenuItem>
+            <MenuItem title={_t('Smoke')} onClick={this.handleAddSmoke}></MenuItem>
+            <MenuItem title={_t('Cloth')} onClick={this.handleAddCloth}></MenuItem>
+            <MenuItem title={_t('Perlin Terrain')} onClick={this.handleAddPerlinTerrain}></MenuItem>
             {
                 //<MenuItem title={'着色器地形'} onClick={this.handleAddShaderTerrain}></MenuItem> 
             }
@@ -52,7 +52,7 @@ class ComponentMenu extends React.Component {
         var listener = editor.audioListener;
 
         var audio = new THREE.Audio(listener);
-        audio.name = L_BACKGROUND_MUSIC;
+        audio.name = _t('Background Music');
         audio.autoplay = false;
         audio.setLoop(true);
         audio.setVolume(1.0);
@@ -74,7 +74,7 @@ class ComponentMenu extends React.Component {
 
     handleAddSky() {
         var obj = new Sky();
-        obj.name = L_SKY;
+        obj.name = _t('Sky');
         obj.userData.type = 'Sky';
         app.editor.execute(new AddObjectCommand(obj));
     }
@@ -126,7 +126,7 @@ class ComponentMenu extends React.Component {
 
         var cloth = new Cloth();
 
-        cloth.name = L_CLOTH;
+        cloth.name = _t('Cloth');
 
         editor.execute(new AddObjectCommand(cloth));
     }

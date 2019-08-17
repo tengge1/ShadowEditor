@@ -31,9 +31,9 @@ class AfterimageComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_AFTERIMAGE_EFFECT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_ENABLE_STATE} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_DAMP} name={'damp'} value={damp} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('AfterimageEffect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={_t('Damp')} name={'damp'} value={damp} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

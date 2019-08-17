@@ -43,11 +43,11 @@ function ParticleEmitter(group, emitter) {
 
     group.addEmitter(emitter);
 
-    group.mesh.name = L_PARTICLE;
+    group.mesh.name = _t('Particle');
 
     this.add(group.mesh);
 
-    this.name = L_PARTICLE_EMITTER;
+    this.name = _t('ParticleEmitter');
 
     Object.assign(this.userData, {
         type: 'ParticleEmitter',

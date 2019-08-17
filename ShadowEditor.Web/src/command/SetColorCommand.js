@@ -13,7 +13,7 @@ function SetColorCommand(object, attributeName, newValue) {
 	Command.call(this);
 
 	this.type = 'SetColorCommand';
-	this.name = L_SET + ' ' + attributeName;
+	this.name = _t('Set') + ' ' + attributeName;
 	this.updatable = true;
 
 	this.object = object;

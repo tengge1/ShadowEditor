@@ -42,10 +42,24 @@ function Application(container, options) {
     this.on = this.event.on.bind(this.event);
 
     // 语言包
+    window._t = i18next.t.bind(i18next);
+
+    let lang = window.localStorage.getItem('lang');
+
+    if (!lang) {
+        let language = window.navigator.language.toLocaleLowerCase();
+
+        if (language === 'zh-cn') {
+            lang = 'zh-CN';
+        } else {
+            lang = 'en-US';
+        }
+    }
+
     i18next.use(Backend)
         .init({
-            lng: 'en-US',
-            debug: true,
+            lng: lang,
+            debug: false,
 
             whitelist: ['en-US', 'zh-CN'],
 
@@ -152,7 +166,7 @@ Application.prototype.alert = function (options = {}) {
 
     component = this.createElement(Alert, {
         title,
-        okText: L_OK,
+        okText: _t('OK'),
         className,
         style,
         onOK,
@@ -205,8 +219,8 @@ Application.prototype.confirm = function (options = {}) {
 
     component = this.createElement(Confirm, {
         title,
-        okText: L_OK,
-        cancelText: L_CANCEL,
+        okText: _t('OK'),
+        cancelText: _t('Cancel'),
         className,
         style,
         onOK: handleOK,
@@ -265,7 +279,7 @@ Application.prototype.prompt = function (options = {}) {
         className,
         style,
         value,
-        okText: L_OK,
+        okText: _t('OK'),
         onOK: handleOK,
         onClose,
     });

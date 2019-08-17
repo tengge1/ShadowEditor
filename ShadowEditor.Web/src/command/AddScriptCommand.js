@@ -12,7 +12,7 @@ var AddScriptCommand = function (object, script) {
 	Command.call(this);
 
 	this.type = 'AddScriptCommand';
-	this.name = L_ADD_SCRIPT;
+	this.name = _t('Add Script');
 
 	this.object = object;
 	this.script = script;

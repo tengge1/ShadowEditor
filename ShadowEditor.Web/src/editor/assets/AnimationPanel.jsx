@@ -46,7 +46,7 @@ class AnimationPanel extends React.Component {
         return <div className={classNames('AnimationPanel', className)} style={style}>
             <SearchField
                 data={categoryData}
-                placeholder={L_SEARCH_CONTENT}
+                placeholder={_t('Search Content')}
                 onAdd={this.handleAdd}
                 onInput={this.handleSearch.bind(this)}></SearchField>
             <ImageList
@@ -126,7 +126,7 @@ class AnimationPanel extends React.Component {
     handleEdit(data) {
         var win = app.createElement(EditWindow, {
             type: 'Animation',
-            typeName: L_ANIMATION,
+            typeName: _t('Animation'),
             data,
             saveUrl: `${app.options.server}/api/Animation/Edit`,
             callback: this.update,
@@ -139,8 +139,8 @@ class AnimationPanel extends React.Component {
 
     handleDelete(data) {
         app.confirm({
-            title: L_CONFIRM,
-            content: `${L_DELETE} ${data.title}?`,
+            title: _t('Confirm'),
+            content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
                 fetch(`${app.options.server}/api/Animation/Delete?ID=${data.id}`, {
                     method: 'POST',

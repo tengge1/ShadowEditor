@@ -29,9 +29,9 @@ class SoftVolumeComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_SOFT_VOLUME} show={show} expanded={expanded} onExpand={this.handleExpand}>
+        return <PropertyGroup title={_t('SoftVolume')} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <NumberProperty label={'Mass'} name={'mass'} value={mass} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_PRESSURE} name={'pressure'} value={pressure} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('Pressure')} name={'pressure'} value={pressure} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

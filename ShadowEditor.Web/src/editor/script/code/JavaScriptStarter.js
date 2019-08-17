@@ -3,67 +3,67 @@
  */
 function JavaScriptStarter() {
     return `
-// ${L_EXECUTE_BEFORE_SCENE_RENDER}
+// ${_t('Execute before scene render')}
 function init() {
 
 }
 
-// ${L_EXECUTE_AFTER_SCENE_RENDER}
+// ${_t('Execute after scene render')}
 function start() {
 
 }
 
-// ${L_EXECUTE_EACH_FRAME_DURING_RUNNING}
+// ${_t('Execute each frame during running')}
 function update(clock, deltaTime) {
 
 }
 
-// ${L_EXECUTE_AFTER_PROGRAM_STOP}
+// ${_t('Execute after program stopped')}
 function stop() {
 
 }
 
-// ${L_LISTEN_TO_CLICK_EVENT}
+// ${_t('Listen to click event')}
 function onClick(event) {
 
 }
 
-// ${L_LISTEN_TO_DBLCLICK_EVENT}
+// ${_t('Listen to dblclick event')}
 function onDblClick(event) {
 
 }
 
-// ${L_LISTEN_TO_KEYDOWN_EVENT}
+// ${_t('Listen to keydown event')}
 function onKeyDown(event) {
 
 }
 
-// ${L_LISTEN_TO_KEYUP_EVENT}
+// ${_t('Listen to keyup event')}
 function onKeyUp(event) {
 
 }
 
-// ${L_LISTEN_TO_MOUSEDOWN_EVENT}
+// ${_t('Listen to mousedown event')}
 function onMouseDown(event) {
 
 }
 
-// ${L_LISTEN_TO_MOUSEMOVE_EVENT}
+// ${_t('Listen to mousemove event')}
 function onMouseMove(event) {
 
 }
 
-// ${L_LISTEN_TO_MOUSEUP_EVENT}
+// ${_t('Listen to mouseup event')}
 function onMouseUp(event) {
 
 }
 
-// ${L_LISTEN_TO_MOUSEWHEEL_EVENT}
+// ${_t('Listen to mousewheel event')}
 function onMouseWheel(event) {
 
 }
 
-// ${L_LISTEN_TO_RESIZE_EVENT}
+// ${_t('Listen to resize event')}
 function onResize(event) {
 
 }

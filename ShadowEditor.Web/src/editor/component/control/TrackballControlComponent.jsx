@@ -37,17 +37,17 @@ class TrackballControlComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_TRACEBALL_CONTROLS} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={L_ROTATE_SPEED} name={'rotateSpeed'} value={rotateSpeed} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_ZOOM_SPEED} name={'zoomSpeed'} value={zoomSpeed} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_PAN_SPEED} name={'panSpeed'} value={panSpeed} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={L_NO_ROTATE} name={'noRotate'} value={noRotate} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={L_NO_ZOOM} name={'noZoom'} value={noZoom} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={L_NO_PAN} name={'noPan'} value={noPan} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={L_STATIC_MOVING} name={'staticMoving'} value={staticMoving} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_DYNAMIC_DAMPING_FACTOR} name={'dynamicDampingFactor'} value={dynamicDampingFactor} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_MIN_DISTANCE} name={'minDistance'} value={minDistance} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_MAX_DISTANCE} name={'maxDistance'} value={maxDistance} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Traceball Controls')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty label={_t('RotateSpeed')} name={'rotateSpeed'} value={rotateSpeed} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('ZoomSpeed')} name={'zoomSpeed'} value={zoomSpeed} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('PanSpeed')} name={'panSpeed'} value={panSpeed} onChange={this.handleChange}></NumberProperty>
+            <CheckBoxProperty label={_t('NoRotate')} name={'noRotate'} value={noRotate} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty label={_t('NoZoom')} name={'noZoom'} value={noZoom} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty label={_t('NoPan')} name={'noPan'} value={noPan} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty label={_t('StaticMoving')} name={'staticMoving'} value={staticMoving} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={_t('DampingFactor')} name={'dynamicDampingFactor'} value={dynamicDampingFactor} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('MinDistance')} name={'minDistance'} value={minDistance} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('MaxDistance')} name={'maxDistance'} value={maxDistance} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

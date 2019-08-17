@@ -59,31 +59,31 @@ class TwoDMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={L_TWO_D}>
-            <MenuItem title={L_BUTTON} onClick={this.handleAddButton}></MenuItem>
-            <MenuItem title={L_LABEL} onClick={this.handleAddLabel}></MenuItem>
-            <MenuItem title={L_PANEL} onClick={this.handleAddPanel}></MenuItem>
-            <MenuItem title={L_HORIZONTAL_LINE} onClick={this.handleAddHorizontalLine}></MenuItem>
-            <MenuItem title={L_BAR_CHART} onClick={this.handleAddBarChart}></MenuItem>
-            <MenuItem title={L_TIME} onClick={this.handleAddTimeLabel}></MenuItem>
-            <MenuItem title={L_VERTICAL_LINE} onClick={this.handleAddVerticalLine}></MenuItem>
-            <MenuItem title={L_DATE_WEEK} onClick={this.handleAddDateWeek}></MenuItem>
-            <MenuItem title={L_TIME_DISK} onClick={this.handleAddTimeDisk}></MenuItem>
-            <MenuItem title={L_KEY_VALUE_LABEL} onClick={this.handleAddKeyValueLabel}></MenuItem>
-            <MenuItem title={L_FORM_PANEL} onClick={this.handleAddFormPanel}></MenuItem>
-            <MenuItem title={L_GAUGE} onClick={this.handleAddGauge}></MenuItem>
-            <MenuItem title={L_HISTOGRAM} onClick={this.handleAddHistogram}></MenuItem>
-            <MenuItem title={L_LINECHART} onClick={this.handleAddLineChart}></MenuItem>
-            <MenuItem title={L_SIDEBAR} onClick={this.handleAddSideBar}></MenuItem>
-            <MenuItem title={`${L_HISTOGRAM}2`} onClick={this.handleAddHistogram2}></MenuItem>
-            <MenuItem title={L_SCATTER_PLOT} onClick={this.handleAddScatterPlot}></MenuItem>
-            <MenuItem title={L_PIE_CHART} onClick={this.handleAddPieChart}></MenuItem>
-            <MenuItem title={L_CHORD_GRAPH} onClick={this.handleAddChordGraph}></MenuItem>
-            <MenuItem title={L_FORCE_DIRECTED_GRAPH} onClick={this.handleAddForceDirectedGraph}></MenuItem>
-            <MenuItem title={L_TREE_DIAGRAM} onClick={this.handleAddTreeDiagram}></MenuItem>
-            <MenuItem title={L_CLUSTER_DIAGRAM} onClick={this.handleAddClusterDiagram}></MenuItem>
-            <MenuItem title={L_PACK_DIAGRAM} onClick={this.handleAddPackDiagram}></MenuItem>
-            <MenuItem title={L_PARTITION_DIAGRAM} onClick={this.handleAddPartitionDiagram}></MenuItem>
+        return <MenuItem title={_t('2D')}>
+            <MenuItem title={_t('Button')} onClick={this.handleAddButton}></MenuItem>
+            <MenuItem title={_t('Label')} onClick={this.handleAddLabel}></MenuItem>
+            <MenuItem title={_t('Panel')} onClick={this.handleAddPanel}></MenuItem>
+            <MenuItem title={_t('Horizontal Line')} onClick={this.handleAddHorizontalLine}></MenuItem>
+            <MenuItem title={_t('Bar Chart')} onClick={this.handleAddBarChart}></MenuItem>
+            <MenuItem title={_t('Time')} onClick={this.handleAddTimeLabel}></MenuItem>
+            <MenuItem title={_t('Vertical Line')} onClick={this.handleAddVerticalLine}></MenuItem>
+            <MenuItem title={_t('Date')} onClick={this.handleAddDateWeek}></MenuItem>
+            <MenuItem title={_t('Time Disk')} onClick={this.handleAddTimeDisk}></MenuItem>
+            <MenuItem title={_t('Key Value Label')} onClick={this.handleAddKeyValueLabel}></MenuItem>
+            <MenuItem title={_t('Form Panel')} onClick={this.handleAddFormPanel}></MenuItem>
+            <MenuItem title={_t('Gauge')} onClick={this.handleAddGauge}></MenuItem>
+            <MenuItem title={_t('Histogram')} onClick={this.handleAddHistogram}></MenuItem>
+            <MenuItem title={_t('Line Chart')} onClick={this.handleAddLineChart}></MenuItem>
+            <MenuItem title={_t('Sidebar')} onClick={this.handleAddSideBar}></MenuItem>
+            <MenuItem title={`${_t('Histogram')}2`} onClick={this.handleAddHistogram2}></MenuItem>
+            <MenuItem title={_t('Scatter Plot')} onClick={this.handleAddScatterPlot}></MenuItem>
+            <MenuItem title={_t('Pie Chart')} onClick={this.handleAddPieChart}></MenuItem>
+            <MenuItem title={_t('Chord Graph')} onClick={this.handleAddChordGraph}></MenuItem>
+            <MenuItem title={_t('Force Directed Graph')} onClick={this.handleAddForceDirectedGraph}></MenuItem>
+            <MenuItem title={_t('Tree Diagram')} onClick={this.handleAddTreeDiagram}></MenuItem>
+            <MenuItem title={_t('Cluster Diagram')} onClick={this.handleAddClusterDiagram}></MenuItem>
+            <MenuItem title={_t('Pack Diagram')} onClick={this.handleAddPackDiagram}></MenuItem>
+            <MenuItem title={_t('Partition Diagram')} onClick={this.handleAddPartitionDiagram}></MenuItem>
         </MenuItem>;
     }
 

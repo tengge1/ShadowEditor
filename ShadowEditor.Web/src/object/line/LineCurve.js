@@ -15,7 +15,7 @@ function LineCurve(options = {}) {
 
     THREE.Line.call(this, geometry, material);
 
-    this.name = L_LINE_CURVE;
+    this.name = _t('Line Curve');
 
     this.castShadow = true;
 

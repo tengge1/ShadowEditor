@@ -24,7 +24,7 @@ class Editor extends React.Component {
 
         this.state = {
             showMask: false,
-            maskText: L_WAITING,
+            maskText: _t('Waiting...'),
             elements: [],
         };
 
@@ -61,7 +61,7 @@ class Editor extends React.Component {
 
         // 场景
         this.scene = new THREE.Scene();
-        this.scene.name = L_SCENE;
+        this.scene.name = _t('Scene');
         this.scene.background = new THREE.Color(0xaaaaaa);
 
         this.sceneHelpers = new THREE.Scene();
@@ -74,7 +74,7 @@ class Editor extends React.Component {
 
         // 相机
         this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, width / height, 0.1, 10000);
-        this.DEFAULT_CAMERA.name = L_DEFAULT_CAMERA;
+        this.DEFAULT_CAMERA.name = _t('DefaultCamera');
         this.DEFAULT_CAMERA.userData.isDefault = true;
         this.DEFAULT_CAMERA.userData.control = 'OrbitControls'; // 场景控制类型
         this.DEFAULT_CAMERA.position.set(20, 10, 20);
@@ -106,7 +106,7 @@ class Editor extends React.Component {
 
         // 音频监听器
         this.audioListener = new THREE.AudioListener();
-        this.audioListener.name = L_AUDIO_LISTENER;
+        this.audioListener.name = _t('AudioListener');
 
         // 物体
         this.objects = [];
@@ -238,30 +238,30 @@ class Editor extends React.Component {
             id: null,
             uuid: THREE.Math.generateUUID(),
             layer: 0,
-            layerName: L_ANIMATION_LAYER_1,
+            layerName: _t('AnimLayer1'),
             animations: []
         }, {
             id: null,
             uuid: THREE.Math.generateUUID(),
             layer: 1,
-            layerName: L_ANIMATION_LAYER_2,
+            layerName: _t('AnimLayer2'),
             animations: []
         }, {
             id: null,
             uuid: THREE.Math.generateUUID(),
             layer: 2,
-            layerName: L_ANIMATION_LAYER_3,
+            layerName: _t('AnimLayer3'),
             animations: []
         }];
 
         // 添加默认元素
         if (addObject) {
             var light1 = new THREE.AmbientLight(0xffffff, 0.24);
-            light1.name = L_AMBIENT;
+            light1.name = _t('Ambient');
             this.addObject(light1);
 
             var light2 = new THREE.DirectionalLight(0xffffff, 0.56);
-            light2.name = L_DIRECTIONAL;
+            light2.name = _t('Directional');
             light2.castShadow = true;
             light2.position.set(5, 10, 7.5);
             light2.shadow.radius = 0;
@@ -507,7 +507,7 @@ class Editor extends React.Component {
     onShowMask(enabled, text) {
         this.setState({
             showMask: enabled,
-            maskText: text || L_WAITING,
+            maskText: text || _t('Waiting...'),
         });
     }
 }

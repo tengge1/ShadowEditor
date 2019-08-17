@@ -32,11 +32,11 @@ class CircleGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_GEOMETRY_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'radius'} label={L_RADIUS} value={radius} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'segments'} label={L_SEGMENTS} value={segments} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty name={'thetaStart'} label={L_THETA_START} value={thetaStart} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'thetaLength'} label={L_THETA_LENGTH} value={thetaLength} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty name={'radius'} label={_t('Radius')} value={radius} onChange={this.handleChange}></NumberProperty>
+            <IntegerProperty name={'segments'} label={_t('Segments')} value={segments} onChange={this.handleChange}></IntegerProperty>
+            <NumberProperty name={'thetaStart'} label={_t('ThetaStart')} value={thetaStart} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'thetaLength'} label={_t('ThetaLength')} value={thetaLength} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

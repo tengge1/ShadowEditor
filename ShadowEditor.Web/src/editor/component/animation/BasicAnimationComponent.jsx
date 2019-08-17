@@ -12,11 +12,11 @@ class BasicAnimationComponent extends React.Component {
         this.selected = null;
 
         this.animationType = {
-            Tween: L_TWEEN_ANIMATION,
-            Skeletal: L_SKELETAL_ANIMATION,
-            Audio: L_PLAY_AUDIO,
-            Filter: L_FILTER_ANIMATION,
-            Particle: L_PARTICLE_ANIMATION,
+            Tween: _t('Tween Animation'),
+            Skeletal: _t('Skeletal Animation'),
+            Audio: _t('Play Audio'),
+            Filter: _t('Filter Animation'),
+            Particle: _t('Particle Animation'),
         };
 
         this.state = {
@@ -42,12 +42,12 @@ class BasicAnimationComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_BASIC_INFORMATION} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <TextProperty label={L_NAME} name={'name'} value={name} onChange={this.handleChange}></TextProperty>
-            <TextProperty label={L_TARGET} name={'target'} value={target} onChange={this.handleChange}></TextProperty>
-            <SelectProperty label={L_TYPE} options={this.animationType} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={L_BEGIN_TIME} name={'beginTime'} value={beginTime} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_END_TIME} name={'endTime'} value={endTime} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Basic Information')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <TextProperty label={_t('Name')} name={'name'} value={name} onChange={this.handleChange}></TextProperty>
+            <TextProperty label={_t('Target')} name={'target'} value={target} onChange={this.handleChange}></TextProperty>
+            <SelectProperty label={_t('Type')} options={this.animationType} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
+            <NumberProperty label={_t('BeginTime')} name={'beginTime'} value={beginTime} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('EndTime')} name={'endTime'} value={endTime} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 
@@ -81,12 +81,12 @@ class BasicAnimationComponent extends React.Component {
         };
 
         if (!this.animation.target) {
-            state.target = '(' + L_NONE + ')';
+            state.target = '(' + _t('None') + ')';
         } else {
             let obj = app.editor.objectByUuid(this.animation.target);
             if (obj === null) {
-                state.target = '(' + L_NONE + ')';
-                console.warn(`BasicAnimationComponent: ${L_ANIMATION_OBJECT} ${this.animation.target} ${L_NOT_EXISTED_IN_SCENE}`);
+                state.target = '(' + _t('None') + ')';
+                console.warn(`BasicAnimationComponent: ${_t('Animation Object')} ${this.animation.target} ${_t('is not existed in the scene.')}`);
             } else {
                 state.target = obj.name;
             }

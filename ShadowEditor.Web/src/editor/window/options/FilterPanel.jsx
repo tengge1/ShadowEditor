@@ -30,35 +30,35 @@ class FilterPanel extends React.Component {
 
         return <Form className={'FilterPanel'}>
             <FormControl>
-                <Label>{L_HUE}</Label>
+                <Label>{_t('HueRotate')}</Label>
                 <Input type={'number'} name={'hueRotate'} value={hueRotate} onChange={this.handleChange}></Input>
             </FormControl>
             <FormControl>
-                <Label>{L_SATURATE}</Label>
+                <Label>{_t('Saturate')}</Label>
                 <Input type={'number'} name={'saturate'} value={saturate} onChange={this.handleChange}></Input>
             </FormControl>
             <FormControl>
-                <Label>{L_BRIGHTNESS}</Label>
+                <Label>{_t('Brightness')}</Label>
                 <Input type={'number'} name={'brightness'} value={brightness} onChange={this.handleChange}></Input>
             </FormControl>
             <FormControl>
-                <Label>{L_BLUR}</Label>
+                <Label>{_t('Blur')}</Label>
                 <Input type={'number'} name={'blur'} value={blur} onChange={this.handleChange}></Input>
             </FormControl>
             <FormControl>
-                <Label>{L_CONTRAST}</Label>
+                <Label>{_t('Contrast')}</Label>
                 <Input type={'number'} name={'contrast'} value={contrast} onChange={this.handleChange}></Input>
             </FormControl>
             <FormControl>
-                <Label>{L_GRAYSCALE}</Label>
+                <Label>{_t('Grayscale')}</Label>
                 <Input type={'number'} name={'grayscale'} value={grayscale} onChange={this.handleChange}></Input>
             </FormControl>
             <FormControl>
-                <Label>{L_INVERT}</Label>
+                <Label>{_t('Invert')}</Label>
                 <Input type={'number'} name={'invert'} value={invert} onChange={this.handleChange}></Input>
             </FormControl>
             <FormControl>
-                <Label>{L_SEPIA}</Label>
+                <Label>{_t('Sepia')}</Label>
                 <Input type={'number'} name={'sepia'} value={sepia} onChange={this.handleChange}></Input>
             </FormControl>
         </Form>;

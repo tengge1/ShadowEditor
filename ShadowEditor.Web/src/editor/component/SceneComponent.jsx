@@ -14,15 +14,15 @@ class SceneComponent extends React.Component {
         this.selected = null;
 
         this.backgroundType = {
-            'Color': L_SOLID_COLOR,
-            'Image': L_BACKGROUND_IMAGE,
-            'SkyBox': L_CUBE_TEXTURE
+            'Color': _t('Solid Color'),
+            'Image': _t('Background Image'),
+            'SkyBox': _t('Cube Texture')
         };
 
         this.fogType = {
-            'None': L_NONE,
-            'Fog': L_LINEAR,
-            'FogExp2': L_EXPONENTIAL
+            'None': _t('None'),
+            'Fog': _t('Linear'),
+            'FogExp2': _t('Exponential')
         };
 
         this.state = {
@@ -88,25 +88,25 @@ class SceneComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_SCENE_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={L_BACKGROUND} name={'backgroundType'} options={this.backgroundType} value={backgroundType} onChange={this.handleChangeBackgroundType}></SelectProperty>
-            <ColorProperty label={L_BACKGROUND_COLOR} name={'backgroundColor'} value={backgroundColor} show={backgroundColorShow} onChange={this.handleChangeBackgroundColor}></ColorProperty>
-            <TextureProperty label={L_BACKGROUND_IMAGE} name={'backgroundImage'} value={backgroundImage} show={backgroundImageShow} onChange={this.handleChangeBackgroundImage}></TextureProperty>
-            <TextureProperty label={L_POS_X} name={'backgroundPosX'} value={backgroundPosX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
-            <TextureProperty label={L_NEG_X} name={'backgroundNegX'} value={backgroundNegX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
-            <TextureProperty label={L_POS_Y} name={'backgroundPosY'} value={backgroundPosY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
-            <TextureProperty label={L_NEG_Y} name={'backgroundNegY'} value={backgroundNegY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
-            <TextureProperty label={L_POS_Z} name={'backgroundPosZ'} value={backgroundPosZ} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
-            <TextureProperty label={L_NEG_Z} name={'backgroundNegZ'} value={backgroundNegZ} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+        return <PropertyGroup title={_t('SceneComponent')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <SelectProperty label={_t('Background')} name={'backgroundType'} options={this.backgroundType} value={backgroundType} onChange={this.handleChangeBackgroundType}></SelectProperty>
+            <ColorProperty label={_t('BackgroundColor')} name={'backgroundColor'} value={backgroundColor} show={backgroundColorShow} onChange={this.handleChangeBackgroundColor}></ColorProperty>
+            <TextureProperty label={_t('Background Image')} name={'backgroundImage'} value={backgroundImage} show={backgroundImageShow} onChange={this.handleChangeBackgroundImage}></TextureProperty>
+            <TextureProperty label={_t('PosX')} name={'backgroundPosX'} value={backgroundPosX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+            <TextureProperty label={_t('NegX')} name={'backgroundNegX'} value={backgroundNegX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+            <TextureProperty label={_t('PosY')} name={'backgroundPosY'} value={backgroundPosY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+            <TextureProperty label={_t('NegY')} name={'backgroundNegY'} value={backgroundNegY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+            <TextureProperty label={_t('PosZ')} name={'backgroundPosZ'} value={backgroundPosZ} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+            <TextureProperty label={_t('NegZ')} name={'backgroundNegZ'} value={backgroundNegZ} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
             <ButtonsProperty show={backgroundCubeTextureShow}>
-                <Button onClick={this.handleLoadCubeTexture}>{L_SELECT}</Button>
-                <Button onClick={this.handleSaveCubeTexture}>{L_UPLOAD}</Button>
+                <Button onClick={this.handleLoadCubeTexture}>{_t('Select')}</Button>
+                <Button onClick={this.handleSaveCubeTexture}>{_t('Upload')}</Button>
             </ButtonsProperty>
-            <SelectProperty label={L_FOG} name={'fogType'} options={this.fogType} value={fogType} onChange={this.handleChangeFogType}></SelectProperty>
-            <ColorProperty label={L_FOG_COLOR} name={'fogColor'} value={fogColor} show={fogColorShow} onChange={this.handleChangeFogColor}></ColorProperty>
-            <NumberProperty label={L_FOG_NEAR} name={'fogNear'} value={fogNear} show={fogNearShow} onChange={this.handleChangeFogNear}></NumberProperty>
-            <NumberProperty label={L_FOG_FAR} name={'fogFar'} value={fogFar} show={fogFarShow} onChange={this.handleChangeFogFar}></NumberProperty>
-            <NumberProperty label={L_FOG_DENSITY} name={'fogDensity'} value={fogDensity} show={fogDensityShow} onChange={this.handleChangeFogDensity}></NumberProperty>
+            <SelectProperty label={_t('Fog')} name={'fogType'} options={this.fogType} value={fogType} onChange={this.handleChangeFogType}></SelectProperty>
+            <ColorProperty label={_t('FogColor')} name={'fogColor'} value={fogColor} show={fogColorShow} onChange={this.handleChangeFogColor}></ColorProperty>
+            <NumberProperty label={_t('FogNear')} name={'fogNear'} value={fogNear} show={fogNearShow} onChange={this.handleChangeFogNear}></NumberProperty>
+            <NumberProperty label={_t('FogFar')} name={'fogFar'} value={fogFar} show={fogFarShow} onChange={this.handleChangeFogFar}></NumberProperty>
+            <NumberProperty label={_t('FogDensity')} name={'fogDensity'} value={fogDensity} show={fogDensityShow} onChange={this.handleChangeFogDensity}></NumberProperty>
         </PropertyGroup>;
     }
 
@@ -292,14 +292,14 @@ class SceneComponent extends React.Component {
     handleLoadCubeTexture() {
         app.call(`selectBottomPanel`, this, 'map');
 
-        app.toast(L_CLICK_MAP_PANEL);
+        app.toast(_t('Please click the map in the Map Panel.'));
 
         app.on(`selectMap.SceneComponent`, this.handleSelectCubeMap);
     }
 
     handleSelectCubeMap(model) {
         if (model.Type !== 'cube') {
-            app.toast(L_ONLY_SELECT_CUBE_TEXTURE);
+            app.toast(_t('You should select Cube Texture.'));
 
             return;
         }
@@ -316,7 +316,7 @@ class SceneComponent extends React.Component {
                     resolve(texture);
                 }, undefined, error => {
                     console.error(error);
-                    app.toast(L_CUBE_TEXTURE_FETCH_FAILED);
+                    app.toast(_t('Cube Texture fetch failed.'));
                 });
             });
         });
@@ -343,7 +343,7 @@ class SceneComponent extends React.Component {
         const { backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ } = this.state;
 
         if (!backgroundPosX || !backgroundNegX || !backgroundPosY || !backgroundNegY || !backgroundPosZ || !backgroundNegZ) {
-            app.toast(L_UPLOAD_ALL_BEFORE_SAVE);
+            app.toast(_t('Please upload all the textures before save.'));
             return;
         }
 
@@ -355,7 +355,7 @@ class SceneComponent extends React.Component {
         const negZSrc = backgroundNegZ.image.src;
 
         if (posXSrc.startsWith('http') || negXSrc.startsWith('http') || posYSrc.startsWith('http') || negYSrc.startsWith('http') || posZSrc.startsWith('http') || negZSrc.startsWith('http')) {
-            app.toast(L_CUBE_TEXTURE_EXISTED);
+            app.toast(_t('Cube texture has already been uploaded.'));
             return;
         }
 

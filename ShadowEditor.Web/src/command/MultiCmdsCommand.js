@@ -11,7 +11,7 @@ function MultiCmdsCommand(cmdArray) {
 	Command.call(this);
 
 	this.type = 'MultiCmdsCommand';
-	this.name = L_MULTI_MODIFY;
+	this.name = _t('Multi Modify');
 
 	this.cmdArray = (cmdArray !== undefined) ? cmdArray : [];
 };

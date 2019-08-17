@@ -31,13 +31,13 @@ class EditMenu extends React.Component {
     render() {
         const { enableUndo, enableRedo, enableClearHistory, enableClone, enableDelete } = this.state;
 
-        return <MenuItem title={L_EDIT}>
-            <MenuItem title={`${L_UNDO}(Ctrl+Z)`} disabled={!enableUndo} onClick={this.handleUndo}></MenuItem>
-            <MenuItem title={`${L_REDO}(Ctrl+Y)`} disabled={!enableRedo} onClick={this.handleRedo}></MenuItem>
-            <MenuItem title={L_CLEAR_HISTORY} disabled={!enableClearHistory} onClick={this.handleClearHistory}></MenuItem>
+        return <MenuItem title={_t('Edit')}>
+            <MenuItem title={`${_t('Undo')}(Ctrl+Z)`} disabled={!enableUndo} onClick={this.handleUndo}></MenuItem>
+            <MenuItem title={`${_t('Redo')}(Ctrl+Y)`} disabled={!enableRedo} onClick={this.handleRedo}></MenuItem>
+            <MenuItem title={_t('Clear History')} disabled={!enableClearHistory} onClick={this.handleClearHistory}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={L_CLONE} disabled={!enableClone} onClick={this.handleClone}></MenuItem>
-            <MenuItem title={`${L_DELETE}(Del)`} disabled={!enableDelete} onClick={this.handleDelete}></MenuItem>
+            <MenuItem title={_t('Clone')} disabled={!enableClone} onClick={this.handleClone}></MenuItem>
+            <MenuItem title={`${_t('Delete')}(Del)`} disabled={!enableDelete} onClick={this.handleDelete}></MenuItem>
         </MenuItem>;
     }
 
@@ -81,8 +81,8 @@ class EditMenu extends React.Component {
         }
 
         app.confirm({
-            title: L_CONFIRM,
-            content: L_HISTORY_WILL_CLEAR,
+            title: _t('Confirm'),
+            content: _t('Undo/Redo history will be cleared. Are you sure?'),
             onOK: () => {
                 editor.history.clear();
             }
@@ -114,8 +114,8 @@ class EditMenu extends React.Component {
         }
 
         app.confirm({
-            title: L_CONFIRM,
-            content: L_DELETE + ' ' + object.name + '?',
+            title: _t('Confirm'),
+            content: _t('Delete') + ' ' + object.name + '?',
             onOK: () => {
                 editor.execute(new RemoveObjectCommand(object));
             }

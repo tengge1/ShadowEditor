@@ -11,9 +11,9 @@ class GisBasicComponent extends React.Component {
         this.selected = null;
 
         this.bakcground = {
-            google: L_GOOGLE_MAP,
-            bing: L_BING_MAP,
-            tianditu: L_TIANDITU_MAP,
+            google: _t('Google Map'),
+            bing: _t('Bing Map'),
+            tianditu: _t('Tianditu Map'),
         };
 
         this.state = {
@@ -34,8 +34,8 @@ class GisBasicComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_GIS_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={L_TILE_MAP} options={this.bakcground} name={'bakcground'} value={bakcground} onChange={this.handleChange}></SelectProperty>
+        return <PropertyGroup title={_t('GIS Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <SelectProperty label={_t('Map')} options={this.bakcground} name={'bakcground'} value={bakcground} onChange={this.handleChange}></SelectProperty>
         </PropertyGroup>;
     }
 

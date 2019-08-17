@@ -79,17 +79,17 @@ class LightComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_LIGHT_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <ColorProperty label={L_COLOR} name={'color'} value={color} show={showColor} onChange={this.handleChangeColor}></ColorProperty>
-            <NumberProperty label={L_INTENSITY} name={'intensity'} value={intensity} show={showIntensity} onChange={this.handleChangeIntensity}></NumberProperty>
-            <NumberProperty label={L_DISTANCE} name={'distance'} value={distance} show={showDistance} onChange={this.handleChangeDistance}></NumberProperty>
-            <NumberProperty label={L_ANGLE} name={'angle'} value={angle} show={showAngle} onChange={this.handleChangeAngle}></NumberProperty>
-            <NumberProperty label={L_PENUMBRA} name={'penumbra'} value={penumbra} show={showPenumbra} onChange={this.handleChangePenumbra}></NumberProperty>
-            <NumberProperty label={L_DECAY} name={'decay'} value={decay} show={showDecay} onChange={this.handleChangeDecay}></NumberProperty>
-            <ColorProperty label={L_SKY_COLOR} name={'skyColor'} value={skyColor} show={showSkyColor} onChange={this.handleChangeSkyColor}></ColorProperty>
-            <ColorProperty label={L_GROUND_COLOR} name={'groundColor'} value={groundColor} show={showGroundColor} onChange={this.handleChangeGroundColor}></ColorProperty>
-            <NumberProperty label={L_WIDTH} name={'width'} value={width} show={showWidth} onChange={this.handleChangeWidth}></NumberProperty>
-            <NumberProperty label={L_HEIGHT} name={'height'} value={height} show={showHeight} onChange={this.handleChangeHeight}></NumberProperty>
+        return <PropertyGroup title={_t('Light Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <ColorProperty label={_t('Color')} name={'color'} value={color} show={showColor} onChange={this.handleChangeColor}></ColorProperty>
+            <NumberProperty label={_t('Intensity')} name={'intensity'} value={intensity} show={showIntensity} onChange={this.handleChangeIntensity}></NumberProperty>
+            <NumberProperty label={_t('Distance')} name={'distance'} value={distance} show={showDistance} onChange={this.handleChangeDistance}></NumberProperty>
+            <NumberProperty label={_t('Angle')} name={'angle'} value={angle} show={showAngle} onChange={this.handleChangeAngle}></NumberProperty>
+            <NumberProperty label={_t('Penumbra')} name={'penumbra'} value={penumbra} show={showPenumbra} onChange={this.handleChangePenumbra}></NumberProperty>
+            <NumberProperty label={_t('Decay')} name={'decay'} value={decay} show={showDecay} onChange={this.handleChangeDecay}></NumberProperty>
+            <ColorProperty label={_t('SkyColor')} name={'skyColor'} value={skyColor} show={showSkyColor} onChange={this.handleChangeSkyColor}></ColorProperty>
+            <ColorProperty label={_t('GroundColor')} name={'groundColor'} value={groundColor} show={showGroundColor} onChange={this.handleChangeGroundColor}></ColorProperty>
+            <NumberProperty label={_t('Width')} name={'width'} value={width} show={showWidth} onChange={this.handleChangeWidth}></NumberProperty>
+            <NumberProperty label={_t('Height')} name={'height'} value={height} show={showHeight} onChange={this.handleChangeHeight}></NumberProperty>
         </PropertyGroup>;
     }
 

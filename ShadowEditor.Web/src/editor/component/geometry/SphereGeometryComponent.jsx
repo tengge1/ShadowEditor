@@ -35,14 +35,14 @@ class SphereGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_GEOMETRY_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'radius'} label={L_RADIUS} value={radius} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'widthSegments'} label={L_WIDTH_SEGMENTS} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty name={'heightSegments'} label={L_HEIGHT_SEGMENTS} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty name={'phiStart'} label={L_PHI_START} value={phiStart} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'phiLength'} label={L_PHI_LENGTH} value={phiLength} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'thetaStart'} label={L_THETA_START} value={thetaStart} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'thetaLength'} label={L_THETA_LENGTH} value={thetaLength} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty name={'radius'} label={_t('Radius')} value={radius} onChange={this.handleChange}></NumberProperty>
+            <IntegerProperty name={'widthSegments'} label={_t('WidthSegments')} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
+            <IntegerProperty name={'heightSegments'} label={_t('HeightSegments')} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
+            <NumberProperty name={'phiStart'} label={_t('PhiStart')} value={phiStart} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'phiLength'} label={_t('PhiLength')} value={phiLength} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'thetaStart'} label={_t('ThetaStart')} value={thetaStart} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'thetaLength'} label={_t('ThetaLength')} value={thetaLength} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

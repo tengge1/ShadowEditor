@@ -41,7 +41,7 @@ JsonLoader.prototype.load = function (url, options) {
                     root: mesh,
                     scripts: [{
                         id: null,
-                        name: `${options.Name}${L_ANIMATION}`,
+                        name: `${options.Name}${_t('Animation')}`,
                         type: 'javascript',
                         source: this.createScripts(options.Name),
                         uuid: THREE.Math.generateUUID()

@@ -27,7 +27,7 @@ class LogPanel extends React.Component {
         const { logs } = this.state;
 
         return <div className={classNames('LogPanel', className)} style={style}>
-            <Button onClick={this.handleClear}>{L_CLEAR}</Button>
+            <Button onClick={this.handleClear}>{_t('Clear')}</Button>
             <div className={'logs'}>
                 {logs.map((n, i) => {
                     return <div className={n.type} key={i}>{n.time} {n.content}</div>

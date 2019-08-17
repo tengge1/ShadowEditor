@@ -57,47 +57,11 @@
     <!-- Shadow Editor -->
     <script src="build/ShadowEditor.js"></script>
     <script>
-        var loadJs = url => {
-            var script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = url;
-
-            document.body.appendChild(script);
-
-            return new Promise(resolve => {
-                script.onload = () => {
-                    resolve();
-                }
-            });
-        };
-
-        var start = () => {
+        window.onload = function () {
             new Shadow.Application(document.getElementById('container'), {
                 server: location.origin,
                 enableTileCache: false,
             });
-        };
-
-        window.onload = () => {
-            var lang = window.localStorage.getItem('lang');
-
-            if (!lang) {
-                var language = window.navigator.language.toLocaleLowerCase();
-
-                if (language === 'zh-cn') {
-                    lang = 'zh-CN';
-                } else {
-                    lang = 'en-US';
-                }
-            }
-
-            if (lang === 'zh-CN') {
-                loadJs('lang/zh-CN.js').then(() => {
-                    start();
-                });
-            } else {
-                start();
-            }
         };
     </script>
 </body>

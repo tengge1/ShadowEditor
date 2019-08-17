@@ -47,12 +47,12 @@ class ReflectorComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_REFLECTOR_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_REFLECT} name={'reflect'} value={reflect} onChange={this.handleChange}></CheckBoxProperty>
-            <ColorProperty label={L_COLOR} name={'color'} value={color} show={showColor} onChange={this.handleChange}></ColorProperty>
-            <SelectProperty label={L_TEXTURE_SIZE} name={'size'} options={this.sizes} value={size} show={showSize} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={L_CLIP_BIAS} name={'clipBias'} value={clipBias} show={showClipBias} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={L_RECURSION} name={'recursion'} value={recursion} show={showRecursion} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Reflector Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('Reflect')} name={'reflect'} value={reflect} onChange={this.handleChange}></CheckBoxProperty>
+            <ColorProperty label={_t('Color')} name={'color'} value={color} show={showColor} onChange={this.handleChange}></ColorProperty>
+            <SelectProperty label={_t('TextureSize')} name={'size'} options={this.sizes} value={size} show={showSize} onChange={this.handleChange}></SelectProperty>
+            <NumberProperty label={_t('ClipBias')} name={'clipBias'} value={clipBias} show={showClipBias} onChange={this.handleChange}></NumberProperty>
+            <CheckBoxProperty label={_t('Recursion')} name={'recursion'} value={recursion} show={showRecursion} onChange={this.handleChange}></CheckBoxProperty>
         </PropertyGroup>;
     }
 

@@ -17,7 +17,7 @@ class SmokeComponent extends React.Component {
             expanded: true,
             size: 2,
             lifetime: 10,
-            previewText: L_PREVIEW,
+            previewText: _t('Preview'),
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -34,7 +34,7 @@ class SmokeComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_SMOKE_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
+        return <PropertyGroup title={_t('SmokeComponent')} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <NumberProperty label={'尺寸'} name={'size'} value={size} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'时长'} name={'lifetime'} value={lifetime} onChange={this.handleChange}></NumberProperty>
             <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
@@ -68,7 +68,7 @@ class SmokeComponent extends React.Component {
             show: true,
             size: this.selected.userData.size,
             lifetime: this.selected.userData.lifetime,
-            previewText: this.isPlaying ? L_CANCEL : L_PREVIEW,
+            previewText: this.isPlaying ? _t('Cancel') : _t('Preview'),
         });
     }
 
@@ -105,7 +105,7 @@ class SmokeComponent extends React.Component {
         this.isPlaying = true;
 
         this.setState({
-            previewText: L_CANCEL,
+            previewText: _t('Cancel'),
         });
 
         app.on(`animate.SmokeComponent`, this.onAnimate);
@@ -115,7 +115,7 @@ class SmokeComponent extends React.Component {
         this.isPlaying = false;
 
         this.setState({
-            previewText: L_PREVIEW,
+            previewText: _t('Preview'),
         });
 
         app.on(`animate.SmokeComponent`, null);

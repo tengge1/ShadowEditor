@@ -69,18 +69,18 @@ class ShadowComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_SHADOW_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_CAST} name={'castShadow'} value={castShadow} show={castShadowShow} onChange={this.handleChangeCastShadow}></CheckBoxProperty>
-            <CheckBoxProperty label={L_RECEIVE} name={'receiveShadow'} value={receiveShadow} show={receiveShadowShow} onChange={this.handleChangeReceiveShadow}></CheckBoxProperty>
-            <NumberProperty label={L_RADIUS} name={'shadowRadius'} value={shadowRadius} show={shadowRadiusShow} onChange={this.handleChangeShadowRadius}></NumberProperty>
-            <SelectProperty label={L_MAP_SIZE} options={this.mapSize} name={'mapSize'} value={mapSize.toString()} show={mapSizeShow} onChange={this.handleChangeMapSize}></SelectProperty>
-            <NumberProperty label={L_BIAS} name={'bias'} value={bias} show={biasShow} onChange={this.handleChangeBias}></NumberProperty>
-            <NumberProperty label={L_CAMERA_LEFT} name={'cameraLeft'} value={cameraLeft} show={cameraShow} onChange={this.handleChangeCameraLeft}></NumberProperty>
-            <NumberProperty label={L_CAMERA_RIGHT} name={'cameraRight'} value={cameraRight} show={cameraShow} onChange={this.handleChangeCameraRight}></NumberProperty>
-            <NumberProperty label={L_CAMERA_TOP} name={'cameraTop'} value={cameraTop} show={cameraShow} onChange={this.handleChangeCameraTop}></NumberProperty>
-            <NumberProperty label={L_CAMERA_BOTTOM} name={'cameraBottom'} value={cameraBottom} show={cameraShow} onChange={this.handleChangeCameraBottom}></NumberProperty>
-            <NumberProperty label={L_CAMERA_NEAR} name={'cameraNear'} value={cameraNear} show={cameraShow} onChange={this.handleChangeCameraNear}></NumberProperty>
-            <NumberProperty label={L_CAMERA_FAR} name={'cameraFar'} value={cameraFar} show={cameraShow} onChange={this.handleChangeCameraFar}></NumberProperty>
+        return <PropertyGroup title={_t('Shadow Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('Cast')} name={'castShadow'} value={castShadow} show={castShadowShow} onChange={this.handleChangeCastShadow}></CheckBoxProperty>
+            <CheckBoxProperty label={_t('Receive')} name={'receiveShadow'} value={receiveShadow} show={receiveShadowShow} onChange={this.handleChangeReceiveShadow}></CheckBoxProperty>
+            <NumberProperty label={_t('Radius')} name={'shadowRadius'} value={shadowRadius} show={shadowRadiusShow} onChange={this.handleChangeShadowRadius}></NumberProperty>
+            <SelectProperty label={_t('MapSize')} options={this.mapSize} name={'mapSize'} value={mapSize.toString()} show={mapSizeShow} onChange={this.handleChangeMapSize}></SelectProperty>
+            <NumberProperty label={_t('Bias')} name={'bias'} value={bias} show={biasShow} onChange={this.handleChangeBias}></NumberProperty>
+            <NumberProperty label={_t('CameraLeft')} name={'cameraLeft'} value={cameraLeft} show={cameraShow} onChange={this.handleChangeCameraLeft}></NumberProperty>
+            <NumberProperty label={_t('CameraRight')} name={'cameraRight'} value={cameraRight} show={cameraShow} onChange={this.handleChangeCameraRight}></NumberProperty>
+            <NumberProperty label={_t('CameraTop')} name={'cameraTop'} value={cameraTop} show={cameraShow} onChange={this.handleChangeCameraTop}></NumberProperty>
+            <NumberProperty label={_t('CameraBottom')} name={'cameraBottom'} value={cameraBottom} show={cameraShow} onChange={this.handleChangeCameraBottom}></NumberProperty>
+            <NumberProperty label={_t('CameraNear')} name={'cameraNear'} value={cameraNear} show={cameraShow} onChange={this.handleChangeCameraNear}></NumberProperty>
+            <NumberProperty label={_t('CameraFar')} name={'cameraFar'} value={cameraFar} show={cameraShow} onChange={this.handleChangeCameraFar}></NumberProperty>
         </PropertyGroup>;
     }
 

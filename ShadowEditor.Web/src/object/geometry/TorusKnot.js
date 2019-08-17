@@ -6,7 +6,7 @@
 function TorusKnot(geometry = new THREE.TorusKnotBufferGeometry(2, 0.8, 64, 12, 2, 3), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);
 
-    this.name = L_TORUS_KNOT;
+    this.name = _t('Torus Knot');
     this.castShadow = true;
     this.receiveShadow = true;
 

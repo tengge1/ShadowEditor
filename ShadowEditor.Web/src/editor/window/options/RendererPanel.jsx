@@ -10,10 +10,10 @@ class RendererPanel extends React.Component {
         super(props);
 
         this.shadowMapType = {
-            [-1]: L_DISABLED,
-            [THREE.BasicShadowMap]: L_BASIC_SHADOW, // 0
-            [THREE.PCFShadowMap]: L_PCF_SHADOW, // 1
-            [THREE.PCFSoftShadowMap]: L_PCF_SOFT_SHADOW // 2
+            [-1]: _t('Disabled'),
+            [THREE.BasicShadowMap]: _t('Basic Shadow'), // 0
+            [THREE.PCFShadowMap]: _t('PCF Shadow'), // 1
+            [THREE.PCFSoftShadowMap]: _t('PCF Soft Shadow') // 2
         };
 
         this.state = {
@@ -32,19 +32,19 @@ class RendererPanel extends React.Component {
 
         return <Form className={'RendererPanel'}>
             <FormControl>
-                <Label>{L_SHADOW}</Label>
+                <Label>{_t('Shadow')}</Label>
                 <Select options={this.shadowMapType} name={'shadowMapType'} value={shadowMapType} onChange={this.handleChange}></Select>
             </FormControl>
             <FormControl>
-                <Label>{L_GAMMA_INPUT}</Label>
+                <Label>{_t('Gamma Input')}</Label>
                 <CheckBox name={'gammaInput'} checked={gammaInput} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
-                <Label>{L_GAMMA_OUTPUT}</Label>
+                <Label>{_t('Gamma Output')}</Label>
                 <CheckBox name={'gammaOutput'} checked={gammaOutput} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
-                <Label>{L_GAMMA_FACTOR}</Label>
+                <Label>{_t('Gamma Factor')}</Label>
                 <Input type={'number'} name={'gammaFactor'} value={gammaFactor} onChange={this.handleChange}></Input>
             </FormControl>
         </Form>;

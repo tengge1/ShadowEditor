@@ -12,18 +12,18 @@ class HalftoneComponent extends React.Component {
         this.selected = null;
 
         this.shape = {
-            1: L_POINT,
-            2: L_ELLIPSE,
-            3: L_LINE,
-            4: L_SQUARE,
+            1: _t('Point'),
+            2: _t('Ellipse'),
+            3: _t('Line'),
+            4: _t('Square'),
         };
 
         this.blendingMode = {
-            1: L_LINEAR,
-            2: L_MULTIPLY,
-            3: L_ADD,
-            4: L_LIGHTER,
-            5: L_DARKER,
+            1: _t('Linear'),
+            2: _t('Multiply'),
+            3: _t('Add'),
+            4: _t('Lighter'),
+            5: _t('Darker'),
         };
 
         this.state = {
@@ -54,17 +54,17 @@ class HalftoneComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_HALFTONE_EFFECT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_ENABLE_STATE} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={L_SHAPE} options={this.shape} name={'shape'} value={shape} onChange={this.handleChange}></SelectProperty>
-            <IntegerProperty label={L_RADIUS} name={'radius'} value={radius} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty label={L_ROTATE_RED} name={'rotateR'} value={rotateR} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_ROTATE_GREEN} name={'rotateG'} value={rotateG} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_ROTATE_BLUE} name={'rotateB'} value={rotateB} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_SCATTER} name={'scatter'} value={scatter} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_BLENDING} name={'blending'} value={blending} onChange={this.handleChange}></NumberProperty>
-            <SelectProperty label={L_BLENDING_MODE} options={this.blendingMode} name={'blendingMode'} value={blendingMode} onChange={this.handleChange}></SelectProperty>
-            <CheckBoxProperty label={L_GREY_SCALE} name={'greyscale'} value={greyscale} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Halftone Effect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
+            <SelectProperty label={_t('Shape')} options={this.shape} name={'shape'} value={shape} onChange={this.handleChange}></SelectProperty>
+            <IntegerProperty label={_t('Radius')} name={'radius'} value={radius} onChange={this.handleChange}></IntegerProperty>
+            <NumberProperty label={_t('RotateRed')} name={'rotateR'} value={rotateR} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('RotateGreen')} name={'rotateG'} value={rotateG} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('RotateBlue')} name={'rotateB'} value={rotateB} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('Scatter')} name={'scatter'} value={scatter} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('Blending')} name={'blending'} value={blending} onChange={this.handleChange}></NumberProperty>
+            <SelectProperty label={_t('BlendingMode')} options={this.blendingMode} name={'blendingMode'} value={blendingMode} onChange={this.handleChange}></SelectProperty>
+            <CheckBoxProperty label={_t('GreyScale')} name={'greyscale'} value={greyscale} onChange={this.handleChange}></CheckBoxProperty>
         </PropertyGroup>;
     }
 

@@ -13,7 +13,7 @@ function SetMaterialMapCommand(object, mapName, newMap) {
 	Command.call(this);
 
 	this.type = 'SetMaterialMapCommand';
-	this.name = L_SET_MATERIAL + '.' + mapName;
+	this.name = _t('Set Material') + '.' + mapName;
 
 	this.object = object;
 	this.mapName = mapName;

@@ -13,7 +13,7 @@ function MoveObjectCommand(object, newParent, newBefore) {
 	Command.call(this);
 
 	this.type = 'MoveObjectCommand';
-	this.name = L_MOVE_OBJECT;
+	this.name = _t('Move Object');
 
 	this.object = object;
 	this.oldParent = (object !== undefined) ? object.parent : undefined;

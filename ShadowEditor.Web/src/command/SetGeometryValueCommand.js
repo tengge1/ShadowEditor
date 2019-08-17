@@ -13,7 +13,7 @@ function SetGeometryValueCommand(object, attributeName, newValue) {
 	Command.call(this);
 
 	this.type = 'SetGeometryValueCommand';
-	this.name = L_SET_GEOMETRY + '.' + attributeName;
+	this.name = _t('Set Geometry') + '.' + attributeName;
 
 	this.object = object;
 	this.attributeName = attributeName;

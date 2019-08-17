@@ -40,27 +40,27 @@ class EditWindow extends React.Component {
             <Content>
                 <Form>
                     <FormControl>
-                        <Label>{L_NAME}</Label>
+                        <Label>{_t('Name')}</Label>
                         <Input name={'name'} value={name} onChange={this.handleNameChange}></Input>
                     </FormControl>
                     <FormControl>
-                        <Label>{L_TYPE}</Label>
+                        <Label>{_t('Type')}</Label>
                         <Select name={'select'} options={categories} value={categoryID} onChange={this.handleCategoryChange}></Select>
-                        <Button>{L_EDIT}</Button>
+                        <Button>{_t('Edit')}</Button>
                     </FormControl>
                     <FormControl>
-                        <Label>{L_THUMBNAIL}</Label>
+                        <Label>{_t('Thumbnail')}</Label>
                         <ImageUploader
                             server={app.options.server}
                             url={thumbnail}
-                            noImageText={L_NO_IMAGE}
+                            noImageText={_t('No Image')}
                             onChange={this.handleThumbnailChange}></ImageUploader>
                     </FormControl>
                 </Form>
             </Content>
             <Buttons>
-                <Button onClick={this.handleSave}>{L_OK}</Button>
-                <Button onClick={this.handleClose}>{L_CANCEL}</Button>
+                <Button onClick={this.handleSave}>{_t('OK')}</Button>
+                <Button onClick={this.handleClose}>{_t('Cancel')}</Button>
             </Buttons>
         </Window>;
     }
@@ -72,7 +72,7 @@ class EditWindow extends React.Component {
     updateUI() {
         Ajax.getJson(`${app.options.server}/api/Category/List?Type=${this.props.type}`, json => {
             var options = {
-                '': L_NOT_SET
+                '': _t('Not Set')
             };
             json.Data.forEach(n => {
                 options[n.ID] = n.Name;
@@ -141,7 +141,7 @@ class EditWindow extends React.Component {
             this.categoryListWin = new CategoryListWindow({
                 app: app,
                 type: this.type,
-                title: `${L_EDIT} ${this.typeName} ${L_CATEGORY}`,
+                title: `${_t('Edit')} ${this.typeName} ${_t('Category')}`,
             });
             this.categoryListWin.render();
         }
@@ -160,7 +160,7 @@ EditWindow.propTypes = {
 
 EditWindow.defaultProps = {
     type: 'Scene',
-    typeName: L_SCENE,
+    typeName: 'Scene',
     data: null,
     saveUrl: null,
     callback: null,

@@ -11,12 +11,12 @@ class ControlComponent extends React.Component {
         this.selected = null;
 
         this.type = {
-            '': L_NONE,
-            'FirstPersonControls': L_FIRST_PERSON_CONTROLS,
-            'FlyControls': L_FLY_CONTROLS,
-            'OrbitControls': L_ORBIT_CONTROLS,
-            'PointerLockControls': L_POINTER_LOCK_CONTROLS,
-            'TrackballControls': L_TRACEBALL_CONTROLS,
+            '': _t('None'),
+            'FirstPersonControls': _t('First Person Controls'),
+            'FlyControls': _t('Fly Controls'),
+            'OrbitControls': _t('Orbit Controls'),
+            'PointerLockControls': _t('Pointer Lock Controls'),
+            'TrackballControls': _t('Traceball Controls'),
         };
 
         this.state = {
@@ -37,8 +37,8 @@ class ControlComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_SCENE_CONTROLLER} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={L_TYPE} options={this.type} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
+        return <PropertyGroup title={_t('Scene Controller')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <SelectProperty label={_t('Type')} options={this.type} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
         </PropertyGroup>;
     }
 

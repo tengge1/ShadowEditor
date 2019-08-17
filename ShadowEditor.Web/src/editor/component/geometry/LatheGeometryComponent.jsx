@@ -31,10 +31,10 @@ class LatheGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_GEOMETRY_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <IntegerProperty name={'segments'} label={L_RADIAL_SEGMENTS} value={segments} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty name={'phiStart'} label={L_PHI_START} value={phiStart} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'phiLength'} label={L_PHI_LENGTH} value={phiLength} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <IntegerProperty name={'segments'} label={_t('RadialSegments')} value={segments} onChange={this.handleChange}></IntegerProperty>
+            <NumberProperty name={'phiStart'} label={_t('PhiStart')} value={phiStart} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'phiLength'} label={_t('PhiLength')} value={phiLength} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

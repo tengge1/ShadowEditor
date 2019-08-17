@@ -46,7 +46,7 @@ class AudioPanel extends React.Component {
         return <div className={classNames('AudioPanel', className)} style={style}>
             <SearchField
                 data={categoryData}
-                placeholder={L_SEARCH_CONTENT}
+                placeholder={_t('Search Content')}
                 onAdd={this.handleAdd}
                 onInput={this.handleSearch.bind(this)}></SearchField>
             <ImageList
@@ -126,7 +126,7 @@ class AudioPanel extends React.Component {
     handleEdit(data) {
         var win = app.createElement(EditWindow, {
             type: 'Audio',
-            typeName: L_AUDIO,
+            typeName: _t('Audio'),
             data,
             saveUrl: `${app.options.server}/api/Audio/Edit`,
             callback: this.update,
@@ -139,8 +139,8 @@ class AudioPanel extends React.Component {
 
     handleDelete(data) {
         app.confirm({
-            title: L_CONFIRM,
-            content: `${L_DELETE} ${data.title}?`,
+            title: _t('Confirm'),
+            content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
                 fetch(`${app.options.server}/api/Audio/Delete?ID=${data.id}`, {
                     method: 'POST',

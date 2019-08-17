@@ -31,9 +31,9 @@ class RgbShiftComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_RGB_SHIFT_EFFECT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_ENABLE_STATE} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_AMOUNT} name={'amount'} value={amount} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('RGB Shift Effect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={_t('Amount')} name={'amount'} value={amount} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

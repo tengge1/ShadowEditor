@@ -19,15 +19,15 @@ class AssetsMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={L_ASSETS}>
-            <MenuItem title={L_EXPORT_GEOMETRY} onClick={this.handleExportGeometry}></MenuItem>
-            <MenuItem title={L_EXPORT_OBJECT} onClick={this.handleExportObject}></MenuItem>
+        return <MenuItem title={_t('Assets')}>
+            <MenuItem title={_t('Export Geometry')} onClick={this.handleExportGeometry}></MenuItem>
+            <MenuItem title={_t('Export Object')} onClick={this.handleExportObject}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={L_EXPORT_GLTF} onClick={this.handleExportGLTF}></MenuItem>
-            <MenuItem title={L_EXPORT_OBJ} onClick={this.handleExportOBJ}></MenuItem>
-            <MenuItem title={L_EXPORT_PLY} onClick={this.handleExportPLY}></MenuItem>
-            <MenuItem title={L_EXPORT_STL_BINARY} onClick={this.handleExportSTLB}></MenuItem>
-            <MenuItem title={L_EXPORT_STL} onClick={this.handleExportSTL}></MenuItem>
+            <MenuItem title={_t('Export GLTF')} onClick={this.handleExportGLTF}></MenuItem>
+            <MenuItem title={_t('Export OBJ')} onClick={this.handleExportOBJ}></MenuItem>
+            <MenuItem title={_t('Export PLY')} onClick={this.handleExportPLY}></MenuItem>
+            <MenuItem title={_t('Export STL Binary')} onClick={this.handleExportSTLB}></MenuItem>
+            <MenuItem title={_t('Export STL')} onClick={this.handleExportSTL}></MenuItem>
         </MenuItem>;
     }
 
@@ -39,14 +39,14 @@ class AssetsMenu extends React.Component {
         var object = editor.selected;
 
         if (object === null) {
-            app.toast(L_PLEASE_SELECT_OBJECT);
+            app.toast(_t('Please select object!'));
             return;
         }
 
         var geometry = object.geometry;
 
         if (geometry === undefined) {
-            app.toast(L_OBJECT_SELECTED_IS_NOT_GEOMETRY);
+            app.toast(_t('The object you selected is not geometry.'));
             return;
         }
 
@@ -70,7 +70,7 @@ class AssetsMenu extends React.Component {
         var object = editor.selected;
 
         if (object === null) {
-            app.toast(L_PLEASE_SELECT_OBJECT);
+            app.toast(_t('Please select object!'));
             return;
         }
 
@@ -106,7 +106,7 @@ class AssetsMenu extends React.Component {
         var object = editor.selected;
 
         if (object === null) {
-            app.toast(L_PLEASE_SELECT_OBJECT);
+            app.toast(_t('Please select object!'));
             return;
         }
 
@@ -124,7 +124,7 @@ class AssetsMenu extends React.Component {
         var object = editor.selected;
 
         if (object === null) {
-            app.toast(L_PLEASE_SELECT_OBJECT);
+            app.toast(_t('Please select object!'));
             return;
         }
 

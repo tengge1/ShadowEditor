@@ -52,27 +52,27 @@ class GeometryMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={L_GEOMETRY}>
-            <MenuItem title={L_GROUP} onClick={this.handleAddGroup}></MenuItem>
+        return <MenuItem title={_t('Geometry')}>
+            <MenuItem title={_t('Group')} onClick={this.handleAddGroup}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={L_PLANE} onClick={this.handleAddPlane}></MenuItem>
-            <MenuItem title={L_BOX} onClick={this.handleAddBox}></MenuItem>
-            <MenuItem title={L_CIRCLE} onClick={this.handleAddCircle}></MenuItem>
-            <MenuItem title={L_CYLINDER} onClick={this.handleAddCylinder}></MenuItem>
-            <MenuItem title={L_SPHERE} onClick={this.handleAddSphere}></MenuItem>
-            <MenuItem title={L_ICOSAHEDRON} onClick={this.handleAddIcosahedron}></MenuItem>
-            <MenuItem title={L_TORUS} onClick={this.handleAddTorus}></MenuItem>
-            <MenuItem title={L_TORUS_KNOT} onClick={this.handleAddTorusKnot}></MenuItem>
-            <MenuItem title={L_TEAPOT} onClick={this.handleAddTeaport}></MenuItem>
-            <MenuItem title={L_LATHE} onClick={this.handleAddLathe}></MenuItem>
-            <MenuItem title={L_SPRITE} onClick={this.handleAddSprite}></MenuItem>
-            <MenuItem title={L_TEXT} onClick={this.handleAddText}></MenuItem>
+            <MenuItem title={_t('Plane')} onClick={this.handleAddPlane}></MenuItem>
+            <MenuItem title={_t('Box')} onClick={this.handleAddBox}></MenuItem>
+            <MenuItem title={_t('Circle')} onClick={this.handleAddCircle}></MenuItem>
+            <MenuItem title={_t('Cylinder')} onClick={this.handleAddCylinder}></MenuItem>
+            <MenuItem title={_t('Sphere')} onClick={this.handleAddSphere}></MenuItem>
+            <MenuItem title={_t('Icosahedron')} onClick={this.handleAddIcosahedron}></MenuItem>
+            <MenuItem title={_t('Torus')} onClick={this.handleAddTorus}></MenuItem>
+            <MenuItem title={_t('Torus Knot')} onClick={this.handleAddTorusKnot}></MenuItem>
+            <MenuItem title={_t('Teapot')} onClick={this.handleAddTeaport}></MenuItem>
+            <MenuItem title={_t('Lathe')} onClick={this.handleAddLathe}></MenuItem>
+            <MenuItem title={_t('Sprite')} onClick={this.handleAddSprite}></MenuItem>
+            <MenuItem title={_t('Text')} onClick={this.handleAddText}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={L_LINE_CURVE} onClick={this.handleAddLineCurve}></MenuItem>
-            <MenuItem title={L_CATMULL_ROM_CURVE} onClick={this.handleAddCatmullRomCurve}></MenuItem>
-            <MenuItem title={L_QUADRATIC_BEZIER_CURVE} onClick={this.handleAddQuadraticBezierCurve}></MenuItem>
-            <MenuItem title={L_CUBIC_BEZIER_CURVE} onClick={this.handleAddCubicBezierCurve}></MenuItem>
-            <MenuItem title={L_ELLIPSE_CURVE} onClick={this.handleAddEllipseCurve}></MenuItem>
+            <MenuItem title={_t('Line Curve')} onClick={this.handleAddLineCurve}></MenuItem>
+            <MenuItem title={_t('CatmullRom Curve')} onClick={this.handleAddCatmullRomCurve}></MenuItem>
+            <MenuItem title={_t('QuadraticBezier Curve')} onClick={this.handleAddQuadraticBezierCurve}></MenuItem>
+            <MenuItem title={_t('CubicBezier Curve')} onClick={this.handleAddCubicBezierCurve}></MenuItem>
+            <MenuItem title={_t('Ellipse Curve')} onClick={this.handleAddEllipseCurve}></MenuItem>
         </MenuItem>;
     }
 
@@ -152,8 +152,8 @@ class GeometryMenu extends React.Component {
 
     handleAddText() {
         app.prompt({
-            title: L_PLEASE_INPUT,
-            value: L_SOME_WORDS,
+            title: _t('Please input'),
+            value: _t('Sone Words'),
             onOK: (value) => {
                 app.editor.execute(new AddObjectCommand(new Text(value)));
             }

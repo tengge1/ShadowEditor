@@ -33,7 +33,7 @@ function PhysicsTerrain() {
     // 创建网格
     THREE.Mesh.call(this, geometry, material);
 
-    this.name = L_TERRAIN;
+    this.name = _t('Terrain');
     this.castShadow = true;
     this.receiveShadow = true;
 

@@ -33,12 +33,12 @@ class SkyComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_SKY} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={L_TURBIDITY} name={'turbidity'} value={turbidity} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_RAYLEIGH} name={'rayleigh'} value={rayleigh} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_LUMINANCE} name={'luminance'} value={luminance} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_MIE_COEFFICIENT} name={'mieCoefficient'} value={mieCoefficient} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_MIE_DIRECTIONAL_G} name={'mieDirectionalG'} value={mieDirectionalG} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Sky')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty label={_t('Turbidity')} name={'turbidity'} value={turbidity} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('Rayleigh')} name={'rayleigh'} value={rayleigh} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('Luminance')} name={'luminance'} value={luminance} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('MieCofficient')} name={'mieCoefficient'} value={mieCoefficient} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('MieDirectionalG')} name={'mieDirectionalG'} value={mieDirectionalG} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

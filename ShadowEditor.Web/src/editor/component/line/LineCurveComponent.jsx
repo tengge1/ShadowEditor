@@ -33,7 +33,7 @@ class LineCurveComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_LINE_CURVE} show={show} expanded={expanded} onExpand={this.handleExpand}>
+        return <PropertyGroup title={_t('Line Curve')} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <NumberProperty label={'Point1 X'} name={'v1x'} value={v1x} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'Point1 Y'} name={'v1y'} value={v1y} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'Point1 Z'} name={'v1z'} value={v1z} onChange={this.handleChange}></NumberProperty>

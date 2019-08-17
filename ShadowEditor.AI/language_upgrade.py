@@ -1,5 +1,6 @@
 import json
 import os
+import re
 
 # 读取英文语言文件
 file = open(
@@ -14,7 +15,7 @@ for i in list:
     if not line.startswith('L_'):
         continue
     items = line.split(':')
-    key = items[0].strip().replace('L_', '')
+    key = items[0].strip()[2:]
     value = items[1].replace("'", '').replace(',', '').strip()
     en[key] = value
 
@@ -33,7 +34,7 @@ for i in list:
     if not line.startswith('L_'):
         continue
     items = line.split('=')
-    key = items[0].strip().replace('L_', '')
+    key = items[0].strip()[2:]
     value = items[1].replace("'", '').replace(';', '').strip()
     cn[key] = value
 
@@ -41,10 +42,10 @@ for i in list:
 
 # 写入语言文件
 
-lang = {}
+# lang = {}
 
-for key in en:
-    lang[en[key]] = cn[key]
+# for key in en:
+#     lang[en[key]] = cn[key]
 
 # file = open('E:\github\ShadowEditor\ShadowEditor.Web\locales\zh-CN.json',
 #             'w', encoding='utf-8')
@@ -60,7 +61,14 @@ def translateFile(path):
     file.close()
 
     for key in en:
-        data = data.replace(key, "_t('" + en[key] + "')")
+        data = data.replace('{L_' + key + '}', "{_t('" + en[key] + "')}")
+        data = data.replace(' L_' + key + ',', " _t('" + en[key] + "'),")
+        data = data.replace(' L_' + key + ' ', " _t('" + en[key] + "') ")
+        data = data.replace(' L_' + key + ';', " _t('" + en[key] + "');")
+        data = data.replace('(L_' + key + ')', "(_t('" + en[key] + "'))")
+        data = data.replace('(L_' + key + '\n', "(_t('" + en[key] + "')\n")
+        data = data.replace(' L_' + key + '\n', " _t('" + en[key] + "')\n")
+        data = data.replace(' L_' + key + '}', " _t('" + en[key] + "')}")
 
     file = open(path, 'w', encoding='utf-8')
     file.write(data)

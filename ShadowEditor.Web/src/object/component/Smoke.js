@@ -58,7 +58,7 @@ function Smoke(camera, renderer, options = {}) {
 
     this.sortParticles = true;
 
-    this.name = L_SMOKE;
+    this.name = _t('Smoke');
 
     Object.assign(this.userData, {
         type: 'Smoke',

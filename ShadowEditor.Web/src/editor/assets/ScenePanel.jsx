@@ -42,7 +42,7 @@ class ScenePanel extends React.Component {
         return <div className={classNames('ScenePanel', className)} style={style}>
             <SearchField
                 data={categoryData}
-                placeholder={L_SEARCH_CONTENT}
+                placeholder={_t('Search Content')}
                 addHidden={true}
                 onInput={this.handleSearch.bind(this)}></SearchField>
             <ImageList
@@ -107,7 +107,7 @@ class ScenePanel extends React.Component {
         var editor = app.editor;
         document.title = data.Name;
 
-        app.mask(L_LOADING);
+        app.mask(_t('Loading...'));
 
         fetch(`${app.options.server}/api/Scene/Load?ID=${data.id}`).then(response => {
             response.json().then(obj => {
@@ -147,7 +147,7 @@ class ScenePanel extends React.Component {
 
                     app.unmask();
 
-                    app.toast(L_LOAD_SUCCESS);
+                    app.toast(_t('Load Successfully!'));
                 });
             });
         });
@@ -191,19 +191,19 @@ class ScenePanel extends React.Component {
                 id: null,
                 uuid: THREE.Math.generateUUID(),
                 layer: 0,
-                layerName: L_ANIMATION_LAYER_1,
+                layerName: _t('AnimLayer1'),
                 animations: []
             }, {
                 id: null,
                 uuid: THREE.Math.generateUUID(),
                 layer: 1,
-                layerName: L_ANIMATION_LAYER_2,
+                layerName: _t('AnimLayer2'),
                 animations: []
             }, {
                 id: null,
                 uuid: THREE.Math.generateUUID(),
                 layer: 2,
-                layerName: L_ANIMATION_LAYER_3,
+                layerName: _t('AnimLayer3'),
                 animations: []
             }];
         }
@@ -238,7 +238,7 @@ class ScenePanel extends React.Component {
     handleEdit(data) {
         var win = app.createElement(EditWindow, {
             type: 'Scene',
-            typeName: L_SCENE,
+            typeName: _t('Scene'),
             data,
             saveUrl: `${app.options.server}/api/Scene/Edit`,
             callback: this.update,
@@ -251,8 +251,8 @@ class ScenePanel extends React.Component {
 
     handleDelete(data) {
         app.confirm({
-            title: L_CONFIRM,
-            content: `${L_DELETE} ${data.title}?`,
+            title: _t('Confirm'),
+            content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
                 fetch(`${app.options.server}/api/Scene/Delete?ID=${data.id}`, {
                     method: 'POST',

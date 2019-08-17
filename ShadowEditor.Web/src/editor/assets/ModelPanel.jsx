@@ -45,7 +45,7 @@ class ModelPanel extends React.Component {
         return <div className={classNames('ModelPanel', className)} style={style}>
             <SearchField
                 data={categoryData}
-                placeholder={L_SEARCH_CONTENT}
+                placeholder={_t('Search Content')}
                 onAdd={this.handleAdd}
                 onInput={this.handleSearch.bind(this)}></SearchField>
             <ImageList
@@ -158,7 +158,7 @@ class ModelPanel extends React.Component {
     handleEdit(data) {
         var win = app.createElement(EditWindow, {
             type: 'Mesh',
-            typeName: L_MODEL,
+            typeName: _t('Model'),
             data,
             saveUrl: `${app.options.server}/api/Mesh/Edit`,
             callback: this.update,
@@ -171,8 +171,8 @@ class ModelPanel extends React.Component {
 
     handleDelete(data) {
         app.confirm({
-            title: L_CONFIRM,
-            content: `${L_DELETE} ${data.title}?`,
+            title: _t('Confirm'),
+            content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
                 fetch(`${app.options.server}/api/Mesh/Delete?ID=${data.id}`, {
                     method: 'POST',

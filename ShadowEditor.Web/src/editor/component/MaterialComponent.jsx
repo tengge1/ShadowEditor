@@ -29,40 +29,40 @@ class MaterialComponent extends React.Component {
         this.selected = null;
 
         this.materials = {
-            'LineBasicMaterial': L_LINE_BASIC_MATERIAL,
-            'LineDashedMaterial': L_LINE_DASHED_MATERIAL,
-            'MeshBasicMaterial': L_MESH_BASIC_MATERIAL,
-            'MeshDepthMaterial': L_MESH_DEPTH_MATERIAL,
-            'MeshNormalMaterial': L_MESH_NORMAL_MATERIAL,
-            'MeshLambertMaterial': L_MESH_LAMBERT_MATERIAL,
-            'MeshPhongMaterial': L_MESH_PHONG_MATERIAL,
-            'PointsMaterial': L_POINT_CLOUD_MATERIAL,
-            'MeshStandardMaterial': L_MESH_STANDARD_MATERIAL,
-            'MeshPhysicalMaterial': L_MESH_PHYSICAL_MATERIAL,
-            'SpriteMaterial': L_SPRITE_MATERIAL,
-            'ShaderMaterial': L_SHADER_MATERIAL,
-            'RawShaderMaterial': L_RAW_SHADER_MATERIAL
+            'LineBasicMaterial': _t('LineBasicMaterial'),
+            'LineDashedMaterial': _t('LineDashedMaterial'),
+            'MeshBasicMaterial': _t('MeshBasicMaterial'),
+            'MeshDepthMaterial': _t('MeshDepthMaterial'),
+            'MeshNormalMaterial': _t('MeshNormalMaterial'),
+            'MeshLambertMaterial': _t('MeshLambertMaterial'),
+            'MeshPhongMaterial': _t('MeshPhongMaterial'),
+            'PointsMaterial': _t('PointCloudMaterial'),
+            'MeshStandardMaterial': _t('MeshStandardMaterial'),
+            'MeshPhysicalMaterial': _t('MeshPhysicalMaterial'),
+            'SpriteMaterial': _t('SpriteMaterial'),
+            'ShaderMaterial': _t('ShaderMaterial'),
+            'RawShaderMaterial': _t('RawShaderMaterial')
         };
 
         this.vertexColors = {
-            0: L_NO_COLORS,
-            1: L_FACE_COLORS,
-            2: L_VERTEX_COLORS,
+            0: _t('No Colors'),
+            1: _t('Face Colors'),
+            2: _t('Vertex Colors'),
         };
 
         this.side = {
-            0: L_FRONT_SIDE,
-            1: L_BACK_SIDE,
-            2: L_DOUBLE_SIDE,
+            0: _t('Front Side'),
+            1: _t('Back Side'),
+            2: _t('Double Side'),
         };
 
         this.blending = {
-            0: L_NO_BLENDING,
-            1: L_NORMAL_BLENDING,
-            2: L_ADDITIVE_BLENDING,
-            3: L_SUBSTRACTIVE_BLENDING,
-            4: L_MULTIPLY_BLENDING,
-            5: L_CUSTOM_BLENDING,
+            0: _t('No Blending'),
+            1: _t('Normal Blending'),
+            2: _t('Additive Blending'),
+            3: _t('Substractive Blending'),
+            4: _t('Multiply Blending'),
+            5: _t('Custom Blending'),
         };
 
         this.mapNames = [ // 用于判断属性是否是纹理
@@ -211,49 +211,49 @@ class MaterialComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_MATERIAL_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
+        return <PropertyGroup title={_t('Material Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <ButtonsProperty label={''}>
-                <Button onClick={this.onSave}>{L_SAVE}</Button>
-                <Button onClick={this.onLoad}>{L_SELECT}</Button>
+                <Button onClick={this.onSave}>{_t('Save')}</Button>
+                <Button onClick={this.onLoad}>{_t('Select')}</Button>
             </ButtonsProperty>
-            <SelectProperty label={L_TYPE} options={this.materials} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
-            <ButtonProperty label={L_SHADER_INFO} text={L_EDIT} show={showProgram} onChange={this.editProgramInfo}></ButtonProperty>
-            <ButtonProperty label={L_VERTEX_SHADER} text={L_EDIT} show={showProgram} onChange={this.editVertexShader}></ButtonProperty>
-            <ButtonProperty label={L_FRAGMENT_SHADER} text={L_EDIT} show={showProgram} onChange={this.editFragmentShader}></ButtonProperty>
-            <ColorProperty label={L_COLOR} name={'color'} value={color} show={showColor} onChange={this.handleChange}></ColorProperty>
-            <NumberProperty label={L_ROUGHNESS} name={'roughness'} value={roughness} show={showRoughness} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_METALNESS} name={'metalness'} value={metalness} show={showMetalness} onChange={this.handleChange}></NumberProperty>
-            <ColorProperty label={L_EMISSIVE} name={'emissive'} value={emissive} show={showEmissive} onChange={this.handleChange}></ColorProperty>
-            <ColorProperty label={L_SPECULAR} name={'specular'} value={specular} show={showSpecular} onChange={this.handleChange}></ColorProperty>
-            <NumberProperty label={L_SHININESS} name={'shininess'} value={shininess} show={showShininess} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_CLEAR_COAT} name={'clearCoat'} value={clearCoat} show={showClearCoat} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_CLEAR_COAT_ROUGHNESS} name={'clearCoatRoughness'} value={clearCoatRoughness} show={showClearCoatRoughness} onChange={this.handleChange}></NumberProperty>
-            <SelectProperty label={L_VERTEX_COLOR} options={this.vertexColors} name={'vertexColors'} value={vertexColors} show={showVertexColors} onChange={this.handleChange}></SelectProperty>
-            <CheckBoxProperty label={L_SKIN} name={'skinning'} value={skinning} show={showSkinning} onChange={this.handleChange}></CheckBoxProperty>
-            <TextureProperty label={L_TEXTURE} name={'map'} value={map} show={showMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_ALPHA_MAP} name={'alphaMap'} value={alphaMap} show={showAlphaMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_BUMP_MAP} name={'bumpMap'} value={bumpMap} show={showBumpMap} onChange={this.handleChange}></TextureProperty>
-            <NumberProperty label={L_BUMP_SCALE} name={'bumpScale'} value={bumpScale} show={showBumpMap} onChange={this.handleChange}></NumberProperty>
-            <TextureProperty label={L_NORMAL_MAP} name={'normalMap'} value={normalMap} show={showNormalMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_DISPLACEMENT_MAP} name={'displacementMap'} value={displacementMap} show={showDisplacementMap} onChange={this.handleChange}></TextureProperty>
-            <NumberProperty label={L_DISPLACEMENT_SCALE} name={'displacementScale'} value={displacementScale} show={showDisplacementMap} onChange={this.handleChange}></NumberProperty>
-            <TextureProperty label={L_ROUGHNESS_MAP} name={'roughnessMap'} value={roughnessMap} show={showRoughnessMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_METALNESS_MAP} name={'metalnessMap'} value={metalnessMap} show={showMetalnessMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_SPECULAR_MAP} name={'specularMap'} value={specularMap} show={showSpecularMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_ENV_MAP} name={'envMap'} value={envMap} show={showEnvMap} onChange={this.handleChange}></TextureProperty>
-            <NumberProperty label={L_REFLECTIVITY} name={'reflectivity'} value={reflectivity} show={showEnvMap} onChange={this.handleChange}></NumberProperty>
-            <TextureProperty label={L_LIGHT_MAP} name={'lightMap'} value={lightMap} show={showLightMap} onChange={this.handleChange}></TextureProperty>
-            <TextureProperty label={L_AO_MAP} name={'aoMap'} value={aoMap} show={showAoMap} onChange={this.handleChange}></TextureProperty>
-            <NumberProperty label={L_AO_SCALE} name={'aoScale'} value={aoScale} show={showAoMap} onChange={this.handleChange}></NumberProperty>
-            <TextureProperty label={L_EMISSIVE_MAP} name={'emissiveMap'} value={emissiveMap} show={showEmissiveMap} onChange={this.handleChange}></TextureProperty>
-            <SelectProperty label={L_SIDE} options={this.side} name={'side'} value={side} onChange={this.handleChange}></SelectProperty>
-            <CheckBoxProperty label={L_FLAT_SHADING} name={'flatShading'} value={flatShading} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={L_BLENDING} options={this.blending} name={'blending'} value={blending} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={L_OPACITY} name={'opacity'} value={opacity} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={L_TRANSPARENT} name={'transparent'} value={transparent} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_ALPHA_TEST} name={'alphaTest'} value={alphaTest} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={L_WIREFRAME} name={'wireframe'} value={wireframe} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_WIREFRAME_WIDTH} name={'wireframeLinewidth'} value={wireframeLinewidth} onChange={this.handleChange}></NumberProperty>
+            <SelectProperty label={_t('Type')} options={this.materials} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
+            <ButtonProperty label={_t('ShaderInfo')} text={_t('Edit')} show={showProgram} onChange={this.editProgramInfo}></ButtonProperty>
+            <ButtonProperty label={_t('Vertex Shader')} text={_t('Edit')} show={showProgram} onChange={this.editVertexShader}></ButtonProperty>
+            <ButtonProperty label={_t('Frag Shader')} text={_t('Edit')} show={showProgram} onChange={this.editFragmentShader}></ButtonProperty>
+            <ColorProperty label={_t('Color')} name={'color'} value={color} show={showColor} onChange={this.handleChange}></ColorProperty>
+            <NumberProperty label={_t('Roughness')} name={'roughness'} value={roughness} show={showRoughness} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('MetalNess')} name={'metalness'} value={metalness} show={showMetalness} onChange={this.handleChange}></NumberProperty>
+            <ColorProperty label={_t('Emissive')} name={'emissive'} value={emissive} show={showEmissive} onChange={this.handleChange}></ColorProperty>
+            <ColorProperty label={_t('Specular')} name={'specular'} value={specular} show={showSpecular} onChange={this.handleChange}></ColorProperty>
+            <NumberProperty label={_t('Shininess')} name={'shininess'} value={shininess} show={showShininess} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('ClearCoat')} name={'clearCoat'} value={clearCoat} show={showClearCoat} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('ClearCoatRoughness')} name={'clearCoatRoughness'} value={clearCoatRoughness} show={showClearCoatRoughness} onChange={this.handleChange}></NumberProperty>
+            <SelectProperty label={_t('Vertex Color')} options={this.vertexColors} name={'vertexColors'} value={vertexColors} show={showVertexColors} onChange={this.handleChange}></SelectProperty>
+            <CheckBoxProperty label={_t('Skin')} name={'skinning'} value={skinning} show={showSkinning} onChange={this.handleChange}></CheckBoxProperty>
+            <TextureProperty label={_t('Texture')} name={'map'} value={map} show={showMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={_t('AlphaMap')} name={'alphaMap'} value={alphaMap} show={showAlphaMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={_t('BumpMap')} name={'bumpMap'} value={bumpMap} show={showBumpMap} onChange={this.handleChange}></TextureProperty>
+            <NumberProperty label={_t('Bump Scale')} name={'bumpScale'} value={bumpScale} show={showBumpMap} onChange={this.handleChange}></NumberProperty>
+            <TextureProperty label={_t('NormalMap')} name={'normalMap'} value={normalMap} show={showNormalMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={_t('DisplacementMap')} name={'displacementMap'} value={displacementMap} show={showDisplacementMap} onChange={this.handleChange}></TextureProperty>
+            <NumberProperty label={_t('Displace Scale')} name={'displacementScale'} value={displacementScale} show={showDisplacementMap} onChange={this.handleChange}></NumberProperty>
+            <TextureProperty label={_t('RoughnessMap')} name={'roughnessMap'} value={roughnessMap} show={showRoughnessMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={_t('MetalnessMap')} name={'metalnessMap'} value={metalnessMap} show={showMetalnessMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={_t('SpecularMap')} name={'specularMap'} value={specularMap} show={showSpecularMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={_t('EnvMap')} name={'envMap'} value={envMap} show={showEnvMap} onChange={this.handleChange}></TextureProperty>
+            <NumberProperty label={_t('Reflectivity')} name={'reflectivity'} value={reflectivity} show={showEnvMap} onChange={this.handleChange}></NumberProperty>
+            <TextureProperty label={_t('LightMap')} name={'lightMap'} value={lightMap} show={showLightMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={_t('AoMap')} name={'aoMap'} value={aoMap} show={showAoMap} onChange={this.handleChange}></TextureProperty>
+            <NumberProperty label={_t('Ao Scale')} name={'aoScale'} value={aoScale} show={showAoMap} onChange={this.handleChange}></NumberProperty>
+            <TextureProperty label={_t('EmissiveMap')} name={'emissiveMap'} value={emissiveMap} show={showEmissiveMap} onChange={this.handleChange}></TextureProperty>
+            <SelectProperty label={_t('Side')} options={this.side} name={'side'} value={side} onChange={this.handleChange}></SelectProperty>
+            <CheckBoxProperty label={_t('Flat Shading')} name={'flatShading'} value={flatShading} onChange={this.handleChange}></CheckBoxProperty>
+            <SelectProperty label={_t('Blending')} options={this.blending} name={'blending'} value={blending} onChange={this.handleChange}></SelectProperty>
+            <NumberProperty label={_t('Opacity')} name={'opacity'} value={opacity} onChange={this.handleChange}></NumberProperty>
+            <CheckBoxProperty label={_t('Transparent')} name={'transparent'} value={transparent} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={_t('AlphaTest')} name={'alphaTest'} value={alphaTest} onChange={this.handleChange}></NumberProperty>
+            <CheckBoxProperty label={_t('Wireframe')} name={'wireframe'} value={wireframe} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={_t('WireWidth')} name={'wireframeLinewidth'} value={wireframeLinewidth} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 
@@ -527,7 +527,7 @@ class MaterialComponent extends React.Component {
                 material.fragmentShader = RawShaderMaterialFragment;
             }
 
-            editor.execute(new SetMaterialCommand(object, material), L_NEW_MATERIAL + ':' + type);
+            editor.execute(new SetMaterialCommand(object, material), _t('New Material') + ':' + type);
         }
 
         if (material.color !== undefined && `#${material.color.getHexString()}` !== color) {
@@ -717,7 +717,7 @@ class MaterialComponent extends React.Component {
             material.attributes = obj.attributes;
             material.needsUpdate = true;
         } catch (e) {
-            app.error(this.selected.name + `-${L_SHADER_CANNOT_PARSE}`);
+            app.error(this.selected.name + `-${_t('Shader cannot be parsed.')}`);
         }
     }
 
@@ -754,7 +754,7 @@ class MaterialComponent extends React.Component {
         }
 
         if (!this.selected.material.map) {
-            app.toast(L_SELECT_TEXTURE_FIRST);
+            app.toast(_t('Please select texture first.'));
             return;
         }
 
@@ -766,9 +766,9 @@ class MaterialComponent extends React.Component {
 
     onSave() {
         app.prompt({
-            title: L_ENTER_MATERIAL_NAME,
-            content: L_NAME,
-            value: L_NEW_MATERIAL,
+            title: _t('Please enter material name'),
+            content: _t('Name'),
+            value: _t('New Material'),
             onOK: value => {
                 this.commitSave(value);
             }
@@ -811,7 +811,7 @@ class MaterialComponent extends React.Component {
 
     onLoad() {
         app.call(`selectBottomPanel`, this, 'material');
-        app.toast(L_CLICK_MATERIAL_ON_PANEL);
+        app.toast(_t('Please click material on material panel.'));
         app.on(`selectMaterial.MaterialComponent`, this.onWaitingForMaterial.bind(this));
     }
 

@@ -12,11 +12,11 @@ class SaoComponent extends React.Component {
         this.selected = null;
 
         this.output = {
-            1: L_BEAUTY, // THREE.SAOPass.OUTPUT.Beauty
-            0: L_BEAUTY_AND_OCCLUSION, // THREE.SAOPass.OUTPUT.Default
-            2: L_OCCLUSION, // THREE.SAOPass.OUTPUT.SAO
-            3: L_DEPTH, // THREE.SAOPass.OUTPUT.Depth
-            4: L_NORMAL // THREE.SAOPass.OUTPUT.Normal
+            1: _t('Beauty'), // THREE.SAOPass.OUTPUT.Beauty
+            0: _t('Beauty&Occlusion'), // THREE.SAOPass.OUTPUT.Default
+            2: _t('Occlusion'), // THREE.SAOPass.OUTPUT.SAO
+            3: _t('Depth'), // THREE.SAOPass.OUTPUT.Depth
+            4: _t('Normal') // THREE.SAOPass.OUTPUT.Normal
         };
 
         this.state = {
@@ -49,18 +49,18 @@ class SaoComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_SAO} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_ENABLE_STATE} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={L_OUTPUT} options={this.output} name={'output'} value={output} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={L_BIAS} name={'saoBias'} value={saoBias} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_INTENSITY} name={'saoIntensity'} value={saoIntensity} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_SCALE} name={'saoScale'} value={saoScale} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_KERNAL_RADIUS} name={'saoKernelRadius'} value={saoKernelRadius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_MIN_RESOLUTION} name={'saoMinResolution'} value={saoMinResolution} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={L_BLUR} name={'saoBlur'} value={saoBlur} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_BLUR_RADIUS} name={'saoBlurRadius'} value={saoBlurRadius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_BLUR_STD_DEV} name={'saoBlurStdDev'} value={saoBlurStdDev} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_BLUR_DEPTH_CUTOFF} name={'saoBlurDepthCutoff'} value={saoBlurDepthCutoff} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('SAO')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
+            <SelectProperty label={_t('Output')} options={this.output} name={'output'} value={output} onChange={this.handleChange}></SelectProperty>
+            <NumberProperty label={_t('Bias')} name={'saoBias'} value={saoBias} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('Intensity')} name={'saoIntensity'} value={saoIntensity} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('Scale')} name={'saoScale'} value={saoScale} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('KernalRadius')} name={'saoKernelRadius'} value={saoKernelRadius} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('MinResolution')} name={'saoMinResolution'} value={saoMinResolution} onChange={this.handleChange}></NumberProperty>
+            <CheckBoxProperty label={_t('Blur')} name={'saoBlur'} value={saoBlur} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={_t('BlurRadius')} name={'saoBlurRadius'} value={saoBlurRadius} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('BlurStdDev')} name={'saoBlurStdDev'} value={saoBlurStdDev} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('BlurDepthCutoff')} name={'saoBlurDepthCutoff'} value={saoBlurDepthCutoff} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

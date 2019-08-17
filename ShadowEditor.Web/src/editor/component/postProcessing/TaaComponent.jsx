@@ -12,12 +12,12 @@ class TaaComponent extends React.Component {
         this.selected = null;
 
         this.sampleLevel = {
-            0: L_ONE_SAMPLE,
-            1: L_TWO_SAMPLES,
-            2: L_FOUR_SAMPLES,
-            3: L_EIGHT_SAMPLES,
-            4: L_SIXTEEN_SAMPLES,
-            5: L_THIRTYTWO_SAMPLES,
+            0: _t('1 Sample'),
+            1: _t('2 Samples'),
+            2: _t('4 Samples'),
+            3: _t('8 Samples'),
+            4: _t('16 Samples'),
+            5: _t('32 Samples'),
         };
 
         this.state = {
@@ -41,10 +41,10 @@ class TaaComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_TAA} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_ENABLE_STATE} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={L_LEVEL} options={this.sampleLevel} name={'sampleLevel'} value={sampleLevel} onChange={this.handleChange}></SelectProperty>
-            <CheckBoxProperty label={L_UNBIASED} name={'unbiased'} value={unbiased} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('TAA')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
+            <SelectProperty label={_t('Level')} options={this.sampleLevel} name={'sampleLevel'} value={sampleLevel} onChange={this.handleChange}></SelectProperty>
+            <CheckBoxProperty label={_t('Unbiased')} name={'unbiased'} value={unbiased} onChange={this.handleChange}></CheckBoxProperty>
         </PropertyGroup>;
     }
 

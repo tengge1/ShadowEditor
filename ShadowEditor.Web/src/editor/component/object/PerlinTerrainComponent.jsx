@@ -33,12 +33,12 @@ class PerlinTerrainComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_PERLIN_TERRAIN} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={L_WIDTH} name={'width'} value={width} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_DEPTH} name={'depth'} value={depth} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty label={L_WIDTH_SEGMENTS} name={'widthSegments'} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty label={L_DEPTH_SEGMENTS} name={'depthSegments'} value={depthSegments} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty label={L_QUALITY} name={'quality'} value={quality} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Perlin Terrain')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty label={_t('Width')} name={'width'} value={width} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('Depth')} name={'depth'} value={depth} onChange={this.handleChange}></NumberProperty>
+            <IntegerProperty label={_t('WidthSegments')} name={'widthSegments'} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
+            <IntegerProperty label={_t('DepthSegments')} name={'depthSegments'} value={depthSegments} onChange={this.handleChange}></IntegerProperty>
+            <NumberProperty label={_t('Quality')} name={'quality'} value={quality} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

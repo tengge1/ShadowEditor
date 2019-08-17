@@ -40,19 +40,19 @@ class FirstPersonControlComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_FIRST_PERSON_CONTROLS} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={L_MOVEMENT_SPEED} name={'movementSpeed'} value={movementSpeed} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_LOOK_SPEED} name={'lookSpeed'} value={lookSpeed} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={L_LOOK_VERTICAL} name={'lookVertical'} value={lookVertical} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={L_AUTO_FORWARD} name={'autoForward'} value={autoForward} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={L_ACTIVE_LOCK} name={'activeLook'} value={activeLook} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={L_HEIGHT_SPEED} name={'heightSpeed'} value={heightSpeed} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_HEIGHT_COEF} name={'heightCoef'} value={heightCoef} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_HEIGHT_MIN} name={'heightMin'} value={heightMin} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_HEIGHT_MAX} name={'heightMax'} value={heightMax} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={L_CONSTRAIN_VERTICAL} name={'constrainVertical'} value={constrainVertical} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_VERTICAL_MIN} name={'verticalMin'} value={verticalMin} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_VERTICAL_MAX} name={'verticalMax'} value={verticalMax} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('First Person Controls')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty label={_t('MovementSpeed')} name={'movementSpeed'} value={movementSpeed} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('LookSpeed')} name={'lookSpeed'} value={lookSpeed} onChange={this.handleChange}></NumberProperty>
+            <CheckBoxProperty label={_t('LookVertical')} name={'lookVertical'} value={lookVertical} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty label={_t('AutoForward')} name={'autoForward'} value={autoForward} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty label={_t('ActiveLock')} name={'activeLook'} value={activeLook} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty label={_t('HeightSpeed')} name={'heightSpeed'} value={heightSpeed} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={_t('HeightCoef')} name={'heightCoef'} value={heightCoef} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('HeightMin')} name={'heightMin'} value={heightMin} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('HeightMax')} name={'heightMax'} value={heightMax} onChange={this.handleChange}></NumberProperty>
+            <CheckBoxProperty label={_t('ConstrainVertical')} name={'constrainVertical'} value={constrainVertical} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={_t('VerticalMin')} name={'verticalMin'} value={verticalMin} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('VerticalMax')} name={'verticalMax'} value={verticalMax} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

@@ -19,15 +19,15 @@ class SceneMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={L_SCENE}>
-            <MenuItem title={L_NEW}>
-                <MenuItem title={L_EMPTY_SCENE} onClick={this.handleCreateEmptyScene}></MenuItem>
-                <MenuItem title={L_GIS_SCENE} onClick={this.handleCreateGISScene}></MenuItem>
+        return <MenuItem title={_t('Scene')}>
+            <MenuItem title={_t('New')}>
+                <MenuItem title={_t('Empty Scene')} onClick={this.handleCreateEmptyScene}></MenuItem>
+                <MenuItem title={_t('GIS Scene')} onClick={this.handleCreateGISScene}></MenuItem>
             </MenuItem>
-            <MenuItem title={L_SAVE} onClick={this.handleSaveScene}></MenuItem>
-            <MenuItem title={L_SAVE_AS} onClick={this.handleSaveAsScene}></MenuItem>
+            <MenuItem title={_t('Save')} onClick={this.handleSaveScene}></MenuItem>
+            <MenuItem title={_t('Save As')} onClick={this.handleSaveAsScene}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={L_PUBLISH_SCENE} onClick={this.handleExportScene}></MenuItem>
+            <MenuItem title={_t('Publish Scene')} onClick={this.handleExportScene}></MenuItem>
         </MenuItem>;
     }
 
@@ -40,20 +40,20 @@ class SceneMenu extends React.Component {
             editor.clear();
             editor.sceneID = null;
             editor.sceneName = null;
-            document.title = L_NO_NAME;
-            app.toast(L_CREATE_EMPTY_SCENE_SUCCESS);
+            document.title = _t('No Name');
+            app.toast(_t('Create empty scene successfully.'));
             return;
         }
 
         app.confirm({
-            title: L_CONFIRM,
-            content: L_UNSAVED_WILL_LOSE_CONFIRM,
+            title: _t('Confirm'),
+            content: _t('All unsaved data will be lost. Are you sure?'),
             onOK: () => {
                 editor.clear();
                 editor.sceneID = null;
                 editor.sceneName = null;
                 app.options.sceneType = 'Empty';
-                document.title = L_NO_NAME;
+                document.title = _t('No Name');
                 app.editor.camera.userData.control = 'OrbitControls';
             }
         });
@@ -87,9 +87,9 @@ class SceneMenu extends React.Component {
             this.commitSave(id, sceneName);
         } else { // 新建场景
             app.prompt({
-                title: L_SAVE_SCENE,
-                content: L_NAME,
-                value: L_NEW_SCENE,
+                title: _t('Save Scene'),
+                content: _t('Name'),
+                value: _t('New Scene'),
                 onOK: name => {
                     this.commitSave(id, name);
                 }
@@ -146,12 +146,12 @@ class SceneMenu extends React.Component {
         var sceneName = app.editor.sceneName;
 
         if (sceneName == null) {
-            sceneName = L_NEW_SCENE;
+            sceneName = _t('New Scene');
         }
 
         app.prompt({
-            title: L_SAVE_SCENE,
-            content: L_NAME,
+            title: _t('Save Scene'),
+            content: _t('Name'),
             value: sceneName,
             onOK: name => {
                 app.editor.sceneName = name;
@@ -206,7 +206,7 @@ class SceneMenu extends React.Component {
             title: '询问',
             content: '是否导出当前场景？',
             onOK: () => {
-                app.mask(L_IS_EXPORTING);
+                app.mask(_t('Exporting...'));
 
                 fetch(`${app.options.server}/api/ExportScene/Run?ID=${sceneID}`, {
                     method: 'POST'

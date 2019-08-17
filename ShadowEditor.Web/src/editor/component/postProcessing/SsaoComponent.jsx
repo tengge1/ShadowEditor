@@ -12,12 +12,12 @@ class SsaoComponent extends React.Component {
         this.selected = null;
 
         this.output = {
-            0: L_DEFAULT, // THREE.SSAOPass.OUTPUT.Default
-            1: L_OCCLUSION, // THREE.SSAOPass.OUTPUT.SSAO
-            2: L_OCCLUSION_AND_BLUR, // THREE.SSAOPass.OUTPUT.Blur
-            3: L_BEAUTY, // THREE.SSAOPass.OUTPUT.Beauty
-            4: L_DEPTH, // THREE.SSAOPass.OUTPUT.Depth
-            5: L_NORMAL, // THREE.SSAOPass.OUTPUT.Normal
+            0: _t('Default'), // THREE.SSAOPass.OUTPUT.Default
+            1: _t('Occlusion'), // THREE.SSAOPass.OUTPUT.SSAO
+            2: _t('Occlusion&Blur'), // THREE.SSAOPass.OUTPUT.Blur
+            3: _t('Beauty'), // THREE.SSAOPass.OUTPUT.Beauty
+            4: _t('Depth'), // THREE.SSAOPass.OUTPUT.Depth
+            5: _t('Normal'), // THREE.SSAOPass.OUTPUT.Normal
         };
 
         this.state = {
@@ -43,12 +43,12 @@ class SsaoComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_SSAO} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_ENABLE_STATE} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={L_OUTPUT} options={this.output} name={'output'} value={output} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={L_KERNAL_RADIUS} name={'kernelRadius'} value={kernelRadius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_MIN_DISTANCE} name={'minDistance'} value={minDistance} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_MAX_DISTANCE} name={'maxDistance'} value={maxDistance} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('SSAO')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
+            <SelectProperty label={_t('Output')} options={this.output} name={'output'} value={output} onChange={this.handleChange}></SelectProperty>
+            <NumberProperty label={_t('KernalRadius')} name={'kernelRadius'} value={kernelRadius} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('MinDistance')} name={'minDistance'} value={minDistance} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('MaxDistance')} name={'maxDistance'} value={maxDistance} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

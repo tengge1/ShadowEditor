@@ -11,8 +11,8 @@ class PhysicsTypeComponent extends React.Component {
         this.selected = null;
 
         this.type = {
-            rigidBody: L_RIGID_BODY,
-            softVolume: L_SOFT_VOLUME,
+            rigidBody: _t('RigidBody'),
+            softVolume: _t('SoftVolume'),
         };
 
         this.state = {
@@ -34,9 +34,9 @@ class PhysicsTypeComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_PHYSICS_TYPE} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_ENABLED} name={'physicsEnabled'} value={physicsEnabled} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={L_TYPE} options={this.type} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
+        return <PropertyGroup title={_t('PhysicsType')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('Enabled')} name={'physicsEnabled'} value={physicsEnabled} onChange={this.handleChange}></CheckBoxProperty>
+            <SelectProperty label={_t('Type')} options={this.type} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
         </PropertyGroup>;
     }
 

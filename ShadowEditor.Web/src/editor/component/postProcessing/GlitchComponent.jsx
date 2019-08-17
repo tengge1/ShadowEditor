@@ -31,9 +31,9 @@ class GlitchComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_GLITCH_EFFECT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_ENABLE_STATE} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={L_WILD_MODE} name={'wild'} value={wild} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Glitch Effect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty label={_t('WildMode')} name={'wild'} value={wild} onChange={this.handleChange}></CheckBoxProperty>
         </PropertyGroup>;
     }
 

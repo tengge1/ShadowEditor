@@ -31,11 +31,11 @@ class FlyControlComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_FLY_CONTROLS} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={L_MOVEMENT_SPEED} name={'movementSpeed'} value={movementSpeed} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_ROTATE_SPEED} name={'rollSpeed'} value={rollSpeed} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={L_DRAG_TO_LOOK} name={'dragToLook'} value={dragToLook} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={L_AUTO_FORWARD} name={'autoForward'} value={autoForward} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Fly Controls')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty label={_t('MovementSpeed')} name={'movementSpeed'} value={movementSpeed} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('RotateSpeed')} name={'rollSpeed'} value={rollSpeed} onChange={this.handleChange}></NumberProperty>
+            <CheckBoxProperty label={_t('DragToLook')} name={'dragToLook'} value={dragToLook} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty label={_t('AutoForward')} name={'autoForward'} value={autoForward} onChange={this.handleChange}></CheckBoxProperty>
         </PropertyGroup>;
     }
 

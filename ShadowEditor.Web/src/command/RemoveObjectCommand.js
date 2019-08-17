@@ -11,7 +11,7 @@ function RemoveObjectCommand(object) {
 	Command.call(this);
 
 	this.type = 'RemoveObjectCommand';
-	this.name = L_REMOVE_OBJECT;
+	this.name = _t('Remove Object');
 
 	this.object = object;
 

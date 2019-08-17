@@ -19,7 +19,7 @@ class FireComponent extends React.Component {
             height: 4,
             depth: 2,
             sliceSpacing: 2,
-            previewText: L_PREVIEW,
+            previewText: _t('Preview'),
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -36,11 +36,11 @@ class FireComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_FIRE_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={L_WIDTH} name={'width'} value={width} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_HEIGHT} name={'height'} value={height} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_DEPTH} name={'depth'} value={depth} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_SLICE_SPACING} name={'sliceSpacing'} value={sliceSpacing} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Fire Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty label={_t('Width')} name={'width'} value={width} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('Height')} name={'height'} value={height} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('Depth')} name={'depth'} value={depth} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('SliceSpacing')} name={'sliceSpacing'} value={sliceSpacing} onChange={this.handleChange}></NumberProperty>
             <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
         </PropertyGroup>;
     }
@@ -74,7 +74,7 @@ class FireComponent extends React.Component {
             height: this.selected.userData.height,
             depth: this.selected.userData.depth,
             sliceSpacing: this.selected.userData.sliceSpacing,
-            previewText: this.isPlaying ? L_CANCEL : L_PREVIEW,
+            previewText: this.isPlaying ? _t('Cancel') : _t('Preview'),
         });
     }
 
@@ -138,7 +138,7 @@ class FireComponent extends React.Component {
         this.isPlaying = true;
 
         this.setState({
-            previewText: L_CANCEL,
+            previewText: _t('Cancel'),
         });
 
         app.on(`animate.FireComponent`, this.onAnimate);
@@ -148,7 +148,7 @@ class FireComponent extends React.Component {
         this.isPlaying = false;
 
         this.setState({
-            previewText: L_PREVIEW,
+            previewText: _t('Preview'),
         });
 
         app.on(`animate.FireComponent`, null);

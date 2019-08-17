@@ -90,8 +90,8 @@ class HistoryPanel extends React.Component {
         var editor = app.editor;
 
         app.confirm({
-            title: L_CONFIRM,
-            content: L_HISTORY_WILL_CLEAR,
+            title: _t('Confirm'),
+            content: _t('Undo/Redo history will be cleared. Are you sure?'),
             onOK: () => {
                 editor.history.clear();
             }

@@ -36,8 +36,8 @@ KeyDownEvent.prototype.onKeyDown = function (event) {
                 return;
             }
             app.confirm({
-                title: L_CONFIRM,
-                content: `${L_DELETE} ${object.name} ?`,
+                title: _t('Confirm'),
+                content: `${_t('Delete')} ${object.name} ?`,
                 onOK: () => {
                     var parent = object.parent;
                     if (parent !== null) {

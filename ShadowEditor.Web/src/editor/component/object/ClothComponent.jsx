@@ -15,7 +15,7 @@ class ClothComponent extends React.Component {
         this.state = {
             show: false,
             expanded: true,
-            previewText: L_PREVIEW,
+            previewText: _t('Preview'),
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -31,7 +31,7 @@ class ClothComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_CLOTH_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
+        return <PropertyGroup title={_t('ClothComponent')} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
         </PropertyGroup>;
     }
@@ -61,7 +61,7 @@ class ClothComponent extends React.Component {
 
         this.setState({
             show: true,
-            previewText: this.isPlaying ? L_CANCEL : L_PREVIEW,
+            previewText: this.isPlaying ? _t('Cancel') : _t('Preview'),
         });
     }
 
@@ -77,7 +77,7 @@ class ClothComponent extends React.Component {
         this.isPlaying = true;
 
         this.setState({
-            previewText: L_CANCEL,
+            previewText: _t('Cancel'),
         });
 
         app.on(`animate.ClothComponent`, this.onAnimate);
@@ -87,7 +87,7 @@ class ClothComponent extends React.Component {
         this.isPlaying = false;
 
         this.setState({
-            previewText: L_PREVIEW,
+            previewText: _t('Preview'),
         });
 
         app.on(`animate.ClothComponent`, null);

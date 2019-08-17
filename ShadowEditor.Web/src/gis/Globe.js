@@ -24,7 +24,7 @@ function Globe(camera, renderer, options = {}) {
     options.useCameraPosition = options.useCameraPosition || false;
     options.maxThread = options.maxThread || 10;
 
-    this.name = L_GLOBE;
+    this.name = _t('Globe');
 
     Object.assign(this.userData, {
         type: 'Globe',

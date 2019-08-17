@@ -40,10 +40,10 @@ class MMDComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_MMD_MODEL} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <DisplayProperty label={L_MODEL_ANIMATION} name={'animation'} value={animation} btnShow={true} btnText={L_SELECT} onClick={this.handleSelectAnimation}></DisplayProperty>
-            <DisplayProperty label={L_CAMERA_ANIMATION} name={'cameraAnimation'} value={cameraAnimation} btnShow={true} btnText={L_SELECT} onClick={this.handleSelectCameraAnimation}></DisplayProperty>
-            <DisplayProperty label={L_AUDIO} name={'audio'} value={audio} btnShow={true} btnText={L_SELECT} onClick={this.handleSelectAudio}></DisplayProperty>
+        return <PropertyGroup title={_t('MMD Model')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <DisplayProperty label={_t('Model Animation')} name={'animation'} value={animation} btnShow={true} btnText={_t('Select')} onClick={this.handleSelectAnimation}></DisplayProperty>
+            <DisplayProperty label={_t('Camera Animation')} name={'cameraAnimation'} value={cameraAnimation} btnShow={true} btnText={_t('Select')} onClick={this.handleSelectCameraAnimation}></DisplayProperty>
+            <DisplayProperty label={_t('Audio')} name={'audio'} value={audio} btnShow={true} btnText={_t('Select')} onClick={this.handleSelectAudio}></DisplayProperty>
         </PropertyGroup>;
     }
 
@@ -84,13 +84,13 @@ class MMDComponent extends React.Component {
 
     handleSelectAnimation() {
         app.call(`selectBottomPanel`, this, 'animation');
-        app.toast(L_CLICK_ANIMATION_PANEL);
+        app.toast(_t('Please click the animation in the animation panel.'));
         app.on(`selectAnimation.MMDComponent`, this.onSelectAnimation);
     }
 
     onSelectAnimation(data) {
         if (data.Type !== 'mmd') {
-            app.toast(L_SELECT_MMD_ANIMATION_ONLY);
+            app.toast(_t('Please select MMD animation only.'));
             return;
         }
         app.on(`selectAnimation.MMDComponent`, null);
@@ -105,13 +105,13 @@ class MMDComponent extends React.Component {
 
     handleSelectCameraAnimation() {
         app.call(`selectBottomPanel`, this, 'animation');
-        app.toast(L_CLICK_CAMERA_ANIMATION);
+        app.toast(_t('Please select camera animation.'));
         app.on(`selectAnimation.MMDComponent`, this.onSelectCameraAnimation);
     }
 
     onSelectCameraAnimation(data) {
         if (data.Type !== 'mmd') {
-            app.toast(L_SELECT_CAMERA_ANIMATION_ONLY);
+            app.toast(_t('Please select camera animation only.'));
             return;
         }
         app.on(`selectAnimation.MMDComponent`, null);
@@ -126,7 +126,7 @@ class MMDComponent extends React.Component {
 
     handleSelectAudio() {
         app.call(`selectBottomPanel`, this, 'audio');
-        app.toast(L_SELECT_MMD_AUDIO);
+        app.toast(_t('Please select MMD audio.'));
         app.on(`selectAudio.MMDComponent`, this.onSelectAudio.bind(this));
     }
 

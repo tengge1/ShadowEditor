@@ -38,7 +38,7 @@ class CatmullRomCurveComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_CATMULL_ROM_CURVE} show={show} expanded={expanded} onExpand={this.handleExpand}>
+        return <PropertyGroup title={_t('CatmullRom Curve')} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <ButtonsProperty>
                 <Button onClick={this.handleAddPoint}>{'添加点'}</Button>
                 <Button onClick={this.handleRemovePoint}>{'移除点'}</Button>

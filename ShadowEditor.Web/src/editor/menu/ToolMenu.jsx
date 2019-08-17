@@ -17,12 +17,12 @@ class ToolMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={L_TOOL}>
-            <MenuItem title={L_ARRANGE_MAP} onClick={this.handleArrangeMap}></MenuItem>
-            <MenuItem title={L_ARRANGE_MESH} onClick={this.handleArrangeMesh}></MenuItem>
-            <MenuItem title={L_ARRANGE_THUMBNAIL} onClick={this.handleArrangeThumbnail}></MenuItem>
+        return <MenuItem title={_t('Tool')}>
+            <MenuItem title={_t('Arrange Map')} onClick={this.handleArrangeMap}></MenuItem>
+            <MenuItem title={_t('Arrange Mesh')} onClick={this.handleArrangeMesh}></MenuItem>
+            <MenuItem title={_t('Arrange Thumbnail')} onClick={this.handleArrangeThumbnail}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={L_EXPORT_EDITOR} onClick={this.handleExportEditor}></MenuItem>
+            <MenuItem title={_t('Export Editor')} onClick={this.handleExportEditor}></MenuItem>
         </MenuItem>;
     }
 

@@ -35,14 +35,14 @@ class TeapotGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_GEOMETRY_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'size'} label={L_SIZE} value={size} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'segments'} label={L_SEGMENTS} value={segments} onChange={this.handleChange}></IntegerProperty>
-            <CheckBoxProperty name={'bottom'} label={L_BOTTOM} value={bottom} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty name={'lid'} label={L_LID} value={lid} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty name={'body'} label={L_BODY} value={body} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty name={'fitLid'} label={L_FIT_LID} value={fitLid} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty name={'blinn'} label={L_BLINN} value={blinn} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty name={'size'} label={_t('Size')} value={size} onChange={this.handleChange}></NumberProperty>
+            <IntegerProperty name={'segments'} label={_t('Segments')} value={segments} onChange={this.handleChange}></IntegerProperty>
+            <CheckBoxProperty name={'bottom'} label={_t('Bottom')} value={bottom} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty name={'lid'} label={_t('Lid')} value={lid} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty name={'body'} label={_t('Body')} value={body} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty name={'fitLid'} label={_t('FitLid')} value={fitLid} onChange={this.handleChange}></CheckBoxProperty>
+            <CheckBoxProperty name={'blinn'} label={_t('Blinn')} value={blinn} onChange={this.handleChange}></CheckBoxProperty>
         </PropertyGroup>;
     }
 

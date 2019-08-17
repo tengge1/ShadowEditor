@@ -29,35 +29,35 @@ class HelperPanel extends React.Component {
 
         return <Form className={'HelperPanel'}>
             <FormControl>
-                <Label>{L_GRID}</Label>
+                <Label>{_t('Grid')}</Label>
                 <CheckBox name={'showGrid'} checked={showGrid} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
-                <Label>{L_CAMERA}</Label>
+                <Label>{_t('Camera')}</Label>
                 <CheckBox name={'showCamera'} checked={showCamera} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
-                <Label>{L_POINT_LIGHT}</Label>
+                <Label>{_t('Point Light')}</Label>
                 <CheckBox name={'showPointLight'} checked={showPointLight} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
-                <Label>{L_DIRECTIONAL_LIGHT}</Label>
+                <Label>{_t('Directional Light')}</Label>
                 <CheckBox name={'showDirectionalLight'} checked={showDirectionalLight} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
-                <Label>{L_SPOT_LIGHT}</Label>
+                <Label>{_t('Spot Light')}</Label>
                 <CheckBox name={'showSpotLight'} checked={showSpotLight} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
-                <Label>{L_HEMISPHERE_LIGHT}</Label>
+                <Label>{_t('Hemisphere Light')}</Label>
                 <CheckBox name={'showHemisphereLight'} checked={showHemisphereLight} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
-                <Label>{L_RECT_AREA_LIGHT}</Label>
+                <Label>{_t('Rect Area Light')}</Label>
                 <CheckBox name={'showRectAreaLight'} checked={showRectAreaLight} onChange={this.handleChange}></CheckBox>
             </FormControl>
             <FormControl>
-                <Label>{L_SKELETON}</Label>
+                <Label>{_t('Skeleton')}</Label>
                 <CheckBox name={'showSkeleton'} checked={showSkeleton} onChange={this.handleChange}></CheckBox>
             </FormControl>
         </Form>;

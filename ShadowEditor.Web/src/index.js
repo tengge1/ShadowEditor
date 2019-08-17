@@ -1,5 +1,4 @@
 import './polyfills';
-import './language/Language';
 import './render/shader/ShaderChunk';
 
 export { default as Options } from './Options';

@@ -18,7 +18,7 @@ class RigidBodyComponent extends React.Component {
         this.selected = null;
 
         this.shape = {
-            btBoxShape: L_BOX_SHAPE,
+            btBoxShape: _t('BoxShape'),
             // btBvhTriangleMeshShape: 'bvh三角形网格',
             // btCapsuleShape: '胶囊',
             // btCapsuleShapeX: 'x轴胶囊',
@@ -36,7 +36,7 @@ class RigidBodyComponent extends React.Component {
             // btCylinderShapeX: 'x轴圆柱体',
             // btCylinderShapeZ: 'z轴圆柱体',
             // btHeightfieldTerrainShape: '灰阶高程地形',
-            btSphereShape: L_SPHERE_SHAPE,
+            btSphereShape: _t('SphereShape'),
             // btStaticPlaneShape: '静态平板',
             // btTriangleMeshShape: '三角网格'
         };
@@ -64,8 +64,8 @@ class RigidBodyComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_RIGID_BODY} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={L_SHAPE} options={this.shape} name={'shape'} value={shape} onChange={this.handleChange}></SelectProperty>
+        return <PropertyGroup title={_t('RigidBody')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <SelectProperty label={_t('Shape')} options={this.shape} name={'shape'} value={shape} onChange={this.handleChange}></SelectProperty>
             <NumberProperty label={'Mass'} name={'mass'} value={mass} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'InertiaX'} name={'inertiaX'} value={inertiaX} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'InertiaY'} name={'inertiaY'} value={inertiaY} onChange={this.handleChange}></NumberProperty>
@@ -164,7 +164,7 @@ class RigidBodyComponent extends React.Component {
         let helper = physicsShapeHelper[physics.shape];
 
         if (!helper) {
-            console.warn(`RigidBodyComponent: ${physics.shape} ${L_HAS_NO_PHYSICS_HELPER}`);
+            console.warn(`RigidBodyComponent: ${physics.shape} ${_t('has no physics helper.')}`);
             return;
         }
 

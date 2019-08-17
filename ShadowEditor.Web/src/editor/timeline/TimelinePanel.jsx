@@ -24,7 +24,7 @@ class TimelinePanel extends React.Component {
         return <Timeline
             className={'TimelinePanel'}
             animations={animations}
-            tip={L_ILLUSTRATE_DOUBLE_CLICK_ADD_ANIM}></Timeline>;
+            tip={_t('Illustrate')}></Timeline>;
     }
 
     componentDidMount() {
@@ -148,7 +148,7 @@ class TimelinePanel extends React.Component {
             id: null,
             uuid: THREE.Math.generateUUID(),
             layer: maxLayer + 1,
-            layerName: `${L_ANIM_LAYER}${maxLayer + 2}`,
+            layerName: `${_t('AnimLayer')}${maxLayer + 2}`,
             animations: []
         };
         app.editor.animations.push(animation);
@@ -164,13 +164,13 @@ class TimelinePanel extends React.Component {
         });
 
         if (uuids.length === 0) {
-            app.toast(L_CHECK_DELETE_LAYER);
+            app.toast(_t('Please check the layer.'));
             return;
         }
 
         var animations = app.editor.animations;
 
-        UI.confirm(L_CONFIRM, L_DELETE_LAYER_WILL_DELETE_ANIM, (event, btn) => {
+        app.confirm(_t('Confirm'), _t('Delete layer will delete all the anims on the layer. Are you sure?'), (event, btn) => {
             if (btn === 'ok') {
                 uuids.forEach(n => {
                     var index = animations.findIndex(m => m.uuid === n);
@@ -260,7 +260,7 @@ class TimelinePanel extends React.Component {
             var animation = {
                 id: null,
                 uuid: THREE.Math.generateUUID(),
-                name: `${L_ANIMATION}${ID--}`,
+                name: `${_t('Animation')}${ID--}`,
                 target: null,
                 type: 'Tween',
                 beginTime: event.offsetX / timeline.scale,

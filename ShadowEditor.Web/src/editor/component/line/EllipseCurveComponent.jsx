@@ -35,7 +35,7 @@ class EllipseCurveComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_ELLIPSE_CURVE} show={show} expanded={expanded} onExpand={this.handleExpand}>
+        return <PropertyGroup title={_t('Ellipse Curve')} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <NumberProperty label={'Center X'} name={'aX'} value={aX} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'Center Y'} name={'aY'} value={aY} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'Radius X'} name={'xRadius'} value={xRadius} onChange={this.handleChange}></NumberProperty>

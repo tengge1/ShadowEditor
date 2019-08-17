@@ -6,7 +6,7 @@
 function Torus(geometry = new THREE.TorusBufferGeometry(2, 1, 32, 32, Math.PI * 2), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);
 
-    this.name = L_TORUS;
+    this.name = _t('Torus');
     this.castShadow = true;
     this.receiveShadow = true;
 

@@ -21,10 +21,10 @@ class PlayMenu extends React.Component {
     render() {
         const { isPlaying } = this.state;
 
-        return <MenuItem title={L_PLAY}>
-            <MenuItem title={isPlaying ? L_STOP : L_PLAY} onClick={this.handleTogglePlay}></MenuItem>
-            <MenuItem title={L_PLAY_FULLSCREEN} onClick={this.handlePlayFullscreen}></MenuItem>
-            <MenuItem title={L_PLAY_NEW_WINDOW} onClick={this.handlePlayNewWindow}></MenuItem>
+        return <MenuItem title={_t('Play')}>
+            <MenuItem title={isPlaying ? _t('Stop') : _t('Play')} onClick={this.handleTogglePlay}></MenuItem>
+            <MenuItem title={_t('Play Fullscreen')} onClick={this.handlePlayFullscreen}></MenuItem>
+            <MenuItem title={_t('Play New Window')} onClick={this.handlePlayNewWindow}></MenuItem>
         </MenuItem>;
     }
 

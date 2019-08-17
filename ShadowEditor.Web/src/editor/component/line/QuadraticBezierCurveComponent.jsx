@@ -36,7 +36,7 @@ class QuadraticBezierCurveComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_QUADRATIC_BEZIER_CURVE} show={show} expanded={expanded} onExpand={this.handleExpand}>
+        return <PropertyGroup title={_t('QuadraticBezier Curve')} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <NumberProperty label={'Point1 X'} name={'v0x'} value={v0x} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'Point1 Y'} name={'v0y'} value={v0y} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'Point1 Z'} name={'v0z'} value={v0z} onChange={this.handleChange}></NumberProperty>

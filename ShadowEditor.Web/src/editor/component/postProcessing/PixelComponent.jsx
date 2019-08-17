@@ -31,9 +31,9 @@ class PixelComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_PIXEL_EFFECT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_ENABLE_STATE} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_PIXEL_SIZE} name={'pixelSize'} value={pixelSize} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('PixelEffect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={_t('PixelSize')} name={'pixelSize'} value={pixelSize} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

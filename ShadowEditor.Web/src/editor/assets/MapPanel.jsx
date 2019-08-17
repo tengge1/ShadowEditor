@@ -44,7 +44,7 @@ class MapPanel extends React.Component {
         return <div className={classNames('MapPanel', className)} style={style}>
             <SearchField
                 data={categoryData}
-                placeholder={L_SEARCH_CONTENT}
+                placeholder={_t('Search Content')}
                 onAdd={this.handleAdd}
                 onInput={this.handleSearch.bind(this)}></SearchField>
             <ImageList
@@ -124,7 +124,7 @@ class MapPanel extends React.Component {
     handleEdit(data) {
         var win = app.createElement(EditWindow, {
             type: 'Map',
-            typeName: L_MAP,
+            typeName: _t('Map'),
             data,
             saveUrl: `${app.options.server}/api/Map/Edit`,
             callback: this.update,
@@ -137,8 +137,8 @@ class MapPanel extends React.Component {
 
     handleDelete(data) {
         app.confirm({
-            title: L_CONFIRM,
-            content: `${L_DELETE} ${data.title}?`,
+            title: _t('Confirm'),
+            content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
                 fetch(`${app.options.server}/api/Map/Delete?ID=${data.id}`, {
                     method: 'POST',

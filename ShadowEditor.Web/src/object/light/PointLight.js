@@ -11,7 +11,7 @@ function PointLight(color, intensity, distance, decay) {
     // var mesh = new THREE.Mesh(geometry, material);
 
     // // 帮助器
-    // mesh.name = L_HELP;
+    // mesh.name = _t('Help');
     // mesh.userData.type = 'helper';
 
     // this.add(mesh);
@@ -29,7 +29,7 @@ function PointLight(color, intensity, distance, decay) {
     // lensflare.addElement(new THREE.LensflareElement(textureFlare3, 60, 0.6));
     // lensflare.addElement(new THREE.LensflareElement(textureFlare3, 45, 0.8));
 
-    // lensflare.name = L_HALO;
+    // lensflare.name = _t('Halo');
     // lensflare.userData.type = 'lensflare';
 
     // this.add(lensflare);

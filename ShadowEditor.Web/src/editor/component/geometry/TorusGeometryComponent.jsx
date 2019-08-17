@@ -33,12 +33,12 @@ class TorusGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_GEOMETRY_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'radius'} label={L_RADIUS} value={radius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'tube'} label={L_TUBE} value={tube} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'radialSegments'} label={L_RADIAL_SEGMENTS} value={radialSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty name={'tubularSegments'} label={L_TUBULAR_SEGMENTS} value={tubularSegments} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty name={'arc'} label={L_ARC} value={arc} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty name={'radius'} label={_t('Radius')} value={radius} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'tube'} label={_t('Tube')} value={tube} onChange={this.handleChange}></NumberProperty>
+            <IntegerProperty name={'radialSegments'} label={_t('RadialSegments')} value={radialSegments} onChange={this.handleChange}></IntegerProperty>
+            <IntegerProperty name={'tubularSegments'} label={_t('TubelarSegments')} value={tubularSegments} onChange={this.handleChange}></IntegerProperty>
+            <NumberProperty name={'arc'} label={_t('Arc')} value={arc} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

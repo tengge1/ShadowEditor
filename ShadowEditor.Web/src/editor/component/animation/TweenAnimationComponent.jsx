@@ -12,8 +12,8 @@ class TweenAnimationComponent extends React.Component {
         this.selected = null;
 
         this.beginStatus = {
-            Current: L_CURRENT_STATUS,
-            Custom: L_CUSTOM_STATUS,
+            Current: _t('Current Status'),
+            Custom: _t('Custom Status'),
         };
 
         this.ease = {
@@ -94,8 +94,8 @@ class TweenAnimationComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_TWEEN_ANIMATION} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={L_BEGIN_STATUS} options={this.beginStatus} name={'beginStatus'} value={beginStatus} onChange={this.handleChange}></SelectProperty>
+        return <PropertyGroup title={_t('Tween Animation')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <SelectProperty label={_t('BeginStatus')} options={this.beginStatus} name={'beginStatus'} value={beginStatus} onChange={this.handleChange}></SelectProperty>
             <NumberProperty label={'beginPositionX'} name={'beginPositionX'} value={beginPositionX} show={showBeginState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'beginPositionY'} name={'beginPositionY'} value={beginPositionY} show={showBeginState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'beginPositionZ'} name={'beginPositionZ'} value={beginPositionZ} show={showBeginState} onChange={this.handleChange}></NumberProperty>
@@ -107,9 +107,9 @@ class TweenAnimationComponent extends React.Component {
             <NumberProperty label={'beginScaleY'} name={'beginScaleY'} value={beginScaleY} show={showBeginState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'beginScaleZ'} name={'beginScaleZ'} value={beginScaleZ} show={showBeginState} onChange={this.handleChange}></NumberProperty>
 
-            <SelectProperty label={L_EASE_FUNC} options={this.ease} name={'ease'} value={ease} onChange={this.handleChange}></SelectProperty>
+            <SelectProperty label={_t('Ease Func')} options={this.ease} name={'ease'} value={ease} onChange={this.handleChange}></SelectProperty>
 
-            <SelectProperty label={L_END_STATUS} options={this.beginStatus} name={'endStatus'} value={endStatus} onChange={this.handleChange}></SelectProperty>
+            <SelectProperty label={_t('EndStatus')} options={this.beginStatus} name={'endStatus'} value={endStatus} onChange={this.handleChange}></SelectProperty>
             <NumberProperty label={'endPositionX'} name={'endPositionX'} value={endPositionX} show={showEndState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'endPositionY'} name={'endPositionY'} value={endPositionY} show={showEndState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'endPositionZ'} name={'endPositionZ'} value={endPositionZ} show={showEndState} onChange={this.handleChange}></NumberProperty>

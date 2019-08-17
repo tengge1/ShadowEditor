@@ -71,7 +71,7 @@ LOLLoader.prototype.load = function (url, options) {
                 mesh.userData.model = model;
                 mesh.userData.scripts = [{
                     id: null,
-                    name: `${options.Name}${L_ANIMATION}`,
+                    name: `${options.Name}${_t('Animation')}`,
                     type: 'javascript',
                     source: this.createScripts(options.Name, model),
                     uuid: THREE.Math.generateUUID()

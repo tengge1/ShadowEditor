@@ -11,8 +11,8 @@ class PhysicsWorldComponent extends React.Component {
         this.selected = null;
 
         this.type = {
-            'btDefaultCollisionConfiguration': L_DEFAULT_COLLISION_CONFIG, // 无法使用布料
-            'btSoftBodyRigidBodyCollisionConfiguration': L_SOFTBODY_RIGIDBODY_COLLISIONCONFIG,
+            'btDefaultCollisionConfiguration': _t('DefaultCollisionConfig'), // 无法使用布料
+            'btSoftBodyRigidBodyCollisionConfiguration': _t('SoftBodyRigidBodyCollisionConfig'),
         };
 
         this.state = {
@@ -36,8 +36,8 @@ class PhysicsWorldComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_PHYSICS_ENVIRONMENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={L_TYPE} options={this.type} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
+        return <PropertyGroup title={_t('PhysicsEnvironment')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <SelectProperty label={_t('Type')} options={this.type} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
             <NumberProperty label={'GravityX'} name={'gravityX'} value={gravityX} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'GravityY'} name={'gravityY'} value={gravityY} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'GravityZ'} name={'gravityZ'} value={gravityZ} onChange={this.handleChange}></NumberProperty>

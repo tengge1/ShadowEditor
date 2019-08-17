@@ -33,11 +33,11 @@ class BokehComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_BOKEH_EFFECT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_ENABLE_STATE} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={L_FOCUS} name={'focus'} value={focus} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_APERTURE} name={'aperture'} value={aperture} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={L_MAX_BLUR} name={'maxBlur'} value={maxBlur} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Bokeh Effect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty label={_t('Focus')} name={'focus'} value={focus} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('Aperture')} name={'aperture'} value={aperture} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('MaxBlur')} name={'maxBlur'} value={maxBlur} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

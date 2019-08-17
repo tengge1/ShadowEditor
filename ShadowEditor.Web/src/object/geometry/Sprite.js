@@ -5,7 +5,7 @@
 function Sprite(material = new THREE.SpriteMaterial()) {
     THREE.Sprite.call(this, material);
 
-    this.name = L_SPRITE;
+    this.name = _t('Sprite');
 }
 
 Sprite.prototype = Object.create(THREE.Sprite.prototype);

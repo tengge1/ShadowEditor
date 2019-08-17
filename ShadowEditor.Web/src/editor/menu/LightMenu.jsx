@@ -24,13 +24,13 @@ class LightMenu extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <MenuItem title={L_LIGHT}>
-            <MenuItem title={L_AMBIENT_LIGHT} onClick={this.handleAddAmbientLight}></MenuItem>
-            <MenuItem title={L_DIRECTIONAL_LIGHT} onClick={this.handleAddDirectionalLight}></MenuItem>
-            <MenuItem title={L_POINT_LIGHT} onClick={this.handleAddPointLight}></MenuItem>
-            <MenuItem title={L_SPOT_LIGHT} onClick={this.handleAddSpotLight}></MenuItem>
-            <MenuItem title={L_HEMISPHERE_LIGHT} onClick={this.handleAddHemisphereLight}></MenuItem>
-            <MenuItem title={L_RECT_AREA_LIGHT} onClick={this.handleAddRectAreaLight}></MenuItem>
+        return <MenuItem title={_t('Light')}>
+            <MenuItem title={_t('Ambient Light')} onClick={this.handleAddAmbientLight}></MenuItem>
+            <MenuItem title={_t('Directional Light')} onClick={this.handleAddDirectionalLight}></MenuItem>
+            <MenuItem title={_t('Point Light')} onClick={this.handleAddPointLight}></MenuItem>
+            <MenuItem title={_t('Spot Light')} onClick={this.handleAddSpotLight}></MenuItem>
+            <MenuItem title={_t('Hemisphere Light')} onClick={this.handleAddHemisphereLight}></MenuItem>
+            <MenuItem title={_t('Rect Area Light')} onClick={this.handleAddRectAreaLight}></MenuItem>
         </MenuItem>;
     }
 
@@ -42,7 +42,7 @@ class LightMenu extends React.Component {
         var color = 0xaaaaaa;
 
         var light = new THREE.AmbientLight(color);
-        light.name = L_AMBIENT_LIGHT;
+        light.name = _t('Ambient Light');
 
         editor.execute(new AddObjectCommand(light));
     }
@@ -56,7 +56,7 @@ class LightMenu extends React.Component {
         var intensity = 1;
 
         var light = new THREE.DirectionalLight(color, intensity);
-        light.name = L_DIRECTIONAL_LIGHT;
+        light.name = _t('Directional Light');
         light.castShadow = true;
         light.shadow.mapSize.x = 2048;
         light.shadow.mapSize.y = 2048;
@@ -79,7 +79,7 @@ class LightMenu extends React.Component {
         var distance = 0;
 
         var light = new PointLight(color, intensity, distance);
-        light.name = L_POINT_LIGHT;
+        light.name = _t('Point Light');
         light.position.y = 5;
         light.castShadow = true;
 
@@ -99,7 +99,7 @@ class LightMenu extends React.Component {
 
         var light = new THREE.SpotLight(color, intensity, distance, angle, penumbra);
 
-        light.name = L_SPOT_LIGHT;
+        light.name = _t('Spot Light');
         light.castShadow = true;
 
         light.position.set(5, 10, 7.5);
@@ -116,7 +116,7 @@ class LightMenu extends React.Component {
         var intensity = 1;
 
         var light = new HemisphereLight(skyColor, groundColor, intensity);
-        light.name = L_HEMISPHERE_LIGHT;
+        light.name = _t('Hemisphere Light');
 
         light.position.set(0, 10, 0);
 
@@ -134,7 +134,7 @@ class LightMenu extends React.Component {
         var height = 10;
 
         var light = new RectAreaLight(color, intensity, width, height);
-        light.name = L_RECT_AREA_LIGHT;
+        light.name = _t('Rect Area Light');
 
         light.position.set(0, 6, 0);
 

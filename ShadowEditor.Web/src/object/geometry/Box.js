@@ -6,7 +6,7 @@
 function Box(geometry = new THREE.BoxBufferGeometry(1, 1, 1), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);
 
-    this.name = L_BOX;
+    this.name = _t('Box');
     this.castShadow = true;
     this.receiveShadow = true;
 

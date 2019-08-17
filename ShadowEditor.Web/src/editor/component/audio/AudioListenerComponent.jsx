@@ -29,8 +29,8 @@ class AudioListenerComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_AUDIO_LISTENER} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={L_MAX_VOLUME} name={'masterVolume'} value={masterVolume} min={0} max={1} step={0.1} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('AudioListener')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty label={_t('Max Volume')} name={'masterVolume'} value={masterVolume} min={0} max={1} step={0.1} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

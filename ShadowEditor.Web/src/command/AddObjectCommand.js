@@ -15,7 +15,7 @@ function AddObjectCommand(object) {
 	this.object = object;
 
 	if (object !== undefined) {
-		this.name = L_ADD_OBJECT_COLON + object.name;
+		this.name = _t('Add Object') + object.name;
 	}
 };
 

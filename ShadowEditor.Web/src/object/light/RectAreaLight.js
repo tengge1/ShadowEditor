@@ -9,7 +9,7 @@ function RectAreaLight(color, intensity, width, height) {
     // rectLightMesh.scale.x = width;
     // rectLightMesh.scale.y = height;
 
-    // rectLightMesh.name = L_FrontSide;
+    // rectLightMesh.name = _t('FrontSide');
     // rectLightMesh.userData.type = 'frontSide';
 
     // this.add(rectLightMesh);
@@ -19,7 +19,7 @@ function RectAreaLight(color, intensity, width, height) {
     // rectLightMeshBack.scale.y = height;
     // rectLightMeshBack.rotation.y = Math.PI;
 
-    // rectLightMesh.name = L_BackSide;
+    // rectLightMesh.name = _t('BackSide');
     // rectLightMesh.userData.type = 'backSide';
 
     // this.add(rectLightMeshBack);

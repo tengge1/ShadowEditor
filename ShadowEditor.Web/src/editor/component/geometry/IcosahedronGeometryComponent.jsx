@@ -30,9 +30,9 @@ class IcosahedronGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_GEOMETRY_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'radius'} label={L_RADIUS} value={radius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'detail'} label={L_DETAIL} value={detail} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty name={'radius'} label={_t('Radius')} value={radius} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'detail'} label={_t('Detail')} value={detail} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 

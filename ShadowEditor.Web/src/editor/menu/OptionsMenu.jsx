@@ -24,12 +24,12 @@ class OptionsMenu extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <MenuItem title={L_OPTIONS}>
-            <MenuItem title={L_RENDERER} onClick={this.handleRendererOptions}></MenuItem>
-            <MenuItem title={L_HELPERS} onClick={this.handleHelperOptions}></MenuItem>
-            <MenuItem title={L_FILTER} onClick={this.handleFilterOptions}></MenuItem>
+        return <MenuItem title={_t('Options')}>
+            <MenuItem title={_t('Renderer')} onClick={this.handleRendererOptions}></MenuItem>
+            <MenuItem title={_t('Helpers')} onClick={this.handleHelperOptions}></MenuItem>
+            <MenuItem title={_t('Filter')} onClick={this.handleFilterOptions}></MenuItem>
             <MenuItemSeparator></MenuItemSeparator>
-            <MenuItem title={L_LANGUAGE}>
+            <MenuItem title={_t('Language')}>
                 <MenuItem title={'English'} onClick={this.handleChangeEnglish}></MenuItem>
                 <MenuItem title={'汉语'} onClick={this.handleChangeChinese}></MenuItem>
             </MenuItem>

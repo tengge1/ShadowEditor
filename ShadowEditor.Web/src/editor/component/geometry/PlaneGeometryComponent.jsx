@@ -32,11 +32,11 @@ class PlaneGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_GEOMETRY_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'width'} label={L_WIDTH} value={width} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'height'} label={L_HEIGHT} value={height} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'widthSegments'} label={L_WIDTH_SEGMENTS} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty name={'heightSegments'} label={L_HEIGHT_SEGMENTS} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
+        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty name={'width'} label={_t('Width')} value={width} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'height'} label={_t('Height')} value={height} onChange={this.handleChange}></NumberProperty>
+            <IntegerProperty name={'widthSegments'} label={_t('WidthSegments')} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
+            <IntegerProperty name={'heightSegments'} label={_t('HeightSegments')} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
         </PropertyGroup>;
     }
 

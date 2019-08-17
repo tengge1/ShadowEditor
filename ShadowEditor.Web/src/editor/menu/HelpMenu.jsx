@@ -16,11 +16,11 @@ class HelpMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={L_HELP}>
-            <MenuItem title={L_SOURCE} onClick={this.handleSource}></MenuItem>
-            <MenuItem title={L_EXAMPLES} onClick={this.handleExamples}></MenuItem>
-            <MenuItem title={L_DOCUMENTS} onClick={this.handleDocuments}></MenuItem>
-            <MenuItem title={L_ABOUT} onClick={this.handleAbout}></MenuItem>
+        return <MenuItem title={_t('Help')}>
+            <MenuItem title={_t('Source')} onClick={this.handleSource}></MenuItem>
+            <MenuItem title={_t('Examples')} onClick={this.handleExamples}></MenuItem>
+            <MenuItem title={_t('Documents')} onClick={this.handleDocuments}></MenuItem>
+            <MenuItem title={_t('About')} onClick={this.handleAbout}></MenuItem>
         </MenuItem>;
     }
 
@@ -38,14 +38,14 @@ class HelpMenu extends React.Component {
 
     handleAbout() {
         app.alert({
-            title: L_ABOUT,
+            title: _t('About'),
             className: 'About',
             content: <>
-                {L_NAME}: ShadowEditor<br />
-                {L_AUTHOR}: tengge1<br />
-                {L_LISENSE}: MIT<br />
-                {L_SOURCE}1: <a href="https://github.com/tengge1/ShadowEditor" target="_blank">https://github.com/tengge1/ShadowEditor</a><br />
-                {L_SOURCE}2: <a href="https://gitee.com/tengge1/ShadowEditor" target="_blank">https://gitee.com/tengge1/ShadowEditor</a><br />
+                {_t('Name')}: ShadowEditor<br />
+                {_t('Author')}: tengge1<br />
+                {_t('Lisense')}: MIT<br />
+                {_t('Source')}1: <a href="https://github.com/tengge1/ShadowEditor" target="_blank">https://github.com/tengge1/ShadowEditor</a><br />
+                {_t('Source')}2: <a href="https://gitee.com/tengge1/ShadowEditor" target="_blank">https://gitee.com/tengge1/ShadowEditor</a><br />
             </>
         });
     }

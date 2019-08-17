@@ -15,7 +15,7 @@ class WaterComponent extends React.Component {
         this.state = {
             show: false,
             expanded: true,
-            previewText: L_PREVIEW,
+            previewText: _t('Preview'),
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -61,7 +61,7 @@ class WaterComponent extends React.Component {
 
         this.setState({
             show: true,
-            previewText: this.isPlaying ? L_CANCEL : L_PREVIEW,
+            previewText: this.isPlaying ? _t('Cancel') : _t('Preview'),
         });
     }
 
@@ -77,7 +77,7 @@ class WaterComponent extends React.Component {
         this.isPlaying = true;
 
         this.setState({
-            previewText: L_CANCEL,
+            previewText: _t('Cancel'),
         });
 
         app.on(`animate.WaterComponent`, this.onAnimate);
@@ -87,7 +87,7 @@ class WaterComponent extends React.Component {
         this.isPlaying = false;
 
         this.setState({
-            previewText: L_PREVIEW,
+            previewText: _t('Preview'),
         });
 
         app.on(`animate.WaterComponent`, null);

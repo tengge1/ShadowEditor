@@ -21,9 +21,9 @@ function Fire(camera, options = {}) {
 
     this.add(fire.mesh);
 
-    fire.mesh.name = L_FIRE;
+    fire.mesh.name = _t('Fire');
 
-    this.name = L_FIRE;
+    this.name = _t('Fire');
     this.position.y = 2;
 
     Object.assign(this.userData, {

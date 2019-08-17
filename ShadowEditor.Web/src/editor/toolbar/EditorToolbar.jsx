@@ -46,69 +46,69 @@ class EditorToolbar extends React.Component {
         return <Toolbar className={'EditorToolbar'} direction={'vertical'}>
             <IconButton
                 icon={'select'}
-                title={L_SELECT}
+                title={_t('Select')}
                 selected={mode === 'select'}
                 onClick={this.handleEnterSelectMode}></IconButton>
             <IconButton
                 icon={'translate'}
-                title={L_TRANSLATE}
+                title={_t('Translate')}
                 selected={mode === 'translate'}
                 onClick={this.handleEnterTranslateMode}></IconButton>
             <IconButton
                 icon={'rotate'}
-                title={L_ROTATE}
+                title={_t('Rotate')}
                 selected={mode === 'rotate'}
                 onClick={this.handleEnterRotateMode}></IconButton>
             <IconButton
                 icon={'scale'}
-                title={L_SCALE}
+                title={_t('Scale')}
                 selected={mode === 'scale'}
                 onClick={this.handleEnterScaleMode}></IconButton>
             <ToolbarSeparator />
             <IconButton
                 icon={'point'}
-                title={L_DRAW_POINT}
+                title={_t('Draw Point')}
                 selected={isAddingPoint}
                 onClick={this.handleAddPoint}></IconButton>
             <IconButton
                 icon={'line'}
-                title={L_DRAW_LINE}
+                title={_t('Draw Line')}
                 selected={isAddingLine}
                 onClick={this.handleAddLine}></IconButton>
             <IconButton
                 icon={'polygon'}
-                title={L_DRAW_POLYGON}
+                title={_t('Draw Pologon')}
                 selected={isAddingPolygon}
                 onClick={this.handleAddPolygon}></IconButton>
             <IconButton
                 icon={'spray'}
-                title={L_SPRAY}
+                title={_t('Spray')}
                 selected={isSpraying}
                 onClick={this.handleSpray}></IconButton>
             <IconButton
                 icon={'texture'}
-                title={L_DIG}
+                title={_t('Dig')}
                 selected={isDigging}
                 onClick={this.handleDig}></IconButton>
             <ToolbarSeparator />
             <ImageButton
                 src={'assets/image/perspective-view.png'}
-                title={L_PERSPECTIVE_VIEW}
+                title={_t('Perspective View')}
                 selected={view === 'perspective'}
                 onClick={this.handlePerspective}></ImageButton>
             <ImageButton
                 src={'assets/image/front-view.png'}
-                title={L_FRONT_VIEW}
+                title={_t('Front View')}
                 selected={view === 'front'}
                 onClick={this.handleFrontView}></ImageButton>
             <ImageButton
                 src={'assets/image/side-view.png'}
-                title={L_SIDE_VIEW}
+                title={_t('Side View')}
                 selected={view === 'side'}
                 onClick={this.handleSideView}></ImageButton>
             <ImageButton
                 src={'assets/image/top-view.png'}
-                title={L_TOP_VIEW}
+                title={_t('Top View')}
                 selected={view === 'top'}
                 onClick={this.handleTopView}></ImageButton>
         </Toolbar>;
@@ -180,7 +180,7 @@ class EditorToolbar extends React.Component {
 
         mesh.lookAt(new THREE.Vector3().addVectors(obj.point, normal));
 
-        mesh.name = L_POINT;
+        mesh.name = _t('Point');
 
         app.editor.execute(new AddObjectCommand(mesh));
     }
@@ -225,7 +225,7 @@ class EditorToolbar extends React.Component {
             material.resolution.set(renderer.domElement.clientWidth, renderer.domElement.clientHeight);
 
             this.line = new THREE.Line2(geometry, material);
-            this.line.name = L_LINE;
+            this.line.name = _t('Line');
 
             app.editor.execute(new AddObjectCommand(this.line));
         } else {
@@ -295,7 +295,7 @@ class EditorToolbar extends React.Component {
 
             this.polygon = new THREE.Mesh(geometry, material);
 
-            this.polygon.name = L_POLYGON;
+            this.polygon.name = _t('Polygon');
             this.polygon.drawMode = THREE.TriangleStripDrawMode;
 
             app.editor.execute(new AddObjectCommand(this.polygon));
@@ -413,7 +413,7 @@ class EditorToolbar extends React.Component {
 
         var decal = new THREE.Mesh(new THREE.DecalGeometry(mesh, position, orientation, size), material);
 
-        decal.name = L_DECAL;
+        decal.name = _t('Decal');
 
         app.editor.execute(new AddObjectCommand(decal));
     }

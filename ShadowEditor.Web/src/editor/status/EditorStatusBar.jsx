@@ -26,17 +26,17 @@ class EditorStatusBar extends React.Component {
         const { objects, vertices, triangles, isThrowBall, isRecording } = this.state;
 
         return <Toolbar className={'EditorStatusBar'}>
-            <Label>{L_OBJECT_NUM}</Label>
+            <Label>{_t('Object')}</Label>
             <Label>{objects}</Label>
-            <Label>{L_VERTEX_NUM}</Label>
+            <Label>{_t('Vertex')}</Label>
             <Label>{vertices}</Label>
-            <Label>{L_TRIANGLE_NUM}</Label>
+            <Label>{_t('Triangle')}</Label>
             <Label>{triangles}</Label>
             <ToolbarSeparator></ToolbarSeparator>
-            <Label>{L_THROW_BALL}</Label>
+            <Label>{_t('ThrowBall')}</Label>
             <CheckBox checked={isThrowBall} onChange={this.handleEnableThrowBall}></CheckBox>
             <ToolbarSeparator></ToolbarSeparator>
-            <Button onClick={this.handleRecord}>{isRecording ? L_CANCEL : L_RECORD}</Button>
+            <Button onClick={this.handleRecord}>{isRecording ? _t('Cancel') : _t('Record')}</Button>
         </Toolbar>;
     }
 

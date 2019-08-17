@@ -28,8 +28,8 @@ class PointerLockControlComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_POINTER_LOCK_CONTROLS} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={L_IS_LOCKED} name={'isLocked'} value={isLocked} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Pointer Lock Controls')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <CheckBoxProperty label={_t('IsLocked')} name={'isLocked'} value={isLocked} onChange={this.handleChange}></CheckBoxProperty>
         </PropertyGroup>;
     }
 

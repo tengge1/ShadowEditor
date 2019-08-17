@@ -36,15 +36,15 @@ class CylinderGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={L_GEOMETRY_COMPONENT} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'radiusTop'} label={L_RADIUS_TOP} value={radiusTop} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'radiusBottom'} label={L_RADIUS_BOTTOM} value={radiusBottom} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'height'} label={L_HEIGHT} value={height} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'radialSegments'} label={L_RADIAL_SEGMENTS} value={radialSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty name={'heightSegments'} label={L_HEIGHT_SEGMENTS} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
-            <CheckBoxProperty name={'openEnded'} label={L_OPEN_ENDED} value={openEnded} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty name={'thetaStart'} label={L_THETA_START} value={thetaStart} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'thetaLength'} label={L_THETA_LENGTH} value={thetaLength} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+            <NumberProperty name={'radiusTop'} label={_t('RadiusTop')} value={radiusTop} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'radiusBottom'} label={_t('RadiusBottom')} value={radiusBottom} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'height'} label={_t('Height')} value={height} onChange={this.handleChange}></NumberProperty>
+            <IntegerProperty name={'radialSegments'} label={_t('RadialSegments')} value={radialSegments} onChange={this.handleChange}></IntegerProperty>
+            <IntegerProperty name={'heightSegments'} label={_t('HeightSegments')} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
+            <CheckBoxProperty name={'openEnded'} label={_t('OpenEnded')} value={openEnded} onChange={this.handleChange}></CheckBoxProperty>
+            <NumberProperty name={'thetaStart'} label={_t('ThetaStart')} value={thetaStart} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty name={'thetaLength'} label={_t('ThetaLength')} value={thetaLength} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 
