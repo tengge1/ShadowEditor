@@ -6,6 +6,14 @@
     flex-direction: column;
 }
 
+.Timeline>.controls>.IconButton {
+    border: none;
+    width: 24px;
+    height: 24px;
+    margin: 0 4px;
+    padding: 0;
+}
+
 .Timeline>.box {
     position: relative;
     display: flex;
@@ -59,7 +67,7 @@
 .Timeline>.box>.right>.layers {
     position: absolute;
     top: 32px;
-    width: 100%;
+    width: 3600px;
     flex: 1;
     border-top: 1px solid #ddd;
     box-sizing: border-box;

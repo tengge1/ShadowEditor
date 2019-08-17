@@ -13,6 +13,9 @@ class TimelinePanel extends React.Component {
         this.state = {
             animations: [],
         };
+
+        this.handleAppStarted = this.handleAppStarted.bind(this);
+        this.updateUI = this.updateUI.bind(this);
     }
 
     render() {
@@ -25,11 +28,11 @@ class TimelinePanel extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`appStarted.TimelinePanel`, this.onAppStarted.bind(this));
-        app.on(`animationChanged.TimelinePanel`, this.updateUI.bind(this));
+        app.on(`appStarted.TimelinePanel`, this.handleAppStarted);
+        app.on(`animationChanged.TimelinePanel`, this.updateUI);
     }
 
-    onAppStarted() {
+    handleAppStarted() {
         this.updateUI();
         // var timeline = UI.get('timeline', this.id);
         // var layers = UI.get('layers', this.id);

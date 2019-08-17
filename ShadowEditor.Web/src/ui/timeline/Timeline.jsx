@@ -1,10 +1,12 @@
 import './css/Timeline.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-
-import TimelineControl from './private/TimelineControl.jsx';
 import CheckBox from '../form/CheckBox.jsx';
 import Label from '../form/Label.jsx';
+import IconButton from '../form/IconButton.jsx';
+import Toolbar from '../toolbar/Toolbar.jsx';
+import ToolbarSeparator from '../toolbar/ToolbarSeparator.jsx';
+import ToolbarFiller from '../toolbar/ToolbarFiller.jsx';
 
 /**
  * 时间轴
@@ -14,20 +16,36 @@ class Timeline extends React.Component {
     constructor(props) {
         super(props);
 
-        this.canvas = React.createRef();
+        this.duration = 120; // 持续时长(秒)
         this.scale = 30; // 尺寸，1秒=30像素
+        this.time = 0; // 当前时间
+        this.speed = 16; // 当前速度
+
+        this.canvasRef = React.createRef();
+        this.layersRef = React.createRef();
+        this.sliderRef = React.createRef();
+
+        this.handleAddLayer = this.handleAddLayer.bind(this);
+        this.handleDeleteLayer = this.handleDeleteLayer.bind(this);
+        this.handleBackward = this.handleBackward.bind(this);
+        this.handlePlay = this.handlePlay.bind(this);
+        this.handlePause = this.handlePause.bind(this);
+        this.handleForward = this.handleForward.bind(this);
+        this.handleStop = this.handleStop.bind(this);
     }
 
     render() {
         const { className, style, animations, tip } = this.props;
 
-        const infos = animations.map(layer => {
+        // 动画组
+        const groups = animations.map(layer => {
             return <div className={'info'} key={layer.uuid}>
-                <CheckBox value={layer.uuid}></CheckBox>
+                <CheckBox name={layer.uuid} checked={false}></CheckBox>
                 <Label>{layer.layerName}</Label>
             </div>;
         });
 
+        // 每组的动画
         const layers = animations.map(layer => {
             return <div className={'layer'} droppable={'true'} key={layer.uuid}>
                 {layer.animations.map(animation => {
@@ -49,31 +67,45 @@ class Timeline extends React.Component {
         });
 
         return <div className={classNames('Timeline', className)} style={style}>
-            <TimelineControl tip={tip}></TimelineControl>
+            <Toolbar className={classNames('controls', className)} style={style}>
+                <IconButton icon={'add'} title={'Add Layer'} onClick={this.handleAddLayer}></IconButton>
+                <IconButton icon={'delete'} title={'Delete Layer'} onClick={this.handleDeleteLayer}></IconButton>
+                <ToolbarSeparator></ToolbarSeparator>
+                <IconButton icon={'backward'} title={'Slower'} onClick={this.handleBackward}></IconButton>
+                <IconButton icon={'play'} title={'Play'} onClick={this.handlePlay}></IconButton>
+                <IconButton icon={'pause'} title={'Pause'} onClick={this.handlePause}></IconButton>
+                <IconButton icon={'forward'} title={'Faster'} onClick={this.handleForward}></IconButton>
+                <IconButton icon={'stop'} title={'Stop'} onClick={this.handleStop}></IconButton>
+                <ToolbarSeparator></ToolbarSeparator>
+                <Label className={'time'}>{this.parseTime(this.time)}</Label>
+                <Label className={'speed'}>{this.parseSpeed(this.speed)}</Label>
+                <ToolbarFiller></ToolbarFiller>
+                <Label>{tip}</Label>
+            </Toolbar>
             <div className="box">
                 <div className="left">
-                    {infos}
+                    {groups}
                 </div>
                 <div className="right">
-                    <canvas className={'timeline'} ref={this.canvas}></canvas>
-                    <div className="layers" style={{ width: '3600px' }}>
+                    <canvas className={'timeline'} ref={this.canvasRef}></canvas>
+                    <div className="layers" ref={this.layersRef}>
                         {layers}
                     </div>
-                    <div className="slider"></div>
+                    <div className="slider" ref={this.sliderRef}></div>
                 </div>
             </div>
         </div>;
     }
 
     componentDidMount() {
-        var duration = 120; // 持续时长(秒)
+        const duration = 120; // 持续时长(秒)
         var scale = this.scale;
 
         var width = duration * scale; // 画布宽度
         var scale5 = scale / 5; // 0.2秒像素数
         var margin = 0; // 时间轴前后间距
 
-        var canvas = this.canvas.current;
+        var canvas = this.canvasRef.current;
         canvas.style.width = (width + margin * 2) + 'px';
         canvas.width = canvas.clientWidth;
         canvas.height = 32;
@@ -122,10 +154,46 @@ class Timeline extends React.Component {
 
             context.fillText(text, margin + i * scale, 16);
         }
+
+
     }
 
-    componentWillUnmount() {
+    handleAddLayer(event) {
 
+    }
+
+    handleDeleteLayer() {
+
+    }
+
+    handleBackward(event) {
+
+    }
+
+    handlePlay(event) {
+
+    }
+
+    handlePause(event) {
+
+    }
+
+    handleForward(event) {
+
+    }
+
+    handleStop(event) {
+
+    }
+
+    parseTime(time) {
+        let minute = `0${parseInt(time / 60)}`;
+        let second = `0${parseInt(time % 60)}`;
+        return `${minute.substr(minute.length - 2, 2)}:${second.substr(second.length - 2, 2)}`;
+    }
+
+    parseSpeed(speed) {
+        return speed;
     }
 }
 
