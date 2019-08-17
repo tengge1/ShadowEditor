@@ -34,7 +34,7 @@ class Timeline extends React.Component {
         this.handleStop = this.handleStop.bind(this);
 
         this.handleClick = this.handleClick.bind(this);
-        this.handleDblClick = this.handleDblClick.bind(this);
+        this.handleDoubleClick = this.handleDoubleClick.bind(this);
     }
 
     render() {
@@ -50,7 +50,7 @@ class Timeline extends React.Component {
 
         // 每组的动画
         const layers = animations.map(layer => {
-            return <div className={'layer'} droppable={'true'} onClick={this.handleClick} onDblClick={this.handleDblClick} key={layer.uuid}>
+            return <div className={'layer'} droppable={'true'} onClick={this.handleClick} onDoubleClick={this.handleDoubleClick} key={layer.uuid}>
                 {layer.animations.map(animation => {
                     const style = {
                         left: animation.beginTime * this.scale + 'px',
@@ -191,7 +191,7 @@ class Timeline extends React.Component {
 
     }
 
-    handleDblClick(event) {
+    handleDoubleClick(event) {
 
     }
 
