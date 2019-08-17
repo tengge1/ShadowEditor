@@ -8,6 +8,7 @@ Object.assign(window, {
     L_REMOVE_SCRIPT: 'Remove Script',
     L_SET: 'Set',
     L_SET_GEOMETRY: 'Set Geometry',
+    L_SET_GEOMETRY_DOT: 'Set Geometry.',
     L_SET_MATERIAL: 'Set Material',
     L_NEW_MATERIAL: 'New Material',
     L_SET_POSITION: 'Set Position',
