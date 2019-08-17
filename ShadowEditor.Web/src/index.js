@@ -8,7 +8,8 @@ export { default as Player } from './player/Player';
 export { default as classNames } from 'classnames/bind';
 export { default as PropTypes } from 'prop-types';
 
-// gis
+// utils
+export { default as LanguageLoader } from './utils/LanguageLoader';
 export { default as GeoUtils } from './gis/utils/GeoUtils';
 
 export { default as Application } from './Application';

@@ -12,6 +12,7 @@ import PackageManager from './package/PackageManager';
 import EventDispatcher from './event/EventDispatcher';
 import Editor from './editor/Editor.jsx';
 import Ajax from './utils/Ajax';
+import LanguageLoader from './utils/LanguageLoader';
 
 /**
  * 应用程序
@@ -41,43 +42,11 @@ function Application(container, options) {
     this.call = this.event.call.bind(this.event);
     this.on = this.event.on.bind(this.event);
 
-    // 语言包
-    window._t = i18next.t.bind(i18next);
+    // 加载语言包
+    if (!window._t) {
+        const loader = new LanguageLoader();
 
-    let lang = window.localStorage.getItem('lang');
-
-    if (!lang) {
-        let language = window.navigator.language.toLocaleLowerCase();
-
-        if (language === 'zh-cn') {
-            lang = 'zh-CN';
-        } else {
-            lang = 'en-US';
-        }
-    }
-
-    i18next.use(Backend)
-        .init({
-            lng: lang,
-            debug: false,
-
-            whitelist: ['en-US', 'zh-CN'],
-
-            backend: {
-                // for all available options read the backend's repository readme file
-                loadPath: 'locales/{{lng}}.json'
-            },
-
-            // allow keys to be phrases having `:`, `.`
-            nsSeparator: false,
-            keySeparator: false,
-
-            // do not load a fallback
-            fallbackLng: false,
-        }, (err, t) => {
-            // initialized and ready to go!
-            // alert(i18next.t('key'));
-            // UI
+        loader.load().then(() => {
             this.ui = React.createElement(Editor);
 
             // TODO: 由于ammo.js升级，导致很多类库不兼容，所以只能这么写。
@@ -87,6 +56,7 @@ function Application(container, options) {
                 ReactDOM.render(this.ui, this.container);
             });
         });
+    }
 }
 
 // ----------------------- UI函数 ---------------------------------

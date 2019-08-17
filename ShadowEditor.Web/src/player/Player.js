@@ -78,6 +78,13 @@ function Player(container = document.body, options = {}) {
 
     this.isPlaying = false;
     this.clock = new THREE.Clock(false);
+
+    // 保证播放器在不加载语言包的情况下正常运行
+    if (!window._t) {
+        window._t = function (data) {
+            return data;
+        };
+    }
 };
 
 /**
