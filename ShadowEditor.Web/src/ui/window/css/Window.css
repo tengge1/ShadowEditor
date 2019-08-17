@@ -87,7 +87,7 @@
     right: 0;
     bottom: 0;
     background: rgb(218, 236, 244);
-    text-align: center;
+    text-align: right;
     white-space: nowrap;
     overflow: hidden;
 }

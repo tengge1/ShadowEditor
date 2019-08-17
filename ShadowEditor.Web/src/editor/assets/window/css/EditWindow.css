@@ -1,0 +1,6 @@
+.EditWindow>.wrap>.content>.Form>.FormControl>.Button {
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    margin: 0 8px;
+}

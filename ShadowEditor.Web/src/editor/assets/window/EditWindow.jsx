@@ -1,3 +1,4 @@
+import './css/EditWindow.css';
 import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button } from '../../../third_party';
 import Ajax from '../../../utils/Ajax';
 
@@ -31,6 +32,7 @@ class EditWindow extends React.Component {
         const { name, categories, categoryID, thumbnail } = this.state;
 
         return <Window
+            className={'EditWindow'}
             title={`编辑${typeName}`}
             style={{ width: '320px', height: '300px', }}
             mask={true}
@@ -44,6 +46,7 @@ class EditWindow extends React.Component {
                     <FormControl>
                         <Label>{L_TYPE}</Label>
                         <Select name={'select'} options={categories} value={categoryID} onChange={this.handleCategoryChange}></Select>
+                        <Button>{L_EDIT}</Button>
                     </FormControl>
                     <FormControl>
                         <Label>{L_THUMBNAIL}</Label>
