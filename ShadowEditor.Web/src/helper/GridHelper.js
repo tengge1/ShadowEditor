@@ -32,6 +32,14 @@ GridHelper.prototype.update = function () {
 
     if (!this.helper) {
         this.helper = new THREE.GridHelper(30, 30, 0x444444, 0x888888);
+
+        var array = this.helper.geometry.attributes.color.array;
+
+        for (let i = 0; i < array.length; i += 60) {
+            for (let j = 0; j < 12; j++) {
+                array[i + j] = 0.26;
+            }
+        }
     }
 
     var scene = app.editor.sceneHelpers;
