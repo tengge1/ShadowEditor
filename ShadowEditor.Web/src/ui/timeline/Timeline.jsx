@@ -32,6 +32,9 @@ class Timeline extends React.Component {
         this.handlePause = this.handlePause.bind(this);
         this.handleForward = this.handleForward.bind(this);
         this.handleStop = this.handleStop.bind(this);
+
+        this.handleClick = this.handleClick.bind(this);
+        this.handleDblClick = this.handleDblClick.bind(this);
     }
 
     render() {
@@ -47,7 +50,7 @@ class Timeline extends React.Component {
 
         // 每组的动画
         const layers = animations.map(layer => {
-            return <div className={'layer'} droppable={'true'} key={layer.uuid}>
+            return <div className={'layer'} droppable={'true'} onClick={this.handleClick} onDblClick={this.handleDblClick} key={layer.uuid}>
                 {layer.animations.map(animation => {
                     const style = {
                         left: animation.beginTime * this.scale + 'px',
@@ -98,19 +101,19 @@ class Timeline extends React.Component {
     }
 
     componentDidMount() {
-        const duration = 120; // 持续时长(秒)
-        var scale = this.scale;
+        const { duration, scale } = this;
 
-        var width = duration * scale; // 画布宽度
-        var scale5 = scale / 5; // 0.2秒像素数
-        var margin = 0; // 时间轴前后间距
+        const width = duration * scale; // 画布宽度
+        const scale5 = scale / 5; // 0.2秒像素数
+        const margin = 0; // 时间轴前后间距
 
-        var canvas = this.canvasRef.current;
+        const canvas = this.canvasRef.current;
+
         canvas.style.width = (width + margin * 2) + 'px';
         canvas.width = canvas.clientWidth;
         canvas.height = 32;
 
-        var context = canvas.getContext('2d');
+        const context = canvas.getContext('2d');
 
         // 时间轴背景
         context.fillStyle = '#fafafa';
@@ -120,8 +123,8 @@ class Timeline extends React.Component {
         context.strokeStyle = '#555';
         context.beginPath();
 
-        for (var i = margin; i <= width + margin; i += scale) { // 绘制每一秒
-            for (var j = 0; j < 5; j++) { // 绘制每个小格
+        for (let i = margin; i <= width + margin; i += scale) { // 绘制每一秒
+            for (let j = 0; j < 5; j++) { // 绘制每个小格
                 if (j === 0) { // 长刻度
                     context.moveTo(i + scale5 * j, 22);
                     context.lineTo(i + scale5 * j, 30);
@@ -138,11 +141,11 @@ class Timeline extends React.Component {
         context.font = '12px Arial';
         context.fillStyle = '#888'
 
-        for (var i = 0; i <= duration; i += 2) { // 对于每两秒
-            var minute = Math.floor(i / 60);
-            var second = Math.floor(i % 60);
+        for (let i = 0; i <= duration; i += 2) { // 对于每两秒
+            let minute = Math.floor(i / 60);
+            let second = Math.floor(i % 60);
 
-            var text = (minute > 0 ? minute + ':' : '') + ('0' + second).slice(-2);
+            let text = (minute > 0 ? minute + ':' : '') + ('0' + second).slice(-2);
 
             if (i === 0) {
                 context.textAlign = 'left';
@@ -154,15 +157,13 @@ class Timeline extends React.Component {
 
             context.fillText(text, margin + i * scale, 16);
         }
-
-
     }
 
     handleAddLayer(event) {
 
     }
 
-    handleDeleteLayer() {
+    handleDeleteLayer(event) {
 
     }
 
@@ -183,6 +184,14 @@ class Timeline extends React.Component {
     }
 
     handleStop(event) {
+
+    }
+
+    handleClick(event) {
+
+    }
+
+    handleDblClick(event) {
 
     }
 
