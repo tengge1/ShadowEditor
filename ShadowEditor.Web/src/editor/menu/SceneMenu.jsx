@@ -27,7 +27,7 @@ class SceneMenu extends React.Component {
             <MenuItem title={L_SAVE} onClick={this.handleSaveScene}></MenuItem>
             <MenuItem title={L_SAVE_AS} onClick={this.handleSaveAsScene}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={L_EXPORT_SCENE} onClick={this.handleExportScene}></MenuItem>
+            <MenuItem title={L_PUBLISH_SCENE} onClick={this.handleExportScene}></MenuItem>
         </MenuItem>;
     }
 

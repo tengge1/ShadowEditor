@@ -648,4 +648,5 @@ Object.assign(window, {
     L_FRONT_VIEW: 'Front View',
     L_SIDE_VIEW: 'Side View',
     L_TOP_VIEW: 'Top View',
+    L_PUBLISH_SCENE: 'Publish Scene',
 });

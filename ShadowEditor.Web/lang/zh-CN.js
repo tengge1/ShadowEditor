@@ -650,3 +650,4 @@ L_PERSPECTIVE_VIEW = '透视图';
 L_FRONT_VIEW = '正视图';
 L_SIDE_VIEW = '侧视图';
 L_TOP_VIEW = '顶视图';
+L_PUBLISH_SCENE = '发布场景';
