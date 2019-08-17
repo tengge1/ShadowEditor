@@ -193,6 +193,8 @@ Converter.prototype.sceneToJson = function (scene, list) {
             json = (new AudioSerializer()).toJSON(obj);
         } else if (obj instanceof THREE.Bone) {
             json = (new BoneSerializer()).toJSON(obj);
+        } else if (obj instanceof THREE.Object3D) {
+            json = (new Object3DSerializer()).toJSON(obj);
         }
 
         if (json) {
@@ -416,12 +418,15 @@ Converter.prototype.sceneFromJson = function (jsons, options) {
                 case 'ServerObject':
                     obj = (new Object3DSerializer()).fromJSON(objJson, undefined);
                     break;
+                case 'Object3DSerializer':
+                    obj = (new Object3DSerializer()).fromJSON(objJson, undefined);
+                    break;
                 case 'GlobeSerializer':
                     return;
             }
 
             if (!obj) {
-                console.warn(`Converter: No Deserializer with ${objJson.metadata.type}.`);
+                console.warn(`Converter: No Deserializer with ${objJson.metadata.generator}.`);
                 return;
             }
 
