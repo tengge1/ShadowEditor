@@ -1,4 +1,6 @@
 import {
+    i18next,
+    Backend,
     Toast,
     Alert,
     Confirm,
@@ -39,15 +41,38 @@ function Application(container, options) {
     this.call = this.event.call.bind(this.event);
     this.on = this.event.on.bind(this.event);
 
-    // UI
-    this.ui = React.createElement(Editor);
+    // 语言包
+    i18next.use(Backend)
+        .init({
+            lng: 'en-US',
+            debug: true,
 
-    // TODO: 由于ammo.js升级，导致很多类库不兼容，所以只能这么写。
-    Ammo().then(AmmoLib => {
-        window.Ammo = AmmoLib;
-        this.event.start();
-        ReactDOM.render(this.ui, this.container);
-    });
+            whitelist: ['en-US', 'zh-CN'],
+
+            backend: {
+                // for all available options read the backend's repository readme file
+                loadPath: 'locales/{{lng}}.json'
+            },
+
+            // allow keys to be phrases having `:`, `.`
+            nsSeparator: false,
+            keySeparator: false,
+
+            // do not load a fallback
+            fallbackLng: false,
+        }, (err, t) => {
+            // initialized and ready to go!
+            // alert(i18next.t('key'));
+            // UI
+            this.ui = React.createElement(Editor);
+
+            // TODO: 由于ammo.js升级，导致很多类库不兼容，所以只能这么写。
+            Ammo().then(AmmoLib => {
+                window.Ammo = AmmoLib;
+                this.event.start();
+                ReactDOM.render(this.ui, this.container);
+            });
+        });
 }
 
 // ----------------------- UI函数 ---------------------------------

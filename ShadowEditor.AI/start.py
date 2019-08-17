@@ -1,4 +1,5 @@
 import json
+import os
 
 # 读取英文语言文件
 file = open(
@@ -45,6 +46,34 @@ lang = {}
 for key in en:
     lang[en[key]] = cn[key]
 
-file = open('E:\github\ShadowEditor\ShadowEditor.Web\locales\zh-CN.json',
-            'w', encoding='utf-8')
-file.write(json.dumps(lang, ensure_ascii=False))
+# file = open('E:\github\ShadowEditor\ShadowEditor.Web\locales\zh-CN.json',
+#             'w', encoding='utf-8')
+# file.write(json.dumps(lang, ensure_ascii=False))
+
+# 转换源码
+list = os.walk('E:\github\ShadowEditor\ShadowEditor.Web\src')
+
+
+def translateFile(path):
+    file = open(path, encoding='utf-8')
+    data = file.read()
+    file.close()
+
+    for key in en:
+        data = data.replace(key, "_t('" + en[key] + "')")
+
+    file = open(path, 'w', encoding='utf-8')
+    file.write(data)
+    file.close()
+
+    print(path)
+
+
+num = 0
+
+for root, dirs, files in list:
+    for name in files:
+        num += 1
+        translateFile(os.path.join(root, name))
+
+print('Done!')
