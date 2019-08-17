@@ -1,6 +1,23 @@
+import i18next from 'i18next';
+
 export { default as classNames } from 'classnames/bind';
 export { default as PropTypes } from 'prop-types';
 export * from './ui/index';
+
+i18next.init({
+    lng: 'en',
+    debug: true,
+    resources: {
+        en: {
+            translation: {
+                "key": "hello world"
+            }
+        }
+    }
+}, function (err, t) {
+    // initialized and ready to go!
+    // alert(i18next.t('key'));
+});
 
 // TODO: three.js bug THREE.js linearRampToValueAtTime cost too much CPU.
 THREE.AudioListener.prototype.updateMatrixWorld = (function () {
