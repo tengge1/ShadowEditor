@@ -78,22 +78,22 @@ OrthographicCameraControls.prototype.onMouseUp = function (event) {
 };
 
 OrthographicCameraControls.prototype.onMouseWheel = function (event) {
-    const delta = event.wheelDelta / 1000;
+    const delta = -event.wheelDelta / 1000;
 
     let camera = this.camera;
 
     let width = this.domElement.clientWidth;
     let height = this.domElement.clientHeight;
 
-    let pointerX = this.camera.left + (this.camera.right - this.camera.left) * event.offsetX / width;
-    let pointerY = this.camera.top - (this.camera.top - this.camera.bottom) * event.offsetY / height;
+    let pointerX = camera.left + (camera.right - camera.left) * event.offsetX / width;
+    let pointerY = camera.top - (camera.top - camera.bottom) * event.offsetY / height;
 
-    this.camera.left = this.camera.left - Math.abs(pointerX - this.camera.left) * delta;
-    this.camera.right = this.camera.right + Math.abs(this.camera.right - pointerX) * delta;
-    this.camera.top = this.camera.top + Math.abs(this.camera.top - pointerY) * delta;
-    this.camera.bottom = this.camera.bottom - Math.abs(pointerY - this.camera.bottom) * delta;
+    camera.left = camera.left - Math.abs(pointerX - camera.left) * delta;
+    camera.right = camera.right + Math.abs(camera.right - pointerX) * delta;
+    camera.top = camera.top + Math.abs(camera.top - pointerY) * delta;
+    camera.bottom = camera.bottom - Math.abs(pointerY - camera.bottom) * delta;
 
-    this.camera.updateProjectionMatrix();
+    camera.updateProjectionMatrix();
 };
 
 export default OrthographicCameraControls;

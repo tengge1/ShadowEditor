@@ -21,19 +21,42 @@ ResizeEvent.prototype.stop = function () {
 };
 
 ResizeEvent.prototype.onResize = function () {
-    var editor = app.editor;
-    var viewport = app.viewport;
-    var camera = editor.camera;
-    var renderer = editor.renderer;
+    let { editor, viewport } = app;
+    let { DEFAULT_CAMERA, camera, orthCamera, renderer } = editor;
 
-    var width = viewport.clientWidth;
-    var height = viewport.clientHeight;
+    const width = viewport.clientWidth;
+    const height = viewport.clientHeight;
 
-    editor.DEFAULT_CAMERA.aspect = width / height;
-    editor.DEFAULT_CAMERA.updateProjectionMatrix();
+    if (this.width === undefined || this.height === undefined) {
+        this.width = width;
+        this.height = height;
+    }
+
+    DEFAULT_CAMERA.aspect = width / height;
+    DEFAULT_CAMERA.updateProjectionMatrix();
 
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+
+    if (width !== this.width) {
+        let dwidth = (orthCamera.right - orthCamera.left) * (width / this.width - 1);
+
+        orthCamera.left -= dwidth / 2;
+        orthCamera.right += dwidth / 2;
+
+        this.width = width;
+    }
+
+    if (height !== this.height) {
+        let dheight = (orthCamera.top - orthCamera.bottom) * (height / this.height - 1);
+
+        orthCamera.top += dheight / 2;
+        orthCamera.bottom -= dheight / 2;
+
+        this.height = height;
+    }
+
+    orthCamera.updateProjectionMatrix();
 
     renderer.setSize(width, height);
 };

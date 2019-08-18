@@ -43,6 +43,8 @@ ViewEvent.prototype.changeView = function (view) {
 
     let camera = app.editor.orthCamera;
 
+    // TODO: 根据场景大小确定初始位置
+
     switch (view) {
         case 'front':
             camera.position.set(100, 0, 0);
