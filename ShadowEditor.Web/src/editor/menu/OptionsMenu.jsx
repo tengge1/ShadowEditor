@@ -32,6 +32,7 @@ class OptionsMenu extends React.Component {
             <MenuItem title={_t('Language')}>
                 <MenuItem title={'English'} onClick={this.handleChangeEnglish}></MenuItem>
                 <MenuItem title={'简体中文'} onClick={this.handleChangeChinese}></MenuItem>
+                <MenuItem title={'繁體中文'} onClick={this.handleChangeTraditionalChinese}></MenuItem>
             </MenuItem>
         </MenuItem>;
     }
@@ -65,13 +66,18 @@ class OptionsMenu extends React.Component {
 
     // ---------------------------- 语言选项 -------------------------------------------------
 
-    handleChangeEnglish() {
+    handleChangeEnglish() { // 英语
         window.localStorage.setItem('lang', 'en-US');
         window.location.reload();
     }
 
-    handleChangeChinese() {
+    handleChangeChinese() { // 简体中文
         window.localStorage.setItem('lang', 'zh-CN');
+        window.location.reload();
+    }
+
+    handleChangeTraditionalChinese() { // 繁体中文
+        window.localStorage.setItem('lang', 'zh-TW');
         window.location.reload();
     }
 }

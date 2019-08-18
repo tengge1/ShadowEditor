@@ -49,21 +49,21 @@ class Py4Js():
 
 
 def buildUrl(text, tk):
-  return 'https://translate.google.cn/translate_a/single?client=webapp&sl=zh-CN&tl=zh-TW&hl=zh-CN&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&otf=1&ssel=0&tsel=0&kc=1&tk=' + tk + '&q=' + text
+  return 'https://translate.google.cn/translate_a/single?client=webapp&sl=zh-CN&tl=zh-TW&hl=zh-CN&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&otf=1&ssel=0&tsel=0&kc=1&tk=' + tk + '&q=' + text  # 中文翻译繁体中文
 
 
 def translate(text):
   header = {
-    'authority': 'translate.google.cn',
-    'method': 'GET',
-    'path': '',
-    'scheme': 'https',
-    'accept': '*/*',
-    'accept-encoding': 'gzip, deflate, br',
-    'accept-language': 'zh-CN,zh;q=0.9',
-    'cookie': '',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64)  AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36',
-'x-client-data': 'CIa2yQEIpbbJAQjBtskBCPqcygEIqZ3KAQioo8oBGJGjygE='
+      'authority': 'translate.google.cn',
+      'method': 'GET',
+      'path': '',
+      'scheme': 'https',
+      'accept': '*/*',
+      'accept-encoding': 'gzip, deflate, br',
+      'accept-language': 'zh-CN,zh;q=0.9',
+      'cookie': '',
+      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64)  AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36',
+      'x-client-data': 'CIa2yQEIpbbJAQjBtskBCPqcygEIqZ3KAQioo8oBGJGjygE='
   }
   url = buildUrl(text, js.getTk(text))
   res = ''
@@ -72,7 +72,7 @@ def translate(text):
       print(r)
       result = json.loads(r.text)
       if result[7] != None:
-      # 如果我们文本输错，提示你是不是要找xxx的话，那么重新把xxx正确的翻译之后返回
+        # 如果我们文本输错，提示你是不是要找xxx的话，那么重新把xxx正确的翻译之后返回
           try:
               correctText = result[7][0].replace(
                   '<b><i>', ' ').replace('</i></b>', '')
@@ -85,9 +85,9 @@ def translate(text):
               print(e)
               res = result[0][0][0]
       else:
-          res=result[0][0][0]
+          res = result[0][0][0]
   except Exception as e:
-      res=''
+      res = ''
       print(url)
       print("翻译"+text+"失败")
       print("错误信息:")
@@ -95,7 +95,28 @@ def translate(text):
   finally:
       return res
 
-if __name__ == '__main__':
-  js=Py4Js()
-  res=translate('日语')
-  print(res)
+
+js = Py4Js()
+
+# 将一种语言翻译成另外一种语言
+file = open(
+    'E:\github\ShadowEditor\ShadowEditor.Web\locales\zh-CN.json', encoding='utf-8')
+data = file.read()
+file.close()
+
+list = json.loads(data)
+#print(list)
+
+list2 = {}
+
+for key in list:
+  value = translate(list[key])
+  list2[key] = value
+  print(key + '=' + value)
+
+file = open('E:\github\ShadowEditor\ShadowEditor.Web\locales\zh-TW.json', 'w', encoding = 'utf-8')
+file.write(json.dumps(list2, ensure_ascii=False))
+file.close()
+
+#res = translate('日语')
+#print(res)

@@ -2,6 +2,8 @@ import json
 import os
 import re
 
+## 将旧语言包升级为i18next，该文件已经没用。
+
 # 读取英文语言文件
 file = open(
     'E:\github\ShadowEditor\ShadowEditor.Web\src\language\Language.js', encoding='utf-8')
