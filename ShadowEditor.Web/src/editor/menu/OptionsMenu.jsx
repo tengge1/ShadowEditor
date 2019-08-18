@@ -34,6 +34,7 @@ class OptionsMenu extends React.Component {
                 <MenuItem title={'简体中文'} onClick={this.handleChangeChinese}></MenuItem>
                 <MenuItem title={'繁體中文'} onClick={this.handleChangeTraditionalChinese}></MenuItem>
                 <MenuItem title={'日本語'} onClick={this.handleChangeJapanese}></MenuItem>
+                <MenuItem title={'한국어'} onClick={this.handleChangeKorean}></MenuItem>
             </MenuItem>
         </MenuItem>;
     }
@@ -84,6 +85,11 @@ class OptionsMenu extends React.Component {
 
     handleChangeJapanese() { // 日语
         window.localStorage.setItem('lang', 'ja-JP');
+        window.location.reload();
+    }
+
+    handleChangeKorean() {
+        window.localStorage.setItem('lang', 'ko-KR');
         window.location.reload();
     }
 }

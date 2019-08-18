@@ -24,6 +24,7 @@
         "build": "rollup -c ShadowEditor.Web/rollup.config.js",
         "dev": "rollup -c ShadowEditor.Web/rollup.config.js --watch",
         "ai": "python ShadowEditor.AI/start.py",
+        "translate": "python ShadowEditor.AI/translate.py",
         "build-docs": "gitbook build docs-dev",
         "test": "rollup -c ShadowEditor.Web/test/unit/rollup.config.js",
         "clear": "npm prune"

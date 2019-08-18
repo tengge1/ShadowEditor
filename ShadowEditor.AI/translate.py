@@ -3,6 +3,8 @@ import json
 from bs4 import BeautifulSoup
 import execjs  # 必须，需要先用pip 安装，用来执行js脚本
 
+# Python调用谷歌翻译制作语言包
+# 作者：https://www.jianshu.com/p/95cf6e73d6ee
 
 class Py4Js():
   def __init__(self):
@@ -50,7 +52,8 @@ class Py4Js():
 
 def buildUrl(text, tk):
   #return 'https://translate.google.cn/translate_a/single?client=webapp&sl=zh-CN&tl=zh-TW&hl=zh-CN&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&otf=1&ssel=0&tsel=0&kc=1&tk=' + tk + '&q=' + text  # 中文翻译繁体中文
-  return 'https://translate.google.cn/translate_a/single?client=webapp&sl=zh-CN&tl=ja&hl=zh-CN&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&source=bh&ssel=0&tsel=0&kc=1&tk=' + tk + '&q=' + text # 中文翻译日语
+  #return 'https://translate.google.cn/translate_a/single?client=webapp&sl=zh-CN&tl=ja&hl=zh-CN&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&source=bh&ssel=0&tsel=0&kc=1&tk=' + tk + '&q=' + text # 中文翻译日语
+  return 'https://translate.google.cn/translate_a/single?client=webapp&sl=zh-CN&tl=ko&hl=zh-CN&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ssel=0&tsel=4&kc=0&tk=' + tk + '&q=' + text
 
 
 def translate(text):
@@ -113,9 +116,9 @@ list2 = {}
 for key in list:
   value = translate(list[key])
   list2[key] = value
-  print(key + '=' + value)
+  print(key)
 
-file = open('E:\github\ShadowEditor\ShadowEditor.Web\locales\ja-JP.json', 'w', encoding = 'utf-8')
+file = open('E:\github\ShadowEditor\ShadowEditor.Web\locales\ko-KR.json', 'w', encoding = 'utf-8')
 file.write(json.dumps(list2, ensure_ascii=False))
 file.close()
 
