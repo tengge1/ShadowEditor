@@ -43,19 +43,24 @@ ViewEvent.prototype.changeView = function (view) {
 
     let camera = app.editor.orthCamera;
 
-    // TODO: 根据场景大小确定初始位置
+    // 使用透视相机离原点最远距离设置正交相机
+    let distance = Math.max(
+        app.editor.camera.position.x,
+        app.editor.camera.position.y,
+        app.editor.camera.position.z
+    );
 
     switch (view) {
         case 'front':
-            camera.position.set(100, 0, 0);
+            camera.position.set(distance, 0, 0);
             camera.lookAt(new THREE.Vector3());
             break;
         case 'side':
-            camera.position.set(0, 0, 100);
+            camera.position.set(0, 0, distance);
             camera.lookAt(new THREE.Vector3());
             break;
         case 'top':
-            camera.position.set(0, 100, 0);
+            camera.position.set(0, distance, 0);
             camera.lookAt(new THREE.Vector3());
             break;
     }
