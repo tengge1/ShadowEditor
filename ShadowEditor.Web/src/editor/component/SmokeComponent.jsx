@@ -35,8 +35,8 @@ class SmokeComponent extends React.Component {
         }
 
         return <PropertyGroup title={_t('SmokeComponent')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={'尺寸'} name={'size'} value={size} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'时长'} name={'lifetime'} value={lifetime} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('Size')} name={'size'} value={size} onChange={this.handleChange}></NumberProperty>
+            <NumberProperty label={_t('TimeSpan')} name={'lifetime'} value={lifetime} onChange={this.handleChange}></NumberProperty>
             <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
         </PropertyGroup>;
     }

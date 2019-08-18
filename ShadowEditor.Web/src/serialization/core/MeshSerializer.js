@@ -35,11 +35,11 @@ MeshSerializer.prototype.fromJSON = function (json, parent, server) {
 
     // 其他模型
     if (json.geometry == null) {
-        console.warn(`MeshSerializer: ${json.name} json.geometry未定义。`);
+        console.warn(`MeshSerializer: ${json.name} json.geometry is not defined.`);
         return null;
     }
     if (json.material == null) {
-        console.warn(`MeshSerializer: ${json.name} json.material未定义。`);
+        console.warn(`MeshSerializer: ${json.name} json.material is not defined.`);
         return null;
     }
 

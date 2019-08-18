@@ -136,7 +136,7 @@ class ComponentMenu extends React.Component {
     handleAddPerlinTerrain() {
         let terrain = new PerlinTerrain();
 
-        terrain.name = '柏林地形';
+        terrain.name = _t('Perlin Terrain');
 
         app.editor.execute(new AddObjectCommand(terrain));
     }
@@ -146,7 +146,7 @@ class ComponentMenu extends React.Component {
     handleAddShaderTerrain() {
         app.require('NormalMapShader').then(() => {
             let terrain = new ShaderTerrain(app.editor.renderer);
-            terrain.name = '着色器地形';
+            terrain.name = _t('Shader Terrain');
             app.editor.execute(new AddObjectCommand(terrain));
             terrain.update(0);
         });

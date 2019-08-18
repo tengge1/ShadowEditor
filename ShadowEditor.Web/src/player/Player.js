@@ -93,7 +93,7 @@ function Player(container = document.body, options = {}) {
  */
 Player.prototype.start = function (sceneData) {
     if (typeof (sceneData) !== 'string') {
-        app.toast('需要字符串类型的场景数据参数！');
+        app.toast(_t('Scene data of string type is needed.'));
         return;
     }
 
@@ -102,7 +102,7 @@ Player.prototype.start = function (sceneData) {
     try {
         jsons = JSON.parse(sceneData)
     } catch (e) {
-        app.toast('无法解析json类型的场景数据！');
+        app.toast(_t('Cannot deserialize scene data.'));
         return;
     }
 
@@ -180,7 +180,7 @@ Player.prototype.initPlayer = function (obj) {
     this.camera = obj.camera;
 
     if (!this.camera) {
-        console.warn(`Player: 场景中不存在相机信息`);
+        console.warn(`Player: Three is no camera in the scene.`);
         this.camera = new THREE.PerspectiveCamera(
             50,
             container.clientWidth / container.clientHeight,

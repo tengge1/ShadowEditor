@@ -43,7 +43,7 @@ class SsaaComponent extends React.Component {
 
         return <PropertyGroup title={_t('SSAA')} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={'等级'} options={this.sampleLevel} name={'sampleLevel'} value={sampleLevel} onChange={this.handleChange}></SelectProperty>
+            <SelectProperty label={_t('Level')} options={this.sampleLevel} name={'sampleLevel'} value={sampleLevel} onChange={this.handleChange}></SelectProperty>
             <CheckBoxProperty label={_t('Unbiased')} name={'unbiased'} value={unbiased} onChange={this.handleChange}></CheckBoxProperty>
         </PropertyGroup>;
     }

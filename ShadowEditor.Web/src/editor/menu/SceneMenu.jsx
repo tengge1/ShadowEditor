@@ -198,13 +198,13 @@ class SceneMenu extends React.Component {
         var sceneID = app.editor.sceneID;
 
         if (!sceneID) {
-            app.toast('请先打开场景！');
+            app.toast(_t('Please open scene first.'));
             return;
         }
 
         app.confirm({
-            title: '询问',
-            content: '是否导出当前场景？',
+            title: _t('Query'),
+            content: _t('Are you sure to export the current scene?'),
             onOK: () => {
                 app.mask(_t('Exporting...'));
 

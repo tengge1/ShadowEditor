@@ -33,7 +33,7 @@ class EditWindow extends React.Component {
 
         return <Window
             className={'EditWindow'}
-            title={`编辑${typeName}`}
+            title={`${_t('Edit')} ${typeName}`}
             style={{ width: '320px', height: '300px', }}
             mask={true}
             onClose={this.handleClose}>

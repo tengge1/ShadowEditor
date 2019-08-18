@@ -11,9 +11,9 @@ class CatmullRomCurveComponent extends React.Component {
         this.selected = null;
 
         this.curveType = {
-            centripetal: '向心力',
-            chordal: '弦线',
-            catmullrom: 'catmullrom',
+            centripetal: _t('Centripetal Force'),
+            chordal: _t('Chord'),
+            catmullrom: _t('Catmullrom'),
         };
 
         this.state = {
@@ -40,12 +40,12 @@ class CatmullRomCurveComponent extends React.Component {
 
         return <PropertyGroup title={_t('CatmullRom Curve')} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <ButtonsProperty>
-                <Button onClick={this.handleAddPoint}>{'添加点'}</Button>
-                <Button onClick={this.handleRemovePoint}>{'移除点'}</Button>
+                <Button onClick={this.handleAddPoint}>{_t('Add Point')}</Button>
+                <Button onClick={this.handleRemovePoint}>{_t('Remove Point')}</Button>
             </ButtonsProperty>
-            <CheckBoxProperty label={'闭合'} name={'closed'} value={closed} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={'线型'} options={this.curveType} name={'curveType'} value={curveType} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={'张力'} name={'tension'} value={tension} onChange={this.handleChange}></NumberProperty>
+            <CheckBoxProperty label={_t('Closed')} name={'closed'} value={closed} onChange={this.handleChange}></CheckBoxProperty>
+            <SelectProperty label={_t('Curve Type')} options={this.curveType} name={'curveType'} value={curveType} onChange={this.handleChange}></SelectProperty>
+            <NumberProperty label={_t('Tension')} name={'tension'} value={tension} onChange={this.handleChange}></NumberProperty>
         </PropertyGroup>;
     }
 
@@ -105,7 +105,7 @@ class CatmullRomCurveComponent extends React.Component {
         let points = this.selected.userData.points;
 
         if (points.length === 3) {
-            app.toast('CatmullRom曲线至少应该有三个点！');
+            app.toast(_t('CatmullRom curve should have at least 3 points.'));
             return;
         }
 

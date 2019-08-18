@@ -31,7 +31,7 @@ class WaterComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={'水组件'} show={show} expanded={expanded} onExpand={this.handleExpand}>
+        return <PropertyGroup title={_t('Water Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
         </PropertyGroup>;
     }

@@ -31,7 +31,7 @@ class OptionsMenu extends React.Component {
             <MenuItemSeparator></MenuItemSeparator>
             <MenuItem title={_t('Language')}>
                 <MenuItem title={'English'} onClick={this.handleChangeEnglish}></MenuItem>
-                <MenuItem title={'汉语'} onClick={this.handleChangeChinese}></MenuItem>
+                <MenuItem title={'简体中文'} onClick={this.handleChangeChinese}></MenuItem>
             </MenuItem>
         </MenuItem>;
     }

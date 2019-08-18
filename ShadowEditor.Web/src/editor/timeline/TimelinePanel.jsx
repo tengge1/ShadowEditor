@@ -24,7 +24,7 @@ class TimelinePanel extends React.Component {
         return <Timeline
             className={'TimelinePanel'}
             animations={animations}
-            tip={_t('Illustrate')}></Timeline>;
+            tip={_t('Illustrate: Double-click the area below the timeline to add an animation.')}></Timeline>;
     }
 
     componentDidMount() {
@@ -349,7 +349,7 @@ class TimelinePanel extends React.Component {
         }
 
         if (event.target.parentElement.data && event.target.parentElement.data.animations) { // 拖动到其他动画上
-            app.toast('不允许将动画拖动到其他动画上。');
+            app.toast(_t('Dragging animation on other animation is not allowed.'));
             return;
         }
 

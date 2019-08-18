@@ -164,14 +164,14 @@ class Editor extends React.Component {
 
         app.call('resize', this);
 
-        app.log('程序启动成功。');
+        app.log(_t('Program started.'));
     }
 
     componentWillUnmount() {
         app.call('appStop', this);
         app.call('appStoped', this);
 
-        app.log('程序已经停止');
+        app.log(_t('Program stoped.'));
 
         app.event.stop();
     }

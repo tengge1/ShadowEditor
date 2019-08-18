@@ -15,7 +15,7 @@ function QuadraticBezierCurve(options = {}) {
 
     THREE.Line.call(this, geometry, material);
 
-    this.name = '二次贝塞尔曲线';
+    this.name = _t('Quadratic Bezier Curve');
 
     this.castShadow = true;
 

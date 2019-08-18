@@ -26,7 +26,7 @@ class HistoryPanel extends React.Component {
 
         return <div className={'HistoryPanel'}>
             <div className={'toolbar'}>
-                <Button onClick={this.handleClear}>{'清空'}</Button>
+                <Button onClick={this.handleClear}>{_t('Clear')}</Button>
             </div>
             <div className={'content'} ref={this.ref} onClick={this.handleClick}>
                 {undos.map(n => {
