@@ -1,6 +1,7 @@
 import './css/EditWindow.css';
 import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button } from '../../../third_party';
 import Ajax from '../../../utils/Ajax';
+import CategoryWindow from './CategoryWindow.jsx';
 
 /**
  * 编辑窗口
@@ -22,6 +23,7 @@ class EditWindow extends React.Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleThumbnailChange = this.handleThumbnailChange.bind(this);
+        this.handleEditCategoryList = this.handleEditCategoryList.bind(this);
 
         this.handleSave = this.handleSave.bind(this, props.callback);
         this.handleClose = this.handleClose.bind(this);
@@ -46,7 +48,7 @@ class EditWindow extends React.Component {
                     <FormControl>
                         <Label>{_t('Type')}</Label>
                         <Select name={'select'} options={categories} value={categoryID} onChange={this.handleCategoryChange}></Select>
-                        <Button>{_t('Edit')}</Button>
+                        <Button onClick={this.handleEditCategoryList}>{_t('Edit')}</Button>
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Thumbnail')}</Label>
@@ -110,6 +112,15 @@ class EditWindow extends React.Component {
         });
     }
 
+    handleEditCategoryList() {
+        const window = app.createElement(CategoryWindow, {
+            type: this.props.type,
+            typeName: `${this.props.typeName}`,
+        });
+
+        app.addElement(window);
+    }
+
     handleSave() {
         const { data, saveUrl, callback } = this.props;
         const { name, categoryID, thumbnail } = this.state;
@@ -132,21 +143,6 @@ class EditWindow extends React.Component {
 
     handleClose() {
         app.removeElement(this);
-    }
-
-    // ----------------------------- 类别编辑 ----------------------------------------
-
-    onEditCategory() {
-        if (this.categoryListWin === undefined) {
-            this.categoryListWin = new CategoryListWindow({
-                app: app,
-                type: this.type,
-                title: `${_t('Edit')} ${this.typeName} ${_t('Category')}`,
-            });
-            this.categoryListWin.render();
-        }
-
-        this.categoryListWin.show();
     }
 }
 

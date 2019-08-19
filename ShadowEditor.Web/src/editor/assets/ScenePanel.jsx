@@ -236,7 +236,7 @@ class ScenePanel extends React.Component {
     // ------------------------------- 编辑 ---------------------------------------
 
     handleEdit(data) {
-        var win = app.createElement(EditWindow, {
+        const window = app.createElement(EditWindow, {
             type: 'Scene',
             typeName: _t('Scene'),
             data,
@@ -244,7 +244,7 @@ class ScenePanel extends React.Component {
             callback: this.update,
         });
 
-        app.addElement(win);
+        app.addElement(window);
     }
 
     // ------------------------------ 删除 ----------------------------------------
