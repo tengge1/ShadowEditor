@@ -44,11 +44,11 @@ class DataGrid extends React.Component {
         </thead>;
 
         const body = <tbody>
-            {data.map(n => {
+            {data.map((n, i) => {
                 return <tr className={selected === n.id ? 'selected' : null} data-id={n.id} key={n.id} onClick={this.handleClick}>
                     {columns.map((m, j) => {
                         if (m.type === 'number') {
-                            return <td key={'number'}>{j + 1}</td>;
+                            return <td key={'number'}>{i + 1}</td>;
                         } else {
                             return <td key={m.field}>{n[m.field]}</td>;
                         }

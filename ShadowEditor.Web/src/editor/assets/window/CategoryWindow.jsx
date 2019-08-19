@@ -13,6 +13,7 @@ class CategoryWindow extends React.Component {
 
         this.state = {
             data: [],
+            selected: null,
         };
 
         this.updateUI = this.updateUI.bind(this);
@@ -25,7 +26,7 @@ class CategoryWindow extends React.Component {
 
     render() {
         const { type, typeName } = this.props;
-        const { data } = this.state;
+        const { data, selected } = this.state;
 
         return <Window
             className={'CategoryWindow'}
@@ -40,7 +41,7 @@ class CategoryWindow extends React.Component {
                         <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
                         <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
                     </Toolbar>
-                    <DataGrid className={'list'} data={data} onSelect={this.handleSelect}>
+                    <DataGrid className={'list'} data={data} selected={selected} onSelect={this.handleSelect}>
                         <Columns>
                             <Column type={'number'} title={_t('#')}></Column>
                             <Column field={'Name'} title={_t('Name')}></Column>
@@ -95,7 +96,9 @@ class CategoryWindow extends React.Component {
     }
 
     handleSelect(obj) {
-        debugger
+        this.setState({
+            selected: obj.id,
+        });
     }
 
     handleClose() {

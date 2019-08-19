@@ -26,9 +26,9 @@ class CategoryEditWindow extends React.Component {
         return <Window
             className={'CategoryEditWindow'}
             title={id ? `${typeName} ${_t('Category Edit')}` : `${typeName} ${_t('Category Add')}`}
-            style={{ width: '320px', height: '200px', }}
+            style={{ width: '380px', height: '200px', }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleCancel}>
             <Content>
                 <Form>
                     <FormControl>
