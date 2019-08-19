@@ -108,7 +108,33 @@ class CategoryWindow extends React.Component {
     }
 
     handleDelete() {
+        const { selected } = this.state;
 
+        if (!selected) {
+            app.toast(_t('Please select a record.'));
+            return;
+        }
+
+        app.confirm({
+            title: _t('Query'),
+            content: _t('Delete this category?'),
+            onOK: () => {
+                fetch(`${app.options.server}/api/Category/Delete?ID=${selected.ID}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                }).then(response => {
+                    response.json().then(json => {
+                        if (json.Code === 200) {
+                            this.updateUI();
+                        } else {
+                            app.toast(json.Msg);
+                        }
+                    });
+                });
+            }
+        });
     }
 
     handleSelect(obj) {
