@@ -41,7 +41,7 @@ class CategoryWindow extends React.Component {
                         <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
                         <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
                     </Toolbar>
-                    <DataGrid className={'list'} data={data} selected={selected} onSelect={this.handleSelect}>
+                    <DataGrid className={'list'} data={data} selected={selected ? selected.ID : null} onSelect={this.handleSelect}>
                         <Columns>
                             <Column type={'number'} title={_t('#')}></Column>
                             <Column field={'Name'} title={_t('Name')}></Column>
@@ -88,7 +88,23 @@ class CategoryWindow extends React.Component {
     }
 
     handleEdit() {
+        const { type, typeName } = this.props;
+        const { selected } = this.state;
 
+        if (!selected) {
+            app.toast(_t('Please select a record.'));
+            return;
+        }
+
+        let window = app.createElement(CategoryEditWindow, {
+            type,
+            typeName,
+            id: selected.ID,
+            name: selected.Name,
+            callback: this.updateUI,
+        });
+
+        app.addElement(window);
     }
 
     handleDelete() {
@@ -97,7 +113,7 @@ class CategoryWindow extends React.Component {
 
     handleSelect(obj) {
         this.setState({
-            selected: obj.id,
+            selected: obj,
         });
     }
 
