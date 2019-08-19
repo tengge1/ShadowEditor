@@ -12,11 +12,6 @@ class DataGrid extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            data: props.data,
-            selected: null,
-        };
-
         this.handleClick = this.handleClick.bind(this, props.onSelect);
     }
 
@@ -24,19 +19,15 @@ class DataGrid extends React.Component {
         const id = event.currentTarget.getAttribute('data-id');
         const record = this.state.data.filter(n => n.id === id)[0];
 
-        this.setState({
-            selected: id,
-        });
-
         onSelect && onSelect(record);
     }
 
     render() {
-        const { className, style, children } = this.props;
-        const { data, selected } = this.state;
+        const { className, style, children, data, selected } = this.props;
 
         const columns = children.props.children.map(n => {
             return {
+                type: n.props.type,
                 field: n.props.field,
                 title: n.props.title,
             };
@@ -45,7 +36,8 @@ class DataGrid extends React.Component {
         const header = <thead>
             <tr>
                 {columns.map(n => {
-                    return <td name={n.field} key={n.field}>{n.title}</td>;
+                    let field = n.type === 'number' ? 'number' : n.field;
+                    return <td name={n.field} key={field}>{n.title}</td>;
                 })}
             </tr>
         </thead>;
@@ -53,8 +45,12 @@ class DataGrid extends React.Component {
         const body = <tbody>
             {data.map(n => {
                 return <tr className={selected === n.id ? 'selected' : null} data-id={n.id} key={n.id} onClick={this.handleClick}>
-                    {columns.map(m => {
-                        return <td key={m.field}>{n[m.field]}</td>;
+                    {columns.map((m, j) => {
+                        if (m.type === 'number') {
+                            return <td key={'number'}>{j + 1}</td>;
+                        } else {
+                            return <td key={m.field}>{n[m.field]}</td>;
+                        }
                     })}
                 </tr>;
             })}
@@ -77,6 +73,7 @@ DataGrid.propTypes = {
         }
     },
     data: PropTypes.array,
+    selected: PropTypes.string,
     onSelect: PropTypes.func,
 };
 
@@ -85,6 +82,7 @@ DataGrid.defaultProps = {
     style: null,
     children: null,
     data: [],
+    selected: null,
     onSelect: null,
 };
 

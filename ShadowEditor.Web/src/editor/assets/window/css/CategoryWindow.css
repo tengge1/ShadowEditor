@@ -1,0 +1,27 @@
+.Window.CategoryWindow>.wrap>.content {
+    left: 0;
+    right: 0;
+    top: 24px;
+    bottom: 0;
+}
+
+.Window.CategoryWindow>.wrap>.content>.box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.Window.CategoryWindow>.wrap>.content>.box>.toolbar {
+    padding: 2px 0;
+    box-sizing: border-box;
+}
+
+.Window.CategoryWindow>.wrap>.content>.box>.toolbar>.Button {
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.Window.CategoryWindow>.wrap>.content>.box>.list {
+    width: 100%;
+}

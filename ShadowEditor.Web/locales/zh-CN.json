@@ -640,5 +640,6 @@
     "Quadratic Bezier Curve": "二次贝塞尔曲线",
     "Scene data of string type is needed.": "需要字符串类型的场景数据参数！",
     "Cannot deserialize scene data.": "无法解析场景数据！",
-    "Total {{totalPage}} Pages": "共{{totalPage}}页"
+    "Total {{totalPage}} Pages": "共{{totalPage}}页",
+    "Create": "添加"
 }

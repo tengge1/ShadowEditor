@@ -1,5 +1,5 @@
 import './css/CategoryWindow.css';
-import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, DataGrid, Columns, Column } from '../../../third_party';
+import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, DataGrid, Columns, Column, VBoxLayout, Toolbar } from '../../../third_party';
 import Ajax from '../../../utils/Ajax';
 
 /**
@@ -15,6 +15,9 @@ class CategoryWindow extends React.Component {
         };
 
         this.updateUI = this.updateUI.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
@@ -26,16 +29,23 @@ class CategoryWindow extends React.Component {
         return <Window
             className={'CategoryWindow'}
             title={`${typeName} ${_t('Category Edit')}`}
-            style={{ width: '320px', height: '300px', }}
-            mask={true}
+            style={{ width: '280px', height: '400px', }}
+            mask={false}
             onClose={this.handleClose}>
             <Content>
-                <DataGrid data={data} onSelect={this.handleSelect}>
-                    <Columns>
-                        <Column field={'ID'} title={'ID'}></Column>
-                        <Column field={'Name'} title={'名称'}></Column>
-                    </Columns>
-                </DataGrid>
+                <VBoxLayout className={'box'}>
+                    <Toolbar className={'toolbar'}>
+                        <Button onClick={this.handleAdd}>{_t('Create')}</Button>
+                        <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
+                        <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
+                    </Toolbar>
+                    <DataGrid className={'list'} data={data} onSelect={this.handleSelect}>
+                        <Columns>
+                            <Column type={'number'} title={_t('#')}></Column>
+                            <Column field={'Name'} title={_t('Name')}></Column>
+                        </Columns>
+                    </DataGrid>
+                </VBoxLayout>
             </Content>
             <Buttons>
                 <Button onClick={this.handleClose}>{_t('Close')}</Button>
@@ -50,9 +60,27 @@ class CategoryWindow extends React.Component {
     updateUI() {
         Ajax.getJson(`${app.options.server}/api/Category/List?Type=${this.props.type}`, json => {
             this.setState({
-                data: json.Data,
+                data: json.Data.map(n => {
+                    return {
+                        id: n.ID,
+                        ID: n.ID,
+                        Name: n.Name,
+                    };
+                }),
             });
         });
+    }
+
+    handleAdd() {
+
+    }
+
+    handleEdit() {
+
+    }
+
+    handleDelete() {
+
     }
 
     handleSelect(obj) {
