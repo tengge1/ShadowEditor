@@ -17,7 +17,8 @@ class DataGrid extends React.Component {
 
     handleClick(onSelect, event) {
         const id = event.currentTarget.getAttribute('data-id');
-        const record = this.state.data.filter(n => n.id === id)[0];
+
+        const record = this.props.data.filter(n => n.id === id)[0];
 
         onSelect && onSelect(record);
     }

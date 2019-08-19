@@ -1,6 +1,7 @@
 import './css/CategoryWindow.css';
 import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, DataGrid, Columns, Column, VBoxLayout, Toolbar } from '../../../third_party';
 import Ajax from '../../../utils/Ajax';
+import CategoryEditWindow from './CategoryEditWindow.jsx';
 
 /**
  * 类别窗口
@@ -72,7 +73,17 @@ class CategoryWindow extends React.Component {
     }
 
     handleAdd() {
+        const { type, typeName } = this.props;
 
+        let window = app.createElement(CategoryEditWindow, {
+            type,
+            typeName,
+            id: null,
+            name: '',
+            callback: this.updateUI,
+        });
+
+        app.addElement(window);
     }
 
     handleEdit() {

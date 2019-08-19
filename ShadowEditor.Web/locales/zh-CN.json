@@ -293,6 +293,7 @@
     "Format": "格式",
     "MapSize": "贴图尺寸",
     "Category Edit": "类别编辑",
+    "Category Add": "类别添加",
     "Options Window": "选项窗口",
     "Shader cannot be parsed.": "着色器信息 无法反序列化。",
     "Perspective View": "透视图",
