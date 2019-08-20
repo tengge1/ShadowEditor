@@ -28,7 +28,7 @@ class LanguageLoader {
                     lng: lang,
                     debug: false,
 
-                    whitelist: ['en-US', 'zh-CN', 'zh-TW', 'ja-JP', 'ko-KR'],
+                    whitelist: ['en-US', 'zh-CN', 'zh-TW', 'ja-JP', 'ko-KR', 'ru-RU'],
 
                     backend: {
                         // for all available options read the backend's repository readme file
