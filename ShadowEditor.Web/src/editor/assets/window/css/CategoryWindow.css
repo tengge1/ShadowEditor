@@ -24,4 +24,8 @@
 
 .Window.CategoryWindow>.wrap>.content>.box>.list {
     width: 100%;
+    height: calc(100% - 28px);
+    padding-bottom: 8px;
+    overflow-y: auto;
+    box-sizing: border-box;
 }

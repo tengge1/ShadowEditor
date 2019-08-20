@@ -644,5 +644,6 @@
     "Total {{totalPage}} Pages": "共{{totalPage}}页",
     "Create": "添加",
     "Please select a record.": "请选择数据",
-    "Delete this category?": "是否删除该类别？"
+    "Delete this category?": "是否删除该类别？",
+    "No Type": "无类型"
 }

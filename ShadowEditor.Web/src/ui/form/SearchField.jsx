@@ -53,6 +53,10 @@ class SearchField extends React.Component {
                 className={classNames(filterShow && 'selected')}
                 onClick={this.handleShowFilter}></IconButton>
             <div className={classNames('category', !filterShow && 'hidden')}>
+                <div className={'item'} key={''}>
+                    <CheckBox name={''} checked={categories.indexOf('') > -1} onChange={this.handleCheckBoxChange}></CheckBox>
+                    <label className={'title'}>{_t('No Type')}</label>
+                </div>
                 {data.map(n => {
                     return <div className={'item'} key={n.ID}>
                         <CheckBox
