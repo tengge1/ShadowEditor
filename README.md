@@ -1,11 +1,10 @@
 # Shadow Editor
 
-Language: 中文 / [繁體中文](README-tw.md) / [English](README-en.md)
+Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어
 
 * 名称：Shadow Editor
 * 版本：v0.3.1(开发中)
 * 简介：基于`three.js`的场景编辑器。
-* Support Language: English, 中文, 繁體中文, 日本語, 한국어。
 
 ## v0.3.1即将更新
 
