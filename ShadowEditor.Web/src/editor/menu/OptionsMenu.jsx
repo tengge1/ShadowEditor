@@ -19,6 +19,9 @@ class OptionsMenu extends React.Component {
 
         this.handleChangeEnglish = this.handleChangeEnglish.bind(this);
         this.handleChangeChinese = this.handleChangeChinese.bind(this);
+
+        this.handleEnableDebugMode = this.handleEnableDebugMode.bind(this);
+        this.handleDisableDebugMode = this.handleDisableDebugMode.bind(this);
     }
 
     render() {
@@ -35,6 +38,10 @@ class OptionsMenu extends React.Component {
                 <MenuItem title={'繁體中文'} onClick={this.handleChangeTraditionalChinese}></MenuItem>
                 <MenuItem title={'日本語'} onClick={this.handleChangeJapanese}></MenuItem>
                 <MenuItem title={'한국어'} onClick={this.handleChangeKorean}></MenuItem>
+            </MenuItem>
+            <MenuItem title={_t('Debug Mode')}>
+                <MenuItem title={_t('Enable')} onClick={this.handleEnableDebugMode}></MenuItem>
+                <MenuItem title={_t('Disable')} onClick={this.handleDisableDebugMode}></MenuItem>
             </MenuItem>
         </MenuItem>;
     }
@@ -90,6 +97,18 @@ class OptionsMenu extends React.Component {
 
     handleChangeKorean() {
         window.localStorage.setItem('lang', 'ko-KR');
+        window.location.reload();
+    }
+
+    // ---------------------------------- 调试模式 -------------------------------
+
+    handleEnableDebugMode() {
+        app.storage.set('debug', true);
+        window.location.reload();
+    }
+
+    handleDisableDebugMode() {
+        app.storage.set('debug', false);
         window.location.reload();
     }
 }

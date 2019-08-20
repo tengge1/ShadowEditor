@@ -645,5 +645,8 @@
     "Create": "添加",
     "Please select a record.": "请选择数据",
     "Delete this category?": "是否删除该类别？",
-    "No Type": "无类型"
+    "No Type": "无类型",
+    "Debug Mode": "调试模式",
+    "Enable": "启用",
+    "Disable": "禁用"
 }

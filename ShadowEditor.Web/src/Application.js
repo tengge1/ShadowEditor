@@ -32,6 +32,7 @@ function Application(container, options) {
 
     // 存储
     this.storage = new Storage();
+    this.debug = this.storage.get('debug') || false;
 
     // 包管理器
     this.packageManager = new PackageManager();
