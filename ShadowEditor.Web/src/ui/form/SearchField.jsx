@@ -24,14 +24,16 @@ class SearchField extends React.Component {
         this.handleInput = this.handleInput.bind(this, props.onInput);
         this.handleReset = this.handleReset.bind(this, props.onInput, props.onChange);
         this.handleShowFilter = this.handleShowFilter.bind(this);
+        this.handleHideFilter = this.handleHideFilter.bind(this);
         this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this, props.onInput, props.onChange);
+        this.stopPropagation = this.stopPropagation.bind(this);
     }
 
     render() {
         const { className, style, data, placeholder, addHidden } = this.props;
         const { value, categories, filterShow } = this.state;
 
-        return <div className={classNames('SearchField', className)}>
+        return <div className={classNames('SearchField', className)} onClick={this.stopPropagation}>
             <IconButton
                 className={classNames(addHidden && 'hidden')}
                 icon={'add'}
@@ -70,6 +72,10 @@ class SearchField extends React.Component {
         </div>;
     }
 
+    componentDidMount() {
+        document.addEventListener(`click`, this.handleHideFilter);
+    }
+
     handleAdd(onAdd, event) {
         onAdd && onAdd(event);
     }
@@ -103,9 +109,15 @@ class SearchField extends React.Component {
         onChange && onChange(value, this.state.categories, event);
     }
 
-    handleShowFilter() {
+    handleShowFilter(name, event) {
         this.setState({
             filterShow: !this.state.filterShow,
+        });
+    }
+
+    handleHideFilter() {
+        this.setState({
+            filterShow: false,
         });
     }
 
@@ -129,6 +141,10 @@ class SearchField extends React.Component {
             onChange && onChange(value, categories, event);
         });
     }
+
+    stopPropagation(event) {
+        event.nativeEvent.stopImmediatePropagation();
+    }
 }
 
 SearchField.propTypes = {
@@ -140,7 +156,6 @@ SearchField.propTypes = {
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onInput: PropTypes.func,
-    handleShowFilter: PropTypes.func,
     addHidden: PropTypes.bool,
 };
 
@@ -153,7 +168,6 @@ SearchField.defaultProps = {
     onAdd: null,
     onChange: null,
     onInput: null,
-    handleShowFilter: null,
     addHidden: false,
 };
 

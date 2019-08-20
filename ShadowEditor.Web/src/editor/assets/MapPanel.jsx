@@ -35,12 +35,10 @@ class MapPanel extends React.Component {
         let list = data;
 
         if (name.trim() !== '') {
-            name = name.toLowerCase();
-
             list = list.filter(n => {
-                return n.Name.toLowerCase().indexOf(name) > -1 ||
-                    n.FirstPinYin.toLowerCase().indexOf(name) > -1 ||
-                    n.TotalPinYin.toLowerCase().indexOf(name) > -1;
+                return n.Name.toLowerCase().indexOf(name.toLowerCase()) > -1 ||
+                    n.FirstPinYin.toLowerCase().indexOf(name.toLowerCase()) > -1 ||
+                    n.TotalPinYin.toLowerCase().indexOf(name.toLowerCase()) > -1;
             });
         }
 
