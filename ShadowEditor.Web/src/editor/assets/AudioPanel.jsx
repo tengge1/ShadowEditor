@@ -13,11 +13,11 @@ class AudioPanel extends React.Component {
     constructor(props) {
         super(props);
 
-        this.data = [];
-
         this.state = {
             data: [],
             categoryData: [],
+            name: '',
+            categories: [],
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -31,9 +31,27 @@ class AudioPanel extends React.Component {
 
     render() {
         const { className, style } = this.props;
-        const { data, categoryData } = this.state;
+        const { data, categoryData, name, categories } = this.state;
 
-        const imageListData = data.map(n => {
+        let list = data;
+
+        if (name.trim() !== '') {
+            name = name.toLowerCase();
+
+            list = list.filter(n => {
+                return n.Name.toLowerCase().indexOf(name) > -1 ||
+                    n.FirstPinYin.toLowerCase().indexOf(name) > -1 ||
+                    n.TotalPinYin.toLowerCase().indexOf(name) > -1;
+            });
+        }
+
+        if (categories.length > 0) {
+            list = list.filter(n => {
+                return categories.indexOf(n.CategoryID) > -1;
+            });
+        }
+
+        const imageListData = list.map(n => {
             return Object.assign({}, n, {
                 id: n.ID,
                 src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
@@ -74,35 +92,17 @@ class AudioPanel extends React.Component {
         });
         fetch(`${app.options.server}/api/Audio/List`).then(response => {
             response.json().then(obj => {
-                this.data = obj.Data;
                 this.setState({
-                    data: this.data,
+                    data: obj.Data,
                 });
             });
         });
     }
 
     handleSearch(name, categories, event) {
-        var list = this.data;
-
-        if (name.trim() !== '') {
-            name = name.toLowerCase();
-
-            list = list.filter(n => {
-                return n.Name.indexOf(name) > -1 ||
-                    n.FirstPinYin.indexOf(name) > -1 ||
-                    n.TotalPinYin.indexOf(name) > -1;
-            });
-        }
-
-        if (categories.length > 0) {
-            list = list.filter(n => {
-                return categories.indexOf(n.CategoryID) > -1;
-            });
-        }
-
         this.setState({
-            data: list,
+            name,
+            categories,
         });
     }
 
