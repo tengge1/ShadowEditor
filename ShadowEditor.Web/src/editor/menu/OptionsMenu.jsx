@@ -39,6 +39,7 @@ class OptionsMenu extends React.Component {
                 <MenuItem title={'日本語'} onClick={this.handleChangeJapanese}></MenuItem>
                 <MenuItem title={'한국어'} onClick={this.handleChangeKorean}></MenuItem>
                 <MenuItem title={'русский'} onClick={this.handleChangeRussian}></MenuItem>
+                <MenuItem title={'Le français'} onClick={this.handleChangeFrench}></MenuItem>
             </MenuItem>
             <MenuItem title={_t('Debug Mode')}>
                 <MenuItem title={_t('Enable')} onClick={this.handleEnableDebugMode}></MenuItem>
@@ -103,6 +104,11 @@ class OptionsMenu extends React.Component {
 
     handleChangeRussian() {
         window.localStorage.setItem('lang', 'ru-RU');
+        window.location.reload();
+    }
+
+    handleChangeFrench() {
+        window.localStorage.setItem('lang', 'fr-FR');
         window.location.reload();
     }
 
