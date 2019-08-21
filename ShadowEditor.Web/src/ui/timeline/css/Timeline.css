@@ -8,10 +8,18 @@
 
 .Timeline>.controls>.IconButton {
     border: none;
-    width: 24px;
-    height: 24px;
-    margin: 0 4px;
+    width: 20px;
+    height: 20px;
+    margin: 0 6px;
     padding: 0;
+}
+
+.Timeline>.controls>.IconButton>.iconfont {
+    font-size: 18px;
+}
+
+.Timeline>.controls>.ToolbarSeparator {
+    margin: 0 8px;
 }
 
 .Timeline>.box {

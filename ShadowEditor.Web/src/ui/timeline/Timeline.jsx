@@ -71,14 +71,15 @@ class Timeline extends React.Component {
 
         return <div className={classNames('Timeline', className)} style={style}>
             <Toolbar className={classNames('controls', className)} style={style}>
-                <IconButton icon={'add'} title={'Add Layer'} onClick={this.handleAddLayer}></IconButton>
-                <IconButton icon={'delete'} title={'Delete Layer'} onClick={this.handleDeleteLayer}></IconButton>
+                <IconButton icon={'add'} title={_t('Add Layer')} onClick={this.handleAddLayer}></IconButton>
+                <IconButton icon={'edit'} title={_t('Edit Layer')} onClick={this.handleAddLayer}></IconButton>
+                <IconButton icon={'delete'} title={_t('Delete Layer')} onClick={this.handleDeleteLayer}></IconButton>
                 <ToolbarSeparator></ToolbarSeparator>
-                <IconButton icon={'backward'} title={'Slower'} onClick={this.handleBackward}></IconButton>
-                <IconButton icon={'play'} title={'Play'} onClick={this.handlePlay}></IconButton>
-                <IconButton icon={'pause'} title={'Pause'} onClick={this.handlePause}></IconButton>
-                <IconButton icon={'forward'} title={'Faster'} onClick={this.handleForward}></IconButton>
-                <IconButton icon={'stop'} title={'Stop'} onClick={this.handleStop}></IconButton>
+                <IconButton icon={'backward'} title={_t('Slower')} onClick={this.handleBackward}></IconButton>
+                <IconButton icon={'play'} title={_t('Play')} onClick={this.handlePlay}></IconButton>
+                <IconButton icon={'pause'} title={_t('Pause')} onClick={this.handlePause}></IconButton>
+                <IconButton icon={'forward'} title={_t('Faster')} onClick={this.handleForward}></IconButton>
+                <IconButton icon={'stop'} title={_t('Stop')} onClick={this.handleStop}></IconButton>
                 <ToolbarSeparator></ToolbarSeparator>
                 <Label className={'time'}>{this.parseTime(this.time)}</Label>
                 <Label className={'speed'}>{this.parseSpeed(this.speed)}</Label>

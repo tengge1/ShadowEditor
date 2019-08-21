@@ -648,5 +648,11 @@
     "No Type": "无类型",
     "Debug Mode": "调试模式",
     "Enable": "启用",
-    "Disable": "禁用"
+    "Disable": "禁用",
+    "Add Layer": "添加层",
+    "Edit Layer": "编辑层",
+    "Delete Layer": "删除层",
+    "Slower": "减速",
+    "Pause": "暂停",
+    "Faster": "加速"
 }
