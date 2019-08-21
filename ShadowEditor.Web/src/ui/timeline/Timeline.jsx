@@ -26,6 +26,7 @@ class Timeline extends React.Component {
         this.sliderRef = React.createRef();
 
         this.handleAddLayer = this.handleAddLayer.bind(this);
+        this.commitAddLayer = this.commitAddLayer.bind(this);
         this.handleDeleteLayer = this.handleDeleteLayer.bind(this);
         this.handleBackward = this.handleBackward.bind(this);
         this.handlePlay = this.handlePlay.bind(this);
@@ -161,7 +162,27 @@ class Timeline extends React.Component {
     }
 
     handleAddLayer(event) {
+        app.prompt({
+            title: _t('Input Layer Name'),
+            content: _t('Layer Name'),
+            value: _t('New Layer'),
+            onOK: this.commitAddLayer,
+        });
+    }
 
+    commitAddLayer(layerName) {
+        let animations = app.editor.animations;
+        const layer = Math.max.apply(Math, animations.map(n => n.layer)) + 1;
+
+        animations.push({
+            id: null,
+            layer,
+            layerName: layerName,
+            uuid: THREE.Math.generateUUID(),
+            animations: [],
+        });
+
+        app.call(`animationChanged`, this);
     }
 
     handleDeleteLayer(event) {

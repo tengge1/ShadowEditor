@@ -654,5 +654,8 @@
     "Delete Layer": "删除层",
     "Slower": "减速",
     "Pause": "暂停",
-    "Faster": "加速"
+    "Faster": "加速",
+    "Input Layer Name": "请输入层名",
+    "Layer Name": "层名",
+    "New Layer": "新层"
 }
