@@ -41,35 +41,6 @@ class Timeline extends React.Component {
     render() {
         const { className, style, animations, tip } = this.props;
 
-        // 动画组
-        const groups = animations.map(layer => {
-            return <div className={'info'} key={layer.uuid}>
-                <CheckBox name={layer.uuid} checked={false}></CheckBox>
-                <Label>{layer.layerName}</Label>
-            </div>;
-        });
-
-        // 每组的动画
-        const layers = animations.map(layer => {
-            return <div className={'layer'} droppable={'true'} onClick={this.handleClick} onDoubleClick={this.handleDoubleClick} key={layer.uuid}>
-                {layer.animations.map(animation => {
-                    const style = {
-                        left: animation.beginTime * this.scale + 'px',
-                        width: (animation.endTime - animation.beginTime) * this.scale + 'px',
-                    };
-
-                    return <div
-                        className={'item'}
-                        draggable={'true'}
-                        droppable={'false'}
-                        style={style}
-                        key={animation.uuid}>
-                        <span className={'smaller'}>{animation.name}</span>
-                    </div>;
-                })}
-            </div>;
-        });
-
         return <div className={classNames('Timeline', className)} style={style}>
             <Toolbar className={classNames('controls', className)} style={style}>
                 <IconButton icon={'add'} title={_t('Add Layer')} onClick={this.handleAddLayer}></IconButton>
@@ -88,14 +59,33 @@ class Timeline extends React.Component {
                 <Label>{tip}</Label>
             </Toolbar>
             <div className="box">
-                <div className="left">
-                    {groups}
+                <div className={'timeline'}>
+                    <canvas ref={this.canvasRef}></canvas>
                 </div>
-                <div className="right">
-                    <canvas className={'timeline'} ref={this.canvasRef}></canvas>
-                    <div className="layers" ref={this.layersRef}>
-                        {layers}
-                    </div>
+                <div className={'layers'}>
+                    {animations.map(layer => {
+                        return <div className={'layer'} key={layer.uuid}>
+                            <div className={'info'}>
+                                <CheckBox name={layer.uuid} checked={false}></CheckBox>
+                                <Label>{layer.layerName}</Label>
+                            </div>
+                            <div className={'animations'}>
+                                {layer.animations.map(animation => {
+                                    return <div
+                                        className={'animation'}
+                                        draggable={'true'}
+                                        droppable={'false'}
+                                        style={{
+                                            left: animation.beginTime * this.scale + 'px',
+                                            width: (animation.endTime - animation.beginTime) * this.scale + 'px',
+                                        }}
+                                        key={animation.uuid}>
+                                        <span className={'smaller'}>{animation.name}</span>
+                                    </div>;
+                                })}
+                            </div>
+                        </div>;
+                    })}
                     <div className="slider" ref={this.sliderRef}></div>
                 </div>
             </div>
