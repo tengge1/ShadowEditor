@@ -92,16 +92,22 @@ class TextureSettingWindow extends React.Component {
             [8]: '8',
         };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-    }
-
-    render() {
         const { anisotropy, center, offset, repeat, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT } = this.props.map;
 
         const centerX = center.x, centerY = center.y,
             offsetX = offset.x, offsetY = offset.y,
             repeatX = repeat.x, repeatY = repeat.y;
+
+        this.state = {
+            anisotropy, center, offset, repeat, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT, centerX, centerY, offsetX, offsetY, repeatX, repeatY
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
+    render() {
+        const { anisotropy, center, offset, repeat, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT, centerX, centerY, offsetX, offsetY, repeatX, repeatY } = this.state;
 
         return <Window
             className={'TextureSettingWindow'}
@@ -200,20 +206,17 @@ class TextureSettingWindow extends React.Component {
     }
 
     handleChange(value, name) {
+        this.setState({
+            [name]: value,
+        });
+
         if (value === null) {
             return;
         }
 
-        const { anisotropy, center, offset, repeat, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT } = Object.assign({}, this.props.map, {
+        const { anisotropy, center, offset, repeat, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT, centerX, centerY, offsetX, offsetY, repeatX, repeatY } = Object.assign({}, this.state, {
             [name]: value,
         });
-
-        const centerX = name === 'centerX' ? value : center.x,
-            centerY = name === 'centerY' ? value : center.y,
-            offsetX = name === 'offsetX' ? value : offset.x,
-            offsetY = name === 'offsetY' ? value : offset.y,
-            repeatX = name === 'repeatX' ? value : repeat.x,
-            repeatY = name === 'repeatY' ? value : repeat.y;
 
         let map = this.props.map;
 
