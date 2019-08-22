@@ -5,19 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Ray Tracing In One Weekend</title>
-    <style>
-        #canvas {
-            width: 200px;
-            height: 200px;
-        }
-    </style>
 </head>
 
 <body>
     <canvas id="canvas"></canvas>
     <script src="build/weekend.js"></script>
     <script>
-        var app = new Weekend.Application();
+        var canvas = document.querySelector('#canvas');
+        var app = new Weekend.Application(canvas);
         app.start();
     </script>
 </body>
