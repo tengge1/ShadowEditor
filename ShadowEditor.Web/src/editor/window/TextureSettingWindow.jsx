@@ -155,7 +155,7 @@ class TextureSettingWindow extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>{_t('FlipY')}</Label>
-                        <CheckBox name={'flipY'} value={flipY} onChange={this.handleChange}></CheckBox>
+                        <CheckBox name={'flipY'} checked={flipY} onChange={this.handleChange}></CheckBox>
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Mag Filter')}</Label>
@@ -179,7 +179,7 @@ class TextureSettingWindow extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Generate Mipmaps')}</Label>
-                        <CheckBox name={'generateMipmaps'} value={generateMipmaps} onChange={this.handleChange}></CheckBox>
+                        <CheckBox name={'generateMipmaps'} checked={generateMipmaps} onChange={this.handleChange}></CheckBox>
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Mapping')}</Label>
@@ -187,7 +187,7 @@ class TextureSettingWindow extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Premultiply Alpha')}</Label>
-                        <CheckBox name={'premultiplyAlpha'} value={premultiplyAlpha} onChange={this.handleChange}></CheckBox>
+                        <CheckBox name={'premultiplyAlpha'} checked={premultiplyAlpha} onChange={this.handleChange}></CheckBox>
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Unpack Alignment')}</Label>
