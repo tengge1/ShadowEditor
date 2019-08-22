@@ -99,9 +99,9 @@ class TextureSettingWindow extends React.Component {
     render() {
         const { anisotropy, center, offset, repeat, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT } = this.props.map;
 
-        const { centerX, centerY } = center;
-        const { offsetX, offsetY } = offset;
-        const { repeatX, repeatY } = repeat;
+        const centerX = center.x, centerY = center.y,
+            offsetX = offset.x, offsetY = offset.y,
+            repeatX = repeat.x, repeatY = repeat.y;
 
         return <Window
             className={'TextureSettingWindow'}
@@ -204,30 +204,46 @@ class TextureSettingWindow extends React.Component {
             return;
         }
 
-        const map = this.props.map;
+        const { anisotropy, center, offset, repeat, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT } = Object.assign({}, this.props.map, {
+            [name]: value,
+        });
 
-        map.anisotropy = anisotropy.getValue();
-        map.center.x = centerX.getValue();
-        map.center.y = centerY.getValue();
-        map.offset.x = offsetX.getValue();
-        map.offset.y = offsetY.getValue();
-        map.repeat.x = repeatX.getValue();
-        map.repeat.y = repeatY.getValue();
-        map.rotation = rotation.getValue();
-        map.type = parseInt(type.getValue());
-        map.encoding = parseInt(encoding.getValue());
-        map.flipY = flipY.getValue();
-        map.format = parseInt(format.getValue());
-        map.generateMipmaps = generateMipmaps.getValue();
-        map.magFilter = parseInt(magFilter.getValue());
-        map.minFilter = parseInt(minFilter.getValue());
-        map.mapping = parseInt(mapping.getValue());
-        map.premultiplyAlpha = premultiplyAlpha.getValue();
-        map.unpackAlignment = parseInt(unpackAlignment.getValue());
-        map.wrapS = parseInt(wrapS.getValue());
-        map.wrapT = parseInt(wrapT.getValue());
+        const { centerX, centerY } = Object.assign({}, center, {
+            [name]: value,
+        });
 
-        texture.needsUpdate = true;
+        const { offsetX, offsetY } = Object.assign({}, offset, {
+            [name]: value,
+        });
+
+        const { repeatX, repeatY } = Object.assign({}, repeat, {
+            [name]: value,
+        });
+
+        let map = this.props.map;
+
+        Object.assign(map, {
+            anisotropy,
+            rotation,
+            type: parseInt(type),
+            encoding: parseInt(encoding),
+            flipY,
+            format: parseInt(format),
+            generateMipmaps,
+            magFilter: parseInt(magFilter),
+            minFilter: parseInt(minFilter),
+            mapping: parseInt(mapping),
+            premultiplyAlpha,
+            unpackAlignment: parseInt(unpackAlignment),
+            wrapS: parseInt(wrapS),
+            wrapT: parseInt(wrapT),
+        });
+
+        map.center.set(centerX, centerY);
+        map.offset.set(offsetX, offsetY);
+        map.repeat.set(repeatX, repeatY);
+
+        map.needsUpdate = true;
     }
 
     handleClose() {
