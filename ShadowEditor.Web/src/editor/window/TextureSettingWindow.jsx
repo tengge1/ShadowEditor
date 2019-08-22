@@ -208,17 +208,12 @@ class TextureSettingWindow extends React.Component {
             [name]: value,
         });
 
-        const { centerX, centerY } = Object.assign({}, center, {
-            [name]: value,
-        });
-
-        const { offsetX, offsetY } = Object.assign({}, offset, {
-            [name]: value,
-        });
-
-        const { repeatX, repeatY } = Object.assign({}, repeat, {
-            [name]: value,
-        });
+        const centerX = name === 'centerX' ? value : center.x,
+            centerY = name === 'centerY' ? value : center.y,
+            offsetX = name === 'offsetX' ? value : offset.x,
+            offsetY = name === 'offsetY' ? value : offset.y,
+            repeatX = name === 'repeatX' ? value : repeat.x,
+            repeatY = name === 'repeatY' ? value : repeat.y;
 
         let map = this.props.map;
 
