@@ -13,33 +13,17 @@ class TextureSettingWindow extends React.Component {
     constructor(props) {
         super(props);
 
-        this.rendererRef = React.createRef();
-        this.helperRef = React.createRef();
-        this.filterRef = React.createRef();
-
-        this.state = {
-            activeTabIndex: props.activeTabIndex,
-        };
-
         this.handleClose = this.handleClose.bind(this);
-        this.handleActiveTabChange = this.handleActiveTabChange.bind(this);
     }
 
     render() {
-        const { activeTabIndex } = this.state;
-
         return <Window
-            className={'OptionsWindow'}
-            title={_t('Settings')}
+            className={'TextureSettingWindow'}
+            title={_t('Texture Settings')}
             style={{ width: '300px', height: '400px', }}
             mask={false}
             onClose={this.handleClose}>
             <Content>
-                <TabLayout className={'tab'} activeTabIndex={activeTabIndex} onActiveTabChange={this.handleActiveTabChange}>
-                    <RendererPanel title={_t('Renderer')} ref={this.rendererRef}></RendererPanel>
-                    <HelperPanel title={_t('Helpers')} ref={this.helperRef}></HelperPanel>
-                    <FilterPanel title={_t('Filter')} ref={this.filterRef}></FilterPanel>
-                </TabLayout>
             </Content>
             <Buttons>
                 <Button onClick={this.handleClose}>{_t('Close')}</Button>
@@ -48,35 +32,25 @@ class TextureSettingWindow extends React.Component {
     }
 
     componentDidMount() {
-        const { activeTabIndex } = this.state;
-        this.handleActiveTabChange(activeTabIndex);
+
     }
 
     handleClose() {
         app.removeElement(this);
     }
-
-    handleActiveTabChange(index) {
-        const rendererTab = this.rendererRef.current;
-        const helperTab = this.helperRef.current;
-        const filterTab = this.filterRef.current;
-
-        switch (index) {
-            case 0:
-                rendererTab.handleUpdate();
-                break;
-            case 1:
-                helperTab.handleUpdate();
-                break;
-            case 2:
-                filterTab.handleUpdate();
-                break;
-        }
-
-        this.setState({
-            activeTabIndex: index,
-        });
-    }
 }
+
+TextureSettingWindow.propTypes = {
+    map: (props, propName, componentName) => {
+        const map = props[propName];
+        if (!(map instanceof THREE.Texture)) {
+            return new TypeError(`Invalid prop \`${propName}\` of type supplied to \`${componentName}\`, expected \`THREE.Texture\`.`);
+        }
+    },
+};
+
+TextureSettingWindow.defaultProps = {
+    map: null,
+};
 
 export default TextureSettingWindow;

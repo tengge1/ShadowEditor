@@ -9,8 +9,7 @@ import ShaderMaterialFragment from './shader/shader_material_fragment.glsl';
 import RawShaderMaterialVertex from './shader/raw_shader_material_vertex.glsl';
 import RawShaderMaterialFragment from './shader/raw_shader_material_fragment.glsl';
 
-// import TextureSelectControl from '../editor/control/TextureSelectControl';
-// import TextureSettingWindow from '../editor/window/TextureSettingWindow';
+import TextureSettingWindow from '../window/TextureSettingWindow.jsx';
 
 import MaterialsSerializer from '../../serialization/material/MaterialsSerializer';
 import MaterialUtils from '../../utils/MaterialUtils';
@@ -187,6 +186,8 @@ class MaterialComponent extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
 
+        this.handleTextureSetting = this.handleTextureSetting.bind(this);
+
         this.editProgramInfo = this.editProgramInfo.bind(this);
         this.saveProgramInfo = this.saveProgramInfo.bind(this);
 
@@ -196,7 +197,6 @@ class MaterialComponent extends React.Component {
         this.editFragmentShader = this.editFragmentShader.bind(this);
         this.saveFragmentShader = this.saveFragmentShader.bind(this);
 
-        this.onSetMap = this.onSetMap.bind(this);
         this.onSave = this.onSave.bind(this);
         this.onLoad = this.onLoad.bind(this);
     }
@@ -231,6 +231,7 @@ class MaterialComponent extends React.Component {
             <SelectProperty label={_t('Vertex Color')} options={this.vertexColors} name={'vertexColors'} value={vertexColors} show={showVertexColors} onChange={this.handleChange}></SelectProperty>
             <CheckBoxProperty label={_t('Skin')} name={'skinning'} value={skinning} show={showSkinning} onChange={this.handleChange}></CheckBoxProperty>
             <TextureProperty label={_t('Texture')} name={'map'} value={map} show={showMap} onChange={this.handleChange}></TextureProperty>
+            <ButtonProperty text={_t('Texture Settings')} onChange={this.handleTextureSetting}></ButtonProperty>
             <TextureProperty label={_t('AlphaMap')} name={'alphaMap'} value={alphaMap} show={showAlphaMap} onChange={this.handleChange}></TextureProperty>
             <TextureProperty label={_t('BumpMap')} name={'bumpMap'} value={bumpMap} show={showBumpMap} onChange={this.handleChange}></TextureProperty>
             <NumberProperty label={_t('Bump Scale')} name={'bumpScale'} value={bumpScale} show={showBumpMap} onChange={this.handleChange}></NumberProperty>
@@ -695,6 +696,19 @@ class MaterialComponent extends React.Component {
         app.call(`objectChanged`, this, this.selected);
     }
 
+    handleTextureSetting() {
+        if (!this.selected.material.map) {
+            app.toast(_t('Please select texture first.'));
+            return;
+        }
+
+        let win = app.createElement(TextureSettingWindow, {
+            map: this.selected.material.map,
+        });
+
+        app.addElement(win);
+    }
+
     editProgramInfo() {
         let material = this.selected.material;
 
@@ -743,23 +757,6 @@ class MaterialComponent extends React.Component {
         let material = this.selected.material;
         material.fragmentShader = source;
         material.needsUpdate = true;
-    }
-
-    onSetMap() {
-        if (this.mapSettingWindow === undefined) {
-            this.mapSettingWindow = new TextureSettingWindow({
-                app: app
-            });
-            this.mapSettingWindow.render();
-        }
-
-        if (!this.selected.material.map) {
-            app.toast(_t('Please select texture first.'));
-            return;
-        }
-
-        this.mapSettingWindow.setData(this.selected.material.map);
-        this.mapSettingWindow.show();
     }
 
     // --------------------------------------- 材质保存载入 --------------------------------------------------
