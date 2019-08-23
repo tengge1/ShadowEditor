@@ -23,7 +23,7 @@ class Application {
 
         let imgData = context.createImageData(this.width, this.height);
 
-        for (let j = this.height - 1; j >= 0; j--) {
+        for (let j = 0; j < this.height; j++) {
             for (let i = 0; i < this.width; i++) {
                 let r = i / this.width;
                 let g = j / this.height;
