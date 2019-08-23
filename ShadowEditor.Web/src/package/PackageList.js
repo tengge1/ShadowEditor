@@ -466,6 +466,11 @@ const PackageList = [{
     assets: [
         'assets/js/libs/chevrotain.min.js'
     ]
+}, {
+    name: 'TexGen',
+    assets: [
+        'assets/js/libs/TexGen.js'
+    ]
 }];
 
 export default PackageList

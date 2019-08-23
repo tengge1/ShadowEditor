@@ -1,4 +1,5 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import TextureGeneratorWindow from './window/TextureGeneratorWindow.jsx';
 import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';
 
@@ -10,6 +11,7 @@ class ToolMenu extends React.Component {
     constructor(props) {
         super(props);
 
+        this.handleTextureGenerator = this.handleTextureGenerator.bind(this);
         this.handleArrangeMap = this.handleArrangeMap.bind(this);
         this.handleArrangeMesh = this.handleArrangeMesh.bind(this);
         this.handleArrangeThumbnail = this.handleArrangeThumbnail.bind(this);
@@ -18,12 +20,21 @@ class ToolMenu extends React.Component {
 
     render() {
         return <MenuItem title={_t('Tool')}>
+            <MenuItem title={_t('Texture Generator')} onClick={this.handleTextureGenerator}></MenuItem>
+            <MenuItemSeparator />
             <MenuItem title={_t('Arrange Map')} onClick={this.handleArrangeMap}></MenuItem>
             <MenuItem title={_t('Arrange Mesh')} onClick={this.handleArrangeMesh}></MenuItem>
             <MenuItem title={_t('Arrange Thumbnail')} onClick={this.handleArrangeThumbnail}></MenuItem>
             <MenuItemSeparator />
             <MenuItem title={_t('Export Editor')} onClick={this.handleExportEditor}></MenuItem>
         </MenuItem>;
+    }
+
+    handleTextureGenerator() {
+        app.require('TexGen').then(() => {
+            const win = app.createElement(TextureGeneratorWindow);
+            app.addElement(win);
+        });
     }
 
     handleArrangeMap() {
