@@ -1,0 +1,7 @@
+.Window.TextureGeneratorWindow>.wrap>.content {
+    left: 0;
+    top: 24px;
+    right: 0;
+    bottom: 32px;
+    overflow-y: auto;
+}
