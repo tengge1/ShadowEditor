@@ -1,3 +1,13 @@
+function calculateColor(ray, color) {
+    let direction = ray.direction;
+    let t = 0.5 * (direction.y + 1);
+    color.setRGB(
+        (1 - t) * 1 + t * 0.5,
+        (1 - t) * 1 + t * 0.7,
+        (1 - t) * 1 + t * 1.0,
+    );
+}
+
 /**
  * 应用程序
  */
@@ -23,17 +33,36 @@ class Application {
 
         let imgData = context.createImageData(this.width, this.height);
 
+        let lowerLeftCorner = new THREE.Vector3(-2, -1, -1);
+        let horizontal = new THREE.Vector3(4, 0, 0);
+        let vertical = new THREE.Vector3(0, 2, 0);
+        let origin = new THREE.Vector3(0, 0, 0);
+
+        let direction = new THREE.Vector3();
+        let ray = new THREE.Ray();
+        let color = new THREE.Color();
+
         for (let j = 0; j < this.height; j++) {
             for (let i = 0; i < this.width; i++) {
-                let r = i / this.width;
-                let g = j / this.height;
-                let b = 0.2;
+                let u = i / this.width;
+                let v = j / this.height;
+
+                direction.set(
+                    lowerLeftCorner.x + u * horizontal.x + v * vertical.x,
+                    lowerLeftCorner.y + u * horizontal.y + v * vertical.y,
+                    lowerLeftCorner.z + u * horizontal.z + v * vertical.z,
+                );
+                direction.normalize();
+
+                ray.set(origin, direction);
+
+                calculateColor(ray, color);
 
                 let index = j * this.width * 4 + i * 4;
 
-                imgData.data[index + 0] = parseInt(255.99 * r);
-                imgData.data[index + 1] = parseInt(255.99 * g);
-                imgData.data[index + 2] = parseInt(255.99 * b);
+                imgData.data[index + 0] = parseInt(255.99 * color.r);
+                imgData.data[index + 1] = parseInt(255.99 * color.g);
+                imgData.data[index + 2] = parseInt(255.99 * color.b);
                 imgData.data[index + 3] = 255;
             }
         }
