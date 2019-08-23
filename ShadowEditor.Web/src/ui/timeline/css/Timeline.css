@@ -31,7 +31,9 @@
 }
 
 .Timeline>.box>.timeline {
+    position: relative;
     height: 32px;
+    overflow: hidden;
 }
 
 .Timeline>.box>.timeline>canvas {
@@ -43,22 +45,39 @@
     padding-bottom: 8px;
     border-top: 1px solid #ddd;
     flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: stretch;
     overflow-y: auto;
 }
 
-.Timeline>.box>.layers>.layer {
-    height: 25px;
-    border-bottom: 1px solid #ddd;
+.Timeline>.box>.layers>.left {
+    width: 100px;
 }
 
-.Timeline>.box>.layers>.layer>.info {
-    width: 100px;
-    height: 24px;
-    border-right: 1px solid #ddd;
+.Timeline>.box>.layers>.left>.info {
+    height: 29px;
+    border-bottom: 1px solid #ddd;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+.Timeline>.box>.layers>.right {
+    position: relative;
+    width: 0;
+    flex: 1;
+    overflow-x: auto;
+}
+
+.Timeline>.box>.layers>.right>.layer {
+    width: 3600px;
+    height: 29px;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
 }
 
 .Timeline>.box>.layers>.slider {

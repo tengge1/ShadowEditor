@@ -76,29 +76,35 @@ class Timeline extends React.Component {
                     <canvas ref={this.canvasRef}></canvas>
                 </div>
                 <div className={'layers'}>
-                    {animations.map(layer => {
-                        return <div className={'layer'} key={layer.uuid}>
-                            <div className={'info'}>
+                    <div className={'left'}>
+                        {animations.map(layer => {
+                            return <div className={'info'} key={layer.uuid}>
                                 <CheckBox name={layer.uuid} checked={selectedLayer === layer.uuid} onChange={this.handleSelectedLayerChange}></CheckBox>
                                 <Label>{layer.layerName}</Label>
-                            </div>
-                            <div className={'animations'}>
-                                {layer.animations.map(animation => {
-                                    return <div
-                                        className={'animation'}
-                                        draggable={'true'}
-                                        droppable={'false'}
-                                        style={{
-                                            left: animation.beginTime * this.scale + 'px',
-                                            width: (animation.endTime - animation.beginTime) * this.scale + 'px',
-                                        }}
-                                        key={animation.uuid}>
-                                        <span className={'smaller'}>{animation.name}</span>
-                                    </div>;
-                                })}
-                            </div>
-                        </div>;
-                    })}
+                            </div>;
+                        })}
+                    </div>
+                    <div className={'right'}>
+                        {animations.map(layer => {
+                            return <div className={'layer'} key={layer.uuid}>
+                                <div className={'animations'}>
+                                    {layer.animations.map(animation => {
+                                        return <div
+                                            className={'animation'}
+                                            draggable={'true'}
+                                            droppable={'false'}
+                                            style={{
+                                                left: animation.beginTime * this.scale + 'px',
+                                                width: (animation.endTime - animation.beginTime) * this.scale + 'px',
+                                            }}
+                                            key={animation.uuid}>
+                                            <span className={'smaller'}>{animation.name}</span>
+                                        </div>;
+                                    })}
+                                </div>
+                            </div>;
+                        })}
+                    </div>
                     <div className="slider" ref={this.sliderRef}></div>
                 </div>
             </div>
