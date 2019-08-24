@@ -31,13 +31,11 @@ class Timeline extends React.Component {
         this.rightRef = React.createRef();
         this.sliderRef = React.createRef();
 
-        this.handleAddLayer = this.handleAddLayer.bind(this);
-        this.commitAddLayer = this.commitAddLayer.bind(this);
-
-        this.handleEditLayer = this.handleEditLayer.bind(this);
+        this.handleAddLayer = this.handleAddLayer.bind(this, props.onAddLayer);
+        this.handleEditLayer = this.handleEditLayer.bind(this, props.onEditLayer);
         this.commitEditLayer = this.commitEditLayer.bind(this);
 
-        this.handleDeleteLayer = this.handleDeleteLayer.bind(this);
+        this.handleDeleteLayer = this.handleDeleteLayer.bind(this, props.onDeleteLayer);
         this.commitDeleteLayer = this.commitDeleteLayer.bind(this);
 
         this.handleSelectedLayerChange = this.handleSelectedLayerChange.bind(this);
@@ -54,7 +52,7 @@ class Timeline extends React.Component {
     }
 
     render() {
-        const { className, style, animations, tip } = this.props;
+        const { className, style, animations } = this.props;
         const { selectedLayer } = this.state;
 
         return <div className={classNames('Timeline', className)} style={style}>
@@ -72,7 +70,7 @@ class Timeline extends React.Component {
                 <Label className={'time'}>{this.parseTime(this.time)}</Label>
                 <Label className={'speed'}>{this.parseSpeed(this.speed)}</Label>
                 <ToolbarFiller></ToolbarFiller>
-                <Label>{tip}</Label>
+                <Label>{_t('Illustrate: Double-click the area below the timeline to add an animation.')}</Label>
             </Toolbar>
             <div className="box">
                 <div className={'timeline'}>
@@ -177,28 +175,8 @@ class Timeline extends React.Component {
         }
     }
 
-    handleAddLayer(event) {
-        app.prompt({
-            title: _t('Input Layer Name'),
-            content: _t('Layer Name'),
-            value: _t('New Layer'),
-            onOK: this.commitAddLayer,
-        });
-    }
-
-    commitAddLayer(layerName) {
-        let animations = app.editor.animations;
-        const layer = Math.max.apply(Math, animations.map(n => n.layer)) + 1;
-
-        animations.push({
-            id: null,
-            layer,
-            layerName: layerName,
-            uuid: THREE.Math.generateUUID(),
-            animations: [],
-        });
-
-        app.call(`animationChanged`, this);
+    handleAddLayer(onAddLayer, event) {
+        onAddLayer && onAddLayer(event);
     }
 
     handleEditLayer(event) {
@@ -274,14 +252,18 @@ Timeline.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     animations: PropTypes.array,
-    tip: PropTypes.string,
+    onAddLayer: PropTypes.func,
+    onEditLayer: PropTypes.func,
+    onDeleteLayer: PropTypes.func,
 };
 
 Timeline.defaultProps = {
     className: null,
     style: null,
     animations: [],
-    tip: undefined,
+    onAddLayer: null,
+    onEditLayer: null,
+    onDeleteLayer: null,
 };
 
 export default Timeline;

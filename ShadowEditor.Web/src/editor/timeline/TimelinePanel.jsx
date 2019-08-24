@@ -14,7 +14,11 @@ class TimelinePanel extends React.Component {
             animations: [],
         };
 
-        this.handleAppStarted = this.handleAppStarted.bind(this);
+        this.handleAddLayer = this.handleAddLayer.bind(this);
+        this.commitAddLayer = this.commitAddLayer.bind(this);
+        this.handleEditLayer = this.handleEditLayer.bind(this);
+        this.handleDeleteLayer = this.handleDeleteLayer.bind(this);
+
         this.updateUI = this.updateUI.bind(this);
     }
 
@@ -24,32 +28,18 @@ class TimelinePanel extends React.Component {
         return <Timeline
             className={'TimelinePanel'}
             animations={animations}
-            tip={_t('Illustrate: Double-click the area below the timeline to add an animation.')}></Timeline>;
+            onAddLayer={this.handleAddLayer}
+            onEditLayer={this.handleEditLayer}
+            onDeleteLayer={this.handleDeleteLayer}></Timeline>;
     }
 
     componentDidMount() {
-        app.on(`appStarted.TimelinePanel`, this.handleAppStarted);
+        app.on(`appStarted.TimelinePanel`, this.updateUI);
         app.on(`animationChanged.TimelinePanel`, this.updateUI);
     }
 
-    handleAppStarted() {
-        this.updateUI();
-        // var timeline = UI.get('timeline', this.id);
-        // var layers = UI.get('layers', this.id);
-
-        // timeline.updateUI();
-        // layers.dom.style.width = timeline.dom.clientWidth + 'px';
-
-        // layers.dom.addEventListener(`click`, this.onClick.bind(this));
-        // layers.dom.addEventListener(`dblclick`, this.onDblClick.bind(this));
-
-        // app.on(`animationChanged.TimelinePanel`, this.updateUI.bind(this));
-        // app.on(`resetAnimation.TimelinePanel`, this.onResetAnimation.bind(this));
-        // app.on(`startAnimation.TimelinePanel`, this.onPlay.bind(this));
-    }
-
     updateUI() {
-        let animations = app.editor.animations;
+        const animations = app.editor.animations;
 
         this.setState({
             animations,
@@ -102,6 +92,38 @@ class TimelinePanel extends React.Component {
         //         layer.appendChild(item);
         //     });
         // });
+    }
+
+    handleAddLayer() {
+        app.prompt({
+            title: _t('Input Layer Name'),
+            content: _t('Layer Name'),
+            value: _t('New Layer'),
+            onOK: this.commitAddLayer,
+        });
+    }
+
+    commitAddLayer(layerName) {
+        let animations = app.editor.animations;
+        const layer = Math.max.apply(Math, animations.map(n => n.layer)) + 1;
+
+        animations.push({
+            id: null,
+            layer,
+            layerName: layerName,
+            uuid: THREE.Math.generateUUID(),
+            animations: [],
+        });
+
+        app.call(`animationChanged`, this);
+    }
+
+    handleEditLayer() {
+
+    }
+
+    handleDeleteLayer() {
+
     }
 
     updateSlider() {
