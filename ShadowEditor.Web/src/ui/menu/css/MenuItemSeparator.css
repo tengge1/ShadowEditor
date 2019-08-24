@@ -3,6 +3,10 @@
     display: block;
 }
 
+.MenuItemSeparator.hidden {
+    display: none !important;
+}
+
 .MenuItemSeparator .separator {
     height: 2px;
     margin-left: 24px;

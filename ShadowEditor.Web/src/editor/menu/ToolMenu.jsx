@@ -22,10 +22,10 @@ class ToolMenu extends React.Component {
         return <MenuItem title={_t('Tool')}>
             <MenuItem title={_t('Texture Generator')} onClick={this.handleTextureGenerator}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={_t('Arrange Map')} onClick={this.handleArrangeMap}></MenuItem>
-            <MenuItem title={_t('Arrange Mesh')} onClick={this.handleArrangeMesh}></MenuItem>
-            <MenuItem title={_t('Arrange Thumbnail')} onClick={this.handleArrangeThumbnail}></MenuItem>
-            <MenuItemSeparator />
+            <MenuItem title={_t('Arrange Map')} show={app.debug === true} onClick={this.handleArrangeMap}></MenuItem>
+            <MenuItem title={_t('Arrange Mesh')} show={app.debug === true} onClick={this.handleArrangeMesh}></MenuItem>
+            <MenuItem title={_t('Arrange Thumbnail')} show={app.debug === true} onClick={this.handleArrangeThumbnail}></MenuItem>
+            <MenuItemSeparator show={app.debug === true} />
             <MenuItem title={_t('Export Editor')} onClick={this.handleExportEditor}></MenuItem>
         </MenuItem>;
     }

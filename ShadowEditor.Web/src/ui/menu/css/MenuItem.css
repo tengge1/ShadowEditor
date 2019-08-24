@@ -12,6 +12,10 @@
     --right-arrow: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABAQMAAADO7O3JAAAAA3NCSVQICAjb4U/gAAAABlBMVEXi4+P///9V63aNAAAACXBIWXMAAAsSAAALEgHS3X78AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M1cbXjNgAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNy8wNi8xMZANh+UAAAAKSURBVAiZY3AAAABCAEGV6TQ4AAAAAElFTkSuQmCC') repeat-y rgb(240, 240, 240);
 }
 
+.MenuItem.hidden {
+    display: none !important;
+}
+
 .MenuItem:hover {
     background: linear-gradient(to bottom, rgba(193, 222, 255, 0.2), rgba(193, 222, 255, 0.4));
     color: black;
