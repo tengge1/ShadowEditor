@@ -59,7 +59,7 @@ class TwoDMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={_t('2D')}>
+        return <MenuItem title={_t('2D')} show={app.debug === true}>
             <MenuItem title={_t('Button')} onClick={this.handleAddButton}></MenuItem>
             <MenuItem title={_t('Label')} onClick={this.handleAddLabel}></MenuItem>
             <MenuItem title={_t('Panel')} onClick={this.handleAddPanel}></MenuItem>
