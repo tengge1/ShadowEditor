@@ -18,7 +18,9 @@ class TimelinePanel extends React.Component {
         this.handleAddLayer = this.handleAddLayer.bind(this);
         this.commitAddLayer = this.commitAddLayer.bind(this);
         this.handleEditLayer = this.handleEditLayer.bind(this);
+        this.commitEditLayer = this.commitEditLayer.bind(this);
         this.handleDeleteLayer = this.handleDeleteLayer.bind(this);
+        this.commitDeleteLayer = this.commitDeleteLayer.bind(this);
         this.handleSelectedLayerChange = this.handleSelectedLayerChange.bind(this);
 
         this.updateUI = this.updateUI.bind(this);
@@ -123,12 +125,62 @@ class TimelinePanel extends React.Component {
         app.call(`animationChanged`, this);
     }
 
-    handleEditLayer() {
+    handleEditLayer(id, event) {
+        if (!id) {
+            app.toast(_t('Please select an animation layer.'));
+            return;
+        }
 
+        const animations = app.editor.animations;
+
+        const layer = animations.filter(n => n.uuid === id)[0];
+
+        app.confirm({
+            title: _t('Delete'),
+            content: _t(`Delete animation layer {{layerName}}?`, { layerName: layer.layerName }),
+            onOK: this.commitEditLayer,
+        });
     }
 
-    handleDeleteLayer() {
+    commitEditLayer() {
+        let animations = app.editor.animations;
 
+        const index = animations.findIndex(n => n.uuid === this.state.selectedLayer);
+
+        if (index > -1) {
+            animations.splice(index, 1);
+
+            app.call(`animationChanged`, this);
+        }
+    }
+
+    handleDeleteLayer(id, event) {
+        if (!id) {
+            app.toast(_t('Please select an animation layer.'));
+            return;
+        }
+
+        const animations = app.editor.animations;
+
+        const layer = animations.filter(n => n.uuid === id)[0];
+
+        app.confirm({
+            title: _t('Delete'),
+            content: _t(`Delete animation layer {{layerName}}?`, { layerName: layer.layerName }),
+            onOK: this.commitDeleteLayer,
+        });
+    }
+
+    commitDeleteLayer() {
+        let animations = app.editor.animations;
+
+        const index = animations.findIndex(n => n.uuid === this.state.selectedLayer);
+
+        if (index > -1) {
+            animations.splice(index, 1);
+
+            app.call(`animationChanged`, this);
+        }
     }
 
     handleSelectedLayerChange(value) {

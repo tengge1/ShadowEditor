@@ -29,8 +29,6 @@ class Timeline extends React.Component {
 
         this.handleAddLayer = this.handleAddLayer.bind(this, props.onAddLayer);
         this.handleEditLayer = this.handleEditLayer.bind(this, props.onEditLayer);
-        this.commitEditLayer = this.commitEditLayer.bind(this);
-
         this.handleDeleteLayer = this.handleDeleteLayer.bind(this, props.onDeleteLayer);
         this.commitDeleteLayer = this.commitDeleteLayer.bind(this);
 
@@ -174,16 +172,16 @@ class Timeline extends React.Component {
         onAddLayer && onAddLayer(event);
     }
 
-    handleEditLayer(event) {
+    handleEditLayer(onEditLayer, event) {
+        const { selectedLayer } = this.props;
 
+        onEditLayer && onEditLayer(selectedLayer, event);
     }
 
-    commitEditLayer() {
+    handleDeleteLayer(onDeleteLayer, event) {
+        const { selectedLayer } = this.props;
 
-    }
-
-    handleDeleteLayer(event) {
-
+        onDeleteLayer && onDeleteLayer(selectedLayer, event);
     }
 
     commitDeleteLayer() {
