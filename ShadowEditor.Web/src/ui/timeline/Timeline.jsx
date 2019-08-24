@@ -21,10 +21,6 @@ class Timeline extends React.Component {
         this.time = 0; // 当前时间
         this.speed = 16; // 当前速度
 
-        this.state = {
-            selectedLayer: null,
-        };
-
         this.canvasRef = React.createRef();
         this.layersRef = React.createRef();
         this.leftRef = React.createRef();
@@ -38,7 +34,7 @@ class Timeline extends React.Component {
         this.handleDeleteLayer = this.handleDeleteLayer.bind(this, props.onDeleteLayer);
         this.commitDeleteLayer = this.commitDeleteLayer.bind(this);
 
-        this.handleSelectedLayerChange = this.handleSelectedLayerChange.bind(this);
+        this.handleSelectedLayerChange = this.handleSelectedLayerChange.bind(this, props.onSelectedLayerChange);
 
         this.handleBackward = this.handleBackward.bind(this);
         this.handlePlay = this.handlePlay.bind(this);
@@ -52,8 +48,7 @@ class Timeline extends React.Component {
     }
 
     render() {
-        const { className, style, animations } = this.props;
-        const { selectedLayer } = this.state;
+        const { className, style, animations, selectedLayer } = this.props;
 
         return <div className={classNames('Timeline', className)} style={style}>
             <Toolbar className={classNames('controls', className)} style={style}>
@@ -195,10 +190,8 @@ class Timeline extends React.Component {
 
     }
 
-    handleSelectedLayerChange(value, name, event) {
-        this.setState({
-            selectedLayer: value ? name : null,
-        });
+    handleSelectedLayerChange(onSelectedLayerChange, value, name, event) {
+        onSelectedLayerChange && onSelectedLayerChange(value ? name : null, event);
     }
 
     handleBackward(event) {
@@ -252,18 +245,24 @@ Timeline.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     animations: PropTypes.array,
+    selectedLayer: PropTypes.string,
+
     onAddLayer: PropTypes.func,
     onEditLayer: PropTypes.func,
     onDeleteLayer: PropTypes.func,
+    onSelectedLayerChange: PropTypes.func,
 };
 
 Timeline.defaultProps = {
     className: null,
     style: null,
     animations: [],
+    selectedLayer: null,
+
     onAddLayer: null,
     onEditLayer: null,
     onDeleteLayer: null,
+    onSelectedLayerChange: null,
 };
 
 export default Timeline;

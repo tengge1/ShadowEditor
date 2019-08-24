@@ -12,25 +12,30 @@ class TimelinePanel extends React.Component {
 
         this.state = {
             animations: [],
+            selectedLayer: null,
         };
 
         this.handleAddLayer = this.handleAddLayer.bind(this);
         this.commitAddLayer = this.commitAddLayer.bind(this);
         this.handleEditLayer = this.handleEditLayer.bind(this);
         this.handleDeleteLayer = this.handleDeleteLayer.bind(this);
+        this.handleSelectedLayerChange = this.handleSelectedLayerChange.bind(this);
 
         this.updateUI = this.updateUI.bind(this);
     }
 
     render() {
-        const { animations } = this.state;
+        const { animations, selectedLayer } = this.state;
 
         return <Timeline
             className={'TimelinePanel'}
             animations={animations}
+            selectedLayer={selectedLayer}
+
             onAddLayer={this.handleAddLayer}
             onEditLayer={this.handleEditLayer}
-            onDeleteLayer={this.handleDeleteLayer}></Timeline>;
+            onDeleteLayer={this.handleDeleteLayer}
+            onSelectedLayerChange={this.handleSelectedLayerChange}></Timeline>;
     }
 
     componentDidMount() {
@@ -124,6 +129,12 @@ class TimelinePanel extends React.Component {
 
     handleDeleteLayer() {
 
+    }
+
+    handleSelectedLayerChange(value) {
+        this.setState({
+            selectedLayer: value,
+        });
     }
 
     updateSlider() {
