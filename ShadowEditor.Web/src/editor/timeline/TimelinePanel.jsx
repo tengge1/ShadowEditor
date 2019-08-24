@@ -135,20 +135,21 @@ class TimelinePanel extends React.Component {
 
         const layer = animations.filter(n => n.uuid === id)[0];
 
-        app.confirm({
-            title: _t('Delete'),
-            content: _t(`Delete animation layer {{layerName}}?`, { layerName: layer.layerName }),
+        app.prompt({
+            title: _t('Edit Layer Name'),
+            content: _t('Layer Name'),
+            value: layer.layerName,
             onOK: this.commitEditLayer,
         });
     }
 
-    commitEditLayer() {
+    commitEditLayer(layerName) {
         let animations = app.editor.animations;
 
         const index = animations.findIndex(n => n.uuid === this.state.selectedLayer);
 
         if (index > -1) {
-            animations.splice(index, 1);
+            animations[index].layerName = layerName;
 
             app.call(`animationChanged`, this);
         }

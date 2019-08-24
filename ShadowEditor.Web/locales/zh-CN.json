@@ -660,5 +660,6 @@
     "New Layer": "新层",
     "Texture Generator": "纹理生成器",
     "Please select an animation layer.": "请选择一个动画层。",
-    "Delete animation layer {{layerName}}?": "删除动画层 {{layerName}}？"
+    "Delete animation layer {{layerName}}?": "删除动画层 {{layerName}}？",
+    "Edit Layer Name": "编辑层名"
 }
