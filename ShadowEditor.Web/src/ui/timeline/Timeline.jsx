@@ -27,6 +27,8 @@ class Timeline extends React.Component {
 
         this.canvasRef = React.createRef();
         this.layersRef = React.createRef();
+        this.leftRef = React.createRef();
+        this.rightRef = React.createRef();
         this.sliderRef = React.createRef();
 
         this.handleAddLayer = this.handleAddLayer.bind(this);
@@ -48,6 +50,7 @@ class Timeline extends React.Component {
 
         this.handleClick = this.handleClick.bind(this);
         this.handleDoubleClick = this.handleDoubleClick.bind(this);
+        this.handleRightScroll = this.handleRightScroll.bind(this);
     }
 
     render() {
@@ -76,7 +79,7 @@ class Timeline extends React.Component {
                     <canvas ref={this.canvasRef}></canvas>
                 </div>
                 <div className={'layers'}>
-                    <div className={'left'}>
+                    <div className={'left'} ref={this.leftRef}>
                         {animations.map(layer => {
                             return <div className={'info'} key={layer.uuid}>
                                 <CheckBox name={layer.uuid} checked={selectedLayer === layer.uuid} onChange={this.handleSelectedLayerChange}></CheckBox>
@@ -84,7 +87,7 @@ class Timeline extends React.Component {
                             </div>;
                         })}
                     </div>
-                    <div className={'right'}>
+                    <div className={'right'} ref={this.rightRef} onScroll={this.handleRightScroll}>
                         {animations.map(layer => {
                             return <div className={'layer'} key={layer.uuid}>
                                 <div className={'animations'}>
@@ -112,6 +115,10 @@ class Timeline extends React.Component {
     }
 
     componentDidMount() {
+        this.renderTimeline();
+    }
+
+    renderTimeline() {
         const { duration, scale } = this;
 
         const width = duration * scale; // 画布宽度
@@ -242,6 +249,14 @@ class Timeline extends React.Component {
 
     handleDoubleClick(event) {
 
+    }
+
+    handleRightScroll(scroll) {
+        let left = this.leftRef.current;
+        let canvas = this.canvasRef.current;
+
+        left.scrollTop = event.target.scrollTop;
+        canvas.style.left = `${100 - event.target.scrollLeft}px`;
     }
 
     parseTime(time) {

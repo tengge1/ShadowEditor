@@ -42,7 +42,6 @@
 }
 
 .Timeline>.box>.layers {
-    padding-bottom: 8px;
     border-top: 1px solid #ddd;
     flex: 1;
     display: flex;
@@ -54,6 +53,10 @@
 
 .Timeline>.box>.layers>.left {
     width: 100px;
+    height: 100%;
+    padding-bottom: 8px;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .Timeline>.box>.layers>.left>.info {
@@ -69,8 +72,11 @@
 .Timeline>.box>.layers>.right {
     position: relative;
     width: 0;
+    height: 100%;
+    padding-bottom: 8px;
+    box-sizing: border-box;
     flex: 1;
-    overflow-x: auto;
+    overflow: auto;
 }
 
 .Timeline>.box>.layers>.right>.layer {
