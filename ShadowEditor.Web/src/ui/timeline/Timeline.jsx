@@ -67,6 +67,7 @@ class Timeline extends React.Component {
             </Toolbar>
             <div className="box">
                 <div className={'timeline'}>
+                    <div class="mask"></div>
                     <canvas ref={this.canvasRef}></canvas>
                 </div>
                 <div className={'layers'}>

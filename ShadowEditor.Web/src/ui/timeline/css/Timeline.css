@@ -36,6 +36,14 @@
     overflow: hidden;
 }
 
+.Timeline>.box>.timeline>.mask {
+    position: absolute;
+    width: 100px;
+    height: 32px;
+    background: #fff;
+    z-index: 10;
+}
+
 .Timeline>.box>.timeline>canvas {
     position: absolute;
     left: 100px;
