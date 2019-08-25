@@ -48,7 +48,7 @@ class BasicAnimationComponent extends React.Component {
                 label={_t('Target')}
                 name={'target'}
                 value={target ? target : `(${_t('None')})`}
-                btnText={_t('Setting')}
+                btnText={_t('Set Target')}
                 btnShow={app.editor.selected != null}
                 onClick={this.handleSetTarget}
                 onChange={this.handleChange}></DisplayProperty>
