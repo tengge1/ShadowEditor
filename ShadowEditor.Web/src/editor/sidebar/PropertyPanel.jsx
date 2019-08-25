@@ -16,10 +16,6 @@ import ShadowComponent from '../component/ShadowComponent.jsx';
 import SmokeComponent from '../component/SmokeComponent.jsx';
 import TransformComponent from '../component/TransformComponent.jsx';
 
-// component/animation
-import BasicAnimationComponent from '../component/animation/BasicAnimationComponent.jsx';
-import TweenAnimationComponent from '../component/animation/TweenAnimationComponent.jsx';
-
 // component/audio
 import AudioListenerComponent from '../component/audio/AudioListenerComponent.jsx';
 import BackgroundMusicComponent from '../component/audio/BackgroundMusicComponent.jsx';
@@ -167,10 +163,6 @@ class PropertyPanel extends React.Component {
             <SsaaComponent></SsaaComponent>
             <SsaoComponent></SsaoComponent>
             <TaaComponent></TaaComponent>
-
-            {/* component/animation */}
-            <BasicAnimationComponent></BasicAnimationComponent>
-            <TweenAnimationComponent></TweenAnimationComponent>
         </PropertyGrid>;
     }
 }

@@ -5,6 +5,7 @@ import HierarchyPanel from './HierarchyPanel.jsx';
 import HistoryPanel from './HistoryPanel.jsx';
 import PropertyPanel from './PropertyPanel.jsx';
 import ScriptPanel from './ScriptPanel.jsx';
+import AnimationPropertyPanel from './AnimationPropertyPanel.jsx';
 
 /**
  * 侧边栏
@@ -34,6 +35,7 @@ class EditorSideBar extends React.Component {
             <TabLayout className={'bottom'} activeTabIndex={bottomIndex} onActiveTabChange={this.handleBottomTabChange}>
                 <PropertyPanel title={_t('Property')}></PropertyPanel>
                 <ScriptPanel title={_t('Script')}></ScriptPanel>
+                <AnimationPropertyPanel title={_t('Animation')}></AnimationPropertyPanel>
             </TabLayout>
         </VBoxLayout>;
     }
