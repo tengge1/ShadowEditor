@@ -88,10 +88,27 @@
 }
 
 .Timeline>.box>.layers>.right>.layer {
+    position: relative;
     width: 3600px;
     height: 29px;
     border-bottom: 1px solid #ddd;
     box-sizing: border-box;
+}
+
+.Timeline>.box>.layers>.right>.layer>.animation {
+    position: absolute;
+    font-size: 12px;
+    line-height: 28px;
+    color: #fff;
+    background: #d4237a;
+    padding: 0 4px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+    border-radius: 2px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .Timeline>.box>.layers>.slider {

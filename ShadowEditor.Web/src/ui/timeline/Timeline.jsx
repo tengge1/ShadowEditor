@@ -41,8 +41,13 @@ class Timeline extends React.Component {
         this.handleStop = this.handleStop.bind(this);
 
         this.handleClick = this.handleClick.bind(this);
-        this.handleDoubleClick = this.handleDoubleClick.bind(this);
+        this.handleDoubleClick = this.handleDoubleClick.bind(this, props.onAddAnimation);
         this.handleRightScroll = this.handleRightScroll.bind(this);
+
+        this.handleDragEnter = this.handleDragEnter.bind(this);
+        this.handleDragOver = this.handleDragOver.bind(this);
+        this.handleDragLeave = this.handleDragLeave.bind(this);
+        this.handleDrop = this.handleDrop.bind(this);
     }
 
     render() {
@@ -67,7 +72,7 @@ class Timeline extends React.Component {
             </Toolbar>
             <div className="box">
                 <div className={'timeline'}>
-                    <div class="mask"></div>
+                    <div className="mask"></div>
                     <canvas ref={this.canvasRef}></canvas>
                 </div>
                 <div className={'layers'}>
@@ -81,22 +86,29 @@ class Timeline extends React.Component {
                     </div>
                     <div className={'right'} ref={this.rightRef} onScroll={this.handleRightScroll}>
                         {animations.map(layer => {
-                            return <div className={'layer'} key={layer.uuid}>
-                                <div className={'animations'}>
-                                    {layer.animations.map(animation => {
-                                        return <div
-                                            className={'animation'}
-                                            draggable={'true'}
-                                            droppable={'false'}
-                                            style={{
-                                                left: animation.beginTime * this.scale + 'px',
-                                                width: (animation.endTime - animation.beginTime) * this.scale + 'px',
-                                            }}
-                                            key={animation.uuid}>
-                                            <span className={'smaller'}>{animation.name}</span>
-                                        </div>;
-                                    })}
-                                </div>
+                            return <div
+                                className={'layer'}
+                                droppable={'true'}
+                                data-type={'layer'}
+                                data-id={layer.uuid}
+                                onDoubleClick={this.handleDoubleClick}
+                                onDragEnter={this.handleDragEnter}
+                                onDragOver={this.handleDragOver}
+                                onDragLeave={this.handleDragLeave}
+                                onDrop={this.handleDrop}
+                                key={layer.uuid}>
+                                {layer.animations.map(animation => {
+                                    return <div
+                                        className={'animation'}
+                                        title={animation.name}
+                                        draggable={'true'}
+                                        droppable={'false'}
+                                        style={{
+                                            left: animation.beginTime * this.scale + 'px',
+                                            width: (animation.endTime - animation.beginTime) * this.scale + 'px',
+                                        }}
+                                        key={animation.uuid}>{animation.name}</div>;
+                                })}
                             </div>;
                         })}
                     </div>
@@ -217,8 +229,19 @@ class Timeline extends React.Component {
 
     }
 
-    handleDoubleClick(event) {
+    handleDoubleClick(onAddAnimation, event) {
+        const type = event.target.getAttribute('data-type');
 
+        if (type !== 'layer') {
+            return;
+        }
+
+        const layerID = event.target.getAttribute('data-id');
+
+        const beginTime = event.nativeEvent.offsetX / this.scale;
+        const endTime = beginTime + 3;
+
+        onAddAnimation && onAddAnimation(layerID, beginTime, endTime, event);
     }
 
     handleRightScroll(scroll) {
@@ -227,6 +250,22 @@ class Timeline extends React.Component {
 
         left.scrollTop = event.target.scrollTop;
         canvas.style.left = `${100 - event.target.scrollLeft}px`;
+    }
+
+    handleDragEnter(event) {
+
+    }
+
+    handleDragOver(event) {
+
+    }
+
+    handleDragLeave(event) {
+
+    }
+
+    handleDrop(event) {
+
     }
 
     parseTime(time) {
@@ -250,6 +289,8 @@ Timeline.propTypes = {
     onEditLayer: PropTypes.func,
     onDeleteLayer: PropTypes.func,
     onSelectedLayerChange: PropTypes.func,
+
+    onAddAnimation: PropTypes.func,
 };
 
 Timeline.defaultProps = {
@@ -262,6 +303,8 @@ Timeline.defaultProps = {
     onEditLayer: null,
     onDeleteLayer: null,
     onSelectedLayerChange: null,
+
+    onAddAnimation: null,
 };
 
 export default Timeline;

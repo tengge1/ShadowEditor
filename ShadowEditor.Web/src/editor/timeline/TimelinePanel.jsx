@@ -23,6 +23,8 @@ class TimelinePanel extends React.Component {
         this.commitDeleteLayer = this.commitDeleteLayer.bind(this);
         this.handleSelectedLayerChange = this.handleSelectedLayerChange.bind(this);
 
+        this.handleAddAnimation = this.handleAddAnimation.bind(this);
+
         this.updateUI = this.updateUI.bind(this);
     }
 
@@ -37,7 +39,9 @@ class TimelinePanel extends React.Component {
             onAddLayer={this.handleAddLayer}
             onEditLayer={this.handleEditLayer}
             onDeleteLayer={this.handleDeleteLayer}
-            onSelectedLayerChange={this.handleSelectedLayerChange}></Timeline>;
+            onSelectedLayerChange={this.handleSelectedLayerChange}
+
+            onAddAnimation={this.handleAddAnimation}></Timeline>;
     }
 
     componentDidMount() {
@@ -190,6 +194,28 @@ class TimelinePanel extends React.Component {
         });
     }
 
+    handleAddAnimation(layerID, beginTime, endTime, event) {
+        let layer = app.editor.animations.filter(n => n.uuid === layerID)[0];
+
+        if (!layer) {
+            console.warn(`TimelinePanel: layer ${layerID} is not defined.`);
+            return;
+        }
+
+        layer.animations.push({
+            id: null,
+            uuid: THREE.Math.generateUUID(),
+            name: 'New Animation',
+            target: null,
+            type: 'Tween',
+            beginTime,
+            endTime,
+            data: null,
+        });
+
+        app.call(`animationChanged`, this);
+    }
+
     updateSlider() {
         var timeline = UI.get('timeline', this.id);
         var slider = UI.get('slider', this.id);
@@ -223,50 +249,6 @@ class TimelinePanel extends React.Component {
         }
 
         this.updateSlider();
-    }
-
-    onAddLayer() {
-        var animations = app.editor.animations;
-
-        var maxLayer = Math.max.apply(Math, animations.map(n => n.layer));
-
-        var animation = {
-            id: null,
-            uuid: THREE.Math.generateUUID(),
-            layer: maxLayer + 1,
-            layerName: `${_t('AnimLayer')}${maxLayer + 2}`,
-            animations: []
-        };
-        app.editor.animations.push(animation);
-        this.updateUI();
-    }
-
-    onRemoveLayer() {
-        var inputs = document.querySelectorAll('.animation-panel .left-area input:checked');
-
-        var uuids = [];
-        inputs.forEach(n => {
-            uuids.push(n.getAttribute('data-uuid'));
-        });
-
-        if (uuids.length === 0) {
-            app.toast(_t('Please check the layer.'));
-            return;
-        }
-
-        var animations = app.editor.animations;
-
-        app.confirm(_t('Confirm'), _t('Delete layer will delete all the anims on the layer. Are you sure?'), (event, btn) => {
-            if (btn === 'ok') {
-                uuids.forEach(n => {
-                    var index = animations.findIndex(m => m.uuid === n);
-                    if (index > -1) {
-                        animations.splice(index, 1);
-                    }
-                });
-                this.updateUI();
-            }
-        });
     }
 
     // ----------------------------------- 播放器事件 -------------------------------------------
