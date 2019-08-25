@@ -15,17 +15,19 @@ class EditorStatusBar extends React.Component {
             vertices: 0,
             triangles: 0,
             showStats: app.storage.get('showStats') === undefined ? true : app.storage.get('showStats'),
+            showViewHelper: app.storage.get('showViewHelper') === undefined ? true : app.storage.get('showViewHelper'),
             isThrowBall: false,
             isRecording: false,
         };
 
         this.handleShowStats = this.handleShowStats.bind(this);
+        this.handleShowViewHelper = this.handleShowViewHelper.bind(this);
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
         this.handleRecord = this.handleRecord.bind(this);
     }
 
     render() {
-        const { objects, vertices, triangles, showStats, isThrowBall, isRecording } = this.state;
+        const { objects, vertices, triangles, showStats, showViewHelper, isThrowBall, isRecording } = this.state;
 
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{_t('Object')}</Label>
@@ -37,6 +39,8 @@ class EditorStatusBar extends React.Component {
             <ToolbarSeparator></ToolbarSeparator>
             <Label>{_t('Show Stats')}</Label>
             <CheckBox checked={showStats} onChange={this.handleShowStats}></CheckBox>
+            <Label>{_t('View Helper')}</Label>
+            <CheckBox checked={showViewHelper} onChange={this.handleShowViewHelper}></CheckBox>
             <Label>{_t('ThrowBall')}</Label>
             <CheckBox checked={isThrowBall} onChange={this.handleEnableThrowBall}></CheckBox>
             <ToolbarSeparator></ToolbarSeparator>
@@ -92,7 +96,7 @@ class EditorStatusBar extends React.Component {
     }
 
     handleShowStats() {
-        let showStats = !app.storage.get('showStats');
+        const showStats = !app.storage.get('showStats');
         app.storage.set('showStats', showStats);
 
         Object.assign(app.stats.dom.style, {
@@ -101,6 +105,17 @@ class EditorStatusBar extends React.Component {
 
         this.setState({
             showStats,
+        });
+    }
+
+    handleShowViewHelper() {
+        const showViewHelper = !app.storage.get('showViewHelper');
+        app.storage.set('showViewHelper', showViewHelper);
+
+        app.call(`storageChanged`, this, 'showViewHelper', showViewHelper);
+
+        this.setState({
+            showViewHelper,
         });
     }
 

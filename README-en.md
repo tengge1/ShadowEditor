@@ -27,7 +27,7 @@ Language: [中文](README.md) / [繁體中文](README-tw.md) / English
 
 ## Project screenshot
 
-![image](images/scene20190811.png)
+![image](images/scene20190825.png)
 
 <table>
     <tr>

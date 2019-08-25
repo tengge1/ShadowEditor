@@ -17,9 +17,19 @@ ViewHelper.prototype.constructor = ViewHelper;
 ViewHelper.prototype.start = function () {
     this.scene = new THREE.Scene();
 
+    let show = app.storage.get('showViewHelper');
+
+    if (show === undefined) {
+        show = true;
+        app.storage.set('showViewHelper', true);
+    }
+
+    this.show = show;
+
     this.mesh = this.createMesh();
     this.scene.add(this.mesh);
 
+    app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
     app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
     // app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
     app.on(`resize.${this.id}`, this.onResize.bind(this));
@@ -29,6 +39,8 @@ ViewHelper.prototype.stop = function () {
     this.scene.remove(this.mesh);
     delete this.scene;
     delete this.mesh;
+
+    app.on(`storageChanged.${this.id}`, null);
     app.on(`afterRender.${this.id}`, null);
     // app.on(`mousedown.${this.id}`, null);
     app.on(`resize.${this.id}`, null);
@@ -144,12 +156,20 @@ ViewHelper.prototype.createMesh = function () {
     ]);
 };
 
-ViewHelper.prototype.onAfterRender = function () {
-    if (!app.editor.showViewHelper) {
+ViewHelper.prototype.onStorageChanged = function (key, value) {
+    if (key !== 'showViewHelper') {
         return;
     }
 
-    if (app.editor.view !== 'perspective') {
+    this.show = value;
+};
+
+ViewHelper.prototype.onAfterRender = function () {
+    if (!this.show) {
+        return;
+    }
+
+    if (!app.editor.showViewHelper) {
         return;
     }
 

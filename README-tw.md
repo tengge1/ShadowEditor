@@ -27,7 +27,7 @@ Language: [中文](README.md) / 繁體中文 / [English](README-en.md)
 
 ## 項目截圖
 
-![image](images/scene20190811.png)
+![image](images/scene20190825.png)
 
 <table>
     <tr>
