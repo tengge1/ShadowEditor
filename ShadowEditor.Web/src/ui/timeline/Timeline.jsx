@@ -53,7 +53,7 @@ class Timeline extends React.Component {
     }
 
     render() {
-        const { className, style, animations, selectedLayer } = this.props;
+        const { className, style, animations, selectedLayer, selected } = this.props;
 
         return <div className={classNames('Timeline', className)} style={style}>
             <Toolbar className={classNames('controls', className)} style={style}>
@@ -101,7 +101,7 @@ class Timeline extends React.Component {
                                 key={layer.uuid}>
                                 {layer.animations.map(animation => {
                                     return <div
-                                        className={'animation'}
+                                        className={classNames('animation', selected === animation.uuid && 'selected')}
                                         title={animation.name}
                                         draggable={'true'}
                                         droppable={'false'}
@@ -236,7 +236,7 @@ class Timeline extends React.Component {
     handleClick(onClickAnimation, event) {
         const type = event.target.getAttribute('data-type');
 
-        if (type !== 'layer') {
+        if (type !== 'animation') {
             return;
         }
 
@@ -334,6 +334,7 @@ Timeline.propTypes = {
     style: PropTypes.object,
     animations: PropTypes.array,
     selectedLayer: PropTypes.string,
+    selected: PropTypes.string,
 
     onAddLayer: PropTypes.func,
     onEditLayer: PropTypes.func,
@@ -350,6 +351,7 @@ Timeline.defaultProps = {
     style: null,
     animations: [],
     selectedLayer: null,
+    selected: null,
 
     onAddLayer: null,
     onEditLayer: null,

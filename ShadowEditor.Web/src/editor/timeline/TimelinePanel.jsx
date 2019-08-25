@@ -13,6 +13,7 @@ class TimelinePanel extends React.Component {
         this.state = {
             animations: [],
             selectedLayer: null,
+            selected: null,
         };
 
         this.handleAddLayer = this.handleAddLayer.bind(this);
@@ -31,12 +32,13 @@ class TimelinePanel extends React.Component {
     }
 
     render() {
-        const { animations, selectedLayer } = this.state;
+        const { animations, selectedLayer, selected } = this.state;
 
         return <Timeline
             className={'TimelinePanel'}
             animations={animations}
             selectedLayer={selectedLayer}
+            selected={selected}
 
             onAddLayer={this.handleAddLayer}
             onEditLayer={this.handleEditLayer}
@@ -249,6 +251,10 @@ class TimelinePanel extends React.Component {
         }
 
         app.call('animationSelected', this, animation);
+
+        this.setState({
+            selected: animation.uuid,
+        });
     }
 }
 

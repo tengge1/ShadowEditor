@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
+import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -102,7 +102,7 @@ class TweenAnimationComponent extends React.Component {
             <NumberProperty label={'beginRotationX'} name={'beginRotationX'} value={beginRotationX} show={showBeginState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'beginRotationY'} name={'beginRotationY'} value={beginRotationY} show={showBeginState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'beginRotationZ'} name={'beginRotationZ'} value={beginRotationZ} show={showBeginState} onChange={this.handleChange}></NumberProperty>
-            <CheckProperty label={'beginScaleLock'} name={'beginScaleLock'} value={beginScaleLock} show={showBeginState} onChange={this.handleChange}></CheckProperty>
+            <CheckBoxProperty label={'beginScaleLock'} name={'beginScaleLock'} value={beginScaleLock} show={showBeginState} onChange={this.handleChange}></CheckBoxProperty>
             <NumberProperty label={'beginScaleX'} name={'beginScaleX'} value={beginScaleX} show={showBeginState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'beginScaleY'} name={'beginScaleY'} value={beginScaleY} show={showBeginState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'beginScaleZ'} name={'beginScaleZ'} value={beginScaleZ} show={showBeginState} onChange={this.handleChange}></NumberProperty>
@@ -116,7 +116,7 @@ class TweenAnimationComponent extends React.Component {
             <NumberProperty label={'endRotationX'} name={'endRotationX'} value={endRotationX} show={showEndState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'endRotationY'} name={'endRotationY'} value={endRotationY} show={showEndState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'endRotationZ'} name={'endRotationZ'} value={endRotationZ} show={showEndState} onChange={this.handleChange}></NumberProperty>
-            <CheckProperty label={'endScaleLock'} name={'endScaleLock'} value={endScaleLock} show={showEndState} onChange={this.handleChange}></CheckProperty>
+            <CheckBoxProperty label={'endScaleLock'} name={'endScaleLock'} value={endScaleLock} show={showEndState} onChange={this.handleChange}></CheckBoxProperty>
             <NumberProperty label={'endScaleX'} name={'endScaleX'} value={endScaleX} show={showEndState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'endScaleY'} name={'endScaleY'} value={endScaleY} show={showEndState} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={'endScaleZ'} name={'endScaleZ'} value={endScaleZ} show={showEndState} onChange={this.handleChange}></NumberProperty>

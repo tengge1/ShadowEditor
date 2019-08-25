@@ -100,7 +100,7 @@
     font-size: 12px;
     line-height: 28px;
     color: #fff;
-    background: #d4237a;
+    background: #1296db;
     padding: 0 4px;
     border-radius: 2px;
     box-sizing: border-box;
@@ -109,6 +109,11 @@
     word-break: break-all;
     text-overflow: ellipsis;
     overflow: hidden;
+    cursor: pointer;
+}
+
+.Timeline>.box>.layers>.right>.layer>.animation.selected {
+    background: #d4237a;
 }
 
 .Timeline>.box>.layers>.slider {
