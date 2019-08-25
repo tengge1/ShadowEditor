@@ -81,7 +81,6 @@ var EventList = [
     'animate', // 进行动画
 
     // 侧边栏
-    'tabSelected', // 选项卡选中事件
     'animationSelected', // 动画选中事件
     'animationChanged', // 动画发生改变事件
     'resetAnimation', // 重制动画时间轴

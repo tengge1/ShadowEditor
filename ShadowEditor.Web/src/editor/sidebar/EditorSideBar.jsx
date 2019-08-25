@@ -22,6 +22,8 @@ class EditorSideBar extends React.Component {
 
         this.handleTopTabChange = this.handleTopTabChange.bind(this);
         this.handleBottomTabChange = this.handleBottomTabChange.bind(this);
+
+        this.handleAnimationSelected = this.handleAnimationSelected.bind(this);
     }
 
     render() {
@@ -40,6 +42,10 @@ class EditorSideBar extends React.Component {
         </VBoxLayout>;
     }
 
+    componentDidMount() {
+        app.on(`animationSelected.EditorSideBar`, this.handleAnimationSelected);
+    }
+
     handleTopTabChange(index) {
         this.setState({
             topIndex: index,
@@ -49,6 +55,12 @@ class EditorSideBar extends React.Component {
     handleBottomTabChange(index) {
         this.setState({
             bottomIndex: index,
+        });
+    }
+
+    handleAnimationSelected() {
+        this.setState({
+            bottomIndex: 2,
         });
     }
 }
