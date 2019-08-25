@@ -44,10 +44,12 @@ class Timeline extends React.Component {
         this.handleDoubleClick = this.handleDoubleClick.bind(this, props.onAddAnimation);
         this.handleRightScroll = this.handleRightScroll.bind(this);
 
+        this.handleDragStart = this.handleDragStart.bind(this);
+        this.handleDragEnd = this.handleDragEnd.bind(this);
         this.handleDragEnter = this.handleDragEnter.bind(this);
         this.handleDragOver = this.handleDragOver.bind(this);
         this.handleDragLeave = this.handleDragLeave.bind(this);
-        this.handleDrop = this.handleDrop.bind(this);
+        this.handleDrop = this.handleDrop.bind(this, props.onDropAnimation);
     }
 
     render() {
@@ -103,10 +105,14 @@ class Timeline extends React.Component {
                                         title={animation.name}
                                         draggable={'true'}
                                         droppable={'false'}
+                                        data-type={'animation'}
+                                        data-id={animation.uuid}
                                         style={{
                                             left: animation.beginTime * this.scale + 'px',
                                             width: (animation.endTime - animation.beginTime) * this.scale + 'px',
                                         }}
+                                        onDragStart={this.handleDragStart}
+                                        onDragEnd={this.handleDragEnd}
                                         key={animation.uuid}>{animation.name}</div>;
                                 })}
                             </div>;
@@ -252,20 +258,49 @@ class Timeline extends React.Component {
         canvas.style.left = `${100 - event.target.scrollLeft}px`;
     }
 
-    handleDragEnter(event) {
+    handleDragStart(event) {
+        const type = event.target.getAttribute('data-type');
 
+        if (type !== 'animation') {
+            return;
+        }
+
+        const id = event.target.getAttribute('data-id');
+
+        event.nativeEvent.dataTransfer.setData('id', id);
+        event.nativeEvent.dataTransfer.setData('offsetX', event.nativeEvent.offsetX);
+    }
+
+    handleDragEnd(event) {
+        event.nativeEvent.dataTransfer.clearData();
+    }
+
+    handleDragEnter(event) {
+        event.preventDefault();
     }
 
     handleDragOver(event) {
-
+        event.preventDefault();
     }
 
     handleDragLeave(event) {
-
+        event.preventDefault();
     }
 
-    handleDrop(event) {
+    handleDrop(onDropAnimation, event) {
+        const type = event.target.getAttribute('data-type');
 
+        if (type !== 'layer') {
+            return;
+        }
+
+        const id = event.nativeEvent.dataTransfer.getData('id');
+
+        const layerID = event.target.getAttribute('data-id');
+
+        const beginTime = event.nativeEvent.offsetX / this.scale;
+
+        onDropAnimation && onDropAnimation(id, layerID, beginTime, event);
     }
 
     parseTime(time) {
@@ -291,6 +326,7 @@ Timeline.propTypes = {
     onSelectedLayerChange: PropTypes.func,
 
     onAddAnimation: PropTypes.func,
+    onDropAnimation: PropTypes.func,
 };
 
 Timeline.defaultProps = {
@@ -305,6 +341,7 @@ Timeline.defaultProps = {
     onSelectedLayerChange: null,
 
     onAddAnimation: null,
+    onDropAnimation: null,
 };
 
 export default Timeline;
