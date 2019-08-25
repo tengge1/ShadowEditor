@@ -26,9 +26,8 @@ TransformControlsEvent.prototype.start = function () {
 };
 
 TransformControlsEvent.prototype.onAppStarted = function () {
-    var transformControls = app.editor.transformControls;
+    let transformControls = app.editor.transformControls;
 
-    transformControls.addEventListener('change', this.onChange.bind(this));
     transformControls.addEventListener('mouseDown', this.onMouseDown.bind(this));
     transformControls.addEventListener('mouseUp', this.onMouseUp.bind(this));
 
@@ -36,18 +35,6 @@ TransformControlsEvent.prototype.onAppStarted = function () {
     app.on('changeMode.' + this.id, this.onChangeMode.bind(this));
     app.on('snapChanged.' + this.id, this.onSnapChanged.bind(this));
     app.on('spaceChanged.' + this.id, this.onSpaceChanged.bind(this));
-};
-
-/**
- * 控件发生改变，需要更新包围盒位置，重绘场景
- */
-TransformControlsEvent.prototype.onChange = function () {
-    var editor = app.editor;
-    var object = editor.transformControls.object;
-
-    if (object) {
-        app.call('objectChanged', this, object);
-    }
 };
 
 /**
