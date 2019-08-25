@@ -40,7 +40,7 @@ class Timeline extends React.Component {
         this.handleForward = this.handleForward.bind(this);
         this.handleStop = this.handleStop.bind(this);
 
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClick = this.handleClick.bind(this, props.onClickAnimation);
         this.handleDoubleClick = this.handleDoubleClick.bind(this, props.onAddAnimation);
         this.handleRightScroll = this.handleRightScroll.bind(this);
 
@@ -112,6 +112,7 @@ class Timeline extends React.Component {
                                             left: animation.beginTime * this.scale + 'px',
                                             width: (animation.endTime - animation.beginTime) * this.scale + 'px',
                                         }}
+                                        onClick={this.handleClick}
                                         onDragStart={this.handleDragStart}
                                         onDragEnd={this.handleDragEnd}
                                         key={animation.uuid}>{animation.name}</div>;
@@ -232,8 +233,17 @@ class Timeline extends React.Component {
 
     }
 
-    handleClick(event) {
+    handleClick(onClickAnimation, event) {
+        const type = event.target.getAttribute('data-type');
 
+        if (type !== 'layer') {
+            return;
+        }
+
+        const pid = event.target.getAttribute('data-pid');
+        const id = event.target.getAttribute('data-id');
+
+        onClickAnimation && onClickAnimation(id, pid, event);
     }
 
     handleDoubleClick(onAddAnimation, event) {
@@ -271,6 +281,7 @@ class Timeline extends React.Component {
 
         event.nativeEvent.dataTransfer.setData('id', id);
         event.nativeEvent.dataTransfer.setData('pid', pid);
+        event.nativeEvent.dataTransfer.setData('offsetX', event.nativeEvent.offsetX);
     }
 
     handleDragEnd(event) {
@@ -298,10 +309,11 @@ class Timeline extends React.Component {
 
         const id = event.nativeEvent.dataTransfer.getData('id');
         const oldLayerID = event.nativeEvent.dataTransfer.getData('pid');
+        const offsetX = event.nativeEvent.dataTransfer.getData('offsetX');
 
         const newLayerID = event.target.getAttribute('data-id');
 
-        const beginTime = event.nativeEvent.offsetX / this.scale;
+        const beginTime = (event.nativeEvent.offsetX - offsetX) / this.scale;
 
         onDropAnimation && onDropAnimation(id, oldLayerID, newLayerID, beginTime, event);
     }
@@ -330,6 +342,7 @@ Timeline.propTypes = {
 
     onAddAnimation: PropTypes.func,
     onDropAnimation: PropTypes.func,
+    onClickAnimation: PropTypes.func,
 };
 
 Timeline.defaultProps = {
@@ -345,6 +358,7 @@ Timeline.defaultProps = {
 
     onAddAnimation: null,
     onDropAnimation: null,
+    onClickAnimation: null,
 };
 
 export default Timeline;
