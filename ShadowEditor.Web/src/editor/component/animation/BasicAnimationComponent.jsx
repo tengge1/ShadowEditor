@@ -23,7 +23,7 @@ class BasicAnimationComponent extends React.Component {
             show: false,
             expanded: true,
             name: '',
-            target: '',
+            target: null,
             type: null,
             beginTime: 0,
             endTime: 10,
@@ -44,7 +44,14 @@ class BasicAnimationComponent extends React.Component {
 
         return <PropertyGroup title={_t('Basic Information')} show={show} expanded={expanded} onExpand={this.handleExpand}>
             <TextProperty label={_t('Name')} name={'name'} value={name} onChange={this.handleChange}></TextProperty>
-            <TextProperty label={_t('Target')} name={'target'} value={target} onChange={this.handleChange}></TextProperty>
+            <DisplayProperty
+                label={_t('Target')}
+                name={'target'}
+                value={target ? target : `(${_t('None')})`}
+                btnText={_t('Setting')}
+                btnShow={app.editor.selected != null}
+                onClick={this.handleSetTarget}
+                onChange={this.handleChange}></DisplayProperty>
             <SelectProperty label={_t('Type')} options={this.animationType} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
             <NumberProperty label={_t('BeginTime')} name={'beginTime'} value={beginTime} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={_t('EndTime')} name={'endTime'} value={endTime} onChange={this.handleChange}></NumberProperty>
@@ -81,11 +88,11 @@ class BasicAnimationComponent extends React.Component {
         };
 
         if (!this.animation.target) {
-            state.target = '(' + _t('None') + ')';
+            state.target = null;
         } else {
             let obj = app.editor.objectByUuid(this.animation.target);
             if (obj === null) {
-                state.target = '(' + _t('None') + ')';
+                state.target = null;
                 console.warn(`BasicAnimationComponent: ${_t('Animation Object')} ${this.animation.target} ${_t('is not existed in the scene.')}`);
             } else {
                 state.target = obj.name;
