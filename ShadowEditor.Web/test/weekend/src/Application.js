@@ -1,36 +1,3 @@
-(function hitSphere() {
-    let oc = new THREE.Vector3();
-    let temp = new THREE.Vector3();
-
-    return function (center, radius, r) {
-        oc.copy(r.origin).sub(center);
-        let a = temp.copy(r.direction).dot(r.direction);
-        let b = temp.copy(oc).dot(r.direction) * 2;
-        let c = temp.copy(oc).dot(oc) - radius * radius;
-        let discriminant = b * b - 4 * a * c;
-        return discriminant > 0
-    };
-})()
-
-(function calculateColor() {
-    let mz = new THREE.Vector3(0, 0, -1);
-
-    return function (ray, color) {
-        if (hitSphere(mz, 0.5, ray)) {
-            color.setRGB(1, 0, 0);
-            return;
-        }
-
-        let direction = ray.direction;
-        let t = 0.5 * (direction.y + 1);
-        color.setRGB(
-            (1 - t) * 1 + t * 0.5,
-            (1 - t) * 1 + t * 0.7,
-            (1 - t) * 1 + t * 1.0,
-        );
-    };
-})()
-
 /**
  * 应用程序
  */
@@ -79,7 +46,7 @@ class Application {
 
                 ray.set(origin, direction);
 
-                calculateColor(ray, color);
+                this.calculateColor(ray, color);
 
                 let index = j * this.width * 4 + i * 4;
 
@@ -93,5 +60,38 @@ class Application {
         context.putImageData(imgData, 0, 0);
     }
 }
+
+Application.prototype.hitSphere = function () {
+    let oc = new THREE.Vector3();
+    let temp = new THREE.Vector3();
+
+    return function (center, radius, r) {
+        oc.copy(r.origin).sub(center);
+        let a = temp.copy(r.direction).dot(r.direction);
+        let b = temp.copy(oc).dot(r.direction) * 2;
+        let c = temp.copy(oc).dot(oc) - radius * radius;
+        let discriminant = b * b - 4 * a * c;
+        return discriminant > 0;
+    };
+}();
+
+Application.prototype.calculateColor = function () {
+    let mz = new THREE.Vector3(0, 0, -1);
+
+    return function (ray, color) {
+        if (this.hitSphere(mz, 0.5, ray)) {
+            color.setRGB(1, 0, 0);
+            return;
+        }
+
+        let direction = ray.direction;
+        let t = 0.5 * (direction.y + 1);
+        color.setRGB(
+            (1 - t) * 1 + t * 0.5,
+            (1 - t) * 1 + t * 0.7,
+            (1 - t) * 1 + t * 1.0,
+        );
+    };
+}();
 
 export default Application;
