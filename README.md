@@ -6,7 +6,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 * 版本：v0.3.2(开发中)
 * 简介：基于`three.js`的场景编辑器。
 
-# v0.3.2即将更新
+## v0.3.2即将更新
 
 ## v0.3.1更新
 
