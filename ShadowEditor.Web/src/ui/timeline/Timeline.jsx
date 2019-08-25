@@ -107,6 +107,7 @@ class Timeline extends React.Component {
                                         droppable={'false'}
                                         data-type={'animation'}
                                         data-id={animation.uuid}
+                                        data-pid={layer.uuid}
                                         style={{
                                             left: animation.beginTime * this.scale + 'px',
                                             width: (animation.endTime - animation.beginTime) * this.scale + 'px',
@@ -266,9 +267,10 @@ class Timeline extends React.Component {
         }
 
         const id = event.target.getAttribute('data-id');
+        const pid = event.target.getAttribute('data-pid');
 
         event.nativeEvent.dataTransfer.setData('id', id);
-        event.nativeEvent.dataTransfer.setData('offsetX', event.nativeEvent.offsetX);
+        event.nativeEvent.dataTransfer.setData('pid', pid);
     }
 
     handleDragEnd(event) {
@@ -295,12 +297,13 @@ class Timeline extends React.Component {
         }
 
         const id = event.nativeEvent.dataTransfer.getData('id');
+        const oldLayerID = event.nativeEvent.dataTransfer.getData('pid');
 
-        const layerID = event.target.getAttribute('data-id');
+        const newLayerID = event.target.getAttribute('data-id');
 
         const beginTime = event.nativeEvent.offsetX / this.scale;
 
-        onDropAnimation && onDropAnimation(id, layerID, beginTime, event);
+        onDropAnimation && onDropAnimation(id, oldLayerID, newLayerID, beginTime, event);
     }
 
     parseTime(time) {

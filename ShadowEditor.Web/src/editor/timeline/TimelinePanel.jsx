@@ -24,6 +24,7 @@ class TimelinePanel extends React.Component {
         this.handleSelectedLayerChange = this.handleSelectedLayerChange.bind(this);
 
         this.handleAddAnimation = this.handleAddAnimation.bind(this);
+        this.handleDropAnimation = this.handleDropAnimation.bind(this);
 
         this.updateUI = this.updateUI.bind(this);
     }
@@ -41,7 +42,8 @@ class TimelinePanel extends React.Component {
             onDeleteLayer={this.handleDeleteLayer}
             onSelectedLayerChange={this.handleSelectedLayerChange}
 
-            onAddAnimation={this.handleAddAnimation}></Timeline>;
+            onAddAnimation={this.handleAddAnimation}
+            onDropAnimation={this.handleDropAnimation}></Timeline>;
     }
 
     componentDidMount() {
@@ -50,60 +52,12 @@ class TimelinePanel extends React.Component {
     }
 
     updateUI() {
-        const animations = app.editor.animations;
-
         this.setState({
-            animations,
+            animations: app.editor.animations,
         });
-
-        // var timeline = UI.get('timeline', this.id);
-        // var layerInfo = UI.get('layerInfo', this.id);
-        // var layers = UI.get('layers', this.id);
-
-        // while (layerInfo.dom.children.length) {
-        //     var child = layerInfo.dom.children[0];
-        //     layerInfo.dom.removeChild(child);
-        // }
-
-        // while (layers.dom.children.length) {
-        //     var child = layers.dom.children[0];
-        //     child.data = null;
-        //     layers.dom.removeChild(child);
-        // }
-
-        // animations.forEach(n => {
-        //     // 动画组信息区
-        //     var layerName = document.createElement('div');
-        //     layerName.className = 'layer-info';
-        //     layerName.innerHTML = `<input type="checkbox" data-uuid="${n.uuid}" />${n.layerName || n.name}`; // || n.name兼容旧数据
-        //     layerInfo.dom.appendChild(layerName);
-
-        //     // 动画区
-        //     var layer = document.createElement('div');
-        //     layer.className = 'layer';
-        //     layer.setAttribute('droppable', true);
-        //     layer.data = n;
-        //     layer.addEventListener('dragenter', this.onDragEnterLayer.bind(this));
-        //     layer.addEventListener('dragover', this.onDragOverLayer.bind(this));
-        //     layer.addEventListener('dragleave', this.onDragLeaveLayer.bind(this));
-        //     layer.addEventListener('drop', this.onDropLayer.bind(this));
-        //     layers.dom.appendChild(layer);
-
-        //     n.animations.forEach(m => {
-        //         var item = document.createElement('div');
-        //         item.data = m;
-        //         item.className = 'item';
-        //         item.setAttribute('draggable', true);
-        //         item.setAttribute('droppable', false);
-        //         item.style.left = m.beginTime * timeline.scale + 'px';
-        //         item.style.width = (m.endTime - m.beginTime) * timeline.scale + 'px';
-        //         item.innerHTML = m.name;
-        //         item.addEventListener('dragstart', this.onDragStartAnimation.bind(this));
-        //         item.addEventListener('dragend', this.onDragEndAnimation.bind(this));
-        //         layer.appendChild(item);
-        //     });
-        // });
     }
+
+    // ----------------------- 动画层管理 ------------------------------
 
     handleAddLayer() {
         app.prompt({
@@ -194,6 +148,8 @@ class TimelinePanel extends React.Component {
         });
     }
 
+    // ---------------------------- 动画管理 ---------------------------------
+
     handleAddAnimation(layerID, beginTime, endTime, event) {
         let layer = app.editor.animations.filter(n => n.uuid === layerID)[0];
 
@@ -212,6 +168,41 @@ class TimelinePanel extends React.Component {
             endTime,
             data: null,
         });
+
+        app.call(`animationChanged`, this);
+    }
+
+    handleDropAnimation(id, oldLayerID, newLayerID, beginTime, event) {
+        let oldLayer = app.editor.animations.filter(n => n.uuid === oldLayerID)[0];
+
+        if (!oldLayer) {
+            console.warn(`TimelinePanel: layer ${oldLayerID} is not defined.`);
+            return;
+        }
+
+        let newLayer = app.editor.animations.filter(n => n.uuid === newLayerID)[0];
+
+        if (!newLayer) {
+            console.warn(`TimelinePanel: layer ${newLayerID} is not defined.`);
+            return;
+        }
+
+        let index = oldLayer.animations.findIndex(n => n.uuid === id);
+
+        if (index === -1) {
+            console.warn(`TimelinePanel: animation ${id} is not defined.`);
+            return;
+        }
+
+        let animation = oldLayer.animations[index];
+
+        let duration = animation.endTime - animation.beginTime;
+
+        animation.beginTime = beginTime;
+        animation.endTime = beginTime + duration;
+
+        oldLayer.animations.splice(index, 1);
+        newLayer.animations.push(animation);
 
         app.call(`animationChanged`, this);
     }
