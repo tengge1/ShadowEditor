@@ -102,9 +102,9 @@
     color: #fff;
     background: #d4237a;
     padding: 0 4px;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
     border-radius: 2px;
     box-sizing: border-box;
+    text-align: center;
     white-space: nowrap;
     word-break: break-all;
     text-overflow: ellipsis;

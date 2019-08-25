@@ -239,7 +239,7 @@ class Timeline extends React.Component {
         const layerID = event.target.getAttribute('data-id');
 
         const beginTime = event.nativeEvent.offsetX / this.scale;
-        const endTime = beginTime + 3;
+        const endTime = beginTime + 2;
 
         onAddAnimation && onAddAnimation(layerID, beginTime, endTime, event);
     }

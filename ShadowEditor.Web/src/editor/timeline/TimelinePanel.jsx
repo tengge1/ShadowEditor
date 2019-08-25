@@ -205,7 +205,7 @@ class TimelinePanel extends React.Component {
         layer.animations.push({
             id: null,
             uuid: THREE.Math.generateUUID(),
-            name: 'New Animation',
+            name: _t('Animation'),
             target: null,
             type: 'Tween',
             beginTime,
