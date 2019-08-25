@@ -663,5 +663,6 @@
     "Delete animation layer {{layerName}}?": "删除动画层 {{layerName}}？",
     "Edit Layer Name": "编辑层名",
     "New Animation": "新动画",
-    "Set Target": "设置目标"
+    "Set Target": "设置目标",
+    "Show Stats": "性能监视器"
 }

@@ -14,16 +14,18 @@ class EditorStatusBar extends React.Component {
             objects: 0,
             vertices: 0,
             triangles: 0,
+            showStats: app.storage.get('showStats') === undefined ? true : app.storage.get('showStats'),
             isThrowBall: false,
             isRecording: false,
         };
 
+        this.handleShowStats = this.handleShowStats.bind(this);
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
         this.handleRecord = this.handleRecord.bind(this);
     }
 
     render() {
-        const { objects, vertices, triangles, isThrowBall, isRecording } = this.state;
+        const { objects, vertices, triangles, showStats, isThrowBall, isRecording } = this.state;
 
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{_t('Object')}</Label>
@@ -33,6 +35,8 @@ class EditorStatusBar extends React.Component {
             <Label>{_t('Triangle')}</Label>
             <Label>{triangles}</Label>
             <ToolbarSeparator></ToolbarSeparator>
+            <Label>{_t('Show Stats')}</Label>
+            <CheckBox checked={showStats} onChange={this.handleShowStats}></CheckBox>
             <Label>{_t('ThrowBall')}</Label>
             <CheckBox checked={isThrowBall} onChange={this.handleEnableThrowBall}></CheckBox>
             <ToolbarSeparator></ToolbarSeparator>
@@ -84,6 +88,19 @@ class EditorStatusBar extends React.Component {
             objects: objects.format(),
             vertices: vertices.format(),
             triangles: triangles.format(),
+        });
+    }
+
+    handleShowStats() {
+        let showStats = !app.storage.get('showStats');
+        app.storage.set('showStats', showStats);
+
+        Object.assign(app.stats.dom.style, {
+            display: showStats ? 'block' : 'none',
+        });
+
+        this.setState({
+            showStats,
         });
     }
 
