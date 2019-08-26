@@ -471,6 +471,16 @@ const PackageList = [{
     assets: [
         'assets/js/libs/TexGen.js'
     ]
+}, {
+    name: 'ColladaExporter',
+    assets: [
+        'assets/js/exporters/ColladaExporter.js'
+    ]
+}, {
+    name: 'DRACOExporter',
+    assets: [
+        'assets/js/exporters/DRACOExporter.js'
+    ]
 }];
 
 export default PackageList

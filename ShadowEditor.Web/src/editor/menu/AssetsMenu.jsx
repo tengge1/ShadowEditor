@@ -11,6 +11,8 @@ class AssetsMenu extends React.Component {
 
         this.handleExportGeometry = this.handleExportGeometry.bind(this);
         this.handleExportObject = this.handleExportObject.bind(this);
+
+        this.handleExportCollada = this.handleExportCollada.bind(this);
         this.handleExportGLTF = this.handleExportGLTF.bind(this);
         this.handleExportOBJ = this.handleExportOBJ.bind(this);
         this.handleExportPLY = this.handleExportPLY.bind(this);
@@ -23,6 +25,7 @@ class AssetsMenu extends React.Component {
             <MenuItem title={_t('Export Geometry')} onClick={this.handleExportGeometry}></MenuItem>
             <MenuItem title={_t('Export Object')} onClick={this.handleExportObject}></MenuItem>
             <MenuItemSeparator />
+            <MenuItem title={_t('Export Collada')} onClick={this.handleExportCollada}></MenuItem>
             <MenuItem title={_t('Export GLTF')} onClick={this.handleExportGLTF}></MenuItem>
             <MenuItem title={_t('Export OBJ')} onClick={this.handleExportOBJ}></MenuItem>
             <MenuItem title={_t('Export PLY')} onClick={this.handleExportPLY}></MenuItem>
@@ -84,6 +87,19 @@ class AssetsMenu extends React.Component {
         }
 
         StringUtils.saveString(output, 'model.json');
+    }
+
+    // ------------------------------ 导出Collada文件 ----------------------------------------
+
+    handleExportCollada() {
+        app.require('ColladaExporter').then(() => {
+            var exporter = new THREE.ColladaExporter();
+
+            exporter.parse(app.editor.scene, function (result) {
+                // TODO: 导出纹理
+                StringUtils.saveString(result.data, 'model.dae');
+            });
+        });
     }
 
     // ------------------------------ 导出gltf文件 ----------------------------------------

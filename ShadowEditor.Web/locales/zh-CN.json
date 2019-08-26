@@ -675,5 +675,6 @@
     "End Position": "结束位置",
     "End Rotation": "结束旋转",
     "End Scale Lock": "结束缩放锁定",
-    "End Scale": "结束缩放"
+    "End Scale": "结束缩放",
+    "Export Collada": "导出Collada文件"
 }
