@@ -71,21 +71,39 @@ Application.prototype.hitSphere = function () {
         let b = temp.copy(oc).dot(r.direction) * 2;
         let c = temp.copy(oc).dot(oc) - radius * radius;
         let discriminant = b * b - 4 * a * c;
+
+        if (discriminant < 0) {
+            return -1;
+        } else {
+            return (-b - Math.sqrt(discriminant)) / (2 * a);
+        }
+
         return discriminant > 0;
     };
 }();
 
 Application.prototype.calculateColor = function () {
     let mz = new THREE.Vector3(0, 0, -1);
+    let target = new THREE.Vector3();
+    let one = new THREE.Vector3(1, 1, 1);
 
     return function (ray, color) {
-        if (this.hitSphere(mz, 0.5, ray)) {
-            color.setRGB(1, 0, 0);
+        let t = this.hitSphere(mz, 0.5, ray);
+
+        if (t > 0) {
+            ray.at(t, target);
+            let n = target.sub(mz).normalize();
+
+            let rgb = n.add(one).multiplyScalar(0.5);
+
+            color.setRGB(rgb.x, rgb.y, rgb.z);
             return;
         }
 
         let direction = ray.direction;
-        let t = 0.5 * (direction.y + 1);
+
+        t = 0.5 * (direction.y + 1);
+
         color.setRGB(
             (1 - t) * 1 + t * 0.5,
             (1 - t) * 1 + t * 0.7,
