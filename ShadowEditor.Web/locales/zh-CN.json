@@ -665,5 +665,15 @@
     "New Animation": "新动画",
     "Set Target": "设置目标",
     "Show Stats": "性能监视器",
-    "View Helper": "视角帮助器"
+    "View Helper": "视角帮助器",
+    "Begin Status": "开始状态",
+    "Begin Position": "开始位置",
+    "Begin Rotation": "开始旋转",
+    "Begin Scale Lock": "开始缩放锁定",
+    "Begin Scale": "开始缩放",
+    "End Status": "结束状态",
+    "End Position": "结束位置",
+    "End Rotation": "结束旋转",
+    "End Scale Lock": "结束缩放锁定",
+    "End Scale": "结束缩放"
 }
