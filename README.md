@@ -8,6 +8,9 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## v0.3.2即将更新
 
+1. 导出Collada模型文件。
+2. 导出DRACO模型文件。
+
 ## v0.3.1更新
 
 * 发布日期：2019年8月25日
