@@ -13,6 +13,7 @@ class AssetsMenu extends React.Component {
         this.handleExportObject = this.handleExportObject.bind(this);
 
         this.handleExportCollada = this.handleExportCollada.bind(this);
+        this.handleExportDRACO = this.handleExportDRACO.bind(this);
         this.handleExportGLTF = this.handleExportGLTF.bind(this);
         this.handleExportOBJ = this.handleExportOBJ.bind(this);
         this.handleExportPLY = this.handleExportPLY.bind(this);
@@ -26,6 +27,7 @@ class AssetsMenu extends React.Component {
             <MenuItem title={_t('Export Object')} onClick={this.handleExportObject}></MenuItem>
             <MenuItemSeparator />
             <MenuItem title={_t('Export Collada')} onClick={this.handleExportCollada}></MenuItem>
+            <MenuItem title={_t('Export DRACO')} onClick={this.handleExportDRACO}></MenuItem>
             <MenuItem title={_t('Export GLTF')} onClick={this.handleExportGLTF}></MenuItem>
             <MenuItem title={_t('Export OBJ')} onClick={this.handleExportOBJ}></MenuItem>
             <MenuItem title={_t('Export PLY')} onClick={this.handleExportPLY}></MenuItem>
@@ -99,6 +101,23 @@ class AssetsMenu extends React.Component {
                 // TODO: 导出纹理
                 StringUtils.saveString(result.data, 'model.dae');
             });
+        });
+    }
+
+    // ------------------------------ 导出DRACO文件 ----------------------------------------
+
+    handleExportDRACO() {
+        if (!(app.editor.selected instanceof THREE.Mesh)) {
+            app.toast(_t('Please select a mesh.'));
+            return;
+        }
+
+        app.require('DRACOExporter').then(() => {
+            var exporter = new THREE.DRACOExporter();
+
+            var data = exporter.parse(app.editor.selected.geometry);
+
+            StringUtils.saveString(data, 'model.drc');
         });
     }
 

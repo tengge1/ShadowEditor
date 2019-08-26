@@ -676,5 +676,7 @@
     "End Rotation": "结束旋转",
     "End Scale Lock": "结束缩放锁定",
     "End Scale": "结束缩放",
-    "Export Collada": "导出Collada文件"
+    "Export Collada": "导出Collada文件",
+    "Export DRACO": "导出DRACO文件",
+    "Please select a mesh.": "请选择一个模型"
 }

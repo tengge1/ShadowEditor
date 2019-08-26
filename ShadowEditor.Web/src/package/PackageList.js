@@ -479,6 +479,7 @@ const PackageList = [{
 }, {
     name: 'DRACOExporter',
     assets: [
+        'assets/js/libs/draco/draco_encoder.js',
         'assets/js/exporters/DRACOExporter.js'
     ]
 }];
