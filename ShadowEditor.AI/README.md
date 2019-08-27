@@ -2,24 +2,33 @@
 
 该项目没用，仅供测试。
 
-## python版本
+## 安装GPU版Tensorflow方法
 
-python 3.7.4-amd64
+1. 安装Python：python-3.7.4-amd64.exe。
 
-## CUDA下载
+下载地址：https://www.python.org/downloads/release/python-374/
 
-版本：10.0.0
+2. 安装CUDA 10.0。
 
-https://developer.nvidia.com/cuda-10.0-download-archive
+下载地址：https://developer.nvidia.com/cuda-10.0-download-archive
 
-## CUDNN下载
+注意：要安装GPU驱动、CUDA工具包、CUDA附带的CUPTI。
 
-版本：7.6.2
+3. 安装CUDNN 7.6.2。
 
-https://developer.nvidia.com/rdp/cudnn-archive
+下载地址：https://developer.nvidia.com/rdp/cudnn-archive
 
-## 安装GPU版Tensorflow
+4. 安装GPU版Tensorflow。
 
 ```
-pip install tensorflow-gpu==2.0.0-beta1
+pip install tensorflow-gpu==2.0.0-rc0
 ```
+
+## 测试项目
+
+1. tensorflow/mnist_beginer.py: 初学者手写数字识别，准确度:96.3%
+
+## 相关地址
+
+* 官网: https://pypi.org/project/tensorflow/#history
+* 最新版本: https://pypi.org/project/tensorflow-gpu/#history
