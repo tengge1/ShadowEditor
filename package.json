@@ -23,7 +23,6 @@
     "scripts": {
         "build": "rollup -c ShadowEditor.Web/rollup.config.js",
         "dev": "rollup -c ShadowEditor.Web/rollup.config.js --watch",
-        "ai": "python ShadowEditor.AI/start.py",
         "translate": "python ShadowEditor.AI/translate.py",
         "weekend": "rollup -c ShadowEditor.Web/test/weekend/rollup.config.js --watch",
         "build-docs": "gitbook build docs-dev",
