@@ -91,12 +91,13 @@ Application.prototype.calculateColor = function () {
         let t = this.hitSphere(mz, 0.5, ray);
 
         if (t > 0) {
-            ray.at(t, target);
-            let n = target.sub(mz).normalize();
+            // ray.at(t, target);
+            // let n = target.sub(mz).normalize();
 
-            let rgb = n.add(one).multiplyScalar(0.5);
+            // let rgb = n.add(one).multiplyScalar(0.5);
 
-            color.setRGB(rgb.x, rgb.y, rgb.z);
+            // color.setRGB(rgb.x, rgb.y, rgb.z);
+            color.setRGB(1.0, 0.0, 0.0);
             return;
         }
 
