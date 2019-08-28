@@ -1,3 +1,6 @@
+import SphereVertexShader from './shader/sphere_vertex.glsl';
+import SphereFragmentShader from './shader/sphere_fragment.glsl';
+
 /**
  * 应用程序
  */
@@ -12,52 +15,82 @@ class Application {
         canvas.width = this.width;
         canvas.height = this.height;
 
-        this.context = canvas.getContext('2d');
+        this.scene = new THREE.Scene();
+
+        this.camera = new THREE.OrthographicCamera(-this.width / 2, this.width / 2, this.height / 2, -this.height / 2);
+
+        this.camera.position.set(0, 0, 1);
+        this.camera.lookAt(new THREE.Vector3());
+
+        this.renderer = new THREE.WebGLRenderer({
+            canvas,
+            antialias: true,
+        });
+
+        this.renderer.setSize(this.width, this.height);
+
+        let geometry = new THREE.PlaneBufferGeometry(this.width, this.height);
+        let material = new THREE.ShaderMaterial({
+            vertexShader: SphereVertexShader,
+            fragmentShader: SphereFragmentShader,
+        });
+        let mesh = new THREE.Mesh(geometry, material);
+        this.scene.add(mesh);
+
+        this.render = this.render.bind(this);
     }
 
     start() {
-        const {
-            canvas,
-            context
-        } = this;
+        this.render();
 
-        let imgData = context.createImageData(this.width, this.height);
+        // const {
+        //     canvas,
+        //     context
+        // } = this;
 
-        let lowerLeftCorner = new THREE.Vector3(-2, -1, -1);
-        let horizontal = new THREE.Vector3(4, 0, 0);
-        let vertical = new THREE.Vector3(0, 2, 0);
-        let origin = new THREE.Vector3(0, 0, 0);
+        // let imgData = context.createImageData(this.width, this.height);
 
-        let direction = new THREE.Vector3();
-        let ray = new THREE.Ray();
-        let color = new THREE.Color();
+        // let lowerLeftCorner = new THREE.Vector3(-2, -1, -1);
+        // let horizontal = new THREE.Vector3(4, 0, 0);
+        // let vertical = new THREE.Vector3(0, 2, 0);
+        // let origin = new THREE.Vector3(0, 0, 0);
 
-        for (let j = 0; j < this.height; j++) {
-            for (let i = 0; i < this.width; i++) {
-                let u = i / this.width;
-                let v = j / this.height;
+        // let direction = new THREE.Vector3();
+        // let ray = new THREE.Ray();
+        // let color = new THREE.Color();
 
-                direction.set(
-                    lowerLeftCorner.x + u * horizontal.x + v * vertical.x,
-                    lowerLeftCorner.y + u * horizontal.y + v * vertical.y,
-                    lowerLeftCorner.z + u * horizontal.z + v * vertical.z,
-                );
-                direction.normalize();
+        // for (let j = 0; j < this.height; j++) {
+        //     for (let i = 0; i < this.width; i++) {
+        //         let u = i / this.width;
+        //         let v = j / this.height;
 
-                ray.set(origin, direction);
+        //         direction.set(
+        //             lowerLeftCorner.x + u * horizontal.x + v * vertical.x,
+        //             lowerLeftCorner.y + u * horizontal.y + v * vertical.y,
+        //             lowerLeftCorner.z + u * horizontal.z + v * vertical.z,
+        //         );
+        //         direction.normalize();
 
-                this.calculateColor(ray, color);
+        //         ray.set(origin, direction);
 
-                let index = j * this.width * 4 + i * 4;
+        //         this.calculateColor(ray, color);
 
-                imgData.data[index + 0] = parseInt(255.99 * color.r);
-                imgData.data[index + 1] = parseInt(255.99 * color.g);
-                imgData.data[index + 2] = parseInt(255.99 * color.b);
-                imgData.data[index + 3] = 255;
-            }
-        }
+        //         let index = j * this.width * 4 + i * 4;
 
-        context.putImageData(imgData, 0, 0);
+        //         imgData.data[index + 0] = parseInt(255.99 * color.r);
+        //         imgData.data[index + 1] = parseInt(255.99 * color.g);
+        //         imgData.data[index + 2] = parseInt(255.99 * color.b);
+        //         imgData.data[index + 3] = 255;
+        //     }
+        // }
+
+        // context.putImageData(imgData, 0, 0);
+    }
+
+    render() {
+        requestAnimationFrame(this.render);
+
+        this.renderer.render(this.scene, this.camera);
     }
 }
 
