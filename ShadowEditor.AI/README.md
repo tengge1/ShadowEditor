@@ -31,7 +31,8 @@ pip install tensorflow-gpu==2.0.0-rc0
 3. tensorflow/calculate_matrix.py: 矩阵运算
 3. tensorflow/mnist_beginer.py: 初学者手写数字识别，准确度:96.3%
 4. tensorflow/mnist_expert.py: 专家级手写数字识别，准确度：98.112%
-5. tensorflow/basic_classification.py: 服装分类，准确度：87.81%
+5. tensorflow/image_classification.py: 服装图片分类，准确度：87.81%
+6. tensorflow/basic_text_classification.py: 评论文本分类，准确度：86.2%
 
 ## 相关地址
 
