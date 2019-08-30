@@ -34,6 +34,7 @@ pip install tensorflow-gpu==2.0.0-rc0
 5. tensorflow/image_classification.py: 服装图片分类，准确度：87.81%
 6. tensorflow/basic_text_classification.py: 评论文本分类，准确度：86.2%
 7. tensorflow/feature_columns.py: 对结构化数据进行分类，准确度：72.54%
+8. tensorflow/basic_regression.py: 线性回归
 
 ## 相关地址
 
