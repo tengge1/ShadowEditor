@@ -26,17 +26,17 @@ pip install tensorflow-gpu==2.0.0-rc0
 
 ## 测试项目
 
-1. tensorflow/hello_world.py：Hello World示例
-2. tensorflow/calculate.py: 加减乘除运算
-3. tensorflow/calculate_matrix.py: 矩阵运算
-3. tensorflow/mnist_beginer.py: 初学者手写数字识别，准确度:96.3%
-4. tensorflow/mnist_expert.py: 专家级手写数字识别，准确度：98.112%
-5. tensorflow/image_classification.py: 服装图片分类，准确度：87.81%
-6. tensorflow/basic_text_classification.py: 评论文本分类，准确度：86.2%
-7. tensorflow/feature_columns.py: 对结构化数据进行分类，准确度：72.54%
-8. tensorflow/basic_regression.py: 线性回归
-9. tensorflow/overfit_and_underfit.py: 过拟合和欠拟合，准确度：99.99%
-10. tensorflow/save_and_restore_models.py: 保存和恢复模型
+1. tensorflow/basic/hello_world.py：Hello World示例
+2. tensorflow/basic/calculate.py: 加减乘除运算
+3. tensorflow/basic/calculate_matrix.py: 矩阵运算
+3. tensorflow/basic/mnist_beginer.py: 初学者手写数字识别，准确度:96.3%
+4. tensorflow/basic/mnist_expert.py: 专家级手写数字识别，准确度：98.112%
+5. tensorflow/basic/image_classification.py: 服装图片分类，准确度：87.81%
+6. tensorflow/basic/basic_text_classification.py: 评论文本分类，准确度：86.2%
+7. tensorflow/basic/feature_columns.py: 对结构化数据进行分类，准确度：72.54%
+8. tensorflow/basic/basic_regression.py: 线性回归
+9. tensorflow/basic/overfit_and_underfit.py: 过拟合和欠拟合，准确度：99.99%
+10. tensorflow/basic/save_and_restore_models.py: 保存和恢复模型
 
 ## 相关地址
 
