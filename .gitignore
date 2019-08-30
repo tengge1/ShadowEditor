@@ -91,3 +91,4 @@ typings/
 /ShadowEditor.Web/temp
 /.vscode
 /ShadowEditor.Web/test/weekend/build
+/temp

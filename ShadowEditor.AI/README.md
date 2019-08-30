@@ -36,6 +36,7 @@ pip install tensorflow-gpu==2.0.0-rc0
 7. tensorflow/feature_columns.py: 对结构化数据进行分类，准确度：72.54%
 8. tensorflow/basic_regression.py: 线性回归
 9. tensorflow/overfit_and_underfit.py: 过拟合和欠拟合，准确度：99.99%
+10. tensorflow/save_and_restore_models.py: 保存和恢复模型
 
 ## 相关地址
 
