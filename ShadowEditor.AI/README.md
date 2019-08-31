@@ -37,6 +37,7 @@ pip install tensorflow-gpu==2.0.0-rc0
 8. tensorflow/basic/basic_regression.py: 线性回归
 9. tensorflow/basic/overfit_and_underfit.py: 过拟合和欠拟合，准确度：99.99%
 10. tensorflow/basic/save_and_restore_models.py: 保存和恢复模型
+11. tensorflow/basic/intro_to_cnns.py: 卷积神经网络
 
 ## 相关地址
 
