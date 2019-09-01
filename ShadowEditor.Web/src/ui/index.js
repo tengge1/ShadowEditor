@@ -49,6 +49,7 @@ export { default as MenuBar } from './menu/MenuBar.jsx';
 export { default as MenuBarFiller } from './menu/MenuBarFiller.jsx';
 export { default as MenuItem } from './menu/MenuItem.jsx';
 export { default as MenuItemSeparator } from './menu/MenuItemSeparator.jsx';
+export { default as MenuTab } from './menu/MenuTab.jsx';
 
 // panel
 export { default as Panel } from './panel/Panel.jsx';

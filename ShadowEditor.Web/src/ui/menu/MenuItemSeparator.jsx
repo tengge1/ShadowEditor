@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
  */
 class MenuItemSeparator extends React.Component {
     render() {
-        const { className, style, show } = this.props;
+        const { className, style, direction, show } = this.props;
 
         return <li
-            className={classNames('MenuItemSeparator', !show && 'hidden', className)}
+            className={classNames('MenuItemSeparator', direction && direction, !show && 'hidden', className)}
             style={style}>
             <div className='separator'></div>
         </li>;
@@ -21,12 +21,14 @@ class MenuItemSeparator extends React.Component {
 MenuItemSeparator.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    direction: PropTypes.oneOf(['horizontal', 'vertical']),
     show: PropTypes.bool,
 };
 
 MenuItemSeparator.defaultProps = {
     className: null,
     style: null,
+    direction: 'vertical',
     show: true,
 };
 

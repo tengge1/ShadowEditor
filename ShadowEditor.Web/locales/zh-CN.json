@@ -678,5 +678,11 @@
     "End Scale": "结束缩放",
     "Export Collada": "导出Collada文件",
     "Export DRACO": "导出DRACO文件",
-    "Please select a mesh.": "请选择一个模型"
+    "Please select a mesh.": "请选择一个模型",
+    "Scene Editor": "场景编辑器",
+    "Mesh Editor": "模型编辑器",
+    "Texture Editor": "纹理编辑器",
+    "Material Editor": "材质编辑器",
+    "Terrain Editor": "地形编辑器",
+    "AI Editor": "AI编辑器"
 }

@@ -1,0 +1,39 @@
+.MenuTab {
+    position: relative;
+    line-height: 24px;
+    margin: 0;
+    padding: 0 16px;
+    background: #fff;
+    vertical-align: top;
+    display: inline-block;
+    white-space: nowrap;
+    box-sizing: border-box;
+    cursor: pointer;
+    user-select: none;
+}
+
+.MenuTab.selected {
+    color: #fff;
+    background: #3399ff;
+    cursor: default;
+}
+
+.MenuTab.hidden {
+    display: none !important;
+}
+
+.MenuTab:hover {
+    color: #fff;
+    background: #3399ff;
+}
+
+.MenuTab.disabled {
+    cursor: not-allowed;
+}
+
+.MenuTab.disabled:hover {
+    background: initial;
+    color: initial;
+    padding: 2px 14px 2px 30px;
+    border: initial;
+}

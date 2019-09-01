@@ -1,5 +1,4 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuBarFiller, MenuItemSeparator } from '../../third_party';
-
 import SceneMenu from './SceneMenu.jsx';
 import EditMenu from './EditMenu.jsx';
 import TwoDMenu from './TwoDMenu.jsx';
@@ -11,6 +10,7 @@ import PlayMenu from './PlayMenu.jsx';
 import ToolMenu from './ToolMenu.jsx';
 import OptionsMenu from './OptionsMenu.jsx';
 import HelpMenu from './HelpMenu.jsx';
+import EditorTabMenu from './EditorTabMenu.jsx';
 import StatusMenu from './StatusMenu.jsx';
 
 /**
@@ -33,6 +33,8 @@ class EditorMenuBar extends React.Component {
             <ToolMenu />
             <OptionsMenu />
             <HelpMenu />
+            <MenuItemSeparator direction={'horizontal'} />
+            <EditorTabMenu />
             <MenuBarFiller />
             <StatusMenu />
         </MenuBar>;

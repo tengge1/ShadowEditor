@@ -8,6 +8,6 @@ body,
     overflow: hidden;
 }
 
-.Editor>.north {
+.BorderLayout.Editor>.north {
     z-index: 1000;
 }
