@@ -19,6 +19,7 @@ class HierarchyPanel extends React.Component {
         };
 
         this.updateUI = this.updateUI.bind(this);
+        this.handleObjectSelected = this.handleObjectSelected.bind(this);
 
         this.handleSelect = this.handleSelect.bind(this);
         this.handleCheck = this.handleCheck.bind(this);
@@ -52,7 +53,7 @@ class HierarchyPanel extends React.Component {
 
         app.on(`objectRemoved.HierarchyPanel`, this.updateUI);
 
-        app.on(`objectSelected.HierarchyPanel`, this.onObjectSelected);
+        app.on(`objectSelected.HierarchyPanel`, this.handleObjectSelected);
     }
 
     /**
@@ -101,7 +102,7 @@ class HierarchyPanel extends React.Component {
      * 选中物体改变
      * @param {*} object 
      */
-    onObjectSelected(object) {
+    handleObjectSelected(object) {
         this.setState({
             selected: object ? object.uuid : null,
         });
