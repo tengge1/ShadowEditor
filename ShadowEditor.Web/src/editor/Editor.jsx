@@ -106,10 +106,6 @@ class Editor extends React.Component {
         app.viewport.appendChild(this.renderer.domElement);
         this.renderer.setSize(width, height);
 
-        // 音频监听器
-        this.audioListener = new THREE.AudioListener();
-        this.audioListener.name = _t('AudioListener');
-
         // 物体
         this.objects = [];
 
@@ -181,6 +177,9 @@ class Editor extends React.Component {
     onAppStarted() {
         this.helpers.start();
         this.clear();
+
+        this._addAudioListener = this._addAudioListener.bind(this);
+        document.addEventListener('click', this._addAudioListener);
     }
 
     onToggle(expanded) {
@@ -213,7 +212,7 @@ class Editor extends React.Component {
 
         this.camera.copy(this.DEFAULT_CAMERA);
 
-        if (this.camera.children.findIndex(o => o instanceof THREE.AudioListener) === -1) {
+        if (this.audioListener && this.camera.children.findIndex(o => o instanceof THREE.AudioListener) === -1) {
             this.camera.add(this.audioListener);
         }
 
@@ -282,6 +281,18 @@ class Editor extends React.Component {
         app.call('editorCleared', this);
         app.call('scriptChanged', this);
         app.call('animationChanged', this);
+    }
+
+    // 点击编辑器时才添加AudioListener，避免警告信息
+    _addAudioListener() {
+        document.removeEventListener('click', this._addAudioListener);
+
+        this.audioListener = new THREE.AudioListener();
+        this.audioListener.name = _t('AudioListener');
+
+        if (this.camera.children.findIndex(o => o instanceof THREE.AudioListener) === -1) {
+            this.camera.add(this.audioListener);
+        }
     }
 
     // ---------------------- 物体 ---------------------------
