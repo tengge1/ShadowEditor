@@ -1,0 +1,2414 @@
+[
+    {
+        "name": "codemirror",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\codemirror.js"
+        ]
+    },
+    {
+        "name": "esprima",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\esprima.js"
+        ]
+    },
+    {
+        "name": "gl-matrix-min",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\gl-matrix-min.js"
+        ]
+    },
+    {
+        "name": "glslprepmin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\glslprep.min.js"
+        ]
+    },
+    {
+        "name": "GPUParticleSystem",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\GPUParticleSystem.js"
+        ]
+    },
+    {
+        "name": "jsonlint",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\jsonlint.js"
+        ]
+    },
+    {
+        "name": "pakomin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\pako.min.js"
+        ]
+    },
+    {
+        "name": "SPE",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\SPE.js"
+        ]
+    },
+    {
+        "name": "SPEmin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\SPE.min.js"
+        ]
+    },
+    {
+        "name": "threebas",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\three.bas.js"
+        ]
+    },
+    {
+        "name": "threebasmin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\three.bas.min.js"
+        ]
+    },
+    {
+        "name": "three",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\three.js"
+        ]
+    },
+    {
+        "name": "threemin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\three.min.js"
+        ]
+    },
+    {
+        "name": "VolumetricFire",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\VolumetricFire.js"
+        ]
+    },
+    {
+        "name": "WebGL",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\WebGL.js"
+        ]
+    },
+    {
+        "name": "acorn",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\acorn\\acorn.js"
+        ]
+    },
+    {
+        "name": "acorn_loose",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\acorn\\acorn_loose.js"
+        ]
+    },
+    {
+        "name": "walk",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\acorn\\walk.js"
+        ]
+    },
+    {
+        "name": "dialog",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\addon\\dialog.js"
+        ]
+    },
+    {
+        "name": "show-hint",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\addon\\show-hint.js"
+        ]
+    },
+    {
+        "name": "tern",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\addon\\tern.js"
+        ]
+    },
+    {
+        "name": "AnimationClipCreator",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\animation\\AnimationClipCreator.js"
+        ]
+    },
+    {
+        "name": "CCDIKSolver",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\animation\\CCDIKSolver.js"
+        ]
+    },
+    {
+        "name": "MMDAnimationHelper",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\animation\\MMDAnimationHelper.js"
+        ]
+    },
+    {
+        "name": "MMDPhysics",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\animation\\MMDPhysics.js"
+        ]
+    },
+    {
+        "name": "TimelinerController",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\animation\\TimelinerController.js"
+        ]
+    },
+    {
+        "name": "CinematicCamera",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\cameras\\CinematicCamera.js"
+        ]
+    },
+    {
+        "name": "DeviceOrientationControls",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\controls\\DeviceOrientationControls.js"
+        ]
+    },
+    {
+        "name": "DragControls",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\controls\\DragControls.js"
+        ]
+    },
+    {
+        "name": "EditorControls",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\controls\\EditorControls.js"
+        ]
+    },
+    {
+        "name": "FirstPersonControls",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\controls\\FirstPersonControls.js"
+        ]
+    },
+    {
+        "name": "FlyControls",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\controls\\FlyControls.js"
+        ]
+    },
+    {
+        "name": "MapControls",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\controls\\MapControls.js"
+        ]
+    },
+    {
+        "name": "OrbitControls",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\controls\\OrbitControls.js"
+        ]
+    },
+    {
+        "name": "OrthographicTrackballControls",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\controls\\OrthographicTrackballControls.js"
+        ]
+    },
+    {
+        "name": "PointerLockControls",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\controls\\PointerLockControls.js"
+        ]
+    },
+    {
+        "name": "TrackballControls",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\controls\\TrackballControls.js"
+        ]
+    },
+    {
+        "name": "TransformControls",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\controls\\TransformControls.js"
+        ]
+    },
+    {
+        "name": "gui",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\crossfade\\gui.js"
+        ]
+    },
+    {
+        "name": "scenes",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\crossfade\\scenes.js"
+        ]
+    },
+    {
+        "name": "transition",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\crossfade\\transition.js"
+        ]
+    },
+    {
+        "name": "CurveExtras",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\curves\\CurveExtras.js"
+        ]
+    },
+    {
+        "name": "NURBSCurve",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\curves\\NURBSCurve.js"
+        ]
+    },
+    {
+        "name": "NURBSSurface",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\curves\\NURBSSurface.js"
+        ]
+    },
+    {
+        "name": "NURBSUtils",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\curves\\NURBSUtils.js"
+        ]
+    },
+    {
+        "name": "d3",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\d3\\d3.js"
+        ]
+    },
+    {
+        "name": "d3min",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\d3\\d3.min.js"
+        ]
+    },
+    {
+        "name": "AnaglyphEffect",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\effects\\AnaglyphEffect.js"
+        ]
+    },
+    {
+        "name": "AsciiEffect",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\effects\\AsciiEffect.js"
+        ]
+    },
+    {
+        "name": "OutlineEffect",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\effects\\OutlineEffect.js"
+        ]
+    },
+    {
+        "name": "ParallaxBarrierEffect",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\effects\\ParallaxBarrierEffect.js"
+        ]
+    },
+    {
+        "name": "PeppersGhostEffect",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\effects\\PeppersGhostEffect.js"
+        ]
+    },
+    {
+        "name": "StereoEffect",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\effects\\StereoEffect.js"
+        ]
+    },
+    {
+        "name": "ColladaExporter",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\exporters\\ColladaExporter.js"
+        ]
+    },
+    {
+        "name": "DRACOExporter",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\exporters\\DRACOExporter.js"
+        ]
+    },
+    {
+        "name": "GLTFExporter",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\exporters\\GLTFExporter.js"
+        ]
+    },
+    {
+        "name": "MMDExporter",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\exporters\\MMDExporter.js"
+        ]
+    },
+    {
+        "name": "OBJExporter",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\exporters\\OBJExporter.js"
+        ]
+    },
+    {
+        "name": "PLYExporter",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\exporters\\PLYExporter.js"
+        ]
+    },
+    {
+        "name": "STLBinaryExporter",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\exporters\\STLBinaryExporter.js"
+        ]
+    },
+    {
+        "name": "STLExporter",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\exporters\\STLExporter.js"
+        ]
+    },
+    {
+        "name": "TypedGeometryExporter",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\exporters\\TypedGeometryExporter.js"
+        ]
+    },
+    {
+        "name": "BoxLineGeometry",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\geometries\\BoxLineGeometry.js"
+        ]
+    },
+    {
+        "name": "ConvexGeometry",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\geometries\\ConvexGeometry.js"
+        ]
+    },
+    {
+        "name": "DecalGeometry",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\geometries\\DecalGeometry.js"
+        ]
+    },
+    {
+        "name": "hilbert2D",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\geometries\\hilbert2D.js"
+        ]
+    },
+    {
+        "name": "hilbert3D",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\geometries\\hilbert3D.js"
+        ]
+    },
+    {
+        "name": "LightningStrike",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\geometries\\LightningStrike.js"
+        ]
+    },
+    {
+        "name": "ParametricGeometries",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\geometries\\ParametricGeometries.js"
+        ]
+    },
+    {
+        "name": "TeapotBufferGeometry",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\geometries\\TeapotBufferGeometry.js"
+        ]
+    },
+    {
+        "name": "SelectionBox",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\interactive\\SelectionBox.js"
+        ]
+    },
+    {
+        "name": "SelectionHelper",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\interactive\\SelectionHelper.js"
+        ]
+    },
+    {
+        "name": "ammo",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\ammo.js"
+        ]
+    },
+    {
+        "name": "chevrotainmin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\chevrotain.min.js"
+        ]
+    },
+    {
+        "name": "ctm",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\ctm.js"
+        ]
+    },
+    {
+        "name": "datguimin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\dat.gui.min.js"
+        ]
+    },
+    {
+        "name": "gl-matrix",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\gl-matrix.js"
+        ]
+    },
+    {
+        "name": "gunzipmin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\gunzip.min.js"
+        ]
+    },
+    {
+        "name": "inflatemin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\inflate.min.js"
+        ]
+    },
+    {
+        "name": "jszipmin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\jszip.min.js"
+        ]
+    },
+    {
+        "name": "lzma",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\lzma.js"
+        ]
+    },
+    {
+        "name": "mmdparsermin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\mmdparser.min.js"
+        ]
+    },
+    {
+        "name": "o3dgc",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\o3dgc.js"
+        ]
+    },
+    {
+        "name": "opentypemin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\opentype.min.js"
+        ]
+    },
+    {
+        "name": "pako",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\pako.js"
+        ]
+    },
+    {
+        "name": "rbush",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\rbush.js"
+        ]
+    },
+    {
+        "name": "rbushmin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\rbush.min.js"
+        ]
+    },
+    {
+        "name": "react-dom",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\react-dom.js"
+        ]
+    },
+    {
+        "name": "react-dommin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\react-dom.min.js"
+        ]
+    },
+    {
+        "name": "react",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\react.js"
+        ]
+    },
+    {
+        "name": "reactmin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\react.min.js"
+        ]
+    },
+    {
+        "name": "statsmin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\stats.min.js"
+        ]
+    },
+    {
+        "name": "systemmin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\system.min.js"
+        ]
+    },
+    {
+        "name": "TexGen",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\TexGen.js"
+        ]
+    },
+    {
+        "name": "timeliner_guimin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\timeliner_gui.min.js"
+        ]
+    },
+    {
+        "name": "tweenmin",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\tween.min.js"
+        ]
+    },
+    {
+        "name": "basis_transcoder",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\basis\\basis_transcoder.js"
+        ]
+    },
+    {
+        "name": "draco_decoder",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\draco\\draco_decoder.js"
+        ]
+    },
+    {
+        "name": "draco_encoder",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\draco\\draco_encoder.js"
+        ]
+    },
+    {
+        "name": "draco_wasm_wrapper",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\draco\\draco_wasm_wrapper.js"
+        ]
+    },
+    {
+        "name": "draco_decoder",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\draco\\gltf\\draco_decoder.js"
+        ]
+    },
+    {
+        "name": "draco_encoder",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\draco\\gltf\\draco_encoder.js"
+        ]
+    },
+    {
+        "name": "draco_wasm_wrapper",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\libs\\draco\\gltf\\draco_wasm_wrapper.js"
+        ]
+    },
+    {
+        "name": "LightProbeGenerator",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\lights\\LightProbeGenerator.js"
+        ]
+    },
+    {
+        "name": "RectAreaLightUniformsLib",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\lights\\RectAreaLightUniformsLib.js"
+        ]
+    },
+    {
+        "name": "Line2",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\lines\\Line2.js"
+        ]
+    },
+    {
+        "name": "LineGeometry",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\lines\\LineGeometry.js"
+        ]
+    },
+    {
+        "name": "LineMaterial",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\lines\\LineMaterial.js"
+        ]
+    },
+    {
+        "name": "LineSegments2",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\lines\\LineSegments2.js"
+        ]
+    },
+    {
+        "name": "LineSegmentsGeometry",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\lines\\LineSegmentsGeometry.js"
+        ]
+    },
+    {
+        "name": "Wireframe",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\lines\\Wireframe.js"
+        ]
+    },
+    {
+        "name": "WireframeGeometry2",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\lines\\WireframeGeometry2.js"
+        ]
+    },
+    {
+        "name": "3MFLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\3MFLoader.js"
+        ]
+    },
+    {
+        "name": "AMFLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\AMFLoader.js"
+        ]
+    },
+    {
+        "name": "AssimpJSONLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\AssimpJSONLoader.js"
+        ]
+    },
+    {
+        "name": "AssimpLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\AssimpLoader.js"
+        ]
+    },
+    {
+        "name": "AWDLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\AWDLoader.js"
+        ]
+    },
+    {
+        "name": "BabylonLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\BabylonLoader.js"
+        ]
+    },
+    {
+        "name": "BasisTextureLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\BasisTextureLoader.js"
+        ]
+    },
+    {
+        "name": "BinaryLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\BinaryLoader.js"
+        ]
+    },
+    {
+        "name": "BVHLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\BVHLoader.js"
+        ]
+    },
+    {
+        "name": "ColladaLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\ColladaLoader.js"
+        ]
+    },
+    {
+        "name": "DDSLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\DDSLoader.js"
+        ]
+    },
+    {
+        "name": "DRACOLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\DRACOLoader.js"
+        ]
+    },
+    {
+        "name": "EquirectangularToCubeGenerator",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\EquirectangularToCubeGenerator.js"
+        ]
+    },
+    {
+        "name": "EXRLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\EXRLoader.js"
+        ]
+    },
+    {
+        "name": "FBXLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\FBXLoader.js"
+        ]
+    },
+    {
+        "name": "GCodeLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\GCodeLoader.js"
+        ]
+    },
+    {
+        "name": "GLTFLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\GLTFLoader.js"
+        ]
+    },
+    {
+        "name": "HDRCubeTextureLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\HDRCubeTextureLoader.js"
+        ]
+    },
+    {
+        "name": "KMZLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\KMZLoader.js"
+        ]
+    },
+    {
+        "name": "KTXLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\KTXLoader.js"
+        ]
+    },
+    {
+        "name": "LDrawLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\LDrawLoader.js"
+        ]
+    },
+    {
+        "name": "LoaderSupport",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\LoaderSupport.js"
+        ]
+    },
+    {
+        "name": "LWOLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\LWOLoader.js"
+        ]
+    },
+    {
+        "name": "MD2Loader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\MD2Loader.js"
+        ]
+    },
+    {
+        "name": "MMDLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\MMDLoader.js"
+        ]
+    },
+    {
+        "name": "MTLLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\MTLLoader.js"
+        ]
+    },
+    {
+        "name": "NodeMaterialLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\NodeMaterialLoader.js"
+        ]
+    },
+    {
+        "name": "NRRDLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\NRRDLoader.js"
+        ]
+    },
+    {
+        "name": "OBJLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\OBJLoader.js"
+        ]
+    },
+    {
+        "name": "OBJLoader2",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\OBJLoader2.js"
+        ]
+    },
+    {
+        "name": "PCDLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\PCDLoader.js"
+        ]
+    },
+    {
+        "name": "PDBLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\PDBLoader.js"
+        ]
+    },
+    {
+        "name": "PlayCanvasLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\PlayCanvasLoader.js"
+        ]
+    },
+    {
+        "name": "PLYLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\PLYLoader.js"
+        ]
+    },
+    {
+        "name": "PRWMLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\PRWMLoader.js"
+        ]
+    },
+    {
+        "name": "PVRLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\PVRLoader.js"
+        ]
+    },
+    {
+        "name": "RGBELoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\RGBELoader.js"
+        ]
+    },
+    {
+        "name": "STLLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\STLLoader.js"
+        ]
+    },
+    {
+        "name": "SVGLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\SVGLoader.js"
+        ]
+    },
+    {
+        "name": "TDSLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\TDSLoader.js"
+        ]
+    },
+    {
+        "name": "TGALoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\TGALoader.js"
+        ]
+    },
+    {
+        "name": "TTFLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\TTFLoader.js"
+        ]
+    },
+    {
+        "name": "VRMLLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\VRMLLoader.js"
+        ]
+    },
+    {
+        "name": "VRMLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\VRMLoader.js"
+        ]
+    },
+    {
+        "name": "VTKLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\VTKLoader.js"
+        ]
+    },
+    {
+        "name": "XLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\XLoader.js"
+        ]
+    },
+    {
+        "name": "ctm",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\ctm\\ctm.js"
+        ]
+    },
+    {
+        "name": "CTMLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\ctm\\CTMLoader.js"
+        ]
+    },
+    {
+        "name": "CTMWorker",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\ctm\\CTMWorker.js"
+        ]
+    },
+    {
+        "name": "lzma",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\ctm\\lzma.js"
+        ]
+    },
+    {
+        "name": "LegacyGLTFLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\deprecated\\LegacyGLTFLoader.js"
+        ]
+    },
+    {
+        "name": "LegacyJSONLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\deprecated\\LegacyJSONLoader.js"
+        ]
+    },
+    {
+        "name": "SEA3D",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\sea3d\\SEA3D.js"
+        ]
+    },
+    {
+        "name": "SEA3DDeflate",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\sea3d\\SEA3DDeflate.js"
+        ]
+    },
+    {
+        "name": "SEA3DDraco",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\sea3d\\SEA3DDraco.js"
+        ]
+    },
+    {
+        "name": "SEA3DLegacy",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\sea3d\\SEA3DLegacy.js"
+        ]
+    },
+    {
+        "name": "SEA3DLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\sea3d\\SEA3DLoader.js"
+        ]
+    },
+    {
+        "name": "SEA3DLZMA",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\sea3d\\SEA3DLZMA.js"
+        ]
+    },
+    {
+        "name": "SEA3DGC",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\sea3d\\o3dgc\\SEA3DGC.js"
+        ]
+    },
+    {
+        "name": "SEA3DAmmo",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\sea3d\\physics\\SEA3DAmmo.js"
+        ]
+    },
+    {
+        "name": "SEA3DAmmoLoader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\sea3d\\physics\\SEA3DAmmoLoader.js"
+        ]
+    },
+    {
+        "name": "SEA3DRigidBody",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\loaders\\sea3d\\physics\\SEA3DRigidBody.js"
+        ]
+    },
+    {
+        "name": "ColorConverter",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\math\\ColorConverter.js"
+        ]
+    },
+    {
+        "name": "ConvexHull",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\math\\ConvexHull.js"
+        ]
+    },
+    {
+        "name": "ImprovedNoise",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\math\\ImprovedNoise.js"
+        ]
+    },
+    {
+        "name": "Lut",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\math\\Lut.js"
+        ]
+    },
+    {
+        "name": "Octree",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\math\\Octree.js"
+        ]
+    },
+    {
+        "name": "QuickHull",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\math\\QuickHull.js"
+        ]
+    },
+    {
+        "name": "SimplexNoise",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\math\\SimplexNoise.js"
+        ]
+    },
+    {
+        "name": "CarControls",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\misc\\CarControls.js"
+        ]
+    },
+    {
+        "name": "ConvexObjectBreaker",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\misc\\ConvexObjectBreaker.js"
+        ]
+    },
+    {
+        "name": "GPUComputationRenderer",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\misc\\GPUComputationRenderer.js"
+        ]
+    },
+    {
+        "name": "Gyroscope",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\misc\\Gyroscope.js"
+        ]
+    },
+    {
+        "name": "MD2Character",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\misc\\MD2Character.js"
+        ]
+    },
+    {
+        "name": "MD2CharacterComplex",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\misc\\MD2CharacterComplex.js"
+        ]
+    },
+    {
+        "name": "MorphAnimMesh",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\misc\\MorphAnimMesh.js"
+        ]
+    },
+    {
+        "name": "MorphBlendMesh",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\misc\\MorphBlendMesh.js"
+        ]
+    },
+    {
+        "name": "Ocean",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\misc\\Ocean.js"
+        ]
+    },
+    {
+        "name": "RollerCoaster",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\misc\\RollerCoaster.js"
+        ]
+    },
+    {
+        "name": "Volume",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\misc\\Volume.js"
+        ]
+    },
+    {
+        "name": "VolumeSlice",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\misc\\VolumeSlice.js"
+        ]
+    },
+    {
+        "name": "glsl",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\mode\\glsl.js"
+        ]
+    },
+    {
+        "name": "javascript",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\mode\\javascript.js"
+        ]
+    },
+    {
+        "name": "ExplodeModifier",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\modifiers\\ExplodeModifier.js"
+        ]
+    },
+    {
+        "name": "SimplifyModifier",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\modifiers\\SimplifyModifier.js"
+        ]
+    },
+    {
+        "name": "SubdivisionModifier",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\modifiers\\SubdivisionModifier.js"
+        ]
+    },
+    {
+        "name": "TessellateModifier",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\modifiers\\TessellateModifier.js"
+        ]
+    },
+    {
+        "name": "Nodes",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\Nodes.js"
+        ]
+    },
+    {
+        "name": "THREENodes",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\THREE.Nodes.js"
+        ]
+    },
+    {
+        "name": "CameraNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\accessors\\CameraNode.js"
+        ]
+    },
+    {
+        "name": "ColorsNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\accessors\\ColorsNode.js"
+        ]
+    },
+    {
+        "name": "LightNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\accessors\\LightNode.js"
+        ]
+    },
+    {
+        "name": "NormalNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\accessors\\NormalNode.js"
+        ]
+    },
+    {
+        "name": "PositionNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\accessors\\PositionNode.js"
+        ]
+    },
+    {
+        "name": "ReflectNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\accessors\\ReflectNode.js"
+        ]
+    },
+    {
+        "name": "ResolutionNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\accessors\\ResolutionNode.js"
+        ]
+    },
+    {
+        "name": "ScreenUVNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\accessors\\ScreenUVNode.js"
+        ]
+    },
+    {
+        "name": "UVNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\accessors\\UVNode.js"
+        ]
+    },
+    {
+        "name": "BlinnExponentToRoughnessNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\bsdfs\\BlinnExponentToRoughnessNode.js"
+        ]
+    },
+    {
+        "name": "BlinnShininessExponentNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\bsdfs\\BlinnShininessExponentNode.js"
+        ]
+    },
+    {
+        "name": "RoughnessToBlinnExponentNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\bsdfs\\RoughnessToBlinnExponentNode.js"
+        ]
+    },
+    {
+        "name": "AttributeNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\AttributeNode.js"
+        ]
+    },
+    {
+        "name": "ConstNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\ConstNode.js"
+        ]
+    },
+    {
+        "name": "ExpressionNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\ExpressionNode.js"
+        ]
+    },
+    {
+        "name": "FunctionCallNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\FunctionCallNode.js"
+        ]
+    },
+    {
+        "name": "FunctionNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\FunctionNode.js"
+        ]
+    },
+    {
+        "name": "InputNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\InputNode.js"
+        ]
+    },
+    {
+        "name": "Node",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\Node.js"
+        ]
+    },
+    {
+        "name": "NodeBuilder",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\NodeBuilder.js"
+        ]
+    },
+    {
+        "name": "NodeFrame",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\NodeFrame.js"
+        ]
+    },
+    {
+        "name": "NodeLib",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\NodeLib.js"
+        ]
+    },
+    {
+        "name": "NodeUniform",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\NodeUniform.js"
+        ]
+    },
+    {
+        "name": "NodeUtils",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\NodeUtils.js"
+        ]
+    },
+    {
+        "name": "StructNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\StructNode.js"
+        ]
+    },
+    {
+        "name": "TempNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\TempNode.js"
+        ]
+    },
+    {
+        "name": "VarNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\core\\VarNode.js"
+        ]
+    },
+    {
+        "name": "BlurNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\effects\\BlurNode.js"
+        ]
+    },
+    {
+        "name": "ColorAdjustmentNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\effects\\ColorAdjustmentNode.js"
+        ]
+    },
+    {
+        "name": "LuminanceNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\effects\\LuminanceNode.js"
+        ]
+    },
+    {
+        "name": "BoolNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\BoolNode.js"
+        ]
+    },
+    {
+        "name": "ColorNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\ColorNode.js"
+        ]
+    },
+    {
+        "name": "CubeTextureNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\CubeTextureNode.js"
+        ]
+    },
+    {
+        "name": "FloatNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\FloatNode.js"
+        ]
+    },
+    {
+        "name": "IntNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\IntNode.js"
+        ]
+    },
+    {
+        "name": "Matrix3Node",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\Matrix3Node.js"
+        ]
+    },
+    {
+        "name": "Matrix4Node",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\Matrix4Node.js"
+        ]
+    },
+    {
+        "name": "PropertyNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\PropertyNode.js"
+        ]
+    },
+    {
+        "name": "ReflectorNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\ReflectorNode.js"
+        ]
+    },
+    {
+        "name": "RTTNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\RTTNode.js"
+        ]
+    },
+    {
+        "name": "ScreenNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\ScreenNode.js"
+        ]
+    },
+    {
+        "name": "TextureNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\TextureNode.js"
+        ]
+    },
+    {
+        "name": "Vector2Node",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\Vector2Node.js"
+        ]
+    },
+    {
+        "name": "Vector3Node",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\Vector3Node.js"
+        ]
+    },
+    {
+        "name": "Vector4Node",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\inputs\\Vector4Node.js"
+        ]
+    },
+    {
+        "name": "MeshStandardNodeMaterial",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\materials\\MeshStandardNodeMaterial.js"
+        ]
+    },
+    {
+        "name": "NodeMaterial",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\materials\\NodeMaterial.js"
+        ]
+    },
+    {
+        "name": "PhongNodeMaterial",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\materials\\PhongNodeMaterial.js"
+        ]
+    },
+    {
+        "name": "SpriteNodeMaterial",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\materials\\SpriteNodeMaterial.js"
+        ]
+    },
+    {
+        "name": "StandardNodeMaterial",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\materials\\StandardNodeMaterial.js"
+        ]
+    },
+    {
+        "name": "MeshStandardNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\materials\\nodes\\MeshStandardNode.js"
+        ]
+    },
+    {
+        "name": "PhongNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\materials\\nodes\\PhongNode.js"
+        ]
+    },
+    {
+        "name": "RawNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\materials\\nodes\\RawNode.js"
+        ]
+    },
+    {
+        "name": "SpriteNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\materials\\nodes\\SpriteNode.js"
+        ]
+    },
+    {
+        "name": "StandardNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\materials\\nodes\\StandardNode.js"
+        ]
+    },
+    {
+        "name": "CondNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\math\\CondNode.js"
+        ]
+    },
+    {
+        "name": "Math1Node",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\math\\Math1Node.js"
+        ]
+    },
+    {
+        "name": "Math2Node",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\math\\Math2Node.js"
+        ]
+    },
+    {
+        "name": "Math3Node",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\math\\Math3Node.js"
+        ]
+    },
+    {
+        "name": "OperatorNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\math\\OperatorNode.js"
+        ]
+    },
+    {
+        "name": "BumpMapNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\misc\\BumpMapNode.js"
+        ]
+    },
+    {
+        "name": "NormalMapNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\misc\\NormalMapNode.js"
+        ]
+    },
+    {
+        "name": "TextureCubeNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\misc\\TextureCubeNode.js"
+        ]
+    },
+    {
+        "name": "TextureCubeUVNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\misc\\TextureCubeUVNode.js"
+        ]
+    },
+    {
+        "name": "NodePass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\postprocessing\\NodePass.js"
+        ]
+    },
+    {
+        "name": "NodePostProcessing",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\postprocessing\\NodePostProcessing.js"
+        ]
+    },
+    {
+        "name": "CheckerNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\procedural\\CheckerNode.js"
+        ]
+    },
+    {
+        "name": "NoiseNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\procedural\\NoiseNode.js"
+        ]
+    },
+    {
+        "name": "BypassNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\utils\\BypassNode.js"
+        ]
+    },
+    {
+        "name": "ColorSpaceNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\utils\\ColorSpaceNode.js"
+        ]
+    },
+    {
+        "name": "JoinNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\utils\\JoinNode.js"
+        ]
+    },
+    {
+        "name": "MaxMIPLevelNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\utils\\MaxMIPLevelNode.js"
+        ]
+    },
+    {
+        "name": "SwitchNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\utils\\SwitchNode.js"
+        ]
+    },
+    {
+        "name": "TimerNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\utils\\TimerNode.js"
+        ]
+    },
+    {
+        "name": "UVTransformNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\utils\\UVTransformNode.js"
+        ]
+    },
+    {
+        "name": "VelocityNode",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\nodes\\utils\\VelocityNode.js"
+        ]
+    },
+    {
+        "name": "Car",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\Car.js"
+        ]
+    },
+    {
+        "name": "Cloth",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\Cloth.js"
+        ]
+    },
+    {
+        "name": "Fire",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\Fire.js"
+        ]
+    },
+    {
+        "name": "Lensflare",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\Lensflare.js"
+        ]
+    },
+    {
+        "name": "LightningStorm",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\LightningStorm.js"
+        ]
+    },
+    {
+        "name": "MarchingCubes",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\MarchingCubes.js"
+        ]
+    },
+    {
+        "name": "Reflector",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\Reflector.js"
+        ]
+    },
+    {
+        "name": "ReflectorRTT",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\ReflectorRTT.js"
+        ]
+    },
+    {
+        "name": "Refractor",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\Refractor.js"
+        ]
+    },
+    {
+        "name": "ShadowMesh",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\ShadowMesh.js"
+        ]
+    },
+    {
+        "name": "Sky",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\Sky.js"
+        ]
+    },
+    {
+        "name": "Water",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\Water.js"
+        ]
+    },
+    {
+        "name": "Water2",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\objects\\Water2.js"
+        ]
+    },
+    {
+        "name": "jank",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\offscreen\\jank.js"
+        ]
+    },
+    {
+        "name": "offscreen",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\offscreen\\offscreen.js"
+        ]
+    },
+    {
+        "name": "scene",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\offscreen\\scene.js"
+        ]
+    },
+    {
+        "name": "PMREMCubeUVPacker",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\pmrem\\PMREMCubeUVPacker.js"
+        ]
+    },
+    {
+        "name": "PMREMGenerator",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\pmrem\\PMREMGenerator.js"
+        ]
+    },
+    {
+        "name": "AdaptiveToneMappingPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\AdaptiveToneMappingPass.js"
+        ]
+    },
+    {
+        "name": "AfterimagePass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\AfterimagePass.js"
+        ]
+    },
+    {
+        "name": "BloomPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\BloomPass.js"
+        ]
+    },
+    {
+        "name": "BokehPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\BokehPass.js"
+        ]
+    },
+    {
+        "name": "ClearPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\ClearPass.js"
+        ]
+    },
+    {
+        "name": "CubeTexturePass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\CubeTexturePass.js"
+        ]
+    },
+    {
+        "name": "DotScreenPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\DotScreenPass.js"
+        ]
+    },
+    {
+        "name": "EffectComposer",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\EffectComposer.js"
+        ]
+    },
+    {
+        "name": "FilmPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\FilmPass.js"
+        ]
+    },
+    {
+        "name": "GlitchPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\GlitchPass.js"
+        ]
+    },
+    {
+        "name": "HalftonePass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\HalftonePass.js"
+        ]
+    },
+    {
+        "name": "MaskPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\MaskPass.js"
+        ]
+    },
+    {
+        "name": "OutlinePass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\OutlinePass.js"
+        ]
+    },
+    {
+        "name": "RenderPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\RenderPass.js"
+        ]
+    },
+    {
+        "name": "SAOPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\SAOPass.js"
+        ]
+    },
+    {
+        "name": "SavePass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\SavePass.js"
+        ]
+    },
+    {
+        "name": "ShaderPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\ShaderPass.js"
+        ]
+    },
+    {
+        "name": "SMAAPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\SMAAPass.js"
+        ]
+    },
+    {
+        "name": "SSAARenderPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\SSAARenderPass.js"
+        ]
+    },
+    {
+        "name": "SSAOPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\SSAOPass.js"
+        ]
+    },
+    {
+        "name": "TAARenderPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\TAARenderPass.js"
+        ]
+    },
+    {
+        "name": "TexturePass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\TexturePass.js"
+        ]
+    },
+    {
+        "name": "UnrealBloomPass",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\postprocessing\\UnrealBloomPass.js"
+        ]
+    },
+    {
+        "name": "CSS2DRenderer",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\renderers\\CSS2DRenderer.js"
+        ]
+    },
+    {
+        "name": "CSS3DRenderer",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\renderers\\CSS3DRenderer.js"
+        ]
+    },
+    {
+        "name": "Projector",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\renderers\\Projector.js"
+        ]
+    },
+    {
+        "name": "RaytracingRenderer",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\renderers\\RaytracingRenderer.js"
+        ]
+    },
+    {
+        "name": "RaytracingWorker",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\renderers\\RaytracingWorker.js"
+        ]
+    },
+    {
+        "name": "SoftwareRenderer",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\renderers\\SoftwareRenderer.js"
+        ]
+    },
+    {
+        "name": "SVGRenderer",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\renderers\\SVGRenderer.js"
+        ]
+    },
+    {
+        "name": "WebGLDeferredRenderer",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\renderers\\WebGLDeferredRenderer.js"
+        ]
+    },
+    {
+        "name": "AfterimageShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\AfterimageShader.js"
+        ]
+    },
+    {
+        "name": "BasicShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\BasicShader.js"
+        ]
+    },
+    {
+        "name": "BleachBypassShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\BleachBypassShader.js"
+        ]
+    },
+    {
+        "name": "BlendShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\BlendShader.js"
+        ]
+    },
+    {
+        "name": "BokehShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\BokehShader.js"
+        ]
+    },
+    {
+        "name": "BokehShader2",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\BokehShader2.js"
+        ]
+    },
+    {
+        "name": "BrightnessContrastShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\BrightnessContrastShader.js"
+        ]
+    },
+    {
+        "name": "ColorCorrectionShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\ColorCorrectionShader.js"
+        ]
+    },
+    {
+        "name": "ColorifyShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\ColorifyShader.js"
+        ]
+    },
+    {
+        "name": "ConvolutionShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\ConvolutionShader.js"
+        ]
+    },
+    {
+        "name": "CopyShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\CopyShader.js"
+        ]
+    },
+    {
+        "name": "DepthLimitedBlurShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\DepthLimitedBlurShader.js"
+        ]
+    },
+    {
+        "name": "DigitalGlitch",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\DigitalGlitch.js"
+        ]
+    },
+    {
+        "name": "DOFMipMapShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\DOFMipMapShader.js"
+        ]
+    },
+    {
+        "name": "DotScreenShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\DotScreenShader.js"
+        ]
+    },
+    {
+        "name": "FilmShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\FilmShader.js"
+        ]
+    },
+    {
+        "name": "FocusShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\FocusShader.js"
+        ]
+    },
+    {
+        "name": "FreiChenShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\FreiChenShader.js"
+        ]
+    },
+    {
+        "name": "FresnelShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\FresnelShader.js"
+        ]
+    },
+    {
+        "name": "FXAAShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\FXAAShader.js"
+        ]
+    },
+    {
+        "name": "GammaCorrectionShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\GammaCorrectionShader.js"
+        ]
+    },
+    {
+        "name": "GodRaysShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\GodRaysShader.js"
+        ]
+    },
+    {
+        "name": "HalftoneShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\HalftoneShader.js"
+        ]
+    },
+    {
+        "name": "HorizontalBlurShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\HorizontalBlurShader.js"
+        ]
+    },
+    {
+        "name": "HorizontalTiltShiftShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\HorizontalTiltShiftShader.js"
+        ]
+    },
+    {
+        "name": "HueSaturationShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\HueSaturationShader.js"
+        ]
+    },
+    {
+        "name": "KaleidoShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\KaleidoShader.js"
+        ]
+    },
+    {
+        "name": "LuminosityHighPassShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\LuminosityHighPassShader.js"
+        ]
+    },
+    {
+        "name": "LuminosityShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\LuminosityShader.js"
+        ]
+    },
+    {
+        "name": "MirrorShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\MirrorShader.js"
+        ]
+    },
+    {
+        "name": "NormalMapShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\NormalMapShader.js"
+        ]
+    },
+    {
+        "name": "OceanShaders",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\OceanShaders.js"
+        ]
+    },
+    {
+        "name": "ParallaxShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\ParallaxShader.js"
+        ]
+    },
+    {
+        "name": "PixelShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\PixelShader.js"
+        ]
+    },
+    {
+        "name": "RGBShiftShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\RGBShiftShader.js"
+        ]
+    },
+    {
+        "name": "SAOShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\SAOShader.js"
+        ]
+    },
+    {
+        "name": "SepiaShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\SepiaShader.js"
+        ]
+    },
+    {
+        "name": "SkinShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\SkinShader.js"
+        ]
+    },
+    {
+        "name": "SMAAShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\SMAAShader.js"
+        ]
+    },
+    {
+        "name": "SobelOperatorShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\SobelOperatorShader.js"
+        ]
+    },
+    {
+        "name": "SSAOShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\SSAOShader.js"
+        ]
+    },
+    {
+        "name": "TechnicolorShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\TechnicolorShader.js"
+        ]
+    },
+    {
+        "name": "TerrainShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\TerrainShader.js"
+        ]
+    },
+    {
+        "name": "ToneMapShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\ToneMapShader.js"
+        ]
+    },
+    {
+        "name": "ToonShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\ToonShader.js"
+        ]
+    },
+    {
+        "name": "TranslucentShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\TranslucentShader.js"
+        ]
+    },
+    {
+        "name": "TriangleBlurShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\TriangleBlurShader.js"
+        ]
+    },
+    {
+        "name": "UnpackDepthRGBAShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\UnpackDepthRGBAShader.js"
+        ]
+    },
+    {
+        "name": "VerticalBlurShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\VerticalBlurShader.js"
+        ]
+    },
+    {
+        "name": "VerticalTiltShiftShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\VerticalTiltShiftShader.js"
+        ]
+    },
+    {
+        "name": "VignetteShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\VignetteShader.js"
+        ]
+    },
+    {
+        "name": "VolumeShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\VolumeShader.js"
+        ]
+    },
+    {
+        "name": "WaterRefractionShader",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\shaders\\WaterRefractionShader.js"
+        ]
+    },
+    {
+        "name": "threejs",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\tern-threejs\\threejs.js"
+        ]
+    },
+    {
+        "name": "comment",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\ternjs\\comment.js"
+        ]
+    },
+    {
+        "name": "def",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\ternjs\\def.js"
+        ]
+    },
+    {
+        "name": "doc_comment",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\ternjs\\doc_comment.js"
+        ]
+    },
+    {
+        "name": "infer",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\ternjs\\infer.js"
+        ]
+    },
+    {
+        "name": "polyfill",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\ternjs\\polyfill.js"
+        ]
+    },
+    {
+        "name": "signal",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\ternjs\\signal.js"
+        ]
+    },
+    {
+        "name": "tern",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\ternjs\\tern.js"
+        ]
+    },
+    {
+        "name": "BufferGeometryUtils",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\utils\\BufferGeometryUtils.js"
+        ]
+    },
+    {
+        "name": "GeometryUtils",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\utils\\GeometryUtils.js"
+        ]
+    },
+    {
+        "name": "MathUtils",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\utils\\MathUtils.js"
+        ]
+    },
+    {
+        "name": "SceneUtils",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\utils\\SceneUtils.js"
+        ]
+    },
+    {
+        "name": "ShadowMapViewer",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\utils\\ShadowMapViewer.js"
+        ]
+    },
+    {
+        "name": "SkeletonUtils",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\utils\\SkeletonUtils.js"
+        ]
+    },
+    {
+        "name": "TypedArrayUtils",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\utils\\TypedArrayUtils.js"
+        ]
+    },
+    {
+        "name": "UVsDebug",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\utils\\UVsDebug.js"
+        ]
+    },
+    {
+        "name": "packLDrawModel",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\utils\\ldraw\\packLDrawModel.js"
+        ]
+    },
+    {
+        "name": "HelioWebXRPolyfill",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\vr\\HelioWebXRPolyfill.js"
+        ]
+    },
+    {
+        "name": "PaintViveController",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\vr\\PaintViveController.js"
+        ]
+    },
+    {
+        "name": "ViveController",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\vr\\ViveController.js"
+        ]
+    },
+    {
+        "name": "WebVR",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\vr\\WebVR.js"
+        ]
+    },
+    {
+        "name": "DaydreamController",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\vr\\deprecated\\DaydreamController.js"
+        ]
+    },
+    {
+        "name": "GearVRController",
+        "assets": [
+            "E:\\github\\ShadowEditor\\ShadowEditor.Web\\assets\\js\\vr\\deprecated\\GearVRController.js"
+        ]
+    }
+]
