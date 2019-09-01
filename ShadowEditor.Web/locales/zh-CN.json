@@ -684,5 +684,6 @@
     "Texture Editor": "纹理编辑器",
     "Material Editor": "材质编辑器",
     "Terrain Editor": "地形编辑器",
-    "AI Editor": "AI编辑器"
+    "AI Editor": "AI编辑器",
+    "Renderer Attributes": "渲染器属性"
 }

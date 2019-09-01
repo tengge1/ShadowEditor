@@ -1,5 +1,6 @@
 import './css/HelpMenu.css';
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import RendererrAttributesWindow from './window/RendererrAttributesWindow.jsx';
 
 /**
  * 帮助菜单
@@ -9,6 +10,7 @@ class HelpMenu extends React.Component {
     constructor(props) {
         super(props);
 
+        this.handleRendererAttributes = this.handleRendererAttributes.bind(this);
         this.handleSource = this.handleSource.bind(this);
         this.handleExamples = this.handleExamples.bind(this);
         this.handleDocuments = this.handleDocuments.bind(this);
@@ -17,11 +19,18 @@ class HelpMenu extends React.Component {
 
     render() {
         return <MenuItem title={_t('Help')}>
+            <MenuItem title={_t('Renderer Attributes')} onClick={this.handleRendererAttributes}></MenuItem>
+            <MenuItemSeparator></MenuItemSeparator>
             <MenuItem title={_t('Source')} onClick={this.handleSource}></MenuItem>
             <MenuItem title={_t('Examples')} onClick={this.handleExamples}></MenuItem>
             <MenuItem title={_t('Documents')} onClick={this.handleDocuments}></MenuItem>
             <MenuItem title={_t('About')} onClick={this.handleAbout}></MenuItem>
         </MenuItem>;
+    }
+
+    handleRendererAttributes() {
+        const win = app.createElement(RendererrAttributesWindow);
+        app.addElement(win);
     }
 
     handleSource() {
