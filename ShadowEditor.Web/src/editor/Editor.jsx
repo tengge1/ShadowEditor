@@ -28,6 +28,8 @@ class Editor extends React.Component {
             elements: [],
         };
 
+        this.type = 'scene'; // 编辑器类型：scene, mesh, texture, material, terrain, ai
+
         this.onToggle = this.onToggle.bind(this);
     }
 

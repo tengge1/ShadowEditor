@@ -22,10 +22,10 @@
     display: none !important;
 }
 
-.MenuTab:hover {
+/* .MenuTab:hover {
     color: #fff;
     background: #3399ff;
-}
+} */
 
 .MenuTab.disabled {
     cursor: not-allowed;

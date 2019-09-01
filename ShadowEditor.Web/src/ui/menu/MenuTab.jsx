@@ -26,7 +26,7 @@ class MenuTab extends React.Component {
         event.stopPropagation();
 
         if (!event.target.classList.contains('disabled')) {
-            onClick && onClick(event);
+            onClick && onClick(this.props.name, event);
         }
     }
 }
@@ -35,6 +35,7 @@ MenuTab.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     children: PropTypes.node,
+    name: PropTypes.string,
     selected: PropTypes.bool,
     show: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -45,6 +46,7 @@ MenuTab.defaultProps = {
     className: null,
     style: null,
     children: null,
+    name: null,
     selected: false,
     show: true,
     disabled: false,
