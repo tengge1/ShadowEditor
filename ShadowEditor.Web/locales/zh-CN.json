@@ -685,5 +685,14 @@
     "Material Editor": "材质编辑器",
     "Terrain Editor": "地形编辑器",
     "AI Editor": "AI编辑器",
-    "Renderer Attributes": "渲染器属性"
+    "Renderer Attributes": "渲染器属性",
+    "alpha": "透明",
+    "antialias": "抗锯齿",
+    "depth": "深度",
+    "desynchronized": "不同步",
+    "failIfMajorPerformanceCaveat": "警告报错",
+    "powerPreference": "电源选项",
+    "premultipliedAlpha": "左乘透明",
+    "preserveDrawingBuffer": "保留绘制缓冲区",
+    "stencil": "模板"
 }
