@@ -1,5 +1,5 @@
 class Application {
-    constructor(container: HTMLElement, options: Object) {
+    constructor(container, options) {
 
     }
 
