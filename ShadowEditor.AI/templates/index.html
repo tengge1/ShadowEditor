@@ -11,10 +11,10 @@
 
 <body>
     <div id="container" tabindex="10"></div>
-    <script src="build/ShadowEditor.AI.js"></script>
+    <script src="{{ url_for('static', filename='build/ShadowEditor.AI.js') }}"></script>
     <script>
         window.onload = function () {
-            new Application(document.getElementById('container'), {
+            new AI.Application(document.getElementById('container'), {
                 server: location.origin,
             });
         };
