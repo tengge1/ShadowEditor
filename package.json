@@ -18,11 +18,13 @@
         "rollup": "^1.11.3",
         "rollup-plugin-babel": "^4.3.2",
         "rollup-plugin-commonjs": "^9.3.4",
-        "rollup-plugin-node-resolve": "^4.2.3"
+        "rollup-plugin-node-resolve": "^4.2.3",
+        "typescript": "^3.6.2"
     },
     "scripts": {
         "build": "rollup -c ShadowEditor.Web/rollup.config.js",
         "dev": "rollup -c ShadowEditor.Web/rollup.config.js --watch",
+        "ai": "tsc -p ShadowEditor.AI/tsconfig.json -w",
         "weekend": "rollup -c ShadowEditor.Web/test/weekend/rollup.config.js --watch",
         "build-docs": "gitbook build docs-dev",
         "test": "rollup -c ShadowEditor.Web/test/unit/rollup.config.js",
