@@ -21,8 +21,6 @@ class EditorSideBar extends React.Component {
 
         this.handleTopTabChange = this.handleTopTabChange.bind(this);
         this.handleBottomTabChange = this.handleBottomTabChange.bind(this);
-
-        this.handleAnimationSelected = this.handleAnimationSelected.bind(this);
     }
 
     render() {

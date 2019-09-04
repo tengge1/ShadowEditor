@@ -19,7 +19,6 @@ class BasicComponent extends React.Component {
         this.handleExpand = this.handleExpand.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleChangeName = this.handleChangeName.bind(this);
-        this.handleChangeVisible = this.handleChangeVisible.bind(this);
     }
 
     render() {

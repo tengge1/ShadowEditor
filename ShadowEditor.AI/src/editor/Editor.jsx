@@ -73,6 +73,10 @@ class Editor extends React.Component {
         this.setState({ elements }, callback);
     }
 
+    onToggle(expanded) {
+        app.call('resize', this);
+    }
+
     onShowMask(enabled, text) {
         this.setState({
             showMask: enabled,

@@ -15,7 +15,8 @@ class SceneMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={_t('Empty Scene')} onClick={this.handleCreateEmptyScene}>
+        return <MenuItem title={_t('Scene')} onClick={this.handleCreateEmptyScene}>
+            <MenuItem title={_t('Empty Scene')} onClick={this.handleSaveScene}></MenuItem>
             <MenuItem title={_t('Save')} onClick={this.handleSaveScene}></MenuItem>
             <MenuItem title={_t('Save As')} onClick={this.handleSaveAsScene}></MenuItem>
             <MenuItemSeparator />

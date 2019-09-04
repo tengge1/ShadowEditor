@@ -14,12 +14,6 @@ class ScenePanel extends React.Component {
             name: '',
             categories: [],
         };
-
-        this.handleClick = this.handleClick.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-
-        this.update = this.update.bind(this);
     }
 
     render() {
@@ -52,18 +46,7 @@ class ScenePanel extends React.Component {
             });
         });
 
-        return <div className={classNames('ScenePanel', className)} style={style}>
-            <SearchField
-                data={categoryData}
-                placeholder={_t('Search Content')}
-                addHidden={true}
-                onInput={this.handleSearch.bind(this)}></SearchField>
-            <ImageList
-                data={imageListData}
-                onClick={this.handleClick}
-                onEdit={this.handleEdit}
-                onDelete={this.handleDelete}></ImageList>
-        </div>;
+        return <div className={classNames('ScenePanel', className)} style={style}></div>;
     }
 }
 

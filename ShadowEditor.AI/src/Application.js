@@ -22,6 +22,7 @@ class Application {
 
         loader.load().then(() => {
             this.ui = React.createElement(Editor);
+            ReactDOM.render(this.ui, this.container);
             this.start();
         });
     }

@@ -11,8 +11,6 @@ class EditorStatusBar extends React.Component {
     }
 
     render() {
-        const { objects, vertices, triangles, showStats, showViewHelper, isThrowBall, isRecording } = this.state;
-
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{_t('Object')}</Label>
         </Toolbar>;

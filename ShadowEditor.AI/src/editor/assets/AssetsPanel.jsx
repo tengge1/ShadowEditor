@@ -13,14 +13,18 @@ class AssetsPanel extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            activeIndex: 0,
+        };
+
         this.handleActive = this.handleActive.bind(this);
     }
 
     render() {
-        const { activeIndex, sceneCount, meshCount, mapCount, materialCount, audioCount, animationCount, particleCount, prefabCount, characterCount } = this.state;
+        const { activeIndex } = this.state;
 
         return <AccordionLayout className={'AssetsPanel'} onActive={this.handleActive}>
-            <Accordion name={'Scene'} title={`${_t('Scene')}(${sceneCount})`} maximizable={true}>
+            <Accordion name={'Scene'} title={`${_t('Scene')}`} maximizable={true}>
                 <ScenePanel className={'subPanel'} show={0 === activeIndex}></ScenePanel>
             </Accordion>
             <Accordion name={'Log'} title={`${_t('Logs')}`} maximizable={true}>
