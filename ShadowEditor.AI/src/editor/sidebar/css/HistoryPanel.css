@@ -1,0 +1,28 @@
+.HistoryPanel {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.HistoryPanel>.toolbar {
+    padding: 4px;
+}
+
+.HistoryPanel>.content {
+    margin: 0 8px 8px 8px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.HistoryPanel>.content>.undo {
+    font-size: 12px;
+    padding: 4px;
+}
+
+.HistoryPanel>.content>.redo {
+    font-size: 12px;
+    padding: 4px;
+    opacity: .3;
+}
