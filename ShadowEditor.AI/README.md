@@ -92,7 +92,15 @@ WSGIPythonHome "d:/program files/python37"
 </VirtualHost>
 ```
 
-在浏览器中访问`http://localhost/`，将打开`ShadowEditor.AI`首页，部署完成。
+在浏览器中访问`http://localhost/`，将打开`ShadowEditor.AI`首页。
+
+5. 将Apache安装为Windows服务。
+
+在`Apache24/bin`目录，输入`httpd -t`检查配置文件是否有错误。
+
+输入`httpd -k install -n Apache`将Apache安装为Windows服务，可以在Windows服务管理器中启动。
+
+检查`http://localhost/`是否能正常访问，部署完成。
 
 ## 安装GPU版Tensorflow
 
@@ -133,3 +141,5 @@ Visual C++ 2017 (15.0)          MSC_VER=1910
 ```
 
 2. Windows下部署Flask的Web服务器：https://blog.csdn.net/mist99/article/details/80771289。
+
+3. Windows下Apache安装步骤：https://www.cnblogs.com/wcwnina/p/8044353.html。
