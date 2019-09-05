@@ -1,6 +1,5 @@
 import './css/ScriptWindow.css';
 import { classNames, PropTypes, Window, Content, Form, FormControl, Label, Input, Select, Buttons, Button } from '../../../third_party';
-import FragmentShaderStarter from '../../script/code/FragmentShaderStarter';
 
 /**
  * 脚本窗口
