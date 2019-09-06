@@ -1,6 +1,7 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuBarFiller, MenuItemSeparator } from '../../third_party';
 import SceneMenu from './SceneMenu.jsx';
 import EditMenu from './EditMenu.jsx';
+import AssetsMenu from './AssetsMenu.jsx';
 
 /**
  * 编辑器菜单栏
@@ -13,6 +14,7 @@ class EditorMenuBar extends React.Component {
         return <MenuBar className={classNames('EditorMenuBar', className)}>
             <SceneMenu />
             <EditMenu />
+            <AssetsMenu />
         </MenuBar>;
     }
 }

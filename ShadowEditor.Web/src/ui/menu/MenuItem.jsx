@@ -15,7 +15,7 @@ class MenuItem extends React.Component {
     render() {
         const { title, className, style, children, show, disabled, onClick } = this.props;
 
-        const subMenu = children && children.length && <><div className={'suffix'}>
+        const subMenu = React.Children.count(children) && <><div className={'suffix'}>
             <i className={'iconfont icon-right-triangle'}></i>
         </div>
             <div className={'sub'}>

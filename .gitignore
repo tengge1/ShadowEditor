@@ -93,3 +93,4 @@ typings/
 /ShadowEditor.Web/test/weekend/build
 /temp
 /ShadowEditor.AI/build
+/ShadowEditor.AI/__pycache__
