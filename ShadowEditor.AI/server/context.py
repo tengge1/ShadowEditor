@@ -1,0 +1,2 @@
+global app
+app = None
