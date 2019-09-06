@@ -13,12 +13,12 @@ context.app = app
 # 动态加载server包
 dir = os.path.split(sys.argv[0])[0]
 
-for loader, module_name, is_pkg in pkgutil.walk_packages([f'{dir}\\server\\api\\api']):
+for loader, module_name, is_pkg in pkgutil.walk_packages([f'{dir}\\server\\api']):
     if module_name == 'context':
         continue
     try:
         print(module_name)
-        importlib.import_module(f'server.{module_name}')
+        importlib.import_module(f'server.api.{module_name}')
     except ImportError as e:
         print(e)
 
