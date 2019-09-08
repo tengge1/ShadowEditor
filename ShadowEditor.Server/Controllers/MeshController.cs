@@ -33,7 +33,7 @@ namespace ShadowEditor.Server.Controllers
             var filter = Builders<BsonDocument>.Filter.Eq("Type", "Mesh");
             var categories = mongo.FindMany(Constant.CategoryCollectionName, filter).ToList();
 
-            var meshes = mongo.FindAll(Constant.MeshCollectionName).SortBy(n => n["Name"]).ToList();
+            var meshes = mongo.FindAll(Constant.MeshCollectionName).SortByDescending(n => n["_id"]).ToList();
 
             var list = new List<MeshModel>();
 
