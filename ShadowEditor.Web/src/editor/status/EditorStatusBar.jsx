@@ -26,6 +26,7 @@ class EditorStatusBar extends React.Component {
         this.handleShowViewHelper = this.handleShowViewHelper.bind(this);
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
         this.handleScreenshot = this.handleScreenshot.bind(this);
+        this.commitScreenshot = this.commitScreenshot.bind(this);
         this.handleRecord = this.handleRecord.bind(this);
     }
 
@@ -128,10 +129,27 @@ class EditorStatusBar extends React.Component {
     }
 
     handleScreenshot() {
+        app.on(`afterRender.Screenshot`, this.commitScreenshot);
+    }
+
+    commitScreenshot() {
+        app.on(`afterRender.Screenshot`, null);
+
         const canvas = app.editor.renderer.domElement;
         const dataUrl = Converter.canvasToDataURL(canvas);
         const file = Converter.dataURLtoFile(dataUrl, TimeUtils.getDateTime());
-        debugger
+
+        let form = new FormData();
+        form.append('file', file);
+
+        fetch(`/api/Screenshot/Add`, {
+            method: 'POST',
+            body: form,
+        }).then(response => {
+            response.json().then(json => {
+                app.toast(json.Msg);
+            });
+        });
     }
 
     handleRecord() {

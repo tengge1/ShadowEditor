@@ -95,3 +95,5 @@ typings/
 /ShadowEditor.AI/build
 __pycache__
 /ShadowEditor.Model/ShadowEditor.Model.csproj.user
+/ShadowEditor.Web/Upload/Screenshot
+/ShadowEditor.Web/Upload/Video
