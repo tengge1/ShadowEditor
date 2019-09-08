@@ -1,5 +1,7 @@
 import './css/EditorStatusBar.css';
 import { classNames, PropTypes, Toolbar, ToolbarSeparator, Label, CheckBox, Button } from '../../third_party';
+import Converter from '../../utils/Converter';
+import TimeUtils from '../../utils/TimeUtils';
 import VideoRecorder from '../../utils/VideoRecorder';
 
 /**
@@ -23,6 +25,7 @@ class EditorStatusBar extends React.Component {
         this.handleShowStats = this.handleShowStats.bind(this);
         this.handleShowViewHelper = this.handleShowViewHelper.bind(this);
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
+        this.handleScreenshot = this.handleScreenshot.bind(this);
         this.handleRecord = this.handleRecord.bind(this);
     }
 
@@ -44,6 +47,7 @@ class EditorStatusBar extends React.Component {
             <Label>{_t('ThrowBall')}</Label>
             <CheckBox checked={isThrowBall} onChange={this.handleEnableThrowBall}></CheckBox>
             <ToolbarSeparator></ToolbarSeparator>
+            <Button onClick={this.handleScreenshot}>{_t('Screenshot')}</Button>
             <Button onClick={this.handleRecord}>{isRecording ? _t('Cancel') : _t('Record')}</Button>
         </Toolbar>;
     }
@@ -121,6 +125,13 @@ class EditorStatusBar extends React.Component {
 
     handleEnableThrowBall(checked) {
         app.call('enableThrowBall', this, checked);
+    }
+
+    handleScreenshot() {
+        const canvas = app.editor.renderer.domElement;
+        const dataUrl = Converter.canvasToDataURL(canvas);
+        const file = Converter.dataURLtoFile(dataUrl, TimeUtils.getDateTime());
+        debugger
     }
 
     handleRecord() {

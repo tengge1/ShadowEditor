@@ -694,5 +694,6 @@
     "powerPreference": "电源选项",
     "premultipliedAlpha": "左乘透明",
     "preserveDrawingBuffer": "保留绘制缓冲区",
-    "stencil": "模板"
+    "stencil": "模板",
+    "Screenshot": "截图"
 }
