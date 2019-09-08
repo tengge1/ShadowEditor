@@ -10,18 +10,23 @@ class Photo extends React.Component {
         super(props);
 
         this.handleClick = this.handleClick.bind(this, props.onClick);
+        this.handleClickImage = this.handleClickImage.bind(this);
     }
 
     render() {
         const { className, style, url } = this.props;
 
         return <div className={'PhotoMark'} onClick={this.handleClick}>
-            <img src={url} />
+            <img src={url} onClick={this.handleClickImage} />
         </div>;
     }
 
     handleClick(onClick, event) {
         onClick && onClick(event);
+    }
+
+    handleClickImage(event) {
+        event.stopPropagation();
     }
 }
 
