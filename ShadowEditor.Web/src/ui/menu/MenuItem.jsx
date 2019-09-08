@@ -15,12 +15,12 @@ class MenuItem extends React.Component {
     render() {
         const { title, className, style, children, show, disabled, onClick } = this.props;
 
-        const subMenu = React.Children.count(children) && <><div className={'suffix'}>
+        const subMenu = React.Children.count(children) ? <><div className={'suffix'}>
             <i className={'iconfont icon-right-triangle'}></i>
         </div>
             <div className={'sub'}>
                 <ul className={'wrap'}>{children}</ul>
-            </div></>;
+            </div></> : null;
 
         return <li
             className={classNames('MenuItem', disabled && 'disabled', !show && 'hidden', className)}
