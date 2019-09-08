@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Model.Screenshot
+namespace ShadowEditor.Model.Video
 {
     /// <summary>
     /// 视频编辑模型

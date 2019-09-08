@@ -11,7 +11,7 @@ using System.Web.Http.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
-using ShadowEditor.Model.Map;
+using ShadowEditor.Model.Video;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 
@@ -32,14 +32,14 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             // 获取所有类别
-            var filter = Builders<BsonDocument>.Filter.Eq("Type", "Map");
+            var filter = Builders<BsonDocument>.Filter.Eq("Type", "Video");
             var categories = mongo.FindMany(Constant.CategoryCollectionName, filter).ToList();
 
-            var maps = mongo.FindAll(Constant.MapCollectionName).SortBy(n => n["Name"]).ToList();
+            var docs = mongo.FindAll(Constant.VideoCollectionName).SortBy(n => n["Name"]).ToList();
 
-            var list = new List<MapModel>();
+            var list = new List<VideoModel>();
 
-            foreach (var i in maps)
+            foreach (var i in docs)
             {
                 var categoryID = "";
                 var categoryName = "";
@@ -54,23 +54,7 @@ namespace ShadowEditor.Server.Controllers
                     }
                 }
 
-                var builder = new StringBuilder();
-
-                if (i["Url"].IsBsonDocument) // 立体贴图
-                {
-                    builder.Append($"{i["Url"]["PosX"].AsString};");
-                    builder.Append($"{i["Url"]["NegX"].AsString};");
-                    builder.Append($"{i["Url"]["PosY"].AsString};");
-                    builder.Append($"{i["Url"]["NegY"].AsString};");
-                    builder.Append($"{i["Url"]["PosZ"].AsString};");
-                    builder.Append($"{i["Url"]["NegZ"].AsString};");
-                }
-                else // 其他贴图
-                {
-                    builder.Append(i["Url"].AsString);
-                }
-
-                var info = new MapModel
+                var info = new VideoModel
                 {
                     ID = i["ID"].AsObjectId.ToString(),
                     Name = i["Name"].AsString,
@@ -78,8 +62,7 @@ namespace ShadowEditor.Server.Controllers
                     CategoryName = categoryName,
                     TotalPinYin = i["TotalPinYin"].ToString(),
                     FirstPinYin = i["FirstPinYin"].ToString(),
-                    Type = i["Type"].AsString,
-                    Url = builder.ToString().TrimEnd(';'),
+                    Url = i["Url"].ToString(),
                     CreateTime = i["CreateTime"].ToUniversalTime(),
                     UpdateTime = i["UpdateTime"].ToUniversalTime(),
                     Thumbnail = i["Thumbnail"].ToString()
@@ -105,34 +88,31 @@ namespace ShadowEditor.Server.Controllers
             var files = HttpContext.Current.Request.Files;
 
             // 校验上传文件
-            if (files.Count != 1 && files.Count != 6)
+            if (files.Count != 1)
             {
                 return Json(new Result
                 {
                     Code = 300,
-                    Msg = "只允许上传1个或6个文件！"
+                    Msg = "只允许上传1个文件！"
                 });
             }
 
-            for (var i = 0; i < files.Count; i++)
+            var file = files[0];
+            var fileName = file.FileName;
+            var fileExt = Path.GetExtension(fileName);
+            if (fileExt == null || fileExt.ToLower() != ".mp4" && fileExt.ToLower() != ".webm")
             {
-                var file1 = files[i];
-                var fileName1 = file1.FileName;
-                var fileExt1 = Path.GetExtension(fileName1);
-                if (fileExt1 == null || fileExt1.ToLower() != ".jpg" && fileExt1.ToLower() != ".jpeg" && fileExt1.ToLower() != ".png" && fileExt1.ToLower() != ".gif" && fileExt1.ToLower() != ".mp4")
+                return Json(new Result
                 {
-                    return Json(new Result
-                    {
-                        Code = 300,
-                        Msg = "只允许上传jpg、png或mp4格式文件！"
-                    });
-                }
+                    Code = 300,
+                    Msg = "只允许上传mp4或webm格式文件！"
+                });
             }
 
             // 保存文件
             var now = DateTime.Now;
 
-            var savePath = $"/Upload/Texture/{now.ToString("yyyyMMddHHmmss")}";
+            var savePath = $"/Upload/Video/{now.ToString("yyyyMMddHHmmss")}";
             var physicalPath = HttpContext.Current.Server.MapPath(savePath);
 
             if (!Directory.Exists(physicalPath))
@@ -140,21 +120,11 @@ namespace ShadowEditor.Server.Controllers
                 Directory.CreateDirectory(physicalPath);
             }
 
-            for (var i = 0; i < files.Count; i++)
-            {
-                var file1 = files[i];
-                var fileName1 = file1.FileName;
-
-                file1.SaveAs($"{physicalPath}\\{fileName1}");
-            }
+            file.SaveAs($"{physicalPath}\\{fileName}");
 
             // 保存到Mongo
-            // 立体贴图的情况，除Url外，所有信息取posX的信息即可。
-            var file = files[0];
-            var fileName = file.FileName;
             var fileSize = file.ContentLength;
             var fileType = file.ContentType;
-            var fileExt = Path.GetExtension(fileName);
             var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
 
             var pinyin = PinYinHelper.GetTotalPinYin(fileNameWithoutExt);
@@ -169,53 +139,17 @@ namespace ShadowEditor.Server.Controllers
                 ["FileSize"] = fileSize,
                 ["FileType"] = fileType,
                 ["FirstPinYin"] = string.Join("", pinyin.FirstPinYin),
+                ["TotalPinYin"] = string.Join("", pinyin.TotalPinYin),
                 ["Name"] = fileNameWithoutExt,
                 ["SaveName"] = fileName,
-                ["SavePath"] = savePath
+                ["SavePath"] = savePath,
+                ["Url"] = $"{savePath}/{fileName}",
+                ["Thumbnail"] = $"{savePath}/{fileName}",
+                ["CreateTime"] = now,
+                ["UpdateTime"] = now,
             };
-            if (Path.GetExtension(files[0].FileName).ToLower() == ".mp4")
-            {
-                // TODO: 通过插件获取mp4缩略图
-                doc["Thumbnail"] = $"";
-            }
-            else
-            {
-                doc["Thumbnail"] = $"{savePath}/{fileName}";
-            }
 
-            doc["TotalPinYin"] = string.Join("", pinyin.TotalPinYin);
-
-            if (files.Count == 6) // 立体贴图
-            {
-                doc["Type"] = MapType.cube.ToString();
-
-                var doc1 = new BsonDocument
-                {
-                    ["PosX"] = $"{savePath}/{files["posX"].FileName}",
-                    ["NegX"] = $"{savePath}/{files["negX"].FileName}",
-                    ["PosY"] = $"{savePath}/{files["posY"].FileName}",
-                    ["NegY"] = $"{savePath}/{files["negY"].FileName}",
-                    ["PosZ"] = $"{savePath}/{files["posZ"].FileName}",
-                    ["NegZ"] = $"{savePath}/{files["negZ"].FileName}"
-                };
-
-                doc["Url"] = doc1;
-            }
-            else if (Path.GetExtension(files[0].FileName).ToLower() == ".mp4") // 视频贴图
-            {
-                doc["Type"] = MapType.video.ToString();
-                doc["Url"] = $"{savePath}/{fileName}";
-            }
-            else
-            {
-                doc["Type"] = MapType.unknown.ToString();
-                doc["Url"] = $"{savePath}/{fileName}";
-            }
-
-            doc["CreateTime"] = now;
-            doc["UpdateTime"] = now;
-
-            mongo.InsertOne(Constant.MapCollectionName, doc);
+            mongo.InsertOne(Constant.VideoCollectionName, doc);
 
             return Json(new Result
             {
@@ -230,7 +164,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Edit(MapEditModel model)
+        public JsonResult Edit(VideoEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -273,7 +207,7 @@ namespace ShadowEditor.Server.Controllers
             }
 
             var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update5);
-            mongo.UpdateOne(Constant.MapCollectionName, filter, update);
+            mongo.UpdateOne(Constant.VideoCollectionName, filter, update);
 
             return Json(new
             {
@@ -293,7 +227,7 @@ namespace ShadowEditor.Server.Controllers
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
-            var doc = mongo.FindOne(Constant.MapCollectionName, filter);
+            var doc = mongo.FindOne(Constant.VideoCollectionName, filter);
 
             if (doc == null)
             {
@@ -322,7 +256,7 @@ namespace ShadowEditor.Server.Controllers
             //    });
             //}
 
-            mongo.DeleteOne(Constant.MapCollectionName, filter);
+            mongo.DeleteOne(Constant.VideoCollectionName, filter);
 
             return Json(new
             {
