@@ -69,17 +69,17 @@ class AssetsPanel extends React.Component {
             <Accordion name={'Prefab'} title={`${_t('Prefab')}(${prefabCount})`} maximizable={true}>
                 <PrefabPanel className={'subPanel'} show={7 === activeIndex}></PrefabPanel>
             </Accordion>
-            <Accordion name={'Character'} title={`${_t('Character')}(${characterCount})`} maximizable={true}>
+            {/* <Accordion name={'Character'} title={`${_t('Character')}(${characterCount})`} maximizable={true}>
                 <CharacterPanel className={'subPanel'} show={8 === activeIndex}></CharacterPanel>
-            </Accordion>
+            </Accordion> */}
             <Accordion name={'Screenshot'} title={`${_t('Screenshot')}(${screenshotCount})`} maximizable={true}>
-                <ScreenshotPanel className={'subPanel'} show={9 === activeIndex}></ScreenshotPanel>
+                <ScreenshotPanel className={'subPanel'} show={8 === activeIndex}></ScreenshotPanel>
             </Accordion>
             <Accordion name={'Video'} title={`${_t('Video')}(${videoCount})`} maximizable={true}>
-                <VideoPanel className={'subPanel'} show={10 === activeIndex}></VideoPanel>
+                <VideoPanel className={'subPanel'} show={9 === activeIndex}></VideoPanel>
             </Accordion>
             <Accordion name={'Log'} title={`${_t('Logs')}`} maximizable={true}>
-                <LogPanel className={'subPanel'} show={11 === activeIndex}></LogPanel>
+                <LogPanel className={'subPanel'} show={10 === activeIndex}></LogPanel>
             </Accordion>
         </AccordionLayout>;
     }
