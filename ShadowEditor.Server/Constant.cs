@@ -62,6 +62,16 @@ namespace ShadowEditor.Server
         public const string CharacterCollectionName = "_Character";
 
         /// <summary>
+        /// 截图表名
+        /// </summary>
+        public const string ScreenshotCollectionName = "_Screenshot";
+
+        /// <summary>
+        /// 视频表名
+        /// </summary>
+        public const string VideoCollectionName = "_Video";
+
+        /// <summary>
         /// 上传文件表名
         /// </summary>
         public const string FileCollectionName = "_File";
