@@ -102,7 +102,7 @@ class ScreenshotPanel extends React.Component {
     }
 
     handleClick(data) {
-        // TODO: 大图显示截图
+        app.photo(data.Url);
     }
 
     // ------------------------------- 编辑 ---------------------------------------

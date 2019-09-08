@@ -4,7 +4,8 @@ import {
     Toast,
     Alert,
     Confirm,
-    Prompt
+    Prompt,
+    Photo
 } from './third_party';
 import Options from './Options';
 import Storage from './utils/Storage';
@@ -277,6 +278,29 @@ Application.prototype.mask = function (text) {
 Application.prototype.unmask = function () {
     this.call('showMask', this, false);
 };
+
+/**
+ * 查看图片
+ * @param {String} url 地址
+ */
+Application.prototype.photo = function (url) {
+    let component = null;
+
+    let close = () => {
+        if (component) {
+            this.removeElement(component);
+            component = null;
+        }
+    };
+
+    component = this.createElement(Photo, {
+        url,
+        onClick: close
+    });
+
+    this.addElement(component);
+};
+
 
 // -------------------- 工具函数  -----------------------
 
