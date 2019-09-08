@@ -11,6 +11,7 @@ import AnimationPanel from './AnimationPanel.jsx';
 import ParticlePanel from './ParticlePanel.jsx';
 import PrefabPanel from './PrefabPanel.jsx';
 import CharacterPanel from './CharacterPanel.jsx';
+import ScreenshotPanel from './ScreenshotPanel.jsx';
 import LogPanel from './LogPanel.jsx';
 
 /**
@@ -32,13 +33,15 @@ class AssetsPanel extends React.Component {
             particleCount: 0,
             prefabCount: 0,
             characterCount: 0,
+            screenshotCount: 0,
+            videoCount: 0,
         };
 
         this.handleActive = this.handleActive.bind(this);
     }
 
     render() {
-        const { activeIndex, sceneCount, meshCount, mapCount, materialCount, audioCount, animationCount, particleCount, prefabCount, characterCount } = this.state;
+        const { activeIndex, sceneCount, meshCount, mapCount, materialCount, audioCount, animationCount, particleCount, prefabCount, characterCount, screenshotCount, videoCount } = this.state;
 
         return <AccordionLayout className={'AssetsPanel'} onActive={this.handleActive}>
             <Accordion name={'Scene'} title={`${_t('Scene')}(${sceneCount})`} maximizable={true}>
@@ -68,8 +71,11 @@ class AssetsPanel extends React.Component {
             <Accordion name={'Character'} title={`${_t('Character')}(${characterCount})`} maximizable={true}>
                 <CharacterPanel className={'subPanel'} show={8 === activeIndex}></CharacterPanel>
             </Accordion>
+            <Accordion name={'Screenshot'} title={`${_t('Screenshot')}(${screenshotCount})`} maximizable={true}>
+                <ScreenshotPanel className={'subPanel'} show={9 === activeIndex}></ScreenshotPanel>
+            </Accordion>
             <Accordion name={'Log'} title={`${_t('Logs')}`} maximizable={true}>
-                <LogPanel className={'subPanel'} show={9 === activeIndex}></LogPanel>
+                <LogPanel className={'subPanel'} show={11 === activeIndex}></LogPanel>
             </Accordion>
         </AccordionLayout>;
     }
@@ -82,17 +88,7 @@ class AssetsPanel extends React.Component {
         fetch(`${app.options.server}/api/Assets/List`).then(response => {
             if (response.ok) {
                 response.json().then(json => {
-                    this.setState({
-                        sceneCount: json.sceneCount,
-                        meshCount: json.meshCount,
-                        mapCount: json.mapCount,
-                        materialCount: json.materialCount,
-                        audioCount: json.audioCount,
-                        animationCount: json.animationCount,
-                        particleCount: json.particleCount,
-                        prefabCount: json.prefabCount,
-                        characterCount: json.characterCount,
-                    });
+                    this.setState(json);
                 });
             }
         });

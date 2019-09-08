@@ -149,7 +149,7 @@ class CategoryWindow extends React.Component {
 }
 
 CategoryWindow.propTypes = {
-    type: PropTypes.oneOf(['Scene', 'Mesh', 'Map', 'Texture', 'Material', 'Audio', 'Particle']),
+    type: PropTypes.oneOf(['Scene', 'Mesh', 'Map', 'Texture', 'Material', 'Audio', 'Particle', 'Screenshot']),
     typeName: PropTypes.string,
     callback: PropTypes.func,
 };

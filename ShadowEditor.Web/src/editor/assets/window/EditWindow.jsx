@@ -147,7 +147,7 @@ class EditWindow extends React.Component {
 }
 
 EditWindow.propTypes = {
-    type: PropTypes.oneOf(['Scene', 'Mesh', 'Map', 'Texture', 'Material', 'Audio', 'Particle']),
+    type: PropTypes.oneOf(['Scene', 'Mesh', 'Map', 'Texture', 'Material', 'Audio', 'Particle', 'Screenshot']),
     typeName: PropTypes.string,
     data: PropTypes.object,
     saveUrl: PropTypes.string,

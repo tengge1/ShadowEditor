@@ -60,5 +60,15 @@ namespace ShadowEditor.Model.Category
         /// 角色
         /// </summary>
         Character,
+
+        /// <summary>
+        /// 截图
+        /// </summary>
+        Screenshot,
+
+        /// <summary>
+        /// 视频
+        /// </summary>
+        Video,
     }
 }

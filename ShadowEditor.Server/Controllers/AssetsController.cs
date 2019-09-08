@@ -38,6 +38,8 @@ namespace ShadowEditor.Server.Controllers
             var particleCount = mongo.Count(Constant.ParticleCollectionName);
             var prefabCount = mongo.Count(Constant.PrefabCollectionName);
             var characterCount = mongo.Count(Constant.CharacterCollectionName);
+            var screenshotCount = mongo.Count(Constant.ScreenshotCollectionName);
+            var videoCount = mongo.Count(Constant.VideoCollectionName);
 
             return Json(new
             {
@@ -51,7 +53,9 @@ namespace ShadowEditor.Server.Controllers
                 animationCount,
                 particleCount,
                 prefabCount,
-                characterCount
+                characterCount,
+                screenshotCount,
+                videoCount,
             });
         }
     }
