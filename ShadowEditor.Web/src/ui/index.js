@@ -99,4 +99,5 @@ export { default as Confirm } from './window/Confirm.jsx';
 export { default as Photo } from './window/Photo.jsx';
 export { default as Prompt } from './window/Prompt.jsx';
 export { default as Toast } from './window/Toast.jsx';
+export { default as Video } from './window/Video.jsx';
 export { default as Window } from './window/Window.jsx';

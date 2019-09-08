@@ -49,7 +49,7 @@ class EditorStatusBar extends React.Component {
             <CheckBox checked={isThrowBall} onChange={this.handleEnableThrowBall}></CheckBox>
             <ToolbarSeparator></ToolbarSeparator>
             <Button onClick={this.handleScreenshot}>{_t('Screenshot')}</Button>
-            <Button onClick={this.handleRecord}>{isRecording ? _t('Cancel') : _t('Record')}</Button>
+            <Button onClick={this.handleRecord}>{isRecording ? _t('Stop') : _t('Record')}</Button>
         </Toolbar>;
     }
 

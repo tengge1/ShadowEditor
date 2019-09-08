@@ -144,7 +144,7 @@ namespace ShadowEditor.Server.Controllers
                 ["SaveName"] = fileName,
                 ["SavePath"] = savePath,
                 ["Url"] = $"{savePath}/{fileName}",
-                ["Thumbnail"] = $"{savePath}/{fileName}",
+                ["Thumbnail"] = "", // TODO: 从视频获取截图
                 ["CreateTime"] = now,
                 ["UpdateTime"] = now,
             };

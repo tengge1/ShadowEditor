@@ -39,17 +39,29 @@ class VideoRecorder {
 
     stop() {
         return new Promise(resolve => {
-            this.recorder.onstop = () => {
+            this.recorder.onstop = (e) => {
                 this.recorder.ondataavailable = null;
                 this.recorder.onstop = null;
 
-                let fileName = TimeUtils.getDateTime() + '.webm';
+                const file = new File(this.chunks, TimeUtils.getDateTime() + '.webm');
 
-                DownloadUtils.download(this.chunks, { 'type': 'video/x-matroska;codecs=avc1' }, fileName);
+                let form = new FormData();
+                form.append('file', file);
 
-                this.chunks.length = 0;
+                fetch(`/api/Video/Add`, {
+                    method: 'POST',
+                    body: form
+                }).then(response => {
+                    response.json().then(json => {
+                        app.toast(json.Msg);
 
-                resolve(true);
+                        if (json.Code === 200) {
+                            this.chunks.length = 0;
+                        }
+
+                        resolve(true);
+                    });
+                });
             };
 
             this.recorder.stop();

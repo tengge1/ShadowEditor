@@ -12,6 +12,7 @@ import ParticlePanel from './ParticlePanel.jsx';
 import PrefabPanel from './PrefabPanel.jsx';
 import CharacterPanel from './CharacterPanel.jsx';
 import ScreenshotPanel from './ScreenshotPanel.jsx';
+import VideoPanel from './VideoPanel.jsx';
 import LogPanel from './LogPanel.jsx';
 
 /**
@@ -73,6 +74,9 @@ class AssetsPanel extends React.Component {
             </Accordion>
             <Accordion name={'Screenshot'} title={`${_t('Screenshot')}(${screenshotCount})`} maximizable={true}>
                 <ScreenshotPanel className={'subPanel'} show={9 === activeIndex}></ScreenshotPanel>
+            </Accordion>
+            <Accordion name={'Video'} title={`${_t('Video')}(${videoCount})`} maximizable={true}>
+                <VideoPanel className={'subPanel'} show={10 === activeIndex}></VideoPanel>
             </Accordion>
             <Accordion name={'Log'} title={`${_t('Logs')}`} maximizable={true}>
                 <LogPanel className={'subPanel'} show={11 === activeIndex}></LogPanel>

@@ -5,7 +5,8 @@ import {
     Alert,
     Confirm,
     Prompt,
-    Photo
+    Photo,
+    Video
 } from './third_party';
 import Options from './Options';
 import Storage from './utils/Storage';
@@ -301,6 +302,27 @@ Application.prototype.photo = function (url) {
     this.addElement(component);
 };
 
+/**
+ * 查看视频
+ * @param {String} url 地址
+ */
+Application.prototype.video = function (url) {
+    let component = null;
+
+    let close = () => {
+        if (component) {
+            this.removeElement(component);
+            component = null;
+        }
+    };
+
+    component = this.createElement(Video, {
+        url,
+        onClick: close
+    });
+
+    this.addElement(component);
+};
 
 // -------------------- 工具函数  -----------------------
 

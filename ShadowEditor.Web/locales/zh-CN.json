@@ -695,5 +695,6 @@
     "premultipliedAlpha": "左乘透明",
     "preserveDrawingBuffer": "保留绘制缓冲区",
     "stencil": "模板",
-    "Screenshot": "截图"
+    "Screenshot": "截图",
+    "Video": "视频"
 }
