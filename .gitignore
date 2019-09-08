@@ -94,3 +94,4 @@ typings/
 /temp
 /ShadowEditor.AI/build
 __pycache__
+/ShadowEditor.Model/ShadowEditor.Model.csproj.user

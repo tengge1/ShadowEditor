@@ -654,7 +654,9 @@
     <Folder Include="Upload\Audio\" />
     <Folder Include="Upload\File\" />
     <Folder Include="Upload\Model\" />
+    <Folder Include="Upload\Screenshot\" />
     <Folder Include="Upload\Texture\" />
+    <Folder Include="Upload\Video\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
