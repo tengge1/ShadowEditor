@@ -124,93 +124,94 @@ Converter.prototype.toJSON = function (obj) {
         list.push(visualJson);
     }
 
-    // 场景
-    this.sceneToJson(scene, list);
+    // 将场景转为json
+    let children = {};
+    this.traverse(scene, children, list);
+    // scene.userData.children = children;
 
     return list;
 };
 
 /**
  * 场景转json
- * @param {*} scene 场景
- * @param {*} list 用于保存json的空数组
+ * @param {THREE.Object3D} obj 三维物体
+ * @param {Object} children 子级结构
+ * @param {Array} list json列表
  */
-Converter.prototype.sceneToJson = function (scene, list) {
-    (function serialize(obj) {
-        var json = null;
+Converter.prototype.traverse = function (obj, children, list) {
+    var json = null;
 
-        if (obj.userData.Server === true) { // 服务器对象
-            json = (new ServerObject()).toJSON(obj);
-        } else if (obj.userData.type === 'Sky') {
-            json = (new SkySerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'Fire') { // 火焰
-            json = (new FireSerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'Smoke') { // 烟
-            json = (new SmokeSerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'ParticleEmitter') { // 粒子发射器
-            json = (new ParticleEmitterSerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'PerlinTerrain') { // 柏林地形
-            json = (new PerlinTerrainSerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'Water') {
-            json = (new WaterSerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'Cloth') {
-            json = (new ClothSerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'LineCurve') {
-            json = (new LineCurveSerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'CatmullRomCurve') {
-            json = (new CatmullRomCurveSerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'QuadraticBezierCurve') {
-            json = (new QuadraticBezierCurveSerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'CubicBezierCurve') {
-            json = (new CubicBezierCurveSerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'EllipseCurve') {
-            json = (new EllipseCurveSerializer()).toJSON(obj);
-        } else if (obj.userData.type === 'Globe') {
-            json = (new GlobeSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.Scene) {
-            json = (new SceneSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.Group) {
-            json = (new GroupSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.Reflector) {
-            json = (new ReflectorSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.Mesh) {
-            json = (new MeshSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.Sprite) {
-            json = (new SpriteSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.AmbientLight) {
-            json = (new AmbientLightSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.DirectionalLight) {
-            json = (new DirectionalLightSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.HemisphereLight) {
-            json = (new HemisphereLightSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.PointLight) {
-            json = (new PointLightSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.RectAreaLight) {
-            json = (new RectAreaLightSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.SpotLight) {
-            json = (new SpotLightSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.Audio) {
-            json = (new AudioSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.Bone) {
-            json = (new BoneSerializer()).toJSON(obj);
-        } else if (obj instanceof THREE.Object3D) {
-            json = (new Object3DSerializer()).toJSON(obj);
-        }
+    if (obj.userData.Server === true) { // 服务器对象
+        json = (new ServerObject()).toJSON(obj);
+    } else if (obj.userData.type === 'Sky') {
+        json = (new SkySerializer()).toJSON(obj);
+    } else if (obj.userData.type === 'Fire') { // 火焰
+        json = (new FireSerializer()).toJSON(obj);
+    } else if (obj.userData.type === 'Smoke') { // 烟
+        json = (new SmokeSerializer()).toJSON(obj);
+    } else if (obj.userData.type === 'ParticleEmitter') { // 粒子发射器
+        json = (new ParticleEmitterSerializer()).toJSON(obj);
+    } else if (obj.userData.type === 'PerlinTerrain') { // 柏林地形
+        json = (new PerlinTerrainSerializer()).toJSON(obj);
+    } else if (obj.userData.type === 'Water') {
+        json = (new WaterSerializer()).toJSON(obj);
+    } else if (obj.userData.type === 'Cloth') {
+        json = (new ClothSerializer()).toJSON(obj);
+    } else if (obj.userData.type === 'LineCurve') {
+        json = (new LineCurveSerializer()).toJSON(obj);
+    } else if (obj.userData.type === 'CatmullRomCurve') {
+        json = (new CatmullRomCurveSerializer()).toJSON(obj);
+    } else if (obj.userData.type === 'QuadraticBezierCurve') {
+        json = (new QuadraticBezierCurveSerializer()).toJSON(obj);
+    } else if (obj.userData.type === 'CubicBezierCurve') {
+        json = (new CubicBezierCurveSerializer()).toJSON(obj);
+    } else if (obj.userData.type === 'EllipseCurve') {
+        json = (new EllipseCurveSerializer()).toJSON(obj);
+    } else if (obj.userData.type === 'Globe') {
+        json = (new GlobeSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.Scene) {
+        json = (new SceneSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.Group) {
+        json = (new GroupSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.Reflector) {
+        json = (new ReflectorSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.Mesh) {
+        json = (new MeshSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.Sprite) {
+        json = (new SpriteSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.AmbientLight) {
+        json = (new AmbientLightSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.DirectionalLight) {
+        json = (new DirectionalLightSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.HemisphereLight) {
+        json = (new HemisphereLightSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.PointLight) {
+        json = (new PointLightSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.RectAreaLight) {
+        json = (new RectAreaLightSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.SpotLight) {
+        json = (new SpotLightSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.Audio) {
+        json = (new AudioSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.Bone) {
+        json = (new BoneSerializer()).toJSON(obj);
+    } else if (obj instanceof THREE.Object3D) {
+        json = (new Object3DSerializer()).toJSON(obj);
+    }
 
-        if (json) {
-            list.push(json);
-        } else {
-            console.warn(`Converter: No ${obj.constructor.name} Serializer.`);
-        }
+    if (json) {
+        list.push(json);
+    } else {
+        console.warn(`Converter: No ${obj.constructor.name} Serializer.`);
+    }
 
-        // 1、如果obj.userData.type不为空，则为内置类型，其子项不应该序列化。
-        // 2、服务器(模型)对象需要记录用户对模型的修改，需要序列化。
-        if (obj.children && obj.userData.type === undefined) {
-            obj.children.forEach(n => {
-                serialize(n);
-            });
-        }
-    })(scene);
+    // 1、如果obj.userData.type不为空，则为内置类型，其子项不应该序列化。
+    // 2、服务器(模型)对象需要记录用户对模型的修改，需要序列化。
+    if (obj.children && obj.userData.type === undefined) {
+        obj.children.forEach(n => {
+            this.traverse(n, children, list);
+        });
+    }
 };
 
 /**
