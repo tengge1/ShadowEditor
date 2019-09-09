@@ -106,6 +106,8 @@ class SceneMenu extends React.Component {
             app.options.selected = selected.uuid;
         }
 
+        app.mask(_t('Waiting...'));
+
         var obj = (new Converter()).toJSON({
             options: app.options,
             camera: editor.camera,
@@ -136,6 +138,8 @@ class SceneMenu extends React.Component {
 
             app.call(`sceneSaved`, this);
 
+            app.unmask();
+
             app.toast(obj.Msg);
         });
     }
@@ -164,6 +168,8 @@ class SceneMenu extends React.Component {
     commitSaveAs(sceneName) {
         var editor = app.editor;
 
+        app.mask(_t('Waiting...'));
+
         var obj = (new Converter()).toJSON({
             options: app.options,
             camera: editor.camera,
@@ -187,6 +193,8 @@ class SceneMenu extends React.Component {
             }
 
             app.call(`sceneSaved`, this);
+
+            app.unmask();
 
             app.toast(obj.Msg);
         });
