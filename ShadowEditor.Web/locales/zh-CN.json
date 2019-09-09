@@ -697,5 +697,6 @@
     "stencil": "模板",
     "Screenshot": "截图",
     "Video": "视频",
-    "Clean Up Scenes": "清理场景"
+    "Clean Up Scenes": "清理场景",
+    "Are you sure to clean up all the deleted scenes and scene histories?": "确定要清理所有已经删除的场景和场景历史记录？"
 }

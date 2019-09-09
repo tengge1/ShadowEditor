@@ -28,13 +28,31 @@ namespace ShadowEditor.Server.Controllers.Tools
         public JsonResult Run()
         {
             var helper = new MongoHelper();
-            var scenes = helper.FindAll(Constant.SceneCollectionName);
+            var scenes = helper.FindAll(Constant.SceneCollectionName).ToList();
 
             var collections = helper.ListCollections().ToList();
 
             foreach (var collection in collections)
             {
+                var collectionName = collection["name"].ToString();
 
+                if (!collectionName.StartsWith("Scene"))
+                {
+                    continue;
+                }
+
+                if (collectionName.EndsWith("_history"))
+                {
+                    helper.DropCollection(collectionName);
+                    continue;
+                }
+
+                var doc = scenes.Where(n => n["CollectionName"].ToString() == collectionName).FirstOrDefault();
+
+                if (doc == null)
+                {
+                    helper.DropCollection(collectionName);
+                }
             }
 
             return Json(new

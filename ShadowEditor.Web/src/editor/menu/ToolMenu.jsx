@@ -1,6 +1,6 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
 import TextureGeneratorWindow from './window/TextureGeneratorWindow.jsx';
-import CleanUpScenesWindow from './window/CleanUpScenesWindow.jsx';
+// import CleanUpScenesWindow from './window/CleanUpScenesWindow.jsx';
 
 /**
  * 工具菜单
@@ -15,6 +15,7 @@ class ToolMenu extends React.Component {
         this.handleArrangeMesh = this.handleArrangeMesh.bind(this);
         this.handleArrangeThumbnail = this.handleArrangeThumbnail.bind(this);
         this.handleCleanUpScenes = this.handleCleanUpScenes.bind(this);
+        this.commitCleanUpScenes = this.commitCleanUpScenes.bind(this)
         this.handleExportEditor = this.handleExportEditor.bind(this);
     }
 
@@ -93,8 +94,21 @@ class ToolMenu extends React.Component {
     }
 
     handleCleanUpScenes() {
-        const win = app.createElement(CleanUpScenesWindow);
-        app.addElement(win);
+        app.confirm({
+            title: _t('Clean Up Scenes'),
+            content: _t('Are you sure to clean up all the deleted scenes and scene histories?'),
+            onOK: this.commitCleanUpScenes
+        });
+    }
+
+    commitCleanUpScenes() {
+        fetch(`/api/CleanUpScenes/Run`, {
+            method: 'POST',
+        }).then(response => {
+            response.json().then(json => {
+                app.toast(json.Msg);
+            });
+        });
     }
 
     handleExportEditor() {
