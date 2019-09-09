@@ -14,6 +14,7 @@
 
 .Tree .node {
     background: #fff;
+    box-sizing: border-box;
 }
 
 .Tree .node.selected {
@@ -83,11 +84,14 @@
 }
 
 .Tree .node>a {
+    max-width: calc(100% - 80px);
     color: #555;
     margin-left: 4px;
     text-decoration: none;
     vertical-align: middle;
+    display: inline-block;
     pointer-events: none;
+    overflow: hidden;
 }
 
 .Tree .node.selected>a {
