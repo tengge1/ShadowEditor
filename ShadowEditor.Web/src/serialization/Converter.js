@@ -125,9 +125,8 @@ Converter.prototype.toJSON = function (obj) {
     }
 
     // 将场景转为json
-    let children = {};
-    this.traverse(scene, children, list);
-    // scene.userData.children = children;
+    scene.userData.children = []; // 将层级结构保存在场景中，以供场景加载时还原。
+    this.traverse(scene, scene.userData.children, list);
 
     return list;
 };
@@ -209,7 +208,14 @@ Converter.prototype.traverse = function (obj, children, list) {
     // 2、服务器(模型)对象需要记录用户对模型的修改，需要序列化。
     if (obj.children && obj.userData.type === undefined) {
         obj.children.forEach(n => {
-            this.traverse(n, children, list);
+            let children1 = [];
+
+            children.push({
+                uuid: n.uuid,
+                children: children1,
+            });
+
+            this.traverse(n, children1, list);
         });
     }
 };
