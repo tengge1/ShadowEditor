@@ -696,5 +696,6 @@
     "preserveDrawingBuffer": "保留绘制缓冲区",
     "stencil": "模板",
     "Screenshot": "截图",
-    "Video": "视频"
+    "Video": "视频",
+    "Clean Up Scenes": "清理场景"
 }
