@@ -26,10 +26,6 @@ ServerObject.prototype.toJSON = function (obj) {
     json.userData.children = [];
     this.serializeChildren(obj.children, json.userData.children);
 
-    // 记录修改过的名称
-    json.userData.changed = []; // 对应模型的children
-    this.serializeChanged(obj, 0, json.userData.changed);
-
     return json;
 };
 
@@ -51,26 +47,6 @@ ServerObject.prototype.serializeChildren = function (children, list) {
         list.push({
             uuid: child.uuid,
             children: list1,
-        });
-    }
-};
-
-/**
- * 序列化模型修改过的属性
- * @param {THREE.Object3D} obj 模型或部件
- * @param {Integer} index 索引
- * @param {Object} changed 修改过的属性
- */
-ServerObject.prototype.serializeChanged = function (obj, index, changed) {
-    changed[index] = {
-        name: obj.name,
-    };
-
-    if (obj.children) {
-        changed[index].children = [];
-
-        obj.children.forEach((n, i) => {
-            this.serializeChanged(n, i, changed[index].children);
         });
     }
 };
@@ -102,11 +78,6 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
                 // 还原原来修改过的模型
                 this.revertObject(obj, environment.parts);
 
-                // 还原原来修改过的名称
-                if (json.userData.changed) {
-                    this.parseChanged(obj, 0, json.userData.changed);
-                }
-
                 resolve(obj);
             } else {
                 resolve(null);
@@ -131,26 +102,6 @@ ServerObject.prototype.parseChildren = function (children, list) {
         if (child.children && list[i] && list[i].children) {
             this.parseChildren(child.children, list[i].children)
         }
-    }
-};
-
-/**
- * 还原修改过的属性
- * @param {THREE.Object3D} obj 模型或部件
- * @param {Integer} index 索引
- * @param {Array} changed 修改过的属性
- */
-ServerObject.prototype.parseChanged = function (obj, index, changed) {
-    if (obj && changed[index]) {
-        obj.name = changed[index].name;
-    }
-
-    if (obj.children && changed[index]) {
-        var changed1 = changed[index].children;
-
-        obj.children.forEach((n, i) => {
-            this.parseChanged(n, i, changed1);
-        });
     }
 };
 

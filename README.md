@@ -9,6 +9,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 ## v0.3.3即将更新
 
 1. 一键清理没用的场景和场景历史记录工具。
+2. 不再依赖服务端模型`userData.changed`属性还原修改过的组件名称。
 
 ## v0.3.2更新
 

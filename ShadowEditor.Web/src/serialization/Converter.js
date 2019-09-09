@@ -125,8 +125,16 @@ Converter.prototype.toJSON = function (obj) {
     }
 
     // 将场景转为json
-    scene.userData.children = []; // 将层级结构保存在场景中，以供场景加载时还原。
-    this.traverse(scene, scene.userData.children, list);
+    let children = []; // 将层级结构保存在场景中，以供场景加载时还原。
+    this.traverse(scene, children, list);
+
+    let sceneJson = list.filter(n => n.uuid === scene.uuid)[0];
+
+    if (sceneJson) {
+        sceneJson.userData.children = children;
+    } else {
+        console.warn(`Converter: no scene json with id ${scene.uuid}`);
+    }
 
     return list;
 };
