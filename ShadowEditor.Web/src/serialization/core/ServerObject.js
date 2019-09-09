@@ -1,7 +1,6 @@
 import BaseSerializer from '../BaseSerializer';
 import Object3DSerializer from './Object3DSerializer';
 import ModelLoader from '../../loader/ModelLoader';
-import MaterialsSerializer from '../material/MaterialsSerializer';
 
 /**
  * ServerObject
@@ -72,7 +71,7 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
 
                 // 还原原始模型的uuid
                 if (Array.isArray(json.userData._children)) {
-                    this.parseChildren(obj.children, json.userData._children);
+                    this.revertUUID(obj.children, json.userData._children);
                 }
 
                 // 还原原来修改过的模型
@@ -91,7 +90,7 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
  * @param {THREE.Object3D} children 部件
  * @param {Array} list 原始的uuid列表
  */
-ServerObject.prototype.parseChildren = function (children, list) {
+ServerObject.prototype.revertUUID = function (children, list) {
     for (let i = 0; i < children.length; i++) {
         let child = children[i];
 
@@ -100,7 +99,7 @@ ServerObject.prototype.parseChildren = function (children, list) {
         }
 
         if (child.children && list[i] && list[i].children) {
-            this.parseChildren(child.children, list[i].children)
+            this.revertUUID(child.children, list[i].children)
         }
     }
 };
