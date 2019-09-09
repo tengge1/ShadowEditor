@@ -17,8 +17,8 @@ namespace ShadowEditor.Server.Helpers
     /// <seealso cref="http://mongodb.github.io/mongo-csharp-driver/2.5/apidocs"/>
     public class MongoHelper
     {
-        private string connectionString;
-        private string dbName;
+        public readonly string connectionString;
+        public readonly string dbName;
 
         private MongoClient client;
         private IMongoDatabase db;

@@ -102,6 +102,7 @@
     <Compile Include="Constant.cs" />
     <Compile Include="Controllers\CharacterController.cs" />
     <Compile Include="Controllers\Export\ExportSceneController.cs" />
+    <Compile Include="Controllers\Tools\CleanUpScenesController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Controllers\ScreenshotController.cs" />
     <Compile Include="Controllers\PrefabController.cs" />
