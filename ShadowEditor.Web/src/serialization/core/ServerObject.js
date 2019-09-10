@@ -74,8 +74,10 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
                     this.revertUUID(obj.children, json.userData._children);
                 }
 
-                // 还原原来修改过的模型
-                this.revertObject(obj, environment.parts);
+                // TODO: 新数据结构不需要还原原来的模型
+                if (environment.parts) {
+                    this.revertObject(obj, environment.parts);
+                }
 
                 resolve(obj);
             } else {
