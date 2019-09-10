@@ -362,6 +362,7 @@ Converter.prototype.parse = function (jsons, options) {
         const generator = n.metadata.generator;
 
         if (generator === 'ServerObject') {
+            parts.push((new Object3DSerializer()).fromJSON(n));
             return new Promise(resolve => {
                 (new ServerObject()).fromJSON(n, options, options).then(obj => {
                     this.traverseServerObject(obj, serverParts);
@@ -419,7 +420,7 @@ Converter.prototype.parse = function (jsons, options) {
         } else if (generator === 'EllipseCurveSerializer') {
             parts.push((new EllipseCurveSerializer()).fromJSON(n));
         } else if (generator === 'Object3DSerializer') {
-            parts.push((new Object3DSerializer()).fromJSON(n, undefined));
+            parts.push((new Object3DSerializer()).fromJSON(n));
         } else {
             console.warn(`Converter: No Deserializer with ${generator}.`);
         }
