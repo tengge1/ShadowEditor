@@ -13,13 +13,21 @@ MeshPhongMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);
 MeshPhongMaterialSerializer.prototype.constructor = MeshPhongMaterialSerializer;
 
 MeshPhongMaterialSerializer.prototype.toJSON = function (obj) {
-    return MaterialSerializer.prototype.toJSON.call(this, obj);
+    let json = MaterialSerializer.prototype.toJSON.call(this, obj);
+
+    json.specular = obj.specular;
+    json.shininess = obj.shininess;
+
+    return json;
 };
 
 MeshPhongMaterialSerializer.prototype.fromJSON = function (json, parent, server) {
     var obj = parent === undefined ? new THREE.MeshPhongMaterial() : parent;
 
     MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
+
+    obj.specular = new THREE.Color(json.specular);
+    obj.shininess = json.shininess;
 
     return obj;
 };
