@@ -230,7 +230,7 @@ class MaterialComponent extends React.Component {
             <NumberProperty label={_t('ClearCoatRoughness')} name={'clearCoatRoughness'} value={clearCoatRoughness} show={showClearCoatRoughness} onChange={this.handleChange}></NumberProperty>
             <SelectProperty label={_t('Vertex Color')} options={this.vertexColors} name={'vertexColors'} value={vertexColors} show={showVertexColors} onChange={this.handleChange}></SelectProperty>
             <CheckBoxProperty label={_t('Skin')} name={'skinning'} value={skinning} show={showSkinning} onChange={this.handleChange}></CheckBoxProperty>
-            <TextureProperty label={_t('Texture')} name={'map'} value={map} show={showMap} onChange={this.handleChange}></TextureProperty>
+            <TextureProperty label={_t('Map')} name={'map'} value={map} show={showMap} onChange={this.handleChange}></TextureProperty>
             <ButtonProperty text={_t('Texture Settings')} onChange={this.handleTextureSetting}></ButtonProperty>
             <TextureProperty label={_t('AlphaMap')} name={'alphaMap'} value={alphaMap} show={showAlphaMap} onChange={this.handleChange}></TextureProperty>
             <TextureProperty label={_t('BumpMap')} name={'bumpMap'} value={bumpMap} show={showBumpMap} onChange={this.handleChange}></TextureProperty>
