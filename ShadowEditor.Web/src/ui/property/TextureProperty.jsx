@@ -34,10 +34,6 @@ class TextureProperty extends React.Component {
     }
 
     componentDidMount() {
-        let input = document.createElement(`input`);
-        input.type = 'file';
-        input.addEventListener(`change`, this.handleChange);
-        this.input = input;
         this.componentDidUpdate();
     }
 
@@ -61,9 +57,9 @@ class TextureProperty extends React.Component {
         }
     }
 
-    handleSelect(event) {
-        this.input.value = null;
-        this.input.click();
+    handleSelect() {
+        app.toast(_t('Please click the image in the MapPanel.'));
+        app.on(`selectMap.TextureProperty`, this.handleChange);
     }
 
     handleEnable(onChange, enabled, name, event) {
@@ -82,45 +78,27 @@ class TextureProperty extends React.Component {
         }
     }
 
-    handleChange(onChange, event) {
-        const file = event.target.files[0];
+    handleChange(onChange, data) {
+        const name = data.Name;
+        const type = data.Type;
+        const url = data.Url;
 
-        if (!file.type.match('image.*')) {
-            console.warn(`TextureProperty: File Type Error.`);
-            return;
-        }
-
-        let reader = new FileReader();
-
-        if (file.type === 'image/targa') {
-            reader.addEventListener('load', event => {
-                let result = new THREE.TGALoader().parse(event.target.result);
-                let texture = new THREE.CanvasTexture(result, THREE.UVMapping);
-
-                texture.sourceFile = file.name;
-
-                onChange && onChange(texture, this.props.name, event);
-            }, false);
-
-            reader.readAsArrayBuffer(file);
+        if (type === 'targa') {
+            const loader = new THREE.TGALoader();
+            loader.load(url, obj => {
+                let texture = new THREE.CanvasTexture(obj, THREE.UVMapping);
+                texture.sourceFile = name;
+                onChange && onChange(texture, this.props.name, data);
+            });
         } else {
-            reader.addEventListener('load', event => {
-                let image = document.createElement('img');
+            const loader = new THREE.TextureLoader();
+            loader.load(url, obj => {
+                obj.sourceFile = name;
+                obj.format = url.endsWith('jpg') || url.endsWith('jpeg') ? THREE.RGBFormat : THREE.RGBAFormat;
+                obj.needsUpdate = true;
 
-                image.addEventListener('load', () => {
-                    let texture = new THREE.Texture(image, THREE.UVMapping);
-
-                    texture.sourceFile = file.name;
-                    texture.format = file.type === 'image/jpeg' ? THREE.RGBFormat : THREE.RGBAFormat;
-                    texture.needsUpdate = true;
-
-                    onChange && onChange(texture, this.props.name, event);
-                }, false);
-
-                image.src = event.target.result;
-            }, false);
-
-            reader.readAsDataURL(file);
+                onChange && onChange(obj, this.props.name, data);
+            });
         }
     }
 }

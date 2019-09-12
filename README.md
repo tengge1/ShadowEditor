@@ -14,6 +14,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 4. 修复上传大模型时，`413 Entity Too Large`报错，已经由30M限制改为300M。
 5. 修复材质光泽度、镜面度、发射颜色序列化bug。
 6. Obj格式文件可以自动下载绑定材质了。
+7. 材质控件各种贴图，不再直接上传，改为从贴图面板选取。
 
 ## v0.3.2更新
 
