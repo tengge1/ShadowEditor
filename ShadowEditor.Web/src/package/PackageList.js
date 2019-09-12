@@ -89,6 +89,11 @@ const PackageList = [{
         'assets/js/loaders/OBJLoader.js'
     ]
 }, {
+    name: 'OBJLoader2',
+    assets: [
+        'assets/js/loaders/OBJLoader2.js'
+    ]
+}, {
     name: 'PCDLoader',
     assets: [
         'assets/js/loaders/PCDLoader.js'
@@ -481,6 +486,16 @@ const PackageList = [{
     assets: [
         'assets/js/libs/draco/draco_encoder.js',
         'assets/js/exporters/DRACOExporter.js'
+    ]
+}, {
+    name: 'MTLLoader',
+    assets: [
+        'assets/js/loaders/MTLLoader.js',
+    ]
+}, {
+    name: 'LoaderSupport',
+    assets: [
+        'assets/js/loaders/LoaderSupport.js',
     ]
 }];
 
