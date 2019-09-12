@@ -79,6 +79,8 @@ class TextureProperty extends React.Component {
     }
 
     handleChange(onChange, data) {
+        app.on(`selectMap.TextureProperty`, null);
+
         const name = data.Name;
         const type = data.Type;
         const url = data.Url;
