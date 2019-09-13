@@ -60,27 +60,63 @@ MaterialsSerializer.prototype = Object.create(BaseSerializer.prototype);
 MaterialsSerializer.prototype.constructor = MaterialsSerializer;
 
 MaterialsSerializer.prototype.toJSON = function (obj) {
-    var serializer = Serializers[obj.type];
+    if (Array.isArray(obj)) { // 多材质
+        var list = [];
 
-    if (serializer === undefined) {
-        console.warn(`MaterialsSerializer: No serializer with ${obj.type}.`);
-        return null;
+        obj.forEach(n => {
+            var serializer = Serializers[n.type];
+
+            if (serializer === undefined) {
+                console.warn(`MaterialsSerializer: No serializer with ${n.type}.`);
+                return;
+            }
+
+            list.push((new serializer()).toJSON(n));
+        });
+
+        return list;
+    } else { // 单材质
+        var serializer = Serializers[obj.type];
+
+        if (serializer === undefined) {
+            console.warn(`MaterialsSerializer: No serializer with ${obj.type}.`);
+            return null;
+        }
+
+        return (new serializer()).toJSON(obj);
     }
-
-    return (new serializer()).toJSON(obj);
 };
 
 MaterialsSerializer.prototype.fromJSON = function (json, parent, server) {
-    var generator = json.metadata.generator;
+    if (Array.isArray(json)) { // 多材质
+        var list = [];
 
-    var serializer = Serializers[generator.replace('Serializer', '')];
+        json.forEach(n => {
+            var generator = n.metadata.generator;
 
-    if (serializer === undefined) {
-        console.warn(`MaterialsSerializer: No deserializer with ${generator}.`);
-        return null;
+            var serializer = Serializers[generator.replace('Serializer', '')];
+
+            if (serializer === undefined) {
+                console.warn(`MaterialsSerializer: No deserializer with ${generator}.`);
+                return null;
+            }
+
+            list.push((new serializer()).fromJSON(n, parent, server));
+        });
+
+        return list;
+    } else { // 单材质
+        var generator = json.metadata.generator;
+
+        var serializer = Serializers[generator.replace('Serializer', '')];
+
+        if (serializer === undefined) {
+            console.warn(`MaterialsSerializer: No deserializer with ${generator}.`);
+            return null;
+        }
+
+        return (new serializer()).fromJSON(json, parent, server);
     }
-
-    return (new serializer()).fromJSON(json, parent, server);
 };
 
 export default MaterialsSerializer;
