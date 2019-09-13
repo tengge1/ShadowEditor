@@ -107,7 +107,14 @@ class ScenePanel extends React.Component {
 
         app.mask(_t('Loading...'));
 
-        fetch(`${app.options.server}/api/Scene/Load?ID=${data.id}`).then(response => {
+        let url = `${app.options.server}/api/Scene/Load?ID=${data.id}`;
+
+        // 下面代码演示使用，请勿删除
+        if(app.options.server === '.') {
+            url = `${app.options.server}/api/Scene/Scene_${data.id}`;
+        }
+
+        fetch(url).then(response => {
             response.json().then(obj => {
                 editor.clear(false);
 

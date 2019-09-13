@@ -7,7 +7,7 @@ function Options(options = {}) {
     // 服务端配置
     this.server = options.server === undefined ? location.origin : options.server; // 服务端地址
 
-    if (!this.server.startsWith('http')) {
+    if (!this.server.startsWith('http') && this.server !== '.') {
         this.server = `http://${this.server}`;
     }
 

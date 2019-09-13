@@ -5,6 +5,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 * 名称：Shadow Editor
 * 版本：v0.3.3(开发中)
 * 简介：基于`three.js`的场景编辑器。
+* 演示：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/)
 
 ## v0.3.3即将更新
 
@@ -20,6 +21,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 10. 修复ply文件缺少法线，显示黑色的bug。
 11. 修复贴图路径为blob:http://，导致加载场景，模型显示黑色bug。
 12. 服务端国际化完成。
+13. 发布新版演示程序：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/)
 
 ## v0.3.2更新
 
