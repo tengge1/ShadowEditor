@@ -17,6 +17,7 @@ PLYLoader.prototype.load = function (url) {
             var loader = new THREE.PLYLoader();
 
             loader.load(url, geometry => {
+                geometry.computeVertexNormals();
                 var material = new THREE.MeshStandardMaterial();
                 var mesh = new THREE.Mesh(geometry, material);
                 resolve(mesh);
