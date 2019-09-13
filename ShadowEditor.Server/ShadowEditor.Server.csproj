@@ -101,6 +101,7 @@
     <Compile Include="Base\XmlResult.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="Controllers\CharacterController.cs" />
+    <Compile Include="Controllers\Export\ExportExamplesController.cs" />
     <Compile Include="Controllers\Export\ExportSceneController.cs" />
     <Compile Include="Controllers\Tools\CleanUpScenesController.cs" />
     <Compile Include="Controllers\VideoController.cs" />

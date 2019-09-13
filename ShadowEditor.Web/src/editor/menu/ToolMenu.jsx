@@ -17,6 +17,7 @@ class ToolMenu extends React.Component {
         this.handleCleanUpScenes = this.handleCleanUpScenes.bind(this);
         this.commitCleanUpScenes = this.commitCleanUpScenes.bind(this)
         this.handleExportEditor = this.handleExportEditor.bind(this);
+        this.handleExportExamples = this.handleExportExamples.bind(this);
     }
 
     render() {
@@ -29,6 +30,7 @@ class ToolMenu extends React.Component {
             <MenuItem title={_t('Clean Up Scenes')} onClick={this.handleCleanUpScenes}></MenuItem>
             <MenuItemSeparator />
             <MenuItem title={_t('Export Editor')} onClick={this.handleExportEditor}></MenuItem>
+            <MenuItem title={_t('Export Examples')} onClick={this.handleExportExamples}></MenuItem>
         </MenuItem>;
     }
 
@@ -123,6 +125,25 @@ class ToolMenu extends React.Component {
                         response.json().then(json => {
                             app.toast(_t(json.Msg));
                             window.open(`${app.options.server}${json.Url}`, 'export');
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    handleExportExamples() {
+        app.confirm({
+            title: _t('Query'),
+            content: _t('Are you sure to export all the examples?'),
+            onOK: () => {
+                fetch(`${app.options.server}/api/ExportExamples/Run`, {
+                    method: 'POST'
+                }).then(response => {
+                    if (response.ok) {
+                        response.json().then(json => {
+                            app.toast(_t(json.Msg));
+                            // window.open(`${app.options.server}${json.Url}`, 'export');
                         });
                     }
                 });
