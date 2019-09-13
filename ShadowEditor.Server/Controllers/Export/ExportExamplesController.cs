@@ -45,7 +45,7 @@ namespace ShadowEditor.Server.Controllers.Export
             {
                 Code = 200,
                 Msg = "Export successfully!",
-                Url = $"/temp/{now.ToString("yyyyMMddHHmmss")}/editor.html"
+                Url = $"/temp/{now.ToString("yyyyMMddHHmmss")}/index.html"
             });
         }
 

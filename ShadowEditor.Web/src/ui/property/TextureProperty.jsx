@@ -96,6 +96,7 @@ class TextureProperty extends React.Component {
             let video = document.createElement('video');
             video.setAttribute('src', data.Url);
             video.setAttribute('autoplay', 'autoplay');
+            video.setAttribute('loop', 'loop');
 
             let texture = new THREE.VideoTexture(video);
             texture.minFilter = THREE.LinearFilter;
