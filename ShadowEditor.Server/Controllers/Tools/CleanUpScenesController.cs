@@ -58,7 +58,7 @@ namespace ShadowEditor.Server.Controllers.Tools
             return Json(new
             {
                 Code = 200,
-                Msg = "执行成功！"
+                Msg = "Execute sucessfully!"
             });
         }
     }

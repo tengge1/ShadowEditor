@@ -40,7 +40,7 @@ namespace ShadowEditor.Server.Controllers.Export
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该场景不存在！"
+                    Msg = "The scene is not existed!"
                 });
             }
 
@@ -222,7 +222,7 @@ namespace ShadowEditor.Server.Controllers.Export
             return Json(new
             {
                 Code = 200,
-                Msg = "导出成功！",
+                Msg = "Export successfully!",
                 Url = $"/temp/{now.ToString("yyyyMMddHHmmss")}/view.html?sceneFile={ID}"
             });
         }

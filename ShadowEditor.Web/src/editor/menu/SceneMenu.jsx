@@ -140,7 +140,7 @@ class SceneMenu extends React.Component {
 
             app.unmask();
 
-            app.toast(obj.Msg);
+            app.toast(_t(obj.Msg));
         });
     }
 
@@ -196,7 +196,7 @@ class SceneMenu extends React.Component {
 
             app.unmask();
 
-            app.toast(obj.Msg);
+            app.toast(_t(obj.Msg));
         });
     }
 
@@ -222,7 +222,7 @@ class SceneMenu extends React.Component {
                     if (response.ok) {
                         response.json().then(json => {
                             app.unmask();
-                            app.toast(json.Msg);
+                            app.toast(_t(json.Msg));
                             window.open(`${app.options.server}${json.Url}`, 'export');
                         });
                     }

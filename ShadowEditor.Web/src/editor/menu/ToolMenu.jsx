@@ -49,7 +49,7 @@ class ToolMenu extends React.Component {
                 }).then(response => {
                     if (response.ok) {
                         response.json().then(json => {
-                            app.toast(json.Msg);
+                            app.toast(_t(json.Msg));
                         });
                     }
                 });
@@ -67,7 +67,7 @@ class ToolMenu extends React.Component {
                 }).then(response => {
                     if (response.ok) {
                         response.json().then(json => {
-                            app.toast(json.Msg);
+                            app.toast(_t(json.Msg));
                         });
                     }
                 });
@@ -85,7 +85,7 @@ class ToolMenu extends React.Component {
                 }).then(response => {
                     if (response.ok) {
                         response.json().then(json => {
-                            app.toast(json.Msg);
+                            app.toast(_t(json.Msg));
                         });
                     }
                 });
@@ -106,7 +106,7 @@ class ToolMenu extends React.Component {
             method: 'POST',
         }).then(response => {
             response.json().then(json => {
-                app.toast(json.Msg);
+                app.toast(_t(json.Msg));
             });
         });
     }
@@ -121,7 +121,7 @@ class ToolMenu extends React.Component {
                 }).then(response => {
                     if (response.ok) {
                         response.json().then(json => {
-                            app.toast(json.Msg);
+                            app.toast(_t(json.Msg));
                             window.open(`${app.options.server}${json.Url}`, 'export');
                         });
                     }

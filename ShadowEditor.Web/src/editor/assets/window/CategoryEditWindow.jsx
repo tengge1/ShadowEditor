@@ -72,7 +72,7 @@ class CategoryEditWindow extends React.Component {
                     this.handleCancel();
                     callback && callback();
                 } else {
-                    app.toast(json.Msg);
+                    app.toast(_t(json.Msg));
                 }
             });
         });

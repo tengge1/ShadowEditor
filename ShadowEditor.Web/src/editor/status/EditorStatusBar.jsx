@@ -162,7 +162,7 @@ class EditorStatusBar extends React.Component {
             body: form,
         }).then(response => {
             response.json().then(json => {
-                app.toast(json.Msg);
+                app.toast(_t(json.Msg));
             });
         });
     }

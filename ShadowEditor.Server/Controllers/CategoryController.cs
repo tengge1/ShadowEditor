@@ -54,7 +54,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "获取成功！",
+                Msg = "Get Successfully!",
                 Data = list
             });
         }
@@ -72,7 +72,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "名称不允许为空！"
+                    Msg = "Name is not allowed to be empty."
                 });
             }
 
@@ -81,7 +81,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "类型不允许为空！"
+                    Msg = "Type is not allowed to be empty!"
                 });
             }
 
@@ -106,7 +106,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "保存成功！"
+                Msg = "Saved successfully!"
             });
         }
 
@@ -126,7 +126,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "删除成功！"
+                Msg = "Delete successfully!"
             });
         }
     }

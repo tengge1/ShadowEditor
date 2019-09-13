@@ -129,7 +129,7 @@ class CategoryWindow extends React.Component {
                         if (json.Code === 200) {
                             this.updateUI();
                         } else {
-                            app.toast(json.Msg);
+                            app.toast(_t(json.Msg));
                         }
                     });
                 });

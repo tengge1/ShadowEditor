@@ -44,7 +44,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "获取成功！",
+                Msg = "Get Successfully!",
                 sceneCount,
                 meshCount,
                 mapCount,

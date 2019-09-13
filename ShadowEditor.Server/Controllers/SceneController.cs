@@ -72,7 +72,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "获取成功！",
+                Msg = "Get Successfully!",
                 Data = list
             });
         }
@@ -96,7 +96,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该场景不存在！"
+                    Msg = "The scene is not existed!"
                 });
             }
 
@@ -125,7 +125,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "获取成功！",
+                Msg = "Get Successfully!",
                 Data = data
             });
         }
@@ -145,7 +145,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "ID不合法。"
+                    Msg = "ID is not allowed."
                 });
             }
 
@@ -154,7 +154,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "名称不允许为空。"
+                    Msg = "Name is not allowed to be empty."
                 });
             }
 
@@ -163,7 +163,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "名称不允许以下划线开头。"
+                    Msg = "Name is not allowed to start with _."
                 });
             }
 
@@ -194,7 +194,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "保存成功！"
+                Msg = "Saved successfully!"
             });
         }
 
@@ -213,7 +213,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "场景ID不合法。"
+                    Msg = "ID is not allowed."
                 });
             }
 
@@ -222,7 +222,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "场景名称不允许为空。"
+                    Msg = "Name is not allowed to be empty."
                 });
             }
 
@@ -231,7 +231,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "场景名称不允许以下划线开头。"
+                    Msg = "Name is not allowed to start with _."
                 });
             }
 
@@ -318,7 +318,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "保存成功！",
+                Msg = "Saved successfully!",
                 ID = objectId
             });
         }
@@ -341,7 +341,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该资源不存在！"
+                    Msg = "The asset is not existed!"
                 });
             }
 
@@ -356,7 +356,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "删除成功！"
+                Msg = "Delete successfully!"
             });
         }
     }

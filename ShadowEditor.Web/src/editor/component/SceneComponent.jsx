@@ -378,7 +378,7 @@ class SceneComponent extends React.Component {
                 negZ: files[5],
             }, result => {
                 let obj = JSON.parse(result);
-                app.toast(obj.Msg);
+                app.toast(_t(obj.Msg));
             });
         });
     }

@@ -43,7 +43,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "只允许上传图片！"
+                    Msg = "Only jpg, png, gif format is allowed to upload!"
                 });
             }
 
@@ -85,7 +85,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "上传成功！",
+                Msg = "Upload successfully!",
                 Data = new
                 {
                     fileName,

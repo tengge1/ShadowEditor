@@ -788,7 +788,7 @@ class MaterialComponent extends React.Component {
             let obj = JSON.parse(result);
 
             if (obj.Code === 300) {
-                app.toast(obj.Msg);
+                app.toast(_t(obj.Msg));
                 return;
             }
 
@@ -801,7 +801,7 @@ class MaterialComponent extends React.Component {
                 if (obj.Code === 200) {
                     app.call(`showBottomPanel`, this, 'material');
                 }
-                app.toast(obj.Msg);
+                app.toast(_t(obj.Msg));
             });
         });
     }

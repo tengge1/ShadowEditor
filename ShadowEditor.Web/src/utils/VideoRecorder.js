@@ -53,7 +53,7 @@ class VideoRecorder {
                     body: form
                 }).then(response => {
                     response.json().then(json => {
-                        app.toast(json.Msg);
+                        app.toast(_t(json.Msg));
 
                         if (json.Code === 200) {
                             this.chunks.length = 0;

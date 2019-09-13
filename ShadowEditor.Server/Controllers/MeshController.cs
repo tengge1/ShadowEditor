@@ -71,7 +71,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "获取成功！",
+                Msg = "Get Successfully!",
                 Data = list
             });
         }
@@ -99,7 +99,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "只允许上传zip格式文件！"
+                    Msg = "Only zip file is allowed!"
                 });
             }
 
@@ -331,7 +331,7 @@ namespace ShadowEditor.Server.Controllers
                     return Json(new
                     {
                         Code = 300,
-                        Msg = "未上传动画(.lanim)文件！"
+                        Msg = "lanim file is not uploaded!"
                     });
                 }
 
@@ -342,7 +342,7 @@ namespace ShadowEditor.Server.Controllers
                     return Json(new
                     {
                         Code = 300,
-                        Msg = "未上传贴图(.png)文件！"
+                        Msg = "png file is not uploaded!"
                     });
                 }
 
@@ -372,7 +372,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "未知文件类型！"
+                    Msg = "Unknown file type!"
                 });
             }
 
@@ -402,7 +402,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "上传成功！"
+                Msg = "Upload successfully!"
             });
         }
 
@@ -421,7 +421,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "ID不合法。"
+                    Msg = "ID is not allowed."
                 });
             }
 
@@ -430,7 +430,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "名称不允许为空。"
+                    Msg = "Name is not allowed to be empty."
                 });
             }
 
@@ -461,7 +461,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "保存成功！"
+                Msg = "Saved successfully!"
             });
         }
 
@@ -483,7 +483,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "该资源不存在！"
+                    Msg = "The asset is not existed!"
                 });
             }
 
@@ -511,7 +511,7 @@ namespace ShadowEditor.Server.Controllers
             return Json(new
             {
                 Code = 200,
-                Msg = "删除成功！"
+                Msg = "Delete successfully!"
             });
         }
     }

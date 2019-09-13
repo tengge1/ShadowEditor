@@ -140,7 +140,7 @@ class CharacterPanel extends React.Component {
                         if (obj.Code === 200) {
                             this.update();
                         }
-                        app.toast(obj.Msg);
+                        app.toast(_t(obj.Msg));
                     });
                 });
             }
