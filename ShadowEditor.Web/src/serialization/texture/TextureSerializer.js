@@ -85,10 +85,12 @@ TextureSerializer.prototype.fromJSON = function (json, parent, server) {
     if (json.image && !Array.isArray(json.image) && json.image.tagName === 'img') { // 图片
         var img = document.createElement('img');
 
-        if (json.image.src && json.image.src.startsWith('/')) {
-            img.src = server + json.image.src;
-        } else {
-            img.src = json.image.src;
+        if (!json.image.src.startsWith('blob:http://')) { // 这种类型不能被反序列化，例如：blob:http://localhost:2000/d6590b48-8b50-44d0-a3a7-248a8047bc89
+            if (json.image.src && json.image.src.startsWith('/')) {
+                img.src = server + json.image.src;
+            } else {
+                img.src = json.image.src;
+            }
         }
 
         img.width = json.image.width;

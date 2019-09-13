@@ -455,8 +455,12 @@ Converter.prototype.parseScene = function (parent, children, parts, serverParts)
                 obj.position.copy(obj1.position);
                 obj.rotation.copy(obj1.rotation);
                 obj.scale.copy(obj1.scale);
-                if (obj.material && obj1.material) {
-                    obj.material = obj1.material;
+                if (obj.material && obj1.material) { // blob:http://
+                    if (obj.material.map && obj.material.map.image && obj.material.map.image.src && obj.material.map.image.src.toString().startsWith('blob:http://')) {
+                        // 这种类型材质不能被替换
+                    } else {
+                        obj.material = obj1.material;
+                    }
                 }
             } else {
                 console.warn(`Converter: The components of ServerObject ${child.uuid} is not serialized.`);

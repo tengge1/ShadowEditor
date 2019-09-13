@@ -17,7 +17,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 7. 材质控件各种贴图，不再直接上传，改为从贴图面板选取。
 8. 状态栏增加显示隐藏网格复选框。
 9. 修复多材质模型序列化bug。
-10. 解决ply文件总是黑色bug。
+10. 修复ply文件缺少法线，显示黑色的bug。
+11. 修复贴图路径为blob:http://，导致加载场景，模型显示黑色bug。
 
 ## v0.3.2更新
 
