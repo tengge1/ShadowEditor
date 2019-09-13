@@ -17,12 +17,14 @@ class EditorStatusBar extends React.Component {
             vertices: 0,
             triangles: 0,
             showStats: app.storage.get('showStats') === undefined ? true : app.storage.get('showStats'),
+            showGrid: app.storage.get('showGrid') === undefined ? true : app.storage.get('showGrid'),
             showViewHelper: app.storage.get('showViewHelper') === undefined ? true : app.storage.get('showViewHelper'),
             isThrowBall: false,
             isRecording: false,
         };
 
         this.handleShowStats = this.handleShowStats.bind(this);
+        this.handleShowGrid = this.handleShowGrid.bind(this);
         this.handleShowViewHelper = this.handleShowViewHelper.bind(this);
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
         this.handleScreenshot = this.handleScreenshot.bind(this);
@@ -31,7 +33,7 @@ class EditorStatusBar extends React.Component {
     }
 
     render() {
-        const { objects, vertices, triangles, showStats, showViewHelper, isThrowBall, isRecording } = this.state;
+        const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall, isRecording } = this.state;
 
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{_t('Object')}</Label>
@@ -43,6 +45,8 @@ class EditorStatusBar extends React.Component {
             <ToolbarSeparator></ToolbarSeparator>
             <Label>{_t('Show Stats')}</Label>
             <CheckBox checked={showStats} onChange={this.handleShowStats}></CheckBox>
+            <Label>{_t('Grid')}</Label>
+            <CheckBox checked={showGrid} onChange={this.handleShowGrid}></CheckBox>
             <Label>{_t('View Helper')}</Label>
             <CheckBox checked={showViewHelper} onChange={this.handleShowViewHelper}></CheckBox>
             <Label>{_t('ThrowBall')}</Label>
@@ -111,6 +115,17 @@ class EditorStatusBar extends React.Component {
         this.setState({
             showStats,
         });
+    }
+
+    handleShowGrid(showGrid) {
+        if (showGrid !== app.storage.get('showGrid')) {
+            app.storage.set('showGrid', showGrid);
+            app.call(`storageChanged`, this, 'showGrid', showGrid);
+
+            this.setState({
+                showGrid,
+            });
+        }
     }
 
     handleShowViewHelper() {
