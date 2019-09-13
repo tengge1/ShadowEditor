@@ -137,9 +137,11 @@ class ToolMenu extends React.Component {
             title: _t('Query'),
             content: _t('Are you sure to export all the examples?'),
             onOK: () => {
+                app.mask();
                 fetch(`${app.options.server}/api/ExportExamples/Run`, {
                     method: 'POST'
                 }).then(response => {
+                    app.unmask();
                     if (response.ok) {
                         response.json().then(json => {
                             app.toast(_t(json.Msg));
