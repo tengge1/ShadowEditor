@@ -143,7 +143,7 @@ class ToolMenu extends React.Component {
                     if (response.ok) {
                         response.json().then(json => {
                             app.toast(_t(json.Msg));
-                            // window.open(`${app.options.server}${json.Url}`, 'export');
+                            window.open(`${app.options.server}${json.Url}`, 'export');
                         });
                     }
                 });
