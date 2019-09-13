@@ -92,6 +92,17 @@ class TextureProperty extends React.Component {
                 texture.sourceFile = name;
                 onChange && onChange(texture, this.props.name, data);
             });
+        } else if (type === 'video') {
+            let video = document.createElement('video');
+            video.setAttribute('src', data.Url);
+            video.setAttribute('autoplay', 'autoplay');
+
+            let texture = new THREE.VideoTexture(video);
+            texture.minFilter = THREE.LinearFilter;
+            texture.magFilter = THREE.LinearFilter;
+            texture.format = THREE.RGBFormat;
+
+            onChange && onChange(texture, this.props.name, data);
         } else {
             const loader = new THREE.TextureLoader();
             loader.load(url, obj => {

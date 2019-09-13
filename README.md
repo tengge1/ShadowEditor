@@ -22,6 +22,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 11. 修复贴图路径为blob:http://，导致加载场景，模型显示黑色bug。
 12. 服务端国际化完成。
 13. 发布新版演示程序：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/)
+14. 修复使用视频当贴图bug。
 
 ## v0.3.2更新
 
