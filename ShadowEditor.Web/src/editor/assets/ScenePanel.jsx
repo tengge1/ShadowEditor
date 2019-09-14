@@ -151,8 +151,6 @@ class ScenePanel extends React.Component {
                     }
 
                     app.unmask();
-
-                    app.toast(_t('Load Successfully!'));
                 });
             });
         });
