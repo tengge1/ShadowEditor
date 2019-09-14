@@ -25,7 +25,7 @@
         "dev": "rollup -c ShadowEditor.Web/rollup.config.js --watch",
         "ai": "rollup -c ShadowEditor.AI/rollup.config.js --watch",
         "weekend": "rollup -c ShadowEditor.Web/test/weekend/rollup.config.js --watch",
-        "build-docs": "gitbook build docs-dev",
+        "docs": "gitbook build docs-dev",
         "test": "rollup -c ShadowEditor.Web/test/unit/rollup.config.js",
         "clear": "npm prune"
     },

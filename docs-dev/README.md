@@ -11,7 +11,7 @@
 
 ## 项目截图
 
-![image](../../images/scene20190825.png)
+![image](images/scene20190825.png)
 
 ## 主要功能
 
