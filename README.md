@@ -127,7 +127,7 @@ gitbook install
 然后切换到上级目录，执行以下命令生成文档。
 
 ```bash
-npm run build-docs
+npm run docs
 ```
 
 ## 常见问题
