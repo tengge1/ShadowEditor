@@ -21,6 +21,7 @@ class EditorToolbar extends React.Component {
             isSpraying: false,
             isDigging: false,
             view: 'perspective',
+            isGridMode: false,
         };
 
         this.handleEnterSelectMode = this.handleEnterSelectMode.bind(this);
@@ -38,10 +39,11 @@ class EditorToolbar extends React.Component {
         this.handleFrontView = this.handleFrontView.bind(this);
         this.handleSideView = this.handleSideView.bind(this);
         this.handleTopView = this.handleTopView.bind(this);
+        this.handleGridMode = this.handleGridMode.bind(this);
     }
 
     render() {
-        const { mode, isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging, view } = this.state;
+        const { mode, isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging, view, isGridMode } = this.state;
 
         return <Toolbar className={'EditorToolbar'} direction={'vertical'}>
             <IconButton
@@ -111,6 +113,11 @@ class EditorToolbar extends React.Component {
                 title={_t('Top View')}
                 selected={view === 'top'}
                 onClick={this.handleTopView}></ImageButton>
+            <IconButton
+                icon={'grid'}
+                title={_t('Grid Mode')}
+                selected={isGridMode}
+                onClick={this.handleGridMode}></IconButton>
         </Toolbar>;
     }
 
@@ -433,6 +440,8 @@ class EditorToolbar extends React.Component {
         this.digTool.start();
     }
 
+    // ------------------------------ 视角工具 ------------------------------------------
+
     handlePerspective() {
         app.call(`changeView`, this, 'perspective');
         this.setState({
@@ -458,6 +467,22 @@ class EditorToolbar extends React.Component {
         app.call(`changeView`, this, 'top');
         this.setState({
             view: 'top',
+        });
+    }
+
+    // ----------------------------- 网格模式 ------------------------------------------
+
+    handleGridMode() {
+        const isGridMode = !this.state.isGridMode;
+
+        if (isGridMode) {
+            app.editor.scene.overrideMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
+        } else {
+            app.editor.scene.overrideMaterial = null;
+        }
+
+        this.setState({
+            isGridMode,
         });
     }
 }
