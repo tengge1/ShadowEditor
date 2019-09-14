@@ -10,7 +10,7 @@ import PlayMenu from './PlayMenu.jsx';
 import ToolMenu from './ToolMenu.jsx';
 import OptionsMenu from './OptionsMenu.jsx';
 import HelpMenu from './HelpMenu.jsx';
-import EditorTabMenu from './EditorTabMenu.jsx';
+// import EditorTabMenu from './EditorTabMenu.jsx';
 import StatusMenu from './StatusMenu.jsx';
 
 /**
@@ -34,7 +34,7 @@ class EditorMenuBar extends React.Component {
             <OptionsMenu />
             <HelpMenu />
             <MenuItemSeparator direction={'horizontal'} />
-            <EditorTabMenu />
+            {/* <EditorTabMenu /> */}
             <MenuBarFiller />
             <StatusMenu />
         </MenuBar>;

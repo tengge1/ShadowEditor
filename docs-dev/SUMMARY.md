@@ -14,6 +14,4 @@
     * [日志面板](ui/LogPanel.md)
     * [状态栏](ui/StatusBar.md)
 * [脚本](script/Script.md)
-* [API文档](api/README.md)
-    * [PackageManager](api/package_manager/README.md)
-    * [UI](api/shadow_ui/README.md)
+* [更新日志](update/UpdateLog.md)

@@ -38,6 +38,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 5. 新增截图工具，截图资源管理，截图查看工具。
 6. 录制视频工具优化，新增录制视频资源管理，视频查看工具。
 7. 基于Tensorflow的可视化编辑器框架搭建。(Python, Tensorflow, Flask)
+8. 暂时去掉编辑器的几个选择功能。
 
 ## 项目截图
 
