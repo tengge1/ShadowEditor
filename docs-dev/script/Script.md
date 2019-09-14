@@ -4,13 +4,7 @@
 
 * 在场景中添加一个名称为`正方体`的正方体。
 
-![image](../ui/image/Box.png)
-
-![image](image/NameBox.png)
-
-* 在脚本面板点击`新建脚本`按钮，添加一个叫`正方体旋转`的脚本。
-
-![image](../ui/image/createScript.png)
+* 在侧边栏脚本面板点击`新建脚本`按钮，添加一个叫`正方体旋转`的脚本。
 
 * 修改脚本为以下代码，关闭脚本编辑器会自动保存。
 
@@ -24,5 +18,3 @@ function update(clock, deltaTime) {
 ```
 
 * 点击启动。正方体旋转起来了。
-
-![image](image/RotateBox.png)
