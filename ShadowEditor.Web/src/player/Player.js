@@ -149,7 +149,6 @@ Player.prototype.stop = function () {
     this.event.dispose();
     this.control.dispose();
     this.audio.dispose();
-    this.playerRenderer.dispose();
     this.animation.dispose();
     this.physics.dispose();
 
@@ -157,6 +156,8 @@ Player.prototype.stop = function () {
         this.gis.dispose();
         this.gis = null;
     }
+
+    this.playerRenderer.dispose();
 
     this.container.removeChild(this.renderer.domElement);
     this.container.style.display = 'none';
