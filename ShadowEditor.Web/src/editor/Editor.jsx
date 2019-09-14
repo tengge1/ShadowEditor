@@ -13,6 +13,7 @@ import AssetsPanel from './assets/AssetsPanel.jsx';
 import History from '../command/History';
 import Helpers from '../helper/Helpers';
 import Visualization from '../visual/Visualization';
+import EditorControls from '../controls/EditorControls';
 
 /**
  * 编辑器
@@ -129,7 +130,7 @@ class Editor extends React.Component {
         this.sceneHelpers.add(this.transformControls);
 
         // 编辑器控件
-        this.controls = new THREE.EditorControls(this.camera, app.viewport);
+        this.controls = new EditorControls(this.camera, app.viewport);
 
         // 碰撞检测
         this.raycaster = new THREE.Raycaster();
