@@ -28,6 +28,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 15. 暂时去掉编辑器的几个选择功能。
 16. 更新了编辑器文档。[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/)
 17. 新增网格模式工具。
+18. 修复在二级目录下，播放器无法加载贴图，视频无法跨域播放bug。
 
 ## v0.3.2更新
 

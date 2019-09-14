@@ -17,7 +17,7 @@ VideoTextureSerializer.prototype.toJSON = function (obj) {
 
     json.image = {
         tagName: 'video',
-        src: obj.image.src,
+        src: obj.image.src.replace(location.href, '/'),
     };
 
     return json;
@@ -28,6 +28,7 @@ VideoTextureSerializer.prototype.fromJSON = function (json, parent, server) {
     video.setAttribute('src', json.image.src);
     video.setAttribute('autoplay', 'autoplay');
     video.setAttribute('loop', 'loop');
+    video.setAttribute('crossorigin', 'anonymous');
 
     var obj = parent === undefined ? new THREE.VideoTexture(video) : parent;
 

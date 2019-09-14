@@ -26,8 +26,7 @@ TextureSerializer.prototype.toJSON = function (obj) {
     if (obj.image && !Array.isArray(obj.image) && obj.image.tagName && obj.image.tagName.toLowerCase() === 'img') { // 图片
         var src = obj.image.src;
         if (!src.startsWith('data:') && !src.startsWith('blob')) { // data和blob地址不应该被修改
-            var url = new URL(obj.image.src); // 修复贴图路径自带服务端路径bug
-            src = url.pathname;
+            src = src.replace(location.href, '/');
         }
 
         json.image = {

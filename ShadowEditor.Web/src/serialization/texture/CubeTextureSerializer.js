@@ -27,10 +27,9 @@ CubeTextureSerializer.prototype.toJSON = function (obj) {
                 height: n.height
             });
         } else { // url
-            var url = new URL(n.src); // 修复贴图路径自带服务端路径bug
             json.image.push({
                 tagName: 'img',
-                src: url.pathname,
+                src: n.src.replace(location.href, '/'),
                 width: n.width,
                 height: n.height
             });
