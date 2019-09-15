@@ -13,9 +13,12 @@ class HelpMenu extends React.Component {
 
         this.handleRendererAttributes = this.handleRendererAttributes.bind(this);
         this.handleThreeJsInformation = this.handleThreeJsInformation.bind(this);
-        this.handleSource = this.handleSource.bind(this);
-        this.handleExamples = this.handleExamples.bind(this);
-        this.handleDocuments = this.handleDocuments.bind(this);
+        this.handleGitHubSource = this.handleGitHubSource.bind(this);
+        this.handleGiteeSource = this.handleGiteeSource.bind(this);
+        this.handleGitHubDocuments = this.handleGitHubDocuments.bind(this);
+        this.handleGiteeDocuments = this.handleGiteeDocuments.bind(this);
+        this.handleGitHubExamples = this.handleGitHubExamples.bind(this);
+        this.handleGiteeExamples = this.handleGiteeExamples.bind(this);
         this.handleAbout = this.handleAbout.bind(this);
     }
 
@@ -24,9 +27,18 @@ class HelpMenu extends React.Component {
             <MenuItem title={_t('Renderer Attributes')} onClick={this.handleRendererAttributes}></MenuItem>
             <MenuItem title={_t('Three.js Information')} onClick={this.handleThreeJsInformation}></MenuItem>
             <MenuItemSeparator></MenuItemSeparator>
-            <MenuItem title={_t('Source')} onClick={this.handleSource}></MenuItem>
-            <MenuItem title={_t('Examples')} onClick={this.handleExamples}></MenuItem>
-            <MenuItem title={_t('Documents')} onClick={this.handleDocuments}></MenuItem>
+            <MenuItem title={_t('Source')}>
+                <MenuItem title={_t('GitHub')} onClick={this.handleGitHubSource}></MenuItem>
+                <MenuItem title={_t('Gitee')} onClick={this.handleGiteeSource}></MenuItem>
+            </MenuItem>
+            <MenuItem title={_t('Documents')}>
+                <MenuItem title={_t('GitHub')} onClick={this.handleGitHubDocuments}></MenuItem>
+                <MenuItem title={_t('Gitee')} onClick={this.handleGiteeDocuments}></MenuItem>
+            </MenuItem>
+            <MenuItem title={_t('Examples')}>
+                <MenuItem title={_t('GitHub')} onClick={this.handleGitHubExamples}></MenuItem>
+                <MenuItem title={_t('Gitee')} onClick={this.handleGiteeExamples}></MenuItem>
+            </MenuItem>
             <MenuItem title={_t('About')} onClick={this.handleAbout}></MenuItem>
         </MenuItem>;
     }
@@ -41,16 +53,28 @@ class HelpMenu extends React.Component {
         app.addElement(win);
     }
 
-    handleSource() {
+    handleGitHubSource() {
         window.open('https://github.com/tengge1/ShadowEditor', '_blank');
     }
 
-    handleExamples() {
-        window.open('https://github.com/tengge1/ShadowEditor-examples', '_blank');
+    handleGiteeSource() {
+        window.open('https://gitee.com/tengge1/ShadowEditor', '_blank');
     }
 
-    handleDocuments() {
+    handleGitHubDocuments() {
         window.open('https://tengge1.github.io/ShadowEditor/', '_blank');
+    }
+
+    handleGiteeDocuments() {
+        window.open('https://tengge1.gitee.io/shadoweditor/', '_blank');
+    }
+
+    handleGitHubExamples() {
+        window.open('https://tengge1.github.io/ShadowEditor-examples/', '_blank');
+    }
+
+    handleGiteeExamples() {
+        window.open('http://tengge1.gitee.io/shadoweditor-examples/', '_blank');
     }
 
     handleAbout() {
