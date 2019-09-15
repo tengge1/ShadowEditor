@@ -727,5 +727,7 @@
     "Execute sucessfully!": "执行成功！",
     "Export Examples": "导出示例",
     "Are you sure to export all the examples?": "确定要导出所有示例？",
-    "Grid Mode": "网格模式"
+    "Grid Mode": "网格模式",
+    "Three.js Information": "Three.js信息",
+    "Version": "版本"
 }

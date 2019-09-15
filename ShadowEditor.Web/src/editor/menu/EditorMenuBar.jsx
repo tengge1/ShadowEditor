@@ -11,7 +11,6 @@ import ToolMenu from './ToolMenu.jsx';
 import OptionsMenu from './OptionsMenu.jsx';
 import HelpMenu from './HelpMenu.jsx';
 // import EditorTabMenu from './EditorTabMenu.jsx';
-import StatusMenu from './StatusMenu.jsx';
 
 /**
  * 编辑器菜单栏
@@ -36,7 +35,6 @@ class EditorMenuBar extends React.Component {
             <MenuItemSeparator direction={'horizontal'} />
             {/* <EditorTabMenu /> */}
             <MenuBarFiller />
-            <StatusMenu />
         </MenuBar>;
     }
 }

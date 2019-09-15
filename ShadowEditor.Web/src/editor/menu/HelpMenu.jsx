@@ -1,6 +1,7 @@
 import './css/HelpMenu.css';
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
 import RendererrAttributesWindow from './window/RendererrAttributesWindow.jsx';
+import ThreeJsInformationWindow from './window/ThreeJsInformationWindow.jsx';
 
 /**
  * 帮助菜单
@@ -11,6 +12,7 @@ class HelpMenu extends React.Component {
         super(props);
 
         this.handleRendererAttributes = this.handleRendererAttributes.bind(this);
+        this.handleThreeJsInformation = this.handleThreeJsInformation.bind(this);
         this.handleSource = this.handleSource.bind(this);
         this.handleExamples = this.handleExamples.bind(this);
         this.handleDocuments = this.handleDocuments.bind(this);
@@ -20,6 +22,7 @@ class HelpMenu extends React.Component {
     render() {
         return <MenuItem title={_t('Help')}>
             <MenuItem title={_t('Renderer Attributes')} onClick={this.handleRendererAttributes}></MenuItem>
+            <MenuItem title={_t('Three.js Information')} onClick={this.handleThreeJsInformation}></MenuItem>
             <MenuItemSeparator></MenuItemSeparator>
             <MenuItem title={_t('Source')} onClick={this.handleSource}></MenuItem>
             <MenuItem title={_t('Examples')} onClick={this.handleExamples}></MenuItem>
@@ -30,6 +33,11 @@ class HelpMenu extends React.Component {
 
     handleRendererAttributes() {
         const win = app.createElement(RendererrAttributesWindow);
+        app.addElement(win);
+    }
+
+    handleThreeJsInformation() {
+        const win = app.createElement(ThreeJsInformationWindow);
         app.addElement(win);
     }
 

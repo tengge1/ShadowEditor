@@ -29,6 +29,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 16. 更新了编辑器文档。[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/)
 17. 新增网格模式工具。
 18. 修复在二级目录下，播放器无法加载贴图，视频无法跨域播放bug。
+19. 暂时隐藏挖坑工具。
+20. Three.js信息查看窗口。
 
 ## v0.3.2更新
 
