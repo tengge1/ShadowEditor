@@ -1,8 +1,6 @@
-import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
+import './css/MapPanel.css';
+import { classNames, PropTypes, SearchField, ImageList, IconButton } from '../../third_party';
 import EditWindow from './window/EditWindow.jsx';
-import ModelLoader from '../../loader/ModelLoader';
-import AddObjectCommand from '../../command/AddObjectCommand';
-import UploadUtils from '../../utils/UploadUtils';
 
 /**
  * 贴图面板
@@ -58,11 +56,18 @@ class MapPanel extends React.Component {
         });
 
         return <div className={classNames('MapPanel', className)} style={style}>
-            <SearchField
-                data={categoryData}
-                placeholder={_t('Search Content')}
-                onAdd={this.handleAdd}
-                onInput={this.handleSearch.bind(this)}></SearchField>
+            <div className="toolbar">
+                <IconButton
+                    className={'add'}
+                    icon={'add'}
+                    onClick={this.handleAdd}></IconButton>
+                <SearchField
+                    className={'search'}
+                    data={categoryData}
+                    placeholder={_t('Search Content')}
+                    addHidden={true}
+                    onInput={this.handleSearch.bind(this)}></SearchField>
+            </div>
             <ImageList
                 data={imageListData}
                 onClick={this.handleClick}

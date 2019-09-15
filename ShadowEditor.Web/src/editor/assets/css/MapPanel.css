@@ -1,0 +1,21 @@
+.MapPanel>.toolbar {
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+.MapPanel>.toolbar>.add {
+    width: 22px;
+    height: 22px;
+}
+
+.MapPanel>.toolbar>.add>.iconfont {
+    font-size: 14px;
+}
+
+.MapPanel>.toolbar>.search {
+    flex: 1;
+}
