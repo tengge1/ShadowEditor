@@ -2,6 +2,8 @@
 
 由选择、平移、旋转、缩放、画点、画线、画面、贴花、透视图、正视图、侧视图、顶视图几个工具组成。
 
+![image](../images/toolbar.png)
+
 ## 选择工具
 
 点击场景选中物体。
@@ -22,17 +24,25 @@
 
 在平面上画一个点。
 
+![image](../images/draw-point.png)
+
 ## 画线
 
 在平面上画一条线。
+
+![image](../images/draw-line.png)
 
 ## 画面
 
 在平面上画一个面。
 
+![image](../images/draw-polygon.png)
+
 ## 贴画
 
 在平面上画一个贴花。
+
+![image](../images/spray.png)
 
 ## 透视图
 
