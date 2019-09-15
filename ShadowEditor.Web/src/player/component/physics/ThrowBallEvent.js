@@ -25,7 +25,10 @@ ThrowBallEvent.prototype.create = function (scene, camera, renderer) {
 };
 
 ThrowBallEvent.prototype.dispose = function () {
-    this.renderer.domElement.removeEventListener('click', this.throwBall);
+    // TODO: 不判断有时报错，不知道为什么。
+    if(this.renderer) {
+        this.renderer.domElement.removeEventListener('click', this.throwBall);
+    }
 
     this.scene = null;
     this.camera = null;
