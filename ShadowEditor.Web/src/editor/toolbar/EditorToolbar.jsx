@@ -90,6 +90,7 @@ class EditorToolbar extends React.Component {
             <IconButton
                 icon={'texture'}
                 title={_t('Dig')}
+                show={false}
                 selected={isDigging}
                 onClick={this.handleDig}></IconButton>
             <ToolbarSeparator />

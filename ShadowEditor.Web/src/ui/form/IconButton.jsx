@@ -14,9 +14,9 @@ class IconButton extends React.Component {
     }
 
     render() {
-        const { className, style, icon, name, title, selected } = this.props;
+        const { className, style, icon, name, title, show, selected } = this.props;
         return <button
-            className={classNames('IconButton', selected && 'selected', className)}
+            className={classNames('IconButton', selected && 'selected', !show && 'hidden', className)}
             style={style}
             title={title}
             onClick={this.handleClick}>
@@ -35,6 +35,7 @@ IconButton.propTypes = {
     icon: PropTypes.string,
     name: PropTypes.string,
     title: PropTypes.string,
+    show: PropTypes.bool,
     selected: PropTypes.bool,
     onClick: PropTypes.func,
 };
@@ -45,6 +46,7 @@ IconButton.defaultProps = {
     icon: null,
     name: null,
     title: null,
+    show: true,
     selected: false,
     onClick: null,
 };

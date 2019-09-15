@@ -29,6 +29,10 @@
     border: 2px solid #3399ff;
 }
 
+.IconButton.hidden {
+    display: none;
+}
+
 .IconButton .iconfont {
     font-size: 20px;
     pointer-events: none;
