@@ -732,5 +732,9 @@
     "Version": "版本",
     "Upload Image": "上传图片",
     "Upload Sky Box": "上传天空盒",
-    "Upload Video": "上传视频"
+    "Upload Video": "上传视频",
+    "Login": "登录",
+    "Login successfully!": "登录成功",
+    "Username": "用户名",
+    "Password": "密码"
 }

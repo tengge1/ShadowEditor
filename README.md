@@ -30,6 +30,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 19. 暂时隐藏挖坑工具。
 20. Three.js信息查看窗口。
 21. 贴图面板可选择上传图片、天空盒、视频，新增添加天空盒窗口。
+22. 新增登录窗口。
 
 ## v0.3.2更新
 
