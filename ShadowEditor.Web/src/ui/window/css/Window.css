@@ -40,7 +40,7 @@
     background: #fff;
 }
 
-.Window>.wrap .title {
+.Window>.wrap>.title {
     font-size: 14px;
     line-height: 24px;
     color: #fff;

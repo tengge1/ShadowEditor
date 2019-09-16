@@ -1,6 +1,7 @@
 import './css/MapPanel.css';
 import { classNames, PropTypes, SearchField, ImageList, IconButton, ContextMenu, MenuItem, IconMenuButton } from '../../third_party';
 import EditWindow from './window/EditWindow.jsx';
+import AddSkyBoxWindow from './window/AddSkyBoxWindow.jsx';
 
 /**
  * 贴图面板
@@ -19,7 +20,9 @@ class MapPanel extends React.Component {
 
         this.handleClick = this.handleClick.bind(this);
 
-        this.handleAdd = this.handleAdd.bind(this);
+        this.handleAddImage = this.handleAddImage.bind(this);
+        this.handleAddSkyBox = this.handleAddSkyBox.bind(this);
+        this.handleAddVideo = this.handleAddVideo.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
 
@@ -61,9 +64,9 @@ class MapPanel extends React.Component {
                     className={'add'}
                     icon={'add'}>
                     <ContextMenu>
-                        <MenuItem title={_t('Upload Image')} onClick={this.handleAdd}></MenuItem>
-                        <MenuItem title={_t('Upload Sky Box')}></MenuItem>
-                        <MenuItem title={_t('Upload Video')}></MenuItem>
+                        <MenuItem title={_t('Upload Image')} onClick={this.handleAddImage}></MenuItem>
+                        <MenuItem title={_t('Upload Sky Box')} onClick={this.handleAddSkyBox}></MenuItem>
+                        <MenuItem title={_t('Upload Video')} onClick={this.handleAddVideo}></MenuItem>
                     </ContextMenu>
                 </IconMenuButton>
                 <SearchField
@@ -116,9 +119,30 @@ class MapPanel extends React.Component {
         app.call(`selectMap`, this, data);
     }
 
-    // ------------------------------- 上传 ---------------------------------------
+    // ------------------------------- 上传图片 ---------------------------------------
 
-    handleAdd() {
+    handleAddImage() {
+        app.upload(`${app.options.server}/api/Map/Add`, obj => {
+            if (obj.Code === 200) {
+                this.update();
+            }
+            app.toast(_t(obj.Msg));
+        });
+    }
+
+    // ---------------------------- 上传天空盒 --------------------------------------
+
+    handleAddSkyBox() {
+        const win = app.createElement(AddSkyBoxWindow, {
+            callback: this.update,
+        });
+
+        app.addElement(win);
+    }
+
+    // ------------------------------ 上传视频 --------------------------------------
+
+    handleAddVideo() {
         app.upload(`${app.options.server}/api/Map/Add`, obj => {
             if (obj.Code === 200) {
                 this.update();
@@ -130,7 +154,7 @@ class MapPanel extends React.Component {
     // ------------------------------- 编辑 ---------------------------------------
 
     handleEdit(data) {
-        var win = app.createElement(EditWindow, {
+        const win = app.createElement(EditWindow, {
             type: 'Map',
             typeName: _t('Map'),
             data,

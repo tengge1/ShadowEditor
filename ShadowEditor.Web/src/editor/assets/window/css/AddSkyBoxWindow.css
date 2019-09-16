@@ -1,0 +1,19 @@
+.Window.AddSkyBoxWindow>.wrap>.content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.Window.AddSkyBoxWindow>.wrap>.content>.item {
+    margin-left: 16px;
+}
+
+.Window.AddSkyBoxWindow>.wrap>.content>.item>.selector {
+    width: 120px;
+    height: 120px;
+}
+
+.Window.AddSkyBoxWindow>.wrap>.content>.item>.title {
+    line-height: 24px;
+}
