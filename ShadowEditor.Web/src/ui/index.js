@@ -10,6 +10,8 @@ export { default as Buttons } from './common/Buttons.jsx';
 export { default as Column } from './common/Column.jsx';
 export { default as Columns } from './common/Columns.jsx';
 export { default as Content } from './common/Content.jsx';
+export { default as Item } from './common/Item.jsx';
+export { default as Menu } from './common/Menu.jsx';
 export { default as Row } from './common/Row.jsx';
 export { default as Rows } from './common/Rows.jsx';
 
@@ -19,6 +21,7 @@ export { default as CheckBox } from './form/CheckBox.jsx';
 export { default as Form } from './form/Form.jsx';
 export { default as FormControl } from './form/FormControl.jsx';
 export { default as IconButton } from './form/IconButton.jsx';
+export { default as IconMenuButton } from './form/IconMenuButton.jsx';
 export { default as ImageButton } from './form/ImageButton.jsx';
 export { default as Input } from './form/Input.jsx';
 export { default as Label } from './form/Label.jsx';
@@ -45,6 +48,7 @@ export { default as TabLayout } from './layout/TabLayout.jsx';
 export { default as VBoxLayout } from './layout/VBoxLayout.jsx';
 
 // menu
+export { default as ContextMenu } from './menu/ContextMenu.jsx';
 export { default as MenuBar } from './menu/MenuBar.jsx';
 export { default as MenuBarFiller } from './menu/MenuBarFiller.jsx';
 export { default as MenuItem } from './menu/MenuItem.jsx';

@@ -1,0 +1,24 @@
+.ContextMenu {
+    font: 13px 'Microsoft YaHei';
+    color: rgb(0, 0, 0);
+    background: rgb(240, 240, 240);
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgb(195, 195, 195);
+    border-radius: 5px;
+    box-shadow: rgba(128, 128, 128, 0.5) 0px 0px 16px 1px;
+    box-sizing: border-box;
+    vertical-align: text-bottom;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+}
+
+.ContextMenu>.MenuItem {
+    min-width: auto;
+    padding: 2px 16px;
+}
+
+.ContextMenu>.MenuItem:hover {
+    padding: 1px 15px; 
+}

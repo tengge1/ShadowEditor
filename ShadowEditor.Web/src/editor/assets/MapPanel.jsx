@@ -1,5 +1,5 @@
 import './css/MapPanel.css';
-import { classNames, PropTypes, SearchField, ImageList, IconButton } from '../../third_party';
+import { classNames, PropTypes, SearchField, ImageList, IconButton, ContextMenu, MenuItem, IconMenuButton } from '../../third_party';
 import EditWindow from './window/EditWindow.jsx';
 
 /**
@@ -57,10 +57,15 @@ class MapPanel extends React.Component {
 
         return <div className={classNames('MapPanel', className)} style={style}>
             <div className="toolbar">
-                <IconButton
+                <IconMenuButton
                     className={'add'}
-                    icon={'add'}
-                    onClick={this.handleAdd}></IconButton>
+                    icon={'add'}>
+                    <ContextMenu>
+                        <MenuItem title={_t('Upload Image')} onClick={this.handleAdd}></MenuItem>
+                        <MenuItem title={_t('Upload Sky Box')}></MenuItem>
+                        <MenuItem title={_t('Upload Video')}></MenuItem>
+                    </ContextMenu>
+                </IconMenuButton>
                 <SearchField
                     className={'search'}
                     data={categoryData}

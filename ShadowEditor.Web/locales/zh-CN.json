@@ -729,5 +729,8 @@
     "Are you sure to export all the examples?": "确定要导出所有示例？",
     "Grid Mode": "网格模式",
     "Three.js Information": "Three.js信息",
-    "Version": "版本"
+    "Version": "版本",
+    "Upload Image": "上传图片",
+    "Upload Sky Box": "上传天空盒",
+    "Upload Video": "上传视频"
 }
