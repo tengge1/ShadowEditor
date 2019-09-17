@@ -16,7 +16,6 @@ class SystemMenu extends React.Component {
 
     render() {
         return <MenuItem title={_t('System')}>
-            <MenuItem title={_t('Department Management')} onClick={this.handleDepartment}></MenuItem>
             <MenuItem title={_t('User Management')} onClick={this.handleUser}></MenuItem>
             <MenuItem title={_t('Role Management')} onClick={this.handleRole}></MenuItem>
             <MenuItem title={_t('Authority management')} onClick={this.handleAuthority}></MenuItem>
