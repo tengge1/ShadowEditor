@@ -9,6 +9,7 @@ import ComponentMenu from './ComponentMenu.jsx';
 import PlayMenu from './PlayMenu.jsx';
 import ToolMenu from './ToolMenu.jsx';
 import OptionsMenu from './OptionsMenu.jsx';
+import SystemMenu from './SystemMenu.jsx';
 import HelpMenu from './HelpMenu.jsx';
 // import EditorTabMenu from './EditorTabMenu.jsx';
 import LoginMenu from './LoginMenu.jsx';
@@ -32,6 +33,7 @@ class EditorMenuBar extends React.Component {
             <PlayMenu />
             <ToolMenu />
             <OptionsMenu />
+            <SystemMenu />
             <HelpMenu />
             <MenuItemSeparator direction={'horizontal'} />
             {/* <EditorTabMenu /> */}

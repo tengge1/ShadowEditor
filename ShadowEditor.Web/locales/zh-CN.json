@@ -736,5 +736,10 @@
     "Login": "登录",
     "Login successfully!": "登录成功",
     "Username": "用户名",
-    "Password": "密码"
+    "Password": "密码",
+    "System": "系统",
+    "Department Management": "组织机构管理",
+    "User Management": "用户管理",
+    "Role Management": "角色管理",
+    "Authority management": "权限管理"
 }
