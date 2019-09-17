@@ -79,6 +79,9 @@
     <Compile Include="Screenshot\ScreenshotEditModel.cs" />
     <Compile Include="Screenshot\ScreenshotModel.cs" />
     <Compile Include="Screenshot\ScreenshotSaveModel.cs" />
+    <Compile Include="System\AuthorityModel.cs" />
+    <Compile Include="System\RoleModel.cs" />
+    <Compile Include="System\UserModel.cs" />
     <Compile Include="Video\VideoEditModel.cs" />
     <Compile Include="Video\VideoModel.cs" />
     <Compile Include="Video\VideoSaveModel.cs" />
