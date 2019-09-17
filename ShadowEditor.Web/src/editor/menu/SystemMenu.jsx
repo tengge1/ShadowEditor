@@ -1,4 +1,7 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import UserManagementWindow from './window/UserManagementWindow.jsx';
+import RoleManageWindow from './window/RoleManageWindow.jsx';
+import AuthorityManagementWindow from './window/AuthorityManagementWindow.jsx';
 
 /**
  * 系统菜单
@@ -8,7 +11,6 @@ class SystemMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleDepartment = this.handleDepartment.bind(this);
         this.handleUser = this.handleUser.bind(this);
         this.handleRole = this.handleRole.bind(this);
         this.handleAuthority = this.handleAuthority.bind(this);
@@ -18,24 +20,23 @@ class SystemMenu extends React.Component {
         return <MenuItem title={_t('System')}>
             <MenuItem title={_t('User Management')} onClick={this.handleUser}></MenuItem>
             <MenuItem title={_t('Role Management')} onClick={this.handleRole}></MenuItem>
-            <MenuItem title={_t('Authority management')} onClick={this.handleAuthority}></MenuItem>
+            <MenuItem title={_t('Authority Management')} onClick={this.handleAuthority}></MenuItem>
         </MenuItem>;
     }
 
-    handleDepartment() {
-
-    }
-
     handleUser() {
-
+        const win = app.createElement(UserManagementWindow);
+        app.addElement(win);
     }
 
     handleRole() {
-
+        const win = app.createElement(RoleManageWindow);
+        app.addElement(win);
     }
 
     handleAuthority() {
-
+        const win = app.createElement(AuthorityManagementWindow);
+        app.addElement(win);
     }
 }
 

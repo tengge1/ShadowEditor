@@ -1,12 +1,12 @@
-import './css/RoleManageWindow.css';
+import './css/UserManagementWindow.css';
 import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../third_party';
 import Ajax from '../../../utils/Ajax';
 
 /**
- * 角色管理窗口
+ * 用户管理窗口
  * @author tengge / https://github.com/tengge1
  */
-class RoleManageWindow extends React.Component {
+class UserManagementWindow extends React.Component {
     constructor(props) {
         super(props);
 
@@ -24,8 +24,8 @@ class RoleManageWindow extends React.Component {
         const { username, password } = this.state;
 
         return <Window
-            className={_t('RoleManageWindow')}
-            title={_t('Role Management')}
+            className={_t('UserManagementWindow')}
+            title={_t('User Management')}
             style={{ width: '320px', height: '200px' }}
             mask={false}
             onClose={this.handleClose}>
@@ -64,4 +64,4 @@ class RoleManageWindow extends React.Component {
     }
 }
 
-export default RoleManageWindow;
+export default UserManagementWindow;
