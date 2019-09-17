@@ -77,6 +77,21 @@ namespace ShadowEditor.Server
         public const string FileCollectionName = "_File";
 
         /// <summary>
+        /// 角色表
+        /// </summary>
+        public const string RoleCollectionName = "_Role";
+
+        /// <summary>
+        /// 用户表
+        /// </summary>
+        public const string UserCollectionName = "_User";
+
+        /// <summary>
+        /// 权限表
+        /// </summary>
+        public const string AuthorityCollectionName = "_Authority";
+
+        /// <summary>
         /// 历史表后缀（版本控制）
         /// </summary>
         public const string HistorySuffix = "_history";
