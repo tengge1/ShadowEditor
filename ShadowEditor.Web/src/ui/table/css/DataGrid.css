@@ -1,5 +1,5 @@
 .DataGrid {
-    display: inline-block;
+    display: block;
     user-select: none;
     cursor: default;
 }
