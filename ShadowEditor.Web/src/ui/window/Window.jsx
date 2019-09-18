@@ -56,11 +56,11 @@ class Window extends React.Component {
                         </div>
                     </div>
                     <div className={'content'}>{content && content.props.children}</div>
-                    <div className={'buttons'}>
+                    {buttons && <div className={'buttons'}>
                         <div className={'button-wrap'}>
                             {buttons && buttons.props.children}
                         </div>
-                    </div>
+                    </div>}
                 </div>
             </div>
         </div>;

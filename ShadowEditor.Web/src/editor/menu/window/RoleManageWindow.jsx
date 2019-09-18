@@ -1,6 +1,6 @@
 import './css/RoleManageWindow.css';
-import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../third_party';
-import Ajax from '../../../utils/Ajax';
+import { Window, Content, Toolbar, Label, Input, Button, DataGrid, Columns, Column } from '../../../third_party';
+import EditRoleWindow from './role/EditRoleWindow.jsx';
 
 /**
  * 角色管理窗口
@@ -10,53 +10,34 @@ class RoleManageWindow extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            username: '',
-            password: '',
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSave = this.handleSave.bind(this, props.callback);
+        this.handleAdd = this.handleAdd.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
 
     render() {
-        const { username, password } = this.state;
-
         return <Window
-            className={_t('RoleManageWindow')}
+            className={'RoleManageWindow'}
             title={_t('Role Management')}
-            style={{ width: '320px', height: '200px' }}
+            style={{ width: '600px', height: '400px' }}
             mask={false}
             onClose={this.handleClose}>
             <Content>
-                <Form>
-                    <FormControl>
-                        <Label>{_t('Username')}</Label>
-                        <Input name={'username'} value={username} onChange={this.handleChange}></Input>
-                    </FormControl>
-                    <FormControl>
-                        <Label>{_t('Password')}</Label>
-                        <Input name={'password'} value={password} onChange={this.handleChange}></Input>
-                    </FormControl>
-                </Form>
+                <Toolbar>
+                    <Button onClick={this.handleAdd}>{_t('Create')}</Button>
+                </Toolbar>
+                <DataGrid url={`${app.options.server}/api/Role/List`}>
+                    <Columns>
+                        <Column type={'number'} title={'#'}></Column>
+                        <Column field={'Name'} title={_t('Name')}></Column>
+                    </Columns>
+                </DataGrid>
             </Content>
-            <Buttons>
-                <Button onClick={this.handleSave}>{_t('OK')}</Button>
-                <Button onClick={this.handleClose}>{_t('Cancel')}</Button>
-            </Buttons>
         </Window>;
     }
 
-    handleChange(name, value) {
-        this.setState({
-            [name]: value,
-        });
-    }
-
-    handleSave() {
-        this.handleClose();
-        app.toast(_t('Login successfully!'));
+    handleAdd() {
+        const win = app.createElement(EditRoleWindow);
+        app.addElement(win);
     }
 
     handleClose() {

@@ -1,36 +1,39 @@
 .DataGrid {
     display: inline-block;
-    border-collapse: collapse;
     user-select: none;
     cursor: default;
 }
 
-.DataGrid>thead {
+.DataGrid>table {
+    border-collapse: collapse;
+}
+
+.DataGrid>table>thead {
     background-color: #f7f7f7;
 }
 
-.DataGrid>thead>tr,
-.DataGrid>tbody>tr {
+.DataGrid>table>thead>tr,
+.DataGrid>table>tbody>tr {
     height: 24px;
     line-height: 24px;
 }
 
-.DataGrid>tbody>tr:nth-child(even) {
+.DataGrid>table>tbody>tr:nth-child(even) {
     background-color: #f7f7f7;
 }
 
-.DataGrid>tbody>tr.selected {
+.DataGrid>table>tbody>tr.selected {
     color: #fff;
     background-color: #3399ff;
 }
 
-.DataGrid>tbody>tr:hover {
+.DataGrid>table>tbody>tr:hover {
     color: #fff;
     background-color: #3399ff;
 }
 
-.DataGrid>thead>tr>td,
-.DataGrid>tbody>tr>td {
+.DataGrid>table>thead>tr>td,
+.DataGrid>table>tbody>tr>td {
     padding: 0 16px;
     border: 1px solid #ebebeb;
     box-sizing: border-box;

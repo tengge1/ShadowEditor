@@ -12,19 +12,19 @@ class DataGrid extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            pageSize: 20,
+            pageNum: 1,
+            total: 0,
+            rows: [],
+        };
+
         this.handleClick = this.handleClick.bind(this, props.onSelect);
-    }
-
-    handleClick(onSelect, event) {
-        const id = event.currentTarget.getAttribute('data-id');
-
-        const record = this.props.data.filter(n => n.id === id)[0];
-
-        onSelect && onSelect(record);
     }
 
     render() {
         const { className, style, children, data, selected } = this.props;
+        const { pageSize, pageNum, total, rows } = this.state;
 
         const columns = children.props.children.map(n => {
             return {
@@ -44,7 +44,7 @@ class DataGrid extends React.Component {
         </thead>;
 
         const body = <tbody>
-            {data.map((n, i) => {
+            {[].concat(data, rows).map((n, i) => {
                 return <tr className={selected === n.id ? 'selected' : null} data-id={n.id} key={n.id} onClick={this.handleClick}>
                     {columns.map((m, j) => {
                         if (m.type === 'number') {
@@ -57,10 +57,40 @@ class DataGrid extends React.Component {
             })}
         </tbody>;
 
-        return <table className={classNames('DataGrid', className)} style={style}>
-            {header}
-            {body}
-        </table>;
+        return <div className={classNames('DataGrid', className)} style={style}>
+            <table>
+                {header}
+                {body}
+            </table>
+        </div>;
+    }
+
+    componentDidMount() {
+        this.update();
+    }
+
+    update() {
+        const url = this.props.url;
+        if (!url) {
+            return;
+        }
+
+        fetch(url).then(response => {
+            response.json().then(json => {
+                this.setState({
+                    total: json.Data.total,
+                    rows: json.Data.rows,
+                });
+            });
+        });
+    }
+
+    handleClick(onSelect, event) {
+        const id = event.currentTarget.getAttribute('data-id');
+
+        const record = this.props.data.filter(n => n.id === id)[0];
+
+        onSelect && onSelect(record);
     }
 }
 
@@ -74,6 +104,7 @@ DataGrid.propTypes = {
         }
     },
     data: PropTypes.array,
+    url: PropTypes.string,
     selected: PropTypes.string,
     onSelect: PropTypes.func,
 };
@@ -83,6 +114,7 @@ DataGrid.defaultProps = {
     style: null,
     children: null,
     data: [],
+    url: null,
     selected: null,
     onSelect: null,
 };

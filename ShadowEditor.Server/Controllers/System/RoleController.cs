@@ -24,21 +24,24 @@ namespace ShadowEditor.Server.Controllers.System
         /// <summary>
         /// 获取列表
         /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNum"></param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult List()
+        public JsonResult List(int pageSize = 20, int pageNum = 1)
         {
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Ne("Status", -1);
 
-            var docs = mongo.FindMany(Constant.RoleCollectionName, filter).ToList();
+            var total = mongo.Count(Constant.RoleCollectionName, filter);
+            var docs = mongo.FindMany(Constant.RoleCollectionName, filter).Skip(pageSize * (pageNum - 1)).Limit(pageSize).ToList();
 
-            var list = new List<RoleModel>();
+            var rows = new List<RoleModel>();
 
             foreach (var doc in docs)
             {
-                list.Add(new RoleModel
+                rows.Add(new RoleModel
                 {
                     ID = doc["_id"].ToString(),
                     Name = doc["Name"].ToString(),
@@ -52,7 +55,11 @@ namespace ShadowEditor.Server.Controllers.System
             {
                 Code = 200,
                 Msg = "Get Successfully!",
-                Data = list
+                Data = new
+                {
+                    total,
+                    rows,
+                },
             });
         }
 
