@@ -16,7 +16,7 @@ class DataGrid extends React.Component {
     }
 
     render() {
-        const { className, style, children, data, pageSize, pageNum, total, selected } = this.props;
+        const { className, style, children, pages, data, keyField, pageSize, pageNum, total, selected } = this.props;
 
         const columns = children.props.children.map(n => {
             return {
@@ -37,7 +37,7 @@ class DataGrid extends React.Component {
 
         const body = <tbody>
             {data.map((n, i) => {
-                return <tr className={selected === n.id ? 'selected' : null} data-id={n.id} key={n.id} onClick={this.handleClick}>
+                return <tr className={selected === n[keyField] ? 'selected' : null} data-id={n[keyField]} key={n[keyField]} onClick={this.handleClick}>
                     {columns.map((m, j) => {
                         if (m.type === 'number') {
                             return <td key={'number'}>{i + 1}</td>;
@@ -58,9 +58,10 @@ class DataGrid extends React.Component {
     }
 
     handleClick(onSelect, event) {
+        const keyField = this.props;
         const id = event.currentTarget.getAttribute('data-id');
 
-        const record = this.props.data.filter(n => n.id === id)[0];
+        const record = this.props.data.filter(n => n[keyField] === id)[0];
 
         onSelect && onSelect(record);
     }
@@ -77,6 +78,7 @@ DataGrid.propTypes = {
     },
     pages: PropTypes.bool,
     data: PropTypes.array,
+    keyField: PropTypes.string,
     pageSize: PropTypes.number,
     pageNum: PropTypes.number,
     total: PropTypes.number,
@@ -90,6 +92,7 @@ DataGrid.defaultProps = {
     children: null,
     pages: false,
     data: [],
+    keyField: 'id',
     pageSize: 20,
     pageNum: 1,
     total: 0,

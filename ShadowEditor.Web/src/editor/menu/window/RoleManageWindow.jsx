@@ -36,7 +36,7 @@ class RoleManageWindow extends React.Component {
                 <Toolbar>
                     <Button onClick={this.handleAdd}>{_t('Create')}</Button>
                 </Toolbar>
-                <DataGrid data={data}>
+                <DataGrid data={data} keyField={'ID'}>
                     <Columns>
                         <Column type={'number'} title={'#'}></Column>
                         <Column field={'Name'} title={_t('Name')}></Column>
