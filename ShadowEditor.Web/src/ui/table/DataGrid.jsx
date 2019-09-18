@@ -12,19 +12,11 @@ class DataGrid extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            pageSize: 20,
-            pageNum: 1,
-            total: 0,
-            rows: [],
-        };
-
         this.handleClick = this.handleClick.bind(this, props.onSelect);
     }
 
     render() {
-        const { className, style, children, data, selected } = this.props;
-        const { pageSize, pageNum, total, rows } = this.state;
+        const { className, style, children, data, pageSize, pageNum, total, selected } = this.props;
 
         const columns = children.props.children.map(n => {
             return {
@@ -44,7 +36,7 @@ class DataGrid extends React.Component {
         </thead>;
 
         const body = <tbody>
-            {[].concat(data, rows).map((n, i) => {
+            {data.map((n, i) => {
                 return <tr className={selected === n.id ? 'selected' : null} data-id={n.id} key={n.id} onClick={this.handleClick}>
                     {columns.map((m, j) => {
                         if (m.type === 'number') {
@@ -65,26 +57,6 @@ class DataGrid extends React.Component {
         </div>;
     }
 
-    componentDidMount() {
-        this.update();
-    }
-
-    update() {
-        const url = this.props.url;
-        if (!url) {
-            return;
-        }
-
-        fetch(url).then(response => {
-            response.json().then(json => {
-                this.setState({
-                    total: json.Data.total,
-                    rows: json.Data.rows,
-                });
-            });
-        });
-    }
-
     handleClick(onSelect, event) {
         const id = event.currentTarget.getAttribute('data-id');
 
@@ -103,8 +75,11 @@ DataGrid.propTypes = {
             return new TypeError(`Invalid prop \`${propName}\` of type \`${children.type.name}\` supplied to \`${componentName}\`, expected \`Columns\`.`);
         }
     },
+    pages: PropTypes.bool,
     data: PropTypes.array,
-    url: PropTypes.string,
+    pageSize: PropTypes.number,
+    pageNum: PropTypes.number,
+    total: PropTypes.number,
     selected: PropTypes.string,
     onSelect: PropTypes.func,
 };
@@ -113,8 +88,11 @@ DataGrid.defaultProps = {
     className: null,
     style: null,
     children: null,
+    pages: false,
     data: [],
-    url: null,
+    pageSize: 20,
+    pageNum: 1,
+    total: 0,
     selected: null,
     onSelect: null,
 };

@@ -64,6 +64,67 @@ namespace ShadowEditor.Server.Controllers.System
         }
 
         /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Add(RoleEditModel model)
+        {
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Name is not allowed to be empty."
+                });
+            }
+
+            if (model.Name.StartsWith("_"))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Name is not allowed to start with _."
+                });
+            }
+
+            var mongo = new MongoHelper();
+
+            var filter = Builders<BsonDocument>.Filter.Eq("Name", model.Name);
+
+            var count = mongo.Count(Constant.RoleCollectionName, filter);
+
+            if (count > 0)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "The name is already existed.",
+                });
+            }
+
+            var now = DateTime.Now;
+
+            var doc = new BsonDocument
+            {
+                ["ID"] = ObjectId.GenerateNewId(),
+                ["Name"] = model.Name,
+                ["CreateTime"] = now,
+                ["UpdateTime"] = now,
+                ["Status"] = 0,
+            };
+
+            mongo.InsertOne(Constant.RoleCollectionName, doc);
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "Saved successfully!"
+            });
+        }
+
+        /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="model"></param>

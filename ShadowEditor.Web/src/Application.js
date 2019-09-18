@@ -103,7 +103,7 @@ Application.prototype.toast = function (content) {
 
     setTimeout(() => {
         this.removeElement(component);
-    }, 5000);
+    }, 3000);
 };
 
 /**

@@ -9,8 +9,8 @@ class EditRoleWindow extends React.Component {
         super(props);
 
         this.state = {
-            username: '',
-            password: '',
+            id: props.id,
+            name: props.name,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -19,7 +19,7 @@ class EditRoleWindow extends React.Component {
     }
 
     render() {
-        const { username, password } = this.state;
+        const { name } = this.state;
 
         return <Window
             className={_t('EditRoleWindow')}
@@ -30,12 +30,8 @@ class EditRoleWindow extends React.Component {
             <Content>
                 <Form>
                     <FormControl>
-                        <Label>{_t('Username')}</Label>
-                        <Input name={'username'} value={username} onChange={this.handleChange}></Input>
-                    </FormControl>
-                    <FormControl>
-                        <Label>{_t('Password')}</Label>
-                        <Input name={'password'} value={password} onChange={this.handleChange}></Input>
+                        <Label>{_t('Name')}</Label>
+                        <Input name={'name'} value={name} onChange={this.handleChange}></Input>
                     </FormControl>
                 </Form>
             </Content>
@@ -46,20 +42,55 @@ class EditRoleWindow extends React.Component {
         </Window>;
     }
 
-    handleChange(name, value) {
+    handleChange(value, name) {
         this.setState({
             [name]: value,
         });
     }
 
-    handleSave() {
-        this.handleClose();
-        app.toast(_t('Login successfully!'));
+    handleSave(callback) {
+        const { id, name } = this.state;
+
+        if (!name || name.trim() === '') {
+            app.toast(_t('Name is not allowed to be empty.'));
+            return;
+        }
+
+        const url = !id ? `/api/Role/Add` : `/api/Role/Edit`;
+
+        fetch(`${app.options.server}${url}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `ID=${id}&Name=${name}`,
+        }).then(response => {
+            response.json().then(json => {
+                if (json.Code !== 200) {
+                    app.toast(_t(json.Msg));
+                    return;
+                }
+                this.handleClose();
+                callback && callback();
+            });
+        });
     }
 
     handleClose() {
         app.removeElement(this);
     }
 }
+
+EditRoleWindow.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string,
+    callback: PropTypes.func,
+};
+
+EditRoleWindow.defaultProps = {
+    id: '',
+    name: '',
+    callback: null,
+};
 
 export default EditRoleWindow;
