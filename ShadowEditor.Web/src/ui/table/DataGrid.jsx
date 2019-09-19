@@ -61,7 +61,7 @@ class DataGrid extends React.Component {
     }
 
     handleClick(onSelect, event) {
-        const keyField = this.props;
+        const keyField = this.props.keyField;
         const id = event.currentTarget.getAttribute('data-id');
 
         const record = this.props.data.filter(n => n[keyField] === id)[0];

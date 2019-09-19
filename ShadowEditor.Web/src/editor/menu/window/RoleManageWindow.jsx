@@ -15,17 +15,21 @@ class RoleManageWindow extends React.Component {
             pageSize: 20,
             pageNum: 1,
             total: 0,
+            selected: null,
         };
 
         this.update = this.update.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
-        this.renderStatus = this.renderStatus.bind(this);
         this.handleClose = this.handleClose.bind(this);
+
+        this.renderStatus = this.renderStatus.bind(this);
+
+        this.handleSelect = this.handleSelect.bind(this);
     }
 
     render() {
-        const { data, pageSize, pageNum, total } = this.state;
+        const { data, pageSize, pageNum, total, selected } = this.state;
 
         return <Window
             className={'RoleManageWindow'}
@@ -37,7 +41,7 @@ class RoleManageWindow extends React.Component {
                 <Toolbar>
                     <Button onClick={this.handleAdd}>{_t('Create')}</Button>
                 </Toolbar>
-                <DataGrid data={data} pageSize={pageSize} pageNum={pageNum} total={total} keyField={'ID'}>
+                <DataGrid data={data} pageSize={pageSize} pageNum={pageNum} total={total} selected={selected} onSelect={this.handleSelect} keyField={'ID'}>
                     <Columns>
                         <Column type={'number'} title={'#'}></Column>
                         <Column field={'Name'} title={_t('Name')}></Column>
@@ -83,6 +87,12 @@ class RoleManageWindow extends React.Component {
 
     renderStatus(value) {
         return value === 0 ? '启用' : '禁用';
+    }
+
+    handleSelect(selected) {
+        this.setState({
+            selected: selected.ID,
+        });
     }
 }
 
