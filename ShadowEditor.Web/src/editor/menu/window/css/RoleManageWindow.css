@@ -5,6 +5,16 @@
     bottom: 0;
 }
 
+.Window.RoleManageWindow>.wrap>.content>.Toolbar>.Button {
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+}
+
+.Window.RoleManageWindow>.wrap>.content>.Toolbar>.SearchField {
+    width: 240px;
+}
+
 .Window.RoleManageWindow>.wrap>.content>.DataGrid {
     height: calc(100% - 25px);
 }

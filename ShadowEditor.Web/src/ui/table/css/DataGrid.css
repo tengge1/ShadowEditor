@@ -34,14 +34,14 @@
     background-color: #3399ff;
 }
 
-.DataGrid>table>thead>tr>td,
+.DataGrid>table>thead>tr>th,
 .DataGrid>table>tbody>tr>td {
     padding: 0 16px;
     border: 1px solid #ebebeb;
     box-sizing: border-box;
 }
 
-.DataGrid>table>thead>tr>td.number,
+.DataGrid>table>thead>tr>th.number,
 .DataGrid>table>tbody>tr>td.number {
     width: 60px;
 }

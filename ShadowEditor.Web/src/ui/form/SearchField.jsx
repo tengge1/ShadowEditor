@@ -30,14 +30,11 @@ class SearchField extends React.Component {
     }
 
     render() {
-        const { className, style, data, placeholder, addHidden } = this.props;
+        const { className, style, data, placeholder, showAddButton, showFilterButton } = this.props;
         const { value, categories, filterShow } = this.state;
 
         return <div className={classNames('SearchField', className)} onClick={this.stopPropagation}>
-            <IconButton
-                className={classNames(addHidden && 'hidden')}
-                icon={'add'}
-                onClick={this.handleAdd}></IconButton>
+            {showAddButton && <IconButton icon={'add'} onClick={this.handleAdd}></IconButton>}
             <input
                 className={'input'}
                 style={style}
@@ -50,11 +47,11 @@ class SearchField extends React.Component {
             <IconButton
                 icon={'close'}
                 onClick={this.handleReset}></IconButton>
-            <IconButton
+            {showFilterButton && <IconButton
                 icon={'filter'}
                 className={classNames(filterShow && 'selected')}
-                onClick={this.handleShowFilter}></IconButton>
-            <div className={classNames('category', !filterShow && 'hidden')}>
+                onClick={this.handleShowFilter}></IconButton>}
+            {showFilterButton && <div className={classNames('category', !filterShow && 'hidden')}>
                 <div className={'item'} key={''}>
                     <CheckBox name={''} checked={categories.indexOf('') > -1} onChange={this.handleCheckBoxChange}></CheckBox>
                     <label className={'title'}>{_t('No Type')}</label>
@@ -68,7 +65,7 @@ class SearchField extends React.Component {
                         <label className={'title'}>{n.Name}</label>
                     </div>;
                 })}
-            </div>
+            </div>}
         </div>;
     }
 
@@ -153,10 +150,11 @@ SearchField.propTypes = {
     value: PropTypes.string,
     data: PropTypes.array,
     placeholder: PropTypes.string,
+    showAddButton: PropTypes.bool,
+    showFilterButton: PropTypes.bool,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onInput: PropTypes.func,
-    addHidden: PropTypes.bool,
 };
 
 SearchField.defaultProps = {
@@ -165,10 +163,11 @@ SearchField.defaultProps = {
     value: '',
     data: [],
     placeholder: 'Enter a keyword',
+    showAddButton: false,
+    showFilterButton: false,
     onAdd: null,
     onChange: null,
     onInput: null,
-    addHidden: false,
 };
 
 export default SearchField;

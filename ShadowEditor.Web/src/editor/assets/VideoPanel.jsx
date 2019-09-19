@@ -60,7 +60,7 @@ class VideoPanel extends React.Component {
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
-                addHidden={true}
+                showFilterButton={true}
                 onInput={this.handleSearch.bind(this)}></SearchField>
             <ImageList
                 data={imageListData}

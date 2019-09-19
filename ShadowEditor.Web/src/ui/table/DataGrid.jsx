@@ -18,45 +18,45 @@ class DataGrid extends React.Component {
     render() {
         const { className, style, children, pages, data, keyField, pageSize, pageNum, total, selected } = this.props;
 
+        // 表格列
         const columns = children.props.children.map(n => {
-            return {
-                type: n.props.type,
-                field: n.props.field,
-                title: n.props.title,
-                renderer: n.props.renderer,
-            };
+            return n.props;
         });
 
-        const header = <thead>
-            <tr>
-                {columns.map(n => {
-                    let field = n.type === 'number' ? 'number' : n.field;
-                    return <td name={n.field} key={field}>{n.title}</td>;
-                })}
-            </tr>
-        </thead>;
-
-        const body = <tbody>
-            {data.map((row, i) => {
-                return <tr className={selected === row[keyField] ? 'selected' : null} data-id={row[keyField]} key={row[keyField]} onClick={this.handleClick}>
-                    {columns.map(col => {
-                        if (col.type === 'number') {
-                            const value = col.renderer ? col.renderer(i + 1, row, col) : (i + 1);
-                            return <td className={'number'} key={'number'}>{value}</td>;
-                        } else {
-                            const value = col.renderer ? col.renderer(row[col.field]) : row[col.field];
-                            return <td key={col.field}>{value}</td>;
-                        }
+        // 表格头
+        const head = <table className={'head'}>
+            <thead>
+                <tr>
+                    {columns.map(n => {
+                        let field = n.type === 'number' ? 'number' : n.field;
+                        return <th className={n.type === 'number' ? 'number' : null} name={n.field} key={field}>{n.title}</th>;
                     })}
-                </tr>;
-            })}
-        </tbody>;
+                </tr>
+            </thead>
+        </table>;
+
+        // 表格体
+        const body = <table className={'body'}>
+            <tbody>
+                {data.map((row, i) => {
+                    return <tr className={selected === row[keyField] ? 'selected' : null} data-id={row[keyField]} key={row[keyField]} onClick={this.handleClick}>
+                        {columns.map(col => {
+                            if (col.type === 'number') {
+                                const value = col.renderer ? col.renderer(i + 1, row, col) : (i + 1);
+                                return <td className={'number'} key={'number'}>{value}</td>;
+                            } else {
+                                const value = col.renderer ? col.renderer(row[col.field]) : row[col.field];
+                                return <td key={col.field}>{value}</td>;
+                            }
+                        })}
+                    </tr>;
+                })}
+            </tbody>
+        </table>;
 
         return <div className={classNames('DataGrid', className)} style={style}>
-            <table>
-                {header}
-                {body}
-            </table>
+            {head}
+            {body}
         </div>;
     }
 

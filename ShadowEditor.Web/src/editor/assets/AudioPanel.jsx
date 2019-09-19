@@ -63,6 +63,8 @@ class AudioPanel extends React.Component {
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
+                showAddButton={true}
+                showFilterButton={true}
                 onAdd={this.handleAdd}
                 onInput={this.handleSearch.bind(this)}></SearchField>
             <ImageList

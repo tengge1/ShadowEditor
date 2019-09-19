@@ -73,7 +73,7 @@ class MapPanel extends React.Component {
                     className={'search'}
                     data={categoryData}
                     placeholder={_t('Search Content')}
-                    addHidden={true}
+                    showFilterButton={true}
                     onInput={this.handleSearch.bind(this)}></SearchField>
             </div>
             <ImageList
