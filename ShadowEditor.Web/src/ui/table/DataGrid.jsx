@@ -23,6 +23,7 @@ class DataGrid extends React.Component {
                 type: n.props.type,
                 field: n.props.field,
                 title: n.props.title,
+                renderer: n.props.renderer,
             };
         });
 
@@ -36,13 +37,15 @@ class DataGrid extends React.Component {
         </thead>;
 
         const body = <tbody>
-            {data.map((n, i) => {
-                return <tr className={selected === n[keyField] ? 'selected' : null} data-id={n[keyField]} key={n[keyField]} onClick={this.handleClick}>
-                    {columns.map((m, j) => {
-                        if (m.type === 'number') {
-                            return <td key={'number'}>{i + 1}</td>;
+            {data.map((row, i) => {
+                return <tr className={selected === row[keyField] ? 'selected' : null} data-id={row[keyField]} key={row[keyField]} onClick={this.handleClick}>
+                    {columns.map(col => {
+                        if (col.type === 'number') {
+                            const value = col.renderer ? col.renderer(i + 1, row, col) : (i + 1);
+                            return <td className={'number'} key={'number'}>{value}</td>;
                         } else {
-                            return <td key={m.field}>{n[m.field]}</td>;
+                            const value = col.renderer ? col.renderer(row[col.field]) : row[col.field];
+                            return <td key={col.field}>{value}</td>;
                         }
                     })}
                 </tr>;

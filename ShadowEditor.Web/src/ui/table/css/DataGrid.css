@@ -6,6 +6,7 @@
 }
 
 .DataGrid>table {
+    width: 100%;
     border-collapse: collapse;
 }
 
@@ -38,4 +39,9 @@
     padding: 0 16px;
     border: 1px solid #ebebeb;
     box-sizing: border-box;
+}
+
+.DataGrid>table>thead>tr>td.number,
+.DataGrid>table>tbody>tr>td.number {
+    width: 60px;
 }

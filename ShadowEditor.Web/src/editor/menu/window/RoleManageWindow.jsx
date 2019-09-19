@@ -20,11 +20,12 @@ class RoleManageWindow extends React.Component {
         this.update = this.update.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
+        this.renderStatus = this.renderStatus.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
 
     render() {
-        const { data } = this.state;
+        const { data, pageSize, pageNum, total } = this.state;
 
         return <Window
             className={'RoleManageWindow'}
@@ -36,10 +37,13 @@ class RoleManageWindow extends React.Component {
                 <Toolbar>
                     <Button onClick={this.handleAdd}>{_t('Create')}</Button>
                 </Toolbar>
-                <DataGrid data={data} keyField={'ID'}>
+                <DataGrid data={data} pageSize={pageSize} pageNum={pageNum} total={total} keyField={'ID'}>
                     <Columns>
                         <Column type={'number'} title={'#'}></Column>
                         <Column field={'Name'} title={_t('Name')}></Column>
+                        <Column field={'CreateTime'} title={_t('Create Time')}></Column>
+                        <Column field={'UpdateTime'} title={_t('Update Time')}></Column>
+                        <Column field={'Status'} title={_t('Status')} renderer={this.renderStatus}></Column>
                     </Columns>
                 </DataGrid>
             </Content>
@@ -75,6 +79,10 @@ class RoleManageWindow extends React.Component {
 
     handleClose() {
         app.removeElement(this);
+    }
+
+    renderStatus(value) {
+        return value === 0 ? '启用' : '禁用';
     }
 }
 

@@ -742,5 +742,8 @@
     "User Management": "用户管理",
     "Role Management": "角色管理",
     "Authority Management": "权限管理",
-    "The name is already existed.": "该名称已经存在。"
+    "The name is already existed.": "该名称已经存在。",
+    "Create Time": "创建时间",
+    "Update Time": "最后更新时间",
+    "Status": "状态"
 }
