@@ -2,7 +2,6 @@ import './css/DataGrid.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import Column from '../common/Column.jsx';
-import Columns from '../common/Columns.jsx';
 
 /**
  * 数据表格
@@ -19,7 +18,7 @@ class DataGrid extends React.Component {
         const { className, style, children, pages, data, keyField, pageSize, pageNum, total, selected } = this.props;
 
         // 表格列
-        const columns = children.props.children.map(n => {
+        const columns = children.map(n => {
             return n.props;
         });
 
@@ -75,9 +74,12 @@ DataGrid.propTypes = {
     style: PropTypes.object,
     children: (props, propName, componentName) => {
         const children = props[propName];
-        if (children.type !== Columns) {
-            return new TypeError(`Invalid prop \`${propName}\` of type \`${children.type.name}\` supplied to \`${componentName}\`, expected \`Columns\`.`);
-        }
+
+        Array.isArray(children) && children.forEach(n => {
+            if (n.type !== Column) {
+                return new TypeError(`Invalid prop \`${propName}\` of type \`${n.type.name}\` supplied to \`${componentName}\`, expected \`Column\`.`);
+            }
+        });
     },
     pages: PropTypes.bool,
     data: PropTypes.array,

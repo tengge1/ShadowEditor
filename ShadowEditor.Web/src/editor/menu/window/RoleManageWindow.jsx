@@ -1,5 +1,5 @@
 import './css/RoleManageWindow.css';
-import { Window, Content, Toolbar, Label, Input, Button, DataGrid, Columns, Column, ToolbarFiller, SearchField } from '../../../third_party';
+import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField } from '../../../third_party';
 import EditRoleWindow from './role/EditRoleWindow.jsx';
 
 /**
@@ -53,13 +53,11 @@ class RoleManageWindow extends React.Component {
                     selected={selected}
                     onSelect={this.handleSelect}
                     keyField={'ID'}>
-                    <Columns>
-                        <Column type={'number'} title={'#'}></Column>
-                        <Column field={'Name'} title={_t('Name')}></Column>
-                        <Column field={'CreateTime'} title={_t('Create Date')} width={80} align={'center'} renderer={this.renderDate}></Column>
-                        <Column field={'UpdateTime'} title={_t('Update Date')} width={80} align={'center'} renderer={this.renderDate}></Column>
-                        <Column field={'Status'} title={_t('Status')} width={50} align={'center'} renderer={this.renderStatus}></Column>
-                    </Columns>
+                    <Column type={'number'} title={'#'}></Column>
+                    <Column field={'Name'} title={_t('Name')}></Column>
+                    <Column field={'CreateTime'} title={_t('Create Date')} width={80} align={'center'} renderer={this.renderDate}></Column>
+                    <Column field={'UpdateTime'} title={_t('Update Date')} width={80} align={'center'} renderer={this.renderDate}></Column>
+                    <Column field={'Status'} title={_t('Status')} width={50} align={'center'} renderer={this.renderStatus}></Column>
                 </DataGrid>
             </Content>
         </Window>;

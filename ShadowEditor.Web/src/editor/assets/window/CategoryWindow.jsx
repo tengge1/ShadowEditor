@@ -1,5 +1,5 @@
 import './css/CategoryWindow.css';
-import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, DataGrid, Columns, Column, VBoxLayout, Toolbar } from '../../../third_party';
+import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, DataGrid, Column, VBoxLayout, Toolbar } from '../../../third_party';
 import Ajax from '../../../utils/Ajax';
 import CategoryEditWindow from './CategoryEditWindow.jsx';
 
@@ -42,10 +42,8 @@ class CategoryWindow extends React.Component {
                         <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
                     </Toolbar>
                     <DataGrid className={'list'} data={data} selected={selected ? selected.ID : null} onSelect={this.handleSelect}>
-                        <Columns>
-                            <Column type={'number'} title={_t('#')}></Column>
-                            <Column field={'Name'} title={_t('Name')}></Column>
-                        </Columns>
+                        <Column type={'number'} title={_t('#')}></Column>
+                        <Column field={'Name'} title={_t('Name')}></Column>
                     </DataGrid>
                 </VBoxLayout>
             </Content>

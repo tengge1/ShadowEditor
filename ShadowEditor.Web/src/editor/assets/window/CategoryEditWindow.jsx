@@ -1,6 +1,5 @@
 import './css/CategoryEditWindow.css';
-import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, DataGrid, Columns, Column, VBoxLayout, Toolbar } from '../../../third_party';
-import Ajax from '../../../utils/Ajax';
+import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../third_party';
 
 /**
  * 类别编辑窗口

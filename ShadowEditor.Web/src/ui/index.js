@@ -8,7 +8,6 @@ export { default as Canvas } from './canvas/Canvas.jsx';
 export { default as Accordion } from './common/Accordion.jsx';
 export { default as Buttons } from './common/Buttons.jsx';
 export { default as Column } from './common/Column.jsx';
-export { default as Columns } from './common/Columns.jsx';
 export { default as Content } from './common/Content.jsx';
 export { default as Item } from './common/Item.jsx';
 export { default as Menu } from './common/Menu.jsx';
