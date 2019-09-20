@@ -17,6 +17,10 @@ class DataGrid extends React.Component {
     render() {
         const { className, style, children, pages, data, keyField, pageSize, pageNum, total, selected } = this.props;
 
+        // 计算列宽：
+        // 数字列：60px。
+        // 其他列：提供的按提供的数值(px)。
+
         // 表格列
         const columns = children.map(n => {
             return n.props;
@@ -26,9 +30,12 @@ class DataGrid extends React.Component {
         const head = <table className={'head'}>
             <thead>
                 <tr>
-                    {columns.map(n => {
-                        let field = n.type === 'number' ? 'number' : n.field;
-                        return <th className={n.type === 'number' ? 'number' : null} name={n.field} key={field}>{n.title}</th>;
+                    {columns.map(col => {
+                        const isNumberColumn = col.type === 'number';
+                        const field = isNumberColumn ? 'number' : col.field;
+                        const className = isNumberColumn ? 'number' : null;
+                        const width = col.type === 'number' ? 60 : col.width;
+                        return <th className={className} width={width} name={field} key={field}>{col.title}</th>;
                     })}
                 </tr>
             </thead>
@@ -42,10 +49,10 @@ class DataGrid extends React.Component {
                         {columns.map(col => {
                             if (col.type === 'number') {
                                 const value = col.renderer ? col.renderer(i + 1, row, col) : (i + 1);
-                                return <td className={'number'} key={'number'}>{value}</td>;
+                                return <td className={'number'} width={60} key={'number'}>{value}</td>;
                             } else {
                                 const value = col.renderer ? col.renderer(row[col.field]) : row[col.field];
-                                return <td key={col.field}>{value}</td>;
+                                return <td width={col.width} key={col.field}>{value}</td>;
                             }
                         })}
                     </tr>;

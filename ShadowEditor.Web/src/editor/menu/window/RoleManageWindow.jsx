@@ -55,9 +55,9 @@ class RoleManageWindow extends React.Component {
                     keyField={'ID'}>
                     <Column type={'number'} title={'#'}></Column>
                     <Column field={'Name'} title={_t('Name')}></Column>
-                    <Column field={'CreateTime'} title={_t('Create Date')} width={80} align={'center'} renderer={this.renderDate}></Column>
-                    <Column field={'UpdateTime'} title={_t('Update Date')} width={80} align={'center'} renderer={this.renderDate}></Column>
-                    <Column field={'Status'} title={_t('Status')} width={50} align={'center'} renderer={this.renderStatus}></Column>
+                    <Column field={'CreateTime'} title={_t('Create Date')} width={120} align={'center'} renderer={this.renderDate}></Column>
+                    <Column field={'UpdateTime'} title={_t('Update Date')} width={120} align={'center'} renderer={this.renderDate}></Column>
+                    <Column field={'Status'} title={_t('Status')} width={80} align={'center'} renderer={this.renderStatus}></Column>
                 </DataGrid>
             </Content>
         </Window>;
