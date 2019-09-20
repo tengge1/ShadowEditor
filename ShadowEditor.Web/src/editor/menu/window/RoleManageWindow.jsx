@@ -21,6 +21,7 @@ class RoleManageWindow extends React.Component {
         this.update = this.update.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
         this.handleClose = this.handleClose.bind(this);
 
         this.renderStatus = this.renderStatus.bind(this);
@@ -40,8 +41,8 @@ class RoleManageWindow extends React.Component {
             <Content>
                 <Toolbar>
                     <Button onClick={this.handleAdd}>{_t('Create')}</Button>
-                    <Button onClick={this.handleAdd}>{_t('Edit')}</Button>
-                    <Button onClick={this.handleAdd}>{_t('Delete')}</Button>
+                    <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
+                    <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
                     <ToolbarFiller></ToolbarFiller>
                     <SearchField placeholder={_t('Search Content')}></SearchField>
                 </Toolbar>
@@ -88,6 +89,14 @@ class RoleManageWindow extends React.Component {
     handleEdit() {
         const win = app.createElement(EditRoleWindow);
         app.addElement(win);
+    }
+
+    handleDelete() {
+        const selected = this.state.selected;
+        if(!selected) {
+            return;
+        }
+        
     }
 
     handleClose() {
