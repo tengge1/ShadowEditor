@@ -49,10 +49,10 @@ class DataGrid extends React.Component {
                         {columns.map(col => {
                             if (col.type === 'number') {
                                 const value = col.renderer ? col.renderer(i + 1, row, col) : (i + 1);
-                                return <td className={'number'} width={60} key={'number'}>{value}</td>;
+                                return <td className={'number'} width={60} align={'center'} key={'number'}>{value}</td>;
                             } else {
                                 const value = col.renderer ? col.renderer(row[col.field]) : row[col.field];
-                                return <td width={col.width} key={col.field}>{value}</td>;
+                                return <td width={col.width} align={col.align} key={col.field}>{value}</td>;
                             }
                         })}
                     </tr>;
