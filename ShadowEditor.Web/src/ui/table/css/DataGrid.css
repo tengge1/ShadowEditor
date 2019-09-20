@@ -41,6 +41,10 @@
     box-sizing: border-box;
 }
 
+.DataGrid>table>tbody>tr:nth-child(1)>td {
+    border-top: none;
+}
+
 .DataGrid>table>thead>tr>th.number,
 .DataGrid>table>tbody>tr>td.number {
     width: 60px;
