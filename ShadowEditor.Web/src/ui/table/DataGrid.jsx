@@ -62,7 +62,9 @@ class DataGrid extends React.Component {
 
         return <div className={classNames('DataGrid', className)} style={style}>
             {head}
-            {body}
+            <div className={'wrap'}>
+                {body}
+            </div>
         </div>;
     }
 

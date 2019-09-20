@@ -3,49 +3,69 @@
     overflow-y: auto;
     user-select: none;
     cursor: default;
+    box-sizing: border-box;
 }
 
-.DataGrid>table {
+/* 表格头 */
+
+.DataGrid>.head {
     width: 100%;
     border-collapse: collapse;
 }
 
-.DataGrid>table>thead {
+.DataGrid>.head>thead {
     background-color: #f7f7f7;
 }
 
-.DataGrid>table>thead>tr,
-.DataGrid>table>tbody>tr {
+.DataGrid>.head>thead>tr {
     height: 24px;
     line-height: 24px;
 }
 
-.DataGrid>table>tbody>tr:nth-child(even) {
-    background-color: #f7f7f7;
-}
-
-.DataGrid>table>tbody>tr.selected {
-    color: #fff;
-    background-color: #3399ff;
-}
-
-.DataGrid>table>tbody>tr:hover {
-    color: #fff;
-    background-color: #3399ff;
-}
-
-.DataGrid>table>thead>tr>th,
-.DataGrid>table>tbody>tr>td {
+.DataGrid>.head>thead>tr>th {
     padding: 0 16px;
     border: 1px solid #ebebeb;
     box-sizing: border-box;
 }
 
-.DataGrid>table>tbody>tr:nth-child(1)>td {
-    border-top: none;
+/* 表格体 */
+
+.DataGrid>.wrap {
+    position: relative;
+    height: calc(100% - 26px);
+    overflow-y: auto;
 }
 
-.DataGrid>table>thead>tr>th.number,
-.DataGrid>table>tbody>tr>td.number {
-    width: 60px;
+.DataGrid>.wrap>.body {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.DataGrid>.wrap>.body>tbody>tr {
+    height: 24px;
+    line-height: 24px;
+}
+
+.DataGrid>.wrap>.body>tbody>tr:nth-child(even) {
+    background-color: #f7f7f7;
+}
+
+.DataGrid>.wrap>.body>tbody>tr.selected {
+    color: #fff;
+    background-color: #3399ff;
+}
+
+.DataGrid>.wrap>.body>tbody>tr:hover {
+    color: #fff;
+    background-color: #3399ff;
+}
+
+.DataGrid>.wrap>.body>tbody>tr>td {
+    padding: 0 16px;
+    border: 1px solid #ebebeb;
+    box-sizing: border-box;
+}
+
+.DataGrid>.wrap>.body>tbody>tr:nth-child(1)>td {
+    border-top: none;
 }
