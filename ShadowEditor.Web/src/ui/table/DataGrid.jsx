@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Column from '../common/Column.jsx';
 import IconButton from '../form/IconButton.jsx';
 import Input from '../form/Input.jsx';
+import Label from '../form/Label.jsx';
+import Select from '../form/Select.jsx';
 
 /**
  * 数据表格
@@ -15,14 +17,16 @@ class DataGrid extends React.Component {
 
         this.handleClick = this.handleClick.bind(this, props.onSelect);
 
-        this.handleFirstPage = this.handleFirstPage.bind(this);
-        this.handlePreviousPage = this.handlePreviousPage.bind(this);
-        this.handleNextPage = this.handleNextPage.bind(this);
-        this.handleLastPage = this.handleLastPage.bind(this);
+        this.handleFirstPage = this.handleFirstPage.bind(this, props.onFirstPage);
+        this.handlePreviousPage = this.handlePreviousPage.bind(this, props.onPreviousPage);
+        this.handleNextPage = this.handleNextPage.bind(this, props.onNextPage);
+        this.handleLastPage = this.handleLastPage.bind(this, props.onLastPage);
     }
 
     render() {
         const { className, style, children, pages, data, keyField, pageSize, pageNum, total, selected } = this.props;
+
+        const totalPage = total % pageSize === 0 ? total / pageSize : parseInt(total / pageSize) + 1;
 
         // 计算列宽：
         // 数字列：60px。
@@ -75,11 +79,11 @@ class DataGrid extends React.Component {
             {pages && <div className={'page'}>
                 <IconButton icon={'backward'} title={_t('First Page')} onClick={this.handleFirstPage}></IconButton>
                 <IconButton icon={'left-triangle2'} title={_t('Previous Page')} onClick={this.handlePreviousPage}></IconButton>
-                <Input className={'current'} title={_t('Current Page')} disabled={true} />
+                <Input className={'current'} value={pageNum} title={_t('Current Page')} disabled={true} />
                 <IconButton icon={'right-triangle2'} title={_t('Next Page')} onClick={this.handleNextPage}></IconButton>
                 <IconButton icon={'forward'} title={_t('Last Page')} onClick={this.handleLastPage}></IconButton>
                 <div className={'info'}>
-                    {_t('Total {{totalPage}} Pages', { totalPage: total })}
+                    {_t('Total {{totalPage}} Pages', { totalPage })}
                 </div>
             </div>}
         </div>;
@@ -94,20 +98,20 @@ class DataGrid extends React.Component {
         onSelect && onSelect(record);
     }
 
-    handleFirstPage() {
-
+    handleFirstPage(onFirstPage, event) {
+        onFirstPage && onFirstPage(event);
     }
 
-    handlePreviousPage() {
-
+    handlePreviousPage(onPreviousPage, event) {
+        onPreviousPage && onPreviousPage(event);
     }
 
-    handleNextPage() {
-
+    handleNextPage(onNextPage, event) {
+        onNextPage && onNextPage(event);
     }
 
-    handleLastPage() {
-
+    handleLastPage(onLastPage, event) {
+        onLastPage && onLastPage(event);
     }
 }
 
@@ -131,6 +135,10 @@ DataGrid.propTypes = {
     total: PropTypes.number,
     selected: PropTypes.string,
     onSelect: PropTypes.func,
+    onFirstPage: PropTypes.func,
+    onPreviousPage: PropTypes.func,
+    onNextPage: PropTypes.func,
+    onLastPage: PropTypes.func,
 };
 
 DataGrid.defaultProps = {
@@ -145,6 +153,10 @@ DataGrid.defaultProps = {
     total: 0,
     selected: null,
     onSelect: null,
+    onFirstPage: null,
+    onPreviousPage: null,
+    onNextPage: null,
+    onLastPage: null,
 };
 
 export default DataGrid;

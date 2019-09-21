@@ -12,7 +12,7 @@ class RoleManageWindow extends React.Component {
 
         this.state = {
             data: [],
-            pageSize: 20,
+            pageSize: 10,
             pageNum: 1,
             total: 0,
             selected: null,
@@ -27,6 +27,10 @@ class RoleManageWindow extends React.Component {
         this.renderStatus = this.renderStatus.bind(this);
 
         this.handleSelect = this.handleSelect.bind(this);
+        this.handleFirstPage = this.handleFirstPage.bind(this);
+        this.handlePreviousPage = this.handlePreviousPage.bind(this);
+        this.handleNextPage = this.handleNextPage.bind(this);
+        this.handleLastPage = this.handleLastPage.bind(this);
     }
 
     render() {
@@ -53,6 +57,10 @@ class RoleManageWindow extends React.Component {
                     total={total}
                     selected={selected}
                     onSelect={this.handleSelect}
+                    onFirstPage={this.handleFirstPage}
+                    onPreviousPage={this.handlePreviousPage}
+                    onNextPage={this.handleNextPage}
+                    onLastPage={this.handleLastPage}
                     keyField={'ID'}>
                     <Column type={'number'} title={'#'}></Column>
                     <Column field={'Name'} title={_t('Name')}></Column>
@@ -69,7 +77,9 @@ class RoleManageWindow extends React.Component {
     }
 
     update() {
-        fetch(`${app.options.server}/api/Role/List`).then(response => {
+        const { pageSize, pageNum } = this.state;
+
+        fetch(`${app.options.server}/api/Role/List?pageSize=${pageSize}&pageNum=${pageNum}`).then(response => {
             response.json().then(json => {
                 this.setState({
                     total: json.Data.total,
@@ -93,10 +103,10 @@ class RoleManageWindow extends React.Component {
 
     handleDelete() {
         const selected = this.state.selected;
-        if(!selected) {
+        if (!selected) {
             return;
         }
-        
+
     }
 
     handleClose() {
@@ -114,6 +124,36 @@ class RoleManageWindow extends React.Component {
     handleSelect(selected) {
         this.setState({
             selected: selected.ID,
+        });
+    }
+
+    handleFirstPage() {
+        this.setState({
+            pageNum: 1,
+        });
+    }
+
+    handlePreviousPage() {
+        const pageNum = this.state.pageNum;
+
+        this.setState({
+            pageNum: pageNum > 1 ? pageNum - 1 : pageNum,
+        });
+    }
+
+    handleNextPage() {
+        const { pageSize, pageNum, total } = this.state;
+        const totalPage = total % pageSize === 0 ? total / pageSize : parseInt(total / pageSize) + 1;
+        this.setState({
+            pageNum: pageNum < totalPage ? pageNum + 1 : pageNum,
+        });
+    }
+
+    handleLastPage() {
+        const { pageSize, total } = this.state;
+        const totalPage = total % pageSize === 0 ? total / pageSize : parseInt(total / pageSize) + 1;
+        this.setState({
+            pageNum: totalPage,
         });
     }
 }
