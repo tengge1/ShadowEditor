@@ -33,7 +33,7 @@ class ImageList extends React.Component {
     }
 
     render() {
-        const { className, style, data, firstPageText, lastPageText, currentPageText, previousPageText, nextPageText } = this.props;
+        const { className, style, data } = this.props;
         const { pageSize, pageNum } = this.state;
 
         const totalPage = this.getTotalPage();
@@ -59,11 +59,11 @@ class ImageList extends React.Component {
                 })}
             </div>
             <div className={'page'}>
-                <IconButton icon={'backward'} title={firstPageText} onClick={this.handleFirstPage}></IconButton>
-                <IconButton icon={'left-triangle2'} title={previousPageText} onClick={this.handlePreviousPage}></IconButton>
-                <Input className={'current'} value={(pageNum + 1).toString()} title={currentPageText} disabled={true} />
-                <IconButton icon={'right-triangle2'} title={nextPageText} onClick={this.handleNextPage}></IconButton>
-                <IconButton icon={'forward'} title={lastPageText} onClick={this.handleLastPage}></IconButton>
+                <IconButton icon={'backward'} title={_t('First Page')} onClick={this.handleFirstPage}></IconButton>
+                <IconButton icon={'left-triangle2'} title={_t('Previous Page')} onClick={this.handlePreviousPage}></IconButton>
+                <Input className={'current'} value={(pageNum + 1).toString()} title={_t('Current Page')} disabled={true} />
+                <IconButton icon={'right-triangle2'} title={_t('Next Page')} onClick={this.handleNextPage}></IconButton>
+                <IconButton icon={'forward'} title={_t('Last Page')} onClick={this.handleLastPage}></IconButton>
                 <div className={'info'}>
                     {_t('Total {{totalPage}} Pages', { totalPage: totalPage })}
                 </div>
@@ -158,11 +158,6 @@ ImageList.propTypes = {
     onClick: PropTypes.func,
     onEdit: PropTypes.func,
     onDelete: PropTypes.func,
-    firstPageText: PropTypes.string,
-    lastPageText: PropTypes.string,
-    currentPageText: PropTypes.string,
-    previousPageText: PropTypes.string,
-    nextPageText: PropTypes.string,
 };
 
 ImageList.defaultProps = {
@@ -172,11 +167,6 @@ ImageList.defaultProps = {
     onClick: null,
     onEdit: null,
     onDelete: null,
-    firstPageText: 'First Page',
-    lastPageText: 'Last Page',
-    currentPageText: 'Current Page',
-    previousPageText: 'Previous Page',
-    nextPageText: 'Next Page',
 };
 
 export default ImageList;

@@ -745,5 +745,10 @@
     "The name is already existed.": "该名称已经存在。",
     "Create Date": "创建日期",
     "Update Date": "更新日期",
-    "Status": "状态"
+    "Status": "状态",
+    "First Page": "第一页",
+    "Previous Page": "上一页",
+    "Current Page": "当前页",
+    "Next Page": "下一页",
+    "Last Page": "最后一页"
 }

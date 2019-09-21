@@ -36,6 +36,10 @@
     overflow-y: auto;
 }
 
+.DataGrid.pages>.wrap {
+    height: calc(100% - 52px);
+}
+
 .DataGrid>.wrap>.body {
     width: 100%;
     border-collapse: collapse;
@@ -68,4 +72,33 @@
 
 .DataGrid>.wrap>.body>tbody>tr:nth-child(1)>td {
     border-top: none;
+}
+
+.DataGrid>.page {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 12px;
+    padding: 2px 0;
+    border-top: 1px solid #ddd;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.DataGrid>.page>.IconButton {
+    width: 20px;
+    height: 20px;
+    margin: 0 2px;
+}
+
+.DataGrid>.page>.IconButton>.iconfont {
+    font-size: 14px;
+}
+
+.DataGrid>.page>.info {
+    margin: 0 8px 0 2px;
+    white-space: nowrap;
 }

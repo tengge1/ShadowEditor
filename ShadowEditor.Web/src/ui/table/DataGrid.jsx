@@ -2,6 +2,8 @@ import './css/DataGrid.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import Column from '../common/Column.jsx';
+import IconButton from '../form/IconButton.jsx';
+import Input from '../form/Input.jsx';
 
 /**
  * 数据表格
@@ -12,6 +14,11 @@ class DataGrid extends React.Component {
         super(props);
 
         this.handleClick = this.handleClick.bind(this, props.onSelect);
+
+        this.handleFirstPage = this.handleFirstPage.bind(this);
+        this.handlePreviousPage = this.handlePreviousPage.bind(this);
+        this.handleNextPage = this.handleNextPage.bind(this);
+        this.handleLastPage = this.handleLastPage.bind(this);
     }
 
     render() {
@@ -60,11 +67,21 @@ class DataGrid extends React.Component {
             </tbody>
         </table>;
 
-        return <div className={classNames('DataGrid', className)} style={style}>
+        return <div className={classNames('DataGrid', pages && 'pages', className)} style={style}>
             {head}
             <div className={'wrap'}>
                 {body}
             </div>
+            {pages && <div className={'page'}>
+                <IconButton icon={'backward'} title={_t('First Page')} onClick={this.handleFirstPage}></IconButton>
+                <IconButton icon={'left-triangle2'} title={_t('Previous Page')} onClick={this.handlePreviousPage}></IconButton>
+                <Input className={'current'} title={_t('Current Page')} disabled={true} />
+                <IconButton icon={'right-triangle2'} title={_t('Next Page')} onClick={this.handleNextPage}></IconButton>
+                <IconButton icon={'forward'} title={_t('Last Page')} onClick={this.handleLastPage}></IconButton>
+                <div className={'info'}>
+                    {_t('Total {{totalPage}} Pages', { totalPage: total })}
+                </div>
+            </div>}
         </div>;
     }
 
@@ -75,6 +92,22 @@ class DataGrid extends React.Component {
         const record = this.props.data.filter(n => n[keyField] === id)[0];
 
         onSelect && onSelect(record);
+    }
+
+    handleFirstPage() {
+
+    }
+
+    handlePreviousPage() {
+
+    }
+
+    handleNextPage() {
+
+    }
+
+    handleLastPage() {
+
     }
 }
 
