@@ -3,11 +3,14 @@
 Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어 / русский / Le français
 
 * 名称：Shadow Editor
-* 版本：v0.3.3(开发中)
+* 版本：v0.3.3
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/)
 
-## v0.3.3即将更新
+## v0.3.3更新
+
+* 发布日期：2019年9月22日
+* 更新日志：
 
 1. 一键清理没用的场景和场景历史记录工具。
 2. 不再依赖服务端模型`userData.changed`属性还原修改过的组件名称。
@@ -30,20 +33,6 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 19. 暂时隐藏挖坑工具。
 20. Three.js信息查看窗口。
 21. 贴图面板可选择上传图片、天空盒、视频，新增添加天空盒窗口。
-22. 新增登录窗口。
-
-## v0.3.2更新
-
-* 发布日期：2019年9月8日
-* 更新日志：
-
-1. 导出Collada模型文件。
-2. 导出DRACO模型文件。
-3. 菜单栏新增场景编辑器、模型编辑器、纹理编辑器、材质编辑器、地形编辑器、AI编辑器选项卡。(未实现)
-4. 新增渲染器属性窗口。
-5. 新增截图工具，截图资源管理，截图查看工具。
-6. 录制视频工具优化，新增录制视频资源管理，视频查看工具。
-7. 基于Tensorflow的可视化编辑器框架搭建。(Python, Tensorflow, Flask)
 
 ## 项目截图
 
