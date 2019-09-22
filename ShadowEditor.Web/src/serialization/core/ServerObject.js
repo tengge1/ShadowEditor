@@ -21,33 +21,7 @@ ServerObject.prototype.toJSON = function (obj) {
     delete json.userData.root; // 模型根节点
     delete json.userData.helper;
 
-    // 模型被调整了层次和顺序，所以要记录调整过的uuid。
-    json.userData.children = [];
-    this.serializeChildren(obj.children, json.userData.children);
-
     return json;
-};
-
-/**
- * 记录模型内部，调整过的每个组件的uuid。
- * @param {Array} children 每个子元素
- * @param {Array} list 数组
- */
-ServerObject.prototype.serializeChildren = function (children, list) {
-    for (let i = 0; i < children.length; i++) {
-        let child = children[i];
-
-        let list1 = [];
-
-        if (child.children && child.children.length > 0) {
-            this.serializeChildren(child.children, list1);
-        }
-
-        list.push({
-            uuid: child.uuid,
-            children: list1,
-        });
-    }
 };
 
 ServerObject.prototype.fromJSON = function (json, options, environment) {
@@ -74,11 +48,6 @@ ServerObject.prototype.fromJSON = function (json, options, environment) {
                     this.revertUUID(obj.children, json.userData._children);
                 }
 
-                // TODO: 新数据结构不需要还原原来的模型
-                if (environment.parts) {
-                    this.revertObject(obj, environment.parts);
-                }
-
                 resolve(obj);
             } else {
                 resolve(null);
@@ -102,96 +71,6 @@ ServerObject.prototype.revertUUID = function (children, list) {
 
         if (child.children && list[i] && list[i].children) {
             this.revertUUID(child.children, list[i].children)
-        }
-    }
-};
-
-/**
- * 还原调整过顺序的原始模型。
- * @param {THREE.Object3D} obj 服务端模型
- * @param {Array} parts 反序列化后的模型组件
- */
-ServerObject.prototype.revertObject = function (obj, parts = []) {
-    let list = obj.userData.children;
-
-    if (!Array.isArray(list) || list.length === 0) {
-        return;
-    }
-
-    let children = [];
-    this.traverseChildren(obj, children);
-    this.revertLayer(obj, list, children, parts);
-};
-
-/**
- * 将模型所有子元素展开成一维数组
- * @param {THREE.Object} obj 服务端模型
- * @param {Array} list 模型子组件列表
- */
-ServerObject.prototype.traverseChildren = function (obj, list) {
-    if (!Array.isArray(obj.children) || obj.children.length === 0) {
-        return;
-    }
-
-    while (obj.children.length) {
-        let child = obj.children[0];
-
-        if (child.parent) {
-            child.parent.remove(child);
-        }
-
-        list.push(child);
-        this.traverseChildren(child, list);
-    }
-};
-
-/**
- * 还原服务端模型原来的层次结构
- * @param {*} obj 
- * @param {*} list 
- * @param {*} children 
- * @param {*} parts 
- */
-ServerObject.prototype.revertLayer = function (obj, list, children, parts) {
-    for (let i = 0; i < list.length; i++) {
-        let item = list[i];
-
-        const child1 = children.filter(n => n.uuid === item.uuid)[0];
-        const child2 = parts.filter(n => n.uuid === item.uuid)[0];
-
-        let child = null;
-
-        if (child1) {
-            obj.add(child1);
-
-            child = child1;
-
-            if (child2) {
-                // TODO: 服务端原始模型组件，需要复制反序列化后的组件的属性。
-                child1.name = child2.name;
-                if (child1.position && child2.position) {
-                    child1.position.copy(child2.position);
-                }
-                if (child1.rotation && child2.rotation) {
-                    child1.rotation.copy(child2.rotation);
-                }
-                if (child1.scale && child2.scale) {
-                    child1.scale.copy(child2.scale);
-                }
-                if (child1.material && child2.material) {
-                    child1.material = child2.material;
-                }
-            }
-        } else if (child2) {
-            obj.add(child2);
-
-            child = child2;
-        } else {
-            console.warn(`ServerObject: no object with uuid ${item.uuid}.`);
-        }
-
-        if (child && Array.isArray(item.children) && item.children.length > 0) {
-            this.revertLayer(child, item.children, children, parts);
         }
     }
 };

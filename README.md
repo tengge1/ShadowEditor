@@ -9,6 +9,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## v0.3.4即将更新
 
+1. 删除旧场景的加载方法。
+
 ## v0.3.3更新
 
 * 发布日期：2019年9月22日
