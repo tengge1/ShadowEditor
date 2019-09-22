@@ -17,10 +17,8 @@ FBXLoader.prototype.load = function (url, options) {
             var loader = new THREE.FBXLoader();
 
             loader.load(url, obj3d => {
-                Object.assign(obj3d.userData, {
-                    obj: obj3d,
-                    root: obj3d,
-                });
+                obj3d._obj = obj3d;
+                obj3d._root = obj3d;
 
                 if (obj3d.animations && obj3d.animations.length > 0) {
                     Object.assign(obj3d.userData, {
@@ -45,8 +43,8 @@ FBXLoader.prototype.load = function (url, options) {
 
 FBXLoader.prototype.createScripts = function (name) {
     return `var mesh = this.getObjectByName('${name}');\n\n` +
-        `var obj = mesh.userData.obj;\n\n` +
-        `var root = mesh.userData.root;\n\n` +
+        `var obj = mesh._obj;\n\n` +
+        `var root = mesh._root;\n\n` +
         `var mixer = new THREE.AnimationMixer(root);\n\n` +
         `mixer.clipAction(obj.animations[0]).play();\n\n` +
         `function update(clock, deltaTime) { \n    mixer.update(deltaTime); \n}`;

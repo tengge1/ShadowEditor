@@ -18,10 +18,8 @@ AssimpLoader.prototype.load = function (url, options) {
             loader.load(url, result => {
                 var obj = result.object;
 
-                Object.assign(obj.userData, {
-                    obj: result,
-                    root: obj
-                });
+                obj._obj = result;
+                obj._root = obj;
 
                 if (result.animation) {
                     Object.assign(obj.userData, {
@@ -46,7 +44,7 @@ AssimpLoader.prototype.load = function (url, options) {
 
 AssimpLoader.prototype.createScripts = function (name) {
     return `var mesh = this.getObjectByName('${name}');\n\n` +
-        `var animation = mesh.userData.obj.animation;\n\n` +
+        `var animation = mesh._obj.animation;\n\n` +
         `function update(clock, deltaTime) { \n  if(animation) {\n     animation.setTime( performance.now() / 1000 ); \n    } \n}`;
 };
 

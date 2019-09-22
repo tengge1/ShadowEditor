@@ -17,8 +17,6 @@ ServerObject.prototype.toJSON = function (obj) {
     var json = Object3DSerializer.prototype.toJSON.call(this, obj);
     json.userData = Object.assign({}, obj.userData);
     delete json.userData.model;
-    delete json.userData.obj; // 以后下载对象缓存统一改为obj
-    delete json.userData.root; // 模型根节点
     delete json.userData.helper;
 
     return json;

@@ -26,10 +26,8 @@ BVHLoader.prototype.load = function (url, options) {
                 obj3d.add(skeletonHelper);
                 obj3d.add(boneContainer);
 
-                Object.assign(obj3d.userData, {
-                    obj: result,
-                    root: skeletonHelper
-                });
+                obj3d._obj = result;
+                obj3d._root = skeletonHelper;
 
                 Object.assign(obj3d.userData, {
                     animNames: 'Animation1',
@@ -52,8 +50,8 @@ BVHLoader.prototype.load = function (url, options) {
 
 BVHLoader.prototype.createScripts = function (name) {
     return `var mesh = this.getObjectByName('${name}');\n\n` +
-        `var mixer = new THREE.AnimationMixer(mesh.userData.root);\n\n` +
-        `mixer.clipAction(mesh.userData.obj.clip).setEffectiveWeight(1.0).play();` +
+        `var mixer = new THREE.AnimationMixer(mesh._root);\n\n` +
+        `mixer.clipAction(mesh._obj.clip).setEffectiveWeight(1.0).play();` +
         `function update(clock, deltaTime) { \n     mixer.update(deltaTime); \n}`;
 };
 

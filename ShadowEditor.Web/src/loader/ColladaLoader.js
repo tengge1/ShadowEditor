@@ -33,10 +33,8 @@ ColladaLoader.prototype.load = function (url, options) {
                     dae.updateMatrix();
                 }
 
-                Object.assign(dae.userData, {
-                    obj: collada,
-                    root: dae
-                });
+                dae._obj = collada;
+                dae._root = dae;
 
                 if (collada.animations && collada.animations.length > 0) {
                     Object.assign(dae.userData, {
@@ -61,8 +59,8 @@ ColladaLoader.prototype.load = function (url, options) {
 
 ColladaLoader.prototype.createScripts = function (name) {
     return `var mesh = this.getObjectByName('${name}');\n\n` +
-        `var obj = mesh.userData.obj;\n\n` +
-        `var root = mesh.userData.root;\n\n` +
+        `var obj = mesh._obj;\n\n` +
+        `var root = mesh._root;\n\n` +
         `var mixer = new THREE.AnimationMixer(root);\n\n` +
         `mixer.clipAction(obj.animations[0]).play();\n\n` +
         `function update(clock, deltaTime) { \n    mixer.update(deltaTime); \n}`;

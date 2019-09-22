@@ -25,10 +25,8 @@ GLTFLoader.prototype.load = function (url, options) {
             loader.load(url, result => {
                 var obj3d = result.scene;
 
-                Object.assign(obj3d.userData, {
-                    obj: result,
-                    root: result.scene,
-                });
+                obj3d._obj = result;
+                obj3d._root = result.scene;
 
                 if (result.animations && result.animations.length > 0) {
                     Object.assign(obj3d.userData, {
@@ -52,8 +50,8 @@ GLTFLoader.prototype.load = function (url, options) {
 
 GLTFLoader.prototype.createScripts = function (name) {
     return `var mesh = this.getObjectByName('${name}');\n\n` +
-        `var obj = mesh.userData.obj;\n\n` +
-        `var root = mesh.userData.root;\n\n` +
+        `var obj = mesh._obj;\n\n` +
+        `var root = mesh._root;\n\n` +
         `var mixer = new THREE.AnimationMixer(root);\n\n` +
         `mixer.clipAction(obj.animations[0]).play();\n\n` +
         `function update(clock, deltaTime) { \n    mixer.update(deltaTime); \n}`;

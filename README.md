@@ -10,6 +10,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 ## v0.3.4即将更新
 
 1. 删除旧场景的加载方法。
+2. 下载的模型不再缓存在`userData`里面，改为缓存在模型上，`_obj`表示下载的原始模型数据，`_root`表示模型根节点，修复复制模型等一系列bug。
 
 ## v0.3.3更新
 

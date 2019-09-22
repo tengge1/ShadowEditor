@@ -36,9 +36,10 @@ JsonLoader.prototype.load = function (url, options) {
                     };
                 }
 
+                mesh._obj = [geometry, materials];
+                mesh._root = mesh;
+
                 Object.assign(mesh.userData, {
-                    obj: [geometry, materials],
-                    root: mesh,
                     scripts: [{
                         id: null,
                         name: `${options.Name}${_t('Animation')}`,
