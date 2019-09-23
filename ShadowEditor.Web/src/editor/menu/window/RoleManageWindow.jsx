@@ -77,11 +77,18 @@ class RoleManageWindow extends React.Component {
     }
 
     update() {
-        const { pageSize, pageNum } = this.state;
+        const pageNum = this.state.pageNum;
+        this.goTo(pageNum);
+    }
+
+    goTo(pageNum) {
+        const pageSize = this.state.pageSize;
 
         fetch(`${app.options.server}/api/Role/List?pageSize=${pageSize}&pageNum=${pageNum}`).then(response => {
             response.json().then(json => {
                 this.setState({
+                    pageSize,
+                    pageNum,
                     total: json.Data.total,
                     data: json.Data.rows,
                 });
@@ -106,7 +113,6 @@ class RoleManageWindow extends React.Component {
         if (!selected) {
             return;
         }
-
     }
 
     handleClose() {
@@ -118,7 +124,7 @@ class RoleManageWindow extends React.Component {
     }
 
     renderStatus(value) {
-        return value === 0 ? '启用' : '禁用';
+        return value === 0 ? _t('Enabled') : _t('Disabled');
     }
 
     handleSelect(selected) {
@@ -128,33 +134,30 @@ class RoleManageWindow extends React.Component {
     }
 
     handleFirstPage() {
-        this.setState({
-            pageNum: 1,
-        });
+        this.goTo(1);
     }
 
     handlePreviousPage() {
-        const pageNum = this.state.pageNum;
+        const { pageNum } = this.state;
+        const newPageNum = pageNum > 1 ? pageNum - 1 : pageNum;
 
-        this.setState({
-            pageNum: pageNum > 1 ? pageNum - 1 : pageNum,
-        });
+        this.goTo(newPageNum);
     }
 
     handleNextPage() {
         const { pageSize, pageNum, total } = this.state;
         const totalPage = total % pageSize === 0 ? total / pageSize : parseInt(total / pageSize) + 1;
-        this.setState({
-            pageNum: pageNum < totalPage ? pageNum + 1 : pageNum,
-        });
+        const newPageNum = pageNum < totalPage ? pageNum + 1 : pageNum;
+
+        this.goTo(newPageNum);
     }
 
     handleLastPage() {
         const { pageSize, total } = this.state;
         const totalPage = total % pageSize === 0 ? total / pageSize : parseInt(total / pageSize) + 1;
-        this.setState({
-            pageNum: totalPage,
-        });
+        const newPageNum = totalPage;
+
+        this.goTo(newPageNum);
     }
 }
 

@@ -59,7 +59,7 @@ class DataGrid extends React.Component {
                     return <tr className={selected === row[keyField] ? 'selected' : null} data-id={row[keyField]} key={row[keyField]} onClick={this.handleClick}>
                         {columns.map(col => {
                             if (col.type === 'number') {
-                                const value = col.renderer ? col.renderer(i + 1, row, col) : (i + 1);
+                                const value = col.renderer ? col.renderer(pageSize * (pageNum - 1) + i + 1, row, col) : (pageSize * (pageNum - 1) + i + 1);
                                 return <td className={'number'} width={60} align={'center'} key={'number'}>{value}</td>;
                             } else {
                                 const value = col.renderer ? col.renderer(row[col.field]) : row[col.field];
