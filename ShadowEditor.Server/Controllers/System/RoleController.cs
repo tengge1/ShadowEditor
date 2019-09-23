@@ -26,13 +26,21 @@ namespace ShadowEditor.Server.Controllers.System
         /// </summary>
         /// <param name="pageSize"></param>
         /// <param name="pageNum"></param>
+        /// <param name="keyword"></param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult List(int pageSize = 20, int pageNum = 1)
+        public JsonResult List(int pageSize = 20, int pageNum = 1, string keyword = "")
         {
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Ne("Status", -1);
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                var filter1 = Builders<BsonDocument>.Filter.Regex("Name", keyword);
+                filter = Builders<BsonDocument>.Filter.And(filter, filter1);
+            }
+
             var sort = Builders<BsonDocument>.Sort.Descending("_id");
 
             var total = mongo.Count(Constant.RoleCollectionName, filter);

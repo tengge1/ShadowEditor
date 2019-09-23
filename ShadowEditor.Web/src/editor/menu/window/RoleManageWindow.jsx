@@ -24,6 +24,7 @@ class RoleManageWindow extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.commitDelete = this.commitDelete.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
 
         this.renderStatus = this.renderStatus.bind(this);
 
@@ -49,7 +50,7 @@ class RoleManageWindow extends React.Component {
                     <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
                     <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
                     <ToolbarFiller></ToolbarFiller>
-                    <SearchField placeholder={_t('Search Content')}></SearchField>
+                    <SearchField placeholder={_t('Search Content')} onInput={this.handleSearch}></SearchField>
                 </Toolbar>
                 <DataGrid data={data}
                     pages={true}
@@ -82,10 +83,10 @@ class RoleManageWindow extends React.Component {
         this.goTo(pageNum);
     }
 
-    goTo(pageNum) {
+    goTo(pageNum, keyword = '') {
         const pageSize = this.state.pageSize;
 
-        fetch(`${app.options.server}/api/Role/List?pageSize=${pageSize}&pageNum=${pageNum}`).then(response => {
+        fetch(`${app.options.server}/api/Role/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
             response.json().then(json => {
                 this.setState({
                     pageSize,
@@ -136,8 +137,6 @@ class RoleManageWindow extends React.Component {
                 this.commitDelete(selected);
             }
         });
-
-
     }
 
     commitDelete(id) {
@@ -155,6 +154,11 @@ class RoleManageWindow extends React.Component {
 
     handleClose() {
         app.removeElement(this);
+    }
+
+    handleSearch(value) {
+        const pageNum = this.state.pageNum;
+        this.goTo(pageNum, value);
     }
 
     renderDate(value) {
