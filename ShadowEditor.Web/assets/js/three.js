@@ -8720,8 +8720,12 @@
 			if ( this.normalMap && this.normalMap.isTexture ) {
 
 				data.normalMap = this.normalMap.toJSON( meta ).uuid;
-				data.normalMapType = this.normalMapType;
-				data.normalScale = this.normalScale.toArray();
+				if(this.normalMapType) {
+					data.normalMapType = this.normalMapType;
+				}
+				if(this.normalScale) {
+					data.normalScale = this.normalScale.toArray();
+				}
 
 			}
 

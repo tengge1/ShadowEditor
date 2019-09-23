@@ -44,6 +44,14 @@ MaterialSerializer.prototype.toJSON = function (obj) {
     json.emissive = obj.emissive;
     json.emissiveIntensity = obj.emissiveIntensity;
     json.emissiveMap = obj.emissiveMap == null ? null : (new TexturesSerializer()).toJSON(obj.emissiveMap);
+
+    if (obj.specular !== undefined) {
+        json.specular = obj.specular;
+    }
+    if (obj.specularMap !== undefined) {
+        json.specularMap = (new TexturesSerializer()).toJSON(obj.specularMap);
+    }
+
     json.envMap = obj.envMap == null ? null : (new TexturesSerializer()).toJSON(obj.envMap);
     json.envMapIntensity = obj.envMapIntensity;
     json.flatShading = obj.flatShading;
@@ -117,6 +125,14 @@ MaterialSerializer.prototype.fromJSON = function (json, parent, server) {
     obj.emissive = json.emissive === undefined ? undefined : new THREE.Color(json.emissive);
     obj.emissiveIntensity = json.emissiveIntensity;
     obj.emissiveMap = json.emissiveMap == null ? null : (new TexturesSerializer()).fromJSON(json.emissiveMap, undefined, server);
+
+    if (json.specular !== undefined) {
+        obj.specular = json.specular;
+    }
+    if (json.specularMap !== undefined) {
+        obj.specularMap = (new TexturesSerializer()).toJSON(json.specularMap);
+    }
+
     obj.envMap = json.envMap == null ? null : (new TexturesSerializer()).fromJSON(json.envMap, undefined, server);
     obj.envMapIntensity = json.envMapIntensity;
     obj.flatShading = json.flatShading;

@@ -36,6 +36,8 @@ ShaderMaterialSerializer.prototype.toJSON = function (obj) {
     json.vertexShader = obj.vertexShader;
     json.fragmentShader = obj.fragmentShader;
 
+    json.extensions = obj.extensions;
+
     return json;
 };
 
@@ -63,6 +65,8 @@ ShaderMaterialSerializer.prototype.fromJSON = function (json, parent, server) {
 
     obj.vertexShader = json.vertexShader;
     obj.fragmentShader = json.fragmentShader;
+
+    obj.extensions = json.extensions;
 
     return obj;
 };

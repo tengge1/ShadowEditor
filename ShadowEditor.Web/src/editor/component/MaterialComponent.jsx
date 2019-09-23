@@ -224,7 +224,7 @@ class MaterialComponent extends React.Component {
             <NumberProperty label={_t('Roughness')} name={'roughness'} value={roughness} show={showRoughness} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={_t('MetalNess')} name={'metalness'} value={metalness} show={showMetalness} onChange={this.handleChange}></NumberProperty>
             <ColorProperty label={_t('Emissive')} name={'emissive'} value={emissive} show={showEmissive} onChange={this.handleChange}></ColorProperty>
-            <ColorProperty label={_t('Specular')} name={'specular'} value={specular} show={showSpecular} onChange={this.handleChange}></ColorProperty>
+            <NumberProperty label={_t('Specular')} name={'specular'} value={specular} show={showSpecular} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={_t('Shininess')} name={'shininess'} value={shininess} show={showShininess} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={_t('ClearCoat')} name={'clearCoat'} value={clearCoat} show={showClearCoat} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={_t('ClearCoatRoughness')} name={'clearCoatRoughness'} value={clearCoatRoughness} show={showClearCoatRoughness} onChange={this.handleChange}></NumberProperty>
@@ -319,7 +319,7 @@ class MaterialComponent extends React.Component {
 
         if (material.specular !== undefined) {
             state.showSpecular = true;
-            state.specular = `#${material.specular.getHexString()}`;
+            state.specular = `#${material.specular}`;
         } else {
             state.showSpecular = false;
         }
@@ -547,8 +547,8 @@ class MaterialComponent extends React.Component {
             editor.execute(new SetMaterialColorCommand(object, 'emissive', emissive));
         }
 
-        if (material.specular !== undefined && `#${material.specular.getHexString()}` !== specular) {
-            editor.execute(new SetMaterialColorCommand(object, 'specular', specular));
+        if (material.specular !== undefined && `#${material.specular}` !== specular) {
+            editor.execute(new SetMaterialValueCommand(object, 'specular', specular));
         }
 
         if (material.shininess !== undefined && Math.abs(material.shininess - shininess) >= 0.01) {
