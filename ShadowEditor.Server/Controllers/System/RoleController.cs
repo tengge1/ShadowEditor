@@ -33,9 +33,14 @@ namespace ShadowEditor.Server.Controllers.System
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Ne("Status", -1);
+            var sort = Builders<BsonDocument>.Sort.Descending("_id");
 
             var total = mongo.Count(Constant.RoleCollectionName, filter);
-            var docs = mongo.FindMany(Constant.RoleCollectionName, filter).Skip(pageSize * (pageNum - 1)).Limit(pageSize).ToList();
+            var docs = mongo.FindMany(Constant.RoleCollectionName, filter)
+                .Sort(sort)
+                .Skip(pageSize * (pageNum - 1))
+                .Limit(pageSize)
+                .ToList();
 
             var rows = new List<RoleModel>();
 

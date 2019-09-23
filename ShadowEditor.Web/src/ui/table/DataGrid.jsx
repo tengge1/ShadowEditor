@@ -83,7 +83,8 @@ class DataGrid extends React.Component {
                 <IconButton icon={'right-triangle2'} title={_t('Next Page')} onClick={this.handleNextPage}></IconButton>
                 <IconButton icon={'forward'} title={_t('Last Page')} onClick={this.handleLastPage}></IconButton>
                 <div className={'info'}>
-                    {_t('Total {{totalPage}} Pages', { totalPage })}
+                    {_t('Total {{totalPage}} Pages', { totalPage })}<span className={'separator'}>,</span>
+                    {_t('{{total}} Records', { total })}
                 </div>
             </div>}
         </div>;

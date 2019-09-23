@@ -750,5 +750,6 @@
     "Previous Page": "上一页",
     "Current Page": "当前页",
     "Next Page": "下一页",
-    "Last Page": "最后一页"
+    "Last Page": "最后一页",
+    "{{total}} Records": "{{total}}条记录"
 }

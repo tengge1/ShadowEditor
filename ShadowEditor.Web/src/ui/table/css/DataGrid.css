@@ -102,3 +102,7 @@
     margin: 0 8px 0 2px;
     white-space: nowrap;
 }
+
+.DataGrid>.page>.info>.separator {
+    margin-right: 4px;
+}
