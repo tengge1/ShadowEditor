@@ -168,7 +168,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             var mongo = new MongoHelper();
 
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", objectId);
             var update1 = Builders<BsonDocument>.Update.Set("Name", model.Name);
             var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", DateTime.Now);
 
@@ -204,7 +204,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             var mongo = new MongoHelper();
 
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", objectId);
             var doc = mongo.FindOne(Constant.RoleCollectionName, filter);
 
             if (doc == null)

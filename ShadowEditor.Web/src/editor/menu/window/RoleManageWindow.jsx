@@ -22,6 +22,7 @@ class RoleManageWindow extends React.Component {
         this.handleAdd = this.handleAdd.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.commitDelete = this.commitDelete.bind(this);
         this.handleClose = this.handleClose.bind(this);
 
         this.renderStatus = this.renderStatus.bind(this);
@@ -104,15 +105,52 @@ class RoleManageWindow extends React.Component {
     }
 
     handleEdit() {
-        const win = app.createElement(EditRoleWindow);
+        const { data, selected } = this.state;
+
+        if (!selected) {
+            app.toast(_t('Please select a record.'));
+            return;
+        }
+
+        const record = data.filter(n => n.ID === selected)[0];
+
+        const win = app.createElement(EditRoleWindow, {
+            id: record.ID,
+            name: record.Name,
+            callback: this.update
+        });
         app.addElement(win);
     }
 
     handleDelete() {
         const selected = this.state.selected;
         if (!selected) {
+            app.toast(_t('Please select a record.'));
             return;
         }
+
+        app.confirm({
+            title: _t('Query'),
+            content: _t('Delete the selected record?'),
+            onOK: () => {
+                this.commitDelete(selected);
+            }
+        });
+
+
+    }
+
+    commitDelete(id) {
+        fetch(`${app.options.server}/api/Role/Delete?ID=${id}`, {
+            method: 'POST'
+        }).then(response => {
+            response.json().then(json => {
+                if (json.Code === 200) {
+                    this.update();
+                }
+                app.toast(_t(json.Msg));
+            });
+        });
     }
 
     handleClose() {
