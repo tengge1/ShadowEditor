@@ -6,6 +6,8 @@ import IconButton from '../form/IconButton.jsx';
 import Input from '../form/Input.jsx';
 import Label from '../form/Label.jsx';
 import Select from '../form/Select.jsx';
+import ToolbarSeparator from '../toolbar/ToolbarSeparator.jsx';
+import ToolbarFiller from '../toolbar/ToolbarFiller.jsx';
 
 /**
  * 数据表格
@@ -15,8 +17,16 @@ class DataGrid extends React.Component {
     constructor(props) {
         super(props);
 
+        this.pageSize = {
+            10: '10',
+            20: '20',
+            50: '50',
+            100: '100',
+        };
+
         this.handleClick = this.handleClick.bind(this, props.onSelect);
 
+        this.handleChangePageSize = this.handleChangePageSize.bind(this, props.onChangePageSize);
         this.handleFirstPage = this.handleFirstPage.bind(this, props.onFirstPage);
         this.handlePreviousPage = this.handlePreviousPage.bind(this, props.onPreviousPage);
         this.handleNextPage = this.handleNextPage.bind(this, props.onNextPage);
@@ -77,11 +87,15 @@ class DataGrid extends React.Component {
                 {body}
             </div>
             {pages && <div className={'page'}>
+                <Select className={'pageSize'} name={'pageSize'} options={this.pageSize} value={pageSize.toString()} onChange={this.handleChangePageSize}></Select>
+                <ToolbarSeparator className={'line'}></ToolbarSeparator>
                 <IconButton icon={'backward'} title={_t('First Page')} onClick={this.handleFirstPage}></IconButton>
                 <IconButton icon={'left-triangle2'} title={_t('Previous Page')} onClick={this.handlePreviousPage}></IconButton>
                 <Input className={'current'} value={pageNum} title={_t('Current Page')} disabled={true} />
                 <IconButton icon={'right-triangle2'} title={_t('Next Page')} onClick={this.handleNextPage}></IconButton>
                 <IconButton icon={'forward'} title={_t('Last Page')} onClick={this.handleLastPage}></IconButton>
+                <ToolbarSeparator className={'line'}></ToolbarSeparator>
+                <ToolbarFiller></ToolbarFiller>
                 <div className={'info'}>
                     {_t('Total {{totalPage}} Pages', { totalPage })}<span className={'separator'}>,</span>
                     {_t('{{total}} Records', { total })}
@@ -97,6 +111,11 @@ class DataGrid extends React.Component {
         const record = this.props.data.filter(n => n[keyField] === id)[0];
 
         onSelect && onSelect(record);
+    }
+
+    handleChangePageSize(onChangePageSize, value, event) {
+        const pageSize = parseInt(value);
+        onChangePageSize && onChangePageSize(pageSize, event);
     }
 
     handleFirstPage(onFirstPage, event) {
@@ -136,6 +155,7 @@ DataGrid.propTypes = {
     total: PropTypes.number,
     selected: PropTypes.string,
     onSelect: PropTypes.func,
+    onChangePageSize: PropTypes.func,
     onFirstPage: PropTypes.func,
     onPreviousPage: PropTypes.func,
     onNextPage: PropTypes.func,
@@ -154,6 +174,7 @@ DataGrid.defaultProps = {
     total: 0,
     selected: null,
     onSelect: null,
+    onChangePageSize: null,
     onFirstPage: null,
     onPreviousPage: null,
     onNextPage: null,

@@ -88,14 +88,26 @@
     justify-content: space-between;
 }
 
+.DataGrid>.page>.pageSize {
+    margin-left: 4px;
+}
+
 .DataGrid>.page>.IconButton {
     width: 20px;
     height: 20px;
-    margin: 0 2px;
+    margin: 0 4px;
 }
 
 .DataGrid>.page>.IconButton>.iconfont {
     font-size: 14px;
+}
+
+.DataGrid>.page>.line {
+    margin: 0 4px;
+}
+
+.DataGrid>.page>.line>.separator {
+    height: 20px;
 }
 
 .DataGrid>.page>.info {
