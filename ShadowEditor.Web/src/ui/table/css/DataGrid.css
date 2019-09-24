@@ -106,10 +106,6 @@
     margin: 0 4px;
 }
 
-.DataGrid>.page>.line>.separator {
-    height: 20px;
-}
-
 .DataGrid>.page>.info {
     margin: 0 8px 0 2px;
     white-space: nowrap;
