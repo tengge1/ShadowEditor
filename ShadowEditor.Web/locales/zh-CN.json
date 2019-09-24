@@ -753,5 +753,6 @@
     "Last Page": "最后一页",
     "{{total}} Records": "{{total}}条记录",
     "Delete the selected record?": "是否要删除选中的数据？",
-    "Refresh": "刷新"
+    "Refresh": "刷新",
+    "{{pageSize}} records per page, total {{total}} records.": "每页{{pageSize}}条记录，共{{total}}条记录。"
 }

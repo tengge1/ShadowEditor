@@ -99,8 +99,7 @@ class DataGrid extends React.Component {
                 <IconButton icon={'refresh'} title={_t('Refresh')} onClick={this.handleRefresh}></IconButton>
                 <ToolbarFiller></ToolbarFiller>
                 <div className={'info'}>
-                    {_t('Total {{totalPage}} Pages', { totalPage })}<span className={'separator'}>,</span>
-                    {_t('{{total}} Records', { total })}
+                    {_t('{{pageSize}} records per page, total {{total}} records.', { pageSize, total })}
                 </div>
             </div>}
         </div>;
