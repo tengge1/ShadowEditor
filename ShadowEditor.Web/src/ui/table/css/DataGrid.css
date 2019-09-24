@@ -107,6 +107,19 @@
     margin: 0 4px;
 }
 
+.DataGrid>.page>.current {
+    width: 32px;
+    margin: 0 4px;
+}
+
+.DataGrid>.page>.slash {
+    margin: 0 4px;
+}
+
+.DataGrid>.page>.totalPage {
+    margin: 0 4px;
+}
+
 .DataGrid>.page>.info {
     margin: 0;
     white-space: nowrap;

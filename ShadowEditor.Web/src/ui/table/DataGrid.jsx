@@ -92,14 +92,16 @@ class DataGrid extends React.Component {
                 <ToolbarSeparator className={'line'}></ToolbarSeparator>
                 <IconButton icon={'backward'} title={_t('First Page')} onClick={this.handleFirstPage}></IconButton>
                 <IconButton icon={'left-triangle2'} title={_t('Previous Page')} onClick={this.handlePreviousPage}></IconButton>
-                <Input className={'current'} value={pageNum} title={_t('Current Page')} disabled={true} />
+                <Input className={'current'} value={pageNum} title={_t('Current Page')} />
+                <span className={'slash'}> / </span>
+                <Label className={'totalPage'}>{totalPage}</Label>
                 <IconButton icon={'right-triangle2'} title={_t('Next Page')} onClick={this.handleNextPage}></IconButton>
                 <IconButton icon={'forward'} title={_t('Last Page')} onClick={this.handleLastPage}></IconButton>
                 <ToolbarSeparator className={'line'}></ToolbarSeparator>
                 <IconButton icon={'refresh'} title={_t('Refresh')} onClick={this.handleRefresh}></IconButton>
                 <ToolbarFiller></ToolbarFiller>
                 <div className={'info'}>
-                    {_t('{{pageSize}} records per page, total {{total}} records.', { pageSize, total })}
+                    {_t('{{pageSize}} per page, total {{total}} records.', { pageSize, total })}
                 </div>
             </div>}
         </div>;
