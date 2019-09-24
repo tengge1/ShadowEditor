@@ -752,5 +752,6 @@
     "Next Page": "下一页",
     "Last Page": "最后一页",
     "{{total}} Records": "{{total}}条记录",
-    "Delete the selected record?": "是否要删除选中的数据？"
+    "Delete the selected record?": "是否要删除选中的数据？",
+    "Refresh": "刷新"
 }

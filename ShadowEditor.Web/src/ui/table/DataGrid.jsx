@@ -31,6 +31,7 @@ class DataGrid extends React.Component {
         this.handlePreviousPage = this.handlePreviousPage.bind(this, props.onPreviousPage);
         this.handleNextPage = this.handleNextPage.bind(this, props.onNextPage);
         this.handleLastPage = this.handleLastPage.bind(this, props.onLastPage);
+        this.handleRefresh = this.handleRefresh.bind(this, props.onRefresh);
     }
 
     render() {
@@ -95,6 +96,7 @@ class DataGrid extends React.Component {
                 <IconButton icon={'right-triangle2'} title={_t('Next Page')} onClick={this.handleNextPage}></IconButton>
                 <IconButton icon={'forward'} title={_t('Last Page')} onClick={this.handleLastPage}></IconButton>
                 <ToolbarSeparator className={'line'}></ToolbarSeparator>
+                <IconButton icon={'refresh'} title={_t('Refresh')} onClick={this.handleRefresh}></IconButton>
                 <ToolbarFiller></ToolbarFiller>
                 <div className={'info'}>
                     {_t('Total {{totalPage}} Pages', { totalPage })}<span className={'separator'}>,</span>
@@ -133,6 +135,10 @@ class DataGrid extends React.Component {
     handleLastPage(onLastPage, event) {
         onLastPage && onLastPage(event);
     }
+
+    handleRefresh(onRefresh, event) {
+        onRefresh && onRefresh(event);
+    }
 }
 
 DataGrid.propTypes = {
@@ -160,6 +166,7 @@ DataGrid.propTypes = {
     onPreviousPage: PropTypes.func,
     onNextPage: PropTypes.func,
     onLastPage: PropTypes.func,
+    onRefresh: PropTypes.func,
 };
 
 DataGrid.defaultProps = {
@@ -179,6 +186,7 @@ DataGrid.defaultProps = {
     onPreviousPage: null,
     onNextPage: null,
     onLastPage: null,
+    onRefresh: null,
 };
 
 export default DataGrid;
