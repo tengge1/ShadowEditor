@@ -8,6 +8,7 @@ import Label from '../form/Label.jsx';
 import Select from '../form/Select.jsx';
 import ToolbarSeparator from '../toolbar/ToolbarSeparator.jsx';
 import ToolbarFiller from '../toolbar/ToolbarFiller.jsx';
+import LoadMask from '../progress/LoadMask.jsx';
 
 /**
  * 数据表格
@@ -35,7 +36,7 @@ class DataGrid extends React.Component {
     }
 
     render() {
-        const { className, style, children, pages, data, keyField, pageSize, pageNum, total, selected } = this.props;
+        const { className, style, children, pages, data, keyField, pageSize, pageNum, total, selected, mask } = this.props;
 
         const totalPage = total % pageSize === 0 ? total / pageSize : parseInt(total / pageSize) + 1;
 
@@ -104,6 +105,7 @@ class DataGrid extends React.Component {
                     {_t('{{pageSize}} per page, total {{total}} records.', { pageSize, total })}
                 </div>
             </div>}
+            <LoadMask text={_t('Loading...')} show={mask}></LoadMask>
         </div>;
     }
 
@@ -161,6 +163,7 @@ DataGrid.propTypes = {
     pageNum: PropTypes.number,
     total: PropTypes.number,
     selected: PropTypes.string,
+    mask: PropTypes.bool,
     onSelect: PropTypes.func,
     onChangePageSize: PropTypes.func,
     onFirstPage: PropTypes.func,
@@ -181,6 +184,7 @@ DataGrid.defaultProps = {
     pageNum: 1,
     total: 0,
     selected: null,
+    mask: false,
     onSelect: null,
     onChangePageSize: null,
     onFirstPage: null,

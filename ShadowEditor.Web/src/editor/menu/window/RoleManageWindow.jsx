@@ -17,6 +17,7 @@ class RoleManageWindow extends React.Component {
             total: 0,
             selected: null,
             keyword: '',
+            mask: false,
         };
 
         this.update = this.update.bind(this);
@@ -39,7 +40,7 @@ class RoleManageWindow extends React.Component {
     }
 
     render() {
-        const { data, pageSize, pageNum, total, selected } = this.state;
+        const { data, pageSize, pageNum, total, selected, mask } = this.state;
 
         return <Window
             className={'RoleManageWindow'}
@@ -61,6 +62,7 @@ class RoleManageWindow extends React.Component {
                     pageNum={pageNum}
                     total={total}
                     selected={selected}
+                    mask={mask}
                     onSelect={this.handleSelect}
                     onChangePageSize={this.handleChangePageSize}
                     onFirstPage={this.handleFirstPage}
@@ -84,14 +86,19 @@ class RoleManageWindow extends React.Component {
     }
 
     update(pageSize, pageNum, keyword = '') {
+        this.setState({
+            mask: true,
+        });
         fetch(`${app.options.server}/api/Role/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
             response.json().then(json => {
+                app.unmask();
                 this.setState({
                     pageSize,
                     pageNum,
                     total: json.Data.total,
                     data: json.Data.rows,
                     keyword: keyword,
+                    mask: false,
                 });
             });
         });
