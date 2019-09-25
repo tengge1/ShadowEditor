@@ -16,6 +16,7 @@ class RoleManageWindow extends React.Component {
             pageNum: 1,
             total: 0,
             selected: null,
+            keyword: '',
         };
 
         this.update = this.update.bind(this);
@@ -29,6 +30,7 @@ class RoleManageWindow extends React.Component {
         this.renderStatus = this.renderStatus.bind(this);
 
         this.handleSelect = this.handleSelect.bind(this);
+        this.handleChangePageSize = this.handleChangePageSize.bind(this);
         this.handleFirstPage = this.handleFirstPage.bind(this);
         this.handlePreviousPage = this.handlePreviousPage.bind(this);
         this.handleNextPage = this.handleNextPage.bind(this);
@@ -60,6 +62,7 @@ class RoleManageWindow extends React.Component {
                     total={total}
                     selected={selected}
                     onSelect={this.handleSelect}
+                    onChangePageSize={this.handleChangePageSize}
                     onFirstPage={this.handleFirstPage}
                     onPreviousPage={this.handlePreviousPage}
                     onNextPage={this.handleNextPage}
@@ -77,17 +80,10 @@ class RoleManageWindow extends React.Component {
     }
 
     componentDidMount() {
-        this.update();
+        this.handleRefresh();
     }
 
-    update() {
-        const pageNum = this.state.pageNum;
-        this.goTo(pageNum);
-    }
-
-    goTo(pageNum, keyword = '') {
-        const pageSize = this.state.pageSize;
-
+    update(pageSize, pageNum, keyword = '') {
         fetch(`${app.options.server}/api/Role/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
             response.json().then(json => {
                 this.setState({
@@ -95,6 +91,7 @@ class RoleManageWindow extends React.Component {
                     pageNum,
                     total: json.Data.total,
                     data: json.Data.rows,
+                    keyword: keyword,
                 });
             });
         });
@@ -159,8 +156,8 @@ class RoleManageWindow extends React.Component {
     }
 
     handleSearch(value) {
-        const pageNum = this.state.pageNum;
-        this.goTo(pageNum, value);
+        const { pageSize, pageNum } = this.state;
+        this.update(pageSize, pageNum, value);
     }
 
     renderDate(value) {
@@ -177,35 +174,43 @@ class RoleManageWindow extends React.Component {
         });
     }
 
+    handleChangePageSize(value) {
+        const { pageNum, keyword } = this.state;
+        this.update(value, pageNum, keyword);
+    }
+
     handleFirstPage() {
-        this.goTo(1);
+        const { pageSize, keyword } = this.state;
+
+        this.update(pageSize, 1, keyword);
     }
 
     handlePreviousPage() {
-        const { pageNum } = this.state;
+        const { pageSize, pageNum, keyword } = this.state;
         const newPageNum = pageNum > 1 ? pageNum - 1 : pageNum;
 
-        this.goTo(newPageNum);
+        this.update(pageSize, newPageNum, keyword);
     }
 
     handleNextPage() {
-        const { pageSize, pageNum, total } = this.state;
+        const { pageSize, pageNum, total, keyword } = this.state;
         const totalPage = total % pageSize === 0 ? total / pageSize : parseInt(total / pageSize) + 1;
         const newPageNum = pageNum < totalPage ? pageNum + 1 : pageNum;
 
-        this.goTo(newPageNum);
+        this.update(pageSize, newPageNum, keyword);
     }
 
     handleLastPage() {
-        const { pageSize, total } = this.state;
+        const { pageSize, total, keyword } = this.state;
         const totalPage = total % pageSize === 0 ? total / pageSize : parseInt(total / pageSize) + 1;
         const newPageNum = totalPage;
 
-        this.goTo(newPageNum);
+        this.update(pageSize, newPageNum, keyword);
     }
 
     handleRefresh() {
-        this.update();
+        const { pageSize, pageNum, keyword } = this.state;
+        this.update(pageSize, pageNum, keyword);
     }
 }
 
