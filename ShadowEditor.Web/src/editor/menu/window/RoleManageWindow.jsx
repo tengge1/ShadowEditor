@@ -33,6 +33,7 @@ class RoleManageWindow extends React.Component {
         this.handlePreviousPage = this.handlePreviousPage.bind(this);
         this.handleNextPage = this.handleNextPage.bind(this);
         this.handleLastPage = this.handleLastPage.bind(this);
+        this.handleRefresh = this.handleRefresh.bind(this);
     }
 
     render() {
@@ -63,6 +64,7 @@ class RoleManageWindow extends React.Component {
                     onPreviousPage={this.handlePreviousPage}
                     onNextPage={this.handleNextPage}
                     onLastPage={this.handleLastPage}
+                    onRefresh={this.handleRefresh}
                     keyField={'ID'}>
                     <Column type={'number'} title={'#'}></Column>
                     <Column field={'Name'} title={_t('Name')}></Column>
@@ -100,7 +102,7 @@ class RoleManageWindow extends React.Component {
 
     handleAdd() {
         const win = app.createElement(EditRoleWindow, {
-            callback: this.update,
+            callback: this.handleRefresh,
         });
         app.addElement(win);
     }
@@ -118,7 +120,7 @@ class RoleManageWindow extends React.Component {
         const win = app.createElement(EditRoleWindow, {
             id: record.ID,
             name: record.Name,
-            callback: this.update
+            callback: this.handleRefresh
         });
         app.addElement(win);
     }
@@ -145,7 +147,7 @@ class RoleManageWindow extends React.Component {
         }).then(response => {
             response.json().then(json => {
                 if (json.Code === 200) {
-                    this.update();
+                    this.handleRefresh();
                 }
                 app.toast(_t(json.Msg));
             });
@@ -200,6 +202,10 @@ class RoleManageWindow extends React.Component {
         const newPageNum = totalPage;
 
         this.goTo(newPageNum);
+    }
+
+    handleRefresh() {
+        this.update();
     }
 }
 
