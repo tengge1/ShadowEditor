@@ -24,21 +24,37 @@ namespace ShadowEditor.Server.Controllers.System
         /// <summary>
         /// 获取列表
         /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNum"></param>
+        /// <param name="keyword"></param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult List()
+        public JsonResult List(int pageSize = 20, int pageNum = 1, string keyword = "")
         {
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Ne("Status", -1);
 
-            var docs = mongo.FindMany(Constant.UserCollectionName, filter).ToList();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                var filter1 = Builders<BsonDocument>.Filter.Regex("Name", keyword);
+                filter = Builders<BsonDocument>.Filter.And(filter, filter1);
+            }
 
-            var list = new List<UserModel>();
+            var sort = Builders<BsonDocument>.Sort.Descending("_id");
+
+            var total = mongo.Count(Constant.UserCollectionName, filter);
+            var docs = mongo.FindMany(Constant.UserCollectionName, filter)
+                .Sort(sort)
+                .Skip(pageSize * (pageNum - 1))
+                .Limit(pageSize)
+                .ToList();
+
+            var rows = new List<UserModel>();
 
             foreach (var doc in docs)
             {
-                list.Add(new UserModel
+                rows.Add(new UserModel
                 {
                     ID = doc["_id"].ToString(),
                     Name = doc["Name"].ToString(),
@@ -52,7 +68,72 @@ namespace ShadowEditor.Server.Controllers.System
             {
                 Code = 200,
                 Msg = "Get Successfully!",
-                Data = list
+                Data = new
+                {
+                    total,
+                    rows,
+                },
+            });
+        }
+
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Add(UserEditModel model)
+        {
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Name is not allowed to be empty."
+                });
+            }
+
+            if (model.Name.StartsWith("_"))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Name is not allowed to start with _."
+                });
+            }
+
+            var mongo = new MongoHelper();
+
+            var filter = Builders<BsonDocument>.Filter.Eq("Name", model.Name);
+
+            var count = mongo.Count(Constant.UserCollectionName, filter);
+
+            if (count > 0)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "The name is already existed.",
+                });
+            }
+
+            var now = DateTime.Now;
+
+            var doc = new BsonDocument
+            {
+                ["ID"] = ObjectId.GenerateNewId(),
+                ["Name"] = model.Name,
+                ["CreateTime"] = now,
+                ["UpdateTime"] = now,
+                ["Status"] = 0,
+            };
+
+            mongo.InsertOne(Constant.UserCollectionName, doc);
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "Saved successfully!"
             });
         }
 
@@ -95,7 +176,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             var mongo = new MongoHelper();
 
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", objectId);
             var update1 = Builders<BsonDocument>.Update.Set("Name", model.Name);
             var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", DateTime.Now);
 
@@ -131,7 +212,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             var mongo = new MongoHelper();
 
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", objectId);
             var doc = mongo.FindOne(Constant.UserCollectionName, filter);
 
             if (doc == null)
