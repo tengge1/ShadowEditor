@@ -119,12 +119,21 @@ namespace ShadowEditor.Server.Controllers.System
 
             var now = DateTime.Now;
 
+            var salt = DateTime.Now.ToString("yyyyMMddHHmmss");
+
             var doc = new BsonDocument
             {
                 ["ID"] = ObjectId.GenerateNewId(),
+                ["Username"] = model.Username,
+                ["Password"] = MD5Helper.Encrypt(model.Password + salt),
                 ["Name"] = model.Name,
+                ["Gender"] = 0,
+                ["Phone"] = "",
+                ["Email"] = "",
+                ["QQ"] = "",
                 ["CreateTime"] = now,
                 ["UpdateTime"] = now,
+                ["Salt"] = salt,
                 ["Status"] = 0,
             };
 

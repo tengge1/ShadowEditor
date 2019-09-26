@@ -754,5 +754,10 @@
     "{{total}} Records": "{{total}}条记录",
     "Delete the selected record?": "是否要删除选中的数据？",
     "Refresh": "刷新",
-    "{{pageSize}} per page, total {{total}} records.": "每页{{pageSize}}条，共{{total}}条记录。"
+    "{{pageSize}} per page, total {{total}} records.": "每页{{pageSize}}条，共{{total}}条记录。",
+    "User Name": "用户名",
+    "NickName": "姓名",
+    "Username is not allowed to be empty.": "用户名不允许为空。",
+    "Password is not allowed to be empty.": "密码不允许为空。",
+    "Nick name is not allowed to be empty.": "姓名不允许为空"
 }

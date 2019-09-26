@@ -72,6 +72,7 @@ class UserManageWindow extends React.Component {
                     onRefresh={this.handleRefresh}
                     keyField={'ID'}>
                     <Column type={'number'} title={'#'}></Column>
+                    <Column field={'Username'} title={_t('Username')}></Column>
                     <Column field={'Name'} title={_t('Name')}></Column>
                     <Column field={'CreateTime'} title={_t('Create Date')} width={120} align={'center'} renderer={this.renderDate}></Column>
                     <Column field={'UpdateTime'} title={_t('Update Date')} width={120} align={'center'} renderer={this.renderDate}></Column>

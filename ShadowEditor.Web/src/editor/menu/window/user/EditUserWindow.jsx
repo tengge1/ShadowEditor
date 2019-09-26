@@ -10,6 +10,8 @@ class EditUserWindow extends React.Component {
 
         this.state = {
             id: props.id,
+            username: props.username,
+            password: props.password,
             name: props.name,
         };
 
@@ -19,7 +21,7 @@ class EditUserWindow extends React.Component {
     }
 
     render() {
-        const { name } = this.state;
+        const { username, password, name } = this.state;
 
         return <Window
             className={_t('EditUserWindow')}
@@ -30,7 +32,15 @@ class EditUserWindow extends React.Component {
             <Content>
                 <Form>
                     <FormControl>
-                        <Label>{_t('Name')}</Label>
+                        <Label>{_t('User Name')}</Label>
+                        <Input name={'username'} value={username} onChange={this.handleChange}></Input>
+                    </FormControl>
+                    <FormControl>
+                        <Label>{_t('Password')}</Label>
+                        <Input name={'password'} value={password} onChange={this.handleChange}></Input>
+                    </FormControl>
+                    <FormControl>
+                        <Label>{_t('NickName')}</Label>
                         <Input name={'name'} value={name} onChange={this.handleChange}></Input>
                     </FormControl>
                 </Form>
@@ -49,10 +59,20 @@ class EditUserWindow extends React.Component {
     }
 
     handleSave(callback) {
-        const { id, name } = this.state;
+        const { id, username, password, name } = this.state;
+
+        if (!username || username.trim() === '') {
+            app.toast(_t('Username is not allowed to be empty.'));
+            return;
+        }
+
+        if (!password || password.trim() === '') {
+            app.toast(_t('Password is not allowed to be empty.'));
+            return;
+        }
 
         if (!name || name.trim() === '') {
-            app.toast(_t('Name is not allowed to be empty.'));
+            app.toast(_t('Nick name is not allowed to be empty.'));
             return;
         }
 
@@ -63,7 +83,7 @@ class EditUserWindow extends React.Component {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `ID=${id}&Name=${name}`,
+            body: `ID=${id}&Username=${username}&Password=${password}&Name=${name}`,
         }).then(response => {
             response.json().then(json => {
                 if (json.Code !== 200) {
