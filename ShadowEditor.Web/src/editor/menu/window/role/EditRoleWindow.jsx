@@ -23,7 +23,7 @@ class EditRoleWindow extends React.Component {
 
         return <Window
             className={_t('EditRoleWindow')}
-            title={_t('Role Management')}
+            title={_t('Edit Role')}
             style={{ width: '320px', height: '200px' }}
             mask={false}
             onClose={this.handleClose}>

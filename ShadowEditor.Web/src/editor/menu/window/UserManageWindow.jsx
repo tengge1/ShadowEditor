@@ -124,6 +124,7 @@ class UserManageWindow extends React.Component {
 
         const win = app.createElement(EditUserWindow, {
             id: record.ID,
+            username: record.Username,
             name: record.Name,
             callback: this.handleRefresh
         });
@@ -147,7 +148,7 @@ class UserManageWindow extends React.Component {
     }
 
     commitDelete(id) {
-        fetch(`${app.options.server}/api/Role/Delete?ID=${id}`, {
+        fetch(`${app.options.server}/api/User/Delete?ID=${id}`, {
             method: 'POST'
         }).then(response => {
             response.json().then(json => {

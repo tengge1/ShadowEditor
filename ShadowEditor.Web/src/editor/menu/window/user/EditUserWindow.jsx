@@ -25,7 +25,7 @@ class EditUserWindow extends React.Component {
 
         return <Window
             className={_t('EditUserWindow')}
-            title={_t('Role Management')}
+            title={_t('Edit User')}
             style={{ width: '320px', height: '200px' }}
             mask={false}
             onClose={this.handleClose}>
@@ -66,7 +66,7 @@ class EditUserWindow extends React.Component {
             return;
         }
 
-        if (!password || password.trim() === '') {
+        if (!id && (!password || password.trim() === '')) {
             app.toast(_t('Password is not allowed to be empty.'));
             return;
         }
@@ -103,12 +103,14 @@ class EditUserWindow extends React.Component {
 
 EditUserWindow.propTypes = {
     id: PropTypes.string,
+    username: PropTypes.string,
     name: PropTypes.string,
     callback: PropTypes.func,
 };
 
 EditUserWindow.defaultProps = {
     id: '',
+    username: '',
     name: '',
     callback: null,
 };
