@@ -41,7 +41,7 @@ namespace ShadowEditor.Server.Controllers.System
                 filter = Builders<BsonDocument>.Filter.And(filter, filter1);
             }
 
-            var sort = Builders<BsonDocument>.Sort.Descending("_id");
+            var sort = Builders<BsonDocument>.Sort.Descending("ID");
 
             var total = mongo.Count(Constant.RoleCollectionName, filter);
             var docs = mongo.FindMany(Constant.RoleCollectionName, filter)
@@ -56,7 +56,7 @@ namespace ShadowEditor.Server.Controllers.System
             {
                 rows.Add(new RoleModel
                 {
-                    ID = doc["_id"].ToString(),
+                    ID = doc["ID"].ToString(),
                     Name = doc["Name"].ToString(),
                     CreateTime = doc["CreateTime"].ToLocalTime(),
                     UpdateTime = doc["UpdateTime"].ToLocalTime(),
@@ -176,7 +176,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             var mongo = new MongoHelper();
 
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", objectId);
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
             var update1 = Builders<BsonDocument>.Update.Set("Name", model.Name);
             var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", DateTime.Now);
 
@@ -212,7 +212,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             var mongo = new MongoHelper();
 
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", objectId);
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
             var doc = mongo.FindOne(Constant.RoleCollectionName, filter);
 
             if (doc == null)

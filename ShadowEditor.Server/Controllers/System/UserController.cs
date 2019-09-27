@@ -56,8 +56,14 @@ namespace ShadowEditor.Server.Controllers.System
             {
                 rows.Add(new UserModel
                 {
-                    ID = doc["_id"].ToString(),
+                    ID = doc["ID"].ToString(),
+                    Username = doc["Username"].ToString(),
+                    Password = "",
                     Name = doc["Name"].ToString(),
+                    Gender = doc["Gender"].ToInt32(),
+                    Phone = doc["Phone"].ToString(),
+                    Email = doc["Email"].ToString(),
+                    QQ = doc["QQ"].ToString(),
                     CreateTime = doc["CreateTime"].ToLocalTime(),
                     UpdateTime = doc["UpdateTime"].ToLocalTime(),
                     Status = doc["Status"].ToInt32(),
@@ -84,6 +90,24 @@ namespace ShadowEditor.Server.Controllers.System
         [HttpPost]
         public JsonResult Add(UserEditModel model)
         {
+            if (string.IsNullOrEmpty(model.Username))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Username is not allowed to be empty.",
+                });
+            }
+
+            if (string.IsNullOrEmpty(model.Password))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Password is not allowed to be empty.",
+                });
+            }
+
             if (string.IsNullOrEmpty(model.Name))
             {
                 return Json(new
@@ -93,18 +117,9 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
-            if (model.Name.StartsWith("_"))
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "Name is not allowed to start with _."
-                });
-            }
-
             var mongo = new MongoHelper();
 
-            var filter = Builders<BsonDocument>.Filter.Eq("Name", model.Name);
+            var filter = Builders<BsonDocument>.Filter.Eq("Username", model.Username);
 
             var count = mongo.Count(Constant.UserCollectionName, filter);
 
@@ -113,7 +128,7 @@ namespace ShadowEditor.Server.Controllers.System
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "The name is already existed.",
+                    Msg = "The username is already existed.",
                 });
             }
 
@@ -165,6 +180,15 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
+            if (string.IsNullOrEmpty(model.Username))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Username is not allowed to be empty.",
+                });
+            }
+
             if (string.IsNullOrEmpty(model.Name))
             {
                 return Json(new
@@ -174,22 +198,31 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
-            if (model.Name.StartsWith("_"))
+            var mongo = new MongoHelper();
+
+            // 判断用户名是否重复
+            var filter1 = Builders<BsonDocument>.Filter.Ne("ID", objectId);
+            var filter2 = Builders<BsonDocument>.Filter.Eq("Username", model.Username);
+            var filter = Builders<BsonDocument>.Filter.And(filter1, filter2);
+
+            var count = mongo.Count(Constant.UserCollectionName, filter);
+
+            if (count > 0)
             {
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "Name is not allowed to start with _."
+                    Msg = "The username is already existed.",
                 });
             }
 
-            var mongo = new MongoHelper();
+            filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
 
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", objectId);
-            var update1 = Builders<BsonDocument>.Update.Set("Name", model.Name);
-            var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", DateTime.Now);
+            var update1 = Builders<BsonDocument>.Update.Set("Username", model.Username);
+            var update2 = Builders<BsonDocument>.Update.Set("Name", model.Name);
+            var update3 = Builders<BsonDocument>.Update.Set("UpdateTime", DateTime.Now);
 
-            var update = Builders<BsonDocument>.Update.Combine(update1, update2);
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3);
 
             mongo.UpdateOne(Constant.UserCollectionName, filter, update);
 
@@ -221,7 +254,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             var mongo = new MongoHelper();
 
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", objectId);
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
             var doc = mongo.FindOne(Constant.UserCollectionName, filter);
 
             if (doc == null)

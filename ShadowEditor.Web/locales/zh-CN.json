@@ -759,5 +759,6 @@
     "NickName": "姓名",
     "Username is not allowed to be empty.": "用户名不允许为空。",
     "Password is not allowed to be empty.": "密码不允许为空。",
-    "Nick name is not allowed to be empty.": "姓名不允许为空"
+    "Nick name is not allowed to be empty.": "姓名不允许为空",
+    "The username is already existed.": "用户名已经存在。"
 }
