@@ -19,6 +19,7 @@ ShaderMaterialSerializer.prototype.toJSON = function (obj) {
 
     json.uniforms = {};
 
+    // TODO: 着色器材质uniforms序列化有很多bug。
     for (var i in obj.uniforms) {
         var uniform = obj.uniforms[i];
         if (uniform.value instanceof THREE.Color) {
@@ -50,8 +51,10 @@ ShaderMaterialSerializer.prototype.fromJSON = function (json, parent, server) {
 
     obj.uniforms = {};
 
+    // TODO: 着色器材质uniforms反序列化有很多bug。
     for (var i in json.uniforms) {
         var uniform = json.uniforms[i];
+
         if (uniform.type === 'color') {
             obj.uniforms[i] = {
                 value: new THREE.Color(uniform.value)
