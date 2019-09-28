@@ -1,7 +1,7 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
-import UserManageWindow from './window/UserManageWindow.jsx';
-import RoleManageWindow from './window/RoleManageWindow.jsx';
-import AuthorityManagementWindow from './window/AuthorityManagementWindow.jsx';
+import UserManageWindow from '../system/UserManageWindow.jsx';
+import RoleManageWindow from '../system/RoleManageWindow.jsx';
+import AuthorityManagementWindow from '../system/AuthorityManagementWindow.jsx';
 
 /**
  * 系统菜单

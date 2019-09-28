@@ -1,6 +1,6 @@
 import './css/HelpMenu.css';
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
-import RendererrAttributesWindow from './window/RendererrAttributesWindow.jsx';
+import RendererAttributesWindow from './window/RendererAttributesWindow.jsx';
 import ThreeJsInformationWindow from './window/ThreeJsInformationWindow.jsx';
 
 /**
@@ -44,7 +44,7 @@ class HelpMenu extends React.Component {
     }
 
     handleRendererAttributes() {
-        const win = app.createElement(RendererrAttributesWindow);
+        const win = app.createElement(RendererAttributesWindow);
         app.addElement(win);
     }
 

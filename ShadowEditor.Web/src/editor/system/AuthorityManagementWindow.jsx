@@ -1,12 +1,11 @@
-import './css/LoginWindow.css';
-import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../third_party';
-import Ajax from '../../../utils/Ajax';
+import './css/AuthorityManagementWindow.css';
+import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../third_party';
 
 /**
- * 登录窗口
+ * 权限管理窗口
  * @author tengge / https://github.com/tengge1
  */
-class LoginWindow extends React.Component {
+class AuthorityManagementWindow extends React.Component {
     constructor(props) {
         super(props);
 
@@ -24,8 +23,8 @@ class LoginWindow extends React.Component {
         const { username, password } = this.state;
 
         return <Window
-            className={_t('Login')}
-            title={_t('Login')}
+            className={_t('AuthorityManagementWindow')}
+            title={_t('Authority Management')}
             style={{ width: '320px', height: '200px' }}
             mask={false}
             onClose={this.handleClose}>
@@ -64,4 +63,4 @@ class LoginWindow extends React.Component {
     }
 }
 
-export default LoginWindow;
+export default AuthorityManagementWindow;

@@ -1,11 +1,11 @@
-import './css/RendererrAttributesWindow.css';
+import './css/RendererAttributesWindow.css';
 import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button } from '../../../third_party';
 
 /**
  * 渲染器属性窗口
  * @author tengge / https://github.com/tengge1
  */
-class RendererrAttributesWindow extends React.Component {
+class RendererAttributesWindow extends React.Component {
     constructor(props) {
         super(props);
 
@@ -28,7 +28,7 @@ class RendererrAttributesWindow extends React.Component {
         const state = this.state;
 
         return <Window
-            className={'RendererrAttributesWindow'}
+            className={'RendererAttributesWindow'}
             title={_t('Renderer Attributes')}
             style={{ width: '400px', height: '320px', }}
             mask={false}
@@ -61,4 +61,4 @@ class RendererrAttributesWindow extends React.Component {
     }
 }
 
-export default RendererrAttributesWindow;
+export default RendererAttributesWindow;

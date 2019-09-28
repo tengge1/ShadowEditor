@@ -1,5 +1,5 @@
 import { classNames, PropTypes, MenuBar, MenuItem } from '../../third_party';
-import LoginWindow from './window/LoginWindow.jsx';
+import LoginWindow from '../system/LoginWindow.jsx';
 
 /**
  * 状态菜单

@@ -1,5 +1,5 @@
 import './css/UserManageWindow.css';
-import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField } from '../../../third_party';
+import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField } from '../../third_party';
 import EditUserWindow from './user/EditUserWindow.jsx';
 
 /**
