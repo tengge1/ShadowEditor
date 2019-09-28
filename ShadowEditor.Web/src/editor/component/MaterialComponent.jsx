@@ -224,7 +224,7 @@ class MaterialComponent extends React.Component {
             <NumberProperty label={_t('Roughness')} name={'roughness'} value={roughness} show={showRoughness} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={_t('MetalNess')} name={'metalness'} value={metalness} show={showMetalness} onChange={this.handleChange}></NumberProperty>
             <ColorProperty label={_t('Emissive')} name={'emissive'} value={emissive} show={showEmissive} onChange={this.handleChange}></ColorProperty>
-            <NumberProperty label={_t('Specular')} name={'specular'} value={specular} show={showSpecular} onChange={this.handleChange}></NumberProperty>
+            <ColorProperty label={_t('Specular')} name={'specular'} value={specular} show={showSpecular} onChange={this.handleChange}></ColorProperty>
             <NumberProperty label={_t('Shininess')} name={'shininess'} value={shininess} show={showShininess} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={_t('ClearCoat')} name={'clearCoat'} value={clearCoat} show={showClearCoat} onChange={this.handleChange}></NumberProperty>
             <NumberProperty label={_t('ClearCoatRoughness')} name={'clearCoatRoughness'} value={clearCoatRoughness} show={showClearCoatRoughness} onChange={this.handleChange}></NumberProperty>
@@ -319,7 +319,7 @@ class MaterialComponent extends React.Component {
 
         if (material.specular !== undefined) {
             state.showSpecular = true;
-            state.specular = `#${material.specular}`;
+            state.specular = `#${material.specular.getHexString()}`;
         } else {
             state.showSpecular = false;
         }
