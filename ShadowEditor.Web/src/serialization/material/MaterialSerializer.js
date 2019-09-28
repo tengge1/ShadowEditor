@@ -131,7 +131,7 @@ MaterialSerializer.prototype.fromJSON = function (json, parent, server) {
         obj.specular = new THREE.Color(json.specular);
     }
     if (json.specularMap !== undefined) {
-        obj.specularMap = (new TexturesSerializer()).toJSON(json.specularMap);
+        obj.specularMap = (new TexturesSerializer()).fromJSON(json.specularMap, undefined, server);
     }
 
     obj.envMap = json.envMap == null ? null : (new TexturesSerializer()).fromJSON(json.envMap, undefined, server);
