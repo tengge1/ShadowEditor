@@ -547,7 +547,8 @@ class MaterialComponent extends React.Component {
             editor.execute(new SetMaterialColorCommand(object, 'emissive', emissive));
         }
 
-        if (material.specular !== undefined && `#${material.specular}` !== specular) {
+        // bug: 切换材质时，由于新材质有specular属性，旧材质没有specular属性，可能会导致报错。
+        if (material.specular !== undefined && `#${material.specular.getHexString()}` !== specular && specular !== null) {
             editor.execute(new SetMaterialValueCommand(object, 'specular', specular));
         }
 
