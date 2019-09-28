@@ -762,5 +762,6 @@
     "Nick name is not allowed to be empty.": "姓名不允许为空",
     "The username is already existed.": "用户名已经存在。",
     "Edit Role": "编辑角色",
-    "Edit User": "编辑用户"
+    "Edit User": "编辑用户",
+    "Register": "注册"
 }
