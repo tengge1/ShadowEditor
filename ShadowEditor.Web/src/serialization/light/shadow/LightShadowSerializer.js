@@ -20,7 +20,6 @@ LightShadowSerializer.prototype.toJSON = function (obj) {
     json.camera = (new CamerasSerializer()).toJSON(obj.camera);
     json.map = obj.map == null ? null : (new WebGLRenderTargetSerializer()).toJSON(obj.map);
     json.mapSize = obj.mapSize;
-    json.matrix = obj.matrix;
     json.radius = obj.radius;
 
     return json;
@@ -33,10 +32,7 @@ LightShadowSerializer.prototype.fromJSON = function (json, parent) {
 
     obj.bias = json.bias;
     obj.camera.copy(camera);
-    // 纹理时自动生成的，不要反序列化
-    // obj.map = json.map == null ? null : (new WebGLRenderTargetSerializer()).fromJSON(json.map);
     obj.mapSize.copy(json.mapSize);
-    obj.matrix.copy(json.matrix);
     obj.radius = json.radius;
 
     return obj;

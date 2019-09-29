@@ -48,7 +48,6 @@ TextureSerializer.prototype.toJSON = function (obj) {
 
     json.magFilter = obj.magFilter;
     json.mapping = obj.mapping;
-    json.matrix = obj.matrix;
     json.matrixAutoUpdate = obj.matrixAutoUpdate;
     json.minFilter = obj.minFilter;
     json.mipmaps = obj.mipmaps;
@@ -125,7 +124,6 @@ TextureSerializer.prototype.fromJSON = function (json, parent, server) {
 
     obj.magFilter = json.magFilter;
     obj.mapping = json.mapping;
-    obj.matrix.copy(json.matrix);
     obj.matrixAutoUpdate = json.matrixAutoUpdate;
     obj.minFilter = json.minFilter;
     obj.mipmaps = json.mipmaps;

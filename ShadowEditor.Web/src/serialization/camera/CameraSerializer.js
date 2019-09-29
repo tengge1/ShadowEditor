@@ -23,21 +23,13 @@ CameraSerializer.prototype.filter = function (obj) {
 };
 
 CameraSerializer.prototype.toJSON = function (obj) {
-    var json = Object3DSerializer.prototype.toJSON.call(this, obj);
-
-    json.matrixWorldInverse = obj.matrixWorldInverse;
-    json.projectionMatrix = obj.projectionMatrix;
-
-    return json;
+    return Object3DSerializer.prototype.toJSON.call(this, obj);
 };
 
 CameraSerializer.prototype.fromJSON = function (json, parent) {
     var obj = parent === undefined ? new THREE.Camera() : parent;
 
     Object3DSerializer.prototype.fromJSON.call(this, json, obj);
-
-    obj.matrixWorldInverse.copy(json.matrixWorldInverse);
-    obj.projectionMatrix.copy(json.projectionMatrix);
 
     return obj;
 };

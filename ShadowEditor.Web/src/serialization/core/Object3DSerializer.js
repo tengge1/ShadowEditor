@@ -20,13 +20,10 @@ Object3DSerializer.prototype.toJSON = function (obj) {
     });
     json.frustumCulled = obj.frustumCulled;
     json.layers = obj.layers;
-    json.matrix = obj.matrix;
     json.matrixAutoUpdate = obj.matrixAutoUpdate;
-    json.matrixWorld = obj.matrixWorld;
     json.matrixWorldNeedsUpdate = obj.matrixWorldNeedsUpdate;
     json.modelViewMatrix = obj.modelViewMatrix;
     json.name = obj.name;
-    json.normalMatrix = obj.normalMatrix;
     json.parent = obj.parent == null ? null : obj.parent.uuid;
     json.position = obj.position;
     json.quaternion = {
@@ -70,7 +67,6 @@ Object3DSerializer.prototype.fromJSON = function (json, parent) {
     obj.type = json.type;
     obj.uuid = json.uuid;
 
-    obj.matrix.copy(json.matrix);
     obj.matrixAutoUpdate = json.matrixAutoUpdate;
     obj.name = json.name;
     obj.position.copy(json.position);
