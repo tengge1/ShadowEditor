@@ -763,5 +763,7 @@
     "The username is already existed.": "用户名已经存在。",
     "Edit Role": "编辑角色",
     "Edit User": "编辑用户",
-    "Register": "注册"
+    "Register": "注册",
+    "Disable Authority": "禁用权限",
+    "Enable Authority": "启用权限"
 }

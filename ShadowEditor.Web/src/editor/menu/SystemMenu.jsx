@@ -11,17 +11,34 @@ class SystemMenu extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            authorityEnabled: false,
+        };
+
+        this.handleEnableAuthority = this.handleEnableAuthority.bind(this);
         this.handleUser = this.handleUser.bind(this);
         this.handleRole = this.handleRole.bind(this);
         this.handleAuthority = this.handleAuthority.bind(this);
     }
 
     render() {
+        const { authorityEnabled } = this.state;
+
         return <MenuItem title={_t('System')}>
+            <MenuItem title={authorityEnabled ? _t('Disable Authority') : _t('Enable Authority')} onClick={this.handleEnableAuthority}></MenuItem>
+            <MenuItemSeparator></MenuItemSeparator>
             <MenuItem title={_t('User Management')} onClick={this.handleUser}></MenuItem>
             <MenuItem title={_t('Role Management')} onClick={this.handleRole}></MenuItem>
             <MenuItem title={_t('Authority Management')} onClick={this.handleAuthority}></MenuItem>
         </MenuItem>;
+    }
+
+    handleEnableAuthority() {
+        const { authorityEnabled } = this.state;
+
+        this.setState({
+            authorityEnabled: !authorityEnabled,
+        });
     }
 
     handleUser() {
