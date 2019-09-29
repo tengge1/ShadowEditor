@@ -119,7 +119,8 @@ class ModelPanel extends React.Component {
         loader.load(url, model, {
             camera: app.editor.camera,
             renderer: app.editor.renderer,
-            audioListener: app.editor.audioListener
+            audioListener: app.editor.audioListener,
+            clearChildren: true,
         }).then(obj => {
             if (!obj) {
                 return;
@@ -129,6 +130,9 @@ class ModelPanel extends React.Component {
             Object.assign(obj.userData, model, {
                 Server: true
             });
+
+            // 清除obj.userData._children属性，避免就数据错误，导致丢失模型组件
+            delete obj.userData._children;
 
             var cmd = new AddObjectCommand(obj);
             cmd.execute();
