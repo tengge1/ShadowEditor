@@ -734,7 +734,8 @@
     "Upload Sky Box": "上传天空盒",
     "Upload Video": "上传视频",
     "Login": "登录",
-    "Login successfully!": "登录成功",
+    "Login successfully!": "登录成功！",
+    "Logout Successfully!": "注销成功！",
     "Username": "用户名",
     "Password": "密码",
     "System": "系统",
@@ -765,5 +766,6 @@
     "Edit User": "编辑用户",
     "Register": "注册",
     "Disable Authority": "禁用权限",
-    "Enable Authority": "启用权限"
+    "Enable Authority": "启用权限",
+    "The username or password is wrong.": "用户名或密码错误"
 }

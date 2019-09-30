@@ -16,7 +16,7 @@ class LoginWindow extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleSave = this.handleSave.bind(this, props.callback);
+        this.handleLogin = this.handleLogin.bind(this, props.callback);
         this.handleClose = this.handleClose.bind(this);
     }
 
@@ -42,21 +42,36 @@ class LoginWindow extends React.Component {
                 </Form>
             </Content>
             <Buttons>
-                <Button onClick={this.handleSave}>{_t('OK')}</Button>
+                <Button onClick={this.handleLogin}>{_t('OK')}</Button>
                 <Button onClick={this.handleClose}>{_t('Cancel')}</Button>
             </Buttons>
         </Window>;
     }
 
-    handleChange(name, value) {
+    handleChange(value, name) {
         this.setState({
             [name]: value,
         });
     }
 
-    handleSave() {
-        this.handleClose();
-        app.toast(_t('Login successfully!'));
+    handleLogin() {
+        const { username, password } = this.state;
+
+        fetch(`/api/Login/Login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `Username=${username}&Password=${password}`
+        }).then(response => {
+            response.json().then(json => {
+                if (json.Code !== 200) {
+                    app.toast(_t(json.Msg));
+                    return;
+                }
+                this.handleClose();
+            });
+        });
     }
 
     handleClose() {
