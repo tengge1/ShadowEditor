@@ -103,6 +103,7 @@
     <Compile Include="Controllers\CharacterController.cs" />
     <Compile Include="Controllers\Export\ExportExamplesController.cs" />
     <Compile Include="Controllers\Export\ExportSceneController.cs" />
+    <Compile Include="Controllers\System\ConfigController.cs" />
     <Compile Include="Controllers\System\LoginController.cs" />
     <Compile Include="Controllers\System\UserController.cs" />
     <Compile Include="Controllers\System\RoleController.cs" />

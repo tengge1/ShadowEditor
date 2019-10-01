@@ -77,6 +77,11 @@ namespace ShadowEditor.Server
         public const string FileCollectionName = "_File";
 
         /// <summary>
+        /// 配置表
+        /// </summary>
+        public const string ConfigCollectionName = "_Config";
+
+        /// <summary>
         /// 角色表
         /// </summary>
         public const string RoleCollectionName = "_Role";
