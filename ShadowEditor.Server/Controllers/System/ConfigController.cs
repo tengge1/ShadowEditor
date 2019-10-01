@@ -25,6 +25,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// 获取配置信息
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public JsonResult Get()
         {
             var helper = new MongoHelper();

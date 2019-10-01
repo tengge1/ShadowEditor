@@ -767,5 +767,6 @@
     "Register": "注册",
     "Disable Authority": "禁用权限",
     "Enable Authority": "启用权限",
-    "The username or password is wrong.": "用户名或密码错误"
+    "The username or password is wrong.": "用户名或密码错误",
+    "Server configuration acquisition failed.": "服务器配置获取失败"
 }

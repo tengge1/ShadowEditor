@@ -10,6 +10,7 @@ import {
 } from './third_party';
 import Options from './Options';
 import Storage from './utils/Storage';
+import Config from './utils/Config';
 import PackageManager from './package/PackageManager';
 import EventDispatcher from './event/EventDispatcher';
 import Editor from './editor/Editor.jsx';
@@ -36,6 +37,9 @@ function Application(container, options) {
     this.storage = new Storage();
     this.debug = this.storage.get('debug') || false;
 
+    // 服务端配置
+    this.config = new Config();
+
     // 包管理器
     this.packageManager = new PackageManager();
     this.require = this.packageManager.require.bind(this.packageManager);
@@ -45,21 +49,33 @@ function Application(container, options) {
     this.call = this.event.call.bind(this.event);
     this.on = this.event.on.bind(this.event);
 
-    // 加载语言包
-    if (!window._t) {
+    // 异步获取数据
+    const promise1 = new Promise(resolve => { // 加载语言包
         const loader = new LanguageLoader();
-
         loader.load().then(() => {
-            this.ui = React.createElement(Editor);
-
-            // TODO: 由于ammo.js升级，导致很多类库不兼容，所以只能这么写。
-            Ammo().then(AmmoLib => {
-                window.Ammo = AmmoLib;
-                this.event.start();
-                ReactDOM.render(this.ui, this.container);
-            });
+            resolve();
         });
-    }
+    });
+
+    const promise2 = new Promise(resolve => { // 加载物理引擎
+        // TODO: 由于ammo.js升级，导致很多类库不兼容，所以只能这么写。
+        Ammo().then(AmmoLib => {
+            window.Ammo = AmmoLib;
+            resolve();
+        });
+    });
+
+    const promise3 = new Promise(resolve => { // 加载服务器配置
+        this.config.load().then(() => {
+            resolve();
+        });
+    });
+
+    Promise.all([promise1, promise2, promise3]).then(() => {
+        this.ui = React.createElement(Editor);
+        this.event.start();
+        ReactDOM.render(this.ui, this.container);
+    });
 }
 
 // ----------------------- UI函数 ---------------------------------
