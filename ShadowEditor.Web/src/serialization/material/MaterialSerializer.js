@@ -45,10 +45,10 @@ MaterialSerializer.prototype.toJSON = function (obj) {
     json.emissiveIntensity = obj.emissiveIntensity;
     json.emissiveMap = obj.emissiveMap == null ? null : (new TexturesSerializer()).toJSON(obj.emissiveMap);
 
-    if (obj.specular !== undefined) {
+    if (obj.specular) {
         json.specular = obj.specular;
     }
-    if (obj.specularMap !== undefined) {
+    if (obj.specularMap) {
         json.specularMap = (new TexturesSerializer()).toJSON(obj.specularMap);
     }
 
@@ -126,11 +126,11 @@ MaterialSerializer.prototype.fromJSON = function (json, parent, server) {
     obj.emissiveIntensity = json.emissiveIntensity;
     obj.emissiveMap = json.emissiveMap == null ? null : (new TexturesSerializer()).fromJSON(json.emissiveMap, undefined, server);
 
-    if (json.specular !== undefined) {
+    if (json.specular) {
         // bug: json.specular是颜色值。
         obj.specular = new THREE.Color(json.specular);
     }
-    if (json.specularMap !== undefined) {
+    if (json.specularMap) {
         obj.specularMap = (new TexturesSerializer()).fromJSON(json.specularMap, undefined, server);
     }
 

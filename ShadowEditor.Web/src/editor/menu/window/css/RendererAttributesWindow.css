@@ -1,4 +1,4 @@
-.Window.RendererrAttributesWindow>.wrap>.content {
+.Window.RendererAttributesWindow>.wrap>.content {
     left: 0;
     top: 24px;
     right: 0;
@@ -6,6 +6,6 @@
     overflow-y: auto;
 }
 
-.Window.RendererrAttributesWindow>.wrap>.content>.Form>.FormControl>.Label {
+.Window.RendererAttributesWindow>.wrap>.content>.Form>.FormControl>.Label {
     width: 180px;
 }
