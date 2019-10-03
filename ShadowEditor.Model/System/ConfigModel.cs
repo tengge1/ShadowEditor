@@ -15,10 +15,5 @@ namespace ShadowEditor.Model.System
         /// ID
         /// </summary>
         public string ID { get; set; }
-
-        /// <summary>
-        /// 是否开启权限
-        /// </summary>
-        public bool EnableAuthority { get; set; }
     }
 }

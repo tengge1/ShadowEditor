@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web;
 using System.IO;
+using System.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
@@ -39,15 +40,14 @@ namespace ShadowEditor.Server.Controllers.System
                 config = new BsonDocument
                 {
                     ["ID"] = ObjectId.GenerateNewId(),
-                    ["EnableAuthority"] = false,
                 };
                 helper.InsertOne(Constant.ConfigCollectionName, config);
             }
 
-            var model = new ConfigModel
+            var model = new JObject
             {
-                ID = config["ID"].ToString(),
-                EnableAuthority = config["EnableAuthority"].ToBoolean(),
+                ["ID"] = config["ID"].ToString(),
+                ["EnableAuthority"] = ConfigurationManager.AppSettings["EnableAuthority"] == "true",
             };
 
             return Json(new
