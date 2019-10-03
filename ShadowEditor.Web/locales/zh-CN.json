@@ -768,5 +768,8 @@
     "Disable Authority": "禁用权限",
     "Enable Authority": "启用权限",
     "The username or password is wrong.": "用户名或密码错误",
-    "Server configuration acquisition failed.": "服务器配置获取失败"
+    "Server configuration acquisition failed.": "服务器配置获取失败",
+    "To GLTF File": "到GLTF文件",
+    "Scene{{Time}}": "场景{{Time}}",
+    "Input File Name": "请输入文件名称"
 }

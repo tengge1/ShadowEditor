@@ -2,6 +2,8 @@ import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator, Confirm } 
 import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';
 import GISScene from '../../gis/Scene';
+import TimeUtils from '../../utils/TimeUtils';
+import StringUtils from '../../utils/StringUtils';
 
 /**
  * 场景菜单
@@ -15,7 +17,8 @@ class SceneMenu extends React.Component {
         this.handleCreateGISScene = this.handleCreateGISScene.bind(this);
         this.handleSaveScene = this.handleSaveScene.bind(this);
         this.handleSaveAsScene = this.handleSaveAsScene.bind(this);
-        this.handleExportScene = this.handleExportScene.bind(this);
+        this.handleExportSceneToGltf = this.handleExportSceneToGltf.bind(this);
+        this.handlePublishScene = this.handlePublishScene.bind(this);
     }
 
     render() {
@@ -27,7 +30,10 @@ class SceneMenu extends React.Component {
             <MenuItem title={_t('Save')} onClick={this.handleSaveScene}></MenuItem>
             <MenuItem title={_t('Save As')} onClick={this.handleSaveAsScene}></MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={_t('Publish Scene')} onClick={this.handleExportScene}></MenuItem>
+            <MenuItem title={_t('Export Scene')}>
+                <MenuItem title={_t('To GLTF File')} onClick={this.handleExportSceneToGltf}></MenuItem>
+            </MenuItem>
+            <MenuItem title={_t('Publish Scene')} onClick={this.handlePublishScene}></MenuItem>
         </MenuItem>;
     }
 
@@ -200,9 +206,38 @@ class SceneMenu extends React.Component {
         });
     }
 
-    // -------------------------- 导出场景 --------------------------------
+    // ----------------------- 导出场景为gltf文件 -------------------------
 
-    handleExportScene() {
+    handleExportSceneToGltf() {
+        var sceneName = app.editor.sceneName;
+
+        if (!sceneName) {
+            sceneName = _t(`Scene{{Time}}`, { Time: TimeUtils.getDateTime() });
+        }
+
+        app.prompt({
+            title: _t('Input File Name'),
+            content: _t('Name'),
+            value: sceneName,
+            onOK: name => {
+                this.commitExportSceneToGltf(name);
+            }
+        });
+    }
+
+    commitExportSceneToGltf(name) {
+        app.require('GLTFExporter').then(() => {
+            var exporter = new THREE.GLTFExporter();
+
+            exporter.parse(app.editor.scene, result => {
+                StringUtils.saveString(JSON.stringify(result), `${name}.gltf`);
+            });
+        });
+    }
+
+    // -------------------------- 发布场景 --------------------------------
+
+    handlePublishScene() {
         var sceneID = app.editor.sceneID;
 
         if (!sceneID) {
