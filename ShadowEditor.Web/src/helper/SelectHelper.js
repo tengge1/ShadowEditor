@@ -20,11 +20,14 @@ SelectHelper.prototype.start = function () {
     app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
     app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
     app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
+    app.on(`optionChange.${this.id}`, this.onOptionChange.bind(this))
 };
 
 SelectHelper.prototype.stop = function () {
     app.on(`objectSelected.${this.id}`, null);
+    app.on(`objectRemoved.${this.id}`, null);
     app.on(`afterRender.${this.id}`, null);
+    app.on(`optionChange.${this.id}`, null)
 };
 
 SelectHelper.prototype.onObjectSelected = function (obj) {
@@ -100,11 +103,11 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
                     value: new THREE.Vector2(width, height),
                 },
                 color: {
-                    value: new THREE.Vector3(1.0, 1.0, 1.0),
+                    value: new THREE.Color(app.options.selectedColor),
                 },
                 thickness: {
                     type: 'f',
-                    value: 2,
+                    value: app.options.selectedThickness,
                 },
             },
             depthTest: false,
@@ -223,6 +226,14 @@ SelectHelper.prototype.showNonSelectedObjects = function (scene, selected) {
             delete obj.userData.oldVisible;
         }
     });
+};
+
+SelectHelper.prototype.onOptionChange = function (name, value) {
+    if (name === 'selectedColor') {
+        this.edgeMaterial.uniforms.color.value.set(value);
+    } else if (name === 'selectedThickness') {
+        this.edgeMaterial.uniforms.thickness.value = value;
+    }
 };
 
 export default SelectHelper;

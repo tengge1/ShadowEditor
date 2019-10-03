@@ -6,6 +6,16 @@
     margin: 0 8px;
 }
 
+.EditorStatusBar>.Input.selected-color {
+    width: 60px;
+    border: none;
+    background: transparent;
+}
+
+.EditorStatusBar>.Input.selected-thickness {
+    width: 60px;
+}
+
 .EditorStatusBar>.Button {
     height: 20px;
     font: 12px 'Microsoft YaHei';

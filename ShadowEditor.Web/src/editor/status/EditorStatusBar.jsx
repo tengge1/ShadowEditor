@@ -1,5 +1,5 @@
 import './css/EditorStatusBar.css';
-import { classNames, PropTypes, Toolbar, ToolbarSeparator, Label, CheckBox, Button } from '../../third_party';
+import { classNames, PropTypes, Toolbar, ToolbarSeparator, Label, CheckBox, Button, Input } from '../../third_party';
 import Converter from '../../utils/Converter';
 import TimeUtils from '../../utils/TimeUtils';
 import VideoRecorder from '../../utils/VideoRecorder';
@@ -27,6 +27,8 @@ class EditorStatusBar extends React.Component {
         this.handleShowGrid = this.handleShowGrid.bind(this);
         this.handleShowViewHelper = this.handleShowViewHelper.bind(this);
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
+        this.changeSelectedColor = this.changeSelectedColor.bind(this);
+        this.changeSelectedThickness = this.changeSelectedThickness.bind(this);
         this.handleScreenshot = this.handleScreenshot.bind(this);
         this.commitScreenshot = this.commitScreenshot.bind(this);
         this.handleRecord = this.handleRecord.bind(this);
@@ -34,6 +36,7 @@ class EditorStatusBar extends React.Component {
 
     render() {
         const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall, isRecording } = this.state;
+        const { selectedColor, selectedThickness } = app.options;
 
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{_t('Object')}</Label>
@@ -51,6 +54,11 @@ class EditorStatusBar extends React.Component {
             <CheckBox checked={showViewHelper} onChange={this.handleShowViewHelper}></CheckBox>
             <Label>{_t('ThrowBall')}</Label>
             <CheckBox checked={isThrowBall} onChange={this.handleEnableThrowBall}></CheckBox>
+            <ToolbarSeparator></ToolbarSeparator>
+            <Label>{_t('Selected Color')}</Label>
+            <Input name={'selectedColor'} className={'selected-color'} type={'color'} value={selectedColor} onChange={this.changeSelectedColor}></Input>
+            <Label>{_t('Selected Thickness')}</Label>
+            <Input name={'selectedThickness'} className={'selected-thickness'} type={'number'} min={1} max={100} precision={1} value={selectedThickness} onChange={this.changeSelectedThickness}></Input>
             <ToolbarSeparator></ToolbarSeparator>
             <Button onClick={this.handleScreenshot}>{_t('Screenshot')}</Button>
             <Button onClick={this.handleRecord}>{isRecording ? _t('Stop') : _t('Record')}</Button>
@@ -141,6 +149,18 @@ class EditorStatusBar extends React.Component {
 
     handleEnableThrowBall(checked) {
         app.call('enableThrowBall', this, checked);
+    }
+
+    changeSelectedColor(value) {
+        app.options.selectedColor = value;
+        app.call(`optionChange`, this, 'selectedColor', value);
+        this.forceUpdate();
+    }
+
+    changeSelectedThickness(value) {
+        app.options.selectedThickness = value;
+        app.call(`optionChange`, this, 'selectedThickness', value);
+        this.forceUpdate();
     }
 
     handleScreenshot() {

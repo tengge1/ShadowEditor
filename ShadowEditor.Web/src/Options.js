@@ -30,6 +30,10 @@ function Options(options = {}) {
     this.grayscale = 0;
     this.invert = 0;
     this.sepia = 0;
+
+    // 选中效果
+    this.selectedColor = '#ffffff';
+    this.selectedThickness = 2;
 }
 
 export default Options;

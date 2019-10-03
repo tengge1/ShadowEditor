@@ -772,5 +772,8 @@
     "To GLTF File": "到GLTF文件",
     "Scene{{Time}}": "场景{{Time}}",
     "Input File Name": "请输入文件名称",
-    "ScriptComponent": "脚本组件"
+    "ScriptComponent": "脚本组件",
+    "Selected Color": "选中颜色",
+    "Selected Thickness": "选中粗细",
+    "Selected Effect": "选中效果"
 }
