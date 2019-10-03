@@ -15,6 +15,7 @@ import SceneComponent from '../component/SceneComponent.jsx';
 import ShadowComponent from '../component/ShadowComponent.jsx';
 import SmokeComponent from '../component/SmokeComponent.jsx';
 import TransformComponent from '../component/TransformComponent.jsx';
+import ScriptComponent from '../component/ScriptComponent.jsx';
 
 // component/audio
 import AudioListenerComponent from '../component/audio/AudioListenerComponent.jsx';
@@ -96,6 +97,7 @@ class PropertyPanel extends React.Component {
             <ShadowComponent></ShadowComponent>
             <CameraComponent></CameraComponent>
             <AudioListenerComponent></AudioListenerComponent>
+            <ScriptComponent></ScriptComponent>
 
             {/* component/objects */}
             <BackgroundMusicComponent></BackgroundMusicComponent>
