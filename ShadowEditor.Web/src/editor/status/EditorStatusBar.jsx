@@ -57,7 +57,7 @@ class EditorStatusBar extends React.Component {
             <ToolbarSeparator></ToolbarSeparator>
             <Label>{_t('Selected Color')}</Label>
             <Input name={'selectedColor'} className={'selected-color'} type={'color'} value={selectedColor} onChange={this.changeSelectedColor}></Input>
-            <Label>{_t('Selected Thickness')}</Label>
+            <Label>{_t('Border Thickness')}</Label>
             <Input name={'selectedThickness'} className={'selected-thickness'} type={'number'} min={1} max={100} precision={1} value={selectedThickness} onChange={this.changeSelectedThickness}></Input>
             <ToolbarSeparator></ToolbarSeparator>
             <Button onClick={this.handleScreenshot}>{_t('Screenshot')}</Button>

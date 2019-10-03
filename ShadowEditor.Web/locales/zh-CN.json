@@ -775,5 +775,6 @@
     "ScriptComponent": "脚本组件",
     "Selected Color": "选中颜色",
     "Selected Thickness": "选中粗细",
-    "Selected Effect": "选中效果"
+    "Selected Effect": "选中效果",
+    "Border Thickness": "边框粗细"
 }
