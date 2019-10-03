@@ -19,6 +19,17 @@ ObjectLoader.prototype.load = function (url, options) {
             var loader = new THREE.ObjectLoader();
 
             loader.load(url, obj => {
+                if (obj.traverse) {
+                    obj.traverse(n => {
+                        // bug: 由于导出的json格式的模型文件，可能带有Server: true信息，
+                        // 会导致同一个模型下载两次。
+                        if (n.userData && n.userData.Server === true) {
+                            delete n.userData.Server;
+                            delete n.userData.Url;
+                        }
+                    });
+                }
+
                 if (obj instanceof THREE.Scene && obj.children.length > 0 && obj.children[0] instanceof THREE.SkinnedMesh) {
                     resolve(this.loadSkinnedMesh(obj, options));
                 } else {

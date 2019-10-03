@@ -360,7 +360,12 @@ Converter.prototype.parse = function (jsons, options) {
             parts.push((new Object3DSerializer()).fromJSON(n));
             return new Promise(resolve => {
                 (new ServerObject()).fromJSON(n, options, options).then(obj => {
-                    this.traverseServerObject(obj, serverParts);
+                    // bug: 由于某个模型被删，导致场景整体加载失败。
+                    if (obj) {
+                        this.traverseServerObject(obj, serverParts);
+                    } else {
+                        console.warn(`Converter: ${n.uuid} loaded failed.`);
+                    }
                     resolve();
                 });
             });
