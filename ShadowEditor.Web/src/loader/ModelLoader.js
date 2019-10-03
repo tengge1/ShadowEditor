@@ -105,7 +105,7 @@ ModelLoader.prototype.load = function (url, options = {}, environment = {}) {
 
             // bug: 由于模型可能自带错误的_children数据，导致载入场景模型显示不全。
             // 所以，向场景添加模型时，清除掉_children属性。
-            if(options.clearChildren) {
+            if (environment.clearChildren) {
                 delete obj.userData._children;
             }
 

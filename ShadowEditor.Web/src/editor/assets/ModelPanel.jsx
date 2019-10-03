@@ -131,9 +131,6 @@ class ModelPanel extends React.Component {
                 Server: true
             });
 
-            // 清除obj.userData._children属性，避免就数据错误，导致丢失模型组件
-            delete obj.userData._children;
-
             var cmd = new AddObjectCommand(obj);
             cmd.execute();
 
