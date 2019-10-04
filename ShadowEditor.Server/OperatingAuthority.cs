@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server
 {
@@ -14,11 +15,13 @@ namespace ShadowEditor.Server
         /// <summary>
         /// 获取动画列表
         /// </summary>
+        [Sort(0)]
         public static string LIST_ANIMATION = "List Animation";
 
         /// <summary>
         /// 添加动画
         /// </summary>
+        [Sort(1)]
         public static string ADD_ANIMATION = "Add Animation";
 
         /// <summary>
