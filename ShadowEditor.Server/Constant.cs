@@ -92,9 +92,9 @@ namespace ShadowEditor.Server
         public const string UserCollectionName = "_User";
 
         /// <summary>
-        /// 权限表
+        /// 操作权限表
         /// </summary>
-        public const string AuthorityCollectionName = "_Authority";
+        public const string OperatingAuthorityCollectionName = "_OperatingAuthority";
 
         /// <summary>
         /// 历史表后缀（版本控制）

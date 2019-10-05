@@ -105,6 +105,7 @@
     <Compile Include="Controllers\Export\ExportSceneController.cs" />
     <Compile Include="Controllers\System\ConfigController.cs" />
     <Compile Include="Controllers\System\LoginController.cs" />
+    <Compile Include="Controllers\System\OperatingAuthorityController.cs" />
     <Compile Include="Controllers\System\UserController.cs" />
     <Compile Include="Controllers\System\RoleController.cs" />
     <Compile Include="Controllers\Tools\CleanUpScenesController.cs" />
