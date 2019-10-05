@@ -47,8 +47,8 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
 
     app.editor.renderer.getDrawingBufferSize(this.size);
 
-    var width = this.size.x;
-    var height = this.size.y;
+    var width = this.size.x * 2;
+    var height = this.size.y * 2;
 
     if (this.scene === undefined) {
         this.scene = new THREE.Scene();

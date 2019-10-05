@@ -33,7 +33,7 @@ function Options(options = {}) {
 
     // 选中效果
     this.selectedColor = '#ffffff';
-    this.selectedThickness = 2;
+    this.selectedThickness = 4;
 }
 
 export default Options;
