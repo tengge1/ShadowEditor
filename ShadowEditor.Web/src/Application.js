@@ -159,14 +159,14 @@ Application.prototype.alert = function (options = {}) {
         className,
         style,
         onOK,
-        onClose,
+        onClose
     }, content);
 
     this.addElement(component);
 
     return {
         component,
-        close,
+        close
     };
 };
 
@@ -214,14 +214,14 @@ Application.prototype.confirm = function (options = {}) {
         style,
         onOK: handleOK,
         onCancel,
-        onClose: onCancel,
+        onClose: onCancel
     }, content);
 
     this.addElement(component);
 
     return {
         component,
-        close,
+        close
     };
 };
 
@@ -270,14 +270,14 @@ Application.prototype.prompt = function (options = {}) {
         value,
         okText: _t('OK'),
         onOK: handleOK,
-        onClose,
+        onClose
     });
 
     this.addElement(component);
 
     return {
         component,
-        close,
+        close
     };
 };
 
@@ -357,7 +357,7 @@ Application.prototype.upload = function () {
             input.style.display = 'none';
             input.addEventListener('change', event => {
                 Ajax.post(url, {
-                    file: event.target.files[0],
+                    file: event.target.files[0]
                 }, json => {
                     var obj = JSON.parse(json);
                     if (obj.Code === 200) {

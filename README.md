@@ -9,6 +9,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## v0.3.5即将更新
 
+1. 修复原点移到视野外，视角指示器消失bug。
+
 ## v0.3.4更新
 
 * 发布日期：2019年10月6日

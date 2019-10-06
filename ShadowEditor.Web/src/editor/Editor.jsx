@@ -26,7 +26,7 @@ class Editor extends React.Component {
         this.state = {
             showMask: false,
             maskText: _t('Waiting...'),
-            elements: [],
+            elements: []
         };
 
         this.type = 'scene'; // 编辑器类型：scene, mesh, texture, material, terrain, ai
@@ -39,20 +39,20 @@ class Editor extends React.Component {
 
         return <>
             <BorderLayout className={'Editor'}>
-                <EditorMenuBar region={'north'}></EditorMenuBar>
-                <EditorStatusBar region={'south'}></EditorStatusBar>
-                <AssetsPanel region={'west'} split={true} onToggle={this.onToggle}></AssetsPanel>
-                <EditorSideBar region={'east'} split={true} onToggle={this.onToggle}></EditorSideBar>
+                <EditorMenuBar region={'north'} />
+                <EditorStatusBar region={'south'} />
+                <AssetsPanel region={'west'} split onToggle={this.onToggle} />
+                <EditorSideBar region={'east'} split onToggle={this.onToggle} />
                 <BorderLayout region={'center'}>
-                    <EditorToolbar region={'west'}></EditorToolbar>
-                    <Viewport region={'center'}></Viewport>
-                    <TimelinePanel region={'south'} split={true} onToggle={this.onToggle}></TimelinePanel>
+                    <EditorToolbar region={'west'} />
+                    <Viewport region={'center'} />
+                    <TimelinePanel region={'south'} split onToggle={this.onToggle} />
                 </BorderLayout>
             </BorderLayout>
             {elements.map((n, i) => {
                 return <div key={i}>{n}</div>;
             })}
-            <LoadMask text={maskText} show={showMask}></LoadMask>
+            <LoadMask text={maskText} show={showMask} />
         </>;
     }
 
@@ -402,7 +402,7 @@ class Editor extends React.Component {
         this.selected = object;
 
         if (!object) {
-            this.transformControls.detach()
+            this.transformControls.detach();
         }
 
         app.call('objectSelected', this, object);
@@ -486,7 +486,7 @@ class Editor extends React.Component {
     }
 
     onMouseMove(event) {
-        this.mouse.x = (event.offsetX / this.renderer.domElement.clientWidth) * 2 - 1;
+        this.mouse.x = event.offsetX / this.renderer.domElement.clientWidth * 2 - 1;
         this.mouse.y = -(event.offsetY / this.renderer.domElement.clientHeight) * 2 + 1;
     }
 
@@ -509,7 +509,7 @@ class Editor extends React.Component {
     removeElement(element, callback) {
         let elements = this.state.elements;
 
-        let index = elements.findIndex(n => n === element || n.ref && n.ref.current === element)
+        let index = elements.findIndex(n => n === element || n.ref && n.ref.current === element);
 
         if (index > -1) {
             elements.splice(index, 1);
@@ -521,7 +521,7 @@ class Editor extends React.Component {
     onShowMask(enabled, text) {
         this.setState({
             showMask: enabled,
-            maskText: text || _t('Waiting...'),
+            maskText: text || _t('Waiting...')
         });
     }
 }
