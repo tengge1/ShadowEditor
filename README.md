@@ -3,11 +3,14 @@
 Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어 / русский / Le français
 
 * 名称：Shadow Editor
-* 版本：v0.3.4(开发中)
+* 版本：v0.3.4
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/)
 
-## v0.3.4即将更新
+## v0.3.4更新
+
+* 发布日期：2019年10月6日
+* 更新日志：
 
 1. 删除旧场景的加载方法。
 2. 下载的模型不再缓存在`userData`里面，改为缓存在模型上，`_obj`表示下载的原始模型数据，`_root`表示模型根节点，修复复制模型等一系列bug。
@@ -24,33 +27,6 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 13. 是否开启权限管理，修改到`Web.config`文件中，只有开启权限管理时，`系统`菜单才显示。
 14. 场景菜单中新增`导出场景到GLTF文件`功能。
 15. 新增选中颜色和选中选中边框设置，该设置可保存到场景中。
-
-## v0.3.3更新
-
-* 发布日期：2019年9月22日
-* 更新日志：
-
-1. 一键清理没用的场景和场景历史记录工具。
-2. 不再依赖服务端模型`userData.changed`属性还原修改过的组件名称。
-3. 为了让模型之间可以交换组件，修改了场景数据结构。请尽快重新保存一次旧场景，并关注控制台的警告信息。旧场景加载方式将于9月22日新版发布后删除。
-4. 修复上传大模型时，`413 Entity Too Large`报错，已经由30M限制改为300M。
-5. 修复材质光泽度、镜面度、发射颜色序列化bug。
-6. Obj格式文件可以自动下载绑定材质了。
-7. 材质控件各种贴图，不再直接上传，改为从贴图面板选取。
-8. 状态栏增加显示隐藏网格复选框。
-9. 修复多材质模型序列化bug。
-10. 修复ply文件缺少法线，显示黑色的bug。
-11. 修复贴图路径为blob:http://，导致加载场景，模型显示黑色bug。
-12. 服务端国际化完成。
-13. 发布新版演示程序：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/)
-14. 修复使用视频当贴图bug。
-15. 暂时去掉编辑器的几个选择功能。
-16. 更新了编辑器文档。[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/)
-17. 新增网格模式工具。
-18. 修复在二级目录下，播放器无法加载贴图，视频无法跨域播放bug。
-19. 暂时隐藏挖坑工具。
-20. Three.js信息查看窗口。
-21. 贴图面板可选择上传图片、天空盒、视频，新增添加天空盒窗口。
 
 ## 项目截图
 
