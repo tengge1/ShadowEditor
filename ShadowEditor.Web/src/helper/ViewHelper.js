@@ -27,6 +27,7 @@ ViewHelper.prototype.start = function () {
     this.show = show;
 
     this.mesh = this.createMesh();
+    this.mesh.frustumCulled = false;
     this.scene.add(this.mesh);
 
     app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
