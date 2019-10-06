@@ -24,9 +24,9 @@ class RegisterWindow extends React.Component {
         const { username, password } = this.state;
 
         return <Window
-            className={_t('RegisterWindow')}
+            className={'RegisterWindow'}
             title={_t('Register')}
-            style={{ width: '320px', height: '200px' }}
+            style={{ width: '400px', height: '240px' }}
             mask={false}
             onClose={this.handleClose}>
             <Content>
@@ -38,6 +38,14 @@ class RegisterWindow extends React.Component {
                     <FormControl>
                         <Label>{_t('Password')}</Label>
                         <Input name={'password'} value={password} onChange={this.handleChange}></Input>
+                    </FormControl>
+                    <FormControl>
+                        <Label>{_t('Confirm Password')}</Label>
+                        <Input name={'password'} value={password} onChange={this.handleChange}></Input>
+                    </FormControl>
+                    <FormControl>
+                        <Label>{_t('Name')}</Label>
+                        <Input name={'password'} onChange={this.handleChange}></Input>
                     </FormControl>
                 </Form>
             </Content>
