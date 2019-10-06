@@ -1,6 +1,7 @@
 import './css/LoginMenu.css';
 import { classNames, MenuItemSeparator, Button } from '../../third_party';
 import LoginWindow from '../system/LoginWindow.jsx';
+import RegisterWindow from '../system/RegisterWindow.jsx';
 
 /**
  * 登录菜单
@@ -27,7 +28,8 @@ class LoginMenu extends React.Component {
     }
 
     handleClickRegister() {
-
+        const win = app.createElement(RegisterWindow);
+        app.addElement(win);
     }
 
     handleClickLogin() {

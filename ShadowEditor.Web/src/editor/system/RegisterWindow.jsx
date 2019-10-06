@@ -1,12 +1,12 @@
-import './css/LoginWindow.css';
+import './css/RegisterWindow.css';
 import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../third_party';
 import Ajax from '../../utils/Ajax';
 
 /**
- * 登录窗口
+ * 注册窗口
  * @author tengge / https://github.com/tengge1
  */
-class LoginWindow extends React.Component {
+class RegisterWindow extends React.Component {
     constructor(props) {
         super(props);
 
@@ -24,8 +24,8 @@ class LoginWindow extends React.Component {
         const { username, password } = this.state;
 
         return <Window
-            className={'Login'}
-            title={_t('Login')}
+            className={_t('RegisterWindow')}
+            title={_t('Register')}
             style={{ width: '320px', height: '200px' }}
             mask={false}
             onClose={this.handleClose}>
@@ -79,4 +79,4 @@ class LoginWindow extends React.Component {
     }
 }
 
-export default LoginWindow;
+export default RegisterWindow;
