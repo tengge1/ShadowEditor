@@ -5,6 +5,7 @@
 class Config {
     constructor() {
         this.enableAuthority = false; // 是否开启权限
+        this.login = false; // 是否登录
     }
 
     load() {

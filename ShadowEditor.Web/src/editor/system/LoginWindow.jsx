@@ -37,7 +37,7 @@ class LoginWindow extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Password')}</Label>
-                        <Input name={'password'} value={password} onChange={this.handleChange}></Input>
+                        <Input name={'password'} type={'password'} value={password} onChange={this.handleChange}></Input>
                     </FormControl>
                 </Form>
             </Content>
@@ -65,8 +65,8 @@ class LoginWindow extends React.Component {
             body: `Username=${username}&Password=${password}`
         }).then(response => {
             response.json().then(json => {
+                app.toast(_t(json.Msg));
                 if (json.Code !== 200) {
-                    app.toast(_t(json.Msg));
                     return;
                 }
                 this.handleClose();

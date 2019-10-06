@@ -28,6 +28,7 @@ class Input extends React.Component {
             max={max}
             step={step}
             disabled={disabled}
+            autoComplete={'off'}
             onChange={this.handleChange}
             onInput={this.handleInput} />;
     }
@@ -70,7 +71,7 @@ Input.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     name: PropTypes.string,
-    type: PropTypes.oneOf(['text', 'number', 'color']),
+    type: PropTypes.oneOf(['text', 'number', 'color', 'password']),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     min: PropTypes.number,
     max: PropTypes.number,

@@ -82,6 +82,7 @@
     <Compile Include="System\AuthorityModel.cs" />
     <Compile Include="System\ConfigModel.cs" />
     <Compile Include="System\LoginModel.cs" />
+    <Compile Include="System\RegisterModel.cs" />
     <Compile Include="System\RoleEditModel.cs" />
     <Compile Include="System\RoleModel.cs" />
     <Compile Include="System\UserEditModel.cs" />

@@ -23,6 +23,8 @@ var EventList = [
     'appStop', // 程序开始结束前调用
     'appStoped', // 程序结束后调用
     'showMask', // 是否显示加载器
+    'login', // 登录成功
+    'logout', // 注销成功
 
     // 配置
     'optionChange', // 某个配置发生变化

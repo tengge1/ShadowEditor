@@ -776,5 +776,8 @@
     "Selected Color": "选中颜色",
     "Selected Thickness": "选中粗细",
     "Selected Effect": "选中效果",
-    "Border Thickness": "边框粗细"
+    "Border Thickness": "边框粗细",
+    "Confirm password is not allowed to be empty.": "确认密码不允许为空。",
+    "Password and confirm password is not the same.": "密码和确认密码不相同。",
+    "Register successfully!": "注册成功！"
 }
