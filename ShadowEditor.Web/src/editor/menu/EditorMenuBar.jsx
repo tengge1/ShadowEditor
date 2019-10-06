@@ -38,7 +38,7 @@ class EditorMenuBar extends React.Component {
             <MenuItemSeparator direction={'horizontal'} />
             {/* <EditorTabMenu /> */}
             <MenuBarFiller />
-            <LoginMenu />
+            {app.config.enableAuthority && <LoginMenu />}
         </MenuBar>;
     }
 }
