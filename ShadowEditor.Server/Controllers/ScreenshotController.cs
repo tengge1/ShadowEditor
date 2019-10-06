@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Model.Screenshot;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -27,6 +28,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authority(OperatingAuthority.LIST_SCREENSHOT)]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -83,6 +85,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADD_SCREENSHOT)]
         public JsonResult Add()
         {
             var files = HttpContext.Current.Request.Files;
@@ -164,6 +167,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.EDIT_SCREENSHOT)]
         public JsonResult Edit(ScreenshotEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -222,6 +226,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.DELETE_SCREENSHOT)]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

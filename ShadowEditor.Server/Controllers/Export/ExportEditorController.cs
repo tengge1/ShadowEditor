@@ -14,6 +14,7 @@ using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using Newtonsoft.Json;
 using System.Text;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers.Export
 {
@@ -27,6 +28,7 @@ namespace ShadowEditor.Server.Controllers.Export
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.EXPORT_EDITOR)]
         public JsonResult Run()
         {
             var now = DateTime.Now;

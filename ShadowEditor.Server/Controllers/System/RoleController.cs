@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using ShadowEditor.Model.System;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers.System
 {
@@ -29,6 +30,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="keyword"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authority(OperatingAuthority.LIST_ROLE)]
         public JsonResult List(int pageSize = 20, int pageNum = 1, string keyword = "")
         {
             var mongo = new MongoHelper();
@@ -82,6 +84,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADD_ROLE)]
         public JsonResult Add(RoleEditModel model)
         {
             if (string.IsNullOrEmpty(model.Name))
@@ -143,6 +146,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.EDIT_ROLE)]
         public JsonResult Edit(RoleEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -197,6 +201,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.DELETE_ROLE)]
         public JsonResult Delete(string ID)
         {
             var objectId = ObjectId.GenerateNewId();

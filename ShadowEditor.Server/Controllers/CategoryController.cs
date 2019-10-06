@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Model.Category;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -25,6 +26,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="type">类型</param>
         /// <returns></returns>
         [HttpGet]
+        [Authority(OperatingAuthority.LIST_CATEGORY)]
         public JsonResult List(CategoryType? type = null)
         {
             var mongo = new MongoHelper();
@@ -65,6 +67,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.SAVE_CATEGORY)]
         public JsonResult Save(CategorySaveModel model)
         {
             if (string.IsNullOrEmpty(model.Name))
@@ -116,6 +119,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.DELETE_CATEGORY)]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

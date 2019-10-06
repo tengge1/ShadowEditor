@@ -12,6 +12,7 @@ using MongoDB.Driver;
 using ShadowEditor.Model.Mesh;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -25,6 +26,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authority(OperatingAuthority.LIST_MESH)]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -81,6 +83,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADD_MESH)]
         public JsonResult Add()
         {
             var Request = HttpContext.Current.Request;
@@ -412,6 +415,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.EDIT_MESH)]
         public JsonResult Edit(MeshEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -471,6 +475,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.DELETE_MESH)]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

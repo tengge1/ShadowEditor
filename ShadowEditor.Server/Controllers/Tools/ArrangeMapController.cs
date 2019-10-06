@@ -12,6 +12,7 @@ using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers.Tools
 {
@@ -25,6 +26,7 @@ namespace ShadowEditor.Server.Controllers.Tools
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ARRANGE_MAP)]
         public JsonResult Run()
         {
             var texturePath = HttpContext.Current.Server.MapPath($"~/Upload/Texture");

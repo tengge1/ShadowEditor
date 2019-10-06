@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Model.Map;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -27,6 +28,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authority(OperatingAuthority.LIST_MAP)]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -100,6 +102,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADD_MAP)]
         public JsonResult Add()
         {
             var files = HttpContext.Current.Request.Files;
@@ -230,6 +233,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.EDIT_MAP)]
         public JsonResult Edit(MapEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -288,6 +292,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.DELETE_MAP)]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Model.Video;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -27,6 +28,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authority(OperatingAuthority.LIST_VIDEO)]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -83,6 +85,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADD_VIDEO)]
         public JsonResult Add()
         {
             var files = HttpContext.Current.Request.Files;
@@ -164,6 +167,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.EDIT_VIDEO)]
         public JsonResult Edit(VideoEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -222,6 +226,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.DELETE_VIDEO)]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

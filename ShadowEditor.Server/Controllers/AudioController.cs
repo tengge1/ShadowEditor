@@ -10,6 +10,7 @@ using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Model.Audio;
 using ShadowEditor.Server.Base;
+using ShadowEditor.Server.CustomAttribute;
 using ShadowEditor.Server.Helpers;
 using System.Web;
 using System.IO;
@@ -26,6 +27,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authority(OperatingAuthority.LIST_AUDIO)]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -84,6 +86,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADD_AUDIO)]
         public JsonResult Add()
         {
             var file = HttpContext.Current.Request.Files[0];
@@ -153,6 +156,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.EDIT_AUDIO)]
         public JsonResult Edit(AudioEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -212,6 +216,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.DELETE_AUDIO)]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

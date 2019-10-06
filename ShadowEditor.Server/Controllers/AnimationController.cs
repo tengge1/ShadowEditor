@@ -10,6 +10,7 @@ using System.Web.Http.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using ShadowEditor.Model.Animation;
+using ShadowEditor.Server.CustomAttribute;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 
@@ -25,6 +26,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authority(OperatingAuthority.LIST_ANIMATION)]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -82,6 +84,8 @@ namespace ShadowEditor.Server.Controllers
         /// 添加
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
+        [Authority(OperatingAuthority.ADD_ANIMATION)]
         public JsonResult Add()
         {
             var Request = HttpContext.Current.Request;
@@ -185,6 +189,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.EDIT_ANIMATION)]
         public JsonResult Edit(AnimationEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -244,6 +249,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.DELETE_ANIMATION)]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

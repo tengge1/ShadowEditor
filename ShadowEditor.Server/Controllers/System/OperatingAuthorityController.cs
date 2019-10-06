@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using ShadowEditor.Model.System;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers.System
 {
@@ -27,6 +28,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="keyword"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authority(OperatingAuthority.LIST_OPERATING_AUTHORITY)]
         public JsonResult List(string keyword = "")
         {
             var fields = typeof(OperatingAuthority).GetFields();
@@ -55,73 +57,13 @@ namespace ShadowEditor.Server.Controllers.System
         }
 
         /// <summary>
-        /// 添加
+        /// 保存
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Add(RoleEditModel model)
-        {
-            if (string.IsNullOrEmpty(model.Name))
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "Name is not allowed to be empty."
-                });
-            }
-
-            if (model.Name.StartsWith("_"))
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "Name is not allowed to start with _."
-                });
-            }
-
-            var mongo = new MongoHelper();
-
-            var filter = Builders<BsonDocument>.Filter.Eq("Name", model.Name);
-
-            var count = mongo.Count(Constant.OperatingAuthorityCollectionName, filter);
-
-            if (count > 0)
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "The name is already existed.",
-                });
-            }
-
-            var now = DateTime.Now;
-
-            var doc = new BsonDocument
-            {
-                ["ID"] = ObjectId.GenerateNewId(),
-                ["Name"] = model.Name,
-                ["CreateTime"] = now,
-                ["UpdateTime"] = now,
-                ["Status"] = 0,
-            };
-
-            mongo.InsertOne(Constant.RoleCollectionName, doc);
-
-            return Json(new
-            {
-                Code = 200,
-                Msg = "Saved successfully!"
-            });
-        }
-
-        /// <summary>
-        /// 编辑
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public JsonResult Edit(RoleEditModel model)
+        [Authority(OperatingAuthority.SAVE_OPERATING_AUTHORITY)]
+        public JsonResult Save(RoleEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -166,50 +108,6 @@ namespace ShadowEditor.Server.Controllers.System
             {
                 Code = 200,
                 Msg = "Saved successfully!"
-            });
-        }
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="ID"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public JsonResult Delete(string ID)
-        {
-            var objectId = ObjectId.GenerateNewId();
-
-            if (!string.IsNullOrEmpty(ID) && !ObjectId.TryParse(ID, out objectId))
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "ID is not allowed."
-                });
-            }
-
-            var mongo = new MongoHelper();
-
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-            var doc = mongo.FindOne(Constant.OperatingAuthorityCollectionName, filter);
-
-            if (doc == null)
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "The asset is not existed!"
-                });
-            }
-
-            var update = Builders<BsonDocument>.Update.Set("Status", -1);
-
-            mongo.UpdateOne(Constant.OperatingAuthorityCollectionName, filter, update);
-
-            return Json(new
-            {
-                Code = 200,
-                Msg = "Delete successfully!"
             });
         }
     }

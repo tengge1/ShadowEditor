@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Model.Prefab;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -25,6 +26,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authority(OperatingAuthority.LIST_PREFAB)]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -126,6 +128,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.EDIT_PREFAB)]
         public JsonResult Edit(PrefabEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -185,6 +188,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.SAVE_PREFAB)]
         public JsonResult Save(PrefabSaveModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -256,6 +260,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.DELETE_PREFAB)]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

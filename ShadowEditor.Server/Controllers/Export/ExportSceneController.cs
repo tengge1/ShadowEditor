@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using System.Text;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers.Export
 {
@@ -28,6 +29,7 @@ namespace ShadowEditor.Server.Controllers.Export
         /// <param name="version"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.EXPORT_SCENE)]
         public JsonResult Run(string ID, int version = -1)
         {
             var mongo = new MongoHelper();

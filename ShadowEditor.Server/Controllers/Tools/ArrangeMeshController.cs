@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using System.Text;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers.Tools
 {
@@ -26,6 +27,7 @@ namespace ShadowEditor.Server.Controllers.Tools
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ARRANGE_MESH)]
         public JsonResult Run()
         {
             var meshPath = HttpContext.Current.Server.MapPath($"~/Upload/Model");

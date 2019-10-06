@@ -12,6 +12,7 @@ using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers
 {
@@ -25,6 +26,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.UPLOAD_THUMBNAIL)]
         public JsonResult Upload()
         {
             var Request = HttpContext.Current.Request;
