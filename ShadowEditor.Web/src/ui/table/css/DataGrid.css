@@ -74,6 +74,10 @@
     border-top: none;
 }
 
+.DataGrid>.wrap>.body>tbody>tr>td.checkbox>.CheckBox {
+    vertical-align: middle;
+}
+
 .DataGrid>.page {
     position: absolute;
     left: 0;

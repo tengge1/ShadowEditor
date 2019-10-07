@@ -780,5 +780,6 @@
     "Confirm password is not allowed to be empty.": "确认密码不允许为空。",
     "Password and confirm password is not the same.": "密码和确认密码不相同。",
     "Register successfully!": "注册成功！",
-    "Confirm Password": "确认密码"
+    "Confirm Password": "确认密码",
+    "Authority": "权限"
 }

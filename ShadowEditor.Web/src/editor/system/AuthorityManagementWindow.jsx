@@ -53,14 +53,15 @@ class AuthorityManagementWindow extends React.Component {
                         <Column type={'number'} title={'#'} />
                         <Column field={'Name'} title={_t('Name')} />
                     </DataGrid>
-                    <Form className={'authorities'}>
-                        {data.map(n => {
-                            return <FormControl key={n.ID}>
-                                <CheckBox name={n.ID} />
-                                <Label>{n.Name}</Label>
-                            </FormControl>;
-                        })}
-                    </Form>
+                    <DataGrid
+                        className={'authorities'}
+                        data={data}
+                        mask={mask}
+                        keyField={'ID'}
+                    >
+                        <Column type={'checkbox'} field={'Enabled'} title={'#'} />
+                        <Column field={'Name'} title={_t('Authority')} />
+                    </DataGrid>
                 </HBoxLayout>
             </Content>
         </Window>;

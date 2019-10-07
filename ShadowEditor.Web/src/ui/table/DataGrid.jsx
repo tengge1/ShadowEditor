@@ -6,6 +6,7 @@ import IconButton from '../form/IconButton.jsx';
 import Input from '../form/Input.jsx';
 import Label from '../form/Label.jsx';
 import Select from '../form/Select.jsx';
+import CheckBox from '../form/CheckBox.jsx';
 import ToolbarSeparator from '../toolbar/ToolbarSeparator.jsx';
 import ToolbarFiller from '../toolbar/ToolbarFiller.jsx';
 import LoadMask from '../progress/LoadMask.jsx';
@@ -41,7 +42,7 @@ class DataGrid extends React.Component {
         const totalPage = total % pageSize === 0 ? total / pageSize : parseInt(total / pageSize) + 1;
 
         // 计算列宽：
-        // 数字列、复选框列：60px。
+        // 数字列(type: number)、复选框列(type: checkbox)：60px。
         // 其他列：提供的按提供的数值(px)。
 
         // 表格列
@@ -54,11 +55,9 @@ class DataGrid extends React.Component {
             <thead>
                 <tr>
                     {columns.map(col => {
-                        const isNumberColumn = col.type === 'number';
-                        const field = isNumberColumn ? 'number' : col.field;
-                        const className = isNumberColumn ? 'number' : null;
-                        const width = col.type === 'number' ? 60 : col.width;
-                        return <th className={className} width={width} name={field} key={field}>{col.title}</th>;
+                        const type = col.type === 'number' || col.type === 'checkbox' ? col.type : null;
+                        const field = type || col.field;
+                        return <th className={type} width={type ? 60 : col.width} name={field} key={field}>{col.title}</th>;
                     })}
                 </tr>
             </thead>
@@ -71,8 +70,13 @@ class DataGrid extends React.Component {
                     return <tr className={selected === row[keyField] ? 'selected' : null} data-id={row[keyField]} key={row[keyField]} onClick={this.handleClick}>
                         {columns.map(col => {
                             if (col.type === 'number') {
-                                const value = col.renderer ? col.renderer(pageSize * (pageNum - 1) + i + 1, row, col) : pageSize * (pageNum - 1) + i + 1;
+                                const value = pageSize * (pageNum - 1) + i + 1;
                                 return <td className={'number'} width={60} align={'center'} key={'number'}>{value}</td>;
+                            } else if (col.type === 'checkbox') {
+                                const value = row[col.field] === true;
+                                return <td className={col.type} width={60} align={'center'} key={'number'}>
+                                    <CheckBox checked={value} />
+                                </td>;
                             } else {
                                 const value = col.renderer ? col.renderer(row[col.field]) : row[col.field];
                                 return <td width={col.width} align={col.align} key={col.field}>{value}</td>;
