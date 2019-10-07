@@ -107,7 +107,7 @@ namespace ShadowEditor.Server
         /// <summary>
         /// 删除贴图
         /// </summary>
-        public const string DELETE_MAP = "Edit Map";
+        public const string DELETE_MAP = "Delete Map";
 
         /// <summary>
         /// 获取材质列表

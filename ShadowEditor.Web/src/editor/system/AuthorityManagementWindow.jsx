@@ -85,6 +85,9 @@ class AuthorityManagementWindow extends React.Component {
         });
         fetch(`${app.options.server}/api/OperatingAuthority/List?keyword=${keyword}`).then(response => {
             response.json().then(json => {
+                json.Data.rows.forEach(n => {
+                    n.Name = _t(n.Name);
+                });
                 this.setState({
                     data: json.Data.rows,
                     keyword,
