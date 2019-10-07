@@ -14,7 +14,7 @@ class AuthorityManagementWindow extends React.Component {
             data: [],
             selected: null,
             keyword: '',
-            mask: false
+            mask: true
         };
 
         this.update = this.update.bind(this);
@@ -68,9 +68,6 @@ class AuthorityManagementWindow extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            mask: true
-        });
         fetch(`${app.options.server}/api/Role/List?pageSize=10000`).then(response => {
             response.json().then(json => {
                 this.setState({

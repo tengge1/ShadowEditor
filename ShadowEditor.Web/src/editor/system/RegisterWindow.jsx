@@ -14,7 +14,7 @@ class RegisterWindow extends React.Component {
             username: '',
             password: '',
             confirmPassword: '',
-            name: '',
+            name: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -30,24 +30,25 @@ class RegisterWindow extends React.Component {
             title={_t('Register')}
             style={{ width: '400px', height: '240px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Username')}</Label>
-                        <Input name={'username'} value={username} onChange={this.handleChange}></Input>
+                        <Input name={'username'} value={username} onChange={this.handleChange} />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Password')}</Label>
-                        <Input name={'password'} type={'password'} value={password} onChange={this.handleChange}></Input>
+                        <Input name={'password'} type={'password'} value={password} onChange={this.handleChange} />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Confirm Password')}</Label>
-                        <Input name={'confirmPassword'} type={'password'} value={confirmPassword} onChange={this.handleChange}></Input>
+                        <Input name={'confirmPassword'} type={'password'} value={confirmPassword} onChange={this.handleChange} />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Name')}</Label>
-                        <Input name={'name'} onChange={this.handleChange} onChange={this.handleChange}></Input>
+                        <Input name={'name'} onChange={this.handleChange} onChange={this.handleChange} />
                     </FormControl>
                 </Form>
             </Content>
@@ -60,7 +61,7 @@ class RegisterWindow extends React.Component {
 
     handleChange(value, name) {
         this.setState({
-            [name]: value,
+            [name]: value
         });
     }
 
@@ -70,7 +71,7 @@ class RegisterWindow extends React.Component {
         fetch(`/api/Login/Login`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: `Username=${username}&Password=${password}`
         }).then(response => {

@@ -12,7 +12,7 @@ class LoginWindow extends React.Component {
 
         this.state = {
             username: '',
-            password: '',
+            password: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -28,16 +28,17 @@ class LoginWindow extends React.Component {
             title={_t('Login')}
             style={{ width: '320px', height: '200px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Username')}</Label>
-                        <Input name={'username'} value={username} onChange={this.handleChange}></Input>
+                        <Input name={'username'} value={username} onChange={this.handleChange} />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Password')}</Label>
-                        <Input name={'password'} type={'password'} value={password} onChange={this.handleChange}></Input>
+                        <Input name={'password'} type={'password'} value={password} onChange={this.handleChange} />
                     </FormControl>
                 </Form>
             </Content>
@@ -50,7 +51,7 @@ class LoginWindow extends React.Component {
 
     handleChange(value, name) {
         this.setState({
-            [name]: value,
+            [name]: value
         });
     }
 
@@ -60,7 +61,7 @@ class LoginWindow extends React.Component {
         fetch(`/api/Login/Login`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: `Username=${username}&Password=${password}`
         }).then(response => {

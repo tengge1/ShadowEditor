@@ -17,7 +17,7 @@ class RoleManageWindow extends React.Component {
             total: 0,
             selected: null,
             keyword: '',
-            mask: false,
+            mask: false
         };
 
         this.update = this.update.bind(this);
@@ -47,17 +47,18 @@ class RoleManageWindow extends React.Component {
             title={_t('Role Management')}
             style={{ width: '600px', height: '400px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <Toolbar>
                     <Button onClick={this.handleAdd}>{_t('Create')}</Button>
                     <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
                     <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
-                    <ToolbarFiller></ToolbarFiller>
-                    <SearchField placeholder={_t('Search Content')} onInput={this.handleSearch}></SearchField>
+                    <ToolbarFiller />
+                    <SearchField placeholder={_t('Search Content')} onInput={this.handleSearch} />
                 </Toolbar>
                 <DataGrid data={data}
-                    pages={true}
+                    pages
                     pageSize={pageSize}
                     pageNum={pageNum}
                     total={total}
@@ -70,12 +71,13 @@ class RoleManageWindow extends React.Component {
                     onNextPage={this.handleNextPage}
                     onLastPage={this.handleLastPage}
                     onRefresh={this.handleRefresh}
-                    keyField={'ID'}>
-                    <Column type={'number'} title={'#'}></Column>
-                    <Column field={'Name'} title={_t('Name')}></Column>
-                    <Column field={'CreateTime'} title={_t('Create Date')} width={120} align={'center'} renderer={this.renderDate}></Column>
-                    <Column field={'UpdateTime'} title={_t('Update Date')} width={120} align={'center'} renderer={this.renderDate}></Column>
-                    <Column field={'Status'} title={_t('Status')} width={80} align={'center'} renderer={this.renderStatus}></Column>
+                    keyField={'ID'}
+                >
+                    <Column type={'number'} title={'#'} />
+                    <Column field={'Name'} title={_t('Name')} />
+                    <Column field={'CreateTime'} title={_t('Create Date')} width={120} align={'center'} renderer={this.renderDate} />
+                    <Column field={'UpdateTime'} title={_t('Update Date')} width={120} align={'center'} renderer={this.renderDate} />
+                    <Column field={'Status'} title={_t('Status')} width={80} align={'center'} renderer={this.renderStatus} />
                 </DataGrid>
             </Content>
         </Window>;
@@ -87,7 +89,7 @@ class RoleManageWindow extends React.Component {
 
     update(pageSize, pageNum, keyword = '') {
         this.setState({
-            mask: true,
+            mask: true
         });
         fetch(`${app.options.server}/api/Role/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
             response.json().then(json => {
@@ -98,7 +100,7 @@ class RoleManageWindow extends React.Component {
                     total: json.Data.total,
                     data: json.Data.rows,
                     keyword: keyword,
-                    mask: false,
+                    mask: false
                 });
             });
         });
@@ -106,7 +108,7 @@ class RoleManageWindow extends React.Component {
 
     handleAdd() {
         const win = app.createElement(EditRoleWindow, {
-            callback: this.handleRefresh,
+            callback: this.handleRefresh
         });
         app.addElement(win);
     }
@@ -177,7 +179,7 @@ class RoleManageWindow extends React.Component {
 
     handleSelect(selected) {
         this.setState({
-            selected: selected.ID,
+            selected: selected.ID
         });
     }
 
