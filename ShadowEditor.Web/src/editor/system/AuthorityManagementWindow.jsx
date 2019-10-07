@@ -45,7 +45,7 @@ class AuthorityManagementWindow extends React.Component {
                     <ToolbarFiller></ToolbarFiller>
                     <SearchField placeholder={_t('Search Content')} onInput={this.handleSearch}></SearchField>
                 </Toolbar>
-                <HBoxLayout>
+                <HBoxLayout className={'split'}>
                     <DataGrid
                         className={'roles'}
                         data={roles}
