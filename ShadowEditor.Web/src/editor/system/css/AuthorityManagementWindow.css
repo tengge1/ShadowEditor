@@ -28,5 +28,20 @@
 }
 
 .Window.AuthorityManagementWindow>.wrap>.content>.hbox>.roles {
+    width: 240px;
     height: 100%;
+}
+
+.Window.AuthorityManagementWindow>.wrap>.content>.hbox>.authorities {
+    height: 100%;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.Window.AuthorityManagementWindow>.wrap>.content>.hbox>.authorities>.FormControl {
+    display: flex;
+}
+
+.Window.AuthorityManagementWindow>.wrap>.content>.hbox>.authorities>.FormControl>.Label {
+    flex: 1;
 }

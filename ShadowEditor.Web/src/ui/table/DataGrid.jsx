@@ -22,7 +22,7 @@ class DataGrid extends React.Component {
             10: '10',
             20: '20',
             50: '50',
-            100: '100',
+            100: '100'
         };
 
         this.handleClick = this.handleClick.bind(this, props.onSelect);
@@ -41,7 +41,7 @@ class DataGrid extends React.Component {
         const totalPage = total % pageSize === 0 ? total / pageSize : parseInt(total / pageSize) + 1;
 
         // 计算列宽：
-        // 数字列：60px。
+        // 数字列、复选框列：60px。
         // 其他列：提供的按提供的数值(px)。
 
         // 表格列
@@ -71,7 +71,7 @@ class DataGrid extends React.Component {
                     return <tr className={selected === row[keyField] ? 'selected' : null} data-id={row[keyField]} key={row[keyField]} onClick={this.handleClick}>
                         {columns.map(col => {
                             if (col.type === 'number') {
-                                const value = col.renderer ? col.renderer(pageSize * (pageNum - 1) + i + 1, row, col) : (pageSize * (pageNum - 1) + i + 1);
+                                const value = col.renderer ? col.renderer(pageSize * (pageNum - 1) + i + 1, row, col) : pageSize * (pageNum - 1) + i + 1;
                                 return <td className={'number'} width={60} align={'center'} key={'number'}>{value}</td>;
                             } else {
                                 const value = col.renderer ? col.renderer(row[col.field]) : row[col.field];
@@ -89,23 +89,23 @@ class DataGrid extends React.Component {
                 {body}
             </div>
             {pages && <div className={'page'}>
-                <Select className={'pageSize'} name={'pageSize'} options={this.pageSize} value={pageSize.toString()} onChange={this.handleChangePageSize}></Select>
-                <ToolbarSeparator className={'line'}></ToolbarSeparator>
-                <IconButton icon={'backward'} title={_t('First Page')} onClick={this.handleFirstPage}></IconButton>
-                <IconButton icon={'left-triangle2'} title={_t('Previous Page')} onClick={this.handlePreviousPage}></IconButton>
+                <Select className={'pageSize'} name={'pageSize'} options={this.pageSize} value={pageSize.toString()} onChange={this.handleChangePageSize} />
+                <ToolbarSeparator className={'line'} />
+                <IconButton icon={'backward'} title={_t('First Page')} onClick={this.handleFirstPage} />
+                <IconButton icon={'left-triangle2'} title={_t('Previous Page')} onClick={this.handlePreviousPage} />
                 <Input className={'current'} value={pageNum} title={_t('Current Page')} />
                 <span className={'slash'}> / </span>
                 <Label className={'totalPage'}>{totalPage}</Label>
-                <IconButton icon={'right-triangle2'} title={_t('Next Page')} onClick={this.handleNextPage}></IconButton>
-                <IconButton icon={'forward'} title={_t('Last Page')} onClick={this.handleLastPage}></IconButton>
-                <ToolbarSeparator className={'line'}></ToolbarSeparator>
-                <IconButton icon={'refresh'} title={_t('Refresh')} onClick={this.handleRefresh}></IconButton>
-                <ToolbarFiller></ToolbarFiller>
+                <IconButton icon={'right-triangle2'} title={_t('Next Page')} onClick={this.handleNextPage} />
+                <IconButton icon={'forward'} title={_t('Last Page')} onClick={this.handleLastPage} />
+                <ToolbarSeparator className={'line'} />
+                <IconButton icon={'refresh'} title={_t('Refresh')} onClick={this.handleRefresh} />
+                <ToolbarFiller />
                 <div className={'info'}>
                     {_t('{{pageSize}} per page, total {{total}} records.', { pageSize, total })}
                 </div>
             </div>}
-            <LoadMask text={_t('Loading...')} show={mask}></LoadMask>
+            <LoadMask text={_t('Loading...')} show={mask} />
         </div>;
     }
 
@@ -170,7 +170,7 @@ DataGrid.propTypes = {
     onPreviousPage: PropTypes.func,
     onNextPage: PropTypes.func,
     onLastPage: PropTypes.func,
-    onRefresh: PropTypes.func,
+    onRefresh: PropTypes.func
 };
 
 DataGrid.defaultProps = {
@@ -191,7 +191,7 @@ DataGrid.defaultProps = {
     onPreviousPage: null,
     onNextPage: null,
     onLastPage: null,
-    onRefresh: null,
+    onRefresh: null
 };
 
 export default DataGrid;

@@ -1,5 +1,5 @@
 import './css/AuthorityManagementWindow.css';
-import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField, HBoxLayout } from '../../third_party';
+import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField, HBoxLayout, Form, FormControl, Label, CheckBox } from '../../third_party';
 
 /**
  * 权限管理窗口
@@ -18,10 +18,7 @@ class AuthorityManagementWindow extends React.Component {
         };
 
         this.update = this.update.bind(this);
-        this.handleAdd = this.handleAdd.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-        this.commitDelete = this.commitDelete.bind(this);
+        this.handleSave = this.handleSave.bind(this);
         this.handleRefresh = this.handleRefresh.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
@@ -40,9 +37,7 @@ class AuthorityManagementWindow extends React.Component {
                >
             <Content>
                 <Toolbar>
-                    <Button onClick={this.handleAdd}>{_t('Create')}</Button>
-                    <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
-                    <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
+                    <Button onClick={this.handleSave}>{_t('Save')}</Button>
                     <ToolbarFiller />
                     <SearchField placeholder={_t('Search Content')} onInput={this.handleSearch} />
                 </Toolbar>
@@ -58,17 +53,14 @@ class AuthorityManagementWindow extends React.Component {
                         <Column type={'number'} title={'#'} />
                         <Column field={'Name'} title={_t('Name')} />
                     </DataGrid>
-                    <DataGrid
-                        className={'authorities'}
-                        data={data}
-                        selected={selected}
-                        mask={mask}
-                        onSelect={this.handleSelect}
-                        keyField={'ID'}
-                    >
-                        <Column type={'number'} title={'#'} />
-                        <Column field={'Name'} title={_t('Name')} />
-                    </DataGrid>
+                    <Form className={'authorities'}>
+                        {data.map(n => {
+                            return <FormControl key={n.ID}>
+                                <CheckBox name={n.ID} />
+                                <Label>{n.Name}</Label>
+                            </FormControl>;
+                        })}
+                    </Form>
                 </HBoxLayout>
             </Content>
         </Window>;
@@ -104,14 +96,7 @@ class AuthorityManagementWindow extends React.Component {
         });
     }
 
-    handleAdd() {
-        const win = app.createElement(EditRoleWindow, {
-            callback: this.handleRefresh
-        });
-        app.addElement(win);
-    }
-
-    handleEdit() {
+    handleSave() {
         const { data, selected } = this.state;
 
         if (!selected) {
@@ -127,35 +112,6 @@ class AuthorityManagementWindow extends React.Component {
             callback: this.handleRefresh
         });
         app.addElement(win);
-    }
-
-    handleDelete() {
-        const selected = this.state.selected;
-        if (!selected) {
-            app.toast(_t('Please select a record.'));
-            return;
-        }
-
-        app.confirm({
-            title: _t('Query'),
-            content: _t('Delete the selected record?'),
-            onOK: () => {
-                this.commitDelete(selected);
-            }
-        });
-    }
-
-    commitDelete(id) {
-        fetch(`${app.options.server}/api/Role/Delete?ID=${id}`, {
-            method: 'POST'
-        }).then(response => {
-            response.json().then(json => {
-                if (json.Code === 200) {
-                    this.handleRefresh();
-                }
-                app.toast(_t(json.Msg));
-            });
-        });
     }
 
     handleRefresh() {
