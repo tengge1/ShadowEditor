@@ -14,7 +14,7 @@ class AuthorityManagementWindow extends React.Component {
             data: [],
             selected: null,
             keyword: '',
-            mask: false,
+            mask: false
         };
 
         this.update = this.update.bind(this);
@@ -36,25 +36,27 @@ class AuthorityManagementWindow extends React.Component {
             title={_t('Authority Management')}
             style={{ width: '600px', height: '400px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <Toolbar>
                     <Button onClick={this.handleAdd}>{_t('Create')}</Button>
                     <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
                     <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
-                    <ToolbarFiller></ToolbarFiller>
-                    <SearchField placeholder={_t('Search Content')} onInput={this.handleSearch}></SearchField>
+                    <ToolbarFiller />
+                    <SearchField placeholder={_t('Search Content')} onInput={this.handleSearch} />
                 </Toolbar>
-                <HBoxLayout className={'split'}>
+                <HBoxLayout className={'hbox'}>
                     <DataGrid
                         className={'roles'}
                         data={roles}
                         selected={selected}
                         mask={mask}
                         onSelect={this.handleSelect}
-                        keyField={'ID'}>
-                        <Column type={'number'} title={'#'}></Column>
-                        <Column field={'Name'} title={_t('Name')}></Column>
+                        keyField={'ID'}
+                    >
+                        <Column type={'number'} title={'#'} />
+                        <Column field={'Name'} title={_t('Name')} />
                     </DataGrid>
                     <DataGrid
                         className={'authorities'}
@@ -62,9 +64,10 @@ class AuthorityManagementWindow extends React.Component {
                         selected={selected}
                         mask={mask}
                         onSelect={this.handleSelect}
-                        keyField={'ID'}>
-                        <Column type={'number'} title={'#'}></Column>
-                        <Column field={'Name'} title={_t('Name')}></Column>
+                        keyField={'ID'}
+                    >
+                        <Column type={'number'} title={'#'} />
+                        <Column field={'Name'} title={_t('Name')} />
                     </DataGrid>
                 </HBoxLayout>
             </Content>
@@ -73,13 +76,13 @@ class AuthorityManagementWindow extends React.Component {
 
     componentDidMount() {
         this.setState({
-            mask: true,
+            mask: true
         });
         fetch(`${app.options.server}/api/Role/List?pageSize=10000`).then(response => {
             response.json().then(json => {
                 this.setState({
                     roles: json.Data.rows,
-                    mask: false,
+                    mask: false
                 });
             });
         });
@@ -88,14 +91,14 @@ class AuthorityManagementWindow extends React.Component {
 
     update(keyword = '') {
         this.setState({
-            mask: true,
+            mask: true
         });
         fetch(`${app.options.server}/api/OperatingAuthority/List?keyword=${keyword}`).then(response => {
             response.json().then(json => {
                 this.setState({
                     data: json.Data.rows,
                     keyword,
-                    mask: false,
+                    mask: false
                 });
             });
         });
@@ -103,7 +106,7 @@ class AuthorityManagementWindow extends React.Component {
 
     handleAdd() {
         const win = app.createElement(EditRoleWindow, {
-            callback: this.handleRefresh,
+            callback: this.handleRefresh
         });
         app.addElement(win);
     }
@@ -170,7 +173,7 @@ class AuthorityManagementWindow extends React.Component {
 
     handleSelect(selected) {
         this.setState({
-            selected: selected.ID,
+            selected: selected.ID
         });
     }
 }
