@@ -16,7 +16,8 @@ class AuthorityManagementWindow extends React.Component {
             mask: true
         };
 
-        this.handleSelect = this.handleSelect.bind(this);
+        this.handleSelectRole = this.handleSelectRole.bind(this);
+        this.handleSelectAuthority = this.handleSelectAuthority.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
@@ -42,7 +43,7 @@ class AuthorityManagementWindow extends React.Component {
                         data={roles}
                         selected={roleID}
                         mask={mask}
-                        onSelect={this.handleSelect}
+                        onSelect={this.handleSelectRole}
                         keyField={'ID'}
                     >
                         <Column type={'number'} title={'#'} />
@@ -52,6 +53,7 @@ class AuthorityManagementWindow extends React.Component {
                         className={'authorities'}
                         data={authorities}
                         mask={mask}
+                        onSelect={this.handleSelectAuthority}
                         keyField={'ID'}
                     >
                         <Column type={'checkbox'} field={'Enabled'} title={'#'} />
@@ -73,7 +75,7 @@ class AuthorityManagementWindow extends React.Component {
         });
     }
 
-    handleSelect(selected) {
+    handleSelectRole(selected) {
         this.setState({
             roleID: selected.ID
         });
@@ -87,6 +89,19 @@ class AuthorityManagementWindow extends React.Component {
                     mask: false
                 });
             });
+        });
+    }
+
+    handleSelectAuthority(selected) {
+        let authorities = this.state.authorities;
+        let authority = authorities.filter(n => n.ID === selected.ID)[0];
+
+        if(authority) {
+            authority.Enabled = !authority.Enabled;
+        }
+        
+        this.setState({
+            authorities
         });
     }
 
