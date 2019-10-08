@@ -96,17 +96,35 @@ class AuthorityManagementWindow extends React.Component {
         let authorities = this.state.authorities;
         let authority = authorities.filter(n => n.ID === selected.ID)[0];
 
-        if(authority) {
+        if (authority) {
             authority.Enabled = !authority.Enabled;
         }
-        
+
         this.setState({
             authorities
         });
     }
 
     handleSave() {
-        debugger;
+        const { roleID, authorities } = this.state;
+
+        fetch(`${app.options.server}/api/OperatingAuthority/Save`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `RoleID=${roleID}&Authorities=${JSON.stringify(authorities.filter(n => n.Enabled))}`
+        }).then(response => {
+            response.json().then(json => {
+                debugger;
+                app.toast(json.Msg);
+                if (json.Code === 200) {
+                    this.handleSelectRole({
+                        ID: roleID
+                    });
+                }
+            });
+        });
     }
 
     handleClose() {

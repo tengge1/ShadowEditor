@@ -102,46 +102,48 @@ namespace ShadowEditor.Server.Controllers.System
         /// <returns></returns>
         [HttpPost]
         [Authority(OperatingAuthority.SAVE_OPERATING_AUTHORITY)]
-        public JsonResult Save(RoleEditModel model)
+        public JsonResult Save([FromBody]OperatingAuthoritySaveModel model)
         {
-            var objectId = ObjectId.GenerateNewId();
-
-            if (!string.IsNullOrEmpty(model.ID) && !ObjectId.TryParse(model.ID, out objectId))
+            if (!string.IsNullOrEmpty(model.RoleID))
             {
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "ID is not allowed."
+                    Msg = "RoleID is not defined."
                 });
             }
 
-            if (string.IsNullOrEmpty(model.Name))
+            if (model.Authorities == null)
             {
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "Name is not allowed to be empty."
-                });
-            }
-
-            if (model.Name.StartsWith("_"))
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "Name is not allowed to start with _."
+                    Msg = "Authorities is not defined."
                 });
             }
 
             var mongo = new MongoHelper();
 
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-            var update1 = Builders<BsonDocument>.Update.Set("Name", model.Name);
-            var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", DateTime.Now);
+            // 移除旧权限
+            var filter = Builders<BsonDocument>.Filter.Eq("RoleID", model.RoleID);
+            mongo.DeleteMany(Constant.OperatingAuthorityCollectionName, filter);
 
-            var update = Builders<BsonDocument>.Update.Combine(update1, update2);
+            // 添加新权限
+            if (model.Authorities.Count > 0)
+            {
+                var docs = new List<BsonDocument>();
 
-            mongo.UpdateOne(Constant.OperatingAuthorityCollectionName, filter, update);
+                foreach (var i in model.Authorities)
+                {
+                    docs.Add(new BsonDocument
+                    {
+                        ["ID"] = model.RoleID,
+                        ["Name"] = i
+                    });
+                }
+
+                mongo.InsertMany(Constant.OperatingAuthorityCollectionName, docs);
+            }
 
             return Json(new
             {

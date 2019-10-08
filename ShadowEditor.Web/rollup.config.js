@@ -43,7 +43,7 @@ export default {
             'process.env.NODE_ENV': '"development"' // production
         }),
         postcss({
-            extract: true,
+            extract: true
         }),
         babel({
             exclude: 'node_modules/**'
