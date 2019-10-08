@@ -57,6 +57,45 @@ namespace ShadowEditor.Server.Controllers.System
         }
 
         /// <summary>
+        /// 根据角色ID获取权限
+        /// </summary>
+        /// <param name="roleID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult Get(string roleID)
+        {
+            var fields = typeof(OperatingAuthority).GetFields();
+
+            var helper = new MongoHelper();
+
+            var filter = Builders<BsonDocument>.Filter.Eq("RoleID", roleID);
+            var docs = helper.FindMany(Constant.OperatingAuthorityCollectionName, filter).ToList();
+
+            var rows = new JArray();
+
+            foreach (var i in fields)
+            {
+                rows.Add(new JObject
+                {
+                    ["ID"] = i.Name,
+                    ["Name"] = i.GetValue(typeof(OperatingAuthority)).ToString(),
+                    ["Enabled"] = docs.Exists(n => n["AuthorityID"].ToString() == i.Name),
+                });
+            }
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "Get Successfully!",
+                Data = new
+                {
+                    total = rows.Count,
+                    rows,
+                },
+            });
+        }
+
+        /// <summary>
         /// 保存
         /// </summary>
         /// <param name="model"></param>

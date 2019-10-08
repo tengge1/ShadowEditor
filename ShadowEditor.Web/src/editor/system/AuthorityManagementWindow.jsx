@@ -11,22 +11,18 @@ class AuthorityManagementWindow extends React.Component {
 
         this.state = {
             roles: [],
-            data: [],
-            selected: null,
-            keyword: '',
+            authorities: [],
+            roleID: null,
             mask: true
         };
 
-        this.update = this.update.bind(this);
-        this.handleSave = this.handleSave.bind(this);
-        this.handleRefresh = this.handleRefresh.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.handleSearch = this.handleSearch.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
+        this.handleSave = this.handleSave.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
 
     render() {
-        const { roles, data, selected, mask } = this.state;
+        const { roles, authorities, roleID, mask } = this.state;
 
         return <Window
             className={'AuthorityManagementWindow'}
@@ -39,13 +35,12 @@ class AuthorityManagementWindow extends React.Component {
                 <Toolbar>
                     <Button onClick={this.handleSave}>{_t('Save')}</Button>
                     <ToolbarFiller />
-                    <SearchField placeholder={_t('Search Content')} onInput={this.handleSearch} />
                 </Toolbar>
                 <HBoxLayout className={'hbox'}>
                     <DataGrid
                         className={'roles'}
                         data={roles}
-                        selected={selected}
+                        selected={roleID}
                         mask={mask}
                         onSelect={this.handleSelect}
                         keyField={'ID'}
@@ -55,7 +50,7 @@ class AuthorityManagementWindow extends React.Component {
                     </DataGrid>
                     <DataGrid
                         className={'authorities'}
-                        data={data}
+                        data={authorities}
                         mask={mask}
                         keyField={'ID'}
                     >
@@ -76,21 +71,19 @@ class AuthorityManagementWindow extends React.Component {
                 });
             });
         });
-        this.handleRefresh();
     }
 
-    update(keyword = '') {
+    handleSelect(selected) {
         this.setState({
-            mask: true
+            roleID: selected.ID
         });
-        fetch(`${app.options.server}/api/OperatingAuthority/List?keyword=${keyword}`).then(response => {
+        fetch(`${app.options.server}/api/OperatingAuthority/Get?roleID=${selected.ID}`).then(response => {
             response.json().then(json => {
                 json.Data.rows.forEach(n => {
                     n.Name = _t(n.Name);
                 });
                 this.setState({
-                    data: json.Data.rows,
-                    keyword,
+                    authorities: json.Data.rows,
                     mask: false
                 });
             });
@@ -98,40 +91,11 @@ class AuthorityManagementWindow extends React.Component {
     }
 
     handleSave() {
-        const { data, selected } = this.state;
-
-        if (!selected) {
-            app.toast(_t('Please select a record.'));
-            return;
-        }
-
-        const record = data.filter(n => n.ID === selected)[0];
-
-        const win = app.createElement(EditRoleWindow, {
-            id: record.ID,
-            name: record.Name,
-            callback: this.handleRefresh
-        });
-        app.addElement(win);
-    }
-
-    handleRefresh() {
-        this.update();
+        debugger;
     }
 
     handleClose() {
         app.removeElement(this);
-    }
-
-    handleSearch(value) {
-        const { pageSize, pageNum } = this.state;
-        this.update(pageSize, pageNum, value);
-    }
-
-    handleSelect(selected) {
-        this.setState({
-            selected: selected.ID
-        });
     }
 }
 
