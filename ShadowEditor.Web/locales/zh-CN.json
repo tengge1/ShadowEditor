@@ -838,5 +838,6 @@
     "Add User": "添加用户",
     "Delete User": "删除用户",
     "RoleID is not defined.": "RoleID未定义。",
-    "Authorities is not defined.": "Authorities未定义。"
+    "Authorities is not defined.": "Authorities未定义。",
+    "Role": "角色"
 }
