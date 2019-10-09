@@ -47,7 +47,7 @@ class AuthorityManagementWindow extends React.Component {
                         keyField={'ID'}
                     >
                         <Column type={'number'} title={'#'} />
-                        <Column field={'Name'} title={_t('Name')} />
+                        <Column field={'Name'} title={_t('Role')} />
                     </DataGrid>
                     <DataGrid
                         className={'authorities'}
@@ -77,7 +77,8 @@ class AuthorityManagementWindow extends React.Component {
 
     handleSelectRole(selected) {
         this.setState({
-            roleID: selected.ID
+            roleID: selected.ID,
+            mask: true
         });
         fetch(`${app.options.server}/api/OperatingAuthority/Get?roleID=${selected.ID}`).then(response => {
             response.json().then(json => {
@@ -108,16 +109,23 @@ class AuthorityManagementWindow extends React.Component {
     handleSave() {
         const { roleID, authorities } = this.state;
 
+        let body = `RoleID=${roleID}`;
+
+        authorities.forEach(n => {
+            if(n.Enabled) {
+                body +=  `&Authorities[]=${n.ID}`;
+            }
+        });
+
         fetch(`${app.options.server}/api/OperatingAuthority/Save`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `RoleID=${roleID}&Authorities=${JSON.stringify(authorities.filter(n => n.Enabled))}`
+            body
         }).then(response => {
             response.json().then(json => {
-                debugger;
-                app.toast(json.Msg);
+                app.toast(_t(json.Msg));
                 if (json.Code === 200) {
                     this.handleSelectRole({
                         ID: roleID

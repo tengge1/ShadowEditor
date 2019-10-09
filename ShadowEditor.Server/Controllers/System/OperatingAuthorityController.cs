@@ -23,45 +23,12 @@ namespace ShadowEditor.Server.Controllers.System
     public class OperatingAuthorityController : ApiBase
     {
         /// <summary>
-        /// 获取列表
-        /// </summary>
-        /// <param name="keyword"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Authority(OperatingAuthority.LIST_OPERATING_AUTHORITY)]
-        public JsonResult List(string keyword = "")
-        {
-            var fields = typeof(OperatingAuthority).GetFields();
-
-            var rows = new JArray();
-
-            foreach (var i in fields)
-            {
-                rows.Add(new JObject
-                {
-                    ["ID"] = i.Name,
-                    ["Name"] = i.GetValue(typeof(OperatingAuthority)).ToString(),
-                });
-            }
-
-            return Json(new
-            {
-                Code = 200,
-                Msg = "Get Successfully!",
-                Data = new
-                {
-                    total = rows.Count,
-                    rows,
-                },
-            });
-        }
-
-        /// <summary>
         /// 根据角色ID获取权限
         /// </summary>
         /// <param name="roleID"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authority(OperatingAuthority.LIST_OPERATING_AUTHORITY)]
         public JsonResult Get(string roleID)
         {
             var fields = typeof(OperatingAuthority).GetFields();
@@ -104,7 +71,7 @@ namespace ShadowEditor.Server.Controllers.System
         [Authority(OperatingAuthority.SAVE_OPERATING_AUTHORITY)]
         public JsonResult Save([FromBody]OperatingAuthoritySaveModel model)
         {
-            if (!string.IsNullOrEmpty(model.RoleID))
+            if (string.IsNullOrEmpty(model.RoleID))
             {
                 return Json(new
                 {
@@ -115,11 +82,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             if (model.Authorities == null)
             {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "Authorities is not defined."
-                });
+                model.Authorities = new List<string>();
             }
 
             var mongo = new MongoHelper();
@@ -137,8 +100,8 @@ namespace ShadowEditor.Server.Controllers.System
                 {
                     docs.Add(new BsonDocument
                     {
-                        ["ID"] = model.RoleID,
-                        ["Name"] = i
+                        ["RoleID"] = model.RoleID,
+                        ["AuthorityID"] = i
                     });
                 }
 
