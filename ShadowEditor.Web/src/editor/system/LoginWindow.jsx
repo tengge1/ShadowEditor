@@ -21,7 +21,7 @@ class LoginWindow extends React.Component {
     }
 
     render() {
-        const { username, password } = this.state;
+        const { username, password, passwordType } = this.state;
 
         return <Window
             className={'Login'}

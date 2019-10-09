@@ -1,6 +1,9 @@
 {
 	/* See all the pre-defined configs here: https://www.npmjs.com/package/eslint-config-defaults */
-	"extends": "defaults/configurations/eslint",
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended"
+	],
 	"parser": "babel-eslint",
 	"ecmaFeatures": {
 		"jsx": true
@@ -17,7 +20,6 @@
 		"worker": true
 	},
 	"rules": {
-
 		"eqeqeq": 2,
 		"comma-dangle": 1,
 		"no-console": 0,
@@ -31,11 +33,12 @@
 		"semi-spacing": 1,
 		"valid-jsdoc": [
 			2,
-			{ "requireReturn": false }
+			{
+				"requireReturn": false
+			}
 		],
-
 		"react/display-name": 2,
-		"react/forbid-prop-types": 1,
+		"react/forbid-prop-types": 0,
 		"react/jsx-boolean-value": 1,
 		"react/jsx-closing-bracket-location": 1,
 		"react/jsx-curly-spacing": 1,
@@ -55,7 +58,7 @@
 		"react/no-multi-comp": 1,
 		"react/no-set-state": 0,
 		"react/no-unknown-property": 1,
-		"react/prop-types":0,
+		"react/prop-types": 0,
 		"react/react-in-jsx-scope": 0,
 		"react/require-extension": 0,
 		"react/self-closing-comp": 1,

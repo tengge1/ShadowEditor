@@ -10,6 +10,7 @@ class Input extends React.Component {
     constructor(props) {
         super(props);
 
+        this.handleFocus = this.handleFocus.bind(this, props.onFocus);
         this.handleChange = this.handleChange.bind(this, props.onChange);
         this.handleInput = this.handleInput.bind(this, props.onInput);
     }
@@ -28,9 +29,15 @@ class Input extends React.Component {
             max={max}
             step={step}
             disabled={disabled}
-            autoComplete={'off'}
+            autoComplete={'new-password'}
+            onFocus={this.handleFocus}
             onChange={this.handleChange}
-            onInput={this.handleInput} />;
+            onInput={this.handleInput}
+               />;
+    }
+
+    handleFocus(onFocus, event) {
+        onFocus && onFocus(event);
     }
 
     handleChange(onChange, event) {
@@ -79,8 +86,9 @@ Input.propTypes = {
     precision: PropTypes.number,
     disabled: PropTypes.bool,
     show: PropTypes.bool,
+    onFocus: PropTypes.func,
     onChange: PropTypes.func,
-    onInput: PropTypes.func,
+    onInput: PropTypes.func
 };
 
 Input.defaultProps = {
@@ -95,8 +103,9 @@ Input.defaultProps = {
     precision: 3,
     disabled: false,
     show: true,
+    onFocus: null,
     onChange: null,
-    onInput: null,
+    onInput: null
 };
 
 export default Input;

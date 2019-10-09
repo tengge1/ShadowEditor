@@ -11,6 +11,7 @@ class SystemMenu extends React.Component {
     constructor(props) {
         super(props);
 
+        this.handleInitialization = this.handleInitialization.bind(this);
         this.handleUser = this.handleUser.bind(this);
         this.handleRole = this.handleRole.bind(this);
         this.handleAuthority = this.handleAuthority.bind(this);
@@ -18,11 +19,17 @@ class SystemMenu extends React.Component {
 
     render() {
         return <MenuItem title={_t('System')}>
-            <MenuItem title={_t('User Management')} onClick={this.handleUser}></MenuItem>
-            <MenuItem title={_t('Role Management')} onClick={this.handleRole}></MenuItem>
-            <MenuItemSeparator></MenuItemSeparator>
-            <MenuItem title={_t('Authority Management')} onClick={this.handleAuthority}></MenuItem>
+            <MenuItem title={_t('Initialization')} onClick={this.handleInitialization} />
+            <MenuItemSeparator />
+            <MenuItem title={_t('User Management')} onClick={this.handleUser} />
+            <MenuItem title={_t('Role Management')} onClick={this.handleRole} />
+            <MenuItemSeparator />
+            <MenuItem title={_t('Authority Management')} onClick={this.handleAuthority} />
         </MenuItem>;
+    }
+
+    handleInitialization() {
+        debugger;
     }
 
     handleUser() {
