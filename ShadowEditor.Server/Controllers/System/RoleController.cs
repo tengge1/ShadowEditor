@@ -62,6 +62,7 @@ namespace ShadowEditor.Server.Controllers.System
                     Name = doc["Name"].ToString(),
                     CreateTime = doc["CreateTime"].ToLocalTime(),
                     UpdateTime = doc["UpdateTime"].ToLocalTime(),
+                    Description = doc.Contains("Description") ? doc["Description"].ToString() : "",
                     Status = doc["Status"].ToInt32(),
                 });
             }
@@ -96,15 +97,6 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
-            if (model.Name.StartsWith("_"))
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "Name is not allowed to start with _."
-                });
-            }
-
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("Name", model.Name);
@@ -128,6 +120,7 @@ namespace ShadowEditor.Server.Controllers.System
                 ["Name"] = model.Name,
                 ["CreateTime"] = now,
                 ["UpdateTime"] = now,
+                ["Description"] = model.Description,
                 ["Status"] = 0,
             };
 
@@ -169,22 +162,38 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
-            if (model.Name.StartsWith("_"))
+            var mongo = new MongoHelper();
+
+            // 判断是否是系统内置用户
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
+            var doc = mongo.FindOne(Constant.RoleCollectionName, filter);
+
+            if (doc == null)
             {
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "Name is not allowed to start with _."
+                    Msg = "The role is not existed."
                 });
             }
 
-            var mongo = new MongoHelper();
+            var roleName = doc["Name"].ToString();
 
-            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
+            if (roleName == "Administrator" || roleName == "User" || roleName == "Guest")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Modifying system built-in roles is not allowed."
+                });
+            }
+
+            // 更新用户信息
             var update1 = Builders<BsonDocument>.Update.Set("Name", model.Name);
             var update2 = Builders<BsonDocument>.Update.Set("UpdateTime", DateTime.Now);
+            var update3 = Builders<BsonDocument>.Update.Set("Description", model.Description);
 
-            var update = Builders<BsonDocument>.Update.Combine(update1, update2);
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3);
 
             mongo.UpdateOne(Constant.RoleCollectionName, filter, update);
 
@@ -225,7 +234,18 @@ namespace ShadowEditor.Server.Controllers.System
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "The asset is not existed!"
+                    Msg = "The role is not existed."
+                });
+            }
+
+            var roleName = doc["Name"].ToString();
+
+            if (roleName == "Administrator" || roleName == "User" || roleName == "Guest")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "It is not allowed to delete system built-in roles."
                 });
             }
 

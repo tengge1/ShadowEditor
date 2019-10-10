@@ -32,6 +32,11 @@ namespace ShadowEditor.Model.System
         public DateTime UpdateTime { get; set; }
 
         /// <summary>
+        /// 简介
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
         /// 状态（0-正常，-1删除）
         /// </summary>
         public int Status { get; set; }
