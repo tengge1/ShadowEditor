@@ -1,0 +1,145 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Results;
+using System.Web;
+using System.IO;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using Newtonsoft.Json.Linq;
+using ShadowEditor.Server.Base;
+using ShadowEditor.Server.Helpers;
+using ShadowEditor.Model.System;
+using System.Web.Security;
+using System.Configuration;
+
+namespace ShadowEditor.Server.Controllers.System
+{
+    /// <summary>
+    /// 初始化控制器
+    /// </summary>
+    public class InitializeController : ApiBase
+    {
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Run()
+        {
+            // 判断权限是否开启
+            var enableAuthority = ConfigurationManager.AppSettings["EnableAuthority"];
+
+            if (enableAuthority != "true")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Authority is not enabled.",
+                });
+            }
+
+            // 判断是否已经初始化
+            var mongo = new MongoHelper();
+
+            var doc = mongo.FindAll(Constant.ConfigCollectionName).FirstOrDefault();
+
+            if (doc != null && doc.Contains("Initialized") && doc["Initialized"].ToBoolean() == true)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "System has already initialized."
+                });
+            }
+
+            if (doc == null)
+            {
+                doc = new BsonDocument
+                {
+                    ["ID"] = ObjectId.GenerateNewId(),
+                    ["Initialized"] = true
+                };
+                mongo.InsertOne(Constant.ConfigCollectionName, doc);
+            }
+            else
+            {
+                var filter11 = Builders<BsonDocument>.Filter.Eq("_id", doc["_id"].AsObjectId);
+                var update11 = Builders<BsonDocument>.Update.Set("Initialized", true);
+                mongo.UpdateOne(Constant.ConfigCollectionName, filter11, update11);
+            }
+
+            // 初始化角色
+            var now = DateTime.Now;
+
+            var filter1 = Builders<BsonDocument>.Filter.Eq("Name", "Administrator");
+            var filter2 = Builders<BsonDocument>.Filter.Eq("Name", "User");
+            var filter3 = Builders<BsonDocument>.Filter.Eq("Name", "Guest");
+            var filter = Builders<BsonDocument>.Filter.Or(filter1, filter2, filter3);
+            mongo.DeleteMany(Constant.RoleCollectionName, filter);
+
+            var role1 = new BsonDocument
+            {
+                ["ID"] = ObjectId.GenerateNewId(),
+                ["Name"] = "Administrator",
+                ["CreateTime"] = now,
+                ["UpdateTime"] = now,
+                ["Description"] = "Administrator",
+                ["Status"] = 0,
+            };
+
+            var role2 = new BsonDocument
+            {
+                ["ID"] = ObjectId.GenerateNewId(),
+                ["Name"] = "User",
+                ["CreateTime"] = now,
+                ["UpdateTime"] = now,
+                ["Description"] = "Login User",
+                ["Status"] = 0,
+            };
+
+            var role3 = new BsonDocument
+            {
+                ["ID"] = ObjectId.GenerateNewId(),
+                ["Name"] = "Guest",
+                ["CreateTime"] = now,
+                ["UpdateTime"] = now,
+                ["Description"] = "No Login User",
+                ["Status"] = 0,
+            };
+
+            mongo.InsertMany(Constant.RoleCollectionName, new[] { role1, role2, role3 });
+
+            // 初始化用户
+            var password = "123456";
+            var salt = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            var user = new BsonDocument
+            {
+                ["ID"] = ObjectId.GenerateNewId(),
+                ["Username"] = "admin",
+                ["Password"] = MD5Helper.Encrypt(password + salt),
+                ["Name"] = "Administrator",
+                ["Gender"] = 0,
+                ["Phone"] = "",
+                ["Email"] = "",
+                ["QQ"] = "",
+                ["CreateTime"] = now,
+                ["UpdateTime"] = now,
+                ["Salt"] = salt,
+                ["Status"] = 0,
+            };
+
+            mongo.InsertOne(Constant.UserCollectionName, user);
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "Initialize successfully!"
+            });
+        }
+    }
+}
