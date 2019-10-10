@@ -44,7 +44,17 @@ class SystemMenu extends React.Component {
             method: 'POST'
         }).then(response => {
             response.json().then(json => {
-                app.toast(json.Msg);
+                if(json.Code !== 200) {
+                    app.toast(json.Msg);
+                    return;
+                }
+                app.confirm({
+                    title: _t('Message'),
+                    content: _t(json.Msg) + ' ' + _t('Press OK To refresh.'),
+                    onOK: () => {
+                        window.location.reload();
+                    }
+                });
             });
         });
     }

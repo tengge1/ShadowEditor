@@ -844,5 +844,6 @@
     "Are you sure to initialize the roles and users?": "确定要初始化角色和用户？",
     "Authority is not enabled.": "权限未开启",
     "System has already initialized.": "系统已经初始化完成",
-    "Initialize successfully!": "初始化成功！"
+    "Initialize successfully!": "初始化成功！",
+    "Press OK To refresh.": "点击确定刷新页面。"
 }
