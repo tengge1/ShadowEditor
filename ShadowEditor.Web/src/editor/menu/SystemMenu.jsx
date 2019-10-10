@@ -12,6 +12,7 @@ class SystemMenu extends React.Component {
         super(props);
 
         this.handleInitialize = this.handleInitialize.bind(this);
+        this.commitInitialize = this.commitInitialize.bind(this);
         this.handleUser = this.handleUser.bind(this);
         this.handleRole = this.handleRole.bind(this);
         this.handleAuthority = this.handleAuthority.bind(this);
@@ -29,7 +30,21 @@ class SystemMenu extends React.Component {
     }
 
     handleInitialize() {
-        debugger;
+        app.confirm({
+            title: _t('Query'),
+            content: _t('Are you sure to initialize the roles and users?'),
+            onOK: this.commitInitialize
+        });
+    }
+
+    commitInitialize() {
+        fetch(`${app.options.server}/api/Initialize/Run`, {
+            method: 'POST'
+        }).then(response => {
+            response.json().then(json => {
+                app.toast(json.Msg);
+            });
+        });
     }
 
     handleUser() {

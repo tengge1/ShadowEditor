@@ -40,6 +40,7 @@ namespace ShadowEditor.Server.Controllers.System
                 config = new BsonDocument
                 {
                     ["ID"] = ObjectId.GenerateNewId(),
+                    ["Initialized"] = false
                 };
                 helper.InsertOne(Constant.ConfigCollectionName, config);
             }
@@ -48,6 +49,7 @@ namespace ShadowEditor.Server.Controllers.System
             {
                 ["ID"] = config["ID"].ToString(),
                 ["EnableAuthority"] = ConfigurationManager.AppSettings["EnableAuthority"] == "true",
+                ["Initialized"] = config.Contains("Initialized") ? config["Initialized"].ToBoolean() : false,
             };
 
             return Json(new
