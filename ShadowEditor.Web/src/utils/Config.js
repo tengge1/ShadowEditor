@@ -5,6 +5,7 @@
 class Config {
     constructor() {
         this.enableAuthority = false; // 是否开启权限
+        this.initialized = false; // 系统是否初始化
         this.login = false; // 是否登录
     }
 
@@ -13,6 +14,7 @@ class Config {
             fetch(`/api/Config/Get`).then(response => {
                 response.json().then(json => {
                     this.enableAuthority = json.Data.EnableAuthority;
+                    this.initialized = json.Data.Initialized;
                     resolve();
                 }).catch(e => {
                     console.warn(e);

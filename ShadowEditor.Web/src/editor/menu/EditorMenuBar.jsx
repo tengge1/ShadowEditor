@@ -21,6 +21,7 @@ import LoginMenu from './LoginMenu.jsx';
 class EditorMenuBar extends React.Component {
     render() {
         const { className } = this.props;
+        const { enableAuthority, initialized, login } = app.config;
 
         return <MenuBar className={classNames('EditorMenuBar', className)}>
             <SceneMenu />
@@ -33,12 +34,12 @@ class EditorMenuBar extends React.Component {
             <PlayMenu />
             <ToolMenu />
             <OptionsMenu />
-            {app.config.enableAuthority && <SystemMenu />}
+            {enableAuthority && <SystemMenu />}
             <HelpMenu />
             <MenuItemSeparator direction={'horizontal'} />
             {/* <EditorTabMenu /> */}
             <MenuBarFiller />
-            {app.config.enableAuthority && <LoginMenu />}
+            {enableAuthority && initialized && <LoginMenu />}
         </MenuBar>;
     }
 }

@@ -17,7 +17,7 @@ class LoginMenu extends React.Component {
 
     render() {
         return <>
-            <MenuItemSeparator className={classNames('horizontal', 'LoginSeparator')}></MenuItemSeparator>
+            <MenuItemSeparator className={classNames('horizontal', 'LoginSeparator')} />
             <li className={classNames('MenuItem', 'LoginMenuItem')}>
                 <Button className={'button'} onClick={this.handleClickRegister}>{_t(`Register`)}</Button>
             </li>

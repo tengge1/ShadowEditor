@@ -19,13 +19,15 @@ class SystemMenu extends React.Component {
     }
 
     render() {
+        const { enableAuthority, initialized, login } = app.config;
+
         return <MenuItem title={_t('System')}>
-            <MenuItem title={_t('Initialize')} onClick={this.handleInitialize} />
-            <MenuItemSeparator />
-            <MenuItem title={_t('User Management')} onClick={this.handleUser} />
-            <MenuItem title={_t('Role Management')} onClick={this.handleRole} />
-            <MenuItemSeparator />
-            <MenuItem title={_t('Authority Management')} onClick={this.handleAuthority} />
+            <MenuItem title={_t('Initialize')} show={!initialized} onClick={this.handleInitialize} />
+            <MenuItemSeparator show={initialized} />
+            <MenuItem title={_t('User Management')} show={initialized} onClick={this.handleUser} />
+            <MenuItem title={_t('Role Management')} show={initialized} onClick={this.handleRole} />
+            <MenuItemSeparator show={initialized} />
+            <MenuItem title={_t('Authority Management')} show={initialized} onClick={this.handleAuthority} />
         </MenuItem>;
     }
 
