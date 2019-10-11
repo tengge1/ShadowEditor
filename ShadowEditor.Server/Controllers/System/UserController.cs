@@ -204,10 +204,34 @@ namespace ShadowEditor.Server.Controllers.System
 
             var mongo = new MongoHelper();
 
+            // 判断是否是系统内置用户
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
+            var doc = mongo.FindOne(Constant.UserCollectionName, filter);
+
+            if (doc == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "The user is not existed."
+                });
+            }
+
+            var userName = doc["Username"].ToString();
+
+            if (userName == "admin")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Modifying system built-in users is not allowed."
+                });
+            }
+
             // 判断用户名是否重复
             var filter1 = Builders<BsonDocument>.Filter.Ne("ID", objectId);
             var filter2 = Builders<BsonDocument>.Filter.Eq("Username", model.Username);
-            var filter = Builders<BsonDocument>.Filter.And(filter1, filter2);
+            filter = Builders<BsonDocument>.Filter.And(filter1, filter2);
 
             var count = mongo.Count(Constant.UserCollectionName, filter);
 
@@ -267,7 +291,18 @@ namespace ShadowEditor.Server.Controllers.System
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "The asset is not existed!"
+                    Msg = "The user is not existed."
+                });
+            }
+
+            var userName = doc["Username"].ToString();
+
+            if (userName == "admin")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "It is not allowed to delete system built-in users."
                 });
             }
 

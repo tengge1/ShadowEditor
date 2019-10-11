@@ -75,7 +75,7 @@ class UserManageWindow extends React.Component {
                 >
                     <Column type={'number'} title={'#'} />
                     <Column field={'Username'} title={_t('Username')} />
-                    <Column field={'Name'} title={_t('Name')} />
+                    <Column field={'Name'} title={_t('Name')} renderer={this.renderName} />
                     <Column field={'CreateTime'} title={_t('Create Date')} width={120} align={'center'} renderer={this.renderDate} />
                     <Column field={'UpdateTime'} title={_t('Update Date')} width={120} align={'center'} renderer={this.renderDate} />
                     <Column field={'Status'} title={_t('Status')} width={80} align={'center'} renderer={this.renderStatus} />
@@ -124,6 +124,11 @@ class UserManageWindow extends React.Component {
 
         const record = data.filter(n => n.ID === selected)[0];
 
+        if (record.Username === 'admin') {
+            app.toast(_t('Modifying system built-in users is not allowed.'));
+            return;
+        }
+
         const win = app.createElement(EditUserWindow, {
             id: record.ID,
             username: record.Username,
@@ -135,8 +140,16 @@ class UserManageWindow extends React.Component {
 
     handleDelete() {
         const selected = this.state.selected;
+
         if (!selected) {
             app.toast(_t('Please select a record.'));
+            return;
+        }
+
+        const record = this.state.data.filter(n => n.ID === selected)[0];
+
+        if (record.Username === 'admin') {
+            app.toast(_t('It is not allowed to delete system built-in users.'));
             return;
         }
 
@@ -169,6 +182,13 @@ class UserManageWindow extends React.Component {
     handleSearch(value) {
         const { pageSize, pageNum } = this.state;
         this.update(pageSize, pageNum, value);
+    }
+
+    renderName(value) {
+        if(value === 'Administrator') {
+            return _t(value);
+        }
+        return value;
     }
 
     renderDate(value) {

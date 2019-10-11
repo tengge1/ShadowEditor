@@ -164,7 +164,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             var mongo = new MongoHelper();
 
-            // 判断是否是系统内置用户
+            // 判断是否是系统内置角色
             var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
             var doc = mongo.FindOne(Constant.RoleCollectionName, filter);
 
