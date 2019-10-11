@@ -848,6 +848,6 @@
     "Press OK To refresh.": "点击确定刷新页面。",
     "The role is not existed.": "该角色不存在。",
     "Modifying system built-in roles is not allowed.": "不允许修改系统内置角色。",
-    "It is not allowed to delete system built-in roles.": "不允许删除系统内置用户。",
+    "It is not allowed to delete system built-in roles.": "不允许删除系统内置角色。",
     "Description": "简介"
 }
