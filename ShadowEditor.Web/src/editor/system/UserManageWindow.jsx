@@ -75,7 +75,7 @@ class UserManageWindow extends React.Component {
                 >
                     <Column type={'number'} title={'#'} />
                     <Column field={'Username'} title={_t('Username')} width={120} />
-                    <Column field={'Name'} title={_t('Nick Name')} renderer={this.renderName} />
+                    <Column field={'Name'} title={_t('NickName')} renderer={this.renderName} />
                     <Column field={'CreateTime'} title={_t('Create Date')} width={120} align={'center'} renderer={this.renderDate} />
                     <Column field={'UpdateTime'} title={_t('Update Date')} width={120} align={'center'} renderer={this.renderDate} />
                     <Column field={'Status'} title={_t('Status')} width={80} align={'center'} renderer={this.renderStatus} />
