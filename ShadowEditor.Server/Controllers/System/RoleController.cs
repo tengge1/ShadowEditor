@@ -112,6 +112,11 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
+            if (string.IsNullOrEmpty(model.Description))
+            {
+                model.Description = "";
+            }
+
             var now = DateTime.Now;
 
             var doc = new BsonDocument

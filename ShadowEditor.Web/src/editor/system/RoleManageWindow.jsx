@@ -191,6 +191,7 @@ class RoleManageWindow extends React.Component {
             value === 'Guest') {
             return _t(value);
         }
+        return value;
     }
 
     renderDate(value) {
