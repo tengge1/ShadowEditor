@@ -45,7 +45,7 @@ class UserManageWindow extends React.Component {
         return <Window
             className={'UserManageWindow'}
             title={_t('User Management')}
-            style={{ width: '600px', height: '400px' }}
+            style={{ width: '700px', height: '400px' }}
             mask={false}
             onClose={this.handleClose}
                >
@@ -74,8 +74,8 @@ class UserManageWindow extends React.Component {
                     keyField={'ID'}
                 >
                     <Column type={'number'} title={'#'} />
-                    <Column field={'Username'} title={_t('Username')} />
-                    <Column field={'Name'} title={_t('Name')} renderer={this.renderName} />
+                    <Column field={'Username'} title={_t('Username')} width={120} />
+                    <Column field={'Name'} title={_t('Nick Name')} renderer={this.renderName} />
                     <Column field={'CreateTime'} title={_t('Create Date')} width={120} align={'center'} renderer={this.renderDate} />
                     <Column field={'UpdateTime'} title={_t('Update Date')} width={120} align={'center'} renderer={this.renderDate} />
                     <Column field={'Status'} title={_t('Status')} width={80} align={'center'} renderer={this.renderStatus} />
