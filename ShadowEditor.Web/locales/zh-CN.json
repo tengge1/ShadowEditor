@@ -849,5 +849,8 @@
     "The role is not existed.": "该角色不存在。",
     "Modifying system built-in roles is not allowed.": "不允许修改系统内置角色。",
     "It is not allowed to delete system built-in roles.": "不允许删除系统内置角色。",
-    "Description": "简介"
+    "Description": "简介",
+    "Administrator": "管理员",
+    "User": "用户",
+    "Guest": "游客"
 }

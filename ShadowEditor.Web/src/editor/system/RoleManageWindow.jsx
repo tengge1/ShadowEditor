@@ -74,7 +74,7 @@ class RoleManageWindow extends React.Component {
                     keyField={'ID'}
                 >
                     <Column type={'number'} title={'#'} />
-                    <Column field={'Name'} title={_t('Name')} />
+                    <Column field={'Name'} title={_t('Name')} renderer={this.renderName} />
                     <Column field={'UpdateTime'} title={_t('Update Date')} width={120} align={'center'} renderer={this.renderDate} />
                     <Column field={'CreateTime'} title={_t('Create Date')} width={120} align={'center'} renderer={this.renderDate} />
                     <Column field={'Status'} title={_t('Status')} width={100} align={'center'} renderer={this.renderStatus} />
@@ -123,6 +123,13 @@ class RoleManageWindow extends React.Component {
 
         const record = data.filter(n => n.ID === selected)[0];
 
+        if (record.Name === 'Administrator' ||
+            record.Name === 'User' ||
+            record.Name === 'Guest') {
+            app.toast(_t('Modifying system built-in roles is not allowed.'));
+            return;
+        }
+
         const win = app.createElement(EditRoleWindow, {
             id: record.ID,
             name: record.Name,
@@ -135,6 +142,15 @@ class RoleManageWindow extends React.Component {
         const selected = this.state.selected;
         if (!selected) {
             app.toast(_t('Please select a record.'));
+            return;
+        }
+
+        const record = this.state.data.filter(n => n.ID === selected)[0];
+
+        if (record.Name === 'Administrator' ||
+            record.Name === 'User' ||
+            record.Name === 'Guest') {
+            app.toast(_t('It is not allowed to delete system built-in roles.'));
             return;
         }
 
@@ -167,6 +183,14 @@ class RoleManageWindow extends React.Component {
     handleSearch(value) {
         const { pageSize, pageNum } = this.state;
         this.update(pageSize, pageNum, value);
+    }
+
+    renderName(value) {
+        if (value === 'Administrator' ||
+            value === 'User' ||
+            value === 'Guest') {
+            return _t(value);
+        }
     }
 
     renderDate(value) {
