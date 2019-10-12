@@ -45,7 +45,7 @@ class UserManageWindow extends React.Component {
         return <Window
             className={'UserManageWindow'}
             title={_t('User Management')}
-            style={{ width: '700px', height: '400px' }}
+            style={{ width: '600px', height: '400px' }}
             mask={false}
             onClose={this.handleClose}
                >

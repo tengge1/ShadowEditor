@@ -12,7 +12,7 @@ class EditUserWindow extends React.Component {
             id: props.id,
             username: props.username,
             password: props.password,
-            name: props.name,
+            name: props.name
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -28,20 +28,21 @@ class EditUserWindow extends React.Component {
             title={_t('Edit User')}
             style={{ width: '320px', height: '200px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('User Name')}</Label>
-                        <Input name={'username'} value={username} onChange={this.handleChange}></Input>
+                        <Input name={'username'} value={username} onChange={this.handleChange} />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Password')}</Label>
-                        <Input name={'password'} value={password} onChange={this.handleChange}></Input>
+                        <Input name={'password'} type={'password'} value={password} onChange={this.handleChange} />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('NickName')}</Label>
-                        <Input name={'name'} value={name} onChange={this.handleChange}></Input>
+                        <Input name={'name'} value={name} onChange={this.handleChange} />
                     </FormControl>
                 </Form>
             </Content>
@@ -54,7 +55,7 @@ class EditUserWindow extends React.Component {
 
     handleChange(value, name) {
         this.setState({
-            [name]: value,
+            [name]: value
         });
     }
 
@@ -81,9 +82,9 @@ class EditUserWindow extends React.Component {
         fetch(`${app.options.server}${url}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `ID=${id}&Username=${username}&Password=${password}&Name=${name}`,
+            body: `ID=${id}&Username=${username}&Password=${password}&Name=${name}`
         }).then(response => {
             response.json().then(json => {
                 if (json.Code !== 200) {
@@ -105,14 +106,14 @@ EditUserWindow.propTypes = {
     id: PropTypes.string,
     username: PropTypes.string,
     name: PropTypes.string,
-    callback: PropTypes.func,
+    callback: PropTypes.func
 };
 
 EditUserWindow.defaultProps = {
     id: '',
     username: '',
     name: '',
-    callback: null,
+    callback: null
 };
 
 export default EditUserWindow;
