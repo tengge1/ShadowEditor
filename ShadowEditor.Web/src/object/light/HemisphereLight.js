@@ -3,9 +3,9 @@ import fragmentShader from './shader/hemisphere_fragment.glsl';
 
 /**
  * 半球光
- * @param {*} skyColor 
- * @param {*} groundColor 
- * @param {*} intensity 
+ * @param {*} skyColor 天空颜色
+ * @param {Number} groundColor 地面颜色
+ * @param {Number} intensity 强度
  */
 function HemisphereLight(skyColor, groundColor, intensity) {
     THREE.HemisphereLight.call(this, skyColor, groundColor, intensity);
