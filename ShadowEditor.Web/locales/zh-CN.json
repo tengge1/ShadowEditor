@@ -858,5 +858,7 @@
     "It is not allowed to delete system built-in users.": "不允许删除系统内置用户。",
     "The selected object is not a point light.": "选中的物体不是点光源。",
     "Point Light Helper": "点光源帮助器",
-    "Helper": "帮助器"
+    "Helper": "帮助器",
+    "Hemisphere Light Helper": "半球光帮助器",
+    "The selected object is not a hemisphere light.": "选中的物体不是半球光。"
 }

@@ -6,6 +6,7 @@ import HemisphereLight from '../../object/light/HemisphereLight';
 import RectAreaLight from '../../object/light/RectAreaLight';
 
 import PointLightHelper from '../../object/light/PointLightHelper';
+import HemisphereLightHelper from '../../object/light/HemisphereLightHelper';
 
 /**
  * 光源菜单
@@ -23,6 +24,7 @@ class LightMenu extends React.Component {
         this.handleAddRectAreaLight = this.handleAddRectAreaLight.bind(this);
 
         this.handleAddPointLightHelper = this.handleAddPointLightHelper.bind(this);
+        this.handleAddHemisphereLightHelper = this.handleAddHemisphereLightHelper.bind(this);
     }
 
     render() {
@@ -37,6 +39,7 @@ class LightMenu extends React.Component {
             <MenuItem title={_t('Rect Area Light')} onClick={this.handleAddRectAreaLight} />
             <MenuItemSeparator />
             <MenuItem title={_t('Point Light Helper')} onClick={this.handleAddPointLightHelper} />
+            <MenuItem title={_t('Hemisphere Light Helper')} onClick={this.handleAddHemisphereLightHelper} />
         </MenuItem>;
     }
 
@@ -158,6 +161,20 @@ class LightMenu extends React.Component {
         }
 
         selected.add(new PointLightHelper(selected.color));
+        app.call('sceneGraphChanged', this);
+    }
+
+    // --------------------------- 半球光帮助器 --------------------------------
+
+    handleAddHemisphereLightHelper() {
+        let selected = app.editor.selected;
+
+        if (!(selected instanceof THREE.HemisphereLight)) {
+            app.toast(_t('The selected object is not a hemisphere light.'));
+            return;
+        }
+
+        selected.add(new HemisphereLightHelper(selected.skyColor, selected.groundColor));
         app.call('sceneGraphChanged', this);
     }
 }
