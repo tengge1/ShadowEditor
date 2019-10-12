@@ -5,6 +5,8 @@ import PointLight from '../../object/light/PointLight';
 import HemisphereLight from '../../object/light/HemisphereLight';
 import RectAreaLight from '../../object/light/RectAreaLight';
 
+import PointLightHelper from '../../object/light/PointLightHelper';
+
 /**
  * 光源菜单
  * @author tengge / https://github.com/tengge1
@@ -19,18 +21,22 @@ class LightMenu extends React.Component {
         this.handleAddSpotLight = this.handleAddSpotLight.bind(this);
         this.handleAddHemisphereLight = this.handleAddHemisphereLight.bind(this);
         this.handleAddRectAreaLight = this.handleAddRectAreaLight.bind(this);
+
+        this.handleAddPointLightHelper = this.handleAddPointLightHelper.bind(this);
     }
 
     render() {
         const { className, style } = this.props;
 
         return <MenuItem title={_t('Light')}>
-            <MenuItem title={_t('Ambient Light')} onClick={this.handleAddAmbientLight}></MenuItem>
-            <MenuItem title={_t('Directional Light')} onClick={this.handleAddDirectionalLight}></MenuItem>
-            <MenuItem title={_t('Point Light')} onClick={this.handleAddPointLight}></MenuItem>
-            <MenuItem title={_t('Spot Light')} onClick={this.handleAddSpotLight}></MenuItem>
-            <MenuItem title={_t('Hemisphere Light')} onClick={this.handleAddHemisphereLight}></MenuItem>
-            <MenuItem title={_t('Rect Area Light')} onClick={this.handleAddRectAreaLight}></MenuItem>
+            <MenuItem title={_t('Ambient Light')} onClick={this.handleAddAmbientLight} />
+            <MenuItem title={_t('Directional Light')} onClick={this.handleAddDirectionalLight} />
+            <MenuItem title={_t('Point Light')} onClick={this.handleAddPointLight} />
+            <MenuItem title={_t('Spot Light')} onClick={this.handleAddSpotLight} />
+            <MenuItem title={_t('Hemisphere Light')} onClick={this.handleAddHemisphereLight} />
+            <MenuItem title={_t('Rect Area Light')} onClick={this.handleAddRectAreaLight} />
+            <MenuItemSeparator />
+            <MenuItem title={_t('Point Light Helper')} onClick={this.handleAddPointLightHelper} />
         </MenuItem>;
     }
 
@@ -139,6 +145,20 @@ class LightMenu extends React.Component {
         light.position.set(0, 6, 0);
 
         editor.execute(new AddObjectCommand(light));
+    }
+
+    // -------------------------- 点光源帮助器 -------------------------------
+
+    handleAddPointLightHelper() {
+        let selected = app.editor.selected;
+
+        if (!(selected instanceof THREE.PointLight)) {
+            app.toast(_t('The selected object is not a point light.'));
+            return;
+        }
+
+        selected.add(new PointLightHelper(selected.color));
+        app.call('sceneGraphChanged', this);
     }
 }
 

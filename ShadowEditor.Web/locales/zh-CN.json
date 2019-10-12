@@ -855,5 +855,8 @@
     "Guest": "游客",
     "The user is not existed.": "该用户不存在",
     "Modifying system built-in users is not allowed.": "不允许修改系统内置用户。",
-    "It is not allowed to delete system built-in users.": "不允许删除系统内置用户。"
+    "It is not allowed to delete system built-in users.": "不允许删除系统内置用户。",
+    "The selected object is not a point light.": "选中的物体不是点光源。",
+    "Point Light Helper": "点光源帮助器",
+    "Helper": "帮助器"
 }
