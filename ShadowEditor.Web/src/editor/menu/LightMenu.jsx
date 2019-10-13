@@ -174,7 +174,7 @@ class LightMenu extends React.Component {
             return;
         }
 
-        selected.add(new HemisphereLightHelper(selected.skyColor, selected.groundColor));
+        selected.add(new HemisphereLightHelper(selected.color, selected.groundColor));
         app.call('sceneGraphChanged', this);
     }
 }
