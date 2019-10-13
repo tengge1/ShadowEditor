@@ -1,10 +1,6 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
 import AddObjectCommand from '../../command/AddObjectCommand';
 
-import PointLight from '../../object/light/PointLight';
-import HemisphereLight from '../../object/light/HemisphereLight';
-import RectAreaLight from '../../object/light/RectAreaLight';
-
 import PointLightHelper from '../../object/light/PointLightHelper';
 import HemisphereLightHelper from '../../object/light/HemisphereLightHelper';
 import RectAreaLightHelper from '../../object/light/RectAreaLightHelper';
@@ -88,7 +84,7 @@ class LightMenu extends React.Component {
         var intensity = 1;
         var distance = 0;
 
-        var light = new PointLight(color, intensity, distance);
+        var light = new THREE.PointLight(color, intensity, distance);
         light.name = _t('Point Light');
         light.position.y = 5;
         light.castShadow = true;
@@ -125,7 +121,7 @@ class LightMenu extends React.Component {
         var groundColor = 0xffaa00;
         var intensity = 1;
 
-        var light = new HemisphereLight(skyColor, groundColor, intensity);
+        var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
         light.name = _t('Hemisphere Light');
 
         light.position.set(0, 10, 0);
@@ -143,7 +139,7 @@ class LightMenu extends React.Component {
         var width = 20;
         var height = 10;
 
-        var light = new RectAreaLight(color, intensity, width, height);
+        var light = new THREE.RectAreaLight(color, intensity, width, height);
         light.name = _t('Rect Area Light');
 
         light.position.set(0, 6, 0);
