@@ -7,6 +7,7 @@ import RectAreaLight from '../../object/light/RectAreaLight';
 
 import PointLightHelper from '../../object/light/PointLightHelper';
 import HemisphereLightHelper from '../../object/light/HemisphereLightHelper';
+import RectAreaLightHelper from '../../object/light/RectAreaLightHelper';
 
 /**
  * 光源菜单
@@ -25,11 +26,10 @@ class LightMenu extends React.Component {
 
         this.handleAddPointLightHelper = this.handleAddPointLightHelper.bind(this);
         this.handleAddHemisphereLightHelper = this.handleAddHemisphereLightHelper.bind(this);
+        this.handleAddRectAreaLightHelper = this.handleAddRectAreaLightHelper.bind(this);
     }
 
     render() {
-        const { className, style } = this.props;
-
         return <MenuItem title={_t('Light')}>
             <MenuItem title={_t('Ambient Light')} onClick={this.handleAddAmbientLight} />
             <MenuItem title={_t('Directional Light')} onClick={this.handleAddDirectionalLight} />
@@ -40,6 +40,7 @@ class LightMenu extends React.Component {
             <MenuItemSeparator />
             <MenuItem title={_t('Point Light Helper')} onClick={this.handleAddPointLightHelper} />
             <MenuItem title={_t('Hemisphere Light Helper')} onClick={this.handleAddHemisphereLightHelper} />
+            <MenuItem title={_t('Rect Area Light Helper')} onClick={this.handleAddRectAreaLightHelper} />
         </MenuItem>;
     }
 
@@ -175,6 +176,20 @@ class LightMenu extends React.Component {
         }
 
         selected.add(new HemisphereLightHelper(selected.color, selected.groundColor));
+        app.call('sceneGraphChanged', this);
+    }
+
+    // ---------------------------- 矩形光帮助器 -------------------------------------
+
+    handleAddRectAreaLightHelper() {
+        let selected = app.editor.selected;
+
+        if (!(selected instanceof THREE.RectAreaLight)) {
+            app.toast(_t('The selected object is not a rect area light.'));
+            return;
+        }
+
+        selected.add(new RectAreaLightHelper(selected.width, selected.height));
         app.call('sceneGraphChanged', this);
     }
 }

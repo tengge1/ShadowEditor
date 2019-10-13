@@ -860,5 +860,7 @@
     "Point Light Helper": "点光源帮助器",
     "Helper": "帮助器",
     "Hemisphere Light Helper": "半球光帮助器",
-    "The selected object is not a hemisphere light.": "选中的物体不是半球光。"
+    "The selected object is not a hemisphere light.": "选中的物体不是半球光。",
+    "Rect Area Light Helper": "矩形光帮助器",
+    "The selected object is not a rect area light.": "选中的物体不是矩形光。"
 }
