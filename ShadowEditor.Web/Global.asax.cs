@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Web.Security;
@@ -24,7 +25,7 @@ namespace ShadowEditor.Client
 
             // 记录系统启动日志
             var log = LogHelper.GetLogger(this.GetType());
-            log.Info("系统启动成功");
+            log.Info("Application start successfully!");
         }
 
         protected void Session_Start(object sender, EventArgs e)
@@ -45,7 +46,19 @@ namespace ShadowEditor.Client
 
         protected void Application_Error(object sender, EventArgs e)
         {
+            var exception = Server.GetLastError().GetBaseException();
 
+            var builder = new StringBuilder();
+
+            builder.Append($"Time: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}\n");
+            builder.Append($"Url: {Request.Url.ToString()}\n");
+            builder.Append($"Message: {exception.Message}\n");
+            builder.Append($"StackTrace: {exception.StackTrace}\n");
+            builder.Append($"Source: {exception.Source}\n");
+
+            // Server.ClearError();
+            var log = LogHelper.GetLogger(this.GetType());
+            log.Error(builder.ToString());
         }
 
         protected void Session_End(object sender, EventArgs e)

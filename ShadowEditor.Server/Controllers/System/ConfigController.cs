@@ -8,6 +8,8 @@ using System.Web.Http.Results;
 using System.Web;
 using System.IO;
 using System.Configuration;
+using System.Web.Security;
+using Newtonsoft.Json;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
@@ -29,11 +31,12 @@ namespace ShadowEditor.Server.Controllers.System
         [HttpGet]
         public JsonResult Get()
         {
-            var helper = new MongoHelper();
+            var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Empty;
 
-            var config = helper.FindOne(Constant.ConfigCollectionName, filter);
+            // 获取配置
+            var config = mongo.FindOne(Constant.ConfigCollectionName, filter);
 
             if (config == null)
             {
@@ -42,7 +45,7 @@ namespace ShadowEditor.Server.Controllers.System
                     ["ID"] = ObjectId.GenerateNewId(),
                     ["Initialized"] = false
                 };
-                helper.InsertOne(Constant.ConfigCollectionName, config);
+                mongo.InsertOne(Constant.ConfigCollectionName, config);
             }
 
             var model = new JObject
@@ -50,7 +53,44 @@ namespace ShadowEditor.Server.Controllers.System
                 ["ID"] = config["ID"].ToString(),
                 ["EnableAuthority"] = ConfigurationManager.AppSettings["EnableAuthority"] == "true",
                 ["Initialized"] = config.Contains("Initialized") ? config["Initialized"].ToBoolean() : false,
+                ["IsLogin"] = false,
+                ["Username"] = "",
+                ["Name"] = "",
             };
+
+            // 获取用户登录信息
+            var cookies = HttpContext.Current.Request.Cookies;
+
+            var cookie = cookies.Get(FormsAuthentication.FormsCookieName);
+
+            if (cookie != null)
+            {
+                var ticket = FormsAuthentication.Decrypt(cookie.Value);
+
+                try
+                {
+                    var data = JsonConvert.DeserializeObject<LoginTicketDataModel>(ticket.UserData);
+
+                    ObjectId objectId;
+
+                    if (ObjectId.TryParse(data.UserID, out objectId))
+                    {
+                        var filter1 = Builders<BsonDocument>.Filter.Eq("UserID", objectId);
+                        var doc = mongo.FindOne(Constant.UserCollectionName, filter1);
+                        if (doc != null)
+                        {
+                            model["Username"] = doc["Username"].ToString();
+                            model["Name"] = doc["Name"].ToString();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // 用户登录信息解析失败
+                    var log = LogHelper.GetLogger(this.GetType());
+                    log.Error("User ticket deserialized failed.", ex);
+                }
+            }
 
             return Json(new
             {

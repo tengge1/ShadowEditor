@@ -7,13 +7,14 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web;
 using System.IO;
+using System.Web.Security;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using ShadowEditor.Model.System;
-using System.Web.Security;
 
 namespace ShadowEditor.Server.Controllers.System
 {
@@ -82,11 +83,17 @@ namespace ShadowEditor.Server.Controllers.System
 
             var id = user["ID"].ToString();
 
+            // 票据数据
+            var ticketData = new LoginTicketDataModel
+            {
+                UserID = id,
+            };
+
             // 将用户信息写入cookie
             var cookie = FormsAuthentication.GetAuthCookie(model.Username, false);
             var ticket = FormsAuthentication.Decrypt(cookie.Value);
 
-            var newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, id); // 将用户ID写入ticket
+            var newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, JsonConvert.SerializeObject(ticketData)); // 将用户ID写入ticket
             cookie.Value = FormsAuthentication.Encrypt(newTicket);
 
             HttpContext.Current.Response.Cookies.Add(cookie);
