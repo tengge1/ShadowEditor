@@ -75,7 +75,7 @@ namespace ShadowEditor.Server.Controllers.System
 
                     if (ObjectId.TryParse(data.UserID, out objectId))
                     {
-                        var filter1 = Builders<BsonDocument>.Filter.Eq("UserID", objectId);
+                        var filter1 = Builders<BsonDocument>.Filter.Eq("ID", objectId);
                         var doc = mongo.FindOne(Constant.UserCollectionName, filter1);
                         if (doc != null)
                         {
