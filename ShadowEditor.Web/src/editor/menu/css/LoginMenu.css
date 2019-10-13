@@ -1,18 +1,9 @@
-.MenuItemSeparator.LoginSeparator {
-    margin-right: 4px;
-}
-
-.MenuItem.LoginMenuItem {
-    padding: 0;
-    display: flex;
-    align-items: center;
-}
-
-.MenuBar>.MenuItem.LoginMenuItem:hover {
-    padding: 0;
+.MenuBar>.MenuItem.LoginMenuItem {
+    padding: 0 8px;
 }
 
 .MenuItem.LoginMenuItem>.button {
     height: 20px;
     line-height: 20px;
+    font-size: 13px;
 }

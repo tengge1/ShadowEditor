@@ -17,10 +17,11 @@ class LoginMenu extends React.Component {
 
     render() {
         return <>
-            <MenuItemSeparator className={classNames('horizontal', 'LoginSeparator')} />
+            <MenuItemSeparator className={'LoginSeparator'} direction={'horizontal'} />
             <li className={classNames('MenuItem', 'LoginMenuItem')}>
                 <LinkButton className={'button'} onClick={this.handleClickRegister}>{_t(`Register`)}</LinkButton>
             </li>
+            <MenuItemSeparator className={'LoginSeparator'} direction={'horizontal'} />
             <li className={classNames('MenuItem', 'LoginMenuItem')}>
                 <LinkButton className={'button'} onClick={this.handleClickLogin}>{_t(`Login`)}</LinkButton>
             </li>

@@ -18,7 +18,8 @@
 }
 
 .MenuItemSeparator.horizontal .separator {
-    width: 2px;
-    height: 24px;
-    background-image: linear-gradient(to right, rgb(226, 226, 226), rgb(226, 226, 226) 50%, rgb(252, 252, 252) 50%, rgb(252, 252, 252));
+    width: 1px;
+    height: 12px;
+    margin-top: 6px;
+    background: #8c8c8c;
 }

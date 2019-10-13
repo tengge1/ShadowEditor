@@ -1,0 +1,18 @@
+.ToolbarSeparator {
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ToolbarSeparator>.separator {
+    width: 1px;
+    height: 12px;
+    background: #8c8c8c;
+}
+
+.Toolbar.vertical>.ToolbarSeparator>.separator {
+    width: 12px;
+    height: 1px;
+    background: #8c8c8c;
+}
