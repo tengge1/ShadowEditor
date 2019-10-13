@@ -1,12 +1,12 @@
-import './css/Button.css';
+import './css/LinkButton.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 /**
- * 按钮
+ * 链接按钮
  * @author tengge / https://github.com/tengge1
  */
-class Button extends React.Component {
+class LinkButton extends React.Component {
     constructor(props) {
         super(props);
 
@@ -14,16 +14,16 @@ class Button extends React.Component {
     }
 
     render() {
-        const { className, style, children, color, disabled } = this.props;
+        const { className, style, children, disabled } = this.props;
 
-        return <button
-            className={classNames('Button', color, disabled && 'disabled', className)}
+        return <a className={classNames('LinkButton', disabled && 'disabled', className)}
             style={style}
+            href={'javascript:;'}
             disabled={disabled}
             onClick={this.handleClick}
                >
             {children}
-        </button>;
+        </a>;
     }
 
     handleClick(onClick, event) {
@@ -31,24 +31,22 @@ class Button extends React.Component {
     }
 }
 
-Button.propTypes = {
+LinkButton.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     name: PropTypes.string,
     children: PropTypes.node,
-    color: PropTypes.oneOf(['primary', 'success', 'warn', 'danger']),
     disabled: PropTypes.bool,
     onClick: PropTypes.func
 };
 
-Button.defaultProps = {
+LinkButton.defaultProps = {
     className: null,
     style: null,
     name: null,
     children: null,
-    color: null,
     disabled: false,
     onClick: null
 };
 
-export default Button;
+export default LinkButton;

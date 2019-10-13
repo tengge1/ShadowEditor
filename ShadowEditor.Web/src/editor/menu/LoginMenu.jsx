@@ -1,5 +1,5 @@
 import './css/LoginMenu.css';
-import { classNames, MenuItemSeparator, Button } from '../../third_party';
+import { classNames, MenuItemSeparator, Button, LinkButton } from '../../third_party';
 import LoginWindow from '../system/LoginWindow.jsx';
 import RegisterWindow from '../system/RegisterWindow.jsx';
 
@@ -19,10 +19,10 @@ class LoginMenu extends React.Component {
         return <>
             <MenuItemSeparator className={classNames('horizontal', 'LoginSeparator')} />
             <li className={classNames('MenuItem', 'LoginMenuItem')}>
-                <Button className={'button'} onClick={this.handleClickRegister}>{_t(`Register`)}</Button>
+                <LinkButton className={'button'} onClick={this.handleClickRegister}>{_t(`Register`)}</LinkButton>
             </li>
             <li className={classNames('MenuItem', 'LoginMenuItem')}>
-                <Button className={'button'} onClick={this.handleClickLogin}>{_t(`Login`)}</Button>
+                <LinkButton className={'button'} onClick={this.handleClickLogin}>{_t(`Login`)}</LinkButton>
             </li>
         </>;
     }

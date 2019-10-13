@@ -1,4 +1,4 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuBarFiller, MenuItemSeparator } from '../../third_party';
+import { classNames, PropTypes, MenuBar, MenuItem, MenuBarFiller, MenuItemSeparator, LinkButton } from '../../third_party';
 import SceneMenu from './SceneMenu.jsx';
 import EditMenu from './EditMenu.jsx';
 import TwoDMenu from './TwoDMenu.jsx';
