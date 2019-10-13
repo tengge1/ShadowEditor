@@ -6,7 +6,9 @@ class Config {
     constructor() {
         this.enableAuthority = false; // 是否开启权限
         this.initialized = false; // 系统是否初始化
-        this.login = false; // 是否登录
+        this.isLogin = false; // 是否登录
+        this.username = ''; // 登录用户名
+        this.name = ''; // 登录姓名
     }
 
     load() {
@@ -15,6 +17,9 @@ class Config {
                 response.json().then(json => {
                     this.enableAuthority = json.Data.EnableAuthority;
                     this.initialized = json.Data.Initialized;
+                    this.isLogin = json.Data.IsLogin;
+                    this.username = json.Data.Username;
+                    this.name = json.Data.Name;
                     resolve();
                 }).catch(e => {
                     console.warn(e);

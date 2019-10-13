@@ -79,6 +79,7 @@ namespace ShadowEditor.Server.Controllers.System
                         var doc = mongo.FindOne(Constant.UserCollectionName, filter1);
                         if (doc != null)
                         {
+                            model["IsLogin"] = true;
                             model["Username"] = doc["Username"].ToString();
                             model["Name"] = doc["Name"].ToString();
                         }
