@@ -316,5 +316,92 @@ namespace ShadowEditor.Server.Controllers.System
                 Msg = "Delete successfully!"
             });
         }
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult ChangePassword(ChangePasswordModel model)
+        {
+            var user = UserHelper.GetCurrentUser();
+
+            if (user == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "The user is not existed."
+                });
+            }
+
+            // 验证密码是否为空
+            if (model.OldPassword == null || model.OldPassword.Trim() == "")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Old password is not allowed to be empty."
+                });
+            }
+
+            if (model.NewPassword == null || model.NewPassword.Trim() == "")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "New password is not allowed to be empty."
+                });
+            }
+
+            if (model.ConfirmPassword == null || model.ConfirmPassword.Trim() == "")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Confirm password is not allowed to be empty."
+                });
+            }
+
+            if (model.NewPassword != model.ConfirmPassword)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "New password and confirm password is not the same."
+                });
+            }
+
+            // 验证旧密码
+            var oldPassword = MD5Helper.Encrypt(model.OldPassword + user.Salt);
+
+            if (oldPassword != user.Password)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Old password is not correct."
+                });
+            }
+
+            // 修改密码
+            var salt = DateTime.Now.ToString("yyyyMMddHHmmss");
+            var password = MD5Helper.Encrypt(model.NewPassword + salt);
+
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", ObjectId.Parse(user.ID));
+            var update1 = Builders<BsonDocument>.Update.Set("Password", password);
+            var update2 = Builders<BsonDocument>.Update.Set("Salt", salt);
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2);
+
+            var mongo = new MongoHelper();
+            mongo.UpdateOne(Constant.UserCollectionName, filter, update);
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "Password changed successfully!"
+            });
+        }
     }
 }

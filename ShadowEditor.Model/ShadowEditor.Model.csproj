@@ -80,6 +80,7 @@
     <Compile Include="Screenshot\ScreenshotModel.cs" />
     <Compile Include="Screenshot\ScreenshotSaveModel.cs" />
     <Compile Include="System\AuthorityModel.cs" />
+    <Compile Include="System\ChangePasswordModel.cs" />
     <Compile Include="System\ConfigModel.cs" />
     <Compile Include="System\LoginModel.cs" />
     <Compile Include="System\LoginTicketDataModel.cs" />

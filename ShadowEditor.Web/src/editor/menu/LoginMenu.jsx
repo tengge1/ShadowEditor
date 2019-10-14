@@ -2,6 +2,7 @@ import './css/LoginMenu.css';
 import { classNames, MenuItemSeparator, Button, LinkButton } from '../../third_party';
 import LoginWindow from '../system/LoginWindow.jsx';
 import RegisterWindow from '../system/RegisterWindow.jsx';
+import ChangePasswordWindow from '../system/ChangePasswordWindow.jsx';
 
 /**
  * 登录菜单
@@ -59,7 +60,8 @@ class LoginMenu extends React.Component {
     }
 
     handleChangePassword() {
-
+        const win = app.createElement(ChangePasswordWindow);
+        app.addElement(win);
     }
 
     handleClickLogout() {

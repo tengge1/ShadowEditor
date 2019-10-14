@@ -866,5 +866,12 @@
     "Logout": "注销",
     "Welcome, {{Name}}": "欢迎您，{{Name}}",
     "Are you sure to log out?": "确定要注销吗？",
-    "Change Password": "修改密码"
+    "Change Password": "修改密码",
+    "Old password is not allowed to be empty.": "原密码不允许为空。",
+    "New password is not allowed to be empty.": "新密码不允许为空。",
+    "New password and confirm password is not the same.": "新密码和确认密码不相同",
+    "Old password is not correct.": "旧密码不正确。",
+    "Password changed successfully!": "密码修改成功！",
+    "Old Password": "原密码",
+    "New Password": "新密码"
 }

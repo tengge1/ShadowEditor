@@ -140,6 +140,7 @@
     <Compile Include="Helpers\MongoHelper.cs" />
     <Compile Include="Helpers\PinYinHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Helpers\ZipHelper.cs" />
     <Compile Include="OperatingAuthority.cs" />
     <Compile Include="Result.cs" />
