@@ -865,5 +865,6 @@
     "The selected object is not a rect area light.": "选中的物体不是矩形光。",
     "Logout": "注销",
     "Welcome, {{Name}}": "欢迎您，{{Name}}",
-    "Are you sure to log out?": "确定要注销吗？"
+    "Are you sure to log out?": "确定要注销吗？",
+    "Change Password": "修改密码"
 }

@@ -13,6 +13,7 @@ class LoginMenu extends React.Component {
 
         this.handleClickRegister = this.handleClickRegister.bind();
         this.handleClickLogin = this.handleClickLogin.bind(this);
+        this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleClickLogout = this.handleClickLogout.bind(this);
         this.commitLogout = this.commitLogout.bind(this);
     }
@@ -22,7 +23,11 @@ class LoginMenu extends React.Component {
             return <>
                 <MenuItemSeparator className={'LoginSeparator'} direction={'horizontal'} />
                 <li className={classNames('MenuItem', 'LoginMenuItem')}>
-                    {_t(`Welcome, {{Name}}`, { Name: app.config.name === 'Administrator' ? _t(app.config.name) : app.config.name })}
+                    <span className={'welcome'}>{_t(`Welcome, {{Name}}`, { Name: app.config.name === 'Administrator' ? _t(app.config.name) : app.config.name })}</span>
+                </li>
+                <MenuItemSeparator className={'LoginSeparator'} direction={'horizontal'} />
+                <li className={classNames('MenuItem', 'LoginMenuItem')}>
+                    <LinkButton className={'button'} onClick={this.handleChangePassword}>{_t(`Change Password`)}</LinkButton>
                 </li>
                 <MenuItemSeparator className={'LoginSeparator'} direction={'horizontal'} />
                 <li className={classNames('MenuItem', 'LoginMenuItem')}>
@@ -51,6 +56,10 @@ class LoginMenu extends React.Component {
     handleClickLogin() {
         const win = app.createElement(LoginWindow);
         app.addElement(win);
+    }
+
+    handleChangePassword() {
+
     }
 
     handleClickLogout() {
