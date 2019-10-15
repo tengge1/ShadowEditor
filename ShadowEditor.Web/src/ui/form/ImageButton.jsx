@@ -10,7 +10,7 @@ class ImageButton extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleClick = this.handleClick.bind(this, props.onClick);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     render() {
@@ -24,8 +24,10 @@ class ImageButton extends React.Component {
         </button>;
     }
 
-    handleClick(onClick, event) {
-        onClick && onClick(this.props.name, event);
+    handleClick(event) {
+        const { name, onClick } = this.props;
+
+        onClick && onClick(name, event);
     };
 }
 

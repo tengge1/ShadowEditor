@@ -10,7 +10,7 @@ class Button extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleClick = this.handleClick.bind(this, props.onClick);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     render() {
@@ -21,13 +21,14 @@ class Button extends React.Component {
             style={style}
             disabled={disabled}
             onClick={this.handleClick}
-               >
+        >
             {children}
         </button>;
     }
 
-    handleClick(onClick, event) {
-        !this.props.disabled && onClick && onClick(this.props.name, event);
+    handleClick(event) {
+        const { name, disabled, onClick } = this.props;
+        !disabled && onClick && onClick(name, event);
     }
 }
 

@@ -10,7 +10,7 @@ class Form extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleSubmit = this.handleSubmit.bind(this, props.onSubmit);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     render() {
@@ -23,7 +23,8 @@ class Form extends React.Component {
         </form>;
     }
 
-    handleSubmit(onSubmit) {
+    handleSubmit() {
+        const { onSubmit } = this.props;
         event.preventDefault();
         onSubmit && onSubmit();
     }
