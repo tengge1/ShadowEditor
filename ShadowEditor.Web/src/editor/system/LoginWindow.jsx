@@ -21,7 +21,7 @@ class LoginWindow extends React.Component {
     }
 
     render() {
-        const { username, password, passwordType } = this.state;
+        const { username, password } = this.state;
 
         return <Window
             className={'Login'}
@@ -29,7 +29,7 @@ class LoginWindow extends React.Component {
             style={{ width: '320px', height: '200px' }}
             mask={false}
             onClose={this.handleClose}
-               >
+        >
             <Content>
                 <Form>
                     <FormControl>
@@ -70,6 +70,10 @@ class LoginWindow extends React.Component {
                 if (json.Code !== 200) {
                     return;
                 }
+                app.config.isLogin = true;
+                app.config.username = json.Data.Username;
+                app.config.name = json.Data.Name;
+                app.call('login', this);
                 this.handleClose();
             });
         });

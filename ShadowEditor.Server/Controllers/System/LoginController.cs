@@ -101,7 +101,12 @@ namespace ShadowEditor.Server.Controllers.System
             return Json(new
             {
                 Code = 200,
-                Msg = "Login successfully!"
+                Msg = "Login successfully!",
+                Data = new
+                {
+                    Username = user["Username"].ToString(),
+                    Name = user["Name"].ToString()
+                }
             });
         }
 
@@ -112,7 +117,13 @@ namespace ShadowEditor.Server.Controllers.System
         [HttpPost]
         public JsonResult Logout()
         {
-            HttpContext.Current.Response.Cookies.Clear();
+            var cookie = HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
+
+            if (cookie != null)
+            {
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
 
             return Json(new
             {
