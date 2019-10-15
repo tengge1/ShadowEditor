@@ -66,8 +66,8 @@ class LoginWindow extends React.Component {
             body: `Username=${username}&Password=${password}`
         }).then(response => {
             response.json().then(json => {
-                app.toast(_t(json.Msg));
                 if (json.Code !== 200) {
+                    app.toast(_t(json.Msg));
                     return;
                 }
                 app.config.isLogin = true;

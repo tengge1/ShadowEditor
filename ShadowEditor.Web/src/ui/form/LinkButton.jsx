@@ -10,7 +10,7 @@ class LinkButton extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleClick = this.handleClick.bind(this, props.onClick);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     render() {
@@ -21,13 +21,14 @@ class LinkButton extends React.Component {
             href={'javascript:;'}
             disabled={disabled}
             onClick={this.handleClick}
-               >
+        >
             {children}
         </a>;
     }
 
-    handleClick(onClick, event) {
-        !this.props.disabled && onClick && onClick(this.props.name, event);
+    handleClick(event) {
+        const { disabled, onClick } = this.props;
+        !disabled && onClick && onClick(this.props.name, event);
     }
 }
 
