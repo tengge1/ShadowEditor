@@ -35,6 +35,25 @@ namespace ShadowEditor.Server.Controllers.System
         {
             var mongo = new MongoHelper();
 
+            // 获取所有角色
+            var roleDocs = mongo.FindAll(Constant.RoleCollectionName).ToList();
+
+            var roles = new List<RoleModel>();
+
+            foreach (var doc in roleDocs)
+            {
+                roles.Add(new RoleModel
+                {
+                    ID = doc["ID"].ToString(),
+                    Name = doc["Name"].ToString(),
+                    CreateTime = doc["CreateTime"].ToLocalTime(),
+                    UpdateTime = doc["UpdateTime"].ToLocalTime(),
+                    Description = doc.Contains("Description") ? doc["Description"].ToString() : "",
+                    Status = doc["Status"].ToInt32(),
+                });
+            }
+
+            // 获取用户
             var filter = Builders<BsonDocument>.Filter.Ne("Status", -1);
 
             if (!string.IsNullOrEmpty(keyword))
@@ -56,12 +75,23 @@ namespace ShadowEditor.Server.Controllers.System
 
             foreach (var doc in docs)
             {
+                var roleID = doc.Contains("RoleID") ? doc["RoleID"].ToString() : "";
+                var roleName = "";
+
+                var role = roles.Where(n => n.ID == roleID).FirstOrDefault();
+                if (role != null)
+                {
+                    roleName = role.Name;
+                }
+
                 rows.Add(new UserModel
                 {
                     ID = doc["ID"].ToString(),
                     Username = doc["Username"].ToString(),
                     Password = "",
                     Name = doc["Name"].ToString(),
+                    RoleID = doc.Contains("RoleID")? doc["RoleID"].ToString() : "",
+                    RoleName = roleName,
                     Gender = doc["Gender"].ToInt32(),
                     Phone = doc["Phone"].ToString(),
                     Email = doc["Email"].ToString(),
@@ -120,6 +150,11 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
+            if (string.IsNullOrEmpty(model.RoleID))
+            {
+                model.RoleID = "";
+            }
+
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("Username", model.Username);
@@ -145,6 +180,7 @@ namespace ShadowEditor.Server.Controllers.System
                 ["Username"] = model.Username,
                 ["Password"] = MD5Helper.Encrypt(model.Password + salt),
                 ["Name"] = model.Name,
+                ["RoleID"] = model.RoleID,
                 ["Gender"] = 0,
                 ["Phone"] = "",
                 ["Email"] = "",
@@ -202,6 +238,11 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
+            if (string.IsNullOrEmpty(model.RoleID))
+            {
+                model.RoleID = "";
+            }
+
             var mongo = new MongoHelper();
 
             // 判断是否是系统内置用户
@@ -248,9 +289,10 @@ namespace ShadowEditor.Server.Controllers.System
 
             var update1 = Builders<BsonDocument>.Update.Set("Username", model.Username);
             var update2 = Builders<BsonDocument>.Update.Set("Name", model.Name);
-            var update3 = Builders<BsonDocument>.Update.Set("UpdateTime", DateTime.Now);
+            var update3 = Builders<BsonDocument>.Update.Set("RoleID", model.RoleID);
+            var update4 = Builders<BsonDocument>.Update.Set("UpdateTime", DateTime.Now);
 
-            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3);
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4);
 
             mongo.UpdateOne(Constant.UserCollectionName, filter, update);
 

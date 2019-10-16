@@ -873,5 +873,6 @@
     "Old password is not correct.": "旧密码不正确。",
     "Password changed successfully!": "密码修改成功！",
     "Old Password": "原密码",
-    "New Password": "新密码"
+    "New Password": "新密码",
+    "Please Select": "请选择"
 }

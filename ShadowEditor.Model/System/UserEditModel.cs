@@ -32,6 +32,11 @@ namespace ShadowEditor.Model.System
         public string Name { get; set; }
 
         /// <summary>
+        /// 角色ID
+        /// </summary>
+        public string RoleID { get; set; }
+
+        /// <summary>
         /// 性别：0-未设置，1-男，2-女
         /// </summary>
         public int Gender { get; set; }

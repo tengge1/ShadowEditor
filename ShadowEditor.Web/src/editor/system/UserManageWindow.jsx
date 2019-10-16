@@ -45,7 +45,7 @@ class UserManageWindow extends React.Component {
         return <Window
             className={'UserManageWindow'}
             title={_t('User Management')}
-            style={{ width: '600px', height: '400px' }}
+            style={{ width: '720px', height: '400px' }}
             mask={false}
             onClose={this.handleClose}
                >
@@ -75,7 +75,8 @@ class UserManageWindow extends React.Component {
                 >
                     <Column type={'number'} title={'#'} />
                     <Column field={'Username'} title={_t('Username')} width={120} />
-                    <Column field={'Name'} title={_t('NickName')} renderer={this.renderName} />
+                    <Column field={'Name'} title={_t('NickName')} align={'center'} renderer={this.renderName} />
+                    <Column field={'RoleName'} title={_t('Role')} width={120} align={'center'} renderer={this.renderRoleName} />
                     <Column field={'CreateTime'} title={_t('Create Date')} width={120} align={'center'} renderer={this.renderDate} />
                     <Column field={'UpdateTime'} title={_t('Update Date')} width={120} align={'center'} renderer={this.renderDate} />
                     <Column field={'Status'} title={_t('Status')} width={80} align={'center'} renderer={this.renderStatus} />
@@ -133,6 +134,7 @@ class UserManageWindow extends React.Component {
             id: record.ID,
             username: record.Username,
             name: record.Name,
+            roleID: record.RoleID,
             callback: this.handleRefresh
         });
         app.addElement(win);
@@ -186,6 +188,15 @@ class UserManageWindow extends React.Component {
 
     renderName(value) {
         if(value === 'Administrator') {
+            return _t(value);
+        }
+        return value;
+    }
+
+    renderRoleName(value) {
+        if (value === 'Administrator' ||
+            value === 'User' ||
+            value === 'Guest') {
             return _t(value);
         }
         return value;

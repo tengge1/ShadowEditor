@@ -1,4 +1,4 @@
-import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../third_party';
+import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button, Select } from '../../../third_party';
 
 /**
  * 用户编辑窗口
@@ -12,7 +12,9 @@ class EditUserWindow extends React.Component {
             id: props.id,
             username: props.username,
             password: props.password,
-            name: props.name
+            name: props.name,
+            roles: {},
+            roleID: props.roleID,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -21,7 +23,7 @@ class EditUserWindow extends React.Component {
     }
 
     render() {
-        const { username, password, name } = this.state;
+        const { username, password, name, roles, roleID } = this.state;
 
         return <Window
             className={_t('EditUserWindow')}
@@ -44,6 +46,10 @@ class EditUserWindow extends React.Component {
                         <Label>{_t('NickName')}</Label>
                         <Input name={'name'} value={name} onChange={this.handleChange} />
                     </FormControl>
+                    <FormControl>
+                        <Label>{_t('Role')}</Label>
+                        <Select name={'roleID'} options={roles} value={roleID} onChange={this.handleChange} />
+                    </FormControl>
                 </Form>
             </Content>
             <Buttons>
@@ -53,6 +59,22 @@ class EditUserWindow extends React.Component {
         </Window>;
     }
 
+    componentDidMount() {
+        fetch(`${app.options.server}/api/Role/List?pageSize=10000`).then(response => {
+            response.json().then(json => {
+                const roles = {
+                    '': _t('Please Select')
+                };
+                json.Data.rows.forEach(n => {
+                    roles[n.ID] = this.renderRoleName(n.Name);
+                });
+                this.setState({
+                    roles,
+                });
+            });
+        });
+    }
+
     handleChange(value, name) {
         this.setState({
             [name]: value
@@ -60,7 +82,7 @@ class EditUserWindow extends React.Component {
     }
 
     handleSave(callback) {
-        const { id, username, password, name } = this.state;
+        const { id, username, password, name, roleID } = this.state;
 
         if (!username || username.trim() === '') {
             app.toast(_t('Username is not allowed to be empty.'));
@@ -84,7 +106,7 @@ class EditUserWindow extends React.Component {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `ID=${id}&Username=${username}&Password=${password}&Name=${name}`
+            body: `ID=${id}&Username=${username}&Password=${password}&Name=${name}&RoleID=${roleID}`
         }).then(response => {
             response.json().then(json => {
                 if (json.Code !== 200) {
@@ -100,12 +122,22 @@ class EditUserWindow extends React.Component {
     handleClose() {
         app.removeElement(this);
     }
+
+    renderRoleName(value) {
+        if (value === 'Administrator' ||
+            value === 'User' ||
+            value === 'Guest') {
+            return _t(value);
+        }
+        return value;
+    }
 }
 
 EditUserWindow.propTypes = {
     id: PropTypes.string,
     username: PropTypes.string,
     name: PropTypes.string,
+    roleID: PropTypes.string,
     callback: PropTypes.func
 };
 
@@ -113,6 +145,7 @@ EditUserWindow.defaultProps = {
     id: '',
     username: '',
     name: '',
+    roleID: '',
     callback: null
 };
 
