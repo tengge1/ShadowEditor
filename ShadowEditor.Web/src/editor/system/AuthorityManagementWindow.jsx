@@ -48,7 +48,7 @@ class AuthorityManagementWindow extends React.Component {
                         keyField={'ID'}
                     >
                         <Column type={'number'} />
-                        <Column field={'Name'} title={_t('Role')} />
+                        <Column field={'Name'} title={_t('Role')} renderer={this.renderRoleName} />
                     </DataGrid>
                     <DataGrid
                         className={'authorities'}
@@ -151,6 +151,15 @@ class AuthorityManagementWindow extends React.Component {
 
     handleClose() {
         app.removeElement(this);
+    }
+
+    renderRoleName(value) {
+        if (value === 'Administrator' ||
+            value === 'User' ||
+            value === 'Guest') {
+            return _t(value);
+        }
+        return value;
     }
 }
 
