@@ -28,6 +28,10 @@
     box-sizing: border-box;
 }
 
+.DataGrid>.head>thead>tr>th.checkbox>input {
+    vertical-align: middle;
+}
+
 /* 表格体 */
 
 .DataGrid>.wrap {
