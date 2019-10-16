@@ -18,6 +18,7 @@ class AuthorityManagementWindow extends React.Component {
 
         this.handleSelectRole = this.handleSelectRole.bind(this);
         this.handleSelectAuthority = this.handleSelectAuthority.bind(this);
+        this.handleSelectAllAuthority = this.handleSelectAllAuthority.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
@@ -46,7 +47,7 @@ class AuthorityManagementWindow extends React.Component {
                         onSelect={this.handleSelectRole}
                         keyField={'ID'}
                     >
-                        <Column type={'number'} title={'#'} />
+                        <Column type={'number'} />
                         <Column field={'Name'} title={_t('Role')} />
                     </DataGrid>
                     <DataGrid
@@ -54,9 +55,10 @@ class AuthorityManagementWindow extends React.Component {
                         data={authorities}
                         mask={mask}
                         onSelect={this.handleSelectAuthority}
+                        onSelectAll={this.handleSelectAllAuthority}
                         keyField={'ID'}
                     >
-                        <Column type={'checkbox'} field={'Enabled'} title={'#'} />
+                        <Column type={'checkbox'} field={'Enabled'} />
                         <Column field={'Name'} title={_t('Authority')} />
                     </DataGrid>
                 </HBoxLayout>
@@ -100,6 +102,18 @@ class AuthorityManagementWindow extends React.Component {
         if (authority) {
             authority.Enabled = !authority.Enabled;
         }
+
+        this.setState({
+            authorities
+        });
+    }
+
+    handleSelectAllAuthority(value, name, event) {
+        let authorities = this.state.authorities;
+
+        authorities.forEach(n => {
+            n.Enabled = value;
+        });
 
         this.setState({
             authorities

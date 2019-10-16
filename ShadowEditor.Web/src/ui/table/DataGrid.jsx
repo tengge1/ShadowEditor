@@ -27,6 +27,7 @@ class DataGrid extends React.Component {
         };
 
         this.handleClick = this.handleClick.bind(this, props.onSelect);
+        this.handleSelectAll = this.handleSelectAll.bind(this);
 
         this.handleChangePageSize = this.handleChangePageSize.bind(this, props.onChangePageSize);
         this.handleFirstPage = this.handleFirstPage.bind(this, props.onFirstPage);
@@ -55,9 +56,16 @@ class DataGrid extends React.Component {
             <thead>
                 <tr>
                     {columns.map(col => {
-                        const type = col.type === 'number' || col.type === 'checkbox' ? col.type : null;
-                        const field = type || col.field;
-                        return <th className={type} width={type ? 60 : col.width} name={field} key={field}>{col.title}</th>;
+                        if (col.type === 'number') {
+                            return <th className={'number'} width={60} name={'number'} key={'number'}>{'#'}</th>;
+                        } else if (col.type === 'checkbox') {
+                            const selectAll = data.length > 0 && data.every(n => n[col.field] === true);
+                            return <th className={'checkbox'} width={60} name={'checkbox'} key={'checkbox'}>
+                                <CheckBox name={col.field} checked={selectAll} onChange={this.handleSelectAll}></CheckBox>
+                            </th>;
+                        } else {
+                            return <th width={col.width} name={col.field} key={col.field}>{col.title}</th>;
+                        }
                     })}
                 </tr>
             </thead>
@@ -122,6 +130,11 @@ class DataGrid extends React.Component {
         onSelect && onSelect(record);
     }
 
+    handleSelectAll(value, name, event) {
+        const { onSelectAll } = this.props;
+        onSelectAll && onSelectAll(value, name, event);
+    }
+
     handleChangePageSize(onChangePageSize, value, event) {
         const pageSize = parseInt(value);
         onChangePageSize && onChangePageSize(pageSize, event);
@@ -169,6 +182,7 @@ DataGrid.propTypes = {
     selected: PropTypes.string,
     mask: PropTypes.bool,
     onSelect: PropTypes.func,
+    onSelectAll: PropTypes.func,
     onChangePageSize: PropTypes.func,
     onFirstPage: PropTypes.func,
     onPreviousPage: PropTypes.func,
@@ -190,6 +204,7 @@ DataGrid.defaultProps = {
     selected: null,
     mask: false,
     onSelect: null,
+    onSelectAll: null,
     onChangePageSize: null,
     onFirstPage: null,
     onPreviousPage: null,
