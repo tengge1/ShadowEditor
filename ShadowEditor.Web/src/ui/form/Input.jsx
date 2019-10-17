@@ -10,9 +10,9 @@ class Input extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleFocus = this.handleFocus.bind(this, props.onFocus);
-        this.handleChange = this.handleChange.bind(this, props.onChange);
-        this.handleInput = this.handleInput.bind(this, props.onInput);
+        this.handleFocus = this.handleFocus.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleInput = this.handleInput.bind(this);
     }
 
     render() {
@@ -33,43 +33,48 @@ class Input extends React.Component {
             onFocus={this.handleFocus}
             onChange={this.handleChange}
             onInput={this.handleInput}
-               />;
+        />;
     }
 
-    handleFocus(onFocus, event) {
+    handleFocus(event) {
+        const { onFocus } = this.props;
         onFocus && onFocus(event);
     }
 
-    handleChange(onChange, event) {
+    handleChange(event) {
+        const { name, type, onChange } = this.props;
+
         const value = event.target.value;
 
-        if (this.props.type === 'number') {
+        if (type === 'number') {
             if (value.trim() !== '') {
                 const precision = this.props.precision;
 
                 if (precision === 0) {
-                    onChange && onChange(parseInt(value), this.props.name, event);
+                    onChange && onChange(parseInt(value), name, event);
                 } else {
-                    onChange && onChange(parseInt(parseFloat(value) * 10 ** precision) / 10 ** precision, this.props.name, event);
+                    onChange && onChange(parseInt(parseFloat(value) * 10 ** precision) / 10 ** precision, name, event);
                 }
             } else {
-                onChange && onChange(null, this.props.name, event);
+                onChange && onChange(null, name, event);
             }
         } else {
-            onChange && onChange(value, this.props.name, event);
+            onChange && onChange(value, name, event);
         }
     }
 
-    handleInput(onInput, event) {
+    handleInput(event) {
+        const { name, type, onInput } = this.props;
+
         const value = event.target.value;
-        if (this.props.type === 'number') {
+        if (type === 'number') {
             if (value.trim() !== '') {
-                onInput && onInput(parseFloat(value), this.props.name, event);
+                onInput && onInput(parseFloat(value), name, event);
             } else {
-                onInput && onInput(null, this.props.name, event);
+                onInput && onInput(null, name, event);
             }
         } else {
-            onInput && onInput(value, this.props.name, event);
+            onInput && onInput(value, name, event);
         }
     }
 }
