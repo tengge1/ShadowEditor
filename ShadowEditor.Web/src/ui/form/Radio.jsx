@@ -10,7 +10,7 @@ class Radio extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleChange = this.handleChange.bind(this, props.onChange);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     render() {
@@ -23,8 +23,9 @@ class Radio extends React.Component {
             onChange={this.handleChange} />;
     }
 
-    handleChange(onChange, event) {
-        onChange && onChange(event.target.checked, this.props.name, event);
+    handleChange(event) {
+        const { name, onChange } = this.props;
+        onChange && onChange(event.target.checked, name, event);
     }
 }
 
