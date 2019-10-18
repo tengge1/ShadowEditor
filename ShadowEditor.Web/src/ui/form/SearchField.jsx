@@ -19,13 +19,13 @@ class SearchField extends React.Component {
             filterShow: false,
         };
 
-        this.handleAdd = this.handleAdd.bind(this, props.onAdd);
-        this.handleChange = this.handleChange.bind(this, props.onChange);
-        this.handleInput = this.handleInput.bind(this, props.onInput);
-        this.handleReset = this.handleReset.bind(this, props.onInput, props.onChange);
+        this.handleAdd = this.handleAdd.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleInput = this.handleInput.bind(this);
+        this.handleReset = this.handleReset.bind(this);
         this.handleShowFilter = this.handleShowFilter.bind(this);
         this.handleHideFilter = this.handleHideFilter.bind(this);
-        this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this, props.onInput, props.onChange);
+        this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
         this.stopPropagation = this.stopPropagation.bind(this);
     }
 
@@ -73,11 +73,14 @@ class SearchField extends React.Component {
         document.addEventListener(`click`, this.handleHideFilter);
     }
 
-    handleAdd(onAdd, event) {
+    handleAdd(event) {
+        const { onAdd } = this.props;
         onAdd && onAdd(event);
     }
 
-    handleChange(onChange, event) {
+    handleChange(event) {
+        const { onChange } = this.props;
+
         event.stopPropagation();
 
         const value = event.target.value;
@@ -87,7 +90,9 @@ class SearchField extends React.Component {
         onChange && onChange(value, this.state.categories, event);
     }
 
-    handleInput(onInput, event) {
+    handleInput(event) {
+        const { onInput } = this.props;
+
         event.stopPropagation();
 
         const value = event.target.value;
@@ -97,7 +102,8 @@ class SearchField extends React.Component {
         onInput && onInput(value, this.state.categories, event);
     }
 
-    handleReset(onInput, onChange, event) {
+    handleReset(event) {
+        const { onInput, onChange } = this.props;
         const value = '';
 
         this.setState({ value });
@@ -118,7 +124,9 @@ class SearchField extends React.Component {
         });
     }
 
-    handleCheckBoxChange(onInput, onChange, checked, name, event) {
+    handleCheckBoxChange(checked, name, event) {
+        const { onInput, onChange } = this.props;
+
         let categories = this.state.categories;
         let index = categories.indexOf(name);
 
