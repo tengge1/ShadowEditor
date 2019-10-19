@@ -10,7 +10,7 @@ class Select extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleChange = this.handleChange.bind(this, props.onChange);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     render() {
@@ -28,7 +28,9 @@ class Select extends React.Component {
         </select>;
     }
 
-    handleChange(onChange, event) {
+    handleChange(event) {
+        const { onChange } = this.props;
+
         const selectedIndex = event.target.selectedIndex;
 
         if (selectedIndex === -1) {
