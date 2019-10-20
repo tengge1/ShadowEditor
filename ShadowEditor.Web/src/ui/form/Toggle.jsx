@@ -10,11 +10,11 @@ class Toggle extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleChange = this.handleChange.bind(this, props.onChange);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     render() {
-        const { className, style, checked, disabled, onChange } = this.props;
+        const { className, style, checked, disabled } = this.props;
 
         return <div
             className={classNames('Toggle', checked && 'checked',
@@ -24,7 +24,9 @@ class Toggle extends React.Component {
             onClick={disabled ? null : this.handleChange}></div>;
     }
 
-    handleChange(onChange, event) {
+    handleChange(event) {
+        const { onChange } = this.props;
+
         var checked = event.target.classList.contains('checked');
 
         onChange && onChange(!checked, this.props.name, event);
