@@ -11,7 +11,7 @@ class ImageUploader extends React.Component {
         super(props);
 
         this.handleSelect = this.handleSelect.bind(this);
-        this.handleChange = this.handleChange.bind(this, props.onChange);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     render() {
@@ -55,7 +55,8 @@ class ImageUploader extends React.Component {
         this.input.click();
     }
 
-    handleChange(onChange, event) {
+    handleChange(event) {
+        const { onChange } = this.props;
         onChange && onChange(event.target.files[0], event);
     }
 }

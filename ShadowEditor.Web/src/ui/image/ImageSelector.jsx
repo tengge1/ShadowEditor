@@ -11,7 +11,7 @@ class ImageSelector extends React.Component {
         super(props);
 
         this.handleSelect = this.handleSelect.bind(this);
-        this.handleChange = this.handleChange.bind(this, props.onChange);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     render() {
@@ -57,8 +57,10 @@ class ImageSelector extends React.Component {
         this.input.click();
     }
 
-    handleChange(onChange, event) {
-        onChange && onChange(this.props.name, event.target.files[0], event);
+    handleChange(event) {
+        const { name, onChange } = this.props;
+
+        onChange && onChange(name, event.target.files[0], event);
     }
 }
 

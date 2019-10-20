@@ -16,10 +16,11 @@ class AccordionLayout extends React.Component {
             activeIndex: props.activeIndex,
         };
 
-        this.handleClick = this.handleClick.bind(this, props.onActive);
+        this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(onActive, index, name, event) {
+    handleClick(index, name, event) {
+        const { onActive } = this.props;
         onActive && onActive(index, name, event);
         this.setState({
             activeIndex: index,

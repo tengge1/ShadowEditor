@@ -10,7 +10,7 @@ class Icon extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleClick = this.handleClick.bind(this, props.onClick);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     render() {
@@ -26,7 +26,9 @@ class Icon extends React.Component {
             onClick={this.handleClick}></i>;
     }
 
-    handleClick(onClick, event) {
+    handleClick(event) {
+        const { onClick } = this.props;
+
         const name = event.target.getAttribute('name');
         onClick && onClick(name, event);
     }
