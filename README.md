@@ -7,31 +7,14 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/)
 
-## v0.3.5即将更新
+## v0.3.5更新
+
+* 发布日期：2019年10月20日
+* 更新日志：
 
 1. 修复原点移到视野外，视角指示器消失bug。
 2. 使用`eslint`检查代码问题。
-
-## v0.3.4更新
-
-* 发布日期：2019年10月6日
-* 更新日志：
-
-1. 删除旧场景的加载方法。
-2. 下载的模型不再缓存在`userData`里面，改为缓存在模型上，`_obj`表示下载的原始模型数据，`_root`表示模型根节点，修复复制模型等一系列bug。
-3. 角色管理：添加角色、编辑角色、删除角色、查找角色。
-4. 用户管理：添加用户、编辑用户、删除用户、查找用户。
-5. `DataGrid`控件大幅度优化：每页显示条数设置；跳转第一页、前一页、后一页、最后一页；当前页和总页数；刷新按钮；每页条数和总记录数展示，加载数据显示LoadMask。
-6. 修复高光颜色编辑、序列化和反序列化中的一系列bug。
-7. 修复一部分模型在载入场景时，变黑bug。
-8. 修复一部分模型在载入场景时，组成部分显示不全的bug。
-9. 不再保存没用的矩阵数据，提高场景保存和载入速度。
-10. 修复由于导出的json格式文件组件被误认为是服务器组件，导致同一个模型下载两次的bug。
-11. 修复场景由于其中一个模型不存在，导致场景整体加载失败的bug。
-12. 修复添加模型时，错误清除`_children`属性，导致保存场景后，无法显示模型的bug。
-13. 是否开启权限管理，修改到`Web.config`文件中，只有开启权限管理时，`系统`菜单才显示。
-14. 场景菜单中新增`导出场景到GLTF文件`功能。
-15. 新增选中颜色和选中选中边框设置，该设置可保存到场景中。
+3. 用户注册、登录、系统初始化、用户管理、角色管理、权限管理。（完成部分）
 
 ## 项目截图
 
