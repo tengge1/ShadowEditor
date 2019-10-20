@@ -10,8 +10,8 @@ class TextArea extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleChange = this.handleChange.bind(this, props.onChange);
-        this.handleInput = this.handleInput.bind(this, props.onInput);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleInput = this.handleInput.bind(this);
     }
 
     render() {
@@ -25,11 +25,13 @@ class TextArea extends React.Component {
             onInput={this.handleInput}></textarea>;
     }
 
-    handleChange(onChange, event) {
+    handleChange(event) {
+        const { onChange } = this.props;
         onChange && onChange(event.target.value, this.props.name, event);
     }
 
-    handleInput(onInput, event) {
+    handleInput(event) {
+        const { onInput } = this.props;
         onInput && onInput(event.target.value, this.props.name, event);
     }
 }
