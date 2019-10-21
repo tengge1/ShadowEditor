@@ -47,8 +47,8 @@ class RegisterWindow extends React.Component {
                         <Input name={'confirmPassword'} type={'password'} value={confirmPassword} onChange={this.handleChange} />
                     </FormControl>
                     <FormControl>
-                        <Label>{_t('Name')}</Label>
-                        <Input name={'name'} onChange={this.handleChange} onChange={this.handleChange} />
+                        <Label>{_t('NickName')}</Label>
+                        <Input name={'name'} onChange={this.handleChange} />
                     </FormControl>
                 </Form>
             </Content>
