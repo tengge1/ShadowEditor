@@ -28,7 +28,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Run()
+        public JsonResult Initialize()
         {
             // 判断权限是否开启
             var enableAuthority = ConfigurationManager.AppSettings["EnableAuthority"];
@@ -139,6 +139,45 @@ namespace ShadowEditor.Server.Controllers.System
             {
                 Code = 200,
                 Msg = "Initialize successfully!"
+            });
+        }
+
+        /// <summary>
+        /// 重置系统
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Reset()
+        {
+            var mongo = new MongoHelper();
+            var now = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            // 备份数据表
+            var docs = mongo.FindAll(Constant.ConfigCollectionName).ToList();
+            mongo.InsertMany($"{Constant.ConfigCollectionName}_{now}", docs);
+            docs = mongo.FindAll(Constant.RoleCollectionName).ToList();
+            mongo.InsertMany($"{Constant.RoleCollectionName}_{now}", docs);
+            docs = mongo.FindAll(Constant.UserCollectionName).ToList();
+            mongo.InsertMany($"{Constant.UserCollectionName}_{now}", docs);
+
+            // 清除数据表
+            mongo.DropCollection(Constant.ConfigCollectionName);
+            mongo.DropCollection(Constant.RoleCollectionName);
+            mongo.DropCollection(Constant.UserCollectionName);
+
+            // 注销登录
+            var cookie = HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
+
+            if (cookie != null)
+            {
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "Reset successfully!"
             });
         }
     }

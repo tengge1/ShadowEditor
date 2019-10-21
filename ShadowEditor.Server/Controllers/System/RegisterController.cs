@@ -90,6 +90,20 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
+            // 获取所有角色
+            filter = Builders<BsonDocument>.Filter.Eq("Name", "User");
+
+            var role = mongo.FindOne(Constant.RoleCollectionName, filter);
+            if (role == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "The system has not been initialized.",
+                });
+            }
+
+            // 添加用户
             var now = DateTime.Now;
 
             var salt = DateTime.Now.ToString("yyyyMMddHHmmss");

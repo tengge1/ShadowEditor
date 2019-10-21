@@ -16,6 +16,8 @@ class SystemMenu extends React.Component {
         this.handleUser = this.handleUser.bind(this);
         this.handleRole = this.handleRole.bind(this);
         this.handleAuthority = this.handleAuthority.bind(this);
+        this.handleResetSystem = this.handleResetSystem.bind(this);
+        this.commitResetSystem = this.commitResetSystem.bind(this);
     }
 
     render() {
@@ -28,6 +30,8 @@ class SystemMenu extends React.Component {
             <MenuItem title={_t('Role Management')} show={initialized} onClick={this.handleRole} />
             <MenuItemSeparator show={initialized} />
             <MenuItem title={_t('Authority Management')} show={initialized} onClick={this.handleAuthority} />
+            <MenuItemSeparator show={initialized} />
+            <MenuItem title={_t('Reset System')} show={initialized} onClick={this.handleResetSystem} />
         </MenuItem>;
     }
 
@@ -40,11 +44,11 @@ class SystemMenu extends React.Component {
     }
 
     commitInitialize() {
-        fetch(`${app.options.server}/api/Initialize/Run`, {
+        fetch(`${app.options.server}/api/Initialize/Initialize`, {
             method: 'POST'
         }).then(response => {
             response.json().then(json => {
-                if(json.Code !== 200) {
+                if (json.Code !== 200) {
                     app.toast(json.Msg);
                     return;
                 }
@@ -72,6 +76,34 @@ class SystemMenu extends React.Component {
     handleAuthority() {
         const win = app.createElement(AuthorityManagementWindow);
         app.addElement(win);
+    }
+
+    handleResetSystem() {
+        app.confirm({
+            title: _t('Query'),
+            content: _t('All roles and users will be deleted and the pre-initial state will be restored. Is it reset?'),
+            onOK: this.commitResetSystem
+        });
+    }
+
+    commitResetSystem() {
+        fetch(`${app.options.server}/api/Initialize/Reset`, {
+            method: 'POST'
+        }).then(response => {
+            response.json().then(json => {
+                if (json.Code !== 200) {
+                    app.toast(json.Msg);
+                    return;
+                }
+                app.confirm({
+                    title: _t('Message'),
+                    content: _t(json.Msg) + ' ' + _t('Press OK To refresh.'),
+                    onOK: () => {
+                        window.location.reload();
+                    }
+                });
+            });
+        });
     }
 }
 

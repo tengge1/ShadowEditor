@@ -9,6 +9,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## v0.3.6即将更新
 
+1. 重置系统功能：删除所有配置、角色和用户。
+
 ## v0.3.5更新
 
 * 发布日期：2019年10月20日

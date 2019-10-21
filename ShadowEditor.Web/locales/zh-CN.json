@@ -874,5 +874,9 @@
     "Password changed successfully!": "密码修改成功！",
     "Old Password": "原密码",
     "New Password": "新密码",
-    "Please Select": "请选择"
+    "Please Select": "请选择",
+    "The system has not been initialized.": "系统尚未被初始化。",
+    "All roles and users will be deleted and the pre-initial state will be restored. Is it reset?": "将删除所有角色和用户，恢复初始化前状态。是否重置？",
+    "Reset successfully!": "重置成功！",
+    "Reset System": "重置系统"
 }
