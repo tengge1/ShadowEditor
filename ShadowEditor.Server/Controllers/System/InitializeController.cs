@@ -81,9 +81,11 @@ namespace ShadowEditor.Server.Controllers.System
             var filter = Builders<BsonDocument>.Filter.Or(filter1, filter2, filter3);
             mongo.DeleteMany(Constant.RoleCollectionName, filter);
 
+            var adminRoleID = ObjectId.GenerateNewId(); // 管理员RoleID
+
             var role1 = new BsonDocument
             {
-                ["ID"] = ObjectId.GenerateNewId(),
+                ["ID"] = adminRoleID,
                 ["Name"] = "Administrator",
                 ["CreateTime"] = now,
                 ["UpdateTime"] = now,
@@ -123,6 +125,7 @@ namespace ShadowEditor.Server.Controllers.System
                 ["Username"] = "admin",
                 ["Password"] = MD5Helper.Encrypt(password + salt),
                 ["Name"] = "Administrator",
+                ["RoleID"] = adminRoleID.ToString(),
                 ["Gender"] = 0,
                 ["Phone"] = "",
                 ["Email"] = "",
