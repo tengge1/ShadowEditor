@@ -114,6 +114,7 @@ namespace ShadowEditor.Server.Controllers.System
                 ["Username"] = model.Username,
                 ["Password"] = MD5Helper.Encrypt(model.Password + salt),
                 ["Name"] = model.Name,
+                ["RoleID"] = role["ID"].ToString(),
                 ["Gender"] = 0,
                 ["Phone"] = "",
                 ["Email"] = "",

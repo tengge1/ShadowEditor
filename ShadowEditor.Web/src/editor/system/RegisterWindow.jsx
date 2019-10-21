@@ -48,7 +48,7 @@ class RegisterWindow extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>{_t('NickName')}</Label>
-                        <Input name={'name'} onChange={this.handleChange} />
+                        <Input name={'name'} value={name} onChange={this.handleChange} />
                     </FormControl>
                 </Form>
             </Content>
@@ -66,20 +66,21 @@ class RegisterWindow extends React.Component {
     }
 
     handleLogin() {
-        const { username, password } = this.state;
+        const { username, password, confirmPassword, name } = this.state;
 
-        fetch(`/api/Login/Login`, {
+        fetch(`/api/Register/Register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `Username=${username}&Password=${password}`
+            body: `Username=${username}&Password=${password}&ConfirmPassword=${confirmPassword}&name=${name}`
         }).then(response => {
             response.json().then(json => {
                 if (json.Code !== 200) {
                     app.toast(_t(json.Msg));
                     return;
                 }
+                app.toast(_t(json.Msg));
                 this.handleClose();
             });
         });
