@@ -13,6 +13,7 @@ class SystemMenu extends React.Component {
 
         this.handleInitialize = this.handleInitialize.bind(this);
         this.commitInitialize = this.commitInitialize.bind(this);
+        this.handleDepartment = this.handleDepartment.bind(this);
         this.handleUser = this.handleUser.bind(this);
         this.handleRole = this.handleRole.bind(this);
         this.handleAuthority = this.handleAuthority.bind(this);
@@ -26,9 +27,10 @@ class SystemMenu extends React.Component {
         return <MenuItem title={_t('System')}>
             <MenuItem title={_t('Initialize')} show={!initialized} onClick={this.handleInitialize} />
             <MenuItemSeparator show={initialized} />
+            <MenuItem title={_t('Department Management')} show={initialized} onClick={this.handleDepartment} />
             <MenuItem title={_t('User Management')} show={initialized} onClick={this.handleUser} />
-            <MenuItem title={_t('Role Management')} show={initialized} onClick={this.handleRole} />
             <MenuItemSeparator show={initialized} />
+            <MenuItem title={_t('Role Management')} show={initialized} onClick={this.handleRole} />
             <MenuItem title={_t('Authority Management')} show={initialized} onClick={this.handleAuthority} />
             <MenuItemSeparator show={initialized} />
             <MenuItem title={_t('Reset System')} show={initialized} onClick={this.handleResetSystem} />
@@ -61,6 +63,10 @@ class SystemMenu extends React.Component {
                 });
             });
         });
+    }
+
+    handleDepartment() {
+        
     }
 
     handleUser() {
