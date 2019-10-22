@@ -1,4 +1,5 @@
 import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import DepartmentManagementWindow from '../system/DepartmentManagementWindow.jsx';
 import UserManageWindow from '../system/UserManageWindow.jsx';
 import RoleManageWindow from '../system/RoleManageWindow.jsx';
 import AuthorityManagementWindow from '../system/AuthorityManagementWindow.jsx';
@@ -66,7 +67,8 @@ class SystemMenu extends React.Component {
     }
 
     handleDepartment() {
-        
+        const win = app.createElement(DepartmentManagementWindow);
+        app.addElement(win);
     }
 
     handleUser() {
