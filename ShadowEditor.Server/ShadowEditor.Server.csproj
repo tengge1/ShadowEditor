@@ -104,6 +104,7 @@
     <Compile Include="Controllers\Export\ExportExamplesController.cs" />
     <Compile Include="Controllers\Export\ExportSceneController.cs" />
     <Compile Include="Controllers\System\ConfigController.cs" />
+    <Compile Include="Controllers\System\DepartmentController.cs" />
     <Compile Include="Controllers\System\InitializeController.cs" />
     <Compile Include="Controllers\System\RegisterController.cs" />
     <Compile Include="Controllers\System\LoginController.cs" />

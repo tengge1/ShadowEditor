@@ -97,6 +97,11 @@ namespace ShadowEditor.Server
         public const string OperatingAuthorityCollectionName = "_OperatingAuthority";
 
         /// <summary>
+        /// 组织机构表
+        /// </summary>
+        public const string DepartmentCollectionName = "_DepartmentCollectionName";
+
+        /// <summary>
         /// 历史表后缀（版本控制）
         /// </summary>
         public const string HistorySuffix = "_history";
