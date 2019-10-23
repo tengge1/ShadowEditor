@@ -10,7 +10,7 @@
     "is not existed in the scene.": "在场景中不存在。",
     "No Colors": "无颜色",
     "Background": "背景",
-    "Add": "相加",
+    "Add": "添加",
     "PhysicsEnvironment": "物理环境",
     "Penumbra": "半阴影",
     "Rotate(E)": "旋转(E)",
@@ -878,5 +878,7 @@
     "The system has not been initialized.": "系统尚未被初始化。",
     "All roles and users will be deleted and the pre-initial state will be restored. Is it reset?": "将删除所有角色和用户，恢复初始化前状态。是否重置？",
     "Reset successfully!": "重置成功！",
-    "Reset System": "重置系统"
+    "Reset System": "重置系统",
+    "Add together": "相加",
+    "Add Child": "添加子节点"
 }

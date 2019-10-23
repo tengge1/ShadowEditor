@@ -1,5 +1,5 @@
 import './css/DepartmentManagementWindow.css';
-import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField, HBoxLayout, Form, FormControl, Label, CheckBox } from '../../third_party';
+import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField, HBoxLayout, Tree } from '../../third_party';
 
 /**
  * 组织机构管理窗口
@@ -32,10 +32,13 @@ class DepartmentManagementWindow extends React.Component {
             style={{ width: '600px', height: '400px' }}
             mask={false}
             onClose={this.handleClose}
-               >
+        >
             <Content>
                 <Toolbar>
-                    <Button onClick={this.handleSave}>{_t('Save')}</Button>
+                    <Button>{_t('Add')}</Button>
+                    <Button>{_t('Add Child')}</Button>
+                    <Button>{_t('Edit')}</Button>
+                    <Button>{_t('Delete')}</Button>
                     <ToolbarFiller />
                 </Toolbar>
                 <HBoxLayout className={'hbox'}>
@@ -126,8 +129,8 @@ class DepartmentManagementWindow extends React.Component {
         let body = `RoleID=${roleID}`;
 
         authorities.forEach(n => {
-            if(n.Enabled) {
-                body +=  `&Authorities[]=${n.ID}`;
+            if (n.Enabled) {
+                body += `&Authorities[]=${n.ID}`;
             }
         });
 

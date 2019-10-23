@@ -21,7 +21,7 @@ class HalftoneComponent extends React.Component {
         this.blendingMode = {
             1: _t('Linear'),
             2: _t('Multiply'),
-            3: _t('Add'),
+            3: _t('Add together'),
             4: _t('Lighter'),
             5: _t('Darker'),
         };
