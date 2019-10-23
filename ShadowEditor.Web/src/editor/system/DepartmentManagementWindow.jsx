@@ -1,5 +1,6 @@
 import './css/DepartmentManagementWindow.css';
 import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField, HBoxLayout, Tree } from '../../third_party';
+import EditDeptWindow from './dept/EditDeptWindow.jsx';
 
 /**
  * 组织机构管理窗口
@@ -13,6 +14,8 @@ class DepartmentManagementWindow extends React.Component {
             data: [],
             selected: null,
         };
+
+        this.handleRefresh = this.handleRefresh.bind(this);
 
         this.handleAdd = this.handleAdd.bind(this);
         this.handleAddChild = this.handleAddChild.bind(this);
@@ -40,21 +43,54 @@ class DepartmentManagementWindow extends React.Component {
                     <ToolbarFiller />
                 </Toolbar>
                 <HBoxLayout className={'hbox'}>
-                    <Tree data={data} selected={selected} />
+                    <Tree
+                        className={'DepartmentTree'}
+                        data={data}
+                        selected={selected} />
                 </HBoxLayout>
             </Content>
         </Window>;
     }
 
     componentDidMount() {
+        this.handleRefresh();
+    }
+
+    handleRefresh() {
         fetch(`${app.options.server}/api/Department/List?pageSize=10000`).then(response => {
             response.json().then(json => {
+                this.refreshTree(json.Data);
             });
         });
     }
 
-    handleAdd() {
+    refreshTree(list) {
+        var data = [];
+        this.createTree(data, '', list);
+        this.setState({
+            data
+        });
+    }
 
+    createTree(nodes, parentID, list) {
+        var list1 = list.filter(n => n.ParentID === parentID);
+
+        list1.forEach(obj1 => {
+            var node1 = {
+                value: obj1.ID,
+                text: obj1.Name,
+                children: [],
+            };
+            this.createTree(node1.children, obj1.ID, list);
+            nodes.push(node1);
+        });
+    }
+
+    handleAdd() {
+        const win = app.createElement(EditDeptWindow, {
+            callback: this.handleRefresh
+        });
+        app.addElement(win);
     }
 
     handleAddChild() {

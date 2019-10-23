@@ -880,5 +880,7 @@
     "Reset successfully!": "重置成功！",
     "Reset System": "重置系统",
     "Add together": "相加",
-    "Add Child": "添加子节点"
+    "Add Child": "添加子节点",
+    "Add Department": "添加组织机构",
+    "Edit Department": "编辑组织机构"
 }

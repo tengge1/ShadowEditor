@@ -73,6 +73,16 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
+            if (model.ParentID == null)
+            {
+                model.ParentID = "";
+            }
+
+            if (model.AdministratorID == null)
+            {
+                model.AdministratorID = "";
+            }
+
             var mongo = new MongoHelper();
 
             var doc = new BsonDocument

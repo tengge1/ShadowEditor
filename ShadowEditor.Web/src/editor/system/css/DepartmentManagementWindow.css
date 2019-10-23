@@ -15,10 +15,6 @@
     width: 240px;
 }
 
-.Window.DepartmentManagementWindow>.wrap>.content>.DataGrid {
-    height: calc(100% - 25px);
-}
-
 .Window.DepartmentManagementWindow>.wrap>.content>.hbox {
     height: calc(100% - 25px);
     box-sizing: border-box;
@@ -27,21 +23,6 @@
     justify-content: flex-start;
 }
 
-.Window.DepartmentManagementWindow>.wrap>.content>.hbox>.roles {
+.Window.DepartmentManagementWindow>.wrap>.content>.hbox>.DepartmentTree {
     width: 240px;
-    height: 100%;
-}
-
-.Window.DepartmentManagementWindow>.wrap>.content>.hbox>.authorities {
-    height: 100%;
-    flex: 1;
-    overflow-y: auto;
-}
-
-.Window.DepartmentManagementWindow>.wrap>.content>.hbox>.authorities>.FormControl {
-    display: flex;
-}
-
-.Window.DepartmentManagementWindow>.wrap>.content>.hbox>.authorities>.FormControl>.Label {
-    flex: 1;
 }

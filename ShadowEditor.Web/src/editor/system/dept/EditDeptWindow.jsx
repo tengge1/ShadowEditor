@@ -19,11 +19,11 @@ class EditDeptWindow extends React.Component {
     }
 
     render() {
-        const { name } = this.state;
+        const { id, name } = this.state;
 
         return <Window
             className={_t('EditDeptWindow')}
-            title={_t('Edit Role')}
+            title={id ? _t('Add Department') : _t('Edit Department')}
             style={{ width: '320px', height: '200px' }}
             mask={false}
             onClose={this.handleClose}>
@@ -56,14 +56,14 @@ class EditDeptWindow extends React.Component {
             return;
         }
 
-        const url = !id ? `/api/Role/Add` : `/api/Role/Edit`;
+        const url = !id ? `/api/Department/Add` : `/api/Department/Edit`;
 
         fetch(`${app.options.server}${url}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `ID=${id}&Name=${name}`,
+            body: `ID=${id}&ParentID=&Name=${name}&AdministratorID=`,
         }).then(response => {
             response.json().then(json => {
                 if (json.Code !== 200) {
