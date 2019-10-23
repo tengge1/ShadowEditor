@@ -98,7 +98,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Edit(UserEditModel model)
+        public JsonResult Edit(DepartmentEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
 
@@ -111,15 +111,6 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
-            if (string.IsNullOrEmpty(model.Username))
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "Username is not allowed to be empty.",
-                });
-            }
-
             if (string.IsNullOrEmpty(model.Name))
             {
                 return Json(new
@@ -129,63 +120,17 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
-            if (string.IsNullOrEmpty(model.RoleID))
-            {
-                model.RoleID = "";
-            }
-
             var mongo = new MongoHelper();
 
-            // 判断是否是系统内置用户
             var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-            var doc = mongo.FindOne(Constant.UserCollectionName, filter);
 
-            if (doc == null)
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "The user is not existed."
-                });
-            }
-
-            var userName = doc["Username"].ToString();
-
-            if (userName == "admin")
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "Modifying system built-in users is not allowed."
-                });
-            }
-
-            // 判断用户名是否重复
-            var filter1 = Builders<BsonDocument>.Filter.Ne("ID", objectId);
-            var filter2 = Builders<BsonDocument>.Filter.Eq("Username", model.Username);
-            filter = Builders<BsonDocument>.Filter.And(filter1, filter2);
-
-            var count = mongo.Count(Constant.UserCollectionName, filter);
-
-            if (count > 0)
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "The username is already existed.",
-                });
-            }
-
-            filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-
-            var update1 = Builders<BsonDocument>.Update.Set("Username", model.Username);
+            var update1 = Builders<BsonDocument>.Update.Set("ParentID", model.ParentID);
             var update2 = Builders<BsonDocument>.Update.Set("Name", model.Name);
-            var update3 = Builders<BsonDocument>.Update.Set("RoleID", model.RoleID);
-            var update4 = Builders<BsonDocument>.Update.Set("UpdateTime", DateTime.Now);
+            var update3 = Builders<BsonDocument>.Update.Set("AdministratorID", model.AdministratorID);
 
-            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4);
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3);
 
-            mongo.UpdateOne(Constant.UserCollectionName, filter, update);
+            mongo.UpdateOne(Constant.DepartmentCollectionName, filter, update);
 
             return Json(new
             {
