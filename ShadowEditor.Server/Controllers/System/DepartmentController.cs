@@ -31,9 +31,9 @@ namespace ShadowEditor.Server.Controllers.System
         {
             var mongo = new MongoHelper();
 
-            var filter = Builders<BsonDocument>.Filter.Empty;
+            var filter = Builders<BsonDocument>.Filter.Eq("Status", 0);
 
-            var docs = mongo.FindAll(Constant.DepartmentCollectionName).ToList();
+            var docs = mongo.FindMany(Constant.DepartmentCollectionName, filter).ToList();
 
             var list = new List<DepartmentModel>();
 
@@ -80,7 +80,8 @@ namespace ShadowEditor.Server.Controllers.System
                 ["ID"] = ObjectId.GenerateNewId(),
                 ["ParentID"] = model.ParentID,
                 ["Name"] = model.Name,
-                ["AdministratorID"] = model.AdministratorID
+                ["AdministratorID"] = model.AdministratorID,
+                ["Status"] = 0
             };
 
             mongo.InsertOne(Constant.DepartmentCollectionName, doc);
@@ -161,31 +162,20 @@ namespace ShadowEditor.Server.Controllers.System
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-            var doc = mongo.FindOne(Constant.UserCollectionName, filter);
+            var doc = mongo.FindOne(Constant.DepartmentCollectionName, filter);
 
             if (doc == null)
             {
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "The user is not existed."
-                });
-            }
-
-            var userName = doc["Username"].ToString();
-
-            if (userName == "admin")
-            {
-                return Json(new
-                {
-                    Code = 300,
-                    Msg = "It is not allowed to delete system built-in users."
+                    Msg = "The department is not existed."
                 });
             }
 
             var update = Builders<BsonDocument>.Update.Set("Status", -1);
 
-            mongo.UpdateOne(Constant.UserCollectionName, filter, update);
+            mongo.UpdateOne(Constant.DepartmentCollectionName, filter, update);
 
             return Json(new
             {

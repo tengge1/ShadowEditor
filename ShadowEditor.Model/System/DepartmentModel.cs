@@ -30,5 +30,10 @@ namespace ShadowEditor.Model.System
         /// 管理员用户ID
         /// </summary>
         public string AdministratorID { get; set; }
+
+        /// <summary>
+        /// 状态（0-正常，-1-删除）
+        /// </summary>
+        public int Status { get; set; }
     }
 }
