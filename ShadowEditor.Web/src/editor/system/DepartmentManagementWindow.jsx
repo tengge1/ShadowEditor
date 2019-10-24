@@ -32,7 +32,7 @@ class DepartmentManagementWindow extends React.Component {
         return <Window
             className={'DepartmentManagementWindow'}
             title={_t('Department Management')}
-            style={{ width: '600px', height: '400px' }}
+            style={{ width: '280px', height: '400px' }}
             mask={false}
             onClose={this.handleClose}
         >
@@ -44,13 +44,10 @@ class DepartmentManagementWindow extends React.Component {
                     <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
                     <ToolbarFiller />
                 </Toolbar>
-                <HBoxLayout className={'hbox'}>
-                    <Tree
-                        className={'DepartmentTree'}
-                        data={data}
-                        selected={selected}
-                        onSelect={this.handleSelect} />
-                </HBoxLayout>
+                <Tree className={'DepartmentTree'}
+                    data={data}
+                    selected={selected}
+                    onSelect={this.handleSelect} />
             </Content>
         </Window>;
     }

@@ -14,15 +14,3 @@
 .Window.DepartmentManagementWindow>.wrap>.content>.Toolbar>.SearchField {
     width: 240px;
 }
-
-.Window.DepartmentManagementWindow>.wrap>.content>.hbox {
-    height: calc(100% - 25px);
-    box-sizing: border-box;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-
-.Window.DepartmentManagementWindow>.wrap>.content>.hbox>.DepartmentTree {
-    width: 240px;
-}
