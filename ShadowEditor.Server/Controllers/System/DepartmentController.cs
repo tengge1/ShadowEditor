@@ -131,6 +131,16 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
+            if (model.ParentID == null)
+            {
+                model.ParentID = "";
+            }
+
+            if (model.AdministratorID == null)
+            {
+                model.AdministratorID = "";
+            }
+
             var mongo = new MongoHelper();
 
             var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);

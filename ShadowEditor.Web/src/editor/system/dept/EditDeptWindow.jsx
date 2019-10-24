@@ -23,7 +23,7 @@ class EditDeptWindow extends React.Component {
 
         return <Window
             className={_t('EditDeptWindow')}
-            title={id ? _t('Add Department') : _t('Edit Department')}
+            title={id ? _t('Edit Department') : _t('Add Department')}
             style={{ width: '320px', height: '200px' }}
             mask={false}
             onClose={this.handleClose}>

@@ -99,7 +99,7 @@ namespace ShadowEditor.Server
         /// <summary>
         /// 组织机构表
         /// </summary>
-        public const string DepartmentCollectionName = "_DepartmentCollectionName";
+        public const string DepartmentCollectionName = "_Department";
 
         /// <summary>
         /// 历史表后缀（版本控制）

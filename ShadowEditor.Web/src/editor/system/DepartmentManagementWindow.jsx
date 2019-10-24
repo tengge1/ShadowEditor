@@ -101,7 +101,21 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     handleEdit() {
+        const { data, selected } = this.state;
 
+        if (!selected) {
+            app.toast(_t('Pleast select a department.'));
+            return;
+        }
+
+        const record = data.filter(n => n.value === selected)[0];
+
+        const win = app.createElement(EditDeptWindow, {
+            id: record.value,
+            name: record.text,
+            callback: this.handleRefresh
+        });
+        app.addElement(win);
     }
 
     handleDelete() {
