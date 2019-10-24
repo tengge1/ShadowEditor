@@ -21,6 +21,8 @@ class DepartmentManagementWindow extends React.Component {
         this.handleAddChild = this.handleAddChild.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+
+        this.handleSelect = this.handleSelect.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
 
@@ -46,7 +48,8 @@ class DepartmentManagementWindow extends React.Component {
                     <Tree
                         className={'DepartmentTree'}
                         data={data}
-                        selected={selected} />
+                        selected={selected}
+                        onSelect={this.handleSelect} />
                 </HBoxLayout>
             </Content>
         </Window>;
@@ -102,7 +105,40 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     handleDelete() {
+        const { selected } = this.state;
 
+        if (!selected) {
+            app.toast(_t('Pleast select a department.'));
+            return;
+        }
+
+        app.confirm({
+            title: _t('Query'),
+            content: _t('Delete this department?'),
+            onOK: () => {
+                this.commitDelete(selected);
+            }
+        });
+    }
+
+    commitDelete(id) {
+        fetch(`${app.options.server}/api/Department/Delete?ID=${id}`, {
+            method: 'POST'
+        }).then(response => {
+            response.json().then(json => {
+                if (json.Code !== 200) {
+                    app.toast(_t(json.Msg));
+                    return;
+                }
+                this.handleRefresh(json.Data);
+            });
+        });
+    }
+
+    handleSelect(selected) {
+        this.setState({
+            selected,
+        });
     }
 
     handleClose() {

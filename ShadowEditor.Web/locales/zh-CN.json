@@ -882,5 +882,7 @@
     "Add together": "相加",
     "Add Child": "添加子节点",
     "Add Department": "添加组织机构",
-    "Edit Department": "编辑组织机构"
+    "Edit Department": "编辑组织机构",
+    "Pleast select a department.": "请选择机构。",
+    "Delete this department?": "删除这个机构？"
 }
