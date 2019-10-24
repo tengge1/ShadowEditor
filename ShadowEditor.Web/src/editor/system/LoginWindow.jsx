@@ -35,7 +35,7 @@ class LoginWindow extends React.Component {
                     <FormControl>
                         <Label>{_t('Username')}</Label>
                         <Input name={'username'} value={username} onChange={this.handleChange} />
-                        <input type={'password'} className={'fake'}></input>
+                        <input type={'password'} className={'fake'} />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Password')}</Label>

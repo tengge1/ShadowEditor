@@ -1,3 +1,9 @@
 .Window.RegisterWindow>.wrap>.content>.Form>.FormControl>.Label {
     width: 120px;
 }
+
+.Window.RegisterWindow>.wrap>.content>.Form>.FormControl>.fake{
+    position: absolute;
+    left: -10000px;
+    top: -10000px;
+}

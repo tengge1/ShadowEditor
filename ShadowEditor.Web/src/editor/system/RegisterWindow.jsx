@@ -31,12 +31,14 @@ class RegisterWindow extends React.Component {
             style={{ width: '400px', height: '240px' }}
             mask={false}
             onClose={this.handleClose}
-               >
+        >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Username')}</Label>
                         <Input name={'username'} value={username} onChange={this.handleChange} />
+                        <input type={'text'} className={'fake'} />
+                        <input type={'password'} className={'fake'} />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Password')}</Label>
