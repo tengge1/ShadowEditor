@@ -108,11 +108,11 @@ class DepartmentManagementWindow extends React.Component {
             return;
         }
 
-        const record = data.filter(n => n.value === selected)[0];
+        const record = this.list.filter(n => n.ID === selected)[0];
 
         const win = app.createElement(EditDeptWindow, {
-            pid: record.value,
-            pname: record.text,
+            pid: record.ID,
+            pname: record.Name,
             callback: this.handleRefresh
         });
         app.addElement(win);
@@ -126,11 +126,13 @@ class DepartmentManagementWindow extends React.Component {
             return;
         }
 
-        const record = data.filter(n => n.value === selected)[0];
+        const record = this.list.filter(n => n.ID === selected)[0];
 
         const win = app.createElement(EditDeptWindow, {
-            id: record.value,
-            name: record.text,
+            id: record.ID,
+            name: record.Name,
+            pid: record.ParentID,
+            pname: record.ParentName,
             callback: this.handleRefresh
         });
         app.addElement(win);
