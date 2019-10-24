@@ -1,0 +1,5 @@
+.Window.Login>.wrap>.content>.Form>.FormControl>.fake{
+    position: absolute;
+    left: -10000px;
+    top: -10000px;
+}

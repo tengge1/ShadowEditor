@@ -29,7 +29,7 @@ class Input extends React.Component {
             max={max}
             step={step}
             disabled={disabled}
-            autoComplete={'new-password'}
+            autoComplete={'off'}
             onFocus={this.handleFocus}
             onChange={this.handleChange}
             onInput={this.handleInput}
