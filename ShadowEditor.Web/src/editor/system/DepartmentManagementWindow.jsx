@@ -128,11 +128,22 @@ class DepartmentManagementWindow extends React.Component {
 
         const record = this.list.filter(n => n.ID === selected)[0];
 
+        let parentID = '';
+        let parentName = '';
+
+        if (record.ParentID) {
+            parentID = record.ParentID;
+            let parent = this.list.filter(n => n.ID === parentID)[0];
+            if (parent) {
+                parentName = parent.Name;
+            }
+        }
+
         const win = app.createElement(EditDeptWindow, {
             id: record.ID,
             name: record.Name,
-            pid: record.ParentID,
-            pname: record.ParentName,
+            pid: parentID,
+            pname: parentName,
             callback: this.handleRefresh
         });
         app.addElement(win);
