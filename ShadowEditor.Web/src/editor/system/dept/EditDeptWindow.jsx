@@ -1,3 +1,4 @@
+import './css/EditDeptWindow.css';
 import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../third_party';
 
 /**
@@ -11,6 +12,8 @@ class EditDeptWindow extends React.Component {
         this.state = {
             id: props.id,
             name: props.name,
+            pid: props.pid,
+            pname: props.pname,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -19,16 +22,20 @@ class EditDeptWindow extends React.Component {
     }
 
     render() {
-        const { id, name } = this.state;
+        const { id, name, pid, pname } = this.state;
 
         return <Window
             className={_t('EditDeptWindow')}
-            title={id ? _t('Edit Department') : _t('Add Department')}
+            title={pid ? _t('Add Child Department') : (id ? _t('Edit Department') : _t('Add Department'))}
             style={{ width: '320px', height: '200px' }}
             mask={false}
             onClose={this.handleClose}>
             <Content>
                 <Form>
+                    <FormControl hidden={pid === ''}>
+                        <Label>{_t('PDept Name')}</Label>
+                        <Label>{pname}</Label>
+                    </FormControl>
                     <FormControl>
                         <Label>{_t('Name')}</Label>
                         <Input name={'name'} value={name} onChange={this.handleChange}></Input>
@@ -49,7 +56,7 @@ class EditDeptWindow extends React.Component {
     }
 
     handleSave(callback) {
-        const { id, name } = this.state;
+        const { id, name, pid } = this.state;
 
         if (!name || name.trim() === '') {
             app.toast(_t('Name is not allowed to be empty.'));
@@ -63,7 +70,7 @@ class EditDeptWindow extends React.Component {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `ID=${id}&ParentID=&Name=${name}&AdministratorID=`,
+            body: `ID=${id}&ParentID=${pid}&Name=${name}&AdministratorID=`,
         }).then(response => {
             response.json().then(json => {
                 if (json.Code !== 200) {
@@ -84,12 +91,16 @@ class EditDeptWindow extends React.Component {
 EditDeptWindow.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
+    pid: PropTypes.string,
+    pname: PropTypes.string,
     callback: PropTypes.func,
 };
 
 EditDeptWindow.defaultProps = {
     id: '',
     name: '',
+    pid: '',
+    pname: '',
     callback: null,
 };
 

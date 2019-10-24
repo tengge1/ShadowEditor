@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.FormControl.hidden {
+    display: none;
+}
+
 .FormControl>* {
     vertical-align: middle;
 }

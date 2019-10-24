@@ -10,9 +10,12 @@ class DepartmentManagementWindow extends React.Component {
     constructor(props) {
         super(props);
 
+        this.list = [];
+        this.expanded = {};
+
         this.state = {
             data: [],
-            selected: null,
+            selected: null
         };
 
         this.handleRefresh = this.handleRefresh.bind(this);
@@ -23,6 +26,7 @@ class DepartmentManagementWindow extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
 
         this.handleSelect = this.handleSelect.bind(this);
+        this.handleExpand = this.handleExpand.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
 
@@ -32,14 +36,14 @@ class DepartmentManagementWindow extends React.Component {
         return <Window
             className={'DepartmentManagementWindow'}
             title={_t('Department Management')}
-            style={{ width: '280px', height: '400px' }}
+            style={{ width: '480px', height: '400px' }}
             mask={false}
             onClose={this.handleClose}
         >
             <Content>
                 <Toolbar>
                     <Button onClick={this.handleAdd}>{_t('Add')}</Button>
-                    <Button onClick={this.handleAddChild}>{_t('Add Child')}</Button>
+                    <Button onClick={this.handleAddChild}>{_t('Add Child Department')}</Button>
                     <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
                     <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
                     <ToolbarFiller />
@@ -47,7 +51,8 @@ class DepartmentManagementWindow extends React.Component {
                 <Tree className={'DepartmentTree'}
                     data={data}
                     selected={selected}
-                    onSelect={this.handleSelect} />
+                    onSelect={this.handleSelect}
+                    onExpand={this.handleExpand} />
             </Content>
         </Window>;
     }
@@ -59,14 +64,15 @@ class DepartmentManagementWindow extends React.Component {
     handleRefresh() {
         fetch(`${app.options.server}/api/Department/List?pageSize=10000`).then(response => {
             response.json().then(json => {
-                this.refreshTree(json.Data);
+                this.list = json.Data;
+                this.refreshTree();
             });
         });
     }
 
-    refreshTree(list) {
+    refreshTree() {
         var data = [];
-        this.createTree(data, '', list);
+        this.createTree(data, '', this.list);
         this.setState({
             data
         });
@@ -80,6 +86,7 @@ class DepartmentManagementWindow extends React.Component {
                 value: obj1.ID,
                 text: obj1.Name,
                 children: [],
+                expanded: !!this.expanded[obj1.ID]
             };
             this.createTree(node1.children, obj1.ID, list);
             nodes.push(node1);
@@ -94,7 +101,21 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     handleAddChild() {
+        const { data, selected } = this.state;
 
+        if (!selected) {
+            app.toast(_t('Pleast select a department.'));
+            return;
+        }
+
+        const record = data.filter(n => n.value === selected)[0];
+
+        const win = app.createElement(EditDeptWindow, {
+            pid: record.value,
+            pname: record.text,
+            callback: this.handleRefresh
+        });
+        app.addElement(win);
     }
 
     handleEdit() {
@@ -150,6 +171,18 @@ class DepartmentManagementWindow extends React.Component {
         this.setState({
             selected,
         });
+    }
+
+    handleExpand(value) {
+        let expanded = this.expanded;
+
+        if (expanded[value]) {
+            expanded[value] = false;
+        } else {
+            expanded[value] = true;
+        }
+
+        this.refreshTree();
     }
 
     handleClose() {
