@@ -42,10 +42,9 @@ namespace ShadowEditor.Server.Controllers
 
                     if (user.Name == "Administrator")
                     {
-                        var filter2 = Builders<BsonDocument>.Filter.Exists("UserID");
-                        var filter3 = Builders<BsonDocument>.Filter.Not(filter2);
+                        var filter1 = Builders<BsonDocument>.Filter.Exists("UserID");
+                        var filter2 = Builders<BsonDocument>.Filter.Not(filter1);
                         filter = Builders<BsonDocument>.Filter.Or(filter, filter2);
-
                     }
                     sceneCount = mongo.Count(Constant.SceneCollectionName, filter);
                     meshCount = mongo.Count(Constant.MeshCollectionName, filter);
