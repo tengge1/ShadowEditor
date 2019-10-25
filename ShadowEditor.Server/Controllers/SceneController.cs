@@ -33,11 +33,33 @@ namespace ShadowEditor.Server.Controllers
             // 获取所有类别
             var categories = mongo.FindAll(Constant.CategoryCollectionName).ToList();
 
-            var scenes = mongo.FindAll(Constant.SceneCollectionName).ToList();
+            var docs = new List<BsonDocument>();
+
+            if (ConfigHelper.EnableAuthority)
+            {
+                var user = UserHelper.GetCurrentUser();
+
+                if (user != null)
+                {
+                    var filter1 = Builders<BsonDocument>.Filter.Eq("UserID", user.ID);
+
+                    if (user.Name == "Administrator")
+                    {
+                        var filter2 = Builders<BsonDocument>.Filter.Exists("UserID");
+                        var filter3 = Builders<BsonDocument>.Filter.Not(filter2);
+                        filter1 = Builders<BsonDocument>.Filter.Or(filter1, filter3);
+                    }
+                    docs = mongo.FindMany(Constant.SceneCollectionName, filter1).ToList();
+                }
+            }
+            else
+            {
+                docs = mongo.FindAll(Constant.SceneCollectionName).ToList();
+            }
 
             var list = new List<SceneModel>();
 
-            foreach (var i in scenes)
+            foreach (var i in docs)
             {
                 var categoryID = "";
                 var categoryName = "";

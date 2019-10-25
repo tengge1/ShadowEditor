@@ -35,11 +35,33 @@ namespace ShadowEditor.Server.Controllers
             var filter = Builders<BsonDocument>.Filter.Eq("Type", "Material");
             var categories = mongo.FindMany(Constant.CategoryCollectionName, filter).ToList();
 
-            var materials = mongo.FindAll(Constant.MaterialCollectionName).ToList();
+            var docs = new List<BsonDocument>();
+
+            if (ConfigHelper.EnableAuthority)
+            {
+                var user = UserHelper.GetCurrentUser();
+
+                if (user != null)
+                {
+                    var filter1 = Builders<BsonDocument>.Filter.Eq("UserID", user.ID);
+
+                    if (user.Name == "Administrator")
+                    {
+                        var filter2 = Builders<BsonDocument>.Filter.Exists("UserID");
+                        var filter3 = Builders<BsonDocument>.Filter.Not(filter2);
+                        filter1 = Builders<BsonDocument>.Filter.Or(filter1, filter3);
+                    }
+                    docs = mongo.FindMany(Constant.MaterialCollectionName, filter1).ToList();
+                }
+            }
+            else
+            {
+                docs = mongo.FindAll(Constant.MaterialCollectionName).ToList();
+            }
 
             var list = new List<MaterialModel>();
 
-            foreach (var i in materials)
+            foreach (var i in docs)
             {
                 var categoryID = "";
                 var categoryName = "";
