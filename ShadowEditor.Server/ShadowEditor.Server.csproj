@@ -131,6 +131,7 @@
     <Compile Include="Controllers\SceneController.cs" />
     <Compile Include="CustomAttribute\AuthorityAttribute.cs" />
     <Compile Include="CustomAttribute\SortAttribute.cs" />
+    <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Helpers\DownloadHelper.cs" />
     <Compile Include="Helpers\DirectoryHelper.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
