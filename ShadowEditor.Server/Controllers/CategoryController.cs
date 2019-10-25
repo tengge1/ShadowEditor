@@ -31,7 +31,7 @@ namespace ShadowEditor.Server.Controllers
         {
             var mongo = new MongoHelper();
 
-            List<BsonDocument> docs = null;
+            var docs = new List<BsonDocument>();
 
             if (ConfigHelper.EnableAuthority)
             {
