@@ -50,13 +50,10 @@ namespace ShadowEditor.Server.Controllers
                     {
                         var filter2 = Builders<BsonDocument>.Filter.Exists("UserID");
                         var filter3 = Builders<BsonDocument>.Filter.Not(filter2);
-                        var filter4 = Builders<BsonDocument>.Filter.Or(filter1, filter3);
-                        docs = mongo.FindMany(Constant.AudioCollectionName, filter4).ToList();
+                        filter1 = Builders<BsonDocument>.Filter.Or(filter1, filter3);
                     }
-                    else
-                    {
-                        docs = mongo.FindMany(Constant.AudioCollectionName, filter1).ToList();
-                    }
+
+                    docs = mongo.FindMany(Constant.AudioCollectionName, filter1).ToList();
                 }
             }
             else

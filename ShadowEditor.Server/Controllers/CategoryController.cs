@@ -33,14 +33,40 @@ namespace ShadowEditor.Server.Controllers
 
             List<BsonDocument> docs = null;
 
-            if (type == null)
+            if (ConfigHelper.EnableAuthority)
             {
-                docs = mongo.FindAll(Constant.CategoryCollectionName).ToList();
+                var user = UserHelper.GetCurrentUser();
+
+                if (user != null)
+                {
+                    var filter1 = Builders<BsonDocument>.Filter.Eq("UserID", user.ID);
+
+                    if (user.Name == "Administrator")
+                    {
+                        var filter2 = Builders<BsonDocument>.Filter.Exists("UserID");
+                        var filter3 = Builders<BsonDocument>.Filter.Not(filter2);
+                        filter1 = Builders<BsonDocument>.Filter.Or(filter1, filter3);
+                    }
+
+                    if (type != null)
+                    {
+                        var filter2 = Builders<BsonDocument>.Filter.Eq("Type", type.Value.ToString());
+                        filter1 = Builders<BsonDocument>.Filter.And(filter1, filter2);
+                    }
+                    docs = mongo.FindMany(Constant.CategoryCollectionName, filter1).ToList();
+                }
             }
             else
             {
-                var filter = Builders<BsonDocument>.Filter.Eq("Type", type.Value.ToString());
-                docs = mongo.FindMany(Constant.CategoryCollectionName, filter).ToList();
+                if (type != null)
+                {
+                    var filter1 = Builders<BsonDocument>.Filter.Eq("Type", type.Value.ToString());
+                    docs = mongo.FindMany(Constant.CategoryCollectionName, filter1).ToList();
+                }
+                else
+                {
+                    docs = mongo.FindAll(Constant.CategoryCollectionName).ToList();
+                }
             }
 
             var list = new JArray();
