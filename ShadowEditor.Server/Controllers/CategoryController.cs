@@ -121,6 +121,17 @@ namespace ShadowEditor.Server.Controllers
                 var doc = new BsonDocument();
                 doc["Name"] = model.Name;
                 doc["Type"] = model.Type.Value.ToString();
+
+                if (ConfigHelper.EnableAuthority)
+                {
+                    var user = UserHelper.GetCurrentUser();
+
+                    if (user != null)
+                    {
+                        doc["UserID"] = user.ID;
+                    }
+                }
+
                 mongo.InsertOne(Constant.CategoryCollectionName, doc);
             }
             else

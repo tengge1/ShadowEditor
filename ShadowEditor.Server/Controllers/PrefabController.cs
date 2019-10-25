@@ -258,6 +258,17 @@ namespace ShadowEditor.Server.Controllers
                     ["Data"] = BsonDocument.Parse(model.Data),
                     ["Thumbnail"] = ""
                 };
+
+                if (ConfigHelper.EnableAuthority)
+                {
+                    var user = UserHelper.GetCurrentUser();
+
+                    if (user != null)
+                    {
+                        doc["UserID"] = user.ID;
+                    }
+                }
+
                 mongo.InsertOne(Constant.PrefabCollectionName, doc);
             }
             else // 更新

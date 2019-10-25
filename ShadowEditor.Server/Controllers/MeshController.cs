@@ -422,6 +422,16 @@ namespace ShadowEditor.Server.Controllers
                 ["Url"] = entryFileName
             };
 
+            if (ConfigHelper.EnableAuthority)
+            {
+                var user = UserHelper.GetCurrentUser();
+
+                if (user != null)
+                {
+                    doc["UserID"] = user.ID;
+                }
+            }
+
             mongo.InsertOne(Constant.MeshCollectionName, doc);
 
             return Json(new

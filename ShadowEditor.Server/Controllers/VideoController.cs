@@ -174,6 +174,16 @@ namespace ShadowEditor.Server.Controllers
                 ["UpdateTime"] = now,
             };
 
+            if (ConfigHelper.EnableAuthority)
+            {
+                var user = UserHelper.GetCurrentUser();
+
+                if (user != null)
+                {
+                    doc["UserID"] = user.ID;
+                }
+            }
+
             mongo.InsertOne(Constant.VideoCollectionName, doc);
 
             return Json(new Result

@@ -299,6 +299,17 @@ namespace ShadowEditor.Server.Controllers
                     ["CreateTime"] = BsonDateTime.Create(now),
                     ["UpdateTime"] = BsonDateTime.Create(now)
                 };
+
+                if (ConfigHelper.EnableAuthority)
+                {
+                    var user = UserHelper.GetCurrentUser();
+
+                    if (user != null)
+                    {
+                        doc["UserID"] = user.ID;
+                    }
+                }
+
                 mongo.InsertOne(Constant.SceneCollectionName, doc);
             }
             else
