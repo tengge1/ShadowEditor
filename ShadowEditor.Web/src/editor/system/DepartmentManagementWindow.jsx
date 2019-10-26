@@ -39,7 +39,7 @@ class DepartmentManagementWindow extends React.Component {
             style={{ width: '480px', height: '400px' }}
             mask={false}
             onClose={this.handleClose}
-        >
+               >
             <Content>
                 <Toolbar>
                     <Button onClick={this.handleAdd}>{_t('Add')}</Button>
@@ -48,11 +48,14 @@ class DepartmentManagementWindow extends React.Component {
                     <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
                     <ToolbarFiller />
                 </Toolbar>
-                <Tree className={'DepartmentTree'}
-                    data={data}
-                    selected={selected}
-                    onSelect={this.handleSelect}
-                    onExpand={this.handleExpand} />
+                <div className={'box'}>
+                    <Tree className={'DepartmentTree'}
+                        data={data}
+                        selected={selected}
+                        onSelect={this.handleSelect}
+                        onExpand={this.handleExpand}
+                    />
+                </div>
             </Content>
         </Window>;
     }
@@ -182,7 +185,7 @@ class DepartmentManagementWindow extends React.Component {
 
     handleSelect(selected) {
         this.setState({
-            selected,
+            selected
         });
     }
 

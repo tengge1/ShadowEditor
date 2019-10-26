@@ -14,3 +14,8 @@
 .Window.DepartmentManagementWindow>.wrap>.content>.Toolbar>.SearchField {
     width: 240px;
 }
+
+.Window.DepartmentManagementWindow>.wrap>.content>.box {
+    height: calc(100% - 25px);
+    overflow-y: auto;
+}
