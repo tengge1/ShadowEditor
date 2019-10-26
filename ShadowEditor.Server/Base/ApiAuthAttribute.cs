@@ -7,6 +7,10 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using System.Web.Security;
+using ShadowEditor.Model.System;
+using ShadowEditor.Server.Helpers;
+using ShadowEditor.Server.CustomAttribute;
+using Newtonsoft.Json;
 
 namespace ShadowEditor.Server.Base
 {
@@ -22,50 +26,36 @@ namespace ShadowEditor.Server.Base
         /// <param name="actionContext"></param>
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            try
+            if (!ConfigHelper.EnableAuthority)
             {
-                // 允许匿名访问
-                if (actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Count > 0)
-                {
-                    base.OnActionExecuting(actionContext);
-                    return;
-                }
-
-                // 获取cookie
-                var cookie = actionContext.Request.Headers.GetCookies();
-                if (cookie == null || cookie.Count < 1)
-                {
-                    DenyAction(actionContext, 301, "登录超时！");
-                    return;
-                }
-
-                // 获取票据
-                FormsAuthenticationTicket ticket = null;
-                foreach (var perCookie in cookie[0].Cookies)
-                {
-                    if (perCookie.Name == FormsAuthentication.FormsCookieName)
-                    {
-                        ticket = FormsAuthentication.Decrypt(perCookie.Value);
-                        break;
-                    }
-                }
-
-                // 验证票据
-                if (ticket == null)
-                {
-                    DenyAction(actionContext, 300, "无权限！");
-                    return;
-                }
-
-                // 验证权限后将获得的用户信息写入Session
-                HttpContext.Current.Items.Add("__userID", ticket.UserData); // 获取登陆时写入cookie的用户ID
-
                 base.OnActionExecuting(actionContext);
+                return;
             }
-            catch
+
+            var attributes = actionContext.ActionDescriptor.GetCustomAttributes<AuthorityAttribute>();
+
+            if (attributes.Count == 0)
             {
-                DenyAction(actionContext, 300, "权限验证出错！");
+                base.OnActionExecuting(actionContext);
+                return;
             }
+
+            // 验证权限
+            var user = UserHelper.GetCurrentUser();
+
+            if (user == null)
+            {
+                DenyAction(actionContext, 301, "Not allowed.");
+                return;
+            }
+
+            if (user.Name == "Administrator")
+            {
+                base.OnActionExecuting(actionContext);
+                return;
+            }
+
+            base.OnActionExecuting(actionContext);
         }
 
         /// <summary>

@@ -66,6 +66,10 @@ namespace ShadowEditor.Server.Helpers
                 return null;
             }
 
+            // 获取角色信息
+
+            // 获取权限信息
+
             return new UserModel
             {
                 ID = doc["ID"].ToString(),
