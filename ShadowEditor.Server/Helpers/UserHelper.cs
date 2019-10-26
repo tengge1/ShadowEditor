@@ -66,9 +66,22 @@ namespace ShadowEditor.Server.Helpers
                 return null;
             }
 
-            // 获取角色信息
+            // 获取角色和权限信息
+            var roleID = "";
+            var roleName = "";
 
-            // 获取权限信息
+            if (doc.Contains("RoleID") && ObjectId.TryParse(doc["RoleID"].ToString(), out objectId))
+            {
+                filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
+
+                var role = mongo.FindOne(Constant.RoleCollectionName, filter);
+
+                if (role != null)
+                {
+                    roleID = role["ID"].ToString();
+                    roleName = role["Name"].ToString();
+                }
+            }
 
             return new UserModel
             {
@@ -76,6 +89,8 @@ namespace ShadowEditor.Server.Helpers
                 Username = doc["Username"].ToString(),
                 Name = doc["Name"].ToString(),
                 Password = doc["Password"].ToString(),
+                RoleID = roleID,
+                RoleName = roleName,
                 Gender = doc["Gender"].ToInt32(),
                 Phone = doc["Phone"].ToString(),
                 Email = doc["Email"].ToString(),
