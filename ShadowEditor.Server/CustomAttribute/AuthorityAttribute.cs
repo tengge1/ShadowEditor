@@ -17,5 +17,13 @@ namespace ShadowEditor.Server.CustomAttribute
         {
             this.authority = authority;
         }
+
+        public string Authority
+        {
+            get
+            {
+                return authority;
+            }
+        }
     }
 }

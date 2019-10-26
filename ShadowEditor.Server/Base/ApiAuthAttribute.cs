@@ -49,10 +49,20 @@ namespace ShadowEditor.Server.Base
                 return;
             }
 
-            if (user.Name == "Administrator")
+            if (user.RoleName == "Administrator") // 管理员组默认有全部权限
             {
                 base.OnActionExecuting(actionContext);
                 return;
+            }
+
+            // 必须拥有所有接口权限才允许，否则拒绝。
+            foreach (var i in attributes)
+            {
+                if (!user.OperatingAuthorities.Contains(i.Authority))
+                {
+                    DenyAction(actionContext, 301, "Not allowed.");
+                    return;
+                }
             }
 
             base.OnActionExecuting(actionContext);
@@ -66,13 +76,15 @@ namespace ShadowEditor.Server.Base
         /// <param name="msg">说明</param>
         private void DenyAction(HttpActionContext context, int code, string msg)
         {
-            //context.Response.StatusCode = HttpStatusCode.OK;
-            //var content = JsonHelper.ToJson(new Model.Result
-            //{
-            //    Code = code,
-            //    Msg = msg
-            //});
-            //context.Response.Content = new StringContent(content, Encoding.UTF8, "application/json");
+            context.Response.StatusCode = HttpStatusCode.OK;
+
+            var content = JsonHelper.ToJson(new Result
+            {
+                Code = code,
+                Msg = msg
+            });
+
+            context.Response.Content = new StringContent(content, Encoding.UTF8, "application/json");
         }
     }
 }
