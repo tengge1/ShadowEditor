@@ -885,5 +885,6 @@
     "Edit Department": "编辑组织机构",
     "Pleast select a department.": "请选择机构。",
     "Delete this department?": "删除这个机构？",
-    "PDept Name": "父机构名称"
+    "PDept Name": "父机构名称",
+    "Not allowed.": "不允许。"
 }
