@@ -80,5 +80,10 @@ namespace ShadowEditor.Model.System
         /// 状态（0-正常，-1删除）
         /// </summary>
         public int Status { get; set; }
+
+        /// <summary>
+        /// 所有操作权限（不存数据库）
+        /// </summary>
+        public List<string> OperatingAuthorities { get; set; }
     }
 }
