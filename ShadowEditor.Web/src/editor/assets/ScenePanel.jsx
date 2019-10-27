@@ -15,7 +15,7 @@ class ScenePanel extends React.Component {
             data: [],
             categoryData: [],
             name: '',
-            categories: [],
+            categories: []
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -51,7 +51,7 @@ class ScenePanel extends React.Component {
                 src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
                 title: n.Name,
                 icon: 'scenes',
-                cornerText: `v${n.Version}`,
+                cornerText: `v${n.Version}`
             });
         });
 
@@ -59,13 +59,15 @@ class ScenePanel extends React.Component {
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
-                showFilterButton={true}
-                onInput={this.handleSearch.bind(this)}></SearchField>
+                showFilterButton
+                onInput={this.handleSearch.bind(this)}
+            />
             <ImageList
                 data={imageListData}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
-                onDelete={this.handleDelete}></ImageList>
+                onDelete={this.handleDelete}
+            />
         </div>;
     }
 
@@ -80,16 +82,20 @@ class ScenePanel extends React.Component {
     update() {
         fetch(`${app.options.server}/api/Category/List?type=Scene`).then(response => {
             response.json().then(obj => {
-                this.setState({
-                    categoryData: obj.Data,
-                });
+                if (obj.Code === 200) {
+                    this.setState({
+                        categoryData: obj.Data
+                    });
+                }
             });
         });
         fetch(`${app.options.server}/api/Scene/List`).then(response => {
             response.json().then(obj => {
-                this.setState({
-                    data: obj.Data,
-                });
+                if(obj.Code === 200) {
+                    this.setState({
+                        data: obj.Data
+                    });
+                }
             });
         });
     }
@@ -97,7 +103,7 @@ class ScenePanel extends React.Component {
     handleSearch(name, categories, event) {
         this.setState({
             name,
-            categories,
+            categories
         });
     }
 
@@ -110,7 +116,7 @@ class ScenePanel extends React.Component {
         let url = `${app.options.server}/api/Scene/Load?ID=${data.id}`;
 
         // 下面代码演示使用，请勿删除
-        if(app.options.server === '.') {
+        if (app.options.server === '.') {
             url = `${app.options.server}/api/Scene/Scene_${data.id}`;
         }
 
@@ -118,7 +124,7 @@ class ScenePanel extends React.Component {
             response.json().then(obj => {
                 editor.clear(false);
 
-                (new Converter()).fromJson(obj.Data, {
+                new Converter().fromJson(obj.Data, {
                     server: app.options.server,
                     camera: app.editor.camera
                 }).then(obj => {
@@ -136,7 +142,7 @@ class ScenePanel extends React.Component {
                                 app.editor.gis.stop();
                             }
                             app.editor.gis = new GISScene(app, {
-                                useCameraPosition: true,
+                                useCameraPosition: true
                             });
                             app.editor.gis.start();
                         }
@@ -244,7 +250,7 @@ class ScenePanel extends React.Component {
             typeName: _t('Scene'),
             data,
             saveUrl: `${app.options.server}/api/Scene/Edit`,
-            callback: this.update,
+            callback: this.update
         });
 
         app.addElement(window);
@@ -258,7 +264,7 @@ class ScenePanel extends React.Component {
             content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
                 fetch(`${app.options.server}/api/Scene/Delete?ID=${data.id}`, {
-                    method: 'POST',
+                    method: 'POST'
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code === 200) {
@@ -275,13 +281,13 @@ class ScenePanel extends React.Component {
 ScenePanel.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    show: PropTypes.bool,
+    show: PropTypes.bool
 };
 
 ScenePanel.defaultProps = {
     className: null,
     style: null,
-    show: false,
+    show: false
 };
 
 export default ScenePanel;

@@ -76,15 +76,18 @@ namespace ShadowEditor.Server.Base
         /// <param name="msg">说明</param>
         private void DenyAction(HttpActionContext context, int code, string msg)
         {
-            context.Response.StatusCode = HttpStatusCode.OK;
-
             var content = JsonHelper.ToJson(new Result
             {
                 Code = code,
                 Msg = msg
             });
 
-            context.Response.Content = new StringContent(content, Encoding.UTF8, "application/json");
+            // 不要通过StatusCode判断是否执行成功，通过Content。
+            context.Response = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(content, Encoding.UTF8, "application/json")
+            };
         }
     }
 }
