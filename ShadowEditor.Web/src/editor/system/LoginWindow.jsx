@@ -29,17 +29,26 @@ class LoginWindow extends React.Component {
             style={{ width: '320px', height: '200px' }}
             mask={false}
             onClose={this.handleClose}
-        >
+               >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Username')}</Label>
-                        <Input name={'username'} value={username} onChange={this.handleChange} />
-                        <input type={'password'} className={'fake'} />
+                        <Input name={'username'}
+                            value={username}
+                            onChange={this.handleChange}
+                        />
+                        <input type={'password'}
+                            className={'fake'}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Password')}</Label>
-                        <Input name={'password'} type={'password'} value={password} onChange={this.handleChange} />
+                        <Input name={'password'}
+                            type={'password'}
+                            value={password}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                 </Form>
             </Content>

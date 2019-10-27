@@ -15,5 +15,10 @@ namespace ShadowEditor.Model.System
         /// ID
         /// </summary>
         public string ID { get; set; }
+
+        /// <summary>
+        /// 默认注册用户ID
+        /// </summary>
+        public string DefaultRegisterRole { get; set; }
     }
 }

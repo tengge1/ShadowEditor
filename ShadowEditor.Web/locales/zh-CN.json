@@ -886,5 +886,7 @@
     "Pleast select a department.": "请选择机构。",
     "Delete this department?": "删除这个机构？",
     "PDept Name": "父机构名称",
-    "Not allowed.": "不允许。"
+    "Not allowed.": "不允许。",
+    "System Setting": "系统设置",
+    "Register Default Role": "注册默认角色"
 }

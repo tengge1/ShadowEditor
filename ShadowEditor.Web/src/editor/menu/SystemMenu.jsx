@@ -1,8 +1,9 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../third_party';
 import DepartmentManagementWindow from '../system/DepartmentManagementWindow.jsx';
 import UserManageWindow from '../system/UserManageWindow.jsx';
 import RoleManageWindow from '../system/RoleManageWindow.jsx';
 import AuthorityManagementWindow from '../system/AuthorityManagementWindow.jsx';
+import SystemSettingWindow from '../system/SystemSettingWindow.jsx';
 
 /**
  * 系统菜单
@@ -18,23 +19,46 @@ class SystemMenu extends React.Component {
         this.handleUser = this.handleUser.bind(this);
         this.handleRole = this.handleRole.bind(this);
         this.handleAuthority = this.handleAuthority.bind(this);
+        this.handleSystemSetting = this.handleSystemSetting.bind(this);
         this.handleResetSystem = this.handleResetSystem.bind(this);
         this.commitResetSystem = this.commitResetSystem.bind(this);
     }
 
     render() {
-        const { enableAuthority, initialized, login } = app.config;
+        const { initialized } = app.config;
 
         return <MenuItem title={_t('System')}>
-            <MenuItem title={_t('Initialize')} show={!initialized} onClick={this.handleInitialize} />
+            <MenuItem title={_t('Initialize')}
+                show={!initialized}
+                onClick={this.handleInitialize}
+            />
             <MenuItemSeparator show={initialized} />
-            <MenuItem title={_t('Department Management')} show={initialized} onClick={this.handleDepartment} />
-            <MenuItem title={_t('User Management')} show={initialized} onClick={this.handleUser} />
+            <MenuItem title={_t('Department Management')}
+                show={initialized}
+                onClick={this.handleDepartment}
+            />
+            <MenuItem title={_t('User Management')}
+                show={initialized}
+                onClick={this.handleUser}
+            />
             <MenuItemSeparator show={initialized} />
-            <MenuItem title={_t('Role Management')} show={initialized} onClick={this.handleRole} />
-            <MenuItem title={_t('Authority Management')} show={initialized} onClick={this.handleAuthority} />
+            <MenuItem title={_t('Role Management')}
+                show={initialized}
+                onClick={this.handleRole}
+            />
+            <MenuItem title={_t('Authority Management')}
+                show={initialized}
+                onClick={this.handleAuthority}
+            />
             <MenuItemSeparator show={initialized} />
-            <MenuItem title={_t('Reset System')} show={initialized} onClick={this.handleResetSystem} />
+            <MenuItem title={_t('System Setting')}
+                show={initialized}
+                onClick={this.handleSystemSetting}
+            />
+            <MenuItem title={_t('Reset System')}
+                show={initialized}
+                onClick={this.handleResetSystem}
+            />
         </MenuItem>;
     }
 
@@ -83,6 +107,11 @@ class SystemMenu extends React.Component {
 
     handleAuthority() {
         const win = app.createElement(AuthorityManagementWindow);
+        app.addElement(win);
+    }
+
+    handleSystemSetting() {
+        const win = app.createElement(SystemSettingWindow);
         app.addElement(win);
     }
 

@@ -43,7 +43,8 @@ namespace ShadowEditor.Server.Controllers.System
                 config = new BsonDocument
                 {
                     ["ID"] = ObjectId.GenerateNewId(),
-                    ["Initialized"] = false
+                    ["Initialized"] = false,
+                    ["DefaultRegisterRole"] = ""
                 };
                 mongo.InsertOne(Constant.ConfigCollectionName, config);
             }
@@ -53,6 +54,7 @@ namespace ShadowEditor.Server.Controllers.System
                 ["ID"] = config["ID"].ToString(),
                 ["EnableAuthority"] = ConfigurationManager.AppSettings["EnableAuthority"] == "true",
                 ["Initialized"] = config.Contains("Initialized") ? config["Initialized"].ToBoolean() : false,
+                ["DefaultRegisterRole"] = config.Contains("DefaultRegisterRole") ? config["DefaultRegisterRole"].ToString() : "",
                 ["IsLogin"] = false,
                 ["Username"] = "",
                 ["Name"] = "",
@@ -97,6 +99,45 @@ namespace ShadowEditor.Server.Controllers.System
             {
                 Code = 200,
                 Msg = "Get Successfully!",
+                Data = model,
+            });
+        }
+
+        /// <summary>
+        /// 保存系统设置
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Save(ConfigModel model)
+        {
+            var mongo = new MongoHelper();
+
+            var filter = Builders<BsonDocument>.Filter.Empty;
+
+            // 获取配置
+            var doc = mongo.FindOne(Constant.ConfigCollectionName, filter);
+
+            if (doc == null)
+            {
+                doc = new BsonDocument
+                {
+                    ["ID"] = ObjectId.GenerateNewId(),
+                    ["Initialized"] = false,
+                    ["DefaultRegisterRole"] = model.DefaultRegisterRole
+                };
+                mongo.InsertOne(Constant.ConfigCollectionName, doc);
+            }
+            else
+            {
+                var update = Builders<BsonDocument>.Update.Set("DefaultRegisterRole", model.DefaultRegisterRole);
+                mongo.UpdateOne(Constant.ConfigCollectionName, filter, update);
+            }
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "Save Successfully.",
                 Data = model,
             });
         }

@@ -56,12 +56,15 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
+            var defaultRegisterRoleID = ObjectId.GenerateNewId();
+
             if (doc == null)
             {
                 doc = new BsonDocument
                 {
                     ["ID"] = ObjectId.GenerateNewId(),
-                    ["Initialized"] = true
+                    ["Initialized"] = true,
+                    ["DefaultRegisterRole"] = defaultRegisterRoleID
                 };
                 mongo.InsertOne(Constant.ConfigCollectionName, doc);
             }
@@ -69,7 +72,9 @@ namespace ShadowEditor.Server.Controllers.System
             {
                 var filter11 = Builders<BsonDocument>.Filter.Eq("_id", doc["_id"].AsObjectId);
                 var update11 = Builders<BsonDocument>.Update.Set("Initialized", true);
-                mongo.UpdateOne(Constant.ConfigCollectionName, filter11, update11);
+                var update12 = Builders<BsonDocument>.Update.Set("DefaultRegisterRole", defaultRegisterRoleID);
+                var update13 = Builders<BsonDocument>.Update.Combine(update11, update12);
+                mongo.UpdateOne(Constant.ConfigCollectionName, filter11, update13);
             }
 
             // 初始化角色
@@ -95,7 +100,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             var role2 = new BsonDocument
             {
-                ["ID"] = ObjectId.GenerateNewId(),
+                ["ID"] = defaultRegisterRoleID,
                 ["Name"] = "User",
                 ["CreateTime"] = now,
                 ["UpdateTime"] = now,
