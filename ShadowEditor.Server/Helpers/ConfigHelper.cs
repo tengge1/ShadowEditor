@@ -22,5 +22,16 @@ namespace ShadowEditor.Server.Helpers
                 return ConfigurationManager.AppSettings["EnableAuthority"] == "true";
             }
         }
+
+        /// <summary>
+        /// 默认登录时长设置
+        /// </summary>
+        public static int Expires
+        {
+            get
+            {
+                return Convert.ToInt32(ConfigurationManager.AppSettings["Expires"].ToString());
+            }
+        }
     }
 }

@@ -18,6 +18,10 @@ namespace ShadowEditor.Server.Helpers
     /// <remarks>UserModel带有密码信息，注意不要返回给前端。</remarks>
     public class UserHelper
     {
+        /// <summary>
+        /// 获取当前用户
+        /// </summary>
+        /// <returns></returns>
         public static UserModel GetCurrentUser()
         {
             var cookies = HttpContext.Current.Request.Cookies;

@@ -95,7 +95,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             var newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, JsonConvert.SerializeObject(ticketData)); // 将用户ID写入ticket
             cookie.Value = FormsAuthentication.Encrypt(newTicket);
-
+            cookie.Expires = DateTime.Now.AddMinutes(ConfigHelper.Expires);
             HttpContext.Current.Response.Cookies.Add(cookie);
 
             return Json(new
