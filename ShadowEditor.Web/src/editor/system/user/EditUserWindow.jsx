@@ -1,3 +1,4 @@
+import './css/EditUserWindow.css';
 import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button, Select } from '../../../third_party';
 
 /**
@@ -14,7 +15,7 @@ class EditUserWindow extends React.Component {
             password: props.password,
             name: props.name,
             roles: {},
-            roleID: props.roleID,
+            roleID: props.roleID
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -36,19 +37,39 @@ class EditUserWindow extends React.Component {
                 <Form>
                     <FormControl>
                         <Label>{_t('User Name')}</Label>
-                        <Input name={'username'} value={username} onChange={this.handleChange} />
+                        <Input name={'username'}
+                            value={username}
+                            onChange={this.handleChange}
+                        />
+                        <input type={'text'}
+                            className={'fake'}
+                        />
+                        <input type={'password'}
+                            className={'fake'}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Password')}</Label>
-                        <Input name={'password'} type={'password'} value={password} onChange={this.handleChange} />
+                        <Input name={'password'}
+                            type={'password'}
+                            value={password}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('NickName')}</Label>
-                        <Input name={'name'} value={name} onChange={this.handleChange} />
+                        <Input name={'name'}
+                            value={name}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Role')}</Label>
-                        <Select name={'roleID'} options={roles} value={roleID} onChange={this.handleChange} />
+                        <Select name={'roleID'}
+                            options={roles}
+                            value={roleID}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                 </Form>
             </Content>
@@ -69,7 +90,7 @@ class EditUserWindow extends React.Component {
                     roles[n.ID] = this.renderRoleName(n.Name);
                 });
                 this.setState({
-                    roles,
+                    roles
                 });
             });
         });
