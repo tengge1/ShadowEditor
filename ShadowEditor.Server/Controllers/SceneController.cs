@@ -197,6 +197,44 @@ namespace ShadowEditor.Server.Controllers
 
             var mongo = new MongoHelper();
 
+            // 开启权限时，判断是否是自己的场景
+            if (ConfigHelper.EnableAuthority)
+            {
+                var user = UserHelper.GetCurrentUser();
+
+                var filter11 = Builders<BsonDocument>.Filter.Eq("ID", model.ID);
+                var doc = mongo.FindOne(Constant.SceneCollectionName, filter11);
+
+                if (doc == null)
+                {
+                    return Json(new
+                    {
+                        Code = 300,
+                        Msg = "The scene is not existed."
+                    });
+                }
+
+                // 保存其他人的场景
+                if (doc.Contains("UserID") && doc["UserID"].ToString() != user.ID)
+                {
+                    return Json(new
+                    {
+                        Code = 300,
+                        Msg = "Permission denied."
+                    });
+                }
+
+                // 非管理员组保存不带UserID的场景
+                if (!doc.Contains("UserID") && user.RoleName != "Administrator")
+                {
+                    return Json(new
+                    {
+                        Code = 300,
+                        Msg = "Permission denied."
+                    });
+                }
+            }
+
             var pinyin = PinYinHelper.GetTotalPinYin(model.Name);
 
             var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
@@ -385,7 +423,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new
                 {
                     Code = 300,
-                    Msg = "The asset is not existed!"
+                    Msg = "The scene is not existed."
                 });
             }
 

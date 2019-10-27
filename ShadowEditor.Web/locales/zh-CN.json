@@ -889,5 +889,7 @@
     "Not allowed.": "不允许。",
     "System Setting": "系统设置",
     "Register Default Role": "注册默认角色",
-    "Is Public": "是否公开"
+    "Is Public": "是否公开",
+    "The scene is not existed.": "该场景不存在。",
+    "Permission denied.": "没有权限"
 }
