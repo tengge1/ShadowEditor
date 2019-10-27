@@ -1,6 +1,4 @@
 import {
-    i18next,
-    Backend,
     Toast,
     Alert,
     Confirm,
@@ -21,6 +19,8 @@ import LanguageLoader from './utils/LanguageLoader';
  * 应用程序
  * @author mrdoob / http://mrdoob.com/
  * @author tengge / https://github.com/tengge1
+ * @param {HTMLElement} container 容器
+ * @param {Object} options 配置
  */
 function Application(container, options) {
     // 容器
@@ -85,6 +85,7 @@ function Application(container, options) {
  * @param {React.Component} type ReactComponent类型
  * @param {Object} props ReactComponent属性
  * @param {Object} children 子节点
+ * @returns {*} React元素
  */
 Application.prototype.createElement = function (type, props, children) {
     return this.editor.createElement(type, props, children);
@@ -94,6 +95,7 @@ Application.prototype.createElement = function (type, props, children) {
  * 添加元素
  * @param {Object} element ReactElement元素
  * @param {Function} callback 回调函数
+ * @returns {*} React元素
  */
 Application.prototype.addElement = function (element, callback) {
     return this.editor.addElement(element, callback);
@@ -103,6 +105,7 @@ Application.prototype.addElement = function (element, callback) {
  * 移除元素
  * @param {Object} element ReactElement元素
  * @param {Function} callback 回调函数
+ * @returns {*} React元素
  */
 Application.prototype.removeElement = function (element, callback) {
     return this.editor.removeElement(element, callback);
@@ -131,6 +134,7 @@ Application.prototype.toast = function (content) {
  * @param {Object} options.style 样式
  * @param {Function} options.onOK 点击确定回调函数
  * @param {Function} options.onClose 点击关闭回调函数
+ * @returns {*} React元素
  */
 Application.prototype.alert = function (options = {}) {
     let {
@@ -179,6 +183,7 @@ Application.prototype.alert = function (options = {}) {
  * @param {Object} options.style 样式
  * @param {Function} options.onOK 点击确定回调函数
  * @param {Function} options.onCancel 点击取消回调函数
+ * @returns {*} React元素
  */
 Application.prototype.confirm = function (options = {}) {
     let {
@@ -235,6 +240,7 @@ Application.prototype.confirm = function (options = {}) {
  * @param {String} options.value 默认值
  * @param {Function} options.onOK 点击确定执行函数
  * @param {Function} options.onClose 点击关闭执行函数
+ * @returns {*} React元素
  */
 Application.prototype.prompt = function (options = {}) {
     let {
