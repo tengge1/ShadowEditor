@@ -167,11 +167,17 @@ namespace ShadowEditor.Server.Controllers.System
             mongo.InsertMany($"{Constant.RoleCollectionName}_{now}", docs);
             docs = mongo.FindAll(Constant.UserCollectionName).ToList();
             mongo.InsertMany($"{Constant.UserCollectionName}_{now}", docs);
+            docs = mongo.FindAll(Constant.DepartmentCollectionName).ToList();
+            mongo.InsertMany($"{Constant.DepartmentCollectionName}_{now}", docs);
+            docs = mongo.FindAll(Constant.OperatingAuthorityCollectionName).ToList();
+            mongo.InsertMany($"{Constant.OperatingAuthorityCollectionName}_{now}", docs);
 
             // 清除数据表
             mongo.DropCollection(Constant.ConfigCollectionName);
             mongo.DropCollection(Constant.RoleCollectionName);
             mongo.DropCollection(Constant.UserCollectionName);
+            mongo.DropCollection(Constant.DepartmentCollectionName);
+            mongo.DropCollection(Constant.OperatingAuthorityCollectionName);
 
             // 注销登录
             var cookie = HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
