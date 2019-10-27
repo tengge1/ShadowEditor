@@ -42,6 +42,8 @@ namespace ShadowEditor.Server.Controllers
                 if (user != null)
                 {
                     var filter1 = Builders<BsonDocument>.Filter.Eq("UserID", user.ID);
+                    var filter11 = Builders<BsonDocument>.Filter.Eq("IsPublic", true);
+                    filter1 = Builders<BsonDocument>.Filter.Or(filter1, filter11);
 
                     if (user.Name == "Administrator")
                     {
