@@ -41,18 +41,25 @@ class Editor extends React.Component {
             <BorderLayout className={'Editor'}>
                 <EditorMenuBar region={'north'} />
                 <EditorStatusBar region={'south'} />
-                <AssetsPanel region={'west'} split onToggle={this.onToggle} />
-                <EditorSideBar region={'east'} split onToggle={this.onToggle} />
+                <AssetsPanel region={'west'}
+split
+onToggle={this.onToggle} />
+                <EditorSideBar region={'east'}
+split
+onToggle={this.onToggle} />
                 <BorderLayout region={'center'}>
                     <EditorToolbar region={'west'} />
                     <Viewport region={'center'} />
-                    <TimelinePanel region={'south'} split onToggle={this.onToggle} />
+                    <TimelinePanel region={'south'}
+split
+onToggle={this.onToggle} />
                 </BorderLayout>
             </BorderLayout>
             {elements.map((n, i) => {
                 return <div key={i}>{n}</div>;
             })}
-            <LoadMask text={maskText} show={showMask} />
+            <LoadMask text={maskText}
+show={showMask} />
         </>;
     }
 

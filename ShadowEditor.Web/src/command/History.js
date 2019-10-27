@@ -4,6 +4,7 @@
  * 历史记录
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
+ * @param {*} editor 编辑器
  */
 function History(editor) {
     this.editor = editor;
@@ -13,7 +14,7 @@ function History(editor) {
     this.idCounter = 0;
 
     Command.call(this, editor);
-};
+}
 
 History.prototype = Object.create(Command.prototype);
 
@@ -54,7 +55,7 @@ Object.assign(History.prototype, {
             cmd.id = ++this.idCounter;
 
         }
-        cmd.name = (optionalName !== undefined) ? optionalName : cmd.name;
+        cmd.name = optionalName !== undefined ? optionalName : cmd.name;
         cmd.execute();
         cmd.inMemory = true;
 
@@ -139,7 +140,7 @@ Object.assign(History.prototype, {
             cmd.id = cmdJSON.id;
             cmd.name = cmdJSON.name;
             this.undos.push(cmd);
-            this.idCounter = (cmdJSON.id > this.idCounter) ? cmdJSON.id : this.idCounter; // set last used idCounter
+            this.idCounter = cmdJSON.id > this.idCounter ? cmdJSON.id : this.idCounter; // set last used idCounter
         }
 
         for (var i = 0; i < json.redos.length; i++) {
@@ -149,7 +150,7 @@ Object.assign(History.prototype, {
             cmd.id = cmdJSON.id;
             cmd.name = cmdJSON.name;
             this.redos.push(cmd);
-            this.idCounter = (cmdJSON.id > this.idCounter) ? cmdJSON.id : this.idCounter; // set last used idCounter
+            this.idCounter = cmdJSON.id > this.idCounter ? cmdJSON.id : this.idCounter; // set last used idCounter
         }
 
         // Select the last executed undo-command

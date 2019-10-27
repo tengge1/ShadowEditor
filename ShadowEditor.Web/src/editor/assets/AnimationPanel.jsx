@@ -1,9 +1,5 @@
 import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
 import EditWindow from './window/EditWindow.jsx';
-import ModelLoader from '../../loader/ModelLoader';
-import AddObjectCommand from '../../command/AddObjectCommand';
-import Ajax from '../../utils/Ajax';
-import UploadUtils from '../../utils/UploadUtils';
 
 /**
  * 动画面板
@@ -17,7 +13,7 @@ class AnimationPanel extends React.Component {
             data: [],
             categoryData: [],
             name: '',
-            categories: [],
+            categories: []
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -54,24 +50,28 @@ class AnimationPanel extends React.Component {
                 id: n.ID,
                 src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
                 title: n.Name,
-                icon: 'scenes',
+                icon: 'scenes'
                 // cornerText: n.Type,
             });
         });
 
-        return <div className={classNames('AnimationPanel', className)} style={style}>
+        return <div className={classNames('AnimationPanel', className)}
+            style={style}
+               >
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
-                showAddButton={true}
-                showFilterButton={true}
+                showAddButton
+                showFilterButton
                 onAdd={this.handleAdd}
-                onInput={this.handleSearch.bind(this)}></SearchField>
+                onInput={this.handleSearch.bind(this)}
+            />
             <ImageList
                 data={imageListData}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
-                onDelete={this.handleDelete}></ImageList>
+                onDelete={this.handleDelete}
+            />
         </div>;
     }
 
@@ -86,14 +86,14 @@ class AnimationPanel extends React.Component {
         fetch(`${app.options.server}/api/Category/List?type=Animation`).then(response => {
             response.json().then(obj => {
                 this.setState({
-                    categoryData: obj.Data,
+                    categoryData: obj.Data
                 });
             });
         });
         fetch(`${app.options.server}/api/Animation/List`).then(response => {
             response.json().then(obj => {
                 this.setState({
-                    data: obj.Data,
+                    data: obj.Data
                 });
             });
         });
@@ -102,7 +102,7 @@ class AnimationPanel extends React.Component {
     handleSearch(name, categories, event) {
         this.setState({
             name,
-            categories,
+            categories
         });
     }
 
@@ -129,7 +129,7 @@ class AnimationPanel extends React.Component {
             typeName: _t('Animation'),
             data,
             saveUrl: `${app.options.server}/api/Animation/Edit`,
-            callback: this.update,
+            callback: this.update
         });
 
         app.addElement(win);
@@ -143,7 +143,7 @@ class AnimationPanel extends React.Component {
             content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
                 fetch(`${app.options.server}/api/Animation/Delete?ID=${data.id}`, {
-                    method: 'POST',
+                    method: 'POST'
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code === 200) {
@@ -160,13 +160,13 @@ class AnimationPanel extends React.Component {
 AnimationPanel.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    show: PropTypes.bool,
+    show: PropTypes.bool
 };
 
 AnimationPanel.defaultProps = {
     className: null,
     style: null,
-    show: false,
+    show: false
 };
 
 export default AnimationPanel;

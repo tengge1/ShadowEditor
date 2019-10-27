@@ -2,7 +2,7 @@
  * 命令基类
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param editorRef pointer to main editor object used to initialize each command object with a reference to the editor
+ * @param {*} editorRef pointer to main editor object used to initialize each command object with a reference to the editor
  * @constructor
  */
 function Command(editorRef) {
@@ -16,7 +16,7 @@ function Command(editorRef) {
         Command.editor = editorRef;
     }
     this.editor = Command.editor;
-};
+}
 
 Command.prototype.toJSON = function () {
     var output = {};

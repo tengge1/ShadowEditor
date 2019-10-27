@@ -4,7 +4,7 @@ import Command from './Command';
  * 添加物体命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
+ * @param {THREE.Object3D} object 配置
  * @constructor
  */
 function AddObjectCommand(object) {
@@ -17,7 +17,7 @@ function AddObjectCommand(object) {
 	if (object !== undefined) {
 		this.name = _t('Add Object') + object.name;
 	}
-};
+}
 
 AddObjectCommand.prototype = Object.create(Command.prototype);
 
