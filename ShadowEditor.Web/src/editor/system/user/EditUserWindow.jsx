@@ -24,11 +24,11 @@ class EditUserWindow extends React.Component {
     }
 
     render() {
-        const { username, password, name, roles, roleID } = this.state;
+        const { id, username, password, name, roles, roleID } = this.state;
 
         return <Window
             className={_t('EditUserWindow')}
-            title={_t('Edit User')}
+            title={id ? _t('Edit User') : _t('Add User')}
             style={{ width: '320px', height: '200px' }}
             mask={false}
             onClose={this.handleClose}
@@ -48,7 +48,7 @@ class EditUserWindow extends React.Component {
                             className={'fake'}
                         />
                     </FormControl>
-                    <FormControl>
+                    <FormControl hidden={id !== ''}>
                         <Label>{_t('Password')}</Label>
                         <Input name={'password'}
                             type={'password'}
