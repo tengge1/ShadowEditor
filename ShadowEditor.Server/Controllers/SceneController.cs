@@ -86,7 +86,8 @@ namespace ShadowEditor.Server.Controllers
                     Version = i["Version"].AsInt32,
                     CreateTime = i["CreateTime"].ToUniversalTime(),
                     UpdateTime = i["UpdateTime"].ToUniversalTime(),
-                    Thumbnail = i.Contains("Thumbnail") && !i["Thumbnail"].IsBsonNull ? i["Thumbnail"].ToString() : null
+                    Thumbnail = i.Contains("Thumbnail") && !i["Thumbnail"].IsBsonNull ? i["Thumbnail"].ToString() : null,
+                    IsPublic = i.Contains("IsPublic") ? i["IsPublic"].ToBoolean() : false,
                 };
                 list.Add(info);
             }
@@ -213,7 +214,9 @@ namespace ShadowEditor.Server.Controllers
                 update5 = Builders<BsonDocument>.Update.Set("Category", model.Category);
             }
 
-            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4, update5);
+            var update6 = Builders<BsonDocument>.Update.Set("IsPublic", model.IsPublic);
+
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4, update5, update6);
             mongo.UpdateOne(Constant.SceneCollectionName, filter, update);
 
             return Json(new
@@ -297,7 +300,8 @@ namespace ShadowEditor.Server.Controllers
                     ["CollectionName"] = collectionName,
                     ["Version"] = version,
                     ["CreateTime"] = BsonDateTime.Create(now),
-                    ["UpdateTime"] = BsonDateTime.Create(now)
+                    ["UpdateTime"] = BsonDateTime.Create(now),
+                    ["IsPublic"] = false,
                 };
 
                 if (ConfigHelper.EnableAuthority)

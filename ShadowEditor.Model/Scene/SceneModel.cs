@@ -65,5 +65,10 @@ namespace ShadowEditor.Model.Scene
         /// 缩略图
         /// </summary>
         public string Thumbnail { get; set; }
+
+        /// <summary>
+        /// 是否公开
+        /// </summary>
+        public bool IsPublic { get; set; }
     }
 }

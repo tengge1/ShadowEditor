@@ -55,7 +55,9 @@ class ScenePanel extends React.Component {
             });
         });
 
-        return <div className={classNames('ScenePanel', className)} style={style}>
+        return <div className={classNames('ScenePanel', className)}
+            style={style}
+               >
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
@@ -71,7 +73,7 @@ class ScenePanel extends React.Component {
         </div>;
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         if (this.init === undefined && this.props.show === true) {
             this.init = true;
             this.update();
@@ -100,7 +102,7 @@ class ScenePanel extends React.Component {
         });
     }
 
-    handleSearch(name, categories, event) {
+    handleSearch(name, categories) {
         this.setState({
             name,
             categories

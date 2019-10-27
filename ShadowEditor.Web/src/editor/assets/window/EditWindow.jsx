@@ -1,5 +1,5 @@
 import './css/EditWindow.css';
-import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button } from '../../../third_party';
+import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox } from '../../../third_party';
 import Ajax from '../../../utils/Ajax';
 import CategoryWindow from './CategoryWindow.jsx';
 
@@ -16,6 +16,7 @@ class EditWindow extends React.Component {
             categories: null,
             categoryID: props.data.CategoryID,
             thumbnail: props.data.Thumbnail,
+            isPublic: props.data.IsPublic
         };
 
         this.updateUI = this.updateUI.bind(this);
@@ -23,6 +24,7 @@ class EditWindow extends React.Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleThumbnailChange = this.handleThumbnailChange.bind(this);
+        this.handleIsPublicChange = this.handleIsPublicChange.bind(this);
         this.handleEditCategoryList = this.handleEditCategoryList.bind(this);
 
         this.handleSave = this.handleSave.bind(this, props.callback);
@@ -30,24 +32,32 @@ class EditWindow extends React.Component {
     }
 
     render() {
-        const { typeName } = this.props;
-        const { name, categories, categoryID, thumbnail } = this.state;
+        const { type, typeName } = this.props;
+        const { name, categories, categoryID, thumbnail, isPublic } = this.state;
 
         return <Window
             className={'EditWindow'}
             title={`${_t('Edit')} ${typeName}`}
-            style={{ width: '320px', height: '300px', }}
+            style={{ width: '320px', height: '300px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Name')}</Label>
-                        <Input name={'name'} value={name} onChange={this.handleNameChange}></Input>
+                        <Input name={'name'}
+                            value={name}
+                            onChange={this.handleNameChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Type')}</Label>
-                        <Select name={'select'} options={categories} value={categoryID} onChange={this.handleCategoryChange}></Select>
+                        <Select name={'select'}
+                            options={categories}
+                            value={categoryID}
+                            onChange={this.handleCategoryChange}
+                        />
                         <Button onClick={this.handleEditCategoryList}>{_t('Edit')}</Button>
                     </FormControl>
                     <FormControl>
@@ -56,8 +66,16 @@ class EditWindow extends React.Component {
                             server={app.options.server}
                             url={thumbnail}
                             noImageText={_t('No Image')}
-                            onChange={this.handleThumbnailChange}></ImageUploader>
+                            onChange={this.handleThumbnailChange}
+                        />
                     </FormControl>
+                    {type === 'Scene' && <FormControl>
+                        <Label>{_t('Is Public')}</Label>
+                        <CheckBox name={'isPublic'}
+                            checked={isPublic ? true : false}
+                            onChange={this.handleIsPublicChange}
+                        />
+                    </FormControl>}
                 </Form>
             </Content>
             <Buttons>
@@ -80,31 +98,31 @@ class EditWindow extends React.Component {
                 options[n.ID] = n.Name;
             });
             this.setState({
-                categories: options,
+                categories: options
             });
         });
     }
 
     handleNameChange(value) {
         this.setState({
-            name: value,
+            name: value
         });
     }
 
     handleCategoryChange(value) {
         this.setState({
-            categoryID: value,
+            categoryID: value
         });
     }
 
     handleThumbnailChange(file) {
         Ajax.post(`${app.options.server}/api/Upload/Upload`, {
-            file,
+            file
         }, json => {
             var obj = JSON.parse(json);
             if (obj.Code === 200) {
                 this.setState({
-                    thumbnail: obj.Data.url,
+                    thumbnail: obj.Data.url
                 });
             } else {
                 app.toast(_t(obj.Msg));
@@ -112,10 +130,16 @@ class EditWindow extends React.Component {
         });
     }
 
+    handleIsPublicChange(value, name) {
+        this.setState({
+            [name]: value
+        });
+    }
+
     handleEditCategoryList() {
         const window = app.createElement(CategoryWindow, {
             type: this.props.type,
-            typeName: `${this.props.typeName}`,
+            typeName: `${this.props.typeName}`
         });
 
         app.addElement(window);
@@ -123,13 +147,14 @@ class EditWindow extends React.Component {
 
     handleSave() {
         const { data, saveUrl, callback } = this.props;
-        const { name, categoryID, thumbnail } = this.state;
+        const { name, categoryID, thumbnail, isPublic } = this.state;
 
         Ajax.post(saveUrl, {
             ID: data.ID,
             Name: name,
             Category: categoryID,
-            Image: thumbnail
+            Image: thumbnail,
+            IsPublic: isPublic
         }, json => {
             var obj = JSON.parse(json);
             if (obj.Code === 200) {
@@ -151,7 +176,7 @@ EditWindow.propTypes = {
     typeName: PropTypes.string,
     data: PropTypes.object,
     saveUrl: PropTypes.string,
-    callback: PropTypes.func,
+    callback: PropTypes.func
 };
 
 EditWindow.defaultProps = {
@@ -159,7 +184,7 @@ EditWindow.defaultProps = {
     typeName: 'Scene',
     data: null,
     saveUrl: null,
-    callback: null,
+    callback: null
 };
 
 export default EditWindow;
