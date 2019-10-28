@@ -90,7 +90,7 @@ namespace ShadowEditor.Server.Controllers.System
                     Username = doc["Username"].ToString(),
                     Password = "",
                     Name = doc["Name"].ToString(),
-                    RoleID = doc.Contains("RoleID")? doc["RoleID"].ToString() : "",
+                    RoleID = doc.Contains("RoleID") ? doc["RoleID"].ToString() : "",
                     RoleName = roleName,
                     Gender = doc["Gender"].ToInt32(),
                     Phone = doc["Phone"].ToString(),
@@ -443,6 +443,84 @@ namespace ShadowEditor.Server.Controllers.System
             {
                 Code = 200,
                 Msg = "Password changed successfully!"
+            });
+        }
+
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult ResetPassword(ResetPasswordModel model)
+        {
+            ObjectId userID;
+
+            if (!ObjectId.TryParse(model.UserID, out userID))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "ID is not allowed."
+                });
+            }
+
+            if (model.NewPassword == null || model.NewPassword.Trim() == "")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "New password is not allowed to be empty."
+                });
+            }
+
+            if (model.ConfirmPassword == null || model.ConfirmPassword.Trim() == "")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Confirm password is not allowed to be empty."
+                });
+            }
+
+            if (model.NewPassword != model.ConfirmPassword)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "New password and confirm password is not the same."
+                });
+            }
+
+            // 判断用户是否存在
+            var mongo = new MongoHelper();
+
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", userID);
+            var doc = mongo.FindOne(Constant.UserCollectionName, filter);
+
+            if (doc == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "The user is not existed."
+                });
+            }
+
+            // 修改密码
+            var salt = DateTime.Now.ToString("yyyyMMddHHmmss");
+            var password = MD5Helper.Encrypt(model.NewPassword + salt);
+
+            var update1 = Builders<BsonDocument>.Update.Set("Password", password);
+            var update2 = Builders<BsonDocument>.Update.Set("Salt", salt);
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2);
+
+            mongo.UpdateOne(Constant.UserCollectionName, filter, update);
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "Password reset successfully."
             });
         }
     }
