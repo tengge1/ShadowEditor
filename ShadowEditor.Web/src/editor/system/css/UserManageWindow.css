@@ -11,6 +11,10 @@
     font-size: 12px;
 }
 
+.Window.UserManageWindow>.wrap>.content>.Toolbar>.ToolbarSeparator>.separator {
+    margin: 0 4px;
+}
+
 .Window.UserManageWindow>.wrap>.content>.Toolbar>.SearchField {
     width: 240px;
 }
