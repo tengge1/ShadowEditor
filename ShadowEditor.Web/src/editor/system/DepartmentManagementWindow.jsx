@@ -1,6 +1,7 @@
 import './css/DepartmentManagementWindow.css';
-import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label } from '../../third_party';
+import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label, IconButton } from '../../third_party';
 import EditDeptWindow from './dept/EditDeptWindow.jsx';
+import SelectUserWindow from './user/SelectUserWindow.jsx';
 
 /**
  * 组织机构管理窗口
@@ -30,6 +31,7 @@ class DepartmentManagementWindow extends React.Component {
         this.handleExpand = this.handleExpand.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
+        this.handleSelectUser = this.handleSelectUser.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleReset = this.handleReset.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -72,11 +74,16 @@ class DepartmentManagementWindow extends React.Component {
                         </FormControl>
                         <FormControl>
                             <Label>{_t('Administrator')}</Label>
-                            <Input name={'adminName'}
+                            <Input className={'adminName'}
+                                name={'adminName'}
                                 value={adminName}
-                                disabled={selected === null}
+                                disabled
                                 onChange={this.handleChange}
                             />
+                            <Button className={'select'}
+                                disabled={selected === null}
+                                onClick={this.handleSelectUser}
+                            >{_t('Select')}</Button>
                         </FormControl>
                         <FormControl className={'buttons'}>
                             <Label />
@@ -211,6 +218,13 @@ class DepartmentManagementWindow extends React.Component {
         this.setState({
             [name]: value
         });
+    }
+
+    handleSelectUser() {
+        const win = app.createElement(SelectUserWindow, {
+            callback: this.handleRefresh
+        });
+        app.addElement(win);
     }
 
     handleSave() {

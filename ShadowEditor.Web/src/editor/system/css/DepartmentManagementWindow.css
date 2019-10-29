@@ -35,6 +35,15 @@
     flex: 1;
 }
 
+.Window.DepartmentManagementWindow>.wrap>.content>.box>.right>.FormControl>.adminName {
+    width: 100px;
+}
+
+.Window.DepartmentManagementWindow>.wrap>.content>.box>.right>.FormControl>.select {
+    height: 20px;
+    line-height: 20px;
+}
+
 .Window.DepartmentManagementWindow>.wrap>.content>.box>.right>.buttons {
     margin-top: 24px;;
 }

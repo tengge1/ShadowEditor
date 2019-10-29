@@ -1,0 +1,10 @@
+.Window.SelectUserWindow>.wrap>.content {
+    left: 0;
+    right: 0;
+    top: 24px;
+    bottom: 32px;
+}
+
+.Window.SelectUserWindow>.wrap>.content>.Toolbar>.SearchField {
+    width: 240px;
+}
