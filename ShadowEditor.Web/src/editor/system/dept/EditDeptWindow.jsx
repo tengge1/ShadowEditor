@@ -13,7 +13,7 @@ class EditDeptWindow extends React.Component {
             id: props.id,
             name: props.name,
             pid: props.pid,
-            pname: props.pname,
+            pname: props.pname
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -26,10 +26,11 @@ class EditDeptWindow extends React.Component {
 
         return <Window
             className={_t('EditDeptWindow')}
-            title={pid ? _t('Add Child Department') : (id ? _t('Edit Department') : _t('Add Department'))}
+            title={pid ? _t('Add Child Department') : id ? _t('Edit Department') : _t('Add Department')}
             style={{ width: '320px', height: '200px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <Form>
                     <FormControl hidden={pid === ''}>
@@ -38,7 +39,10 @@ class EditDeptWindow extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Name')}</Label>
-                        <Input name={'name'} value={name} onChange={this.handleChange}></Input>
+                        <Input name={'name'}
+                            value={name}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                 </Form>
             </Content>
@@ -51,7 +55,7 @@ class EditDeptWindow extends React.Component {
 
     handleChange(value, name) {
         this.setState({
-            [name]: value,
+            [name]: value
         });
     }
 
@@ -68,9 +72,9 @@ class EditDeptWindow extends React.Component {
         fetch(`${app.options.server}${url}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `ID=${id}&ParentID=${pid}&Name=${name}&AdministratorID=`,
+            body: `ID=${id}&ParentID=${pid}&Name=${name}&AdministratorID=`
         }).then(response => {
             response.json().then(json => {
                 if (json.Code !== 200) {
@@ -93,7 +97,7 @@ EditDeptWindow.propTypes = {
     name: PropTypes.string,
     pid: PropTypes.string,
     pname: PropTypes.string,
-    callback: PropTypes.func,
+    callback: PropTypes.func
 };
 
 EditDeptWindow.defaultProps = {
@@ -101,7 +105,7 @@ EditDeptWindow.defaultProps = {
     name: '',
     pid: '',
     pname: '',
-    callback: null,
+    callback: null
 };
 
 export default EditDeptWindow;

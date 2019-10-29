@@ -17,5 +17,24 @@
 
 .Window.DepartmentManagementWindow>.wrap>.content>.box {
     height: calc(100% - 25px);
+    overflow: hidden;
+}
+
+.Window.DepartmentManagementWindow>.wrap>.content>.box>.left {
+    width: 200px;
+    height: 100%;
+    padding-bottom: 24px;;
+    border-right: 1px solid #ddd;
+    box-sizing: border-box;;
     overflow-y: auto;
+}
+
+.Window.DepartmentManagementWindow>.wrap>.content>.box>.right {
+    padding-top: 24px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.Window.DepartmentManagementWindow>.wrap>.content>.box>.right>.buttons {
+    margin-top: 24px;;
 }

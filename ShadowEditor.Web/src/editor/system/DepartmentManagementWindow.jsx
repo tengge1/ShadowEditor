@@ -1,5 +1,5 @@
 import './css/DepartmentManagementWindow.css';
-import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField, HBoxLayout, Tree } from '../../third_party';
+import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label } from '../../third_party';
 import EditDeptWindow from './dept/EditDeptWindow.jsx';
 
 /**
@@ -27,6 +27,8 @@ class DepartmentManagementWindow extends React.Component {
 
         this.handleSelect = this.handleSelect.bind(this);
         this.handleExpand = this.handleExpand.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+
         this.handleClose = this.handleClose.bind(this);
     }
 
@@ -48,14 +50,37 @@ class DepartmentManagementWindow extends React.Component {
                     <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
                     <ToolbarFiller />
                 </Toolbar>
-                <div className={'box'}>
-                    <Tree className={'DepartmentTree'}
-                        data={data}
-                        selected={selected}
-                        onSelect={this.handleSelect}
-                        onExpand={this.handleExpand}
-                    />
-                </div>
+                <HBoxLayout className={'box'}>
+                    <div className={'left'}>
+                        <Tree className={'tree'}
+                            data={data}
+                            selected={selected}
+                            onSelect={this.handleSelect}
+                            onExpand={this.handleExpand}
+                        />
+                    </div>
+                    <Form className={'right'}>
+                        <FormControl>
+                            <Label>{_t('Name')}</Label>
+                            <Input name={'name'}
+                                value={name}
+                                onChange={this.handleChange}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <Label>{_t('Administrator')}</Label>
+                            <Input name={'name'}
+                                value={name}
+                                onChange={this.handleChange}
+                            />
+                        </FormControl>
+                        <FormControl className={'buttons'}>
+                            <Label />
+                            <Button onClick={this.handleSave}>{_t('Save')}</Button>
+                            <Button onClick={this.handleClose}>{_t('Reset')}</Button>
+                        </FormControl>
+                    </Form>
+                </HBoxLayout>
             </Content>
         </Window>;
     }
@@ -199,6 +224,10 @@ class DepartmentManagementWindow extends React.Component {
         }
 
         this.refreshTree();
+    }
+
+    handleChange() {
+
     }
 
     handleClose() {

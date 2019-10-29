@@ -893,5 +893,6 @@
     "The scene is not existed.": "该场景不存在。",
     "Permission denied.": "没有权限",
     "Reset Password": "重置密码",
-    "Password reset successfully.": "密码重置成功。"
+    "Password reset successfully.": "密码重置成功。",
+    "Reset": "重置"
 }
