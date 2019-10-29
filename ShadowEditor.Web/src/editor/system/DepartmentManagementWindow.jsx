@@ -15,7 +15,9 @@ class DepartmentManagementWindow extends React.Component {
 
         this.state = {
             data: [],
-            selected: null
+            selected: null,
+            deptName: '',
+            adminName: ''
         };
 
         this.handleRefresh = this.handleRefresh.bind(this);
@@ -33,7 +35,7 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     render() {
-        const { data, selected } = this.state;
+        const { data, selected, deptName, adminName } = this.state;
 
         return <Window
             className={'DepartmentManagementWindow'}
@@ -62,15 +64,15 @@ class DepartmentManagementWindow extends React.Component {
                     <Form className={'right'}>
                         <FormControl>
                             <Label>{_t('Name')}</Label>
-                            <Input name={'name'}
-                                value={name}
+                            <Input name={'deptName'}
+                                value={deptName}
                                 onChange={this.handleChange}
                             />
                         </FormControl>
                         <FormControl>
                             <Label>{_t('Administrator')}</Label>
-                            <Input name={'name'}
-                                value={name}
+                            <Input name={'adminName'}
+                                value={adminName}
                                 onChange={this.handleChange}
                             />
                         </FormControl>
@@ -129,7 +131,7 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     handleAddChild() {
-        const { data, selected } = this.state;
+        const { selected } = this.state;
 
         if (!selected) {
             app.toast(_t('Pleast select a department.'));
@@ -147,7 +149,7 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     handleEdit() {
-        const { data, selected } = this.state;
+        const { selected } = this.state;
 
         if (!selected) {
             app.toast(_t('Pleast select a department.'));
@@ -209,8 +211,12 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     handleSelect(selected) {
+        const data = this.list.filter(n => n.ID === selected)[0];
+
         this.setState({
-            selected
+            selected,
+            deptName: data.Name,
+            adminName: ''
         });
     }
 
@@ -226,8 +232,10 @@ class DepartmentManagementWindow extends React.Component {
         this.refreshTree();
     }
 
-    handleChange() {
-
+    handleChange(value, name) {
+        this.setState({
+            [name]: value
+        });
     }
 
     handleClose() {
