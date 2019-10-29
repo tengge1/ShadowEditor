@@ -21,7 +21,7 @@ class Button extends React.Component {
             style={style}
             disabled={disabled}
             onClick={this.handleClick}
-        >
+               >
             {children}
         </button>;
     }

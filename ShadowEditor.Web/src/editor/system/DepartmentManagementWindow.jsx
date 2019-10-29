@@ -31,6 +31,8 @@ class DepartmentManagementWindow extends React.Component {
         this.handleExpand = this.handleExpand.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
+        this.handleSave = this.handleSave.bind(this);
+        this.handleReset = this.handleReset.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
 
@@ -66,6 +68,7 @@ class DepartmentManagementWindow extends React.Component {
                             <Label>{_t('Name')}</Label>
                             <Input name={'deptName'}
                                 value={deptName}
+                                disabled={selected === null}
                                 onChange={this.handleChange}
                             />
                         </FormControl>
@@ -73,13 +76,18 @@ class DepartmentManagementWindow extends React.Component {
                             <Label>{_t('Administrator')}</Label>
                             <Input name={'adminName'}
                                 value={adminName}
+                                disabled={selected === null}
                                 onChange={this.handleChange}
                             />
                         </FormControl>
                         <FormControl className={'buttons'}>
                             <Label />
-                            <Button onClick={this.handleSave}>{_t('Save')}</Button>
-                            <Button onClick={this.handleClose}>{_t('Reset')}</Button>
+                            <Button disabled={selected === null}
+                                onClick={this.handleSave}
+                            >{_t('Save')}</Button>
+                            <Button disabled={selected === null}
+                                onClick={this.handleReset}
+                            >{_t('Reset')}</Button>
                         </FormControl>
                     </Form>
                 </HBoxLayout>
@@ -235,6 +243,51 @@ class DepartmentManagementWindow extends React.Component {
     handleChange(value, name) {
         this.setState({
             [name]: value
+        });
+    }
+
+    handleSave() {
+        const { selected, deptName, adminName } = this.state;
+
+        if (!deptName || deptName.trim() === '') {
+            app.toast(_t('Name is not allowed to be empty.'));
+            return;
+        }
+
+        const item = this.list.filter(n => n.ID === selected)[0];
+
+        fetch(`${app.options.server}/api/Department/Edit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `ID=${selected}&ParentID=${item.ParentID}&Name=${deptName}&AdministratorID=`
+        }).then(response => {
+            response.json().then(json => {
+                app.toast(_t(json.Msg));
+                if (json.Code === 200) {
+                    this.handleRefresh();
+                }
+            });
+        });
+    }
+
+    handleReset() {
+        const selected = this.state.selected;
+
+        if (!selected) {
+            this.setState({
+                deptName: '',
+                adminName: ''
+            });
+            return;
+        }
+
+        const data = this.list.filter(n => n.ID === selected)[0];
+
+        this.setState({
+            deptName: data.Name,
+            adminName: ''
         });
     }
 
