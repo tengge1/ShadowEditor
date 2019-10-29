@@ -24,7 +24,6 @@ class DepartmentManagementWindow extends React.Component {
 
         this.handleAdd = this.handleAdd.bind(this);
         this.handleAddChild = this.handleAddChild.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
 
         this.handleSelect = this.handleSelect.bind(this);
@@ -50,7 +49,6 @@ class DepartmentManagementWindow extends React.Component {
                 <Toolbar>
                     <Button onClick={this.handleAdd}>{_t('Add')}</Button>
                     <Button onClick={this.handleAddChild}>{_t('Add Child Department')}</Button>
-                    <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
                     <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
                     <ToolbarFiller />
                 </Toolbar>
@@ -151,37 +149,6 @@ class DepartmentManagementWindow extends React.Component {
         const win = app.createElement(EditDeptWindow, {
             pid: record.ID,
             pname: record.Name,
-            callback: this.handleRefresh
-        });
-        app.addElement(win);
-    }
-
-    handleEdit() {
-        const { selected } = this.state;
-
-        if (!selected) {
-            app.toast(_t('Pleast select a department.'));
-            return;
-        }
-
-        const record = this.list.filter(n => n.ID === selected)[0];
-
-        let parentID = '';
-        let parentName = '';
-
-        if (record.ParentID) {
-            parentID = record.ParentID;
-            let parent = this.list.filter(n => n.ID === parentID)[0];
-            if (parent) {
-                parentName = parent.Name;
-            }
-        }
-
-        const win = app.createElement(EditDeptWindow, {
-            id: record.ID,
-            name: record.Name,
-            pid: parentID,
-            pname: parentName,
             callback: this.handleRefresh
         });
         app.addElement(win);
