@@ -23,6 +23,7 @@ class EditUserWindow extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSelectDept = this.handleSelectDept.bind(this);
+        this.commitSelectDept = this.commitSelectDept.bind(this);
         this.handleSave = this.handleSave.bind(this, props.callback);
         this.handleClose = this.handleClose.bind(this);
     }
@@ -120,13 +121,20 @@ class EditUserWindow extends React.Component {
 
     handleSelectDept() {
         const win = app.createElement(SelectDeptWindow, {
-            callback: this.handleRefresh
+            callback: this.commitSelectDept
         });
         app.addElement(win);
     }
 
+    commitSelectDept(deptID, deptName) {
+        this.setState({
+            deptID,
+            deptName
+        });
+    }
+
     handleSave(callback) {
-        const { id, username, password, name, roleID } = this.state;
+        const { id, username, password, name, roleID, deptID } = this.state;
 
         if (!username || username.trim() === '') {
             app.toast(_t('Username is not allowed to be empty.'));
@@ -150,7 +158,7 @@ class EditUserWindow extends React.Component {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `ID=${id}&Username=${username}&Password=${password}&Name=${name}&RoleID=${roleID}`
+            body: `ID=${id}&Username=${username}&Password=${password}&Name=${name}&RoleID=${roleID}&DeptID=${deptID}`
         }).then(response => {
             response.json().then(json => {
                 if (json.Code !== 200) {

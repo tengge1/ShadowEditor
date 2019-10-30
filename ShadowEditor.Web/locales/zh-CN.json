@@ -896,5 +896,7 @@
     "Password reset successfully.": "密码重置成功。",
     "Reset": "重置",
     "Select User": "选择用户",
-    "Department": "组织机构"
+    "Department": "组织机构",
+    "Select Department Window": "组织机构选择窗口",
+    "Please select a department.": "请选择机构。"
 }

@@ -208,6 +208,7 @@ namespace ShadowEditor.Server.Controllers.System
                 ["Password"] = MD5Helper.Encrypt(model.Password + salt),
                 ["Name"] = model.Name,
                 ["RoleID"] = model.RoleID,
+                ["DeptID"] = model.DeptID,
                 ["Gender"] = 0,
                 ["Phone"] = "",
                 ["Email"] = "",
@@ -317,9 +318,10 @@ namespace ShadowEditor.Server.Controllers.System
             var update1 = Builders<BsonDocument>.Update.Set("Username", model.Username);
             var update2 = Builders<BsonDocument>.Update.Set("Name", model.Name);
             var update3 = Builders<BsonDocument>.Update.Set("RoleID", model.RoleID);
-            var update4 = Builders<BsonDocument>.Update.Set("UpdateTime", DateTime.Now);
+            var update4 = Builders<BsonDocument>.Update.Set("DeptID", model.DeptID);
+            var update5 = Builders<BsonDocument>.Update.Set("UpdateTime", DateTime.Now);
 
-            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4);
+            var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3, update4, update5);
 
             mongo.UpdateOne(Constant.UserCollectionName, filter, update);
 

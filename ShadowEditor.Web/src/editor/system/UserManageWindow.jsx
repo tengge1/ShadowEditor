@@ -176,6 +176,8 @@ class UserManageWindow extends React.Component {
             username: record.Username,
             name: record.Name,
             roleID: record.RoleID,
+            deptID: record.DeptID,
+            deptName: record.DeptName,
             callback: this.handleRefresh
         });
         app.addElement(win);

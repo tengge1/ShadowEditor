@@ -1,8 +1,8 @@
 import './css/SelectDeptWindow.css';
-import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label, IconButton } from '../../../third_party';
+import { PropTypes, Window, Content, Toolbar, Button, Tree, Buttons } from '../../../third_party';
 
 /**
- * 组织机构管理窗口
+ * 选择组织机构窗口
  * @author tengge / https://github.com/tengge1
  */
 class SelectDeptWindow extends React.Component {
@@ -14,87 +14,43 @@ class SelectDeptWindow extends React.Component {
 
         this.state = {
             data: [],
-            selected: null,
-            deptName: '',
-            adminName: ''
+            selected: null
         };
 
         this.handleRefresh = this.handleRefresh.bind(this);
-
-        this.handleAdd = this.handleAdd.bind(this);
-        this.handleAddChild = this.handleAddChild.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-
         this.handleSelect = this.handleSelect.bind(this);
         this.handleExpand = this.handleExpand.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-
-        this.handleSelectUser = this.handleSelectUser.bind(this);
-        this.handleSave = this.handleSave.bind(this);
-        this.handleReset = this.handleReset.bind(this);
-        this.handleClose = this.handleClose.bind(this);
+        this.handleOK = this.handleOK.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
     render() {
-        const { data, selected, deptName, adminName } = this.state;
+        const { data, selected } = this.state;
 
         return <Window
             className={'SelectDeptWindow'}
-            title={_t('Department Management')}
-            style={{ width: '480px', height: '400px' }}
+            title={_t('Select Department Window')}
+            style={{ width: '280px', height: '400px' }}
             mask={false}
-            onClose={this.handleClose}
+            onClose={this.handleCancel}
                >
             <Content>
                 <Toolbar>
-                    <Button onClick={this.handleAdd}>{_t('Add')}</Button>
-                    <Button onClick={this.handleAddChild}>{_t('Add Child Department')}</Button>
-                    <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
-                    <ToolbarFiller />
+                    <Button onClick={this.handleRefresh}>{_t('Refresh')}</Button>
                 </Toolbar>
-                <HBoxLayout className={'box'}>
-                    <div className={'left'}>
-                        <Tree className={'tree'}
-                            data={data}
-                            selected={selected}
-                            onSelect={this.handleSelect}
-                            onExpand={this.handleExpand}
-                        />
-                    </div>
-                    <Form className={'right'}>
-                        <FormControl>
-                            <Label>{_t('Name')}</Label>
-                            <Input name={'deptName'}
-                                value={deptName}
-                                disabled={selected === null}
-                                onChange={this.handleChange}
-                            />
-                        </FormControl>
-                        <FormControl>
-                            <Label>{_t('Administrator')}</Label>
-                            <Input className={'adminName'}
-                                name={'adminName'}
-                                value={adminName}
-                                disabled
-                                onChange={this.handleChange}
-                            />
-                            <Button className={'select'}
-                                disabled={selected === null}
-                                onClick={this.handleSelectUser}
-                            >{_t('Select')}</Button>
-                        </FormControl>
-                        <FormControl className={'buttons'}>
-                            <Label />
-                            <Button disabled={selected === null}
-                                onClick={this.handleSave}
-                            >{_t('Save')}</Button>
-                            <Button disabled={selected === null}
-                                onClick={this.handleReset}
-                            >{_t('Reset')}</Button>
-                        </FormControl>
-                    </Form>
-                </HBoxLayout>
+                <div className={'box'}>
+                    <Tree className={'tree'}
+                        data={data}
+                        selected={selected}
+                        onSelect={this.handleSelect}
+                        onExpand={this.handleExpand}
+                    />
+                </div>
             </Content>
+            <Buttons>
+                <Button onClick={this.handleOK}>{_t('OK')}</Button>
+                <Button onClick={this.handleCancel}>{_t('Cancel')}</Button>
+            </Buttons>
         </Window>;
     }
 
@@ -134,62 +90,6 @@ class SelectDeptWindow extends React.Component {
         });
     }
 
-    handleAdd() {
-        const win = app.createElement(EditDeptWindow, {
-            callback: this.handleRefresh
-        });
-        app.addElement(win);
-    }
-
-    handleAddChild() {
-        const { selected } = this.state;
-
-        if (!selected) {
-            app.toast(_t('Pleast select a department.'));
-            return;
-        }
-
-        const record = this.list.filter(n => n.ID === selected)[0];
-
-        const win = app.createElement(EditDeptWindow, {
-            pid: record.ID,
-            pname: record.Name,
-            callback: this.handleRefresh
-        });
-        app.addElement(win);
-    }
-
-    handleDelete() {
-        const { selected } = this.state;
-
-        if (!selected) {
-            app.toast(_t('Pleast select a department.'));
-            return;
-        }
-
-        app.confirm({
-            title: _t('Query'),
-            content: _t('Delete this department?'),
-            onOK: () => {
-                this.commitDelete(selected);
-            }
-        });
-    }
-
-    commitDelete(id) {
-        fetch(`${app.options.server}/api/Department/Delete?ID=${id}`, {
-            method: 'POST'
-        }).then(response => {
-            response.json().then(json => {
-                if (json.Code !== 200) {
-                    app.toast(_t(json.Msg));
-                    return;
-                }
-                this.handleRefresh(json.Data);
-            });
-        });
-    }
-
     handleSelect(selected) {
         const data = this.list.filter(n => n.ID === selected)[0];
 
@@ -218,61 +118,33 @@ class SelectDeptWindow extends React.Component {
         });
     }
 
-    handleSelectUser() {
-        const win = app.createElement(SelectUserWindow, {
-            callback: this.handleRefresh
-        });
-        app.addElement(win);
-    }
-
-    handleSave() {
-        const { selected, deptName, adminName } = this.state;
-
-        if (!deptName || deptName.trim() === '') {
-            app.toast(_t('Name is not allowed to be empty.'));
-            return;
-        }
-
-        const item = this.list.filter(n => n.ID === selected)[0];
-
-        fetch(`${app.options.server}/api/Department/Edit`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `ID=${selected}&ParentID=${item.ParentID}&Name=${deptName}&AdministratorID=`
-        }).then(response => {
-            response.json().then(json => {
-                app.toast(_t(json.Msg));
-                if (json.Code === 200) {
-                    this.handleRefresh();
-                }
-            });
-        });
-    }
-
-    handleReset() {
+    handleOK() {
         const selected = this.state.selected;
+        const callback = this.props.callback;
 
         if (!selected) {
-            this.setState({
-                deptName: '',
-                adminName: ''
-            });
+            app.toast(_t('Please select a department.'));
             return;
         }
 
-        const data = this.list.filter(n => n.ID === selected)[0];
+        const dept = this.list.filter(n => n.ID === selected)[0];
 
-        this.setState({
-            deptName: data.Name,
-            adminName: ''
-        });
+        this.handleCancel();
+
+        callback && callback(dept.ID, dept.Name, dept);
     }
 
-    handleClose() {
+    handleCancel() {
         app.removeElement(this);
     }
 }
+
+SelectDeptWindow.propTypes = {
+    callback: PropTypes.func
+};
+
+SelectDeptWindow.defaultProps = {
+    callback: null
+};
 
 export default SelectDeptWindow;
