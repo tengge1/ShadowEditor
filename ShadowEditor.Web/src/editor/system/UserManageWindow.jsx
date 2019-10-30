@@ -47,7 +47,7 @@ class UserManageWindow extends React.Component {
         return <Window
             className={'UserManageWindow'}
             title={_t('User Management')}
-            style={{ width: '720px', height: '400px' }}
+            style={{ width: '900px', height: '400px' }}
             mask={false}
             onClose={this.handleClose}
                >
@@ -94,6 +94,12 @@ class UserManageWindow extends React.Component {
                     <Column field={'RoleName'}
                         title={_t('Role')}
                         width={120}
+                        align={'center'}
+                        renderer={this.renderRoleName}
+                    />
+                    <Column field={'DeptName'}
+                        title={_t('Department')}
+                        width={180}
                         align={'center'}
                         renderer={this.renderRoleName}
                     />

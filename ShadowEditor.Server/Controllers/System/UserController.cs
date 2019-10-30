@@ -53,6 +53,22 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
+            // 获取所有机构
+            var deptDocs = mongo.FindAll(Constant.DepartmentCollectionName).ToList();
+
+            var depts = new List<DepartmentModel>();
+
+            foreach (var doc in deptDocs)
+            {
+                depts.Add(new DepartmentModel
+                {
+                    ID = doc["ID"].ToString(),
+                    ParentID = doc["ParentID"].ToString(),
+                    Name = doc["Name"].ToString(),
+                    Status = doc["Status"].ToInt32()
+                });
+            }
+
             // 获取用户
             var filter = Builders<BsonDocument>.Filter.Ne("Status", -1);
 
@@ -84,14 +100,25 @@ namespace ShadowEditor.Server.Controllers.System
                     roleName = role.Name;
                 }
 
+                var deptID = doc.Contains("DeptID") ? doc["DeptID"].ToString() : "";
+                var deptName = "";
+
+                var dept = depts.Where(n => n.ID == deptID).FirstOrDefault();
+                if (dept != null)
+                {
+                    deptName = dept.Name;
+                }
+
                 rows.Add(new UserModel
                 {
                     ID = doc["ID"].ToString(),
                     Username = doc["Username"].ToString(),
                     Password = "",
                     Name = doc["Name"].ToString(),
-                    RoleID = doc.Contains("RoleID") ? doc["RoleID"].ToString() : "",
+                    RoleID = roleID,
                     RoleName = roleName,
+                    DeptID = deptID,
+                    DeptName = deptName,
                     Gender = doc["Gender"].ToInt32(),
                     Phone = doc["Phone"].ToString(),
                     Email = doc["Email"].ToString(),
