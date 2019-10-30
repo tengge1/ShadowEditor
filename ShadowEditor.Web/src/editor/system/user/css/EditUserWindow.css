@@ -1,5 +1,14 @@
-.Window.EditUserWindow>.wrap>.content>.Form>.FormControl>.fake{
+.Window.EditUserWindow>.wrap>.content>.Form>.FormControl>.fake {
     position: absolute;
     left: -10000px;
     top: -10000px;
+}
+
+.Window.EditUserWindow>.wrap>.content>.Form>.FormControl>.deptName {
+    width: 100px;
+}
+
+.Window.EditUserWindow>.wrap>.content>.Form>.FormControl>.select {
+    height: 20px;
+    line-height: 20px;
 }

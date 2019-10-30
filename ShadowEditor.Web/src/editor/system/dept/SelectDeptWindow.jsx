@@ -1,7 +1,5 @@
 import './css/SelectDeptWindow.css';
-import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label, IconButton } from '../../third_party';
-import EditDeptWindow from './dept/EditDeptWindow.jsx';
-import SelectUserWindow from './user/SelectUserWindow.jsx';
+import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label, IconButton } from '../../../third_party';
 
 /**
  * 组织机构管理窗口

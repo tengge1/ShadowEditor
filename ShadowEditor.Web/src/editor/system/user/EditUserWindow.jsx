@@ -1,5 +1,6 @@
 import './css/EditUserWindow.css';
 import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button, Select } from '../../../third_party';
+import SelectDeptWindow from '../dept/SelectDeptWindow.jsx';
 
 /**
  * 用户编辑窗口
@@ -15,21 +16,24 @@ class EditUserWindow extends React.Component {
             password: props.password,
             name: props.name,
             roles: {},
-            roleID: props.roleID
+            roleID: props.roleID,
+            deptID: props.deptID,
+            deptName: props.deptName
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleSelectDept = this.handleSelectDept.bind(this);
         this.handleSave = this.handleSave.bind(this, props.callback);
         this.handleClose = this.handleClose.bind(this);
     }
 
     render() {
-        const { id, username, password, name, roles, roleID } = this.state;
+        const { id, username, password, name, roles, roleID, deptName } = this.state;
 
         return <Window
             className={_t('EditUserWindow')}
             title={id ? _t('Edit User') : _t('Add User')}
-            style={{ width: '320px', height: '200px' }}
+            style={{ width: '320px', height: '240px' }}
             mask={false}
             onClose={this.handleClose}
                >
@@ -71,6 +75,18 @@ class EditUserWindow extends React.Component {
                             onChange={this.handleChange}
                         />
                     </FormControl>
+                    <FormControl>
+                        <Label>{_t('Department')}</Label>
+                        <Input className={'deptName'}
+                            name={'deptName'}
+                            value={deptName}
+                            disabled
+                            onChange={this.handleChange}
+                        />
+                        <Button className={'select'}
+                            onClick={this.handleSelectDept}
+                        >{_t('Select')}</Button>
+                    </FormControl>
                 </Form>
             </Content>
             <Buttons>
@@ -100,6 +116,13 @@ class EditUserWindow extends React.Component {
         this.setState({
             [name]: value
         });
+    }
+
+    handleSelectDept() {
+        const win = app.createElement(SelectDeptWindow, {
+            callback: this.handleRefresh
+        });
+        app.addElement(win);
     }
 
     handleSave(callback) {
@@ -159,6 +182,8 @@ EditUserWindow.propTypes = {
     username: PropTypes.string,
     name: PropTypes.string,
     roleID: PropTypes.string,
+    deptID: PropTypes.string,
+    deptName: PropTypes.string,
     callback: PropTypes.func
 };
 
@@ -167,6 +192,8 @@ EditUserWindow.defaultProps = {
     username: '',
     name: '',
     roleID: '',
+    deptID: '',
+    deptName: '',
     callback: null
 };
 
