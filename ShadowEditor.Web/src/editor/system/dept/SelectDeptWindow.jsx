@@ -1,4 +1,4 @@
-import './css/DeptSelectWindow.css';
+import './css/SelectDeptWindow.css';
 import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label, IconButton } from '../../third_party';
 import EditDeptWindow from './dept/EditDeptWindow.jsx';
 import SelectUserWindow from './user/SelectUserWindow.jsx';
@@ -7,7 +7,7 @@ import SelectUserWindow from './user/SelectUserWindow.jsx';
  * 组织机构管理窗口
  * @author tengge / https://github.com/tengge1
  */
-class DeptSelectWindow extends React.Component {
+class SelectDeptWindow extends React.Component {
     constructor(props) {
         super(props);
 
@@ -41,7 +41,7 @@ class DeptSelectWindow extends React.Component {
         const { data, selected, deptName, adminName } = this.state;
 
         return <Window
-            className={'DeptSelectWindow'}
+            className={'SelectDeptWindow'}
             title={_t('Department Management')}
             style={{ width: '480px', height: '400px' }}
             mask={false}
@@ -277,4 +277,4 @@ class DeptSelectWindow extends React.Component {
     }
 }
 
-export default DeptSelectWindow;
+export default SelectDeptWindow;
