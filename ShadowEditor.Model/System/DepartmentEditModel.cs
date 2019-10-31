@@ -29,6 +29,6 @@ namespace ShadowEditor.Model.System
         /// <summary>
         /// 管理员用户ID
         /// </summary>
-        public string AdministratorID { get; set; }
+        public string AdminID { get; set; }
     }
 }

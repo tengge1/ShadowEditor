@@ -31,6 +31,23 @@ namespace ShadowEditor.Server.Controllers.System
         {
             var mongo = new MongoHelper();
 
+            // 获取所有用户
+            var userDocs = mongo.FindAll(Constant.UserCollectionName).ToList();
+
+            var users = new List<UserModel>();
+
+            foreach (var doc in userDocs)
+            {
+                users.Add(new UserModel
+                {
+                    ID = doc["ID"].ToString(),
+                    Username = doc["Username"].ToString(),
+                    Password = "",
+                    Name = doc["Name"].ToString(),
+                });
+            }
+
+            // 获取所有机构
             var filter = Builders<BsonDocument>.Filter.Eq("Status", 0);
 
             var docs = mongo.FindMany(Constant.DepartmentCollectionName, filter).ToList();
@@ -39,12 +56,16 @@ namespace ShadowEditor.Server.Controllers.System
 
             foreach (var doc in docs)
             {
+                var adminID = doc.Contains("AdminID") ? doc["AdminID"].ToString() : "";
+                var admin = users.Where(n => n.ID == adminID).FirstOrDefault();
+
                 list.Add(new DepartmentModel
                 {
                     ID = doc["ID"].ToString(),
                     ParentID = doc["ParentID"].ToString(),
                     Name = doc["Name"].ToString(),
-                    AdministratorID = doc["AdministratorID"].ToString()
+                    AdminID = adminID,
+                    AdminName = admin == null ? "" : admin.Name
                 });
             }
 
@@ -78,9 +99,9 @@ namespace ShadowEditor.Server.Controllers.System
                 model.ParentID = "";
             }
 
-            if (model.AdministratorID == null)
+            if (model.AdminID == null)
             {
-                model.AdministratorID = "";
+                model.AdminID = "";
             }
 
             var mongo = new MongoHelper();
@@ -90,7 +111,7 @@ namespace ShadowEditor.Server.Controllers.System
                 ["ID"] = ObjectId.GenerateNewId(),
                 ["ParentID"] = model.ParentID,
                 ["Name"] = model.Name,
-                ["AdministratorID"] = model.AdministratorID,
+                ["AdminID"] = model.AdminID,
                 ["Status"] = 0
             };
 
@@ -136,9 +157,9 @@ namespace ShadowEditor.Server.Controllers.System
                 model.ParentID = "";
             }
 
-            if (model.AdministratorID == null)
+            if (model.AdminID == null)
             {
-                model.AdministratorID = "";
+                model.AdminID = "";
             }
 
             var mongo = new MongoHelper();
@@ -147,7 +168,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             var update1 = Builders<BsonDocument>.Update.Set("ParentID", model.ParentID);
             var update2 = Builders<BsonDocument>.Update.Set("Name", model.Name);
-            var update3 = Builders<BsonDocument>.Update.Set("AdministratorID", model.AdministratorID);
+            var update3 = Builders<BsonDocument>.Update.Set("AdminID", model.AdminID);
 
             var update = Builders<BsonDocument>.Update.Combine(update1, update2, update3);
 

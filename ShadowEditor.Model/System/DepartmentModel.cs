@@ -29,7 +29,12 @@ namespace ShadowEditor.Model.System
         /// <summary>
         /// 管理员用户ID
         /// </summary>
-        public string AdministratorID { get; set; }
+        public string AdminID { get; set; }
+
+        /// <summary>
+        /// 管理员名称（不存数据库）
+        /// </summary>
+        public string AdminName { get; set; }
 
         /// <summary>
         /// 状态（0-正常，-1-删除）
