@@ -25,7 +25,6 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authority(OperatingAuthority.LIST_SCENE)]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -51,6 +50,11 @@ namespace ShadowEditor.Server.Controllers
                         var filter3 = Builders<BsonDocument>.Filter.Not(filter2);
                         filter1 = Builders<BsonDocument>.Filter.Or(filter1, filter3);
                     }
+                    docs = mongo.FindMany(Constant.SceneCollectionName, filter1).ToList();
+                }
+                else // 不登录可以查看所有公开场景
+                {
+                    var filter1 = Builders<BsonDocument>.Filter.Eq("IsPublic", true);
                     docs = mongo.FindMany(Constant.SceneCollectionName, filter1).ToList();
                 }
             }
