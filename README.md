@@ -31,6 +31,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 16. `Web.config`中新增登录时长设置。
 17. 用户管理新增重置密码功能。
 18. 添加、修改用户，新增设置用户所属组织机构功能。
+19. 为组织机构设置管理员功能。
 
 ## v0.3.5更新
 

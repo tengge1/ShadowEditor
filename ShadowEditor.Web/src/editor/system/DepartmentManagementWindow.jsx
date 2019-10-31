@@ -78,9 +78,8 @@ class DepartmentManagementWindow extends React.Component {
                             <Label>{_t('Administrator')}</Label>
                             <Input className={'adminName'}
                                 name={'adminName'}
-                                value={adminName}
+                                value={this.renderAdminName(adminName)}
                                 disabled
-                                onChange={this.handleChange}
                             />
                             <Button className={'select'}
                                 disabled={selected === null}
@@ -200,7 +199,8 @@ class DepartmentManagementWindow extends React.Component {
         this.setState({
             selected,
             deptName: data.Name,
-            adminName: ''
+            adminID: data.AdminID,
+            adminName: data.AdminName
         });
     }
 
@@ -224,7 +224,7 @@ class DepartmentManagementWindow extends React.Component {
 
     handleSelectUser() {
         const win = app.createElement(SelectUserWindow, {
-            callback: this.handleRefresh
+            callback: this.commitSelectUser
         });
         app.addElement(win);
     }
@@ -237,7 +237,7 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     handleSave() {
-        const { selected, deptName, adminName } = this.state;
+        const { selected, deptName, adminID } = this.state;
 
         if (!deptName || deptName.trim() === '') {
             app.toast(_t('Name is not allowed to be empty.'));
@@ -251,7 +251,7 @@ class DepartmentManagementWindow extends React.Component {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `ID=${selected}&ParentID=${item.ParentID}&Name=${deptName}&AdministratorID=`
+            body: `ID=${selected}&ParentID=${item.ParentID}&Name=${deptName}&AdminID=${adminID}`
         }).then(response => {
             response.json().then(json => {
                 app.toast(_t(json.Msg));
@@ -277,8 +277,16 @@ class DepartmentManagementWindow extends React.Component {
 
         this.setState({
             deptName: data.Name,
-            adminName: ''
+            adminID: data.AdminID,
+            adminName: data.AdminName
         });
+    }
+
+    renderAdminName(value) {
+        if (value === 'Administrator') {
+            return _t(value);
+        }
+        return value;
     }
 
     handleClose() {
