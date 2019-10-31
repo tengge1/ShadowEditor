@@ -18,6 +18,7 @@ class DepartmentManagementWindow extends React.Component {
             data: [],
             selected: null,
             deptName: '',
+            adminID: '',
             adminName: ''
         };
 
@@ -32,6 +33,7 @@ class DepartmentManagementWindow extends React.Component {
         this.handleChange = this.handleChange.bind(this);
 
         this.handleSelectUser = this.handleSelectUser.bind(this);
+        this.commitSelectUser = this.commitSelectUser.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleReset = this.handleReset.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -225,6 +227,13 @@ class DepartmentManagementWindow extends React.Component {
             callback: this.handleRefresh
         });
         app.addElement(win);
+    }
+
+    commitSelectUser(adminID, adminName) {
+        this.setState({
+            adminID,
+            adminName
+        });
     }
 
     handleSave() {

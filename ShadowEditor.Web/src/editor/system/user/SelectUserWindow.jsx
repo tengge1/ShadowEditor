@@ -32,7 +32,7 @@ class SelectUserWindow extends React.Component {
         this.handleRefresh = this.handleRefresh.bind(this);
 
         this.handleOK = this.handleOK.bind(this);
-        this.handleClose = this.handleClose.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
     render() {
@@ -43,7 +43,7 @@ class SelectUserWindow extends React.Component {
             title={_t('Select User')}
             style={{ width: '800px', height: '400px' }}
             mask={false}
-            onClose={this.handleClose}
+            onClose={this.handleCancel}
                >
             <Content>
                 <Toolbar>
@@ -108,7 +108,7 @@ class SelectUserWindow extends React.Component {
             </Content>
             <Buttons>
                 <Button onClick={this.handleOK}>{_t('OK')}</Button>
-                <Button onClick={this.handleClose}>{_t('Cancel')}</Button>
+                <Button onClick={this.handleCancel}>{_t('Cancel')}</Button>
             </Buttons>
         </Window>;
     }
@@ -142,7 +142,7 @@ class SelectUserWindow extends React.Component {
     }
 
     renderName(value) {
-        if(value === 'Administrator') {
+        if (value === 'Administrator') {
             return _t(value);
         }
         return value;
@@ -211,10 +211,22 @@ class SelectUserWindow extends React.Component {
     }
 
     handleOK() {
-        debugger;
+        const { data, selected } = this.state;
+        const callback = this.props.callback;
+
+        if (!selected) {
+            app.toast(_t('Please select a department.'));
+            return;
+        }
+
+        const user = data.filter(n => n.ID === selected)[0];
+
+        this.handleCancel();
+
+        callback && callback(user.ID, user.Name, user);
     }
 
-    handleClose() {
+    handleCancel() {
         app.removeElement(this);
     }
 }
