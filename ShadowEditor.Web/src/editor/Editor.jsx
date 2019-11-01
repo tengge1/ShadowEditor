@@ -42,24 +42,28 @@ class Editor extends React.Component {
                 <EditorMenuBar region={'north'} />
                 <EditorStatusBar region={'south'} />
                 <AssetsPanel region={'west'}
-split
-onToggle={this.onToggle} />
+                    split
+                    onToggle={this.onToggle}
+                />
                 <EditorSideBar region={'east'}
-split
-onToggle={this.onToggle} />
+                    split
+                    onToggle={this.onToggle}
+                />
                 <BorderLayout region={'center'}>
                     <EditorToolbar region={'west'} />
                     <Viewport region={'center'} />
                     <TimelinePanel region={'south'}
-split
-onToggle={this.onToggle} />
+                        split
+                        onToggle={this.onToggle}
+                    />
                 </BorderLayout>
             </BorderLayout>
             {elements.map((n, i) => {
                 return <div key={i}>{n}</div>;
             })}
             <LoadMask text={maskText}
-show={showMask} />
+                show={showMask}
+            />
         </>;
     }
 
@@ -190,7 +194,7 @@ show={showMask} />
         document.addEventListener('click', this._addAudioListener);
     }
 
-    onToggle(expanded) {
+    onToggle() {
         app.call('resize', this);
     }
 
@@ -364,7 +368,6 @@ show={showMask} />
 
     removePhysicsHelper(helper) {
         if (this.helpers[helper.object.id] !== undefined) {
-            var helper = this.helpers[helper.object.id];
             helper.parent.remove(helper);
             delete this.helpers[helper.object.id];
 
