@@ -162,15 +162,34 @@ namespace ShadowEditor.Server.Controllers.System
 
             // 备份数据表
             var docs = mongo.FindAll(Constant.ConfigCollectionName).ToList();
-            mongo.InsertMany($"{Constant.ConfigCollectionName}_{now}", docs);
+            if (docs.Count > 0)
+            {
+                mongo.InsertMany($"{Constant.ConfigCollectionName}_{now}", docs);
+            }
+
             docs = mongo.FindAll(Constant.RoleCollectionName).ToList();
-            mongo.InsertMany($"{Constant.RoleCollectionName}_{now}", docs);
+            if (docs.Count > 0)
+            {
+                mongo.InsertMany($"{Constant.RoleCollectionName}_{now}", docs);
+            }
+
             docs = mongo.FindAll(Constant.UserCollectionName).ToList();
-            mongo.InsertMany($"{Constant.UserCollectionName}_{now}", docs);
+            if (docs.Count > 0)
+            {
+                mongo.InsertMany($"{Constant.UserCollectionName}_{now}", docs);
+            }
+
             docs = mongo.FindAll(Constant.DepartmentCollectionName).ToList();
-            mongo.InsertMany($"{Constant.DepartmentCollectionName}_{now}", docs);
+            if (docs.Count > 0)
+            {
+                mongo.InsertMany($"{Constant.DepartmentCollectionName}_{now}", docs);
+            }
+
             docs = mongo.FindAll(Constant.OperatingAuthorityCollectionName).ToList();
-            mongo.InsertMany($"{Constant.OperatingAuthorityCollectionName}_{now}", docs);
+            if (docs.Count > 0)
+            {
+                mongo.InsertMany($"{Constant.OperatingAuthorityCollectionName}_{now}", docs);
+            }
 
             // 清除数据表
             mongo.DropCollection(Constant.ConfigCollectionName);
