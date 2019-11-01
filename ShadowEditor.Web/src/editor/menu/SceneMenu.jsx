@@ -1,4 +1,4 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator, Confirm } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../third_party';
 import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';
 import GISScene from '../../gis/Scene';
@@ -22,18 +22,32 @@ class SceneMenu extends React.Component {
     }
 
     render() {
+        const noLogin = !app.config.enableAuthority || app.config.isLogin;
+
         return <MenuItem title={_t('Scene')}>
-            <MenuItem title={_t('New')}>
-                <MenuItem title={_t('Empty Scene')} onClick={this.handleCreateEmptyScene}></MenuItem>
-                <MenuItem title={_t('GIS Scene')} onClick={this.handleCreateGISScene}></MenuItem>
-            </MenuItem>
-            <MenuItem title={_t('Save')} onClick={this.handleSaveScene}></MenuItem>
-            <MenuItem title={_t('Save As')} onClick={this.handleSaveAsScene}></MenuItem>
-            <MenuItemSeparator />
+            {noLogin && <MenuItem title={_t('New')}>
+                <MenuItem title={_t('Empty Scene')}
+                    onClick={this.handleCreateEmptyScene}
+                />
+                <MenuItem title={_t('GIS Scene')}
+                    onClick={this.handleCreateGISScene}
+                />
+                </MenuItem>}
+            {noLogin && <MenuItem title={_t('Save')}
+                onClick={this.handleSaveScene}
+                        />}
+            {noLogin && <MenuItem title={_t('Save As')}
+                onClick={this.handleSaveAsScene}
+                        />}
+            {noLogin && <MenuItemSeparator />}
             <MenuItem title={_t('Export Scene')}>
-                <MenuItem title={_t('To GLTF File')} onClick={this.handleExportSceneToGltf}></MenuItem>
+                <MenuItem title={_t('To GLTF File')}
+                    onClick={this.handleExportSceneToGltf}
+                />
             </MenuItem>
-            <MenuItem title={_t('Publish Scene')} onClick={this.handlePublishScene}></MenuItem>
+            {noLogin && <MenuItem title={_t('Publish Scene')}
+                onClick={this.handlePublishScene}
+                        />}
         </MenuItem>;
     }
 
@@ -42,7 +56,7 @@ class SceneMenu extends React.Component {
     handleCreateEmptyScene() {
         var editor = app.editor;
 
-        if (editor.sceneID == null) {
+        if (editor.sceneID === null) {
             editor.clear();
             editor.sceneID = null;
             editor.sceneName = null;
@@ -114,14 +128,14 @@ class SceneMenu extends React.Component {
 
         app.mask(_t('Waiting...'));
 
-        var obj = (new Converter()).toJSON({
+        var obj = new Converter().toJSON({
             options: app.options,
             camera: editor.camera,
             renderer: editor.renderer,
             scripts: editor.scripts,
             animations: editor.animations,
             scene: editor.scene,
-            visual: editor.visual,
+            visual: editor.visual
         });
 
         var params = {
@@ -155,7 +169,7 @@ class SceneMenu extends React.Component {
     handleSaveAsScene() {
         var sceneName = app.editor.sceneName;
 
-        if (sceneName == null) {
+        if (sceneName === null) {
             sceneName = _t('New Scene');
         }
 
@@ -176,14 +190,14 @@ class SceneMenu extends React.Component {
 
         app.mask(_t('Waiting...'));
 
-        var obj = (new Converter()).toJSON({
+        var obj = new Converter().toJSON({
             options: app.options,
             camera: editor.camera,
             renderer: editor.renderer,
             scripts: editor.scripts,
             animations: editor.animations,
             scene: editor.scene,
-            visual: editor.visual,
+            visual: editor.visual
         });
 
         Ajax.post(`${app.options.server}/api/Scene/Save`, {

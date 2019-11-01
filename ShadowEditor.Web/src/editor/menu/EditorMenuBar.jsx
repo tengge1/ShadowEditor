@@ -1,4 +1,4 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuBarFiller, MenuItemSeparator, LinkButton } from '../../third_party';
+import { classNames, MenuBar, MenuBarFiller, MenuItemSeparator } from '../../third_party';
 import SceneMenu from './SceneMenu.jsx';
 import EditMenu from './EditMenu.jsx';
 import TwoDMenu from './TwoDMenu.jsx';
@@ -21,20 +21,22 @@ import LoginMenu from './LoginMenu.jsx';
 class EditorMenuBar extends React.Component {
     render() {
         const { className } = this.props;
-        const { enableAuthority, initialized, login } = app.config;
+        const { enableAuthority, initialized } = app.config;
+
+        const noLogin = !app.config.enableAuthority || app.config.isLogin;
 
         return <MenuBar className={classNames('EditorMenuBar', className)}>
             <SceneMenu />
-            <EditMenu />
-            <TwoDMenu />
-            <GeometryMenu />
-            <LightMenu />
-            <AssetsMenu />
-            <ComponentMenu />
-            <PlayMenu />
-            <ToolMenu />
-            <OptionsMenu />
+            {noLogin && <EditMenu />}
+            {noLogin && <TwoDMenu />}
+            {noLogin && <GeometryMenu />}
+            {noLogin && <LightMenu />}
+            {noLogin && <AssetsMenu />}
+            {noLogin && <ComponentMenu />}
             {enableAuthority && (!app.config.initialized || app.config.isLogin) && <SystemMenu />}
+            <PlayMenu />
+            {noLogin && <ToolMenu />}
+            <OptionsMenu />
             <HelpMenu />
             <MenuItemSeparator direction={'horizontal'} />
             {/* <EditorTabMenu /> */}

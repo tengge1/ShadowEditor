@@ -1,6 +1,5 @@
 import './css/LoginWindow.css';
-import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../third_party';
-import Ajax from '../../utils/Ajax';
+import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../third_party';
 
 /**
  * 登录窗口
@@ -85,6 +84,7 @@ class LoginWindow extends React.Component {
                 app.config.name = json.Data.Name;
                 app.call('login', this);
                 this.handleClose();
+                window.location.reload();
             });
         });
     }

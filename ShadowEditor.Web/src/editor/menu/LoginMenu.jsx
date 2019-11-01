@@ -22,28 +22,46 @@ class LoginMenu extends React.Component {
     render() {
         if (app.config.isLogin) { // 登录
             return <>
-                <MenuItemSeparator className={'LoginSeparator'} direction={'horizontal'} />
+                <MenuItemSeparator className={'LoginSeparator'}
+                    direction={'horizontal'}
+                />
                 <li className={classNames('MenuItem', 'LoginMenuItem')}>
                     <span className={'welcome'}>{_t(`Welcome, {{Name}}`, { Name: app.config.name === 'Administrator' ? _t(app.config.name) : app.config.name })}</span>
                 </li>
-                <MenuItemSeparator className={'LoginSeparator'} direction={'horizontal'} />
+                <MenuItemSeparator className={'LoginSeparator'}
+                    direction={'horizontal'}
+                />
                 <li className={classNames('MenuItem', 'LoginMenuItem')}>
-                    <LinkButton className={'button'} onClick={this.handleChangePassword}>{_t(`Change Password`)}</LinkButton>
+                    <LinkButton className={'button'}
+                        onClick={this.handleChangePassword}
+                    >{_t(`Change Password`)}</LinkButton>
                 </li>
-                <MenuItemSeparator className={'LoginSeparator'} direction={'horizontal'} />
+                <MenuItemSeparator className={'LoginSeparator'}
+                    direction={'horizontal'}
+                />
                 <li className={classNames('MenuItem', 'LoginMenuItem')}>
-                    <LinkButton className={'button'} onClick={this.handleClickLogout}>{_t(`Logout`)}</LinkButton>
+                    <LinkButton className={'button'}
+                        onClick={this.handleClickLogout}
+                    >{_t(`Logout`)}</LinkButton>
                 </li>
             </>;
         } else { // 未登录
             return <>
-                <MenuItemSeparator className={'LoginSeparator'} direction={'horizontal'} />
+                <MenuItemSeparator className={'LoginSeparator'}
+                    direction={'horizontal'}
+                />
                 <li className={classNames('MenuItem', 'LoginMenuItem')}>
-                    <LinkButton className={'button'} onClick={this.handleClickRegister}>{_t(`Register`)}</LinkButton>
+                    <LinkButton className={'button'}
+                        onClick={this.handleClickRegister}
+                    >{_t(`Register`)}</LinkButton>
                 </li>
-                <MenuItemSeparator className={'LoginSeparator'} direction={'horizontal'} />
+                <MenuItemSeparator className={'LoginSeparator'}
+                    direction={'horizontal'}
+                />
                 <li className={classNames('MenuItem', 'LoginMenuItem')}>
-                    <LinkButton className={'button'} onClick={this.handleClickLogin}>{_t(`Login`)}</LinkButton>
+                    <LinkButton className={'button'}
+                        onClick={this.handleClickLogin}
+                    >{_t(`Login`)}</LinkButton>
                 </li>
             </>;
         }
@@ -81,6 +99,7 @@ class LoginMenu extends React.Component {
                 app.config.username = '';
                 app.config.name = '';
                 app.call('logout', this);
+                window.location.reload();
                 app.toast(_t(json.Msg));
             });
         });

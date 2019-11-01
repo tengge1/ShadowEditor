@@ -1,6 +1,6 @@
 import './css/TimelinePanel.css';
 
-import { classNames, PropTypes, Timeline } from '../../third_party';
+import { Timeline } from '../../third_party';
 
 /**
  * 时间轴面板
@@ -13,7 +13,7 @@ class TimelinePanel extends React.Component {
         this.state = {
             animations: [],
             selectedLayer: null,
-            selected: null,
+            selected: null
         };
 
         this.handleAddLayer = this.handleAddLayer.bind(this);
@@ -47,7 +47,8 @@ class TimelinePanel extends React.Component {
 
             onAddAnimation={this.handleAddAnimation}
             onDropAnimation={this.handleDropAnimation}
-            onClickAnimation={this.handleClickAnimation}></Timeline>;
+            onClickAnimation={this.handleClickAnimation}
+               />;
     }
 
     componentDidMount() {
@@ -57,7 +58,7 @@ class TimelinePanel extends React.Component {
 
     updateUI() {
         this.setState({
-            animations: app.editor.animations,
+            animations: app.editor.animations
         });
     }
 
@@ -68,7 +69,7 @@ class TimelinePanel extends React.Component {
             title: _t('Input Layer Name'),
             content: _t('Layer Name'),
             value: _t('New Layer'),
-            onOK: this.commitAddLayer,
+            onOK: this.commitAddLayer
         });
     }
 
@@ -81,13 +82,13 @@ class TimelinePanel extends React.Component {
             layer,
             layerName: layerName,
             uuid: THREE.Math.generateUUID(),
-            animations: [],
+            animations: []
         });
 
         app.call(`animationChanged`, this);
     }
 
-    handleEditLayer(id, event) {
+    handleEditLayer(id) {
         if (!id) {
             app.toast(_t('Please select an animation layer.'));
             return;
@@ -101,7 +102,7 @@ class TimelinePanel extends React.Component {
             title: _t('Edit Layer Name'),
             content: _t('Layer Name'),
             value: layer.layerName,
-            onOK: this.commitEditLayer,
+            onOK: this.commitEditLayer
         });
     }
 
@@ -117,7 +118,7 @@ class TimelinePanel extends React.Component {
         }
     }
 
-    handleDeleteLayer(id, event) {
+    handleDeleteLayer(id) {
         if (!id) {
             app.toast(_t('Please select an animation layer.'));
             return;
@@ -130,7 +131,7 @@ class TimelinePanel extends React.Component {
         app.confirm({
             title: _t('Delete'),
             content: _t(`Delete animation layer {{layerName}}?`, { layerName: layer.layerName }),
-            onOK: this.commitDeleteLayer,
+            onOK: this.commitDeleteLayer
         });
     }
 
@@ -148,13 +149,13 @@ class TimelinePanel extends React.Component {
 
     handleSelectedLayerChange(value) {
         this.setState({
-            selectedLayer: value,
+            selectedLayer: value
         });
     }
 
     // ---------------------------- 动画管理 ---------------------------------
 
-    handleAddAnimation(layerID, beginTime, endTime, event) {
+    handleAddAnimation(layerID, beginTime, endTime) {
         let layer = app.editor.animations.filter(n => n.uuid === layerID)[0];
 
         if (!layer) {
@@ -193,14 +194,14 @@ class TimelinePanel extends React.Component {
                 endScaleLock: true,
                 endScaleX: 1.0,
                 endScaleY: 1.0,
-                endScaleZ: 1.0,
-            },
+                endScaleZ: 1.0
+            }
         });
 
         app.call(`animationChanged`, this);
     }
 
-    handleDropAnimation(id, oldLayerID, newLayerID, beginTime, event) {
+    handleDropAnimation(id, oldLayerID, newLayerID, beginTime) {
         let oldLayer = app.editor.animations.filter(n => n.uuid === oldLayerID)[0];
 
         if (!oldLayer) {
@@ -235,7 +236,7 @@ class TimelinePanel extends React.Component {
         app.call(`animationChanged`, this);
     }
 
-    handleClickAnimation(id, pid, event) {
+    handleClickAnimation(id, pid) {
         const layer = app.editor.animations.filter(n => n.uuid === pid)[0];
 
         if (!layer) {
@@ -253,7 +254,7 @@ class TimelinePanel extends React.Component {
         app.call('animationSelected', this, animation);
 
         this.setState({
-            selected: animation.uuid,
+            selected: animation.uuid
         });
     }
 }

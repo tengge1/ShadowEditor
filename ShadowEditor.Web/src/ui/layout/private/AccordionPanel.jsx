@@ -12,7 +12,7 @@ class AccordionPanel extends React.Component {
         super(props);
 
         this.state = {
-            maximized: props.maximized,
+            maximized: props.maximized
         };
 
         this.handleClick = this.handleClick.bind(this, props.onClick, props.index, props.name);
@@ -25,30 +25,36 @@ class AccordionPanel extends React.Component {
 
     handleMaximize(onMaximize, event) {
         this.setState(state => ({
-            maximized: !state.maximized,
+            maximized: !state.maximized
         }));
 
         onMaximize && onMaximize(event);
     }
 
     render() {
-        const { title, className, style, children, show, total, index, collpased,
-            maximizable, maximized, onMaximize } = this.props;
+        const { title, className, style, children, show, total, collpased,
+            maximizable } = this.props;
 
-        const maximizeControl = maximizable && <div className={'control'} onClick={this.handleMaximize}>
-            {this.state.maximized ? <i className={'iconfont icon-minimize'}></i> : <i className={'iconfont icon-maximize'}></i>}
+        const maximizeControl = maximizable && <div className={'control'}
+            onClick={this.handleMaximize}
+                                               >
+            {this.state.maximized ? <i className={'iconfont icon-minimize'} /> : <i className={'iconfont icon-maximize'} />}
         </div>;
 
         const _style = collpased ? style : Object.assign({}, style, {
-            height: `calc(100% - ${26 * (total - 1)}px`,
+            height: `calc(100% - ${26 * (total - 1)}px`
         });
 
         return <div className={classNames('AccordionPanel',
             this.state.maximized && 'maximized',
             collpased && 'collpased',
             !show && 'hidden',
-            className)} style={_style}>
-            <div className={'header'} onClick={this.handleClick}>
+            className)}
+            style={_style}
+               >
+            <div className={'header'}
+                onClick={this.handleClick}
+            >
                 <span className="title">{title}</span>
                 <div className="controls">
                     {maximizeControl}
@@ -74,7 +80,7 @@ AccordionPanel.propTypes = {
     maximizable: PropTypes.bool,
     maximized: PropTypes.bool,
     onMaximize: PropTypes.bool,
-    onClick: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 AccordionPanel.defaultProps = {
@@ -90,7 +96,7 @@ AccordionPanel.defaultProps = {
     maximizable: false,
     maximized: false,
     onMaximize: null,
-    onClick: null,
+    onClick: null
 };
 
 export default AccordionPanel;

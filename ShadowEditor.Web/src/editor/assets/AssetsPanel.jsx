@@ -1,6 +1,6 @@
 import './css/AssetsPanel.css';
 
-import { classNames, PropTypes, AccordionLayout, Accordion } from '../../third_party';
+import { AccordionLayout, Accordion } from '../../third_party';
 
 import ScenePanel from './ScenePanel.jsx';
 import ModelPanel from './ModelPanel.jsx';
@@ -10,7 +10,7 @@ import AudioPanel from './AudioPanel.jsx';
 import AnimationPanel from './AnimationPanel.jsx';
 import ParticlePanel from './ParticlePanel.jsx';
 import PrefabPanel from './PrefabPanel.jsx';
-import CharacterPanel from './CharacterPanel.jsx';
+// import CharacterPanel from './CharacterPanel.jsx';
 import ScreenshotPanel from './ScreenshotPanel.jsx';
 import VideoPanel from './VideoPanel.jsx';
 import LogPanel from './LogPanel.jsx';
@@ -35,52 +35,108 @@ class AssetsPanel extends React.Component {
             prefabCount: 0,
             characterCount: 0,
             screenshotCount: 0,
-            videoCount: 0,
+            videoCount: 0
         };
 
         this.handleActive = this.handleActive.bind(this);
     }
 
     render() {
-        const { activeIndex, sceneCount, meshCount, mapCount, materialCount, audioCount, animationCount, particleCount, prefabCount, characterCount, screenshotCount, videoCount } = this.state;
+        const { activeIndex, sceneCount, meshCount, mapCount, materialCount, audioCount, animationCount, particleCount, prefabCount, screenshotCount, videoCount } = this.state;
 
-        return <AccordionLayout className={'AssetsPanel'} onActive={this.handleActive}>
-            <Accordion name={'Scene'} title={`${_t('Scene')}(${sceneCount})`} maximizable={true}>
-                <ScenePanel className={'subPanel'} show={0 === activeIndex}></ScenePanel>
+        const noLogin = !app.config.enableAuthority || app.config.isLogin;
+
+        return <AccordionLayout className={'AssetsPanel'}
+            onActive={this.handleActive}
+               >
+            <Accordion name={'Scene'}
+                title={`${_t('Scene')}(${sceneCount})`}
+                maximizable
+            >
+                <ScenePanel className={'subPanel'}
+                    show={0 === activeIndex}
+                />
             </Accordion>
-            <Accordion name={'Model'} title={`${_t('Model')}(${meshCount})`} maximizable={true}>
-                <ModelPanel className={'subPanel'} show={1 === activeIndex}></ModelPanel>
-            </Accordion>
-            <Accordion name={'Map'} title={`${_t('Map')}(${mapCount})`} maximizable={true}>
-                <MapPanel className={'subPanel'} show={2 === activeIndex}></MapPanel>
-            </Accordion>
-            <Accordion name={'Material'} title={`${_t('Material')}(${materialCount})`} maximizable={true}>
-                <MaterialPanel className={'subPanel'} show={3 === activeIndex}></MaterialPanel>
-            </Accordion>
-            <Accordion name={'Audio'} title={`${_t('Audio')}(${audioCount})`} maximizable={true}>
-                <AudioPanel className={'subPanel'} show={4 === activeIndex}></AudioPanel>
-            </Accordion>
-            <Accordion name={'Animation'} title={`${_t('Animation')}(${animationCount})`} maximizable={true}>
-                <AnimationPanel className={'subPanel'} show={5 === activeIndex}></AnimationPanel>
-            </Accordion>
-            <Accordion name={'Particle'} title={`${_t('Particle')}(${particleCount})`} maximizable={true}>
-                <ParticlePanel className={'subPanel'} show={6 === activeIndex}></ParticlePanel>
-            </Accordion>
-            <Accordion name={'Prefab'} title={`${_t('Prefab')}(${prefabCount})`} maximizable={true}>
-                <PrefabPanel className={'subPanel'} show={7 === activeIndex}></PrefabPanel>
-            </Accordion>
-            {/* <Accordion name={'Character'} title={`${_t('Character')}(${characterCount})`} maximizable={true}>
-                <CharacterPanel className={'subPanel'} show={8 === activeIndex}></CharacterPanel>
-            </Accordion> */}
-            <Accordion name={'Screenshot'} title={`${_t('Screenshot')}(${screenshotCount})`} maximizable={true}>
-                <ScreenshotPanel className={'subPanel'} show={8 === activeIndex}></ScreenshotPanel>
-            </Accordion>
-            <Accordion name={'Video'} title={`${_t('Video')}(${videoCount})`} maximizable={true}>
-                <VideoPanel className={'subPanel'} show={9 === activeIndex}></VideoPanel>
-            </Accordion>
-            <Accordion name={'Log'} title={`${_t('Logs')}`} maximizable={true}>
-                <LogPanel className={'subPanel'} show={10 === activeIndex}></LogPanel>
-            </Accordion>
+            {noLogin && <Accordion name={'Model'}
+                title={`${_t('Model')}(${meshCount})`}
+                maximizable
+                        >
+                <ModelPanel className={'subPanel'}
+                    show={1 === activeIndex}
+                />
+                </Accordion>}
+            {noLogin && <Accordion name={'Map'}
+                title={`${_t('Map')}(${mapCount})`}
+                maximizable
+                        >
+                    <MapPanel className={'subPanel'}
+                        show={2 === activeIndex}
+                    />
+                </Accordion>}
+            {noLogin && <Accordion name={'Material'}
+                title={`${_t('Material')}(${materialCount})`}
+                maximizable
+                        >
+                    <MaterialPanel className={'subPanel'}
+                        show={3 === activeIndex}
+                    />
+                </Accordion>}
+            {noLogin && <Accordion name={'Audio'}
+                title={`${_t('Audio')}(${audioCount})`}
+                maximizable
+                        >
+                    <AudioPanel className={'subPanel'}
+                        show={4 === activeIndex}
+                    />
+                </Accordion>}
+            {noLogin && <Accordion name={'Animation'}
+                title={`${_t('Animation')}(${animationCount})`}
+                maximizable
+                        >
+                    <AnimationPanel className={'subPanel'}
+                        show={5 === activeIndex}
+                    />
+                </Accordion>}
+            {noLogin && <Accordion name={'Particle'}
+                title={`${_t('Particle')}(${particleCount})`}
+                maximizable
+                        >
+                    <ParticlePanel className={'subPanel'}
+                        show={6 === activeIndex}
+                    />
+                </Accordion>}
+            {noLogin && <Accordion name={'Prefab'}
+                title={`${_t('Prefab')}(${prefabCount})`}
+                maximizable
+                        >
+                    <PrefabPanel className={'subPanel'}
+                        show={7 === activeIndex}
+                    />
+                </Accordion>}
+            {noLogin && <Accordion name={'Screenshot'}
+                title={`${_t('Screenshot')}(${screenshotCount})`}
+                maximizable
+                        >
+                    <ScreenshotPanel className={'subPanel'}
+                        show={8 === activeIndex}
+                    />
+                </Accordion>}
+            {noLogin && <Accordion name={'Video'}
+                title={`${_t('Video')}(${videoCount})`}
+                maximizable
+                        >
+                    <VideoPanel className={'subPanel'}
+                        show={9 === activeIndex}
+                    />
+                </Accordion>}
+            {noLogin && <Accordion name={'Log'}
+                title={`${_t('Logs')}`}
+                maximizable
+                        >
+                    <LogPanel className={'subPanel'}
+                        show={10 === activeIndex}
+                    />
+                </Accordion>}
         </AccordionLayout>;
     }
 
@@ -98,9 +154,9 @@ class AssetsPanel extends React.Component {
         });
     }
 
-    handleActive(index, name) {
+    handleActive(index) {
         this.setState({
-            activeIndex: index,
+            activeIndex: index
         });
     }
 }

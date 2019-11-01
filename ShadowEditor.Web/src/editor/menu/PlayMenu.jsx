@@ -1,4 +1,4 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem } from '../../third_party';
 import Converter from '../../serialization/Converter';
 
 /**
@@ -10,7 +10,7 @@ class PlayMenu extends React.Component {
         super(props);
 
         this.state = {
-            isPlaying: false,
+            isPlaying: false
         };
 
         this.handleTogglePlay = this.handleTogglePlay.bind(this);
@@ -21,10 +21,18 @@ class PlayMenu extends React.Component {
     render() {
         const { isPlaying } = this.state;
 
+        const noLogin = !app.config.enableAuthority || app.config.isLogin;
+
         return <MenuItem title={_t('Play')}>
-            <MenuItem title={isPlaying ? _t('Stop') : _t('Play')} onClick={this.handleTogglePlay}></MenuItem>
-            <MenuItem title={_t('Play Fullscreen')} onClick={this.handlePlayFullscreen}></MenuItem>
-            <MenuItem title={_t('Play New Window')} onClick={this.handlePlayNewWindow}></MenuItem>
+            <MenuItem title={isPlaying ? _t('Stop') : _t('Play')}
+                onClick={this.handleTogglePlay}
+            />
+            <MenuItem title={_t('Play Fullscreen')}
+                onClick={this.handlePlayFullscreen}
+            />
+            {noLogin && <MenuItem title={_t('Play New Window')}
+                onClick={this.handlePlayNewWindow}
+                        />}
         </MenuItem>;
     }
 
@@ -42,18 +50,18 @@ class PlayMenu extends React.Component {
         }
 
         this.setState({
-            isPlaying: true,
+            isPlaying: true
         });
 
         // 将场景数据转换为字符串
-        var jsons = (new Converter()).toJSON({
+        var jsons = new Converter().toJSON({
             options: app.options,
             scene: app.editor.scene,
             camera: app.editor.camera,
             renderer: app.editor.renderer,
             scripts: app.editor.scripts,
             animations: app.editor.animations,
-            visual: app.editor.visual,
+            visual: app.editor.visual
         });
 
         app.player.start(JSON.stringify(jsons));
@@ -65,12 +73,12 @@ class PlayMenu extends React.Component {
         }
 
         this.setState({
-            isPlaying: false,
+            isPlaying: false
         });
 
         app.player.stop();
 
-        this.setState
+        this.setState;
     }
 
     handlePlayFullscreen() { // 全屏播放

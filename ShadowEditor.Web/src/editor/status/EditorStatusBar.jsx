@@ -1,5 +1,5 @@
 import './css/EditorStatusBar.css';
-import { classNames, PropTypes, Toolbar, ToolbarSeparator, Label, CheckBox, Button, Input } from '../../third_party';
+import { Toolbar, ToolbarSeparator, Label, CheckBox, Button, Input } from '../../third_party';
 import Converter from '../../utils/Converter';
 import TimeUtils from '../../utils/TimeUtils';
 import VideoRecorder from '../../utils/VideoRecorder';
@@ -20,7 +20,7 @@ class EditorStatusBar extends React.Component {
             showGrid: app.storage.get('showGrid') === undefined ? true : app.storage.get('showGrid'),
             showViewHelper: app.storage.get('showViewHelper') === undefined ? true : app.storage.get('showViewHelper'),
             isThrowBall: false,
-            isRecording: false,
+            isRecording: false
         };
 
         this.handleShowStats = this.handleShowStats.bind(this);
@@ -38,6 +38,8 @@ class EditorStatusBar extends React.Component {
         const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall, isRecording } = this.state;
         const { selectedColor, selectedThickness } = app.options;
 
+        const noLogin = !app.config.enableAuthority || app.config.isLogin;
+
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{_t('Object')}</Label>
             <Label>{objects}</Label>
@@ -45,23 +47,46 @@ class EditorStatusBar extends React.Component {
             <Label>{vertices}</Label>
             <Label>{_t('Triangle')}</Label>
             <Label>{triangles}</Label>
-            <ToolbarSeparator></ToolbarSeparator>
+            <ToolbarSeparator />
             <Label>{_t('Show Stats')}</Label>
-            <CheckBox checked={showStats} onChange={this.handleShowStats}></CheckBox>
+            <CheckBox checked={showStats}
+                onChange={this.handleShowStats}
+            />
             <Label>{_t('Grid')}</Label>
-            <CheckBox checked={showGrid} onChange={this.handleShowGrid}></CheckBox>
+            <CheckBox checked={showGrid}
+                onChange={this.handleShowGrid}
+            />
             <Label>{_t('View Helper')}</Label>
-            <CheckBox checked={showViewHelper} onChange={this.handleShowViewHelper}></CheckBox>
-            <Label>{_t('ThrowBall')}</Label>
-            <CheckBox checked={isThrowBall} onChange={this.handleEnableThrowBall}></CheckBox>
-            <ToolbarSeparator></ToolbarSeparator>
-            <Label>{_t('Selected Color')}</Label>
-            <Input name={'selectedColor'} className={'selected-color'} type={'color'} value={selectedColor} onChange={this.changeSelectedColor}></Input>
-            <Label>{_t('Border Thickness')}</Label>
-            <Input name={'selectedThickness'} className={'selected-thickness'} type={'number'} min={1} max={100} precision={1} value={selectedThickness} onChange={this.changeSelectedThickness}></Input>
-            <ToolbarSeparator></ToolbarSeparator>
-            <Button onClick={this.handleScreenshot}>{_t('Screenshot')}</Button>
-            <Button onClick={this.handleRecord}>{isRecording ? _t('Stop') : _t('Record')}</Button>
+            <CheckBox checked={showViewHelper}
+                onChange={this.handleShowViewHelper}
+            />
+            {noLogin && <>
+                <Label>{_t('ThrowBall')}</Label>
+                <CheckBox checked={isThrowBall}
+                    onChange={this.handleEnableThrowBall}
+                />
+                <ToolbarSeparator />
+                <Label>{_t('Selected Color')}</Label>
+                <Input name={'selectedColor'}
+                    className={'selected-color'}
+                    type={'color'}
+                    value={selectedColor}
+                    onChange={this.changeSelectedColor}
+                />
+                <Label>{_t('Border Thickness')}</Label>
+                <Input name={'selectedThickness'}
+                    className={'selected-thickness'}
+                    type={'number'}
+                    min={1}
+                    max={100}
+                    precision={1}
+                    value={selectedThickness}
+                    onChange={this.changeSelectedThickness}
+                />
+                <ToolbarSeparator />
+                <Button onClick={this.handleScreenshot}>{_t('Screenshot')}</Button>
+                <Button onClick={this.handleRecord}>{isRecording ? _t('Stop') : _t('Record')}</Button>
+            </>}
         </Toolbar>;
     }
 
@@ -108,7 +133,7 @@ class EditorStatusBar extends React.Component {
         this.setState({
             objects: objects.format(),
             vertices: vertices.format(),
-            triangles: triangles.format(),
+            triangles: triangles.format()
         });
     }
 
@@ -117,11 +142,11 @@ class EditorStatusBar extends React.Component {
         app.storage.set('showStats', showStats);
 
         Object.assign(app.stats.dom.style, {
-            display: showStats ? 'block' : 'none',
+            display: showStats ? 'block' : 'none'
         });
 
         this.setState({
-            showStats,
+            showStats
         });
     }
 
@@ -131,7 +156,7 @@ class EditorStatusBar extends React.Component {
             app.call(`storageChanged`, this, 'showGrid', showGrid);
 
             this.setState({
-                showGrid,
+                showGrid
             });
         }
     }
@@ -143,7 +168,7 @@ class EditorStatusBar extends React.Component {
         app.call(`storageChanged`, this, 'showViewHelper', showViewHelper);
 
         this.setState({
-            showViewHelper,
+            showViewHelper
         });
     }
 
@@ -179,7 +204,7 @@ class EditorStatusBar extends React.Component {
 
         fetch(`/api/Screenshot/Add`, {
             method: 'POST',
-            body: form,
+            body: form
         }).then(response => {
             response.json().then(json => {
                 app.toast(_t(json.Msg));
@@ -203,7 +228,7 @@ class EditorStatusBar extends React.Component {
         this.recorder.start().then(success => {
             if (success) {
                 this.setState({
-                    isRecording: true,
+                    isRecording: true
                 });
             }
         });
@@ -216,7 +241,7 @@ class EditorStatusBar extends React.Component {
 
         this.recorder.stop().then(() => {
             this.setState({
-                isRecording: false,
+                isRecording: false
             });
         });
     }

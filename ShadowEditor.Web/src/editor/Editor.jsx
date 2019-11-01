@@ -37,6 +37,8 @@ class Editor extends React.Component {
     render() {
         const { showMask, maskText, elements } = this.state;
 
+        const noLogin = !app.config.enableAuthority || app.config.isLogin;
+
         return <>
             <BorderLayout className={'Editor'}>
                 <EditorMenuBar region={'north'} />
@@ -45,17 +47,17 @@ class Editor extends React.Component {
                     split
                     onToggle={this.onToggle}
                 />
-                <EditorSideBar region={'east'}
+                {noLogin && <EditorSideBar region={'east'}
                     split
                     onToggle={this.onToggle}
-                />
+                            />}
                 <BorderLayout region={'center'}>
-                    <EditorToolbar region={'west'} />
+                    {noLogin && <EditorToolbar region={'west'} />}
                     <Viewport region={'center'} />
-                    <TimelinePanel region={'south'}
+                    {noLogin && <TimelinePanel region={'south'}
                         split
                         onToggle={this.onToggle}
-                    />
+                                />}
                 </BorderLayout>
             </BorderLayout>
             {elements.map((n, i) => {

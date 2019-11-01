@@ -11,11 +11,10 @@ class BorderLayout extends React.Component {
         super(props);
 
         const children = this.props.children;
-        const north = children && children.filter(n => n.props.region === 'north')[0];
-        const south = children && children.filter(n => n.props.region === 'south')[0];
-        const west = children && children.filter(n => n.props.region === 'west')[0];
-        const east = children && children.filter(n => n.props.region === 'east')[0];
-        const center = children && children.filter(n => n.props.region === 'center')[0];
+        const north = children && children.filter(n => n && n.props.region === 'north')[0];
+        const south = children && children.filter(n => n && n.props.region === 'south')[0];
+        const west = children && children.filter(n => n && n.props.region === 'west')[0];
+        const east = children && children.filter(n => n && n.props.region === 'east')[0];
 
         const northSplit = north && north.props.split || false;
         const southSplit = south && south.props.split || false;
@@ -39,7 +38,7 @@ class BorderLayout extends React.Component {
 
         this.state = {
             northSplit, southSplit, westSplit, eastSplit,
-            northCollapsed, southCollapsed, westCollapsed, eastCollapsed,
+            northCollapsed, southCollapsed, westCollapsed, eastCollapsed
         };
 
         this.handleNorthClick = this.handleNorthClick.bind(this, onNorthToggle);
@@ -55,7 +54,7 @@ class BorderLayout extends React.Component {
             return;
         }
 
-        this.setState((state, props) => {
+        this.setState((state) => {
             const collapsed = !state.northCollapsed;
 
             const dom = this.northRef.current;
@@ -68,7 +67,7 @@ class BorderLayout extends React.Component {
             }
 
             return {
-                northCollapsed: collapsed,
+                northCollapsed: collapsed
             };
         });
     }
@@ -78,7 +77,7 @@ class BorderLayout extends React.Component {
             return;
         }
 
-        this.setState((state, props) => {
+        this.setState((state) => {
             const collapsed = !state.southCollapsed;
 
             const dom = this.southRef.current;
@@ -91,7 +90,7 @@ class BorderLayout extends React.Component {
             }
 
             return {
-                southCollapsed: collapsed,
+                southCollapsed: collapsed
             };
         });
     }
@@ -103,7 +102,7 @@ class BorderLayout extends React.Component {
 
         const dom = this.westRef.current;
 
-        this.setState((state, props) => {
+        this.setState((state) => {
             const collapsed = !state.westCollapsed;
 
             const width = dom.clientWidth;
@@ -115,7 +114,7 @@ class BorderLayout extends React.Component {
             }
 
             return {
-                westCollapsed: collapsed,
+                westCollapsed: collapsed
             };
         });
     }
@@ -125,7 +124,7 @@ class BorderLayout extends React.Component {
             return;
         }
 
-        this.setState((state, props) => {
+        this.setState((state) => {
             const collapsed = !state.eastCollapsed;
 
             const dom = this.eastRef.current;
@@ -138,7 +137,7 @@ class BorderLayout extends React.Component {
             }
 
             return {
-                eastCollapsed: collapsed,
+                eastCollapsed: collapsed
             };
         });
     }
@@ -168,6 +167,9 @@ class BorderLayout extends React.Component {
         let north = [], south = [], west = [], east = [], center = [], others = [];
 
         children && children.forEach(n => {
+            if(!n) {
+                return;
+            }
             switch (n.props.region) {
                 case 'north':
                     north.push(n);
@@ -195,75 +197,88 @@ class BorderLayout extends React.Component {
         }
 
         // north region
-        const northRegion = north.length > 0 && (<div className={classNames('north',
+        const northRegion = north.length > 0 && <div className={classNames('north',
             this.state.northSplit && 'split',
             this.state.northCollapsed && 'collapsed')}
             region={'north'}
             onTransitionEnd={this.handleTransitionEnd}
-            ref={this.northRef}>
+            ref={this.northRef}
+                                                >
             <div className={'content'}>
                 {north}
             </div>
             {this.state.northSplit && <div className={'control'}>
-                <div className={'button'} onClick={this.handleNorthClick}></div>
+                <div className={'button'}
+                    onClick={this.handleNorthClick}
+                />
             </div>}
-        </div>);
+        </div>;
 
         // south region
-        const southRegion = south.length > 0 && (<div className={classNames('south',
+        const southRegion = south.length > 0 && <div className={classNames('south',
             this.state.northSplit && 'split',
             this.state.southCollapsed && 'collapsed')}
             region={'south'}
             onTransitionEnd={this.handleTransitionEnd}
-            ref={this.southRef}>
+            ref={this.southRef}
+                                                >
             {this.state.southSplit && <div className={'control'}>
-                <div className={'button'} onClick={this.handleSouthClick}></div>
+                <div className={'button'}
+                    onClick={this.handleSouthClick}
+                />
             </div>}
             <div className={'content'}>
                 {south}
             </div>
-        </div>);
+        </div>;
 
         // west region
-        const westRegion = west.length > 0 && (<div className={classNames('west',
+        const westRegion = west.length > 0 && <div className={classNames('west',
             this.state.westSplit && 'split',
             this.state.westCollapsed && 'collapsed')}
             region={'west'}
             onTransitionEnd={this.handleTransitionEnd}
-            ref={this.westRef}>
+            ref={this.westRef}
+                                              >
             <div className={'content'}>
                 {west}
             </div>
             {this.state.westSplit && <div className={'control'}>
-                <div className={'button'} onClick={this.handleWestClick}></div>
+                <div className={'button'}
+                    onClick={this.handleWestClick}
+                />
             </div>}
-        </div>);
+        </div>;
 
         // east region
-        const eastRegion = east.length > 0 && (<div className={classNames('east',
+        const eastRegion = east.length > 0 && <div className={classNames('east',
             this.state.eastSplit && 'split',
             this.state.eastCollapsed && 'collapsed')}
             region={'east'}
             onTransitionEnd={this.handleTransitionEnd}
-            ref={this.eastRef}>
+            ref={this.eastRef}
+                                              >
             <div className={'control'}>
-                <div className={'button'} onClick={this.handleEastClick}></div>
+                <div className={'button'}
+                    onClick={this.handleEastClick}
+                />
             </div>
             <div className={'content'}>
                 {east}
             </div>
-        </div>);
+        </div>;
 
         // center region
-        const centerRegion = center.length > 0 && (<div className={'center'}>
+        const centerRegion = center.length > 0 && <div className={'center'}>
             {center}
-        </div>);
+        </div>;
 
         const otherRegion = others.length > 0 && others;
 
         return <div
             className={classNames('BorderLayout', className)}
-            style={style}>
+            style={style}
+               >
             {northRegion}
             <div className={'middle'}>
                 {westRegion}
@@ -279,13 +294,13 @@ class BorderLayout extends React.Component {
 BorderLayout.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 BorderLayout.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: null
 };
 
 export default BorderLayout;

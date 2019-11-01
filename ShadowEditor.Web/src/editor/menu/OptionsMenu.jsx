@@ -1,4 +1,4 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../third_party';
 import OptionsWindow from '../window/OptionsWindow.jsx';
 
 /**
@@ -25,26 +25,50 @@ class OptionsMenu extends React.Component {
     }
 
     render() {
-        const { className, style } = this.props;
+        const noLogin = !app.config.enableAuthority || app.config.isLogin;
 
         return <MenuItem title={_t('Options')}>
-            <MenuItem title={_t('Renderer')} onClick={this.handleRendererOptions}></MenuItem>
-            <MenuItem title={_t('Helpers')} onClick={this.handleHelperOptions}></MenuItem>
-            <MenuItem title={_t('Filter')} onClick={this.handleFilterOptions}></MenuItem>
-            <MenuItemSeparator></MenuItemSeparator>
+            <MenuItem title={_t('Renderer')}
+                onClick={this.handleRendererOptions}
+            />
+            <MenuItem title={_t('Helpers')}
+                onClick={this.handleHelperOptions}
+            />
+            <MenuItem title={_t('Filter')}
+                onClick={this.handleFilterOptions}
+            />
+            <MenuItemSeparator />
             <MenuItem title={_t('Language')}>
-                <MenuItem title={'English'} onClick={this.handleChangeEnglish}></MenuItem>
-                <MenuItem title={'简体中文'} onClick={this.handleChangeChinese}></MenuItem>
-                <MenuItem title={'繁體中文'} onClick={this.handleChangeTraditionalChinese}></MenuItem>
-                <MenuItem title={'日本語'} onClick={this.handleChangeJapanese}></MenuItem>
-                <MenuItem title={'한국어'} onClick={this.handleChangeKorean}></MenuItem>
-                <MenuItem title={'русский'} onClick={this.handleChangeRussian}></MenuItem>
-                <MenuItem title={'Le français'} onClick={this.handleChangeFrench}></MenuItem>
+                <MenuItem title={'English'}
+                    onClick={this.handleChangeEnglish}
+                />
+                <MenuItem title={'简体中文'}
+                    onClick={this.handleChangeChinese}
+                />
+                <MenuItem title={'繁體中文'}
+                    onClick={this.handleChangeTraditionalChinese}
+                />
+                <MenuItem title={'日本語'}
+                    onClick={this.handleChangeJapanese}
+                />
+                <MenuItem title={'한국어'}
+                    onClick={this.handleChangeKorean}
+                />
+                <MenuItem title={'русский'}
+                    onClick={this.handleChangeRussian}
+                />
+                <MenuItem title={'Le français'}
+                    onClick={this.handleChangeFrench}
+                />
             </MenuItem>
-            <MenuItem title={_t('Debug Mode')}>
-                <MenuItem title={_t('Enable')} onClick={this.handleEnableDebugMode}></MenuItem>
-                <MenuItem title={_t('Disable')} onClick={this.handleDisableDebugMode}></MenuItem>
-            </MenuItem>
+            {noLogin && <MenuItem title={_t('Debug Mode')}>
+                <MenuItem title={_t('Enable')}
+                    onClick={this.handleEnableDebugMode}
+                />
+                <MenuItem title={_t('Disable')}
+                    onClick={this.handleDisableDebugMode}
+                />
+            </MenuItem>}
         </MenuItem>;
     }
 
@@ -52,7 +76,7 @@ class OptionsMenu extends React.Component {
 
     handleRendererOptions() {
         let win = app.createElement(OptionsWindow, {
-            activeTabIndex: 0,
+            activeTabIndex: 0
         });
         app.addElement(win);
     }
@@ -61,7 +85,7 @@ class OptionsMenu extends React.Component {
 
     handleHelperOptions() {
         let win = app.createElement(OptionsWindow, {
-            activeTabIndex: 1,
+            activeTabIndex: 1
         });
         app.addElement(win);
     }
@@ -70,7 +94,7 @@ class OptionsMenu extends React.Component {
 
     handleFilterOptions() {
         let win = app.createElement(OptionsWindow, {
-            activeTabIndex: 2,
+            activeTabIndex: 2
         });
         app.addElement(win);
     }
