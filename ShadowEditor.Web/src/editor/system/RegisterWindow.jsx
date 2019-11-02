@@ -31,26 +31,45 @@ class RegisterWindow extends React.Component {
             style={{ width: '400px', height: '240px' }}
             mask={false}
             onClose={this.handleClose}
-        >
+               >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Username')}</Label>
-                        <Input name={'username'} value={username} onChange={this.handleChange} />
-                        <input type={'text'} className={'fake'} />
-                        <input type={'password'} className={'fake'} />
+                        <Input name={'username'}
+                            value={username}
+                            onChange={this.handleChange}
+                        />
+                        <input type={'text'}
+                            className={'fake'}
+                            value={username}
+                        />
+                        <input type={'password'}
+                            className={'fake'}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Password')}</Label>
-                        <Input name={'password'} type={'password'} value={password} onChange={this.handleChange} />
+                        <Input name={'password'}
+                            type={'password'}
+                            value={password}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Confirm Password')}</Label>
-                        <Input name={'confirmPassword'} type={'password'} value={confirmPassword} onChange={this.handleChange} />
+                        <Input name={'confirmPassword'}
+                            type={'password'}
+                            value={confirmPassword}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('NickName')}</Label>
-                        <Input name={'name'} value={name} onChange={this.handleChange} />
+                        <Input name={'name'}
+                            value={name}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                 </Form>
             </Content>
