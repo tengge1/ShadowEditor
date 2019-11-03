@@ -61,38 +61,18 @@ namespace ShadowEditor.Server.Controllers.System
             };
 
             // 获取用户登录信息
-            var cookies = HttpContext.Current.Request.Cookies;
+            var user = UserHelper.GetCurrentUser();
 
-            var cookie = cookies.Get(FormsAuthentication.FormsCookieName);
-
-            if (cookie != null)
+            if (user != null)
             {
-                var ticket = FormsAuthentication.Decrypt(cookie.Value);
-
-                try
-                {
-                    var data = JsonConvert.DeserializeObject<LoginTicketDataModel>(ticket.UserData);
-
-                    ObjectId objectId;
-
-                    if (ObjectId.TryParse(data.UserID, out objectId))
-                    {
-                        var filter1 = Builders<BsonDocument>.Filter.Eq("ID", objectId);
-                        var doc = mongo.FindOne(Constant.UserCollectionName, filter1);
-                        if (doc != null)
-                        {
-                            model["IsLogin"] = true;
-                            model["Username"] = doc["Username"].ToString();
-                            model["Name"] = doc["Name"].ToString();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // 用户登录信息解析失败
-                    var log = LogHelper.GetLogger(this.GetType());
-                    log.Error("User ticket deserialized failed.", ex);
-                }
+                model["IsLogin"] = true;
+                model["Username"] = user.Username;
+                model["Name"] = user.Name;
+                model["RoleID"] = user.RoleID;
+                model["RoleName"] = user.RoleName;
+                model["DeptID"] = user.DeptID;
+                model["DeptName"] = user.DeptName;
+                model["OperatingAuthorities"] = new JArray(user.OperatingAuthorities);
             }
 
             return Json(new

@@ -50,10 +50,19 @@ namespace ShadowEditor.Server.Helpers
                 return null;
             }
 
-            // 获取用户信息
+            return GetUser(userData.UserID);
+        }
+
+        /// <summary>
+        /// 获取用户所有信息
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public static UserModel GetUser(string userID)
+        {
             ObjectId objectId;
 
-            if (!ObjectId.TryParse(userData.UserID, out objectId))
+            if (!ObjectId.TryParse(userID, out objectId))
             {
                 var log = LogHelper.GetLogger(typeof(UserHelper));
                 log.Error("UserID parse failed.");

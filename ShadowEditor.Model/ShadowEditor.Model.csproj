@@ -86,6 +86,7 @@
     <Compile Include="System\DepartmentModel.cs" />
     <Compile Include="System\LoginModel.cs" />
     <Compile Include="System\LoginTicketDataModel.cs" />
+    <Compile Include="System\OperatingAuthorityModel.cs" />
     <Compile Include="System\OperatingAuthoritySaveModel.cs" />
     <Compile Include="System\RegisterModel.cs" />
     <Compile Include="System\ResetPasswordModel.cs" />

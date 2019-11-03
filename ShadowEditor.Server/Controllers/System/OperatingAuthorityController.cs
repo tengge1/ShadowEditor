@@ -31,22 +31,49 @@ namespace ShadowEditor.Server.Controllers.System
         [Authority(OperatingAuthority.LIST_OPERATING_AUTHORITY)]
         public JsonResult Get(string roleID)
         {
-            var fields = typeof(OperatingAuthority).GetFields();
+            var objectId = ObjectId.GenerateNewId();
 
-            var helper = new MongoHelper();
+            if (!string.IsNullOrEmpty(roleID) && !ObjectId.TryParse(roleID, out objectId))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "ID is not allowed."
+                });
+            }
 
-            var filter = Builders<BsonDocument>.Filter.Eq("RoleID", roleID);
-            var docs = helper.FindMany(Constant.OperatingAuthorityCollectionName, filter).ToList();
+            var mongo = new MongoHelper();
+
+            // 判断是否是系统内置角色
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", objectId);
+            var doc = mongo.FindOne(Constant.RoleCollectionName, filter);
+
+            if (doc == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "The role is not existed."
+                });
+            }
+
+            var roleName = doc["Name"].ToString();
+
+            // 获取权限信息
+            var authorities = OperatingAuthorityHelper.GetAll();
+            filter = Builders<BsonDocument>.Filter.Eq("RoleID", roleID);
+            var docs = mongo.FindMany(Constant.OperatingAuthorityCollectionName, filter).ToList();
 
             var rows = new JArray();
 
-            foreach (var i in fields)
+            foreach (var i in authorities)
             {
+                // 管理员组默认具有所有权限
                 rows.Add(new JObject
                 {
-                    ["ID"] = i.Name,
-                    ["Name"] = i.GetValue(typeof(OperatingAuthority)).ToString(),
-                    ["Enabled"] = docs.Exists(n => n["AuthorityID"].ToString() == i.Name),
+                    ["ID"] = i.ID,
+                    ["Name"] = i.Name,
+                    ["Enabled"] = roleName == "Administrator" || docs.Exists(n => n["AuthorityID"].ToString() == i.ID),
                 });
             }
 
