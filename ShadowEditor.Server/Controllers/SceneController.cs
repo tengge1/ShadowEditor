@@ -206,7 +206,7 @@ namespace ShadowEditor.Server.Controllers
             {
                 var user = UserHelper.GetCurrentUser();
 
-                var filter11 = Builders<BsonDocument>.Filter.Eq("ID", model.ID);
+                var filter11 = Builders<BsonDocument>.Filter.Eq("ID", objectId);
                 var doc = mongo.FindOne(Constant.SceneCollectionName, filter11);
 
                 if (doc == null)

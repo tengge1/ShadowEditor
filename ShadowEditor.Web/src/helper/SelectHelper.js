@@ -7,7 +7,7 @@ import EdgeFragment from './shader/edge_fragment.glsl';
 /**
  * 选择帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
+ * @param {*} app 应用程序
  */
 function SelectHelper(app) {
     BaseHelper.call(this, app);
@@ -20,14 +20,14 @@ SelectHelper.prototype.start = function () {
     app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
     app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
     app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
-    app.on(`optionChange.${this.id}`, this.onOptionChange.bind(this))
+    app.on(`optionChange.${this.id}`, this.onOptionChange.bind(this));
 };
 
 SelectHelper.prototype.stop = function () {
     app.on(`objectSelected.${this.id}`, null);
     app.on(`objectRemoved.${this.id}`, null);
     app.on(`afterRender.${this.id}`, null);
-    app.on(`optionChange.${this.id}`, null)
+    app.on(`optionChange.${this.id}`, null);
 };
 
 SelectHelper.prototype.onObjectSelected = function (obj) {
@@ -70,7 +70,7 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
         format: THREE.RGBAFormat,
-        antialias: true,
+        antialias: true
     };
 
     if (this.maskBuffer === undefined) {
@@ -87,7 +87,7 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
         this.maskMaterial = new THREE.ShaderMaterial({
             vertexShader: MaskVertex,
             fragmentShader: MaskFragment,
-            depthTest: false,
+            depthTest: false
         });
     }
 
@@ -97,20 +97,20 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
             fragmentShader: EdgeFragment,
             uniforms: {
                 maskTexture: {
-                    value: this.maskBuffer.texture,
+                    value: this.maskBuffer.texture
                 },
                 texSize: {
-                    value: new THREE.Vector2(width, height),
+                    value: new THREE.Vector2(width, height)
                 },
                 color: {
-                    value: new THREE.Color(app.options.selectedColor),
+                    value: new THREE.Color(app.options.selectedColor)
                 },
                 thickness: {
                     type: 'f',
-                    value: app.options.selectedThickness,
-                },
+                    value: app.options.selectedThickness
+                }
             },
-            depthTest: false,
+            depthTest: false
         });
     }
 
@@ -120,14 +120,14 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
             fragmentShader: THREE.FXAAShader.fragmentShader,
             uniforms: {
                 tDiffuse: {
-                    value: this.edgeBuffer.texture,
+                    value: this.edgeBuffer.texture
                 },
                 resolution: {
-                    value: new THREE.Vector2(1 / width, 1 / height),
-                },
+                    value: new THREE.Vector2(1 / width, 1 / height)
+                }
             },
-            blending: THREE.AdditiveBlending,
-            depthTest: false,
+            blending: THREE.NoBlending,
+            depthTest: false
         });
     }
 
