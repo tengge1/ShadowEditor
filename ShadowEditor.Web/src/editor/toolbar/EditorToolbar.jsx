@@ -21,7 +21,7 @@ class EditorToolbar extends React.Component {
             isSpraying: false,
             isDigging: false,
             view: 'perspective',
-            isGridMode: false,
+            isGridMode: false
         };
 
         this.handleEnterSelectMode = this.handleEnterSelectMode.bind(this);
@@ -45,80 +45,96 @@ class EditorToolbar extends React.Component {
     render() {
         const { mode, isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging, view, isGridMode } = this.state;
 
-        return <Toolbar className={'EditorToolbar'} direction={'vertical'}>
+        return <Toolbar className={'EditorToolbar'}
+            direction={'vertical'}
+               >
             <IconButton
                 icon={'select'}
                 title={_t('Select')}
                 selected={mode === 'select'}
-                onClick={this.handleEnterSelectMode}></IconButton>
+                onClick={this.handleEnterSelectMode}
+            />
             <IconButton
                 icon={'translate'}
                 title={_t('Translate')}
                 selected={mode === 'translate'}
-                onClick={this.handleEnterTranslateMode}></IconButton>
+                onClick={this.handleEnterTranslateMode}
+            />
             <IconButton
                 icon={'rotate'}
                 title={_t('Rotate')}
                 selected={mode === 'rotate'}
-                onClick={this.handleEnterRotateMode}></IconButton>
+                onClick={this.handleEnterRotateMode}
+            />
             <IconButton
                 icon={'scale'}
                 title={_t('Scale')}
                 selected={mode === 'scale'}
-                onClick={this.handleEnterScaleMode}></IconButton>
+                onClick={this.handleEnterScaleMode}
+            />
             <ToolbarSeparator />
             <IconButton
                 icon={'point'}
                 title={_t('Draw Point')}
                 selected={isAddingPoint}
-                onClick={this.handleAddPoint}></IconButton>
+                onClick={this.handleAddPoint}
+            />
             <IconButton
                 icon={'line'}
                 title={_t('Draw Line')}
                 selected={isAddingLine}
-                onClick={this.handleAddLine}></IconButton>
+                onClick={this.handleAddLine}
+            />
             <IconButton
                 icon={'polygon'}
                 title={_t('Draw Pologon')}
                 selected={isAddingPolygon}
-                onClick={this.handleAddPolygon}></IconButton>
+                onClick={this.handleAddPolygon}
+            />
             <IconButton
                 icon={'spray'}
                 title={_t('Spray')}
                 selected={isSpraying}
-                onClick={this.handleSpray}></IconButton>
+                onClick={this.handleSpray}
+            />
             <IconButton
                 icon={'texture'}
                 title={_t('Dig')}
                 show={false}
                 selected={isDigging}
-                onClick={this.handleDig}></IconButton>
+                onClick={this.handleDig}
+            />
             <ToolbarSeparator />
             <ImageButton
                 src={'assets/image/perspective-view.png'}
                 title={_t('Perspective View')}
                 selected={view === 'perspective'}
-                onClick={this.handlePerspective}></ImageButton>
+                onClick={this.handlePerspective}
+            />
             <ImageButton
                 src={'assets/image/front-view.png'}
                 title={_t('Front View')}
                 selected={view === 'front'}
-                onClick={this.handleFrontView}></ImageButton>
+                onClick={this.handleFrontView}
+            />
             <ImageButton
                 src={'assets/image/side-view.png'}
                 title={_t('Side View')}
                 selected={view === 'side'}
-                onClick={this.handleSideView}></ImageButton>
+                onClick={this.handleSideView}
+            />
             <ImageButton
                 src={'assets/image/top-view.png'}
                 title={_t('Top View')}
                 selected={view === 'top'}
-                onClick={this.handleTopView}></ImageButton>
+                onClick={this.handleTopView}
+            />
             <IconButton
                 icon={'grid'}
                 title={_t('Grid Mode')}
                 selected={isGridMode}
-                onClick={this.handleGridMode}></IconButton>
+                onClick={this.handleGridMode}
+            />
         </Toolbar>;
     }
 
@@ -158,9 +174,9 @@ class EditorToolbar extends React.Component {
         this.setState({ isAddingPoint });
 
         if (isAddingPoint) {
-            app.on(`intersect.EditorToolbarAddPoint`, this.onAddPointIntersect.bind(this));
+            app.on(`raycast.EditorToolbarAddPoint`, this.onAddPointIntersect.bind(this));
         } else {
-            app.on(`intersect.EditorToolbarAddPoint`, null);
+            app.on(`raycast.EditorToolbarAddPoint`, null);
         }
     }
 
@@ -176,7 +192,7 @@ class EditorToolbar extends React.Component {
         var material = new THREE.PointsMaterial({
             color: 0xffffff * Math.random(),
             polygonOffset: true,
-            polygonOffsetFactor: -40,
+            polygonOffsetFactor: -40
         });
 
         var mesh = new THREE.Mesh(geometry, material);
@@ -212,7 +228,7 @@ class EditorToolbar extends React.Component {
         this.setState({ isAddingLine });
 
         if (isAddingLine) {
-            app.on(`intersect.EditorToolbarAddLine`, this.onAddLineIntersect.bind(this));
+            app.on(`raycast.EditorToolbarAddLine`, this.onAddLineIntersect.bind(this));
             app.on(`dblclick.EditorToolbarAddLine`, this.onAddLineDblClick.bind(this));
 
             this.linePositions = [];
@@ -226,7 +242,7 @@ class EditorToolbar extends React.Component {
                 vertexColors: THREE.VertexColors,
                 dashed: false,
                 polygonOffset: true,
-                polygonOffsetFactor: -40,
+                polygonOffsetFactor: -40
             });
 
             var renderer = app.editor.renderer;
@@ -237,7 +253,7 @@ class EditorToolbar extends React.Component {
 
             app.editor.execute(new AddObjectCommand(this.line));
         } else {
-            app.on(`intersect.EditorToolbarAddLine`, null);
+            app.on(`raycast.EditorToolbarAddLine`, null);
             app.on(`dblclick.EditorToolbarAddLine`, null);
 
             this.linePositions = null;
@@ -281,7 +297,7 @@ class EditorToolbar extends React.Component {
         this.setState({ isAddingPolygon });
 
         if (isAddingPolygon) {
-            app.on(`intersect.EditorToolbarAddPolygon`, this.onAddPolygonIntersect.bind(this));
+            app.on(`raycast.EditorToolbarAddPolygon`, this.onAddPolygonIntersect.bind(this));
             app.on(`dblclick.EditorToolbarAddPolygon`, this.onAddPolygonDblClick.bind(this));
 
             var geometry = new THREE.BufferGeometry();
@@ -298,7 +314,7 @@ class EditorToolbar extends React.Component {
                 color: 0xffffff * Math.random(),
                 polygonOffset: true,
                 polygonOffsetFactor: -40,
-                side: THREE.DoubleSide,
+                side: THREE.DoubleSide
             });
 
             this.polygon = new THREE.Mesh(geometry, material);
@@ -310,7 +326,7 @@ class EditorToolbar extends React.Component {
 
             this.polygonPoints = [];
         } else {
-            app.on(`intersect.EditorToolbarAddPolygon`, null);
+            app.on(`raycast.EditorToolbarAddPolygon`, null);
             app.on(`dblclick.EditorToolbarAddPolygon`, null);
 
             this.polygon = null;
@@ -336,7 +352,7 @@ class EditorToolbar extends React.Component {
             index,
             obj.point.x,
             obj.point.y,
-            obj.point.z,
+            obj.point.z
         );
 
         normal.setXYZ(index, obj.face.normal.x, obj.face.normal.y, obj.face.normal.z);
@@ -364,9 +380,9 @@ class EditorToolbar extends React.Component {
         this.setState({ isSpraying });
 
         if (isSpraying) {
-            app.on(`intersect.EditorToolbarSpray`, this.onSprayIntersect.bind(this));
+            app.on(`raycast.EditorToolbarSpray`, this.onSprayIntersect.bind(this));
         } else {
-            app.on(`intersect.EditorToolbarSpray`, null);
+            app.on(`raycast.EditorToolbarSpray`, null);
         }
     }
 
@@ -429,12 +445,12 @@ class EditorToolbar extends React.Component {
     // ------------------------------- 挖坑工具 -------------------------------------
 
     handleDig() {
-        this.setState({ isDigging: true, });
+        this.setState({ isDigging: true });
 
         if (this.digTool === undefined) {
             this.digTool = new DigTool(app);
             this.digTool.on(`end.EditorToolbar`, () => {
-                this.setState({ isDigging: false, });
+                this.setState({ isDigging: false });
             });
         }
 
@@ -446,28 +462,28 @@ class EditorToolbar extends React.Component {
     handlePerspective() {
         app.call(`changeView`, this, 'perspective');
         this.setState({
-            view: 'perspective',
+            view: 'perspective'
         });
     }
 
     handleFrontView() {
         app.call(`changeView`, this, 'front');
         this.setState({
-            view: 'front',
+            view: 'front'
         });
     }
 
     handleSideView() {
         app.call(`changeView`, this, 'side');
         this.setState({
-            view: 'side',
+            view: 'side'
         });
     }
 
     handleTopView() {
         app.call(`changeView`, this, 'top');
         this.setState({
-            view: 'top',
+            view: 'top'
         });
     }
 
@@ -483,7 +499,7 @@ class EditorToolbar extends React.Component {
         }
 
         this.setState({
-            isGridMode,
+            isGridMode
         });
     }
 }

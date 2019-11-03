@@ -1,10 +1,9 @@
 import BaseEvent from './BaseEvent';
-import EffectRenderer from '../render/EffectRenderer';
 
 /**
  * 光线投射事件
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
+ * @param {*} app 应用程序
  */
 function RaycastEvent(app) {
     BaseEvent.call(this, app);
@@ -52,10 +51,11 @@ RaycastEvent.prototype.onMouseUp = function (event) {
 
     this.raycaster.setFromCamera(this.mouse, app.editor.camera);
 
-    var intersects = this.raycaster.intersectObjects(app.editor.scene.children, false);
+    var intersects = this.raycaster.intersectObjects(app.editor.scene.children, true);
 
     if (intersects.length > 0) {
-        app.call('raycast', this, intersects[0], intersects);
+        app.call('raycast', this, intersects[0], event, intersects);
+        app.editor.select(intersects[0].object);
     }
 };
 

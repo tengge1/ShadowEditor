@@ -145,10 +145,6 @@ class Editor extends React.Component {
         // 编辑器控件
         this.controls = new EditorControls(this.camera, app.viewport);
 
-        // 碰撞检测
-        this.raycaster = new THREE.Raycaster();
-        this.mouse = new THREE.Vector2();
-
         // 帮助器场景灯光
         var light = new THREE.DirectionalLight(0xffffff, 1.0);
         light.position.z = 10;
@@ -162,10 +158,6 @@ class Editor extends React.Component {
 
         // 事件
         app.on(`appStarted.Editor`, this.onAppStarted.bind(this));
-
-        app.on(`mousedown.Editor`, this.onMouseDown.bind(this));
-        app.on(`mousemove.Editor`, this.onMouseMove.bind(this));
-
         app.on(`showMask.Editor`, this.onShowMask.bind(this));
 
         // 帮助器
@@ -484,22 +476,6 @@ class Editor extends React.Component {
 
     redo() { // 重做事件
         this.history.redo();
-    }
-
-    // ---------------------- 碰撞检测 -----------------------------
-
-    onMouseDown(event) {
-        this.raycaster.setFromCamera(this.mouse, this.camera);
-        var intersect = this.raycaster.intersectObjects(this.scene.children, true)[0];
-
-        if (intersect) {
-            app.call(`intersect`, this, intersect, event);
-        }
-    }
-
-    onMouseMove(event) {
-        this.mouse.x = event.offsetX / this.renderer.domElement.clientWidth * 2 - 1;
-        this.mouse.y = -(event.offsetY / this.renderer.domElement.clientHeight) * 2 + 1;
     }
 
     // ---------------------- 用户界面 --------------------------------

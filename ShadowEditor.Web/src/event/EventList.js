@@ -42,7 +42,6 @@ var EventList = [
     'clear', // 清空场景
     'load', // 加载场景
     'log', // 日志事件
-    'intersect', // 碰撞事件
 
     'editScript', // 编辑脚本事件 uuid, name, type, source
     'editorCleared', // 编辑器已经清空事件
@@ -101,7 +100,7 @@ var EventList = [
     'selectParticle', // 选择粒子
 
     // 状态栏事件
-    'enableThrowBall', // 是否允许扔小球
+    'enableThrowBall' // 是否允许扔小球
 ];
 
 export default EventList;
