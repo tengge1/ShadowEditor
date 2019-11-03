@@ -126,7 +126,7 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
                     value: new THREE.Vector2(1 / width, 1 / height)
                 }
             },
-            blending: THREE.NoBlending,
+            blending: THREE.AdditiveBlending,
             depthTest: false
         });
     }
