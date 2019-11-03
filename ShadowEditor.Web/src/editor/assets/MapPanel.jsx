@@ -15,7 +15,7 @@ class MapPanel extends React.Component {
             data: [],
             categoryData: [],
             name: '',
-            categories: [],
+            categories: []
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -54,37 +54,48 @@ class MapPanel extends React.Component {
                 id: n.ID,
                 src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
                 title: n.Name,
-                icon: 'scenes',
+                icon: 'scenes'
             });
         });
 
-        return <div className={classNames('MapPanel', className)} style={style}>
+        return <div className={classNames('MapPanel', className)}
+            style={style}
+               >
             <div className="toolbar">
                 <IconMenuButton
                     className={'add'}
-                    icon={'add'}>
+                    icon={'add'}
+                >
                     <ContextMenu>
-                        <MenuItem title={_t('Upload Image')} onClick={this.handleAddImage}></MenuItem>
-                        <MenuItem title={_t('Upload Sky Box')} onClick={this.handleAddSkyBox}></MenuItem>
-                        <MenuItem title={_t('Upload Video')} onClick={this.handleAddVideo}></MenuItem>
+                        <MenuItem title={_t('Upload Image')}
+                            onClick={this.handleAddImage}
+                        />
+                        <MenuItem title={_t('Upload Sky Box')}
+                            onClick={this.handleAddSkyBox}
+                        />
+                        <MenuItem title={_t('Upload Video')}
+                            onClick={this.handleAddVideo}
+                        />
                     </ContextMenu>
                 </IconMenuButton>
                 <SearchField
                     className={'search'}
                     data={categoryData}
                     placeholder={_t('Search Content')}
-                    showFilterButton={true}
-                    onInput={this.handleSearch.bind(this)}></SearchField>
+                    showFilterButton
+                    onInput={this.handleSearch.bind(this)}
+                />
             </div>
             <ImageList
                 data={imageListData}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
-                onDelete={this.handleDelete}></ImageList>
+                onDelete={this.handleDelete}
+            />
         </div>;
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         if (this.init === undefined && this.props.show === true) {
             this.init = true;
             this.update();
@@ -94,24 +105,32 @@ class MapPanel extends React.Component {
     update() {
         fetch(`${app.options.server}/api/Category/List?type=Map`).then(response => {
             response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
-                    categoryData: obj.Data,
+                    categoryData: obj.Data
                 });
             });
         });
         fetch(`${app.options.server}/api/Map/List`).then(response => {
             response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
-                    data: obj.Data,
+                    data: obj.Data
                 });
             });
         });
     }
 
-    handleSearch(name, categories, event) {
+    handleSearch(name, categories) {
         this.setState({
             name,
-            categories,
+            categories
         });
     }
 
@@ -134,7 +153,7 @@ class MapPanel extends React.Component {
 
     handleAddSkyBox() {
         const win = app.createElement(AddSkyBoxWindow, {
-            callback: this.update,
+            callback: this.update
         });
 
         app.addElement(win);
@@ -159,7 +178,7 @@ class MapPanel extends React.Component {
             typeName: _t('Map'),
             data,
             saveUrl: `${app.options.server}/api/Map/Edit`,
-            callback: this.update,
+            callback: this.update
         });
 
         app.addElement(win);
@@ -173,7 +192,7 @@ class MapPanel extends React.Component {
             content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
                 fetch(`${app.options.server}/api/Map/Delete?ID=${data.id}`, {
-                    method: 'POST',
+                    method: 'POST'
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code === 200) {
@@ -190,13 +209,13 @@ class MapPanel extends React.Component {
 MapPanel.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    show: PropTypes.bool,
+    show: PropTypes.bool
 };
 
 MapPanel.defaultProps = {
     className: null,
     style: null,
-    show: false,
+    show: false
 };
 
 export default MapPanel;

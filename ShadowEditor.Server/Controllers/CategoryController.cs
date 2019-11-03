@@ -26,7 +26,6 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="type">类型</param>
         /// <returns></returns>
         [HttpGet]
-        [Authority(OperatingAuthority.LIST_CATEGORY)]
         public JsonResult List(CategoryType? type = null)
         {
             var mongo = new MongoHelper();

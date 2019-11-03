@@ -75,7 +75,7 @@ class AnimationPanel extends React.Component {
         </div>;
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         if (this.init === undefined && this.props.show === true) {
             this.init = true;
             this.update();
@@ -85,6 +85,10 @@ class AnimationPanel extends React.Component {
     update() {
         fetch(`${app.options.server}/api/Category/List?type=Animation`).then(response => {
             response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
                     categoryData: obj.Data
                 });
@@ -92,6 +96,10 @@ class AnimationPanel extends React.Component {
         });
         fetch(`${app.options.server}/api/Animation/List`).then(response => {
             response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
                     data: obj.Data
                 });
@@ -99,7 +107,7 @@ class AnimationPanel extends React.Component {
         });
     }
 
-    handleSearch(name, categories, event) {
+    handleSearch(name, categories) {
         this.setState({
             name,
             categories
@@ -146,10 +154,11 @@ class AnimationPanel extends React.Component {
                     method: 'POST'
                 }).then(response => {
                     response.json().then(obj => {
-                        if (obj.Code === 200) {
-                            this.update();
+                        if (obj.Code !== 200) {
+                            app.toast(_t(obj.Msg));
+                            return;
                         }
-                        app.toast(_t(obj.Msg));
+                        this.update();
                     });
                 });
             }

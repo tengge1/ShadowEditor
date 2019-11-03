@@ -147,8 +147,12 @@ class AssetsPanel extends React.Component {
     update() {
         fetch(`${app.options.server}/api/Assets/List`).then(response => {
             if (response.ok) {
-                response.json().then(json => {
-                    this.setState(json);
+                response.json().then(obj => {
+                    if (obj.Code !== 200) {
+                        app.toast(_t(obj.Msg));
+                        return;
+                    }
+                    this.setState(obj);
                 });
             }
         });

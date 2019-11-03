@@ -18,7 +18,7 @@ class MaterialPanel extends React.Component {
             data: [],
             categoryData: [],
             name: '',
-            categories: [],
+            categories: []
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -54,25 +54,29 @@ class MaterialPanel extends React.Component {
                 src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
                 title: n.Name,
                 icon: 'model',
-                cornerText: n.Type,
+                cornerText: n.Type
             });
         });
 
-        return <div className={classNames('MaterialPanel', className)} style={style}>
+        return <div className={classNames('MaterialPanel', className)}
+            style={style}
+               >
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
-                showFilterButton={true}
-                onInput={this.handleSearch.bind(this)}></SearchField>
+                showFilterButton
+                onInput={this.handleSearch.bind(this)}
+            />
             <ImageList
                 data={imageListData}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
-                onDelete={this.handleDelete}></ImageList>
+                onDelete={this.handleDelete}
+            />
         </div>;
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         if (this.init === undefined && this.props.show === true) {
             this.init = true;
             this.update();
@@ -82,24 +86,32 @@ class MaterialPanel extends React.Component {
     update() {
         fetch(`${app.options.server}/api/Category/List?type=Material`).then(response => {
             response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
-                    categoryData: obj.Data,
+                    categoryData: obj.Data
                 });
             });
         });
         fetch(`${app.options.server}/api/Material/List`).then(response => {
             response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
-                    data: obj.Data,
+                    data: obj.Data
                 });
             });
         });
     }
 
-    handleSearch(name, categories, event) {
+    handleSearch(name, categories) {
         this.setState({
             name,
-            categories,
+            categories
         });
     }
 
@@ -107,7 +119,7 @@ class MaterialPanel extends React.Component {
         Ajax.get(`${app.options.server}/api/Material/Get?ID=${data.ID}`, result => {
             var obj = JSON.parse(result);
             if (obj.Code === 200) {
-                var material = (new MaterialsSerializer()).fromJSON(obj.Data.Data);
+                var material = new MaterialsSerializer().fromJSON(obj.Data.Data);
                 app.call(`selectMaterial`, this, material);
             }
         });
@@ -121,7 +133,7 @@ class MaterialPanel extends React.Component {
             typeName: _t('Material'),
             data,
             saveUrl: `${app.options.server}/api/Material/Edit`,
-            callback: this.update,
+            callback: this.update
         });
 
         app.addElement(win);
@@ -135,13 +147,14 @@ class MaterialPanel extends React.Component {
             content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
                 fetch(`${app.options.server}/api/Material/Delete?ID=${data.id}`, {
-                    method: 'POST',
+                    method: 'POST'
                 }).then(response => {
                     response.json().then(obj => {
-                        if (obj.Code === 200) {
-                            this.update();
+                        if (obj.Code !== 200) {
+                            app.toast(_t(obj.Msg));
+                            return;
                         }
-                        app.toast(_t(obj.Msg));
+                        this.update();
                     });
                 });
             }
@@ -152,13 +165,13 @@ class MaterialPanel extends React.Component {
 MaterialPanel.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    show: PropTypes.bool,
+    show: PropTypes.bool
 };
 
 MaterialPanel.defaultProps = {
     className: null,
     style: null,
-    show: false,
+    show: false
 };
 
 export default MaterialPanel;

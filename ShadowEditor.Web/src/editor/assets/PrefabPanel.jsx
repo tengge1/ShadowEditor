@@ -17,7 +17,7 @@ class PrefabPanel extends React.Component {
             data: [],
             categoryData: [],
             name: '',
-            categories: [],
+            categories: []
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -53,25 +53,29 @@ class PrefabPanel extends React.Component {
                 src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
                 title: n.Name,
                 icon: 'model',
-                cornerText: n.Type,
+                cornerText: n.Type
             });
         });
 
-        return <div className={classNames('PrefabPanel', className)} style={style}>
+        return <div className={classNames('PrefabPanel', className)}
+            style={style}
+               >
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
-                showFilterButton={true}
-                onInput={this.handleSearch.bind(this)}></SearchField>
+                showFilterButton
+                onInput={this.handleSearch.bind(this)}
+            />
             <ImageList
                 data={imageListData}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
-                onDelete={this.handleDelete}></ImageList>
+                onDelete={this.handleDelete}
+            />
         </div>;
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         if (this.init === undefined && this.props.show === true) {
             this.init = true;
             this.update();
@@ -81,15 +85,23 @@ class PrefabPanel extends React.Component {
     update() {
         fetch(`${app.options.server}/api/Category/List?type=Prefab`).then(response => {
             response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
-                    categoryData: obj.Data,
+                    categoryData: obj.Data
                 });
             });
         });
         fetch(`${app.options.server}/api/Prefab/List`).then(response => {
             response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
-                    data: obj.Data,
+                    data: obj.Data
                 });
             });
         });
@@ -98,7 +110,7 @@ class PrefabPanel extends React.Component {
     handleSearch(name, categories, event) {
         this.setState({
             name,
-            categories,
+            categories
         });
     }
 
@@ -120,7 +132,7 @@ class PrefabPanel extends React.Component {
             typeName: _t('Prefab'),
             data,
             saveUrl: `${app.options.server}/api/Prefab/Edit`,
-            callback: this.update,
+            callback: this.update
         });
 
         app.addElement(win);
@@ -134,13 +146,14 @@ class PrefabPanel extends React.Component {
             content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
                 fetch(`${app.options.server}/api/Prefab/Delete?ID=${data.id}`, {
-                    method: 'POST',
+                    method: 'POST'
                 }).then(response => {
                     response.json().then(obj => {
-                        if (obj.Code === 200) {
-                            this.update();
+                        if (obj.Code !== 200) {
+                            app.toast(_t(obj.Msg));
+                            return;
                         }
-                        app.toast(_t(obj.Msg));
+                        this.update();
                     });
                 });
             }
@@ -151,13 +164,13 @@ class PrefabPanel extends React.Component {
 PrefabPanel.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    show: PropTypes.bool,
+    show: PropTypes.bool
 };
 
 PrefabPanel.defaultProps = {
     className: null,
     style: null,
-    show: false,
+    show: false
 };
 
 export default PrefabPanel;

@@ -16,7 +16,7 @@ class ModelPanel extends React.Component {
             data: [],
             categoryData: [],
             name: '',
-            categories: [],
+            categories: []
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -54,27 +54,31 @@ class ModelPanel extends React.Component {
                 src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
                 title: n.Name,
                 icon: 'model',
-                cornerText: n.Type,
+                cornerText: n.Type
             });
         });
 
-        return <div className={classNames('ModelPanel', className)} style={style}>
+        return <div className={classNames('ModelPanel', className)}
+            style={style}
+               >
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
-                showAddButton={true}
-                showFilterButton={true}
+                showAddButton
+                showFilterButton
                 onAdd={this.handleAdd}
-                onInput={this.handleSearch.bind(this)}></SearchField>
+                onInput={this.handleSearch.bind(this)}
+            />
             <ImageList
                 data={imageListData}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
-                onDelete={this.handleDelete}></ImageList>
+                onDelete={this.handleDelete}
+            />
         </div>;
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         if (this.init === undefined && this.props.show === true) {
             this.init = true;
             this.update();
@@ -84,24 +88,32 @@ class ModelPanel extends React.Component {
     update() {
         fetch(`${app.options.server}/api/Category/List?type=Mesh`).then(response => {
             response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
-                    categoryData: obj.Data,
+                    categoryData: obj.Data
                 });
             });
         });
         fetch(`${app.options.server}/api/Mesh/List`).then(response => {
             response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
-                    data: obj.Data,
+                    data: obj.Data
                 });
             });
         });
     }
 
-    handleSearch(name, categories, event) {
+    handleSearch(name, categories) {
         this.setState({
             name,
-            categories,
+            categories
         });
     }
 
@@ -120,7 +132,7 @@ class ModelPanel extends React.Component {
             camera: app.editor.camera,
             renderer: app.editor.renderer,
             audioListener: app.editor.audioListener,
-            clearChildren: true,
+            clearChildren: true
         }).then(obj => {
             if (!obj) {
                 return;
@@ -162,7 +174,7 @@ class ModelPanel extends React.Component {
             typeName: _t('Model'),
             data,
             saveUrl: `${app.options.server}/api/Mesh/Edit`,
-            callback: this.update,
+            callback: this.update
         });
 
         app.addElement(win);
@@ -176,13 +188,14 @@ class ModelPanel extends React.Component {
             content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
                 fetch(`${app.options.server}/api/Mesh/Delete?ID=${data.id}`, {
-                    method: 'POST',
+                    method: 'POST'
                 }).then(response => {
                     response.json().then(obj => {
-                        if (obj.Code === 200) {
-                            this.update();
+                        if (obj.Code !== 200) {
+                            app.toast(_t(obj.Msg));
+                            return;
                         }
-                        app.toast(_t(obj.Msg));
+                        this.update();
                     });
                 });
             }
@@ -193,13 +206,13 @@ class ModelPanel extends React.Component {
 ModelPanel.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    show: PropTypes.bool,
+    show: PropTypes.bool
 };
 
 ModelPanel.defaultProps = {
     className: null,
     style: null,
-    show: false,
+    show: false
 };
 
 export default ModelPanel;

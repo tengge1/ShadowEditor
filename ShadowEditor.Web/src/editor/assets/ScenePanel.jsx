@@ -84,20 +84,24 @@ class ScenePanel extends React.Component {
     update() {
         fetch(`${app.options.server}/api/Category/List?type=Scene`).then(response => {
             response.json().then(obj => {
-                if (obj.Code === 200) {
-                    this.setState({
-                        categoryData: obj.Data
-                    });
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
                 }
+                this.setState({
+                    categoryData: obj.Data
+                });
             });
         });
         fetch(`${app.options.server}/api/Scene/List`).then(response => {
             response.json().then(obj => {
-                if(obj.Code === 200) {
-                    this.setState({
-                        data: obj.Data
-                    });
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
                 }
+                this.setState({
+                    data: obj.Data
+                });
             });
         });
     }
@@ -124,6 +128,11 @@ class ScenePanel extends React.Component {
 
         fetch(url).then(response => {
             response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
+
                 editor.clear(false);
 
                 new Converter().fromJson(obj.Data, {
@@ -269,10 +278,11 @@ class ScenePanel extends React.Component {
                     method: 'POST'
                 }).then(response => {
                     response.json().then(obj => {
-                        if (obj.Code === 200) {
-                            this.update();
+                        if (obj.Code !== 200) {
+                            app.toast(_t(obj.Msg));
+                            return;
                         }
-                        app.toast(_t(obj.Msg));
+                        this.update();
                     });
                 });
             }

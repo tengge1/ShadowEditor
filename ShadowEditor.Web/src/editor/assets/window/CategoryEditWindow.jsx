@@ -10,7 +10,7 @@ class CategoryEditWindow extends React.Component {
         super(props);
 
         this.state = {
-            name: props.name,
+            name: props.name
         };
 
         this.handleOK = this.handleOK.bind(this, props.callback);
@@ -25,14 +25,17 @@ class CategoryEditWindow extends React.Component {
         return <Window
             className={'CategoryEditWindow'}
             title={id ? `${typeName} ${_t('Category Edit')}` : `${typeName} ${_t('Category Add')}`}
-            style={{ width: '380px', height: '200px', }}
+            style={{ width: '380px', height: '200px' }}
             mask={false}
-            onClose={this.handleCancel}>
+            onClose={this.handleCancel}
+               >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Name')}</Label>
-                        <Input value={name} onChange={this.handleNameChange}></Input>
+                        <Input value={name}
+                            onChange={this.handleNameChange}
+                        />
                     </FormControl>
                 </Form>
             </Content>
@@ -45,7 +48,7 @@ class CategoryEditWindow extends React.Component {
 
     handleNameChange(value) {
         this.setState({
-            name: value,
+            name: value
         });
     }
 
@@ -62,17 +65,17 @@ class CategoryEditWindow extends React.Component {
         fetch(`${app.options.server}/api/Category/Save`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body,
+            body
         }).then(response => {
-            response.json().then(json => {
-                if (json.Code === 200) {
-                    this.handleCancel();
-                    callback && callback();
-                } else {
-                    app.toast(_t(json.Msg));
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
                 }
+                this.handleCancel();
+                callback && callback();
             });
         });
     }
@@ -87,7 +90,7 @@ CategoryEditWindow.propTypes = {
     typeName: PropTypes.string,
     id: PropTypes.string,
     name: PropTypes.string,
-    callback: PropTypes.func,
+    callback: PropTypes.func
 };
 
 CategoryEditWindow.defaultProps = {
@@ -95,7 +98,7 @@ CategoryEditWindow.defaultProps = {
     typeName: 'Scene',
     id: null,
     name: '',
-    callback: null,
+    callback: null
 };
 
 export default CategoryEditWindow;

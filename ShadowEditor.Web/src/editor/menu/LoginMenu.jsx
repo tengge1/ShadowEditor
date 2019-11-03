@@ -94,13 +94,17 @@ class LoginMenu extends React.Component {
         fetch(`/api/Login/Logout`, {
             method: 'POST'
         }).then(response => {
-            response.json().then(json => {
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 app.config.isLogin = false;
                 app.config.username = '';
                 app.config.name = '';
                 app.call('logout', this);
                 window.location.reload();
-                app.toast(_t(json.Msg));
+                app.toast(_t(obj.Msg));
             });
         });
     }

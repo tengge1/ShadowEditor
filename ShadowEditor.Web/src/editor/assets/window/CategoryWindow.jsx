@@ -13,7 +13,7 @@ class CategoryWindow extends React.Component {
 
         this.state = {
             data: [],
-            selected: null,
+            selected: null
         };
 
         this.updateUI = this.updateUI.bind(this);
@@ -31,9 +31,10 @@ class CategoryWindow extends React.Component {
         return <Window
             className={'CategoryWindow'}
             title={`${typeName} ${_t('Category Edit')}`}
-            style={{ width: '280px', height: '400px', }}
+            style={{ width: '280px', height: '400px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <VBoxLayout className={'box'}>
                     <Toolbar className={'toolbar'}>
@@ -41,9 +42,17 @@ class CategoryWindow extends React.Component {
                         <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
                         <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
                     </Toolbar>
-                    <DataGrid className={'list'} data={data} selected={selected ? selected.ID : null} onSelect={this.handleSelect}>
-                        <Column type={'number'} title={_t('#')}></Column>
-                        <Column field={'Name'} title={_t('Name')}></Column>
+                    <DataGrid className={'list'}
+                        data={data}
+                        selected={selected ? selected.ID : null}
+                        onSelect={this.handleSelect}
+                    >
+                        <Column type={'number'}
+                            title={_t('#')}
+                        />
+                        <Column field={'Name'}
+                            title={_t('Name')}
+                        />
                     </DataGrid>
                 </VBoxLayout>
             </Content>
@@ -64,9 +73,9 @@ class CategoryWindow extends React.Component {
                     return {
                         id: n.ID,
                         ID: n.ID,
-                        Name: n.Name,
+                        Name: n.Name
                     };
-                }),
+                })
             });
         });
     }
@@ -79,7 +88,7 @@ class CategoryWindow extends React.Component {
             typeName,
             id: null,
             name: '',
-            callback: this.updateUI,
+            callback: this.updateUI
         });
 
         app.addElement(window);
@@ -99,7 +108,7 @@ class CategoryWindow extends React.Component {
             typeName,
             id: selected.ID,
             name: selected.Name,
-            callback: this.updateUI,
+            callback: this.updateUI
         });
 
         app.addElement(window);
@@ -120,15 +129,15 @@ class CategoryWindow extends React.Component {
                 fetch(`${app.options.server}/api/Category/Delete?ID=${selected.ID}`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
                 }).then(response => {
-                    response.json().then(json => {
-                        if (json.Code === 200) {
-                            this.updateUI();
-                        } else {
-                            app.toast(_t(json.Msg));
+                    response.json().then(obj => {
+                        if (obj.Code !== 200) {
+                            app.toast(_t(obj.Msg));
+                            return;
                         }
+                        this.updateUI();
                     });
                 });
             }
@@ -137,7 +146,7 @@ class CategoryWindow extends React.Component {
 
     handleSelect(obj) {
         this.setState({
-            selected: obj,
+            selected: obj
         });
     }
 
@@ -149,13 +158,13 @@ class CategoryWindow extends React.Component {
 CategoryWindow.propTypes = {
     type: PropTypes.oneOf(['Scene', 'Mesh', 'Map', 'Texture', 'Material', 'Audio', 'Particle', 'Screenshot', 'Video']),
     typeName: PropTypes.string,
-    callback: PropTypes.func,
+    callback: PropTypes.func
 };
 
 CategoryWindow.defaultProps = {
     type: 'Scene',
     typeName: 'Scene',
-    callback: null,
+    callback: null
 };
 
 export default CategoryWindow;
