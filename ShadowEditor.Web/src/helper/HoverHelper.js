@@ -13,6 +13,9 @@ HoverHelper.prototype = Object.create(BaseHelper.prototype);
 HoverHelper.prototype.constructor = HoverHelper;
 
 HoverHelper.prototype.start = function () {
+    this.time = 0;
+    this.offsetX = 0;
+    this.offsetY = 0;
     this.mouse = new THREE.Vector2();
     this.raycaster = new THREE.Raycaster();
     this.object = null;
@@ -33,6 +36,19 @@ HoverHelper.prototype.stop = function () {
 };
 
 HoverHelper.prototype.onMouseMove = function (event) {
+    this.offsetX = event.offsetX;
+    this.offsetY = event.offsetY;
+
+    // 每隔100毫秒检测一次，提升性能。
+    const time = new Date().getTime();
+    if (time - this.time < 100) {
+        return;
+    }
+    this.time = time;
+    this.raycast();
+};
+
+HoverHelper.prototype.raycast = function () {
     const { scene, camera, renderer } = app.editor;
 
     this.mouse.x = event.offsetX / renderer.domElement.clientWidth * 2 - 1;
