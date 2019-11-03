@@ -110,7 +110,8 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
                 thickness: {
                     type: 'f',
                     value: app.options.selectedThickness
-                }
+                },
+                transparent: true
             },
             depthTest: false
         });

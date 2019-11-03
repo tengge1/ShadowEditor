@@ -13,7 +13,7 @@ function EffectRenderer() {
     this.ready = false;
 
     this.effectNames = ['fxaa', 'smaa', 'ssaa', 'taa', 'sao', 'ssao', 'pixel', 'dotScreen', 'rgbShift', 'afterimage', 'halftone', 'bokeh', 'glitch'];
-};
+}
 
 EffectRenderer.prototype = Object.create(BaseRenderer.prototype);
 EffectRenderer.prototype.constructor = EffectRenderer;
@@ -251,7 +251,7 @@ EffectRenderer.prototype._createPostProcessing = function (scenes, camera, rende
                 scatter: postProcessing.halftone.scatter,
                 blending: postProcessing.halftone.blending,
                 blendingMode: postProcessing.halftone.blendingMode,
-                greyscale: postProcessing.halftone.greyscale,
+                greyscale: postProcessing.halftone.greyscale
             });
         composer.addPass(effect);
         effects.push(effect);

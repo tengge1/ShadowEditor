@@ -32,7 +32,7 @@ function Options(options = {}) {
     this.sepia = 0;
 
     // 选中效果
-    this.selectedColor = '#ffffff';
+    this.selectedColor = '#ff6600'; // unity3d: #ff6600
     this.selectedThickness = 4;
 }
 
