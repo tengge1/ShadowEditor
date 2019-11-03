@@ -206,8 +206,12 @@ class EditorStatusBar extends React.Component {
             method: 'POST',
             body: form
         }).then(response => {
-            response.json().then(json => {
-                app.toast(_t(json.Msg));
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
+                app.toast(_t(obj.Msg));
             });
         });
     }

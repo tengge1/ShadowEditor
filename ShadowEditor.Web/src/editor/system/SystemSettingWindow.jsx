@@ -50,17 +50,25 @@ class SystemSettingWindow extends React.Component {
 
     componentDidMount() {
         fetch(`/api/Config/Get`).then(response => {
-            response.json().then(json => {
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
-                    registerRole: json.Data.DefaultRegisterRole
+                    registerRole: obj.Data.DefaultRegisterRole
                 });
             });
         });
 
         fetch(`/api/Role/List?pageSize=10000`).then(response => {
-            response.json().then(json => {
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 let roles = {};
-                json.Data.rows.forEach(n => {
+                obj.Data.rows.forEach(n => {
                     roles[n.ID] = this.renderRoleName(n.Name);
                 });
                 this.setState({
@@ -86,8 +94,12 @@ class SystemSettingWindow extends React.Component {
             },
             body: `DefaultRegisterRole=${registerRole}`
         }).then(response => {
-            response.json().then(json => {
-                app.toast(_t(json.Msg));
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
+                app.toast(_t(obj.Msg));
                 this.handleClose();
             });
         });

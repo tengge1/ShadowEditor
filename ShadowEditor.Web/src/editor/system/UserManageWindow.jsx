@@ -135,13 +135,17 @@ class UserManageWindow extends React.Component {
             mask: true
         });
         fetch(`${app.options.server}/api/User/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
-            response.json().then(json => {
+            response.json().then(obj => {
                 app.unmask();
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
                     pageSize,
                     pageNum,
-                    total: json.Data.total,
-                    data: json.Data.rows,
+                    total: obj.Data.total,
+                    data: obj.Data.rows,
                     keyword: keyword,
                     mask: false
                 });
@@ -225,11 +229,13 @@ class UserManageWindow extends React.Component {
         fetch(`${app.options.server}/api/User/Delete?ID=${id}`, {
             method: 'POST'
         }).then(response => {
-            response.json().then(json => {
-                if (json.Code === 200) {
-                    this.handleRefresh();
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
                 }
-                app.toast(_t(json.Msg));
+                this.handleRefresh();
+                app.toast(_t(obj.Msg));
             });
         });
     }

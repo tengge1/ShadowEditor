@@ -39,7 +39,7 @@ class VideoRecorder {
 
     stop() {
         return new Promise(resolve => {
-            this.recorder.onstop = (e) => {
+            this.recorder.onstop = () => {
                 this.recorder.ondataavailable = null;
                 this.recorder.onstop = null;
 
@@ -52,13 +52,13 @@ class VideoRecorder {
                     method: 'POST',
                     body: form
                 }).then(response => {
-                    response.json().then(json => {
-                        app.toast(_t(json.Msg));
-
-                        if (json.Code === 200) {
-                            this.chunks.length = 0;
+                    response.json().then(obj => {
+                        if (obj.Code !== 200) {
+                            app.toast(_t(obj.Msg));
+                            return;
                         }
-
+                        app.toast(_t(obj.Msg));
+                        this.chunks.length = 0;
                         resolve(true);
                     });
                 });

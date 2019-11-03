@@ -88,8 +88,12 @@ class ResetPasswordWindow extends React.Component {
             },
             body: `UserID=${id}&NewPassword=${newPassword}&ConfirmPassword=${confirmPassword}`
         }).then(response => {
-            response.json().then(json => {
-                app.toast(_t(json.Msg));
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
+                app.toast(_t(obj.Msg));
                 this.handleClose();
             });
         });

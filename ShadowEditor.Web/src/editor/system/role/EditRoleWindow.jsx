@@ -10,7 +10,7 @@ class EditRoleWindow extends React.Component {
 
         this.state = {
             id: props.id,
-            name: props.name,
+            name: props.name
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -26,12 +26,16 @@ class EditRoleWindow extends React.Component {
             title={_t('Edit Role')}
             style={{ width: '320px', height: '200px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Name')}</Label>
-                        <Input name={'name'} value={name} onChange={this.handleChange}></Input>
+                        <Input name={'name'}
+                            value={name}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                 </Form>
             </Content>
@@ -44,7 +48,7 @@ class EditRoleWindow extends React.Component {
 
     handleChange(value, name) {
         this.setState({
-            [name]: value,
+            [name]: value
         });
     }
 
@@ -61,13 +65,13 @@ class EditRoleWindow extends React.Component {
         fetch(`${app.options.server}${url}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `ID=${id}&Name=${name}`,
+            body: `ID=${id}&Name=${name}`
         }).then(response => {
-            response.json().then(json => {
-                if (json.Code !== 200) {
-                    app.toast(_t(json.Msg));
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
                     return;
                 }
                 this.handleClose();
@@ -84,13 +88,13 @@ class EditRoleWindow extends React.Component {
 EditRoleWindow.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
-    callback: PropTypes.func,
+    callback: PropTypes.func
 };
 
 EditRoleWindow.defaultProps = {
     id: '',
     name: '',
-    callback: null,
+    callback: null
 };
 
 export default EditRoleWindow;

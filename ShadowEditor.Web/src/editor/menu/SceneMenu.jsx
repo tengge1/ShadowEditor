@@ -270,11 +270,11 @@ class SceneMenu extends React.Component {
                 }).then(response => {
                     if (response.ok) {
                         response.json().then(obj => {
+                            app.unmask();
                             if (obj.Code !== 200) {
                                 app.toast(_t(obj.Msg));
                                 return;
                             }
-                            app.unmask();
                             app.toast(_t(obj.Msg));
                             window.open(`${app.options.server}${obj.Url}`, 'export');
                         });

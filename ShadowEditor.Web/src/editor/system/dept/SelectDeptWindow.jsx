@@ -60,8 +60,12 @@ class SelectDeptWindow extends React.Component {
 
     handleRefresh() {
         fetch(`${app.options.server}/api/Department/List?pageSize=10000`).then(response => {
-            response.json().then(json => {
-                this.list = json.Data;
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
+                this.list = obj.Data;
                 this.refreshTree();
             });
         });

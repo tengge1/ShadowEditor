@@ -48,7 +48,10 @@ class AuthorityManagementWindow extends React.Component {
                         keyField={'ID'}
                     >
                         <Column type={'number'} />
-                        <Column field={'Name'} title={_t('Role')} renderer={this.renderRoleName} />
+                        <Column field={'Name'}
+                            title={_t('Role')}
+                            renderer={this.renderRoleName}
+                        />
                     </DataGrid>
                     <DataGrid
                         className={'authorities'}
@@ -58,8 +61,12 @@ class AuthorityManagementWindow extends React.Component {
                         onSelectAll={this.handleSelectAllAuthority}
                         keyField={'ID'}
                     >
-                        <Column type={'checkbox'} field={'Enabled'} />
-                        <Column field={'Name'} title={_t('Authority')} />
+                        <Column type={'checkbox'}
+                            field={'Enabled'}
+                        />
+                        <Column field={'Name'}
+                            title={_t('Authority')}
+                        />
                     </DataGrid>
                 </HBoxLayout>
             </Content>
@@ -68,9 +75,13 @@ class AuthorityManagementWindow extends React.Component {
 
     componentDidMount() {
         fetch(`${app.options.server}/api/Role/List?pageSize=10000`).then(response => {
-            response.json().then(json => {
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
-                    roles: json.Data.rows,
+                    roles: obj.Data.rows,
                     mask: false
                 });
             });
@@ -83,12 +94,16 @@ class AuthorityManagementWindow extends React.Component {
             mask: true
         });
         fetch(`${app.options.server}/api/OperatingAuthority/Get?roleID=${selected.ID}`).then(response => {
-            response.json().then(json => {
-                json.Data.rows.forEach(n => {
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
+                obj.Data.rows.forEach(n => {
                     n.Name = _t(n.Name);
                 });
                 this.setState({
-                    authorities: json.Data.rows,
+                    authorities: obj.Data.rows,
                     mask: false
                 });
             });
@@ -138,13 +153,15 @@ class AuthorityManagementWindow extends React.Component {
             },
             body
         }).then(response => {
-            response.json().then(json => {
-                app.toast(_t(json.Msg));
-                if (json.Code === 200) {
-                    this.handleSelectRole({
-                        ID: roleID
-                    });
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
                 }
+                app.toast(_t(obj.Msg));
+                this.handleSelectRole({
+                    ID: roleID
+                });
             });
         });
     }

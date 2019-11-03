@@ -14,12 +14,16 @@ class Config {
     load() {
         return new Promise(resolve => {
             fetch(`/api/Config/Get`).then(response => {
-                response.json().then(json => {
-                    this.enableAuthority = json.Data.EnableAuthority;
-                    this.initialized = json.Data.Initialized;
-                    this.isLogin = json.Data.IsLogin;
-                    this.username = json.Data.Username;
-                    this.name = json.Data.Name;
+                response.json().then(obj => {
+                    if (obj.Code !== 200) {
+                        app.toast(_t(obj.Msg));
+                        return;
+                    }
+                    this.enableAuthority = obj.Data.EnableAuthority;
+                    this.initialized = obj.Data.Initialized;
+                    this.isLogin = obj.Data.IsLogin;
+                    this.username = obj.Data.Username;
+                    this.name = obj.Data.Name;
                     resolve();
                 }).catch(e => {
                     console.warn(e);

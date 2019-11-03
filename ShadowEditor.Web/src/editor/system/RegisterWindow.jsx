@@ -96,12 +96,12 @@ class RegisterWindow extends React.Component {
             },
             body: `Username=${username}&Password=${password}&ConfirmPassword=${confirmPassword}&name=${name}`
         }).then(response => {
-            response.json().then(json => {
-                if (json.Code !== 200) {
-                    app.toast(_t(json.Msg));
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
                     return;
                 }
-                app.toast(_t(json.Msg));
+                app.toast(_t(obj.Msg));
                 this.handleClose();
             });
         });

@@ -99,11 +99,15 @@ class EditUserWindow extends React.Component {
 
     componentDidMount() {
         fetch(`${app.options.server}/api/Role/List?pageSize=10000`).then(response => {
-            response.json().then(json => {
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 const roles = {
                     '': _t('Please Select')
                 };
-                json.Data.rows.forEach(n => {
+                obj.Data.rows.forEach(n => {
                     roles[n.ID] = this.renderRoleName(n.Name);
                 });
                 this.setState({

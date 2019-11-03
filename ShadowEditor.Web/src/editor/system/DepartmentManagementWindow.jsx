@@ -107,8 +107,12 @@ class DepartmentManagementWindow extends React.Component {
 
     handleRefresh() {
         fetch(`${app.options.server}/api/Department/List?pageSize=10000`).then(response => {
-            response.json().then(json => {
-                this.list = json.Data;
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
+                this.list = obj.Data;
                 this.refreshTree();
             });
         });
@@ -183,12 +187,12 @@ class DepartmentManagementWindow extends React.Component {
         fetch(`${app.options.server}/api/Department/Delete?ID=${id}`, {
             method: 'POST'
         }).then(response => {
-            response.json().then(json => {
-                if (json.Code !== 200) {
-                    app.toast(_t(json.Msg));
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
                     return;
                 }
-                this.handleRefresh(json.Data);
+                this.handleRefresh(obj.Data);
             });
         });
     }
@@ -253,11 +257,13 @@ class DepartmentManagementWindow extends React.Component {
             },
             body: `ID=${selected}&ParentID=${item.ParentID}&Name=${deptName}&AdminID=${adminID}`
         }).then(response => {
-            response.json().then(json => {
-                app.toast(_t(json.Msg));
-                if (json.Code === 200) {
-                    this.handleRefresh();
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
                 }
+                app.toast(_t(obj.Msg));
+                this.handleRefresh();
             });
         });
     }

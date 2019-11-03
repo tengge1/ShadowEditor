@@ -74,14 +74,14 @@ class SystemMenu extends React.Component {
         fetch(`${app.options.server}/api/Initialize/Initialize`, {
             method: 'POST'
         }).then(response => {
-            response.json().then(json => {
-                if (json.Code !== 200) {
-                    app.toast(json.Msg);
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
                     return;
                 }
                 app.confirm({
                     title: _t('Message'),
-                    content: _t(json.Msg) + ' ' + _t('Press OK To refresh.'),
+                    content: _t(obj.Msg) + ' ' + _t('Press OK To refresh.'),
                     onOK: () => {
                         window.location.reload();
                     }
@@ -127,14 +127,14 @@ class SystemMenu extends React.Component {
         fetch(`${app.options.server}/api/Initialize/Reset`, {
             method: 'POST'
         }).then(response => {
-            response.json().then(json => {
-                if (json.Code !== 200) {
-                    app.toast(json.Msg);
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
                     return;
                 }
                 app.confirm({
                     title: _t('Message'),
-                    content: _t(json.Msg) + ' ' + _t('Press OK To refresh.'),
+                    content: _t(obj.Msg) + ' ' + _t('Press OK To refresh.'),
                     onOK: () => {
                         window.location.reload();
                     }

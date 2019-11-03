@@ -55,7 +55,9 @@ class RoleManageWindow extends React.Component {
                     <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
                     <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
                     <ToolbarFiller />
-                    <SearchField placeholder={_t('Search Content')} onInput={this.handleSearch} />
+                    <SearchField placeholder={_t('Search Content')}
+                        onInput={this.handleSearch}
+                    />
                 </Toolbar>
                 <DataGrid data={data}
                     pages
@@ -73,11 +75,31 @@ class RoleManageWindow extends React.Component {
                     onRefresh={this.handleRefresh}
                     keyField={'ID'}
                 >
-                    <Column type={'number'} title={'#'} />
-                    <Column field={'Name'} title={_t('Name')} renderer={this.renderName} />
-                    <Column field={'UpdateTime'} title={_t('Update Date')} width={120} align={'center'} renderer={this.renderDate} />
-                    <Column field={'CreateTime'} title={_t('Create Date')} width={120} align={'center'} renderer={this.renderDate} />
-                    <Column field={'Status'} title={_t('Status')} width={100} align={'center'} renderer={this.renderStatus} />
+                    <Column type={'number'}
+                        title={'#'}
+                    />
+                    <Column field={'Name'}
+                        title={_t('Name')}
+                        renderer={this.renderName}
+                    />
+                    <Column field={'UpdateTime'}
+                        title={_t('Update Date')}
+                        width={120}
+                        align={'center'}
+                        renderer={this.renderDate}
+                    />
+                    <Column field={'CreateTime'}
+                        title={_t('Create Date')}
+                        width={120}
+                        align={'center'}
+                        renderer={this.renderDate}
+                    />
+                    <Column field={'Status'}
+                        title={_t('Status')}
+                        width={100}
+                        align={'center'}
+                        renderer={this.renderStatus}
+                    />
                 </DataGrid>
             </Content>
         </Window>;
@@ -92,13 +114,17 @@ class RoleManageWindow extends React.Component {
             mask: true
         });
         fetch(`${app.options.server}/api/Role/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
-            response.json().then(json => {
+            response.json().then(obj => {
                 app.unmask();
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
                     pageSize,
                     pageNum,
-                    total: json.Data.total,
-                    data: json.Data.rows,
+                    total: obj.Data.total,
+                    data: obj.Data.rows,
                     keyword: keyword,
                     mask: false
                 });
@@ -167,11 +193,12 @@ class RoleManageWindow extends React.Component {
         fetch(`${app.options.server}/api/Role/Delete?ID=${id}`, {
             method: 'POST'
         }).then(response => {
-            response.json().then(json => {
-                if (json.Code === 200) {
-                    this.handleRefresh();
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
                 }
-                app.toast(_t(json.Msg));
+                app.toast(_t(obj.Msg));
             });
         });
     }

@@ -122,13 +122,17 @@ class SelectUserWindow extends React.Component {
             mask: true
         });
         fetch(`${app.options.server}/api/User/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
-            response.json().then(json => {
+            response.json().then(obj => {
                 app.unmask();
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
                 this.setState({
                     pageSize,
                     pageNum,
-                    total: json.Data.total,
-                    data: json.Data.rows,
+                    total: obj.Data.total,
+                    data: obj.Data.rows,
                     keyword: keyword,
                     mask: false
                 });

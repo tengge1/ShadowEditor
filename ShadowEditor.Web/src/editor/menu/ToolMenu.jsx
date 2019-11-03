@@ -15,22 +15,39 @@ class ToolMenu extends React.Component {
         this.handleArrangeMesh = this.handleArrangeMesh.bind(this);
         this.handleArrangeThumbnail = this.handleArrangeThumbnail.bind(this);
         this.handleCleanUpScenes = this.handleCleanUpScenes.bind(this);
-        this.commitCleanUpScenes = this.commitCleanUpScenes.bind(this)
+        this.commitCleanUpScenes = this.commitCleanUpScenes.bind(this);
         this.handleExportEditor = this.handleExportEditor.bind(this);
         this.handleExportExamples = this.handleExportExamples.bind(this);
     }
 
     render() {
         return <MenuItem title={_t('Tool')}>
-            <MenuItem title={_t('Texture Generator')} onClick={this.handleTextureGenerator}></MenuItem>
+            <MenuItem title={_t('Texture Generator')}
+                onClick={this.handleTextureGenerator}
+            />
             <MenuItemSeparator />
-            <MenuItem title={_t('Arrange Map')} show={app.debug === true} onClick={this.handleArrangeMap}></MenuItem>
-            <MenuItem title={_t('Arrange Mesh')} show={app.debug === true} onClick={this.handleArrangeMesh}></MenuItem>
-            <MenuItem title={_t('Arrange Thumbnail')} show={app.debug === true} onClick={this.handleArrangeThumbnail}></MenuItem>
-            <MenuItem title={_t('Clean Up Scenes')} onClick={this.handleCleanUpScenes}></MenuItem>
+            <MenuItem title={_t('Arrange Map')}
+                show={app.debug === true}
+                onClick={this.handleArrangeMap}
+            />
+            <MenuItem title={_t('Arrange Mesh')}
+                show={app.debug === true}
+                onClick={this.handleArrangeMesh}
+            />
+            <MenuItem title={_t('Arrange Thumbnail')}
+                show={app.debug === true}
+                onClick={this.handleArrangeThumbnail}
+            />
+            <MenuItem title={_t('Clean Up Scenes')}
+                onClick={this.handleCleanUpScenes}
+            />
             <MenuItemSeparator />
-            <MenuItem title={_t('Export Editor')} onClick={this.handleExportEditor}></MenuItem>
-            <MenuItem title={_t('Export Examples')} onClick={this.handleExportExamples}></MenuItem>
+            <MenuItem title={_t('Export Editor')}
+                onClick={this.handleExportEditor}
+            />
+            <MenuItem title={_t('Export Examples')}
+                onClick={this.handleExportExamples}
+            />
         </MenuItem>;
     }
 
@@ -50,8 +67,12 @@ class ToolMenu extends React.Component {
                     method: 'POST'
                 }).then(response => {
                     if (response.ok) {
-                        response.json().then(json => {
-                            app.toast(_t(json.Msg));
+                        response.json().then(obj => {
+                            if (obj.Code !== 200) {
+                                app.toast(_t(obj.Msg));
+                                return;
+                            }
+                            app.toast(_t(obj.Msg));
                         });
                     }
                 });
@@ -68,8 +89,12 @@ class ToolMenu extends React.Component {
                     method: 'POST'
                 }).then(response => {
                     if (response.ok) {
-                        response.json().then(json => {
-                            app.toast(_t(json.Msg));
+                        response.json().then(obj => {
+                            if (obj.Code !== 200) {
+                                app.toast(_t(obj.Msg));
+                                return;
+                            }
+                            app.toast(_t(obj.Msg));
                         });
                     }
                 });
@@ -86,8 +111,12 @@ class ToolMenu extends React.Component {
                     method: 'POST'
                 }).then(response => {
                     if (response.ok) {
-                        response.json().then(json => {
-                            app.toast(_t(json.Msg));
+                        response.json().then(obj => {
+                            if (obj.Code !== 200) {
+                                app.toast(_t(obj.Msg));
+                                return;
+                            }
+                            app.toast(_t(obj.Msg));
                         });
                     }
                 });
@@ -105,10 +134,14 @@ class ToolMenu extends React.Component {
 
     commitCleanUpScenes() {
         fetch(`/api/CleanUpScenes/Run`, {
-            method: 'POST',
+            method: 'POST'
         }).then(response => {
-            response.json().then(json => {
-                app.toast(_t(json.Msg));
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
+                app.toast(_t(obj.Msg));
             });
         });
     }
@@ -122,9 +155,13 @@ class ToolMenu extends React.Component {
                     method: 'POST'
                 }).then(response => {
                     if (response.ok) {
-                        response.json().then(json => {
-                            app.toast(_t(json.Msg));
-                            window.open(`${app.options.server}${json.Url}`, 'export');
+                        response.json().then(obj => {
+                            if (obj.Code !== 200) {
+                                app.toast(_t(obj.Msg));
+                                return;
+                            }
+                            app.toast(_t(obj.Msg));
+                            window.open(`${app.options.server}${obj.Url}`, 'export');
                         });
                     }
                 });
@@ -143,9 +180,13 @@ class ToolMenu extends React.Component {
                 }).then(response => {
                     app.unmask();
                     if (response.ok) {
-                        response.json().then(json => {
-                            app.toast(_t(json.Msg));
-                            window.open(`${app.options.server}${json.Url}`, 'export');
+                        response.json().then(obj => {
+                            if (obj.Code !== 200) {
+                                app.toast(_t(obj.Msg));
+                                return;
+                            }
+                            app.toast(_t(obj.Msg));
+                            window.open(`${app.options.server}${obj.Url}`, 'export');
                         });
                     }
                 });
