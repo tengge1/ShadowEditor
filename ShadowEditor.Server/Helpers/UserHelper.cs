@@ -82,7 +82,7 @@ namespace ShadowEditor.Server.Helpers
             // 获取角色和权限信息
             var roleID = "";
             var roleName = "";
-            var operatingAuthorities = new List<String>();
+            var authorities = new List<String>();
 
             if (doc.Contains("RoleID") && ObjectId.TryParse(doc["RoleID"].ToString(), out objectId))
             {
@@ -95,13 +95,16 @@ namespace ShadowEditor.Server.Helpers
                     roleID = role["ID"].ToString();
                     roleName = role["Name"].ToString();
 
-                    filter = Builders<BsonDocument>.Filter.Eq("RoleID", roleID);
-
-                    var authorities = mongo.FindMany(Constant.OperatingAuthorityCollectionName, filter).ToList();
-
-                    foreach (var authority in authorities)
+                    // 管理员组默认具有所有权限
+                    if (roleName == "Administrator")
                     {
-                        operatingAuthorities.Add(authority["AuthorityID"].ToString());
+                        authorities = OperatingAuthorityHelper.GetAll().Select(n => n.ID).ToList();
+                    }
+                    else
+                    {
+                        filter = Builders<BsonDocument>.Filter.Eq("RoleID", roleID);
+                        authorities = mongo.FindMany(Constant.OperatingAuthorityCollectionName, filter).ToList()
+                            .Select(n => n["AuthorityID"].ToString()).ToList();
                     }
                 }
             }
@@ -114,7 +117,7 @@ namespace ShadowEditor.Server.Helpers
                 Password = doc["Password"].ToString(),
                 RoleID = roleID,
                 RoleName = roleName,
-                OperatingAuthorities = operatingAuthorities,
+                OperatingAuthorities = authorities,
                 Gender = doc["Gender"].ToInt32(),
                 Phone = doc["Phone"].ToString(),
                 Email = doc["Email"].ToString(),
