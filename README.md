@@ -24,6 +24,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 10. 管理员组默认具有所有权限。
 11. 修复一些由于无权限报错，导致页面变空白的bug。
 12. 增加更多的错误提示。
+13. 选中效果优化。
 
 ## v0.3.6更新
 

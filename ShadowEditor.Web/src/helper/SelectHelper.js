@@ -3,6 +3,8 @@ import MaskVertex from './shader/mask_vertex.glsl';
 import MaskFragment from './shader/mask_fragment.glsl';
 import EdgeVertex from './shader/edge_vertex.glsl';
 import EdgeFragment from './shader/edge_fragment.glsl';
+import CopyVertex from './shader/copy_vertex.glsl';
+import CopyFragment from './shader/copy_fragment.glsl';
 
 /**
  * 选择帮助器
@@ -126,7 +128,7 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
                     value: new THREE.Vector2(1 / width, 1 / height)
                 }
             },
-            blending: THREE.AdditiveBlending,
+            transparent: true,
             depthTest: false
         });
     }

@@ -19,6 +19,6 @@ void main() {
     float diff1 = (c1.r - c2.r)*0.5;
     float diff2 = (c3.r - c4.r)*0.5;
     
-    float d = length( vec2(diff1, diff2) );
-    gl_FragColor = vec4(color, 1.0) * vec4(d);
+    float d = length(vec2(diff1, diff2));
+    gl_FragColor = d > 0.0 ? vec4(color, 1.0) : vec4(0.0, 0.0, 0.0, 0.0);
 }
