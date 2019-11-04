@@ -1,5 +1,5 @@
 import './css/EditorStatusBar.css';
-import { Toolbar, ToolbarSeparator, Label, CheckBox, Button, Input } from '../../third_party';
+import { Toolbar, ToolbarSeparator, Label, CheckBox, Button, Input, Select } from '../../third_party';
 import Converter from '../../utils/Converter';
 import TimeUtils from '../../utils/TimeUtils';
 import VideoRecorder from '../../utils/VideoRecorder';
@@ -11,6 +11,11 @@ import VideoRecorder from '../../utils/VideoRecorder';
 class EditorStatusBar extends React.Component {
     constructor(props) {
         super(props);
+
+        this.selectMode = {
+            whole: _t('Select Whole'),
+            part: _t('Select Part')
+        };
 
         this.state = {
             objects: 0,
@@ -27,6 +32,7 @@ class EditorStatusBar extends React.Component {
         this.handleShowGrid = this.handleShowGrid.bind(this);
         this.handleShowViewHelper = this.handleShowViewHelper.bind(this);
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
+        this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
         this.changeSelectedColor = this.changeSelectedColor.bind(this);
         this.changeSelectedThickness = this.changeSelectedThickness.bind(this);
         this.handleScreenshot = this.handleScreenshot.bind(this);
@@ -36,7 +42,7 @@ class EditorStatusBar extends React.Component {
 
     render() {
         const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall, isRecording } = this.state;
-        const { selectedColor, selectedThickness } = app.options;
+        const { selectMode, selectedColor, selectedThickness } = app.options;
 
         const isLogin = !app.config.enableAuthority || app.config.isLogin;
 
@@ -66,6 +72,12 @@ class EditorStatusBar extends React.Component {
                     onChange={this.handleEnableThrowBall}
                 />
                 <ToolbarSeparator />
+                <Label>{_t('Selected Mode')}</Label>
+                <Select name={'selectMode'}
+                    options={this.selectMode}
+                    value={selectMode}
+                    onChange={this.handleChangeSelectMode}
+                />
                 <Label>{_t('Selected Color')}</Label>
                 <Input name={'selectedColor'}
                     className={'selected-color'}
@@ -174,6 +186,12 @@ class EditorStatusBar extends React.Component {
 
     handleEnableThrowBall(checked) {
         app.call('enableThrowBall', this, checked);
+    }
+
+    handleChangeSelectMode(value) {
+        app.options.selectMode = value;
+        app.call('optionChange', this, 'selectMode', value);
+        this.forceUpdate();
     }
 
     changeSelectedColor(value) {

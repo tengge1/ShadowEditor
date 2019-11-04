@@ -898,5 +898,8 @@
     "Select User": "选择用户",
     "Department": "组织机构",
     "Select Department Window": "组织机构选择窗口",
-    "Please select a department.": "请选择机构。"
+    "Please select a department.": "请选择机构。",
+    "Selected Mode": "选择模式",
+    "Select Whole": "选择整体",
+    "Select Part": "选择部分"
 }

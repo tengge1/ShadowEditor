@@ -32,6 +32,7 @@ function Options(options = {}) {
     this.sepia = 0;
 
     // 选中效果
+    this.selectMode = 'whole'; // whole: 选择整体；part: 选择部分。
     this.selectedColor = '#ff6600'; // unity3d: #ff6600
     this.selectedThickness = 4;
 }

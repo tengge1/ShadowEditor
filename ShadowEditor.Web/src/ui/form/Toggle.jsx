@@ -21,7 +21,8 @@ class Toggle extends React.Component {
                 disabled && 'disabled',
                 className)}
             style={style}
-            onClick={disabled ? null : this.handleChange}></div>;
+            onClick={disabled ? null : this.handleChange}
+               />;
     }
 
     handleChange(event) {
@@ -39,7 +40,7 @@ Toggle.propTypes = {
     name: PropTypes.string,
     checked: PropTypes.bool,
     disabled: PropTypes.bool,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 Toggle.defaultProps = {
@@ -48,7 +49,7 @@ Toggle.defaultProps = {
     name: null,
     checked: false,
     disabled: false,
-    onChange: null,
+    onChange: null
 };
 
 export default Toggle;
