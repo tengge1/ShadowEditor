@@ -13,6 +13,7 @@ import CopyFragment from './shader/copy_fragment.glsl';
  */
 function SelectHelper(app) {
     BaseHelper.call(this, app);
+    this.hideObjects = [];
 }
 
 SelectHelper.prototype = Object.create(BaseHelper.prototype);
@@ -214,21 +215,35 @@ SelectHelper.prototype.onAfterRender = function () {
 };
 
 SelectHelper.prototype.hideNonSelectedObjects = function (scene, selected) {
-    scene.traverse(obj => {
-        if (obj.isMesh && obj !== selected) {
-            obj.userData.oldVisible = obj.visible;
-            obj.visible = false;
-        }
-    });
+    let list = [scene];
+
+    this.hideObjects.length = 0;
+
+    while (list.length) {
+        let obj = list.shift();
+
+        obj.children.forEach(n => {
+            if (n === selected || n instanceof THREE.Light) {
+                return;
+            }
+
+            list.push(n);
+
+            if (n instanceof THREE.Mesh) {
+                obj.userData.oldVisible = obj.visible;
+                obj.visible = false;
+                this.hideObjects.push(obj);
+            }
+        });
+    }
 };
 
-SelectHelper.prototype.showNonSelectedObjects = function (scene, selected) {
-    scene.traverse(obj => {
-        if (obj.isMesh && obj !== selected && obj.userData.oldVisible) {
-            obj.visible = obj.userData.oldVisible;
-            delete obj.userData.oldVisible;
-        }
+SelectHelper.prototype.showNonSelectedObjects = function () {
+    this.hideObjects.forEach(n => {
+        n.visible = n.userData.oldVisible;
+        delete n.userData.oldVisible;
     });
+    this.hideObjects.length = 0;
 };
 
 SelectHelper.prototype.onOptionChange = function (name, value) {
