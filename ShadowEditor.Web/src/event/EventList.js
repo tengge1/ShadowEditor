@@ -77,7 +77,7 @@ var EventList = [
     'transformControlsMouseDown', // 变形控件按下鼠标键
     'transformControlsMouseUp', // 变形控件抬起鼠标键
 
-    'raycast', // 光线投射事件
+    'intersect', // 选择模型整体或部分
     'beforeRender', // 渲染前执行
     'afterRender', // 渲染后执行
     'animate', // 进行动画

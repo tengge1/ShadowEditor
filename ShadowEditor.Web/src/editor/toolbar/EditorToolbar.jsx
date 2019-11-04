@@ -1,8 +1,6 @@
 import './css/EditorToolbar.css';
-import { classNames, PropTypes, Toolbar, ToolbarSeparator, IconButton, ImageButton } from '../../third_party';
+import { Toolbar, ToolbarSeparator, IconButton, ImageButton } from '../../third_party';
 import AddObjectCommand from '../../command/AddObjectCommand';
-import Earcut from '../../utils/Earcut';
-
 import DigTool from '../../tool/DigTool';
 
 /**
@@ -174,9 +172,9 @@ class EditorToolbar extends React.Component {
         this.setState({ isAddingPoint });
 
         if (isAddingPoint) {
-            app.on(`raycast.EditorToolbarAddPoint`, this.onAddPointIntersect.bind(this));
+            app.on(`intersect.EditorToolbarAddPoint`, this.onAddPointIntersect.bind(this));
         } else {
-            app.on(`raycast.EditorToolbarAddPoint`, null);
+            app.on(`intersect.EditorToolbarAddPoint`, null);
         }
     }
 
@@ -228,7 +226,7 @@ class EditorToolbar extends React.Component {
         this.setState({ isAddingLine });
 
         if (isAddingLine) {
-            app.on(`raycast.EditorToolbarAddLine`, this.onAddLineIntersect.bind(this));
+            app.on(`intersect.EditorToolbarAddLine`, this.onAddLineIntersect.bind(this));
             app.on(`dblclick.EditorToolbarAddLine`, this.onAddLineDblClick.bind(this));
 
             this.linePositions = [];
@@ -253,7 +251,7 @@ class EditorToolbar extends React.Component {
 
             app.editor.execute(new AddObjectCommand(this.line));
         } else {
-            app.on(`raycast.EditorToolbarAddLine`, null);
+            app.on(`intersect.EditorToolbarAddLine`, null);
             app.on(`dblclick.EditorToolbarAddLine`, null);
 
             this.linePositions = null;
@@ -285,7 +283,7 @@ class EditorToolbar extends React.Component {
         this.line.computeLineDistances();
     }
 
-    onAddLineDblClick(obj) {
+    onAddLineDblClick() {
         this.onAddLine();
     }
 
@@ -297,7 +295,7 @@ class EditorToolbar extends React.Component {
         this.setState({ isAddingPolygon });
 
         if (isAddingPolygon) {
-            app.on(`raycast.EditorToolbarAddPolygon`, this.onAddPolygonIntersect.bind(this));
+            app.on(`intersect.EditorToolbarAddPolygon`, this.onAddPolygonIntersect.bind(this));
             app.on(`dblclick.EditorToolbarAddPolygon`, this.onAddPolygonDblClick.bind(this));
 
             var geometry = new THREE.BufferGeometry();
@@ -326,7 +324,7 @@ class EditorToolbar extends React.Component {
 
             this.polygonPoints = [];
         } else {
-            app.on(`raycast.EditorToolbarAddPolygon`, null);
+            app.on(`intersect.EditorToolbarAddPolygon`, null);
             app.on(`dblclick.EditorToolbarAddPolygon`, null);
 
             this.polygon = null;
@@ -368,7 +366,7 @@ class EditorToolbar extends React.Component {
         uv.needsUpdate = true;
     }
 
-    onAddPolygonDblClick(obj) {
+    onAddPolygonDblClick() {
         this.handleAddPolygon();
     }
 
@@ -380,9 +378,9 @@ class EditorToolbar extends React.Component {
         this.setState({ isSpraying });
 
         if (isSpraying) {
-            app.on(`raycast.EditorToolbarSpray`, this.onSprayIntersect.bind(this));
+            app.on(`intersect.EditorToolbarSpray`, this.onSprayIntersect.bind(this));
         } else {
-            app.on(`raycast.EditorToolbarSpray`, null);
+            app.on(`intersect.EditorToolbarSpray`, null);
         }
     }
 

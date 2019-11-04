@@ -2,7 +2,7 @@ import BaseTool from './BaseTool';
 
 /**
  * 挖坑工具
- * @param {*} app 
+ * @param {*} app 应用程序
  */
 function DigTool(app) {
     BaseTool.call(this, app);
@@ -13,14 +13,14 @@ DigTool.prototype = Object.create(BaseTool.prototype);
 DigTool.prototype.constructor = DigTool;
 
 DigTool.prototype.start = function () {
-    app.on(`raycast.${this.id}`, this.onRaycast.bind(this));
+    app.on(`intersect.${this.id}`, this.onRaycast.bind(this));
     app.on(`dblclick.${this.id}`, this.onDblClick.bind(this));
     app.on(`beforeRender.${this.id}`, this.onBeforeRender.bind(this));
     app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
 };
 
 DigTool.prototype.stop = function () {
-    app.on(`raycast.${this.id}`, null);
+    app.on(`intersect.${this.id}`, null);
     app.on(`dblclick.${this.id}`, null);
     app.on(`beforeRender.${this.id}`, null);
     app.on(`afterRender.${this.id}`, null);
@@ -40,7 +40,7 @@ DigTool.prototype.onDblClick = function () {
     var xys = this.points.map(n => {
         return {
             x: n.x,
-            y: n.z,
+            y: n.z
         };
     });
 
