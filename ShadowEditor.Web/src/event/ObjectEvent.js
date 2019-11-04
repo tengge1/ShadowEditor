@@ -3,7 +3,7 @@ import BaseEvent from './BaseEvent';
 /**
  * 物体事件
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
+ * @param {*} app 应用程序
  */
 function ObjectEvent(app) {
     BaseEvent.call(this, app);
@@ -36,8 +36,6 @@ ObjectEvent.prototype.onObjectAdded = function (object) {
 };
 
 ObjectEvent.prototype.onObjectChanged = function (object) {
-    var editor = app.editor;
-
     if (object instanceof THREE.PerspectiveCamera) {
         object.updateProjectionMatrix();
     }

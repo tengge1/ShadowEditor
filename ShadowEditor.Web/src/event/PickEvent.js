@@ -3,10 +3,9 @@ import BaseEvent from './BaseEvent';
 /**
  * 选取事件
  * @author tengge / https://github.com/tengge1
- * @param {*} app 应用程序
  */
-function PickEvent(app) {
-    BaseEvent.call(this, app);
+function PickEvent() {
+    BaseEvent.call(this);
 
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
@@ -14,20 +13,23 @@ function PickEvent(app) {
     this.onDownPosition = new THREE.Vector2();
     this.onUpPosition = new THREE.Vector2();
     this.onDoubleClickPosition = new THREE.Vector2();
+
+    this.onAppStarted = this.onAppStarted.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onDoubleClick = this.onDoubleClick.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
 }
 
 PickEvent.prototype = Object.create(BaseEvent.prototype);
 PickEvent.prototype.constructor = PickEvent;
 
 PickEvent.prototype.start = function () {
-    app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+    app.on(`appStarted.${this.id}`, this.onAppStarted);
 };
 
 PickEvent.prototype.onAppStarted = function () {
-    var viewport = app.viewport;
-
-    viewport.addEventListener('mousedown', this.onMouseDown.bind(this), false);
-    viewport.addEventListener('dblclick', this.onDoubleClick.bind(this), false);
+    app.viewport.addEventListener('mousedown', this.onMouseDown, false);
+    app.viewport.addEventListener('dblclick', this.onDoubleClick, false);
 };
 
 PickEvent.prototype.onMouseDown = function (event) {
@@ -41,7 +43,7 @@ PickEvent.prototype.onMouseDown = function (event) {
     var array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
     this.onDownPosition.fromArray(array);
 
-    document.addEventListener('mouseup', this.onMouseUp.bind(this), false);
+    document.addEventListener('mouseup', this.onMouseUp, false);
 };
 
 PickEvent.prototype.onMouseUp = function (event) {
