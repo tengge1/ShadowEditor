@@ -21,7 +21,7 @@ class PlayMenu extends React.Component {
     render() {
         const { isPlaying } = this.state;
 
-        const noLogin = !app.config.enableAuthority || app.config.isLogin;
+        const isLogin = !app.config.enableAuthority || app.config.isLogin;
 
         return <MenuItem title={_t('Play')}>
             <MenuItem title={isPlaying ? _t('Stop') : _t('Play')}
@@ -30,7 +30,7 @@ class PlayMenu extends React.Component {
             <MenuItem title={_t('Play Fullscreen')}
                 onClick={this.handlePlayFullscreen}
             />
-            {noLogin && <MenuItem title={_t('Play New Window')}
+            {isLogin && <MenuItem title={_t('Play New Window')}
                 onClick={this.handlePlayNewWindow}
                         />}
         </MenuItem>;

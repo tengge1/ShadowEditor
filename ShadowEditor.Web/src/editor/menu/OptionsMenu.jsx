@@ -25,7 +25,7 @@ class OptionsMenu extends React.Component {
     }
 
     render() {
-        const noLogin = !app.config.enableAuthority || app.config.isLogin;
+        const isLogin = !app.config.enableAuthority || app.config.isLogin;
 
         return <MenuItem title={_t('Options')}>
             <MenuItem title={_t('Renderer')}
@@ -61,7 +61,7 @@ class OptionsMenu extends React.Component {
                     onClick={this.handleChangeFrench}
                 />
             </MenuItem>
-            {noLogin && <MenuItem title={_t('Debug Mode')}>
+            {isLogin && <MenuItem title={_t('Debug Mode')}>
                 <MenuItem title={_t('Enable')}
                     onClick={this.handleEnableDebugMode}
                 />

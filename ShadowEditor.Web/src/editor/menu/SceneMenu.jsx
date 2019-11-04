@@ -22,10 +22,10 @@ class SceneMenu extends React.Component {
     }
 
     render() {
-        const noLogin = !app.config.enableAuthority || app.config.isLogin;
+        const isLogin = !app.config.enableAuthority || app.config.isLogin;
 
         return <MenuItem title={_t('Scene')}>
-            {noLogin && <MenuItem title={_t('New')}>
+            {isLogin && <MenuItem title={_t('New')}>
                 <MenuItem title={_t('Empty Scene')}
                     onClick={this.handleCreateEmptyScene}
                 />
@@ -33,19 +33,19 @@ class SceneMenu extends React.Component {
                     onClick={this.handleCreateGISScene}
                 />
                 </MenuItem>}
-            {noLogin && <MenuItem title={_t('Save')}
+            {isLogin && <MenuItem title={_t('Save')}
                 onClick={this.handleSaveScene}
                         />}
-            {noLogin && <MenuItem title={_t('Save As')}
+            {isLogin && <MenuItem title={_t('Save As')}
                 onClick={this.handleSaveAsScene}
                         />}
-            {noLogin && <MenuItemSeparator />}
+            {isLogin && <MenuItemSeparator />}
             <MenuItem title={_t('Export Scene')}>
                 <MenuItem title={_t('To GLTF File')}
                     onClick={this.handleExportSceneToGltf}
                 />
             </MenuItem>
-            {noLogin && <MenuItem title={_t('Publish Scene')}
+            {isLogin && <MenuItem title={_t('Publish Scene')}
                 onClick={this.handlePublishScene}
                         />}
         </MenuItem>;

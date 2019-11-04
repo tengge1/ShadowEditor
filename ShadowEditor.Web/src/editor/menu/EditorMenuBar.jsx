@@ -23,19 +23,19 @@ class EditorMenuBar extends React.Component {
         const { className } = this.props;
         const { enableAuthority, initialized } = app.config;
 
-        const noLogin = !app.config.enableAuthority || app.config.isLogin;
+        const isLogin = !app.config.enableAuthority || app.config.isLogin;
 
         return <MenuBar className={classNames('EditorMenuBar', className)}>
             <SceneMenu />
-            {noLogin && <EditMenu />}
-            {noLogin && <TwoDMenu />}
-            {noLogin && <GeometryMenu />}
-            {noLogin && <LightMenu />}
-            {noLogin && <AssetsMenu />}
-            {noLogin && <ComponentMenu />}
+            {isLogin && <EditMenu />}
+            {isLogin && <TwoDMenu />}
+            {isLogin && <GeometryMenu />}
+            {isLogin && <LightMenu />}
+            {isLogin && <AssetsMenu />}
+            {isLogin && <ComponentMenu />}
             {enableAuthority && (!app.config.initialized || app.config.isLogin) && <SystemMenu />}
             <PlayMenu />
-            {noLogin && <ToolMenu />}
+            {isLogin && <ToolMenu />}
             <OptionsMenu />
             <HelpMenu />
             <MenuItemSeparator direction={'horizontal'} />

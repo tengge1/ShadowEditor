@@ -38,7 +38,7 @@ class EditorStatusBar extends React.Component {
         const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall, isRecording } = this.state;
         const { selectedColor, selectedThickness } = app.options;
 
-        const noLogin = !app.config.enableAuthority || app.config.isLogin;
+        const isLogin = !app.config.enableAuthority || app.config.isLogin;
 
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{_t('Object')}</Label>
@@ -60,7 +60,7 @@ class EditorStatusBar extends React.Component {
             <CheckBox checked={showViewHelper}
                 onChange={this.handleShowViewHelper}
             />
-            {noLogin && <>
+            {isLogin && <>
                 <Label>{_t('ThrowBall')}</Label>
                 <CheckBox checked={isThrowBall}
                     onChange={this.handleEnableThrowBall}

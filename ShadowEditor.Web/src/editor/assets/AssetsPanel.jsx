@@ -44,7 +44,7 @@ class AssetsPanel extends React.Component {
     render() {
         const { activeIndex, sceneCount, meshCount, mapCount, materialCount, audioCount, animationCount, particleCount, prefabCount, screenshotCount, videoCount } = this.state;
 
-        const noLogin = !app.config.enableAuthority || app.config.isLogin;
+        const isLogin = !app.config.enableAuthority || app.config.isLogin;
 
         return <AccordionLayout className={'AssetsPanel'}
             onActive={this.handleActive}
@@ -57,7 +57,7 @@ class AssetsPanel extends React.Component {
                     show={0 === activeIndex}
                 />
             </Accordion>
-            {noLogin && <Accordion name={'Model'}
+            {isLogin && <Accordion name={'Model'}
                 title={`${_t('Model')}(${meshCount})`}
                 maximizable
                         >
@@ -65,7 +65,7 @@ class AssetsPanel extends React.Component {
                     show={1 === activeIndex}
                 />
                 </Accordion>}
-            {noLogin && <Accordion name={'Map'}
+            {isLogin && <Accordion name={'Map'}
                 title={`${_t('Map')}(${mapCount})`}
                 maximizable
                         >
@@ -73,7 +73,7 @@ class AssetsPanel extends React.Component {
                         show={2 === activeIndex}
                     />
                 </Accordion>}
-            {noLogin && <Accordion name={'Material'}
+            {isLogin && <Accordion name={'Material'}
                 title={`${_t('Material')}(${materialCount})`}
                 maximizable
                         >
@@ -81,7 +81,7 @@ class AssetsPanel extends React.Component {
                         show={3 === activeIndex}
                     />
                 </Accordion>}
-            {noLogin && <Accordion name={'Audio'}
+            {isLogin && <Accordion name={'Audio'}
                 title={`${_t('Audio')}(${audioCount})`}
                 maximizable
                         >
@@ -89,7 +89,7 @@ class AssetsPanel extends React.Component {
                         show={4 === activeIndex}
                     />
                 </Accordion>}
-            {noLogin && <Accordion name={'Animation'}
+            {isLogin && <Accordion name={'Animation'}
                 title={`${_t('Animation')}(${animationCount})`}
                 maximizable
                         >
@@ -97,7 +97,7 @@ class AssetsPanel extends React.Component {
                         show={5 === activeIndex}
                     />
                 </Accordion>}
-            {noLogin && <Accordion name={'Particle'}
+            {isLogin && <Accordion name={'Particle'}
                 title={`${_t('Particle')}(${particleCount})`}
                 maximizable
                         >
@@ -105,7 +105,7 @@ class AssetsPanel extends React.Component {
                         show={6 === activeIndex}
                     />
                 </Accordion>}
-            {noLogin && <Accordion name={'Prefab'}
+            {isLogin && <Accordion name={'Prefab'}
                 title={`${_t('Prefab')}(${prefabCount})`}
                 maximizable
                         >
@@ -113,7 +113,7 @@ class AssetsPanel extends React.Component {
                         show={7 === activeIndex}
                     />
                 </Accordion>}
-            {noLogin && <Accordion name={'Screenshot'}
+            {isLogin && <Accordion name={'Screenshot'}
                 title={`${_t('Screenshot')}(${screenshotCount})`}
                 maximizable
                         >
@@ -121,7 +121,7 @@ class AssetsPanel extends React.Component {
                         show={8 === activeIndex}
                     />
                 </Accordion>}
-            {noLogin && <Accordion name={'Video'}
+            {isLogin && <Accordion name={'Video'}
                 title={`${_t('Video')}(${videoCount})`}
                 maximizable
                         >
@@ -129,7 +129,7 @@ class AssetsPanel extends React.Component {
                         show={9 === activeIndex}
                     />
                 </Accordion>}
-            {noLogin && <Accordion name={'Log'}
+            {isLogin && <Accordion name={'Log'}
                 title={`${_t('Logs')}`}
                 maximizable
                         >
