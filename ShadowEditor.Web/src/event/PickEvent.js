@@ -40,14 +40,14 @@ PickEvent.prototype.onMouseDown = function (event) {
     // 这样处理选中的原因是避免把拖动误认为点击
     event.preventDefault();
 
-    var array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
+    let array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
     this.onDownPosition.fromArray(array);
 
     document.addEventListener('mouseup', this.onMouseUp, false);
 };
 
 PickEvent.prototype.onMouseUp = function (event) {
-    var array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
+    let array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
     this.onUpPosition.fromArray(array);
 
     this.handleClick();
@@ -56,15 +56,15 @@ PickEvent.prototype.onMouseUp = function (event) {
 };
 
 PickEvent.prototype.onDoubleClick = function (event) {
-    var objects = app.editor.objects;
+    let objects = app.editor.objects;
 
-    var array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
+    let array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
     this.onDoubleClickPosition.fromArray(array);
 
-    var intersects = this.getIntersects(this.onDoubleClickPosition, objects);
+    let intersects = this.getIntersects(this.onDoubleClickPosition, objects);
 
     if (intersects.length > 0) {
-        var intersect = intersects[0];
+        let intersect = intersects[0];
         app.call('objectFocused', this, intersect.object);
     }
 };
@@ -76,32 +76,35 @@ PickEvent.prototype.getIntersects = function (point, objects) {
 };
 
 PickEvent.prototype.getMousePosition = function (dom, x, y) {
-    var rect = dom.getBoundingClientRect();
+    let rect = dom.getBoundingClientRect();
     return [(x - rect.left) / rect.width, (y - rect.top) / rect.height];
 };
 
 PickEvent.prototype.handleClick = function () {
-    var editor = app.editor;
-    var objects = editor.objects;
+    let editor = app.editor;
+    let objects = editor.objects;
 
     if (this.onDownPosition.distanceTo(this.onUpPosition) === 0) {
-        var intersects = this.getIntersects(this.onUpPosition, objects);
+        let intersects = this.getIntersects(this.onUpPosition, objects);
 
         if (intersects.length > 0) {
-            var object = intersects[0].object;
+            let object = intersects[0].object;
 
             if (object.userData.object !== undefined) {
                 // helper
+                // TODO: userData上有object时，无法复制模型。
                 editor.select(object.userData.object);
-            } else {
+            } else if (app.options.selectMode === 'whole') { // 选择整体
                 editor.select(this.partToMesh(object));
+            } else if (app.options.selectMode === 'part') { // 选择部分
+                editor.select(object);
             }
         } else {
             editor.select(null);
         }
 
         // objects in sceneHelpers
-        var sceneHelpers = app.editor.sceneHelpers;
+        let sceneHelpers = app.editor.sceneHelpers;
 
         intersects = this.getIntersects(this.onUpPosition, sceneHelpers.children);
         if (intersects.length > 0) {
@@ -118,15 +121,15 @@ PickEvent.prototype.handleClick = function () {
  * @returns {*} 整体模型
  */
 PickEvent.prototype.partToMesh = function (obj) {
-    var scene = app.editor.scene;
+    let scene = app.editor.scene;
 
     if (obj === scene || obj.userData && obj.userData.Server === true) { // 场景或服务端模型
         return obj;
     }
 
     // 判断obj是否是模型的一部分
-    var model = obj;
-    var isPart = false;
+    let model = obj;
+    let isPart = false;
 
     while (model) {
         if (model === scene) {
