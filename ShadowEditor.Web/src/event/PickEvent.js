@@ -3,7 +3,7 @@ import BaseEvent from './BaseEvent';
 /**
  * 选取事件
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
+ * @param {*} app 应用程序
  */
 function PickEvent(app) {
     BaseEvent.call(this, app);
@@ -68,7 +68,7 @@ PickEvent.prototype.onDoubleClick = function (event) {
 };
 
 PickEvent.prototype.getIntersects = function (point, objects) {
-    this.mouse.set((point.x * 2) - 1, -(point.y * 2) + 1);
+    this.mouse.set(point.x * 2 - 1, -(point.y * 2) + 1);
     this.raycaster.setFromCamera(this.mouse, app.editor.camera);
     return this.raycaster.intersectObjects(objects);
 };
@@ -101,7 +101,7 @@ PickEvent.prototype.handleClick = function () {
         // objects in sceneHelpers
         var sceneHelpers = app.editor.sceneHelpers;
 
-        var intersects = this.getIntersects(this.onUpPosition, sceneHelpers.children);
+        intersects = this.getIntersects(this.onUpPosition, sceneHelpers.children);
         if (intersects.length > 0) {
             if (!(intersects[0].object instanceof THREE.GridHelper)) { // 禁止选中网格
                 editor.select(intersects[0].object);
@@ -112,7 +112,8 @@ PickEvent.prototype.handleClick = function () {
 
 /**
  * 如果选中的是模型的一部分，改为选择整个模型
- * @param {*} obj 
+ * @param {*} obj 通过模型的一部分获取整个模型
+ * @returns {*} 整体模型
  */
 PickEvent.prototype.partToMesh = function (obj) {
     var scene = app.editor.scene;
