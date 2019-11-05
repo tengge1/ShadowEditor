@@ -33,6 +33,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 19. 删除用户，没有bug。
 20. 重置密码，没有bug。
 21. 添加、修改、删除角色没有bug。
+22. 系统设置，修改默认注册角色。注册新用户，发现确实是那个角色。没有bug。
 
 ## v0.3.6更新
 

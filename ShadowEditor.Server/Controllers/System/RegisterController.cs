@@ -90,17 +90,30 @@ namespace ShadowEditor.Server.Controllers.System
                 });
             }
 
-            // 获取所有角色
-            filter = Builders<BsonDocument>.Filter.Eq("Name", "User");
+            // 获取默认注册角色
+            var defaultRegisterRole = "";
 
-            var role = mongo.FindOne(Constant.RoleCollectionName, filter);
-            if (role == null)
+            var config = mongo.FindAll(Constant.ConfigCollectionName).FirstOrDefault();
+
+            if (config != null && config.Contains("DefaultRegisterRole"))
             {
-                return Json(new
+                defaultRegisterRole = config["DefaultRegisterRole"].ToString();
+            }
+            else
+            {
+                filter = Builders<BsonDocument>.Filter.Eq("Name", "User");
+
+                var role = mongo.FindOne(Constant.RoleCollectionName, filter);
+                if (role == null)
                 {
-                    Code = 300,
-                    Msg = "The system has not been initialized.",
-                });
+                    return Json(new
+                    {
+                        Code = 300,
+                        Msg = "The system has not been initialized.",
+                    });
+                }
+
+                defaultRegisterRole = role["ID"].ToString();
             }
 
             // 添加用户
@@ -114,7 +127,7 @@ namespace ShadowEditor.Server.Controllers.System
                 ["Username"] = model.Username,
                 ["Password"] = MD5Helper.Encrypt(model.Password + salt),
                 ["Name"] = model.Name,
-                ["RoleID"] = role["ID"].ToString(),
+                ["RoleID"] = defaultRegisterRole,
                 ["Gender"] = 0,
                 ["Phone"] = "",
                 ["Email"] = "",
