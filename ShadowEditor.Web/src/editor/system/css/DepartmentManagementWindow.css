@@ -21,7 +21,7 @@
 }
 
 .Window.DepartmentManagementWindow>.wrap>.content>.box>.left {
-    width: 200px;
+    width: 240px;
     height: 100%;
     padding-bottom: 24px;;
     border-right: 1px solid #ddd;

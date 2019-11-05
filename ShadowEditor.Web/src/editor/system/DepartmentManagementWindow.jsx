@@ -45,7 +45,7 @@ class DepartmentManagementWindow extends React.Component {
         return <Window
             className={'DepartmentManagementWindow'}
             title={_t('Department Management')}
-            style={{ width: '480px', height: '400px' }}
+            style={{ width: '520px', height: '400px' }}
             mask={false}
             onClose={this.handleClose}
                >
