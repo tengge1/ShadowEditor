@@ -17,7 +17,7 @@ Scene.prototype.start = function () {
 
     this.oldBackground = editor.scene.background;
     editor.scene.background = null;
-    editor.sceneHelpers.visible = false
+    editor.sceneHelpers.visible = false;
 
     editor.controls.enabled = false;
     editor.controls.dispose();
@@ -27,7 +27,7 @@ Scene.prototype.start = function () {
 
     this.globe = new Globe(editor.camera, editor.renderer, {
         server: app.options.server,
-        useCameraPosition: this.options.useCameraPosition,
+        useCameraPosition: this.options.useCameraPosition
     });
     editor.scene.add(this.globe);
     this.oldSceneBeforeRender = editor.scene.onBeforeRender;
