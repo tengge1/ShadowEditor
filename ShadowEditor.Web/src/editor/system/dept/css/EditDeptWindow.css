@@ -1,3 +1,7 @@
 .Window.EditDeptWindow>.wrap>.content>.Form>.FormControl>.Label {
     width: 80px;   
 }
+
+.Window.EditDeptWindow>.wrap>.content>.Form>.FormControl>.Label.text {
+    width: 120px;   
+}

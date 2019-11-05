@@ -35,7 +35,7 @@ class EditDeptWindow extends React.Component {
                 <Form>
                     <FormControl hidden={pid === ''}>
                         <Label>{_t('PDept Name')}</Label>
-                        <Label>{pname}</Label>
+                        <Label className={'text'}>{pname}</Label>
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Name')}</Label>
