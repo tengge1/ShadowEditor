@@ -179,7 +179,20 @@ namespace ShadowEditor.Server.Controllers.System
 
             if (string.IsNullOrEmpty(model.RoleID))
             {
-                model.RoleID = "";
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Please select a role."
+                });
+            }
+
+            if (string.IsNullOrEmpty(model.DeptID))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Please select a department."
+                });
             }
 
             var mongo = new MongoHelper();
@@ -268,7 +281,20 @@ namespace ShadowEditor.Server.Controllers.System
 
             if (string.IsNullOrEmpty(model.RoleID))
             {
-                model.RoleID = "";
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Please select a role."
+                });
+            }
+
+            if (string.IsNullOrEmpty(model.DeptID))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Please select a department."
+                });
             }
 
             var mongo = new MongoHelper();

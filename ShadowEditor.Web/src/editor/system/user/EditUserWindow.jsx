@@ -13,7 +13,8 @@ class EditUserWindow extends React.Component {
         this.state = {
             id: props.id,
             username: props.username,
-            password: props.password,
+            password: '',
+            confirmPassword: '',
             name: props.name,
             roles: {},
             roleID: props.roleID,
@@ -29,12 +30,12 @@ class EditUserWindow extends React.Component {
     }
 
     render() {
-        const { id, username, password, name, roles, roleID, deptName } = this.state;
+        const { id, username, password, confirmPassword, name, roles, roleID, deptName } = this.state;
 
         return <Window
             className={_t('EditUserWindow')}
             title={id ? _t('Edit User') : _t('Add User')}
-            style={{ width: '320px', height: '240px' }}
+            style={{ width: '320px', height: '280px' }}
             mask={false}
             onClose={this.handleClose}
                >
@@ -58,6 +59,14 @@ class EditUserWindow extends React.Component {
                         <Input name={'password'}
                             type={'password'}
                             value={password}
+                            onChange={this.handleChange}
+                        />
+                    </FormControl>
+                    <FormControl hidden={id !== ''}>
+                        <Label>{_t('Confirm Password')}</Label>
+                        <Input name={'confirmPassword'}
+                            type={'password'}
+                            value={confirmPassword}
                             onChange={this.handleChange}
                         />
                     </FormControl>
@@ -138,7 +147,7 @@ class EditUserWindow extends React.Component {
     }
 
     handleSave(callback) {
-        const { id, username, password, name, roleID, deptID } = this.state;
+        const { id, username, password, confirmPassword, name, roleID, deptID } = this.state;
 
         if (!username || username.trim() === '') {
             app.toast(_t('Username is not allowed to be empty.'));
@@ -147,6 +156,16 @@ class EditUserWindow extends React.Component {
 
         if (!id && (!password || password.trim() === '')) {
             app.toast(_t('Password is not allowed to be empty.'));
+            return;
+        }
+
+        if (!id && (!confirmPassword || confirmPassword.trim() === '')) {
+            app.toast(_t('Confirm password is not allowed to be empty.'));
+            return;
+        }
+
+        if (!id && password !== confirmPassword) {
+            app.toast(_t('Password and confirm password is not the same.'));
             return;
         }
 
