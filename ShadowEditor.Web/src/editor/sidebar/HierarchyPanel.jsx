@@ -125,7 +125,6 @@ class HierarchyPanel extends React.Component {
     expandData(uuid, list) {
         for (let item of list) {
             if (uuid === item.value) {
-                item.expanded = true;
                 return true;
             }
             if (this.expandData(uuid, item.children)) {
