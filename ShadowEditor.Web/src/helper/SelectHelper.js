@@ -174,7 +174,8 @@ SelectHelper.prototype.onAfterRender = function () {
     var oldRenderTarget = renderer.getRenderTarget();
 
     // 绘制蒙版
-    this.hideNonSelectedObjects(renderScene, selected);
+    this.hideObjects.length = 0;
+    this.hideNonSelectedObjects(renderScene, selected, renderScene);
 
     renderScene.overrideMaterial = this.maskMaterial;
     renderScene.background = null;
@@ -188,6 +189,7 @@ SelectHelper.prototype.onAfterRender = function () {
     renderer.render(renderScene, renderCamera);
 
     this.showNonSelectedObjects(renderScene, selected);
+    this.hideObjects.length = 0;
 
     // 绘制边框
     this.quad.material = this.edgeMaterial;
@@ -214,27 +216,30 @@ SelectHelper.prototype.onAfterRender = function () {
     renderer.setRenderTarget(oldRenderTarget);
 };
 
-SelectHelper.prototype.hideNonSelectedObjects = function (scene, selected) {
-    let list = [scene];
+SelectHelper.prototype.hideNonSelectedObjects = function (obj, selected, root) {
+    if (obj === selected) {
+        let current = obj.parent;
+        while (current && current !== root) {
+            let index = this.hideObjects.indexOf(current);
+            this.hideObjects.splice(index, 1);
+            current.visible = current.userData.oldVisible;
+            delete current.userData.oldVisible;
+            current = current.parent;
+        }
+        return;
+    }
 
-    this.hideObjects.length = 0;
+    if(obj !== root) {
+        obj.userData.oldVisible = obj.visible;
+        obj.visible = false;
+        this.hideObjects.push(obj);
+    }
 
-    while (list.length) {
-        let obj = list.shift();
-
-        obj.children.forEach(n => {
-            if (n === selected || n instanceof THREE.Light) {
-                return;
-            }
-
-            list.push(n);
-
-            if (n instanceof THREE.Mesh) {
-                obj.userData.oldVisible = obj.visible;
-                obj.visible = false;
-                this.hideObjects.push(obj);
-            }
-        });
+    for (let child of obj.children) {
+        if (child instanceof THREE.Light) {
+            continue;
+        }
+        this.hideNonSelectedObjects(child, selected, root);
     }
 };
 
@@ -243,7 +248,6 @@ SelectHelper.prototype.showNonSelectedObjects = function () {
         n.visible = n.userData.oldVisible;
         delete n.userData.oldVisible;
     });
-    this.hideObjects.length = 0;
 };
 
 SelectHelper.prototype.onOptionChange = function (name, value) {
