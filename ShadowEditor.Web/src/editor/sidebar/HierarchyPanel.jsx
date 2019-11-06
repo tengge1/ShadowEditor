@@ -1,5 +1,5 @@
 import './css/HierarchyPanel.css';
-import { classNames, PropTypes, Tree } from '../../third_party';
+import { Tree } from '../../third_party';
 import MoveObjectCommand from '../../command/MoveObjectCommand';
 
 /**
@@ -15,7 +15,7 @@ class HierarchyPanel extends React.Component {
 
         this.state = {
             data: [],
-            selected: null,
+            selected: null
         };
 
         this.updateUI = this.updateUI.bind(this);
@@ -42,7 +42,8 @@ class HierarchyPanel extends React.Component {
             onDoubleClick={this.handleDoubleClick}
             onClickIcon={this.handleClickVisible}
             onExpand={this.handleExpand}
-            onDrop={this.handleDrop}></Tree>;
+            onDrop={this.handleDrop}
+               />;
     }
 
     componentDidMount() {
@@ -58,16 +59,16 @@ class HierarchyPanel extends React.Component {
 
     /**
      * 单击树节点
-     * @param {*} value 
+     * @param {*} value uuid值
      */
     handleSelect(value) {
         this.setState({
-            selected: value,
+            selected: value
         });
         app.editor.selectByUuid(value);
     }
 
-    handleCheck(value, name, event) {
+    handleCheck(value, name) {
         let checked = this.checked;
 
         if (value && !checked[name]) {
@@ -83,12 +84,12 @@ class HierarchyPanel extends React.Component {
 
     handleDoubleClick(value) {
         this.setState({
-            selected: value,
+            selected: value
         });
         app.editor.focusByUUID(value);
     }
 
-    handleClickVisible(value, name, event) {
+    handleClickVisible(value) {
         let obj = app.editor.objectByUuid(value);
 
         if (obj) {
@@ -100,11 +101,11 @@ class HierarchyPanel extends React.Component {
 
     /**
      * 选中物体改变
-     * @param {*} object 
+     * @param {*} object 当前选中物体
      */
     handleObjectSelected(object) {
         this.setState({
-            selected: object ? object.uuid : null,
+            selected: object ? object.uuid : null
         });
     }
 
@@ -122,7 +123,7 @@ class HierarchyPanel extends React.Component {
             expanded: false,
             checked: this.checked[camera.uuid] || false,
             draggable: false,
-            children: [],
+            children: []
         }];
 
         this._parseData(scene, list);
@@ -164,8 +165,8 @@ class HierarchyPanel extends React.Component {
             children: [],
             icons: [{
                 name: 'visible',
-                icon: obj.visible ? 'visible' : 'invisible',
-            }],
+                icon: obj.visible ? 'visible' : 'invisible'
+            }]
         };
 
         list.push(data);
@@ -179,7 +180,7 @@ class HierarchyPanel extends React.Component {
 
     /**
      * 展开关闭节点
-     * @param {*} value 
+     * @param {*} value uuid值
      */
     handleExpand(value) {
         let expanded = this.expanded;
@@ -195,6 +196,9 @@ class HierarchyPanel extends React.Component {
 
     /**
      * 拖动节点
+     * @param {*} value uuid值
+     * @param {*} newParentValue 新的父节点值
+     * @param {*} newBeforeValue 旧的父节点值
      */
     handleDrop(value, newParentValue, newBeforeValue) {
         var editor = app.editor;
