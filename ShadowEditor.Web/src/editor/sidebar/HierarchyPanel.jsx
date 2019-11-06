@@ -95,7 +95,6 @@ class HierarchyPanel extends React.Component {
         if (obj) {
             obj.visible = !obj.visible;
             app.call(`objectChanged`, this, obj.visible);
-            // this.updateUI();
         }
     }
 
@@ -104,9 +103,38 @@ class HierarchyPanel extends React.Component {
      * @param {*} object 当前选中物体
      */
     handleObjectSelected(object) {
+        // 展开选中节点的所有父节点，并设置选中
+        if (!object) {
+            this.setState({
+                selected: null
+            });
+            return;
+        }
+
+        let data = this.state.data;
+        let selected = object.uuid;
+
+        this.expandData(selected, data);
+
         this.setState({
-            selected: object ? object.uuid : null
+            data,
+            selected
         });
+    }
+
+    expandData(uuid, list) {
+        for (let item of list) {
+            if (uuid === item.value) {
+                item.expanded = true;
+                return true;
+            }
+            if (this.expandData(uuid, item.children)) {
+                // 找到了，父节点也要展开
+                item.expanded = true;
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
