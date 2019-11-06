@@ -55,7 +55,6 @@ RaycastEvent.prototype.onMouseUp = function (event) {
 
     if (intersects.length > 0) {
         app.call('intersect', this, intersects[0], event, intersects);
-        app.editor.select(intersects[0].object);
     }
 };
 
