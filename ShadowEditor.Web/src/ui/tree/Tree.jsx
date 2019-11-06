@@ -34,26 +34,32 @@ class Tree extends React.Component {
         const { className, style, data } = this.props;
 
         // 创建节点
-        var list = [];
+        let list = [];
 
         Array.isArray(data) && data.forEach(n => {
             list.push(this.createNode(n));
         });
 
-        return <ul className={classNames('Tree', className)} style={style} ref={this.treeRef}>{list}</ul>;
+        return <ul className={classNames('Tree', className)}
+            style={style}
+            ref={this.treeRef}
+               >{list}</ul>;
     }
 
     createNode(data) {
         const leaf = !data.children || data.children.length === 0;
 
-        const children = leaf ? null : (<ul className={classNames('sub', data.expanded ? null : 'collpase')}>{data.children.map(n => {
+        const children = leaf ? null : <ul className={classNames('sub', data.expanded ? null : 'collpase')}>{data.children.map(n => {
             return this.createNode(n);
-        })}</ul>);
+        })}</ul>;
 
         let checkbox = null;
 
         if (data.checked === true || data.checked === false) {
-            checkbox = <CheckBox name={data.value} checked={data.checked} onChange={this.handleCheck} />;
+            checkbox = <CheckBox name={data.value}
+                checked={data.checked}
+                onChange={this.handleCheck}
+                       />;
         }
 
         return <li
@@ -68,13 +74,23 @@ class Tree extends React.Component {
             onDragStart={this.handleDragStart}
             onDragOver={this.handleDragOver}
             onDragLeave={this.handleDragLeave}
-            onDrop={this.handleDrop}>
-            <i className={classNames('expand', leaf ? null : (data.expanded ? 'minus' : 'plus'))} value={data.value} onClick={this.handleExpandNode}></i>
+            onDrop={this.handleDrop}
+               >
+            <i className={classNames('expand', leaf ? null : data.expanded ? 'minus' : 'plus')}
+                value={data.value}
+                onClick={this.handleExpandNode}
+            />
             {checkbox}
-            <i className={classNames('type', leaf ? 'node' : (data.expanded ? 'open' : 'close'))}></i>
+            <i className={classNames('type', leaf ? 'node' : data.expanded ? 'open' : 'close')} />
             <a href={'javascript:;'}>{data.text}</a>
             {data.icons && data.icons.map(n => {
-                return <Icon className={'control'} name={n.name} value={data.value} icon={n.icon} key={n.name} onClick={this.handleClickIcon}></Icon>;
+                return <Icon className={'control'}
+                    name={n.name}
+                    value={data.value}
+                    icon={n.icon}
+                    key={n.name}
+                    onClick={this.handleClickIcon}
+                       />;
             })}
             {leaf ? null : children}
         </li>;
@@ -117,7 +133,7 @@ class Tree extends React.Component {
 
     handleClick(onSelect, event) {
         event.stopPropagation();
-        var value = event.target.getAttribute('value');
+        let value = event.target.getAttribute('value');
         if (value) {
             onSelect && onSelect(value, event);
         }
@@ -160,13 +176,13 @@ class Tree extends React.Component {
         event.preventDefault();
         event.stopPropagation();
 
-        var target = event.currentTarget;
+        let target = event.currentTarget;
 
         if (target === this.currentDrag) {
             return;
         }
 
-        var area = event.nativeEvent.offsetY / target.clientHeight;
+        let area = event.nativeEvent.offsetY / target.clientHeight;
 
         if (area < 0.25) {
             target.classList.add('dragTop');
@@ -181,7 +197,7 @@ class Tree extends React.Component {
         event.preventDefault();
         event.stopPropagation();
 
-        var target = event.currentTarget;
+        let target = event.currentTarget;
 
         if (target === this.currentDrag) {
             return;
@@ -196,7 +212,7 @@ class Tree extends React.Component {
         event.preventDefault();
         event.stopPropagation();
 
-        var target = event.currentTarget;
+        let target = event.currentTarget;
 
         if (target === this.currentDrag) {
             return;
@@ -206,7 +222,7 @@ class Tree extends React.Component {
         target.classList.remove('dragBottom');
         target.classList.remove('drag');
 
-        if (typeof (onDrop) === 'function') {
+        if (typeof onDrop === 'function') {
             const area = event.nativeEvent.offsetY / target.clientHeight;
 
             const currentValue = this.currentDrag.getAttribute('value');
@@ -215,19 +231,19 @@ class Tree extends React.Component {
                 onDrop(
                     currentValue, // 拖动要素
                     target.parentNode.parentNode.getAttribute('value'), // 新位置父级
-                    target.getAttribute('value'), // 新位置索引
+                    target.getAttribute('value') // 新位置索引
                 ); // 拖动, 父级, 索引
             } else if (area > 0.75) { // 放在当前元素后面
                 onDrop(
                     currentValue,
                     target.parentNode.parentNode.getAttribute('value'),
-                    target.nextSibling == null ? null : target.nextSibling.getAttribute('value'), // target.nextSibling为null，说明是最后一个位置
+                    !target.nextSibling ? null : target.nextSibling.getAttribute('value') // target.nextSibling为null，说明是最后一个位置
                 );
             } else { // 成为该元素子级
                 onDrop(
                     currentValue,
                     target.getAttribute('value'),
-                    null,
+                    null
                 );
             }
         }
@@ -244,7 +260,7 @@ Tree.propTypes = {
     onCheck: PropTypes.func,
     onDoubleClick: PropTypes.func,
     onClickIcon: PropTypes.func,
-    onDrop: PropTypes.func,
+    onDrop: PropTypes.func
 };
 
 Tree.defaultProps = {
@@ -257,7 +273,7 @@ Tree.defaultProps = {
     onCheck: null,
     onDoubleClick: null,
     onClickIcon: null,
-    onDrop: null,
+    onDrop: null
 };
 
 export default Tree;
