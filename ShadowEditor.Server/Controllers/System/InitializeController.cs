@@ -108,17 +108,7 @@ namespace ShadowEditor.Server.Controllers.System
                 ["Status"] = 0,
             };
 
-            var role3 = new BsonDocument
-            {
-                ["ID"] = ObjectId.GenerateNewId(),
-                ["Name"] = "Guest",
-                ["CreateTime"] = now,
-                ["UpdateTime"] = now,
-                ["Description"] = "No Login User",
-                ["Status"] = 0,
-            };
-
-            mongo.InsertMany(Constant.RoleCollectionName, new[] { role1, role2, role3 });
+            mongo.InsertMany(Constant.RoleCollectionName, new[] { role1, role2 });
 
             // 初始化用户
             var password = "123456";
