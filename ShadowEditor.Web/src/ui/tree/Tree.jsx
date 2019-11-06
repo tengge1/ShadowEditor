@@ -104,23 +104,66 @@ class Tree extends React.Component {
     //     this.handleSetTreeHeight(tree);
     // }
 
-    handleSetTreeHeight(node) {
-        if (node.children.length === 0) {
+    // handleSetTreeHeight(node) {
+    //     if (node.children.length === 0) {
+    //         return;
+    //     }
+
+    //     let height = 0;
+
+    //     for (let i = 0; i < node.children.length; i++) {
+    //         let child = node.children[i];
+
+    //         height += child.offsetHeight;
+
+    //         this.handleSetTreeHeight(child);
+    //     }
+
+    //     if (node.classList.contains('sub')) { // 子树
+    //         node.style.height = `${height}px`;
+    //     }
+    // }
+
+    /**
+     * 将某个节点滚动到视野范围内
+     * @param {*} value 节点的值
+     */
+    scrollToView(value) {
+        let root = this.treeRef.current;
+        if (!root) {
             return;
         }
 
-        let height = 0;
+        let node = this.findNode(value, root);
 
-        for (let i = 0; i < node.children.length; i++) {
-            let child = node.children[i];
+        const treeHeight = root.clientHeight;
+        const treeTop = root.scrollTop;
 
-            height += child.offsetHeight;
+        const nodeHeight = node.clientHeight;
+        const offsetTop = node.offsetTop;
 
-            this.handleSetTreeHeight(child);
+        const minScrollTop = offsetTop + nodeHeight - treeHeight;
+        const maxScrollTop = offsetTop;
+
+        if(treeTop >= minScrollTop && treeTop <= maxScrollTop) { // 不需要滚动
+            return;
+        } else if(treeTop < minScrollTop) {
+            root.scrollTop = minScrollTop;
+        } else if(treeTop > maxScrollTop) {
+            root.scrollTop = maxScrollTop;
         }
+    }
 
-        if (node.classList.contains('sub')) { // 子树
-            node.style.height = `${height}px`;
+    findNode(value, node) {
+        const _value = node.getAttribute('value');
+        if (value === _value) {
+            return node;
+        }
+        for (let child of node.children) {
+            const _node = this.findNode(value, child);
+            if (_node) {
+                return _node;
+            }
         }
     }
 

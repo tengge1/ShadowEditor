@@ -13,6 +13,8 @@ class HierarchyPanel extends React.Component {
         this.expanded = {};
         this.checked = {};
 
+        this.treeRef = React.createRef();
+
         this.state = {
             data: [],
             selected: null
@@ -37,6 +39,7 @@ class HierarchyPanel extends React.Component {
             data={data}
             selected={selected}
             checked={checked}
+            ref={this.treeRef}
             onSelect={this.handleSelect}
             onCheck={this.handleCheck}
             onDoubleClick={this.handleDoubleClick}
@@ -119,6 +122,8 @@ class HierarchyPanel extends React.Component {
         this.setState({
             data,
             selected
+        }, () => {
+            this.treeRef.current.scrollToView(selected);
         });
     }
 
