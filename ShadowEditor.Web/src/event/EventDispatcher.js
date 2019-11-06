@@ -21,27 +21,27 @@ import DraggableEvent from './visual/DraggableEvent';
  * 事件执行器
  * @author tengge / https://github.com/tengge1
  */
-function EventDispatcher(app) {
+function EventDispatcher() {
     this.dispatch = d3.dispatch.apply(d3.dispatch, EventList);
     this.addDomEventListener();
 
     this.events = [
         // 核心事件
-        new KeyDownEvent(app),
-        new RenderEvent(app),
-        new ResizeEvent(app),
-        new FilterEvent(app),
-        new ViewEvent(app),
+        new KeyDownEvent(),
+        new RenderEvent(),
+        new ResizeEvent(),
+        new FilterEvent(),
+        new ViewEvent(),
 
         // viewport中的事件
-        new TransformControlsEvent(app),
-        new ObjectEvent(app),
-        new RaycastEvent(app),
-        new PickEvent(app),
-        new EditorControlsEvent(app),
+        new TransformControlsEvent(),
+        new ObjectEvent(),
+        new RaycastEvent(),
+        new PickEvent(),
+        new EditorControlsEvent(),
 
         // 可视化
-        new DraggableEvent(app),
+        new DraggableEvent()
     ];
 }
 
@@ -68,9 +68,9 @@ EventDispatcher.prototype.stop = function () {
 
 /**
  * 执行事件
- * @param {*} eventName 
- * @param {*} _this 
- * @param {*} others 
+ * @param {*} eventName 事件名称
+ * @param {*} _this this指针
+ * @param {*} others 其他参数
  */
 EventDispatcher.prototype.call = function (eventName, _this, ...others) {
     this.dispatch.call(eventName, _this, ...others);
@@ -78,8 +78,8 @@ EventDispatcher.prototype.call = function (eventName, _this, ...others) {
 
 /**
  * 监听事件
- * @param {*} eventName 
- * @param {*} callback 
+ * @param {*} eventName 事件名称
+ * @param {*} callback 回调函数
  */
 EventDispatcher.prototype.on = function (eventName, callback) {
     this.dispatch.on(eventName, callback);
