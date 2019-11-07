@@ -114,8 +114,35 @@ class HierarchyPanel extends React.Component {
             return;
         }
 
-        let data = this.state.data;
         let selected = object.uuid;
+
+        this.setState({
+            selected
+        }, () => {
+            this.updateUI();
+        });
+    }
+
+    /**
+     * 根据场景变化，更新场景树状图
+     */
+    updateUI() {
+        const scene = app.editor.scene;
+        const camera = app.editor.camera;
+
+        let data = [{
+            value: camera.uuid,
+            text: camera.name,
+            cls: 'Camera',
+            expanded: false,
+            checked: this.checked[camera.uuid] || false,
+            draggable: false,
+            children: []
+        }];
+
+        this._parseData(scene, data);
+
+        const selected = this.state.selected;
 
         this.expandData(selected, data);
 
@@ -134,33 +161,12 @@ class HierarchyPanel extends React.Component {
             }
             if (this.expandData(uuid, item.children)) {
                 // 找到了，父节点也要展开
+                this.expanded[item.uuid] = true;
                 item.expanded = true;
                 return true;
             }
         }
         return false;
-    }
-
-    /**
-     * 根据场景变化，更新场景树状图
-     */
-    updateUI() {
-        const scene = app.editor.scene;
-        const camera = app.editor.camera;
-
-        let list = [{
-            value: camera.uuid,
-            text: camera.name,
-            cls: 'Camera',
-            expanded: false,
-            checked: this.checked[camera.uuid] || false,
-            draggable: false,
-            children: []
-        }];
-
-        this._parseData(scene, list);
-
-        this.setState({ data: list });
     }
 
     _parseData(obj, list) {

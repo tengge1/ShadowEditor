@@ -42,6 +42,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 28. 新建三维园区。
 29. 工具栏改为横向，并进行分类。
 30. 禁用鼠标放到物体上高亮。
+31. 修复点击眼睛图标时，整个场景树折叠bug。
 
 ## v0.3.6更新
 
