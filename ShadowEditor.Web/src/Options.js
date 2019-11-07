@@ -35,6 +35,9 @@ function Options(options = {}) {
     this.selectMode = 'whole'; // whole: 选择整体；part: 选择部分。
     this.selectedColor = '#ff6600'; // unity3d: #ff6600
     this.selectedThickness = 4;
+
+    // 添加模式
+    this.addMode = 'center'; // center: 添加到场景中心；click: 点击场景添加。
 }
 
 export default Options;

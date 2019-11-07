@@ -908,5 +908,8 @@
     "Edit Tools": "编辑工具",
     "Terrain Tools": "地形工具",
     "Mark Tools": "标注工具",
-    "Measure Tools": "测量工具"
+    "Measure Tools": "测量工具",
+    "Add Mode": "添加模式",
+    "Add To Center": "添加到中心",
+    "Click Scene To Add": "点击场景添加"
 }

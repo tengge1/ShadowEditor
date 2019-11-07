@@ -17,6 +17,11 @@ class EditorStatusBar extends React.Component {
             part: _t('Select Part')
         };
 
+        this.addMode = {
+            center: _t('Add To Center'),
+            click: _t('Click Scene To Add')
+        };
+
         this.state = {
             objects: 0,
             vertices: 0,
@@ -35,6 +40,7 @@ class EditorStatusBar extends React.Component {
         this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
         this.changeSelectedColor = this.changeSelectedColor.bind(this);
         this.changeSelectedThickness = this.changeSelectedThickness.bind(this);
+        this.handleChangeAddMode = this.handleChangeAddMode.bind(this);
         this.handleScreenshot = this.handleScreenshot.bind(this);
         this.commitScreenshot = this.commitScreenshot.bind(this);
         this.handleRecord = this.handleRecord.bind(this);
@@ -42,7 +48,7 @@ class EditorStatusBar extends React.Component {
 
     render() {
         const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall, isRecording } = this.state;
-        const { selectMode, selectedColor, selectedThickness } = app.options;
+        const { selectMode, selectedColor, selectedThickness, addMode } = app.options;
 
         const isLogin = !app.config.enableAuthority || app.config.isLogin;
 
@@ -94,6 +100,13 @@ class EditorStatusBar extends React.Component {
                     precision={1}
                     value={selectedThickness}
                     onChange={this.changeSelectedThickness}
+                />
+                <ToolbarSeparator />
+                <Label>{_t('Add Mode')}</Label>
+                <Select name={'addMode'}
+                    options={this.addMode}
+                    value={addMode}
+                    onChange={this.handleChangeAddMode}
                 />
                 <ToolbarSeparator />
                 <Button onClick={this.handleScreenshot}>{_t('Screenshot')}</Button>
@@ -203,6 +216,12 @@ class EditorStatusBar extends React.Component {
     changeSelectedThickness(value) {
         app.options.selectedThickness = value;
         app.call(`optionChange`, this, 'selectedThickness', value);
+        this.forceUpdate();
+    }
+
+    handleChangeAddMode(value) {
+        app.options.addMode = value;
+        app.call('optionChange', this, 'addMode', value);
         this.forceUpdate();
     }
 
