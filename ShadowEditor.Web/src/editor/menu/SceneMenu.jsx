@@ -14,6 +14,7 @@ class SceneMenu extends React.Component {
         super(props);
 
         this.handleCreateEmptyScene = this.handleCreateEmptyScene.bind(this);
+        this.handleCreateThreeDCampus = this.handleCreateThreeDCampus.bind(this);
         this.handleCreateGISScene = this.handleCreateGISScene.bind(this);
         this.handleSaveScene = this.handleSaveScene.bind(this);
         this.handleSaveAsScene = this.handleSaveAsScene.bind(this);
@@ -29,10 +30,13 @@ class SceneMenu extends React.Component {
                 <MenuItem title={_t('Empty Scene')}
                     onClick={this.handleCreateEmptyScene}
                 />
+                <MenuItem title={_t('3D Campus')}
+                    onClick={this.handleCreateThreeDCampus}
+                />
                 <MenuItem title={_t('GIS Scene')}
                     onClick={this.handleCreateGISScene}
                 />
-                </MenuItem>}
+            </MenuItem>}
             {isLogin && <MenuItem title={_t('Save')}
                 onClick={this.handleSaveScene}
                         />}
@@ -77,6 +81,12 @@ class SceneMenu extends React.Component {
                 app.editor.camera.userData.control = 'OrbitControls';
             }
         });
+    }
+
+    // ------------------------- 新建三维园区 ---------------------------------------
+
+    handleCreateThreeDCampus() {
+        debugger;
     }
 
     // --------------------------- 新建GIS场景 -------------------------------------
