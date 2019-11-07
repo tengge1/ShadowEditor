@@ -52,7 +52,7 @@ class Editor extends React.Component {
                     onToggle={this.onToggle}
                             />}
                 <BorderLayout region={'center'}>
-                    {isLogin && <EditorToolbar region={'west'} />}
+                    {isLogin && <EditorToolbar region={'north'} />}
                     <Viewport region={'center'} />
                     {isLogin && <TimelinePanel region={'south'}
                         split

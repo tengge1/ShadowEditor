@@ -1,5 +1,5 @@
 import './css/EditorToolbar.css';
-import { Toolbar, ToolbarSeparator, IconButton, ImageButton } from '../../third_party';
+import { Toolbar, ToolbarSeparator, IconButton, ImageButton, Select } from '../../third_party';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import DigTool from '../../tool/DigTool';
 
@@ -11,7 +11,14 @@ class EditorToolbar extends React.Component {
     constructor(props) {
         super(props);
 
+        this.toolbars = {
+            general: _t('General Tools'),
+            edit: _t('Edit Tools'),
+            terrain: _t('Terrain Tools')
+        };
+
         this.state = {
+            toolbar: 'general',
             mode: 'translate',
             isAddingPoint: false,
             isAddingLine: false,
@@ -21,6 +28,8 @@ class EditorToolbar extends React.Component {
             view: 'perspective',
             isGridMode: false
         };
+
+        this.handleChangeToolbar = this.handleChangeToolbar.bind(this);
 
         this.handleEnterSelectMode = this.handleEnterSelectMode.bind(this);
         this.handleEnterTranslateMode = this.handleEnterTranslateMode.bind(this);
@@ -41,11 +50,17 @@ class EditorToolbar extends React.Component {
     }
 
     render() {
-        const { mode, isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging, view, isGridMode } = this.state;
+        const { toolbar, mode, isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging, view, isGridMode } = this.state;
 
         return <Toolbar className={'EditorToolbar'}
-            direction={'vertical'}
+            direction={'horizontal'}
                >
+            <Select options={this.toolbars}
+                name={'toolbar'}
+                value={toolbar}
+                onChange={this.handleChangeToolbar}
+            />
+            <ToolbarSeparator />
             <IconButton
                 icon={'select'}
                 title={_t('Select')}
@@ -134,6 +149,14 @@ class EditorToolbar extends React.Component {
                 onClick={this.handleGridMode}
             />
         </Toolbar>;
+    }
+
+    // ------------------------------ 选择工具栏 -------------------------------------
+
+    handleChangeToolbar(value, name) {
+        this.setState({
+            [name]: value
+        });
     }
 
     // --------------------------------- 选择模式 -------------------------------------

@@ -1,3 +1,26 @@
-.EditorToolbar {
-    width: 40px !important;
+.Toolbar.EditorToolbar {
+    height: 32px;
+}
+
+.Toolbar.EditorToolbar>.Select {
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+    margin-right: 4px;
+}
+
+.Toolbar.EditorToolbar>.IconButton,
+.Toolbar.EditorToolbar>.ImageButton {
+    width: 28px;
+    height: 24px;
+    margin: 0px 4px;
+}
+
+.Toolbar.EditorToolbar>.IconButton>.iconfont,
+.Toolbar.EditorToolbar>.ImageButton>img  {
+    font-size: 18px;
+}
+
+.Toolbar.EditorToolbar>.ToolbarSeparator {
+    margin: 0 4px;
 }
