@@ -1,10 +1,4 @@
-/**
- * @author qiao / https://github.com/qiao
- * @author mrdoob / http://mrdoob.com
- * @author alteredq / http://alteredqualia.com/
- * @author WestLangley / http://github.com/WestLangley
- */
-function EditorControls(object, domElement) {
+function FreeControls(object, domElement) {
 
     domElement = domElement !== undefined ? domElement : document;
 
