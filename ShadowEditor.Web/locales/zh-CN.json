@@ -911,5 +911,6 @@
     "Measure Tools": "测量工具",
     "Add Mode": "添加模式",
     "Add To Center": "添加到中心",
-    "Click Scene To Add": "点击场景添加"
+    "Click Scene To Add": "点击场景添加",
+    "Please click an plane in the scene.": "请点击场景中的一个平面。"
 }

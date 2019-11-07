@@ -2,7 +2,6 @@ import { classNames, PropTypes, SearchField, ImageList } from '../../third_party
 import EditWindow from './window/EditWindow.jsx';
 import ModelLoader from '../../loader/ModelLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';
-import UploadUtils from '../../utils/UploadUtils';
 
 /**
  * 模型面板
@@ -143,15 +142,37 @@ class ModelPanel extends React.Component {
                 Server: true
             });
 
-            var cmd = new AddObjectCommand(obj);
-            cmd.execute();
-
-            if (obj.userData.scripts) {
-                obj.userData.scripts.forEach(n => {
-                    app.editor.scripts[n.uuid] = n;
-                });
-                app.call('scriptChanged', this);
+            if (app.options.addMode === 'click') {
+                this.clickSceneToAdd(obj);
+            } else {
+                this.addToCenter(obj);
             }
+        });
+    }
+
+    // 添加到场景中心
+    addToCenter(obj) {
+        var cmd = new AddObjectCommand(obj);
+        cmd.execute();
+
+        if (obj.userData.scripts) {
+            obj.userData.scripts.forEach(n => {
+                app.editor.scripts[n.uuid] = n;
+            });
+            app.call('scriptChanged', this);
+        }
+    }
+
+    // 点击场景添加
+    clickSceneToAdd(obj) {
+        app.toast(_t('Please click an plane in the scene.'));
+        app.on(`intersect.ModelPanel`, intersect => {
+            if (!intersect) {
+                return;
+            }
+            app.on(`intersect.ModelPanel`, null);
+            obj.position.copy(intersect.point);
+            this.addToCenter(obj);
         });
     }
 
