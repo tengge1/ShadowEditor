@@ -136,6 +136,10 @@ class Tree extends React.Component {
 
         let node = this.findNode(value, root);
 
+        if (!node) {
+            return;
+        }
+
         const treeHeight = root.clientHeight;
         const treeTop = root.scrollTop;
 
@@ -145,11 +149,11 @@ class Tree extends React.Component {
         const minScrollTop = offsetTop + nodeHeight - treeHeight;
         const maxScrollTop = offsetTop;
 
-        if(treeTop >= minScrollTop && treeTop <= maxScrollTop) { // 不需要滚动
+        if (treeTop >= minScrollTop && treeTop <= maxScrollTop) { // 不需要滚动
             return;
-        } else if(treeTop < minScrollTop) {
+        } else if (treeTop < minScrollTop) {
             root.scrollTop = minScrollTop;
-        } else if(treeTop > maxScrollTop) {
+        } else if (treeTop > maxScrollTop) {
             root.scrollTop = maxScrollTop;
         }
     }
