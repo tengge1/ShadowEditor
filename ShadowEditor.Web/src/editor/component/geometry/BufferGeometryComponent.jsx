@@ -32,10 +32,10 @@ class BufferGeometryComponent extends React.Component {
         }
 
         return <PropertyGroup title={_t('BufferGeometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <DisplayProperty label={_t('Position Count')} value={positionCount}></DisplayProperty>
-            <DisplayProperty label={_t('Normal Count')} value={normalCount}></DisplayProperty>
-            <DisplayProperty label={_t('UV Count')} value={uvCount}></DisplayProperty>
-            <DisplayProperty label={_t('Index Count')} value={indexCound}></DisplayProperty>
+            <DisplayProperty label={_t('Position Count')} value={positionCount.toString()}></DisplayProperty>
+            <DisplayProperty label={_t('Normal Count')} value={normalCount.toString()}></DisplayProperty>
+            <DisplayProperty label={_t('UV Count')} value={uvCount.toString()}></DisplayProperty>
+            <DisplayProperty label={_t('Index Count')} value={indexCound.toString()}></DisplayProperty>
         </PropertyGroup>;
     }
 
