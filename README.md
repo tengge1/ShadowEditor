@@ -44,7 +44,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 30. 修复点击眼睛图标时，整个场景树折叠bug。
 31. 新增添加模型模式：添加到中心、点击场景添加。
 32. 增加显示选项，设置选中边框颜色和粗细。
-33. 新增BufferGeometry组件，查看BufferGeometry的顶点数量、法线数量、UV坐标数量、索引数量。
+33. 新增BufferGeometry组件，查看BufferGeometry的顶点数量、法线数量、UV坐标数量、索引数量。提供计算顶点法线功能，如果模型是黑的，可能没有法线，可以试一下这个功能。
 
 ## v0.3.6更新
 

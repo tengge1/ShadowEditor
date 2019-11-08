@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
+import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, ButtonProperty } from '../../../third_party';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -22,6 +22,9 @@ class BufferGeometryComponent extends React.Component {
 
         this.handleExpand = this.handleExpand.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+
+        this.handleComputeVertexNormals = this.handleComputeVertexNormals.bind(this);
+        // this.handleComputeFaceNormals = this.handleComputeFaceNormals.bind(this);
     }
 
     render() {
@@ -36,6 +39,8 @@ class BufferGeometryComponent extends React.Component {
             <DisplayProperty label={_t('Normal Count')} value={normalCount.toString()}></DisplayProperty>
             <DisplayProperty label={_t('UV Count')} value={uvCount.toString()}></DisplayProperty>
             <DisplayProperty label={_t('Index Count')} value={indexCound.toString()}></DisplayProperty>
+            <ButtonProperty text={_t('Compute Vertex Normals')} onChange={this.handleComputeVertexNormals}></ButtonProperty>
+            {/* <ButtonProperty text={'Compute Face Normals'} onChange={this.handleComputeFaceNormals}></ButtonProperty> */}
         </PropertyGroup>;
     }
 
@@ -72,6 +77,23 @@ class BufferGeometryComponent extends React.Component {
             indexCound: geometry.index ? geometry.index.count : 0
         });
     }
+
+    handleComputeVertexNormals() {
+        const geometry = this.selected.geometry;
+        if (!geometry) {
+            return;
+        }
+        geometry.computeVertexNormals();
+    }
+
+    // computeFaceNormals被three.js移除了。
+    // handleComputeFaceNormals() {
+    //     const geometry = this.selected.geometry;
+    //     if (!geometry) {
+    //         return;
+    //     }
+    //     geometry.computeFaceNormals();
+    // }
 }
 
 export default BufferGeometryComponent;
