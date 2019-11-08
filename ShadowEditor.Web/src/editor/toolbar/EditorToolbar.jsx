@@ -13,6 +13,7 @@ class EditorToolbar extends React.Component {
 
         this.toolbars = {
             general: _t('General Tools'),
+            draw: _t('Draw Tools'),
             edit: _t('Edit Tools'),
             terrain: _t('Terrain Tools'),
             mark: _t('Mark Tools'),
@@ -54,72 +55,76 @@ class EditorToolbar extends React.Component {
     render() {
         const { toolbar, mode, isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging, view, isGridMode } = this.state;
 
+        const isGeneralBar = toolbar === 'general';
+        const isDrawBar = toolbar === 'draw';
+
         return <Toolbar className={'EditorToolbar'}
             direction={'horizontal'}
-               >
+        >
             <Select options={this.toolbars}
                 name={'toolbar'}
                 value={toolbar}
                 onChange={this.handleChangeToolbar}
             />
             <ToolbarSeparator />
-            <IconButton
+            { /* 通用工具栏 */}
+            {isGeneralBar && <IconButton
                 icon={'select'}
                 title={_t('Select')}
                 selected={mode === 'select'}
                 onClick={this.handleEnterSelectMode}
-            />
-            <IconButton
+            />}
+            {isGeneralBar && <IconButton
                 icon={'translate'}
                 title={_t('Translate')}
                 selected={mode === 'translate'}
                 onClick={this.handleEnterTranslateMode}
-            />
-            <IconButton
+            />}
+            {isGeneralBar && <IconButton
                 icon={'rotate'}
                 title={_t('Rotate')}
                 selected={mode === 'rotate'}
                 onClick={this.handleEnterRotateMode}
-            />
-            <IconButton
+            />}
+            {isGeneralBar && <IconButton
                 icon={'scale'}
                 title={_t('Scale')}
                 selected={mode === 'scale'}
                 onClick={this.handleEnterScaleMode}
-            />
-            <ToolbarSeparator />
-            <IconButton
+            />}
+            {isGeneralBar && <ToolbarSeparator />}
+            {isDrawBar && <IconButton
                 icon={'point'}
                 title={_t('Draw Point')}
                 selected={isAddingPoint}
                 onClick={this.handleAddPoint}
-            />
-            <IconButton
+            />}
+            {isDrawBar && <IconButton
                 icon={'line'}
                 title={_t('Draw Line')}
                 selected={isAddingLine}
                 onClick={this.handleAddLine}
-            />
-            <IconButton
+            />}
+            {isDrawBar && <IconButton
                 icon={'polygon'}
                 title={_t('Draw Pologon')}
                 selected={isAddingPolygon}
                 onClick={this.handleAddPolygon}
-            />
-            <IconButton
+            />}
+            {isDrawBar && <IconButton
                 icon={'spray'}
                 title={_t('Spray')}
                 selected={isSpraying}
                 onClick={this.handleSpray}
-            />
-            <IconButton
+            />}
+            {isDrawBar && <IconButton
                 icon={'texture'}
                 title={_t('Dig')}
                 show={false}
                 selected={isDigging}
                 onClick={this.handleDig}
-            />
-            <ToolbarSeparator />
+            />}
+            {isDrawBar && <ToolbarSeparator />}
             <ImageButton
                 src={'assets/image/perspective-view.png'}
                 title={_t('Perspective View')}
@@ -144,6 +149,7 @@ class EditorToolbar extends React.Component {
                 selected={view === 'top'}
                 onClick={this.handleTopView}
             />
+            <ToolbarSeparator />
             <IconButton
                 icon={'grid'}
                 title={_t('Grid Mode')}
