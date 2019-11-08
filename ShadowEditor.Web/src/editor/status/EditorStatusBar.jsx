@@ -39,8 +39,6 @@ class EditorStatusBar extends React.Component {
         this.handleEnablePhysics = this.handleEnablePhysics.bind(this);
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
         this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
-        this.changeSelectedColor = this.changeSelectedColor.bind(this);
-        this.changeSelectedThickness = this.changeSelectedThickness.bind(this);
         this.handleChangeAddMode = this.handleChangeAddMode.bind(this);
         this.handleScreenshot = this.handleScreenshot.bind(this);
         this.commitScreenshot = this.commitScreenshot.bind(this);
@@ -92,23 +90,6 @@ class EditorStatusBar extends React.Component {
                     options={this.selectMode}
                     value={selectMode}
                     onChange={this.handleChangeSelectMode}
-                />
-                <Label>{_t('Selected Color')}</Label>
-                <Input name={'selectedColor'}
-                    className={'selected-color'}
-                    type={'color'}
-                    value={selectedColor}
-                    onChange={this.changeSelectedColor}
-                />
-                <Label>{_t('Border Thickness')}</Label>
-                <Input name={'selectedThickness'}
-                    className={'selected-thickness'}
-                    type={'number'}
-                    min={1}
-                    max={100}
-                    precision={1}
-                    value={selectedThickness}
-                    onChange={this.changeSelectedThickness}
                 />
                 <ToolbarSeparator />
             </>}
@@ -223,18 +204,6 @@ class EditorStatusBar extends React.Component {
     handleChangeSelectMode(value) {
         app.options.selectMode = value;
         app.call('optionChange', this, 'selectMode', value);
-        this.forceUpdate();
-    }
-
-    changeSelectedColor(value) {
-        app.options.selectedColor = value;
-        app.call(`optionChange`, this, 'selectedColor', value);
-        this.forceUpdate();
-    }
-
-    changeSelectedThickness(value) {
-        app.options.selectedThickness = value;
-        app.call(`optionChange`, this, 'selectedThickness', value);
         this.forceUpdate();
     }
 
