@@ -175,6 +175,10 @@ npm run docs
 
 基本几何体都支持多层嵌套。可以添加一个`组`（在几何体菜单中），然后在场景树状图上，将多个模型拖动到`组`上。
 
+3. 如何开启权限系统？
+
+打开`ShadowEditor.Web/Web.config`文件，将`EnableAuthority`设置为`true`。
+
 ## 相关链接
 
 * Three.js官网：https://threejs.org/
