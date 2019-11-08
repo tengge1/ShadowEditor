@@ -36,6 +36,7 @@ class EditorStatusBar extends React.Component {
         this.handleShowStats = this.handleShowStats.bind(this);
         this.handleShowGrid = this.handleShowGrid.bind(this);
         this.handleShowViewHelper = this.handleShowViewHelper.bind(this);
+        this.handleEnablePhysics = this.handleEnablePhysics.bind(this);
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
         this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
         this.changeSelectedColor = this.changeSelectedColor.bind(this);
@@ -48,7 +49,7 @@ class EditorStatusBar extends React.Component {
 
     render() {
         const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall, isRecording } = this.state;
-        const { selectMode, selectedColor, selectedThickness, addMode } = app.options;
+        const { selectMode, selectedColor, selectedThickness, addMode, enablePhysics } = app.options;
 
         const isLogin = !app.config.enableAuthority || app.config.isLogin;
 
@@ -72,12 +73,20 @@ class EditorStatusBar extends React.Component {
             <CheckBox checked={showViewHelper}
                 onChange={this.handleShowViewHelper}
             />
+            <ToolbarSeparator />
             {isLogin && <>
+                <Label>{_t('Physics Engine')}</Label>
+                <CheckBox name={'enablePhysics'}
+                    checked={enablePhysics}
+                    onChange={this.handleEnablePhysics}
+                />
                 <Label>{_t('ThrowBall')}</Label>
                 <CheckBox checked={isThrowBall}
                     onChange={this.handleEnableThrowBall}
                 />
                 <ToolbarSeparator />
+            </>}
+            {isLogin && <>
                 <Label>{_t('Selected Mode')}</Label>
                 <Select name={'selectMode'}
                     options={this.selectMode}
@@ -102,6 +111,8 @@ class EditorStatusBar extends React.Component {
                     onChange={this.changeSelectedThickness}
                 />
                 <ToolbarSeparator />
+            </>}
+            {isLogin && <>
                 <Label>{_t('Add Mode')}</Label>
                 <Select name={'addMode'}
                     options={this.addMode}
@@ -109,6 +120,8 @@ class EditorStatusBar extends React.Component {
                     onChange={this.handleChangeAddMode}
                 />
                 <ToolbarSeparator />
+            </>}
+            {isLogin && <>
                 <Button onClick={this.handleScreenshot}>{_t('Screenshot')}</Button>
                 <Button onClick={this.handleRecord}>{isRecording ? _t('Stop') : _t('Record')}</Button>
             </>}
@@ -195,6 +208,12 @@ class EditorStatusBar extends React.Component {
         this.setState({
             showViewHelper
         });
+    }
+
+    handleEnablePhysics(value) {
+        app.options.enablePhysics = value;
+        app.call('optionChange', this, 'enablePhysics', value);
+        this.forceUpdate();
     }
 
     handleEnableThrowBall(checked) {
