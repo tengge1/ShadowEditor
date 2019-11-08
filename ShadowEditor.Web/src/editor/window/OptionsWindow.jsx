@@ -1,9 +1,9 @@
 import './css/OptionsWindow.css';
 import { classNames, PropTypes, Window, Content, TabLayout, Buttons, Button } from '../../third_party';
+import DisplayPanel from './options/DisplayPanel.jsx';
 import RendererPanel from './options/RendererPanel.jsx';
 import HelperPanel from './options/HelperPanel.jsx';
 import FilterPanel from './options/FilterPanel.jsx';
-import Ajax from '../../utils/Ajax';
 
 /**
  * 选项窗口
@@ -13,6 +13,7 @@ class OptionsWindow extends React.Component {
     constructor(props) {
         super(props);
 
+        this.displayRef = React.createRef();
         this.rendererRef = React.createRef();
         this.helperRef = React.createRef();
         this.filterRef = React.createRef();
@@ -36,6 +37,7 @@ class OptionsWindow extends React.Component {
             onClose={this.handleClose}>
             <Content>
                 <TabLayout className={'tab'} activeTabIndex={activeTabIndex} onActiveTabChange={this.handleActiveTabChange}>
+                    <DisplayPanel title={_t('Display')} ref={this.displayRef}></DisplayPanel>
                     <RendererPanel title={_t('Renderer')} ref={this.rendererRef}></RendererPanel>
                     <HelperPanel title={_t('Helpers')} ref={this.helperRef}></HelperPanel>
                     <FilterPanel title={_t('Filter')} ref={this.filterRef}></FilterPanel>
@@ -57,18 +59,21 @@ class OptionsWindow extends React.Component {
     }
 
     handleActiveTabChange(index) {
+        const displayTab = this.displayRef.current;
         const rendererTab = this.rendererRef.current;
         const helperTab = this.helperRef.current;
         const filterTab = this.filterRef.current;
 
         switch (index) {
             case 0:
+                displayTab.handleUpdate();
+            case 1:
                 rendererTab.handleUpdate();
                 break;
-            case 1:
+            case 2:
                 helperTab.handleUpdate();
                 break;
-            case 2:
+            case 3:
                 filterTab.handleUpdate();
                 break;
         }

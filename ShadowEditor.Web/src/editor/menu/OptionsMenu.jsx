@@ -9,10 +9,7 @@ class OptionsMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-
-        };
-
+        this.handleDisplayOptions = this.handleDisplayOptions.bind(this);
         this.handleRendererOptions = this.handleRendererOptions.bind(this);
         this.handleHelperOptions = this.handleHelperOptions.bind(this);
         this.handleFilterOptions = this.handleFilterOptions.bind(this);
@@ -28,6 +25,9 @@ class OptionsMenu extends React.Component {
         const isLogin = !app.config.enableAuthority || app.config.isLogin;
 
         return <MenuItem title={_t('Options')}>
+            <MenuItem title={_t('Display')}
+                onClick={this.handleDisplayOptions}
+            />
             <MenuItem title={_t('Renderer')}
                 onClick={this.handleRendererOptions}
             />
@@ -72,11 +72,20 @@ class OptionsMenu extends React.Component {
         </MenuItem>;
     }
 
+    // ---------------------------------- 显示选项 ---------------------------------------
+
+    handleDisplayOptions() {
+        let win = app.createElement(OptionsWindow, {
+            activeTabIndex: 0
+        });
+        app.addElement(win);
+    }
+
     // ---------------------------------- 渲染器选项 -------------------------------------
 
     handleRendererOptions() {
         let win = app.createElement(OptionsWindow, {
-            activeTabIndex: 0
+            activeTabIndex: 1
         });
         app.addElement(win);
     }
@@ -85,7 +94,7 @@ class OptionsMenu extends React.Component {
 
     handleHelperOptions() {
         let win = app.createElement(OptionsWindow, {
-            activeTabIndex: 1
+            activeTabIndex: 2
         });
         app.addElement(win);
     }
@@ -94,7 +103,7 @@ class OptionsMenu extends React.Component {
 
     handleFilterOptions() {
         let win = app.createElement(OptionsWindow, {
-            activeTabIndex: 2
+            activeTabIndex: 3
         });
         app.addElement(win);
     }
