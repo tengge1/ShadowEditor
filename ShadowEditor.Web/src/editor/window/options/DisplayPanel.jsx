@@ -19,7 +19,8 @@ class DisplayPanel extends React.Component {
         return <Form className={'DisplayPanel'}>
             <FormControl>
                 <Label>{_t('Selected Color')}</Label>
-                <Input name={'selectedColor'}
+                <Input className={'selected-color'}
+                    name={'selectedColor'}
                     type={'color'}
                     value={selectedColor}
                     onChange={this.handleChange}
@@ -27,7 +28,8 @@ class DisplayPanel extends React.Component {
             </FormControl>
             <FormControl>
                 <Label>{_t('Border Thickness')}</Label>
-                <Input name={'selectedThickness'}
+                <Input className={'selected-thickness'}
+                    name={'selectedThickness'}
                     type={'number'}
                     min={1}
                     max={100}

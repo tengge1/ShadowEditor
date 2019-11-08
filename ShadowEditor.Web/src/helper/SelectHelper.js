@@ -229,7 +229,7 @@ SelectHelper.prototype.hideNonSelectedObjects = function (obj, selected, root) {
         return;
     }
 
-    if(obj !== root) {
+    if (obj !== root) {
         obj.userData.oldVisible = obj.visible;
         obj.visible = false;
         this.hideObjects.push(obj);
@@ -251,6 +251,9 @@ SelectHelper.prototype.showNonSelectedObjects = function () {
 };
 
 SelectHelper.prototype.onOptionChange = function (name, value) {
+    if (!this.edgeMaterial) {
+        return;
+    }
     if (name === 'selectedColor') {
         this.edgeMaterial.uniforms.color.value.set(value);
     } else if (name === 'selectedThickness') {

@@ -4,3 +4,13 @@
     border-radius: 2px;
     box-sizing: border-box;
 }
+
+.Form.DisplayPanel>.FormControl>.Input.selected-color {
+    width: 60px;
+    border: none;
+    background: transparent;
+}
+
+.Form.DisplayPanel>.FormControl>.Input.selected-thickness {
+    width: 60px;
+}
