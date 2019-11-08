@@ -915,5 +915,10 @@
     "Please click an plane in the scene.": "请点击场景中的一个平面。",
     "Physics Engine": "物理引擎",
     "Display": "显示",
-    "Draw Tools": "绘制工具"
+    "Draw Tools": "绘制工具",
+    "BufferGeometry Component": "BufferGeometry组件",
+    "Position Count": "顶点数量",
+    "Normal Count": "法线数量",
+    "UV Count": "UV数量",
+    "Index Count": "索引数量"
 }

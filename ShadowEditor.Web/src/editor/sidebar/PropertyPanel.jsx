@@ -30,6 +30,7 @@ import PointerLockControlComponent from '../component/control/PointerLockControl
 import TrackballControlComponent from '../component/control/TrackballControlComponent.jsx';
 
 // component/geometry
+import BufferGeometryComponent from '../component/geometry/BufferGeometryComponent.jsx';
 import BoxGeometryComponent from '../component/geometry/BoxGeometryComponent.jsx';
 import CircleGeometryComponent from '../component/geometry/CircleGeometryComponent.jsx';
 import CylinderGeometryComponent from '../component/geometry/CylinderGeometryComponent.jsx';
@@ -137,6 +138,7 @@ class PropertyPanel extends React.Component {
             <SoftVolumeComponent></SoftVolumeComponent>
 
             {/* component/geometry */}
+            <BufferGeometryComponent></BufferGeometryComponent>
             <BoxGeometryComponent></BoxGeometryComponent>
             <CircleGeometryComponent></CircleGeometryComponent>
             <CylinderGeometryComponent></CylinderGeometryComponent>
