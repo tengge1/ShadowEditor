@@ -119,14 +119,15 @@ class HierarchyPanel extends React.Component {
         this.setState({
             selected
         }, () => {
-            this.updateUI();
+            this.updateUI(true);
         });
     }
 
     /**
      * 根据场景变化，更新场景树状图
+     * @param {Boolean} shouldExpandData 是否展开选中物体父节点
      */
-    updateUI() {
+    updateUI(shouldExpandData = false) {
         const scene = app.editor.scene;
         const camera = app.editor.camera;
 
@@ -144,13 +145,13 @@ class HierarchyPanel extends React.Component {
 
         const selected = this.state.selected;
 
-        this.expandData(selected, data);
+        shouldExpandData && this.expandData(selected, data);
 
         this.setState({
             data,
             selected
         }, () => {
-            this.treeRef.current.scrollToView(selected);
+            shouldExpandData && this.treeRef.current.scrollToView(selected);
         });
     }
 
