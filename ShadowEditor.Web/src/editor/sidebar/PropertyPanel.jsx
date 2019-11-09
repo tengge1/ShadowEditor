@@ -1,5 +1,5 @@
 import './css/PropertyPanel.css';
-import { classNames, PropTypes, PropertyGrid } from '../../third_party';
+import { PropertyGrid } from '../../third_party';
 
 // component
 import BasicComponent from '../component/BasicComponent.jsx';
@@ -7,6 +7,7 @@ import CameraComponent from '../component/CameraComponent.jsx';
 import FireComponent from '../component/FireComponent.jsx';
 import LightComponent from '../component/LightComponent.jsx';
 import LMeshComponent from '../component/LMeshComponent.jsx';
+import MultiMaterialComponent from '../component/MultiMaterialComponent.jsx';
 import MaterialComponent from '../component/MaterialComponent.jsx';
 import MMDComponent from '../component/MMDComponent.jsx';
 import ParticleEmitterComponent from '../component/ParticleEmitterComponent.jsx';
@@ -91,82 +92,83 @@ class PropertyPanel extends React.Component {
     render() {
         return <PropertyGrid>
             {/* component */}
-            <BasicComponent></BasicComponent>
-            <TransformComponent></TransformComponent>
-            <SceneComponent></SceneComponent>
-            <LightComponent></LightComponent>
-            <ShadowComponent></ShadowComponent>
-            <CameraComponent></CameraComponent>
-            <AudioListenerComponent></AudioListenerComponent>
-            <ScriptComponent></ScriptComponent>
+            <BasicComponent />
+            <TransformComponent />
+            <SceneComponent />
+            <LightComponent />
+            <ShadowComponent />
+            <CameraComponent />
+            <AudioListenerComponent />
+            <ScriptComponent />
 
             {/* component/objects */}
-            <BackgroundMusicComponent></BackgroundMusicComponent>
-            <ReflectorComponent></ReflectorComponent>
-            <FireComponent></FireComponent>
-            <WaterComponent></WaterComponent>
-            <SmokeComponent></SmokeComponent>
-            <LMeshComponent></LMeshComponent>
-            <ClothComponent></ClothComponent>
-            <PerlinTerrainComponent></PerlinTerrainComponent>
-            <SkyComponent></SkyComponent>
-            <ParticleEmitterComponent></ParticleEmitterComponent>
-            <MMDComponent></MMDComponent>
+            <BackgroundMusicComponent />
+            <ReflectorComponent />
+            <FireComponent />
+            <WaterComponent />
+            <SmokeComponent />
+            <LMeshComponent />
+            <ClothComponent />
+            <PerlinTerrainComponent />
+            <SkyComponent />
+            <ParticleEmitterComponent />
+            <MMDComponent />
 
             {/* component/gis */}
-            <GisBasicComponent></GisBasicComponent>
+            <GisBasicComponent />
 
             {/* component/line */}
-            <CatmullRomCurveComponent></CatmullRomCurveComponent>
-            <CubicBezierCurveComponent></CubicBezierCurveComponent>
-            <EllipseCurveComponent></EllipseCurveComponent>
-            <LineCurveComponent></LineCurveComponent>
-            <QuadraticBezierCurveComponent></QuadraticBezierCurveComponent>
+            <CatmullRomCurveComponent />
+            <CubicBezierCurveComponent />
+            <EllipseCurveComponent />
+            <LineCurveComponent />
+            <QuadraticBezierCurveComponent />
 
             {/* component/control */}
-            <ControlComponent></ControlComponent>
-            <FirstPersonControlComponent></FirstPersonControlComponent>
-            <FlyControlComponent></FlyControlComponent>
-            <OrbitControlComponent></OrbitControlComponent>
-            <PointerLockControlComponent></PointerLockControlComponent>
-            <TrackballControlComponent></TrackballControlComponent>
+            <ControlComponent />
+            <FirstPersonControlComponent />
+            <FlyControlComponent />
+            <OrbitControlComponent />
+            <PointerLockControlComponent />
+            <TrackballControlComponent />
 
             {/* component/physics */}
-            <PhysicsTypeComponent></PhysicsTypeComponent>
-            <PhysicsWorldComponent></PhysicsWorldComponent>
-            <RigidBodyComponent></RigidBodyComponent>
-            <SoftVolumeComponent></SoftVolumeComponent>
+            <PhysicsTypeComponent />
+            <PhysicsWorldComponent />
+            <RigidBodyComponent />
+            <SoftVolumeComponent />
 
             {/* component/geometry */}
-            <BufferGeometryComponent></BufferGeometryComponent>
-            <BoxGeometryComponent></BoxGeometryComponent>
-            <CircleGeometryComponent></CircleGeometryComponent>
-            <CylinderGeometryComponent></CylinderGeometryComponent>
-            <IcosahedronGeometryComponent></IcosahedronGeometryComponent>
-            <LatheGeometryComponent></LatheGeometryComponent>
-            <PlaneGeometryComponent></PlaneGeometryComponent>
-            <SphereGeometryComponent></SphereGeometryComponent>
-            <TeapotGeometryComponent></TeapotGeometryComponent>
-            <TorusGeometryComponent></TorusGeometryComponent>
-            <TorusKnotGeometryComponent></TorusKnotGeometryComponent>
+            <BufferGeometryComponent />
+            <BoxGeometryComponent />
+            <CircleGeometryComponent />
+            <CylinderGeometryComponent />
+            <IcosahedronGeometryComponent />
+            <LatheGeometryComponent />
+            <PlaneGeometryComponent />
+            <SphereGeometryComponent />
+            <TeapotGeometryComponent />
+            <TorusGeometryComponent />
+            <TorusKnotGeometryComponent />
 
             {/* component/material */}
-            <MaterialComponent></MaterialComponent>
+            <MultiMaterialComponent />
+            <MaterialComponent />
 
             {/* component/postProcessing */}
-            <AfterimageComponent></AfterimageComponent>
-            <BokehComponent></BokehComponent>
-            <DotScreenComponent></DotScreenComponent>
-            <FxaaComponent></FxaaComponent>
-            <GlitchComponent></GlitchComponent>
-            <HalftoneComponent></HalftoneComponent>
-            <PixelComponent></PixelComponent>
-            <RgbShiftComponent></RgbShiftComponent>
-            <SaoComponent></SaoComponent>
-            <SmaaComponent></SmaaComponent>
-            <SsaaComponent></SsaaComponent>
-            <SsaoComponent></SsaoComponent>
-            <TaaComponent></TaaComponent>
+            <AfterimageComponent />
+            <BokehComponent />
+            <DotScreenComponent />
+            <FxaaComponent />
+            <GlitchComponent />
+            <HalftoneComponent />
+            <PixelComponent />
+            <RgbShiftComponent />
+            <SaoComponent />
+            <SmaaComponent />
+            <SsaaComponent />
+            <SsaoComponent />
+            <TaaComponent />
         </PropertyGrid>;
     }
 }

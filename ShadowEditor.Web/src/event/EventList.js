@@ -71,6 +71,7 @@ var EventList = [
 
     'sceneLoaded', // 场景载入
     'postProcessingChanged', // 后期处理设置改变
+    'currentMaterialChange', // 当前材质改变
 
     // 场景编辑区
     'transformControlsChange', // 变形控件改变

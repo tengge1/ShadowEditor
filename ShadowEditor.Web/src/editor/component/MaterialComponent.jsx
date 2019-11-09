@@ -182,6 +182,7 @@ class MaterialComponent extends React.Component {
 
         this.handleExpand = this.handleExpand.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleMaterial = this.handleMaterial.bind(this);
 
         this.handleChange = this.handleChange.bind(this);
 
@@ -449,6 +450,7 @@ class MaterialComponent extends React.Component {
     componentDidMount() {
         app.on(`objectSelected.MaterialComponent`, this.handleUpdate);
         app.on(`objectChanged.MaterialComponent`, this.handleUpdate);
+        app.on(`currentMaterialChange.MaterialComponent`, this.handleMaterial);
     }
 
     handleExpand(expanded) {
@@ -460,17 +462,23 @@ class MaterialComponent extends React.Component {
     handleUpdate() {
         const editor = app.editor;
 
-        if (!editor.selected || !(editor.selected.material instanceof THREE.Material)) {
+        if (!editor.selected || !editor.selected.material) {
             this.setState({
                 show: false
             });
             return;
         }
 
+        if(Array.isArray(editor.selected.material)) { // 多材质模型，由多材质组件选择。
+            return;
+        }
+
         this.selected = editor.selected;
 
-        let material = this.selected.material;
+        this.handleMaterial(this.selected.material);
+    }
 
+    handleMaterial(material) {
         let state = {
             show: true,
             type: material.type,

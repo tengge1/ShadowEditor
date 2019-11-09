@@ -28,7 +28,8 @@ class IntegerProperty extends React.Component {
             max={max}
             step={1}
             precision={0}
-            onChange={this.handleChange}></Input>;
+            onChange={this.handleChange}
+               />;
     }
 
     handleChange(onChange, value, name, event) {
@@ -47,7 +48,7 @@ IntegerProperty.propTypes = {
     value: PropTypes.number,
     min: PropTypes.number,
     max: PropTypes.number,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 IntegerProperty.defaultProps = {
@@ -57,7 +58,7 @@ IntegerProperty.defaultProps = {
     value: 0,
     min: null,
     max: null,
-    onChange: null,
+    onChange: null
 };
 
 export default IntegerProperty;

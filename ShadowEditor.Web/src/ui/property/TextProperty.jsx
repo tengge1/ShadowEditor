@@ -23,7 +23,8 @@ class TextProperty extends React.Component {
             style={style}
             name={name}
             value={value}
-            onChange={this.handleChange}></Input>;
+            onChange={this.handleChange}
+               />;
     }
 
     handleChange(onChange, value, name, event) {
@@ -36,7 +37,7 @@ TextProperty.propTypes = {
     style: PropTypes.object,
     name: PropTypes.string,
     value: PropTypes.string,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 TextProperty.defaultProps = {
@@ -44,7 +45,7 @@ TextProperty.defaultProps = {
     style: null,
     name: null,
     value: '',
-    onChange: null,
+    onChange: null
 };
 
 export default TextProperty;

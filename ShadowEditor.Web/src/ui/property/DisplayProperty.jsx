@@ -16,11 +16,15 @@ class DisplayProperty extends React.Component {
     }
 
     render() {
-        const { className, style, name, value, btnShow, btnText } = this.props;
+        const { className, style, value, btnShow, btnText } = this.props;
 
-        return <div className={classNames('wrap', className)} style={style}>
+        return <div className={classNames('wrap', className)}
+            style={style}
+               >
             <div className={'label'}>{value}</div>
-            {btnShow && <Button className={'button'} onClick={this.handleClick}>{btnText}</Button>}
+            {btnShow && <Button className={'button'}
+                onClick={this.handleClick}
+                        >{btnText}</Button>}
         </div>;
     }
 
@@ -36,7 +40,7 @@ DisplayProperty.propTypes = {
     value: PropTypes.string,
     btnShow: PropTypes.bool,
     btnText: PropTypes.string,
-    onClick: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 DisplayProperty.defaultProps = {
@@ -46,7 +50,7 @@ DisplayProperty.defaultProps = {
     value: '',
     btnShow: false,
     btnText: 'Button',
-    onClick: null,
+    onClick: null
 };
 
 export default DisplayProperty;
