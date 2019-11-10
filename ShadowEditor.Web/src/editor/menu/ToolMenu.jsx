@@ -71,7 +71,8 @@ class ToolMenu extends React.Component {
     }
 
     handlePlugins() {
-        debugger;
+        const win = app.createElement(PluginsWindow);
+        app.addElement(win);
     }
 
     handleExportEditor() {
