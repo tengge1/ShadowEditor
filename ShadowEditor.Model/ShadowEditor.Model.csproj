@@ -94,6 +94,8 @@
     <Compile Include="System\RoleModel.cs" />
     <Compile Include="System\UserEditModel.cs" />
     <Compile Include="System\UserModel.cs" />
+    <Compile Include="Tools\PluginEditModel.cs" />
+    <Compile Include="Tools\PluginModel.cs" />
     <Compile Include="Video\VideoEditModel.cs" />
     <Compile Include="Video\VideoModel.cs" />
     <Compile Include="Video\VideoSaveModel.cs" />

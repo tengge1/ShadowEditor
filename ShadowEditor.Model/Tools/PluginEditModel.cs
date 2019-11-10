@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Model.System
+namespace ShadowEditor.Model.Tools
 {
     /// <summary>
-    /// 角色编辑模型
+    /// 插件编辑模型
     /// </summary>
-    public class RoleEditModel
+    public class PluginEditModel
     {
         /// <summary>
         /// 编号
@@ -20,6 +20,11 @@ namespace ShadowEditor.Model.System
         /// 名称
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 源码
+        /// </summary>
+        public string Source { get; set; }
 
         /// <summary>
         /// 简介
