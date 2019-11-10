@@ -5,42 +5,51 @@ import BaseEvent from './BaseEvent';
  */
 function PhysicsEngine() {
     BaseEvent.call(this);
+
+    this.enabled = false;
+    this.init = false;
+
+    this.rigidBodies = [];
+    this.softBodies = [];
+
+    this.onOptionChange = this.onOptionChange.bind(this);
 }
 
 PhysicsEngine.prototype = Object.create(BaseEvent.prototype);
 PhysicsEngine.prototype.constructor = PhysicsEngine;
 
 PhysicsEngine.prototype.start = function () {
-
+    app.on(`optionChange.${this.id}`, this.onOptionChange);
 };
 
 PhysicsEngine.prototype.stop = function () {
-
+    app.on(`optionChange.${this.id}`, null);
 };
 
-PhysicsEngine.prototype.create = function (scene, camera, renderer) {
-    var usePhysics = false;
+PhysicsEngine.prototype.onOptionChange = function (name, value) {
+    if (name !== 'enablePhysics') {
+        return;
+    }
+    if (value) {
+        this.enablePhysics();
+    } else {
+        this.disablePhysics();
+    }
+};
 
-    this.scene = scene;
+PhysicsEngine.prototype.enablePhysics = function () {
+    this.enabled = true;
 
-    this.scene.traverse(n => {
-        if (n.userData &&
-            n.userData.physics &&
-            n.userData.physics.enabled
-        ) {
-            usePhysics = true;
-        }
-    });
-
-    // 未使用物理
-    if (!usePhysics) {
-        return new Promise(resolve => {
-            resolve();
-        });
+    if (!this.init) {
+        this.init = true;
+        this.initPhysicsWorld();
     }
 
-    this.initPhysicsWorld();
-    this.initScene(scene, camera, renderer);
+    this.createScene();
+};
+
+PhysicsEngine.prototype.disablePhysics = function () {
+    this.enabled = false;
 };
 
 PhysicsEngine.prototype.initPhysicsWorld = function () {
@@ -64,24 +73,20 @@ PhysicsEngine.prototype.initPhysicsWorld = function () {
     );
 
     var gravity = new Ammo.btVector3(0, gravityConstant, 0);
+
     this.world.setGravity(gravity);
     this.world.getWorldInfo().set_m_gravity(gravity);
 
     this.transformAux1 = new Ammo.btTransform();
-    this.rigidBodies = [];
-    this.softBodies = [];
-
     this.softBodyHelpers = new Ammo.btSoftBodyHelpers();
+};
 
-    this.events = [
-        new ThrowBallEvent(app, this.world, this.rigidBodies)
-    ];
+PhysicsEngine.prototype.createScene = function () {
+    app.editor.scene;
+};
 
-    // api函数
-    // TODO: 很难受的实现
-    Object.assign(this.app, {
-        addPhysicsObject: this.addPhysicsObject.bind(this)
-    });
+PhysicsEngine.prototype.traverseObject = function() {
+    
 };
 
 PhysicsEngine.prototype.initScene = function (scene, camera, renderer) {
@@ -119,10 +124,6 @@ PhysicsEngine.prototype.initScene = function (scene, camera, renderer) {
                 console.warn(`PlayerPhysics: unknown physics type ${n.userData.physics.type}.`);
             }
         }
-    });
-
-    this.events.forEach(n => {
-        n.create(scene, camera, renderer);
     });
 };
 
