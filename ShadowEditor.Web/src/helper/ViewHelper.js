@@ -5,10 +5,9 @@ import ArrowFragment from './view/ArrowFragment.glsl';
 /**
  * 视角帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function ViewHelper(app) {
-    BaseHelper.call(this, app);
+function ViewHelper() {
+    BaseHelper.call(this);
 }
 
 ViewHelper.prototype = Object.create(BaseHelper.prototype);
@@ -216,13 +215,13 @@ ViewHelper.prototype.onMouseDown = function (event) {
 
     this.screenXY.unproject(app.editor.camera);
 
-    var obj = this.raycaster.intersectObject(this.mesh)[0];
+    // var obj = this.raycaster.intersectObject(this.mesh)[0];
 
-    this.mesh.matrixWorld.copy(this.matrix);
+    // this.mesh.matrixWorld.copy(this.matrix);
 
-    if (obj) {
-        var materialIndex = obj.face.materialIndex;
-    }
+    // if (obj) {
+    //     var materialIndex = obj.face.materialIndex;
+    // }
 };
 
 ViewHelper.prototype.onResize = function () {

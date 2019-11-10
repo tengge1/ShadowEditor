@@ -96,6 +96,8 @@ class Editor extends React.Component {
         this.DEFAULT_CAMERA.position.set(20, 10, 20);
         this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
 
+        // 说明：默认是透视相机，当选择正视图、侧视图、顶视图时，使用正交相机进行渲染、选中。
+
         // 视图
         this.view = 'perspective'; // perspective, front, side, top
 
