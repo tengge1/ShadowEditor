@@ -3,10 +3,9 @@ import BaseEvent from './BaseEvent';
 /**
  * 物体事件
  * @author tengge / https://github.com/tengge1
- * @param {*} app 应用程序
  */
-function ObjectEvent(app) {
-    BaseEvent.call(this, app);
+function ObjectEvent() {
+    BaseEvent.call(this);
     this.box = new THREE.Box3();
 }
 

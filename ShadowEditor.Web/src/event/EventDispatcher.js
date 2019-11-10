@@ -14,6 +14,9 @@ import RaycastEvent from './RaycastEvent';
 import PickEvent from './PickEvent';
 import EditorControlsEvent from './EditorControlsEvent';
 
+// 物理引擎
+import PhysicsEvent from './PhysicsEvent';
+
 // 可视化
 import DraggableEvent from './visual/DraggableEvent';
 
@@ -39,6 +42,9 @@ function EventDispatcher() {
         new RaycastEvent(),
         new PickEvent(),
         new EditorControlsEvent(),
+
+        // 物理引擎
+        new PhysicsEvent(),
 
         // 可视化
         new DraggableEvent()

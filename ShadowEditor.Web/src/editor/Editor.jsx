@@ -10,7 +10,6 @@ import TimelinePanel from './timeline/TimelinePanel.jsx';
 import EditorSideBar from './sidebar/EditorSideBar.jsx';
 import AssetsPanel from './assets/AssetsPanel.jsx';
 
-import PhysicsEngine from '../physics/PhysicsEngine';
 import History from '../command/History';
 import Helpers from '../helper/Helpers';
 import Visualization from '../visual/Visualization';
@@ -154,9 +153,6 @@ class Editor extends React.Component {
         this.sceneHelpers.add(light);
 
         this.showViewHelper = true;
-
-        // 物理引擎
-        this.physics = new PhysicsEngine();
 
         // 可视化
         this.svg = app.svgRef;

@@ -1,9 +1,14 @@
+import BaseEvent from './BaseEvent';
+
 /**
- * 物理引擎
+ * 物理事件
  */
 function PhysicsEngine() {
-
+    BaseEvent.call(this);
 }
+
+PhysicsEngine.prototype = Object.create(BaseEvent.prototype);
+PhysicsEngine.prototype.constructor = PhysicsEngine;
 
 PhysicsEngine.prototype.start = function () {
 
