@@ -10,6 +10,7 @@ import TimelinePanel from './timeline/TimelinePanel.jsx';
 import EditorSideBar from './sidebar/EditorSideBar.jsx';
 import AssetsPanel from './assets/AssetsPanel.jsx';
 
+import PhysicsEngine from '../physics/PhysicsEngine';
 import History from '../command/History';
 import Helpers from '../helper/Helpers';
 import Visualization from '../visual/Visualization';
@@ -148,11 +149,14 @@ class Editor extends React.Component {
         this.controls = new EditorControls(this.camera, app.viewport);
 
         // 帮助器场景灯光
-        var light = new THREE.DirectionalLight(0xffffff, 1.0);
+        let light = new THREE.DirectionalLight(0xffffff, 1.0);
         light.position.z = 10;
         this.sceneHelpers.add(light);
 
         this.showViewHelper = true;
+
+        // 物理引擎
+        this.physics = new PhysicsEngine();
 
         // 可视化
         this.svg = app.svgRef;
@@ -198,13 +202,13 @@ class Editor extends React.Component {
 
     setScene(scene) { // 设置场景
         // 移除原有物体
-        var objects = this.scene.children;
+        let objects = this.scene.children;
         while (objects.length > 0) {
             this.removeObject(objects[0]);
         }
 
         // 添加新物体
-        var children = scene.children.slice();
+        let children = scene.children.slice();
         scene.children.length = 0;
         this.scene = scene;
 
@@ -235,7 +239,7 @@ class Editor extends React.Component {
         this.deselect();
 
         // 移除场景物体
-        var objects = this.scene.children;
+        let objects = this.scene.children;
 
         while (objects.length > 0) {
             this.removeObject(objects[0]);
@@ -265,11 +269,11 @@ class Editor extends React.Component {
 
         // 添加默认元素
         if (addObject) {
-            var light1 = new THREE.AmbientLight(0xffffff, 0.24);
+            let light1 = new THREE.AmbientLight(0xffffff, 0.24);
             light1.name = _t('Ambient');
             this.addObject(light1);
 
-            var light2 = new THREE.DirectionalLight(0xffffff, 0.56);
+            let light2 = new THREE.DirectionalLight(0xffffff, 0.56);
             light2.name = _t('Directional');
             light2.castShadow = true;
             light2.position.set(5, 10, 7.5);
@@ -324,7 +328,7 @@ class Editor extends React.Component {
 
         // sort children array
         if (before !== undefined) {
-            var index = parent.children.indexOf(before);
+            let index = parent.children.indexOf(before);
             parent.children.splice(index, 0, object);
             parent.children.pop();
         }
@@ -346,13 +350,13 @@ class Editor extends React.Component {
     // ------------------------- 帮助 ------------------------------
 
     addPhysicsHelper(helper) {
-        var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
-        var material = new THREE.MeshBasicMaterial({
+        let geometry = new THREE.SphereBufferGeometry(2, 4, 2);
+        let material = new THREE.MeshBasicMaterial({
             color: 0xff0000,
             visible: false
         });
 
-        var picker = new THREE.Mesh(geometry, material);
+        let picker = new THREE.Mesh(geometry, material);
         picker.name = 'picker';
         picker.userData.object = helper.object;
         helper.add(picker);
@@ -367,7 +371,7 @@ class Editor extends React.Component {
             helper.parent.remove(helper);
             delete this.helpers[helper.object.id];
 
-            var objects = this.objects;
+            let objects = this.objects;
             objects.splice(objects.indexOf(helper.getObjectByName('picker')), 1);
         }
     }
@@ -389,7 +393,7 @@ class Editor extends React.Component {
             return;
         }
 
-        var index = this.scripts[object.uuid].indexOf(script);
+        let index = this.scripts[object.uuid].indexOf(script);
 
         if (index !== -1) {
             this.scripts[object.uuid].splice(index, 1);
@@ -447,7 +451,7 @@ class Editor extends React.Component {
     }
 
     focusById(id) { // 根据id设置交点
-        var obj = this.scene.getObjectById(id, true);
+        let obj = this.scene.getObjectById(id, true);
         if (obj) {
             this.focus(obj);
         }

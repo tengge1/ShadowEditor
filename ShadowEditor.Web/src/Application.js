@@ -354,7 +354,7 @@ Application.prototype.video = function (url) {
  * @param {String} callback 回调函数
  */
 Application.prototype.upload = function () {
-    var input;
+    let input;
 
     return function (url, callback) {
         if (!input) {
@@ -365,7 +365,7 @@ Application.prototype.upload = function () {
                 Ajax.post(url, {
                     file: event.target.files[0]
                 }, json => {
-                    var obj = JSON.parse(json);
+                    let obj = JSON.parse(json);
                     if (obj.Code === 200) {
                         callback(obj);
                     } else {

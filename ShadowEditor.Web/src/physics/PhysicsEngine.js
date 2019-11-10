@@ -1,33 +1,17 @@
-// const shape = {
-//     btBoxShape: Ammo.btBoxShape, // 正方体
-//     btBvhTriangleMeshShape: Ammo.btBvhTriangleMeshShape, // 三角形
-//     btCapsuleShape: Ammo.btCapsuleShape, // 胶囊
-//     btCapsuleShapeX: Ammo.btCapsuleShapeX, // x轴胶囊
-//     btCapsuleShapeZ: Ammo.btCapsuleShapeZ, // z轴胶囊
-//     btCollisionShape: Ammo.btCollisionShape, // 碰撞体
-//     btCompoundShape: Ammo.btCompoundShape, // 复合形状
-//     btConcaveShape: Ammo.btConcaveShape, // 
-//     btConeShape: Ammo.btConeShape, // 圆锥体
-//     btConeShapeX: Ammo.btConeShapeX, // x轴圆椎体
-//     btConeShapeZ: Ammo.btConeShapeZ, // z轴圆椎体
-//     btConvexHullShape: Ammo.btConvexHullShape, // 凸包
-//     btConvexShape: Ammo.btConvexShape, // 
-//     btConvexTriangleMeshShape: Ammo.btConvexTriangleMeshShape, // 凸三角形
-//     btCylinderShape: Ammo.btCylinderShape, // 圆柱体
-//     btCylinderShapeX: Ammo.btCylinderShapeX, // x轴圆柱体
-//     btCylinderShapeZ: Ammo.btCylinderShapeZ, // z轴圆柱体
-//     btHeightfieldTerrainShape: Ammo.btHeightfieldTerrainShape, // 灰阶高程地形
-//     btSphereShape: Ammo.btSphereShape, // 球体
-//     btStaticPlaneShape: Ammo.btStaticPlaneShape, // 静态平板
-//     btTriangleMeshShape: Ammo.btTriangleMeshShape, // 三角网格
-// };
-
 /**
  * 物理引擎
  */
 function PhysicsEngine() {
-    PlayerComponent.call(this);
+
 }
+
+PhysicsEngine.prototype.start = function () {
+
+};
+
+PhysicsEngine.prototype.stop = function () {
+
+};
 
 PhysicsEngine.prototype.create = function (scene, camera, renderer) {
     var usePhysics = false;
@@ -96,13 +80,15 @@ PhysicsEngine.prototype.initPhysicsWorld = function () {
 };
 
 PhysicsEngine.prototype.initScene = function (scene, camera, renderer) {
+    var body = null;
+
     this.scene.traverse(n => {
         if (n.userData &&
             n.userData.physics &&
             n.userData.physics.enabled
         ) {
             if (n.userData.physics.type === 'rigidBody') {
-                var body = this.createRigidBody(n);
+                body = this.createRigidBody(n);
                 if (body) {
                     n.userData.physics.body = body;
                     this.world.addRigidBody(body);
@@ -113,7 +99,7 @@ PhysicsEngine.prototype.initScene = function (scene, camera, renderer) {
                     }
                 }
             } else if (n.userData.physics.type === 'softVolume') {
-                var body = this.createSoftVolume(n);
+                body = this.createSoftVolume(n);
                 if (body) {
                     n.userData.physics.body = body;
                     this.world.addSoftBody(body, 1, -1);
@@ -144,8 +130,9 @@ PhysicsEngine.prototype.update = function (clock, deltaTime) {
 
     // 更新柔软体
     var softBodies = this.softBodies;
+    var i = 0;
 
-    for (var i = 0, il = softBodies.length; i < il; i++) {
+    for (i = 0, il = softBodies.length; i < il; i++) {
         var volume = softBodies[i];
 
         var geometry = volume.geometry;
@@ -185,12 +172,12 @@ PhysicsEngine.prototype.update = function (clock, deltaTime) {
 
         geometry.attributes.position.needsUpdate = true;
         geometry.attributes.normal.needsUpdate = true;
-    };
+    }
 
     // 更新刚体
     var rigidBodies = this.rigidBodies;
 
-    for (var i = 0, l = rigidBodies.length; i < l; i++) {
+    for (i = 0, l = rigidBodies.length; i < l; i++) {
         var objThree = rigidBodies[i];
         var objPhys = objThree.userData.physics.body;
         if (!objPhys) {
@@ -258,10 +245,11 @@ PhysicsEngine.prototype.createRigidBody = function (obj) {
     var inertia = physics.inertia;
 
     // 形状
+    var geometry = null;
     var physicsShape = null;
 
     if (shape === 'btBoxShape') {
-        var geometry = obj.geometry;
+        geometry = obj.geometry;
         geometry.computeBoundingBox();
 
         var box = geometry.boundingBox;
@@ -278,7 +266,7 @@ PhysicsEngine.prototype.createRigidBody = function (obj) {
 
         physicsShape = new Ammo.btBoxShape(new Ammo.btVector3(x * 0.5, y * 0.5, z * 0.5));
     } else if (shape === 'btSphereShape') {
-        var geometry = obj.geometry;
+        geometry = obj.geometry;
         geometry.computeBoundingSphere();
 
         var sphere = geometry.boundingSphere;
@@ -305,134 +293,9 @@ PhysicsEngine.prototype.createRigidBody = function (obj) {
     return new Ammo.btRigidBody(info);
 };
 
-// --------------------------------- 创建柔软体 ---------------------------------------------
-
-PhysicsEngine.prototype.createSoftVolume = function (obj) {
-    var geometry = obj.geometry;
-    var mass = obj.userData.physics.mass;
-    var pressure = obj.userData.physics.pressure;
-
-    this.processGeometry(geometry);
-    var volume = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
-        color: 0xFFFFFF
-    }));
-
-    volume.castShadow = true;
-    volume.receiveShadow = true;
-    volume.frustumCulled = false;
-
-    // Volume physic object
-    var body = this.softBodyHelpers.CreateFromTriMesh(
-        this.world.getWorldInfo(),
-        geometry.ammoVertices,
-        geometry.ammoIndices,
-        geometry.ammoIndices.length / 3,
-        true);
-
-    var sbConfig = body.get_m_cfg();
-    sbConfig.set_viterations(40); // 设置迭代次数
-    sbConfig.set_piterations(40);
-
-    // Soft-soft and soft-rigid碰撞
-    sbConfig.set_collisions(0x11);
-
-    // 摩擦力(Friction)
-    sbConfig.set_kDF(0.1);
-
-    // 减震(Damping)
-    sbConfig.set_kDP(0.01);
-
-    // 压力(Pressure)
-    sbConfig.set_kPR(pressure);
-
-    // 刚性(Stiffness)
-    body.get_m_materials().at(0).set_m_kLST(0.9);
-    body.get_m_materials().at(0).set_m_kAST(0.9);
-    body.setTotalMass(mass, false);
-
-    Ammo.castObject(body, Ammo.btCollisionObject).getCollisionShape().setMargin(0.05);
-
-    return body;
-};
-
-PhysicsEngine.prototype.processGeometry = function (bufGeometry) {
-    // Obtain a Geometry
-    var geometry = new THREE.Geometry().fromBufferGeometry(bufGeometry);
-    // Merge the vertices so the triangle soup is converted to indexed triangles
-    geometry.mergeVertices();
-    // Convert again to BufferGeometry, indexed
-    var indexedBufferGeom = this.createIndexedBufferGeometryFromGeometry(geometry);
-    // Create index arrays mapping the indexed vertices to bufGeometry vertices
-    this.mapIndices(bufGeometry, indexedBufferGeom);
-};
-
-PhysicsEngine.prototype.createIndexedBufferGeometryFromGeometry = function (geometry) {
-    var numVertices = geometry.vertices.length;
-    var numFaces = geometry.faces.length;
-    var bufferGeom = new THREE.BufferGeometry();
-    var vertices = new Float32Array(numVertices * 3);
-    var indices = new (numFaces * 3 > 65535 ? Uint32Array : Uint16Array)(numFaces * 3);
-
-    for (var i = 0; i < numVertices; i++) {
-        var p = geometry.vertices[i];
-        var i3 = i * 3;
-        vertices[i3] = p.x;
-        vertices[i3 + 1] = p.y;
-        vertices[i3 + 2] = p.z;
-    }
-
-    for (var i = 0; i < numFaces; i++) {
-        var f = geometry.faces[i];
-        var i3 = i * 3;
-        indices[i3] = f.a;
-        indices[i3 + 1] = f.b;
-        indices[i3 + 2] = f.c;
-    }
-
-    bufferGeom.setIndex(new THREE.BufferAttribute(indices, 1));
-    bufferGeom.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
-
-    return bufferGeom;
-};
-
-PhysicsEngine.prototype.mapIndices = function (bufGeometry, indexedBufferGeom) {
-    // Creates ammoVertices, ammoIndices and ammoIndexAssociation in bufGeometry
-    var vertices = bufGeometry.attributes.position.array;
-    var idxVertices = indexedBufferGeom.attributes.position.array;
-    var indices = indexedBufferGeom.index.array;
-    var numIdxVertices = idxVertices.length / 3;
-    var numVertices = vertices.length / 3;
-
-    bufGeometry.ammoVertices = idxVertices;
-    bufGeometry.ammoIndices = indices;
-    bufGeometry.ammoIndexAssociation = [];
-
-    for (var i = 0; i < numIdxVertices; i++) {
-        var association = [];
-        bufGeometry.ammoIndexAssociation.push(association);
-        var i3 = i * 3;
-        for (var j = 0; j < numVertices; j++) {
-            var j3 = j * 3;
-            if (this.isEqual(idxVertices[i3], idxVertices[i3 + 1], idxVertices[i3 + 2],
-                vertices[j3], vertices[j3 + 1], vertices[j3 + 2])) {
-                association.push(j3);
-            }
-        }
-    }
-};
-
-PhysicsEngine.prototype.isEqual = function (x1, y1, z1, x2, y2, z2) {
-    var delta = 0.000001;
-    return Math.abs(x2 - x1) < delta &&
-        Math.abs(y2 - y1) < delta &&
-        Math.abs(z2 - z1) < delta;
-};
-
-// --------------------------------- API函数 ------------------------------------------------
-
 /**
  * 添加一个物理物体
- * @param {*} obj 
+ * @param {*} obj 几何体
  */
 PhysicsEngine.prototype.addPhysicsObject = function (obj) {
     this.scene.add(obj);
@@ -449,12 +312,7 @@ PhysicsEngine.prototype.addPhysicsObject = function (obj) {
                 }
             }
         } else if (obj.userData.physics.type === 'softVolume') {
-            var body = this.createSoftVolume(obj);
-            if (body) {
-                obj.userData.physics.body = body;
-                this.world.addSoftBody(body);
-                this.softBodies.push(obj);
-            }
+            console.warn(_t('SoftVolume is not supported.'));
         }
     }
 };
