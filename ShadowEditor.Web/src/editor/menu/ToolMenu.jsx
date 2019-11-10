@@ -13,6 +13,7 @@ class ToolMenu extends React.Component {
         this.handleTextureGenerator = this.handleTextureGenerator.bind(this);
         this.handleCleanUpScenes = this.handleCleanUpScenes.bind(this);
         this.commitCleanUpScenes = this.commitCleanUpScenes.bind(this);
+        this.handlePlugins = this.handlePlugins.bind(this);
         this.handleExportEditor = this.handleExportEditor.bind(this);
         this.handleExportExamples = this.handleExportExamples.bind(this);
     }
@@ -27,6 +28,9 @@ class ToolMenu extends React.Component {
                 onClick={this.handleCleanUpScenes}
             />
             <MenuItemSeparator />
+            <MenuItem title={_t('Plugins')}
+                onClick={this.handlePlugins}
+            />
             <MenuItem title={_t('Export Editor')}
                 onClick={this.handleExportEditor}
             />
@@ -63,6 +67,10 @@ class ToolMenu extends React.Component {
                 app.toast(_t(obj.Msg));
             });
         });
+    }
+
+    handlePlugins() {
+        debugger;
     }
 
     handleExportEditor() {
