@@ -1,5 +1,5 @@
 import './css/HelpMenu.css';
-import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../third_party';
 import RendererAttributesWindow from './window/RendererAttributesWindow.jsx';
 import ThreeJsInformationWindow from './window/ThreeJsInformationWindow.jsx';
 
@@ -24,22 +24,40 @@ class HelpMenu extends React.Component {
 
     render() {
         return <MenuItem title={_t('Help')}>
-            <MenuItem title={_t('Renderer Attributes')} onClick={this.handleRendererAttributes}></MenuItem>
-            <MenuItem title={_t('Three.js Information')} onClick={this.handleThreeJsInformation}></MenuItem>
-            <MenuItemSeparator></MenuItemSeparator>
+            <MenuItem title={_t('Renderer Attributes')}
+                onClick={this.handleRendererAttributes}
+            />
+            <MenuItem title={_t('Three.js Information')}
+                onClick={this.handleThreeJsInformation}
+            />
+            <MenuItemSeparator />
             <MenuItem title={_t('Source')}>
-                <MenuItem title={_t('GitHub')} onClick={this.handleGitHubSource}></MenuItem>
-                <MenuItem title={_t('Gitee')} onClick={this.handleGiteeSource}></MenuItem>
+                <MenuItem title={_t('GitHub')}
+                    onClick={this.handleGitHubSource}
+                />
+                <MenuItem title={_t('Gitee')}
+                    onClick={this.handleGiteeSource}
+                />
             </MenuItem>
             <MenuItem title={_t('Documents')}>
-                <MenuItem title={_t('GitHub')} onClick={this.handleGitHubDocuments}></MenuItem>
-                <MenuItem title={_t('Gitee')} onClick={this.handleGiteeDocuments}></MenuItem>
+                <MenuItem title={_t('GitHub')}
+                    onClick={this.handleGitHubDocuments}
+                />
+                <MenuItem title={_t('Gitee')}
+                    onClick={this.handleGiteeDocuments}
+                />
             </MenuItem>
             <MenuItem title={_t('Examples')}>
-                <MenuItem title={_t('GitHub')} onClick={this.handleGitHubExamples}></MenuItem>
-                <MenuItem title={_t('Gitee')} onClick={this.handleGiteeExamples}></MenuItem>
+                <MenuItem title={_t('GitHub')}
+                    onClick={this.handleGitHubExamples}
+                />
+                <MenuItem title={_t('Gitee')}
+                    onClick={this.handleGiteeExamples}
+                />
             </MenuItem>
-            <MenuItem title={_t('About')} onClick={this.handleAbout}></MenuItem>
+            <MenuItem title={_t('About')}
+                onClick={this.handleAbout}
+            />
         </MenuItem>;
     }
 
@@ -85,8 +103,14 @@ class HelpMenu extends React.Component {
                 {_t('Name')}: ShadowEditor<br />
                 {_t('Author')}: tengge1<br />
                 {_t('Lisense')}: MIT<br />
-                {_t('Source')}1: <a href="https://github.com/tengge1/ShadowEditor" target="_blank">https://github.com/tengge1/ShadowEditor</a><br />
-                {_t('Source')}2: <a href="https://gitee.com/tengge1/ShadowEditor" target="_blank">https://gitee.com/tengge1/ShadowEditor</a><br />
+                {_t('Source')}1: <a href="https://github.com/tengge1/ShadowEditor"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                                 >https://github.com/tengge1/ShadowEditor</a><br />
+                {_t('Source')}2: <a href="https://gitee.com/tengge1/ShadowEditor"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                                 >https://gitee.com/tengge1/ShadowEditor</a><br />
             </>
         });
     }

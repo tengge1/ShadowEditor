@@ -1,0 +1,11 @@
+.Window.PluginsWindow>.wrap>.content {
+    left: 0;
+    top: 24px;
+    right: 0;
+    bottom: 32px;
+    overflow-y: auto;
+}
+
+.Window.PluginsWindow>.wrap>.content>.Form>.FormControl>.Label {
+    width: 180px;
+}

@@ -1,11 +1,11 @@
-import './css/RendererAttributesWindow.css';
+import './css/PluginsWindow.css';
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../third_party';
 
 /**
- * 渲染器属性窗口
+ * 插件窗口
  * @author tengge / https://github.com/tengge1
  */
-class RendererAttributesWindow extends React.Component {
+class PluginsWindow extends React.Component {
     constructor(props) {
         super(props);
         this.handleClose = this.handleClose.bind(this);
@@ -15,8 +15,8 @@ class RendererAttributesWindow extends React.Component {
         const attributes = app.editor.renderer.getContextAttributes();
 
         return <Window
-            className={'RendererAttributesWindow'}
-            title={_t('Renderer Attributes')}
+            className={'PluginsWindow'}
+            title={_t('Plugins')}
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
@@ -46,4 +46,4 @@ class RendererAttributesWindow extends React.Component {
     }
 }
 
-export default RendererAttributesWindow;
+export default PluginsWindow;

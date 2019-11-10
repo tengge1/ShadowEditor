@@ -1,6 +1,7 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../third_party';
 import TextureGeneratorWindow from './window/TextureGeneratorWindow.jsx';
 // import CleanUpScenesWindow from './window/CleanUpScenesWindow.jsx';
+import PluginsWindow from './window/PluginsWindow.jsx';
 
 /**
  * 工具菜单
