@@ -4,10 +4,9 @@ import OrthographicCameraControls from '../controls/OrthographicCameraControls';
 /**
  * 视图事件
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function ViewEvent(app) {
-    BaseEvent.call(this, app);
+function ViewEvent() {
+    BaseEvent.call(this);
 
     this.changeView = this.changeView.bind(this);
 }

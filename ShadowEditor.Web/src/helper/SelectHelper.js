@@ -3,8 +3,6 @@ import MaskVertex from './shader/mask_vertex.glsl';
 import MaskFragment from './shader/mask_fragment.glsl';
 import EdgeVertex from './shader/edge_vertex.glsl';
 import EdgeFragment from './shader/edge_fragment.glsl';
-import CopyVertex from './shader/copy_vertex.glsl';
-import CopyFragment from './shader/copy_fragment.glsl';
 
 /**
  * 选择帮助器
@@ -50,8 +48,8 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
 
     app.editor.renderer.getDrawingBufferSize(this.size);
 
-    var width = this.size.x * 2;
-    var height = this.size.y * 2;
+    let width = this.size.x * 2;
+    let height = this.size.y * 2;
 
     if (this.scene === undefined) {
         this.scene = new THREE.Scene();
@@ -69,7 +67,7 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
         this.scene.add(this.quad);
     }
 
-    var params = {
+    let params = {
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
         format: THREE.RGBAFormat,
@@ -156,22 +154,22 @@ SelectHelper.prototype.onAfterRender = function () {
         return;
     }
 
-    var renderScene = app.editor.scene;
-    var renderCamera = app.editor.camera;
-    var renderer = app.editor.renderer;
+    let renderScene = app.editor.scene;
+    let renderCamera = app.editor.view === 'perspective' ? app.editor.camera : app.editor.orthCamera;
+    let renderer = app.editor.renderer;
 
-    var scene = this.scene;
-    var camera = this.camera;
-    var selected = this.object;
+    let scene = this.scene;
+    let camera = this.camera;
+    let selected = this.object;
 
     // 记录原始状态
-    var oldOverrideMaterial = renderScene.overrideMaterial;
-    var oldBackground = renderScene.background;
+    let oldOverrideMaterial = renderScene.overrideMaterial;
+    let oldBackground = renderScene.background;
 
-    var oldAutoClear = renderer.autoClear;
-    var oldClearColor = renderer.getClearColor();
-    var oldClearAlpha = renderer.getClearAlpha();
-    var oldRenderTarget = renderer.getRenderTarget();
+    let oldAutoClear = renderer.autoClear;
+    let oldClearColor = renderer.getClearColor();
+    let oldClearAlpha = renderer.getClearAlpha();
+    let oldRenderTarget = renderer.getRenderTarget();
 
     // 绘制蒙版
     this.hideObjects.length = 0;

@@ -49,7 +49,7 @@ RaycastEvent.prototype.onMouseUp = function (event) {
     this.mouse.x = event.offsetX / domElement.clientWidth * 2 - 1;
     this.mouse.y = -event.offsetY / domElement.clientHeight * 2 + 1;
 
-    this.raycaster.setFromCamera(this.mouse, app.editor.camera);
+    this.raycaster.setFromCamera(this.mouse, app.editor.view === 'perspective' ? app.editor.camera : app.editor.orthCamera);
 
     var intersects = this.raycaster.intersectObjects(app.editor.scene.children, true);
 

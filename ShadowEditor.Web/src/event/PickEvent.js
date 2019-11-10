@@ -71,7 +71,7 @@ PickEvent.prototype.onDoubleClick = function (event) {
 
 PickEvent.prototype.getIntersects = function (point, objects) {
     this.mouse.set(point.x * 2 - 1, -(point.y * 2) + 1);
-    this.raycaster.setFromCamera(this.mouse, app.editor.camera);
+    this.raycaster.setFromCamera(this.mouse, app.editor.view === 'perspective' ? app.editor.camera : app.editor.orthCamera);
     return this.raycaster.intersectObjects(objects);
 };
 
