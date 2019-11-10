@@ -47,6 +47,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 33. 新增BufferGeometry组件，查看BufferGeometry的顶点数量、法线数量、UV坐标数量、索引数量。提供计算顶点法线功能，如果模型是黑的，可能没有法线，可以试一下这个功能。
 34. 新增多材质组件，对于有多个材质的`Mesh`，可以使用多材质组件选择一个材质进行编辑。
 35. 修复正投影视图上选中效果边缘不正确bug。
+36. 编辑器开启物理引擎。
 
 ## v0.3.6更新
 

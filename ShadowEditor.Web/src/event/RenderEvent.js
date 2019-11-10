@@ -4,10 +4,9 @@ import EffectRenderer from '../render/EffectRenderer';
 /**
  * 渲染事件
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function RenderEvent(app) {
-    BaseEvent.call(this, app);
+function RenderEvent() {
+    BaseEvent.call(this);
 
     this.clock = new THREE.Clock();
 
@@ -34,7 +33,7 @@ RenderEvent.prototype.stop = function () {
 };
 
 RenderEvent.prototype.render = function () {
-    const { scene, sceneHelpers, renderer } = app.editor;
+    const { scene, sceneHelpers } = app.editor;
 
     const deltaTime = this.clock.getDelta();
 
@@ -81,7 +80,7 @@ RenderEvent.prototype.createRenderer = function () {
     );
 };
 
-RenderEvent.prototype.onViewChanged = function (view) {
+RenderEvent.prototype.onViewChanged = function () {
     this.createRenderer();
 };
 
