@@ -1,30 +1,6 @@
 import PlayerComponent from './PlayerComponent';
 import ThrowBallEvent from './physics/ThrowBallEvent';
 
-// const shape = {
-//     btBoxShape: Ammo.btBoxShape, // 正方体
-//     btBvhTriangleMeshShape: Ammo.btBvhTriangleMeshShape, // 三角形
-//     btCapsuleShape: Ammo.btCapsuleShape, // 胶囊
-//     btCapsuleShapeX: Ammo.btCapsuleShapeX, // x轴胶囊
-//     btCapsuleShapeZ: Ammo.btCapsuleShapeZ, // z轴胶囊
-//     btCollisionShape: Ammo.btCollisionShape, // 碰撞体
-//     btCompoundShape: Ammo.btCompoundShape, // 复合形状
-//     btConcaveShape: Ammo.btConcaveShape, // 
-//     btConeShape: Ammo.btConeShape, // 圆锥体
-//     btConeShapeX: Ammo.btConeShapeX, // x轴圆椎体
-//     btConeShapeZ: Ammo.btConeShapeZ, // z轴圆椎体
-//     btConvexHullShape: Ammo.btConvexHullShape, // 凸包
-//     btConvexShape: Ammo.btConvexShape, // 
-//     btConvexTriangleMeshShape: Ammo.btConvexTriangleMeshShape, // 凸三角形
-//     btCylinderShape: Ammo.btCylinderShape, // 圆柱体
-//     btCylinderShapeX: Ammo.btCylinderShapeX, // x轴圆柱体
-//     btCylinderShapeZ: Ammo.btCylinderShapeZ, // z轴圆柱体
-//     btHeightfieldTerrainShape: Ammo.btHeightfieldTerrainShape, // 灰阶高程地形
-//     btSphereShape: Ammo.btSphereShape, // 球体
-//     btStaticPlaneShape: Ammo.btStaticPlaneShape, // 静态平板
-//     btTriangleMeshShape: Ammo.btTriangleMeshShape, // 三角网格
-// };
-
 /**
  * 播放器物理
  * @param {*} app 播放器
@@ -103,13 +79,14 @@ PlayerPhysics.prototype.initPhysicsWorld = function () {
 };
 
 PlayerPhysics.prototype.initScene = function (scene, camera, renderer) {
+    let body;
     this.scene.traverse(n => {
         if (n.userData &&
             n.userData.physics &&
             n.userData.physics.enabled
         ) {
             if (n.userData.physics.type === 'rigidBody') {
-                var body = this.createRigidBody(n);
+                body = this.createRigidBody(n);
                 if (body) {
                     n.userData.physics.body = body;
                     this.world.addRigidBody(body);
@@ -120,7 +97,7 @@ PlayerPhysics.prototype.initScene = function (scene, camera, renderer) {
                     }
                 }
             } else if (n.userData.physics.type === 'softVolume') {
-                var body = this.createSoftVolume(n);
+                body = this.createSoftVolume(n);
                 if (body) {
                     n.userData.physics.body = body;
                     this.world.addSoftBody(body, 1, -1);
@@ -151,8 +128,9 @@ PlayerPhysics.prototype.update = function (clock, deltaTime) {
 
     // 更新柔软体
     var softBodies = this.softBodies;
+    let i, il;
 
-    for (var i = 0, il = softBodies.length; i < il; i++) {
+    for (i = 0, il = softBodies.length; i < il; i++) {
         var volume = softBodies[i];
 
         var geometry = volume.geometry;
@@ -192,12 +170,12 @@ PlayerPhysics.prototype.update = function (clock, deltaTime) {
 
         geometry.attributes.position.needsUpdate = true;
         geometry.attributes.normal.needsUpdate = true;
-    };
+    }
 
     // 更新刚体
     var rigidBodies = this.rigidBodies;
 
-    for (var i = 0, l = rigidBodies.length; i < l; i++) {
+    for (i = 0, il = rigidBodies.length; i < il; i++) {
         var objThree = rigidBodies[i];
         var objPhys = objThree.userData.physics.body;
         if (!objPhys) {
@@ -257,7 +235,6 @@ PlayerPhysics.prototype.dispose = function () {
 PlayerPhysics.prototype.createRigidBody = function (obj) {
     var position = obj.position;
     var quaternion = obj.quaternion;
-    var scale = obj.scale;
 
     var physics = obj.userData.physics;
     var shape = physics.shape;
@@ -266,9 +243,10 @@ PlayerPhysics.prototype.createRigidBody = function (obj) {
 
     // 形状
     var physicsShape = null;
+    var geometry = null;
 
     if (shape === 'btBoxShape') {
-        var geometry = obj.geometry;
+        geometry = obj.geometry;
         geometry.computeBoundingBox();
 
         var box = geometry.boundingBox;
@@ -285,7 +263,7 @@ PlayerPhysics.prototype.createRigidBody = function (obj) {
 
         physicsShape = new Ammo.btBoxShape(new Ammo.btVector3(x * 0.5, y * 0.5, z * 0.5));
     } else if (shape === 'btSphereShape') {
-        var geometry = obj.geometry;
+        geometry = obj.geometry;
         geometry.computeBoundingSphere();
 
         var sphere = geometry.boundingSphere;
@@ -380,17 +358,19 @@ PlayerPhysics.prototype.createIndexedBufferGeometryFromGeometry = function (geom
     var vertices = new Float32Array(numVertices * 3);
     var indices = new (numFaces * 3 > 65535 ? Uint32Array : Uint16Array)(numFaces * 3);
 
-    for (var i = 0; i < numVertices; i++) {
+    let i, i3;
+
+    for (i = 0; i < numVertices; i++) {
         var p = geometry.vertices[i];
-        var i3 = i * 3;
+        i3 = i * 3;
         vertices[i3] = p.x;
         vertices[i3 + 1] = p.y;
         vertices[i3 + 2] = p.z;
     }
 
-    for (var i = 0; i < numFaces; i++) {
+    for (i = 0; i < numFaces; i++) {
         var f = geometry.faces[i];
-        var i3 = i * 3;
+        i3 = i * 3;
         indices[i3] = f.a;
         indices[i3 + 1] = f.b;
         indices[i3 + 2] = f.c;
@@ -439,13 +419,15 @@ PlayerPhysics.prototype.isEqual = function (x1, y1, z1, x2, y2, z2) {
 
 /**
  * 添加一个物理物体
- * @param {*} obj 
+ * @param {*} obj 物体
  */
 PlayerPhysics.prototype.addPhysicsObject = function (obj) {
     this.scene.add(obj);
+    let body = null;
+
     if (obj.userData && obj.userData.physics && obj.userData.physics.enabled) {
         if (obj.userData.physics.type === 'rigidBody') {
-            var body = this.createRigidBody(obj);
+            body = this.createRigidBody(obj);
             if (body) {
                 obj.userData.physics.body = body;
                 this.world.addRigidBody(body);
@@ -456,7 +438,7 @@ PlayerPhysics.prototype.addPhysicsObject = function (obj) {
                 }
             }
         } else if (obj.userData.physics.type === 'softVolume') {
-            var body = this.createSoftVolume(obj);
+            body = this.createSoftVolume(obj);
             if (body) {
                 obj.userData.physics.body = body;
                 this.world.addSoftBody(body);
