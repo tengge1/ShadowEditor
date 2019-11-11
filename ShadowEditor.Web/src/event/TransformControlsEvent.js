@@ -6,10 +6,9 @@ import SetScaleCommand from './../command/SetScaleCommand';
 /**
  * 平移旋转缩放控件事件
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function TransformControlsEvent(app) {
-    BaseEvent.call(this, app);
+function TransformControlsEvent() {
+    BaseEvent.call(this);
 
     this.mode = 'translate';
 
@@ -74,7 +73,7 @@ TransformControlsEvent.prototype.onMouseUp = function () {
     var transformControls = editor.transformControls;
     var object = transformControls.object;
 
-    if (object == null) {
+    if (object === null) {
         return;
     }
 
@@ -128,7 +127,7 @@ TransformControlsEvent.prototype.onChangeMode = function (mode) {
     if (mode === 'translate' || mode === 'rotate' || mode === 'scale') { // 设置模式在选中物体上
         transformControls.setMode(mode);
         var object = app.editor.selected;
-        if (object != null) {
+        if (object !== null) {
             transformControls.attach(object);
         }
     } else { // 取消对选中物体平移、旋转、缩放
@@ -138,7 +137,7 @@ TransformControlsEvent.prototype.onChangeMode = function (mode) {
 
 /**
  * 设置平移移动的大小
- * @param {*} dist 
+ * @param {*} dist 参数
  */
 TransformControlsEvent.prototype.onSnapChanged = function (dist) {
     app.editor.transformControls.setTranslationSnap(dist);
@@ -146,7 +145,7 @@ TransformControlsEvent.prototype.onSnapChanged = function (dist) {
 
 /**
  * 设置世界坐标系还是物体坐标系
- * @param {*} space 
+ * @param {*} space 参数
  */
 TransformControlsEvent.prototype.onSpaceChanged = function (space) {
     app.editor.transformControls.setSpace(space);
