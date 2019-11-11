@@ -25,14 +25,14 @@ function Teapot(geometry = new THREE.TeapotBufferGeometry(3, 10, true, true, tru
     this.receiveShadow = true;
 
     this.userData.physics = this.userData.physics || {
-        enabled: false,
+        enabled: true,
         type: 'rigidBody',
         shape: 'btBoxShape',
         mass: 1,
         inertia: {
             x: 0,
             y: 0,
-            z: 0,
+            z: 0
         }
     };
 }

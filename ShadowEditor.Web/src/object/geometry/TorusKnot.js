@@ -11,14 +11,14 @@ function TorusKnot(geometry = new THREE.TorusKnotBufferGeometry(2, 0.8, 64, 12, 
     this.receiveShadow = true;
 
     this.userData.physics = this.userData.physics || {
-        enabled: false,
+        enabled: true,
         type: 'rigidBody',
         shape: 'btBoxShape',
         mass: 1,
         inertia: {
             x: 0,
             y: 0,
-            z: 0,
+            z: 0
         }
     };
 }

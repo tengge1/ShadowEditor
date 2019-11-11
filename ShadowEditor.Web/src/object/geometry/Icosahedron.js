@@ -11,14 +11,14 @@ function Icosahedron(geometry = new THREE.IcosahedronBufferGeometry(1, 2), mater
     this.receiveShadow = true;
 
     this.userData.physics = this.userData.physics || {
-        enabled: false,
+        enabled: true,
         type: 'rigidBody',
         shape: 'btSphereShape',
         mass: 1,
         inertia: {
             x: 0,
             y: 0,
-            z: 0,
+            z: 0
         }
     };
 }

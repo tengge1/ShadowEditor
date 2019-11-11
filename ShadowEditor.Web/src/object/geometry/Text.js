@@ -1,5 +1,3 @@
-import StringUtils from '../../utils/StringUtils';
-
 /**
  * 文本
  * @param {*} text 文字

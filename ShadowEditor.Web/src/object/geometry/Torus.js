@@ -11,14 +11,14 @@ function Torus(geometry = new THREE.TorusBufferGeometry(2, 1, 32, 32, Math.PI * 
     this.receiveShadow = true;
 
     this.userData.physics = this.userData.physics || {
-        enabled: false,
+        enabled: true,
         type: 'rigidBody',
         shape: 'btBoxShape',
         mass: 1,
         inertia: {
             x: 0,
             y: 0,
-            z: 0,
+            z: 0
         }
     };
 }

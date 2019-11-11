@@ -25,14 +25,14 @@ function Lathe(geometry = new THREE.LatheBufferGeometry(points, 20, 0, 2 * Math.
     this.receiveShadow = true;
 
     this.userData.physics = this.userData.physics || {
-        enabled: false,
+        enabled: true,
         type: 'rigidBody',
         shape: 'btBoxShape',
         mass: 1,
         inertia: {
             x: 0,
             y: 0,
-            z: 0,
+            z: 0
         }
     };
 }

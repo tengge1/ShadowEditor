@@ -11,14 +11,14 @@ function Circle(geometry = new THREE.CircleBufferGeometry(1, 32), material = new
     this.receiveShadow = true;
 
     this.userData.physics = this.userData.physics || {
-        enabled: false,
+        enabled: true,
         type: 'rigidBody',
         shape: 'btBoxShape',
         mass: 1.0,
         inertia: {
             x: 0,
             y: 0,
-            z: 0,
+            z: 0
         }
     };
 }

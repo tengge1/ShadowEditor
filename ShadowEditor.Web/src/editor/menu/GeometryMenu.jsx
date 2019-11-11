@@ -1,4 +1,4 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../third_party';
 import AddObjectCommand from '../../command/AddObjectCommand';
 
 import Group from '../../object/geometry/Group';
@@ -20,8 +20,6 @@ import CatmullRomCurve from '../../object/line/CatmullRomCurve';
 import QuadraticBezierCurve from '../../object/line/QuadraticBezierCurve';
 import CubicBezierCurve from '../../object/line/CubicBezierCurve';
 import EllipseCurve from '../../object/line/EllipseCurve';
-
-import SplineHelper from '../../helper/line/SplineHelper';
 
 /**
  * 几何体菜单
@@ -53,26 +51,62 @@ class GeometryMenu extends React.Component {
 
     render() {
         return <MenuItem title={_t('Geometry')}>
-            <MenuItem title={_t('Group')} onClick={this.handleAddGroup}></MenuItem>
+            <MenuItem title={_t('Group')}
+                onClick={this.handleAddGroup}
+            />
             <MenuItemSeparator />
-            <MenuItem title={_t('Plane')} onClick={this.handleAddPlane}></MenuItem>
-            <MenuItem title={_t('Box')} onClick={this.handleAddBox}></MenuItem>
-            <MenuItem title={_t('Circle')} onClick={this.handleAddCircle}></MenuItem>
-            <MenuItem title={_t('Cylinder')} onClick={this.handleAddCylinder}></MenuItem>
-            <MenuItem title={_t('Sphere')} onClick={this.handleAddSphere}></MenuItem>
-            <MenuItem title={_t('Icosahedron')} onClick={this.handleAddIcosahedron}></MenuItem>
-            <MenuItem title={_t('Torus')} onClick={this.handleAddTorus}></MenuItem>
-            <MenuItem title={_t('Torus Knot')} onClick={this.handleAddTorusKnot}></MenuItem>
-            <MenuItem title={_t('Teapot')} onClick={this.handleAddTeaport}></MenuItem>
-            <MenuItem title={_t('Lathe')} onClick={this.handleAddLathe}></MenuItem>
-            <MenuItem title={_t('Sprite')} onClick={this.handleAddSprite}></MenuItem>
-            <MenuItem title={_t('Text')} onClick={this.handleAddText}></MenuItem>
+            <MenuItem title={_t('Plane')}
+                onClick={this.handleAddPlane}
+            />
+            <MenuItem title={_t('Box')}
+                onClick={this.handleAddBox}
+            />
+            <MenuItem title={_t('Circle')}
+                onClick={this.handleAddCircle}
+            />
+            <MenuItem title={_t('Cylinder')}
+                onClick={this.handleAddCylinder}
+            />
+            <MenuItem title={_t('Sphere')}
+                onClick={this.handleAddSphere}
+            />
+            <MenuItem title={_t('Icosahedron')}
+                onClick={this.handleAddIcosahedron}
+            />
+            <MenuItem title={_t('Torus')}
+                onClick={this.handleAddTorus}
+            />
+            <MenuItem title={_t('Torus Knot')}
+                onClick={this.handleAddTorusKnot}
+            />
+            <MenuItem title={_t('Teapot')}
+                onClick={this.handleAddTeaport}
+            />
+            <MenuItem title={_t('Lathe')}
+                onClick={this.handleAddLathe}
+            />
+            <MenuItem title={_t('Sprite')}
+                onClick={this.handleAddSprite}
+            />
+            <MenuItem title={_t('Text')}
+                onClick={this.handleAddText}
+            />
             <MenuItemSeparator />
-            <MenuItem title={_t('Line Curve')} onClick={this.handleAddLineCurve}></MenuItem>
-            <MenuItem title={_t('CatmullRom Curve')} onClick={this.handleAddCatmullRomCurve}></MenuItem>
-            <MenuItem title={_t('QuadraticBezier Curve')} onClick={this.handleAddQuadraticBezierCurve}></MenuItem>
-            <MenuItem title={_t('CubicBezier Curve')} onClick={this.handleAddCubicBezierCurve}></MenuItem>
-            <MenuItem title={_t('Ellipse Curve')} onClick={this.handleAddEllipseCurve}></MenuItem>
+            <MenuItem title={_t('Line Curve')}
+                onClick={this.handleAddLineCurve}
+            />
+            <MenuItem title={_t('CatmullRom Curve')}
+                onClick={this.handleAddCatmullRomCurve}
+            />
+            <MenuItem title={_t('QuadraticBezier Curve')}
+                onClick={this.handleAddQuadraticBezierCurve}
+            />
+            <MenuItem title={_t('CubicBezier Curve')}
+                onClick={this.handleAddCubicBezierCurve}
+            />
+            <MenuItem title={_t('Ellipse Curve')}
+                onClick={this.handleAddEllipseCurve}
+            />
         </MenuItem>;
     }
 
