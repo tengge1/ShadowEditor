@@ -1,5 +1,6 @@
 import './css/EditorToolbar.css';
 import { Toolbar, ToolbarSeparator, IconButton, ImageButton, Select } from '../../third_party';
+import GeneralTools from './tools/GeneralTools.jsx';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import DigTool from '../../tool/DigTool';
 
@@ -55,107 +56,51 @@ class EditorToolbar extends React.Component {
     render() {
         const { toolbar, mode, isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging, view, isGridMode } = this.state;
 
-        const isGeneralBar = toolbar === 'general';
         const isDrawBar = toolbar === 'draw';
 
         return <Toolbar className={'EditorToolbar'}
             direction={'horizontal'}
-        >
+               >
             <Select options={this.toolbars}
                 name={'toolbar'}
                 value={toolbar}
                 onChange={this.handleChangeToolbar}
             />
             <ToolbarSeparator />
-            { /* 通用工具栏 */}
-            {isGeneralBar && <IconButton
-                icon={'select'}
-                title={_t('Select')}
-                selected={mode === 'select'}
-                onClick={this.handleEnterSelectMode}
-            />}
-            {isGeneralBar && <IconButton
-                icon={'translate'}
-                title={_t('Translate')}
-                selected={mode === 'translate'}
-                onClick={this.handleEnterTranslateMode}
-            />}
-            {isGeneralBar && <IconButton
-                icon={'rotate'}
-                title={_t('Rotate')}
-                selected={mode === 'rotate'}
-                onClick={this.handleEnterRotateMode}
-            />}
-            {isGeneralBar && <IconButton
-                icon={'scale'}
-                title={_t('Scale')}
-                selected={mode === 'scale'}
-                onClick={this.handleEnterScaleMode}
-            />}
-            {isGeneralBar && <ToolbarSeparator />}
+            { /* 通用工具 */}
+            {toolbar === 'general' && <GeneralTools />}
             {isDrawBar && <IconButton
                 icon={'point'}
                 title={_t('Draw Point')}
                 selected={isAddingPoint}
                 onClick={this.handleAddPoint}
-            />}
+                          />}
             {isDrawBar && <IconButton
                 icon={'line'}
                 title={_t('Draw Line')}
                 selected={isAddingLine}
                 onClick={this.handleAddLine}
-            />}
+                          />}
             {isDrawBar && <IconButton
                 icon={'polygon'}
                 title={_t('Draw Pologon')}
                 selected={isAddingPolygon}
                 onClick={this.handleAddPolygon}
-            />}
+                          />}
             {isDrawBar && <IconButton
                 icon={'spray'}
                 title={_t('Spray')}
                 selected={isSpraying}
                 onClick={this.handleSpray}
-            />}
+                          />}
             {isDrawBar && <IconButton
                 icon={'texture'}
                 title={_t('Dig')}
                 show={false}
                 selected={isDigging}
                 onClick={this.handleDig}
-            />}
+                          />}
             {isDrawBar && <ToolbarSeparator />}
-            <ImageButton
-                src={'assets/image/perspective-view.png'}
-                title={_t('Perspective View')}
-                selected={view === 'perspective'}
-                onClick={this.handlePerspective}
-            />
-            <ImageButton
-                src={'assets/image/front-view.png'}
-                title={_t('Front View')}
-                selected={view === 'front'}
-                onClick={this.handleFrontView}
-            />
-            <ImageButton
-                src={'assets/image/side-view.png'}
-                title={_t('Side View')}
-                selected={view === 'side'}
-                onClick={this.handleSideView}
-            />
-            <ImageButton
-                src={'assets/image/top-view.png'}
-                title={_t('Top View')}
-                selected={view === 'top'}
-                onClick={this.handleTopView}
-            />
-            <ToolbarSeparator />
-            <IconButton
-                icon={'grid'}
-                title={_t('Grid Mode')}
-                selected={isGridMode}
-                onClick={this.handleGridMode}
-            />
         </Toolbar>;
     }
 
