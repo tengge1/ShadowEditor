@@ -1,4 +1,3 @@
-import './css/GeneralTools.css';
 import { ToolbarSeparator, IconButton, ImageButton } from '../../../third_party';
 
 /**
