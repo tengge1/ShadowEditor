@@ -1,8 +1,5 @@
 import './css/EditorStatusBar.css';
 import { Toolbar, ToolbarSeparator, Label, CheckBox, Button, Input, Select } from '../../third_party';
-import Converter from '../../utils/Converter';
-import TimeUtils from '../../utils/TimeUtils';
-import VideoRecorder from '../../utils/VideoRecorder';
 
 /**
  * 状态栏
@@ -29,8 +26,7 @@ class EditorStatusBar extends React.Component {
             showStats: app.storage.get('showStats') === undefined ? true : app.storage.get('showStats'),
             showGrid: app.storage.get('showGrid') === undefined ? true : app.storage.get('showGrid'),
             showViewHelper: app.storage.get('showViewHelper') === undefined ? true : app.storage.get('showViewHelper'),
-            isThrowBall: false,
-            isRecording: false
+            isThrowBall: false
         };
 
         this.handleShowStats = this.handleShowStats.bind(this);
@@ -40,14 +36,11 @@ class EditorStatusBar extends React.Component {
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
         this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
         this.handleChangeAddMode = this.handleChangeAddMode.bind(this);
-        this.handleScreenshot = this.handleScreenshot.bind(this);
-        this.commitScreenshot = this.commitScreenshot.bind(this);
-        this.handleRecord = this.handleRecord.bind(this);
     }
 
     render() {
-        const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall, isRecording } = this.state;
-        const { selectMode, selectedColor, selectedThickness, addMode, enablePhysics } = app.options;
+        const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall } = this.state;
+        const { selectMode, addMode, enablePhysics } = app.options;
 
         const isLogin = !app.config.enableAuthority || app.config.isLogin;
 
@@ -101,10 +94,6 @@ class EditorStatusBar extends React.Component {
                     onChange={this.handleChangeAddMode}
                 />
                 <ToolbarSeparator />
-            </>}
-            {isLogin && <>
-                <Button onClick={this.handleScreenshot}>{_t('Screenshot')}</Button>
-                <Button onClick={this.handleRecord}>{isRecording ? _t('Stop') : _t('Record')}</Button>
             </>}
         </Toolbar>;
     }
@@ -211,68 +200,6 @@ class EditorStatusBar extends React.Component {
         app.options.addMode = value;
         app.call('optionChange', this, 'addMode', value);
         this.forceUpdate();
-    }
-
-    handleScreenshot() {
-        app.on(`afterRender.Screenshot`, this.commitScreenshot);
-    }
-
-    commitScreenshot() {
-        app.on(`afterRender.Screenshot`, null);
-
-        const canvas = app.editor.renderer.domElement;
-        const dataUrl = Converter.canvasToDataURL(canvas);
-        const file = Converter.dataURLtoFile(dataUrl, TimeUtils.getDateTime());
-
-        let form = new FormData();
-        form.append('file', file);
-
-        fetch(`/api/Screenshot/Add`, {
-            method: 'POST',
-            body: form
-        }).then(response => {
-            response.json().then(obj => {
-                if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
-                    return;
-                }
-                app.toast(_t(obj.Msg));
-            });
-        });
-    }
-
-    handleRecord() {
-        if (this.state.isRecording) {
-            this.stopRecord();
-        } else {
-            this.startRecord();
-        }
-    }
-
-    startRecord() {
-        if (this.recorder === undefined) {
-            this.recorder = new VideoRecorder();
-        }
-
-        this.recorder.start().then(success => {
-            if (success) {
-                this.setState({
-                    isRecording: true
-                });
-            }
-        });
-    }
-
-    stopRecord() {
-        if (!this.recorder) {
-            return;
-        }
-
-        this.recorder.stop().then(() => {
-            this.setState({
-                isRecording: false
-            });
-        });
     }
 }
 

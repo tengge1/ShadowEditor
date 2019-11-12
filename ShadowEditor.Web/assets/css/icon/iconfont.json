@@ -69,6 +69,13 @@
       "unicode_decimal": 58890
     },
     {
+      "icon_id": "415438",
+      "name": "照相",
+      "font_class": "camera",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
       "icon_id": "467522",
       "name": "发布",
       "font_class": "publish",
@@ -585,6 +592,13 @@
       "font_class": "rect",
       "unicode": "e619",
       "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "11227343",
+      "name": "摄像",
+      "font_class": "recorder",
+      "unicode": "e628",
+      "unicode_decimal": 58920
     }
   ]
 }
