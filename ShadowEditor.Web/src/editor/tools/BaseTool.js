@@ -4,7 +4,7 @@ var ID = -1;
  * 工具基类
  * @author tengge / https://github.com/tengge1
  */
-function BaseTool(app) {
+function BaseTool() {
     this.id = `${this.constructor.name}${ID--}`;
 
     this.dispatch = d3.dispatch('end');

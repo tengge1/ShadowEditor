@@ -1,6 +1,6 @@
 import { ToolbarSeparator, IconButton } from '../../../third_party';
 import AddObjectCommand from '../../../command/AddObjectCommand';
-import DigTool from '../../../tool/DigTool';
+import DigTool from '../../tools/DigTool';
 
 /**
  * 绘制工具
