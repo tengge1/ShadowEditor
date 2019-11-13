@@ -44,17 +44,29 @@ RaycastEvent.prototype.onMouseUp = function (event) {
         return;
     }
 
-    var domElement = app.editor.renderer.domElement;
+    let domElement = app.editor.renderer.domElement;
 
     this.mouse.x = event.offsetX / domElement.clientWidth * 2 - 1;
     this.mouse.y = -event.offsetY / domElement.clientHeight * 2 + 1;
 
     this.raycaster.setFromCamera(this.mouse, app.editor.view === 'perspective' ? app.editor.camera : app.editor.orthCamera);
 
-    var intersects = this.raycaster.intersectObjects(app.editor.scene.children, true);
+    let intersects = this.raycaster.intersectObjects(app.editor.scene.children, true);
 
     if (intersects.length > 0) {
+        app.call('raycast', this, intersects[0], event);
         app.call('intersect', this, intersects[0], event, intersects);
+    } else {
+        // 没有碰撞到任何物体，则跟y=0的平面碰撞
+        let plane = new THREE.Plane().setFromNormalAndCoplanarPoint(new THREE.Vector3(0, 1, 0), new THREE.Vector3());
+        let target = new THREE.Vector3();
+        this.raycaster.ray.intersectPlane(plane, target);
+
+        app.call('raycast', this, {
+            point: target,
+            distance: this.raycaster.ray.distanceSqToPoint(target),
+            object: null
+        }, event);
     }
 };
 

@@ -59,7 +59,7 @@ class ModelPanel extends React.Component {
 
         return <div className={classNames('ModelPanel', className)}
             style={style}
-               >
+        >
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
@@ -165,12 +165,8 @@ class ModelPanel extends React.Component {
 
     // 点击场景添加
     clickSceneToAdd(obj) {
-        app.toast(_t('Please click an plane in the scene.'));
-        app.on(`intersect.ModelPanel`, intersect => {
-            if (!intersect) {
-                return;
-            }
-            app.on(`intersect.ModelPanel`, null);
+        app.on(`raycast.ModelPanel`, (intersect, event) => {
+            app.on(`raycast.ModelPanel`, null);
             obj.position.copy(intersect.point);
             this.addToCenter(obj);
         });
