@@ -4,21 +4,21 @@ var ID = -1;
  * 工具基类
  * @author tengge / https://github.com/tengge1
  */
-function BaseTool() {
-    this.id = `${this.constructor.name}${ID--}`;
+class BaseTool {
+    constructor() {
+        this.id = `EditorTool${ID--}`;
+        this.dispatch = d3.dispatch('end');
+        this.call = this.dispatch.call.bind(this.dispatch);
+        this.on = this.dispatch.on.bind(this.dispatch);
+    }
 
-    this.dispatch = d3.dispatch('end');
+    start() {
 
-    this.call = this.dispatch.call.bind(this.dispatch);
-    this.on = this.dispatch.on.bind(this.dispatch);
+    }
+
+    stop() {
+
+    }
 }
-
-BaseTool.prototype.start = function () {
-
-};
-
-BaseTool.prototype.stop = function () {
-
-};
 
 export default BaseTool;
