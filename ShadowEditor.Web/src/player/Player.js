@@ -25,7 +25,7 @@ function Player(container = document.body, options = {}) {
     this.options = options;
 
     this.options.server = this.options.server || window.origin;
-    this.options.enablePhysics = this.options.enablePhysics || false;
+    this.options.enablePhysics = false; // 这个配置在场景里
     this.options.enableThrowBall = false;
     this.options.showStats = this.options.showStats || false;
 
@@ -177,6 +177,10 @@ Player.prototype.stop = function () {
 Player.prototype.initPlayer = function (obj) {
     var container = this.container;
 
+    // options
+    this.options.enablePhysics = obj.options.enablePhysics;
+
+    // camera
     this.camera = obj.camera;
 
     if (!this.camera) {
@@ -189,6 +193,7 @@ Player.prototype.initPlayer = function (obj) {
         );
     }
 
+    // renderer
     this.renderer = obj.renderer || new THREE.WebGLRenderer({
         antialias: true
     });
@@ -204,6 +209,7 @@ Player.prototype.initPlayer = function (obj) {
 
     this.renderer.domElement.style.filter = CssUtils.serializeFilter(obj.options);
 
+    // scene
     this.scene = obj.scene || new THREE.Scene();
 
     if (obj.options.sceneType === 'GIS') {
