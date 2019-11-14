@@ -19,9 +19,19 @@ class DrawTools extends React.Component {
         };
 
         this.handleAddPoint = this.handleAddPoint.bind(this);
+        this.onAddPointIntersect = this.onAddPointIntersect.bind(this);
+
         this.handleAddLine = this.handleAddLine.bind(this);
+        this.onAddLineIntersect = this.onAddLineIntersect.bind(this);
+        this.onAddLineDblClick = this.onAddLineDblClick.bind(this);
+
         this.handleAddPolygon = this.handleAddPolygon.bind(this);
+        this.onAddPolygonIntersect = this.onAddPolygonIntersect.bind(this);
+        this.onAddPolygonDblClick = this.onAddPolygonDblClick.bind(this);
+
         this.handleSpray = this.handleSpray.bind(this);
+        this.onSprayIntersect = this.onSprayIntersect.bind(this);
+
         this.handleDig = this.handleDig.bind(this);
     }
 
@@ -72,7 +82,7 @@ class DrawTools extends React.Component {
         this.setState({ isAddingPoint });
 
         if (isAddingPoint) {
-            app.on(`intersect.EditorToolbarAddPoint`, this.onAddPointIntersect.bind(this));
+            app.on(`intersect.EditorToolbarAddPoint`, this.onAddPointIntersect);
         } else {
             app.on(`intersect.EditorToolbarAddPoint`, null);
         }
@@ -126,8 +136,8 @@ class DrawTools extends React.Component {
         this.setState({ isAddingLine });
 
         if (isAddingLine) {
-            app.on(`intersect.EditorToolbarAddLine`, this.onAddLineIntersect.bind(this));
-            app.on(`dblclick.EditorToolbarAddLine`, this.onAddLineDblClick.bind(this));
+            app.on(`intersect.EditorToolbarAddLine`, this.onAddLineIntersect);
+            app.on(`dblclick.EditorToolbarAddLine`, this.onAddLineDblClick);
 
             this.linePositions = [];
             this.lineColors = [];
@@ -195,8 +205,8 @@ class DrawTools extends React.Component {
         this.setState({ isAddingPolygon });
 
         if (isAddingPolygon) {
-            app.on(`intersect.EditorToolbarAddPolygon`, this.onAddPolygonIntersect.bind(this));
-            app.on(`dblclick.EditorToolbarAddPolygon`, this.onAddPolygonDblClick.bind(this));
+            app.on(`intersect.EditorToolbarAddPolygon`, this.onAddPolygonIntersect);
+            app.on(`dblclick.EditorToolbarAddPolygon`, this.onAddPolygonDblClick);
 
             var geometry = new THREE.BufferGeometry();
 
@@ -278,7 +288,7 @@ class DrawTools extends React.Component {
         this.setState({ isSpraying });
 
         if (isSpraying) {
-            app.on(`intersect.EditorToolbarSpray`, this.onSprayIntersect.bind(this));
+            app.on(`intersect.EditorToolbarSpray`, this.onSprayIntersect);
         } else {
             app.on(`intersect.EditorToolbarSpray`, null);
         }
