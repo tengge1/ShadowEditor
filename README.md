@@ -27,6 +27,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 14. 修复正投影视图上选中效果边缘不正确bug。
 15. 状态栏增加物理引擎设置，添加的基本几何体默认开启物理引擎。
 16. 截图和录制视频工具由状态栏移动到通用工具栏。
+17. 修复新窗口播放报错`Ammo.btSoftBodyRigidBodyCollisionConfiguration is not a constructor`。
 
 ## v0.3.6更新
 
