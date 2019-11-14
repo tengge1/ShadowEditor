@@ -1,6 +1,4 @@
 import PackageManager from '../package/PackageManager';
-import Converter from '../serialization/Converter';
-
 import PlayerLoader from './component/PlayerLoader';
 import PlayerEvent from './component/PlayerEvent';
 import PlayerControl from './component/PlayerControl';
@@ -16,7 +14,7 @@ import Globe from '../gis/Globe';
  * 播放器
  * @author mrdoob / http://mrdoob.com/
  * @author tengge / https://github.com/tengge1
- * @param {HTMLElement} 容器
+ * @param {HTMLElement} container 容器
  * @param {Object} options 配置信息
  * @param {String} options.server 服务器信息，例如：http://localhost:2000
  * @param {Boolean} options.enableThrowBall 是否允许扔小球进行物理测试
@@ -27,7 +25,8 @@ function Player(container = document.body, options = {}) {
     this.options = options;
 
     this.options.server = this.options.server || window.origin;
-    this.options.enableThrowBall = this.options.enableThrowBall || false;
+    this.options.enablePhysics = this.options.enablePhysics || false;
+    this.options.enableThrowBall = false;
     this.options.showStats = this.options.showStats || false;
 
     this.dispatch = new d3.dispatch([
@@ -43,7 +42,7 @@ function Player(container = document.body, options = {}) {
             position: 'absolute',
             left: '8px',
             top: '8px',
-            zIndex: 'initial',
+            zIndex: 'initial'
         });
 
         container.appendChild(this.stats.dom);
@@ -56,7 +55,7 @@ function Player(container = document.body, options = {}) {
     observer.observe(this.container, {
         attributes: true,
         characterData: false,
-        childList: false,
+        childList: false
     });
 
     this.scene = null;
@@ -85,14 +84,14 @@ function Player(container = document.body, options = {}) {
             return data;
         };
     }
-};
+}
 
 /**
  * 启动播放器
  * @param {String} sceneData 场景数据
  */
 Player.prototype.start = function (sceneData) {
-    if (typeof (sceneData) !== 'string') {
+    if (typeof sceneData !== 'string') {
         app.toast(_t('Scene data of string type is needed.'));
         return;
     }
@@ -100,7 +99,7 @@ Player.prototype.start = function (sceneData) {
     var jsons;
 
     try {
-        jsons = JSON.parse(sceneData)
+        jsons = JSON.parse(sceneData);
     } catch (e) {
         app.toast(_t('Cannot deserialize scene data.'));
         return;
@@ -173,7 +172,7 @@ Player.prototype.stop = function () {
 
 /**
  * 初始化播放器
- * @param {*} obj 
+ * @param {*} obj 场景数据
  */
 Player.prototype.initPlayer = function (obj) {
     var container = this.container;
@@ -209,7 +208,7 @@ Player.prototype.initPlayer = function (obj) {
 
     if (obj.options.sceneType === 'GIS') {
         this.gis = new Globe(this.camera, this.renderer, Object.assign({}, obj.options, {
-            useCameraPosition: true,
+            useCameraPosition: true
         }));
     }
 
@@ -264,11 +263,11 @@ Player.prototype.resize = function () {
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
 
-    renderer.domElement
+    renderer.domElement;
     renderer.setSize(width, height);
 };
 
-Player.prototype.onResize = function (records) {
+Player.prototype.onResize = function () {
     this.resize();
 };
 

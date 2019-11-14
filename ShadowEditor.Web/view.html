@@ -110,7 +110,12 @@
             }
         };
 
-        window.onload = start;
+        window.onload = function () {
+            Ammo().then(AmmoLib => {
+                window.Ammo = AmmoLib;
+                start();
+            });
+        };
     </script>
 </body>
 

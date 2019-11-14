@@ -13,6 +13,10 @@ PlayerPhysics.prototype = Object.create(PlayerComponent.prototype);
 PlayerPhysics.prototype.constructor = PlayerPhysics;
 
 PlayerPhysics.prototype.create = function (scene, camera, renderer) {
+    if (!this.app.options.enablePhysics) {
+        return;
+    }
+
     var usePhysics = false;
 
     this.scene = scene;
@@ -120,7 +124,7 @@ PlayerPhysics.prototype.initScene = function (scene, camera, renderer) {
 };
 
 PlayerPhysics.prototype.update = function (clock, deltaTime) {
-    if (!this.world) {
+    if (!this.app.options.enablePhysics || !this.world) {
         return;
     }
 
@@ -199,6 +203,9 @@ PlayerPhysics.prototype.update = function (clock, deltaTime) {
 };
 
 PlayerPhysics.prototype.dispose = function () {
+    if (!this.app.options.enablePhysics) {
+        return;
+    }
     this.events && this.events.forEach(n => {
         n.dispose();
     });
