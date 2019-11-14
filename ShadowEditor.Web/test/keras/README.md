@@ -8,3 +8,4 @@
 * fashion_mnist: https://storage.googleapis.com/tensorflow/tf-keras-datasets/train-labels-idx1-ubyte.gz
 * imdb: https://storage.googleapis.com/tensorflow/tf-keras-datasets/imdb.npz
 * mnist: https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
+* reuters: https://storage.googleapis.com/tensorflow/tf-keras-datasets/reuters.npz
