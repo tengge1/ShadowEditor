@@ -28,8 +28,8 @@
         "build": "rollup -c ShadowEditor.Web/rollup.config.js",
         "dev": "rollup -c ShadowEditor.Web/rollup.config.js --watch",
         "eslint": "eslint ShadowEditor.Web/src",
-        "ai": "rollup -c ShadowEditor.AI/rollup.config.js --watch",
-        "weekend": "rollup -c ShadowEditor.Web/test/weekend/rollup.config.js --watch",
+        "test-ai": "rollup -c ShadowEditor.AI/rollup.config.js --watch",
+        "test-weekend": "rollup -c ShadowEditor.Web/test/weekend/rollup.config.js --watch",
         "docs": "gitbook build docs-dev",
         "test": "rollup -c ShadowEditor.Web/test/unit/rollup.config.js",
         "clear": "npm prune"
