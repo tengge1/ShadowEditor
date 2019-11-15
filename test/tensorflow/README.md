@@ -1,6 +1,4 @@
-# ShadowEditor.AI
-
-该项目没用，仅供测试。
+# Tensorflow学习
 
 ## 安装GPU版Tensorflow方法
 
