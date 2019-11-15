@@ -5,7 +5,7 @@ import postcss from 'rollup-plugin-postcss';
 import babel from 'rollup-plugin-babel';
 
 export default {
-    input: 'ShadowEditor.AI/src/index.js',
+    input: 'test/TensorEditor/src/index.js',
     output: {
         indent: '\t',
         format: 'umd',
