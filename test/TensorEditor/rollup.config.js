@@ -10,7 +10,7 @@ export default {
         indent: '\t',
         format: 'umd',
         name: 'AI',
-        file: 'ShadowEditor.AI/build/ShadowEditor.AI.js'
+        file: 'test/TensorEditor/build/ShadowEditor.AI.js'
     },
     treeshake: true,
     external: [],
@@ -21,7 +21,7 @@ export default {
             'process.env.NODE_ENV': '"development"' // production
         }),
         postcss({
-            extract: true,
+            extract: true
         }),
         babel({
             exclude: 'node_modules/**'
