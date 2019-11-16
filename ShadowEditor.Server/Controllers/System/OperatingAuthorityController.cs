@@ -28,7 +28,6 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="roleID"></param>
         /// <returns></returns>
         [HttpGet]
-        [Authority(OperatingAuthority.LIST_OPERATING_AUTHORITY)]
         public JsonResult Get(string roleID)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -95,7 +94,6 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.SAVE_OPERATING_AUTHORITY)]
         public JsonResult Save([FromBody]OperatingAuthoritySaveModel model)
         {
             if (string.IsNullOrEmpty(model.RoleID))

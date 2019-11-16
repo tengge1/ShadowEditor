@@ -17,7 +17,7 @@ using ShadowEditor.Server.CustomAttribute;
 namespace ShadowEditor.Server.Controllers
 {
     /// <summary>
-    /// 角色控制器
+    /// 人物控制器
     /// </summary>
     public class CharacterController : ApiBase
     {

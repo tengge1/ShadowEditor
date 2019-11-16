@@ -30,7 +30,6 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="keyword"></param>
         /// <returns></returns>
         [HttpGet]
-        [Authority(OperatingAuthority.LIST_USER)]
         public JsonResult List(int pageSize = 20, int pageNum = 1, string keyword = "")
         {
             var mongo = new MongoHelper();
@@ -147,7 +146,6 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.ADD_USER)]
         public JsonResult Add(UserEditModel model)
         {
             if (string.IsNullOrEmpty(model.Username))
@@ -247,7 +245,6 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.EDIT_USER)]
         public JsonResult Edit(UserEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -364,7 +361,6 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.DELETE_USER)]
         public JsonResult Delete(string ID)
         {
             var objectId = ObjectId.GenerateNewId();

@@ -26,7 +26,6 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.UPLOAD_THUMBNAIL)]
         public JsonResult Upload()
         {
             var Request = HttpContext.Current.Request;

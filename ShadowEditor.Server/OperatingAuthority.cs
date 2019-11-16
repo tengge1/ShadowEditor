@@ -13,7 +13,7 @@ namespace ShadowEditor.Server
     public static class OperatingAuthority
     {
         /// <summary>
-        /// 获取动画列表
+        /// 获取动画列表（不具备该权限无法查看动画列表）
         /// </summary>
         [Sort(0)]
         public const string LIST_ANIMATION = "List Animation";
@@ -35,7 +35,7 @@ namespace ShadowEditor.Server
         public const string DELETE_ANIMATION = "Delete Animation";
 
         /// <summary>
-        /// 获取音频列表
+        /// 获取音频列表（不具备该权限无法查看音频列表）
         /// </summary>
         public const string LIST_AUDIO = "List Audio";
 
@@ -55,7 +55,7 @@ namespace ShadowEditor.Server
         public const string DELETE_AUDIO = "Delete Audio";
 
         /// <summary>
-        /// 获取分类列表
+        /// 获取分类列表（不具有该权限无法进入分类窗口）
         /// </summary>
         public const string LIST_CATEGORY = "List Category";
 
@@ -70,7 +70,7 @@ namespace ShadowEditor.Server
         public const string DELETE_CATEGORY = "Delete Category";
 
         /// <summary>
-        /// 获取人物列表
+        /// 获取人物列表（不具备该权限无法进入人物列表）
         /// </summary>
         public const string LIST_CHARACTER = "List Character";
 
@@ -90,7 +90,7 @@ namespace ShadowEditor.Server
         public const string DELETE_CHARACTER = "Delete Character";
 
         /// <summary>
-        /// 获取贴图列表
+        /// 获取贴图列表（不具有该权限无法查看贴图列表）
         /// </summary>
         public const string LIST_MAP = "List Map";
 
@@ -110,7 +110,7 @@ namespace ShadowEditor.Server
         public const string DELETE_MAP = "Delete Map";
 
         /// <summary>
-        /// 获取材质列表
+        /// 获取材质列表（不具有该权限无法查看材质列表）
         /// </summary>
         public const string LIST_MATERIAL = "List Material";
 
@@ -130,7 +130,7 @@ namespace ShadowEditor.Server
         public const string DELETE_MATERIAL = "Delete Material";
 
         /// <summary>
-        /// 获取模型列表
+        /// 获取模型列表（不具有该权限无法查看模型列表）
         /// </summary>
         public const string LIST_MESH = "List Mesh";
 
@@ -150,7 +150,7 @@ namespace ShadowEditor.Server
         public const string DELETE_MESH = "Delete Mesh";
 
         /// <summary>
-        /// 获取粒子列表
+        /// 获取粒子列表（不具有该权限无法查看粒子列表）
         /// </summary>
         public const string LIST_PARTICLE = "List Particle";
 
@@ -170,7 +170,7 @@ namespace ShadowEditor.Server
         public const string DELETE_PARTICLE = "Delete Particle";
 
         /// <summary>
-        /// 获取预设体列表
+        /// 获取预设体列表（不具有该权限无法查看预设体列表）
         /// </summary>
         public const string LIST_PREFAB = "List Prefab";
 
@@ -189,10 +189,10 @@ namespace ShadowEditor.Server
         /// </summary>
         public const string DELETE_PREFAB = "Delete Prefab";
 
-        /// <summary>
-        /// 获取场景列表
-        /// </summary>
-        public const string LIST_SCENE = "List Scene";
+        ///// <summary>
+        ///// 获取场景列表
+        ///// </summary>
+        //public const string LIST_SCENE = "List Scene";
 
         /// <summary>
         /// 编辑场景
@@ -210,7 +210,7 @@ namespace ShadowEditor.Server
         public const string DELETE_SCENE = "Delete Scene";
 
         /// <summary>
-        /// 获取截图列表
+        /// 获取截图列表（不具有该权限无法查看截图列表）
         /// </summary>
         public const string LIST_SCREENSHOT = "List Screenshot";
 
@@ -230,12 +230,7 @@ namespace ShadowEditor.Server
         public const string DELETE_SCREENSHOT = "Delete Screenshot";
 
         /// <summary>
-        /// 上传缩略图
-        /// </summary>
-        public const string UPLOAD_THUMBNAIL = "Upload Thumbnail";
-
-        /// <summary>
-        /// 获取视频列表
+        /// 获取视频列表（不具有该权限无法查看视频列表）
         /// </summary>
         public const string LIST_VIDEO = "List Video";
 
@@ -253,90 +248,5 @@ namespace ShadowEditor.Server
         /// 删除视频
         /// </summary>
         public const string DELETE_VIDEO = "Delete Video";
-
-        /// <summary>
-        /// 导出编辑器
-        /// </summary>
-        public const string EXPORT_EDITOR = "Export Editor";
-
-        /// <summary>
-        /// 导出示例
-        /// </summary>
-        public const string EXPORT_EXAMPLES = "Export Examples";
-
-        /// <summary>
-        /// 导出场景
-        /// </summary>
-        public const string EXPORT_SCENE = "Export Scene";
-
-        /// <summary>
-        /// 获取操作权限列表
-        /// </summary>
-        public const string LIST_OPERATING_AUTHORITY = "List Operating Authority";
-
-        /// <summary>
-        /// 保存操作权限列表
-        /// </summary>
-        public const string SAVE_OPERATING_AUTHORITY = "Save Operating Authority";
-
-        /// <summary>
-        /// 获取角色列表
-        /// </summary>
-        public const string LIST_ROLE = "List Role";
-
-        /// <summary>
-        /// 添加角色
-        /// </summary>
-        public const string ADD_ROLE = "Add Role";
-
-        /// <summary>
-        /// 编辑角色
-        /// </summary>
-        public const string EDIT_ROLE = "Edit Role";
-
-        /// <summary>
-        /// 删除角色
-        /// </summary>
-        public const string DELETE_ROLE = "Delete Role";
-
-        /// <summary>
-        /// 获取用户列表
-        /// </summary>
-        public const string LIST_USER = "List User";
-
-        /// <summary>
-        /// 添加用户
-        /// </summary>
-        public const string ADD_USER = "Add User";
-
-        /// <summary>
-        /// 编辑用户
-        /// </summary>
-        public const string EDIT_USER = "Edit User";
-
-        /// <summary>
-        /// 删除用户
-        /// </summary>
-        public const string DELETE_USER = "Delete User";
-
-        /// <summary>
-        /// 整理贴图
-        /// </summary>
-        public const string ARRANGE_MAP = "Arrange Map";
-
-        /// <summary>
-        /// 整理模型
-        /// </summary>
-        public const string ARRANGE_MESH = "Arrange Mesh";
-
-        /// <summary>
-        /// 整理缩略图
-        /// </summary>
-        public const string ARRANGE_THUMBNAIL = "Arrange Thumbnail";
-
-        /// <summary>
-        /// 清理场景
-        /// </summary>
-        public const string CLEAN_UP_SCENES = "Clean Up Scenes";
     }
 }
