@@ -160,7 +160,7 @@ npm run docs
 
 3. 如何开启权限系统？
 
-打开`ShadowEditor.Web/Web.config`文件，将`EnableAuthority`设置为`true`。
+打开`ShadowEditor.Web/Web.config`文件，将`EnableAuthority`设置为`true`。默认管理员用户名是`admin`，密码是`123456`。
 
 ## 相关链接
 
