@@ -14,6 +14,8 @@ class Server {
         this.roleName = ''; // 角色名称
         this.deptName = ''; // 机构名称
         this.authorities = []; // 权限列表
+
+        this.isAdmin = false; // 是否是管理员
     }
 
     load() {
@@ -33,6 +35,8 @@ class Server {
 
                     this.roleName = obj.Data.RoleName;
                     this.deptName = obj.Data.DeptName;
+
+                    this.isAdmin = this.roleName === 'Administrator';
                     resolve();
                 }).catch(e => {
                     console.warn(e);
