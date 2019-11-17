@@ -37,7 +37,7 @@ class Editor extends React.Component {
     render() {
         const { showMask, maskText, elements } = this.state;
 
-        const isLogin = !app.config.enableAuthority || app.config.isLogin;
+        const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
         return <>
             <BorderLayout className={'Editor'}>

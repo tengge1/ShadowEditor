@@ -20,13 +20,13 @@ class LoginMenu extends React.Component {
     }
 
     render() {
-        if (app.config.isLogin) { // 登录
+        if (app.server.isLogin) { // 登录
             return <>
                 <MenuItemSeparator className={'LoginSeparator'}
                     direction={'horizontal'}
                 />
                 <li className={classNames('MenuItem', 'LoginMenuItem')}>
-                    <span className={'welcome'}>{_t(`Welcome, {{Name}}`, { Name: app.config.name === 'Administrator' ? _t(app.config.name) : app.config.name })}</span>
+                    <span className={'welcome'}>{_t(`Welcome, {{Name}}`, { Name: app.server.name === 'Administrator' ? _t(app.server.name) : app.server.name })}</span>
                 </li>
                 <MenuItemSeparator className={'LoginSeparator'}
                     direction={'horizontal'}
@@ -99,9 +99,9 @@ class LoginMenu extends React.Component {
                     app.toast(_t(obj.Msg));
                     return;
                 }
-                app.config.isLogin = false;
-                app.config.username = '';
-                app.config.name = '';
+                app.server.isLogin = false;
+                app.server.username = '';
+                app.server.name = '';
                 app.call('logout', this);
                 window.location.reload();
                 app.toast(_t(obj.Msg));

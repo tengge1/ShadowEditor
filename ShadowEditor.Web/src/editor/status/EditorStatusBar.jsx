@@ -42,7 +42,7 @@ class EditorStatusBar extends React.Component {
         const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall } = this.state;
         const { selectMode, addMode, enablePhysics } = app.options;
 
-        const isLogin = !app.config.enableAuthority || app.config.isLogin;
+        const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{_t('Object')}</Label>

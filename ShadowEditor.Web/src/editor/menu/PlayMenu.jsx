@@ -21,7 +21,7 @@ class PlayMenu extends React.Component {
     render() {
         const { isPlaying } = this.state;
 
-        const isLogin = !app.config.enableAuthority || app.config.isLogin;
+        const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
         return <MenuItem title={_t('Play')}>
             <MenuItem title={isPlaying ? _t('Stop') : _t('Play')}

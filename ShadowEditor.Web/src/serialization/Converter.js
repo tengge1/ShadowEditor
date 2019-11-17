@@ -75,6 +75,7 @@ Converter.prototype.constructor = Converter;
  * @param {Object} obj.visual 可视化数据
  * @param {THREE.Scene} obj.scene 场景
  * @param {String} obj.server 服务端地址
+ * @returns {Object} json数据
  */
 Converter.prototype.toJSON = function (obj) {
     let options = obj.options;
@@ -88,25 +89,25 @@ Converter.prototype.toJSON = function (obj) {
     let list = [];
 
     // 选项
-    let configJson = (new OptionsSerializer()).toJSON(options);
+    let configJson = new OptionsSerializer().toJSON(options);
     list.push(configJson);
 
     // 相机
-    let cameraJson = (new CamerasSerializer()).toJSON(camera);
+    let cameraJson = new CamerasSerializer().toJSON(camera);
     list.push(cameraJson);
 
     // 渲染器
-    let rendererJson = (new WebGLRendererSerializer()).toJSON(renderer);
+    let rendererJson = new WebGLRendererSerializer().toJSON(renderer);
     list.push(rendererJson);
 
     // 脚本
-    let scriptsJson = (new ScriptSerializer()).toJSON(scripts);
+    let scriptsJson = new ScriptSerializer().toJSON(scripts);
     scriptsJson.forEach(n => {
         list.push(n);
     });
 
     // 动画
-    let animationsJson = (new AnimationSerializer()).toJSON(animations);
+    let animationsJson = new AnimationSerializer().toJSON(animations);
     animationsJson.forEach(n => {
         list.push(n);
     });
@@ -114,13 +115,13 @@ Converter.prototype.toJSON = function (obj) {
     // 音频监听器
     let audioListener = camera.children.filter(n => n instanceof THREE.AudioListener)[0];
     if (audioListener) {
-        let audioListenerJson = (new AudioListenerSerializer()).toJSON(audioListener);
+        let audioListenerJson = new AudioListenerSerializer().toJSON(audioListener);
         list.push(audioListenerJson);
     }
 
     // 可视化
     if (visual) {
-        let visualJson = (new VisualSerializer()).toJSON(visual);
+        let visualJson = new VisualSerializer().toJSON(visual);
         list.push(visualJson);
     }
 
@@ -149,61 +150,61 @@ Converter.prototype.traverse = function (obj, children, list) {
     let json = null;
 
     if (obj.userData.Server === true) { // 服务器对象
-        json = (new ServerObject()).toJSON(obj);
+        json = new ServerObject().toJSON(obj);
     } else if (obj.userData.type === 'Sky') {
-        json = (new SkySerializer()).toJSON(obj);
+        json = new SkySerializer().toJSON(obj);
     } else if (obj.userData.type === 'Fire') { // 火焰
-        json = (new FireSerializer()).toJSON(obj);
+        json = new FireSerializer().toJSON(obj);
     } else if (obj.userData.type === 'Smoke') { // 烟
-        json = (new SmokeSerializer()).toJSON(obj);
+        json = new SmokeSerializer().toJSON(obj);
     } else if (obj.userData.type === 'ParticleEmitter') { // 粒子发射器
-        json = (new ParticleEmitterSerializer()).toJSON(obj);
+        json = new ParticleEmitterSerializer().toJSON(obj);
     } else if (obj.userData.type === 'PerlinTerrain') { // 柏林地形
-        json = (new PerlinTerrainSerializer()).toJSON(obj);
+        json = new PerlinTerrainSerializer().toJSON(obj);
     } else if (obj.userData.type === 'Water') {
-        json = (new WaterSerializer()).toJSON(obj);
+        json = new WaterSerializer().toJSON(obj);
     } else if (obj.userData.type === 'Cloth') {
-        json = (new ClothSerializer()).toJSON(obj);
+        json = new ClothSerializer().toJSON(obj);
     } else if (obj.userData.type === 'LineCurve') {
-        json = (new LineCurveSerializer()).toJSON(obj);
+        json = new LineCurveSerializer().toJSON(obj);
     } else if (obj.userData.type === 'CatmullRomCurve') {
-        json = (new CatmullRomCurveSerializer()).toJSON(obj);
+        json = new CatmullRomCurveSerializer().toJSON(obj);
     } else if (obj.userData.type === 'QuadraticBezierCurve') {
-        json = (new QuadraticBezierCurveSerializer()).toJSON(obj);
+        json = new QuadraticBezierCurveSerializer().toJSON(obj);
     } else if (obj.userData.type === 'CubicBezierCurve') {
-        json = (new CubicBezierCurveSerializer()).toJSON(obj);
+        json = new CubicBezierCurveSerializer().toJSON(obj);
     } else if (obj.userData.type === 'EllipseCurve') {
-        json = (new EllipseCurveSerializer()).toJSON(obj);
+        json = new EllipseCurveSerializer().toJSON(obj);
     } else if (obj.userData.type === 'Globe') {
-        json = (new GlobeSerializer()).toJSON(obj);
+        json = new GlobeSerializer().toJSON(obj);
     } else if (obj instanceof THREE.Scene) {
-        json = (new SceneSerializer()).toJSON(obj);
+        json = new SceneSerializer().toJSON(obj);
     } else if (obj instanceof THREE.Group) {
-        json = (new GroupSerializer()).toJSON(obj);
+        json = new GroupSerializer().toJSON(obj);
     } else if (obj instanceof THREE.Reflector) {
-        json = (new ReflectorSerializer()).toJSON(obj);
+        json = new ReflectorSerializer().toJSON(obj);
     } else if (obj instanceof THREE.Mesh) {
-        json = (new MeshSerializer()).toJSON(obj);
+        json = new MeshSerializer().toJSON(obj);
     } else if (obj instanceof THREE.Sprite) {
-        json = (new SpriteSerializer()).toJSON(obj);
+        json = new SpriteSerializer().toJSON(obj);
     } else if (obj instanceof THREE.AmbientLight) {
-        json = (new AmbientLightSerializer()).toJSON(obj);
+        json = new AmbientLightSerializer().toJSON(obj);
     } else if (obj instanceof THREE.DirectionalLight) {
-        json = (new DirectionalLightSerializer()).toJSON(obj);
+        json = new DirectionalLightSerializer().toJSON(obj);
     } else if (obj instanceof THREE.HemisphereLight) {
-        json = (new HemisphereLightSerializer()).toJSON(obj);
+        json = new HemisphereLightSerializer().toJSON(obj);
     } else if (obj instanceof THREE.PointLight) {
-        json = (new PointLightSerializer()).toJSON(obj);
+        json = new PointLightSerializer().toJSON(obj);
     } else if (obj instanceof THREE.RectAreaLight) {
-        json = (new RectAreaLightSerializer()).toJSON(obj);
+        json = new RectAreaLightSerializer().toJSON(obj);
     } else if (obj instanceof THREE.SpotLight) {
-        json = (new SpotLightSerializer()).toJSON(obj);
+        json = new SpotLightSerializer().toJSON(obj);
     } else if (obj instanceof THREE.Audio) {
-        json = (new AudioSerializer()).toJSON(obj);
+        json = new AudioSerializer().toJSON(obj);
     } else if (obj instanceof THREE.Bone) {
-        json = (new BoneSerializer()).toJSON(obj);
+        json = new BoneSerializer().toJSON(obj);
     } else if (obj instanceof THREE.Object3D) {
-        json = (new Object3DSerializer()).toJSON(obj);
+        json = new Object3DSerializer().toJSON(obj);
     }
 
     if (json) {
@@ -220,7 +221,7 @@ Converter.prototype.traverse = function (obj, children, list) {
 
             children.push({
                 uuid: n.uuid,
-                children: children1,
+                children: children1
             });
 
             this.traverse(n, children1, list);
@@ -233,6 +234,7 @@ Converter.prototype.traverse = function (obj, children, list) {
  * @param {*} jsons json对象（列表）
  * @param {*} options 配置选项 格式：{ server: serverUrl } 其中，serverUrl为服务端地址，用于下载模型、纹理等资源
  * @param {*} options.server 服务端地址
+ * @returns {Object} json数据
  */
 Converter.prototype.fromJson = function (jsons, options) {
     let obj = {
@@ -242,13 +244,13 @@ Converter.prototype.fromJson = function (jsons, options) {
         scripts: null,
         animations: [],
         svg: { html: '' },
-        scene: null,
+        scene: null
     };
 
     // 选项
     let optionsJson = jsons.filter(n => n.metadata && n.metadata.generator === 'OptionsSerializer')[0];
     if (optionsJson) {
-        obj.options = (new OptionsSerializer()).fromJSON(optionsJson);
+        obj.options = new OptionsSerializer().fromJSON(optionsJson);
     } else {
         console.warn(`Converter: No config info in the scene.`);
     }
@@ -256,7 +258,7 @@ Converter.prototype.fromJson = function (jsons, options) {
     // 相机
     let cameraJson = jsons.filter(n => n.metadata && n.metadata.generator.indexOf('CameraSerializer') > -1)[0];
     if (cameraJson) {
-        obj.camera = (new CamerasSerializer()).fromJSON(cameraJson);
+        obj.camera = new CamerasSerializer().fromJSON(cameraJson);
     } else {
         console.warn(`Converter: No camera info in the scene.`);
     }
@@ -268,7 +270,7 @@ Converter.prototype.fromJson = function (jsons, options) {
     // 渲染器
     let rendererJson = jsons.filter(n => n.metadata && n.metadata.generator.indexOf('WebGLRendererSerializer') > -1)[0];
     if (rendererJson) {
-        obj.renderer = (new WebGLRendererSerializer()).fromJSON(rendererJson);
+        obj.renderer = new WebGLRendererSerializer().fromJSON(rendererJson);
     } else {
         console.warn(`Converter: No renderer info in the scene.`);
     }
@@ -280,26 +282,26 @@ Converter.prototype.fromJson = function (jsons, options) {
     // 脚本
     let scriptJsons = jsons.filter(n => n.metadata && n.metadata.generator === 'ScriptSerializer');
     if (scriptJsons) {
-        obj.scripts = (new ScriptSerializer()).fromJSON(scriptJsons);
+        obj.scripts = new ScriptSerializer().fromJSON(scriptJsons);
     }
 
     // 动画
     let animationJsons = jsons.filter(n => n.metadata && n.metadata.generator === 'AnimationSerializer');
     if (animationJsons) {
-        obj.animations = (new AnimationSerializer()).fromJSON(animationJsons);
+        obj.animations = new AnimationSerializer().fromJSON(animationJsons);
     }
 
     // Visual
     let visualJson = jsons.filter(n => n.metadata && n.metadata.generator === 'VisualSerializer')[0];
     if (visualJson) {
-        obj.visual = (new VisualSerializer()).fromJSON(visualJson);
+        obj.visual = new VisualSerializer().fromJSON(visualJson);
     }
 
     // 音频监听器
     let audioListenerJson = jsons.filter(n => n.metadata && n.metadata.generator === 'AudioListenerSerializer')[0];
     let audioListener;
     if (audioListenerJson) {
-        audioListener = (new AudioListenerSerializer()).fromJSON(audioListenerJson);
+        audioListener = new AudioListenerSerializer().fromJSON(audioListenerJson);
     } else {
         console.warn(`Converter: No AudioListener in the scene.`);
         audioListener = new THREE.AudioListener();
@@ -328,13 +330,14 @@ const NoDeserializeSerializers = [
     'VisualSerializer',
     'AudioListenerSerializer',
     'SceneSerializer',
-    'GlobeSerializer',
+    'GlobeSerializer'
 ];
 
 /**
  * json转场景
  * @param {*} jsons 反序列化对象列表
  * @param {*} options 配置信息
+ * @returns {Object} json数据
  */
 Converter.prototype.parse = function (jsons, options) {
     // TODO: 由于有的模型上带Scene，这样判断得到的Scene可能不太准确。
@@ -346,7 +349,7 @@ Converter.prototype.parse = function (jsons, options) {
         });
     }
 
-    let scene = (new SceneSerializer()).fromJSON(sceneJson, undefined, options.server);
+    let scene = new SceneSerializer().fromJSON(sceneJson, undefined, options.server);
     let children = sceneJson.userData.children;
 
     // 将每个组件反序列化
@@ -357,9 +360,9 @@ Converter.prototype.parse = function (jsons, options) {
         const generator = n.metadata.generator;
 
         if (generator === 'ServerObject') {
-            parts.push((new Object3DSerializer()).fromJSON(n));
+            parts.push(new Object3DSerializer().fromJSON(n));
             return new Promise(resolve => {
-                (new ServerObject()).fromJSON(n, options, options).then(obj => {
+                new ServerObject().fromJSON(n, options, options).then(obj => {
                     // bug: 由于某个模型被删，导致场景整体加载失败。
                     if (obj) {
                         this.traverseServerObject(obj, serverParts);
@@ -370,57 +373,57 @@ Converter.prototype.parse = function (jsons, options) {
                 });
             });
         } else if (NoDeserializeSerializers.indexOf(generator) > -1) {
-
+            // 这些类型不需要反序列化
         } else if (generator === 'GroupSerializer') {
-            parts.push((new GroupSerializer()).fromJSON(n));
+            parts.push(new GroupSerializer().fromJSON(n));
         } else if (generator === 'ReflectorSerializer') {
-            parts.push((new ReflectorSerializer()).fromJSON(n));
+            parts.push(new ReflectorSerializer().fromJSON(n));
         } else if (generator === 'MeshSerializer') {
-            parts.push((new MeshSerializer()).fromJSON(n, undefined, options.server));
+            parts.push(new MeshSerializer().fromJSON(n, undefined, options.server));
         } else if (generator === 'SpriteSerializer') {
-            parts.push((new SpriteSerializer()).fromJSON(n, undefined, options.server));
+            parts.push(new SpriteSerializer().fromJSON(n, undefined, options.server));
         } else if (generator === 'AmbientLightSerializer') {
-            parts.push((new AmbientLightSerializer()).fromJSON(n));
+            parts.push(new AmbientLightSerializer().fromJSON(n));
         } else if (generator === 'DirectionalLightSerializer') {
-            parts.push((new DirectionalLightSerializer()).fromJSON(n));
+            parts.push(new DirectionalLightSerializer().fromJSON(n));
         } else if (generator === 'HemisphereLightSerializer') {
-            parts.push((new HemisphereLightSerializer()).fromJSON(n));
+            parts.push(new HemisphereLightSerializer().fromJSON(n));
         } else if (generator === 'PointLightSerializer') {
-            parts.push((new PointLightSerializer()).fromJSON(n));
+            parts.push(new PointLightSerializer().fromJSON(n));
         } else if (generator === 'RectAreaLightSerializer') {
-            parts.push((new RectAreaLightSerializer()).fromJSON(n));
+            parts.push(new RectAreaLightSerializer().fromJSON(n));
         } else if (generator === 'SpotLightSerializer') {
-            parts.push((new SpotLightSerializer()).fromJSON(n));
+            parts.push(new SpotLightSerializer().fromJSON(n));
         } else if (generator === 'AudioSerializer') {
-            parts.push((new AudioSerializer()).fromJSON(n, undefined, options.audioListener));
+            parts.push(new AudioSerializer().fromJSON(n, undefined, options.audioListener));
         } else if (generator === 'FireSerializer') {
-            parts.push((new FireSerializer()).fromJSON(n, undefined, options.camera));
+            parts.push(new FireSerializer().fromJSON(n, undefined, options.camera));
         } else if (generator === 'SmokeSerializer') {
-            parts.push((new SmokeSerializer()).fromJSON(n, undefined, options.camera, options.renderer));
+            parts.push(new SmokeSerializer().fromJSON(n, undefined, options.camera, options.renderer));
         } else if (generator === 'BoneSerializer') {
-            parts.push((new BoneSerializer()).fromJSON(n));
+            parts.push(new BoneSerializer().fromJSON(n));
         } else if (generator === 'SkySerializer') {
-            parts.push((new SkySerializer()).fromJSON(n));
+            parts.push(new SkySerializer().fromJSON(n));
         } else if (generator === 'ParticleEmitterSerializer') {
-            parts.push((new ParticleEmitterSerializer()).fromJSON(n, undefined, options.server));
+            parts.push(new ParticleEmitterSerializer().fromJSON(n, undefined, options.server));
         } else if (generator === 'PerlinTerrainSerializer') {
-            parts.push((new PerlinTerrainSerializer()).fromJSON(n));
+            parts.push(new PerlinTerrainSerializer().fromJSON(n));
         } else if (generator === 'WaterSerializer') {
-            parts.push((new WaterSerializer()).fromJSON(n, undefined, options.renderer));
+            parts.push(new WaterSerializer().fromJSON(n, undefined, options.renderer));
         } else if (generator === 'ClothSerializer') {
-            parts.push((new ClothSerializer()).fromJSON(n));
+            parts.push(new ClothSerializer().fromJSON(n));
         } else if (generator === 'LineCurveSerializer') {
-            parts.push((new LineCurveSerializer()).fromJSON(n));
+            parts.push(new LineCurveSerializer().fromJSON(n));
         } else if (generator === 'CatmullRomCurveSerializer') {
-            parts.push((new CatmullRomCurveSerializer()).fromJSON(n));
+            parts.push(new CatmullRomCurveSerializer().fromJSON(n));
         } else if (generator === 'QuadraticBezierCurveSerializer') {
-            parts.push((new QuadraticBezierCurveSerializer()).fromJSON(n));
+            parts.push(new QuadraticBezierCurveSerializer().fromJSON(n));
         } else if (generator === 'CubicBezierCurveSerializer') {
-            parts.push((new CubicBezierCurveSerializer()).fromJSON(n));
+            parts.push(new CubicBezierCurveSerializer().fromJSON(n));
         } else if (generator === 'EllipseCurveSerializer') {
-            parts.push((new EllipseCurveSerializer()).fromJSON(n));
+            parts.push(new EllipseCurveSerializer().fromJSON(n));
         } else if (generator === 'Object3DSerializer') {
-            parts.push((new Object3DSerializer()).fromJSON(n));
+            parts.push(new Object3DSerializer().fromJSON(n));
         } else {
             console.warn(`Converter: No Deserializer with ${generator}.`);
         }
@@ -441,6 +444,10 @@ Converter.prototype.parse = function (jsons, options) {
 
 /**
  * 新的组装场景方法
+ * @param {*} parent 父组件
+ * @param {*} children 子组件
+ * @param {*} parts 反序列化json得到的部件
+ * @param {*} serverParts 服务端模型分解出的组件
  * @description 由于只序列化了服务端模型的材质，所以优先采用服务端模型组件搭建场景，并用序列化的材质代替服务端材质。
  */
 Converter.prototype.parseScene = function (parent, children, parts, serverParts) {
@@ -484,6 +491,8 @@ Converter.prototype.parseScene = function (parent, children, parts, serverParts)
 
 /**
  * 将服务端模型分解为组件，并移除子组件
+ * @param {THREE.Object3D} obj Object3D对象
+ * @param {Array} list 列表
  */
 Converter.prototype.traverseServerObject = function (obj, list) {
     list.push(obj);

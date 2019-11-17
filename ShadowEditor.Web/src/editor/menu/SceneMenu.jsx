@@ -22,7 +22,7 @@ class SceneMenu extends React.Component {
     }
 
     render() {
-        const isLogin = !app.config.enableAuthority || app.config.isLogin;
+        const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
         return <MenuItem title={_t('Scene')}>
             {isLogin && <MenuItem title={_t('New')}>
@@ -35,10 +35,10 @@ class SceneMenu extends React.Component {
             </MenuItem>}
             {isLogin && <MenuItem title={_t('Save')}
                 onClick={this.handleSaveScene}
-            />}
+                        />}
             {isLogin && <MenuItem title={_t('Save As')}
                 onClick={this.handleSaveAsScene}
-            />}
+                        />}
             {isLogin && <MenuItemSeparator />}
             <MenuItem title={_t('Export Scene')}>
                 <MenuItem title={_t('To GLTF File')}
@@ -47,7 +47,7 @@ class SceneMenu extends React.Component {
             </MenuItem>
             {isLogin && <MenuItem title={_t('Publish Scene')}
                 onClick={this.handlePublishScene}
-            />}
+                        />}
         </MenuItem>;
     }
 

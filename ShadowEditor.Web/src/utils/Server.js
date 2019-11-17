@@ -1,8 +1,8 @@
 /**
- * 服务器配置
+ * 服务端功能
  * @author tengge / https://github.com/tengge1
  */
-class Config {
+class Server {
     constructor() {
         this.enableAuthority = false; // 是否开启权限
         this.initialized = false; // 系统是否初始化
@@ -48,4 +48,4 @@ class Config {
     }
 }
 
-export default Config;
+export default Server;

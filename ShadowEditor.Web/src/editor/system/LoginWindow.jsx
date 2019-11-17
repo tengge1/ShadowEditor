@@ -79,9 +79,9 @@ class LoginWindow extends React.Component {
                     app.toast(_t(obj.Msg));
                     return;
                 }
-                app.config.isLogin = true;
-                app.config.username = obj.Data.Username;
-                app.config.name = obj.Data.Name;
+                app.server.isLogin = true;
+                app.server.username = obj.Data.Username;
+                app.server.name = obj.Data.Name;
                 app.call('login', this);
                 this.handleClose();
                 window.location.reload();

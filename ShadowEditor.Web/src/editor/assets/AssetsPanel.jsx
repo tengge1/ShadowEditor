@@ -44,7 +44,7 @@ class AssetsPanel extends React.Component {
     render() {
         const { activeIndex, sceneCount, meshCount, mapCount, materialCount, audioCount, animationCount, particleCount, prefabCount, screenshotCount, videoCount } = this.state;
 
-        const isLogin = !app.config.enableAuthority || app.config.isLogin;
+        const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
         return <AccordionLayout className={'AssetsPanel'}
             onActive={this.handleActive}

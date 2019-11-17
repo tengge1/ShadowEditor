@@ -22,7 +22,7 @@ class OptionsMenu extends React.Component {
     }
 
     render() {
-        const isLogin = !app.config.enableAuthority || app.config.isLogin;
+        const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
         return <MenuItem title={_t('Options')}>
             <MenuItem title={_t('Display')}

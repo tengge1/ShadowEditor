@@ -8,7 +8,7 @@ import {
 } from './third_party';
 import Options from './Options';
 import Storage from './utils/Storage';
-import Config from './utils/Config';
+import Server from './utils/Server';
 import PackageManager from './package/PackageManager';
 import EventDispatcher from './event/EventDispatcher';
 import Editor from './editor/Editor.jsx';
@@ -38,7 +38,7 @@ function Application(container, options) {
     this.debug = this.storage.get('debug') || false;
 
     // 服务端配置
-    this.config = new Config();
+    this.server = new Server();
 
     // 包管理器
     this.packageManager = new PackageManager();
@@ -66,7 +66,7 @@ function Application(container, options) {
     });
 
     const promise3 = new Promise(resolve => { // 加载服务器配置
-        this.config.load().then(() => {
+        this.server.load().then(() => {
             resolve();
         });
     });

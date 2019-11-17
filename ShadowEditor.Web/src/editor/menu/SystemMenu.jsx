@@ -25,7 +25,7 @@ class SystemMenu extends React.Component {
     }
 
     render() {
-        const { initialized } = app.config;
+        const { initialized } = app.server;
 
         return <MenuItem title={_t('System')}>
             <MenuItem title={_t('Initialize')}
