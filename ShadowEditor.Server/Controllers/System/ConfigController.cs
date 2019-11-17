@@ -16,6 +16,7 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using ShadowEditor.Model.System;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers.System
 {
@@ -89,6 +90,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult Save(ConfigModel model)
         {
             var mongo = new MongoHelper();

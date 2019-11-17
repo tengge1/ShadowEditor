@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using ShadowEditor.Model.System;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers.System
 {
@@ -115,6 +116,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.LOGIN)]
         public JsonResult Logout()
         {
             var cookie = HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);

@@ -11,6 +11,7 @@ using ShadowEditor.Model.System;
 using ShadowEditor.Server.Helpers;
 using ShadowEditor.Server.CustomAttribute;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace ShadowEditor.Server.Base
 {
@@ -32,12 +33,18 @@ namespace ShadowEditor.Server.Base
                 return;
             }
 
-            var attributes = actionContext.ActionDescriptor.GetCustomAttributes<AuthorityAttribute>();
+            var collection = actionContext.ActionDescriptor.GetCustomAttributes<AuthorityAttribute>();
 
-            if (attributes.Count == 0)
+            if (collection.Count == 0)
             {
                 base.OnActionExecuting(actionContext);
                 return;
+            }
+
+            var attributes = new List<AuthorityAttribute>();
+            for (var i = 0; i < collection.Count; i++)
+            {
+                attributes.Add(collection[i]);
             }
 
             // 验证权限
@@ -50,6 +57,14 @@ namespace ShadowEditor.Server.Base
             }
 
             if (user.RoleName == "Administrator") // 管理员组默认有全部权限
+            {
+                base.OnActionExecuting(actionContext);
+                return;
+            }
+
+            var loginAttribute = attributes.Find(n => n.Authority == "Login"); // 具有Login权限的接口，所有登录用户都能使用
+
+            if (loginAttribute != null)
             {
                 base.OnActionExecuting(actionContext);
                 return;

@@ -29,6 +29,7 @@ namespace ShadowEditor.Server.Controllers.Export
         /// <param name="version"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult Run(string ID, int version = -1)
         {
             var mongo = new MongoHelper();

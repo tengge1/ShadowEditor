@@ -24,10 +24,11 @@ namespace ShadowEditor.Server.Controllers.Export
     public class ExportEditorController : ApiBase
     {
         /// <summary>
-        /// 发布静态网站
+        /// 导出编辑器
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult Run()
         {
             var now = DateTime.Now;

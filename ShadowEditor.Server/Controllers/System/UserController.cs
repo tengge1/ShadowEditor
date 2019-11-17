@@ -30,6 +30,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="keyword"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult List(int pageSize = 20, int pageNum = 1, string keyword = "")
         {
             var mongo = new MongoHelper();
@@ -146,6 +147,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult Add(UserEditModel model)
         {
             if (string.IsNullOrEmpty(model.Username))
@@ -245,6 +247,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult Edit(UserEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -361,6 +364,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult Delete(string ID)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -416,6 +420,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.LOGIN)]
         public JsonResult ChangePassword(ChangePasswordModel model)
         {
             var user = UserHelper.GetCurrentUser();
@@ -503,6 +508,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult ResetPassword(ResetPasswordModel model)
         {
             ObjectId userID;

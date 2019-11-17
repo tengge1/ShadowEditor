@@ -26,6 +26,7 @@ namespace ShadowEditor.Server.Controllers.Tools
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult Run()
         {
             var helper = new MongoHelper();

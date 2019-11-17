@@ -13,15 +13,26 @@ namespace ShadowEditor.Server
     public static class OperatingAuthority
     {
         /// <summary>
+        /// 管理员权限
+        /// </summary>
+        /// <remarks>只有管理员能操作，不应该被其他角色使用。</remarks>
+        [Hidden]
+        public const string ADMINISTRATOR = "Administrator";
+
+        /// <summary>
+        /// 只有登录用户才能具有的权限
+        /// </summary>
+        [Hidden]
+        public const string LOGIN = "Login";
+
+        /// <summary>
         /// 获取动画列表（不具备该权限无法查看动画列表）
         /// </summary>
-        [Sort(0)]
         public const string LIST_ANIMATION = "List Animation";
 
         /// <summary>
         /// 添加动画
         /// </summary>
-        [Sort(1)]
         public const string ADD_ANIMATION = "Add Animation";
 
         /// <summary>

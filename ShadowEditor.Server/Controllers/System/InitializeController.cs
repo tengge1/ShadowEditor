@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using ShadowEditor.Model.System;
+using ShadowEditor.Server.CustomAttribute;
 using System.Web.Security;
 using System.Configuration;
 
@@ -145,6 +146,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult Reset()
         {
             var mongo = new MongoHelper();

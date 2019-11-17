@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Model.Tools;
 using ShadowEditor.Server.Helpers;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Controllers.Tools
 {
@@ -84,6 +85,7 @@ namespace ShadowEditor.Server.Controllers.Tools
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult Add(PluginEditModel model)
         {
             if (string.IsNullOrEmpty(model.Name))
@@ -148,6 +150,7 @@ namespace ShadowEditor.Server.Controllers.Tools
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult Edit(PluginEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -205,6 +208,7 @@ namespace ShadowEditor.Server.Controllers.Tools
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authority(OperatingAuthority.ADMINISTRATOR)]
         public JsonResult Delete(string ID)
         {
             var objectId = ObjectId.GenerateNewId();

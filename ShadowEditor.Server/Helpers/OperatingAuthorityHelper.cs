@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ShadowEditor.Model.System;
+using ShadowEditor.Server.CustomAttribute;
 
 namespace ShadowEditor.Server.Helpers
 {
@@ -24,6 +25,15 @@ namespace ShadowEditor.Server.Helpers
 
             foreach (var i in fields)
             {
+                var attributes = i.GetCustomAttributes(false).ToList();
+
+                // 隐藏权限不应被前台获取
+                var hiddenAttribute = attributes.Find(n => n.GetType() == typeof(HiddenAttribute));
+                if (hiddenAttribute != null)
+                {
+                    continue;
+                }
+
                 list.Add(new OperatingAuthorityModel
                 {
                     ID = i.Name,
