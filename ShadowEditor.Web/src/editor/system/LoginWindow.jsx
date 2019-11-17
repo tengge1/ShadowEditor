@@ -67,25 +67,12 @@ class LoginWindow extends React.Component {
     handleLogin() {
         const { username, password } = this.state;
 
-        fetch(`/api/Login/Login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `Username=${username}&Password=${password}`
-        }).then(response => {
-            response.json().then(obj => {
-                if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
-                    return;
-                }
-                app.server.isLogin = true;
-                app.server.username = obj.Data.Username;
-                app.server.name = obj.Data.Name;
-                app.call('login', this);
-                this.handleClose();
-                window.location.reload();
-            });
+        app.server.login(username, password).then(succes => {
+            if (!succes) {
+                return;
+            }
+            this.handleClose();
+            window.location.reload();
         });
     }
 

@@ -1,5 +1,5 @@
 import './css/LoginMenu.css';
-import { classNames, MenuItemSeparator, Button, LinkButton } from '../../third_party';
+import { classNames, MenuItemSeparator, LinkButton } from '../../third_party';
 import LoginWindow from '../system/LoginWindow.jsx';
 import RegisterWindow from '../system/RegisterWindow.jsx';
 import ChangePasswordWindow from '../system/ChangePasswordWindow.jsx';
@@ -91,21 +91,12 @@ class LoginMenu extends React.Component {
     }
 
     commitLogout() {
-        fetch(`/api/Login/Logout`, {
-            method: 'POST'
-        }).then(response => {
-            response.json().then(obj => {
-                if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
-                    return;
-                }
-                app.server.isLogin = false;
-                app.server.username = '';
-                app.server.name = '';
-                app.call('logout', this);
-                window.location.reload();
-                app.toast(_t(obj.Msg));
-            });
+        app.server.logout().then(success => {
+            if (!success) {
+                return;
+            }
+            window.location.reload();
+            app.toast(_t(obj.Msg));
         });
     }
 }

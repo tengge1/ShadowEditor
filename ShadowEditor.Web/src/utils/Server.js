@@ -46,6 +46,52 @@ class Server {
             });
         });
     }
+
+    login(username, password) {
+        return new Promise(resolve => {
+            fetch(`/api/Login/Login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `Username=${username}&Password=${password}`
+            }).then(response => {
+                response.json().then(obj => {
+                    if (obj.Code !== 200) {
+                        app.toast(_t(obj.Msg));
+                        resolve(false);
+                        return;
+                    }
+                    this.isLogin = true;
+                    this.username = obj.Data.Username;
+                    this.name = obj.Data.Name;
+                    app.call('login', this);
+                    resolve(true);
+                });
+            });
+        });
+    }
+
+    logout() {
+        return new Promise(resolve => {
+            fetch(`/api/Login/Logout`, {
+                method: 'POST'
+            }).then(response => {
+                response.json().then(obj => {
+                    if (obj.Code !== 200) {
+                        app.toast(_t(obj.Msg));
+                        resolve(false);
+                        return;
+                    }
+                    this.isLogin = false;
+                    this.username = '';
+                    this.name = '';
+                    app.call('logout', this);
+                    resolve(true);
+                });
+            });
+        });
+    }
 }
 
 export default Server;
