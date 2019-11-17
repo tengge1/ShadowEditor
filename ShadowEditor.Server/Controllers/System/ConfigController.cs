@@ -59,6 +59,11 @@ namespace ShadowEditor.Server.Controllers.System
                 ["IsLogin"] = false,
                 ["Username"] = "",
                 ["Name"] = "",
+                ["RoleID"] = 0,
+                ["RoleName"] = "",
+                ["DeptID"] = 0,
+                ["DeptName"] = "",
+                ["OperatingAuthorities"] = new JArray()
             };
 
             // 获取用户登录信息
@@ -69,10 +74,22 @@ namespace ShadowEditor.Server.Controllers.System
                 model["IsLogin"] = true;
                 model["Username"] = user.Username;
                 model["Name"] = user.Name;
-                model["RoleID"] = user.RoleID;
-                model["RoleName"] = user.RoleName;
-                model["DeptID"] = user.DeptID;
-                model["DeptName"] = user.DeptName;
+                if (user.RoleID != null)
+                {
+                    model["RoleID"] = user.RoleID;
+                }
+                if (user.RoleName != null)
+                {
+                    model["RoleName"] = user.RoleName;
+                }
+                if (user.DeptID != null)
+                {
+                    model["DeptID"] = user.DeptID;
+                }
+                if (user.DeptName != null)
+                {
+                    model["DeptName"] = user.DeptName;
+                }
                 model["OperatingAuthorities"] = new JArray(user.OperatingAuthorities);
             }
 
