@@ -112,10 +112,45 @@ namespace ShadowEditor.Server.Controllers.System
                 model.Authorities = new List<string>();
             }
 
+            // 获取角色
+            var roleID = ObjectId.GenerateNewId();
+
+            if (!string.IsNullOrEmpty(model.RoleID) && !ObjectId.TryParse(model.RoleID, out roleID))
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "ID is not allowed."
+                });
+            }
+
             var mongo = new MongoHelper();
 
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", roleID);
+            var role = mongo.FindOne(Constant.RoleCollectionName, filter);
+
+            if (role == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "The role is not existed."
+                });
+            }
+
+            var roleName = role["Name"].ToString();
+
+            if (roleName == "Administrator")
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Modifying admin rights is not allowed."
+                });
+            }
+
             // 移除旧权限
-            var filter = Builders<BsonDocument>.Filter.Eq("RoleID", model.RoleID);
+            filter = Builders<BsonDocument>.Filter.Eq("RoleID", model.RoleID);
             mongo.DeleteMany(Constant.OperatingAuthorityCollectionName, filter);
 
             // 添加新权限

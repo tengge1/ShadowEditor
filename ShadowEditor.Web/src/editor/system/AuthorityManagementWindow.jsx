@@ -1,5 +1,5 @@
 import './css/AuthorityManagementWindow.css';
-import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField, HBoxLayout, Form, FormControl, Label, CheckBox } from '../../third_party';
+import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, HBoxLayout } from '../../third_party';
 
 /**
  * 权限管理窗口
@@ -123,7 +123,7 @@ class AuthorityManagementWindow extends React.Component {
         });
     }
 
-    handleSelectAllAuthority(value, name, event) {
+    handleSelectAllAuthority(value) {
         let authorities = this.state.authorities;
 
         authorities.forEach(n => {
