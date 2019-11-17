@@ -26,7 +26,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authority(OperatingAuthority.LIST_CHARACTER)]
+        [Authority("LIST_CHARACTER")]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -150,7 +150,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.EDIT_CHARACTER)]
+        [Authority("EDIT_CHARACTER")]
         public JsonResult Edit(CharacterEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -210,7 +210,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.SAVE_CHARACTER)]
+        [Authority("SAVE_CHARACTER")]
         public JsonResult Save(CharacterSaveModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -293,7 +293,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.DELETE_CHARACTER)]
+        [Authority("DELETE_CHARACTER")]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

@@ -26,7 +26,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authority(OperatingAuthority.LIST_MESH)]
+        [Authority("LIST_MESH")]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -105,7 +105,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.ADD_MESH)]
+        [Authority("ADD_MESH")]
         public JsonResult Add()
         {
             var Request = HttpContext.Current.Request;
@@ -447,7 +447,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.EDIT_MESH)]
+        [Authority("EDIT_MESH")]
         public JsonResult Edit(MeshEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -507,7 +507,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.DELETE_MESH)]
+        [Authority("DELETE_MESH")]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

@@ -26,7 +26,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authority(OperatingAuthority.LIST_ANIMATION)]
+        [Authority("LIST_ANIMATION")]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -107,7 +107,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.ADD_ANIMATION)]
+        [Authority("ADD_ANIMATION")]
         public JsonResult Add()
         {
             var Request = HttpContext.Current.Request;
@@ -221,7 +221,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.EDIT_ANIMATION)]
+        [Authority("EDIT_ANIMATION")]
         public JsonResult Edit(AnimationEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -281,7 +281,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.DELETE_ANIMATION)]
+        [Authority("DELETE_ANIMATION")]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

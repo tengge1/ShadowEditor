@@ -116,7 +116,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.LOGIN)]
+        [Authority("LOGIN")]
         public JsonResult Logout()
         {
             var cookie = HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);

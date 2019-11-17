@@ -146,7 +146,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.ADMINISTRATOR)]
+        [Authority("ADMINISTRATOR")]
         public JsonResult Reset()
         {
             var mongo = new MongoHelper();

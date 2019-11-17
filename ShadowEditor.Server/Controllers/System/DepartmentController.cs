@@ -27,7 +27,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authority(OperatingAuthority.ADMINISTRATOR)]
+        [Authority("ADMINISTRATOR")]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -84,7 +84,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.ADMINISTRATOR)]
+        [Authority("ADMINISTRATOR")]
         public JsonResult Add(DepartmentEditModel model)
         {
             if (string.IsNullOrEmpty(model.Name))
@@ -132,7 +132,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.ADMINISTRATOR)]
+        [Authority("ADMINISTRATOR")]
         public JsonResult Edit(DepartmentEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -190,7 +190,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.ADMINISTRATOR)]
+        [Authority("ADMINISTRATOR")]
         public JsonResult Delete(string ID)
         {
             var objectId = ObjectId.GenerateNewId();

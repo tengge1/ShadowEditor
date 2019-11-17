@@ -27,7 +27,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authority(OperatingAuthority.LIST_AUDIO)]
+        [Authority("LIST_AUDIO")]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -109,7 +109,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.ADD_AUDIO)]
+        [Authority("ADD_AUDIO")]
         public JsonResult Add()
         {
             var file = HttpContext.Current.Request.Files[0];
@@ -189,7 +189,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.EDIT_AUDIO)]
+        [Authority("EDIT_AUDIO")]
         public JsonResult Edit(AudioEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -249,7 +249,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.DELETE_AUDIO)]
+        [Authority("DELETE_AUDIO")]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

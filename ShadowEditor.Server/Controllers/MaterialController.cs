@@ -26,7 +26,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authority(OperatingAuthority.LIST_MATERIAL)]
+        [Authority("LIST_MATERIAL")]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -150,7 +150,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.EDIT_MATERIAL)]
+        [Authority("EDIT_MATERIAL")]
         public JsonResult Edit(MaterialEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -210,7 +210,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.SAVE_MATERIAL)]
+        [Authority("SAVE_MATERIAL")]
         public JsonResult Save(MaterialSaveModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -293,7 +293,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.DELETE_MATERIAL)]
+        [Authority("DELETE_MATERIAL")]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

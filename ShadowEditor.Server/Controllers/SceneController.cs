@@ -167,7 +167,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.EDIT_SCENE)]
+        [Authority("EDIT_SCENE")]
         public JsonResult Edit(SceneEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -276,7 +276,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model">保存场景模型</param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.SAVE_SCENE)]
+        [Authority("SAVE_SCENE")]
         public JsonResult Save(SceneSaveModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -414,7 +414,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.DELETE_SCENE)]
+        [Authority("DELETE_SCENE")]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

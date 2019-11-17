@@ -19,6 +19,7 @@ namespace ShadowEditor.Server.Controllers
     /// <summary>
     /// 上传控制器
     /// </summary>
+    [Authority("LOGIN")]
     public class UploadController : ApiBase
     {
         /// <summary>

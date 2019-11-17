@@ -92,7 +92,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.SAVE_CATEGORY)]
+        [Authority("SAVE_CATEGORY")]
         public JsonResult Save(CategorySaveModel model)
         {
             if (string.IsNullOrEmpty(model.Name))
@@ -155,7 +155,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.DELETE_CATEGORY)]
+        [Authority("DELETE_CATEGORY")]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

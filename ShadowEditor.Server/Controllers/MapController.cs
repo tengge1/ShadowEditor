@@ -28,7 +28,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authority(OperatingAuthority.LIST_MAP)]
+        [Authority("LIST_MAP")]
         public JsonResult List()
         {
             var mongo = new MongoHelper();
@@ -124,7 +124,7 @@ namespace ShadowEditor.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.ADD_MAP)]
+        [Authority("ADD_MAP")]
         public JsonResult Add()
         {
             var files = HttpContext.Current.Request.Files;
@@ -265,7 +265,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.EDIT_MAP)]
+        [Authority("EDIT_MAP")]
         public JsonResult Edit(MapEditModel model)
         {
             var objectId = ObjectId.GenerateNewId();
@@ -324,7 +324,7 @@ namespace ShadowEditor.Server.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.DELETE_MAP)]
+        [Authority("DELETE_MAP")]
         public JsonResult Delete(string ID)
         {
             var mongo = new MongoHelper();

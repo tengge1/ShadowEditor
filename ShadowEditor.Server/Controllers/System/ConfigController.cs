@@ -107,7 +107,7 @@ namespace ShadowEditor.Server.Controllers.System
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.ADMINISTRATOR)]
+        [Authority("ADMINISTRATOR")]
         public JsonResult Save(ConfigModel model)
         {
             var mongo = new MongoHelper();

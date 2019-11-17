@@ -28,7 +28,7 @@ namespace ShadowEditor.Server.Controllers.Export
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authority(OperatingAuthority.ADMINISTRATOR)]
+        [Authority("ADMINISTRATOR")]
         public JsonResult Run()
         {
             var now = DateTime.Now;
