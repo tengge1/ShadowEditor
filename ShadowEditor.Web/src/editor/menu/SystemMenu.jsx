@@ -13,8 +13,6 @@ class SystemMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleInitialize = this.handleInitialize.bind(this);
-        this.commitInitialize = this.commitInitialize.bind(this);
         this.handleDepartment = this.handleDepartment.bind(this);
         this.handleUser = this.handleUser.bind(this);
         this.handleRole = this.handleRole.bind(this);
@@ -28,11 +26,6 @@ class SystemMenu extends React.Component {
         const { initialized } = app.server;
 
         return <MenuItem title={_t('System')}>
-            <MenuItem title={_t('Initialize')}
-                show={!initialized}
-                onClick={this.handleInitialize}
-            />
-            <MenuItemSeparator show={initialized} />
             <MenuItem title={_t('Department Management')}
                 show={initialized}
                 onClick={this.handleDepartment}
@@ -60,34 +53,6 @@ class SystemMenu extends React.Component {
                 onClick={this.handleResetSystem}
             />
         </MenuItem>;
-    }
-
-    handleInitialize() {
-        app.confirm({
-            title: _t('Query'),
-            content: _t('Are you sure to initialize the roles and users?'),
-            onOK: this.commitInitialize
-        });
-    }
-
-    commitInitialize() {
-        fetch(`${app.options.server}/api/Initialize/Initialize`, {
-            method: 'POST'
-        }).then(response => {
-            response.json().then(obj => {
-                if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
-                    return;
-                }
-                app.confirm({
-                    title: _t('Message'),
-                    content: _t(obj.Msg) + ' ' + _t('Press OK To refresh.'),
-                    onOK: () => {
-                        window.location.reload();
-                    }
-                });
-            });
-        });
     }
 
     handleDepartment() {

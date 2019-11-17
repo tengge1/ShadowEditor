@@ -21,7 +21,7 @@ import LoginMenu from './LoginMenu.jsx';
 class EditorMenuBar extends React.Component {
     render() {
         const { className } = this.props;
-        const { enableAuthority, initialized } = app.server;
+        const { enableAuthority } = app.server;
 
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
@@ -33,7 +33,7 @@ class EditorMenuBar extends React.Component {
             {isLogin && <LightMenu />}
             {isLogin && <AssetsMenu />}
             {isLogin && <ComponentMenu />}
-            {enableAuthority && (!app.server.initialized || app.server.isLogin) && <SystemMenu />}
+            {enableAuthority && app.server.isLogin && <SystemMenu />}
             <PlayMenu />
             {isLogin && <ToolMenu />}
             <OptionsMenu />
@@ -41,7 +41,7 @@ class EditorMenuBar extends React.Component {
             <MenuItemSeparator direction={'horizontal'} />
             {/* <EditorTabMenu /> */}
             <MenuBarFiller />
-            {enableAuthority && initialized && <LoginMenu />}
+            {enableAuthority && <LoginMenu />}
         </MenuBar>;
     }
 }

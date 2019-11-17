@@ -12,6 +12,8 @@ class LoginMenu extends React.Component {
     constructor(props) {
         super(props);
 
+        this.handleInitialize = this.handleInitialize.bind(this);
+        this.commitInitialize = this.commitInitialize.bind(this);
         this.handleClickRegister = this.handleClickRegister.bind();
         this.handleClickLogin = this.handleClickLogin.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -20,7 +22,18 @@ class LoginMenu extends React.Component {
     }
 
     render() {
-        if (app.server.isLogin) { // 登录
+        if (!app.server.initialized) { // 系统未初始化
+            return <>
+                <MenuItemSeparator className={'LoginSeparator'}
+                    direction={'horizontal'}
+                />
+                <li className={classNames('MenuItem', 'LoginMenuItem')}>
+                    <LinkButton className={'button'}
+                        onClick={this.handleInitialize}
+                    >{_t(`Initialize`)}</LinkButton>
+                </li>
+            </>;
+        } else if (app.server.isLogin) { // 已经登录
             return <>
                 <MenuItemSeparator className={'LoginSeparator'}
                     direction={'horizontal'}
@@ -45,7 +58,7 @@ class LoginMenu extends React.Component {
                     >{_t(`Logout`)}</LinkButton>
                 </li>
             </>;
-        } else { // 未登录
+        } else { // 尚未登录
             return <>
                 <MenuItemSeparator className={'LoginSeparator'}
                     direction={'horizontal'}
@@ -65,6 +78,34 @@ class LoginMenu extends React.Component {
                 </li>
             </>;
         }
+    }
+
+    handleInitialize() {
+        app.confirm({
+            title: _t('Query'),
+            content: _t('Are you sure to initialize the roles and users?'),
+            onOK: this.commitInitialize
+        });
+    }
+
+    commitInitialize() {
+        fetch(`${app.options.server}/api/Initialize/Initialize`, {
+            method: 'POST'
+        }).then(response => {
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg));
+                    return;
+                }
+                app.confirm({
+                    title: _t('Message'),
+                    content: _t(obj.Msg) + ' ' + _t('Press OK To refresh.'),
+                    onOK: () => {
+                        window.location.reload();
+                    }
+                });
+            });
+        });
     }
 
     handleClickRegister() {
