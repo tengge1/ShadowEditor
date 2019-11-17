@@ -53,7 +53,7 @@ namespace ShadowEditor.Server.Controllers.System
             var model = new JObject
             {
                 ["ID"] = config["ID"].ToString(),
-                ["EnableAuthority"] = ConfigurationManager.AppSettings["EnableAuthority"] == "true",
+                ["EnableAuthority"] = ConfigHelper.EnableAuthority,
                 ["Initialized"] = config.Contains("Initialized") ? config["Initialized"].ToBoolean() : false,
                 ["DefaultRegisterRole"] = config.Contains("DefaultRegisterRole") ? config["DefaultRegisterRole"].ToString() : "",
                 ["IsLogin"] = false,
