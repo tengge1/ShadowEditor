@@ -109,12 +109,6 @@ class UserManageWindow extends React.Component {
                         align={'center'}
                         renderer={this.renderDate}
                     />
-                    <Column field={'UpdateTime'}
-                        title={_t('Update Date')}
-                        width={120}
-                        align={'center'}
-                        renderer={this.renderDate}
-                    />
                     <Column field={'Status'}
                         title={_t('Status')}
                         width={80}
@@ -251,7 +245,7 @@ class UserManageWindow extends React.Component {
 
     renderName(value) {
         if(value === 'Administrator') {
-            return _t(value);
+            return `${_t(value)} (${value})`;
         }
         return value;
     }

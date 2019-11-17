@@ -74,8 +74,10 @@ namespace ShadowEditor.Server.Controllers.System
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                var filter1 = Builders<BsonDocument>.Filter.Regex("Name", keyword);
-                filter = Builders<BsonDocument>.Filter.And(filter, filter1);
+                var filter1 = Builders<BsonDocument>.Filter.Regex("Username", "/" + keyword + "/i");
+                var filter2 = Builders<BsonDocument>.Filter.Regex("Name", "/" + keyword + "/i");
+                var filter3 = Builders<BsonDocument>.Filter.Or(filter1, filter2);
+                filter = Builders<BsonDocument>.Filter.And(filter, filter3);
             }
 
             var sort = Builders<BsonDocument>.Sort.Descending("_id");
