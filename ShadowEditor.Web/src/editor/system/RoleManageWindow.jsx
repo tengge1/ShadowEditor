@@ -216,7 +216,7 @@ class RoleManageWindow extends React.Component {
         if (value === 'Administrator' ||
             value === 'User' ||
             value === 'Guest') {
-            return _t(value);
+            return `${_t(value)} (${value})`;
         }
         return value;
     }

@@ -39,7 +39,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                var filter1 = Builders<BsonDocument>.Filter.Regex("Name", keyword);
+                var filter1 = Builders<BsonDocument>.Filter.Regex("Name", "/" + keyword + "/i");
                 filter = Builders<BsonDocument>.Filter.And(filter, filter1);
             }
 
