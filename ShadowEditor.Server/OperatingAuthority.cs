@@ -200,11 +200,6 @@ namespace ShadowEditor.Server
         /// </summary>
         public const string DELETE_PREFAB = "Delete Prefab";
 
-        ///// <summary>
-        ///// 获取场景列表
-        ///// </summary>
-        //public const string LIST_SCENE = "List Scene";
-
         /// <summary>
         /// 编辑场景
         /// </summary>

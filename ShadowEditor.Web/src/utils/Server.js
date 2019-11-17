@@ -35,6 +35,7 @@ class Server {
 
                     this.roleName = obj.Data.RoleName;
                     this.deptName = obj.Data.DeptName;
+                    this.authorities = obj.Data.OperatingAuthorities;
 
                     this.isAdmin = this.roleName === 'Administrator';
                     resolve();
@@ -69,6 +70,15 @@ class Server {
                     this.isLogin = true;
                     this.username = obj.Data.Username;
                     this.name = obj.Data.Name;
+
+                    // TODO: 登录后返回所有信息
+                    // this.roleName = ''; // 角色名称
+                    // this.deptName = ''; // 机构名称
+                    // this.authorities = []; // 权限列表
+                    // this.authorities = obj.Data.OperatingAuthorities;
+
+                    // this.isAdmin = false; // 是否是管理员
+
                     app.call('login', this);
                     resolve(true);
                 });
