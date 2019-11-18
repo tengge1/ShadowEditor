@@ -62,7 +62,7 @@ namespace ShadowEditor.Server.Base
                 return;
             }
 
-            var loginAttribute = attributes.Find(n => n.Authority == "Login"); // 具有Login权限的接口，所有登录用户都能使用
+            var loginAttribute = attributes.Find(n => n.Authority == "LOGIN"); // 具有Login权限的接口，所有登录用户都能使用
 
             if (loginAttribute != null)
             {

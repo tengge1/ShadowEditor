@@ -28,6 +28,7 @@ class AnimationPanel extends React.Component {
     render() {
         const { className, style } = this.props;
         const { data, categoryData, name, categories } = this.state;
+        const { enableAuthority, authorities } = app.server;
 
         let list = data;
 
@@ -61,7 +62,7 @@ class AnimationPanel extends React.Component {
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
-                showAddButton
+                showAddButton={!enableAuthority || authorities.includes('ADD_ANIMATION')}
                 showFilterButton
                 onAdd={this.handleAdd}
                 onInput={this.handleSearch.bind(this)}
