@@ -12,6 +12,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 ## v0.3.8即将更新
 
 1. 新增快捷键`Ctrl+Z`撤销、`Ctrl+Y`重做、`Ctrl+C`复制、`Delete`删除。
+2. 修复模型复制多个后，保存场景后载入场景，只显示第一个的bug。
 
 ## v0.3.7更新
 

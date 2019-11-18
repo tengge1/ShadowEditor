@@ -1,6 +1,7 @@
 import { MenuItem, MenuItemSeparator } from '../../third_party';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import RemoveObjectCommand from '../../command/RemoveObjectCommand';
+import MeshUtils from '../../utils/MeshUtils';
 
 /**
  * 编辑菜单
@@ -117,6 +118,13 @@ class EditMenu extends React.Component {
         }
 
         object = object.clone();
+
+        // bug: 服务端模型克隆后，userData._children不正确，导致保存后无法正常显示。
+        if (object.userData.Server && Array.isArray(object.userData._children)) {
+            object.userData._children = [];
+            MeshUtils.traverseUUID(object.children, object.userData._children); // 修复模型object.userData._children数组
+        }
+
         editor.execute(new AddObjectCommand(object));
     }
 

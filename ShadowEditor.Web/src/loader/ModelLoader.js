@@ -31,6 +31,7 @@ import SEA3DLoader from './SEA3DLoader';
 import VRMLoader from './VRMLoader';
 import VRMLLoader from './VRMLLoader';
 import XLoader from './XLoader';
+import MeshUtils from '../utils/MeshUtils';
 
 const Loaders = {
     '_3ds': _3DSLoader,
@@ -66,7 +67,7 @@ const Loaders = {
     'sea3d': SEA3DLoader,
     'vrm': VRMLoader,
     'vrml': VRMLLoader,
-    'x': XLoader,
+    'x': XLoader
 };
 
 /**
@@ -97,7 +98,7 @@ ModelLoader.prototype.load = function (url, options = {}, environment = {}) {
             resolve(null);
             return;
         }
-        (new loader(app)).load(url, options, environment).then(obj => {
+        new loader(app).load(url, options, environment).then(obj => {
             if (!obj || !obj.userData) {
                 resolve(null);
                 return;
@@ -112,7 +113,7 @@ ModelLoader.prototype.load = function (url, options = {}, environment = {}) {
             // 由于每次加载模型，uuid会变，所以要记录原始模型的uuid，而且只能记录一次。
             if (obj.children && !obj.userData._children) {
                 obj.userData._children = []; // 原始模型的uuid层次
-                this.serializeChildren(obj.children, obj.userData._children);
+                MeshUtils.traverseUUID(obj.children, obj.userData._children); // 记录最原始的模型，每个组件的uuid。
             }
 
             obj.userData.physics = obj.userData.physics || {
@@ -123,34 +124,12 @@ ModelLoader.prototype.load = function (url, options = {}, environment = {}) {
                 inertia: {
                     x: 0,
                     y: 0,
-                    z: 0,
+                    z: 0
                 }
             };
             resolve(obj);
         });
     });
-};
-
-/**
- * 记录最原始的模型，每个组件的uuid。
- * @param {Array} children 每个子元素
- * @param {Array} list 数组
- */
-ModelLoader.prototype.serializeChildren = function (children, list) {
-    for (let i = 0; i < children.length; i++) {
-        let child = children[i];
-
-        let list1 = [];
-
-        if (child.children && child.children.length > 0) {
-            this.serializeChildren(child.children, list1);
-        }
-
-        list.push({
-            uuid: child.uuid,
-            children: list1,
-        });
-    }
 };
 
 export default ModelLoader;
