@@ -1,4 +1,4 @@
-import { PropTypes, MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../third_party';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import RemoveObjectCommand from '../../command/RemoveObjectCommand';
 
@@ -15,7 +15,7 @@ class EditMenu extends React.Component {
             enableRedo: false,
             enableClearHistory: false,
             enableClone: false,
-            enableDelete: false,
+            enableDelete: false
         };
 
         this.handleUndo = this.handleUndo.bind(this);
@@ -26,24 +26,41 @@ class EditMenu extends React.Component {
 
         this.onHistoryChanged = this.onHistoryChanged.bind(this);
         this.onObjectSelected = this.onObjectSelected.bind(this);
+        this.onKeyDown = this.onKeyDown.bind(this);
     }
 
     render() {
         const { enableUndo, enableRedo, enableClearHistory, enableClone, enableDelete } = this.state;
 
         return <MenuItem title={_t('Edit')}>
-            <MenuItem title={`${_t('Undo')}(Ctrl+Z)`} disabled={!enableUndo} onClick={this.handleUndo}></MenuItem>
-            <MenuItem title={`${_t('Redo')}(Ctrl+Y)`} disabled={!enableRedo} onClick={this.handleRedo}></MenuItem>
-            <MenuItem title={_t('Clear History')} disabled={!enableClearHistory} onClick={this.handleClearHistory}></MenuItem>
+            <MenuItem title={`${_t('Undo')}(Ctrl+Z)`}
+                disabled={!enableUndo}
+                onClick={this.handleUndo}
+            />
+            <MenuItem title={`${_t('Redo')}(Ctrl+Y)`}
+                disabled={!enableRedo}
+                onClick={this.handleRedo}
+            />
+            <MenuItem title={_t('Clear History')}
+                disabled={!enableClearHistory}
+                onClick={this.handleClearHistory}
+            />
             <MenuItemSeparator />
-            <MenuItem title={_t('Clone')} disabled={!enableClone} onClick={this.handleClone}></MenuItem>
-            <MenuItem title={`${_t('Delete')}(Del)`} disabled={!enableDelete} onClick={this.handleDelete}></MenuItem>
+            <MenuItem title={`${_t('Clone')}(Ctrl+C)`}
+                disabled={!enableClone}
+                onClick={this.handleClone}
+            />
+            <MenuItem title={`${_t('Delete')}(Delete)`}
+                disabled={!enableDelete}
+                onClick={this.handleDelete}
+            />
         </MenuItem>;
     }
 
     componentDidMount() {
         app.on(`historyChanged.EditMenu`, this.onHistoryChanged);
         app.on(`objectSelected.EditMenu`, this.onObjectSelected);
+        app.on(`keydown.EditMenu`, this.onKeyDown);
     }
 
     // --------------------- 撤销 --------------------------
@@ -95,7 +112,7 @@ class EditMenu extends React.Component {
         var editor = app.editor;
         var object = editor.selected;
 
-        if (object == null || object.parent == null) { // 避免复制场景或相机
+        if (object === null || object.parent === null) { // 避免复制场景或相机
             return;
         }
 
@@ -109,7 +126,7 @@ class EditMenu extends React.Component {
         var editor = app.editor;
         var object = editor.selected;
 
-        if (object == null || object.parent == null) { // 避免删除场景或相机
+        if (object === null || object.parent === null) { // 避免删除场景或相机
             return;
         }
 
@@ -122,6 +139,19 @@ class EditMenu extends React.Component {
         });
     }
 
+    // 快捷键
+    onKeyDown(event) {
+        if (event.keyCode === 46) { // 删除键
+            this.handleDelete();
+        } else if (event.keyCode === 67) { // c键
+            this.handleClone();
+        } else if (event.keyCode === 89) { // y键
+            event.ctrlKey && this.handleRedo();
+        } else if (event.keyCode === 90) { // z键
+            event.ctrlKey && this.handleUndo();
+        }
+    }
+
     // ---------------------- 事件 -----------------------
 
     onHistoryChanged() {
@@ -130,7 +160,7 @@ class EditMenu extends React.Component {
         this.setState({
             enableUndo: history.undos.length > 0,
             enableRedo: history.redos.length > 0,
-            enableClearHistory: history.undos.length > 0 || history.redos.length > 0,
+            enableClearHistory: history.undos.length > 0 || history.redos.length > 0
         });
     }
 
@@ -138,8 +168,8 @@ class EditMenu extends React.Component {
         const editor = app.editor;
 
         this.setState({
-            enableClone: editor.selected && editor.selected.parent != null,
-            enableDelete: editor.selected && editor.selected.parent != null,
+            enableClone: editor.selected && editor.selected.parent !== null,
+            enableDelete: editor.selected && editor.selected.parent !== null
         });
     }
 }

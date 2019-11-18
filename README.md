@@ -11,6 +11,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## v0.3.8即将更新
 
+1. 新增快捷键`Ctrl+Z`撤销、`Ctrl+Y`重做、`Ctrl+C`复制、`Delete`删除。
+
 ## v0.3.7更新
 
 * 发布日期：2019年11月17日
