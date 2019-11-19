@@ -28,7 +28,7 @@ class EditorMenuBar extends React.Component {
         const isRealAdmin = enableAuthority && app.server.isAdmin;
 
         return <MenuBar className={classNames('EditorMenuBar', className)}>
-            <SceneMenu />
+            {isLogin && <SceneMenu />}
             {isLogin && <EditMenu />}
             {isLogin && <TwoDMenu />}
             {isLogin && <GeometryMenu />}

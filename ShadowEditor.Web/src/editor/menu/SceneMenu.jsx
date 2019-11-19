@@ -22,32 +22,32 @@ class SceneMenu extends React.Component {
     }
 
     render() {
-        const isLogin = !app.server.enableAuthority || app.server.isLogin;
+        const { enableAuthority, isLogin, authorities, isAdmin } = app.server;
 
         return <MenuItem title={_t('Scene')}>
-            {isLogin && <MenuItem title={_t('New')}>
+            {!enableAuthority || isLogin ? <MenuItem title={_t('New')}>
                 <MenuItem title={_t('Empty Scene')}
                     onClick={this.handleCreateEmptyScene}
                 />
                 <MenuItem title={_t('GIS Scene')}
                     onClick={this.handleCreateGISScene}
                 />
-            </MenuItem>}
-            {isLogin && <MenuItem title={_t('Save')}
+            </MenuItem> : null}
+            {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save')}
                 onClick={this.handleSaveScene}
-                        />}
-            {isLogin && <MenuItem title={_t('Save As')}
+                                                                      /> : null}
+            {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save As')}
                 onClick={this.handleSaveAsScene}
-                        />}
-            {isLogin && <MenuItemSeparator />}
-            <MenuItem title={_t('Export Scene')}>
+                                                                      /> : null}
+            {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItemSeparator /> : null}
+            {!enableAuthority || isLogin ? <MenuItem title={_t('Export Scene')}>
                 <MenuItem title={_t('To GLTF File')}
                     onClick={this.handleExportSceneToGltf}
                 />
-            </MenuItem>
-            {isLogin && <MenuItem title={_t('Publish Scene')}
+            </MenuItem> : null}
+            {!enableAuthority || isAdmin ? <MenuItem title={_t('Publish Scene')}
                 onClick={this.handlePublishScene}
-                        />}
+                                           /> : null}
         </MenuItem>;
     }
 
