@@ -1,5 +1,5 @@
 import './css/CategoryWindow.css';
-import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, DataGrid, Column, VBoxLayout, Toolbar } from '../../../third_party';
+import { PropTypes, Window, Content, Buttons, Button, DataGrid, Column, VBoxLayout, Toolbar } from '../../../third_party';
 import Ajax from '../../../utils/Ajax';
 import CategoryEditWindow from './CategoryEditWindow.jsx';
 
@@ -25,8 +25,9 @@ class CategoryWindow extends React.Component {
     }
 
     render() {
-        const { type, typeName } = this.props;
+        const { typeName } = this.props;
         const { data, selected } = this.state;
+        const { enableAuthority, authorities } = app.server;
 
         return <Window
             className={'CategoryWindow'}
@@ -38,9 +39,15 @@ class CategoryWindow extends React.Component {
             <Content>
                 <VBoxLayout className={'box'}>
                     <Toolbar className={'toolbar'}>
-                        <Button onClick={this.handleAdd}>{_t('Create')}</Button>
-                        <Button onClick={this.handleEdit}>{_t('Edit')}</Button>
-                        <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
+                        <Button show={!enableAuthority || authorities.includes('SAVE_CATEGORY')}
+                            onClick={this.handleAdd}
+                        >{_t('Create')}</Button>
+                        <Button show={!enableAuthority || authorities.includes('SAVE_CATEGORY')}
+                            onClick={this.handleEdit}
+                        >{_t('Edit')}</Button>
+                        <Button show={!enableAuthority || authorities.includes('DELETE_CATEGORY')}
+                            onClick={this.handleDelete}
+                        >{_t('Delete')}</Button>
                     </Toolbar>
                     <DataGrid className={'list'}
                         data={data}

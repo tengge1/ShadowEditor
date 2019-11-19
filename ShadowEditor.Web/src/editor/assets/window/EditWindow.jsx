@@ -34,6 +34,7 @@ class EditWindow extends React.Component {
     render() {
         const { type, typeName } = this.props;
         const { name, categories, categoryID, thumbnail, isPublic } = this.state;
+        const { enableAuthority, authorities } = app.server;
 
         return <Window
             className={'EditWindow'}
@@ -58,7 +59,9 @@ class EditWindow extends React.Component {
                             value={categoryID}
                             onChange={this.handleCategoryChange}
                         />
-                        <Button onClick={this.handleEditCategoryList}>{_t('Edit')}</Button>
+                        <Button show={!enableAuthority || authorities.includes('LIST_CATEGORY')}
+                            onClick={this.handleEditCategoryList}
+                        >{_t('Edit')}</Button>
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Thumbnail')}</Label>

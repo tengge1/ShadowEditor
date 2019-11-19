@@ -24,6 +24,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 11. 预设体资源管理权限测试，没有bug。（没完成，忽视）
 12. 截图资源管理权限测试，没有bug。
 13. 录制视频资源管理权限测试，没有bug。
+14. 资源分类管理权限测试，没有bug。
 
 ## v0.3.7更新
 
