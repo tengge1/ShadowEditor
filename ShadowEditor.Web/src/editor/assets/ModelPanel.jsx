@@ -30,6 +30,7 @@ class ModelPanel extends React.Component {
     render() {
         const { className, style } = this.props;
         const { data, categoryData, name, categories } = this.state;
+        const { enableAuthority, authorities } = app.server;
 
         let list = data;
 
@@ -59,17 +60,19 @@ class ModelPanel extends React.Component {
 
         return <div className={classNames('ModelPanel', className)}
             style={style}
-        >
+               >
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
-                showAddButton
+                showAddButton={!enableAuthority || authorities.includes('ADD_MESH')}
                 showFilterButton
                 onAdd={this.handleAdd}
                 onInput={this.handleSearch.bind(this)}
             />
             <ImageList
                 data={imageListData}
+                showEditButton={!enableAuthority || authorities.includes('EDIT_MESH')}
+                showDeleteButton={!enableAuthority || authorities.includes('DELETE_MESH')}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
                 onDelete={this.handleDelete}
@@ -165,7 +168,7 @@ class ModelPanel extends React.Component {
 
     // 点击场景添加
     clickSceneToAdd(obj) {
-        app.on(`raycast.ModelPanel`, (intersect, event) => {
+        app.on(`raycast.ModelPanel`, (intersect) => {
             app.on(`raycast.ModelPanel`, null);
             obj.position.copy(intersect.point);
             this.addToCenter(obj);
