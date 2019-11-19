@@ -15,6 +15,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 2. 修复模型复制多个后，保存场景后载入场景，只显示第一个的bug。
 3. 修复非管理员角色无法注销的bug。
 4. 动画资源管理测试，没有bug。
+5. 音频资源管理测试，没有bug。
 
 ## v0.3.7更新
 

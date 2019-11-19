@@ -28,6 +28,7 @@ class AudioPanel extends React.Component {
     render() {
         const { className, style } = this.props;
         const { data, categoryData, name, categories } = this.state;
+        const { enableAuthority, authorities } = app.server;
 
         let list = data;
 
@@ -61,13 +62,15 @@ class AudioPanel extends React.Component {
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
-                showAddButton
+                showAddButton={!enableAuthority || authorities.includes('ADD_AUDIO')}
                 showFilterButton
                 onAdd={this.handleAdd}
                 onInput={this.handleSearch.bind(this)}
             />
             <ImageList
                 data={imageListData}
+                showEditButton={!enableAuthority || authorities.includes('EDIT_AUDIO')}
+                showDeleteButton={!enableAuthority || authorities.includes('DELETE_AUDIO')}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
                 onDelete={this.handleDelete}
