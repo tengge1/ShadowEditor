@@ -69,6 +69,8 @@ class AnimationPanel extends React.Component {
             />
             <ImageList
                 data={imageListData}
+                showEditButton={!enableAuthority || authorities.includes('EDIT_ANIMATION')}
+                showDeleteButton={!enableAuthority || authorities.includes('DELETE_ANIMATION')}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
                 onDelete={this.handleDelete}

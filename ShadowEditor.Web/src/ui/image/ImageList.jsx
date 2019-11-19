@@ -18,7 +18,7 @@ class ImageList extends React.Component {
 
         this.state = {
             pageSize: 10,
-            pageNum: 0,
+            pageNum: 0
         };
 
         this.handleFirstPage = this.handleFirstPage.bind(this);
@@ -33,7 +33,7 @@ class ImageList extends React.Component {
     }
 
     render() {
-        const { className, style, data } = this.props;
+        const { className, style, data, showEditButton, showDeleteButton } = this.props;
         const { pageSize, pageNum } = this.state;
 
         const totalPage = this.getTotalPage();
@@ -42,28 +42,61 @@ class ImageList extends React.Component {
             return i >= pageSize * pageNum && i < pageSize * (pageNum + 1);
         });
 
-        return <div className={classNames('ImageList', className)} style={style}>
+        return <div className={classNames('ImageList', className)}
+            style={style}
+               >
             <div className={'content'}>
                 {current.map(n => {
-                    return <div className={'item'} name={n.id} key={n.id} onClick={this.handleClick}>
+                    return <div className={'item'}
+                        name={n.id}
+                        key={n.id}
+                        onClick={this.handleClick}
+                           >
                         {n.src ?
-                            <img className={'img'} src={n.src} onError={this.handleError}></img> :
+                            <img className={'img'}
+                                src={n.src}
+                                onError={this.handleError}
+                            /> :
                             <div className={'no-img'}>
-                                <Icon icon={n.icon}></Icon>
+                                <Icon icon={n.icon} />
                             </div>}
                         <div className={'title'}>{n.title}</div>
                         {n.cornerText && <div className={'cornerText'}>{n.cornerText}</div>}
-                        <IconButton className={'edit'} icon={'edit'} name={n.id} onClick={this.handleEdit}></IconButton>
-                        <IconButton className={'delete'} icon={'delete'} name={n.id} onClick={this.handleDelete}></IconButton>
+                        {showEditButton && <IconButton className={'edit'}
+                            icon={'edit'}
+                            name={n.id}
+                            onClick={this.handleEdit}
+                                           />}
+                        {showDeleteButton && <IconButton className={'delete'}
+                            icon={'delete'}
+                            name={n.id}
+                            onClick={this.handleDelete}
+                                             />}
                     </div>;
                 })}
             </div>
             <div className={'page'}>
-                <IconButton icon={'backward'} title={_t('First Page')} onClick={this.handleFirstPage}></IconButton>
-                <IconButton icon={'left-triangle2'} title={_t('Previous Page')} onClick={this.handlePreviousPage}></IconButton>
-                <Input className={'current'} value={(pageNum + 1).toString()} title={_t('Current Page')} disabled={true} />
-                <IconButton icon={'right-triangle2'} title={_t('Next Page')} onClick={this.handleNextPage}></IconButton>
-                <IconButton icon={'forward'} title={_t('Last Page')} onClick={this.handleLastPage}></IconButton>
+                <IconButton icon={'backward'}
+                    title={_t('First Page')}
+                    onClick={this.handleFirstPage}
+                />
+                <IconButton icon={'left-triangle2'}
+                    title={_t('Previous Page')}
+                    onClick={this.handlePreviousPage}
+                />
+                <Input className={'current'}
+                    value={(pageNum + 1).toString()}
+                    title={_t('Current Page')}
+                    disabled
+                />
+                <IconButton icon={'right-triangle2'}
+                    title={_t('Next Page')}
+                    onClick={this.handleNextPage}
+                />
+                <IconButton icon={'forward'}
+                    title={_t('Last Page')}
+                    onClick={this.handleLastPage}
+                />
                 <div className={'info'}>
                     {_t('Total {{totalPage}} Pages', { totalPage: totalPage })}
                 </div>
@@ -73,7 +106,7 @@ class ImageList extends React.Component {
 
     handleFirstPage() {
         this.setState({
-            pageNum: 0,
+            pageNum: 0
         });
     }
 
@@ -81,7 +114,7 @@ class ImageList extends React.Component {
         const totalPage = this.getTotalPage();
 
         this.setState({
-            pageNum: totalPage < 1 ? 0 : totalPage - 1,
+            pageNum: totalPage < 1 ? 0 : totalPage - 1
         });
     }
 
@@ -90,7 +123,7 @@ class ImageList extends React.Component {
             const totalPage = this.getTotalPage();
 
             return {
-                pageNum: state.pageNum < totalPage - 1 ? state.pageNum + 1 : totalPage - 1,
+                pageNum: state.pageNum < totalPage - 1 ? state.pageNum + 1 : totalPage - 1
             };
         });
     }
@@ -98,7 +131,7 @@ class ImageList extends React.Component {
     handlePreviousPage() {
         this.setState(state => {
             return {
-                pageNum: state.pageNum > 0 ? state.pageNum - 1 : 0,
+                pageNum: state.pageNum > 0 ? state.pageNum - 1 : 0
             };
         });
     }
@@ -155,18 +188,22 @@ ImageList.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     data: PropTypes.array,
+    showEditButton: PropTypes.bool,
+    showDeleteButton: PropTypes.bool,
     onClick: PropTypes.func,
     onEdit: PropTypes.func,
-    onDelete: PropTypes.func,
+    onDelete: PropTypes.func
 };
 
 ImageList.defaultProps = {
     className: null,
     style: null,
     data: [],
+    showEditButton: true,
+    showDeleteButton: true,
     onClick: null,
     onEdit: null,
-    onDelete: null,
+    onDelete: null
 };
 
 export default ImageList;
