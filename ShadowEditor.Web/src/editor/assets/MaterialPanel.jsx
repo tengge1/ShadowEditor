@@ -1,9 +1,6 @@
 import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
 import EditWindow from './window/EditWindow.jsx';
-import ModelLoader from '../../loader/ModelLoader';
-import AddObjectCommand from '../../command/AddObjectCommand';
 import Ajax from '../../utils/Ajax';
-import UploadUtils from '../../utils/UploadUtils';
 import MaterialsSerializer from '../../serialization/material/MaterialsSerializer';
 
 /**
@@ -31,6 +28,7 @@ class MaterialPanel extends React.Component {
     render() {
         const { className, style } = this.props;
         const { data, categoryData, name, categories } = this.state;
+        const { enableAuthority, authorities } = app.server;
 
         let list = data;
 
@@ -69,6 +67,8 @@ class MaterialPanel extends React.Component {
             />
             <ImageList
                 data={imageListData}
+                showEditButton={!enableAuthority || authorities.includes('EDIT_MATERIAL')}
+                showDeleteButton={!enableAuthority || authorities.includes('DELETE_MATERIAL')}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
                 onDelete={this.handleDelete}

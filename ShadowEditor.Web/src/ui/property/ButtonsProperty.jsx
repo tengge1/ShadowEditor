@@ -14,20 +14,22 @@ class ButtonsProperty extends React.Component {
     render() {
         const { className, style, children } = this.props;
 
-        return <div className={classNames('buttons', className)} style={style}>{children}</div>;
+        return <div className={classNames('buttons', className)}
+            style={style}
+               >{children}</div>;
     }
 }
 
 ButtonsProperty.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 ButtonsProperty.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: null
 };
 
 export default ButtonsProperty;

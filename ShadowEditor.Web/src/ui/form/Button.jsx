@@ -14,10 +14,10 @@ class Button extends React.Component {
     }
 
     render() {
-        const { className, style, children, color, disabled } = this.props;
+        const { className, style, children, color, disabled, show } = this.props;
 
         return <button
-            className={classNames('Button', color, disabled && 'disabled', className)}
+            className={classNames('Button', color, disabled && 'disabled', !show && 'hidden', className)}
             style={style}
             disabled={disabled}
             onClick={this.handleClick}
@@ -39,6 +39,7 @@ Button.propTypes = {
     children: PropTypes.node,
     color: PropTypes.oneOf(['primary', 'success', 'warn', 'danger']),
     disabled: PropTypes.bool,
+    show: PropTypes.bool,
     onClick: PropTypes.func
 };
 
@@ -49,6 +50,7 @@ Button.defaultProps = {
     children: null,
     color: null,
     disabled: false,
+    show: true,
     onClick: null
 };
 

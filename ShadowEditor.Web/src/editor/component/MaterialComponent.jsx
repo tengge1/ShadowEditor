@@ -207,6 +207,7 @@ class MaterialComponent extends React.Component {
             displacementScale, showRoughnessMap, roughnessMap, showMetalnessMap, metalnessMap, showSpecularMap, specularMap, showEnvMap, envMap,
             reflectivity, showLightMap, lightMap, showAoMap, aoMap, aoScale, showEmissiveMap, emissiveMap, side, flatShading, blending, opacity, transparent,
             alphaTest, wireframe, wireframeLinewidth } = this.state;
+        const { enableAuthority, authorities } = app.server;
 
         if (!show) {
             return null;
@@ -218,8 +219,12 @@ class MaterialComponent extends React.Component {
             onExpand={this.handleExpand}
                >
             <ButtonsProperty label={''}>
-                <Button onClick={this.onSave}>{_t('Save')}</Button>
-                <Button onClick={this.onLoad}>{_t('Select')}</Button>
+                <Button show={!enableAuthority || authorities.includes('SAVE_MATERIAL')}
+                    onClick={this.onSave}
+                >{_t('Save')}</Button>
+                <Button show={!enableAuthority || authorities.includes('LIST_MATERIAL')}
+                    onClick={this.onLoad}
+                >{_t('Select')}</Button>
             </ButtonsProperty>
             <SelectProperty label={_t('Type')}
                 options={this.materials}
@@ -993,6 +998,7 @@ class MaterialComponent extends React.Component {
             }, result => {
                 obj = JSON.parse(result);
                 if (obj.Code === 200) {
+                    // TODO: 保存材质时，没有刷新材质面板。
                     app.call(`showBottomPanel`, this, 'material');
                 }
                 app.toast(_t(obj.Msg));

@@ -30,3 +30,7 @@
     color: #fff;
     background-color: #ebebeb;
 }
+
+.Button.hidden {
+    display: none;
+}

@@ -18,6 +18,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 5. 音频资源管理权限测试，没有bug。
 6. 人物资源管理权限测试，没有bug。（没完成，忽视）
 7. 贴图资源管理权限测试，没有bug。
+8. 材质资源管理权限测试，没有bug。
 
 ## v0.3.7更新
 
