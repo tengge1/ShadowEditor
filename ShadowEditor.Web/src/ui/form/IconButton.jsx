@@ -14,20 +14,21 @@ class IconButton extends React.Component {
     }
 
     render() {
-        const { className, style, icon, name, title, show, selected } = this.props;
+        const { className, style, icon, title, show, selected } = this.props;
         return <button
             className={classNames('IconButton', selected && 'selected', !show && 'hidden', className)}
             style={style}
             title={title}
-            onClick={this.handleClick}>
-            <i className={classNames('iconfont', icon && 'icon-' + icon)}></i>
+            onClick={this.handleClick}
+               >
+            <i className={classNames('iconfont', icon && 'icon-' + icon)} />
         </button>;
     }
 
     handleClick(event) {
         const { name, onClick } = this.props;
         onClick && onClick(name, event);
-    };
+    }
 }
 
 IconButton.propTypes = {
@@ -38,7 +39,7 @@ IconButton.propTypes = {
     title: PropTypes.string,
     show: PropTypes.bool,
     selected: PropTypes.bool,
-    onClick: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 IconButton.defaultProps = {
@@ -49,7 +50,7 @@ IconButton.defaultProps = {
     title: null,
     show: true,
     selected: false,
-    onClick: null,
+    onClick: null
 };
 
 export default IconButton;

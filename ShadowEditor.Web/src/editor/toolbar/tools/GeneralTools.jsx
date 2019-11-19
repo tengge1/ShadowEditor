@@ -37,6 +37,7 @@ class GeneralTools extends React.Component {
 
     render() {
         const { mode, view, isGridMode, isRecording } = this.state;
+        const { enableAuthority, authorities } = app.server;
 
         return <>
             <IconButton
@@ -99,6 +100,7 @@ class GeneralTools extends React.Component {
             <IconButton
                 icon={'camera'}
                 title={_t('Screenshot')}
+                show={!enableAuthority || authorities.includes('ADD_SCREENSHOT')}
                 onClick={this.handleScreenshot}
             />
             <IconButton

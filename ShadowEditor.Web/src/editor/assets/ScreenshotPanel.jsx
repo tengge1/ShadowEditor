@@ -1,8 +1,5 @@
 import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
 import EditWindow from './window/EditWindow.jsx';
-import ModelLoader from '../../loader/ModelLoader';
-import AddObjectCommand from '../../command/AddObjectCommand';
-import UploadUtils from '../../utils/UploadUtils';
 
 /**
  * 截图面板
@@ -30,6 +27,7 @@ class ScreenshotPanel extends React.Component {
     render() {
         const { className, style } = this.props;
         const { data, categoryData, name, categories } = this.state;
+        const { enableAuthority, authorities } = app.server;
 
         let list = data;
 
@@ -67,6 +65,8 @@ class ScreenshotPanel extends React.Component {
             />
             <ImageList
                 data={imageListData}
+                showEditButton={!enableAuthority || authorities.includes('EDIT_SCREENSHOT')}
+                showDeleteButton={!enableAuthority || authorities.includes('DELETE_SCREENSHOT')}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
                 onDelete={this.handleDelete}
@@ -106,7 +106,7 @@ class ScreenshotPanel extends React.Component {
         });
     }
 
-    handleSearch(name, categories, event) {
+    handleSearch(name, categories) {
         this.setState({
             name,
             categories

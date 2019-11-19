@@ -22,6 +22,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 9. 模型资源管理权限测试，没有bug。
 10. 粒子资源管理权限测试，没有bug。（没完成，忽视）
 11. 预设体资源管理权限测试，没有bug。（没完成，忽视）
+12. 截图资源管理权限测试，没有bug。
 
 ## v0.3.7更新
 
