@@ -21,23 +21,19 @@ import LoginMenu from './LoginMenu.jsx';
 class EditorMenuBar extends React.Component {
     render() {
         const { className } = this.props;
-        const { enableAuthority } = app.server;
-
-        const isLogin = !enableAuthority || app.server.isLogin;
-        const isAdmin = !enableAuthority || app.server.isAdmin;
-        const isRealAdmin = enableAuthority && app.server.isAdmin;
+        const { enableAuthority, isLogin, isAdmin } = app.server;
 
         return <MenuBar className={classNames('EditorMenuBar', className)}>
-            {isLogin && <SceneMenu />}
-            {isLogin && <EditMenu />}
-            {isLogin && <TwoDMenu />}
-            {isLogin && <GeometryMenu />}
-            {isLogin && <LightMenu />}
-            {isLogin && <AssetsMenu />}
-            {isLogin && <ComponentMenu />}
-            {isRealAdmin && <SystemMenu />}
+            {!enableAuthority || isLogin ? <SceneMenu /> : null}
+            {!enableAuthority || isLogin ? <EditMenu /> : null}
+            {!enableAuthority || isLogin ? <TwoDMenu /> : null}
+            {!enableAuthority || isLogin ? <GeometryMenu /> : null}
+            {!enableAuthority || isLogin ? <LightMenu /> : null}
+            {!enableAuthority || isLogin ? <AssetsMenu /> : null}
+            {!enableAuthority || isLogin ? <ComponentMenu /> : null}
+            {enableAuthority && isAdmin ? <SystemMenu /> : null}
             <PlayMenu />
-            {isAdmin && <ToolMenu />}
+            {!enableAuthority || isAdmin ? <ToolMenu /> : null}
             <OptionsMenu />
             <HelpMenu />
             <MenuItemSeparator direction={'horizontal'} />

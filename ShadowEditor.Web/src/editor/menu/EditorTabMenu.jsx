@@ -1,4 +1,4 @@
-import { PropTypes, MenuItem, MenuItemSeparator, MenuTab } from '../../third_party';
+import { MenuTab } from '../../third_party';
 
 /**
  * 编辑器选项卡菜单
@@ -9,7 +9,7 @@ class EditorTabMenu extends React.Component {
         super(props);
 
         this.state = {
-            type: 'scene',
+            type: 'scene'
         };
 
         this.handleSelect = this.handleSelect.bind(this);
@@ -19,20 +19,38 @@ class EditorTabMenu extends React.Component {
         const { type } = this.state;
 
         return <>
-            <MenuTab name={'scene'} selected={type === 'scene'} onClick={this.handleSelect}>{_t('Scene Editor')}</MenuTab>
-            <MenuTab name={'mesh'} selected={type === 'mesh'} onClick={this.handleSelect}>{_t('Mesh Editor')}</MenuTab>
-            <MenuTab name={'texture'} selected={type === 'texture'} onClick={this.handleSelect}>{_t('Texture Editor')}</MenuTab>
-            <MenuTab name={'material'} selected={type === 'material'} onClick={this.handleSelect}>{_t('Material Editor')}</MenuTab>
-            <MenuTab name={'terrain'} selected={type === 'terrain'} onClick={this.handleSelect}>{_t('Terrain Editor')}</MenuTab>
-            <MenuTab name={'ai'} selected={type === 'ai'} onClick={this.handleSelect}>{_t('AI Editor')}</MenuTab>
+            <MenuTab name={'scene'}
+                selected={type === 'scene'}
+                onClick={this.handleSelect}
+            >{_t('Scene Editor')}</MenuTab>
+            <MenuTab name={'mesh'}
+                selected={type === 'mesh'}
+                onClick={this.handleSelect}
+            >{_t('Mesh Editor')}</MenuTab>
+            <MenuTab name={'texture'}
+                selected={type === 'texture'}
+                onClick={this.handleSelect}
+            >{_t('Texture Editor')}</MenuTab>
+            <MenuTab name={'material'}
+                selected={type === 'material'}
+                onClick={this.handleSelect}
+            >{_t('Material Editor')}</MenuTab>
+            <MenuTab name={'terrain'}
+                selected={type === 'terrain'}
+                onClick={this.handleSelect}
+            >{_t('Terrain Editor')}</MenuTab>
+            <MenuTab name={'ai'}
+                selected={type === 'ai'}
+                onClick={this.handleSelect}
+            >{_t('AI Editor')}</MenuTab>
         </>;
     }
 
-    handleSelect(name, event) {
+    handleSelect(name) {
         app.editor.type = name;
 
         this.setState({
-            type: name,
+            type: name
         });
     }
 }
