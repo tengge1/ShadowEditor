@@ -1,9 +1,6 @@
 import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
 import EditWindow from './window/EditWindow.jsx';
-import ModelLoader from '../../loader/ModelLoader';
-import AddObjectCommand from '../../command/AddObjectCommand';
 import Ajax from '../../utils/Ajax';
-import UploadUtils from '../../utils/UploadUtils';
 
 /**
  * 预设体面板
@@ -30,6 +27,7 @@ class PrefabPanel extends React.Component {
     render() {
         const { className, style } = this.props;
         const { data, categoryData, name, categories } = this.state;
+        const { enableAuthority, authorities } = app.server;
 
         let list = data;
 
@@ -68,6 +66,8 @@ class PrefabPanel extends React.Component {
             />
             <ImageList
                 data={imageListData}
+                showEditButton={!enableAuthority || authorities.includes('EDIT_PREFAB')}
+                showDeleteButton={!enableAuthority || authorities.includes('DELETE_PREFAB')}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
                 onDelete={this.handleDelete}
@@ -107,7 +107,7 @@ class PrefabPanel extends React.Component {
         });
     }
 
-    handleSearch(name, categories, event) {
+    handleSearch(name, categories) {
         this.setState({
             name,
             categories
