@@ -1,5 +1,5 @@
 import './css/MapPanel.css';
-import { classNames, PropTypes, SearchField, ImageList, IconButton, ContextMenu, MenuItem, IconMenuButton } from '../../third_party';
+import { classNames, PropTypes, SearchField, ImageList, ContextMenu, MenuItem, IconMenuButton } from '../../third_party';
 import EditWindow from './window/EditWindow.jsx';
 import AddSkyBoxWindow from './window/AddSkyBoxWindow.jsx';
 
@@ -32,6 +32,7 @@ class MapPanel extends React.Component {
     render() {
         const { className, style } = this.props;
         const { data, categoryData, name, categories } = this.state;
+        const { enableAuthority, authorities } = app.server;
 
         let list = data;
 
@@ -65,6 +66,7 @@ class MapPanel extends React.Component {
                 <IconMenuButton
                     className={'add'}
                     icon={'add'}
+                    show={!enableAuthority || authorities.includes('ADD_MAP')}
                 >
                     <ContextMenu>
                         <MenuItem title={_t('Upload Image')}
@@ -88,6 +90,8 @@ class MapPanel extends React.Component {
             </div>
             <ImageList
                 data={imageListData}
+                showEditButton={!enableAuthority || authorities.includes('EDIT_MAP')}
+                showDeleteButton={!enableAuthority || authorities.includes('DELETE_MAP')}
                 onClick={this.handleClick}
                 onEdit={this.handleEdit}
                 onDelete={this.handleDelete}
