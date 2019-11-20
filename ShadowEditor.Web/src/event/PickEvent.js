@@ -12,11 +12,9 @@ function PickEvent() {
 
     this.onDownPosition = new THREE.Vector2();
     this.onUpPosition = new THREE.Vector2();
-    this.onDoubleClickPosition = new THREE.Vector2();
 
     this.onAppStarted = this.onAppStarted.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
-    this.onDoubleClick = this.onDoubleClick.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
 }
 
@@ -29,7 +27,6 @@ PickEvent.prototype.start = function () {
 
 PickEvent.prototype.onAppStarted = function () {
     app.viewport.addEventListener('mousedown', this.onMouseDown, false);
-    app.viewport.addEventListener('dblclick', this.onDoubleClick, false);
 };
 
 PickEvent.prototype.onMouseDown = function (event) {
@@ -53,20 +50,6 @@ PickEvent.prototype.onMouseUp = function (event) {
     this.handleClick();
 
     document.removeEventListener('mouseup', this.onMouseUp, false);
-};
-
-PickEvent.prototype.onDoubleClick = function (event) {
-    let objects = app.editor.objects;
-
-    let array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
-    this.onDoubleClickPosition.fromArray(array);
-
-    let intersects = this.getIntersects(this.onDoubleClickPosition, objects);
-
-    if (intersects.length > 0) {
-        let intersect = intersects[0];
-        app.call('objectFocused', this, intersect.object);
-    }
 };
 
 PickEvent.prototype.getIntersects = function (point, objects) {
