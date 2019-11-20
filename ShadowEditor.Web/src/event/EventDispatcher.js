@@ -6,6 +6,7 @@ import RenderEvent from './RenderEvent';
 import ResizeEvent from './ResizeEvent';
 import FilterEvent from './FilterEvent';
 import ViewEvent from './ViewEvent';
+import GPUPickEvent from './GPUPickEvent';
 
 import TransformControlsEvent from './TransformControlsEvent';
 import ObjectEvent from './ObjectEvent';
@@ -33,6 +34,7 @@ function EventDispatcher() {
         new ResizeEvent(),
         new FilterEvent(),
         new ViewEvent(),
+        new GPUPickEvent(),
 
         // viewport中的事件
         new TransformControlsEvent(),
