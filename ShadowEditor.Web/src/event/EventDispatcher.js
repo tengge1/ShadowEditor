@@ -34,7 +34,7 @@ function EventDispatcher() {
         new ResizeEvent(),
         new FilterEvent(),
         new ViewEvent(),
-        new GPUPickEvent(),
+        // new GPUPickEvent(),
 
         // viewport中的事件
         new TransformControlsEvent(),
