@@ -31,7 +31,7 @@ function Helpers(app) {
         new SpotLightHelpers(app),
 
         new SelectHelper(app),
-        // new HoverHelper(app),
+        new HoverHelper(app),
         new ViewHelper(app),
         new SplineHelper(app)
     ];

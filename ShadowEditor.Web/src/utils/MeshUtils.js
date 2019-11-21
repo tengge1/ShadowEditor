@@ -24,6 +24,40 @@ const MeshUtils = {
                 children: list1
             });
         }
+    },
+    /**
+     * 通过模型组件获取整个模型
+     * @param {*} obj 通过模型的一部分获取整个模型
+     * @returns {*} 整体模型
+     */
+    partToMesh(obj) {
+        let scene = app.editor.scene;
+
+        if (obj === scene || obj.userData && obj.userData.Server === true) { // 场景或服务端模型
+            return obj;
+        }
+
+        // 判断obj是否是模型的一部分
+        let model = obj;
+        let isPart = false;
+
+        while (model) {
+            if (model === scene) {
+                break;
+            }
+            if (model.userData && model.userData.Server === true) {
+                isPart = true;
+                break;
+            }
+
+            model = model.parent;
+        }
+
+        if (isPart) {
+            return model;
+        }
+
+        return obj;
     }
 };
 

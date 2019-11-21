@@ -1,4 +1,5 @@
 import BaseEvent from './BaseEvent';
+import MeshUtils from '../utils/MeshUtils';
 
 /**
  * 选取事件
@@ -78,7 +79,7 @@ PickEvent.prototype.handleClick = function () {
                 // TODO: userData上有object时，无法复制模型。
                 editor.select(object.userData.object);
             } else if (app.options.selectMode === 'whole') { // 选择整体
-                editor.select(this.partToMesh(object));
+                editor.select(MeshUtils.partToMesh(object));
             } else if (app.options.selectMode === 'part') { // 选择部分
                 editor.select(object);
             }
@@ -96,41 +97,6 @@ PickEvent.prototype.handleClick = function () {
             }
         }
     }
-};
-
-/**
- * 如果选中的是模型的一部分，改为选择整个模型
- * @param {*} obj 通过模型的一部分获取整个模型
- * @returns {*} 整体模型
- */
-PickEvent.prototype.partToMesh = function (obj) {
-    let scene = app.editor.scene;
-
-    if (obj === scene || obj.userData && obj.userData.Server === true) { // 场景或服务端模型
-        return obj;
-    }
-
-    // 判断obj是否是模型的一部分
-    let model = obj;
-    let isPart = false;
-
-    while (model) {
-        if (model === scene) {
-            break;
-        }
-        if (model.userData && model.userData.Server === true) {
-            isPart = true;
-            break;
-        }
-
-        model = model.parent;
-    }
-
-    if (isPart) {
-        return model;
-    }
-
-    return obj;
 };
 
 export default PickEvent;

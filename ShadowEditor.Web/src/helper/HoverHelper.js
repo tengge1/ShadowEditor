@@ -7,6 +7,8 @@ import BaseHelper from './BaseHelper';
  */
 function HoverHelper(app) {
     BaseHelper.call(this, app);
+    this.onGpuPick = this.onGpuPick.bind(this);
+    this.onAfterRender = this.onAfterRender.bind(this);
 }
 
 HoverHelper.prototype = Object.create(BaseHelper.prototype);
@@ -26,42 +28,17 @@ HoverHelper.prototype.start = function () {
         opacity: 0.5
     });
 
-    app.on(`mousemove.${this.id}`, this.onMouseMove.bind(this));
-    app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
+    app.on(`gpuPick.${this.id}`, this.onGpuPick);
+    app.on(`afterRender.${this.id}`, this.onAfterRender);
 };
 
 HoverHelper.prototype.stop = function () {
-    app.on(`mousemove.${this.id}`, null);
+    app.on(`gpuPick.${this.id}`, null);
     app.on(`afterRender.${this.id}`, null);
 };
 
-HoverHelper.prototype.onMouseMove = function (event) {
-    this.offsetX = event.offsetX;
-    this.offsetY = event.offsetY;
-
-    // 每隔100毫秒检测一次，提升性能。
-    const time = new Date().getTime();
-    if (time - this.time < 100) {
-        return;
-    }
-    this.time = time;
-    this.raycast();
-};
-
-HoverHelper.prototype.raycast = function () {
-    const { scene, camera, renderer } = app.editor;
-
-    this.mouse.x = event.offsetX / renderer.domElement.clientWidth * 2 - 1;
-    this.mouse.y = -(event.offsetY / renderer.domElement.clientHeight) * 2 + 1;
-
-    this.raycaster.setFromCamera(this.mouse, camera);
-    const intersect = this.raycaster.intersectObjects(scene.children, true)[0];
-
-    if (intersect) {
-        this.object = intersect.object;
-    } else {
-        this.object = null;
-    }
+HoverHelper.prototype.onGpuPick = function (object) {
+    this.object = object;
 };
 
 HoverHelper.prototype.onAfterRender = function () {
