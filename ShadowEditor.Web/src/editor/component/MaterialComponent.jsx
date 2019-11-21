@@ -145,7 +145,7 @@ class MaterialComponent extends React.Component {
             showEnvMap: false,
             envMap: null,
 
-            reflectivity: null,
+            envMapIntensity: null,
 
             showLightMap: false,
             lightMap: null,
@@ -205,7 +205,7 @@ class MaterialComponent extends React.Component {
         const { show, expanded, type, showProgram, showColor, color, showRoughness, roughness, showMetalness, metalness, showEmissive, emissive, showSpecular, specular, showShininess, shininess, showClearCoat, clearCoat, showClearCoatRoughness, clearCoatRoughness, showVertexColors, vertexColors, showSkinning, skinning,
             showMap, map, showAlphaMap, alphaMap, showBumpMap, bumpMap, bumpScale, showNormalMap, normalMap, showDisplacementMap, displacementMap,
             displacementScale, showRoughnessMap, roughnessMap, showMetalnessMap, metalnessMap, showSpecularMap, specularMap, showEnvMap, envMap,
-            reflectivity, showLightMap, lightMap, showAoMap, aoMap, aoScale, showEmissiveMap, emissiveMap, side, flatShading, blending, opacity, transparent,
+            envMapIntensity, showLightMap, lightMap, showAoMap, aoMap, aoScale, showEmissiveMap, emissiveMap, side, flatShading, blending, opacity, transparent,
             alphaTest, wireframe, wireframeLinewidth } = this.state;
         const { enableAuthority, authorities } = app.server;
 
@@ -377,9 +377,9 @@ class MaterialComponent extends React.Component {
                 show={showEnvMap}
                 onChange={this.handleChange}
             />
-            <NumberProperty label={_t('Reflectivity')}
-                name={'reflectivity'}
-                value={reflectivity}
+            <NumberProperty label={_t('EnvMapIntensity')}
+                name={'envMapIntensity'}
+                value={envMapIntensity}
                 show={showEnvMap}
                 onChange={this.handleChange}
             />
@@ -474,7 +474,7 @@ class MaterialComponent extends React.Component {
             return;
         }
 
-        if(Array.isArray(editor.selected.material)) { // 多材质模型，由多材质组件选择。
+        if (Array.isArray(editor.selected.material)) { // 多材质模型，由多材质组件选择。
             return;
         }
 
@@ -622,8 +622,8 @@ class MaterialComponent extends React.Component {
             state.showEnvMap = true;
             state.envMap = material.envMap;
 
-            if (material.reflectivity !== undefined) {
-                state.reflectivity = material.reflectivity;
+            if (material.envMapIntensity !== undefined) {
+                state.envMapIntensity = material.envMapIntensity;
             }
         } else {
             state.showEnvMap = false;
@@ -700,7 +700,7 @@ class MaterialComponent extends React.Component {
         let material = object.material;
 
         const { type, color, roughness, metalness, emissive, specular, shininess, clearCoat, clearCoatRoughness, vertexColors, skinning, map, alphaMap,
-            bumpMap, bumpScale, normalMap, displacementMap, displacementScale, roughnessMap, metalnessMap, specularMap, envMap, reflectivity, lightMap,
+            bumpMap, bumpScale, normalMap, displacementMap, displacementScale, roughnessMap, metalnessMap, specularMap, envMap, envMapIntensity, lightMap,
             aoMap, aoScale, emissiveMap, side, flatShading, blending, opacity, transparent, alphaTest, wireframe, wireframeLinewidth } = Object.assign({}, this.state, {
                 [name]: value
             });
@@ -834,8 +834,8 @@ class MaterialComponent extends React.Component {
             }
         }
 
-        if (name === 'reflectivity' && material.reflectivity !== undefined) {
-            editor.execute(new SetMaterialValueCommand(object, 'reflectivity', reflectivity));
+        if (name === 'envMapIntensity' && material.envMapIntensity !== undefined) {
+            editor.execute(new SetMaterialValueCommand(object, 'envMapIntensity', envMapIntensity));
         }
 
         if (name === 'lightMap' && material.lightMap !== undefined) {

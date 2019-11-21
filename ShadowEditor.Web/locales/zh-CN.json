@@ -927,5 +927,6 @@
     "Count": "数量",
     "Plugins": "插件",
     "The plugin is not existed.": "该插件不存在",
-    "Modifying admin rights is not allowed.": "不允许修改管理员权限。"
+    "Modifying admin rights is not allowed.": "不允许修改管理员权限。",
+    "EnvMapIntensity": "环境贴图强度"
 }
