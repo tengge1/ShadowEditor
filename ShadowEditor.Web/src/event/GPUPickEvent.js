@@ -64,10 +64,11 @@ GPUPickEvent.prototype.onAfterRender = function () {
         renderer.clear();
 
         // 读取深度
+        this.pixel.set([0, 0, 0, 0]);
         renderer.render(scene, camera);
         renderer.readRenderTargetPixels(this.renderTarget, this.offsetX, height - this.offsetY, 1, 1, this.pixel);
 
-        let depth = ((this.pixel[0] << 16) + (this.pixel[1] << 8) + this.pixel[2]) * 2 / 16777215 - 1;
+        let depth = (this.pixel[0] * 65535 + this.pixel[1] * 255 + this.pixel[2]) / 16777215 * 80 - 1;
 
         world.set(
             this.offsetX / width * 2 - 1,
