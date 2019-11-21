@@ -24,12 +24,20 @@ class TextureProperty extends React.Component {
     render() {
         const { className, style, value, showScale, scale } = this.props;
 
-        return <div className={classNames('texture', className)} style={style}>
-            <CheckBox checked={value !== null} onChange={this.handleEnable}></CheckBox>
+        return <div className={classNames('texture', className)}
+            style={style}
+               >
+            <CheckBox checked={value !== null}
+                onChange={this.handleEnable}
+            />
             <canvas title={value ? value.sourceFile : ''}
                 ref={this.canvasRef}
-                onClick={this.handleSelect}></canvas>
-            <Input type={'number'} value={scale} show={showScale}></Input>
+                onClick={this.handleSelect}
+            />
+            <Input type={'number'}
+                value={scale}
+                show={showScale}
+            />
         </div>;
     }
 
@@ -45,6 +53,10 @@ class TextureProperty extends React.Component {
 
         if (texture !== null) {
             let image = texture.image;
+
+            if (Array.isArray(image)) {
+                image = image[0];
+            }
 
             if (image !== undefined && image.width > 0) {
                 context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, canvas.height);
@@ -105,6 +117,15 @@ class TextureProperty extends React.Component {
             texture.format = THREE.RGBFormat;
 
             onChange && onChange(texture, this.props.name, data);
+        } else if (type === 'cube') {
+            const loader = new THREE.CubeTextureLoader();
+            loader.load(url.split(';'), obj => {
+                obj.sourceFile = name;
+                obj.format = url.endsWith('jpg') || url.endsWith('jpeg') ? THREE.RGBFormat : THREE.RGBAFormat;
+                obj.needsUpdate = true;
+
+                onChange && onChange(obj, this.props.name, data);
+            });
         } else {
             const loader = new THREE.TextureLoader();
             loader.load(url, obj => {
@@ -128,12 +149,12 @@ TextureProperty.propTypes = {
             return;
         }
         if (!(value instanceof THREE.Texture)) {
-            return new TypeError(`Invalid prop \`${propName}\` of type \`${typeof (value)}\` supplied to \`${componentName}\`, expected \`THREE.Texture\`.`);
+            return new TypeError(`Invalid prop \`${propName}\` of type \`${typeof value}\` supplied to \`${componentName}\`, expected \`THREE.Texture\`.`);
         }
     },
     showScale: PropTypes.bool,
     scale: PropTypes.number,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 TextureProperty.defaultProps = {
@@ -143,7 +164,7 @@ TextureProperty.defaultProps = {
     value: null,
     showScale: false,
     scale: 1.0,
-    onChange: null,
+    onChange: null
 };
 
 export default TextureProperty;
