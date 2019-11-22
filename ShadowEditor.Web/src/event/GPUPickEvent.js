@@ -52,8 +52,13 @@ GPUPickEvent.prototype.onAfterRender = function () {
     }
 
     // 记录旧属性
+    const oldBackground = scene.background;
     const oldOverrideMaterial = scene.overrideMaterial;
     const oldRenderTarget = renderer.getRenderTarget();
+
+    scene.background = null; // 有背景图，可能导致提取的颜色不准
+    scene.overrideMaterial = null;
+    renderer.setRenderTarget(this.renderTarget);
 
     // 更换选取材质
     scene.traverseVisible(n => {
@@ -74,19 +79,20 @@ GPUPickEvent.prototype.onAfterRender = function () {
                 }
             }
         });
+        n.pickColor = maxHexColor;
         maxHexColor++;
         n.material = n.pickMaterial = material;
     });
 
     // 绘制并读取像素
-    renderer.setRenderTarget(this.renderTarget);
+    renderer.clear(); // 一定要清缓冲区，renderer没开启自动清空缓冲区
     renderer.render(scene, camera);
     renderer.readRenderTargetPixels(this.renderTarget, this.offsetX, height - this.offsetY, 1, 1, this.pixel);
 
     // 还原原来材质，并获取选中物体
-    let red = this.pixel[0] / 255,
-        green = this.pixel[1] / 255,
-        blue = this.pixel[2] / 255;
+    const currentColor = this.pixel[0] * 0xffff + this.pixel[1] * 0xff + this.pixel[2];
+
+    // console.log(`${this.pixel[0]},${this.pixel[1]},${this.pixel[2]},${currentColor},${maxHexColor}`);
 
     let selected = null;
 
@@ -94,13 +100,8 @@ GPUPickEvent.prototype.onAfterRender = function () {
         if (!(n instanceof THREE.Mesh)) {
             return;
         }
-        if (n.pickMaterial) {
-            let color = n.pickMaterial.uniforms.pickColor.value;
-            if (Math.abs(red - color.r) < 0.001 &&
-                Math.abs(green - color.g) < 0.001 &&
-                Math.abs(blue - color.b) < 0.001) {
-                selected = n;
-            }
+        if (n.pickMaterial && n.pickColor === currentColor) {
+            selected = n;
         }
         if (n.oldMaterial) {
             n.material = n.oldMaterial;
@@ -121,6 +122,7 @@ GPUPickEvent.prototype.onAfterRender = function () {
     }
 
     // 还原原来的属性
+    scene.background = oldBackground;
     scene.overrideMaterial = oldOverrideMaterial;
     renderer.setRenderTarget(oldRenderTarget);
 };
