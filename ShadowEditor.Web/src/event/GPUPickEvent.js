@@ -12,6 +12,7 @@ let maxHexColor = 1;
 function GPUPickEvent() {
     BaseEvent.call(this);
 
+    this.isIn = false;
     this.offsetX = 0;
     this.offsetY = 0;
     this.selected = null;
@@ -35,13 +36,22 @@ GPUPickEvent.prototype.stop = function () {
 
 GPUPickEvent.prototype.onMouseMove = function (event) {
     if (event.target !== app.editor.renderer.domElement) {
+        this.isIn = false;
+        if (this.selected) {
+            this.selected = null;
+            app.call(`gpuPick`, this, null);
+        }
         return;
     }
+    this.isIn = true;
     this.offsetX = event.offsetX;
     this.offsetY = event.offsetY;
 };
 
 GPUPickEvent.prototype.onAfterRender = function () {
+    if (!this.isIn) {
+        return;
+    }
     let { scene, camera, renderer } = app.editor;
     const { width, height } = renderer.domElement;
 
@@ -91,8 +101,6 @@ GPUPickEvent.prototype.onAfterRender = function () {
 
     // 还原原来材质，并获取选中物体
     const currentColor = this.pixel[0] * 0xffff + this.pixel[1] * 0xff + this.pixel[2];
-
-    // console.log(`${this.pixel[0]},${this.pixel[1]},${this.pixel[2]},${currentColor},${maxHexColor}`);
 
     let selected = null;
 
