@@ -21,6 +21,7 @@
 .ImageList>.content>.item {
     position: relative;
     width: calc(50% - 8px);
+    max-width: 120px;
     height: 104px;
     margin: 4px;
     display: inline-block;
