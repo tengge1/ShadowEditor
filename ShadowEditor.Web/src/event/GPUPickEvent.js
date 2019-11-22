@@ -1,12 +1,14 @@
 import BaseEvent from './BaseEvent';
 import PickVertexShader from './shader/pick_vertex.glsl';
 import PickFragmentShader from './shader/pick_fragment.glsl';
+import DepthVertexShader from './shader/depth_vertex.glsl';
+import DepthFragmentShader from './shader/depth_fragment.glsl';
 import MeshUtils from '../utils/MeshUtils';
 
 let maxHexColor = 1;
 
 /**
- * 使用GPU进行碰撞
+ * 使用GPU选取物体和计算鼠标世界坐标
  * @author tengge / https://github.com/tengge1
  */
 function GPUPickEvent() {
@@ -48,6 +50,9 @@ GPUPickEvent.prototype.onMouseMove = function (event) {
     this.offsetY = event.offsetY;
 };
 
+/**
+ * 由于需要较高性能，所以尽量不要拆分函数。
+ */
 GPUPickEvent.prototype.onAfterRender = function () {
     if (!this.isIn) {
         return;
@@ -57,14 +62,21 @@ GPUPickEvent.prototype.onAfterRender = function () {
 
     if (this.init === undefined) {
         this.init = true;
+        this.depthMaterial = new THREE.ShaderMaterial({
+            vertexShader: DepthVertexShader,
+            fragmentShader: DepthFragmentShader
+        });
         this.renderTarget = new THREE.WebGLRenderTarget(width, height);
         this.pixel = new Uint8Array(4);
+        this.world = new THREE.Vector3();
     }
 
     // 记录旧属性
     const oldBackground = scene.background;
     const oldOverrideMaterial = scene.overrideMaterial;
     const oldRenderTarget = renderer.getRenderTarget();
+
+    // ---------------------------- 1. 使用GPU判断选中的物体 -----------------------------------
 
     scene.background = null; // 有背景图，可能导致提取的颜色不准
     scene.overrideMaterial = null;
@@ -128,6 +140,29 @@ GPUPickEvent.prototype.onAfterRender = function () {
             app.call(`gpuPick`, this, selected);
         }
     }
+
+    // ------------------------- 2. 使用GPU反算世界坐标 ----------------------------------
+
+    scene.overrideMaterial = this.material;
+
+    renderer.clear();
+    renderer.render(scene, camera);
+    renderer.readRenderTargetPixels(this.renderTarget, this.offsetX, height - this.offsetY, 1, 1, this.pixel);
+
+    let depth = (this.pixel[0] * 65535 + this.pixel[1] * 255 + this.pixel[2]) / 0xffffff;
+
+    if (this.pixel[3] === 0) {
+        depth = -depth;
+    }
+
+    this.world.set(
+        this.offsetX / width * 2 - 1,
+        - this.offsetY / height * 2 + 1,
+        depth
+    );
+    this.world.unproject(camera);
+
+    // console.log(`${this.pixel[0]}, ${this.pixel[1]}, ${this.pixel[2]}, ${depth}, ${this.world.x}, ${this.world.y}, ${this.world.z}`);
 
     // 还原原来的属性
     scene.background = oldBackground;
