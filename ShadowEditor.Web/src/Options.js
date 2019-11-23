@@ -36,6 +36,9 @@ function Options(options = {}) {
     this.selectedColor = '#ff6600'; // unity3d: #ff6600
     this.selectedThickness = 4;
 
+    this.hoveredColor = '#0000ff';
+    this.hoveredThickness = 4;
+
     // 添加模式
     this.addMode = 'center'; // center: 添加到场景中心；click: 点击场景添加。
 
