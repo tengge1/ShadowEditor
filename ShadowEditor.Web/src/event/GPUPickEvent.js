@@ -143,7 +143,7 @@ GPUPickEvent.prototype.onAfterRender = function () {
 
     // ------------------------- 2. 使用GPU反算世界坐标 ----------------------------------
 
-    scene.overrideMaterial = this.material;
+    scene.overrideMaterial = this.depthMaterial; // 注意：this.material为undifined，写在这也不会报错，不要写错了。
 
     renderer.clear();
     renderer.render(scene, camera);
@@ -162,7 +162,7 @@ GPUPickEvent.prototype.onAfterRender = function () {
     );
     this.world.unproject(camera);
 
-    // console.log(`${this.pixel[0]}, ${this.pixel[1]}, ${this.pixel[2]}, ${depth}, ${this.world.x}, ${this.world.y}, ${this.world.z}`);
+    console.log(`${this.pixel[0]}, ${this.pixel[1]}, ${this.pixel[2]}, ${depth}, ${this.world.x}, ${this.world.y}, ${this.world.z}`);
 
     // 还原原来的属性
     scene.background = oldBackground;

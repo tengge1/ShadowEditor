@@ -1,8 +1,9 @@
 precision highp float;
 
-varying float depth;
+varying vec4 vTransformed;
 
 void main() {
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    depth = gl_Position.z;
+    vec4 transformed = modelViewMatrix * vec4(position, 1.0);
+    gl_Position = projectionMatrix * transformed;
+    vTransformed = transformed;
 }
