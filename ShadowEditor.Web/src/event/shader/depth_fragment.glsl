@@ -4,10 +4,11 @@ varying float depth;
 
 void main() {
     // 参考：https://gamedev.stackexchange.com/questions/93055/getting-the-real-fragment-depth-in-glsl
-    // float ndcDepth = (gl_FragCoord.z - near) / (far - near);
-    // float clipDepth = ndcDepth / gl_FragCoord.w;
+    // 不能直接输出gl_FragCoord.z /  gl_FragCoord.w的原因是：
+    // 由于far=10000，gl_FragCoord.z /  gl_FragCoord.w（屏幕坐标系中的深度）非常接近1.0，几乎不变；
+    // 而gl_FragCoord.z是相机坐标系中的深度，线性变化的。
 
-    float hex = abs(clamp(depth, -1.0, 1.0)) * 16777215.0; // 0xffffff
+    float hex = abs(depth) * 16777215.0; // 0xffffff
 
     float r = floor(hex / 65535.0);
     float g = floor((hex - r * 65535.0) / 255.0);

@@ -29,16 +29,24 @@ HoverHelper.prototype.start = function () {
     });
 
     app.on(`gpuPick.${this.id}`, this.onGpuPick);
+    app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
     app.on(`afterRender.${this.id}`, this.onAfterRender);
 };
 
 HoverHelper.prototype.stop = function () {
     app.on(`gpuPick.${this.id}`, null);
+    app.on(`objectRemoved.${this.id}`, null);
     app.on(`afterRender.${this.id}`, null);
 };
 
-HoverHelper.prototype.onGpuPick = function (object) {
-    this.object = object;
+HoverHelper.prototype.onGpuPick = function (obj) {
+    this.object = obj.object;
+};
+
+HoverHelper.prototype.onObjectRemoved = function (object) {
+    if (object === this.object) {
+        this.object = null;
+    }
 };
 
 HoverHelper.prototype.onAfterRender = function () {

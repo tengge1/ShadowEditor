@@ -17,7 +17,6 @@ function GPUPickEvent() {
     this.isIn = false;
     this.offsetX = 0;
     this.offsetY = 0;
-    this.selected = null;
 
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onAfterRender = this.onAfterRender.bind(this);
@@ -37,12 +36,13 @@ GPUPickEvent.prototype.stop = function () {
 };
 
 GPUPickEvent.prototype.onMouseMove = function (event) {
-    if (event.target !== app.editor.renderer.domElement) {
+    if (event.target !== app.editor.renderer.domElement) { // 鼠标不在画布上
         this.isIn = false;
-        if (this.selected) {
-            this.selected = null;
-            app.call(`gpuPick`, this, null);
-        }
+        app.call(`gpuPick`, this, {
+            object: null,
+            point: null,
+            distance: 0
+        });
         return;
     }
     this.isIn = true;
@@ -66,9 +66,6 @@ GPUPickEvent.prototype.onAfterRender = function () {
             vertexShader: DepthVertexShader,
             fragmentShader: DepthFragmentShader,
             uniforms: {
-                near: {
-                    value: camera.near
-                },
                 far: {
                     value: camera.far
                 }
@@ -76,7 +73,9 @@ GPUPickEvent.prototype.onAfterRender = function () {
         });
         this.renderTarget = new THREE.WebGLRenderTarget(width, height);
         this.pixel = new Uint8Array(4);
-        this.world = new THREE.Vector3();
+        this.nearPosition = new THREE.Vector3(); // 鼠标屏幕位置在near处的相机坐标系中的坐标
+        this.farPosition = new THREE.Vector3(); // 鼠标屏幕位置在far处的相机坐标系中的坐标
+        this.world = new THREE.Vector3(); // 通过插值计算世界坐标
     }
 
     // 记录旧属性
@@ -137,18 +136,6 @@ GPUPickEvent.prototype.onAfterRender = function () {
         }
     });
 
-    // TODO: 物体移除时，this.selected要清空
-    if (selected !== this.selected) {
-        this.selected = selected;
-        if (!selected) {
-            app.call(`gpuPick`, this, null);
-        } else if (app.options.selectMode === 'whole') { // 选择整体
-            app.call(`gpuPick`, this, MeshUtils.partToMesh(selected));
-        } else { // 选择部分
-            app.call(`gpuPick`, this, selected);
-        }
-    }
-
     // ------------------------- 2. 使用GPU反算世界坐标 ----------------------------------
 
     scene.overrideMaterial = this.depthMaterial; // 注意：this.material为undifined，写在这也不会报错，不要写错了。
@@ -157,27 +144,55 @@ GPUPickEvent.prototype.onAfterRender = function () {
     renderer.render(scene, camera);
     renderer.readRenderTargetPixels(this.renderTarget, this.offsetX, height - this.offsetY, 1, 1, this.pixel);
 
-    let hex = (this.pixel[0] * 65535 + this.pixel[1] * 255 + this.pixel[2]) / 0xffffff;
+    let isHit = false;
+    let cameraDepth = 0;
 
-    if (this.pixel[3] === 0) {
-        hex = -hex;
+    if (this.pixel[2] !== 0 || this.pixel[1] !== 0 || this.pixel[0] !== 0) {
+        let hex = (this.pixel[0] * 65535 + this.pixel[1] * 255 + this.pixel[2]) / 0xffffff;
+
+        if (this.pixel[3] === 0) {
+            hex = -hex;
+        }
+
+        cameraDepth = -hex * camera.far; // 相机坐标系中鼠标所在点的深度（注意：相机坐标系中的深度值为负值）
+
+        const deviceX = this.offsetX / width * 2 - 1;
+        const deviceY = - this.offsetY / height * 2 + 1;
+
+        this.nearPosition.set(deviceX, deviceY, 1); // 屏幕坐标系：(0, 0, 1)
+        this.nearPosition.applyMatrix4(camera.projectionMatrixInverse); // 相机坐标系：(0, 0, -far)
+
+        this.farPosition.set(deviceX, deviceY, -1); // 屏幕坐标系：(0, 0, -1)
+        this.farPosition.applyMatrix4(camera.projectionMatrixInverse); // 相机坐标系：(0, 0, -near)
+
+        const t = (cameraDepth - this.nearPosition.z) / (this.farPosition.z - this.nearPosition.z);
+
+        this.world.set(
+            this.nearPosition.x + (this.farPosition.x - this.nearPosition.x) * t,
+            this.nearPosition.y + (this.farPosition.y - this.nearPosition.y) * t,
+            cameraDepth
+        );
+        this.world.applyMatrix4(camera.matrixWorld);
+
+        isHit = true;
     }
-
-    let depth = hex * camera.far;
-
-    this.world.set(
-        this.offsetX / width * 2 - 1,
-        - this.offsetY / height * 2 + 1,
-        hex
-    );
-    this.world.unproject(camera);
-
-    console.log(`(${this.pixel[0]},${this.pixel[1]},${this.pixel[2]}),${depth}, ${this.world.x}, ${this.world.y}, ${this.world.z}`);
 
     // 还原原来的属性
     scene.background = oldBackground;
     scene.overrideMaterial = oldOverrideMaterial;
     renderer.setRenderTarget(oldRenderTarget);
+
+    // ------------------------------- 3. 输出碰撞结果 --------------------------------------------
+
+    if (selected && app.options.selectMode === 'whole') { // 选择整体
+        selected = MeshUtils.partToMesh(selected);
+    }
+
+    app.call(`gpuPick`, this, {
+        object: selected, // 碰撞到的物体
+        point: isHit ? this.world : null, // 碰撞点坐标
+        distance: isHit ? Math.abs(cameraDepth) : 0 // 相机到碰撞点距离
+    });
 };
 
 export default GPUPickEvent;
