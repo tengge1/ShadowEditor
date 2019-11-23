@@ -163,7 +163,7 @@ GPUPickEvent.prototype.onAfterRender = function () {
         hex = -hex;
     }
 
-    let depth = hex * (camera.far - camera.near) + camera.near;
+    let depth = hex * camera.far;
 
     this.world.set(
         this.offsetX / width * 2 - 1,
@@ -172,7 +172,7 @@ GPUPickEvent.prototype.onAfterRender = function () {
     );
     this.world.unproject(camera);
 
-    console.log(`${hex},${depth}, ${this.world.x}, ${this.world.y}, ${this.world.z}`);
+    console.log(`(${this.pixel[0]},${this.pixel[1]},${this.pixel[2]}),${depth}, ${this.world.x}, ${this.world.y}, ${this.world.z}`);
 
     // 还原原来的属性
     scene.background = oldBackground;
