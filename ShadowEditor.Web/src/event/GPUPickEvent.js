@@ -64,7 +64,15 @@ GPUPickEvent.prototype.onAfterRender = function () {
         this.init = true;
         this.depthMaterial = new THREE.ShaderMaterial({
             vertexShader: DepthVertexShader,
-            fragmentShader: DepthFragmentShader
+            fragmentShader: DepthFragmentShader,
+            uniforms: {
+                near: {
+                    value: camera.near
+                },
+                far: {
+                    value: camera.far
+                }
+            }
         });
         this.renderTarget = new THREE.WebGLRenderTarget(width, height);
         this.pixel = new Uint8Array(4);
@@ -149,20 +157,22 @@ GPUPickEvent.prototype.onAfterRender = function () {
     renderer.render(scene, camera);
     renderer.readRenderTargetPixels(this.renderTarget, this.offsetX, height - this.offsetY, 1, 1, this.pixel);
 
-    let depth = (this.pixel[0] * 65535 + this.pixel[1] * 255 + this.pixel[2]) / 0xffffff;
+    let hex = (this.pixel[0] * 65535 + this.pixel[1] * 255 + this.pixel[2]) / 0xffffff;
 
     if (this.pixel[3] === 0) {
-        depth = -depth;
+        hex = -hex;
     }
+
+    let depth = hex * (camera.far - camera.near) + camera.near;
 
     this.world.set(
         this.offsetX / width * 2 - 1,
         - this.offsetY / height * 2 + 1,
-        depth
+        hex
     );
     this.world.unproject(camera);
 
-    console.log(`${this.pixel[0]}, ${this.pixel[1]}, ${this.pixel[2]}, ${depth}, ${this.world.x}, ${this.world.y}, ${this.world.z}`);
+    console.log(`${hex},${depth}, ${this.world.x}, ${this.world.y}, ${this.world.z}`);
 
     // 还原原来的属性
     scene.background = oldBackground;
