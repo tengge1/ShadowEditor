@@ -19,6 +19,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 6. 修复资源面板最大化时，每行只有两个bug。
 7. 使用GPU方式，高亮鼠标指向的物体。
 8. 修复上传文件时点取消报错的bug。
+9. 修复材质组件`Flat Shading`翻译为`平滑`的错误，改为`平坦着色`。
 
 ## v0.3.7更新
 
