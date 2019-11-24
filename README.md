@@ -12,6 +12,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 ## 技术分享
 
 1. three.js使用卷积法实现物体描边效果：https://www.cnblogs.com/tengge/p/11924006.html
+2. three.js使用gpu选取物体并计算交点位置：https://www.cnblogs.com/tengge/p/11924663.html
 
 ## v0.3.8即将更新
 
