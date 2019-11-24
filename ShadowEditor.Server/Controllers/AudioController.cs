@@ -112,6 +112,15 @@ namespace ShadowEditor.Server.Controllers
         [Authority("ADD_AUDIO")]
         public JsonResult Add()
         {
+            if (HttpContext.Current.Request.Files.Count == 0)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Please select an file."
+                });
+            }
+
             var file = HttpContext.Current.Request.Files[0];
             var fileName = file.FileName;
             var fileSize = file.ContentLength;

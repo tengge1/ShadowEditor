@@ -111,6 +111,15 @@ namespace ShadowEditor.Server.Controllers
             var Request = HttpContext.Current.Request;
             var Server = HttpContext.Current.Server;
 
+            if (Request.Files.Count == 0)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "Please select an file."
+                });
+            }
+
             // 文件信息
             var file = Request.Files[0];
             var fileName = file.FileName;

@@ -118,7 +118,7 @@ namespace ShadowEditor.Server.Controllers
                 return Json(new Result
                 {
                     Code = 300,
-                    Msg = "Only one or six files is allowed to upload!"
+                    Msg = "Only one file is allowed to upload!"
                 });
             }
 
