@@ -18,6 +18,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 5. 修复无法设置环境贴图和环境贴图强度bug。
 6. 修复资源面板最大化时，每行只有两个bug。
 7. 使用GPU方式，高亮鼠标指向的物体。
+8. 修复上传文件时点取消报错的bug。
 
 ## v0.3.7更新
 
