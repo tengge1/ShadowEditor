@@ -2,6 +2,7 @@ import './css/EditorToolbar.css';
 import { Toolbar, ToolbarSeparator, Select } from '../../third_party';
 import GeneralTools from './tools/GeneralTools.jsx';
 import DrawTools from './tools/DrawTools.jsx';
+import MarkTools from './tools/MarkTools.jsx';
 
 /**
  * 编辑器工具栏
@@ -41,6 +42,7 @@ class EditorToolbar extends React.Component {
             <ToolbarSeparator />
             {toolbar === 'general' && <GeneralTools />}
             {toolbar === 'draw' && <DrawTools />}
+            {toolbar === 'mark' && <MarkTools />}
         </Toolbar>;
     }
 

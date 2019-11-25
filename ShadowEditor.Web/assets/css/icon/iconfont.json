@@ -76,6 +76,13 @@
       "unicode_decimal": 58910
     },
     {
+      "icon_id": "423632",
+      "name": "选择",
+      "font_class": "select-one",
+      "unicode": "e75d",
+      "unicode_decimal": 59229
+    },
+    {
       "icon_id": "467522",
       "name": "发布",
       "font_class": "publish",
@@ -193,6 +200,13 @@
       "font_class": "hand",
       "unicode": "e622",
       "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "1166327",
+      "name": "批量框选",
+      "font_class": "select-many",
+      "unicode": "e75f",
+      "unicode_decimal": 59231
     },
     {
       "icon_id": "1272631",
@@ -335,6 +349,13 @@
       "unicode_decimal": 58967
     },
     {
+      "icon_id": "2205448",
+      "name": "直线",
+      "font_class": "line-tool",
+      "unicode": "e761",
+      "unicode_decimal": 59233
+    },
+    {
       "icon_id": "2297303",
       "name": "源码应用",
       "font_class": "source",
@@ -349,11 +370,25 @@
       "unicode_decimal": 59112
     },
     {
+      "icon_id": "2409162",
+      "name": "框选",
+      "font_class": "select-tool",
+      "unicode": "e792",
+      "unicode_decimal": 59282
+    },
+    {
       "icon_id": "2698783",
       "name": "保存",
       "font_class": "save",
       "unicode": "e613",
       "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "2938666",
+      "name": "地点标注",
+      "font_class": "point-mark",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
     },
     {
       "icon_id": "3020000",
@@ -410,6 +445,13 @@
       "font_class": "json",
       "unicode": "e605",
       "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "3646625",
+      "name": "矩形",
+      "font_class": "rect-tool",
+      "unicode": "e762",
+      "unicode_decimal": 59234
     },
     {
       "icon_id": "3988062",
@@ -587,11 +629,25 @@
       "unicode_decimal": 58970
     },
     {
+      "icon_id": "7538772",
+      "name": "面标注",
+      "font_class": "polygon-mark",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
       "icon_id": "7639355",
       "name": "实心正方形",
       "font_class": "rect",
       "unicode": "e619",
       "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "11172218",
+      "name": "线标注",
+      "font_class": "line-mark",
+      "unicode": "e739",
+      "unicode_decimal": 59193
     },
     {
       "icon_id": "11227343",

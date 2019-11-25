@@ -1,4 +1,4 @@
-import { ToolbarSeparator, IconButton, ImageButton } from '../../../third_party';
+import { ToolbarSeparator, IconButton } from '../../../third_party';
 
 /**
  * 标注工具
@@ -9,154 +9,52 @@ class MarkTools extends React.Component {
         super(props);
 
         this.state = {
-            mode: 'translate',
-            view: 'perspective',
-            isGridMode: false
+            isAddPointMark: false,
+            isAddLineMark: false,
+            isAddPolygonMark: false
         };
 
-        this.handleEnterSelectMode = this.handleEnterSelectMode.bind(this);
-        this.handleEnterTranslateMode = this.handleEnterTranslateMode.bind(this);
-        this.handleEnterRotateMode = this.handleEnterRotateMode.bind(this);
-        this.handleEnterScaleMode = this.handleEnterScaleMode.bind(this);
-
-        this.handlePerspective = this.handlePerspective.bind(this);
-        this.handleFrontView = this.handleFrontView.bind(this);
-        this.handleSideView = this.handleSideView.bind(this);
-        this.handleTopView = this.handleTopView.bind(this);
-
-        this.handleGridMode = this.handleGridMode.bind(this);
+        this.handleStartPointMarkTool = this.handleStartPointMarkTool.bind(this);
+        this.handleStartLineMarkTool = this.handleStartLineMarkTool.bind(this);
+        this.handleStartPolygonMarkTool = this.handleStartPolygonMarkTool.bind(this);
     }
 
     render() {
-        const { mode, view, isGridMode } = this.state;
+        const { isAddPointMark, isAddLineMark, isAddPolygonMark } = this.state;
 
         return <>
             <IconButton
-                icon={'select'}
-                title={_t('Select')}
-                selected={mode === 'select'}
-                onClick={this.handleEnterSelectMode}
+                icon={'point-mark'}
+                title={_t('Point Mark')}
+                selected={isAddPointMark}
+                onClick={this.handleStartPointMarkTool}
             />
             <IconButton
-                icon={'translate'}
-                title={_t('Translate')}
-                selected={mode === 'translate'}
-                onClick={this.handleEnterTranslateMode}
+                icon={'line-mark'}
+                title={_t('Line Mark')}
+                selected={isAddLineMark}
+                onClick={this.handleStartLineMarkTool}
             />
             <IconButton
-                icon={'rotate'}
-                title={_t('Rotate')}
-                selected={mode === 'rotate'}
-                onClick={this.handleEnterRotateMode}
-            />
-            <IconButton
-                icon={'scale'}
-                title={_t('Scale')}
-                selected={mode === 'scale'}
-                onClick={this.handleEnterScaleMode}
-            />
-            <ToolbarSeparator />
-            <ImageButton
-                src={'assets/image/perspective-view.png'}
-                title={_t('Perspective View')}
-                selected={view === 'perspective'}
-                onClick={this.handlePerspective}
-            />
-            <ImageButton
-                src={'assets/image/front-view.png'}
-                title={_t('Front View')}
-                selected={view === 'front'}
-                onClick={this.handleFrontView}
-            />
-            <ImageButton
-                src={'assets/image/side-view.png'}
-                title={_t('Side View')}
-                selected={view === 'side'}
-                onClick={this.handleSideView}
-            />
-            <ImageButton
-                src={'assets/image/top-view.png'}
-                title={_t('Top View')}
-                selected={view === 'top'}
-                onClick={this.handleTopView}
-            />
-            <ToolbarSeparator />
-            <IconButton
-                icon={'grid'}
-                title={_t('Grid Mode')}
-                selected={isGridMode}
-                onClick={this.handleGridMode}
+                icon={'polygon-mark'}
+                title={_t('Polygon Mark')}
+                selected={isAddPolygonMark}
+                onClick={this.handleStartPolygonMarkTool}
             />
             <ToolbarSeparator />
         </>;
     }
 
-    // --------------------------------- 选择模式 -------------------------------------
+    handleStartPointMarkTool() {
 
-    handleEnterSelectMode() {
-        this.setState({ mode: 'select' });
-        app.call('changeMode', this, 'select');
     }
 
-    handleEnterTranslateMode() {
-        this.setState({ mode: 'translate' });
-        app.call('changeMode', this, 'translate');
+    handleStartLineMarkTool() {
+
     }
 
-    handleEnterRotateMode() {
-        this.setState({ mode: 'rotate' });
-        app.call('changeMode', this, 'rotate');
-    }
+    handleStartPolygonMarkTool() {
 
-    handleEnterScaleMode() {
-        this.setState({ mode: 'scale' });
-        app.call('changeMode', this, 'scale');
-    }
-
-    // ------------------------------ 视角工具 ------------------------------------------
-
-    handlePerspective() {
-        app.call(`changeView`, this, 'perspective');
-        this.setState({
-            view: 'perspective'
-        });
-    }
-
-    handleFrontView() {
-        app.call(`changeView`, this, 'front');
-        this.setState({
-            view: 'front'
-        });
-    }
-
-    handleSideView() {
-        app.call(`changeView`, this, 'side');
-        this.setState({
-            view: 'side'
-        });
-    }
-
-    handleTopView() {
-        app.call(`changeView`, this, 'top');
-        this.setState({
-            view: 'top'
-        });
-    }
-
-    // ----------------------------- 网格模式 ------------------------------------------
-
-    handleGridMode() {
-        const isGridMode = !this.state.isGridMode;
-
-        if (isGridMode) {
-            app.editor.scene.overrideMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
-        } else {
-            app.editor.scene.overrideMaterial = null;
-        }
-
-        this.setState({
-            isGridMode
-        });
     }
 }
 
