@@ -168,7 +168,19 @@ class ModelPanel extends React.Component {
 
     // 点击场景添加
     clickSceneToAdd(obj) {
-        app.on(`raycast.ModelPanel`, (intersect) => {
+        let added = false;
+        app.on(`gpuPick.ModelPanel`, intersect => { // 鼠标移动出现预览效果
+            if (!intersect.point) {
+                return;
+            }
+            if (!added) {
+                added = true;
+                app.editor.sceneHelpers.add(obj);
+            }
+            obj.position.copy(intersect.point);
+        });
+        app.on(`raycast.ModelPanel`, intersect => { // 点击鼠标放置模型
+            app.on(`gpuPick.ModelPanel`, null);
             app.on(`raycast.ModelPanel`, null);
             obj.position.copy(intersect.point);
             this.addToCenter(obj);
