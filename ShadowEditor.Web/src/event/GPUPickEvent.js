@@ -71,11 +71,16 @@ GPUPickEvent.prototype.onAfterRender = function () {
                 }
             }
         });
+
         this.renderTarget = new THREE.WebGLRenderTarget(width, height);
         this.pixel = new Uint8Array(4);
+
         this.nearPosition = new THREE.Vector3(); // 鼠标屏幕位置在near处的相机坐标系中的坐标
         this.farPosition = new THREE.Vector3(); // 鼠标屏幕位置在far处的相机坐标系中的坐标
         this.world = new THREE.Vector3(); // 通过插值计算世界坐标
+
+        this.line = new THREE.Line3(this.nearPosition, this.farPosition);
+        this.plane = new THREE.Plane().setFromNormalAndCoplanarPoint(new THREE.Vector3(0, 1, 0), new THREE.Vector3());
     }
 
     // 记录旧属性
@@ -144,10 +149,18 @@ GPUPickEvent.prototype.onAfterRender = function () {
     renderer.render(scene, camera);
     renderer.readRenderTargetPixels(this.renderTarget, this.offsetX, height - this.offsetY, 1, 1, this.pixel);
 
-    let isHit = false;
     let cameraDepth = 0;
 
-    if (this.pixel[2] !== 0 || this.pixel[1] !== 0 || this.pixel[0] !== 0) {
+    const deviceX = this.offsetX / width * 2 - 1;
+    const deviceY = - this.offsetY / height * 2 + 1;
+
+    this.nearPosition.set(deviceX, deviceY, 1); // 屏幕坐标系：(0, 0, 1)
+    this.nearPosition.applyMatrix4(camera.projectionMatrixInverse); // 相机坐标系：(0, 0, -far)
+
+    this.farPosition.set(deviceX, deviceY, -1); // 屏幕坐标系：(0, 0, -1)
+    this.farPosition.applyMatrix4(camera.projectionMatrixInverse); // 相机坐标系：(0, 0, -near)
+
+    if (this.pixel[2] !== 0 || this.pixel[1] !== 0 || this.pixel[0] !== 0) { // 鼠标位置存在物体
         let hex = (this.pixel[0] * 65535 + this.pixel[1] * 255 + this.pixel[2]) / 0xffffff;
 
         if (this.pixel[3] === 0) {
@@ -155,15 +168,6 @@ GPUPickEvent.prototype.onAfterRender = function () {
         }
 
         cameraDepth = -hex * camera.far; // 相机坐标系中鼠标所在点的深度（注意：相机坐标系中的深度值为负值）
-
-        const deviceX = this.offsetX / width * 2 - 1;
-        const deviceY = - this.offsetY / height * 2 + 1;
-
-        this.nearPosition.set(deviceX, deviceY, 1); // 屏幕坐标系：(0, 0, 1)
-        this.nearPosition.applyMatrix4(camera.projectionMatrixInverse); // 相机坐标系：(0, 0, -far)
-
-        this.farPosition.set(deviceX, deviceY, -1); // 屏幕坐标系：(0, 0, -1)
-        this.farPosition.applyMatrix4(camera.projectionMatrixInverse); // 相机坐标系：(0, 0, -near)
 
         const t = (cameraDepth - this.nearPosition.z) / (this.farPosition.z - this.nearPosition.z);
 
@@ -173,8 +177,11 @@ GPUPickEvent.prototype.onAfterRender = function () {
             cameraDepth
         );
         this.world.applyMatrix4(camera.matrixWorld);
-
-        isHit = true;
+    } else { // 鼠标位置不存在物体，则与y=0的平面的交点
+        this.nearPosition.applyMatrix4(camera.matrixWorld); // 世界坐标系近点
+        this.farPosition.applyMatrix4(camera.matrixWorld); // 世界坐标系远点
+        this.line.set(this.nearPosition, this.farPosition);
+        this.plane.intersectLine(this.line, this.world);
     }
 
     // 还原原来的属性
@@ -189,9 +196,9 @@ GPUPickEvent.prototype.onAfterRender = function () {
     }
 
     app.call(`gpuPick`, this, {
-        object: selected, // 碰撞到的物体
-        point: isHit ? this.world : null, // 碰撞点坐标
-        distance: isHit ? Math.abs(cameraDepth) : 0 // 相机到碰撞点距离
+        object: selected, // 碰撞到的物体，没碰到为null
+        point: this.world, // 碰撞点坐标，没碰到物体与y=0平面碰撞
+        distance: cameraDepth // 相机到碰撞点距离
     });
 };
 

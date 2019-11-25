@@ -80,7 +80,7 @@ var EventList = [
 
     'raycast', // 光线投射（不碰到模型也会触发）
     'intersect', // 碰撞到模型（只有碰撞到模型才会触发）
-    'gpuPick', // 使用GPU选取到某个模型，参数：{ object: 碰撞到的物体，没碰到为null, point: 碰撞到物体坐标点，没碰到为null, distance: 相机到碰撞点距离，没碰到为0 }
+    'gpuPick', // 使用GPU选取到某个模型，参数：{ object: 碰撞到的物体，没碰到为null, point: 碰撞到物体坐标点，没碰到与y=0平面碰撞, distance: 相机到碰撞点距离，没碰到为0 }
     'beforeRender', // 渲染前执行
     'afterRender', // 渲染后执行
     'animate', // 进行动画
