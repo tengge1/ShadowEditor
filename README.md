@@ -9,11 +9,6 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 * 开发计划：小场景搭建、地形编辑、模型批量添加渲染、地表植被附属物编辑、物理引擎、数据可视化、光线追踪引擎。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展，谢谢。
 
-## 技术分享
-
-1. three.js使用卷积法实现物体描边效果：https://www.cnblogs.com/tengge/p/11924006.html
-2. three.js使用gpu选取物体并计算交点位置：https://www.cnblogs.com/tengge/p/11924663.html
-
 ## v0.3.8即将更新
 
 1. 新增快捷键`Ctrl+Z`撤销、`Ctrl+Y`重做、`Ctrl+C`复制、`Delete`删除。
@@ -51,6 +46,11 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 18. 优化角色管理和用户管理列表显示和搜索功能。
 19. 不具有资源列表权限，将不显示对应的资源面板。
 20. 修复一个严重bug：非管理员角色登录，所有接口都是无权限。
+
+## 技术分享
+
+1. three.js使用卷积法实现物体描边效果：https://www.cnblogs.com/tengge/p/11924006.html
+2. three.js使用gpu选取物体并计算交点位置：https://www.cnblogs.com/tengge/p/11924663.html
 
 ## 项目截图
 
