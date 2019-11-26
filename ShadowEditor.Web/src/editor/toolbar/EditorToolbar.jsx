@@ -17,7 +17,7 @@ class EditorToolbar extends React.Component {
             general: _t('General Tools'),
             draw: _t('Draw Tools'),
             edit: _t('Edit Tools'),
-            terrain: _t('Terrain Tools'),
+            // terrain: _t('Terrain Tools'),
             mark: _t('Mark Tools'),
             measure: _t('Measure Tools')
         };
