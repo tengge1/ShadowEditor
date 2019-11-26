@@ -90,6 +90,13 @@
       "unicode_decimal": 59150
     },
     {
+      "icon_id": "503348",
+      "name": "距离",
+      "font_class": "distance",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
       "icon_id": "553250",
       "name": "缩放",
       "font_class": "scale",
@@ -475,6 +482,13 @@
       "unicode_decimal": 58901
     },
     {
+      "icon_id": "4507551",
+      "name": "距离",
+      "font_class": "angle",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
       "icon_id": "4525164",
       "name": "平移",
       "font_class": "translate",
@@ -580,6 +594,13 @@
       "unicode_decimal": 59381
     },
     {
+      "icon_id": "5773634",
+      "name": "B090-面积",
+      "font_class": "area",
+      "unicode": "e80c",
+      "unicode_decimal": 59404
+    },
+    {
       "icon_id": "5831392",
       "name": "排序",
       "font_class": "sort",
@@ -641,6 +662,13 @@
       "font_class": "rect",
       "unicode": "e619",
       "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "7807752",
+      "name": "图半径分析",
+      "font_class": "radius",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
     },
     {
       "icon_id": "11172218",
