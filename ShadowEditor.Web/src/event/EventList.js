@@ -36,6 +36,14 @@ var EventList = [
     'changeView', // 改变视图（perspective, front, side, top）
     'viewChanged', // 视图已经改变
 
+    // 编辑工具栏
+    'undo',
+    'redo',
+    'clearHistory',
+    'copy',
+    'clone',
+    'delete',
+
     // editor事件
     'sceneSaved', // 场景保存成功
     'select', // 选中事件

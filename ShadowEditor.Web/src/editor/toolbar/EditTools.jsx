@@ -8,155 +8,90 @@ class EditTools extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            mode: 'translate',
-            view: 'perspective',
-            isGridMode: false
-        };
-
-        this.handleEnterSelectMode = this.handleEnterSelectMode.bind(this);
-        this.handleEnterTranslateMode = this.handleEnterTranslateMode.bind(this);
-        this.handleEnterRotateMode = this.handleEnterRotateMode.bind(this);
-        this.handleEnterScaleMode = this.handleEnterScaleMode.bind(this);
-
-        this.handlePerspective = this.handlePerspective.bind(this);
-        this.handleFrontView = this.handleFrontView.bind(this);
-        this.handleSideView = this.handleSideView.bind(this);
-        this.handleTopView = this.handleTopView.bind(this);
-
-        this.handleGridMode = this.handleGridMode.bind(this);
+        this.handleUndo = this.handleUndo.bind(this);
+        this.handleRedo = this.handleRedo.bind(this);
+        this.handleClearHistory = this.handleClearHistory.bind(this);
+        this.onHistoryChanged = this.onHistoryChanged.bind(this);
+        this.onObjectSelected = this.onObjectSelected.bind(this);
     }
 
     render() {
-        const { mode, view, isGridMode } = this.state;
+        const editor = app.editor;
+        const history = editor.history;
+
+        const enableUndo = history.undos.length > 0;
+        const enableRedo = history.redos.length > 0;
+        const enableClearHistory = history.undos.length > 0 || history.redos.length > 0;
+        const enableClone = editor.selected && editor.selected.parent !== null;
+        const enableDelete = editor.selected && editor.selected.parent !== null;
 
         return <>
             <IconButton
-                icon={'select'}
-                title={_t('Select')}
-                selected={mode === 'select'}
-                onClick={this.handleEnterSelectMode}
+                icon={'undo'}
+                title={_t('Undo')}
+                disabled={!enableUndo}
+                onClick={this.handleUndo}
             />
             <IconButton
-                icon={'translate'}
-                title={_t('Translate')}
-                selected={mode === 'translate'}
-                onClick={this.handleEnterTranslateMode}
+                icon={'redo'}
+                title={_t('Redo')}
+                disabled={!enableRedo}
+                onClick={this.handleRedo}
             />
             <IconButton
-                icon={'rotate'}
-                title={_t('Rotate')}
-                selected={mode === 'rotate'}
-                onClick={this.handleEnterRotateMode}
-            />
-            <IconButton
-                icon={'scale'}
-                title={_t('Scale')}
-                selected={mode === 'scale'}
-                onClick={this.handleEnterScaleMode}
-            />
-            <ToolbarSeparator />
-            <ImageButton
-                src={'assets/image/perspective-view.png'}
-                title={_t('Perspective View')}
-                selected={view === 'perspective'}
-                onClick={this.handlePerspective}
-            />
-            <ImageButton
-                src={'assets/image/front-view.png'}
-                title={_t('Front View')}
-                selected={view === 'front'}
-                onClick={this.handleFrontView}
-            />
-            <ImageButton
-                src={'assets/image/side-view.png'}
-                title={_t('Side View')}
-                selected={view === 'side'}
-                onClick={this.handleSideView}
-            />
-            <ImageButton
-                src={'assets/image/top-view.png'}
-                title={_t('Top View')}
-                selected={view === 'top'}
-                onClick={this.handleTopView}
+                icon={'history'}
+                title={_t('Clear History')}
+                disabled={!enableClearHistory}
+                onClick={this.handleClearHistory}
             />
             <ToolbarSeparator />
             <IconButton
-                icon={'grid'}
-                title={_t('Grid Mode')}
-                selected={isGridMode}
-                onClick={this.handleGridMode}
+                icon={'duplicate'}
+                title={_t('Clone')}
+                disabled={!enableClone}
+                onClick={this.handleCopy}
+            />
+            <IconButton
+                icon={'delete'}
+                title={_t('Delete')}
+                disabled={!enableDelete}
+                onClick={this.handleDelete}
             />
             <ToolbarSeparator />
         </>;
     }
 
-    // --------------------------------- 选择模式 -------------------------------------
-
-    handleEnterSelectMode() {
-        this.setState({ mode: 'select' });
-        app.call('changeMode', this, 'select');
+    componentDidMount() {
+        app.on(`historyChanged.EditMenu`, this.onHistoryChanged);
+        app.on(`objectSelected.EditMenu`, this.onObjectSelected);
     }
 
-    handleEnterTranslateMode() {
-        this.setState({ mode: 'translate' });
-        app.call('changeMode', this, 'translate');
+    handleUndo() {
+        app.call(`undo`, this);
     }
 
-    handleEnterRotateMode() {
-        this.setState({ mode: 'rotate' });
-        app.call('changeMode', this, 'rotate');
+    handleRedo() {
+        app.call(`redo`, this);
     }
 
-    handleEnterScaleMode() {
-        this.setState({ mode: 'scale' });
-        app.call('changeMode', this, 'scale');
+    handleClearHistory() {
+        app.call(`clearHistory`, this);
     }
 
-    // ------------------------------ 视角工具 ------------------------------------------
-
-    handlePerspective() {
-        app.call(`changeView`, this, 'perspective');
-        this.setState({
-            view: 'perspective'
-        });
+    handleCopy() {
+        app.call(`clone`, this);
     }
 
-    handleFrontView() {
-        app.call(`changeView`, this, 'front');
-        this.setState({
-            view: 'front'
-        });
+    handleDelete() {
+        app.call(`delete`, this);
     }
 
-    handleSideView() {
-        app.call(`changeView`, this, 'side');
-        this.setState({
-            view: 'side'
-        });
+    onHistoryChanged() {
+        this.forceUpdate();
     }
 
-    handleTopView() {
-        app.call(`changeView`, this, 'top');
-        this.setState({
-            view: 'top'
-        });
-    }
-
-    // ----------------------------- 网格模式 ------------------------------------------
-
-    handleGridMode() {
-        const isGridMode = !this.state.isGridMode;
-
-        if (isGridMode) {
-            app.editor.scene.overrideMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
-        } else {
-            app.editor.scene.overrideMaterial = null;
-        }
-
-        this.setState({
-            isGridMode
-        });
+    onObjectSelected() {
+        this.forceUpdate();
     }
 }
 

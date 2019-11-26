@@ -59,6 +59,12 @@ class EditMenu extends React.Component {
     }
 
     componentDidMount() {
+        app.on(`undo.EditMenu`, this.handleUndo);
+        app.on(`redo.EditMenu`, this.handleRedo);
+        app.on(`clearHistory.EditMenu`, this.handleClearHistory);
+        app.on(`clone.EditMenu`, this.handleClone);
+        app.on(`delete.EditMenu`, this.handleDelete);
+
         app.on(`historyChanged.EditMenu`, this.onHistoryChanged);
         app.on(`objectSelected.EditMenu`, this.onObjectSelected);
         app.on(`keydown.EditMenu`, this.onKeyDown);

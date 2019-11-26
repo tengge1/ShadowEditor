@@ -29,6 +29,20 @@
     border: 2px solid #3399ff;
 }
 
+.IconButton.disabled {
+    color: #888;
+    background: #eee;
+    border: 1px solid #ccc;
+    cursor: default;
+}
+
+.IconButton.disabled:hover {
+    color: #888;
+    background: #eee;
+    border: 1px solid #ccc;
+    cursor: default;
+}
+
 .IconButton.hidden {
     display: none;
 }
