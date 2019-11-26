@@ -28,13 +28,13 @@ class EditTools extends React.Component {
         return <>
             <IconButton
                 icon={'undo'}
-                title={_t('Undo')}
+                title={`${_t('Undo')}(Ctrl+Z)`}
                 disabled={!enableUndo}
                 onClick={this.handleUndo}
             />
             <IconButton
                 icon={'redo'}
-                title={_t('Redo')}
+                title={`${_t('Redo')}(Ctrl+Y)`}
                 disabled={!enableRedo}
                 onClick={this.handleRedo}
             />
@@ -47,13 +47,13 @@ class EditTools extends React.Component {
             <ToolbarSeparator />
             <IconButton
                 icon={'duplicate'}
-                title={_t('Clone')}
+                title={`${_t('Clone')}(Ctrl+C)`}
                 disabled={!enableClone}
                 onClick={this.handleCopy}
             />
             <IconButton
                 icon={'delete'}
-                title={_t('Delete')}
+                title={`${_t('Delete')}(Delete)`}
                 disabled={!enableDelete}
                 onClick={this.handleDelete}
             />
