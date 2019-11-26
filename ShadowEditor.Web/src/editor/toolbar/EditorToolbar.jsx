@@ -1,8 +1,8 @@
 import './css/EditorToolbar.css';
 import { Toolbar, ToolbarSeparator, Select } from '../../third_party';
-import GeneralTools from './tools/GeneralTools.jsx';
-import DrawTools from './tools/DrawTools.jsx';
-import MarkTools from './tools/MarkTools.jsx';
+import GeneralTools from './GeneralTools.jsx';
+import DrawTools from './DrawTools.jsx';
+import MarkTools from './MarkTools.jsx';
 
 /**
  * 编辑器工具栏
@@ -33,7 +33,7 @@ class EditorToolbar extends React.Component {
 
         return <Toolbar className={'EditorToolbar'}
             direction={'horizontal'}
-               >
+        >
             <Select options={this.toolbars}
                 name={'toolbar'}
                 value={toolbar}

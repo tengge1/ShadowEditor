@@ -1,21 +1,17 @@
-import { ToolbarSeparator, IconButton, ImageButton } from '../../../third_party';
-import Converter from '../../../utils/Converter';
-import TimeUtils from '../../../utils/TimeUtils';
-import VideoRecorder from '../../../utils/VideoRecorder';
+import { ToolbarSeparator, IconButton, ImageButton } from '../../third_party';
 
 /**
- * 通用工具
+ * 地形工具
  * @author tengge / https://github.com/tengge1
  */
-class GeneralTools extends React.Component {
+class TerrainTools extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             mode: 'translate',
             view: 'perspective',
-            isGridMode: false,
-            isRecording: false
+            isGridMode: false
         };
 
         this.handleEnterSelectMode = this.handleEnterSelectMode.bind(this);
@@ -29,15 +25,10 @@ class GeneralTools extends React.Component {
         this.handleTopView = this.handleTopView.bind(this);
 
         this.handleGridMode = this.handleGridMode.bind(this);
-
-        this.handleScreenshot = this.handleScreenshot.bind(this);
-        this.commitScreenshot = this.commitScreenshot.bind(this);
-        this.handleRecord = this.handleRecord.bind(this);
     }
 
     render() {
-        const { mode, view, isGridMode, isRecording } = this.state;
-        const { enableAuthority, authorities } = app.server;
+        const { mode, view, isGridMode } = this.state;
 
         return <>
             <IconButton
@@ -95,20 +86,6 @@ class GeneralTools extends React.Component {
                 title={_t('Grid Mode')}
                 selected={isGridMode}
                 onClick={this.handleGridMode}
-            />
-            <ToolbarSeparator />
-            <IconButton
-                icon={'camera'}
-                title={_t('Screenshot')}
-                show={!enableAuthority || authorities.includes('ADD_SCREENSHOT')}
-                onClick={this.handleScreenshot}
-            />
-            {/* TODO: 开始录制和停止录制，应该使用明显不同的图标 */}
-            <IconButton
-                icon={'recorder'}
-                title={isRecording ? _t('Stop') : _t('Record')}
-                show={!enableAuthority || authorities.includes('ADD_VIDEO')}
-                onClick={this.handleRecord}
             />
             <ToolbarSeparator />
         </>;
@@ -181,72 +158,6 @@ class GeneralTools extends React.Component {
             isGridMode
         });
     }
-
-    // ---------------------------- 截图 ----------------------------------------------
-
-    handleScreenshot() {
-        app.on(`afterRender.Screenshot`, this.commitScreenshot);
-    }
-
-    commitScreenshot() {
-        app.on(`afterRender.Screenshot`, null);
-
-        const canvas = app.editor.renderer.domElement;
-        const dataUrl = Converter.canvasToDataURL(canvas);
-        const file = Converter.dataURLtoFile(dataUrl, TimeUtils.getDateTime());
-
-        let form = new FormData();
-        form.append('file', file);
-
-        fetch(`/api/Screenshot/Add`, {
-            method: 'POST',
-            body: form
-        }).then(response => {
-            response.json().then(obj => {
-                if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
-                    return;
-                }
-                app.toast(_t(obj.Msg));
-            });
-        });
-    }
-
-    // ------------------------------ 视频录制 --------------------------------------
-
-    handleRecord() {
-        if (this.state.isRecording) {
-            this.stopRecord();
-        } else {
-            this.startRecord();
-        }
-    }
-
-    startRecord() {
-        if (this.recorder === undefined) {
-            this.recorder = new VideoRecorder();
-        }
-
-        this.recorder.start().then(success => {
-            if (success) {
-                this.setState({
-                    isRecording: true
-                });
-            }
-        });
-    }
-
-    stopRecord() {
-        if (!this.recorder) {
-            return;
-        }
-
-        this.recorder.stop().then(() => {
-            this.setState({
-                isRecording: false
-            });
-        });
-    }
 }
 
-export default GeneralTools;
+export default TerrainTools;
