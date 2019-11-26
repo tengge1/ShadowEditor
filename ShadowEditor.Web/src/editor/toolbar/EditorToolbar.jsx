@@ -4,6 +4,7 @@ import GeneralTools from './GeneralTools.jsx';
 import EditTools from './EditTools.jsx';
 import DrawTools from './DrawTools.jsx';
 import MarkTools from './MarkTools.jsx';
+import MeasureTools from './MeasureTools.jsx';
 
 /**
  * 编辑器工具栏
@@ -45,6 +46,7 @@ class EditorToolbar extends React.Component {
             {toolbar === 'edit' && <EditTools />}
             {toolbar === 'draw' && <DrawTools />}
             {toolbar === 'mark' && <MarkTools />}
+            {toolbar === 'measure' && <MeasureTools />}
         </Toolbar>;
     }
 

@@ -932,5 +932,8 @@
     "Please select an file.": "请选择文件。",
     "Point Mark": "点标注",
     "Line Mark": "线标注",
-    "Polygon Mark": "面标注"
+    "Polygon Mark": "面标注",
+    "Measure Distance": "测量距离",
+    "Measure Area": "测量面积",
+    "Measure Angle": "测量角度"
 }
