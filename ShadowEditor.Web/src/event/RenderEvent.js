@@ -1,5 +1,7 @@
 import BaseEvent from './BaseEvent';
 import EffectRenderer from '../render/EffectRenderer';
+import TextRenderer from '../render/TextRenderer';
+import UIRenderer from '../render/UIRenderer';
 
 /**
  * 渲染事件
