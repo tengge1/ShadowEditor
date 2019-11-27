@@ -313,7 +313,7 @@ class Editor extends React.Component {
 
     addObject(object) { // 添加物体
         if (object instanceof PointText) {
-            this.call(`addText`, this, object);
+            app.call(`addText`, this, object);
             return;
         }
 
@@ -345,7 +345,7 @@ class Editor extends React.Component {
         }
 
         if (object instanceof PointText) {
-            this.call(`removeText`, this, object);
+            app.call(`removeText`, this, object);
         }
 
         object.parent.remove(object);

@@ -6,6 +6,7 @@ import { i18next, Backend } from '../third_party';
  */
 class LanguageLoader {
     constructor() {
+        window.i18next = i18next;
         window._t = i18next.t.bind(i18next);
     }
 
@@ -40,8 +41,11 @@ class LanguageLoader {
                     keySeparator: false,
 
                     // do not load a fallback
-                    fallbackLng: false,
-                }, (err, t) => {
+                    fallbackLng: false
+                }, (err) => {
+                    if (err) {
+                        console.warn(err);
+                    }
                     resolve();
                 });
         });

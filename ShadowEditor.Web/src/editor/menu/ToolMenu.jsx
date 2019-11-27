@@ -1,7 +1,8 @@
-import { MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator, i18next } from '../../third_party';
 import TextureGeneratorWindow from './window/TextureGeneratorWindow.jsx';
 // import CleanUpScenesWindow from './window/CleanUpScenesWindow.jsx';
 import PluginsWindow from './window/PluginsWindow.jsx';
+import PointText from '../../object/geometry/PointText';
 
 /**
  * 工具菜单
@@ -17,6 +18,7 @@ class ToolMenu extends React.Component {
         this.handlePlugins = this.handlePlugins.bind(this);
         this.handleExportEditor = this.handleExportEditor.bind(this);
         this.handleExportExamples = this.handleExportExamples.bind(this);
+        this.handlePointTextTest = this.handlePointTextTest.bind(this);
     }
 
     render() {
@@ -37,6 +39,10 @@ class ToolMenu extends React.Component {
             />
             <MenuItem title={_t('Export Examples')}
                 onClick={this.handleExportExamples}
+            />
+            <MenuItemSeparator />
+            <MenuItem title={_t('PointText Test')}
+                onClick={this.handlePointTextTest}
             />
         </MenuItem>;
     }
@@ -121,6 +127,22 @@ class ToolMenu extends React.Component {
                 });
             }
         });
+    }
+
+    handlePointTextTest() {
+        let language = i18next.language;
+        let texts = Object.values(i18next.store.data[language].translation);
+        let index = parseInt(texts.length * Math.random());
+
+        let text = new PointText(texts[index]);
+
+        text.position.set(
+            1000 * Math.random(),
+            1000 * Math.random(),
+            1000 * Math.random()
+        );
+
+        app.editor.addObject(text);
     }
 }
 
