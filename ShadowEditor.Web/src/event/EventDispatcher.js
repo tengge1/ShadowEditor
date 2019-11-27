@@ -20,6 +20,9 @@ import PhysicsEvent from './PhysicsEvent';
 // 可视化
 import DraggableEvent from './visual/DraggableEvent';
 
+// 对象
+import TextEvent from './object/TextEvent';
+
 /**
  * 事件执行器
  * @author tengge / https://github.com/tengge1
@@ -47,7 +50,10 @@ function EventDispatcher() {
         new PhysicsEvent(),
 
         // 可视化
-        new DraggableEvent()
+        new DraggableEvent(),
+
+        // 对象
+        new TextEvent()
     ];
 }
 

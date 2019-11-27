@@ -4,10 +4,9 @@ import CssUtils from '../utils/CssUtils';
 /**
  * 滤镜事件
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function FilterEvent(app) {
-    BaseEvent.call(this, app);
+function FilterEvent() {
+    BaseEvent.call(this);
 }
 
 FilterEvent.prototype = Object.create(BaseEvent.prototype);

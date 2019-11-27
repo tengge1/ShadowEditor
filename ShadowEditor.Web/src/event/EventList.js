@@ -70,6 +70,9 @@ var EventList = [
     'objectChanged', // 物体改变事件
     'objectRemoved', // 物体移除事件
 
+    'addText', // 添加文字
+    'removeText', // 移除文字
+
     'scriptAdded', // 添加脚本事件
     'scriptChanged', // 脚本改变事件
     'scriptRemoved', // 脚本移除事件
