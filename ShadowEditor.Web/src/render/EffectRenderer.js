@@ -117,8 +117,9 @@ EffectRenderer.prototype._createPostProcessing = function (scenes, camera, rende
     // 判断是否需要启用特效渲染器
     var keys = Object.keys(postProcessing);
     var useEffect = false;
+    var i;
 
-    for (var i = 0; i < keys.length; i++) {
+    for (i = 0; i < keys.length; i++) {
         var key = keys[i];
 
         if (this.effectNames.indexOf(key) > -1 && postProcessing[key].enabled) { // 需要特效
@@ -243,16 +244,16 @@ EffectRenderer.prototype._createPostProcessing = function (scenes, camera, rende
         effect = new THREE.HalftonePass(
             renderer.domElement.width,
             renderer.domElement.height, {
-                shape: postProcessing.halftone.shape,
-                radius: postProcessing.halftone.radius,
-                rotateR: postProcessing.halftone.rotateR * (Math.PI / 180),
-                rotateB: postProcessing.halftone.rotateB * (Math.PI / 180),
-                rotateG: postProcessing.halftone.rotateG * (Math.PI / 180),
-                scatter: postProcessing.halftone.scatter,
-                blending: postProcessing.halftone.blending,
-                blendingMode: postProcessing.halftone.blendingMode,
-                greyscale: postProcessing.halftone.greyscale
-            });
+            shape: postProcessing.halftone.shape,
+            radius: postProcessing.halftone.radius,
+            rotateR: postProcessing.halftone.rotateR * (Math.PI / 180),
+            rotateB: postProcessing.halftone.rotateB * (Math.PI / 180),
+            rotateG: postProcessing.halftone.rotateG * (Math.PI / 180),
+            scatter: postProcessing.halftone.scatter,
+            blending: postProcessing.halftone.blending,
+            blendingMode: postProcessing.halftone.blendingMode,
+            greyscale: postProcessing.halftone.greyscale
+        });
         composer.addPass(effect);
         effects.push(effect);
     }
@@ -278,7 +279,7 @@ EffectRenderer.prototype._createPostProcessing = function (scenes, camera, rende
         effects.push(effect);
     }
 
-    for (var i = 0; i < effects.length; i++) {
+    for (i = 0; i < effects.length; i++) {
         if (i === effects.length - 1) {
             effects[i].renderToScreen = true;
         } else {

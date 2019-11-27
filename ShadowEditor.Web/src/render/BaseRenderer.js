@@ -8,6 +8,7 @@ function BaseRenderer() {
     this.id = `${this.constructor.name}${ID--}`;
 }
 
+// eslint-disable-next-line
 BaseRenderer.prototype.create = function (scenes, camera, renderer, selected) {
     return new Promise(resolve => {
         resolve();
