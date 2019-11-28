@@ -1,23 +1,22 @@
 /**
  * 点文字
  */
-class PointText extends THREE.Mesh {
+class PointText extends THREE.Sprite {
     constructor(text = L_TEXT) {
         const canvas = document.createElement('canvas');
 
-        const geometry = new THREE.PlaneGeometry();
-        const material = new THREE.MeshBasicMaterial({
+        const material = new THREE.SpriteMaterial({
             map: new THREE.CanvasTexture(canvas)
         });
 
-        super(geometry, material);
+        super(material);
 
         this.userData.type = 'text';
         this.setText(text);
     }
 
     setText(text) {
-        const fontSize = 20;
+        const fontSize = 12;
         const padding = 2;
 
         this.name = text;
@@ -37,6 +36,8 @@ class PointText extends THREE.Mesh {
         context = canvas.getContext('2d');
 
         context.font = `${fontSize}px "Microsoft YaHei"`;
+        context.textBaseline = 'hanging';
+        context.imageSmoothingQuality = 'high';
 
         context.stroke = '#fff';
         context.strokeText(text, padding, padding);
