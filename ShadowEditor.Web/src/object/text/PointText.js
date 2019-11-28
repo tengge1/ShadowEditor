@@ -9,13 +9,18 @@ class PointText extends THREE.Mesh {
         const canvas = document.createElement('canvas');
 
         let geometry = new THREE.PlaneBufferGeometry();
-
-        const material = new THREE.ShaderMaterial({
+        let material = new THREE.ShaderMaterial({
             vertexShader: PointTextVertexShader,
             fragmentShader: PointTextFragmentShader,
             uniforms: {
                 tDiffuse: {
                     value: new THREE.CanvasTexture(canvas)
+                },
+                width: {
+                    value: 100.0
+                },
+                height: {
+                    value: 80.0
                 }
             },
             transparent: true
@@ -44,6 +49,9 @@ class PointText extends THREE.Mesh {
         const width = context.measureText(text).width;
         canvas.width = width + padding * 2;
         canvas.height = fontSize + padding * 2;
+
+        this.material.uniforms.width.value = canvas.width;
+        this.material.uniforms.height.value = canvas.height;
 
         // 设置样式并绘制文字
         context = canvas.getContext('2d');
