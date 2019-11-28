@@ -2,7 +2,7 @@ import { MenuItem, MenuItemSeparator, i18next } from '../../third_party';
 import TextureGeneratorWindow from './window/TextureGeneratorWindow.jsx';
 // import CleanUpScenesWindow from './window/CleanUpScenesWindow.jsx';
 import PluginsWindow from './window/PluginsWindow.jsx';
-import PointText from '../../object/geometry/PointText';
+import PointText from '../../object/text/PointText';
 
 /**
  * 工具菜单

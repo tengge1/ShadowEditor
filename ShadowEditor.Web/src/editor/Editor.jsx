@@ -15,8 +15,6 @@ import Helpers from '../helper/Helpers';
 import Visualization from '../visual/Visualization';
 import EditorControls from '../controls/EditorControls';
 
-import PointText from '../object/geometry/PointText';
-
 /**
  * 编辑器
  * @author tengge / https://github.com/tengge1
@@ -312,11 +310,6 @@ class Editor extends React.Component {
     }
 
     addObject(object) { // 添加物体
-        if (object instanceof PointText) {
-            app.call(`addText`, this, object);
-            return;
-        }
-
         this.scene.add(object);
         app.call('objectAdded', this, object);
         app.call('sceneGraphChanged', this);
@@ -342,10 +335,6 @@ class Editor extends React.Component {
     removeObject(object) { // 移除物体
         if (object.parent === null) { // 避免删除相机或场景
             return;
-        }
-
-        if (object instanceof PointText) {
-            app.call(`removeText`, this, object);
         }
 
         object.parent.remove(object);
