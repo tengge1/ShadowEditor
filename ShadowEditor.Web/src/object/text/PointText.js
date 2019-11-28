@@ -17,10 +17,13 @@ class PointText extends THREE.Mesh {
                     value: new THREE.CanvasTexture(canvas)
                 },
                 width: {
-                    value: 100.0
+                    value: 1.0 // 设备宽度
                 },
                 height: {
-                    value: 80.0
+                    value: 1.0 // 设备高度
+                },
+                location: {
+                    value: null
                 }
             },
             transparent: true
@@ -28,12 +31,16 @@ class PointText extends THREE.Mesh {
 
         super(geometry, material);
 
+        this.material.uniforms.location.value = this.position;
+
+        this.frusCulled = false;
+
         this.userData.type = 'text';
         this.setText(text);
     }
 
     setText(text) {
-        const fontSize = 12;
+        const fontSize = 32;
         const padding = 2;
 
         this.name = text;
@@ -50,19 +57,23 @@ class PointText extends THREE.Mesh {
         canvas.width = width + padding * 2;
         canvas.height = fontSize + padding * 2;
 
-        this.material.uniforms.width.value = canvas.width;
-        this.material.uniforms.height.value = canvas.height;
+        const domWidth = app.editor.renderer.domElement.width;
+        const domHeight = app.editor.renderer.domElement.height;
+
+        this.material.uniforms.width.value = canvas.width / domWidth;
+        this.material.uniforms.height.value = canvas.height / domHeight;
 
         // 设置样式并绘制文字
         context = canvas.getContext('2d');
 
-        context.font = `${fontSize}px "Microsoft YaHei"`;
         context.textBaseline = 'hanging';
         context.imageSmoothingQuality = 'high';
 
-        context.stroke = '#fff';
-        context.strokeText(text, padding, padding);
+        context.font = `bold ${fontSize}px "Microsoft YaHei"`;
+        context.fill = '#fff';
+        context.fillText(text, padding, padding);
 
+        context.font = `normal ${fontSize}px "Microsoft YaHei"`;
         context.fill = '#555';
         context.fillText(text, padding, padding);
 
