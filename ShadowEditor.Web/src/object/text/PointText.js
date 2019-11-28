@@ -1,15 +1,27 @@
+import PointTextVertexShader from './shader/point_text_vertex.glsl';
+import PointTextFragmentShader from './shader/point_text_fragment.glsl';
+
 /**
  * 点文字
  */
-class PointText extends THREE.Sprite {
+class PointText extends THREE.Mesh {
     constructor(text = L_TEXT) {
         const canvas = document.createElement('canvas');
 
-        const material = new THREE.SpriteMaterial({
-            map: new THREE.CanvasTexture(canvas)
+        let geometry = new THREE.PlaneBufferGeometry();
+
+        const material = new THREE.ShaderMaterial({
+            vertexShader: PointTextVertexShader,
+            fragmentShader: PointTextFragmentShader,
+            uniforms: {
+                tDiffuse: {
+                    value: new THREE.CanvasTexture(canvas)
+                }
+            },
+            transparent: true
         });
 
-        super(material);
+        super(geometry, material);
 
         this.userData.type = 'text';
         this.setText(text);
@@ -23,7 +35,8 @@ class PointText extends THREE.Sprite {
         this.userData.text = text;
 
         // 设置样式并计算文字宽度和高度
-        let canvas = this.material.map.image;
+        let map = this.material.uniforms.tDiffuse.value;
+        let canvas = map.image;
         let context = canvas.getContext('2d');
 
         context.font = `${fontSize}px "Microsoft YaHei"`;
@@ -46,7 +59,7 @@ class PointText extends THREE.Sprite {
         context.fillText(text, padding, padding);
 
         // 更新贴图
-        this.material.map.needsUpdate = true;
+        map.needsUpdate = true;
     }
 }
 
