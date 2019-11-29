@@ -1,6 +1,6 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty } from '../../third_party';
+import { PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty } from '../../third_party';
 import SetValueCommand from '../../command/SetValueCommand';
-import Text from '../../object/geometry/Text';
+import UnscaledText from '../../object/text/UnscaledText';
 
 /**
  * 基本信息组件
@@ -15,7 +15,7 @@ class BasicComponent extends React.Component {
             expanded: true,
             name: '',
             type: '',
-            visible: true,
+            visible: true
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -31,10 +31,25 @@ class BasicComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Basic Info')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <TextProperty label={_t('Name')} name={'name'} value={name} onChange={this.handleChangeName}></TextProperty>
-            <DisplayProperty label={_t('Type')} name={'type'} value={type}></DisplayProperty>
-            <CheckBoxProperty label={_t('Visible')} name={'visible'} value={visible} onChange={this.handleChangeVisible}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Basic Info')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <TextProperty label={_t('Name')}
+                name={'name'}
+                value={name}
+                onChange={this.handleChangeName}
+            />
+            <DisplayProperty label={_t('Type')}
+                name={'type'}
+                value={type}
+            />
+            <CheckBoxProperty label={_t('Visible')}
+                name={'visible'}
+                value={visible}
+                onChange={this.handleChangeVisible}
+            />
         </PropertyGroup>;
     }
 
@@ -45,7 +60,7 @@ class BasicComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -54,7 +69,7 @@ class BasicComponent extends React.Component {
 
         if (!editor.selected) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -65,20 +80,20 @@ class BasicComponent extends React.Component {
             show: true,
             name: this.selected.name,
             type: this.selected.constructor.name,
-            visible: this.selected.visible,
+            visible: this.selected.visible
         });
     }
 
     handleChangeName(value) {
         this.setState({
-            name: value,
+            name: value
         });
 
         app.editor.execute(new SetValueCommand(this.selected, 'name', value));
 
         // bug: https://gitee.com/tengge1/ShadowEditor/issues/IV1V3
-        if (this.selected instanceof Text) {
-            this.selected.updateText(value);
+        if (this.selected instanceof UnscaledText) {
+            this.selected.setText(value);
         }
 
         app.call(`objectChanged`, this, this.selected);
@@ -86,7 +101,7 @@ class BasicComponent extends React.Component {
 
     handleChangeVisible(value) {
         this.setState({
-            visible: value,
+            visible: value
         });
 
         this.selected.visible = value;

@@ -2,7 +2,7 @@ import { MenuItem, MenuItemSeparator, i18next } from '../../third_party';
 import TextureGeneratorWindow from './window/TextureGeneratorWindow.jsx';
 // import CleanUpScenesWindow from './window/CleanUpScenesWindow.jsx';
 import PluginsWindow from './window/PluginsWindow.jsx';
-import PointText from '../../object/text/PointText';
+import UnscaledText from '../../object/text/UnscaledText';
 
 /**
  * 工具菜单
@@ -134,7 +134,7 @@ class ToolMenu extends React.Component {
         let texts = Object.values(i18next.store.data[language].translation);
         let index = parseInt(texts.length * Math.random());
 
-        let text = new PointText(texts[index]);
+        let text = new UnscaledText(texts[index]);
 
         text.position.set(
             10 * Math.random(),

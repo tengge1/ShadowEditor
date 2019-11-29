@@ -3,9 +3,9 @@ import PointTextFragmentShader from './shader/point_text_fragment.glsl';
 import CanvasUtils from '../../utils/CanvasUtils';
 
 /**
- * 点文字
+ * 不缩放文字
  */
-class PointText extends THREE.Mesh {
+class UnscaledText extends THREE.Mesh {
     constructor(text = L_TEXT) {
         const canvas = document.createElement('canvas');
 
@@ -80,4 +80,4 @@ class PointText extends THREE.Mesh {
     }
 }
 
-export default PointText;
+export default UnscaledText;

@@ -13,7 +13,7 @@ import TorusKnot from '../../object/geometry/TorusKnot';
 import Teapot from '../../object/geometry/Teapot';
 import Lathe from '../../object/geometry/Lathe';
 import Sprite from '../../object/geometry/Sprite';
-import Text from '../../object/geometry/Text';
+import UnscaledText from '../../object/text/UnscaledText';
 
 import LineCurve from '../../object/line/LineCurve';
 import CatmullRomCurve from '../../object/line/CatmullRomCurve';
@@ -189,7 +189,7 @@ class GeometryMenu extends React.Component {
             title: _t('Please input'),
             value: _t('Sone Words'),
             onOK: (value) => {
-                app.editor.execute(new AddObjectCommand(new Text(value)));
+                app.editor.execute(new AddObjectCommand(new UnscaledText(value)));
             }
         });
     }
