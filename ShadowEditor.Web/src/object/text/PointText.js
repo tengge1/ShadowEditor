@@ -21,27 +21,24 @@ class PointText extends THREE.Mesh {
                 },
                 height: {
                     value: 1.0 // 设备高度
-                },
-                location: {
-                    value: null
                 }
             },
-            transparent: true
+            transparent: false
         });
 
         super(geometry, material);
-
-        this.material.uniforms.location.value = this.position;
-
-        this.frusCulled = false;
 
         this.userData.type = 'text';
         this.setText(text);
     }
 
     setText(text) {
-        const fontSize = 32;
-        const padding = 2;
+        let fontSize = 24;
+        let padding = 2;
+
+        let ratio = 4; // 将文字和画布放大ratio倍，让文字更清晰。
+        fontSize *= ratio;
+        padding *= ratio;
 
         this.name = text;
         this.userData.text = text;
@@ -54,27 +51,29 @@ class PointText extends THREE.Mesh {
         context.font = `${fontSize}px "Microsoft YaHei"`;
 
         const width = context.measureText(text).width;
+
         canvas.width = width + padding * 2;
         canvas.height = fontSize + padding * 2;
 
         const domWidth = app.editor.renderer.domElement.width;
         const domHeight = app.editor.renderer.domElement.height;
 
-        this.material.uniforms.width.value = canvas.width / domWidth;
-        this.material.uniforms.height.value = canvas.height / domHeight;
+        this.material.uniforms.width.value = canvas.width / domWidth / ratio;
+        this.material.uniforms.height.value = canvas.height / domHeight / ratio;
 
         // 设置样式并绘制文字
         context = canvas.getContext('2d');
 
         context.textBaseline = 'hanging';
-        context.imageSmoothingQuality = 'high';
+        context.lineWidth = 3;
+        context.imageSmoothingQuality = 'medium';
 
         context.font = `bold ${fontSize}px "Microsoft YaHei"`;
-        context.fill = '#fff';
-        context.fillText(text, padding, padding);
+        context.strokeStyle = '#333';
+        context.strokeText(text, padding, padding);
 
-        context.font = `normal ${fontSize}px "Microsoft YaHei"`;
-        context.fill = '#555';
+        context.font = `bold ${fontSize}px "Microsoft YaHei"`;
+        context.fillStyle = '#fff';
         context.fillText(text, padding, padding);
 
         // 更新贴图

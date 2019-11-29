@@ -1,16 +1,15 @@
 uniform float width;
 uniform float height;
-uniform vec3 location;
 
 varying vec2 vUv;
  
 void main() {
     vUv = uv;
-    vec4 _loc = projectionMatrix * viewMatrix * vec4(location, 1.0);
+    vec4 proj = projectionMatrix * modelViewMatrix * vec4(0.0, 0.0, 0.0, 1.0);
     gl_Position = vec4(
-        _loc.x + position.x * width,
-        _loc.y + position.y * height,
-        _loc.z,
-        _loc.w
+        proj.x / proj.w  + position.x * width,
+        proj.y / proj.w + position.y * height,
+        proj.z / proj.w,
+        1.0
     );
 }
