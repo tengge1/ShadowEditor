@@ -42,6 +42,11 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
         return;
     }
 
+    // 不允许选中文字
+    if (obj.userData && obj.userData.type === 'text') {
+        return;
+    }
+
     if (!this.size) {
         this.size = new THREE.Vector2();
     }

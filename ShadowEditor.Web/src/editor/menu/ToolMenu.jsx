@@ -137,9 +137,9 @@ class ToolMenu extends React.Component {
         let text = new PointText(texts[index]);
 
         text.position.set(
-            50 * Math.random(),
-            50 * Math.random(),
-            50 * Math.random()
+            10 * Math.random(),
+            10 * Math.random(),
+            10 * Math.random()
         );
 
         app.editor.addObject(text);

@@ -40,7 +40,19 @@ HoverHelper.prototype.stop = function () {
 };
 
 HoverHelper.prototype.onGpuPick = function (obj) {
-    this.object = obj.object;
+    let object = obj.object;
+
+    if (!object) {
+        this.object = null;
+        return;
+    }
+
+    // 不允许对文字产生hover效果
+    if (object.userData && object.userData.type === 'text') {
+        return;
+    }
+
+    this.object = object;
 };
 
 HoverHelper.prototype.onObjectRemoved = function (object) {
