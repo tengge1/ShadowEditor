@@ -34,7 +34,7 @@ class UnscaledText extends THREE.Mesh {
     }
 
     setText(text) {
-        let fontSize = 32;
+        let fontSize = 16;
         let padding = 4;
 
         this.name = text;
@@ -45,7 +45,7 @@ class UnscaledText extends THREE.Mesh {
         let canvas = map.image;
         let context = canvas.getContext('2d');
 
-        context.font = `bold ${fontSize}px "Microsoft YaHei"`;
+        context.font = `${fontSize}px "Microsoft YaHei"`;
 
         const width = context.measureText(text).width;
         const width2 = CanvasUtils.makePowerOfTwo(width + padding * 2);
@@ -67,11 +67,11 @@ class UnscaledText extends THREE.Mesh {
         context.textAlign = 'center';
         context.lineWidth = 2;
 
-        context.font = `bold ${fontSize}px "Microsoft YaHei"`;
-        context.strokeStyle = '#000';
+        context.font = `${fontSize}px "Microsoft YaHei"`;
+        context.strokeStyle = '#333';
         context.strokeText(text, width2 / 2, height2 / 2);
 
-        context.font = `bold ${fontSize}px "Microsoft YaHei"`;
+        context.font = `${fontSize}px "Microsoft YaHei"`;
         context.fillStyle = '#fff';
         context.fillText(text, width2 / 2, height2 / 2);
 
