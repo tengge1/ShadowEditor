@@ -9,16 +9,23 @@ class DistanceTool extends BaseTool {
         this.running = false;
 
         this.onMouseDown = this.onMouseDown.bind(this);
-        this.onMouseUp = this.onMouseUp.bind(this);
         this.onDblClick = this.onDblClick.bind(this);
 
         this.onGpuPick = this.onGpuPick.bind(this);
     }
 
     start() {
+        if (!this.init) {
+            this.init = true;
+            this.positions = [];
+            this.lines = [];
+            this.world = new THREE.Vector3();
+        }
+
+        this.positions.length = 0;
+
         app.require('line').then(() => {
             app.on(`mousedown.${this.id}`, this.onMouseDown);
-            app.on(`mouseup.${this.id}`, this.onMouseUp);
             app.on(`gpuPick.${this.id}`, this.onGpuPick);
             app.on(`dblclick.${this.id}`, this.onDblClick);
         });
@@ -26,27 +33,40 @@ class DistanceTool extends BaseTool {
 
     stop() {
         app.on(`mousedown.${this.id}`, null);
-        app.on(`mouseup.${this.id}`, null);
         app.on(`gpuPick.${this.id}`, null);
         app.on(`dblclick.${this.id}`, null);
-    }
 
-    onMouseDown(event) {
-        if (!this.running) {
-            this.running = true;
+        delete this.line;
+
+        while (this.lines.length) {
+            let line = this.lines[0];
+            app.editor.sceneHelpers.remove(line);
         }
+        this.lines.length = 0;
     }
 
-    onMouseUp(event) {
-
+    onMouseDown() {
+        if (!this.line) {
+            let geometry = new THREE.LineGeometry();
+            let material = new THREE.LineMaterial({ color: Math.random() * 0xffffff });
+            this.line = new THREE.Line2(geometry, material);
+            this.lines.push(this.line);
+            app.editor.sceneHelpers.add(this.line);
+        }
+        this.positions.push(this.world.x, this.world.y, this.world.z);
+        this.line.geometry.setPositions(this.positions);
     }
 
     onGpuPick(obj) {
-
+        if (!obj.point) {
+            return;
+        }
+        this.world.copy(obj.point);
     }
 
-    onDblClick(event) {
-
+    onDblClick() {
+        this.call(`end`, this);
+        delete this.line;
     }
 }
 
