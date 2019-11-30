@@ -47,8 +47,13 @@ class DistanceTool extends BaseTool {
 
     onMouseDown() {
         if (!this.line) {
+            let { width, height } = app.editor.renderer.domElement;
             let geometry = new THREE.LineGeometry();
-            let material = new THREE.LineMaterial({ color: Math.random() * 0xffffff });
+            let material = new THREE.LineMaterial({
+                color: 0xffff00,
+                linewidth: 4,
+                resolution: new THREE.Vector2(width, height)
+            });
             this.line = new THREE.Line2(geometry, material);
             this.lines.push(this.line);
             app.editor.sceneHelpers.add(this.line);
