@@ -3,13 +3,16 @@
 Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어 / русский / Le français
 
 * 名称：Shadow Editor
-* 版本：v0.3.8（开发中）
+* 版本：v0.3.8
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/)
-* 开发计划：小场景搭建、地形编辑、模型批量添加渲染、地表植被附属物编辑、物理引擎、数据可视化、光线追踪引擎。
+* 开发计划：小场景搭建、地形编辑、模型批量添加渲染、地表植被附属物编辑、物理引擎、数据可视化。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展，谢谢。
 
-## v0.3.8即将更新
+## v0.3.8
+
+* 发布日期：2019年12月1日
+* 更新日志：
 
 1. 新增快捷键`Ctrl+Z`撤销、`Ctrl+Y`重做、`Ctrl+C`复制、`Delete`删除。
 2. 修复模型复制多个后，保存场景后载入场景，只显示第一个的bug。
@@ -24,31 +27,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 11. 新增编辑工具栏：撤销、重做、清空历史记录、复制、删除。
 12. 几何体菜单添加文字功能，修改为不缩放的文字。
 
-## v0.3.7更新
-
-* 发布日期：2019年11月17日
-* 更新日志：
-
-1. 还原以前删除的`C#`版`THREE.js`项目。
-2. 禁用`Session`，避免第一次打开网页时`会话状态已创建一个会话 ID，但由于响应已被应用程序刷新而无法保存它。`的报错。
-3. 修复一些由于无权限报错，导致页面变空白的bug。
-4. 选中效果优化，默认选中颜色修改。
-5. 新增选择模式设置：`选择整体`、`选择部分`。
-6. 删除整理贴图、整理模型、整理缩略图功能。
-7. 点击场景中的物体，场景树状图上展开该节点和它的所有父节点，并将该节点滚动到可视范围内。
-8. 修复点击场景中的物体，场景中的物体不高亮bug。
-9. 工具栏改为横向，并进行分类：`通用工具`、`绘制工具`、`编辑工具`、`地形工具`、`标注工具`、`测量工具`。（待开发完善）
-10. 新增添加模型模式：`添加到中心`、`点击场景添加`。点击场景如果碰撞不到物体，则添加到`y=0`的平面上。
-11. 状态栏上的选中边框颜色和粗细设置移动到`显示`选项菜单中。
-12. 新增`BufferGeometry组件`，查看BufferGeometry的顶点数量、法线数量、UV坐标数量、索引数量。提供计算顶点法线功能。
-13. 新增`多材质组件`，对于有多个材质的`Mesh`，可以使用多材质组件选择一个材质进行编辑。
-14. 修复正投影视图上选中效果边缘不正确bug。
-15. 状态栏增加物理引擎设置，添加的基本几何体默认开启物理引擎。
-16. 截图和录制视频工具由状态栏移动到通用工具栏。
-17. 修复新窗口播放报错`Ammo.btSoftBodyRigidBodyCollisionConfiguration is not a constructor`。
-18. 优化角色管理和用户管理列表显示和搜索功能。
-19. 不具有资源列表权限，将不显示对应的资源面板。
-20. 修复一个严重bug：非管理员角色登录，所有接口都是无权限。
+查看全部[更新日志](docs-dev/update/UpdateLog.md)。
 
 ## 技术分享
 
