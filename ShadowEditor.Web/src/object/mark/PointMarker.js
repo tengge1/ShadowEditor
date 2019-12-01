@@ -1,3 +1,4 @@
+import UnscaledTriangle from '../shape/UnscaledTriangle';
 import UnscaledText from '../text/UnscaledText';
 
 /**

@@ -1,19 +1,19 @@
-import UnscaledTextVertexShader from './shader/unscaled_text_vertex.glsl';
-import UnscaledTextFragmentShader from './shader/unscaled_text_fragment.glsl';
+import UnscaledTriangleVertexShader from './shader/unscaled_triangle_vertex.glsl';
+import UnscaledTriangleFragmentShader from './shader/unscaled_triangle_fragment.glsl';
 import CanvasUtils from '../../utils/CanvasUtils';
 
 /**
- * 不缩放文字
+ * 不缩放三角形
  */
-class UnscaledText extends THREE.Mesh {
+class UnscaledTriangle extends THREE.Mesh {
     constructor(text = L_TEXT) {
         const canvas = document.createElement('canvas');
 
         let geometry = new THREE.PlaneBufferGeometry();
 
         let material = new THREE.ShaderMaterial({
-            vertexShader: UnscaledTextVertexShader,
-            fragmentShader: UnscaledTextFragmentShader,
+            vertexShader: UnscaledTriangleVertexShader,
+            fragmentShader: UnscaledTriangleFragmentShader,
             uniforms: {
                 tDiffuse: {
                     value: new THREE.CanvasTexture(canvas)
@@ -84,4 +84,4 @@ class UnscaledText extends THREE.Mesh {
     }
 }
 
-export default UnscaledText;
+export default UnscaledTriangle;
