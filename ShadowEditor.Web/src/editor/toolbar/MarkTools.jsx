@@ -1,4 +1,5 @@
 import { ToolbarSeparator, IconButton } from '../../third_party';
+import PointMarkTool from '../tools/PointMarkTool';
 
 /**
  * 标注工具
@@ -46,7 +47,18 @@ class MarkTools extends React.Component {
     }
 
     handleStartPointMarkTool() {
-
+        if (this.pointMarkTool === undefined) {
+            this.pointMarkTool = new PointMarkTool();
+            this.pointMarkTool.on(`end`, () => {
+                this.setState({
+                    isAddPointMark: false
+                });
+            });
+        }
+        this.pointMarkTool.start();
+        this.setState({
+            isAddPointMark: true
+        });
     }
 
     handleStartLineMarkTool() {
