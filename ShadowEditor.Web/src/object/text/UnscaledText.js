@@ -24,7 +24,8 @@ class UnscaledText extends THREE.Mesh {
                 height: {
                     value: 1.0 // 设备高度
                 }
-            }
+            },
+            transparent: true
         });
 
         super(geometry, material);
@@ -45,7 +46,7 @@ class UnscaledText extends THREE.Mesh {
         let canvas = map.image;
         let context = canvas.getContext('2d');
 
-        context.font = `${fontSize}px "Microsoft YaHei"`;
+        context.font = `bold ${fontSize}px "Microsoft YaHei"`;
 
         const width = context.measureText(text).width;
         const width2 = CanvasUtils.makePowerOfTwo(width + padding * 2);
@@ -63,15 +64,18 @@ class UnscaledText extends THREE.Mesh {
         // 设置样式并绘制文字
         context = canvas.getContext('2d');
 
+        context.fillStyle = 'rgba(0,0,0,0)';
+        context.fillRect(0, 0, width2, height2);
+
         context.textBaseline = 'middle';
         context.textAlign = 'center';
-        context.lineWidth = 2;
+        context.lineWidth = 3;
 
         context.font = `${fontSize}px "Microsoft YaHei"`;
         context.strokeStyle = '#333';
         context.strokeText(text, width2 / 2, height2 / 2);
 
-        context.font = `${fontSize}px "Microsoft YaHei"`;
+        context.font = `bold ${fontSize}px "Microsoft YaHei"`;
         context.fillStyle = '#fff';
         context.fillText(text, width2 / 2, height2 / 2);
 

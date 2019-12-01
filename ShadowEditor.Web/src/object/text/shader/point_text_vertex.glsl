@@ -1,3 +1,5 @@
+precision highp float;
+
 uniform float width;
 uniform float height;
 
