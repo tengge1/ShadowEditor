@@ -8,9 +8,8 @@ class PointMarkTool extends BaseTool {
     constructor() {
         super();
 
-        this.onMouseDown = this.onMouseDown.bind(this);
+        this.onRaycast = this.onRaycast.bind(this);
         this.onGpuPick = this.onGpuPick.bind(this);
-        this.onDblClick = this.onDblClick.bind(this);
     }
 
     start() {
@@ -19,30 +18,31 @@ class PointMarkTool extends BaseTool {
             this.world = new THREE.Vector3();
         }
 
-        app.on(`mousedown.${this.id}`, this.onMouseDown);
+        // 创建标注
+        this.marker = new PointMarker();
+        app.editor.sceneHelpers.add(this.marker);
+
+        app.toast(_t('Please click on the marked position.'));
+
+        app.on(`raycast.${this.id}`, this.onRaycast);
         app.on(`gpuPick.${this.id}`, this.onGpuPick);
-        app.on(`dblclick.${this.id}`, this.onDblClick);
     }
 
     stop() {
-        app.on(`mousedown.${this.id}`, null);
+        app.on(`raycast.${this.id}`, null);
         app.on(`gpuPick.${this.id}`, null);
-        app.on(`dblclick.${this.id}`, null);
     }
 
-    onMouseDown() {
-
+    onRaycast(obj) { // 点击鼠标，放置标注
+        this.marker.positon.copy(obj.point);
+        this.call(`end`, this);
     }
 
-    onGpuPick(obj) {
-        if (!obj.point) {
+    onGpuPick(obj) { // 预览标注放置效果
+        if (!obj.point || !this.marker) {
             return;
         }
-        this.world.copy(obj.point);
-    }
-
-    onDblClick() {
-
+        this.marker.position.copy(obj.point);
     }
 }
 
