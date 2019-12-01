@@ -13,12 +13,6 @@ class PointMarkTool extends BaseTool {
     }
 
     start() {
-        if (!this.init) {
-            this.init = true;
-            this.world = new THREE.Vector3();
-        }
-
-        // 创建标注
         this.marker = new PointMarker();
         app.editor.sceneHelpers.add(this.marker);
 
@@ -29,18 +23,51 @@ class PointMarkTool extends BaseTool {
     }
 
     stop() {
+        this.marker = null;
         app.on(`raycast.${this.id}`, null);
         app.on(`gpuPick.${this.id}`, null);
     }
 
     onRaycast(obj) { // 点击鼠标，放置标注
-        this.marker.positon.copy(obj.point);
-        this.call(`end`, this);
+        if (!obj.point) {
+            return;
+        }
+        const value = obj.object && obj.object.name ? obj.object.name : '';
+
+        this.marker.position.copy(obj.point);
+
+        // 标注要沿着平面法线方向
+
+        app.prompt({
+            title: _t('Input marker name:'),
+            content: _t('Marker name'),
+            value,
+            mask: true,
+            onOK: text => {
+                this.marker.setText(text);
+
+                app.editor.sceneHelpers.remove(this.marker);
+                app.editor.addObject(this.marker);
+
+                this.stop();
+                this.call(`end`, this);
+            },
+            onClose: () => {
+                app.editor.removeObject(this.marker);
+                this.stop();
+                this.call(`end`, this);
+            }
+        });
     }
 
     onGpuPick(obj) { // 预览标注放置效果
         if (!obj.point || !this.marker) {
             return;
+        }
+        if (obj.object && this.marker._text.name !== obj.object.name) {
+            this.marker.setText(obj.object);
+        } else {
+            this.marker.setText('');
         }
         this.marker.position.copy(obj.point);
     }

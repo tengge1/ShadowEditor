@@ -238,6 +238,7 @@ Application.prototype.confirm = function (options = {}) {
  * @param {String} options.className 样式类
  * @param {Object} options.style 样式
  * @param {String} options.value 默认值
+ * @param {Boolean} options.mask 是否显示遮罩层
  * @param {Function} options.onOK 点击确定执行函数
  * @param {Function} options.onClose 点击关闭执行函数
  * @returns {*} React元素
@@ -249,6 +250,7 @@ Application.prototype.prompt = function (options = {}) {
         className,
         style,
         value,
+        mask,
         onOK,
         onClose
     } = options;
@@ -275,6 +277,7 @@ Application.prototype.prompt = function (options = {}) {
         style,
         value,
         okText: _t('OK'),
+        mask,
         onOK: handleOK,
         onClose
     });

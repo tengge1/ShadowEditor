@@ -16,7 +16,7 @@ class Prompt extends React.Component {
         super(props);
 
         this.state = {
-            value: props.value,
+            value: props.value
         };
 
         this.handleOK = this.handleOK.bind(this, props.onOK);
@@ -33,10 +33,12 @@ class Prompt extends React.Component {
             title={title}
             hidden={hidden}
             mask={mask}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 {content}
-                <Input value={this.state.value} onChange={this.handleChange} />
+                <Input value={this.state.value}
+onChange={this.handleChange} />
             </Content>
             <Buttons>
                 <Button onClick={this.handleOK}>{okText}</Button>
@@ -67,7 +69,7 @@ Prompt.propTypes = {
     mask: PropTypes.bool,
     okText: PropTypes.string,
     onOK: PropTypes.func,
-    onClose: PropTypes.func,
+    onClose: PropTypes.func
 };
 
 Prompt.defaultProps = {
@@ -80,7 +82,7 @@ Prompt.defaultProps = {
     mask: false,
     okText: 'OK',
     onOK: null,
-    onClose: null,
+    onClose: null
 };
 
 export default Prompt;
