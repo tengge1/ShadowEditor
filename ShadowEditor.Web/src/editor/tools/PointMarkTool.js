@@ -37,6 +37,9 @@ class PointMarkTool extends BaseTool {
         this.marker.position.copy(obj.point);
 
         // 标注要沿着平面法线方向
+        if (obj.face) {
+            this.marker.lookAt(this.marker.position.clone().add(obj.face.normal));
+        }
 
         app.prompt({
             title: _t('Input marker name:'),
@@ -65,7 +68,7 @@ class PointMarkTool extends BaseTool {
             return;
         }
         if (obj.object && this.marker._text.name !== obj.object.name) {
-            this.marker.setText(obj.object);
+            this.marker.setText(obj.object.name);
         } else {
             this.marker.setText('');
         }
