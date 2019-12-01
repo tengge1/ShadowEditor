@@ -26,6 +26,7 @@ class UnscaledText extends THREE.Mesh {
                 }
             },
             transparent: true
+            // blending: THREE.NoBlending
         });
 
         super(geometry, material);
