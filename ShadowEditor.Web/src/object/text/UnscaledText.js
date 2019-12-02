@@ -70,7 +70,7 @@ class UnscaledText extends THREE.Mesh {
 
         context.textBaseline = 'middle';
         context.textAlign = 'center';
-        context.lineWidth = 3;
+        context.lineWidth = 2;
 
         context.font = `${fontSize}px "Microsoft YaHei"`;
         context.strokeStyle = '#333';
