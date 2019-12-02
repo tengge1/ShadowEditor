@@ -1,13 +1,21 @@
 precision highp float;
 
 uniform sampler2D tDiffuse;
+uniform float width;
+uniform float height;
  
 varying vec2 vUv;
  
 void main() {
-    vec4 texel = texture2D( tDiffuse, vUv );
-    if (texel.a == 0.0) {
+    // 注意vUv一定要从画布整数坐标取颜色，否则会导致文字模糊问题。
+    vec2 _uv = vec2(
+        (floor(vUv.s * width) + 0.5) / width,
+        (floor(vUv.t * height) + 0.5) / height
+    );
+
+    gl_FragColor = texture2D( tDiffuse, _uv );
+
+    if (gl_FragColor.a == 0.0) {
         discard;
     }
-    gl_FragColor = texel;
 }

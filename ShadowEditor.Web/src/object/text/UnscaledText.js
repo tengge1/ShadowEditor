@@ -10,7 +10,6 @@ class UnscaledText extends THREE.Mesh {
         const canvas = document.createElement('canvas');
 
         let geometry = new THREE.PlaneBufferGeometry();
-
         let material = new THREE.ShaderMaterial({
             vertexShader: UnscaledTextVertexShader,
             fragmentShader: UnscaledTextFragmentShader,
@@ -19,14 +18,19 @@ class UnscaledText extends THREE.Mesh {
                     value: new THREE.CanvasTexture(canvas)
                 },
                 width: {
-                    value: 1.0 // 设备宽度
+                    value: 1.0 // canvas width
                 },
                 height: {
-                    value: 1.0 // 设备高度
+                    value: 1.0 // canvas height
+                },
+                domWidth: {
+                    value: 1.0 // dom width
+                },
+                domHeight: {
+                    value: 1.0 // dom height
                 }
             },
             transparent: true
-            // blending: THREE.NoBlending
         });
 
         super(geometry, material);
@@ -59,8 +63,10 @@ class UnscaledText extends THREE.Mesh {
         const domWidth = app.editor.renderer.domElement.width;
         const domHeight = app.editor.renderer.domElement.height;
 
-        this.material.uniforms.width.value = width2 / domWidth;
-        this.material.uniforms.height.value = height2 / domHeight;
+        this.material.uniforms.width.value = width2;
+        this.material.uniforms.height.value = height2;
+        this.material.uniforms.domWidth.value = domWidth;
+        this.material.uniforms.domHeight.value = domHeight;
 
         // 设置样式并绘制文字
         context = canvas.getContext('2d');
@@ -70,20 +76,15 @@ class UnscaledText extends THREE.Mesh {
         context.textAlign = 'center';
         context.lineWidth = 3;
 
-        let halfWidth = parseInt(width2 / 2) + 0.5;
-        let halfHeight = parseInt(height2 / 2) + 0.5;
+        let halfWidth = width2 / 2;
+        let halfHeight = height2 / 2;
 
-        // 画描边遮罩
+        // 画描边
         context.font = `${fontSize}px "Microsoft YaHei"`;
         context.strokeStyle = '#000';
         context.strokeText(text, halfWidth, halfHeight);
 
-        // 画描边
-        context.globalCompositeOperation = 'destination-in';
-        context.fillStyle = 'rgba(0,0,0,1.0)';
-        context.fillRect(0, 0, width2, height2);
-
-        context.globalCompositeOperation = 'source-over';
+        // 画文字
         context.fillStyle = '#fff';
         context.fillText(text, halfWidth, halfHeight);
 
