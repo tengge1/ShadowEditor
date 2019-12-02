@@ -18,4 +18,8 @@ void main() {
     if (gl_FragColor.a == 0.0) {
         discard;
     }
+
+    if (_uv.s < 0.0 || _uv.s > 1.0 || _uv.t < 0.0 || _uv.t > 1.0) {
+        discard;
+    }
 }

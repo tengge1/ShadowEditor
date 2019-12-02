@@ -74,7 +74,7 @@ class UnscaledText extends THREE.Mesh {
         context.imageSmoothingQuality = 'high';
         context.textBaseline = 'middle';
         context.textAlign = 'center';
-        context.lineWidth = 3;
+        context.lineWidth = 4;
 
         let halfWidth = width2 / 2;
         let halfHeight = height2 / 2;
