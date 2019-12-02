@@ -9,5 +9,5 @@ void main() {
     if (texel.a == 0.0) {
         discard;
     }
-    gl_FragColor = vec4(texel.rgb, 1.0);
+    gl_FragColor = texel;
 }

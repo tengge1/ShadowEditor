@@ -65,20 +65,27 @@ class UnscaledText extends THREE.Mesh {
         // 设置样式并绘制文字
         context = canvas.getContext('2d');
 
-        context.fillStyle = 'rgba(0,0,0,0)';
-        context.fillRect(0, 0, width2, height2);
-
+        context.imageSmoothingQuality = 'high';
         context.textBaseline = 'middle';
         context.textAlign = 'center';
-        context.lineWidth = 1;
+        context.lineWidth = 3;
 
-        context.font = `${fontSize}px "Microsoft YaHei"`;
-        context.strokeStyle = '#333';
-        context.strokeText(text, width2 / 2, height2 / 2);
+        let halfWidth = parseInt(width2 / 2) + 0.5;
+        let halfHeight = parseInt(height2 / 2) + 0.5;
 
+        // 画描边遮罩
         context.font = `${fontSize}px "Microsoft YaHei"`;
+        context.strokeStyle = '#000';
+        context.strokeText(text, halfWidth, halfHeight);
+
+        // 画描边
+        context.globalCompositeOperation = 'destination-in';
+        context.fillStyle = 'rgba(0,0,0,1.0)';
+        context.fillRect(0, 0, width2, height2);
+
+        context.globalCompositeOperation = 'source-over';
         context.fillStyle = '#fff';
-        context.fillText(text, width2 / 2, height2 / 2);
+        context.fillText(text, halfWidth, halfHeight);
 
         // 更新贴图
         map.needsUpdate = true;
