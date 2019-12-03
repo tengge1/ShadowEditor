@@ -14,7 +14,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 1. 修复不缩放文字显示模糊的bug。
 2. 修复浏览器窗口缩放后，鼠标放到物体上，高亮不准的bug。
 
-## v0.3.8更新
+## v0.3.8更新[全部](docs-dev/update/UpdateLog.md)
 
 * 发布日期：2019年12月1日
 * 更新日志：
@@ -31,8 +31,6 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 10. 使用`点击场景添加模型`方式时，模型放置到场景之前出现一个预览效果。
 11. 新增编辑工具栏：撤销、重做、清空历史记录、复制、删除。
 12. 几何体菜单添加文字功能，修改为不缩放的文字。
-
-查看全部[更新日志](docs-dev/update/UpdateLog.md)。
 
 ## 技术分享
 
