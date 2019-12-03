@@ -20,6 +20,7 @@ function GPUPickEvent() {
 
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onAfterRender = this.onAfterRender.bind(this);
+    this.onResize = this.onResize.bind(this);
 }
 
 GPUPickEvent.prototype = Object.create(BaseEvent.prototype);
@@ -28,11 +29,13 @@ GPUPickEvent.prototype.constructor = GPUPickEvent;
 GPUPickEvent.prototype.start = function () {
     app.on(`mousemove.${this.id}`, this.onMouseMove);
     app.on(`afterRender.${this.id}`, this.onAfterRender);
+    app.on(`resize.${this.id}`, this.onResize);
 };
 
 GPUPickEvent.prototype.stop = function () {
     app.on(`mousemove.${this.id}`, null);
     app.on(`afterRender.${this.id}`, null);
+    app.on(`resize.${this.id}`, null);
 };
 
 GPUPickEvent.prototype.onMouseMove = function (event) {
@@ -200,6 +203,14 @@ GPUPickEvent.prototype.onAfterRender = function () {
         point: this.world, // 碰撞点坐标，没碰到物体与y=0平面碰撞
         distance: cameraDepth // 相机到碰撞点距离
     });
+};
+
+GPUPickEvent.prototype.onResize = function () {
+    if (!this.renderTarget) {
+        return;
+    }
+    const { width, height } = app.editor.renderer.domElement;
+    this.renderTarget.setSize(width, height);
 };
 
 export default GPUPickEvent;

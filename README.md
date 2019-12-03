@@ -12,6 +12,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 ## v0.3.9即将更新
 
 1. 修复不缩放文字显示模糊的bug。
+2. 修复浏览器窗口缩放后，鼠标放到物体上，高亮不准的bug。
 
 ## v0.3.8更新
 
