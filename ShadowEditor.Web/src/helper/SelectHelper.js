@@ -58,6 +58,7 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
 
     if (this.scene === undefined) {
         this.scene = new THREE.Scene();
+        this.scene.autoUpdate = false;
     }
 
     if (this.camera === undefined) {

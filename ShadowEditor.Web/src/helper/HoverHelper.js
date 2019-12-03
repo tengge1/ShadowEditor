@@ -22,6 +22,7 @@ HoverHelper.prototype.start = function () {
     this.raycaster = new THREE.Raycaster();
     this.object = null;
     this.scene = new THREE.Scene();
+    this.scene.autoUpdate = false; // 避免场景自动更新物体的matrixWorld，否则会导致物体旋转后，高亮不准的bug。
     this.scene.overrideMaterial = new THREE.MeshBasicMaterial({
         color: 0xffff00,
         transparent: true,
