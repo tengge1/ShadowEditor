@@ -11,6 +11,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## v0.3.9即将更新
 
+1. 修复不缩放文字显示模糊的bug。
+
 ## v0.3.8更新
 
 * 发布日期：2019年12月1日
