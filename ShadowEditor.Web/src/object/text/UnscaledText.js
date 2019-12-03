@@ -2,6 +2,8 @@ import UnscaledTextVertexShader from './shader/unscaled_text_vertex.glsl';
 import UnscaledTextFragmentShader from './shader/unscaled_text_fragment.glsl';
 import CanvasUtils from '../../utils/CanvasUtils';
 
+let ID = -1;
+
 /**
  * 不缩放文字
  */
@@ -37,6 +39,8 @@ class UnscaledText extends THREE.Mesh {
 
         this.userData.type = 'text';
         this.setText(text);
+
+        app.on(`resize.${this.constructor.name}${ID--}`, this.onResize.bind(this));
     }
 
     setText(text) {
@@ -90,6 +94,12 @@ class UnscaledText extends THREE.Mesh {
 
         // 更新贴图
         map.needsUpdate = true;
+    }
+
+    onResize() {
+        const { width, height } = app.editor.renderer.domElement;
+        this.material.uniforms.domWidth.value = width;
+        this.material.uniforms.domHeight.value = height;
     }
 }
 
