@@ -1,3 +1,5 @@
+import { dispatch } from '../third_party';
+
 import EventList from './EventList';
 import BaseEvent from './BaseEvent';
 
@@ -17,15 +19,15 @@ import EditorControlsEvent from './EditorControlsEvent';
 // 物理引擎
 import PhysicsEvent from './PhysicsEvent';
 
-// 可视化
-import DraggableEvent from './visual/DraggableEvent';
+// // 可视化
+// import DraggableEvent from './visual/DraggableEvent';
 
 /**
  * 事件执行器
  * @author tengge / https://github.com/tengge1
  */
 function EventDispatcher() {
-    this.dispatch = d3.dispatch.apply(d3.dispatch, EventList);
+    this.dispatch = dispatch.apply(dispatch, EventList);
     this.addDomEventListener();
 
     this.events = [
@@ -46,8 +48,8 @@ function EventDispatcher() {
         // 物理引擎
         new PhysicsEvent(),
 
-        // 可视化
-        new DraggableEvent()
+        // // 可视化
+        // new DraggableEvent()
     ];
 }
 

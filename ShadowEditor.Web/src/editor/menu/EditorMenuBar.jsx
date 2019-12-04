@@ -26,7 +26,7 @@ class EditorMenuBar extends React.Component {
         return <MenuBar className={classNames('EditorMenuBar', className)}>
             {!enableAuthority || isLogin ? <SceneMenu /> : null}
             {!enableAuthority || isLogin ? <EditMenu /> : null}
-            {!enableAuthority || isLogin ? <TwoDMenu /> : null}
+            {/* {!enableAuthority || isLogin ? <TwoDMenu /> : null} */}
             {!enableAuthority || isLogin ? <GeometryMenu /> : null}
             {!enableAuthority || isLogin ? <LightMenu /> : null}
             {!enableAuthority || isLogin ? <AssetsMenu /> : null}

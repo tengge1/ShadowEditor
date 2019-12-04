@@ -15,6 +15,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 2. 修复浏览器窗口缩放后，鼠标放到物体上，高亮不准的bug。
 3. 修复浏览器窗口缩放后，文件大小发生改变bug。
 4. 修复物体平移旋转缩放后，鼠标放到物体上，高亮不准的bug。
+5. 移除`d3.js`，不再使用`d3`开发可视化内容，使用`d3-dispatch`代替完整版`d3.js`。
 
 ## v0.3.8更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

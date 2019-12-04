@@ -1,3 +1,5 @@
+import { dispatch } from '../../third_party';
+
 import DataView from './DataView2';
 import Vertex from './Vertex';
 import Texture from './Texture';
@@ -37,7 +39,7 @@ function Model(options) {
     self.tmpVec = vec4.create();
     self.ANIMATED = true;
 
-    self.dispatch = d3.dispatch('load', 'loadMesh', 'loadTexture', 'loadAnim');
+    self.dispatch = dispatch('load', 'loadMesh', 'loadTexture', 'loadAnim');
 
     self.hiddenBones = null;
     var hiddenBones = HiddenBones;

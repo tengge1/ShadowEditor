@@ -12,7 +12,7 @@ import AssetsPanel from './assets/AssetsPanel.jsx';
 
 import History from '../command/History';
 import Helpers from '../helper/Helpers';
-import Visualization from '../visual/Visualization';
+// import Visualization from '../visual/Visualization';
 import EditorControls from '../controls/EditorControls';
 
 /**
@@ -50,14 +50,14 @@ class Editor extends React.Component {
                 {isLogin && <EditorSideBar region={'east'}
                     split
                     onToggle={this.onToggle}
-                            />}
+                />}
                 <BorderLayout region={'center'}>
                     {isLogin && <EditorToolbar region={'north'} />}
                     <Viewport region={'center'} />
                     {isLogin && <TimelinePanel region={'south'}
                         split
                         onToggle={this.onToggle}
-                                />}
+                    />}
                 </BorderLayout>
             </BorderLayout>
             {elements.map((n, i) => {
@@ -156,7 +156,7 @@ class Editor extends React.Component {
 
         // 可视化
         this.svg = app.svgRef;
-        this.visual = new Visualization();
+        // this.visual = new Visualization();
 
         // 事件
         app.on(`appStarted.Editor`, this.onAppStarted.bind(this));

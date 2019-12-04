@@ -1,3 +1,5 @@
+import { dispatch } from '../../third_party';
+
 var ID = -1;
 
 /**
@@ -7,7 +9,7 @@ var ID = -1;
 class BaseTool {
     constructor() {
         this.id = `EditorTool${ID--}`;
-        this.dispatch = d3.dispatch('end');
+        this.dispatch = dispatch('end');
         this.call = this.dispatch.call.bind(this.dispatch);
         this.on = this.dispatch.on.bind(this.dispatch);
     }

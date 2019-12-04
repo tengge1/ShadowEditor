@@ -1,3 +1,5 @@
+import { dispatch } from '../third_party';
+
 import PackageManager from '../package/PackageManager';
 import PlayerLoader from './component/PlayerLoader';
 import PlayerEvent from './component/PlayerEvent';
@@ -29,7 +31,7 @@ function Player(container = document.body, options = {}) {
     this.options.enableThrowBall = false;
     this.options.showStats = this.options.showStats || false;
 
-    this.dispatch = new d3.dispatch([
+    this.dispatch = new dispatch([
         'init'
     ]);
     this.call = this.dispatch.call.bind(this.dispatch);
