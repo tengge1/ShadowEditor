@@ -47,6 +47,9 @@ import QuadraticBezierCurveSerializer from './line/QuadraticBezierCurveSerialize
 import CubicBezierCurveSerializer from './line/CubicBezierCurveSerializer';
 import EllipseCurveSerializer from './line/EllipseCurveSerializer';
 
+// mark
+import PointMarkerSerializer from './objects/mark/PointMarkerSerializer';
+
 // gis
 import GlobeSerializer from './gis/GlobeSerializer';
 
@@ -175,6 +178,8 @@ Converter.prototype.traverse = function (obj, children, list) {
         json = new CubicBezierCurveSerializer().toJSON(obj);
     } else if (obj.userData.type === 'EllipseCurve') {
         json = new EllipseCurveSerializer().toJSON(obj);
+    } else if (obj.userData.type === 'PointMarkerSerializer') {
+        json = new PointMarkerSerializer().toJSON();
     } else if (obj.userData.type === 'Globe') {
         json = new GlobeSerializer().toJSON(obj);
     } else if (obj instanceof THREE.Scene) {
@@ -424,6 +429,8 @@ Converter.prototype.parse = function (jsons, options) {
             parts.push(new EllipseCurveSerializer().fromJSON(n));
         } else if (generator === 'Object3DSerializer') {
             parts.push(new Object3DSerializer().fromJSON(n));
+        } else if (generator === 'PointMarkerSerializer') {
+            parts.push(new PointMarkerSerializer.fromJSON(n));
         } else {
             console.warn(`Converter: No Deserializer with ${generator}.`);
         }
