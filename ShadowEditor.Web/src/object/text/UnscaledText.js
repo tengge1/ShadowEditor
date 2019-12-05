@@ -8,7 +8,7 @@ let ID = -1;
  * 不缩放文字
  */
 class UnscaledText extends THREE.Mesh {
-    constructor(text = L_TEXT) {
+    constructor(text = '') {
         const canvas = document.createElement('canvas');
 
         let geometry = new THREE.PlaneBufferGeometry();

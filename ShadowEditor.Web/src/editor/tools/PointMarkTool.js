@@ -69,7 +69,7 @@ class PointMarkTool extends BaseTool {
         if (!obj.point || !this.marker) {
             return;
         }
-        if (obj.object && this.marker._text.name !== obj.object.name) {
+        if (obj.object && this.marker.name !== obj.object.name) {
             this.marker.setText(obj.object.name);
         } else {
             this.marker.setText('');
