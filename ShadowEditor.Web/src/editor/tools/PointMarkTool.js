@@ -56,7 +56,9 @@ class PointMarkTool extends BaseTool {
                 this.call(`end`, this);
             },
             onClose: () => {
-                app.editor.removeObject(this.marker);
+                if (this.marker) {
+                    app.editor.removeObject(this.marker);
+                }
                 this.stop();
                 this.call(`end`, this);
             }
