@@ -37,7 +37,7 @@ class PointMarker extends THREE.Mesh {
 
         super(geometry, material);
 
-        this.userData.type = 'text';
+        this.userData.type = 'pointMarker';
         this.setText(text);
 
         app.on(`resize.${this.constructor.name}${ID--}`, this.onResize.bind(this));
