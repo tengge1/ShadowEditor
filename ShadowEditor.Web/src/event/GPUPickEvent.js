@@ -18,9 +18,12 @@ function GPUPickEvent() {
     this.offsetX = 0;
     this.offsetY = 0;
 
+    this.selectMode = 'whole';
+
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onAfterRender = this.onAfterRender.bind(this);
     this.onResize = this.onResize.bind(this);
+    this.onStorageChanged = this.onStorageChanged.bind(this);
 }
 
 GPUPickEvent.prototype = Object.create(BaseEvent.prototype);
@@ -30,12 +33,18 @@ GPUPickEvent.prototype.start = function () {
     app.on(`mousemove.${this.id}`, this.onMouseMove);
     app.on(`afterRender.${this.id}`, this.onAfterRender);
     app.on(`resize.${this.id}`, this.onResize);
+    app.on(`storageChanged.${this.id}`, this.onStorageChanged);
+
+    this.selectMode = app.storage.get('selectMode');
 };
 
 GPUPickEvent.prototype.stop = function () {
     app.on(`mousemove.${this.id}`, null);
     app.on(`afterRender.${this.id}`, null);
     app.on(`resize.${this.id}`, null);
+    app.on(`storageChanged.${this.id}`, null);
+
+    this.selectMode = 'whole';
 };
 
 GPUPickEvent.prototype.onMouseMove = function (event) {
@@ -194,10 +203,7 @@ GPUPickEvent.prototype.onAfterRender = function () {
 
     // ------------------------------- 3. 输出碰撞结果 --------------------------------------------
 
-    // TODO: 执行太频繁，需要优化
-    const selectMode = app.storage.get('selectMode');
-
-    if (selected && selectMode === 'whole') { // 选择整体
+    if (selected && this.selectMode === 'whole') { // 选择整体
         selected = MeshUtils.partToMesh(selected);
     }
 
@@ -214,6 +220,12 @@ GPUPickEvent.prototype.onResize = function () {
     }
     const { width, height } = app.editor.renderer.domElement;
     this.renderTarget.setSize(width, height);
+};
+
+GPUPickEvent.prototype.onStorageChanged = function (name, value) {
+    if (name === 'selectMode') {
+        this.selectMode = value;
+    }
 };
 
 export default GPUPickEvent;
