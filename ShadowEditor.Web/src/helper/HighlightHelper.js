@@ -20,7 +20,7 @@ function HighlightHelper(app) {
     this.onObjectSelected = this.onObjectSelected.bind(this);
     this.onObjectRemoved = this.onObjectRemoved.bind(this);
     this.onAfterRender = this.onAfterRender.bind(this);
-    this.onOptionChange = this.onOptionChange.bind(this);
+    this.onStorageChanged = this.onStorageChanged.bind(this);
 }
 
 HighlightHelper.prototype = Object.create(BaseHelper.prototype);
@@ -31,7 +31,7 @@ HighlightHelper.prototype.start = function () {
     app.on(`objectSelected.${this.id}`, this.onObjectSelected);
     app.on(`objectRemoved.${this.id}`, this.onObjectRemoved);
     app.on(`afterRender.${this.id}`, this.onAfterRender);
-    app.on(`optionChange.${this.id}`, this.onOptionChange);
+    app.on(`storageChanged.${this.id}`, this.onStorageChanged);
 };
 
 HighlightHelper.prototype.stop = function () {
@@ -115,6 +115,9 @@ HighlightHelper.prototype.onAfterRender = function () {
             depthTest: false
         });
 
+        const selectedColor = app.storage.get('selectedColor');
+        const selectedThickness = app.storage.get('selectedThickness');
+
         this.edgeMaterial = new THREE.ShaderMaterial({
             vertexShader: EdgeVertex,
             fragmentShader: EdgeFragment,
@@ -126,11 +129,11 @@ HighlightHelper.prototype.onAfterRender = function () {
                     value: new THREE.Vector2(width, height)
                 },
                 color: {
-                    value: new THREE.Color(app.options.selectedColor)
+                    value: new THREE.Color(selectedColor)
                 },
                 thickness: {
                     type: 'f',
-                    value: app.options.selectedThickness
+                    value: selectedThickness
                 },
                 transparent: true
             },
@@ -245,7 +248,7 @@ HighlightHelper.prototype.showNoHighlightObjects = function () {
     });
 };
 
-HighlightHelper.prototype.onOptionChange = function (name, value) {
+HighlightHelper.prototype.onStorageChanged = function (name, value) {
     if (!this.edgeMaterial) {
         return;
     }

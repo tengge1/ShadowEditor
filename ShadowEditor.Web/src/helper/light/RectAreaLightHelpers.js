@@ -4,10 +4,9 @@ import VolumeRectAreaLightHelper from './VolumeRectAreaLightHelper';
 /**
  * 矩形光帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function RectAreaLightHelpers(app) {
-    BaseHelper.call(this, app);
+function RectAreaLightHelpers() {
+    BaseHelper.call(this);
 
     this.helpers = [];
 }

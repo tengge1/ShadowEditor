@@ -14,7 +14,8 @@ class DisplayPanel extends React.Component {
     }
 
     render() {
-        const { selectedColor, selectedThickness } = app.options;
+        const selectedColor = app.storage.get('selectedColor');
+        const selectedThickness = app.storage.get('selectedThickness');
 
         return <Form className={'DisplayPanel'}>
             <FormControl>
@@ -53,8 +54,8 @@ class DisplayPanel extends React.Component {
             return;
         }
 
-        app.options[name] = value;
-        app.call(`optionChange`, this, name, value);
+        app.storage.set(name, value);
+        app.call(`storageChanged`, this, name, value);
 
         this.handleUpdate();
     }

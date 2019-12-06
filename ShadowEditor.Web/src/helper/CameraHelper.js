@@ -3,10 +3,9 @@ import BaseHelper from './BaseHelper';
 /**
  * 相机帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function CameraHelper(app) {
-    BaseHelper.call(this, app);
+function CameraHelper() {
+    BaseHelper.call(this);
 }
 
 CameraHelper.prototype = Object.create(BaseHelper.prototype);
@@ -43,7 +42,7 @@ CameraHelper.prototype.update = function () {
     }
 };
 
-CameraHelper.prototype.onStorageChanged = function (key, value) {
+CameraHelper.prototype.onStorageChanged = function (key) {
     if (key === 'showCamera') {
         this.update();
     }

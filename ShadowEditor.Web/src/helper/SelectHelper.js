@@ -21,14 +21,14 @@ SelectHelper.prototype.start = function () {
     app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
     app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
     app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
-    app.on(`optionChange.${this.id}`, this.onOptionChange.bind(this));
+    app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
 };
 
 SelectHelper.prototype.stop = function () {
     app.on(`objectSelected.${this.id}`, null);
     app.on(`objectRemoved.${this.id}`, null);
     app.on(`afterRender.${this.id}`, null);
-    app.on(`optionChange.${this.id}`, null);
+    app.on(`storageChanged.${this.id}`, null);
 };
 
 SelectHelper.prototype.onObjectSelected = function (obj) {
@@ -98,6 +98,9 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
         });
     }
 
+    const selectedColor = app.storage.get('selectedColor');
+    const selectedThickness = app.storage.get('selectedThickness');
+
     if (this.edgeMaterial === undefined) {
         this.edgeMaterial = new THREE.ShaderMaterial({
             vertexShader: EdgeVertex,
@@ -110,11 +113,11 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
                     value: new THREE.Vector2(width, height)
                 },
                 color: {
-                    value: new THREE.Color(app.options.selectedColor)
+                    value: new THREE.Color(selectedColor)
                 },
                 thickness: {
                     type: 'f',
-                    value: app.options.selectedThickness
+                    value: selectedThickness
                 },
                 transparent: true
             },
@@ -254,7 +257,7 @@ SelectHelper.prototype.showNonSelectedObjects = function () {
     });
 };
 
-SelectHelper.prototype.onOptionChange = function (name, value) {
+SelectHelper.prototype.onStorageChanged = function (name, value) {
     if (!this.edgeMaterial) {
         return;
     }

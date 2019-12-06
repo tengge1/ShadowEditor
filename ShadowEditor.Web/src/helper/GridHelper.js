@@ -3,10 +3,9 @@ import BaseHelper from './BaseHelper';
 /**
  * 网格帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function GridHelper(app) {
-    BaseHelper.call(this, app);
+function GridHelper() {
+    BaseHelper.call(this);
 }
 
 GridHelper.prototype = Object.create(BaseHelper.prototype);
@@ -51,7 +50,7 @@ GridHelper.prototype.update = function () {
     }
 };
 
-GridHelper.prototype.onStorageChanged = function (key, value) {
+GridHelper.prototype.onStorageChanged = function (key) {
     if (key === 'showGrid') {
         this.update();
     }

@@ -194,7 +194,10 @@ GPUPickEvent.prototype.onAfterRender = function () {
 
     // ------------------------------- 3. 输出碰撞结果 --------------------------------------------
 
-    if (selected && app.options.selectMode === 'whole') { // 选择整体
+    // TODO: 执行太频繁，需要优化
+    const selectMode = app.storage.get('selectMode');
+
+    if (selected && selectMode === 'whole') { // 选择整体
         selected = MeshUtils.partToMesh(selected);
     }
 

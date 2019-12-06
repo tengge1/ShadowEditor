@@ -68,6 +68,8 @@ PickEvent.prototype.handleClick = function () {
     let editor = app.editor;
     let objects = editor.objects;
 
+    const selectMode = app.storage.get('selectMode');
+
     if (this.onDownPosition.distanceTo(this.onUpPosition) === 0) {
         let intersects = this.getIntersects(this.onUpPosition, objects);
 
@@ -78,9 +80,9 @@ PickEvent.prototype.handleClick = function () {
                 // helper
                 // TODO: userData上有object时，无法复制模型。
                 editor.select(object.userData.object);
-            } else if (app.options.selectMode === 'whole') { // 选择整体
+            } else if (selectMode === 'whole') { // 选择整体
                 editor.select(MeshUtils.partToMesh(object));
-            } else if (app.options.selectMode === 'part') { // 选择部分
+            } else if (selectMode === 'part') { // 选择部分
                 editor.select(object);
             }
         } else {

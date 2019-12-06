@@ -1,5 +1,5 @@
 import './css/EditorStatusBar.css';
-import { Toolbar, ToolbarSeparator, Label, CheckBox, Button, Input, Select } from '../../third_party';
+import { Toolbar, ToolbarSeparator, Label, CheckBox, Select } from '../../third_party';
 
 /**
  * 状态栏
@@ -40,7 +40,8 @@ class EditorStatusBar extends React.Component {
 
     render() {
         const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall } = this.state;
-        const { selectMode, addMode, enablePhysics } = app.options;
+        const { addMode, enablePhysics } = app.options;
+        const selectMode = app.storage.get('selectMode');
 
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
@@ -191,8 +192,8 @@ class EditorStatusBar extends React.Component {
     }
 
     handleChangeSelectMode(value) {
-        app.options.selectMode = value;
-        app.call('optionChange', this, 'selectMode', value);
+        app.storage.set('selectMode', value);
+        app.call('storageChanged', this, 'selectMode', value);
         this.forceUpdate();
     }
 

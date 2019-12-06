@@ -4,10 +4,9 @@ import VolumeDirectionalLightHelper from './VolumeDirectionalLightHelper';
 /**
  * 平行光帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function DirectionalLightHelpers(app) {
-    BaseHelper.call(this, app);
+function DirectionalLightHelpers() {
+    BaseHelper.call(this);
 
     this.helpers = [];
 }

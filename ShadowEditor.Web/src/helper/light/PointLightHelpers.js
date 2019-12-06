@@ -4,10 +4,9 @@ import VolumePointLightHelper from './VolumePointLightHelper';
 /**
  * 点光源帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function PointLightHelpers(app) {
-    BaseHelper.call(this, app);
+function PointLightHelpers() {
+    BaseHelper.call(this);
 
     this.helpers = [];
 }

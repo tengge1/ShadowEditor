@@ -33,6 +33,34 @@ function Storage() {
     if (this.get('showSkeleton') === undefined) {
         this.set('showSkeleton', false);
     }
+
+    // 选中效果
+    if (this.get('selectMode') === undefined) {
+        this.set('selectMode', 'whole'); // whole: 选择整体；part: 选择部分。
+    }
+
+    if (this.get('selectedColor') === undefined) {
+        this.set('selectedColor', '#ff6600'); // unity3d: #ff6600
+    }
+
+    if (this.get('selectedThickness') === undefined) {
+        this.set('selectedThickness', 4);
+    }
+
+    // 高亮效果
+    if (this.get('hoveredColor') === undefined) {
+        this.set('hoveredColor', '#0000ff');
+    }
+
+    if (this.get('hoveredThickness') === undefined) {
+        this.set('hoveredThickness', 4);
+    }
+
+    // 添加模式
+    if (this.get('addMode') === undefined) {
+        this.set('addMode', 'center'); // center: 添加到场景中心；click: 点击场景添加。
+    }
+
 }
 
 Storage.prototype.get = function (key) {
@@ -47,7 +75,7 @@ Storage.prototype.set = function (key, value) {
 };
 
 Storage.prototype.setConfigs = function (configs) {
-    if (typeof (configs) !== 'object') {
+    if (typeof configs !== 'object') {
         console.warn(`Storage: configs should be an object.`);
         return;
     }

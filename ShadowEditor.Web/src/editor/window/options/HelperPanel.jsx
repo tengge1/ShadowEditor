@@ -17,7 +17,7 @@ class HelperPanel extends React.Component {
             showSpotLight: false,
             showHemisphereLight: false,
             showRectAreaLight: false,
-            showSkeleton: false,
+            showSkeleton: false
         };
 
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -30,35 +30,59 @@ class HelperPanel extends React.Component {
         return <Form className={'HelperPanel'}>
             <FormControl>
                 <Label>{_t('Grid')}</Label>
-                <CheckBox name={'showGrid'} checked={showGrid} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showGrid'}
+                    checked={showGrid}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Camera')}</Label>
-                <CheckBox name={'showCamera'} checked={showCamera} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showCamera'}
+                    checked={showCamera}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Point Light')}</Label>
-                <CheckBox name={'showPointLight'} checked={showPointLight} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showPointLight'}
+                    checked={showPointLight}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Directional Light')}</Label>
-                <CheckBox name={'showDirectionalLight'} checked={showDirectionalLight} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showDirectionalLight'}
+                    checked={showDirectionalLight}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Spot Light')}</Label>
-                <CheckBox name={'showSpotLight'} checked={showSpotLight} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showSpotLight'}
+                    checked={showSpotLight}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Hemisphere Light')}</Label>
-                <CheckBox name={'showHemisphereLight'} checked={showHemisphereLight} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showHemisphereLight'}
+                    checked={showHemisphereLight}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Rect Area Light')}</Label>
-                <CheckBox name={'showRectAreaLight'} checked={showRectAreaLight} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showRectAreaLight'}
+                    checked={showRectAreaLight}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Skeleton')}</Label>
-                <CheckBox name={'showSkeleton'} checked={showSkeleton} onChange={this.handleChange}></CheckBox>
+                <CheckBox name={'showSkeleton'}
+                    checked={showSkeleton}
+                    onChange={this.handleChange}
+                />
             </FormControl>
         </Form>;
     }
@@ -72,21 +96,21 @@ class HelperPanel extends React.Component {
             showSpotLight: app.storage.get('showSpotLight') === true,
             showHemisphereLight: app.storage.get('showHemisphereLight') === true,
             showRectAreaLight: app.storage.get('showRectAreaLight') === true,
-            showSkeleton: app.storage.get('showSkeleton') === true,
+            showSkeleton: app.storage.get('showSkeleton') === true
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { showGrid, showCamera, showPointLight, showDirectionalLight,
             showSpotLight, showHemisphereLight, showRectAreaLight, showSkeleton } = Object.assign({}, this.state, {
-                [name]: value,
+                [name]: value
             });
 
         if (showGrid !== app.storage.get('showGrid')) {
