@@ -1,5 +1,5 @@
 import './css/DisplayPanel.css';
-import { classNames, PropTypes, Window, Content, TabLayout, Buttons, Button, Form, FormControl, Label, Input, Select, CheckBox } from '../../../third_party';
+import { Form, FormControl, Label, Input } from '../../../third_party';
 
 /**
  * 显示选项窗口
@@ -48,7 +48,7 @@ class DisplayPanel extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
