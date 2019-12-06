@@ -1,5 +1,5 @@
 import './css/DisplayPanel.css';
-import { Form, FormControl, Label, Input } from '../../../third_party';
+import { Form, FormControl, Label, Input, CheckBox } from '../../../third_party';
 
 /**
  * 显示选项窗口
@@ -16,6 +16,8 @@ class DisplayPanel extends React.Component {
     render() {
         const selectedColor = app.storage.get('selectedColor');
         const selectedThickness = app.storage.get('selectedThickness');
+        const hoverEnabled = app.storage.get('hoverEnabled');
+        const hoveredColor = app.storage.get('hoveredColor');
 
         return <Form className={'DisplayPanel'}>
             <FormControl>
@@ -36,6 +38,22 @@ class DisplayPanel extends React.Component {
                     max={100}
                     precision={1}
                     value={selectedThickness}
+                    onChange={this.handleChange}
+                />
+            </FormControl>
+            <FormControl>
+                <Label>{_t('Enable Hover')}</Label>
+                <CheckBox name={'hoverEnabled'}
+                    checked={hoverEnabled}
+                    onChange={this.handleChange}
+                />
+            </FormControl>
+            <FormControl>
+                <Label>{_t('Hover Color')}</Label>
+                <Input className={'hovered-color'}
+                    name={'hoveredColor'}
+                    type={'color'}
+                    value={hoveredColor}
                     onChange={this.handleChange}
                 />
             </FormControl>

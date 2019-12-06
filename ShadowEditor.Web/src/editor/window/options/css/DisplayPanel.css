@@ -14,3 +14,9 @@
 .Form.DisplayPanel>.FormControl>.Input.selected-thickness {
     width: 60px;
 }
+
+.Form.DisplayPanel>.FormControl>.Input.hovered-color {
+    width: 60px;
+    border: none;
+    background: transparent;
+}

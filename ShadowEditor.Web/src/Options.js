@@ -31,10 +31,6 @@ function Options(options = {}) {
     this.invert = 0;
     this.sepia = 0;
 
-    // 高亮效果
-    this.hoveredColor = '#0000ff';
-    this.hoveredThickness = 4;
-
     // 添加模式
     this.addMode = 'center'; // center: 添加到场景中心；click: 点击场景添加。
 

@@ -48,19 +48,18 @@ function Storage() {
     }
 
     // 高亮效果
-    if (this.get('hoveredColor') === undefined) {
-        this.set('hoveredColor', '#0000ff');
+    if (this.get('hoverEnabled') === undefined) {
+        this.set('hoverEnabled', false);
     }
 
-    if (this.get('hoveredThickness') === undefined) {
-        this.set('hoveredThickness', 4);
+    if (this.get('hoveredColor') === undefined) {
+        this.set('hoveredColor', '#ffff00');
     }
 
     // 添加模式
     if (this.get('addMode') === undefined) {
         this.set('addMode', 'center'); // center: 添加到场景中心；click: 点击场景添加。
     }
-
 }
 
 Storage.prototype.get = function (key) {

@@ -939,5 +939,7 @@
     "Start distance measurement.": "开始距离测量。",
     "Please click on the marked position.": "请点击放标注的位置。",
     "Input marker name:": "输入标注名称",
-    "Marker name": "标注名称"
+    "Marker name": "标注名称",
+    "Enable Hover": "启用高亮",
+    "Hover Color": "高亮颜色"
 }

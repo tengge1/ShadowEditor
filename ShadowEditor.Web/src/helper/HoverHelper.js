@@ -7,8 +7,14 @@ import BaseHelper from './BaseHelper';
  */
 function HoverHelper(app) {
     BaseHelper.call(this, app);
+
+    this.hoverEnabled = app.storage.get('hoverEnabled');
+    this.hoveredColor = app.storage.get('hoveredColor');
+
     this.onGpuPick = this.onGpuPick.bind(this);
+    this.onObjectRemoved = this.onObjectRemoved.bind(this);
     this.onAfterRender = this.onAfterRender.bind(this);
+    this.onStorageChanged = this.onStorageChanged.bind(this);
 }
 
 HoverHelper.prototype = Object.create(BaseHelper.prototype);
@@ -24,14 +30,15 @@ HoverHelper.prototype.start = function () {
     this.scene = new THREE.Scene();
     this.scene.autoUpdate = false; // 避免场景自动更新物体的matrixWorld，否则会导致物体旋转后，高亮不准的bug。
     this.scene.overrideMaterial = new THREE.MeshBasicMaterial({
-        color: 0xffff00,
+        color: this.hoveredColor,
         transparent: true,
         opacity: 0.5
     });
 
     app.on(`gpuPick.${this.id}`, this.onGpuPick);
-    app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
+    app.on(`objectRemoved.${this.id}`, this.onObjectRemoved);
     app.on(`afterRender.${this.id}`, this.onAfterRender);
+    app.on(`storageChanged.${this.id}`, this.onStorageChanged);
 };
 
 HoverHelper.prototype.stop = function () {
@@ -63,7 +70,7 @@ HoverHelper.prototype.onObjectRemoved = function (object) {
 };
 
 HoverHelper.prototype.onAfterRender = function () {
-    if (!this.object || !this.object.parent) {
+    if (!this.hoverEnabled || !this.object || !this.object.parent) {
         // TODO: this.object.parent为null时表示该物体被移除
         return;
     }
@@ -79,6 +86,17 @@ HoverHelper.prototype.onAfterRender = function () {
 
     this.object.parent = parent;
     parent.children.splice(index, 0, this.object);
+};
+
+HoverHelper.prototype.onStorageChanged = function (key, value) {
+    if (key === 'hoverEnabled') {
+        this.hoverEnabled = value;
+    } else if (key === 'hoveredColor') {
+        this.hoveredColor = value;
+        if (this.scene) {
+            this.scene.overrideMaterial.color.set(value);
+        }
+    }
 };
 
 export default HoverHelper;
