@@ -16,7 +16,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 3. 修复浏览器窗口缩放后，文件大小发生改变bug。
 4. 修复物体平移旋转缩放后，鼠标放到物体上，高亮不准的bug。
 5. 移除`d3.js`，不再使用`d3`开发可视化功能，使用`d3-dispatch`代替完整版`d3.js`。
-6. 点标注改为不会缩放的三角形标注，可以正常保存载入了。
+6. 点标注改为不会缩放的三角形标注，可以正常保存载入和通过属性面板修改文字。
 7. 选中效果由保存在场景中，改为保存在浏览器上。
 8. 鼠标高亮效果，改为保存在浏览器上，默认不开启。可以通过选项、显示菜单设置是否开启高亮和高亮颜色。
 9. SVG元素封装：`SvgCircle`、`SvgEllipse`、`SvgLine`、`SvgPath`、`SvgPolygon`、`SvgPolyline`、`SvgRect`。

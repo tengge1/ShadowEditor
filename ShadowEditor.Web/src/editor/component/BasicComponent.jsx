@@ -1,6 +1,7 @@
 import { PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty } from '../../third_party';
 import SetValueCommand from '../../command/SetValueCommand';
 import UnscaledText from '../../object/text/UnscaledText';
+import PointMarker from '../../object/mark/PointMarker';
 
 /**
  * 基本信息组件
@@ -92,7 +93,7 @@ class BasicComponent extends React.Component {
         app.editor.execute(new SetValueCommand(this.selected, 'name', value));
 
         // bug: https://gitee.com/tengge1/ShadowEditor/issues/IV1V3
-        if (this.selected instanceof UnscaledText) {
+        if (this.selected instanceof UnscaledText || this.selected instanceof PointMarker) {
             this.selected.setText(value);
         }
 
