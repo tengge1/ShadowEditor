@@ -1,5 +1,5 @@
 /**
- * Svg锚点
+ * SvgAnchor
  * @author tengge / https://github.com/tengge1
  */
 class SvgAnchor extends React.Component {
@@ -8,6 +8,9 @@ class SvgAnchor extends React.Component {
     }
     render() {
         return <a />;
+    }
+    toJSON() {
+
     }
 }
 

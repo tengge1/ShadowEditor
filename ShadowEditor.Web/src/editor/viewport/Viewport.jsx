@@ -1,7 +1,7 @@
 import './css/Viewport.css';
-import { classNames, PropTypes, Canvas, SVG } from '../../third_party';
 import ScriptEditorPanel from './ScriptEditorPanel.jsx';
 import Player from '../../player/Player';
+import VisualDOM from '../../visual/VisualDOM.jsx';
 
 /**
  * 视口
@@ -18,11 +18,19 @@ class Viewport extends React.Component {
     }
 
     render() {
-        return <div className={'Viewport'} ref={this.viewportRef}>
-            <div className={'editor'} ref={this.editorRef}></div>
-            <svg className={'svg'} ref={this.svgRef}></svg>
-            <ScriptEditorPanel></ScriptEditorPanel>
-            <div className={'player'} ref={this.playerRef}></div>
+        return <div className={'Viewport'}
+            ref={this.viewportRef}
+               >
+            <div className={'editor'}
+                ref={this.editorRef}
+            />
+            <VisualDOM className={'svg'}
+                ref={this.svgRef}
+            />
+            <ScriptEditorPanel />
+            <div className={'player'}
+                ref={this.playerRef}
+            />
         </div>;
     }
 
@@ -47,7 +55,7 @@ class Viewport extends React.Component {
             left: '8px',
             top: '8px',
             zIndex: 'initial',
-            display: showStats ? 'block' : 'none',
+            display: showStats ? 'block' : 'none'
         });
 
         app.viewportRef.appendChild(app.stats.dom);
@@ -56,7 +64,7 @@ class Viewport extends React.Component {
         app.player = new Player(this.playerRef.current, {
             server: app.options.server,
             enableThrowBall: false,
-            showStats: false,
+            showStats: false
         });
     }
 }

@@ -50,14 +50,14 @@ class Editor extends React.Component {
                 {isLogin && <EditorSideBar region={'east'}
                     split
                     onToggle={this.onToggle}
-                />}
+                            />}
                 <BorderLayout region={'center'}>
                     {isLogin && <EditorToolbar region={'north'} />}
                     <Viewport region={'center'} />
                     {isLogin && <TimelinePanel region={'south'}
                         split
                         onToggle={this.onToggle}
-                    />}
+                                />}
                 </BorderLayout>
             </BorderLayout>
             {elements.map((n, i) => {
@@ -155,8 +155,7 @@ class Editor extends React.Component {
         this.showViewHelper = true;
 
         // 可视化
-        this.svg = app.svgRef;
-        // this.visual = new Visualization();
+        this.svg = app.svgRef; // svgDOM
 
         // 事件
         app.on(`appStarted.Editor`, this.onAppStarted.bind(this));
