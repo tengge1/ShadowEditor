@@ -31,7 +31,6 @@ class VideoRecorder {
                     resolve(true);
                 })
                 .catch(err => {
-                    app.toast(err, 'error');
                     resolve(false);
                 });
         });

@@ -103,9 +103,8 @@ class GeneralTools extends React.Component {
                 show={!enableAuthority || authorities.includes('ADD_SCREENSHOT')}
                 onClick={this.handleScreenshot}
             />
-            {/* TODO: 开始录制和停止录制，应该使用明显不同的图标 */}
             <IconButton
-                icon={'recorder'}
+                icon={isRecording ? 'stop-record' : 'recorder'}
                 title={isRecording ? _t('Stop') : _t('Record')}
                 show={!enableAuthority || authorities.includes('ADD_VIDEO')}
                 onClick={this.handleRecord}

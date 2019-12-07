@@ -405,6 +405,13 @@
       "unicode_decimal": 60062
     },
     {
+      "icon_id": "3032484",
+      "name": "停止录制",
+      "font_class": "stop-record",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
       "icon_id": "3068699",
       "name": "组",
       "font_class": "group",
