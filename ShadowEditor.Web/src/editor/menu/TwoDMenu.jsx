@@ -59,31 +59,81 @@ class TwoDMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={_t('2D')} show={app.debug === true}>
-            <MenuItem title={_t('Button')} onClick={this.handleAddButton}></MenuItem>
-            <MenuItem title={_t('Label')} onClick={this.handleAddLabel}></MenuItem>
-            <MenuItem title={_t('Panel')} onClick={this.handleAddPanel}></MenuItem>
-            <MenuItem title={_t('Horizontal Line')} onClick={this.handleAddHorizontalLine}></MenuItem>
-            <MenuItem title={_t('Bar Chart')} onClick={this.handleAddBarChart}></MenuItem>
-            <MenuItem title={_t('Time')} onClick={this.handleAddTimeLabel}></MenuItem>
-            <MenuItem title={_t('Vertical Line')} onClick={this.handleAddVerticalLine}></MenuItem>
-            <MenuItem title={_t('Date')} onClick={this.handleAddDateWeek}></MenuItem>
-            <MenuItem title={_t('Time Disk')} onClick={this.handleAddTimeDisk}></MenuItem>
-            <MenuItem title={_t('Key Value Label')} onClick={this.handleAddKeyValueLabel}></MenuItem>
-            <MenuItem title={_t('Form Panel')} onClick={this.handleAddFormPanel}></MenuItem>
-            <MenuItem title={_t('Gauge')} onClick={this.handleAddGauge}></MenuItem>
-            <MenuItem title={_t('Histogram')} onClick={this.handleAddHistogram}></MenuItem>
-            <MenuItem title={_t('Line Chart')} onClick={this.handleAddLineChart}></MenuItem>
-            <MenuItem title={_t('Sidebar')} onClick={this.handleAddSideBar}></MenuItem>
-            <MenuItem title={`${_t('Histogram')}2`} onClick={this.handleAddHistogram2}></MenuItem>
-            <MenuItem title={_t('Scatter Plot')} onClick={this.handleAddScatterPlot}></MenuItem>
-            <MenuItem title={_t('Pie Chart')} onClick={this.handleAddPieChart}></MenuItem>
-            <MenuItem title={_t('Chord Graph')} onClick={this.handleAddChordGraph}></MenuItem>
-            <MenuItem title={_t('Force Directed Graph')} onClick={this.handleAddForceDirectedGraph}></MenuItem>
-            <MenuItem title={_t('Tree Diagram')} onClick={this.handleAddTreeDiagram}></MenuItem>
-            <MenuItem title={_t('Cluster Diagram')} onClick={this.handleAddClusterDiagram}></MenuItem>
-            <MenuItem title={_t('Pack Diagram')} onClick={this.handleAddPackDiagram}></MenuItem>
-            <MenuItem title={_t('Partition Diagram')} onClick={this.handleAddPartitionDiagram}></MenuItem>
+        return <MenuItem title={_t('2D')}
+            show={app.debug === true}
+               >
+            <MenuItem title={_t('Button')}
+                onClick={this.handleAddButton}
+            />
+            <MenuItem title={_t('Label')}
+                onClick={this.handleAddLabel}
+            />
+            <MenuItem title={_t('Panel')}
+                onClick={this.handleAddPanel}
+            />
+            <MenuItem title={_t('Horizontal Line')}
+                onClick={this.handleAddHorizontalLine}
+            />
+            <MenuItem title={_t('Bar Chart')}
+                onClick={this.handleAddBarChart}
+            />
+            <MenuItem title={_t('Time')}
+                onClick={this.handleAddTimeLabel}
+            />
+            <MenuItem title={_t('Vertical Line')}
+                onClick={this.handleAddVerticalLine}
+            />
+            <MenuItem title={_t('Date')}
+                onClick={this.handleAddDateWeek}
+            />
+            <MenuItem title={_t('Time Disk')}
+                onClick={this.handleAddTimeDisk}
+            />
+            <MenuItem title={_t('Key Value Label')}
+                onClick={this.handleAddKeyValueLabel}
+            />
+            <MenuItem title={_t('Form Panel')}
+                onClick={this.handleAddFormPanel}
+            />
+            <MenuItem title={_t('Gauge')}
+                onClick={this.handleAddGauge}
+            />
+            <MenuItem title={_t('Histogram')}
+                onClick={this.handleAddHistogram}
+            />
+            <MenuItem title={_t('Line Chart')}
+                onClick={this.handleAddLineChart}
+            />
+            <MenuItem title={_t('Sidebar')}
+                onClick={this.handleAddSideBar}
+            />
+            <MenuItem title={`${_t('Histogram')}2`}
+                onClick={this.handleAddHistogram2}
+            />
+            <MenuItem title={_t('Scatter Plot')}
+                onClick={this.handleAddScatterPlot}
+            />
+            <MenuItem title={_t('Pie Chart')}
+                onClick={this.handleAddPieChart}
+            />
+            <MenuItem title={_t('Chord Graph')}
+                onClick={this.handleAddChordGraph}
+            />
+            <MenuItem title={_t('Force Directed Graph')}
+                onClick={this.handleAddForceDirectedGraph}
+            />
+            <MenuItem title={_t('Tree Diagram')}
+                onClick={this.handleAddTreeDiagram}
+            />
+            <MenuItem title={_t('Cluster Diagram')}
+                onClick={this.handleAddClusterDiagram}
+            />
+            <MenuItem title={_t('Pack Diagram')}
+                onClick={this.handleAddPackDiagram}
+            />
+            <MenuItem title={_t('Partition Diagram')}
+                onClick={this.handleAddPartitionDiagram}
+            />
         </MenuItem>;
     }
 
@@ -245,7 +295,7 @@ class TwoDMenu extends React.Component {
 
         visual.add(new Histogram2());
         visual.render(svg);
-    };
+    }
 
     // -------------------------------- 散点图 ---------------------------------------------------
 
@@ -275,7 +325,7 @@ class TwoDMenu extends React.Component {
 
         visual.add(new ChordGraph());
         visual.render(svg);
-    };
+    }
 
     // ----------------------------------- 力导向图 ---------------------------------------------
 
