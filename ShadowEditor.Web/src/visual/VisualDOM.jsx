@@ -1,6 +1,5 @@
 import './css/VisualDOM.css';
 import Wrapper from './utils/Wrapper.jsx';
-import SvgCircle from './basic/SvgCircle.jsx';
 
 /**
  * VisualDOM
