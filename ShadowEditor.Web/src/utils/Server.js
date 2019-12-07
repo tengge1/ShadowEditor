@@ -23,7 +23,7 @@ class Server {
             fetch(`/api/Config/Get`).then(response => {
                 response.json().then(obj => {
                     if (obj.Code !== 200) {
-                        app.toast(_t(obj.Msg));
+                        app.toast(_t(obj.Msg), 'warn');
                         return;
                     }
                     this.enableAuthority = obj.Data.EnableAuthority;
@@ -41,12 +41,12 @@ class Server {
                     resolve();
                 }).catch(e => {
                     console.warn(e);
-                    app.toast(_t('Server configuration acquisition failed.'));
+                    app.toast(_t('Server configuration acquisition failed.'), 'error');
                     resolve();
                 });
             }).catch(e => {
                 console.warn(e);
-                app.toast(_t('Server configuration acquisition failed.'));
+                app.toast(_t('Server configuration acquisition failed.'), 'error');
                 resolve();
             });
         });
@@ -63,7 +63,7 @@ class Server {
             }).then(response => {
                 response.json().then(obj => {
                     if (obj.Code !== 200) {
-                        app.toast(_t(obj.Msg));
+                        app.toast(_t(obj.Msg), 'warn');
                         resolve(false);
                         return;
                     }
@@ -93,7 +93,7 @@ class Server {
             }).then(response => {
                 response.json().then(obj => {
                     if (obj.Code !== 200) {
-                        app.toast(_t(obj.Msg));
+                        app.toast(_t(obj.Msg), 'warn');
                         resolve(false);
                         return;
                     }

@@ -93,7 +93,7 @@ class PlayMenu extends React.Component {
         let sceneID = app.editor.sceneID;
 
         if (!sceneID) {
-            app.toast(_t('Please save scene first.'));
+            app.toast(_t('Please save scene first.'), 'warn');
             return;
         }
 

@@ -16,7 +16,7 @@ class VideoRecorder {
 
     start() {
         if (!navigator.mediaDevices) {
-            app.toast(`Record is not supported!`);
+            app.toast(`Record is not supported!`, 'error');
             return new Promise(resolve => {
                 resolve(false);
             });
@@ -31,7 +31,7 @@ class VideoRecorder {
                     resolve(true);
                 })
                 .catch(err => {
-                    app.toast(err);
+                    app.toast(err, 'error');
                     resolve(false);
                 });
         });
@@ -54,10 +54,10 @@ class VideoRecorder {
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code !== 200) {
-                            app.toast(_t(obj.Msg));
+                            app.toast(_t(obj.Msg), 'warn');
                             return;
                         }
-                        app.toast(_t(obj.Msg));
+                        app.toast(_t(obj.Msg), 'success');
                         this.chunks.length = 0;
                         resolve(true);
                     });

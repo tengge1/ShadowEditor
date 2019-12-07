@@ -132,7 +132,7 @@ class UserManageWindow extends React.Component {
             response.json().then(obj => {
                 app.unmask();
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -165,7 +165,7 @@ class UserManageWindow extends React.Component {
         const record = data.filter(n => n.ID === selected)[0];
 
         if (record.Username === 'admin') {
-            app.toast(_t('Modifying system built-in users is not allowed.'));
+            app.toast(_t('Modifying system built-in users is not allowed.'), 'warn');
             return;
         }
 
@@ -192,7 +192,7 @@ class UserManageWindow extends React.Component {
         const record = this.state.data.filter(n => n.ID === selected)[0];
 
         if (record.Username === 'admin') {
-            app.toast(_t('It is not allowed to delete system built-in users.'));
+            app.toast(_t('It is not allowed to delete system built-in users.'), 'warn');
             return;
         }
 
@@ -225,11 +225,11 @@ class UserManageWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.handleRefresh();
-                app.toast(_t(obj.Msg));
+                app.toast(_t(obj.Msg), 'success');
             });
         });
     }

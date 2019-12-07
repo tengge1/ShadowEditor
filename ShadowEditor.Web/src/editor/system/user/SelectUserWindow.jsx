@@ -125,7 +125,7 @@ class SelectUserWindow extends React.Component {
             response.json().then(obj => {
                 app.unmask();
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({

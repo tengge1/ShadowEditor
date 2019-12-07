@@ -149,7 +149,7 @@ class AssetsPanel extends React.Component {
             if (response.ok) {
                 response.json().then(obj => {
                     if (obj.Code !== 200) {
-                        app.toast(_t(obj.Msg));
+                        app.toast(_t(obj.Msg), 'warn');
                         return;
                     }
                     this.setState(obj);

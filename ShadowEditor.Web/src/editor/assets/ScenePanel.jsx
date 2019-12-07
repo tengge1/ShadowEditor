@@ -88,7 +88,7 @@ class ScenePanel extends React.Component {
         fetch(`${app.options.server}/api/Category/List?type=Scene`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -99,7 +99,7 @@ class ScenePanel extends React.Component {
         fetch(`${app.options.server}/api/Scene/List`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -132,7 +132,7 @@ class ScenePanel extends React.Component {
         fetch(url).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
 
@@ -282,7 +282,7 @@ class ScenePanel extends React.Component {
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code !== 200) {
-                            app.toast(_t(obj.Msg));
+                            app.toast(_t(obj.Msg), 'warn');
                             return;
                         }
                         this.update();

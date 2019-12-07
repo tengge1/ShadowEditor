@@ -117,7 +117,7 @@ class RoleManageWindow extends React.Component {
             response.json().then(obj => {
                 app.unmask();
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -152,7 +152,7 @@ class RoleManageWindow extends React.Component {
         if (record.Name === 'Administrator' ||
             record.Name === 'User' ||
             record.Name === 'Guest') {
-            app.toast(_t('Modifying system built-in roles is not allowed.'));
+            app.toast(_t('Modifying system built-in roles is not allowed.'), 'warn');
             return;
         }
 
@@ -176,7 +176,7 @@ class RoleManageWindow extends React.Component {
         if (record.Name === 'Administrator' ||
             record.Name === 'User' ||
             record.Name === 'Guest') {
-            app.toast(_t('It is not allowed to delete system built-in roles.'));
+            app.toast(_t('It is not allowed to delete system built-in roles.'), 'warn');
             return;
         }
 
@@ -195,10 +195,10 @@ class RoleManageWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg));
+                app.toast(_t(obj.Msg), 'success');
             });
         });
     }

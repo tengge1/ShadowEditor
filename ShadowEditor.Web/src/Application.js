@@ -375,7 +375,7 @@ Application.prototype.upload = function () {
                     if (obj.Code === 200) {
                         callback(obj);
                     } else {
-                        app.toast(obj.Msg);
+                        app.toast(_t(obj.Msg), 'warn');
                     }
                 });
             });

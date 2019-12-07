@@ -17,7 +17,7 @@ class LMeshComponent extends React.Component {
             expanded: true,
             options: [],
             animation: '',
-            previewText: _t('Preview'),
+            previewText: _t('Preview')
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -34,9 +34,20 @@ class LMeshComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('LMesh Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={_t('Animation')} name={'animation'} options={options} value={animation} onChange={this.handleChange}></SelectProperty>
-            <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
+        return <PropertyGroup title={_t('LMesh Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <SelectProperty label={_t('Animation')}
+                name={'animation'}
+                options={options}
+                value={animation}
+                onChange={this.handleChange}
+            />
+            <ButtonProperty text={previewText}
+                onChange={this.handlePreview}
+            />
         </PropertyGroup>;
     }
 
@@ -47,7 +58,7 @@ class LMeshComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -56,7 +67,7 @@ class LMeshComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected.userData.type === 'lol')) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -78,7 +89,7 @@ class LMeshComponent extends React.Component {
             show: true,
             options,
             animation: animNames[0],
-            previewText: this.isPlaying ? _t('Cancel') : _t('Preview'),
+            previewText: this.isPlaying ? _t('Cancel') : _t('Preview')
         });
     }
 
@@ -109,7 +120,7 @@ class LMeshComponent extends React.Component {
         this.isPlaying = true;
 
         this.setState({
-            previewText: _t('Cancel'),
+            previewText: _t('Cancel')
         });
 
         const model = this.selected.userData.model;
@@ -122,7 +133,7 @@ class LMeshComponent extends React.Component {
         this.isPlaying = false;
 
         this.setState({
-            previewText: _t('Preview'),
+            previewText: _t('Preview')
         });
 
         app.on(`animate.LMeshComponent`, null);

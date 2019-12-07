@@ -68,10 +68,10 @@ class ToolMenu extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg));
+                app.toast(_t(obj.Msg), 'success');
             });
         });
     }
@@ -92,10 +92,10 @@ class ToolMenu extends React.Component {
                     if (response.ok) {
                         response.json().then(obj => {
                             if (obj.Code !== 200) {
-                                app.toast(_t(obj.Msg));
+                                app.toast(_t(obj.Msg), 'warn');
                                 return;
                             }
-                            app.toast(_t(obj.Msg));
+                            app.toast(_t(obj.Msg), 'success');
                             window.open(`${app.options.server}${obj.Url}`, 'export');
                         });
                     }
@@ -117,10 +117,10 @@ class ToolMenu extends React.Component {
                     if (response.ok) {
                         response.json().then(obj => {
                             if (obj.Code !== 200) {
-                                app.toast(_t(obj.Msg));
+                                app.toast(_t(obj.Msg), 'warn');
                                 return;
                             }
-                            app.toast(_t(obj.Msg));
+                            app.toast(_t(obj.Msg), 'success');
                             window.open(`${app.options.server}${obj.Url}`, 'export');
                         });
                     }

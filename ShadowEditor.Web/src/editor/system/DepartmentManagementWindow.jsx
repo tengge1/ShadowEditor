@@ -109,7 +109,7 @@ class DepartmentManagementWindow extends React.Component {
         fetch(`${app.options.server}/api/Department/List?pageSize=10000`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.list = obj.Data;
@@ -189,7 +189,7 @@ class DepartmentManagementWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.handleRefresh(obj.Data);
@@ -244,7 +244,7 @@ class DepartmentManagementWindow extends React.Component {
         const { selected, deptName, adminID } = this.state;
 
         if (!deptName || deptName.trim() === '') {
-            app.toast(_t('Name is not allowed to be empty.'));
+            app.toast(_t('Name is not allowed to be empty.'), 'warn');
             return;
         }
 
@@ -259,10 +259,10 @@ class DepartmentManagementWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg));
+                app.toast(_t(obj.Msg), 'success');
                 this.handleRefresh();
             });
         });

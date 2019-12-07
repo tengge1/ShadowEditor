@@ -19,7 +19,7 @@ class MMDComponent extends React.Component {
 
             animation: null,
             cameraAnimation: null,
-            audio: null,
+            audio: null
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -40,10 +40,32 @@ class MMDComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('MMD Model')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <DisplayProperty label={_t('Model Animation')} name={'animation'} value={animation} btnShow={true} btnText={_t('Select')} onClick={this.handleSelectAnimation}></DisplayProperty>
-            <DisplayProperty label={_t('Camera Animation')} name={'cameraAnimation'} value={cameraAnimation} btnShow={true} btnText={_t('Select')} onClick={this.handleSelectCameraAnimation}></DisplayProperty>
-            <DisplayProperty label={_t('Audio')} name={'audio'} value={audio} btnShow={true} btnText={_t('Select')} onClick={this.handleSelectAudio}></DisplayProperty>
+        return <PropertyGroup title={_t('MMD Model')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <DisplayProperty label={_t('Model Animation')}
+                name={'animation'}
+                value={animation}
+                btnShow
+                btnText={_t('Select')}
+                onClick={this.handleSelectAnimation}
+            />
+            <DisplayProperty label={_t('Camera Animation')}
+                name={'cameraAnimation'}
+                value={cameraAnimation}
+                btnShow
+                btnText={_t('Select')}
+                onClick={this.handleSelectCameraAnimation}
+            />
+            <DisplayProperty label={_t('Audio')}
+                name={'audio'}
+                value={audio}
+                btnShow
+                btnText={_t('Select')}
+                onClick={this.handleSelectAudio}
+            />
         </PropertyGroup>;
     }
 
@@ -54,7 +76,7 @@ class MMDComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -63,7 +85,7 @@ class MMDComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected.userData.Type === 'pmd' || editor.selected.userData.Type === 'pmx')) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -74,7 +96,7 @@ class MMDComponent extends React.Component {
             show: true,
             animation: this.selected.userData.Animation ? this.selected.userData.Animation.Name : null,
             cameraAnimation: this.selected.userData.CameraAnimation ? this.selected.userData.CameraAnimation.Name : null,
-            audio: this.selected.userData.Audio ? this.selected.userData.Audio.Name : null,
+            audio: this.selected.userData.Audio ? this.selected.userData.Audio.Name : null
         };
 
         this.setState(state);
@@ -90,7 +112,7 @@ class MMDComponent extends React.Component {
 
     onSelectAnimation(data) {
         if (data.Type !== 'mmd') {
-            app.toast(_t('Please select MMD animation only.'));
+            app.toast(_t('Please select MMD animation only.'), 'warn');
             return;
         }
         app.on(`selectAnimation.MMDComponent`, null);
@@ -111,7 +133,7 @@ class MMDComponent extends React.Component {
 
     onSelectCameraAnimation(data) {
         if (data.Type !== 'mmd') {
-            app.toast(_t('Please select camera animation only.'));
+            app.toast(_t('Please select camera animation only.'), 'warn');
             return;
         }
         app.on(`selectAnimation.MMDComponent`, null);

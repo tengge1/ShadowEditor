@@ -77,7 +77,7 @@ class AuthorityManagementWindow extends React.Component {
         fetch(`${app.options.server}/api/Role/List?pageSize=10000`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -96,7 +96,7 @@ class AuthorityManagementWindow extends React.Component {
         fetch(`${app.options.server}/api/OperatingAuthority/Get?roleID=${selected.ID}`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 obj.Data.rows.forEach(n => {
@@ -155,10 +155,10 @@ class AuthorityManagementWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg));
+                app.toast(_t(obj.Msg), 'success');
                 this.handleSelectRole({
                     ID: roleID
                 });

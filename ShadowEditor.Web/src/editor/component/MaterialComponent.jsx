@@ -897,7 +897,7 @@ class MaterialComponent extends React.Component {
 
     handleTextureSetting() {
         if (!this.selected.material.map) {
-            app.toast(_t('Please select texture first.'));
+            app.toast(_t('Please select texture first.'), 'warn');
             return;
         }
 

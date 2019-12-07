@@ -63,7 +63,7 @@ class EditDeptWindow extends React.Component {
         const { id, name, pid } = this.state;
 
         if (!name || name.trim() === '') {
-            app.toast(_t('Name is not allowed to be empty.'));
+            app.toast(_t('Name is not allowed to be empty.'), 'warn');
             return;
         }
 
@@ -78,7 +78,7 @@ class EditDeptWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.handleClose();

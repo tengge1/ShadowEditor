@@ -27,16 +27,34 @@ class LightMenu extends React.Component {
 
     render() {
         return <MenuItem title={_t('Light')}>
-            <MenuItem title={_t('Ambient Light')} onClick={this.handleAddAmbientLight} />
-            <MenuItem title={_t('Directional Light')} onClick={this.handleAddDirectionalLight} />
-            <MenuItem title={_t('Point Light')} onClick={this.handleAddPointLight} />
-            <MenuItem title={_t('Spot Light')} onClick={this.handleAddSpotLight} />
-            <MenuItem title={_t('Hemisphere Light')} onClick={this.handleAddHemisphereLight} />
-            <MenuItem title={_t('Rect Area Light')} onClick={this.handleAddRectAreaLight} />
+            <MenuItem title={_t('Ambient Light')}
+                onClick={this.handleAddAmbientLight}
+            />
+            <MenuItem title={_t('Directional Light')}
+                onClick={this.handleAddDirectionalLight}
+            />
+            <MenuItem title={_t('Point Light')}
+                onClick={this.handleAddPointLight}
+            />
+            <MenuItem title={_t('Spot Light')}
+                onClick={this.handleAddSpotLight}
+            />
+            <MenuItem title={_t('Hemisphere Light')}
+                onClick={this.handleAddHemisphereLight}
+            />
+            <MenuItem title={_t('Rect Area Light')}
+                onClick={this.handleAddRectAreaLight}
+            />
             <MenuItemSeparator />
-            <MenuItem title={_t('Point Light Helper')} onClick={this.handleAddPointLightHelper} />
-            <MenuItem title={_t('Hemisphere Light Helper')} onClick={this.handleAddHemisphereLightHelper} />
-            <MenuItem title={_t('Rect Area Light Helper')} onClick={this.handleAddRectAreaLightHelper} />
+            <MenuItem title={_t('Point Light Helper')}
+                onClick={this.handleAddPointLightHelper}
+            />
+            <MenuItem title={_t('Hemisphere Light Helper')}
+                onClick={this.handleAddHemisphereLightHelper}
+            />
+            <MenuItem title={_t('Rect Area Light Helper')}
+                onClick={this.handleAddRectAreaLightHelper}
+            />
         </MenuItem>;
     }
 
@@ -153,7 +171,7 @@ class LightMenu extends React.Component {
         let selected = app.editor.selected;
 
         if (!(selected instanceof THREE.PointLight)) {
-            app.toast(_t('The selected object is not a point light.'));
+            app.toast(_t('The selected object is not a point light.'), 'warn');
             return;
         }
 
@@ -167,7 +185,7 @@ class LightMenu extends React.Component {
         let selected = app.editor.selected;
 
         if (!(selected instanceof THREE.HemisphereLight)) {
-            app.toast(_t('The selected object is not a hemisphere light.'));
+            app.toast(_t('The selected object is not a hemisphere light.'), 'warn');
             return;
         }
 
@@ -181,7 +199,7 @@ class LightMenu extends React.Component {
         let selected = app.editor.selected;
 
         if (!(selected instanceof THREE.RectAreaLight)) {
-            app.toast(_t('The selected object is not a rect area light.'));
+            app.toast(_t('The selected object is not a rect area light.'), 'warn');
             return;
         }
 

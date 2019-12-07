@@ -85,7 +85,7 @@ class ScreenshotPanel extends React.Component {
         fetch(`${app.options.server}/api/Category/List?type=Screenshot`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -96,7 +96,7 @@ class ScreenshotPanel extends React.Component {
         fetch(`${app.options.server}/api/Screenshot/List`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -143,7 +143,7 @@ class ScreenshotPanel extends React.Component {
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code !== 200) {
-                            app.toast(_t(obj.Msg));
+                            app.toast(_t(obj.Msg), 'warn');
                             return;
                         }
                         this.update();

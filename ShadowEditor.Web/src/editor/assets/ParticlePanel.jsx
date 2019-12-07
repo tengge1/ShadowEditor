@@ -86,7 +86,7 @@ class ParticlePanel extends React.Component {
         fetch(`${app.options.server}/api/Category/List?type=Particle`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -97,7 +97,7 @@ class ParticlePanel extends React.Component {
         fetch(`${app.options.server}/api/Particle/List`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -150,7 +150,7 @@ class ParticlePanel extends React.Component {
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code !== 200) {
-                            app.toast(_t(obj.Msg));
+                            app.toast(_t(obj.Msg), 'warn');
                             return;
                         }
                         this.update();

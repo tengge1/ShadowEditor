@@ -106,7 +106,7 @@ class CategoryWindow extends React.Component {
         const { selected } = this.state;
 
         if (!selected) {
-            app.toast(_t('Please select a record.'));
+            app.toast(_t('Please select a record.'), 'warn');
             return;
         }
 
@@ -125,7 +125,7 @@ class CategoryWindow extends React.Component {
         const { selected } = this.state;
 
         if (!selected) {
-            app.toast(_t('Please select a record.'));
+            app.toast(_t('Please select a record.'), 'warn');
             return;
         }
 
@@ -141,7 +141,7 @@ class CategoryWindow extends React.Component {
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code !== 200) {
-                            app.toast(_t(obj.Msg));
+                            app.toast(_t(obj.Msg), 'warn');
                             return;
                         }
                         this.updateUI();

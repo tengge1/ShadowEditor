@@ -98,10 +98,10 @@ class RegisterWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg));
+                app.toast(_t(obj.Msg), 'success');
                 this.handleClose();
             });
         });

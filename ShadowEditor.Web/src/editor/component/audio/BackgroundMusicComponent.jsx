@@ -19,7 +19,7 @@ class BackgroundMusicComponent extends React.Component {
             loop: true,
             volume: 1,
             showPlayButton: false,
-            isPlaying: false,
+            isPlaying: false
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -37,12 +37,37 @@ class BackgroundMusicComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Background Music')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <DisplayProperty label={_t('Audio')} name={'name'} value={name === '' ? `(${_t('None')})` : name} btnShow={true} btnText={_t('Select')} onClick={this.handleSelect}></DisplayProperty>
-            <CheckBoxProperty label={_t('Auto Play')} name={'autoplay'} value={autoplay} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={_t('Loop')} name={'loop'} value={loop} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('Volume')} name={'volume'} value={volume} onChange={this.handleChange}></NumberProperty>
-            <ButtonProperty text={isPlaying ? _t('Stop') : _t('Play')} show={showPlayButton} onChange={this.handlePlay}></ButtonProperty>
+        return <PropertyGroup title={_t('Background Music')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <DisplayProperty label={_t('Audio')}
+                name={'name'}
+                value={name === '' ? `(${_t('None')})` : name}
+                btnShow
+                btnText={_t('Select')}
+                onClick={this.handleSelect}
+            />
+            <CheckBoxProperty label={_t('Auto Play')}
+                name={'autoplay'}
+                value={autoplay}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('Loop')}
+                name={'loop'}
+                value={loop}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Volume')}
+                name={'volume'}
+                value={volume}
+                onChange={this.handleChange}
+            />
+            <ButtonProperty text={isPlaying ? _t('Stop') : _t('Play')}
+                show={showPlayButton}
+                onChange={this.handlePlay}
+            />
         </PropertyGroup>;
     }
 
@@ -53,7 +78,7 @@ class BackgroundMusicComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -62,7 +87,7 @@ class BackgroundMusicComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof THREE.Audio)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -75,8 +100,8 @@ class BackgroundMusicComponent extends React.Component {
             autoplay: this.selected.userData.autoplay || false,
             loop: this.selected.getLoop(),
             volumn: this.selected.getVolume(),
-            showPlayButton: this.selected.buffer != null,
-            isPlaying: this.selected.isPlaying || false,
+            showPlayButton: this.selected.buffer !== null,
+            isPlaying: this.selected.isPlaying || false
         };
 
         this.setState(state);
@@ -100,7 +125,7 @@ class BackgroundMusicComponent extends React.Component {
 
             this.setState({
                 name: obj.Name,
-                showPlayButton: true,
+                showPlayButton: true
             });
         });
     }
@@ -108,13 +133,13 @@ class BackgroundMusicComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { autoplay, loop, volumn } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         this.selected.userData.autoplay = autoplay; // 这里不能给this.selected赋值，否则音频会自动播放
@@ -128,7 +153,7 @@ class BackgroundMusicComponent extends React.Component {
         if (!this.selected.buffer) {
             this.setState({
                 showPlayButton: false,
-                isPlaying: false,
+                isPlaying: false
             });
             return;
         }
@@ -142,7 +167,7 @@ class BackgroundMusicComponent extends React.Component {
 
         this.setState({
             showPlayButton: true,
-            isPlaying: this.selected.isPlaying,
+            isPlaying: this.selected.isPlaying
         });
     }
 }

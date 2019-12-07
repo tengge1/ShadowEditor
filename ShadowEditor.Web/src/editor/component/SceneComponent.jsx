@@ -57,7 +57,7 @@ class SceneComponent extends React.Component {
             fogFarShow: false,
 
             fogDensity: 0.05,
-            fogDensityShow: false,
+            fogDensityShow: false
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -88,25 +88,99 @@ class SceneComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('SceneComponent')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={_t('Background')} name={'backgroundType'} options={this.backgroundType} value={backgroundType} onChange={this.handleChangeBackgroundType}></SelectProperty>
-            <ColorProperty label={_t('BackgroundColor')} name={'backgroundColor'} value={backgroundColor} show={backgroundColorShow} onChange={this.handleChangeBackgroundColor}></ColorProperty>
-            <TextureProperty label={_t('Background Image')} name={'backgroundImage'} value={backgroundImage} show={backgroundImageShow} onChange={this.handleChangeBackgroundImage}></TextureProperty>
-            <TextureProperty label={_t('PosX')} name={'backgroundPosX'} value={backgroundPosX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
-            <TextureProperty label={_t('NegX')} name={'backgroundNegX'} value={backgroundNegX} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
-            <TextureProperty label={_t('PosY')} name={'backgroundPosY'} value={backgroundPosY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
-            <TextureProperty label={_t('NegY')} name={'backgroundNegY'} value={backgroundNegY} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
-            <TextureProperty label={_t('PosZ')} name={'backgroundPosZ'} value={backgroundPosZ} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
-            <TextureProperty label={_t('NegZ')} name={'backgroundNegZ'} value={backgroundNegZ} show={backgroundCubeTextureShow} onChange={this.handleChangeBackgroundCubeTexture}></TextureProperty>
+        return <PropertyGroup title={_t('SceneComponent')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <SelectProperty label={_t('Background')}
+                name={'backgroundType'}
+                options={this.backgroundType}
+                value={backgroundType}
+                onChange={this.handleChangeBackgroundType}
+            />
+            <ColorProperty label={_t('BackgroundColor')}
+                name={'backgroundColor'}
+                value={backgroundColor}
+                show={backgroundColorShow}
+                onChange={this.handleChangeBackgroundColor}
+            />
+            <TextureProperty label={_t('Background Image')}
+                name={'backgroundImage'}
+                value={backgroundImage}
+                show={backgroundImageShow}
+                onChange={this.handleChangeBackgroundImage}
+            />
+            <TextureProperty label={_t('PosX')}
+                name={'backgroundPosX'}
+                value={backgroundPosX}
+                show={backgroundCubeTextureShow}
+                onChange={this.handleChangeBackgroundCubeTexture}
+            />
+            <TextureProperty label={_t('NegX')}
+                name={'backgroundNegX'}
+                value={backgroundNegX}
+                show={backgroundCubeTextureShow}
+                onChange={this.handleChangeBackgroundCubeTexture}
+            />
+            <TextureProperty label={_t('PosY')}
+                name={'backgroundPosY'}
+                value={backgroundPosY}
+                show={backgroundCubeTextureShow}
+                onChange={this.handleChangeBackgroundCubeTexture}
+            />
+            <TextureProperty label={_t('NegY')}
+                name={'backgroundNegY'}
+                value={backgroundNegY}
+                show={backgroundCubeTextureShow}
+                onChange={this.handleChangeBackgroundCubeTexture}
+            />
+            <TextureProperty label={_t('PosZ')}
+                name={'backgroundPosZ'}
+                value={backgroundPosZ}
+                show={backgroundCubeTextureShow}
+                onChange={this.handleChangeBackgroundCubeTexture}
+            />
+            <TextureProperty label={_t('NegZ')}
+                name={'backgroundNegZ'}
+                value={backgroundNegZ}
+                show={backgroundCubeTextureShow}
+                onChange={this.handleChangeBackgroundCubeTexture}
+            />
             <ButtonsProperty show={backgroundCubeTextureShow}>
                 <Button onClick={this.handleLoadCubeTexture}>{_t('Select')}</Button>
                 <Button onClick={this.handleSaveCubeTexture}>{_t('Upload')}</Button>
             </ButtonsProperty>
-            <SelectProperty label={_t('Fog')} name={'fogType'} options={this.fogType} value={fogType} onChange={this.handleChangeFogType}></SelectProperty>
-            <ColorProperty label={_t('FogColor')} name={'fogColor'} value={fogColor} show={fogColorShow} onChange={this.handleChangeFogColor}></ColorProperty>
-            <NumberProperty label={_t('FogNear')} name={'fogNear'} value={fogNear} show={fogNearShow} onChange={this.handleChangeFogNear}></NumberProperty>
-            <NumberProperty label={_t('FogFar')} name={'fogFar'} value={fogFar} show={fogFarShow} onChange={this.handleChangeFogFar}></NumberProperty>
-            <NumberProperty label={_t('FogDensity')} name={'fogDensity'} value={fogDensity} show={fogDensityShow} onChange={this.handleChangeFogDensity}></NumberProperty>
+            <SelectProperty label={_t('Fog')}
+                name={'fogType'}
+                options={this.fogType}
+                value={fogType}
+                onChange={this.handleChangeFogType}
+            />
+            <ColorProperty label={_t('FogColor')}
+                name={'fogColor'}
+                value={fogColor}
+                show={fogColorShow}
+                onChange={this.handleChangeFogColor}
+            />
+            <NumberProperty label={_t('FogNear')}
+                name={'fogNear'}
+                value={fogNear}
+                show={fogNearShow}
+                onChange={this.handleChangeFogNear}
+            />
+            <NumberProperty label={_t('FogFar')}
+                name={'fogFar'}
+                value={fogFar}
+                show={fogFarShow}
+                onChange={this.handleChangeFogFar}
+            />
+            <NumberProperty label={_t('FogDensity')}
+                name={'fogDensity'}
+                value={fogDensity}
+                show={fogDensityShow}
+                onChange={this.handleChangeFogDensity}
+            />
         </PropertyGroup>;
     }
 
@@ -117,7 +191,7 @@ class SceneComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -126,7 +200,7 @@ class SceneComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== app.editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -142,7 +216,7 @@ class SceneComponent extends React.Component {
             show: true,
 
             // 背景
-            backgroundType: background instanceof THREE.CubeTexture ? 'SkyBox' : (background instanceof THREE.Texture ? 'Image' : 'Color'),
+            backgroundType: background instanceof THREE.CubeTexture ? 'SkyBox' : background instanceof THREE.Texture ? 'Image' : 'Color',
             backgroundColor: background instanceof THREE.Color ? `#${background.getHexString()}` : backgroundColor,
             backgroundColorShow: background instanceof THREE.Color,
             backgroundImage: background instanceof THREE.Texture && !(background instanceof THREE.CubeTexture) ? background : null,
@@ -156,15 +230,15 @@ class SceneComponent extends React.Component {
             backgroundCubeTextureShow: background instanceof THREE.CubeTexture,
 
             // 雾效
-            fogType: fog == null ? 'None' : (fog instanceof THREE.FogExp2 ? 'FogExp2' : 'Fog'),
-            fogColor: fog == null ? fogColor : `#${fog.color.getHexString()}`,
+            fogType: fog === null ? 'None' : fog instanceof THREE.FogExp2 ? 'FogExp2' : 'Fog',
+            fogColor: fog === null ? fogColor : `#${fog.color.getHexString()}`,
             fogColorShow: fog !== null,
             fogNear: fog instanceof THREE.Fog ? fog.near : fogNear,
             fogNearShow: fog !== null && fog instanceof THREE.Fog,
             fogFar: fog instanceof THREE.Fog ? fog.far : fogFar,
             fogFarShow: fog instanceof THREE.Fog,
             fogDensity: fog instanceof THREE.FogExp2 ? fog.density : fogDensity,
-            fogDensityShow: fog instanceof THREE.FogExp2,
+            fogDensityShow: fog instanceof THREE.FogExp2
         };
 
         this.setState(state);
@@ -175,7 +249,7 @@ class SceneComponent extends React.Component {
             backgroundType, backgroundColor, backgroundImage,
             backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ
         } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let scene = this.selected;
@@ -193,7 +267,7 @@ class SceneComponent extends React.Component {
                         [name]: value,
                         backgroundColorShow: false,
                         backgroundImageShow: true,
-                        backgroundCubeTextureShow: false,
+                        backgroundCubeTextureShow: false
                     });
                     return;
                 }
@@ -215,7 +289,7 @@ class SceneComponent extends React.Component {
                         [name]: value,
                         backgroundColorShow: false,
                         backgroundImageShow: false,
-                        backgroundCubeTextureShow: true,
+                        backgroundCubeTextureShow: true
                     });
                     return;
                 }
@@ -228,7 +302,7 @@ class SceneComponent extends React.Component {
     handleChangeBackgroundColor(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -243,7 +317,7 @@ class SceneComponent extends React.Component {
             this.selected.background = new THREE.Color(this.state.backgroundColor);
 
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -258,13 +332,13 @@ class SceneComponent extends React.Component {
             this.selected.background = new THREE.Color(this.state.backgroundColor);
 
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         if (backgroundPosX && backgroundNegX && backgroundPosY && backgroundNegY && backgroundPosZ && backgroundNegZ) {
@@ -284,7 +358,7 @@ class SceneComponent extends React.Component {
             app.call(`objectChanged`, this, this.selected);
         } else {
             this.setState({
-                [name]: value,
+                [name]: value
             });
         }
     }
@@ -316,7 +390,7 @@ class SceneComponent extends React.Component {
                     resolve(texture);
                 }, undefined, error => {
                     console.error(error);
-                    app.toast(_t('Cube Texture fetch failed.'));
+                    app.toast(_t('Cube Texture fetch failed.'), 'warn');
                 });
             });
         });
@@ -343,7 +417,7 @@ class SceneComponent extends React.Component {
         const { backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ } = this.state;
 
         if (!backgroundPosX || !backgroundNegX || !backgroundPosY || !backgroundNegY || !backgroundPosZ || !backgroundNegZ) {
-            app.toast(_t('Please upload all the textures before save.'));
+            app.toast(_t('Please upload all the textures before save.'), 'warn');
             return;
         }
 
@@ -355,7 +429,7 @@ class SceneComponent extends React.Component {
         const negZSrc = backgroundNegZ.image.src;
 
         if (posXSrc.startsWith('http') || negXSrc.startsWith('http') || posYSrc.startsWith('http') || negYSrc.startsWith('http') || posZSrc.startsWith('http') || negZSrc.startsWith('http')) {
-            app.toast(_t('Cube texture has already been uploaded.'));
+            app.toast(_t('Cube texture has already been uploaded.'), 'warn');
             return;
         }
 
@@ -365,7 +439,7 @@ class SceneComponent extends React.Component {
             Converter.dataURLtoFile(posYSrc, 'posY'),
             Converter.dataURLtoFile(negYSrc, 'negY'),
             Converter.dataURLtoFile(posZSrc, 'posZ'),
-            Converter.dataURLtoFile(negZSrc, 'negZ'),
+            Converter.dataURLtoFile(negZSrc, 'negZ')
         ];
 
         Promise.all(promises).then(files => {
@@ -375,7 +449,7 @@ class SceneComponent extends React.Component {
                 posY: files[2],
                 negY: files[3],
                 posZ: files[4],
-                negZ: files[5],
+                negZ: files[5]
             }, result => {
                 let obj = JSON.parse(result);
                 app.toast(_t(obj.Msg));
@@ -385,7 +459,7 @@ class SceneComponent extends React.Component {
 
     handleChangeFogType(value, name) {
         const { fogType, fogColor, fogNear, fogFar, fogDensity } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let scene = this.selected;
@@ -408,7 +482,7 @@ class SceneComponent extends React.Component {
     handleChangeFogColor(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -421,7 +495,7 @@ class SceneComponent extends React.Component {
     handleChangeFogNear(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -434,7 +508,7 @@ class SceneComponent extends React.Component {
     handleChangeFogFar(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -447,7 +521,7 @@ class SceneComponent extends React.Component {
     handleChangeFogDensity(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }

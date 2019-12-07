@@ -110,7 +110,7 @@ class EditUserWindow extends React.Component {
         fetch(`${app.options.server}/api/Role/List?pageSize=10000`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 const roles = {
@@ -150,27 +150,27 @@ class EditUserWindow extends React.Component {
         const { id, username, password, confirmPassword, name, roleID, deptID } = this.state;
 
         if (!username || username.trim() === '') {
-            app.toast(_t('Username is not allowed to be empty.'));
+            app.toast(_t('Username is not allowed to be empty.'), 'warn');
             return;
         }
 
         if (!id && (!password || password.trim() === '')) {
-            app.toast(_t('Password is not allowed to be empty.'));
+            app.toast(_t('Password is not allowed to be empty.'), 'warn');
             return;
         }
 
         if (!id && (!confirmPassword || confirmPassword.trim() === '')) {
-            app.toast(_t('Confirm password is not allowed to be empty.'));
+            app.toast(_t('Confirm password is not allowed to be empty.'), 'warn');
             return;
         }
 
         if (!id && password !== confirmPassword) {
-            app.toast(_t('Password and confirm password is not the same.'));
+            app.toast(_t('Password and confirm password is not the same.'), 'warn');
             return;
         }
 
         if (!name || name.trim() === '') {
-            app.toast(_t('Nick name is not allowed to be empty.'));
+            app.toast(_t('Nick name is not allowed to be empty.'), 'warn');
             return;
         }
 
@@ -185,7 +185,7 @@ class EditUserWindow extends React.Component {
         }).then(response => {
             response.json().then(json => {
                 if (json.Code !== 200) {
-                    app.toast(_t(json.Msg));
+                    app.toast(_t(json.Msg), 'warn');
                     return;
                 }
                 this.handleClose();

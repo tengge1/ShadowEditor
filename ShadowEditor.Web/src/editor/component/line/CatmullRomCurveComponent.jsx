@@ -13,7 +13,7 @@ class CatmullRomCurveComponent extends React.Component {
         this.curveType = {
             centripetal: _t('Centripetal Force'),
             chordal: _t('Chord'),
-            catmullrom: _t('Catmullrom'),
+            catmullrom: _t('Catmullrom')
         };
 
         this.state = {
@@ -21,7 +21,7 @@ class CatmullRomCurveComponent extends React.Component {
             expanded: false,
             closed: true,
             curveType: 'catmullrom',
-            tension: 1,
+            tension: 1
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -38,14 +38,31 @@ class CatmullRomCurveComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('CatmullRom Curve')} show={show} expanded={expanded} onExpand={this.handleExpand}>
+        return <PropertyGroup title={_t('CatmullRom Curve')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
             <ButtonsProperty>
                 <Button onClick={this.handleAddPoint}>{_t('Add Point')}</Button>
                 <Button onClick={this.handleRemovePoint}>{_t('Remove Point')}</Button>
             </ButtonsProperty>
-            <CheckBoxProperty label={_t('Closed')} name={'closed'} value={closed} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={_t('Curve Type')} options={this.curveType} name={'curveType'} value={curveType} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={_t('Tension')} name={'tension'} value={tension} onChange={this.handleChange}></NumberProperty>
+            <CheckBoxProperty label={_t('Closed')}
+                name={'closed'}
+                value={closed}
+                onChange={this.handleChange}
+            />
+            <SelectProperty label={_t('Curve Type')}
+                options={this.curveType}
+                name={'curveType'}
+                value={curveType}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Tension')}
+                name={'tension'}
+                value={tension}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -56,7 +73,7 @@ class CatmullRomCurveComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -65,7 +82,7 @@ class CatmullRomCurveComponent extends React.Component {
 
         if (!editor.selected || editor.selected.userData.type !== 'CatmullRomCurve') {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -76,7 +93,7 @@ class CatmullRomCurveComponent extends React.Component {
             show: true,
             closed: this.selected.userData.closed,
             curveType: this.selected.userData.curveType,
-            tension: this.selected.userData.tension,
+            tension: this.selected.userData.tension
         });
     }
 
@@ -105,7 +122,7 @@ class CatmullRomCurveComponent extends React.Component {
         let points = this.selected.userData.points;
 
         if (points.length === 3) {
-            app.toast(_t('CatmullRom curve should have at least 3 points.'));
+            app.toast(_t('CatmullRom curve should have at least 3 points.'), 'warn');
             return;
         }
 
@@ -119,13 +136,13 @@ class CatmullRomCurveComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { closed, curveType, tension } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         Object.assign(this.selected.userData, {

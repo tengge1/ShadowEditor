@@ -128,7 +128,7 @@ class EditWindow extends React.Component {
                     thumbnail: obj.Data.url
                 });
             } else {
-                app.toast(_t(obj.Msg));
+                app.toast(_t(obj.Msg), 'warn');
             }
         });
     }
@@ -164,7 +164,7 @@ class EditWindow extends React.Component {
                 callback && callback(obj);
                 this.handleClose();
             } else {
-                app.toast(_t(obj.Msg));
+                app.toast(_t(obj.Msg), 'warn');
             }
         });
     }

@@ -61,7 +61,7 @@ class SceneMenu extends React.Component {
             editor.sceneID = null;
             editor.sceneName = null;
             document.title = _t('No Name');
-            app.toast(_t('Create empty scene successfully.'));
+            app.toast(_t('Create empty scene successfully.'), 'success');
             return;
         }
 
@@ -160,7 +160,7 @@ class SceneMenu extends React.Component {
 
             app.unmask();
 
-            app.toast(_t(obj.Msg));
+            app.toast(_t(obj.Msg), 'success');
         });
     }
 
@@ -216,7 +216,7 @@ class SceneMenu extends React.Component {
 
             app.unmask();
 
-            app.toast(_t(obj.Msg));
+            app.toast(_t(obj.Msg), 'success');
         });
     }
 
@@ -255,7 +255,7 @@ class SceneMenu extends React.Component {
         var sceneID = app.editor.sceneID;
 
         if (!sceneID) {
-            app.toast(_t('Please open scene first.'));
+            app.toast(_t('Please open scene first.'), 'warn');
             return;
         }
 
@@ -272,10 +272,10 @@ class SceneMenu extends React.Component {
                         response.json().then(obj => {
                             app.unmask();
                             if (obj.Code !== 200) {
-                                app.toast(_t(obj.Msg));
+                                app.toast(_t(obj.Msg), 'warn');
                                 return;
                             }
-                            app.toast(_t(obj.Msg));
+                            app.toast(_t(obj.Msg), 'success');
                             window.open(`${app.options.server}${obj.Url}`, 'export');
                         });
                     }

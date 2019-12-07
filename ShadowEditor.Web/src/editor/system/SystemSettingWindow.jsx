@@ -52,7 +52,7 @@ class SystemSettingWindow extends React.Component {
         fetch(`/api/Config/Get`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -64,7 +64,7 @@ class SystemSettingWindow extends React.Component {
         fetch(`/api/Role/List?pageSize=10000`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 let roles = {};
@@ -96,10 +96,10 @@ class SystemSettingWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg));
+                app.toast(_t(obj.Msg), 'success');
                 this.handleClose();
             });
         });

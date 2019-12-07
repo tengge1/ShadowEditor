@@ -103,7 +103,7 @@ Player.prototype.start = function (sceneData) {
     try {
         jsons = JSON.parse(sceneData);
     } catch (e) {
-        app.toast(_t('Cannot deserialize scene data.'));
+        app.toast(_t('Cannot deserialize scene data.'), 'error');
         return;
     }
 

@@ -22,7 +22,7 @@ class AddSkyBoxWindow extends React.Component {
             posZ: null,
             posZFile: null,
             negZ: null,
-            negZFile: null,
+            negZFile: null
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -36,32 +36,57 @@ class AddSkyBoxWindow extends React.Component {
         return <Window
             className={'AddSkyBoxWindow'}
             title={_t('Upload Sky Box')}
-            style={{ width: '640px', height: '400px', }}
+            style={{ width: '640px', height: '400px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <div className={'item'}>
-                    <ImageSelector className={'selector'} name={'posX'} value={posX} onChange={this.handleChange}></ImageSelector>
+                    <ImageSelector className={'selector'}
+                        name={'posX'}
+                        value={posX}
+                        onChange={this.handleChange}
+                    />
                     <div className={'title'}>PosX</div>
                 </div>
                 <div className={'item'}>
-                    <ImageSelector className={'selector'} name={'negX'} value={negX} onChange={this.handleChange}></ImageSelector>
+                    <ImageSelector className={'selector'}
+                        name={'negX'}
+                        value={negX}
+                        onChange={this.handleChange}
+                    />
                     <div className={'title'}>NegX</div>
                 </div>
                 <div className={'item'}>
-                    <ImageSelector className={'selector'} name={'posY'} value={posY} onChange={this.handleChange}></ImageSelector>
+                    <ImageSelector className={'selector'}
+                        name={'posY'}
+                        value={posY}
+                        onChange={this.handleChange}
+                    />
                     <div className={'title'}>PosY</div>
                 </div>
                 <div className={'item'}>
-                    <ImageSelector className={'selector'} name={'negY'} value={negY} onChange={this.handleChange}></ImageSelector>
+                    <ImageSelector className={'selector'}
+                        name={'negY'}
+                        value={negY}
+                        onChange={this.handleChange}
+                    />
                     <div className={'title'}>NegY</div>
                 </div>
                 <div className={'item'}>
-                    <ImageSelector className={'selector'} name={'posZ'} value={posZ} onChange={this.handleChange}></ImageSelector>
+                    <ImageSelector className={'selector'}
+                        name={'posZ'}
+                        value={posZ}
+                        onChange={this.handleChange}
+                    />
                     <div className={'title'}>PosZ</div>
                 </div>
                 <div className={'item'}>
-                    <ImageSelector className={'selector'} name={'negZ'} value={negZ} onChange={this.handleChange}></ImageSelector>
+                    <ImageSelector className={'selector'}
+                        name={'negZ'}
+                        value={negZ}
+                        onChange={this.handleChange}
+                    />
                     <div className={'title'}>NegZ</div>
                 </div>
             </Content>
@@ -80,7 +105,7 @@ class AddSkyBoxWindow extends React.Component {
 
             this.setState({
                 [name]: e.target.result,
-                [`${name}File`]: file,
+                [`${name}File`]: file
             });
         };
 
@@ -91,7 +116,7 @@ class AddSkyBoxWindow extends React.Component {
         const { posXFile, negXFile, posYFile, negYFile, posZFile, negZFile } = this.state;
 
         if (!posXFile || !negXFile || !posYFile || !negYFile || !posZFile || !negZFile) {
-            app.toast(_t('Please upload all the textures before save.'));
+            app.toast(_t('Please upload all the textures before save.'), 'warn');
             return;
         }
 
@@ -101,7 +126,7 @@ class AddSkyBoxWindow extends React.Component {
             posY: posYFile,
             negY: negYFile,
             posZ: posZFile,
-            negZ: negZFile,
+            negZ: negZFile
         }, result => {
             let obj = JSON.parse(result);
             this.handleClose();
@@ -116,11 +141,11 @@ class AddSkyBoxWindow extends React.Component {
 }
 
 AddSkyBoxWindow.propTypes = {
-    callback: PropTypes.func,
+    callback: PropTypes.func
 };
 
 AddSkyBoxWindow.defaultProps = {
-    callback: null,
+    callback: null
 };
 
 export default AddSkyBoxWindow;

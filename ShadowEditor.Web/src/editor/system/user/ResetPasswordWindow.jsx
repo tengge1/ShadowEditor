@@ -67,17 +67,17 @@ class ResetPasswordWindow extends React.Component {
         const { id, newPassword, confirmPassword } = this.state;
 
         if (!newPassword || newPassword.trim() === '') {
-            app.toast(_t('New password is not allowed to be empty.'));
+            app.toast(_t('New password is not allowed to be empty.'), 'warn');
             return;
         }
 
         if (!confirmPassword || confirmPassword.trim() === '') {
-            app.toast(_t('Confirm password is not allowed to be empty.'));
+            app.toast(_t('Confirm password is not allowed to be empty.'), 'warn');
             return;
         }
 
         if (newPassword !== confirmPassword) {
-            app.toast(_t('New password and confirm password is not the same.'));
+            app.toast(_t('New password and confirm password is not the same.'), 'warn');
             return;
         }
 
@@ -90,10 +90,10 @@ class ResetPasswordWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg));
+                    app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg));
+                app.toast(_t(obj.Msg), 'success');
                 this.handleClose();
             });
         });

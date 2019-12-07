@@ -23,16 +23,34 @@ class AssetsMenu extends React.Component {
 
     render() {
         return <MenuItem title={_t('Assets')}>
-            <MenuItem title={_t('Export Geometry')} onClick={this.handleExportGeometry}></MenuItem>
-            <MenuItem title={_t('Export Object')} onClick={this.handleExportObject}></MenuItem>
+            <MenuItem title={_t('Export Geometry')}
+                onClick={this.handleExportGeometry}
+            />
+            <MenuItem title={_t('Export Object')}
+                onClick={this.handleExportObject}
+            />
             <MenuItemSeparator />
-            <MenuItem title={_t('Export Collada')} onClick={this.handleExportCollada}></MenuItem>
-            <MenuItem title={_t('Export DRACO')} onClick={this.handleExportDRACO}></MenuItem>
-            <MenuItem title={_t('Export GLTF')} onClick={this.handleExportGLTF}></MenuItem>
-            <MenuItem title={_t('Export OBJ')} onClick={this.handleExportOBJ}></MenuItem>
-            <MenuItem title={_t('Export PLY')} onClick={this.handleExportPLY}></MenuItem>
-            <MenuItem title={_t('Export STL Binary')} onClick={this.handleExportSTLB}></MenuItem>
-            <MenuItem title={_t('Export STL')} onClick={this.handleExportSTL}></MenuItem>
+            <MenuItem title={_t('Export Collada')}
+                onClick={this.handleExportCollada}
+            />
+            <MenuItem title={_t('Export DRACO')}
+                onClick={this.handleExportDRACO}
+            />
+            <MenuItem title={_t('Export GLTF')}
+                onClick={this.handleExportGLTF}
+            />
+            <MenuItem title={_t('Export OBJ')}
+                onClick={this.handleExportOBJ}
+            />
+            <MenuItem title={_t('Export PLY')}
+                onClick={this.handleExportPLY}
+            />
+            <MenuItem title={_t('Export STL Binary')}
+                onClick={this.handleExportSTLB}
+            />
+            <MenuItem title={_t('Export STL')}
+                onClick={this.handleExportSTL}
+            />
         </MenuItem>;
     }
 
@@ -44,14 +62,14 @@ class AssetsMenu extends React.Component {
         var object = editor.selected;
 
         if (object === null) {
-            app.toast(_t('Please select object!'));
+            app.toast(_t('Please select object!'), 'warn');
             return;
         }
 
         var geometry = object.geometry;
 
         if (geometry === undefined) {
-            app.toast(_t('The object you selected is not geometry.'));
+            app.toast(_t('The object you selected is not geometry.'), 'warn');
             return;
         }
 
@@ -75,7 +93,7 @@ class AssetsMenu extends React.Component {
         var object = editor.selected;
 
         if (object === null) {
-            app.toast(_t('Please select object!'));
+            app.toast(_t('Please select object!'), 'warn');
             return;
         }
 
@@ -141,7 +159,7 @@ class AssetsMenu extends React.Component {
         var object = editor.selected;
 
         if (object === null) {
-            app.toast(_t('Please select object!'));
+            app.toast(_t('Please select object!'), 'warn');
             return;
         }
 
@@ -159,7 +177,7 @@ class AssetsMenu extends React.Component {
         var object = editor.selected;
 
         if (object === null) {
-            app.toast(_t('Please select object!'));
+            app.toast(_t('Please select object!'), 'warn');
             return;
         }
 
