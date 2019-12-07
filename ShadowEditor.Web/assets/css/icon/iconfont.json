@@ -426,6 +426,13 @@
       "unicode_decimal": 59042
     },
     {
+      "icon_id": "3309047",
+      "name": "警告",
+      "font_class": "warn",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
       "icon_id": "3387960",
       "name": "立体",
       "font_class": "geometry",
@@ -459,6 +466,13 @@
       "font_class": "rect-tool",
       "unicode": "e762",
       "unicode_decimal": 59234
+    },
+    {
+      "icon_id": "3770226",
+      "name": "信息",
+      "font_class": "info",
+      "unicode": "e655",
+      "unicode_decimal": 58965
     },
     {
       "icon_id": "3988062",
@@ -671,6 +685,13 @@
       "unicode_decimal": 58927
     },
     {
+      "icon_id": "8732512",
+      "name": "错误",
+      "font_class": "error",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
       "icon_id": "11172218",
       "name": "线标注",
       "font_class": "line-mark",
@@ -683,6 +704,13 @@
       "font_class": "recorder",
       "unicode": "e628",
       "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "11445958",
+      "name": "确认 正确",
+      "font_class": "success",
+      "unicode": "e631",
+      "unicode_decimal": 58929
     }
   ]
 }

@@ -101,6 +101,7 @@ export { default as Tree } from './tree/Tree.jsx';
 // window
 export { default as Alert } from './window/Alert.jsx';
 export { default as Confirm } from './window/Confirm.jsx';
+export { default as Message } from './window/Message.jsx';
 export { default as Photo } from './window/Photo.jsx';
 export { default as Prompt } from './window/Prompt.jsx';
 export { default as Toast } from './window/Toast.jsx';

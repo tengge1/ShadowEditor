@@ -1,5 +1,5 @@
 import {
-    Toast,
+    Message,
     Alert,
     Confirm,
     Prompt,
@@ -114,9 +114,12 @@ Application.prototype.removeElement = function (element, callback) {
 /**
  * 弹窗一段时间消失的消息窗口
  * @param {String} content 内容
+ * @param {String} type 类型（info, success, warn, error）
  */
-Application.prototype.toast = function (content) {
-    let component = this.createElement(Toast, undefined, content);
+Application.prototype.toast = function (content, type = 'info') {
+    let component = this.createElement(Message, {
+        type
+    }, content);
 
     this.addElement(component);
 

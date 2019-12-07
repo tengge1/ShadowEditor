@@ -1,0 +1,80 @@
+@keyframes message-animation {
+    from { top: 0; }
+    to { top: 24px; }
+}
+
+.Message {
+    min-width: 380px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #ebeef5;
+    position: fixed;
+    left: 50%;
+    top: 24px;
+    transform: translateX(-50%);
+    background-color: #edf2fc;
+    overflow: hidden;
+    padding: 15px 15px 15px 20px;
+    display: flex;
+    align-items: center;
+    z-index: 5000;
+    animation: message-animation .3s;
+}
+
+.Message.success {
+    background-color: #f0f9eb;
+    border-color: #e1f3d8;
+}
+
+.Message.warn {
+    background-color: #fdf6ec;
+    border-color: #faecd8;
+}
+
+.Message.error {
+    background-color: #fef0f0;
+    border-color: #fde2e2;
+}
+
+.Message > .iconfont {
+    margin-right: 10px;
+    color: #909399;
+}
+
+.Message.success > .iconfont {
+    margin-right: 10px;
+    color: #67c23a;
+}
+
+.Message.warn > .iconfont {
+    margin-right: 10px;
+    color: #e6a23c;
+}
+
+.Message.error > .iconfont {
+    margin-right: 10px;
+    color: #f56c6c;
+}
+
+.Message > .content {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1;
+    color: #909399;
+}
+
+.Message.success > .content {
+    margin: 0;
+    color: #67c23a;
+}
+
+.Message.warn > .content {
+    margin: 0;
+    color: #e6a23c;
+}
+
+.Message.error > .content {
+    margin: 0;
+    color: #f56c6c;
+}
