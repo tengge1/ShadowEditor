@@ -1,14 +1,13 @@
 import { MenuItem, MenuItemSeparator } from '../../third_party';
 
 // basic
-import SvgAnchor from '../../visual/basic/SvgAnchor.jsx';
-import SvgCircle from '../../visual/basic/SvgCircle.jsx';
-import SvgEllipse from '../../visual/basic/SvgEllipse.jsx';
-import SvgLine from '../../visual/basic/SvgLine.jsx';
-import SvgPath from '../../visual/basic/SvgPath.jsx';
-import SvgPolygon from '../../visual/basic/SvgPolygon.jsx';
-import SvgPolyline from '../../visual/basic/SvgPolyline.jsx';
-import SvgRect from '../../visual/basic/SvgRect.jsx';
+import SvgCircle from '../../visual/basic/shape/SvgCircle.jsx';
+import SvgEllipse from '../../visual/basic/shape/SvgEllipse.jsx';
+import SvgLine from '../../visual/basic/shape/SvgLine.jsx';
+import SvgPath from '../../visual/basic/shape/SvgPath.jsx';
+import SvgPolygon from '../../visual/basic/shape/SvgPolygon.jsx';
+import SvgPolyline from '../../visual/basic/shape/SvgPolyline.jsx';
+import SvgRect from '../../visual/basic/shape/SvgRect.jsx';
 
 /**
  * 数据可视化菜单

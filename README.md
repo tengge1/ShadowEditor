@@ -19,6 +19,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 6. 点标注改为不会缩放的三角形标注，可以正常保存载入了。
 7. 选中效果由保存在场景中，改为保存在浏览器上。
 8. 鼠标高亮效果，改为保存在浏览器上，默认不开启。可以通过选项、显示菜单设置是否开启高亮和高亮颜色。
+9. SVG元素封装：`SvgCircle`、`SvgEllipse`、`SvgLine`、`SvgPath`、`SvgPolygon`、`SvgPolyline`、`SvgRect`。
 
 ## v0.3.8更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
