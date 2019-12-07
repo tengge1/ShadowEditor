@@ -6,6 +6,7 @@ import SvgCircle from '../../visual/basic/SvgCircle.jsx';
 import SvgEllipse from '../../visual/basic/SvgEllipse.jsx';
 import SvgLine from '../../visual/basic/SvgLine.jsx';
 import SvgPath from '../../visual/basic/SvgPath.jsx';
+import SvgPolygon from '../../visual/basic/SvgPolygon.jsx';
 
 /**
  * 数据可视化菜单
@@ -19,6 +20,7 @@ class VisualMenu extends React.Component {
         this.handleAddEllipse = this.handleAddEllipse.bind(this);
         this.handleAddLine = this.handleAddLine.bind(this);
         this.handleAddPath = this.handleAddPath.bind(this);
+        this.handleAddPolygon = this.handleAddPolygon.bind(this);
     }
 
     render() {
@@ -35,6 +37,9 @@ class VisualMenu extends React.Component {
                 />
                 <MenuItem title={_t('SVG Path')}
                     onClick={this.handleAddPath}
+                />
+                <MenuItem title={_t('SVG Polygon')}
+                    onClick={this.handleAddPolygon}
                 />
             </MenuItem>
         </MenuItem>;
@@ -58,6 +63,11 @@ class VisualMenu extends React.Component {
     handleAddPath() {
         const path = React.createElement(SvgPath);
         app.visual.add(path);
+    }
+
+    handleAddPolygon() {
+        const polygon = React.createElement(SvgPolygon);
+        app.visual.add(polygon);
     }
 }
 
