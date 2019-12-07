@@ -14,7 +14,7 @@ class VisualMenu extends React.Component {
 
     render() {
         return <MenuItem title={_t('Visual')}>
-            <MenuItem title={_t('Basic')}
+            <MenuItem title={_t('Basic Shape')}
                 onClick={this.handleAddCircle}
             />
         </MenuItem>;
