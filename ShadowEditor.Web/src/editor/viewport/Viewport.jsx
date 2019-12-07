@@ -38,6 +38,7 @@ class Viewport extends React.Component {
         app.viewportRef = this.viewportRef.current;
         app.editorRef = this.editorRef.current;
         app.svgRef = this.svgRef.current;
+        app.visual = this.svgRef.current;
         app.playerRef = this.playerRef.current;
 
         // 性能控件

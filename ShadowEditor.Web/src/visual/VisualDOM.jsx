@@ -1,3 +1,7 @@
+import './css/VisualDOM.css';
+import Wrapper from './utils/Wrapper.jsx';
+import SvgCircle from './basic/SvgCircle.jsx';
+
 /**
  * VisualDOM
  * @author tengge / https://github.com/tengge1
@@ -18,9 +22,11 @@ class VisualDOM extends React.Component {
     render() {
         const { defs, components } = this.state;
 
-        return <svg>
+        return <svg className={'VisualDOM'}>
             <defs>{defs}</defs>
-            {components}
+            {components.map((n, i) => {
+                return <Wrapper key={i}>{n}</Wrapper>;
+            })}
         </svg>;
     }
 

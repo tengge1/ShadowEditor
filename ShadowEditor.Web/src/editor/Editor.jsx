@@ -12,7 +12,6 @@ import AssetsPanel from './assets/AssetsPanel.jsx';
 
 import History from '../command/History';
 import Helpers from '../helper/Helpers';
-// import Visualization from '../visual/Visualization';
 import EditorControls from '../controls/EditorControls';
 
 /**
@@ -153,9 +152,6 @@ class Editor extends React.Component {
         this.sceneHelpers.add(light);
 
         this.showViewHelper = true;
-
-        // 可视化
-        this.svg = app.svgRef; // svgDOM
 
         // 事件
         app.on(`appStarted.Editor`, this.onAppStarted.bind(this));

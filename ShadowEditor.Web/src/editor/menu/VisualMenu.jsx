@@ -38,7 +38,8 @@ class VisualMenu extends React.Component {
     }
 
     handleAddCircle() {
-
+        const circle = React.createElement(SvgCircle);
+        app.visual.add(circle);
     }
 }
 
