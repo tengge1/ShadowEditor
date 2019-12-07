@@ -21,6 +21,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 8. 鼠标高亮效果，改为保存在浏览器上，默认不开启。可以通过选项、显示菜单设置是否开启高亮和高亮颜色。
 9. SVG元素封装：`SvgCircle`、`SvgEllipse`、`SvgLine`、`SvgPath`、`SvgPolygon`、`SvgPolyline`、`SvgRect`。
 10. 优化消息弹窗，不再遮挡编辑区，使用背景和文字颜色区分`消息`、`成功`、`警告`、`错误`四种情景。
+11. 修复正投影下，鼠标hover高亮不正确bug。
 
 ## v0.3.8更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

@@ -75,7 +75,8 @@ HoverHelper.prototype.onAfterRender = function () {
         return;
     }
 
-    const { camera, renderer } = app.editor;
+    const renderer = app.editor.renderer;
+    const camera = app.editor.view === 'perspective' ? app.editor.camera : app.editor.orthCamera;
 
     const parent = this.object.parent;
     const index = parent.children.indexOf(this.object);

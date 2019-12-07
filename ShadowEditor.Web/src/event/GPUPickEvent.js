@@ -69,7 +69,9 @@ GPUPickEvent.prototype.onAfterRender = function () {
     if (!this.isIn) {
         return;
     }
-    let { scene, camera, renderer } = app.editor;
+    let { scene, renderer } = app.editor;
+    const camera = app.editor.view === 'perspective' ? app.editor.camera : app.editor.orthCamera;
+
     const { width, height } = renderer.domElement;
 
     if (this.init === undefined) {
