@@ -6,11 +6,12 @@ import PropTypes from 'prop-types';
  */
 class SvgEllipse extends React.Component {
     render() {
-        const { cx, cy, rx, ry, children } = this.props;
+        const { cx, cy, rx, ry, children, ...others } = this.props;
         return <ellipse cx={cx}
             cy={cy}
             rx={rx}
             ry={ry}
+            {...others}
                >{children}</ellipse>;
     }
 }

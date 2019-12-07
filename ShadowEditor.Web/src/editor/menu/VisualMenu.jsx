@@ -4,6 +4,7 @@ import { MenuItem, MenuItemSeparator } from '../../third_party';
 import SvgAnchor from '../../visual/basic/SvgAnchor.jsx';
 import SvgCircle from '../../visual/basic/SvgCircle.jsx';
 import SvgEllipse from '../../visual/basic/SvgEllipse.jsx';
+import SvgLine from '../../visual/basic/SvgLine.jsx';
 
 /**
  * 数据可视化菜单
@@ -15,6 +16,7 @@ class VisualMenu extends React.Component {
 
         this.handleAddCircle = this.handleAddCircle.bind(this);
         this.handleAddEllipse = this.handleAddEllipse.bind(this);
+        this.handleAddLine = this.handleAddLine.bind(this);
     }
 
     render() {
@@ -25,6 +27,9 @@ class VisualMenu extends React.Component {
                 />
                 <MenuItem title={_t('SVG Ellipse')}
                     onClick={this.handleAddEllipse}
+                />
+                <MenuItem title={_t('SVG Line')}
+                    onClick={this.handleAddLine}
                 />
             </MenuItem>
         </MenuItem>;
@@ -38,6 +43,11 @@ class VisualMenu extends React.Component {
     handleAddEllipse() {
         const ellipse = React.createElement(SvgEllipse);
         app.visual.add(ellipse);
+    }
+
+    handleAddLine() {
+        const line = React.createElement(SvgLine);
+        app.visual.add(line);
     }
 }
 

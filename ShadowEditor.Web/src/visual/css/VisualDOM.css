@@ -6,3 +6,11 @@
     height: 100%;
     pointer-events: none;
 }
+
+/* 设置svg默认样式 */
+.VisualDOM * {
+    stroke: #fff;
+    stroke-width: 2;
+    fill: #f00;
+    pointer-events: visiblePainted;
+}

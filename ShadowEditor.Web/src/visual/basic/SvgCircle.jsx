@@ -6,10 +6,11 @@ import PropTypes from 'prop-types';
  */
 class SvgCircle extends React.Component {
     render() {
-        const { cx, cy, r, children } = this.props;
+        const { cx, cy, r, children, ...others } = this.props;
         return <circle cx={cx}
             cy={cy}
             r={r}
+            {...others}
                >{children}</circle>;
     }
 }
