@@ -1,6 +1,6 @@
 import { MenuItem, MenuItemSeparator } from '../../third_party';
 
-// basic
+// basic/shape
 import SvgCircle from '../../visual/basic/shape/SvgCircle.jsx';
 import SvgEllipse from '../../visual/basic/shape/SvgEllipse.jsx';
 import SvgLine from '../../visual/basic/shape/SvgLine.jsx';
