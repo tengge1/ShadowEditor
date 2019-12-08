@@ -1,4 +1,3 @@
-import DownloadUtils from './DownloadUtils';
 import TimeUtils from './TimeUtils';
 
 /**
@@ -10,6 +9,8 @@ class VideoRecorder {
         this.chunks = [];
 
         this.recorder = null;
+
+        this.running = false;
 
         this.onDataAvailable = this.onDataAvailable.bind(this);
     }
@@ -28,9 +29,11 @@ class VideoRecorder {
                     this.recorder = new MediaRecorder(stream);
                     this.recorder.ondataavailable = this.onDataAvailable;
                     this.recorder.start();
+                    this.running = true;
                     resolve(true);
                 })
-                .catch(err => {
+                .catch(() => {
+                    this.running = false;
                     resolve(false);
                 });
         });
@@ -41,6 +44,8 @@ class VideoRecorder {
             this.recorder.onstop = () => {
                 this.recorder.ondataavailable = null;
                 this.recorder.onstop = null;
+
+                this.running = false;
 
                 const file = new File(this.chunks, TimeUtils.getDateTime() + '.webm');
 
@@ -65,6 +70,7 @@ class VideoRecorder {
 
             this.recorder.stop();
         }).catch(() => {
+            this.running = false;
             resolve(false);
         });
     }

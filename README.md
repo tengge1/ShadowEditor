@@ -23,6 +23,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 10. 优化消息弹窗，不再遮挡编辑区，使用背景和文字颜色区分`消息`、`成功`、`警告`、`错误`四种情景。
 11. 修复正投影下，鼠标hover高亮不正确bug。
 12. 制作功能演示视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) [百度云](https://pan.baidu.com/s/1qfRHot4H7ip26KLbQuBeVg)
+13. 修复录制视频过程中，切换工具栏，导致录制视频失败的bug。
 
 ## v0.3.8更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

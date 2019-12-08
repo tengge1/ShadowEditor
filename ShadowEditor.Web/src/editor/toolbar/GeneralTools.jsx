@@ -3,6 +3,8 @@ import Converter from '../../utils/Converter';
 import TimeUtils from '../../utils/TimeUtils';
 import VideoRecorder from '../../utils/VideoRecorder';
 
+let recorder = null;
+
 /**
  * 通用工具
  * @author tengge / https://github.com/tengge1
@@ -15,7 +17,7 @@ class GeneralTools extends React.Component {
             mode: 'translate',
             view: 'perspective',
             isGridMode: false,
-            isRecording: false
+            isRecording: recorder ? recorder.running : false
         };
 
         this.handleEnterSelectMode = this.handleEnterSelectMode.bind(this);
@@ -222,11 +224,11 @@ class GeneralTools extends React.Component {
     }
 
     startRecord() {
-        if (this.recorder === undefined) {
-            this.recorder = new VideoRecorder();
+        if (recorder === null) {
+            recorder = new VideoRecorder();
         }
 
-        this.recorder.start().then(success => {
+        recorder.start().then(success => {
             if (success) {
                 this.setState({
                     isRecording: true
@@ -236,11 +238,11 @@ class GeneralTools extends React.Component {
     }
 
     stopRecord() {
-        if (!this.recorder) {
+        if (!recorder) {
             return;
         }
 
-        this.recorder.stop().then(() => {
+        recorder.stop().then(() => {
             this.setState({
                 isRecording: false
             });
