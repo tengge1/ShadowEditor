@@ -31,7 +31,7 @@ https://storage.googleapis.com/tensorflow/tf-keras-datasets/t10k-images-idx3-uby
 
 **imdb - IMDB电影评论情感分类**
 
-来自IMDB的25,000条电影评论的数据集，以情感（正/负）标记。
+来自IMDB的25,000条电影评论的数据集，以评分（正/负）标记。
 
 下载地址：https://storage.googleapis.com/tensorflow/tf-keras-datasets/imdb.npz
 
