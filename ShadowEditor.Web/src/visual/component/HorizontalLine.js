@@ -76,7 +76,7 @@ HorizontalLine.prototype.toJSON = function () {
         id: this.id,
         type: this.type,
         width: this.width,
-        transform,
+        transform
     };
 };
 

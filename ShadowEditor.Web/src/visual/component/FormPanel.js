@@ -11,16 +11,16 @@ function FormPanel() {
     this.height = 130;
     this.data = [{
         key: '键1',
-        value: '值1',
+        value: '值1'
     }, {
         key: '键2',
-        value: '值2',
+        value: '值2'
     }, {
         key: '键3',
-        value: '值3',
+        value: '值3'
     }, {
         key: '键4',
-        value: '值4',
+        value: '值4'
     }];
     this.transform = null;
 }
@@ -112,7 +112,7 @@ FormPanel.prototype.toJSON = function () {
         id: this.id,
         type: this.type,
         data: this.data,
-        transform,
+        transform
     };
 };
 

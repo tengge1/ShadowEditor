@@ -50,7 +50,7 @@ Histogram2.prototype.render = function (parent) {
         top: 20,
         right: 20,
         bottom: 20,
-        left: 30,
+        left: 30
     };
 
     var xScale = d3.scaleBand()
@@ -143,7 +143,7 @@ Histogram2.prototype.toJSON = function () {
         type: this.type,
         title: this.title,
         data: this.data,
-        transform,
+        transform
     };
 };
 

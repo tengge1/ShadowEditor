@@ -82,7 +82,7 @@ KeyValueLabel.prototype.toJSON = function () {
         type: this.type,
         key: this.key,
         value: this.value,
-        transform,
+        transform
     };
 };
 

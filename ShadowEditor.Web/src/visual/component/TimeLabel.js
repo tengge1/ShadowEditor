@@ -72,7 +72,7 @@ TimeLabel.prototype.toJSON = function () {
         id: this.id,
         type: this.type,
         text: this.text,
-        transform,
+        transform
     };
 };
 

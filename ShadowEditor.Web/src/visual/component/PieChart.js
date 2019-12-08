@@ -72,7 +72,7 @@ PieChart.prototype.render = function (parent) {
         .enter()
         .append('g')
         .attr('transform',
-            'translate(' + (width / 2) + ',' + (height / 2) + ')');
+            'translate(' + width / 2 + ',' + height / 2 + ')');
 
     arcs.append('path')
         .attr('data-id', this.id)
@@ -150,7 +150,7 @@ PieChart.prototype.toJSON = function () {
         id: this.id,
         type: this.type,
         title: this.title,
-        transform,
+        transform
     };
 };
 

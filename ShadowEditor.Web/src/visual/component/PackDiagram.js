@@ -71,7 +71,7 @@ PackDiagram.prototype.render = function (parent) {
             }, {
                 name: '防城港'
             }]
-        }],
+        }]
     };
 
     var width = 500;
@@ -133,7 +133,7 @@ PackDiagram.prototype.toJSON = function () {
         id: this.id,
         type: this.type,
         title: this.title,
-        transform,
+        transform
     };
 };
 

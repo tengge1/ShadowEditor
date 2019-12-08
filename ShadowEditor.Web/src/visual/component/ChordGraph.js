@@ -52,14 +52,14 @@ ChordGraph.prototype.render = function (parent) {
         .style('pointer-events', 'all');
 
     var continent = [
-        '亚洲', '欧洲', '非洲', '美洲', '大洋洲',
+        '亚洲', '欧洲', '非洲', '美洲', '大洋洲'
     ];
     var population = [
         [9000, 870, 3000, 1000, 5200],
         [3400, 8000, 2300, 4922, 374],
         [2000, 2000, 7700, 4881, 1050],
         [3000, 8012, 5531, 500, 400],
-        [3540, 4310, 1500, 1900, 300],
+        [3540, 4310, 1500, 1900, 300]
     ];
 
     var chord = d3.chord()
@@ -73,8 +73,8 @@ ChordGraph.prototype.render = function (parent) {
 
     // 弦图的<g>元素
     var gChord = g.append('g')
-        .attr('transform', 'translate(' + (width / 2) +
-            ',' + (height / 2) + ')');
+        .attr('transform', 'translate(' + width / 2 +
+            ',' + height / 2 + ')');
 
     // 节点的<g>元素
     var gOuter = gChord.append('g');
@@ -117,10 +117,10 @@ ChordGraph.prototype.render = function (parent) {
         .attr('dy', '.35em')
         .attr('transform', function (d) {
             var result = 'rotate(' +
-                (d.angle * 180 / Math.PI) + ')';
+                d.angle * 180 / Math.PI + ')';
 
             result += ' translate(0,'
-                + (- 1.0 * (outerRadius + 10)) + ')';
+                + - 1.0 * (outerRadius + 10) + ')';
 
             if (d.angle > Math.PI * 3 / 4 &&
                 d.angle < Math.PI * 5 / 4) {
@@ -187,7 +187,7 @@ ChordGraph.prototype.toJSON = function () {
         type: this.type,
         title: this.title,
         data: this.data,
-        transform,
+        transform
     };
 };
 

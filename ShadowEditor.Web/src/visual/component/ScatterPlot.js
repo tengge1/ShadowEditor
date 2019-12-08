@@ -145,7 +145,7 @@ ScatterPlot.prototype.toJSON = function () {
         type: this.type,
         title: this.title,
         data: this.data,
-        transform,
+        transform
     };
 };
 

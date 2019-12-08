@@ -46,16 +46,16 @@ PartitionDiagram.prototype.render = function (parent) {
             value: 1,
             children: [{
                 name: '杭州',
-                value: 1,
+                value: 1
             }, {
                 name: '宁波',
-                value: 1,
+                value: 1
             }, {
                 name: '温州',
-                value: 1,
+                value: 1
             }, {
                 name: '绍兴',
-                value: 1,
+                value: 1
             }]
         }, {
             name: '广西',
@@ -65,28 +65,28 @@ PartitionDiagram.prototype.render = function (parent) {
                 value: 1,
                 children: [{
                     name: '秀峰区',
-                    value: 1,
+                    value: 1
                 }, {
                     name: '叠彩区',
-                    value: 1,
+                    value: 1
                 }, {
                     name: '象山区',
-                    value: 1,
+                    value: 1
                 }, {
                     name: '七星区',
-                    value: 1,
+                    value: 1
                 }]
             }, {
                 name: '南宁',
-                value: 1,
+                value: 1
             }, {
                 name: '柳州',
-                value: 1,
+                value: 1
             }, {
                 name: '防城港',
-                value: 1,
+                value: 1
             }]
-        }],
+        }]
     };
 
     var width = 800;
@@ -144,7 +144,7 @@ PartitionDiagram.prototype.toJSON = function () {
         id: this.id,
         type: this.type,
         title: this.title,
-        transform,
+        transform
     };
 };
 

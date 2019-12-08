@@ -77,7 +77,7 @@ VerticalLine.prototype.toJSON = function () {
         type: this.type,
         width: this.width,
         height: this.height,
-        transform,
+        transform
     };
 };
 

@@ -71,7 +71,7 @@ TreeDiagram.prototype.render = function (parent) {
             }, {
                 name: '防城港'
             }]
-        }],
+        }]
     };
 
     var width = 500;
@@ -80,7 +80,7 @@ TreeDiagram.prototype.render = function (parent) {
     var tree = d3.tree()
         .size([width, height - 200])
         .separation(function (a, b) {
-            return (a.parent === b.parent ? 1 : 2);
+            return a.parent === b.parent ? 1 : 2;
         });
 
     var hierachyData = d3.hierarchy(root)
@@ -114,7 +114,7 @@ TreeDiagram.prototype.render = function (parent) {
         .append('g')
         .attr('class', 'node')
         .attr('transform', function (d) {              // 这样写是为了 让数据横向显示
-            return `translate(${d.y}, ${d.x})`
+            return `translate(${d.y}, ${d.x})`;
         });
     g1.selectAll('.node')
         .append('circle')
@@ -131,10 +131,10 @@ TreeDiagram.prototype.render = function (parent) {
             return d.children ? -8 : 8;
         })
         .attr('text-anchor', function (d) {
-            return d.children ? 'end' : 'start'
+            return d.children ? 'end' : 'start';
         })
         .text(function (d) {
-            return d.data.name
+            return d.data.name;
         })
         .style('font-size', '18px');
 
@@ -161,7 +161,7 @@ TreeDiagram.prototype.toJSON = function () {
         id: this.id,
         type: this.type,
         title: this.title,
-        transform,
+        transform
     };
 };
 

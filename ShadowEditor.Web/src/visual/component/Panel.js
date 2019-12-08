@@ -92,7 +92,7 @@ Panel.prototype.toJSON = function () {
         id: this.id,
         type: this.type,
         title: this.title,
-        transform,
+        transform
     };
 };
 
