@@ -34,7 +34,7 @@ class EditorMenuBar extends React.Component {
             {!enableAuthority || isLogin ? <ComponentMenu /> : null}
             {enableAuthority && isAdmin ? <SystemMenu /> : null}
             <PlayMenu />
-            {!enableAuthority || isAdmin ? <VisualMenu /> : null}
+            {/* {!enableAuthority || isAdmin ? <VisualMenu /> : null} */}
             {!enableAuthority || isAdmin ? <ToolMenu /> : null}
             <OptionsMenu />
             <HelpMenu />
