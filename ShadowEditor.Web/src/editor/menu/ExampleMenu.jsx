@@ -9,12 +9,20 @@ class ExampleMenu extends React.Component {
         super(props);
 
         this.handleArkanoid = this.handleArkanoid.bind(this);
+        this.handleCamera = this.handleCamera.bind(this);
+        this.handleParticle = this.handleParticle.bind(this);
     }
 
     render() {
         return <MenuItem title={_t('Example')}>
             <MenuItem title={_t('Arkanoid')}
                 onClick={this.handleArkanoid}
+            />
+            <MenuItem title={_t('Camera')}
+                onClick={this.handleCamera}
+            />
+            <MenuItem title={_t('Particle')}
+                onClick={this.handleParticle}
             />
             <MenuItemSeparator />
         </MenuItem>;
@@ -24,9 +32,17 @@ class ExampleMenu extends React.Component {
         app.call(`load`, this, 'assets/examples/arkanoid.json', _t('Arkanoid'));
     }
 
-    handleArkanoid1() {
+    handleCamera() {
+        app.call(`load`, this, 'assets/examples/camera.json', _t('Camera'));
+    }
+
+    handleParticle() {
+        app.call(`load`, this, 'assets/examples/particle.json', _t('Particle'));
+    }
+
+    handleParticle1() {
         const loader = new THREE.FileLoader();
-        loader.load('assets/examples/arkanoid.app.json', text => {
+        loader.load('assets/examples/particles.app.json', text => {
             const json = JSON.parse(text);
 
             const loader = new THREE.ObjectLoader();
