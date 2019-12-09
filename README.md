@@ -26,6 +26,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 13. 新增`打砖块`示例。(three.js自带)
 14. 新增`相机`示例。（three.js自带）
 15. 新增`粒子`示例。（three.js自带）
+16. 新增`乒乓球`示例。（three.js自带）
+17. 新增`着色器`示例。(three.js自带)
 
 ## v0.3.8更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

@@ -11,6 +11,8 @@ class ExampleMenu extends React.Component {
         this.handleArkanoid = this.handleArkanoid.bind(this);
         this.handleCamera = this.handleCamera.bind(this);
         this.handleParticle = this.handleParticle.bind(this);
+        this.handlePingPong = this.handlePingPong.bind(this);
+        this.handleShader = this.handleShader.bind(this);
     }
 
     render() {
@@ -24,7 +26,12 @@ class ExampleMenu extends React.Component {
             <MenuItem title={_t('Particle')}
                 onClick={this.handleParticle}
             />
-            <MenuItemSeparator />
+            <MenuItem title={_t('Ping Pong')}
+                onClick={this.handlePingPong}
+            />
+            <MenuItem title={_t('Shader')}
+                onClick={this.handleShader}
+            />
         </MenuItem>;
     }
 
@@ -40,9 +47,20 @@ class ExampleMenu extends React.Component {
         app.call(`load`, this, 'assets/examples/particle.json', _t('Particle'));
     }
 
-    handleParticle1() {
+    handlePingPong() {
+        app.call(`load`, this, 'assets/examples/pong.json', _t('Ping Pong'));
+    }
+
+    handleShader() {
+        app.call(`load`, this, 'assets/examples/shader.json', _t('Shader'));
+    }
+
+    /**
+     * 加载three.js自带编辑器示例
+     */
+    handleOldEditorScene() {
         const loader = new THREE.FileLoader();
-        loader.load('assets/examples/particles.app.json', text => {
+        loader.load('assets/examples/shaders.app.json', text => {
             const json = JSON.parse(text);
 
             const loader = new THREE.ObjectLoader();
