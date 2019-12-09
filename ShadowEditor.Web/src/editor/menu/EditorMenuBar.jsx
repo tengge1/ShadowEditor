@@ -9,6 +9,7 @@ import ComponentMenu from './ComponentMenu.jsx';
 import PlayMenu from './PlayMenu.jsx';
 import VisualMenu from './VisualMenu.jsx';
 import ToolMenu from './ToolMenu.jsx';
+import ExampleMenu from './ExampleMenu.jsx';
 import OptionsMenu from './OptionsMenu.jsx';
 import SystemMenu from './SystemMenu.jsx';
 import HelpMenu from './HelpMenu.jsx';
@@ -35,6 +36,7 @@ class EditorMenuBar extends React.Component {
             {enableAuthority && isAdmin ? <SystemMenu /> : null}
             <PlayMenu />
             {/* {!enableAuthority || isAdmin ? <VisualMenu /> : null} */}
+            {!enableAuthority || isAdmin ? <ExampleMenu /> : null}
             {!enableAuthority || isAdmin ? <ToolMenu /> : null}
             <OptionsMenu />
             <HelpMenu />

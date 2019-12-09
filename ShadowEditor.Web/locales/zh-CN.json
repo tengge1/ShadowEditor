@@ -942,5 +942,7 @@
     "Marker name": "标注名称",
     "Enable Hover": "启用高亮",
     "Hover Color": "高亮颜色",
-    "Basic Shape": "基础图形"
+    "Basic Shape": "基础图形",
+    "Example": "示例",
+    "Arkanoid": "打砖块"
 }
