@@ -5,7 +5,6 @@ uniform vec3 directDirection; // 平行光方向
 
 varying vec2 vUv;
 varying vec3 vLightFront;
-varying vec3 vIndirectFront;
 
 void main() {
 	vUv = uv;
@@ -14,10 +13,7 @@ void main() {
 
 	vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
 	gl_Position = projectionMatrix * mvPosition;
-	
-	vLightFront = vec3( 0.0 );
-	vIndirectFront = vec3( 0.0 );
 
 	float dotNL = dot( normalize( transformedNormal ), directDirection );
-	vLightFront += clamp( dotNL, 0.0, 1.0 ) * PI * directColor;
+	vLightFront = clamp( dotNL, 0.0, 1.0 ) * PI * directColor;
 }
