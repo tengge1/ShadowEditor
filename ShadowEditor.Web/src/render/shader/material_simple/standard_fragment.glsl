@@ -1010,25 +1010,22 @@ float computeSpecularOcclusion( const in float dotNV, const in float ambientOccl
 	uniform vec4 clippingPlanes[ 0 ];
 #endif
 void main() {
-	vec4 diffuseColor = vec4( diffuse, opacity );
-	ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );
-	vec3 totalEmissiveRadiance = emissive;
-
-	vec4 texelColor = texture2D( map, vUv );
-	texelColor = mapTexelToLinear( texelColor );
+    vec4 diffuseColor = vec4( diffuse, opacity );
+    
+    vec4 texelColor = texture2D( map, vUv );
 	diffuseColor *= texelColor;
 
-float roughnessFactor = roughness;
-float metalnessFactor = metalness;
+    ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );
 
 	vec3 normal = normalize( vNormal );
 
 PhysicalMaterial material;
-material.diffuseColor = diffuseColor.rgb * ( 1.0 - metalnessFactor );
-material.specularRoughness = clamp( roughnessFactor, 0.04, 1.0 );
+
+material.diffuseColor = diffuseColor.rgb * ( 1.0 - metalness );
+material.specularRoughness = clamp( roughness, 0.04, 1.0 );
 
 
-	material.specularColor = mix( vec3( DEFAULT_SPECULAR_COEFFICIENT ), diffuseColor.rgb, metalnessFactor );
+	material.specularColor = mix( vec3( DEFAULT_SPECULAR_COEFFICIENT ), diffuseColor.rgb, metalness );
 
 GeometricContext geometry;
 geometry.position = - vViewPosition;
@@ -1036,24 +1033,34 @@ geometry.normal = normal;
 geometry.viewDir = normalize( vViewPosition );
 IncidentLight directLight;
 
-
+// 平行光
 	DirectionalLight directionalLight;
-	
-		directionalLight = directionalLights[ 0 ];
-		getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );
-		#ifdef USE_SHADOWMAP
-		directLight.color *= all( bvec2( directionalLight.shadow, directLight.visible ) ) ? getShadow( directionalShadowMap[ 0 ], directionalLight.shadowMapSize, directionalLight.shadowBias, directionalLight.shadowRadius, vDirectionalShadowCoord[ 0 ] ) : 1.0;
-		#endif
-		RE_Direct( directLight, geometry, material, reflectedLight );
-	
+    directLight.color = directionalLight.color;
+		directLight.direction = directionalLight.direction;
+		directLight.visible = true;
 
-	vec3 irradiance = getAmbientLightIrradiance( ambientLightColor );
-	irradiance += getLightProbeIrradiance( lightProbe, geometry );
+        float dotNL = saturate( dot( geometry.normal, directDirection ) );
+	vec3 irradiance = dotNL * directLight.color;
+		float clearCoatDHR = material.clearCoat * clearCoatDHRApprox( material.clearCoatRoughness, dotNL );
+	reflectedLight.directSpecular += ( 1.0 - clearCoatDHR ) * irradiance * BRDF_Specular_GGX( directLight, geometry, material.specularColor, material.specularRoughness );
+	reflectedLight.directDiffuse += ( 1.0 - clearCoatDHR ) * irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );
+		reflectedLight.directSpecular += irradiance * material.clearCoat * BRDF_Specular_GGX( directLight, geometry, vec3( DEFAULT_SPECULAR_COEFFICIENT ), material.clearCoatRoughness );
+
+
+    // 环境光
+	vec3 irradiance = ambientColor;
+    
+    vec3 worldNormal = inverseTransformDirection( normal, viewMatrix );
+
+	irradiance += shGetIrradianceAt( worldNormal, lightProbe );
 
 	vec3 radiance = vec3( 0.0 );
 	vec3 clearCoatRadiance = vec3( 0.0 );
-	RE_IndirectDiffuse( irradiance, geometry, material, reflectedLight );
+    reflectedLight.indirectDiffuse = irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );    
 	RE_IndirectSpecular( radiance, irradiance, clearCoatRadiance, geometry, material, reflectedLight );
+
+    // 出射光 = 直接漫反射 + 间接漫反射光 + 直接镜面反射光 + 间接镜面反射光
 	vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular;
-	gl_FragColor = vec4( outgoingLight, diffuseColor.a );
+    
+    gl_FragColor = vec4( outgoingLight, diffuseColor.a );
 }
