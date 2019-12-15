@@ -16,6 +16,7 @@ import RaycastEvent from './RaycastEvent';
 import PickEvent from './PickEvent';
 import EditorControlsEvent from './EditorControlsEvent';
 import LoadSceneEvent from './LoadSceneEvent';
+import WeatherEvent from './WeatherEvent';
 
 // 物理引擎
 import PhysicsEvent from './PhysicsEvent';
@@ -46,6 +47,7 @@ function EventDispatcher() {
         new PickEvent(),
         new EditorControlsEvent(),
         new LoadSceneEvent(),
+        new WeatherEvent(),
 
         // 物理引擎
         new PhysicsEvent()

@@ -40,14 +40,9 @@ class WeatherPanel extends React.Component {
     }
 
     handleChange(value, name) {
-        if (value === null) {
-            this.setState({
-                [name]: value
-            });
-            return;
-        }
-
         app.options.weather = value;
+
+        app.call(`optionChange`, this, name, value);
 
         this.handleUpdate();
     }
