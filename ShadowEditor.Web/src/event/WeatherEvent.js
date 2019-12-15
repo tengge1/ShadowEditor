@@ -1,5 +1,6 @@
 import BaseEvent from './BaseEvent';
 import Rain from '../object/weather/Rain';
+import Snow from '../object/weather/Snow';
 
 /**
  * 视图事件
@@ -9,6 +10,7 @@ function WeatherEvent() {
     BaseEvent.call(this);
 
     this.weather = '';
+    this.object = null;
 
     this.onOptionChange = this.onOptionChange.bind(this);
     this.onAfterRender = this.onAfterRender.bind(this);
@@ -31,42 +33,33 @@ WeatherEvent.prototype.onOptionChange = function (name, value) {
         return;
     }
     this.weather = value;
-};
 
-WeatherEvent.prototype.onAfterRender = function () {
-    if (this.weather === 'rain') {
-        this.updateRain();
-    } else if (this.weather === 'snow') {
-        this.updateSnow();
+    if (this.object) {
+        app.editor.sceneHelpers.remove(this.object);
+        this.object = null;
     }
-};
 
-WeatherEvent.prototype.updateRain = function () {
-    if (this.rain === undefined) {
-        this.rain = new Rain();
+    if (this.weather === 'rain') {
+        if (this.rain === undefined) {
+            this.rain = new Rain();
+        }
+        this.object = this.rain;
         app.editor.sceneHelpers.add(this.rain);
     }
 
-    let vertices = this.rain.geometry.vertices;
-
-    vertices.forEach(v => {
-        v.y = v.y - v.velocityY;
-        v.x = v.x - v.velocityX;
-
-        if (v.y <= 0) {
-            v.y = 60;
+    if (this.weather === 'snow') {
+        if (this.snow === undefined) {
+            this.snow = new Snow();
         }
-
-        if (v.x <= -20 || v.x >= 20) {
-            v.velocityX = v.velocityX * -1;
-        }
-    });
-
-    this.rain.geometry.verticesNeedUpdate = true;
+        this.object = this.snow;
+        app.editor.sceneHelpers.add(this.snow);
+    }
 };
 
-WeatherEvent.prototype.updateSnow = function () {
-
+WeatherEvent.prototype.onAfterRender = function () {
+    if (this.object) {
+        this.object.update();
+    }
 };
 
 export default WeatherEvent;

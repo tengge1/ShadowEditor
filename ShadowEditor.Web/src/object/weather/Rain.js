@@ -1,8 +1,14 @@
 /**
  * 下雨
  */
-class Rain extends THREE.Points {
+class Rain extends THREE.Object3D {
     constructor() {
+        super();
+
+        this.createPointClouds('assets/textures/particles/raindrop-3.png');
+    }
+
+    createPointClouds(url) {
         let geometry = new THREE.Geometry();
 
         let range = 40;
@@ -21,12 +27,35 @@ class Rain extends THREE.Points {
             size: 3,
             transparent: true,
             opacity: 0.6,
-            map: new THREE.TextureLoader().load('assets/textures/particles/raindrop-3.png'),
+            map: new THREE.TextureLoader().load(url),
             blending: THREE.AdditiveBlending,
             sizeAttenuation: true,
             color: 0xffffff
         });
-        super(geometry, material);
+
+        let points = new THREE.Points(geometry, material);
+        points.sortParticles = true;
+
+        this.add(points);
+    }
+
+    update() {
+        this.children.forEach(n => {
+            n.geometry.vertices.forEach(v => {
+                v.y = v.y - v.velocityY;
+                v.x = v.x - v.velocityX;
+
+                if (v.y <= 0) {
+                    v.y = 60;
+                }
+
+                if (v.x <= -20 || v.x >= 20) {
+                    v.velocityX = v.velocityX * -1;
+                }
+            });
+
+            n.geometry.verticesNeedUpdate = true;
+        });
     }
 }
 
