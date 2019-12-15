@@ -13,6 +13,7 @@ class OptionsMenu extends React.Component {
         this.handleRendererOptions = this.handleRendererOptions.bind(this);
         this.handleHelperOptions = this.handleHelperOptions.bind(this);
         this.handleFilterOptions = this.handleFilterOptions.bind(this);
+        this.handleWeatherOptions = this.handleWeatherOptions.bind(this);
 
         this.handleChangeEnglish = this.handleChangeEnglish.bind(this);
         this.handleChangeChinese = this.handleChangeChinese.bind(this);
@@ -36,6 +37,9 @@ class OptionsMenu extends React.Component {
             />
             <MenuItem title={_t('Filter')}
                 onClick={this.handleFilterOptions}
+            />
+            <MenuItem title={_t('Weather')}
+                onClick={this.handleWeatherOptions}
             />
             <MenuItemSeparator />
             <MenuItem title={_t('Language')}>
@@ -104,6 +108,15 @@ class OptionsMenu extends React.Component {
     handleFilterOptions() {
         let win = app.createElement(OptionsWindow, {
             activeTabIndex: 3
+        });
+        app.addElement(win);
+    }
+
+    // ------------------------------- 天气选项 ---------------------------------------------
+
+    handleWeatherOptions() {
+        let win = app.createElement(OptionsWindow, {
+            activeTabIndex: 4
         });
         app.addElement(win);
     }

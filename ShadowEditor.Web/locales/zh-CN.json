@@ -946,5 +946,8 @@
     "Example": "示例",
     "Arkanoid": "打砖块",
     "Ping Pong": "乒乓球",
-    "Shader": "着色器"
+    "Shader": "着色器",
+    "Weather": "天气",
+    "Rain": "下雨",
+    "Snow": "下雪"
 }

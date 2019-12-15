@@ -1,9 +1,10 @@
 import './css/OptionsWindow.css';
-import { classNames, PropTypes, Window, Content, TabLayout, Buttons, Button } from '../../third_party';
+import { PropTypes, Window, Content, TabLayout, Buttons, Button } from '../../third_party';
 import DisplayPanel from './options/DisplayPanel.jsx';
 import RendererPanel from './options/RendererPanel.jsx';
 import HelperPanel from './options/HelperPanel.jsx';
 import FilterPanel from './options/FilterPanel.jsx';
+import WeatherPanel from './options/WeatherPanel.jsx';
 
 /**
  * 选项窗口
@@ -17,9 +18,10 @@ class OptionsWindow extends React.Component {
         this.rendererRef = React.createRef();
         this.helperRef = React.createRef();
         this.filterRef = React.createRef();
+        this.weatherRef = React.createRef();
 
         this.state = {
-            activeTabIndex: props.activeTabIndex,
+            activeTabIndex: props.activeTabIndex
         };
 
         this.handleClose = this.handleClose.bind(this);
@@ -32,15 +34,30 @@ class OptionsWindow extends React.Component {
         return <Window
             className={'OptionsWindow'}
             title={_t('Settings')}
-            style={{ width: '300px', height: '400px', }}
+            style={{ width: '300px', height: '400px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
-                <TabLayout className={'tab'} activeTabIndex={activeTabIndex} onActiveTabChange={this.handleActiveTabChange}>
-                    <DisplayPanel title={_t('Display')} ref={this.displayRef}></DisplayPanel>
-                    <RendererPanel title={_t('Renderer')} ref={this.rendererRef}></RendererPanel>
-                    <HelperPanel title={_t('Helpers')} ref={this.helperRef}></HelperPanel>
-                    <FilterPanel title={_t('Filter')} ref={this.filterRef}></FilterPanel>
+                <TabLayout className={'tab'}
+                    activeTabIndex={activeTabIndex}
+                    onActiveTabChange={this.handleActiveTabChange}
+                >
+                    <DisplayPanel title={_t('Display')}
+                        ref={this.displayRef}
+                    />
+                    <RendererPanel title={_t('Renderer')}
+                        ref={this.rendererRef}
+                    />
+                    <HelperPanel title={_t('Helpers')}
+                        ref={this.helperRef}
+                    />
+                    <FilterPanel title={_t('Filter')}
+                        ref={this.filterRef}
+                    />
+                    <WeatherPanel title={_t('Weather')}
+                        ref={this.weatherRef}
+                    />
                 </TabLayout>
             </Content>
             <Buttons>
@@ -63,10 +80,12 @@ class OptionsWindow extends React.Component {
         const rendererTab = this.rendererRef.current;
         const helperTab = this.helperRef.current;
         const filterTab = this.filterRef.current;
+        const weatherTab = this.weatherRef.current;
 
         switch (index) {
             case 0:
                 displayTab.handleUpdate();
+                break;
             case 1:
                 rendererTab.handleUpdate();
                 break;
@@ -76,22 +95,25 @@ class OptionsWindow extends React.Component {
             case 3:
                 filterTab.handleUpdate();
                 break;
+            case 4:
+                weatherTab.handleUpdate();
+                break;
         }
 
         this.setState({
-            activeTabIndex: index,
+            activeTabIndex: index
         });
     }
 }
 
 OptionsWindow.propTypes = {
     activeTabIndex: PropTypes.number,
-    onActiveTabChange: PropTypes.func,
+    onActiveTabChange: PropTypes.func
 };
 
 OptionsWindow.defaultProps = {
     activeTabIndex: 0,
-    onActiveTabChange: null,
+    onActiveTabChange: null
 };
 
 export default OptionsWindow;

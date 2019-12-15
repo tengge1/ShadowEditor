@@ -31,6 +31,9 @@ function Options(options = {}) {
     this.invert = 0;
     this.sepia = 0;
 
+    // 天气
+    this.weather = ''; // ''-无，rain-下雨,snow-下雪
+
     // 添加模式
     this.addMode = 'center'; // center: 添加到场景中心；click: 点击场景添加。
 
