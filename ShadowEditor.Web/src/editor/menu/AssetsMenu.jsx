@@ -23,10 +23,10 @@ class AssetsMenu extends React.Component {
 
     render() {
         return <MenuItem title={_t('Assets')}>
-            <MenuItem title={_t('Export Geometry')}
+            <MenuItem title={_t('Export Geometry JSON File')}
                 onClick={this.handleExportGeometry}
             />
-            <MenuItem title={_t('Export Object')}
+            <MenuItem title={_t('Export Object JSON File')}
                 onClick={this.handleExportObject}
             />
             <MenuItemSeparator />
