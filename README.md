@@ -23,11 +23,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 10. 修复正投影下，鼠标hover高亮不正确bug。
 11. 制作功能演示视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) [百度云](https://pan.baidu.com/s/1qfRHot4H7ip26KLbQuBeVg)
 12. 修复录制视频过程中，切换工具栏，导致录制视频失败的bug。
-13. 新增`打砖块`示例。(three.js自带)
-14. 新增`相机`示例。（three.js自带）
-15. 新增`粒子`示例。（three.js自带）
-16. 新增`乒乓球`示例。（three.js自带）
-17. 新增`着色器`示例。(three.js自带)
+13. 新增`打砖块`、`相机`、`粒子`、`乒乓球`、`着色器`示例。(three.js自带)
+14. 新增天气设置：无、下雨、下雪。
 
 ## v0.3.8更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
@@ -46,8 +43,6 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 10. 使用`点击场景添加模型`方式时，模型放置到场景之前出现一个预览效果。
 11. 新增编辑工具栏：撤销、重做、清空历史记录、复制、删除。
 12. 几何体菜单添加文字功能，修改为不缩放的文字。
-13. 新增添加设置：无、下雨、下雪。
-14. 新增点标注。
 
 ## 技术分享
 
