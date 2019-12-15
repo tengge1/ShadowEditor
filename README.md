@@ -3,13 +3,16 @@
 Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어 / русский / Le français
 
 * 名称：Shadow Editor
-* 版本：v0.3.9（开发中）
+* 版本：v0.3.9
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) [百度云](https://pan.baidu.com/s/1qfRHot4H7ip26KLbQuBeVg)
 * 开发计划：小场景搭建、地形编辑、模型批量添加渲染、地表植被附属物编辑、物理引擎、数据可视化。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展，谢谢。
 
-## v0.3.9即将更新
+## v0.3.9更新【[更新日志](docs-dev/update/UpdateLog.md)】
+
+* 发布日期：2019年12月15日
+* 更新日志：
 
 1. 修复不缩放文字显示模糊的bug。
 2. 修复浏览器窗口缩放后，鼠标放到物体上，高亮不准的bug。
@@ -25,24 +28,6 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 12. 修复录制视频过程中，切换工具栏，导致录制视频失败的bug。
 13. 新增`打砖块`、`相机`、`粒子`、`乒乓球`、`着色器`示例。(three.js自带)
 14. 新增天气设置：无、下雨、下雪。
-
-## v0.3.8更新【[更新日志](docs-dev/update/UpdateLog.md)】
-
-* 发布日期：2019年12月1日
-* 更新日志：
-
-1. 新增快捷键`Ctrl+Z`撤销、`Ctrl+Y`重做、`Ctrl+C`复制、`Delete`删除。
-2. 修复模型复制多个后，保存场景后载入场景，只显示第一个的bug。
-3. 机构、角色、用户、权限、系统设置、系统初始化、系统重置全部测试完成，没有任何bug。
-4. 双击场景中的物体，不再跳转到这个物体的视角。
-5. 修复无法设置环境贴图和环境贴图强度bug。
-6. 修复资源面板最大化时，每行只有两个bug。
-7. 使用GPU选取方式，高亮鼠标指向的物体。
-8. 修复上传文件时点取消报错的bug。
-9. 修复材质组件`Flat Shading`翻译为`平滑`的错误，改为`平坦着色`。
-10. 使用`点击场景添加模型`方式时，模型放置到场景之前出现一个预览效果。
-11. 新增编辑工具栏：撤销、重做、清空历史记录、复制、删除。
-12. 几何体菜单添加文字功能，修改为不缩放的文字。
 
 ## 技术分享
 
