@@ -1,4 +1,4 @@
-import { PropTypes, MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../third_party';
 import StringUtils from '../../utils/StringUtils';
 
 /**
@@ -77,6 +77,7 @@ class AssetsMenu extends React.Component {
 
         try {
             output = JSON.stringify(output, parseNumber, '\t');
+            // eslint-disable-next-line
             output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
         } catch (e) {
             output = JSON.stringify(output);
@@ -101,6 +102,7 @@ class AssetsMenu extends React.Component {
 
         try {
             output = JSON.stringify(output, parseNumber, '\t');
+            // eslint-disable-next-line
             output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
         } catch (e) {
             output = JSON.stringify(output);
