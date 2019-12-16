@@ -81,7 +81,7 @@ class PointMarker extends THREE.Mesh {
         context.imageSmoothingQuality = 'high';
         context.textBaseline = 'hanging';
         context.textAlign = 'center';
-        context.lineWidth = 4;
+        context.lineWidth = 3;
 
         let halfWidth = width2 / 2;
 
