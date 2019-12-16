@@ -48,18 +48,21 @@ class DistanceTool extends BaseTool {
     onMouseDown() {
         if (!this.line) {
             let { width, height } = app.editor.renderer.domElement;
-            let geometry = new THREE.LineGeometry();
+            let geometry1 = new THREE.LineGeometry();
             let material = new THREE.LineMaterial({
                 color: 0xffff00,
                 linewidth: 4,
                 resolution: new THREE.Vector2(width, height)
             });
-            this.line = new THREE.Line2(geometry, material);
+            this.line = new THREE.Line2(geometry1, material);
             this.lines.push(this.line);
             app.editor.sceneHelpers.add(this.line);
         }
         this.positions.push(this.world.x, this.world.y, this.world.z);
-        this.line.geometry.setPositions(this.positions);
+
+        let geometry = this.line.geometry;
+        geometry.setPositions(this.positions);
+        geometry.maxInstancedCount = this.positions.length / 3 - 1;
     }
 
     onGpuPick(obj) {
