@@ -21,6 +21,10 @@ class BaseTool {
     stop() {
 
     }
+
+    clear() {
+
+    }
 }
 
 export default BaseTool;

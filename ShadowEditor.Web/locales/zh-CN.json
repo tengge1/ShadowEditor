@@ -949,5 +949,7 @@
     "Shader": "着色器",
     "Weather": "天气",
     "Rain": "下雨",
-    "Snow": "下雪"
+    "Snow": "下雪",
+    "Start Point": "起点",
+    "{{dist}}m": "{{dist}}米"
 }
