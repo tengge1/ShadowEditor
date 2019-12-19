@@ -21,6 +21,7 @@ class SceneMenu extends React.Component {
         this.handleExportSceneToJson = this.handleExportSceneToJson.bind(this);
         this.handleExportSceneToCollada = this.handleExportSceneToCollada.bind(this);
         this.handleExportSceneToGltf = this.handleExportSceneToGltf.bind(this);
+        this.handleExportSceneToOBJ = this.handleExportSceneToOBJ.bind(this);
 
         this.handlePublishScene = this.handlePublishScene.bind(this);
     }
@@ -53,6 +54,9 @@ class SceneMenu extends React.Component {
                 />
                 <MenuItem title={_t('To GLTF File')}
                     onClick={this.handleExportSceneToGltf}
+                />
+                <MenuItem title={_t('To OBJ File')}
+                    onClick={this.handleExportSceneToOBJ}
                 />
             </MenuItem> : null}
             {!enableAuthority || isAdmin ? <MenuItem title={_t('Publish Scene')}
@@ -318,6 +322,32 @@ class SceneMenu extends React.Component {
             exporter.parse(app.editor.scene, result => {
                 StringUtils.saveString(JSON.stringify(result), `${name}.gltf`);
             });
+        });
+    }
+
+    // ---------------------- 导出场景为OBJ文件 -------------------------------
+
+    handleExportSceneToOBJ() {
+        var sceneName = app.editor.sceneName;
+
+        if (!sceneName) {
+            sceneName = _t(`Scene{{Time}}`, { Time: TimeUtils.getDateTime() });
+        }
+
+        app.prompt({
+            title: _t('Input File Name'),
+            content: _t('Name'),
+            value: sceneName,
+            onOK: name => {
+                this.commitExportSceneToOBJ(name);
+            }
+        });
+    }
+
+    commitExportSceneToOBJ(name) {
+        app.require('OBJExporter').then(() => {
+            var exporter = new THREE.OBJExporter();
+            StringUtils.saveString(exporter.parse(app.editor.scene), `${name}.obj`);
         });
     }
 

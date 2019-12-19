@@ -953,5 +953,6 @@
     "Start Point": "起点",
     "{{dist}}m": "{{dist}}米",
     "To JSON File": "到JSON文件",
-    "To Collada File": "到Collada文件"
+    "To Collada File": "到Collada文件",
+    "To OBJ File": "到OBJ文件"
 }
