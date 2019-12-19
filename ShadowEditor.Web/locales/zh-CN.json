@@ -952,5 +952,6 @@
     "Snow": "下雪",
     "Start Point": "起点",
     "{{dist}}m": "{{dist}}米",
-    "To JSON File": "到JSON文件"
+    "To JSON File": "到JSON文件",
+    "To Collada File": "到Collada文件"
 }

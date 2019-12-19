@@ -19,6 +19,7 @@ class SceneMenu extends React.Component {
         this.handleSaveAsScene = this.handleSaveAsScene.bind(this);
 
         this.handleExportSceneToJson = this.handleExportSceneToJson.bind(this);
+        this.handleExportSceneToCollada = this.handleExportSceneToCollada.bind(this);
         this.handleExportSceneToGltf = this.handleExportSceneToGltf.bind(this);
 
         this.handlePublishScene = this.handlePublishScene.bind(this);
@@ -46,6 +47,9 @@ class SceneMenu extends React.Component {
             {!enableAuthority || isLogin ? <MenuItem title={_t('Export Scene')}>
                 <MenuItem title={_t('To JSON File')}
                     onClick={this.handleExportSceneToJson}
+                />
+                <MenuItem title={_t('To Collada File')}
+                    onClick={this.handleExportSceneToCollada}
                 />
                 <MenuItem title={_t('To GLTF File')}
                     onClick={this.handleExportSceneToGltf}
@@ -257,6 +261,35 @@ class SceneMenu extends React.Component {
         }
 
         StringUtils.saveString(output, `${name}.json`);
+    }
+
+    // ----------------------- 导出场景为Collada文件 ----------------------
+
+    handleExportSceneToCollada() {
+        var sceneName = app.editor.sceneName;
+
+        if (!sceneName) {
+            sceneName = _t(`Scene{{Time}}`, { Time: TimeUtils.getDateTime() });
+        }
+
+        app.prompt({
+            title: _t('Input File Name'),
+            content: _t('Name'),
+            value: sceneName,
+            onOK: name => {
+                this.commitExportSceneToCollada(name);
+            }
+        });
+    }
+
+    commitExportSceneToCollada(name) {
+        app.require('ColladaExporter').then(() => {
+            var exporter = new THREE.ColladaExporter();
+
+            exporter.parse(app.editor.scene, function (result) {
+                StringUtils.saveString(result.data, `${name}.dae`);
+            });
+        });
     }
 
     // ----------------------- 导出场景为gltf文件 -------------------------

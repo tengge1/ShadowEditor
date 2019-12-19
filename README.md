@@ -13,6 +13,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 1. 新增距离测量工具。
 2. 新增导出场景到JSON文件功能。
+3. 新增导出场景导出Collada文件功能。
 
 ## v0.3.9更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

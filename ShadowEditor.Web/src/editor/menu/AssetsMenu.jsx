@@ -118,7 +118,6 @@ class AssetsMenu extends React.Component {
             var exporter = new THREE.ColladaExporter();
 
             exporter.parse(app.editor.scene, function (result) {
-                // TODO: 导出纹理
                 StringUtils.saveString(result.data, 'model.dae');
             });
         });
