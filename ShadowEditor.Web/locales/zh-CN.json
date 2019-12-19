@@ -951,5 +951,6 @@
     "Rain": "下雨",
     "Snow": "下雪",
     "Start Point": "起点",
-    "{{dist}}m": "{{dist}}米"
+    "{{dist}}m": "{{dist}}米",
+    "To JSON File": "到JSON文件"
 }

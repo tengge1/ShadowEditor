@@ -76,7 +76,7 @@ class AssetsMenu extends React.Component {
         var output = geometry.toJSON();
 
         try {
-            output = JSON.stringify(output, parseNumber, '\t');
+            output = JSON.stringify(output, StringUtils.parseNumber, '\t');
             // eslint-disable-next-line
             output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
         } catch (e) {
@@ -101,7 +101,7 @@ class AssetsMenu extends React.Component {
         var output = object.toJSON();
 
         try {
-            output = JSON.stringify(output, parseNumber, '\t');
+            output = JSON.stringify(output, StringUtils.parseNumber, '\t');
             // eslint-disable-next-line
             output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
         } catch (e) {

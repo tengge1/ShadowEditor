@@ -17,7 +17,10 @@ class SceneMenu extends React.Component {
         this.handleCreateGISScene = this.handleCreateGISScene.bind(this);
         this.handleSaveScene = this.handleSaveScene.bind(this);
         this.handleSaveAsScene = this.handleSaveAsScene.bind(this);
+
+        this.handleExportSceneToJson = this.handleExportSceneToJson.bind(this);
         this.handleExportSceneToGltf = this.handleExportSceneToGltf.bind(this);
+
         this.handlePublishScene = this.handlePublishScene.bind(this);
     }
 
@@ -41,6 +44,9 @@ class SceneMenu extends React.Component {
                                                                       /> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItemSeparator /> : null}
             {!enableAuthority || isLogin ? <MenuItem title={_t('Export Scene')}>
+                <MenuItem title={_t('To JSON File')}
+                    onClick={this.handleExportSceneToJson}
+                />
                 <MenuItem title={_t('To GLTF File')}
                     onClick={this.handleExportSceneToGltf}
                 />
@@ -218,6 +224,39 @@ class SceneMenu extends React.Component {
 
             app.toast(_t(obj.Msg), 'success');
         });
+    }
+
+    // ---------------------- 导出场景为json文件 --------------------------
+
+    handleExportSceneToJson() {
+        var sceneName = app.editor.sceneName;
+
+        if (!sceneName) {
+            sceneName = _t(`Scene{{Time}}`, { Time: TimeUtils.getDateTime() });
+        }
+
+        app.prompt({
+            title: _t('Input File Name'),
+            content: _t('Name'),
+            value: sceneName,
+            onOK: name => {
+                this.commitExportSceneToJson(name);
+            }
+        });
+    }
+
+    commitExportSceneToJson(name) {
+        var output = app.editor.scene.toJSON();
+
+        try {
+            output = JSON.stringify(output, StringUtils.parseNumber, '\t');
+            // eslint-disable-next-line
+            output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
+        } catch (e) {
+            output = JSON.stringify(output);
+        }
+
+        StringUtils.saveString(output, `${name}.json`);
     }
 
     // ----------------------- 导出场景为gltf文件 -------------------------
