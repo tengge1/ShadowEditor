@@ -28,13 +28,10 @@ MMDLoader.prototype.load = function (url, options, environment) {
                 var cameraAnimation = obj[1];
                 var audio = obj[2];
 
-                Object.assign(mesh.userData, {
-                    obj: {
-                        animation: animation,
-                        cameraAnimation: cameraAnimation,
-                        audio: audio
-                    }
-                });
+                // 修复播放MMD报错的bug
+                mesh._animation = animation;
+                mesh._cameraAnimation = cameraAnimation;
+                mesh._audio = audio;
 
                 resolve(mesh);
             });

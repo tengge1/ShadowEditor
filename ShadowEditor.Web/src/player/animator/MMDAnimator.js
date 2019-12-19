@@ -14,7 +14,7 @@ function MMDAnimator(app) {
 MMDAnimator.prototype = Object.create(PlayerComponent.prototype);
 MMDAnimator.prototype.constructor = MMDAnimator;
 
-MMDAnimator.prototype.create = function (scene, camera, renderer, animations) {
+MMDAnimator.prototype.create = function (scene, camera) {
     var mmds = [];
 
     scene.traverse(mesh => {
@@ -34,11 +34,9 @@ MMDAnimator.prototype.create = function (scene, camera, renderer, animations) {
     var helper = this.helper;
 
     mmds.forEach(mesh => {
-        let {
-            animation,
-            cameraAnimation,
-            audio
-        } = mesh.userData.obj;
+        let animation = mesh._animation;
+        let cameraAnimation = mesh._cameraAnimation;
+        let audio = mesh._audio;
 
         if (animation) {
             helper.add(mesh, {
