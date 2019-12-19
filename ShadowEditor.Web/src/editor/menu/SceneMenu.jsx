@@ -23,6 +23,7 @@ class SceneMenu extends React.Component {
         this.handleExportSceneToGltf = this.handleExportSceneToGltf.bind(this);
         this.handleExportSceneToOBJ = this.handleExportSceneToOBJ.bind(this);
         this.handleExportSceneToPLY = this.handleExportSceneToPLY.bind(this);
+        this.handleExportSceneToSTL = this.handleExportSceneToSTL.bind(this);
 
         this.handlePublishScene = this.handlePublishScene.bind(this);
     }
@@ -61,6 +62,9 @@ class SceneMenu extends React.Component {
                 />
                 <MenuItem title={_t('To PLY File')}
                     onClick={this.handleExportSceneToPLY}
+                />
+                <MenuItem title={_t('To STL File')}
+                    onClick={this.handleExportSceneToSTL}
                 />
             </MenuItem> : null}
             {!enableAuthority || isAdmin ? <MenuItem title={_t('Publish Scene')}
@@ -323,6 +327,17 @@ class SceneMenu extends React.Component {
                 StringUtils.saveString(exporter.parse(app.editor.scene, {
                     excludeAttributes: ['normal', 'uv', 'color', 'index']
                 }), `${name}.ply`);
+            });
+        });
+    }
+
+    // ------------------------ 导出场景为STL文件 --------------------------------
+
+    handleExportSceneToSTL() {
+        this.querySceneName().then(name => {
+            app.require('STLExporter').then(() => {
+                var exporter = new THREE.STLExporter();
+                StringUtils.saveString(exporter.parse(app.editor.scene), `${name}.stl`);
             });
         });
     }

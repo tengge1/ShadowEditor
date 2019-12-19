@@ -16,6 +16,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 3. 新增导出场景到Collada文件功能。
 4. 新增导出场景到OBJ文件功能。
 5. 新增导出场景到PLY文件功能。
+6. 新增导出场景到STL文件功能。
 
 ## v0.3.9更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
