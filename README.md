@@ -17,6 +17,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 4. 新增导出场景到OBJ文件功能。
 5. 新增导出场景到PLY文件功能。
 6. 新增导出场景到STL文件功能。
+7. 修复标注对话框点击关闭，然后点击确定，报错的bug。
 
 ## v0.3.9更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

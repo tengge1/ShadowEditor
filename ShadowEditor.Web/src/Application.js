@@ -269,9 +269,11 @@ Application.prototype.prompt = function (options = {}) {
         }
     };
 
-    if (onClose === undefined) {
-        onClose = close;
-    }
+    let handleClose = () => {
+        if(onClose && onClose() !== false) {
+            close();
+        }
+    };
 
     component = this.createElement(Prompt, {
         title,
@@ -282,7 +284,7 @@ Application.prototype.prompt = function (options = {}) {
         okText: _t('OK'),
         mask,
         onOK: handleOK,
-        onClose
+        onClose: handleClose
     });
 
     this.addElement(component);
