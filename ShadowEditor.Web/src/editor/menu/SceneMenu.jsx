@@ -22,6 +22,7 @@ class SceneMenu extends React.Component {
         this.handleExportSceneToCollada = this.handleExportSceneToCollada.bind(this);
         this.handleExportSceneToGltf = this.handleExportSceneToGltf.bind(this);
         this.handleExportSceneToOBJ = this.handleExportSceneToOBJ.bind(this);
+        this.handleExportSceneToPLY = this.handleExportSceneToPLY.bind(this);
 
         this.handlePublishScene = this.handlePublishScene.bind(this);
     }
@@ -57,6 +58,9 @@ class SceneMenu extends React.Component {
                 />
                 <MenuItem title={_t('To OBJ File')}
                     onClick={this.handleExportSceneToOBJ}
+                />
+                <MenuItem title={_t('To PLY File')}
+                    onClick={this.handleExportSceneToPLY}
                 />
             </MenuItem> : null}
             {!enableAuthority || isAdmin ? <MenuItem title={_t('Publish Scene')}
@@ -236,62 +240,51 @@ class SceneMenu extends React.Component {
 
     // ---------------------- 导出场景为json文件 --------------------------
 
-    handleExportSceneToJson() {
+    querySceneName() {
         var sceneName = app.editor.sceneName;
 
         if (!sceneName) {
             sceneName = _t(`Scene{{Time}}`, { Time: TimeUtils.getDateTime() });
         }
 
-        app.prompt({
-            title: _t('Input File Name'),
-            content: _t('Name'),
-            value: sceneName,
-            onOK: name => {
-                this.commitExportSceneToJson(name);
-            }
+        return new Promise(resolve => {
+            app.prompt({
+                title: _t('Input File Name'),
+                content: _t('Name'),
+                value: sceneName,
+                onOK: name => {
+                    resolve(name);
+                }
+            });
         });
     }
 
-    commitExportSceneToJson(name) {
-        var output = app.editor.scene.toJSON();
+    handleExportSceneToJson() {
+        this.querySceneName().then(name => {
+            var output = app.editor.scene.toJSON();
 
-        try {
-            output = JSON.stringify(output, StringUtils.parseNumber, '\t');
-            // eslint-disable-next-line
-            output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
-        } catch (e) {
-            output = JSON.stringify(output);
-        }
-
-        StringUtils.saveString(output, `${name}.json`);
+            try {
+                output = JSON.stringify(output, StringUtils.parseNumber, '\t');
+                // eslint-disable-next-line
+                output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
+            } catch (e) {
+                output = JSON.stringify(output);
+            }
+    
+            StringUtils.saveString(output, `${name}.json`);
+        });
     }
 
     // ----------------------- 导出场景为Collada文件 ----------------------
 
     handleExportSceneToCollada() {
-        var sceneName = app.editor.sceneName;
+        this.querySceneName().then(name => {
+            app.require('ColladaExporter').then(() => {
+                var exporter = new THREE.ColladaExporter();
 
-        if (!sceneName) {
-            sceneName = _t(`Scene{{Time}}`, { Time: TimeUtils.getDateTime() });
-        }
-
-        app.prompt({
-            title: _t('Input File Name'),
-            content: _t('Name'),
-            value: sceneName,
-            onOK: name => {
-                this.commitExportSceneToCollada(name);
-            }
-        });
-    }
-
-    commitExportSceneToCollada(name) {
-        app.require('ColladaExporter').then(() => {
-            var exporter = new THREE.ColladaExporter();
-
-            exporter.parse(app.editor.scene, function (result) {
-                StringUtils.saveString(result.data, `${name}.dae`);
+                exporter.parse(app.editor.scene, function (result) {
+                    StringUtils.saveString(result.data, `${name}.dae`);
+                });
             });
         });
     }
@@ -299,28 +292,13 @@ class SceneMenu extends React.Component {
     // ----------------------- 导出场景为gltf文件 -------------------------
 
     handleExportSceneToGltf() {
-        var sceneName = app.editor.sceneName;
-
-        if (!sceneName) {
-            sceneName = _t(`Scene{{Time}}`, { Time: TimeUtils.getDateTime() });
-        }
-
-        app.prompt({
-            title: _t('Input File Name'),
-            content: _t('Name'),
-            value: sceneName,
-            onOK: name => {
-                this.commitExportSceneToGltf(name);
-            }
-        });
-    }
-
-    commitExportSceneToGltf(name) {
-        app.require('GLTFExporter').then(() => {
-            var exporter = new THREE.GLTFExporter();
-
-            exporter.parse(app.editor.scene, result => {
-                StringUtils.saveString(JSON.stringify(result), `${name}.gltf`);
+        this.querySceneName().then(name => {
+            app.require('GLTFExporter').then(() => {
+                var exporter = new THREE.GLTFExporter();
+    
+                exporter.parse(app.editor.scene, result => {
+                    StringUtils.saveString(JSON.stringify(result), `${name}.gltf`);
+                });
             });
         });
     }
@@ -328,26 +306,24 @@ class SceneMenu extends React.Component {
     // ---------------------- 导出场景为OBJ文件 -------------------------------
 
     handleExportSceneToOBJ() {
-        var sceneName = app.editor.sceneName;
-
-        if (!sceneName) {
-            sceneName = _t(`Scene{{Time}}`, { Time: TimeUtils.getDateTime() });
-        }
-
-        app.prompt({
-            title: _t('Input File Name'),
-            content: _t('Name'),
-            value: sceneName,
-            onOK: name => {
-                this.commitExportSceneToOBJ(name);
-            }
+        this.querySceneName().then(name => {
+            app.require('OBJExporter').then(() => {
+                var exporter = new THREE.OBJExporter();
+                StringUtils.saveString(exporter.parse(app.editor.scene), `${name}.obj`);
+            });
         });
     }
 
-    commitExportSceneToOBJ(name) {
-        app.require('OBJExporter').then(() => {
-            var exporter = new THREE.OBJExporter();
-            StringUtils.saveString(exporter.parse(app.editor.scene), `${name}.obj`);
+    // ----------------------- 导出场景为PLY文件 ---------------------------------
+
+    handleExportSceneToPLY() {
+        this.querySceneName().then(name => {
+            app.require('PLYExporter').then(() => {
+                var exporter = new THREE.PLYExporter();
+                StringUtils.saveString(exporter.parse(app.editor.scene, {
+                    excludeAttributes: ['normal', 'uv', 'color', 'index']
+                }), `${name}.ply`);
+            });
         });
     }
 
