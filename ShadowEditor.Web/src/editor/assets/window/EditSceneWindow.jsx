@@ -1,5 +1,5 @@
 import './css/EditSceneWindow.css';
-import { PropTypes, Window, TabLayout, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox, VBoxLayout, Toolbar, DataGrid, Column } from '../../../third_party';
+import { PropTypes, Window, TabLayout, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox, VBoxLayout, DataGrid, Column, LinkButton } from '../../../third_party';
 import Ajax from '../../../utils/Ajax';
 import CategoryWindow from './CategoryWindow.jsx';
 
@@ -35,6 +35,8 @@ class EditSceneWindow extends React.Component {
         this.handleEditCategoryList = this.handleEditCategoryList.bind(this);
 
         this.handleSelectHistory = this.handleSelectHistory.bind(this);
+        this.loadHistoryRenderer = this.loadHistoryRenderer.bind(this);
+        this.handleLoadHistory = this.handleLoadHistory.bind(this);
 
         this.handleSave = this.handleSave.bind(this, props.callback);
         this.handleClose = this.handleClose.bind(this);
@@ -92,23 +94,31 @@ class EditSceneWindow extends React.Component {
                             />
                         </FormControl>
                     </Form>
-                    <VBoxLayout title={_t('Historic Version')}>
-                        <DataGrid data={histories}
-                            keyField={'ID'}
-                            selected={selectedHistory}
-                            onSelect={this.handleSelectHistory}
-                        >
-                            <Column type={'number'} />
-                            {/* <Column field={'SceneName'} /> */}
-                            <Column field={'Version'}
-                                title={_t('Version')}
-                            />
-                            {/* <Column field={'CreateTime'} /> */}
-                            <Column field={'UpdateTime'}
-                                title={_t('Update Time')}
-                            />
-                        </DataGrid>
-                    </VBoxLayout>
+                    <DataGrid data={histories}
+                        keyField={'ID'}
+                        title={_t('Historic Version')}
+                        selected={selectedHistory}
+                        onSelect={this.handleSelectHistory}
+                    >
+                        <Column type={'number'} />
+                        {/* <Column field={'SceneName'} /> */}
+                        <Column field={'Version'}
+                            title={_t('Version')}
+                            width={80}
+                            align={'center'}
+                        />
+                        {/* <Column field={'CreateTime'} /> */}
+                        <Column field={'UpdateTime'}
+                            title={_t('Update Time')}
+                            align={'center'}
+                        />
+                        <Column field={'ID'}
+                            title={_t('')}
+                            width={80}
+                            align={'center'}
+                            renderer={this.loadHistoryRenderer}
+                        />
+                    </DataGrid>
                 </TabLayout>
             </Content>
             <Buttons>
@@ -200,6 +210,28 @@ class EditSceneWindow extends React.Component {
         this.setState({
             selectedHistory: record.ID
         });
+    }
+
+    loadHistoryRenderer(id, row) {
+        if (row.IsNew) { // 当前版本
+            return null;
+        }
+        return <LinkButton name={row.ID}
+            onClick={this.handleLoadHistory}
+               >{_t('Load')}</LinkButton>;
+    }
+
+    handleLoadHistory(name) {
+        const history = this.state.histories.filter(n => n.ID === name)[0];
+
+        if(!history) {
+            app.toast(_t('The scene is not existed!'));
+            return;
+        }
+
+        let url = `${app.options.server}/api/Scene/Load?ID=${history.SceneID}&Version=${history.Version}`;
+
+        app.call(`load`, this, url, history.SceneName, history.ID);
     }
 
     handleSave() {

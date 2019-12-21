@@ -133,6 +133,7 @@ namespace ShadowEditor.Server.Controllers
 
             var list = new List<SceneHistoryModel>();
 
+            var id = doc["ID"].ToString();
             var name = doc["CollectionName"].ToString();
             var version = doc["Version"].ToInt32();
             var createTime = doc["CreateTime"].ToNullableLocalTime();
@@ -140,6 +141,7 @@ namespace ShadowEditor.Server.Controllers
             list.Add(new SceneHistoryModel
             {
                 ID = doc["_id"].ToString(),
+                SceneID = id,
                 SceneName = name,
                 Version = version,
                 IsNew = true,
@@ -163,6 +165,7 @@ namespace ShadowEditor.Server.Controllers
                     list.Add(new SceneHistoryModel
                     {
                         ID = historyID.ToString(),
+                        SceneID = id,
                         SceneName = name,
                         Version = i["_version"].ToInt32(),
                         IsNew = false,
@@ -184,10 +187,10 @@ namespace ShadowEditor.Server.Controllers
         /// 获取数据
         /// </summary>
         /// <param name="ID"></param>
-        /// <param name="version"></param>
+        /// <param name="Version"></param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult Load(string ID, int version = -1)
+        public JsonResult Load(string ID, int Version = -1)
         {
             var mongo = new MongoHelper();
 
@@ -207,13 +210,13 @@ namespace ShadowEditor.Server.Controllers
 
             List<BsonDocument> docs;
 
-            if (version == -1) // 最新版本
+            if (Version == -1) // 最新版本
             {
                 docs = mongo.FindAll(collectionName).ToList();
             }
             else // 特定版本
             {
-                filter = Builders<BsonDocument>.Filter.Eq(Constant.VersionField, BsonInt32.Create(version));
+                filter = Builders<BsonDocument>.Filter.Eq(Constant.VersionField, BsonInt32.Create(Version));
                 docs = mongo.FindMany($"{collectionName}{Constant.HistorySuffix}", filter).ToList();
             }
 

@@ -11,8 +11,13 @@
     box-sizing: border-box;
 }
 
-.Window.EditSceneWindow>.wrap>.content>.TabLayout>.contents>.content {
+.Window.EditSceneWindow>.wrap>.content>.TabLayout>.contents>.content:nth-child(1) {
     padding: 2px 8px;
+    box-sizing: border-box;
+}
+
+.Window.EditSceneWindow>.wrap>.content>.TabLayout>.contents>.content:nth-child(2) {
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -25,4 +30,8 @@
     font-size: 12px;
     line-height: 20px;
     margin: 0 8px;
+}
+
+.Window.EditSceneWindow>.wrap>.content>.TabLayout>.contents>.content>.DataGrid>.wrap>.body>tbody>tr>td>a {
+    color: #D4237A;
 }

@@ -17,6 +17,11 @@ namespace ShadowEditor.Model.Scene
         public string ID { get; set; }
 
         /// <summary>
+        /// 场景ID
+        /// </summary>
+        public string SceneID { get; set; }
+
+        /// <summary>
         /// 场景名称
         /// </summary>
         public string SceneName { get; set; }

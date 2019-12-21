@@ -112,7 +112,7 @@ class DataGrid extends React.Component {
                                     <CheckBox checked={value} />
                                 </td>;
                             } else {
-                                const value = col.renderer ? col.renderer(row[col.field]) : row[col.field];
+                                const value = col.renderer ? col.renderer(row[col.field], row) : row[col.field];
                                 return <td width={col.width}
                                     align={col.align}
                                     key={col.field}
