@@ -1,5 +1,5 @@
 import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
-import EditWindow from './window/EditWindow.jsx';
+import EditSceneWindow from './window/EditSceneWindow.jsx';
 
 /**
  * 场景面板
@@ -128,7 +128,7 @@ class ScenePanel extends React.Component {
     // ------------------------------- 编辑 ---------------------------------------
 
     handleEdit(data) {
-        const window = app.createElement(EditWindow, {
+        const window = app.createElement(EditSceneWindow, {
             type: 'Scene',
             typeName: _t('Scene'),
             data,
