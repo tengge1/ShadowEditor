@@ -109,6 +109,76 @@ namespace ShadowEditor.Server.Controllers
         }
 
         /// <summary>
+        /// 获取场景历史列表
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult HistoryList(string ID)
+        {
+            var mongo = new MongoHelper();
+
+            // 最新版本
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
+            var doc = mongo.FindOne(Constant.SceneCollectionName, filter);
+
+            if (doc == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "The scene is not existed!"
+                });
+            }
+
+            var list = new List<SceneHistoryModel>();
+
+            var name = doc["CollectionName"].ToString();
+            var version = doc["Version"].ToInt32();
+            var createTime = doc["CreateTime"].ToNullableLocalTime();
+
+            list.Add(new SceneHistoryModel
+            {
+                ID = doc["_id"].ToString(),
+                SceneName = name,
+                Version = version,
+                IsNew = true,
+                CreateTime = createTime,
+                UpdateTime = doc["UpdateTime"].ToNullableLocalTime()
+            });
+
+            // 历史版本
+            var historyName = $"{name}{Constant.HistorySuffix}";
+            var historyCollection = mongo.GetCollection(historyName);
+
+            if (historyCollection != null)
+            {
+                var filter1 = Builders<BsonDocument>.Filter.Eq("metadata.generator", "OptionsSerializer");
+                var docs1 = mongo.FindMany(historyName, filter1).SortByDescending(n => n["_version"]).ToList();
+
+                foreach (var i in docs1)
+                {
+                    list.Add(new SceneHistoryModel
+                    {
+                        ID = i["_id"].ToString(),
+                        SceneName = name,
+                        Version = i["_version"].ToInt32(),
+                        IsNew = false,
+                        CreateTime = createTime,
+                        UpdateTime = null
+                    });
+                }
+            }
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "Get Successfully!",
+                Data = list
+            });
+        }
+
+        /// <summary>
         /// 获取数据
         /// </summary>
         /// <param name="ID"></param>
