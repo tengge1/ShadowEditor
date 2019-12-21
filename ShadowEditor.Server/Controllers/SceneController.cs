@@ -158,14 +158,16 @@ namespace ShadowEditor.Server.Controllers
 
                 foreach (var i in docs1)
                 {
+                    var historyID = i["_id"].AsObjectId;
+
                     list.Add(new SceneHistoryModel
                     {
-                        ID = i["_id"].ToString(),
+                        ID = historyID.ToString(),
                         SceneName = name,
                         Version = i["_version"].ToInt32(),
                         IsNew = false,
                         CreateTime = createTime,
-                        UpdateTime = null
+                        UpdateTime = historyID.CreationTime.Add(TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now))
                     });
                 }
             }
