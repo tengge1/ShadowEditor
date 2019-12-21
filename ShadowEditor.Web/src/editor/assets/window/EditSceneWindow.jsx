@@ -1,5 +1,5 @@
 import './css/EditSceneWindow.css';
-import { PropTypes, Window, TabLayout, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox, VBoxLayout, Toolbar, DataGrid } from '../../../third_party';
+import { PropTypes, Window, TabLayout, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox, VBoxLayout, Toolbar, DataGrid, Column } from '../../../third_party';
 import Ajax from '../../../utils/Ajax';
 import CategoryWindow from './CategoryWindow.jsx';
 
@@ -18,7 +18,10 @@ class EditSceneWindow extends React.Component {
             categories: null,
             categoryID: props.data.CategoryID,
             thumbnail: props.data.Thumbnail,
-            isPublic: props.data.IsPublic
+            isPublic: props.data.IsPublic,
+
+            histories: [],
+            selectedHistory: null
         };
 
         this.handleActiveTabChange = this.handleActiveTabChange.bind(this);
@@ -31,13 +34,15 @@ class EditSceneWindow extends React.Component {
         this.handleIsPublicChange = this.handleIsPublicChange.bind(this);
         this.handleEditCategoryList = this.handleEditCategoryList.bind(this);
 
+        this.handleSelectHistory = this.handleSelectHistory.bind(this);
+
         this.handleSave = this.handleSave.bind(this, props.callback);
         this.handleClose = this.handleClose.bind(this);
     }
 
     render() {
-        const { type, typeName } = this.props;
-        const { activeTabIndex, name, categories, categoryID, thumbnail, isPublic } = this.state;
+        const { typeName } = this.props;
+        const { activeTabIndex, name, categories, categoryID, thumbnail, isPublic, histories, selectedHistory } = this.state;
         const { enableAuthority, authorities } = app.server;
 
         return <Window
@@ -79,19 +84,30 @@ class EditSceneWindow extends React.Component {
                                 onChange={this.handleThumbnailChange}
                             />
                         </FormControl>
-                        {type === 'Scene' && <FormControl>
+                        <FormControl>
                             <Label>{_t('Is Public')}</Label>
                             <CheckBox name={'isPublic'}
                                 checked={isPublic ? true : false}
                                 onChange={this.handleIsPublicChange}
                             />
-                        </FormControl>}
+                        </FormControl>
                     </Form>
                     <VBoxLayout title={_t('Historic Version')}>
-                        <Toolbar>
-                            <Button>Delete</Button>
-                        </Toolbar>
-                        <DataGrid />
+                        <DataGrid data={histories}
+                            keyField={'ID'}
+                            selected={selectedHistory}
+                            onSelect={this.handleSelectHistory}
+                        >
+                            <Column type={'number'} />
+                            {/* <Column field={'SceneName'} /> */}
+                            <Column field={'Version'}
+                                title={_t('Version')}
+                            />
+                            {/* <Column field={'CreateTime'} /> */}
+                            <Column field={'UpdateTime'}
+                                title={_t('Update Time')}
+                            />
+                        </DataGrid>
                     </VBoxLayout>
                 </TabLayout>
             </Content>
@@ -107,9 +123,21 @@ class EditSceneWindow extends React.Component {
     }
 
     handleActiveTabChange(activeTabIndex) {
-        this.setState({
-            activeTabIndex
-        });
+        if (activeTabIndex === 1) { // 更新历史数据
+            const { data } = this.props;
+            fetch(`${app.options.server}/api/Scene/HistoryList?ID=${data.ID}`).then(response => {
+                response.json().then(json => {
+                    this.setState({
+                        histories: json.Data,
+                        activeTabIndex
+                    });
+                });
+            });
+        } else {
+            this.setState({
+                activeTabIndex
+            });
+        }
     }
 
     updateUI() {
@@ -166,6 +194,12 @@ class EditSceneWindow extends React.Component {
         });
 
         app.addElement(window);
+    }
+
+    handleSelectHistory(record) {
+        this.setState({
+            selectedHistory: record.ID
+        });
     }
 
     handleSave() {
