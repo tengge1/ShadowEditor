@@ -1,5 +1,5 @@
 import './css/EditorSideBar.css';
-import { classNames, PropTypes, TabLayout, VBoxLayout } from '../../third_party';
+import { TabLayout, VBoxLayout } from '../../third_party';
 
 import HierarchyPanel from './HierarchyPanel.jsx';
 import HistoryPanel from './HistoryPanel.jsx';
@@ -17,7 +17,7 @@ class EditorSideBar extends React.Component {
 
         this.state = {
             topIndex: 0,
-            bottomIndex: 0,
+            bottomIndex: 0
         };
 
         this.handleTopTabChange = this.handleTopTabChange.bind(this);
@@ -30,14 +30,20 @@ class EditorSideBar extends React.Component {
         const { topIndex, bottomIndex } = this.state;
 
         return <VBoxLayout className={'EditorSideBar'}>
-            <TabLayout className={'top'} activeTabIndex={topIndex} onActiveTabChange={this.handleTopTabChange}>
+            <TabLayout className={'top'}
+                activeTabIndex={topIndex}
+                onActiveTabChange={this.handleTopTabChange}
+            >
                 <HierarchyPanel title={_t('Hierachy')} />
-                <HistoryPanel title={_t('History')}></HistoryPanel>
+                <HistoryPanel title={_t('History')} />
             </TabLayout>
-            <TabLayout className={'bottom'} activeTabIndex={bottomIndex} onActiveTabChange={this.handleBottomTabChange}>
-                <PropertyPanel title={_t('Property')}></PropertyPanel>
-                <ScriptPanel title={_t('Script')}></ScriptPanel>
-                <AnimationPropertyPanel title={_t('Animation')}></AnimationPropertyPanel>
+            <TabLayout className={'bottom'}
+                activeTabIndex={bottomIndex}
+                onActiveTabChange={this.handleBottomTabChange}
+            >
+                <PropertyPanel title={_t('Property')} />
+                <ScriptPanel title={_t('Script')} />
+                <AnimationPropertyPanel title={_t('Animation')} />
             </TabLayout>
         </VBoxLayout>;
     }
@@ -48,19 +54,19 @@ class EditorSideBar extends React.Component {
 
     handleTopTabChange(index) {
         this.setState({
-            topIndex: index,
+            topIndex: index
         });
     }
 
     handleBottomTabChange(index) {
         this.setState({
-            bottomIndex: index,
+            bottomIndex: index
         });
     }
 
     handleAnimationSelected() {
         this.setState({
-            bottomIndex: 2,
+            bottomIndex: 2
         });
     }
 }

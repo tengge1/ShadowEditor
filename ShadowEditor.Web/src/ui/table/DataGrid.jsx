@@ -57,14 +57,28 @@ class DataGrid extends React.Component {
                 <tr>
                     {columns.map(col => {
                         if (col.type === 'number') {
-                            return <th className={'number'} width={60} name={'number'} key={'number'}>{'#'}</th>;
+                            return <th className={'number'}
+                                width={60}
+                                name={'number'}
+                                key={'number'}
+                                   >{'#'}</th>;
                         } else if (col.type === 'checkbox') {
                             const selectAll = data.length > 0 && data.every(n => n[col.field] === true);
-                            return <th className={'checkbox'} width={60} name={'checkbox'} key={'checkbox'}>
-                                <CheckBox name={col.field} checked={selectAll} onChange={this.handleSelectAll}></CheckBox>
+                            return <th className={'checkbox'}
+                                width={60}
+                                name={'checkbox'}
+                                key={'checkbox'}
+                                   >
+                                <CheckBox name={col.field}
+                                    checked={selectAll}
+                                    onChange={this.handleSelectAll}
+                                />
                             </th>;
                         } else {
-                            return <th width={col.width} name={col.field} key={col.field}>{col.title}</th>;
+                            return <th width={col.width}
+                                name={col.field}
+                                key={col.field}
+                                   >{col.title}</th>;
                         }
                     })}
                 </tr>
@@ -75,19 +89,34 @@ class DataGrid extends React.Component {
         const body = <table className={'body'}>
             <tbody>
                 {data.map((row, i) => {
-                    return <tr className={selected === row[keyField] ? 'selected' : null} data-id={row[keyField]} key={row[keyField]} onClick={this.handleClick}>
+                    return <tr className={selected === row[keyField] ? 'selected' : null}
+                        data-id={row[keyField]}
+                        key={row[keyField]}
+                        onClick={this.handleClick}
+                           >
                         {columns.map(col => {
                             if (col.type === 'number') {
                                 const value = pageSize * (pageNum - 1) + i + 1;
-                                return <td className={'number'} width={60} align={'center'} key={'number'}>{value}</td>;
+                                return <td className={'number'}
+                                    width={60}
+                                    align={'center'}
+                                    key={'number'}
+                                       >{value}</td>;
                             } else if (col.type === 'checkbox') {
                                 const value = row[col.field] === true;
-                                return <td className={col.type} width={60} align={'center'} key={'number'}>
+                                return <td className={col.type}
+                                    width={60}
+                                    align={'center'}
+                                    key={'number'}
+                                       >
                                     <CheckBox checked={value} />
                                 </td>;
                             } else {
                                 const value = col.renderer ? col.renderer(row[col.field]) : row[col.field];
-                                return <td width={col.width} align={col.align} key={col.field}>{value}</td>;
+                                return <td width={col.width}
+                                    align={col.align}
+                                    key={col.field}
+                                       >{value}</td>;
                             }
                         })}
                     </tr>;
@@ -95,29 +124,56 @@ class DataGrid extends React.Component {
             </tbody>
         </table>;
 
-        return <div className={classNames('DataGrid', pages && 'pages', className)} style={style}>
+        return <div className={classNames('DataGrid', pages && 'pages', className)}
+            style={style}
+               >
             {head}
             <div className={'wrap'}>
                 {body}
             </div>
             {pages && <div className={'page'}>
-                <Select className={'pageSize'} name={'pageSize'} options={this.pageSize} value={pageSize.toString()} onChange={this.handleChangePageSize} />
+                <Select className={'pageSize'}
+                    name={'pageSize'}
+                    options={this.pageSize}
+                    value={pageSize.toString()}
+                    onChange={this.handleChangePageSize}
+                />
                 <ToolbarSeparator className={'line'} />
-                <IconButton icon={'backward'} title={_t('First Page')} onClick={this.handleFirstPage} />
-                <IconButton icon={'left-triangle2'} title={_t('Previous Page')} onClick={this.handlePreviousPage} />
-                <Input className={'current'} value={pageNum} title={_t('Current Page')} />
+                <IconButton icon={'backward'}
+                    title={_t('First Page')}
+                    onClick={this.handleFirstPage}
+                />
+                <IconButton icon={'left-triangle2'}
+                    title={_t('Previous Page')}
+                    onClick={this.handlePreviousPage}
+                />
+                <Input className={'current'}
+                    value={pageNum}
+                    title={_t('Current Page')}
+                />
                 <span className={'slash'}> / </span>
                 <Label className={'totalPage'}>{totalPage}</Label>
-                <IconButton icon={'right-triangle2'} title={_t('Next Page')} onClick={this.handleNextPage} />
-                <IconButton icon={'forward'} title={_t('Last Page')} onClick={this.handleLastPage} />
+                <IconButton icon={'right-triangle2'}
+                    title={_t('Next Page')}
+                    onClick={this.handleNextPage}
+                />
+                <IconButton icon={'forward'}
+                    title={_t('Last Page')}
+                    onClick={this.handleLastPage}
+                />
                 <ToolbarSeparator className={'line'} />
-                <IconButton icon={'refresh'} title={_t('Refresh')} onClick={this.handleRefresh} />
+                <IconButton icon={'refresh'}
+                    title={_t('Refresh')}
+                    onClick={this.handleRefresh}
+                />
                 <ToolbarFiller />
                 <div className={'info'}>
                     {_t('{{pageSize}} per page, total {{total}} records.', { pageSize, total })}
                 </div>
             </div>}
-            <LoadMask text={_t('Loading...')} show={mask} />
+            <LoadMask text={_t('Loading...')}
+                show={mask}
+            />
         </div>;
     }
 
@@ -194,7 +250,7 @@ DataGrid.propTypes = {
 DataGrid.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: [],
     pages: false,
     data: [],
     keyField: 'id',
