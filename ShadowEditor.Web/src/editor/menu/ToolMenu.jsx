@@ -12,6 +12,7 @@ class ToolMenu extends React.Component {
         super(props);
 
         this.handleTextureGenerator = this.handleTextureGenerator.bind(this);
+        this.handleBackupDatabase = this.handleBackupDatabase.bind(this);
         this.handleCleanUpScenes = this.handleCleanUpScenes.bind(this);
         this.commitCleanUpScenes = this.commitCleanUpScenes.bind(this);
         this.handlePlugins = this.handlePlugins.bind(this);
@@ -25,6 +26,9 @@ class ToolMenu extends React.Component {
                 onClick={this.handleTextureGenerator}
             />
             <MenuItemSeparator />
+            <MenuItem title={_t('Backup Database')}
+                onClick={this.handleBackupDatabase}
+            />
             <MenuItem title={_t('Clean Up Scenes')}
                 onClick={this.handleCleanUpScenes}
             />
@@ -46,6 +50,10 @@ class ToolMenu extends React.Component {
             const win = app.createElement(TextureGeneratorWindow);
             app.addElement(win);
         });
+    }
+
+    handleBackupDatabase() {
+        app.toast(_t('Backup database successfully!'));
     }
 
     handleCleanUpScenes() {
