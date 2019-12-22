@@ -960,5 +960,6 @@
     "Historic Version": "历史版本",
     "Update Time": "更新时间",
     "Load": "载入",
-    "Backup Database": "备份数据库"
+    "Backup Database": "备份数据库",
+    "Backup database successfully!": "备份数据库成功！"
 }

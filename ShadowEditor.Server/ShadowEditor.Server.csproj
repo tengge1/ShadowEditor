@@ -111,6 +111,7 @@
     <Compile Include="Controllers\System\OperatingAuthorityController.cs" />
     <Compile Include="Controllers\System\UserController.cs" />
     <Compile Include="Controllers\System\RoleController.cs" />
+    <Compile Include="Controllers\Tools\BackupDatabaseController.cs" />
     <Compile Include="Controllers\Tools\PluginController.cs" />
     <Compile Include="Controllers\Tools\CleanUpScenesController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
