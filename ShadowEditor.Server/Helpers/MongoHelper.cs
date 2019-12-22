@@ -79,6 +79,16 @@ namespace ShadowEditor.Server.Helpers
         }
 
         /// <summary>
+        /// 执行一个MongoDB命令
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        public BsonDocument RunCommand(string command)
+        {
+            return db.RunCommand<BsonDocument>(command);
+        }
+
+        /// <summary>
         /// 删除某个数据集
         /// </summary>
         /// <param name="name">数据集名称</param>

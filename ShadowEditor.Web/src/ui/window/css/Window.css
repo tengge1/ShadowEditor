@@ -78,6 +78,7 @@
     top: 44px;
     bottom: 52px;
     font-size: 12px;
+    word-break: break-word;
     overflow: hidden;
 }
 

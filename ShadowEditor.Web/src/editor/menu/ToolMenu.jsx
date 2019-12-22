@@ -53,11 +53,19 @@ class ToolMenu extends React.Component {
     }
 
     handleBackupDatabase() {
+        app.mask(_t('Backing up, please wait.'));
         fetch(`${app.options.server}/api/BackupDatabase/Run`, {
             method: 'POST'
         }).then(response => {
             response.json().then(json => {
-                app.toast(_t(json.Msg));
+                app.unmask();
+                if (json.Code === 300) {
+                    app.toast(_t(json.Msg), 'error');
+                }
+                app.alert({
+                    title: _t(json.Msg),
+                    content: json.Path
+                });
             });
         });
     }

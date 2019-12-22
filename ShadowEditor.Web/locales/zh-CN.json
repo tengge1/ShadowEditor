@@ -961,5 +961,7 @@
     "Update Time": "更新时间",
     "Load": "载入",
     "Backup Database": "备份数据库",
-    "Backup database successfully!": "备份数据库成功！"
+    "Backup database successfully!": "备份数据库成功！",
+    "mongodump.exe is not existed.": "mongodump.exe不存在。",
+    "Backing up, please wait.": "正在备份，请稍后。"
 }
