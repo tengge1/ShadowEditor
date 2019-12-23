@@ -1,5 +1,5 @@
 import './css/EditSceneWindow.css';
-import { PropTypes, Window, TabLayout, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox, VBoxLayout, DataGrid, Column, LinkButton } from '../../../third_party';
+import { PropTypes, Window, TabLayout, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox, DataGrid, Column, LinkButton } from '../../../third_party';
 import Ajax from '../../../utils/Ajax';
 import CategoryWindow from './CategoryWindow.jsx';
 
