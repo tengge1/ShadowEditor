@@ -105,7 +105,7 @@ class DistanceTool extends BaseTool {
             dist += Math.sqrt(
                 (this.positions[i] - this.positions[i - 3]) ** 2,
                 (this.positions[i + 1] - this.positions[i - 2]) ** 2,
-                (this.positions[i + 2] - this.positions[i - 1]) ** 2,
+                (this.positions[i + 2] - this.positions[i - 1]) ** 2
             );
         }
 
@@ -113,25 +113,34 @@ class DistanceTool extends BaseTool {
 
         if (this.positions.length === 6 && this.line.texts.length === 0) { // 前两个点
             let text1 = new UnscaledText(_t('Start Point'));
-            // text1.material.polygonOffset = true;
-            // text1.material.polygonOffsetFactor = -1;
-            // text1.material.polygonOffsetUnits = -1;
+            this.offsetText(text1);
             text1.position.fromArray(this.positions);
             let text2 = new UnscaledText(_t('{{dist}}m', { dist: 0 }));
+            this.offsetText(text2);
             text2.position.fromArray(this.positions, 3);
             this.line.texts.push(text1, text2);
             app.editor.sceneHelpers.add(text1);
             app.editor.sceneHelpers.add(text2);
         } else if (this.line.texts.length < this.positions.length / 3) { // 增加点了
             let text1 = new UnscaledText(_t('{{dist}}m', { dist }));
+            this.offsetText(text1);
             text1.position.fromArray(this.positions, this.positions.length - 3);
             this.line.texts.push(text1);
             app.editor.sceneHelpers.add(text1);
         } else { // 更新最后一个点坐标
             let text1 = this.line.texts[this.line.texts.length - 1];
+            this.offsetText(text1);
             text1.position.fromArray(this.positions, this.positions.length - 3);
             text1.setText(_t('{{dist}}m', { dist }));
         }
+    }
+
+    offsetText(text) {
+        // 避免文字被遮挡
+        text.material.depthTest = false;
+        // text.material.polygonOffset = true;
+        // text.material.polygonOffsetFactor = -10;
+        // text.material.polygonOffsetUnits = -10;
     }
 
     onDblClick() {
