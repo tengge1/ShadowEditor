@@ -224,7 +224,7 @@ class EditSceneWindow extends React.Component {
     handleLoadHistory(name) {
         const history = this.state.histories.filter(n => n.ID === name)[0];
 
-        if(!history) {
+        if (!history) {
             app.toast(_t('The scene is not existed!'));
             return;
         }
