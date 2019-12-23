@@ -3,6 +3,8 @@
  * @author mrdoob / http://mrdoob.com
  * @author alteredq / http://alteredqualia.com/
  * @author WestLangley / http://github.com/WestLangley
+ * @param {THREE.Camera} object 相机
+ * @param {HTMLElement} domElement HTML文档
  */
 function EditorControls(object, domElement) {
 
