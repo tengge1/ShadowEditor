@@ -2,7 +2,7 @@ import BaseTool from './BaseTool';
 import UnscaledText from '../../object/text/UnscaledText';
 
 /**
- * 距离测量工具
+ * 面积测量工具
  */
 class AreaTool extends BaseTool {
     constructor() {
@@ -105,7 +105,7 @@ class AreaTool extends BaseTool {
             dist += Math.sqrt(
                 (this.positions[i] - this.positions[i - 3]) ** 2,
                 (this.positions[i + 1] - this.positions[i - 2]) ** 2,
-                (this.positions[i + 2] - this.positions[i - 1]) ** 2,
+                (this.positions[i + 2] - this.positions[i - 1]) ** 2
             );
         }
 

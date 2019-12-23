@@ -1,5 +1,6 @@
 import { ToolbarSeparator, IconButton } from '../../third_party';
 import DistanceTool from '../tools/DistanceTool';
+import AreaTool from '../tools/AreaTool';
 
 /**
  * 测量工具
@@ -18,6 +19,7 @@ class MeasureTools extends React.Component {
         this.handleMeasureDistance = this.handleMeasureDistance.bind(this);
         this.handleEndMeasureDistance = this.handleEndMeasureDistance.bind(this);
         this.handleMeasureArea = this.handleMeasureArea.bind(this);
+        this.handleEndMeasureArea = this.handleEndMeasureArea.bind(this);
         this.handleMeasureAngle = this.handleMeasureAngle.bind(this);
     }
 
@@ -70,7 +72,21 @@ class MeasureTools extends React.Component {
     // --------------------------- 面积测量 -------------------------------------
 
     handleMeasureArea() {
+        if (this.areaTool === undefined) {
+            this.areaTool = new AreaTool();
+            this.areaTool.on(`end.${this.id}`, this.handleEndMeasureArea);
+        }
+        this.areaTool.start();
+        this.setState({
+            areaToolEnabled: true
+        });
+        app.toast(_t('Start area measurement.'));
+    }
 
+    handleEndMeasureArea() {
+        this.setState({
+            areaToolEnabled: false
+        });
     }
 
     // --------------------------- 角度测量 ---------------------------------------
