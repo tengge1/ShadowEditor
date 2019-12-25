@@ -4,6 +4,7 @@ import Ajax from '../../utils/Ajax';
 import GISScene from '../../gis/Scene';
 import TimeUtils from '../../utils/TimeUtils';
 import StringUtils from '../../utils/StringUtils';
+import SaveSceneWindow from './window/SaveSceneWindow.jsx';
 
 /**
  * 场景菜单
@@ -274,7 +275,7 @@ class SceneMenu extends React.Component {
             } catch (e) {
                 output = JSON.stringify(output);
             }
-    
+
             StringUtils.saveString(output, `${name}.json`);
         });
     }
@@ -299,7 +300,7 @@ class SceneMenu extends React.Component {
         this.querySceneName().then(name => {
             app.require('GLTFExporter').then(() => {
                 var exporter = new THREE.GLTFExporter();
-    
+
                 exporter.parse(app.editor.scene, result => {
                     StringUtils.saveString(JSON.stringify(result), `${name}.gltf`);
                 });

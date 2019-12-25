@@ -8,31 +8,27 @@ import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } fro
 class SaveSceneWindow extends React.Component {
     constructor(props) {
         super(props);
+
         this.handleClose = this.handleClose.bind(this);
     }
 
     render() {
-        const attributes = app.editor.renderer.getContextAttributes();
-
         return <Window
             className={'SaveSceneWindow'}
-            title={_t('Plugins')}
+            title={_t('Save Scene')}
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
-        >
+               >
             <Content>
                 <Form>
-                    {Object.keys(attributes).map(key => {
-                        const value = attributes[key];
-                        return <FormControl key={key}>
-                            <Label>{_t(key)}</Label>
-                            <Input name={key}
-                                value={value.toString()}
-                                disabled
-                            />
-                        </FormControl>;
-                    })}
+                    <FormControl key={key}>
+                        <Label>{_t('Name')}</Label>
+                        <Input name={'name'}
+                            value={''}
+                            disabled
+                        />
+                    </FormControl>
                 </Form>
             </Content>
             <Buttons>
