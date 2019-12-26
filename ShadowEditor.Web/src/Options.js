@@ -13,6 +13,14 @@ function Options(options = {}) {
 
     this.sceneType = options.sceneType === undefined ? 'Empty' : options.sceneType; // 场景类型：Empty, GIS
 
+    // 场景优化选项
+
+    // 是否保存模型内部子组件
+    this.saveChild = options.saveChild === undefined ? true : options.saveChild;
+
+    // 是否保存模型内部子组件材质
+    this.saveMaterial = options.saveMaterial === undefined ? true : options.saveMaterial;
+
     // 阴影配置
     this.shadowMapType = THREE.PCFSoftShadowMap;
 
