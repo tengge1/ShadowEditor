@@ -43,10 +43,10 @@ class SceneMenu extends React.Component {
             </MenuItem> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save')}
                 onClick={this.handleSaveScene}
-                                                                      /> : null}
+            /> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save As')}
                 onClick={this.handleSaveAsScene}
-                                                                      /> : null}
+            /> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItemSeparator /> : null}
             {!enableAuthority || isLogin ? <MenuItem title={_t('Export Scene')}>
                 <MenuItem title={_t('To JSON File')}
@@ -70,7 +70,7 @@ class SceneMenu extends React.Component {
             </MenuItem> : null}
             {!enableAuthority || isAdmin ? <MenuItem title={_t('Publish Scene')}
                 onClick={this.handlePublishScene}
-                                           /> : null}
+            /> : null}
         </MenuItem>;
     }
 
@@ -129,14 +129,8 @@ class SceneMenu extends React.Component {
         if (id) { // 编辑场景
             this.commitSave(id, sceneName);
         } else { // 新建场景
-            app.prompt({
-                title: _t('Save Scene'),
-                content: _t('Name'),
-                value: _t('New Scene'),
-                onOK: name => {
-                    this.commitSave(id, name);
-                }
-            });
+            const win = app.createElement(SaveSceneWindow);
+            app.addElement(win);
         }
     }
 
@@ -190,57 +184,8 @@ class SceneMenu extends React.Component {
     // --------------------------- 另存为场景 -------------------------------------
 
     handleSaveAsScene() {
-        var sceneName = app.editor.sceneName;
-
-        if (sceneName === null) {
-            sceneName = _t('New Scene');
-        }
-
-        app.prompt({
-            title: _t('Save Scene'),
-            content: _t('Name'),
-            value: sceneName,
-            onOK: name => {
-                app.editor.sceneName = name;
-                document.title = name;
-                this.commitSaveAs(name);
-            }
-        });
-    }
-
-    commitSaveAs(sceneName) {
-        var editor = app.editor;
-
-        app.mask(_t('Waiting...'));
-
-        var obj = new Converter().toJSON({
-            options: app.options,
-            camera: editor.camera,
-            renderer: editor.renderer,
-            scripts: editor.scripts,
-            animations: editor.animations,
-            scene: editor.scene,
-            visual: editor.visual
-        });
-
-        Ajax.post(`${app.options.server}/api/Scene/Save`, {
-            Name: sceneName,
-            Data: JSON.stringify(obj)
-        }, result => {
-            var obj = JSON.parse(result);
-
-            if (obj.Code === 200) {
-                editor.sceneID = obj.ID;
-                editor.sceneName = sceneName;
-                document.title = sceneName;
-            }
-
-            app.call(`sceneSaved`, this);
-
-            app.unmask();
-
-            app.toast(_t(obj.Msg), 'success');
-        });
+        const win = app.createElement(SaveSceneWindow);
+        app.addElement(win);
     }
 
     // ---------------------- 导出场景为json文件 --------------------------
