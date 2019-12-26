@@ -1,5 +1,5 @@
 import './css/SaveSceneWindow.css';
-import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../third_party';
+import { Window, Content, Buttons, Form, FormControl, Label, Input, Button, CheckBox } from '../../../third_party';
 import Converter from '../../../serialization/Converter';
 import Ajax from '../../../utils/Ajax';
 
@@ -11,8 +11,18 @@ class SaveSceneWindow extends React.Component {
     constructor(props) {
         super(props);
 
+        if (app.options.saveChild === undefined) {
+            app.options.saveChild = true;
+        }
+
+        if (app.options.saveMaterial === undefined) {
+            app.options.saveMaterial = true;
+        }
+
         this.state = {
-            sceneName: app.editor.sceneName || _t('New Scene')
+            sceneName: app.editor.sceneName || _t('New Scene'),
+            saveChild: app.options.saveChild,
+            saveMaterial: app.options.saveMaterial
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -22,7 +32,7 @@ class SaveSceneWindow extends React.Component {
     }
 
     render() {
-        const { sceneName } = this.state;
+        const { sceneName, saveChild, saveMaterial } = this.state;
 
         return <Window
             className={'SaveSceneWindow'}
@@ -30,13 +40,27 @@ class SaveSceneWindow extends React.Component {
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
-        >
+               >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Name')}</Label>
                         <Input name={'sceneName'}
                             value={sceneName}
+                            onChange={this.handleChange}
+                        />
+                    </FormControl>
+                    <FormControl>
+                        <Label>{_t('Save Child')}</Label>
+                        <CheckBox name={'saveChild'}
+                            checked={saveChild}
+                            onChange={this.handleChange}
+                        />
+                    </FormControl>
+                    <FormControl>
+                        <Label>{_t('Save Material')}</Label>
+                        <CheckBox name={'saveMaterial'}
+                            checked={saveMaterial}
                             onChange={this.handleChange}
                         />
                     </FormControl>
@@ -50,6 +74,9 @@ class SaveSceneWindow extends React.Component {
     }
 
     handleChange(value, name) {
+        if (name === 'saveChild' || name === 'saveMaterial') {
+            app.options[name] = value;
+        }
         this.setState({
             [name]: value
         });

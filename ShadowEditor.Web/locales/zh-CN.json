@@ -964,5 +964,7 @@
     "Backup database successfully!": "备份数据库成功！",
     "mongodump.exe is not existed.": "mongodump.exe不存在。",
     "Backing up, please wait.": "正在备份，请稍后。",
-    "Start area measurement.": "开始面积测量。"
+    "Start area measurement.": "开始面积测量。",
+    "Save Child": "保存子组件",
+    "Optimization": "优化"
 }

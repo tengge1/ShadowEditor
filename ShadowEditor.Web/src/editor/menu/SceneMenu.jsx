@@ -43,10 +43,10 @@ class SceneMenu extends React.Component {
             </MenuItem> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save')}
                 onClick={this.handleSaveScene}
-            /> : null}
+                                                                      /> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save As')}
                 onClick={this.handleSaveAsScene}
-            /> : null}
+                                                                      /> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItemSeparator /> : null}
             {!enableAuthority || isLogin ? <MenuItem title={_t('Export Scene')}>
                 <MenuItem title={_t('To JSON File')}
@@ -70,7 +70,7 @@ class SceneMenu extends React.Component {
             </MenuItem> : null}
             {!enableAuthority || isAdmin ? <MenuItem title={_t('Publish Scene')}
                 onClick={this.handlePublishScene}
-            /> : null}
+                                           /> : null}
         </MenuItem>;
     }
 
