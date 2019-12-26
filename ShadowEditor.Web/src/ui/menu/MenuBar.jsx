@@ -13,20 +13,21 @@ class MenuBar extends React.Component {
         return <ul
             className={classNames('MenuBar', className)}
             style={style}
-            {...others}>{children}</ul>;
+            {...others}
+               >{children}</ul>;
     }
 }
 
 MenuBar.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 MenuBar.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: null
 };
 
 export default MenuBar;

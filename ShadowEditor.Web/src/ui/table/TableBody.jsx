@@ -13,7 +13,8 @@ class TableBody extends React.Component {
         return <tbody
             className={classNames('TableBody', className)}
             style={style}
-            {...others}>
+            {...others}
+               >
             {children}
         </tbody>;
     }
@@ -22,13 +23,13 @@ class TableBody extends React.Component {
 TableBody.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 TableBody.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: null
 };
 
 export default TableBody;

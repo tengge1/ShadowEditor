@@ -22,7 +22,8 @@ class CheckBoxProperty extends React.Component {
             style={style}
             name={name}
             checked={value}
-            onChange={this.handleChange}></CheckBox>;
+            onChange={this.handleChange}
+               />;
     }
 
     handleChange(onChange, value, name, event) {
@@ -35,7 +36,7 @@ CheckBoxProperty.propTypes = {
     style: PropTypes.object,
     name: PropTypes.string,
     value: PropTypes.bool,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 CheckBoxProperty.defaultProps = {
@@ -43,7 +44,7 @@ CheckBoxProperty.defaultProps = {
     style: null,
     name: null,
     value: false,
-    onChange: null,
+    onChange: null
 };
 
 export default CheckBoxProperty;

@@ -16,8 +16,15 @@ class Video extends React.Component {
     render() {
         const { className, style, url } = this.props;
 
-        return <div className={'VideoMark'} onClick={this.handleClick}>
-            <video src={url} autoPlay={'autoplay'} controls={'controls'} onClick={this.handleClickVideo} />
+        return <div className={classNames('VideoMark', className)}
+            style={style}
+            onClick={this.handleClick}
+               >
+            <video src={url}
+                autoPlay={'autoplay'}
+                controls={'controls'}
+                onClick={this.handleClickVideo}
+            />
         </div>;
     }
 
@@ -34,14 +41,14 @@ Video.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     url: PropTypes.string,
-    onClick: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 Video.defaultProps = {
     className: null,
     style: null,
     url: null,
-    onClick: null,
+    onClick: null
 };
 
 export default Video;

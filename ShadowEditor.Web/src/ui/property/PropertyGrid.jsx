@@ -10,7 +10,9 @@ class PropertyGrid extends React.Component {
     render() {
         const { className, style, children } = this.props;
 
-        return <div className={classNames('PropertyGrid', className)} style={style}>
+        return <div className={classNames('PropertyGrid', className)}
+            style={style}
+               >
             {children}
         </div>;
     }
@@ -19,13 +21,13 @@ class PropertyGrid extends React.Component {
 PropertyGrid.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 PropertyGrid.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: null
 };
 
 export default PropertyGrid;

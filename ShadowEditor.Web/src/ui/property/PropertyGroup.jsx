@@ -16,16 +16,23 @@ class PropertyGroup extends React.Component {
     }
 
     render() {
-        const { className, style, children, title, show, expanded } = this.props;
+        const { style, children, title, show, expanded } = this.props;
 
-        return <div className={classNames('PropertyGroup', !show && 'hidden')} style={style}>
-            <div className={'head'} expanded={expanded ? 'true' : 'false'} onClick={this.handleExpand}>
+        return <div className={classNames('PropertyGroup', !show && 'hidden')}
+            style={style}
+               >
+            <div className={'head'}
+                expanded={expanded ? 'true' : 'false'}
+                onClick={this.handleExpand}
+            >
                 <div className={'icon'}>
                     <i className={expanded ? 'icon-expand' : 'icon-collapse'} />
                 </div>
                 <div className={'title'}>{title}</div>
             </div>
-            <div className={classNames('content', !expanded && 'collapsed')} ref={this.contentRef}>
+            <div className={classNames('content', !expanded && 'collapsed')}
+                ref={this.contentRef}
+            >
                 {React.Children.map(children, (n, i) => {
                     if (n.props.show === false) {
                         return null;
@@ -37,7 +44,9 @@ class PropertyGroup extends React.Component {
                         typeName = typeName.split('$')[0];
                     }
 
-                    return <div className={classNames('property', typeName)} key={i}>
+                    return <div className={classNames('property', typeName)}
+                        key={i}
+                           >
                         <div className={'label'}>{n.props.label}</div>
                         <div className={'field'}>{n}</div>
                     </div>;
@@ -71,7 +80,7 @@ PropertyGroup.propTypes = {
     title: PropTypes.string,
     show: PropTypes.bool,
     expanded: PropTypes.bool,
-    onExpand: PropTypes.func,
+    onExpand: PropTypes.func
 };
 
 PropertyGroup.defaultProps = {
@@ -81,7 +90,7 @@ PropertyGroup.defaultProps = {
     title: 'Group',
     show: true,
     expanded: true,
-    onExpand: null,
+    onExpand: null
 };
 
 export default PropertyGroup;

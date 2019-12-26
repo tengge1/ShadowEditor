@@ -13,7 +13,7 @@ class Panel extends React.Component {
         this.state = {
             collapsed: props.collapsed,
             maximized: props.maximized,
-            closed: props.closed,
+            closed: props.closed
         };
 
         this.handleCollapse = this.handleCollapse.bind(this, props.onCollapse);
@@ -23,7 +23,7 @@ class Panel extends React.Component {
 
     handleCollapse(onCollapse, event) {
         this.setState(state => ({
-            collapsed: !state.collapsed,
+            collapsed: !state.collapsed
         }));
 
         onCollapse && onCollapse(event);
@@ -31,7 +31,7 @@ class Panel extends React.Component {
 
     handleMaximize(onMaximize, event) {
         this.setState(state => ({
-            maximized: !state.maximized,
+            maximized: !state.maximized
         }));
 
         onMaximize && onMaximize(event);
@@ -39,28 +39,31 @@ class Panel extends React.Component {
 
     handleClose(onClose, event) {
         this.setState(state => ({
-            closed: !state.closed,
+            closed: !state.closed
         }));
 
         onClose && onClose(event);
     }
 
     render() {
-        const { title, className, style, children, show, header,
-            collapsible, collapsed, onCollapse,
-            maximizable, maximized, onMaximize,
-            closable, closed, onClose } = this.props;
+        const { title, className, style, children, show, header, collapsible, maximizable, closable } = this.props;
 
-        const collapseControl = collapsible && <div className={'control'} onClick={this.handleCollapse}>
-            {this.state.collapsed ? <i className={'iconfont icon-down-arrow'}></i> : <i className={'iconfont icon-up-arrow'}></i>}
+        const collapseControl = collapsible && <div className={'control'}
+            onClick={this.handleCollapse}
+                                               >
+            {this.state.collapsed ? <i className={'iconfont icon-down-arrow'} /> : <i className={'iconfont icon-up-arrow'} />}
         </div>;
 
-        const maximizeControl = maximizable && <div className={'control'} onClick={this.handleMaximize}>
-            {this.state.maximized ? <i className={'iconfont icon-minimize'}></i> : <i className={'iconfont icon-maximize'}></i>}
+        const maximizeControl = maximizable && <div className={'control'}
+            onClick={this.handleMaximize}
+                                               >
+            {this.state.maximized ? <i className={'iconfont icon-minimize'} /> : <i className={'iconfont icon-maximize'} />}
         </div>;
 
-        const closeControl = closable && <div className={'control'} onClick={this.handleClose}>
-            <i className={'iconfont icon-close-thin'}></i>
+        const closeControl = closable && <div className={'control'}
+            onClick={this.handleClose}
+                                         >
+            <i className={'iconfont icon-close-thin'} />
         </div>;
 
         return <div className={classNames('Panel',
@@ -68,7 +71,9 @@ class Panel extends React.Component {
             this.state.collapsed && 'collapsed',
             this.state.closed && 'hidden',
             !show && 'hidden',
-            className)} style={style}>
+            className)}
+            style={style}
+               >
             <div className={classNames('header', header ? null : 'hidden')}>
                 <span className="title">{title}</span>
                 <div className="controls">
@@ -99,7 +104,7 @@ Panel.propTypes = {
     onMaximize: PropTypes.bool,
     closable: PropTypes.bool,
     closed: PropTypes.bool,
-    onClose: PropTypes.func,
+    onClose: PropTypes.func
 };
 
 Panel.defaultProps = {
@@ -117,7 +122,7 @@ Panel.defaultProps = {
     onMaximize: null,
     closable: false,
     closed: false,
-    onClose: null,
+    onClose: null
 };
 
 export default Panel;

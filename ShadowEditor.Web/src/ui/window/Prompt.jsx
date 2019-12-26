@@ -38,7 +38,8 @@ class Prompt extends React.Component {
             <Content>
                 {content}
                 <Input value={this.state.value}
-onChange={this.handleChange} />
+                    onChange={this.handleChange}
+                />
             </Content>
             <Buttons>
                 <Button onClick={this.handleOK}>{okText}</Button>

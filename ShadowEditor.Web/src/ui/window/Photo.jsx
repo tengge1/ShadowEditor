@@ -16,8 +16,13 @@ class Photo extends React.Component {
     render() {
         const { className, style, url } = this.props;
 
-        return <div className={'PhotoMark'} onClick={this.handleClick}>
-            <img src={url} onClick={this.handleClickImage} />
+        return <div className={classNames('PhotoMark', className)}
+            style={style}
+            onClick={this.handleClick}
+               >
+            <img src={url}
+                onClick={this.handleClickImage}
+            />
         </div>;
     }
 
@@ -34,14 +39,14 @@ Photo.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     url: PropTypes.string,
-    onClick: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 Photo.defaultProps = {
     className: null,
     style: null,
     url: null,
-    onClick: null,
+    onClick: null
 };
 
 export default Photo;

@@ -12,20 +12,21 @@ class ContextMenu extends React.Component {
 
         return <ul
             className={classNames('ContextMenu', className)}
-            style={style}>{children}</ul>;
+            style={style}
+               >{children}</ul>;
     }
 }
 
 ContextMenu.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 ContextMenu.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: null
 };
 
 export default ContextMenu;

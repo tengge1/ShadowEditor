@@ -20,7 +20,8 @@ class ButtonProperty extends React.Component {
         return <Button
             className={classNames('button', className)}
             style={style}
-            onClick={this.handleChange}>{text}</Button>;
+            onClick={this.handleChange}
+               >{text}</Button>;
     }
 
     handleChange(onChange, name, value, event) {
@@ -32,14 +33,14 @@ ButtonProperty.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     text: PropTypes.string,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 ButtonProperty.defaultProps = {
     className: null,
     style: null,
     text: 'Button',
-    onChange: null,
+    onChange: null
 };
 
 export default ButtonProperty;

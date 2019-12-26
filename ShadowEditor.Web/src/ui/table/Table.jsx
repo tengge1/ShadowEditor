@@ -13,7 +13,8 @@ class Table extends React.Component {
         return <table
             className={classNames('Table', className)}
             style={style}
-            {...others}>
+            {...others}
+               >
             {children}
         </table>;
     }
@@ -22,13 +23,13 @@ class Table extends React.Component {
 Table.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 Table.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: null
 };
 
 export default Table;

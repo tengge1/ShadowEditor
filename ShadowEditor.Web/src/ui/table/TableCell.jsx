@@ -13,7 +13,8 @@ class TableCell extends React.Component {
         return <td
             className={classNames('TableCell', className)}
             style={style}
-            {...others}>
+            {...others}
+               >
             {children}
         </td>;
     }
@@ -22,13 +23,13 @@ class TableCell extends React.Component {
 TableCell.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 TableCell.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: null
 };
 
 export default TableCell;

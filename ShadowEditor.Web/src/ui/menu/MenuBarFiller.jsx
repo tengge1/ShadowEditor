@@ -10,18 +10,20 @@ class MenuBarFiller extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <li className={classNames('MenuItem', 'MenuBarFiller', className)} style={style}></li>;
+        return <li className={classNames('MenuItem', 'MenuBarFiller', className)}
+            style={style}
+               />;
     }
 }
 
 MenuBarFiller.propTypes = {
     className: PropTypes.string,
-    style: PropTypes.object,
+    style: PropTypes.object
 };
 
 MenuBarFiller.defaultProps = {
     className: null,
-    style: null,
+    style: null
 };
 
 export default MenuBarFiller;

@@ -10,7 +10,9 @@ class ToolbarSeparator extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <div className={classNames('ToolbarSeparator', className)} style={style}>
+        return <div className={classNames('ToolbarSeparator', className)}
+            style={style}
+               >
             <div className='separator' />
         </div>;
     }

@@ -13,7 +13,8 @@ class TableHead extends React.Component {
         return <thead
             className={classNames('TableHead', className)}
             style={style}
-            {...others}>
+            {...others}
+               >
             {children}
         </thead>;
     }
@@ -22,13 +23,13 @@ class TableHead extends React.Component {
 TableHead.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 TableHead.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: null
 };
 
 export default TableHead;

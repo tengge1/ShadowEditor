@@ -14,12 +14,13 @@ class MenuTab extends React.Component {
     }
 
     render() {
-        const { className, style, children, selected, show, disabled, onClick } = this.props;
+        const { className, style, children, selected, show, disabled } = this.props;
 
         return <li
             className={classNames('MenuTab', selected && 'selected', disabled && 'disabled', !show && 'hidden', className)}
             style={style}
-            onClick={this.handleClick}>{children}</li>;
+            onClick={this.handleClick}
+               >{children}</li>;
     }
 
     handleClick(onClick, event) {
@@ -39,7 +40,7 @@ MenuTab.propTypes = {
     selected: PropTypes.bool,
     show: PropTypes.bool,
     disabled: PropTypes.bool,
-    onClick: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 MenuTab.defaultProps = {
@@ -50,7 +51,7 @@ MenuTab.defaultProps = {
     selected: false,
     show: true,
     disabled: false,
-    onClick: null,
+    onClick: null
 };
 
 export default MenuTab;

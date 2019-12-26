@@ -27,7 +27,8 @@ class Alert extends React.Component {
             title={title}
             hidden={hidden}
             mask={mask}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>{children}</Content>
             <Buttons>
                 <Button onClick={this.handleOK}>{okText}</Button>
@@ -53,7 +54,7 @@ Alert.propTypes = {
     mask: PropTypes.bool,
     okText: PropTypes.string,
     onOK: PropTypes.func,
-    onClose: PropTypes.func,
+    onClose: PropTypes.func
 };
 
 Alert.defaultProps = {
@@ -65,7 +66,7 @@ Alert.defaultProps = {
     mask: false,
     okText: 'OK',
     onOK: null,
-    onClose: null,
+    onClose: null
 };
 
 export default Alert;

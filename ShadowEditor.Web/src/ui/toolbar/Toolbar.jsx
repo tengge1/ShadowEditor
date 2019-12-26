@@ -12,7 +12,8 @@ class Toolbar extends React.Component {
 
         return <div
             className={classNames('Toolbar', direction, className)}
-            style={style}>{children}</div>;
+            style={style}
+               >{children}</div>;
     }
 }
 
@@ -20,14 +21,14 @@ Toolbar.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     direction: PropTypes.oneOf(['horizontal', 'vertical']),
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 Toolbar.defaultProps = {
     className: null,
     style: null,
     direction: 'horizontal',
-    children: null,
+    children: null
 };
 
 export default Toolbar;

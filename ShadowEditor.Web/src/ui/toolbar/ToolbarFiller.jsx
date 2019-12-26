@@ -10,18 +10,20 @@ class ToolbarFiller extends React.Component {
     render() {
         const { className, style } = this.props;
 
-        return <div className={classNames('ToolbarFiller', className)} style={style}></div>;
+        return <div className={classNames('ToolbarFiller', className)}
+            style={style}
+               />;
     }
 }
 
 ToolbarFiller.propTypes = {
     className: PropTypes.string,
-    style: PropTypes.object,
+    style: PropTypes.object
 };
 
 ToolbarFiller.defaultProps = {
     className: null,
-    style: null,
+    style: null
 };
 
 export default ToolbarFiller;

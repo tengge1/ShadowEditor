@@ -27,7 +27,8 @@ class NumberProperty extends React.Component {
             min={min}
             max={max}
             step={step}
-            onChange={this.handleChange}></Input>;
+            onChange={this.handleChange}
+               />;
     }
 
     handleChange(onChange, value, name, event) {
@@ -43,7 +44,7 @@ NumberProperty.propTypes = {
     min: PropTypes.number,
     max: PropTypes.number,
     step: PropTypes.number,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 NumberProperty.defaultProps = {
@@ -54,7 +55,7 @@ NumberProperty.defaultProps = {
     min: null,
     max: null,
     step: null,
-    onChange: null,
+    onChange: null
 };
 
 export default NumberProperty;

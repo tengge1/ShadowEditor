@@ -46,13 +46,17 @@ class Window extends React.Component {
         return <div className={classNames('WindowMask', mask && 'mask', hidden && 'hidden')}>
             <div className={classNames('Window', className)}
                 style={style}
-                ref={this.dom}>
+                ref={this.dom}
+            >
                 <div className={'wrap'}>
                     <div className={'title'}
-                        onMouseDown={this.handleMouseDown}>
+                        onMouseDown={this.handleMouseDown}
+                    >
                         <span>{title}</span>
                         <div className={'controls'}>
-                            <i className={'iconfont icon-close icon'} onClick={this.handleClose}></i>
+                            <i className={'iconfont icon-close icon'}
+                                onClick={this.handleClose}
+                            />
                         </div>
                     </div>
                     <div className={'content'}>{content && content.props.children}</div>
@@ -90,7 +94,7 @@ class Window extends React.Component {
         dom.style.top = `${dy}px`;
     }
 
-    handleMouseUp(event) {
+    handleMouseUp() {
         this.isDown = false;
         this.offsetX = 0;
         this.offsetY = 0;
@@ -113,7 +117,7 @@ class Window extends React.Component {
 
 Window.show = function () {
 
-}
+};
 
 Window.propTypes = {
     className: PropTypes.string,
@@ -122,7 +126,7 @@ Window.propTypes = {
     children: PropTypes.node,
     hidden: PropTypes.bool,
     mask: PropTypes.bool,
-    onClose: PropTypes.func,
+    onClose: PropTypes.func
 };
 
 Window.defaultProps = {
@@ -132,7 +136,7 @@ Window.defaultProps = {
     children: null,
     hidden: false,
     mask: true,
-    onClose: null,
+    onClose: null
 };
 
 export default Window;

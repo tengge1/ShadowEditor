@@ -13,18 +13,19 @@ class SVG extends React.Component {
         return <svg
             className={classNames('SVG', className)}
             style={style}
-            {...others}></svg>;
+            {...others}
+               />;
     }
 }
 
 SVG.propTypes = {
     className: PropTypes.string,
-    style: PropTypes.object,
+    style: PropTypes.object
 };
 
 SVG.defaultProps = {
     className: null,
-    style: null,
+    style: null
 };
 
 export default SVG;

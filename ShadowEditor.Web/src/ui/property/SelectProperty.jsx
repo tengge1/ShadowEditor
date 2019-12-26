@@ -25,7 +25,8 @@ class SelectProperty extends React.Component {
             name={name}
             value={value}
             disabled={disabled}
-            onChange={this.handleChange}></Select>;
+            onChange={this.handleChange}
+               />;
     }
 
     handleChange(onChange, value, name, event) {
@@ -40,7 +41,7 @@ SelectProperty.propTypes = {
     name: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 SelectProperty.defaultProps = {
@@ -50,7 +51,7 @@ SelectProperty.defaultProps = {
     name: null,
     value: null,
     disabled: false,
-    onChange: null,
+    onChange: null
 };
 
 export default SelectProperty;
