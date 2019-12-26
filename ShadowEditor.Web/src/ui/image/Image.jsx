@@ -21,7 +21,8 @@ class Image extends React.Component {
             style={style}
             src={src}
             title={title}
-            onError={this.handleError}></img>;
+            onError={this.handleError}
+               />;
     }
 
     handleError(event) {
@@ -45,14 +46,14 @@ Image.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     src: PropTypes.string,
-    title: PropTypes.string,
+    title: PropTypes.string
 };
 
 Image.defaultProps = {
     className: null,
     style: null,
     src: null,
-    title: null,
+    title: null
 };
 
 export default Image;

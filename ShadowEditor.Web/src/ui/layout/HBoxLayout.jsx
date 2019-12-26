@@ -13,20 +13,21 @@ class HBoxLayout extends React.Component {
         return <div
             className={classNames('HBoxLayout', className)}
             style={style}
-            {...others}>{children}</div>;
+            {...others}
+               >{children}</div>;
     }
 }
 
 HBoxLayout.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 HBoxLayout.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: null
 };
 
 export default HBoxLayout;

@@ -12,13 +12,14 @@ class AbsoluteLayout extends React.Component {
 
         const position = {
             left: left || 0,
-            top: top || 0,
+            top: top || 0
         };
 
         return <div
             className={classNames('AbsoluteLayout', className)}
             style={style ? Object.assign({}, style, position) : position}
-            {...others}>{children}</div>;
+            {...others}
+               >{children}</div>;
     }
 }
 
@@ -27,7 +28,7 @@ AbsoluteLayout.propTypes = {
     style: PropTypes.object,
     children: PropTypes.node,
     left: PropTypes.string,
-    top: PropTypes.string,
+    top: PropTypes.string
 };
 
 AbsoluteLayout.defaultProps = {
@@ -35,7 +36,7 @@ AbsoluteLayout.defaultProps = {
     style: null,
     children: null,
     left: '0',
-    top: '0',
+    top: '0'
 };
 
 export default AbsoluteLayout;

@@ -17,15 +17,18 @@ class ImageUploader extends React.Component {
     render() {
         const { className, style, url, server, noImageText } = this.props;
 
-        if (url && url != 'null') {
+        if (url && url !== 'null') {
             return <img
                 className={classNames('ImageUploader', className)}
+                style={style}
                 src={server + url}
-                onClick={this.handleSelect} />;
+                onClick={this.handleSelect}
+                   />;
         } else {
             return <div
                 className={classNames('ImageUploader', 'empty', className)}
-                onClick={this.handleSelect}>
+                onClick={this.handleSelect}
+                   >
                 {noImageText}
             </div>;
         }
@@ -67,7 +70,7 @@ ImageUploader.propTypes = {
     url: PropTypes.string,
     server: PropTypes.string,
     noImageText: PropTypes.string,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 ImageUploader.defaultProps = {
@@ -76,7 +79,7 @@ ImageUploader.defaultProps = {
     url: null,
     server: '',
     noImageText: 'No Image',
-    onChange: null,
+    onChange: null
 };
 
 export default ImageUploader;

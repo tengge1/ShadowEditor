@@ -22,12 +22,14 @@ class ImageSelector extends React.Component {
                 className={classNames('ImageSelector', className)}
                 style={style}
                 src={value}
-                onClick={this.handleSelect} />;
+                onClick={this.handleSelect}
+                   />;
         } else {
             return <div
                 className={classNames('ImageSelector', 'empty', className)}
                 style={style}
-                onClick={this.handleSelect}>
+                onClick={this.handleSelect}
+                   >
                 {noImageText}
             </div>;
         }
@@ -70,7 +72,7 @@ ImageSelector.propTypes = {
     name: PropTypes.string,
     value: PropTypes.any,
     noImageText: PropTypes.string,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 ImageSelector.defaultProps = {
@@ -79,7 +81,7 @@ ImageSelector.defaultProps = {
     name: null,
     value: null,
     noImageText: 'No Image',
-    onChange: null,
+    onChange: null
 };
 
 export default ImageSelector;

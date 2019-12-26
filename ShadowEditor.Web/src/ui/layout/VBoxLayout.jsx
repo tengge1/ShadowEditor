@@ -13,20 +13,21 @@ class VBoxLayout extends React.Component {
         return <div
             className={classNames('VBoxLayout', className)}
             style={style}
-            {...others}>{children}</div>;
+            {...others}
+               >{children}</div>;
     }
 }
 
 VBoxLayout.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 VBoxLayout.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: null
 };
 
 export default VBoxLayout;

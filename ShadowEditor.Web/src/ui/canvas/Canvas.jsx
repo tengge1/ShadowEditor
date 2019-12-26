@@ -19,18 +19,19 @@ class Canvas extends React.Component {
             className={classNames('Canvas', className)}
             style={style}
             ref={this.dom}
-            {...others}></canvas>;
+            {...others}
+               />;
     }
 }
 
 Canvas.propTypes = {
     className: PropTypes.string,
-    style: PropTypes.object,
+    style: PropTypes.object
 };
 
 Canvas.defaultProps = {
     className: null,
-    style: null,
+    style: null
 };
 
 export default Canvas;

@@ -23,7 +23,8 @@ class Icon extends React.Component {
             name={name}
             value={value}
             title={title}
-            onClick={this.handleClick}></i>;
+            onClick={this.handleClick}
+               />;
     }
 
     handleClick(event) {
@@ -41,7 +42,7 @@ Icon.propTypes = {
     value: PropTypes.string,
     icon: PropTypes.string,
     title: PropTypes.string,
-    onClick: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 Icon.defaultProps = {
@@ -51,7 +52,7 @@ Icon.defaultProps = {
     value: null,
     icon: null,
     title: null,
-    onClick: null,
+    onClick: null
 };
 
 export default Icon;
