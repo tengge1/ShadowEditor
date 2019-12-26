@@ -16,7 +16,7 @@ class Input extends React.Component {
     }
 
     render() {
-        const { className, style, name, type, value, min, max, step, show, disabled } = this.props;
+        const { className, style, type, value, min, max, step, show, disabled } = this.props;
 
         let val = value === undefined || value === null ? '' : value;
 
@@ -33,7 +33,7 @@ class Input extends React.Component {
             onFocus={this.handleFocus}
             onChange={this.handleChange}
             onInput={this.handleInput}
-        />;
+               />;
     }
 
     handleFocus(event) {

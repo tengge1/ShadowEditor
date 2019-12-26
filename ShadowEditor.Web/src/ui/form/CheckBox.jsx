@@ -14,14 +14,15 @@ class CheckBox extends React.Component {
     }
 
     render() {
-        const { className, style, checked, disabled, onChange } = this.props;
+        const { className, style, checked, disabled } = this.props;
         return <input
             type={'checkbox'}
             className={classNames('CheckBox', checked && 'checked', disabled && 'disabled', className)}
             style={style}
             checked={checked}
             disabled={disabled}
-            onChange={this.handleChange} />;
+            onChange={this.handleChange}
+               />;
     }
 
     handleChange(event) {
@@ -36,7 +37,7 @@ CheckBox.propTypes = {
     name: PropTypes.string,
     checked: PropTypes.bool,
     disabled: PropTypes.bool,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 CheckBox.defaultProps = {
@@ -45,7 +46,7 @@ CheckBox.defaultProps = {
     name: null,
     checked: false,
     disabled: false,
-    onChange: null,
+    onChange: null
 };
 
 export default CheckBox;

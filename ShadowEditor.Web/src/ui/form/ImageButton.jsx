@@ -14,12 +14,13 @@ class ImageButton extends React.Component {
     }
 
     render() {
-        const { className, style, src, name, title, selected } = this.props;
+        const { className, style, src, title, selected } = this.props;
         return <button
             className={classNames('ImageButton', selected && 'selected', className)}
             style={style}
             title={title}
-            onClick={this.handleClick}>
+            onClick={this.handleClick}
+               >
             <img src={src} />
         </button>;
     }
@@ -28,7 +29,7 @@ class ImageButton extends React.Component {
         const { name, onClick } = this.props;
 
         onClick && onClick(name, event);
-    };
+    }
 }
 
 ImageButton.propTypes = {
@@ -38,7 +39,7 @@ ImageButton.propTypes = {
     name: PropTypes.string,
     title: PropTypes.string,
     selected: PropTypes.bool,
-    onClick: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 ImageButton.defaultProps = {
@@ -48,7 +49,7 @@ ImageButton.defaultProps = {
     name: null,
     title: null,
     selected: false,
-    onClick: null,
+    onClick: null
 };
 
 export default ImageButton;

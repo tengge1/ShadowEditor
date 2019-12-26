@@ -14,7 +14,9 @@ class Label extends React.Component {
     render() {
         const { className, style, children } = this.props;
 
-        return <label className={classNames('Label', className)} style={style}>
+        return <label className={classNames('Label', className)}
+            style={style}
+               >
             {children}
         </label>;
     }
@@ -23,13 +25,13 @@ class Label extends React.Component {
 Label.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 Label.defaultProps = {
     className: null,
     style: null,
-    children: null,
+    children: null
 };
 
 export default Label;

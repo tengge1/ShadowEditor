@@ -21,7 +21,7 @@ class LinkButton extends React.Component {
             href={'javascript:;'}
             disabled={disabled}
             onClick={this.handleClick}
-        >
+               >
             {children}
         </a>;
     }

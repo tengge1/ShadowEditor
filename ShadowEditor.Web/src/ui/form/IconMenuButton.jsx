@@ -14,13 +14,16 @@ class IconMenuButton extends React.Component {
     }
 
     render() {
-        const { className, style, children, icon, name, title, show, selected } = this.props;
-        return <div className={classNames('IconMenuButton', selected && 'selected', !show && 'hidden', className)} style={style}>
+        const { className, style, children, icon, title, show, selected } = this.props;
+        return <div className={classNames('IconMenuButton', selected && 'selected', !show && 'hidden', className)}
+            style={style}
+               >
             <button
                 className={'button'}
                 title={title}
-                onClick={this.handleClick}>
-                <i className={classNames('iconfont', icon && 'icon-' + icon)}></i>
+                onClick={this.handleClick}
+            >
+                <i className={classNames('iconfont', icon && 'icon-' + icon)} />
             </button>
             <div className={'menu'}>
                 {children}
@@ -31,7 +34,7 @@ class IconMenuButton extends React.Component {
     handleClick(event) {
         const { name, onClick } = this.props;
         onClick && onClick(name, event);
-    };
+    }
 }
 
 IconMenuButton.propTypes = {
@@ -43,7 +46,7 @@ IconMenuButton.propTypes = {
     title: PropTypes.string,
     show: PropTypes.bool,
     selected: PropTypes.bool,
-    onClick: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 IconMenuButton.defaultProps = {
@@ -55,7 +58,7 @@ IconMenuButton.defaultProps = {
     title: null,
     show: true,
     selected: false,
-    onClick: null,
+    onClick: null
 };
 
 export default IconMenuButton;

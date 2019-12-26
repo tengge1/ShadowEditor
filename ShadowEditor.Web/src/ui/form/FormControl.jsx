@@ -10,7 +10,9 @@ class FormControl extends React.Component {
     render() {
         const { className, style, children, hidden } = this.props;
 
-        return <div className={classNames('FormControl', className, hidden && 'hidden')} style={style}>
+        return <div className={classNames('FormControl', className, hidden && 'hidden')}
+            style={style}
+               >
             {children}
         </div>;
     }
@@ -20,14 +22,14 @@ FormControl.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     children: PropTypes.node,
-    hidden: PropTypes.bool,
+    hidden: PropTypes.bool
 };
 
 FormControl.defaultProps = {
     className: null,
     style: null,
     children: null,
-    hidden: false,
+    hidden: false
 };
 
 export default FormControl;

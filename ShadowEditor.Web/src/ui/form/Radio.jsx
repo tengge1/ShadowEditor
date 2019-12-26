@@ -20,7 +20,8 @@ class Radio extends React.Component {
             style={style}
             checked={checked}
             disabled={disabled}
-            onChange={this.handleChange} />;
+            onChange={this.handleChange}
+               />;
     }
 
     handleChange(event) {
@@ -35,7 +36,7 @@ Radio.propTypes = {
     name: PropTypes.string,
     checked: PropTypes.bool,
     disabled: PropTypes.bool,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 Radio.defaultProps = {
@@ -44,7 +45,7 @@ Radio.defaultProps = {
     name: null,
     checked: false,
     disabled: false,
-    onChange: null,
+    onChange: null
 };
 
 export default Radio;

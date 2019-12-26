@@ -18,7 +18,8 @@ class Form extends React.Component {
         return <form
             className={classNames('Form', direction, className)}
             style={style}
-            onSubmit={this.handleSubmit}>
+            onSubmit={this.handleSubmit}
+               >
             {children}
         </form>;
     }
@@ -35,7 +36,7 @@ Form.propTypes = {
     style: PropTypes.object,
     children: PropTypes.node,
     direction: PropTypes.oneOf(['horizontal', 'vertical']),
-    onSubmit: PropTypes.func,
+    onSubmit: PropTypes.func
 };
 
 Form.defaultProps = {
@@ -43,7 +44,7 @@ Form.defaultProps = {
     style: null,
     children: null,
     direction: 'horizontal',
-    onSubmit: null,
+    onSubmit: null
 };
 
 export default Form;

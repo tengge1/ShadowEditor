@@ -20,7 +20,7 @@ class IconButton extends React.Component {
             style={style}
             title={title}
             onClick={this.handleClick}
-        >
+               >
             <i className={classNames('iconfont', icon && 'icon-' + icon)} />
         </button>;
     }

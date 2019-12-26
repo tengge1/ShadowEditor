@@ -20,9 +20,10 @@ class TextArea extends React.Component {
         return <textarea
             className={classNames('TextArea', className)}
             style={style}
-            value={this.state.value}
+            value={value}
             onChange={this.handleChange}
-            onInput={this.handleInput}></textarea>;
+            onInput={this.handleInput}
+               />;
     }
 
     handleChange(event) {
@@ -42,7 +43,7 @@ TextArea.propTypes = {
     name: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    onInput: PropTypes.func,
+    onInput: PropTypes.func
 };
 
 TextArea.defaultProps = {
@@ -51,7 +52,7 @@ TextArea.defaultProps = {
     name: null,
     value: '',
     onChange: null,
-    onInput: null,
+    onInput: null
 };
 
 export default TextArea;

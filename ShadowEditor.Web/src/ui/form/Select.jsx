@@ -21,9 +21,12 @@ class Select extends React.Component {
             style={style}
             value={value}
             disabled={disabled}
-            onChange={this.handleChange}>
+            onChange={this.handleChange}
+               >
             {options && Object.keys(options).map(n => {
-                return <option value={n} key={n}>{options[n]}</option>;
+                return <option value={n}
+                    key={n}
+                       >{options[n]}</option>;
             })}
         </select>;
     }
@@ -52,7 +55,7 @@ Select.propTypes = {
     name: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 Select.defaultProps = {
@@ -62,7 +65,7 @@ Select.defaultProps = {
     name: null,
     value: null,
     disabled: false,
-    onChange: null,
+    onChange: null
 };
 
 export default Select;
