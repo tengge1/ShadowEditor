@@ -18,7 +18,6 @@ class DistanceTool extends BaseTool {
             this.init = true;
             this.positions = [];
             this.lines = [];
-            this.texts = [];
             this.world = new THREE.Vector3();
 
             app.require('line').then(() => {
