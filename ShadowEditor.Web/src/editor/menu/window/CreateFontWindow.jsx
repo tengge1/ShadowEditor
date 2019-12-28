@@ -1,11 +1,11 @@
-import './css/CleanUpScenesWindow.css';
+import './css/CreateFontWindow.css';
 import { Window, Content, Buttons, Button } from '../../../third_party';
 
 /**
- * 清理场景窗口
+ * 创建字体窗口
  * @author tengge / https://github.com/tengge1
  */
-class CleanUpScenesWindow extends React.Component {
+class CreateFontWindow extends React.Component {
     constructor(props) {
         super(props);
 
@@ -14,8 +14,8 @@ class CleanUpScenesWindow extends React.Component {
 
     render() {
         return <Window
-            className={'CleanUpScenesWindow'}
-            title={_t('Clean Up Scenes')}
+            className={'CreateFontWindow'}
+            title={_t('Create Font')}
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
@@ -32,4 +32,4 @@ class CleanUpScenesWindow extends React.Component {
     }
 }
 
-export default CleanUpScenesWindow;
+export default CreateFontWindow;

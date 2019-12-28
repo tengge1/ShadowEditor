@@ -1,5 +1,6 @@
 import { MenuItem, MenuItemSeparator } from '../../third_party';
 import TextureGeneratorWindow from './window/TextureGeneratorWindow.jsx';
+import CreateFontWindow from './window/CreateFontWindow.jsx';
 // import CleanUpScenesWindow from './window/CleanUpScenesWindow.jsx';
 import PluginsWindow from './window/PluginsWindow.jsx';
 
@@ -12,6 +13,7 @@ class ToolMenu extends React.Component {
         super(props);
 
         this.handleTextureGenerator = this.handleTextureGenerator.bind(this);
+        this.handleCreateFont = this.handleCreateFont.bind(this);
         this.handleBackupDatabase = this.handleBackupDatabase.bind(this);
         this.handleCleanUpScenes = this.handleCleanUpScenes.bind(this);
         this.commitCleanUpScenes = this.commitCleanUpScenes.bind(this);
@@ -24,6 +26,9 @@ class ToolMenu extends React.Component {
         return <MenuItem title={_t('Tool')}>
             <MenuItem title={_t('Texture Generator')}
                 onClick={this.handleTextureGenerator}
+            />
+            <MenuItem title={_t('Create Font')}
+                onClick={this.handleCreateFont}
             />
             <MenuItemSeparator />
             <MenuItem title={_t('Backup Database')}
@@ -50,6 +55,11 @@ class ToolMenu extends React.Component {
             const win = app.createElement(TextureGeneratorWindow);
             app.addElement(win);
         });
+    }
+
+    handleCreateFont() {
+        const win = app.createElement(CreateFontWindow);
+        app.addElement(win);
     }
 
     handleBackupDatabase() {
