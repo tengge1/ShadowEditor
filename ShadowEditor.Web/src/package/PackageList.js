@@ -490,13 +490,18 @@ const PackageList = [{
 }, {
     name: 'MTLLoader',
     assets: [
-        'assets/js/loaders/MTLLoader.js',
+        'assets/js/loaders/MTLLoader.js'
     ]
 }, {
     name: 'LoaderSupport',
     assets: [
-        'assets/js/loaders/LoaderSupport.js',
+        'assets/js/loaders/LoaderSupport.js'
+    ]
+}, {
+    name: 'opentype',
+    assets: [
+        'assets/js/libs/opentype.js'
     ]
 }];
 
-export default PackageList
+export default PackageList;

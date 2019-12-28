@@ -967,5 +967,8 @@
     "Start area measurement.": "开始面积测量。",
     "Save Child": "保存子组件",
     "Optimization": "优化",
-    "Create Font": "创建字体"
+    "Create Font": "创建字体",
+    "Font File": "字体文件",
+    "Reverse direction": "反转方向",
+    "Character set": "字符集"
 }

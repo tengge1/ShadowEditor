@@ -83,7 +83,7 @@ Input.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     name: PropTypes.string,
-    type: PropTypes.oneOf(['text', 'number', 'color', 'password']),
+    type: PropTypes.oneOf(['text', 'number', 'color', 'password', 'file']),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     min: PropTypes.number,
     max: PropTypes.number,
