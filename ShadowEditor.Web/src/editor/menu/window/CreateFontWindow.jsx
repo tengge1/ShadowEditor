@@ -110,6 +110,7 @@ class CreateFontWindow extends React.Component {
             let result = this.convert(font1, reverseDirection, characterSet.trim());
             // 将文件放入assets/fonts/custom目录
             app.unmask();
+            this.handleClose();
             DownloadUtils.download([result], { 'type': 'application/octet-stream' }, `${font1.familyName}_${font1.styleName}.json`);
         }, false);
 
