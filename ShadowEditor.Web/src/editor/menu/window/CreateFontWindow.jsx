@@ -156,7 +156,7 @@ class CreateFontWindow extends React.Component {
                     token.x_max = Math.round(glyph.xMax * scale);
                     token.o = "";
                     if (reverseDirection) { glyph.path.commands = this.reverseCommands(glyph.path.commands); }
-                    glyph.path.commands.forEach(function (command, i) {
+                    glyph.path.commands.forEach(function (command) {
                         if (command.type.toLowerCase() === "c") { command.type = "b"; }
                         token.o += command.type.toLowerCase();
                         token.o += " ";
