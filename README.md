@@ -3,13 +3,16 @@
 Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어 / русский / Le français
 
 * 名称：Shadow Editor
-* 版本：v0.4.0（开发中）
+* 版本：v0.4.0
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度云](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 开发计划：小场景搭建、地形编辑、模型批量添加渲染、地表植被附属物编辑、物理引擎、数据可视化。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展，谢谢。
 
-## v0.4.0即将更新
+## v0.4.0更新【[更新日志](docs-dev/update/UpdateLog.md)】
+
+* 发布日期：2019年12月29日
+* 更新日志：
 
 1. 新增距离测量工具。
 2. 新增导出场景到JSON文件功能。
@@ -21,33 +24,6 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 8. 修复播放MMD动画报错的bug。
 9. 编辑场景，新增载入历史版本场景功能。
 10. 工具菜单，新增一键备份MongoDB数据库功能。
-
-## v0.3.9更新【[更新日志](docs-dev/update/UpdateLog.md)】
-
-* 发布日期：2019年12月15日
-* 更新日志：
-
-1. 修复不缩放文字显示模糊的bug。
-2. 修复浏览器窗口缩放后，鼠标放到物体上，高亮不准的bug。
-3. 修复浏览器窗口缩放后，文件大小发生改变bug。
-4. 修复物体平移旋转缩放后，鼠标放到物体上，高亮不准的bug。
-5. 移除`d3.js`，不再使用`d3`开发可视化功能，使用`d3-dispatch`代替完整版`d3.js`。
-6. 点标注改为不会缩放的三角形标注，可以正常保存载入和通过属性面板修改文字。
-7. 选中效果由保存在场景中，改为保存在浏览器上。
-8. 鼠标高亮效果，改为保存在浏览器上，默认不开启。可以通过选项、显示菜单设置是否开启高亮和高亮颜色。
-9. 优化消息弹窗，不再遮挡编辑区，使用背景和文字颜色区分`消息`、`成功`、`警告`、`错误`四种情景。
-10. 修复正投影下，鼠标hover高亮不正确bug。
-11. 制作功能演示视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) [百度云](https://pan.baidu.com/s/1qfRHot4H7ip26KLbQuBeVg)
-12. 修复录制视频过程中，切换工具栏，导致录制视频失败的bug。
-13. 新增`打砖块`、`相机`、`粒子`、`乒乓球`、`着色器`示例。(three.js自带)
-14. 新增天气设置：无、下雨、下雪。
-
-## 技术分享
-
-1. three.js使用卷积法实现物体描边效果：https://www.cnblogs.com/tengge/p/11924006.html
-2. three.js使用gpu选取物体并计算交点位置：https://www.cnblogs.com/tengge/p/11924663.html
-3. 使用three.js创建大小不随着场景变化的文字：https://www.cnblogs.com/tengge/p/11979854.html
-4. three.js各种材质的实现源码：https://www.cnblogs.com/tengge/p/12037574.html
 
 ## 项目截图
 
