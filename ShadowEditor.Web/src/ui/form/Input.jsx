@@ -16,7 +16,7 @@ class Input extends React.Component {
     }
 
     render() {
-        const { className, style, type, value, min, max, step, show, disabled } = this.props;
+        const { className, style, type, value, min, max, step, show, disabled, accept } = this.props;
 
         let val = value === undefined || value === null ? '' : value;
 
@@ -29,6 +29,7 @@ class Input extends React.Component {
             max={max}
             step={step}
             disabled={disabled}
+            accept={accept}
             autoComplete={'off'}
             onFocus={this.handleFocus}
             onChange={this.handleChange}
@@ -90,6 +91,7 @@ Input.propTypes = {
     step: PropTypes.number,
     precision: PropTypes.number,
     disabled: PropTypes.bool,
+    accept: PropTypes.string,
     show: PropTypes.bool,
     onFocus: PropTypes.func,
     onChange: PropTypes.func,
@@ -107,6 +109,7 @@ Input.defaultProps = {
     step: null,
     precision: 3,
     disabled: false,
+    accept: null,
     show: true,
     onFocus: null,
     onChange: null,

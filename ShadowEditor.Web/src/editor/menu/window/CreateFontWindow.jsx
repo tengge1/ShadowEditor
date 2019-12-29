@@ -10,6 +10,7 @@ class CreateFontWindow extends React.Component {
         super(props);
 
         this.state = {
+            font: null,
             reverseDirection: false,
             characterSet: ''
         };
@@ -21,7 +22,7 @@ class CreateFontWindow extends React.Component {
     }
 
     render() {
-        const { reverseDirection, characterSet } = this.state;
+        const { font, reverseDirection, characterSet } = this.state;
 
         return <Window
             className={'CreateFontWindow'}
@@ -35,8 +36,10 @@ class CreateFontWindow extends React.Component {
                     <FormControl>
                         <Label>{_t('Font File') + ' (.ttf)'}</Label>
                         <Input className={'font'}
-                            name={'file'}
+                            name={'font'}
                             type={'file'}
+                            value={font}
+                            accept={'.ttf'}
                             onChange={this.handleChange}
                         />
                     </FormControl>
@@ -72,7 +75,6 @@ class CreateFontWindow extends React.Component {
     }
 
     handleChange(value, name) {
-        debugger;
         this.setState({
             [name]: value
         });
