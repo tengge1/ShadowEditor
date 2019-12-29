@@ -5,6 +5,7 @@ import DownloadUtils from '../../../utils/DownloadUtils';
 /**
  * 字体转换器窗口
  * @author tengge / https://github.com/tengge1
+ * @author gero3 / https://github.com/gero3
  */
 class TypefaceConverterWindow extends React.Component {
     constructor(props) {
@@ -103,6 +104,7 @@ class TypefaceConverterWindow extends React.Component {
 
         app.mask(_t('Waiting...'));
 
+        // url: https://github.com/gero3/facetype.js
         const reader = new FileReader();
 
         reader.addEventListener('load', event => {
@@ -118,6 +120,7 @@ class TypefaceConverterWindow extends React.Component {
         reader.readAsArrayBuffer(font);
     }
 
+    // url https://github.com/gero3/facetype.js
     convert(font, reverseDirection, characterSet) {
         var scale = 1000 * 100 / ((font.unitsPerEm || 2048) * 72);
         var result = {};
@@ -213,6 +216,7 @@ class TypefaceConverterWindow extends React.Component {
         return JSON.stringify(result);
     }
 
+    // url: https://github.com/gero3/facetype.js
     reverseCommands(commands) {
 
         var paths = [];
