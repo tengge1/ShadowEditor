@@ -33,7 +33,8 @@ class CreateFontWindow extends React.Component {
                 <Form>
                     <FormControl>
                         <Label>{_t('Font File') + ' (.ttf)'}</Label>
-                        <Input name={'file'}
+                        <Input className={'font'}
+                            name={'file'}
                             type={'file'}
                             onChange={this.handleChange}
                         />
