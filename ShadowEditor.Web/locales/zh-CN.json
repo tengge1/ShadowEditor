@@ -970,5 +970,6 @@
     "Create Font": "创建字体",
     "Font File": "字体文件",
     "Reverse direction": "反转方向",
-    "Character set": "字符集"
+    "Character set": "字符集",
+    ".ttc to .ttf": ".ttc转.ttf"
 }

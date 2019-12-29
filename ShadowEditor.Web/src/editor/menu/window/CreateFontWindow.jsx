@@ -1,5 +1,5 @@
 import './css/CreateFontWindow.css';
-import { Window, Content, Buttons, Button, Label, Input, CheckBox, Form, FormControl } from '../../../third_party';
+import { Window, Content, Buttons, Button, Label, Input, CheckBox, Form, FormControl, LinkButton } from '../../../third_party';
 
 /**
  * 创建字体窗口
@@ -15,6 +15,7 @@ class CreateFontWindow extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleConvertFontType = this.handleConvertFontType.bind(this);
         this.handleOK = this.handleOK.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
@@ -53,6 +54,10 @@ class CreateFontWindow extends React.Component {
                             onChange={this.handleChange}
                         />
                     </FormControl>
+                    <FormControl>
+                        <Label>{_t('.ttc to .ttf')}</Label>
+                        <LinkButton onClick={this.handleConvertFontType}>{'https://transfonter.org/ttc-unpack'}</LinkButton>
+                    </FormControl>
                 </Form>
             </Content>
             <Buttons>
@@ -71,6 +76,10 @@ class CreateFontWindow extends React.Component {
         this.setState({
             [name]: value
         });
+    }
+
+    handleConvertFontType() {
+        window.open('https://transfonter.org/ttc-unpack', '_blank');
     }
 
     handleOK() {
