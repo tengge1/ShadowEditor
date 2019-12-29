@@ -1,6 +1,6 @@
 import { MenuItem, MenuItemSeparator } from '../../third_party';
 import TextureGeneratorWindow from './window/TextureGeneratorWindow.jsx';
-import CreateFontWindow from './window/CreateFontWindow.jsx';
+import TypefaceConverterWindow from './window/TypefaceConverterWindow.jsx';
 // import CleanUpScenesWindow from './window/CleanUpScenesWindow.jsx';
 import PluginsWindow from './window/PluginsWindow.jsx';
 
@@ -27,7 +27,7 @@ class ToolMenu extends React.Component {
             <MenuItem title={_t('Texture Generator')}
                 onClick={this.handleTextureGenerator}
             />
-            <MenuItem title={_t('Create Font')}
+            <MenuItem title={_t('Typeface Converter')}
                 onClick={this.handleCreateFont}
             />
             <MenuItemSeparator />
@@ -58,7 +58,7 @@ class ToolMenu extends React.Component {
     }
 
     handleCreateFont() {
-        const win = app.createElement(CreateFontWindow);
+        const win = app.createElement(TypefaceConverterWindow);
         app.addElement(win);
     }
 

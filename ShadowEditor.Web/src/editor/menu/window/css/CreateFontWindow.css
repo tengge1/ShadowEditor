@@ -1,8 +1,0 @@
-.Window.CreateFontWindow>.wrap>.content>.Form>.FormControl>.Label {
-    width: 100px;
-}
-
-.Window.CreateFontWindow>.wrap>.content>.Form>.FormControl>.font {
-    border: none;
-    padding: 0;
-}

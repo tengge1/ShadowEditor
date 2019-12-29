@@ -1,12 +1,12 @@
-import './css/CreateFontWindow.css';
+import './css/TypefaceConverterWindow.css';
 import { Window, Content, Buttons, Button, Label, Input, CheckBox, Form, FormControl, LinkButton } from '../../../third_party';
 import DownloadUtils from '../../../utils/DownloadUtils';
 
 /**
- * 创建字体窗口
+ * 字体转换器窗口
  * @author tengge / https://github.com/tengge1
  */
-class CreateFontWindow extends React.Component {
+class TypefaceConverterWindow extends React.Component {
     constructor(props) {
         super(props);
 
@@ -27,8 +27,8 @@ class CreateFontWindow extends React.Component {
         const { file, reverseDirection, characterSet } = this.state;
 
         return <Window
-            className={'CreateFontWindow'}
-            title={_t('Create Font')}
+            className={'TypefaceConverterWindow'}
+            title={_t('Typeface Converter')}
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
@@ -112,6 +112,7 @@ class CreateFontWindow extends React.Component {
             app.unmask();
             this.handleClose();
             DownloadUtils.download([result], { 'type': 'application/octet-stream' }, `${font1.familyName}_${font1.styleName}.json`);
+            app.toast(_t('Convert successfully!'), 'success');
         }, false);
 
         reader.readAsArrayBuffer(font);
@@ -259,4 +260,4 @@ class CreateFontWindow extends React.Component {
     }
 }
 
-export default CreateFontWindow;
+export default TypefaceConverterWindow;
