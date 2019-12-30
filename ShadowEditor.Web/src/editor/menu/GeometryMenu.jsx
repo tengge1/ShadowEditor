@@ -88,9 +88,14 @@ class GeometryMenu extends React.Component {
             <MenuItem title={_t('Sprite')}
                 onClick={this.handleAddSprite}
             />
-            <MenuItem title={_t('Text')}
-                onClick={this.handleAddText}
-            />
+            <MenuItem title={_t('Text')}>
+                <MenuItem title={_t('Unscaled Text')}
+                    onClick={this.handleAddText}
+                />
+                <MenuItem title={_t('3D Text')}
+                    onClick={this.handleAdd3DText}
+                />
+            </MenuItem>
             <MenuItemSeparator />
             <MenuItem title={_t('Line Curve')}
                 onClick={this.handleAddLineCurve}
