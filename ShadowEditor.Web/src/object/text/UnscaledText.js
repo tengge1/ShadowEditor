@@ -26,10 +26,10 @@ class UnscaledText extends THREE.Mesh {
                     value: 1.0 // canvas height
                 },
                 domWidth: {
-                    value: 1.0 // dom width
+                    value: 1422.0 // dom width
                 },
                 domHeight: {
-                    value: 1.0 // dom height
+                    value: 715.0 // dom height
                 }
             },
             transparent: true
@@ -78,7 +78,7 @@ class UnscaledText extends THREE.Mesh {
         context.imageSmoothingQuality = 'high';
         context.textBaseline = 'middle';
         context.textAlign = 'center';
-        context.lineWidth = 3;
+        context.lineWidth = 2;
 
         let halfWidth = width2 / 2;
         let halfHeight = height2 / 2;
