@@ -12,7 +12,7 @@ import Torus from '../../object/geometry/Torus';
 import TorusKnot from '../../object/geometry/TorusKnot';
 import Teapot from '../../object/geometry/Teapot';
 import Lathe from '../../object/geometry/Lathe';
-import Sprite from '../../object/geometry/Sprite';
+
 import UnscaledText from '../../object/text/UnscaledText';
 
 import LineCurve from '../../object/line/LineCurve';
@@ -20,6 +20,10 @@ import CatmullRomCurve from '../../object/line/CatmullRomCurve';
 import QuadraticBezierCurve from '../../object/line/QuadraticBezierCurve';
 import CubicBezierCurve from '../../object/line/CubicBezierCurve';
 import EllipseCurve from '../../object/line/EllipseCurve';
+
+import PointMarkTool from '../tools/PointMarkTool';
+
+import Sprite from '../../object/geometry/Sprite';
 
 /**
  * 物体菜单
@@ -49,6 +53,8 @@ class ObjectMenu extends React.Component {
         this.handleAddQuadraticBezierCurve = this.handleAddQuadraticBezierCurve.bind(this);
         this.handleAddCubicBezierCurve = this.handleAddCubicBezierCurve.bind(this);
         this.handleAddEllipseCurve = this.handleAddEllipseCurve.bind(this);
+
+        this.handleAddPointMark = this.handleAddPointMark.bind(this);
 
         this.handleAddSprite = this.handleAddSprite.bind(this);
     }
@@ -114,6 +120,11 @@ class ObjectMenu extends React.Component {
                 />
                 <MenuItem title={_t('Ellipse Curve')}
                     onClick={this.handleAddEllipseCurve}
+                />
+            </MenuItem>
+            <MenuItem title={_t('Mark')}>
+                <MenuItem title={_t('Point Mark')}
+                    onClick={this.handleAddPointMark}
                 />
             </MenuItem>
             <MenuItemSeparator />
@@ -234,6 +245,23 @@ class ObjectMenu extends React.Component {
     handleAddEllipseCurve() {
         var line = new EllipseCurve();
         app.editor.execute(new AddObjectCommand(line));
+    }
+
+    // -------------------- 点状标注 --------------------------------------------
+
+    handleAddPointMark() {
+        if (this.pointMarkTool === undefined) {
+            this.pointMarkTool = new PointMarkTool();
+            this.pointMarkTool.on(`end`, () => {
+                this.setState({
+                    isAddPointMark: false
+                });
+            });
+        }
+        this.pointMarkTool.start();
+        this.setState({
+            isAddPointMark: true
+        });
     }
 
     // ---------------------- 精灵 -----------------------------------
