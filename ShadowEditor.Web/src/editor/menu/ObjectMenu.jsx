@@ -215,6 +215,10 @@ class ObjectMenu extends React.Component {
 
     // ---------------------- 3D文字 ---------------------------------------
 
+    handleAdd3DText() {
+        
+    }
+
     // ---------------------- 线段 ----------------------------------
 
     handleAddLineCurve() {
