@@ -30,6 +30,7 @@ class ObjectMenu extends React.Component {
         super(props);
 
         this.handleAddGroup = this.handleAddGroup.bind(this);
+
         this.handleAddPlane = this.handleAddPlane.bind(this);
         this.handleAddBox = this.handleAddBox.bind(this);
         this.handleAddCircle = this.handleAddCircle.bind(this);
@@ -40,13 +41,16 @@ class ObjectMenu extends React.Component {
         this.handleAddTorusKnot = this.handleAddTorusKnot.bind(this);
         this.handleAddTeaport = this.handleAddTeaport.bind(this);
         this.handleAddLathe = this.handleAddLathe.bind(this);
-        this.handleAddSprite = this.handleAddSprite.bind(this);
+
         this.handleAddText = this.handleAddText.bind(this);
+
         this.handleAddLineCurve = this.handleAddLineCurve.bind(this);
         this.handleAddCatmullRomCurve = this.handleAddCatmullRomCurve.bind(this);
         this.handleAddQuadraticBezierCurve = this.handleAddQuadraticBezierCurve.bind(this);
         this.handleAddCubicBezierCurve = this.handleAddCubicBezierCurve.bind(this);
         this.handleAddEllipseCurve = this.handleAddEllipseCurve.bind(this);
+
+        this.handleAddSprite = this.handleAddSprite.bind(this);
     }
 
     render() {
@@ -185,13 +189,7 @@ class ObjectMenu extends React.Component {
         app.editor.execute(new AddObjectCommand(new Lathe()));
     }
 
-    // ---------------------- 精灵 -----------------------------------
-
-    handleAddSprite() {
-        app.editor.execute(new AddObjectCommand(new Sprite()));
-    }
-
-    // ---------------------- 文本 ----------------------------------
+    // ---------------------- 文字 ----------------------------------
 
     handleAddText() {
         app.prompt({
@@ -236,6 +234,12 @@ class ObjectMenu extends React.Component {
     handleAddEllipseCurve() {
         var line = new EllipseCurve();
         app.editor.execute(new AddObjectCommand(line));
+    }
+
+    // ---------------------- 精灵 -----------------------------------
+
+    handleAddSprite() {
+        app.editor.execute(new AddObjectCommand(new Sprite()));
     }
 }
 
