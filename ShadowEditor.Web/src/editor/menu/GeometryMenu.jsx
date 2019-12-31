@@ -55,36 +55,38 @@ class GeometryMenu extends React.Component {
                 onClick={this.handleAddGroup}
             />
             <MenuItemSeparator />
-            <MenuItem title={_t('Plane')}
-                onClick={this.handleAddPlane}
-            />
-            <MenuItem title={_t('Box')}
-                onClick={this.handleAddBox}
-            />
-            <MenuItem title={_t('Circle')}
-                onClick={this.handleAddCircle}
-            />
-            <MenuItem title={_t('Cylinder')}
-                onClick={this.handleAddCylinder}
-            />
-            <MenuItem title={_t('Sphere')}
-                onClick={this.handleAddSphere}
-            />
-            <MenuItem title={_t('Icosahedron')}
-                onClick={this.handleAddIcosahedron}
-            />
-            <MenuItem title={_t('Torus')}
-                onClick={this.handleAddTorus}
-            />
-            <MenuItem title={_t('Torus Knot')}
-                onClick={this.handleAddTorusKnot}
-            />
-            <MenuItem title={_t('Teapot')}
-                onClick={this.handleAddTeaport}
-            />
-            <MenuItem title={_t('Lathe')}
-                onClick={this.handleAddLathe}
-            />
+            <MenuItem title={_t('Basic Geometry')}>
+                <MenuItem title={_t('Plane')}
+                    onClick={this.handleAddPlane}
+                />
+                <MenuItem title={_t('Box')}
+                    onClick={this.handleAddBox}
+                />
+                <MenuItem title={_t('Circle')}
+                    onClick={this.handleAddCircle}
+                />
+                <MenuItem title={_t('Cylinder')}
+                    onClick={this.handleAddCylinder}
+                />
+                <MenuItem title={_t('Sphere')}
+                    onClick={this.handleAddSphere}
+                />
+                <MenuItem title={_t('Icosahedron')}
+                    onClick={this.handleAddIcosahedron}
+                />
+                <MenuItem title={_t('Torus')}
+                    onClick={this.handleAddTorus}
+                />
+                <MenuItem title={_t('Torus Knot')}
+                    onClick={this.handleAddTorusKnot}
+                />
+                <MenuItem title={_t('Teapot')}
+                    onClick={this.handleAddTeaport}
+                />
+                <MenuItem title={_t('Lathe')}
+                    onClick={this.handleAddLathe}
+                />
+            </MenuItem>
             <MenuItem title={_t('Sprite')}
                 onClick={this.handleAddSprite}
             />

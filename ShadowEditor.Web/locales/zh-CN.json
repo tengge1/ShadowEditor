@@ -974,5 +974,6 @@
     ".ttc to .ttf": ".ttc转.ttf",
     "Convert successfully!": "转换成功！",
     "Unscaled Text": "不缩放文字",
-    "3D Text": "3D文字"
+    "3D Text": "3D文字",
+    "Basic Geometry": "基本几何体"
 }
