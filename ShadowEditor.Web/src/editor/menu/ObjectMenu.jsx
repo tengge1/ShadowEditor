@@ -22,10 +22,10 @@ import CubicBezierCurve from '../../object/line/CubicBezierCurve';
 import EllipseCurve from '../../object/line/EllipseCurve';
 
 /**
- * 几何体菜单
+ * 物体菜单
  * @author tengge / https://github.com/tengge1
  */
-class GeometryMenu extends React.Component {
+class ObjectMenu extends React.Component {
     constructor(props) {
         super(props);
 
@@ -50,7 +50,7 @@ class GeometryMenu extends React.Component {
     }
 
     render() {
-        return <MenuItem title={_t('Geometry')}>
+        return <MenuItem title={_t('Object')}>
             <MenuItem title={_t('Group')}
                 onClick={this.handleAddGroup}
             />
@@ -239,4 +239,4 @@ class GeometryMenu extends React.Component {
     }
 }
 
-export default GeometryMenu;
+export default ObjectMenu;
