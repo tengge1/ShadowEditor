@@ -12,6 +12,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 ## v0.4.1即将更新
 
 1. 新增字体转换器，可以`.ttf`字体文件转换成`.json`文件。
+2. 修复不缩放文字保存重新载入，无法修改文字的bug。
 
 ## v0.4.0更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

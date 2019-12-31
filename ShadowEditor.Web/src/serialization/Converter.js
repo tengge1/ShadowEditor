@@ -40,15 +40,18 @@ import PerlinTerrainSerializer from './objects/PerlinTerrainSerializer';
 import WaterSerializer from './objects/WaterSerializer';
 import ClothSerializer from './objects/ClothSerializer';
 
+// objects/text
+import UnscaledTextSerializer from './objects/text/UnscaledTextSerializer';
+
+// mark
+import PointMarkerSerializer from './objects/mark/PointMarkerSerializer';
+
 // line
 import LineCurveSerializer from './line/LineCurveSerializer';
 import CatmullRomCurveSerializer from './line/CatmullRomCurveSerializer';
 import QuadraticBezierCurveSerializer from './line/QuadraticBezierCurveSerializer';
 import CubicBezierCurveSerializer from './line/CubicBezierCurveSerializer';
 import EllipseCurveSerializer from './line/EllipseCurveSerializer';
-
-// mark
-import PointMarkerSerializer from './objects/mark/PointMarkerSerializer';
 
 // gis
 import GlobeSerializer from './gis/GlobeSerializer';
@@ -178,6 +181,8 @@ Converter.prototype.traverse = function (obj, children, list) {
         json = new CubicBezierCurveSerializer().toJSON(obj);
     } else if (obj.userData.type === 'EllipseCurve') {
         json = new EllipseCurveSerializer().toJSON(obj);
+    } else if(obj.userData.type === 'text') {
+        json = new UnscaledTextSerializer().toJSON(obj);
     } else if (obj.userData.type === 'pointMarker') {
         json = new PointMarkerSerializer().toJSON(obj);
     } else if (obj.userData.type === 'Globe') {
@@ -429,6 +434,8 @@ Converter.prototype.parse = function (jsons, options) {
             parts.push(new EllipseCurveSerializer().fromJSON(n));
         } else if (generator === 'Object3DSerializer') {
             parts.push(new Object3DSerializer().fromJSON(n));
+        } else if(generator === 'UnscaledTextSerializer') {
+            parts.push(new UnscaledTextSerializer().fromJSON(n));
         } else if (generator === 'PointMarkerSerializer') {
             parts.push(new PointMarkerSerializer().fromJSON(n));
         } else {
