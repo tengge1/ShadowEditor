@@ -46,7 +46,8 @@ class ObjectMenu extends React.Component {
         this.handleAddTeaport = this.handleAddTeaport.bind(this);
         this.handleAddLathe = this.handleAddLathe.bind(this);
 
-        this.handleAddText = this.handleAddText.bind(this);
+        this.handleAddUnscaledText = this.handleAddUnscaledText.bind(this);
+        this.handleAdd3DText = this.handleAdd3DText.bind(this);
 
         this.handleAddLineCurve = this.handleAddLineCurve.bind(this);
         this.handleAddCatmullRomCurve = this.handleAddCatmullRomCurve.bind(this);
@@ -99,7 +100,7 @@ class ObjectMenu extends React.Component {
             </MenuItem>
             <MenuItem title={_t('Text')}>
                 <MenuItem title={_t('Unscaled Text')}
-                    onClick={this.handleAddText}
+                    onClick={this.handleAddUnscaledText}
                 />
                 <MenuItem title={_t('3D Text')}
                     onClick={this.handleAdd3DText}
@@ -200,9 +201,9 @@ class ObjectMenu extends React.Component {
         app.editor.execute(new AddObjectCommand(new Lathe()));
     }
 
-    // ---------------------- 文字 ----------------------------------
+    // ---------------------- 不缩放文字 ----------------------------------
 
-    handleAddText() {
+    handleAddUnscaledText() {
         app.prompt({
             title: _t('Please input'),
             value: _t('Sone Words'),
@@ -211,6 +212,8 @@ class ObjectMenu extends React.Component {
             }
         });
     }
+
+    // ---------------------- 3D文字 ---------------------------------------
 
     // ---------------------- 线段 ----------------------------------
 
