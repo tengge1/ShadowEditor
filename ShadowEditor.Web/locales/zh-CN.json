@@ -977,5 +977,11 @@
     "3D Text": "3D文字",
     "Basic Geometry": "基本几何体",
     "Curve": "曲线",
-    "Mark": "标注"
+    "Mark": "标注",
+    "Add 3D Text": "添加3D文字",
+    "Font": "字体",
+    "Thickness": "厚度",
+    "Enable Bevel": "启用倒角",
+    "Bevel Size": "倒角尺寸",
+    "Bevel Thickness": "倒角厚度"
 }

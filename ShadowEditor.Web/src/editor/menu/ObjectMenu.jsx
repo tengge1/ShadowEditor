@@ -14,7 +14,7 @@ import Teapot from '../../object/geometry/Teapot';
 import Lathe from '../../object/geometry/Lathe';
 
 import UnscaledText from '../../object/text/UnscaledText';
-import ThreeDText from '../../object/text/ThreeDText';
+import Add3DTextWindow from './window/Add3DTextWindow.jsx';
 
 import LineCurve from '../../object/line/LineCurve';
 import CatmullRomCurve from '../../object/line/CatmullRomCurve';
@@ -217,13 +217,8 @@ class ObjectMenu extends React.Component {
     // ---------------------- 3D文字 ---------------------------------------
 
     handleAdd3DText() {
-        app.prompt({
-            title: _t('Please input'),
-            value: _t('Sone Words'),
-            onOK: (value) => {
-                app.editor.execute(new AddObjectCommand(new ThreeDText(value)));
-            }
-        });
+        let win = app.createElement(Add3DTextWindow);
+        app.addElement(win);
     }
 
     // ---------------------- 线段 ----------------------------------
