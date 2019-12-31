@@ -87,9 +87,6 @@ class GeometryMenu extends React.Component {
                     onClick={this.handleAddLathe}
                 />
             </MenuItem>
-            <MenuItem title={_t('Sprite')}
-                onClick={this.handleAddSprite}
-            />
             <MenuItem title={_t('Text')}>
                 <MenuItem title={_t('Unscaled Text')}
                     onClick={this.handleAddText}
@@ -98,21 +95,26 @@ class GeometryMenu extends React.Component {
                     onClick={this.handleAdd3DText}
                 />
             </MenuItem>
+            <MenuItem title={_t('Curve')}>
+                <MenuItem title={_t('Line Curve')}
+                    onClick={this.handleAddLineCurve}
+                />
+                <MenuItem title={_t('CatmullRom Curve')}
+                    onClick={this.handleAddCatmullRomCurve}
+                />
+                <MenuItem title={_t('QuadraticBezier Curve')}
+                    onClick={this.handleAddQuadraticBezierCurve}
+                />
+                <MenuItem title={_t('CubicBezier Curve')}
+                    onClick={this.handleAddCubicBezierCurve}
+                />
+                <MenuItem title={_t('Ellipse Curve')}
+                    onClick={this.handleAddEllipseCurve}
+                />
+            </MenuItem>
             <MenuItemSeparator />
-            <MenuItem title={_t('Line Curve')}
-                onClick={this.handleAddLineCurve}
-            />
-            <MenuItem title={_t('CatmullRom Curve')}
-                onClick={this.handleAddCatmullRomCurve}
-            />
-            <MenuItem title={_t('QuadraticBezier Curve')}
-                onClick={this.handleAddQuadraticBezierCurve}
-            />
-            <MenuItem title={_t('CubicBezier Curve')}
-                onClick={this.handleAddCubicBezierCurve}
-            />
-            <MenuItem title={_t('Ellipse Curve')}
-                onClick={this.handleAddEllipseCurve}
+            <MenuItem title={_t('Sprite')}
+                onClick={this.handleAddSprite}
             />
         </MenuItem>;
     }
