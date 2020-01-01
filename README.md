@@ -18,6 +18,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
     * directoryBrowse: 允许目录浏览，正式部署建议改成false。
     * mimeMap: 允许下载任意类型文件，正式部署建议改成所需类型文件。
     * Access-Control-Allow-Origin: 允许跨域，不跨域的话建议去掉。
+4. `Web.config`中增加`.json`的`MIME-Type`，避免去掉`.*`和`.`的`MIME-Type`后，由于部分iis缺少`.json`的`MIME-Type`导致整个后端报500错误。
 
 ## v0.4.0更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
