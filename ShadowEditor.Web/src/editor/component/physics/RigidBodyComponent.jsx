@@ -1,10 +1,10 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
+import { PropertyGroup, NumberProperty, SelectProperty } from '../../../third_party';
 import BoxShapeHelper from './helper/BoxShapeHelper';
 import SphereShapeHelper from './helper/SphereShapeHelper';
 
 let physicsShapeHelper = {
     btBoxShape: BoxShapeHelper,
-    btSphereShape: SphereShapeHelper,
+    btSphereShape: SphereShapeHelper
 };
 
 /**
@@ -36,19 +36,19 @@ class RigidBodyComponent extends React.Component {
             // btCylinderShapeX: 'x轴圆柱体',
             // btCylinderShapeZ: 'z轴圆柱体',
             // btHeightfieldTerrainShape: '灰阶高程地形',
-            btSphereShape: _t('SphereShape'),
+            btSphereShape: _t('SphereShape')
             // btStaticPlaneShape: '静态平板',
             // btTriangleMeshShape: '三角网格'
         };
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: false,
             shape: 'btBoxShape',
             mass: 1,
             inertiaX: 0,
             inertiaY: 0,
-            inertiaZ: 0,
+            inertiaZ: 0
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -64,12 +64,37 @@ class RigidBodyComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('RigidBody')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={_t('Shape')} options={this.shape} name={'shape'} value={shape} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={'Mass'} name={'mass'} value={mass} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'InertiaX'} name={'inertiaX'} value={inertiaX} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'InertiaY'} name={'inertiaY'} value={inertiaY} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'InertiaZ'} name={'inertiaZ'} value={inertiaZ} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('RigidBody')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <SelectProperty label={_t('Shape')}
+                options={this.shape}
+                name={'shape'}
+                value={shape}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Mass'}
+                name={'mass'}
+                value={mass}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'InertiaX'}
+                name={'inertiaX'}
+                value={inertiaX}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'InertiaY'}
+                name={'inertiaY'}
+                value={inertiaY}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'InertiaZ'}
+                name={'inertiaZ'}
+                value={inertiaZ}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -81,7 +106,7 @@ class RigidBodyComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -96,7 +121,7 @@ class RigidBodyComponent extends React.Component {
                 app.editor.removePhysicsHelper(this.helper);
             }
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -111,20 +136,20 @@ class RigidBodyComponent extends React.Component {
             mass: mass || 0,
             inertiaX: inertia.x || 0,
             inertiaY: inertia.y || 0,
-            inertiaZ: inertia.z || 0,
+            inertiaZ: inertia.z || 0
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { shape, mass, inertiaX, inertiaY, inertiaZ } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let physics = this.selected.userData.physics;
@@ -147,7 +172,7 @@ class RigidBodyComponent extends React.Component {
     // -------------------------- 物理形状帮助器 -------------------------------------
 
     showPhysicsShapeHelper() {
-        if (this.selected == null) {
+        if (this.selected === null) {
             return;
         }
 
