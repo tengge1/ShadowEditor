@@ -211,6 +211,7 @@
     <Content Include="assets\js\libs\lzma.js" />
     <Content Include="assets\js\libs\mmdparser.min.js" />
     <Content Include="assets\js\libs\o3dgc.js" />
+    <Content Include="assets\js\libs\opentype.js" />
     <Content Include="assets\js\libs\opentype.min.js" />
     <Content Include="assets\js\libs\pako.js" />
     <Content Include="assets\js\libs\rbush.js" />
@@ -567,6 +568,14 @@
     <Content Include="assets\textures\MilkyWay\dark-s_px.jpg" />
     <Content Include="assets\textures\MilkyWay\dark-s_py.jpg" />
     <Content Include="assets\textures\MilkyWay\dark-s_pz.jpg" />
+    <Content Include="assets\textures\particles\raindrop-1.png" />
+    <Content Include="assets\textures\particles\raindrop-2.png" />
+    <Content Include="assets\textures\particles\raindrop-3.png" />
+    <Content Include="assets\textures\particles\snowflake1.png" />
+    <Content Include="assets\textures\particles\snowflake2.png" />
+    <Content Include="assets\textures\particles\snowflake3.png" />
+    <Content Include="assets\textures\particles\snowflake4.png" />
+    <Content Include="assets\textures\particles\snowflake5.png" />
     <Content Include="assets\textures\patterns\bright_squares256.png" />
     <Content Include="assets\textures\patterns\circuit_pattern.png" />
     <Content Include="assets\textures\patterns\readme.txt" />
@@ -634,6 +643,13 @@
     <Content Include="locales\ru-RU.json" />
     <Content Include="locales\zh-CN.json" />
     <Content Include="locales\zh-TW.json" />
+    <Content Include="assets\web.config" />
+    <Content Include="assets\css\icon\iconfont.json" />
+    <Content Include="assets\examples\arkanoid.json" />
+    <Content Include="assets\examples\camera.json" />
+    <Content Include="assets\examples\particle.json" />
+    <Content Include="assets\examples\pong.json" />
+    <Content Include="assets\examples\shader.json" />
     <None Include="packages.config" />
     <Content Include="Upload\web.config" />
     <None Include="Web.Debug.config">
