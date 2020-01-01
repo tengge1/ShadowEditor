@@ -74,7 +74,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 **兼容火狐和谷歌浏览器，推荐使用最新版谷歌浏览器。**
 
-1. 安装`NodeJs`，在最外层目录，执行以下命令。
+1. 安装`NodeJs`，在最外层目录（有`README.md`文件的那个文件），执行以下命令。
 
 ```bash
 npm install
