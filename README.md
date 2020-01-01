@@ -13,6 +13,11 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 1. 新增字体转换器，可以`.ttf`字体文件转换成`.json`文件。
 2. 修复不缩放文字保存重新载入，无法修改文字的bug。
+3. `Web.config`增加说明：
+    * customErrors: 远程显示服务端错误，正式部署建议改成RemoteOnly。
+    * directoryBrowse: 允许目录浏览，正式部署建议改成false。
+    * mimeMap: 允许下载任意类型文件，正式部署建议改成所需类型文件。
+    * Access-Control-Allow-Origin: 允许跨域，不跨域的话建议去掉。
 
 ## v0.4.0更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
