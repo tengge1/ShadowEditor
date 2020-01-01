@@ -143,6 +143,11 @@ npm run docs
 
 打开`ShadowEditor.Web/Web.config`文件，将`EnableAuthority`设置为`true`。默认管理员用户名是`admin`，密码是`123456`。
 
+4. 前端报`asm.js 已被禁用，因为脚本调试程序已连接。请断开调试程序的连接，以启用 asm.js。`的错误。
+
+**完整错误**：asm.js 已被禁用，因为脚本调试程序已连接。请断开调试程序的连接，以启用 asm.js。 ammo.js (1,1) SCRIPT1028: SCRIPT1028: Expected identifier, string or number ShadowEditor.js (3948,8) SCRIPT5009: 'Shadow' is not defined。
+**解决方法**：腾讯浏览器不支持使用`Emscripten`编译的`ammo.js`（Web汇编），建议换成谷歌浏览器。
+
 ## 相关链接
 
 * Three.js官网：https://threejs.org/
