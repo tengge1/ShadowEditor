@@ -1,5 +1,6 @@
 import { MenuItem, MenuItemSeparator } from '../../third_party';
 import TextureGeneratorWindow from './window/TextureGeneratorWindow.jsx';
+import TypefaceManagementWindow from './window/TypefaceManagementWindow.jsx';
 import TypefaceConverterWindow from './window/TypefaceConverterWindow.jsx';
 // import CleanUpScenesWindow from './window/CleanUpScenesWindow.jsx';
 import PluginsWindow from './window/PluginsWindow.jsx';
@@ -13,7 +14,8 @@ class ToolMenu extends React.Component {
         super(props);
 
         this.handleTextureGenerator = this.handleTextureGenerator.bind(this);
-        this.handleCreateFont = this.handleCreateFont.bind(this);
+        this.handleTypefaceManagement = this.handleTypefaceManagement.bind(this);
+        this.handleTypefaceConverter = this.handleTypefaceConverter.bind(this);
         this.handleBackupDatabase = this.handleBackupDatabase.bind(this);
         this.handleCleanUpScenes = this.handleCleanUpScenes.bind(this);
         this.commitCleanUpScenes = this.commitCleanUpScenes.bind(this);
@@ -27,8 +29,11 @@ class ToolMenu extends React.Component {
             <MenuItem title={_t('Texture Generator')}
                 onClick={this.handleTextureGenerator}
             />
+            <MenuItem title={_t('Typeface Management')}
+                onClick={this.handleTypefaceManagement}
+            />
             <MenuItem title={_t('Typeface Converter')}
-                onClick={this.handleCreateFont}
+                onClick={this.handleTypefaceConverter}
             />
             <MenuItemSeparator />
             <MenuItem title={_t('Backup Database')}
@@ -57,7 +62,12 @@ class ToolMenu extends React.Component {
         });
     }
 
-    handleCreateFont() {
+    handleTypefaceManagement() {
+        const win = app.createElement(TypefaceManagementWindow);
+        app.addElement(win);
+    }
+
+    handleTypefaceConverter() {
         const win = app.createElement(TypefaceConverterWindow);
         app.addElement(win);
     }

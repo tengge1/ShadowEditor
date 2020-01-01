@@ -1,11 +1,11 @@
-import './css/TypefaceListWindow.css';
-import { Window, Content, Buttons, Button, Label, Input, CheckBox, Form, FormControl, LinkButton } from '../../../third_party';
+import './css/TypefaceManagementWindow.css';
+import { Window, Content, Buttons, Button } from '../../../third_party';
 
 /**
- * 字体列表窗口
+ * 字体管理器窗口
  * @author tengge / https://github.com/tengge1
  */
-class TypefaceListWindow extends React.Component {
+class TypefaceManagementWindow extends React.Component {
     constructor(props) {
         super(props);
 
@@ -15,8 +15,8 @@ class TypefaceListWindow extends React.Component {
 
     render() {
         return <Window
-            className={'TypefaceListWindow'}
-            title={_t('Typeface List')}
+            className={'TypefaceManagementWindow'}
+            title={_t('Typeface Management')}
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
@@ -43,4 +43,4 @@ class TypefaceListWindow extends React.Component {
     }
 }
 
-export default TypefaceListWindow;
+export default TypefaceManagementWindow;
