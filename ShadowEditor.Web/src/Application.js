@@ -270,7 +270,9 @@ Application.prototype.prompt = function (options = {}) {
     };
 
     let handleClose = () => {
-        if(onClose && onClose() !== false) {
+        if (onClose === undefined) {
+            close();
+        } else if (onClose && onClose() !== false) {
             close();
         }
     };
