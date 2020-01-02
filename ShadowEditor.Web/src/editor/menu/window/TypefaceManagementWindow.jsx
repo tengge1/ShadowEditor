@@ -1,5 +1,5 @@
 import './css/TypefaceManagementWindow.css';
-import { Window, Content, Buttons, Button, DataGrid, Column } from '../../../third_party';
+import { Window, Content, Buttons, Button, DataGrid, Column, Toolbar, VBoxLayout } from '../../../third_party';
 
 /**
  * 字体管理器窗口
@@ -15,6 +15,8 @@ class TypefaceManagementWindow extends React.Component {
             mask: false
         };
 
+        this.handleAdd = this.handleAdd.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
@@ -30,17 +32,23 @@ class TypefaceManagementWindow extends React.Component {
             onClose={this.handleClose}
                >
             <Content>
-                <DataGrid data={data}
-                    selected={selected}
-                    mask={mask}
-                    keyField={'ID'}
-                    onSelect={this.handleSelect}
-                >
-                    <Column type={'number'} />
-                    <Column field={'Name'}
-                        title={_t('Name')}
-                    />
-                </DataGrid>
+                <VBoxLayout>
+                    <Toolbar>
+                        <Button onClick={this.handleAdd}>{_t('Add')}</Button>
+                        <Button onClick={this.handleDelete}>{_t('Delete')}</Button>
+                    </Toolbar>
+                    <DataGrid data={data}
+                        selected={selected}
+                        mask={mask}
+                        keyField={'ID'}
+                        onSelect={this.handleSelect}
+                    >
+                        <Column type={'number'} />
+                        <Column field={'Name'}
+                            title={_t('Name')}
+                        />
+                    </DataGrid>
+                </VBoxLayout>
             </Content>
             <Buttons>
                 <Button onClick={this.handleClose}>{_t('Close')}</Button>
@@ -64,6 +72,14 @@ class TypefaceManagementWindow extends React.Component {
                 });
             });
         });
+    }
+
+    handleAdd() {
+        debugger;
+    }
+
+    handleDelete() {
+        debugger;
     }
 
     handleSelect(record) {
