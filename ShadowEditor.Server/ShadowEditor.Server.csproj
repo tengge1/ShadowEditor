@@ -114,6 +114,7 @@
     <Compile Include="Controllers\Tools\BackupDatabaseController.cs" />
     <Compile Include="Controllers\Tools\PluginController.cs" />
     <Compile Include="Controllers\Tools\CleanUpScenesController.cs" />
+    <Compile Include="Controllers\Tools\TypefaceController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Controllers\ScreenshotController.cs" />
     <Compile Include="Controllers\PrefabController.cs" />
