@@ -47,7 +47,7 @@ class DataGrid extends React.Component {
         // 其他列：提供的按提供的数值(px)。
 
         // 表格列
-        const columns = children.map(n => {
+        const columns = React.Children.map(children, n => {
             return n.props;
         });
 

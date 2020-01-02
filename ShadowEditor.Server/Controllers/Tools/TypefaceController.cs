@@ -36,7 +36,21 @@ namespace ShadowEditor.Server.Controllers.Tools
                 Directory.CreateDirectory(dir);
             }
 
-            var list = Directory.GetFiles(dir);
+            var files = Directory.GetFiles(dir);
+
+            var list = new JArray();
+
+            foreach (var i in files)
+            {
+                var fileNameWithoutExt = Path.GetFileNameWithoutExtension(i);
+
+                var obj = new JObject
+                {
+                    ["ID"] = fileNameWithoutExt,
+                    ["Name"] = fileNameWithoutExt
+                };
+                list.Add(obj);
+            }
 
             return Json(new
             {
