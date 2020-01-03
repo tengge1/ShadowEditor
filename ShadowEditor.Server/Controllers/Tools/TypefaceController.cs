@@ -155,13 +155,14 @@ namespace ShadowEditor.Server.Controllers.Tools
                 });
             }
 
-            // 删除文件
-            var path = doc["Url"].ToString();
-            var physicalPath = HttpContext.Current.Server.MapPath(path);
+            // 删除文件所在目录
+            var url = doc["Url"].ToString();
+            var physicalPath = HttpContext.Current.Server.MapPath($"~{url}");
+            var dir = Path.GetDirectoryName(physicalPath);
 
             try
             {
-                File.Delete(physicalPath);
+                Directory.Delete(dir, true);
             }
             catch (Exception ex)
             {
