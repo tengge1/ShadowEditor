@@ -102,3 +102,4 @@ __pycache__
 /test/TensorEditor/build
 /ShadowEditor.Web/backup
 /ShadowEditor.Web/assets/fonts/custom
+/ShadowEditor.Web/Upload/Font

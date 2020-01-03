@@ -385,6 +385,7 @@ Application.prototype.upload = function () {
             });
             document.body.appendChild(input);
         }
+        input.value = null;
         input.click();
     };
 }();
