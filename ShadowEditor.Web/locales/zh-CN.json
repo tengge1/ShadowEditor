@@ -986,5 +986,6 @@
     "Bevel Thickness": "倒角厚度",
     "Typeface Management": "字体管理器",
     "Only font file (.ttf) is allowed to upload.": "只允许上传字体文件(.ttf)。",
-    "The file is already existed.": "文件已经存在。"
+    "The file is already existed.": "文件已经存在。",
+    "Create Time": "创建时间"
 }

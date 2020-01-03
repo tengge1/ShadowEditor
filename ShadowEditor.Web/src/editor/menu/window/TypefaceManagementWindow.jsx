@@ -47,6 +47,10 @@ class TypefaceManagementWindow extends React.Component {
                         <Column field={'Name'}
                             title={_t('Name')}
                         />
+                        <Column field={'CreateTime'}
+                            title={_t('Create Time')}
+                            width={160}
+                        />
                     </DataGrid>
                 </VBoxLayout>
             </Content>
