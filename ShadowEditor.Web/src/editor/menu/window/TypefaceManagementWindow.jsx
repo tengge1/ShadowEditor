@@ -75,11 +75,44 @@ class TypefaceManagementWindow extends React.Component {
     }
 
     handleAdd() {
-        debugger;
+        app.upload(`${app.options.server}/api/Typeface/Add`, obj => {
+            if (obj.Code === 200) {
+                this.update();
+            }
+            app.toast(_t(obj.Msg));
+        });
     }
 
     handleDelete() {
-        debugger;
+        const selected = this.state.selected;
+
+        if (!selected) {
+            app.toast(_t('Please select a record.'));
+            return;
+        }
+
+        app.confirm({
+            title: _t('Query'),
+            content: _t('Delete the selected record?'),
+            onOK: () => {
+                this.commitDelete(selected);
+            }
+        });
+    }
+
+    commitDelete(id) {
+        fetch(`${app.options.server}/api/Typeface/Delete?ID=${id}`, {
+            method: 'POST'
+        }).then(response => {
+            response.json().then(obj => {
+                if (obj.Code !== 200) {
+                    app.toast(_t(obj.Msg), 'warn');
+                    return;
+                }
+                this.update();
+                app.toast(_t(obj.Msg), 'success');
+            });
+        });
     }
 
     handleSelect(record) {
