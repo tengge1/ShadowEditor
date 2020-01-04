@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowEditor.Model.Font
+namespace ShadowEditor.Model.Typeface
 {
     /// <summary>
     /// 字体模型
     /// </summary>
-    public class FontModel
+    public class TypefaceModel
     {
         /// <summary>
         /// ID
