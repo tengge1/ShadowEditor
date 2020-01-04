@@ -109,7 +109,7 @@ namespace ShadowEditor.Server
         /// <summary>
         /// 字体
         /// </summary>
-        public const string FontCollectionName = "_Font";
+        public const string TypefaceCollectionName = "_Typeface";
 
         /// <summary>
         /// 历史表后缀（版本控制）

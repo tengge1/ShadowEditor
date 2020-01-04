@@ -11,6 +11,7 @@ using System.Web.Http.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
+using ShadowEditor.Model.Typeface;
 using ShadowEditor.Server.Base;
 using ShadowEditor.Server.Helpers;
 using ShadowEditor.Server.CustomAttribute;
@@ -29,27 +30,24 @@ namespace ShadowEditor.Server.Controllers.Tools
         [HttpGet]
         public JsonResult List()
         {
-            var dir = HttpContext.Current.Server.MapPath("~/assets/fonts/ttf");
+            var mongo = new MongoHelper();
 
-            if (!Directory.Exists(dir))
+            var docs = mongo.FindAll(Constant.TypefaceCollectionName).SortBy(n => n["Name"]).ToList();
+
+            var list = new List<TypefaceModel>();
+
+            foreach (var i in docs)
             {
-                Directory.CreateDirectory(dir);
-            }
-
-            var files = Directory.GetFiles(dir);
-
-            var list = new JArray();
-
-            foreach (var i in files)
-            {
-                var fileNameWithoutExt = Path.GetFileNameWithoutExtension(i);
-
-                var obj = new JObject
+                var model = new TypefaceModel
                 {
-                    ["ID"] = fileNameWithoutExt,
-                    ["Name"] = fileNameWithoutExt
+                    ID = i["ID"].AsObjectId.ToString(),
+                    Name = i["Name"].AsString,
+                    TotalPinYin = i["TotalPinYin"].ToString(),
+                    FirstPinYin = i["FirstPinYin"].ToString(),
+                    Url = i["Url"].ToString(),
+                    CreateTime = i["CreateTime"].ToUniversalTime()
                 };
-                list.Add(obj);
+                list.Add(model);
             }
 
             return Json(new
@@ -71,18 +69,7 @@ namespace ShadowEditor.Server.Controllers.Tools
             var files = HttpContext.Current.Request.Files;
 
             // 校验上传文件
-            if (files.Count != 1)
-            {
-                return Json(new Result
-                {
-                    Code = 300,
-                    Msg = "Only one file is allowed to upload!"
-                });
-            }
-
-            var file = files[0];
-
-            if (!file.FileName.EndsWith(".ttf"))
+            if (files.Count != 1 || !files[0].FileName.EndsWith(".ttf"))
             {
                 return Json(new Result
                 {
@@ -91,16 +78,22 @@ namespace ShadowEditor.Server.Controllers.Tools
                 });
             }
 
-            var dir = HttpContext.Current.Server.MapPath("~/assets/fonts/ttf");
+            var file = files[0];
+            var fileName = file.FileName;
 
-            if (!Directory.Exists(dir))
+            // 保存文件
+            var now = DateTime.Now;
+
+            var savePath = $"/Upload/Font/{now.ToString("yyyyMMddHHmmss")}";
+            var physicalPath = HttpContext.Current.Server.MapPath(savePath);
+
+            if (!Directory.Exists(physicalPath))
             {
-                Directory.CreateDirectory(dir);
+                Directory.CreateDirectory(physicalPath);
             }
 
-            var path = $@"{dir}\{file.FileName}";
-
-            if (File.Exists(path))
+            // 判断文件是否存在
+            if (File.Exists($"{physicalPath}\\{fileName}"))
             {
                 return Json(new Result
                 {
@@ -109,7 +102,28 @@ namespace ShadowEditor.Server.Controllers.Tools
                 });
             }
 
-            file.SaveAs(path);
+            file.SaveAs($"{physicalPath}\\{fileName}");
+
+            // 保存到Mongo
+            var fileSize = file.ContentLength;
+            var fileType = file.ContentType;
+            var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
+
+            var pinyin = PinYinHelper.GetTotalPinYin(fileNameWithoutExt);
+
+            var mongo = new MongoHelper();
+
+            var doc = new BsonDocument
+            {
+                ["ID"] = ObjectId.GenerateNewId(),
+                ["Name"] = fileNameWithoutExt,
+                ["TotalPinYin"] = string.Join("", pinyin.TotalPinYin),
+                ["FirstPinYin"] = string.Join("", pinyin.FirstPinYin),
+                ["Url"] = $"{savePath}/{fileName}",
+                ["CreateTime"] = BsonDateTime.Create(now),
+            };
+
+            mongo.InsertOne(Constant.TypefaceCollectionName, doc);
 
             return Json(new Result
             {
@@ -121,31 +135,44 @@ namespace ShadowEditor.Server.Controllers.Tools
         /// <summary>
         /// 删除
         /// </summary>
-        /// <param name="Name"></param>
+        /// <param name="ID"></param>
         /// <returns></returns>
         [HttpPost]
         [Authority("ADMINISTRATOR")]
-        public JsonResult Delete(string Name)
+        public JsonResult Delete(string ID)
         {
-            var dir = HttpContext.Current.Server.MapPath("~/assets/fonts/ttf");
+            var mongo = new MongoHelper();
 
-            if (!Directory.Exists(dir))
+            var filter = Builders<BsonDocument>.Filter.Eq("ID", BsonObjectId.Create(ID));
+            var doc = mongo.FindOne(Constant.TypefaceCollectionName, filter);
+
+            if (doc == null)
             {
-                Directory.CreateDirectory(dir);
-            }
-
-            var path = $@"{dir}\{Name}";
-
-            if (!File.Exists(path))
-            {
-                return Json(new Result
+                return Json(new
                 {
                     Code = 300,
                     Msg = "The asset is not existed!"
                 });
             }
 
-            File.Delete(path);
+            // 删除文件
+            var path = doc["Url"].ToString();
+            var physicalPath = HttpContext.Current.Server.MapPath(path);
+
+            try
+            {
+                File.Delete(physicalPath);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = ex.Message
+                });
+            }
+
+            mongo.DeleteOne(Constant.TypefaceCollectionName, filter);
 
             return Json(new
             {
