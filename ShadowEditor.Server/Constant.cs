@@ -107,6 +107,11 @@ namespace ShadowEditor.Server
         public const string PluginCollectionName = "_Plugin";
 
         /// <summary>
+        /// 字体
+        /// </summary>
+        public const string FontCollectionName = "_Font";
+
+        /// <summary>
         /// 历史表后缀（版本控制）
         /// </summary>
         public const string HistorySuffix = "_history";
