@@ -11,9 +11,12 @@ class Add3DTextWindow extends React.Component {
     constructor(props) {
         super(props);
 
+        this.fonts = [];
+
         this.state = {
-            text: _t('Sone Words'),
-            font: null, // 字体
+            text: _t('Some Words'),
+            fonts: {}, // 所有字体
+            font: '', // 字体
             size: 20, // 尺寸
             height: 24, // 厚度
             bevelEnabled: true, // 倒角
@@ -28,7 +31,7 @@ class Add3DTextWindow extends React.Component {
     }
 
     render() {
-        const { text, font, size, height, bevelEnabled, bevelSize, bevelThickness } = this.state;
+        const { text, fonts, font, size, height, bevelEnabled, bevelSize, bevelThickness } = this.state;
 
         return <Window
             className={'Add3DTextWindow'}
@@ -48,8 +51,9 @@ class Add3DTextWindow extends React.Component {
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Font')}</Label>
-                        <Input name={'font'}
+                        <Select name={'font'}
                             value={font}
+                            options={fonts}
                             onChange={this.handleChange}
                         />
                     </FormControl>
@@ -99,6 +103,38 @@ class Add3DTextWindow extends React.Component {
                 <Button onClick={this.handleClose}>{_t('Cancel')}</Button>
             </Buttons>
         </Window>;
+    }
+
+    componentDidMount() {
+        this.updateFonts();
+    }
+
+    updateFonts() {
+        fetch(`${app.options.server}/api/Typeface/List`).then(response => {
+            response.json().then(json => {
+                if (json.Code !== 200) {
+                    app.toast(_t(json.Msg), 'warn');
+                    return;
+                }
+
+                this.fonts = json.Data;
+
+                if (this.fonts.length === 0) {
+                    app.toast('Pleast upload typeface first.', 'warn');
+                    return;
+                }
+
+                let fonts = {};
+
+                this.fonts.forEach(n => {
+                    fonts[n.ID] = n.Name;
+                });
+
+                this.setState({
+                    fonts
+                });
+            });
+        });
     }
 
     handleChange(value, name) {
