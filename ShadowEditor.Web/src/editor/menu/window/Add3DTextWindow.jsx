@@ -153,6 +153,8 @@ class Add3DTextWindow extends React.Component {
             return;
         }
 
+        app.mask();
+
         const fontData = this.fonts.filter(n => n.ID === font)[0];
 
         fetch(`${app.options.server}${fontData.Url}`).then(response => {
@@ -166,6 +168,7 @@ class Add3DTextWindow extends React.Component {
                         bevelSize,
                         bevelThickness
                     })));
+                    app.unmask();
                     this.handleClose();
                 });
             });
