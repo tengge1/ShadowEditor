@@ -207,7 +207,7 @@ class ObjectMenu extends React.Component {
     handleAddUnscaledText() {
         app.prompt({
             title: _t('Please input'),
-            value: _t('Sone Words'),
+            value: _t('Some Words'),
             onOK: (value) => {
                 app.editor.execute(new AddObjectCommand(new UnscaledText(value)));
             }

@@ -21,6 +21,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 4. `Web.config`中增加`.json`的`MIME-Type`，避免去掉`.*`和`.`的`MIME-Type`后，由于部分iis缺少`.json`的`MIME-Type`导致整个后端报500错误。
 5. 禁用资源、上传、备份目录的执行权限。
 6. 修复添加不缩放文字，点击关闭按钮无法关闭窗口的bug。
+7. 添加三维文字。（支持英文、汉字）
 
 ## v0.4.0更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
@@ -106,14 +107,7 @@ net start MongoDB
 
 注意：发布网站部署，Web目录外面需要多加一层文件夹，用于存放日志、数据库备份等不能公开的资源。
 
-6. 为了保存各种类型文件能正常下载，会在iis上添加以下两个MIME类型，正式部署请注意安全。
-
-| 文件扩展名 | MIME类型 | 说明 |
-| --------- | -------- | ---- |
-| .* | application/octet-stream | 各种格式后缀文件 |
-| . | application/octet-stream | 无后缀文件 |
-
-7. 编译文档，请安装gitbook。
+6. 编译文档，请安装gitbook。
 
 ```bash
 npm install -g gitbook-cli

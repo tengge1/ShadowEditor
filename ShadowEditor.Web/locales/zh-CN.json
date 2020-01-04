@@ -427,7 +427,7 @@
     "Label": "标签",
     "Darker": "变暗",
     "DefaultCamera": "默认相机",
-    "Sone Words": "一些文字",
+    "Some Words": "一些文字",
     "Body": "身体",
     "Pie Chart": "饼状图",
     "Gamma Input": "γ输入",
@@ -974,7 +974,7 @@
     ".ttc to .ttf": ".ttc转.ttf",
     "Convert successfully!": "转换成功！",
     "Unscaled Text": "不缩放文字",
-    "3D Text": "3D文字",
+    "3D Text": "三维文字",
     "Basic Geometry": "基本几何体",
     "Curve": "曲线",
     "Mark": "标注",
@@ -988,6 +988,5 @@
     "Only font file (.ttf) is allowed to upload.": "只允许上传字体文件(.ttf)。",
     "The file is already existed.": "文件已经存在。",
     "Create Time": "创建时间",
-    "Pleast upload typeface first.": "请先上传字体。",
-    "Message": "消息"
+    "Pleast upload typeface first.": "请先上传字体。"
 }

@@ -2,6 +2,7 @@ import './css/Add3DTextWindow.css';
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Button, CheckBox, Select } from '../../../third_party';
 import ThreeDText from '../../../object/text/ThreeDText';
 import AddObjectCommand from '../../../command/AddObjectCommand';
+import TypefaceUtils from '../../../utils/TypefaceUtils';
 
 /**
  * 添加3D文字窗口
@@ -17,11 +18,11 @@ class Add3DTextWindow extends React.Component {
             text: _t('Some Words'),
             fonts: {}, // 所有字体
             font: '', // 字体
-            size: 20, // 尺寸
-            height: 24, // 厚度
+            size: 16, // 尺寸
+            height: 4, // 厚度
             bevelEnabled: true, // 倒角
-            bevelSize: 2, // 倒角尺寸
-            bevelThickness: 2 // 倒角厚度
+            bevelSize: 0.5, // 倒角尺寸
+            bevelThickness: 0.5 // 倒角厚度
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -131,7 +132,8 @@ class Add3DTextWindow extends React.Component {
                 });
 
                 this.setState({
-                    fonts
+                    fonts,
+                    font: this.fonts[0].ID
                 });
             });
         });
@@ -146,14 +148,28 @@ class Add3DTextWindow extends React.Component {
     handleSave() {
         const { text, font, size, height, bevelEnabled, bevelSize, bevelThickness } = this.state;
 
-        app.editor.execute(new AddObjectCommand(new ThreeDText(text, {
-            font,
-            size,
-            height,
-            bevelEnabled,
-            bevelSize,
-            bevelThickness
-        })));
+        if (font === '') {
+            app.toast(_t('Pleast upload typeface first.'), 'warn');
+            return;
+        }
+
+        const fontData = this.fonts.filter(n => n.ID === font)[0];
+
+        fetch(`${app.options.server}${fontData.Url}`).then(response => {
+            response.arrayBuffer().then(buffer => {
+                TypefaceUtils.convertTtfToJson(buffer, false, text).then(obj => {
+                    app.editor.execute(new AddObjectCommand(new ThreeDText(text, {
+                        font: new THREE.Font(JSON.parse(obj.result)),
+                        size,
+                        height,
+                        bevelEnabled,
+                        bevelSize,
+                        bevelThickness
+                    })));
+                    this.handleClose();
+                });
+            });
+        });
     }
 
     handleClose() {
