@@ -120,7 +120,7 @@ class Add3DTextWindow extends React.Component {
                 this.fonts = json.Data;
 
                 if (this.fonts.length === 0) {
-                    app.toast('Pleast upload typeface first.', 'warn');
+                    app.toast(_t('Pleast upload typeface first.'), 'warn');
                     return;
                 }
 
