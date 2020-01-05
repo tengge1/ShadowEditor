@@ -42,6 +42,7 @@ import ClothSerializer from './objects/ClothSerializer';
 
 // objects/text
 import UnscaledTextSerializer from './objects/text/UnscaledTextSerializer';
+import ThreeDTextSerializer from './objects/text/ThreeDTextSerializer';
 
 // mark
 import PointMarkerSerializer from './objects/mark/PointMarkerSerializer';
@@ -181,8 +182,10 @@ Converter.prototype.traverse = function (obj, children, list) {
         json = new CubicBezierCurveSerializer().toJSON(obj);
     } else if (obj.userData.type === 'EllipseCurve') {
         json = new EllipseCurveSerializer().toJSON(obj);
-    } else if(obj.userData.type === 'text') {
+    } else if (obj.userData.type === 'text') {
         json = new UnscaledTextSerializer().toJSON(obj);
+    } else if (obj.userData.type === '3dtext') {
+        json = new ThreeDTextSerializer().toJSON(obj);
     } else if (obj.userData.type === 'pointMarker') {
         json = new PointMarkerSerializer().toJSON(obj);
     } else if (obj.userData.type === 'Globe') {
@@ -434,8 +437,10 @@ Converter.prototype.parse = function (jsons, options) {
             parts.push(new EllipseCurveSerializer().fromJSON(n));
         } else if (generator === 'Object3DSerializer') {
             parts.push(new Object3DSerializer().fromJSON(n));
-        } else if(generator === 'UnscaledTextSerializer') {
+        } else if (generator === 'UnscaledTextSerializer') {
             parts.push(new UnscaledTextSerializer().fromJSON(n));
+        } else if (generator === 'ThreeDTextSerializer') {
+            parts.push(new ThreeDTextSerializer().fromJSON(n));
         } else if (generator === 'PointMarkerSerializer') {
             parts.push(new PointMarkerSerializer().fromJSON(n));
         } else {

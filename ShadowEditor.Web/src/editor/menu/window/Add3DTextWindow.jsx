@@ -18,12 +18,12 @@ class Add3DTextWindow extends React.Component {
             text: _t('Some Words'),
             fonts: {}, // 所有字体
             font: '', // 字体
-            size: 16, // 尺寸
+            size: 4, // 尺寸
             color: '#ffffff', // 颜色
-            height: 4, // 厚度
+            height: 2, // 厚度
             bevelEnabled: true, // 倒角
-            bevelSize: 0.5, // 倒角尺寸
-            bevelThickness: 0.5 // 倒角厚度
+            bevelSize: 0.1, // 倒角尺寸
+            bevelThickness: 0.1 // 倒角厚度
         };
 
         this.handleChange = this.handleChange.bind(this);
