@@ -19,6 +19,7 @@ class Add3DTextWindow extends React.Component {
             fonts: {}, // 所有字体
             font: '', // 字体
             size: 16, // 尺寸
+            color: '#ffffff', // 颜色
             height: 4, // 厚度
             bevelEnabled: true, // 倒角
             bevelSize: 0.5, // 倒角尺寸
@@ -32,7 +33,7 @@ class Add3DTextWindow extends React.Component {
     }
 
     render() {
-        const { text, fonts, font, size, height, bevelEnabled, bevelSize, bevelThickness } = this.state;
+        const { text, fonts, font, size, color, height, bevelEnabled, bevelSize, bevelThickness } = this.state;
 
         return <Window
             className={'Add3DTextWindow'}
@@ -40,7 +41,7 @@ class Add3DTextWindow extends React.Component {
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
-               >
+        >
             <Content>
                 <Form>
                     <FormControl>
@@ -63,6 +64,14 @@ class Add3DTextWindow extends React.Component {
                         <Input name={'size'}
                             type={'number'}
                             value={size}
+                            onChange={this.handleChange}
+                        />
+                    </FormControl>
+                    <FormControl>
+                        <Label>{_t('Color')}</Label>
+                        <Input name={'color'}
+                            type={'color'}
+                            value={color}
                             onChange={this.handleChange}
                         />
                     </FormControl>
@@ -146,7 +155,7 @@ class Add3DTextWindow extends React.Component {
     }
 
     handleSave() {
-        const { text, font, size, height, bevelEnabled, bevelSize, bevelThickness } = this.state;
+        const { text, font, size, color, height, bevelEnabled, bevelSize, bevelThickness } = this.state;
 
         if (font === '') {
             app.toast(_t('Pleast upload typeface first.'), 'warn');
@@ -163,6 +172,7 @@ class Add3DTextWindow extends React.Component {
                     app.editor.execute(new AddObjectCommand(new ThreeDText(text, {
                         font: new THREE.Font(JSON.parse(obj.result)),
                         size,
+                        color,
                         height,
                         bevelEnabled,
                         bevelSize,

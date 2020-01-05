@@ -5,7 +5,7 @@ class ThreeDText extends THREE.Mesh {
     constructor(text = '', options) {
         const geometry = new THREE.TextBufferGeometry(text, options);
         const material = new THREE.MeshPhongMaterial({
-            color: 0xffffff
+            color: options.color || 0xffffff
         });
         super(geometry, material);
 
