@@ -170,7 +170,7 @@ class Add3DTextWindow extends React.Component {
             response.arrayBuffer().then(buffer => {
                 TypefaceUtils.convertTtfToJson(buffer, false, text).then(obj => {
                     app.editor.execute(new AddObjectCommand(new ThreeDText(text, {
-                        font: new THREE.Font(JSON.parse(obj.result)),
+                        font: obj.result,
                         size,
                         color,
                         height,
