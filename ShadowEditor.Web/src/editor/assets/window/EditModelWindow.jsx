@@ -18,7 +18,7 @@ class EditModelWindow extends React.Component {
             categories: null,
             categoryID: props.data.CategoryID,
             thumbnail: props.data.Thumbnail,
-            isPublic: props.data.IsPublic,
+            isPublic: props.data.IsPublic || false,
 
             histories: [],
             selectedHistory: null
@@ -43,17 +43,16 @@ class EditModelWindow extends React.Component {
     }
 
     render() {
-        const { typeName } = this.props;
         const { activeTabIndex, name, categories, categoryID, thumbnail, isPublic, histories, selectedHistory } = this.state;
         const { enableAuthority, authorities } = app.server;
 
         return <Window
             className={'EditModelWindow'}
-            title={`${_t('Edit')} ${typeName}`}
+            title={`${_t('Edit')} ${_t('Model')}`}
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
-               >
+        >
             <Content>
                 <TabLayout activeTabIndex={activeTabIndex}
                     onActiveTabChange={this.handleActiveTabChange}
@@ -90,6 +89,7 @@ class EditModelWindow extends React.Component {
                             <Label>{_t('Is Public')}</Label>
                             <CheckBox name={'isPublic'}
                                 checked={isPublic ? true : false}
+                                disabled={true}
                                 onChange={this.handleIsPublicChange}
                             />
                         </FormControl>
@@ -101,13 +101,11 @@ class EditModelWindow extends React.Component {
                         onSelect={this.handleSelectHistory}
                     >
                         <Column type={'number'} />
-                        {/* <Column field={'SceneName'} /> */}
                         <Column field={'Version'}
                             title={_t('Version')}
                             width={80}
                             align={'center'}
                         />
-                        {/* <Column field={'CreateTime'} /> */}
                         <Column field={'UpdateTime'}
                             title={_t('Update Time')}
                             align={'center'}
@@ -135,7 +133,7 @@ class EditModelWindow extends React.Component {
     handleActiveTabChange(activeTabIndex) {
         if (activeTabIndex === 1) { // 更新历史数据
             const { data } = this.props;
-            fetch(`${app.options.server}/api/Scene/HistoryList?ID=${data.ID}`).then(response => {
+            fetch(`${app.options.server}/api/Mesh/HistoryList?ID=${data.ID}`).then(response => {
                 response.json().then(json => {
                     this.setState({
                         histories: json.Data,
@@ -151,7 +149,7 @@ class EditModelWindow extends React.Component {
     }
 
     updateUI() {
-        Ajax.getJson(`${app.options.server}/api/Category/List?Type=${this.props.type}`, json => {
+        Ajax.getJson(`${app.options.server}/api/Category/List?Type=Mesh`, json => {
             var options = {
                 '': _t('Not Set')
             };
@@ -199,8 +197,8 @@ class EditModelWindow extends React.Component {
 
     handleEditCategoryList() {
         const window = app.createElement(CategoryWindow, {
-            type: this.props.type,
-            typeName: `${this.props.typeName}`
+            type: 'Mesh',
+            typeName: `${_t('Model')}`
         });
 
         app.addElement(window);
@@ -218,27 +216,27 @@ class EditModelWindow extends React.Component {
         }
         return <LinkButton name={row.ID}
             onClick={this.handleLoadHistory}
-               >{_t('Load')}</LinkButton>;
+        >{_t('Load')}</LinkButton>;
     }
 
     handleLoadHistory(name) {
         const history = this.state.histories.filter(n => n.ID === name)[0];
 
         if (!history) {
-            app.toast(_t('The scene is not existed!'));
+            app.toast(_t('The mesh is not existed!'));
             return;
         }
 
-        let url = `${app.options.server}/api/Scene/Load?ID=${history.SceneID}&Version=${history.Version}`;
+        let url = `${app.options.server}/api/Mesh/Load?ID=${history.MeshID}&Version=${history.Version}`;
 
-        app.call(`load`, this, url, history.SceneName, history.ID);
+        app.call(`load`, this, url, history.MeshName, history.ID);
     }
 
     handleSave() {
-        const { data, saveUrl, callback } = this.props;
+        const { data, callback } = this.props;
         const { name, categoryID, thumbnail, isPublic } = this.state;
 
-        Ajax.post(saveUrl, {
+        Ajax.post(`${app.options.server}/api/Mesh/Edit`, {
             ID: data.ID,
             Name: name,
             Category: categoryID,
@@ -261,18 +259,12 @@ class EditModelWindow extends React.Component {
 }
 
 EditModelWindow.propTypes = {
-    type: PropTypes.oneOf(['Mesh']),
-    typeName: PropTypes.string,
     data: PropTypes.object,
-    saveUrl: PropTypes.string,
     callback: PropTypes.func
 };
 
 EditModelWindow.defaultProps = {
-    type: 'Mesh',
-    typeName: 'Mesh',
     data: null,
-    saveUrl: null,
     callback: null
 };
 

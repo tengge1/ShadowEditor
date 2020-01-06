@@ -1,5 +1,5 @@
 import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
-import EditWindow from './window/EditWindow.jsx';
+import EditModelWindow from './window/EditModelWindow.jsx';
 import ModelLoader from '../../loader/ModelLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';
 
@@ -60,7 +60,7 @@ class ModelPanel extends React.Component {
 
         return <div className={classNames('ModelPanel', className)}
             style={style}
-               >
+        >
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
@@ -201,11 +201,8 @@ class ModelPanel extends React.Component {
     // ------------------------------- 编辑 ---------------------------------------
 
     handleEdit(data) {
-        var win = app.createElement(EditWindow, {
-            type: 'Mesh',
-            typeName: _t('Model'),
+        var win = app.createElement(EditModelWindow, {
             data,
-            saveUrl: `${app.options.server}/api/Mesh/Edit`,
             callback: this.update
         });
 
