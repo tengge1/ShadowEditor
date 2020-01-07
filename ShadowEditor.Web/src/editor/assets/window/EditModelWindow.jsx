@@ -38,6 +38,7 @@ class EditModelWindow extends React.Component {
         this.loadHistoryRenderer = this.loadHistoryRenderer.bind(this);
         this.handleLoadHistory = this.handleLoadHistory.bind(this);
 
+        this.handleDownload = this.handleDownload.bind(this);
         this.handleSave = this.handleSave.bind(this, props.callback);
         this.handleClose = this.handleClose.bind(this);
     }
@@ -120,6 +121,7 @@ class EditModelWindow extends React.Component {
                 </TabLayout>
             </Content>
             <Buttons>
+                <Button className={'download'} onClick={this.handleDownload}>{_t('Download')}</Button>
                 <Button onClick={this.handleSave}>{_t('OK')}</Button>
                 <Button onClick={this.handleClose}>{_t('Cancel')}</Button>
             </Buttons>
@@ -230,6 +232,10 @@ class EditModelWindow extends React.Component {
         let url = `${app.options.server}/api/Mesh/Load?ID=${history.MeshID}&Version=${history.Version}`;
 
         app.call(`load`, this, url, history.MeshName, history.ID);
+    }
+
+    handleDownload() {
+        debugger
     }
 
     handleSave() {

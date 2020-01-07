@@ -32,6 +32,10 @@
     margin: 0 8px;
 }
 
+.Window.EditModelWindow>.wrap>.buttons>.button-wrap>.Button.download {
+    margin-right: 235px;
+}
+
 .Window.EditModelWindow>.wrap>.content>.TabLayout>.contents>.content>.DataGrid>.wrap>.body>tbody>tr>td>a {
     color: #D4237A;
 }
