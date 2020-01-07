@@ -559,5 +559,35 @@ namespace ShadowEditor.Server.Controllers
                 Msg = "Delete successfully!"
             });
         }
+
+        /// <summary>
+        /// 下载模型
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Authority("LIST_MESH")]
+        public JsonResult Download(string ID)
+        {
+            var mongo = new MongoHelper();
+
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", BsonObjectId.Create(ID));
+            var doc = mongo.FindOne(Constant.MeshCollectionName, filter);
+
+            if (doc == null)
+            {
+                return Json(new
+                {
+                    Code = 300,
+                    Msg = "The asset is not existed!"
+                });
+            }
+
+            return Json(new
+            {
+                Code = 200,
+                Msg = "Download successfully!"
+            });
+        }
     }
 }
