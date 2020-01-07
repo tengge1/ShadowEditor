@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>StencilTest</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../assets/js/three.js"></script>
+    <script>
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 正方体1
+        var geometry = new THREE.BoxGeometry(1, 1, 1);
+        var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        var cube1 = new THREE.Mesh(geometry, material);
+        cube1.position.x = -0.2;
+        cube1.position.y = -0.2;
+        scene.add(cube1);
+
+        // 正方体2
+        geometry = new THREE.BoxGeometry(1, 1, 1);
+        material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        var cube2 = new THREE.Mesh(geometry, material);
+        cube2.position.x = 0.2;
+        cube2.position.y = 0.2;
+        scene.add(cube2);
+
+        camera.position.z = 5;
+
+        renderer.autoClear = false;
+
+        // 线框
+        var wireframeMaterial = new THREE.MeshBasicMaterial({
+            wireframe: true
+        });
+
+        var context = renderer.getContext();
+        var state = renderer.state;
+
+        // three.js有bug
+        state.buffers.stencil.setTest = function () {
+
+        };
+
+        var animate = function () {
+            requestAnimationFrame(animate);
+
+            cube1.rotation.x += 0.01;
+            cube1.rotation.y += 0.01;
+
+            cube2.rotation.x += 0.01;
+            cube2.rotation.y += 0.01;
+
+            renderer.clear();
+
+            // 绘制模板
+            state.enable(context.STENCIL_TEST);
+            state.buffers.stencil.setTest(true);
+            state.buffers.stencil.setClear(0x00);
+
+            state.buffers.color.setMask(false);
+            state.buffers.depth.setMask(false);
+            state.buffers.stencil.setMask(true);
+
+            state.buffers.color.setLocked(true);
+            state.buffers.depth.setLocked(true);
+            state.buffers.stencil.setLocked(true);
+
+            state.buffers.stencil.setFunc(context.ALWAYS, 1, 0xff);
+            state.buffers.stencil.setOp(context.INCR, context.INCR, context.INCR);
+
+            renderer.render(scene, camera);
+
+            // 绘制相交物体
+            state.buffers.color.setLocked(false);
+            state.buffers.depth.setLocked(false);
+            state.buffers.stencil.setLocked(false);
+
+            state.buffers.color.setMask(true);
+            state.buffers.depth.setMask(true);
+            state.buffers.stencil.setMask(true);
+
+            state.buffers.stencil.setLocked(true);
+
+            state.buffers.stencil.setOp(context.KEEP, context.KEEP, context.REPLACE);
+            state.buffers.stencil.setFunc(context.EQUAL, 0, 0xff);
+
+            renderer.render(scene, camera);
+
+            // 绘制线框
+            state.buffers.stencil.setFunc(context.EQUAL, 1, 0xff);
+
+            scene.overrideMaterial = wireframeMaterial;
+            renderer.render(scene, camera);
+            scene.overrideMaterial = null;
+
+            // 还原初始状态
+            state.disable(context.STENCIL_TEST);
+        };
+
+        animate();
+    </script>
+</body>
+
+</html>
