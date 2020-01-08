@@ -583,10 +583,35 @@ namespace ShadowEditor.Server.Controllers
                 });
             }
 
+            // 获取模型文件列表
+            var savePath = HttpContext.Current.Server.MapPath($"~{doc["SavePath"].ToString()}");
+
+            var queue = new Queue<string>();
+            queue.Enqueue(savePath);
+            var fileLists = new List<string>();
+
+            while (queue.Count > 0)
+            {
+                var item = queue.Dequeue();
+                var dirs = Directory.GetDirectories(item);
+                foreach (var i in dirs)
+                {
+                    queue.Enqueue(i);
+                }
+                var files = Directory.GetFiles(item);
+                fileLists.AddRange(files);
+            }
+
+            // 创建压缩包
+            var descFile = $"/temp/{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.zip";
+            var descPhysicalFile = HttpContext.Current.Server.MapPath($"~{descFile}");
+            ZipHelper.Zip(fileLists, descPhysicalFile);
+
             return Json(new
             {
                 Code = 200,
-                Msg = "Download successfully!"
+                Msg = "Download successfully!",
+                Path = descFile
             });
         }
     }

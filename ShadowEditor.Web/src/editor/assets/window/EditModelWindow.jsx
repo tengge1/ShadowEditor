@@ -53,7 +53,7 @@ class EditModelWindow extends React.Component {
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
-        >
+               >
             <Content>
                 <TabLayout activeTabIndex={activeTabIndex}
                     onActiveTabChange={this.handleActiveTabChange}
@@ -90,7 +90,7 @@ class EditModelWindow extends React.Component {
                             <Label>{_t('Is Public')}</Label>
                             <CheckBox name={'isPublic'}
                                 checked={isPublic ? true : false}
-                                disabled={true}
+                                disabled
                                 onChange={this.handleIsPublicChange}
                             />
                         </FormControl>
@@ -121,7 +121,9 @@ class EditModelWindow extends React.Component {
                 </TabLayout>
             </Content>
             <Buttons>
-                <Button className={'download'} onClick={this.handleDownload}>{_t('Download')}</Button>
+                <Button className={'download'}
+                    onClick={this.handleDownload}
+                >{_t('Download')}</Button>
                 <Button onClick={this.handleSave}>{_t('OK')}</Button>
                 <Button onClick={this.handleClose}>{_t('Cancel')}</Button>
             </Buttons>
@@ -218,7 +220,7 @@ class EditModelWindow extends React.Component {
         }
         return <LinkButton name={row.ID}
             onClick={this.handleLoadHistory}
-        >{_t('Load')}</LinkButton>;
+               >{_t('Load')}</LinkButton>;
     }
 
     handleLoadHistory(name) {
@@ -235,7 +237,19 @@ class EditModelWindow extends React.Component {
     }
 
     handleDownload() {
-        debugger
+        const { data } = this.props;
+
+        fetch(`${app.options.server}/api/Mesh/Download?ID=${data.ID}`, {
+            method: 'POST'
+        }).then(response => {
+            response.json().then(json => {
+                if (json.Code !== 200) {
+                    app.toast(_t(json.Msg), 'warn');
+                    return;
+                }
+                window.open(`${app.options.server}${json.Path}`);
+            });
+        });
     }
 
     handleSave() {

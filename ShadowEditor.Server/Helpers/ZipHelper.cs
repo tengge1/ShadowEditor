@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using ICSharpCode.SharpZipLib;
+using ICSharpCode.SharpZipLib.Checksums;
 using ICSharpCode.SharpZipLib.Zip;
 
 namespace ShadowEditor.Server.Helpers
@@ -13,6 +14,44 @@ namespace ShadowEditor.Server.Helpers
     /// </summary>
     public class ZipHelper
     {
+        #region 压缩文件
+        /// <summary>
+        /// Zip文件压缩
+        /// ZipOutputStream：相当于一个压缩包；
+        /// ZipEntry：相当于压缩包里的一个文件；
+        /// 以上两个类是SharpZipLib的主类。
+        /// </summary>
+        /// <param name="sourceFileLists"></param>
+        /// <param name="descFile">压缩文件保存的目录</param>
+        public static void Zip(List<string> sourceFileLists, string descFile)
+        {
+            Crc32 crc32 = new Crc32();
+            using (ZipOutputStream stream = new ZipOutputStream(File.Create(descFile)))
+            {
+                ZipEntry entry;
+                for (int i = 0; i < sourceFileLists.Count; i++)
+                {
+                    entry = new ZipEntry(Path.GetFileName(sourceFileLists[i]));
+                    entry.DateTime = DateTime.Now;
+                    using (FileStream fs = File.OpenRead(sourceFileLists[i]))
+                    {
+                        byte[] buffer = new byte[fs.Length];
+                        fs.Read(buffer, 0, buffer.Length);
+                        entry.Size = fs.Length;
+                        crc32.Reset();
+                        crc32.Update(buffer);
+                        entry.Crc = crc32.Value;
+                        stream.PutNextEntry(entry);
+                        stream.Write(buffer, 0, buffer.Length);
+                    }
+                    stream.CloseEntry();
+                }
+
+            }
+        }
+        #endregion
+
+        #region 解压文件
         /// <summary>
         /// 解压文件
         /// </summary>
@@ -97,5 +136,6 @@ namespace ShadowEditor.Server.Helpers
 
             return rootFile;
         }
+        #endregion
     }
 }

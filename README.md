@@ -22,6 +22,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 5. 禁用资源、上传、备份目录的执行权限。
 6. 修复添加不缩放文字，点击关闭按钮无法关闭窗口的bug。
 7. 添加三维文字，支持英文和汉字，支持保存载入。
+8. 模型编辑中，新增模型下载功能。
 
 ## v0.4.0更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
