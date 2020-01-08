@@ -21,7 +21,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 4. `Web.config`中增加`.json`的`MIME-Type`，避免去掉`.*`和`.`的`MIME-Type`后，由于部分iis缺少`.json`的`MIME-Type`导致整个后端报500错误。
 5. 禁用资源、上传、备份目录的执行权限。
 6. 修复添加不缩放文字，点击关闭按钮无法关闭窗口的bug。
-7. 添加三维文字，支持英文和汉字，支持保存载入。
+7. 添加三维文字，支持数字、英文和汉字，支持保存载入。
 8. 模型编辑中，新增模型下载功能。
 
 ## v0.4.0更新【[更新日志](docs-dev/update/UpdateLog.md)】
