@@ -36,7 +36,7 @@ class BaseControls extends THREE.EventDispatcher {
      * @param {THREE.Object3D} target 目标
      */
     focus(target) {
-        scope.dispatchEvent(changeEvent);
+
     }
 
     /**

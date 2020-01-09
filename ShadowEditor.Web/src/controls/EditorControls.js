@@ -1,3 +1,5 @@
+import BaseControls from './BaseControls';
+
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
@@ -312,7 +314,7 @@ function EditorControls(object, domElement) {
 
 }
 
-EditorControls.prototype = Object.create(THREE.EventDispatcher.prototype);
-EditorControls.prototype.constructor = EditorControls;
+EditorControls.prototype = Object.create(BaseControls.prototype);
+EditorControls.prototype.constructor = BaseControls;
 
 export default EditorControls;
