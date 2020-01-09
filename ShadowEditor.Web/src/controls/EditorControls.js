@@ -176,7 +176,7 @@ function EditorControls(object, domElement) {
 
     }
 
-    function onMouseUp(event) {
+    function onMouseUp() {
 
         domElement.removeEventListener('mousemove', onMouseMove, false);
         domElement.removeEventListener('mouseup', onMouseUp, false);
