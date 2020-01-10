@@ -14,7 +14,6 @@ import TransformControlsEvent from './TransformControlsEvent';
 import ObjectEvent from './ObjectEvent';
 import RaycastEvent from './RaycastEvent';
 import PickEvent from './PickEvent';
-import EditorControlsEvent from './EditorControlsEvent';
 import LoadSceneEvent from './LoadSceneEvent';
 import WeatherEvent from './WeatherEvent';
 
@@ -45,7 +44,6 @@ function EventDispatcher() {
         new ObjectEvent(),
         new RaycastEvent(),
         new PickEvent(),
-        new EditorControlsEvent(),
         new LoadSceneEvent(),
         new WeatherEvent(),
 

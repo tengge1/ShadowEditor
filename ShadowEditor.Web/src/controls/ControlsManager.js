@@ -16,9 +16,12 @@ class ControlsManager extends BaseControls {
         super(camera, domElement);
 
         this._handleChange = this._handleChange.bind(this);
+        this._handleCleared = this._handleCleared.bind(this);
 
         this.current = new EditorControls(this.camera, this.domElement);
         this.current.addEventListener('change', this._handleChange);
+
+        app.on(`editorCleared.${this.id}`, this._handleCleared);
     }
 
     /**
@@ -55,6 +58,11 @@ class ControlsManager extends BaseControls {
 
     _handleChange() {
         this.dispatchEvent(this.changeEvent);
+        app.call('cameraChanged', this, app.editor.camera);
+    }
+
+    _handleCleared() {
+        this.setCenter(new THREE.Vector3());
     }
 
     dispose() {
