@@ -34,7 +34,7 @@ ViewEvent.prototype.changeView = function (view) {
     }
 
     if (view === 'perspective') {
-        app.editor.controls.enabled = true;
+        app.editor.controls.enable();
         app.editor.showViewHelper = true;
         this.controls.disable();
         app.call(`viewChanged`, this, view);
@@ -67,7 +67,7 @@ ViewEvent.prototype.changeView = function (view) {
 
     app.editor.select(null);
 
-    app.editor.controls.enabled = false;
+    app.editor.controls.disable();
     app.editor.showViewHelper = false;
     this.controls.enable();
     app.call(`viewChanged`, this, view);

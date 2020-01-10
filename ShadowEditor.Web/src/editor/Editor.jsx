@@ -12,7 +12,8 @@ import AssetsPanel from './assets/AssetsPanel.jsx';
 
 import History from '../command/History';
 import Helpers from '../helper/Helpers';
-import EditorControls from '../controls/EditorControls';
+
+import ControlsManager from '../controls/ControlsManager';
 
 /**
  * 编辑器
@@ -144,7 +145,7 @@ class Editor extends React.Component {
         this.sceneHelpers.add(this.transformControls);
 
         // 编辑器控件
-        this.controls = new EditorControls(this.camera, app.viewport);
+        this.controls = new ControlsManager(this.camera, app.viewport);
 
         // 帮助器场景灯光
         let light = new THREE.DirectionalLight(0xffffff, 1.0);

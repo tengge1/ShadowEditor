@@ -19,7 +19,7 @@ Scene.prototype.start = function () {
     editor.scene.background = null;
     editor.sceneHelpers.visible = false;
 
-    editor.controls.enabled = false;
+    editor.controls.disable();
     editor.controls.dispose();
     editor.transformControls.enabled = false;
 
@@ -52,7 +52,7 @@ Scene.prototype.stop = function () {
 
     editor.sceneHelpers.visible = true;
 
-    editor.controls = new THREE.EditorControls(editor.camera, editor.renderer.domElement);
+    editor.controls.setMode('EditorControls');
     editor.transformControls.enabled = true;
 
     app.editor.showViewHelper = true;

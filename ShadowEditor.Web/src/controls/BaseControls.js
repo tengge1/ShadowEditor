@@ -14,21 +14,20 @@ class BaseControls extends THREE.EventDispatcher {
         this.domElement = domElement;
 
         this.changeEvent = { type: 'change' };
-        this.enabled = true;
     }
 
     /**
      * 启用控制器
      */
     enable() {
-        this.enabled = true;
+
     }
 
     /**
      * 禁用控制器
      */
     disable() {
-        this.enabled = false;
+
     }
 
     /**
@@ -36,6 +35,14 @@ class BaseControls extends THREE.EventDispatcher {
      * @param {THREE.Object3D} target 目标
      */
     focus(target) {
+
+    }
+
+    /**
+     * 设置相机到中心点
+     * @param {THREE.Vector3} center 中心点
+     */
+    setCenter(center) {
 
     }
 

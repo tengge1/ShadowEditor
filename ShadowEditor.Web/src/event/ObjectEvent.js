@@ -49,9 +49,7 @@ ObjectEvent.prototype.onObjectRemoved = function (object) {
 };
 
 ObjectEvent.prototype.onObjectFocused = function (object) {
-    var controls = app.editor.controls;
-
-    controls.focus(object);
+    app.editor.controls.focus(object);
 };
 
 export default ObjectEvent;

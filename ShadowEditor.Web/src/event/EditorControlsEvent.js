@@ -25,8 +25,7 @@ EditorControlsEvent.prototype.onChange = function () {
 };
 
 EditorControlsEvent.prototype.onEditorCleared = function () {
-    var controls = app.editor.controls;
-    controls.center.set(0, 0, 0);
+    app.editor.controls.setCenter(new THREE.Vector3());
 };
 
 export default EditorControlsEvent;

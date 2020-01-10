@@ -41,6 +41,14 @@ function EditorControls(object, domElement) {
 
     var changeEvent = { type: 'change' };
 
+    this.enable = function () {
+        scope.enabled = true;
+    };
+
+    this.disable = function () {
+        scope.enabled = false;
+    };
+
     this.focus = function (target) {
 
         var distance;

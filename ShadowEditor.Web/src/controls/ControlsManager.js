@@ -15,7 +15,10 @@ class ControlsManager extends BaseControls {
     constructor(camera, domElement) {
         super(camera, domElement);
 
-        this.current = new EditorControls();
+        this._handleChange = this._handleChange.bind(this);
+
+        this.current = new EditorControls(this.camera, this.domElement);
+        this.current.addEventListener('change', this._handleChange);
     }
 
     /**
@@ -28,12 +31,14 @@ class ControlsManager extends BaseControls {
             return;
         }
         this.current.disable();
-        this.current = Controls[modeName];
+        this.current.removeEventListener('change', this._handleChange);
+        this.current = new Controls[modeName](this.camera, this.domElement);
         this.current.enable();
+        this.current.addEventListener('change', this._handleChange);
     }
 
     enable() {
-        this.current && this.current.enabled();
+        this.current && this.current.enable();
     }
 
     disable() {
@@ -44,8 +49,16 @@ class ControlsManager extends BaseControls {
         this.current && this.current.focus(target);
     }
 
+    setCenter(center) {
+        this.current && this.current.setCenter(center);
+    }
+
+    _handleChange() {
+        this.dispatchEvent(this.changeEvent);
+    }
+
     dispose() {
-        this.current && this.current.disable();
+        this.current && this.current.dispose();
     }
 }
 

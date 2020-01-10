@@ -54,7 +54,7 @@ TransformControlsEvent.prototype.onMouseDown = function () {
     this.objectRotation = object.rotation.clone();
     this.objectScale = object.scale.clone();
 
-    app.editor.controls.enabled = false; // EditorControls
+    app.editor.controls.disable();
 };
 
 /**
@@ -95,7 +95,7 @@ TransformControlsEvent.prototype.onMouseUp = function () {
             break;
     }
 
-    app.editor.controls.enabled = true; // EditorControls
+    app.editor.controls.enable();
 };
 
 /**
