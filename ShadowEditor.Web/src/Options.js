@@ -42,9 +42,6 @@ function Options(options = {}) {
     // 天气
     this.weather = ''; // ''-无，rain-下雨,snow-下雪
 
-    // 添加模式
-    this.addMode = 'center'; // center: 添加到场景中心；click: 点击场景添加。
-
     // 物理引擎
     this.enablePhysics = false; // 是否启用物理引擎
 }

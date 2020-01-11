@@ -60,7 +60,7 @@ class ModelPanel extends React.Component {
 
         return <div className={classNames('ModelPanel', className)}
             style={style}
-        >
+               >
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
@@ -145,7 +145,7 @@ class ModelPanel extends React.Component {
                 Server: true
             });
 
-            if (app.options.addMode === 'click') {
+            if (app.storage.get('addMode') === 'click') {
                 this.clickSceneToAdd(obj);
             } else {
                 this.addToCenter(obj);

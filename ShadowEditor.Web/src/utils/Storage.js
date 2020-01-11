@@ -58,7 +58,7 @@ function Storage() {
 
     // 添加模式
     if (this.get('addMode') === undefined) {
-        this.set('addMode', 'center'); // center: 添加到场景中心；click: 点击场景添加。
+        this.set('addMode', 'click'); // center: 添加到场景中心；click: 点击场景添加。
     }
 
     // 控制器模式

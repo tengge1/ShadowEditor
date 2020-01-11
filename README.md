@@ -23,6 +23,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 6. 修复添加不缩放文字，点击关闭按钮无法关闭窗口的bug。
 7. 添加三维文字，支持数字、英文和汉字，支持保存载入。
 8. 模型编辑中，新增模型下载功能。
+9. `添加模式`改为保存在浏览器缓存中，默认改为`点击场景添加`模型。
 
 ## v0.4.0更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
