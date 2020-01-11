@@ -19,6 +19,11 @@ class EditorStatusBar extends React.Component {
             click: _t('Click Scene To Add')
         };
 
+        this.controlMode = {
+            EditorControls: _t('Editor Controls'),
+            FreeControls: _t('Free Controls')
+        };
+
         this.state = {
             objects: 0,
             vertices: 0,
@@ -36,12 +41,15 @@ class EditorStatusBar extends React.Component {
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
         this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
         this.handleChangeAddMode = this.handleChangeAddMode.bind(this);
+        this.handleChangeControlMode = this.handleChangeControlMode.bind(this);
     }
 
     render() {
         const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall } = this.state;
         const { addMode, enablePhysics } = app.options;
+
         const selectMode = app.storage.get('selectMode');
+        const controlMode = app.storage.get('controlMode');
 
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
@@ -93,6 +101,15 @@ class EditorStatusBar extends React.Component {
                     options={this.addMode}
                     value={addMode}
                     onChange={this.handleChangeAddMode}
+                />
+                <ToolbarSeparator />
+            </>}
+            {isLogin && <>
+                <Label>{_t('Control Mode')}</Label>
+                <Select name={'controlMode'}
+                    options={this.controlMode}
+                    value={controlMode}
+                    onChange={this.handleChangeControlMode}
                 />
                 <ToolbarSeparator />
             </>}
@@ -200,6 +217,12 @@ class EditorStatusBar extends React.Component {
     handleChangeAddMode(value) {
         app.options.addMode = value;
         app.call('optionChange', this, 'addMode', value);
+        this.forceUpdate();
+    }
+
+    handleChangeControlMode(value) {
+        app.storage.set('controlMode', value);
+        app.call('storageChanged', this, 'controlMode', value);
         this.forceUpdate();
     }
 }

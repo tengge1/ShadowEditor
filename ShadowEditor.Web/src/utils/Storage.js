@@ -60,6 +60,11 @@ function Storage() {
     if (this.get('addMode') === undefined) {
         this.set('addMode', 'center'); // center: 添加到场景中心；click: 点击场景添加。
     }
+
+    // 控制器模式
+    if (this.get('controlMode') === undefined) {
+        this.set('controlMode', 'EditorControls'); // EditorControls: 编辑器控制器；FreeControls: 自由控制器。
+    }
 }
 
 Storage.prototype.get = function (key) {
