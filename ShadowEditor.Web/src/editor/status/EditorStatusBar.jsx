@@ -72,10 +72,10 @@ class EditorStatusBar extends React.Component {
                     checked={enablePhysics}
                     onChange={this.handleEnablePhysics}
                 />
-                <Label>{_t('ThrowBall')}</Label>
+                {/* <Label>{_t('ThrowBall')}</Label>
                 <CheckBox checked={isThrowBall}
                     onChange={this.handleEnableThrowBall}
-                />
+                /> */}
                 <ToolbarSeparator />
             </>}
             {isLogin && <>
