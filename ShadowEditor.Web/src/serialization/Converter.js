@@ -134,7 +134,7 @@ Converter.prototype.toJSON = function (obj) {
 
     // 将场景转为json
     let children = []; // 将层级结构保存在场景中，以供场景加载时还原。
-    this.traverse(scene, children, list, options);
+    this.traverse(scene, children, list, options, false);
 
     let sceneJson = list.filter(n => n.uuid === scene.uuid)[0];
 
@@ -153,11 +153,13 @@ Converter.prototype.toJSON = function (obj) {
  * @param {Object} children 子级结构
  * @param {Array} list json列表
  * @param {Object} options 配置信息
+ * @param {Boolean} isServerObject 是否是模型内部组件
  */
-Converter.prototype.traverse = function (obj, children, list, options) {
+Converter.prototype.traverse = function (obj, children, list, options, isServerObject) {
     let json = null;
 
     if (obj.userData.Server === true) { // 服务器对象
+        isServerObject = true;
         json = new ServerObject().toJSON(obj);
     } else if (obj.userData.type === 'Sky') {
         json = new SkySerializer().toJSON(obj);
@@ -198,7 +200,10 @@ Converter.prototype.traverse = function (obj, children, list, options) {
     } else if (obj instanceof THREE.Reflector) {
         json = new ReflectorSerializer().toJSON(obj);
     } else if (obj instanceof THREE.Mesh) {
-        json = new MeshSerializer().toJSON(obj);
+        // 设置了options.saveMaterial === false，不要保存模型内部材质。
+        json = new MeshSerializer().toJSON(obj, {
+            saveMaterial: options.saveMaterial === false && isServerObject ? false : true
+        });
     } else if (obj instanceof THREE.Sprite) {
         json = new SpriteSerializer().toJSON(obj);
     } else if (obj instanceof THREE.AmbientLight) {
@@ -242,7 +247,7 @@ Converter.prototype.traverse = function (obj, children, list, options) {
                 children: children1
             });
 
-            this.traverse(n, children1, list, options);
+            this.traverse(n, children1, list, options, isServerObject);
         });
     }
 };
@@ -494,7 +499,7 @@ Converter.prototype.parseScene = function (parent, children, parts, serverParts,
                     obj.position.copy(obj1.position);
                     obj.rotation.copy(obj1.rotation);
                     obj.scale.copy(obj1.scale);
-                    if(options.options.saveMaterial !== false) {
+                    if (options.options.saveMaterial !== false) {
                         if (obj.material && obj1.material) { // blob:http://
                             if (obj.material.map && obj.material.map.image && obj.material.map.image.src && obj.material.map.image.src.toString().startsWith('blob:http://')) {
                                 // 这种类型材质不能被替换
