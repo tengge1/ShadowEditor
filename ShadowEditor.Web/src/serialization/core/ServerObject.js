@@ -68,7 +68,7 @@ ServerObject.prototype.revertUUID = function (children, list) {
         }
 
         if (child.children && list[i] && list[i].children) {
-            this.revertUUID(child.children, list[i].children)
+            this.revertUUID(child.children, list[i].children);
         }
     }
 };
