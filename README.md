@@ -11,6 +11,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## v0.4.2即将更新
 
+1. 保存场景，如果设置了不保存子组件，则不保存模型内部信息。这可以加快场景保存和载入速度。
+
 ## v0.4.1更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
 * 发布日期：2020年1月11日

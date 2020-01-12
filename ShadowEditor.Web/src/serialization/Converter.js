@@ -134,7 +134,7 @@ Converter.prototype.toJSON = function (obj) {
 
     // 将场景转为json
     let children = []; // 将层级结构保存在场景中，以供场景加载时还原。
-    this.traverse(scene, children, list);
+    this.traverse(scene, children, list, options);
 
     let sceneJson = list.filter(n => n.uuid === scene.uuid)[0];
 
@@ -152,8 +152,9 @@ Converter.prototype.toJSON = function (obj) {
  * @param {THREE.Object3D} obj 三维物体
  * @param {Object} children 子级结构
  * @param {Array} list json列表
+ * @param {Object} options 配置信息
  */
-Converter.prototype.traverse = function (obj, children, list) {
+Converter.prototype.traverse = function (obj, children, list, options) {
     let json = null;
 
     if (obj.userData.Server === true) { // 服务器对象
@@ -226,8 +227,12 @@ Converter.prototype.traverse = function (obj, children, list) {
         console.warn(`Converter: No ${obj.constructor.name} Serializer.`);
     }
 
-    // 1、如果obj.userData.type不为空，则为内置类型，其子项不应该序列化。
-    // 2、服务器(模型)对象需要记录用户对模型的修改，需要序列化。
+    // 1、服务器模型(ServerObject)，如果设置了不保存子组件，则不保存模型内部信息。
+    if (obj.userData.Server === true && options.saveChild === false) {
+        return;
+    }
+
+    // 2、如果obj.userData.type不为空，则为内置类型，其子项不应该序列化。
     if (obj.children && obj.userData.type === undefined) {
         obj.children.forEach(n => {
             let children1 = [];
@@ -237,7 +242,7 @@ Converter.prototype.traverse = function (obj, children, list) {
                 children: children1
             });
 
-            this.traverse(n, children1, list);
+            this.traverse(n, children1, list, options);
         });
     }
 };
@@ -257,7 +262,11 @@ Converter.prototype.fromJson = function (jsons, options) {
         scripts: null,
         animations: [],
         svg: { html: '' },
-        scene: null
+        scene: null,
+
+        // 配置选项
+        oldCamera: options.camera,
+        server: options.server // 当前服务端选项，便于场景数据在不同服务端显示。
     };
 
     // 选项
@@ -276,8 +285,10 @@ Converter.prototype.fromJson = function (jsons, options) {
         console.warn(`Converter: No camera info in the scene.`);
     }
 
-    if (options.camera === undefined) {
-        options.camera = obj.camera;
+    // 1、载入场景，传相机参数，则使用编辑器自带相机。
+    // 2、播放时，不传相机参数，使用新生成的相机。
+    if (!obj.oldCamera) {
+        obj.oldCamera = obj.camera;
     }
 
     // 渲染器
@@ -286,10 +297,6 @@ Converter.prototype.fromJson = function (jsons, options) {
         obj.renderer = new WebGLRendererSerializer().fromJSON(rendererJson);
     } else {
         console.warn(`Converter: No renderer info in the scene.`);
-    }
-
-    if (options.renderer === undefined) {
-        options.renderer = obj.renderer;
     }
 
     // 脚本
@@ -320,12 +327,11 @@ Converter.prototype.fromJson = function (jsons, options) {
         audioListener = new THREE.AudioListener();
     }
     obj.audioListener = audioListener;
-    options.audioListener = audioListener;
     obj.camera.add(audioListener);
 
     // 场景
     return new Promise(resolve => {
-        this.parse(jsons, options).then(scene => {
+        this.parse(jsons, obj).then(scene => {
             obj.scene = scene;
             resolve(obj);
         });
@@ -376,9 +382,12 @@ Converter.prototype.parse = function (jsons, options) {
             parts.push(new Object3DSerializer().fromJSON(n));
             return new Promise(resolve => {
                 new ServerObject().fromJSON(n, options, options).then(obj => {
-                    // bug: 由于某个模型被删，导致场景整体加载失败。
                     if (obj) {
-                        this.traverseServerObject(obj, serverParts);
+                        if (options.options.saveChild === false) { // 不保存模型内部组件
+                            serverParts.push(obj);
+                        } else { // 保存模型内部组件
+                            this.traverseServerObject(obj, serverParts);
+                        }
                     } else {
                         console.warn(`Converter: ${n.uuid} loaded failed.`);
                     }
@@ -410,9 +419,9 @@ Converter.prototype.parse = function (jsons, options) {
         } else if (generator === 'AudioSerializer') {
             parts.push(new AudioSerializer().fromJSON(n, undefined, options.audioListener));
         } else if (generator === 'FireSerializer') {
-            parts.push(new FireSerializer().fromJSON(n, undefined, options.camera));
+            parts.push(new FireSerializer().fromJSON(n, undefined, options.oldCamera));
         } else if (generator === 'SmokeSerializer') {
-            parts.push(new SmokeSerializer().fromJSON(n, undefined, options.camera, options.renderer));
+            parts.push(new SmokeSerializer().fromJSON(n, undefined, options.oldCamera, options.renderer));
         } else if (generator === 'BoneSerializer') {
             parts.push(new BoneSerializer().fromJSON(n));
         } else if (generator === 'SkySerializer') {
@@ -455,7 +464,7 @@ Converter.prototype.parse = function (jsons, options) {
     // 根据children重新还原场景结构
     return new Promise(resolve => {
         Promise.all(promises).then(() => {
-            this.parseScene(scene, children, parts, serverParts);
+            this.parseScene(scene, children, parts, serverParts, options);
             resolve(scene);
         });
     });
@@ -467,29 +476,34 @@ Converter.prototype.parse = function (jsons, options) {
  * @param {*} children 子组件
  * @param {*} parts 反序列化json得到的部件
  * @param {*} serverParts 服务端模型分解出的组件
+ * @param {*} options 配置信息
  * @description 由于只序列化了服务端模型的材质，所以优先采用服务端模型组件搭建场景，并用序列化的材质代替服务端材质。
  */
-Converter.prototype.parseScene = function (parent, children, parts, serverParts) {
+Converter.prototype.parseScene = function (parent, children, parts, serverParts, options) {
     children.forEach(child => {
         let obj = serverParts.filter(n => n.uuid === child.uuid)[0];
+        let isServerObject = false;
 
         if (obj) { // 服务端组件
-            let obj1 = parts.filter(n => n.uuid === child.uuid)[0];
+            isServerObject = true;
+            if (options.options.saveChild !== false) { // 保存模型内部组件
+                let obj1 = parts.filter(n => n.uuid === child.uuid)[0];
 
-            if (obj1) { // 还原修改过的名称、位置、旋转、缩放等信息。
-                obj.name = obj1.name;
-                obj.position.copy(obj1.position);
-                obj.rotation.copy(obj1.rotation);
-                obj.scale.copy(obj1.scale);
-                if (obj.material && obj1.material) { // blob:http://
-                    if (obj.material.map && obj.material.map.image && obj.material.map.image.src && obj.material.map.image.src.toString().startsWith('blob:http://')) {
-                        // 这种类型材质不能被替换
-                    } else {
-                        obj.material = obj1.material;
+                if (obj1) { // 还原修改过的名称、位置、旋转、缩放等信息。
+                    obj.name = obj1.name;
+                    obj.position.copy(obj1.position);
+                    obj.rotation.copy(obj1.rotation);
+                    obj.scale.copy(obj1.scale);
+                    if (obj.material && obj1.material) { // blob:http://
+                        if (obj.material.map && obj.material.map.image && obj.material.map.image.src && obj.material.map.image.src.toString().startsWith('blob:http://')) {
+                            // 这种类型材质不能被替换
+                        } else {
+                            obj.material = obj1.material;
+                        }
                     }
+                } else {
+                    console.warn(`Converter: The components of ServerObject ${child.uuid} is not serialized.`);
                 }
-            } else {
-                console.warn(`Converter: The components of ServerObject ${child.uuid} is not serialized.`);
             }
         } else {
             obj = parts.filter(n => n.uuid === child.uuid)[0];
@@ -502,8 +516,11 @@ Converter.prototype.parseScene = function (parent, children, parts, serverParts)
 
         parent.add(obj);
 
-        if (child.children.length > 0) {
-            this.parseScene(obj, child.children, parts, serverParts);
+        // 1、对于服务端组件，只有保存内部组件选项不为false时，才保存模型内部选项。
+        if (isServerObject && options.options.saveChild !== false || !isServerObject) {
+            if (child.children.length > 0) {
+                this.parseScene(obj, child.children, parts, serverParts, options);
+            }
         }
     });
 };
