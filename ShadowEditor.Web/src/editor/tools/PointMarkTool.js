@@ -13,7 +13,10 @@ class PointMarkTool extends BaseTool {
     }
 
     start() {
-        this.marker = new PointMarker();
+        this.marker = new PointMarker('', {
+            domWidth: app.editor.renderer.domElement.width,
+            domHeight: app.editor.renderer.domElement.height
+        });
         app.editor.sceneHelpers.add(this.marker);
 
         app.toast(_t('Please click on the marked position.'));

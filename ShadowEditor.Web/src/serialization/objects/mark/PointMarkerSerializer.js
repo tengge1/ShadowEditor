@@ -17,8 +17,11 @@ PointMarkerSerializer.prototype.toJSON = function (obj) {
     return Object3DSerializer.prototype.toJSON.call(this, obj);
 };
 
-PointMarkerSerializer.prototype.fromJSON = function (json, parent) {
-    var obj = new PointMarker(json.userData.text);
+PointMarkerSerializer.prototype.fromJSON = function (json, parent, options) {
+    var obj = new PointMarker(json.userData.text, {
+        domWidth: options.domWidth,
+        domHeight: options.domHeight
+    });
 
     Object3DSerializer.prototype.fromJSON.call(this, json, obj);
 

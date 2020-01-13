@@ -8,8 +8,11 @@ let ID = -1;
  * 不缩放文字
  */
 class UnscaledText extends THREE.Mesh {
-    constructor(text = '') {
+    constructor(text = '', options) {
         const canvas = document.createElement('canvas');
+
+        const domWidth = options.domWidth || 1422;
+        const domHeight = options.domHeight || 715;
 
         let geometry = new THREE.PlaneBufferGeometry();
         let material = new THREE.ShaderMaterial({
@@ -26,10 +29,10 @@ class UnscaledText extends THREE.Mesh {
                     value: 1.0 // canvas height
                 },
                 domWidth: {
-                    value: 1422.0 // dom width
+                    value: domWidth // dom width
                 },
                 domHeight: {
-                    value: 715.0 // dom height
+                    value: domHeight // dom height
                 }
             },
             transparent: true
@@ -64,13 +67,8 @@ class UnscaledText extends THREE.Mesh {
         canvas.width = width2;
         canvas.height = height2;
 
-        const domWidth = app.editor.renderer.domElement.width;
-        const domHeight = app.editor.renderer.domElement.height;
-
         this.material.uniforms.width.value = width2;
         this.material.uniforms.height.value = height2;
-        this.material.uniforms.domWidth.value = domWidth;
-        this.material.uniforms.domHeight.value = domHeight;
 
         // 设置样式并绘制文字
         context = canvas.getContext('2d');
@@ -97,6 +95,7 @@ class UnscaledText extends THREE.Mesh {
     }
 
     onResize() {
+        // TODO: 播放器中大小
         const { width, height } = app.editor.renderer.domElement;
         this.material.uniforms.domWidth.value = width;
         this.material.uniforms.domHeight.value = height;

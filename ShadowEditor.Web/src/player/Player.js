@@ -31,9 +31,10 @@ function Player(container = document.body, options = {}) {
     this.options.enableThrowBall = false;
     this.options.showStats = this.options.showStats || false;
 
-    this.dispatch = new dispatch([
-        'init'
-    ]);
+    this.dispatch = new dispatch(
+        'init',
+        'resize'
+    );
     this.call = this.dispatch.call.bind(this.dispatch);
     this.on = this.dispatch.on.bind(this.dispatch);
 

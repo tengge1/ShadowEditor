@@ -209,7 +209,10 @@ class ObjectMenu extends React.Component {
             title: _t('Please input'),
             value: _t('Some Words'),
             onOK: (value) => {
-                app.editor.execute(new AddObjectCommand(new UnscaledText(value)));
+                app.editor.execute(new AddObjectCommand(new UnscaledText(value, {
+                    domWidth: app.editor.renderer.domElement.width,
+                    domHeight: app.editor.renderer.domElement.height
+                })));
             }
         });
     }

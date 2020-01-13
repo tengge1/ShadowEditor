@@ -17,8 +17,11 @@ UnscaledTextSerializer.prototype.toJSON = function (obj) {
     return Object3DSerializer.prototype.toJSON.call(this, obj);
 };
 
-UnscaledTextSerializer.prototype.fromJSON = function (json, parent) {
-    var obj = new UnscaledText(json.userData.text);
+UnscaledTextSerializer.prototype.fromJSON = function (json, parent, options) {
+    var obj = new UnscaledText(json.userData.text, {
+        domWidth: options.domWidth,
+        domHeight: options.domHeight
+    });
 
     Object3DSerializer.prototype.fromJSON.call(this, json, obj);
 

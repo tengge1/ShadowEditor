@@ -452,11 +452,17 @@ Converter.prototype.parse = function (jsons, options) {
         } else if (generator === 'Object3DSerializer') {
             parts.push(new Object3DSerializer().fromJSON(n));
         } else if (generator === 'UnscaledTextSerializer') {
-            parts.push(new UnscaledTextSerializer().fromJSON(n));
+            parts.push(new UnscaledTextSerializer().fromJSON(n, undefined, {
+                domWidth: options.renderer.domElement.width,
+                domHeight: options.renderer.domElement.height
+            }));
         } else if (generator === 'ThreeDTextSerializer') {
             parts.push(new ThreeDTextSerializer().fromJSON(n));
         } else if (generator === 'PointMarkerSerializer') {
-            parts.push(new PointMarkerSerializer().fromJSON(n));
+            parts.push(new PointMarkerSerializer().fromJSON(n, undefined, {
+                domWidth: options.renderer.domElement.width,
+                domHeight: options.renderer.domElement.height
+            }));
         } else {
             console.warn(`Converter: No Deserializer with ${generator}.`);
         }
