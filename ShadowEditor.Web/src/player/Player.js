@@ -115,7 +115,10 @@ Player.prototype.start = function (sceneData) {
 
     this.container.style.display = 'block';
 
-    this.loader.create(jsons).then(obj => {
+    this.loader.create(jsons, {
+        domWidth: this.container.clientWidth,
+        domHeight: this.container.clientHeight
+    }).then(obj => {
         this.initPlayer(obj);
 
         this.dispatch.call('init', this);

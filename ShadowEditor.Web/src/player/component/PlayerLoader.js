@@ -12,9 +12,11 @@ function PlayerLoader(app) {
 PlayerLoader.prototype = Object.create(PlayerComponent.prototype);
 PlayerLoader.prototype.constructor = PlayerLoader;
 
-PlayerLoader.prototype.create = function (jsons) {
-    return (new Converter()).fromJson(jsons, {
-        server: app.options.server
+PlayerLoader.prototype.create = function (jsons, options) {
+    return new Converter().fromJson(jsons, {
+        server: app.options.server,
+        domWidth: options.domWidth,
+        domHeight: options.domHeight
     }).then(obj => {
         this.scene = obj.scene;
         return new Promise(resolve => {

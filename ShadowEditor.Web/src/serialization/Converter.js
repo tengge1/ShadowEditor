@@ -254,9 +254,12 @@ Converter.prototype.traverse = function (obj, children, list, options, isServerO
 
 /**
  * 场景反序列化
- * @param {*} jsons json对象（列表）
- * @param {*} options 配置选项 格式：{ server: serverUrl } 其中，serverUrl为服务端地址，用于下载模型、纹理等资源
- * @param {*} options.server 服务端地址
+ * @param {Array} jsons json对象（列表）
+ * @param {Object} options 配置选项
+ * @param {String} options.server 服务端地址，用于下载模型、纹理等资源
+ * @param {THREE.Camera} options.camera 旧相机
+ * @param {Number} options.domWidth 画布宽度
+ * @param {Number} options.domHeight 画布高度
  * @returns {Object} json数据
  */
 Converter.prototype.fromJson = function (jsons, options) {
@@ -271,7 +274,9 @@ Converter.prototype.fromJson = function (jsons, options) {
 
         // 配置选项
         oldCamera: options.camera,
-        server: options.server // 当前服务端选项，便于场景数据在不同服务端显示。
+        server: options.server, // 当前服务端选项，便于场景数据在不同服务端显示。
+        domWidth: options.domWidth || 1422,
+        domHeight: options.domHeight || 715
     };
 
     // 选项
@@ -453,15 +458,15 @@ Converter.prototype.parse = function (jsons, options) {
             parts.push(new Object3DSerializer().fromJSON(n));
         } else if (generator === 'UnscaledTextSerializer') {
             parts.push(new UnscaledTextSerializer().fromJSON(n, undefined, {
-                domWidth: options.renderer.domElement.width,
-                domHeight: options.renderer.domElement.height
+                domWidth: options.domWidth,
+                domHeight: options.domHeight
             }));
         } else if (generator === 'ThreeDTextSerializer') {
             parts.push(new ThreeDTextSerializer().fromJSON(n));
         } else if (generator === 'PointMarkerSerializer') {
             parts.push(new PointMarkerSerializer().fromJSON(n, undefined, {
-                domWidth: options.renderer.domElement.width,
-                domHeight: options.renderer.domElement.height
+                domWidth: options.domWidth,
+                domHeight: options.domHeight
             }));
         } else {
             console.warn(`Converter: No Deserializer with ${generator}.`);

@@ -46,7 +46,9 @@ LoadSceneEvent.prototype.onLoad = function (url, name, id) {
 
             new Converter().fromJson(obj.Data, {
                 server: app.options.server,
-                camera: app.editor.camera
+                camera: app.editor.camera,
+                domWidth: app.editor.renderer.domElement.width,
+                domHeight: app.editor.renderer.domElement.height
             }).then(obj => {
                 this.onLoadScene(obj);
 
