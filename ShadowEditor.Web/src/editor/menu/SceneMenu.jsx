@@ -300,7 +300,7 @@ class SceneMenu extends React.Component {
 
         app.confirm({
             title: _t('Query'),
-            content: _t('Are you sure to export the current scene?'),
+            content: _t('Are you sure to publish the current scene?'),
             onOK: () => {
                 app.mask(_t('Exporting...'));
 

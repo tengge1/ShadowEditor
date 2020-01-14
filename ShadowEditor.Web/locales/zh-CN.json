@@ -631,7 +631,7 @@
     "Please save scene first.": "请先保存场景！",
     "Please open scene first.": "请先打开场景！",
     "Query": "询问",
-    "Are you sure to export the current scene?": "是否导出当前场景？",
+    "Are you sure to publish the current scene?": "是否发布当前场景？",
     "Organizing the texture will remove the number and underscore after the name, regenerate the data table and texture catalog, remove the empty folder and unreferenced texture file, the system will automatically back up the data table and texture catalog, is it organized?": "整理贴图会去除名称后的数字和下划线，重新生成数据表和贴图目录，移除空文件夹和未引用贴图文件，系统会自动备份数据表和贴图目录，是否整理？",
     "Organizing the model will remove the number and underscore after the name, regenerate the data table, model catalog, remove empty folders and unreferenced model files, the system will automatically back up the data table, model catalog, whether to sort?": "整理模型会去除名称后的数字和下划线，重新生成数据表、模型目录，移除空文件夹和未引用模型文件，系统会自动备份数据表、模型目录，是否整理？",
     "Organizing the thumbnails will regenerate the thumbnail directory, modify the scene, model, texture, material, audio, animation, particles, preset body, and the thumbnail path of the characters. Please manually back up the database first.": "整理缩略图会重新生成缩略图目录，修改场景、模型、贴图、材质、音频、动画、粒子、预设体、人物的缩略图路径，请先手动备份数据库，是否整理？",
