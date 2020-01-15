@@ -10,6 +10,7 @@ const Controls = {
 
 /**
  * 控制器管理器
+ * @author tengge1 / https://github.com/tengge1
  */
 class ControlsManager extends BaseControls {
     constructor(camera, domElement) {
