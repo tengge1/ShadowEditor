@@ -18,8 +18,8 @@ class ControlsManager extends BaseControls {
         this._handleChange = this._handleChange.bind(this);
         this._handleCleared = this._handleCleared.bind(this);
 
-        this.current = new EditorControls(this.camera, this.domElement);
-        this.current.addEventListener('change', this._handleChange);
+        let mode = app.storage.get('controlMode') || 'EditorControls';
+        this.changeMode(mode);
 
         app.on(`editorCleared.${this.id}`, this._handleCleared);
     }
@@ -33,8 +33,11 @@ class ControlsManager extends BaseControls {
             console.warn(`ControlsManager: ${modeName} is not defined.`);
             return;
         }
-        this.current.disable();
-        this.current.removeEventListener('change', this._handleChange);
+        if (this.current) {
+            this.current.disable();
+            this.current.removeEventListener('change', this._handleChange);
+        }
+
         this.current = new Controls[modeName](this.camera, this.domElement);
         this.current.enable();
         this.current.addEventListener('change', this._handleChange);

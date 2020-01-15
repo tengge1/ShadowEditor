@@ -222,6 +222,7 @@ class EditorStatusBar extends React.Component {
     }
 
     handleChangeControlMode(value) {
+        app.editor.controls.changeMode(value);
         app.storage.set('controlMode', value);
         app.call('storageChanged', this, 'controlMode', value);
         this.forceUpdate();
