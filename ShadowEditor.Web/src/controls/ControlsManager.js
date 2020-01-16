@@ -2,10 +2,12 @@ import BaseControls from './BaseControls';
 
 import EditorControls from './EditorControls';
 import FreeControls from './FreeControls';
+import FirstPersonControls from './FirstPersonControls';
 
 const Controls = {
     EditorControls,
-    FreeControls
+    FreeControls,
+    FirstPersonControls
 };
 
 /**

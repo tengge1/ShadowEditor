@@ -21,7 +21,8 @@ class EditorStatusBar extends React.Component {
 
         this.controlMode = {
             EditorControls: _t('Editor Controls'),
-            FreeControls: _t('Free Controls')
+            FreeControls: _t('Free Controls'),
+            FirstPersonControls: _t('First Person Controls')
         };
 
         this.state = {
@@ -45,7 +46,7 @@ class EditorStatusBar extends React.Component {
     }
 
     render() {
-        const { objects, vertices, triangles, showStats, showGrid, showViewHelper, isThrowBall } = this.state;
+        const { objects, vertices, triangles, showStats, showGrid, showViewHelper } = this.state;
         const { enablePhysics } = app.options;
 
         const selectMode = app.storage.get('selectMode');
