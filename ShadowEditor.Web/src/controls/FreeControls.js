@@ -65,7 +65,7 @@ class FreeControls extends BaseControls {
             distance = this.box.getBoundingSphere(this.sphere).radius;
         } else {
             // Focusing on an Group, AmbientLight, etc
-            this.center.setFromMatrixPosition(this.target.matrixWorld);
+            this.center.setFromMatrixPosition(target.matrixWorld);
             distance = 0.1;
         }
 
@@ -76,10 +76,6 @@ class FreeControls extends BaseControls {
         this.camera.position.copy(this.center).add(this.delta);
 
         this.dispatchEvent(this.changeEvent);
-    }
-
-    setCenter(center) {
-
     }
 
     dispose() {

@@ -10,6 +10,7 @@ class BaseControls extends THREE.EventDispatcher {
      */
     constructor(camera, domElement) {
         super();
+
         this.camera = camera;
         this.domElement = domElement;
 
@@ -39,18 +40,11 @@ class BaseControls extends THREE.EventDispatcher {
     }
 
     /**
-     * 设置相机到中心点
-     * @param {THREE.Vector3} center 中心点
-     */
-    setCenter(center) {
-
-    }
-
-    /**
      * 析构控制器
      */
     dispose() {
-
+        this.camera = null;
+        this.domElement = null;
     }
 }
 

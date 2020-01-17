@@ -69,10 +69,6 @@ class FirstPersonControls extends BaseControls {
         this.dispatchEvent(this.changeEvent);
     }
 
-    setCenter(center) {
-
-    }
-
     dispose() {
         this.camera = null;
         this.domElement = null;

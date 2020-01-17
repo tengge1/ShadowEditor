@@ -5,324 +5,269 @@ import BaseControls from './BaseControls';
  * @author mrdoob / http://mrdoob.com
  * @author alteredq / http://alteredqualia.com/
  * @author WestLangley / http://github.com/WestLangley
- * @param {THREE.Camera} object 相机
- * @param {HTMLElement} domElement HTML文档
+ * @author tengge1 / https://github.com/tengge1
  */
-function EditorControls(object, domElement) {
+class EditorControls extends BaseControls {
+    /**
+     * 
+     * @param {THREE.Camera} camera 相机
+     * @param {HTMLElement} domElement HTML元素
+     */
+    constructor(camera, domElement) {
+        super(camera, domElement);
 
-    domElement = domElement !== undefined ? domElement : document;
+        this.enabled = true;
+        this.center = new THREE.Vector3();
 
-    // API
+        this.panSpeed = 0.002;
+        this.zoomSpeed = 0.1;
+        this.rotationSpeed = 0.005;
 
-    this.enabled = true;
-    this.center = new THREE.Vector3();
-    this.panSpeed = 0.002;
-    this.zoomSpeed = 0.1;
-    this.rotationSpeed = 0.005;
+        // internals
+        this.vector = new THREE.Vector3();
+        this.delta = new THREE.Vector3();
+        this.box = new THREE.Box3();
 
-    // internals
+        this.STATE = { NONE: - 1, ROTATE: 0, ZOOM: 1, PAN: 2 };
+        this.state = this.STATE.NONE;
 
-    var scope = this;
-    var vector = new THREE.Vector3();
-    var delta = new THREE.Vector3();
-    var box = new THREE.Box3();
+        this.normalMatrix = new THREE.Matrix3();
+        this.pointer = new THREE.Vector2();
+        this.pointerOld = new THREE.Vector2();
+        this.spherical = new THREE.Spherical();
+        this.sphere = new THREE.Sphere();
 
-    var STATE = { NONE: - 1, ROTATE: 0, ZOOM: 1, PAN: 2 };
-    var state = STATE.NONE;
+        // touch
+        this.touches = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
+        this.prevTouches = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
+        this.prevDistance = null;
 
-    var center = this.center;
-    var normalMatrix = new THREE.Matrix3();
-    var pointer = new THREE.Vector2();
-    var pointerOld = new THREE.Vector2();
-    var spherical = new THREE.Spherical();
-    var sphere = new THREE.Sphere();
+        this.onMouseDown = this.onMouseDown.bind(this);
+        this.onMouseMove = this.onMouseMove.bind(this);
+        this.onMouseUp = this.onMouseUp.bind(this);
+        this.onMouseWheel = this.onMouseWheel.bind(this);
+        this.onTouchStart = this.onTouchStart.bind(this);
+        this.onTouchMove = this.onTouchMove.bind(this);
 
-    // events
+        this.domElement.addEventListener('mousedown', this.onMouseDown, false);
+        this.domElement.addEventListener('wheel', this.onMouseWheel, false);
+        this.domElement.addEventListener('touchstart', this.onTouchStart, false);
+        this.domElement.addEventListener('touchmove', this.onTouchMove, false);
+    }
 
-    var changeEvent = { type: 'change' };
+    enable() {
+        this.enabled = true;
+    }
 
-    this.enable = function () {
-        scope.enabled = true;
-    };
+    disable() {
+        this.enabled = false;
+    }
 
-    this.disable = function () {
-        scope.enabled = false;
-    };
+    focus(target) {
+        let distance;
 
-    this.focus = function (target) {
+        this.box.setFromObject(target);
 
-        var distance;
-
-        box.setFromObject(target);
-
-        if (box.isEmpty() === false) {
-
-            box.getCenter(center);
-            distance = box.getBoundingSphere(sphere).radius;
-
+        if (this.box.isEmpty() === false) {
+            this.box.getCenter(this.center);
+            distance = this.box.getBoundingSphere(this.sphere).radius;
         } else {
-
             // Focusing on an Group, AmbientLight, etc
-
-            center.setFromMatrixPosition(target.matrixWorld);
+            this.center.setFromMatrixPosition(target.matrixWorld);
             distance = 0.1;
-
         }
 
-        delta.set(0, 0, 1);
-        delta.applyQuaternion(object.quaternion);
-        delta.multiplyScalar(distance * 4);
+        this.delta.set(0, 0, 1);
+        this.delta.applyQuaternion(this.camera.quaternion);
+        this.delta.multiplyScalar(distance * 4);
 
-        object.position.copy(center).add(delta);
+        this.camera.position.copy(this.center).add(this.delta);
 
-        scope.dispatchEvent(changeEvent);
+        this.dispatchEvent(this.changeEvent);
+    }
 
-    };
+    dispose() {
+        this.domElement.removeEventListener('mousedown', this.onMouseDown);
+        this.domElement.removeEventListener('wheel', this.onMouseWheel);
+        this.domElement.removeEventListener('touchstart', this.onTouchStart);
+        this.domElement.removeEventListener('touchmove', this.onTouchMove);
+        this.camera = null;
+        this.domElement = null;
+    }
 
-    this.pan = function (delta) {
+    pan(delta) {
+        var distance = this.camera.position.distanceTo(this.center);
 
-        var distance = object.position.distanceTo(center);
+        delta.multiplyScalar(distance * this.panSpeed);
+        delta.applyMatrix3(this.normalMatrix.getNormalMatrix(this.camera.matrix));
 
-        delta.multiplyScalar(distance * scope.panSpeed);
-        delta.applyMatrix3(normalMatrix.getNormalMatrix(object.matrix));
+        this.camera.position.add(delta);
+        this.center.add(delta);
 
-        object.position.add(delta);
-        center.add(delta);
+        this.dispatchEvent(this.changeEvent);
+    }
 
-        scope.dispatchEvent(changeEvent);
+    rotate(delta) {
+        this.vector.copy(this.camera.position).sub(this.center);
 
-    };
+        this.spherical.setFromVector3(this.vector);
 
-    this.zoom = function (delta) {
+        this.spherical.theta += delta.x * this.rotationSpeed;
+        this.spherical.phi += delta.y * this.rotationSpeed;
 
-        var distance = object.position.distanceTo(center);
+        this.spherical.makeSafe();
 
-        delta.multiplyScalar(distance * scope.zoomSpeed);
+        this.vector.setFromSpherical(this.spherical);
 
-        if (delta.length() > distance) return;
+        this.camera.position.copy(this.center).add(this.vector);
 
-        delta.applyMatrix3(normalMatrix.getNormalMatrix(object.matrix));
+        this.camera.lookAt(this.center);
 
-        object.position.add(delta);
+        this.dispatchEvent(this.changeEvent);
+    }
 
-        scope.dispatchEvent(changeEvent);
+    zoom(delta) {
+        var distance = this.camera.position.distanceTo(this.center);
+        delta.multiplyScalar(distance * this.zoomSpeed);
 
-    };
+        if (delta.length() > distance) {
+            return;
+        }
 
-    this.rotate = function (delta) {
+        delta.applyMatrix3(this.normalMatrix.getNormalMatrix(this.camera.matrix));
 
-        vector.copy(object.position).sub(center);
+        this.camera.position.add(delta);
 
-        spherical.setFromVector3(vector);
+        this.dispatchEvent(this.changeEvent);
+    }
 
-        spherical.theta += delta.x * scope.rotationSpeed;
-        spherical.phi += delta.y * scope.rotationSpeed;
-
-        spherical.makeSafe();
-
-        vector.setFromSpherical(spherical);
-
-        object.position.copy(center).add(vector);
-
-        object.lookAt(center);
-
-        scope.dispatchEvent(changeEvent);
-
-    };
-
-    // mouse
-
-    function onMouseDown(event) {
-
-        if (scope.enabled === false) return;
+    onMouseDown(event) {
+        if (this.enabled === false) {
+            return;
+        }
 
         if (event.button === 0) {
-
-            state = STATE.ROTATE;
-
+            this.state = this.STATE.ROTATE;
         } else if (event.button === 1) {
-
-            state = STATE.ZOOM;
-
+            this.state = this.STATE.ZOOM;
         } else if (event.button === 2) {
-
-            state = STATE.PAN;
-
+            this.state = this.STATE.PAN;
         }
 
-        pointerOld.set(event.clientX, event.clientY);
+        this.pointerOld.set(event.clientX, event.clientY);
 
-        domElement.addEventListener('mousemove', onMouseMove, false);
-        domElement.addEventListener('mouseup', onMouseUp, false);
-        domElement.addEventListener('mouseout', onMouseUp, false);
-        domElement.addEventListener('dblclick', onMouseUp, false);
-
+        this.domElement.addEventListener('mousemove', this.onMouseMove, false);
+        this.domElement.addEventListener('mouseup', this.onMouseUp, false);
+        this.domElement.addEventListener('mouseout', this.onMouseUp, false);
+        this.domElement.addEventListener('dblclick', this.onMouseUp, false);
     }
 
-    function onMouseMove(event) {
-
-        if (scope.enabled === false) return;
-
-        pointer.set(event.clientX, event.clientY);
-
-        var movementX = pointer.x - pointerOld.x;
-        var movementY = pointer.y - pointerOld.y;
-
-        if (state === STATE.ROTATE) {
-
-            scope.rotate(delta.set(- movementX, - movementY, 0));
-
-        } else if (state === STATE.ZOOM) {
-
-            scope.zoom(delta.set(0, 0, movementY));
-
-        } else if (state === STATE.PAN) {
-
-            scope.pan(delta.set(- movementX, movementY, 0));
-
+    onMouseMove(event) {
+        if (this.enabled === false) {
+            return;
         }
 
-        pointerOld.set(event.clientX, event.clientY);
+        this.pointer.set(event.clientX, event.clientY);
 
+        var movementX = this.pointer.x - this.pointerOld.x;
+        var movementY = this.pointer.y - this.pointerOld.y;
+
+        if (this.state === this.STATE.ROTATE) {
+            this.rotate(this.delta.set(- movementX, - movementY, 0));
+        } else if (this.state === this.STATE.ZOOM) {
+            this.zoom(this.delta.set(0, 0, this.movementY));
+        } else if (this.state === this.STATE.PAN) {
+            this.pan(this.delta.set(- movementX, movementY, 0));
+        }
+
+        this.pointerOld.set(event.clientX, event.clientY);
     }
 
-    function onMouseUp() {
+    onMouseUp() {
+        this.domElement.removeEventListener('mousemove', this.onMouseMove, false);
+        this.domElement.removeEventListener('mouseup', this.onMouseUp, false);
+        this.domElement.removeEventListener('mouseout', this.onMouseUp, false);
+        this.domElement.removeEventListener('dblclick', this.onMouseUp, false);
 
-        domElement.removeEventListener('mousemove', onMouseMove, false);
-        domElement.removeEventListener('mouseup', onMouseUp, false);
-        domElement.removeEventListener('mouseout', onMouseUp, false);
-        domElement.removeEventListener('dblclick', onMouseUp, false);
-
-        state = STATE.NONE;
-
+        this.state = this.STATE.NONE;
     }
 
-    function onMouseWheel(event) {
-
+    onMouseWheel(event) {
         event.preventDefault();
 
         // Normalize deltaY due to https://bugzilla.mozilla.org/show_bug.cgi?id=1392460
-        scope.zoom(delta.set(0, 0, event.deltaY > 0 ? 1 : - 1));
-
+        this.zoom(this.delta.set(0, 0, event.deltaY > 0 ? 1 : - 1));
     }
-
-    function contextmenu(event) {
-
-        event.preventDefault();
-
-    }
-
-    this.dispose = function () {
-
-        domElement.removeEventListener('contextmenu', contextmenu, false);
-        domElement.removeEventListener('mousedown', onMouseDown, false);
-        domElement.removeEventListener('wheel', onMouseWheel, false);
-
-        domElement.removeEventListener('mousemove', onMouseMove, false);
-        domElement.removeEventListener('mouseup', onMouseUp, false);
-        domElement.removeEventListener('mouseout', onMouseUp, false);
-        domElement.removeEventListener('dblclick', onMouseUp, false);
-
-        domElement.removeEventListener('touchstart', touchStart, false);
-        domElement.removeEventListener('touchmove', touchMove, false);
-
-    };
-
-    domElement.addEventListener('contextmenu', contextmenu, false);
-    domElement.addEventListener('mousedown', onMouseDown, false);
-    domElement.addEventListener('wheel', onMouseWheel, false);
 
     // touch
-
-    var touches = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
-    var prevTouches = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
-
-    var prevDistance = null;
-
-    function touchStart(event) {
-
-        if (scope.enabled === false) return;
-
-        switch (event.touches.length) {
-
-            case 1:
-                touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
-                touches[1].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
-                break;
-
-            case 2:
-                touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
-                touches[1].set(event.touches[1].pageX, event.touches[1].pageY, 0).divideScalar(window.devicePixelRatio);
-                prevDistance = touches[0].distanceTo(touches[1]);
-                break;
-
+    onTouchStart(event) {
+        if (this.enabled === false) {
+            return;
         }
 
-        prevTouches[0].copy(touches[0]);
-        prevTouches[1].copy(touches[1]);
+        switch (event.touches.length) {
+            case 1:
+                this.touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
+                this.touches[1].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
+                break;
+            case 2:
+                this.touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
+                this.touches[1].set(event.touches[1].pageX, event.touches[1].pageY, 0).divideScalar(window.devicePixelRatio);
+                this.prevDistance = this.touches[0].distanceTo(this.touches[1]);
+                break;
+        }
 
+        this.prevTouches[0].copy(this.touches[0]);
+        this.prevTouches[1].copy(this.touches[1]);
     }
 
-
-    function touchMove(event) {
-
-        if (scope.enabled === false) return;
+    onTouchMove(event) {
+        if (this.enabled === false) {
+            return;
+        }
 
         event.preventDefault();
         event.stopPropagation();
 
-        function getClosest(touch, touches) {
-
-            var closest = touches[0];
-
-            for (var i in touches) {
-
-                if (closest.distanceTo(touch) > touches[i].distanceTo(touch)) closest = touches[i];
-
-            }
-
-            return closest;
-
-        }
-
         switch (event.touches.length) {
-
             case 1:
-                touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
-                touches[1].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
-                scope.rotate(touches[0].sub(getClosest(touches[0], prevTouches)).multiplyScalar(- 1));
+                this.touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
+                this.touches[1].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
+                this.rotate(this.touches[0].sub(this.getClosest(this.touches[0], this.prevTouches)).multiplyScalar(- 1));
                 break;
 
             case 2:
-                touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
-                touches[1].set(event.touches[1].pageX, event.touches[1].pageY, 0).divideScalar(window.devicePixelRatio);
-                var distance = touches[0].distanceTo(touches[1]);
-                scope.zoom(delta.set(0, 0, prevDistance - distance));
-                prevDistance = distance;
+                this.touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
+                this.touches[1].set(event.touches[1].pageX, event.touches[1].pageY, 0).divideScalar(window.devicePixelRatio);
+                var distance = this.touches[0].distanceTo(this.touches[1]);
+                this.zoom(this.delta.set(0, 0, this.prevDistance - distance));
+                this.prevDistance = distance;
 
-
-                var offset0 = touches[0].clone().sub(getClosest(touches[0], prevTouches));
-                var offset1 = touches[1].clone().sub(getClosest(touches[1], prevTouches));
+                var offset0 = this.touches[0].clone().sub(this.getClosest(this.touches[0], this.prevTouches));
+                var offset1 = this.touches[1].clone().sub(this.getClosest(this.touches[1], this.prevTouches));
                 offset0.x = - offset0.x;
                 offset1.x = - offset1.x;
 
-                scope.pan(offset0.add(offset1));
+                this.pan(offset0.add(offset1));
 
                 break;
-
         }
 
-        prevTouches[0].copy(touches[0]);
-        prevTouches[1].copy(touches[1]);
-
+        this.prevTouches[0].copy(this.touches[0]);
+        this.prevTouches[1].copy(this.touches[1]);
     }
 
-    domElement.addEventListener('touchstart', touchStart, false);
-    domElement.addEventListener('touchmove', touchMove, false);
+    getClosest(touch, touches) {
+        var closest = touches[0];
 
+        for (var i in touches) {
+            if (closest.distanceTo(touch) > touches[i].distanceTo(touch)) {
+                closest = touches[i];
+            }
+        }
+
+        return closest;
+    }
 }
-
-EditorControls.prototype = Object.create(BaseControls.prototype);
-EditorControls.prototype.constructor = BaseControls;
 
 export default EditorControls;
