@@ -29,13 +29,22 @@ class FreeControls extends BaseControls {
         this.spherical = new THREE.Spherical();
         this.sphere = new THREE.Sphere();
 
+        // touch
+        this.touches = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
+        this.prevTouches = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
+        this.prevDistance = null;
+
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseMove = this.onMouseMove.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
         this.onMouseWheel = this.onMouseWheel.bind(this);
+        this.onTouchStart = this.onTouchStart.bind(this);
+        this.onTouchMove = this.onTouchMove.bind(this);
 
         this.domElement.addEventListener('mousedown', this.onMouseDown, false);
         this.domElement.addEventListener('wheel', this.onMouseWheel, false);
+        this.domElement.addEventListener('touchstart', this.onTouchStart, false);
+        this.domElement.addEventListener('touchmove', this.onTouchMove, false);
     }
 
     enable() {
@@ -74,10 +83,12 @@ class FreeControls extends BaseControls {
     }
 
     dispose() {
-        this.camera = null;
-        this.domElement = null;
         this.domElement.removeEventListener('mousedown', this.onMouseDown);
         this.domElement.removeEventListener('wheel', this.onMouseWheel);
+        this.domElement.removeEventListener('touchstart', this.onTouchStart);
+        this.domElement.removeEventListener('touchmove', this.onTouchMove);
+        this.camera = null;
+        this.domElement = null;
     }
 
     pan(delta) {
@@ -182,6 +193,76 @@ class FreeControls extends BaseControls {
 
         // Normalize deltaY due to https://bugzilla.mozilla.org/show_bug.cgi?id=1392460
         this.zoom(this.delta.set(0, 0, event.deltaY > 0 ? 1 : - 1));
+    }
+
+    // touch
+    onTouchStart(event) {
+        if (this.enabled === false) {
+            return;
+        }
+
+        switch (event.touches.length) {
+            case 1:
+                this.touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
+                this.touches[1].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
+                break;
+            case 2:
+                this.touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
+                this.touches[1].set(event.touches[1].pageX, event.touches[1].pageY, 0).divideScalar(window.devicePixelRatio);
+                this.prevDistance = this.touches[0].distanceTo(this.touches[1]);
+                break;
+        }
+
+        this.prevTouches[0].copy(this.touches[0]);
+        this.prevTouches[1].copy(this.touches[1]);
+    }
+
+    onTouchMove(event) {
+        if (this.enabled === false) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        switch (event.touches.length) {
+            case 1:
+                this.touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
+                this.touches[1].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
+                this.rotate(this.touches[0].sub(this.getClosest(this.touches[0], this.prevTouches)).multiplyScalar(- 1));
+                break;
+
+            case 2:
+                this.touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
+                this.touches[1].set(event.touches[1].pageX, event.touches[1].pageY, 0).divideScalar(window.devicePixelRatio);
+                var distance = this.touches[0].distanceTo(this.touches[1]);
+                this.zoom(this.delta.set(0, 0, this.prevDistance - distance));
+                this.prevDistance = distance;
+
+                var offset0 = this.touches[0].clone().sub(this.getClosest(this.touches[0], this.prevTouches));
+                var offset1 = this.touches[1].clone().sub(this.getClosest(this.touches[1], this.prevTouches));
+                offset0.x = - offset0.x;
+                offset1.x = - offset1.x;
+
+                this.pan(offset0.add(offset1));
+
+                break;
+        }
+
+        this.prevTouches[0].copy(this.touches[0]);
+        this.prevTouches[1].copy(this.touches[1]);
+    }
+
+    getClosest(touch, touches) {
+        var closest = touches[0];
+
+        for (var i in touches) {
+            if (closest.distanceTo(touch) > touches[i].distanceTo(touch)) {
+                closest = touches[i];
+            }
+        }
+
+        return closest;
     }
 }
 
