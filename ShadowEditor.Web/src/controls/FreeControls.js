@@ -34,6 +34,16 @@ class FreeControls extends BaseControls {
         this.prevTouches = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
         this.prevDistance = null;
 
+        // animation
+        this.isPadding = false;
+        this.isRotating = false;
+        this.isZooming = false;
+
+        this.panSpeed = new THREE.Vector3(); // (x, 0, z)
+        this.rotateSpeed = new THREE.Vector3(); // (tile, heading, 0)
+        this.zoomSpeed = 0; // zoom
+
+        // event
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseMove = this.onMouseMove.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
