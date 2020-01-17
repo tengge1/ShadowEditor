@@ -1,3 +1,5 @@
+let ID = -1;
+
 /**
  * 控制器基类
  * @author tengge1 / https://github.com/tengge1
@@ -10,6 +12,8 @@ class BaseControls extends THREE.EventDispatcher {
      */
     constructor(camera, domElement) {
         super();
+
+        this.id = `${this.constructor.name}${ID--}`;
 
         this.camera = camera;
         this.domElement = domElement;

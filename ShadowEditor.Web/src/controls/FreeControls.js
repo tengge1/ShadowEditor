@@ -39,9 +39,9 @@ class FreeControls extends BaseControls {
         this.isRotating = false;
         this.isZooming = false;
 
-        this.panSpeed = new THREE.Vector3(); // (x, 0, z)
-        this.rotateSpeed = new THREE.Vector3(); // (tile, heading, 0)
-        this.zoomSpeed = 0; // zoom
+        this.panVelocity = new THREE.Vector3(); // (x, 0, z)
+        this.rotateVelocity = new THREE.Vector3(); // (tile, heading, 0)
+        this.zoomVelocity = 0; // zoom
 
         // event
         this.onMouseDown = this.onMouseDown.bind(this);
@@ -50,11 +50,13 @@ class FreeControls extends BaseControls {
         this.onMouseWheel = this.onMouseWheel.bind(this);
         this.onTouchStart = this.onTouchStart.bind(this);
         this.onTouchMove = this.onTouchMove.bind(this);
+        this.update = this.update.bind(this);
 
         this.domElement.addEventListener('mousedown', this.onMouseDown, false);
         this.domElement.addEventListener('wheel', this.onMouseWheel, false);
         this.domElement.addEventListener('touchstart', this.onTouchStart, false);
         this.domElement.addEventListener('touchmove', this.onTouchMove, false);
+        app.on(`afterRender.${this.id}`, this.update);
     }
 
     enable() {
@@ -141,6 +143,10 @@ class FreeControls extends BaseControls {
         this.camera.position.add(delta);
 
         this.dispatchEvent(this.changeEvent);
+    }
+
+    update() {
+
     }
 
     onMouseDown(event) {
