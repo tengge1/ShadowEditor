@@ -22,6 +22,7 @@ class ControlsManager extends BaseControls {
 
         const mode = app.storage.get('controlMode') || 'EditorControls';
         this.changeMode(mode);
+        app.on(`animate.${this.id}`, this.update.bind(this));
     }
 
     /**
@@ -44,15 +45,21 @@ class ControlsManager extends BaseControls {
     }
 
     enable() {
+        this.enabled = true;
         this.current && this.current.enable();
     }
 
     disable() {
+        this.enabled = false;
         this.current && this.current.disable();
     }
 
     focus(target) {
         this.current && this.current.focus(target);
+    }
+
+    update(clock, deltaTime) {
+        this.current && this.current.update(clock, deltaTime);
     }
 
     _handleChange() {

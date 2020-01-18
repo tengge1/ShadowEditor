@@ -17,7 +17,6 @@ class EditorControls extends BaseControls {
     constructor(camera, domElement) {
         super(camera, domElement);
 
-        this.enabled = true;
         this.center = new THREE.Vector3();
 
         this.panSpeed = 0.002;
@@ -54,14 +53,6 @@ class EditorControls extends BaseControls {
         this.domElement.addEventListener('wheel', this.onMouseWheel, false);
         this.domElement.addEventListener('touchstart', this.onTouchStart, false);
         this.domElement.addEventListener('touchmove', this.onTouchMove, false);
-    }
-
-    enable() {
-        this.enabled = true;
-    }
-
-    disable() {
-        this.enabled = false;
     }
 
     focus(target) {

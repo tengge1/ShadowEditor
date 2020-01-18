@@ -18,6 +18,7 @@ class BaseControls extends THREE.EventDispatcher {
         this.camera = camera;
         this.domElement = domElement;
 
+        this.enabled = true;
         this.changeEvent = { type: 'change' };
     }
 
@@ -25,14 +26,14 @@ class BaseControls extends THREE.EventDispatcher {
      * 启用控制器
      */
     enable() {
-
+        this.enabled = true;
     }
 
     /**
      * 禁用控制器
      */
     disable() {
-
+        this.enabled = false;
     }
 
     /**
@@ -40,6 +41,15 @@ class BaseControls extends THREE.EventDispatcher {
      * @param {THREE.Object3D} target 目标
      */
     focus(target) { // eslint-disable-line
+
+    }
+
+    /**
+     * 不断循环调用，以便实现动画效果
+     * @param {THREE.Clock} clock 时钟
+     * @param {Number} deltaTime 间隔时间
+     */
+    update(clock, deltaTime) { // eslint-disable-line
 
     }
 
