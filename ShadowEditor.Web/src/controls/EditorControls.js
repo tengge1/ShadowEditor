@@ -1,6 +1,7 @@
 import BaseControls from './BaseControls';
 
 /**
+ * 编辑器控制器
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
  * @author alteredq / http://alteredqualia.com/
