@@ -39,7 +39,7 @@ class BaseControls extends THREE.EventDispatcher {
      * 转到某个物体的视角
      * @param {THREE.Object3D} target 目标
      */
-    focus(target) {
+    focus(target) { // eslint-disable-line
 
     }
 
