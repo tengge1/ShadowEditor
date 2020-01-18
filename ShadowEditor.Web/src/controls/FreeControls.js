@@ -1,6 +1,16 @@
 import BaseControls from './BaseControls';
 
 /**
+ * 运行状态
+ */
+const STATE = {
+    NONE: -1,
+    ROTATE: 0,
+    ZOOM: 1,
+    PAN: 2
+};
+
+/**
  * 自由控制器
  * @author tengge1 / https://github.com/tengge1
  */
@@ -19,12 +29,13 @@ class FreeControls extends BaseControls {
         this.delta = new THREE.Vector3();
         this.box = new THREE.Box3();
 
-        this.STATE = { NONE: - 1, ROTATE: 0, ZOOM: 1, PAN: 2 };
-        this.state = this.STATE.NONE;
+        // state
+        this.state = STATE.NONE;
 
         this.normalMatrix = new THREE.Matrix3();
-        this.pointer = new THREE.Vector2();
-        this.pointerOld = new THREE.Vector2();
+
+        this.pointer = new THREE.Vector2(); // 鼠标位置
+
         this.spherical = new THREE.Spherical();
         this.sphere = new THREE.Sphere();
 
@@ -34,10 +45,22 @@ class FreeControls extends BaseControls {
         this.prevDistance = null;
 
         // animation
-        this.isPadding = false;
+        this.isPanning = false;
         this.isRotating = false;
         this.isZooming = false;
 
+        // time
+        this.beginTime = 0; // 鼠标按下时间
+        this.endTime = 0; // 鼠标抬起时间
+
+        // position
+        this.deltaQuaternion = new THREE.Quaternion();
+
+        // force
+        this.mass = 10; // kg
+        this.friction = -1000; // N，沿着运动反方向
+
+        // velocity
         this.panVelocity = new THREE.Vector3(); // (x, 0, z)
         this.rotateVelocity = new THREE.Vector3(); // (tile, heading, 0)
         this.zoomVelocity = 0; // zoom
@@ -90,13 +113,14 @@ class FreeControls extends BaseControls {
     }
 
     pan(delta) {
-        var distance = this.camera.position.distanceTo(this.center);
+        let distance = this.camera.position.distanceTo(this.center);
 
         delta.multiplyScalar(distance * this.panSpeed);
         delta.applyMatrix3(this.normalMatrix.getNormalMatrix(this.camera.matrix));
 
         this.camera.position.add(delta);
         this.center.add(delta);
+        this.panVelocity.add(delta);
 
         this.dispatchEvent(this.changeEvent);
     }
@@ -121,7 +145,7 @@ class FreeControls extends BaseControls {
     }
 
     zoom(delta) {
-        var distance = this.camera.position.distanceTo(this.center);
+        let distance = this.camera.position.distanceTo(this.center);
         delta.multiplyScalar(distance * this.zoomSpeed);
 
         if (delta.length() > distance) {
@@ -136,7 +160,51 @@ class FreeControls extends BaseControls {
     }
 
     update() {
+        if (!this.isPanning && !this.isRotating && !this.isZooming) {
+            return;
+        }
 
+        let now = new Date().getTime();
+        let dt = (now - this.endTime) / 1000;
+
+        let a = this.friction / this.mass;
+        let position = this.camera.position;
+
+        if (this.isPanning) { // 平移
+            let len = this.panVelocity.length();
+
+            if (this.panVelocity.x !== 0) {
+                position.x += this.panVelocity.x * dt;
+
+                let dvx = a * dt * this.panVelocity.x / len;
+                let vx = this.panVelocity.x + dvx;
+
+                if (Math.sign(vx) !== Math.sign(this.panVelocity.x)) {
+                    this.panVelocity.x = 0;
+                } else {
+                    this.panVelocity.x = vx;
+                }
+            }
+
+            if (this.panVelocity.z !== 0) {
+                position.z += this.panVelocity.z * dt;
+
+                let dvz = a * dt * this.panVelocity.z / len;
+                let vz = this.panVelocity.y + dvz;
+
+                if (Math.sign(vz) !== Math.sign(this.panVelocity.z)) {
+                    this.panVelocity.z = 0;
+                } else {
+                    this.panVelocity.z = vz;
+                }
+            }
+
+            if (this.panVelocity.x === 0 && this.panVelocity.z === 0) {
+                this.isPanning = false;
+            }
+        }
+
+        this.endTime = now;
     }
 
     onMouseDown(event) {
@@ -145,14 +213,16 @@ class FreeControls extends BaseControls {
         }
 
         if (event.button === 0) {
-            this.state = this.STATE.ROTATE;
+            this.state = STATE.ROTATE;
         } else if (event.button === 1) {
-            this.state = this.STATE.ZOOM;
+            this.state = STATE.ZOOM;
         } else if (event.button === 2) {
-            this.state = this.STATE.PAN;
+            this.state = STATE.PAN;
         }
 
-        this.pointerOld.set(event.clientX, event.clientY);
+        this.beginTime = new Date().getTime();
+        this.pointer.set(event.clientX, event.clientY);
+        this.panVelocity.set(0, 0, 0);
 
         this.domElement.addEventListener('mousemove', this.onMouseMove, false);
         this.domElement.addEventListener('mouseup', this.onMouseUp, false);
@@ -165,20 +235,18 @@ class FreeControls extends BaseControls {
             return;
         }
 
-        this.pointer.set(event.clientX, event.clientY);
+        let movementX = event.clientX - this.pointer.x;
+        let movementY = event.clientY - this.pointer.y;
 
-        var movementX = this.pointer.x - this.pointerOld.x;
-        var movementY = this.pointer.y - this.pointerOld.y;
-
-        if (this.state === this.STATE.ROTATE) {
+        if (this.state === STATE.ROTATE) {
             this.rotate(this.delta.set(- movementX, - movementY, 0));
-        } else if (this.state === this.STATE.ZOOM) {
+        } else if (this.state === STATE.ZOOM) {
             this.zoom(this.delta.set(0, 0, this.movementY));
-        } else if (this.state === this.STATE.PAN) {
+        } else if (this.state === STATE.PAN) {
             this.pan(this.delta.set(- movementX, movementY, 0));
         }
 
-        this.pointerOld.set(event.clientX, event.clientY);
+        this.pointer.set(event.clientX, event.clientY);
     }
 
     onMouseUp() {
@@ -187,7 +255,27 @@ class FreeControls extends BaseControls {
         this.domElement.removeEventListener('mouseout', this.onMouseUp, false);
         this.domElement.removeEventListener('dblclick', this.onMouseUp, false);
 
-        this.state = this.STATE.NONE;
+        this.endTime = new Date().getTime();
+
+        if (this.endTime === this.beginTime) {
+            this.state = STATE.NONE;
+            return;
+        }
+
+        let dt = (this.endTime - this.beginTime) / 1000;
+
+        if (this.state === STATE.PAN) {
+            this.panVelocity.multiplyScalar(1 / dt);
+            if (this.panVelocity.lengthSq() > 0) {
+                this.isPanning = true;
+            }
+        } else if (this.state === STATE.ROTATE) {
+
+        } else if (this.state === STATE.ZOOM) {
+
+        }
+
+        this.state = STATE.NONE;
     }
 
     onMouseWheel(event) {
@@ -227,6 +315,8 @@ class FreeControls extends BaseControls {
         event.preventDefault();
         event.stopPropagation();
 
+        let distance, offset0, offset1;
+
         switch (event.touches.length) {
             case 1:
                 this.touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
@@ -237,12 +327,12 @@ class FreeControls extends BaseControls {
             case 2:
                 this.touches[0].set(event.touches[0].pageX, event.touches[0].pageY, 0).divideScalar(window.devicePixelRatio);
                 this.touches[1].set(event.touches[1].pageX, event.touches[1].pageY, 0).divideScalar(window.devicePixelRatio);
-                var distance = this.touches[0].distanceTo(this.touches[1]);
+                distance = this.touches[0].distanceTo(this.touches[1]);
                 this.zoom(this.delta.set(0, 0, this.prevDistance - distance));
                 this.prevDistance = distance;
 
-                var offset0 = this.touches[0].clone().sub(this.getClosest(this.touches[0], this.prevTouches));
-                var offset1 = this.touches[1].clone().sub(this.getClosest(this.touches[1], this.prevTouches));
+                offset0 = this.touches[0].clone().sub(this.getClosest(this.touches[0], this.prevTouches));
+                offset1 = this.touches[1].clone().sub(this.getClosest(this.touches[1], this.prevTouches));
                 offset0.x = - offset0.x;
                 offset1.x = - offset1.x;
 
@@ -256,9 +346,9 @@ class FreeControls extends BaseControls {
     }
 
     getClosest(touch, touches) {
-        var closest = touches[0];
+        let closest = touches[0];
 
-        for (var i in touches) {
+        for (let i in touches) {
             if (closest.distanceTo(touch) > touches[i].distanceTo(touch)) {
                 closest = touches[i];
             }
