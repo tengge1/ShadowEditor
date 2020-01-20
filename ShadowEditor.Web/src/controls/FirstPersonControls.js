@@ -15,6 +15,9 @@ class FirstPersonControls extends BaseControls {
     constructor(camera, domElement) {
         super(camera, domElement);
 
+        this.height = camera.position.y;
+        camera.lookAt(new THREE.Vector3(0, this.height, 0));
+
         this.panSpeed = 0.1;
         this.rotationSpeed = 0.01;
 

@@ -214,7 +214,8 @@ class Editor extends React.Component {
     clear(addObject = true) { // 清空场景
         this.history.clear();
 
-        this.camera.copy(this.DEFAULT_CAMERA);
+        // TODO: 不同控制器下，相机初始状态不一样。
+        // this.camera.copy(this.DEFAULT_CAMERA);
 
         if (this.audioListener && this.camera.children.findIndex(o => o instanceof THREE.AudioListener) === -1) {
             this.camera.add(this.audioListener);
