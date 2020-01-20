@@ -23,6 +23,7 @@ class Viewport extends React.Component {
                >
             <div className={'editor'}
                 ref={this.editorRef}
+                tabIndex={0}
             />
             <VisualDOM className={'svg'}
                 ref={this.svgRef}

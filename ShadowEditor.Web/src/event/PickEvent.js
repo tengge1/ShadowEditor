@@ -35,8 +35,9 @@ PickEvent.prototype.onMouseDown = function (event) {
         return;
     }
 
-    // 这样处理选中的原因是避免把拖动误认为点击
-    event.preventDefault();
+    // 1、这样处理选中的原因是避免把拖动误认为点击
+    // 2、不能使用preventDefault，因为div无法获得焦点，无法响应keydown事件。
+    // event.preventDefault();
 
     let array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
     this.onDownPosition.fromArray(array);
