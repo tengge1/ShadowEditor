@@ -88,6 +88,15 @@ class FirstPersonControls extends BaseControls {
         if (!this.state) {
             return;
         }
+        if (this.state === STATE.Forward) {
+
+        } else if (this.state === STATE.Backward) {
+
+        } else if (this.state === STATE.Left) {
+
+        } else if (this.state === STATE.Right) {
+
+        }
     }
 
     dispose() {
