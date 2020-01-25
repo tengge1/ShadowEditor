@@ -23,6 +23,8 @@ class FirstPersonControls extends BaseControls {
 
         this.state = null;
 
+        this.forward = new THREE.Vector3(0, 0, 1); // 前进方向
+
         this.onKeyDown = this.onKeyDown.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
         this.onMouseMove = this.onMouseMove.bind(this);
