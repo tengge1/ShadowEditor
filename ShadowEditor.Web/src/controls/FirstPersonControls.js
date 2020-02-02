@@ -7,6 +7,9 @@ const STATE = {
     Right: 4 // 向右移动
 };
 
+const FORWARD = new THREE.Vector3(0, 0, -1);
+const RIGHT = new THREE.Vector3(1, 0, 0);
+
 /**
  * 第一视角控制器
  * @author tengge1 / https://github.com/tengge1
@@ -23,7 +26,8 @@ class FirstPersonControls extends BaseControls {
 
         this.state = null;
 
-        this.forward = new THREE.Vector3(0, 0, 1); // 前进方向
+        this.forward = new THREE.Vector3(); // 前方
+        this.right = new THREE.Vector3(); // 右侧
 
         this.onKeyDown = this.onKeyDown.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
@@ -90,14 +94,23 @@ class FirstPersonControls extends BaseControls {
         if (!this.state) {
             return;
         }
+
+        let camera = this.camera;
+
+        this.forward.copy(FORWARD).applyQuaternion(camera.quaternion).normalize();
+        this.right.copy(RIGHT).applyQuaternion(camera.quaternion).normalize();
+
+        this.forward.multiplyScalar(this.panSpeed);
+        this.right.multiplyScalar(this.panSpeed);
+
         if (this.state === STATE.Forward) {
-
+            camera.position.add(this.forward);
         } else if (this.state === STATE.Backward) {
-
+            camera.position.sub(this.forward);
         } else if (this.state === STATE.Left) {
-
+            camera.position.sub(this.right);
         } else if (this.state === STATE.Right) {
-
+            camera.position.add(this.right);
         }
     }
 
