@@ -243,7 +243,7 @@ class FreeControls extends BaseControls {
         } else if (this.state === STATE.ZOOM) {
             this.zoom(this.delta.set(0, 0, this.movementY));
         } else if (this.state === STATE.PAN) {
-            this.pan(this.delta.set(- movementX, movementY, 0));
+            this.pan(this.delta.set(-movementX, 0, -movementY));
         }
 
         this.pointer.set(event.clientX, event.clientY);
