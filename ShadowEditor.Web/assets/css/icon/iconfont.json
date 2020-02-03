@@ -601,6 +601,13 @@
       "unicode_decimal": 59281
     },
     {
+      "icon_id": "5330405",
+      "name": "鼠标指针",
+      "font_class": "click-add",
+      "unicode": "e781",
+      "unicode_decimal": 59265
+    },
+    {
       "icon_id": "5771600",
       "name": "快退",
       "font_class": "backward",
@@ -683,6 +690,13 @@
       "font_class": "polygon-mark",
       "unicode": "e62c",
       "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "7550210",
+      "name": "添加",
+      "font_class": "add-center",
+      "unicode": "e68a",
+      "unicode_decimal": 59018
     },
     {
       "icon_id": "7639355",

@@ -33,10 +33,15 @@ class DrawTools extends React.Component {
         this.onSprayIntersect = this.onSprayIntersect.bind(this);
 
         this.handleDig = this.handleDig.bind(this);
+
+        this.handleClickSceneToAdd = this.handleClickSceneToAdd.bind(this);
+        this.handleAddToCenter = this.handleAddToCenter.bind(this);
     }
 
     render() {
         const { isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging } = this.state;
+
+        const addMode = app.storage.get('addMode');
 
         return <>
             <IconButton
@@ -69,6 +74,19 @@ class DrawTools extends React.Component {
                 show={false}
                 selected={isDigging}
                 onClick={this.handleDig}
+            />
+            <ToolbarSeparator />
+            <IconButton
+                icon={'click-add'}
+                title={_t('Click Scene To Add')}
+                selected={addMode === 'click'}
+                onClick={this.handleClickSceneToAdd}
+            />
+            <IconButton
+                icon={'add-center'}
+                title={_t('Add To Center')}
+                selected={addMode === 'center'}
+                onClick={this.handleAddToCenter}
             />
             <ToolbarSeparator />
         </>;
@@ -363,6 +381,22 @@ class DrawTools extends React.Component {
         }
 
         this.digTool.start();
+    }
+
+    // ----------------------------- 添加模式 ------------------------------------------
+
+    handleClickSceneToAdd() {
+        this.changeAddMode('click');
+    }
+
+    handleAddToCenter() {
+        this.changeAddMode('center');
+    }
+
+    changeAddMode(value) {
+        app.storage.set('addMode', value);
+        app.call('storageChanged', this, 'addMode', value);
+        this.forceUpdate();
     }
 }
 
