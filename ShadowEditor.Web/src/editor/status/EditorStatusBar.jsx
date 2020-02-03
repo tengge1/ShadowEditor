@@ -14,11 +14,6 @@ class EditorStatusBar extends React.Component {
             part: _t('Select Part')
         };
 
-        this.addMode = {
-            center: _t('Add To Center'),
-            click: _t('Click Scene To Add')
-        };
-
         this.controlMode = {
             EditorControls: _t('Editor Controls'),
             FreeControls: _t('Free Controls')
@@ -40,7 +35,6 @@ class EditorStatusBar extends React.Component {
         this.handleEnablePhysics = this.handleEnablePhysics.bind(this);
         this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
         this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
-        this.handleChangeAddMode = this.handleChangeAddMode.bind(this);
         this.handleChangeControlMode = this.handleChangeControlMode.bind(this);
     }
 
@@ -49,7 +43,6 @@ class EditorStatusBar extends React.Component {
         const { enablePhysics } = app.options;
 
         const selectMode = app.storage.get('selectMode');
-        const addMode = app.storage.get('addMode');
         const controlMode = app.storage.get('controlMode');
 
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
@@ -96,15 +89,6 @@ class EditorStatusBar extends React.Component {
                 />
                 <ToolbarSeparator />
             </>}
-            {/* {isLogin && <>
-                <Label>{_t('Add Mode')}</Label>
-                <Select name={'addMode'}
-                    options={this.addMode}
-                    value={addMode}
-                    onChange={this.handleChangeAddMode}
-                />
-                <ToolbarSeparator />
-            </>} */}
             {isLogin && <>
                 <Label>{_t('Control Mode')}</Label>
                 <Select name={'controlMode'}
@@ -212,12 +196,6 @@ class EditorStatusBar extends React.Component {
     handleChangeSelectMode(value) {
         app.storage.set('selectMode', value);
         app.call('storageChanged', this, 'selectMode', value);
-        this.forceUpdate();
-    }
-
-    handleChangeAddMode(value) {
-        app.storage.set('addMode', value);
-        app.call('storageChanged', this, 'addMode', value);
         this.forceUpdate();
     }
 
