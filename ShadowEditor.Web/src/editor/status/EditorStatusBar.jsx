@@ -21,8 +21,7 @@ class EditorStatusBar extends React.Component {
 
         this.controlMode = {
             EditorControls: _t('Editor Controls'),
-            FreeControls: _t('Free Controls'),
-            FirstPersonControls: _t('First Person Controls')
+            FreeControls: _t('Free Controls')
         };
 
         this.state = {
@@ -97,7 +96,7 @@ class EditorStatusBar extends React.Component {
                 />
                 <ToolbarSeparator />
             </>}
-            {isLogin && <>
+            {/* {isLogin && <>
                 <Label>{_t('Add Mode')}</Label>
                 <Select name={'addMode'}
                     options={this.addMode}
@@ -105,7 +104,7 @@ class EditorStatusBar extends React.Component {
                     onChange={this.handleChangeAddMode}
                 />
                 <ToolbarSeparator />
-            </>}
+            </>} */}
             {isLogin && <>
                 <Label>{_t('Control Mode')}</Label>
                 <Select name={'controlMode'}

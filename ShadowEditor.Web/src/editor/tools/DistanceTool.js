@@ -110,18 +110,29 @@ class DistanceTool extends BaseTool {
 
         dist = dist.toFixed(2);
 
+        let domElement = app.editor.renderer.domElement;
+
         if (this.positions.length === 6 && this.line.texts.length === 0) { // 前两个点
-            let text1 = new UnscaledText(_t('Start Point'));
+            let text1 = new UnscaledText(_t('Start Point'), {
+                domWidth: domElement.width,
+                domHeight: domElement.height
+            });
             this.offsetText(text1);
             text1.position.fromArray(this.positions);
-            let text2 = new UnscaledText(_t('{{dist}}m', { dist: 0 }));
+            let text2 = new UnscaledText(_t('{{dist}}m', { dist: 0 }), {
+                domWidth: domElement.width,
+                domHeight: domElement.height
+            });
             this.offsetText(text2);
             text2.position.fromArray(this.positions, 3);
             this.line.texts.push(text1, text2);
             app.editor.sceneHelpers.add(text1);
             app.editor.sceneHelpers.add(text2);
         } else if (this.line.texts.length < this.positions.length / 3) { // 增加点了
-            let text1 = new UnscaledText(_t('{{dist}}m', { dist }));
+            let text1 = new UnscaledText(_t('{{dist}}m', { dist }), {
+                domWidth: domElement.width,
+                domHeight: domElement.height
+            });
             this.offsetText(text1);
             text1.position.fromArray(this.positions, this.positions.length - 3);
             this.line.texts.push(text1);

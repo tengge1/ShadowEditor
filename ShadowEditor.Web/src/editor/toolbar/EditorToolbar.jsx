@@ -35,7 +35,7 @@ class EditorToolbar extends React.Component {
 
         return <Toolbar className={'EditorToolbar'}
             direction={'horizontal'}
-        >
+               >
             <Select options={this.toolbars}
                 name={'toolbar'}
                 value={toolbar}

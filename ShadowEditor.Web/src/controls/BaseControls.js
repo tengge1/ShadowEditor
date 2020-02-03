@@ -1,25 +1,32 @@
+import { dispatch } from '../third_party';
+
 let ID = -1;
 
 /**
  * 控制器基类
  * @author tengge1 / https://github.com/tengge1
  */
-class BaseControls extends THREE.EventDispatcher {
+class BaseControls {
     /**
      * 创建一个控制器
      * @param {THREE.Camera} camera 相机
      * @param {HTMLElement} domElement HTML文档
      */
     constructor(camera, domElement) {
-        super();
-
         this.id = `${this.constructor.name}${ID--}`;
 
         this.camera = camera;
         this.domElement = domElement;
 
         this.enabled = true;
-        this.changeEvent = { type: 'change' };
+
+        this.dispatch = dispatch('change', 'update', 'end');
+        // change(enabled, controlName, control)，控制器改变
+        // update()，相机位置改变
+        // end()，控制器内部退出当前模式，主要用于按Esc退出第一视角模式。
+
+        this.call = this.dispatch.call.bind(this.dispatch);
+        this.on = this.dispatch.on.bind(this.dispatch);
     }
 
     /**

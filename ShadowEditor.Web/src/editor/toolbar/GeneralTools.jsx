@@ -17,7 +17,8 @@ class GeneralTools extends React.Component {
             mode: 'translate',
             view: 'perspective',
             isGridMode: false,
-            isRecording: recorder ? recorder.running : false
+            isRecording: recorder ? recorder.running : false,
+            isFirstPerspective: false
         };
 
         this.handleEnterSelectMode = this.handleEnterSelectMode.bind(this);
@@ -35,10 +36,12 @@ class GeneralTools extends React.Component {
         this.handleScreenshot = this.handleScreenshot.bind(this);
         this.commitScreenshot = this.commitScreenshot.bind(this);
         this.handleRecord = this.handleRecord.bind(this);
+
+        this.handleFirstPerspective = this.handleFirstPerspective.bind(this);
     }
 
     render() {
-        const { mode, view, isGridMode, isRecording } = this.state;
+        const { mode, view, isGridMode, isRecording, isFirstPerspective } = this.state;
         const { enableAuthority, authorities } = app.server;
 
         return <>
@@ -110,6 +113,13 @@ class GeneralTools extends React.Component {
                 title={isRecording ? _t('Stop') : _t('Record')}
                 show={!enableAuthority || authorities.includes('ADD_VIDEO')}
                 onClick={this.handleRecord}
+            />
+            <ToolbarSeparator />
+            <IconButton
+                icon={'first-perspective'}
+                title={_t('First Perspective')}
+                selected={isFirstPerspective}
+                onClick={this.handleFirstPerspective}
             />
             <ToolbarSeparator />
         </>;
@@ -247,6 +257,23 @@ class GeneralTools extends React.Component {
                 isRecording: false
             });
         });
+    }
+
+    // --------------------------- 第一视角 ------------------------------
+
+    handleFirstPerspective() {
+        let controls = app.editor.controls;
+
+        controls.on(`change.FirstPerspective`, (enabled, controlName) => {
+            if (controlName !== 'FirstPersonControls') {
+                return;
+            }
+            this.setState({
+                isFirstPerspective: enabled
+            });
+        });
+
+        controls.changeMode('FirstPersonControls');
     }
 }
 

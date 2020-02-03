@@ -7,6 +7,7 @@ const STATE = {
     Right: 4 // 向右移动
 };
 
+const UP = new THREE.Vector3(0, 1, 0);
 const FORWARD = new THREE.Vector3(0, 0, -1);
 const RIGHT = new THREE.Vector3(1, 0, 0);
 
@@ -22,10 +23,12 @@ class FirstPersonControls extends BaseControls {
         camera.lookAt(new THREE.Vector3(0, this.height, 0));
 
         this.panSpeed = 0.1;
-        this.rotationSpeed = 0.01;
+        this.rotationSpeed = 0.1 * Math.PI / 180;
 
         this.state = null;
 
+        // 临时变量
+        this.up = new THREE.Vector3(); // 上方
         this.forward = new THREE.Vector3(); // 前方
         this.right = new THREE.Vector3(); // 右侧
 
@@ -34,13 +37,13 @@ class FirstPersonControls extends BaseControls {
         this.onMouseMove = this.onMouseMove.bind(this);
         this.onPointerlockChange = this.onPointerlockChange.bind(this);
 
-        this.domElement.addEventListener('keydown', this.onKeyDown, false);
-        this.domElement.addEventListener('keyup', this.onKeyUp, false);
-        this.domElement.addEventListener('mousemove', this.onMouseMove, false);
-        this.domElement.addEventListener('pointerlockchange', this.onPointerlockChange, false);
-    }
+        this.isLocked = true;
+        this.domElement.requestPointerLock();
 
-    focus(target) {
+        document.addEventListener('keydown', this.onKeyDown, false);
+        document.addEventListener('keyup', this.onKeyUp, false);
+        document.addEventListener('mousemove', this.onMouseMove, false);
+        document.addEventListener('pointerlockchange', this.onPointerlockChange, false);
     }
 
     onKeyDown(event) {
@@ -69,25 +72,43 @@ class FirstPersonControls extends BaseControls {
     }
 
     onMouseMove(event) {
-        // if (scope.isLocked === false) return;
+        if (!this.isLocked) {
+            return;
+        }
 
-        // var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-        // var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+        if (!this.quaternion1) {
+            this.quaternion1 = new THREE.Quaternion();
+        }
 
-        // euler.setFromQuaternion(camera.quaternion);
+        if (!this.quaternion2) {
+            this.quaternion2 = new THREE.Quaternion();
+        }
 
-        // euler.y -= movementX * 0.002;
-        // euler.x -= movementY * 0.002;
+        let camera = this.camera;
 
-        // euler.x = Math.max(- PI_2, Math.min(PI_2, euler.x));
+        this.forward.copy(FORWARD).applyQuaternion(camera.quaternion).normalize();
+        this.right.copy(RIGHT).applyQuaternion(camera.quaternion).normalize();
 
-        // camera.quaternion.setFromEuler(euler);
+        const dx = -event.movementX * this.rotationSpeed;
+        const dy = -event.movementY * this.rotationSpeed;
 
-        // scope.dispatchEvent(changeEvent);
+        this.quaternion1.setFromAxisAngle(UP, dx);
+        this.quaternion2.setFromAxisAngle(this.right, dy);
+
+        this.forward.applyQuaternion(this.quaternion1).applyQuaternion(this.quaternion2).add(camera.position);
+
+        camera.lookAt(this.forward);
     }
 
-    onPointerlockChange(event) {
+    onPointerlockChange() {
+        if (document.pointerLockElement === this.domElement) {
+            this.isLocked = true;
+        } else {
+            this.isLocked = false;
 
+            // 按Esc可以强制退出第一视角模式。
+            this.call('end', this);
+        }
     }
 
     update() {
@@ -97,8 +118,8 @@ class FirstPersonControls extends BaseControls {
 
         let camera = this.camera;
 
-        this.forward.copy(FORWARD).applyQuaternion(camera.quaternion).normalize();
-        this.right.copy(RIGHT).applyQuaternion(camera.quaternion).normalize();
+        this.forward.copy(FORWARD).applyQuaternion(camera.quaternion).projectOnPlane(UP).normalize();
+        this.right.copy(RIGHT).applyQuaternion(camera.quaternion).projectOnPlane(UP).normalize();
 
         this.forward.multiplyScalar(this.panSpeed);
         this.right.multiplyScalar(this.panSpeed);
@@ -115,10 +136,13 @@ class FirstPersonControls extends BaseControls {
     }
 
     dispose() {
-        this.domElement.removeEventListener('keydown', this.onKeyDown);
-        this.domElement.removeEventListener('keyup', this.onKeyUp);
-        this.domElement.removeEventListener('mousemove', this.onMouseMove);
-        this.domElement.removeEventListener('pointerlockchange', this.onPointerlockChange);
+        this.isLocked = false;
+        document.exitPointerLock();
+
+        document.removeEventListener('keydown', this.onKeyDown);
+        document.removeEventListener('keyup', this.onKeyUp);
+        document.removeEventListener('mousemove', this.onMouseMove);
+        document.removeEventListener('pointerlockchange', this.onPointerlockChange);
         this.camera = null;
         this.domElement = null;
     }

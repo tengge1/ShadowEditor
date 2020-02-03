@@ -75,7 +75,7 @@ class EditorControls extends BaseControls {
 
         this.camera.position.copy(this.center).add(this.delta);
 
-        this.dispatchEvent(this.changeEvent);
+        this.call('update', this);
     }
 
     dispose() {
@@ -96,7 +96,7 @@ class EditorControls extends BaseControls {
         this.camera.position.add(delta);
         this.center.add(delta);
 
-        this.dispatchEvent(this.changeEvent);
+        this.call('update', this);
     }
 
     rotate(delta) {
@@ -115,7 +115,7 @@ class EditorControls extends BaseControls {
 
         this.camera.lookAt(this.center);
 
-        this.dispatchEvent(this.changeEvent);
+        this.call('update', this);
     }
 
     zoom(delta) {
@@ -130,7 +130,7 @@ class EditorControls extends BaseControls {
 
         this.camera.position.add(delta);
 
-        this.dispatchEvent(this.changeEvent);
+        this.call('update', this);
     }
 
     onMouseDown(event) {

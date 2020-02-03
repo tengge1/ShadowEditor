@@ -517,6 +517,13 @@
       "unicode_decimal": 58892
     },
     {
+      "icon_id": "4525168",
+      "name": "第一视角",
+      "font_class": "first-perspective",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
       "icon_id": "4525169",
       "name": "模型浏览",
       "font_class": "model-view",
