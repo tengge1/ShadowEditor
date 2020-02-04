@@ -18,14 +18,12 @@ class FreeControls extends BaseControls {
     constructor(camera, domElement) {
         super(camera, domElement);
 
-        this.center = new THREE.Vector3();
-        this.pickPosition = new THREE.Vector3();
-
         this.panSpeed = 0.002;
         this.rotationSpeed = 0.005;
         this.zoomSpeed = 0.1;
 
         this.state = STATE.NONE;
+        this.center = new THREE.Vector3();
         this.pickPosition = new THREE.Vector3();
 
         // animation
