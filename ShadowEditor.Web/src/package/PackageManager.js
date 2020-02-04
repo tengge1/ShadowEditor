@@ -10,11 +10,12 @@ const loaded = new Map();
  */
 function PackageManager() {
 
-};
+}
 
 /**
  * 加载包
- * @param {*} names 包名或包名列表
+ * @param {Object} names 包名或包名列表
+ * @returns {Promise} Promise
  */
 PackageManager.prototype.require = function (names) {
     names = Array.isArray(names) ? names : [names];
@@ -44,7 +45,7 @@ PackageManager.prototype.require = function (names) {
                     loaded.set(n, {
                         loading: false,
                         loaded: true,
-                        promise: null,
+                        promise: null
                     });
                     return new Promise(resolve => {
                         resolve();
@@ -54,7 +55,7 @@ PackageManager.prototype.require = function (names) {
             loaded.set(n, {
                 loading: true,
                 loaded: false,
-                promise: promise,
+                promise: promise
             });
             promises.push(promise);
         }

@@ -19,6 +19,7 @@ class FreeControls extends BaseControls {
         super(camera, domElement);
 
         this.center = new THREE.Vector3();
+        this.pickPosition = new THREE.Vector3();
 
         this.panSpeed = 0.002;
         this.zoomSpeed = 0.1;
@@ -113,50 +114,16 @@ class FreeControls extends BaseControls {
     }
 
     pan(delta) {
-        let distance = this.camera.position.distanceTo(this.center);
-
-        delta.multiplyScalar(distance * this.panSpeed);
-        delta.applyMatrix3(this.normalMatrix.getNormalMatrix(this.camera.matrix));
-
-        this.camera.position.add(delta);
-        this.center.add(delta);
-        this.panVelocity.add(delta);
-
-        this.call('update', this);
+        console.log(delta);
+        // 保证鼠标点的位置不变
     }
 
     rotate(delta) {
-        this.vector.copy(this.camera.position).sub(this.center);
 
-        this.spherical.setFromVector3(this.vector);
-
-        this.spherical.theta += delta.x * this.rotationSpeed;
-        this.spherical.phi += delta.y * this.rotationSpeed;
-
-        this.spherical.makeSafe();
-
-        this.vector.setFromSpherical(this.spherical);
-
-        this.camera.position.copy(this.center).add(this.vector);
-
-        this.camera.lookAt(this.center);
-
-        this.call('update', this);
     }
 
     zoom(delta) {
-        let distance = this.camera.position.distanceTo(this.center);
-        delta.multiplyScalar(distance * this.zoomSpeed);
 
-        if (delta.length() > distance) {
-            return;
-        }
-
-        delta.applyMatrix3(this.normalMatrix.getNormalMatrix(this.camera.matrix));
-
-        this.camera.position.add(delta);
-
-        this.call('update', this);
     }
 
     update() {
@@ -207,16 +174,24 @@ class FreeControls extends BaseControls {
         this.endTime = now;
     }
 
+    setPickPosition(position) {
+        this.pickPosition.copy(position);
+    }
+
     onMouseDown(event) {
         if (this.enabled === false) {
             return;
         }
 
-        if (event.button === 0) {
+        if (event.button !== 2) {
+            return;
+        }
+
+        if (event.button === 0) { // 左键
             this.state = STATE.ROTATE;
-        } else if (event.button === 1) {
+        } else if (event.button === 1) { // 中键
             this.state = STATE.ZOOM;
-        } else if (event.button === 2) {
+        } else if (event.button === 2) { // 右键
             this.state = STATE.PAN;
         }
 
@@ -243,7 +218,7 @@ class FreeControls extends BaseControls {
         } else if (this.state === STATE.ZOOM) {
             this.zoom(this.delta.set(0, 0, this.movementY));
         } else if (this.state === STATE.PAN) {
-            this.pan(this.delta.set(-movementX, 0, -movementY));
+            this.pan(this.delta.set(-movementX, -movementY, 0));
         }
 
         this.pointer.set(event.clientX, event.clientY);
@@ -279,10 +254,10 @@ class FreeControls extends BaseControls {
     }
 
     onMouseWheel(event) {
-        event.preventDefault();
+        // event.preventDefault();
 
-        // Normalize deltaY due to https://bugzilla.mozilla.org/show_bug.cgi?id=1392460
-        this.zoom(this.delta.set(0, 0, event.deltaY > 0 ? 1 : - 1));
+        // // Normalize deltaY due to https://bugzilla.mozilla.org/show_bug.cgi?id=1392460
+        // this.zoom(this.delta.set(0, 0, event.deltaY > 0 ? 1 : - 1));
     }
 
     // touch

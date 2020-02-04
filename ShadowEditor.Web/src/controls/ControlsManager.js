@@ -31,6 +31,7 @@ class ControlsManager extends BaseControls {
         this.lastCamera = new THREE.Object3D();
 
         app.on(`animate.${this.id}`, this.update.bind(this));
+        app.on(`gpuPick.${this.id}`, this.onGPUPick.bind(this));
     }
 
     /**
@@ -86,6 +87,16 @@ class ControlsManager extends BaseControls {
 
     update(clock, deltaTime) {
         this.current && this.current.update(clock, deltaTime);
+    }
+
+    setPickPosition(position) {
+        this.current && this.current.setPickPosition(position);
+    }
+
+    onGPUPick(obj) {
+        if (obj.point) {
+            this.setPickPosition(obj.point);
+        }
     }
 
     handleUpdate() {

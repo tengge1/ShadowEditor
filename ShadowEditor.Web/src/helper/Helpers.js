@@ -13,6 +13,9 @@ import SelectHelper from './SelectHelper';
 import HoverHelper from './HoverHelper';
 import SplineHelper from './line/SplineHelper';
 
+// 测试
+// import GodRaysHelpers from './light/GodRaysHelpers';
+
 /**
  * 所有帮助器
  * @author tengge / https://github.com/tengge1
@@ -34,6 +37,9 @@ function Helpers(app) {
         new HoverHelper(app),
         new ViewHelper(app),
         new SplineHelper(app)
+
+        // 测试
+        // new GodRaysHelpers(app) // 对性能影响太大，请勿使用
     ];
 }
 

@@ -168,6 +168,7 @@ GPUPickEvent.prototype.onAfterRender = function () {
     const deviceX = this.offsetX / width * 2 - 1;
     const deviceY = - this.offsetY / height * 2 + 1;
 
+    // TODO: nearPosition和farPosition命名反了
     this.nearPosition.set(deviceX, deviceY, 1); // 屏幕坐标系：(0, 0, 1)
     this.nearPosition.applyMatrix4(camera.projectionMatrixInverse); // 相机坐标系：(0, 0, -far)
 

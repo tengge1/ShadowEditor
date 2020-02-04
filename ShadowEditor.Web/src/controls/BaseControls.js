@@ -61,6 +61,14 @@ class BaseControls {
     }
 
     /**
+     * 当前鼠标所在位置碰撞点世界坐标
+     * @param {THREE.Vector3} position 世界坐标
+     */
+    setPickPosition(position) { // eslint-disable-line
+
+    }
+
+    /**
      * 析构控制器
      */
     dispose() {

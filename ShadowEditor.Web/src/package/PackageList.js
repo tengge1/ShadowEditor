@@ -502,6 +502,11 @@ const PackageList = [{
     assets: [
         'assets/js/libs/opentype.js'
     ]
+}, {
+    name: 'GodRaysShader',
+    assets: [
+        'assets/js/shaders/GodRaysShader.js'
+    ]
 }];
 
 export default PackageList;

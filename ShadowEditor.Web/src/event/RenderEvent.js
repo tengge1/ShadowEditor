@@ -46,7 +46,7 @@ RenderEvent.prototype.render = function () {
 
     app.editor.renderer.clear();
 
-    app.call('beforeRender', this);
+    app.call('beforeRender', this, this.clock, deltaTime);
 
     if (this.renderer === undefined) {
         this.createRenderer().then(() => {
@@ -59,7 +59,7 @@ RenderEvent.prototype.render = function () {
         this.renderer.render();
     }
 
-    app.call('afterRender', this);
+    app.call('afterRender', this, this.clock, deltaTime);
 
     app.stats.end();
 
