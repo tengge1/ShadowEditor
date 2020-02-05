@@ -29,6 +29,8 @@ class FreeControls extends BaseControls {
         this.isPanning = false; // 是否正在移动
         this.isRotating = false; // 是否正在旋转
         this.velocity = new THREE.Vector3(); // 速度：m/s
+        this.minVelocity = 1;
+        this.maxVelocity = 10;
         this.angularVelocity = new THREE.Euler(); // 角速度：rad/s
         this.acceleration = 50; // 加速度：m/s^2
         this.angularAcceleration = 0.01; // 角加速度：rad/s^2
@@ -80,7 +82,6 @@ class FreeControls extends BaseControls {
 
         this.isPanning = true;
         let distance = cameraPosition.distanceTo(pickPosition);
-        distance = 0.1;
         this.velocity.subVectors(cameraPosition, pickPosition)
             .multiplyScalar(this.zoomSpeed * delta * distance);
     }
