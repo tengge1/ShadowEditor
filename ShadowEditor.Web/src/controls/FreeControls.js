@@ -1,14 +1,6 @@
 import BaseControls from './BaseControls';
 
-/**
- * 运行状态
- */
-const STATE = {
-    NONE: -1,
-    ROTATE: 0,
-    ZOOM: 1,
-    PAN: 2
-};
+const UP = new THREE.Vector3(0, 1, 0);
 
 /**
  * 自由控制器
@@ -19,32 +11,33 @@ class FreeControls extends BaseControls {
         super(camera, domElement);
 
         this.panSpeed = 0.002;
-        this.rotationSpeed = 0.005;
+        this.rotateSpeed = 0.005;
         this.zoomSpeed = 0.1;
 
-        this.state = STATE.NONE;
         this.center = new THREE.Vector3();
         this.pickPosition = new THREE.Vector3();
 
-        // animation
-        this.isPanning = false;
-        this.isRotating = false;
-        this.isZooming = false;
+        this.time = 0;
+        this.isLeftDown = false;
+        this.isRightDown = false;
 
-        // time
-        this.beginTime = 0; // 鼠标按下时间
-        this.endTime = 0; // 鼠标抬起时间
+        this.mouse = new THREE.Vector2(); // 鼠标碰撞点世界坐标
+        this.raycaster = new THREE.Raycaster();
+        this.plane = new THREE.Plane();
+        this.target = new THREE.Vector3();
 
-        // force
-        this.mass = 10; // kg
-        this.friction = -1000; // N，沿着运动反方向
+        this.isPanning = false; // 是否正在移动
+        this.isRotating = false; // 是否正在旋转
+        this.velocity = new THREE.Vector3(); // 速度：m/s
+        this.angularVelocity = new THREE.Euler(); // 角速度：rad/s
+        this.acceleration = 50; // 加速度：m/s^2
+        this.angularAcceleration = 0.01; // 角加速度：rad/s^2
+        this.velocityThreshold = 0; // 速度阈值
+        this.angularVelocityThreshold = 0; // 角速度阈值
 
-        // velocity
-        this.panVelocity = new THREE.Vector3(); // (x, 0, z)
-        this.rotateVelocity = new THREE.Vector3(); // (tile, heading, 0)
-        this.zoomVelocity = 0; // zoom
+        this.displacement = new THREE.Vector3(); // 位移：m
+        this.rotation = new THREE.Euler(); // 旋转：rad
 
-        // event
         this.update = this.update.bind(this);
 
         this.onMouseDown = this.onMouseDown.bind(this);
@@ -64,50 +57,130 @@ class FreeControls extends BaseControls {
     }
 
     pan(delta) {
-        // 保证鼠标点的位置不变
+        if (this.enabled === false) {
+            return;
+        }
     }
 
     rotate(delta) {
-
+        if (this.enabled === false) {
+            return;
+        }
     }
 
     zoom(delta) {
+        if (this.enabled === false) {
+            return;
+        }
 
+        this.resetState();
+
+        let cameraPosition = this.camera.position;
+        let pickPosition = this.pickPosition;
+
+        this.isPanning = true;
+        let distance = cameraPosition.distanceTo(pickPosition);
+        distance = 0.1;
+        this.velocity.subVectors(cameraPosition, pickPosition)
+            .multiplyScalar(this.zoomSpeed * delta * distance);
     }
 
     update() {
+        if (!this.isPanning && !this.isRotating) {
+            this.time = new Date().getTime();
+            return;
+        }
+        let now = new Date().getTime();
+        let deltaTime = (now - this.time) / 1000;
+
+        this.updateVelocity(deltaTime);
+
+        this.time = now;
+    }
+
+    updateVelocity(deltaTime) {
+        let velocity = this.velocity;
+
+        if (velocity.x === 0 && velocity.y === 0 && velocity.z === 0) {
+            this.isPanning = false;
+            return;
+        }
+
+        this.displacement.copy(this.velocity).multiplyScalar(deltaTime).multiplyScalar(-1);
+        this.camera.position.add(this.displacement);
+
+        let dv = this.acceleration * deltaTime;
+
+        if (velocity.x !== 0) {
+            velocity.x = this.calVelocityX(velocity.x, dv);
+        }
+        if (velocity.y !== 0) {
+            velocity.y = this.calVelocityX(velocity.y, dv);
+        }
+        if (velocity.z !== 0) {
+            velocity.z = this.calVelocityX(velocity.z, dv);
+        }
+    }
+
+    calVelocityX(v, dv) {
+        let sv = Math.sign(v);
+        let vv = Math.abs(v) - dv;
+        return vv < this.velocityThreshold ? 0 : sv * vv;
     }
 
     onMouseDown(event) {
-        if (this.enabled === false) {
+        if (!this.enabled) {
             return;
         }
-
         if (event.button === 0) { // 左键
-            this.state = STATE.ROTATE;
-        } else if (event.button === 1) { // 中键
-            this.state = STATE.ZOOM;
+            this.isLeftDown = true;
         } else if (event.button === 2) { // 右键
-            this.state = STATE.PAN;
+            this.isRightDown = true;
         }
+        this.plane.setFromNormalAndCoplanarPoint(UP, this.pickPosition);
     }
 
     onMouseMove(event) {
-        if (this.enabled === false) {
+        if (!this.isRightDown) {
             return;
+        }
+        let camera = this.camera;
+        this.mouse.set(
+            event.offsetX / this.domElement.clientWidth * 2 - 1, 
+            -(event.offsetY / this.domElement.clientHeight) * 2 + 1
+        );
+        this.raycaster.setFromCamera(this.mouse, camera);
+        if(this.raycaster.ray.intersectPlane(this.plane, this.target)) {
+            let dx = this.target.x - this.pickPosition.x;
+            let dz = this.target.z - this.pickPosition.z;
+            camera.position.x -= dx;
+            camera.position.z -= dz;
+            this.center.x += dx;
+            this.center.z += dz;
         }
     }
 
-    onMouseUp() {
-        this.state = STATE.NONE;
+    onMouseUp(event) {
+        if (event.button === 0) {
+            this.isLeftDown = false;
+        } else if (event.button === 2) {
+            this.isRightDown = false;
+        }
+        this.mouse.set(0, 0);
     }
 
     onMouseWheel(event) {
-
+        this.zoom(-event.deltaY);
     }
 
     setPickPosition(position) {
         this.pickPosition.copy(position);
+    }
+
+    resetState() {
+        this.isPanning = false;
+        this.isRotating = false;
+        this.velocity.set(0, 0, 0);
     }
 
     dispose() {

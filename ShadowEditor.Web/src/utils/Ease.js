@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 * Ease
 * Visit http://createjs.com/ for documentation, updates and examples.
@@ -278,7 +279,7 @@ Ease.backIn = Ease.getBackIn(1.7);
  **/
 Ease.getBackOut = function (amount) {
 	return function (t) {
-		return (--t * t * ((amount + 1) * t + amount) + 1);
+		return --t * t * ((amount + 1) * t + amount) + 1;
 	};
 };
 /**
@@ -328,7 +329,7 @@ Ease.circIn = function (t) {
  * @return {Number}
  **/
 Ease.circOut = function (t) {
-	return Math.sqrt(1 - (--t) * t);
+	return Math.sqrt(1 - --t * t);
 };
 
 /**
@@ -360,13 +361,13 @@ Ease.bounceIn = function (t) {
  **/
 Ease.bounceOut = function (t) {
 	if (t < 1 / 2.75) {
-		return (7.5625 * t * t);
+		return 7.5625 * t * t;
 	} else if (t < 2 / 2.75) {
-		return (7.5625 * (t -= 1.5 / 2.75) * t + 0.75);
+		return 7.5625 * (t -= 1.5 / 2.75) * t + 0.75;
 	} else if (t < 2.5 / 2.75) {
-		return (7.5625 * (t -= 2.25 / 2.75) * t + 0.9375);
+		return 7.5625 * (t -= 2.25 / 2.75) * t + 0.9375;
 	} else {
-		return (7.5625 * (t -= 2.625 / 2.75) * t + 0.984375);
+		return 7.5625 * (t -= 2.625 / 2.75) * t + 0.984375;
 	}
 };
 
@@ -418,7 +419,7 @@ Ease.getElasticOut = function (amplitude, period) {
 	return function (t) {
 		if (t == 0 || t == 1) return t;
 		var s = period / pi2 * Math.asin(1 / amplitude);
-		return (amplitude * Math.pow(2, -10 * t) * Math.sin((t - s) * pi2 / period) + 1);
+		return amplitude * Math.pow(2, -10 * t) * Math.sin((t - s) * pi2 / period) + 1;
 	};
 };
 /**
