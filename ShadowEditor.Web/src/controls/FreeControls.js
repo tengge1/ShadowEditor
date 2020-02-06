@@ -50,6 +50,9 @@ class FreeControls extends BaseControls {
         this.displacement = new THREE.Vector3(); // 位移：m
 
         this.rotation = new THREE.Euler(); // 旋转：rad
+        this.from = new THREE.Vector3();
+        this.to = new THREE.Vector3();
+        this.quaternion = new THREE.Quaternion();
 
         this.update = this.update.bind(this);
 
@@ -99,7 +102,25 @@ class FreeControls extends BaseControls {
     }
 
     rotate(dx, dy) {
+        let camera = this.camera;
+        this.mouse.set(
+            dx / this.domElement.clientWidth * 2 - 1,
+            -(dy / this.domElement.clientHeight) * 2 + 1
+        );
+        this.raycaster.setFromCamera(this.mouse, camera);
 
+        let now = new Date().getTime();
+
+        if (this.raycaster.ray.intersectPlane(this.plane, this.target)) {
+            this.from.subVectors(this.pickPosition, this.center).normalize();
+            this.to.subVectors(this.target, this.center).normalize();
+            this.quaternion.setFromUnitVectors(this.from, this.to);
+
+            let deltaTime = (now - this.moveTime) / 1000;
+            this.camera.quaternion.multiply(this.quaternion);
+        }
+
+        this.moveTime = now;
     }
 
     zoom(dy) {
