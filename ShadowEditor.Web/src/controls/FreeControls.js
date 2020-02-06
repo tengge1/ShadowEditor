@@ -1,5 +1,12 @@
 import BaseControls from './BaseControls';
 
+const STATE = {
+    NONE: - 1,
+    ROTATE: 0,
+    ZOOM: 1,
+    PAN: 2
+};
+
 const UP = new THREE.Vector3(0, 1, 0);
 
 /**
@@ -31,8 +38,7 @@ class FreeControls extends BaseControls {
         this.plane = new THREE.Plane();
         this.target = new THREE.Vector3();
 
-        this.isPanning = false; // 是否正在移动
-        this.isRotating = false; // 是否正在旋转
+        this.state = STATE.NONE;
         this.velocity = new THREE.Vector3(); // 速度：m/s
         this.angularVelocity = new THREE.Euler(); // 角速度：rad/s
         this.acceleration = 100; // 加速度：m/s^2
@@ -63,38 +69,53 @@ class FreeControls extends BaseControls {
     focus(target) { // eslint-disable-line
     }
 
-    pan(delta) {
-        if (this.enabled === false) {
-            return;
+    pan(dx, dy) {
+        let camera = this.camera;
+        this.mouse.set(
+            dx / this.domElement.clientWidth * 2 - 1,
+            -(dy / this.domElement.clientHeight) * 2 + 1
+        );
+        this.raycaster.setFromCamera(this.mouse, camera);
+
+        let now = new Date().getTime();
+
+        if (this.raycaster.ray.intersectPlane(this.plane, this.target)) {
+            let dx = this.target.x - this.pickPosition.x;
+            let dz = this.target.z - this.pickPosition.z;
+            camera.position.x -= dx;
+            camera.position.z -= dz;
+            this.center.x += dx;
+            this.center.z += dz;
+
+            let deltaTime = (now - this.moveTime) / 1000;
+            this.velocity.set(
+                dx / deltaTime,
+                0,
+                dz / deltaTime
+            );
         }
+
+        this.moveTime = now;
     }
 
-    rotate(delta) {
-        if (this.enabled === false) {
-            return;
-        }
+    rotate(dx, dy) {
+
     }
 
-    zoom(delta) {
-        if (this.enabled === false) {
-            return;
-        }
-
-        this.resetState();
-
+    zoom(dy) {
         let cameraPosition = this.camera.position;
         let pickPosition = this.pickPosition;
 
-        this.isPanning = true;
+        this.state = STATE.ZOOM;
 
         let factor = cameraPosition.distanceTo(pickPosition) * 0.01;
 
         this.velocity.subVectors(cameraPosition, pickPosition).normalize()
-            .multiplyScalar(this.zoomVelocity * delta * factor);
+            .multiplyScalar(this.zoomVelocity * dy * factor);
     }
 
     update() {
-        if (!this.isPanning && !this.isRotating) {
+        if (this.state === STATE.NONE) {
             this.time = new Date().getTime();
             return;
         }
@@ -110,7 +131,7 @@ class FreeControls extends BaseControls {
         let velocity = this.velocity;
 
         if (velocity.x === 0 && velocity.y === 0 && velocity.z === 0) {
-            this.isPanning = false;
+            this.state = STATE.NONE;
             return;
         }
 
@@ -156,59 +177,32 @@ class FreeControls extends BaseControls {
     }
 
     onMouseMove(event) {
-        if (!this.isRightDown) {
-            return;
+        if (this.isLeftDown) {
+            this.rotate(event.offsetX, event.offsetY);
+        } else if(this.isRightDown) {
+            this.pan(event.offsetX, event.offsetY);
         }
-        let camera = this.camera;
-        this.mouse.set(
-            event.offsetX / this.domElement.clientWidth * 2 - 1,
-            -(event.offsetY / this.domElement.clientHeight) * 2 + 1
-        );
-        this.raycaster.setFromCamera(this.mouse, camera);
-
-        let now = new Date().getTime();
-
-        if (this.raycaster.ray.intersectPlane(this.plane, this.target)) {
-            let dx = this.target.x - this.pickPosition.x;
-            let dz = this.target.z - this.pickPosition.z;
-            camera.position.x -= dx;
-            camera.position.z -= dz;
-            this.center.x += dx;
-            this.center.z += dz;
-
-            let deltaTime = (now - this.moveTime) / 1000;
-            this.velocity.set(
-                dx / deltaTime,
-                0,
-                dz / deltaTime
-            );
-        }
-
-        this.moveTime = now;
     }
 
     onMouseUp(event) {
         if (event.button === 0) {
             this.isLeftDown = false;
+            this.state = STATE.ROTATE;
         } else if (event.button === 2) {
             this.isRightDown = false;
+            this.state = STATE.PAN;
         }
-        this.mouse.set(0, 0);
-        this.isPanning = true;
     }
 
     onMouseWheel(event) {
+        if (!this.enabled) {
+            return;
+        }
         this.zoom(-event.deltaY);
     }
 
     setPickPosition(position) {
         this.pickPosition.copy(position);
-    }
-
-    resetState() {
-        this.isPanning = false;
-        this.isRotating = false;
-        this.velocity.set(0, 0, 0);
     }
 
     dispose() {
