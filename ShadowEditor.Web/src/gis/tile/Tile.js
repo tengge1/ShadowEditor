@@ -4,9 +4,9 @@ import GeoUtils from '../utils/GeoUtils';
 /**
  * 瓦片
  * @author tengge / https://github.com/tengge1
- * @param {*} x 
- * @param {*} y 
- * @param {*} z 
+ * @param {*} x X坐标
+ * @param {*} y Y坐标
+ * @param {*} z 层级
  */
 function Tile(x = 0, y = 0, z = 0) {
     this.x = x;
@@ -21,9 +21,10 @@ function Tile(x = 0, y = 0, z = 0) {
 
 /**
  * 获取包围盒
- * @param {*} x 
- * @param {*} y 
- * @param {*} z 
+ * @param {*} x X坐标
+ * @param {*} y Y坐标
+ * @param {*} z 层级
+ * @returns {THREE.Box2} 包围盒
  */
 Tile.prototype._getBox = function (x, y, z) {
     var size = Math.PI * 2 / 2 ** z;
@@ -37,13 +38,14 @@ Tile.prototype._getBox = function (x, y, z) {
 
     return new THREE.Box2(
         new THREE.Vector2(minX, minY),
-        new THREE.Vector2(maxX, maxY),
+        new THREE.Vector2(maxX, maxY)
     );
 };
 
 /**
  * 获取中心点
- * @param {*} aabb 
+ * @param {*} aabb 包围盒
+ * @returns {THREE.Vector2} 中心点
  */
 Tile.prototype._getCenter = function (aabb) {
     var center = new THREE.Vector2();

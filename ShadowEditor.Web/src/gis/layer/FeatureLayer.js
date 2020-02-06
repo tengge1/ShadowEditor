@@ -3,7 +3,7 @@ import Layer from './Layer';
 /**
  * 数据图层
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function FeatureLayer(globe) {
     Layer.call(this, globe);

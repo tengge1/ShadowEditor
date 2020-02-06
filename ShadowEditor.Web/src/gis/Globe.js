@@ -28,7 +28,7 @@ function Globe(camera, renderer, options = {}) {
 
     Object.assign(this.userData, {
         type: 'Globe',
-        background: 'google',
+        background: 'google'
     });
 
     this.camera = camera;
@@ -44,7 +44,7 @@ function Globe(camera, renderer, options = {}) {
 
     // 不能命名为layers，否则跟three.js的layers冲突
     this._layers = [
-        new GoogleTiledLayer(this),
+        new GoogleTiledLayer(this)
         //new TiandituTiledLayer(this),
         // new BingTiledLayer(this),
     ];

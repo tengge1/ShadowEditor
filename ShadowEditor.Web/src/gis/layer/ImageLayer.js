@@ -3,7 +3,7 @@ import Layer from './Layer';
 /**
  * 图片图层
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function ImageLayer(globe) {
     Layer.call(this, globe);

@@ -3,7 +3,7 @@ import TiledImageLayer from '../TiledImageLayer';
 /**
  * 必应瓦片图层
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function BingTiledLayer(globe) {
     TiledImageLayer.call(this, globe);
@@ -23,6 +23,7 @@ BingTiledLayer.prototype.getUrl = function (x, y, z) {
  * @param {*} tileX Tile X coordinate.
  * @param {*} tileY Tile Y coordinate.
  * @param {*} levelOfDetail evel of detail, from 1 (lowest detail) to 23 (highest detail).
+ * @returns {String} 瓦片索引
  * @see https://docs.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system
  */
 BingTiledLayer.prototype.tileXYToQuadKey = function (tileX, tileY, levelOfDetail) {
@@ -31,11 +32,11 @@ BingTiledLayer.prototype.tileXYToQuadKey = function (tileX, tileY, levelOfDetail
     let mask;
     for (let i = levelOfDetail; i > 0; i--) {
         digit = '0';
-        mask = 1 << (i - 1);
-        if ((tileX & mask) != 0) {
+        mask = 1 << i - 1;
+        if ((tileX & mask) !== 0) {
             digit++;
         }
-        if ((tileY & mask) != 0) {
+        if ((tileY & mask) !== 0) {
             digit++;
             digit++;
         }

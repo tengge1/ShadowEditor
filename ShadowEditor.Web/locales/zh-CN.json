@@ -993,5 +993,9 @@
     "Control Mode": "控制器模式",
     "Editor Controls": "编辑器控制器",
     "Free Controls": "自由控制器",
-    "First Perspective": "第一视角"
+    "First Perspective": "第一视角",
+    "Orthographic Camera": "正交相机",
+    "Perspective Camera": "透视相机",
+    "Arrow Helper": "箭头帮助器",
+    "Axes Helper": "坐标轴帮助器"
 }

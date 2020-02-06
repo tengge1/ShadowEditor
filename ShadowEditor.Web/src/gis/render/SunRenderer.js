@@ -6,7 +6,7 @@ import WGS84 from '../core/WGS84';
 /**
  * 太阳渲染器
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function SunRenderer(globe) {
     Renderer.call(this, globe);
@@ -71,14 +71,14 @@ SunRenderer.prototype.initProgram = function () {
     // 获取attributes和uniform信息
     Object.assign(this.attributes, {
         position: gl.getAttribLocation(program, 'position'),
-        uv: gl.getAttribLocation(program, 'uv'),
+        uv: gl.getAttribLocation(program, 'uv')
     });
 
     Object.assign(this.uniforms, {
         modelViewMatrix: gl.getUniformLocation(program, 'modelViewMatrix'),
         projectionMatrix: gl.getUniformLocation(program, 'projectionMatrix'),
         sunPosition: gl.getUniformLocation(program, 'sunPosition'),
-        map: gl.getUniformLocation(program, 'map'),
+        map: gl.getUniformLocation(program, 'map')
     });
 };
 
@@ -104,7 +104,7 @@ SunRenderer.prototype.initBuffers = function () {
     Object.assign(this.buffers, {
         position: positionBuffer,
         uv: uvBuffer,
-        index: indexBuffer,
+        index: indexBuffer
     });
 };
 

@@ -3,7 +3,7 @@ var ID = -1;
 /**
  * 图层
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function Layer(globe) {
     this.globe = globe;
@@ -14,9 +14,9 @@ function Layer(globe) {
 
 /**
  * 获取某个经纬度范围内的资源
- * @param {THREE.Box2} aabb 
+ * @param {THREE.Box2} aabb 包围盒
  */
-Layer.prototype.get = function (aabb) {
+Layer.prototype.get = function (aabb) { // eslint-disable-line
 
 };
 

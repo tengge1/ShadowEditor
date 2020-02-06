@@ -3,7 +3,7 @@ var ID = -1;
 /**
  * 渲染器
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function Renderer(globe) {
     this.globe = globe;
@@ -15,7 +15,7 @@ function Renderer(globe) {
     this.gl = this.renderer.getContext();
 }
 
-Renderer.prototype.render = function (layer) {
+Renderer.prototype.render = function (layer) { // eslint-disable-line
 
 };
 

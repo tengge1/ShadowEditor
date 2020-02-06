@@ -15,7 +15,7 @@ function Viewer(camera, domElement) {
     this.oldFar = this.camera.far;
     this.camera.far = 20576957;
     this.camera.updateProjectionMatrix();
-};
+}
 
 Viewer.prototype.update = function () {
 

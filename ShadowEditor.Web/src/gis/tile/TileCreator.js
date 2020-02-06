@@ -1,7 +1,7 @@
 /**
  * 瓦片创建者
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function TileCreator(globe) {
     this.globe = globe;
@@ -10,7 +10,7 @@ function TileCreator(globe) {
     this.renderer = this.globe.renderer;
 }
 
-TileCreator.prototype.get = function (lon, lat, alt) {
+TileCreator.prototype.get = function (lon, lat, alt) { // eslint-disable-line
     return [];
 };
 

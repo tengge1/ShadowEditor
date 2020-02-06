@@ -6,7 +6,7 @@ import GeoUtils from '../utils/GeoUtils';
 /**
  * 球形瓦片创建者
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function SphereTileCreator(globe) {
     TileCreator.call(this, globe);
@@ -56,10 +56,10 @@ SphereTileCreator.prototype.get = function (tiles) {
 
 /**
  * 从1层级进行四分，返回满足要求的瓦片
- * @param {*} x 
- * @param {*} y 
- * @param {*} z 
- * @param {*} tiles 
+ * @param {*} x X坐标
+ * @param {*} y Y坐标
+ * @param {*} z 层级
+ * @param {*} tiles 瓦片
  */
 SphereTileCreator.prototype.fork = function (x, y, z, tiles) {
     var tile = this.getTile(x, y, z);
@@ -86,9 +86,10 @@ SphereTileCreator.prototype.fork = function (x, y, z, tiles) {
 
 /**
  * 获取一个瓦片
- * @param {*} x 
- * @param {*} y 
- * @param {*} z 
+ * @param {*} x X坐标
+ * @param {*} y Y坐标
+ * @param {*} z 层级
+ * @returns {*} 瓦片
  */
 SphereTileCreator.prototype.getTile = function (x, y, z) {
     var id = `${x}_${y}_${z}`;
@@ -107,7 +108,8 @@ SphereTileCreator.prototype.getTile = function (x, y, z) {
  * 判断瓦片是否可见：
  * 1、材质上的底图已经下载完；
  * 2、当前视锥与该瓦片的包围盒相交。
- * @param {*} tile 
+ * @param {*} tile 瓦片
+ * @returns {Boolean} 是否可见
  */
 SphereTileCreator.prototype.isVisible = function (tile) {
     return this.globe.viewer.aabb.intersectsBox(tile._aabb);

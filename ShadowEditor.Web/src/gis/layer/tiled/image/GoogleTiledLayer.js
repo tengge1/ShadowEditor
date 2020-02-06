@@ -1,10 +1,9 @@
 import TiledImageLayer from '../TiledImageLayer';
-import GeoUtils from '../../../utils/GeoUtils';
 
 /**
  * 谷歌瓦片图层
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function GoogleTiledLayer(globe) {
     TiledImageLayer.call(this, globe);

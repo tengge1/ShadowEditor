@@ -3,7 +3,7 @@
  */
 function TileCache() {
     this.cache = new Map();
-};
+}
 
 TileCache.prototype.get = function (x, y, z) {
     var cache = this.cache.get(z);

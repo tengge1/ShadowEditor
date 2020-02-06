@@ -58,6 +58,12 @@ class ObjectMenu extends React.Component {
 
         this.handleAddPointMark = this.handleAddPointMark.bind(this);
 
+        this.handleAddOrthographicCamera = this.handleAddOrthographicCamera.bind(this);
+        this.handleAddPerspectiveCamera = this.handleAddPerspectiveCamera.bind(this);
+
+        this.handleAddArrowHelper = this.handleAddArrowHelper.bind(this);
+        this.handleAddAxesHelper = this.handleAddAxesHelper.bind(this);
+
         this.handleAddSprite = this.handleAddSprite.bind(this);
     }
 
@@ -127,6 +133,22 @@ class ObjectMenu extends React.Component {
             <MenuItem title={_t('Mark')}>
                 <MenuItem title={_t('Point Mark')}
                     onClick={this.handleAddPointMark}
+                />
+            </MenuItem>
+            <MenuItem title={_t('Camera')}>
+                <MenuItem title={_t('Orthographic Camera')}
+                    onClick={this.handleAddOrthographicCamera}
+                />
+                <MenuItem title={_t('Perspective Camera')}
+                    onClick={this.handleAddPerspectiveCamera}
+                />
+            </MenuItem>
+            <MenuItem title={_t('Helper')}>
+                <MenuItem title={_t('Arrow Helper')}
+                    onClick={this.handleAddArrowHelper}
+                />
+                <MenuItem title={_t('Axes Helper')}
+                    onClick={this.handleAddAxesHelper}
                 />
             </MenuItem>
             <MenuItemSeparator />
@@ -259,7 +281,7 @@ class ObjectMenu extends React.Component {
         app.editor.execute(new AddObjectCommand(line));
     }
 
-    // -------------------- 点状标注 --------------------------------------------
+    // -------------------- 点状标注 ----------------------------------
 
     handleAddPointMark() {
         if (this.pointMarkTool === undefined) {
@@ -274,6 +296,39 @@ class ObjectMenu extends React.Component {
         this.setState({
             isAddPointMark: true
         });
+    }
+
+    // ------------------------- 相机 --------------------------------
+
+    handleAddOrthographicCamera() {
+        let camera = new THREE.OrthographicCamera();
+        camera.name = _t('Orthographic Camera');
+        app.editor.addObject(camera);
+    }
+
+    handleAddPerspectiveCamera() {
+        let camera = new THREE.PerspectiveCamera();
+        camera.name = _t('Perspective Camera');
+        app.editor.addObject(camera);
+    }
+
+    // ---------------------- 帮助器 ---------------------------------
+
+    handleAddArrowHelper() {
+        let helper = new THREE.ArrowHelper(
+            new THREE.Vector3(0, 1, 0),
+            new THREE.Vector3(),
+            10
+        );
+        helper.name = _t('Arrow Helper');
+        app.editor.addObject(helper);
+    }
+
+    handleAddAxesHelper() {
+        let helper = new THREE.AxesHelper(10);
+        helper.name = _t('Axes Helper');
+        helper.position.y = 1;
+        app.editor.addObject(helper);
     }
 
     // ---------------------- 精灵 -----------------------------------

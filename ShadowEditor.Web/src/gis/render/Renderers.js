@@ -7,7 +7,7 @@ import AtmosphereRenderer from './AtmosphereRenderer';
 /**
  * 所有渲染器
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function Renderers(globe) {
     Renderer.call(this, globe);
@@ -15,7 +15,7 @@ function Renderers(globe) {
     this.renderers = [
         new BackgroundRenderer(this.globe),
         new SunRenderer(this.globe),
-        new TiledLayerRenderer(this.globe),
+        new TiledLayerRenderer(this.globe)
         //new AtmosphereRenderer(this.globe),
     ];
 }

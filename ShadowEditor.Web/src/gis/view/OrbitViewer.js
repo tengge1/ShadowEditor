@@ -22,7 +22,7 @@ function OrbitViewer(camera, domElement) {
     // 视场
     this.aabb = new THREE.Box2(
         new THREE.Vector2(-Math.PI, -Math.PI / 2),
-        new THREE.Vector2(Math.PI, Math.PI / 2),
+        new THREE.Vector2(Math.PI, Math.PI / 2)
     );
 
     // 动画参数
@@ -31,7 +31,7 @@ function OrbitViewer(camera, domElement) {
     // 事件绑定
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this)
+    this.onMouseUp = this.onMouseUp.bind(this);
     this.onMouseWheel = this.onMouseWheel.bind(this);
 
     this.domElement.addEventListener('mousedown', this.onMouseDown);
@@ -41,12 +41,12 @@ function OrbitViewer(camera, domElement) {
 
     // 初始化
     this._updateAABB();
-};
+}
 
 OrbitViewer.prototype = Object.create(Viewer.prototype);
 OrbitViewer.prototype.constructor = OrbitViewer;
 
-OrbitViewer.prototype.onMouseDown = function (event) {
+OrbitViewer.prototype.onMouseDown = function (event) { // eslint-disable-line
     this.isDown = true;
     this.isPan = false;
 };
@@ -65,8 +65,8 @@ OrbitViewer.prototype.onMouseMove = function () {
     var maxAngle = 150 * Math.PI / 180;
     var axis = new THREE.Vector3();
 
-    var startTime = 0;
-    var endTime = 0;
+    // var startTime = 0;
+    // var endTime = 0;
 
     var quat = new THREE.Quaternion();
     var dir1 = new THREE.Vector3();
@@ -146,7 +146,7 @@ OrbitViewer.prototype.onMouseMove = function () {
     };
 }();
 
-OrbitViewer.prototype.onMouseUp = function (event) {
+OrbitViewer.prototype.onMouseUp = function (event) { // eslint-disable-line
     this.isDown = false;
     this.isPan = false;
     this._updateAABB();
@@ -182,7 +182,7 @@ OrbitViewer.prototype.onMouseWheel = function () {
         this.camera.position.set(
             this.camera.position.x + d * dir.x,
             this.camera.position.y + d * dir.y,
-            this.camera.position.z + d * dir.z,
+            this.camera.position.z + d * dir.z
         );
 
         this._updateAABB();
@@ -209,7 +209,7 @@ OrbitViewer.prototype.intersectSphere = function () {
 
         ray.origin.set(
             x / this.domElement.clientWidth * 2 - 1, -y / this.domElement.clientHeight * 2 + 1,
-            0.1,
+            0.1
         );
 
         ray.direction.copy(ray.origin);
@@ -257,7 +257,7 @@ OrbitViewer.prototype.getPosition = function () {
 };
 
 OrbitViewer.prototype.update = function () {
-    var lonlat = new THREE.Vector3();
+    // var lonlat = new THREE.Vector3();
 
     return function () {
         // if (this.isPan) {

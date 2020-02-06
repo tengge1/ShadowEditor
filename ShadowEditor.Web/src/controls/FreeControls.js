@@ -10,9 +10,14 @@ class FreeControls extends BaseControls {
     constructor(camera, domElement) {
         super(camera, domElement);
 
-        this.panSpeed = 0.002;
-        this.rotateSpeed = 0.005;
-        this.zoomSpeed = 0.1;
+        this.panVelocity = 0.002;
+        this.rotateVelocity = 0.005;
+        this.zoomVelocity = 1;
+
+        this.minVelocity = 1;
+        this.maxVelocity = 10;
+
+        this.minHeight = 1;
 
         this.center = new THREE.Vector3();
         this.pickPosition = new THREE.Vector3();
@@ -29,15 +34,15 @@ class FreeControls extends BaseControls {
         this.isPanning = false; // 是否正在移动
         this.isRotating = false; // 是否正在旋转
         this.velocity = new THREE.Vector3(); // 速度：m/s
-        this.minVelocity = 1;
-        this.maxVelocity = 10;
         this.angularVelocity = new THREE.Euler(); // 角速度：rad/s
-        this.acceleration = 50; // 加速度：m/s^2
+        this.acceleration = 100; // 加速度：m/s^2
         this.angularAcceleration = 0.01; // 角加速度：rad/s^2
         this.velocityThreshold = 0; // 速度阈值
         this.angularVelocityThreshold = 0; // 角速度阈值
 
+        this.moveTime = 0;
         this.displacement = new THREE.Vector3(); // 位移：m
+
         this.rotation = new THREE.Euler(); // 旋转：rad
 
         this.update = this.update.bind(this);
@@ -81,9 +86,11 @@ class FreeControls extends BaseControls {
         let pickPosition = this.pickPosition;
 
         this.isPanning = true;
-        let distance = cameraPosition.distanceTo(pickPosition);
-        this.velocity.subVectors(cameraPosition, pickPosition)
-            .multiplyScalar(this.zoomSpeed * delta * distance);
+
+        let factor = cameraPosition.distanceTo(pickPosition) * 0.01;
+
+        this.velocity.subVectors(cameraPosition, pickPosition).normalize()
+            .multiplyScalar(this.zoomVelocity * delta * factor);
     }
 
     update() {
@@ -110,16 +117,22 @@ class FreeControls extends BaseControls {
         this.displacement.copy(this.velocity).multiplyScalar(deltaTime).multiplyScalar(-1);
         this.camera.position.add(this.displacement);
 
-        let dv = this.acceleration * deltaTime;
+        if (this.camera.position.y <= this.minHeight) {
+            this.camera.position.y = this.minHeight;
+            this.velocity.y = 0;
+        }
+
+        const dv = this.acceleration * deltaTime;
+        const len = velocity.length();
 
         if (velocity.x !== 0) {
-            velocity.x = this.calVelocityX(velocity.x, dv);
+            velocity.x = this.calVelocityX(velocity.x, Math.abs(dv * velocity.x / len));
         }
         if (velocity.y !== 0) {
-            velocity.y = this.calVelocityX(velocity.y, dv);
+            velocity.y = this.calVelocityX(velocity.y, Math.abs(dv * velocity.y / len));
         }
         if (velocity.z !== 0) {
-            velocity.z = this.calVelocityX(velocity.z, dv);
+            velocity.z = this.calVelocityX(velocity.z, Math.abs(dv * velocity.z / len));
         }
     }
 
@@ -138,6 +151,7 @@ class FreeControls extends BaseControls {
         } else if (event.button === 2) { // 右键
             this.isRightDown = true;
         }
+        this.moveTime = new Date().getTime();
         this.plane.setFromNormalAndCoplanarPoint(UP, this.pickPosition);
     }
 
@@ -147,18 +161,30 @@ class FreeControls extends BaseControls {
         }
         let camera = this.camera;
         this.mouse.set(
-            event.offsetX / this.domElement.clientWidth * 2 - 1, 
+            event.offsetX / this.domElement.clientWidth * 2 - 1,
             -(event.offsetY / this.domElement.clientHeight) * 2 + 1
         );
         this.raycaster.setFromCamera(this.mouse, camera);
-        if(this.raycaster.ray.intersectPlane(this.plane, this.target)) {
+
+        let now = new Date().getTime();
+
+        if (this.raycaster.ray.intersectPlane(this.plane, this.target)) {
             let dx = this.target.x - this.pickPosition.x;
             let dz = this.target.z - this.pickPosition.z;
             camera.position.x -= dx;
             camera.position.z -= dz;
             this.center.x += dx;
             this.center.z += dz;
+
+            let deltaTime = (now - this.moveTime) / 1000;
+            this.velocity.set(
+                dx / deltaTime,
+                0,
+                dz / deltaTime
+            );
         }
+
+        this.moveTime = now;
     }
 
     onMouseUp(event) {
@@ -168,6 +194,7 @@ class FreeControls extends BaseControls {
             this.isRightDown = false;
         }
         this.mouse.set(0, 0);
+        this.isPanning = true;
     }
 
     onMouseWheel(event) {

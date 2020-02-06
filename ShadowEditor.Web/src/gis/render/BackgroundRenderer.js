@@ -5,7 +5,7 @@ import BackgroundFragment from './shader/background_fragment.glsl';
 /**
  * 背景渲染器
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function BackgroundRenderer(globe) {
     Renderer.call(this, globe);
@@ -70,7 +70,7 @@ BackgroundRenderer.prototype.initProgram = function () {
 
     // 获取attributes和uniform信息
     Object.assign(this.attributes, {
-        position: gl.getAttribLocation(program, 'position'),
+        position: gl.getAttribLocation(program, 'position')
     });
 
     Object.assign(this.uniforms, {
@@ -79,7 +79,7 @@ BackgroundRenderer.prototype.initProgram = function () {
         projectionMatrix: gl.getUniformLocation(program, 'projectionMatrix'),
 
         tCube: gl.getUniformLocation(program, 'tCube'),
-        tFlip: gl.getUniformLocation(program, 'tFlip'),
+        tFlip: gl.getUniformLocation(program, 'tFlip')
     });
 };
 
@@ -100,7 +100,7 @@ BackgroundRenderer.prototype.initBuffers = function () {
 
     Object.assign(this.buffers, {
         position: positionBuffer,
-        index: indexBuffer,
+        index: indexBuffer
     });
 };
 
@@ -113,7 +113,7 @@ BackgroundRenderer.prototype.initTextures = function () {
         'assets/textures/MilkyWay/dark-s_py.jpg',
         'assets/textures/MilkyWay/dark-s_ny.jpg',
         'assets/textures/MilkyWay/dark-s_pz.jpg',
-        'assets/textures/MilkyWay/dark-s_nz.jpg',
+        'assets/textures/MilkyWay/dark-s_nz.jpg'
     ];
 
     // 创建立方体纹理

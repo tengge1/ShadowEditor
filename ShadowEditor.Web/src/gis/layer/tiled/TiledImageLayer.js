@@ -4,7 +4,7 @@ import TileCache from '../../utils/TileCache';
 /**
  * 图片瓦片图层
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function TiledImageLayer(globe) {
     ImageLayer.call(this, globe);
@@ -17,19 +17,21 @@ TiledImageLayer.prototype.constructor = TiledImageLayer;
 
 /**
  * 由子类实现，返回下载图片的url
- * @param {*} x 
- * @param {*} y 
- * @param {*} z 
+ * @param {*} x X坐标
+ * @param {*} y Y坐标
+ * @param {*} z 层级
+ * @returns {String} 瓦片url
  */
-TiledImageLayer.prototype.getUrl = function (x, y, z) {
+TiledImageLayer.prototype.getUrl = function (x, y, z) { // eslint-disable-line
     return null;
 };
 
 /**
  * 获取图片数据
- * @param {*} x 
- * @param {*} y 
- * @param {*} z 
+ * @param {*} x X坐标
+ * @param {*} y Y坐标
+ * @param {*} z 层级
+ * @returns {Image} 图片 
  */
 TiledImageLayer.prototype.get = function (x, y, z) {
     var img = this.cache.get(x, y, z);

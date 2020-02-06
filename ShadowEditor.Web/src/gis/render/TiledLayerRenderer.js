@@ -7,7 +7,7 @@ import WGS84 from '../core/WGS84';
 /**
  * 瓦片图层渲染器
  * @author tengge / https://github.com/tengge1
- * @param {*} globe 
+ * @param {*} globe 地球
  */
 function TiledLayerRenderer(globe) {
     Renderer.call(this, globe);
@@ -76,7 +76,7 @@ TiledLayerRenderer.prototype.initProgram = function () {
     Object.assign(this.attributes, {
         position: gl.getAttribLocation(program, 'position'),
         normal: gl.getAttribLocation(program, 'normal'),
-        uv: gl.getAttribLocation(program, 'uv'),
+        uv: gl.getAttribLocation(program, 'uv')
     });
 
     Object.assign(this.uniforms, {
@@ -86,7 +86,7 @@ TiledLayerRenderer.prototype.initProgram = function () {
         x: gl.getUniformLocation(program, 'x'),
         y: gl.getUniformLocation(program, 'y'),
         z: gl.getUniformLocation(program, 'z'),
-        map: gl.getUniformLocation(program, 'map'),
+        map: gl.getUniformLocation(program, 'map')
     });
 };
 
@@ -115,7 +115,7 @@ TiledLayerRenderer.prototype.initBuffers = function () {
         position: positionBuffer,
         normal: normalBuffer,
         uv: uvBuffer,
-        index: indexBuffer,
+        index: indexBuffer
     });
 };
 
