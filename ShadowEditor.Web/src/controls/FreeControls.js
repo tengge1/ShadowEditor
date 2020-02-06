@@ -91,6 +91,11 @@ class FreeControls extends BaseControls {
             this.center.z += dz;
 
             let deltaTime = (now - this.moveTime) / 1000;
+
+            if(deltaTime === 0) {
+                return;
+            }
+
             this.velocity.set(
                 dx / deltaTime,
                 0,
@@ -129,7 +134,7 @@ class FreeControls extends BaseControls {
 
         this.state = STATE.ZOOM;
 
-        let factor = cameraPosition.distanceTo(pickPosition) * 0.01;
+        let factor = 0.2 + Math.log(cameraPosition.distanceTo(pickPosition)) * 0.1;
 
         this.velocity.subVectors(cameraPosition, pickPosition).normalize()
             .multiplyScalar(this.zoomVelocity * dy * factor);
