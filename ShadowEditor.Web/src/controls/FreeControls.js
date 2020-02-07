@@ -1,13 +1,14 @@
 import BaseControls from './BaseControls';
 
 const STATE = {
-    NONE: - 1,
-    ROTATE: 0,
-    ZOOM: 1,
-    PAN: 2
+    NONE: -1,
+    PAN: 1,
+    ROTATE: 2,
+    ZOOM: 3
 };
 
 const UP = new THREE.Vector3(0, 1, 0);
+const RIGHT = new THREE.Vector3(1, 0, 0);
 
 /**
  * 自由控制器
@@ -21,18 +22,14 @@ class FreeControls extends BaseControls {
         this.rotateVelocity = 0.005;
         this.zoomVelocity = 1;
 
-        this.minVelocity = 1;
-        this.maxVelocity = 10;
-
         this.minHeight = 1;
 
         this.center = new THREE.Vector3();
         this.pickPosition = new THREE.Vector3();
 
         this.time = 0;
-        this.isLeftDown = false;
-        this.isRightDown = false;
 
+        this.offsetXY = new THREE.Vector3();
         this.mouse = new THREE.Vector2(); // 鼠标碰撞点世界坐标
         this.raycaster = new THREE.Raycaster();
         this.plane = new THREE.Plane();
@@ -40,19 +37,17 @@ class FreeControls extends BaseControls {
 
         this.state = STATE.NONE;
         this.velocity = new THREE.Vector3(); // 速度：m/s
-        this.angularVelocity = new THREE.Euler(); // 角速度：rad/s
         this.acceleration = 100; // 加速度：m/s^2
-        this.angularAcceleration = 0.01; // 角加速度：rad/s^2
-        this.velocityThreshold = 0; // 速度阈值
-        this.angularVelocityThreshold = 0; // 角速度阈值
+        this.velocityThreshold = 0.1; // 速度阈值
 
-        this.moveTime = 0;
         this.displacement = new THREE.Vector3(); // 位移：m
 
-        this.rotation = new THREE.Euler(); // 旋转：rad
         this.from = new THREE.Vector3();
         this.to = new THREE.Vector3();
         this.quaternion = new THREE.Quaternion();
+        this.quaternion2 = new THREE.Quaternion();
+        this.lookDirection = new THREE.Vector3();
+        this.right = new THREE.Vector3();
 
         this.update = this.update.bind(this);
 
@@ -72,65 +67,41 @@ class FreeControls extends BaseControls {
     focus(target) { // eslint-disable-line
     }
 
-    pan(dx, dy) {
-        let camera = this.camera;
-        this.mouse.set(
-            dx / this.domElement.clientWidth * 2 - 1,
-            -(dy / this.domElement.clientHeight) * 2 + 1
-        );
-        this.raycaster.setFromCamera(this.mouse, camera);
-
-        let now = new Date().getTime();
-
-        if (this.raycaster.ray.intersectPlane(this.plane, this.target)) {
-            let dx = this.target.x - this.pickPosition.x;
-            let dz = this.target.z - this.pickPosition.z;
-            camera.position.x -= dx;
-            camera.position.z -= dz;
-            this.center.x += dx;
-            this.center.z += dz;
-
-            let deltaTime = (now - this.moveTime) / 1000;
-
-            if(deltaTime === 0) {
-                return;
-            }
-
-            this.velocity.set(
-                dx / deltaTime,
-                0,
-                dz / deltaTime
-            );
-        }
-
-        this.moveTime = now;
+    pan() {
+        const dx = this.target.x - this.pickPosition.x;
+        const dz = this.target.z - this.pickPosition.z;
+        this.camera.position.x -= dx;
+        this.camera.position.z -= dz;
+        this.center.x -= dx;
+        this.center.z -= dz;
     }
 
     rotate(dx, dy) {
-        let camera = this.camera;
-        this.mouse.set(
-            dx / this.domElement.clientWidth * 2 - 1,
-            -(dy / this.domElement.clientHeight) * 2 + 1
-        );
-        this.raycaster.setFromCamera(this.mouse, camera);
+        // theta
+        this.from.subVectors(this.pickPosition, this.center).setY(0).normalize();
+        this.to.subVectors(this.target, this.center).setY(0).normalize();
+        this.quaternion.setFromUnitVectors(this.from, this.to);
 
-        let now = new Date().getTime();
+        // phi
+        this.right.copy(RIGHT).applyQuaternion(this.camera.quaternion).normalize();
 
-        if (this.raycaster.ray.intersectPlane(this.plane, this.target)) {
-            this.from.subVectors(this.pickPosition, this.center).normalize();
-            this.to.subVectors(this.target, this.center).normalize();
-            this.quaternion.setFromUnitVectors(this.from, this.to);
+        this.quaternion2.setFromAxisAngle(this.right, dy * 0.01);
 
-            let deltaTime = (now - this.moveTime) / 1000;
-            this.camera.quaternion.multiply(this.quaternion);
-        }
+        this.quaternion.multiply(this.quaternion2);
 
-        this.moveTime = now;
+        this.quaternion.inverse();
+
+        this.lookDirection.copy(this.camera.position).sub(this.center).normalize();
+        this.lookDirection.applyQuaternion(this.quaternion).normalize();
+
+        let distance = this.camera.position.distanceTo(this.center);
+        this.camera.position.copy(this.lookDirection).multiplyScalar(distance).add(this.center);
+        this.camera.lookAt(this.center);
     }
 
     zoom(dy) {
-        let cameraPosition = this.camera.position;
-        let pickPosition = this.pickPosition;
+        const cameraPosition = this.camera.position;
+        const pickPosition = this.pickPosition;
 
         this.state = STATE.ZOOM;
 
@@ -141,12 +112,12 @@ class FreeControls extends BaseControls {
     }
 
     update() {
-        if (this.state === STATE.NONE) {
+        if (this.state !== STATE.ZOOM) {
             this.time = new Date().getTime();
             return;
         }
-        let now = new Date().getTime();
-        let deltaTime = (now - this.time) / 1000;
+        const now = new Date().getTime();
+        const deltaTime = (now - this.time) / 1000;
 
         this.updateVelocity(deltaTime);
 
@@ -169,23 +140,22 @@ class FreeControls extends BaseControls {
             this.velocity.y = 0;
         }
 
-        const dv = this.acceleration * deltaTime;
-        const len = velocity.length();
+        const dv = this.acceleration * deltaTime / velocity.length();
 
         if (velocity.x !== 0) {
-            velocity.x = this.calVelocityX(velocity.x, Math.abs(dv * velocity.x / len));
+            velocity.x = this.calVelocityX(velocity.x, Math.abs(dv * velocity.x));
         }
         if (velocity.y !== 0) {
-            velocity.y = this.calVelocityX(velocity.y, Math.abs(dv * velocity.y / len));
+            velocity.y = this.calVelocityX(velocity.y, Math.abs(dv * velocity.y));
         }
         if (velocity.z !== 0) {
-            velocity.z = this.calVelocityX(velocity.z, Math.abs(dv * velocity.z / len));
+            velocity.z = this.calVelocityX(velocity.z, Math.abs(dv * velocity.z));
         }
     }
 
     calVelocityX(v, dv) {
-        let sv = Math.sign(v);
-        let vv = Math.abs(v) - dv;
+        const sv = Math.sign(v);
+        const vv = Math.abs(v) - dv;
         return vv < this.velocityThreshold ? 0 : sv * vv;
     }
 
@@ -194,30 +164,36 @@ class FreeControls extends BaseControls {
             return;
         }
         if (event.button === 0) { // 左键
-            this.isLeftDown = true;
+            this.state = STATE.ROTATE;
         } else if (event.button === 2) { // 右键
-            this.isRightDown = true;
+            this.state = STATE.PAN;
         }
-        this.moveTime = new Date().getTime();
+        this.offsetXY.set(event.offsetX, event.offsetY);
         this.plane.setFromNormalAndCoplanarPoint(UP, this.pickPosition);
     }
 
     onMouseMove(event) {
-        if (this.isLeftDown) {
-            this.rotate(event.offsetX, event.offsetY);
-        } else if(this.isRightDown) {
-            this.pan(event.offsetX, event.offsetY);
+        if (this.enabled && this.state !== STATE.ROTATE && this.state !== STATE.PAN) {
+            return;
         }
+        if (!this.pick(event.offsetX, event.offsetY)) {
+            return;
+        }
+        const dx = event.offsetX - this.offsetXY.x;
+        const dy = event.offsetY - this.offsetXY.y;
+        if (this.state === STATE.ROTATE) {
+            this.rotate(dx, dy);
+        } else if (this.state === STATE.PAN) {
+            this.pan(dx, dy);
+        }
+        this.offsetXY.set(event.offsetX, event.offsetY);
     }
 
-    onMouseUp(event) {
-        if (event.button === 0) {
-            this.isLeftDown = false;
-            this.state = STATE.ROTATE;
-        } else if (event.button === 2) {
-            this.isRightDown = false;
-            this.state = STATE.PAN;
+    onMouseUp() {
+        if (!this.enabled) {
+            return;
         }
+        this.state = STATE.NONE;
     }
 
     onMouseWheel(event) {
@@ -225,6 +201,21 @@ class FreeControls extends BaseControls {
             return;
         }
         this.zoom(-event.deltaY);
+    }
+
+    /**
+     * 判断鼠标所在位置与平面交点
+     * @param {Number} offsetX 偏移X
+     * @param {Number} offsetY 偏移Y
+     * @returns {Boolean} 是否相交
+     */
+    pick(offsetX, offsetY) {
+        this.mouse.set(
+            offsetX / this.domElement.clientWidth * 2 - 1,
+            -(offsetY / this.domElement.clientHeight) * 2 + 1
+        );
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+        return this.raycaster.ray.intersectPlane(this.plane, this.target);
     }
 
     setPickPosition(position) {
