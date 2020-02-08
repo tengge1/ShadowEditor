@@ -135,6 +135,26 @@ npm run docs
 **完整错误**：asm.js 已被禁用，因为脚本调试程序已连接。请断开调试程序的连接，以启用 asm.js。 ammo.js (1,1) SCRIPT1028: SCRIPT1028: Expected identifier, string or number ShadowEditor.js (3948,8) SCRIPT5009: 'Shadow' is not defined。  
 **解决方法**：腾讯浏览器不支持使用`Emscripten`编译的`ammo.js`（WebAssembly），建议换成谷歌浏览器。  
 
+5. 前端报`404.0 - Not Found您要找的资源已被删除、已更名或暂时不可用。`的错误。
+
+可能原因1：**iis没有开启asp.net支持。**
+
+解决方法：  
+1、打开控制面板、程序和功能、启用或关闭Windows功能。  
+2、把`.NET Framework`勾选上。  
+3、把Internet Information Services、万维网服务、应用程序开发功能，下面的`.NET Extensibility`、`ASP.NET`、`ISAPI扩展`、`ISAPI筛选器`、`应用程序初始化`勾选上，确定。  
+
+可能原因2：**服务端没有编译。**
+
+解决方法：
+使用`Visual Studio 2017`打开项目，在解决方案管理器`ShadowEditor.Web`项目上右键，选择重新生成。
+
+6. 上传模型报`对路径“C:\inetpub\wwwroot\Upload\Model\20200208192356\temp”的访问被拒绝。`的错误。
+
+原因：`Upload`文件夹没有写入权限。  
+解决方法：  
+右键`Upload`文件夹，点击属性。安全选项卡，点高级，添加。选择主体，填写Everyone，基本权限，选择`完全控制`就好了。
+
 ## 相关链接
 
 * Three.js官网：https://threejs.org/
