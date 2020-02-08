@@ -283,22 +283,22 @@ class Editor extends React.Component {
         }
 
         // 测试
-        if(app.debug) {
-            let geometry = new THREE.PlaneBufferGeometry(100, 100);
+        // if(app.debug) {
+        //     let geometry = new THREE.PlaneBufferGeometry(100, 100);
 
-            let map = new THREE.TextureLoader().load('assets/textures/grid.png');
-            map.wrapS = map.wrapT = THREE.RepeatWrapping;
-            map.repeat.set(64, 64);
+        //     let map = new THREE.TextureLoader().load('assets/textures/grid.png');
+        //     map.wrapS = map.wrapT = THREE.RepeatWrapping;
+        //     map.repeat.set(64, 64);
     
-            let material = new THREE.MeshBasicMaterial({
-                map
-            });
+        //     let material = new THREE.MeshBasicMaterial({
+        //         map
+        //     });
     
-            let mesh = new THREE.Mesh(geometry, material);
-            mesh.rotation.x = -Math.PI / 2;
+        //     let mesh = new THREE.Mesh(geometry, material);
+        //     mesh.rotation.x = -Math.PI / 2;
     
-            this.scene.add(mesh);
-        }
+        //     this.scene.add(mesh);
+        // }
 
         app.call('editorCleared', this);
         app.call('scriptChanged', this);
