@@ -12,6 +12,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 ## v0.4.3即将更新
 
 1. 新增`新建小区和室内`功能，默认自动添加一个地面。
+2. 常见问题新增`404 Not Found`和`访问被拒绝`的解决方法。
+3. 帮助菜单新增`下载模型`功能，可以快速访问`sketchfab`和`3dpunk`下载模型。
 
 ## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

@@ -13,6 +13,8 @@ class HelpMenu extends React.Component {
 
         this.handleRendererAttributes = this.handleRendererAttributes.bind(this);
         this.handleThreeJsInformation = this.handleThreeJsInformation.bind(this);
+        this.handleVisitSketchfab = this.handleVisitSketchfab.bind(this);
+        this.handleVisit3dpunk = this.handleVisit3dpunk.bind(this);
         this.handleGitHubSource = this.handleGitHubSource.bind(this);
         this.handleGiteeSource = this.handleGiteeSource.bind(this);
         this.handleGitHubDocuments = this.handleGitHubDocuments.bind(this);
@@ -30,6 +32,15 @@ class HelpMenu extends React.Component {
             <MenuItem title={_t('Three.js Information')}
                 onClick={this.handleThreeJsInformation}
             />
+            <MenuItemSeparator />
+            <MenuItem title={_t('Download Mesh')}>
+                <MenuItem title={_t('Sketchfab')}
+                    onClick={this.handleVisitSketchfab}
+                />
+                <MenuItem title={_t('3dpunk')}
+                    onClick={this.handleVisit3dpunk}
+                />
+            </MenuItem>
             <MenuItemSeparator />
             <MenuItem title={_t('Source')}>
                 <MenuItem title={_t('GitHub')}
@@ -69,6 +80,14 @@ class HelpMenu extends React.Component {
     handleThreeJsInformation() {
         const win = app.createElement(ThreeJsInformationWindow);
         app.addElement(win);
+    }
+
+    handleVisitSketchfab() {
+        window.open('https://sketchfab.com/3d-models?features=downloadable', '_blank');
+    }
+
+    handleVisit3dpunk() {
+        window.open('https://www.3dpunk.com/work/index.html?category=downloadable', '_blank');
     }
 
     handleGitHubSource() {
