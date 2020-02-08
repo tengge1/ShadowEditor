@@ -11,6 +11,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## v0.4.3即将更新
 
+1. 新增`新建小区和室内`功能，默认自动添加一个地面。
+
 ## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
 * 发布日期：2020年2月8日

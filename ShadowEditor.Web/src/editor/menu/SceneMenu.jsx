@@ -15,6 +15,7 @@ class SceneMenu extends React.Component {
         super(props);
 
         this.handleCreateEmptyScene = this.handleCreateEmptyScene.bind(this);
+        this.handleCreateDistrictAndIndoor = this.handleCreateDistrictAndIndoor.bind(this);
         this.handleCreateGISScene = this.handleCreateGISScene.bind(this);
         this.handleSaveScene = this.handleSaveScene.bind(this);
         this.handleSaveAsScene = this.handleSaveAsScene.bind(this);
@@ -36,6 +37,9 @@ class SceneMenu extends React.Component {
             {!enableAuthority || isLogin ? <MenuItem title={_t('New')}>
                 <MenuItem title={_t('Empty Scene')}
                     onClick={this.handleCreateEmptyScene}
+                />
+                <MenuItem title={_t('District and Indoor')}
+                    onClick={this.handleCreateDistrictAndIndoor}
                 />
                 <MenuItem title={_t('GIS Scene')}
                     onClick={this.handleCreateGISScene}
@@ -74,36 +78,86 @@ class SceneMenu extends React.Component {
         </MenuItem>;
     }
 
-    // ---------------------------- 新建空场景 ---------------------------------
+    /**
+     * 创建场景前询问
+     * @returns {Promise} 是否创建成功
+     */
+    queryBeforeCreateScene() {
+        const editor = app.editor;
 
-    handleCreateEmptyScene() {
-        var editor = app.editor;
-
-        if (editor.sceneID === null) {
-            editor.clear();
-            editor.sceneID = null;
-            editor.sceneName = null;
-            document.title = _t('No Name');
-            app.toast(_t('Create empty scene successfully.'), 'success');
-            return;
-        }
-
-        app.confirm({
-            title: _t('Confirm'),
-            content: _t('All unsaved data will be lost. Are you sure?'),
-            onOK: () => {
-                editor.clear();
-                editor.sceneID = null;
-                editor.sceneName = null;
-                app.options.sceneType = 'Empty';
-                document.title = _t('No Name');
-                app.editor.camera.userData.control = 'OrbitControls';
+        return new Promise((resolve, reject) => {
+            if (editor.sceneID === null) {
+                resolve();
+            } else {
+                app.confirm({
+                    title: _t('Confirm'),
+                    content: _t('All unsaved data will be lost. Are you sure?'),
+                    onOK: () => {
+                        resolve();
+                    },
+                    onCancel: () => {
+                        reject();
+                    }
+                });
             }
         });
     }
 
-    // --------------------------- 新建GIS场景 -------------------------------------
+    /**
+     * 新建空场景
+     */
+    handleCreateEmptyScene() {
+        let editor = app.editor;
 
+        this.queryBeforeCreateScene().then(() => {
+            editor.clear();
+            editor.sceneID = null;
+            editor.sceneName = null;
+            app.options.sceneType = 'Empty';
+            document.title = _t('No Name');
+            app.editor.camera.userData.control = 'OrbitControls';
+            app.toast(_t('Create empty scene successfully.'), 'success');
+        });
+    }
+
+    /**
+     * 新建小区和室内
+     */
+    handleCreateDistrictAndIndoor() {
+        let editor = app.editor;
+
+        this.queryBeforeCreateScene().then(() => {
+            editor.clear();
+            editor.sceneID = null;
+            editor.sceneName = null;
+            app.options.sceneType = 'Empty';
+            document.title = _t('District and Indoor');
+            app.editor.camera.userData.control = 'OrbitControls';
+
+            // 添加地面
+            let geometry = new THREE.PlaneBufferGeometry(100, 100);
+
+            let map = new THREE.TextureLoader().load('assets/textures/grid.png');
+            map.wrapS = map.wrapT = THREE.RepeatWrapping;
+            map.repeat.set(64, 64);
+
+            let material = new THREE.MeshBasicMaterial({
+                map
+            });
+
+            let mesh = new THREE.Mesh(geometry, material);
+            mesh.rotation.x = -Math.PI / 2;
+            mesh.name = _t('Ground');
+
+            app.editor.addObject(mesh);
+
+            app.toast(_t('Create district and indoor successfully.'), 'success');
+        });
+    }
+
+    /**
+     * 新建GIS场景
+     */
     handleCreateGISScene() {
         if (app.editor.gis) {
             app.editor.gis.stop();

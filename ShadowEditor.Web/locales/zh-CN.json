@@ -997,5 +997,8 @@
     "Orthographic Camera": "正交相机",
     "Perspective Camera": "透视相机",
     "Arrow Helper": "箭头帮助器",
-    "Axes Helper": "坐标轴帮助器"
+    "Axes Helper": "坐标轴帮助器",
+    "District and Indoor": "小区和室内",
+    "Create district and indoor successfully.": "创建小区和室内成功。",
+    "Ground": "地面"
 }
