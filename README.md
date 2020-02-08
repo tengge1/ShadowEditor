@@ -3,13 +3,16 @@
 Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어 / русский / Le français
 
 * 名称：Shadow Editor
-* 版本：v0.4.2(开发中)
+* 版本：v0.4.2
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度云](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：`html`、`css`、`javascript`、`rollup`、`react.js`、`webgl`、`three.js`、`asp.net`。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展，谢谢。
 
-## v0.4.2即将更新
+## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
+
+* 发布日期：2020年2月8日
+* 更新日志：
 
 1. 保存场景，如果设置`不保存子组件`，则不保存模型内部组件。这可以加快场景保存和载入速度，减小场景大小。
 2. 保存场景，如果设置`不保存材质`，则不保存模型内部材质。这用于修改了模型内部组件名称和结构，没修改材质的情况。
@@ -18,25 +21,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 5. 将状态栏`添加模式`选择，移动到绘制工具栏中。
 6. 物体菜单新增`添加正交相机和透视相机`功能。
 7. 物体菜单新增`添加箭头帮助器和坐标轴帮助器`功能。
-
-## v0.4.1更新【[更新日志](docs-dev/update/UpdateLog.md)】
-
-* 发布日期：2020年1月11日
-* 更新日志：
-
-1. 新增字体转换器，可以`.ttf`字体文件转换成`.json`文件。
-2. 修复不缩放文字保存重新载入，无法修改文字的bug。
-3. `Web.config`增加说明：
-    * customErrors: 远程显示服务端错误，正式部署建议改成RemoteOnly。
-    * directoryBrowse: 允许目录浏览，正式部署建议改成false。
-    * mimeMap: 允许下载任意类型文件，正式部署建议改成所需类型文件。
-    * Access-Control-Allow-Origin: 允许跨域，不跨域的话建议去掉。
-4. `Web.config`中增加`.json`的`MIME-Type`，避免去掉`.*`和`.`的`MIME-Type`后，由于部分iis缺少`.json`的`MIME-Type`导致整个后端报500错误。
-5. 禁用资源、上传、备份目录的执行权限。
-6. 修复添加不缩放文字，点击关闭按钮无法关闭窗口的bug。
-7. 添加三维文字，支持数字、英文和汉字，支持保存载入。
-8. 模型编辑中，新增模型下载功能。
-9. `添加模式`改为保存在浏览器缓存中，默认改为`点击场景添加`模型。
+8. 新增自由控制器。
 
 ## 项目截图
 
