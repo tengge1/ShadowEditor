@@ -8,6 +8,7 @@ const STATE = {
 };
 
 const UP = new THREE.Vector3(0, 1, 0);
+const FORWARD = new THREE.Vector3(0, 0, -1);
 const RIGHT = new THREE.Vector3(1, 0, 0);
 
 /**
@@ -44,10 +45,12 @@ class FreeControls extends BaseControls {
 
         this.from = new THREE.Vector3();
         this.to = new THREE.Vector3();
-        this.quaternion = new THREE.Quaternion();
+        this.quaternion1 = new THREE.Quaternion();
         this.quaternion2 = new THREE.Quaternion();
         this.lookDirection = new THREE.Vector3();
+        this.forward = new THREE.Vector3();
         this.right = new THREE.Vector3();
+        this.project = new THREE.Vector3();
 
         this.update = this.update.bind(this);
 
@@ -62,6 +65,9 @@ class FreeControls extends BaseControls {
         this.domElement.addEventListener('mouseout', this.onMouseUp, false);
         this.domElement.addEventListener('dblclick', this.onMouseUp, false);
         this.domElement.addEventListener('wheel', this.onMouseWheel, false);
+
+        // this.helper = new THREE.ArrowHelper(UP, this.center, 10);
+        // app.editor.sceneHelpers.add(this.helper);
     }
 
     focus(target) { // eslint-disable-line
@@ -74,27 +80,40 @@ class FreeControls extends BaseControls {
         this.camera.position.z -= dz;
         this.center.x -= dx;
         this.center.z -= dz;
+        // this.helper.position.copy(this.center);
     }
 
     rotate(dx, dy) {
         // theta
         this.from.subVectors(this.pickPosition, this.center).setY(0).normalize();
         this.to.subVectors(this.target, this.center).setY(0).normalize();
-        this.quaternion.setFromUnitVectors(this.from, this.to);
+        this.quaternion1.setFromUnitVectors(this.from, this.to);
 
         // phi
+        this.forward.copy(FORWARD).applyQuaternion(this.camera.quaternion).normalize();
         this.right.copy(RIGHT).applyQuaternion(this.camera.quaternion).normalize();
 
-        this.quaternion2.setFromAxisAngle(this.right, dy * 0.01);
+        this.project.copy(this.forward).projectOnPlane(this.plane.normal);
 
-        this.quaternion.multiply(this.quaternion2);
+        let angle = this.forward.angleTo(this.project);
+        let dangle = dy * 0.01;
 
-        this.quaternion.inverse();
+        if(angle + dangle <= 5 * Math.PI / 180) {
+            dangle = 0;
+        }
+        if(angle + dangle >= 85 * Math.PI / 180) {
+            dangle = 0;
+        }
+
+        this.quaternion2.setFromAxisAngle(this.right, dangle);
+        this.quaternion1.multiply(this.quaternion2);
+
+        this.quaternion1.inverse();
 
         this.lookDirection.copy(this.camera.position).sub(this.center).normalize();
-        this.lookDirection.applyQuaternion(this.quaternion).normalize();
+        this.lookDirection.applyQuaternion(this.quaternion1).normalize();
 
-        let distance = this.camera.position.distanceTo(this.center);
+        const distance = this.camera.position.distanceTo(this.center);
         this.camera.position.copy(this.lookDirection).multiplyScalar(distance).add(this.center);
         this.camera.lookAt(this.center);
     }
@@ -223,6 +242,10 @@ class FreeControls extends BaseControls {
     }
 
     dispose() {
+        // if (this.helper) {
+        //     app.editor.sceneHelpers.remove(this.helper);
+        //     this.helper = null;
+        // }
         this.domElement.removeEventListener('mousedown', this.onMouseDown);
         this.domElement.removeEventListener('mousemove', this.onMouseMove);
         this.domElement.removeEventListener('mouseup', this.onMouseUp);
