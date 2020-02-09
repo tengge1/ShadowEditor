@@ -122,10 +122,11 @@ namespace ShadowEditor.Server.Controllers
         /// <summary>
         /// 添加
         /// </summary>
+        /// <param name="type">类型</param>
         /// <returns></returns>
         [HttpPost]
         [Authority("ADD_MAP")]
-        public JsonResult Add()
+        public JsonResult Add(string type = null)
         {
             var files = HttpContext.Current.Request.Files;
 
@@ -205,6 +206,7 @@ namespace ShadowEditor.Server.Controllers
             }
             else
             {
+                // TODO: 天空球太大，缩略图最好处理一下
                 doc["Thumbnail"] = $"{savePath}/{fileName}";
             }
 
@@ -229,6 +231,11 @@ namespace ShadowEditor.Server.Controllers
             else if (Path.GetExtension(files[0].FileName).ToLower() == ".mp4") // 视频贴图
             {
                 doc["Type"] = MapType.video.ToString();
+                doc["Url"] = $"{savePath}/{fileName}";
+            }
+            else if (type == "skyBall")
+            {
+                doc["Type"] = MapType.skyBall.ToString();
                 doc["Url"] = $"{savePath}/{fileName}";
             }
             else

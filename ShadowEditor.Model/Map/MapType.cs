@@ -55,5 +55,8 @@ namespace ShadowEditor.Model.Map
 
         // 视频贴图
         video,
+
+        // 天空球贴图
+        skyBall,
     }
 }

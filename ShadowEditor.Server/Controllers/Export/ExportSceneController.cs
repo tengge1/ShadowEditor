@@ -135,7 +135,11 @@ namespace ShadowEditor.Server.Controllers.Export
                 }
                 else if (generator == "MeshSerializer" || generator == "SpriteSerializer") // 模型
                 {
-                    if (i["material"]["alphaMap"].IsBsonDocument)
+                    if (i["material"].IsBsonNull)
+                    {
+                        // 该模型未保存材质
+                    }
+                    else if (i["material"]["alphaMap"].IsBsonDocument)
                     {
                         urls.Add(i["material"]["alphaMap"]["image"]["src"].ToString());
                     }

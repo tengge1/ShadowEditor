@@ -22,6 +22,7 @@ class MapPanel extends React.Component {
 
         this.handleAddImage = this.handleAddImage.bind(this);
         this.handleAddSkyBox = this.handleAddSkyBox.bind(this);
+        this.handleAddSkyBall = this.handleAddSkyBall.bind(this);
         this.handleAddVideo = this.handleAddVideo.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -74,6 +75,9 @@ class MapPanel extends React.Component {
                         />
                         <MenuItem title={_t('Upload Sky Box')}
                             onClick={this.handleAddSkyBox}
+                        />
+                        <MenuItem title={_t('Upload Sky Ball')}
+                            onClick={this.handleAddSkyBall}
                         />
                         <MenuItem title={_t('Upload Video')}
                             onClick={this.handleAddVideo}
@@ -161,6 +165,17 @@ class MapPanel extends React.Component {
         });
 
         app.addElement(win);
+    }
+
+    // ---------------------------- 上传天空球 ---------------------------------------
+
+    handleAddSkyBall() {
+        app.upload(`${app.options.server}/api/Map/Add?type=skyBall`, obj => {
+            if (obj.Code === 200) {
+                this.update();
+            }
+            app.toast(_t(obj.Msg));
+        });
     }
 
     // ------------------------------ 上传视频 --------------------------------------
