@@ -15,6 +15,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 2. 常见问题新增`404 Not Found`和`访问被拒绝`的解决方法。
 3. 帮助菜单新增`下载模型`功能，可以快速访问`sketchfab`和`3dpunk`下载模型。
 4. 贴图面板新增`上传天空球`功能。
+5. 修复发布场景报错的bug。
 
 ## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
