@@ -173,6 +173,7 @@ class ComponentMenu extends React.Component {
             }
             app.on(`selectMap.ComponentMenu`, null);
             const ball = new SkyBall(`${app.options.server}${obj.Url}`);
+            ball.name = obj.Name;
             app.editor.addObject(ball);
         });
     }
