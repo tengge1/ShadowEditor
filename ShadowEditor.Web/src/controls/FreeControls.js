@@ -1,4 +1,5 @@
 import BaseControls from './BaseControls';
+import CoordinateUtils from '../utils/CoordinateUtils';
 
 const STATE = {
     NONE: -1,
@@ -41,8 +42,11 @@ class FreeControls extends BaseControls {
         this.acceleration = 100; // 加速度：m/s^2
         this.velocityThreshold = 0.1; // 速度阈值
 
+        // pan
+        // this.screenPosition = new THREE.Vector3();
         this.displacement = new THREE.Vector3(); // 位移：m
 
+        // rotate
         this.from = new THREE.Vector3();
         this.to = new THREE.Vector3();
         this.quaternion1 = new THREE.Quaternion();
@@ -71,9 +75,17 @@ class FreeControls extends BaseControls {
     }
 
     focus(target) { // eslint-disable-line
+
     }
 
     pan() {
+        // this.screenPosition.copy(this.pickPosition)
+        //     .applyMatrix4(this.camera.matrixWorldInverse)
+        //     .applyMatrix4(this.camera.projectionMatrix);
+
+
+        // CoordinateUtils.deviceToScreen(this.screenPosition.x, this.screenPosition.y, this.domElement.clientWidth, this.domElement.clientHeight, this.screenPosition);
+        // console.log(this.screenPosition, this.offsetXY);
         const dx = this.target.x - this.pickPosition.x;
         const dz = this.target.z - this.pickPosition.z;
         this.camera.position.x -= dx;
@@ -98,10 +110,10 @@ class FreeControls extends BaseControls {
         let angle = this.forward.angleTo(this.project);
         let dangle = dy * 0.01;
 
-        if(angle + dangle <= 5 * Math.PI / 180) {
+        if (angle + dangle <= 5 * Math.PI / 180) {
             dangle = 0;
         }
-        if(angle + dangle >= 85 * Math.PI / 180) {
+        if (angle + dangle >= 85 * Math.PI / 180) {
             dangle = 0;
         }
 
@@ -229,10 +241,7 @@ class FreeControls extends BaseControls {
      * @returns {Boolean} 是否相交
      */
     pick(offsetX, offsetY) {
-        this.mouse.set(
-            offsetX / this.domElement.clientWidth * 2 - 1,
-            -(offsetY / this.domElement.clientHeight) * 2 + 1
-        );
+        CoordinateUtils.screenToDevice(offsetX, offsetY, this.domElement.clientWidth, this.domElement.clientHeight, this.mouse);
         this.raycaster.setFromCamera(this.mouse, this.camera);
         return this.raycaster.ray.intersectPlane(this.plane, this.target);
     }
