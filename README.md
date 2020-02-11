@@ -16,6 +16,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 3. 帮助菜单新增`下载模型`功能，可以快速访问`sketchfab`和`3dpunk`下载模型。
 4. 贴图面板新增`上传天空球`功能。
 5. 修复发布场景报错的bug。
+6. 组件菜单添加`天空球`组件。
 
 ## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

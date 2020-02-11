@@ -1,4 +1,4 @@
-import { PropTypes, MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../third_party';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import Sky from '../../object/component/Sky';
 import Fire from '../../object/component/Fire';
@@ -8,7 +8,7 @@ import Cloth from '../../object/component/Cloth';
 import ParticleEmitter from '../../object/component/ParticleEmitter';
 import PerlinTerrain from '../../object/terrain/PerlinTerrain';
 import ShaderTerrain from '../../object/terrain/ShaderTerrain';
-import Globe from '../../gis/Globe';
+import SkyBall from '../../object/component/SkyBall';
 
 /**
  * 组件菜单
@@ -26,19 +26,40 @@ class ComponentMenu extends React.Component {
         this.handleAddSmoke = this.handleAddSmoke.bind(this);
         this.handleAddCloth = this.handleAddCloth.bind(this);
         this.handleAddPerlinTerrain = this.handleAddPerlinTerrain.bind(this);
+        this.handleAddSkyBall = this.handleAddSkyBall.bind(this);
         this.handleAddShaderTerrain = this.handleAddShaderTerrain.bind(this);
     }
 
     render() {
         return <MenuItem title={_t('Component')}>
-            <MenuItem title={_t('Background Music')} onClick={this.handleAddBackgroundMusic}></MenuItem>
-            <MenuItem title={_t('ParticleEmitter')} onClick={this.handleParticleEmitter}></MenuItem>
-            <MenuItem title={_t('Sky')} onClick={this.handleAddSky}></MenuItem>
-            <MenuItem title={_t('Fire')} onClick={this.handleAddFire}></MenuItem>
-            <MenuItem title={_t('Water')} onClick={this.handleAddWater}></MenuItem>
-            <MenuItem title={_t('Smoke')} onClick={this.handleAddSmoke}></MenuItem>
-            <MenuItem title={_t('Cloth')} onClick={this.handleAddCloth}></MenuItem>
-            <MenuItem title={_t('Perlin Terrain')} onClick={this.handleAddPerlinTerrain}></MenuItem>
+            <MenuItem title={_t('Background Music')}
+                onClick={this.handleAddBackgroundMusic}
+            />
+            <MenuItem title={_t('ParticleEmitter')}
+                onClick={this.handleParticleEmitter}
+            />
+            <MenuItemSeparator />
+            <MenuItem title={_t('Sky')}
+                onClick={this.handleAddSky}
+            />
+            <MenuItem title={_t('Fire')}
+                onClick={this.handleAddFire}
+            />
+            <MenuItem title={_t('Water')}
+                onClick={this.handleAddWater}
+            />
+            <MenuItem title={_t('Smoke')}
+                onClick={this.handleAddSmoke}
+            />
+            <MenuItem title={_t('Cloth')}
+                onClick={this.handleAddCloth}
+            />
+            <MenuItem title={_t('Perlin Terrain')}
+                onClick={this.handleAddPerlinTerrain}
+            />
+            <MenuItem title={_t('Sky Ball')}
+                onClick={this.handleAddSkyBall}
+            />
             {
                 //<MenuItem title={'着色器地形'} onClick={this.handleAddShaderTerrain}></MenuItem> 
             }
@@ -139,6 +160,21 @@ class ComponentMenu extends React.Component {
         terrain.name = _t('Perlin Terrain');
 
         app.editor.execute(new AddObjectCommand(terrain));
+    }
+
+    // ------------------------ 天空球 -------------------------------------------
+
+    handleAddSkyBall() {
+        app.toast(_t('Please click the sky ball in the MapPanel.'));
+        app.on(`selectMap.ComponentMenu`, obj => {
+            if (obj.Type !== 'skyBall') {
+                app.toast(_t('The map you clicked is not sky ball.'), 'warn');
+                return;
+            }
+            app.on(`selectMap.ComponentMenu`, null);
+            const ball = new SkyBall(`${app.options.server}${obj.Url}`);
+            app.editor.addObject(ball);
+        });
     }
 
     // ----------------------------- 添加着色器地形 --------------------------------
