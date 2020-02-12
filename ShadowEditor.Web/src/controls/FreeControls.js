@@ -43,7 +43,7 @@ class FreeControls extends BaseControls {
         this.velocityThreshold = 0.1; // 速度阈值
 
         // pan
-        // this.screenPosition = new THREE.Vector3();
+        this.screenPosition = new THREE.Vector3();
         this.displacement = new THREE.Vector3(); // 位移：m
 
         // rotate
@@ -82,6 +82,8 @@ class FreeControls extends BaseControls {
         // this.screenPosition.copy(this.pickPosition)
         //     .applyMatrix4(this.camera.matrixWorldInverse)
         //     .applyMatrix4(this.camera.projectionMatrix);
+
+        // CoordinateUtils.screenToDevice(this.offsetXY.x, this.offsetXY.y, )
 
 
         // CoordinateUtils.deviceToScreen(this.screenPosition.x, this.screenPosition.y, this.domElement.clientWidth, this.domElement.clientHeight, this.screenPosition);
@@ -212,12 +214,13 @@ class FreeControls extends BaseControls {
         }
         const dx = event.offsetX - this.offsetXY.x;
         const dy = event.offsetY - this.offsetXY.y;
+        this.offsetXY.set(event.offsetX, event.offsetY);
+
         if (this.state === STATE.ROTATE) {
             this.rotate(dx, dy);
         } else if (this.state === STATE.PAN) {
             this.pan(dx, dy);
         }
-        this.offsetXY.set(event.offsetX, event.offsetY);
     }
 
     onMouseUp() {
