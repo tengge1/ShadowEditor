@@ -135,53 +135,16 @@ namespace ShadowEditor.Server.Controllers.Export
                 }
                 else if (generator == "MeshSerializer" || generator == "SpriteSerializer") // 模型
                 {
-                    if (i["material"].IsBsonNull)
+                    if (i["material"].IsBsonArray)
                     {
-                        // 该模型未保存材质
+                        foreach (BsonDocument material in i["material"].AsBsonArray)
+                        {
+                            GetUrlInMaterial(material, urls);
+                        }
                     }
-                    else if (i["material"]["alphaMap"].IsBsonDocument)
+                    else if (i["material"].IsBsonDocument)
                     {
-                        urls.Add(i["material"]["alphaMap"]["image"]["src"].ToString());
-                    }
-                    else if (i["material"]["aoMap"].IsBsonDocument)
-                    {
-                        urls.Add(i["material"]["aoMap"]["image"]["src"].ToString());
-                    }
-                    else if (i["material"]["bumpMap"].IsBsonDocument)
-                    {
-                        urls.Add(i["material"]["bumpMap"]["image"]["src"].ToString());
-                    }
-                    else if (i["material"]["displacementMap"].IsBsonDocument)
-                    {
-                        urls.Add(i["material"]["displacementMap"]["image"]["src"].ToString());
-                    }
-                    else if (i["material"]["emissiveMap"].IsBsonDocument)
-                    {
-                        urls.Add(i["material"]["emissiveMap"]["image"]["src"].ToString());
-                    }
-                    else if (i["material"]["envMap"].IsBsonDocument)
-                    {
-                        urls.Add(i["material"]["envMap"]["image"]["src"].ToString());
-                    }
-                    else if (i["material"]["lightMap"].IsBsonDocument)
-                    {
-                        urls.Add(i["material"]["lightMap"]["image"]["src"].ToString());
-                    }
-                    else if (i["material"]["map"].IsBsonDocument)
-                    {
-                        urls.Add(i["material"]["map"]["image"]["src"].ToString());
-                    }
-                    else if (i["material"]["metalnessMap"].IsBsonDocument)
-                    {
-                        urls.Add(i["material"]["metalnessMap"]["image"]["src"].ToString());
-                    }
-                    else if (i["material"]["normalMap"].IsBsonDocument)
-                    {
-                        urls.Add(i["material"]["normalMap"]["image"]["src"].ToString());
-                    }
-                    else if (i["material"]["roughnessMap"].IsBsonDocument)
-                    {
-                        urls.Add(i["material"]["roughnessMap"]["image"]["src"].ToString());
+                        GetUrlInMaterial(i["material"].AsBsonDocument, urls);
                     }
                 }
 
@@ -231,6 +194,59 @@ namespace ShadowEditor.Server.Controllers.Export
                 Msg = "Export successfully!",
                 Url = $"/temp/{now.ToString("yyyyMMddHHmmss")}/view.html?sceneFile={ID}"
             });
+        }
+
+        /// <summary>
+        /// 获取材质中需要下载的URL
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="urls"></param>
+        public void GetUrlInMaterial(BsonDocument material, List<string> urls)
+        {
+            if (material["alphaMap"].IsBsonDocument)
+            {
+                urls.Add(material["alphaMap"]["image"]["src"].ToString());
+            }
+            else if (material["aoMap"].IsBsonDocument)
+            {
+                urls.Add(material["aoMap"]["image"]["src"].ToString());
+            }
+            else if (material["bumpMap"].IsBsonDocument)
+            {
+                urls.Add(material["bumpMap"]["image"]["src"].ToString());
+            }
+            else if (material["displacementMap"].IsBsonDocument)
+            {
+                urls.Add(material["displacementMap"]["image"]["src"].ToString());
+            }
+            else if (material["emissiveMap"].IsBsonDocument)
+            {
+                urls.Add(material["emissiveMap"]["image"]["src"].ToString());
+            }
+            else if (material["envMap"].IsBsonDocument)
+            {
+                urls.Add(material["envMap"]["image"]["src"].ToString());
+            }
+            else if (material["lightMap"].IsBsonDocument)
+            {
+                urls.Add(material["lightMap"]["image"]["src"].ToString());
+            }
+            else if (material["map"].IsBsonDocument)
+            {
+                urls.Add(material["map"]["image"]["src"].ToString());
+            }
+            else if (material["metalnessMap"].IsBsonDocument)
+            {
+                urls.Add(material["metalnessMap"]["image"]["src"].ToString());
+            }
+            else if (material["normalMap"].IsBsonDocument)
+            {
+                urls.Add(material["normalMap"]["image"]["src"].ToString());
+            }
+            else if (material["roughnessMap"].IsBsonDocument)
+            {
+                urls.Add(material["roughnessMap"]["image"]["src"].ToString());
+            }
         }
     }
 }

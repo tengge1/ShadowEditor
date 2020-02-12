@@ -17,6 +17,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 4. 贴图面板新增`上传天空球`功能。
 5. 修复发布场景报错的bug。
 6. 组件菜单添加`天空球`组件。
+7. 修复多材质模型发布场景报错的bug。
 
 ## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
