@@ -112,6 +112,11 @@ namespace ShadowEditor.Server
         public const string TypefaceCollectionName = "_Typeface";
 
         /// <summary>
+        /// 导出场景列表
+        /// </summary>
+        public const string ExportSceneListCollectionName = "_ExportSceneList";
+
+        /// <summary>
         /// 历史表后缀（版本控制）
         /// </summary>
         public const string HistorySuffix = "_history";

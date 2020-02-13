@@ -52,6 +52,7 @@
     <Compile Include="Character\CharacterModel.cs" />
     <Compile Include="Character\CharacterSaveModel.cs" />
     <Compile Include="Character\CharacterType.cs" />
+    <Compile Include="Scene\ExportSceneListModel.cs" />
     <Compile Include="Typeface\TypefaceModel.cs" />
     <Compile Include="Map\MapEditModel.cs" />
     <Compile Include="Map\MapSaveModel.cs" />
