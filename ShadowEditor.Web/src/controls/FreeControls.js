@@ -1,4 +1,5 @@
 import BaseControls from './BaseControls';
+import Ease from '../utils/Ease';
 import CoordinateUtils from '../utils/CoordinateUtils';
 
 const STATE = {
@@ -23,6 +24,8 @@ class FreeControls extends BaseControls {
         this.panVelocity = 0.002;
         this.rotateVelocity = 0.005;
         this.zoomVelocity = 1;
+
+        this.zoomTime = 0.5;
 
         this.minHeight = 1;
 
