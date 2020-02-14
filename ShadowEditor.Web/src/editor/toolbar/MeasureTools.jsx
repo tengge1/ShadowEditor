@@ -21,6 +21,7 @@ class MeasureTools extends React.Component {
         this.handleMeasureArea = this.handleMeasureArea.bind(this);
         this.handleEndMeasureArea = this.handleEndMeasureArea.bind(this);
         this.handleMeasureAngle = this.handleMeasureAngle.bind(this);
+        this.handleClearTools = this.handleClearTools.bind(this);
     }
 
     render() {
@@ -44,6 +45,12 @@ class MeasureTools extends React.Component {
                 title={_t('Measure Angle')}
                 selected={angleToolEnabled}
                 onClick={this.handleMeasureAngle}
+            />
+            <ToolbarSeparator />
+            <IconButton
+                icon={'delete'}
+                title={_t('Clear Tools')}
+                onClick={this.handleClearTools}
             />
             <ToolbarSeparator />
         </>;
@@ -92,6 +99,12 @@ class MeasureTools extends React.Component {
     // --------------------------- 角度测量 ---------------------------------------
 
     handleMeasureAngle() {
+
+    }
+
+    // --------------------------- 清空工具 ---------------------------------------
+
+    handleClearTools() {
 
     }
 }
