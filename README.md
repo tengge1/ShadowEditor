@@ -18,6 +18,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 5. 组件菜单添加`天空球`组件。
 6. 修复`未保存材质的模型`和`多材质模型`发布场景报错的bug。
 7. 性能监视器、网格、视角帮助器、物理引擎、扔小球设置由`状态栏`移动到`视图`菜单中。
+8. 状态栏新增鼠标坐标显示。
 
 ## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

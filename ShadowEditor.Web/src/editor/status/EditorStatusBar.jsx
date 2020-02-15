@@ -20,17 +20,21 @@ class EditorStatusBar extends React.Component {
         };
 
         this.state = {
+            x: '',
+            y: '',
             objects: 0,
             vertices: 0,
             triangles: 0
         };
 
+        this.handleUpdateMousePosition = this.handleUpdateMousePosition.bind(this);
+        this.handleUpdateSceneInfo = this.handleUpdateSceneInfo.bind(this);
         this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
         this.handleChangeControlMode = this.handleChangeControlMode.bind(this);
     }
 
     render() {
-        const { objects, vertices, triangles } = this.state;
+        const { x, y, objects, vertices, triangles } = this.state;
 
         const selectMode = app.storage.get('selectMode');
         const controlMode = app.storage.get('controlMode');
@@ -38,12 +42,17 @@ class EditorStatusBar extends React.Component {
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
         return <Toolbar className={'EditorStatusBar'}>
+            <Label>{_t('X')}</Label>
+            <Label className={'mouse-position'}>{x}</Label>
+            <Label>{_t('Y')}</Label>
+            <Label className={'mouse-position'}>{y}</Label>
+            <ToolbarSeparator />
             <Label>{_t('Object')}</Label>
-            <Label>{objects}</Label>
+            <Label className={'value'}>{objects}</Label>
             <Label>{_t('Vertex')}</Label>
-            <Label>{vertices}</Label>
+            <Label className={'value'}>{vertices}</Label>
             <Label>{_t('Triangle')}</Label>
-            <Label>{triangles}</Label>
+            <Label className={'value'}>{triangles}</Label>
             <ToolbarSeparator />
             {isLogin && <>
                 <Label>{_t('Selected Mode')}</Label>
@@ -67,12 +76,27 @@ class EditorStatusBar extends React.Component {
     }
 
     componentDidMount() {
-        app.on('objectAdded.' + this.id, this.onUpdateInfo.bind(this));
-        app.on('objectRemoved.' + this.id, this.onUpdateInfo.bind(this));
-        app.on('geometryChanged.' + this.id, this.onUpdateInfo.bind(this));
+        app.on(`mousemove.EditorStatusBar`, this.handleUpdateMousePosition);
+        app.on(`objectAdded.EditorStatusBar`, this.handleUpdateSceneInfo);
+        app.on(`objectRemoved.EditorStatusBar`, this.handleUpdateSceneInfo);
+        app.on(`geometryChanged.EditorStatusBar`, this.handleUpdateSceneInfo);
     }
 
-    onUpdateInfo() {
+    handleUpdateMousePosition(event) {
+        if (event.target !== app.editor.renderer.domElement) {
+            this.setState({
+                x: '',
+                y: ''
+            });
+            return;
+        }
+        this.setState({
+            x: event.offsetX,
+            y: event.offsetY
+        });
+    }
+
+    handleUpdateSceneInfo() {
         var editor = app.editor;
 
         var scene = editor.scene;

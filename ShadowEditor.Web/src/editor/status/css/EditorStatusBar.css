@@ -2,6 +2,12 @@
     margin: 0 8px;
 }
 
+.EditorStatusBar>.Label.mouse-position {
+    width: 24px;
+    text-align: center;
+    overflow: visible;
+}
+
 .EditorStatusBar>.ToolbarSeparator {
     margin: 0 8px;
 }
