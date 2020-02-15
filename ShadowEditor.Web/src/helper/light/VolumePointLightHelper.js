@@ -1,9 +1,9 @@
 /**
  * 具有一定体积的点光源帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} light 
- * @param {*} sphereSize 
- * @param {*} color 
+ * @param {THREE.PointLight} light 点光源
+ * @param {Number} sphereSize 发射尺寸
+ * @param {Object} color 颜色
  */
 function VolumePointLightHelper(light, sphereSize, color) {
     THREE.PointLightHelper.call(this, light, sphereSize, color);

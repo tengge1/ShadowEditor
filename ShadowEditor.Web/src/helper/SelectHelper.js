@@ -7,10 +7,9 @@ import EdgeFragment from './shader/edge_fragment.glsl';
 /**
  * 选择帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} app 应用程序
  */
-function SelectHelper(app) {
-    BaseHelper.call(this, app);
+function SelectHelper() {
+    BaseHelper.call(this);
     this.hideObjects = [];
 }
 

@@ -19,27 +19,26 @@ import SplineHelper from './line/SplineHelper';
 /**
  * 所有帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} app 应用程序
  */
-function Helpers(app) {
-    BaseHelper.call(this, app);
+function Helpers() {
+    BaseHelper.call(this);
 
     this.helpers = [
-        new GridHelper(app),
-        new CameraHelper(app),
-        new PointLightHelpers(app),
-        new DirectionalLightHelpers(app),
-        new HemisphereLightHelpers(app),
-        new RectAreaLightHelpers(app),
-        new SpotLightHelpers(app),
+        new GridHelper(),
+        new CameraHelper(),
+        new PointLightHelpers(),
+        new DirectionalLightHelpers(),
+        new HemisphereLightHelpers(),
+        new RectAreaLightHelpers(),
+        new SpotLightHelpers(),
 
-        new SelectHelper(app),
-        new HoverHelper(app),
-        new ViewHelper(app),
-        new SplineHelper(app)
+        new SelectHelper(),
+        new HoverHelper(),
+        new ViewHelper(),
+        new SplineHelper()
 
         // 测试
-        // new GodRaysHelpers(app) // 对性能影响太大，请勿使用
+        // new GodRaysHelpers() // 对性能影响太大，请勿使用
     ];
 }
 

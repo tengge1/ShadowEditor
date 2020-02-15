@@ -3,9 +3,8 @@ var ID = -1;
 /**
  * 帮助器基类
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function BaseHelper(app) {
+function BaseHelper() {
     this.id = `${this.constructor.name}${ID--}`;
 }
 

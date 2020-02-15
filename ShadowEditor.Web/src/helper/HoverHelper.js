@@ -3,10 +3,9 @@ import BaseHelper from './BaseHelper';
 /**
  * 鼠标移入帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} app 应用程序
  */
-function HoverHelper(app) {
-    BaseHelper.call(this, app);
+function HoverHelper() {
+    BaseHelper.call(this);
 
     this.hoverEnabled = app.storage.get('hoverEnabled');
     this.hoveredColor = app.storage.get('hoveredColor');

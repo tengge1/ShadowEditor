@@ -1,8 +1,8 @@
 /**
  * 具有一定体积的聚光灯帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} light 
- * @param {*} color 
+ * @param {THREE.SpotLight} light 聚光灯
+ * @param {Object} color 颜色
  */
 function VolumeSpotLightHelper(light, color) {
     THREE.SpotLightHelper.call(this, light, color);

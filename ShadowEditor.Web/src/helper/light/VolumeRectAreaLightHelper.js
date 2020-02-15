@@ -1,8 +1,8 @@
 /**
  * 具有一定体积的矩形光帮助器
  * @author tengge / https://github.com/tengge1
- * @param {*} light 
- * @param {*} color 
+ * @param {THREE.RectAreaLight} light 矩形光
+ * @param {Object} color 颜色
  */
 function VolumeRectAreaLightHelper(light, color) {
     THREE.RectAreaLightHelper.call(this, light, color);
